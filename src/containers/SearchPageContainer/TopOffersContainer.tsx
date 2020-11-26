@@ -24,7 +24,7 @@ import {
 } from '../../../generated/GetProductCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
-import { fuelMapper } from './helpers';
+import { budgetMapper, fuelMapper } from './helpers';
 import { getLegacyUrl } from '../../utils/url';
 
 interface IProps {
@@ -37,6 +37,7 @@ interface IProps {
   isRangePage: boolean;
   isTransmissionPage: boolean;
   isFuelPage: boolean;
+  isBudgetPage: boolean;
   isDynamicFilterPage: boolean;
   manualBodyStyle: string[];
   preLoadVehiclesList?: IVehiclesData;
@@ -52,6 +53,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   isTransmissionPage,
   isPickups,
   isRangePage,
+  isBudgetPage,
   isPersonal,
   isFuelPage,
   isDynamicFilterPage,
@@ -154,6 +156,17 @@ const TopOffersContainer: React.FC<IProps> = ({
             ? LeaseTypeEnum.PERSONAL
             : LeaseTypeEnum.BUSINESS,
           onOffer: true,
+          rate: isBudgetPage
+            ? (() => {
+                const rate = budgetMapper[
+                  router.query.dynamicParam as keyof typeof budgetMapper
+                ].split('|');
+                return {
+                  max: parseInt(rate[1], 10) || undefined,
+                  min: parseInt(rate[0], 10) || undefined,
+                };
+              })()
+            : undefined,
           sortField: SortField.offerRanking,
           sortDirection: SortDirection.ASC,
           manufacturerSlug:

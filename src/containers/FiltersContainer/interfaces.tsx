@@ -16,6 +16,7 @@ export interface IFilterContainerProps {
   isModelPage?: boolean;
   isAllMakesPage?: boolean;
   isBodyPage?: boolean;
+  isBudgetPage?: boolean;
   isFuelPage?: boolean;
   isTransmissionPage?: boolean;
   isDynamicFilterPage?: boolean;

@@ -89,6 +89,7 @@ interface IProps {
   isBodyStylePage?: boolean;
   isTransmissionPage?: boolean;
   isFuelPage?: boolean;
+  isBudgetPage?: boolean;
   pageData?: GenericPageQuery;
   metaData: PageMetaData;
   topInfoSection?: sections | null;
@@ -114,6 +115,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   isBodyStylePage,
   isTransmissionPage,
   isFuelPage,
+  isBudgetPage,
   pageData,
   metaData,
   topInfoSection,
@@ -127,8 +129,8 @@ const SearchPageContainer: React.FC<IProps> = ({
 }: IProps) => {
   const router = useRouter();
   const isDynamicFilterPage = useMemo(
-    () => isBodyStylePage || isFuelPage || isTransmissionPage,
-    [isBodyStylePage, isFuelPage, isTransmissionPage],
+    () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
+    [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
   );
 
   /** we storing the last value of special offers checkbox in Session storage */
@@ -394,6 +396,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       isBodyStylePage,
       isTransmissionPage,
       isFuelPage,
+      isBudgetPage,
     );
     Object.entries(query).forEach(([key, value]) =>
       queryString.set(key, value as string),
@@ -782,6 +785,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           isCarSearch={isCarSearch}
           isMakePage={isMakePage || false}
           isBodyPage={isBodyStylePage || false}
+          isBudgetPage={isBudgetPage || false}
           isTransmissionPage={isTransmissionPage || false}
           isDynamicFilterPage={isDynamicFilterPage || false}
           isFuelPage={isFuelPage || false}
@@ -829,6 +833,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             isModelPage={isModelPage}
             isAllMakesPage={isAllMakesPage}
             isBodyPage={isBodyStylePage}
+            isBudgetPage={isBudgetPage}
             isDynamicFilterPage={isDynamicFilterPage}
             isFuelPage={isFuelPage}
             isTransmissionPage={isTransmissionPage}

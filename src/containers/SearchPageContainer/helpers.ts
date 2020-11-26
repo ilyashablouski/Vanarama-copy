@@ -24,6 +24,7 @@ export const buildRewriteRoute = (
   isBodyStylePage?: boolean,
   isTransmissionPage?: boolean,
   isFuelPage?: boolean,
+  isBudgetPage?: boolean,
 ) => {
   const queries = {} as any;
   Object.entries({
@@ -49,7 +50,7 @@ export const buildRewriteRoute = (
       queries[key] = value;
     }
   });
-  if (rate?.max || Number.isInteger(rate?.min)) {
+  if ((rate?.max || Number.isInteger(rate?.min)) && !isBudgetPage) {
     queries.pricePerMonth = getBudgetForQuery(
       `${rate.min || '0'}-${rate.max || ''}`,
     );
@@ -90,6 +91,15 @@ export const bodyUrlsSlugMapper = {
   'refrigerated-van': 'refrigerated-van-leasing',
   'small-van': 'small-van-leasing',
   specialist: 'specialist-van-leasing',
+};
+
+export const budgetMapper = {
+  'deals-under-150': '0|150',
+  'deals-150-250': '150|250',
+  'deals-250-350': '250|350',
+  'deals-350-450': '350|450',
+  'deals-450-550': '450|550',
+  'deals-over-550': '550',
 };
 
 export const bodyUrls = [
@@ -181,6 +191,7 @@ export const ssrCMSQueryExecutor = async (
     case 'isMakePage':
     case 'isRangePage':
     case 'isModelPage':
+    case 'isBudgetType':
       return onCallQuery(client, GENERIC_PAGE, prepareSlugPart(slug));
     case 'isBodyStylePage':
       return onCallQuery(

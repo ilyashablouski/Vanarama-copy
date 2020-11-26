@@ -61,6 +61,7 @@ const FiltersContainer = ({
   isModelPage,
   isAllMakesPage,
   isBodyPage,
+  isBudgetPage,
   isFuelPage,
   isTransmissionPage,
   isDynamicFilterPage,
@@ -443,7 +444,7 @@ const FiltersContainer = ({
           (entry[0] === filterFields.from || entry[0] === filterFields.to) &&
           entry[1]?.[0]
         ) {
-          return `£${entry[1]}`;
+          return isBudgetPage ? '' : `£${entry[1]}`;
         }
         const value =
           ((isMakePage || isRangePage || isModelPage) &&
@@ -630,12 +631,15 @@ const FiltersContainer = ({
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
                       disabled={
-                        (isMakePage ||
+                        ((isMakePage ||
                           isRangePage ||
                           isModelPage ||
                           isAllMakesPage) &&
-                        (dropdown.accessor === filterFields.make ||
-                          dropdown.accessor === filterFields.model)
+                          (dropdown.accessor === filterFields.make ||
+                            dropdown.accessor === filterFields.model)) ||
+                        (isBudgetPage &&
+                          (dropdown.accessor === filterFields.from ||
+                            dropdown.accessor === filterFields.to))
                       }
                       name={dropdown.accessor}
                       placeholder={`Select ${dropdown.accessor}`}
