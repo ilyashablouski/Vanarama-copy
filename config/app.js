@@ -1,7 +1,6 @@
 /* eslint-disable no-param-reassign */
 require('dotenv').config({ path: '.env.secret' });
 require('dotenv').config();
-
 const fetchRewritesList = require('../rewrites');
 
 module.exports = {
