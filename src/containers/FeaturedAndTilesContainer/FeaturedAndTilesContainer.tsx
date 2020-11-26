@@ -2,12 +2,14 @@ import React, { FC } from 'react';
 import ReactMarkdown from 'react-markdown';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import TilesContainer from '../TilesContainer/TilesContainer';
 import { FeaturedHtml } from './getFeaturedHtml';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
 
 interface IProps {
   data: GenericPageQuery | undefined;
@@ -32,6 +34,7 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
     data?.genericPage,
   );
   const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
@@ -67,6 +70,12 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
       {tiles && <TilesContainer leasingOffers={leasingOffers} tiles={tiles} />}
       <FeaturedHtml featured={featured2} />
       <FeaturedHtml featured={featured3} />
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

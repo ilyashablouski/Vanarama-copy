@@ -31,8 +31,9 @@ import { replaceReview } from '../../components/CustomerReviews/helpers';
 import { useCreateUpdateOrder } from '../../gql/order';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getProductPageBreadCrumb } from '../../utils/url';
-import { useGenericPageHead } from '../../gql/genericPage';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
+import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
+import { genericPagesQuery_genericPages_items as GenericPages } from '../../../generated/genericPagesQuery';
 
 const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'));
 const DownloadSharp = dynamic(() =>
@@ -102,6 +103,8 @@ interface IDetailsPageProps {
   loading?: boolean;
   quote?: GetQuoteDetails;
   schema?: any;
+  genericPageHead: GenericPageHeadQuery | undefined;
+  genericPages: GenericPages[] | null | undefined;
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -113,6 +116,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   loading,
   quote,
   schema,
+  genericPageHead,
+  genericPages,
 }) => {
   const router = useRouter();
   // pass cars prop(Boolean)
@@ -123,8 +128,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
     true,
   );
-
-  const { data: genericPageHead } = useGenericPageHead(router.asPath.slice(1));
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
@@ -299,7 +302,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const breadcrumbItems =
     genericPageHead?.genericPage.metaData?.breadcrumbs ??
-    getProductPageBreadCrumb(data?.derivativeInfo, cars);
+    getProductPageBreadCrumb(
+      data?.derivativeInfo,
+      genericPages,
+      genericPageHead?.genericPage.metaData.slug || '',
+      cars,
+    );
   const metaData = genericPageHead?.genericPage.metaData ?? {
     title:
       `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 

@@ -7,6 +7,7 @@ import {
   getNewUrl,
   getVehicleConfigurationPath,
   removeUrlQueryPart,
+  getProductPageBreadCrumb,
 } from '../url';
 
 describe('Url utils', () => {
@@ -125,6 +126,130 @@ describe('Url utils', () => {
       const actual = removeUrlQueryPart('/bmw-van-leasing/2-series/coupe');
 
       expect(actual).toEqual('/bmw-van-leasing/2-series/coupe');
+    });
+  });
+
+  describe('getProductPageBreadCrumb', () => {
+    it('getProductPageBreadCrumb should return breadcrumb', () => {
+      const actual = getProductPageBreadCrumb(
+        {
+          manufacturer: { name: 'Audi', slug: 'audi' },
+          name: '30 TFSI Technik 5 Doors [Comfort+Sound]',
+          range: { name: 'A3', slug: 'a3' },
+        },
+        [
+          {
+            slug: 'car-leasing/audi/a3/hatchback',
+            legacyUrl: 'audi-car-leasing/a3/sport-back.html',
+          },
+          {
+            slug: 'car-leasing/audi/a3',
+            legacyUrl: 'audi-car-leasing/a3.html',
+          },
+          {
+            slug: 'car-leasing/audi',
+            legacyUrl: 'audi-car-leasing.html',
+          },
+          {
+            slug: 'car-leasing/audi/a3/hatchback/a200-amg-line-5-doors-auto',
+            legacyUrl:
+              'audi-car-leasing/a3/sport-back/a200-amg-line-5dr-auto-155072.html',
+          },
+          {
+            slug: 'car-leasing',
+            legacyUrl: 'car-leasing.html',
+          },
+        ],
+        'car-leasing/audi/a3/hatchback/30-tfsi-technik-5dr-comfort-sound-167549',
+        true,
+      );
+
+      expect(actual).toEqual([
+        { link: { href: '/audi-car-leasing.html', label: 'Audi' } },
+        { link: { href: '/audi-car-leasing/a3.html', label: 'A3' } },
+        {
+          link: {
+            href: '/audi-car-leasing/a3/sport-back.html',
+            label: 'Hatchback',
+          },
+        },
+        {
+          link: { href: '', label: '30 TFSI Technik 5 Doors [Comfort+Sound]' },
+        },
+      ]);
+    });
+    it('getProductPageBreadCrumb should return breadcrumb from slug', () => {
+      const actual = getProductPageBreadCrumb(
+        {
+          manufacturer: { name: 'Audi', slug: 'audi' },
+          name: '30 TFSI Technik 5 Doors [Comfort+Sound]',
+          range: { name: 'A3', slug: 'a3' },
+        },
+        null,
+        'car-leasing/audi/a3/hatchback/30-tfsi-technik-5dr-comfort-sound-167549',
+        true,
+      );
+
+      expect(actual).toEqual([
+        { link: { href: '/audi-car-leasing.html', label: 'Audi' } },
+        { link: { href: '/audi-car-leasing/a3.html', label: 'A3' } },
+        {
+          link: {
+            href: '/audi-car-leasing/a3/hatchback.html',
+            label: 'Hatchback',
+          },
+        },
+        {
+          link: { href: '', label: '30 TFSI Technik 5 Doors [Comfort+Sound]' },
+        },
+      ]);
+    });
+    it('getProductPageBreadCrumb should return breadcrumb', () => {
+      const actual = getProductPageBreadCrumb(
+        {
+          manufacturer: { name: 'Mercedes-Benz', slug: 'mercedes-benz' },
+          name: '109CDI Van',
+          range: { name: 'Citan', slug: 'citan' },
+        },
+        [
+          {
+            slug: 'van-leasing/mercedes-benz/citan',
+            legacyUrl: 'mercedesbenz-van-leasing/citan.html',
+          },
+          {
+            slug: 'van-leasing/mercedes-benz',
+            legacyUrl: 'mercedesbenz-van-leasing.html',
+          },
+          {
+            slug:
+              'van-leasing/mercedes-benz/citan/hatchback/a200-amg-line-5-doors-auto',
+            legacyUrl:
+              'mercedesbenz-van-leasing/citan/hatchback/a200-amg-line-5dr-auto-155072.html',
+          },
+          {
+            slug: 'van-leasing',
+            legacyUrl: 'van-leasing.html',
+          },
+        ],
+        'mercedesbenz-van-leasing/citan/109cdi-van-7247.html',
+        false,
+      );
+
+      expect(actual).toEqual([
+        {
+          link: {
+            href: '/mercedesbenz-van-leasing.html',
+            label: 'Mercedes-Benz',
+          },
+        },
+        {
+          link: {
+            href: '/mercedesbenz-van-leasing/citan.html',
+            label: 'Citan',
+          },
+        },
+        { link: { href: '', label: '109CDI Van' } },
+      ]);
     });
   });
 });

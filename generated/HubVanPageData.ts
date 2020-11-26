@@ -8,7 +8,25 @@
 // ====================================================
 
 export interface HubVanPageData_hubVanPage_metaData {
+  title: string | null;
   name: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  legacyUrl: string | null;
+  pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
+  publishedOn: any | null;
+  breadcrumbs: any | null;
+}
+
+export interface HubVanPageData_hubVanPage_featuredImage_file {
+  url: string;
+}
+
+export interface HubVanPageData_hubVanPage_featuredImage {
+  file: HubVanPageData_hubVanPage_featuredImage_file | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_hero_image_file {
@@ -259,6 +277,7 @@ export interface HubVanPageData_hubVanPage_sections {
 export interface HubVanPageData_hubVanPage {
   id: string;
   metaData: HubVanPageData_hubVanPage_metaData;
+  featuredImage: HubVanPageData_hubVanPage_featuredImage | null;
   sections: HubVanPageData_hubVanPage_sections | null;
 }
 

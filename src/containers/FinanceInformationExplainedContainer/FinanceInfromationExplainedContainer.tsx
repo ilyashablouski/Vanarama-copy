@@ -40,12 +40,34 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
     return sets?.questionAnswers?.map(set => ({
       id: set?.question || '',
       title: set?.question || '',
-      children: <Text>{set?.answer || ''}</Text>,
+      children: (
+        <ReactMarkdown
+          className="markdown"
+          allowDangerousHtml
+          source={set?.answer || ''}
+          renderers={{
+            link: props => {
+              const { href, children } = props;
+              return (
+                <RouterLink
+                  link={{ href, label: children }}
+                  classNames={{ color: 'teal' }}
+                />
+              );
+            },
+            heading: props => (
+              <Text {...props} size="lead" color="darker" tag="h3" />
+            ),
+            paragraph: props => <Text {...props} tag="p" color="darker" />,
+          }}
+        />
+      ),
     }));
   };
 
   const iconBullets1 = sections?.iconBullets1;
   const iconBullets2 = sections?.iconBullets2;
+  const featured = sections?.featured || sections?.featured1;
 
   return (
     <>
@@ -54,7 +76,7 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
           {title}
         </Heading>
       </div>
-      {sections?.featured1 && (
+      {featured && (
         <div className="row:text -columns">
           <Heading
             tag={
@@ -66,13 +88,13 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
             size="large"
             className="-mb-400"
           >
-            {sections.featured1.title || ''}
+            {featured.title || ''}
           </Heading>
           <div className="content">
             <ReactMarkdown
               className="markdown"
               allowDangerousHtml
-              source={sections.featured1.body || ''}
+              source={featured.body || ''}
               renderers={{
                 link: props => {
                   const { href, children } = props;

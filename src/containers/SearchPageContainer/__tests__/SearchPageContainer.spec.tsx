@@ -1,4 +1,5 @@
 import { render, waitFor, screen, act } from '@testing-library/react';
+import preloadAll from 'jest-next-dynamic';
 import React from 'react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SearchPageContainer from '../SearchPageContainer';
@@ -731,7 +732,9 @@ const mocksResponse: MockedResponse[] = [
   },
 ];
 describe('<SearchPageContainer />', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
+    await preloadAll();
+
     jest.clearAllMocks();
     filterMockCalled = false;
     vehicleMockCalled = false;

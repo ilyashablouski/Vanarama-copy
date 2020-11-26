@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
@@ -12,6 +13,7 @@ import {
 import { getMarkdownRenderers } from './Utils';
 import { getSectionsData } from '../../utils/getSectionsData';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import Head from '../../components/Head/Head';
 
 interface IProps {
   data: ReviewsHubCategoryQuery | undefined;
@@ -161,6 +163,17 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
               selected={activePage}
             />
           </div>
+        </>
+      )}
+      {data?.genericPage.metaData && (
+        <>
+          <Head
+            metaData={data?.genericPage.metaData}
+            featuredImage={data?.genericPage.featuredImage}
+          />
+          <SchemaJSON
+            json={JSON.stringify(data?.genericPage.metaData.schema)}
+          />
         </>
       )}
     </>
