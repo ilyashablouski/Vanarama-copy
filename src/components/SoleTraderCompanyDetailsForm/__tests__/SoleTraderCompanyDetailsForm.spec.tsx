@@ -16,9 +16,13 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
       },
       result: {
         data: {
-          sicData: {
-            sicCode: '',
-            description: '',
+          sicCodes: {
+            sicData: [
+              {
+                sicCode: '',
+                description: '',
+              },
+            ],
           },
         },
       },
@@ -30,7 +34,7 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
     render(
       <MockedProvider addTypename={false} mocks={sicData}>
         <SoleTraderCompanyDetailsForm
-          natureOfBusiness={['']}
+          natureOfBusiness={['orange man']}
           setNatureOfBusiness={handleNatureMock}
           companyDetails={{ monthlyAmountBeingReplaced: '' }}
           onSubmit={onSubmitMock}
@@ -91,9 +95,6 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
         target: { value: 'test trading name' },
       },
     );
-    fireEvent.input(screen.getByTestId('company-details_nature'), {
-      target: { value: 'test nature of business' },
-    });
     fireEvent.change(
       screen.getByTestId('sole-trader-company-details_trading-address'),
       {
@@ -102,6 +103,9 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
         },
       },
     );
+    fireEvent.input(screen.getByTestId('company-details_nature'), {
+      target: { value: 'test nature of business' },
+    });
     fireEvent.input(screen.getByTestId('company-details_trading-since-month'), {
       target: { value: new Date().getMonth() },
     });
