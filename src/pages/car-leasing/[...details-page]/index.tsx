@@ -31,6 +31,11 @@ import {
 import { INotFoundPageData } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { toPriceFormat } from '../../../utils/helpers';
+import { GENERIC_PAGE_HEAD } from '../../../gql/genericPage';
+import {
+  GenericPageHeadQuery,
+  GenericPageHeadQueryVariables,
+} from '../../../../generated/GenericPageHeadQuery';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -40,6 +45,7 @@ interface IProps {
   quote?: GetQuoteDetails;
   notFoundPageData?: INotFoundPageData;
   errors: any[];
+  genericPageHead: GenericPageHeadQuery;
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -48,6 +54,7 @@ const CarDetailsPage: NextPage<IProps> = ({
   error,
   quote,
   notFoundPageData,
+  genericPageHead,
 }) => {
   if (notFoundPageData) {
     return (
@@ -146,7 +153,13 @@ const CarDetailsPage: NextPage<IProps> = ({
 
   return (
     <>
-      <DetailsPage cars quote={quote} capId={capId || 0} data={data} />
+      <DetailsPage
+        cars
+        quote={quote}
+        capId={capId || 0}
+        data={data}
+        genericPageHead={genericPageHead}
+      />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
   );
@@ -209,12 +222,23 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     });
 
+    const { data } = await client.query<
+      GenericPageHeadQuery,
+      GenericPageHeadQueryVariables
+    >({
+      query: GENERIC_PAGE_HEAD,
+      variables: {
+        slug: path.slice(1),
+      },
+    });
+
     return {
       props: {
         capId,
         data: getCarDataQuery.data,
         quote: quoteDataQuery.data,
         query: context.query,
+        genericPageHead: data,
       },
     };
   } catch (error) {

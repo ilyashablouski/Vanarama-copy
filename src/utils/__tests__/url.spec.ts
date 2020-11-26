@@ -162,20 +162,20 @@ describe('Url utils', () => {
           name: '109CDI Van',
           range: { name: 'Citan', slug: 'citan' },
         },
-        'mercedes-benz-van-leasing/citan/109cdi-van-7247.html',
+        'mercedesbenz-van-leasing/citan/109cdi-van-7247.html',
         false,
       );
 
       expect(actual).toEqual([
         {
           link: {
-            href: '/mercedes-benz-van-leasing.html',
+            href: '/mercedesbenz-van-leasing.html',
             label: 'Mercedes-Benz',
           },
         },
         {
           link: {
-            href: '/mercedes-benz-van-leasing/citan.html',
+            href: '/mercedesbenz-van-leasing/citan.html',
             label: 'Citan',
           },
         },

@@ -70,19 +70,22 @@ export const getProductPageBreadCrumb = (
 ) => {
   const { manufacturer, range, name } = data;
   const leasing = cars ? 'car-leasing' : 'van-leasing';
-  const bodyType = legacyUrl.split('/')[2];
+  const legacyUrlArray = legacyUrl.split('/');
+  const manufacturerSlug = legacyUrlArray[0].replace(`-${leasing}`, '');
+  const rangeSlug = legacyUrlArray[1];
+  const bodyType = legacyUrlArray[2];
 
   if (manufacturer && range) {
     const makeLink = {
       link: {
         label: manufacturer?.name,
-        href: `/${manufacturer?.slug}-${leasing}.html`,
+        href: `/${manufacturerSlug}-${leasing}.html`,
       },
     };
     const rangeLink = {
       link: {
         label: range?.name,
-        href: `/${manufacturer?.slug}-${leasing}/${range?.slug}.html`,
+        href: `/${manufacturerSlug}-${leasing}/${rangeSlug}.html`,
       },
     };
     const modelLink = {
@@ -90,7 +93,7 @@ export const getProductPageBreadCrumb = (
         label: bodyType
           .replace(/-/g, ' ')
           .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
-        href: `/${manufacturer?.slug}-${leasing}/${range?.slug}/${bodyType}.html`,
+        href: `/${manufacturerSlug}-${leasing}/${rangeSlug}/${bodyType}.html`,
       },
     };
     const derivativeLink = {
