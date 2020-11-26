@@ -21,6 +21,7 @@ import {
   ISoleTraderCompanyDetailsFormValues,
   ISoleTraderCompanyDetailsFormProps,
 } from './interfaces';
+import NatureTypeahead from '../CompanyDetailsForm/NatureTypehead';
 
 const isMonthInFuture = (month: string, year: string) => {
   const selectedMonth = parseInt(month, 10);
@@ -37,6 +38,8 @@ const isMonthInFuture = (month: string, year: string) => {
 const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps> = ({
   onSubmit,
   companyDetails,
+  natureOfBusiness,
+  setNatureOfBusiness,
 }) => {
   const defaultValues = companyDetails;
   const methods = useForm<ISoleTraderCompanyDetailsFormValues>({
@@ -86,22 +89,12 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
             required: 'Please enter the registered business address',
           }}
         />
-      </FormContext>
-      <Formgroup
-        controlId="natureOfBusiness"
-        label="Nature of Business"
-        hint="e.g. building firm/marketing agency"
-        error={errors.natureOfBusiness?.message?.toString()}
-      >
-        <TextInput
-          id="nature-of-business"
-          name="natureOfBusiness"
-          dataTestId="sole-trader-company-details_nature-of-business"
-          ref={register(
-            requiredTextFieldValidator('Please enter nature of business', 254),
-          )}
+        <NatureTypeahead
+          setNatureValue={setNatureOfBusiness}
+          value={natureOfBusiness}
         />
-      </Formgroup>
+      </FormContext>
+
       <Formgroup
         controlId="tradingSinceMonth"
         label="Trading Since"
