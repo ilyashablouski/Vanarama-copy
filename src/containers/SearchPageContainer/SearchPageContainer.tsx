@@ -793,12 +793,12 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
           <div>
             <div
+              className={readmore ? '-truncate' : ''}
               style={{
                 height:
                   featured?.layout?.includes('Read More') && readmore
                     ? featured?.defaultHeight || 100
                     : '',
-                overflow: readmore ? 'hidden' : '',
               }}
             >
               <Heading
