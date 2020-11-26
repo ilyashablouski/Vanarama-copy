@@ -219,11 +219,15 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <div
               class="accordion--content"
             >
-              <span
-                class="text -regular -darker"
+              <div
+                class="markdown"
               >
-                All Contract Hire Funders will conduct a credit check. However, as all Funders have slightly different underwriting criteria, we will do our best to find the right Funder for you & your circumstances.
-              </span>
+                <p
+                  class="text -regular -darker"
+                >
+                  All Contract Hire Funders will conduct a credit check. However, as all Funders have slightly different underwriting criteria, we will do our best to find the right Funder for you & your circumstances.
+                </p>
+              </div>
             </div>
           </li>
           <li
@@ -264,11 +268,15 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <div
               class="accordion--content"
             >
-              <span
-                class="text -regular -darker"
+              <div
+                class="markdown"
               >
-                This can vary depending on the Funder. It can take as little as an hour to get a decision, but we will try to get an answer for you within 24 hours. We will sometimes get requests for further information and, in these cases, it can take slightly longer to get the final decision.
-              </span>
+                <p
+                  class="text -regular -darker"
+                >
+                  This can vary depending on the Funder. It can take as little as an hour to get a decision, but we will try to get an answer for you within 24 hours. We will sometimes get requests for further information and, in these cases, it can take slightly longer to get the final decision.
+                </p>
+              </div>
             </div>
           </li>
         </ul>

@@ -392,11 +392,18 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -717,11 +724,18 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1187,11 +1201,18 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1304,11 +1325,18 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1742,11 +1770,18 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2067,11 +2102,18 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2537,11 +2579,18 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2654,11 +2703,18 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>

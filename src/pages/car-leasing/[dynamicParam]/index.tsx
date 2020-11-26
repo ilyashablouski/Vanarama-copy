@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
 import {
   GET_RANGES,
+  GET_RANGES_URLS,
   GET_VEHICLE_LIST,
 } from '../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
@@ -17,7 +18,10 @@ import {
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
-import { rangeList } from '../../../../generated/rangeList';
+import {
+  rangeList,
+  rangeList_rangeList as IRange,
+} from '../../../../generated/rangeList';
 import { pushPageData } from '../../../utils/dataLayerHelpers';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
@@ -33,6 +37,7 @@ import { GetProductCard } from '../../../../generated/GetProductCard';
 import { notFoundPageHandler } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
+import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../../generated/genericPagesQuery';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -46,6 +51,7 @@ interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
   filtersData?: IFilterList | undefined;
   ranges: rangeList;
+  rangesUrls: IRangeUrls[];
   vehiclesList?: vehicleList;
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
@@ -62,6 +68,7 @@ const Page: NextPage<IProps> = ({
   productCardsData,
   responseCapIds,
   ranges,
+  rangesUrls,
   error,
   notFoundPageData,
 }) => {
@@ -115,6 +122,7 @@ const Page: NextPage<IProps> = ({
       metaData={metaData}
       preLoadFiltersData={filtersData}
       preLoadRanges={ranges}
+      rangesUrls={rangesUrls}
       preLoadVehiclesList={vehiclesList}
       preLoadProductCardsData={productCardsData}
       preLoadResponseCapIds={responseCapIds}
@@ -126,6 +134,7 @@ export async function getServerSideProps(context: NextPageContext) {
   const newQuery = { ...query };
   const client = createApolloClient({}, context);
   let ranges;
+  let rangesUrls;
   let vehiclesList;
   let productCardsData;
   let responseCapIds;
@@ -198,6 +207,24 @@ export async function getServerSideProps(context: NextPageContext) {
         },
       })
       .then(resp => resp.data);
+    const slugs = ranges.rangeList.map(
+      (range: IRange) =>
+        `car-leasing/${(newQuery.make as string)
+          .toLowerCase()
+          .split(' ')
+          .join('-')}/${range.rangeName
+          ?.toLowerCase()
+          .split(' ')
+          .join('-')}`,
+    );
+    rangesUrls = await client
+      .query({
+        query: GET_RANGES_URLS,
+        variables: {
+          slugs,
+        },
+      })
+      .then(resp => resp.data.genericPages.items);
   }
   const { data: filtersData } = await client.query({
     query: GET_SEARCH_POD_DATA,
@@ -207,8 +234,7 @@ export async function getServerSideProps(context: NextPageContext) {
       ...filter,
     },
   });
-  const [type] =
-    Object.entries(pageType).find(([, value]) => value === true) || '';
+  const [type] = Object.entries(pageType).find(([, value]) => value) || '';
   try {
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
@@ -228,6 +254,7 @@ export async function getServerSideProps(context: NextPageContext) {
         productCardsData: productCardsData || null,
         responseCapIds: responseCapIds || null,
         ranges: ranges || null,
+        rangesUrls: rangesUrls || null,
         error: errors ? errors[0] : null,
       },
     };
