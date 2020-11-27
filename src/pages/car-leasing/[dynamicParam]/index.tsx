@@ -144,7 +144,10 @@ export async function getServerSideProps(context: NextPageContext) {
   };
   if (isBodyStylePage || isFuelType || isBudgetType) {
     if (isBodyStylePage) {
-      query.bodyStyles = (query.dynamicParam as string).replace('-', ' ');
+      query.bodyStyles =
+        query.dynamicParam === 'city-car'
+          ? query.dynamicParam
+          : (query.dynamicParam as string).replace('-', ' ');
       filter.bodyStyles = [query.bodyStyles];
     } else if (isFuelType) {
       query.fuelTypes =
