@@ -30,6 +30,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   personUuid,
   onCompleted,
   onError,
+  personLoggedIn,
   onLogInCLick,
   isEdited,
 }) => {
@@ -148,6 +149,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     <BusinessAboutForm
       isEdited={isEdited}
       dropDownData={aboutPageDataQuery.data?.allDropDowns}
+      personLoggedIn={personLoggedIn}
       person={person}
       onLogInCLick={onLogInCLick}
       onEmailExistenceCheck={async email => {

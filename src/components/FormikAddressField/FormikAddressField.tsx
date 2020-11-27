@@ -13,7 +13,7 @@ const FormikAddressField: React.FC<IProps> = ({ name, label }) => {
   const error = (meta.touched && meta.error) || undefined;
   return (
     <AddressFinder
-      apiKey={process.env.LOQATE_KEY!}
+      apiKey="CG96-BE17-EY43-CM69"
       onSuggestionChange={suggestion => {
         helpers.setValue(suggestion);
       }}

@@ -83,6 +83,7 @@ const AboutYouPage: NextPage = () => {
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>(uuid);
+  const [personLoggedIn, setPersonLoggedIn] = useState<boolean>(false);
   const [
     detailsData,
     setDetailsData,
@@ -180,12 +181,14 @@ const AboutYouPage: NextPage = () => {
   };
 
   useEffect(() => {
-    if (!personUuid) {
-      localForage.getItem('person').then(value => {
-        if ((value as GetPerson)?.getPerson)
-          setPersonUuid((value as GetPerson)?.getPerson?.uuid);
-      });
-    }
+    localForage.getItem('person').then(value => {
+      if ((value as GetPerson)?.getPerson && !personUuid){
+        setPersonUuid((value as GetPerson)?.getPerson?.uuid);
+        setPersonLoggedIn(true);
+      } else {
+        setPersonLoggedIn(false);
+      }
+    });
   }, [personUuid]);
 
   return (
@@ -220,6 +223,7 @@ const AboutYouPage: NextPage = () => {
         </div>
       )}
       <AboutFormContainer
+        personLoggedIn={personLoggedIn}
         onCompleted={({ createUpdatePerson }) =>
           clickOnComplete(createUpdatePerson!)
         }
