@@ -708,12 +708,16 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
 
           <div>
-            {pageData?.genericPage?.sections?.featured1?.body && (
+            {(pageData?.genericPage?.sections?.featured1?.body ||
+              pageData?.genericPage?.intro) && (
               <Text color="darker" size="regular" tag="div">
                 <ReactMarkdown
                   className="markdown"
                   allowDangerousHtml
-                  source={pageData.genericPage.sections.featured1.body}
+                  source={
+                    (pageData?.genericPage?.intro as string) ||
+                    (pageData?.genericPage?.sections?.featured1?.body as string)
+                  }
                   renderers={{
                     link: props => {
                       const { href, children } = props;
