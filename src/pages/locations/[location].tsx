@@ -68,9 +68,13 @@ export const LocationsPage: NextPage = () => {
     ['sections', 'featured2'],
     data.genericPage,
   );
-  const metaData = getSectionsData(['metaData'], breadcrumbsData?.genericPage);
+  const breadcrumbsMetaData = getSectionsData(
+    ['metaData'],
+    breadcrumbsData?.genericPage,
+  );
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+  const breadcrumbsItems = breadcrumbsMetaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
 
