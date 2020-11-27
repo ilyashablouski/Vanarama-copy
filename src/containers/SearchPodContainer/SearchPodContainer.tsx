@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import SearchPod from '../../components/SearchPod';
+// import SearchPod from '../../components/SearchPod';
 import {
   tabsFields,
   budget,
@@ -19,6 +20,11 @@ import {
   filterList_filterList as IFilterList,
   filterList_filterList_groupedRangesWithSlug_children as IFiltersListOptions,
 } from '../../../generated/filterList';
+import Skeleton from '../../components/Skeleton';
+
+const SearchPod = dynamic(() => import('../../components/SearchPod'), {
+  loading: () => <Skeleton count={7} />,
+});
 
 enum Tabs {
   'LCV' = 1,
