@@ -1,5 +1,4 @@
-import { NextPage } from 'next';
-import { getDataFromTree } from '@apollo/react-ssr';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import { useState } from 'react';
@@ -12,7 +11,6 @@ import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
-import withApollo from '../../hocs/withApollo';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import {
   handleNetworkError,
@@ -21,6 +19,8 @@ import {
 import { useOpportunityCreation } from '../../containers/GoldrushFormContainer/gql';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 import {
+  GENERIC_PAGE,
+  IGenericPage,
   useGenericPage,
   useGenericPageBreadcrumbs,
 } from '../../gql/genericPage';
@@ -31,9 +31,15 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import { GenericPageQuery_genericPage_sections_hero as Hero } from '../../../generated/GenericPageQuery';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
+import {
+  PageCollection,
+  PageCollectionVariables,
+} from '../../../generated/PageCollection';
+import { PAGE_COLLECTION } from '../../gql/pageCollection';
+import { getPathsFromPageCollection } from '../../utils/pageSlugs';
+import createApolloClient from '../../apolloClient';
 
-export const LocationsPage: NextPage = () => {
-  const router = useRouter();
+export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
   const [showModal, setShowModal] = useState(false);
 
   const [createOpportunity, { loading }] = useOpportunityCreation(
@@ -51,11 +57,6 @@ export const LocationsPage: NextPage = () => {
     },
   );
 
-  const { data } = useGenericPage(router.asPath.slice(1));
-  const { data: breadcrumbsData } = useGenericPageBreadcrumbs(
-    router.asPath.slice(1),
-  );
-
   if (!data?.genericPage) {
     return null;
   }
@@ -68,7 +69,7 @@ export const LocationsPage: NextPage = () => {
     ['sections', 'featured2'],
     data.genericPage,
   );
-  const metaData = getSectionsData(['metaData'], breadcrumbsData?.genericPage);
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
@@ -421,4 +422,46 @@ export const LocationsPage: NextPage = () => {
   );
 };
 
-export default withApollo(LocationsPage, { getDataFromTree });
+export async function getStaticPaths() {
+  const client = createApolloClient({});
+  const { data } = await client.query<PageCollection, PageCollectionVariables>({
+    query: PAGE_COLLECTION,
+    variables: {
+      pageType: 'Location',
+    },
+  });
+  const items = data?.pageCollection?.items;
+
+  return {
+    paths: getPathsFromPageCollection(items, 'locations'),
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+    const paths = context?.params?.location as string[];
+
+    const { data, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: `locations/${paths?.join('/')}`,
+      },
+    });
+    return {
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
+
+export default LocationsPage;
