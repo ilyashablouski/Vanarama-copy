@@ -1,16 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 
-// import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
-// import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
-// import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
-// import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
-// import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
-// import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-// import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-// import Form from '@vanarama/uibook/lib/components/organisms/form';
-// import Select from '@vanarama/uibook/lib/components/atoms/select';
-// import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Skeleton from '../Skeleton';
 
 import { ISearchPodProps } from './interfaces';
