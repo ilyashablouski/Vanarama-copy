@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import { useState } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
@@ -18,12 +17,7 @@ import {
 } from '../../containers/GoldrushFormContainer/GoldrushFormContainer';
 import { useOpportunityCreation } from '../../containers/GoldrushFormContainer/gql';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
-import {
-  GENERIC_PAGE,
-  IGenericPage,
-  useGenericPage,
-  useGenericPageBreadcrumbs,
-} from '../../gql/genericPage';
+import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
