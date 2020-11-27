@@ -23,33 +23,7 @@ import TileLink from '../../components/TileLink/TileLink';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 
 import Skeleton from '../../components/Skeleton';
-// import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
-
-// Dynamic component loading.
-// const Loading = dynamic(
-//   () => import('@vanarama/uibook/lib/components/atoms/loading'),
-//   {
-//     ssr: false,
-//   },
-// );
-
-const Hero = dynamic(() => import('../../components/Hero'), {
-  loading: () => <Skeleton count={9} />,
-});
-const HeroHeading = dynamic(
-  // @ts-ignore
-  () => import('../../components/Hero').then(mod => mod.HeroHeading),
-  {
-    loading: () => <Skeleton count={2} />,
-  },
-);
-const HeroTitle = dynamic(
-  // @ts-ignore
-  () => import('../../components/Hero').then(mod => mod.HeroTitle),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
 
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
