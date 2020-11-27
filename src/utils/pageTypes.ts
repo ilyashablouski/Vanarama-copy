@@ -24,6 +24,7 @@ export const PAGE_TYPES = {
   servicePage: 'Service+ Page',
   helpMeChoosePage: 'Help Me Choose Page',
   leaseProductPage: 'Lease Product Page',
+  vehicleReview: 'Vehicle Review',
   nonBlogPage: 'Non-Blog',
 };
 

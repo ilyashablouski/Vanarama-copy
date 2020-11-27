@@ -17,14 +17,20 @@ import getTitleTag from '../../utils/getTitleTag';
 import { TESTIMONIALS_DATA } from '../../gql/testimonials';
 import TileLink from '../../components/TileLink/TileLink';
 import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   sections: Section | null;
   title: string | null;
   body: string | null;
+  breadcrumbsItems: any;
 }
 
-const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
+const CustomerTestimonialsContainer: FC<IProps> = ({
+  title,
+  sections,
+  breadcrumbsItems,
+}) => {
   const [page, setPage] = useState(1);
   const [data, setTestimonialsData] = useState<TestimonialsData>();
 
@@ -80,6 +86,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({ title, sections }) => {
   return (
     <>
       <div className="testimonials--content">
+        <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>
