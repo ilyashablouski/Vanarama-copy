@@ -338,6 +338,7 @@ export interface OrderInputObject {
   leaseType: LeaseTypeEnum;
   lineItems: LineItemInputObject[];
   partyUuid?: string | null;
+  personUuid?: string | null;
   referenceNumber?: string | null;
   salesChannel?: string | null;
   uuid?: string | null;

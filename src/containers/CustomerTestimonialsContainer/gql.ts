@@ -13,7 +13,26 @@ export const GENERIC_PAGE_TESTIMONIALS = gql`
       intro
       body
       metaData {
+        title
         name
+        metaRobots
+        metaDescription
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        schema
+        publishedOn
+        breadcrumbs
+      }
+      featuredImage {
+        title
+        description
+        file {
+          url
+          fileName
+          contentType
+        }
       }
       sections {
         tiles1 {

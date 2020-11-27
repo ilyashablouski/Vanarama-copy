@@ -8,7 +8,29 @@
 // ====================================================
 
 export interface GenericPageTestimonialsQuery_genericPage_metaData {
+  title: string | null;
   name: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  legacyUrl: string | null;
+  pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
+  publishedOn: any | null;
+  breadcrumbs: any | null;
+}
+
+export interface GenericPageTestimonialsQuery_genericPage_featuredImage_file {
+  url: string;
+  fileName: string;
+  contentType: string;
+}
+
+export interface GenericPageTestimonialsQuery_genericPage_featuredImage {
+  title: string | null;
+  description: string | null;
+  file: GenericPageTestimonialsQuery_genericPage_featuredImage_file | null;
 }
 
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_link {
@@ -154,6 +176,7 @@ export interface GenericPageTestimonialsQuery_genericPage {
   intro: string | null;
   body: string | null;
   metaData: GenericPageTestimonialsQuery_genericPage_metaData;
+  featuredImage: GenericPageTestimonialsQuery_genericPage_featuredImage | null;
   sections: GenericPageTestimonialsQuery_genericPage_sections | null;
 }
 
