@@ -12,6 +12,7 @@ import createApolloClient from '../../../apolloClient';
 import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
 import {
   bodyUrls,
+  budgetMapper,
   fuelMapper,
   getBodyStyleForCms,
   getCapsIds,
@@ -43,11 +44,11 @@ interface IPageType {
   isBodyStylePage: boolean;
   isFuelType: boolean;
   isMakePage: boolean;
+  isBudgetType: boolean;
 }
 
 interface IProps extends ISearchPageProps {
   pageType?: IPageType;
-  query: any;
   pageData: GenericPageQuery;
   filtersData?: IFilterList | undefined;
   ranges: rangeList;
@@ -59,7 +60,6 @@ interface IProps extends ISearchPageProps {
 
 const Page: NextPage<IProps> = ({
   isServer,
-  query,
   pageType = {},
   pageData,
   metaData,
@@ -81,22 +81,6 @@ const Page: NextPage<IProps> = ({
       siteSection: SITE_SECTIONS.cars,
       pathname: router.pathname,
     });
-    // copy dynamic param for actual filter query
-    if (
-      (pageType.isMakePage && !router.query.make) ||
-      (pageType.isBodyStylePage && !router.query.bodyStyles) ||
-      (pageType.isFuelType && !router.query.fuelTypes)
-    ) {
-      const { asPath, pathname } = router;
-      router.replace(
-        {
-          pathname,
-          query,
-        },
-        asPath,
-        { shallow: true },
-      );
-    }
     // it's should executed only when page init
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -118,6 +102,7 @@ const Page: NextPage<IProps> = ({
       isMakePage={pageType.isMakePage}
       isBodyStylePage={pageType.isBodyStylePage}
       isFuelPage={pageType.isFuelType}
+      isBudgetPage={pageType.isBudgetType}
       pageData={pageData}
       metaData={metaData}
       preLoadFiltersData={filtersData}
@@ -131,7 +116,6 @@ const Page: NextPage<IProps> = ({
 };
 export async function getServerSideProps(context: NextPageContext) {
   const { query, req, res } = context;
-  const newQuery = { ...query };
   const client = createApolloClient({}, context);
   let ranges;
   let rangesUrls;
@@ -148,21 +132,36 @@ export async function getServerSideProps(context: NextPageContext) {
   const isFuelType = !!fuelMapper[
     query.dynamicParam as keyof typeof fuelMapper
   ];
+  // check for budget page
+  const isBudgetType = !!budgetMapper[
+    query.dynamicParam as keyof typeof budgetMapper
+  ];
   const pageType = {
     isBodyStylePage,
     isFuelType,
-    isMakePage: !(isBodyStylePage || isFuelType),
+    isBudgetType,
+    isMakePage: !(isBodyStylePage || isFuelType || isBudgetType),
   };
-  if (isBodyStylePage || isFuelType) {
+  if (isBodyStylePage || isFuelType || isBudgetType) {
     if (isBodyStylePage) {
-      newQuery.bodyStyles = (query.dynamicParam as string).replace('-', ' ');
-      filter.bodyStyles = [newQuery.bodyStyles];
+      query.bodyStyles = (query.dynamicParam as string).replace('-', ' ');
+      filter.bodyStyles = [query.bodyStyles];
     } else if (isFuelType) {
-      newQuery.fuelTypes =
+      query.fuelTypes =
         fuelMapper[query.dynamicParam as keyof typeof fuelMapper];
-      filter.fuelTypes = [newQuery.fuelTypes];
+      filter.fuelTypes = [query.fuelTypes];
+    } else if (isBudgetType) {
+      const rate = budgetMapper[
+        query.dynamicParam as keyof typeof budgetMapper
+      ].split('|');
+      filter.rate = {
+        min: parseInt(rate[0], 10) || undefined,
+        max: parseInt(rate[1], 10) || undefined,
+      };
+      query.pricePerMonth =
+        budgetMapper[query.dynamicParam as keyof typeof budgetMapper];
     }
-    if (Object.keys(context.query).length === 1) {
+    if (Object.keys(context.query).length === 2) {
       vehiclesList = await client
         .query({
           query: GET_VEHICLE_LIST,
@@ -195,21 +194,21 @@ export async function getServerSideProps(context: NextPageContext) {
       }
     }
   } else {
-    newQuery.make = (query.dynamicParam as string).toLowerCase();
-    filter.manufacturerSlug = newQuery.make;
+    query.make = (query.dynamicParam as string).toLowerCase();
+    filter.manufacturerSlug = query.make;
     ranges = await client
       .query({
         query: GET_RANGES,
         variables: {
           vehicleTypes: VehicleTypeEnum.CAR,
-          manufacturerSlug: newQuery.make,
+          manufacturerSlug: query.make,
           leaseType: LeaseTypeEnum.PERSONAL,
         },
       })
       .then(resp => resp.data);
     const slugs = ranges.rangeList.map(
       (range: IRange) =>
-        `car-leasing/${(newQuery.make as string)
+        `car-leasing/${(query.make as string)
           .toLowerCase()
           .split(' ')
           .join('-')}/${range.rangeName
@@ -244,7 +243,6 @@ export async function getServerSideProps(context: NextPageContext) {
     )) as ApolloQueryResult<any>;
     return {
       props: {
-        query: { ...newQuery },
         isServer: !!req,
         pageType,
         pageData: data,
