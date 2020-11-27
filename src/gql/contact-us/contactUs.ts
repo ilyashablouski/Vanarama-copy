@@ -10,13 +10,13 @@ export const CONTACT_US_CONTENT = gql`
         name
         metaRobots
         metaDescription
-        publishedOn
         legacyUrl
         pageType
         canonicalUrl
         slug
-        publishedOn
         schema
+        publishedOn
+        breadcrumbs
       }
       featuredImage {
         title
