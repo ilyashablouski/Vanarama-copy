@@ -7,7 +7,6 @@ import cx from 'classnames';
 import localForage from 'localforage';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Logo from '@vanarama/uibook/lib/components/atoms/logo';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
@@ -17,6 +16,9 @@ import {
   GetPerson,
 } from '../../../generated/GetPerson';
 
+const Button = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/button'),
+);
 const Icon = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/icon'),
   {
