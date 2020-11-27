@@ -347,7 +347,7 @@ const mocked: MockedResponse[] = [
             averageRating: 4.8,
             businessRate: 219,
             personalRate: 278.98,
-            offerPosition: null,
+            offerPosition: 1,
             keyInformation: [
               {
                 name: 'Transmission',
