@@ -39,6 +39,7 @@ import { notFoundPageHandler } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../../generated/genericPagesQuery';
+import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -95,6 +96,10 @@ const Page: NextPage<IProps> = ({
     );
   }
 
+  if (metaData.pageType === PAGE_TYPES.nonBlogPage) {
+    return <FeaturedAndTilesContainer data={pageData} />;
+  }
+
   return (
     <SearchPageContainer
       isServer={isServer}
@@ -144,7 +149,10 @@ export async function getServerSideProps(context: NextPageContext) {
   };
   if (isBodyStylePage || isFuelType || isBudgetType) {
     if (isBodyStylePage) {
-      query.bodyStyles = (query.dynamicParam as string).replace('-', ' ');
+      query.bodyStyles =
+        query.dynamicParam === 'city-car'
+          ? query.dynamicParam
+          : (query.dynamicParam as string).replace('-', ' ');
       filter.bodyStyles = [query.bodyStyles];
     } else if (isFuelType) {
       query.fuelTypes =

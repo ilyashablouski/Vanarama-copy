@@ -1,32 +1,28 @@
-import { NextPage } from 'next';
-import { getDataFromTree } from '@apollo/react-ssr';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { ApolloError } from '@apollo/client';
+import DefaultErrorPage from 'next/error';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useRouter } from 'next/router';
-import withApollo from '../../../hocs/withApollo';
 import VehicleReviewCategoryContainer from '../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
-import { useReviewsHubCategoryQuery } from '../../../containers/VehicleReviewCategoryContainer/gql';
-import ErrorMessage from '../../../components/ErrorMessage/ErrorMessage';
+import createApolloClient from '../../../apolloClient';
 import { getSectionsData } from '../../../utils/getSectionsData';
+import { GENERIC_PAGE_QUESTION_HUB } from '../../../containers/VehicleReviewCategoryContainer/gql';
 
-const ReviewHub: NextPage = () => {
-  const router = useRouter();
+interface IReviewHub {
+  data: any;
+  loading: boolean;
+  error: ApolloError | undefined;
+}
 
-  const { data, loading, error } = useReviewsHubCategoryQuery(
-    router.asPath.slice(1),
-  );
-
+const ReviewHub: NextPage<IReviewHub> = ({ data, loading, error }) => {
   if (loading) {
     return <Loading size="large" />;
   }
-  if (error) {
-    return <ErrorMessage message={error.message} />;
+
+  if (error || !data) {
+    return <DefaultErrorPage statusCode={404} />;
   }
 
-  if (!data?.genericPage) {
-    return null;
-  }
-
-  const metaData = getSectionsData(['metaData', 'name'], data.genericPage);
+  const metaData = getSectionsData(['metaData'], data.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
@@ -39,4 +35,29 @@ const ReviewHub: NextPage = () => {
   );
 };
 
-export default withApollo(ReviewHub, { getDataFromTree });
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+
+    const { data, errors } = await client.query({
+      query: GENERIC_PAGE_QUESTION_HUB,
+      variables: {
+        slug: 'reviews/vans',
+      },
+    });
+    return {
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
+
+export default ReviewHub;
