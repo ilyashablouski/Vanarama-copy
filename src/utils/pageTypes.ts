@@ -24,6 +24,7 @@ export const PAGE_TYPES = {
   servicePage: 'Service+ Page',
   helpMeChoosePage: 'Help Me Choose Page',
   leaseProductPage: 'Lease Product Page',
+  nonBlogPage: 'Non-Blog',
 };
 
 export const SITE_SECTIONS = {
