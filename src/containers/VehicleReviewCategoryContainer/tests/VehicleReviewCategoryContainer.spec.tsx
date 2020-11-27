@@ -107,6 +107,7 @@ const genericPageData = {
     body: BODY,
     metaData: {
       name: TITLE,
+      legacyUrl: 'van-reviews.html',
     },
   },
 } as ReviewsHubCategoryQuery;
