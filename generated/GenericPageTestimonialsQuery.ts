@@ -21,6 +21,18 @@ export interface GenericPageTestimonialsQuery_genericPage_metaData {
   breadcrumbs: any | null;
 }
 
+export interface GenericPageTestimonialsQuery_genericPage_featuredImage_file {
+  url: string;
+  fileName: string;
+  contentType: string;
+}
+
+export interface GenericPageTestimonialsQuery_genericPage_featuredImage {
+  title: string | null;
+  description: string | null;
+  file: GenericPageTestimonialsQuery_genericPage_featuredImage_file | null;
+}
+
 export interface GenericPageTestimonialsQuery_genericPage_sections_tiles1_tiles_link {
   text: string | null;
   url: string | null;
@@ -164,6 +176,7 @@ export interface GenericPageTestimonialsQuery_genericPage {
   intro: string | null;
   body: string | null;
   metaData: GenericPageTestimonialsQuery_genericPage_metaData;
+  featuredImage: GenericPageTestimonialsQuery_genericPage_featuredImage | null;
   sections: GenericPageTestimonialsQuery_genericPage_sections | null;
 }
 

@@ -25,6 +25,15 @@ export const GENERIC_PAGE_TESTIMONIALS = gql`
         publishedOn
         breadcrumbs
       }
+      featuredImage {
+        title
+        description
+        file {
+          url
+          fileName
+          contentType
+        }
+      }
       sections {
         tiles1 {
           ...GenericPageQueryTiles
