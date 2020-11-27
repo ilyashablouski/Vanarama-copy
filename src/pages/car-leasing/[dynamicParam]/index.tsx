@@ -39,6 +39,7 @@ import { notFoundPageHandler } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../../generated/genericPagesQuery';
+import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -93,6 +94,10 @@ const Page: NextPage<IProps> = ({
         name={notFoundPageData?.name}
       />
     );
+  }
+
+  if (metaData.pageType === PAGE_TYPES.nonBlogPage) {
+    return <FeaturedAndTilesContainer data={pageData} />;
   }
 
   return (
