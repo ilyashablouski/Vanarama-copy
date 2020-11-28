@@ -113,7 +113,6 @@ const Media = dynamic(
     loading: () => <Skeleton count={3} />,
   },
 );
-
 const ProductCarousel = dynamic(
   () => import('../../components/ProductCarousel/ProductCarousel'),
   {
