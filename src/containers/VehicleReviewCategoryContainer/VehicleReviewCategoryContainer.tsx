@@ -34,7 +34,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
   );
 
   const [activePage] = useState(pageNumber || 1);
-  const countPages = () => Math.ceil((cards.length || 0) / 12);
+  const countPages = () => Math.ceil((cards?.length || 0) / 12);
 
   // create array with number of page for pagination
   const pages = [...Array(countPages())].map((_el, i) => i + 1);
@@ -99,7 +99,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
           />
         </div>
       </div>
-      {cards.length && (
+      {cards?.length && (
         <>
           <div className="row:cards-3col -pt-300">{renderCards()}</div>
           <div className="row:pagination">

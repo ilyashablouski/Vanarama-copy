@@ -1,5 +1,4 @@
 import ReactMarkdown from 'react-markdown';
-// import Text from '@vanarama/uibook/lib/components/atoms/text';
 import dynamic from 'next/dynamic';
 import { IHeroTitleProps } from './interface';
 import RouterLink from '../RouterLink/RouterLink';
