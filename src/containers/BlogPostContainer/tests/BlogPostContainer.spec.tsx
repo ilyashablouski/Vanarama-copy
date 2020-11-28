@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import BlogPostContainer from '../BlogPostContainer';
@@ -78,6 +79,9 @@ const IMAGE =
   '//images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg';
 
 describe('<FinanceExplainedContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(

@@ -1,3 +1,4 @@
+import preloadAll from 'jest-next-dynamic';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
   getUrlParam,
@@ -11,6 +12,9 @@ import {
 } from '../url';
 
 describe('Url utils', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   describe('getUrlParam', () => {
     it('getUrlParam should return string with params for url ex.(?key=value)', () => {
       const actual = getUrlParam({ key: '', key2: 'value2' });
