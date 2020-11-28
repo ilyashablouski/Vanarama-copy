@@ -13,13 +13,13 @@ export const GENERIC_PAGE_QUESTION = gql`
         name
         metaRobots
         metaDescription
-        publishedOn
         legacyUrl
         pageType
         canonicalUrl
         slug
-        publishedOn
         schema
+        publishedOn
+        breadcrumbs
       }
       sections {
         hero {

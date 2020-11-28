@@ -3,11 +3,10 @@ import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
-import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useState } from 'react';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   HubVanPageData,
@@ -22,8 +21,6 @@ import {
 
 import { HUB_VAN_CONTENT } from '../../gql/hub/hubVanPage';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
-import withApollo from '../../hocs/withApollo';
-
 import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
 import DealOfMonth from '../../components/DealOfMonth';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -106,10 +103,12 @@ const League = dynamic(
 );
 
 type ProdCards = ProdCardData[];
+type Props = {
+  data: HubVanPageData;
+};
 
-export const VansPage: NextPage = () => {
+export const VansPage: NextPage<Props> = ({ data }) => {
   const [offers, setOffers] = useState<ProdCards>([]);
-  const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
   const { cachedLeaseType } = useLeaseType(false);
 
   // pluck random offer until offer position available
@@ -202,14 +201,6 @@ export const VansPage: NextPage = () => {
   const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
 
   const dealOfMonthUrl = formatProductPageUrl(
     getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
@@ -843,4 +834,21 @@ export const VansPage: NextPage = () => {
   );
 };
 
-export default withApollo(VansPage, { getDataFromTree });
+export async function getServerSideProps() {
+  const client = createApolloClient({});
+
+  try {
+    const { data } = await client.query<HubVanPageData>({
+      query: HUB_VAN_CONTENT,
+    });
+    return {
+      props: {
+        pageData: data,
+      },
+    };
+  } catch {
+    return false;
+  }
+}
+
+export default VansPage;

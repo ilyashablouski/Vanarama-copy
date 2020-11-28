@@ -3,9 +3,7 @@ import dynamic from 'next/dynamic';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import { useState, useContext } from 'react';
-import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
@@ -22,8 +20,7 @@ import {
 } from '../../../generated/ProductCardData';
 import { HUB_PICKUP_CONTENT } from '../../gql/hub/hubPickupPage';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
-import withApollo from '../../hocs/withApollo';
-
+import createApolloClient from '../../apolloClient';
 import DealOfMonth from '../../components/DealOfMonth';
 import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -120,12 +117,13 @@ const League = dynamic(
   },
 );
 
-export const PickupsPage: NextPage = () => {
+type Props = {
+  data: HubPickupPageData;
+};
+
+export const PickupsPage: NextPage<Props> = ({ data }) => {
   const [offer, setOffer] = useState<ProdData>();
   const { cachedLeaseType } = useLeaseType(false);
-  const { data, loading, error } = useQuery<HubPickupPageData>(
-    HUB_PICKUP_CONTENT,
-  );
 
   const { data: products } = useQuery<ProductCardData>(PRODUCT_CARD_CONTENT, {
     variables: {
@@ -150,14 +148,6 @@ export const PickupsPage: NextPage = () => {
   useVehicleListUrlFetchMore(vehicleListUrlQuery, productsPickupsCapIds);
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
 
   const dealOfMonthUrl = formatProductPageUrl(
     getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
@@ -697,4 +687,22 @@ export const PickupsPage: NextPage = () => {
   );
 };
 
-export default withApollo(PickupsPage, { getDataFromTree });
+export async function getServerSideProps() {
+  const client = createApolloClient({});
+
+  try {
+    const { data } = await client.query<HubPickupPageData>({
+      query: HUB_PICKUP_CONTENT,
+    });
+
+    return {
+      props: {
+        pageData: data,
+      },
+    };
+  } catch {
+    return false;
+  }
+}
+
+export default PickupsPage;

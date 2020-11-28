@@ -1,14 +1,37 @@
-import { useRouter } from 'next/router';
-import { NextPage } from 'next';
-import { useGenericPage } from '../../gql/genericPage';
-import withApollo from '../../hocs/withApollo';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import SimplePageContainer from '../../containers/SimplePageContainer/SimplePageContainer';
+import createApolloClient from '../../apolloClient';
 
-const ClubRewardSchemePage: NextPage = () => {
-  const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+const ClubRewardSchemePage: NextPage<IGenericPage> = ({
+  data,
+  loading,
+  error,
+}) => <SimplePageContainer data={data} loading={loading} error={error} />;
 
-  return <SimplePageContainer data={data} loading={loading} error={error} />;
-};
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
 
-export default withApollo(ClubRewardSchemePage);
+    const { data, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: 'club-reward-scheme',
+      },
+    });
+    return {
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
+
+export default ClubRewardSchemePage;
