@@ -2,7 +2,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
 import DefaultErrorPage from 'next/error';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
-import SimplePageContainer from '../../../containers/SipmlePageContainer/SipmlePageContainer';
+import SimplePageContainer from '../../../containers/SimplePageContainer/SimplePageContainer';
 import createApolloClient from '../../../apolloClient';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
