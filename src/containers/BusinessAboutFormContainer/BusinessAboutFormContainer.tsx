@@ -62,6 +62,17 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     return null;
   }, [creditApplication, personByUuid]);
 
+  const onEmailCheck = async (email: string) => {
+    try {
+      const results = await emailAlreadyExists({
+        variables: { email },
+      });
+      return Boolean(results?.data?.emailAlreadyExists);
+    } catch {
+      return false;
+    }
+  };
+
   const handleTemporaryRegistrationIfGuest = (
     username: string,
     firstName: string,
@@ -77,12 +88,15 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
           },
         });
 
-  const handleDetailsSave = (values: IBusinessAboutFormValues) =>
-    saveDetails({
+  const handleDetailsSave = (values: IBusinessAboutFormValues) => {
+    return saveDetails({
       variables: {
         input: {
           emailAddress: {
             value: values.email,
+            uuid:
+              creditApplication?.aboutDetails.aboutDetails.email_addresses[0]
+                .uuid || null,
           },
           telephoneNumbers: [
             {
@@ -100,6 +114,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
         },
       },
     });
+  };
 
   const handleCreateUpdateCreditApplication = (
     values: IBusinessAboutFormValues,
@@ -152,13 +167,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
       personLoggedIn={personLoggedIn}
       person={person}
       onLogInCLick={onLogInCLick}
-      onEmailExistenceCheck={async email => {
-        const results = await emailAlreadyExists({
-          variables: { email },
-        });
-
-        return Boolean(results?.data?.emailAlreadyExists);
-      }}
+      onEmailExistenceCheck={onEmailCheck}
       onSubmit={values => {
         handleTemporaryRegistrationIfGuest(
           values.email,
