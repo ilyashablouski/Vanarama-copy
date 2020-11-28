@@ -1,16 +1,8 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import ReactMarkdown from 'react-markdown/with-html';
+//import ReactMarkdown from 'react-markdown/with-html';
 import { useState } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Modal from '@vanarama/uibook/lib/components/molecules/modal';
+import dynamic from 'next/dynamic';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
-import RouterLink from '../../components/RouterLink/RouterLink';
 import {
   handleNetworkError,
   DEFAULT_POSTCODE,
@@ -20,11 +12,8 @@ import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
-import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { GenericPageQuery_genericPage_sections_hero as Hero } from '../../../generated/GenericPageQuery';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import Head from '../../components/Head/Head';
 import {
   PageCollection,
   PageCollectionVariables,
@@ -32,6 +21,98 @@ import {
 import { PAGE_COLLECTION } from '../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../utils/pageSlugs';
 import createApolloClient from '../../apolloClient';
+import Skeleton from '../../components/Skeleton';
+
+const ReactMarkdown = dynamic(
+  () => import('react-markdown/with-html'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Modal = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/modal'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Tile = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tile'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const SchemaJSON = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/schema-json'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const RouterLink = dynamic(
+  () => import('../../components/RouterLink/RouterLink'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const GoldrushForm = dynamic(
+  () => import('../../components/GoldrushForm/GoldrushForm'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Head = dynamic(
+  () => import('../../components/Head/Head'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
   const [showModal, setShowModal] = useState(false);
