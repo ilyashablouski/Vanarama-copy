@@ -2,7 +2,6 @@
 import { NextPage } from 'next';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
-import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
@@ -13,10 +12,10 @@ import League from '@vanarama/uibook/lib/components/organisms/league';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Step from '@vanarama/uibook/lib/components/molecules/step';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useState } from 'react';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
+import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   HubVanPageData,
@@ -31,8 +30,6 @@ import {
 
 import { HUB_VAN_CONTENT } from '../../gql/hub/hubVanPage';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
-import withApollo from '../../hocs/withApollo';
-
 import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
 import DealOfMonth from '../../components/DealOfMonth';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -52,10 +49,12 @@ import { VansSearch } from '../../models/enum/SearchByManufacturer';
 import Head from '../../components/Head/Head';
 
 type ProdCards = ProdCardData[];
+type Props = {
+  data: HubVanPageData;
+};
 
-export const VansPage: NextPage = () => {
+export const VansPage: NextPage<Props> = ({ data }) => {
   const [offers, setOffers] = useState<ProdCards>([]);
-  const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
   const { cachedLeaseType } = useLeaseType(false);
 
   // pluck random offer until offer position available
@@ -147,14 +146,6 @@ export const VansPage: NextPage = () => {
   const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
 
   const dealOfMonthUrl = formatProductPageUrl(
     getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
@@ -787,4 +778,21 @@ export const VansPage: NextPage = () => {
   );
 };
 
-export default withApollo(VansPage, { getDataFromTree });
+export async function getServerSideProps() {
+  const client = createApolloClient({});
+
+  try {
+    const { data } = await client.query<HubVanPageData>({
+      query: HUB_VAN_CONTENT,
+    });
+    return {
+      props: {
+        pageData: data,
+      },
+    };
+  } catch {
+    return false;
+  }
+}
+
+export default VansPage;

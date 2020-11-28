@@ -1,7 +1,6 @@
 import { NextPage } from 'next';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
-import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
 import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
 import Icon from '@vanarama/uibook/lib/components/atoms/icon';
@@ -11,13 +10,11 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Step from '@vanarama/uibook/lib/components/molecules/step';
 import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
 import Price from '@vanarama/uibook/lib/components/atoms/price';
 import League from '@vanarama/uibook/lib/components/organisms/league';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { useContext, useEffect, useState } from 'react';
-
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -32,8 +29,7 @@ import {
 import { ProductCardData } from '../../../generated/ProductCardData';
 import { HUB_CAR_CONTENT } from '../../gql/hub/hubCarPage';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
-import withApollo from '../../hocs/withApollo';
-
+import createApolloClient from '../../apolloClient';
 import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import truncateString from '../../utils/truncateString';
@@ -49,8 +45,11 @@ import TileLink from '../../components/TileLink/TileLink';
 import { features } from '../../components/ProductCarousel/helpers';
 import Head from '../../components/Head/Head';
 
-export const CarsPage: NextPage = () => {
-  const { data, loading, error } = useQuery<HubCarPageData>(HUB_CAR_CONTENT);
+type Props = {
+  data: HubCarPageData;
+};
+
+export const CarsPage: NextPage<Props> = ({ data }) => {
   // pass in true for car leaseType
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
   const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
@@ -75,12 +74,8 @@ export const CarsPage: NextPage = () => {
     setCachedLeaseType(isPersonal ? 'Personal' : 'Business');
   }, [isPersonal, setCachedLeaseType]);
 
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  if (error || productsError) {
-    const err = error || productsError;
+  if (productsError) {
+    const err = productsError;
     return <p>Error: {err?.message}</p>;
   }
 
@@ -542,4 +537,22 @@ export const CarsPage: NextPage = () => {
   );
 };
 
-export default withApollo(CarsPage, { getDataFromTree });
+export async function getServerSideProps() {
+  const client = createApolloClient({});
+
+  try {
+    const { data } = await client.query<HubCarPageData>({
+      query: HUB_CAR_CONTENT,
+    });
+
+    return {
+      props: {
+        pageData: data,
+      },
+    };
+  } catch {
+    return false;
+  }
+}
+
+export default CarsPage;

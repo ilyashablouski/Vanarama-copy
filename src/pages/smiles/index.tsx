@@ -5,11 +5,7 @@ import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import createApolloClient from '../../apolloClient';
 
-const SmilesPage: NextPage<IGenericPage> = ({
-  data,
-  error,
-  loading,
-}) => {
+const SmilesPage: NextPage<IGenericPage> = ({ data, error, loading }) => {
   if (error || !data?.genericPage) {
     return <DefaultErrorPage statusCode={404} />;
   }
