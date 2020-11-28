@@ -113,7 +113,8 @@ export const VansPage: NextPage = () => {
   const { cachedLeaseType } = useLeaseType(false);
 
   // pluck random offer until offer position available
-  const offer: ProdCardData = offers[Math.floor(Math.random() * offers.length)];
+  const offer: ProdCardData | null =
+    offers.find(card => card.offerPosition === 1) || null;
 
   const { data: productSmallVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
@@ -282,23 +283,24 @@ export const VansPage: NextPage = () => {
         </Text>
       </div>
       <hr className="-fullwidth" />
-      <div className="row:featured-product">
-        <DealOfMonth
-          isPersonal={isPersonal}
-          imageSrc={
-            offer?.imageUrl ||
-            'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg'
-          }
-          vehicle={`${offer?.manufacturerName} ${offer?.rangeName}`}
-          specification={offer?.derivativeName || ''}
-          price={(isPersonal ? offer?.personalRate : offer?.businessRate) || 0}
-          rating={offer?.averageRating || 3}
-          viewOfferClick={() => {
-            sessionStorage.setItem('capId', offer?.capId || '');
-          }}
-          link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
-        />
-      </div>
+      {offer && (
+        <div className="row:featured-product">
+          <DealOfMonth
+            isPersonal={isPersonal}
+            imageSrc={offer?.imageUrl || ''}
+            vehicle={`${offer?.manufacturerName} ${offer?.rangeName}`}
+            specification={offer?.derivativeName || ''}
+            price={
+              (isPersonal ? offer?.personalRate : offer?.businessRate) || 0
+            }
+            rating={offer?.averageRating || 3}
+            viewOfferClick={() => {
+              sessionStorage.setItem('capId', offer?.capId || '');
+            }}
+            link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
+          />
+        </div>
+      )}
       {productSmallVan?.productCarousel &&
         productSmallVan?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
