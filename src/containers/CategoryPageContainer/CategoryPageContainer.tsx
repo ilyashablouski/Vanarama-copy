@@ -31,6 +31,7 @@ const renderCarouselCards = (cards: any[] | undefined) =>
     return (
       card && (
         <Card
+          loadImage
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           key={`${card.title}_${index.toString()}_${card.body}`}
           className="card__article"
@@ -92,6 +93,7 @@ const renderCards = (
   return cards?.map((card, index) =>
     card?.body ? (
       <Card
+        loadImage
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         key={`${card.title}_${index.toString()}_${card.body}`}
         imageSrc={card.image?.file?.url || ''}
@@ -170,6 +172,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
     return showCards?.map(card =>
       card?.body ? (
         <Card
+          loadImage
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           key={card?.body || undefined}
           imageSrc={card.featuredImage?.file?.url || ''}

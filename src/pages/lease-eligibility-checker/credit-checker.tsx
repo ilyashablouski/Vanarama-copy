@@ -1,21 +1,54 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import Router, { useRouter } from 'next/router';
-import Score from '@vanarama/uibook/lib/components/atoms/score';
-import Link from '@vanarama/uibook/lib/components/atoms/link';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../hocs/withApollo';
 import { useProductCard } from '../../gql/productCard';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
-import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import {
   useVehicleListUrl,
   useVehicleListUrlFetchMore,
 } from '../../gql/vehicleList';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Link = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/link'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Score = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/score'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const ProductCarousel = dynamic(
+  () => import('../../components/ProductCarousel/ProductCarousel'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const CreditChecker: NextPage = () => {
   const router = useRouter();
