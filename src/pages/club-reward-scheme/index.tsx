@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { useGenericPage } from '../../gql/genericPage';
 import withApollo from '../../hocs/withApollo';
-import SimplePageContainer from '../../containers/SipmlePageContainer/SipmlePageContainer';
+import SimplePageContainer from '../../containers/SimplePageContainer/SimplePageContainer';
 
 const ClubRewardSchemePage: NextPage = () => {
   const router = useRouter();

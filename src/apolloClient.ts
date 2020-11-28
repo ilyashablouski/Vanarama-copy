@@ -15,6 +15,7 @@ const HttpLink = createHttpLink({
   uri: process.env.API_URL!,
   fetch,
   credentials: 'include',
+  useGETForQueries: true,
   headers: {
     'x-api-key': process.env.API_KEY!,
   },
