@@ -11,9 +11,6 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
       className="card"
       data-testid="card"
     >
-      <div
-        className="title"
-      />
       <span
         className="text -regular -dark"
       >
@@ -34,9 +31,6 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
       className="card"
       data-testid="card"
     >
-      <div
-        className="title"
-      />
       <span
         className="text -regular -dark"
       >

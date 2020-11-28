@@ -17,11 +17,13 @@ jest.mock('next/router', () => ({
 }));
 
 describe('<SearchPodContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   afterEach(() => {
     jest.clearAllMocks();
   });
   it('renders correctly with data', async () => {
-    await preloadAll();
     (filterTypeAndBudget as jest.Mock).mockReturnValue([
       jest.fn(),
       {

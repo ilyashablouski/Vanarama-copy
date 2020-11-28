@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
 import { ApolloError } from '@apollo/client';
 import AboutUs from '../AboutUs';
@@ -104,7 +105,8 @@ const resetMocks = () => {
 const mockData = resetMocks();
 
 describe('<AboutUs />', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
+    await preloadAll();
     jest.clearAllMocks();
   });
   it('renders correctly with data', async () => {

@@ -1,5 +1,5 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-//import ReactMarkdown from 'react-markdown/with-html';
+import ReactMarkdown from 'react-markdown/with-html';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
@@ -21,14 +21,9 @@ import {
 import { PAGE_COLLECTION } from '../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../utils/pageSlugs';
 import createApolloClient from '../../apolloClient';
+import RouterLink from '../../components/RouterLink/RouterLink';
+import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
-
-const ReactMarkdown = dynamic(
-  () => import('react-markdown/with-html'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
@@ -36,79 +31,56 @@ const Heading = dynamic(
     loading: () => <Skeleton count={1} />,
   },
 );
-
 const Button = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/button'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-
 const Text = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/text'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-
 const Image = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/image'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-
 const Card = dynamic(
   () => import('@vanarama/uibook/lib/components/molecules/cards'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-
 const Modal = dynamic(
   () => import('@vanarama/uibook/lib/components/molecules/modal'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-
 const Tile = dynamic(
   () => import('@vanarama/uibook/lib/components/molecules/tile'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-
 const SchemaJSON = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/schema-json'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-
-const RouterLink = dynamic(
-  () => import('../../components/RouterLink/RouterLink'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-
 const GoldrushForm = dynamic(
   () => import('../../components/GoldrushForm/GoldrushForm'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-
 const Breadcrumb = dynamic(
   () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-
-const Head = dynamic(
-  () => import('../../components/Head/Head'),
   {
     loading: () => <Skeleton count={1} />,
   },

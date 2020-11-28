@@ -19,14 +19,12 @@ const Heading = dynamic(
     loading: () => <Skeleton count={1} />,
   },
 );
-
 const Text = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/text'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-
 const Card = dynamic(
   () => import('@vanarama/uibook/lib/components/molecules/cards'),
   {
@@ -39,13 +37,13 @@ const CardTitle = dynamic(
     loading: () => <Skeleton count={1} />,
   },
 );
-
 const Breadcrumb = dynamic(
   () => import('../../components/Breadcrumb/Breadcrumb'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
+
 export const LocationsPage: NextPage<IGenericPage> = ({
   data,
   loading,
