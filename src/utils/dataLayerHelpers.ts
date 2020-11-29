@@ -135,12 +135,30 @@ export const pushDetail = (
   if (value) Object.assign(product, { [field]: `${value}` });
 };
 
+const setDataLayer = () => {
+  if (window.dataLayer.length === 1) return;
+  window.dataLayer = [];
+  window.dataLayer.push({
+    'gtm.start': new Date().getTime(),
+    event: 'gtm.js',
+  });
+  const script = document.getElementsByTagName('script')[0];
+  const newScript = document.createElement('script');
+  newScript.async = true;
+  newScript.src = `${'https://www.googletagmanager.com/gtm.js?id=' +
+    `${process.env.GTM_ID}`}`;
+  if (script?.parentNode) {
+    script?.parentNode.insertBefore(newScript, script);
+  }
+};
+
 export const pushPageData = async ({
   pathname,
   pageType,
   siteSection,
 }: IPageData) => {
   if (!window.dataLayer) return;
+  setDataLayer();
   const personData = (await localForage.getItem('person')) as GetPerson | null;
   const person = personData?.getPerson;
 
