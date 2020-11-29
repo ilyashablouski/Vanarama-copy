@@ -124,7 +124,7 @@ export const BusinessAboutPage: NextPage = () => {
 
   useEffect(() => {
     localForage.getItem('person').then(value => {
-      if ((value as GetPerson)?.getPerson && !personUuid){
+      if ((value as GetPerson)?.getPerson && !personUuid) {
         setPersonUuid((value as GetPerson)?.getPerson?.uuid);
         setPersonLoggedIn(true);
       } else {

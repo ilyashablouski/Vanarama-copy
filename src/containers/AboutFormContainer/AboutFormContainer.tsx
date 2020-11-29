@@ -24,14 +24,10 @@ const AboutFormContainer: React.FC<IProps> = ({
   const [registerTemporary] = useRegistrationForTemporaryAccessMutation();
 
   const onEmailCheck = async (email: string) => {
-    try {
-      const results = await emailAlreadyExists({
-        variables: { email },
-      });
-      return Boolean(results?.data?.emailAlreadyExists);
-    } catch {
-      return false;
-    }
+    const results = await emailAlreadyExists({
+      variables: { email },
+    });
+    return Boolean(results?.data?.emailAlreadyExists);
   };
 
   const handleTemporaryRegistrationIfGuest = (

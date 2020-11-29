@@ -63,14 +63,10 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   }, [creditApplication, personByUuid]);
 
   const onEmailCheck = async (email: string) => {
-    try {
-      const results = await emailAlreadyExists({
-        variables: { email },
-      });
-      return Boolean(results?.data?.emailAlreadyExists);
-    } catch {
-      return false;
-    }
+    const results = await emailAlreadyExists({
+      variables: { email },
+    });
+    return Boolean(results?.data?.emailAlreadyExists);
   };
 
   const handleTemporaryRegistrationIfGuest = (
@@ -89,14 +85,14 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
         });
 
   const handleDetailsSave = (values: IBusinessAboutFormValues) => {
+    const data = getCreditApplicationByOrderUuidQuery?.data;
+    const aboutDetails = data?.creditApplicationByOrderUuid?.aboutDetails;
     return saveDetails({
       variables: {
         input: {
           emailAddress: {
             value: values.email,
-            uuid:
-              creditApplication?.aboutDetails.aboutDetails.email_addresses[0]
-                .uuid || null,
+            uuid: aboutDetails?.email_addresses[0].uuid || null,
           },
           telephoneNumbers: [
             {
