@@ -22,7 +22,6 @@ import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import TopOffersContainer from './TopOffersContainer';
-import FiltersContainer from '../FiltersContainer';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import { useVehiclesList, getRangesList, useManufacturerList } from './gql';
@@ -68,10 +67,14 @@ import Head from '../../components/Head/Head';
 import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
 
+const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
+  loading: () => <Skeleton count={2} />,
+  ssr: false,
+});
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
   {
-    loading: () => <Skeleton count={1} />,
+    loading: () => <Skeleton count={2} />,
   },
 );
 const Text = dynamic(

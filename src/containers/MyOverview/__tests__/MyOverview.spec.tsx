@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
 import MyOverview from '../MyOverview';
 import {
@@ -116,6 +117,9 @@ const mockCarValue = [
 ];
 
 describe('<MyOverview />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   afterEach(() => {
     jest.clearAllMocks();
   });

@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { render, screen, waitFor } from '@testing-library/react';
 import { useRouter } from 'next/router';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
@@ -8,6 +9,9 @@ import { query } from '../../hooks/useProgressHistory';
 jest.mock('next/router');
 
 describe('<ConsumerProgressIndicator />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   const mocks: MockedResponse[] = [
     {
       request: {
