@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import moment from 'moment';
+import { GetAboutYouDataQuery_personByUuid } from '../../../generated/GetAboutYouDataQuery';
 import { PersonInputObject } from '../../../generated/globalTypes';
 import { IAboutFormValues } from '../../components/AboutForm/interface';
 
 // eslint-disable-next-line import/prefer-default-export
 export const formValuesToInput = (
   values: IAboutFormValues,
+  personByUuid: GetAboutYouDataQuery_personByUuid | null | undefined,
 ): PersonInputObject => {
   const dateOfBirth = moment(
     `${values.dayOfBirth}-${values.monthOfBirth}-${values.yearOfBirth}`,
@@ -15,7 +18,12 @@ export const formValuesToInput = (
     title: values.title,
     firstName: values.firstName,
     lastName: values.lastName,
-    emailAddress: { kind: 'Home', value: values.email, primary: true },
+    emailAddress: {
+      kind: 'Home',
+      value: values.email,
+      primary: true,
+      uuid: personByUuid?.emailAddresses[0].uuid,
+    },
     telephoneNumbers: [
       { kind: 'Mobile', value: values.telephone, primary: true },
     ],
