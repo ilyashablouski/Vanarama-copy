@@ -1,31 +1,13 @@
 import { gql } from '@apollo/client';
-import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import React from 'react';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import getTitleTag from '../../utils/getTitleTag';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { GenericPageQueryTiles } from '../../../generated/GenericPageQueryTiles';
-import Skeleton from '../../components/Skeleton';
-
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={2} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Card = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/cards'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
 
 interface IProps {
   tiles: GenericPageQueryTiles;

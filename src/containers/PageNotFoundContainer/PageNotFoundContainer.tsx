@@ -1,44 +1,16 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
-import dynamic from 'next/dynamic';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Image from '@vanarama/uibook/lib/components/atoms/image';
+import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import ReactMarkdown from 'react-markdown';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import {
   GenericPageQuery_genericPage_sections_cards_cards,
   GenericPageQuery_genericPage_sections_featured,
 } from '../../../generated/GenericPageQuery';
-import Skeleton from '../../components/Skeleton';
-
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={2} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Image = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/image'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
-const Card = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/cards'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 interface IProps {
   name: string | null | undefined;
