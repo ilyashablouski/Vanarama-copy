@@ -13,7 +13,14 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
     >
       <div
         className="title"
-      />
+      >
+        <span
+          className="heading -black -lead"
+          data-testid="card-heading"
+        >
+          My Orders
+        </span>
+      </div>
       <span
         className="text -regular -dark"
       >
@@ -36,7 +43,14 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
     >
       <div
         className="title"
-      />
+      >
+        <span
+          className="heading -black -lead"
+          data-testid="card-heading"
+        >
+          My Quotes
+        </span>
+      </div>
       <span
         className="text -regular -dark"
       >
