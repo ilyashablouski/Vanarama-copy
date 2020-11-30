@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider } from '@apollo/client/testing';
 import renderer from 'react-test-renderer';
 import BusinessSummaryFormContainer from '../BusinessSummaryFormContainer';
@@ -283,6 +284,9 @@ const mockValue = {
 };
 
 describe('<BusinessSummaryFormContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should render correctly with data', () => {
     jest.mock('../../../hooks/useImperativeQuery', () => [
       jest.fn(),

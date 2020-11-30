@@ -1,16 +1,46 @@
 import { ApolloError } from '@apollo/client';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
+import dynamic from 'next/dynamic';
+
 import ReactMarkdown from 'react-markdown';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { getSectionsData } from '../../utils/getSectionsData';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+    ssr: false,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const ErrorMessage = dynamic(
+  () => import('../../components/ErrorMessage/ErrorMessage'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface ISimplePageContainer {
   data: GenericPageQuery | undefined;

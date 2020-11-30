@@ -4,7 +4,7 @@ import React from 'react';
 import createApolloClient from '../../../../apolloClient';
 import { PAGE_COLLECTION } from '../../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../../utils/pageSlugs';
-import SimplePageContainer from '../../../../containers/SipmlePageContainer/SipmlePageContainer';
+import SimplePageContainer from '../../../../containers/SimplePageContainer/SimplePageContainer';
 import {
   PageCollection,
   PageCollectionVariables,

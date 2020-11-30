@@ -1,22 +1,71 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 
-import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
-import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
-import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
-import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
-import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
-import Select from '@vanarama/uibook/lib/components/atoms/select';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import Skeleton from '../Skeleton';
 
 import { ISearchPodProps } from './interfaces';
 import {
   filterList_filterList_groupedRangesWithSlug as IRangesSlug,
   filterList_filterList_groupedRangesWithSlug_children as IOptionsDropdown,
 } from '../../../generated/filterList';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Select = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/select'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tab = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/Tab'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tabs = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const TabList = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/TabList'),
+);
+const TabPanel = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanel'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const TabPanels = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanels'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Formgroup = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/formgroup'),
+);
+const Form = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/form'),
+);
 
 enum typeToIndex {
   'Vans' = 1,

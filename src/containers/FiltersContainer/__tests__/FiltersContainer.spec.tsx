@@ -1,6 +1,7 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
+import preloadAll from 'jest-next-dynamic';
 import FiltersContainer from '../FiltersContainer';
 
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
@@ -119,7 +120,11 @@ const mocksResponse: MockedResponse[] = [
 ];
 
 const mocks = resetMocks();
+
 describe('<FiltersContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   afterEach(() => {
     jest.clearAllMocks();
     mockCalled = false;

@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import preloadAll from 'jest-next-dynamic';
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
 import { ToastContainer } from '@vanarama/uibook/lib/components/atoms/toast/Toast';
@@ -35,6 +36,9 @@ const getCreditApplication = makeGetCreditApplicationMock(
 );
 
 describe('B2B About You page', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should submit data to the server and redirect to the company details page', async () => {
     const mocks: MockedResponse[] = [
       getCreditApplication,

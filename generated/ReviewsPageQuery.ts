@@ -18,6 +18,7 @@ export interface ReviewsPageQuery_reviewsPage_metaData {
   canonicalUrl: string | null;
   slug: string | null;
   schema: any | null;
+  breadcrumbs: any | null;
 }
 
 export interface ReviewsPageQuery_reviewsPage_featuredImage_file {
