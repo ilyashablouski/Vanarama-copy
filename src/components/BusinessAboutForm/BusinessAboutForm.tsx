@@ -23,6 +23,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
   dropDownData,
   onSubmit,
   person,
+  personLoggedIn,
   onEmailExistenceCheck,
   onLogInCLick,
   isEdited,
@@ -160,7 +161,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         )}
       >
         <TextInput
-          disabled={!!person?.email}
+          disabled={!!person?.email && personLoggedIn}
           id="email"
           name="email"
           dataTestId="about-you_email"

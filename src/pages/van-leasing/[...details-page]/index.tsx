@@ -31,6 +31,13 @@ import {
 } from '../../../../generated/GetVehicleDetails';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { toPriceFormat } from '../../../utils/helpers';
+import { GENERIC_PAGE_HEAD } from '../../../gql/genericPage';
+import {
+  GenericPageHeadQuery,
+  GenericPageHeadQueryVariables,
+} from '../../../../generated/GenericPageHeadQuery';
+import { GET_RANGES_URLS } from '../../../containers/SearchPageContainer/gql';
+import { genericPagesQuery_genericPages_items as GenericPages } from '../../../../generated/genericPagesQuery';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -39,6 +46,8 @@ interface IProps {
   capId?: number;
   quote?: GetQuoteDetails;
   notFoundPageData?: INotFoundPageData;
+  genericPageHead: GenericPageHeadQuery;
+  genericPages: GenericPages[];
 }
 
 const VanDetailsPage: NextPage<IProps> = ({
@@ -47,6 +56,8 @@ const VanDetailsPage: NextPage<IProps> = ({
   error,
   quote,
   notFoundPageData,
+  genericPageHead,
+  genericPages,
 }) => {
   const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
 
@@ -175,6 +186,8 @@ const VanDetailsPage: NextPage<IProps> = ({
         pickups={isPickup}
         data={data}
         quote={quote}
+        genericPageHead={genericPageHead}
+        genericPages={genericPages}
       />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
@@ -238,12 +251,38 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     });
 
+    const { data } = await client.query<
+      GenericPageHeadQuery,
+      GenericPageHeadQueryVariables
+    >({
+      query: GENERIC_PAGE_HEAD,
+      variables: {
+        slug: path.slice(1),
+      },
+    });
+
+    const breadcrumbSlugsArray = data?.genericPage.metaData.slug?.split('/');
+    const breadcrumbSlugs = breadcrumbSlugsArray?.map((el, id) =>
+      breadcrumbSlugsArray.slice(0, id + 1).join('/'),
+    );
+
+    const genericPages = await client
+      .query({
+        query: GET_RANGES_URLS,
+        variables: {
+          slugs: breadcrumbSlugs,
+        },
+      })
+      .then(resp => resp.data.genericPages.items);
+
     return {
       props: {
         capId,
         data: getCarDataQuery.data,
         quote: quoteDataQuery.data,
         query: context.query,
+        genericPageHead: data,
+        genericPages,
       },
     };
   } catch (error) {

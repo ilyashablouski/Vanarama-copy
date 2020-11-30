@@ -109,12 +109,6 @@ describe('<ContactUsPage />', () => {
     );
   });
 
-  it('should successfully query ContactUsPage data', async () => {
-    await waitFor(() => {
-      expect(screen.getByText('Regional Offices')).toBeInTheDocument();
-    });
-  });
-
   it.skip('should trigger route push when clicking Chat With iVan', async () => {
     await screen.findAllByText('Chat With iVan');
     fireEvent(

@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-// import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import getTitleTag from '../../utils/getTitleTag';
 import { IHeroHeadingProps } from './interface';
 

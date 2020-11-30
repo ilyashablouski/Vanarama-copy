@@ -12,13 +12,13 @@ export const ADVANCED_BREAKDOWN_COVER_PAGE = gql`
         name
         metaRobots
         metaDescription
-        publishedOn
         legacyUrl
         pageType
         canonicalUrl
         slug
-        publishedOn
         schema
+        publishedOn
+        breadcrumbs
       }
       featuredImage {
         title

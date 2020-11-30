@@ -3,7 +3,7 @@ import { ApolloError } from '@apollo/client';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import createApolloClient from '../../../../apolloClient';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
-import { GENERIC_PAGE_QUESTION } from '../../../../containers/VehicleReviewCategoryContainer/gql';
+import { GENERIC_PAGE_QUESTION_HUB } from '../../../../containers/VehicleReviewCategoryContainer/gql';
 import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import { ReviewsHubCategoryQuery } from '../../../../../generated/ReviewsHubCategoryQuery';
@@ -47,7 +47,7 @@ export async function getStaticPaths() {
   const client = createApolloClient({});
   try {
     const { data } = await client.query({
-      query: GENERIC_PAGE_QUESTION,
+      query: GENERIC_PAGE_QUESTION_HUB,
       variables: {
         slug: 'reviews/vans',
       },
@@ -79,7 +79,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const client = createApolloClient({}, context as NextPageContext);
 
   const { data, error } = await client.query({
-    query: GENERIC_PAGE_QUESTION,
+    query: GENERIC_PAGE_QUESTION_HUB,
     variables: {
       slug: 'reviews/vans',
     },

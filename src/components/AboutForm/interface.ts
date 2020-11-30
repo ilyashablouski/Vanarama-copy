@@ -28,4 +28,5 @@ export interface IProps {
   submit: (values: IAboutFormValues) => Promise<any>;
   onEmailExistenceCheck?: (value: string) => Promise<boolean>;
   onLogInClick?: () => void;
+  personLoggedIn?: boolean;
 }

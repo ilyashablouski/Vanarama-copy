@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
@@ -9,7 +9,6 @@ import ReactMarkdown from 'react-markdown';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import moment from 'moment';
-import { useRouter } from 'next/router';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { ICategoryPage } from './interface';
@@ -32,6 +31,7 @@ const renderCarouselCards = (cards: any[] | undefined) =>
     return (
       card && (
         <Card
+          loadImage
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           key={`${card.title}_${index.toString()}_${card.body}`}
           className="card__article"
@@ -93,6 +93,7 @@ const renderCards = (
   return cards?.map((card, index) =>
     card?.body ? (
       <Card
+        loadImage
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         key={`${card.title}_${index.toString()}_${card.body}`}
         imageSrc={card.image?.file?.url || ''}
@@ -130,43 +131,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   carousel,
   activePageRoute,
 }) => {
-  const [activePage, setActivePage] = useState(activePageRoute || 1);
-  const { pathname, query, push } = useRouter();
-
-  useEffect(() => {
-    // change url for first pagination page
-    if (activePage === 1 && query.pageNumber) {
-      push(
-        {
-          pathname: pathname.replace('/page/[pageNumber]', ''),
-        },
-        undefined,
-        { shallow: true },
-      );
-      // cases when we have page route, for example change page from 2 to 3
-    } else if (
-      query.pageNumber &&
-      parseInt(query?.pageNumber as string, 10) !== activePage
-    ) {
-      push(
-        {
-          pathname,
-        },
-        pathname.replace('[pageNumber]', `${activePage}`),
-        { shallow: true },
-      );
-      // when changing from first page to others
-    } else if (activePage !== 1 && !query.pageNumber) {
-      push(
-        {
-          pathname: `${pathname}/page/[pageNumber]`,
-        },
-        `${pathname}/page/${activePage}`,
-        { shallow: true },
-      );
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [activePage]);
+  const [activePage] = useState(activePageRoute || 1);
 
   const articlesSorted = articles
     ? [...articles]?.sort((firstArticle, secondArticle) =>
@@ -207,6 +172,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
     return showCards?.map(card =>
       card?.body ? (
         <Card
+          loadImage
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           key={card?.body || undefined}
           imageSrc={card.featuredImage?.file?.url || ''}
@@ -359,22 +325,14 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           {data?.articles.length > 9 && (
             <div className="row:pagination">
               <Pagination
-                path={pathname.replace('/[pageNumber]', '')}
-                pathForFirstPage={pathname.replace('/page/[pageNumber]', '')}
+                path={`/${metaData?.legacyUrl?.replace('.html', '') ||
+                  ''}/page`}
+                pathForFirstPage={`/${metaData?.legacyUrl?.replace(
+                  '.html',
+                  '',
+                ) || ''}`}
                 pathWithHtml
                 pages={pages}
-                onClick={el => {
-                  el.preventDefault();
-                  setActivePage(+(el.target as Element).innerHTML);
-                }}
-                onClickBackArray={el => {
-                  el.preventDefault();
-                  setActivePage(activePage - 1);
-                }}
-                onClickNextArray={el => {
-                  el.preventDefault();
-                  setActivePage(activePage + 1);
-                }}
                 selected={activePage}
               />
             </div>

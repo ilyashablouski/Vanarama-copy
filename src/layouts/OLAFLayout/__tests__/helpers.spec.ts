@@ -52,7 +52,7 @@ describe('helpers', () => {
         color: offer.colour,
         trim: offer.trim,
         description:
-          '99 month contact (inc. VAT). Paid by Direct Debit. First due ≈ 10 days after delivery.',
+          '99 monthly payments (inc. VAT). Paid by direct debit. Initial Rental is taken around 10 days after delivery and each month on the same date thereafter for the length of the contract.',
         initialRentalDataTestId: 'about_intial-rental-testID',
         controlLengthDataTestId: 'about_control-length-testID',
         annualMileageDataTestId: 'about_annual-mileage-testID',
@@ -85,7 +85,7 @@ describe('helpers', () => {
         color: '-',
         trim: '-',
         description:
-          '0 month contact (ex. VAT). Paid by Direct Debit. First due ≈ 10 days after delivery.',
+          '0 monthly payments (ex. VAT). Paid by direct debit. Initial Rental is taken around 10 days after delivery and each month on the same date thereafter for the length of the contract.',
         initialRentalDataTestId: 'about_intial-rental-testID',
         controlLengthDataTestId: 'about_control-length-testID',
         annualMileageDataTestId: 'about_annual-mileage-testID',

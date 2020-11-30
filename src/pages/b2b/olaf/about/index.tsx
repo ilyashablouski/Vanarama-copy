@@ -54,6 +54,7 @@ export const BusinessAboutPage: NextPage = () => {
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
+  const [personLoggedIn, setPersonLoggedIn] = useState<boolean>(false);
   const [
     detailsData,
     setDetailsData,
@@ -122,12 +123,14 @@ export const BusinessAboutPage: NextPage = () => {
   };
 
   useEffect(() => {
-    if (!personUuid) {
-      localForage.getItem('person').then(value => {
-        if ((value as GetPerson)?.getPerson)
-          setPersonUuid((value as GetPerson)?.getPerson?.uuid);
-      });
-    }
+    localForage.getItem('person').then(value => {
+      if ((value as GetPerson)?.getPerson && !personUuid) {
+        setPersonUuid((value as GetPerson)?.getPerson?.uuid);
+        setPersonLoggedIn(true);
+      } else {
+        setPersonLoggedIn(false);
+      }
+    });
   }, [personUuid]);
 
   return (
@@ -169,6 +172,7 @@ export const BusinessAboutPage: NextPage = () => {
       <BusinessAboutFormContainer
         personUuid={personUuid}
         orderId={orderId}
+        personLoggedIn={personLoggedIn}
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
         onLogInCLick={() => toggleLogInVisibility(true)}

@@ -64,6 +64,8 @@ module.exports = {
         fs: 'empty',
       };
 
+      config.mode = 'production';
+
       return config;
     },
   },

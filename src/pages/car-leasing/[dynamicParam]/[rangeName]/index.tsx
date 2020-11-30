@@ -24,6 +24,8 @@ import { ISearchPageProps } from '../../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { GET_SEARCH_POD_DATA } from '../../../../containers/SearchPodContainer/gql';
 import { filterList_filterList as IFilterList } from '../../../../../generated/filterList';
+import FeaturedAndTilesContainer from '../../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
+import { PAGE_TYPES } from '../../../../utils/pageTypes';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -71,6 +73,10 @@ const Page: NextPage<IProps> = ({
         name={notFoundPageData?.name}
       />
     );
+  }
+
+  if (metaData.pageType === PAGE_TYPES.nonBlogPage) {
+    return <FeaturedAndTilesContainer data={pageData} />;
   }
 
   return (

@@ -22,7 +22,6 @@ import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import TopOffersContainer from './TopOffersContainer';
-import FiltersContainer from '../FiltersContainer';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import { useVehiclesList, getRangesList, useManufacturerList } from './gql';
@@ -68,10 +67,14 @@ import Head from '../../components/Head/Head';
 import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
 
+const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
+  loading: () => <Skeleton count={2} />,
+  ssr: false,
+});
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
   {
-    loading: () => <Skeleton count={1} />,
+    loading: () => <Skeleton count={2} />,
   },
 );
 const Text = dynamic(
@@ -145,6 +148,7 @@ interface IProps {
   isBodyStylePage?: boolean;
   isTransmissionPage?: boolean;
   isFuelPage?: boolean;
+  isBudgetPage?: boolean;
   pageData?: GenericPageQuery;
   metaData: PageMetaData;
   topInfoSection?: sections | null;
@@ -170,6 +174,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   isBodyStylePage,
   isTransmissionPage,
   isFuelPage,
+  isBudgetPage,
   pageData,
   metaData,
   topInfoSection,
@@ -183,8 +188,8 @@ const SearchPageContainer: React.FC<IProps> = ({
 }: IProps) => {
   const router = useRouter();
   const isDynamicFilterPage = useMemo(
-    () => isBodyStylePage || isFuelPage || isTransmissionPage,
-    [isBodyStylePage, isFuelPage, isTransmissionPage],
+    () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
+    [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
   );
 
   /** we storing the last value of special offers checkbox in Session storage */
@@ -450,6 +455,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       isBodyStylePage,
       isTransmissionPage,
       isFuelPage,
+      isBudgetPage,
     );
     Object.entries(query).forEach(([key, value]) =>
       queryString.set(key, value as string),
@@ -705,12 +711,16 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
 
           <div>
-            {pageData?.genericPage?.sections?.featured1?.body && (
+            {(pageData?.genericPage?.sections?.featured1?.body ||
+              pageData?.genericPage?.intro) && (
               <Text color="darker" size="regular" tag="div">
                 <ReactMarkdown
                   className="markdown"
                   allowDangerousHtml
-                  source={pageData.genericPage.sections.featured1.body}
+                  source={
+                    (pageData?.genericPage?.intro as string) ||
+                    (pageData?.genericPage?.sections?.featured1?.body as string)
+                  }
                   renderers={{
                     link: props => {
                       const { href, children } = props;
@@ -793,12 +803,12 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
           <div>
             <div
+              className={readmore ? '-truncate' : ''}
               style={{
                 height:
                   featured?.layout?.includes('Read More') && readmore
                     ? featured?.defaultHeight || 100
                     : '',
-                overflow: readmore ? 'hidden' : '',
               }}
             >
               <Heading
@@ -850,6 +860,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           isCarSearch={isCarSearch}
           isMakePage={isMakePage || false}
           isBodyPage={isBodyStylePage || false}
+          isBudgetPage={isBudgetPage || false}
           isTransmissionPage={isTransmissionPage || false}
           isDynamicFilterPage={isDynamicFilterPage || false}
           isFuelPage={isFuelPage || false}
@@ -897,6 +908,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             isModelPage={isModelPage}
             isAllMakesPage={isAllMakesPage}
             isBodyPage={isBodyStylePage}
+            isBudgetPage={isBudgetPage}
             isDynamicFilterPage={isDynamicFilterPage}
             isFuelPage={isFuelPage}
             isTransmissionPage={isTransmissionPage}
