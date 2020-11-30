@@ -609,7 +609,7 @@ export async function getServerSideProps() {
 
     return {
       props: {
-        pageData: data,
+        data,
       },
     };
   } catch {
