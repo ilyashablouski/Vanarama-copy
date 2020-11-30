@@ -2,7 +2,7 @@ import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import { gql } from '@apollo/client';
 import { FieldArrayRenderProps } from 'formik';
 import React from 'react';
-import FormikTypeAheadField from 'components/FormikTypeAhead/FormikTypeAheadField';
+import FormikTypeAheadField from '../FormikTypeAhead/FormikTypeAheadField';
 import { EmploymentFormFieldArrayDownData } from '../../../generated/EmploymentFormFieldArrayDownData';
 import useHistory from '../../hooks/useHistory';
 import FCWithFragments from '../../utils/FCWithFragments';
