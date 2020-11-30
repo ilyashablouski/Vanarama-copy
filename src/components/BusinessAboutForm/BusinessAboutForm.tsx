@@ -28,7 +28,6 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
   onLogInCLick,
   isEdited,
 }) => {
-  console.log('person', person);
   const defaultValues = person || {};
   const { formState, handleSubmit, errors, register, reset } = useForm<
     IBusinessAboutFormValues
