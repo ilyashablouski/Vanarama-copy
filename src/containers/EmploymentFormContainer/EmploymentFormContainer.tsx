@@ -1,5 +1,5 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import React from 'react';
+import React, { useState } from 'react';
 import EmploymentForm from '../../components/EmploymentForm/EmploymentForm';
 import { useEmploymentData, useUpdateEmployment } from './gql';
 import { IEmploymentFormContainerProps } from './interfaces';
@@ -11,6 +11,7 @@ const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
 }) => {
   const { loading, error, data } = useEmploymentData(personUuid);
   const [saveEmploymentHistory] = useUpdateEmployment(personUuid, onCompleted);
+
   if (loading) {
     return <Loading size="large" />;
   }
