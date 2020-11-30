@@ -8,6 +8,7 @@ export type SubmitResult = {
 export interface IBusinessAboutFormContainerProps {
   personUuid?: string;
   orderId: string;
+  personLoggedIn?: boolean;
   onCompleted?: (data: SubmitResult) => void;
   onError?: (error: ApolloError) => void;
   onLogInCLick?: () => void;
