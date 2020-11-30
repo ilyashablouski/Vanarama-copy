@@ -27,7 +27,7 @@ const FormikTypeAheadField: React.FC<IProps> = ({ name, label, ...rest }) => {
     if (data.method === 'enter') {
       event.preventDefault();
     }
-    // set value for container state this array will be send in mutation
+    // set formik field value
     helpers.setValue(data.suggestionValue);
   }
   return (
