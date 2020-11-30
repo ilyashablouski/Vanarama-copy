@@ -1,5 +1,5 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import React, { useState } from 'react';
+import React from 'react';
 import EmploymentForm from '../../components/EmploymentForm/EmploymentForm';
 import { useEmploymentData, useUpdateEmployment } from './gql';
 import { IEmploymentFormContainerProps } from './interfaces';
