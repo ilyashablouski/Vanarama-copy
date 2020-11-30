@@ -25,7 +25,7 @@ const EmploymentHistoryPage: NextPage = () => {
   const { orderId, uuid } = router.query as QueryParams;
 
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
+  const { data: caData } = useGetCreditApplicationByOrderUuid(orderId);
 
   let personUuid = uuid || '';
   const { data } = useQuery(GET_PERSON_INFORMATION);
@@ -41,7 +41,7 @@ const EmploymentHistoryPage: NextPage = () => {
     createUpdateCA({
       variables: {
         input: formValuesToInputCreditApplication({
-          ...creditApplication.data?.creditApplicationByOrderUuid,
+          ...caData?.creditApplicationByOrderUuid,
           orderUuid: orderId,
           employmentHistories: createUpdateEmploymentHistory,
         }),

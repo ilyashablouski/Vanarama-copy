@@ -11,6 +11,7 @@ const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
 }) => {
   const { loading, error, data } = useEmploymentData(personUuid);
   const [saveEmploymentHistory] = useUpdateEmployment(personUuid, onCompleted);
+
   if (loading) {
     return <Loading size="large" />;
   }
