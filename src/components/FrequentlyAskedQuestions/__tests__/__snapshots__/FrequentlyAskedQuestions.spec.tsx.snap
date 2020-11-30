@@ -11,7 +11,155 @@ exports[`<FrequentlyAskedQuestions /> renders correctly with empty review 1`] = 
   </h2>
   <ul
     className="accordion"
-  />
+  >
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            General Leasing FAQs
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            How Long Will My Vehicle Delivery Take?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            Delivery time really depends on several factors, including the vehicle you choose, whether it's in stock & if you're having accessories fitted. If your vehicle is in stock, available & already kitted out the way you want it, it could take as little as 2-3 weeks to be delivered.
+          </div>
+        </div>
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            Can I Lease A Vehicle With Bad Credit?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            Leasing is a form of vehicle finance or credit, which means funders will look into your credit history when you apply to lease. If you’ve missed payments or cancelled finance in the past, these can negatively impact your credit score. Vanarama works with more than 10 potential funders & we’ll always try to match you with a funder to suit your needs.
+          </div>
+        </div>
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            Can I Cancel A Lease Part Way Through?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            A lease contract can be cancelled by requesting an early termination. If you request this, the vehicle must be returned to the funder & you’ll pay a penalty fee - the amount varies depending on the funder & the type of lease agreement you have, but it could be more than 50% of all remaining payments. If you lease a car with us, you will be covered by Redundancy Protection. This means if due to an unexpected life event you are suddenly unable to afford your payments, we may be able to help. See more about this here.
+          </div>
+        </div>
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            Which Businesses Can Lease Vehicles?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            In general, any business can lease a vehicle & benefit from the cost savings leasing offers - even new businesses. 
+          </div>
+        </div>
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            Can I Change My Annual Mileage Limit Mid-Contract?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            Yes, although the process will depend on which funder your lease is with & if you are eligible to do so. If you think your mileage limit needs changing, call us straight away so we can discuss your options.
+          </div>
+        </div>
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            What Is The Shortest Lease Contract I Can Take?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            The shortest lease term available from Vanarama is 2 years, up to a maximum term of 5 years. 
+          </div>
+        </div>
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            How Does Fair Wear & Tear Work?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            If your lease contract requires you to hand your vehicle back at the end, it will be inspected by the finance company for any damage that isn’t considered ‘fair wear & tear’. The odd bump, scratch or scuff is fine - after all, you could have been driving this vehicle for up to 5 years - excessive damage is not & penalties are often charged to repair it. 
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>
 `;
 
@@ -26,6 +174,217 @@ exports[`<FrequentlyAskedQuestions /> renders correctly with rangeFAQ 1`] = `
   </h2>
   <ul
     className="accordion"
-  />
+  >
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            General Leasing FAQs
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            How Long Will My Vehicle Delivery Take?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            Delivery time really depends on several factors, including the vehicle you choose, whether it's in stock & if you're having accessories fitted. If your vehicle is in stock, available & already kitted out the way you want it, it could take as little as 2-3 weeks to be delivered.
+          </div>
+        </div>
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            Can I Lease A Vehicle With Bad Credit?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            Leasing is a form of vehicle finance or credit, which means funders will look into your credit history when you apply to lease. If you’ve missed payments or cancelled finance in the past, these can negatively impact your credit score. Vanarama works with more than 10 potential funders & we’ll always try to match you with a funder to suit your needs.
+          </div>
+        </div>
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            Can I Cancel A Lease Part Way Through?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            A lease contract can be cancelled by requesting an early termination. If you request this, the vehicle must be returned to the funder & you’ll pay a penalty fee - the amount varies depending on the funder & the type of lease agreement you have, but it could be more than 50% of all remaining payments. If you lease a car with us, you will be covered by Redundancy Protection. This means if due to an unexpected life event you are suddenly unable to afford your payments, we may be able to help. See more about this here.
+          </div>
+        </div>
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            Which Businesses Can Lease Vehicles?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            In general, any business can lease a vehicle & benefit from the cost savings leasing offers - even new businesses. 
+          </div>
+        </div>
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            Can I Change My Annual Mileage Limit Mid-Contract?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            Yes, although the process will depend on which funder your lease is with & if you are eligible to do so. If you think your mileage limit needs changing, call us straight away so we can discuss your options.
+          </div>
+        </div>
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            What Is The Shortest Lease Contract I Can Take?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            The shortest lease term available from Vanarama is 2 years, up to a maximum term of 5 years. 
+          </div>
+        </div>
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            How Does Fair Wear & Tear Work?
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            If your lease contract requires you to hand your vehicle back at the end, it will be inspected by the finance company for any damage that isn’t considered ‘fair wear & tear’. The odd bump, scratch or scuff is fine - after all, you could have been driving this vehicle for up to 5 years - excessive damage is not & penalties are often charged to repair it. 
+          </div>
+        </div>
+      </div>
+    </li>
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            Nissan Navara FAQs
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        <div
+          className="pdp--qanda"
+        >
+          <div
+            className="heading pdp--qanda-q -black -regular"
+          >
+            author
+          </div>
+          <div
+            className="text pdp--qanda-a -regular -darker"
+          >
+            text
+          </div>
+        </div>
+      </div>
+    </li>
+  </ul>
 </div>
 `;
