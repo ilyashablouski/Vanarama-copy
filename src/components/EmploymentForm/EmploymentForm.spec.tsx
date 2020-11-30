@@ -2,22 +2,17 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
 import EmploymentForm from './EmploymentForm';
-import { GET_SIC_CODES } from '../../containers/CompanyDetailsFormContainer/gql';
+import { GET_OCCUPATIONS } from '../../containers/EmploymentFormContainer/gql';
 
 const sicData: MockedResponse[] = [
   {
     request: {
-      query: GET_SIC_CODES,
+      query: GET_OCCUPATIONS,
     },
     result: {
       data: {
-        sicCodes: {
-          sicData: [
-            {
-              sicCode: 282000,
-              description: 'Manufacture of power-driven hand tools',
-            },
-          ],
+        occupationList: {
+          occupations: ['AAA'],
         },
       },
     },
