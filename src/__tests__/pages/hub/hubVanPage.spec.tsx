@@ -37,276 +37,273 @@ jest.mock('next/router', () => ({
   },
 }));
 
+const DATA = {
+  hubVanPage: {
+    id: '1sCJXpfTMcC11f2rob8qaJ',
+    sections: {
+      hero: {
+        title: 'Best Van Lease Deals',
+        titleTag: 'h2',
+        body:
+          'Brand New Vans, In Stock Delivered Fast and Free __From Just £115pm__',
+        image: null,
+      },
+      leadText: {
+        heading: 'Best Van Leasing Deals In The UK',
+        titleTag: 'h1',
+        description: 'Brand New Vans, Delivered Free From Just £115pm',
+      },
+      featured1: {
+        title: 'Why Lease A Van?',
+        titleTag: 'h2',
+        body:
+          "At Vanarama you'll find some of the best van lease deals in the UK. So if you're looking to get your business moving with a brand new van, you're in the right place!\n\nWhether you're after a [small van](https://beta.vanarama.com/small-van-leasing.html), a [medium van](https://beta.vanarama.com/medium-van-leasing.html) perfect for trades or even a [specialist vehicle](https://beta.vanarama.com/specialist-van-leasing.html), we have a huge range of brand new vehicles available from the major manufacturers whatever the model and size you're looking for.\n\nOur massive range of light commercial vehicles in varying sizes, engine types and flexible payloads are available for contract hire on a range of lease lengths too, so you can choose from 2,3, 4 or 5 years. Plus we'll deliver direct to your door anywhere in the UK.",
+        image: null,
+        layout: [''],
+      },
+      featured2: {
+        title: 'Why Choose Vanarama For Your Van?',
+        titleTag: 'h2',
+        body:
+          "Vanarama have been business van leasing specialists for over 15 years. Our enhanced buying power from working with those manufacturers and a large panel of funders, allows us to get you an unbeatable lease price! That's why we introduced our Price Promise\\* so if we can't find you the most competitive quote on the vehicle you want, we'll give you £100\\*.\n\nOur dedicated team of experts can help you find the perfect van lease deal. The major benefits of leasing a van with Vanarama are:\n\n-   **Affordable, fixed monthly costs.**\n-   **Brand-new vehicles with zero mileage.**\n-   **3-year manufacturer warranty and MOT included.**\n-   **Price Promise guarantee.**\n-   **Flexible mileage options.**",
+        image: null,
+        layout: [''],
+      },
+      rowText: {
+        heading: 'How Does Van Leasing Work?',
+        titleTag: 'h2',
+        subHeading:
+          'Everything you need to know is a click away in our easy to understand guide',
+        body:
+          'Leasing a van is really simple. You drive a brand new vehicle and pay fixed monthly rentals over 2-5 years after paying an initial rental at the start of your contract. At the end of your agreement, you simply hand the van back and choose which vehicle to upgrade to.\n\n[View Leasing Guides](https://beta.vanarama.com/van-leasing-explained.html)',
+      },
+      cards: {
+        name: ' What Type Of Van Do You Need?',
+        titleTag: 'h2',
+        description:
+          "Choose from Small, Medium and Large vans, or Tippers/Lutons, Crew/Minibus, Pickups and Refrigerated Vans - whatever you need, we've got it.",
+        cards: [
+          {
+            title: 'Small Vans',
+            titleTag: 'h3',
+            body:
+              'Wider & longer than a car with a surprisingly large load space',
+            image: {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+              },
+            },
+            link: {
+              url: 'https://beta.vanarama.com/small-van-leasing.html',
+              text: 'Small Vans',
+            },
+          },
+          {
+            title: 'Medium Vans',
+            titleTag: 'h3',
+            body:
+              'The most popular size of van on UK roads, trades people love them',
+            image: {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+              },
+            },
+            link: {
+              url: 'https://beta.vanarama.com/medium-van-leasing.html',
+              text: 'Medium Vans',
+            },
+          },
+          {
+            title: 'Large Vans',
+            titleTag: 'h3',
+            body:
+              'The biggest vans around, large vans can carry large & heavy loads',
+            image: {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+              },
+            },
+            link: {
+              url: 'https://beta.vanarama.com/large-van-leasing.html',
+              text: 'Large Vans',
+            },
+          },
+          {
+            title: 'Pickup Trucks',
+            titleTag: 'h3',
+            body: 'Car-like comfort, off-road capability & heavy load carrying',
+            image: {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+              },
+            },
+            link: {
+              url: 'https://beta.vanarama.com/pickup-truck-leasing.html',
+              text: 'Pickup Trucks',
+            },
+          },
+          {
+            title: 'Tippers/Lutons',
+            titleTag: 'h3',
+            body: 'Trucks with tippable backs & trucks with massive storage',
+            image: {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+              },
+            },
+            link: {
+              url: 'https://beta.vanarama.com/dropside-tipper-leasing.html',
+              text: 'Tippers/Lutons',
+            },
+          },
+          {
+            title: 'Minibus/Crew',
+            titleTag: 'h3',
+            body:
+              'Versatility for businesses who need to move both loads and people',
+            image: {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+              },
+            },
+            link: {
+              url: 'https://beta.vanarama.com/crew-vans.html',
+              text: 'Minibus/Crew Vans',
+            },
+          },
+          {
+            title: 'Refrigerated Vans',
+            titleTag: 'h3',
+            body:
+              'Temperature-controlled vans ideal for safely transporting foodstuff',
+            image: {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+              },
+            },
+            link: {
+              url: 'https://beta.vanarama.com/refrigerated-van-leasing.html',
+              text: 'Refrigerated Vans',
+            },
+          },
+          {
+            title: 'Automatic Vans',
+            titleTag: 'h3',
+            body: 'Automatic transmission makes driving your van effortless ',
+            image: {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
+              },
+            },
+            link: {
+              url: 'https://beta.vanarama.com/automatic-vans.html',
+              text: 'Automatic Vans',
+            },
+          },
+        ],
+      },
+      steps: {
+        heading: 'Leasing - The Simple Way To Get Your Brand New Vehicle',
+        titleTag: 'h2',
+        steps: [
+          {
+            title: 'Check',
+            body:
+              'See if you’re eligible to lease without affecting your credit score by using our quick & easy Eligibility Checker.',
+          },
+          {
+            title: 'Choose',
+            body:
+              'Get the car you want from our range of manufacturers - from something sporty to something for all the family.',
+          },
+          {
+            title: 'Apply',
+            body:
+              "To lease your new car, we'll just need a few details to apply for finance from one of our funding partners.",
+          },
+          {
+            title: 'Drive',
+            body:
+              'And that’s it - once you’ve been approved, your brand new car will be delivered direct to your door.',
+          },
+        ],
+      },
+      tiles: {
+        name: 'Benefits Grid',
+        titleTag: 'h2',
+        tilesTitle: 'Why Lease With Vanarama',
+        tiles: [
+          {
+            title: 'Price Promise',
+            link: null,
+            body:
+              "You won't find this with any of our competitors. Honest pricing & nothing hidden.",
+            image: {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/1ZIIHCFIqBIVkse5D80ymR/59d962d5cf10c6f689c847ddab436218/price-promise.jpg',
+              },
+              title: 'price-promise',
+            },
+          },
+          {
+            title: 'Customer Reviews',
+            link: null,
+            body:
+              'We love our customers and our customers love us, 96% of them would recommend us.',
+            image: {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/27vSXvAmh2dn3wh58xoJkP/368c1854210afeaa24f0700fc7c509fc/Icon-Contract-RGB_Contract-Colour-400px-RGB.png',
+              },
+              title: 'Smiths-Vanarama-Deal',
+            },
+          },
+          {
+            title: 'Quote Online',
+            link: null,
+            body: 'Get your quote in seconds with iVan.',
+            image: {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png',
+              },
+              title: 'Insurance-Icon',
+            },
+          },
+          {
+            title: 'Confused About Leasing?',
+            link: null,
+            body: 'Everything you need to know is a click away.',
+            image: {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png',
+              },
+              title: 'Fleet-Icon',
+            },
+          },
+        ],
+      },
+    },
+  },
+} as HubVanPageData;
+
 const mocked: MockedResponse[] = [
   {
     request: {
       query: HUB_VAN_CONTENT,
     },
     result: {
-      data: {
-        hubVanPage: {
-          id: '1sCJXpfTMcC11f2rob8qaJ',
-          sections: {
-            hero: {
-              title: 'Best Van Lease Deals',
-              titleTag: 'h2',
-              body:
-                'Brand New Vans, In Stock Delivered Fast and Free __From Just £115pm__',
-              image: null,
-            },
-            leadText: {
-              heading: 'Best Van Leasing Deals In The UK',
-              titleTag: 'h1',
-              description: 'Brand New Vans, Delivered Free From Just £115pm',
-            },
-            featured1: {
-              title: 'Why Lease A Van?',
-              titleTag: 'h2',
-              body:
-                "At Vanarama you'll find some of the best van lease deals in the UK. So if you're looking to get your business moving with a brand new van, you're in the right place!\n\nWhether you're after a [small van](https://beta.vanarama.com/small-van-leasing.html), a [medium van](https://beta.vanarama.com/medium-van-leasing.html) perfect for trades or even a [specialist vehicle](https://beta.vanarama.com/specialist-van-leasing.html), we have a huge range of brand new vehicles available from the major manufacturers whatever the model and size you're looking for.\n\nOur massive range of light commercial vehicles in varying sizes, engine types and flexible payloads are available for contract hire on a range of lease lengths too, so you can choose from 2,3, 4 or 5 years. Plus we'll deliver direct to your door anywhere in the UK.",
-              image: null,
-              layout: [''],
-            },
-            featured2: {
-              title: 'Why Choose Vanarama For Your Van?',
-              titleTag: 'h2',
-              body:
-                "Vanarama have been business van leasing specialists for over 15 years. Our enhanced buying power from working with those manufacturers and a large panel of funders, allows us to get you an unbeatable lease price! That's why we introduced our Price Promise\\* so if we can't find you the most competitive quote on the vehicle you want, we'll give you £100\\*.\n\nOur dedicated team of experts can help you find the perfect van lease deal. The major benefits of leasing a van with Vanarama are:\n\n-   **Affordable, fixed monthly costs.**\n-   **Brand-new vehicles with zero mileage.**\n-   **3-year manufacturer warranty and MOT included.**\n-   **Price Promise guarantee.**\n-   **Flexible mileage options.**",
-              image: null,
-              layout: [''],
-            },
-            rowText: {
-              heading: 'How Does Van Leasing Work?',
-              titleTag: 'h2',
-              subHeading:
-                'Everything you need to know is a click away in our easy to understand guide',
-              body:
-                'Leasing a van is really simple. You drive a brand new vehicle and pay fixed monthly rentals over 2-5 years after paying an initial rental at the start of your contract. At the end of your agreement, you simply hand the van back and choose which vehicle to upgrade to.\n\n[View Leasing Guides](https://beta.vanarama.com/van-leasing-explained.html)',
-            },
-            cards: {
-              name: ' What Type Of Van Do You Need?',
-              titleTag: 'h2',
-              description:
-                "Choose from Small, Medium and Large vans, or Tippers/Lutons, Crew/Minibus, Pickups and Refrigerated Vans - whatever you need, we've got it.",
-              cards: [
-                {
-                  title: 'Small Vans',
-                  titleTag: 'h3',
-                  body:
-                    'Wider & longer than a car with a surprisingly large load space',
-                  image: {
-                    file: {
-                      url:
-                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
-                    },
-                  },
-                  link: {
-                    url: 'https://beta.vanarama.com/small-van-leasing.html',
-                    text: 'Small Vans',
-                  },
-                },
-                {
-                  title: 'Medium Vans',
-                  titleTag: 'h3',
-                  body:
-                    'The most popular size of van on UK roads, trades people love them',
-                  image: {
-                    file: {
-                      url:
-                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
-                    },
-                  },
-                  link: {
-                    url: 'https://beta.vanarama.com/medium-van-leasing.html',
-                    text: 'Medium Vans',
-                  },
-                },
-                {
-                  title: 'Large Vans',
-                  titleTag: 'h3',
-                  body:
-                    'The biggest vans around, large vans can carry large & heavy loads',
-                  image: {
-                    file: {
-                      url:
-                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
-                    },
-                  },
-                  link: {
-                    url: 'https://beta.vanarama.com/large-van-leasing.html',
-                    text: 'Large Vans',
-                  },
-                },
-                {
-                  title: 'Pickup Trucks',
-                  titleTag: 'h3',
-                  body:
-                    'Car-like comfort, off-road capability & heavy load carrying',
-                  image: {
-                    file: {
-                      url:
-                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
-                    },
-                  },
-                  link: {
-                    url: 'https://beta.vanarama.com/pickup-truck-leasing.html',
-                    text: 'Pickup Trucks',
-                  },
-                },
-                {
-                  title: 'Tippers/Lutons',
-                  titleTag: 'h3',
-                  body:
-                    'Trucks with tippable backs & trucks with massive storage',
-                  image: {
-                    file: {
-                      url:
-                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
-                    },
-                  },
-                  link: {
-                    url:
-                      'https://beta.vanarama.com/dropside-tipper-leasing.html',
-                    text: 'Tippers/Lutons',
-                  },
-                },
-                {
-                  title: 'Minibus/Crew',
-                  titleTag: 'h3',
-                  body:
-                    'Versatility for businesses who need to move both loads and people',
-                  image: {
-                    file: {
-                      url:
-                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
-                    },
-                  },
-                  link: {
-                    url: 'https://beta.vanarama.com/crew-vans.html',
-                    text: 'Minibus/Crew Vans',
-                  },
-                },
-                {
-                  title: 'Refrigerated Vans',
-                  titleTag: 'h3',
-                  body:
-                    'Temperature-controlled vans ideal for safely transporting foodstuff',
-                  image: {
-                    file: {
-                      url:
-                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
-                    },
-                  },
-                  link: {
-                    url:
-                      'https://beta.vanarama.com/refrigerated-van-leasing.html',
-                    text: 'Refrigerated Vans',
-                  },
-                },
-                {
-                  title: 'Automatic Vans',
-                  titleTag: 'h3',
-                  body:
-                    'Automatic transmission makes driving your van effortless ',
-                  image: {
-                    file: {
-                      url:
-                        '//images.ctfassets.net/3xid768u5joa/7AJTJFhI12DvAWtWuT50U7/349cb17d71c3effb89841ed7f2161f76/CitroenBerlingo0718_4_xjonps.jpg',
-                    },
-                  },
-                  link: {
-                    url: 'https://beta.vanarama.com/automatic-vans.html',
-                    text: 'Automatic Vans',
-                  },
-                },
-              ],
-            },
-            steps: {
-              heading: 'Leasing - The Simple Way To Get Your Brand New Vehicle',
-              titleTag: 'h2',
-              steps: [
-                {
-                  title: 'Check',
-                  body:
-                    'See if you’re eligible to lease without affecting your credit score by using our quick & easy Eligibility Checker.',
-                },
-                {
-                  title: 'Choose',
-                  body:
-                    'Get the car you want from our range of manufacturers - from something sporty to something for all the family.',
-                },
-                {
-                  title: 'Apply',
-                  body:
-                    "To lease your new car, we'll just need a few details to apply for finance from one of our funding partners.",
-                },
-                {
-                  title: 'Drive',
-                  body:
-                    'And that’s it - once you’ve been approved, your brand new car will be delivered direct to your door.',
-                },
-              ],
-            },
-            tiles: {
-              name: 'Benefits Grid',
-              titleTag: 'h2',
-              tilesTitle: 'Why Lease With Vanarama',
-              tiles: [
-                {
-                  title: 'Price Promise',
-                  link: null,
-                  body:
-                    "You won't find this with any of our competitors. Honest pricing & nothing hidden.",
-                  image: {
-                    file: {
-                      url:
-                        '//images.ctfassets.net/3xid768u5joa/1ZIIHCFIqBIVkse5D80ymR/59d962d5cf10c6f689c847ddab436218/price-promise.jpg',
-                    },
-                    title: 'price-promise',
-                  },
-                },
-                {
-                  title: 'Customer Reviews',
-                  link: null,
-                  body:
-                    'We love our customers and our customers love us, 96% of them would recommend us.',
-                  image: {
-                    file: {
-                      url:
-                        '//images.ctfassets.net/3xid768u5joa/27vSXvAmh2dn3wh58xoJkP/368c1854210afeaa24f0700fc7c509fc/Icon-Contract-RGB_Contract-Colour-400px-RGB.png',
-                    },
-                    title: 'Smiths-Vanarama-Deal',
-                  },
-                },
-                {
-                  title: 'Quote Online',
-                  link: null,
-                  body: 'Get your quote in seconds with iVan.',
-                  image: {
-                    file: {
-                      url:
-                        '//images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png',
-                    },
-                    title: 'Insurance-Icon',
-                  },
-                },
-                {
-                  title: 'Confused About Leasing?',
-                  link: null,
-                  body: 'Everything you need to know is a click away.',
-                  image: {
-                    file: {
-                      url:
-                        '//images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png',
-                    },
-                    title: 'Fleet-Icon',
-                  },
-                },
-              ],
-            },
-          },
-        },
-      } as HubVanPageData,
+      data: DATA,
     },
   },
   {
@@ -347,7 +344,7 @@ const mocked: MockedResponse[] = [
             averageRating: 4.8,
             businessRate: 219,
             personalRate: 278.98,
-            offerPosition: null,
+            offerPosition: 1,
             keyInformation: [
               {
                 name: 'Transmission',
@@ -552,7 +549,7 @@ describe('<VansPage />', () => {
 
     render(
       <MockedProvider addTypename={false} mocks={mocked}>
-        <VansPage />
+        <VansPage data={DATA} />
       </MockedProvider>,
     );
   });

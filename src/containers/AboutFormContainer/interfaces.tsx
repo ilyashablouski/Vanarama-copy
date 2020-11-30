@@ -4,4 +4,5 @@ export interface IProps {
   onCompleted: (data: Mutation) => void;
   onLogInClick?: () => void;
   personUuid?: string;
+  personLoggedIn?: boolean;
 }

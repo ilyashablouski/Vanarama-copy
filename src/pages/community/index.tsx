@@ -1,22 +1,18 @@
-import { NextPage } from 'next';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useRouter } from 'next/router';
-import withApollo from '../../hocs/withApollo';
-import { useGenericPage } from '../../gql/genericPage';
+import DefaultErrorPage from 'next/error';
+import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import BlogPostContainer from '../../containers/BlogPostContainer/BlogPostContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import createApolloClient from '../../apolloClient';
 
-const BlogPost: NextPage = () => {
-  const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+const CommunityPage: NextPage<IGenericPage> = ({ data, error, loading }) => {
+  if (error || !data?.genericPage) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
 
   if (loading) {
     return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <ErrorMessage message={error.message} />;
   }
 
   const body = getSectionsData(['body'], data?.genericPage);
@@ -45,4 +41,29 @@ const BlogPost: NextPage = () => {
   );
 };
 
-export default withApollo(BlogPost);
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+
+    const { data, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: 'community',
+      },
+    });
+    return {
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
+
+export default CommunityPage;

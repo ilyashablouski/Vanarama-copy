@@ -1,9 +1,8 @@
-import { NextPage } from 'next';
-import { getDataFromTree } from '@apollo/react-ssr';
-import { useState } from 'react';
-import Router, { useRouter } from 'next/router';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import React, { useState } from 'react';
+import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
-
+import DefaultErrorPage from 'next/error';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
@@ -14,29 +13,30 @@ import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import CardTitle from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { getFeaturedClassPartial } from '../../utils/layout';
-import withApollo from '../../hocs/withApollo';
 import {
   ContactUsPageData_contactUsLandingPage_sections_cards_cards as Cards,
   ContactUsPageData_contactUsLandingPage_sections_featured2_cards as Cards2,
 } from '../../../generated/ContactUsPageData';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../utils/getSectionsData';
-import { useGenericPage } from '../../gql/genericPage';
+import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
+import createApolloClient from '../../apolloClient';
 
-export const ContactUsPage: NextPage = () => {
-  const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+export const ContactUsPage: NextPage<IGenericPage> = ({
+  data,
+  error,
+  loading,
+}) => {
   const [show, setShow] = useState(false);
+
+  if (error || !data?.genericPage) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
 
   if (loading) {
     return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <ErrorMessage message={error.message} />;
   }
 
   const COORDS = { lat: 51.762479, lng: -0.438241 };
@@ -234,4 +234,29 @@ export const ContactUsPage: NextPage = () => {
   );
 };
 
-export default withApollo(ContactUsPage, { getDataFromTree });
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+
+    const { data, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: 'contact-us',
+      },
+    });
+    return {
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
+
+export default ContactUsPage;

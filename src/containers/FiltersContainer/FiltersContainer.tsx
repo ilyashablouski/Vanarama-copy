@@ -1,18 +1,7 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
-import SearchFilters from '@vanarama/uibook/lib/components/organisms/search-filters';
-import SearchFiltersHead from '@vanarama/uibook/lib/components/organisms/search-filters/SearchFiltersHead';
-import SearchFilterTags from '@vanarama/uibook/lib/components/organisms/search-filters/SearchFilterTags';
-import Dropdown from '@vanarama/uibook/lib/components/atoms/dropdown';
-import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Select from '@vanarama/uibook/lib/components/atoms/select';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
+import dynamic from 'next/dynamic';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import { IChoice } from '@vanarama/uibook/lib/components/atoms/choiceboxes/interfaces';
-import Toggle from '@vanarama/uibook/lib/components/atoms/toggle';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import OptionsIcon from '@vanarama/uibook/lib/assets/icons/Options';
-import ChevronUp from '@vanarama/uibook/lib/assets/icons/ChevronUp';
-import ChevronDown from '@vanarama/uibook/lib/assets/icons/ChevronDown';
 import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/router';
 import { isArraySame } from '../../utils/helpers';
@@ -32,6 +21,74 @@ import {
   filtersSearchMapper,
   getLabelForSlug,
 } from './helpers';
+import Skeleton from '../../components/Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Select = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/select'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const SearchFilters = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/search-filters'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const SearchFiltersHead = dynamic(
+  () =>
+    import(
+      '@vanarama/uibook/lib/components/organisms/search-filters/SearchFiltersHead'
+    ),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const SearchFilterTags = dynamic(
+  () =>
+    import(
+      '@vanarama/uibook/lib/components/organisms/search-filters/SearchFilterTags'
+    ),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Dropdown = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/dropdown'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const FormGroup = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/formgroup'),
+);
+const Toggle = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/toggle'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const OptionsIcon = dynamic(() =>
+  import('@vanarama/uibook/lib/assets/icons/Options'),
+);
+const ChevronUp = dynamic(() =>
+  import('@vanarama/uibook/lib/assets/icons/ChevronUp'),
+);
+const ChevronDown = dynamic(() =>
+  import('@vanarama/uibook/lib/assets/icons/ChevronDown'),
+);
 
 interface IChoiceBoxesData {
   [index: string]: IChoice[];
@@ -61,6 +118,7 @@ const FiltersContainer = ({
   isModelPage,
   isAllMakesPage,
   isBodyPage,
+  isBudgetPage,
   isFuelPage,
   isTransmissionPage,
   isDynamicFilterPage,
@@ -443,7 +501,7 @@ const FiltersContainer = ({
           (entry[0] === filterFields.from || entry[0] === filterFields.to) &&
           entry[1]?.[0]
         ) {
-          return `£${entry[1]}`;
+          return isBudgetPage ? '' : `£${entry[1]}`;
         }
         const value =
           ((isMakePage || isRangePage || isModelPage) &&
@@ -630,12 +688,15 @@ const FiltersContainer = ({
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
                       disabled={
-                        (isMakePage ||
+                        ((isMakePage ||
                           isRangePage ||
                           isModelPage ||
                           isAllMakesPage) &&
-                        (dropdown.accessor === filterFields.make ||
-                          dropdown.accessor === filterFields.model)
+                          (dropdown.accessor === filterFields.make ||
+                            dropdown.accessor === filterFields.model)) ||
+                        (isBudgetPage &&
+                          (dropdown.accessor === filterFields.from ||
+                            dropdown.accessor === filterFields.to))
                       }
                       name={dropdown.accessor}
                       placeholder={`Select ${dropdown.accessor}`}

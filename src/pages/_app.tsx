@@ -24,14 +24,10 @@ import withApollo from '../hocs/withApollo';
 import { pushPageData } from '../utils/dataLayerHelpers';
 
 import Skeleton from '../components/Skeleton';
+import HeaderContainer from '../containers/HeaderContainer';
+import FooterContainer from '../containers/FooterContainer';
 
 // Dynamic component loading.
-const HeaderContainer = dynamic(() => import('../containers/HeaderContainer'), {
-  loading: () => <Skeleton count={2} />,
-});
-const FooterContainer = dynamic(() => import('../containers/FooterContainer'), {
-  loading: () => <Skeleton count={6} />,
-});
 // @ts-ignore
 const ToastContainer = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/toast/Toast').then(
