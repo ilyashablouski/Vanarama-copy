@@ -3125,9 +3125,9 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.38.5":
-  version "5.38.5"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.38.5.tgz#270d3f6ee0d584b27aa94581fa06579063431d57"
+"@vanarama/uibook@5.38.6":
+  version "5.38.6"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.38.6.tgz#e6d324080160ddb830899180035a0014158641dd"
   dependencies:
     "@egjs/flicking" "^3.4.7"
     "@loadable/component" "^5.14.1"
