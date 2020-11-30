@@ -87,13 +87,13 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   const handleDetailsSave = (values: IBusinessAboutFormValues) => {
     const data = getCreditApplicationByOrderUuidQuery?.data;
     const aboutDetails = data?.creditApplicationByOrderUuid?.aboutDetails;
-    const uuid = personByUuid?.emailAddresses[0].uuid;
+    const emailUuid = personByUuid?.emailAddresses[0].uuid;
     return saveDetails({
       variables: {
         input: {
           emailAddress: {
             value: values.email,
-            uuid: uuid || aboutDetails?.email_addresses[0].uuid || null,
+            uuid: emailUuid || aboutDetails?.email_addresses[0].uuid || null,
           },
           telephoneNumbers: [
             {
