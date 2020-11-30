@@ -180,7 +180,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
               onCompleted?.(result);
             }),
           )
-          .catch(onError);
+          .catch(e => console.log(e));
       }}
     />
   );
