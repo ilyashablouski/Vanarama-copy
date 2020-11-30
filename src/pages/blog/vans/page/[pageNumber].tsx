@@ -35,18 +35,29 @@ const CategoryPage: NextPage<IBlogCategory> = ({ data, error, pageNumber }) => {
 };
 
 export async function getStaticPaths() {
-  const client = createApolloClient({});
-  const { data } = await client.query({
-    query: BLOG_POSTS_PAGE,
-    variables: {
-      slug: 'blog/vans',
-    },
-  });
-  const paths = buildStaticPathes(data);
-  return {
-    paths,
-    fallback: false,
-  };
+  try {
+    const client = createApolloClient({});
+    const { data } = await client.query({
+      query: BLOG_POSTS_PAGE,
+      variables: {
+        slug: 'blog/vans',
+      },
+    });
+    const paths = buildStaticPathes(data);
+    return {
+      paths,
+      fallback: false,
+    };
+  } catch {
+    return {
+      paths: [
+        {
+          params: { pageNumber: '/' },
+        },
+      ],
+      fallback: false,
+    };
+  }
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
