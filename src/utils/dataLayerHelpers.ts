@@ -136,20 +136,18 @@ export const pushDetail = (
 };
 
 const setDataLayer = () => {
-  if (window.dataLayer.length === 1) return;
+  if (
+    !window.dataLayer.find(obj =>
+      Object.keys(obj).some(key => key === 'pageType'),
+    )
+  )
+    return;
+
   window.dataLayer = [];
   window.dataLayer.push({
     'gtm.start': new Date().getTime(),
     event: 'gtm.js',
   });
-  const script = document.getElementsByTagName('script')[0];
-  const newScript = document.createElement('script');
-  newScript.async = true;
-  newScript.src = `${'https://www.googletagmanager.com/gtm.js?id=' +
-    `${process.env.GTM_ID}`}`;
-  if (script?.parentNode) {
-    script?.parentNode.insertBefore(newScript, script);
-  }
 };
 
 export const pushPageData = async ({
