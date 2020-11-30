@@ -30,6 +30,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   personUuid,
   onCompleted,
   onError,
+  personLoggedIn,
   onLogInCLick,
   isEdited,
 }) => {
@@ -61,6 +62,13 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     return null;
   }, [creditApplication, personByUuid]);
 
+  const onEmailCheck = async (email: string) => {
+    const results = await emailAlreadyExists({
+      variables: { email },
+    });
+    return Boolean(results?.data?.emailAlreadyExists);
+  };
+
   const handleTemporaryRegistrationIfGuest = (
     username: string,
     firstName: string,
@@ -76,12 +84,15 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
           },
         });
 
-  const handleDetailsSave = (values: IBusinessAboutFormValues) =>
-    saveDetails({
+  const handleDetailsSave = (values: IBusinessAboutFormValues) => {
+    const data = getCreditApplicationByOrderUuidQuery?.data;
+    const aboutDetails = data?.creditApplicationByOrderUuid?.aboutDetails;
+    return saveDetails({
       variables: {
         input: {
           emailAddress: {
             value: values.email,
+            uuid: aboutDetails?.email_addresses[0].uuid || null,
           },
           telephoneNumbers: [
             {
@@ -99,6 +110,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
         },
       },
     });
+  };
 
   const handleCreateUpdateCreditApplication = (
     values: IBusinessAboutFormValues,
@@ -148,15 +160,10 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     <BusinessAboutForm
       isEdited={isEdited}
       dropDownData={aboutPageDataQuery.data?.allDropDowns}
+      personLoggedIn={personLoggedIn}
       person={person}
       onLogInCLick={onLogInCLick}
-      onEmailExistenceCheck={async email => {
-        const results = await emailAlreadyExists({
-          variables: { email },
-        });
-
-        return Boolean(results?.data?.emailAlreadyExists);
-      }}
+      onEmailExistenceCheck={onEmailCheck}
       onSubmit={values => {
         handleTemporaryRegistrationIfGuest(
           values.email,

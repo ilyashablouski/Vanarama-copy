@@ -22,6 +22,7 @@ const AboutForm: FCWithFragments<IProps> = ({
   dropdownData,
   person,
   submit,
+  personLoggedIn,
   onEmailExistenceCheck,
   onLogInClick,
 }) => {
@@ -107,7 +108,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         )}
       >
         <TextInput
-          disabled={!!defaultValues?.email}
+          disabled={!!defaultValues?.email && personLoggedIn}
           id="email"
           type="email"
           name="email"
