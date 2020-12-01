@@ -201,7 +201,7 @@ const AboutYouPage: NextPage = () => {
       </Heading>
       <Text color="darker" size="lead">
         To get you your brand new vehicle, firstly we’ll just need some details
-        about you and your company. This will be used for your credit check.
+        about you. This will be used for your credit check.
       </Text>
       {!personUuid && (
         <div className="-mb-500">

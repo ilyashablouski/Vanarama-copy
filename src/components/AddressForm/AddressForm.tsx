@@ -44,8 +44,8 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
             color="darker"
             tag="span"
           >
-            {` just need your address history for the past ${context.requiredMonths /
-              12} years to complete your credit check.`}
+            {` We just need your address history for the past ${context.requiredMonths /
+              12} years to complete your order.`}
           </Text>
           <FieldArray name="history">
             {arrayHelpers => (

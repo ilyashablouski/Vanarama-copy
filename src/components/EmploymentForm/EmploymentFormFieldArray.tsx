@@ -66,7 +66,7 @@ const EmploymentFormFieldArray: FCWithFragments<IProps> = ({
               <>
                 <FormikRadioField
                   name={`history[${index}].contract`}
-                  label="Are you"
+                  label="Are You Working"
                 >
                   <FormikRadioField.Radio
                     id={`history[${index}].contract_fulltime`}

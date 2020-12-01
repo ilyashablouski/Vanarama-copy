@@ -45,8 +45,9 @@ const ThankYouPage: NextPage = () => {
           </li>
           <li>
             <Text color="darker" tag="p">
-              You’ll get a call from the dealer to arrange a delivery date to
-              suit you.
+              Once the dealer has arranged a suitable time with you, we’ll
+              deliver your brand new vehicle straight to your door - free, safe
+              & contactless
             </Text>
           </li>
           <li>
@@ -62,26 +63,14 @@ const ThankYouPage: NextPage = () => {
       <List>
         <li>
           <Text color="darker" tag="p">
-            We’ll call you to take a refundable £500 holding deposit. We’ll use
-            this to order your vehicle from the dealer.
-          </Text>
-        </li>
-        <li>
-          <Text color="darker" tag="p">
-            We’ll send you some finance documents to sign, which you can do on
-            your smartphone.
+            We’ll then send you some finance documents to sign which you can do
+            straight from your phone.
           </Text>
         </li>
         <li>
           <Text color="darker" tag="p">
             We’ll arrange everything to get your car delivered straight to your
             door, free of charge!
-          </Text>
-        </li>
-        <li>
-          <Text color="darker" tag="p">
-            Once your vehicle has been delivered, we’ll refund your £500 holding
-            deposit, minus our £198 admin fee.
           </Text>
         </li>
       </List>
@@ -95,29 +84,28 @@ const ThankYouPage: NextPage = () => {
           <Heading color="black" tag="h1" size="xlarge">
             {isB2b
               ? 'Great News - Your Application Is On Its Way!'
-              : `That's All Done!`}
+              : 'Great News...'}
           </Heading>
           <Text color="black" size="large">
             <Icon icon={<CheckmarkCircleSharp />} color="success" />
-            Vehicle Ordered
+            We&apos;ve Received Your Order
           </Text>
           <Text color="darker" tag="p">
             {isB2b
               ? `We’ve sent your application to the funder and we’ll be in touch within 24 hours.`
-              : `Your application is on its way to the lease company. It may be as quick as 1 or 2 hours that you hear from us, but it could take up to 24 business hours.`}
+              : `Now that we've received your order, we'll reserve your vehicle and get your finance sorted. We'll be in touch within 24 business hours.`}
           </Text>
           <Heading color="black" tag="h2" size="lead">
             {isB2b ? `What's next?` : `What Happens Next?`}
           </Heading>
           <Text color="darker" tag="p">
-            Once your application has been approved:
+            Once your order has been processed:
           </Text>
           {renderList()}
           <Text color="darker" tag="p">
             {isB2b
-              ? `If you need anything else in the meantime feel free to give us a call on`
-              : `If you need anything in the meantime, you can login to your online
-            account or give us a call on`}{' '}
+              ? 'If you need anything else in the meantime feel free to give us a call on'
+              : 'If you need anything else in the meantime, you can login to your online account or feel free to give us a call on 01442 838 195. '}
             <a href="tel:01442838195" className="link -teal">
               01442 838 195
             </a>
