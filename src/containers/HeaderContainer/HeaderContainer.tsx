@@ -1,21 +1,17 @@
 import React, { FC } from 'react';
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 
 import { PHONE_NUMBER_LINK } from '../../models/enum/HeaderLinks';
 
-import withApollo from '../../hocs/withApollo';
 import Header from '../../components/Header';
 import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
-import { PRIMARY_HEADER } from '../../gql/header';
-import {
-  PrimaryHeader,
-  PrimaryHeader_primaryHeader_linkGroups_linkGroups as LinkGroups,
-} from '../../../generated/PrimaryHeader';
+import { PrimaryHeader_primaryHeader_linkGroups_linkGroups as LinkGroups } from '../../../generated/PrimaryHeader';
 import { IHeaderLink } from '../../components/Header/Header';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
+import { HEADER_DATA } from '../../utils/hardcodedData';
 
 export const LOGOUT_USER_MUTATION = gql`
   mutation LogOutUserMutation {
@@ -26,7 +22,7 @@ export const LOGOUT_USER_MUTATION = gql`
 `;
 
 const HeaderContainer: FC = () => {
-  const { data, loading } = useQuery<PrimaryHeader>(PRIMARY_HEADER);
+  const data = HEADER_DATA;
   const router = useRouter();
   const isMobile = useMobileViewport();
 
@@ -40,10 +36,6 @@ const HeaderContainer: FC = () => {
   };
 
   const [logOut] = useMutation<LogOutUserMutation>(LOGOUT_USER_MUTATION);
-
-  if (loading) {
-    return <></>;
-  }
 
   const offerLink = data?.primaryHeader?.links?.map(el => ({
     href: el?.url || '',
@@ -124,4 +116,4 @@ const HeaderContainer: FC = () => {
   return <></>;
 };
 
-export default withApollo(HeaderContainer);
+export default HeaderContainer;

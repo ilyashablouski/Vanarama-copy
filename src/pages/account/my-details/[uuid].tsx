@@ -12,6 +12,7 @@ import PersonalInformationFormContainer from '../../../containers/PersonalInform
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 import { MyDetailsQueryParams } from '../../../utils/url';
 import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
+import Head from '../../../components/Head/Head';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -37,6 +38,20 @@ const breadcrumbItems = [
     },
   },
 ];
+
+const metaData = {
+  canonicalUrl: null,
+  legacyUrl: null,
+  metaDescription: null,
+  metaRobots: null,
+  name: null,
+  pageType: null,
+  publishedOn: null,
+  slug: null,
+  title: 'My Account Details | Vanarama',
+  schema: null,
+  breadcrumbs: null,
+};
 
 const MyDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
@@ -96,6 +111,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
           )}
         </div>
       </div>
+      <Head metaData={metaData} featuredImage={null} />
     </>
   );
 };
