@@ -24,11 +24,13 @@ export interface UpdateMyAccountDetails_updateMyAccountDetails {
   address: UpdateMyAccountDetails_updateMyAccountDetails_address | null;
   telephoneNumber: string | null;
   emailAddress: string;
+  emailConsent: boolean | null;
+  smsConsent: boolean | null;
 }
 
 export interface UpdateMyAccountDetails {
   /**
-   * Update perosonal details in my account
+   * Update personal details in my account
    */
   updateMyAccountDetails: UpdateMyAccountDetails_updateMyAccountDetails | null;
 }

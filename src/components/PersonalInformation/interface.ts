@@ -6,6 +6,8 @@ export interface IPersonInformationFormValues {
   emailAddress: string;
   telephoneNumber: string | null;
   address?: { id: string; label: string };
+  emailConsent: boolean;
+  smsConsent: boolean;
 }
 
 export interface IAdress {
