@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
 import EmploymentForm from './EmploymentForm';
-import { GET_OCCUPATIONS } from '../../containers/EmploymentFormContainer/gql';
+import { GET_OCCUPATIONS } from './gql';
 
 const sicData: MockedResponse[] = [
   {
