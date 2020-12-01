@@ -94,7 +94,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
         input: {
           emailAddress: {
             value: values.email,
-            uuid: emailAddress.uuid,
+            uuid: emailAddress?.uuid,
           },
           telephoneNumbers: [
             {
