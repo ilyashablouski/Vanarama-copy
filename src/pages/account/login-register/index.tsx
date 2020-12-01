@@ -26,10 +26,25 @@ import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { pushAuthorizationEventDataLayer } from '../../../utils/dataLayerHelpers';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
+import Head from '../../../components/Head/Head';
 
 interface IProps {
   query: ParsedUrlQuery;
 }
+
+const metaData = {
+  canonicalUrl: null,
+  legacyUrl: null,
+  metaDescription: null,
+  metaRobots: null,
+  name: null,
+  pageType: null,
+  publishedOn: null,
+  slug: null,
+  title: 'Log in | Vanarama',
+  schema: null,
+  breadcrumbs: null,
+};
 
 const handleRegisterError = () =>
   toast.error(
@@ -135,6 +150,7 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
           </TabPanels>
         </Tabs>
       </div>
+      <Head metaData={metaData} featuredImage={null} />
     </>
   );
 };

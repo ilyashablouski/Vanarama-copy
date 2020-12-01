@@ -15,6 +15,7 @@ import { IRequestPasswordFormValues } from '../../../components/RequestPasswordF
 import { useEmailCheck } from '../../../containers/RegisterFormContainer/gql';
 import Message from '../../../core/components/Message';
 import withApollo from '../../../hocs/withApollo';
+import Head from '../../../components/Head/Head';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -25,6 +26,20 @@ export const PASSWORD_REQUEST_MUTATION = gql`
     passwordReset(username: $username)
   }
 `;
+
+const metaData = {
+  canonicalUrl: null,
+  legacyUrl: null,
+  metaDescription: null,
+  metaRobots: null,
+  name: null,
+  pageType: null,
+  publishedOn: null,
+  slug: null,
+  title: 'Forgot your password? | Vanarama',
+  schema: null,
+  breadcrumbs: null,
+};
 
 export const PasswordRequestPage: NextPage<IProps> = () => {
   const [hasRequest, setRequestStatus] = useState(false);
@@ -87,6 +102,7 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
           isSubmitting={loading || emailLoading}
         />
       </div>
+      <Head metaData={metaData} featuredImage={null} />
     </>
   );
 };
