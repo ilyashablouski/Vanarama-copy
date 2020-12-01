@@ -10,5 +10,7 @@ export const responseToInitialFormValues = (
     lastName: person?.lastName || '',
     telephoneNumber: person?.telephoneNumber || '',
     emailAddress: person?.emailAddress || '',
+    emailConsent: !!person?.emailConsent,
+    smsConsent: !!person?.emailConsent,
   };
 };
