@@ -65,7 +65,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
       </Formgroup>
       <Formgroup
         controlId="firstName"
-        hint="As displayed on your driving license"
+        hint="As displayed on your driving licence"
         label="First Name"
         error={errors.firstName?.message?.toString()}
       >

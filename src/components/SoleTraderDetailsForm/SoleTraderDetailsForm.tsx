@@ -72,7 +72,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             tag="h1"
             dataTestId="soleTrader-details-heading"
           >
-            SoleTrader Details
+            Sole Trader Details
           </Heading>
 
           <FormikSelectField name="title" label="Title">
@@ -92,9 +92,6 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
           />
 
           <FormikSelectField name="gender" label="Gender">
-            <option value="Please Select" disabled selected>
-              Please Select
-            </option>
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Prefer Not To Say">Prefer Not To Say</option>
