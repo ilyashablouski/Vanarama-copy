@@ -88,7 +88,7 @@ const AboutFormContainer: React.FC<IProps> = ({
         ).then(query =>
           handlePersonCreation(
             values,
-            query.data?.registerForTemporaryAccess.emailAddress,
+            query.data?.registerForTemporaryAccess?.emailAddress,
           ),
         )
       }
