@@ -22,11 +22,13 @@ export interface MyAccount_myAccountDetailsByPersonUuid {
   address: MyAccount_myAccountDetailsByPersonUuid_address | null;
   telephoneNumber: string | null;
   emailAddress: string;
+  emailConsent: boolean | null;
+  smsConsent: boolean | null;
 }
 
 export interface MyAccount {
   /**
-   * Find Person by email and return personal details for my account section
+   * Find Person by UUID and return personal details for my account section
    */
   myAccountDetailsByPersonUuid: MyAccount_myAccountDetailsByPersonUuid | null;
 }

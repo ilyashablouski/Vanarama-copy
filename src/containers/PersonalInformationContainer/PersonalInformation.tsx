@@ -1,25 +1,39 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useLazyQuery } from '@apollo/client';
 import PersonalInformation from '../../components/PersonalInformation/PersonalInformation';
-import { MyAccount_myAccountDetailsByPersonUuid as IPerson } from '../../../generated/MyAccount';
+import {
+  MyAccount,
+  MyAccountVariables,
+  MyAccount_myAccountDetailsByPersonUuid as IPerson,
+} from '../../../generated/MyAccount';
 
-import { useCreatePerson, usePersonalInformationData } from './gql';
+import { GET_PERSON_INFORMATION_DATA, useCreatePerson } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 
 const getKey = (person: IPerson | null): string => {
-  return `${person?.firstName}${person?.lastName}${person?.address?.serviceId}${person?.telephoneNumber}`;
+  return `${person?.firstName}${person?.lastName}${person?.address?.serviceId}${person?.telephoneNumber}${person?.emailConsent}`;
 };
 
-const PersonalInformationContainer: React.FC<IProps> = ({
-  personUuid = 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f',
-}) => {
-  const { data, loading, error, refetch } = usePersonalInformationData(
-    personUuid,
-  );
-  const [createDetailsHandle] = useCreatePerson(() => {
-    refetch();
+const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
+  const [getPersonInformation, { loading, data, error }] = useLazyQuery<
+    MyAccount,
+    MyAccountVariables
+  >(GET_PERSON_INFORMATION_DATA, {
+    variables: {
+      personUuid: personUuid || '',
+    },
   });
+  const [createDetailsHandle] = useCreatePerson(() => {
+    getPersonInformation();
+  });
+
+  useEffect(() => {
+    if (personUuid && !data) {
+      getPersonInformation();
+    }
+  }, [personUuid, getPersonInformation, data]);
 
   if (loading) {
     return <Loading size="large" />;
@@ -42,7 +56,7 @@ const PersonalInformationContainer: React.FC<IProps> = ({
           variables: {
             input: formValuesToInput(
               values,
-              data.myAccountDetailsByPersonUuid,
+              data?.myAccountDetailsByPersonUuid,
               serviceId,
             ),
           },

@@ -27,6 +27,8 @@ const mocks: MockedResponse[] = [
           lastName: 'Lanes',
           personUuid: 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f',
           telephoneNumber: '02020202334',
+          emailConsent: false,
+          smsConsent: false,
         },
       },
     },
