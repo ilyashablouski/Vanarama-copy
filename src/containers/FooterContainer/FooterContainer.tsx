@@ -1,22 +1,9 @@
 import React, { FC } from 'react';
-import { useQuery } from '@apollo/client';
-import withApollo from '../../hocs/withApollo';
-import { PRIMARY_FOOTER } from '../../gql/header';
-import { PrimaryFooter } from '../../../generated/PrimaryFooter';
 import Footer from '../../components/Footer';
+import { FOOTER_DATA } from '../../utils/hardcodedData';
 
-const FooterContainer: FC = () => {
-  const { data, loading } = useQuery<PrimaryFooter>(PRIMARY_FOOTER);
+const FooterContainer: FC = () => (
+  <Footer primaryFooter={FOOTER_DATA.primaryFooter} />
+);
 
-  if (loading) {
-    return <></>;
-  }
-
-  if (!data) {
-    return <></>;
-  }
-
-  return <Footer primaryFooter={data.primaryFooter} />;
-};
-
-export default withApollo(FooterContainer);
+export default FooterContainer;

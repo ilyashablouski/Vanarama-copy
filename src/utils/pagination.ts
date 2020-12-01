@@ -59,7 +59,7 @@ export function sortingArticles(this: any[]) {
 export const buildStaticPathes = (data: BlogPosts) => {
   const articles = getSectionsData(['articles'], data?.blogPosts);
   const pageCount = Math.ceil(
-    (sortingArticles.call(articles).articles.length || 0) / ARTICLES_PER_PAGE,
+    (sortingArticles.call(articles)?.articles?.length || 0) / ARTICLES_PER_PAGE,
   );
   let paths = [] as any[];
   for (let i = 1; i <= pageCount; i += 1) {
