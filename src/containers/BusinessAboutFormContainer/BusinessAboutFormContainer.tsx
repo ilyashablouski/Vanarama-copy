@@ -175,7 +175,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
           .then(query =>
             handleDetailsSave(
               values,
-              query.data.registerForTemporaryAccess.emailAddress,
+              query.data?.registerForTemporaryAccess?.emailAddress,
             ),
           )
           .then(({ data }) =>
