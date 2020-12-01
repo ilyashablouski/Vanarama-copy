@@ -82,9 +82,7 @@ const ThankYouPage: NextPage = () => {
       <OLAFLayout>
         <Form>
           <Heading color="black" tag="h1" size="xlarge">
-            {isB2b
-              ? 'Great News - Your Application Is On Its Way!'
-              : 'Great News...'}
+            Great News...
           </Heading>
           <Text color="black" size="large">
             <Icon icon={<CheckmarkCircleSharp />} color="success" />
@@ -96,16 +94,15 @@ const ThankYouPage: NextPage = () => {
               : `Now that we've received your order, we'll reserve your vehicle and get your finance sorted. We'll be in touch within 24 business hours.`}
           </Text>
           <Heading color="black" tag="h2" size="lead">
-            {isB2b ? `What's next?` : `What Happens Next?`}
+            {isB2b ? `What's Next?` : `What Happens Next?`}
           </Heading>
           <Text color="darker" tag="p">
             Once your order has been processed:
           </Text>
           {renderList()}
           <Text color="darker" tag="p">
-            {isB2b
-              ? 'If you need anything else in the meantime feel free to give us a call on'
-              : 'If you need anything else in the meantime, you can login to your online account or feel free to give us a call on 01442 838 195. '}
+            If you need anything else in the meantime, you can login to your
+            online account or feel free to give us a call on&nbsp;
             <a href="tel:01442838195" className="link -teal">
               01442 838 195
             </a>
