@@ -43,8 +43,9 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
         Bank Details
       </Heading>
       <Text color="darker" size="lead">
-        We’re not taking any money now, we just need to check that you have a
-        valid UK bank account as part of our credit check process.
+        Don&apos;t worry, we won&apos;t take any money now, we just need to
+        check that you have a valid UK bank account as part of our credit check
+        process.
       </Text>
       <FormGroup
         controlId="nameOnTheAccount"
