@@ -9,7 +9,7 @@ export const getBuckets = (data: any[], activeData: string[]) =>
 export const onReplace = (
   router: NextRouter,
   newStep: {
-    leaseType: IStep;
+    financeTypes: IStep;
     bodyStyles: IStep;
     fuelTypes: IStep;
     transmissions: IStep;
@@ -45,6 +45,9 @@ export const onReplace = (
 export const buildAnObjectFromAQuery = (query: any) => {
   const object = {} as any;
   query.forEach((value: string, key: string) => {
+    if (key === 'financeTypes' && value.length) {
+      object.financeTypes = value;
+    }
     if (key === 'bodyStyles' && value.length) {
       object.bodyStyles = value.split(',');
     }
@@ -67,7 +70,7 @@ export interface IStep {
 }
 
 export interface IInitStep {
-  leaseType: IStep;
+  financeTypes: IStep;
   bodyStyles: IStep;
   fuelTypes: IStep;
   transmissions: IStep;

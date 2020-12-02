@@ -21,9 +21,9 @@ import HelpMeChooseTransmissions from '../../containers/HelpMeChooseContainer/He
 import HelpMeChooseLeaseLength from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseLeaseLength';
 
 const initialSteps: IInitStep = {
-  leaseType: {
+  financeTypes: {
     active: true,
-    value: 'Personal' as any,
+    value: 'PCH' as any,
   },
   bodyStyles: {
     active: false,
@@ -67,7 +67,7 @@ const HelpMeChoose: NextPage = () => {
   useEffect(() => {
     if (window?.location.search.length) {
       const searchParams = new URLSearchParams(window.location.search);
-      const leaseTypeQueryValue = searchParams.get('leaseType');
+      const financeTypesQueryValue = searchParams.get('financeTypes');
       const bodyStylesQuery = searchParams.getAll('bodyStyles');
       const fuelTypesQuery = searchParams.getAll('fuelTypes');
       const transmissionsQuery = searchParams.getAll('transmissions');
@@ -80,8 +80,8 @@ const HelpMeChoose: NextPage = () => {
       const transmissionsQueryValue = transmissionsQuery.length
         ? transmissionsQuery[0].split(',')
         : [];
-      const isLeaseTypeActive =
-        searchParams.has('leaseType') && !searchParams.has('bodyStyles');
+      const isFinanceTypesActive =
+        searchParams.has('financeTypes') && !searchParams.has('bodyStyles');
       const isBodyStylesActive =
         searchParams.has('bodyStyles') && !searchParams.has('fuelTypes');
       const isFuelTypesActive =
@@ -90,9 +90,9 @@ const HelpMeChoose: NextPage = () => {
         searchParams.has('transmissions') && !searchParams.has('leaseLength');
       const isLeaseLengthActive = searchParams.has('leaseLength');
       setSteps({
-        leaseType: {
-          active: isLeaseTypeActive,
-          value: leaseTypeQueryValue as any,
+        financeTypes: {
+          active: isFinanceTypesActive,
+          value: financeTypesQueryValue as any,
         },
         bodyStyles: {
           active: isBodyStylesActive,
@@ -129,7 +129,7 @@ const HelpMeChoose: NextPage = () => {
 
   return (
     <>
-      {steps.leaseType.active && (
+      {steps.financeTypes.active && (
         <HelpMeChooseAboutYou
           steps={steps}
           setSteps={setSteps}
