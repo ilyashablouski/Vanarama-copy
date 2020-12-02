@@ -54,7 +54,7 @@ const HelpMeChooseLeaseLength: FC<HelpMeChooseStep> = props => {
   return (
     <HelpMeChooseContainer
       title="Which Gearbox Do You Prefer?"
-      choicesValues={getBuckets(leaseLengthData, leaseLengthValue)}
+      choicesValues={getBuckets(leaseLengthData, leaseLengthValue, 'terms')}
       setChoice={setLeaseLengthValue}
       onClickContinue={() => {
         setSteps({

@@ -19,8 +19,8 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
   );
 
   const financeTypes = [
-    { label: 'PCH', active: financeTypesValue === 'PCH' },
-    { label: 'BCH', active: financeTypesValue === 'BCH' },
+    { label: 'Personal', value: 'PCH', active: financeTypesValue === 'PCH' },
+    { label: 'Business', value: 'BCH', active: financeTypesValue === 'BCH' },
   ];
 
   useEffect(() => {

@@ -28,14 +28,14 @@ const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
   withIcons,
 }) => {
   /** handler for multiselect */
-  const handleChecked = (value: IChoice) => {
+  const handleChecked = (checked: IChoice) => {
     let newSelectedData = [...currentValue];
     // Add.
-    if (value.active) newSelectedData = [...currentValue, value.label];
+    if (checked.active) newSelectedData = [...currentValue, checked.value];
     // Remove.
     else {
       newSelectedData = (currentValue as string[]).filter(
-        (filter: string | number) => value.label !== filter,
+        (filter: string | number) => checked.value !== filter,
       );
     }
     setChoice(newSelectedData.filter(Boolean));
@@ -56,7 +56,7 @@ const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
             choices={choicesValues}
             onSubmit={value => {
               // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-              multiSelect ? handleChecked(value) : setChoice(value.label);
+              multiSelect ? handleChecked(value) : setChoice(value.value);
             }}
             multiSelect={multiSelect}
             clearMultiSelectTitle={clearMultiSelectTitle}

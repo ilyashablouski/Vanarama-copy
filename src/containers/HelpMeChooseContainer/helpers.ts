@@ -1,8 +1,22 @@
 import { NextRouter } from 'next/router';
 
-export const getBuckets = (data: any[], activeData: string[]) =>
+const getBucketLabel = (type: string, label: string) => {
+  switch (type) {
+    case 'terms':
+      return `${parseInt(label, 10) / 12} Years`;
+    case 'mileages':
+      // eslint-disable-next-line no-case-declarations
+      const mileage = parseInt(label, 10) / 1000;
+      return `${mileage === 6 && '<'}${mileage}K${mileage === 20 && '+'}`;
+    default:
+      return label;
+  }
+};
+
+export const getBuckets = (data: any[], activeData: string[], type?: string) =>
   data.map(bucket => ({
-    label: bucket.key,
+    label: getBucketLabel(type || '', bucket.key),
+    value: bucket.key,
     active: activeData.includes(bucket.key),
   }));
 
