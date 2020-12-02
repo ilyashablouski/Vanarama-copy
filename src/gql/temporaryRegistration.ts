@@ -2,6 +2,7 @@ import { useMutation, gql, FetchResult } from '@apollo/client';
 import {
   RegisterForTemporaryAccess,
   RegisterForTemporaryAccessVariables,
+  RegisterForTemporaryAccess_registerForTemporaryAccess_emailAddress as IEmailAddress,
 } from '../../generated/RegisterForTemporaryAccess';
 
 export const REGISTER_FOR_TEMPORARY_ACCESS_MUTATION = gql`
@@ -16,6 +17,12 @@ export const REGISTER_FOR_TEMPORARY_ACCESS_MUTATION = gql`
       lastName: $lastName
     ) {
       accessToken
+      isSuccessfull
+      emailAddress {
+        uuid
+        value
+        kind
+      }
     }
   }
 `;
@@ -26,11 +33,17 @@ export function useRegistrationForTemporaryAccessMutation() {
     RegisterForTemporaryAccessVariables
   >(REGISTER_FOR_TEMPORARY_ACCESS_MUTATION);
 }
-export const handlerMock = (): Promise<FetchResult<
-  RegisterForTemporaryAccess
->> =>
+export const handlerMock = (
+  emailAddress?: IEmailAddress | null,
+): Promise<FetchResult<RegisterForTemporaryAccess>> =>
   Promise.resolve({
     data: {
-      registerForTemporaryAccess: null,
+      registerForTemporaryAccess: emailAddress
+        ? {
+            emailAddress,
+            accessToken: null,
+            isSuccessfull: true,
+          }
+        : null,
     },
   });

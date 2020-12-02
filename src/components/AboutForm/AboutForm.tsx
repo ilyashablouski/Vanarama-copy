@@ -351,6 +351,7 @@ AboutForm.fragments = {
         uuid
         primary
         value
+        kind
       }
       telephoneNumbers {
         __typename

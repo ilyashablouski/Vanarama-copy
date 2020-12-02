@@ -12,6 +12,7 @@ export interface AboutFormPerson_emailAddresses {
   uuid: string;
   primary: boolean;
   value: string;
+  kind: string | null;
 }
 
 export interface AboutFormPerson_telephoneNumbers {
