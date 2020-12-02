@@ -1,4 +1,5 @@
 import { NextRouter } from 'next/router';
+import { ProductsFilterList_productsFilterList_rental_stats as Rental } from '../../../generated/ProductsFilterList';
 
 const getBucketLabel = (type: string, label: string) => {
   switch (type) {
@@ -7,7 +8,9 @@ const getBucketLabel = (type: string, label: string) => {
     case 'mileages':
       // eslint-disable-next-line no-case-declarations
       const mileage = parseInt(label, 10) / 1000;
-      return `${mileage === 6 && '<'}${mileage}K${mileage === 20 && '+'}`;
+      return `${mileage === 6 ? '<' : ''}${mileage}K${
+        mileage === 20 ? '+' : ''
+      }`;
     default:
       return label;
   }
@@ -27,7 +30,9 @@ export const onReplace = (
     bodyStyles: IStep;
     fuelTypes: IStep;
     transmissions: IStep;
-    leaseLength: IStep;
+    terms: IStep;
+    mileages: IStep;
+    rental: IStep;
   },
 ) => {
   let pathname = router.route.replace('[[...param]]', '');
@@ -36,7 +41,7 @@ export const onReplace = (
   const queries = {} as any;
   Object.entries(newStep).forEach(filter => {
     const [key, step] = filter;
-    if (step.value?.length) {
+    if (step.value) {
       queries[key] = step.value;
     }
   });
@@ -71,8 +76,17 @@ export const buildAnObjectFromAQuery = (query: any) => {
     if (key === 'transmissions' && value.length) {
       object.transmissions = value.split(',');
     }
-    if (key === 'leaseLength' && value.length) {
-      object.leaseLength = value;
+    if (key === 'terms' && value.length) {
+      object.terms = [parseInt(value, 10)];
+    }
+    if (key === 'mileages' && value.length) {
+      object.mileages = [parseInt(value, 10)];
+    }
+    if (key === 'rental' && value.length) {
+      object.rental = {
+        min: value.split('-')[0],
+        max: value.split('-')[1],
+      };
     }
   });
   return object;
@@ -80,7 +94,7 @@ export const buildAnObjectFromAQuery = (query: any) => {
 
 export interface IStep {
   active: boolean;
-  value: string[];
+  value: string[] | number[] | Rental;
 }
 
 export interface IInitStep {
@@ -88,5 +102,7 @@ export interface IInitStep {
   bodyStyles: IStep;
   fuelTypes: IStep;
   transmissions: IStep;
-  leaseLength: IStep;
+  terms: IStep;
+  mileages: IStep;
+  rental: IStep;
 }

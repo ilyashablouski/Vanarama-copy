@@ -6,7 +6,7 @@ import { buildAnObjectFromAQuery, getBuckets, onReplace } from '../helpers';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 
-const HelpMeChooseLeaseLength: FC<HelpMeChooseStep> = props => {
+const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
   const {
     setSteps,
     steps,
@@ -14,26 +14,26 @@ const HelpMeChooseLeaseLength: FC<HelpMeChooseStep> = props => {
     productsFilterListData,
   } = props;
   const router = useRouter();
-  const [leaseLengthValue, setLeaseLengthValue] = useState<string[]>(
-    steps.leaseLength.value as string[],
+  const [mileagesValue, setMileagesValue] = useState<string[]>(
+    steps.mileages.value as string[],
   );
 
   useEffect(() => {
     if (window?.location.search.length) {
       const searchParams = new URLSearchParams(window.location.search);
-      const leaseLengthQuery = searchParams.getAll('leaseLength');
-      const leaseLengthQueryValue = leaseLengthQuery.length
-        ? leaseLengthQuery[0].split(',')
+      const mileagesQuery = searchParams.getAll('mileages');
+      const mileagesQueryValue = mileagesQuery.length
+        ? mileagesQuery[0].split(',')
         : [];
-      const isLeaseLengthActive = searchParams.has('leaseLength');
+      const isMileagesActive = searchParams.has('mileages');
       setSteps({
         ...steps,
-        leaseLength: {
-          active: steps.leaseLength.active || isLeaseLengthActive,
-          value: leaseLengthQueryValue,
+        mileages: {
+          active: steps.mileages.active || isMileagesActive,
+          value: mileagesQueryValue,
         },
       });
-      setLeaseLengthValue(leaseLengthQueryValue);
+      setMileagesValue(mileagesQueryValue);
       getProductsFilterList({
         variables: {
           filter: {
@@ -46,32 +46,31 @@ const HelpMeChooseLeaseLength: FC<HelpMeChooseStep> = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const leaseLengthData = getSectionsData(
-    ['productsFilterList', 'terms', 'buckets'],
+  const mileagesData = getSectionsData(
+    ['productsFilterList', 'mileages', 'buckets'],
     productsFilterListData?.data,
   );
 
   return (
     <HelpMeChooseContainer
-      title="Which Gearbox Do You Prefer?"
-      choicesValues={getBuckets(leaseLengthData, leaseLengthValue, 'terms')}
-      setChoice={setLeaseLengthValue}
+      title="How Many Miles Do You Normally Drive In A Year?"
+      choicesValues={getBuckets(mileagesData, mileagesValue, 'mileages')}
+      setChoice={setMileagesValue}
       onClickContinue={() => {
         setSteps({
           ...steps,
-          transmissions: { active: false, value: steps.transmissions.value },
-          leaseLength: { active: true, value: leaseLengthValue },
+          mileages: { active: false, value: mileagesValue },
+          transmissions: { active: true, value: steps.transmissions.value },
         });
         onReplace(router, {
           ...steps,
-          leaseLength: { active: true, value: leaseLengthValue },
+          mileages: { active: false, value: mileagesValue },
         });
       }}
-      multiSelect
-      currentValue={leaseLengthValue}
+      currentValue={mileagesValue}
       clearMultiSelectTitle="I Don't Mind"
     />
   );
 };
 
-export default HelpMeChooseLeaseLength;
+export default HelpMeChooseMiles;

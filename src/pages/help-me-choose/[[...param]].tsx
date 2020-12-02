@@ -18,7 +18,8 @@ import HelpMeChooseAboutYou from '../../containers/HelpMeChooseContainer/HelpMeC
 import HelpMeChooseBodyStyle from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseBodyStyle';
 import HelpMeChooseFuelTypes from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseFuelTypes';
 import HelpMeChooseTransmissions from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseTransmissions';
-import HelpMeChooseLeaseLength from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseLeaseLength';
+import HelpMeChooseTerms from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseTerms';
+import HelpMeChooseMiles from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseMiles';
 
 const initialSteps: IInitStep = {
   financeTypes: {
@@ -37,7 +38,15 @@ const initialSteps: IInitStep = {
     active: false,
     value: [],
   },
-  leaseLength: {
+  terms: {
+    active: false,
+    value: '' as any,
+  },
+  mileages: {
+    active: false,
+    value: '' as any,
+  },
+  rental: {
     active: false,
     value: '' as any,
   },
@@ -63,6 +72,14 @@ const HelpMeChoose: NextPage = () => {
     ['productsFilterList', 'transmissions', 'buckets'],
     productsFilterListData?.data,
   );
+  const termsData = getSectionsData(
+    ['productsFilterList', 'terms', 'buckets'],
+    productsFilterListData?.data,
+  );
+  const mileagesData = getSectionsData(
+    ['productsFilterList', 'mileages', 'buckets'],
+    productsFilterListData?.data,
+  );
 
   useEffect(() => {
     if (window?.location.search.length) {
@@ -71,6 +88,9 @@ const HelpMeChoose: NextPage = () => {
       const bodyStylesQuery = searchParams.getAll('bodyStyles');
       const fuelTypesQuery = searchParams.getAll('fuelTypes');
       const transmissionsQuery = searchParams.getAll('transmissions');
+      const termsQuery = searchParams.getAll('terms');
+      const mileagesQuery = searchParams.getAll('mileages');
+      const rentalQuery = searchParams.getAll('rental');
       const bodyStylesQueryValue = bodyStylesQuery.length
         ? bodyStylesQuery[0].split(',')
         : [];
@@ -80,6 +100,9 @@ const HelpMeChoose: NextPage = () => {
       const transmissionsQueryValue = transmissionsQuery.length
         ? transmissionsQuery[0].split(',')
         : [];
+      const termsQueryValue = termsQuery.length ? termsQuery : '';
+      const mileagesQueryValue = mileagesQuery.length ? mileagesQuery : '';
+      const rentalQueryValue = rentalQuery.length ? rentalQuery : '';
       const isFinanceTypesActive =
         searchParams.has('financeTypes') && !searchParams.has('bodyStyles');
       const isBodyStylesActive =
@@ -87,8 +110,12 @@ const HelpMeChoose: NextPage = () => {
       const isFuelTypesActive =
         searchParams.has('fuelTypes') && !searchParams.has('transmissions');
       const isTransmissionsActive =
-        searchParams.has('transmissions') && !searchParams.has('leaseLength');
-      const isLeaseLengthActive = searchParams.has('leaseLength');
+        searchParams.has('transmissions') && !searchParams.has('terms');
+      const isTermsActive =
+        searchParams.has('terms') && !searchParams.has('mileages');
+      const isMileagesActive =
+        searchParams.has('mileages') && !searchParams.has('rental');
+      const isRentalActive = searchParams.has('rental');
       setSteps({
         financeTypes: {
           active: isFinanceTypesActive,
@@ -106,9 +133,17 @@ const HelpMeChoose: NextPage = () => {
           active: isTransmissionsActive,
           value: transmissionsQueryValue,
         },
-        leaseLength: {
-          active: isLeaseLengthActive,
-          value: '' as any,
+        terms: {
+          active: isTermsActive,
+          value: termsQueryValue as any,
+        },
+        mileages: {
+          active: isMileagesActive,
+          value: mileagesQueryValue as any,
+        },
+        rental: {
+          active: isRentalActive,
+          value: rentalQueryValue as any,
         },
       });
       const variables = {
@@ -161,8 +196,16 @@ const HelpMeChoose: NextPage = () => {
           productsFilterListData={productsFilterListData}
         />
       )}
-      {steps.leaseLength.active && (
-        <HelpMeChooseLeaseLength
+      {steps.terms.active && termsData?.length && (
+        <HelpMeChooseTerms
+          steps={steps}
+          setSteps={setSteps}
+          getProductsFilterList={getProductsFilterList}
+          productsFilterListData={productsFilterListData}
+        />
+      )}
+      {steps.mileages.active && mileagesData?.length && (
+        <HelpMeChooseMiles
           steps={steps}
           setSteps={setSteps}
           getProductsFilterList={getProductsFilterList}
