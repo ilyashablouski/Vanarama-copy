@@ -147,7 +147,6 @@ exports[`<Header /> renders correctly 1`] = `
        
        
     </label>
-     
     <a
       className="header-tel link"
       data-testid="link"
@@ -1823,7 +1822,6 @@ exports[`<Header /> renders correctly with login user 1`] = `
        
        
     </label>
-     
     <a
       className="header-tel link"
       data-testid="link"
