@@ -28,6 +28,6 @@ module.exports = api => {
   return {
     presets,
     plugins,
-    env,
+    // env,
   };
 };
