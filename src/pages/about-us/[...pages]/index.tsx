@@ -37,7 +37,9 @@ export async function getStaticPaths() {
   const items = data?.pageCollection?.items;
 
   return {
-    paths: getPathsFromPageCollection(items, 'about-us'),
+    paths: getPathsFromPageCollection(items, 'about-us', [
+      '/customer-testimonials',
+    ]),
     fallback: false,
   };
 }

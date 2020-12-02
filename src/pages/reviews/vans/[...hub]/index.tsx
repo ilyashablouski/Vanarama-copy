@@ -98,7 +98,7 @@ export async function getStaticPaths() {
   );
 
   return {
-    paths: getPathsFromPageCollection(pathCollection, 'reviews'),
+    paths: getPathsFromPageCollection(pathCollection, 'reviews', ['/page/']),
     fallback: false,
   };
 }
