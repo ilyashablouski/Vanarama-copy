@@ -31,7 +31,7 @@ def app_environment = [
         logGroupName: "uat/grid/apps",
         taskFamily: "grid-uat-${serviceName}",
         app: "${serviceName}",
-        ssmParametersBase: "arn:aws:ssm:eu-west-2:126764662304:parameter/test/${stack}/${serviceName}",
+        ssmParametersBase: "arn:aws:ssm:eu-west-2:126764662304:parameter/uat/${stack}/${serviceName}",
         env: 'uat',
         stack: 'grid',
         slackChannelInfra: '#dev-infra-approvals',
