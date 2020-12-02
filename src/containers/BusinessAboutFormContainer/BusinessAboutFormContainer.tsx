@@ -70,13 +70,16 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     return Boolean(results?.data?.emailAlreadyExists);
   };
 
+  const email =
+    personByUuid?.emailAddresses[0] ||
+    creditApplication?.aboutDetails.email_addresses[0];
   const handleTemporaryRegistrationIfGuest = (
     username: string,
     firstName: string,
     lastName: string,
   ) =>
-    personUuid
-      ? handlerMock(personByUuid?.emailAddresses[0])
+    person
+      ? handlerMock(email)
       : registerTemporary({
           variables: {
             username,
