@@ -35,4 +35,11 @@ describe('getPathsFromPageCollection', () => {
 
     expect(paths).toEqual([]);
   });
+  it('getPathsFromPageCollection should filter excluded slugs', () => {
+    const paths = getPathsFromPageCollection(ITEMS, 'insurance', [
+      '/tools-in-transit',
+    ]);
+
+    expect(paths).toEqual(['/insurance/faq']);
+  });
 });
