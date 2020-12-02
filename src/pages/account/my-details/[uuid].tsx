@@ -2,6 +2,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
@@ -58,6 +59,10 @@ const MyDetailsPage: NextPage<IProps> = () => {
   const { uuid } = router.query as MyDetailsQueryParams;
 
   const [resetPassword, setResetPassword] = useState(false);
+
+  if (!uuid) {
+    return <Loading size="large" />;
+  }
 
   return (
     <>
