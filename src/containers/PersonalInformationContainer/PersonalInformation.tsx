@@ -1,6 +1,6 @@
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React, { useEffect } from 'react';
-import { useLazyQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import PersonalInformation from '../../components/PersonalInformation/PersonalInformation';
 import {
   MyAccount,
@@ -17,7 +17,7 @@ const getKey = (person: IPerson | null): string => {
 };
 
 const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
-  const [getPersonInformation, { loading, data, error }] = useLazyQuery<
+  const { loading, data, error, refetch } = useQuery<
     MyAccount,
     MyAccountVariables
   >(GET_PERSON_INFORMATION_DATA, {
@@ -26,14 +26,14 @@ const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
     },
   });
   const [createDetailsHandle] = useCreatePerson(() => {
-    getPersonInformation();
+    refetch();
   });
 
   useEffect(() => {
     if (personUuid && !data) {
-      getPersonInformation();
+      refetch();
     }
-  }, [personUuid, getPersonInformation, data]);
+  }, [personUuid, refetch, data]);
 
   if (loading) {
     return <Loading size="large" />;
