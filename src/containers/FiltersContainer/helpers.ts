@@ -1,5 +1,9 @@
 import { filterFields } from './config';
 import { ISelectedFiltersState } from './interfaces';
+import {
+  filterList_filterList_groupedRangesWithSlug_children as IFiltersChildren,
+  filterList_filterList as IFilterList,
+} from '../../../generated/filterList';
 
 /**
  * formating and check for including strings
@@ -14,8 +18,16 @@ export const isInclude = (value: string, includedValue: string): boolean =>
 
 export const findPreselectFilterValue = (
   value: string,
-  data: string[] | null | undefined,
-): string => data?.find(element => isInclude(value, element)) || '';
+  data: (string | IFiltersChildren)[] | null | undefined,
+): string => {
+  if (data?.length && typeof data[0] !== 'string') {
+    const slugsArray = data.map(
+      childrenWithSlug => (childrenWithSlug as IFiltersChildren)?.slug,
+    );
+    return slugsArray?.find(element => isInclude(value, element || '')) || '';
+  }
+  return (data as string[])?.find(element => isInclude(value, element)) || '';
+};
 
 // build choiseboxes for preselected filters in custom page like a bodystyle page
 export const buildPreselectChoiseboxes = (
@@ -60,9 +72,28 @@ export const filtersSearchMapper = (
         ? null
         : parseInt(selectedFiltersState.to[0], 10),
   },
-  manufacturerName: selectedFiltersState.make[0],
-  rangeName: selectedFiltersState.model[0],
+  manufacturerSlug: selectedFiltersState.make[0],
+  rangeSlug: selectedFiltersState.model[0],
   fuelTypes: selectedFiltersState.fuelTypes,
   bodyStyles: selectedFiltersState.bodyStyles,
   transmissions: selectedFiltersState.transmissions,
 });
+
+export const getLabelForSlug = (
+  slug: string,
+  filtersData: IFilterList,
+  isMakeValue = false,
+) => {
+  if (isMakeValue) {
+    const label = filtersData.groupedRangesWithSlug?.find(
+      ranges => ranges.parent.slug === slug,
+    );
+    return label?.parent.label;
+  }
+  let label: any;
+  filtersData.groupedRangesWithSlug?.some(ranges => {
+    label = ranges.children.find(children => children.slug === slug);
+    return !!label;
+  });
+  return label?.label;
+};

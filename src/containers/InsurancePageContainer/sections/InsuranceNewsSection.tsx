@@ -18,19 +18,12 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
         title={{ title: card.title }}
         imageSrc={card.image?.file?.url}
       >
-        <ReactMarkdown
-          allowDangerousHtml
-          source={card.body || ''}
-          renderers={{
-            link: props => {
-              const { href, children } = props;
-              return (
-                <RouterLink
-                  classNames={{ color: 'teal', size: 'regular' }}
-                  link={{ href, label: children }}
-                />
-              );
-            },
+        <ReactMarkdown allowDangerousHtml source={card.body || ''} />
+        <RouterLink
+          classNames={{ color: 'teal', size: 'regular' }}
+          link={{
+            label: card.link?.text || '',
+            href: card.link?.url || '',
           }}
         />
       </Card>

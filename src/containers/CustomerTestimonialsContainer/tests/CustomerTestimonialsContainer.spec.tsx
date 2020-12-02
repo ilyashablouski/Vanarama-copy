@@ -10,6 +10,7 @@ jest.mock('next/router', () => ({
     asPath: '/',
   }),
 }));
+jest.mock('../../../hooks/useMediaQuery');
 
 // ARRANGE
 const METADATA = {
@@ -220,6 +221,7 @@ describe('<CustomerTestimonialsContainer />', () => {
           sections={SECTIONS}
           title={METADATA.title}
           body={BODY}
+          breadcrumbsItems={[]}
         />
       </MockedProvider>,
     );

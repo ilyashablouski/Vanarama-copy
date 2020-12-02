@@ -65,9 +65,11 @@ const FinanceGapInsurancePageContainer = ({
   return (
     <>
       {hero && <InsuranceHeroSection {...hero} />}
-      <div className="row:title -mt-200">
-        <Breadcrumb items={breadcrumbsItems} />
-      </div>
+      {breadcrumbsItems && (
+        <div className="row:title -mt-200">
+          <Breadcrumb items={breadcrumbsItems} />
+        </div>
+      )}
       {leadText && <InsuranceTypeSection {...leadText} />}
       {featured1 && (
         <InsuranceFormSection

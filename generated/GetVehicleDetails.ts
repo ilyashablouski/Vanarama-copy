@@ -26,7 +26,7 @@ export interface GetVehicleDetails_vehicleConfigurationByCapId {
   capTrimDescription: string;
   onOffer: boolean | null;
   offerRanking: number | null;
-  url: string;
+  url: string | null;
   financeProfile: GetVehicleDetails_vehicleConfigurationByCapId_financeProfile | null;
 }
 

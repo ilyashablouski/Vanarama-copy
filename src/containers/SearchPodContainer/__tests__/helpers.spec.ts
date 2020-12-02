@@ -5,7 +5,7 @@ describe('<helpers />', () => {
     expect(
       modelHandler(
         {
-          groupedRanges: null,
+          groupedRangesWithSlug: null,
           vehicleTypes: null,
           bodyStyles: null,
           transmissions: null,
@@ -19,18 +19,25 @@ describe('<helpers />', () => {
     expect(
       modelHandler(
         {
-          groupedRanges: [
+          groupedRangesWithSlug: [
             {
-              parent: 'Citroën',
-              children: ['Berlingo', 'Dispatch', 'Relay'],
+              parent: { label: 'Citroën', slug: 'Citroën' },
+              children: [
+                { label: 'Berlingo', slug: 'Berlingo' },
+                { label: 'Dispatch', slug: 'Dispatch' },
+                { label: 'Relay', slug: 'Relay' },
+              ],
             },
             {
-              parent: 'Dacia',
-              children: ['Duster'],
+              parent: { label: 'Dacia', slug: 'Dacia' },
+              children: [{ label: 'Duster', slug: 'Duster' }],
             },
             {
-              parent: 'BMW',
-              children: ['3 series', '4 series'],
+              parent: { label: 'BMW', slug: 'BMW' },
+              children: [
+                { label: '3 series', slug: '3 series' },
+                { label: '4 series', slug: '4 series' },
+              ],
             },
           ],
           vehicleTypes: null,
@@ -40,7 +47,16 @@ describe('<helpers />', () => {
         },
         'BMW',
       ),
-    ).toEqual(['3 series', '4 series']);
+    ).toEqual([
+      {
+        label: '3 series',
+        slug: '3 series',
+      },
+      {
+        label: '4 series',
+        slug: '4 series',
+      },
+    ]);
   });
   it('getBudgetForQuery should return empty string', async () => {
     expect(getBudgetForQuery('')).toEqual('');

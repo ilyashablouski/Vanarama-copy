@@ -1,44 +1,49 @@
-import { NextPage } from 'next';
-import { getDataFromTree } from '@apollo/react-ssr';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import ReactMarkdown from 'react-markdown/with-html';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import CardTitle from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
-import { useRouter } from 'next/router';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import DefaultErrorPage from 'next/error';
 import { GenericPageQuery_genericPage_sections_cards_cards as ICard } from '../../../generated/GenericPageQuery';
-import withApollo from '../../hocs/withApollo';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import getTitleTag from '../../utils/getTitleTag';
 import { getSectionsData } from '../../utils/getSectionsData';
-import { useGenericPage } from '../../gql/genericPage';
+import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
+import createApolloClient from '../../apolloClient';
 
-export const LocationsPage: NextPage = () => {
-  const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
-
+export const LocationsPage: NextPage<IGenericPage> = ({
+  data,
+  loading,
+  error,
+}) => {
   if (loading) {
     return <Loading size="large" />;
   }
 
-  if (error) {
-    return <p>Error: {error.message}</p>;
+  if (error || !data?.genericPage) {
+    return <DefaultErrorPage statusCode={404} />;
   }
 
-  if (!data) {
-    return <></>;
-  }
-
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const cards = getSectionsData(['cards', 'cards'], data.genericPage?.sections);
   const metaDataName = getSectionsData(
     ['metaData', 'name'],
     data.genericPage?.sections,
   );
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
       <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
         <Heading size="xlarge" color="black" tag="h1">
           {metaDataName}
         </Heading>
@@ -101,8 +106,39 @@ export const LocationsPage: NextPage = () => {
           </div>
         </section>
       ) : null}
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };
 
-export default withApollo(LocationsPage, { getDataFromTree });
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+
+    const { data, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: 'locations',
+      },
+    });
+    return {
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
+
+export default LocationsPage;

@@ -23,9 +23,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         >
           <img
             class="image--native"
-            height="100%"
+            sizes="(min-width:3200px) 800px, 1200px"
             src="//images.ctfassets.net/3xid768u5joa/2FgrgR6JOuvUgIGRmV5rZg/648465d10d6aa137a720013270728029/maxus-top-electric-vans.jpg"
-            width="100%"
           />
         </div>
       </div>
@@ -60,6 +59,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            sizes="(min-width:3200px) 800px, 1200px"
           />
           <div
             class="title"
@@ -93,6 +93,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            sizes="(min-width:3200px) 800px, 1200px"
           />
           <div
             class="title"
@@ -126,6 +127,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            sizes="(min-width:3200px) 800px, 1200px"
           />
           <div
             class="title"

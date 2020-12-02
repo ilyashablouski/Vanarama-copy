@@ -42,7 +42,7 @@ export const HomePage: NextPage<IHomePageContainer> = ({
 export async function getStaticProps(context: NextPageContext) {
   const client = createApolloClient({}, context);
   const getCapIds = (data: ProductCardData | undefined) =>
-    data?.productCarousel?.map(el => el?.capId || '') || [''];
+    data?.productCarousel?.map(el => el?.capId || '').filter(Boolean) || [''];
   const { data, loading, errors } = await client.query<HomePageData>({
     query: ALL_HOME_CONTENT,
   });

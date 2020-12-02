@@ -12,8 +12,8 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
   return {
     addresses: [
       {
-        serviceId: values.tradingAddress.id,
-        lineOne: values.tradingAddress.label,
+        serviceId: values.tradingAddress?.id,
+        lineOne: values.tradingAddress?.label,
         kind: 'Trading',
       },
     ],
@@ -30,7 +30,7 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
     tradingName: values.tradingName,
     monthlyAmountBeingReplaced: parseFloat(values.monthlyAmountBeingReplaced),
     annualTurnover: parseFloat(values.annualTurnover),
-    companyNature: values.natureOfBusiness,
+    companyNature: values.nature,
     annualSalesCost: parseFloat(values.annualCostOfSales),
     annualExpenses: parseFloat(values.annualExpenses),
     vehicleRegistrationNumber: values.vehicleRegistrationNumber,
@@ -47,7 +47,7 @@ export const mapCreateUpdteApplicationData = (
   companyNature: undefined,
   tradingName: undefined,
   businessName: values.tradingName,
-  natureOfBusiness: values.natureOfBusiness,
+  natureOfBusiness: values.nature,
   addresses: [
     {
       ...companyData?.addresses?.[0],
@@ -63,7 +63,9 @@ export const mapCreateUpdteApplicationData = (
   uuid: companyData?.uuid,
 });
 
-export const prelodedValuesToInput = (details: any) => {
+export const prelodedValuesToInput = (details: {
+  [key: string]: any;
+}): ISoleTraderCompanyDetailsFormValues => {
   const tradingAddress = details.addresses
     ? {
         tradingAddress: {
@@ -75,7 +77,7 @@ export const prelodedValuesToInput = (details: any) => {
   return {
     tradingName: details.business_name,
     ...tradingAddress,
-    natureOfBusiness: details.nature_of_business,
+    nature: details.nature_of_business,
     tradingSinceYear: String(new Date(details.trading_since).getFullYear()),
     tradingSinceMonth: String(new Date(details.trading_since).getMonth() + 1),
     businessTelephoneNumber: details.telephone_numbers?.[0].value,
@@ -84,6 +86,7 @@ export const prelodedValuesToInput = (details: any) => {
     annualCostOfSales: String(details.annual_sales_cost),
     annualExpenses: String(details.annual_expenses),
     vehicleRegistrationNumber: details.vehicle_registration_number,
+    existingFinanceReplacement: '',
     monthlyAmountBeingReplaced: String(
       details.monthly_amount_being_replaced || '',
     ),

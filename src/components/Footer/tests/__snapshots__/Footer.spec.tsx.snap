@@ -25,7 +25,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
-          href="01442 838 195"
+          href="/01442 838 195"
           onClick={[Function]}
         >
           01442 838 195
@@ -101,7 +101,7 @@ exports[`<Footer /> renders correctly with body 1`] = `
         <a
           className="link -white -small"
           data-testid="link"
-          href="enquiries@vanarama.co.uk"
+          href="/enquiries@vanarama.co.uk"
           onClick={[Function]}
         >
           enquiries@vanarama.co.uk

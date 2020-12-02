@@ -11,16 +11,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
     <li
       className="menu-li menu-title"
     >
-      <a
-        className="link"
-        data-menu={null}
+      <button
+        className="link -black -regular -clear"
         data-testid="menu-title"
-        href="/"
         onClick={[Function]}
-        onMouseEnter={[Function]}
       >
-        Menu
-      </a>
+        <div
+          className="button--inner"
+        >
+          Menu
+        </div>
+      </button>
     </li>
     <li
       className="menu-li -highlight"
@@ -82,18 +83,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Vans
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -highlight"
@@ -181,18 +181,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
-                data-testid="router-link"
-                href="/"
+              <button
+                className="link -black -regular -clear"
+                data-testid="menu-tertiary-title"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Vans By Manufacturer
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -span-half"
@@ -393,11 +392,18 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -431,18 +437,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Pickups
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -highlight"
@@ -508,18 +513,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
-                data-testid="router-link"
-                href="/"
+              <button
+                className="link -black -regular -clear"
+                data-testid="menu-tertiary-title"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Pickups By Manufacturer
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -span-half"
@@ -720,11 +724,18 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -758,18 +769,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Cars
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -highlight"
@@ -852,18 +862,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
-                data-testid="router-link"
-                href="/"
+              <button
+                className="link -black -regular -clear"
+                data-testid="menu-tertiary-title"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Cars By Manufacturer
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -span-half"
@@ -1192,11 +1201,18 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1230,18 +1246,17 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Insurance
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li"
@@ -1310,11 +1325,18 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1367,16 +1389,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
     <li
       className="menu-li menu-title"
     >
-      <a
-        className="link"
-        data-menu={null}
+      <button
+        className="link -black -regular -clear"
         data-testid="menu-title"
-        href="/"
         onClick={[Function]}
-        onMouseEnter={[Function]}
       >
-        Menu
-      </a>
+        <div
+          className="button--inner"
+        >
+          Menu
+        </div>
+      </button>
     </li>
     <li
       className="menu-li -highlight"
@@ -1438,18 +1461,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Vans
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -highlight"
@@ -1537,18 +1559,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
-                data-testid="router-link"
-                href="/"
+              <button
+                className="link -black -regular -clear"
+                data-testid="menu-tertiary-title"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Vans By Manufacturer
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -span-half"
@@ -1749,11 +1770,18 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -1787,18 +1815,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Pickups
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -highlight"
@@ -1864,18 +1891,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
-                data-testid="router-link"
-                href="/"
+              <button
+                className="link -black -regular -clear"
+                data-testid="menu-tertiary-title"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Pickups By Manufacturer
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -span-half"
@@ -2076,11 +2102,18 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2114,18 +2147,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Cars
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -highlight"
@@ -2208,18 +2240,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
-                data-testid="router-link"
-                href="/"
+              <button
+                className="link -black -regular -clear"
+                data-testid="menu-tertiary-title"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Cars By Manufacturer
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li -span-half"
@@ -2548,11 +2579,18 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>
@@ -2586,18 +2624,17 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <li
               className="menu-li menu-title"
             >
-              <a
-                className="link"
-                data-menu={null}
+              <button
+                className="link -black -regular -clear"
                 data-testid="menu-title"
-                href="/"
                 onClick={[Function]}
-                onMouseEnter={[Function]}
               >
-                <span>
+                <div
+                  className="button--inner"
+                >
                   Insurance
-                </span>
-              </a>
+                </div>
+              </button>
             </li>
             <li
               className="menu-li"
@@ -2666,11 +2703,18 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
             <div
               className="image -expand"
             >
-              <img
-                alt="native"
-                className="image--native"
-                src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/custom+%E2%80%93+1.png"
-              />
+              <div
+                className="image -expand"
+              >
+                <span
+                  className="image--native"
+                  style={
+                    Object {
+                      "display": "inline-block",
+                    }
+                  }
+                />
+              </div>
             </div>
           </div>
         </div>

@@ -7,7 +7,6 @@ import cx from 'classnames';
 import localForage from 'localforage';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Logo from '@vanarama/uibook/lib/components/atoms/logo';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
@@ -16,7 +15,11 @@ import {
   GetPerson_getPerson as Person,
   GetPerson,
 } from '../../../generated/GetPerson';
+import { useMobileViewport } from '../../hooks/useMediaQuery';
 
+const Button = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/button'),
+);
 const Icon = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/icon'),
   {
@@ -134,19 +137,21 @@ export const Header: FC<IHeaderProps> = memo(props => {
           {' '}
           <Logo asset="vanarama" />{' '}
         </RouterLink>{' '}
-        <label className="header-search" htmlFor="search">
-          {' '}
-          {/* {TODO: commit for this search lines should be reverted after implement search functionality} */}
-          <Icon icon={<SearchCircle />} />{' '}
-          <input
-            className="header-search--input"
-            id="search"
-            type="text"
-            disabled
-            placeholder=""
-          />{' '}
-          {/* <div className="header-search--results -is-hidden" /> */}{' '}
-        </label>{' '}
+        {!useMobileViewport() && (
+          <label className="header-search" htmlFor="search">
+            {' '}
+            {/* {TODO: commit for this search lines should be reverted after implement search functionality} */}
+            <Icon icon={<SearchCircle />} />{' '}
+            <input
+              className="header-search--input"
+              id="search"
+              type="text"
+              disabled
+              placeholder=""
+            />{' '}
+            {/* <div className="header-search--results -is-hidden" /> */}{' '}
+          </label>
+        )}
         <RouterLink link={phoneNumberLink} className="header-tel">
           {' '}
           <Icon icon={<Call />} size="xsmall" /> <span>01442 838195</span>{' '}

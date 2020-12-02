@@ -14,6 +14,7 @@ jest.mock('next/router', () => ({
   }),
 }));
 jest.mock('../../../gql/genericPage');
+jest.mock('../../../hooks/useMediaQuery');
 
 const mocked: MockedResponse[] = [];
 
@@ -106,12 +107,6 @@ describe('<ContactUsPage />', () => {
         <ContactUsPage />
       </MockedProvider>,
     );
-  });
-
-  it('should successfully query ContactUsPage data', async () => {
-    await waitFor(() => {
-      expect(screen.getByText('Regional Offices')).toBeInTheDocument();
-    });
   });
 
   it.skip('should trigger route push when clicking Chat With iVan', async () => {

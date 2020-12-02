@@ -3,6 +3,7 @@ import localForage from 'localforage';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
+import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
 import { useAboutYouData } from '../AboutFormContainer/gql';
 import {
@@ -16,6 +17,11 @@ import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditA
 import { responseToInitialFormValues, mapAboutPersonData } from './mappers';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
 import { CreditApplicationTypeEnum as CATypeEnum } from '../../../generated/globalTypes';
+import {
+  useRegistrationForTemporaryAccessMutation,
+  handlerMock,
+} from '../../gql/temporaryRegistration';
+import { RegisterForTemporaryAccess_registerForTemporaryAccess_emailAddress as IEmailAddress } from '../../../generated/RegisterForTemporaryAccess';
 
 const savePersonUuid = async (data: SaveBusinessAboutYou) =>
   localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
@@ -25,6 +31,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   personUuid,
   onCompleted,
   onError,
+  personLoggedIn,
   onLogInCLick,
   isEdited,
 }) => {
@@ -39,6 +46,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
     orderId,
   );
+  const [registerTemporary] = useRegistrationForTemporaryAccessMutation();
 
   const creditApplication =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid;
@@ -54,6 +62,86 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 
     return null;
   }, [creditApplication, personByUuid]);
+
+  const onEmailCheck = async (email: string) => {
+    const results = await emailAlreadyExists({
+      variables: { email },
+    });
+    return Boolean(results?.data?.emailAlreadyExists);
+  };
+
+  const handleTemporaryRegistrationIfGuest = (
+    username: string,
+    firstName: string,
+    lastName: string,
+  ) =>
+    personUuid
+      ? handlerMock(personByUuid?.emailAddresses[0])
+      : registerTemporary({
+          variables: {
+            username,
+            firstName,
+            lastName,
+          },
+        });
+
+  const handleDetailsSave = (
+    values: IBusinessAboutFormValues,
+    emailAddress?: IEmailAddress | null,
+  ) => {
+    return saveDetails({
+      variables: {
+        input: {
+          emailAddress: {
+            value: values.email,
+            uuid: emailAddress?.uuid,
+          },
+          telephoneNumbers: [
+            {
+              value: values.mobile,
+              kind: 'Mobile',
+            },
+          ],
+          title: values.title,
+          firstName: values.firstName,
+          lastName: values.lastName,
+          profilingConsent: values.consent,
+          emailConsent: values.marketing,
+          smsConsent: values.marketing,
+          termsAndConditions: values.termsAndConditions,
+        },
+      },
+    });
+  };
+
+  const handleCreateUpdateCreditApplication = (
+    values: IBusinessAboutFormValues,
+    data?: SaveBusinessAboutYou | null,
+  ) =>
+    createUpdateApplication({
+      variables: {
+        input: formValuesToInputCreditApplication({
+          ...getCreditApplicationByOrderUuidQuery.data
+            ?.creditApplicationByOrderUuid,
+          aboutDetails: {
+            ...values,
+            emailAddress: undefined,
+            email: undefined,
+            mobile: undefined,
+            emailAddresses: data?.createUpdateBusinessPerson?.emailAddresses,
+            telephoneNumbers:
+              data?.createUpdateBusinessPerson?.telephoneNumbers,
+          },
+          orderUuid: orderId,
+          creditApplicationType:
+            (values.companyType === CompanyTypes.limited &&
+              CATypeEnum.B2B_LIMITED) ||
+            (values.companyType === CompanyTypes.partnership &&
+              CATypeEnum.B2B_REGISTERED_PARTNERSHIP) ||
+            CATypeEnum.B2B_SOLE_TRADER,
+        }),
+      },
+    });
 
   if (
     aboutPageDataQuery?.loading ||
@@ -74,64 +162,24 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     <BusinessAboutForm
       isEdited={isEdited}
       dropDownData={aboutPageDataQuery.data?.allDropDowns}
+      personLoggedIn={personLoggedIn}
       person={person}
       onLogInCLick={onLogInCLick}
-      onEmailExistenceCheck={async email => {
-        const results = await emailAlreadyExists({
-          variables: { email },
-        });
-
-        return Boolean(results?.data?.emailAlreadyExists);
-      }}
+      onEmailExistenceCheck={onEmailCheck}
       onSubmit={values => {
-        saveDetails({
-          variables: {
-            input: {
-              emailAddress: {
-                value: values.email,
-              },
-              telephoneNumbers: [
-                {
-                  value: values.mobile,
-                  kind: 'Mobile',
-                },
-              ],
-              title: values.title,
-              firstName: values.firstName,
-              lastName: values.lastName,
-              profilingConsent: values.consent,
-              emailConsent: values.marketing,
-              smsConsent: values.marketing,
-              termsAndConditions: values.termsAndConditions,
-            },
-          },
-        })
+        handleTemporaryRegistrationIfGuest(
+          values.email,
+          values.firstName,
+          values.lastName,
+        )
+          .then(query =>
+            handleDetailsSave(
+              values,
+              query.data?.registerForTemporaryAccess?.emailAddress,
+            ),
+          )
           .then(({ data }) =>
-            createUpdateApplication({
-              variables: {
-                input: formValuesToInputCreditApplication({
-                  ...getCreditApplicationByOrderUuidQuery.data
-                    ?.creditApplicationByOrderUuid,
-                  aboutDetails: {
-                    ...values,
-                    emailAddress: undefined,
-                    email: undefined,
-                    mobile: undefined,
-                    emailAddresses:
-                      data?.createUpdateBusinessPerson?.emailAddresses,
-                    telephoneNumbers:
-                      data?.createUpdateBusinessPerson?.telephoneNumbers,
-                  },
-                  orderUuid: orderId,
-                  creditApplicationType:
-                    (values.companyType === CompanyTypes.limited &&
-                      CATypeEnum.B2B_LIMITED) ||
-                    (values.companyType === CompanyTypes.partnership &&
-                      CATypeEnum.B2B_REGISTERED_PARTNERSHIP) ||
-                    CATypeEnum.B2B_SOLE_TRADER,
-                }),
-              },
-            }).then(() => {
+            handleCreateUpdateCreditApplication(values, data).then(() => {
               const result = {
                 businessPersonUuid: data?.createUpdateBusinessPerson?.uuid,
                 companyType: values.companyType,

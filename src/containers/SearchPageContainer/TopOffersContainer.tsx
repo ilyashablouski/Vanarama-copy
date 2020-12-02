@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
+import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
-import { useProductCardData } from '../CustomerAlsoViewedContainer/gql';
+import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { useVehiclesList, useBodyStyleList } from './gql';
 import VehicleCard from './VehicleCard';
 import ModelCard from './ModelCard';
@@ -24,8 +23,22 @@ import {
 } from '../../../generated/GetProductCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
-import { fuelMapper } from './helpers';
+import { budgetMapper, fuelMapper } from './helpers';
 import { getLegacyUrl } from '../../utils/url';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Carousel = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 interface IProps {
   isPersonal: boolean;
@@ -37,6 +50,7 @@ interface IProps {
   isRangePage: boolean;
   isTransmissionPage: boolean;
   isFuelPage: boolean;
+  isBudgetPage: boolean;
   isDynamicFilterPage: boolean;
   manualBodyStyle: string[];
   preLoadVehiclesList?: IVehiclesData;
@@ -52,6 +66,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   isTransmissionPage,
   isPickups,
   isRangePage,
+  isBudgetPage,
   isPersonal,
   isFuelPage,
   isDynamicFilterPage,
@@ -77,10 +92,13 @@ const TopOffersContainer: React.FC<IProps> = ({
       ([] as (GetDerivatives_derivatives | null)[]),
   );
 
-  const { refetch } = useProductCardData(
+  const [getProductCardData] = useProductCardDataLazyQuery(
     capIds,
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
-    true,
+    data => {
+      setCardsData(data?.productCard || []);
+      setCarDerivatives(data?.derivatives || []);
+    },
   );
 
   // get Caps ids for product card request
@@ -98,14 +116,13 @@ const TopOffersContainer: React.FC<IProps> = ({
         setVehicleList(vehicles.vehicleList.edges);
         setCapsIds(responseCapIds);
         if (responseCapIds.length) {
-          return await refetch({
-            capIds: responseCapIds,
-            vehicleType: isCarSearch
-              ? VehicleTypeEnum.CAR
-              : VehicleTypeEnum.LCV,
-          }).then(resp => {
-            setCardsData(resp.data?.productCard || []);
-            setCarDerivatives(resp.data?.derivatives || []);
+          return await getProductCardData({
+            variables: {
+              capIds: responseCapIds,
+              vehicleType: isCarSearch
+                ? VehicleTypeEnum.CAR
+                : VehicleTypeEnum.LCV,
+            },
           });
         }
         return false;
@@ -122,8 +139,11 @@ const TopOffersContainer: React.FC<IProps> = ({
   const [getBodyStylesList, { data }] = useBodyStyleList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
-    router.query.dynamicParam as string,
-    ((router.query?.rangeName as string) || '').split('+').join(' '),
+    ((router.query.dynamicParam as string) || '').toLowerCase(),
+    ((router.query?.rangeName as string) || '')
+      .split('+')
+      .join(' ')
+      .toLowerCase(),
   );
 
   useEffect(() => {
@@ -149,11 +169,22 @@ const TopOffersContainer: React.FC<IProps> = ({
             ? LeaseTypeEnum.PERSONAL
             : LeaseTypeEnum.BUSINESS,
           onOffer: true,
+          rate: isBudgetPage
+            ? (() => {
+                const rate = budgetMapper[
+                  router.query.dynamicParam as keyof typeof budgetMapper
+                ].split('|');
+                return {
+                  max: parseInt(rate[1], 10) || undefined,
+                  min: parseInt(rate[0], 10) || undefined,
+                };
+              })()
+            : undefined,
           sortField: SortField.offerRanking,
           sortDirection: SortDirection.ASC,
-          manufacturerName:
+          manufacturerSlug:
             isMakePage || isRangePage
-              ? (router.query?.dynamicParam as string)
+              ? (router.query?.dynamicParam as string).toLowerCase()
               : undefined,
           bodyStyles: isBodyPage ? manualBodyStyle : undefined,
           transmissions: isTransmissionPage
@@ -164,8 +195,11 @@ const TopOffersContainer: React.FC<IProps> = ({
                 router.query.dynamicParam as keyof typeof fuelMapper
               ] as string).split(',')
             : undefined,
-          rangeName: isRangePage
-            ? ((router.query?.rangeName as string) || '').split('+').join(' ')
+          rangeSlug: isRangePage
+            ? ((router.query?.rangeName as string) || '')
+                .split('+')
+                .join(' ')
+                .toLowerCase()
             : '',
           first: isMakePage ? 6 : 3,
         },
@@ -205,8 +239,8 @@ const TopOffersContainer: React.FC<IProps> = ({
           onOffer: true,
           sortField: SortField.offerRanking,
           sortDirection: SortDirection.ASC,
-          manufacturerName: isMakePage
-            ? (router.query?.dynamicParam as string)
+          manufacturerSlug: isMakePage
+            ? (router.query?.dynamicParam as string).toLowerCase()
             : undefined,
           bodyStyles: isBodyPage
             ? [router.query?.dynamicParam as string]

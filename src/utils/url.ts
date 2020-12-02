@@ -6,6 +6,7 @@ import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { getSectionsData } from './getSectionsData';
 import { GenericPageHeadQuery_genericPage_metaData as IMetadata } from '../../generated/GenericPageHeadQuery';
+import { genericPagesQuery_genericPages_items as GenericPages } from '../../generated/genericPagesQuery';
 
 type UrlParams = { [key: string]: string | boolean | undefined };
 
@@ -65,32 +66,51 @@ export const getNewUrl = (
 
 export const getProductPageBreadCrumb = (
   data: any,
+  genericPagesData: GenericPages[] | null | undefined,
+  slug: string,
   cars: boolean | undefined,
 ) => {
-  const { manufacturer, range, bodyStyle, name } = data;
-
+  const { manufacturer, range, name } = data;
   const leasing = cars ? 'car-leasing' : 'van-leasing';
+  const slugArray = slug.split('/');
+  const manufacturerSlug = slugArray[1];
+  const rangeSlug = slugArray[2];
+  const bodyType = slugArray[3] || '';
 
   if (manufacturer && range) {
+    const manufacturerPage = genericPagesData?.find(
+      el => el?.slug?.split('/').length === 2,
+    );
+    const rangePage = genericPagesData?.find(
+      el => el?.slug?.split('/').length === 3,
+    );
+    const modelPage = genericPagesData?.find(
+      el => el?.slug?.split('/').length === 4,
+    );
     const makeLink = {
       link: {
         label: manufacturer?.name,
-        href: `/${manufacturer?.slug}-${leasing}.html`,
+        href: manufacturerPage?.legacyUrl
+          ? `/${manufacturerPage?.legacyUrl}`
+          : `/${manufacturerSlug}-${leasing}.html`,
       },
     };
     const rangeLink = {
       link: {
         label: range?.name,
-        href: `/${manufacturer?.slug}-${leasing}/${range?.slug}.html`,
+        href: rangePage?.legacyUrl
+          ? `/${rangePage?.legacyUrl}`
+          : `/${manufacturerSlug}-${leasing}/${rangeSlug}.html`,
       },
     };
     const modelLink = {
       link: {
-        label: bodyStyle?.name,
-        href: `/${manufacturer?.slug}-${leasing}/${
-          range?.slug
-        }/${bodyStyle?.name?.toLocaleLowerCase().replace(/ /g, '-') ||
-          null}.html`,
+        label: bodyType
+          .replace(/-/g, ' ')
+          .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
+        href: modelPage?.legacyUrl
+          ? `/${modelPage?.legacyUrl}`
+          : `/${manufacturerSlug}-${leasing}/${rangeSlug}/${bodyType}.html`,
       },
     };
     const derivativeLink = {
@@ -110,46 +130,7 @@ export const getProductPageBreadCrumb = (
 
 export const getVehicleConfigurationPath = (path: string) => {
   // used regexp to save functionality for local builds
-  return path.replace(/^(\/van|\/car)/, match => match.slice(1));
-};
-
-/**
- * define on which page not to show Breadcrumbs
- * @param routerPathName - string router pathName
- */
-export const isNotShowBreadcrumbs = (routerPathName: string) => {
-  const pathNamePart = routerPathName.split('/');
-  const pathNameLength = pathNamePart.length;
-  return (
-    // not to show on location pages
-    routerPathName.includes('[location]') ||
-    // not to show on PDP pages
-    routerPathName.includes('[...details-page]') ||
-    // not to show on b2b and b2c pages
-    routerPathName.includes('/olaf') ||
-    // not to show on b2b and b2c pages
-    routerPathName.includes('/fleet') ||
-    // not to show on account pages
-    routerPathName.includes('/account') ||
-    routerPathName.includes('/blog') ||
-    routerPathName.includes('/non-blog') ||
-    // not to show on insurance pages, but show on faq insurance
-    (pathNameLength === 2 && routerPathName.includes('/insurance')) ||
-    (pathNameLength === 3 &&
-      routerPathName.includes('/insurance') &&
-      !pathNamePart[2].includes('/faq')) ||
-    // not to show on main van leasing page
-    (pathNameLength === 2 && routerPathName.includes('/van-leasing')) ||
-    // not to show on main car leasing page
-    (pathNameLength === 2 && routerPathName.includes('/car-leasing')) ||
-    // not to show on main pickup leasing page
-    (pathNameLength === 2 &&
-      routerPathName.includes('/pickup-truck-leasing')) ||
-    // not to show on home page
-    routerPathName.length === 1 ||
-    // not to show on help-me-choose pages
-    routerPathName.includes('/help-me-choose')
-  );
+  return path.replace(/^(\/)/, match => match.slice(1));
 };
 
 export type productPageUrlData = {

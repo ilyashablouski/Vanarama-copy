@@ -1,23 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
-import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
-import League from '@vanarama/uibook/lib/components/organisms/league';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
-import Step from '@vanarama/uibook/lib/components/molecules/step';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useState } from 'react';
-
-import Media from '@vanarama/uibook/lib/components/atoms/media';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   HubVanPageData,
@@ -32,8 +21,6 @@ import {
 
 import { HUB_VAN_CONTENT } from '../../gql/hub/hubVanPage';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
-import withApollo from '../../hocs/withApollo';
-
 import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
 import DealOfMonth from '../../components/DealOfMonth';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -50,16 +37,83 @@ import {
 } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 import { VansSearch } from '../../models/enum/SearchByManufacturer';
+import Head from '../../components/Head/Head';
+import Skeleton from '../../components/Skeleton';
+
+const ArrowForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ArrowForwardSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+    ssr: false,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tile = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tile'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Media = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/media'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Step = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/step'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const TrustPilot = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/trustpilot'),
+  {
+    ssr: false,
+  },
+);
+const League = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/league'),
+  {
+    loading: () => <Skeleton count={2} />,
+  },
+);
 
 type ProdCards = ProdCardData[];
+type Props = {
+  data: HubVanPageData;
+};
 
-export const VansPage: NextPage = () => {
+export const VansPage: NextPage<Props> = ({ data }) => {
   const [offers, setOffers] = useState<ProdCards>([]);
-  const { data, loading, error } = useQuery<HubVanPageData>(HUB_VAN_CONTENT);
   const { cachedLeaseType } = useLeaseType(false);
 
   // pluck random offer until offer position available
-  const offer: ProdCardData = offers[Math.floor(Math.random() * offers.length)];
+  const offer: ProdCardData | null =
+    offers.find(card => card.offerPosition === 1) || null;
 
   const { data: productSmallVan } = useQuery<ProductCardData>(
     PRODUCT_CARD_CONTENT,
@@ -79,9 +133,9 @@ export const VansPage: NextPage = () => {
     },
   );
 
-  const productSmallVanCapIds = productSmallVan?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productSmallVanCapIds = productSmallVan?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const { data: productSmallVanDerivatives } = useCarDerivativesData(
     productSmallVanCapIds,
     VehicleTypeEnum.LCV,
@@ -105,9 +159,9 @@ export const VansPage: NextPage = () => {
     },
   );
 
-  const productMediumVanCapIds = productMediumVan?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productMediumVanCapIds = productMediumVan?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const { data: productMediumVanDerivatives } = useCarDerivativesData(
     productMediumVanCapIds,
     VehicleTypeEnum.LCV,
@@ -131,9 +185,9 @@ export const VansPage: NextPage = () => {
     },
   );
 
-  const productLargeVanCapIds = productLargeVan?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productLargeVanCapIds = productLargeVan?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const { data: productLargeVanDerivatives } = useCarDerivativesData(
     productLargeVanCapIds,
     VehicleTypeEnum.LCV,
@@ -143,18 +197,10 @@ export const VansPage: NextPage = () => {
     ...productSmallVanCapIds,
     ...productMediumVanCapIds,
     ...productLargeVanCapIds,
-  ];
+  ].filter(Boolean);
   const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
 
   const dealOfMonthUrl = formatProductPageUrl(
     getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
@@ -189,12 +235,6 @@ export const VansPage: NextPage = () => {
           text={
             getSectionsData(['hero', 'body'], data?.hubVanPage.sections) || ''
           }
-        />
-        <Button
-          size="lead"
-          fill="outline"
-          label=" View Special Offers"
-          color="white"
         />
         <br />
         <Image
@@ -234,137 +274,150 @@ export const VansPage: NextPage = () => {
         </Text>
       </div>
       <hr className="-fullwidth" />
-      <div className="row:featured-product">
-        <DealOfMonth
-          isPersonal={isPersonal}
-          imageSrc={
-            offer?.imageUrl ||
-            'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg'
-          }
-          vehicle={`${offer?.manufacturerName} ${offer?.rangeName}`}
-          specification={offer?.derivativeName || ''}
-          price={(isPersonal ? offer?.personalRate : offer?.businessRate) || 0}
-          rating={offer?.averageRating || 3}
-          viewOfferClick={() => {
-            sessionStorage.setItem('capId', offer?.capId || '');
-          }}
-          link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
-        />
-      </div>
-      <div className="row:bg-lighter">
-        <div>
-          <Heading size="large" color="black" tag="h2">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Small Vans
-            </span>
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+      {offer && (
+        <div className="row:featured-product">
+          <DealOfMonth
+            isPersonal={isPersonal}
+            imageSrc={offer?.imageUrl || ''}
+            vehicle={`${offer?.manufacturerName} ${offer?.rangeName}`}
+            specification={offer?.derivativeName || ''}
+            price={
+              (isPersonal ? offer?.personalRate : offer?.businessRate) || 0
             }
-            data={{
-              derivatives: productSmallVanDerivatives?.derivatives || null,
-              productCard: productSmallVan?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+            rating={offer?.averageRating || 3}
+            viewOfferClick={() => {
+              sessionStorage.setItem('capId', offer?.capId || '');
             }}
-            countItems={productSmallVan?.productCarousel?.length || 6}
-            dataTestIdBtn="van-view-offer"
+            link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
           />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'View Small Vans',
-                href: '/small-van-leasing.html',
-              }}
-              withoutDefaultClassName
-              dataTestId="small-van-leasing"
-            >
-              <div className="button--inner">View Small Vans</div>
-            </RouterLink>
-          </div>
         </div>
-      </div>
-      <div className="row:bg-lighter">
-        <div>
-          <Heading size="large" color="black" tag="h2">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Medium Vans
-            </span>
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
-            data={{
-              derivatives: productMediumVanDerivatives?.derivatives || null,
-              productCard: productMediumVan?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-            }}
-            countItems={productMediumVan?.productCarousel?.length || 6}
-            dataTestIdBtn="van-view-offer"
-          />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'View Medium Vans',
-                href: '/medium-van-leasing.html',
-              }}
-              withoutDefaultClassName
-              dataTestId="medium-van-leasing"
-            >
-              <div className="button--inner">View Medium Vans</div>
-            </RouterLink>
+      )}
+      {productSmallVan?.productCarousel &&
+        productSmallVan?.productCarousel?.length > 0 && (
+          <div className="row:bg-lighter">
+            <div>
+              <Heading size="large" color="black" tag="h2">
+                <span
+                  style={{ textAlign: 'center', display: 'block' }}
+                  className="-mb-400"
+                >
+                  Small Vans
+                </span>
+              </Heading>
+              <ProductCarousel
+                leaseType={
+                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                }
+                data={{
+                  derivatives: productSmallVanDerivatives?.derivatives || null,
+                  productCard: productSmallVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                }}
+                countItems={productSmallVan?.productCarousel?.length || 6}
+                dataTestIdBtn="van-view-offer"
+              />
+              <div className="-justify-content-row -pt-500">
+                <RouterLink
+                  className="button"
+                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                  link={{
+                    label: 'View Small Vans',
+                    href: '/small-van-leasing.html',
+                  }}
+                  withoutDefaultClassName
+                  dataTestId="small-van-leasing"
+                >
+                  <div className="button--inner">View Small Vans</div>
+                </RouterLink>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
-      <div className="row:bg-lighter">
-        <div>
-          <Heading size="large" color="black" tag="h2">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Large Vans
-            </span>
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
-            data={{
-              derivatives: productLargeVanDerivatives?.derivatives || null,
-              productCard: productLargeVan?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-            }}
-            countItems={productLargeVan?.productCarousel?.length || 6}
-            dataTestIdBtn="van-view-offer"
-          />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'View Large Vans',
-                href: '/large-van-leasing.html',
-              }}
-              withoutDefaultClassName
-              dataTestId="large-van-leasing"
-            >
-              <div className="button--inner">View Large Vans</div>
-            </RouterLink>
+        )}
+
+      {productMediumVan?.productCarousel &&
+        productMediumVan?.productCarousel?.length > 0 && (
+          <div className="row:bg-lighter">
+            <div>
+              <Heading size="large" color="black" tag="h2">
+                <span
+                  style={{ textAlign: 'center', display: 'block' }}
+                  className="-mb-400"
+                >
+                  Medium Vans
+                </span>
+              </Heading>
+              <ProductCarousel
+                leaseType={
+                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                }
+                data={{
+                  derivatives: productMediumVanDerivatives?.derivatives || null,
+                  productCard: productMediumVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                }}
+                countItems={productMediumVan?.productCarousel?.length || 6}
+                dataTestIdBtn="van-view-offer"
+              />
+              <div className="-justify-content-row -pt-500">
+                <RouterLink
+                  className="button"
+                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                  link={{
+                    label: 'View Medium Vans',
+                    href: '/medium-van-leasing.html',
+                  }}
+                  withoutDefaultClassName
+                  dataTestId="medium-van-leasing"
+                >
+                  <div className="button--inner">View Medium Vans</div>
+                </RouterLink>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+        )}
+
+      {productLargeVan?.productCarousel &&
+        productLargeVan?.productCarousel?.length > 0 && (
+          <div className="row:bg-lighter">
+            <div>
+              <Heading size="large" color="black" tag="h2">
+                <span
+                  style={{ textAlign: 'center', display: 'block' }}
+                  className="-mb-400"
+                >
+                  Large Vans
+                </span>
+              </Heading>
+              <ProductCarousel
+                leaseType={
+                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                }
+                data={{
+                  derivatives: productLargeVanDerivatives?.derivatives || null,
+                  productCard: productLargeVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                }}
+                countItems={productLargeVan?.productCarousel?.length || 6}
+                dataTestIdBtn="van-view-offer"
+              />
+              <div className="-justify-content-row -pt-500">
+                <RouterLink
+                  className="button"
+                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                  link={{
+                    label: 'View Large Vans',
+                    href: '/large-van-leasing.html',
+                  }}
+                  withoutDefaultClassName
+                  dataTestId="large-van-leasing"
+                >
+                  <div className="button--inner">View Large Vans</div>
+                </RouterLink>
+              </div>
+            </div>
+          </div>
+        )}
+
       <div className="row:bg-lighter ">
         <div className="row:cards-4col">
           <Heading
@@ -768,8 +821,34 @@ export const VansPage: NextPage = () => {
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
+      {data?.hubVanPage.metaData && (
+        <>
+          <Head
+            metaData={data?.hubVanPage.metaData}
+            featuredImage={data?.hubVanPage.featuredImage}
+          />
+          <SchemaJSON json={JSON.stringify(data?.hubVanPage.metaData.schema)} />
+        </>
+      )}
     </>
   );
 };
 
-export default withApollo(VansPage, { getDataFromTree });
+export async function getServerSideProps() {
+  const client = createApolloClient({});
+
+  try {
+    const { data } = await client.query<HubVanPageData>({
+      query: HUB_VAN_CONTENT,
+    });
+    return {
+      props: {
+        data,
+      },
+    };
+  } catch {
+    return false;
+  }
+}
+
+export default VansPage;

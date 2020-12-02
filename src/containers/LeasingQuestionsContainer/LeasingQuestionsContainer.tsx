@@ -4,6 +4,7 @@ import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import ReactMarkdown from 'react-markdown';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import {
   GenericPageQuery_genericPage_sections_cards_cards as ICard,
   GenericPageQuery_genericPage_sections_carousel_cards as ICaruselCard,
@@ -11,6 +12,8 @@ import {
 } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
 
 interface IProps {
   data: GenericPageQuery;
@@ -75,13 +78,18 @@ const renderCards = (cards: (ICard | null)[] | undefined | null) =>
 const LeasingExplainedContainer: FC<IProps> = ({ data }) => {
   const body = getSectionsData(['body'], data?.genericPage);
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
-
   const carousel = getSectionsData(['sections', 'carousel'], data?.genericPage);
   const cards = getSectionsData(['sections', 'cards'], data?.genericPage);
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
       <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>
@@ -121,6 +129,12 @@ const LeasingExplainedContainer: FC<IProps> = ({ data }) => {
           {renderCards(cards?.cards)}
         </div>
       </div>
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

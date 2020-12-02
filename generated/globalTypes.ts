@@ -19,6 +19,14 @@ export enum CreditApplicationTypeEnum {
 }
 
 /**
+ * Finance type enum
+ */
+export enum FinanceTypeEnum {
+  BCH = "BCH",
+  PCH = "PCH",
+}
+
+/**
  * Lease type
  */
 export enum LeaseTypeEnum {
@@ -316,10 +324,12 @@ export interface LineItemInputObject {
  * Input object to update my account section
  */
 export interface MyAccountInputObject {
+  emailConsent?: boolean | null;
   firstName?: string | null;
   lastName?: string | null;
   personUuid: string;
   serviceId?: string | null;
+  smsConsent?: boolean | null;
   telephoneNumber?: string | null;
 }
 
@@ -330,6 +340,7 @@ export interface OrderInputObject {
   leaseType: LeaseTypeEnum;
   lineItems: LineItemInputObject[];
   partyUuid?: string | null;
+  personUuid?: string | null;
   referenceNumber?: string | null;
   salesChannel?: string | null;
   uuid?: string | null;
@@ -377,6 +388,7 @@ export interface PersonInputObject {
  */
 export interface ProductFilterListInputObject {
   bodyStyles?: string[] | null;
+  financeTypes?: FinanceTypeEnum | null;
   fuelTypes?: string[] | null;
   initialPayment?: ProductFilterRangeListObject | null;
   initialPeriods?: number[] | null;

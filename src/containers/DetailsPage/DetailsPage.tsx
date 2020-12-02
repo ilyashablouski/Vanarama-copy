@@ -1,18 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
+import dynamic from 'next/dynamic';
 import localForage from 'localforage';
 import cx from 'classnames';
-
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Rating from '@vanarama/uibook/lib/components/atoms/rating';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import DownloadSharp from '@vanarama/uibook/lib/assets/icons/DownloadSharp';
-import MediaGallery from '@vanarama/uibook/lib/components/organisms/media-gallery';
-import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 
 import {
   pushPDPDataLayer,
@@ -28,9 +19,6 @@ import {
   LeaseTypeEnum,
   OrderInputObject,
 } from '../../../generated/globalTypes';
-import VehicleTechDetails from '../VehicleTechDetails/VehicleTechDetails';
-import IndependentReview from '../../components/IndependentReview/IndependentReview';
-import CustomiseLeaseContainer from '../CustomiseLeaseContainer/CustomiseLeaseContainer';
 import {
   GetVehicleDetails,
   GetVehicleDetails_vehicleDetails_rangeFaqs,
@@ -39,21 +27,72 @@ import {
   GetVehicleDetails_derivativeInfo_trims,
 } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import WhyChooseLeasing from '../../components/WhyChooseLeasing/WhyChooseLeasing';
-import Banner from '../../components/Banner/Banner';
-import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
-import WhyChooseVanarama from '../../components/WhyChooseVanarama/WhyChooseVanarama';
-import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
-import FrequentlyAskedQuestions from '../../components/FrequentlyAskedQuestions/FrequentlyAskedQuestions';
 import { useCreateUpdateOrder } from '../../gql/order';
-import RouterLink from '../../components/RouterLink/RouterLink';
 import useLeaseType from '../../hooks/useLeaseType';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { getProductPageBreadCrumb } from '../../utils/url';
-import Head from '../../components/Head/Head';
-import { useGenericPageHead } from '../../gql/genericPage';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
+import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
+import { genericPagesQuery_genericPages_items as GenericPages } from '../../../generated/genericPagesQuery';
+
+const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'));
+const DownloadSharp = dynamic(() =>
+  import('@vanarama/uibook/lib/assets/icons/DownloadSharp'),
+);
+const Loading = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/loading'),
+);
+const Heading = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/heading'),
+);
+const Text = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/text'),
+);
+const Rating = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/rating'),
+);
+const Icon = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/icon'),
+);
+const MediaGallery = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/media-gallery'),
+);
+const LeaseScanner = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/lease-scanner'),
+);
+const IndependentReview = dynamic(() =>
+  import('../../components/IndependentReview/IndependentReview'),
+);
+const WhyChooseLeasing = dynamic(() =>
+  import('../../components/WhyChooseLeasing/WhyChooseLeasing'),
+);
+const Banner = dynamic(() => import('../../components/Banner/Banner'));
+const CustomerReviews = dynamic(() =>
+  import('../../components/CustomerReviews/CustomerReviews'),
+);
+const WhyChooseVanarama = dynamic(() =>
+  import('../../components/WhyChooseVanarama/WhyChooseVanarama'),
+);
+const FrequentlyAskedQuestions = dynamic(() =>
+  import('../../components/FrequentlyAskedQuestions/FrequentlyAskedQuestions'),
+);
+const RouterLink = dynamic(() =>
+  import('../../components/RouterLink/RouterLink'),
+);
+const Breadcrumb = dynamic(() =>
+  import('../../components/Breadcrumb/Breadcrumb'),
+);
+const Head = dynamic(() => import('../../components/Head/Head'));
+
+const VehicleTechDetails = dynamic(() =>
+  import('../VehicleTechDetails/VehicleTechDetails'),
+);
+const CustomiseLeaseContainer = dynamic(() =>
+  import('../CustomiseLeaseContainer/CustomiseLeaseContainer'),
+);
+const CustomerAlsoViewedContainer = dynamic(() =>
+  import('../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer'),
+);
 
 interface IDetailsPageProps {
   capId: number;
@@ -63,6 +102,9 @@ interface IDetailsPageProps {
   data?: GetVehicleDetails;
   loading?: boolean;
   quote?: GetQuoteDetails;
+  schema?: any;
+  genericPageHead: GenericPageHeadQuery | undefined;
+  genericPages: GenericPages[] | null | undefined;
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -73,6 +115,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   data,
   loading,
   quote,
+  schema,
+  genericPageHead,
+  genericPages,
 }) => {
   const router = useRouter();
   // pass cars prop(Boolean)
@@ -83,8 +128,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
     true,
   );
-
-  const { data: genericPageHead } = useGenericPageHead(router.asPath);
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
@@ -219,157 +262,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
 
   // eslint-disable-next-line no-console
-  if (process.env.NODE_ENV === 'development') console.log('CAP Id:', capId);
-
-  // Schema JSON.
-  const seller = {
-    '@type': 'Organization',
-    name: 'Vanarama',
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: 'Maylands Avenue',
-      addressLocality: 'Hemel Hempstead',
-      addressRegion: 'Hertfordshire',
-      postalCode: 'HP2 7DE',
-      addressCountry: 'United Kingdom',
-    },
-    contactPoint: {
-      contactType: 'Vehicle Sales',
-      telephone: '+441442838195',
-      email: 'enquiries@vanarama.co.uk',
-    },
-  };
-
-  const getTechValue = (description: String) =>
-    derivativeInfo?.technicals?.find(
-      (obj: any) => obj?.technicalDescription === description,
-    )?.value || 'N/A';
-
-  const schema = cars
-    ? // Cars
-      {
-        '@context': 'http://schema.org',
-        '@type': 'Car',
-        name: `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription}`,
-        description: `New ${pageTitle} ${
-          vehicleConfigurationByCapId?.capDerivativeDescription
-        } lease deal from Vanarama starts from £${toPriceFormat(
-          leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
-        )} per month. FREE UK delivery. Mileage Buffer. 8 Point Price Promise.`,
-        offers: {
-          '@type': 'AggregateOffer',
-          availability: 'http://schema.org/InStock',
-          name: `${leaseScannerData?.quoteByCapId?.term} month Contract Hire agreement`,
-          lowPrice: toPriceFormat(
-            leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
-          ),
-          url: `https://www.vanarama.com/car-leasing${data?.vehicleConfigurationByCapId?.url}`,
-          priceCurrency: 'GBP',
-          seller,
-        },
-        image:
-          (data?.vehicleImages && data?.vehicleImages[0]?.mainImageUrl) || '',
-        manufacturer: vehicleConfigurationByCapId?.capManufacturerDescription,
-        brand: vehicleConfigurationByCapId?.capManufacturerDescription,
-        model: vehicleConfigurationByCapId?.capModelDescription,
-        vehicleTransmission: derivativeInfo?.transmission.name,
-        fuelType: derivativeInfo?.fuelType.name,
-        seatingCapacity: getTechValue('No. of Seats'),
-        meetsEmissionStandard: getTechValue('Standard Euro Emissions'),
-        emissionsCO2: getTechValue('CO2 (g/km)'),
-        bodyType: derivativeInfo?.bodyStyle?.name,
-        itemCondition: 'New',
-        steeringPosition: 'RightHandDriving',
-        fuelConsumption: {
-          '@type': 'QuantitativeValue',
-          name: 'Fuel Consumption EC Combined (Mpg)',
-          value: getTechValue('EC Combined'),
-          unitCode: 'mpg',
-        },
-        vehicleEngine: {
-          '@type': 'EngineSpecification',
-          fuelType: derivativeInfo?.fuelType.name,
-          engineDisplacement: {
-            '@type': 'QuantitativeValue',
-            name: 'CC',
-            value: getTechValue('CC'),
-            unitCode: 'CMQ',
-          },
-        },
-      }
-    : // LCVs
-      {
-        '@context': 'http://schema.org',
-        '@type': 'Vehicle',
-        name: `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription}`,
-        description: `New ${pageTitle} ${
-          vehicleConfigurationByCapId?.capDerivativeDescription
-        } Van lease deal from Vanarama starts from £${toPriceFormat(
-          leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
-        )} per month. FREE UK delivery. Mileage Buffer. 8 Point Price Promise.`,
-        offers: {
-          '@type': 'AggregateOffer',
-          availability: 'http://schema.org/InStock',
-          name: `${leaseScannerData?.quoteByCapId?.term} month Contract Hire agreement`,
-          lowPrice: toPriceFormat(
-            leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
-          ),
-          url: `https://www.vanarama.com/van-leasing${data?.vehicleConfigurationByCapId?.url}`,
-          priceCurrency: 'GBP',
-          seller,
-        },
-        image:
-          (data?.vehicleImages && data?.vehicleImages[0]?.mainImageUrl) || '',
-        manufacturer: vehicleConfigurationByCapId?.capManufacturerDescription,
-        brand: vehicleConfigurationByCapId?.capManufacturerDescription,
-        model: vehicleConfigurationByCapId?.capModelDescription,
-        vehicleTransmission: derivativeInfo?.transmission.name,
-        fuelType: derivativeInfo?.fuelType.name,
-        seatingCapacity: getTechValue('No. of Seats'),
-        meetsEmissionStandard: getTechValue('Standard Euro Emissions'),
-        emissionsCO2: getTechValue('CO2'),
-        bodyType: derivativeInfo?.bodyType?.name || 'N/A',
-        itemCondition: 'New',
-        steeringPosition: 'RightHandDriving',
-        height: {
-          '@type': 'QuantitativeValue',
-          value: getTechValue('Height'),
-          unitCode: 'MMT',
-        },
-        weight: {
-          '@type': 'QuantitativeValue',
-          value: getTechValue('Gross Vehicle Weight'),
-          unitCode: 'KGM',
-        },
-        fuelCapacity: {
-          '@type': 'QuantitativeValue',
-          value: getTechValue('Fuel Tank Capacity (Litres)'),
-          unitCode: 'LTR',
-        },
-        speed: {
-          '@type': 'QuantitativeValue',
-          name: 'Speed',
-          maxValue: getTechValue('Top Speed'),
-          minValue: 0,
-          unitCode: 'HM',
-        },
-        wheelbase: {
-          '@type': 'QuantitativeValue',
-          name: 'Wheelbase',
-          value: getTechValue('Wheelbase'),
-          unitCode: 'MMT',
-        },
-        vehicleEngine: {
-          '@type': 'EngineSpecification',
-          fuelType: derivativeInfo?.fuelType.name,
-          engineDisplacement: {
-            '@type': 'QuantitativeValue',
-            name: 'CC',
-            value: getTechValue('CC'),
-            unitCode: 'CMQ',
-          },
-        },
-      };
+  if (process.env.ENV !== 'production') console.log('CAP Id:', capId);
 
   const onSubmitClickMobile = () => {
     const colourDescription = derivativeInfo?.colours?.find(
@@ -409,7 +302,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const breadcrumbItems =
     genericPageHead?.genericPage.metaData?.breadcrumbs ??
-    getProductPageBreadCrumb(data?.derivativeInfo, cars);
+    getProductPageBreadCrumb(
+      data?.derivativeInfo,
+      genericPages,
+      genericPageHead?.genericPage.metaData.slug || '',
+      cars,
+    );
   const metaData = genericPageHead?.genericPage.metaData ?? {
     title:
       `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 
@@ -448,7 +346,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   return (
     <>
       <div className="pdp--content">
-        <Breadcrumb items={breadcrumbItems} />
+        {breadcrumbItems && (
+          <div className="row:title">
+            <Breadcrumb items={breadcrumbItems} />
+          </div>
+        )}
         <Heading tag="h1">
           <Heading className="-pt-100" tag="span" size="xlarge" color="black">
             {pageTitle}

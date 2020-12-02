@@ -118,8 +118,9 @@ export async function getServerSideProps(context: NextPageContext) {
             first: 9,
             sortField: SortField.availability,
             sortDirection: SortDirection.ASC,
-            manufacturerName: context?.query?.dynamicParam,
-            rangeName: context?.query?.rangeName,
+            manufacturerSlug: (context?.query
+              ?.dynamicParam as string).toLowerCase(),
+            rangeSlug: (context?.query?.rangeName as string).toLowerCase(),
             bodyStyles: [
               (context?.query?.bodyStyles as string).replace('-', ' '),
             ],

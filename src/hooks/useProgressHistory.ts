@@ -23,6 +23,7 @@ export default function useProgressHistory(orderId: string) {
     get cachedLastStep() {
       try {
         const res = client.readQuery({ query });
+        // eslint-disable-next-line no-console
         console.log(res);
         return res.lastStep[orderId];
       } catch {

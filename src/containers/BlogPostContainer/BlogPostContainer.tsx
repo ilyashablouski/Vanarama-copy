@@ -5,6 +5,7 @@ import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Media from '@vanarama/uibook/lib/components/atoms/media';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
@@ -54,12 +55,8 @@ const BlogPostContainer: NextPage<IProps> = ({
 }) => {
   return (
     <>
-      {breadcrumbsItems && (
-        <div className="row:title">
-          <Breadcrumb items={breadcrumbsItems} />
-        </div>
-      )}
       <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black">
           {name || ''}
         </Heading>
@@ -159,7 +156,12 @@ const BlogPostContainer: NextPage<IProps> = ({
           })}
         </div>
       </div>
-      {metaData && <Head metaData={metaData} featuredImage={null} />}
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={null} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

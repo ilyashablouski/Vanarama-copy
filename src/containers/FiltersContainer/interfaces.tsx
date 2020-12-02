@@ -8,7 +8,7 @@ export interface IFilterContainerProps {
   isCarSearch: boolean;
   onSearch: (filters: IFilters) => void;
   preSearchVehicleCount: number;
-  isSpecialOffers: boolean;
+  isSpecialOffers: boolean | null;
   setIsSpecialOffers: (value: boolean) => void;
   isMakePage?: boolean;
   isPickups?: boolean;
@@ -16,6 +16,7 @@ export interface IFilterContainerProps {
   isModelPage?: boolean;
   isAllMakesPage?: boolean;
   isBodyPage?: boolean;
+  isBudgetPage?: boolean;
   isFuelPage?: boolean;
   isTransmissionPage?: boolean;
   isDynamicFilterPage?: boolean;
@@ -26,8 +27,8 @@ export interface IFilterContainerProps {
 }
 
 export interface IFilters {
-  manufacturerName: string;
-  rangeName: string;
+  manufacturerSlug: string;
+  rangeSlug: string;
   rate: RateInputObject;
   bodyStyles: string[];
   transmissions: string[];

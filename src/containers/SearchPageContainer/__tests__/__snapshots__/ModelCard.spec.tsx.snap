@@ -10,6 +10,7 @@ exports[`<ModelCard /> should be render correctly 1`] = `
       <img
         class="card-image"
         data-testid="card-image"
+        sizes="(min-width:3200px) 800px, 1200px"
         src="https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg"
       />
       <div

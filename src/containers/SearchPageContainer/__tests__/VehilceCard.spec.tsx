@@ -1,19 +1,15 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 // import { render, screen } from '@testing-library/react';
-import Loadable from 'react-loadable';
+import preloadAll from 'jest-next-dynamic';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
-const VehicleCard = Loadable({
-  loader: () => import('../VehicleCard'),
-  loading() {
-    return <div>Loading...</div>;
-  },
-});
-
-// VehicleCard.preload();
+import VehicleCard from '../VehicleCard';
 
 describe('<VehicleCard />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   const resetMocks = () => {
     return {
       url: '/car-leasing/vauxhall/crossland-x/bodystylename/slug',
@@ -60,9 +56,6 @@ describe('<VehicleCard />', () => {
 
   const mocks = resetMocks();
 
-  beforeEach(async () => {
-    await VehicleCard.preload();
-  });
   afterEach(() => {
     jest.clearAllMocks();
   });

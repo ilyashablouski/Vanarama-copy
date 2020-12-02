@@ -1,5 +1,5 @@
 import React from 'react';
-
+// DON'T USE A DYNAMIC IMPORTS FOR THIS COMPONENTS IT LEADS TO FORM ISSUES
 import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
 import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
 import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
@@ -13,7 +13,10 @@ import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 
 import { ISearchPodProps } from './interfaces';
-import { filterList_filterList_groupedRanges as IRanges } from '../../../generated/filterList';
+import {
+  filterList_filterList_groupedRangesWithSlug as IRangesSlug,
+  filterList_filterList_groupedRangesWithSlug_children as IOptionsDropdown,
+} from '../../../generated/filterList';
 
 enum typeToIndex {
   'Vans' = 1,
@@ -106,20 +109,40 @@ const SearchPod = ({
                         tab.type === 'Vans' &&
                         !hasVansMakeSelected
                       )
-                        ? getOptions(accessor).map(option => (
-                            <option key={option} value={option}>
-                              {option}
-                            </option>
-                          ))
-                        : vansCachedData.groupedRanges
-                            ?.filter((range: IRanges) =>
-                              getOptions('makeVans').includes(range.parent),
+                        ? getOptions(accessor).map(option => {
+                            // if option don't have label and slug structure
+                            if (typeof option === 'string') {
+                              return (
+                                <option key={option} value={option}>
+                                  {option}
+                                </option>
+                              );
+                            }
+                            return option.slug ? (
+                              <option key={option.slug} value={option.slug}>
+                                {option.label}
+                              </option>
+                            ) : null;
+                          })
+                        : vansCachedData.groupedRangesWithSlug
+                            ?.filter((range: IRangesSlug) =>
+                              getOptions('makeVans').some(
+                                option =>
+                                  range.parent.label ===
+                                  (option as IOptionsDropdown).label,
+                              ),
                             )
-                            .map((range: IRanges) => (
-                              <optgroup label={range.parent} key={range.parent}>
-                                {range.children.map((model: string) => (
-                                  <option key={model} value={model}>
-                                    {model}
+                            .map((range: IRangesSlug) => (
+                              <optgroup
+                                label={range.parent.label || ''}
+                                key={range.parent.slug || ''}
+                              >
+                                {range.children.map(model => (
+                                  <option
+                                    key={model.slug || ''}
+                                    value={model.slug || ''}
+                                  >
+                                    {model.label}
                                   </option>
                                 ))}
                               </optgroup>

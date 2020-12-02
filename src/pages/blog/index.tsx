@@ -1,16 +1,12 @@
 import { NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
 import createApolloClient from '../../apolloClient';
-import {
-  GENERIC_PAGE,
-  GENERIC_PAGE_HEAD,
-  IGenericPage,
-} from '../../gql/genericPage';
+import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import withApollo from '../../hocs/withApollo';
 import CategoryPageContainer from '../../containers/CategoryPageContainer/CategoryPageContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
 
-const CategoryPage: NextPage<IGenericPage> = ({ pageHead, data, error }) => {
+const CategoryPage: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data) {
     return <DefaultErrorPage statusCode={404} />;
   }
@@ -18,7 +14,7 @@ const CategoryPage: NextPage<IGenericPage> = ({ pageHead, data, error }) => {
   const tiles = getSectionsData(['sections', 'tiles'], data?.genericPage);
   const featured = getSectionsData(['sections', 'featured'], data?.genericPage);
   const carousel = getSectionsData(['sections', 'carousel'], data?.genericPage);
-  const metaData = getSectionsData(['metaData'], pageHead?.genericPage);
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
@@ -44,14 +40,8 @@ export async function getStaticProps(context: NextPageContext) {
         slug: 'blog',
       },
     });
-    const { data: pageHead } = await client.query({
-      query: GENERIC_PAGE_HEAD,
-      variables: {
-        slug: 'blog',
-      },
-    });
     return {
-      props: { data, pageHead, error: errors ? errors[0] : null },
+      props: { data, error: errors ? errors[0] : null },
     };
   } catch {
     return {

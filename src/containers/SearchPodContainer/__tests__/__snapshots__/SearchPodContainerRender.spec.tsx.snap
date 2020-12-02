@@ -61,7 +61,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
         <h2
           className="heading -dark -small"
         >
-          Search Vans
+          Search Van Leasing
         </h2>
         <form
           className="form"
@@ -378,7 +378,7 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
         <h2
           className="heading -dark -small"
         >
-          Search Vans
+          Search Van Leasing
         </h2>
         <form
           className="form"
@@ -411,11 +411,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                      
                     Make
                     s
-                  </option>
-                  <option
-                    value=""
-                  >
-                    
                   </option>
                 </select>
                 <span
@@ -474,11 +469,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                   <optgroup
                     label="Please Select Make"
                   />
-                  <option
-                    value=""
-                  >
-                    
-                  </option>
                 </select>
                 <span
                   className="icon select--chevron"

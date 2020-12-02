@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import CompanyDetailsForm from '../../components/SoleTraderCompanyDetailsForm';
 import { ISoleTraderCompanyDetailsFormValues } from '../../components/SoleTraderCompanyDetailsForm/interfaces';
 import { ISoleTraderCompanyDetailsFormContainerProps } from './interfaces';
@@ -24,26 +25,33 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
   onCompleted,
   onError,
 }) => {
-  const [mappedCompanyDetails, setMappedCompanyDetails] = React.useState({});
+  const [mappedCompanyDetails, setMappedCompanyDetails] = React.useState<
+    ISoleTraderCompanyDetailsFormValues
+  >();
   const [updateSoleTraderCompanyDetails] = useUpdateSoleTraderCompanyMutation();
   const [createUpdateOrder] = useCreateUpdateOrder(() => {});
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderId,
     () => {},
   );
-  const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
-    orderId,
-  );
+  const { data, loading } = useGetCreditApplicationByOrderUuid(orderId);
+
+  const [natureOfBusiness, setNatureOfBusiness] = useState<string[]>([]);
 
   const initialCompanyDetails =
-    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
-      ?.companyDetails;
+    data?.creditApplicationByOrderUuid?.companyDetails;
 
   React.useMemo(() => {
     if (initialCompanyDetails) {
       setMappedCompanyDetails(prelodedValuesToInput(initialCompanyDetails));
     }
   }, [initialCompanyDetails]);
+
+  useEffect(() => {
+    if (mappedCompanyDetails) {
+      setNatureOfBusiness(mappedCompanyDetails?.nature.split('.'));
+    }
+  }, [mappedCompanyDetails]);
 
   const handleSoleTraderCompanyDetailsSave = (
     values: ISoleTraderCompanyDetailsFormValues,
@@ -70,6 +78,13 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
       },
     });
 
+  const handleNatureSelect = (selectedNature: string | string[]) => {
+    const isArray = Array.isArray(selectedNature);
+    setNatureOfBusiness(
+      (isArray ? selectedNature : [selectedNature]) as string[],
+    );
+  };
+
   const handleCreditApplicationUpdate = (
     values: ISoleTraderCompanyDetailsFormValues,
     companyData: Company | null,
@@ -77,19 +92,27 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     createUpdateApplication({
       variables: {
         input: formValuesToInputCreditApplication({
-          ...getCreditApplicationByOrderUuidQuery.data
-            ?.creditApplicationByOrderUuid,
+          ...data?.creditApplicationByOrderUuid,
           companyDetails: mapCreateUpdteApplicationData(values, companyData),
           orderUuid: orderId,
         }),
       },
     });
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <CompanyDetailsForm
+      setNatureOfBusiness={handleNatureSelect}
+      natureOfBusiness={natureOfBusiness}
       companyDetails={mappedCompanyDetails}
       onSubmit={async values => {
-        handleSoleTraderCompanyDetailsSave(values)
+        handleSoleTraderCompanyDetailsSave({
+          ...values,
+          nature: natureOfBusiness.join('.'),
+        })
           .then(response =>
             handleOrderUpdate(
               response.data!.createUpdateSoleTraderCompany!.partyUuid,

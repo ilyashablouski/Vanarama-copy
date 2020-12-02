@@ -1,6 +1,7 @@
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
+import preloadAll from 'jest-next-dynamic';
 import FiltersContainer from '../FiltersContainer';
 
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
@@ -48,18 +49,25 @@ const mocksResponse: MockedResponse[] = [
         data: {
           filterList: {
             vehicleTypes: ['CAR'],
-            groupedRanges: [
+            groupedRangesWithSlug: [
               {
-                parent: 'Citroën',
-                children: ['Berlingo', 'Dispatch', 'Relay'],
+                parent: { label: 'Citroën', slug: 'Citroën' },
+                children: [
+                  { label: 'Berlingo', slug: 'Berlingo' },
+                  { label: 'Dispatch', slug: 'Dispatch' },
+                  { label: 'Relay', slug: 'Relay' },
+                ],
               },
               {
-                parent: 'Dacia',
-                children: ['Duster'],
+                parent: { label: 'Dacia', slug: 'Dacia' },
+                children: [{ label: 'Duster', slug: 'Duster' }],
               },
               {
-                parent: 'BMW',
-                children: ['3 series', '4 series'],
+                parent: { label: 'BMW', slug: 'BMW' },
+                children: [
+                  { label: '3 series', slug: '3 series' },
+                  { label: '4 series', slug: '4 series' },
+                ],
               },
             ],
             bodyStyles: ['Dropside Tipper', 'Large Van'],
@@ -112,7 +120,11 @@ const mocksResponse: MockedResponse[] = [
 ];
 
 const mocks = resetMocks();
+
 describe('<FiltersContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   afterEach(() => {
     jest.clearAllMocks();
     mockCalled = false;

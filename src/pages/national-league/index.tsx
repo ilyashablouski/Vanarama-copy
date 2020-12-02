@@ -1,24 +1,49 @@
-import { useRouter } from 'next/router';
-import { NextPage } from 'next';
+import DefaultErrorPage from 'next/error';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
-import { useGenericPage } from '../../gql/genericPage';
-import withApollo from '../../hocs/withApollo';
+import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
+import createApolloClient from '../../apolloClient';
 
-const NationalLeaguePage: NextPage = () => {
-  const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+const NationalLeaguePage: NextPage<IGenericPage> = ({
+  data,
+  error,
+  loading,
+}) => {
+  if (error || !data?.genericPage) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
 
   if (loading) {
     return <Loading size="large" />;
   }
 
-  if (error) {
-    return <ErrorMessage message={error.message} />;
-  }
-
   return <FeaturedAndTilesContainer data={data} />;
 };
 
-export default withApollo(NationalLeaguePage);
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+
+    const { data, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: 'national-league',
+      },
+    });
+    return {
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
+
+export default NationalLeaguePage;

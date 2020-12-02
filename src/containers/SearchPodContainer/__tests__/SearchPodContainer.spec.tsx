@@ -30,18 +30,25 @@ const mocks: MockedResponse[] = [
         data: {
           filterList: {
             vehicleTypes: ['LCV'],
-            groupedRanges: [
+            groupedRangesWithSlug: [
               {
-                parent: 'Citroën',
-                children: ['Berlingo', 'Dispatch', 'Relay'],
+                parent: { label: 'Citroën', slug: 'Citroën' },
+                children: [
+                  { label: 'Berlingo', slug: 'Berlingo' },
+                  { label: 'Dispatch', slug: 'Dispatch' },
+                  { label: 'Relay', slug: 'Relay' },
+                ],
               },
               {
-                parent: 'Dacia',
-                children: ['Duster'],
+                parent: { label: 'Dacia', slug: 'Dacia' },
+                children: [{ label: 'Duster', slug: 'Duster' }],
               },
               {
-                parent: 'BMW',
-                children: ['3 series', '4 series'],
+                parent: { label: 'BMW', slug: 'BMW' },
+                children: [
+                  { label: '3 series', slug: '3 series' },
+                  { label: '4 series', slug: '4 series' },
+                ],
               },
             ],
             bodyStyles: ['Dropside Tipper', 'Large Van'],
@@ -66,18 +73,25 @@ const mocks: MockedResponse[] = [
         data: {
           filterList: {
             vehicleTypes: ['CAR'],
-            groupedRanges: [
+            groupedRangesWithSlug: [
               {
-                parent: 'Citroën',
-                children: ['Berlingo', 'Dispatch', 'Relay'],
+                parent: { label: 'Citroën', slug: 'Citroën' },
+                children: [
+                  { label: 'Berlingo', slug: 'Berlingo' },
+                  { label: 'Dispatch', slug: 'Dispatch' },
+                  { label: 'Relay', slug: 'Relay' },
+                ],
               },
               {
-                parent: 'Dacia',
-                children: ['Duster'],
+                parent: { label: 'Dacia', slug: 'Dacia' },
+                children: [{ label: 'Duster', slug: 'Duster' }],
               },
               {
-                parent: 'BMW',
-                children: ['3 series', '4 series'],
+                parent: { label: 'BMW', slug: 'BMW' },
+                children: [
+                  { label: '3 series', slug: '3 series' },
+                  { label: '4 series', slug: '4 series' },
+                ],
               },
             ],
             bodyStyles: ['Dropside Tipper', 'Large Van'],
@@ -106,18 +120,25 @@ const mocks: MockedResponse[] = [
             bodyStyles: ['Dropside Tipper', 'Pickup'],
             financeProfilesRateMax: 597.98,
             financeProfilesRateMin: 194.95,
-            groupedRanges: [
+            groupedRangesWithSlug: [
               {
-                parent: 'Citroën',
-                children: ['Berlingo', 'Dispatch', 'Relay'],
+                parent: { label: 'Citroën', slug: 'Citroën' },
+                children: [
+                  { label: 'Berlingo', slug: 'Berlingo' },
+                  { label: 'Dispatch', slug: 'Dispatch' },
+                  { label: 'Relay', slug: 'Relay' },
+                ],
               },
               {
-                parent: 'Dacia',
-                children: ['Duster'],
+                parent: { label: 'Dacia', slug: 'Dacia' },
+                children: [{ label: 'Duster', slug: 'Duster' }],
               },
               {
-                parent: 'BMW',
-                children: ['3 series', '4 series'],
+                parent: { label: 'BMW', slug: 'BMW' },
+                children: [
+                  { label: '3 series', slug: '3 series' },
+                  { label: '4 series', slug: '4 series' },
+                ],
               },
             ],
           },

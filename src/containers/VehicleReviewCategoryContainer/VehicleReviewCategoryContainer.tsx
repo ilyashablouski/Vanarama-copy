@@ -1,8 +1,10 @@
 import React, { FC, useState } from 'react';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import {
   ReviewsHubCategoryQuery,
   ReviewsHubCategoryQuery_genericPage_sections_cards_cards as Cards,
@@ -10,22 +12,29 @@ import {
 import { getMarkdownRenderers } from './Utils';
 import { getSectionsData } from '../../utils/getSectionsData';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import Head from '../../components/Head/Head';
 
 interface IProps {
   data: ReviewsHubCategoryQuery | undefined;
+  pageNumber?: number;
+  breadcrumbsItems?: any;
 }
 
-const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
+const VehicleReviewCategoryContainer: FC<IProps> = ({
+  data,
+  pageNumber,
+  breadcrumbsItems,
+}) => {
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
   const body = getSectionsData(['body'], data?.genericPage);
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
   const cards = getSectionsData(
     ['sections', 'cards', 'cards'],
     data?.genericPage,
   );
 
-  const [activePage, setActivePage] = useState(1);
-
-  const countPages = () => Math.ceil((cards.length || 0) / 12);
+  const [activePage] = useState(pageNumber || 1);
+  const countPages = () => Math.ceil((cards?.length || 0) / 12);
 
   // create array with number of page for pagination
   const pages = [...Array(countPages())].map((_el, i) => i + 1);
@@ -40,6 +49,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
     );
     return showCards?.map((reviewCard, idx) => (
       <Card
+        loadImage
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         key={idx.toString()}
         title={{
@@ -77,6 +87,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
   return (
     <>
       <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>
@@ -89,28 +100,30 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({ data }) => {
           />
         </div>
       </div>
-      {cards.length && (
+      {cards?.length && (
         <>
           <div className="row:cards-3col -pt-300">{renderCards()}</div>
           <div className="row:pagination">
             <Pagination
-              path=""
+              path={`/${metaData?.legacyUrl?.replace('.html', '') || ''}/page`}
+              pathForFirstPage={`/${metaData?.legacyUrl?.replace('.html', '') ||
+                ''}`}
+              pathWithHtml
               pages={pages}
-              onClick={el => {
-                el.preventDefault();
-                setActivePage(+(el.target as Element).innerHTML);
-              }}
-              onClickBackArray={el => {
-                el.preventDefault();
-                setActivePage(activePage - 1);
-              }}
-              onClickNextArray={el => {
-                el.preventDefault();
-                setActivePage(activePage + 1);
-              }}
               selected={activePage}
             />
           </div>
+        </>
+      )}
+      {data?.genericPage.metaData && (
+        <>
+          <Head
+            metaData={data?.genericPage.metaData}
+            featuredImage={data?.genericPage.featuredImage}
+          />
+          <SchemaJSON
+            json={JSON.stringify(data?.genericPage.metaData.schema)}
+          />
         </>
       )}
     </>

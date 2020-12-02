@@ -26,6 +26,6 @@ export interface bodyStyleList {
 export interface bodyStyleListVariables {
   vehicleTypes?: VehicleTypeEnum | null;
   leaseType?: LeaseTypeEnum | null;
-  manufacturerName: string;
-  rangeName: string;
+  manufacturerSlug: string;
+  rangeSlug: string;
 }

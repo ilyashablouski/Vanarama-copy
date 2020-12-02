@@ -9,7 +9,7 @@ import Flame from '@vanarama/uibook/lib/assets/icons/FlameSharp';
 import Arrow from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
 import Redundancy from '@vanarama/uibook/lib/assets/icons/Redundancy';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
-// import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 
 import createApolloClient from '../../apolloClient';
 import {
@@ -27,6 +27,9 @@ import {
   useVehicleListUrlFetchMore,
 } from '../../gql/vehicleList';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { getSectionsData } from '../../utils/getSectionsData';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
 
 type Props = {
   genericPageCMS?: any;
@@ -49,9 +52,9 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
     },
   );
 
-  const productVanCapIds = productsVan?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productVanCapIds = productsVan?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const { data: productVanDerivatives } = useCarDerivativesData(
     productVanCapIds,
     VehicleTypeEnum.LCV,
@@ -69,9 +72,9 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
     },
   );
 
-  const productPickupCapIds = productsPickup?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productPickupCapIds = productsPickup?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const { data: productPickupDerivatives } = useCarDerivativesData(
     productPickupCapIds,
     VehicleTypeEnum.LCV,
@@ -88,9 +91,9 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
     },
   );
 
-  const productCarCapIds = productsCar?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productCarCapIds = productsCar?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const { data: productCarDerivatives } = useCarDerivativesData(
     productCarCapIds,
     VehicleTypeEnum.CAR,
@@ -100,7 +103,7 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
     ...productVanCapIds,
     ...productPickupCapIds,
     ...productCarCapIds,
-  ];
+  ].filter(Boolean);
   const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
@@ -111,10 +114,22 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
     return <Loading size="large" />;
   } */
 
-  const metaData = genericPageCMS?.genericPage?.metaData;
+  const metaData = getSectionsData(['metaData'], genericPageCMS?.genericPage);
+  const featuredImage = getSectionsData(
+    ['featuredImage'],
+    genericPageCMS?.genericPage,
+  );
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
+      {breadcrumbsItems && (
+        <div className="row:title">
+          <Breadcrumb items={breadcrumbsItems} />
+        </div>
+      )}
       <div className="row:plain-hero">
         <div className="-col-100">
           <Heading color="black" size="xlarge" tag="h1">
@@ -300,12 +315,19 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
           </div>
         </div>
       </div>
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };
 
-export async function getServerSideProps(ctx: NextPageContext) {
+export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({});
+  const path = context.req?.url || '';
 
   try {
     const { data } = await client.query<
@@ -314,9 +336,7 @@ export async function getServerSideProps(ctx: NextPageContext) {
     >({
       query: GENERIC_PAGE_HEAD,
       variables: {
-        slug: ctx.asPath?.includes('.html')
-          ? ctx.asPath || ''
-          : ctx.asPath?.slice(1) || '',
+        slug: path.slice(1),
       },
     });
     return {

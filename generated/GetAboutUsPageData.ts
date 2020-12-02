@@ -8,7 +8,17 @@
 // ====================================================
 
 export interface GetAboutUsPageData_aboutUsLandingPage_metaData {
+  title: string | null;
   name: string | null;
+  metaRobots: string | null;
+  metaDescription: string | null;
+  legacyUrl: string | null;
+  pageType: string | null;
+  canonicalUrl: string | null;
+  slug: string | null;
+  schema: any | null;
+  publishedOn: any | null;
+  breadcrumbs: any | null;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file {

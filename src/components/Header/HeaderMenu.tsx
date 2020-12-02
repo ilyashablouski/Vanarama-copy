@@ -1,10 +1,10 @@
 /* eslint-disable import/no-cycle */
 import React, { FC, memo } from 'react';
 import cx from 'classnames';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import HeaderMenuLink from './HeaderMenuLink';
 import { IHeaderLink } from './Header';
-import RouterLink from '../RouterLink/RouterLink';
 
 export interface IHeaderMenuProps extends IBaseProps {
   menuLinks: IHeaderLink[];
@@ -24,13 +24,15 @@ const HeaderMenu: FC<IHeaderMenuProps> = memo(props => {
     >
       <ul className="menu-primary">
         <li className="menu-li menu-title">
-          <RouterLink
-            link={{ label: '', href: '' }}
+          <Button
+            withoutDefaultClass
+            className="link"
             onClick={() => onClickMenu()}
             dataTestId="menu-title"
-          >
-            Menu
-          </RouterLink>
+            color="black"
+            fill="clear"
+            label="Menu"
+          />
         </li>
         {!!menuLinks.length &&
           menuLinks.map((entry, idx) => (

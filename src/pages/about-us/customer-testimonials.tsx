@@ -1,42 +1,83 @@
-import { getDataFromTree } from '@apollo/react-ssr';
-import { NextPage } from 'next';
-import { useRouter } from 'next/router';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { ApolloError } from '@apollo/client';
+import DefaultErrorPage from 'next/error';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useGenericPageTestimonials } from '../../containers/CustomerTestimonialsContainer/gql';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import { GENERIC_PAGE_TESTIMONIALS } from '../../containers/CustomerTestimonialsContainer/gql';
 import CustomerTestimonialsContainer from '../../containers/CustomerTestimonialsContainer/CustomerTestimonialsContainer';
-import withApollo from '../../hocs/withApollo';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../utils/getSectionsData';
+import Head from '../../components/Head/Head';
+import createApolloClient from '../../apolloClient';
+import { GenericPageTestimonialsQuery } from '../../../generated/GenericPageTestimonialsQuery';
 
-const CustomerTestimonialPage: NextPage = () => {
-  const router = useRouter();
-  const { data, loading, error } = useGenericPageTestimonials(
-    router.asPath.slice(1),
-  );
+interface ICustomerTestimonialPage {
+  data: GenericPageTestimonialsQuery | undefined;
+  loading: boolean;
+  error: ApolloError | undefined;
+}
 
+const CustomerTestimonialPage: NextPage<ICustomerTestimonialPage> = ({
+  data,
+  error,
+  loading,
+}) => {
   if (loading) {
     return <Loading size="large" />;
   }
 
-  if (error) {
-    return <ErrorMessage message={error.message} />;
-  }
-
-  if (!data?.genericPage) {
-    return null;
+  if (error || !data) {
+    return <DefaultErrorPage statusCode={404} />;
   }
 
   const metaDataName = getSectionsData(['metaData', 'name'], data?.genericPage);
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
   const body = getSectionsData(['body'], data?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
-    <CustomerTestimonialsContainer
-      body={body}
-      title={metaDataName}
-      sections={sections}
-    />
+    <>
+      <CustomerTestimonialsContainer
+        body={body}
+        title={metaDataName}
+        sections={sections}
+        breadcrumbsItems={breadcrumbsItems}
+      />
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
+    </>
   );
 };
 
-export default withApollo(CustomerTestimonialPage, { getDataFromTree });
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+    const { data, errors } = await client.query({
+      query: GENERIC_PAGE_TESTIMONIALS,
+      variables: {
+        slug: 'about-us/customer-testimonials',
+      },
+    });
+    return {
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
+
+export default CustomerTestimonialPage;

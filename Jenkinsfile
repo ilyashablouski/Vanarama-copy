@@ -160,33 +160,33 @@ pipeline {
             }
         }
 
-        stage("3. Static Code Analysis") {
-            agent {
-                ecs {
-                    inheritFrom 'grid-dev-jenkins-agent'  // This is not within customers
-                }
-            }
-            steps {
-              milestone(20)
-                nodejs('node') {
-                  // requires SonarQube Scanner 2.8+
-                    script {
-                        def scannerHome = tool 'SonarQubeScanner';
-                        withSonarQubeEnv('My SonarQube Server') {
-                            unstash 'lcov'
-                            unstash 'test-report'
-                            sh "${scannerHome}/bin/sonar-scanner"
-                        }
-                        timeout(time: 40, unit: 'MINUTES') {
-                            def qGate = waitForQualityGate()
-                            if (qGate.status != 'OK') {
-                                error "Pipeline aborted due to quality gate failure: ${qGate.status}"
-                            }
-                        }
-                    }
-                }
-            }
-        }
+        // stage("3. Static Code Analysis") {
+        //     agent {
+        //         ecs {
+        //             inheritFrom 'grid-dev-jenkins-agent'  // This is not within customers
+        //         }
+        //     }
+        //     steps {
+        //       milestone(20)
+        //         nodejs('node') {
+        //           // requires SonarQube Scanner 2.8+
+        //             script {
+        //                 def scannerHome = tool 'SonarQubeScanner';
+        //                 withSonarQubeEnv('My SonarQube Server') {
+        //                     unstash 'lcov'
+        //                     unstash 'test-report'
+        //                     sh "${scannerHome}/bin/sonar-scanner"
+        //                 }
+        //                 timeout(time: 40, unit: 'MINUTES') {
+        //                     def qGate = waitForQualityGate()
+        //                     if (qGate.status != 'OK') {
+        //                         error "Pipeline aborted due to quality gate failure: ${qGate.status}"
+        //                     }
+        //                 }
+        //             }
+        //         }
+        //     }
+        // }
 
         stage("4. Production Build & push") {
             agent { node('master') }
@@ -220,7 +220,7 @@ pipeline {
                     sh """
                       source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME} ${alternateDomain}
                       docker pull $dockerRepoName:latest || true
-                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg PRERENDER_SERVICE_URL=\${PRERENDER_SERVICE_URL} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${ENV} --build-arg GTM_ID=\${GTM_ID} --build-arg MICROBLINK_URL=\${MICROBLINK_URL} --build-arg HOSTNAME=\${HOSTNAME} --build-arg IMG_OPTIMISATION_HOST=\${IMG_OPTIMISATION_HOST} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=\${NODE_ENV}  --cache-from $dockerRepoName:latest .
+                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg PRERENDER_SERVICE_URL=\${PRERENDER_SERVICE_URL} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${ENV} --build-arg GTM_ID=\${GTM_ID} --build-arg MICROBLINK_URL=\${MICROBLINK_URL} --build-arg IMG_OPTIMISATION_HOST=\${IMG_OPTIMISATION_HOST} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=\${NODE_ENV}  --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${env.GIT_COMMIT}
                       docker tag $dockerRepoName:${env.GIT_COMMIT} $dockerRepoName:latest
                       docker push $dockerRepoName:latest

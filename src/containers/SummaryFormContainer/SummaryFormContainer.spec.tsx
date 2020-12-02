@@ -1,4 +1,5 @@
 import { MockedProvider } from '@apollo/client/testing';
+import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import SummaryFormContainer from './SummaryFormContainer';
@@ -17,6 +18,9 @@ jest.mock('next/router', () => ({
 const ORDER_ID = '17596f47-adf5-4e63-b250-238102cb831c';
 
 describe('<SummaryFormContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should render company details correctly', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';

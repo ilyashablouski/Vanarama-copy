@@ -16,6 +16,7 @@ import {
 } from '../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
 import { PAGES } from './pageTypes';
+import { getDeviceType } from './deviceType';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -134,12 +135,28 @@ export const pushDetail = (
   if (value) Object.assign(product, { [field]: `${value}` });
 };
 
+const setDataLayer = () => {
+  if (
+    !window.dataLayer.find(obj =>
+      Object.keys(obj).some(key => key === 'pageType'),
+    )
+  )
+    return;
+
+  window.dataLayer = [];
+  window.dataLayer.push({
+    'gtm.start': new Date().getTime(),
+    event: 'gtm.js',
+  });
+};
+
 export const pushPageData = async ({
   pathname,
   pageType,
   siteSection,
 }: IPageData) => {
   if (!window.dataLayer) return;
+  setDataLayer();
   const personData = (await localForage.getItem('person')) as GetPerson | null;
   const person = personData?.getPerson;
 
@@ -166,6 +183,7 @@ export const pushPageData = async ({
   }
 
   pushDetail('customerId', person?.uuid || 'undefined', data);
+  pushDetail('deviceType', getDeviceType(), data);
   pushDetail(
     'visitorEmail',
     person?.emailAddresses && person?.emailAddresses[0]?.value

@@ -5,6 +5,7 @@ import {
   GenericPageQuery_genericPage,
   GenericPageQuery_genericPage_sections_cards_cards,
 } from '../../generated/GenericPageQuery';
+import { PageCollection_pageCollection_items } from '../../generated/PageCollection';
 import { getSectionsData } from './getSectionsData';
 
 export const getBlogPaths = (
@@ -33,4 +34,18 @@ export const getLeasingPaths = (
   return notEmptySlugs?.map((slug: string) => ({
     params: { explained: slug.replace('.html', '') },
   }));
+};
+
+const isCorrectSlug = (slug: string, pathItem: string) => {
+  const paths = slug.split('/');
+  return paths?.length > 1 && paths.includes(pathItem);
+};
+
+export const getPathsFromPageCollection = (
+  items: (PageCollection_pageCollection_items | null)[] | null | undefined,
+  pathItem: string,
+) => {
+  return items
+    ?.filter(item => (item?.slug ? isCorrectSlug(item?.slug, pathItem) : false))
+    .map(item => `/${item?.slug}`);
 };

@@ -28,16 +28,16 @@ export const createOlafDetails = (
         leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
       } VAT)`
     : '-',
-  contractLength: offer.term ? `${offer.term} month` : '-',
+  contractLength: offer.depositMonths ? `${offer.depositMonths} month` : '-',
   annualMileage: offer.annualMileage ? `${offer.annualMileage} miles` : '-',
   maintenance: offer.maintenance ? 'Yes' : 'No',
   fuel: derivative?.fuelType.name || '-',
   transmission: derivative?.transmission.name || '-',
   color: offer.colour || '-',
   trim: offer.trim || '-',
-  description: `${(offer.term || 1) - 1} month contact (${
+  description: `${(offer.depositMonths || 1) - 1} monthly payments (${
     leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
-  } VAT). Paid by Direct Debit. First due ≈ 10 days after delivery.`,
+  } VAT). Paid by direct debit. Initial Rental is taken around 10 days after delivery and each month on the same date thereafter for the length of the contract.`,
   initialRentalDataTestId: 'about_intial-rental-testID',
   controlLengthDataTestId: 'about_control-length-testID',
   annualMileageDataTestId: 'about_annual-mileage-testID',

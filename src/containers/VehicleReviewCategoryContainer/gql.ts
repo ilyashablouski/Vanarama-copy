@@ -4,7 +4,7 @@ import {
   ReviewsHubCategoryQueryVariables,
 } from '../../../generated/ReviewsHubCategoryQuery';
 
-export const GENERIC_PAGE_QUESTION = gql`
+export const GENERIC_PAGE_QUESTION_HUB = gql`
   query ReviewsHubCategoryQuery($slug: String!) {
     genericPage(slug: $slug) {
       id
@@ -31,6 +31,7 @@ export const GENERIC_PAGE_QUESTION = gql`
         slug
         publishedOn
         schema
+        breadcrumbs
       }
       sections {
         cards {
@@ -62,7 +63,7 @@ export const GENERIC_PAGE_QUESTION = gql`
 
 export function useReviewsHubCategoryQuery(slug: string) {
   return useQuery<ReviewsHubCategoryQuery, ReviewsHubCategoryQueryVariables>(
-    GENERIC_PAGE_QUESTION,
+    GENERIC_PAGE_QUESTION_HUB,
     {
       variables: {
         slug,

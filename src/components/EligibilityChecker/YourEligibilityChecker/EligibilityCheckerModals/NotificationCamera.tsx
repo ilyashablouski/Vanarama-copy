@@ -15,6 +15,7 @@ const NotificationCamera: FC<INotificationCamera> = ({
         onClick={onCloseModal}
         aria-hidden="true"
         link={{ href: '', label: '' }}
+        withoutLink
       >
         {' '}
         fill in the form manually

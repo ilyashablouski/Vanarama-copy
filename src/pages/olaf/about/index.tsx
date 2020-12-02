@@ -64,6 +64,7 @@ export function useGetPersonLazyQuery(
   onError: (error: ApolloError) => void,
 ) {
   return useLazyQuery<GetPerson>(GET_PERSON_QUERY, {
+    fetchPolicy: 'no-cache',
     onCompleted,
     onError,
   });
@@ -82,6 +83,7 @@ const AboutYouPage: NextPage = () => {
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>(uuid);
+  const [personLoggedIn, setPersonLoggedIn] = useState<boolean>(false);
   const [
     detailsData,
     setDetailsData,
@@ -179,12 +181,14 @@ const AboutYouPage: NextPage = () => {
   };
 
   useEffect(() => {
-    if (!personUuid) {
-      localForage.getItem('person').then(value => {
-        if ((value as GetPerson)?.getPerson)
-          setPersonUuid((value as GetPerson)?.getPerson?.uuid);
-      });
-    }
+    localForage.getItem('person').then(value => {
+      if ((value as GetPerson)?.getPerson && !personUuid) {
+        setPersonUuid((value as GetPerson)?.getPerson?.uuid);
+        setPersonLoggedIn(true);
+      } else {
+        setPersonLoggedIn(false);
+      }
+    });
   }, [personUuid]);
 
   return (
@@ -197,7 +201,7 @@ const AboutYouPage: NextPage = () => {
       </Heading>
       <Text color="darker" size="lead">
         To get you your brand new vehicle, firstly we’ll just need some details
-        about you and your company. This will be used for your credit check.
+        about you. This will be used for your credit check.
       </Text>
       {!personUuid && (
         <div className="-mb-500">
@@ -219,6 +223,7 @@ const AboutYouPage: NextPage = () => {
         </div>
       )}
       <AboutFormContainer
+        personLoggedIn={personLoggedIn}
         onCompleted={({ createUpdatePerson }) =>
           clickOnComplete(createUpdatePerson!)
         }

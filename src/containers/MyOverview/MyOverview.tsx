@@ -9,6 +9,7 @@ import React, { useState, CSSProperties, useEffect } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
+import localForage from 'localforage';
 import { GET_CAR_DERIVATIVES, useMyOrdersData } from '../OrdersInformation/gql';
 import {
   VehicleTypeEnum,
@@ -28,6 +29,7 @@ import {
   GetMyOrders,
   GetMyOrders_myOrders,
 } from '../../../generated/GetMyOrders';
+import Head from '../../components/Head/Head';
 
 type QueryParams = {
   partyByUuid?: string;
@@ -223,13 +225,14 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   };
 
   const onClickOrderBtn = (orderUuid: string, leaseType: LeaseTypeEnum) => {
-    // change current page to '/olaf/about' or '/b2b/olaf/about
-    const url =
-      leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
-        ? `/olaf/about/[orderId]?uuid=${uuid}`
-        : `/b2b/olaf/about/[orderId]?uuid=${uuid}`;
+    localForage.setItem('orderId', orderUuid).then(() => {
+      const url =
+        leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
+          ? '/olaf/about/[orderId]'
+          : '/b2b/olaf/about';
 
-    router.push(url, url.replace('[orderId]', orderUuid));
+      router.push(url, url.replace('[orderId]', orderUuid || ''));
+    });
   };
 
   const renderChoiceBtn = (index: number, text: string) => (
@@ -327,6 +330,20 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     });
   };
 
+  const metaData = {
+    canonicalUrl: null,
+    legacyUrl: null,
+    metaDescription: null,
+    metaRobots: null,
+    name: null,
+    pageType: null,
+    publishedOn: null,
+    slug: null,
+    title: `My ${quote ? 'Quotes' : 'Orders'} | Vanarama`,
+    schema: null,
+    breadcrumbs: null,
+  };
+
   return (
     <>
       <div className="row:title">
@@ -394,6 +411,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
           </div>
         </div>
       )}
+      <Head metaData={metaData} featuredImage={null} />
     </>
   );
 };

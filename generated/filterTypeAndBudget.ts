@@ -9,9 +9,19 @@ import { VehicleTypeEnum } from "./globalTypes";
 // GraphQL query operation: filterTypeAndBudget
 // ====================================================
 
-export interface filterTypeAndBudget_filterList_groupedRanges {
-  parent: string;
-  children: string[];
+export interface filterTypeAndBudget_filterList_groupedRangesWithSlug_parent {
+  label: string | null;
+  slug: string | null;
+}
+
+export interface filterTypeAndBudget_filterList_groupedRangesWithSlug_children {
+  label: string | null;
+  slug: string | null;
+}
+
+export interface filterTypeAndBudget_filterList_groupedRangesWithSlug {
+  parent: filterTypeAndBudget_filterList_groupedRangesWithSlug_parent;
+  children: filterTypeAndBudget_filterList_groupedRangesWithSlug_children[];
 }
 
 export interface filterTypeAndBudget_filterList {
@@ -19,7 +29,7 @@ export interface filterTypeAndBudget_filterList {
   bodyStyles: string[] | null;
   financeProfilesRateMax: number | null;
   financeProfilesRateMin: number | null;
-  groupedRanges: filterTypeAndBudget_filterList_groupedRanges[] | null;
+  groupedRangesWithSlug: filterTypeAndBudget_filterList_groupedRangesWithSlug[] | null;
 }
 
 export interface filterTypeAndBudget {
@@ -31,7 +41,7 @@ export interface filterTypeAndBudget {
 
 export interface filterTypeAndBudgetVariables {
   vehicleTypes?: VehicleTypeEnum[] | null;
-  manufacturerName?: string | null;
-  rangeName?: string | null;
+  manufacturerSlug?: string | null;
+  rangeSlug?: string | null;
   bodyStyles?: string[] | null;
 }

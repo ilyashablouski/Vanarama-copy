@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
 import {
   GET_RANGES,
+  GET_RANGES_URLS,
   GET_VEHICLE_LIST,
 } from '../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
@@ -11,13 +12,17 @@ import createApolloClient from '../../../apolloClient';
 import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
 import {
   bodyUrls,
+  budgetMapper,
   fuelMapper,
   getBodyStyleForCms,
   getCapsIds,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
-import { rangeList } from '../../../../generated/rangeList';
+import {
+  rangeList,
+  rangeList_rangeList as IRange,
+} from '../../../../generated/rangeList';
 import { pushPageData } from '../../../utils/dataLayerHelpers';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
@@ -33,19 +38,22 @@ import { GetProductCard } from '../../../../generated/GetProductCard';
 import { notFoundPageHandler } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
+import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../../generated/genericPagesQuery';
+import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 
 interface IPageType {
   isBodyStylePage: boolean;
   isFuelType: boolean;
   isMakePage: boolean;
+  isBudgetType: boolean;
 }
 
 interface IProps extends ISearchPageProps {
   pageType?: IPageType;
-  query: any;
   pageData: GenericPageQuery;
   filtersData?: IFilterList | undefined;
   ranges: rangeList;
+  rangesUrls: IRangeUrls[];
   vehiclesList?: vehicleList;
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
@@ -53,7 +61,6 @@ interface IProps extends ISearchPageProps {
 
 const Page: NextPage<IProps> = ({
   isServer,
-  query,
   pageType = {},
   pageData,
   metaData,
@@ -62,6 +69,7 @@ const Page: NextPage<IProps> = ({
   productCardsData,
   responseCapIds,
   ranges,
+  rangesUrls,
   error,
   notFoundPageData,
 }) => {
@@ -74,22 +82,6 @@ const Page: NextPage<IProps> = ({
       siteSection: SITE_SECTIONS.cars,
       pathname: router.pathname,
     });
-    // copy dynamic param for actual filter query
-    if (
-      (pageType.isMakePage && !router.query.make) ||
-      (pageType.isBodyStylePage && !router.query.bodyStyles) ||
-      (pageType.isFuelType && !router.query.fuelTypes)
-    ) {
-      const { asPath, pathname } = router;
-      router.replace(
-        {
-          pathname,
-          query,
-        },
-        asPath,
-        { shallow: true },
-      );
-    }
     // it's should executed only when page init
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -104,6 +96,10 @@ const Page: NextPage<IProps> = ({
     );
   }
 
+  if (metaData.pageType === PAGE_TYPES.nonBlogPage) {
+    return <FeaturedAndTilesContainer data={pageData} />;
+  }
+
   return (
     <SearchPageContainer
       isServer={isServer}
@@ -111,10 +107,12 @@ const Page: NextPage<IProps> = ({
       isMakePage={pageType.isMakePage}
       isBodyStylePage={pageType.isBodyStylePage}
       isFuelPage={pageType.isFuelType}
+      isBudgetPage={pageType.isBudgetType}
       pageData={pageData}
       metaData={metaData}
       preLoadFiltersData={filtersData}
       preLoadRanges={ranges}
+      rangesUrls={rangesUrls}
       preLoadVehiclesList={vehiclesList}
       preLoadProductCardsData={productCardsData}
       preLoadResponseCapIds={responseCapIds}
@@ -123,12 +121,13 @@ const Page: NextPage<IProps> = ({
 };
 export async function getServerSideProps(context: NextPageContext) {
   const { query, req, res } = context;
-  const newQuery = { ...query };
   const client = createApolloClient({}, context);
   let ranges;
+  let rangesUrls;
   let vehiclesList;
   let productCardsData;
   let responseCapIds;
+  const filter = {} as any;
   // check for bodystyle page
   const isBodyStylePage = !!bodyUrls.find(
     getBodyStyleForCms,
@@ -138,22 +137,39 @@ export async function getServerSideProps(context: NextPageContext) {
   const isFuelType = !!fuelMapper[
     query.dynamicParam as keyof typeof fuelMapper
   ];
+  // check for budget page
+  const isBudgetType = !!budgetMapper[
+    query.dynamicParam as keyof typeof budgetMapper
+  ];
   const pageType = {
     isBodyStylePage,
     isFuelType,
-    isMakePage: !(isBodyStylePage || isFuelType),
+    isBudgetType,
+    isMakePage: !(isBodyStylePage || isFuelType || isBudgetType),
   };
-  if (isBodyStylePage || isFuelType) {
-    const filter = {} as any;
+  if (isBodyStylePage || isFuelType || isBudgetType) {
     if (isBodyStylePage) {
-      newQuery.bodyStyles = (query.dynamicParam as string).replace('-', ' ');
-      filter.bodyStyles = [newQuery.bodyStyles];
+      query.bodyStyles =
+        query.dynamicParam === 'city-car'
+          ? query.dynamicParam
+          : (query.dynamicParam as string).replace('-', ' ');
+      filter.bodyStyles = [query.bodyStyles];
     } else if (isFuelType) {
-      newQuery.fuelTypes =
+      query.fuelTypes =
         fuelMapper[query.dynamicParam as keyof typeof fuelMapper];
-      filter.fuelTypes = [newQuery.fuelTypes];
+      filter.fuelTypes = [query.fuelTypes];
+    } else if (isBudgetType) {
+      const rate = budgetMapper[
+        query.dynamicParam as keyof typeof budgetMapper
+      ].split('|');
+      filter.rate = {
+        min: parseInt(rate[0], 10) || undefined,
+        max: parseInt(rate[1], 10) || undefined,
+      };
+      query.pricePerMonth =
+        budgetMapper[query.dynamicParam as keyof typeof budgetMapper];
     }
-    if (Object.keys(context.query).length === 1) {
+    if (Object.keys(context.query).length === 2) {
       vehiclesList = await client
         .query({
           query: GET_VEHICLE_LIST,
@@ -186,27 +202,46 @@ export async function getServerSideProps(context: NextPageContext) {
       }
     }
   } else {
-    newQuery.make = query.dynamicParam;
+    query.make = (query.dynamicParam as string).toLowerCase();
+    filter.manufacturerSlug = query.make;
     ranges = await client
       .query({
         query: GET_RANGES,
         variables: {
           vehicleTypes: VehicleTypeEnum.CAR,
-          manufacturerName: newQuery.make,
+          manufacturerSlug: query.make,
           leaseType: LeaseTypeEnum.PERSONAL,
         },
       })
       .then(resp => resp.data);
+    const slugs = ranges.rangeList.map(
+      (range: IRange) =>
+        `car-leasing/${(query.make as string)
+          .toLowerCase()
+          .split(' ')
+          .join('-')}/${range.rangeName
+          ?.toLowerCase()
+          .split(' ')
+          .join('-')}`,
+    );
+    rangesUrls = await client
+      .query({
+        query: GET_RANGES_URLS,
+        variables: {
+          slugs,
+        },
+      })
+      .then(resp => resp.data.genericPages.items);
   }
   const { data: filtersData } = await client.query({
     query: GET_SEARCH_POD_DATA,
     variables: {
       onOffer: null,
       vehicleTypes: [VehicleTypeEnum.CAR],
+      ...filter,
     },
   });
-  const [type] =
-    Object.entries(pageType).find(([, value]) => value === true) || '';
+  const [type] = Object.entries(pageType).find(([, value]) => value) || '';
   try {
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
@@ -216,7 +251,6 @@ export async function getServerSideProps(context: NextPageContext) {
     )) as ApolloQueryResult<any>;
     return {
       props: {
-        query: { ...newQuery },
         isServer: !!req,
         pageType,
         pageData: data,
@@ -226,6 +260,7 @@ export async function getServerSideProps(context: NextPageContext) {
         productCardsData: productCardsData || null,
         responseCapIds: responseCapIds || null,
         ranges: ranges || null,
+        rangesUrls: rangesUrls || null,
         error: errors ? errors[0] : null,
       },
     };

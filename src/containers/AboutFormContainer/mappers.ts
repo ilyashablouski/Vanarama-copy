@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/camelcase */
 import moment from 'moment';
 import { PersonInputObject } from '../../../generated/globalTypes';
 import { IAboutFormValues } from '../../components/AboutForm/interface';
+import { RegisterForTemporaryAccess_registerForTemporaryAccess_emailAddress as IEmailAddress } from '../../../generated/RegisterForTemporaryAccess';
 
 // eslint-disable-next-line import/prefer-default-export
 export const formValuesToInput = (
   values: IAboutFormValues,
+  emailAddress?: IEmailAddress | null,
 ): PersonInputObject => {
   const dateOfBirth = moment(
     `${values.dayOfBirth}-${values.monthOfBirth}-${values.yearOfBirth}`,
@@ -15,7 +18,12 @@ export const formValuesToInput = (
     title: values.title,
     firstName: values.firstName,
     lastName: values.lastName,
-    emailAddress: { kind: 'Home', value: values.email, primary: true },
+    emailAddress: {
+      kind: 'Home',
+      value: values.email,
+      primary: true,
+      uuid: emailAddress?.uuid,
+    },
     telephoneNumbers: [
       { kind: 'Mobile', value: values.telephone, primary: true },
     ],

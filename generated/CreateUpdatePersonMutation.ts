@@ -14,6 +14,7 @@ export interface CreateUpdatePersonMutation_createUpdatePerson_emailAddresses {
   uuid: string;
   primary: boolean;
   value: string;
+  kind: string | null;
 }
 
 export interface CreateUpdatePersonMutation_createUpdatePerson_telephoneNumbers {

@@ -1,12 +1,29 @@
 import React, { FC } from 'react';
+import dynamic from 'next/dynamic';
+
 import ReactMarkdown from 'react-markdown';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import TilesContainer from '../TilesContainer/TilesContainer';
 import { FeaturedHtml } from './getFeaturedHtml';
 import { getSectionsData } from '../../utils/getSectionsData';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Head from '../../components/Head/Head';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   data: GenericPageQuery | undefined;
@@ -30,10 +47,16 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
     ['sections', 'featured3'],
     data?.genericPage,
   );
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
+  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
 
   return (
     <>
       <div className="row:title">
+        <Breadcrumb items={breadcrumbsItems} />
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>
@@ -61,6 +84,12 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
       {tiles && <TilesContainer leasingOffers={leasingOffers} tiles={tiles} />}
       <FeaturedHtml featured={featured2} />
       <FeaturedHtml featured={featured3} />
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={featuredImage} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import SearchPod from '../../components/SearchPod';
 import {
   tabsFields,
   budget,
@@ -15,12 +15,21 @@ import {
   budgetBetween,
   getBudgetForQuery,
 } from './helpers';
-import { filterList_filterList as IFilterList } from '../../../generated/filterList';
+import {
+  filterList_filterList as IFilterList,
+  filterList_filterList_groupedRangesWithSlug_children as IFiltersListOptions,
+} from '../../../generated/filterList';
+import Skeleton from '../../components/Skeleton';
+
+const SearchPod = dynamic(() => import('../../components/SearchPod'), {
+  loading: () => <Skeleton count={7} />,
+});
 
 enum Tabs {
   'LCV' = 1,
   'CAR',
 }
+const VANS_TAB_HEADING = 'Search Van Leasing';
 
 const SearchPodContainer = () => {
   const router = useRouter();
@@ -29,10 +38,10 @@ const SearchPodContainer = () => {
 
   const [vansDataCache, setVansDataCache] = useState({} as IFilterList);
   const [carsDataCache, setCarsDataCache] = useState({} as IFilterList);
-  const [pickupMakes, setPickupMakes] = useState([] as string[]);
+  const [pickupMakes, setPickupMakes] = useState([{}] as IFiltersListOptions[]);
 
   const [config, setConfig] = useState([] as any);
-  const [headingText, setHeadingText] = useState('Search Vans');
+  const [headingText, setHeadingText] = useState(VANS_TAB_HEADING);
   // set it to true if we need preselect some data
   const [isShouldPreselectTypes, setIsShouldPreselectTypes] = useState(false);
 
@@ -42,11 +51,11 @@ const SearchPodContainer = () => {
   const [typeVans, setTypesVans] = useState(['']);
   const [typeCars, setTypesCars] = useState(['']);
 
-  const [makeVans, setMakesVans] = useState(['']);
-  const [makeCars, setMakesCars] = useState(['']);
+  const [makeVans, setMakesVans] = useState([{}] as IFiltersListOptions[]);
+  const [makeCars, setMakesCars] = useState([{}] as IFiltersListOptions[]);
 
-  const [modelVans, setModelsVans] = useState(['']);
-  const [modelCars, setModelsCars] = useState(['']);
+  const [modelVans, setModelsVans] = useState([{}] as IFiltersListOptions[]);
+  const [modelCars, setModelsCars] = useState([{}] as IFiltersListOptions[]);
   // using for auto make select if Vans model was selected without make
   const [modelVansTemp, setModelsVansTemp] = useState('');
 
@@ -107,7 +116,7 @@ const SearchPodContainer = () => {
       setHeadingText('Search Car Leasing');
       setActiveIndex(2);
     } else if (router.pathname.indexOf('van') > -1) {
-      setHeadingText('Search Van Leasing');
+      setHeadingText(VANS_TAB_HEADING);
       setConfig(vanPageTabFields);
     } else if (router.pathname.indexOf('pickup') > -1) {
       setHeadingText('Search Pickup Leasing');
@@ -160,7 +169,10 @@ const SearchPodContainer = () => {
 
   // set actual models value for a specific manufacturer
   useEffect(() => {
-    if (vansDataCache.groupedRanges || carsDataCache.groupedRanges) {
+    if (
+      vansDataCache.groupedRangesWithSlug ||
+      carsDataCache.groupedRangesWithSlug
+    ) {
       if (activeIndex === 1) {
         setModelsVans(modelHandler(vansDataCache, selectMakeVans));
       } else {
@@ -178,10 +190,10 @@ const SearchPodContainer = () => {
   useEffect(() => {
     if (!selectMakeVans && getValues('modelVans')) {
       setModelsVansTemp(selectModelVans);
-      const parent = vansDataCache.groupedRanges?.find(range =>
-        range.children.includes(selectModelVans),
+      const parent = vansDataCache.groupedRangesWithSlug?.find(range =>
+        range.children.some(ranges => ranges.slug === selectModelVans),
       );
-      setValue('makeVans', parent?.parent);
+      setValue('makeVans', parent?.parent.slug);
     } else if (modelVansTemp && selectMakeVans && !selectModelVans) {
       // return back a model value because auto change make call a rerender options list
       setValue('modelVans', modelVansTemp);
@@ -193,7 +205,7 @@ const SearchPodContainer = () => {
     modelVansTemp,
     setValue,
     getValues,
-    vansDataCache.groupedRanges,
+    vansDataCache.groupedRangesWithSlug,
   ]);
 
   // refetch body types and budgets for selected vehicle
@@ -297,7 +309,7 @@ const SearchPodContainer = () => {
 
   const onChangeTab = (index: number) => {
     setActiveIndex(index);
-    if (index === 1) setHeadingText('Search Vans');
+    if (index === 1) setHeadingText(VANS_TAB_HEADING);
     if (index === 2) setHeadingText('Search Cars');
   };
 

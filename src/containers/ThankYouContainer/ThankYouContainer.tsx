@@ -13,7 +13,7 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import getTitleTag from '../../utils/getTitleTag';
 
 interface IProps {
-  sections: Section | null;
+  sections: Section | null | undefined;
 }
 
 const ThankYouContainer: FC<IProps> = ({ sections }) => {

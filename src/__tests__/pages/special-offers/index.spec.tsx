@@ -20,6 +20,7 @@ jest.mock('next/router', () => ({
 jest.mock('../../../containers/OrdersInformation/gql');
 jest.mock('../../../gql/vehicleList');
 jest.mock('../../../gql/genericPage');
+jest.mock('../../../hooks/useMediaQuery');
 
 const mocked: MockedResponse[] = [
   {

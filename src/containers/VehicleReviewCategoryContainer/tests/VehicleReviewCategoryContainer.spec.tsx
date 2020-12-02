@@ -7,8 +7,11 @@ import { ReviewsHubCategoryQuery } from '../../../../generated/ReviewsHubCategor
 jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: '/',
+    pathname: 'test',
+    query: {},
   }),
 }));
+jest.mock('../../../hooks/useMediaQuery');
 
 // ARRANGE
 const TITLE = 'Citroen Van Reviews';
@@ -104,6 +107,7 @@ const genericPageData = {
     body: BODY,
     metaData: {
       name: TITLE,
+      legacyUrl: 'van-reviews.html',
     },
   },
 } as ReviewsHubCategoryQuery;

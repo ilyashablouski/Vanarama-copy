@@ -7,6 +7,7 @@ import {
   ssrCMSQueryExecutor,
 } from '../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../containers/SearchPageContainer';
+import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import {
   LeaseTypeEnum,
   SortDirection,
@@ -19,6 +20,7 @@ import { GetProductCard } from '../../../generated/GetProductCard';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 
 interface IProps extends ISearchPageProps {
+  pageData: GenericPageQuery;
   vehiclesList?: vehicleList;
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
@@ -26,6 +28,7 @@ interface IProps extends ISearchPageProps {
 
 const Page: NextPage<IProps> = ({
   isServer,
+  pageData,
   metaData,
   vehiclesList,
   productCardsData,
@@ -36,6 +39,7 @@ const Page: NextPage<IProps> = ({
       isServer={isServer}
       isSpecialOfferPage
       isPickups
+      pageData={pageData}
       metaData={metaData}
       preLoadVehiclesList={vehiclesList}
       preLoadProductCardsData={productCardsData}
@@ -89,6 +93,7 @@ export async function getServerSideProps(context: NextPageContext) {
   }
   return {
     props: {
+      pageData: data,
       metaData: data.genericPage.metaData,
       isServer: !!context.req,
       vehiclesList: vehiclesList || null,

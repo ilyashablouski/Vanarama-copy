@@ -23,6 +23,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
   dropDownData,
   onSubmit,
   person,
+  personLoggedIn,
   onEmailExistenceCheck,
   onLogInCLick,
   isEdited,
@@ -64,7 +65,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
       </Formgroup>
       <Formgroup
         controlId="firstName"
-        hint="As displayed on your driving license"
+        hint="As displayed on your driving licence"
         label="First Name"
         error={errors.firstName?.message?.toString()}
       >
@@ -160,6 +161,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         )}
       >
         <TextInput
+          disabled={!!person?.email && personLoggedIn}
           id="email"
           name="email"
           dataTestId="about-you_email"

@@ -1,7 +1,655 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<VehicleCard /> should be render bussiness price 1`] = `null`;
+exports[`<VehicleCard /> should be render bussiness price 1`] = `
+<div
+  className="card"
+  data-testid="card"
+>
+  <div
+    className="card-header"
+  >
+    <div>
+      Factory Order
+    </div>
+    
+  </div>
+  <span
+    className="card-image"
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  />
+  <div
+    className="title"
+  >
+    <a
+      className="heading link -black -large"
+      data-menu={null}
+      data-testid="heading-link"
+      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <span
+        className="heading -pb-100 -primary -large"
+      >
+        Vauxhall Crossland X
+      </span>
+      <span
+        className="heading -dark -small"
+      >
+        test
+      </span>
+    </a>
+  </div>
+  <div
+    className="features"
+  >
+    <div>
+      <i
+        className="icon"
+      >
+        <i
+          className="icon -dark"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-b
+            </title>
+            <path
+              d="M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 32,
+                }
+              }
+            />
+            <path
+              d="M351.82,271.87v-16A96.15,96.15,0,0,0,184.09,192m-24.2,48.17v16A96.22,96.22,0,0,0,327.81,320"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeLinejoin": "round",
+                  "strokeWidth": 32,
+                }
+              }
+            />
+            <polyline
+              points="135.87 256 159.46 232.4 184.13 256"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeLinejoin": "round",
+                  "strokeWidth": 32,
+                }
+              }
+            />
+            <polyline
+              points="376.13 256 352.54 279.6 327.87 256"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeLinejoin": "round",
+                  "strokeWidth": 32,
+                }
+              }
+            />
+          </svg>
+        </i>
+      </i>
+      <span
+        className="text -xsmall -dark"
+      >
+        Manual
+      </span>
+    </div>
+  </div>
+  <div
+    className="-flex-h"
+  >
+    <div
+      className="price -large -black"
+    >
+      <span
+        className="price--sub"
+      >
+        £
+      </span>
+      <span
+        className="price--pounds"
+      >
+        138
+      </span>
+      <span
+        className="price--sub"
+      >
+        .
+        91
+      </span>
+      <div
+        className="price--label"
+      >
+        Per Month Exc.VAT
+      </div>
+    </div>
+    <a
+      className="button link -teal -regular -solid"
+      data-menu={null}
+      data-testid="view-offer"
+      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <div
+        className="button--inner"
+      >
+        View Offer
+      </div>
+    </a>
+  </div>
+  <div
+    className="card-footer"
+  >
+    <button
+      className="-dark -xsmall -clear"
+      onClick={[Function]}
+    >
+      <div
+        className="button--inner"
+      >
+        <i
+          className="icon -dark"
+        >
+          <svg
+            fill="none"
+            height="1rem"
+            viewBox="0 0 512 512"
+            width="1rem"
+          >
+            <path
+              d="M236 175.721L200.639 105L128 105L128 65L384 65V105L311.361 105L276 175.721V386.88H404V447H108V386.88H236V175.721Z"
+              style={
+                Object {
+                  "fill": "var(--class-color)",
+                }
+              }
+            />
+            <path
+              clipRule="evenodd"
+              d="M43 307.681C84.6128 366.095 171.387 366.095 213 307.681L128 128L43 307.681ZM165.037 299.831L128 221.54L90.9631 299.831C113.022 315.378 142.978 315.378 165.037 299.831Z"
+              fillRule="evenodd"
+              style={
+                Object {
+                  "fill": "var(--class-color)",
+                }
+              }
+            />
+            <path
+              clipRule="evenodd"
+              d="M469 307.681C427.387 366.095 340.613 366.095 299 307.681L384 128L469 307.681ZM384 221.54L421.037 299.831C398.978 315.378 369.022 315.378 346.963 299.831L384 221.54Z"
+              fillRule="evenodd"
+              style={
+                Object {
+                  "fill": "var(--class-color)",
+                }
+              }
+            />
+          </svg>
+        </i>
+        Compare
+      </div>
+    </button>
+  </div>
+</div>
+`;
 
-exports[`<VehicleCard /> should be render correctly 1`] = `null`;
+exports[`<VehicleCard /> should be render correctly 1`] = `
+<div
+  className="card"
+  data-testid="card"
+>
+  <div
+    className="card-header"
+  >
+    <div>
+      Factory Order
+    </div>
+    
+  </div>
+  <span
+    className="card-image"
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  />
+  <div
+    className="title"
+  >
+    <a
+      className="heading link -black -large"
+      data-menu={null}
+      data-testid="heading-link"
+      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <span
+        className="heading -pb-100 -primary -large"
+      >
+        Vauxhall Crossland X
+      </span>
+      <span
+        className="heading -dark -small"
+      >
+        test
+      </span>
+    </a>
+  </div>
+  <div
+    className="features"
+  >
+    <div>
+      <i
+        className="icon"
+      >
+        <i
+          className="icon -dark"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-b
+            </title>
+            <path
+              d="M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 32,
+                }
+              }
+            />
+            <path
+              d="M351.82,271.87v-16A96.15,96.15,0,0,0,184.09,192m-24.2,48.17v16A96.22,96.22,0,0,0,327.81,320"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeLinejoin": "round",
+                  "strokeWidth": 32,
+                }
+              }
+            />
+            <polyline
+              points="135.87 256 159.46 232.4 184.13 256"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeLinejoin": "round",
+                  "strokeWidth": 32,
+                }
+              }
+            />
+            <polyline
+              points="376.13 256 352.54 279.6 327.87 256"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeLinejoin": "round",
+                  "strokeWidth": 32,
+                }
+              }
+            />
+          </svg>
+        </i>
+      </i>
+      <span
+        className="text -xsmall -dark"
+      >
+        Manual
+      </span>
+    </div>
+  </div>
+  <div
+    className="-flex-h"
+  >
+    <div
+      className="price -large -black"
+    >
+      <span
+        className="price--sub"
+      >
+        £
+      </span>
+      <span
+        className="price--pounds"
+      >
+        189
+      </span>
+      <span
+        className="price--sub"
+      >
+        .
+        97
+      </span>
+      <div
+        className="price--label"
+      >
+        Per Month Inc.VAT
+      </div>
+    </div>
+    <a
+      className="button link -teal -regular -solid"
+      data-menu={null}
+      data-testid="view-offer"
+      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <div
+        className="button--inner"
+      >
+        View Offer
+      </div>
+    </a>
+  </div>
+  <div
+    className="card-footer"
+  >
+    <button
+      className="-dark -xsmall -clear"
+      onClick={[Function]}
+    >
+      <div
+        className="button--inner"
+      >
+        <i
+          className="icon -dark"
+        >
+          <svg
+            fill="none"
+            height="1rem"
+            viewBox="0 0 512 512"
+            width="1rem"
+          >
+            <path
+              d="M236 175.721L200.639 105L128 105L128 65L384 65V105L311.361 105L276 175.721V386.88H404V447H108V386.88H236V175.721Z"
+              style={
+                Object {
+                  "fill": "var(--class-color)",
+                }
+              }
+            />
+            <path
+              clipRule="evenodd"
+              d="M43 307.681C84.6128 366.095 171.387 366.095 213 307.681L128 128L43 307.681ZM165.037 299.831L128 221.54L90.9631 299.831C113.022 315.378 142.978 315.378 165.037 299.831Z"
+              fillRule="evenodd"
+              style={
+                Object {
+                  "fill": "var(--class-color)",
+                }
+              }
+            />
+            <path
+              clipRule="evenodd"
+              d="M469 307.681C427.387 366.095 340.613 366.095 299 307.681L384 128L469 307.681ZM384 221.54L421.037 299.831C398.978 315.378 369.022 315.378 346.963 299.831L384 221.54Z"
+              fillRule="evenodd"
+              style={
+                Object {
+                  "fill": "var(--class-color)",
+                }
+              }
+            />
+          </svg>
+        </i>
+        Compare
+      </div>
+    </button>
+  </div>
+</div>
+`;
 
-exports[`<VehicleCard /> should have link in View Offer 1`] = `null`;
+exports[`<VehicleCard /> should have link in View Offer 1`] = `
+<div
+  className="card"
+  data-testid="card"
+>
+  <div
+    className="card-header"
+  >
+    <div>
+      Factory Order
+    </div>
+    
+  </div>
+  <span
+    className="card-image"
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  />
+  <div
+    className="title"
+  >
+    <a
+      className="heading link -black -large"
+      data-menu={null}
+      data-testid="heading-link"
+      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <span
+        className="heading -pb-100 -primary -large"
+      >
+        Vauxhall Crossland X
+      </span>
+      <span
+        className="heading -dark -small"
+      >
+        test
+      </span>
+    </a>
+  </div>
+  <div
+    className="features"
+  >
+    <div>
+      <i
+        className="icon"
+      >
+        <i
+          className="icon -dark"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-b
+            </title>
+            <path
+              d="M448,256c0-106-86-192-192-192S64,150,64,256s86,192,192,192S448,362,448,256Z"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 32,
+                }
+              }
+            />
+            <path
+              d="M351.82,271.87v-16A96.15,96.15,0,0,0,184.09,192m-24.2,48.17v16A96.22,96.22,0,0,0,327.81,320"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeLinejoin": "round",
+                  "strokeWidth": 32,
+                }
+              }
+            />
+            <polyline
+              points="135.87 256 159.46 232.4 184.13 256"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeLinejoin": "round",
+                  "strokeWidth": 32,
+                }
+              }
+            />
+            <polyline
+              points="376.13 256 352.54 279.6 327.87 256"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeLinejoin": "round",
+                  "strokeWidth": 32,
+                }
+              }
+            />
+          </svg>
+        </i>
+      </i>
+      <span
+        className="text -xsmall -dark"
+      >
+        Manual
+      </span>
+    </div>
+  </div>
+  <div
+    className="-flex-h"
+  >
+    <div
+      className="price -large -black"
+    >
+      <span
+        className="price--sub"
+      >
+        £
+      </span>
+      <span
+        className="price--pounds"
+      >
+        138
+      </span>
+      <span
+        className="price--sub"
+      >
+        .
+        91
+      </span>
+      <div
+        className="price--label"
+      >
+        Per Month Exc.VAT
+      </div>
+    </div>
+    <a
+      className="button link -teal -regular -solid"
+      data-menu={null}
+      data-testid="view-offer"
+      href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+      <div
+        className="button--inner"
+      >
+        View Offer
+      </div>
+    </a>
+  </div>
+  <div
+    className="card-footer"
+  >
+    <button
+      className="-dark -xsmall -clear"
+      onClick={[Function]}
+    >
+      <div
+        className="button--inner"
+      >
+        <i
+          className="icon -dark"
+        >
+          <svg
+            fill="none"
+            height="1rem"
+            viewBox="0 0 512 512"
+            width="1rem"
+          >
+            <path
+              d="M236 175.721L200.639 105L128 105L128 65L384 65V105L311.361 105L276 175.721V386.88H404V447H108V386.88H236V175.721Z"
+              style={
+                Object {
+                  "fill": "var(--class-color)",
+                }
+              }
+            />
+            <path
+              clipRule="evenodd"
+              d="M43 307.681C84.6128 366.095 171.387 366.095 213 307.681L128 128L43 307.681ZM165.037 299.831L128 221.54L90.9631 299.831C113.022 315.378 142.978 315.378 165.037 299.831Z"
+              fillRule="evenodd"
+              style={
+                Object {
+                  "fill": "var(--class-color)",
+                }
+              }
+            />
+            <path
+              clipRule="evenodd"
+              d="M469 307.681C427.387 366.095 340.613 366.095 299 307.681L384 128L469 307.681ZM384 221.54L421.037 299.831C398.978 315.378 369.022 315.378 346.963 299.831L384 221.54Z"
+              fillRule="evenodd"
+              style={
+                Object {
+                  "fill": "var(--class-color)",
+                }
+              }
+            />
+          </svg>
+        </i>
+        Compare
+      </div>
+    </button>
+  </div>
+</div>
+`;

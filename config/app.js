@@ -5,21 +5,12 @@ require('dotenv').config();
 const fetchRewritesList = require('../rewrites');
 
 module.exports = {
-  // Sass.
-  sass: {
-    sassLoaderOptions: {
-      data:
-        "@import './node_modules/@vanarama/uibook/src/components/variables.scss';",
-    },
-  },
-
   // Next.
   next: {
     // Env vars.
     env: {
       ENV: process.env.ENV,
       IMG_OPTIMISATION_HOST: process.env.IMG_OPTIMISATION_HOST,
-      HOSTNAME: process.env.HOSTNAME,
       GTM_ID: process.env.GTM_ID,
       MICROBLINK_URL: process.env.MICROBLINK_URL,
       API_URL: process.env.API_URL,
@@ -30,20 +21,19 @@ module.exports = {
       REDIS_CACHE_PORT: process.env.REDIS_CACHE_PORT,
       REDIS_KEY_PREFIX: process.env.REDIS_KEY_PREFIX,
     },
-    experimental: {
-      optimizeImages: true,
-    },
     devIndicators: {
       autoPrerender: false,
     },
     poweredByHeader: false,
 
-    // Rollbar.
     serverRuntimeConfig: {
+      // Rollbar.
       rollbarServerToken: process.env.ROLLBAR_SERVER_TOKEN || '',
     },
     publicRuntimeConfig: {
+      // Rollbar.
       rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
+      // Apollo.
     },
 
     // Rewrites.
@@ -73,6 +63,8 @@ module.exports = {
       config.node = {
         fs: 'empty',
       };
+
+      config.mode = 'production';
 
       return config;
     },

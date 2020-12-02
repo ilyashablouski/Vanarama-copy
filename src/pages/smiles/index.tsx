@@ -1,29 +1,45 @@
-import { useRouter } from 'next/router';
-import { NextPage } from 'next';
-import { getDataFromTree } from '@apollo/react-ssr';
+import DefaultErrorPage from 'next/error';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import { useGenericPage } from '../../gql/genericPage';
-import withApollo from '../../hocs/withApollo';
+import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import createApolloClient from '../../apolloClient';
 
-const EligibilityChecker: NextPage = () => {
-  const router = useRouter();
-  const { data, loading, error } = useGenericPage(router.asPath.slice(1));
+const SmilesPage: NextPage<IGenericPage> = ({ data, error, loading }) => {
+  if (error || !data?.genericPage) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
 
   if (loading) {
     return <Loading size="large" />;
   }
 
-  if (error) {
-    return <ErrorMessage message={error.message} />;
-  }
-
-  if (!data?.genericPage) {
-    return null;
-  }
-
   return <FeaturedAndTilesContainer data={data} />;
 };
 
-export default withApollo(EligibilityChecker, { getDataFromTree });
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+
+    const { data, errors } = await client.query({
+      query: GENERIC_PAGE,
+      variables: {
+        slug: 'smiles',
+      },
+    });
+    return {
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
+  }
+}
+
+export default SmilesPage;

@@ -1,4 +1,4 @@
-import { useQuery, gql } from '@apollo/client';
+import { useQuery, gql, useLazyQuery } from '@apollo/client';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
   GetProductCard,
@@ -67,10 +67,30 @@ export const GET_PRODUCT_CARDS_DATA = gql`
 `;
 
 /**
- *  @props capIdArray - string array with capId from relatedVehicles in vehicleDetails
+ *  @props capIds - string array with capId from relatedVehicles in vehicleDetails
  *  @props vehicleType - VehicleTypeEnum
  */
-export function useProductCardData(
+export function useProductCardDataLazyQuery(
+  capIds: string[],
+  vehicleType?: VehicleTypeEnum,
+  onCompleted?: (data: GetProductCard) => void,
+) {
+  return useLazyQuery<GetProductCard, GetProductCardVariables>(
+    GET_PRODUCT_CARDS_DATA,
+    {
+      variables: {
+        capIds,
+        vehicleType,
+      },
+      onCompleted,
+    },
+  );
+}
+/**
+ *  @props capIds - string array with capId from relatedVehicles in vehicleDetails
+ *  @props vehicleType - VehicleTypeEnum
+ */
+export function useProductCardDataQuery(
   capIds: string[],
   vehicleType?: VehicleTypeEnum,
   skip = false,

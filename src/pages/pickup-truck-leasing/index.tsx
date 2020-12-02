@@ -1,24 +1,10 @@
 import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import { useState, useContext } from 'react';
-import { getDataFromTree } from '@apollo/react-ssr';
 import ReactMarkdown from 'react-markdown/with-html';
-import Flame from '@vanarama/uibook/lib/assets/icons/Flame';
-import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Step from '@vanarama/uibook/lib/components/molecules/step';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import ProductCard from '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard';
-import Price from '@vanarama/uibook/lib/components/atoms/price';
-import League from '@vanarama/uibook/lib/components/organisms/league';
-
-import Media from '@vanarama/uibook/lib/components/atoms/media';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { isCompared } from '../../utils/comparatorHelpers';
@@ -34,8 +20,7 @@ import {
 } from '../../../generated/ProductCardData';
 import { HUB_PICKUP_CONTENT } from '../../gql/hub/hubPickupPage';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
-import withApollo from '../../hocs/withApollo';
-
+import createApolloClient from '../../apolloClient';
 import DealOfMonth from '../../components/DealOfMonth';
 import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -52,13 +37,93 @@ import {
 import TileLink from '../../components/TileLink/TileLink';
 import { PickupsSearch } from '../../models/enum/SearchByManufacturer';
 import { features } from '../../components/ProductCarousel/helpers';
+import Head from '../../components/Head/Head';
+import Skeleton from '../../components/Skeleton';
 
-export const PickupsPage: NextPage = () => {
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    ssr: false,
+  },
+);
+const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'), {
+  ssr: false,
+});
+const ArrowForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ArrowForwardSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Price = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/price'),
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+    ssr: false,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tile = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tile'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Media = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/media'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Step = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/step'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const ProductCard = dynamic(
+  () =>
+    import(
+      '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard'
+    ),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const TrustPilot = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/trustpilot'),
+  {
+    ssr: false,
+  },
+);
+const League = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/league'),
+  {
+    loading: () => <Skeleton count={2} />,
+  },
+);
+
+type Props = {
+  data: HubPickupPageData;
+};
+
+export const PickupsPage: NextPage<Props> = ({ data }) => {
   const [offer, setOffer] = useState<ProdData>();
   const { cachedLeaseType } = useLeaseType(false);
-  const { data, loading, error } = useQuery<HubPickupPageData>(
-    HUB_PICKUP_CONTENT,
-  );
 
   const { data: products } = useQuery<ProductCardData>(PRODUCT_CARD_CONTENT, {
     variables: {
@@ -75,22 +140,14 @@ export const PickupsPage: NextPage = () => {
     },
   });
 
-  const productsPickupsCapIds = products?.productCarousel?.map(
-    el => el?.capId || '',
-  ) || [''];
+  const productsPickupsCapIds = products?.productCarousel
+    ?.map(el => el?.capId || '')
+    .filter(Boolean) || [''];
   const vehicleListUrlQuery = useVehicleListUrl(productsPickupsCapIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, productsPickupsCapIds);
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
 
   const dealOfMonthUrl = formatProductPageUrl(
     getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
@@ -615,8 +672,37 @@ export const PickupsPage: NextPage = () => {
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
+      {data?.hubPickupPage.metaData && (
+        <>
+          <Head
+            metaData={data?.hubPickupPage.metaData}
+            featuredImage={data?.hubPickupPage.featuredImage}
+          />
+          <SchemaJSON
+            json={JSON.stringify(data?.hubPickupPage.metaData.schema)}
+          />
+        </>
+      )}
     </>
   );
 };
 
-export default withApollo(PickupsPage, { getDataFromTree });
+export async function getServerSideProps() {
+  const client = createApolloClient({});
+
+  try {
+    const { data } = await client.query<HubPickupPageData>({
+      query: HUB_PICKUP_CONTENT,
+    });
+
+    return {
+      props: {
+        data,
+      },
+    };
+  } catch {
+    return false;
+  }
+}
+
+export default PickupsPage;

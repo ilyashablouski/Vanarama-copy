@@ -7,7 +7,22 @@ export const ELIGIBILITY_CHECKER_CONTENT = gql`
     eligibilityCheckerLandingPage {
       id
       metaData {
+        title
         name
+        metaRobots
+        metaDescription
+        legacyUrl
+        pageType
+        canonicalUrl
+        slug
+        schema
+        publishedOn
+        breadcrumbs
+      }
+      featuredImage {
+        file {
+          url
+        }
       }
       sections {
         leadText {

@@ -1,12 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`<Head /> renders correctly 1`] = `
-<script
-  dangerouslySetInnerHTML={
-    Object {
-      "__html": "null",
-    }
-  }
-  type="application/ld+json"
-/>
-`;
+exports[`<Head /> renders correctly 1`] = `null`;

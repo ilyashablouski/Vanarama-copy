@@ -3,11 +3,16 @@ require('dotenv').config({ path: '.env.secret' });
 require('dotenv').config();
 require('colors');
 
+const OS = require('os');
+
+process.env.UV_THREADPOOL_SIZE = OS.cpus().length;
+
 const express = require('express');
 const cors = require('cors');
 const next = require('next');
 const prerender = require('prerender-node');
 const hpp = require('hpp');
+const compression = require('compression');
 
 const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
@@ -45,15 +50,18 @@ app
   })
   .then(server => {
     // Prevent brute force attack in production.
-    if (process.env.ENV === 'production') {
+    if (!process.env.ENV === 'dev') {
       server.use(rateLimiterRedisMiddleware);
     }
 
     // Prerender.
-    if (prerender && process.env.PRERENDER_SERVICE_URL) server.use(prerender);
+    if (prerender && process.env.PRERENDER_SERVICE_URL) {
+      server.use(prerender);
+    }
 
-    server.disable('x-powered-by');
     server.use(hpp());
+    server.use(compression());
+    server.disable('x-powered-by');
 
     return server;
   })
@@ -82,8 +90,13 @@ app
 
     // All routes.
     server.all('*', cors(), (req, res) => {
-      if (process.env.ENV !== 'production')
-        res.setHeader('X-Robots-Tag', 'noindex'); // Disable indexing.
+      // Disable indexing on live domain.
+      if (!req.get('host').includes('vanarama.com'))
+        res.setHeader('X-Robots-Tag', 'noindex');
+
+      if (!dev)
+        res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
+
       return handle(req, res);
     });
     return server;
