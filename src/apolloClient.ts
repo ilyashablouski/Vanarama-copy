@@ -21,7 +21,11 @@ const HttpLink = createHttpLink({
   },
 });
 
-const ErrorLink = onError(({ graphQLErrors }) => {
+const ErrorLink = onError(({ networkError, graphQLErrors }) => {
+  if (networkError) {
+    inspect(['Network Error', networkError]);
+  }
+
   if (graphQLErrors) {
     inspect(['GQL Error', graphQLErrors]);
 
