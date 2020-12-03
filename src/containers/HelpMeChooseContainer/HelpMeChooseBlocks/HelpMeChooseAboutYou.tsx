@@ -32,7 +32,7 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
       setSteps({
         ...steps,
         financeTypes: {
-          active: isFinanceTypesActive,
+          active: steps.financeTypes.active || isFinanceTypesActive,
           value: financeTypesQueryValue as any,
         },
       });

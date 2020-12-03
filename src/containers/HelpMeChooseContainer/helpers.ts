@@ -1,5 +1,4 @@
 import { NextRouter } from 'next/router';
-import { ProductsFilterList_productsFilterList_rental_stats as Rental } from '../../../generated/ProductsFilterList';
 
 const getBucketLabel = (type: string, label: string) => {
   switch (type) {
@@ -33,15 +32,15 @@ export const onReplace = (
     terms: IStep;
     mileages: IStep;
     rental: IStep;
+    preferToPay: IStep;
   },
 ) => {
   let pathname = router.route.replace('[[...param]]', '');
   const queryString = new URLSearchParams();
-  // don't add range and make to query for make/range pages
   const queries = {} as any;
   Object.entries(newStep).forEach(filter => {
     const [key, step] = filter;
-    if (step.value) {
+    if (step.value.length) {
       queries[key] = step.value;
     }
   });
@@ -83,9 +82,10 @@ export const buildAnObjectFromAQuery = (query: any) => {
       object.mileages = [parseInt(value, 10)];
     }
     if (key === 'rental' && value.length) {
+      const valueData = value.split('-');
       object.rental = {
-        min: value.split('-')[0],
-        max: value.split('-')[1],
+        min: parseInt(valueData && valueData[0], 10) || null,
+        max: parseInt(valueData && valueData[1], 10) || null,
       };
     }
   });
@@ -94,7 +94,7 @@ export const buildAnObjectFromAQuery = (query: any) => {
 
 export interface IStep {
   active: boolean;
-  value: string[] | number[] | Rental;
+  value: string[];
 }
 
 export interface IInitStep {
@@ -105,4 +105,5 @@ export interface IInitStep {
   terms: IStep;
   mileages: IStep;
   rental: IStep;
+  preferToPay: IStep;
 }

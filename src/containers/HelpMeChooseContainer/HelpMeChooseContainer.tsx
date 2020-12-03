@@ -44,45 +44,48 @@ const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
   return (
     <>
       <div className="row:progress">{/* <ConsumerProgressIndicator /> */}</div>
-      <section className="row:lead-text">
-        <Heading tag="h1" color="black" size="xlarge">
+      <div className="row:stepped-form">
+        <Heading
+          tag="h1"
+          color="black"
+          size="xlarge"
+          className="stepped-form--title -mb-100"
+        >
           {title}
         </Heading>
-      </section>
-      {!!choicesValues.length && (
-        <div className="row:cards-3col">
-          <Choiceboxes
-            className={`-cols-${choicesValues?.length < 3 ? 2 : 3}`}
-            choices={choicesValues}
-            onSubmit={value => {
-              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-              multiSelect ? handleChecked(value) : setChoice(value.value);
-            }}
-            multiSelect={multiSelect}
-            clearMultiSelectTitle={clearMultiSelectTitle}
-            onClearClick={() => setChoice([''])}
-            withIcons={withIcons}
-          />
-          {choicesValues.length === 1 && (
-            <Text>
-              It seems there is only 1 option available, please go back a step
-              and change your selection to expand your choice
-            </Text>
-          )}
-          <Button
-            color="primary"
-            dataTestId="submit"
-            icon={<ChevronForwardSharp />}
-            iconColor="white"
-            iconPosition="after"
-            label="Continue"
-            type="submit"
-            size="large"
-            onClick={onClickContinue}
-            disabled={!currentValue?.length}
-          />
-        </div>
-      )}
+        <Choiceboxes
+          className={`-cols-${
+            choicesValues?.length < 3 ? 2 : 3
+          } -teal stepped-form--choiceboxes`}
+          choices={choicesValues}
+          onSubmit={value => {
+            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+            multiSelect ? handleChecked(value) : setChoice(value.value);
+          }}
+          multiSelect={multiSelect}
+          clearMultiSelectTitle={clearMultiSelectTitle}
+          onClearClick={() => setChoice([''])}
+          withIcons={withIcons}
+        />
+        {choicesValues.length === 1 && (
+          <Text>
+            It seems there is only 1 option available, please go back a step and
+            change your selection to expand your choice
+          </Text>
+        )}
+        <Button
+          color="primary"
+          dataTestId="submit"
+          icon={<ChevronForwardSharp />}
+          iconColor="white"
+          iconPosition="after"
+          label="Continue"
+          type="submit"
+          size="large"
+          onClick={onClickContinue}
+          disabled={!currentValue?.length}
+        />
+      </div>
     </>
   );
 };

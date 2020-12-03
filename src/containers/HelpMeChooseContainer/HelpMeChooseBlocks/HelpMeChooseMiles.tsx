@@ -25,7 +25,8 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
       const mileagesQueryValue = mileagesQuery.length
         ? mileagesQuery[0].split(',')
         : [];
-      const isMileagesActive = searchParams.has('mileages');
+      const isMileagesActive =
+        searchParams.has('mileages') && !searchParams.has('rental');
       setSteps({
         ...steps,
         mileages: {
@@ -60,7 +61,7 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
         setSteps({
           ...steps,
           mileages: { active: false, value: mileagesValue },
-          transmissions: { active: true, value: steps.transmissions.value },
+          rental: { active: true, value: steps.rental.value },
         });
         onReplace(router, {
           ...steps,
