@@ -13,12 +13,13 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
     </div>
     
   </div>
-  <img
+  <span
     className="card-image"
-    data-testid="card-image"
-    onError={[Function]}
-    sizes="(min-width:3200px) 800px, 1200px"
-    src="https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg"
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
   />
   <div
     className="title"
@@ -230,12 +231,13 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     </div>
     
   </div>
-  <img
+  <span
     className="card-image"
-    data-testid="card-image"
-    onError={[Function]}
-    sizes="(min-width:3200px) 800px, 1200px"
-    src="https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg"
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
   />
   <div
     className="title"
@@ -447,12 +449,13 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
     </div>
     
   </div>
-  <img
+  <span
     className="card-image"
-    data-testid="card-image"
-    onError={[Function]}
-    sizes="(min-width:3200px) 800px, 1200px"
-    src="https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg"
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
   />
   <div
     className="title"

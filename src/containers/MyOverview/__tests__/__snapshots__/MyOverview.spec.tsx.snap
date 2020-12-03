@@ -183,11 +183,13 @@ Array [
             }
           }
         >
-          <img
+          <span
             className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-            sizes="(min-width:3200px) 800px, 1200px"
+            style={
+              Object {
+                "display": "inline-block",
+              }
+            }
           />
           <div
             className="title"
@@ -314,11 +316,13 @@ Array [
             }
           }
         >
-          <img
+          <span
             className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-            sizes="(min-width:3200px) 800px, 1200px"
+            style={
+              Object {
+                "display": "inline-block",
+              }
+            }
           />
           <div
             className="title"
@@ -545,11 +549,13 @@ Array [
             }
           }
         >
-          <img
+          <span
             className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-            sizes="(min-width:3200px) 800px, 1200px"
+            style={
+              Object {
+                "display": "inline-block",
+              }
+            }
           />
           <div
             className="title"
@@ -676,11 +682,13 @@ Array [
             }
           }
         >
-          <img
+          <span
             className="card-image"
-            data-testid="card-image"
-            onError={[Function]}
-            sizes="(min-width:3200px) 800px, 1200px"
+            style={
+              Object {
+                "display": "inline-block",
+              }
+            }
           />
           <div
             className="title"
