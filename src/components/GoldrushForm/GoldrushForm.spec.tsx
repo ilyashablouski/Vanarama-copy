@@ -1,4 +1,5 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import preloadAll from 'jest-next-dynamic';
 import GoldrushForm from './GoldrushForm';
 
 describe('<GoldrushForm />', () => {
@@ -9,7 +10,8 @@ describe('<GoldrushForm />', () => {
   const testPostcode = 'EC1A 1BB';
   let onSubmitMock = jest.fn();
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await preloadAll();
     onSubmitMock = jest.fn();
   });
 

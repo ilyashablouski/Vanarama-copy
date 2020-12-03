@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
 import OrderInformationContainer from '../OrderInformationContainer';
 
@@ -15,6 +16,9 @@ jest.mock('next/router', () => ({
 }));
 
 describe('<OrderInformationContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('renders correctly without data', () => {
     jest.mock('../../../hooks/useImperativeQuery', () => [
       jest.fn(),
