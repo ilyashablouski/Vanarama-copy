@@ -314,7 +314,6 @@ const TopOffersContainer: React.FC<IProps> = ({
               >
                 {vehiclesList.map((vehicle: IVehicles) => (
                   <VehicleCard
-                    withoutLazyImage
                     derivativeId={vehicle.node?.derivativeId}
                     url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
                     key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
