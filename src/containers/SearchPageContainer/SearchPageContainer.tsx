@@ -69,7 +69,7 @@ import Skeleton from '../../components/Skeleton';
 
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
-  ssr: false,
+  ssr: true,
 });
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),

@@ -21,6 +21,7 @@ import {
   useRegistrationForTemporaryAccessMutation,
   handlerMock,
 } from '../../gql/temporaryRegistration';
+import { RegisterForTemporaryAccess_registerForTemporaryAccess_emailAddress as IEmailAddress } from '../../../generated/RegisterForTemporaryAccess';
 
 const savePersonUuid = async (data: SaveBusinessAboutYou) =>
   localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
@@ -69,13 +70,16 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     return Boolean(results?.data?.emailAlreadyExists);
   };
 
+  const email =
+    personByUuid?.emailAddresses[0] ||
+    creditApplication?.aboutDetails.email_addresses[0];
   const handleTemporaryRegistrationIfGuest = (
     username: string,
     firstName: string,
     lastName: string,
   ) =>
-    personUuid
-      ? handlerMock()
+    person
+      ? handlerMock(email)
       : registerTemporary({
           variables: {
             username,
@@ -84,15 +88,16 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
           },
         });
 
-  const handleDetailsSave = (values: IBusinessAboutFormValues) => {
-    const data = getCreditApplicationByOrderUuidQuery?.data;
-    const aboutDetails = data?.creditApplicationByOrderUuid?.aboutDetails;
+  const handleDetailsSave = (
+    values: IBusinessAboutFormValues,
+    emailAddress?: IEmailAddress | null,
+  ) => {
     return saveDetails({
       variables: {
         input: {
           emailAddress: {
             value: values.email,
-            uuid: aboutDetails?.email_addresses[0].uuid || null,
+            uuid: emailAddress?.uuid,
           },
           telephoneNumbers: [
             {
@@ -170,7 +175,12 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
           values.firstName,
           values.lastName,
         )
-          .then(() => handleDetailsSave(values))
+          .then(query =>
+            handleDetailsSave(
+              values,
+              query.data?.registerForTemporaryAccess?.emailAddress,
+            ),
+          )
           .then(({ data }) =>
             handleCreateUpdateCreditApplication(values, data).then(() => {
               const result = {

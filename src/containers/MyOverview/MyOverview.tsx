@@ -29,6 +29,7 @@ import {
   GetMyOrders,
   GetMyOrders_myOrders,
 } from '../../../generated/GetMyOrders';
+import Head from '../../components/Head/Head';
 
 type QueryParams = {
   partyByUuid?: string;
@@ -329,6 +330,20 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     });
   };
 
+  const metaData = {
+    canonicalUrl: null,
+    legacyUrl: null,
+    metaDescription: null,
+    metaRobots: null,
+    name: null,
+    pageType: null,
+    publishedOn: null,
+    slug: null,
+    title: `My ${quote ? 'Quotes' : 'Orders'} | Vanarama`,
+    schema: null,
+    breadcrumbs: null,
+  };
+
   return (
     <>
       <div className="row:title">
@@ -396,6 +411,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
           </div>
         </div>
       )}
+      <Head metaData={metaData} featuredImage={null} />
     </>
   );
 };

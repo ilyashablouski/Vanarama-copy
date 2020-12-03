@@ -6,6 +6,8 @@ import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-fin
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { useForm } from 'react-hook-form';
 import Form from '@vanarama/uibook/lib/components/organisms/form';
+import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import validationSchema from './PersonalInformation.validation';
 import { IPersonInformationFormValues, IProps } from './interface';
 import { IAddressPerson } from '../../containers/PersonalInformationContainer/interfaces';
@@ -177,6 +179,39 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             </div>
           </div>
         </section>
+        <div>
+          <Heading color="black" size="large" dataTestId="updated">
+            Keep Me Updated
+          </Heading>
+          <FormGroup
+            label=""
+            className="-mb-300 -mt-300"
+            error={errors?.emailConsent?.message?.toString()}
+          >
+            <CheckBox
+              id="emailConsent"
+              dataTestId="emailConsent"
+              name="emailConsent"
+              label="I want to be kept updated about exclusive deals & offers from Vanarama."
+              ref={register}
+              defaultChecked={person?.emailConsent || false}
+              // disabled={!editData}
+            />
+          </FormGroup>
+          <Text color="darker" className="-pl-500" tag="p">
+            You may unsubscribe from these communications at anytime. For
+            further information please check out our
+            <a
+              key="a"
+              className="link -teal -ml-100"
+              href="/legal/privacy-policy"
+              target="_blank"
+            >
+              Privacy Policy
+            </a>
+            .
+          </Text>
+        </div>
         {editData && (
           <Button
             type="submit"

@@ -130,6 +130,7 @@ export interface GetCompanySummaryQuery_personByUuid_emailAddresses {
   uuid: string;
   primary: boolean;
   value: string;
+  kind: string | null;
 }
 
 export interface GetCompanySummaryQuery_personByUuid_telephoneNumbers {

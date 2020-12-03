@@ -10,6 +10,7 @@ import {
   useRegistrationForTemporaryAccessMutation,
   handlerMock,
 } from '../../gql/temporaryRegistration';
+import { RegisterForTemporaryAccess_registerForTemporaryAccess_emailAddress as IEmailAddress } from '../../../generated/RegisterForTemporaryAccess';
 
 const AboutFormContainer: React.FC<IProps> = ({
   onCompleted,
@@ -35,8 +36,8 @@ const AboutFormContainer: React.FC<IProps> = ({
     firstName: string,
     lastName: string,
   ) =>
-    personUuid
-      ? handlerMock()
+    aboutYouData.data?.personByUuid
+      ? handlerMock(aboutYouData.data?.personByUuid?.emailAddresses[0])
       : registerTemporary({
           variables: {
             username,
@@ -45,10 +46,13 @@ const AboutFormContainer: React.FC<IProps> = ({
           },
         });
 
-  const handlePersonCreation = (values: IAboutFormValues) =>
+  const handlePersonCreation = (
+    values: IAboutFormValues,
+    emailAddress?: IEmailAddress | null,
+  ) =>
     createPerson({
       variables: {
-        input: formValuesToInput(values, aboutYouData.data?.personByUuid),
+        input: formValuesToInput(values, emailAddress),
       },
     });
 
@@ -81,7 +85,12 @@ const AboutFormContainer: React.FC<IProps> = ({
           values.email,
           values.firstName,
           values.lastName,
-        ).then(() => handlePersonCreation(values))
+        ).then(query =>
+          handlePersonCreation(
+            values,
+            query.data?.registerForTemporaryAccess?.emailAddress,
+          ),
+        )
       }
     />
   );

@@ -36,16 +36,30 @@ export const getLeasingPaths = (
   }));
 };
 
-const isCorrectSlug = (slug: string, pathItem: string) => {
+const isCorrectSlug = (
+  slug: string,
+  pathItem: string,
+  excludedSlugs?: string[],
+) => {
   const paths = slug.split('/');
+  if (excludedSlugs?.length) {
+    return (
+      paths?.length > 1 &&
+      paths.includes(pathItem) &&
+      !excludedSlugs.some(excludedSlug => slug.includes(excludedSlug))
+    );
+  }
   return paths?.length > 1 && paths.includes(pathItem);
 };
 
 export const getPathsFromPageCollection = (
   items: (PageCollection_pageCollection_items | null)[] | null | undefined,
   pathItem: string,
+  excludedSlugs?: string[],
 ) => {
   return items
-    ?.filter(item => (item?.slug ? isCorrectSlug(item?.slug, pathItem) : false))
+    ?.filter(item =>
+      item?.slug ? isCorrectSlug(item?.slug, pathItem, excludedSlugs) : false,
+    )
     .map(item => `/${item?.slug}`);
 };

@@ -7,6 +7,7 @@ import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
 import FinanceExplainedContainer from '../../../containers/FinanceExplainedContainer/FinanceExplainedContainer';
 import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
 import createApolloClient from '../../../apolloClient';
+import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
 import {
@@ -24,6 +25,18 @@ const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
   const sections = getSectionsData(['sections'], data?.genericPage);
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
+  const image = getSectionsData(
+    ['featuredImage', 'file', 'url'],
+    data?.genericPage,
+  );
+  const cards = getSectionsData(
+    ['sections', 'cards', 'cards'],
+    data?.genericPage,
+  );
+  const featured1 = getSectionsData(
+    ['sections', 'featured1'],
+    data?.genericPage,
+  );
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
@@ -52,21 +65,33 @@ const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
     );
   }
 
+  if (cards || featured1) {
+    return (
+      <>
+        {breadcrumbsItems && (
+          <div className="row:title">
+            <Breadcrumb items={breadcrumbsItems} />
+          </div>
+        )}
+        <FinanceExplainedContainer data={data} />
+        {metaData && (
+          <>
+            <Head metaData={metaData} featuredImage={featuredImage} />
+            <SchemaJSON json={JSON.stringify(metaData.schema)} />
+          </>
+        )}
+      </>
+    );
+  }
+
   return (
-    <>
-      {breadcrumbsItems && (
-        <div className="row:title">
-          <Breadcrumb items={breadcrumbsItems} />
-        </div>
-      )}
-      <FinanceExplainedContainer data={data} />
-      {metaData && (
-        <>
-          <Head metaData={metaData} featuredImage={featuredImage} />
-          <SchemaJSON json={JSON.stringify(metaData.schema)} />
-        </>
-      )}
-    </>
+    <BlogPostContainer
+      body={data.genericPage.body}
+      name={metaData.name}
+      image={image}
+      breadcrumbsItems={breadcrumbsItems}
+      metaData={metaData}
+    />
   );
 };
 

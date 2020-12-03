@@ -2,6 +2,7 @@ import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
@@ -12,6 +13,7 @@ import PersonalInformationFormContainer from '../../../containers/PersonalInform
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 import { MyDetailsQueryParams } from '../../../utils/url';
 import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
+import Head from '../../../components/Head/Head';
 
 interface IProps {
   query: ParsedUrlQuery;
@@ -38,11 +40,29 @@ const breadcrumbItems = [
   },
 ];
 
+const metaData = {
+  canonicalUrl: null,
+  legacyUrl: null,
+  metaDescription: null,
+  metaRobots: null,
+  name: null,
+  pageType: null,
+  publishedOn: null,
+  slug: null,
+  title: 'My Account Details | Vanarama',
+  schema: null,
+  breadcrumbs: null,
+};
+
 const MyDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
   const { uuid } = router.query as MyDetailsQueryParams;
 
   const [resetPassword, setResetPassword] = useState(false);
+
+  if (!uuid) {
+    return <Loading size="large" />;
+  }
 
   return (
     <>
@@ -96,6 +116,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
           )}
         </div>
       </div>
+      <Head metaData={metaData} featuredImage={null} />
     </>
   );
 };

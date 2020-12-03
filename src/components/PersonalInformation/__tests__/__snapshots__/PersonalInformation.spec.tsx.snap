@@ -122,6 +122,58 @@ exports[`<PersonalInformation /> should render correctly 1`] = `
         </div>
       </div>
     </section>
+    <div>
+      <p
+        className="heading -black -large"
+        data-testid="updated"
+      >
+        Keep Me Updated
+      </p>
+      <div
+        className="formgroup -mb-300 -mt-300"
+      >
+        
+        <div
+          className="formgroup--content"
+        >
+          <div
+            className="checkbox -teal"
+          >
+            <input
+              className="checkbox--native"
+              data-testid="emailConsent"
+              defaultChecked={false}
+              id="emailConsent"
+              name="emailConsent"
+              type="checkbox"
+            />
+            <label
+              className="checkbox--label"
+              htmlFor="emailConsent"
+            >
+              <span
+                className="text -regular -darker"
+              >
+                I want to be kept updated about exclusive deals & offers from Vanarama.
+              </span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <p
+        className="text -pl-500 -regular -darker"
+      >
+        You may unsubscribe from these communications at anytime. For further information please check out our
+        <a
+          className="link -teal -ml-100"
+          href="/legal/privacy-policy"
+          target="_blank"
+        >
+          Privacy Policy
+        </a>
+        .
+      </p>
+    </div>
     <button
       className="button -primary -regular -solid"
       data-testid="personalSubmit"

@@ -324,10 +324,12 @@ export interface LineItemInputObject {
  * Input object to update my account section
  */
 export interface MyAccountInputObject {
+  emailConsent?: boolean | null;
   firstName?: string | null;
   lastName?: string | null;
   personUuid: string;
   serviceId?: string | null;
+  smsConsent?: boolean | null;
   telephoneNumber?: string | null;
 }
 

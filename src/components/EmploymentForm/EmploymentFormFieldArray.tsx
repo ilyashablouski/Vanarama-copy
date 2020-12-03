@@ -2,6 +2,7 @@ import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import { gql } from '@apollo/client';
 import { FieldArrayRenderProps } from 'formik';
 import React from 'react';
+import FormikTypeAheadField from '../FormikTypeAhead/FormikTypeAheadField';
 import { EmploymentFormFieldArrayDownData } from '../../../generated/EmploymentFormFieldArrayDownData';
 import useHistory from '../../hooks/useHistory';
 import FCWithFragments from '../../utils/FCWithFragments';
@@ -65,7 +66,7 @@ const EmploymentFormFieldArray: FCWithFragments<IProps> = ({
               <>
                 <FormikRadioField
                   name={`history[${index}].contract`}
-                  label="Are you"
+                  label="Are You Working"
                 >
                   <FormikRadioField.Radio
                     id={`history[${index}].contract_fulltime`}
@@ -78,7 +79,7 @@ const EmploymentFormFieldArray: FCWithFragments<IProps> = ({
                     value="Part time"
                   />
                 </FormikRadioField>
-                <FormikTextField
+                <FormikTypeAheadField
                   name={`history[${index}].title`}
                   label="Job Title"
                 />

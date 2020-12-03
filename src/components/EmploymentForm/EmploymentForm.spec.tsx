@@ -1,6 +1,23 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
 import EmploymentForm from './EmploymentForm';
+import { GET_OCCUPATIONS } from './gql';
+
+const sicData: MockedResponse[] = [
+  {
+    request: {
+      query: GET_OCCUPATIONS,
+    },
+    result: {
+      data: {
+        occupationList: {
+          occupations: ['AAA'],
+        },
+      },
+    },
+  },
+];
 
 const mockDropDownData: EmploymentFormDropDownData = {
   __typename: 'DropDownType',
@@ -18,11 +35,13 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     render(
-      <EmploymentForm
-        employments={[]}
-        dropDownData={mockDropDownData}
-        onSubmit={onSubmit}
-      />,
+      <MockedProvider mocks={sicData}>
+        <EmploymentForm
+          employments={[]}
+          dropDownData={mockDropDownData}
+          onSubmit={onSubmit}
+        />
+      </MockedProvider>,
     );
 
     const status = screen.getByLabelText('Your Current Employment Status');
@@ -61,11 +80,13 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     render(
-      <EmploymentForm
-        employments={[]}
-        dropDownData={mockDropDownData}
-        onSubmit={onSubmit}
-      />,
+      <MockedProvider mocks={sicData}>
+        <EmploymentForm
+          employments={[]}
+          dropDownData={mockDropDownData}
+          onSubmit={onSubmit}
+        />
+      </MockedProvider>,
     );
 
     const status = screen.getByLabelText('Your Current Employment Status');
@@ -130,11 +151,13 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     render(
-      <EmploymentForm
-        employments={[]}
-        dropDownData={mockDropDownData}
-        onSubmit={onSubmit}
-      />,
+      <MockedProvider mocks={sicData}>
+        <EmploymentForm
+          employments={[]}
+          dropDownData={mockDropDownData}
+          onSubmit={onSubmit}
+        />
+      </MockedProvider>,
     );
 
     const status = screen.getByLabelText('Your Current Employment Status');
@@ -219,11 +242,13 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     render(
-      <EmploymentForm
-        employments={[]}
-        dropDownData={mockDropDownData}
-        onSubmit={onSubmit}
-      />,
+      <MockedProvider mocks={sicData}>
+        <EmploymentForm
+          employments={[]}
+          dropDownData={mockDropDownData}
+          onSubmit={onSubmit}
+        />
+      </MockedProvider>,
     );
 
     const status = screen.getByLabelText('Your Current Employment Status');
@@ -252,11 +277,13 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     render(
-      <EmploymentForm
-        employments={[]}
-        dropDownData={mockDropDownData}
-        onSubmit={onSubmit}
-      />,
+      <MockedProvider mocks={sicData}>
+        <EmploymentForm
+          employments={[]}
+          dropDownData={mockDropDownData}
+          onSubmit={onSubmit}
+        />
+      </MockedProvider>,
     );
 
     const status = screen.getByLabelText('Your Current Employment Status');
@@ -282,11 +309,13 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     render(
-      <EmploymentForm
-        employments={[]}
-        dropDownData={mockDropDownData}
-        onSubmit={onSubmit}
-      />,
+      <MockedProvider mocks={sicData}>
+        <EmploymentForm
+          employments={[]}
+          dropDownData={mockDropDownData}
+          onSubmit={onSubmit}
+        />
+      </MockedProvider>,
     );
 
     fireEvent.click(screen.getByText('Continue'));
@@ -305,11 +334,13 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     render(
-      <EmploymentForm
-        employments={[]}
-        dropDownData={mockDropDownData}
-        onSubmit={onSubmit}
-      />,
+      <MockedProvider mocks={sicData}>
+        <EmploymentForm
+          employments={[]}
+          dropDownData={mockDropDownData}
+          onSubmit={onSubmit}
+        />
+      </MockedProvider>,
     );
 
     const status = screen.getByLabelText('Your Current Employment Status');
@@ -350,11 +381,13 @@ describe('<EmploymentForm />', () => {
 
     // ACT
     render(
-      <EmploymentForm
-        employments={[]}
-        dropDownData={mockDropDownData}
-        onSubmit={onSubmit}
-      />,
+      <MockedProvider mocks={sicData}>
+        <EmploymentForm
+          employments={[]}
+          dropDownData={mockDropDownData}
+          onSubmit={onSubmit}
+        />
+      </MockedProvider>,
     );
 
     const status = screen.getByLabelText('Your Current Employment Status');

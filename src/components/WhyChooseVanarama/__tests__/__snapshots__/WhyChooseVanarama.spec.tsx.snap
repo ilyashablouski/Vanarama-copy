@@ -11,6 +11,307 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
   </h2>
   <ul
     className="accordion"
-  />
+  >
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            Price Promise
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        Our unique Price Promise means we’ll find you the very best deal on your chosen vehicle. And if you do find a competitors’ quote we can’t beat, we’ll give you £100*!
+      </div>
+    </li>
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            Redundancy & Life Event Cover
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        If something changes unexpectedly with your personal circumstances, the last thing you want to be worrying about is your vehicle. That’s why with Vanarama, if the worst happens, you can return it, hassle-free*.
+      </div>
+    </li>
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            FREE 30-Day Returns
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        If you change your mind up to 30 days after your vehicle has been delivered, you don’t have to worry! We’ll collect it from wherever you are, free of charge.
+      </div>
+    </li>
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            No Admin Fees
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        Unlike many of our competitors, we won’t charge you anything to arrange your lease. You simply pay your initial payment and monthly rentals and we'll cover the rest.
+      </div>
+    </li>
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            Our Trust Pilot Score
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        Delivering a 5-star service to you is at the heart of everything we do. That’s why we’re rated excellent on Trust Pilot for our customer service.
+      </div>
+    </li>
+    <li
+      className="accordion-item"
+      data-testid="accordion-item"
+    >
+      <button
+        className="accordion--heading"
+        onClick={[Function]}
+        type="button"
+      >
+        <i
+          className="icon accordion-item--chevron"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-a
+            </title>
+            <polyline
+              points="184 112 328 256 184 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "square",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+        <div
+          className="accordion--title"
+        >
+          <span
+            className="text -regular -black"
+          >
+            FREE, Safe & Contactless Delivery
+          </span>
+        </div>
+      </button>
+      <div
+        className="accordion--content"
+      >
+        There's no need to worry about the hassle of collecting your vehicle. Once it's ready, we’ll get it delivered straight to your door, drama-free.
+      </div>
+    </li>
+  </ul>
 </div>
 `;
