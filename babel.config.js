@@ -12,22 +12,22 @@ module.exports = api => {
     'babel-plugin-dynamic-import-node',
   ];
 
-  const env = {
-    production: {
-      plugins: [
-        [
-          'babel-plugin-jsx-remove-data-test-id',
-          {
-            attributes: 'data-testid',
-          },
-        ],
-      ],
-    },
-  };
+  // const env = {
+  //   production: {
+  //     plugins: [
+  //       [
+  //         'babel-plugin-jsx-remove-data-test-id',
+  //         {
+  //           attributes: 'data-testid',
+  //         },
+  //       ],
+  //     ],
+  //   },
+  // };
 
   return {
     presets,
     plugins,
-    env,
+    // env,
   };
 };
