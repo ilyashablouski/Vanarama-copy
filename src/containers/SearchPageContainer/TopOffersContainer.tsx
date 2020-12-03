@@ -309,11 +309,12 @@ const TopOffersContainer: React.FC<IProps> = ({
               ))
             ) : (
               <Carousel
-                className="-mh-auto"
+                className="-mh-auto top-offers"
                 countItems={vehiclesList.length || 0}
               >
                 {vehiclesList.map((vehicle: IVehicles) => (
                   <VehicleCard
+                    withoutLazyImage
                     derivativeId={vehicle.node?.derivativeId}
                     url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
                     key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}

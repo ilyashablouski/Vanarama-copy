@@ -51,6 +51,7 @@ interface IVehicleCardProps {
   isModelPage?: boolean;
   url: string;
   derivativeId?: string | null;
+  withoutLazyImage?: boolean;
 }
 
 const VehicleCard = React.memo(
@@ -62,6 +63,7 @@ const VehicleCard = React.memo(
     data,
     bodyStyle,
     isModelPage,
+    withoutLazyImage,
   }: IVehicleCardProps) => {
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
@@ -75,6 +77,7 @@ const VehicleCard = React.memo(
 
     return (
       <Card
+        withoutLazyImage={withoutLazyImage}
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         {...imageProps}
         header={{
