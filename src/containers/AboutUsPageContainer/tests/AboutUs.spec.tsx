@@ -106,8 +106,8 @@ const mockData = resetMocks();
 
 describe('<AboutUs />', () => {
   beforeEach(async () => {
-    await preloadAll();
     jest.clearAllMocks();
+    await preloadAll();
   });
   it('renders correctly with data', async () => {
     const getComponent = () => {
@@ -122,7 +122,7 @@ describe('<AboutUs />', () => {
         .toJSON();
     };
 
-    const tree = getComponent();
+    const tree = await getComponent();
     expect(tree).toMatchSnapshot();
   });
 

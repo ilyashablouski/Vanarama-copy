@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import dynamic from 'next/dynamic';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { ApolloError } from '@apollo/client';
+import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import { ABOUT_US_MEET_SECTION_NAMES } from './config';
 import {
   GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards as ICard,
@@ -36,11 +37,17 @@ const Card = dynamic(
     loading: () => <Skeleton count={5} />,
   },
 );
-const TrophySharp = dynamic(() =>
-  import('@vanarama/uibook/lib/assets/icons/TrophySharp'),
+const TrophySharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/TrophySharp'),
+  {
+    ssr: false,
+  },
 );
-const ArrowForwardSharp = dynamic(() =>
-  import('@vanarama/uibook/lib/assets/icons/ArrowForwardSharp'),
+const ArrowForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ArrowForwardSharp'),
+  {
+    ssr: false,
+  },
 );
 const Icon = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/icon'),
@@ -48,12 +55,12 @@ const Icon = dynamic(
     loading: () => <Skeleton count={1} />,
   },
 );
-const Carousel = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
+// const Carousel = dynamic(
+//   () => import('@vanarama/uibook/lib/components/organisms/carousel'),
+//   {
+//     loading: () => <Skeleton count={3} />,
+//   },
+// );
 const Link = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/link'),
 );
