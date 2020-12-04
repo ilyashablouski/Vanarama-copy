@@ -34,7 +34,7 @@ export const handleNetworkError = () =>
   );
 
 const toThankYouPage = () => {
-  Router.push(`thank-you`);
+  Router.push(`multi-year-insurance/thank-you`);
 };
 
 const FinanceGapInsurancePageContainer = ({
