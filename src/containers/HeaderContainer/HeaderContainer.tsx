@@ -4,6 +4,7 @@ import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 
+import MENU_DATA from "menuData";
 import { PHONE_NUMBER_LINK } from '../../models/enum/HeaderLinks';
 
 import Header from '../../components/Header';
@@ -22,6 +23,7 @@ export const LOGOUT_USER_MUTATION = gql`
 `;
 
 const HeaderContainer: FC = () => {
+  console.log(MENU_DATA);
   const data = HEADER_DATA;
   const router = useRouter();
   const isMobile = useMobileViewport();

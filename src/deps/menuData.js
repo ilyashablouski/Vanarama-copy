@@ -1,5 +1,7 @@
 import { GraphQLClient, gql } from 'graphql-request';
 
+require('dotenv').config();
+
 const query = gql`
 primaryHeader {
     id
