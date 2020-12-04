@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import CustomiseLeaseContainer from './CustomiseLeaseContainer';
@@ -15,6 +16,9 @@ const getComponent = (props: IProps) => {
 };
 
 describe('<CustomiseLeaseContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   (useOpportunityCreation as jest.Mock).mockReturnValue([
     () => {},
     { loading: false },
