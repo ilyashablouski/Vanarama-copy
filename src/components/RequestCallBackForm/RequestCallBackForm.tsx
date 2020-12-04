@@ -8,11 +8,13 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import {
   IFleetCallBackFormProps,
   IFleetCallBackFormValues,
 } from './interfaces';
 import {
+  requiredField,
   fullNameValidator,
   emailValidator,
   phoneNumberValidator,
@@ -136,17 +138,33 @@ const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
           </FormGroup>
           <FormGroup
             controlId="fleet-call-back-form_agreement"
-            label={undefined}
+            label="Agree To:"
             error={errors.agreement?.message?.toString()}
           >
             <Checkbox
               id="agreement"
               name="agreement"
               dataTestId="fleet-call-back-form_agreement"
-              label="Marketing preferences agreement"
+              label="Terms & Conditions & Privacy Policy."
+              ref={register(
+                requiredField('The terms and conditions must be accepted'),
+              )}
+            />
+            <Checkbox
+              id="updates"
+              name="updates"
+              dataTestId="fleet-call-back-form_updates"
+              label="Keep me updated on the latest deals & offers."
               ref={register}
             />
           </FormGroup>
+          <Text tag="p" color="dark" size="xsmall">
+            Vanarama collects the contact information you provide to us to
+            contact contact contact contact you about our products and services.
+            You may from these communications at any time. For information on
+            how to unsubscribe, as well as our privacy practices and commitment
+            to protecting your privacy, please check out our Privacy Policy.
+          </Text>
           <Button
             color="primary"
             dataTestId="fleet-call-back-form_continue"

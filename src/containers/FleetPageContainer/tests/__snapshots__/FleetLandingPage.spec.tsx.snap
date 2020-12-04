@@ -180,6 +180,12 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                 <div
                   class="formgroup"
                 >
+                  <label
+                    class="formgroup--legend"
+                    for="fleet-call-back-form_agreement"
+                  >
+                    Agree To:
+                  </label>
                   <div
                     class="formgroup--content"
                   >
@@ -201,12 +207,39 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                         <span
                           class="text -regular -darker"
                         >
-                          Marketing preferences agreement
+                          Terms & Conditions & Privacy Policy.
+                        </span>
+                      </label>
+                    </div>
+                    <div
+                      class="checkbox -teal"
+                    >
+                      <input
+                        class="checkbox--native"
+                        data-testid="fleet-call-back-form_updates"
+                        id="updates"
+                        name="updates"
+                        type="checkbox"
+                        value=""
+                      />
+                      <label
+                        class="checkbox--label"
+                        for="updates"
+                      >
+                        <span
+                          class="text -regular -darker"
+                        >
+                          Keep me updated on the latest deals & offers.
                         </span>
                       </label>
                     </div>
                   </div>
                 </div>
+                <p
+                  class="text -xsmall -dark"
+                >
+                  Vanarama collects the contact information you provide to us to contact contact contact contact you about our products and services. You may from these communications at any time. For information on how to unsubscribe, as well as our privacy practices and commitment to protecting your privacy, please check out our Privacy Policy.
+                </p>
                 <button
                   class="button -fullwidth -primary -large -solid"
                   data-testid="fleet-call-back-form_continue"
