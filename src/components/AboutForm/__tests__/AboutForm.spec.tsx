@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import AboutForm from '..';
 
@@ -7,7 +8,8 @@ describe('<AboutForm />', () => {
   const emailExistenceCheckMock = jest.fn(() => Promise.resolve(false));
   const onLogInClickMock = jest.fn();
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await preloadAll();
     render(
       <AboutForm
         onLogInClick={onLogInClickMock}
