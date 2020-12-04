@@ -138,28 +138,24 @@ const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
           </FormGroup>
           <FormGroup
             controlId="fleet-call-back-form_agreement"
-            label={undefined}
+            label="Agree To:"
             error={errors.agreement?.message?.toString()}
           >
             <Checkbox
               id="agreement"
               name="agreement"
               dataTestId="fleet-call-back-form_agreement"
-              label="I agree to the Terms & Conditions & Privacy Policy."
-              ref={register(requiredField('Your consent is required'))}
+              label="Terms & Conditions & Privacy Policy."
+              ref={register(
+                requiredField('The terms and conditions must be accepted'),
+              )}
             />
-          </FormGroup>
-          <FormGroup
-            controlId="fleet-call-back-form_updates"
-            label={undefined}
-            error={errors.updates?.message?.toString()}
-          >
             <Checkbox
               id="updates"
               name="updates"
               dataTestId="fleet-call-back-form_updates"
               label="Keep me updated on the latest deals & offers."
-              ref={register(requiredField('Your consent is required'))}
+              ref={register}
             />
           </FormGroup>
           <Text tag="p" color="dark" size="xsmall">
