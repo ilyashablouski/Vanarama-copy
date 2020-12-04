@@ -31,9 +31,13 @@ const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
 }) => {
   /** handler for multiselect */
   const handleChecked = (checked: IChoice) => {
-    let newSelectedData = [...currentValue];
+    let newSelectedData: string[] = [...currentValue];
     // Add.
-    if (checked.active) newSelectedData = [...currentValue, checked.value];
+    if (checked.active)
+      newSelectedData = [
+        ...(currentValue as string[]),
+        checked.value as string,
+      ];
     // Remove.
     else {
       newSelectedData = (currentValue as string[]).filter(
