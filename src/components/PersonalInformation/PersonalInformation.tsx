@@ -204,7 +204,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             <a
               key="a"
               className="link -teal -ml-100"
-              href="/legal/privacy-policy"
+              href="/legal/privacy-policy.html"
               target="_blank"
             >
               Privacy Policy

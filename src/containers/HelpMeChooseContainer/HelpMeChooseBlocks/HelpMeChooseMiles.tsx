@@ -6,7 +6,7 @@ import { buildAnObjectFromAQuery, getBuckets, onReplace } from '../helpers';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 
-const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
+const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
   const {
     setSteps,
     steps,
@@ -14,27 +14,27 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
     productsFilterListData,
   } = props;
   const router = useRouter();
-  const [transmissionsValue, setTransmissionsValue] = useState<string[]>(
-    steps.transmissions.value as string[],
+  const [mileagesValue, setMileagesValue] = useState<string[]>(
+    steps.mileages.value as string[],
   );
 
   useEffect(() => {
     if (window?.location.search.length) {
       const searchParams = new URLSearchParams(window.location.search);
-      const transmissionsQuery = searchParams.getAll('transmissions');
-      const transmissionsQueryValue = transmissionsQuery.length
-        ? transmissionsQuery[0].split(',')
+      const mileagesQuery = searchParams.getAll('mileages');
+      const mileagesQueryValue = mileagesQuery.length
+        ? mileagesQuery[0].split(',')
         : [];
-      const isTransmissionsActive =
-        searchParams.has('transmissions') && !searchParams.has('terms');
+      const isMileagesActive =
+        searchParams.has('mileages') && !searchParams.has('availability');
       setSteps({
         ...steps,
-        transmissions: {
-          active: steps.transmissions.active || isTransmissionsActive,
-          value: transmissionsQueryValue,
+        mileages: {
+          active: steps.mileages.active || isMileagesActive,
+          value: mileagesQueryValue,
         },
       });
-      setTransmissionsValue(transmissionsQueryValue);
+      setMileagesValue(mileagesQueryValue);
       getProductsFilterList({
         variables: {
           filter: {
@@ -47,32 +47,31 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const transmissionsData = getSectionsData(
-    ['productsFilterList', 'transmissions', 'buckets'],
+  const mileagesData = getSectionsData(
+    ['productsFilterList', 'mileages', 'buckets'],
     productsFilterListData?.data,
   );
 
   return (
     <HelpMeChooseContainer
-      title="Which Gearbox Do You Prefer?"
-      choicesValues={getBuckets(transmissionsData, transmissionsValue)}
-      setChoice={setTransmissionsValue}
+      title="How Many Miles Do You Normally Drive In A Year?"
+      choicesValues={getBuckets(mileagesData, mileagesValue, 'mileages')}
+      setChoice={setMileagesValue}
       onClickContinue={() => {
         setSteps({
           ...steps,
-          transmissions: { active: false, value: transmissionsValue },
-          terms: { active: true, value: steps.terms.value },
+          mileages: { active: false, value: mileagesValue },
+          availability: { active: true, value: steps.availability.value },
         });
         onReplace(router, {
           ...steps,
-          transmissions: { active: true, value: transmissionsValue },
+          mileages: { active: false, value: mileagesValue },
         });
       }}
-      multiSelect
-      currentValue={transmissionsValue}
+      currentValue={mileagesValue}
       clearMultiSelectTitle="I Don't Mind"
     />
   );
 };
 
-export default HelpMeChooseTransmissions;
+export default HelpMeChooseMiles;

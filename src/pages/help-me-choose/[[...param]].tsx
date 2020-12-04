@@ -11,25 +11,21 @@ import {
 import { ProductsFilterListVariables } from '../../../generated/ProductsFilterList';
 import {
   buildAnObjectFromAQuery,
-  IStep,
+  IInitStep,
 } from '../../containers/HelpMeChooseContainer/helpers';
 import { getSectionsData } from '../../utils/getSectionsData';
 import HelpMeChooseAboutYou from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseAboutYou';
 import HelpMeChooseBodyStyle from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseBodyStyle';
 import HelpMeChooseFuelTypes from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseFuelTypes';
 import HelpMeChooseTransmissions from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseTransmissions';
-
-export interface IInitStep {
-  leaseType: IStep;
-  bodyStyles: IStep;
-  fuelTypes: IStep;
-  transmissions: IStep;
-}
+import HelpMeChooseTerms from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseTerms';
+import HelpMeChooseMiles from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseMiles';
+import HelpMeChooseAvailability from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseAvailability';
 
 const initialSteps: IInitStep = {
-  leaseType: {
+  financeTypes: {
     active: true,
-    value: 'Personal' as any,
+    value: 'PCH' as any,
   },
   bodyStyles: {
     active: false,
@@ -42,6 +38,18 @@ const initialSteps: IInitStep = {
   transmissions: {
     active: false,
     value: [],
+  },
+  terms: {
+    active: false,
+    value: '' as any,
+  },
+  mileages: {
+    active: false,
+    value: '' as any,
+  },
+  availability: {
+    active: false,
+    value: '' as any,
   },
 };
 
@@ -65,14 +73,25 @@ const HelpMeChoose: NextPage = () => {
     ['productsFilterList', 'transmissions', 'buckets'],
     productsFilterListData?.data,
   );
+  const termsData = getSectionsData(
+    ['productsFilterList', 'terms', 'buckets'],
+    productsFilterListData?.data,
+  );
+  const mileagesData = getSectionsData(
+    ['productsFilterList', 'mileages', 'buckets'],
+    productsFilterListData?.data,
+  );
 
   useEffect(() => {
     if (window?.location.search.length) {
       const searchParams = new URLSearchParams(window.location.search);
-      const leaseTypeQueryValue = searchParams.get('leaseType');
+      const financeTypesQueryValue = searchParams.get('financeTypes');
       const bodyStylesQuery = searchParams.getAll('bodyStyles');
       const fuelTypesQuery = searchParams.getAll('fuelTypes');
       const transmissionsQuery = searchParams.getAll('transmissions');
+      const termsQuery = searchParams.getAll('terms');
+      const mileagesQuery = searchParams.getAll('mileages');
+      const availabilityQuery = searchParams.getAll('availability');
       const bodyStylesQueryValue = bodyStylesQuery.length
         ? bodyStylesQuery[0].split(',')
         : [];
@@ -82,17 +101,30 @@ const HelpMeChoose: NextPage = () => {
       const transmissionsQueryValue = transmissionsQuery.length
         ? transmissionsQuery[0].split(',')
         : [];
-      const isLeaseTypeActive =
-        searchParams.has('leaseType') && !searchParams.has('bodyStyles');
+      const termsQueryValue = termsQuery.length ? termsQuery[0].split(',') : [];
+      const mileagesQueryValue = mileagesQuery.length
+        ? mileagesQuery[0].split(',')
+        : [];
+      const availabilityQueryValue = availabilityQuery.length
+        ? availabilityQuery[0].split(',')
+        : [];
+      const isFinanceTypesActive =
+        searchParams.has('financeTypes') && !searchParams.has('bodyStyles');
       const isBodyStylesActive =
         searchParams.has('bodyStyles') && !searchParams.has('fuelTypes');
       const isFuelTypesActive =
         searchParams.has('fuelTypes') && !searchParams.has('transmissions');
-      const isTransmissionsActive = searchParams.has('transmissions');
+      const isTransmissionsActive =
+        searchParams.has('transmissions') && !searchParams.has('terms');
+      const isTermsActive =
+        searchParams.has('terms') && !searchParams.has('mileages');
+      const isMileagesActive =
+        searchParams.has('mileages') && !searchParams.has('availability');
+      const isAvailabilityActive = searchParams.has('availability');
       setSteps({
-        leaseType: {
-          active: isLeaseTypeActive,
-          value: leaseTypeQueryValue as any,
+        financeTypes: {
+          active: isFinanceTypesActive,
+          value: financeTypesQueryValue as any,
         },
         bodyStyles: {
           active: isBodyStylesActive,
@@ -105,6 +137,18 @@ const HelpMeChoose: NextPage = () => {
         transmissions: {
           active: isTransmissionsActive,
           value: transmissionsQueryValue,
+        },
+        terms: {
+          active: isTermsActive,
+          value: termsQueryValue as any,
+        },
+        mileages: {
+          active: isMileagesActive,
+          value: mileagesQueryValue as any,
+        },
+        availability: {
+          active: isAvailabilityActive,
+          value: availabilityQueryValue as any,
         },
       });
       const variables = {
@@ -125,7 +169,7 @@ const HelpMeChoose: NextPage = () => {
 
   return (
     <>
-      {steps.leaseType.active && (
+      {steps.financeTypes.active && (
         <HelpMeChooseAboutYou
           steps={steps}
           setSteps={setSteps}
@@ -151,6 +195,30 @@ const HelpMeChoose: NextPage = () => {
       )}
       {steps.transmissions.active && transmissionsData?.length && (
         <HelpMeChooseTransmissions
+          steps={steps}
+          setSteps={setSteps}
+          getProductsFilterList={getProductsFilterList}
+          productsFilterListData={productsFilterListData}
+        />
+      )}
+      {steps.terms.active && termsData?.length && (
+        <HelpMeChooseTerms
+          steps={steps}
+          setSteps={setSteps}
+          getProductsFilterList={getProductsFilterList}
+          productsFilterListData={productsFilterListData}
+        />
+      )}
+      {steps.mileages.active && mileagesData?.length && (
+        <HelpMeChooseMiles
+          steps={steps}
+          setSteps={setSteps}
+          getProductsFilterList={getProductsFilterList}
+          productsFilterListData={productsFilterListData}
+        />
+      )}
+      {steps.availability.active && (
+        <HelpMeChooseAvailability
           steps={steps}
           setSteps={setSteps}
           getProductsFilterList={getProductsFilterList}

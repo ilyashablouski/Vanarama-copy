@@ -20,7 +20,7 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
   const { data, loading, error } = useProductCardDataQuery(
     capsId,
     vehicleType,
-    !!capsId.length,
+    !capsId.length,
   );
   if (loading) {
     return (

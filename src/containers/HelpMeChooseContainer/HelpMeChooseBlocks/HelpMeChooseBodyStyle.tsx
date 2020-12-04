@@ -15,7 +15,7 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
   } = props;
   const router = useRouter();
   const [bodyStylesValue, setBodyStylesValue] = useState<string[]>(
-    steps.bodyStyles.value,
+    steps.bodyStyles.value as string[],
   );
 
   useEffect(() => {
