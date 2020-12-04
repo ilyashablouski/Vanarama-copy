@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { GetPrimaryHeaderData as Query } from '../../../generated/GetPrimaryHeaderData';
+// import { GetPrimaryHeaderData as Query } from '../../../generated/GetPrimaryHeaderData';
 
 export const GET_PRIMARY_HEADER_DATA = gql`
   query GetPrimaryHeaderData {
@@ -38,5 +38,5 @@ export const GET_PRIMARY_HEADER_DATA = gql`
 `;
 
 export function usePrimaryHeaderData() {
-  return useQuery<Query>(GET_PRIMARY_HEADER_DATA);
+  return useQuery(GET_PRIMARY_HEADER_DATA);
 }
