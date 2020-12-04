@@ -1,10 +1,35 @@
 import { Dispatch, FC, SetStateAction } from 'react';
+import dynamic from 'next/dynamic';
 import { IChoice } from '@vanarama/uibook/lib/components/atoms/choiceboxes/interfaces';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
-import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
+import Skeleton from '../../components/Skeleton';
+
+const ChevronForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={4} />,
+    ssr: false,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface HelpMeChooseContainer {
   title: string;

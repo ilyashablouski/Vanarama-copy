@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
 
@@ -7,6 +8,9 @@ function getComponent(props: any) {
 }
 
 describe('<HelpMeChooseContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('renders correctly', () => {
     const tree = getComponent({
       title: 'Which Fuel Type Do You Prefer?',
