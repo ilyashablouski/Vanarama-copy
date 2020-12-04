@@ -142,8 +142,8 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
   }
 
   const leaseTypes = [
-    { label: 'Personal', active: isPersonal },
-    { label: 'Business', active: !isPersonal },
+    { label: 'Personal', value: 'Personal', active: isPersonal },
+    { label: 'Business', value: 'Business', active: !isPersonal },
   ];
 
   return (

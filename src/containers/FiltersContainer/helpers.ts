@@ -48,6 +48,7 @@ export const buildPreselectChoiseboxes = (
     return [
       {
         label: `${isPickups ? 'Pickup' : selectedFiltersState.bodyStyles[0]}`,
+        value: `${isPickups ? 'Pickup' : selectedFiltersState.bodyStyles[0]}`,
         active: true,
       },
     ];
@@ -57,6 +58,7 @@ export const buildPreselectChoiseboxes = (
   )
     return selectedFiltersState[accessor].map(value => ({
       label: value,
+      value,
       active: true,
     }));
   return null;

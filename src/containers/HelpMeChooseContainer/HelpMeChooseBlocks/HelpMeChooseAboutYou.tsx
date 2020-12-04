@@ -19,8 +19,16 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
   );
 
   const leaseTypes = [
-    { label: 'Personal', active: leaseTypeValue === 'Personal' },
-    { label: 'Business', active: leaseTypeValue === 'Business' },
+    {
+      label: 'Personal',
+      value: 'Personal',
+      active: leaseTypeValue === 'Personal',
+    },
+    {
+      label: 'Business',
+      value: 'Business',
+      active: leaseTypeValue === 'Business',
+    },
   ];
 
   useEffect(() => {
