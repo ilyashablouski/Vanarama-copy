@@ -16,11 +16,19 @@ export interface IHeaderSecondaryMenuProps extends IBaseProps {
   onClickTitle: () => void;
   isMobile: boolean;
   isMenuOpen: boolean;
+  promotionalImage: any;
 }
 
 const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
   const router = useRouter();
-  const { links, title, onClickTitle, isMobile, isMenuOpen } = props;
+  const {
+    links,
+    title,
+    onClickTitle,
+    isMobile,
+    isMenuOpen,
+    promotionalImage,
+  } = props;
   const firstChildrenLinks = links.find(
     el => !!el.children?.length,
   ) as IHeaderLink;
@@ -173,9 +181,14 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
           </ul>
         ) : null}
         <div className="menu-featured">
-          <div className="image -expand">
-            <Image src="/img-placeholder.png" />
-          </div>
+          <RouterLink link={{ href: promotionalImage.url, label: '' }}>
+            <div className="image -expand">
+              <Image
+                src={promotionalImage.image.url}
+                alt={promotionalImage.image.fileName}
+              />
+            </div>
+          </RouterLink>
         </div>
       </div>
     </div>

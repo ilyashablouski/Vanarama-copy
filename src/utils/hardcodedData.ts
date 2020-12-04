@@ -11,6 +11,19 @@ export const HEADER_DATA = {
       {
         name: 'VANS',
         body: null,
+        promotionalImage: {
+          url: '/ford-van-leasing/transit-custom',
+          legacyUrl: '/ford-van-leasing/transit-custom.html',
+          image: [
+            {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/4SA60YbkduJmbvOZpg6lfW/7207c607eb0fc03266e727a5f5993dcd/nav-ford-transit-custom.png',
+                fileName: 'nav-ford-transit-custom.png',
+              },
+            },
+          ],
+        },
         links: [
           {
             text: 'Vans Home',
@@ -155,6 +168,19 @@ export const HEADER_DATA = {
       {
         name: 'PICKUPS',
         body: null,
+        promotionalImage: {
+          url: '/mitsubishi-van-leasing/l200',
+          legacyUrl: '/mitsubishi-van-leasing/l200.html',
+          image: [
+            {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/1fQsQuoJYCTL4uMA8dENao/591fd8296361fedbe088cfeaae9ec8fb/nav-mitsubishi-l200.png',
+                fileName: 'nav-mitsubishi-l200.png',
+              },
+            },
+          ],
+        },
         links: [
           {
             text: 'Pickups Home',
@@ -232,6 +258,19 @@ export const HEADER_DATA = {
       {
         name: 'CARS',
         body: null,
+        promotionalImage: {
+          url: '/volkswagen-car-leasing/troc',
+          legacyUrl: '/volkswagen-car-leasing/troc.html',
+          image: [
+            {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/1yxVeM29IQ4fYwgzz8ENuB/66b4a36395e59116c179bd9f185a8b1e/nav-vw-troc.png',
+                fileName: 'nav-vw-troc.png',
+              },
+            },
+          ],
+        },
         links: [
           {
             text: 'Cars Home',
@@ -380,10 +419,6 @@ export const HEADER_DATA = {
                 url: '/car-leasing/estate.html',
               },
               {
-                text: 'Family',
-                url: '/car-leasing/family.html',
-              },
-              {
                 text: 'Hatchback',
                 url: '/car-leasing/hatchback.html',
               },
@@ -439,6 +474,19 @@ export const HEADER_DATA = {
       {
         name: 'INSURANCE',
         body: null,
+        promotionalImage: {
+          url: '/van-insurance/multi-year-van-insurance',
+          legacyUrl: '/van-insurance/multi-year-van-insurance.html',
+          image: [
+            {
+              file: {
+                url:
+                  '//images.ctfassets.net/3xid768u5joa/6ISxU4CGg8qWOTNeZkqmyd/bcd2fb82fdda6f296067e14ccb0f8846/Nav-Multi-Year-Insurance.png',
+                fileName: 'Nav-Multi-Year-Insurance.png',
+              },
+            },
+          ],
+        },
         links: [
           {
             text: 'Insurance Home',
@@ -474,6 +522,11 @@ export const HEADER_DATA = {
       {
         name: 'FLEET',
         body: null,
+        promotionalImage: {
+          url: null,
+          legacyUrl: null,
+          image: [null],
+        },
         links: [
           {
             text: 'Fleet',
@@ -485,6 +538,11 @@ export const HEADER_DATA = {
       {
         name: 'NEWS',
         body: null,
+        promotionalImage: {
+          url: null,
+          legacyUrl: null,
+          image: [null],
+        },
         links: [
           {
             text: 'News',
