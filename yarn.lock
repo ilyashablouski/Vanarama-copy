@@ -3054,10 +3054,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.38.12":
-  version "5.38.12"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.38.12.tgz#92ff6079ac68497cfc53ad42946fead513236420"
-  integrity sha512-GXJr0JJ/Blz+fZq1ls4GiRXtZg80s3mU+zHxILxDSTjLLdnxV6foVjKyckxzUHhQt8sCy3zvhJYB4aHnH/9hvw==
+"@vanarama/uibook@5.38.16":
+  version "5.38.16"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.38.16.tgz#0a1dbd3c73e6fbebf7ef227440e25d2c7f83a551"
+  integrity sha512-gmBTp53XPUFPlFxQVYQ17m+ML306kEMRMJ3TdSw66H9AjqjUDCotnjPg7FAHa2PiJVi2M+txA50O80kFDUkfEQ==
   dependencies:
     "@reach/auto-id" "^0.10.3"
     "@react-google-maps/api" "^1.9.0"
