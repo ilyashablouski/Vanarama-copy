@@ -85,6 +85,27 @@ export const PRODUCTS_FILTER_LIST = gql`
           max
         }
       }
+      manufacturers {
+        docCount
+        buckets {
+          docCount
+          key
+        }
+      }
+      ranges {
+        docCount
+        buckets {
+          docCount
+          key
+        }
+      }
+      models {
+        docCount
+        buckets {
+          docCount
+          key
+        }
+      }
     }
   }
 `;

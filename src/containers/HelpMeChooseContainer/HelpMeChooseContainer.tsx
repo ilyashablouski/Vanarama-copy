@@ -15,6 +15,7 @@ interface HelpMeChooseContainer {
   onClickContinue: () => void;
   clearMultiSelectTitle?: string;
   withIcons?: boolean;
+  submitBtnText?: string;
 }
 
 const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
@@ -26,6 +27,7 @@ const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
   onClickContinue,
   clearMultiSelectTitle,
   withIcons,
+  submitBtnText,
 }) => {
   /** handler for multiselect */
   const handleChecked = (checked: IChoice) => {
@@ -79,7 +81,7 @@ const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
           icon={<ChevronForwardSharp />}
           iconColor="white"
           iconPosition="after"
-          label="Continue"
+          label={submitBtnText ?? 'Continue'}
           type="submit"
           size="large"
           onClick={onClickContinue}

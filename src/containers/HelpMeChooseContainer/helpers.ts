@@ -31,8 +31,7 @@ export const onReplace = (
     transmissions: IStep;
     terms: IStep;
     mileages: IStep;
-    rental: IStep;
-    preferToPay: IStep;
+    availability: IStep;
   },
 ) => {
   let pathname = router.route.replace('[[...param]]', '');
@@ -81,13 +80,6 @@ export const buildAnObjectFromAQuery = (query: any) => {
     if (key === 'mileages' && value.length) {
       object.mileages = [parseInt(value, 10)];
     }
-    if (key === 'rental' && value.length) {
-      const valueData = value.split('-');
-      object.rental = {
-        min: parseInt(valueData && valueData[0], 10) || null,
-        max: parseInt(valueData && valueData[1], 10) || null,
-      };
-    }
   });
   return object;
 };
@@ -104,6 +96,5 @@ export interface IInitStep {
   transmissions: IStep;
   terms: IStep;
   mileages: IStep;
-  rental: IStep;
-  preferToPay: IStep;
+  availability: IStep;
 }

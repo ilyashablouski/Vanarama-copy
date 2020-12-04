@@ -20,8 +20,7 @@ import HelpMeChooseFuelTypes from '../../containers/HelpMeChooseContainer/HelpMe
 import HelpMeChooseTransmissions from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseTransmissions';
 import HelpMeChooseTerms from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseTerms';
 import HelpMeChooseMiles from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseMiles';
-import HelpMeChooseRental from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseRental';
-import HelpMeChoosePreferToPay from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChoosePreferToPay';
+import HelpMeChooseAvailability from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseAvailability';
 
 const initialSteps: IInitStep = {
   financeTypes: {
@@ -48,11 +47,7 @@ const initialSteps: IInitStep = {
     active: false,
     value: '' as any,
   },
-  rental: {
-    active: false,
-    value: '' as any,
-  },
-  preferToPay: {
+  availability: {
     active: false,
     value: '' as any,
   },
@@ -86,10 +81,6 @@ const HelpMeChoose: NextPage = () => {
     ['productsFilterList', 'mileages', 'buckets'],
     productsFilterListData?.data,
   );
-  const rentalData = getSectionsData(
-    ['productsFilterList', 'rental', 'stats'],
-    productsFilterListData?.data,
-  );
 
   useEffect(() => {
     if (window?.location.search.length) {
@@ -100,7 +91,7 @@ const HelpMeChoose: NextPage = () => {
       const transmissionsQuery = searchParams.getAll('transmissions');
       const termsQuery = searchParams.getAll('terms');
       const mileagesQuery = searchParams.getAll('mileages');
-      const rentalQuery = searchParams.getAll('rental');
+      const availabilityQuery = searchParams.getAll('availability');
       const bodyStylesQueryValue = bodyStylesQuery.length
         ? bodyStylesQuery[0].split(',')
         : [];
@@ -114,8 +105,8 @@ const HelpMeChoose: NextPage = () => {
       const mileagesQueryValue = mileagesQuery.length
         ? mileagesQuery[0].split(',')
         : [];
-      const rentalQueryValue = rentalQuery.length
-        ? rentalQuery[0].split(',')
+      const availabilityQueryValue = availabilityQuery.length
+        ? availabilityQuery[0].split(',')
         : [];
       const isFinanceTypesActive =
         searchParams.has('financeTypes') && !searchParams.has('bodyStyles');
@@ -128,10 +119,8 @@ const HelpMeChoose: NextPage = () => {
       const isTermsActive =
         searchParams.has('terms') && !searchParams.has('mileages');
       const isMileagesActive =
-        searchParams.has('mileages') && !searchParams.has('rental');
-      const isRentalActive =
-        searchParams.has('rental') && !searchParams.has('preferToPay');
-      const isPreferToPay = searchParams.has('preferToPay');
+        searchParams.has('mileages') && !searchParams.has('availability');
+      const isAvailabilityActive = searchParams.has('availability');
       setSteps({
         financeTypes: {
           active: isFinanceTypesActive,
@@ -157,13 +146,9 @@ const HelpMeChoose: NextPage = () => {
           active: isMileagesActive,
           value: mileagesQueryValue as any,
         },
-        rental: {
-          active: isRentalActive,
-          value: rentalQueryValue as any,
-        },
-        preferToPay: {
-          active: isPreferToPay,
-          value: '' as any,
+        availability: {
+          active: isAvailabilityActive,
+          value: availabilityQueryValue as any,
         },
       });
       const variables = {
@@ -232,16 +217,8 @@ const HelpMeChoose: NextPage = () => {
           productsFilterListData={productsFilterListData}
         />
       )}
-      {steps.rental.active && (rentalData?.min || rentalData?.max) && (
-        <HelpMeChooseRental
-          steps={steps}
-          setSteps={setSteps}
-          getProductsFilterList={getProductsFilterList}
-          productsFilterListData={productsFilterListData}
-        />
-      )}
-      {steps.preferToPay.active && (
-        <HelpMeChoosePreferToPay
+      {steps.availability.active && (
+        <HelpMeChooseAvailability
           steps={steps}
           setSteps={setSteps}
           getProductsFilterList={getProductsFilterList}
