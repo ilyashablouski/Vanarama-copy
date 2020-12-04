@@ -18,7 +18,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     className="choiceboxes -cols-2 -teal"
   >
     <button
-      className="choicebox -active"
+      className="choicebox"
       disabled={false}
       onClick={[Function]}
       type="button"
@@ -26,7 +26,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       Personal
     </button>
     <button
-      className="choicebox"
+      className="choicebox -active"
       disabled={false}
       onClick={[Function]}
       type="button"
@@ -101,7 +101,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     className="choiceboxes -cols-2 -teal"
   >
     <button
-      className="choicebox -active"
+      className="choicebox"
       disabled={false}
       onClick={[Function]}
       type="button"
@@ -109,7 +109,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       24
     </button>
     <button
-      className="choicebox"
+      className="choicebox -active"
       disabled={false}
       onClick={[Function]}
       type="button"
@@ -131,7 +131,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     className="choiceboxes -cols-2 -teal"
   >
     <button
-      className="choicebox -active"
+      className="choicebox"
       disabled={false}
       onClick={[Function]}
       type="button"
@@ -139,7 +139,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       1
     </button>
     <button
-      className="choicebox"
+      className="choicebox -active"
       disabled={false}
       onClick={[Function]}
       type="button"

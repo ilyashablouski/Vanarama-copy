@@ -3,6 +3,7 @@ import { NextRouter } from 'next/router';
 export const getBuckets = (data: any[], activeData: string[]) =>
   data.map(bucket => ({
     label: bucket.key,
+    value: bucket.key,
     active: activeData.includes(bucket.key),
   }));
 
