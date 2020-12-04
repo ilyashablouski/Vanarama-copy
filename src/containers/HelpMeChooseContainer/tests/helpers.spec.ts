@@ -66,18 +66,21 @@ describe('<helpers />', () => {
       } as any;
       onReplace(router, {
         bodyStyles: { active: false, value: [] },
-        leaseType: { active: false, value: 'Personal' as any },
+        financeTypes: { active: false, value: 'PHC' as any },
         fuelTypes: { active: false, value: [] },
         transmissions: { active: false, value: [] },
+        terms: { active: false, value: [] },
+        mileages: { active: false, value: [] },
+        availability: { active: false, value: [] },
       });
       expect(router.replace).toBeCalledWith(
         {
           pathname: router.route,
           query: {
-            leaseType: 'Personal',
+            financeTypes: 'PHC',
           },
         },
-        '/help-me-choose/?leaseType=Personal',
+        '/help-me-choose/?financeTypes=PHC',
         { shallow: true },
       );
     });

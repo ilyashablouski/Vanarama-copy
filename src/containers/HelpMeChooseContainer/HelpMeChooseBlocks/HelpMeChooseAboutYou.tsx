@@ -14,37 +14,29 @@ export interface HelpMeChooseStep {
 const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
   const { setSteps, steps, getProductsFilterList } = props;
   const router = useRouter();
-  const [leaseTypeValue, setLeaseTypeValue] = useState<string>(
-    steps.leaseType.value as any,
+  const [financeTypesValue, setFinanceTypesValue] = useState<string>(
+    steps.financeTypes.value as any,
   );
 
-  const leaseTypes = [
-    {
-      label: 'Personal',
-      value: 'Personal',
-      active: leaseTypeValue === 'Personal',
-    },
-    {
-      label: 'Business',
-      value: 'Business',
-      active: leaseTypeValue === 'Business',
-    },
+  const financeTypes = [
+    { label: 'Personal', value: 'PCH', active: financeTypesValue === 'PCH' },
+    { label: 'Business', value: 'BCH', active: financeTypesValue === 'BCH' },
   ];
 
   useEffect(() => {
     if (window?.location.search.length) {
       const searchParams = new URLSearchParams(window.location.search);
-      const leaseTypeQueryValue = searchParams.get('leaseType');
-      const isLeaseTypeActive =
-        searchParams.has('leaseType') && !searchParams.has('bodyStyles');
+      const financeTypesQueryValue = searchParams.get('financeTypes');
+      const isFinanceTypesActive =
+        searchParams.has('financeTypes') && !searchParams.has('bodyStyles');
       setSteps({
         ...steps,
-        leaseType: {
-          active: isLeaseTypeActive,
-          value: leaseTypeQueryValue as any,
+        financeTypes: {
+          active: steps.financeTypes.active || isFinanceTypesActive,
+          value: financeTypesQueryValue as any,
         },
       });
-      setLeaseTypeValue(leaseTypeQueryValue as string);
+      setFinanceTypesValue(financeTypesQueryValue as string);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -52,27 +44,28 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
   return (
     <HelpMeChooseContainer
       title="Are you looking for a lease for you personally or for your business?"
-      choicesValues={leaseTypes}
-      setChoice={setLeaseTypeValue}
+      choicesValues={financeTypes}
+      setChoice={setFinanceTypesValue}
       onClickContinue={() => {
         getProductsFilterList({
           variables: {
             filter: {
               vehicleTypes: [VehicleTypeEnum.CAR],
+              financeTypes: financeTypesValue,
             },
           },
         });
         setSteps({
           ...steps,
-          leaseType: { active: false, value: leaseTypeValue as any },
+          financeTypes: { active: false, value: financeTypesValue as any },
           bodyStyles: { active: true, value: steps.bodyStyles.value },
         });
         onReplace(router, {
           ...steps,
-          leaseType: { active: false, value: leaseTypeValue as any },
+          financeTypes: { active: false, value: financeTypesValue as any },
         });
       }}
-      currentValue={leaseTypeValue}
+      currentValue={financeTypesValue}
     />
   );
 };

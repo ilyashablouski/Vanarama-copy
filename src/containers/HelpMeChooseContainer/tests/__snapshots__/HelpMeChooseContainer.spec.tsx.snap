@@ -5,20 +5,16 @@ Array [
   <div
     className="row:progress"
   />,
-  <section
-    className="row:lead-text"
+  <div
+    className="row:stepped-form"
   >
     <h1
-      className="heading -black -xlarge"
+      className="heading stepped-form--title -mb-100 -black -xlarge"
     >
       Which Fuel Type Do You Prefer?
     </h1>
-  </section>,
-  <div
-    className="row:cards-3col"
-  >
     <div
-      className="choiceboxes -cols-2 -teal"
+      className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -teal"
     >
       <button
         className="choicebox"
@@ -89,20 +85,16 @@ Array [
   <div
     className="row:progress"
   />,
-  <section
-    className="row:lead-text"
+  <div
+    className="row:stepped-form"
   >
     <h1
-      className="heading -black -xlarge"
+      className="heading stepped-form--title -mb-100 -black -xlarge"
     >
       Which Fuel Type Do You Prefer?
     </h1>
-  </section>,
-  <div
-    className="row:cards-3col"
-  >
     <div
-      className="choiceboxes -cols-2 -teal"
+      className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -teal"
     >
       <button
         className="choicebox"
