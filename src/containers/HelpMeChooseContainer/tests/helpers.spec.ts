@@ -80,7 +80,7 @@ describe('<helpers />', () => {
             financeTypes: 'PHC',
           },
         },
-        '/help-me-choose/?fuelTypes=PHC',
+        '/help-me-choose/?financeTypes=PHC',
         { shallow: true },
       );
     });
