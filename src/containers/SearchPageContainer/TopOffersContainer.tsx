@@ -309,7 +309,7 @@ const TopOffersContainer: React.FC<IProps> = ({
               ))
             ) : (
               <Carousel
-                className="-mh-auto"
+                className="-mh-auto top-offers"
                 countItems={vehiclesList.length || 0}
               >
                 {vehiclesList.map((vehicle: IVehicles) => (

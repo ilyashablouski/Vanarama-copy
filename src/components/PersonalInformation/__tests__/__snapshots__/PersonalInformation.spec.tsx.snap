@@ -143,6 +143,7 @@ exports[`<PersonalInformation /> should render correctly 1`] = `
               className="checkbox--native"
               data-testid="emailConsent"
               defaultChecked={false}
+              disabled={true}
               id="emailConsent"
               name="emailConsent"
               type="checkbox"

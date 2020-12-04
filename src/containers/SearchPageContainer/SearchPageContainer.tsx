@@ -248,6 +248,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const { savedSortOrder, saveSortOrder } = useSortOrder();
   const [sortOrder, setSortOrder] = useState(savedSortOrder);
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
+  const [pageOffset, setPageOffset] = useState(0);
 
   useEffect(() => {
     const type = isPersonal ? 'Personal' : 'Business';
@@ -655,11 +656,22 @@ const SearchPageContainer: React.FC<IProps> = ({
     onSearch();
   }, [sortOrder]);
 
+  useEffect(() => {
+    window.scrollTo({
+      top: pageOffset,
+      // @ts-ignore
+      behavior: 'instant',
+    });
+  }, [pageOffset]);
+
   // load more offers
   const onLoadMore = () => {
     setVehicleList([...vehiclesList, ...(cacheData?.vehicleList.edges || [])]);
     setCardsData(prevState => [...prevState, ...cardsDataCache]);
     setCarDerivatives(prevState => [...prevState, ...carDerivativesCache]);
+    // Chrome sroll down page after load new offers
+    // using for prevent it
+    setPageOffset(window.pageYOffset);
     if (vehiclesList.length < totalCount)
       setLastCard(cacheData?.vehicleList.pageInfo.endCursor || '');
   };

@@ -204,19 +204,21 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
 
   const terms = leaseAdjustParams?.terms.map((currentTerm: number) => ({
     label: `${currentTerm}`,
+    value: `${currentTerm}`,
     active: quoteData?.quoteByCapId?.term === currentTerm,
   }));
 
   const upfronts = leaseAdjustParams?.upfronts.map(
     (currentUpfront: number) => ({
       label: `${currentUpfront}`,
+      value: `${currentUpfront}`,
       active: quoteData?.quoteByCapId?.upfront === currentUpfront,
     }),
   );
 
   const leaseTypes = [
-    { label: 'Personal', active: leaseType === 'Personal' },
-    { label: 'Business', active: leaseType === 'Business' },
+    { label: 'Personal', value: 'Personal', active: leaseType === 'Personal' },
+    { label: 'Business', value: 'Business', active: leaseType === 'Business' },
   ];
 
   if (!quoteData?.quoteByCapId?.leaseCost?.monthlyRental) {
@@ -234,8 +236,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   return (
     <>
       <CustomiseLease
-        terms={terms || [{ label: '', active: false }]}
-        upfronts={upfronts || [{ label: '', active: false }]}
+        terms={terms || [{ label: '', value: '', active: false }]}
+        upfronts={upfronts || [{ label: '', value: '', active: false }]}
         leaseType={leaseType}
         leaseTypes={leaseTypes}
         mileages={leaseAdjustParams?.mileages || []}

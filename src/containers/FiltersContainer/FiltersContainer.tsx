@@ -217,6 +217,7 @@ const FiltersContainer = ({
         choisesObject[key] =
           filters[key as keyof typeof filters]?.map(value => ({
             label: value,
+            value,
             active: state[key].includes(value),
           })) || [];
       });
