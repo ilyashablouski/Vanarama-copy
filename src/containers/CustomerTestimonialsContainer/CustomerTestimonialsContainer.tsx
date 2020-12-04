@@ -1,13 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import dynamic from 'next/dynamic';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useQuery } from '@apollo/client';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
-import Rating from '@vanarama/uibook/lib/components/atoms/rating';
 import {
   TestimonialsData,
   TestimonialsData_testimonials as TestimonialData,
@@ -17,7 +11,57 @@ import getTitleTag from '../../utils/getTitleTag';
 import { TESTIMONIALS_DATA } from '../../gql/testimonials';
 import TileLink from '../../components/TileLink/TileLink';
 import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+    ssr: false,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Rating = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/rating'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tile = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tile'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const TrustPilot = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/trustpilot'),
+  {
+    ssr: false,
+  },
+);
 
 interface IProps {
   sections: Section | null;

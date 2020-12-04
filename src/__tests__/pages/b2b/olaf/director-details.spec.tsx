@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { DirectorDetailsPage } from '../../../../pages/b2b/olaf/director-details/[companyUuid]';
@@ -139,6 +140,9 @@ const multiDirectorMock: MockedResponse = {
 };
 
 describe('B2B Director Details page', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should show a dropdown of directors when there are multiple', async () => {
     render(
       <MockedProvider

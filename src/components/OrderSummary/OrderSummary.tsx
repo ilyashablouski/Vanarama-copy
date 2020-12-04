@@ -1,9 +1,22 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useEffect, useState } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
+import dynamic from 'next/dynamic';
 import { getOrderList } from '../../utils/helpers';
 import { IProps } from './interfaces';
+import Skeleton from '../Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const StructuredList = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/structured-list'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 const OrderSummary: React.FC<IProps> = ({
   quoteByCapId,

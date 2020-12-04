@@ -1,21 +1,25 @@
+import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import React from 'react';
-import { GetAddressContainerDataQueryVariables as QueryVariables } from '../../../generated/GetAddressContainerDataQuery';
+import { GetAddressContainerDataQueryVariables as QueryVariables } from '../../../../generated/GetAddressContainerDataQuery';
 import {
   SaveAddressHistoryMutation as Mutation,
   SaveAddressHistoryMutationVariables as MutationVariables,
-} from '../../../generated/SaveAddressHistoryMutation';
-import { historyToMoment } from '../../utils/dates';
-import AddressFormContainer from './AddressFormContainer';
+} from '../../../../generated/SaveAddressHistoryMutation';
+import { historyToMoment } from '../../../utils/dates';
+import AddressFormContainer from '../AddressFormContainer';
 import {
   noSavedAddresses,
   withSavedAddresses,
   withSavedAddressesInWrongOrder,
-} from './fixtures';
-import { GET_ADDRESS_CONTAINER_DATA, SAVE_ADDRESS_HISTORY } from './gql';
+} from '../fixtures';
+import { GET_ADDRESS_CONTAINER_DATA, SAVE_ADDRESS_HISTORY } from '../gql';
 
 describe('<AddressFormContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should post data to the server correctly', async () => {
     // ARRANGE
     let mutationCalled = false;
