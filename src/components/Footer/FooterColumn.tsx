@@ -1,10 +1,16 @@
 import React, { FC } from 'react';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { PrimaryFooter_primaryFooter_linkGroups as LinkGroups } from '../../../generated/PrimaryFooter';
 import RouterLink from '../RouterLink/RouterLink';
 import { LinkTypes } from '../../models/enum/LinkTypes';
+
+const Text = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/text'),
+);
+const Heading = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/heading'),
+);
 
 interface IFooterColumn {
   linkGroup: LinkGroups | null;
