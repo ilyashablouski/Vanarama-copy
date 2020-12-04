@@ -1,8 +1,7 @@
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import localForage from 'localforage';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GET_MY_ORDERS_DATA } from './gql';
 import { IProps } from './interfaces';
@@ -10,6 +9,20 @@ import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../generated/GetCompaniesByPersonUuid';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import { MyOrdersTypeEnum } from '../../../generated/globalTypes';
+import Skeleton from '../../components/Skeleton';
+
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 type QueryParams = {
   partyByUuid: string;
