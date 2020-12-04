@@ -87,6 +87,36 @@ export interface ProductsFilterList_productsFilterList_rental {
   stats: ProductsFilterList_productsFilterList_rental_stats;
 }
 
+export interface ProductsFilterList_productsFilterList_manufacturers_buckets {
+  docCount: number;
+  key: string;
+}
+
+export interface ProductsFilterList_productsFilterList_manufacturers {
+  docCount: number;
+  buckets: ProductsFilterList_productsFilterList_manufacturers_buckets[];
+}
+
+export interface ProductsFilterList_productsFilterList_ranges_buckets {
+  docCount: number;
+  key: string;
+}
+
+export interface ProductsFilterList_productsFilterList_ranges {
+  docCount: number;
+  buckets: ProductsFilterList_productsFilterList_ranges_buckets[];
+}
+
+export interface ProductsFilterList_productsFilterList_models_buckets {
+  docCount: number;
+  key: string;
+}
+
+export interface ProductsFilterList_productsFilterList_models {
+  docCount: number;
+  buckets: ProductsFilterList_productsFilterList_models_buckets[];
+}
+
 export interface ProductsFilterList_productsFilterList {
   transmissions: ProductsFilterList_productsFilterList_transmissions | null;
   fuelTypes: ProductsFilterList_productsFilterList_fuelTypes | null;
@@ -96,6 +126,9 @@ export interface ProductsFilterList_productsFilterList {
   initialPeriods: ProductsFilterList_productsFilterList_initialPeriods | null;
   initialPayment: ProductsFilterList_productsFilterList_initialPayment | null;
   rental: ProductsFilterList_productsFilterList_rental | null;
+  manufacturers: ProductsFilterList_productsFilterList_manufacturers | null;
+  ranges: ProductsFilterList_productsFilterList_ranges | null;
+  models: ProductsFilterList_productsFilterList_models | null;
 }
 
 export interface ProductsFilterList {
