@@ -18,10 +18,12 @@ describe('<helpers />', () => {
       ).toEqual([
         {
           label: '4x4',
+          value: '4x4',
           active: false,
         },
         {
           label: 'Hatchback',
+          value: 'Hatchback',
           active: false,
         },
       ]);
@@ -42,10 +44,12 @@ describe('<helpers />', () => {
       ).toEqual([
         {
           label: '4x4',
+          value: '4x4',
           active: false,
         },
         {
           label: 'Hatchback',
+          value: 'Hatchback',
           active: true,
         },
       ]);

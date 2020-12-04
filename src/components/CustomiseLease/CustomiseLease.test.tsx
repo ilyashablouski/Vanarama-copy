@@ -33,16 +33,16 @@ describe('<CustomiseLease />', () => {
       trim: 112981,
       screenY: 0,
       terms: [
-        { label: '24', active: true },
-        { label: '36', active: false },
+        { label: '24', value: '24', active: false },
+        { label: '36', value: '36', active: true },
       ],
       upfronts: [
-        { label: '1', active: true },
-        { label: '3', active: false },
+        { label: '1', value: '1', active: false },
+        { label: '3', value: '3', active: true },
       ],
       leaseTypes: [
-        { label: 'Personal', active: true },
-        { label: 'Business', active: false },
+        { label: 'Personal', value: 'Personal', active: false },
+        { label: 'Business', value: 'Business', active: true },
       ],
       mileages: [6000, 8000, 10000],
       setLeaseType: jest.fn(),
@@ -156,16 +156,16 @@ describe('<CustomiseLease />', () => {
       trim: 112981,
       colour: 13990,
       terms: [
-        { label: '24', active: false },
-        { label: '36', active: true },
+        { label: '24', value: '24', active: false },
+        { label: '36', value: '36', active: true },
       ],
       upfronts: [
-        { label: '1', active: false },
-        { label: '3', active: true },
+        { label: '1', value: '1', active: false },
+        { label: '3', value: '3', active: true },
       ],
       leaseTypes: [
-        { label: 'Personal', active: false },
-        { label: 'Business', active: true },
+        { label: 'Personal', value: 'Personal', active: false },
+        { label: 'Business', value: 'Business', active: true },
       ],
       isModalShowing: false,
       setIsModalShowing: jest.fn(),
@@ -305,18 +305,18 @@ describe('<CustomiseLease />', () => {
         screenY={0}
         isDisabled={false}
         terms={[
-          { label: '24', active: false },
-          { label: '36', active: true },
-          { label: '50', active: false },
-          { label: '77', active: false },
+          { label: '24', value: '24', active: false },
+          { label: '36', value: '36', active: true },
+          { label: '50', value: '50', active: false },
+          { label: '77', value: '77', active: false },
         ]}
         upfronts={[
-          { label: '1', active: false },
-          { label: '3', active: true },
+          { label: '1', value: '1', active: false },
+          { label: '3', value: '3', active: true },
         ]}
         leaseTypes={[
-          { label: 'Personal', active: false },
-          { label: 'Business', active: true },
+          { label: 'Personal', value: 'Personal', active: false },
+          { label: 'Business', value: ' Business', active: true },
         ]}
         mileage={6000}
         mileages={[6000, 8000, 10000]}
