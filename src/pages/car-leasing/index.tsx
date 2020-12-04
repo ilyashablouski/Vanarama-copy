@@ -225,7 +225,7 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
           <Heading size="large" color="black">
             Not Sure Which Vehicle Is Best For You?
           </Heading>
-          <RouterLink
+          {/* <RouterLink
             className="button"
             classNames={{ color: 'teal', solid: true, size: 'regular' }}
             link={{
@@ -235,7 +235,10 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
             withoutDefaultClassName
           >
             <div className="button--inner">Help Me Choose</div>
-          </RouterLink>
+          </RouterLink> */}
+          <Text color="orange" size="lead">
+            Coming Soon
+          </Text>
         </div>
       </section>
 
