@@ -1,6 +1,6 @@
-import { gql, useQuery } from '@apollo/client';
-// import { GetPrimaryHeaderData as Query } from '../../../generated/GetPrimaryHeaderData';
+import { gql } from '@apollo/client';
 
+// eslint-disable-next-line import/prefer-default-export
 export const GET_PRIMARY_HEADER_DATA = gql`
   query GetPrimaryHeaderData {
     primaryHeader {
@@ -36,7 +36,3 @@ export const GET_PRIMARY_HEADER_DATA = gql`
     }
   }
 `;
-
-export function usePrimaryHeaderData() {
-  return useQuery(GET_PRIMARY_HEADER_DATA);
-}
