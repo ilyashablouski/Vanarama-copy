@@ -181,11 +181,11 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
           </ul>
         ) : null}
         <div className="menu-featured">
-          <RouterLink link={{ href: promotionalImage.url, label: '' }}>
+          <RouterLink link={{ href: promotionalImage?.url, label: '' }}>
             <div className="image -expand">
               <Image
-                src={promotionalImage.image.url}
-                alt={promotionalImage.image.fileName}
+                src={promotionalImage?.image.url || '/img-placeholder.png'}
+                alt={promotionalImage?.image.fileName}
               />
             </div>
           </RouterLink>
