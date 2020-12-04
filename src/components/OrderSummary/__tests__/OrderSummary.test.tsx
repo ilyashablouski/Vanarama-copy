@@ -1,11 +1,18 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import OrderSummary from './OrderSummary';
-import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
+import preloadAll from 'jest-next-dynamic';
+import OrderSummary from '../OrderSummary';
+import {
+  LeaseTypeEnum,
+  VehicleTypeEnum,
+} from '../../../../generated/globalTypes';
 
 jest.mock('next/router');
 
 describe('<CustomiseLease />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('renders correctly', () => {
     render(
       <OrderSummary

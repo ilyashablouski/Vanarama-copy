@@ -1,9 +1,13 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
 import { render, fireEvent, screen } from '@testing-library/react';
-import CustomiseLease from './CustomiseLease';
-import { IProps } from './interface';
-import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
+import CustomiseLease from '../CustomiseLease';
+import { IProps } from '../interface';
+import {
+  LeaseTypeEnum,
+  VehicleTypeEnum,
+} from '../../../../generated/globalTypes';
 
 jest.mock('next/router');
 
@@ -12,6 +16,9 @@ function getComponent(props: IProps) {
 }
 
 describe('<CustomiseLease />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   Object.defineProperty(window, 'matchMedia', {
     writable: true,
     value: jest.fn().mockImplementation(query => ({

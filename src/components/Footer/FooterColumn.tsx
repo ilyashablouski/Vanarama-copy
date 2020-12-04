@@ -4,12 +4,19 @@ import ReactMarkdown from 'react-markdown';
 import { PrimaryFooter_primaryFooter_linkGroups as LinkGroups } from '../../../generated/PrimaryFooter';
 import RouterLink from '../RouterLink/RouterLink';
 import { LinkTypes } from '../../models/enum/LinkTypes';
+import Skeleton from '../Skeleton';
 
-const Text = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/text'),
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
-const Heading = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/heading'),
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
 
 interface IFooterColumn {
