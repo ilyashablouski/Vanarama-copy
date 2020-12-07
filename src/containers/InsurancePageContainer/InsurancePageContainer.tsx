@@ -1,12 +1,42 @@
+import dynamic from 'next/dynamic';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
-import InsuranceHeroSection from './sections/InsuranceHeroSection';
-import InsuranceTypesSection from './sections/InsuranceTypesSection';
-import MediaFeatureSection from '../FleetPageContainer/sections/MediaFeatureSection';
-import MediaFeatureText from './sections/MediaFeatureText';
-import InsuranceFAQSection from './sections/InsuranceFAQSection';
-import InsuranceNewsSection from './sections/InsuranceNewsSection';
 import { GetInsuranceLandingPage } from '../../../generated/GetInsuranceLandingPage';
 import Head from '../../components/Head/Head';
+import Skeleton from '../../components/Skeleton';
+
+const InsuranceHeroSection = dynamic(
+  () => import('./sections/InsuranceHeroSection'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
+const InsuranceTypesSection = dynamic(
+  () => import('./sections/InsuranceTypesSection'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
+const MediaFeatureSection = dynamic(
+  () => import('../FleetPageContainer/sections/MediaFeatureSection'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
+const MediaFeatureText = dynamic(() => import('./sections/MediaFeatureText'), {
+  loading: () => <Skeleton count={5} />,
+});
+const InsuranceFAQSection = dynamic(
+  () => import('./sections/InsuranceFAQSection'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
+const InsuranceNewsSection = dynamic(
+  () => import('./sections/InsuranceNewsSection'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 interface IInsurancePageContainer {
   data: GetInsuranceLandingPage | undefined;
