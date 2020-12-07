@@ -21,7 +21,6 @@ import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import TopOffersContainer from './TopOffersContainer';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import { useVehiclesList, getRangesList, useManufacturerList } from './gql';
@@ -55,7 +54,6 @@ import {
   GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
 import { getFeaturedClassPartial } from '../../utils/layout';
-
 import useLeaseType from '../../hooks/useLeaseType';
 import { getLegacyUrl } from '../../utils/url';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -110,7 +108,7 @@ const Carousel = dynamic(
 const Card = dynamic(
   () => import('@vanarama/uibook/lib/components/molecules/cards'),
   {
-    loading: () => <Skeleton count={3} />,
+    loading: () => <Skeleton count={10} />,
   },
 );
 const Tile = dynamic(
@@ -132,6 +130,9 @@ const RangeCard = dynamic(() => import('./RangeCard'), {
   loading: () => <Skeleton count={1} />,
 });
 const VehicleCard = dynamic(() => import('./VehicleCard'), {
+  loading: () => <Skeleton count={1} />,
+});
+const TopOffersContainer = dynamic(() => import('./TopOffersContainer'), {
   loading: () => <Skeleton count={1} />,
 });
 
@@ -1176,7 +1177,9 @@ const SearchPageContainer: React.FC<IProps> = ({
                           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                           key={`${card.name}_${indx.toString()}`}
                           className="card__article"
-                          imageSrc={card?.image?.file?.url || ''}
+                          imageSrc={
+                            card?.image?.file?.url || '/vehiclePlaceholder.jpg'
+                          }
                           title={{
                             title:
                               card.link?.legacyUrl || card.link?.url
