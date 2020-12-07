@@ -1,20 +1,78 @@
 import React, { FC, useState } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
-import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
-import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
-import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
-import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
-import Media from '@vanarama/uibook/lib/components/atoms/media';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
-import ReviewCard from '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard';
 import getTitleTag from '../../utils/getTitleTag';
 import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Skeleton from '../../components/Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Tabs = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tab = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/Tab'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const TabList = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/TabList'),
+);
+const TabPanel = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanel'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const TabPanels = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanels'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Media = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/media'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const ReviewCard = dynamic(
+  () =>
+    import(
+      '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard'
+    ),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   sections: Sections | null;

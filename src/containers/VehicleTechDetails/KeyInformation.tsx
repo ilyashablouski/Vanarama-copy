@@ -1,15 +1,33 @@
 import React from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+import dynamic from 'next/dynamic';
+import Skeleton from '../../components/Skeleton';
 
-export interface KeyInformationItem {
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+export interface IKeyInformationItem {
   name: string | null;
   value: string | null;
 }
 
 interface IKeyInformationProps {
-  keysInformation: KeyInformationItem[];
+  keysInformation: IKeyInformationItem[];
 }
 
 const KeyInformation: React.FC<IKeyInformationProps> = ({
@@ -17,7 +35,7 @@ const KeyInformation: React.FC<IKeyInformationProps> = ({
 }) => {
   return (
     <div className="pdp--feature-grid tabs--active">
-      {keysInformation.slice(0, 12).map((info: KeyInformationItem) => (
+      {keysInformation.slice(0, 12).map((info: IKeyInformationItem) => (
         <div className="pdp--feature-grid--item" key={info.name || ''}>
           <Icon
             name={`${
