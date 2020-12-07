@@ -83,7 +83,7 @@ const HeaderContainer: FC = () => {
           label: linksGroup?.name || '',
           id: linksGroupUrl.label || '',
           promotionalImage: {
-            url: linksGroup?.promotionalImage?.url || '',
+            url: linksGroup?.promotionalImage?.legacyUrl || '',
             image: {
               url: linksGroup?.promotionalImage?.image?.[0]?.file.url || '',
               fileName:
@@ -101,7 +101,7 @@ const HeaderContainer: FC = () => {
           label: linksGroup?.name || '',
           id: linksGroupUrl?.id,
           promotionalImage: {
-            url: linksGroup?.promotionalImage?.url || '',
+            url: linksGroup?.promotionalImage?.legacyUrl || '',
             image: {
               url: linksGroup?.promotionalImage?.image?.[0]?.file.url || '',
               fileName:
