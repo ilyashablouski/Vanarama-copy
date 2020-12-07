@@ -11,7 +11,7 @@ import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
 import { PrimaryHeader_primaryHeader_linkGroups_linkGroups as LinkGroups } from '../../../generated/PrimaryHeader';
 import { IHeaderLink } from '../../components/Header/Header';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import { HEADER_DATA } from '../../utils/hardcodedData';
+import HEADER_DATA from '../../../deps/data/menuData.json';
 
 export const LOGOUT_USER_MUTATION = gql`
   mutation LogOutUserMutation {
@@ -83,7 +83,7 @@ const HeaderContainer: FC = () => {
           label: linksGroup?.name || '',
           id: linksGroupUrl.label || '',
           promotionalImage: {
-            url: linksGroup?.promotionalImage?.legacyUrl || '',
+            url: linksGroup?.promotionalImage?.url || '',
             image: {
               url: linksGroup?.promotionalImage?.image?.[0]?.file.url || '',
               fileName:
@@ -101,7 +101,7 @@ const HeaderContainer: FC = () => {
           label: linksGroup?.name || '',
           id: linksGroupUrl?.id,
           promotionalImage: {
-            url: linksGroup?.promotionalImage?.legacyUrl || '',
+            url: linksGroup?.promotionalImage?.url || '',
             image: {
               url: linksGroup?.promotionalImage?.image?.[0]?.file.url || '',
               fileName:

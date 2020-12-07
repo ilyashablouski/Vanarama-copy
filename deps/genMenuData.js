@@ -17,6 +17,7 @@ const query = gql`
         body
         promotionalImage {
           url
+          legacyUrl
           image {
             file {
               url
