@@ -1,15 +1,9 @@
-import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
+import dynamic from 'next/dynamic';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
-import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import SortCode from '@vanarama/uibook/lib/components/molecules/sortcode';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { gql } from '@apollo/client';
 import React from 'react';
 import { Controller, FieldError, useForm } from 'react-hook-form';
@@ -18,6 +12,48 @@ import { genMonths, genYears } from '../../utils/helpers';
 import validationSchema from './BankDetails.validation';
 import { IBankDetails, IBankDetailsProps } from './interfaces';
 import { responseToInitialFormValues } from './mappers';
+import Skeleton from '../Skeleton';
+
+const ChevronForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tile = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tile'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const FormGroup = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/formgroup'),
+);
 
 const BankDetails: FCWithFragments<IBankDetailsProps> = ({
   account,
