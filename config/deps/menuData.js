@@ -42,7 +42,7 @@ module.exports = async () => {
   });
   const menuData = await client.request(query);
   return {
-    // cacheable: true,
+    cacheable: true,
     code: `module.exports = ${JSON.stringify(menuData)}`,
   };
 };

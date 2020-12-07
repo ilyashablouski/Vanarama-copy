@@ -58,7 +58,7 @@ module.exports = {
     webpack: config => {
       // Add custom loaders
       config.module.rules.push({
-        test: require.resolve('../src/deps/menuData.js'),
+        test: require.resolve('./deps/menuData.js'),
         use: [{ loader: 'val-loader' }],
       });
       // Allow absolute imports.
@@ -81,6 +81,10 @@ module.exports = {
     // eslint-disable-next-line no-shadow
     config.webpack = (config, ...rest) => {
       config.externals = config.externals || [];
+      config.module.rules.push({
+        test: require.resolve('./deps/menuData.js'),
+        use: [{ loader: 'val-loader' }],
+      });
 
       return webpack(config, ...rest);
     };
