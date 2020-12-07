@@ -76,7 +76,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             class="text -regular -dark"
             data-testid="card-description"
           >
-            Test1...
+            Test1
           </span>
           <a
             class="link -teal -regular"
@@ -110,7 +110,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             class="text -regular -dark"
             data-testid="card-description"
           >
-            Test2...
+            Test2
           </span>
           <a
             class="link -teal -regular"
@@ -144,7 +144,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             class="text -regular -dark"
             data-testid="card-description"
           >
-            Test3...
+            Test3
           </span>
           <a
             class="link -teal -regular"

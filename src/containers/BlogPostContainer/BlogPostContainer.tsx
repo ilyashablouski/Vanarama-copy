@@ -13,7 +13,6 @@ import { GenericPageHeadQuery_genericPage_metaData } from '../../../generated/Ge
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
 import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
-import { getBody } from '../../utils/articles';
 import { setSource } from '../../utils/url';
 
 interface IProps {
@@ -142,7 +141,7 @@ const BlogPostContainer: NextPage<IProps> = ({
                     </RouterLink>
                   ),
                 }}
-                description={getBody(el?.body || '')}
+                description={el?.excerpt || ''}
               >
                 <RouterLink
                   classNames={{ color: 'teal', size: 'regular' }}
