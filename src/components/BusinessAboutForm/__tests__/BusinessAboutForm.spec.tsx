@@ -1,7 +1,8 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import BusinessAboutForm from './BusinessAboutForm';
-import { BusinessAboutFormDropDownData } from '../../../generated/BusinessAboutFormDropDownData';
+import BusinessAboutForm from '../BusinessAboutForm';
+import { BusinessAboutFormDropDownData } from '../../../../generated/BusinessAboutFormDropDownData';
 
 const mockDropdownData: BusinessAboutFormDropDownData = {
   __typename: 'DropDownType',
@@ -13,6 +14,9 @@ const mockDropdownData: BusinessAboutFormDropDownData = {
 };
 
 describe('BusinessAboutForm', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should show required field validation messages if the user submits without filling the form', async () => {
     // ACT
     render(

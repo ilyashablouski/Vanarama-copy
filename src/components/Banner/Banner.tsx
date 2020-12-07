@@ -1,8 +1,32 @@
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Redundancy from '@vanarama/uibook/lib/assets/icons/Redundancy';
+import dynamic from 'next/dynamic';
 import RouterLink from '../RouterLink/RouterLink';
+import Skeleton from '../Skeleton';
+
+const Redundancy = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/Redundancy'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const Banner: React.FC = () => {
   return (

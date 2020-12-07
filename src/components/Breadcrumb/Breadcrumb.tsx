@@ -1,11 +1,37 @@
 import React, { FC, memo } from 'react';
-import ChevronBack from '@vanarama/uibook/lib/assets/icons/ChevronBack';
-import ChevronForward from '@vanarama/uibook/lib/assets/icons/ChevronForward';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+import dynamic from 'next/dynamic';
 import RouterLink from '../RouterLink/RouterLink';
 import { IBreadcrumbLink } from './helpers';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
+
+import Skeleton from '../Skeleton';
+
+const ChevronBack = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronBack'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const ChevronForward = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronForward'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IBreadcrumbProps {
   items?: IBreadcrumbLink[] | null;

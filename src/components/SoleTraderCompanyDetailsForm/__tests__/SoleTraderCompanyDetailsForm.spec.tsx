@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SoleTraderCompanyDetailsForm from '../SoleTraderCompanyDetailsForm';
@@ -6,6 +7,9 @@ import { ISoleTraderCompanyDetailsFormValues } from '../interfaces';
 import { GET_SIC_CODES } from '../../../containers/CompanyDetailsFormContainer/gql';
 
 describe('<SoleTraderCompanyDetailsForm />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   const onSubmitMock = jest.fn<void, [ISoleTraderCompanyDetailsFormValues]>();
   const handleNatureMock = jest.fn();
 
