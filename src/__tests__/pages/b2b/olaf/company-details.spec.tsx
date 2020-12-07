@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import {
@@ -108,7 +109,8 @@ const sicDataMocks = [
 ];
 
 describe('B2B Company Details page', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
+    await preloadAll();
     companyProfileCalled = false;
     getSicCodesCalled = false;
   });

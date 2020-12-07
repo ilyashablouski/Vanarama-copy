@@ -1,7 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import ProgressIndicator from '@vanarama/uibook/lib/components/molecules/progress-indicator';
-import Step from '@vanarama/uibook/lib/components/molecules/progress-indicator/Step';
-import StepLink from '@vanarama/uibook/lib/components/molecules/progress-indicator/StepLink';
+import dynamic from 'next/dynamic';
 import React, { useEffect, useMemo } from 'react';
 import NextJsLink from 'next/link';
 import { useRouter } from 'next/router';
@@ -11,6 +9,18 @@ import { IBusinessProgressIndicatorProps } from './interfaces';
 import { getUrlParam } from '../../utils/url';
 import useProgressHistory from '../../hooks/useProgressHistory';
 import useGetPersonUuid from '../../hooks/useGetPersonUuid';
+
+const ProgressIndicator = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/progress-indicator'),
+);
+const Step = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/progress-indicator/Step'),
+);
+const StepLink = dynamic(() =>
+  import(
+    '@vanarama/uibook/lib/components/molecules/progress-indicator/StepLink'
+  ),
+);
 
 type QueryParams = {
   companyUuid: string;
