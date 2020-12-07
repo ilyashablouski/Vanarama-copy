@@ -1,14 +1,18 @@
+import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 import {
   GetAboutYouDataQuery,
   GetAboutYouDataQueryVariables,
-} from '../../../generated/GetAboutYouDataQuery';
-import AboutFormContainer from './AboutFormContainer';
-import { GET_ABOUT_YOU_DATA, GET_ABOUT_YOU_PAGE_DATA } from './gql';
+} from '../../../../generated/GetAboutYouDataQuery';
+import AboutFormContainer from '../AboutFormContainer';
+import { GET_ABOUT_YOU_DATA, GET_ABOUT_YOU_PAGE_DATA } from '../gql';
 
 describe('<AboutFormContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should prepopulate the form with existing data', async () => {
     // ARRANGE
     const personUuid = '1927e308-18f8-4d95-aef3-57cc46459930';

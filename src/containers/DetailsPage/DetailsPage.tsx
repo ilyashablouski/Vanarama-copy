@@ -259,7 +259,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     undefined;
 
   const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
-  const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
+  const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capModelDescription}`;
 
   // eslint-disable-next-line no-console
   if (process.env.ENV !== 'production') console.log('CAP Id:', capId);

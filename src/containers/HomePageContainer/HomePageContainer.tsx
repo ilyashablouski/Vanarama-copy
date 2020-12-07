@@ -21,9 +21,8 @@ import {
 } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
-
-import Skeleton from '../../components/Skeleton';
 import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
+import Skeleton from '../../components/Skeleton';
 
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),

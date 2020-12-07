@@ -1,5 +1,9 @@
 import React from 'react';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
+import dynamic from 'next/dynamic';
+
+const Text = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/text'),
+);
 
 type Props = {
   message: string;

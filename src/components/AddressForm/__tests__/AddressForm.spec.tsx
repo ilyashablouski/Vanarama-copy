@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import { AddressFormDropDownData } from '../../../generated/AddressFormDropDownData';
-import AddressForm from './AddressForm';
+import preloadAll from 'jest-next-dynamic';
+import { AddressFormDropDownData } from '../../../../generated/AddressFormDropDownData';
+import AddressForm from '../AddressForm';
 
 const mockDropDownData: AddressFormDropDownData = {
   __typename: 'DropDownType',
@@ -12,6 +13,9 @@ const mockDropDownData: AddressFormDropDownData = {
 };
 
 describe('<AddressForm />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should call `onSubmit` when entering valid information', async () => {
     // ARRANGE
     const onSubmit = jest.fn();

@@ -1,10 +1,28 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
+import dynamic from 'next/dynamic';
 import { GetVehicleDetails_vehicleDetails_rangeFaqs } from '../../../generated/GetVehicleDetails';
 import { GENERAL_LEASING_FAQ } from './config';
+import Skeleton from '../Skeleton';
+
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Accordion = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/accordion/Accordion'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IFrequentlyAskedQuestionsProps {
   rangeFAQ: GetVehicleDetails_vehicleDetails_rangeFaqs[];

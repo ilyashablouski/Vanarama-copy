@@ -34,7 +34,7 @@ export const handleNetworkError = () =>
   );
 
 const toThankYouPage = () => {
-  Router.push(`thank-you`);
+  Router.push(`multi-year-insurance/thank-you`);
 };
 
 const FinanceGapInsurancePageContainer = ({
@@ -84,6 +84,8 @@ const FinanceGapInsurancePageContainer = ({
                 fullName: values.fullName,
                 postcode: values.postcode,
                 opportunityType: OpportunityTypeEnum.INSURANCE,
+                termsAndConditions: Boolean(values.termsAndCons),
+                marketingPreference: Boolean(values.consent),
               },
             });
           }}
@@ -114,6 +116,8 @@ const FinanceGapInsurancePageContainer = ({
                   fullName: values.fullName,
                   postcode: values.postcode,
                   opportunityType: OpportunityTypeEnum.INSURANCE,
+                  termsAndConditions: Boolean(values.termsAndCons),
+                  marketingPreference: Boolean(values.consent),
                 },
               });
             }}

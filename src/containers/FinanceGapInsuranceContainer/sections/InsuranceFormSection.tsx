@@ -26,11 +26,9 @@ const InsuranceFormSection = ({
       </div>
       <div className="card">
         <GoldrushForm
-          callBack={false}
+          callBack
           isSubmitting={isSubmitting}
           isPostcodeVisible
-          isTextInVisible
-          noTermsAndConditions
           onSubmit={onSubmit}
         />
       </div>
