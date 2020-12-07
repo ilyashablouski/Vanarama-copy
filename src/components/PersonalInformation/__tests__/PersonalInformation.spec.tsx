@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import PersonalInformation from '..';
@@ -23,7 +24,8 @@ const person = {
 describe('<PersonalInformation />', () => {
   const submit = jest.fn();
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await preloadAll();
     jest.clearAllMocks();
     render(<PersonalInformation person={person} submit={submit} />);
   });
