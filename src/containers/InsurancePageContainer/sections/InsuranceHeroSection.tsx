@@ -1,10 +1,23 @@
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
 import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero as IHero } from '../../../../generated/GetInsuranceLandingPage';
 import Hero, { HeroHeading } from '../../../components/Hero';
 import config from '../config';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import Skeleton from '../../../components/Skeleton';
+
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const InsuranceHeroSection = ({ title, body, heroCard, image }: IHero) => (
   <Hero workingHoursCard={(heroCard && heroCard[0]) || undefined}>

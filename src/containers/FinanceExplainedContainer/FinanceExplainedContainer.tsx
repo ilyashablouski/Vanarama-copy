@@ -1,12 +1,7 @@
 import React, { FC } from 'react';
+import dynamic from 'next/dynamic';
 import Router from 'next/router';
 import ReactMarkdown from 'react-markdown';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
-import IvanCta from '@vanarama/uibook/lib/components/molecules/ivan-cta';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -16,6 +11,44 @@ import {
 } from '../../../generated/GenericPageQuery';
 import getTitleTag from '../../utils/getTitleTag';
 import { getSectionsData } from '../../utils/getSectionsData';
+import Skeleton from '../../components/Skeleton';
+
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const IvanCta = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/ivan-cta'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Carousel = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   data: GenericPageQuery;

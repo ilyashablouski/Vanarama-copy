@@ -1,10 +1,22 @@
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-
 import getTitleTag from '../../../utils/getTitleTag';
 import { GetFleetLandingPage_fleetLandingPage_sections_featured2 as IMediaFeature } from '../../../../generated/GetFleetLandingPage';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import Skeleton from '../../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const MediaFeatureText = ({ title, titleTag, body }: IMediaFeature) => {
   return (

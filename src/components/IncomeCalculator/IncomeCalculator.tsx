@@ -1,15 +1,10 @@
-import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
-import Button from '@vanarama/uibook/lib/components/atoms/button/';
+import dynamic from 'next/dynamic';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Input from '@vanarama/uibook/lib/components/atoms/textinput/';
-import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { gql } from '@apollo/client';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import validationSchema from './IncomeCalculator.validation';
 import {
@@ -18,6 +13,45 @@ import {
 } from './interfaces';
 import { responseToInitialFormValues } from './mappers';
 import { calculateIncome } from './utils';
+import Skeleton from '../Skeleton';
+
+const ChevronForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const FormGroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
   expenditure,
