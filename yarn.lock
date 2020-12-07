@@ -3054,10 +3054,10 @@
     semver "^6.3.0"
     tsutils "^3.17.1"
 
-"@vanarama/uibook@5.38.8":
-  version "5.38.8"
-  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.38.8.tgz#a00069aabf3f9ee00415acb286d1d2e0e0f82485"
-  integrity sha512-LqwBhEWxtsVraS4AoAxaV3/zMP4gj/X2wgll/1ZbcEhcwDj4JFgIeO4cMWnlTmFZMVYVw9IEzTxlmc1cL5NqrA==
+"@vanarama/uibook@5.38.18":
+  version "5.38.18"
+  resolved "https://registry.yarnpkg.com/@vanarama/uibook/-/uibook-5.38.18.tgz#304d171324677dc06cd3594c93dbb8817416e470"
+  integrity sha512-2LVcsarGprHWCeY1Bcjs0cRDdHPIpIO7sUAH2CanAGD0FvPafG/TM4KP8h5FGj8lit4K81SYV+qh7dPtpCAPfg==
   dependencies:
     "@reach/auto-id" "^0.10.3"
     "@react-google-maps/api" "^1.9.0"
@@ -9241,11 +9241,14 @@ node-fetch@2.6.0, node-fetch@^2.1.2, node-fetch@^2.2.0, node-fetch@^2.6.0:
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.0.tgz#e633456386d4aa55863f676a7ab0daa8fdecb0fd"
 
+<<<<<<< HEAD
 node-fetch@2.6.1:
   version "2.6.1"
   resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-2.6.1.tgz#045bd323631f76ed2e2b55573394416b639a0052"
   integrity sha512-V4aYg89jEoVRxRb2fJdAg8FHvI7cEyYdVAh94HH0UIK8oJxUfkjlDQN9RbMx+bEjP7+ggMiFRprSti032Oipxw==
 
+=======
+>>>>>>> develop
 node-gyp@^3.8.0:
   version "3.8.0"
   resolved "https://registry.yarnpkg.com/node-gyp/-/node-gyp-3.8.0.tgz#540304261c330e80d0d5edce253a68cb3964218c"

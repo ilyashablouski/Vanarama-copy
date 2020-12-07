@@ -1,8 +1,12 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { render, fireEvent, screen, waitFor } from '@testing-library/react';
 import BankDetails from '..';
 
 describe('<BankDetails />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should show required form field validation messages', async () => {
     // ACT
     render(<BankDetails onSubmit={jest.fn()} />);

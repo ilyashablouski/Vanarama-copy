@@ -195,7 +195,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
               label="I want to be kept updated about exclusive deals & offers from Vanarama."
               ref={register}
               defaultChecked={person?.emailConsent || false}
-              // disabled={!editData}
+              disabled={!editData}
             />
           </FormGroup>
           <Text color="darker" className="-pl-500" tag="p">
@@ -204,7 +204,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             <a
               key="a"
               className="link -teal -ml-100"
-              href="/legal/privacy-policy"
+              href="/legal/privacy-policy.html"
               target="_blank"
             >
               Privacy Policy

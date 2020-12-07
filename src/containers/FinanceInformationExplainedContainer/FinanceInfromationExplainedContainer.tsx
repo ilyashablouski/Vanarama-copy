@@ -1,12 +1,7 @@
 import React, { FC, useState } from 'react';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
 import cx from 'classnames';
-import AddCircleSharp from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
-import RemoveCircleSharp from '@vanarama/uibook/lib/assets/icons/RemoveCircleSharp';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
 import getTitleTag from '../../utils/getTitleTag';
 import {
   GenericPageQuery_genericPage_sections as Section,
@@ -14,6 +9,46 @@ import {
 } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
+import Skeleton from '../../components/Skeleton';
+
+const AddCircleSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/AddCircleSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const RemoveCircleSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/RemoveCircleSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Accordion = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/accordion/Accordion'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   sections: Section | null;

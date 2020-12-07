@@ -25,7 +25,8 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
       const transmissionsQueryValue = transmissionsQuery.length
         ? transmissionsQuery[0].split(',')
         : [];
-      const isTransmissionsActive = searchParams.has('transmissions');
+      const isTransmissionsActive =
+        searchParams.has('transmissions') && !searchParams.has('terms');
       setSteps({
         ...steps,
         transmissions: {
@@ -59,7 +60,8 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
       onClickContinue={() => {
         setSteps({
           ...steps,
-          transmissions: { active: true, value: transmissionsValue },
+          transmissions: { active: false, value: transmissionsValue },
+          terms: { active: true, value: steps.terms.value },
         });
         onReplace(router, {
           ...steps,

@@ -1,0 +1,3191 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> renders correctly 1`] = `
+<header
+  className="header"
+  data-testid="header"
+>
+   
+  <div
+    className="header-content"
+  >
+     
+    <a
+      className="logo header-logo link -orange -plain"
+      data-menu={null}
+      data-testid="router-link"
+      href="/"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+       
+      <span
+        className="logo"
+      >
+        <svg
+          className="logo--asset logo--asset-vanarama"
+          fill="none"
+          viewBox="0 0 168 30"
+        >
+          <path
+            clipRule="evenodd"
+            d="M22.5632 14.9582C22.5599 14.0394 21.8134 13.2979 20.8954 13.3003C20.874 13.3003 20.8551 13.3061 20.8346 13.3069C21.3101 13.0138 21.6295 12.4931 21.6279 11.8937C21.6246 10.9757 20.8781 10.2333 19.9593 10.2358C19.9593 10.2358 14.4526 10.2407 14.0511 10.2358C14.0511 10.2358 15.3871 6.64161 15.6729 5.85741C15.8116 5.47558 15.9299 5.07814 15.9874 4.67742C16.1762 3.36357 15.548 2.12856 14.4346 1.56607C14.4066 1.61041 9.80326 9.90898 8.08294 12.8627L8.09854 12.8561C7.37593 14.1576 7.09017 15.6111 7.26343 17.2402C7.5418 19.8663 9.16933 21.8173 11.7297 22.4743C12.3316 22.6286 12.9565 22.6976 13.5715 22.806C15.0061 22.8011 17.7266 22.7929 19.2301 22.7879C19.2531 22.7871 19.2753 22.7871 19.2974 22.7871C19.3171 22.7871 19.3409 22.7871 19.3598 22.7871L19.3607 22.7797C20.2327 22.7255 20.9241 22.0078 20.9217 21.1226C20.92 20.5331 20.6096 20.019 20.1465 19.7259C20.1596 19.7259 20.172 19.73 20.1851 19.73C20.2073 19.73 20.2303 19.73 20.2524 19.73C21.1549 19.7086 21.8791 18.972 21.8767 18.0647C21.8742 17.4357 21.5195 16.8962 21.003 16.6153C21.875 16.5611 22.5664 15.8426 22.5632 14.9582Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M16.2974 0C17.3395 0.899162 17.975 2.20315 18.0588 3.61225C22.9011 5.01149 26.4526 9.48103 26.4526 14.7668C26.4526 21.1701 21.2432 26.3803 14.8399 26.3803C8.43652 26.3803 3.22713 21.1701 3.22713 14.7668C3.22713 9.9302 6.20134 5.77599 10.4155 4.03268C11.1012 2.80506 12.5694 0.166694 12.6121 0.0952537C5.48284 1.17343 0 7.34193 0 14.7668C0 22.9496 6.65708 29.6067 14.8399 29.6067C23.0227 29.6067 29.6797 22.9496 29.6797 14.7668C29.6797 7.07669 23.7986 0.734932 16.2974 0Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M46.919 13.691C45.7978 16.774 43.9297 20.8214 42.0608 23.3741H41.2517C40.006 23.3741 39.352 22.9385 38.5122 21.6936C36.2382 18.2371 33.3743 10.9199 33 6.37378H35.2424C36.6739 6.37378 37.5777 7.46342 37.7329 8.36634C38.3246 11.4801 39.1662 14.7184 40.9405 18.1749C42.528 15.0296 43.992 10.5772 44.6144 6.37378H46.3895C47.8211 6.37378 48.3514 6.99618 48.3514 8.36634C48.3514 8.86514 47.9464 10.8884 46.919 13.691Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M56.9472 23.4681H56.1066C52.1214 23.4681 49.3811 21.2257 49.3811 18.1435C49.3811 15.1542 51.5604 12.8811 57.7257 12.8811H59.1896V12.6637C59.1896 10.2968 58.0684 9.58063 55.5771 9.58063C52.5571 9.58063 50.8749 10.7325 50.2525 11.511H50.0973V10.1724C50.0973 8.30427 51.7787 6.06274 56.1995 6.06274C59.9365 6.06274 63.2993 7.80635 63.2993 13.5973V17.4588C63.2993 21.0083 60.6843 23.4681 56.9472 23.4681ZM59.2203 15.8704H57.7257C54.5497 15.8704 53.6468 16.6182 53.6468 17.9883C53.6468 19.2954 54.7057 20.0738 56.5431 20.0738C58.3481 20.0738 59.2203 19.2025 59.2203 17.4895V15.8704Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M79.5545 23.188C77.6864 23.188 76.5039 22.0045 76.5039 20.4476V13.7844C76.5039 10.9512 75.2582 9.70549 73.1096 9.70549C71.3028 9.70549 70.058 11.0757 70.058 13.4732V23.188H68.8124C67.0372 23.188 65.8853 22.0045 65.8853 20.4476V13.1927C65.8853 9.64325 68.2206 6 73.4515 6C77.4059 6 80.6757 8.64653 80.6757 13.411V23.188H79.5545Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M90.5171 23.4681H89.6764C85.6913 23.4681 82.951 21.2257 82.951 18.1435C82.951 15.1542 85.1303 12.8811 91.2956 12.8811H92.7595V12.6637C92.7595 10.2968 91.6383 9.58063 89.147 9.58063C86.127 9.58063 84.4448 10.7325 83.8224 11.511H83.6672V10.1724C83.6672 8.30427 85.3486 6.06274 89.7694 6.06274C93.5064 6.06274 96.8691 7.80635 96.8691 13.5973V17.4588C96.8691 21.0083 94.2542 23.4681 90.5171 23.4681ZM92.7902 15.8704H91.2956C88.1196 15.8704 87.2166 16.6182 87.2166 17.9883C87.2166 19.2954 88.2756 20.0738 90.113 20.0738C91.918 20.0738 92.7902 19.2025 92.7902 17.4895V15.8704Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M108.983 10.4527C108.361 10.2038 107.644 9.95479 106.555 9.95479C104.687 9.95479 103.659 10.9822 103.659 13.5358V23.1883H102.507C100.639 23.1883 99.4559 22.2538 99.4559 20.5102V12.788C99.4559 9.42531 101.23 6.21774 105.652 6.21774C108.236 6.21774 109.139 7.6817 109.139 8.95807V10.4527H108.983Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M117.579 23.4681H116.738C112.753 23.4681 110.012 21.2257 110.012 18.1435C110.012 15.1542 112.192 12.8811 118.357 12.8811H119.821V12.6637C119.821 10.2968 118.7 9.58063 116.208 9.58063C113.188 9.58063 111.506 10.7325 110.884 11.511H110.729V10.1724C110.729 8.30427 112.41 6.06274 116.831 6.06274C120.568 6.06274 123.931 7.80635 123.931 13.5973V17.4588C123.931 21.0083 121.316 23.4681 117.579 23.4681ZM119.852 15.8704H118.357C115.181 15.8704 114.278 16.6182 114.278 17.9883C114.278 19.2954 115.337 20.0738 117.174 20.0738C118.979 20.0738 119.852 19.2025 119.852 17.4895V15.8704Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M149.901 23.188C147.628 23.188 146.725 22.129 146.725 20.1364V13.6599C146.725 10.8889 145.479 9.70549 143.643 9.70549C141.961 9.70549 140.809 10.8889 140.809 13.1927V23.188H139.688C137.851 23.188 136.636 22.129 136.636 20.1364V13.6599C136.636 10.8889 135.36 9.70549 133.523 9.70549C131.904 9.70549 130.689 10.9819 130.689 13.2865V23.188H129.568C127.856 23.188 126.548 22.0668 126.548 20.1364V13.6284C126.548 9.05153 128.945 6 134.021 6C136.2 6 137.913 6.99672 139.127 8.61585C140.093 7.05896 141.93 6 143.953 6C147.815 6 150.929 8.33533 150.929 13.0989V23.188H149.901Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M160.772 23.4681H159.931C155.946 23.4681 153.205 21.2257 153.205 18.1435C153.205 15.1542 155.385 12.8811 161.55 12.8811H163.014V12.6637C163.014 10.2968 161.893 9.58063 159.401 9.58063C156.381 9.58063 154.699 10.7325 154.077 11.511H153.922V10.1724C153.922 8.30427 155.603 6.06274 160.024 6.06274C163.761 6.06274 167.124 7.80635 167.124 13.5973V17.4588C167.124 21.0083 164.509 23.4681 160.772 23.4681ZM163.045 15.8704H161.55C158.374 15.8704 157.471 16.6182 157.471 17.9883C157.471 19.2954 158.53 20.0738 160.367 20.0738C162.172 20.0738 163.045 19.2025 163.045 17.4895V15.8704Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+        </svg>
+      </span>
+       
+    </a>
+     
+    <label
+      className="header-search"
+      htmlFor="search"
+    >
+       
+      <i
+        className="icon"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <title>
+            ionicons-v5-f
+          </title>
+          <path
+            d="M221.09,64A157.09,157.09,0,1,0,378.18,221.09,157.1,157.1,0,0,0,221.09,64Z"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeMiterlimit": 10,
+                "strokeWidth": 32,
+              }
+            }
+          />
+          <line
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "round",
+                "strokeMiterlimit": 10,
+                "strokeWidth": 32,
+              }
+            }
+            x1={338.29}
+            x2={448}
+            y1={338.29}
+            y2={448}
+          />
+        </svg>
+      </i>
+       
+      <input
+        className="header-search--input"
+        disabled={true}
+        id="search"
+        placeholder=""
+        type="text"
+      />
+       
+       
+    </label>
+    <a
+      className="header-tel link"
+      data-testid="link"
+      href="tel:01442838195"
+      onClick={[Function]}
+    >
+       
+      <i
+        className="icon -xsmall"
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <title>
+            ionicons-v5-g
+          </title>
+          <path
+            d="M391,480c-19.52,0-46.94-7.06-88-30-49.93-28-88.55-53.85-138.21-103.38C116.91,298.77,93.61,267.79,61,208.45c-36.84-67-30.56-102.12-23.54-117.13C45.82,73.38,58.16,62.65,74.11,52A176.3,176.3,0,0,1,102.75,36.8c1-.43,1.93-.84,2.76-1.21,4.95-2.23,12.45-5.6,21.95-2,6.34,2.38,12,7.25,20.86,16,18.17,17.92,43,57.83,52.16,77.43,6.15,13.21,10.22,21.93,10.23,31.71,0,11.45-5.76,20.28-12.75,29.81-1.31,1.79-2.61,3.5-3.87,5.16-7.61,10-9.28,12.89-8.18,18.05,2.23,10.37,18.86,41.24,46.19,68.51s57.31,42.85,67.72,45.07c5.38,1.15,8.33-.59,18.65-8.47,1.48-1.13,3-2.3,4.59-3.47,10.66-7.93,19.08-13.54,30.26-13.54h.06c9.73,0,18.06,4.22,31.86,11.18,18,9.08,59.11,33.59,77.14,51.78,8.77,8.84,13.66,14.48,16.05,20.81,3.6,9.53.21,17-2,22-.37.83-.78,1.74-1.21,2.75a176.49,176.49,0,0,1-15.29,28.58c-10.63,15.9-21.4,28.21-39.38,36.58A67.42,67.42,0,0,1,391,480Z"
+          />
+        </svg>
+      </i>
+       
+      <span>
+        01442 838195
+      </span>
+       
+    </a>
+     
+    <div
+      className="header-account"
+    >
+       
+      <button
+        className="button header-account--toggle -secondary -regular -clear"
+      >
+        <div
+          className="button--inner"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/account/login-register"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+             
+            <span>
+              Login / Register
+            </span>
+             
+          </a>
+        </div>
+      </button>
+       
+    </div>
+     
+    <nav
+      className="menu"
+      id="nav"
+    >
+      <ul
+        className="menu-primary"
+      >
+        <li
+          className="menu-li menu-title"
+        >
+          <button
+            className="link -black -regular -clear"
+            data-testid="menu-title"
+            onClick={[Function]}
+          >
+            <div
+              className="button--inner"
+            >
+              Menu
+            </div>
+          </button>
+        </li>
+        <li
+          className="menu-li -highlight"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/van-leasing"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <i
+              className="icon -orange -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-m
+                </title>
+                <path
+                  d="M394.24,197.56a300.67,300.67,0,0,0-53.38-90C301.2,61.65,240,32,192,32c19,70-14.36,117.12-44.79,163.77C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.24,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,6.48-14.07,14.66-27.22,15.11-44.49,11.3,5.88,23.67,16.91,34.54,31.28,18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                />
+              </svg>
+            </i>
+            <span>
+              Offers
+            </span>
+          </a>
+        </li>
+        <li
+          className="menu-li"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/hub/vans"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <span>
+              Vans
+            </span>
+          </a>
+          <div
+            className="menu-secondary--wrapper-outer"
+            data-testid="menu-secondary--wrapper-outer"
+          >
+            <div
+              className="menu-secondary--wrapper-inner"
+            >
+              <ul
+                className="menu-secondary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Vans
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li -highlight"
+                  data-testid="VANS Special Offers"
+                >
+                  <span
+                    className="link -white"
+                  >
+                    <i
+                      className="icon -white -xsmall"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                      >
+                        <title>
+                          ionicons-v5-m
+                        </title>
+                        <path
+                          d="M394.24,197.56a300.67,300.67,0,0,0-53.38-90C301.2,61.65,240,32,192,32c19,70-14.36,117.12-44.79,163.77C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.24,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,6.48-14.07,14.66-27.22,15.11-44.49,11.3,5.88,23.67,16.91,34.54,31.28,18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                        />
+                      </svg>
+                    </i>
+                    VANS Special Offers
+                  </span>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Vans By Manufacturer"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Vans By Manufacturer
+                  </span>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Vans By Size"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Vans By Size
+                  </span>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Vans By Type"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Vans By Type
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Van Leasing Explained"
+                >
+                  <a
+                    className="link -inherit"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/finance-options"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Van Leasing Explained
+                    </span>
+                  </a>
+                </li>
+              </ul>
+              <ul
+                className="menu-tertiary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-tertiary-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Vans By Manufacturer
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Citroen"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Citroen
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Ford"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Ford
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Benz"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Benz
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Nissan"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Nissan
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Renault"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Renault
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Vauxhall"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Vauxhall
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Fiat"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Fiat
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Isuzu"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Isuzu
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Mitsubishi"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Mitsubishi
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Peugeot"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Peugeot
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Toyota"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Toyota
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Volkswagen"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Volkswagen
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li
+          className="menu-li"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/hub/pickups"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <span>
+              Pickups
+            </span>
+          </a>
+          <div
+            className="menu-secondary--wrapper-outer"
+            data-testid="menu-secondary--wrapper-outer"
+          >
+            <div
+              className="menu-secondary--wrapper-inner"
+            >
+              <ul
+                className="menu-secondary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Pickups
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li -highlight"
+                  data-testid="Pickups Special offers"
+                >
+                  <a
+                    className="link -white"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/pickup-truck-leasing/special-offers"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <i
+                      className="icon -white -xsmall"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                      >
+                        <title>
+                          ionicons-v5-m
+                        </title>
+                        <path
+                          d="M394.24,197.56a300.67,300.67,0,0,0-53.38-90C301.2,61.65,240,32,192,32c19,70-14.36,117.12-44.79,163.77C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.24,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,6.48-14.07,14.66-27.22,15.11-44.49,11.3,5.88,23.67,16.91,34.54,31.28,18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                        />
+                      </svg>
+                    </i>
+                    <span>
+                      Pickups Special offers
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Pickups By Manufacturer"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Pickups By Manufacturer
+                  </span>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Best Selling"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Best Selling
+                  </span>
+                </li>
+              </ul>
+              <ul
+                className="menu-tertiary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-tertiary-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Pickups By Manufacturer
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Citroen?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Citroen
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Ford?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Ford
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Benz?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Benz
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Nissan?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Nissan
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Renault?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Renault
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Vauxhall?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Vauxhall
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Fiat?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Fiat
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Isuzu?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Isuzu
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Mitsubishi?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Mitsubishi
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Peugeot?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Peugeot
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Toyota?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Toyota
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Volkswagen?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Volkswagen
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li
+          className="menu-li"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/hub/cars"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <span>
+              Cars
+            </span>
+          </a>
+          <div
+            className="menu-secondary--wrapper-outer"
+            data-testid="menu-secondary--wrapper-outer"
+          >
+            <div
+              className="menu-secondary--wrapper-inner"
+            >
+              <ul
+                className="menu-secondary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Cars
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li -highlight"
+                  data-testid="Car Special Offers"
+                >
+                  <a
+                    className="link -white"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/special-offers"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <i
+                      className="icon -white -xsmall"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                      >
+                        <title>
+                          ionicons-v5-m
+                        </title>
+                        <path
+                          d="M394.24,197.56a300.67,300.67,0,0,0-53.38-90C301.2,61.65,240,32,192,32c19,70-14.36,117.12-44.79,163.77C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.24,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,6.48-14.07,14.66-27.22,15.11-44.49,11.3,5.88,23.67,16.91,34.54,31.28,18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                        />
+                      </svg>
+                    </i>
+                    <span>
+                      Car Special Offers
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Cars By Manufacturer"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Cars By Manufacturer
+                  </span>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Cars By BodyStyle"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Cars By BodyStyle
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Car Leasing Explained"
+                >
+                  <a
+                    className="link -inherit"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/finance-options"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Car Leasing Explained
+                    </span>
+                  </a>
+                </li>
+              </ul>
+              <ul
+                className="menu-tertiary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-tertiary-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Cars By Manufacturer
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Audi"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Audi
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/BMW"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      BMW
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Ford"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Ford
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Hyundai"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Hyundai
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Jaguar"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Jaguar
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Kia"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Kia
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Land%20Rover"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Land Rover
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Mercedes-Benz"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Mercedes-Benz
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Mini"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Mini
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Nissan"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Nissan
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Peugeot"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Peugeot
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Seat"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Seat
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Skoda"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Skoda
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Smart"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Smart
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Tesla"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Tesla
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Toyota"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Toyota
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Vauxhall"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Vauxhall
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Volkswagen"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Volkswagen
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Volvo"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Volvo
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/all-car-manufacturers"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      View All
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li
+          className="menu-li"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/van-insurance"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <span>
+              Insurance
+            </span>
+          </a>
+          <div
+            className="menu-secondary--wrapper-outer"
+            data-testid="menu-secondary--wrapper-outer"
+          >
+            <div
+              className="menu-secondary--wrapper-inner"
+            >
+              <ul
+                className="menu-secondary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Insurance
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Multi-Year Insurance"
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Multi-Year Insurance
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Finance GAP Insurance"
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Finance GAP Insurance
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Tools in Transit Insurance"
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Tools in Transit Insurance
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="7-Day Free Insurance"
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    7-Day Free Insurance
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Short-Term Insurance"
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Short-Term Insurance
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Frequently Asked Questions"
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Frequently Asked Questions
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li
+          className="menu-li"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/fleet"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <span>
+              Fleet
+            </span>
+          </a>
+        </li>
+        <li
+          className="menu-li"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/van-insurance"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <span>
+              News
+            </span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+     
+    <button
+      className="header-navtoggle -inherit -expand -clear"
+      onClick={[Function]}
+    >
+      <div
+        className="button--inner"
+      >
+         
+        <i
+          className="icon -darker"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-j
+            </title>
+            <line
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+              x1={88}
+              x2={424}
+              y1={152}
+              y2={152}
+            />
+            <line
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+              x1={88}
+              x2={424}
+              y1={256}
+              y2={256}
+            />
+            <line
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+              x1={88}
+              x2={424}
+              y1={360}
+              y2={360}
+            />
+          </svg>
+        </i>
+         
+        <i
+          className="icon -darker"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-m
+            </title>
+            <path
+              d="M289.94,256l95-95A24,24,0,0,0,351,127l-95,95-95-95A24,24,0,0,0,127,161l95,95-95,95A24,24,0,1,0,161,385l95-95,95,95A24,24,0,0,0,385,351Z"
+            />
+          </svg>
+        </i>
+         
+      </div>
+    </button>
+     
+  </div>
+   
+</header>
+`;
+
+exports[`<Header /> renders correctly with login user 1`] = `
+<header
+  className="header"
+  data-testid="header"
+>
+   
+  <div
+    className="header-content"
+  >
+     
+    <a
+      className="logo header-logo link -orange -plain"
+      data-menu={null}
+      data-testid="router-link"
+      href="/"
+      onClick={[Function]}
+      onMouseEnter={[Function]}
+    >
+       
+      <span
+        className="logo"
+      >
+        <svg
+          className="logo--asset logo--asset-vanarama"
+          fill="none"
+          viewBox="0 0 168 30"
+        >
+          <path
+            clipRule="evenodd"
+            d="M22.5632 14.9582C22.5599 14.0394 21.8134 13.2979 20.8954 13.3003C20.874 13.3003 20.8551 13.3061 20.8346 13.3069C21.3101 13.0138 21.6295 12.4931 21.6279 11.8937C21.6246 10.9757 20.8781 10.2333 19.9593 10.2358C19.9593 10.2358 14.4526 10.2407 14.0511 10.2358C14.0511 10.2358 15.3871 6.64161 15.6729 5.85741C15.8116 5.47558 15.9299 5.07814 15.9874 4.67742C16.1762 3.36357 15.548 2.12856 14.4346 1.56607C14.4066 1.61041 9.80326 9.90898 8.08294 12.8627L8.09854 12.8561C7.37593 14.1576 7.09017 15.6111 7.26343 17.2402C7.5418 19.8663 9.16933 21.8173 11.7297 22.4743C12.3316 22.6286 12.9565 22.6976 13.5715 22.806C15.0061 22.8011 17.7266 22.7929 19.2301 22.7879C19.2531 22.7871 19.2753 22.7871 19.2974 22.7871C19.3171 22.7871 19.3409 22.7871 19.3598 22.7871L19.3607 22.7797C20.2327 22.7255 20.9241 22.0078 20.9217 21.1226C20.92 20.5331 20.6096 20.019 20.1465 19.7259C20.1596 19.7259 20.172 19.73 20.1851 19.73C20.2073 19.73 20.2303 19.73 20.2524 19.73C21.1549 19.7086 21.8791 18.972 21.8767 18.0647C21.8742 17.4357 21.5195 16.8962 21.003 16.6153C21.875 16.5611 22.5664 15.8426 22.5632 14.9582Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M16.2974 0C17.3395 0.899162 17.975 2.20315 18.0588 3.61225C22.9011 5.01149 26.4526 9.48103 26.4526 14.7668C26.4526 21.1701 21.2432 26.3803 14.8399 26.3803C8.43652 26.3803 3.22713 21.1701 3.22713 14.7668C3.22713 9.9302 6.20134 5.77599 10.4155 4.03268C11.1012 2.80506 12.5694 0.166694 12.6121 0.0952537C5.48284 1.17343 0 7.34193 0 14.7668C0 22.9496 6.65708 29.6067 14.8399 29.6067C23.0227 29.6067 29.6797 22.9496 29.6797 14.7668C29.6797 7.07669 23.7986 0.734932 16.2974 0Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M46.919 13.691C45.7978 16.774 43.9297 20.8214 42.0608 23.3741H41.2517C40.006 23.3741 39.352 22.9385 38.5122 21.6936C36.2382 18.2371 33.3743 10.9199 33 6.37378H35.2424C36.6739 6.37378 37.5777 7.46342 37.7329 8.36634C38.3246 11.4801 39.1662 14.7184 40.9405 18.1749C42.528 15.0296 43.992 10.5772 44.6144 6.37378H46.3895C47.8211 6.37378 48.3514 6.99618 48.3514 8.36634C48.3514 8.86514 47.9464 10.8884 46.919 13.691Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M56.9472 23.4681H56.1066C52.1214 23.4681 49.3811 21.2257 49.3811 18.1435C49.3811 15.1542 51.5604 12.8811 57.7257 12.8811H59.1896V12.6637C59.1896 10.2968 58.0684 9.58063 55.5771 9.58063C52.5571 9.58063 50.8749 10.7325 50.2525 11.511H50.0973V10.1724C50.0973 8.30427 51.7787 6.06274 56.1995 6.06274C59.9365 6.06274 63.2993 7.80635 63.2993 13.5973V17.4588C63.2993 21.0083 60.6843 23.4681 56.9472 23.4681ZM59.2203 15.8704H57.7257C54.5497 15.8704 53.6468 16.6182 53.6468 17.9883C53.6468 19.2954 54.7057 20.0738 56.5431 20.0738C58.3481 20.0738 59.2203 19.2025 59.2203 17.4895V15.8704Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M79.5545 23.188C77.6864 23.188 76.5039 22.0045 76.5039 20.4476V13.7844C76.5039 10.9512 75.2582 9.70549 73.1096 9.70549C71.3028 9.70549 70.058 11.0757 70.058 13.4732V23.188H68.8124C67.0372 23.188 65.8853 22.0045 65.8853 20.4476V13.1927C65.8853 9.64325 68.2206 6 73.4515 6C77.4059 6 80.6757 8.64653 80.6757 13.411V23.188H79.5545Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M90.5171 23.4681H89.6764C85.6913 23.4681 82.951 21.2257 82.951 18.1435C82.951 15.1542 85.1303 12.8811 91.2956 12.8811H92.7595V12.6637C92.7595 10.2968 91.6383 9.58063 89.147 9.58063C86.127 9.58063 84.4448 10.7325 83.8224 11.511H83.6672V10.1724C83.6672 8.30427 85.3486 6.06274 89.7694 6.06274C93.5064 6.06274 96.8691 7.80635 96.8691 13.5973V17.4588C96.8691 21.0083 94.2542 23.4681 90.5171 23.4681ZM92.7902 15.8704H91.2956C88.1196 15.8704 87.2166 16.6182 87.2166 17.9883C87.2166 19.2954 88.2756 20.0738 90.113 20.0738C91.918 20.0738 92.7902 19.2025 92.7902 17.4895V15.8704Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M108.983 10.4527C108.361 10.2038 107.644 9.95479 106.555 9.95479C104.687 9.95479 103.659 10.9822 103.659 13.5358V23.1883H102.507C100.639 23.1883 99.4559 22.2538 99.4559 20.5102V12.788C99.4559 9.42531 101.23 6.21774 105.652 6.21774C108.236 6.21774 109.139 7.6817 109.139 8.95807V10.4527H108.983Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M117.579 23.4681H116.738C112.753 23.4681 110.012 21.2257 110.012 18.1435C110.012 15.1542 112.192 12.8811 118.357 12.8811H119.821V12.6637C119.821 10.2968 118.7 9.58063 116.208 9.58063C113.188 9.58063 111.506 10.7325 110.884 11.511H110.729V10.1724C110.729 8.30427 112.41 6.06274 116.831 6.06274C120.568 6.06274 123.931 7.80635 123.931 13.5973V17.4588C123.931 21.0083 121.316 23.4681 117.579 23.4681ZM119.852 15.8704H118.357C115.181 15.8704 114.278 16.6182 114.278 17.9883C114.278 19.2954 115.337 20.0738 117.174 20.0738C118.979 20.0738 119.852 19.2025 119.852 17.4895V15.8704Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M149.901 23.188C147.628 23.188 146.725 22.129 146.725 20.1364V13.6599C146.725 10.8889 145.479 9.70549 143.643 9.70549C141.961 9.70549 140.809 10.8889 140.809 13.1927V23.188H139.688C137.851 23.188 136.636 22.129 136.636 20.1364V13.6599C136.636 10.8889 135.36 9.70549 133.523 9.70549C131.904 9.70549 130.689 10.9819 130.689 13.2865V23.188H129.568C127.856 23.188 126.548 22.0668 126.548 20.1364V13.6284C126.548 9.05153 128.945 6 134.021 6C136.2 6 137.913 6.99672 139.127 8.61585C140.093 7.05896 141.93 6 143.953 6C147.815 6 150.929 8.33533 150.929 13.0989V23.188H149.901Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+          <path
+            clipRule="evenodd"
+            d="M160.772 23.4681H159.931C155.946 23.4681 153.205 21.2257 153.205 18.1435C153.205 15.1542 155.385 12.8811 161.55 12.8811H163.014V12.6637C163.014 10.2968 161.893 9.58063 159.401 9.58063C156.381 9.58063 154.699 10.7325 154.077 11.511H153.922V10.1724C153.922 8.30427 155.603 6.06274 160.024 6.06274C163.761 6.06274 167.124 7.80635 167.124 13.5973V17.4588C167.124 21.0083 164.509 23.4681 160.772 23.4681ZM163.045 15.8704H161.55C158.374 15.8704 157.471 16.6182 157.471 17.9883C157.471 19.2954 158.53 20.0738 160.367 20.0738C162.172 20.0738 163.045 19.2025 163.045 17.4895V15.8704Z"
+            fill="currentColor"
+            fillRule="evenodd"
+          />
+        </svg>
+      </span>
+       
+    </a>
+     
+    <label
+      className="header-search"
+      htmlFor="search"
+    >
+       
+      <i
+        className="icon"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <title>
+            ionicons-v5-f
+          </title>
+          <path
+            d="M221.09,64A157.09,157.09,0,1,0,378.18,221.09,157.1,157.1,0,0,0,221.09,64Z"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeMiterlimit": 10,
+                "strokeWidth": 32,
+              }
+            }
+          />
+          <line
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "round",
+                "strokeMiterlimit": 10,
+                "strokeWidth": 32,
+              }
+            }
+            x1={338.29}
+            x2={448}
+            y1={338.29}
+            y2={448}
+          />
+        </svg>
+      </i>
+       
+      <input
+        className="header-search--input"
+        disabled={true}
+        id="search"
+        placeholder=""
+        type="text"
+      />
+       
+       
+    </label>
+    <a
+      className="header-tel link"
+      data-testid="link"
+      href="tel:01442838195"
+      onClick={[Function]}
+    >
+       
+      <i
+        className="icon -xsmall"
+      >
+        <svg
+          fill="currentColor"
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <title>
+            ionicons-v5-g
+          </title>
+          <path
+            d="M391,480c-19.52,0-46.94-7.06-88-30-49.93-28-88.55-53.85-138.21-103.38C116.91,298.77,93.61,267.79,61,208.45c-36.84-67-30.56-102.12-23.54-117.13C45.82,73.38,58.16,62.65,74.11,52A176.3,176.3,0,0,1,102.75,36.8c1-.43,1.93-.84,2.76-1.21,4.95-2.23,12.45-5.6,21.95-2,6.34,2.38,12,7.25,20.86,16,18.17,17.92,43,57.83,52.16,77.43,6.15,13.21,10.22,21.93,10.23,31.71,0,11.45-5.76,20.28-12.75,29.81-1.31,1.79-2.61,3.5-3.87,5.16-7.61,10-9.28,12.89-8.18,18.05,2.23,10.37,18.86,41.24,46.19,68.51s57.31,42.85,67.72,45.07c5.38,1.15,8.33-.59,18.65-8.47,1.48-1.13,3-2.3,4.59-3.47,10.66-7.93,19.08-13.54,30.26-13.54h.06c9.73,0,18.06,4.22,31.86,11.18,18,9.08,59.11,33.59,77.14,51.78,8.77,8.84,13.66,14.48,16.05,20.81,3.6,9.53.21,17-2,22-.37.83-.78,1.74-1.21,2.75a176.49,176.49,0,0,1-15.29,28.58c-10.63,15.9-21.4,28.21-39.38,36.58A67.42,67.42,0,0,1,391,480Z"
+          />
+        </svg>
+      </i>
+       
+      <span>
+        01442 838195
+      </span>
+       
+    </a>
+     
+    <div
+      className="header-account"
+    >
+       
+      <button
+        className="button header-account--toggle -secondary -regular -clear"
+      >
+        <div
+          className="button--inner"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/account/login-register"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+             
+            <span>
+              Login / Register
+            </span>
+             
+          </a>
+        </div>
+      </button>
+       
+    </div>
+     
+    <nav
+      className="menu"
+      id="nav"
+    >
+      <ul
+        className="menu-primary"
+      >
+        <li
+          className="menu-li menu-title"
+        >
+          <button
+            className="link -black -regular -clear"
+            data-testid="menu-title"
+            onClick={[Function]}
+          >
+            <div
+              className="button--inner"
+            >
+              Menu
+            </div>
+          </button>
+        </li>
+        <li
+          className="menu-li -highlight"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/van-leasing"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <i
+              className="icon -orange -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-m
+                </title>
+                <path
+                  d="M394.24,197.56a300.67,300.67,0,0,0-53.38-90C301.2,61.65,240,32,192,32c19,70-14.36,117.12-44.79,163.77C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.24,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,6.48-14.07,14.66-27.22,15.11-44.49,11.3,5.88,23.67,16.91,34.54,31.28,18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                />
+              </svg>
+            </i>
+            <span>
+              Offers
+            </span>
+          </a>
+        </li>
+        <li
+          className="menu-li"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/hub/vans"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <span>
+              Vans
+            </span>
+          </a>
+          <div
+            className="menu-secondary--wrapper-outer"
+            data-testid="menu-secondary--wrapper-outer"
+          >
+            <div
+              className="menu-secondary--wrapper-inner"
+            >
+              <ul
+                className="menu-secondary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Vans
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li -highlight"
+                  data-testid="VANS Special Offers"
+                >
+                  <span
+                    className="link -white"
+                  >
+                    <i
+                      className="icon -white -xsmall"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                      >
+                        <title>
+                          ionicons-v5-m
+                        </title>
+                        <path
+                          d="M394.24,197.56a300.67,300.67,0,0,0-53.38-90C301.2,61.65,240,32,192,32c19,70-14.36,117.12-44.79,163.77C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.24,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,6.48-14.07,14.66-27.22,15.11-44.49,11.3,5.88,23.67,16.91,34.54,31.28,18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                        />
+                      </svg>
+                    </i>
+                    VANS Special Offers
+                  </span>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Vans By Manufacturer"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Vans By Manufacturer
+                  </span>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Vans By Size"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Vans By Size
+                  </span>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Vans By Type"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Vans By Type
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Van Leasing Explained"
+                >
+                  <a
+                    className="link -inherit"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/finance-options"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Van Leasing Explained
+                    </span>
+                  </a>
+                </li>
+              </ul>
+              <ul
+                className="menu-tertiary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-tertiary-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Vans By Manufacturer
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Citroen"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Citroen
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Ford"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Ford
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Benz"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Benz
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Nissan"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Nissan
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Renault"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Renault
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Vauxhall"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Vauxhall
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Fiat"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Fiat
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Isuzu"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Isuzu
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Mitsubishi"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Mitsubishi
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Peugeot"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Peugeot
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Toyota"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Toyota
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Volkswagen"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Volkswagen
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li
+          className="menu-li"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/hub/pickups"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <span>
+              Pickups
+            </span>
+          </a>
+          <div
+            className="menu-secondary--wrapper-outer"
+            data-testid="menu-secondary--wrapper-outer"
+          >
+            <div
+              className="menu-secondary--wrapper-inner"
+            >
+              <ul
+                className="menu-secondary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Pickups
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li -highlight"
+                  data-testid="Pickups Special offers"
+                >
+                  <a
+                    className="link -white"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/pickup-truck-leasing/special-offers"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <i
+                      className="icon -white -xsmall"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                      >
+                        <title>
+                          ionicons-v5-m
+                        </title>
+                        <path
+                          d="M394.24,197.56a300.67,300.67,0,0,0-53.38-90C301.2,61.65,240,32,192,32c19,70-14.36,117.12-44.79,163.77C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.24,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,6.48-14.07,14.66-27.22,15.11-44.49,11.3,5.88,23.67,16.91,34.54,31.28,18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                        />
+                      </svg>
+                    </i>
+                    <span>
+                      Pickups Special offers
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Pickups By Manufacturer"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Pickups By Manufacturer
+                  </span>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Best Selling"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Best Selling
+                  </span>
+                </li>
+              </ul>
+              <ul
+                className="menu-tertiary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-tertiary-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Pickups By Manufacturer
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Citroen?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Citroen
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Ford?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Ford
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Benz?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Benz
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Nissan?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Nissan
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Renault?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Renault
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Vauxhall?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Vauxhall
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Fiat?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Fiat
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Isuzu?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Isuzu
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Mitsubishi?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Mitsubishi
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Peugeot?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Peugeot
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Toyota?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Toyota
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/van-leasing/Volkswagen?bodyStyles=Pickup"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Volkswagen
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li
+          className="menu-li"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/hub/cars"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <span>
+              Cars
+            </span>
+          </a>
+          <div
+            className="menu-secondary--wrapper-outer"
+            data-testid="menu-secondary--wrapper-outer"
+          >
+            <div
+              className="menu-secondary--wrapper-inner"
+            >
+              <ul
+                className="menu-secondary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Cars
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li -highlight"
+                  data-testid="Car Special Offers"
+                >
+                  <a
+                    className="link -white"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/special-offers"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <i
+                      className="icon -white -xsmall"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                      >
+                        <title>
+                          ionicons-v5-m
+                        </title>
+                        <path
+                          d="M394.24,197.56a300.67,300.67,0,0,0-53.38-90C301.2,61.65,240,32,192,32c19,70-14.36,117.12-44.79,163.77C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.24,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,6.48-14.07,14.66-27.22,15.11-44.49,11.3,5.88,23.67,16.91,34.54,31.28,18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                        />
+                      </svg>
+                    </i>
+                    <span>
+                      Car Special Offers
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Cars By Manufacturer"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Cars By Manufacturer
+                  </span>
+                </li>
+                <li
+                  className="menu-li -with-children"
+                  data-testid="Cars By BodyStyle"
+                  onFocus={[Function]}
+                  onMouseOver={[Function]}
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Cars By BodyStyle
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Car Leasing Explained"
+                >
+                  <a
+                    className="link -inherit"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/finance-options"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Car Leasing Explained
+                    </span>
+                  </a>
+                </li>
+              </ul>
+              <ul
+                className="menu-tertiary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-tertiary-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Cars By Manufacturer
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Audi"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Audi
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/BMW"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      BMW
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Ford"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Ford
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Hyundai"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Hyundai
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Jaguar"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Jaguar
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Kia"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Kia
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Land%20Rover"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Land Rover
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Mercedes-Benz"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Mercedes-Benz
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Mini"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Mini
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Nissan"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Nissan
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Peugeot"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Peugeot
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Seat"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Seat
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Skoda"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Skoda
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Smart"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Smart
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Tesla"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Tesla
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Toyota"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Toyota
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Vauxhall"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Vauxhall
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Volkswagen"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Volkswagen
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/Volvo"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      Volvo
+                    </span>
+                  </a>
+                </li>
+                <li
+                  className="menu-li -span-half"
+                >
+                  <a
+                    className="link"
+                    data-menu={null}
+                    data-testid="router-link"
+                    href="/car-leasing/all-car-manufacturers"
+                    onClick={[Function]}
+                    onMouseEnter={[Function]}
+                  >
+                    <span>
+                      View All
+                    </span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li
+          className="menu-li"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/van-insurance"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <span>
+              Insurance
+            </span>
+          </a>
+          <div
+            className="menu-secondary--wrapper-outer"
+            data-testid="menu-secondary--wrapper-outer"
+          >
+            <div
+              className="menu-secondary--wrapper-inner"
+            >
+              <ul
+                className="menu-secondary"
+              >
+                <li
+                  className="menu-li menu-title"
+                >
+                  <button
+                    className="link -black -regular -clear"
+                    data-testid="menu-title"
+                    onClick={[Function]}
+                  >
+                    <div
+                      className="button--inner"
+                    >
+                      Insurance
+                    </div>
+                  </button>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Multi-Year Insurance"
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Multi-Year Insurance
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Finance GAP Insurance"
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Finance GAP Insurance
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Tools in Transit Insurance"
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Tools in Transit Insurance
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="7-Day Free Insurance"
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    7-Day Free Insurance
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Short-Term Insurance"
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Short-Term Insurance
+                  </span>
+                </li>
+                <li
+                  className="menu-li"
+                  data-testid="Frequently Asked Questions"
+                >
+                  <span
+                    className="link -inherit"
+                  >
+                    Frequently Asked Questions
+                  </span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </li>
+        <li
+          className="menu-li"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/fleet"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <span>
+              Fleet
+            </span>
+          </a>
+        </li>
+        <li
+          className="menu-li"
+        >
+          <a
+            className="link"
+            data-menu={null}
+            data-testid="router-link"
+            href="/van-insurance"
+            onClick={[Function]}
+            onMouseEnter={[Function]}
+          >
+            <span>
+              News
+            </span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+     
+    <button
+      className="header-navtoggle -inherit -expand -clear"
+      onClick={[Function]}
+    >
+      <div
+        className="button--inner"
+      >
+         
+        <i
+          className="icon -darker"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-j
+            </title>
+            <line
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+              x1={88}
+              x2={424}
+              y1={152}
+              y2={152}
+            />
+            <line
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+              x1={88}
+              x2={424}
+              y1={256}
+              y2={256}
+            />
+            <line
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 48,
+                }
+              }
+              x1={88}
+              x2={424}
+              y1={360}
+              y2={360}
+            />
+          </svg>
+        </i>
+         
+        <i
+          className="icon -darker"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-m
+            </title>
+            <path
+              d="M289.94,256l95-95A24,24,0,0,0,351,127l-95,95-95-95A24,24,0,0,0,127,161l95,95-95,95A24,24,0,1,0,161,385l95-95,95,95A24,24,0,0,0,385,351Z"
+            />
+          </svg>
+        </i>
+         
+      </div>
+    </button>
+     
+  </div>
+   
+</header>
+`;

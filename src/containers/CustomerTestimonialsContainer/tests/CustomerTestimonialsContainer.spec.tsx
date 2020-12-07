@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import CustomerTestimonialsContainer from '../CustomerTestimonialsContainer';
@@ -213,6 +214,9 @@ const mocked: MockedResponse[] = [
 ];
 
 describe('<CustomerTestimonialsContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(

@@ -1,9 +1,13 @@
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
-import AddressForm from '../../components/AddressForm/AddressForm';
+import dynamic from 'next/dynamic';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useAddressData, useUpdateAddresses } from './gql';
 import { IAddressFormContainerProps } from './interfaces';
 import { formValuesToInput } from './mappers';
+
+const AddressForm = dynamic(() =>
+  import('../../components/AddressForm/AddressForm'),
+);
 
 const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
   personUuid,

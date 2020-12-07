@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import VehicleReviewCategoryContainer from '../VehicleReviewCategoryContainer';
@@ -113,6 +114,9 @@ const genericPageData = {
 } as ReviewsHubCategoryQuery;
 
 describe('<VehicleReviewContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(

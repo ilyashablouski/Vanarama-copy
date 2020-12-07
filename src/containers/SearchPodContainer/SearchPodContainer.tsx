@@ -38,7 +38,7 @@ const SearchPodContainer = () => {
 
   const [vansDataCache, setVansDataCache] = useState({} as IFilterList);
   const [carsDataCache, setCarsDataCache] = useState({} as IFilterList);
-  const [pickupMakes, setPickupMakes] = useState([{}] as IFiltersListOptions[]);
+  const [pickupMakes, setPickupMakes] = useState([] as IFiltersListOptions[]);
 
   const [config, setConfig] = useState([] as any);
   const [headingText, setHeadingText] = useState(VANS_TAB_HEADING);

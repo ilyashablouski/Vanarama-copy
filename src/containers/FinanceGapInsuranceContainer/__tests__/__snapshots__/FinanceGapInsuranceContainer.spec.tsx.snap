@@ -1,0 +1,566 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="row:bg-hero"
+    >
+      <div
+        class="row:hero"
+      >
+        <div
+          class="hero--left"
+        >
+          <h1
+            class="heading -white -xlarge"
+          />
+          <h3
+            class="text -large -white"
+          >
+            Extra Protection Should The Worst happen
+          </h3>
+          <div
+            class="image hero--image -expand -plain"
+          >
+            <img
+              alt="Hero Image"
+              class="image--native"
+              sizes="(min-width:3200px) 800px, 1200px"
+              src="https://www.vanarama.com/assets/images/insurance/home-hero/insurance-hero.png"
+            />
+          </div>
+        </div>
+        <div
+          class="hero--right"
+        >
+          <div
+            class="card hero-card"
+            data-testid="card"
+          >
+            <div
+              class="hero-card--inner"
+            >
+              <p
+                class="heading -black -lead"
+              >
+                Contact Us
+              </p>
+              <section
+                class="structured-list -styled-headers -small -opening-times"
+              >
+                <div
+                  class="structured-list-tbody"
+                >
+                  <div
+                    class="structured-list-row "
+                  >
+                    <div
+                      class="structured-list-td structured-list-content--nowrap"
+                      data-testid="data_id-0-Monday–Thursday"
+                    >
+                      Monday–Thursday
+                    </div>
+                    <div
+                      class="structured-list-td"
+                    >
+                      8:30am–7pm
+                    </div>
+                  </div>
+                  <div
+                    class="structured-list-row "
+                  >
+                    <div
+                      class="structured-list-td structured-list-content--nowrap"
+                      data-testid="data_id-1-Friday"
+                    >
+                      Friday
+                    </div>
+                    <div
+                      class="structured-list-td"
+                    >
+                      9am–5pm
+                    </div>
+                  </div>
+                  <div
+                    class="structured-list-row "
+                  >
+                    <div
+                      class="structured-list-td structured-list-content--nowrap"
+                      data-testid="data_id-2-Saturday"
+                    >
+                      Saturday
+                    </div>
+                    <div
+                      class="structured-list-td"
+                    >
+                      9am–3pm
+                    </div>
+                  </div>
+                  <div
+                    class="structured-list-row "
+                  >
+                    <div
+                      class="structured-list-td structured-list-content--nowrap"
+                      data-testid="data_id-3-Sunday"
+                    >
+                      Sunday
+                    </div>
+                    <div
+                      class="structured-list-td"
+                    >
+                      Closed
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <a
+                class="link -primary -regular -plain"
+                href="tel:0144283817301442838173"
+              >
+                <button
+                  class="button -fullwidth -teal -large -solid"
+                >
+                  <div
+                    class="button--inner"
+                  >
+                    Call 01442 838173
+                  </div>
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div
+          class="hero--decals"
+        >
+          <svg
+            class="hero--curve"
+            data-name="curve"
+            id="hero--curve"
+            viewBox="0 0 1920 170.2"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              class="hero--curve-background"
+              d="M0,65.16v107H1920V113.35s-271.62,32.89-625.91,42.9C925.77,179.08,394.27,183,0,65.16Z"
+              transform="translate(0 -2)"
+            />
+            <path
+              class="hero--curve-foreground"
+              d="M0,2V64.75c394.27,117.82,925.77,113.92,1294.09,91.08C874,167.71,337.57,147.42,0,2Z"
+              transform="translate(0 -1)"
+            />
+          </svg>
+          <svg
+            class="hero--curve-m"
+            data-name="curve"
+            id="hero--curve-m"
+            viewBox="0 0 375 65.05"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              class="hero--curve-foreground"
+              d="M0,1.81v35c122.83,16.41,249.92,25.7,375,30V47.6C246.33,38.57,119.07,24,0,1.81Z"
+              transform="translate(0 -1)"
+            />
+            <path
+              class="hero--curve-background"
+              d="M0,66.86H375c-125.08-4.32-252.17-13.61-375-30Z"
+              transform="translate(0 -1.81)"
+            />
+          </svg>
+        </div>
+      </div>
+    </div>
+    <div
+      class="row:title -mt-200"
+    >
+      <nav>
+        <ol
+          class="breadcrumb"
+        >
+          <li
+            class="breadcrumb-item -parent"
+          >
+            <a
+              class="breadcrumb-item--parent link -teal -small"
+              data-testid="router-link"
+              href="/"
+            >
+              Home
+            </a>
+            <i
+              class="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            class="breadcrumb-item -parent"
+          >
+            <a
+              class="breadcrumb-item--parent link -teal -small"
+              data-testid="link"
+              href="/van-insurance.html"
+            >
+              Van Insurance
+            </a>
+            <i
+              class="icon -medium -xsmall"
+            >
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-a
+                </title>
+                <polyline
+                  points="184 112 328 256 184 400"
+                  style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                />
+              </svg>
+            </i>
+          </li>
+          <li
+            class="breadcrumb-item -child"
+          >
+            <span
+              class="text breadcrumb-item--child -small -darker"
+            >
+              Multi-Year Van Insurance
+            </span>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div
+      class="row:lead-text"
+    >
+      <p
+        class="heading -black -xlarge"
+      >
+        Guaranteed Asset Protection (GAP)
+      </p>
+      <div>
+        <p
+          class="text -regular -darker"
+        >
+          Cover the difference between your insurance payment and the full value of your car.
+        </p>
+      </div>
+    </div>
+    <div
+      class="row:featured-left"
+    >
+      <div>
+        <p
+          class="heading -black -large"
+        >
+          Finance Gap Explained
+        </p>
+        <p>
+          Vehicle value depreciation could mean there is a risk you will owe more to the Finance Company than the Insurance Company pay-out if the vehicle is written off or stolen. Finance Gap Insurance allows you to insure against the difference (up to a maximum of £20,000) between your Insurance Company pay-out and the amount you owe to the Finance Company. Check out the video below for more information:
+        </p>
+        <p>
+          <span>
+            <a
+              class="embedly-card"
+              data-card-controls="0"
+              data-card-width="100%"
+              href="https://www.youtube.com/embed/P4IT21lvn4w"
+            />
+          </span>
+          Embedded content: https://www.youtube.com/embed/P4IT21lvn4w
+          <span />
+        </p>
+        <p>
+          Full terms and conditions can be found here.
+        </p>
+        <h2>
+          Eligible Vehicles
+        </h2>
+        <ul>
+          <li>
+            Vanarama leased vehicles only
+          </li>
+          <li>
+            Vehicles up to £125,000 Invoice price
+          </li>
+          <li>
+            Cars & Commercial vehicles up to 3.5cwt
+          </li>
+          <li>
+            Cover is valid for up to 5 years in line with the finance agreement
+          </li>
+          <li>
+            Applies to all finance agreements, including - Contract Hire and Lease
+          </li>
+          <li>
+            Applies to cars and commercial vehicles up to 6 years old
+          </li>
+        </ul>
+        <h2>
+          Major Exclusions
+        </h2>
+        <ul>
+          <li>
+            If the vehicle is written off whilst driving illegally or under the influence of drugs or alcohol
+          </li>
+          <li>
+            The vehicle is not covered by a Fully Comprehensive Road Risk Motor Policy
+          </li>
+          <li>
+            Use of vehicle for Hire or Reward
+          </li>
+          <li>
+            If the vehicle is unattended and the keys have NOT been removed, all doors locked and any immobilizer and/or alarm activated
+          </li>
+          <li>
+            If your vehicle has a Fridge Unit/Conversion & also if your vehicle has/will have a Motor Traders Insurance Policy
+          </li>
+          <li>
+            Once an order has been placed, a member of our dedicated GAP team will be in contact to discuss your options
+          </li>
+          <li>
+            The vehicle must be separately insured by a Fully Comprehensive Road Risk Motor Policy
+          </li>
+        </ul>
+        <p>
+          If you would like to know more, call our dedicated Finance Gap Insurance team now on 01442 835768.
+        </p>
+      </div>
+      <div
+        class="card"
+      >
+        <form
+          class="form"
+          data-testid="goldrush-form"
+        >
+          <div
+            class="formgroup"
+          >
+            <label
+              class="formgroup--legend"
+              for="goldrush-form_full-name"
+            >
+              Full Name
+            </label>
+            <div
+              class="formgroup--content"
+            >
+              <div
+                class="textinput regular"
+              >
+                <input
+                  class="textinput--native regular"
+                  data-testid="goldrush-form_full-name"
+                  id="goldrush-form_full-name"
+                  name="fullName"
+                  type="text"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="formgroup"
+          >
+            <label
+              class="formgroup--legend"
+              for="goldrush-form_email"
+            >
+              Email Address
+            </label>
+            <div
+              class="formgroup--content"
+            >
+              <div
+                class="textinput regular"
+              >
+                <input
+                  class="textinput--native regular"
+                  data-testid="goldrush-form_email"
+                  id="goldrush-form_email"
+                  name="email"
+                  type="text"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="formgroup"
+          >
+            <label
+              class="formgroup--legend"
+              for="goldrush-form_phone-number"
+            >
+              Phone Number
+            </label>
+            <div
+              class="formgroup--content"
+            >
+              <div
+                class="textinput regular"
+              >
+                <input
+                  class="textinput--native regular"
+                  data-testid="goldrush-form_phone-number"
+                  id="goldrush-form_phone-number"
+                  name="phoneNumber"
+                  type="text"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="formgroup"
+          >
+            <label
+              class="formgroup--legend"
+              for="goldrush-form_postcode"
+            >
+              Postcode
+            </label>
+            <div
+              class="formgroup--content"
+            >
+              <div
+                class="textinput regular"
+              >
+                <input
+                  class="textinput--native regular"
+                  data-testid="goldrush-form_postcode"
+                  id="goldrush-form_postcode"
+                  name="postcode"
+                  type="text"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="formgroup"
+          >
+            <label
+              class="formgroup--legend"
+            >
+              Agree To:
+            </label>
+            <div
+              class="formgroup--content"
+            >
+              <div
+                class="checkbox -teal"
+              >
+                <input
+                  class="checkbox--native"
+                  data-testid="aboutTermsAndCons"
+                  id="termsAndCons"
+                  name="termsAndCons"
+                  type="checkbox"
+                  value=""
+                />
+                <label
+                  class="checkbox--label"
+                  for="termsAndCons"
+                >
+                  <span
+                    class="text -regular -darker"
+                  >
+                    Terms & Conditions and Privacy Policy
+                  </span>
+                </label>
+              </div>
+              <div
+                class="checkbox -teal"
+              >
+                <input
+                  class="checkbox--native"
+                  data-testid="aboutConsent"
+                  id="consent"
+                  name="consent"
+                  type="checkbox"
+                  value=""
+                />
+                <label
+                  class="checkbox--label"
+                  for="consent"
+                >
+                  <span
+                    class="text -regular -darker"
+                  >
+                    Subscribe to get updates, exclusive offers and amazing deals
+                  </span>
+                </label>
+              </div>
+            </div>
+          </div>
+          <p
+            class="text -xsmall -dark"
+          >
+            Vanarama collects the contact information you provide to us to contact you about our products and services. You may unsubscribe from these communications at any time. For information on how to unsubscribe, as well as our privacy practices and commitment to protecting your privacy, please check out our Privacy Policy.
+          </p>
+          <button
+            class="button -teal -lead -solid"
+            data-testid="goldrush-form_submit"
+            type="submit"
+          >
+            <div
+              class="button--inner"
+            >
+              Call Me Back
+            </div>
+          </button>
+        </form>
+      </div>
+    </div>
+    <hr
+      class="-fullwidth"
+    />
+    <div
+      class="row:lead-text"
+    >
+      <p
+        class="heading -black -xlarge"
+      >
+        Get A Quote
+      </p>
+      <div
+        class="button-group"
+      >
+        <button
+          class="button -teal -regular -solid"
+        >
+          <div
+            class="button--inner"
+          >
+            Get A Quote
+          </div>
+        </button>
+        <button
+          class="button -teal -regular -outline"
+        >
+          <div
+            class="button--inner"
+          >
+            Get In Touch
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+</body>
+`;

@@ -84,6 +84,14 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl.label || '',
+          promotionalImage: {
+            url: linksGroup?.promotionalImage?.legacyUrl || '',
+            image: {
+              url: linksGroup?.promotionalImage?.image?.[0]?.file.url || '',
+              fileName:
+                linksGroup?.promotionalImage?.image?.[0]?.file.fileName || '',
+            },
+          },
           children: isMobile
             ? [linksGroupUrl, ...childrenGroupLinks]
             : childrenGroupLinks,
@@ -94,6 +102,14 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl?.id,
+          promotionalImage: {
+            url: linksGroup?.promotionalImage?.legacyUrl || '',
+            image: {
+              url: linksGroup?.promotionalImage?.image?.[0]?.file.url || '',
+              fileName:
+                linksGroup?.promotionalImage?.image?.[0]?.file.fileName || '',
+            },
+          },
         };
       }
       link.push(headerTopLinks);

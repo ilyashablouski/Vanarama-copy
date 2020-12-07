@@ -1,7 +1,15 @@
 import * as React from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import dynamic from 'next/dynamic';
 import RouterLink from '../RouterLink/RouterLink';
 import { HomePageData_homePage_sections_tiles_tiles as TileData } from '../../../generated/HomePageData';
+import Skeleton from '../Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface ITileLinkProps {
   tile: TileData;
