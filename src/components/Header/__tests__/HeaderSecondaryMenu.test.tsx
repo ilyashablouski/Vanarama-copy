@@ -11,6 +11,13 @@ const mocks = {
   onClickTitle: jest.fn(),
   isMobile: false,
   isMenuOpen: false,
+  promotionalImage: {
+    url: '',
+    image: {
+      url: '',
+      fileName: '',
+    },
+  },
 };
 
 jest.mock('../../../hooks/useMediaQuery');

@@ -76,6 +76,7 @@ export interface IHeaderLink extends ILinkProps {
   id?: string;
   as?: string;
   highlight?: boolean;
+  promotionalImage?: any;
 }
 
 export interface IHeaderProps extends IBaseProps {
