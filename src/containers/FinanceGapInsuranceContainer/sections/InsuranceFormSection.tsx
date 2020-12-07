@@ -1,7 +1,20 @@
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import GoldrushForm from '../../../components/GoldrushForm/GoldrushForm';
 import { IGoldrushFromValues } from '../../../components/GoldrushForm/interfaces';
+import Skeleton from '../../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const GoldrushForm = dynamic(
+  () => import('../../../components/GoldrushForm/GoldrushForm'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   title: string | null;

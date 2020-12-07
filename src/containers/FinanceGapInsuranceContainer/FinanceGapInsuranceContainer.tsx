@@ -1,6 +1,6 @@
+import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
-import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import Router from 'next/router';
 import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
 import { IGoldrushFromValues } from '../../components/GoldrushForm/interfaces';
@@ -11,7 +11,17 @@ import InsuranceFormSection from './sections/InsuranceFormSection';
 import { useOpportunityCreation } from '../GoldrushFormContainer/gql';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 import { pushInsuranceEventDataLayer } from '../../utils/dataLayerHelpers';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Skeleton from '../../components/Skeleton';
+
+const Modal = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/modal'),
+);
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   sections: Section | null | undefined;

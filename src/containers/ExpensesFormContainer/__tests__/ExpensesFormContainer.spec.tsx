@@ -1,14 +1,18 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen } from '@testing-library/react';
+import preloadAll from 'jest-next-dynamic';
 import React from 'react';
 import {
   GetExpensesPageDataQuery,
   GetExpensesPageDataQueryVariables,
-} from '../../../generated/GetExpensesPageDataQuery';
-import ExpensesFormContainer from './ExpensesFormContainer';
-import { GET_EXPENSES_PAGE_DATA } from './gql';
+} from '../../../../generated/GetExpensesPageDataQuery';
+import ExpensesFormContainer from '../ExpensesFormContainer';
+import { GET_EXPENSES_PAGE_DATA } from '../gql';
 
 describe('<ExpensesFormContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should prepopulate the form with existing data', async () => {
     // ARRANGE
     const personUuid = '1927e308-18f8-4d95-aef3-57cc46459930';

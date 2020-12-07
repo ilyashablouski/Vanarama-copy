@@ -1,9 +1,17 @@
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
-import IncomeCalculator from '../../components/IncomeCalculator';
+import dynamic from 'next/dynamic';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useExpensesData, useUpdateExpenses } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
+import Skeleton from '../../components/Skeleton';
+
+const IncomeCalculator = dynamic(
+  () => import('../../components/IncomeCalculator'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const ExpensesFormContainer: React.FC<IProps> = ({
   personUuid,
