@@ -1,9 +1,5 @@
 import React, { FC } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import CheckmarkCircleSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkCircleSharp';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
+import dynamic from 'next/dynamic';
 import {
   GenericPageQuery_genericPage_sections as Section,
   GenericPageQuery_genericPage_sections_cards_cards as CardData,
@@ -11,6 +7,39 @@ import {
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
 import getTitleTag from '../../utils/getTitleTag';
+import Skeleton from '../../components/Skeleton';
+
+const CheckmarkCircleSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/CheckmarkCircleSharp'),
+  {
+    ssr: false,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    loading: () => <Skeleton count={4} />,
+    ssr: false,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 interface IProps {
   sections: Section | null | undefined;
