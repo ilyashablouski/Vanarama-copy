@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const { GraphQLClient, gql } = require('graphql-request');
 const fs = require('fs');
 const path = require('path');
@@ -55,7 +56,9 @@ module.exports = async () => {
         if (err) {
           throw new Error(err);
         }
-        console.log('The file was saved!');
+        console.log(
+          'Contentful Primary Navigation JSON data file was generated!',
+        );
       },
     );
   } catch (err) {
