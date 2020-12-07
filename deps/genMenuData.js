@@ -41,7 +41,7 @@ const query = gql`
     }
   }
 `;
-
+// Arg access to nextConfig object
 module.exports = async () => {
   const client = new GraphQLClient(process.env.API_URL, query, {
     headers: { 'x-api-key': process.env.API_KEY },
