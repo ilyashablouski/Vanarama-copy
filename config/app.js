@@ -58,7 +58,7 @@ module.exports = {
     webpack: config => {
       // Add custom loaders
       config.module.rules.push({
-        test: require.resolve('./deps/menuData.js'),
+        test: require.resolve('/deps/menuData.js'),
         use: [{ loader: 'val-loader' }],
       });
       // Allow absolute imports.

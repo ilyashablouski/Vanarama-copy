@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 
-import MENU_DATA from "menuData";
+import MENU_DATA from 'menuData';
 import { PHONE_NUMBER_LINK } from '../../models/enum/HeaderLinks';
 
 import Header from '../../components/Header';
