@@ -1,8 +1,9 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, waitFor, screen } from '@testing-library/react';
-import PersonalInformation from './PersonalInformation';
-import { GET_PERSON_INFORMATION_DATA } from './gql';
+import PersonalInformation from '../PersonalInformation';
+import { GET_PERSON_INFORMATION_DATA } from '../gql';
 
 const mocks: MockedResponse[] = [
   {
@@ -36,6 +37,9 @@ const mocks: MockedResponse[] = [
 ];
 
 describe('<PersonalInformation />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should prepopulate the form with existing data', async () => {
     // ACT
     render(
