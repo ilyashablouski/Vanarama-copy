@@ -1,8 +1,7 @@
-import React from 'react';
 // @ts-ignore
+import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { screen, render, waitFor } from '@testing-library/react';
-
 import { MockedProvider } from '@apollo/client/testing';
 import InsurancePageContainer from '../InsurancePageContainer';
 import { GetInsuranceLandingPage } from '../../../../generated/GetInsuranceLandingPage';
@@ -215,7 +214,6 @@ describe('<InsurancePageContainer />', () => {
   beforeAll(async () => {
     await preloadAll();
   });
-
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(
