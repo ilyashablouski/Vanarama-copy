@@ -1,7 +1,6 @@
 import React, { FC, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import ReviewCard from '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard';
 import getTitleTag from '../../utils/getTitleTag';
 import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
@@ -55,6 +54,15 @@ const TabPanels = dynamic(
 );
 const Media = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/media'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const ReviewCard = dynamic(
+  () =>
+    import(
+      '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard'
+    ),
   {
     loading: () => <Skeleton count={3} />,
   },
