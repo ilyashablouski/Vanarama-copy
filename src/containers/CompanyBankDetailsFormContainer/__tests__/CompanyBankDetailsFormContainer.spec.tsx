@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import preloadAll from 'jest-next-dynamic';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import React from 'react';
 import CompanyBankDetailsFormContainer from '../CompanyBankDetailsFormContainer';
@@ -16,6 +17,9 @@ const orderUuid = '00000000-24a5-42ff-9acd-00000000';
 const getCreditApplication = makeGetCreditApplicationMock(orderUuid);
 
 describe('<CompanyBankDetailsFormContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should prepopulate the form with existing data', async () => {
     // ACT
     render(

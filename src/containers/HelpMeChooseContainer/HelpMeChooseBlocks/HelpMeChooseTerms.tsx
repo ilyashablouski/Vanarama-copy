@@ -52,7 +52,7 @@ const HelpMeChooseTerms: FC<HelpMeChooseStep> = props => {
 
   return (
     <HelpMeChooseContainer
-      title="Which Gearbox Do You Prefer?"
+      title="How Often Do You Want To Change Your Vehicle?"
       choicesValues={getBuckets(termsData, termsValue, 'terms')}
       setChoice={setTermsValue}
       onClickContinue={() => {
