@@ -1,12 +1,39 @@
-import ReviewCard from '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import getTitleTag from '../../../utils/getTitleTag';
 import { GetFleetLandingPage_fleetLandingPage_sections_featured1 as ISideText } from '../../../../generated/GetFleetLandingPage';
 import config from '../config';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import Skeleton from '../../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const ReviewCard = dynamic(
+  () =>
+    import(
+      '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard'
+    ),
+  {
+    loading: () => <Skeleton count={4} />,
+    ssr: false,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const goToTop = () => window.scrollTo(0, 0);
 

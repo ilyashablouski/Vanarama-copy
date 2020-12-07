@@ -1,15 +1,33 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { FC } from 'react';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
 import {
   GenericPageQuery_genericPage_sections as Section,
   GenericPageQuery_genericPage_sections_faqs_questionSets,
   GenericPageQuery_genericPage_sections_faqs_questionSets_questionAnswers,
 } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import Skeleton from '../../components/Skeleton';
+
+const Accordion = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/accordion/Accordion'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   sections: Section | null | undefined;

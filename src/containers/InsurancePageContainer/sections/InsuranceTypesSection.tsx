@@ -1,13 +1,30 @@
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import {
   GetInsuranceLandingPage_insuranceLandingPage_sections_cards as ITypesSection,
   GetInsuranceLandingPage_insuranceLandingPage_sections_cards_cards as TypeCard,
 } from '../../../../generated/GetInsuranceLandingPage';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import Skeleton from '../../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const renderCard = (card: TypeCard) => (
   <Card
