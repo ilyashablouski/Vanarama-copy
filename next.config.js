@@ -17,7 +17,7 @@ const generateMenuData = require('./deps/genMenuData');
 
 module.exports = withPlugins(
   [
-    [generateMenuData()],
+    [generateMenuData],
     withTM,
     [withFonts],
     [
