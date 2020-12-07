@@ -45,16 +45,20 @@ module.exports = async () => {
   const client = new GraphQLClient(process.env.API_URL, query, {
     headers: { 'x-api-key': process.env.API_KEY },
   });
-  const menuData = await client.request(query);
 
-  fs.writeFile(
-    path.resolve('deps/data/menuData.json'),
-    JSON.stringify(menuData),
-    err => {
-      if (err) {
-        console.log(err);
-      }
-      console.log('The file was saved!');
-    },
-  );
+  try {
+    const menuData = await client.request(query);
+    fs.writeFile(
+      path.resolve('deps/data/menuData.json'),
+      JSON.stringify(menuData),
+      err => {
+        if (err) {
+          throw new Error(err);
+        }
+        console.log('The file was saved!');
+      },
+    );
+  } catch (err) {
+    console.error(err);
+  }
 };
