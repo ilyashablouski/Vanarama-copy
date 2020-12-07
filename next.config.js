@@ -17,6 +17,7 @@ const generateMenuData = require('./deps/genMenuData');
 
 module.exports = withPlugins(
   [
+    [generateMenuData()],
     withTM,
     [withFonts],
     [
@@ -27,7 +28,6 @@ module.exports = withPlugins(
     withImages,
     [withCss, { url: false }],
     [config.withCustomWebpack],
-    [generateMenuData()],
   ],
   config.next,
 );
