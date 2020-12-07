@@ -1,22 +1,54 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
+import dynamic from 'next/dynamic';
 import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import ReactMarkdown from 'react-markdown';
-import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import moment from 'moment';
+import Skeleton from '../../components/Skeleton';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { ICategoryPage } from './interface';
 import { GenericPageQuery_genericPage_sections_tiles_tiles } from '../../../generated/GenericPageQuery';
 import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
 import Head from '../../components/Head/Head';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import { setSource } from '../../utils/url';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Carousel = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Pagination = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/pagination'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const renderCarouselCards = (cards: any[] | undefined) =>
   cards?.map((card, index) => {
