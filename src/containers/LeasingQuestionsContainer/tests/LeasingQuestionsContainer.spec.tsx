@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import LeasingQuestionsContainer from '../LeasingQuestionsContainer';
@@ -114,6 +115,9 @@ const DATA = {
 } as GenericPageQuery;
 
 describe('<FinanceExplainedContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(

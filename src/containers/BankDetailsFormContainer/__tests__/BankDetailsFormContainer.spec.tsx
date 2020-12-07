@@ -1,14 +1,18 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import preloadAll from 'jest-next-dynamic';
 import { render, screen } from '@testing-library/react';
 import React from 'react';
 import {
   GetBankDetailsPageDataQuery,
   GetBankDetailsPageDataQueryVariables,
-} from '../../../generated/GetBankDetailsPageDataQuery';
-import BankDetailsFormContainer from './BankDetailsFormContainer';
-import { GET_BANK_DETAILS_PAGE_DATA } from './gql';
+} from '../../../../generated/GetBankDetailsPageDataQuery';
+import BankDetailsFormContainer from '../BankDetailsFormContainer';
+import { GET_BANK_DETAILS_PAGE_DATA } from '../gql';
 
 describe('<BankDetailsFormContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should prepopulate the form with existing data', async () => {
     // ARRANGE
     const personUuid = '1927e308-18f8-4d95-aef3-57cc46459930';

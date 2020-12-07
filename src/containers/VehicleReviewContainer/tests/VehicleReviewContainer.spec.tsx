@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider } from '@apollo/client/testing';
 import { screen, render, waitFor } from '@testing-library/react';
 import VehicleReviewContainer from '../VehicleReviewContainer';
@@ -142,6 +143,9 @@ const SECTIONS = {
 } as any;
 
 describe('<VehicleReviewContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should match snapshot', async () => {
     // ACT
     const getComponent = render(
