@@ -12,6 +12,7 @@ import createApolloClient from '../../../apolloClient';
 import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
 import {
   bodyUrls,
+  bodyUrlsSlugMapper,
   budgetMapper,
   fuelMapper,
   getBodyStyleForCms,
@@ -150,9 +151,9 @@ export async function getServerSideProps(context: NextPageContext) {
   if (isBodyStylePage || isFuelType || isBudgetType) {
     if (isBodyStylePage) {
       query.bodyStyles =
-        query.dynamicParam === 'city-car'
-          ? query.dynamicParam
-          : (query.dynamicParam as string).replace('-', ' ');
+        bodyUrlsSlugMapper[
+          query.dynamicParam as keyof typeof bodyUrlsSlugMapper
+        ];
       filter.bodyStyles = [query.bodyStyles];
     } else if (isFuelType) {
       query.fuelTypes =
