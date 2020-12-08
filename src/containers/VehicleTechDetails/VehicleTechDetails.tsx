@@ -1,14 +1,8 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from 'react';
-import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
-import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
-import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
-import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
-import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
-import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
-import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
-import KeyInformation, { KeyInformationItem } from './KeyInformation';
+import dynamic from 'next/dynamic';
+import { IKeyInformationItem } from './KeyInformation';
 import {
   GetVehicleDetails_vehicleDetails,
   GetVehicleDetails_derivativeInfo,
@@ -16,6 +10,50 @@ import {
   GetVehicleDetails_derivativeInfo_technicals,
 } from '../../../generated/GetVehicleDetails';
 import { getTechData } from './helpers';
+import Skeleton from '../../components/Skeleton';
+
+const KeyInformation = dynamic(() => import('./KeyInformation'), {
+  loading: () => <Skeleton count={5} />,
+});
+const StructuredList = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/structured-list'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Accordion = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/accordion/Accordion'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tabs = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tab = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/Tab'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const TabList = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/TabList'),
+);
+const TabPanel = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanel'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const TabPanels = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanels'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 interface IVehicleTechDetailsProps {
   vehicleDetails: GetVehicleDetails_vehicleDetails | null | undefined;
@@ -60,7 +98,7 @@ const VehicleTechDetails: React.FC<IVehicleTechDetailsProps> = props => {
           {vehicleDetails?.keyInformation?.length ? (
             <KeyInformation
               keysInformation={
-                vehicleDetails.keyInformation as KeyInformationItem[]
+                vehicleDetails.keyInformation as IKeyInformationItem[]
               }
             />
           ) : (

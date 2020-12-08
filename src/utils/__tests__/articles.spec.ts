@@ -21,7 +21,7 @@ describe('articles', () => {
             title: null,
             tags: null,
             slug: 'slug',
-            body: null,
+            excerpt: null,
             legacyUrl: null,
           },
           {
@@ -33,7 +33,7 @@ describe('articles', () => {
             title: null,
             tags: null,
             slug: 'asPath',
-            body: null,
+            excerpt: null,
             legacyUrl: null,
           },
         ],
@@ -50,7 +50,7 @@ describe('articles', () => {
           title: null,
           tags: null,
           slug: 'slug',
-          body: null,
+          excerpt: null,
           legacyUrl: null,
         },
       ]);

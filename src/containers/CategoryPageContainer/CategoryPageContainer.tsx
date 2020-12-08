@@ -16,7 +16,6 @@ import { GenericPageQuery_genericPage_sections_tiles_tiles } from '../../../gene
 import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
 import Head from '../../components/Head/Head';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import { getBody } from '../../utils/articles';
 import { setSource } from '../../utils/url';
 
 const renderCarouselCards = (cards: any[] | undefined) =>
@@ -33,7 +32,7 @@ const renderCarouselCards = (cards: any[] | undefined) =>
         <Card
           loadImage
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          key={`${card.title}_${index.toString()}_${card.body}`}
+          key={`${card.title}_${index.toString()}_${card.excerpt}`}
           className="card__article"
           imageSrc={
             card.featuredImage?.file?.url || card.image?.file?.url || ''
@@ -58,7 +57,7 @@ const renderCarouselCards = (cards: any[] | undefined) =>
         >
           <ReactMarkdown
             allowDangerousHtml
-            source={getBody(card?.body || '')}
+            source={card.excerpt || ''}
             renderers={{
               link: props => {
                 const { href, children } = props;
@@ -170,11 +169,11 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       indexOfLastOffer,
     );
     return showCards?.map(card =>
-      card?.body ? (
+      card ? (
         <Card
           loadImage
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          key={card?.body || undefined}
+          key={card?.excerpt || undefined}
           imageSrc={card.featuredImage?.file?.url || ''}
           title={{
             className: '-flex-h',
@@ -196,7 +195,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
         >
           <div>
             <ReactMarkdown
-              source={getBody(card?.body)}
+              source={card.excerpt || ''}
               allowDangerousHtml
               renderers={{
                 link: props => {

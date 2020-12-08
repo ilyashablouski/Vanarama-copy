@@ -1,10 +1,33 @@
 import React, { useState, FC } from 'react';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
+import dynamic from 'next/dynamic';
 import DOMPurify from 'dompurify';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import { GenericPageQuestionQuery_genericPage_sections_cards_cards as ICaruselCard } from '../../../generated/GenericPageQuestionQuery';
+import Skeleton from '../../components/Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Carousel = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 interface ICarouselCards {
   cards: ICaruselCard[];
