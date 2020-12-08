@@ -8,7 +8,6 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import {
   IFleetCallBackFormProps,
   IFleetCallBackFormValues,
