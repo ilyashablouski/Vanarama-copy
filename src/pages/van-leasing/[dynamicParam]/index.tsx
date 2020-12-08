@@ -13,6 +13,7 @@ import createApolloClient from '../../../apolloClient';
 import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
 import {
   bodyUrls,
+  bodyUrlsSlugMapper,
   budgetMapper,
   getBodyStyleForCms,
   getCapsIds,
@@ -143,9 +144,10 @@ export async function getServerSideProps(context: NextPageContext) {
   };
   if (isBodyStylePage || isTransmissionPage || isBudgetType) {
     if (isBodyStylePage) {
-      query.bodyStyles = (query.dynamicParam as string)
-        .replace('-', ' ')
-        .replace('-leasing', '');
+      query.bodyStyles =
+        bodyUrlsSlugMapper[
+          query.dynamicParam as keyof typeof bodyUrlsSlugMapper
+        ];
       filter.bodyStyles = [query.bodyStyles];
     } else if (isTransmissionPage) {
       query.transmissions = (query.dynamicParam as string).replace('-', ' ');
