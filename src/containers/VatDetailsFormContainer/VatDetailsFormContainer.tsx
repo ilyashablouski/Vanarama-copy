@@ -22,6 +22,7 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
   onError,
   isEdited,
   isSoleTrader,
+  personUuid,
 }) => {
   const [updateLimitedVatDetails] = useUpdateLimitedVatDetails();
   const [updateSoleTraderVatDetails] = useUpdateSoleTraderVatDetails();
@@ -52,7 +53,7 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
     const input = {
       variables: {
         input: {
-          // personUuid:
+          personUuid,
           companyType: isSoleTrader
             ? CompanyTypes.soleTrader
             : CompanyTypes.limited,

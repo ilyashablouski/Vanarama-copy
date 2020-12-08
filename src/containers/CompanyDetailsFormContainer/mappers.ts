@@ -56,14 +56,9 @@ export const mapFormValues = (
   const searchResult =
     values.inputMode === 'search' && values.companySearchResult;
 
-  // if company not exist - create it for this person
-  const uuidData = companyUuid
-    ? { uuid: companyUuid }
-    : { person: { uuid: personUuid } };
-
   return {
-    ...uuidData,
-    uuid: values.uuid,
+    person: { uuid: personUuid },
+    uuid: companyUuid || values.uuid || null,
     companyType: companyType || 'Limited',
     legalName: searchResult ? searchResult.title : values.companyName,
     companyNumber: searchResult

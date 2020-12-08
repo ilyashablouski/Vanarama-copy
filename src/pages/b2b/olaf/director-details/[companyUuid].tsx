@@ -23,7 +23,7 @@ type QueryParams = OLAFQueryParams & {
 export const DirectorDetailsPage: NextPage = () => {
   const router = useRouter();
   const orderId = useGetOrderId();
-  const { companyUuid, directorUuid } = router.query as QueryParams;
+  const { companyUuid, directorUuid, personUuid } = router.query as QueryParams;
 
   const handleSubmitCompletion = () => {
     const url =
@@ -39,6 +39,7 @@ export const DirectorDetailsPage: NextPage = () => {
         isEdited={router.query.redirect === 'summary'}
         directorUuid={directorUuid}
         companyUuid={companyUuid}
+        personUuid={personUuid}
         orderUuid={orderId}
         onCompleted={handleSubmitCompletion}
         onError={handleSubmitError}

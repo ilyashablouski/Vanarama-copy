@@ -19,7 +19,7 @@ export const VatDetailsPage: NextPage = () => {
   const router = useRouter();
   const isSoleTraderJourney = useSoleTraderJorney();
   const orderId = useGetOrderId();
-  const { companyUuid } = router.query as QueryParams;
+  const { companyUuid, personUuid } = router.query as QueryParams;
 
   const handleSubmitError = (err: ApolloError) => {
     // eslint-disable-next-line no-console
@@ -44,6 +44,7 @@ export const VatDetailsPage: NextPage = () => {
   return (
     <OLAFLayout>
       <VatDetailsFormContainer
+        personUuid={personUuid}
         isSoleTrader={isSoleTraderJourney}
         orderId={orderId}
         companyUuid={companyUuid}
