@@ -8,7 +8,6 @@ import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../gene
 import { GenericPageHeadQuery_genericPage_metaData } from '../../../generated/GenericPageHeadQuery';
 import Head from '../../components/Head/Head';
 import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
-import { getBody } from '../../utils/articles';
 import { setSource } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
 
@@ -172,7 +171,7 @@ const BlogPostContainer: NextPage<IProps> = ({
                     </RouterLink>
                   ),
                 }}
-                description={getBody(el?.body || '')}
+                description={el?.excerpt || ''}
               >
                 <RouterLink
                   classNames={{ color: 'teal', size: 'regular' }}

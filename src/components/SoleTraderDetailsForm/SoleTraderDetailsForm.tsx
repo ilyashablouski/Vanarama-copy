@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { FieldArray, Formik, useFormikContext } from 'formik';
 import { gql } from '@apollo/client';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
@@ -20,6 +20,7 @@ import {
   ISoleTraderDetailsFormValues,
 } from './interfaces';
 import { validationSchema } from './helpers';
+import { OlafContext } from '../../layouts/OLAFLayout/helpers';
 
 const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
   if (isSubmitting) {
@@ -57,6 +58,8 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
   isEdited,
   dropdownData,
 }) => {
+  const { requiredMonths } = useContext(OlafContext);
+
   return (
     <Formik<ISoleTraderDetailsFormValues>
       initialValues={responseToInitialFormValues(person, soleTrader)}
@@ -141,8 +144,8 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             Address History
           </Heading>
           <Text color="dark" size="small">
-            Please provide your personal address history for the past five
-            years.
+            Please provide your personal address history for the past{' '}
+            {requiredMonths / 12} years.
           </Text>
           <FieldArray name="history">
             {arrayHelpers => (
@@ -150,6 +153,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
                 arrayHelpers={arrayHelpers}
                 dropDownData={dropdownData}
                 values={formikProps.values}
+                requiredMonths={requiredMonths}
               />
             )}
           </FieldArray>

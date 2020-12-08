@@ -235,11 +235,6 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                     </div>
                   </div>
                 </div>
-                <p
-                  class="text -xsmall -dark"
-                >
-                  Vanarama collects the contact information you provide to us to contact contact contact contact you about our products and services. You may from these communications at any time. For information on how to unsubscribe, as well as our privacy practices and commitment to protecting your privacy, please check out our Privacy Policy.
-                </p>
                 <button
                   class="button -fullwidth -primary -large -solid"
                   data-testid="fleet-call-back-form_continue"

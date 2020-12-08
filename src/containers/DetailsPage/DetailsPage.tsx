@@ -394,7 +394,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           vehicleDetails={vehicleDetails}
           derivativeInfo={derivativeInfo}
         />
-        <Banner />
+        {(vans || cars) && <Banner vans={vans} />}
         {(vans || pickups) && !!independentReview && (
           <IndependentReview review={independentReview || ''} />
         )}

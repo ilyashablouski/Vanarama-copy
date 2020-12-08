@@ -8,7 +8,7 @@ import FlameSharp from '@vanarama/uibook/lib/assets/icons/FlameSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import RouterLink from '../RouterLink/RouterLink';
-import { IHeaderLink } from './Header';
+import { IHeaderLink, IHeaderPromoImage } from './Header';
 
 export interface IHeaderSecondaryMenuProps extends IBaseProps {
   links: IHeaderLink[];
@@ -16,7 +16,7 @@ export interface IHeaderSecondaryMenuProps extends IBaseProps {
   onClickTitle: () => void;
   isMobile: boolean;
   isMenuOpen: boolean;
-  promotionalImage: any;
+  promotionalImage?: IHeaderPromoImage;
 }
 
 const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {

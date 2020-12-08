@@ -28,7 +28,11 @@ const Text = dynamic(
   },
 );
 
-const Banner: React.FC = () => {
+interface IBanner {
+  vans?: boolean;
+}
+
+const Banner: React.FC<IBanner> = ({ vans }) => {
   return (
     <div className="pdp--banner">
       <Icon
@@ -39,7 +43,9 @@ const Banner: React.FC = () => {
       />
       <div>
         <Heading color="white" size="large">
-          Redundancy &amp; Life Event Cover
+          {vans
+            ? 'Loss Of Earnings & Life Event Cover'
+            : 'Redundancy & Life Event Cover'}
         </Heading>
         <Text className="-pr-100" color="white" size="small">
           If the worst happens, return your vehicle, no charge.

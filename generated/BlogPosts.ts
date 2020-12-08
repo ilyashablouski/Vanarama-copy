@@ -145,13 +145,13 @@ export interface BlogPosts_blogPosts_articles_featuredImage {
 export interface BlogPosts_blogPosts_articles {
   intro: string | null;
   name: string | null;
+  excerpt: string | null;
   publishedOn: any | null;
   featuredImage: BlogPosts_blogPosts_articles_featuredImage | null;
   isFeatured: boolean | null;
   title: string | null;
   tags: (string | null)[] | null;
   slug: string | null;
-  body: string | null;
   legacyUrl: string | null;
 }
 

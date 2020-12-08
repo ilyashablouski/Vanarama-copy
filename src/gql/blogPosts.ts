@@ -101,6 +101,7 @@ export const BLOG_POSTS_PAGE = gql`
       articles {
         intro
         name
+        excerpt
         publishedOn
         featuredImage {
           file {
@@ -111,7 +112,6 @@ export const BLOG_POSTS_PAGE = gql`
         title
         tags
         slug
-        body
         legacyUrl
       }
     }
