@@ -43,6 +43,7 @@ const InsuranceFormSection = ({
           isSubmitting={isSubmitting}
           isPostcodeVisible
           onSubmit={onSubmit}
+          isTextInVisible
         />
       </div>
     </div>
