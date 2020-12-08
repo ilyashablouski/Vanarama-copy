@@ -31,7 +31,7 @@ const METADATA = {
 
 const ARTICLES = [
   {
-    body: 'Body',
+    excerpt: 'Body',
     featuredImage: { file: null, __typename: 'Image' },
     intro: null,
     slug: 'blog/cars/best-cars-for-mpg',

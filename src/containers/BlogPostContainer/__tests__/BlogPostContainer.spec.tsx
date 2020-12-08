@@ -29,7 +29,7 @@ const METADATA = {
 
 const ARTICLES = [
   {
-    body: 'Test1',
+    excerpt: 'Test1',
     featuredImage: { __typename: 'Image', file: null },
     intro: null,
     isFeatured: null,
@@ -42,7 +42,7 @@ const ARTICLES = [
     __typename: 'Article',
   },
   {
-    body: 'Test2',
+    excerpt: 'Test2',
     featuredImage: { __typename: 'Image', file: null },
     intro: null,
     isFeatured: null,
@@ -55,7 +55,7 @@ const ARTICLES = [
     __typename: 'Article',
   },
   {
-    body: 'Test3',
+    excerpt: 'Test3',
     featuredImage: { __typename: 'Image', file: null },
     intro: null,
     isFeatured: null,

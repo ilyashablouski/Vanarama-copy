@@ -1,6 +1,5 @@
 import { ApolloError } from '@apollo/client';
 import dynamic from 'next/dynamic';
-
 import ReactMarkdown from 'react-markdown';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';

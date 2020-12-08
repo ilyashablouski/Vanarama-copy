@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { screen, render, waitFor } from '@testing-library/react';
 import ThankYouContainer from '../ThankYouContainer';
 
@@ -83,6 +84,9 @@ const SECTIONS = {
 } as any;
 
 describe('<ThankYouContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should match snapshot', async () => {
     const getComponent = render(<ThankYouContainer sections={SECTIONS} />);
     // ASSERT

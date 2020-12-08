@@ -1,16 +1,54 @@
 import React, { useState } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Price from '@vanarama/uibook/lib/components/atoms/price';
-import Link from '@vanarama/uibook/lib/components/atoms/link';
-import IconList, {
-  IconListItem,
-} from '@vanarama/uibook/lib/components/organisms/icon-list';
+import dynamic from 'next/dynamic';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import GoldrushForm from '../../components/GoldrushForm';
 import { GoldrushFormContainerProps } from './interfaces';
 import { useOpportunityCreation } from './gql';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Price = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/price'),
+  {
+    loading: () => <Skeleton count={4} />,
+    ssr: false,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
+const GoldrushForm = dynamic(() => import('../../components/GoldrushForm'), {
+  loading: () => <Skeleton count={15} />,
+  ssr: false,
+});
+const IconList = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/icon-list'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+// @ts-ignore
+const IconListItem = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/icon-list').then(
+    mod => mod.IconListItem,
+  ),
+);
+const Link = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/link'),
+);
 
 export const DEFAULT_POSTCODE = 'HP27DE';
 
