@@ -6,7 +6,7 @@ import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwar
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Text from '@vanarama/uibook/lib/components/atoms/text';
 
-interface HelpMeChooseContainer {
+interface IHelpMeChooseContainer {
   title: string;
   choicesValues: IChoice[];
   setChoice: Dispatch<SetStateAction<any>>;
@@ -18,7 +18,7 @@ interface HelpMeChooseContainer {
   submitBtnText?: string;
 }
 
-const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
+const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
   title,
   choicesValues,
   setChoice,
@@ -59,26 +59,28 @@ const HelpMeChooseContainer: FC<HelpMeChooseContainer> = ({
         >
           {title}
         </Heading>
-        <Choiceboxes
-          className={`-cols-${
-            choicesValues?.length < 3 ? 2 : 3
-          } -teal stepped-form--choiceboxes`}
-          choices={choicesValues}
-          onSubmit={value => {
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-            multiSelect ? handleChecked(value) : setChoice(value.value);
-          }}
-          multiSelect={multiSelect}
-          clearMultiSelectTitle={clearMultiSelectTitle}
-          onClearClick={() => setChoice([''])}
-          withIcons={withIcons}
-        />
-        {choicesValues.length === 1 && (
-          <Text>
-            It seems there is only 1 option available, please go back a step and
-            change your selection to expand your choice
-          </Text>
-        )}
+        <div className="stepped-form--filter">
+          <Choiceboxes
+            className={`-cols-${
+              choicesValues?.length < 3 ? 2 : 3
+            } -teal stepped-form--choiceboxes`}
+            choices={choicesValues}
+            onSubmit={value => {
+              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+              multiSelect ? handleChecked(value) : setChoice(value.value);
+            }}
+            multiSelect={multiSelect}
+            clearMultiSelectTitle={clearMultiSelectTitle}
+            onClearClick={() => setChoice([''])}
+            withIcons={withIcons}
+          />
+          {choicesValues.length === 1 && (
+            <Text className="-mt-100">
+              It seems there is only 1 option available, please go back a step
+              and change your selection to expand your choice
+            </Text>
+          )}
+        </div>
         <Button
           color="primary"
           dataTestId="submit"
