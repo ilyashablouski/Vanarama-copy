@@ -125,7 +125,6 @@
     "react-addons-test-utils": "^15.6.2",
     "react-test-renderer": "^16.12.0",
     "rimraf": "^3.0.2",
-    "typescript": "^3.9.3",
-    "val-loader": "^2.1.2"
+    "typescript": "^3.9.3"
   }
 }
