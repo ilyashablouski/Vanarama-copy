@@ -52,6 +52,7 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
     const input = {
       variables: {
         input: {
+          // personUuid:
           companyType: isSoleTrader
             ? CompanyTypes.soleTrader
             : CompanyTypes.limited,
