@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero as IHero } from '../../../../generated/GetInsuranceLandingPage';
@@ -61,4 +62,4 @@ const InsuranceHeroSection = ({ title, body, heroCard, image }: IHero) => (
   </Hero>
 );
 
-export default InsuranceHeroSection;
+export default React.memo(InsuranceHeroSection);

@@ -1,3 +1,4 @@
+import React from 'react';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import Hero, { HeroHeading, HeroTitle } from '../../../components/Hero';
 import { GetFleetLandingPage_fleetLandingPage_sections_hero as IHeroData } from '../../../../generated/GetFleetLandingPage';
@@ -18,4 +19,4 @@ const HeroSection = ({ title, body, image }: IHeroData) => (
   </Hero>
 );
 
-export default HeroSection;
+export default React.memo(HeroSection);

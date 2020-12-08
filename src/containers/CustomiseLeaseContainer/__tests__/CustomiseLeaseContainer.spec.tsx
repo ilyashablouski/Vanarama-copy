@@ -2,14 +2,14 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import renderer from 'react-test-renderer';
-import CustomiseLeaseContainer from './CustomiseLeaseContainer';
-import { useQuoteDataLazyQuery } from './gql';
-import { IProps } from './interfaces';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { useOpportunityCreation } from '../GoldrushFormContainer/gql';
+import CustomiseLeaseContainer from '../CustomiseLeaseContainer';
+import { useQuoteDataLazyQuery } from '../gql';
+import { IProps } from '../interfaces';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { useOpportunityCreation } from '../../GoldrushFormContainer/gql';
 
-jest.mock('./gql');
-jest.mock('../GoldrushFormContainer/gql');
+jest.mock('../gql');
+jest.mock('../../GoldrushFormContainer/gql');
 
 const getComponent = (props: IProps) => {
   return renderer.create(<CustomiseLeaseContainer {...props} />).toJSON();

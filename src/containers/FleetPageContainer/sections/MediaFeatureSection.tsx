@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import getTitleTag from '../../../utils/getTitleTag';
@@ -111,4 +112,4 @@ const MediaFeatureSection: React.FC<IMediaFeatureProps> = ({
   );
 };
 
-export default MediaFeatureSection;
+export default React.memo(MediaFeatureSection);

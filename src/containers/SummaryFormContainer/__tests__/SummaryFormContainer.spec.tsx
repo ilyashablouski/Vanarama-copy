@@ -2,8 +2,8 @@ import { MockedProvider } from '@apollo/client/testing';
 import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
-import SummaryFormContainer from './SummaryFormContainer';
-import createBruceData from './__fixtures__/bruceData';
+import SummaryFormContainer from '../SummaryFormContainer';
+import createBruceData from '../__fixtures__/bruceData';
 
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
