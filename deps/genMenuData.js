@@ -58,9 +58,7 @@ module.exports = async () => {
       if (err) {
         throw new Error(err);
       }
-      console.log(
-        'Contentful Primary Navigation JSON data file was generated!',
-      );
+      console.log('Contentful Primary Header JSON data file was generated!');
     });
   } catch (err) {
     console.error(err);
