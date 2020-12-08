@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import preloadAll from 'jest-next-dynamic';
-import GoldrushForm from './GoldrushForm';
+import GoldrushForm from '../GoldrushForm';
 
 describe('<GoldrushForm />', () => {
   const testHeading = 'test heading';

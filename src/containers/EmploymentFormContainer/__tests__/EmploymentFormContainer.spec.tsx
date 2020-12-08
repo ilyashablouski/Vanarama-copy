@@ -1,11 +1,11 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import EmploymentFormContainer from './EmploymentFormContainer';
+import EmploymentFormContainer from '../EmploymentFormContainer';
 import {
   withoutPrefilledEmployments,
   withPrefilledEmployments,
-} from './fixtures';
+} from '../fixtures';
 
 describe('<EmploymentFormContainer />', () => {
   it('should post data to the server correctly', async () => {

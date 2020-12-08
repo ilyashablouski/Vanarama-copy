@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import {
@@ -62,4 +63,4 @@ const InsuranceNewsSection = ({ cards, name }: ICarouselData) => (
   </div>
 );
 
-export default InsuranceNewsSection;
+export default React.memo(InsuranceNewsSection);

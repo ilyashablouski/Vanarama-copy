@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import getTitleTag from '../../../utils/getTitleTag';
@@ -97,4 +98,4 @@ const TestimonialSection = ({
   );
 };
 
-export default TestimonialSection;
+export default React.memo(TestimonialSection);

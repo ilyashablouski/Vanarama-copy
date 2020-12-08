@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../../components/Skeleton';
 
@@ -20,4 +21,4 @@ const Message: React.FC<{ message: string }> = ({ message, children }) => (
   </Heading>
 );
 
-export default Message;
+export default React.memo(Message);

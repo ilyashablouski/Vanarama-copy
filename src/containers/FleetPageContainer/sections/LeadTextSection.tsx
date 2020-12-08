@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import getTitleTag from '../../../utils/getTitleTag';
 import { GetFleetLandingPage_fleetLandingPage_sections_leadText as ILeadText } from '../../../../generated/GetFleetLandingPage';
@@ -31,4 +32,4 @@ const LeadTextSection = ({ titleTag, heading, description }: ILeadText) => (
   </div>
 );
 
-export default LeadTextSection;
+export default React.memo(LeadTextSection);
