@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import {
@@ -84,4 +85,4 @@ const InsuranceTypesSection = ({ name, description, cards }: ITypesSection) => (
   </>
 );
 
-export default InsuranceTypesSection;
+export default React.memo(InsuranceTypesSection);

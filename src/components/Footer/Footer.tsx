@@ -46,4 +46,4 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);

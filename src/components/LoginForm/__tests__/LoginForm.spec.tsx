@@ -1,8 +1,12 @@
-import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import React from 'react';
-import LoginForm from './LoginForm';
+import preloadAll from 'jest-next-dynamic';
+import { fireEvent, render, waitFor, screen } from '@testing-library/react';
+import LoginForm from '../LoginForm';
 
 describe('<LoginForm />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should call `onSubmit` if there are no validation errors', async () => {
     // ARRANGE
     const onSubmit = jest.fn();

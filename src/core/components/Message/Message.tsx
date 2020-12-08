@@ -1,12 +1,4 @@
-import dynamic from 'next/dynamic';
-import Skeleton from '../../../components/Skeleton';
-
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 
 const Message: React.FC<{ message: string }> = ({ message, children }) => (
   <Heading

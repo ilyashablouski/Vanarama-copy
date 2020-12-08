@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import { GetFleetLandingPage_fleetLandingPage_sections_tiles as IBenefitsSection } from '../../../../generated/GetFleetLandingPage';
@@ -77,4 +78,4 @@ const BenefitsSection = ({ name, tiles }: IBenefitsSection) => (
   </div>
 );
 
-export default BenefitsSection;
+export default React.memo(BenefitsSection);
