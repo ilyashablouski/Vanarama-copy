@@ -508,11 +508,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               </div>
             </div>
           </div>
-          <p
-            class="text -xsmall -dark"
-          >
-            Vanarama collects the contact information you provide to us to contact you about our products and services. You may unsubscribe from these communications at any time. For information on how to unsubscribe, as well as our privacy practices and commitment to protecting your privacy, please check out our Privacy Policy.
-          </p>
           <button
             class="button -teal -lead -solid"
             data-testid="goldrush-form_submit"
