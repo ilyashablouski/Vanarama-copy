@@ -35,7 +35,7 @@ export const createOffersObject = (
   initailRental: `£${offer.depositPayment} (${
     leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
   } VAT)`,
-  contractLength: `${offer.depositMonths} month`,
+  contractLength: `${offer.term} month`,
   annualMileage: offer.annualMileage?.toString() || '-',
   maintenance: offer.maintenance ? 'Yes' : 'No',
   fuel: derivative?.fuelType.name || '-',

@@ -70,14 +70,14 @@ export const getProductPageBreadCrumb = (
   slug: string,
   cars: boolean | undefined,
 ) => {
-  const { manufacturer, range, name } = data;
   const leasing = cars ? 'car-leasing' : 'van-leasing';
   const slugArray = slug.split('/');
   const manufacturerSlug = slugArray[1];
   const rangeSlug = slugArray[2];
   const bodyType = slugArray[3] || '';
 
-  if (manufacturer && range) {
+  if (data) {
+    const { manufacturer, range, name } = data;
     const manufacturerPage = genericPagesData?.find(
       el => el?.slug?.split('/').length === 2,
     );
