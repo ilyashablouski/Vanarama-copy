@@ -29,9 +29,6 @@ exports[`<FrequentlyAskedQuestions /> renders correctly with empty review 1`] = 
             viewBox="0 0 512 512"
             width="1em"
           >
-            <title>
-              ionicons-v5-a
-            </title>
             <polyline
               points="184 112 328 256 184 400"
               style={
@@ -192,9 +189,6 @@ exports[`<FrequentlyAskedQuestions /> renders correctly with rangeFAQ 1`] = `
             viewBox="0 0 512 512"
             width="1em"
           >
-            <title>
-              ionicons-v5-a
-            </title>
             <polyline
               points="184 112 328 256 184 400"
               style={
@@ -339,9 +333,6 @@ exports[`<FrequentlyAskedQuestions /> renders correctly with rangeFAQ 1`] = `
             viewBox="0 0 512 512"
             width="1em"
           >
-            <title>
-              ionicons-v5-a
-            </title>
             <polyline
               points="184 112 328 256 184 400"
               style={

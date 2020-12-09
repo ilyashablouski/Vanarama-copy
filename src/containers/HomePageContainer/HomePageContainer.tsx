@@ -21,7 +21,8 @@ import {
 } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
-import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
+import Hero from '../../components/Hero';
+// import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
 
 const Heading = dynamic(
@@ -119,6 +120,16 @@ const ProductCarousel = dynamic(
 );
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
+);
+
+// Hero
+// @ts-ignore
+const HeroHeading = dynamic(() =>
+  import('../../components/Hero').then(mod => mod.HeroHeading),
+);
+// @ts-ignore
+const HeroTitle = dynamic(() =>
+  import('../../components/Hero').then(mod => mod.HeroTitle),
 );
 
 export interface IHomePageContainer {

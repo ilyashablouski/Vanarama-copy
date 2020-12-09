@@ -198,9 +198,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                 viewBox="0 0 512 512"
                 width="1em"
               >
-                <title>
-                  ionicons-v5-a
-                </title>
                 <polyline
                   points="184 112 328 256 184 400"
                   style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
@@ -226,9 +223,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                 viewBox="0 0 512 512"
                 width="1em"
               >
-                <title>
-                  ionicons-v5-a
-                </title>
                 <polyline
                   points="184 112 328 256 184 400"
                   style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
