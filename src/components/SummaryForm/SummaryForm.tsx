@@ -1,10 +1,7 @@
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
+import React from 'react';
+import dynamic from 'next/dynamic';
 import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
-import React from 'react';
 import { SummaryFormPerson } from '../../../generated/SummaryFormPerson';
 import FCWithFragments from '../../utils/FCWithFragments';
 import SummaryFormAddressHistory from './SummaryFormAddressHistory';
@@ -26,6 +23,32 @@ import {
 } from './gql';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
+import Skeleton from '../Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   person: SummaryFormPerson;
