@@ -20,7 +20,7 @@ import { GetVatDetailsQuery } from '../../../../../generated/GetVatDetailsQuery'
 
 const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 const MOCK_ORDER_UUID = '39c19729-1111-46bd-0000-ed82705b3e01';
-const MOCK_PERSON_UUID = '39c19729-1111-46bd-0000-0000705b0000'
+const MOCK_PERSON_UUID = '39c19729-1111-46bd-0000-0000705b0000';
 
 jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 const mockPush = jest.fn();
