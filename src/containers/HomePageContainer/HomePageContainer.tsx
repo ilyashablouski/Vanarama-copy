@@ -123,13 +123,19 @@ const RouterLink = dynamic(() =>
 );
 
 // Hero
-// @ts-ignore
-const HeroHeading = dynamic(() =>
-  import('../../components/Hero').then(mod => mod.HeroHeading),
+const HeroHeading = dynamic(
+  // @ts-ignore
+  () => import('../../components/Hero').then(mod => mod.HeroHeading),
+  {
+    loading: () => <Skeleton count={2} />,
+  },
 );
-// @ts-ignore
-const HeroTitle = dynamic(() =>
-  import('../../components/Hero').then(mod => mod.HeroTitle),
+const HeroTitle = dynamic(
+  // @ts-ignore
+  () => import('../../components/Hero').then(mod => mod.HeroTitle),
+  {
+    loading: () => <Skeleton count={2} />,
+  },
 );
 
 export interface IHomePageContainer {
