@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
@@ -77,4 +78,4 @@ const WorkingHoursTable = ({ body, title }: HeroCard) => (
   </Card>
 );
 
-export default WorkingHoursTable;
+export default React.memo(WorkingHoursTable);

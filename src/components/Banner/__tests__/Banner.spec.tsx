@@ -9,13 +9,21 @@ jest.mock('next/router', () => ({
   }),
 }));
 
-describe('BusinessAboutForm', () => {
+describe('Banner', () => {
   beforeEach(async () => {
     await preloadAll();
   });
-  it('should show required field validation messages if the user submits without filling the form', async () => {
+  it('should correct render', async () => {
     const getComponent = () => {
       return renderer.create(<Banner />).toJSON();
+    };
+
+    const tree = getComponent();
+    expect(tree).toMatchSnapshot();
+  });
+  it('should correct render with text for vans', async () => {
+    const getComponent = () => {
+      return renderer.create(<Banner vans />).toJSON();
     };
 
     const tree = getComponent();

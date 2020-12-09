@@ -1,10 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import OrderCard from '@vanarama/uibook/lib/components/molecules/cards/OrderCard/OrderCard';
+import dynamic from 'next/dynamic';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import React, { useState, CSSProperties, useEffect } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
@@ -30,6 +26,41 @@ import {
   GetMyOrders_myOrders,
 } from '../../../generated/GetMyOrders';
 import Head from '../../components/Head/Head';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Pagination = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/pagination'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const OrderCard = dynamic(
+  () =>
+    import(
+      '@vanarama/uibook/lib/components/molecules/cards/OrderCard/OrderCard'
+    ),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 type QueryParams = {
   partyByUuid?: string;

@@ -8,7 +8,6 @@ import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import {
   IFleetCallBackFormProps,
   IFleetCallBackFormValues,
@@ -158,13 +157,6 @@ const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
               ref={register}
             />
           </FormGroup>
-          <Text tag="p" color="dark" size="xsmall">
-            Vanarama collects the contact information you provide to us to
-            contact contact contact contact you about our products and services.
-            You may from these communications at any time. For information on
-            how to unsubscribe, as well as our privacy practices and commitment
-            to protecting your privacy, please check out our Privacy Policy.
-          </Text>
           <Button
             color="primary"
             dataTestId="fleet-call-back-form_continue"

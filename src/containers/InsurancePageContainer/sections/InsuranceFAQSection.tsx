@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import getTitleTag from '../../../utils/getTitleTag';
@@ -49,4 +50,4 @@ const InsuranceFAQSection = ({ title, titleTag, body }: FAQSection) => (
   </div>
 );
 
-export default InsuranceFAQSection;
+export default React.memo(InsuranceFAQSection);

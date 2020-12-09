@@ -1,13 +1,42 @@
-import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Link from '@vanarama/uibook/lib/components/atoms/link';
+import dynamic from 'next/dynamic';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
-import FormError from '@vanarama/uibook/lib/components/organisms/form/FormError';
 import { useForm } from 'react-hook-form';
 import { ILoginFormProps, ILoginFormValues } from './interfaces';
 import { emailValidator, passwordValidator } from './LoginForm.validate';
+import Skeleton from '../Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Link = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/link/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const ChevronForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const FormError = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form/FormError'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 const LoginForm: React.FC<ILoginFormProps> = ({
   hasError: error,
