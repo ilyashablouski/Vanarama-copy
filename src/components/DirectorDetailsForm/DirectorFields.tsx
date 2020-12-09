@@ -1,11 +1,6 @@
+import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
-import CloseSharp from '@vanarama/uibook/lib/assets/icons/CloseSharp';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import { FieldArray, useField, useFormikContext } from 'formik';
 import React, { useContext } from 'react';
 import { OlafContext } from '../../layouts/OLAFLayout/helpers';
@@ -18,6 +13,45 @@ import FormikTextField from '../FormikTextField/FormikTextField';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import { createKeyGenerator } from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
+import Skeleton from '../Skeleton';
+
+const CloseSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/CloseSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Formgroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tile = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tile'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 type Props = {
   canBeRemoved: boolean;

@@ -1,10 +1,6 @@
+import dynamic from 'next/dynamic';
 import { Formik } from 'formik';
 import React from 'react';
-import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
 import DirectorFieldArray from './DirectorFieldArray';
 import {
   initialFormValues,
@@ -15,6 +11,39 @@ import {
 } from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
 import { GetCompanyDirectorDetailsQuery_allDropDowns as CompanyDirectorDetails } from '../../../generated/GetCompanyDirectorDetailsQuery';
+import Skeleton from '../Skeleton';
+
+const ChevronForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 type IDirectorDetailsFormProps = {
   dropdownData: CompanyDirectorDetails;

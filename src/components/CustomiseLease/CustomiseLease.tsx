@@ -1,16 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import dynamic from 'next/dynamic';
 import { Dispatch, SetStateAction } from 'react';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
-import LeaseScanner from '@vanarama/uibook/lib/components/organisms/lease-scanner';
 import Radio from '@vanarama/uibook/lib/components/atoms/radio';
-import Link from '@vanarama/uibook/lib/components/atoms/link';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Modal from '@vanarama/uibook/lib/components/molecules/modal';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import cx from 'classnames';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
@@ -22,6 +16,50 @@ import {
 } from '../../../generated/GetVehicleDetails';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
+import Skeleton from '../Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Link = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/link'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Modal = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/modal'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Formgroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const LeaseScanner = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/lease-scanner'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
 
 const choices = (
   choicesValues: IChoice[],
