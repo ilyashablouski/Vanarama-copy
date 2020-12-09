@@ -1,7 +1,28 @@
 import React from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
-import ReviewCard from '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard';
+import dynamic from 'next/dynamic';
+import Skeleton from '../Skeleton';
+
+const Carousel = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const ReviewCard = dynamic(
+  () =>
+    import(
+      '@vanarama/uibook/lib/components/molecules/cards/ReviewCard/ReviewCard'
+    ),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IReviewCard {
   text: string;

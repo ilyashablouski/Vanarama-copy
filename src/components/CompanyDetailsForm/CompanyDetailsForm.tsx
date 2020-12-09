@@ -1,6 +1,4 @@
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
+import dynamic from 'next/dynamic';
 import React, { useState, useEffect } from 'react';
 import { FormContext, OnSubmit, useForm } from 'react-hook-form';
 import { SearchCompaniesQuery_searchCompanies_nodes as SearchResult } from '../../../generated/SearchCompaniesQuery';
@@ -15,6 +13,26 @@ import {
 import SearchActions from './SearchActions';
 import { useCompanyProfile } from '../../containers/CompanyDetailsFormContainer/gql';
 import { sicCodes_sicCodes_sicData as ISicData } from '../../../generated/sicCodes';
+import Skeleton from '../Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   onSubmit: OnSubmit<SubmissionValues>;

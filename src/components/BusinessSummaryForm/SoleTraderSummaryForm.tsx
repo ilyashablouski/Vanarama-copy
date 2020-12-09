@@ -1,6 +1,4 @@
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
+import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
 import React, { useMemo } from 'react';
@@ -16,6 +14,26 @@ import { mapDefaultValues } from '../../containers/CompanyBankDetailsFormContain
 import SoleTraderDetailsForm from '../SoleTraderDetailsForm';
 import SoleTraderCompanyDetailsSummarySection from './SoleTraderCompanyDetailsSummarySection';
 import SoleTraderDetailsSummarySection from './SoleTraderDetailsSummarySection';
+import Skeleton from '../Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   company: SummaryFormSoleTrader;
