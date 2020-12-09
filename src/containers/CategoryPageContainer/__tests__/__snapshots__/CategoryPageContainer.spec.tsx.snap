@@ -81,9 +81,6 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
                     viewBox="0 0 512 512"
                     width="1em"
                   >
-                    <title>
-                      ionicons-v5-a
-                    </title>
                     <polyline
                       points="268 112 412 256 268 400"
                       style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"

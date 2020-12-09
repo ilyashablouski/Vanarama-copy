@@ -28,11 +28,15 @@ import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
 
 // Dynamic component loading.
-// @ts-ignore
-const ToastContainer = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/toast/Toast').then(
-    mod => mod.ToastContainer,
-  ),
+const ToastContainer = dynamic(
+  // @ts-ignore
+  () =>
+    import('@vanarama/uibook/lib/components/atoms/toast/Toast').then(
+      mod => mod.ToastContainer,
+    ),
+  {
+    ssr: false,
+  },
 );
 const ComparatorBar = dynamic(
   () => import('@vanarama/uibook/lib/components/organisms/comparator-bar'),

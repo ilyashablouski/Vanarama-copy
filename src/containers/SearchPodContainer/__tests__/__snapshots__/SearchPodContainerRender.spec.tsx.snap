@@ -117,9 +117,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                       viewBox="0 0 512 512"
                       width="1em"
                     >
-                      <title>
-                        ionicons-v5-a
-                      </title>
                       <polyline
                         points="112 184 256 328 400 184"
                         style={
@@ -179,9 +176,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                       viewBox="0 0 512 512"
                       width="1em"
                     >
-                      <title>
-                        ionicons-v5-a
-                      </title>
                       <polyline
                         points="112 184 256 328 400 184"
                         style={
@@ -241,9 +235,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                       viewBox="0 0 512 512"
                       width="1em"
                     >
-                      <title>
-                        ionicons-v5-a
-                      </title>
                       <polyline
                         points="112 184 256 328 400 184"
                         style={
@@ -333,9 +324,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                       viewBox="0 0 512 512"
                       width="1em"
                     >
-                      <title>
-                        ionicons-v5-a
-                      </title>
                       <polyline
                         points="112 184 256 328 400 184"
                         style={
@@ -424,9 +412,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                       viewBox="0 0 512 512"
                       width="1em"
                     >
-                      <title>
-                        ionicons-v5-a
-                      </title>
                       <polyline
                         points="112 184 256 328 400 184"
                         style={
@@ -481,9 +466,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                       viewBox="0 0 512 512"
                       width="1em"
                     >
-                      <title>
-                        ionicons-v5-a
-                      </title>
                       <polyline
                         points="112 184 256 328 400 184"
                         style={
@@ -548,9 +530,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                       viewBox="0 0 512 512"
                       width="1em"
                     >
-                      <title>
-                        ionicons-v5-a
-                      </title>
                       <polyline
                         points="112 184 256 328 400 184"
                         style={
@@ -640,9 +619,6 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                       viewBox="0 0 512 512"
                       width="1em"
                     >
-                      <title>
-                        ionicons-v5-a
-                      </title>
                       <polyline
                         points="112 184 256 328 400 184"
                         style={
