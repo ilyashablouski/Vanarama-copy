@@ -105,10 +105,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
             <PasswordChangeContainer
               uuid={uuid}
               onCompleted={() => {
-                toast.success(
-                  'Your New Password Has Been Saved',
-                  'Ipsum duis aute cupidatat occaecat nisi aute dolore do non ex incididunt do consectetur excepteur',
-                );
+                toast.success('Your New Password Has Been Saved', '');
                 setResetPassword(false);
               }}
               onNetworkError={handleNetworkError}
