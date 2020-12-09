@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import PasswordResetContainer from '../../../containers/PasswordResetContainer';
 import withApollo from '../../../hocs/withApollo';
 import Head from '../../../components/Head/Head';
+import Skeleton from '../../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const metaData = {
   canonicalUrl: null,

@@ -1,14 +1,32 @@
 import { gql } from '@apollo/client';
 import React from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQueryFeatured } from '../../../generated/GenericPageQueryFeatured';
 import FCWithFragments from '../../utils/FCWithFragments';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IFeatured {
   featured: GenericPageQueryFeatured | null | undefined;

@@ -1,8 +1,16 @@
+import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import withApollo from '../../hocs/withApollo';
 import ComparatorContainer from '../../containers/ComparatorContainer/ComparatorContainer';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const Comparator: NextPage = () => {
   return (
