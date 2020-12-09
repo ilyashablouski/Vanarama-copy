@@ -177,10 +177,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
           values.lastName,
         )
           .then(query =>
-            handleDetailsSave(
-              values,
-              query.data?.registerForTemporaryAccess,
-            ),
+            handleDetailsSave(values, query.data?.registerForTemporaryAccess),
           )
           .then(({ data }) =>
             handleCreateUpdateCreditApplication(values, data).then(() => {
