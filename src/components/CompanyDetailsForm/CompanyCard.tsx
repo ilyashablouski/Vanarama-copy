@@ -19,7 +19,7 @@ const Text = dynamic(
 const Card = dynamic(
   () => import('@vanarama/uibook/lib/components/molecules/cards'),
   {
-    loading: () => <Skeleton count={1} />,
+    loading: () => <Skeleton count={3} />,
   },
 );
 
