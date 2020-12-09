@@ -3,10 +3,10 @@ import React, { FC, memo } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
-import HeaderMenuLink from './HeaderMenuLink';
 import { IHeaderLink } from './Header';
 import Skeleton from '../Skeleton';
 
+const HeaderMenuLink = dynamic(() => import('./HeaderMenuLink'));
 const Button = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/button'),
   {
