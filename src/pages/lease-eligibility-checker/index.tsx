@@ -12,11 +12,16 @@ import {
 } from '../../../generated/EligibilityCheckerPageData';
 import withApollo from '../../hocs/withApollo';
 import { ELIGIBILITY_CHECKER_CONTENT } from '../../gql/eligibility-checker/eligibilityChecker';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 
+const ErrorMessage = dynamic(
+  () => import('../../components/ErrorMessage/ErrorMessage'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
   {
