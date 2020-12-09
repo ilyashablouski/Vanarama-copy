@@ -5,7 +5,7 @@ import Skeleton from '../Skeleton';
 const Carousel = dynamic(
   () => import('@vanarama/uibook/lib/components/organisms/carousel'),
   {
-    loading: () => <Skeleton count={1} />,
+    loading: () => <Skeleton count={3} />,
   },
 );
 const ReviewCard = dynamic(
