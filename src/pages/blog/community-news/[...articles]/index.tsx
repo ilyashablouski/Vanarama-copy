@@ -51,7 +51,7 @@ export async function getStaticPaths() {
     const { data } = await client.query<BlogPosts>({
       query: BLOG_POSTS_PAGE,
       variables: {
-        slug: 'blog/vans',
+        slug: 'blog/community-news',
       },
     });
 
@@ -77,14 +77,13 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const { data, errors } = await client.query({
       query: BLOG_POST_PAGE,
       variables: {
-        slug: `blog/vans/${context?.params?.articles}`,
+        slug: `blog/community-news/${context?.params?.articles}`,
       },
     });
-
     const { data: blogPosts, errors: blogPostsError } = await client.query({
       query: BLOG_POSTS_PAGE,
       variables: {
-        slug: 'blog/vans',
+        slug: 'blog/community-news',
       },
     });
     const newBlogPosts = {
@@ -92,7 +91,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     };
     newBlogPosts.blogPosts.articles = getArticles(
       getSectionsData(['blogPosts', 'articles'], blogPosts),
-      `/blog/vans/${context?.params?.articles}`,
+      `/blog/community-news/${context?.params?.articles}`,
     );
     return {
       props: {

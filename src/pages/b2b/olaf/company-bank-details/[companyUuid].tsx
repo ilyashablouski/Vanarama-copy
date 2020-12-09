@@ -20,7 +20,7 @@ const CompanyBankDetailsPage: NextPage = () => {
   const router = useRouter();
   const isSoleTraderJourney = useSoleTraderJorney();
   const orderId = useGetOrderId();
-  const { companyUuid } = router.query as QueryParams;
+  const { companyUuid, personUuid } = router.query as QueryParams;
 
   const handleSubmitError = (err: ApolloError) => {
     // eslint-disable-next-line no-console
@@ -42,6 +42,7 @@ const CompanyBankDetailsPage: NextPage = () => {
   return (
     <OLAFLayout>
       <CompanyBankDetailsFormContainer
+        personUuid={personUuid}
         isSoleTrader={isSoleTraderJourney}
         isEdited={router.query.redirect === 'summary'}
         companyUuid={companyUuid}
