@@ -11,7 +11,8 @@ import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
 import { PrimaryHeader_primaryHeader_linkGroups_linkGroups as LinkGroups } from '../../../generated/PrimaryHeader';
 import { IHeaderLink } from '../../components/Header/Header';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import { HEADER_DATA } from '../../utils/hardcodedData';
+import { GetPrimaryHeaderData as HeaderData } from '../../../generated/GetPrimaryHeaderData';
+import HEADER_DATA from '../../../deps/data/menuData.json';
 
 export const LOGOUT_USER_MUTATION = gql`
   mutation LogOutUserMutation {
@@ -22,7 +23,7 @@ export const LOGOUT_USER_MUTATION = gql`
 `;
 
 const HeaderContainer: FC = () => {
-  const data = HEADER_DATA;
+  const data: HeaderData = HEADER_DATA;
   const router = useRouter();
   const isMobile = useMobileViewport();
 
@@ -82,6 +83,14 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl.label || '',
+          promotionalImage: {
+            url: linksGroup?.promotionalImage?.legacyUrl || '',
+            image: {
+              url: linksGroup?.promotionalImage?.image?.[0]?.file?.url || '',
+              fileName:
+                linksGroup?.promotionalImage?.image?.[0]?.file?.fileName || '',
+            },
+          },
           children: isMobile
             ? [linksGroupUrl, ...childrenGroupLinks]
             : childrenGroupLinks,
@@ -92,6 +101,14 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl?.id,
+          promotionalImage: {
+            url: linksGroup?.promotionalImage?.legacyUrl || '',
+            image: {
+              url: linksGroup?.promotionalImage?.image?.[0]?.file?.url || '',
+              fileName:
+                linksGroup?.promotionalImage?.image?.[0]?.file?.fileName || '',
+            },
+          },
         };
       }
       link.push(headerTopLinks);

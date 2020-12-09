@@ -8,7 +8,7 @@ import FlameSharp from '@vanarama/uibook/lib/assets/icons/FlameSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import RouterLink from '../RouterLink/RouterLink';
-import { IHeaderLink } from './Header';
+import { IHeaderLink, IHeaderPromoImage } from './Header';
 
 export interface IHeaderSecondaryMenuProps extends IBaseProps {
   links: IHeaderLink[];
@@ -16,11 +16,19 @@ export interface IHeaderSecondaryMenuProps extends IBaseProps {
   onClickTitle: () => void;
   isMobile: boolean;
   isMenuOpen: boolean;
+  promotionalImage?: IHeaderPromoImage;
 }
 
 const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
   const router = useRouter();
-  const { links, title, onClickTitle, isMobile, isMenuOpen } = props;
+  const {
+    links,
+    title,
+    onClickTitle,
+    isMobile,
+    isMenuOpen,
+    promotionalImage,
+  } = props;
   const firstChildrenLinks = links.find(
     el => !!el.children?.length,
   ) as IHeaderLink;
@@ -172,11 +180,16 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
             )}
           </ul>
         ) : null}
-        <div className="menu-featured">
-          <div className="image -expand">
-            <Image src="/img-placeholder.png" />
+        {promotionalImage?.url && (
+          <div className="menu-featured">
+            <RouterLink link={{ href: promotionalImage?.url, label: '' }}>
+              <Image
+                src={promotionalImage?.image.url || '/img-placeholder.png'}
+                alt={promotionalImage?.image.fileName}
+              />
+            </RouterLink>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

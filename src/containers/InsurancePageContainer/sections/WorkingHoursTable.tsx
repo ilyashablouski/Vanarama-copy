@@ -1,11 +1,25 @@
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import React from 'react';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
 import { IList } from '@vanarama/uibook/lib/components/organisms/structured-list/interfaces';
 import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard as HeroCard } from '../../../../generated/GetInsuranceLandingPage';
 import { ParsedLink } from '../ParsedLink';
-// eslint-disable-next-line import/no-unresolved
+import Skeleton from '../../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+
 const gfm = require('remark-gfm');
 
 const parseTable = (table: any[]): IList[] =>
@@ -64,4 +78,4 @@ const WorkingHoursTable = ({ body, title }: HeroCard) => (
   </Card>
 );
 
-export default WorkingHoursTable;
+export default React.memo(WorkingHoursTable);

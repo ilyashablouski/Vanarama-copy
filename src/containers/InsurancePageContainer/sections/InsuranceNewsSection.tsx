@@ -1,13 +1,31 @@
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-
+import React from 'react';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import {
   GetInsuranceLandingPage_insuranceLandingPage_sections_carousel as ICarouselData,
   GetInsuranceLandingPage_insuranceLandingPage_sections_carousel_cards as ICard,
 } from '../../../../generated/GetInsuranceLandingPage';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import Skeleton from '../../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Carousel = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 const renderCarouselCards = (cards: (ICard | null)[]) =>
   cards.map(card =>
@@ -45,4 +63,4 @@ const InsuranceNewsSection = ({ cards, name }: ICarouselData) => (
   </div>
 );
 
-export default InsuranceNewsSection;
+export default React.memo(InsuranceNewsSection);

@@ -386,26 +386,6 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
               </a>
             </li>
           </ul>
-          <div
-            className="menu-featured"
-          >
-            <div
-              className="image -expand"
-            >
-              <div
-                className="image -expand"
-              >
-                <span
-                  className="image--native"
-                  style={
-                    Object {
-                      "display": "inline-block",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </li>
@@ -718,26 +698,6 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
               </a>
             </li>
           </ul>
-          <div
-            className="menu-featured"
-          >
-            <div
-              className="image -expand"
-            >
-              <div
-                className="image -expand"
-              >
-                <span
-                  className="image--native"
-                  style={
-                    Object {
-                      "display": "inline-block",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </li>
@@ -1195,26 +1155,6 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
               </a>
             </li>
           </ul>
-          <div
-            className="menu-featured"
-          >
-            <div
-              className="image -expand"
-            >
-              <div
-                className="image -expand"
-              >
-                <span
-                  className="image--native"
-                  style={
-                    Object {
-                      "display": "inline-block",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </li>
@@ -1319,26 +1259,6 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
               </span>
             </li>
           </ul>
-          <div
-            className="menu-featured"
-          >
-            <div
-              className="image -expand"
-            >
-              <div
-                className="image -expand"
-              >
-                <span
-                  className="image--native"
-                  style={
-                    Object {
-                      "display": "inline-block",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </li>
@@ -1764,26 +1684,6 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
               </a>
             </li>
           </ul>
-          <div
-            className="menu-featured"
-          >
-            <div
-              className="image -expand"
-            >
-              <div
-                className="image -expand"
-              >
-                <span
-                  className="image--native"
-                  style={
-                    Object {
-                      "display": "inline-block",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </li>
@@ -2096,26 +1996,6 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
               </a>
             </li>
           </ul>
-          <div
-            className="menu-featured"
-          >
-            <div
-              className="image -expand"
-            >
-              <div
-                className="image -expand"
-              >
-                <span
-                  className="image--native"
-                  style={
-                    Object {
-                      "display": "inline-block",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </li>
@@ -2573,26 +2453,6 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
               </a>
             </li>
           </ul>
-          <div
-            className="menu-featured"
-          >
-            <div
-              className="image -expand"
-            >
-              <div
-                className="image -expand"
-              >
-                <span
-                  className="image--native"
-                  style={
-                    Object {
-                      "display": "inline-block",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </li>
@@ -2697,26 +2557,6 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
               </span>
             </li>
           </ul>
-          <div
-            className="menu-featured"
-          >
-            <div
-              className="image -expand"
-            >
-              <div
-                className="image -expand"
-              >
-                <span
-                  className="image--native"
-                  style={
-                    Object {
-                      "display": "inline-block",
-                    }
-                  }
-                />
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </li>

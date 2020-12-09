@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import SoleTraderDetailsForm from '../SoleTraderDetailsForm';
 import { ISoleTraderDetailsFormValues } from '../interfaces';
@@ -6,7 +7,8 @@ import { ISoleTraderDetailsFormValues } from '../interfaces';
 describe('<SoleTraderDetailsForm />', () => {
   const onSubmitMock = jest.fn<Promise<void>, [ISoleTraderDetailsFormValues]>();
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await preloadAll();
     onSubmitMock.mockRestore();
     render(
       <SoleTraderDetailsForm

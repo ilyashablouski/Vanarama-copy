@@ -64,11 +64,8 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Head from '../../components/Head/Head';
 import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
+import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 
-const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
-  loading: () => <Skeleton count={2} />,
-  ssr: true,
-});
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
   {
@@ -126,13 +123,14 @@ const Breadcrumb = dynamic(
     loading: () => <Skeleton count={1} />,
   },
 );
+const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
+  loading: () => <Skeleton count={2} />,
+  ssr: false,
+});
 const RangeCard = dynamic(() => import('./RangeCard'), {
   loading: () => <Skeleton count={1} />,
 });
 const VehicleCard = dynamic(() => import('./VehicleCard'), {
-  loading: () => <Skeleton count={1} />,
-});
-const TopOffersContainer = dynamic(() => import('./TopOffersContainer'), {
   loading: () => <Skeleton count={1} />,
 });
 

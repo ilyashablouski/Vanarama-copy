@@ -91,6 +91,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
       {!!link.children?.length && (
         <HeaderSecondaryMenu
           key={link.label}
+          promotionalImage={link.promotionalImage}
           links={link.children as IHeaderLink[]}
           title={link.label}
           onClickTitle={() => setIsOpenMenu(false)}

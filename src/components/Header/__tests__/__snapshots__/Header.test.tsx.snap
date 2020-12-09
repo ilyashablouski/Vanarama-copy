@@ -592,26 +592,6 @@ exports[`<Header /> renders correctly 1`] = `
                   </a>
                 </li>
               </ul>
-              <div
-                className="menu-featured"
-              >
-                <div
-                  className="image -expand"
-                >
-                  <div
-                    className="image -expand"
-                  >
-                    <span
-                      className="image--native"
-                      style={
-                        Object {
-                          "display": "inline-block",
-                        }
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </li>
@@ -924,26 +904,6 @@ exports[`<Header /> renders correctly 1`] = `
                   </a>
                 </li>
               </ul>
-              <div
-                className="menu-featured"
-              >
-                <div
-                  className="image -expand"
-                >
-                  <div
-                    className="image -expand"
-                  >
-                    <span
-                      className="image--native"
-                      style={
-                        Object {
-                          "display": "inline-block",
-                        }
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </li>
@@ -1401,26 +1361,6 @@ exports[`<Header /> renders correctly 1`] = `
                   </a>
                 </li>
               </ul>
-              <div
-                className="menu-featured"
-              >
-                <div
-                  className="image -expand"
-                >
-                  <div
-                    className="image -expand"
-                  >
-                    <span
-                      className="image--native"
-                      style={
-                        Object {
-                          "display": "inline-block",
-                        }
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </li>
@@ -1525,26 +1465,6 @@ exports[`<Header /> renders correctly 1`] = `
                   </span>
                 </li>
               </ul>
-              <div
-                className="menu-featured"
-              >
-                <div
-                  className="image -expand"
-                >
-                  <div
-                    className="image -expand"
-                  >
-                    <span
-                      className="image--native"
-                      style={
-                        Object {
-                          "display": "inline-block",
-                        }
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </li>
@@ -2267,26 +2187,6 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   </a>
                 </li>
               </ul>
-              <div
-                className="menu-featured"
-              >
-                <div
-                  className="image -expand"
-                >
-                  <div
-                    className="image -expand"
-                  >
-                    <span
-                      className="image--native"
-                      style={
-                        Object {
-                          "display": "inline-block",
-                        }
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </li>
@@ -2599,26 +2499,6 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   </a>
                 </li>
               </ul>
-              <div
-                className="menu-featured"
-              >
-                <div
-                  className="image -expand"
-                >
-                  <div
-                    className="image -expand"
-                  >
-                    <span
-                      className="image--native"
-                      style={
-                        Object {
-                          "display": "inline-block",
-                        }
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </li>
@@ -3076,26 +2956,6 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   </a>
                 </li>
               </ul>
-              <div
-                className="menu-featured"
-              >
-                <div
-                  className="image -expand"
-                >
-                  <div
-                    className="image -expand"
-                  >
-                    <span
-                      className="image--native"
-                      style={
-                        Object {
-                          "display": "inline-block",
-                        }
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </li>
@@ -3200,26 +3060,6 @@ exports[`<Header /> renders correctly with login user 1`] = `
                   </span>
                 </li>
               </ul>
-              <div
-                className="menu-featured"
-              >
-                <div
-                  className="image -expand"
-                >
-                  <div
-                    className="image -expand"
-                  >
-                    <span
-                      className="image--native"
-                      style={
-                        Object {
-                          "display": "inline-block",
-                        }
-                      }
-                    />
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </li>

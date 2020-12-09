@@ -1,17 +1,46 @@
 import React, { useState } from 'react';
-import Button from '@vanarama/uibook/lib/components/atoms/button/';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import dynamic from 'next/dynamic';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
 import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
-import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { useForm } from 'react-hook-form';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import validationSchema from './PersonalInformation.validation';
 import { IPersonInformationFormValues, IProps } from './interface';
 import { IAddressPerson } from '../../containers/PersonalInformationContainer/interfaces';
 import { responseToInitialFormValues } from './mappers';
+import Skeleton from '../Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={4} />,
+    ssr: false,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const FormGroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 const PersonalInformation = ({ person, submit }: IProps) => {
   const personAddress = person?.address;

@@ -139,7 +139,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
             <p
               class="text -regular -dark"
             >
-              Body...
+              Body
             </p>
           </div>
           <a

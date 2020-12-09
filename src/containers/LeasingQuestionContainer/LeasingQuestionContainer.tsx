@@ -1,14 +1,29 @@
 import React, { FC } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import getTitleTag from '../../utils/getTitleTag';
 import {
   GenericPageQuestionQuery_genericPage_sections as Section,
   GenericPageQuestionQuery_genericPage_sections_faqs_questionSets_questionAnswers as IQuestion,
 } from '../../../generated/GenericPageQuestionQuery';
-import CarouselCards from './CarouselCards';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Accordion = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/accordion/Accordion'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const CarouselCards = dynamic(() => import('./CarouselCards'), {
+  loading: () => <Skeleton count={3} />,
+});
 
 interface IProps {
   sections: Section | null;
