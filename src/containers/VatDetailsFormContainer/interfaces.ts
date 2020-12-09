@@ -7,4 +7,5 @@ export interface IVatDetailsFormContainerProps {
   onCompleted: () => void;
   onError: (error: ApolloError) => void;
   isSoleTrader?: boolean;
+  personUuid?: string;
 }

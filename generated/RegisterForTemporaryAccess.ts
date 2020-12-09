@@ -14,6 +14,7 @@ export interface RegisterForTemporaryAccess_registerForTemporaryAccess_emailAddr
 }
 
 export interface RegisterForTemporaryAccess_registerForTemporaryAccess {
+  uuid: string | null;
   accessToken: string | null;
   isSuccessfull: boolean | null;
   emailAddress: RegisterForTemporaryAccess_registerForTemporaryAccess_emailAddress | null;
