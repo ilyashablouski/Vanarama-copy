@@ -1,9 +1,13 @@
-import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
+import { fireEvent, render, screen } from '@testing-library/react';
 import renderer from 'react-test-renderer';
 import IndependentReview from '../IndependentReview';
 
 describe('<IndependentReview />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('renders correctly with empty review', () => {
     const getComponent = () => {
       return renderer.create(<IndependentReview review="" />).toJSON();
