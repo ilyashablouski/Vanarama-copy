@@ -20,6 +20,7 @@ import { GetVatDetailsQuery } from '../../../../../generated/GetVatDetailsQuery'
 
 const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 const MOCK_ORDER_UUID = '39c19729-1111-46bd-0000-ed82705b3e01';
+const MOCK_PERSON_UUID = '39c19729-1111-46bd-0000-0000705b0000';
 
 jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 const mockPush = jest.fn();
@@ -30,6 +31,7 @@ jest.mock('next/router', () => ({
     query: {
       companyUuid: MOCK_COMPANY_UUID,
       orderId: MOCK_ORDER_UUID,
+      personUuid: MOCK_PERSON_UUID,
     },
   }),
 }));
@@ -569,6 +571,9 @@ describe('B2B VAT Details page', () => {
               query: UPDATE_LIMITED_VAT_DETAILS,
               variables: {
                 input: {
+                  person: {
+                    uuid: MOCK_PERSON_UUID,
+                  },
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
                   isVatRegistered: false,
@@ -624,6 +629,9 @@ describe('B2B VAT Details page', () => {
               query: UPDATE_LIMITED_VAT_DETAILS,
               variables: {
                 input: {
+                  person: {
+                    uuid: MOCK_PERSON_UUID,
+                  },
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
                   isVatRegistered: true,
@@ -682,6 +690,9 @@ describe('B2B VAT Details page', () => {
               query: UPDATE_LIMITED_VAT_DETAILS,
               variables: {
                 input: {
+                  person: {
+                    uuid: MOCK_PERSON_UUID,
+                  },
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
                   isVatRegistered: false,
