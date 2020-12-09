@@ -37,7 +37,10 @@ const AboutFormContainer: React.FC<IProps> = ({
     lastName: string,
   ) =>
     aboutYouData.data?.personByUuid
-      ? handlerMock(aboutYouData.data?.personByUuid?.emailAddresses[0])
+      ? handlerMock(
+          personUuid || null,
+          aboutYouData.data?.personByUuid?.emailAddresses[0],
+        )
       : registerTemporary({
           variables: {
             username,

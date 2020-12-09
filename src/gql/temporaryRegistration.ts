@@ -16,6 +16,7 @@ export const REGISTER_FOR_TEMPORARY_ACCESS_MUTATION = gql`
       firstName: $firstName
       lastName: $lastName
     ) {
+      uuid
       accessToken
       isSuccessfull
       emailAddress {
@@ -34,12 +35,14 @@ export function useRegistrationForTemporaryAccessMutation() {
   >(REGISTER_FOR_TEMPORARY_ACCESS_MUTATION);
 }
 export const handlerMock = (
+  uuid: string | null,
   emailAddress?: IEmailAddress | null,
 ): Promise<FetchResult<RegisterForTemporaryAccess>> =>
   Promise.resolve({
     data: {
       registerForTemporaryAccess: emailAddress
         ? {
+            uuid,
             emailAddress,
             accessToken: null,
             isSuccessfull: true,
