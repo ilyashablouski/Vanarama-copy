@@ -2,12 +2,12 @@
 import moment from 'moment';
 import { PersonInputObject } from '../../../generated/globalTypes';
 import { IAboutFormValues } from '../../components/AboutForm/interface';
-import { RegisterForTemporaryAccess_registerForTemporaryAccess_emailAddress as IEmailAddress } from '../../../generated/RegisterForTemporaryAccess';
+import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
 
 // eslint-disable-next-line import/prefer-default-export
 export const formValuesToInput = (
   values: IAboutFormValues,
-  emailAddress?: IEmailAddress | null,
+  data?: IRegistrationResult | null,
 ): PersonInputObject => {
   const dateOfBirth = moment(
     `${values.dayOfBirth}-${values.monthOfBirth}-${values.yearOfBirth}`,
@@ -15,6 +15,7 @@ export const formValuesToInput = (
   ).format('YYYY-MM-DD');
 
   return {
+    uuid: data?.uuid,
     title: values.title,
     firstName: values.firstName,
     lastName: values.lastName,
@@ -22,7 +23,7 @@ export const formValuesToInput = (
       kind: 'Home',
       value: values.email,
       primary: true,
-      uuid: emailAddress?.uuid,
+      uuid: data?.emailAddress?.uuid,
     },
     telephoneNumbers: [
       { kind: 'Mobile', value: values.telephone, primary: true },

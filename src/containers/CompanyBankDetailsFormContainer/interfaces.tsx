@@ -7,4 +7,5 @@ export interface IProps {
   onError: (error: ApolloError) => void;
   isEdited: boolean;
   isSoleTrader: boolean;
+  personUuid?: string;
 }

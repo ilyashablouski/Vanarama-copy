@@ -9,6 +9,7 @@ import { SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates as A
 export const mapFormValues = (
   values: DirectorDetailsFormValues,
   companyUuid: string,
+  personUuid?: string,
 ) => {
   const addresses = (director: DirectorFormValues) =>
     director.history.map(directorHistory => ({
@@ -17,6 +18,9 @@ export const mapFormValues = (
       startedOn: historyToMoment(directorHistory).format('YYYY-MM-DD'),
     }));
   return {
+    person: {
+      uuid: personUuid,
+    },
     uuid: companyUuid,
     associates: values.directors.map(director => ({
       uuid: director.uuid,

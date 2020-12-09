@@ -8,6 +8,7 @@ export const formValuesToInput = (
   uuid: string,
   values: ICompanyBankDetails,
   accountUuid?: string,
+  personUuid?: string,
 ): LimitedCompanyInputObject => {
   const joiningDate = `${values.joinedAtMonth}-${values.joinedAtYear}`;
   const joiningDateFormatted = moment(joiningDate, 'MM-YYYY').format(
@@ -16,6 +17,9 @@ export const formValuesToInput = (
 
   return {
     uuid,
+    person: {
+      uuid: personUuid,
+    },
     bankAccount: {
       uuid: accountUuid || null,
       bankName: values.bankName || null,
