@@ -23,7 +23,7 @@ import {
 } from '../../../generated/GetProductCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
-import { budgetMapper, fuelMapper } from './helpers';
+import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from './helpers';
 import { getLegacyUrl } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
 
@@ -243,7 +243,11 @@ const TopOffersContainer: React.FC<IProps> = ({
             ? (router.query?.dynamicParam as string).toLowerCase()
             : undefined,
           bodyStyles: isBodyPage
-            ? [router.query?.dynamicParam as string]
+            ? [
+                bodyUrlsSlugMapper[
+                  router.query?.dynamicParam as keyof typeof bodyUrlsSlugMapper
+                ],
+              ]
             : undefined,
           transmissions: isTransmissionPage
             ? [router.query?.dynamicParam as string]

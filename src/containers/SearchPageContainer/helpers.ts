@@ -85,7 +85,7 @@ export const bodyUrlsSlugMapper = {
   saloon: 'saloon',
   'city-car': 'city-car',
   'crew-vans': 'specialist',
-  'dropside-tipper': 'dropside-tipper',
+  'dropside-tipper': 'dropside tipper',
   'large-van': 'large van',
   'medium-van': 'medium van',
   'refrigerated-van': 'refrigerated van',
