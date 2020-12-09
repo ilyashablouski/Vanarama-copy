@@ -29,7 +29,7 @@ export const DirectorDetailsPage: NextPage = () => {
     const url =
       router.query.redirect === 'summary'
         ? '/b2b/olaf/summary/[companyUuid]'
-        : '/b2b/olaf/company-bank-details/[companyUuid]';
+        : `/b2b/olaf/company-bank-details/[companyUuid]?personUuid=${personUuid}`;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 

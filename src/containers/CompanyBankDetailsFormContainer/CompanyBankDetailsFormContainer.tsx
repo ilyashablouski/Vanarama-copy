@@ -26,6 +26,7 @@ const CompanyBankDetails = dynamic(() =>
 const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   companyUuid,
   orderUuid,
+  personUuid,
   onCompleted,
   onError,
   isEdited,
@@ -58,7 +59,9 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   const handleUpdateBankDetails = async (values: ICompanyBankDetails) => {
     const accountUuid = await getBankUuid();
     const input = {
-      variables: { input: formValuesToInput(companyUuid, values, accountUuid) },
+      variables: {
+        input: formValuesToInput(companyUuid, values, accountUuid, personUuid),
+      },
     };
 
     return isSoleTrader

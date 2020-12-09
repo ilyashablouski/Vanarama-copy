@@ -28,6 +28,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   directorUuid,
   companyUuid,
   orderUuid,
+  personUuid,
   onCompleted,
   onError,
   isEdited,
@@ -63,7 +64,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   const handleDirectorDetailsSave = (values: DirectorDetailsFormValues) =>
     saveDirectorDetails({
       variables: {
-        input: mapFormValues(values, companyUuid),
+        input: mapFormValues(values, companyUuid, personUuid),
       },
     });
 

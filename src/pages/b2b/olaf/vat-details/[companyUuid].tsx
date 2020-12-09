@@ -32,8 +32,8 @@ export const VatDetailsPage: NextPage = () => {
 
   const handleSubmitCompletion = () => {
     const detailsUrl = !isSoleTraderJourney
-      ? `/b2b/olaf/director-details/[companyUuid]`
-      : `/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]`;
+      ? `/b2b/olaf/director-details/[companyUuid]?personUuid=${personUuid}`
+      : `/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]?personUuid=${personUuid}`;
     const summaryUrl = !isSoleTraderJourney
       ? `/b2b/olaf/summary/[companyUuid]`
       : `/b2b/olaf/sole-trader/summary/[companyUuid]`;
