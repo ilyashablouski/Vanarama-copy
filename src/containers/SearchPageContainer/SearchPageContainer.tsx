@@ -62,7 +62,7 @@ import { filterList_filterList as IFilterList } from '../../../generated/filterL
 import { manufacturerList } from '../../../generated/manufacturerList';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Head from '../../components/Head/Head';
-import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../generated/genericPagesQuery';
+import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 
@@ -156,7 +156,8 @@ interface IProps {
   preLoadProductCardsData?: GetProductCard;
   preLoadResponseCapIds?: string[];
   preLoadRanges?: rangeList;
-  rangesUrls?: IRangeUrls[];
+  rangesUrls?: ILegacyUrls[];
+  makesUrls?: ILegacyUrls[];
   preLoadManufacturers?: manufacturerList | null;
 }
 
@@ -183,6 +184,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadResponseCapIds,
   preLoadRanges,
   rangesUrls,
+  makesUrls,
   preLoadManufacturers,
 }: IProps) => {
   const router = useRouter();
@@ -975,6 +977,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                       <RangeCard
                         title={makeData.manufacturerName || ''}
                         fromPrice={makeData.minPrice || undefined}
+                        makesUrls={makesUrls}
                         key={makeData.manufacturerId || index}
                         isPersonalPrice={isPersonal}
                         id={makeData?.capId?.toString() || ''}

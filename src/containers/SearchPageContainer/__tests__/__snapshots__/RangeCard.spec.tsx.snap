@@ -93,9 +93,9 @@ exports[`<RangeCard /> should be render correctly with all makes page 1`] = `
         <a
           class="heading link -black -large"
           data-testid="link"
-          href="/2-series-car-leasing.html"
+          href="/bmw-car-leasing.html"
         >
-          2 Series
+          bmw
         </a>
       </div>
       <div
@@ -134,7 +134,7 @@ exports[`<RangeCard /> should be render correctly with all makes page 1`] = `
         <a
           class="button -teal -regular -solid"
           data-testid="link"
-          href="/2-series-car-leasing.html"
+          href="/bmw-car-leasing.html"
         >
           <div
             class="button--inner"
