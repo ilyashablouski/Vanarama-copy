@@ -159,7 +159,7 @@ export interface IHomePageContainer {
 }
 
 export const HomePageContainer: React.FC<IHomePageContainer> = ({
-  // loading,
+  loading,
   error,
   data,
   productsVanDerivatives,
@@ -198,25 +198,35 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       )}
       <Hero>
         <div className="hero--title">
-          <HeroHeading
-            text={
-              getSectionsData(['hero', 'title'], data?.homePage?.sections) || ''
-            }
-            titleTag={
-              getTitleTag(
-                getSectionsData(
-                  ['hero', 'titleTag'],
-                  data?.homePage?.sections,
-                ) || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          />
-          <br />
-          <HeroTitle
-            text={
-              getSectionsData(['hero', 'body'], data?.homePage?.sections) || ''
-            }
-          />
+          {!loading ? (
+            <>
+              <HeroHeading
+                text={
+                  getSectionsData(
+                    ['hero', 'title'],
+                    data?.homePage?.sections,
+                  ) || ''
+                }
+                titleTag={
+                  getTitleTag(
+                    getSectionsData(
+                      ['hero', 'titleTag'],
+                      data?.homePage?.sections,
+                    ) || 'p',
+                  ) as keyof JSX.IntrinsicElements
+                }
+              />
+              <br />
+              <HeroTitle
+                text={
+                  getSectionsData(['hero', 'body'], data?.homePage?.sections) ||
+                  ''
+                }
+              />
+            </>
+          ) : (
+            <Skeleton count={5} />
+          )}
         </div>
         <Image
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}

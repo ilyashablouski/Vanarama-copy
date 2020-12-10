@@ -7,6 +7,9 @@ const OS = require('os');
 
 process.env.UV_THREADPOOL_SIZE = OS.cpus().length;
 
+const { join } = require('path');
+const { parse } = require('url');
+
 const express = require('express');
 const cors = require('cors');
 const next = require('next');
@@ -90,14 +93,23 @@ app
 
     // All routes.
     server.all('*', cors(), (req, res) => {
-      // Disable indexing on live domain.
-      if (!req.get('host').includes('vanarama.com'))
-        res.setHeader('X-Robots-Tag', 'noindex');
+      // Service Worker.
+      const parsedUrl = parse(req.url, true);
+      const { pathname } = parsedUrl;
 
-      if (!dev)
-        res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
+      if (pathname === '/sw.js' || pathname.startsWith('/workbox-')) {
+        const filePath = join(__dirname, '.next', pathname);
+        app.serveStatic(req, res, filePath);
+      } else {
+        // Disable indexing on live domain.
+        if (!req.get('host').includes('vanarama.com'))
+          res.setHeader('X-Robots-Tag', 'noindex');
 
-      return handle(req, res);
+        if (!dev)
+          res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
+
+        return handle(req, res);
+      }
     });
     return server;
   })
