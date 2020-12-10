@@ -34,9 +34,12 @@ const DataLayer: FC = () => {
     window.dataLayer.push({
         BCUID: getCookie('BCSessionID'),
         siteSection: section,
+        visitorEmail: email,
+        customerId: custId,
+        pageType: pType
         deviceType: window.navigator.userAgent,
     });
-  })(window, document, '${preparedData.siteSection}');
+  })(window, document, '${preparedData.siteSection}', '${preparedData.visitorEmail}', '${preparedData.customerId}', '${preparedData.pageType}');
   `;
 
   return process.env.GTM_ID ? (
