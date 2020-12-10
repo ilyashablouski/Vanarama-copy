@@ -1,0 +1,16 @@
+{
+  "name": "next-storefront",
+  "short_name": "nsf",
+  "icons": [
+    {
+      "src": "/public/favicon.icon",
+      "sizes": "32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "theme_color": "#FFFFFF",
+  "background_color": "#FFFFFF",
+  "start_url": "/",
+  "display": "standalone",
+  "orientation": "portrait"
+}
