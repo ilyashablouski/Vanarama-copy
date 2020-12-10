@@ -11,6 +11,7 @@ import useSoleTraderJorney from '../../../../hooks/useSoleTraderJourney';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
+import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
@@ -20,7 +21,8 @@ const CompanyBankDetailsPage: NextPage = () => {
   const router = useRouter();
   const isSoleTraderJourney = useSoleTraderJorney();
   const orderId = useGetOrderId();
-  const { companyUuid, personUuid } = router.query as QueryParams;
+  const personUuid = useGetPersonUuid();
+  const { companyUuid } = router.query as QueryParams;
 
   const handleSubmitError = (err: ApolloError) => {
     // eslint-disable-next-line no-console
