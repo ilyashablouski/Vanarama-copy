@@ -1,11 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import { useEffect, useState } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import AddCircle from '@vanarama/uibook/lib/assets/icons/AddCircleSharp';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import { ProductCardData } from '../../../generated/ProductCardData';
@@ -17,7 +14,6 @@ import { VAN_OFFERS_CONTENT } from '../../gql/special-offers/van-offers';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
 import { GET_CAR_DERIVATIVES } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
-import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import useLeaseType from '../../hooks/useLeaseType';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -28,6 +24,39 @@ import {
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 import Head from '../../components/Head/Head';
+import Skeleton from '../../components/Skeleton';
+
+const AddCircle = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/AddCircle'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const ProductCarousel = dynamic(
+  () => import('../../components/ProductCarousel/ProductCarousel'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
 
 type Props = {
   pageData: any;

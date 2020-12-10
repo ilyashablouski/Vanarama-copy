@@ -1,16 +1,10 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React, { useState } from 'react';
+import dynamic from 'next/dynamic';
 import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import DefaultErrorPage from 'next/error';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Map from '@vanarama/uibook/lib/components/atoms/map';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import CardTitle from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -20,9 +14,55 @@ import {
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
 import createApolloClient from '../../apolloClient';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Map = dynamic(() => import('@vanarama/uibook/lib/components/atoms/map'), {
+  loading: () => <Skeleton count={1} />,
+});
+const CardTitle = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards/CardTitle'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 export const ContactUsPage: NextPage<IGenericPage> = ({
   data,
