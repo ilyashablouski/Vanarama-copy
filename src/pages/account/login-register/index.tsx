@@ -1,18 +1,10 @@
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
-import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
-import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
-import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
-import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import CheckmarkSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkSharp';
+import dynamic from 'next/dynamic';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import { NextPage, NextPageContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import localForage from 'localforage';
 import { useRouter } from 'next/router';
-import Message from '../../../core/components/Message';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
 import withApollo from '../../../hocs/withApollo';
@@ -27,6 +19,57 @@ import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid
 import { pushAuthorizationEventDataLayer } from '../../../utils/dataLayerHelpers';
 import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import Head from '../../../components/Head/Head';
+import Skeleton from '../../../components/Skeleton';
+
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const CheckmarkSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/CheckmarkSharp'),
+  {
+    ssr: false,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tabs = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tab = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/Tab'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const TabList = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/TabList'),
+);
+const TabPanel = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanel'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const TabPanels = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanels'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Message = dynamic(() => import('../../../core/components/Message'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 interface IProps {
   query: ParsedUrlQuery;
