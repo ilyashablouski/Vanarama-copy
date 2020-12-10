@@ -1,9 +1,18 @@
 import moment from 'moment';
-import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
+import dynamic from 'next/dynamic';
 import { SummaryFormSoleTrader_associates as SoleTraderAssociate } from '../../../generated/SummaryFormSoleTrader';
 import { addressToDisplay } from '../../utils/address';
 import { sortAddresses } from './helpers';
 import { dateToFormat } from '../../utils/dates';
+
+import Skeleton from '../Skeleton';
+
+const StructuredList = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/structured-list'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 interface IProps {
   soleTrader: SoleTraderAssociate | undefined;
