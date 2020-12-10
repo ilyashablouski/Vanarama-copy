@@ -21,7 +21,7 @@ import {
   useRegistrationForTemporaryAccessMutation,
   handlerMock,
 } from '../../gql/temporaryRegistration';
-import { RegisterForTemporaryAccess_registerForTemporaryAccess_emailAddress as IEmailAddress } from '../../../generated/RegisterForTemporaryAccess';
+import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
 
 const savePersonUuid = async (data: SaveBusinessAboutYou) =>
   localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
@@ -79,7 +79,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     lastName: string,
   ) =>
     person
-      ? handlerMock(email)
+      ? handlerMock(personUuid || null, email)
       : registerTemporary({
           variables: {
             username,
@@ -90,14 +90,15 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 
   const handleDetailsSave = (
     values: IBusinessAboutFormValues,
-    emailAddress?: IEmailAddress | null,
+    data?: IRegistrationResult | null,
   ) => {
     return saveDetails({
       variables: {
         input: {
+          uuid: data?.uuid,
           emailAddress: {
             value: values.email,
-            uuid: emailAddress?.uuid,
+            uuid: data?.emailAddress?.uuid,
           },
           telephoneNumbers: [
             {
@@ -176,10 +177,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
           values.lastName,
         )
           .then(query =>
-            handleDetailsSave(
-              values,
-              query.data?.registerForTemporaryAccess?.emailAddress,
-            ),
+            handleDetailsSave(values, query.data?.registerForTemporaryAccess),
           )
           .then(({ data }) =>
             handleCreateUpdateCreditApplication(values, data).then(() => {

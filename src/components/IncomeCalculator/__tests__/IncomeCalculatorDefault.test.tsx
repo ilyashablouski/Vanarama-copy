@@ -1,4 +1,5 @@
 import * as React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { render, screen } from '@testing-library/react';
 import IncomeCalculator from '../IncomeCalculator';
 import { inputChange } from '../../../utils/testing';
@@ -8,6 +9,9 @@ const renderComponent = () => {
 };
 
 describe('<IncomeCalculator />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   const value = '200';
 
   it('calculates average monthly income correctly', () => {

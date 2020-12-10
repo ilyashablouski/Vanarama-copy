@@ -1,0 +1,165 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="row:title"
+    >
+      <h1
+        class="heading -black -xlarge"
+      >
+        Top 5 Electric Vans Sort Of
+      </h1>
+    </div>
+    <div
+      class="row:featured-left"
+    >
+      <div
+        class="lazyload-wrapper"
+      >
+        <div
+          class="image -white -expand"
+        >
+          <img
+            class="image--native"
+            sizes="(min-width:3200px) 800px, 1200px"
+            src="//images.ctfassets.net/3xid768u5joa/3onM1VAXZCIRTHPcHbfD55/f24511517067f91e7008765ff0c9656a/shutterstock_773667343.jpg"
+          />
+        </div>
+      </div>
+      <div
+        class="full-height"
+      >
+        <p
+          class="text -lead -darker"
+        >
+          It looks like you've ventured down the wrong road. Let's get you back on track. Just choose your preferred vehicle to get you back where you should be ...
+        </p>
+      </div>
+    </div>
+    <div
+      class="row:bg-lighter -col-300"
+    >
+      <div
+        class="row:cards-3col"
+      >
+        <div
+          class="card"
+          data-testid="card"
+        >
+          <img
+            class="card-image"
+            data-testid="card-image"
+            sizes="(min-width:3200px) 800px, 1200px"
+            src="//images.ctfassets.net/3xid768u5joa/22zuZfMLYzskVi3MQPcu7c/32caa929339dc2e88eee09ea2af84b79/renaulttrafic0917_2_.jpg"
+          />
+          <div
+            class="title -flex-h"
+          >
+            <a
+              class="heading -black -lead"
+              data-testid="link"
+              href="/van-leasing.html"
+            >
+              Search Vans
+            </a>
+            <button
+              class="button -teal -xsmall -solid -round"
+            >
+              <div
+                class="button--inner"
+              >
+                <i
+                  class="icon -regular md hydrated -white"
+                >
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                  >
+                    <polyline
+                      points="268 112 412 256 268 400"
+                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                    />
+                    <line
+                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                      x1="392"
+                      x2="100"
+                      y1="256"
+                      y2="256"
+                    />
+                  </svg>
+                </i>
+              </div>
+            </button>
+          </div>
+          <span
+            class="text -regular -dark"
+            data-testid="card-description"
+          >
+            Find the perfect van lease for your business with a huge range of brand new, in-stock, commercial vehicles to choose from at unbeatable prices.
+          </span>
+        </div>
+        <div
+          class="card"
+          data-testid="card"
+        >
+          <img
+            class="card-image"
+            data-testid="card-image"
+            sizes="(min-width:3200px) 800px, 1200px"
+            src="//images.ctfassets.net/3xid768u5joa/22zuZfMLYzskVi3MQPcu7c/32caa929339dc2e88eee09ea2af84b79/renaulttrafic0917_2_.jpg"
+          />
+          <div
+            class="title -flex-h"
+          >
+            <a
+              class="heading -black -lead"
+              data-testid="link"
+              href="/van-leasing.html"
+            >
+              Search Cars
+            </a>
+            <button
+              class="button -teal -xsmall -solid -round"
+            >
+              <div
+                class="button--inner"
+              >
+                <i
+                  class="icon -regular md hydrated -white"
+                >
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                  >
+                    <polyline
+                      points="268 112 412 256 268 400"
+                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                    />
+                    <line
+                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                      x1="392"
+                      x2="100"
+                      y1="256"
+                      y2="256"
+                    />
+                  </svg>
+                </i>
+              </div>
+            </button>
+          </div>
+          <span
+            class="text -regular -dark"
+            data-testid="card-description"
+          >
+            Drive a brand new car with affordable monthly payments. We offer superb business & personal contract hire deals on a range of lease cars.
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+`;

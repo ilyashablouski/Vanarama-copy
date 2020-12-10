@@ -1,6 +1,5 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-
 import preloadAll from 'jest-next-dynamic';
 import FrequentlyAskedQuestions from '../FrequentlyAskedQuestions';
 

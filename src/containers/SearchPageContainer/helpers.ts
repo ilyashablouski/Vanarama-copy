@@ -80,17 +80,17 @@ export const bodyUrlsSlugMapper = {
   estate: 'estate',
   family: 'family',
   hatchback: 'hatchback',
-  'people-carrier': 'people-carrier',
+  'people-carrier': 'people carrier',
   prestige: 'prestige',
   saloon: 'saloon',
   'city-car': 'city-car',
-  'crew-van': 'crew-van',
-  'dropside-tipper': 'dropside-tipper',
-  'large-van': 'large-van',
-  'medium-van': 'medium-van',
-  'refrigerated-van': 'refrigerated-van',
-  'small-van': 'small-van',
-  specialist: 'specialist-van',
+  'crew-vans': 'specialist',
+  'dropside-tipper': 'dropside tipper',
+  'large-van': 'large van',
+  'medium-van': 'medium van',
+  'refrigerated-van': 'refrigerated van',
+  'small-van': 'small van',
+  'specialist-van-leasing': 'specialist',
 };
 
 export const budgetMapper = {
@@ -197,11 +197,7 @@ export const ssrCMSQueryExecutor = async (
       return onCallQuery(
         client,
         GENERIC_PAGE,
-        `${searchType}/${prepareSlugPart(
-          bodyUrlsSlugMapper[
-            query.dynamicParam as keyof typeof bodyUrlsSlugMapper
-          ],
-        )}`,
+        `${searchType}/${prepareSlugPart(query.dynamicParam)}`,
       );
     case 'isTransmissionPage':
       return onCallQuery(client, GENERIC_PAGE, 'van-leasing/automatic');

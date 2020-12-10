@@ -1,10 +1,34 @@
+import React from 'react';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { GetFleetLandingPage_fleetLandingPage_sections_tiles as IBenefitsSection } from '../../../../generated/GetFleetLandingPage';
 import RouterLink from '../../../components/RouterLink/RouterLink';
+import Skeleton from '../../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tile = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tile'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 const BenefitsSection = ({ name, tiles }: IBenefitsSection) => (
   <div className="row:features-4col">
@@ -53,4 +77,4 @@ const BenefitsSection = ({ name, tiles }: IBenefitsSection) => (
   </div>
 );
 
-export default BenefitsSection;
+export default React.memo(BenefitsSection);

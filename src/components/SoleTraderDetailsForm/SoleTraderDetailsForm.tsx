@@ -1,11 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import dynamic from 'next/dynamic';
 import { FieldArray, Formik, useFormikContext } from 'formik';
 import { gql } from '@apollo/client';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import FormikTextField from '../FormikTextField/FormikTextField';
 import FormikCheckBoxField from '../FormikCheckboxField/FormikCheckboxField';
@@ -20,6 +16,40 @@ import {
   ISoleTraderDetailsFormValues,
 } from './interfaces';
 import { validationSchema } from './helpers';
+import { OlafContext } from '../../layouts/OLAFLayout/helpers';
+import Skeleton from '../Skeleton';
+
+const ChevronForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
   if (isSubmitting) {
@@ -57,6 +87,8 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
   isEdited,
   dropdownData,
 }) => {
+  const { requiredMonths } = useContext(OlafContext);
+
   return (
     <Formik<ISoleTraderDetailsFormValues>
       initialValues={responseToInitialFormValues(person, soleTrader)}
@@ -141,8 +173,8 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             Address History
           </Heading>
           <Text color="dark" size="small">
-            Please provide your personal address history for the past five
-            years.
+            Please provide your personal address history for the past{' '}
+            {requiredMonths / 12} years.
           </Text>
           <FieldArray name="history">
             {arrayHelpers => (
@@ -150,6 +182,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
                 arrayHelpers={arrayHelpers}
                 dropDownData={dropdownData}
                 values={formikProps.values}
+                requiredMonths={requiredMonths}
               />
             )}
           </FieldArray>

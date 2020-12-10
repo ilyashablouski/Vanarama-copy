@@ -1,8 +1,6 @@
 import { ApolloError } from '@apollo/client';
 import dynamic from 'next/dynamic';
-
 import ReactMarkdown from 'react-markdown';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
@@ -12,6 +10,12 @@ import Skeleton from '../../components/Skeleton';
 
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const SchemaJSON = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/schema-json'),
   {
     loading: () => <Skeleton count={1} />,
   },

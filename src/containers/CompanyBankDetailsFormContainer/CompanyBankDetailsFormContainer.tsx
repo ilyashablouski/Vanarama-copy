@@ -1,7 +1,7 @@
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
+import dynamic from 'next/dynamic';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { ICompanyBankDetails } from '../../components/CompanyBankDetails/interfaces';
-import CompanyBankDetails from '../../components/CompanyBankDetails';
 import {
   useCreateUpdateCreditApplication,
   useGetCreditApplicationByOrderUuid,
@@ -19,9 +19,14 @@ import {
 } from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 
+const CompanyBankDetails = dynamic(() =>
+  import('../../components/CompanyBankDetails'),
+);
+
 const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   companyUuid,
   orderUuid,
+  personUuid,
   onCompleted,
   onError,
   isEdited,
@@ -54,7 +59,9 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   const handleUpdateBankDetails = async (values: ICompanyBankDetails) => {
     const accountUuid = await getBankUuid();
     const input = {
-      variables: { input: formValuesToInput(companyUuid, values, accountUuid) },
+      variables: {
+        input: formValuesToInput(companyUuid, values, accountUuid, personUuid),
+      },
     };
 
     return isSoleTrader

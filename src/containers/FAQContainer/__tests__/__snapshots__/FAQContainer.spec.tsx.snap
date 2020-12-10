@@ -1,0 +1,346 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
+<body>
+  <div>
+    <div
+      class="row:title"
+    >
+      <h1
+        class="heading -black -xlarge"
+      >
+        FAQs About Van Insurance UK
+      </h1>
+      <span
+        class="text -regular -dark"
+      >
+        We try to make everything about van insurance a little clearer, so we've put together the answers to the questions we get asked the most. Enjoy!
+      </span>
+    </div>
+    <div
+      class="row:bg-lighter -thin"
+    >
+      <div
+        class="row:results"
+      >
+        <ul
+          class="tilebox accordion"
+        >
+          <li
+            class="accordion-item"
+            data-testid="accordion-item"
+          >
+            <button
+              class="accordion--heading"
+              type="button"
+            >
+              <i
+                class="icon accordion-item--chevron"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <polyline
+                    points="184 112 328 256 184 400"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+              <div
+                class="accordion--title"
+              >
+                <span
+                  class="text -regular -black"
+                >
+                  Vehicle & Options
+                </span>
+              </div>
+            </button>
+            <div
+              class="accordion--content"
+            >
+              <ul
+                class="tilebox accordion"
+              >
+                <li
+                  class="accordion-item"
+                  data-testid="accordion-item"
+                >
+                  <button
+                    class="accordion--heading"
+                    type="button"
+                  >
+                    <i
+                      class="icon accordion-item--chevron"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                      >
+                        <polyline
+                          points="184 112 328 256 184 400"
+                          style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                        />
+                      </svg>
+                    </i>
+                    <div
+                      class="accordion--title"
+                    >
+                      <span
+                        class="text -regular -black"
+                      >
+                        What do I need to apply for an insurance quote?
+                      </span>
+                    </div>
+                  </button>
+                  <div
+                    class="accordion--content"
+                  >
+                    <p
+                      class="text -regular -darker"
+                    >
+                      Before you give us a call, make sure you have these things to hand:
+                    </p>
+                    <ul>
+                      <li>
+                        Vehicle details (make, model, reg number, etc)
+                      </li>
+                      <li>
+                        Your full address & postcode
+                      </li>
+                      <li>
+                        Your driving licence
+                      </li>
+                      <li>
+                        Number of years of No-Claims Bonus (NCB)
+                      </li>
+                      <li>
+                        Claims & convictions details (if any) for the last 5 years
+                      </li>
+                      <li>
+                        Details of any other drivers including their licence details
+                      </li>
+                    </ul>
+                  </div>
+                </li>
+                <li
+                  class="accordion-item"
+                  data-testid="accordion-item"
+                >
+                  <button
+                    class="accordion--heading"
+                    type="button"
+                  >
+                    <i
+                      class="icon accordion-item--chevron"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                      >
+                        <polyline
+                          points="184 112 328 256 184 400"
+                          style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                        />
+                      </svg>
+                    </i>
+                    <div
+                      class="accordion--title"
+                    >
+                      <span
+                        class="text -regular -black"
+                      >
+                        What if I can't find my vehicle's make & model by its registration number?
+                      </span>
+                    </div>
+                  </button>
+                  <div
+                    class="accordion--content"
+                  >
+                    <p
+                      class="text -regular -darker"
+                    >
+                      You can enter the vehicle's year of manufacture, make & model instead.
+                    </p>
+                  </div>
+                </li>
+                <li
+                  class="accordion-item"
+                  data-testid="accordion-item"
+                >
+                  <button
+                    class="accordion--heading"
+                    type="button"
+                  >
+                    <i
+                      class="icon accordion-item--chevron"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                      >
+                        <polyline
+                          points="184 112 328 256 184 400"
+                          style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                        />
+                      </svg>
+                    </i>
+                    <div
+                      class="accordion--title"
+                    >
+                      <span
+                        class="text -regular -black"
+                      >
+                        Can I get a quote if I do not have the registration number available?
+                      </span>
+                    </div>
+                  </button>
+                  <div
+                    class="accordion--content"
+                  >
+                    <p
+                      class="text -regular -darker"
+                    >
+                      Yes, you can, but we will need this info if you decide to purchase a policy
+                    </p>
+                  </div>
+                </li>
+                <li
+                  class="accordion-item"
+                  data-testid="accordion-item"
+                >
+                  <button
+                    class="accordion--heading"
+                    type="button"
+                  >
+                    <i
+                      class="icon accordion-item--chevron"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                      >
+                        <polyline
+                          points="184 112 328 256 184 400"
+                          style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                        />
+                      </svg>
+                    </i>
+                    <div
+                      class="accordion--title"
+                    >
+                      <span
+                        class="text -regular -black"
+                      >
+                        What does "excess" means?
+                      </span>
+                    </div>
+                  </button>
+                  <div
+                    class="accordion--content"
+                  >
+                    <p
+                      class="text -regular -darker"
+                    >
+                      It's what you need to pay if you make a claim. For example, if you have a £100 excess on your policy then you pay the first £100 of the claim you make.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li
+            class="accordion-item"
+            data-testid="accordion-item"
+          >
+            <button
+              class="accordion--heading"
+              type="button"
+            >
+              <i
+                class="icon accordion-item--chevron"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <polyline
+                    points="184 112 328 256 184 400"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+              <div
+                class="accordion--title"
+              >
+                <span
+                  class="text -regular -black"
+                >
+                  No Claims Bonus (NCB) Questions
+                </span>
+              </div>
+            </button>
+            <div
+              class="accordion--content"
+            >
+              <ul
+                class="tilebox accordion"
+              >
+                <li
+                  class="accordion-item"
+                  data-testid="accordion-item"
+                >
+                  <button
+                    class="accordion--heading"
+                    type="button"
+                  >
+                    <i
+                      class="icon accordion-item--chevron"
+                    >
+                      <svg
+                        height="1em"
+                        viewBox="0 0 512 512"
+                        width="1em"
+                      >
+                        <polyline
+                          points="184 112 328 256 184 400"
+                          style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                        />
+                      </svg>
+                    </i>
+                    <div
+                      class="accordion--title"
+                    >
+                      <span
+                        class="text -regular -black"
+                      >
+                        What is No Claims Bonus (NCB)?
+                      </span>
+                    </div>
+                  </button>
+                  <div
+                    class="accordion--content"
+                  >
+                    <p
+                      class="text -regular -darker"
+                    >
+                      This is the number of years you have been insured & not made a claim. You need proof of NCB when you purchase a new policy.
+                    </p>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+`;

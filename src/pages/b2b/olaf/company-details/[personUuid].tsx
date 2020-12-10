@@ -29,7 +29,7 @@ export const CompanyDetailsPage: NextPage = () => {
   const handleSubmitCompletion = (companyGuid: string) => {
     const url = isEdited
       ? '/b2b/olaf/summary/[companyUuid]'
-      : '/b2b/olaf/vat-details/[companyUuid]';
+      : `/b2b/olaf/vat-details/[companyUuid]?personUuid=${personUuid}`;
     router.push(url, url.replace('[companyUuid]', companyGuid));
   };
 

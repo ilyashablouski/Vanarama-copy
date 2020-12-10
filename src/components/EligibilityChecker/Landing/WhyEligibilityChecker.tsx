@@ -1,14 +1,41 @@
+import dynamic from 'next/dynamic';
 import { FC } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import IconList, {
-  IconListItem,
-} from '@vanarama/uibook/lib/components/organisms/icon-list';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import {
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_iconList as IconListType,
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_image as ImageType,
 } from '../../../../generated/EligibilityCheckerPageData';
+import Skeleton from '../../Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const IconList = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/icon-list'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+// @ts-ignore
+const IconListItem = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/icon-list').then(
+    mod => mod.IconListItem,
+  ),
+);
 
 interface IWhyEligibilityChecker {
   body: string | null;

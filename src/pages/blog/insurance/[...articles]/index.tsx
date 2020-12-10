@@ -1,6 +1,5 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
-import { useRouter } from 'next/router';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
@@ -18,7 +17,6 @@ const BlogPost: NextPage<IBlogPost> = ({
   blogPosts,
   blogPostsError,
 }) => {
-  const router = useRouter();
   if (error || blogPostsError || !data) {
     return <DefaultErrorPage statusCode={404} />;
   }
@@ -37,7 +35,7 @@ const BlogPost: NextPage<IBlogPost> = ({
 
   return (
     <BlogPostContainer
-      articles={getArticles(articles, router)}
+      articles={articles}
       body={body}
       name={name}
       image={image}
@@ -88,11 +86,18 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'blog/insurance',
       },
     });
+    const newBlogPosts = {
+      blogPosts: { ...blogPosts.blogPosts },
+    };
+    newBlogPosts.blogPosts.articles = getArticles(
+      getSectionsData(['blogPosts', 'articles'], blogPosts),
+      `/blog/insurance/${context?.params?.articles}`,
+    );
     return {
       props: {
         data,
         error: errors ? errors[0] : null,
-        blogPosts,
+        blogPosts: newBlogPosts,
         blogPostsError: blogPostsError ? blogPostsError[0] : null,
       },
     };

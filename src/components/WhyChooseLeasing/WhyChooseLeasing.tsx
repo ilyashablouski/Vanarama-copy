@@ -1,6 +1,16 @@
 import React from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
+import dynamic from 'next/dynamic';
+import Skeleton from '../Skeleton';
+
+const Icon = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/icon'),
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IWhyChooseLeasingProps {
   warranty: string;

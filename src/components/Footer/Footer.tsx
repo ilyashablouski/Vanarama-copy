@@ -1,9 +1,13 @@
 import React, { FC } from 'react';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { PrimaryFooter_primaryFooter as PrimaryFooter } from '../../../generated/PrimaryFooter';
 import RouterLink from '../RouterLink/RouterLink';
-import FooterColumn from './FooterColumn';
+
+const Text = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/text'),
+);
+const FooterColumn = dynamic(() => import('./FooterColumn'));
 
 interface IFooter {
   primaryFooter: PrimaryFooter;
@@ -42,4 +46,4 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
   );
 };
 
-export default Footer;
+export default React.memo(Footer);

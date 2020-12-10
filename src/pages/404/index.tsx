@@ -1,12 +1,21 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
-import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNotFoundContainer';
+// import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
+import Skeleton from '../../components/Skeleton';
+
+const PageNotFoundContainer = dynamic(
+  () => import('../../containers/PageNotFoundContainer/PageNotFoundContainer'),
+  {
+    loading: () => <Skeleton count={30} />,
+  },
+);
 
 const PageNotFound: NextPage<IGenericPage> = ({ error, data }) => {
   if (error || !data) {

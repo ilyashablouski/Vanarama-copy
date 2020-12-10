@@ -6,10 +6,10 @@ import { useRouter } from 'next/router';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import RouterLink from '../RouterLink/RouterLink';
 import { IHeaderLink } from './Header';
-import HeaderSecondaryMenu from './HeaderSecondaryMenu';
 import { useHover } from '../../hooks/useHover';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 
+const HeaderSecondaryMenu = dynamic(() => import('./HeaderSecondaryMenu'));
 const Icon = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/icon'),
   {
@@ -91,6 +91,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
       {!!link.children?.length && (
         <HeaderSecondaryMenu
           key={link.label}
+          promotionalImage={link.promotionalImage}
           links={link.children as IHeaderLink[]}
           title={link.label}
           onClickTitle={() => setIsOpenMenu(false)}

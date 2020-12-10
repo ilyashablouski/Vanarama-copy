@@ -11,4 +11,4 @@ const PasswordRequirements = () => {
   );
 };
 
-export default PasswordRequirements;
+export default React.memo(PasswordRequirements);

@@ -1,4 +1,5 @@
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
 import {
@@ -21,6 +22,7 @@ import {
 
 const MOCK_PERSON_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 const MOCK_ORDER_ID = '11111111-b980-46bd-8a8e-ed82705b3e01';
+const MOCK_COMPANY_UUID = '11111111-2222-2222-2222-ed82705b3e01';
 
 let companyProfileCalled = false;
 let getSicCodesCalled = false;
@@ -33,6 +35,7 @@ jest.mock('next/router', () => ({
     query: {
       orderId: MOCK_ORDER_ID,
       personUuid: MOCK_PERSON_UUID,
+      companyUuid: MOCK_COMPANY_UUID,
     },
   }),
 }));
@@ -108,7 +111,8 @@ const sicDataMocks = [
 ];
 
 describe('B2B Company Details page', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
+    await preloadAll();
     companyProfileCalled = false;
     getSicCodesCalled = false;
   });
@@ -154,8 +158,8 @@ describe('B2B Company Details page', () => {
           query: SAVE_COMPANY_DETAILS,
           variables: {
             input: {
-              person: { uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01' },
-              uuid: undefined,
+              person: { uuid: MOCK_PERSON_UUID },
+              uuid: MOCK_COMPANY_UUID,
               companyType: 'Limited',
               legalName: 'AUTORAMA UK LTD',
               companyNumber: '05137709',
@@ -243,7 +247,7 @@ describe('B2B Company Details page', () => {
               person: {
                 uuid: MOCK_PERSON_UUID,
               },
-              uuid: undefined,
+              uuid: MOCK_COMPANY_UUID,
               companyType: 'Limited',
               legalName: 'AUTORAMA UK LTD',
               companyNumber: '05137709',
@@ -375,8 +379,8 @@ describe('B2B Company Details page', () => {
           query: SAVE_COMPANY_DETAILS,
           variables: {
             input: {
-              person: { uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01' },
-              uuid: undefined,
+              person: { uuid: MOCK_PERSON_UUID },
+              uuid: MOCK_COMPANY_UUID,
               companyType: 'Limited',
               legalName: 'AUTORAMA UK LTD',
               companyNumber: '05137709',

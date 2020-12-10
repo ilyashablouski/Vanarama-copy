@@ -21,7 +21,6 @@ import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import TopOffersContainer from './TopOffersContainer';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
 import { useVehiclesList, getRangesList, useManufacturerList } from './gql';
@@ -55,7 +54,6 @@ import {
   GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
 import { getFeaturedClassPartial } from '../../utils/layout';
-
 import useLeaseType from '../../hooks/useLeaseType';
 import { getLegacyUrl } from '../../utils/url';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -66,11 +64,8 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Head from '../../components/Head/Head';
 import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
+import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 
-const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
-  loading: () => <Skeleton count={2} />,
-  ssr: true,
-});
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
   {
@@ -110,7 +105,7 @@ const Carousel = dynamic(
 const Card = dynamic(
   () => import('@vanarama/uibook/lib/components/molecules/cards'),
   {
-    loading: () => <Skeleton count={3} />,
+    loading: () => <Skeleton count={10} />,
   },
 );
 const Tile = dynamic(
@@ -128,6 +123,10 @@ const Breadcrumb = dynamic(
     loading: () => <Skeleton count={1} />,
   },
 );
+const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
+  loading: () => <Skeleton count={2} />,
+  ssr: false,
+});
 const RangeCard = dynamic(() => import('./RangeCard'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -804,7 +803,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         </>
       )}
 
-      {featured && (
+      {!(isSpecialOfferPage && isCarSearch) && featured && (
         <div className={`row:${getFeaturedClassPartial(featured)}`}>
           {!featured?.layout?.includes('Full Width') && (
             <Image
@@ -1038,6 +1037,63 @@ const SearchPageContainer: React.FC<IProps> = ({
         </div>
       </div>
 
+      {isSpecialOfferPage && isCarSearch && featured && (
+        <section className="row:featured-right">
+          {!featured?.layout?.includes('Full Width') && (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              size="expand"
+              src={featured.image?.file?.url || ''}
+            />
+          )}
+          <div>
+            <div
+              className={readmore ? '-truncate' : ''}
+              style={{
+                height:
+                  featured?.layout?.includes('Read More') && readmore
+                    ? featured?.defaultHeight || 100
+                    : '',
+              }}
+            >
+              <Heading
+                tag={featured.titleTag || 'span'}
+                size="large"
+                color="black"
+                className="-mb-300"
+              >
+                {featured.title}
+              </Heading>
+              <ReactMarkdown
+                className="markdown"
+                source={featured.body || ''}
+                allowDangerousHtml
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return (
+                      <RouterLink
+                        link={{ href, label: children }}
+                        classNames={{ color: 'teal' }}
+                      />
+                    );
+                  },
+                }}
+              />
+            </div>
+            {featured?.layout?.includes('Read More') && (
+              <Button
+                size="small"
+                color="teal"
+                fill="clear"
+                label={readmore ? 'Read More' : 'Read Less'}
+                onClick={() => setReadMore(!readmore)}
+              />
+            )}
+          </div>
+        </section>
+      )}
+
       {pageData?.genericPage?.sections?.featured2?.body && (
         <div className="row:text">
           <Heading tag="h2" size="large" color="black" className="-mb-300">
@@ -1176,7 +1232,9 @@ const SearchPageContainer: React.FC<IProps> = ({
                           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                           key={`${card.name}_${indx.toString()}`}
                           className="card__article"
-                          imageSrc={card?.image?.file?.url || ''}
+                          imageSrc={
+                            card?.image?.file?.url || '/vehiclePlaceholder.jpg'
+                          }
                           title={{
                             title:
                               card.link?.legacyUrl || card.link?.url

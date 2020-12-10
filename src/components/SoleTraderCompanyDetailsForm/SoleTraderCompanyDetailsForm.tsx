@@ -1,12 +1,8 @@
 import React from 'react';
+import dynamic from 'next/dynamic';
 import { useForm, FormContext } from 'react-hook-form';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
-import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import AddressFormField from '../AddressFormField/AddressFormField';
 import { genMonths, genYears } from '../../utils/helpers';
@@ -22,6 +18,39 @@ import {
   ISoleTraderCompanyDetailsFormProps,
 } from './interfaces';
 import NatureTypeahead from '../CompanyDetailsForm/NatureTypehead';
+import Skeleton from '../Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const ChevronForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Formgroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 const isMonthInFuture = (month: string, year: string) => {
   const selectedMonth = parseInt(month, 10);

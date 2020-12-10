@@ -1,9 +1,6 @@
 import React, { FC } from 'react';
+import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
 import {
   GenericPageQuery_genericPage_sections as Section,
   GenericPageQuery_genericPage_sections_cards_cards as Cards,
@@ -11,6 +8,33 @@ import {
 import { getSectionsData } from '../../utils/getSectionsData';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+    ssr: false,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 interface IProps {
   sections: Section | null;

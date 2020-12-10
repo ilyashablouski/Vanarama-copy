@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic';
+import Select from '@vanarama/uibook/lib/components/atoms/select';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import { IChoice } from '@vanarama/uibook/lib/components/atoms/choiceboxes/interfaces';
 import { useMediaQuery } from 'react-responsive';
@@ -25,12 +26,6 @@ import Skeleton from '../../components/Skeleton';
 
 const Button = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/button'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Select = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/select'),
   {
     loading: () => <Skeleton count={1} />,
   },

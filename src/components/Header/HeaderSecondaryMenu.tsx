@@ -1,14 +1,38 @@
 /* eslint-disable import/no-cycle */
 import React, { FC, memo, useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import FlameSharp from '@vanarama/uibook/lib/assets/icons/FlameSharp';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
 import RouterLink from '../RouterLink/RouterLink';
-import { IHeaderLink } from './Header';
+import { IHeaderLink, IHeaderPromoImage } from './Header';
+import Skeleton from '../Skeleton';
+
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    ssr: false,
+  },
+);
+const FlameSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/FlameSharp'),
+  {
+    ssr: false,
+  },
+);
 
 export interface IHeaderSecondaryMenuProps extends IBaseProps {
   links: IHeaderLink[];
@@ -16,11 +40,19 @@ export interface IHeaderSecondaryMenuProps extends IBaseProps {
   onClickTitle: () => void;
   isMobile: boolean;
   isMenuOpen: boolean;
+  promotionalImage?: IHeaderPromoImage;
 }
 
 const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
   const router = useRouter();
-  const { links, title, onClickTitle, isMobile, isMenuOpen } = props;
+  const {
+    links,
+    title,
+    onClickTitle,
+    isMobile,
+    isMenuOpen,
+    promotionalImage,
+  } = props;
   const firstChildrenLinks = links.find(
     el => !!el.children?.length,
   ) as IHeaderLink;
@@ -172,11 +204,16 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
             )}
           </ul>
         ) : null}
-        <div className="menu-featured">
-          <div className="image -expand">
-            <Image src="/img-placeholder.png" />
+        {promotionalImage?.url && (
+          <div className="menu-featured">
+            <RouterLink link={{ href: promotionalImage?.url, label: '' }}>
+              <Image
+                src={promotionalImage?.image.url || '/img-placeholder.png'}
+                alt={promotionalImage?.image.fileName}
+              />
+            </RouterLink>
           </div>
-        </div>
+        )}
       </div>
     </div>
   );

@@ -12,4 +12,5 @@ export interface IFleetCallBackFormValues {
   email: string;
   phoneNumber: string;
   agreement?: boolean;
+  updates?: boolean;
 }

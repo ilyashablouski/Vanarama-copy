@@ -1,10 +1,7 @@
 import React, { FC, useState } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Pagination from '@vanarama/uibook/lib/components/atoms/pagination';
+import dynamic from 'next/dynamic';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import {
   ReviewsHubCategoryQuery,
   ReviewsHubCategoryQuery_genericPage_sections_cards_cards as Cards,
@@ -13,6 +10,32 @@ import { getMarkdownRenderers } from './Utils';
 import { getSectionsData } from '../../utils/getSectionsData';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Pagination = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/pagination'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 interface IProps {
   data: ReviewsHubCategoryQuery | undefined;

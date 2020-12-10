@@ -1,24 +1,55 @@
+import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import {
   IFleetCallBackFormProps,
   IFleetCallBackFormValues,
 } from './interfaces';
 import {
+  requiredField,
   fullNameValidator,
   emailValidator,
   phoneNumberValidator,
   companyNameValidator,
   fleetSizeValidator,
 } from '../../utils/inputValidators';
+import Skeleton from '../Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Modal = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/modal'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const FormGroup = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/formgroup'),
+);
 
 const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
   onSubmit,
@@ -136,14 +167,23 @@ const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
           </FormGroup>
           <FormGroup
             controlId="fleet-call-back-form_agreement"
-            label={undefined}
+            label="Agree To:"
             error={errors.agreement?.message?.toString()}
           >
             <Checkbox
               id="agreement"
               name="agreement"
               dataTestId="fleet-call-back-form_agreement"
-              label="Marketing preferences agreement"
+              label="Terms & Conditions & Privacy Policy."
+              ref={register(
+                requiredField('The terms and conditions must be accepted'),
+              )}
+            />
+            <Checkbox
+              id="updates"
+              name="updates"
+              dataTestId="fleet-call-back-form_updates"
+              label="Keep me updated on the latest deals & offers."
               ref={register}
             />
           </FormGroup>

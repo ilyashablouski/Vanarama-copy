@@ -10,13 +10,14 @@ import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import Logo from '@vanarama/uibook/lib/components/atoms/logo';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
-import HeaderMenu from './HeaderMenu';
+// import HeaderMenu from './HeaderMenu';
 import {
   GetPerson_getPerson as Person,
   GetPerson,
 } from '../../../generated/GetPerson';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 
+const HeaderMenu = dynamic(() => import('./HeaderMenu'));
 const Button = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/button'),
 );
@@ -72,10 +73,19 @@ const Call = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Call'), {
   ssr: false,
 });
 
+export interface IHeaderPromoImage {
+  legacyUrl?: string;
+  url: string;
+  image: {
+    fileName: string;
+    url: string;
+  };
+}
 export interface IHeaderLink extends ILinkProps {
   id?: string;
   as?: string;
   highlight?: boolean;
+  promotionalImage?: IHeaderPromoImage;
 }
 
 export interface IHeaderProps extends IBaseProps {

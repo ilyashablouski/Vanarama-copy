@@ -34,6 +34,7 @@ import { getProductPageBreadCrumb } from '../../utils/url';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
 import { genericPagesQuery_genericPages_items as GenericPages } from '../../../generated/genericPagesQuery';
+import Skeleton from '../../components/Skeleton';
 
 const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'));
 const DownloadSharp = dynamic(() =>
@@ -42,29 +43,51 @@ const DownloadSharp = dynamic(() =>
 const Loading = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/loading'),
 );
-const Heading = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/heading'),
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
-const Text = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/text'),
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
-const Rating = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/rating'),
+const Rating = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/rating'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
-const Icon = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/icon'),
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
 );
-const MediaGallery = dynamic(() =>
-  import('@vanarama/uibook/lib/components/organisms/media-gallery'),
+const MediaGallery = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/media-gallery'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
 );
-const LeaseScanner = dynamic(() =>
-  import('@vanarama/uibook/lib/components/organisms/lease-scanner'),
+const LeaseScanner = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/lease-scanner'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
 );
 const IndependentReview = dynamic(() =>
   import('../../components/IndependentReview/IndependentReview'),
 );
-const WhyChooseLeasing = dynamic(() =>
-  import('../../components/WhyChooseLeasing/WhyChooseLeasing'),
+const WhyChooseLeasing = dynamic(
+  () => import('../../components/WhyChooseLeasing/WhyChooseLeasing'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
 );
 const Banner = dynamic(() => import('../../components/Banner/Banner'));
 const CustomerReviews = dynamic(() =>
@@ -79,8 +102,11 @@ const FrequentlyAskedQuestions = dynamic(() =>
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
-const Breadcrumb = dynamic(() =>
-  import('../../components/Breadcrumb/Breadcrumb'),
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
 const Head = dynamic(() => import('../../components/Head/Head'));
 
@@ -259,7 +285,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     undefined;
 
   const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
-  const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capRangeDescription}`;
+  const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capModelDescription}`;
 
   // eslint-disable-next-line no-console
   if (process.env.ENV !== 'production') console.log('CAP Id:', capId);
@@ -394,7 +420,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           vehicleDetails={vehicleDetails}
           derivativeInfo={derivativeInfo}
         />
-        <Banner />
+        {(vans || cars) && <Banner vans={vans} />}
         {(vans || pickups) && !!independentReview && (
           <IndependentReview review={independentReview || ''} />
         )}

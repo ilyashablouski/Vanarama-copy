@@ -1,20 +1,52 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Media from '@vanarama/uibook/lib/components/atoms/media';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQuery_genericPage_metaData } from '../../../generated/GenericPageHeadQuery';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
 import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
-import { getBody } from '../../utils/articles';
 import { setSource } from '../../utils/url';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
+const Media = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/media'),
+  {
+    ssr: false,
+  },
+);
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   body: string | null | undefined;
@@ -142,7 +174,7 @@ const BlogPostContainer: NextPage<IProps> = ({
                     </RouterLink>
                   ),
                 }}
-                description={getBody(el?.body || '')}
+                description={el?.excerpt || ''}
               >
                 <RouterLink
                   classNames={{ color: 'teal', size: 'regular' }}

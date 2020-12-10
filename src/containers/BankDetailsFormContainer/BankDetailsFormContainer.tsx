@@ -1,9 +1,11 @@
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
-import BankDetails from '../../components/BankDetails';
+import dynamic from 'next/dynamic';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useBankDetails, useUpdateBankDetails } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
+
+const BankDetails = dynamic(() => import('../../components/BankDetails'));
 
 const BankDetailsFormContainer: React.FC<IProps> = ({
   personUuid,

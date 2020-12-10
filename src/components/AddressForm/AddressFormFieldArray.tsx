@@ -1,5 +1,4 @@
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
 import { FieldArrayRenderProps } from 'formik';
 import React from 'react';
@@ -12,6 +11,20 @@ import FormikSelectField from '../FormikSelectField/FormikSelectField';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import RemainingMonthsMessage from '../RemainingMonthsMessage/RemainingMonthsMessage';
 import { EMPTY_ADDRESS_ENTRY, IAddressFormValues } from './interfaces';
+import Skeleton from '../Skeleton';
+
+const Tile = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tile'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   arrayHelpers: FieldArrayRenderProps;

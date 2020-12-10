@@ -1,8 +1,4 @@
-import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
+import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
 import { FieldArray, Formik } from 'formik';
 import React, { useContext } from 'react';
@@ -15,6 +11,39 @@ import {
 } from './interfaces';
 import { responseToInitialFormValues } from './mappers';
 import validationSchema from './validationSchema';
+import Skeleton from '../Skeleton';
+
+const ChevronForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const EmploymentForm: FCWithFragments<IEmploymentFormProps> = ({
   dropDownData,

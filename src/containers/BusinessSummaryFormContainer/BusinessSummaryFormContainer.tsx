@@ -1,8 +1,7 @@
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React, { useEffect } from 'react';
+import dynamic from 'next/dynamic';
+import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useLazyQuery, ApolloError } from '@apollo/client';
-import BusinessSummaryForm from '../../components/BusinessSummaryForm/BusinessSummaryForm';
-import SoleTraderSummaryForm from '../../components/BusinessSummaryForm/SoleTraderSummaryForm';
 import {
   GetCompanySummaryQuery,
   GetCompanySummaryQueryVariables,
@@ -18,6 +17,13 @@ import { mapCreditApplicationToCreditChecker } from './mappers';
 import { useGetPartyByUuidQuery } from '../../components/SummaryForm/gql';
 import { GetPartyByUuid_partyByUuid as Party } from '../../../generated/GetPartyByUuid';
 import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
+
+const BusinessSummaryForm = dynamic(() =>
+  import('../../components/BusinessSummaryForm/BusinessSummaryForm'),
+);
+const SoleTraderSummaryForm = dynamic(() =>
+  import('../../components/BusinessSummaryForm/SoleTraderSummaryForm'),
+);
 
 interface IProps {
   personUuid: string;

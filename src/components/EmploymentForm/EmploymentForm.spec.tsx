@@ -1,3 +1,4 @@
+import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
@@ -29,6 +30,9 @@ const mockDropDownData: EmploymentFormDropDownData = {
 };
 
 describe('<EmploymentForm />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should call `onSubmit` when entering valid information for a position that does not require additional information', async () => {
     // ARRANGE
     const onSubmit = jest.fn();
