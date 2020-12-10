@@ -22,6 +22,8 @@ const DataLayer: FC = () => {
     });
   }, []); */
 
+  /* const data = JSON.stringify(preparedData); */
+
   const code = `
   function getCookie(name) {
     var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
