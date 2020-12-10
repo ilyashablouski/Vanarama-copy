@@ -8,12 +8,10 @@ import { getUrlParam } from '../../utils/url';
 import { SummaryFormSoleTrader } from '../../../generated/SummaryFormSoleTrader';
 import BusinessSummaryFormVATDetailsSection from './BusinessSummaryFormVATDetailsSection';
 import { AboutFormPerson } from '../../../generated/AboutFormPerson';
-import BusinessSummaryFormAboutSection from './BusinessSummaryFormAboutSection';
 import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
 import { mapDefaultValues } from '../../containers/CompanyBankDetailsFormContainer/mappers';
 import SoleTraderDetailsForm from '../SoleTraderDetailsForm';
 import SoleTraderCompanyDetailsSummarySection from './SoleTraderCompanyDetailsSummarySection';
-import SoleTraderDetailsSummarySection from './SoleTraderDetailsSummarySection';
 import Skeleton from '../Skeleton';
 
 const Button = dynamic(
@@ -32,6 +30,18 @@ const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
   {
     loading: () => <Skeleton count={1} />,
+  },
+);
+const SoleTraderDetailsSummarySection = dynamic(
+  () => import('./SoleTraderDetailsSummarySection'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const BusinessSummaryFormAboutSection = dynamic(
+  () => import('./BusinessSummaryFormAboutSection'),
+  {
+    loading: () => <Skeleton count={3} />,
   },
 );
 
