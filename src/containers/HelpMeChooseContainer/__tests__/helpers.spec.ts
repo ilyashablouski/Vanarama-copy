@@ -72,6 +72,8 @@ describe('<helpers />', () => {
         terms: { active: false, value: [] },
         mileages: { active: false, value: [] },
         availability: { active: false, value: [] },
+        rental: { active: false, value: '' as any },
+        initialPeriods: { active: false, value: '' as any },
       });
       expect(router.replace).toBeCalledWith(
         {

@@ -4,6 +4,7 @@ import HelpMeChooseContainer from '../HelpMeChooseContainer';
 import { buildAnObjectFromAQuery, onReplace } from '../helpers';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { getSectionsData } from '../../../utils/getSectionsData';
 
 const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
   const {
@@ -38,7 +39,9 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
   useEffect(() => {
     if (window?.location.search.length) {
       const searchParams = new URLSearchParams(window.location.search);
-      const isAvailabilityActive = searchParams.has('availability');
+      const isAvailabilityActive =
+        searchParams.has('availability') &&
+        !(searchParams.has('initialPeriods') || searchParams.has('rental'));
       const availabilityQuery = searchParams.getAll('availability');
       const availabilityQueryValue = availabilityQuery.length
         ? availabilityQuery[0].split(',')
@@ -63,6 +66,11 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const vehiclesResultNumber = getSectionsData(
+    ['productsFilterList', 'manufacturers', 'docCount'],
+    productsFilterListData?.data,
+  );
+
   return (
     <HelpMeChooseContainer
       title="How quickly do you need the vehicle?"
@@ -83,6 +91,14 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
         setSteps({
           ...steps,
           availability: { active: false, value: availabilityValue as any },
+          rental: {
+            active: true,
+            value: steps.rental.value as any,
+          },
+          initialPeriods: {
+            active: true,
+            value: steps.initialPeriods.value as any,
+          },
         });
         onReplace(router, {
           ...steps,
@@ -92,9 +108,7 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
       currentValue={availabilityValue}
       clearMultiSelectTitle="I Don't Mind"
       submitBtnText={`View Results ${
-        availabilityValue.length
-          ? `(${productsFilterListData.data.productsFilterList.manufacturers.docCount})`
-          : ''
+        availabilityValue.length ? `(${vehiclesResultNumber || 0})` : ''
       }`}
     />
   );
