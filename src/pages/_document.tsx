@@ -43,6 +43,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <Head>
           {/* <RollbarScript /> */}
+          <GTMDataLayerScript />
           {gtmEnvs.includes(env) && <GTMDataLayerScript />}
           {gtmEnvs.includes(env) && <GTMScript />}
           {vwoEnvs.includes(env) && <VWOScript />}
