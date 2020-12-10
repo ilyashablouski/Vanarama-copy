@@ -5,8 +5,6 @@ import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { useVehiclesList, useBodyStyleList } from './gql';
-import VehicleCard from './VehicleCard';
-import ModelCard from './ModelCard';
 import {
   vehicleList_vehicleList_edges as IVehicles,
   vehicleList as IVehiclesData,
@@ -39,6 +37,12 @@ const Carousel = dynamic(
     loading: () => <Skeleton count={5} />,
   },
 );
+const VehicleCard = dynamic(() => import('./VehicleCard'), {
+  loading: () => <Skeleton count={5} />,
+});
+const ModelCard = dynamic(() => import('./ModelCard'), {
+  loading: () => <Skeleton count={5} />,
+});
 
 interface IProps {
   isPersonal: boolean;

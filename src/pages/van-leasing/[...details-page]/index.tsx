@@ -36,7 +36,7 @@ import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
 } from '../../../../generated/GenericPageHeadQuery';
-import { GET_RANGES_URLS } from '../../../containers/SearchPageContainer/gql';
+import { GET_LEGACY_URLS } from '../../../containers/SearchPageContainer/gql';
 import { genericPagesQuery_genericPages_items as GenericPages } from '../../../../generated/genericPagesQuery';
 
 interface IProps {
@@ -268,7 +268,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
     const genericPages = await client
       .query({
-        query: GET_RANGES_URLS,
+        query: GET_LEGACY_URLS,
         variables: {
           slugs: breadcrumbSlugs,
         },
