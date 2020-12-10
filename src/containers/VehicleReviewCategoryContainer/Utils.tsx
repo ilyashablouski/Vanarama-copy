@@ -1,6 +1,14 @@
-import Text from '@vanarama/uibook/lib/components/atoms/text';
+import dynamic from 'next/dynamic';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { ReviewsHubCategoryQuery } from '../../../generated/ReviewsHubCategoryQuery';
+import Skeleton from '../../components/Skeleton';
+
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 export function getMarkdownRenderers():
   | { [nodeType: string]: React.ElementType<any> }
