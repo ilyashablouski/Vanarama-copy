@@ -12,7 +12,7 @@ import { PrimaryHeader_primaryHeader_linkGroups_linkGroups as LinkGroups } from 
 import { IHeaderLink } from '../../components/Header/Header';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { GetPrimaryHeaderData as HeaderData } from '../../../generated/GetPrimaryHeaderData';
-import HEADER_DATA from '../../../deps/data/menuData.json';
+import HEADER_DATA from '../../deps/data/menuData.json';
 
 export const LOGOUT_USER_MUTATION = gql`
   mutation LogOutUserMutation {
