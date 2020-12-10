@@ -166,6 +166,7 @@ describe('<SearchPodContainer />', () => {
     // ASSERT
     await waitFor(() => expect(mockCalled).toBeTruthy());
   });
+
   it('should select make by model for vans', async () => {
     // ACT
     render(
@@ -285,6 +286,7 @@ describe('<SearchPodContainer />', () => {
       });
     });
   });
+
   it('should have unique search url for cars', async () => {
     // Override the router mock for this test
     const pushMock = jest.fn();
@@ -295,6 +297,7 @@ describe('<SearchPodContainer />', () => {
         redirect: null,
       },
     });
+
     // ACT
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
