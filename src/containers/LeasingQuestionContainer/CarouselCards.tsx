@@ -1,6 +1,6 @@
 import React, { useState, FC } from 'react';
 import dynamic from 'next/dynamic';
-import DOMPurify from 'dompurify';
+import DOMPurify from 'isomorphic-dompurify';
 import { GenericPageQuestionQuery_genericPage_sections_cards_cards as ICaruselCard } from '../../../generated/GenericPageQuestionQuery';
 import Skeleton from '../../components/Skeleton';
 

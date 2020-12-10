@@ -7,6 +7,7 @@ import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import CompanyDetailsFormContainer from '../../../../containers/CompanyDetailsFormContainer';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
+import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 
 const handleSubmitError = () =>
   toast.error(
@@ -23,13 +24,14 @@ type QueryParams = OLAFQueryParams & {
 export const CompanyDetailsPage: NextPage = () => {
   const router = useRouter();
   const orderId = useGetOrderId();
-  const { personUuid, companyUuid } = router.query as QueryParams;
+  const personUuid = useGetPersonUuid();
+  const { companyUuid } = router.query as QueryParams;
 
   const isEdited = router.query.redirect === 'summary';
   const handleSubmitCompletion = (companyGuid: string) => {
     const url = isEdited
       ? '/b2b/olaf/summary/[companyUuid]'
-      : `/b2b/olaf/vat-details/[companyUuid]?personUuid=${personUuid}`;
+      : `/b2b/olaf/vat-details/[companyUuid]`;
     router.push(url, url.replace('[companyUuid]', companyGuid));
   };
 
