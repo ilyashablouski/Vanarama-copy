@@ -1,15 +1,9 @@
+import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Accordion from '@vanarama/uibook/lib/components/molecules/accordion/Accordion';
-import TrustPilot from '@vanarama/uibook/lib/components/molecules/trustpilot';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
-import Lease from '../../components/EligibilityChecker/Landing/Lease';
-import WhyEligibilityChecker from '../../components/EligibilityChecker/Landing/WhyEligibilityChecker';
-import CustomerThink from '../../components/EligibilityChecker/Landing/CustomerThing';
-import CustomerReviews from '../../components/CustomerReviews/CustomerReviews';
 import {
   EligibilityCheckerPageData,
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets_questionAnswers as QuestionAnswers,
@@ -18,10 +12,66 @@ import {
 } from '../../../generated/EligibilityCheckerPageData';
 import withApollo from '../../hocs/withApollo';
 import { ELIGIBILITY_CHECKER_CONTENT } from '../../gql/eligibility-checker/eligibilityChecker';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../utils/getSectionsData';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
+import Skeleton from '../../components/Skeleton';
+
+const ErrorMessage = dynamic(
+  () => import('../../components/ErrorMessage/ErrorMessage'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Accordion = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/accordion/Accordion'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const TrustPilot = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/trustpilot'),
+  {
+    loading: () => <Skeleton count={4} />,
+    ssr: false,
+  },
+);
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Lease = dynamic(
+  () => import('../../components/EligibilityChecker/Landing/Lease'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const WhyEligibilityChecker = dynamic(
+  () =>
+    import('../../components/EligibilityChecker/Landing/WhyEligibilityChecker'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const CustomerThink = dynamic(
+  () => import('../../components/EligibilityChecker/Landing/CustomerThing'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const CustomerReviews = dynamic(
+  () => import('../../components/CustomerReviews/CustomerReviews'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 const EligibilityChecker: NextPage = () => {
   const { data, loading, error } = useQuery<EligibilityCheckerPageData>(

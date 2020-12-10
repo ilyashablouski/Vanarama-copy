@@ -1,5 +1,6 @@
 import renderer from 'react-test-renderer';
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { render } from '@testing-library/react';
 import { TOP_BAR_LINKS } from '../../../models/enum/HeaderLinks';
 import HeaderSecondaryMenu from '../HeaderSecondaryMenu';
@@ -28,6 +29,9 @@ jest.mock('next/router', () => ({
 }));
 
 describe('<HeaderSecondaryMenu />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   beforeEach(() => {
     jest.clearAllMocks();
     render(<HeaderSecondaryMenu {...mocks} />);

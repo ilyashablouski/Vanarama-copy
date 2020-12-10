@@ -1,3 +1,4 @@
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
@@ -8,6 +9,9 @@ import {
 } from '../fixtures';
 
 describe('<EmploymentFormContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should post data to the server correctly', async () => {
     // ARRANGE
     let mutationCalled = false;

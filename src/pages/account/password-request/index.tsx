@@ -1,8 +1,5 @@
 import { gql, useMutation } from '@apollo/client';
-import CheckmarkSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkSharp';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
+import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
@@ -13,9 +10,38 @@ import {
 import RequestPasswordForm from '../../../components/RequestPasswordForm';
 import { IRequestPasswordFormValues } from '../../../components/RequestPasswordForm/interfaces';
 import { useEmailCheck } from '../../../containers/RegisterFormContainer/gql';
-import Message from '../../../core/components/Message';
 import withApollo from '../../../hocs/withApollo';
 import Head from '../../../components/Head/Head';
+import Skeleton from '../../../components/Skeleton';
+
+const Message = dynamic(() => import('../../../core/components/Message'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const CheckmarkSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/CheckmarkSharp'),
+  {
+    ssr: false,
+  },
+);
 
 interface IProps {
   query: ParsedUrlQuery;

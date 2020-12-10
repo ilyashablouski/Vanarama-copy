@@ -1,8 +1,26 @@
+import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Link from '@vanarama/uibook/lib/components/atoms/link';
 import DOMPurify from 'isomorphic-dompurify';
+import Skeleton from '../Skeleton';
+
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Link = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/link'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IIndependentReviewProps {
   review: any;

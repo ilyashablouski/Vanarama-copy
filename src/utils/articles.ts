@@ -6,7 +6,7 @@ import { BlogPosts_blogPosts_articles } from '../../generated/BlogPosts';
 
 export const getArticles = (
   articles: (BlogPosts_blogPosts_articles | null)[] | null | undefined,
-  router: NextRouter,
+  path: string,
 ) => {
   const articlesSorted = articles
     ? [...articles]?.sort((firstArticle, secondArticle) =>
@@ -18,7 +18,7 @@ export const getArticles = (
 
   let firstArticles = articlesSorted?.slice(0, 3);
   const isCurrentBlog = firstArticles?.find(
-    article => article?.slug === router.asPath.slice(1),
+    article => article?.slug === path?.slice(1),
   );
 
   if (isCurrentBlog) {

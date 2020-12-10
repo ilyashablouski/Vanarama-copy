@@ -1,13 +1,8 @@
+import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import {
   IFleetCallBackFormProps,
   IFleetCallBackFormValues,
@@ -20,6 +15,41 @@ import {
   companyNameValidator,
   fleetSizeValidator,
 } from '../../utils/inputValidators';
+import Skeleton from '../Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Modal = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/modal'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const FormGroup = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/formgroup'),
+);
 
 const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
   onSubmit,
