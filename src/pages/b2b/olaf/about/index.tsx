@@ -1,13 +1,11 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
@@ -29,6 +27,26 @@ import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
 import { MyOrdersTypeEnum } from '../../../../../generated/globalTypes';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
+import Skeleton from '../../../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const handleCreateUpdateBusinessPersonError = () =>
   toast.error(
