@@ -1,9 +1,6 @@
+import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
 import { gql } from '@apollo/client';
-import Button from '@vanarama/uibook/lib/components/atoms/button/';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import CameraSharp from '@vanarama/uibook/lib/assets/icons/CameraSharp';
-import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React, { useState } from 'react';
 import validationSchema from './YourEligibilityChecker.validation';
@@ -14,11 +11,60 @@ import {
 } from './interface';
 import FCWithFragments from '../../../utils/FCWithFragments';
 import { responseBlinkIdToInitialFormValues } from './mappers';
-import EligibilityCheckerForm from './EligibilityCheckerForm';
-import NotificationCamera from './EligibilityCheckerModals/NotificationCamera';
-import PhotoPreview from './EligibilityCheckerModals/PhotoPreview';
-import Camera from './EligibilityCheckerModals/Camera';
-import AccessCamera from './EligibilityCheckerModals/AccessCamera';
+import Skeleton from '../../Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const CameraSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/CameraSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Modal = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/modal'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const EligibilityCheckerForm = dynamic(
+  () => import('./EligibilityCheckerForm'),
+  {
+    loading: () => <Skeleton count={15} />,
+  },
+);
+const NotificationCamera = dynamic(
+  () => import('./EligibilityCheckerModals/NotificationCamera'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const PhotoPreview = dynamic(
+  () => import('./EligibilityCheckerModals/PhotoPreview'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Camera = dynamic(() => import('./EligibilityCheckerModals/Camera'), {
+  loading: () => <Skeleton count={1} />,
+});
+const AccessCamera = dynamic(
+  () => import('./EligibilityCheckerModals/AccessCamera'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
   const [isModalShowing, setIsModalShowing] = useState(false);
