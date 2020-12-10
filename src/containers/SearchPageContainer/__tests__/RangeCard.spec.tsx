@@ -36,6 +36,12 @@ describe('<RangeCard />', () => {
           legacyUrl: '/bmw-car-leasing/2-series.html',
         },
       ],
+      makesUrls: [
+        {
+          slug: 'car-leasing/bmw',
+          legacyUrl: '/bmw-car-leasing.html',
+        },
+      ],
     };
   };
 
@@ -107,6 +113,8 @@ describe('<RangeCard />', () => {
     expect(tree).toMatchSnapshot();
   });
   it('should be render correctly with all makes page', async () => {
+    mocks.isAllMakesCard = true;
+    mocks.title = 'bmw';
     // ACT
     const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
