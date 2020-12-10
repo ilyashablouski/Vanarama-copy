@@ -40,6 +40,12 @@ export const GET_PARTY_BY_UUID = gql`
         legalName
         companyType
       }
+      person {
+        companies {
+          uuid
+          partyId
+        }
+      }
     }
   }
 `;

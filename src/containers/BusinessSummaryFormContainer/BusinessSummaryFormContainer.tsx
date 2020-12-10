@@ -16,7 +16,7 @@ import {
 import { mapCreditApplicationToCreditChecker } from './mappers';
 import { GET_PARTY_BY_UUID } from '../../components/SummaryForm/gql';
 import { GET_ABOUT_YOU_DATA } from '../AboutFormContainer/gql';
-import { GetPartyByUuid_partyByUuid as Party } from '../../../generated/GetPartyByUuid';
+import { GetPartyByUuid_partyByUuid_person as IPerson } from '../../../generated/GetPartyByUuid';
 import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 
@@ -26,6 +26,11 @@ const BusinessSummaryForm = dynamic(() =>
 const SoleTraderSummaryForm = dynamic(() =>
   import('../../components/BusinessSummaryForm/SoleTraderSummaryForm'),
 );
+
+const getCompanyPartyIdFromPerson = (
+  companyUuid: string,
+  person?: IPerson | null,
+) => person?.companies?.find(company => company.uuid === companyUuid)?.partyId;
 
 interface IProps {
   personUuid: string;
@@ -102,14 +107,11 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
 
   const handleCreditCheckerSubmit = (
     creditApplication?: CreditApplication | null,
-    party?: Party | null,
+    partyId?: string | null,
   ) =>
     submitFullCreditChecker({
       variables: {
-        input: mapCreditApplicationToCreditChecker(
-          creditApplication,
-          party?.company?.partyId || '',
-        ),
+        input: mapCreditApplicationToCreditChecker(creditApplication, partyId),
       },
     });
 
@@ -122,7 +124,10 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
           .then(partyQuery =>
             handleCreditCheckerSubmit(
               creditApplicationQuery.data?.createUpdateCreditApplication,
-              partyQuery.data?.partyByUuid,
+              getCompanyPartyIdFromPerson(
+                companyUuid,
+                partyQuery.data?.partyByUuid?.person,
+              ),
             ),
           ),
       )

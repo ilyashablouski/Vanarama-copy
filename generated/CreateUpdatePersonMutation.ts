@@ -31,6 +31,7 @@ export interface CreateUpdatePersonMutation_createUpdatePerson_companies {
 export interface CreateUpdatePersonMutation_createUpdatePerson {
   __typename: "PersonType";
   uuid: string;
+  partyUuid: string;
   title: string | null;
   firstName: string;
   lastName: string;
