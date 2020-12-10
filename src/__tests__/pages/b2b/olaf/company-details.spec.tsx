@@ -158,7 +158,7 @@ describe('B2B Company Details page', () => {
           query: SAVE_COMPANY_DETAILS,
           variables: {
             input: {
-              person: { uuid: MOCK_PERSON_UUID },
+              person: { uuid: '' },
               uuid: MOCK_COMPANY_UUID,
               companyType: 'Limited',
               legalName: 'AUTORAMA UK LTD',
@@ -245,7 +245,7 @@ describe('B2B Company Details page', () => {
           variables: {
             input: {
               person: {
-                uuid: MOCK_PERSON_UUID,
+                uuid: '',
               },
               uuid: MOCK_COMPANY_UUID,
               companyType: 'Limited',
@@ -379,7 +379,7 @@ describe('B2B Company Details page', () => {
           query: SAVE_COMPANY_DETAILS,
           variables: {
             input: {
-              person: { uuid: MOCK_PERSON_UUID },
+              person: { uuid: '' },
               uuid: MOCK_COMPANY_UUID,
               companyType: 'Limited',
               legalName: 'AUTORAMA UK LTD',
