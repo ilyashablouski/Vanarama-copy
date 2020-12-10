@@ -6,6 +6,7 @@ export const PAGES_WITH_COMPARATOR = [
   'hub/',
   '/car-leasing',
   '/van-leasing',
+  '/leasing-offers',
 ];
 
 export const PAGES_WITHOUT_COMPARATOR = [

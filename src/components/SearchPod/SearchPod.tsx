@@ -89,7 +89,6 @@ const SearchPod = ({
         onChange={index => {
           onChangeTab(index);
         }}
-        dataTestId="searchpod"
       >
         <TabList dataTestId="tablist">
           {isHomePage &&
