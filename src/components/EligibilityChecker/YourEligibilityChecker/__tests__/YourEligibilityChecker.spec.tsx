@@ -1,11 +1,13 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import YourEligibilityChecker from '..';
 
 describe('<YourEligibilityChecker />', () => {
   const submit = jest.fn();
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await preloadAll();
     render(<YourEligibilityChecker submit={submit} />);
   });
 

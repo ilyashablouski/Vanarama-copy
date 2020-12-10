@@ -1,7 +1,15 @@
-import Text from '@vanarama/uibook/lib/components/atoms/text';
+import dynamic from 'next/dynamic';
 import React, { FC } from 'react';
 import { INotificationCamera } from './interface';
 import RouterLink from '../../../RouterLink/RouterLink';
+import Skeleton from '../../../Skeleton';
+
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const NotificationCamera: FC<INotificationCamera> = ({
   onCloseModal,

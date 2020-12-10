@@ -1,6 +1,14 @@
 import React from 'react';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
+import dynamic from 'next/dynamic';
 import RouterLink from '../RouterLink/RouterLink';
+import Skeleton from '../Skeleton';
+
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 export const WRONG_PASSWORD = 'WRONG_PASSWORD';
 

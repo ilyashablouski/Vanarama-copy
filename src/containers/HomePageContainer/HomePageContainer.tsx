@@ -21,7 +21,8 @@ import {
 } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
-import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
+import Hero from '../../components/Hero';
+// import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
 
 const Heading = dynamic(
@@ -84,6 +85,7 @@ const Tile = dynamic(
 const TrustPilot = dynamic(
   () => import('@vanarama/uibook/lib/components/molecules/trustpilot'),
   {
+    loading: () => <Skeleton count={4} />,
     ssr: false,
   },
 );
@@ -119,6 +121,28 @@ const ProductCarousel = dynamic(
 );
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
+);
+
+// Hero
+const HeroHeading = dynamic(
+  // @ts-ignore
+  () => import('../../components/Hero').then(mod => mod.HeroHeading),
+  {
+    loading: () => <Skeleton count={2} />,
+  },
+);
+const HeroTitle = dynamic(
+  // @ts-ignore
+  () => import('../../components/Hero').then(mod => mod.HeroTitle),
+  {
+    loading: () => <Skeleton count={2} />,
+  },
+);
+const SchemaJSON = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/schema-json'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
 
 export interface IHomePageContainer {
@@ -622,6 +646,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       <section className="row:trustpilot">
         <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
       </section>
+      {data && (
+        <SchemaJSON json={JSON.stringify(data?.homePage?.metaData?.schema)} />
+      )}
     </>
   );
 };

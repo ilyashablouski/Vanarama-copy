@@ -1,8 +1,12 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
 import CustomerReviews from '../CustomerReviews';
 
 describe('<CustomerReviews />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('renders correctly with empty review', () => {
     const getComponent = () => {
       return renderer

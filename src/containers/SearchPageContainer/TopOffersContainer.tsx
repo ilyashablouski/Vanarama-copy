@@ -5,8 +5,6 @@ import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { useVehiclesList, useBodyStyleList } from './gql';
-import VehicleCard from './VehicleCard';
-import ModelCard from './ModelCard';
 import {
   vehicleList_vehicleList_edges as IVehicles,
   vehicleList as IVehiclesData,
@@ -23,7 +21,7 @@ import {
 } from '../../../generated/GetProductCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
-import { budgetMapper, fuelMapper } from './helpers';
+import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from './helpers';
 import { getLegacyUrl } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
 
@@ -39,6 +37,12 @@ const Carousel = dynamic(
     loading: () => <Skeleton count={5} />,
   },
 );
+const VehicleCard = dynamic(() => import('./VehicleCard'), {
+  loading: () => <Skeleton count={5} />,
+});
+const ModelCard = dynamic(() => import('./ModelCard'), {
+  loading: () => <Skeleton count={5} />,
+});
 
 interface IProps {
   isPersonal: boolean;
@@ -243,7 +247,11 @@ const TopOffersContainer: React.FC<IProps> = ({
             ? (router.query?.dynamicParam as string).toLowerCase()
             : undefined,
           bodyStyles: isBodyPage
-            ? [router.query?.dynamicParam as string]
+            ? [
+                bodyUrlsSlugMapper[
+                  router.query?.dynamicParam as keyof typeof bodyUrlsSlugMapper
+                ],
+              ]
             : undefined,
           transmissions: isTransmissionPage
             ? [router.query?.dynamicParam as string]

@@ -1,16 +1,9 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import dynamic from 'next/dynamic';
 import { MutableRefObject, useRef } from 'react';
 import { NextPage, NextPageContext } from 'next';
 import { useQuery } from '@apollo/client';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Flame from '@vanarama/uibook/lib/assets/icons/FlameSharp';
-import Arrow from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
-import Redundancy from '@vanarama/uibook/lib/assets/icons/Redundancy';
-import Card from '@vanarama/uibook/lib/components/molecules/cards';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
-
 import createApolloClient from '../../apolloClient';
 import {
   GenericPageHeadQuery,
@@ -28,8 +21,55 @@ import {
 } from '../../gql/vehicleList';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
+import Skeleton from '../../components/Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'), {
+  ssr: false,
+});
+const ArrowForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ArrowForwardSharp'),
+  {
+    ssr: false,
+  },
+);
+const Redundancy = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/Redundancy'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 type Props = {
   genericPageCMS?: any;
@@ -144,7 +184,7 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
               fill="solid"
               color="teal"
               label="Vans"
-              icon={<Arrow />}
+              icon={<ArrowForwardSharp />}
               iconColor="white"
               iconPosition="after"
               onClick={() => {
@@ -156,7 +196,7 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
               fill="solid"
               color="teal"
               label="Trucks"
-              icon={<Arrow />}
+              icon={<ArrowForwardSharp />}
               iconColor="white"
               iconPosition="after"
               onClick={() => {
@@ -168,7 +208,7 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
               fill="solid"
               color="teal"
               label="Cars"
-              icon={<Arrow />}
+              icon={<ArrowForwardSharp />}
               iconColor="white"
               iconPosition="after"
               onClick={() => {
@@ -193,7 +233,7 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
                 href: '/redundancy-and-life-event-cover.html',
               }}
             >
-              Find Out More <Arrow />
+              Find Out More <ArrowForwardSharp />
             </RouterLink>
           </Card>
         </div>

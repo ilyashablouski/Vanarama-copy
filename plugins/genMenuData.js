@@ -43,7 +43,7 @@ const query = gql`
 `;
 // Arg access to nextConfig object
 module.exports = async () => {
-  const dir = path.resolve('deps/data');
+  const dir = path.resolve('src/deps/data');
   const client = new GraphQLClient(process.env.API_URL, query, {
     headers: { 'x-api-key': process.env.API_KEY },
   });

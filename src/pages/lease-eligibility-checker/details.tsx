@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import withApollo from '../../hocs/withApollo';
 import EligibilityCheckerContainer from '../../containers/EligibilityCheckerContainer/EligibilityCheckerContainer';
-import ErrorMessage from './error-message';
 import { useGenericPage } from '../../gql/genericPage';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
@@ -24,6 +23,9 @@ const Breadcrumb = dynamic(
     loading: () => <Skeleton count={1} />,
   },
 );
+const ErrorMessage = dynamic(() => import('./error-message'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 const EligibilityCheckerDetails: NextPage = () => {
   const [

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useContext } from 'react';
 import dynamic from 'next/dynamic';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
@@ -29,6 +28,9 @@ const ProductCard = dynamic(() =>
   import(
     '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard'
   ),
+);
+const Heading = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/heading'),
 );
 const Price = dynamic(() =>
   import('@vanarama/uibook/lib/components/atoms/price'),
@@ -69,7 +71,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
         (product, inx) =>
           product && (
             <ProductCard
-              loadImage
+              // loadImage
               alt={`${product?.manufacturerName} ${product?.rangeName} ${product?.derivativeName}`}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={`${product.capId}_${inx}` || ''}

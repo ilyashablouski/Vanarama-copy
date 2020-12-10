@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
 import Lease from '../Lease';
 
@@ -18,6 +19,9 @@ const getComponent = () => {
 };
 
 describe('<Lease />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('renders correctly', () => {
     const tree = getComponent();
     expect(tree).toMatchSnapshot();

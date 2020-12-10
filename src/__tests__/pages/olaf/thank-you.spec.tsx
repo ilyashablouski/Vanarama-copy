@@ -1,5 +1,6 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import ThankYouPage from '../../../pages/olaf/thank-you/[orderId]';
 
@@ -16,6 +17,9 @@ jest.mock('next/router', () => ({
 }));
 
 describe('<ThankYouPage />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should redirect to the home page when clicking the "View order" button', async () => {
     // ARRANGE
     const mocks: MockedResponse[] = [];

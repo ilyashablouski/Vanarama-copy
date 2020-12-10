@@ -1,15 +1,7 @@
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import List from '@vanarama/uibook/lib/components/atoms/list';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
-import Icon from '@vanarama/uibook/lib/components/atoms/icon';
-import CheckmarkCircleSharp from '@vanarama/uibook/lib/assets/icons/CheckmarkCircleSharp';
-import Tile from '@vanarama/uibook/lib/components/molecules/tile';
-import Image from '@vanarama/uibook/lib/components/atoms/image';
+import React, { useState, useEffect } from 'react';
+import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import React, { useState, useEffect } from 'react';
 import localForage from 'localforage';
 import { getDataFromTree } from '@apollo/react-ssr';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
@@ -18,6 +10,64 @@ import {
   GetPerson_getPerson as Person,
   GetPerson,
 } from '../../../../generated/GetPerson';
+import Skeleton from '../../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const CheckmarkCircleSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/CheckmarkCircleSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const List = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/list'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Tile = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tile'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 const ThankYouPage: NextPage = () => {
   const router = useRouter();

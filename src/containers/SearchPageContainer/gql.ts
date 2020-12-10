@@ -364,7 +364,7 @@ export function useAllMakePage(skip = false) {
   });
 }
 
-export const GET_RANGES_URLS = gql`
+export const GET_LEGACY_URLS = gql`
   query genericPagesQuery($slugs: [String!]!) {
     genericPages(slugs: $slugs) {
       items {

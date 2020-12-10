@@ -1,6 +1,14 @@
-import Button from '@vanarama/uibook/lib/components/atoms/button';
+import dynamic from 'next/dynamic';
 import React, { FC } from 'react';
 import { IAccessCamera } from './interface';
+import Skeleton from '../../../Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const AccessCamera: FC<IAccessCamera> = ({ onClickYes, onClickNo }) => {
   return (

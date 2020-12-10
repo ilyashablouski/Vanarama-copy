@@ -236,9 +236,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     viewBox="0 0 512 512"
                     width="1em"
                   >
-                    <title>
-                      ionicons-v5-a
-                    </title>
                     <polyline
                       points="268 112 412 256 268 400"
                       style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
@@ -296,9 +293,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     viewBox="0 0 512 512"
                     width="1em"
                   >
-                    <title>
-                      ionicons-v5-a
-                    </title>
                     <polyline
                       points="268 112 412 256 268 400"
                       style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
@@ -356,9 +350,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     viewBox="0 0 512 512"
                     width="1em"
                   >
-                    <title>
-                      ionicons-v5-a
-                    </title>
                     <polyline
                       points="268 112 412 256 268 400"
                       style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
@@ -416,9 +407,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     viewBox="0 0 512 512"
                     width="1em"
                   >
-                    <title>
-                      ionicons-v5-a
-                    </title>
                     <polyline
                       points="268 112 412 256 268 400"
                       style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
@@ -476,9 +464,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     viewBox="0 0 512 512"
                     width="1em"
                   >
-                    <title>
-                      ionicons-v5-a
-                    </title>
                     <polyline
                       points="268 112 412 256 268 400"
                       style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
@@ -536,9 +521,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     viewBox="0 0 512 512"
                     width="1em"
                   >
-                    <title>
-                      ionicons-v5-a
-                    </title>
                     <polyline
                       points="268 112 412 256 268 400"
                       style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
@@ -743,9 +725,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                   viewBox="0 0 512 512"
                   width="1em"
                 >
-                  <title>
-                    ionicons-v5-a
-                  </title>
                   <polyline
                     points="244 400 100 256 244 112"
                     style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
@@ -772,9 +751,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                   viewBox="0 0 512 512"
                   width="1em"
                 >
-                  <title>
-                    ionicons-v5-q
-                  </title>
                   <path
                     d="M256,464C141.31,464,48,370.69,48,256S141.31,48,256,48s208,93.31,208,208S370.69,464,256,464Z"
                   />
@@ -793,9 +769,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                   viewBox="0 0 512 512"
                   width="1em"
                 >
-                  <title>
-                    ionicons-v5-a
-                  </title>
                   <polyline
                     points="268 112 412 256 268 400"
                     style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"

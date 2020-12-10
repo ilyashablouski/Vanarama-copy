@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import {
@@ -10,9 +11,6 @@ import {
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import {
   pushAboutYouDataLayer,
@@ -43,6 +41,26 @@ import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { GetOlafData_orderByUuid } from '../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../generated/GetDerivative';
+import Skeleton from '../../../components/Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 export const GET_PERSON_QUERY = gql`
   query GetPerson {

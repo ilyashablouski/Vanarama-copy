@@ -62,7 +62,7 @@ import { filterList_filterList as IFilterList } from '../../../generated/filterL
 import { manufacturerList } from '../../../generated/manufacturerList';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Head from '../../components/Head/Head';
-import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../generated/genericPagesQuery';
+import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 
@@ -128,10 +128,10 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   ssr: false,
 });
 const RangeCard = dynamic(() => import('./RangeCard'), {
-  loading: () => <Skeleton count={1} />,
+  loading: () => <Skeleton count={3} />,
 });
 const VehicleCard = dynamic(() => import('./VehicleCard'), {
-  loading: () => <Skeleton count={1} />,
+  loading: () => <Skeleton count={3} />,
 });
 
 interface IProps {
@@ -156,7 +156,8 @@ interface IProps {
   preLoadProductCardsData?: GetProductCard;
   preLoadResponseCapIds?: string[];
   preLoadRanges?: rangeList;
-  rangesUrls?: IRangeUrls[];
+  rangesUrls?: ILegacyUrls[];
+  makesUrls?: ILegacyUrls[];
   preLoadManufacturers?: manufacturerList | null;
 }
 
@@ -183,6 +184,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadResponseCapIds,
   preLoadRanges,
   rangesUrls,
+  makesUrls,
   preLoadManufacturers,
 }: IProps) => {
   const router = useRouter();
@@ -803,7 +805,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         </>
       )}
 
-      {featured && (
+      {!(isSpecialOfferPage && isCarSearch) && featured && (
         <div className={`row:${getFeaturedClassPartial(featured)}`}>
           {!featured?.layout?.includes('Full Width') && (
             <Image
@@ -975,6 +977,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                       <RangeCard
                         title={makeData.manufacturerName || ''}
                         fromPrice={makeData.minPrice || undefined}
+                        makesUrls={makesUrls}
                         key={makeData.manufacturerId || index}
                         isPersonalPrice={isPersonal}
                         id={makeData?.capId?.toString() || ''}
@@ -1036,6 +1039,63 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
         </div>
       </div>
+
+      {isSpecialOfferPage && isCarSearch && featured && (
+        <section className="row:featured-right">
+          {!featured?.layout?.includes('Full Width') && (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              size="expand"
+              src={featured.image?.file?.url || ''}
+            />
+          )}
+          <div>
+            <div
+              className={readmore ? '-truncate' : ''}
+              style={{
+                height:
+                  featured?.layout?.includes('Read More') && readmore
+                    ? featured?.defaultHeight || 100
+                    : '',
+              }}
+            >
+              <Heading
+                tag={featured.titleTag || 'span'}
+                size="large"
+                color="black"
+                className="-mb-300"
+              >
+                {featured.title}
+              </Heading>
+              <ReactMarkdown
+                className="markdown"
+                source={featured.body || ''}
+                allowDangerousHtml
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return (
+                      <RouterLink
+                        link={{ href, label: children }}
+                        classNames={{ color: 'teal' }}
+                      />
+                    );
+                  },
+                }}
+              />
+            </div>
+            {featured?.layout?.includes('Read More') && (
+              <Button
+                size="small"
+                color="teal"
+                fill="clear"
+                label={readmore ? 'Read More' : 'Read Less'}
+                onClick={() => setReadMore(!readmore)}
+              />
+            )}
+          </div>
+        </section>
+      )}
 
       {pageData?.genericPage?.sections?.featured2?.body && (
         <div className="row:text">

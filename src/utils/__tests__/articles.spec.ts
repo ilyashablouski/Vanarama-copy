@@ -4,7 +4,7 @@ import { getArticles, getBody, getArticlesSlug } from '../articles';
 describe('articles', () => {
   describe('getArticles', () => {
     it('getArticles should return empty array when we have empty articles', () => {
-      const actual = getArticles([], { asPath: '' } as NextRouter);
+      const actual = getArticles([], '');
 
       expect(actual).toEqual([]);
     });
@@ -37,7 +37,7 @@ describe('articles', () => {
             legacyUrl: null,
           },
         ],
-        { asPath: '/asPath' } as NextRouter,
+        '/asPath',
       );
 
       expect(actual).toEqual([
