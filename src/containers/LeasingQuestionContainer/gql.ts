@@ -1,8 +1,4 @@
-import { gql, useQuery } from '@apollo/client';
-import {
-  GenericPageQuestionQuery,
-  GenericPageQuestionQueryVariables,
-} from '../../../generated/GenericPageQuestionQuery';
+import { gql } from '@apollo/client';
 
 export const GENERIC_PAGE_QUESTION = gql`
   query GenericPageQuestionQuery($slug: String!) {
@@ -280,13 +276,4 @@ export const GENERIC_PAGE_QUESTION = gql`
   }
 `;
 
-export function useGenericPageQuestion(slug: string) {
-  return useQuery<GenericPageQuestionQuery, GenericPageQuestionQueryVariables>(
-    GENERIC_PAGE_QUESTION,
-    {
-      variables: {
-        slug,
-      },
-    },
-  );
-}
+export default GENERIC_PAGE_QUESTION;
