@@ -25,7 +25,7 @@ const DataLayer: FC = () => {
   /* const data = JSON.stringify(preparedData); */
 
   const code = `
-  (function() {
+  (function(window, document, section) {
     function getCookie(name) {
         var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
         return v ? v[2] : null;
@@ -33,10 +33,10 @@ const DataLayer: FC = () => {
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
         BCUID: getCookie('BCSessionID'),
-        siteSection: ${preparedData.siteSection},
+        siteSection: section,
         deviceType: window.navigator.userAgent,
     });
-  })(window, document);
+  })(window, document, '${preparedData.siteSection}');
   `;
 
   return process.env.GTM_ID ? (
