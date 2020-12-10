@@ -141,10 +141,15 @@ export const BusinessAboutPage: NextPage = () => {
   };
 
   useEffect(() => {
-    localForage.getItem('person').then(value => {
-      if ((value as GetPerson)?.getPerson && !personUuid) {
-        setPersonUuid((value as GetPerson)?.getPerson?.uuid);
+    Promise.all([
+      localForage.getItem<GetPerson>('person'),
+      localForage.getItem<string>('personUuid'),
+    ]).then(([person, savedPersonUuid]) => {
+      if (person?.getPerson && !personUuid) {
+        setPersonUuid((person as GetPerson)?.getPerson?.uuid);
         setPersonLoggedIn(true);
+      } else if (savedPersonUuid && !personUuid) {
+        setPersonUuid(savedPersonUuid);
       } else {
         setPersonLoggedIn(false);
       }

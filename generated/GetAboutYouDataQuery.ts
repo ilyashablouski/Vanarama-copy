@@ -29,6 +29,7 @@ export interface GetAboutYouDataQuery_personByUuid_companies {
 export interface GetAboutYouDataQuery_personByUuid {
   __typename: "PersonType";
   uuid: string;
+  partyUuid: string;
   title: string | null;
   firstName: string;
   lastName: string;

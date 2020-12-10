@@ -1,4 +1,4 @@
-import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
+import dynamic from 'next/dynamic';
 import React from 'react';
 import { gql } from '@apollo/client';
 import moment from 'moment';
@@ -9,6 +9,14 @@ import { addressToDisplay } from '../../utils/address';
 import { sortAddresses } from './helpers';
 import { DirectorFormValues } from '../DirectorDetailsForm/interfaces';
 import { formatDate } from '../../utils/dates';
+import Skeleton from '../Skeleton';
+
+const StructuredList = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/structured-list'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 interface IBusinessSummaryFormDirectorDetailsSectionProps {
   director: DirectorFormValues & { addresses?: Address[] };

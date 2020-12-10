@@ -14,29 +14,33 @@ Array [
       Which Fuel Type Do You Prefer?
     </h1>
     <div
-      className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -teal"
+      className="stepped-form--filter"
     >
-      <button
-        className="choicebox"
-        onClick={[Function]}
-        type="button"
+      <div
+        className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -teal"
       >
-        Diesel
-      </button>
-      <button
-        className="choicebox"
-        onClick={[Function]}
-        type="button"
-      >
-        Petrol
-      </button>
-      <button
-        className="choicebox"
-        onClick={[Function]}
-        type="button"
-      >
-        I Don't Mind
-      </button>
+        <button
+          className="choicebox"
+          onClick={[Function]}
+          type="button"
+        >
+          Diesel
+        </button>
+        <button
+          className="choicebox"
+          onClick={[Function]}
+          type="button"
+        >
+          Petrol
+        </button>
+        <button
+          className="choicebox"
+          onClick={[Function]}
+          type="button"
+        >
+          I Don't Mind
+        </button>
+      </div>
     </div>
     <button
       className="button -primary -large -solid -disabled"
@@ -91,29 +95,33 @@ Array [
       Which Fuel Type Do You Prefer?
     </h1>
     <div
-      className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -teal"
+      className="stepped-form--filter"
     >
-      <button
-        className="choicebox"
-        onClick={[Function]}
-        type="button"
+      <div
+        className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -teal"
       >
-        Diesel
-      </button>
-      <button
-        className="choicebox -active"
-        onClick={[Function]}
-        type="button"
-      >
-        Petrol
-      </button>
-      <button
-        className="choicebox"
-        onClick={[Function]}
-        type="button"
-      >
-        I Don't Mind
-      </button>
+        <button
+          className="choicebox"
+          onClick={[Function]}
+          type="button"
+        >
+          Diesel
+        </button>
+        <button
+          className="choicebox -active"
+          onClick={[Function]}
+          type="button"
+        >
+          Petrol
+        </button>
+        <button
+          className="choicebox"
+          onClick={[Function]}
+          type="button"
+        >
+          I Don't Mind
+        </button>
+      </div>
     </div>
     <button
       className="button -primary -large -solid"
