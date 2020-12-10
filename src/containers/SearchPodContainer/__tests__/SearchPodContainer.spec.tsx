@@ -154,6 +154,7 @@ describe('<SearchPodContainer />', () => {
     jest.clearAllMocks();
     mockCalled = false;
   });
+
   it('should make a server request for get data for dropdowns', async () => {
     // ACT
     render(
@@ -165,6 +166,7 @@ describe('<SearchPodContainer />', () => {
     // ASSERT
     await waitFor(() => expect(mockCalled).toBeTruthy());
   });
+
   it('should select make by model for vans', async () => {
     // ACT
     render(
@@ -178,12 +180,11 @@ describe('<SearchPodContainer />', () => {
       expect(mockCalled).toBeTruthy();
     });
     fireEvent.click(screen.getByTestId('modelVans'));
-
     fireEvent.click(screen.getByText('Duster'));
     expect(screen.getByText('Dacia')).toBeInTheDocument();
   });
 
-  it.skip('should be render search pod for only for pickups', async () => {
+  it.skip('should render search pod only for pickups', async () => {
     // ACT
     const pushMock = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({
@@ -207,7 +208,7 @@ describe('<SearchPodContainer />', () => {
     expect(screen.getByText('Search Pickup Leasing')).toBeInTheDocument();
   });
 
-  it('should be render search pod for only for vans', async () => {
+  it('should render search pod only for vans', async () => {
     // ACT
     const pushMock = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({
@@ -230,7 +231,8 @@ describe('<SearchPodContainer />', () => {
     });
     expect(screen.getByText('Search Van Leasing')).toBeInTheDocument();
   });
-  it('should be render search pod for only for cars', async () => {
+
+  it('should render search pod only for cars', async () => {
     // ACT
     const pushMock = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({
@@ -254,7 +256,7 @@ describe('<SearchPodContainer />', () => {
     });
   });
 
-  it('should be have uniq search url for vans', async () => {
+  it('should have unique search url for vans', async () => {
     // Override the router mock for this test
     const pushMock = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({
@@ -271,6 +273,9 @@ describe('<SearchPodContainer />', () => {
         <SearchPodContainer />
       </MockedProvider>,
     );
+
+    // ASSERT
+    await waitFor(() => expect(mockCalled).toBeTruthy());
 
     fireEvent.click(screen.getByTestId('VanssearchBtn'));
 
@@ -283,7 +288,8 @@ describe('<SearchPodContainer />', () => {
       });
     });
   });
-  it('should be have uniq search url for cars', async () => {
+
+  it('should have unique search url for cars', async () => {
     // Override the router mock for this test
     const pushMock = jest.fn();
     (useRouter as jest.Mock).mockReturnValue({
@@ -293,12 +299,16 @@ describe('<SearchPodContainer />', () => {
         redirect: null,
       },
     });
+
     // ACT
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
         <SearchPodContainer />
       </MockedProvider>,
     );
+
+    // ASSERT
+    await waitFor(() => expect(mockCalled).toBeTruthy());
 
     fireEvent.click(screen.getByTestId('CarssearchBtn'));
 

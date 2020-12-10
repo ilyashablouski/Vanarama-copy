@@ -1,9 +1,23 @@
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import CameraSharp from '@vanarama/uibook/lib/assets/icons/CameraSharp';
+import dynamic from 'next/dynamic';
 import React, { FC } from 'react';
 import Webcam from 'react-webcam';
 import { ICamera } from './interface';
 import { useMobileViewport } from '../../../../hooks/useMediaQuery';
+import Skeleton from '../../../Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const CameraSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/CameraSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
 
 const Camera: FC<ICamera> = ({
   webcamRef,

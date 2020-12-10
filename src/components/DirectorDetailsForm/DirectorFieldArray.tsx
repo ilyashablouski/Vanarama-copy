@@ -1,11 +1,24 @@
+import dynamic from 'next/dynamic';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import { FieldArray, FieldArrayRenderProps, useFormikContext } from 'formik';
 import React from 'react';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { DirectorFieldsDropDownData } from '../../../generated/DirectorFieldsDropDownData';
 import DirectorFields from './DirectorFields';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
+import Skeleton from '../Skeleton';
+
+const Formgroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const handleDirectorSelected = (
   fullname: string,
