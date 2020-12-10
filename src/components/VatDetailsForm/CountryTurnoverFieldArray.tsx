@@ -1,8 +1,8 @@
+import dynamic from 'next/dynamic';
 import { gql, useQuery } from '@apollo/client';
 import AddSharp from '@vanarama/uibook/lib/assets/icons/AddSharp';
 import CloseSharp from '@vanarama/uibook/lib/assets/icons/CloseSharp';
 import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import React from 'react';
@@ -12,6 +12,14 @@ import { GetVatDetailsCountries } from '../../../generated/GetVatDetailsCountrie
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import { VatDetailsFormValues as FormValues } from './interfaces';
 import { useCustomValidation, useTurnoverErrorMessage } from './utils';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 export const GET_VAT_DETAILS_COUNTRIES = gql`
   query GetVatDetailsCountries {

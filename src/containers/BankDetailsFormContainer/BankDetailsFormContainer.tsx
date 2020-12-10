@@ -1,11 +1,17 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useBankDetails, useUpdateBankDetails } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
+import Skeleton from '../../components/Skeleton';
 
 const BankDetails = dynamic(() => import('../../components/BankDetails'));
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const BankDetailsFormContainer: React.FC<IProps> = ({
   personUuid,

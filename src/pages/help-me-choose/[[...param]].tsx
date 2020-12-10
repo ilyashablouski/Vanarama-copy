@@ -1,7 +1,7 @@
+import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../hocs/withApollo';
 import { PRODUCTS_FILTER_LIST } from '../../gql/help-me-choose';
 import {
@@ -22,6 +22,14 @@ import HelpMeChooseTerms from '../../containers/HelpMeChooseContainer/HelpMeChoo
 import HelpMeChooseMiles from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseMiles';
 import HelpMeChooseAvailability from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseAvailability';
 import HelpMeChooseResult from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseResult';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const initialSteps: IInitStep = {
   financeTypes: {

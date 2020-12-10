@@ -1,5 +1,5 @@
+import dynamic from 'next/dynamic';
 import React from 'react';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import AboutForm from '../../components/AboutForm';
 import { IAboutFormValues } from '../../components/AboutForm/interface';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
@@ -11,6 +11,14 @@ import {
   handlerMock,
 } from '../../gql/temporaryRegistration';
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const AboutFormContainer: React.FC<IProps> = ({
   onCompleted,
