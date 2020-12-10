@@ -21,6 +21,7 @@ import HelpMeChooseTransmissions from '../../containers/HelpMeChooseContainer/He
 import HelpMeChooseTerms from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseTerms';
 import HelpMeChooseMiles from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseMiles';
 import HelpMeChooseAvailability from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseAvailability';
+import HelpMeChooseResult from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseResult';
 
 const initialSteps: IInitStep = {
   financeTypes: {
@@ -48,6 +49,14 @@ const initialSteps: IInitStep = {
     value: '' as any,
   },
   availability: {
+    active: false,
+    value: '' as any,
+  },
+  rental: {
+    active: false,
+    value: '' as any,
+  },
+  initialPeriods: {
     active: false,
     value: '' as any,
   },
@@ -92,6 +101,8 @@ const HelpMeChoose: NextPage = () => {
       const termsQuery = searchParams.getAll('terms');
       const mileagesQuery = searchParams.getAll('mileages');
       const availabilityQuery = searchParams.getAll('availability');
+      const rentalQuery = searchParams.get('rental');
+      const initialPeriodsQuery = searchParams.get('initialPeriods');
       const bodyStylesQueryValue = bodyStylesQuery.length
         ? bodyStylesQuery[0].split(',')
         : [];
@@ -120,7 +131,11 @@ const HelpMeChoose: NextPage = () => {
         searchParams.has('terms') && !searchParams.has('mileages');
       const isMileagesActive =
         searchParams.has('mileages') && !searchParams.has('availability');
-      const isAvailabilityActive = searchParams.has('availability');
+      const isAvailabilityActive =
+        searchParams.has('availability') &&
+        !(searchParams.has('initialPeriods') || searchParams.has('rental'));
+      const isResultsActive =
+        searchParams.has('rental') || searchParams.has('initialPeriods');
       setSteps({
         financeTypes: {
           active: isFinanceTypesActive,
@@ -149,6 +164,14 @@ const HelpMeChoose: NextPage = () => {
         availability: {
           active: isAvailabilityActive,
           value: availabilityQueryValue as any,
+        },
+        rental: {
+          active: isResultsActive,
+          value: rentalQuery as any,
+        },
+        initialPeriods: {
+          active: isResultsActive,
+          value: initialPeriodsQuery as any,
         },
       });
       const variables = {
@@ -219,6 +242,14 @@ const HelpMeChoose: NextPage = () => {
       )}
       {steps.availability.active && (
         <HelpMeChooseAvailability
+          steps={steps}
+          setSteps={setSteps}
+          getProductsFilterList={getProductsFilterList}
+          productsFilterListData={productsFilterListData}
+        />
+      )}
+      {steps.rental.active && steps.initialPeriods.active && (
+        <HelpMeChooseResult
           steps={steps}
           setSteps={setSteps}
           getProductsFilterList={getProductsFilterList}
