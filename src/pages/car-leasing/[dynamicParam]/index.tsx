@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
 import {
   GET_RANGES,
-  GET_RANGES_URLS,
+  GET_LEGACY_URLS,
   GET_VEHICLE_LIST,
 } from '../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
@@ -227,7 +227,7 @@ export async function getServerSideProps(context: NextPageContext) {
     );
     rangesUrls = await client
       .query({
-        query: GET_RANGES_URLS,
+        query: GET_LEGACY_URLS,
         variables: {
           slugs,
         },
