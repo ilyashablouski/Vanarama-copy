@@ -44,6 +44,10 @@
         {
           "name": "GTM_ID",
           "valueFrom": "%SSM_PARAMETER_BASE%/gtm-id"
+        },
+        {
+          "name": "STATIC_DOMAIN",
+          "valueFrom": "%SSM_PARAMETER_BASE%/static-domain"
         }
       ],
       "environment": [
