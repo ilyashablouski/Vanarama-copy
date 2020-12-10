@@ -367,6 +367,7 @@ AboutForm.fragments = {
     fragment AboutFormPerson on PersonType {
       __typename
       uuid
+      partyUuid
       title
       firstName
       lastName

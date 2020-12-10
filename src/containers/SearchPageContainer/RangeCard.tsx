@@ -5,7 +5,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { getRangeImages, useModelImages } from './gql';
 import { formatUrl } from '../../utils/url';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../generated/genericPagesQuery';
+import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
 
 const Price = dynamic(
@@ -28,7 +28,8 @@ interface IVehicleCardProps {
   id: string;
   vehicleType: VehicleTypeEnum;
   isAllMakesCard?: boolean;
-  rangesUrls?: IRangeUrls[];
+  rangesUrls?: ILegacyUrls[];
+  makesUrls?: ILegacyUrls[];
 }
 
 const RangeCard = memo(
@@ -40,6 +41,7 @@ const RangeCard = memo(
     fromPrice,
     isAllMakesCard,
     rangesUrls,
+    makesUrls,
   }: IVehicleCardProps) => {
     // TODO: Should be changed when query for get images will updated
     const { pathname, query } = useRouter();
@@ -49,7 +51,7 @@ const RangeCard = memo(
         .split(' ')
         .join('-');
     const searchType = pathname.slice(1).split('/')[0];
-    const getUrl = () =>
+    const getRangeUrl = () =>
       rangesUrls?.find(
         range =>
           range.slug ===
@@ -57,7 +59,11 @@ const RangeCard = memo(
             query.dynamicParam as string,
           )}/${convertSlug(title)}`,
       )?.legacyUrl || '';
-    const href = isAllMakesCard ? `/${title}-${searchType}.html` : getUrl();
+    const getMakeUrl = () =>
+      makesUrls?.find(
+        make => make.slug === `${searchType}/${convertSlug(title)}`,
+      )?.legacyUrl || '';
+    const href = isAllMakesCard ? getMakeUrl() : getRangeUrl();
     const { data: imagesData } = getRangeImages(
       id,
       vehicleType,
