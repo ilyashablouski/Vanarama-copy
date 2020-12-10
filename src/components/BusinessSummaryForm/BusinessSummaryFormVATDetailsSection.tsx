@@ -1,8 +1,17 @@
-import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
+import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
 import React, { useMemo } from 'react';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { VatDetails } from '../../../generated/VatDetails';
+
+import Skeleton from '../Skeleton';
+
+const StructuredList = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/structured-list'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 interface IProps {
   vatDetails: VatDetails;
