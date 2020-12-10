@@ -78,7 +78,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   const handleSubmit = async (values: ICompanyBankDetails) => {
     try {
       const res = await handleUpdateBankDetails(values);
-      setBankUuid(pluckBankAccountData(res)?.[0].uuid);
+      setBankUuid(pluckBankAccountData(res)?.[0]?.uuid);
       await createUpdateApplication({
         variables: {
           input: formValuesToInputCreditApplication({
