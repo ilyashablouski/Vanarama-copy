@@ -180,7 +180,6 @@ describe('<SearchPodContainer />', () => {
       expect(mockCalled).toBeTruthy();
     });
     fireEvent.click(screen.getByTestId('modelVans'));
-
     fireEvent.click(screen.getByText('Duster'));
     expect(screen.getByText('Dacia')).toBeInTheDocument();
   });
@@ -275,6 +274,8 @@ describe('<SearchPodContainer />', () => {
       </MockedProvider>,
     );
 
+    await screen.findByTestId('searchpod');
+
     fireEvent.click(screen.getByTestId('VanssearchBtn'));
 
     // ASSERT
@@ -304,6 +305,8 @@ describe('<SearchPodContainer />', () => {
         <SearchPodContainer />
       </MockedProvider>,
     );
+
+    await screen.findByTestId('searchpod');
 
     fireEvent.click(screen.getByTestId('CarssearchBtn'));
 

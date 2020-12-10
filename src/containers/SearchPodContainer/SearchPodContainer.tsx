@@ -313,7 +313,9 @@ const SearchPodContainer = () => {
     if (index === 2) setHeadingText('Search Cars');
   };
 
-  return data?.filterList ? (
+  if (!data?.filterList) return <Skeleton count={8} />;
+
+  return (
     <SearchPod
       activeTab={activeIndex}
       onChangeTab={(index: number) => onChangeTab(index)}
@@ -327,8 +329,6 @@ const SearchPodContainer = () => {
       isHomePage={config.length > 1}
       headingText={headingText}
     />
-  ) : (
-    <Skeleton count={8} />
   );
 };
 
