@@ -1,12 +1,12 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import Skeleton from '../Skeleton';
 import { ISearchPodProps } from './interfaces';
 import {
   filterList_filterList_groupedRangesWithSlug as IRangesSlug,
   filterList_filterList_groupedRangesWithSlug_children as IOptionsDropdown,
 } from '../../../generated/filterList';
+import Skeleton from '../Skeleton';
 
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
