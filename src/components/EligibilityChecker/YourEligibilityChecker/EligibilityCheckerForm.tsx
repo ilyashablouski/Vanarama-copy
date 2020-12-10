@@ -1,12 +1,8 @@
+import dynamic from 'next/dynamic';
 import { Controller } from 'react-hook-form';
-import Button from '@vanarama/uibook/lib/components/atoms/button/';
 import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
 import Select from '@vanarama/uibook/lib/components/atoms/select/';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
-import FormGroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
-import LockClosed from '@vanarama/uibook/lib/assets/icons/LockClosed';
 import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
 import { IAddressSuggestion } from '@vanarama/uibook/lib/components/molecules/address-finder/interfaces';
 import React, { FC, useState } from 'react';
@@ -14,6 +10,39 @@ import { genMonths, genYears, genDays } from '../../../utils/helpers';
 import { IFormProps } from './interface';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
 import RouterLink from '../../RouterLink/RouterLink';
+import Skeleton from '../../Skeleton';
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const LockClosed = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/LockClosed'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const FormGroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const EligibilityCheckerForm: FC<IFormProps> = ({
   submit,

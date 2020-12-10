@@ -13,6 +13,7 @@ const Icon = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/icon/'),
   {
     loading: () => <Skeleton count={1} />,
+    ssr: false,
   },
 );
 const Heading = dynamic(

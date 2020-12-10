@@ -1,4 +1,5 @@
 import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
 import WhyEligibilityChecker from '../WhyEligibilityChecker';
 
@@ -24,6 +25,9 @@ const getComponent = () => {
 };
 
 describe('<WhyEligibilityChecker />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('renders correctly', () => {
     const tree = getComponent();
     expect(tree).toMatchSnapshot();

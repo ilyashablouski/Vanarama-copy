@@ -6,10 +6,10 @@ import { useRouter } from 'next/router';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import RouterLink from '../RouterLink/RouterLink';
 import { IHeaderLink } from './Header';
-import HeaderSecondaryMenu from './HeaderSecondaryMenu';
 import { useHover } from '../../hooks/useHover';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 
+const HeaderSecondaryMenu = dynamic(() => import('./HeaderSecondaryMenu'));
 const Icon = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/icon'),
   {

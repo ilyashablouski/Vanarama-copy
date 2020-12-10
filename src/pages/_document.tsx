@@ -52,12 +52,12 @@ class MyDocument extends Document {
           <Main />
           <NextScript />
           <script
-            async
+            defer
             src="//cdn.embedly.com/widgets/platform.js"
             charSet="UTF-8"
           />
-          <script async src="https://cdn.blueconic.net/vanarama.js" />
-          <script async src="https://www.riddle.com/files/js/embed.js" />
+          <script defer src="https://cdn.blueconic.net/vanarama.js" />
+          <script defer src="https://www.riddle.com/files/js/embed.js" />
         </body>
       </Html>
     );

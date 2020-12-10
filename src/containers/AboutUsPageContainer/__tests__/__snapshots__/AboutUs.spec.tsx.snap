@@ -317,9 +317,6 @@ Array [
           viewBox="0 0 512 512"
           width="1em"
         >
-          <title>
-            ionicons-v5-a
-          </title>
           <polyline
             points="268 112 412 256 268 400"
             style={

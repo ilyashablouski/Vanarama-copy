@@ -60,10 +60,7 @@ export const LocationsPage: NextPage<IGenericPage> = ({
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const cards = getSectionsData(['cards', 'cards'], data.genericPage?.sections);
-  const metaDataName = getSectionsData(
-    ['metaData', 'name'],
-    data.genericPage?.sections,
-  );
+  const metaDataName = getSectionsData(['metaData', 'name'], data.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));

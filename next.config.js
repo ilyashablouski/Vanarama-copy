@@ -13,7 +13,7 @@ const withCustomBabelConfig = require('next-plugin-custom-babel-config');
 const withTM = require('next-transpile-modules')(['@vanarama/uibook']);
 const path = require('path');
 const config = require('./config/app');
-const generateMenuData = require('./deps/genMenuData');
+const generateMenuData = require('./plugins/genMenuData');
 
 module.exports = withPlugins(
   [
@@ -26,7 +26,7 @@ module.exports = withPlugins(
     ],
     [withSass],
     withImages,
-    [withCss, { url: false }],
+    [withCss, { url: false, purgeCssEnabled: true }],
     [config.withCustomWebpack],
   ],
   config.next,

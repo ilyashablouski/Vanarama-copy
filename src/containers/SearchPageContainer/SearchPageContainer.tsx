@@ -805,7 +805,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         </>
       )}
 
-      {featured && (
+      {!(isSpecialOfferPage && isCarSearch) && featured && (
         <div className={`row:${getFeaturedClassPartial(featured)}`}>
           {!featured?.layout?.includes('Full Width') && (
             <Image
@@ -1039,6 +1039,63 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
         </div>
       </div>
+
+      {isSpecialOfferPage && isCarSearch && featured && (
+        <section className="row:featured-right">
+          {!featured?.layout?.includes('Full Width') && (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              size="expand"
+              src={featured.image?.file?.url || ''}
+            />
+          )}
+          <div>
+            <div
+              className={readmore ? '-truncate' : ''}
+              style={{
+                height:
+                  featured?.layout?.includes('Read More') && readmore
+                    ? featured?.defaultHeight || 100
+                    : '',
+              }}
+            >
+              <Heading
+                tag={featured.titleTag || 'span'}
+                size="large"
+                color="black"
+                className="-mb-300"
+              >
+                {featured.title}
+              </Heading>
+              <ReactMarkdown
+                className="markdown"
+                source={featured.body || ''}
+                allowDangerousHtml
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return (
+                      <RouterLink
+                        link={{ href, label: children }}
+                        classNames={{ color: 'teal' }}
+                      />
+                    );
+                  },
+                }}
+              />
+            </div>
+            {featured?.layout?.includes('Read More') && (
+              <Button
+                size="small"
+                color="teal"
+                fill="clear"
+                label={readmore ? 'Read More' : 'Read Less'}
+                onClick={() => setReadMore(!readmore)}
+              />
+            )}
+          </div>
+        </section>
+      )}
 
       {pageData?.genericPage?.sections?.featured2?.body && (
         <div className="row:text">

@@ -1,10 +1,18 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
+import dynamic from 'next/dynamic';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { useProductCardDataQuery } from './gql';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
+import Skeleton from '../../components/Skeleton';
+
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface ICustomerAlsoViewedContainerProps {
   capsId: string[];

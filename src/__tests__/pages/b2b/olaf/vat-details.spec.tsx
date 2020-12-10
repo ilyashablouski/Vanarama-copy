@@ -1,6 +1,7 @@
+import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
-import React from 'react';
 import { GetVatDetailsCountries } from '../../../../../generated/GetVatDetailsCountries';
 import {
   UpdateLimitedVatDetailsMutation,
@@ -130,6 +131,9 @@ function clickAddCountry() {
 }
 
 describe('B2B VAT Details page', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should only show the "VAT Number" field when checking "The company is VAT registered"', async () => {
     // ACT
     render(
@@ -572,7 +576,7 @@ describe('B2B VAT Details page', () => {
               variables: {
                 input: {
                   person: {
-                    uuid: MOCK_PERSON_UUID,
+                    uuid: '',
                   },
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
@@ -630,7 +634,7 @@ describe('B2B VAT Details page', () => {
               variables: {
                 input: {
                   person: {
-                    uuid: MOCK_PERSON_UUID,
+                    uuid: '',
                   },
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
@@ -691,7 +695,7 @@ describe('B2B VAT Details page', () => {
               variables: {
                 input: {
                   person: {
-                    uuid: MOCK_PERSON_UUID,
+                    uuid: '',
                   },
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',

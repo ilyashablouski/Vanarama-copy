@@ -41,8 +41,11 @@ const Media = dynamic(
     ssr: false,
   },
 );
-const Breadcrumb = dynamic(() =>
-  import('../../components/Breadcrumb/Breadcrumb'),
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
 
 interface IProps {

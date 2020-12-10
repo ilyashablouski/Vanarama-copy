@@ -1,8 +1,31 @@
 import { FC } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import Media from '@vanarama/uibook/lib/components/atoms/media';
-import EligibilityCheckerButton from './EligibilityCheckerButton';
+import dynamic from 'next/dynamic';
+import Skeleton from '../../Skeleton';
+
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Media = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/media'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const EligibilityCheckerButton = dynamic(
+  () => import('./EligibilityCheckerButton'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface ILease {
   body: string | null;
