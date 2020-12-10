@@ -25,16 +25,18 @@ const DataLayer: FC = () => {
   /* const data = JSON.stringify(preparedData); */
 
   const code = `
-  function getCookie(name) {
-    var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-    return v ? v[2] : null;
-    }
-  window.dataLayer = window.dataLayer || [];
-  window.dataLayer.push({
-      BCUID: getCookie('BCSessionID'),
-      siteSection: ${preparedData.siteSection},
-      deviceType: window.navigator.userAgent,
-  });
+  (function() {
+    function getCookie(name) {
+        var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
+        return v ? v[2] : null;
+        }
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push({
+        BCUID: getCookie('BCSessionID'),
+        siteSection: ${preparedData.siteSection},
+        deviceType: window.navigator.userAgent,
+    });
+  })(window, document);
   `;
 
   return process.env.GTM_ID ? (
