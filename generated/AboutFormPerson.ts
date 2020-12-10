@@ -29,6 +29,7 @@ export interface AboutFormPerson_companies {
 export interface AboutFormPerson {
   __typename: "PersonType";
   uuid: string;
+  partyUuid: string;
   title: string | null;
   firstName: string;
   lastName: string;
