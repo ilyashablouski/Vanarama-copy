@@ -44,7 +44,7 @@ import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid
 import { GetOlafData_orderByUuid } from '../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../generated/GetDerivative';
 
-const GET_PERSON_QUERY = gql`
+export const GET_PERSON_QUERY = gql`
   query GetPerson {
     getPerson {
       uuid
