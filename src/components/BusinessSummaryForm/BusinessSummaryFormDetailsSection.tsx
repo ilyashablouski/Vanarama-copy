@@ -1,10 +1,18 @@
-import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
+import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
 import React from 'react';
 import moment from 'moment';
 import { SummaryFormDetailsSectionCompany } from '../../../generated/SummaryFormDetailsSectionCompany';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { addressToDisplay } from '../../utils/address';
+import Skeleton from '../Skeleton';
+
+const StructuredList = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/structured-list'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 interface IProps {
   company: SummaryFormDetailsSectionCompany;
