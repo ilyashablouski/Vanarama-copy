@@ -275,6 +275,9 @@ describe('<SearchPodContainer />', () => {
       </MockedProvider>,
     );
 
+    // ASSERT
+    await waitFor(() => expect(mockCalled).toBeTruthy());
+
     fireEvent.click(screen.getByTestId('VanssearchBtn'));
 
     // ASSERT
@@ -304,6 +307,9 @@ describe('<SearchPodContainer />', () => {
         <SearchPodContainer />
       </MockedProvider>,
     );
+
+    // ASSERT
+    await waitFor(() => expect(mockCalled).toBeTruthy());
 
     fireEvent.click(screen.getByTestId('CarssearchBtn'));
 
