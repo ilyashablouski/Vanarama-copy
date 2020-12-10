@@ -28,7 +28,7 @@ const DataLayer: FC = () => {
   (function(window, document, section) {
     function getCookie(name) {
         var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-        return v ? v[2] : null;
+        return v ? v[2] : undefined;
         }
     window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
