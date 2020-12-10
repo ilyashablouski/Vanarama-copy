@@ -36,7 +36,7 @@ const DataLayer: FC = () => {
         siteSection: section,
         visitorEmail: email,
         customerId: custId,
-        pageType: pType
+        pageType: pType,
         deviceType: window.navigator.userAgent,
     });
   })(window, document, '${preparedData.siteSection}', '${preparedData.visitorEmail}', '${preparedData.customerId}', '${preparedData.pageType}');
