@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import localForage from 'localforage';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
@@ -22,6 +22,14 @@ import {
   handlerMock,
 } from '../../gql/temporaryRegistration';
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
+import Skeleton from '../../components/Skeleton';
+
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const savePersonUuid = async (data: SaveBusinessAboutYou) =>
   localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
