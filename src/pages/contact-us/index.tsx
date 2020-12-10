@@ -2,6 +2,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import Router from 'next/router';
+import Map from '@vanarama/uibook/lib/components/atoms/map';
 import ReactMarkdown from 'react-markdown/with-html';
 import DefaultErrorPage from 'next/error';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
@@ -48,9 +49,6 @@ const Button = dynamic(
     loading: () => <Skeleton count={1} />,
   },
 );
-const Map = dynamic(() => import('@vanarama/uibook/lib/components/atoms/map'), {
-  loading: () => <Skeleton count={1} />,
-});
 const CardTitle = dynamic(
   () => import('@vanarama/uibook/lib/components/molecules/cards/CardTitle'),
   {
