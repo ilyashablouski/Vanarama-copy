@@ -147,6 +147,7 @@ export interface GetCompanySummaryQuery_personByUuid_companies {
 export interface GetCompanySummaryQuery_personByUuid {
   __typename: "PersonType";
   uuid: string;
+  partyUuid: string;
   title: string | null;
   firstName: string;
   lastName: string;
