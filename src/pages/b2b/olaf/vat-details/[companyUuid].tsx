@@ -10,6 +10,7 @@ import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';
 import useSoleTraderJorney from '../../../../hooks/useSoleTraderJourney';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
+import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
@@ -19,7 +20,8 @@ export const VatDetailsPage: NextPage = () => {
   const router = useRouter();
   const isSoleTraderJourney = useSoleTraderJorney();
   const orderId = useGetOrderId();
-  const { companyUuid, personUuid } = router.query as QueryParams;
+  const personUuid = useGetPersonUuid();
+  const { companyUuid } = router.query as QueryParams;
 
   const handleSubmitError = (err: ApolloError) => {
     // eslint-disable-next-line no-console
@@ -32,8 +34,8 @@ export const VatDetailsPage: NextPage = () => {
 
   const handleSubmitCompletion = () => {
     const detailsUrl = !isSoleTraderJourney
-      ? `/b2b/olaf/director-details/[companyUuid]?personUuid=${personUuid}`
-      : `/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]?personUuid=${personUuid}`;
+      ? `/b2b/olaf/director-details/[companyUuid]`
+      : `/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]`;
     const summaryUrl = !isSoleTraderJourney
       ? `/b2b/olaf/summary/[companyUuid]`
       : `/b2b/olaf/sole-trader/summary/[companyUuid]`;
