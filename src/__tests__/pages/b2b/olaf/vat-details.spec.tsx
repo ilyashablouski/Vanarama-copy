@@ -576,7 +576,7 @@ describe('B2B VAT Details page', () => {
               variables: {
                 input: {
                   person: {
-                    uuid: MOCK_PERSON_UUID,
+                    uuid: '',
                   },
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
@@ -634,7 +634,7 @@ describe('B2B VAT Details page', () => {
               variables: {
                 input: {
                   person: {
-                    uuid: MOCK_PERSON_UUID,
+                    uuid: '',
                   },
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
@@ -695,7 +695,7 @@ describe('B2B VAT Details page', () => {
               variables: {
                 input: {
                   person: {
-                    uuid: MOCK_PERSON_UUID,
+                    uuid: '',
                   },
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
