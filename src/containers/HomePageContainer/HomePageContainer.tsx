@@ -21,8 +21,8 @@ import {
 } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
-import Hero from '../../components/Hero';
-// import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
+// import Hero from '../../components/Hero';
+import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
 
 const Heading = dynamic(
@@ -123,27 +123,34 @@ const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
 
-// Hero
-const HeroHeading = dynamic(
-  // @ts-ignore
-  () => import('../../components/Hero').then(mod => mod.HeroHeading),
-  {
-    loading: () => <Skeleton count={2} />,
-  },
-);
-const HeroTitle = dynamic(
-  // @ts-ignore
-  () => import('../../components/Hero').then(mod => mod.HeroTitle),
-  {
-    loading: () => <Skeleton count={2} />,
-  },
-);
+// // Hero
+// const HeroHeading = dynamic(
+//   // @ts-ignore
+//   () => import('../../components/Hero').then(mod => mod.HeroHeading),
+//   {
+//     loading: () => <Skeleton count={2} />,
+//   },
+// );
+// const HeroTitle = dynamic(
+//   // @ts-ignore
+//   () => import('../../components/Hero').then(mod => mod.HeroTitle),
+//   {
+//     loading: () => <Skeleton count={2} />,
+//   },
+// );
+
 const SchemaJSON = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/schema-json'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
+
+const optimisationOptions = {
+  height: 620,
+  width: 620,
+  quality: 59,
+};
 
 export interface IHomePageContainer {
   data: HomePageData;
@@ -228,6 +235,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           <Image
             loadImage
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            optimisationOptions={optimisationOptions}
             className="hero--image"
             plain
             size="expand"

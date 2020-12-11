@@ -146,6 +146,12 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
     { label: 'Business', value: 'Business', active: !isPersonal },
   ];
 
+  const optimisationOptions = {
+    height: 620,
+    width: 620,
+    quality: 59,
+  };
+
   return (
     <>
       <Hero>
@@ -161,7 +167,9 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
         <HeroTitle text={data?.hubCarPage.sections?.hero?.body || ''} />
         <br />
         <Image
+          loadImage
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          optimisationOptions={optimisationOptions}
           className="hero--image"
           plain
           size="expand"
