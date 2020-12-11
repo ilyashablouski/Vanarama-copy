@@ -156,6 +156,7 @@ const AboutYouPage: NextPage = () => {
       updateOrderHandle({
         variables: {
           input: {
+            personUuid: personUuid || uuid,
             leaseType: LeaseTypeEnum.PERSONAL,
             lineItems: [
               {
