@@ -12,7 +12,7 @@ import { GetVatDetailsCountries } from '../../../generated/GetVatDetailsCountrie
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import { VatDetailsFormValues as FormValues } from './interfaces';
 import { useCustomValidation, useTurnoverErrorMessage } from './utils';
-import Skeleton from '../../components/Skeleton';
+import Skeleton from '../Skeleton';
 
 const Loading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/loading'),

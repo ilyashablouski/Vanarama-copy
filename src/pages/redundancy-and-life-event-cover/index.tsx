@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
-import Skeleton from '../../components/Skeleton';
 import DefaultErrorPage from 'next/error';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import Skeleton from '../../components/Skeleton';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import createApolloClient from '../../apolloClient';

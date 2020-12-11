@@ -1,9 +1,9 @@
-import dynamic from 'next/dynamic';
-import Skeleton from '../../../../components/Skeleton';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
 import DefaultErrorPage from 'next/error';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import dynamic from 'next/dynamic';
+import Skeleton from '../../../../components/Skeleton';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import { GENERIC_PAGE_QUESTION } from '../../../../containers/VehicleReviewContainer/gql';
 import createApolloClient from '../../../../apolloClient';
