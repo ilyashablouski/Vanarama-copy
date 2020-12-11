@@ -1,7 +1,6 @@
 import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
@@ -28,6 +27,12 @@ import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationR
 import Skeleton from '../../components/Skeleton';
 import { useCreateUpdateOrder } from '../../gql/order';
 
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const Text = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/text'),
   {

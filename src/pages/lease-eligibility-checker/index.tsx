@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import {
   EligibilityCheckerPageData,
@@ -16,6 +15,12 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const ErrorMessage = dynamic(
   () => import('../../components/ErrorMessage/ErrorMessage'),
   {

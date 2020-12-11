@@ -1,7 +1,6 @@
 import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
 import { gql } from '@apollo/client';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React, { useState } from 'react';
 import validationSchema from './YourEligibilityChecker.validation';
 import {
@@ -13,6 +12,12 @@ import FCWithFragments from '../../../utils/FCWithFragments';
 import { responseBlinkIdToInitialFormValues } from './mappers';
 import Skeleton from '../../Skeleton';
 
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const Button = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/button'),
   {
