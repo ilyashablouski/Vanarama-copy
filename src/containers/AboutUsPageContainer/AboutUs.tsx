@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import dynamic from 'next/dynamic';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { ApolloError } from '@apollo/client';
 import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import { ABOUT_US_MEET_SECTION_NAMES } from './config';
@@ -12,6 +11,12 @@ import {
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
 
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
   {

@@ -1,5 +1,5 @@
+import dynamic from 'next/dynamic';
 import React, { useMemo } from 'react';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import DirectorDetailsForm from '../../components/DirectorDetailsForm/DirectorDetailsForm';
 import {
   DirectorDetailsFormValues,
@@ -23,6 +23,14 @@ import {
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { parseOfficers } from '../../components/DirectorDetailsForm/helpers';
 import { isTruthy } from '../../utils/array';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContainerProps> = ({
   directorUuid,

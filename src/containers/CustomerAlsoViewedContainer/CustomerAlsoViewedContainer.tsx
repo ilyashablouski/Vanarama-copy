@@ -1,12 +1,17 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
 import dynamic from 'next/dynamic';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { useProductCardDataQuery } from './gql';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import Skeleton from '../../components/Skeleton';
 
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
   {

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import dynamic from 'next/dynamic';
 import React, { useState, useEffect, useRef } from 'react';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteDataLazyQuery } from './gql';
@@ -22,6 +22,14 @@ import {
 } from '../../../generated/GetTrimAndColor';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { useTrimAndColour } from '../../gql/carpage';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const parseQuoteParams = (param?: string | null) =>
   parseInt(param || '', 10) || null;

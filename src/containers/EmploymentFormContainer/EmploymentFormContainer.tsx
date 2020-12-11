@@ -1,9 +1,17 @@
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import dynamic from 'next/dynamic';
 import React from 'react';
 import EmploymentForm from '../../components/EmploymentForm/EmploymentForm';
 import { useEmploymentData, useUpdateEmployment } from './gql';
 import { IEmploymentFormContainerProps } from './interfaces';
 import { formValuesToInput } from './mappers';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const EmploymentFormContainer: React.FC<IEmploymentFormContainerProps> = ({
   personUuid,

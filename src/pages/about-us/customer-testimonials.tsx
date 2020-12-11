@@ -1,7 +1,7 @@
+import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
 import DefaultErrorPage from 'next/error';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { GENERIC_PAGE_TESTIMONIALS } from '../../containers/CustomerTestimonialsContainer/gql';
 import CustomerTestimonialsContainer from '../../containers/CustomerTestimonialsContainer/CustomerTestimonialsContainer';
@@ -9,6 +9,14 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import createApolloClient from '../../apolloClient';
 import { GenericPageTestimonialsQuery } from '../../../generated/GenericPageTestimonialsQuery';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface ICustomerTestimonialPage {
   data: GenericPageTestimonialsQuery | undefined;
