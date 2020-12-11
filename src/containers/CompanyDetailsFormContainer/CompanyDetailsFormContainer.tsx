@@ -1,6 +1,6 @@
+import dynamic from 'next/dynamic';
 import { useMutation, gql } from '@apollo/client';
 import React, { useMemo } from 'react';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import {
   SaveCompanyDetailsMutation as Mutation,
   SaveCompanyDetailsMutationVariables as MutationVariables,
@@ -25,6 +25,14 @@ import {
 } from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { responseToInitialFormValues } from '../BusinessAboutFormContainer/mappers';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 export const SAVE_COMPANY_DETAILS = gql`
   mutation SaveCompanyDetailsMutation($input: LimitedCompanyInputObject!) {
@@ -94,7 +102,6 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
     createUpdateOrder({
       variables: {
         input: {
-          personUuid,
           partyUuid,
           leaseType: LeaseTypeEnum.BUSINESS,
           lineItems: [],

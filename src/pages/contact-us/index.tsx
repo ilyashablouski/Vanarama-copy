@@ -5,7 +5,6 @@ import Router from 'next/router';
 import Map from '@vanarama/uibook/lib/components/atoms/map';
 import ReactMarkdown from 'react-markdown/with-html';
 import DefaultErrorPage from 'next/error';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -19,6 +18,12 @@ import Head from '../../components/Head/Head';
 import createApolloClient from '../../apolloClient';
 import Skeleton from '../../components/Skeleton';
 
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
   {

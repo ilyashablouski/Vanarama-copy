@@ -15,7 +15,6 @@ import React, {
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
@@ -66,6 +65,12 @@ import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../ge
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
   {

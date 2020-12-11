@@ -1,11 +1,19 @@
+import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
 import DefaultErrorPage from 'next/error';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import VehicleReviewCategoryContainer from '../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import createApolloClient from '../../../apolloClient';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { GENERIC_PAGE_QUESTION_HUB } from '../../../containers/VehicleReviewCategoryContainer/gql';
+import Skeleton from '../../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IReviewHub {
   data: any;

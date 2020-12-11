@@ -1,6 +1,5 @@
 import React, { FC, useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useQuery } from '@apollo/client';
 import {
   TestimonialsData,
@@ -13,6 +12,12 @@ import TileLink from '../../components/TileLink/TileLink';
 import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
 import Skeleton from '../../components/Skeleton';
 
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
   {
