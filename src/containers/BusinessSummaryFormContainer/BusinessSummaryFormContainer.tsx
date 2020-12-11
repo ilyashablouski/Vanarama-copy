@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useLazyQuery, ApolloError } from '@apollo/client';
 import {
   GetCompanySummaryQuery,
@@ -19,12 +18,19 @@ import { GET_ABOUT_YOU_DATA } from '../AboutFormContainer/gql';
 import { GetPartyByUuid_partyByUuid_person as IPerson } from '../../../generated/GetPartyByUuid';
 import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
+import Skeleton from '../../components/Skeleton';
 
 const BusinessSummaryForm = dynamic(() =>
   import('../../components/BusinessSummaryForm/BusinessSummaryForm'),
 );
 const SoleTraderSummaryForm = dynamic(() =>
   import('../../components/BusinessSummaryForm/SoleTraderSummaryForm'),
+);
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
 );
 
 const getCompanyPartyIdFromPerson = (

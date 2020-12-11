@@ -1,11 +1,19 @@
+import dynamic from 'next/dynamic';
 import { gql, useQuery } from '@apollo/client';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import React from 'react';
 import {
   GetPersonSummaryQuery as Query,
   GetPersonSummaryQueryVariables as QueryVariables,
 } from '../../../generated/GetPersonSummaryQuery';
 import SummaryForm from '../../components/SummaryForm/SummaryForm';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   personUuid: string;
