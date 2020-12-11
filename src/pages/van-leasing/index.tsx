@@ -842,7 +842,7 @@ export const VansPage: NextPage<Props> = ({ data }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const client = createApolloClient({});
 
   try {
