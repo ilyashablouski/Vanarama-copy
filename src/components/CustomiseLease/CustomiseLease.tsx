@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
-import { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
@@ -18,8 +18,23 @@ import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
 
+const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'), {
+  ssr: false,
+});
 const Button = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const CardHeader = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards/CardHeader'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
   {
     loading: () => <Skeleton count={1} />,
   },
@@ -192,8 +207,16 @@ const CustomiseLease = ({
           quoteByCapId?.leaseCost?.initialRental,
         )} ${stateVAT}. VAT`,
       )}
-      <Heading tag="span" size="regular" color="black">
+      <Heading tag="span" size="regular" color="black" className="-flex-h">
         Vehicle Options
+        <CardHeader
+          text={data.quoteByCapId?.leadTime || ''}
+          incomplete
+          className="rounded"
+          accentIcon={
+            <Icon icon={<Flame />} color="white" className="md hydrated" />
+          }
+        />
       </Heading>
 
       {select(
