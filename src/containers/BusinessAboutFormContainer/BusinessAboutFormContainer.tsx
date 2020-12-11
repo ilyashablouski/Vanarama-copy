@@ -131,11 +131,11 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     });
   };
 
-  const handleOrderUpdate = () =>
+  const handleOrderUpdate = (businessPersonUuid?: string | null) =>
     createUpdateOrder({
       variables: {
         input: {
-          personUuid,
+          personUuid: businessPersonUuid,
           leaseType: LeaseTypeEnum.BUSINESS,
           lineItems: [],
         },
@@ -204,7 +204,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
             handleDetailsSave(values, query.data?.registerForTemporaryAccess),
           )
           .then(({ data }) =>
-            handleOrderUpdate().then(() =>
+            handleOrderUpdate(data?.createUpdateBusinessPerson?.uuid).then(() =>
               handleCreateUpdateCreditApplication(values, data).then(() => {
                 const result = {
                   businessPersonUuid: data?.createUpdateBusinessPerson?.uuid,
