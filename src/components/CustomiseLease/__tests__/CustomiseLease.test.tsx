@@ -39,6 +39,8 @@ describe('<CustomiseLease />', () => {
       colour: 13990,
       trim: 112981,
       screenY: 0,
+      colourList: [{ optionId: 13990, label: 'Solid - Polar white' }],
+      trimList: [{ optionId: 104562, label: 'Leather - Cranberry red' }],
       terms: [
         { label: '24', value: '24', active: false },
         { label: '36', value: '36', active: true },
@@ -161,6 +163,8 @@ describe('<CustomiseLease />', () => {
   it('renders correctly', () => {
     const tree = getComponent({
       trim: 112981,
+      colourList: [{ optionId: 13990, label: 'Solid - Polar white' }],
+      trimList: [{ optionId: 104562, label: 'Leather - Cranberry red' }],
       colour: 13990,
       terms: [
         { label: '24', value: '24', active: false },
@@ -330,6 +334,14 @@ describe('<CustomiseLease />', () => {
         leaseType={LeaseTypeEnum.PERSONAL}
         isModalShowing={false}
         maintenance={false}
+        colourList={[
+          { optionId: 13990, label: 'Solid - Polar white' },
+          { optionId: 13991, label: 'Solid - Polar black' },
+        ]}
+        trimList={[
+          { optionId: 104562, label: 'Leather - Cranberry red' },
+          { optionId: 104563, label: 'Leather - Cranberry black' },
+        ]}
         data={{
           quoteByCapId: {
             colour: '13990',

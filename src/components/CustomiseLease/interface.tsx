@@ -9,6 +9,10 @@ import {
   OrderInputObject,
   LineItemInputObject,
 } from '../../../generated/globalTypes';
+import {
+  GetTrimAndColor_colourList as IColourList,
+  GetTrimAndColor_trimList as ITrimList,
+} from '../../../generated/GetTrimAndColor';
 
 export interface IChoice {
   label: string;
@@ -55,4 +59,6 @@ export interface IProps {
   lineItem: LineItemInputObject;
   showCallBackForm: Dispatch<SetStateAction<boolean>>;
   screenY: number | null;
+  trimList: (ITrimList | null)[] | null;
+  colourList: (IColourList | null)[] | null;
 }

@@ -3,7 +3,7 @@ import { ApolloError } from '@apollo/client';
 import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
-import { GET_CAR_DATA } from '../../../gql/carpage';
+import { GET_CAR_DATA, GET_TRIM_AND_COLOR_DATA } from '../../../gql/carpage';
 import {
   LeaseTypeEnum,
   VehicleTypeEnum,
@@ -38,6 +38,12 @@ import {
 } from '../../../../generated/GenericPageHeadQuery';
 import { GET_LEGACY_URLS } from '../../../containers/SearchPageContainer/gql';
 import { genericPagesQuery_genericPages_items as GenericPages } from '../../../../generated/genericPagesQuery';
+import {
+  GetTrimAndColor,
+  GetTrimAndColor_colourList as IColourList,
+  GetTrimAndColor_trimList as ITrimList,
+  GetTrimAndColorVariables,
+} from '../../../../generated/GetTrimAndColor';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -49,6 +55,8 @@ interface IProps {
   errors: any[];
   genericPageHead: GenericPageHeadQuery;
   genericPages: GenericPages[];
+  trim: ITrimList[];
+  colour: IColourList[];
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -59,6 +67,8 @@ const CarDetailsPage: NextPage<IProps> = ({
   notFoundPageData,
   genericPageHead,
   genericPages,
+  trim,
+  colour,
 }) => {
   if (notFoundPageData) {
     return (
@@ -162,6 +172,8 @@ const CarDetailsPage: NextPage<IProps> = ({
         quote={quote}
         capId={capId || 0}
         data={data}
+        trimList={trim}
+        colourList={colour}
         genericPageHead={genericPageHead}
         genericPages={genericPages}
       />
@@ -188,7 +200,6 @@ export async function getServerSideProps(context: NextPageContext) {
     const capId =
       vehicleConfigurationByUrlQuery.data?.vehicleConfigurationByUrl
         ?.capDerivativeId || 0;
-
     const getCarDataQuery = await client.query<
       GetVehicleDetails,
       GetVehicleDetailsVariables
@@ -237,6 +248,22 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     });
 
+    const trimAndColorData = await client.query<
+      GetTrimAndColor,
+      GetTrimAndColorVariables
+    >({
+      query: GET_TRIM_AND_COLOR_DATA,
+      variables: {
+        capId: `${capId}`,
+        vehicleType: VehicleTypeEnum.CAR,
+        trimId: parseInt(quoteDataQuery.data?.quoteByCapId?.trim || '0', 10),
+        colourId: parseInt(
+          quoteDataQuery.data?.quoteByCapId?.colour || '0',
+          10,
+        ),
+      },
+    });
+
     const breadcrumbSlugsArray = data?.genericPage.metaData.slug?.split('/');
     const breadcrumbSlugs = breadcrumbSlugsArray?.map((el, id) =>
       breadcrumbSlugsArray.slice(0, id + 1).join('/'),
@@ -257,6 +284,8 @@ export async function getServerSideProps(context: NextPageContext) {
         data: getCarDataQuery.data,
         quote: quoteDataQuery.data,
         query: context.query,
+        trim: trimAndColorData?.data?.trimList || null,
+        colour: trimAndColorData?.data?.colourList || null,
         genericPageHead: data,
         genericPages,
       },
