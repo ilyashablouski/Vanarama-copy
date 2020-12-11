@@ -4,7 +4,7 @@ import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { INotFoundPageData } from '../../../models/ISearchPageProps';
-import { GET_CAR_DATA } from '../../../gql/carpage';
+import { GET_CAR_DATA, GET_TRIM_AND_COLOR_DATA } from '../../../gql/carpage';
 import {
   LeaseTypeEnum,
   VehicleTypeEnum,
@@ -38,6 +38,12 @@ import {
 } from '../../../../generated/GenericPageHeadQuery';
 import { GET_LEGACY_URLS } from '../../../containers/SearchPageContainer/gql';
 import { genericPagesQuery_genericPages_items as GenericPages } from '../../../../generated/genericPagesQuery';
+import {
+  GetTrimAndColor,
+  GetTrimAndColor_colourList as IColourList,
+  GetTrimAndColor_trimList as ITrimList,
+  GetTrimAndColorVariables,
+} from '../../../../generated/GetTrimAndColor';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -48,6 +54,8 @@ interface IProps {
   notFoundPageData?: INotFoundPageData;
   genericPageHead: GenericPageHeadQuery;
   genericPages: GenericPages[];
+  trim: ITrimList[];
+  colour: IColourList[];
 }
 
 const VanDetailsPage: NextPage<IProps> = ({
@@ -58,6 +66,8 @@ const VanDetailsPage: NextPage<IProps> = ({
   notFoundPageData,
   genericPageHead,
   genericPages,
+  trim,
+  colour,
 }) => {
   const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
 
@@ -185,6 +195,8 @@ const VanDetailsPage: NextPage<IProps> = ({
         vans={!isPickup}
         pickups={isPickup}
         data={data}
+        trimList={trim}
+        colourList={colour}
         quote={quote}
         genericPageHead={genericPageHead}
         genericPages={genericPages}
@@ -261,6 +273,21 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     });
 
+    const trimAndColorData = await client.query<
+      GetTrimAndColor,
+      GetTrimAndColorVariables
+    >({
+      query: GET_TRIM_AND_COLOR_DATA,
+      variables: {
+        capId: `${capId}`,
+        vehicleType: VehicleTypeEnum.LCV,
+        trimId: parseInt(quoteDataQuery.data?.quoteByCapId?.trim || '0', 10),
+        colourId: parseInt(
+          quoteDataQuery.data?.quoteByCapId?.colour || '0',
+          10,
+        ),
+      },
+    });
     const breadcrumbSlugsArray = data?.genericPage.metaData.slug?.split('/');
     const breadcrumbSlugs = breadcrumbSlugsArray?.map((el, id) =>
       breadcrumbSlugsArray.slice(0, id + 1).join('/'),
@@ -281,6 +308,8 @@ export async function getServerSideProps(context: NextPageContext) {
         data: getCarDataQuery.data,
         quote: quoteDataQuery.data,
         query: context.query,
+        trim: trimAndColorData?.data?.trimList || null,
+        colour: trimAndColorData?.data?.colourList || null,
         genericPageHead: data,
         genericPages,
       },

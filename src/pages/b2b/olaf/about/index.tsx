@@ -146,10 +146,11 @@ export const BusinessAboutPage: NextPage = () => {
       localForage.getItem<string>('personUuid'),
     ]).then(([person, savedPersonUuid]) => {
       if (person?.getPerson && !personUuid) {
-        setPersonUuid((person as GetPerson)?.getPerson?.uuid);
+        setPersonUuid(person.getPerson?.uuid);
         setPersonLoggedIn(true);
       } else if (savedPersonUuid && !personUuid) {
         setPersonUuid(savedPersonUuid);
+        setPersonLoggedIn(false);
       } else {
         setPersonLoggedIn(false);
       }
@@ -173,7 +174,7 @@ export const BusinessAboutPage: NextPage = () => {
         To get you your brand new vehicle, firstly we’ll just need some details
         about you and your company.
       </Text>
-      {!personUuid && (
+      {!personLoggedIn && (
         <div className="-mb-500">
           <div className="-pt-300 -pb-300">
             <Button

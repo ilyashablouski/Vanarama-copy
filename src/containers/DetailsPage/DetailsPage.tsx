@@ -34,6 +34,10 @@ import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
 import { genericPagesQuery_genericPages_items as GenericPages } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
+import {
+  GetTrimAndColor_colourList as IColourList,
+  GetTrimAndColor_trimList as ITrimList,
+} from '../../../generated/GetTrimAndColor';
 
 const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'));
 const DownloadSharp = dynamic(() =>
@@ -130,6 +134,8 @@ interface IDetailsPageProps {
   schema?: any;
   genericPageHead: GenericPageHeadQuery | undefined;
   genericPages: GenericPages[] | null | undefined;
+  trimList: ITrimList[];
+  colourList: IColourList[];
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -143,6 +149,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   schema,
   genericPageHead,
   genericPages,
+  trimList,
+  colourList,
 }) => {
   const router = useRouter();
   // pass cars prop(Boolean)
@@ -433,6 +441,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             leaseAdjustParams={leaseAdjustParams}
             leaseType={leaseType}
             setLeaseType={setLeaseType}
+            trimData={trimList}
+            colourData={colourList}
             setLeadTime={setLeadTime}
             isDisabled={isDisabled}
             setIsDisabled={setIsDisabled}
@@ -457,6 +467,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         derivativeInfo={derivativeInfo}
         leaseAdjustParams={leaseAdjustParams}
         leaseType={leaseType}
+        trimData={trimList}
+        colourData={colourList}
         setLeaseType={setLeaseType}
         setLeadTime={setLeadTime}
         isDisabled={isDisabled}
