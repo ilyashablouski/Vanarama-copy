@@ -4,6 +4,10 @@ import {
   GetVehicleDetailsVariables,
 } from '../../generated/GetVehicleDetails';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
+import {
+  GetTrimAndColor,
+  GetTrimAndColorVariables,
+} from '../../generated/GetTrimAndColor';
 
 export const GET_CAR_DATA = gql`
   query GetVehicleDetails(
@@ -137,6 +141,45 @@ export function useCarData(capId: number, vehicleType: VehicleTypeEnum) {
         capIdDetails: `${capId}`,
         vehicleType,
       },
+    },
+  );
+}
+
+export const GET_TRIM_AND_COLOR_DATA = gql`
+  query GetTrimAndColor(
+    $capId: ID!
+    $colourId: Int
+    $trimId: Int
+    $vehicleType: VehicleTypeEnum!
+  ) {
+    colourList(capId: $capId, vehicleType: $vehicleType, trimId: $trimId) {
+      optionId
+      label
+    }
+    trimList(capId: $capId, vehicleType: $vehicleType, colourId: $colourId) {
+      optionId
+      label
+    }
+  }
+`;
+
+export function useTrimAndColour(
+  capId: string,
+  colourId: number,
+  trimId: number,
+  vehicleType: VehicleTypeEnum,
+  onCompleted?: (data: GetTrimAndColor) => void,
+) {
+  return useLazyQuery<GetTrimAndColor, GetTrimAndColorVariables>(
+    GET_TRIM_AND_COLOR_DATA,
+    {
+      variables: {
+        capId,
+        colourId,
+        trimId,
+        vehicleType,
+      },
+      onCompleted,
     },
   );
 }
