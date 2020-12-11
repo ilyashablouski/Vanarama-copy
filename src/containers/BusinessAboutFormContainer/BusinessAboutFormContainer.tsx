@@ -15,13 +15,17 @@ import { SaveBusinessAboutYou } from '../../../generated/SaveBusinessAboutYou';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { responseToInitialFormValues, mapAboutPersonData } from './mappers';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
-import { CreditApplicationTypeEnum as CATypeEnum } from '../../../generated/globalTypes';
+import {
+  CreditApplicationTypeEnum as CATypeEnum,
+  LeaseTypeEnum,
+} from '../../../generated/globalTypes';
 import {
   useRegistrationForTemporaryAccessMutation,
   handlerMock,
 } from '../../gql/temporaryRegistration';
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
 import Skeleton from '../../components/Skeleton';
+import { useCreateUpdateOrder } from '../../gql/order';
 
 const Loading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/loading'),
@@ -52,6 +56,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   const aboutYouData = useAboutYouData(personUuid);
   const [saveDetails] = useSaveAboutYouMutation(savePersonUuid);
   const [emailAlreadyExists] = useEmailCheck();
+  const [createUpdateOrder] = useCreateUpdateOrder(() => {});
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderId,
     () => {},
@@ -131,6 +136,17 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     });
   };
 
+  const handleOrderUpdate = (businessPersonUuid?: string | null) =>
+    createUpdateOrder({
+      variables: {
+        input: {
+          personUuid: businessPersonUuid,
+          leaseType: LeaseTypeEnum.BUSINESS,
+          lineItems: [],
+        },
+      },
+    });
+
   const handleCreateUpdateCreditApplication = (
     values: IBusinessAboutFormValues,
     data?: SaveBusinessAboutYou | null,
@@ -193,13 +209,15 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
             handleDetailsSave(values, query.data?.registerForTemporaryAccess),
           )
           .then(({ data }) =>
-            handleCreateUpdateCreditApplication(values, data).then(() => {
-              const result = {
-                businessPersonUuid: data?.createUpdateBusinessPerson?.uuid,
-                companyType: values.companyType,
-              } as SubmitResult;
-              onCompleted?.(result);
-            }),
+            handleOrderUpdate(data?.createUpdateBusinessPerson?.uuid).then(() =>
+              handleCreateUpdateCreditApplication(values, data).then(() => {
+                const result = {
+                  businessPersonUuid: data?.createUpdateBusinessPerson?.uuid,
+                  companyType: values.companyType,
+                } as SubmitResult;
+                onCompleted?.(result);
+              }),
+            ),
           )
           .catch(onError);
       }}
