@@ -1,0 +1,17 @@
+{
+  "apps": [
+    {
+      "name": "next-storefront",
+      "script": "npm",
+      "args" : "run dev",
+      "instances": "max",
+      "exec_mode": "cluster",
+      "env": {
+        "NODE_ENV": "development"
+      },
+      "env_production": {
+        "NODE_ENV": "production"
+     }
+    }
+  ]
+}

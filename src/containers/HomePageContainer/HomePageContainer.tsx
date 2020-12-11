@@ -196,9 +196,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           featuredImage={data?.homePage.featuredImage}
         />
       )}
-      <Hero>
-        <div className="hero--title">
-          {!loading ? (
+      {data ? (
+        <Hero>
+          <div className="hero--title">
             <>
               <HeroHeading
                 text={
@@ -224,24 +224,25 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                 }
               />
             </>
-          ) : (
-            <Skeleton count={5} />
-          )}
-        </div>
-        <Image
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          className="hero--image"
-          plain
-          size="expand"
-          src={
-            getSectionsData(
-              ['hero', 'image', 'file', 'url'],
-              data?.homePage?.sections,
-            ) ||
-            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
-          }
-        />
-      </Hero>
+          </div>
+          <Image
+            loadImage
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            className="hero--image"
+            plain
+            size="expand"
+            src={
+              getSectionsData(
+                ['hero', 'image', 'file', 'url'],
+                data?.homePage?.sections,
+              ) ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+            }
+          />
+        </Hero>
+      ) : (
+        <Skeleton count={30} />
+      )}
 
       <section className="row:lead-text">
         <Heading

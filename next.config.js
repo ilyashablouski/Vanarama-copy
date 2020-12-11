@@ -3,7 +3,7 @@ const withSass = require('@zeit/next-sass');
 const withCss = require('@zeit/next-css');
 const withImages = require('next-images');
 const withFonts = require('next-fonts');
-const withPWA = require('next-pwa');
+// const withPWA = require('next-pwa');
 
 const withCustomBabelConfig = require('next-plugin-custom-babel-config');
 /**
@@ -19,15 +19,15 @@ const generateMenuData = require('./plugins/genMenuData');
 module.exports = withPlugins(
   [
     [generateMenuData],
-    [
-      // Service Worker.
-      withPWA,
-      {
-        pwa: {
-          disable: process.env.NODE_ENV === 'development',
-        },
-      },
-    ],
+    // [
+    //   // Service Worker.
+    //   withPWA,
+    //   {
+    //     pwa: {
+    //       disable: process.env.NODE_ENV === 'development',
+    //     },
+    //   },
+    // ],
     withTM,
     [withFonts],
     [

@@ -7,9 +7,6 @@ const OS = require('os');
 
 process.env.UV_THREADPOOL_SIZE = OS.cpus().length;
 
-const { join } = require('path');
-const { parse } = require('url');
-
 const express = require('express');
 const cors = require('cors');
 const next = require('next');
@@ -103,15 +100,6 @@ if (cluster.isMaster) {
 
       // All routes.
       server.all('*', cors(), (req, res) => {
-        // Service Worker.
-        const parsedUrl = parse(req.url, true);
-        const { pathname } = parsedUrl;
-
-        if (pathname === '/sw.js' || pathname.startsWith('/workbox-')) {
-          const filePath = join(__dirname, '.next', pathname);
-          app.serveStatic(req, res, filePath);
-          return false;
-        }
         // Disable indexing on live domain.
         if (!req.get('host').includes('vanarama.com'))
           res.setHeader('X-Robots-Tag', 'noindex');
