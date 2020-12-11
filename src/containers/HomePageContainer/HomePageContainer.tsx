@@ -159,7 +159,7 @@ export interface IHomePageContainer {
 }
 
 export const HomePageContainer: React.FC<IHomePageContainer> = ({
-  loading,
+  // loading,
   error,
   data,
   productsVanDerivatives,
