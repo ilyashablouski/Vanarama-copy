@@ -1,5 +1,5 @@
+import dynamic from 'next/dynamic';
 import React from 'react';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import SoleTraderDetailsForm from '../../components/SoleTraderDetailsForm';
 import {
   useCreateUpdateCreditApplication,
@@ -14,6 +14,14 @@ import {
   useUpdateSoleTraderMutation,
 } from './gql';
 import { UpdateSoleTraderMutation } from '../../../generated/UpdateSoleTraderMutation';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerProps> = ({
   personUuid,

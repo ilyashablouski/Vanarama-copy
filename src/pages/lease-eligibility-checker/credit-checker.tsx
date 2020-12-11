@@ -2,7 +2,6 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import Router, { useRouter } from 'next/router';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import withApollo from '../../hocs/withApollo';
 import { useProductCard } from '../../gql/productCard';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
@@ -13,6 +12,12 @@ import {
 } from '../../gql/vehicleList';
 import Skeleton from '../../components/Skeleton';
 
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
   {

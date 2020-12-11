@@ -1,10 +1,16 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useAddressData, useUpdateAddresses } from './gql';
 import { IAddressFormContainerProps } from './interfaces';
 import { formValuesToInput } from './mappers';
+import Skeleton from '../../components/Skeleton';
 
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const AddressForm = dynamic(() =>
   import('../../components/AddressForm/AddressForm'),
 );

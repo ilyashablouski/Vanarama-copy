@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
 import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
@@ -13,6 +12,12 @@ import { MyDetailsQueryParams } from '../../../utils/url';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
 
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const Button = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/button/'),
   {
