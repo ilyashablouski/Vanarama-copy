@@ -11,7 +11,7 @@ import {
   DEFAULT_POSTCODE,
 } from '../../containers/GoldrushFormContainer/GoldrushFormContainer';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
-import Skeleton from '../Skeleton';
+// import Skeleton from '../Skeleton';
 
 // const RequestCallBackForm = dynamic(() => import('../RequestCallBackForm'), {
 //   loading: () => <Skeleton count={5} />,
