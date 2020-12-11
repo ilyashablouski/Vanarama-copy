@@ -140,6 +140,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     createUpdateOrder({
       variables: {
         input: {
+          uuid: orderId,
           personUuid: businessPersonUuid,
           leaseType: LeaseTypeEnum.BUSINESS,
           lineItems: [],
