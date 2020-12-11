@@ -4,6 +4,11 @@ exports[`<Header /> renders correctly 1`] = `
 <header
   className="header"
   data-testid="header"
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
 >
    
   <div
@@ -1575,6 +1580,11 @@ exports[`<Header /> renders correctly with login user 1`] = `
 <header
   className="header"
   data-testid="header"
+  style={
+    Object {
+      "position": "relative",
+    }
+  }
 >
    
   <div

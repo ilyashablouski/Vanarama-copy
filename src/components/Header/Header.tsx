@@ -135,7 +135,11 @@ export const Header: FC<IHeaderProps> = memo(props => {
   }, [router]);
 
   return (
-    <header className={cx('header', className)} data-testid="header">
+    <header
+      style={{ position: useMobileViewport() ? 'fixed' : 'relative' }}
+      className={cx('header', className)}
+      data-testid="header"
+    >
       {' '}
       <div className="header-content">
         {' '}
