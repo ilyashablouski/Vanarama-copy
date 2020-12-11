@@ -1,13 +1,21 @@
+import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import createApolloClient from '../../../../apolloClient';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import { GENERIC_PAGE_QUESTION_HUB } from '../../../../containers/VehicleReviewCategoryContainer/gql';
-import ErrorMessage from '../../../../components/ErrorMessage/ErrorMessage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import { ReviewsHubCategoryQuery } from '../../../../../generated/ReviewsHubCategoryQuery';
 import Head from '../../../../components/Head/Head';
+import Skeleton from '../../../../components/Skeleton';
+
+const ErrorMessage = dynamic(
+  () => import('../../../../components/ErrorMessage/ErrorMessage'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 export interface IReviewHubPage {
   data: ReviewsHubCategoryQuery | undefined;

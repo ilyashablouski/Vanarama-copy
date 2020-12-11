@@ -1,10 +1,18 @@
+import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import DefaultErrorPage from 'next/error';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import BlogPostContainer from '../../containers/BlogPostContainer/BlogPostContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
 import createApolloClient from '../../apolloClient';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const CommunityPage: NextPage<IGenericPage> = ({ data, error, loading }) => {
   if (error || !data?.genericPage) {

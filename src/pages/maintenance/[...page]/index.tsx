@@ -1,6 +1,6 @@
+import dynamic from 'next/dynamic';
 import DefaultErrorPage from 'next/error';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
 import createApolloClient from '../../../apolloClient';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
@@ -10,6 +10,14 @@ import {
   PageCollectionVariables,
 } from '../../../../generated/PageCollection';
 import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
+import Skeleton from '../../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const MaintenancePage: NextPage<IGenericPage> = ({ data, error, loading }) => {
   if (error || !data?.genericPage) {
