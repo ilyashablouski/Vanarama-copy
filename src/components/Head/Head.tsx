@@ -4,7 +4,17 @@ import { useRouter } from 'next/router';
 import { IHeadProps } from './interface';
 import { defaultTitle, twitter, defaultImage, fb } from './defaults';
 
-const FONT_PATH = 'https://static.vanarama-nonprod.com/fonts/';
+const STATIC_DOMAIN = 'https://static.vanarama-nonprod.com';
+const FONT_PATH = `${STATIC_DOMAIN}/fonts/`;
+
+const PRECONNECT = [
+  process.env.API_URL,
+  STATIC_DOMAIN,
+  '//cdn.embedly.com',
+  'https://cdn.blueconic.net',
+  'https://www.riddle.com',
+  'https://widget.trustpilot.com',
+];
 
 const FONT_LIST = [
   'DkMono/DkMono-400-normal.otf',
@@ -68,6 +78,9 @@ const Head: FC<IHeadProps> = props => {
       <meta name="twitter:title" content={title || defaultTitle} />
       <meta name="twitter:creator" content={twitter} />
       <meta name="twitter:site" content={twitter} />
+      {PRECONNECT.map(domain => {
+        return <link rel="preconnect dns-prefetch" href={domain} />;
+      })}
       {FONT_LIST.map(font => {
         return (
           <link

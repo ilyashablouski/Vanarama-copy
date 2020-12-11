@@ -4,9 +4,9 @@
     {
       "image": "%IMAGE%",
       "name": "%APP_NAME%",
-      "cpu": 256,
-      "memory": 4096,
-      "memoryReservation": 1024,
+      "cpu": 1024,
+      "memory": 8192,
+      "memoryReservation": 2048,
       "essential": true,
       "secrets": [
         {
@@ -44,6 +44,10 @@
         {
           "name": "GTM_ID",
           "valueFrom": "%SSM_PARAMETER_BASE%/gtm-id"
+        },
+        {
+          "name": "STATIC_DOMAIN",
+          "valueFrom": "%SSM_PARAMETER_BASE%/static-domain"
         }
       ],
       "environment": [

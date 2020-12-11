@@ -128,10 +128,10 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   ssr: false,
 });
 const RangeCard = dynamic(() => import('./RangeCard'), {
-  loading: () => <Skeleton count={1} />,
+  loading: () => <Skeleton count={3} />,
 });
 const VehicleCard = dynamic(() => import('./VehicleCard'), {
-  loading: () => <Skeleton count={1} />,
+  loading: () => <Skeleton count={3} />,
 });
 
 interface IProps {

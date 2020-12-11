@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
 import cx from 'classnames';
-
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,

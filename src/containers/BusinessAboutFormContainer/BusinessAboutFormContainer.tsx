@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react';
+import dynamic from 'next/dynamic';
 import localForage from 'localforage';
 import Loading from '@vanarama/uibook/lib/components/atoms/loading';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
 import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
@@ -16,12 +16,24 @@ import { SaveBusinessAboutYou } from '../../../generated/SaveBusinessAboutYou';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { responseToInitialFormValues, mapAboutPersonData } from './mappers';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
-import { CreditApplicationTypeEnum as CATypeEnum } from '../../../generated/globalTypes';
+import {
+  CreditApplicationTypeEnum as CATypeEnum,
+  LeaseTypeEnum,
+} from '../../../generated/globalTypes';
 import {
   useRegistrationForTemporaryAccessMutation,
   handlerMock,
 } from '../../gql/temporaryRegistration';
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
+import Skeleton from '../../components/Skeleton';
+import { useCreateUpdateOrder } from '../../gql/order';
+
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const savePersonUuid = async (data: SaveBusinessAboutYou) =>
   localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
@@ -39,6 +51,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   const aboutYouData = useAboutYouData(personUuid);
   const [saveDetails] = useSaveAboutYouMutation(savePersonUuid);
   const [emailAlreadyExists] = useEmailCheck();
+  const [createUpdateOrder] = useCreateUpdateOrder(() => {});
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
     orderId,
     () => {},
@@ -118,6 +131,17 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     });
   };
 
+  const handleOrderUpdate = (businessPersonUuid?: string | null) =>
+    createUpdateOrder({
+      variables: {
+        input: {
+          personUuid: businessPersonUuid,
+          leaseType: LeaseTypeEnum.BUSINESS,
+          lineItems: [],
+        },
+      },
+    });
+
   const handleCreateUpdateCreditApplication = (
     values: IBusinessAboutFormValues,
     data?: SaveBusinessAboutYou | null,
@@ -180,13 +204,15 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
             handleDetailsSave(values, query.data?.registerForTemporaryAccess),
           )
           .then(({ data }) =>
-            handleCreateUpdateCreditApplication(values, data).then(() => {
-              const result = {
-                businessPersonUuid: data?.createUpdateBusinessPerson?.uuid,
-                companyType: values.companyType,
-              } as SubmitResult;
-              onCompleted?.(result);
-            }),
+            handleOrderUpdate(data?.createUpdateBusinessPerson?.uuid).then(() =>
+              handleCreateUpdateCreditApplication(values, data).then(() => {
+                const result = {
+                  businessPersonUuid: data?.createUpdateBusinessPerson?.uuid,
+                  companyType: values.companyType,
+                } as SubmitResult;
+                onCompleted?.(result);
+              }),
+            ),
           )
           .catch(onError);
       }}

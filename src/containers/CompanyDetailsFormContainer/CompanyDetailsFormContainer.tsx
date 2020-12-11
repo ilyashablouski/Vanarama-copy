@@ -94,7 +94,6 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
     createUpdateOrder({
       variables: {
         input: {
-          personUuid,
           partyUuid,
           leaseType: LeaseTypeEnum.BUSINESS,
           lineItems: [],

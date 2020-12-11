@@ -62,7 +62,7 @@ const Heading = dynamic(
   },
 );
 
-const GET_PERSON_QUERY = gql`
+export const GET_PERSON_QUERY = gql`
   query GetPerson {
     getPerson {
       uuid
@@ -156,6 +156,7 @@ const AboutYouPage: NextPage = () => {
       updateOrderHandle({
         variables: {
           input: {
+            personUuid: personUuid || uuid,
             leaseType: LeaseTypeEnum.PERSONAL,
             lineItems: [
               {

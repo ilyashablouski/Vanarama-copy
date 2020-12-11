@@ -1,6 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import RegisterForm from './RegisterForm';
+import preloadAll from 'jest-next-dynamic';
+import RegisterForm from '../RegisterForm';
 
 const jestMock = (emailAlreadyExists: boolean) => {
   return jest.fn().mockReturnValue(emailAlreadyExists);
@@ -27,6 +28,9 @@ const fillTextandBlur = async (labelText: string, email: string) => {
 };
 
 describe('<RegisterForm />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should call `onSubmit` if there are no validation errors', async () => {
     // ARRANGE
     const onSubmit = jest.fn();
@@ -199,6 +203,9 @@ describe('<RegisterForm />', () => {
   });
 
   describe('Email Already Exists', () => {
+    beforeEach(async () => {
+      await preloadAll();
+    });
     const message = () => {
       return 'This email address already exists. Please log in';
     };

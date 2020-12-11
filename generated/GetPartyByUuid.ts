@@ -7,11 +7,17 @@
 // GraphQL query operation: GetPartyByUuid
 // ====================================================
 
+export interface GetPartyByUuid_partyByUuid_person_companies {
+  uuid: string;
+  partyId: string;
+}
+
 export interface GetPartyByUuid_partyByUuid_person {
   firstName: string;
   lastName: string;
   partyId: string;
   uuid: string;
+  companies: GetPartyByUuid_partyByUuid_person_companies[] | null;
 }
 
 export interface GetPartyByUuid_partyByUuid_company {

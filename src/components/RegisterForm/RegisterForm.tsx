@@ -1,11 +1,5 @@
-import ChevronForwardSharp from '@vanarama/uibook/lib/assets/icons/ChevronForwardSharp';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import Details from '@vanarama/uibook/lib/components/atoms/details';
-import Link from '@vanarama/uibook/lib/components/atoms/link';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
+import dynamic from 'next/dynamic';
 import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
 import { useForm } from 'react-hook-form';
 import PasswordRequirements from '../../core/components/PasswordRequirements';
 import {
@@ -16,6 +10,51 @@ import {
 } from '../../utils/inputValidators';
 import { EMAIL_REGEX } from '../../utils/regex';
 import { IRegisterFormProps, IRegisterFormValues } from './interfaces';
+import Skeleton from '../Skeleton';
+
+const Details = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/details'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Link = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/link'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const ChevronForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Formgroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 const RegisterForm: React.FC<IRegisterFormProps> = ({
   isSubmitting,
