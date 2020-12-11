@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import dynamic from 'next/dynamic';
 import '@vanarama/uibook/src/components/base.scss';
 import { AppProps } from 'next/app';
@@ -64,44 +65,44 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [modalCompareTypeError, setModalCompareTypeError] = useState<
     boolean | undefined
   >(false);
-  const [existComparator, setExistComparator] = useState(false);
+  // const [existComparator, setExistComparator] = useState(false);
 
-  useEffect(() => {
-    // Anytime router.push is called, scroll to the top of the page.
-    // it should be prevent for cases when we make a url replace in search pages after filters changing
-    Router.events.on('routeChangeComplete', (url: string) => {
-      const isSearchPage = !!SEARCH_PAGES.find(element =>
-        url.includes(element),
-      );
-      if (!isSearchPage) window.scrollTo(0, 0);
-    });
-  }, []);
+  // useEffect(() => {
+  //   // Anytime router.push is called, scroll to the top of the page.
+  //   // it should be prevent for cases when we make a url replace in search pages after filters changing
+  //   Router.events.on('routeChangeComplete', (url: string) => {
+  //     const isSearchPage = !!SEARCH_PAGES.find(element =>
+  //       url.includes(element),
+  //     );
+  //     if (!isSearchPage) window.scrollTo(0, 0);
+  //   });
+  // }, []);
 
-  useEffect(() => {
-    pushPageData({ pathname: router.pathname });
-    const getVehicles = async () => {
-      const vehiclesCompares = (await getCompares()) as
-        | IVehicle[]
-        | IVehicleCarousel[]
-        | null;
-      if (vehiclesCompares) {
-        setCompareVehicles(vehiclesCompares);
-      }
-    };
-    getVehicles();
+  // useEffect(() => {
+  //   pushPageData({ pathname: router.pathname });
+  //   const getVehicles = async () => {
+  //     const vehiclesCompares = (await getCompares()) as
+  //       | IVehicle[]
+  //       | IVehicleCarousel[]
+  //       | null;
+  //     if (vehiclesCompares) {
+  //       setCompareVehicles(vehiclesCompares);
+  //     }
+  //   };
+  //   getVehicles();
 
-    if (
-      (PAGES_WITH_COMPARATOR.some(page => router.pathname.includes(page)) &&
-        !PAGES_WITHOUT_COMPARATOR.some(page =>
-          router.pathname.includes(page),
-        )) ||
-      WHOLE_PATHS_PAGES_WITH_COMPARATOR.some(page => router.pathname === page)
-    ) {
-      setExistComparator(true);
-    } else {
-      setExistComparator(false);
-    }
-  }, [router.pathname]);
+  //   if (
+  //     (PAGES_WITH_COMPARATOR.some(page => router.pathname.includes(page)) &&
+  //       !PAGES_WITHOUT_COMPARATOR.some(page =>
+  //         router.pathname.includes(page),
+  //       )) ||
+  //     WHOLE_PATHS_PAGES_WITH_COMPARATOR.some(page => router.pathname === page)
+  //   ) {
+  //     setExistComparator(true);
+  //   } else {
+  //     setExistComparator(false);
+  //   }
+  // }, [router.pathname]);
 
   const compareChange = async (
     product?: IVehicle | IVehicleCarousel | null | undefined,

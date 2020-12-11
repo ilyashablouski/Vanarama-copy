@@ -61,7 +61,7 @@ class MyDocument extends Document {
             src="//cdn.embedly.com/widgets/platform.js"
             charSet="UTF-8"
           />
-          <script defer src="https://cdn.blueconic.net/vanarama.js" />
+          {/* <script defer src="https://cdn.blueconic.net/vanarama.js" />
           <script defer src="https://www.riddle.com/files/js/embed.js" />
           <SpeedCurveScript />
           <script
@@ -69,7 +69,7 @@ class MyDocument extends Document {
             async
             defer
             crossOrigin="anonymous"
-          />
+          /> */}
         </body>
       </Html>
     );
