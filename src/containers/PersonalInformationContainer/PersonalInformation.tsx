@@ -1,4 +1,4 @@
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
+import dynamic from 'next/dynamic';
 import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import PersonalInformation from '../../components/PersonalInformation/PersonalInformation';
@@ -11,6 +11,14 @@ import {
 import { GET_PERSON_INFORMATION_DATA, useCreatePerson } from './gql';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const getKey = (person: IPerson | null): string => {
   return `${person?.firstName}${person?.lastName}${person?.address?.serviceId}${person?.telephoneNumber}${person?.emailConsent}`;

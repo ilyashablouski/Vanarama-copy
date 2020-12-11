@@ -1,5 +1,5 @@
+import dynamic from 'next/dynamic';
 import React from 'react';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import VatDetailsForm from '../../components/VatDetailsForm/VatDetailsForm';
 import { VatDetailsFormValues } from '../../components/VatDetailsForm/interfaces';
 import {
@@ -14,6 +14,14 @@ import { IVatDetailsFormContainerProps } from './interfaces';
 import { mapFormValues, mapDefaultValues } from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = ({
   companyUuid,

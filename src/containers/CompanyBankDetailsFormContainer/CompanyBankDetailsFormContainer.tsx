@@ -1,6 +1,5 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import { ICompanyBankDetails } from '../../components/CompanyBankDetails/interfaces';
 import {
   useCreateUpdateCreditApplication,
@@ -18,7 +17,14 @@ import {
   mapBankAccountsForCreditApplication,
 } from './mappers';
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
+import Skeleton from '../../components/Skeleton';
 
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const CompanyBankDetails = dynamic(() =>
   import('../../components/CompanyBankDetails'),
 );

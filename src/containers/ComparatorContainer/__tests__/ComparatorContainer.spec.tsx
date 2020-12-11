@@ -1,11 +1,16 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
+import preloadAll from 'jest-next-dynamic';
 import ComparatorContainer from '../ComparatorContainer';
 import { useVehicleData } from '../gql';
 
 jest.mock('../gql');
 
 describe('<ComparatorContainer />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
+
   it('should show error correctly', async () => {
     // ARRANGE
     (useVehicleData as jest.Mock).mockReturnValue({

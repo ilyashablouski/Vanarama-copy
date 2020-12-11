@@ -84,31 +84,6 @@ const ThankYouPage: NextPage = () => {
   }, [person]);
 
   const renderList = () => {
-    if (isB2b) {
-      return (
-        <List>
-          <li>
-            <Text color="darker" tag="p">
-              We’ll then send you some finance documents to sign which you can
-              do straight from your smartphone.
-            </Text>
-          </li>
-          <li>
-            <Text color="darker" tag="p">
-              Once the dealer has arranged a suitable time with you, we’ll
-              deliver your brand new vehicle straight to your door - free, safe
-              & contactless
-            </Text>
-          </li>
-          <li>
-            <Text color="darker" tag="p">
-              We’ll deliver your brand new vehicle straight to your door - free,
-              safe and contactless.
-            </Text>
-          </li>
-        </List>
-      );
-    }
     return (
       <List>
         <li>
@@ -119,8 +94,9 @@ const ThankYouPage: NextPage = () => {
         </li>
         <li>
           <Text color="darker" tag="p">
-            We’ll arrange everything to get your car delivered straight to your
-            door, free of charge!
+            Once the dealer has arranged a suitable time with you, we’ll deliver
+            your brand new vehicle straight to your door - free, safe &
+            contactless.
           </Text>
         </li>
       </List>
@@ -139,9 +115,9 @@ const ThankYouPage: NextPage = () => {
             We&apos;ve Received Your Order
           </Text>
           <Text color="darker" tag="p">
-            {isB2b
-              ? `We’ve sent your application to the funder and we’ll be in touch within 24 hours.`
-              : `Now that we've received your order, we'll reserve your vehicle and get your finance sorted. We'll be in touch within 24 business hours.`}
+            Now that we&apos;ve received your order, we&apos;ll reserve your
+            vehicle and get your finance sorted. We&apos;ll be in touch within
+            24 business hours.
           </Text>
           <Heading color="black" tag="h2" size="lead">
             {isB2b ? `What's Next?` : `What Happens Next?`}

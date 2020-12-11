@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import dynamic from 'next/dynamic';
 import React, { useState, useEffect, useRef } from 'react';
-import Loading from '@vanarama/uibook/lib/components/atoms/loading';
 import Modal from '@vanarama/uibook/lib/components/molecules/modal';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteDataLazyQuery } from './gql';
@@ -16,6 +16,20 @@ import {
   GetVehicleDetails_derivativeInfo_colours,
   GetVehicleDetails_derivativeInfo_trims,
 } from '../../../generated/GetVehicleDetails';
+import {
+  GetTrimAndColor_colourList as IColourList,
+  GetTrimAndColor_trimList as ITrimList,
+} from '../../../generated/GetTrimAndColor';
+import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
+import { useTrimAndColour } from '../../gql/carpage';
+import Skeleton from '../../components/Skeleton';
+
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const parseQuoteParams = (param?: string | null) =>
   parseInt(param || '', 10) || null;
@@ -35,6 +49,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   setLeaseScannerData,
   isDisabled,
   setIsDisabled,
+  trimData,
+  colourData,
 }) => {
   const isInitialMount = useRef(true);
 
@@ -56,6 +72,12 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [trim, setTrim] = useState<number | null>(
     parseQuoteParams(quote?.quoteByCapId?.trim),
   );
+  const [trimList, setTrimList] = useState<(ITrimList | null)[] | null>(
+    trimData,
+  );
+  const [colourList, setColourList] = useState<(IColourList | null)[] | null>(
+    colourData,
+  );
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
   const [isInitialLoading, setIsInitialLoading] = useState<boolean>(false);
@@ -65,6 +87,17 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     getQuoteData,
     { error, loading },
   ] = useQuoteDataLazyQuery(updatedQuote => setQuoteData(updatedQuote));
+
+  const [getTrimAndColour] = useTrimAndColour(
+    `${capId}`,
+    colour || 0,
+    trim || 0,
+    vehicleType,
+    result => {
+      setTrimList(result?.trimList);
+      setColourList(result.colourList || []);
+    },
+  );
 
   useEffect(() => {
     if (isInitialLoading && isDisabled && !loading) {
@@ -85,6 +118,10 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     window.addEventListener('scroll', scrollChange);
     return () => window.removeEventListener('scroll', scrollChange);
   }, []);
+
+  useFirstRenderEffect(() => {
+    getTrimAndColour();
+  }, [trim, colour]);
 
   useEffect(() => {
     if (!isInitialMount.current) {
@@ -252,6 +289,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         trim={trim}
         derivativeInfo={derivativeInfo}
         colour={colour}
+        trimList={trimList}
+        colourList={colourList}
         isDisabled={isDisabled}
         setIsDisabled={setIsDisabled}
         leaseAdjustParams={leaseAdjustParams}

@@ -14,6 +14,7 @@ const PRECONNECT = [
   'https://cdn.blueconic.net',
   'https://www.riddle.com',
   'https://widget.trustpilot.com',
+  'https://cdn.speedcurve.com',
 ];
 
 const FONT_LIST = [

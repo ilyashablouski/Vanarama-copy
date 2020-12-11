@@ -12,6 +12,10 @@ import {
   GetQuoteDetails_quoteByCapId,
   GetQuoteDetails,
 } from '../../../generated/GetQuoteDetails';
+import {
+  GetTrimAndColor_colourList as IColourList,
+  GetTrimAndColor_trimList as ITrimList,
+} from '../../../generated/GetTrimAndColor';
 
 export interface ILeaseScannerData {
   maintenance: boolean | null;
@@ -39,6 +43,8 @@ export interface IProps {
     React.SetStateAction<ILeaseScannerData | null>
   >;
   quote?: GetQuoteDetails;
+  trimData: ITrimList[];
+  colourData: IColourList[];
 }
 
 export interface IQuoteDataInputs {
