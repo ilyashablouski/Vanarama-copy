@@ -151,7 +151,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-        {compareVehicles && compareVehicles.length > 0 && existComparator && (
+        {/* {compareVehicles && compareVehicles.length > 0 && existComparator && ( */}
+        {compareVehicles && compareVehicles.length > 0 && (
           <ComparatorBar
             deleteVehicle={async vehicle => {
               const vehicles = await deleteCompare(vehicle);
