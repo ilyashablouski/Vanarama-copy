@@ -27,6 +27,12 @@ import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 //   },
 // );
 
+const optimisationOptions = {
+  height: 620,
+  width: 620,
+  quality: 59,
+};
+
 const HeroSection = ({ title, body, image }: IHeroData) => (
   <Hero withRequestCallbackForm>
     <HeroHeading text={title || ''} />
@@ -34,6 +40,7 @@ const HeroSection = ({ title, body, image }: IHeroData) => (
     <Image
       loadImage
       optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+      optimisationOptions={optimisationOptions}
       dataTestId="fleet_hero-image"
       size="expand"
       src={image?.file?.url || config.heroImage.src}

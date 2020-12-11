@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+// import Heading from '@vanarama/uibook/lib/components/atoms/heading';
 import getTitleTag from '../../utils/getTitleTag';
 import { IHeroHeadingProps } from './interface';
 import Skeleton from '../Skeleton';
@@ -11,6 +12,8 @@ const Heading = dynamic(
 );
 
 const HeroHeading: React.FC<IHeroHeadingProps> = ({ text, titleTag }) => {
+  if (!text) return <Skeleton count={2} />;
+
   return (
     <Heading
       size="xlarge"
