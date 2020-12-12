@@ -1,9 +1,10 @@
-import * as R from 'ramda';
+// @ts-ignore
+import path from '@ramda/path';
 
 export const getSectionsData = (
   sectionPath: string[],
   data: any,
-): any | undefined => R.path(sectionPath, data);
+): any | undefined => path(sectionPath, data);
 
 export const getCardsName = (data: any): any | undefined =>
-  R.path(['sections', 'cards', 'name'], data);
+  path(['sections', 'cards', 'name'], data);

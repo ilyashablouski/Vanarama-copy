@@ -24,6 +24,7 @@
   "dependencies": {
     "@apollo/client": "3.1.0",
     "@apollo/react-ssr": "^4.0.0-beta.1",
+    "@ramda/path": "^0.26.1",
     "@types/lodash.compact": "^3.0.6",
     "@types/lodash.flatten": "^4.4.6",
     "@vanarama/uibook": "5.38.30",
@@ -56,7 +57,6 @@
     "node-fetch": "^2.6.0",
     "node-sass": "^4.13.0",
     "prerender-node": "^3.2.5",
-    "ramda": "^0.27.1",
     "rate-limiter-flexible": "^2.1.10",
     "react": "^16.12.0",
     "react-autosuggest": "^10.0.2",
