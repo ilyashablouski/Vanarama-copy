@@ -145,6 +145,7 @@ pipeline {
             steps {
               milestone(10)
               withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
+                  nodejs('node') {
                     sh '''npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"'''
                     sh "yarn install"
                     // sh "yarn pack --filename next-storefront.tar.gz"
@@ -153,6 +154,7 @@ pipeline {
                     sh "yarn typecheck"
                     // sh "yarn build"
                     // stash includes: 'next-storefront.tar.gz', name: 'package'
+                    }
               }
                 sh "cp .coverage/lcov.info lcov.info"
                 stash includes: 'lcov.info', name: 'lcov'
