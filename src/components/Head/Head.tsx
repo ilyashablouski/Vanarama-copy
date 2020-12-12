@@ -80,7 +80,9 @@ const Head: FC<IHeadProps> = props => {
       <meta name="twitter:creator" content={twitter} />
       <meta name="twitter:site" content={twitter} />
       {PRECONNECT.map(domain => {
-        return <link rel="preconnect dns-prefetch" href={domain} />;
+        return (
+          <link rel="preconnect dns-prefetch" href={domain} key={domain} />
+        );
       })}
       {FONT_LIST.map(font => {
         return (

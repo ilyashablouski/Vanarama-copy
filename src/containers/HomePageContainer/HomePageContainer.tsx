@@ -394,30 +394,30 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           {(getSectionsData(
             ['cards', 'cards'],
             data?.homePage?.sections,
-          ) as CardData[])?.map((c: CardData, idx) => (
+          ) as CardData[])?.map((card: CardData, index) => (
             <RouterLink
               link={{
-                href: c.link?.legacyUrl || c.link?.url || '#',
-                label: c.link?.text || '',
+                href: card.link?.legacyUrl || card.link?.url || '#',
+                label: card.link?.text || '',
               }}
+              key={card.title || index}
             >
               <Card
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={c.title || idx}
                 title={{
                   title: '',
                   withBtn: true,
                   link: (
-                    <Heading tag={getTitleTag(c.titleTag || 'span') as any}>
-                      {c.title}
+                    <Heading tag={getTitleTag(card.titleTag || 'span') as any}>
+                      {card.title}
                     </Heading>
                   ),
                 }}
                 imageSrc={
-                  c.image?.file?.url ||
+                  card.image?.file?.url ||
                   'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg'
                 }
-                description={c.body || ''}
+                description={card.body || ''}
               />
             </RouterLink>
           ))}
