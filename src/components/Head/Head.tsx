@@ -86,7 +86,6 @@ const Head: FC<IHeadProps> = props => {
         return (
           <link
             key={font}
-            rel="preload"
             href={`${FONT_PATH}${font}`}
             as="font"
             type="font/woff2"
@@ -94,7 +93,7 @@ const Head: FC<IHeadProps> = props => {
           />
         );
       })}
-      <link rel="preload" href={FONT_PATH.replace('/fonts/', '')} />
+      <link href={FONT_PATH.replace('/fonts/', '')} />
       <link
         rel="preload"
         href={process?.env?.API_URL?.replace('/graphql/', '')}
