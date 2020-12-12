@@ -1,10 +1,11 @@
+/* eslint-disable */
+
 /*
   NOTE: This modifies next.js internal api behavior and may break your application.
   Tested on next.js version: 9.2.1
 */
 
 import React from 'react';
-// import { compact, flatten } from 'lodash';
 import compact from 'lodash.compact';
 import flatten from 'lodash.flatten';
 
@@ -12,10 +13,6 @@ import { NextScript } from 'next/document';
 
 class NextScriptCustom extends NextScript {
   render() {
-    // if (!super.render()) {
-    //   return null;
-    // }
-
     const orgNextScripts = flatten(super.render()?.props.children);
 
     const scripts = compact(
