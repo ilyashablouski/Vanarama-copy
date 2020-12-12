@@ -11,6 +11,7 @@ module.exports = {
     env: {
       ENV: process.env.ENV,
       IMG_OPTIMISATION_HOST: process.env.IMG_OPTIMISATION_HOST,
+      STATIC_DOMAIN: process.env.STATIC_DOMAIN,
       GTM_ID: process.env.GTM_ID,
       MICROBLINK_URL: process.env.MICROBLINK_URL,
       API_URL: process.env.API_URL,
@@ -25,6 +26,7 @@ module.exports = {
       autoPrerender: false,
     },
     poweredByHeader: false,
+    trailingSlash: false,
 
     serverRuntimeConfig: {
       // Rollbar.
@@ -33,7 +35,6 @@ module.exports = {
     publicRuntimeConfig: {
       // Rollbar.
       rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
-      // Apollo.
     },
 
     // Rewrites.
@@ -45,8 +46,6 @@ module.exports = {
       }
       return [];
     },
-
-    trailingSlash: false,
 
     // Routes to export into static files.
     exportPathMap: () => {

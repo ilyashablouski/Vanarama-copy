@@ -1,5 +1,4 @@
-import Document, { Html, Main } from 'next/document';
-import dynamic from 'next/dynamic';
+import Document, { Html, Main, NextScript } from 'next/document';
 import HeadCustom from '../hacks/headCustom';
 
 // @ts-ignore
@@ -8,9 +7,9 @@ import HeadCustom from '../hacks/headCustom';
 // );
 
 // @ts-ignore
-const NextScript = dynamic(() =>
-  import('next/document').then(mod => mod.NextScript),
-);
+// const NextScript = dynamic(() =>
+//   import('next/document').then(mod => mod.NextScript),
+// );
 
 class MyDocument extends Document {
   render() {

@@ -8,7 +8,7 @@ const STATIC_DOMAIN = 'https://static.vanarama-nonprod.com';
 const FONT_PATH = `${STATIC_DOMAIN}/fonts/`;
 
 const PRECONNECT = [
-  process.env.API_URL,
+  process?.env?.API_URL?.replace('/graphql/', ''),
   STATIC_DOMAIN,
   '//cdn.embedly.com',
   'https://cdn.blueconic.net',
@@ -89,8 +89,6 @@ const Head: FC<IHeadProps> = props => {
           <link key={font} href={`${FONT_PATH}${font}`} type="font/woff2" />
         );
       })}
-      <link href={FONT_PATH.replace('/fonts/', '')} />
-      <link href={process?.env?.API_URL?.replace('/graphql/', '')} />
     </NextHead>
   );
 };
