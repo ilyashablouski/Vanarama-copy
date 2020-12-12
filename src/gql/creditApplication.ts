@@ -131,11 +131,16 @@ export function useCreateUpdateCreditApplication(
   >(CREATE_UPDATE_CREDIT_APPLICATION, {
     onCompleted,
     update: (store, result) => {
-      // Read the data from our cache for this query.
-      const data = store.readQuery<Query, QueryVariables>({
-        query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
-        variables: { id: orderId },
-      });
+      let data;
+      try {
+        // Read the data from our cache for this query.
+        data = store.readQuery<Query, QueryVariables>({
+          query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
+          variables: { id: orderId },
+        });
+      } catch {
+        data = null;
+      }
 
       // Add the employment from the mutation to the end.
       if (
