@@ -1,5 +1,5 @@
 /* eslint-disable import/no-cycle */
-import React, { FC, memo, useState, useEffect } from 'react';
+import React, { FC, memo, useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
@@ -53,20 +53,20 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     isMenuOpen,
     promotionalImage,
   } = props;
-  const firstChildrenLinks = links.find(
-    el => !!el.children?.length,
-  ) as IHeaderLink;
+  const firstChildrenLinks: IHeaderLink | undefined = useMemo(
+    () => links.find(el => !!el.children?.length),
+    [links],
+  );
 
-  const [childrenLinks, setChildrenLinks] = useState<IHeaderLink>(
-    firstChildrenLinks,
+  const tertiaryLinks: IHeaderLink[] = useMemo(
+    () => links.filter(link => !!link.children?.length),
+    [links],
+  );
+
+  const [activeTertiaryMenu, setActiveTertiaryMenu] = useState<string>(
+    firstChildrenLinks?.id || '',
   );
   const [isOpenMenu, setIsOpenMenu] = useState<string | null>(null);
-
-  useEffect(() => {
-    if (firstChildrenLinks?.id) {
-      setIsOpenMenu(firstChildrenLinks.id);
-    }
-  }, [firstChildrenLinks]);
 
   useEffect(() => {
     setIsOpenMenu(null);
@@ -119,7 +119,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
               onMouseOver={
                 link.children?.length
                   ? () => {
-                      setChildrenLinks(link as IHeaderLink);
+                      setActiveTertiaryMenu(link?.id || '');
                       setIsOpenMenu(link.id || null);
                     }
                   : undefined
@@ -127,7 +127,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
               onFocus={
                 link.children?.length
                   ? () => {
-                      setChildrenLinks(link as IHeaderLink);
+                      setActiveTertiaryMenu(link?.id || '');
                       setIsOpenMenu(link.id || null);
                     }
                   : undefined
@@ -167,10 +167,11 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
             </li>
           ))}
         </ul>
-        {childrenLinks?.children?.length ? (
+        {tertiaryLinks.map(tertiaryBlock => (
           <ul
+            key={`menu-tertiary-${tertiaryBlock?.id}`}
             className={cx('menu-tertiary', {
-              '-open': isOpenMenu,
+              '-open': activeTertiaryMenu === tertiaryBlock.id,
             })}
           >
             <li className={linkClassName({ title: true })}>
@@ -181,19 +182,19 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                   el.preventDefault();
                   setIsOpenMenu(null);
                 }}
-                dataTestId="menu-tertiary-title"
+                dataTestId={`menu-tertiary-${tertiaryBlock.id}`}
                 color="black"
                 fill="clear"
-                label={childrenLinks.label}
+                label={tertiaryBlock.label}
               />
             </li>
-            {(childrenLinks.children as IHeaderLink[]).map(
+            {(tertiaryBlock.children as IHeaderLink[]).map(
               (linkSecondary: IHeaderLink) => (
                 <li
                   key={linkSecondary.label}
                   className={linkClassName({
                     highlight: linkSecondary.highlight,
-                    half: childrenLinks?.children!.length > 4,
+                    half: tertiaryBlock?.children!.length > 4,
                   })}
                 >
                   <RouterLink link={linkSecondary} as={linkSecondary.as}>
@@ -203,7 +204,8 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
               ),
             )}
           </ul>
-        ) : null}
+        ))}
+
         {promotionalImage?.url && (
           <div className="menu-featured">
             <RouterLink link={{ href: promotionalImage?.url, label: '' }}>
