@@ -84,20 +84,11 @@ const Head: FC<IHeadProps> = props => {
       })}
       {FONT_LIST.map(font => {
         return (
-          <link
-            key={font}
-            href={`${FONT_PATH}${font}`}
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
+          <link key={font} href={`${FONT_PATH}${font}`} type="font/woff2" />
         );
       })}
       <link href={FONT_PATH.replace('/fonts/', '')} />
-      <link
-        rel="preload"
-        href={process?.env?.API_URL?.replace('/graphql/', '')}
-      />
+      <link href={process?.env?.API_URL?.replace('/graphql/', '')} />
     </NextHead>
   );
 };
