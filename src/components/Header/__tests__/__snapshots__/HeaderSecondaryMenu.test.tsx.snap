@@ -104,14 +104,14 @@ exports[`<HeaderSecondaryMenu /> renders correctly 1`] = `
       </li>
     </ul>
     <ul
-      className="menu-tertiary"
+      className="menu-tertiary -open"
     >
       <li
         className="menu-li menu-title"
       >
         <button
           className="link -black -regular -clear"
-          data-testid="menu-tertiary-title"
+          data-testid="menu-tertiary-b21cfa5d-e57f-4d7e-867f-4a1870cfb879"
           onClick={[Function]}
         >
           <div
@@ -310,6 +310,156 @@ exports[`<HeaderSecondaryMenu /> renders correctly 1`] = `
         >
           <span>
             Volkswagen
+          </span>
+        </a>
+      </li>
+    </ul>
+    <ul
+      className="menu-tertiary"
+    >
+      <li
+        className="menu-li menu-title"
+      >
+        <button
+          className="link -black -regular -clear"
+          data-testid="menu-tertiary-43df3e0b-f248-457d-bf3c-ec1fe4def7e3"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            Vans By Size
+          </div>
+        </button>
+      </li>
+      <li
+        className="menu-li"
+      >
+        <a
+          className="link"
+          data-menu={null}
+          data-testid="router-link"
+          href="/van-leasing?bodyStyles=Small%20Van"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <span>
+            Small
+          </span>
+        </a>
+      </li>
+      <li
+        className="menu-li"
+      >
+        <a
+          className="link"
+          data-menu={null}
+          data-testid="router-link"
+          href="/van-leasing?bodyStyles=Medium%20Van"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <span>
+            Medium
+          </span>
+        </a>
+      </li>
+      <li
+        className="menu-li"
+      >
+        <a
+          className="link"
+          data-menu={null}
+          data-testid="router-link"
+          href="/van-leasing?bodyStyles=Large%20Van"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <span>
+            Large
+          </span>
+        </a>
+      </li>
+    </ul>
+    <ul
+      className="menu-tertiary"
+    >
+      <li
+        className="menu-li menu-title"
+      >
+        <button
+          className="link -black -regular -clear"
+          data-testid="menu-tertiary-44c0f32b-f034-4b84-ac49-0c2b76140c96"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            Vans By Type
+          </div>
+        </button>
+      </li>
+      <li
+        className="menu-li"
+      >
+        <a
+          className="link"
+          data-menu={null}
+          data-testid="router-link"
+          href="/van-leasing?bodyStyles=Refrigerated%20Van"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <span>
+            Refrigerated
+          </span>
+        </a>
+      </li>
+      <li
+        className="menu-li"
+      >
+        <a
+          className="link"
+          data-menu={null}
+          data-testid="router-link"
+          href="/van-leasing?bodyStyles=Dropside%20Tipper,Luton%20Box%20Van"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <span>
+            Tippers/Lutons
+          </span>
+        </a>
+      </li>
+      <li
+        className="menu-li"
+      >
+        <a
+          className="link"
+          data-menu={null}
+          data-testid="router-link"
+          href="/van-leasing?bodyStyles=Minibus"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <span>
+            Crew/Minibus
+          </span>
+        </a>
+      </li>
+      <li
+        className="menu-li"
+      >
+        <a
+          className="link"
+          data-menu={null}
+          data-testid="router-link"
+          href="/van-leasing?bodyStyles=Specialist"
+          onClick={[Function]}
+          onMouseEnter={[Function]}
+        >
+          <span>
+            Specialist
           </span>
         </a>
       </li>
