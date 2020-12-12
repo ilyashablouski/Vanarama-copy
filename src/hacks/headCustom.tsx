@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /*
   NOTE: This modifies next.js internal api behavior and may break your application.
   Tested on next.js version: 9.2.1
