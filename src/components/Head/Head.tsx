@@ -80,25 +80,17 @@ const Head: FC<IHeadProps> = props => {
       <meta name="twitter:creator" content={twitter} />
       <meta name="twitter:site" content={twitter} />
       {PRECONNECT.map(domain => {
-        return <link rel="preconnect dns-prefetch" href={domain} />;
+        return (
+          <link rel="preconnect dns-prefetch" href={domain} key={domain} />
+        );
       })}
       {FONT_LIST.map(font => {
         return (
-          <link
-            key={font}
-            rel="preload"
-            href={`${FONT_PATH}${font}`}
-            as="font"
-            type="font/woff2"
-            crossOrigin="anonymous"
-          />
+          <link key={font} href={`${FONT_PATH}${font}`} type="font/woff2" />
         );
       })}
-      <link rel="preload" href={FONT_PATH.replace('/fonts/', '')} />
-      <link
-        rel="preload"
-        href={process?.env?.API_URL?.replace('/graphql/', '')}
-      />
+      <link href={FONT_PATH.replace('/fonts/', '')} />
+      <link href={process?.env?.API_URL?.replace('/graphql/', '')} />
     </NextHead>
   );
 };

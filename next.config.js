@@ -2,7 +2,7 @@ const withPlugins = require('next-compose-plugins');
 const withSass = require('@zeit/next-sass');
 const withCss = require('@zeit/next-css');
 const withImages = require('next-images');
-const withFonts = require('next-fonts');
+// const withFonts = require('next-fonts');
 
 const withCustomBabelConfig = require('next-plugin-custom-babel-config');
 /**
@@ -19,7 +19,7 @@ module.exports = withPlugins(
   [
     [generateMenuData],
     withTM,
-    [withFonts],
+    // [withFonts],
     [
       withCustomBabelConfig,
       { babelConfigFile: path.resolve('./babel.config.js') },
