@@ -24,6 +24,8 @@
   "dependencies": {
     "@apollo/client": "3.1.0",
     "@apollo/react-ssr": "^4.0.0-beta.1",
+    "@types/lodash.compact": "^3.0.6",
+    "@types/lodash.flatten": "^4.4.6",
     "@vanarama/uibook": "5.38.30",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
@@ -42,6 +44,8 @@
     "js-cookie": "^2.2.1",
     "js-sha256": "^0.9.0",
     "localforage": "^1.7.3",
+    "lodash.compact": "^3.0.1",
+    "lodash.flatten": "^4.4.0",
     "moment": "^2.24.0",
     "next": "^10.0.1",
     "next-compose-plugins": "^2.2.0",
