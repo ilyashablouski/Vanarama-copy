@@ -1,4 +1,4 @@
-import Document, { Html, Head, Main } from 'next/document';
+import Document, { Html, Main } from 'next/document';
 import dynamic from 'next/dynamic';
 import HeadCustom from '../hacks/headCustom';
 

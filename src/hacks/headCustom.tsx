@@ -4,7 +4,7 @@
 
   https://medium.com/medwing-engineering-product-design/hacking-next-js-for-better-pagespeed-scores-6c651d19f218
 */
-import React, { Component, ReactNode, useContext } from 'react';
+import React from 'react';
 
 import { Head } from 'next/document';
 
