@@ -50,7 +50,7 @@ exports[`<HeaderSecondaryMenu /> renders correctly 1`] = `
         </span>
       </li>
       <li
-        className="menu-li -with-children"
+        className="menu-li -open -with-children"
         data-testid="Vans By Manufacturer"
         onFocus={[Function]}
         onMouseOver={[Function]}
