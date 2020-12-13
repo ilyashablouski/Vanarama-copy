@@ -314,7 +314,7 @@ const SearchPodContainer = () => {
     if (index === 2) setHeadingText('Search Cars');
   };
 
-  if (!data?.filterList) return <Skeleton count={8} />;
+  // if (!data?.filterList) return <Skeleton count={8} />;
 
   return (
     <SearchPod
