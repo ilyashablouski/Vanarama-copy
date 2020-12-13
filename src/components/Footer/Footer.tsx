@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown';
 import { PrimaryFooter_primaryFooter as PrimaryFooter } from '../../../generated/PrimaryFooter';
 import RouterLink from '../RouterLink/RouterLink';
@@ -19,27 +20,33 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
   return (
     <footer className="footer">
       {linkGroups?.map(linkGroup => (
-        <FooterColumn linkGroup={linkGroup} key={linkGroup?.name || ''} />
+        <LazyLoadComponent>
+          <FooterColumn linkGroup={linkGroup} key={linkGroup?.name || ''} />
+        </LazyLoadComponent>
       ))}
       <hr className="footer--divider -fullwidth" />
       {legalStatement?.title && (
-        <Text color="white" size="xsmall" tag="p">
-          {legalStatement?.title}
-        </Text>
+        <LazyLoadComponent>
+          <Text color="white" size="xsmall" tag="p">
+            {legalStatement?.title}
+          </Text>
+        </LazyLoadComponent>
       )}
       {legalStatement?.body && (
         <div className="-text-columns">
-          <Text size="xsmall" color="medium">
-            <ReactMarkdown
-              source={legalStatement.body}
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-              }}
-            />
-          </Text>
+          <LazyLoadComponent>
+            <Text size="xsmall" color="medium">
+              <ReactMarkdown
+                source={legalStatement.body}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                }}
+              />
+            </Text>
+          </LazyLoadComponent>
         </div>
       )}
     </footer>

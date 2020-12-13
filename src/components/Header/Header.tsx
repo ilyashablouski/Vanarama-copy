@@ -6,7 +6,6 @@ import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import localForage from 'localforage';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
-
 import Logo from '@vanarama/uibook/lib/components/atoms/logo';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
