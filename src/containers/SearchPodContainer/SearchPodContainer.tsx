@@ -20,7 +20,7 @@ import {
   filterList_filterList_groupedRangesWithSlug_children as IFiltersListOptions,
 } from '../../../generated/filterList';
 import SearchPod from '../../components/SearchPod';
-import Skeleton from '../../components/Skeleton';
+// import Skeleton from '../../components/Skeleton';
 
 // const SearchPod = dynamic(() => import('../../components/SearchPod'), {
 //   loading: () => <Skeleton count={7} />,
