@@ -35,4 +35,4 @@ RUN yarn build && yarn --production
 EXPOSE 8080
 
 # Running the app
-CMD [ "yarn", "pm2-docker" ]
+CMD [ "yarn", "start" ]
