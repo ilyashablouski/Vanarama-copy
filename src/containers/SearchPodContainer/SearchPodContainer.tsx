@@ -20,7 +20,7 @@ import {
   filterList_filterList_groupedRangesWithSlug_children as IFiltersListOptions,
 } from '../../../generated/filterList';
 import SearchPod from '../../components/SearchPod';
-// import Skeleton from '../../components/Skeleton';
+import Skeleton from '../../components/Skeleton';
 
 // const SearchPod = dynamic(() => import('../../components/SearchPod'), {
 //   loading: () => <Skeleton count={7} />,
@@ -314,7 +314,7 @@ const SearchPodContainer = () => {
     if (index === 2) setHeadingText('Search Cars');
   };
 
-  // if (!data?.filterList) return <Skeleton count={8} />;
+  if (!data?.filterList) return <Skeleton count={8} />;
 
   return (
     <SearchPod
