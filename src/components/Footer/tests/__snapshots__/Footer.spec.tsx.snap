@@ -4,462 +4,60 @@ exports[`<Footer /> renders correctly with body 1`] = `
 <footer
   className="footer"
 >
-  <div
-    className="footer--column"
-  >
-    <span
-      className="heading -medium -small"
-    >
-      GET IN TOUCH WITH US
-    </span>
-    <ul>
-      <li
-        className="-mb-300"
-      >
-        <span
-          className="text -small -medium"
-        >
-          Phone
-        </span>
-         
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="/01442 838 195"
-          onClick={[Function]}
-        >
-          01442 838 195
-        </a>
-      </li>
-      <li
-        className="-mb-300"
-      >
-        <span
-          className="text -small -medium"
-        >
-          Monday–Thursday
-        </span>
-         
-        <span
-          className="text -small -white"
-        >
-          8:30am–7pm
-        </span>
-      </li>
-      <li
-        className="-mb-300"
-      >
-        <span
-          className="text -small -medium"
-        >
-          Friday
-        </span>
-         
-        <span
-          className="text -small -white"
-        >
-          9am–5pm
-        </span>
-      </li>
-      <li
-        className="-mb-300"
-      >
-        <span
-          className="text -small -medium"
-        >
-          Saturday 
-        </span>
-         
-        <span
-          className="text -small -white"
-        >
-          9am–3pm
-        </span>
-      </li>
-      <li
-        className="-mb-300"
-      >
-        <span
-          className="text -small -medium"
-        >
-          Sunday
-        </span>
-         
-        <span
-          className="text -small -white"
-        >
-          Closed
-        </span>
-      </li>
-      <li
-        className="-mb-300"
-      >
-        <span
-          className="text -small -medium"
-        />
-         
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="/enquiries@vanarama.co.uk"
-          onClick={[Function]}
-        >
-          enquiries@vanarama.co.uk
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div
-    className="footer--column"
-  >
-    <span
-      className="heading -medium -small"
-    >
-      VANS & TRUCKS
-    </span>
-    <ul>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/van-leasing.html"
-          onClick={[Function]}
-        >
-          Van Leasing
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/pickup-truck-leasing.html"
-          onClick={[Function]}
-        >
-          Pickup Truck Leasing
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/van-reviews.html"
-          onClick={[Function]}
-        >
-          Van Reviews
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/latest-news/category/van-news.html"
-          onClick={[Function]}
-        >
-          Van News
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://www.vanarama.com/compare-vans.html"
-          onClick={[Function]}
-        >
-          Compare Vans
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/van-leasing-explained.html"
-          onClick={[Function]}
-        >
-          Van Leasing Explained
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/van-leasing-questions.html"
-          onClick={[Function]}
-        >
-          Customer Leasing Questions
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/advanced-breakdown-cover.html"
-          onClick={[Function]}
-        >
-          Advanced Breakdown Cover
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/serviceplus.html"
-          onClick={[Function]}
-        >
-          Service Plus
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/van-insurance.html"
-          onClick={[Function]}
-        >
-          Van Insurance
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/van-insurance/faq.html"
-          onClick={[Function]}
-        >
-          Van Insurance FAQs
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div
-    className="footer--column"
-  >
-    <span
-      className="heading -medium -small"
-    >
-      CARS
-    </span>
-    <ul>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/car-leasing.html"
-          onClick={[Function]}
-        >
-          Car Leasing
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/car-leasing/blog/category/car-news.html"
-          onClick={[Function]}
-        >
-          Car News
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/car-leasing-explained.html"
-          onClick={[Function]}
-        >
-          Car Leasing Explained 
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/redundancy-and-life-event-cover.html"
-          onClick={[Function]}
-        >
-          Redundancy & Life Event Cover
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/eligibility-checker.html"
-          onClick={[Function]}
-        >
-          Eligability Checker
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/car-leasing-explained/given-company-cash-allowance-vs-company-car.html"
-          onClick={[Function]}
-        >
-          Company Cash Allowance
-        </a>
-      </li>
-    </ul>
-  </div>
-  <div
-    className="footer--column"
-  >
-    <span
-      className="heading -medium -small"
-    >
-      ABOUT US & CONTACT
-    </span>
-    <ul>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/about-us/price-protection-guarantee.html"
-          onClick={[Function]}
-        >
-          Our Price Promise
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/about-us/five-star-service.html"
-          onClick={[Function]}
-        >
-          5 Star Service Promise
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/about-us/customer-testimonials.html"
-          onClick={[Function]}
-        >
-          Customer Leasing Reviews
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/latest-news/the-sunday-times-100-best-small-companies-to-work-for.html"
-          onClick={[Function]}
-        >
-          Award Winning Leasing
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/careers.html"
-          onClick={[Function]}
-        >
-          Careers
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/locations.html"
-          onClick={[Function]}
-        >
-          Our Local Representatives
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/community.html"
-          onClick={[Function]}
-        >
-          Community
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/fca.html"
-          onClick={[Function]}
-        >
-          FCA Initial Disclosure Document
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/contact-us/complaints-procedure.html"
-          onClick={[Function]}
-        >
-          Complaints Policy
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/legal/privacy-policy.html"
-          onClick={[Function]}
-        >
-          Cookie & Privacy Policy
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/legal/terms-and-conditions.html"
-          onClick={[Function]}
-        >
-          Terms & Conditions
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/legal/modern-slavery-statement.html"
-          onClick={[Function]}
-        >
-          Modern Slavery Statement
-        </a>
-      </li>
-      <li>
-        <a
-          className="link -white -small"
-          data-testid="link"
-          href="https://beta.vanarama.com/sitemap.html"
-          onClick={[Function]}
-        >
-          Sitemap
-        </a>
-      </li>
-    </ul>
-  </div>
+  <span
+    className=""
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  />
+  <span
+    className=""
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  />
+  <span
+    className=""
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  />
+  <span
+    className=""
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  />
   <hr
     className="footer--divider -fullwidth"
   />
-  <p
-    className="text -xsmall -white"
-  >
-    ©2020 Autorama UK LTD. All rights reserved.
-  </p>
+  <span
+    className=""
+    style={
+      Object {
+        "display": "inline-block",
+      }
+    }
+  />
   <div
     className="-text-columns"
   >
     <span
-      className="text -xsmall -medium"
-    >
-      <p>
-        Autorama UK Ltd Registered in England and Wales with registered number: 05137709 Registered office: Vanarama, Maylands Avenue, Hemel Hempstead, HP2 7DE, United Kingdom. Vanarama, Vanarama Cars, Pickup Trucks Direct, Vanarama Short Term Leasing and Vanarama Insurance Services are trading styles of Autorama UK Ltd, who are authorised and regulated by the Financial Conduct Authority (Our Financial Conduct Authority Register number is 630748). VAT number GB842814720. Autorama UK Ltd is a Credit Broker not a Lender, we can introduce you to a selected group of Lenders. Calls are recorded for compliance and training purposes.
-      </p>
-    </span>
+      className=""
+      style={
+        Object {
+          "display": "inline-block",
+        }
+      }
+    />
   </div>
 </footer>
 `;

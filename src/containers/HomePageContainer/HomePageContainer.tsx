@@ -276,58 +276,58 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         </Text>
       </section>
 
-      <LazyLoadComponent>
-        <section className="tabs-wrap row:tabbed">
-          <Tabs
-            activeIndex={activeTab}
-            onChange={setActiveTab}
-            variant="alternative"
-            align="center"
-          >
-            <TabList className="lead">
-              <Tab index={0}>Vans</Tab>
-              <Tab index={1}>Pickups</Tab>
-              <Tab index={2}>Cars</Tab>
-            </TabList>
-            <TabPanels>
-              <TabPanel index={0}>
-                <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                  <ProductCarousel
-                    leaseType={
-                      isPersonalLcv
-                        ? LeaseTypeEnum.PERSONAL
-                        : LeaseTypeEnum.BUSINESS
-                    }
-                    data={{
-                      derivatives: productsVanDerivatives?.derivatives || null,
-                      productCard: productsVan?.productCarousel || null,
-                      vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+      <section className="tabs-wrap row:tabbed">
+        <Tabs
+          activeIndex={activeTab}
+          onChange={setActiveTab}
+          variant="alternative"
+          align="center"
+        >
+          <TabList className="lead">
+            <Tab index={0}>Vans</Tab>
+            <Tab index={1}>Pickups</Tab>
+            <Tab index={2}>Cars</Tab>
+          </TabList>
+          <TabPanels>
+            <TabPanel index={0}>
+              <div style={{ maxWidth: 1216 }} className="-mh-auto">
+                <ProductCarousel
+                  leaseType={
+                    isPersonalLcv
+                      ? LeaseTypeEnum.PERSONAL
+                      : LeaseTypeEnum.BUSINESS
+                  }
+                  data={{
+                    derivatives: productsVanDerivatives?.derivatives || null,
+                    productCard: productsVan?.productCarousel || null,
+                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                  }}
+                  countItems={productsVan?.productCarousel?.length || 6}
+                  dataTestIdBtn="van-view-offer"
+                />
+                <div className="-justify-content-row -pt-500">
+                  <RouterLink
+                    className="button"
+                    classNames={{
+                      color: 'teal',
+                      solid: true,
+                      size: 'regular',
                     }}
-                    countItems={productsVan?.productCarousel?.length || 6}
-                    dataTestIdBtn="van-view-offer"
-                  />
-                  <div className="-justify-content-row -pt-500">
-                    <RouterLink
-                      className="button"
-                      classNames={{
-                        color: 'teal',
-                        solid: true,
-                        size: 'regular',
-                      }}
-                      link={{
-                        label: 'View All Van Offers',
-                        href: '/special-offers.html',
-                      }}
-                      withoutDefaultClassName
-                      dataTestId="view-all-vans"
-                    >
-                      <div className="button--inner">View All Van Offers</div>
-                    </RouterLink>
-                  </div>
+                    link={{
+                      label: 'View All Van Offers',
+                      href: '/special-offers.html',
+                    }}
+                    withoutDefaultClassName
+                    dataTestId="view-all-vans"
+                  >
+                    <div className="button--inner">View All Van Offers</div>
+                  </RouterLink>
                 </div>
-              </TabPanel>
-              <TabPanel index={1}>
-                <div style={{ maxWidth: 1216 }} className="-mh-auto">
+              </div>
+            </TabPanel>
+            <TabPanel index={1}>
+              <div style={{ maxWidth: 1216 }} className="-mh-auto">
+                <LazyLoadComponent>
                   <ProductCarousel
                     leaseType={
                       isPersonalLcv
@@ -344,28 +344,30 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                     countItems={productsPickUp?.productCarousel?.length || 6}
                     dataTestIdBtn="pickup-view-offer"
                   />
-                  <div className="-justify-content-row -pt-500">
-                    <RouterLink
-                      className="button"
-                      classNames={{
-                        color: 'teal',
-                        solid: true,
-                        size: 'regular',
-                      }}
-                      link={{
-                        label: 'View All Truck Offers',
-                        href: '/pickup-special-offers.html',
-                      }}
-                      withoutDefaultClassName
-                      dataTestId="view-all-pickups"
-                    >
-                      <div className="button--inner">View All Truck Offers</div>
-                    </RouterLink>
-                  </div>
+                </LazyLoadComponent>
+                <div className="-justify-content-row -pt-500">
+                  <RouterLink
+                    className="button"
+                    classNames={{
+                      color: 'teal',
+                      solid: true,
+                      size: 'regular',
+                    }}
+                    link={{
+                      label: 'View All Truck Offers',
+                      href: '/pickup-special-offers.html',
+                    }}
+                    withoutDefaultClassName
+                    dataTestId="view-all-pickups"
+                  >
+                    <div className="button--inner">View All Truck Offers</div>
+                  </RouterLink>
                 </div>
-              </TabPanel>
-              <TabPanel index={2}>
-                <div style={{ maxWidth: 1216 }} className="-mh-auto">
+              </div>
+            </TabPanel>
+            <TabPanel index={2}>
+              <div style={{ maxWidth: 1216 }} className="-mh-auto">
+                <LazyLoadComponent>
                   <ProductCarousel
                     leaseType={
                       isPersonalCar
@@ -380,30 +382,30 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                     countItems={productsCar?.productCarousel?.length || 6}
                     dataTestIdBtn="car-view-offer"
                   />
-                  <div className="-justify-content-row -pt-500">
-                    <RouterLink
-                      className="button"
-                      classNames={{
-                        color: 'teal',
-                        solid: true,
-                        size: 'regular',
-                      }}
-                      link={{
-                        label: 'View All Car Offers',
-                        href: '/car-leasing-special-offers.html',
-                      }}
-                      withoutDefaultClassName
-                      dataTestId="view-all-cars"
-                    >
-                      <div className="button--inner">View All Car Offers</div>
-                    </RouterLink>
-                  </div>
+                </LazyLoadComponent>
+                <div className="-justify-content-row -pt-500">
+                  <RouterLink
+                    className="button"
+                    classNames={{
+                      color: 'teal',
+                      solid: true,
+                      size: 'regular',
+                    }}
+                    link={{
+                      label: 'View All Car Offers',
+                      href: '/car-leasing-special-offers.html',
+                    }}
+                    withoutDefaultClassName
+                    dataTestId="view-all-cars"
+                  >
+                    <div className="button--inner">View All Car Offers</div>
+                  </RouterLink>
                 </div>
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        </section>
-      </LazyLoadComponent>
+              </div>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </section>
 
       <section className="row:bg-lighter">
         <div className="row:cards-3col">
@@ -440,8 +442,8 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         </div>
       </section>
 
-      <LazyLoadComponent>
-        <section className="row:featured-right">
+      <section className="row:featured-right">
+        <LazyLoadComponent>
           <div style={{ padding: '1rem' }}>
             <Heading
               size="large"
@@ -511,11 +513,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               }
             />
           )}
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent>
-        <section className="row:featured-left">
+      <section className="row:featured-left">
+        <LazyLoadComponent>
           {data?.homePage?.sections?.featured2?.video ? (
             <Media
               src={
@@ -575,11 +577,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               />
             </div>
           </div>
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent>
-        <section className="row:features-4col">
+      <section className="row:features-4col">
+        <LazyLoadComponent>
           <Heading
             size="large"
             color="black"
@@ -617,20 +619,20 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               </Tile>
             </div>
           ))}
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent>
-        <section className="row:league">
+      <section className="row:league">
+        <LazyLoadComponent>
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
           />
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent>
-        <section className="row:featured-logos">
+      <section className="row:featured-logos">
+        <LazyLoadComponent>
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
           </Heading>
@@ -692,14 +694,14 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               />
             ))}
           </div>
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent>
-        <section className="row:trustpilot">
+      <section className="row:trustpilot">
+        <LazyLoadComponent>
           <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
       {data && (
         <SchemaJSON json={JSON.stringify(data?.homePage?.metaData?.schema)} />
