@@ -134,11 +134,14 @@ export function useCreateUpdateCreditApplication(
       let data;
       try {
         // Read the data from our cache for this query.
-        data = store.readQuery<Query, QueryVariables>({
-          query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
-          variables: { id: orderId },
-        });
-      } catch {
+        data = store.readQuery<Query, QueryVariables>(
+          {
+            query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
+            variables: { id: orderId },
+          },
+          true,
+        );
+      } catch (error) {
         data = null;
       }
 
