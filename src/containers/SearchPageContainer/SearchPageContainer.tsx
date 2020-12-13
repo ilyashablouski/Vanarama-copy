@@ -909,33 +909,35 @@ const SearchPageContainer: React.FC<IProps> = ({
         )}
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
-          <FiltersContainer
-            isPersonal={isPersonal}
-            isMakePage={isMakePage}
-            isRangePage={isRangePage}
-            setType={value => setIsPersonal(value)}
-            onSearch={onSearch}
-            isPickups={isPickups}
-            isCarSearch={isCarSearch}
-            preSearchVehicleCount={totalCount}
-            isSpecialOffers={
-              (isSpecialOffers &&
-                !(isRangePage || isModelPage || isDynamicFilterPage)) ||
-              null
-            }
-            setIsSpecialOffers={setIsSpecialOffers}
-            isModelPage={isModelPage}
-            isAllMakesPage={isAllMakesPage}
-            isBodyPage={isBodyStylePage}
-            isBudgetPage={isBudgetPage}
-            isDynamicFilterPage={isDynamicFilterPage}
-            isFuelPage={isFuelPage}
-            isTransmissionPage={isTransmissionPage}
-            sortOrder={sortOrder}
-            isPreloadList={!!preLoadVehiclesList}
-            setSearchFilters={setFiltersData}
-            preLoadFilters={preLoadFiltersData}
-          />
+          <LazyLoadComponent>
+            <FiltersContainer
+              isPersonal={isPersonal}
+              isMakePage={isMakePage}
+              isRangePage={isRangePage}
+              setType={value => setIsPersonal(value)}
+              onSearch={onSearch}
+              isPickups={isPickups}
+              isCarSearch={isCarSearch}
+              preSearchVehicleCount={totalCount}
+              isSpecialOffers={
+                (isSpecialOffers &&
+                  !(isRangePage || isModelPage || isDynamicFilterPage)) ||
+                null
+              }
+              setIsSpecialOffers={setIsSpecialOffers}
+              isModelPage={isModelPage}
+              isAllMakesPage={isAllMakesPage}
+              isBodyPage={isBodyStylePage}
+              isBudgetPage={isBudgetPage}
+              isDynamicFilterPage={isDynamicFilterPage}
+              isFuelPage={isFuelPage}
+              isTransmissionPage={isTransmissionPage}
+              sortOrder={sortOrder}
+              isPreloadList={!!preLoadVehiclesList}
+              setSearchFilters={setFiltersData}
+              preLoadFilters={preLoadFiltersData}
+            />
+          </LazyLoadComponent>
         </div>
       </div>
 
@@ -1200,28 +1202,30 @@ const SearchPageContainer: React.FC<IProps> = ({
 
           {tiles && !isDynamicFilterPage && (
             <div className="row:features-4col">
-              {tiles?.tiles?.length &&
-                tiles.tiles.map((tile, indx) => (
-                  <Tile
-                    plain
-                    className="-align-center -button"
-                    key={`${tile.title}_${indx.toString()}`}
-                  >
-                    <span>
-                      <Image
-                        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                        src={tile.image?.file?.url || ''}
-                        inline
-                        round
-                        size="large"
-                      />
-                    </span>
-                    <TileLink tile={tile} />
-                    <Text color="darker" size="regular">
-                      {tile.body}
-                    </Text>
-                  </Tile>
-                ))}
+              <LazyLoadComponent>
+                {tiles?.tiles?.length &&
+                  tiles.tiles.map((tile, indx) => (
+                    <Tile
+                      plain
+                      className="-align-center -button"
+                      key={`${tile.title}_${indx.toString()}`}
+                    >
+                      <span>
+                        <Image
+                          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                          src={tile.image?.file?.url || ''}
+                          inline
+                          round
+                          size="large"
+                        />
+                      </span>
+                      <TileLink tile={tile} />
+                      <Text color="darker" size="regular">
+                        {tile.body}
+                      </Text>
+                    </Tile>
+                  ))}
+              </LazyLoadComponent>
             </div>
           )}
 
