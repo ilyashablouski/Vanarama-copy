@@ -18,6 +18,8 @@ WORKDIR /usr/src/app
 
 # Installing dependencies
 
+RUN npm install pm2 -g
+
 RUN npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
 COPY yarn.lock .
 COPY package.json .
@@ -33,4 +35,4 @@ RUN yarn build && yarn --production
 EXPOSE 8080
 
 # Running the app
-CMD [ "yarn", "start" ]
+CMD [ "yarn", "pm2-docker" ]
