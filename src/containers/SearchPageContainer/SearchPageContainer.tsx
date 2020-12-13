@@ -14,7 +14,8 @@ import React, {
 } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import ReactMarkdown from 'react-markdown';
+import ReactMarkdown from 'react-markdown/with-html';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
@@ -772,7 +773,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       {pageData && (
         <>
           {isModelPage && (
-            <>
+            <LazyLoadComponent>
               <div className="row:text -columns">
                 <div>
                   <ReactMarkdown
@@ -805,7 +806,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   />
                 </div>
               </div>
-            </>
+            </LazyLoadComponent>
           )}
         </>
       )}
@@ -908,35 +909,38 @@ const SearchPageContainer: React.FC<IProps> = ({
         )}
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
-          <FiltersContainer
-            isPersonal={isPersonal}
-            isMakePage={isMakePage}
-            isRangePage={isRangePage}
-            setType={value => setIsPersonal(value)}
-            onSearch={onSearch}
-            isPickups={isPickups}
-            isCarSearch={isCarSearch}
-            preSearchVehicleCount={totalCount}
-            isSpecialOffers={
-              (isSpecialOffers &&
-                !(isRangePage || isModelPage || isDynamicFilterPage)) ||
-              null
-            }
-            setIsSpecialOffers={setIsSpecialOffers}
-            isModelPage={isModelPage}
-            isAllMakesPage={isAllMakesPage}
-            isBodyPage={isBodyStylePage}
-            isBudgetPage={isBudgetPage}
-            isDynamicFilterPage={isDynamicFilterPage}
-            isFuelPage={isFuelPage}
-            isTransmissionPage={isTransmissionPage}
-            sortOrder={sortOrder}
-            isPreloadList={!!preLoadVehiclesList}
-            setSearchFilters={setFiltersData}
-            preLoadFilters={preLoadFiltersData}
-          />
+          <LazyLoadComponent>
+            <FiltersContainer
+              isPersonal={isPersonal}
+              isMakePage={isMakePage}
+              isRangePage={isRangePage}
+              setType={value => setIsPersonal(value)}
+              onSearch={onSearch}
+              isPickups={isPickups}
+              isCarSearch={isCarSearch}
+              preSearchVehicleCount={totalCount}
+              isSpecialOffers={
+                (isSpecialOffers &&
+                  !(isRangePage || isModelPage || isDynamicFilterPage)) ||
+                null
+              }
+              setIsSpecialOffers={setIsSpecialOffers}
+              isModelPage={isModelPage}
+              isAllMakesPage={isAllMakesPage}
+              isBodyPage={isBodyStylePage}
+              isBudgetPage={isBudgetPage}
+              isDynamicFilterPage={isDynamicFilterPage}
+              isFuelPage={isFuelPage}
+              isTransmissionPage={isTransmissionPage}
+              sortOrder={sortOrder}
+              isPreloadList={!!preLoadVehiclesList}
+              setSearchFilters={setFiltersData}
+              preLoadFilters={preLoadFiltersData}
+            />
+          </LazyLoadComponent>
         </div>
       </div>
+
       <div className="row:bg-lighter -thin">
         <div className="row:results">
           <Text color="darker" size="regular" tag="span">
