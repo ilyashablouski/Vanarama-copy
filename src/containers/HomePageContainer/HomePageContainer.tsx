@@ -204,54 +204,48 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           featuredImage={data?.homePage.featuredImage}
         />
       )}
-      {data ? (
-        <Hero>
-          <div className="hero--title">
-            <>
-              <HeroHeading
-                text={
+      <Hero>
+        <div className="hero--title">
+          <>
+            <HeroHeading
+              text={
+                getSectionsData(['hero', 'title'], data?.homePage?.sections) ||
+                ''
+              }
+              titleTag={
+                getTitleTag(
                   getSectionsData(
-                    ['hero', 'title'],
+                    ['hero', 'titleTag'],
                     data?.homePage?.sections,
-                  ) || ''
-                }
-                titleTag={
-                  getTitleTag(
-                    getSectionsData(
-                      ['hero', 'titleTag'],
-                      data?.homePage?.sections,
-                    ) || 'p',
-                  ) as keyof JSX.IntrinsicElements
-                }
-              />
-              <br />
-              <HeroTitle
-                text={
-                  getSectionsData(['hero', 'body'], data?.homePage?.sections) ||
-                  ''
-                }
-              />
-            </>
-          </div>
-          <Image
-            loadImage
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            optimisationOptions={optimisationOptions}
-            className="hero--image"
-            plain
-            size="expand"
-            src={
-              getSectionsData(
-                ['hero', 'image', 'file', 'url'],
-                data?.homePage?.sections,
-              ) ||
-              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
-            }
-          />
-        </Hero>
-      ) : (
-        <Skeleton count={30} />
-      )}
+                  ) || 'p',
+                ) as keyof JSX.IntrinsicElements
+              }
+            />
+            <br />
+            <HeroTitle
+              text={
+                getSectionsData(['hero', 'body'], data?.homePage?.sections) ||
+                ''
+              }
+            />
+          </>
+        </div>
+        <Image
+          loadImage
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          optimisationOptions={optimisationOptions}
+          className="hero--image"
+          plain
+          size="expand"
+          src={
+            getSectionsData(
+              ['hero', 'image', 'file', 'url'],
+              data?.homePage?.sections,
+            ) ||
+            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+          }
+        />
+      </Hero>
 
       <section className="row:lead-text">
         <Heading
