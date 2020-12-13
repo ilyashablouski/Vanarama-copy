@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -312,18 +313,21 @@ export const VansPage: NextPage<Props> = ({ data }) => {
                   Small Vans
                 </span>
               </Heading>
-              <ProductCarousel
-                leaseType={
-                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-                }
-                data={{
-                  derivatives: productSmallVanDerivatives?.derivatives || null,
-                  productCard: productSmallVan?.productCarousel || null,
-                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-                }}
-                countItems={productSmallVan?.productCarousel?.length || 6}
-                dataTestIdBtn="van-view-offer"
-              />
+              <LazyLoadComponent>
+                <ProductCarousel
+                  leaseType={
+                    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                  }
+                  data={{
+                    derivatives:
+                      productSmallVanDerivatives?.derivatives || null,
+                    productCard: productSmallVan?.productCarousel || null,
+                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                  }}
+                  countItems={productSmallVan?.productCarousel?.length || 6}
+                  dataTestIdBtn="van-view-offer"
+                />
+              </LazyLoadComponent>
               <div className="-justify-content-row -pt-500">
                 <RouterLink
                   className="button"
@@ -354,18 +358,21 @@ export const VansPage: NextPage<Props> = ({ data }) => {
                   Medium Vans
                 </span>
               </Heading>
-              <ProductCarousel
-                leaseType={
-                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-                }
-                data={{
-                  derivatives: productMediumVanDerivatives?.derivatives || null,
-                  productCard: productMediumVan?.productCarousel || null,
-                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-                }}
-                countItems={productMediumVan?.productCarousel?.length || 6}
-                dataTestIdBtn="van-view-offer"
-              />
+              <LazyLoadComponent>
+                <ProductCarousel
+                  leaseType={
+                    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                  }
+                  data={{
+                    derivatives:
+                      productMediumVanDerivatives?.derivatives || null,
+                    productCard: productMediumVan?.productCarousel || null,
+                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                  }}
+                  countItems={productMediumVan?.productCarousel?.length || 6}
+                  dataTestIdBtn="van-view-offer"
+                />
+              </LazyLoadComponent>
               <div className="-justify-content-row -pt-500">
                 <RouterLink
                   className="button"
@@ -396,18 +403,21 @@ export const VansPage: NextPage<Props> = ({ data }) => {
                   Large Vans
                 </span>
               </Heading>
-              <ProductCarousel
-                leaseType={
-                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-                }
-                data={{
-                  derivatives: productLargeVanDerivatives?.derivatives || null,
-                  productCard: productLargeVan?.productCarousel || null,
-                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-                }}
-                countItems={productLargeVan?.productCarousel?.length || 6}
-                dataTestIdBtn="van-view-offer"
-              />
+              <LazyLoadComponent>
+                <ProductCarousel
+                  leaseType={
+                    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                  }
+                  data={{
+                    derivatives:
+                      productLargeVanDerivatives?.derivatives || null,
+                    productCard: productLargeVan?.productCarousel || null,
+                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                  }}
+                  countItems={productLargeVan?.productCarousel?.length || 6}
+                  dataTestIdBtn="van-view-offer"
+                />
+              </LazyLoadComponent>
               <div className="-justify-content-row -pt-500">
                 <RouterLink
                   className="button"
@@ -453,74 +463,80 @@ export const VansPage: NextPage<Props> = ({ data }) => {
               data?.hubVanPage.sections,
             )}
           </Text>
-          {(getSectionsData(
-            ['cards', 'cards'],
-            data?.hubVanPage.sections,
-          ) as CardData[])?.map((card: CardData, idx) => (
-            <Card
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={card.title || idx}
-              title={{
-                title: '',
-                withBtn: true,
-                link: (
-                  <RouterLink
-                    link={{
-                      href: card.link?.legacyUrl || card.link?.url || '#',
-                      label: card.title || '',
-                    }}
-                    className="heading"
-                    classNames={{ size: 'lead', color: 'black' }}
-                  >
-                    <Heading
-                      size="regular"
-                      color="black"
-                      tag={
-                        getTitleTag(
-                          card.titleTag || null,
-                        ) as keyof JSX.IntrinsicElements
-                      }
+          <LazyLoadComponent>
+            {(getSectionsData(
+              ['cards', 'cards'],
+              data?.hubVanPage.sections,
+            ) as CardData[])?.map((card: CardData, idx) => (
+              <Card
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                key={card.title || idx}
+                title={{
+                  title: '',
+                  withBtn: true,
+                  link: (
+                    <RouterLink
+                      link={{
+                        href: card.link?.legacyUrl || card.link?.url || '#',
+                        label: card.title || '',
+                      }}
+                      className="heading"
+                      classNames={{ size: 'lead', color: 'black' }}
                     >
-                      {card.title}
-                    </Heading>
-                  </RouterLink>
-                ),
-              }}
-              imageSrc={card.image?.file?.url}
-              description={card.body || ''}
-            />
-          ))}
+                      <Heading
+                        size="regular"
+                        color="black"
+                        tag={
+                          getTitleTag(
+                            card.titleTag || null,
+                          ) as keyof JSX.IntrinsicElements
+                        }
+                      >
+                        {card.title}
+                      </Heading>
+                    </RouterLink>
+                  ),
+                }}
+                imageSrc={card.image?.file?.url}
+                description={card.body || ''}
+              />
+            ))}
+          </LazyLoadComponent>
         </div>
       </div>
+
       <section className="row:steps-4col">
-        <Heading
-          className="-a-center -mb-400"
-          size="large"
-          color="black"
-          tag={
-            getTitleTag(
-              getSectionsData(
-                ['steps', 'titleTag'],
-                data?.hubVanPage.sections,
-              ) || null,
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {getSectionsData(['steps', 'heading'], data?.hubVanPage.sections)}
-        </Heading>
-        {(getSectionsData(
-          ['steps', 'steps'],
-          data?.hubVanPage.sections,
-        ) as StepData[])?.map((step: StepData, idx) => (
-          <Step
-            className="-mh-auto"
-            key={step.title || idx}
-            heading={step.title || ''}
-            step={idx + 1}
-            text={step.body || ''}
-          />
-        ))}
+        <LazyLoadComponent>
+          <Heading
+            className="-a-center -mb-400"
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                getSectionsData(
+                  ['steps', 'titleTag'],
+                  data?.hubVanPage.sections,
+                ) || null,
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
+            {getSectionsData(['steps', 'heading'], data?.hubVanPage.sections)}
+          </Heading>
+          {(getSectionsData(
+            ['steps', 'steps'],
+            data?.hubVanPage.sections,
+          ) as StepData[])?.map((step: StepData, idx) => (
+            <Step
+              className="-mh-auto"
+              key={step.title || idx}
+              heading={step.title || ''}
+              step={idx + 1}
+              text={step.body || ''}
+            />
+          ))}
+        </LazyLoadComponent>
       </section>
+
       <section
         className={`row:${getFeaturedClassPartial(
           getSectionsData(['featured1'], data?.hubVanPage.sections),
@@ -692,143 +708,163 @@ export const VansPage: NextPage<Props> = ({ data }) => {
           </RouterLink>
         </div>
       </section>
+
       <hr className="fullWidth" />
+
       <section className="row:features-4col">
-        <Heading
-          size="large"
-          color="black"
-          tag={
-            getTitleTag(
-              getSectionsData(
-                ['tiles', 'titleTag'],
-                data?.hubVanPage.sections,
-              ) || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {getSectionsData(['tiles', 'tilesTitle'], data?.hubVanPage.sections)}
-        </Heading>
-        {(getSectionsData(
-          ['tiles', 'tiles'],
-          data?.hubVanPage.sections,
-        ) as TileData[])?.map((tile: TileData, idx) => (
-          <div key={tile.title || idx}>
-            <Tile className="-plain -button -align-center" plain>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Image
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  inline
-                  round
-                  size="large"
-                  src={
-                    tile.image?.file?.url ||
-                    'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                  }
-                />
-              </div>
-              <TileLink tile={tile} />
-              <Text tag="p">{tile.body}</Text>
-            </Tile>
-          </div>
-        ))}
+        <LazyLoadComponent>
+          <Heading
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                getSectionsData(
+                  ['tiles', 'titleTag'],
+                  data?.hubVanPage.sections,
+                ) || 'p',
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
+            {getSectionsData(
+              ['tiles', 'tilesTitle'],
+              data?.hubVanPage.sections,
+            )}
+          </Heading>
+          {(getSectionsData(
+            ['tiles', 'tiles'],
+            data?.hubVanPage.sections,
+          ) as TileData[])?.map((tile: TileData, idx) => (
+            <div key={tile.title || idx}>
+              <Tile className="-plain -button -align-center" plain>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    inline
+                    round
+                    size="large"
+                    src={
+                      tile.image?.file?.url ||
+                      'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                    }
+                  />
+                </div>
+                <TileLink tile={tile} />
+                <Text tag="p">{tile.body}</Text>
+              </Tile>
+            </div>
+          ))}
+        </LazyLoadComponent>
       </section>
+
       <section className="row:manufacturer-grid">
-        <Heading
-          size="large"
-          color="black"
-          className="-a-center -mb-500"
-          tag="h2"
-        >
-          Search By Manufacturer
-        </Heading>
-        <div>
-          {VansSearch.map(man => (
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'large' }}
-              link={{
-                label: man.label,
-                href: man.href,
-              }}
-              withoutDefaultClassName
-            >
-              <div className="button--inner">{man.label}</div>
-            </RouterLink>
-          ))}
-        </div>
+        <LazyLoadComponent>
+          <Heading
+            size="large"
+            color="black"
+            className="-a-center -mb-500"
+            tag="h2"
+          >
+            Search By Manufacturer
+          </Heading>
+          <div>
+            {VansSearch.map(man => (
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'large' }}
+                link={{
+                  label: man.label,
+                  href: man.href,
+                }}
+                withoutDefaultClassName
+              >
+                <div className="button--inner">{man.label}</div>
+              </RouterLink>
+            ))}
+          </div>
+        </LazyLoadComponent>
       </section>
+
       <section className="row:league">
-        <League
-          clickReadMore={() => Router.push('/fan-hub.html')}
-          altText="vanarama national league"
-        />
+        <LazyLoadComponent>
+          <League
+            clickReadMore={() => Router.push('/fan-hub.html')}
+            altText="vanarama national league"
+          />
+        </LazyLoadComponent>
       </section>
+
       <section className="row:featured-logos">
-        <Heading tag="span" size="small" color="darker">
-          AS FEATURED ON
-        </Heading>
-        <div>
-          {[
-            {
-              label: 'bbc',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
-            },
-            {
-              label: 'btsport',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
-            },
-            {
-              label: 'dailymail',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
-            },
-            {
-              label: 'dailymirror',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymirror.png',
-            },
-            {
-              label: 'itv',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
-            },
-            {
-              label: 'metro',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
-            },
-            {
-              label: 'thesun',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
-            },
-            {
-              label: 'sky',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
-            },
-            {
-              label: 'thetelegraph',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
-            },
-          ].map(({ href, label }) => (
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={label}
-              src={href}
-              alt={label}
-              size="expand"
-              plain
-            />
-          ))}
-        </div>
+        <LazyLoadComponent>
+          <Heading tag="span" size="small" color="darker">
+            AS FEATURED ON
+          </Heading>
+          <div>
+            {[
+              {
+                label: 'bbc',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
+              },
+              {
+                label: 'btsport',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
+              },
+              {
+                label: 'dailymail',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
+              },
+              {
+                label: 'dailymirror',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymirror.png',
+              },
+              {
+                label: 'itv',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
+              },
+              {
+                label: 'metro',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
+              },
+              {
+                label: 'thesun',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
+              },
+              {
+                label: 'sky',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
+              },
+              {
+                label: 'thetelegraph',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
+              },
+            ].map(({ href, label }) => (
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                key={label}
+                src={href}
+                alt={label}
+                size="expand"
+                plain
+              />
+            ))}
+          </div>
+        </LazyLoadComponent>
       </section>
+
       <section className="row:trustpilot">
-        <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+        <LazyLoadComponent>
+          <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+        </LazyLoadComponent>
       </section>
+
       {data?.hubVanPage.metaData && (
         <>
           <Head
