@@ -3,6 +3,7 @@ import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Head from '../../components/Head/Head';
 import {
   HomePageData,
@@ -275,119 +276,134 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         </Text>
       </section>
 
-      <section className="tabs-wrap row:tabbed">
-        <Tabs
-          activeIndex={activeTab}
-          onChange={setActiveTab}
-          variant="alternative"
-          align="center"
-        >
-          <TabList className="lead">
-            <Tab index={0}>Vans</Tab>
-            <Tab index={1}>Pickups</Tab>
-            <Tab index={2}>Cars</Tab>
-          </TabList>
-          <TabPanels>
-            <TabPanel index={0}>
-              <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <ProductCarousel
-                  leaseType={
-                    isPersonalLcv
-                      ? LeaseTypeEnum.PERSONAL
-                      : LeaseTypeEnum.BUSINESS
-                  }
-                  data={{
-                    derivatives: productsVanDerivatives?.derivatives || null,
-                    productCard: productsVan?.productCarousel || null,
-                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-                  }}
-                  countItems={productsVan?.productCarousel?.length || 6}
-                  dataTestIdBtn="van-view-offer"
-                />
-                <div className="-justify-content-row -pt-500">
-                  <RouterLink
-                    className="button"
-                    classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                    link={{
-                      label: 'View All Van Offers',
-                      href: '/special-offers.html',
+      <LazyLoadComponent>
+        <section className="tabs-wrap row:tabbed">
+          <Tabs
+            activeIndex={activeTab}
+            onChange={setActiveTab}
+            variant="alternative"
+            align="center"
+          >
+            <TabList className="lead">
+              <Tab index={0}>Vans</Tab>
+              <Tab index={1}>Pickups</Tab>
+              <Tab index={2}>Cars</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel index={0}>
+                <div style={{ maxWidth: 1216 }} className="-mh-auto">
+                  <ProductCarousel
+                    leaseType={
+                      isPersonalLcv
+                        ? LeaseTypeEnum.PERSONAL
+                        : LeaseTypeEnum.BUSINESS
+                    }
+                    data={{
+                      derivatives: productsVanDerivatives?.derivatives || null,
+                      productCard: productsVan?.productCarousel || null,
+                      vehicleList: vehicleListUrlQuery.data?.vehicleList!,
                     }}
-                    withoutDefaultClassName
-                    dataTestId="view-all-vans"
-                  >
-                    <div className="button--inner">View All Van Offers</div>
-                  </RouterLink>
+                    countItems={productsVan?.productCarousel?.length || 6}
+                    dataTestIdBtn="van-view-offer"
+                  />
+                  <div className="-justify-content-row -pt-500">
+                    <RouterLink
+                      className="button"
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
+                      }}
+                      link={{
+                        label: 'View All Van Offers',
+                        href: '/special-offers.html',
+                      }}
+                      withoutDefaultClassName
+                      dataTestId="view-all-vans"
+                    >
+                      <div className="button--inner">View All Van Offers</div>
+                    </RouterLink>
+                  </div>
                 </div>
-              </div>
-            </TabPanel>
-            <TabPanel index={1}>
-              <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <ProductCarousel
-                  leaseType={
-                    isPersonalLcv
-                      ? LeaseTypeEnum.PERSONAL
-                      : LeaseTypeEnum.BUSINESS
-                  }
-                  productType="Pickup"
-                  data={{
-                    derivatives: productsPickUpDerivatives?.derivatives || null,
-                    productCard: productsPickUp?.productCarousel || null,
-                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-                  }}
-                  countItems={productsPickUp?.productCarousel?.length || 6}
-                  dataTestIdBtn="pickup-view-offer"
-                />
-                <div className="-justify-content-row -pt-500">
-                  <RouterLink
-                    className="button"
-                    classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                    link={{
-                      label: 'View All Truck Offers',
-                      href: '/pickup-special-offers.html',
+              </TabPanel>
+              <TabPanel index={1}>
+                <div style={{ maxWidth: 1216 }} className="-mh-auto">
+                  <ProductCarousel
+                    leaseType={
+                      isPersonalLcv
+                        ? LeaseTypeEnum.PERSONAL
+                        : LeaseTypeEnum.BUSINESS
+                    }
+                    productType="Pickup"
+                    data={{
+                      derivatives:
+                        productsPickUpDerivatives?.derivatives || null,
+                      productCard: productsPickUp?.productCarousel || null,
+                      vehicleList: vehicleListUrlQuery.data?.vehicleList!,
                     }}
-                    withoutDefaultClassName
-                    dataTestId="view-all-pickups"
-                  >
-                    <div className="button--inner">View All Truck Offers</div>
-                  </RouterLink>
+                    countItems={productsPickUp?.productCarousel?.length || 6}
+                    dataTestIdBtn="pickup-view-offer"
+                  />
+                  <div className="-justify-content-row -pt-500">
+                    <RouterLink
+                      className="button"
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
+                      }}
+                      link={{
+                        label: 'View All Truck Offers',
+                        href: '/pickup-special-offers.html',
+                      }}
+                      withoutDefaultClassName
+                      dataTestId="view-all-pickups"
+                    >
+                      <div className="button--inner">View All Truck Offers</div>
+                    </RouterLink>
+                  </div>
                 </div>
-              </div>
-            </TabPanel>
-            <TabPanel index={2}>
-              <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <ProductCarousel
-                  leaseType={
-                    isPersonalCar
-                      ? LeaseTypeEnum.PERSONAL
-                      : LeaseTypeEnum.BUSINESS
-                  }
-                  data={{
-                    derivatives: productsCarDerivatives?.derivatives || null,
-                    productCard: productsCar?.productCarousel || null,
-                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
-                  }}
-                  countItems={productsCar?.productCarousel?.length || 6}
-                  dataTestIdBtn="car-view-offer"
-                />
-                <div className="-justify-content-row -pt-500">
-                  <RouterLink
-                    className="button"
-                    classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                    link={{
-                      label: 'View All Car Offers',
-                      href: '/car-leasing-special-offers.html',
+              </TabPanel>
+              <TabPanel index={2}>
+                <div style={{ maxWidth: 1216 }} className="-mh-auto">
+                  <ProductCarousel
+                    leaseType={
+                      isPersonalCar
+                        ? LeaseTypeEnum.PERSONAL
+                        : LeaseTypeEnum.BUSINESS
+                    }
+                    data={{
+                      derivatives: productsCarDerivatives?.derivatives || null,
+                      productCard: productsCar?.productCarousel || null,
+                      vehicleList: vehicleListUrlQuery.data?.vehicleList!,
                     }}
-                    withoutDefaultClassName
-                    dataTestId="view-all-cars"
-                  >
-                    <div className="button--inner">View All Car Offers</div>
-                  </RouterLink>
+                    countItems={productsCar?.productCarousel?.length || 6}
+                    dataTestIdBtn="car-view-offer"
+                  />
+                  <div className="-justify-content-row -pt-500">
+                    <RouterLink
+                      className="button"
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
+                      }}
+                      link={{
+                        label: 'View All Car Offers',
+                        href: '/car-leasing-special-offers.html',
+                      }}
+                      withoutDefaultClassName
+                      dataTestId="view-all-cars"
+                    >
+                      <div className="button--inner">View All Car Offers</div>
+                    </RouterLink>
+                  </div>
                 </div>
-              </div>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </section>
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+        </section>
+      </LazyLoadComponent>
 
       <section className="row:bg-lighter">
         <div className="row:cards-3col">
@@ -424,247 +440,267 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         </div>
       </section>
 
-      <section className="row:featured-right">
-        <div style={{ padding: '1rem' }}>
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                getSectionsData(
-                  ['featured1', 'titleTag'],
-                  data?.homePage?.sections,
-                ) || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {getSectionsData(['featured1', 'title'], data?.homePage?.sections)}
-          </Heading>
-          <div className="markdown">
-            <ReactMarkdown
-              allowDangerousHtml
-              source={
-                getSectionsData(
-                  ['featured1', 'body'],
-                  data?.homePage?.sections,
-                ) || ''
+      <LazyLoadComponent>
+        <section className="row:featured-right">
+          <div style={{ padding: '1rem' }}>
+            <Heading
+              size="large"
+              color="black"
+              tag={
+                getTitleTag(
+                  getSectionsData(
+                    ['featured1', 'titleTag'],
+                    data?.homePage?.sections,
+                  ) || 'p',
+                ) as keyof JSX.IntrinsicElements
               }
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-              }}
-            />
-          </div>
-          <IconList>
-            {(getSectionsData(
-              ['featured1', 'iconList'],
-              data?.homePage?.sections,
-            ) as IIconList[])?.map((icon: IIconList, idx) => (
-              <IconListItem iconColor="orange" key={icon?.text || idx}>
-                {icon?.text}
-              </IconListItem>
-            ))}
-          </IconList>
-        </div>
-        {data?.homePage?.sections?.featured1?.video ? (
-          <Media
-            src={
-              getSectionsData(
-                ['featured1', 'video'],
-                data?.homePage.sections,
-              ) || ''
-            }
-            width="100%"
-            height="360px"
-          />
-        ) : (
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src={
-              getSectionsData(
-                ['featured1', 'image', 'file', 'url'],
-                data?.homePage.sections,
-              ) ||
-              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-            }
-          />
-        )}
-      </section>
-
-      <section className="row:featured-left">
-        {data?.homePage?.sections?.featured2?.video ? (
-          <Media
-            src={
-              getSectionsData(
-                ['featured2', 'video'],
-                data?.homePage.sections,
-              ) || ''
-            }
-            width="100%"
-            height="360px"
-          />
-        ) : (
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src={
-              getSectionsData(
-                ['featured2', 'image', 'file', 'url'],
-                data?.homePage.sections,
-              ) ||
-              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-            }
-          />
-        )}
-        <div>
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                getSectionsData(
-                  ['featured2', 'titleTag'],
-                  data?.homePage?.sections,
-                ) || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {getSectionsData(['featured2', 'title'], data?.homePage?.sections)}
-          </Heading>
-          <div className="markdown">
-            <ReactMarkdown
-              allowDangerousHtml
-              source={
-                getSectionsData(
-                  ['featured2', 'body'],
-                  data?.homePage?.sections,
-                ) || ''
-              }
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-              }}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="row:features-4col">
-        <Heading
-          size="large"
-          color="black"
-          tag={
-            getTitleTag(
-              getSectionsData(
-                ['tiles', 'titleTag'],
+            >
+              {getSectionsData(
+                ['featured1', 'title'],
                 data?.homePage?.sections,
-              ) || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {getSectionsData(['tiles', 'tilesTitle'], data?.homePage?.sections)}
-        </Heading>
-        {(getSectionsData(
-          ['tiles', 'tiles'],
-          data?.homePage?.sections,
-        ) as TileData[])?.map((tile: TileData, idx) => (
-          <div key={tile.title || idx}>
-            <Tile className="-plain -button -align-center" plain>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Image
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  inline
-                  round
-                  size="large"
-                  src={
-                    tile.image?.file?.url ||
-                    ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                  }
-                />
-              </div>
-              <TileLink tile={tile} />
-              <Text tag="p">{tile.body}</Text>
-            </Tile>
+              )}
+            </Heading>
+            <div className="markdown">
+              <ReactMarkdown
+                allowDangerousHtml
+                source={
+                  getSectionsData(
+                    ['featured1', 'body'],
+                    data?.homePage?.sections,
+                  ) || ''
+                }
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                }}
+              />
+            </div>
+            <IconList>
+              {(getSectionsData(
+                ['featured1', 'iconList'],
+                data?.homePage?.sections,
+              ) as IIconList[])?.map((icon: IIconList, idx) => (
+                <IconListItem iconColor="orange" key={icon?.text || idx}>
+                  {icon?.text}
+                </IconListItem>
+              ))}
+            </IconList>
           </div>
-        ))}
-      </section>
-
-      <section className="row:league">
-        <League
-          clickReadMore={() => Router.push('/fan-hub.html')}
-          altText="vanarama national league"
-        />
-      </section>
-
-      <section className="row:featured-logos">
-        <Heading tag="span" size="small" color="darker">
-          AS FEATURED ON
-        </Heading>
-        <div>
-          {[
-            {
-              label: 'bbc',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
-            },
-            {
-              label: 'btsport',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
-            },
-            {
-              label: 'dailymail',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
-            },
-            {
-              label: 'dailymirror',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymirror.png',
-            },
-            {
-              label: 'itv',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
-            },
-            {
-              label: 'metro',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
-            },
-            {
-              label: 'thesun',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
-            },
-            {
-              label: 'sky',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
-            },
-            {
-              label: 'thetelegraph',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
-            },
-          ].map(({ href, label }) => (
+          {data?.homePage?.sections?.featured1?.video ? (
+            <Media
+              src={
+                getSectionsData(
+                  ['featured1', 'video'],
+                  data?.homePage.sections,
+                ) || ''
+              }
+              width="100%"
+              height="360px"
+            />
+          ) : (
             <Image
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={label}
-              src={href}
-              alt={label}
-              size="expand"
-              plain
+              src={
+                getSectionsData(
+                  ['featured1', 'image', 'file', 'url'],
+                  data?.homePage.sections,
+                ) ||
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+              }
             />
+          )}
+        </section>
+      </LazyLoadComponent>
+
+      <LazyLoadComponent>
+        <section className="row:featured-left">
+          {data?.homePage?.sections?.featured2?.video ? (
+            <Media
+              src={
+                getSectionsData(
+                  ['featured2', 'video'],
+                  data?.homePage.sections,
+                ) || ''
+              }
+              width="100%"
+              height="360px"
+            />
+          ) : (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={
+                getSectionsData(
+                  ['featured2', 'image', 'file', 'url'],
+                  data?.homePage.sections,
+                ) ||
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+              }
+            />
+          )}
+          <div>
+            <Heading
+              size="large"
+              color="black"
+              tag={
+                getTitleTag(
+                  getSectionsData(
+                    ['featured2', 'titleTag'],
+                    data?.homePage?.sections,
+                  ) || 'p',
+                ) as keyof JSX.IntrinsicElements
+              }
+            >
+              {getSectionsData(
+                ['featured2', 'title'],
+                data?.homePage?.sections,
+              )}
+            </Heading>
+            <div className="markdown">
+              <ReactMarkdown
+                allowDangerousHtml
+                source={
+                  getSectionsData(
+                    ['featured2', 'body'],
+                    data?.homePage?.sections,
+                  ) || ''
+                }
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                }}
+              />
+            </div>
+          </div>
+        </section>
+      </LazyLoadComponent>
+
+      <LazyLoadComponent>
+        <section className="row:features-4col">
+          <Heading
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                getSectionsData(
+                  ['tiles', 'titleTag'],
+                  data?.homePage?.sections,
+                ) || 'p',
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
+            {getSectionsData(['tiles', 'tilesTitle'], data?.homePage?.sections)}
+          </Heading>
+          {(getSectionsData(
+            ['tiles', 'tiles'],
+            data?.homePage?.sections,
+          ) as TileData[])?.map((tile: TileData, idx) => (
+            <div key={tile.title || idx}>
+              <Tile className="-plain -button -align-center" plain>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    inline
+                    round
+                    size="large"
+                    src={
+                      tile.image?.file?.url ||
+                      ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                    }
+                  />
+                </div>
+                <TileLink tile={tile} />
+                <Text tag="p">{tile.body}</Text>
+              </Tile>
+            </div>
           ))}
-        </div>
-      </section>
-      <section className="row:trustpilot">
-        <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
-      </section>
+        </section>
+      </LazyLoadComponent>
+
+      <LazyLoadComponent>
+        <section className="row:league">
+          <League
+            clickReadMore={() => Router.push('/fan-hub.html')}
+            altText="vanarama national league"
+          />
+        </section>
+      </LazyLoadComponent>
+
+      <LazyLoadComponent>
+        <section className="row:featured-logos">
+          <Heading tag="span" size="small" color="darker">
+            AS FEATURED ON
+          </Heading>
+          <div>
+            {[
+              {
+                label: 'bbc',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
+              },
+              {
+                label: 'btsport',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
+              },
+              {
+                label: 'dailymail',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
+              },
+              {
+                label: 'dailymirror',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymirror.png',
+              },
+              {
+                label: 'itv',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
+              },
+              {
+                label: 'metro',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
+              },
+              {
+                label: 'thesun',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
+              },
+              {
+                label: 'sky',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
+              },
+              {
+                label: 'thetelegraph',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
+              },
+            ].map(({ href, label }) => (
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                key={label}
+                src={href}
+                alt={label}
+                size="expand"
+                plain
+              />
+            ))}
+          </div>
+        </section>
+      </LazyLoadComponent>
+
+      <LazyLoadComponent>
+        <section className="row:trustpilot">
+          <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+        </section>
+      </LazyLoadComponent>
+
       {data && (
         <SchemaJSON json={JSON.stringify(data?.homePage?.metaData?.schema)} />
       )}
