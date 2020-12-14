@@ -21,9 +21,9 @@ const GTMDataLayerScript = dynamic(() =>
 );
 
 // @ts-ignore
-const SpeedCurveScript = dynamic(() =>
-  import('../components/SpeedCurveScript').then(mod => mod.SpeedCurveScript),
-);
+// const SpeedCurveScript = dynamic(() =>
+//   import('../components/SpeedCurveScript').then(mod => mod.SpeedCurveScript),
+// );
 
 const env = process?.env?.ENV || '';
 
@@ -31,7 +31,7 @@ const env = process?.env?.ENV || '';
 const gtmEnvs = ['uat'];
 
 // VWO environments.
-const vwoEnvs = ['uat'];
+// const vwoEnvs = ['uat'];
 
 class MyDocument extends Document {
   render() {
@@ -41,7 +41,6 @@ class MyDocument extends Document {
           {/* <RollbarScript /> */}
           {gtmEnvs.includes(env) && <GTMDataLayerScript />}
           {gtmEnvs.includes(env) && <GTMScript />}
-          {vwoEnvs.includes(env) && <SpeedCurveScript />}
         </HeadCustom>
         <body>
           <Main />
@@ -51,14 +50,8 @@ class MyDocument extends Document {
             src="//cdn.embedly.com/widgets/platform.js"
             charSet="UTF-8"
           />
-          <script defer src="https://cdn.blueconic.net/vanarama.js" />
+          {/* <script defer src="https://cdn.blueconic.net/vanarama.js" /> */}
           <script defer src="https://www.riddle.com/files/js/embed.js" />
-          <script
-            src="https://cdn.speedcurve.com/js/lux.js?id=661614667"
-            async
-            defer
-            crossOrigin="anonymous"
-          />
           {gtmEnvs.includes(env) && <GTMBody />}
         </body>
       </Html>
