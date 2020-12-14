@@ -115,9 +115,9 @@ const ThankYouPage: NextPage = () => {
             We&apos;ve Received Your Order
           </Text>
           <Text color="darker" tag="p">
-            Now that we&apos;ve received your order, we&apos;ll reserve your
-            vehicle and get your finance sorted. We&apos;ll be in touch within
-            24 business hours.
+            As soon as your finance is sorted, we&apos;ll reserve your vehicle
+            and process your order. We&apos;ll be in touch within 24 business
+            hours.
           </Text>
           <Heading color="black" tag="h2" size="lead">
             {isB2b ? `What's Next?` : `What Happens Next?`}
