@@ -63,14 +63,15 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     [links],
   );
 
-  const [activeTertiaryMenu, setActiveTertiaryMenu] = useState<string>(
+  const [activeTertiaryMenu, setActiveTertiaryMenu] = useState<string | null>(
     firstChildrenLinks?.id || '',
   );
-  const [isOpenMenu, setIsOpenMenu] = useState<string | null>(null);
 
   useEffect(() => {
-    setIsOpenMenu(null);
-  }, [router, setIsOpenMenu, isMenuOpen]);
+    if (isMobile) {
+      setActiveTertiaryMenu(null);
+    }
+  }, [router, setActiveTertiaryMenu, isMenuOpen, isMobile]);
 
   const linkClassName = (classes: {
     title?: boolean;
@@ -112,7 +113,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
             <li
               key={`${link.label}_${title}`}
               className={linkClassName({
-                open: !!link.children?.length && isOpenMenu === link.id,
+                open: !!link.children?.length && activeTertiaryMenu === link.id,
                 highlight: link.highlight,
                 withChildren: !!link.children?.length,
               })}
@@ -120,7 +121,6 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                 link.children?.length
                   ? () => {
                       setActiveTertiaryMenu(link?.id || '');
-                      setIsOpenMenu(link.id || null);
                     }
                   : undefined
               }
@@ -128,7 +128,6 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                 link.children?.length
                   ? () => {
                       setActiveTertiaryMenu(link?.id || '');
-                      setIsOpenMenu(link.id || null);
                     }
                   : undefined
               }
@@ -153,7 +152,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                     isMobile && link.children?.length
                       ? el => {
                           el.preventDefault();
-                          setIsOpenMenu(link.id || null);
+                          setActiveTertiaryMenu(link.id || null);
                         }
                       : undefined
                   }
@@ -180,7 +179,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                 className="link"
                 onClick={el => {
                   el.preventDefault();
-                  setIsOpenMenu(null);
+                  setActiveTertiaryMenu(null);
                 }}
                 dataTestId={`menu-tertiary-${tertiaryBlock.id}`}
                 color="black"

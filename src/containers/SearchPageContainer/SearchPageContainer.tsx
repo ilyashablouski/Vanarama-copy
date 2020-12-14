@@ -1202,28 +1202,30 @@ const SearchPageContainer: React.FC<IProps> = ({
 
           {tiles && !isDynamicFilterPage && (
             <div className="row:features-4col">
-              {tiles?.tiles?.length &&
-                tiles.tiles.map((tile, indx) => (
-                  <Tile
-                    plain
-                    className="-align-center -button"
-                    key={`${tile.title}_${indx.toString()}`}
-                  >
-                    <span>
-                      <Image
-                        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                        src={tile.image?.file?.url || ''}
-                        inline
-                        round
-                        size="large"
-                      />
-                    </span>
-                    <TileLink tile={tile} />
-                    <Text color="darker" size="regular">
-                      {tile.body}
-                    </Text>
-                  </Tile>
-                ))}
+              <LazyLoadComponent>
+                {tiles?.tiles?.length &&
+                  tiles.tiles.map((tile, indx) => (
+                    <Tile
+                      plain
+                      className="-align-center -button"
+                      key={`${tile.title}_${indx.toString()}`}
+                    >
+                      <span>
+                        <Image
+                          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                          src={tile.image?.file?.url || ''}
+                          inline
+                          round
+                          size="large"
+                        />
+                      </span>
+                      <TileLink tile={tile} />
+                      <Text color="darker" size="regular">
+                        {tile.body}
+                      </Text>
+                    </Tile>
+                  ))}
+              </LazyLoadComponent>
             </div>
           )}
 
@@ -1233,79 +1235,85 @@ const SearchPageContainer: React.FC<IProps> = ({
                 <Heading size="large" color="black" tag="h3">
                   {carousel.title}
                 </Heading>
-                <Carousel
-                  countItems={carousel?.cards?.length || 0}
-                  className="-col3"
-                >
-                  {carousel?.cards.map(
-                    (card, indx) =>
-                      card && (
-                        <Card
-                          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                          key={`${card.name}_${indx.toString()}`}
-                          className="card__article"
-                          imageSrc={
-                            card?.image?.file?.url || '/vehiclePlaceholder.jpg'
-                          }
-                          title={{
-                            title:
-                              card.link?.legacyUrl || card.link?.url
-                                ? ''
-                                : card.title || '',
-                            link: (
-                              <RouterLink
-                                link={{
-                                  href:
-                                    card.link?.legacyUrl ||
-                                    card.link?.url ||
-                                    '',
-                                  label: card.title || '',
-                                }}
-                                className="card--link"
-                                classNames={{ color: 'black', size: 'regular' }}
-                              />
-                            ),
-                          }}
-                        >
-                          <ReactMarkdown
-                            className="markdown"
-                            allowDangerousHtml
-                            source={card.body || ''}
-                            renderers={{
-                              link: props => {
-                                const { href, children } = props;
-                                return (
-                                  <RouterLink
-                                    link={{ href, label: children }}
-                                    classNames={{ color: 'teal' }}
-                                  />
-                                );
-                              },
-                              heading: props => (
-                                <Text
-                                  {...props}
-                                  size="lead"
-                                  color="darker"
-                                  tag="h3"
+                <LazyLoadComponent>
+                  <Carousel
+                    countItems={carousel?.cards?.length || 0}
+                    className="-col3"
+                  >
+                    {carousel?.cards.map(
+                      (card, indx) =>
+                        card && (
+                          <Card
+                            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                            key={`${card.name}_${indx.toString()}`}
+                            className="card__article"
+                            imageSrc={
+                              card?.image?.file?.url ||
+                              '/vehiclePlaceholder.jpg'
+                            }
+                            title={{
+                              title:
+                                card.link?.legacyUrl || card.link?.url
+                                  ? ''
+                                  : card.title || '',
+                              link: (
+                                <RouterLink
+                                  link={{
+                                    href:
+                                      card.link?.legacyUrl ||
+                                      card.link?.url ||
+                                      '',
+                                    label: card.title || '',
+                                  }}
+                                  className="card--link"
+                                  classNames={{
+                                    color: 'black',
+                                    size: 'regular',
+                                  }}
                                 />
                               ),
-                              paragraph: props => (
-                                <Text {...props} tag="p" color="darker" />
-                              ),
                             }}
-                          />
-                          <RouterLink
-                            link={{
-                              href:
-                                card.link?.legacyUrl || card.link?.url || '',
-                              label: card.link?.text || '',
-                            }}
-                            classNames={{ color: 'teal' }}
-                          />
-                        </Card>
-                      ),
-                  )}
-                </Carousel>
+                          >
+                            <ReactMarkdown
+                              className="markdown"
+                              allowDangerousHtml
+                              source={card.body || ''}
+                              renderers={{
+                                link: props => {
+                                  const { href, children } = props;
+                                  return (
+                                    <RouterLink
+                                      link={{ href, label: children }}
+                                      classNames={{ color: 'teal' }}
+                                    />
+                                  );
+                                },
+                                heading: props => (
+                                  <Text
+                                    {...props}
+                                    size="lead"
+                                    color="darker"
+                                    tag="h3"
+                                  />
+                                ),
+                                paragraph: props => (
+                                  <Text {...props} tag="p" color="darker" />
+                                ),
+                              }}
+                            />
+                            <RouterLink
+                              link={{
+                                href:
+                                  card.link?.legacyUrl || card.link?.url || '',
+                                label: card.link?.text || '',
+                              }}
+                              classNames={{ color: 'teal' }}
+                            />
+                          </Card>
+                        ),
+                    )}
+                  </Carousel>
+                </LazyLoadComponent>
               </div>
             </div>
           )}
@@ -1313,9 +1321,11 @@ const SearchPageContainer: React.FC<IProps> = ({
       )}
 
       <div className="row:text">
-        <Text color="darker" size="regular" tag="span">
-          Photos and videos are for illustration purposes only.
-        </Text>
+        <LazyLoadComponent>
+          <Text color="darker" size="regular" tag="span">
+            Photos and videos are for illustration purposes only.
+          </Text>
+        </LazyLoadComponent>
       </div>
       {metaData && (
         <>

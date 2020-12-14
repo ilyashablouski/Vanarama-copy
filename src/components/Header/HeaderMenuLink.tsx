@@ -2,6 +2,7 @@
 import React, { FC, memo, useState, useEffect } from 'react';
 import cx from 'classnames';
 import dynamic from 'next/dynamic';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { useRouter } from 'next/router';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import RouterLink from '../RouterLink/RouterLink';
@@ -89,15 +90,17 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
         <span>{link.label}</span>
       </RouterLink>
       {!!link.children?.length && (
-        <HeaderSecondaryMenu
-          key={link.label}
-          promotionalImage={link.promotionalImage}
-          links={link.children as IHeaderLink[]}
-          title={link.label}
-          onClickTitle={() => setIsOpenMenu(false)}
-          isMobile={isMobile}
-          isMenuOpen={isMenuOpen}
-        />
+        <LazyLoadComponent>
+          <HeaderSecondaryMenu
+            key={link.label}
+            promotionalImage={link.promotionalImage}
+            links={link.children as IHeaderLink[]}
+            title={link.label}
+            onClickTitle={() => setIsOpenMenu(false)}
+            isMobile={isMobile}
+            isMenuOpen={isMenuOpen}
+          />
+        </LazyLoadComponent>
       )}
     </li>
   );

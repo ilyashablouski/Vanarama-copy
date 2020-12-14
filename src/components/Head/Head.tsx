@@ -1,44 +1,45 @@
 import React, { FC } from 'react';
 import NextHead from 'next/head';
+
 import { useRouter } from 'next/router';
 import { IHeadProps } from './interface';
 import { defaultTitle, twitter, defaultImage, fb } from './defaults';
 
-const STATIC_DOMAIN = 'https://static.vanarama-nonprod.com';
-const FONT_PATH = `${STATIC_DOMAIN}/fonts/`;
+// const STATIC_DOMAIN = 'https://static.vanarama-nonprod.com';
+// const FONT_PATH = `${STATIC_DOMAIN}/fonts/`;
 
-const PRECONNECT = [
-  process?.env?.API_URL?.replace('/graphql/', ''),
-  STATIC_DOMAIN,
-  '//cdn.embedly.com',
-  'https://cdn.blueconic.net',
-  'https://www.riddle.com',
-  'https://widget.trustpilot.com',
-  'https://cdn.speedcurve.com',
-];
+// const PRECONNECT = [
+//   process.env.API_URL,
+//   STATIC_DOMAIN,
+//   '//cdn.embedly.com',
+//   'https://cdn.blueconic.net',
+//   'https://www.riddle.com',
+//   'https://widget.trustpilot.com',
+//   'https://cdn.speedcurve.com',
+// ];
 
-const FONT_LIST = [
-  'DkMono/DkMono-400-normal.otf',
-  'DkMono/DkMono-400-italic.otf',
-  'FFCocon/FFCocon-300-normal.otf',
-  'FFCocon/FFCocon-300-italic.otf',
-  'FFCocon/FFCocon-400-normal.otf',
-  'FFCocon/FFCocon-400-italic.otf',
-  'NunitoSans/NunitoSans-200-normal.otf',
-  'NunitoSans/NunitoSans-200-italic.otf',
-  'NunitoSans/NunitoSans-300-normal.otf',
-  'NunitoSans/NunitoSans-300-italic.otf',
-  'NunitoSans/NunitoSans-400-normal.otf',
-  'NunitoSans/NunitoSans-400-italic.otf',
-  'NunitoSans/NunitoSans-500-normal.otf',
-  'NunitoSans/NunitoSans-500-italic.otf',
-  'NunitoSans/NunitoSans-600-normal.otf',
-  'NunitoSans/NunitoSans-600-italic.otf',
-  'NunitoSans/NunitoSans-700-normal.otf',
-  'NunitoSans/NunitoSans-700-italic.otf',
-  'NunitoSans/NunitoSans-800-normal.otf',
-  'NunitoSans/NunitoSans-800-italic.otf',
-];
+// const FONT_LIST = [
+//   'DkMono/DkMono-400-normal.otf',
+//   'DkMono/DkMono-400-italic.otf',
+//   'FFCocon/FFCocon-300-normal.otf',
+//   'FFCocon/FFCocon-300-italic.otf',
+//   'FFCocon/FFCocon-400-normal.otf',
+//   'FFCocon/FFCocon-400-italic.otf',
+//   'NunitoSans/NunitoSans-200-normal.otf',
+//   'NunitoSans/NunitoSans-200-italic.otf',
+//   'NunitoSans/NunitoSans-300-normal.otf',
+//   'NunitoSans/NunitoSans-300-italic.otf',
+//   'NunitoSans/§NunitoSans-400-normal.otf',
+//   'NunitoSans/NunitoSans-400-italic.otf',
+//   'NunitoSans/NunitoSans-500-normal.otf',
+//   'NunitoSans/NunitoSans-500-italic.otf',
+//   'NunitoSans/NunitoSans-600-normal.otf',
+//   'NunitoSans/NunitoSans-600-italic.otf',
+//   'NunitoSans/NunitoSans-700-normal.otf',
+//   'NunitoSans/NunitoSans-700-italic.otf',
+//   'NunitoSans/NunitoSans-800-normal.otf',
+//   'NunitoSans/NunitoSans-800-italic.otf',
+// ];
 
 const Head: FC<IHeadProps> = props => {
   const router = useRouter();
@@ -79,16 +80,23 @@ const Head: FC<IHeadProps> = props => {
       <meta name="twitter:title" content={title || defaultTitle} />
       <meta name="twitter:creator" content={twitter} />
       <meta name="twitter:site" content={twitter} />
-      {PRECONNECT.map(domain => {
+      {/* {PRECONNECT.map(domain => {
         return (
           <link rel="preconnect dns-prefetch" href={domain} key={domain} />
         );
-      })}
-      {FONT_LIST.map(font => {
+      })} */}
+      {/* {FONT_LIST.map(font => {
         return (
           <link key={font} href={`${FONT_PATH}${font}`} type="font/woff2" />
         );
-      })}
+      })} */}
+      {/* <link rel="preconnect" href="https://fonts.gstatic.com" /> */}
+      {/* <link
+        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400&display=swap"
+        rel="stylesheet"
+      /> */}
+      {/* <link href={FONT_PATH.replace('/fonts/', '')} /> */}
+      {/* <link href={process?.env?.API_URL?.replace('/graphql/', '')} /> */}
     </NextHead>
   );
 };
