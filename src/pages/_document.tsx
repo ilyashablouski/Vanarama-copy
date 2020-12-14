@@ -25,11 +25,6 @@ const SpeedCurveScript = dynamic(() =>
   import('../components/SpeedCurveScript').then(mod => mod.SpeedCurveScript),
 );
 
-// @ts-ignore
-const VWOScript = dynamic(() =>
-  import('../components/VWOScript').then(mod => mod.VWOScript),
-);
-
 const env = process?.env?.ENV || '';
 
 // GTM environments.
@@ -58,8 +53,6 @@ class MyDocument extends Document {
           />
           <script defer src="https://cdn.blueconic.net/vanarama.js" />
           <script defer src="https://www.riddle.com/files/js/embed.js" />
-          <VWOScript />
-
           <script
             src="https://cdn.speedcurve.com/js/lux.js?id=661614667"
             async
