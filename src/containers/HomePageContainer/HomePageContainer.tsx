@@ -241,8 +241,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             getSectionsData(
               ['hero', 'image', 'file', 'url'],
               data?.homePage?.sections,
-            ) ||
-            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+            ) || null
           }
         />
       </Hero>
