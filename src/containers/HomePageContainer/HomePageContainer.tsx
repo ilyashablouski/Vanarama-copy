@@ -23,7 +23,8 @@ import {
 import TileLink from '../../components/TileLink/TileLink';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 // import Hero from '../../components/Hero';
-import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
+// import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
+import Hero, { HeroTitle } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
 
 const Heading = dynamic(
@@ -207,7 +208,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       <Hero>
         <div className="hero--title">
           <>
-            <HeroHeading
+            {/* <HeroHeading
               text={
                 getSectionsData(['hero', 'title'], data?.homePage?.sections) ||
                 ''
@@ -220,7 +221,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                   ) || 'p',
                 ) as keyof JSX.IntrinsicElements
               }
-            />
+            /> */}
             <br />
             <HeroTitle
               text={
