@@ -67,18 +67,5 @@ module.exports = {
 
       return config;
     },
-  },
-
-  withCustomWebpack: (config = {}) => {
-    const { webpack } = config;
-
-    // eslint-disable-next-line no-shadow
-    config.webpack = (config, ...rest) => {
-      config.externals = config.externals || [];
-
-      return webpack(config, ...rest);
-    };
-
-    return config;
-  },
+  }
 };
