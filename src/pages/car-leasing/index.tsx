@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -146,6 +147,12 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
     { label: 'Business', value: 'Business', active: !isPersonal },
   ];
 
+  const optimisationOptions = {
+    height: 620,
+    width: 620,
+    quality: 59,
+  };
+
   return (
     <>
       <Hero>
@@ -161,7 +168,9 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
         <HeroTitle text={data?.hubCarPage.sections?.hero?.body || ''} />
         <br />
         <Image
+          loadImage
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          optimisationOptions={optimisationOptions}
           className="hero--image"
           plain
           size="expand"
@@ -190,42 +199,43 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
       </section>
 
       <section className="row:eligibility-checker-cta">
-        <div>
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            size="expand"
-            plain
-            src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Eligibility-Checker-Arc+(2).jpg"
-          />
-          <Heading size="large" color="black">
-            Check Your Eligibility For A New Car Lease
-          </Heading>
-          <RouterLink
-            className="button"
-            classNames={{ color: 'teal', solid: true, size: 'regular' }}
-            link={{
-              label: 'Check My Eligibility',
-              href: '/eligibility-checker.html',
-            }}
-            withoutDefaultClassName
-          >
-            <div className="button--inner">Check My Eligibility</div>
-          </RouterLink>
-          <Text tag="p" color="dark" size="xsmall">
-            This will not affect your credit score.
-          </Text>
-        </div>
-        <div>
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Help-Me-Choose2.jpg"
-            plain
-            size="expand"
-          />
-          <Heading size="large" color="black">
-            Not Sure Which Vehicle Is Best For You?
-          </Heading>
-          {/* <RouterLink
+        <LazyLoadComponent>
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              size="expand"
+              plain
+              src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Eligibility-Checker-Arc+(2).jpg"
+            />
+            <Heading size="large" color="black">
+              Check Your Eligibility For A New Car Lease
+            </Heading>
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'Check My Eligibility',
+                href: '/eligibility-checker.html',
+              }}
+              withoutDefaultClassName
+            >
+              <div className="button--inner">Check My Eligibility</div>
+            </RouterLink>
+            <Text tag="p" color="dark" size="xsmall">
+              This will not affect your credit score.
+            </Text>
+          </div>
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src="https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Help-Me-Choose2.jpg"
+              plain
+              size="expand"
+            />
+            <Heading size="large" color="black">
+              Not Sure Which Vehicle Is Best For You?
+            </Heading>
+            {/* <RouterLink
             className="button"
             classNames={{ color: 'teal', solid: true, size: 'regular' }}
             link={{
@@ -236,10 +246,11 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
           >
             <div className="button--inner">Help Me Choose</div>
           </RouterLink> */}
-          <Text color="orange" size="lead">
-            Coming Soon
-          </Text>
-        </div>
+            <Text color="orange" size="lead">
+              Coming Soon
+            </Text>
+          </div>
+        </LazyLoadComponent>
       </section>
 
       <div className="row:bg-lighter">
@@ -260,77 +271,87 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
               item?.capId,
             );
             return (
-              <ProductCard
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={item?.capId || idx}
-                header={{
-                  accentIcon: <Icon icon={<Flame />} color="white" />,
-                  accentText: 'Hot Deal',
-                  text: 'In Stock - 14-21 Days Delivery',
-                }}
-                features={features(
-                  item?.keyInformation || [],
-                  item?.capId || '',
-                  Icon,
-                )}
-                imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                onCompare={() =>
-                  compareChange(item ? { ...item, pageUrl: productUrl } : null)
-                }
-                compared={isCompared(compareVehicles, item)}
-                onWishlist={() => true}
-                title={{
-                  title: '',
-                  link: (
+              <LazyLoadComponent>
+                <ProductCard
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  key={item?.capId || idx}
+                  header={{
+                    accentIcon: <Icon icon={<Flame />} color="white" />,
+                    accentText: 'Hot Deal',
+                    text: 'In Stock - 14-21 Days Delivery',
+                  }}
+                  features={features(
+                    item?.keyInformation || [],
+                    item?.capId || '',
+                    Icon,
+                  )}
+                  imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
+                  onCompare={() =>
+                    compareChange(
+                      item ? { ...item, pageUrl: productUrl } : null,
+                    )
+                  }
+                  compared={isCompared(compareVehicles, item)}
+                  onWishlist={() => true}
+                  title={{
+                    title: '',
+                    link: (
+                      <RouterLink
+                        link={{
+                          href: productUrl.url,
+                          label: '',
+                        }}
+                        onClick={() =>
+                          sessionStorage.setItem('capId', item?.capId || '')
+                        }
+                        className="heading"
+                        classNames={{ size: 'large', color: 'black' }}
+                      >
+                        <Heading tag="span" size="large" className="-pb-100">
+                          {truncateString(
+                            `${item?.manufacturerName} ${item?.rangeName}`,
+                          )}
+                        </Heading>
+                        <Heading tag="span" size="small" color="dark">
+                          {item?.derivativeName || ''}
+                        </Heading>
+                      </RouterLink>
+                    ),
+                    score: item?.averageRating || 5,
+                  }}
+                >
+                  <div className="-flex-h">
+                    <Price
+                      price={
+                        isPersonal ? item?.personalRate : item?.businessRate
+                      }
+                      size="large"
+                      separator="."
+                      priceDescription={`Per Month ${
+                        isPersonal ? 'Inc.VAT' : 'Exc.VAT'
+                      }`}
+                    />
                     <RouterLink
                       link={{
                         href: productUrl.url,
-                        label: '',
+                        label: 'View Offer',
                       }}
                       onClick={() =>
                         sessionStorage.setItem('capId', item?.capId || '')
                       }
-                      className="heading"
-                      classNames={{ size: 'large', color: 'black' }}
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
+                      }}
+                      className="button"
+                      dataTestId="view-offer"
                     >
-                      <Heading tag="span" size="large" className="-pb-100">
-                        {truncateString(
-                          `${item?.manufacturerName} ${item?.rangeName}`,
-                        )}
-                      </Heading>
-                      <Heading tag="span" size="small" color="dark">
-                        {item?.derivativeName || ''}
-                      </Heading>
+                      <div className="button--inner">View Offer</div>
                     </RouterLink>
-                  ),
-                  score: item?.averageRating || 5,
-                }}
-              >
-                <div className="-flex-h">
-                  <Price
-                    price={isPersonal ? item?.personalRate : item?.businessRate}
-                    size="large"
-                    separator="."
-                    priceDescription={`Per Month ${
-                      isPersonal ? 'Inc.VAT' : 'Exc.VAT'
-                    }`}
-                  />
-                  <RouterLink
-                    link={{
-                      href: productUrl.url,
-                      label: 'View Offer',
-                    }}
-                    onClick={() =>
-                      sessionStorage.setItem('capId', item?.capId || '')
-                    }
-                    classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                    className="button"
-                    dataTestId="view-offer"
-                  >
-                    <div className="button--inner">View Offer</div>
-                  </RouterLink>
-                </div>
-              </ProductCard>
+                  </div>
+                </ProductCard>
+              </LazyLoadComponent>
             );
           })}
 
@@ -482,111 +503,122 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
       </section>
 
       <section className="row:features-4col">
-        <Heading
-          size="large"
-          color="black"
-          tag={
-            getTitleTag(
-              data?.hubCarPage.sections?.tiles?.titleTag || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {data && data?.hubCarPage.sections?.tiles?.tilesTitle}
-        </Heading>
-        {data?.hubCarPage.sections?.tiles?.tiles?.map((tile: TileData, idx) => (
-          <div key={tile.title || idx}>
-            <Tile className="-plain -button -align-center" plain>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Image
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  inline
-                  round
-                  size="large"
-                  src={
-                    tile.image?.file?.url ||
-                    'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                  }
-                />
+        <LazyLoadComponent>
+          <Heading
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                data?.hubCarPage.sections?.tiles?.titleTag || 'p',
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
+            {data && data?.hubCarPage.sections?.tiles?.tilesTitle}
+          </Heading>
+          {data?.hubCarPage.sections?.tiles?.tiles?.map(
+            (tile: TileData, idx) => (
+              <div key={tile.title || idx}>
+                <Tile className="-plain -button -align-center" plain>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Image
+                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                      inline
+                      round
+                      size="large"
+                      src={
+                        tile.image?.file?.url ||
+                        'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                      }
+                    />
+                  </div>
+                  <TileLink tile={tile} />
+                  <Text tag="p">{tile.body}</Text>
+                </Tile>
               </div>
-              <TileLink tile={tile} />
-              <Text tag="p">{tile.body}</Text>
-            </Tile>
-          </div>
-        ))}
+            ),
+          )}
+        </LazyLoadComponent>
       </section>
 
       <section className="row:league">
-        <League
-          clickReadMore={() => Router.push('/fan-hub')}
-          altText="vanarama national league"
-        />
+        <LazyLoadComponent>
+          <League
+            clickReadMore={() => Router.push('/fan-hub')}
+            altText="vanarama national league"
+          />
+        </LazyLoadComponent>
       </section>
 
       <section className="row:featured-logos">
-        <Heading tag="span" size="small" color="darker">
-          AS FEATURED ON
-        </Heading>
-        <div>
-          {[
-            {
-              label: 'bbc',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
-            },
-            {
-              label: 'btsport',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
-            },
-            {
-              label: 'dailymail',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
-            },
-            {
-              label: 'dailymirror',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymirror.png',
-            },
-            {
-              label: 'itv',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
-            },
-            {
-              label: 'metro',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
-            },
-            {
-              label: 'thesun',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
-            },
-            {
-              label: 'sky',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
-            },
-            {
-              label: 'thetelegraph',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
-            },
-          ].map(({ href, label }) => (
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={label}
-              src={href}
-              alt={label}
-              size="expand"
-              plain
-            />
-          ))}
-        </div>
+        <LazyLoadComponent>
+          <Heading tag="span" size="small" color="darker">
+            AS FEATURED ON
+          </Heading>
+          <div>
+            {[
+              {
+                label: 'bbc',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
+              },
+              {
+                label: 'btsport',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
+              },
+              {
+                label: 'dailymail',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
+              },
+              {
+                label: 'dailymirror',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymirror.png',
+              },
+              {
+                label: 'itv',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
+              },
+              {
+                label: 'metro',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
+              },
+              {
+                label: 'thesun',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
+              },
+              {
+                label: 'sky',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
+              },
+              {
+                label: 'thetelegraph',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
+              },
+            ].map(({ href, label }) => (
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                key={label}
+                src={href}
+                alt={label}
+                size="expand"
+                plain
+              />
+            ))}
+          </div>
+        </LazyLoadComponent>
       </section>
+
       <section className="row:trustpilot">
-        <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+        <LazyLoadComponent>
+          <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+        </LazyLoadComponent>
       </section>
       {data?.hubCarPage.metaData && (
         <>

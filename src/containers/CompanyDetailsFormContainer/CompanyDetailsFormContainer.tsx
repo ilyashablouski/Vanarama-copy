@@ -73,7 +73,9 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
     orderId,
     () => {},
   );
-  const { data, loading } = useGetCreditApplicationByOrderUuid(orderId);
+  const { data, loading, refetch } = useGetCreditApplicationByOrderUuid(
+    orderId,
+  );
 
   const companyDetailsRaw = data?.creditApplicationByOrderUuid?.companyDetails;
   const aboutDetailsRaw = data?.creditApplicationByOrderUuid?.aboutDetails;
@@ -149,6 +151,7 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
             handleOrderUpdate(
               response.data!.createUpdateLimitedCompany!.partyUuid,
             )
+              .then(() => refetch({ id: orderId }))
               .then(() =>
                 handleCreditApplicationUpdate(
                   values,

@@ -1,5 +1,6 @@
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import { useState, useContext } from 'react';
@@ -161,6 +162,12 @@ export const PickupsPage: NextPage<Props> = ({ data }) => {
 
   const isPersonal = cachedLeaseType === 'Personal';
 
+  const optimisationOptions = {
+    height: 620,
+    width: 620,
+    quality: 59,
+  };
+
   return (
     <>
       <Hero>
@@ -176,7 +183,9 @@ export const PickupsPage: NextPage<Props> = ({ data }) => {
         <HeroTitle text={data?.hubPickupPage.sections?.hero?.body || ''} />
         <br />
         <Image
+          loadImage
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          optimisationOptions={optimisationOptions}
           className="hero--image"
           plain
           size="expand"
@@ -234,80 +243,88 @@ export const PickupsPage: NextPage<Props> = ({ data }) => {
               item?.capId,
             );
             return (
-              <ProductCard
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={item?.capId || idx}
-                header={{
-                  accentIcon: <Icon icon={<Flame />} color="white" />,
-                  accentText: 'Hot Deal',
-                  text: 'In Stock - 14-21 Days Delivery',
-                }}
-                features={features(
-                  item?.keyInformation || [],
-                  item?.capId || '',
-                  Icon,
-                )}
-                imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
-                onCompare={() => {
-                  compareChange(
-                    item
-                      ? { ...item, bodyStyle: 'Pickup', pageUrl: productUrl }
-                      : null,
-                  );
-                }}
-                compared={isCompared(compareVehicles, item)}
-                onWishlist={() => true}
-                title={{
-                  title: '',
-                  link: (
+              <LazyLoadComponent>
+                <ProductCard
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  key={item?.capId || idx}
+                  header={{
+                    accentIcon: <Icon icon={<Flame />} color="white" />,
+                    accentText: 'Hot Deal',
+                    text: 'In Stock - 14-21 Days Delivery',
+                  }}
+                  features={features(
+                    item?.keyInformation || [],
+                    item?.capId || '',
+                    Icon,
+                  )}
+                  imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
+                  onCompare={() => {
+                    compareChange(
+                      item
+                        ? { ...item, bodyStyle: 'Pickup', pageUrl: productUrl }
+                        : null,
+                    );
+                  }}
+                  compared={isCompared(compareVehicles, item)}
+                  onWishlist={() => true}
+                  title={{
+                    title: '',
+                    link: (
+                      <RouterLink
+                        link={{
+                          href: productUrl.url,
+                          label: '',
+                        }}
+                        onClick={() =>
+                          sessionStorage.setItem('capId', item?.capId || '')
+                        }
+                        className="heading"
+                        classNames={{ size: 'large', color: 'black' }}
+                      >
+                        <Heading tag="span" size="large" className="-pb-100">
+                          {truncateString(
+                            `${item?.manufacturerName} ${item?.rangeName}`,
+                          )}
+                        </Heading>
+                        <Heading tag="span" size="small" color="dark">
+                          {item?.derivativeName || ''}
+                        </Heading>
+                      </RouterLink>
+                    ),
+                    score: item?.averageRating || 5,
+                  }}
+                >
+                  <div className="-flex-h">
+                    <Price
+                      price={
+                        isPersonal ? item?.personalRate : item?.businessRate
+                      }
+                      size="large"
+                      separator="."
+                      priceDescription={`Per Month ${
+                        isPersonal ? 'Inc' : 'Exc'
+                      }.VAT`}
+                    />
                     <RouterLink
                       link={{
                         href: productUrl.url,
-                        label: '',
+                        label: 'View Offer',
                       }}
                       onClick={() =>
                         sessionStorage.setItem('capId', item?.capId || '')
                       }
-                      className="heading"
-                      classNames={{ size: 'large', color: 'black' }}
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
+                      }}
+                      className="button"
                     >
-                      <Heading tag="span" size="large" className="-pb-100">
-                        {truncateString(
-                          `${item?.manufacturerName} ${item?.rangeName}`,
-                        )}
-                      </Heading>
-                      <Heading tag="span" size="small" color="dark">
-                        {item?.derivativeName || ''}
-                      </Heading>
+                      <div className="button--inner">View Offer</div>
                     </RouterLink>
-                  ),
-                  score: item?.averageRating || 5,
-                }}
-              >
-                <div className="-flex-h">
-                  <Price
-                    price={isPersonal ? item?.personalRate : item?.businessRate}
-                    size="large"
-                    separator="."
-                    priceDescription={`Per Month ${
-                      isPersonal ? 'Inc' : 'Exc'
-                    }.VAT`}
-                  />
-                  <RouterLink
-                    link={{
-                      href: productUrl.url,
-                      label: 'View Offer',
-                    }}
-                    onClick={() =>
-                      sessionStorage.setItem('capId', item?.capId || '')
-                    }
-                    classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                    className="button"
-                  >
-                    <div className="button--inner">View Offer</div>
-                  </RouterLink>
-                </div>
-              </ProductCard>
+                  </div>
+                </ProductCard>
+              </LazyLoadComponent>
             );
           })}
 
@@ -504,6 +521,7 @@ export const PickupsPage: NextPage<Props> = ({ data }) => {
       </section>
 
       <hr className="fullWidth" />
+
       <section className="row:text">
         <Heading
           size="large"
@@ -535,143 +553,156 @@ export const PickupsPage: NextPage<Props> = ({ data }) => {
           </RouterLink>
         </div>
       </section>
+
       <hr className="fullWidth" />
 
       <section className="row:features-4col">
-        <Heading
-          size="large"
-          color="black"
-          tag={
-            getTitleTag(
-              data?.hubPickupPage.sections?.tiles2?.titleTag || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {data && data?.hubPickupPage.sections?.tiles2?.tilesTitle}
-        </Heading>
-        {data?.hubPickupPage.sections?.tiles2?.tiles?.map(
-          (tile: TileData, idx: number) => (
-            <div key={tile.title || idx}>
-              <Tile className="-plain -button -align-center" plain>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Image
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    inline
-                    round
-                    size="large"
-                    src={
-                      tile.image?.file?.url ||
-                      'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                    }
-                  />
-                </div>
-                <TileLink tile={tile} />
-                <Text tag="p">{tile.body}</Text>
-              </Tile>
-            </div>
-          ),
-        )}
+        <LazyLoadComponent>
+          <Heading
+            size="large"
+            color="black"
+            tag={
+              getTitleTag(
+                data?.hubPickupPage.sections?.tiles2?.titleTag || 'p',
+              ) as keyof JSX.IntrinsicElements
+            }
+          >
+            {data && data?.hubPickupPage.sections?.tiles2?.tilesTitle}
+          </Heading>
+          {data?.hubPickupPage.sections?.tiles2?.tiles?.map(
+            (tile: TileData, idx: number) => (
+              <div key={tile.title || idx}>
+                <Tile className="-plain -button -align-center" plain>
+                  <div style={{ display: 'flex', justifyContent: 'center' }}>
+                    <Image
+                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                      inline
+                      round
+                      size="large"
+                      src={
+                        tile.image?.file?.url ||
+                        'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                      }
+                    />
+                  </div>
+                  <TileLink tile={tile} />
+                  <Text tag="p">{tile.body}</Text>
+                </Tile>
+              </div>
+            ),
+          )}
+        </LazyLoadComponent>
       </section>
 
       <section className="row:manufacturer-grid">
-        <Heading
-          size="large"
-          color="black"
-          className="-a-center -mb-500"
-          tag="h2"
-        >
-          Search By Manufacturer
-        </Heading>
-        <div>
-          {PickupsSearch.map(man => (
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'large' }}
-              link={{
-                label: man.label,
-                href: man.href,
-              }}
-              withoutDefaultClassName
-            >
-              <div className="button--inner">{man.label}</div>
-            </RouterLink>
-          ))}
-        </div>
+        <LazyLoadComponent>
+          <Heading
+            size="large"
+            color="black"
+            className="-a-center -mb-500"
+            tag="h2"
+          >
+            Search By Manufacturer
+          </Heading>
+          <div>
+            {PickupsSearch.map(man => (
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'large' }}
+                link={{
+                  label: man.label,
+                  href: man.href,
+                }}
+                withoutDefaultClassName
+              >
+                <div className="button--inner">{man.label}</div>
+              </RouterLink>
+            ))}
+          </div>
+        </LazyLoadComponent>
       </section>
 
       <section className="row:league">
-        <League
-          clickReadMore={() => Router.push('/fan-hub.html')}
-          altText="vanarama national league"
-        />
+        <LazyLoadComponent>
+          <League
+            clickReadMore={() => Router.push('/fan-hub.html')}
+            altText="vanarama national league"
+          />
+        </LazyLoadComponent>
       </section>
 
       <section className="row:featured-logos">
-        <Heading tag="span" size="small" color="darker">
-          AS FEATURED ON
-        </Heading>
-        <div>
-          {[
-            {
-              label: 'bbc',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
-            },
-            {
-              label: 'btsport',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
-            },
-            {
-              label: 'dailymail',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
-            },
-            {
-              label: 'dailymirror',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymirror.png',
-            },
-            {
-              label: 'itv',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
-            },
-            {
-              label: 'metro',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
-            },
-            {
-              label: 'thesun',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
-            },
-            {
-              label: 'sky',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
-            },
-            {
-              label: 'thetelegraph',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
-            },
-          ].map(({ href, label }) => (
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={label}
-              src={href}
-              alt={label}
-              size="expand"
-              plain
-            />
-          ))}
-        </div>
+        <LazyLoadComponent>
+          <Heading tag="span" size="small" color="darker">
+            AS FEATURED ON
+          </Heading>
+          <div>
+            {[
+              {
+                label: 'bbc',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
+              },
+              {
+                label: 'btsport',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
+              },
+              {
+                label: 'dailymail',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
+              },
+              {
+                label: 'dailymirror',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymirror.png',
+              },
+              {
+                label: 'itv',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
+              },
+              {
+                label: 'metro',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
+              },
+              {
+                label: 'thesun',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
+              },
+              {
+                label: 'sky',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
+              },
+              {
+                label: 'thetelegraph',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
+              },
+            ].map(({ href, label }) => (
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                key={label}
+                src={href}
+                alt={label}
+                size="expand"
+                plain
+              />
+            ))}
+          </div>
+        </LazyLoadComponent>
       </section>
+
       <section className="row:trustpilot">
-        <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+        <LazyLoadComponent>
+          <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+        </LazyLoadComponent>
       </section>
+
       {data?.hubPickupPage.metaData && (
         <>
           <Head

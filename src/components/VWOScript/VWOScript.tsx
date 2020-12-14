@@ -1,13 +1,13 @@
 import React, { FC, memo } from 'react';
 
-const Script: FC = () => {
+const VWOScript: FC = () => {
   const code = `window._vwo_code = window._vwo_code || (function(){
     var account_id=383104,
     settings_tolerance=2000,
     library_tolerance=2500,
     use_existing_jquery=false,
     is_spa=1,
-    hide_element='body',
+    hide_element='',
     
     /* DO NOT EDIT BELOW THIS LINE */
     f=false,d=document,code={use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){
@@ -23,6 +23,4 @@ const Script: FC = () => {
   );
 };
 
-Script.displayName = 'VWOScript';
-
-export default memo(Script);
+export default memo(VWOScript);

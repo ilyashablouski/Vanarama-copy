@@ -12,9 +12,22 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         <div
           class="hero--left"
         >
-          <h1
-            class="heading -white -xlarge"
-          />
+          <div
+            style="font-size: 24px; line-height: 1.75; opacity: 0.75; color: rgb(204, 204, 204);"
+          >
+            <span>
+              <span
+                class="react-loading-skeleton css-1vmnjpn-skeletonStyles-Skeleton"
+              >
+                ‌
+              </span>
+              <span
+                class="react-loading-skeleton css-1vmnjpn-skeletonStyles-Skeleton"
+              >
+                ‌
+              </span>
+            </span>
+          </div>
           <h3
             class="text -large -white"
           >
