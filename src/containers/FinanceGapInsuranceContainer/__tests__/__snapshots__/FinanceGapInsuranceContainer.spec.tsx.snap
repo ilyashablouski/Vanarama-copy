@@ -46,6 +46,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         </div>
         <div
           class="hero--right"
+          style="min-height: 347px;"
         >
           <div
             class="card hero-card"
