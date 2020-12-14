@@ -23,7 +23,8 @@ import {
 import TileLink from '../../components/TileLink/TileLink';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 // import Hero from '../../components/Hero';
-import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
+// import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
+import Hero, { HeroTitle } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
 
 const Heading = dynamic(
