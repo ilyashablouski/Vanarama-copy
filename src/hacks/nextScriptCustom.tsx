@@ -17,16 +17,16 @@ class NextScriptCustom extends NextScript {
 
     const scripts = compact(
       orgNextScripts.map((child: any) => {
-        if (child?.props.id === '__NEXT_DATA__') {
+        if (child.props.id === '__NEXT_DATA__') {
           return {
-            props: { ...child?.props },
-            content: child?.props.dangerouslySetInnerHTML.__html,
+            props: { ...child.props },
+            content: child.props.dangerouslySetInnerHTML.__html,
           };
         }
 
         if (child?.type === 'script') {
           return {
-            props: { ...child?.props },
+            props: { ...child.props },
             content: '',
           };
         }
@@ -74,7 +74,7 @@ class NextScriptCustom extends NextScript {
     return (
       <>
         {initialLoadScripts.map(({ props }) => (
-          <script key={props?.id} {...props} src={props?.src} />
+          <script key={props.id} {...props} src={props.src} />
         ))}
 
         <script
