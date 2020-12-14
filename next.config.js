@@ -15,10 +15,15 @@ const path = require('path');
 const config = require('./config/app');
 const generateMenuData = require('./plugins/genMenuData');
 
+const withBundleAnalyzer = require('@next/bundle-analyzer')({
+  enabled: process.env.ANALYZE === 'true',
+});
+
 module.exports = withPlugins(
   [
     [generateMenuData],
     withTM,
+    [withBundleAnalyzer],
     // [withFonts],
     [
       withCustomBabelConfig,

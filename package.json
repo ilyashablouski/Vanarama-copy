@@ -10,6 +10,7 @@
   "homepage": "https://github.com/Autorama/next-storefront",
   "license": "UNLICENCED",
   "scripts": {
+    "analyze-build": "NODE_OPTIONS=--max-old-space-size=8192 ANALYZE=true yarn build",
     "apollo:generate": "rimraf generated && apollo client:codegen generated --target=typescript --outputFlat --no-addTypename",
     "build": "next build",
     "dev": "NODE_ENV=development node express.js",
@@ -25,6 +26,7 @@
   "dependencies": {
     "@apollo/client": "3.1.0",
     "@apollo/react-ssr": "^4.0.0-beta.1",
+    "@next/bundle-analyzer": "^10.0.3",
     "@ramda/path": "^0.26.1",
     "@vanarama/uibook": "5.39.4",
     "@zeit/next-css": "^1.0.1",
