@@ -207,7 +207,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       <Hero>
         <div className="hero--title">
           <>
-            <HeroHeading
+            {/* <HeroHeading
               text={
                 getSectionsData(['hero', 'title'], data?.homePage?.sections) ||
                 ''
@@ -220,7 +220,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                   ) || 'p',
                 ) as keyof JSX.IntrinsicElements
               }
-            />
+            /> */}
             <br />
             <HeroTitle
               text={
