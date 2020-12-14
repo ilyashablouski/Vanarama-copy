@@ -45,7 +45,6 @@ const Image = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/image'),
   {
     loading: () => <Skeleton count={4} />,
-    ssr: false,
   },
 );
 const Text = dynamic(

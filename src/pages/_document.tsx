@@ -1,6 +1,6 @@
-import Document, { Html, Main, NextScript } from 'next/document';
+import Document, { Html, Main, NextScript, Head } from 'next/document';
 import dynamic from 'next/dynamic';
-import HeadCustom from '../hacks/headCustom';
+// import HeadCustom from '../hacks/headCustom';
 
 // @ts-ignore
 // const RollbarScript = dynamic(() =>
@@ -37,12 +37,12 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <HeadCustom>
+        <Head>
           {/* <RollbarScript /> */}
           {gtmEnvs.includes(env) && <GTMDataLayerScript />}
           {gtmEnvs.includes(env) && <GTMScript />}
           {vwoEnvs.includes(env) && <SpeedCurveScript />}
-        </HeadCustom>
+        </Head>
         <body>
           <Main />
           <NextScript />
