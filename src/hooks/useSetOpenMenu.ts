@@ -23,7 +23,6 @@ export default function useSetOpenMenu() {
     get isMenuOpenCache() {
       try {
         const res = client.readQuery({ query });
-        console.log(res);
         return res.menuOpen;
       } catch (err) {
         // eslint-disable-next-line no-console

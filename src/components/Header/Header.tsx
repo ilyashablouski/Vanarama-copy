@@ -4,6 +4,8 @@ import React, { FC, memo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import disableScroll from 'disable-scroll';
+
 import cx from 'classnames';
 import localForage from 'localforage';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
@@ -93,7 +95,6 @@ export interface IHeaderProps extends IBaseProps {
   loginLink: ILinkProps;
   phoneNumberLink: ILinkProps;
   onLogOut: () => void;
-  handlePageLock: (val: boolean) => void;
 }
 
 export const Header: FC<IHeaderProps> = memo(props => {
@@ -104,7 +105,6 @@ export const Header: FC<IHeaderProps> = memo(props => {
     loginLink,
     phoneNumberLink,
     onLogOut,
-    handlePageLock,
   } = props;
   const [person, setPerson] = useState<Person | null>(null);
   const [ordersLength, setOrdersLength] = useState<number | null>(null);
@@ -135,6 +135,14 @@ export const Header: FC<IHeaderProps> = memo(props => {
   useEffect(() => {
     setOpenMenu(false);
   }, [router]);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      disableScroll.on();
+    } else {
+      disableScroll.off();
+    }
+  }, [isMenuOpen]);
 
   return (
     <header
@@ -316,14 +324,12 @@ export const Header: FC<IHeaderProps> = memo(props => {
           open={isMenuOpen}
           onClickMenu={() => {
             setOpenMenu(false);
-            handlePageLock(false);
           }}
         />{' '}
         <Button
           className={cx('header-navtoggle', { '-open': isMenuOpen })}
           onClick={() => {
             setOpenMenu(!isMenuOpen);
-            handlePageLock(!isMenuOpen);
           }}
           withoutDefaultClass
           label={

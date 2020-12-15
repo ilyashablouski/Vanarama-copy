@@ -21,15 +21,12 @@ export const LOGOUT_USER_MUTATION = gql`
     }
   }
 `;
-export interface IHeaderContainerProps {
-  handlePageLock: (val: boolean) => void;
-}
 
-const HeaderContainer: FC<IHeaderContainerProps> = props => {
+
+const HeaderContainer: FC = () => {
   const data: HeaderData = HEADER_DATA;
   const router = useRouter();
   const isMobile = useMobileViewport();
-  const { handlePageLock } = props;
 
   const LOGIN_LINK = {
     label: 'Login',
@@ -124,7 +121,6 @@ const HeaderContainer: FC<IHeaderContainerProps> = props => {
   if (topLinks?.length) {
     return (
       <Header
-        handlePageLock={handlePageLock}
         onLogOut={async () => {
           await logOut();
           await localForage.clear();
