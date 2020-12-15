@@ -34,7 +34,7 @@ const gtmEnvs = ['uat', 'pre-prod', 'prod'];
 const bcEnvs = ['uat', 'pre-prod', 'prod'];
 
 // VWO environments.
-// const vwoEnvs = ['uat'];
+// const vwoEnvs = ['uat', 'pre-prod', 'prod'];
 
 class MyDocument extends Document {
   render() {
