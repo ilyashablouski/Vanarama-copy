@@ -11,7 +11,7 @@ const FONT_LIST = [
   'NunitoSans/NunitoSans-200-italic.otf',
   'NunitoSans/NunitoSans-300-normal.otf',
   'NunitoSans/NunitoSans-300-italic.otf',
-  'NunitoSans/§NunitoSans-400-normal.otf',
+  'NunitoSans/NunitoSans-400-normal.otf',
   'NunitoSans/NunitoSans-400-italic.otf',
   'NunitoSans/NunitoSans-500-normal.otf',
   'NunitoSans/NunitoSans-500-italic.otf',

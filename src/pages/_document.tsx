@@ -42,7 +42,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <HeadCustom>
           {/* {bcEnvs.includes(env) && ( */}
-          <script defer src="https://cdn.blueconic.net/vanarama.js" />
+          {/* <script defer src="https://cdn.blueconic.net/vanarama.js" /> */}
           {/* )} */}
           {gtmEnvs.includes(env) && <GTMDataLayerScript />}
           {gtmEnvs.includes(env) && <GTMScript />}
