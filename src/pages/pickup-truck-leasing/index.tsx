@@ -242,7 +242,9 @@ export const PickupsPage: NextPage<Props> = ({ data }) => {
               item?.capId,
             );
             return (
-              <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
                 <ProductCard
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   key={item?.capId || idx}
