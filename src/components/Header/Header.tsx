@@ -4,6 +4,7 @@ import React, { FC, memo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+
 import cx from 'classnames';
 import localForage from 'localforage';
 import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
@@ -133,6 +134,14 @@ export const Header: FC<IHeaderProps> = memo(props => {
   useEffect(() => {
     setOpenMenu(false);
   }, [router]);
+
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('-lock');
+    } else {
+      document.body.classList.remove('-lock');
+    }
+  }, [isMenuOpen]);
 
   return (
     <header
@@ -310,11 +319,15 @@ export const Header: FC<IHeaderProps> = memo(props => {
         <HeaderMenu
           menuLinks={topBarLinks}
           open={isMenuOpen}
-          onClickMenu={() => setOpenMenu(false)}
+          onClickMenu={() => {
+            setOpenMenu(false);
+          }}
         />{' '}
         <Button
           className={cx('header-navtoggle', { '-open': isMenuOpen })}
-          onClick={() => setOpenMenu(!isMenuOpen)}
+          onClick={() => {
+            setOpenMenu(!isMenuOpen);
+          }}
           withoutDefaultClass
           label={
             <>
