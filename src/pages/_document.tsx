@@ -38,6 +38,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <HeadCustom>
+          <script src="https://cdn.blueconic.net/vanarama.js" />
           {/* <RollbarScript /> */}
           {gtmEnvs.includes(env) && <GTMDataLayerScript />}
           {gtmEnvs.includes(env) && <GTMScript />}
@@ -50,7 +51,6 @@ class MyDocument extends Document {
             src="//cdn.embedly.com/widgets/platform.js"
             charSet="UTF-8"
           />
-          <script defer src="https://cdn.blueconic.net/vanarama.js" />
           <script defer src="https://www.riddle.com/files/js/embed.js" />
           {gtmEnvs.includes(env) && <GTMBody />}
         </body>
