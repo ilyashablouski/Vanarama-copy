@@ -5,6 +5,7 @@ import { AppProps } from 'next/app';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { SEARCH_PAGES } from '../utils/url';
 import {
   PAGES_WITH_COMPARATOR,
@@ -140,7 +141,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   return (
     <>
-      <ToastContainer />
       <main className={cx(resolveMainClass())}>
         <HeaderContainer />
         <CompareContext.Provider
@@ -178,8 +178,13 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
             />
           </Modal>
         )}
-        <FooterContainer />
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <FooterContainer />
+        </LazyLoadComponent>
       </main>
+      <LazyLoadComponent>
+        <ToastContainer />
+      </LazyLoadComponent>
     </>
   );
 };

@@ -211,6 +211,7 @@ export const PickupsPage: NextPage<Props> = ({ data }) => {
           {data?.hubPickupPage.sections?.leadText?.description}
         </Text>
       </section>
+
       <hr className="-fullwidth" />
 
       <div className="row:featured-product">
