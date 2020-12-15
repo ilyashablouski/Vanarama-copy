@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
+import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { useVehiclesList, useBodyStyleList } from './gql';
 import {
@@ -24,6 +25,8 @@ import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/b
 import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from './helpers';
 import { getLegacyUrl } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
+import VehicleCard from './VehicleCard';
+import ModelCard from './ModelCard';
 
 const Heading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/heading'),
@@ -31,18 +34,12 @@ const Heading = dynamic(
     loading: () => <Skeleton count={1} />,
   },
 );
-const Carousel = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
-const VehicleCard = dynamic(() => import('./VehicleCard'), {
-  loading: () => <Skeleton count={5} />,
-});
-const ModelCard = dynamic(() => import('./ModelCard'), {
-  loading: () => <Skeleton count={5} />,
-});
+// const Carousel = dynamic(
+//   () => import('@vanarama/uibook/lib/components/organisms/carousel'),
+//   {
+//     loading: () => <Skeleton count={5} />,
+//   },
+// );
 
 interface IProps {
   isPersonal: boolean;
@@ -299,6 +296,7 @@ const TopOffersContainer: React.FC<IProps> = ({
             {isRangePage || isDynamicFilterPage ? (
               vehiclesList.map((vehicle: IVehicles) => (
                 <VehicleCard
+                  loadImage
                   derivativeId={vehicle.node?.derivativeId}
                   url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
                   key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
@@ -322,6 +320,7 @@ const TopOffersContainer: React.FC<IProps> = ({
               >
                 {vehiclesList.map((vehicle: IVehicles) => (
                   <VehicleCard
+                    loadImage
                     derivativeId={vehicle.node?.derivativeId}
                     url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
                     key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
@@ -348,7 +347,11 @@ const TopOffersContainer: React.FC<IProps> = ({
           <div className="row:bg-lighter">
             <div className="row:cards-2col">
               {bodyStyleList.map(bodyStyle => (
-                <ModelCard data={bodyStyle} isPersonalPrice={isPersonal} />
+                <ModelCard
+                  loadImage
+                  data={bodyStyle}
+                  isPersonalPrice={isPersonal}
+                />
               ))}
             </div>
           </div>
