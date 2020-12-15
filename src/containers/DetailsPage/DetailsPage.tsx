@@ -460,23 +460,25 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           rangeFAQTitle={pageTitle}
         />
       </div>
-      <CustomiseLeaseContainer
-        quote={quote}
-        capId={capId}
-        vehicleType={vehicleType}
-        derivativeInfo={derivativeInfo}
-        leaseAdjustParams={leaseAdjustParams}
-        leaseType={leaseType}
-        trimData={trimList}
-        colourData={colourList}
-        setLeaseType={setLeaseType}
-        setLeadTime={setLeadTime}
-        isDisabled={isDisabled}
-        setIsDisabled={setIsDisabled}
-        setLeaseScannerData={setLeaseScannerData}
-        onCompletedCallBack={onCompletedCallBack}
-        onCompleted={values => onSubmitClick(values)}
-      />
+      {!isMobile && (
+        <CustomiseLeaseContainer
+          quote={quote}
+          capId={capId}
+          vehicleType={vehicleType}
+          derivativeInfo={derivativeInfo}
+          leaseAdjustParams={leaseAdjustParams}
+          leaseType={leaseType}
+          trimData={trimList}
+          colourData={colourList}
+          setLeaseType={setLeaseType}
+          setLeadTime={setLeadTime}
+          isDisabled={isDisabled}
+          setIsDisabled={setIsDisabled}
+          setLeaseScannerData={setLeaseScannerData}
+          onCompletedCallBack={onCompletedCallBack}
+          onCompleted={values => onSubmitClick(values)}
+        />
+      )}
       {!!capsId?.length && (
         <CustomerAlsoViewedContainer
           capsId={capsId}
