@@ -22,7 +22,6 @@ export const LOGOUT_USER_MUTATION = gql`
   }
 `;
 
-
 const HeaderContainer: FC = () => {
   const data: HeaderData = HEADER_DATA;
   const router = useRouter();
