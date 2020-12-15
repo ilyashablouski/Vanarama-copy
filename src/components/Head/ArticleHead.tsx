@@ -75,7 +75,12 @@ const ArticleHead: FC<IHeadProps> = props => {
         <meta name="twitter:site" content={twitter} />
         {FONT_LIST.map(font => {
           return (
-            <link key={font} href={`${FONT_PATH}${font}`} type="font/woff2" />
+            <link
+              key={font}
+              rel="preload"
+              href={`${FONT_PATH}${font}`}
+              type="font/woff2"
+            />
           );
         })}
       </NextHead>
