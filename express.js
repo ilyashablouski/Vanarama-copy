@@ -3,7 +3,9 @@ require('dotenv').config({ path: '.env.secret' });
 require('dotenv').config();
 require('colors');
 
-process.env.UV_THREADPOOL_SIZE = 4
+const OS = require('os');
+
+process.env.UV_THREADPOOL_SIZE = OS.cpus().length;
 
 const express = require('express');
 const cors = require('cors');
