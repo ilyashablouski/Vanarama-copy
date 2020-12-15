@@ -19,6 +19,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
 import Image from '@vanarama/uibook/lib/components/atoms/image';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
@@ -72,12 +73,6 @@ import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 
 const Loading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/loading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
   {
     loading: () => <Skeleton count={1} />,
   },
@@ -759,7 +754,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       {pageData && (
         <>
           {isModelPage && (
-            <LazyLoadComponent>
+            <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
               <div className="row:text -columns">
                 <div>
                   <ReactMarkdown
@@ -895,7 +890,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         )}
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
-          <LazyLoadComponent>
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
             <FiltersContainer
               isPersonal={isPersonal}
               isMakePage={isMakePage}
@@ -1188,7 +1183,9 @@ const SearchPageContainer: React.FC<IProps> = ({
 
           {tiles && !isDynamicFilterPage && (
             <div className="row:features-4col">
-              <LazyLoadComponent>
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
                 {tiles?.tiles?.length &&
                   tiles.tiles.map((tile, indx) => (
                     <Tile
@@ -1221,7 +1218,9 @@ const SearchPageContainer: React.FC<IProps> = ({
                 <Heading size="large" color="black" tag="h3">
                   {carousel.title}
                 </Heading>
-                <LazyLoadComponent>
+                <LazyLoadComponent
+                  visibleByDefault={typeof window === 'undefined'}
+                >
                   <Carousel
                     countItems={carousel?.cards?.length || 0}
                     className="-col3"
@@ -1307,7 +1306,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       )}
 
       <div className="row:text">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Text color="darker" size="regular" tag="span">
             Photos and videos are for illustration purposes only.
           </Text>

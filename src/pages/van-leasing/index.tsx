@@ -312,7 +312,9 @@ export const VansPage: NextPage<Props> = ({ data }) => {
                   Small Vans
                 </span>
               </Heading>
-              <LazyLoadComponent>
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
                 <ProductCarousel
                   leaseType={
                     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
@@ -357,7 +359,9 @@ export const VansPage: NextPage<Props> = ({ data }) => {
                   Medium Vans
                 </span>
               </Heading>
-              <LazyLoadComponent>
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
                 <ProductCarousel
                   leaseType={
                     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
@@ -402,7 +406,9 @@ export const VansPage: NextPage<Props> = ({ data }) => {
                   Large Vans
                 </span>
               </Heading>
-              <LazyLoadComponent>
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
                 <ProductCarousel
                   leaseType={
                     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
@@ -462,7 +468,7 @@ export const VansPage: NextPage<Props> = ({ data }) => {
               data?.hubVanPage.sections,
             )}
           </Text>
-          <LazyLoadComponent>
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
             {(getSectionsData(
               ['cards', 'cards'],
               data?.hubVanPage.sections,
@@ -505,7 +511,7 @@ export const VansPage: NextPage<Props> = ({ data }) => {
       </div>
 
       <section className="row:steps-4col">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Heading
             className="-a-center -mb-400"
             size="large"
@@ -711,7 +717,7 @@ export const VansPage: NextPage<Props> = ({ data }) => {
       <hr className="fullWidth" />
 
       <section className="row:features-4col">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Heading
             size="large"
             color="black"
@@ -756,7 +762,7 @@ export const VansPage: NextPage<Props> = ({ data }) => {
       </section>
 
       <section className="row:manufacturer-grid">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Heading
             size="large"
             color="black"
@@ -784,7 +790,7 @@ export const VansPage: NextPage<Props> = ({ data }) => {
       </section>
 
       <section className="row:league">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
@@ -793,7 +799,7 @@ export const VansPage: NextPage<Props> = ({ data }) => {
       </section>
 
       <section className="row:featured-logos">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
           </Heading>
@@ -859,7 +865,7 @@ export const VansPage: NextPage<Props> = ({ data }) => {
       </section>
 
       <section className="row:trustpilot">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
         </LazyLoadComponent>
       </section>

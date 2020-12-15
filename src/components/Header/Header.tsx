@@ -149,7 +149,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
           classNames={{ color: 'orange', plain: true }}
         >
           {' '}
-          <LazyLoadComponent>
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
             <Logo asset="vanarama" />{' '}
           </LazyLoadComponent>
         </RouterLink>{' '}
@@ -172,7 +172,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
           {' '}
           <Icon icon={<Call />} size="xsmall" /> <span>01442 838195</span>{' '}
         </RouterLink>{' '}
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <div className="header-account">
             {' '}
             {person ? (
