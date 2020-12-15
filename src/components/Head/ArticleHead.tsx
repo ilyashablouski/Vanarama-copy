@@ -79,7 +79,9 @@ const ArticleHead: FC<IHeadProps> = props => {
               key={font}
               rel="preload"
               href={`${FONT_PATH}${font}`}
+              as="font"
               type="font/woff2"
+              crossOrigin=""
             />
           );
         })}
