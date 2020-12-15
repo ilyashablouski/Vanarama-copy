@@ -8,15 +8,15 @@ import { defaultTitle, twitter, defaultImage, fb } from './defaults';
 
 // const STATIC_DOMAIN = 'https://static.vanarama-nonprod.com';
 
-// const PRECONNECT = [
-//   process.env.API_URL,
-//   STATIC_DOMAIN,
-//   '//cdn.embedly.com',
-//   'https://cdn.blueconic.net',
-//   'https://www.riddle.com',
-//   'https://widget.trustpilot.com',
-//   'https://cdn.speedcurve.com',
-// ];
+const PRECONNECT = [
+  process?.env?.API_URL?.replace('/graphql/', ''),
+  process.env.STATIC_DOMAIN,
+  '//cdn.embedly.com',
+  'https://cdn.blueconic.net',
+  'https://www.riddle.com',
+  'https://widget.trustpilot.com',
+  // 'https://cdn.speedcurve.com',
+];
 
 const Head: FC<IHeadProps> = props => {
   const router = useRouter();
@@ -57,6 +57,7 @@ const Head: FC<IHeadProps> = props => {
       <meta name="twitter:title" content={title || defaultTitle} />
       <meta name="twitter:creator" content={twitter} />
       <meta name="twitter:site" content={twitter} />
+
       {/* {FONT_LIST.map(font => {
         return (
           <link
@@ -70,18 +71,11 @@ const Head: FC<IHeadProps> = props => {
         );
       })} */}
 
-      {/* {PRECONNECT.map(domain => {
+      {PRECONNECT.map(domain => {
         return (
           <link rel="preconnect dns-prefetch" href={domain} key={domain} />
         );
-      })} */}
-      {/* <link rel="preconnect" href="https://fonts.gstatic.com" /> */}
-      {/* <link
-        href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400&display=swap"
-        rel="stylesheet"
-      /> */}
-      {/* <link href={FONT_PATH.replace('/fonts/', '')} /> */}
-      {/* <link href={process?.env?.API_URL?.replace('/graphql/', '')} /> */}
+      })}
     </NextHead>
   );
 };
