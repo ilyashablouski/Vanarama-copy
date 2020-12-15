@@ -1,6 +1,7 @@
 import Document, { Html, Main, NextScript } from 'next/document';
 import dynamic from 'next/dynamic';
 import HeadCustom from '../hacks/headCustom';
+import { query } from '../hooks/useSetOpenMenu';
 
 // @ts-ignore
 // const RollbarScript = dynamic(() =>
@@ -34,6 +35,24 @@ const gtmEnvs = ['uat'];
 // const vwoEnvs = ['uat'];
 
 class MyDocument extends Document {
+  state = {
+    isOpen: null,
+  };
+
+  componentDidUpdate() {
+    this.handleCacheRead();
+  }
+
+  handleCacheRead = () => {
+    try {
+      const res = this.context.client.readQuery({ query });
+      this.setState({ isOpen: res.menuOpen });
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err);
+    }
+  };
+
   render() {
     return (
       <Html lang="en">
@@ -42,7 +61,7 @@ class MyDocument extends Document {
           {gtmEnvs.includes(env) && <GTMDataLayerScript />}
           {gtmEnvs.includes(env) && <GTMScript />}
         </HeadCustom>
-        <body>
+        <body className={this.state.isOpen ? '-lock' : ''}>
           <Main />
           <NextScript />
           <script

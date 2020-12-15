@@ -16,6 +16,7 @@ import {
   GetPerson,
 } from '../../../generated/GetPerson';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
+import useSetMenuOpen from '../../hooks/useSetOpenMenu';
 
 const HeaderMenu = dynamic(() => import('./HeaderMenu'));
 const Button = dynamic(() =>
@@ -107,7 +108,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
   const [person, setPerson] = useState<Person | null>(null);
   const [ordersLength, setOrdersLength] = useState<number | null>(null);
   const [quotesLength, setQuotesLength] = useState<number | null>(null);
-  const [isMenuOpen, setOpenMenu] = useState(false);
+  const { isMenuOpen, setOpenMenu } = useSetMenuOpen();
   const [isMyAccountOpen, setOpenMyAccount] = useState(false);
 
   useEffect(() => {
@@ -132,7 +133,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
 
   useEffect(() => {
     setOpenMenu(false);
-  }, [router]);
+  }, [router, setOpenMenu]);
 
   return (
     <header
