@@ -31,7 +31,7 @@ const env = process?.env?.ENV || '';
 const gtmEnvs = ['uat', 'pre-prod', 'prod'];
 
 // BlueConic environments.
-// const bcEnvs = ['uat', 'pre-prod', 'prod'];
+const bcEnvs = ['uat', 'pre-prod', 'prod'];
 
 // VWO environments.
 // const vwoEnvs = ['uat'];
@@ -41,9 +41,9 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <HeadCustom>
-          {/* {bcEnvs.includes(env) && ( */}
-          {/* <script defer src="https://cdn.blueconic.net/vanarama.js" /> */}
-          {/* )} */}
+          {bcEnvs.includes(env) && (
+            <script defer src="https://cdn.blueconic.net/vanarama.js" />
+          )}
           {gtmEnvs.includes(env) && <GTMDataLayerScript />}
           {gtmEnvs.includes(env) && <GTMScript />}
           {/* <RollbarScript /> */}
