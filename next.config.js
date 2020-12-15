@@ -27,7 +27,6 @@ module.exports = withPlugins(
     [withSass],
     withImages,
     [withCss, { url: false, purgeCssEnabled: true }],
-    [config.withCustomWebpack],
   ],
   config.next,
 );
