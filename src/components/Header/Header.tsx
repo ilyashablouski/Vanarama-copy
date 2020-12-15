@@ -149,9 +149,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
           classNames={{ color: 'orange', plain: true }}
         >
           {' '}
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
-            <Logo asset="vanarama" />{' '}
-          </LazyLoadComponent>
+          <Logo asset="vanarama" />{' '}
         </RouterLink>{' '}
         {!useMobileViewport() && (
           <label className="header-search" htmlFor="search">

@@ -5,7 +5,7 @@ import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { IHeadProps } from './interface';
 
 import { defaultTitle, twitter, fb } from './defaults';
-import { FONT_LIST, FONT_PATH } from './fonts';
+// import { FONT_LIST, FONT_PATH } from './fonts';
 
 const ArticleHead: FC<IHeadProps> = props => {
   const router = useRouter();
@@ -73,7 +73,7 @@ const ArticleHead: FC<IHeadProps> = props => {
         <meta name="twitter:title" content={title || defaultTitle} />
         <meta name="twitter:creator" content={twitter} />
         <meta name="twitter:site" content={twitter} />
-        {FONT_LIST.map(font => {
+        {/* {FONT_LIST.map(font => {
           return (
             <link
               key={font}
@@ -84,7 +84,7 @@ const ArticleHead: FC<IHeadProps> = props => {
               crossOrigin=""
             />
           );
-        })}
+        })} */}
       </NextHead>
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
