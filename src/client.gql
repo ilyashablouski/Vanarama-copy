@@ -3,4 +3,5 @@ extend type Query {
   leaseTypes: JSON
   sortOrder: JSON
   lastStep: JSON
+  menuOpen: Boolean
 }

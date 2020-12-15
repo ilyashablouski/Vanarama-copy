@@ -14,15 +14,16 @@ export const query = gql`
 export default function useSetOpenMenu() {
   const client = useApolloClient();
   return {
-    setOpenMenu(isOpen: boolean): void {
+    setOpenMenuCache(isOpen: boolean): void {
       client.writeQuery({
         query,
         data: { __typename: 'MenuOpen', menuOpen: isOpen },
       });
     },
-    get isMenuOpen() {
+    get isMenuOpenCache() {
       try {
         const res = client.readQuery({ query });
+        console.log(res);
         return res.menuOpen;
       } catch (err) {
         // eslint-disable-next-line no-console

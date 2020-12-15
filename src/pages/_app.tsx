@@ -65,6 +65,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [modalCompareTypeError, setModalCompareTypeError] = useState<
     boolean | undefined
   >(false);
+  const [isLocked, setPageLock] = useState(false);
   // const [existComparator, setExistComparator] = useState(false);
 
   // useEffect(() => {
@@ -138,11 +139,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     return 'page:default';
   };
 
+  const handleLock = (value: boolean) => {
+    setPageLock(value);
+  };
+
   return (
-    <>
+    <div className={isLocked ? '-lock' : ''}>
       <ToastContainer />
       <main className={cx(resolveMainClass())}>
-        <HeaderContainer />
+        <HeaderContainer handlePageLock={handleLock} />
         <CompareContext.Provider
           value={{
             compareVehicles,
@@ -180,7 +185,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         )}
         <FooterContainer />
       </main>
-    </>
+    </div>
   );
 };
 

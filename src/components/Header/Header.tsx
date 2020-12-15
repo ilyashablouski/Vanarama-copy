@@ -16,7 +16,6 @@ import {
   GetPerson,
 } from '../../../generated/GetPerson';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import useSetMenuOpen from '../../hooks/useSetOpenMenu';
 
 const HeaderMenu = dynamic(() => import('./HeaderMenu'));
 const Button = dynamic(() =>
@@ -94,6 +93,7 @@ export interface IHeaderProps extends IBaseProps {
   loginLink: ILinkProps;
   phoneNumberLink: ILinkProps;
   onLogOut: () => void;
+  handlePageLock: (val: boolean) => void;
 }
 
 export const Header: FC<IHeaderProps> = memo(props => {
@@ -104,11 +104,12 @@ export const Header: FC<IHeaderProps> = memo(props => {
     loginLink,
     phoneNumberLink,
     onLogOut,
+    handlePageLock,
   } = props;
   const [person, setPerson] = useState<Person | null>(null);
   const [ordersLength, setOrdersLength] = useState<number | null>(null);
   const [quotesLength, setQuotesLength] = useState<number | null>(null);
-  const { isMenuOpen, setOpenMenu } = useSetMenuOpen();
+  const [isMenuOpen, setOpenMenu] = useState(false);
   const [isMyAccountOpen, setOpenMyAccount] = useState(false);
 
   useEffect(() => {
@@ -133,7 +134,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
 
   useEffect(() => {
     setOpenMenu(false);
-  }, [router, setOpenMenu]);
+  }, [router]);
 
   return (
     <header
@@ -313,11 +314,17 @@ export const Header: FC<IHeaderProps> = memo(props => {
         <HeaderMenu
           menuLinks={topBarLinks}
           open={isMenuOpen}
-          onClickMenu={() => setOpenMenu(false)}
+          onClickMenu={() => {
+            setOpenMenu(false);
+            handlePageLock(false);
+          }}
         />{' '}
         <Button
           className={cx('header-navtoggle', { '-open': isMenuOpen })}
-          onClick={() => setOpenMenu(!isMenuOpen)}
+          onClick={() => {
+            setOpenMenu(!isMenuOpen);
+            handlePageLock(!isMenuOpen);
+          }}
           withoutDefaultClass
           label={
             <>
