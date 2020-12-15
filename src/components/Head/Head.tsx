@@ -4,7 +4,7 @@ import NextHead from 'next/head';
 import { useRouter } from 'next/router';
 import { IHeadProps } from './interface';
 import { defaultTitle, twitter, defaultImage, fb } from './defaults';
-import { FONT_LIST, FONT_PATH } from './fonts';
+// import { FONT_LIST, FONT_PATH } from './fonts';
 
 // const STATIC_DOMAIN = 'https://static.vanarama-nonprod.com';
 
@@ -57,7 +57,7 @@ const Head: FC<IHeadProps> = props => {
       <meta name="twitter:title" content={title || defaultTitle} />
       <meta name="twitter:creator" content={twitter} />
       <meta name="twitter:site" content={twitter} />
-      {FONT_LIST.map(font => {
+      {/* {FONT_LIST.map(font => {
         return (
           <link
             key={font}
@@ -68,7 +68,7 @@ const Head: FC<IHeadProps> = props => {
             crossOrigin=""
           />
         );
-      })}
+      })} */}
 
       {/* {PRECONNECT.map(domain => {
         return (
