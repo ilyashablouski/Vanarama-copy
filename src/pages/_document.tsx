@@ -28,7 +28,10 @@ const GTMDataLayerScript = dynamic(() =>
 const env = process?.env?.ENV || '';
 
 // GTM environments.
-const gtmEnvs = ['uat'];
+const gtmEnvs = ['uat', 'pre-prod', 'prod'];
+
+// BlueConic environments.
+// const bcEnvs = ['uat', 'pre-prod', 'prod'];
 
 // VWO environments.
 // const vwoEnvs = ['uat'];
@@ -38,9 +41,12 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <HeadCustom>
-          {/* <RollbarScript /> */}
+          {/* {bcEnvs.includes(env) && ( */}
+          <script async src="https://cdn.blueconic.net/vanarama.js" />
+          {/* )} */}
           {gtmEnvs.includes(env) && <GTMDataLayerScript />}
           {gtmEnvs.includes(env) && <GTMScript />}
+          {/* <RollbarScript /> */}
         </HeadCustom>
         <body>
           <Main />
@@ -50,7 +56,6 @@ class MyDocument extends Document {
             src="//cdn.embedly.com/widgets/platform.js"
             charSet="UTF-8"
           />
-          {/* <script defer src="https://cdn.blueconic.net/vanarama.js" /> */}
           <script defer src="https://www.riddle.com/files/js/embed.js" />
           {gtmEnvs.includes(env) && <GTMBody />}
         </body>

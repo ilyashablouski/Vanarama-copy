@@ -18,6 +18,8 @@ import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Image from '@vanarama/uibook/lib/components/atoms/image';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -66,16 +68,12 @@ import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../ge
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+
 const Loading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/loading'),
   {
     loading: () => <Skeleton count={1} />,
-  },
-);
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={2} />,
   },
 );
 const Text = dynamic(
@@ -94,12 +92,6 @@ const Button = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/button'),
   {
     loading: () => <Skeleton count={1} />,
-  },
-);
-const Image = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/image'),
-  {
-    loading: () => <Skeleton count={3} />,
   },
 );
 const Carousel = dynamic(
@@ -123,12 +115,6 @@ const Tile = dynamic(
 const TileLink = dynamic(() => import('../../components/TileLink/TileLink'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
   ssr: false,

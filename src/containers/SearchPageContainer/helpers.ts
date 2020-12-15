@@ -201,7 +201,7 @@ export const ssrCMSQueryExecutor = async (
       );
     case 'isTransmissionPage':
       return onCallQuery(client, GENERIC_PAGE, 'van-leasing/automatic');
-    case 'isFuelPage':
+    case 'isFuelType':
       return onCallQuery(client, GENERIC_PAGE, slug);
     case 'isSpecialOfferPage':
       return onCallQuery(
