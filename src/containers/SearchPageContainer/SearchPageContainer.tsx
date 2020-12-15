@@ -754,40 +754,38 @@ const SearchPageContainer: React.FC<IProps> = ({
       {pageData && (
         <>
           {isModelPage && (
-            <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
-              <div className="row:text -columns">
-                <div>
-                  <ReactMarkdown
-                    className="markdown"
-                    allowDangerousHtml
-                    source={pageData?.genericPage.body || ''}
-                    renderers={{
-                      link: props => {
-                        const { href, children } = props;
-                        return (
-                          <RouterLink
-                            link={{ href, label: children }}
-                            classNames={{ color: 'teal' }}
-                          />
-                        );
-                      },
-                      image: props => {
-                        const { src, alt } = props;
-                        return (
-                          <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
-                        );
-                      },
-                      heading: props => (
-                        <Text {...props} size="lead" color="darker" tag="h3" />
-                      ),
-                      paragraph: props => (
-                        <Text {...props} tag="p" color="darker" />
-                      ),
-                    }}
-                  />
-                </div>
+            <div className="row:text -columns">
+              <div>
+                <ReactMarkdown
+                  className="markdown"
+                  allowDangerousHtml
+                  source={pageData?.genericPage.body || ''}
+                  renderers={{
+                    link: props => {
+                      const { href, children } = props;
+                      return (
+                        <RouterLink
+                          link={{ href, label: children }}
+                          classNames={{ color: 'teal' }}
+                        />
+                      );
+                    },
+                    image: props => {
+                      const { src, alt } = props;
+                      return (
+                        <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
+                      );
+                    },
+                    heading: props => (
+                      <Text {...props} size="lead" color="darker" tag="h3" />
+                    ),
+                    paragraph: props => (
+                      <Text {...props} tag="p" color="darker" />
+                    ),
+                  }}
+                />
               </div>
-            </LazyLoadComponent>
+            </div>
           )}
         </>
       )}
