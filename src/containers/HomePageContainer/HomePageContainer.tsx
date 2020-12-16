@@ -241,8 +241,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             getSectionsData(
               ['hero', 'image', 'file', 'url'],
               data?.homePage?.sections,
-            ) ||
-            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+            ) || null
           }
         />
       </Hero>
@@ -321,7 +320,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             </TabPanel>
             <TabPanel index={1}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent>
+                <LazyLoadComponent
+                  visibleByDefault={typeof window === 'undefined'}
+                >
                   <ProductCarousel
                     leaseType={
                       isPersonalLcv
@@ -361,7 +362,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             </TabPanel>
             <TabPanel index={2}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent>
+                <LazyLoadComponent
+                  visibleByDefault={typeof window === 'undefined'}
+                >
                   <ProductCarousel
                     leaseType={
                       isPersonalCar
@@ -437,7 +440,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       </section>
 
       <section className="row:featured-right">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <div style={{ padding: '1rem' }}>
             <Heading
               size="large"
@@ -511,7 +514,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       </section>
 
       <section className="row:featured-left">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           {data?.homePage?.sections?.featured2?.video ? (
             <Media
               src={
@@ -575,7 +578,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       </section>
 
       <section className="row:features-4col">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Heading
             size="large"
             color="black"
@@ -617,7 +620,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       </section>
 
       <section className="row:league">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
@@ -626,7 +629,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       </section>
 
       <section className="row:featured-logos">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
           </Heading>
@@ -692,7 +695,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       </section>
 
       <section className="row:trustpilot">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
         </LazyLoadComponent>
       </section>

@@ -4,9 +4,9 @@
     {
       "image": "%IMAGE%",
       "name": "%APP_NAME%",
-      "cpu": 355,
-      "memory": 1953,
-      "memoryReservation": 1302,
+      "cpu": 2048,
+      "memory": 8192,
+      "memoryReservation": 4096,
       "essential": true,
       "secrets": [
         {

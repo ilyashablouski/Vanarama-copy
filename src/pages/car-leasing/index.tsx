@@ -45,7 +45,6 @@ const Image = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/image'),
   {
     loading: () => <Skeleton count={4} />,
-    ssr: false,
   },
 );
 const Text = dynamic(
@@ -199,7 +198,7 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
       </section>
 
       <section className="row:eligibility-checker-cta">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <div>
             <Image
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -271,7 +270,9 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
               item?.capId,
             );
             return (
-              <LazyLoadComponent>
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
                 <ProductCard
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   key={item?.capId || idx}
@@ -503,7 +504,7 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
       </section>
 
       <section className="row:features-4col">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Heading
             size="large"
             color="black"
@@ -541,7 +542,7 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
       </section>
 
       <section className="row:league">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <League
             clickReadMore={() => Router.push('/fan-hub')}
             altText="vanarama national league"
@@ -550,7 +551,7 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
       </section>
 
       <section className="row:featured-logos">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
           </Heading>
@@ -616,7 +617,7 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
       </section>
 
       <section className="row:trustpilot">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
         </LazyLoadComponent>
       </section>

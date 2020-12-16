@@ -20,13 +20,13 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
   return (
     <footer className="footer">
       {linkGroups?.map(linkGroup => (
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <FooterColumn linkGroup={linkGroup} key={linkGroup?.name || ''} />
         </LazyLoadComponent>
       ))}
       <hr className="footer--divider -fullwidth" />
       {legalStatement?.title && (
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Text color="white" size="xsmall" tag="p">
             {legalStatement?.title}
           </Text>
@@ -34,7 +34,7 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
       )}
       {legalStatement?.body && (
         <div className="-text-columns">
-          <LazyLoadComponent>
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
             <Text size="xsmall" color="medium">
               <ReactMarkdown
                 source={legalStatement.body}

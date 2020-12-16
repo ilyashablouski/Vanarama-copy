@@ -97,6 +97,7 @@ const BlogPostContainer: NextPage<IProps> = ({
         <div className="row:featured-image">
           {image && (
             <Image
+              loadImage
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               className="-white"
               size="expand"

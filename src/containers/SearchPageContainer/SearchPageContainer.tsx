@@ -18,6 +18,9 @@ import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
 import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+import Text from '@vanarama/uibook/lib/components/atoms/text';
+import Image from '@vanarama/uibook/lib/components/atoms/image';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -66,20 +69,10 @@ import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../ge
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+
 const Loading = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/loading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={2} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
   {
     loading: () => <Skeleton count={1} />,
   },
@@ -94,12 +87,6 @@ const Button = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/button'),
   {
     loading: () => <Skeleton count={1} />,
-  },
-);
-const Image = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/image'),
-  {
-    loading: () => <Skeleton count={3} />,
   },
 );
 const Carousel = dynamic(
@@ -123,12 +110,6 @@ const Tile = dynamic(
 const TileLink = dynamic(() => import('../../components/TileLink/TileLink'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
   ssr: false,
@@ -773,40 +754,38 @@ const SearchPageContainer: React.FC<IProps> = ({
       {pageData && (
         <>
           {isModelPage && (
-            <LazyLoadComponent>
-              <div className="row:text -columns">
-                <div>
-                  <ReactMarkdown
-                    className="markdown"
-                    allowDangerousHtml
-                    source={pageData?.genericPage.body || ''}
-                    renderers={{
-                      link: props => {
-                        const { href, children } = props;
-                        return (
-                          <RouterLink
-                            link={{ href, label: children }}
-                            classNames={{ color: 'teal' }}
-                          />
-                        );
-                      },
-                      image: props => {
-                        const { src, alt } = props;
-                        return (
-                          <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
-                        );
-                      },
-                      heading: props => (
-                        <Text {...props} size="lead" color="darker" tag="h3" />
-                      ),
-                      paragraph: props => (
-                        <Text {...props} tag="p" color="darker" />
-                      ),
-                    }}
-                  />
-                </div>
+            <div className="row:text -columns">
+              <div>
+                <ReactMarkdown
+                  className="markdown"
+                  allowDangerousHtml
+                  source={pageData?.genericPage.body || ''}
+                  renderers={{
+                    link: props => {
+                      const { href, children } = props;
+                      return (
+                        <RouterLink
+                          link={{ href, label: children }}
+                          classNames={{ color: 'teal' }}
+                        />
+                      );
+                    },
+                    image: props => {
+                      const { src, alt } = props;
+                      return (
+                        <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
+                      );
+                    },
+                    heading: props => (
+                      <Text {...props} size="lead" color="darker" tag="h3" />
+                    ),
+                    paragraph: props => (
+                      <Text {...props} tag="p" color="darker" />
+                    ),
+                  }}
+                />
               </div>
-            </LazyLoadComponent>
+            </div>
           )}
         </>
       )}
@@ -909,7 +888,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         )}
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
-          <LazyLoadComponent>
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
             <FiltersContainer
               isPersonal={isPersonal}
               isMakePage={isMakePage}
@@ -1202,7 +1181,9 @@ const SearchPageContainer: React.FC<IProps> = ({
 
           {tiles && !isDynamicFilterPage && (
             <div className="row:features-4col">
-              <LazyLoadComponent>
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
                 {tiles?.tiles?.length &&
                   tiles.tiles.map((tile, indx) => (
                     <Tile
@@ -1235,7 +1216,9 @@ const SearchPageContainer: React.FC<IProps> = ({
                 <Heading size="large" color="black" tag="h3">
                   {carousel.title}
                 </Heading>
-                <LazyLoadComponent>
+                <LazyLoadComponent
+                  visibleByDefault={typeof window === 'undefined'}
+                >
                   <Carousel
                     countItems={carousel?.cards?.length || 0}
                     className="-col3"
@@ -1321,7 +1304,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       )}
 
       <div className="row:text">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Text color="darker" size="regular" tag="span">
             Photos and videos are for illustration purposes only.
           </Text>

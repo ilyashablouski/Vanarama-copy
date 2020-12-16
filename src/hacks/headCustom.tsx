@@ -62,18 +62,6 @@ class HeadCustom extends Head {
       const isSharedFile = sharedFiles.has(file);
       const isUnmanagedFile = unmangedFiles.has(file);
       cssLinkElements.push(
-        // <link
-        //   key={`${file}-preload`}
-        //   nonce={this.props.nonce}
-        //   rel="preload"
-        //   href={`${assetPrefix}/_next/${encodeURI(
-        //     file,
-        //   )}${devOnlyCacheBusterQueryString}`}
-        //   as="style"
-        //   crossOrigin={
-        //     this.props.crossOrigin || process.env.__NEXT_CROSS_ORIGIN
-        //   }
-        // />,
         <link
           key={file}
           nonce={this.props.nonce}

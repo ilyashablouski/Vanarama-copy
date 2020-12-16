@@ -18,10 +18,10 @@ export const VansSearch = [
   { label: 'Citroen', href: '/citroen-van-leasing.html' },
   { label: 'Fiat', href: '/fiat-van-leasing.html' },
   { label: 'Ford', href: '/ford-van-leasing.html' },
-  {
-    label: 'Derenged Pickups & Vans',
+  /* {
+    label: 'Pickups & Vans',
     href: '/deranged-vehicles.html',
-  },
+  }, */
   { label: 'Isuzu', href: '/isuzu-van-leasing.html' },
   { label: 'Mercedes-Benz', href: '/mercedes-benz-van-leasing.html' },
   { label: 'Mitsubishi', href: '/mitsubishi-van-leasing.html' },

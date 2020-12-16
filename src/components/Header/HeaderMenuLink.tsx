@@ -90,7 +90,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
         <span>{link.label}</span>
       </RouterLink>
       {!!link.children?.length && (
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <HeaderSecondaryMenu
             key={link.label}
             promotionalImage={link.promotionalImage}

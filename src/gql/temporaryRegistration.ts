@@ -32,8 +32,9 @@ export function useRegistrationForTemporaryAccessMutation() {
   return useMutation<
     RegisterForTemporaryAccess,
     RegisterForTemporaryAccessVariables
-  >(REGISTER_FOR_TEMPORARY_ACCESS_MUTATION);
+  >(REGISTER_FOR_TEMPORARY_ACCESS_MUTATION, { fetchPolicy: 'no-cache' });
 }
+
 export const handlerMock = (
   uuid: string | null,
   emailAddress?: IEmailAddress | null,

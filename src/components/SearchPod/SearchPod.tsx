@@ -1,11 +1,21 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Select from '@vanarama/uibook/lib/components/atoms/select';
-import { ISearchPodProps } from './interfaces';
+// import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+// import Button from '@vanarama/uibook/lib/components/atoms/button';
+// import Form from '@vanarama/uibook/lib/components/organisms/form';
+// import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+// import Card from '@vanarama/uibook/lib/components/molecules/cards';
+// import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
+// import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
+// import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
+// import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
+// import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
 import {
   filterList_filterList_groupedRangesWithSlug as IRangesSlug,
   filterList_filterList_groupedRangesWithSlug_children as IOptionsDropdown,
 } from '../../../generated/filterList';
+import { ISearchPodProps } from './interfaces';
 import Skeleton from '../Skeleton';
 
 const Heading = dynamic(
@@ -79,10 +89,7 @@ const SearchPod = ({
   headingText,
 }: ISearchPodProps) => {
   return (
-    <Card
-      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-      className="hero-card"
-    >
+    <Card className="hero-card">
       <Tabs
         align="expand"
         activeIndex={activeTab}
