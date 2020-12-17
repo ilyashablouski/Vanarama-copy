@@ -26,6 +26,7 @@ export interface CreateExpenseMutation_createUpdateIncomeAndExpense {
   fuel: number | null;
   studentLoan: number | null;
   otherCredit: number | null;
+  suitabilityConsent: boolean | null;
 }
 
 export interface CreateExpenseMutation {

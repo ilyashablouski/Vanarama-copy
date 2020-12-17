@@ -35,6 +35,7 @@ export interface UpdateSoleTraderMutation_updateCompanySoleTrader_associates_inc
   studentLoan: number | null;
   anticipateMonthlyIncomeChange: boolean;
   futureMonthlyIncome: number | null;
+  suitabilityConsent: boolean | null;
 }
 
 export interface UpdateSoleTraderMutation_updateCompanySoleTrader_associates {

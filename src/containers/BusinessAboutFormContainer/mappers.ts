@@ -14,6 +14,7 @@ export const responseToInitialFormValues = (
     mobile: data?.telephone_numbers?.[0].value,
     termsAndConditions: data?.terms_and_conditions,
     title: data?.title,
+    privacyPolicy: data?.privacyPolicy,
   };
 };
 
@@ -33,6 +34,7 @@ export const mapAboutPersonData = (person: AboutFormPerson) => {
     termsAndConditions: person.termsAndConditions || false,
     title: person?.title || '',
     uuid: person.uuid,
+    privacyPolicy: person.privacyPolicy || false,
   };
 };
 

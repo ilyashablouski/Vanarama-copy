@@ -27,6 +27,7 @@ export interface ISoleTraderDetailsFormValues {
   monthlyIncomeChange?: boolean;
   futureMonthlyIncome?: number | null;
   history: TAddressEntry[];
+  suitabilityConsent?: boolean;
 }
 
 export interface ISoleTraderDetailsProps {
