@@ -42,9 +42,6 @@ const Icon = dynamic(
     ssr: false,
   },
 );
-const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'), {
-  ssr: false,
-});
 const ArrowForwardSharp = dynamic(
   () => import('@vanarama/uibook/lib/assets/icons/ArrowForwardSharp'),
   {
