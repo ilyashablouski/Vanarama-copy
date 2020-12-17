@@ -4,12 +4,15 @@ import {
   createHttpLink,
   from,
 } from '@apollo/client';
-import Router from 'next/router';
-import { onError } from '@apollo/client/link/error';
+// import Router from 'next/router';
+// import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
+// import localforage from 'localforage';
 
-const inspect = require('../inspect');
+// const inspect = require('../inspect');
+
+// const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 
 const HttpLink = createHttpLink({
   uri: process.env.API_URL!,
@@ -21,24 +24,35 @@ const HttpLink = createHttpLink({
   },
 });
 
-const ErrorLink = onError(({ networkError, graphQLErrors }) => {
-  if (networkError) {
-    inspect(['Network Error', networkError]);
-  }
-
-  if (graphQLErrors) {
-    inspect(['GQL Error', graphQLErrors]);
-
-    const authorizationError = graphQLErrors.find(
-      error => error?.extensions?.code === 'UNAUTHORISED',
-    );
-    if (authorizationError) {
-      Router.replace(
-        `/account/login-register?redirect=${Router.router?.asPath || '/'}`,
-      );
-    }
-  }
-});
+//  TODO: to return redirect need to find
+//   out how to refresh token for temp user and finally fix olaf
+// const ErrorLink = onError(({ networkError, graphQLErrors }) => {
+//   if (networkError) {
+//     inspect(['Network Error', networkError]);
+//   }
+//
+//   if (graphQLErrors) {
+//     inspect(['GQL Error', graphQLErrors]);
+//
+//     const authorizationError = graphQLErrors.find(
+//       error =>
+//         AUTHORIZATION_ERROR_CODE.localeCompare(
+//           error?.extensions?.code,
+//           undefined,
+//           { sensitivity: 'base' },
+//         ) === 0,
+//     );
+//     if (authorizationError) {
+//       localforage
+//         .removeItem('person')
+//         .finally(() =>
+//           Router.replace(
+//             `/account/login-register?redirect=${Router.router?.asPath || '/'}`,
+//           ),
+//         );
+//     }
+//   }
+// });
 
 export default function createApolloClient(
   initialState: any,
@@ -48,7 +62,7 @@ export default function createApolloClient(
     // The `ctx` (NextPageContext) will only be present on the server.
     // use it to extract auth headers (ctx.req) or similar.
     ssrMode: Boolean(ctx),
-    link: from([ErrorLink, HttpLink]),
+    link: from([HttpLink]),
     connectToDevTools: Boolean(process.env.ENABLE_DEV_TOOLS),
     cache: new InMemoryCache({
       typePolicies: {
