@@ -1306,7 +1306,17 @@ const SearchPageContainer: React.FC<IProps> = ({
       <div className="row:text">
         <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Text color="darker" size="regular" tag="span">
-            Photos and videos are for illustration purposes only.
+            Photos and videos are for illustration purposes only.*{' '}
+            <RouterLink
+              link={{
+                href: '/legal/terms-and-conditions.html',
+                label: 'Terms and conditions apply',
+              }}
+              classNames={{ color: 'teal' }}
+            >
+              Terms and conditions apply
+            </RouterLink>
+            .
           </Text>
         </LazyLoadComponent>
       </div>

@@ -145,7 +145,11 @@ export const Header: FC<IHeaderProps> = memo(props => {
 
   return (
     <header
-      style={{ position: useMobileViewport() ? 'fixed' : 'relative' }}
+      style={
+        useMobileViewport()
+          ? { position: 'fixed', top: 0 }
+          : { position: 'relative' }
+      }
       className={cx('header', className)}
       data-testid="header"
     >

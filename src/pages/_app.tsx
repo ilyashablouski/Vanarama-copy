@@ -28,6 +28,7 @@ import { pushPageData } from '../utils/dataLayerHelpers';
 import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
+import { useMobileViewport } from '../hooks/useMediaQuery';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -141,7 +142,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   return (
     <>
-      <main className={cx(resolveMainClass())}>
+      <main
+        className={cx(resolveMainClass())}
+        style={{ paddingTop: useMobileViewport() ? '46px' : '0' }}
+      >
         <HeaderContainer />
         <CompareContext.Provider
           value={{
