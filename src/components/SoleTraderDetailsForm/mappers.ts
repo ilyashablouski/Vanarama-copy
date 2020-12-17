@@ -40,6 +40,7 @@ export const formValuesToAssociate = (
       studentLoan: Number(values.monthlyStudentPayments),
       anticipateMonthlyIncomeChange: Boolean(values.monthlyIncomeChange),
       futureMonthlyIncome: Number(values.futureMonthlyIncome),
+      suitabilityConsent: !!values.suitabilityConsent,
     },
     uuid: personUuid,
   };
@@ -77,6 +78,7 @@ export const responseToInitialFormValues = (
     monthlyIncomeChange:
       st?.incomeAndExpense?.anticipateMonthlyIncomeChange || false,
     futureMonthlyIncome: st?.incomeAndExpense?.futureMonthlyIncome || 0,
+    suitabilityConsent: st?.incomeAndExpense?.suitabilityConsent || false,
     history: [...addresses]
       .sort(
         (a, b) =>

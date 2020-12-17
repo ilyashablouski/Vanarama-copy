@@ -77,6 +77,7 @@ export interface GetCompanySummaryQuery_companyByUuid_associates_incomeAndExpens
   studentLoan: number | null;
   anticipateMonthlyIncomeChange: boolean;
   futureMonthlyIncome: number | null;
+  suitabilityConsent: boolean | null;
 }
 
 export interface GetCompanySummaryQuery_companyByUuid_associates {

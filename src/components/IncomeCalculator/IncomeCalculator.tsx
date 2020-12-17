@@ -308,7 +308,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           control={control}
           label="Given the level of finance being proposed, I am happy that I will be able to afford to make repayments without creating undue hardship now and into the future."
           checked={values.suitabilityConsent}
-          dataTestId="futureMonthlyIncome"
+          dataTestId="suitabilityConsent"
         />
         (Before answering this you should consider the consequences of changes
         in your personal circumstances e.g. the end of a work contract,
