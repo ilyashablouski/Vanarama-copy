@@ -32,5 +32,6 @@ export const responseToInitialFormValues = (
     companyType: person?.companies?.length
       ? person.companies[0].companyType || ''
       : '',
+    privacyPolicy: !!person?.privacyPolicy,
   };
 };

@@ -119,6 +119,9 @@ export const createValidationSchema = (
       termsAndCons: yup
         .boolean()
         .oneOf([true], 'The terms and conditions must be accepted.'),
+      privacyPolicy: yup
+        .boolean()
+        .oneOf([true], 'The Privacy Policy must be accepted.'),
     },
     [
       ['dayOfBirth', 'monthOfBirth'],

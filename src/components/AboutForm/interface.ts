@@ -20,6 +20,7 @@ export interface IAboutFormValues {
   termsAndConditions?: boolean;
   marketing?: boolean;
   companyType?: string;
+  privacyPolicy?: boolean;
 }
 
 export interface IProps {

@@ -36,5 +36,6 @@ export const formValuesToInput = (
     noOfAdultsInHousehold: values.adultsInHousehold,
     emailConsent: values.consent,
     smsConsent: values.consent,
+    privacyPolicy: values.privacyPolicy,
   };
 };
