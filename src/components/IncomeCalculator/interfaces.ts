@@ -15,6 +15,7 @@ export interface IIncomeCalculatorFormValues {
   phoneAndInternet?: string;
   studentLoans?: string;
   utilities?: string;
+  suitabilityConsent?: boolean;
 }
 
 export interface IIncomeCalculatorProps {

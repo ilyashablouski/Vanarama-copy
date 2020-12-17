@@ -297,6 +297,24 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           calculated
         />
       </FormGroup>
+      <FormGroup
+        label=""
+        error={errors?.suitabilityConsent?.message?.toString()}
+      >
+        <Controller
+          id="suitabilityConsent"
+          name="suitabilityConsent"
+          as={CheckBox}
+          control={control}
+          label="Given the level of finance being proposed, I am happy that I will be able to afford to make repayments without creating undue hardship now and into the future."
+          checked={values.suitabilityConsent}
+          dataTestId="futureMonthlyIncome"
+        />
+        (Before answering this you should consider the consequences of changes
+        in your personal circumstances e.g. the end of a work contract,
+        retirement, redundancy and or a significant increase in mortgage
+        interest rates during the term of the agreement)
+      </FormGroup>
       <FormGroup>
         <Button
           type="submit"
@@ -333,6 +351,7 @@ IncomeCalculator.fragments = {
       fuel
       studentLoan
       otherCredit
+      suitabilityConsent
     }
   `,
 };

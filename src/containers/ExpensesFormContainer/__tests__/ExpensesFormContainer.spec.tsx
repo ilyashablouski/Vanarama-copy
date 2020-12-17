@@ -46,6 +46,7 @@ describe('<ExpensesFormContainer />', () => {
                 phoneAndInternet: 49.99,
                 studentLoan: 435,
                 utilities: 99,
+                suitabilityConsent: false,
               },
             },
           } as GetExpensesPageDataQuery,

@@ -250,6 +250,9 @@ describe('<AboutForm />', () => {
     fireEvent.input(screen.getByTestId('aboutTermsAndCons'), {
       target: { checked: true },
     });
+    fireEvent.input(screen.getByTestId('aboutPrivacyPolicy'), {
+      target: { checked: true },
+    });
     fireEvent.click(screen.getByText('Continue'));
 
     // ASSERT

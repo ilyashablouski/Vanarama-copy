@@ -46,4 +46,5 @@ export interface AboutFormPerson {
   smsConsent: boolean | null;
   termsAndConditions: boolean | null;
   companies: AboutFormPerson_companies[] | null;
+  privacyPolicy: boolean | null;
 }

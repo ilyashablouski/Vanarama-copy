@@ -46,6 +46,7 @@ export interface GetAboutYouDataQuery_personByUuid {
   smsConsent: boolean | null;
   termsAndConditions: boolean | null;
   companies: GetAboutYouDataQuery_personByUuid_companies[] | null;
+  privacyPolicy: boolean | null;
 }
 
 export interface GetAboutYouDataQuery {

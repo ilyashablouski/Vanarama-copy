@@ -164,6 +164,7 @@ export interface GetCompanySummaryQuery_personByUuid {
   smsConsent: boolean | null;
   termsAndConditions: boolean | null;
   companies: GetCompanySummaryQuery_personByUuid_companies[] | null;
+  privacyPolicy: boolean | null;
 }
 
 export interface GetCompanySummaryQuery {
