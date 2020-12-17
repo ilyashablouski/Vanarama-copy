@@ -45,6 +45,7 @@ export function useSoleTraderDetailsFormDataQuery(
         personUuid,
         companyUuid,
       },
+      skip: !personUuid || !companyUuid,
     },
   );
 }

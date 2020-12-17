@@ -8,6 +8,7 @@ import withApollo from '../../../../../hocs/withApollo';
 import OLAFLayout from '../../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../../utils/url';
 import useGetOrderId from '../../../../../hooks/useGetOrderId';
+import useGetPersonUuid from '../../../../../hooks/useGetPersonUuid';
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
@@ -16,7 +17,8 @@ type QueryParams = OLAFQueryParams & {
 export const SoleTraderCompanyDetailsPage: NextPage = () => {
   const router = useRouter();
   const orderId = useGetOrderId();
-  const { personUuid, companyUuid } = router.query as QueryParams;
+  const personUuid = useGetPersonUuid();
+  const { companyUuid } = router.query as QueryParams;
   const isEdited = router.query.redirect === 'summary';
 
   const handleSubmitError = () =>
