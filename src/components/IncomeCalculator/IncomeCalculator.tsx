@@ -298,6 +298,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
         />
       </FormGroup>
       <FormGroup
+        controlId="suitabilityConsent"
         label=""
         error={errors?.suitabilityConsent?.message?.toString()}
       >
