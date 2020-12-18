@@ -156,6 +156,8 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
       </div>
       <div className="card-footer">
         <Button
+          color="dark"
+          iconColor="dark"
           label="Compare"
           fill="clear"
           iconPosition="before"

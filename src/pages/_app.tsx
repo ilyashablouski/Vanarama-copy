@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import dynamic from 'next/dynamic';
-import '@vanarama/uibook/src/components/base.scss';
+import '@vanarama/uibook/src/components/styles/base.scss';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
