@@ -126,7 +126,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
       {!!keyInfo?.length && (
         <CardIcons icons={features(keyInfo || [], capId || '', Icon)} />
       )}
-      <div className="flex-h">
+      <div className="-flex-h">
         <Price size="xlarge" price={price} />
         <Text tag="p" size="small" color="dark">
           {isPersonal ? 'Per Month Inc VAT' : 'Per Month Excluding VAT'}
