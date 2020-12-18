@@ -102,15 +102,17 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
   link,
 }) => (
   <>
-    <Card
-      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-      header={{
-        accentIcon: <Icon icon={<Flame />} color="white" />,
-        accentText: 'Hot Deal',
-        text: flagText,
-      }}
-      imageSrc={imageSrc}
-    />
+    <div>
+      <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+        header={{
+          accentIcon: <Icon icon={<Flame />} color="white" />,
+          accentText: 'Hot Deal',
+          text: flagText,
+        }}
+        imageSrc={imageSrc}
+      />
+    </div>
     <div className="-col">
       <div>
         <Heading size="xlarge" color="black">
