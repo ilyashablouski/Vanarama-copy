@@ -127,10 +127,13 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
         <CardIcons icons={features(keyInfo || [], capId || '', Icon)} />
       )}
       <div className="-flex-h">
-        <Price size="xlarge" price={price} />
-        <Text tag="p" size="small" color="dark">
-          {isPersonal ? 'Per Month Inc VAT' : 'Per Month Excluding VAT'}
-        </Text>
+        <Price
+          size="xlarge"
+          price={price}
+          priceDescription={
+            isPersonal ? 'Per Month Inc VAT' : 'Per Month Excluding VAT'
+          }
+        />
         <RouterLink
           link={{
             href: link.url,
@@ -154,6 +157,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
           fill="clear"
           iconPosition="before"
           icon={<CarSharp />}
+          size="expand"
         />
       </div>
     </div>
