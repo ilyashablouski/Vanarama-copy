@@ -124,7 +124,10 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
         {rating && <Rating score={rating} color="orange" />}
       </div>
       {!!keyInfo?.length && (
-        <CardIcons icons={features(keyInfo || [], capId || '', Icon)} />
+        <CardIcons
+          featuredProduct
+          icons={features(keyInfo || [], capId || '', Icon)}
+        />
       )}
       <div className="-flex-h">
         <Price
