@@ -1,4 +1,5 @@
 const withPlugins = require('next-compose-plugins');
+const withSass = require('@zeit/next-sass');
 const withCss = require('@zeit/next-css');
 const withImages = require('next-images');
 // const withFonts = require('next-fonts');
@@ -21,6 +22,7 @@ module.exports = withPlugins(
       withCustomBabelConfig,
       { babelConfigFile: path.resolve('./babel.config.js') },
     ],
+    [withSass],
     withImages,
     [withCss, { url: false, purgeCssEnabled: true }],
     [config.withCustomWebpack],
