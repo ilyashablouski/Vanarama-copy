@@ -79,8 +79,8 @@ interface IDealOfMonthProps {
   imageSrc: string;
   flagText?: string;
   isPersonal: boolean;
-  keyInfo: (IKeyInfo | null)[];
-  capId: string;
+  keyInfo?: (IKeyInfo | null)[];
+  capId?: string;
   viewOfferClick: () => void;
   link: {
     href: string;
