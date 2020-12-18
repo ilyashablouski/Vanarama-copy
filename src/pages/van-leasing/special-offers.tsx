@@ -610,7 +610,7 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const client = createApolloClient({});
 
   try {
