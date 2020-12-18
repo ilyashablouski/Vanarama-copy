@@ -245,6 +245,7 @@ export default function CompanyDetailsFormFields({
       <Formgroup
         label=""
         error={errors?.suitabilityConsent?.message?.toString()}
+        controlId="suitabilityConsent"
       >
         <Checkbox
           dataTestId="company-details_suitabilityConsent"
