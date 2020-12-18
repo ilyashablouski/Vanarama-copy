@@ -84,7 +84,7 @@ $block-size-large: 50px;
       opacity: 0;
     }
   } @else {
-    top: $block-size * 1.25 + 1px;
+    top: $block-size + 1px;
 
     &:not(.-open) {
       transform: translateX(-100%);
@@ -136,7 +136,7 @@ $block-size-large: 50px;
 
     @include mobile {
       grid-column: full;
-      grid-template-rows: 1.25fr 1fr;
+      grid-template-rows: 1.25fr;
       grid-template-columns: 1rem minmax(0, 1fr) #{$block-size} #{$block-size} #{$block-size} 0.5rem;
       grid-template-areas:
         '.      logo   account tel    navtoggle .     '
@@ -826,7 +826,7 @@ $block-size-large: 50px;
         z-index: 107;
         grid-auto-flow: row;
         grid-template-columns: minmax(0, 1fr);
-        max-height: calc(100vh - #{$block-size * 1.25});
+        max-height: calc(100vh - #{$block-size});
         @include overflow-menu;
       }
     }
