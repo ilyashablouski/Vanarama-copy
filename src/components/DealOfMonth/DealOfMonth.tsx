@@ -111,42 +111,49 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
       }}
       imageSrc={imageSrc}
     />
-    <div>
-      <Heading size="xlarge" color="black">
-        {vehicle}
-      </Heading>
-      <Text tag="p" size="lead" color="darker">
-        {specification}
-      </Text>
-      {rating && <Rating score={rating} color="orange" />}
-    </div>
-    {!!keyInfo?.length && (
-      <CardIcons icons={features(keyInfo || [], capId || '', Icon)} />
-    )}
-    <div className="flex-h">
-      <Price size="xlarge" price={price} />
-      <Text tag="p" size="small" color="dark">
-        {isPersonal ? 'Per Month Inc VAT' : 'Per Month Excluding VAT'}
-      </Text>
-      <RouterLink
-        link={{
-          href: link.url,
-          label: 'View Offer',
-        }}
-        onClick={viewOfferClick}
-        classNames={{ color: 'teal', solid: true, size: 'regular' }}
-        className="button"
-        dataTestId="deal-of-month__view-offer"
-        withoutDefaultClassName
-      >
-        <div className="button--inner">
-          View Offer
-          <Icon color="white" icon={<ArrowForwardSharp />} />
-        </div>
-      </RouterLink>
-    </div>
-    <div className="card-footer">
-      <Button label="Compare" icon={<CarSharp />} />
+    <div className="-col">
+      <div>
+        <Heading size="xlarge" color="black">
+          {vehicle}
+        </Heading>
+        <Text tag="p" size="lead" color="darker">
+          {specification}
+        </Text>
+        {rating && <Rating score={rating} color="orange" />}
+      </div>
+      {!!keyInfo?.length && (
+        <CardIcons icons={features(keyInfo || [], capId || '', Icon)} />
+      )}
+      <div className="flex-h">
+        <Price size="xlarge" price={price} />
+        <Text tag="p" size="small" color="dark">
+          {isPersonal ? 'Per Month Inc VAT' : 'Per Month Excluding VAT'}
+        </Text>
+        <RouterLink
+          link={{
+            href: link.url,
+            label: 'View Offer',
+          }}
+          onClick={viewOfferClick}
+          classNames={{ color: 'teal', solid: true, size: 'regular' }}
+          className="button"
+          dataTestId="deal-of-month__view-offer"
+          withoutDefaultClassName
+        >
+          <div className="button--inner">
+            View Offer
+            <Icon color="white" icon={<ArrowForwardSharp />} />
+          </div>
+        </RouterLink>
+      </div>
+      <div className="card-footer">
+        <Button
+          label="Compare"
+          fill="clear"
+          iconPosition="before"
+          icon={<CarSharp />}
+        />
+      </div>
     </div>
   </>
 );
