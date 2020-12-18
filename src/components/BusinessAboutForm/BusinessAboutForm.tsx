@@ -1,9 +1,9 @@
 import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
-import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
-import Select from '@vanarama/uibook/lib/components/atoms/select';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
+import Checkbox from 'core/atoms/checkbox';
+import NumericInput from 'core/atoms/numeric-input';
+import Select from 'core/atoms/select';
+import TextInput from 'core/atoms/textinput';
 import React, { useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
@@ -18,30 +18,21 @@ import { companyTypesList } from '../../models/enum/CompanyTypes';
 import Skeleton from '../Skeleton';
 
 const ChevronForwardSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  () => import('core/assets/icons/ChevronForwardSharp'),
   {
     loading: () => <Skeleton count={1} />,
     ssr: false,
   },
 );
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button/'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Form = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/form'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Formgroup = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Button = dynamic(() => import('core/atoms/button/'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Form = dynamic(() => import('core/organisms/form'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Formgroup = dynamic(() => import('core/molecules/formgroup'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 const BusinessAboutForm: FCWithFragments<IProps> = ({
   dropDownData,

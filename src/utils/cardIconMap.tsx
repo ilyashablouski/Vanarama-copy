@@ -1,11 +1,11 @@
-import BluetoothSharp from '@vanarama/uibook/lib/assets/icons/BluetoothSharp';
-import CompassSharp from '@vanarama/uibook/lib/assets/icons/CompassSharp';
-import SnowSharp from '@vanarama/uibook/lib/assets/icons/SnowSharp';
-import WifiSharp from '@vanarama/uibook/lib/assets/icons/WifiSharp';
-import FuelEconomy from '@vanarama/uibook/lib/assets/icons/FuelEconomy';
-import FuelType from '@vanarama/uibook/lib/assets/icons/FuelType';
-import Emissions from '@vanarama/uibook/lib/assets/icons/Emissions';
-import Transmission from '@vanarama/uibook/lib/assets/icons/Transmission';
+import BluetoothSharp from 'core/assets/icons/BluetoothSharp';
+import CompassSharp from 'core/assets/icons/CompassSharp';
+import SnowSharp from 'core/assets/icons/SnowSharp';
+import WifiSharp from 'core/assets/icons/WifiSharp';
+import FuelEconomy from 'core/assets/icons/FuelEconomy';
+import FuelType from 'core/assets/icons/FuelType';
+import Emissions from 'core/assets/icons/Emissions';
+import Transmission from 'core/assets/icons/Transmission';
 
 const IconMap = new Map();
 

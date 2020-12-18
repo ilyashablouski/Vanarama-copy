@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SearchFilters /> should render correctly with a custom class name 1`] = `
+<div
+  className="search-filters -open some-custom-class-name"
+>
+  <p>
+    child element
+  </p>
+</div>
+`;
+
+exports[`<SearchFilters /> should render correctly with children 1`] = `
+<div
+  className="search-filters -open"
+>
+  <div>
+    <span>
+      child element
+    </span>
+  </div>
+</div>
+`;

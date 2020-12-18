@@ -1,0 +1,47 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<IvanCta /> should compact render correctly 1`] = `
+<div
+  className="ivan-cta--compact"
+>
+  <Memo(Text)
+    color="white"
+    size="xsmall"
+  >
+    We're open again at 8:30am. Why not chat to iVan?
+  </Memo(Text)>
+  <Image
+    plain={true}
+    src="https://www.vanarama.com/assets/images-optimised/header-ivan.svg"
+  />
+</div>
+`;
+
+exports[`<IvanCta /> should default render correctly 1`] = `
+<Memo()
+  className="ivan-cta"
+  inline={true}
+>
+  <Image
+    className="card-image"
+    plain={true}
+    src="https://images.ctfassets.net/3xid768u5joa/31iQbyGS1DYs7b9viQHtXh/86ae2d62793162409d230b2042d9e00a/header-ivan.svg"
+  />
+  <div
+    className="title"
+  >
+    <Heading
+      color="black"
+      size="lead"
+    >
+      Meet iVan
+    </Heading>
+  </div>
+  <Memo(Text)
+    color="dark"
+    size="regular"
+  >
+    Our helpful chatbot iVan is available 24/7 to answer your van financing questions
+  </Memo(Text)>
+</Memo()>
+`;

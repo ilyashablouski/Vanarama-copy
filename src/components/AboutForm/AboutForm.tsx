@@ -1,9 +1,9 @@
 import React, { useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
-import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
-import Select from '@vanarama/uibook/lib/components/atoms/select/';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
+import CheckBox from 'core/atoms/checkbox/';
+import NumericInput from 'core/atoms/numeric-input';
+import Select from 'core/atoms/select/';
+import TextInput from 'core/atoms/textinput/';
 import { gql } from '@apollo/client';
 import { useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
@@ -16,31 +16,22 @@ import useDateOfBirthValidation from './useDateOfBirthValidation';
 import { mapEmailErrorMessage } from './mapEmailErrorMessage';
 import Skeleton from '../Skeleton';
 
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button/'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Button = dynamic(() => import('core/atoms/button/'), {
+  loading: () => <Skeleton count={1} />,
+});
 const ChevronForwardSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  () => import('core/assets/icons/ChevronForwardSharp'),
   {
     loading: () => <Skeleton count={1} />,
     ssr: false,
   },
 );
-const Form = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/form'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const FormGroup = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
+const Form = dynamic(() => import('core/organisms/form'), {
+  loading: () => <Skeleton count={1} />,
+});
+const FormGroup = dynamic(() => import('core/molecules/formgroup'), {
+  loading: () => <Skeleton count={5} />,
+});
 
 const AboutForm: FCWithFragments<IProps> = ({
   dropdownData,

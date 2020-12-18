@@ -4,25 +4,19 @@ import cx from 'classnames';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { useRouter } from 'next/router';
-import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
+import { IBaseProps } from 'core/interfaces/base';
 import RouterLink from '../RouterLink/RouterLink';
 import { IHeaderLink } from './Header';
 import { useHover } from '../../hooks/useHover';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 
 const HeaderSecondaryMenu = dynamic(() => import('./HeaderSecondaryMenu'));
-const Icon = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/icon'),
-  {
-    ssr: false,
-  },
-);
-const FlameSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/FlameSharp'),
-  {
-    ssr: false,
-  },
-);
+const Icon = dynamic(() => import('core/atoms/icon'), {
+  ssr: false,
+});
+const FlameSharp = dynamic(() => import('core/assets/icons/FlameSharp'), {
+  ssr: false,
+});
 
 export interface IHeaderMenuLinkProps extends IBaseProps {
   link: IHeaderLink;

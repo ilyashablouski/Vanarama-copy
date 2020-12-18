@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ReviewCard /> should render correctly 1`] = `
+<div
+  className="card -overflow"
+  data-testid="card-review"
+>
+  <Memo(Text)
+    className="review-text"
+    color="dark"
+    dataTestId="review"
+    size="regular"
+  >
+    Cillum sit et in nostrud occaecat est labore ea laborum voluptate magna eu aliquip mollit
+  </Memo(Text)>
+  <div
+    className="review-author"
+    data-testid="author-review"
+  >
+    Review Card
+  </div>
+  <div
+    className="review-decoration"
+  >
+    <Rating
+      score={4.5}
+    />
+  </div>
+</div>
+`;

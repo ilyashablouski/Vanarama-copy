@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<SlideoutModal /> should render correctly with search filters 1`] = `
+<div
+  className="slideout-modal-wrapper"
+>
+  <Memo([object Object])
+    className="slideout-modal--trigger"
+    color="teal"
+    fill="solid"
+    icon={<Memo />}
+    iconPosition="before"
+    id="openFilterButton"
+    label="Filters"
+    onClick={[Function]}
+    size="lead"
+    type="button"
+  />
+</div>
+`;
+
+exports[`<SlideoutModal /> should render correctly with selected filters 1`] = `
+<div
+  className="slideout-modal-wrapper"
+>
+  <Memo([object Object])
+    className="slideout-modal--trigger"
+    color="teal"
+    fill="solid"
+    icon={<Memo />}
+    iconPosition="before"
+    id="openFilterButton"
+    label="Filters"
+    onClick={[Function]}
+    size="lead"
+    type="button"
+  />
+</div>
+`;

@@ -16,8 +16,8 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import Select from '@vanarama/uibook/lib/components/atoms/select';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import Select from 'core/atoms/select';
+import SchemaJSON from 'core/atoms/schema-json';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -66,60 +66,33 @@ import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../ge
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 
-const Loading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/loading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={2} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Checkbox = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/checkbox'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Image = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/image'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
-const Carousel = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
-const Card = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/cards'),
-  {
-    loading: () => <Skeleton count={10} />,
-  },
-);
-const Tile = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/tile'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
+const Loading = dynamic(() => import('core/atoms/loading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={2} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Button = dynamic(() => import('core/atoms/button'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Image = dynamic(() => import('core/atoms/image'), {
+  loading: () => <Skeleton count={3} />,
+});
+const Carousel = dynamic(() => import('core/organisms/carousel'), {
+  loading: () => <Skeleton count={5} />,
+});
+const Card = dynamic(() => import('core/molecules/cards'), {
+  loading: () => <Skeleton count={10} />,
+});
+const Tile = dynamic(() => import('core/molecules/tile'), {
+  loading: () => <Skeleton count={3} />,
+});
 const TileLink = dynamic(() => import('../../components/TileLink/TileLink'), {
   loading: () => <Skeleton count={1} />,
 });

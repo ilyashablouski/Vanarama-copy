@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import { MutableRefObject, useRef } from 'react';
 import { NextPage, NextPageContext } from 'next';
 import { useQuery } from '@apollo/client';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import {
   GenericPageHeadQuery,
@@ -24,46 +24,31 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button/'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Card = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/cards'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'), {
+const Button = dynamic(() => import('core/atoms/button/'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Card = dynamic(() => import('core/molecules/cards'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
 const ArrowForwardSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/ArrowForwardSharp'),
+  () => import('core/assets/icons/ArrowForwardSharp'),
   {
     ssr: false,
   },
 );
-const Redundancy = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/Redundancy'),
-  {
-    loading: () => <Skeleton count={1} />,
-    ssr: false,
-  },
-);
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Redundancy = dynamic(() => import('core/assets/icons/Redundancy'), {
+  loading: () => <Skeleton count={1} />,
+  ssr: false,
+});
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
 const Breadcrumb = dynamic(
   () => import('../../components/Breadcrumb/Breadcrumb'),
   {

@@ -1,0 +1,257 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] = `
+<ComporatorBar
+  compareVehicles={[Function]}
+  deleteVehicle={[Function]}
+  vehicles={
+    Array [
+      Object {
+        "capId": "1234",
+        "derivativeName": "1.0 ECOBOOST 125 ST-LINE NAV 5 DOORS",
+        "manufacturerName": "Ford",
+        "rangeName": "Focus",
+      },
+      Object {
+        "capId": "12345",
+        "derivativeName": "2.5 ECOBOOST PHEV ST-LINE 5 DOORS CVT",
+        "manufacturerName": "Ford",
+        "rangeName": "Kuga",
+      },
+    ]
+  }
+>
+  <div
+    className="comparator-bar"
+  >
+    <div
+      className="comparator-bar--container"
+    >
+      <ComporatorBar
+        deleteVehicle={[Function]}
+        key="12340"
+        number={1}
+        vehicle={
+          Object {
+            "capId": "1234",
+            "derivativeName": "1.0 ECOBOOST 125 ST-LINE NAV 5 DOORS",
+            "manufacturerName": "Ford",
+            "rangeName": "Focus",
+          }
+        }
+      >
+        <div
+          className="card"
+        >
+          <Heading
+            color="black"
+            size="lead"
+          >
+            <p
+              className="heading -black -lead"
+            >
+              Ford Focus
+            </p>
+          </Heading>
+          <Memo(Text)
+            color="dark"
+            size="xsmall"
+          >
+            <span
+              className="text -xsmall -dark"
+            >
+              1.0 ECOBOOST 125 ST-LINE NAV 5 DOORS
+            </span>
+          </Memo(Text)>
+          <button
+            className="corner-button"
+            data-testid="comparatorBar-delete-1"
+            onClick={[Function]}
+            type="button"
+          >
+            <Icon
+              color="white"
+              icon={<Memo />}
+            >
+              <i
+                className="icon -white"
+              >
+                <Memo()>
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                  >
+                    <polygon
+                      points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
+                    />
+                  </svg>
+                </Memo()>
+              </i>
+            </Icon>
+          </button>
+        </div>
+      </ComporatorBar>
+      <ComporatorBar
+        deleteVehicle={[Function]}
+        key="123451"
+        number={2}
+        vehicle={
+          Object {
+            "capId": "12345",
+            "derivativeName": "2.5 ECOBOOST PHEV ST-LINE 5 DOORS CVT",
+            "manufacturerName": "Ford",
+            "rangeName": "Kuga",
+          }
+        }
+      >
+        <div
+          className="card"
+        >
+          <Heading
+            color="black"
+            size="lead"
+          >
+            <p
+              className="heading -black -lead"
+            >
+              Ford Kuga
+            </p>
+          </Heading>
+          <Memo(Text)
+            color="dark"
+            size="xsmall"
+          >
+            <span
+              className="text -xsmall -dark"
+            >
+              2.5 ECOBOOST PHEV ST-LINE 5 DOORS CVT
+            </span>
+          </Memo(Text)>
+          <button
+            className="corner-button"
+            data-testid="comparatorBar-delete-2"
+            onClick={[Function]}
+            type="button"
+          >
+            <Icon
+              color="white"
+              icon={<Memo />}
+            >
+              <i
+                className="icon -white"
+              >
+                <Memo()>
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                  >
+                    <polygon
+                      points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
+                    />
+                  </svg>
+                </Memo()>
+              </i>
+            </Icon>
+          </button>
+        </div>
+      </ComporatorBar>
+      <ComporatorBar
+        deleteVehicle={[Function]}
+        key="2"
+        number={3}
+      >
+        <div
+          className="card -skeleton"
+        >
+          <Heading
+            color="black"
+            size="lead"
+          >
+            <p
+              className="heading -black -lead"
+            >
+              Vehicle 3
+            </p>
+          </Heading>
+          <Memo(Text)
+            color="dark"
+            size="xsmall"
+          >
+            <span
+              className="text -xsmall -dark"
+            >
+              —
+            </span>
+          </Memo(Text)>
+        </div>
+      </ComporatorBar>
+      <div
+        className="comparator-bar--actions"
+      >
+        <Heading
+          className="comparator-bar--actions-count"
+          color="black"
+          size="xsmall"
+        >
+          <p
+            className="heading comparator-bar--actions-count -black -xsmall"
+          >
+            2 Vehicles Added
+          </p>
+        </Heading>
+        <ForwardRef(Button)
+          color="teal"
+          disabled={false}
+          label="Compare Vehicles"
+          onClick={[Function]}
+          size="lead"
+        >
+          <button
+            className="button -teal -lead -solid"
+            disabled={false}
+            onClick={[Function]}
+          >
+            <div
+              className="button--inner"
+            >
+              Compare Vehicles
+            </div>
+          </button>
+        </ForwardRef(Button)>
+      </div>
+    </div>
+  </div>
+</ComporatorBar>
+`;
+
+exports[`<ComparatorBarCard /> renders correctly with ComparatorBarCard 1`] = `
+<div
+  className="card"
+>
+  <Heading
+    color="black"
+    size="lead"
+  >
+    Ford Focus
+  </Heading>
+  <Memo(Text)
+    color="dark"
+    size="xsmall"
+  >
+    1.0 ECOBOOST 125 ST-LINE NAV 5 DOORS
+  </Memo(Text)>
+  <button
+    className="corner-button"
+    data-testid="comparatorBar-delete-0"
+    onClick={[Function]}
+    type="button"
+  >
+    <Icon
+      color="white"
+      icon={<Memo />}
+    />
+  </button>
+</div>
+`;

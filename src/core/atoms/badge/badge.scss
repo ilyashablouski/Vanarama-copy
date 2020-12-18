@@ -1,0 +1,24 @@
+.badge {
+  display: inline-block;
+  width: max-content;
+  border-radius: $border-radius-round;
+  background: var(--class-color);
+  color: var(--class-color-contrast);
+  text-transform: uppercase;
+  font-weight: $font-weight-bold;
+  cursor: default;
+
+  &--inner {
+    display: grid;
+    justify-content: space-between;
+    padding: 0 1ch;
+    white-space: nowrap;
+    font-size: calc(var(--class-fs) - 2px);
+    grid-auto-flow: column;
+    gap: 1ch;
+    place-items: center;
+  }
+
+  @include colour-selector(-primary, $orange, colour);
+  @include colour-selector(-secondary, light, contrast);
+}

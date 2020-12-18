@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useContext } from 'react';
 import dynamic from 'next/dynamic';
-import { ICardTitleProps } from '@vanarama/uibook/lib/components/molecules/cards/CardTitle';
+import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
 import truncateString from '../../utils/truncateString';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -11,31 +11,20 @@ import { CompareContext } from '../../utils/comparatorTool';
 import { features } from '../../components/ProductCarousel/helpers';
 import Skeleton from '../../components/Skeleton';
 
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Price = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/price'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Price = dynamic(() => import('core/atoms/price'), {
+  loading: () => <Skeleton count={1} />,
+});
 const Card = dynamic(
-  () =>
-    import(
-      '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard'
-    ),
+  () => import('core/molecules/cards/ProductCard/ProductCard'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-const Icon = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/icon'),
-);
-const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'));
+const Icon = dynamic(() => import('core/atoms/icon'));
+const Flame = dynamic(() => import('core/assets/icons/Flame'));
 
 export interface IProductPageUrl {
   url: string;

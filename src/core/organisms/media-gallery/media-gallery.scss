@@ -1,0 +1,222 @@
+/// @name config
+$ratio: (2 / 3);
+$visible-items: 4.5;
+
+/// @name y-axis
+$y_w: 125px;
+$y_h: $y_w * $ratio;
+
+/// @name x-axis
+$x_h: $y_h * $visible-items;
+$x_w: 100%;
+
+.media-gallery {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) $y_w;
+
+  &--x,
+  &--y {
+    &-scroll {
+      max-height: $x_h;
+    }
+
+    &-track {
+      display: grid;
+      place-content: center start;
+
+      &-item {
+        position: relative;
+        overflow: hidden;
+        @include pseudo(after);
+      }
+    }
+  }
+
+  &--x {
+    &-scroll {
+      @include overflow(hidden, hidden);
+      position: relative;
+
+      &-nav {
+        position: absolute;
+        top: calc(50% - 2rem);
+        left: 0;
+        right: 0;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+
+        .icon {
+          font-size: 4rem;
+          color: $orange;
+          background-image: radial-gradient(circle at center, $white 50%, transparent 50%);
+        }
+
+        > * {
+          cursor: pointer;
+          @include margin-inline(.25rem);
+          opacity: 0.6;
+
+          &:hover {
+            transition: opacity 120ms ease;
+            opacity: 1;
+          }
+        }
+      }
+    }
+
+    &-track {
+      grid-auto-flow: column;
+      grid-auto-columns: $x_w;
+      transform: translateX( calc(#{-$x_w} * var(--x, 1)) );
+
+      &-item {
+        left: var(--divider, -1px);
+        &:after { border-left: var(--divider, 1px solid #{$white}); }
+        .image  { @include max-size($x_h, unset); }
+
+        &.-active {
+          // available if required
+        }
+      }
+    }
+  }
+
+  &--y {
+    &-scroll {
+      @include overflow(auto, hidden);
+    }
+
+    &-track {
+      grid-auto-flow: row;
+      grid-auto-rows: #{$y_h};
+      transform: translateY( calc(#{-$y_h} * var(--y, 1)) );
+
+      &-item {
+        .image { @include max-size($y_h, $y_w); }
+        cursor: pointer;
+
+        &:not(.-active) {
+          transition: filter 120ms ease;
+          filter: invert(0.2) brightness(1.4);
+
+          &:hover { filter: invert(0) brightness(1); }
+          &:after { border-top: var(--divider, 1px solid #{$white}); }
+        }
+
+        &.-active {
+          &:after {
+            box-shadow: inset 0 0 0 3px lighten($orange, 12%);
+            transition: box-shadow 120ms ease;
+          }
+        }
+      }
+    }
+  }
+
+  @include tablet {
+    display: block;
+    --divider: 0;
+
+    &--x-scroll {
+      max-height: #{50vmax * $ratio};
+    }
+
+    &--y-scroll {
+      display: none;
+    }
+  }
+
+  @include mobile {
+    display: block;
+    --divider: 0;
+    @include margin-inline(-$rem-400);
+
+    &--x-scroll {
+      max-height: #{100vmax * $ratio};
+    }
+
+    &--y-scroll {
+      display: none;
+    }
+  }
+}
+
+.color-selector {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 2.5rem;
+  max-height: 2.5rem;
+  margin-top: -2.5rem;
+  background: $white;
+  width: max-content;
+  position: relative;
+  top: -1rem;
+  z-index: 97;
+  border-top-right-radius: $border-radius-medium;
+  border-bottom-right-radius: $border-radius-medium;
+
+  &:hover &--swatches {
+    position: static;
+    opacity: 1;
+    pointer-events: initial;
+  }
+
+  &:hover &--wheel {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &:hover .icon {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  > :not(.icon) {
+    left: 0;
+    transition: opacity 250ms cubic-bezier(0.17, 0.17, 0, 1);
+    margin-left: 1rem;
+  }
+
+  &--swatches {
+    position: absolute;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1.75rem;
+    gap: .25rem;
+    opacity: 0;
+    pointer-events: none;
+    padding-right: 1rem;
+
+    > * {
+      cursor: pointer;
+      height: 1.75rem;
+      width: 1.75rem;
+      border-radius: $border-radius-round;
+      background-color: var(--c);
+      transition: filter 150ms cubic-bezier(0.17, 0.17, 0, 1);
+      filter: brightness(1) saturate(1);
+
+      &:hover,
+      &:focus {
+        filter: contrast(0.375) saturate(1.375);
+      }
+    }
+  }
+
+  &--wheel {
+    height: 1.75rem;
+    width: 1.75rem;
+    background: url('https://upload.wikimedia.org/wikipedia/commons/3/38/BYR_color_wheel.svg');
+    background-position: center;
+    background-size: 1.75rem 1.75rem;
+    filter: contrast(0.75) brightness(1.125) contrast(1.125) saturate(1.125);
+    opacity: 1;
+    pointer-events: initial;
+  }
+
+  @include mobile  { @include margin-inline(-$rem-400) }
+}

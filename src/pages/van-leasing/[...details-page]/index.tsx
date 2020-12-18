@@ -2,7 +2,7 @@ import { NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
 import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import SchemaJSON from 'core/atoms/schema-json';
 import { INotFoundPageData } from '../../../models/ISearchPageProps';
 import { GET_CAR_DATA, GET_TRIM_AND_COLOR_DATA } from '../../../gql/carpage';
 import {

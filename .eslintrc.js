@@ -27,6 +27,18 @@ module.exports = {
   },
   overrides: [
     {
+      files: ['./src/core/**/*.spec.tsx', './src/core/**/*.tsx'],
+      rules: {
+        'no-console': 0,
+        'import/no-extraneous-dependencies': 'off',
+        'jsx-a11y/anchor-is-valid': 0,
+        'jsx-a11y/no-noninteractive-element-interactions': 0,
+        'jsx-a11y/click-events-have-key-events': 0,
+        'jsx-a11y/interactive-supports-focus': 0,
+        'jsx-a11y/label-has-associated-control': 0,
+      },
+    },
+    {
       files: ['*.tsx'],
       rules: {
         'react/jsx-props-no-spreading': 0,
@@ -35,4 +47,17 @@ module.exports = {
       },
     },
   ],
+  "settings": {
+    "import/resolver": {
+      alias: {
+        map: [
+          ['core', './src/core'],
+        ],
+        extensions: ['.ts', '.js', '.jsx', '.tsx', '.json']
+
+      },
+
+    },
+  },
+
 };

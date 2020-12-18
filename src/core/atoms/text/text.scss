@@ -1,0 +1,57 @@
+.text {
+  color: var(--class-color);
+  font-size: var(--class-fs);
+  line-height: calc(1em + 0.5rem);
+  white-space: break-spaces;
+
+  &.context-justify {
+    white-space: normal;
+  }
+
+  &.-small,
+  &.-xsmall {
+    line-height: calc(1em + 0.25rem);
+  }
+
+  &.-regular,
+  &.-lead {
+    max-width: $measure;
+  }
+
+  &.-spacer {
+    display: block;
+    padding: $rem-400 0;
+  }
+
+  &.-caption {
+    min-height: 1.5em;
+    height: 1.5em;
+    max-height: 1.5em;
+    border-radius: $border-radius-xsmall;
+    display: block;
+    min-width: max-content;
+    width: max-content;
+    max-width: max-content;
+    font-size: $font-size-400;
+    font-style: italic;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: $lighter;
+    background: rgba($black, 0.7);
+    z-index: 99;
+
+    --caption-height-sum: calc(1.5em + 1ch);
+    margin-top: calc(var(--caption-height-sum) * -1);
+    margin-bottom: 1ch;
+    @include margin-inline(1ch);
+    @include padding-inline(1ch);
+
+    @include mobile {
+      font-size: $font-size-300;
+    }
+  }
+
+  @include colour-selector(-primary, darker, contrast);
+  @include colour-selector(-secondary, dark, contrast);
+}

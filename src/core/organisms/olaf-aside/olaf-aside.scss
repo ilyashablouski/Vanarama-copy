@@ -1,0 +1,13 @@
+.olaf-aside {
+  @include presentation-styles {
+    // Presentation -> hide at mobile (handled by order summary toggle in production)
+    @include mobile { display: none; }
+  }
+  
+  @include tablet {
+    // Tweaks -> reduction of size due to limited available space (tablet)
+    .price {
+      font-size: 1.75rem;
+    }
+  }
+}

@@ -11,18 +11,12 @@ import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import { MyOrdersTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
 
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Card = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/cards'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Card = dynamic(() => import('core/molecules/cards'), {
+  loading: () => <Skeleton count={5} />,
+});
 
 type QueryParams = {
   partyByUuid: string;

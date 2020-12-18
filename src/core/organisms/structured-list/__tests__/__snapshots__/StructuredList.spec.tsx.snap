@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<StructuredList /> should render correctly with a custom CSS class 1`] = `
+<section
+  className="structured-list custom-class"
+>
+  <div
+    className="structured-list-tbody"
+  >
+    <ListItem
+      dataTestId="email-value"
+      editing={false}
+      id="email"
+      key="example@example.comEmail"
+      label="Email"
+      testId={0}
+      value="example@example.com"
+    />
+    <ListItem
+      dataTestId="full-name-value"
+      editing={false}
+      id="fullname"
+      key="Mr John DoeFullname"
+      label="Fullname"
+      testId={1}
+      value="Mr John Doe"
+    />
+    <ListItem
+      dataTestId="mobile-value"
+      editing={false}
+      id="mobile"
+      key="012100000Mobile"
+      label="Mobile"
+      testId={2}
+      value="012100000"
+    />
+  </div>
+</section>
+`;
+
+exports[`<StructuredList /> should render with required props 1`] = `
+<section
+  className="structured-list"
+>
+  <div
+    className="structured-list-tbody"
+  >
+    <ListItem
+      dataTestId="email-value"
+      editing={false}
+      id="email"
+      key="example@example.comEmail"
+      label="Email"
+      testId={0}
+      value="example@example.com"
+    />
+    <ListItem
+      dataTestId="full-name-value"
+      editing={false}
+      id="fullname"
+      key="Mr John DoeFullname"
+      label="Fullname"
+      testId={1}
+      value="Mr John Doe"
+    />
+    <ListItem
+      dataTestId="mobile-value"
+      editing={false}
+      id="mobile"
+      key="012100000Mobile"
+      label="Mobile"
+      testId={2}
+      value="012100000"
+    />
+  </div>
+</section>
+`;

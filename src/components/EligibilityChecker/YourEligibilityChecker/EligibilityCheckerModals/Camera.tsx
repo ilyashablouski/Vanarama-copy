@@ -5,19 +5,13 @@ import { ICamera } from './interface';
 import { useMobileViewport } from '../../../../hooks/useMediaQuery';
 import Skeleton from '../../../Skeleton';
 
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const CameraSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/CameraSharp'),
-  {
-    loading: () => <Skeleton count={1} />,
-    ssr: false,
-  },
-);
+const Button = dynamic(() => import('core/atoms/button'), {
+  loading: () => <Skeleton count={1} />,
+});
+const CameraSharp = dynamic(() => import('core/assets/icons/CameraSharp'), {
+  loading: () => <Skeleton count={1} />,
+  ssr: false,
+});
 
 const Camera: FC<ICamera> = ({
   webcamRef,

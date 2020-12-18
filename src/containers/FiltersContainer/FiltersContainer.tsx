@@ -1,8 +1,8 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic';
-import Select from '@vanarama/uibook/lib/components/atoms/select';
-import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
-import { IChoice } from '@vanarama/uibook/lib/components/atoms/choiceboxes/interfaces';
+import Select from 'core/atoms/select';
+import Choiceboxes from 'core/atoms/choiceboxes';
+import { IChoice } from 'core/atoms/choiceboxes/interfaces';
 import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/router';
 import { isArraySame } from '../../utils/helpers';
@@ -24,66 +24,37 @@ import {
 } from './helpers';
 import Skeleton from '../../components/Skeleton';
 
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const SearchFilters = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/search-filters'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Button = dynamic(() => import('core/atoms/button'), {
+  loading: () => <Skeleton count={1} />,
+});
+const SearchFilters = dynamic(() => import('core/organisms/search-filters'), {
+  loading: () => <Skeleton count={1} />,
+});
 const SearchFiltersHead = dynamic(
-  () =>
-    import(
-      '@vanarama/uibook/lib/components/organisms/search-filters/SearchFiltersHead'
-    ),
+  () => import('core/organisms/search-filters/SearchFiltersHead'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
 const SearchFilterTags = dynamic(
-  () =>
-    import(
-      '@vanarama/uibook/lib/components/organisms/search-filters/SearchFilterTags'
-    ),
+  () => import('core/organisms/search-filters/SearchFilterTags'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-const Dropdown = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/dropdown'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const FormGroup = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/formgroup'),
-);
-const Toggle = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/toggle'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Icon = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/icon'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const OptionsIcon = dynamic(() =>
-  import('@vanarama/uibook/lib/assets/icons/Options'),
-);
-const ChevronUp = dynamic(() =>
-  import('@vanarama/uibook/lib/assets/icons/ChevronUp'),
-);
-const ChevronDown = dynamic(() =>
-  import('@vanarama/uibook/lib/assets/icons/ChevronDown'),
-);
+const Dropdown = dynamic(() => import('core/atoms/dropdown'), {
+  loading: () => <Skeleton count={1} />,
+});
+const FormGroup = dynamic(() => import('core/molecules/formgroup'));
+const Toggle = dynamic(() => import('core/atoms/toggle'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Icon = dynamic(() => import('core/atoms/icon'), {
+  loading: () => <Skeleton count={1} />,
+});
+const OptionsIcon = dynamic(() => import('core/assets/icons/Options'));
+const ChevronUp = dynamic(() => import('core/assets/icons/ChevronUp'));
+const ChevronDown = dynamic(() => import('core/assets/icons/ChevronDown'));
 
 interface IChoiceBoxesData {
   [index: string]: IChoice[];

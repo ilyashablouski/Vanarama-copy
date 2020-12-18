@@ -1,6 +1,6 @@
-import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
-import { ITextInputProps } from '@vanarama/uibook/lib/components/atoms/textinput/interfaces';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import NumericInput from 'core/atoms/numeric-input';
+import { ITextInputProps } from 'core/atoms/textinput/interfaces';
+import Formgroup from 'core/molecules/formgroup';
 import { useField } from 'formik';
 import React from 'react';
 

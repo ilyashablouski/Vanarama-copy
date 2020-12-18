@@ -25,12 +25,9 @@ import { parseOfficers } from '../../components/DirectorDetailsForm/helpers';
 import { isTruthy } from '../../utils/array';
 import Skeleton from '../../components/Skeleton';
 
-const Loading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/loading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Loading = dynamic(() => import('core/atoms/loading'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContainerProps> = ({
   directorUuid,

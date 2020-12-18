@@ -39,50 +39,28 @@ import {
   GetTrimAndColor_trimList as ITrimList,
 } from '../../../generated/GetTrimAndColor';
 
-const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'));
-const DownloadSharp = dynamic(() =>
-  import('@vanarama/uibook/lib/assets/icons/DownloadSharp'),
-);
-const Loading = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/loading'),
-);
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Rating = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/rating'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Icon = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/icon'),
-  {
-    loading: () => <Skeleton count={1} />,
-    ssr: false,
-  },
-);
-const MediaGallery = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/media-gallery'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
-const LeaseScanner = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/lease-scanner'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
+const Flame = dynamic(() => import('core/assets/icons/Flame'));
+const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
+const Loading = dynamic(() => import('core/atoms/loading'));
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Rating = dynamic(() => import('core/atoms/rating'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Icon = dynamic(() => import('core/atoms/icon'), {
+  loading: () => <Skeleton count={1} />,
+  ssr: false,
+});
+const MediaGallery = dynamic(() => import('core/organisms/media-gallery'), {
+  loading: () => <Skeleton count={3} />,
+});
+const LeaseScanner = dynamic(() => import('core/organisms/lease-scanner'), {
+  loading: () => <Skeleton count={3} />,
+});
 const IndependentReview = dynamic(() =>
   import('../../components/IndependentReview/IndependentReview'),
 );

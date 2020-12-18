@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
-import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
+import Checkbox from 'core/atoms/checkbox';
+import TextInput from 'core/atoms/textinput';
 import React, { useMemo, useEffect } from 'react';
 import { FormContext, useForm, OnSubmit } from 'react-hook-form';
 import CountryTurnoverFieldArray from './CountryTurnoverFieldArray';
@@ -8,36 +8,24 @@ import { VatDetailsFormValues } from './interfaces';
 import Skeleton from '../Skeleton';
 
 const ChevronForwardSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  () => import('core/assets/icons/ChevronForwardSharp'),
   {
     loading: () => <Skeleton count={1} />,
     ssr: false,
   },
 );
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button/'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const FormGroup = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Form = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/form'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Button = dynamic(() => import('core/atoms/button/'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const FormGroup = dynamic(() => import('core/molecules/formgroup'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Form = dynamic(() => import('core/organisms/form'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 interface IProps {
   onSubmit: OnSubmit<VatDetailsFormValues>;

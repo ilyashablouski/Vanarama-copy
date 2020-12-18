@@ -3,18 +3,12 @@ import React, { FC } from 'react';
 import { IPhotoPreview } from './interface';
 import Skeleton from '../../../Skeleton';
 
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Image = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/image'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Button = dynamic(() => import('core/atoms/button'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Image = dynamic(() => import('core/atoms/image'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 const PhotoPreview: FC<IPhotoPreview> = ({
   onClickSave,

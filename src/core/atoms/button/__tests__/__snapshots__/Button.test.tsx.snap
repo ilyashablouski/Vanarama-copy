@@ -1,0 +1,97 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Button /> renders correctly 1`] = `
+<button
+  className="button -secondary -regular -solid"
+>
+  <div
+    className="button--inner"
+  />
+</button>
+`;
+
+exports[`<Button /> renders correctly with disabled 1`] = `
+<button
+  className="button class -orange -small -solid -disabled -round"
+  disabled={true}
+  tabIndex={5}
+  type="button"
+  value="value"
+>
+  <div
+    className="button--inner"
+  >
+    Label
+  </div>
+</button>
+`;
+
+exports[`<Button /> renders correctly with optional props 1`] = `
+<button
+  className="button class -orange -small -solid -round"
+  tabIndex={5}
+  type="button"
+  value="value"
+>
+  <div
+    className="button--inner"
+  >
+    Label
+  </div>
+</button>
+`;
+
+exports[`<Button /> should render correctly with an icon before the label 1`] = `
+<button
+  className="button class -orange -small -solid -round"
+  tabIndex={5}
+  type="button"
+  value="value"
+>
+  <div
+    className="button--inner"
+  >
+    <i
+      className="icon"
+    >
+      <svg
+        height="1em"
+        viewBox="0 0 512 512"
+        width="1em"
+      >
+        <line
+          style={
+            Object {
+              "fill": "none",
+              "stroke": "var(--class-color)",
+              "strokeLinecap": "round",
+              "strokeLinejoin": "round",
+              "strokeWidth": 32,
+            }
+          }
+          x1={256}
+          x2={256}
+          y1={112}
+          y2={400}
+        />
+        <line
+          style={
+            Object {
+              "fill": "none",
+              "stroke": "var(--class-color)",
+              "strokeLinecap": "round",
+              "strokeLinejoin": "round",
+              "strokeWidth": 32,
+            }
+          }
+          x1={400}
+          x2={112}
+          y1={256}
+          y2={256}
+        />
+      </svg>
+    </i>
+    Label
+  </div>
+</button>
+`;

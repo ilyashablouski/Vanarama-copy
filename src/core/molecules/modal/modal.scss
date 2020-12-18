@@ -1,0 +1,117 @@
+/// @name config
+$modal-gap: $rem-300;
+$modal-padding: $rem-200;
+
+.callBack {
+  > div{
+    @include mobile{
+      margin-top: 2.5rem;
+    }
+  }
+}
+
+.modal {
+  margin: auto;
+  background: $white;
+  border-radius: $border-radius-small;
+  padding: $modal-padding;
+  z-index: 901;
+  max-width: $vp-large / 2.5;
+  
+  @include distribute-children($modal-padding + 1rem);
+  @include tablet-desktop { padding: $modal-padding + 1rem; }
+  
+  > .text,
+  > .heading {
+    display: block;
+  }
+  
+  > .heading:first-child + .text {
+    margin-top: $rem-300;
+  }
+  
+  &-wrap {
+    display: none;
+    flex-direction: column;
+    min-height: 100vh;
+    padding: $modal-gap;
+    position: fixed;
+    background-color: rgba($darker, $opacity-700);
+    backdrop-filter: blur(8px) contrast(0.9);
+    z-index: $z-index-modal;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    
+    &:target,
+    &.-open {
+      display: flex;
+    }
+    
+    > :not(.modal) {
+      margin-top: $modal-gap;
+      margin-bottom: $modal-gap;
+    }
+    
+    > :first-child:not(.modal) {
+      margin-top: 0;
+      height: 2rem;
+      z-index: 99999;
+    }
+    
+    > :last-child:not(.modal) {
+      margin-bottom: 0;
+    }
+
+  }
+  
+  &-close {
+    position: absolute;
+    top: $modal-gap;
+    right: $modal-gap;
+    cursor: pointer;
+    margin-left: auto;
+
+    > *{
+      color: $medium;
+      &:active, 
+      &:hover{
+        color: $white;
+
+        > .icon > svg {
+          fill: $white;
+        }
+      }
+    }
+
+    > :not(.icon) {
+      font-size: 1.125rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      line-height: 2rem;
+      text-transform: uppercase;
+    }
+
+    > * > .icon {
+      height: 2rem;
+    }
+
+    > * > .icon > svg {
+      font-size: 2rem;
+      width: 2rem;
+      height: 2rem;
+      fill: $medium;
+    }
+  }
+
+  & .form-insurance {
+    min-width: 27rem;
+    
+    @media screen and (max-width: 586px) {
+      min-width: 80vw;
+    }
+  }
+}

@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
-import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
-import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
-import Input from '@vanarama/uibook/lib/components/atoms/textinput/';
+import CheckBox from 'core/atoms/checkbox/';
+import NumericInput from 'core/atoms/numeric-input';
+import Input from 'core/atoms/textinput/';
 import { gql } from '@apollo/client';
 import React from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -16,42 +16,27 @@ import { calculateIncome } from './utils';
 import Skeleton from '../Skeleton';
 
 const ChevronForwardSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  () => import('core/assets/icons/ChevronForwardSharp'),
   {
     loading: () => <Skeleton count={1} />,
     ssr: false,
   },
 );
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button/'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Form = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/form'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const FormGroup = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Button = dynamic(() => import('core/atoms/button/'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Form = dynamic(() => import('core/organisms/form'), {
+  loading: () => <Skeleton count={1} />,
+});
+const FormGroup = dynamic(() => import('core/molecules/formgroup'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
   expenditure,

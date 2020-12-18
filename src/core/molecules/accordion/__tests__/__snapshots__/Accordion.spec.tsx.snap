@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Accordion /> should render correctly 1`] = `
+<ul
+  className="accordion"
+>
+  <AccordionItem
+    item={
+      Object {
+        "children": "Consectetur eu esse cupidatat laborum duis laborum magna elit consectetur nulla minim non dolor dolor quis",
+        "id": 1,
+        "title": "Fugiat Labore Adipisicing Nisi Ipsum",
+      }
+    }
+    key="1"
+  />
+  <AccordionItem
+    item={
+      Object {
+        "children": "Consectetur eu esse cupidatat laborum duis laborum magna elit consectetur nulla minim non dolor dolor quis",
+        "id": 2,
+        "title": "Eu Sit Occaecat Do Enim",
+      }
+    }
+    key="2"
+  />
+</ul>
+`;

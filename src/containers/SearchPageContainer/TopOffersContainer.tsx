@@ -25,18 +25,12 @@ import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from './helpers';
 import { getLegacyUrl } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
 
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Carousel = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Carousel = dynamic(() => import('core/organisms/carousel'), {
+  loading: () => <Skeleton count={5} />,
+});
 const VehicleCard = dynamic(() => import('./VehicleCard'), {
   loading: () => <Skeleton count={5} />,
 });

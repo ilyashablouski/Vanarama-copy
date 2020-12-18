@@ -1,0 +1,35 @@
+.logo {
+  display: inline-block;
+  color: var(--class-color, currentColor);
+  width: auto;
+
+  &:hover {
+    color: var(--class-color-tint);
+  }
+
+  &:active,
+  &:focus {
+    color: var(--class-color-shade);
+  }
+  
+  &:focus {
+    background: var(--class-color-focus);
+    box-shadow: $box-shadow-focus var(--class-color-focus);
+  }
+
+  &--asset {
+    width: 100%;
+
+    &-bvrla {
+      max-width: 8rem;
+
+      @media only screen and (max-width: $vp-large) {
+        max-width: 6rem;
+      }
+    }
+
+    &-vanarama {
+      margin-top: 8px;
+    }
+  }
+}

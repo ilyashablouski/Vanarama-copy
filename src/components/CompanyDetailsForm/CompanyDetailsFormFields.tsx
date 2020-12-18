@@ -1,10 +1,10 @@
 import dynamic from 'next/dynamic';
-import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
-import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
+import Checkbox from 'core/atoms/checkbox';
+import NumericInput from 'core/atoms/numeric-input';
+import TextInput from 'core/atoms/textinput';
 import React, { useMemo } from 'react';
 import { useFormContext } from 'react-hook-form';
-import Select from '@vanarama/uibook/lib/components/atoms/select';
+import Select from 'core/atoms/select';
 import AddressFormField from '../AddressFormField/AddressFormField';
 import { ICompanyDetailsFormValues, InputMode } from './interfaces';
 import { genMonths, genYears } from '../../utils/helpers';
@@ -16,25 +16,19 @@ import {
 import NatureTypeahead from './NatureTypehead';
 import Skeleton from '../Skeleton';
 
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button/'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Button = dynamic(() => import('core/atoms/button/'), {
+  loading: () => <Skeleton count={1} />,
+});
 const ChevronForwardSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
+  () => import('core/assets/icons/ChevronForwardSharp'),
   {
     loading: () => <Skeleton count={1} />,
     ssr: false,
   },
 );
-const Formgroup = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
+const Formgroup = dynamic(() => import('core/molecules/formgroup'), {
+  loading: () => <Skeleton count={5} />,
+});
 
 interface IProps {
   inputMode: InputMode;

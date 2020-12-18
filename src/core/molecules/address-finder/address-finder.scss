@@ -1,0 +1,52 @@
+.address-finder {
+  position: relative;
+
+  .tile.-scrollable {
+    border-top-width: 2px;
+    position: absolute;
+    width: 100%;
+    height: unset;
+    max-height: 30vh;
+  }
+
+  & &--dropdown {
+    padding: 0;
+  }
+
+  &--dropdown {
+    z-index: $z-index-dropdown;
+
+    &--ul {
+      > * {
+        padding: $rem-200 $rem-300;
+        border-bottom: 1px solid $light;
+        cursor: pointer;
+        font-size: $font-size-300;
+        color: $dark;
+
+        &:hover {
+          background: $lighter;
+          --bold-color: #{$black};
+        }
+      }
+
+      b {
+        font-weight: $font-weight-medium;
+        color: var(--bold-color, #{$darker});
+      }
+    }
+  }
+
+  &--description {
+    margin: $rem-400 0;
+    position: relative;
+  }
+
+  &--spacer {
+    padding: $rem-400 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, max-content);
+    place-items: baseline;
+    gap: 0.75rem;
+  }
+}

@@ -2,17 +2,14 @@
 import React, { FC, memo } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
-import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
+import { IBaseProps } from 'core/interfaces/base';
 import { IHeaderLink } from './Header';
 import Skeleton from '../Skeleton';
 
 const HeaderMenuLink = dynamic(() => import('./HeaderMenuLink'));
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Button = dynamic(() => import('core/atoms/button'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 export interface IHeaderMenuProps extends IBaseProps {
   menuLinks: IHeaderLink[];
