@@ -58,6 +58,7 @@ export interface SummaryFormSoleTrader_associates_incomeAndExpense {
   studentLoan: number | null;
   anticipateMonthlyIncomeChange: boolean;
   futureMonthlyIncome: number | null;
+  suitabilityConsent: boolean | null;
 }
 
 export interface SummaryFormSoleTrader_associates {

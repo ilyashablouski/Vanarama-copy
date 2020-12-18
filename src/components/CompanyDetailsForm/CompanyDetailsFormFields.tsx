@@ -236,6 +236,23 @@ export default function CompanyDetailsFormFields({
           })}
         />
       </Formgroup>
+      <Formgroup
+        label=""
+        error={errors?.suitabilityConsent?.message?.toString()}
+        controlId="suitabilityConsent"
+      >
+        <Checkbox
+          dataTestId="company-details_suitabilityConsent"
+          id="suitabilityConsent"
+          name="suitabilityConsent"
+          label="Given the level of finance being proposed, I am happy that I will be able to afford to make repayments without creating undue hardship now and into the future."
+          ref={register}
+        />
+        (Before answering this you should consider the consequences of changes
+        in your personal circumstances e.g. the end of a work contract,
+        retirement, redundancy and or a significant increase in mortgage
+        interest rates during the term of the agreement)
+      </Formgroup>
       <Button
         color="primary"
         dataTestId="company-details_continue"

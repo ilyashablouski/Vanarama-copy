@@ -64,7 +64,8 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Head from '../../components/Head/Head';
 import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
-import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
+import TopOffersContainer from './TopOffersContainer';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'; // Note: Dynamic import this, will break search filter bar.
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -93,15 +94,10 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
 });
+
 const TileLink = dynamic(() => import('../../components/TileLink/TileLink'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
   ssr: false,
@@ -746,40 +742,38 @@ const SearchPageContainer: React.FC<IProps> = ({
       {pageData && (
         <>
           {isModelPage && (
-            <LazyLoadComponent>
-              <div className="row:text -columns">
-                <div>
-                  <ReactMarkdown
-                    className="markdown"
-                    allowDangerousHtml
-                    source={pageData?.genericPage.body || ''}
-                    renderers={{
-                      link: props => {
-                        const { href, children } = props;
-                        return (
-                          <RouterLink
-                            link={{ href, label: children }}
-                            classNames={{ color: 'teal' }}
-                          />
-                        );
-                      },
-                      image: props => {
-                        const { src, alt } = props;
-                        return (
-                          <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
-                        );
-                      },
-                      heading: props => (
-                        <Text {...props} size="lead" color="darker" tag="h3" />
-                      ),
-                      paragraph: props => (
-                        <Text {...props} tag="p" color="darker" />
-                      ),
-                    }}
-                  />
-                </div>
+            <div className="row:text -columns">
+              <div>
+                <ReactMarkdown
+                  className="markdown"
+                  allowDangerousHtml
+                  source={pageData?.genericPage.body || ''}
+                  renderers={{
+                    link: props => {
+                      const { href, children } = props;
+                      return (
+                        <RouterLink
+                          link={{ href, label: children }}
+                          classNames={{ color: 'teal' }}
+                        />
+                      );
+                    },
+                    image: props => {
+                      const { src, alt } = props;
+                      return (
+                        <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
+                      );
+                    },
+                    heading: props => (
+                      <Text {...props} size="lead" color="darker" tag="h3" />
+                    ),
+                    paragraph: props => (
+                      <Text {...props} tag="p" color="darker" />
+                    ),
+                  }}
+                />
               </div>
-            </LazyLoadComponent>
+            </div>
           )}
         </>
       )}
@@ -882,7 +876,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         )}
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
-          <LazyLoadComponent>
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
             <FiltersContainer
               isPersonal={isPersonal}
               isMakePage={isMakePage}
@@ -1175,7 +1169,9 @@ const SearchPageContainer: React.FC<IProps> = ({
 
           {tiles && !isDynamicFilterPage && (
             <div className="row:features-4col">
-              <LazyLoadComponent>
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
                 {tiles?.tiles?.length &&
                   tiles.tiles.map((tile, indx) => (
                     <Tile
@@ -1208,7 +1204,9 @@ const SearchPageContainer: React.FC<IProps> = ({
                 <Heading size="large" color="black" tag="h3">
                   {carousel.title}
                 </Heading>
-                <LazyLoadComponent>
+                <LazyLoadComponent
+                  visibleByDefault={typeof window === 'undefined'}
+                >
                   <Carousel
                     countItems={carousel?.cards?.length || 0}
                     className="-col3"
@@ -1294,9 +1292,19 @@ const SearchPageContainer: React.FC<IProps> = ({
       )}
 
       <div className="row:text">
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Text color="darker" size="regular" tag="span">
-            Photos and videos are for illustration purposes only.
+            Photos and videos are for illustration purposes only.*{' '}
+            <RouterLink
+              link={{
+                href: '/legal/terms-and-conditions.html',
+                label: 'Terms and conditions apply',
+              }}
+              classNames={{ color: 'teal' }}
+            >
+              Terms and conditions apply
+            </RouterLink>
+            .
           </Text>
         </LazyLoadComponent>
       </div>

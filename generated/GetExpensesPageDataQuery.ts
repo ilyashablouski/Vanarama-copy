@@ -24,6 +24,7 @@ export interface GetExpensesPageDataQuery_personByUuid_incomeAndExpense {
   fuel: number | null;
   studentLoan: number | null;
   otherCredit: number | null;
+  suitabilityConsent: boolean | null;
 }
 
 export interface GetExpensesPageDataQuery_personByUuid {

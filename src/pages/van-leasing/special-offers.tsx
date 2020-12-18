@@ -570,7 +570,17 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
       </div>
       <div className="row:text">
         <Text size="regular" color="dark">
-          Photos and videos are for illustration purposes only.
+          Photos and videos are for illustration purposes only.*{' '}
+          <RouterLink
+            link={{
+              href: '/legal/terms-and-conditions.html',
+              label: 'Terms and conditions apply',
+            }}
+            classNames={{ color: 'teal' }}
+          >
+            Terms and conditions apply
+          </RouterLink>
+          .
         </Text>
       </div>
       {data?.vanOffersPage.metaData && (
@@ -588,7 +598,7 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const client = createApolloClient({});
 
   try {

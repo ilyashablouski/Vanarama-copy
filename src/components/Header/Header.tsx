@@ -4,6 +4,7 @@ import React, { FC, memo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+
 import cx from 'classnames';
 import localForage from 'localforage';
 import { IBaseProps } from 'core/interfaces/base';
@@ -117,9 +118,21 @@ export const Header: FC<IHeaderProps> = memo(props => {
     setOpenMenu(false);
   }, [router]);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add('-lock');
+    } else {
+      document.body.classList.remove('-lock');
+    }
+  }, [isMenuOpen]);
+
   return (
     <header
-      style={{ position: useMobileViewport() ? 'fixed' : 'relative' }}
+      style={
+        useMobileViewport()
+          ? { position: 'fixed', top: 0 }
+          : { position: 'relative' }
+      }
       className={cx('header', className)}
       data-testid="header"
     >
@@ -132,9 +145,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
           classNames={{ color: 'orange', plain: true }}
         >
           {' '}
-          <LazyLoadComponent>
-            <Logo asset="vanarama" />{' '}
-          </LazyLoadComponent>
+          <Logo asset="vanarama" />{' '}
         </RouterLink>{' '}
         {!useMobileViewport() && (
           <label className="header-search" htmlFor="search">
@@ -155,7 +166,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
           {' '}
           <Icon icon={<Call />} size="xsmall" /> <span>01442 838195</span>{' '}
         </RouterLink>{' '}
-        <LazyLoadComponent>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <div className="header-account">
             {' '}
             {person ? (
@@ -295,11 +306,15 @@ export const Header: FC<IHeaderProps> = memo(props => {
         <HeaderMenu
           menuLinks={topBarLinks}
           open={isMenuOpen}
-          onClickMenu={() => setOpenMenu(false)}
+          onClickMenu={() => {
+            setOpenMenu(false);
+          }}
         />{' '}
         <Button
           className={cx('header-navtoggle', { '-open': isMenuOpen })}
-          onClick={() => setOpenMenu(!isMenuOpen)}
+          onClick={() => {
+            setOpenMenu(!isMenuOpen);
+          }}
           withoutDefaultClass
           label={
             <>

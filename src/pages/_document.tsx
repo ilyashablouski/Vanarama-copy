@@ -28,20 +28,25 @@ const GTMDataLayerScript = dynamic(() =>
 const env = process?.env?.ENV || '';
 
 // GTM environments.
-const gtmEnvs = ['uat'];
+const gtmEnvs = ['uat', 'pre-prod', 'prod'];
+
+// BlueConic environments.
+const bcEnvs = ['uat', 'pre-prod', 'prod'];
 
 // VWO environments.
-// const vwoEnvs = ['uat'];
+// const vwoEnvs = ['uat', 'pre-prod', 'prod'];
 
 class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
         <HeadCustom>
-          <script src="https://cdn.blueconic.net/vanarama.js" />
-          {/* <RollbarScript /> */}
+          {bcEnvs.includes(env) && (
+            <script defer src="https://cdn.blueconic.net/vanarama.js" />
+          )}
           {gtmEnvs.includes(env) && <GTMDataLayerScript />}
           {gtmEnvs.includes(env) && <GTMScript />}
+          {/* <RollbarScript /> */}
         </HeadCustom>
         <body>
           <Main />

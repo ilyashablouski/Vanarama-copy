@@ -48,6 +48,7 @@ export interface CreateUpdatePersonMutation_createUpdatePerson {
   smsConsent: boolean | null;
   termsAndConditions: boolean | null;
   companies: CreateUpdatePersonMutation_createUpdatePerson_companies[] | null;
+  privacyPolicy: boolean | null;
 }
 
 export interface CreateUpdatePersonMutation {

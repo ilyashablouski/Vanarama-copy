@@ -125,6 +125,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
           emailConsent: values.marketing,
           smsConsent: values.marketing,
           termsAndConditions: values.termsAndConditions,
+          privacyPolicy: values.privacyPolicy,
         },
       },
     });

@@ -11,6 +11,7 @@ export interface IBusinessAboutFormValues {
   consent: boolean;
   marketing: boolean;
   termsAndConditions: boolean;
+  privacyPolicy: boolean;
 }
 
 export interface IProps {

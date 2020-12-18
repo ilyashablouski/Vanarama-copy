@@ -21,4 +21,5 @@ export const formValuesToInput = (
   fuel: Number(values.fuel),
   studentLoan: Number(values.studentLoans),
   otherCredit: Number(values.otherCredit),
+  suitabilityConsent: !!values.suitabilityConsent,
 });

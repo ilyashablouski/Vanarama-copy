@@ -93,6 +93,7 @@ export interface SoleTraderDetailsFormDataQuery_companyByUuid_associates_incomeA
   studentLoan: number | null;
   anticipateMonthlyIncomeChange: boolean;
   futureMonthlyIncome: number | null;
+  suitabilityConsent: boolean | null;
 }
 
 export interface SoleTraderDetailsFormDataQuery_companyByUuid_associates {

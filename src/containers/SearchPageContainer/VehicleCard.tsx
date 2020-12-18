@@ -33,6 +33,7 @@ export interface IProductPageUrl {
 }
 
 interface IVehicleCardProps {
+  loadImage?: boolean;
   title: ICardTitleProps;
   isPersonalPrice: boolean;
   data: ICard;
@@ -44,6 +45,7 @@ interface IVehicleCardProps {
 
 const VehicleCard = React.memo(
   ({
+    loadImage,
     url,
     derivativeId,
     title,
@@ -64,6 +66,7 @@ const VehicleCard = React.memo(
 
     return (
       <Card
+        loadImage={loadImage}
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         {...imageProps}
         header={{

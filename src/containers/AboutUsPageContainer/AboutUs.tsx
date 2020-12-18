@@ -160,6 +160,7 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, error, data }) => {
         <div className="row:featured-image">
           {featuredImage?.file?.url && (
             <Image
+              loadImage
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={featuredImage.file.url}
               alt="Featured image"

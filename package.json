@@ -10,11 +10,12 @@
   "homepage": "https://github.com/Autorama/next-storefront",
   "license": "UNLICENCED",
   "scripts": {
+    "analyze-build": "NODE_OPTIONS=--max-old-space-size=8192 ANALYZE=true yarn build",
     "apollo:generate": "rimraf generated && apollo client:codegen generated --target=typescript --outputFlat --no-addTypename",
     "build": "next build",
     "dev": "NODE_ENV=development node express.js",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
-    "start": "NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 node express.js",
+    "start": "NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 node express-cluster.js",
     "test:coverage": "jest --coverage",
     "test:watch": "jest --watch",
     "test": "jest",

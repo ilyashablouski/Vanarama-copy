@@ -279,6 +279,7 @@ export interface IncomeAndExpenseInputObject {
   partyId?: string | null;
   phoneAndInternet?: number | null;
   studentLoan?: number | null;
+  suitabilityConsent?: boolean | null;
   utilities?: number | null;
   withStudentLoan?: boolean | null;
 }
@@ -372,6 +373,7 @@ export interface PersonInputObject {
   noOfAdultsInHousehold?: string | null;
   noOfDependants?: string | null;
   pictureUrl?: string | null;
+  privacyPolicy?: boolean | null;
   profilingConsent?: boolean | null;
   role?: RoleInputObject | null;
   smsConsent?: boolean | null;

@@ -5,6 +5,7 @@ import { AppProps } from 'next/app';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { SEARCH_PAGES } from '../utils/url';
 import {
   PAGES_WITH_COMPARATOR,
@@ -27,6 +28,7 @@ import { pushPageData } from '../utils/dataLayerHelpers';
 import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
+import { useMobileViewport } from '../hooks/useMediaQuery';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -55,16 +57,16 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   >(false);
   // const [existComparator, setExistComparator] = useState(false);
 
-  // useEffect(() => {
-  //   // Anytime router.push is called, scroll to the top of the page.
-  //   // it should be prevent for cases when we make a url replace in search pages after filters changing
-  //   Router.events.on('routeChangeComplete', (url: string) => {
-  //     const isSearchPage = !!SEARCH_PAGES.find(element =>
-  //       url.includes(element),
-  //     );
-  //     if (!isSearchPage) window.scrollTo(0, 0);
-  //   });
-  // }, []);
+  useEffect(() => {
+    // Anytime router.push is called, scroll to the top of the page.
+    // it should be prevent for cases when we make a url replace in search pages after filters changing
+    Router.events.on('routeChangeComplete', (url: string) => {
+      const isSearchPage = !!SEARCH_PAGES.find(element =>
+        url.includes(element),
+      );
+      if (!isSearchPage) window.scrollTo(0, 0);
+    });
+  }, []);
 
   // useEffect(() => {
   //   pushPageData({ pathname: router.pathname });
@@ -128,8 +130,10 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   return (
     <>
-      <ToastContainer />
-      <main className={cx(resolveMainClass())}>
+      <main
+        className={cx(resolveMainClass())}
+        style={{ paddingTop: useMobileViewport() ? '46px' : '0' }}
+      >
         <HeaderContainer />
         <CompareContext.Provider
           value={{
@@ -166,8 +170,13 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
             />
           </Modal>
         )}
-        <FooterContainer />
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <FooterContainer />
+        </LazyLoadComponent>
       </main>
+      <LazyLoadComponent>
+        <ToastContainer />
+      </LazyLoadComponent>
     </>
   );
 };

@@ -94,55 +94,45 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
           >
             Sole Trader Details
           </Heading>
-
           <FormikSelectField name="title" label="Title">
             <OptionsWithFavourites options={dropdownData.titles} />
           </FormikSelectField>
-
           <FormikTextField
             name="firstName"
             label="First Name"
             dataTestId="first-name"
           />
-
           <FormikTextField
             name="lastName"
             label="Last Name"
             dataTestId="last-name"
           />
-
           <FormikSelectField name="gender" label="Gender">
             <option value="Male">Male</option>
             <option value="Female">Female</option>
             <option value="Prefer Not To Say">Prefer Not To Say</option>
           </FormikSelectField>
-
           <FormikDateField
             label="Date Of Birth"
             fieldNames={['dayOfBirth', 'monthOfBirth', 'yearOfBirth']}
           />
-
           <FormikTextField
             name="placeOfBirth"
             label="Place Of Birth"
             dataTestId="place-of-birth"
           />
-
           <FormikSelectField name="maritalStatus" label="Marital Status">
             <OptionsWithFavourites options={dropdownData.maritalStatuses} />
           </FormikSelectField>
-
           <FormikSelectField name="nationality" label="Nationality">
             <OptionsWithFavourites options={dropdownData.nationalities} />
           </FormikSelectField>
-
           <FormikTextField
             name="email"
             label="Email"
             dataTestId="email-addr"
             disabled
           />
-
           <FormikSelectField
             name="adultsInHousehold"
             label="Adults Living in Household"
@@ -151,11 +141,9 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
               options={dropdownData.noOfAdultsInHousehold}
             />
           </FormikSelectField>
-
           <FormikSelectField name="dependants" label="Number of Dependants">
             <OptionsWithFavourites options={dropdownData.noOfDependants} />
           </FormikSelectField>
-
           <hr className="mv-400" />
           <Heading color="dark" size="small">
             Address History
@@ -174,13 +162,10 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
               />
             )}
           </FieldArray>
-
           <FormikSelectField name="occupation" label="Occupation">
             <OptionsWithFavourites options={dropdownData.occupations} />
           </FormikSelectField>
-
           <AnnualIncomeField />
-
           <FormikNumericField
             name="avgMonthlyIncome"
             label="Average Monthly Income"
@@ -188,21 +173,18 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             prefix="£"
             disabled
           />
-
           <FormikNumericField
             name="monthlyMortgagePayments"
             label="Monthly Mortgage Payments"
             dataTestId="monthly-Mortgage-payments"
             prefix="£"
           />
-
           <FormikNumericField
             name="monthlyStudentPayments"
             label="Monthly Student Payments"
             dataTestId="monthly-student-payments"
             prefix="£"
           />
-
           <FormikCheckBoxField
             label="Do you expect your monthly income to decrease?"
             id="monthlyIncomeChange"
@@ -211,7 +193,6 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             dataTestId="income-change"
             isChecked={formikProps.values.monthlyIncomeChange}
           />
-
           {formikProps.values.monthlyIncomeChange && (
             <FormikNumericField
               name="futureMonthlyIncome"
@@ -220,7 +201,18 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
               prefix="£"
             />
           )}
-
+          <FormikCheckBoxField
+            label=""
+            id="suitabilityConsent"
+            name="suitabilityConsent"
+            checkboxLabel="Given the level of finance being proposed, I am happy that I will be able to afford to make repayments without creating undue hardship now and into the future."
+            dataTestId="suitabilityConsent"
+            isChecked={formikProps.values.suitabilityConsent}
+          />
+          (Before answering this you should consider the consequences of changes
+          in your personal circumstances e.g. the end of a work contract,
+          retirement, redundancy and or a significant increase in mortgage
+          interest rates during the term of the agreement)
           <Button
             color="primary"
             dataTestId="sole-trader-details"
@@ -322,6 +314,7 @@ SoleTraderDetailsForm.fragments = {
           studentLoan
           anticipateMonthlyIncomeChange
           futureMonthlyIncome
+          suitabilityConsent
         }
         uuid
       }

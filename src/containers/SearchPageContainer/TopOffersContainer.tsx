@@ -24,17 +24,13 @@ import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/b
 import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from './helpers';
 import { getLegacyUrl } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
+import VehicleCard from './VehicleCard';
+import ModelCard from './ModelCard';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
 const Carousel = dynamic(() => import('core/organisms/carousel'), {
-  loading: () => <Skeleton count={5} />,
-});
-const VehicleCard = dynamic(() => import('./VehicleCard'), {
-  loading: () => <Skeleton count={5} />,
-});
-const ModelCard = dynamic(() => import('./ModelCard'), {
   loading: () => <Skeleton count={5} />,
 });
 
@@ -293,6 +289,7 @@ const TopOffersContainer: React.FC<IProps> = ({
             {isRangePage || isDynamicFilterPage ? (
               vehiclesList.map((vehicle: IVehicles) => (
                 <VehicleCard
+                  loadImage
                   derivativeId={vehicle.node?.derivativeId}
                   url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
                   key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
@@ -316,6 +313,7 @@ const TopOffersContainer: React.FC<IProps> = ({
               >
                 {vehiclesList.map((vehicle: IVehicles) => (
                   <VehicleCard
+                    loadImage
                     derivativeId={vehicle.node?.derivativeId}
                     url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
                     key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
@@ -342,7 +340,11 @@ const TopOffersContainer: React.FC<IProps> = ({
           <div className="row:bg-lighter">
             <div className="row:cards-2col">
               {bodyStyleList.map(bodyStyle => (
-                <ModelCard data={bodyStyle} isPersonalPrice={isPersonal} />
+                <ModelCard
+                  loadImage
+                  data={bodyStyle}
+                  isPersonalPrice={isPersonal}
+                />
               ))}
             </div>
           </div>

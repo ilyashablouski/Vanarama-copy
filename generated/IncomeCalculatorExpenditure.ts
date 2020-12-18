@@ -24,4 +24,5 @@ export interface IncomeCalculatorExpenditure {
   fuel: number | null;
   studentLoan: number | null;
   otherCredit: number | null;
+  suitabilityConsent: boolean | null;
 }

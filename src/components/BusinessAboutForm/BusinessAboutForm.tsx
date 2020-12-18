@@ -265,6 +265,25 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
           ]}
         />
       </Formgroup>
+      <Formgroup label="" error={errors?.privacyPolicy?.message?.toString()}>
+        <Checkbox
+          id="privacyPolicy"
+          dataTestId="aboutPrivacyPolicy"
+          name="privacyPolicy"
+          label={[
+            'I have read and understood the ',
+            <a
+              key="a"
+              className="link -teal"
+              href="/legal/privacy-policy.html"
+              target="_blank"
+            >
+              Privacy Policy
+            </a>,
+          ]}
+          ref={register}
+        />
+      </Formgroup>
       <Button
         className="-mt-400"
         color="teal"

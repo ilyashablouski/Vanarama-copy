@@ -307,6 +307,25 @@ const AboutForm: FCWithFragments<IProps> = ({
           ref={register}
         />
       </FormGroup>
+      <FormGroup label="" error={errors?.privacyPolicy?.message?.toString()}>
+        <CheckBox
+          id="privacyPolicy"
+          dataTestId="aboutPrivacyPolicy"
+          name="privacyPolicy"
+          label={[
+            'I have read and understood the ',
+            <a
+              key="a"
+              className="link -teal"
+              href="/legal/privacy-policy.html"
+              target="_blank"
+            >
+              Privacy Policy
+            </a>,
+          ]}
+          ref={register}
+        />
+      </FormGroup>
       <Button
         type="submit"
         label={formState.isSubmitting ? 'Saving...' : 'Continue'}
@@ -388,6 +407,7 @@ AboutForm.fragments = {
       companies {
         companyType
       }
+      privacyPolicy
     }
   `,
 };

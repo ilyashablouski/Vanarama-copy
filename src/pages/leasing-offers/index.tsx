@@ -30,7 +30,8 @@ const Button = dynamic(() => import('core/atoms/button/'), {
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={1} />,
 });
-const Flame = dynamic(() => import('core/assets/icons/Flame'), {
+
+const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
 });
 const ArrowForwardSharp = dynamic(
@@ -158,47 +159,62 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
       <div className="row:plain-hero">
         <div className="-col-100">
           <Heading color="black" size="xlarge" tag="h1">
-            <Flame /> {metaData?.name}
+            <Icon name="Flame" color="orange" /> {metaData?.name}
           </Heading>
           <Text size="large" color="darker">
             {genericPageCMS?.genericPage.intro}
           </Text>
-          <div className="-flex-row -mt-500 btn">
+          <div className="hero-buttons -mt-500">
             <Button
               size="large"
               fill="solid"
-              color="teal"
-              label="Vans"
+              color="orange"
+              label={
+                <>
+                  <Icon name="Flame" color="white" /> Vans
+                </>
+              }
               icon={<ArrowForwardSharp />}
               iconColor="white"
               iconPosition="after"
               onClick={() => {
                 window.scrollTo(0, vanRef!.current!.offsetTop);
               }}
+              className="-d-block"
             />
             <Button
               size="large"
               fill="solid"
-              color="teal"
-              label="Trucks"
+              color="orange"
+              label={
+                <>
+                  <Icon name="Flame" color="white" /> Trucks
+                </>
+              }
               icon={<ArrowForwardSharp />}
               iconColor="white"
               iconPosition="after"
               onClick={() => {
                 window.scrollTo(0, truckRef!.current!.offsetTop);
               }}
+              className="-d-block"
             />
             <Button
               size="large"
               fill="solid"
-              color="teal"
-              label="Cars"
+              color="orange"
+              label={
+                <>
+                  <Icon name="Flame" color="white" /> Cars
+                </>
+              }
               icon={<ArrowForwardSharp />}
               iconColor="white"
               iconPosition="after"
               onClick={() => {
                 window.scrollTo(0, carRef!.current!.offsetTop);
               }}
+              className="-d-block"
             />
           </div>
         </div>
@@ -350,7 +366,7 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getStaticProps(context: NextPageContext) {
   const client = createApolloClient({});
   const path = context.req?.url || '';
 

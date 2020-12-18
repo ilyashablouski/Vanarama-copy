@@ -15,13 +15,13 @@ import Skeleton from '../Skeleton';
 const Details = dynamic(() => import('core/atoms/details'), {
   loading: () => <Skeleton count={1} />,
 });
-const Link = dynamic(() => import('core/atoms/link'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
 const Button = dynamic(() => import('core/atoms/button/'), {
+  loading: () => <Skeleton count={1} />,
+});
+const RouterLink = dynamic(() => import('../RouterLink/RouterLink'), {
   loading: () => <Skeleton count={1} />,
 });
 const ChevronForwardSharp = dynamic(
@@ -148,21 +148,21 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
 
       <Text tag="p" color="darker" size="xsmall">
         By creating your account, you agree to our{' '}
-        <Link
+        <RouterLink
           dataTestId="terms_and_conditions"
-          href="https://www.motorama.com/terms-conditions"
-          size="xsmall"
+          link={{ href: '/legal/terms-and-conditions.html', label: '' }}
+          classNames={{ size: 'xsmall', color: 'teal' }}
         >
           Terms and Conditions
-        </Link>{' '}
+        </RouterLink>{' '}
         and{' '}
-        <Link
+        <RouterLink
           dataTestId="privacy_policy"
-          href="https://www.motorama.com/cookie-privacy-policy"
-          size="xsmall"
+          link={{ href: '/legal/privacy-policy.html', label: '' }}
+          classNames={{ size: 'xsmall', color: 'teal' }}
         >
           Privacy Policy
-        </Link>
+        </RouterLink>
         .
       </Text>
       <Button

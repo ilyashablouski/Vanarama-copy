@@ -19,6 +19,7 @@ export interface ICompanyDetailsFormValues {
   tradingDifferent: boolean;
   telephone: string;
   email: string;
+  suitabilityConsent?: boolean;
 }
 
 export type InputMode = 'search' | 'manual';
