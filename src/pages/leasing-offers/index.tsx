@@ -383,7 +383,7 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getStaticProps(context: NextPageContext) {
   const client = createApolloClient({});
   const path = context.req?.url || '';
 
