@@ -1,6 +1,8 @@
 import dynamic from 'next/dynamic';
 import RouterLink from '../RouterLink/RouterLink';
 import Skeleton from '../Skeleton';
+import { ProductCardData_productCarousel_keyInformation as IKeyInfo } from '../../../generated/ProductCardData';
+import { features } from '../ProductCarousel/helpers';
 
 const Card = dynamic(
   () => import('@vanarama/uibook/lib/components/molecules/cards'),
@@ -8,6 +10,21 @@ const Card = dynamic(
     loading: () => <Skeleton count={3} />,
   },
 );
+
+const CardIcons = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards/CardIcons'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+
 const Icon = dynamic(
   () => import('@vanarama/uibook/lib/components/atoms/icon'),
   {
@@ -41,6 +58,12 @@ const Price = dynamic(
 const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'), {
   ssr: false,
 });
+const CarSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/CarSharp'),
+  {
+    ssr: false,
+  },
+);
 const ArrowForwardSharp = dynamic(
   () => import('@vanarama/uibook/lib/assets/icons/ArrowForwardSharp'),
   {
@@ -56,6 +79,8 @@ interface IDealOfMonthProps {
   imageSrc: string;
   flagText?: string;
   isPersonal: boolean;
+  keyInfo: (IKeyInfo | null)[];
+  capId: string;
   viewOfferClick: () => void;
   link: {
     href: string;
@@ -67,6 +92,8 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
   vehicle,
   specification,
   rating,
+  keyInfo,
+  capId,
   price,
   viewOfferClick,
   imageSrc,
@@ -92,7 +119,11 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
         {specification}
       </Text>
       {rating && <Rating score={rating} color="orange" />}
-      <br />
+    </div>
+    {!!keyInfo?.length && (
+      <CardIcons icons={features(keyInfo || [], capId || '', Icon)} />
+    )}
+    <div className="flex-h">
       <Price size="xlarge" price={price} />
       <Text tag="p" size="small" color="dark">
         {isPersonal ? 'Per Month Inc VAT' : 'Per Month Excluding VAT'}
@@ -113,6 +144,9 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
           <Icon color="white" icon={<ArrowForwardSharp />} />
         </div>
       </RouterLink>
+    </div>
+    <div className="card-footer">
+      <Button label="Compare" icon={<CarSharp />} />
     </div>
   </>
 );
