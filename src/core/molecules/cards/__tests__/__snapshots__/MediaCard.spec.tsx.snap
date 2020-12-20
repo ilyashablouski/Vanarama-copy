@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<MediaCard /> Media Card should render correctly 1`] = `
+<Memo()
+  media={
+    Object {
+      "className": "media-player",
+      "height": "100%",
+      "responsive": true,
+      "src": "https://player.vimeo.com/video/263419265",
+      "width": "100%",
+    }
+  }
+  title={
+    Object {
+      "title": "Media Card",
+    }
+  }
+>
+  <Memo(Media)
+    className="card-image media-player"
+    dataTestId="card-media"
+    height="100%"
+    responsive={true}
+    src="https://player.vimeo.com/video/263419265"
+    width="100%"
+  />
+</Memo()>
+`;

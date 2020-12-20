@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import SchemaJSON from 'core/atoms/schema-json';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import TilesContainer from '../TilesContainer/TilesContainer';
@@ -10,18 +10,12 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
 const Breadcrumb = dynamic(
   () => import('../../components/Breadcrumb/Breadcrumb'),
   {

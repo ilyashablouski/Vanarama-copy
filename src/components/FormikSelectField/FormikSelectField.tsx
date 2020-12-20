@@ -1,6 +1,6 @@
-import Select from '@vanarama/uibook/lib/components/atoms/select';
-import { ISelectProps } from '@vanarama/uibook/lib/components/atoms/select/interfaces';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import Select from 'core/atoms/select';
+import { ISelectProps } from 'core/atoms/select/interfaces';
+import Formgroup from 'core/molecules/formgroup';
 import { useField } from 'formik';
 import React from 'react';
 

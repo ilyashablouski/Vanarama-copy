@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Details /> renders correctly 1`] = `
+<details
+  className="details"
+>
+  <summary
+    className="details--summary"
+  />
+  <div
+    className="details--content"
+  >
+    <span
+      className="text -regular -darker"
+    >
+      Text text text text text text text text.
+    </span>
+  </div>
+</details>
+`;
+
+exports[`<Details /> renders correctly with optional props 1`] = `
+<details
+  className="details"
+  open={false}
+>
+  <summary
+    className="details--summary"
+  >
+    Summary
+  </summary>
+  <div
+    className="details--content"
+  >
+    <span
+      className="text -regular -darker"
+    >
+      Text text text text text text text text.
+    </span>
+  </div>
+</details>
+`;

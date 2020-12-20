@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Form /> should render correctly 1`] = `
+<form
+  className="form"
+>
+  <p>
+    Hello World!
+  </p>
+</form>
+`;
+
+exports[`<Form /> should render correctly in the invalid state 1`] = `
+<form
+  className="form -invalid"
+>
+  <p>
+    Hello World!
+  </p>
+</form>
+`;

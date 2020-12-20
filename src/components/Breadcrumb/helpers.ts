@@ -1,4 +1,4 @@
-import { ILink } from '@vanarama/uibook/lib/interfaces/link';
+import { ILink } from 'core/interfaces/link';
 import { NextRouter } from 'next/router';
 
 export interface IBreadcrumbLink {

@@ -1,5 +1,5 @@
-import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
-import { IList } from '@vanarama/uibook/lib/components/organisms/structured-list/interfaces';
+import StructuredList from 'core/organisms/structured-list';
+import { IList } from 'core/organisms/structured-list/interfaces';
 import { gql } from '@apollo/client';
 import moment from 'moment';
 import React, { useMemo } from 'react';

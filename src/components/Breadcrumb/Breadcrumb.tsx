@@ -6,32 +6,23 @@ import { useMobileViewport } from '../../hooks/useMediaQuery';
 
 import Skeleton from '../Skeleton';
 
-const ChevronBack = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/ChevronBack'),
-  {
-    loading: () => <Skeleton count={1} />,
-    ssr: false,
-  },
-);
+const ChevronBack = dynamic(() => import('core/assets/icons/ChevronBack'), {
+  loading: () => <Skeleton count={1} />,
+  ssr: false,
+});
 const ChevronForward = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/ChevronForward'),
+  () => import('core/assets/icons/ChevronForward'),
   {
     loading: () => <Skeleton count={1} />,
     ssr: false,
   },
 );
-const Icon = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/icon/'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Icon = dynamic(() => import('core/atoms/icon/'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 interface IBreadcrumbProps {
   items?: IBreadcrumbLink[] | null;

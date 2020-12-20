@@ -1,0 +1,76 @@
+.fancy-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--toggle-color);
+  --toggle-color: #{$teal};
+  --toggle-color-tint: #{lighten($teal, $tint)};
+  --toggle-gap: 16px;
+  --toggle-width: 64px;
+  --toggle-height: 32px;
+
+  & > * + * {
+    margin-left: var(--toggle-gap);
+  }
+
+  &--label {
+    line-height: 1em;
+    font-weight: 500;
+    opacity: 0.5;
+  }
+
+  &--toggle {
+    margin-top: 0;
+    margin-bottom: 0;
+    background: unset;
+    border: unset;
+    appearance: none;
+    height: var(--toggle-height);
+    width: var(--toggle-width);
+    border-radius: 99999px;
+    background: var(--toggle-color);
+    position: relative;
+  }
+
+  &--checkmark {
+    transition: left 100ms ease-in-out;
+    position: absolute;
+    top: -4px;
+    bottom: -4px;
+    border-radius: 99999px;
+    background: $white;
+    height: calc(var(--toggle-height) + 8px);
+    width: calc(var(--toggle-height) + 8px);
+    box-shadow: inset 0 0 0 3px var(--toggle-color-tint);
+    filter: drop-shadow(1px 1px 3px rgba(0, 0, 0, 0.25));
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    &:after {
+      content: '';
+      display: block;
+      height: calc(var(--toggle-height) * 0.5);
+      width: calc(var(--toggle-height) * 0.25);
+      border-right: 3px solid var(--toggle-color-tint);
+      border-bottom: 3px solid var(--toggle-color-tint);
+      transform: rotate(45deg) translate(-10%, -10%);
+    }
+  }
+
+  &.personal > &--label:first-child {
+    opacity: 1;
+  }
+
+  &.personal > * > &--checkmark {
+    left: -4px;
+  }
+
+  &.business > &--label:last-child {
+    opacity: 1;
+  }
+
+  &.business > * > &--checkmark {
+    left: calc(var(--toggle-width) - var(--toggle-height));
+  }
+}

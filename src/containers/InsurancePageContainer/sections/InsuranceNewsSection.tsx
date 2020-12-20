@@ -8,24 +8,15 @@ import {
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import Skeleton from '../../../components/Skeleton';
 
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Card = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/cards'),
-  {
-    loading: () => <Skeleton count={4} />,
-  },
-);
-const Carousel = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Card = dynamic(() => import('core/molecules/cards'), {
+  loading: () => <Skeleton count={4} />,
+});
+const Carousel = dynamic(() => import('core/organisms/carousel'), {
+  loading: () => <Skeleton count={3} />,
+});
 
 const renderCarouselCards = (cards: (ICard | null)[]) =>
   cards.map(card =>

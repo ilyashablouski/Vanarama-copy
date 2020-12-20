@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
-import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox';
+import TextInput from 'core/atoms/textinput';
+import CheckBox from 'core/atoms/checkbox';
 import { useForm } from 'react-hook-form';
 import {
   postcodeValidator,
@@ -13,30 +13,17 @@ import {
 import { IGoldrushFormProps, IGoldrushFromValues } from './interfaces';
 import Skeleton from '../Skeleton';
 
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const FormGroup = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/formgroup'),
-);
-const Form = dynamic(() =>
-  import('@vanarama/uibook/lib/components/organisms/form'),
-);
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Button = dynamic(() => import('core/atoms/button'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+const FormGroup = dynamic(() => import('core/molecules/formgroup'));
+const Form = dynamic(() => import('core/organisms/form'));
 
 const GoldrushForm: React.FC<IGoldrushFormProps> = ({
   onSubmit,

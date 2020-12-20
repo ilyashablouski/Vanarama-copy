@@ -1,0 +1,160 @@
+$slideout-header-height: 50px;
+$slideout-footer-height: 64px;
+$slideout-close-size: $slideout-header-height;
+
+.slideout-modal {
+    
+  display: grid;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  grid-template-columns: $slideout-close-size auto;
+  background-color: rgba($darker, $opacity-600);
+  backdrop-filter: blur(8px) contrast(0.9);
+  z-index: $z-index-modal;
+
+  * {
+    min-width: 0;
+  }
+
+  &--close {
+    place-self: start center;
+    cursor: pointer;
+
+    > * {
+      height: $slideout-close-size;
+      width: $slideout-close-size;
+      line-height: $slideout-close-size;
+      font-size: $slideout-close-size;
+      color: $white;
+    }
+  }
+
+  &--trigger {
+    max-width: unset;
+    width: 100%;
+
+    > * {
+      // display: grid;
+      // justify-content: start;
+    }
+
+    > div > i {
+      position: absolute;
+      line-height: 2.75rem;
+      right: calc(50% + 2.5rem);
+    }
+  }
+
+  &--nav {
+    display: grid;
+    grid-auto-flow: row;
+
+    &-item {
+      display: grid;
+      grid-auto-flow: row;
+      gap: .5ch;
+      background: $white;
+      padding: $rem-300;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+
+      &:focus,
+      &:active {
+        background: $lighter;
+      }
+
+      &-label {
+        color: $black;
+        font-size: $font-size-400;
+      }
+
+      &-selected {
+        color: $dark;
+        font-size: $font-size-300;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      &:not(:last-of-type) {
+        border-bottom: 1px solid $light;
+      }
+    }
+  }
+
+  &--tile {
+    background: $light;
+    padding: calc(#{$slideout-header-height} + #{$rem-300}) 0 calc(#{$slideout-footer-height} + #{$rem-300}) 0;
+    display: block;
+    max-height: 100vh;
+
+    &-header {
+      display: flex;
+      justify-content: space-between;
+      top: 0;
+      right: 0;
+      left: $slideout-close-size;
+      position: fixed;
+      background: $white;
+      padding: $rem-300;
+      height: $slideout-header-height;
+      box-shadow: 0 2px 0 0 $border-color;
+    }
+
+    &-footer {
+      bottom: 0;
+      right: 0;
+      left: $slideout-close-size;
+      position: fixed;
+      background: $white;
+      padding: $rem-300;
+      height: $slideout-footer-height;
+      box-shadow: 0 -1px 0 0 $border-color;
+
+      &-button {
+        max-width: 100%;
+        width: 100%;
+      }
+    }
+
+    &-content {
+      display: grid;
+      grid-auto-flow: row;
+      gap: $rem-300;
+      max-height: calc(100vh - #{$slideout-header-height + $slideout-footer-height} - #{$rem-300 + $rem-300});
+      overflow-y: scroll;
+
+      .checkbox--wrapper {
+        background: $white;
+        padding: $rem-100 $rem-200;
+
+        &:not(:last-of-type) {
+          border-bottom: 1px solid $border-color;
+        }
+      }
+
+      .formgroup {
+        padding: 0 $rem-300;
+
+        + .formgroup {
+          margin-top: $rem-300;
+        }
+
+        .select,
+        .select--native {
+          min-width: unset;
+          width: 100%;
+          max-width: unset;
+        }
+      }
+    }
+  }
+
+  &[hidden] {
+    display: none;
+  }
+}

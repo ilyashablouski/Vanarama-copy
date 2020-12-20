@@ -1,0 +1,136 @@
+/// @name config
+$dropdown-size: 3rem;
+$dropdown-padding: $rem-300;
+$dropdown-border: 1px solid $medium;
+$dropdown-border-radius: $border-radius-small;
+
+.dropdown {
+  position: relative;
+
+  &--toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: background $duration-small $transition-soft;
+    border: $dropdown-border;
+    border-radius: $dropdown-border-radius;
+    background: $white;
+    cursor: pointer;
+    height: $dropdown-size;
+    color: $dark;
+    font-size: 1.125rem;
+    font-weight: 400;
+    width: 100%;
+    z-index: 99;
+    @include padding-inline($dropdown-padding);
+    @include mobile { font-size: 1rem; }
+    @include distribute-children($dropdown-padding, inline);
+    transition:
+      background $duration-small $transition-soft,
+      border-color $duration-small $transition-soft,
+      color $duration-small $transition-soft;
+
+    &:hover,
+    &:focus {
+      color: $black;
+    }
+  }
+  
+  &.-open &--toggle,
+  &--toggle:focus {
+    box-shadow: $box-shadow-focus rgba($teal, $focus-opacity);
+    color: $teal;
+    border-color: $teal;
+    border-bottom: 1px solid $light;
+  }
+  
+  &.-active &--toggle {
+    color: $teal;
+    border-color: $teal;
+  }
+
+  &--content {
+    position: absolute;
+    top: calc(#{$dropdown-size} - 1px);
+    left: 0;
+    right: 0;
+    max-height: 50vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: $white;
+    border: $dropdown-border;
+    border-bottom-right-radius: $dropdown-border-radius;
+    border-bottom-left-radius: $dropdown-border-radius;
+    padding: $dropdown-padding;
+    z-index: 101;
+    box-shadow: $box-shadow-header;
+
+    @include mobile {
+      border-top-right-radius: 0;
+      right: 0;
+    }
+
+    @include distribute-children($dropdown-padding);
+    @include pseudo(after) {
+      position: static;
+      padding: #{$dropdown-padding/2};
+    }
+
+    .select,
+    .select--native {
+      max-width: unset;
+      width: 100%;
+    }
+  }
+
+  &--header {
+    display: grid;
+    grid-template-columns: minmax(0,3fr) minmax(max-content, 1fr);
+    gap: 0 $dropdown-padding;
+    width: 100%;
+
+    > .button {
+      place-self: start end;
+      max-width: unset;
+      height: 100%;
+      width: 100%;
+    }
+
+    &-count,
+    &-selected {
+      display: block;
+      font-weight: 500;
+      line-height: 1;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+
+    &-count {
+      color: $black;
+      font-size: .9rem;
+    }
+
+    &-selected {
+      color: $darker;
+      font-size: 0.75rem;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+
+      @include distribute-children(0.125rem, inline);
+    }
+
+    & + * { margin-top: $dropdown-padding; }
+  }
+
+  &.-open &--toggle {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    position: relative;
+
+    > .icon { transform: rotate(180deg); }
+  }
+
+  &:not(.-open) &--content { display: none; }
+}

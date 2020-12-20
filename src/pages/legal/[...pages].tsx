@@ -1,6 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import SchemaJSON from 'core/atoms/schema-json';
 import {
   ILegalPage,
   LEGAL_PAGE_QUERY,

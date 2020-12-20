@@ -1,4 +1,4 @@
-import { ICriterias } from '@vanarama/uibook/lib/components/organisms/comparator-table/interface';
+import { ICriterias } from 'core/organisms/comparator-table/interface';
 import { IVehicle } from './comparatorHelpers';
 import { vehicleComparator } from '../../generated/vehicleComparator';
 

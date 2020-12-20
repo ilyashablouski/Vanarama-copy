@@ -12,62 +12,38 @@ import {
 } from '../../../../generated/GetPerson';
 import Skeleton from '../../../components/Skeleton';
 
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button/'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Button = dynamic(() => import('core/atoms/button/'), {
+  loading: () => <Skeleton count={1} />,
+});
 const CheckmarkCircleSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/CheckmarkCircleSharp'),
+  () => import('core/assets/icons/CheckmarkCircleSharp'),
   {
     loading: () => <Skeleton count={1} />,
     ssr: false,
   },
 );
-const Form = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/form'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const List = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/list'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
-const Icon = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/icon'),
-  {
-    loading: () => <Skeleton count={1} />,
-    ssr: false,
-  },
-);
-const Tile = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/tile'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
-const Image = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/image'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
+const Form = dynamic(() => import('core/organisms/form'), {
+  loading: () => <Skeleton count={1} />,
+});
+const List = dynamic(() => import('core/atoms/list'), {
+  loading: () => <Skeleton count={5} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={5} />,
+});
+const Icon = dynamic(() => import('core/atoms/icon'), {
+  loading: () => <Skeleton count={1} />,
+  ssr: false,
+});
+const Tile = dynamic(() => import('core/molecules/tile'), {
+  loading: () => <Skeleton count={3} />,
+});
+const Image = dynamic(() => import('core/atoms/image'), {
+  loading: () => <Skeleton count={3} />,
+});
 
 const ThankYouPage: NextPage = () => {
   const router = useRouter();

@@ -16,12 +16,9 @@ import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditA
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
 import Skeleton from '../../components/Skeleton';
 
-const Loading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/loading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Loading = dynamic(() => import('core/atoms/loading'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = ({
   companyUuid,

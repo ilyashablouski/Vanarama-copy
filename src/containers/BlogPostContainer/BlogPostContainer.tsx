@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
@@ -11,36 +11,21 @@ import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
 import { setSource } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
 
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Image = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/image'),
-  {
-    loading: () => <Skeleton count={4} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Card = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/cards'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
-const Media = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/media'),
-  {
-    ssr: false,
-  },
-);
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Image = dynamic(() => import('core/atoms/image'), {
+  loading: () => <Skeleton count={4} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Card = dynamic(() => import('core/molecules/cards'), {
+  loading: () => <Skeleton count={5} />,
+});
+const Media = dynamic(() => import('core/atoms/media'), {
+  ssr: false,
+});
 const Breadcrumb = dynamic(
   () => import('../../components/Breadcrumb/Breadcrumb'),
   {

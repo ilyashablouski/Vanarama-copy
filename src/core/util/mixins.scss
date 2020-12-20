@@ -1,0 +1,261 @@
+@mixin global-inset {
+
+  @media (min-width: $vp-medium + 1) {
+    padding-right: $global-inset-at-large;
+    padding-left: $global-inset-at-large;
+  }
+
+  @media (max-width: $vp-medium) {
+    padding-right: $global-inset-at-medium;
+    padding-left: $global-inset-at-medium;
+  }
+
+  @media (max-width: $vp-small) {
+    padding-right: $global-inset-at-small;
+    padding-left: $global-inset-at-small;
+  }
+}
+
+@mixin padding-block ($value: $rem-400) {
+  padding-top: $value;
+  padding-bottom: $value;
+}
+
+@mixin padding-inline ($value: $rem-400) {
+  padding-left: $value;
+  padding-right: $value;
+}
+
+@mixin margin-block ($value: $rem-400) {
+  margin-top: $value;
+  margin-bottom: $value;
+}
+
+@mixin margin-inline ($value: $rem-400) {
+  margin-left: $value;
+  margin-right: $value;
+}
+
+@mixin mobile {
+  @media (max-width: #{$vp-small - 1px}) {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @media (min-width: #{$vp-small}) and (max-width: #{$vp-large - 1px}) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: #{$vp-large}) {
+    @content;
+  }
+}
+
+@mixin tablet-desktop {
+  @media (min-width: #{$vp-small}) {
+    @content;
+  }
+}
+
+@mixin mobile-tablet {
+  @media (max-width: #{$vp-large - 1px}) {
+    @content;
+  }
+}
+
+@mixin columns($n: 1, $unit: 1fr) {
+  grid-template-columns: repeat($n, $unit);
+}
+
+@mixin text-columns($n: 1, $gap: $rem-400) {
+  -webkit-columns: $n $measure/$n;
+  -moz-columns: $n $measure/$n;
+  columns: $n $measure/$n;
+  -webkit-column-gap: $gap;
+  -moz-column-gap: $gap;
+  column-gap: $gap;
+}
+
+@mixin gap-inline($value: $rem-400) {
+  column-gap: $value;
+}
+
+@mixin gap-block($value: $rem-400) {
+  row-gap: $value;
+}
+
+@mixin gap($block, $inline: $block) {
+  gap: $block $inline;
+}
+
+@mixin place-block($value) {
+  align-items: $value;
+}
+
+@mixin place-inline($value) {
+  justify-items: $value;
+}
+
+@mixin place($block, $inline: $block) {
+  place-items: $block $inline;
+}
+
+@mixin n($num) {
+  &:nth-child(#{$num}) { @content; }
+}
+
+@mixin owl($value, $direction: block, $prefix: 'owl') {
+  $propname: '--#{$prefix}-gap';
+  #{$propname}: #{$value};
+
+  @if $direction == block {
+    > * { @include margin-block(0); }
+    > * + * { margin-top: var(#{$propname}, #{$value}); }
+  }
+  @if $direction == inline {
+    > * { @include margin-inline(0); }
+    > * + * { margin-left: var(#{$propname}, #{$value}); }
+  }
+}
+
+@mixin distribute-children($value, $direction: block) {
+  @if $direction == block {
+    > * { @include margin-block(0); }
+    > * + * { margin-top: $value; }
+  }
+  @if $direction == inline {
+    > * { @include margin-inline(0); }
+    > * + * { margin-left: $value; }
+  }
+}
+
+@function bezier-gradient($color: $white, $mod: 1, $deg: 335) {
+  $mod: $mod / 100;
+  @return linear-gradient(
+    #{$deg}deg,
+    #{rgba($color, (0.1 * $mod))} 0%,
+    #{rgba($color, (2 * $mod))} 10.5%,
+    #{rgba($color, (6 * $mod))} 19.3%,
+    #{rgba($color, (11 * $mod))} 26.7%,
+    #{rgba($color, (17 * $mod))} 33%,
+    #{rgba($color, (24 * $mod))} 38.4%,
+    #{rgba($color, (32 * $mod))} 43.1%,
+    #{rgba($color, (42 * $mod))} 47.5%,
+    #{rgba($color, (51 * $mod))} 51.8%,
+    #{rgba($color, (61 * $mod))} 56.2%,
+    #{rgba($color, (71 * $mod))} 61%,
+    #{rgba($color, (80 * $mod))} 66.4%,
+    #{rgba($color, (88 * $mod))} 72.8%,
+    #{rgba($color, (94 * $mod))} 80.3%,
+    #{rgba($color, (98 * $mod))} 89.3%,
+    #{rgba($color, (99.9 * $mod))} 100%
+  );
+}
+
+@mixin ambient-light($step-1:.9, $step-2:.8, $step-3:1) {
+  $mask: #{rgba(black,$step-1) 0%, rgba(black,$step-2) 33.34%, rgba(black,$step-3) 100%};
+  -webkit-mask-image: linear-gradient(to bottom right, $mask);
+  mask-image: linear-gradient(to bottom right, $mask);
+}
+
+@function soft-gradient($color, $mod) {
+  $step-1: lighten($color, 0.00*$mod);
+  $step-2: lighten($color, 0.50*$mod);
+  $step-3: lighten($color, 1.25*$mod);
+  $step-4: lighten($color, 0.75*$mod);
+  @return linear-gradient(160deg, $step-1 0%, $step-2 20%, $step-3 40%, $step-4 100%);
+}
+
+@mixin card-flag {
+  display: grid;
+  grid-template-columns: auto max-content;
+  font-size: $font-size-200;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+
+  > * {
+    padding: 3px 1.5ch;
+    display: flex;
+    align-items: center;
+
+    &:only-child {
+      $flag-color: darken($darker, 2%);
+      background-image: linear-gradient(to top, darken($darker, 15%) 0.5px, $flag-color 0.5px, $flag-color);
+      color: $lighter;
+    }
+
+    &:not(:only-child) {
+      font-weight: 700;
+      background-image: linear-gradient(to top, darken($orange, 15%) 0.5px, $orange 0.5px, $orange);
+      color: $white;
+
+      .icon {
+        font-size: 1.25rem;
+        margin-right: .5ch;
+      }
+    }
+  }
+}
+
+@mixin max-size($h, $w:$h) {
+  max-height: $h;
+  max-width: $w;
+}
+
+@mixin overflow($y, $x:$y) {
+  overflow-y: $y;
+  overflow-x: $x;
+}
+
+@mixin pseudo($position: before) {
+  &:#{$position} {
+    display: block;
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    @content;
+  }
+}
+
+@mixin expand-tappable-area($amount: 25%) {
+  &:before {
+    display: block;
+    content: '';
+    position: absolute;
+    top: -$amount;
+    right: -$amount;
+    bottom: -$amount;
+    left: -$amount;
+    @content;
+  }
+}
+
+@mixin presentation-styles {
+  @if ($include-presentation-styles == true) {
+    @content;
+  }
+}
+
+@mixin gridflex-cols($gap: 1rem, $display: block) {
+  @if $display == block { display: grid; }
+  @else { display: inline-grid; }
+  gap: $gap;
+  grid-auto-flow: column;
+  grid-template-columns: repeat(auto-fit, minmax(min-content, 1fr));
+}
+
+@mixin gridflex-rows($gap: 1rem, $display: block) {
+  @if $display == block { display: grid; }
+  @else { display: inline-grid; }
+  gap: $gap;
+  grid-auto-flow: row;
+  grid-template-rows: repeat(auto-fit, minmax(min-content, 1fr));
+}

@@ -1,0 +1,53 @@
+.score {
+  --stop-1: #{$red};
+  --stop-2: #{$yellow};
+  --stop-3: #{lighten($green, $tint)};
+  --stop-4: #{$green};
+  $size: 120px;
+  width: 100%;
+
+  > .tile {
+    padding: $rem-500;
+  }
+
+  &--content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    @include margin-inline(auto);
+    @include owl($rem-400);
+    max-width: 35ch;
+  }
+
+  &-indicator {
+    &--progress {
+      stroke: url(#progress-stops);
+    }
+
+    &--track {
+      stroke: $lighter;
+    }
+
+    &--wrapper {
+      position: relative;
+      overflow: hidden;
+      height: $size - ($size / 3);
+      width: $size;
+
+      .heading {
+        position: absolute;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-weight: $font-weight-bold;
+        font-size: 1.7rem;
+        left: 0;
+        right: 0;
+        top: 0.75em;
+        bottom: 0;
+      }
+    }
+  }
+}

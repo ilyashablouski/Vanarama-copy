@@ -2,18 +2,12 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from '../Skeleton';
 
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Accordion = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/accordion/Accordion'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Accordion = dynamic(() => import('core/molecules/accordion/Accordion'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 const ACCORDION_ITEMS = [
   {

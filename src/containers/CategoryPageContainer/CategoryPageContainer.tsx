@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
 import moment from 'moment';
 import getTitleTag from '../../utils/getTitleTag';
@@ -13,42 +13,24 @@ import Head from '../../components/Head/Head';
 import { setSource } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
 
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Image = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/image'),
-  {
-    loading: () => <Skeleton count={4} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Card = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/cards'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
-const Pagination = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/pagination'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Carousel = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Image = dynamic(() => import('core/atoms/image'), {
+  loading: () => <Skeleton count={4} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Card = dynamic(() => import('core/molecules/cards'), {
+  loading: () => <Skeleton count={5} />,
+});
+const Pagination = dynamic(() => import('core/atoms/pagination'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Carousel = dynamic(() => import('core/organisms/carousel'), {
+  loading: () => <Skeleton count={3} />,
+});
 const Breadcrumb = dynamic(
   () => import('../../components/Breadcrumb/Breadcrumb'),
   {

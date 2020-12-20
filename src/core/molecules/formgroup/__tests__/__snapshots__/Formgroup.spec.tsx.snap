@@ -1,0 +1,84 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Formgroup /> should render correctly 1`] = `
+<div
+  className="formgroup"
+>
+  <label
+    className="formgroup--legend"
+  >
+    Label text
+  </label>
+  <div
+    className="formgroup--content"
+  >
+    <p>
+      Some child
+    </p>
+  </div>
+</div>
+`;
+
+exports[`<Formgroup /> should render correctly when inline 1`] = `
+<div
+  className="formgroup -inline"
+>
+  <label
+    className="formgroup--legend"
+  >
+    Label text
+  </label>
+  <div
+    className="formgroup--content"
+  >
+    <p>
+      Some child
+    </p>
+  </div>
+</div>
+`;
+
+exports[`<Formgroup /> should render correctly with a custom CSS class name 1`] = `
+<div
+  className="formgroup some-custom-class"
+>
+  <label
+    className="formgroup--legend"
+  >
+    Label text
+  </label>
+  <div
+    className="formgroup--content"
+  >
+    <p>
+      Some child
+    </p>
+  </div>
+</div>
+`;
+
+exports[`<Formgroup /> should render correctly with an error 1`] = `
+<div
+  className="formgroup -invalid"
+>
+  <label
+    className="formgroup--legend"
+  >
+    Label text
+  </label>
+  <Memo(Text)
+    className="formgroup--error"
+    color="danger"
+    size="small"
+  >
+    You must select an option
+  </Memo(Text)>
+  <div
+    className="formgroup--content"
+  >
+    <p>
+      Some child
+    </p>
+  </div>
+</div>
+`;

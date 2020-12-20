@@ -27,18 +27,12 @@ import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationR
 import Skeleton from '../../components/Skeleton';
 import { useCreateUpdateOrder } from '../../gql/order';
 
-const Loading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/loading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Loading = dynamic(() => import('core/atoms/loading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 const savePersonUuid = async (data: SaveBusinessAboutYou) =>
   localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);

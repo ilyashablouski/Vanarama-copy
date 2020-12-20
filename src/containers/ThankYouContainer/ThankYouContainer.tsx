@@ -10,36 +10,24 @@ import getTitleTag from '../../utils/getTitleTag';
 import Skeleton from '../../components/Skeleton';
 
 const CheckmarkCircleSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/CheckmarkCircleSharp'),
+  () => import('core/assets/icons/CheckmarkCircleSharp'),
   {
     ssr: false,
   },
 );
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Icon = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/icon'),
-  {
-    loading: () => <Skeleton count={4} />,
-    ssr: false,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Card = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/cards'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Icon = dynamic(() => import('core/atoms/icon'), {
+  loading: () => <Skeleton count={4} />,
+  ssr: false,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Card = dynamic(() => import('core/molecules/cards'), {
+  loading: () => <Skeleton count={5} />,
+});
 
 interface IProps {
   sections: Section | null | undefined;
