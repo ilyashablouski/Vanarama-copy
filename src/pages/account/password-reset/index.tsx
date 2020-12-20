@@ -7,9 +7,12 @@ import withApollo from '../../../hocs/withApollo';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const metaData = {
   canonicalUrl: null,

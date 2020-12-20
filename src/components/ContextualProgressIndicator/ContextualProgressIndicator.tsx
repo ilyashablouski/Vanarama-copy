@@ -1,8 +1,8 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import ProgressIndicator from 'core/molecules/progress-indicator';
-import Step from 'core/molecules/progress-indicator/Step';
-import StepLink from 'core/molecules/progress-indicator/StepLink';
+import ProgressIndicator from '@vanarama/uibook/lib/components/molecules/progress-indicator';
+import Step from '@vanarama/uibook/lib/components/molecules/progress-indicator/Step';
+import StepLink from '@vanarama/uibook/lib/components/molecules/progress-indicator/StepLink';
 import NextJsLink from 'next/link';
 
 interface IProps {

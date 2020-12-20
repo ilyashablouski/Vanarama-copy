@@ -14,24 +14,36 @@ import validationSchema from './validationSchema';
 import Skeleton from '../Skeleton';
 
 const ChevronForwardSharp = dynamic(
-  () => import('core/assets/icons/ChevronForwardSharp'),
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
   {
     loading: () => <Skeleton count={1} />,
     ssr: false,
   },
 );
-const Button = dynamic(() => import('core/atoms/button/'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Form = dynamic(() => import('core/organisms/form'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const AddressForm: FCWithFragments<IAddressFormProps> = ({
   addresses,

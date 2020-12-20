@@ -2,20 +2,32 @@ import dynamic from 'next/dynamic';
 import RouterLink from '../RouterLink/RouterLink';
 import Skeleton from '../Skeleton';
 
-const Redundancy = dynamic(() => import('core/assets/icons/Redundancy'), {
-  loading: () => <Skeleton count={1} />,
-  ssr: false,
-});
-const Icon = dynamic(() => import('core/atoms/icon/'), {
-  loading: () => <Skeleton count={1} />,
-  ssr: false,
-});
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Redundancy = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/Redundancy'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon/'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IBanner {
   vans?: boolean;

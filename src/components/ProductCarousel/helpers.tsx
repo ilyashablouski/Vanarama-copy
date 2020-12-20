@@ -1,5 +1,5 @@
-import { IIconProps } from 'core/atoms/icon/interfaces';
-import { TIcon } from 'core/molecules/cards/CardIcons';
+import { IIconProps } from '@vanarama/uibook/lib/components/atoms/icon/interfaces';
+import { TIcon } from '@vanarama/uibook/lib/components/molecules/cards/CardIcons';
 import { ComponentType } from 'react';
 
 export const features = (

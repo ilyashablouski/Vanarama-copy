@@ -2,7 +2,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import ReactMarkdown from 'react-markdown/with-html';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
-import * as toast from 'core/atoms/toast/Toast';
+import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import {
   handleNetworkError,
   DEFAULT_POSTCODE,
@@ -25,30 +25,54 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Button = dynamic(() => import('core/atoms/button'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Image = dynamic(() => import('core/atoms/image'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Card = dynamic(() => import('core/molecules/cards'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Modal = dynamic(() => import('core/molecules/modal'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={1} />,
-});
-const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Modal = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/modal'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tile = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tile'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const SchemaJSON = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/schema-json'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const GoldrushForm = dynamic(
   () => import('../../components/GoldrushForm/GoldrushForm'),
   {

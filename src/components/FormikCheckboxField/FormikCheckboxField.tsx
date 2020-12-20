@@ -1,6 +1,6 @@
-import UIBookCheckbox from 'core/atoms/checkbox';
-import { ICheckboxProps } from 'core/atoms/checkbox/interfaces';
-import Formgroup from 'core/molecules/formgroup';
+import UIBookCheckbox from '@vanarama/uibook/lib/components/atoms/checkbox';
+import { ICheckboxProps } from '@vanarama/uibook/lib/components/atoms/checkbox/interfaces';
+import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { useField } from 'formik';
 import React from 'react';
 

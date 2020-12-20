@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
-import * as toast from 'core/atoms/toast/Toast';
+import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import { OLAFQueryParams } from '../../../../utils/url';

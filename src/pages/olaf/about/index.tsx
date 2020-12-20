@@ -11,7 +11,7 @@ import {
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
-import * as toast from 'core/atoms/toast/Toast';
+import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import {
   pushAboutYouDataLayer,
   pushAuthorizationEventDataLayer,
@@ -43,15 +43,24 @@ import { GetOlafData_orderByUuid } from '../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../generated/GetDerivative';
 import Skeleton from '../../../components/Skeleton';
 
-const Button = dynamic(() => import('core/atoms/button/'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 export const GET_PERSON_QUERY = gql`
   query GetPerson {

@@ -1,6 +1,6 @@
 import React, { FC, useState } from 'react';
 import dynamic from 'next/dynamic';
-import SchemaJSON from 'core/atoms/schema-json';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
 import {
   ReviewsHubCategoryQuery,
@@ -12,15 +12,24 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Pagination = dynamic(() => import('core/atoms/pagination'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Card = dynamic(() => import('core/molecules/cards'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Pagination = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/pagination'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const Breadcrumb = dynamic(
   () => import('../../components/Breadcrumb/Breadcrumb'),
   {

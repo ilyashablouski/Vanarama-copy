@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import ProgressIndicator from 'core/molecules/progress-indicator';
-import Step from 'core/molecules/progress-indicator/Step';
-import StepLink from 'core/molecules/progress-indicator/StepLink';
+import ProgressIndicator from '@vanarama/uibook/lib/components/molecules/progress-indicator';
+import Step from '@vanarama/uibook/lib/components/molecules/progress-indicator/Step';
+import StepLink from '@vanarama/uibook/lib/components/molecules/progress-indicator/StepLink';
 import NextJsLink from 'next/link';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';

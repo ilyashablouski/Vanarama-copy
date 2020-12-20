@@ -6,7 +6,7 @@ import cx from 'classnames';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { UrlObject } from 'url';
-import { IBaseProps } from 'core/interfaces/base';
+import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { IClassNamesProps } from '../../models/IClassNamesProps';
 import { ILinkProps } from './interface';

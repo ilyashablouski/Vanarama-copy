@@ -8,9 +8,12 @@ import { getSectionsData } from '../../../utils/getSectionsData';
 import { GENERIC_PAGE_QUESTION_HUB } from '../../../containers/VehicleReviewCategoryContainer/gql';
 import Skeleton from '../../../components/Skeleton';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IReviewHub {
   data: any;

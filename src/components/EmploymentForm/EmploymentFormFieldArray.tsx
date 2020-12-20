@@ -1,4 +1,4 @@
-import Tile from 'core/molecules/tile';
+import Tile from '@vanarama/uibook/lib/components/molecules/tile';
 import { gql } from '@apollo/client';
 import { FieldArrayRenderProps } from 'formik';
 import React from 'react';

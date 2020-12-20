@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import TextInput from 'core/atoms/textinput';
+import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
 import { useForm } from 'react-hook-form';
 import PasswordRequirements from '../../core/components/PasswordRequirements';
 import {
@@ -12,31 +12,46 @@ import { EMAIL_REGEX } from '../../utils/regex';
 import { IRegisterFormProps, IRegisterFormValues } from './interfaces';
 import Skeleton from '../Skeleton';
 
-const Details = dynamic(() => import('core/atoms/details'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Button = dynamic(() => import('core/atoms/button/'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Details = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/details'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const RouterLink = dynamic(() => import('../RouterLink/RouterLink'), {
   loading: () => <Skeleton count={1} />,
 });
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const ChevronForwardSharp = dynamic(
-  () => import('core/assets/icons/ChevronForwardSharp'),
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
   {
     loading: () => <Skeleton count={1} />,
     ssr: false,
   },
 );
-const Form = dynamic(() => import('core/organisms/form'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Formgroup = dynamic(() => import('core/molecules/formgroup'), {
-  loading: () => <Skeleton count={5} />,
-});
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Formgroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 const RegisterForm: React.FC<IRegisterFormProps> = ({
   isSubmitting,

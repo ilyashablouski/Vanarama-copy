@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import SchemaJSON from 'core/atoms/schema-json';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { GetInsuranceLandingPage } from '../../../generated/GetInsuranceLandingPage';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';

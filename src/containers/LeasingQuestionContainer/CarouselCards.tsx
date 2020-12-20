@@ -4,19 +4,31 @@ import DOMPurify from 'isomorphic-dompurify';
 import { GenericPageQuestionQuery_genericPage_sections_cards_cards as ICaruselCard } from '../../../generated/GenericPageQuestionQuery';
 import Skeleton from '../../components/Skeleton';
 
-const Button = dynamic(() => import('core/atoms/button'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Carousel = dynamic(() => import('core/organisms/carousel'), {
-  loading: () => <Skeleton count={4} />,
-  ssr: false,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Card = dynamic(() => import('core/molecules/cards'), {
-  loading: () => <Skeleton count={5} />,
-});
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Carousel = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/carousel'),
+  {
+    loading: () => <Skeleton count={4} />,
+    ssr: false,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 interface ICarouselCards {
   cards: ICaruselCard[];

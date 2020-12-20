@@ -1,5 +1,5 @@
-import Select from 'core/atoms/select';
-import Formgroup from 'core/molecules/formgroup';
+import Select from '@vanarama/uibook/lib/components/atoms/select';
+import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
 import { useField } from 'formik';
 import React from 'react';
 import { genMonths, genYears } from '../../utils/helpers';

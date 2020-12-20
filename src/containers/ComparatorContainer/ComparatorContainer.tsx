@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState, useContext } from 'react';
-import ComparatorTable from 'core/organisms/comparator-table';
+import ComparatorTable from '@vanarama/uibook/lib/components/organisms/comparator-table';
 import Router from 'next/router';
 import { CompareContext } from '../../utils/comparatorTool';
 import {
@@ -13,9 +13,12 @@ import { vehicleComparator } from '../../../generated/vehicleComparator';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const ComparatorContainer: React.FC = () => {
   const [vehicles, setVehicles] = useState<

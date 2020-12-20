@@ -88,7 +88,7 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
     ).toBeVisible();
   });
 
-  it.skip('should correctly submit form', async () => {
+  it('should correctly submit form', async () => {
     fireEvent.click(
       screen.getByTestId('sole-trader-company-details_existing-vehicle'),
     );

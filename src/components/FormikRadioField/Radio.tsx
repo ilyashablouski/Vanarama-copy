@@ -1,5 +1,5 @@
-import UIBookRadio from 'core/atoms/radio';
-import { IRadioProps } from 'core/atoms/radio/interfaces';
+import UIBookRadio from '@vanarama/uibook/lib/components/atoms/radio';
+import { IRadioProps } from '@vanarama/uibook/lib/components/atoms/radio/interfaces';
 import React from 'react';
 import { useFormikRadioContext } from './FormikRadioContext';
 

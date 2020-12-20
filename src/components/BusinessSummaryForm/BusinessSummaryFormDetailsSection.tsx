@@ -7,9 +7,12 @@ import FCWithFragments from '../../utils/FCWithFragments';
 import { addressToDisplay } from '../../utils/address';
 import Skeleton from '../Skeleton';
 
-const StructuredList = dynamic(() => import('core/organisms/structured-list'), {
-  loading: () => <Skeleton count={3} />,
-});
+const StructuredList = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/structured-list'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 interface IProps {
   company: SummaryFormDetailsSectionCompany;

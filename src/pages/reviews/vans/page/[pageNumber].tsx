@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
-import SchemaJSON from 'core/atoms/schema-json';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import createApolloClient from '../../../../apolloClient';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import { GENERIC_PAGE_QUESTION_HUB } from '../../../../containers/VehicleReviewCategoryContainer/gql';

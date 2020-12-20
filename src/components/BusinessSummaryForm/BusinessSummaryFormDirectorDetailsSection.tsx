@@ -11,9 +11,12 @@ import { DirectorFormValues } from '../DirectorDetailsForm/interfaces';
 import { formatDate } from '../../utils/dates';
 import Skeleton from '../Skeleton';
 
-const StructuredList = dynamic(() => import('core/organisms/structured-list'), {
-  loading: () => <Skeleton count={3} />,
-});
+const StructuredList = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/structured-list'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 interface IBusinessSummaryFormDirectorDetailsSectionProps {
   director: DirectorFormValues & { addresses?: Address[] };

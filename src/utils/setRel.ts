@@ -1,4 +1,4 @@
-import { ILink } from 'core/interfaces/link';
+import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 
 function checker(value: string) {
   const allowed = ['vanarama.com', 'vanarama-nonprod.com'];

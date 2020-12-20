@@ -1,9 +1,9 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { useForm, FormContext } from 'react-hook-form';
-import Checkbox from 'core/atoms/checkbox';
-import TextInput from 'core/atoms/textinput';
-import Select from 'core/atoms/select';
+import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
+import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
+import Select from '@vanarama/uibook/lib/components/atoms/select';
 import AddressFormField from '../AddressFormField/AddressFormField';
 import { genMonths, genYears } from '../../utils/helpers';
 import {
@@ -20,25 +20,37 @@ import {
 import NatureTypeahead from '../CompanyDetailsForm/NatureTypehead';
 import Skeleton from '../Skeleton';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Button = dynamic(() => import('core/atoms/button/'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const ChevronForwardSharp = dynamic(
-  () => import('core/assets/icons/ChevronForwardSharp'),
+  () => import('@vanarama/uibook/lib/assets/icons/ChevronForwardSharp'),
   {
     loading: () => <Skeleton count={1} />,
     ssr: false,
   },
 );
-const Form = dynamic(() => import('core/organisms/form'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Formgroup = dynamic(() => import('core/molecules/formgroup'), {
-  loading: () => <Skeleton count={5} />,
-});
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Formgroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 const isMonthInFuture = (month: string, year: string) => {
   const selectedMonth = parseInt(month, 10);

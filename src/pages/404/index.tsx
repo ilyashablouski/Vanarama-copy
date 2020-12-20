@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
-import SchemaJSON from 'core/atoms/schema-json';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 // import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNotFoundContainer';

@@ -1,4 +1,4 @@
-import { IAddressSuggestion } from 'core/molecules/address-finder/interfaces';
+import { IAddressSuggestion } from '@vanarama/uibook/lib/components/molecules/address-finder/interfaces';
 
 export interface ISoleTraderCompanyDetailsFormValues {
   tradingName: string;

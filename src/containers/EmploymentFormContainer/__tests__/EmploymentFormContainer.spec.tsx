@@ -53,7 +53,7 @@ describe('<EmploymentFormContainer />', () => {
     expect(onCompletedMock).toHaveBeenCalledTimes(1);
   });
 
-  it.skip('should prefill data from the server', async () => {
+  it('should prefill data from the server', async () => {
     // ARRANGE
     let mutationCalled = false;
     const personUuid = '1337';

@@ -45,7 +45,7 @@ exports[`<LeasingQuestionContainer /> should match snapshot 1`] = `
             >
               <ul
                 class="slider-list"
-                style="box-sizing: border-box; cursor: pointer; display: block; height: 0px; margin: 0px -10px; padding: 0px; position: relative; transform: translate3d(0px, 0px, 0); width: auto; transition: 0s;"
+                style="box-sizing: border-box; cursor: pointer; display: block; height: 0px; margin: 0px -10px; padding: 0px; position: relative; transform: translate3d(0px, 0px, 0); width: auto;"
               >
                 <li
                   class="slider-slide slide-visible slide-current"

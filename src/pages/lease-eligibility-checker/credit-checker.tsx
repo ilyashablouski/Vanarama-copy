@@ -12,24 +12,42 @@ import {
 } from '../../gql/vehicleList';
 import Skeleton from '../../components/Skeleton';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Link = dynamic(() => import('core/atoms/link'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Button = dynamic(() => import('core/atoms/button'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Score = dynamic(() => import('core/atoms/score'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Link = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/link'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Score = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/score'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const ProductCarousel = dynamic(
   () => import('../../components/ProductCarousel/ProductCarousel'),
   {

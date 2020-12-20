@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import ChevronDownSharp from 'core/assets/icons/ChevronDownSharp';
-import ChevronUpSharp from 'core/assets/icons/ChevronUpSharp';
-import Button from 'core/atoms/button';
-import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
+import ChevronDownSharp from '@vanarama/uibook/lib/assets/icons/ChevronDownSharp';
+import ChevronUpSharp from '@vanarama/uibook/lib/assets/icons/ChevronUpSharp';
+import Button from '@vanarama/uibook/lib/components/atoms/button';
+import OlafCard from '@vanarama/uibook/lib/components/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
 import { useState, useEffect, ReactNode } from 'react';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';

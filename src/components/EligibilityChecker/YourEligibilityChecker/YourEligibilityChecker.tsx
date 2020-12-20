@@ -12,22 +12,37 @@ import FCWithFragments from '../../../utils/FCWithFragments';
 import { responseBlinkIdToInitialFormValues } from './mappers';
 import Skeleton from '../../Skeleton';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Button = dynamic(() => import('core/atoms/button'), {
-  loading: () => <Skeleton count={1} />,
-});
-const CameraSharp = dynamic(() => import('core/assets/icons/CameraSharp'), {
-  loading: () => <Skeleton count={1} />,
-  ssr: false,
-});
-const Modal = dynamic(() => import('core/molecules/modal'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const CameraSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/CameraSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Modal = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/modal'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const EligibilityCheckerForm = dynamic(
   () => import('./EligibilityCheckerForm'),
   {

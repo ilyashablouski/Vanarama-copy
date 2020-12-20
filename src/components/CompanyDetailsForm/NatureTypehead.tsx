@@ -1,5 +1,5 @@
-import Formgroup from 'core/molecules/formgroup';
-import Typeahead from 'core/molecules/typeahead';
+import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import Typeahead from '@vanarama/uibook/lib/components/molecules/typeahead';
 import React, { FormEvent, useEffect, useState } from 'react';
 import { SuggestionSelectedEventData } from 'react-autosuggest';
 import { useFormContext } from 'react-hook-form';

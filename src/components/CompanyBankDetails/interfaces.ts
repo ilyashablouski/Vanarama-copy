@@ -1,4 +1,4 @@
-import { SortCodeValue } from 'core/molecules/sortcode/interfaces';
+import { SortCodeValue } from '@vanarama/uibook/lib/components/molecules/sortcode/interfaces';
 
 export interface ICompanyBankDetails {
   uuid?: string;

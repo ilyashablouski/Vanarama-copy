@@ -2,7 +2,7 @@
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import * as toast from 'core/atoms/toast/Toast';
+import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import { useState } from 'react';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import BusinessSummaryFormContainer from '../../../../containers/BusinessSummaryFormContainer/BusinessSummaryFormContainer';

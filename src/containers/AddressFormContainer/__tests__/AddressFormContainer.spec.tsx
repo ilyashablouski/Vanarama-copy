@@ -20,7 +20,7 @@ describe('<AddressFormContainer />', () => {
   beforeEach(async () => {
     await preloadAll();
   });
-  it.skip('should post data to the server correctly', async () => {
+  it('should post data to the server correctly', async () => {
     // ARRANGE
     let mutationCalled = false;
     const personUuid = '1337';
