@@ -27,7 +27,7 @@
     "@apollo/client": "3.1.0",
     "@apollo/react-ssr": "^4.0.0-beta.1",
     "@ramda/path": "^0.26.1",
-    "@vanarama/uibook": "5.39.9",
+    "@vanarama/uibook": "5.41.0",
     "@zeit/next-css": "^1.0.1",
     "@zeit/next-sass": "^1.0.1",
     "apollo-link-context": "^1.0.20",
