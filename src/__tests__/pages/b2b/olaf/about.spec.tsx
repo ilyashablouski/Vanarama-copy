@@ -2,7 +2,7 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import preloadAll from 'jest-next-dynamic';
 import { render, waitFor, screen, fireEvent } from '@testing-library/react';
 import React from 'react';
-import { ToastContainer } from 'core/atoms/toast/Toast';
+import { ToastContainer } from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import { GetB2BAboutPageData } from '../../../../../generated/GetB2BAboutPageData';
 import { BusinessAboutPage } from '../../../../pages/b2b/olaf/about';
 import {

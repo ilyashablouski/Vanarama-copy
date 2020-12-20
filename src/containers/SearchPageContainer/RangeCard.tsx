@@ -8,12 +8,18 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
 
-const Price = dynamic(() => import('core/atoms/price'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Card = dynamic(() => import('core/molecules/cards/Card'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Price = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/price'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards/Card'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IVehicleCardProps {
   isPersonalPrice: boolean;

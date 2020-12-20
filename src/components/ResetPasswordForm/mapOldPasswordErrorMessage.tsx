@@ -3,9 +3,12 @@ import dynamic from 'next/dynamic';
 import RouterLink from '../RouterLink/RouterLink';
 import Skeleton from '../Skeleton';
 
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 export const WRONG_PASSWORD = 'WRONG_PASSWORD';
 

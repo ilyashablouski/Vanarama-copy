@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import dynamic from 'next/dynamic';
-import 'core/base.scss';
+import '@vanarama/uibook/src/components/base.scss';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -33,20 +33,32 @@ import { useMobileViewport } from '../hooks/useMediaQuery';
 // Dynamic component loading.
 const ToastContainer = dynamic(
   // @ts-ignore
-  () => import('core/atoms/toast/Toast').then(mod => mod.ToastContainer),
+  () =>
+    import('@vanarama/uibook/lib/components/atoms/toast/Toast').then(
+      mod => mod.ToastContainer,
+    ),
   {
     ssr: false,
   },
 );
-const ComparatorBar = dynamic(() => import('core/organisms/comparator-bar'), {
-  ssr: false,
-});
-const Modal = dynamic(() => import('core/molecules/modal'), {
-  ssr: false,
-});
-const Button = dynamic(() => import('core/atoms/button'), {
-  loading: () => <Skeleton count={1} />,
-});
+const ComparatorBar = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/comparator-bar'),
+  {
+    ssr: false,
+  },
+);
+const Modal = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/modal'),
+  {
+    ssr: false,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [compareVehicles, setCompareVehicles] = useState<

@@ -6,9 +6,12 @@ import { formValuesToInput } from './mappers';
 import Skeleton from '../../components/Skeleton';
 
 const BankDetails = dynamic(() => import('../../components/BankDetails'));
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const BankDetailsFormContainer: React.FC<IProps> = ({
   personUuid,

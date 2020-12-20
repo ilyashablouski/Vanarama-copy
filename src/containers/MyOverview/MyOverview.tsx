@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import React, { useState, CSSProperties, useEffect } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
-import Select from 'core/atoms/select';
+import Select from '@vanarama/uibook/lib/components/atoms/select';
 import localForage from 'localforage';
 import { GET_CAR_DERIVATIVES, useMyOrdersData } from '../OrdersInformation/gql';
 import {
@@ -27,23 +27,41 @@ import {
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Button = dynamic(() => import('core/atoms/button'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Pagination = dynamic(() => import('core/atoms/pagination'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Pagination = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/pagination'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const OrderCard = dynamic(
-  () => import('core/molecules/cards/OrderCard/OrderCard'),
+  () =>
+    import(
+      '@vanarama/uibook/lib/components/molecules/cards/OrderCard/OrderCard'
+    ),
   {
     loading: () => <Skeleton count={5} />,
   },

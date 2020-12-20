@@ -11,11 +11,15 @@ import useProgressHistory from '../../hooks/useProgressHistory';
 import useGetPersonUuid from '../../hooks/useGetPersonUuid';
 
 const ProgressIndicator = dynamic(() =>
-  import('core/molecules/progress-indicator'),
+  import('@vanarama/uibook/lib/components/molecules/progress-indicator'),
 );
-const Step = dynamic(() => import('core/molecules/progress-indicator/Step'));
+const Step = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/progress-indicator/Step'),
+);
 const StepLink = dynamic(() =>
-  import('core/molecules/progress-indicator/StepLink'),
+  import(
+    '@vanarama/uibook/lib/components/molecules/progress-indicator/StepLink'
+  ),
 );
 
 type QueryParams = {

@@ -1,4 +1,4 @@
-import { IAddressSuggestion } from 'core/molecules/address-finder/interfaces';
+import { IAddressSuggestion } from '@vanarama/uibook/lib/components/molecules/address-finder/interfaces';
 import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
 import { EmploymentFormEmployment } from '../../../generated/EmploymentFormEmployment';
 

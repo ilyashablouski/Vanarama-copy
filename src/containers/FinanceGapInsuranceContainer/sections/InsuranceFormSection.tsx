@@ -3,9 +3,12 @@ import ReactMarkdown from 'react-markdown';
 import { IGoldrushFromValues } from '../../../components/GoldrushForm/interfaces';
 import Skeleton from '../../../components/Skeleton';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const GoldrushForm = dynamic(
   () => import('../../../components/GoldrushForm/GoldrushForm'),
   {

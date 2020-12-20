@@ -1,4 +1,4 @@
-import { ILink } from 'core/interfaces/link';
+import { ILink } from '@vanarama/uibook/lib/interfaces/link';
 import { ParsedUrlQueryInput } from 'querystring';
 
 export interface ILinkProps extends ILink {

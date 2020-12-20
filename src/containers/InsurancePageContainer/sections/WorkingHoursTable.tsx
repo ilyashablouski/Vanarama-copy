@@ -1,18 +1,24 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import StructuredList from 'core/organisms/structured-list';
-import { IList } from 'core/organisms/structured-list/interfaces';
+import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
+import { IList } from '@vanarama/uibook/lib/components/organisms/structured-list/interfaces';
 import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard as HeroCard } from '../../../../generated/GetInsuranceLandingPage';
 import { ParsedLink } from '../ParsedLink';
 import Skeleton from '../../../components/Skeleton';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Card = dynamic(() => import('core/molecules/cards'), {
-  loading: () => <Skeleton count={4} />,
-});
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
 
 const gfm = require('remark-gfm');
 

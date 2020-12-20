@@ -1,4 +1,4 @@
-import { IAddressFinderProps } from 'core/molecules/address-finder/interfaces';
+import { IAddressFinderProps } from '@vanarama/uibook/lib/components/molecules/address-finder/interfaces';
 import React, { createContext, useContext } from 'react';
 
 const MockAddressFinderContext = createContext<any>({});

@@ -12,31 +12,43 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import Skeleton from '../../components/Skeleton';
 
 const AddCircleSharp = dynamic(
-  () => import('core/assets/icons/AddCircleSharp'),
+  () => import('@vanarama/uibook/lib/assets/icons/AddCircleSharp'),
   {
     loading: () => <Skeleton count={1} />,
     ssr: false,
   },
 );
 const RemoveCircleSharp = dynamic(
-  () => import('core/assets/icons/RemoveCircleSharp'),
+  () => import('@vanarama/uibook/lib/assets/icons/RemoveCircleSharp'),
   {
     loading: () => <Skeleton count={1} />,
     ssr: false,
   },
 );
-const Accordion = dynamic(() => import('core/molecules/accordion/Accordion'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Icon = dynamic(() => import('core/atoms/icon'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Accordion = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/accordion/Accordion'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   sections: Section | null;

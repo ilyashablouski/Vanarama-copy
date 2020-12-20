@@ -5,7 +5,9 @@ import ReactMarkdown from 'react-markdown';
 import { PrimaryFooter_primaryFooter as PrimaryFooter } from '../../../generated/PrimaryFooter';
 import RouterLink from '../RouterLink/RouterLink';
 
-const Text = dynamic(() => import('core/atoms/text'));
+const Text = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/text'),
+);
 const FooterColumn = dynamic(() => import('./FooterColumn'));
 
 interface IFooter {

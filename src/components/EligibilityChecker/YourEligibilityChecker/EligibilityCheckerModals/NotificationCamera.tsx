@@ -4,9 +4,12 @@ import { INotificationCamera } from './interface';
 import RouterLink from '../../../RouterLink/RouterLink';
 import Skeleton from '../../../Skeleton';
 
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const NotificationCamera: FC<INotificationCamera> = ({
   onCloseModal,

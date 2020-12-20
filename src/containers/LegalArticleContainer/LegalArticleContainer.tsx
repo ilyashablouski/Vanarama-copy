@@ -5,12 +5,18 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { LegalPageQuery_genericPage_sections as Section } from '../../../generated/LegalPageQuery';
 import Skeleton from '../../components/Skeleton';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Image = dynamic(() => import('core/atoms/image'), {
-  loading: () => <Skeleton count={4} />,
-});
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
 
 interface IProps {
   body: string | null | undefined;

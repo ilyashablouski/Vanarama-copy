@@ -10,6 +10,7 @@ const withCustomBabelConfig = require('next-plugin-custom-babel-config');
  * lines such as `import 'rheostat/css/rheostat.css';`. Next.js does not know how
  * to interpret this so we need to transpile it in here instead.
  */
+const withTM = require('next-transpile-modules')(['@vanarama/uibook']);
 const path = require('path');
 // const withBundleAnalyzer = require('@next/bundle-analyzer')({
 //   enabled: process.env.ANALYZE === 'true',
@@ -20,6 +21,8 @@ const generateMenuData = require('./plugins/genMenuData');
 module.exports = withPlugins(
   [
     [generateMenuData],
+    withTM,
+    // [withBundleAnalyzer],
     // [withFonts],
     [
       withCustomBabelConfig,

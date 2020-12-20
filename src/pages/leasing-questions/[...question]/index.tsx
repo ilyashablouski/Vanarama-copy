@@ -13,9 +13,12 @@ import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import Skeleton from '../../../components/Skeleton';
 
-const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
-  loading: () => <Skeleton count={1} />,
-});
+const SchemaJSON = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/schema-json'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const Head = dynamic(() => import('../../../components/Head/Head'), {
   loading: () => <Skeleton count={1} />,
 });

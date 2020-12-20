@@ -7,8 +7,8 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 import cx from 'classnames';
 import localForage from 'localforage';
-import { IBaseProps } from 'core/interfaces/base';
-import Logo from 'core/atoms/logo';
+import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
+import Logo from '@vanarama/uibook/lib/components/atoms/logo';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
 // import HeaderMenu from './HeaderMenu';
@@ -19,41 +19,58 @@ import {
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 
 const HeaderMenu = dynamic(() => import('./HeaderMenu'));
-const Button = dynamic(() => import('core/atoms/button'));
-const Icon = dynamic(() => import('core/atoms/icon'), {
-  ssr: false,
-});
-const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
-  ssr: false,
-});
+const Button = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/button'),
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    ssr: false,
+  },
+);
+const SearchCircle = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/SearchOutline'),
+  {
+    ssr: false,
+  },
+);
 const PersonCircleSharp = dynamic(
-  () => import('core/assets/icons/PersonCircleSharp'),
+  () => import('@vanarama/uibook/lib/assets/icons/PersonCircleSharp'),
   {
     ssr: false,
   },
 );
-const HomeOutline = dynamic(() => import('core/assets/icons/HomeOutline'), {
-  ssr: false,
-});
+const HomeOutline = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/HomeOutline'),
+  {
+    ssr: false,
+  },
+);
 const ReceiptOutline = dynamic(
-  () => import('core/assets/icons/ReceiptOutline'),
+  () => import('@vanarama/uibook/lib/assets/icons/ReceiptOutline'),
   {
     ssr: false,
   },
 );
-const CarOutline = dynamic(() => import('core/assets/icons/CarOutline'), {
+const CarOutline = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/CarOutline'),
+  {
+    ssr: false,
+  },
+);
+const Menu = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Menu'), {
   ssr: false,
 });
-const Menu = dynamic(() => import('core/assets/icons/Menu'), {
+const LogOutOutline = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/LogOutOutline'),
+  {
+    ssr: false,
+  },
+);
+const Close = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Close'), {
   ssr: false,
 });
-const LogOutOutline = dynamic(() => import('core/assets/icons/LogOutOutline'), {
-  ssr: false,
-});
-const Close = dynamic(() => import('core/assets/icons/Close'), {
-  ssr: false,
-});
-const Call = dynamic(() => import('core/assets/icons/Call'), {
+const Call = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Call'), {
   ssr: false,
 });
 

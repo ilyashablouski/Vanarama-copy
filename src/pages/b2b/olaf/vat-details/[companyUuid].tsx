@@ -1,5 +1,5 @@
 import { getDataFromTree } from '@apollo/react-ssr';
-import * as toast from 'core/atoms/toast/Toast';
+import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';

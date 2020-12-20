@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
 import React, { Dispatch, SetStateAction } from 'react';
-import Choiceboxes from 'core/atoms/choiceboxes';
-import Select from 'core/atoms/select';
-import SlidingInput from 'core/atoms/sliding-input';
-import Radio from 'core/atoms/radio';
+import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
+import Select from '@vanarama/uibook/lib/components/atoms/select';
+import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
+import Radio from '@vanarama/uibook/lib/components/atoms/radio';
 import cx from 'classnames';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
@@ -18,36 +18,63 @@ import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
 
-const Flame = dynamic(() => import('core/assets/icons/Flame'), {
+const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'), {
   ssr: false,
 });
-const Button = dynamic(() => import('core/atoms/button/'), {
-  loading: () => <Skeleton count={1} />,
-});
-const CardHeader = dynamic(() => import('core/molecules/cards/CardHeader'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Icon = dynamic(() => import('core/atoms/icon'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Link = dynamic(() => import('core/atoms/link'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Modal = dynamic(() => import('core/molecules/modal'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Formgroup = dynamic(() => import('core/molecules/formgroup'), {
-  loading: () => <Skeleton count={1} />,
-});
-const LeaseScanner = dynamic(() => import('core/organisms/lease-scanner'), {
-  loading: () => <Skeleton count={4} />,
-});
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const CardHeader = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards/CardHeader'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Link = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/link'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Modal = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/modal'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Formgroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const LeaseScanner = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/lease-scanner'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
 
 const choices = (
   choicesValues: IChoice[],

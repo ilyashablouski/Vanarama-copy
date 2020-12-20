@@ -1,16 +1,16 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import Select from 'core/atoms/select';
-// import Heading from 'core/atoms/heading';
-// import Button from 'core/atoms/button';
-// import Form from 'core/organisms/form';
-// import Formgroup from 'core/molecules/formgroup';
-// import Card from 'core/molecules/cards';
-// import Tabs from 'core/molecules/tabs';
-// import Tab from 'core/molecules/tabs/Tab';
-// import TabList from 'core/molecules/tabs/TabList';
-// import TabPanel from 'core/molecules/tabs/TabPanel';
-// import TabPanels from 'core/molecules/tabs/TabPanels';
+import Select from '@vanarama/uibook/lib/components/atoms/select';
+// import Heading from '@vanarama/uibook/lib/components/atoms/heading';
+// import Button from '@vanarama/uibook/lib/components/atoms/button';
+// import Form from '@vanarama/uibook/lib/components/organisms/form';
+// import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+// import Card from '@vanarama/uibook/lib/components/molecules/cards';
+// import Tabs from '@vanarama/uibook/lib/components/molecules/tabs';
+// import Tab from '@vanarama/uibook/lib/components/molecules/tabs/Tab';
+// import TabList from '@vanarama/uibook/lib/components/molecules/tabs/TabList';
+// import TabPanel from '@vanarama/uibook/lib/components/molecules/tabs/TabPanel';
+// import TabPanels from '@vanarama/uibook/lib/components/molecules/tabs/TabPanels';
 import {
   filterList_filterList_groupedRangesWithSlug as IRangesSlug,
   filterList_filterList_groupedRangesWithSlug_children as IOptionsDropdown,
@@ -18,30 +18,57 @@ import {
 import { ISearchPodProps } from './interfaces';
 import Skeleton from '../Skeleton';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Button = dynamic(() => import('core/atoms/button'), {
-  loading: () => <Skeleton count={4} />,
-});
-const Form = dynamic(() => import('core/organisms/form'));
-const Formgroup = dynamic(() => import('core/molecules/formgroup'));
-const Card = dynamic(() => import('core/molecules/cards'), {
-  loading: () => <Skeleton count={5} />,
-});
-const Tabs = dynamic(() => import('core/molecules/tabs'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Tab = dynamic(() => import('core/molecules/tabs/Tab'), {
-  loading: () => <Skeleton count={1} />,
-});
-const TabList = dynamic(() => import('core/molecules/tabs/TabList'));
-const TabPanel = dynamic(() => import('core/molecules/tabs/TabPanel'), {
-  loading: () => <Skeleton count={1} />,
-});
-const TabPanels = dynamic(() => import('core/molecules/tabs/TabPanels'), {
-  loading: () => <Skeleton count={3} />,
-});
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Form = dynamic(() =>
+  import('@vanarama/uibook/lib/components/organisms/form'),
+);
+const Formgroup = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/formgroup'),
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
+const Tabs = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tab = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/Tab'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const TabList = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/TabList'),
+);
+const TabPanel = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanel'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const TabPanels = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanels'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 enum typeToIndex {
   'Vans' = 1,

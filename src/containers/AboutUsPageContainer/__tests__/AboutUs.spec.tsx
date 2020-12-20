@@ -6,7 +6,7 @@ import AboutUs from '../AboutUs';
 import { GetAboutUsPageData_aboutUsLandingPage as AboutUsLandingPage } from '../../../../generated/GetAboutUsPageData';
 
 jest.mock('../gql');
-jest.mock('core/organisms/carousel', () => () => {
+jest.mock('@vanarama/uibook/lib/components/organisms/carousel', () => () => {
   return <div />;
 });
 jest.mock('next/router', () => ({

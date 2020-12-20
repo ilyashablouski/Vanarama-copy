@@ -78,7 +78,7 @@ describe('<EmploymentForm />', () => {
     });
   });
 
-  it.skip('should call `onSubmit` when entering valid information for a position that requires additional information', async () => {
+  it('should call `onSubmit` when entering valid information for a position that requires additional information', async () => {
     // ARRANGE
     const onSubmit = jest.fn();
 
@@ -146,7 +146,7 @@ describe('<EmploymentForm />', () => {
     });
   });
 
-  it.skip('should call `onSubmit` when entering multiple employment entries', async () => {
+  it('should call `onSubmit` when entering multiple employment entries', async () => {
     // ARRANGE
     const now = new Date();
     const currentYear = String(now.getFullYear());

@@ -3,7 +3,7 @@ import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import { useEffect, useState } from 'react';
-import SchemaJSON from 'core/atoms/schema-json';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import { ProductCardData } from '../../../generated/ProductCardData';
 import {
@@ -26,19 +26,31 @@ import { GetDerivatives } from '../../../generated/GetDerivatives';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 
-const AddCircle = dynamic(() => import('core/assets/icons/AddCircle'), {
-  loading: () => <Skeleton count={1} />,
-  ssr: false,
-});
-const Icon = dynamic(() => import('core/atoms/icon/'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
+const AddCircle = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/AddCircle'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const ProductCarousel = dynamic(
   () => import('../../components/ProductCarousel/ProductCarousel'),
   {

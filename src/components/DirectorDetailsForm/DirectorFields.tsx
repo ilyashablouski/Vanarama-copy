@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
-import NumericInput from 'core/atoms/numeric-input';
+import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
 import { FieldArray, useField, useFormikContext } from 'formik';
 import React, { useContext } from 'react';
 import { OlafContext } from '../../layouts/OLAFLayout/helpers';
@@ -15,25 +15,43 @@ import { createKeyGenerator } from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
 import Skeleton from '../Skeleton';
 
-const CloseSharp = dynamic(() => import('core/assets/icons/CloseSharp'), {
-  loading: () => <Skeleton count={1} />,
-  ssr: false,
-});
-const Button = dynamic(() => import('core/atoms/button/'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Formgroup = dynamic(() => import('core/molecules/formgroup'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={1} />,
-});
+const CloseSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/CloseSharp'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Formgroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tile = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tile'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 type Props = {
   canBeRemoved: boolean;

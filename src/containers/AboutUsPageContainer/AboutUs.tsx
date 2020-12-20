@@ -2,7 +2,7 @@ import React, { ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
-import Carousel from 'core/organisms/carousel';
+import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import { ABOUT_US_MEET_SECTION_NAMES } from './config';
 import {
   GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards as ICard,
@@ -11,40 +11,63 @@ import {
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Image = dynamic(() => import('core/atoms/image'), {
-  loading: () => <Skeleton count={4} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Card = dynamic(() => import('core/molecules/cards'), {
-  loading: () => <Skeleton count={5} />,
-});
-const TrophySharp = dynamic(() => import('core/assets/icons/TrophySharp'), {
-  ssr: false,
-});
-const ArrowForwardSharp = dynamic(
-  () => import('core/assets/icons/ArrowForwardSharp'),
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
+const TrophySharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/TrophySharp'),
   {
     ssr: false,
   },
 );
-const Icon = dynamic(() => import('core/atoms/icon'), {
-  loading: () => <Skeleton count={1} />,
-});
+const ArrowForwardSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/ArrowForwardSharp'),
+  {
+    ssr: false,
+  },
+);
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 // const Carousel = dynamic(
-//   () => import('core/organisms/carousel'),
+//   () => import('@vanarama/uibook/lib/components/organisms/carousel'),
 //   {
 //     loading: () => <Skeleton count={3} />,
 //   },
 // );
-const Link = dynamic(() => import('core/atoms/link'));
+const Link = dynamic(() =>
+  import('@vanarama/uibook/lib/components/atoms/link'),
+);
 
 export interface IAboutPageProps {
   error: ApolloError | undefined;

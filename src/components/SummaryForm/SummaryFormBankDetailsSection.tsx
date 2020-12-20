@@ -1,4 +1,4 @@
-import StructuredList from 'core/organisms/structured-list';
+import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
 import { gql } from '@apollo/client';
 import React from 'react';
 import { SummaryFormBankDetailsSectionAccount } from '../../../generated/SummaryFormBankDetailsSectionAccount';

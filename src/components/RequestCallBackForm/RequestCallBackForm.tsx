@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
-import TextInput from 'core/atoms/textinput';
-import NumericInput from 'core/atoms/numeric-input';
-import Checkbox from 'core/atoms/checkbox';
+import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
+import NumericInput from '@vanarama/uibook/lib/components/atoms/numeric-input';
+import Checkbox from '@vanarama/uibook/lib/components/atoms/checkbox';
 import {
   IFleetCallBackFormProps,
   IFleetCallBackFormValues,
@@ -17,22 +17,39 @@ import {
 } from '../../utils/inputValidators';
 import Skeleton from '../Skeleton';
 
-const Button = dynamic(() => import('core/atoms/button/'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Modal = dynamic(() => import('core/molecules/modal'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Form = dynamic(() => import('core/organisms/form'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Card = dynamic(() => import('core/molecules/cards'), {
-  loading: () => <Skeleton count={1} />,
-});
-const FormGroup = dynamic(() => import('core/molecules/formgroup'));
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button/'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Modal = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/modal'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const FormGroup = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/formgroup'),
+);
 
 const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
   onSubmit,

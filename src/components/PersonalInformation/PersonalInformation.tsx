@@ -1,31 +1,46 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
-import TextInput from 'core/atoms/textinput/';
-import AddressFinder from 'core/molecules/address-finder';
+import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
+import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
 import { useForm } from 'react-hook-form';
-import CheckBox from 'core/atoms/checkbox/';
+import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
 import validationSchema from './PersonalInformation.validation';
 import { IPersonInformationFormValues, IProps } from './interface';
 import { IAddressPerson } from '../../containers/PersonalInformationContainer/interfaces';
 import { responseToInitialFormValues } from './mappers';
 import Skeleton from '../Skeleton';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Button = dynamic(() => import('core/atoms/button'), {
-  loading: () => <Skeleton count={4} />,
-  ssr: false,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Form = dynamic(() => import('core/organisms/form'), {
-  loading: () => <Skeleton count={3} />,
-});
-const FormGroup = dynamic(() => import('core/molecules/formgroup'), {
-  loading: () => <Skeleton count={5} />,
-});
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={4} />,
+    ssr: false,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Form = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/form'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const FormGroup = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 const PersonalInformation = ({ person, submit }: IProps) => {
   const personAddress = person?.address;

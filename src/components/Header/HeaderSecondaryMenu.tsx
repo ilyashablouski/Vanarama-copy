@@ -3,24 +3,36 @@ import React, { FC, memo, useState, useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
-import { IBaseProps } from 'core/interfaces/base';
+import { IBaseProps } from '@vanarama/uibook/lib/interfaces/base';
 import RouterLink from '../RouterLink/RouterLink';
 import { IHeaderLink, IHeaderPromoImage } from './Header';
 import Skeleton from '../Skeleton';
 
-const Image = dynamic(() => import('core/atoms/image'), {
-  loading: () => <Skeleton count={4} />,
-});
-const Button = dynamic(() => import('core/atoms/button'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Button = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/button'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
-const Icon = dynamic(() => import('core/atoms/icon'), {
-  ssr: false,
-});
-const FlameSharp = dynamic(() => import('core/assets/icons/FlameSharp'), {
-  ssr: false,
-});
+const Icon = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/icon'),
+  {
+    ssr: false,
+  },
+);
+const FlameSharp = dynamic(
+  () => import('@vanarama/uibook/lib/assets/icons/FlameSharp'),
+  {
+    ssr: false,
+  },
+);
 
 export interface IHeaderSecondaryMenuProps extends IBaseProps {
   links: IHeaderLink[];

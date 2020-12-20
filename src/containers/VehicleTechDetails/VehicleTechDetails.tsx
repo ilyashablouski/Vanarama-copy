@@ -15,25 +15,45 @@ import Skeleton from '../../components/Skeleton';
 const KeyInformation = dynamic(() => import('./KeyInformation'), {
   loading: () => <Skeleton count={5} />,
 });
-const StructuredList = dynamic(() => import('core/organisms/structured-list'), {
-  loading: () => <Skeleton count={3} />,
-});
-const Accordion = dynamic(() => import('core/molecules/accordion/Accordion'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Tabs = dynamic(() => import('core/molecules/tabs'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Tab = dynamic(() => import('core/molecules/tabs/Tab'), {
-  loading: () => <Skeleton count={1} />,
-});
-const TabList = dynamic(() => import('core/molecules/tabs/TabList'));
-const TabPanel = dynamic(() => import('core/molecules/tabs/TabPanel'), {
-  loading: () => <Skeleton count={1} />,
-});
-const TabPanels = dynamic(() => import('core/molecules/tabs/TabPanels'), {
-  loading: () => <Skeleton count={3} />,
-});
+const StructuredList = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/structured-list'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Accordion = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/accordion/Accordion'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tabs = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tab = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/Tab'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const TabList = dynamic(() =>
+  import('@vanarama/uibook/lib/components/molecules/tabs/TabList'),
+);
+const TabPanel = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanel'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const TabPanels = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanels'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
 
 interface IVehicleTechDetailsProps {
   vehicleDetails: GetVehicleDetails_vehicleDetails | null | undefined;

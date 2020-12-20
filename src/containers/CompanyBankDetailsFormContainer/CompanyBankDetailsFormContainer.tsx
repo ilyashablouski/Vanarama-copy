@@ -19,9 +19,12 @@ import {
 import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import Skeleton from '../../components/Skeleton';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Loading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/loading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 const CompanyBankDetails = dynamic(() =>
   import('../../components/CompanyBankDetails'),
 );

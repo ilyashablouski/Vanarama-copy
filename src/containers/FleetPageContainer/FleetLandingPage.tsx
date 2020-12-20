@@ -1,6 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import SchemaJSON from 'core/atoms/schema-json';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import { GetFleetLandingPage } from '../../../generated/GetFleetLandingPage';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';

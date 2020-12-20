@@ -5,9 +5,12 @@ import withApollo from '../../hocs/withApollo';
 import ComparatorContainer from '../../containers/ComparatorContainer/ComparatorContainer';
 import Skeleton from '../../components/Skeleton';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 const Comparator: NextPage = () => {
   return (

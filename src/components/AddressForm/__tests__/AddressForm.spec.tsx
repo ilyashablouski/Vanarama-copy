@@ -16,7 +16,7 @@ describe('<AddressForm />', () => {
   beforeEach(async () => {
     await preloadAll();
   });
-  it.skip('should call `onSubmit` when entering valid information', async () => {
+  it('should call `onSubmit` when entering valid information', async () => {
     // ARRANGE
     const onSubmit = jest.fn();
 
@@ -56,7 +56,7 @@ describe('<AddressForm />', () => {
     });
   });
 
-  it.skip('should call `onSubmit` when entering multiple histories', async () => {
+  it('should call `onSubmit` when entering multiple histories', async () => {
     // ARRANGE
     const now = new Date();
     const currentYear = String(now.getFullYear());
@@ -190,7 +190,7 @@ describe('<AddressForm />', () => {
     );
   });
 
-  it.skip('should remove unnecessary entries', async () => {
+  it('should remove unnecessary entries', async () => {
     // ARRANGE
     const now = new Date();
     const currentYear = String(now.getFullYear());
@@ -255,7 +255,7 @@ describe('<AddressForm />', () => {
     });
   });
 
-  it.skip('should reorder entries chronologically by the move in date', async () => {
+  it('should reorder entries chronologically by the move in date', async () => {
     // ARRANGE
     const now = new Date();
     const currentYear = String(now.getFullYear());

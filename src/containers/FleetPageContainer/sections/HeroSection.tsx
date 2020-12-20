@@ -1,13 +1,13 @@
 import React from 'react';
 // import dynamic from 'next/dynamic';
-import Image from 'core/atoms/image';
+import Image from '@vanarama/uibook/lib/components/atoms/image';
 import { GetFleetLandingPage_fleetLandingPage_sections_hero as IHeroData } from '../../../../generated/GetFleetLandingPage';
 import config from '../config';
 import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 // import Skeleton from '../../../components/Skeleton';
 
 // const Image = dynamic(
-//   () => import('core/atoms/image'),
+//   () => import('@vanarama/uibook/lib/components/atoms/image'),
 //   {
 //     loading: () => <Skeleton count={4} />,
 //   },

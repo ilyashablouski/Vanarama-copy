@@ -6,7 +6,7 @@ import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
 import { useState } from 'react';
-import SchemaJSON from 'core/atoms/schema-json';
+import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -42,38 +42,65 @@ import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 
 const ArrowForwardSharp = dynamic(
-  () => import('core/assets/icons/ArrowForwardSharp'),
+  () => import('@vanarama/uibook/lib/assets/icons/ArrowForwardSharp'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Image = dynamic(() => import('core/atoms/image'), {
-  loading: () => <Skeleton count={4} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={3} />,
-});
-const Media = dynamic(() => import('core/atoms/media'), {
-  loading: () => <Skeleton count={3} />,
-});
-const Step = dynamic(() => import('core/molecules/step'), {
-  loading: () => <Skeleton count={3} />,
-});
-const Card = dynamic(() => import('core/molecules/cards'), {
-  loading: () => <Skeleton count={3} />,
-});
-const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
-  ssr: false,
-});
-const League = dynamic(() => import('core/organisms/league'), {
-  loading: () => <Skeleton count={2} />,
-});
+const Heading = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/heading'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Image = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/image'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
+const Text = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/text'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
+const Tile = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/tile'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Media = dynamic(
+  () => import('@vanarama/uibook/lib/components/atoms/media'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Step = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/step'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const Card = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/cards'),
+  {
+    loading: () => <Skeleton count={3} />,
+  },
+);
+const TrustPilot = dynamic(
+  () => import('@vanarama/uibook/lib/components/molecules/trustpilot'),
+  {
+    ssr: false,
+  },
+);
+const League = dynamic(
+  () => import('@vanarama/uibook/lib/components/organisms/league'),
+  {
+    loading: () => <Skeleton count={2} />,
+  },
+);
 
 type ProdCards = ProdCardData[];
 type Props = {
