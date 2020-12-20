@@ -10,6 +10,7 @@ module.exports = api => {
     '@babel/plugin-transform-runtime',
     'transform-dynamic-import',
     'babel-plugin-dynamic-import-node',
+    'macros',
   ];
 
   // const env = {

@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useLoqate hook should fetch results correctly 1`] = `
+Object {
+  "current": Object {
+    "data": Array [
+      Object {
+        "description": "Fakenham",
+        "id": "1",
+        "text": "123 Fake Street",
+        "type": "Address",
+      },
+      Object {
+        "description": "Fakenham",
+        "id": "2",
+        "text": "Fakenham Town Hall",
+        "type": "Address",
+      },
+    ],
+    "error": undefined,
+    "loading": false,
+  },
+  "error": undefined,
+}
+`;
+
+exports[`useLoqate hook should return an error if the fetch fails 1`] = `
+Object {
+  "current": Object {
+    "data": Array [],
+    "error": "API request to Loqate failed with status code undefined",
+    "loading": true,
+  },
+  "error": undefined,
+}
+`;

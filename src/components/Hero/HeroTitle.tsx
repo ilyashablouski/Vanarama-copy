@@ -1,12 +1,12 @@
 import ReactMarkdown from 'react-markdown';
 // import dynamic from 'next/dynamic';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
+import Text from 'core/atoms/text';
 import { IHeroTitleProps } from './interface';
 import RouterLink from '../RouterLink/RouterLink';
 import Skeleton from '../Skeleton';
 
 // const Text = dynamic(() =>
-//   import('@vanarama/uibook/lib/components/atoms/text'),
+//   import('core/atoms/text'),
 // );
 
 const HeroTitle: React.FC<IHeroTitleProps> = ({ text }) => {

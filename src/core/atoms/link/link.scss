@@ -1,0 +1,87 @@
+.link {
+  display: inline;
+  color: var(--class-color);
+  vertical-align: baseline;
+  text-decoration: none;
+  white-space: nowrap;
+  font-size: var(--class-fs, inherit);
+  font-weight: 500;
+  line-height: calc(1em + 0.25rem);
+  cursor: pointer;
+  transition: color $duration-small $transition-soft,
+    border $duration-small $transition-soft,
+    box-shadow $duration-small $transition-soft,
+    background $duration-small $transition-soft;
+
+  &:hover {
+    color: var(--class-color-tint);
+    opacity: 0.8;
+  }
+
+  &:focus {
+    opacity: 1;
+    color: var(--class-color-shade);
+    background: var(--class-color-focus);
+    box-shadow: $box-shadow-focus var(--class-color-focus);
+  }
+
+  &.-right {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &.-left {
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  &.-solid {
+    border-color: var(--class-color);
+    background: var(--class-color);
+    color: var(--class-color-contrast);
+
+    &:hover {
+      border-color: var(--class-color-tint);
+      background: var(--class-color-tint);
+    }
+
+    &:active,
+    &:focus {
+      border-color: var(--class-color-shade);
+      background: var(--class-color-shade);
+      box-shadow: $box-shadow-focus var(--class-color-focus);
+    }
+  }
+
+  &.-outline {
+    border-color: var(--class-color);
+    color: var(--class-color);
+    background: transparent;
+
+    &:hover {
+      border-color: var(--class-color-tint);
+      color: var(--class-color-tint);
+    }
+
+    &:active,
+    &:focus {
+      border-color: var(--class-color-shade);
+      color: var(--class-color-shade);
+      box-shadow: $box-shadow-focus var(--class-color-focus);
+    }
+  }
+
+  &.-plain {
+    border-bottom: unset;
+  }
+ 
+  > .icon {
+    position: relative;
+    bottom: -0.1em;
+  }
+  
+  @include colour-selector(-primary, $teal, colour);
+  @include colour-selector(-secondary, darker, contrast);
+}

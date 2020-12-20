@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import NextHead from 'next/head';
 import { useRouter } from 'next/router';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import SchemaJSON from 'core/atoms/schema-json';
 import { IHeadProps } from './interface';
 
 import { defaultTitle, twitter, fb } from './defaults';

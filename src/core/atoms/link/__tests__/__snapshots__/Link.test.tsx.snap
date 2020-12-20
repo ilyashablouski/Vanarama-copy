@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Link /> renders correctly 1`] = `
+<a
+  className="link -primary -regular -plain"
+/>
+`;
+
+exports[`<Link /> renders correctly with optional props 1`] = `
+<a
+  className="link class -orange -small -plain"
+  href="#"
+>
+  <span>
+    Link
+  </span>
+</a>
+`;

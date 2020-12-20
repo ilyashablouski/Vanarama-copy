@@ -15,27 +15,16 @@ import useSliderProperties from '../../hooks/useSliderProperties';
 import { features } from './helpers';
 
 // Dynamic component loading.
-const Icon = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/icon'),
-  {
-    ssr: false,
-  },
-);
-const Carousel = dynamic(() =>
-  import('@vanarama/uibook/lib/components/organisms/carousel'),
-);
+const Icon = dynamic(() => import('core/atoms/icon'), {
+  ssr: false,
+});
+const Carousel = dynamic(() => import('core/organisms/carousel'));
 const ProductCard = dynamic(() =>
-  import(
-    '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard'
-  ),
+  import('core/molecules/cards/ProductCard/ProductCard'),
 );
-const Heading = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/heading'),
-);
-const Price = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/price'),
-);
-const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'), {
+const Heading = dynamic(() => import('core/atoms/heading'));
+const Price = dynamic(() => import('core/atoms/price'));
+const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
 

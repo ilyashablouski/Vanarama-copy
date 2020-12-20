@@ -1,6 +1,6 @@
-import Typeahead from '@vanarama/uibook/lib/components/molecules/typeahead';
-import { ITextInputProps } from '@vanarama/uibook/lib/components/atoms/textinput/interfaces';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import Typeahead from 'core/molecules/typeahead';
+import { ITextInputProps } from 'core/atoms/textinput/interfaces';
+import Formgroup from 'core/molecules/formgroup';
 import { useField } from 'formik';
 import React, { FormEvent, useState } from 'react';
 import { SuggestionSelectedEventData } from 'react-autosuggest';

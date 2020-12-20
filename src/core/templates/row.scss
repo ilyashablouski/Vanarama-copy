@@ -1,0 +1,1924 @@
+[class*='row:'] {
+  display: grid;
+  grid-template-columns: $child-template;
+  grid-column: content;
+  place-content: start;
+
+  & + & {
+    margin-top: var(--page-gap);
+  }
+
+  > * {
+    grid-column: content;
+  }
+}
+
+[class*='row:bg-'] {
+  grid-template-columns: $parent-template;
+  grid-column: full;
+  @include padding-block(var(--layout-gap));
+
+  & + & {
+    --page-gap: 0;
+  }
+
+  &.-thin {
+    @include padding-block(calc(var(--layout-gap) / 2));
+  }
+
+  &.-xthin {
+    @include padding-block(calc(var(--layout-gap) / 2));
+    @include desktop {
+      @include padding-block(calc(var(--layout-gap) / 3));
+    }
+  }
+
+  &.-compact {
+    @include padding-block(0);
+  }
+}
+
+.row\: {
+  &comments {
+    gap: $rem-400 $layout-gap;
+    place-items: auto;
+
+    > .button-group {
+      @include desktop {
+        grid-column: content / column 4;
+      }
+      @include tablet {
+        grid-column: content / column 4;
+      }
+      @include mobile {
+        grid-column: content / half 1;
+      }
+    }
+
+    > .link {
+      place-self: end;
+      @include desktop {
+        grid-column: column 4 / column 8;
+      }
+      @include tablet {
+        grid-column: column 4 / column 8;
+      }
+      @include mobile {
+        grid-column: half 1 / content;
+      }
+    }
+
+    > .comments {
+      @include desktop {
+        grid-column: content / column 8;
+      }
+      @include tablet {
+        grid-column: content / column 8;
+      }
+      @include mobile {
+        grid-column: content;
+      }
+    }
+  }
+
+  &tiles {
+    gap: $rem-400 $layout-gap;
+    place-items: auto;
+
+    > * {
+      border: 1px solid $border-color;
+      border-bottom: 2px solid $border-color;
+      background: $white;
+      padding: $rem-400;
+      @include owl($rem-400);
+    }
+
+    > :first-child {
+      @include desktop {
+        grid-column: content / half 1;
+      }
+      @include tablet {
+        grid-column: content / half 1;
+      }
+      @include mobile {
+        grid-column: content;
+      }
+    }
+
+    > :last-child {
+      @include desktop {
+        grid-column: half 1 / content;
+      }
+      @include tablet {
+        grid-column: half 1 / content;
+      }
+      @include mobile {
+        grid-column: content;
+      }
+    }
+  }
+
+  &icon-list {
+    display: grid;
+    grid-column: content;
+    grid-template-columns: repeat(2, 2rem minmax(0, 1fr));
+    grid-template-rows: auto;
+    gap: $rem-400;
+
+    @include mobile {
+      grid-template-columns: 2rem minmax(0, 1fr);
+    }
+
+    > * {
+      --owl-gap: 0;
+      grid-column: span 1;
+    }
+
+    > .icon {
+      font-size: 2rem;
+    }
+
+    > .heading,
+    > hr {
+      grid-column: 1 / -1;
+      width: 100%;
+      max-width: unset;
+    }
+  }
+
+  &search-filters {
+    @include mobile-tablet {
+      grid-column: full;
+    }
+  }
+
+  &article {
+    gap: $rem-400 $layout-gap;
+    place-items: auto;
+
+    > article {
+      @include desktop {
+        grid-column: content / third 2;
+      }
+      @include tablet {
+        grid-column: content / third 2;
+      }
+      @include mobile {
+        grid-column: content;
+      }
+    }
+
+    > :last-child {
+      height: max-content;
+      @include distribute-children($rem-400);
+      @include desktop {
+        grid-column: third 2 / content;
+      }
+      @include tablet {
+        grid-column: third 2 / content;
+      }
+      @include mobile {
+        grid-column: content;
+      }
+    }
+  }
+
+  &title {
+    gap: calc(var(--layout-gap) / 3);
+
+    & + [class*='row:bg-'] {
+      --page-gap: calc(var(--layout-gap) / 3);
+
+      @include mobile {
+        --page-gap: var(--layout-gap);
+      }
+    }
+  }
+
+  &form {
+    gap: $rem-400;
+  }
+
+  &cards {
+    &-orders,
+    &-4col,
+    &-3col,
+    &-2col,
+    &-1col {
+      > .button,
+      > .text,
+      > .choiceboxes,
+      > .heading {
+        text-align: center;
+        grid-column: content;
+        place-self: center;
+      }
+      > .choiceboxes {
+        margin-bottom: $rem-500;
+      }
+      @include desktop {
+        > .choiceboxes {
+          max-width: 33%;
+        }
+      }
+    }
+
+    &-orders {
+      gap: $rem-400;
+
+      @include desktop {
+        > * {
+          grid-column: content;
+        }
+      }
+      @include tablet {
+        > * {
+          grid-column: span 6;
+        }
+      }
+      @include mobile {
+        > * {
+          grid-column: content;
+        }
+      }
+    }
+
+    &-4col {
+      gap: $rem-400;
+
+      @include desktop {
+        > * {
+          grid-column: span 3;
+        }
+      }
+      @include tablet {
+        > * {
+          grid-column: span 6;
+        }
+      }
+      @include mobile {
+        > * {
+          grid-column: content;
+        }
+      }
+    }
+
+    &-3col {
+      gap: $rem-400;
+
+      @include desktop {
+        > * {
+          grid-column: span 4;
+        }
+      }
+      @include tablet {
+        > * {
+          grid-column: span 6;
+        }
+      }
+      @include mobile {
+        > * {
+          grid-column: content;
+        }
+      }
+    }
+
+    &-2col {
+      gap: $rem-400;
+
+      @include desktop {
+        > * {
+          grid-column: span 6;
+        }
+      }
+      @include tablet {
+        > * {
+          grid-column: span 6;
+        }
+      }
+      @include mobile {
+        > * {
+          grid-column: content;
+        }
+      }
+    }
+
+    &-1col {
+      gap: $rem-400;
+
+      > * {
+        grid-column: content;
+      }
+    }
+  }
+
+  &carousel {
+    gap: $rem-400;
+
+    > .heading,
+    > .text,
+    > .button {
+      text-align: center;
+      display: block;
+    }
+
+    > * {
+      margin: auto;
+    }
+  }
+
+  &features {
+    &-4col,
+    &-3col {
+      > .heading {
+        grid-column: content;
+        margin: auto;
+      }
+    }
+
+    &-4col {
+      gap: $rem-400;
+
+      @include desktop {
+        > * {
+          grid-column: span 3;
+        }
+      }
+      @include tablet {
+        > * {
+          grid-column: span 6;
+        }
+      }
+      @include mobile {
+        > * {
+          grid-column: content;
+        }
+      }
+    }
+
+    &-3col {
+      gap: $rem-400;
+
+      @include desktop {
+        > * {
+          grid-column: span 4;
+        }
+      }
+      @include tablet {
+        > * {
+          grid-column: span 6;
+        }
+      }
+      @include mobile {
+        > * {
+          grid-column: content;
+        }
+      }
+    }
+  }
+
+  &featured {
+    &-image {
+      grid-column: full;
+      grid-template-columns: $parent-template;
+
+      > * {
+        grid-column: full;
+        @include desktop {
+          grid-column: content;
+        }
+      }
+
+      > .text.-caption {
+        grid-column: content;
+
+        @include mobile {
+          @include margin-inline(0);
+        }
+        @include tablet {
+          @include margin-inline(0);
+        }
+      }
+
+      > .image {
+        filter: unset;
+        mix-blend-mode: lighten;
+
+        .image--native {
+          background-color: transparent;
+        }
+
+        &,
+        & * {
+          border-radius: 0;
+        }
+      }
+
+      > .-white {
+        mix-blend-mode: normal;
+      }
+    }
+
+    &-left,
+    &-right,
+    &-product {
+      gap: $rem-400 $layout-gap;
+      place-items: center start;
+
+      > .card {
+        margin: auto;
+      }
+
+      > :first-child {
+        @include desktop {
+          grid-column: content / half;
+        }
+        @include tablet {
+          grid-column: content / half;
+        }
+        @include mobile {
+          grid-column: content;
+        }
+      }
+
+      > :last-child {
+        @include desktop {
+          grid-column: half / content;
+        }
+        @include tablet {
+          grid-column: half / content;
+        }
+        @include mobile {
+          grid-column: content;
+        }
+      }
+    }
+
+    &-left {
+      > :last-child:not([class]) {
+        @include owl($rem-400);
+      }
+
+      > :first-child:not([class]) > * + * {
+        margin-top: var(--owl-gap, 1rem);
+      }
+    }
+
+    &-right {
+      > :first-child:not([class]) {
+        @include owl($rem-400);
+      }
+
+      > :first-child {
+        @include tablet-desktop {
+          grid-column-start: -1;
+          grid-row-start: -1;
+        }
+      }
+
+      > :last-child {
+        @include tablet-desktop {
+          grid-column-start: 1;
+          grid-row-start: 1;
+          grid-column: content / half;
+        }
+        @include mobile {
+          order: -1;
+        }
+      }
+
+      > .card-content {
+        @include tablet-desktop {
+          grid-column-start: 1;
+          grid-row-start: 1;
+        }
+      }
+
+      > .card-content p + p {
+        margin-top: var(--owl-gap, 1rem);
+      }
+
+      > .card {
+        @include tablet-desktop {
+          grid-column-start: 1;
+          grid-row-start: 1;
+          grid-column: half / content;
+        }
+      }
+    }
+
+    &-fullwidth {
+      margin-top: 62px;
+      > :first-child {
+        grid-row-start: 1;
+        grid-column: 1 / 11;
+      }
+    }
+
+    &-product {
+      min-width: 0;
+
+      > :last-child {
+        display: flex;
+        flex-direction: column;
+
+        > * + * {
+          margin-top: $rem-200;
+        }
+
+        .heading {
+          font-family: $font-family-body;
+          font-weight: 600;
+        }
+
+        .button {
+          margin-top: $rem-400;
+        }
+
+        br {
+          @include margin-block($rem-400);
+        }
+      }
+    }
+  }
+
+  &lead-text {
+    @include owl($rem-400);
+
+    > .text,
+    > .heading {
+      text-align: center;
+      @include mobile {
+        text-align: left;
+      }
+    }
+
+    > .accordion {
+      @include margin-inline(auto);
+    }
+
+    > * {
+      @include margin-inline(auto);
+      @include mobile {
+        @include margin-inline(0);
+      }
+    }
+  }
+
+  &league {
+    grid-template-columns: $parent-template;
+    grid-column: full;
+
+    > * {
+      grid-column: full;
+      @include padding-block($rem-500);
+    }
+  }
+
+  &bg {
+    @each $color in $colors {
+      &-#{map-get($color, 'name')} {
+        background-color: map-get($color, 'color');
+        background-image: soft-gradient(
+          map-get($color, 'color'),
+          map-get($color, 'mod')
+        );
+
+        & + & {
+          padding-top: 0;
+        }
+      }
+    }
+
+    &-hero {
+      grid-template-columns: $parent-template;
+      grid-column: full;
+      @include padding-block(#{var(--page-gap, #{$rem-400})});
+      position: relative;
+      color: $white;
+      background-image: linear-gradient(
+        to bottom right,
+        #dbdcdf 20%,
+        #e7e9ec 50%,
+        #eff0f3 100%
+      );
+      overflow: hidden;
+      padding-bottom: calc(var(--layout-gap) * 2) !important;
+
+      &[style*='--hero-bg:'] {
+        background-image: var(--hero-bg),
+          linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+        // background-image: var(--hero-bg), $promo-gradient;
+        background-size: cover;
+        background-position: center center;
+        min-height: 560px;
+        place-content: center stretch;
+        background-blend-mode: color-burn;
+      }
+    }
+  }
+
+  &results {
+    grid-column: full;
+    grid-template-columns: $child-template-full;
+    gap: $rem-400 0;
+
+    > .search--wrapper {
+      grid-column: content / column 6;
+      @include mobile {
+        grid-column: content;
+      }
+    }
+
+    > .toggle--wrapper {
+      grid-column: content;
+      place-self: start center;
+    }
+
+    > .choiceboxes {
+      grid-column: content;
+      @include desktop {
+        @include margin-inline(auto);
+      }
+      @include tablet {
+        @include margin-inline(auto);
+      }
+
+      .choicebox {
+        @include desktop {
+          @include padding-inline(4vw);
+        }
+        @include tablet {
+          @include padding-inline(4vw);
+        }
+      }
+    }
+
+    > .text {
+      line-height: 2rem;
+      grid-column: content / column 6;
+    }
+
+    > .select {
+      place-self: end;
+      grid-column: column 6 / content;
+      display: flex;
+      align-items: baseline;
+
+      &:before {
+        content: 'Sort: ';
+        margin-right: 0.5ch;
+        color: $darker;
+      }
+    }
+
+    > .select .select--native {
+      height: 2rem;
+      background: transparent;
+      padding-left: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      padding-right: 2rem;
+      box-shadow: unset;
+      border: 0;
+      font-weight: 500;
+      color: $black;
+    }
+
+    > .select,
+    > .select .select--native,
+    > .text {
+      @include mobile {
+        font-size: $font-size-300;
+      }
+    }
+  }
+
+  &tabbed {
+    grid-template-columns: $parent-template;
+    grid-column: full;
+    background: $light;
+
+    > * {
+      grid-column: full;
+      background: transparent;
+    }
+
+    > :not(:first-child) {
+      @include margin-inline(auto);
+    }
+
+    .tabs__list-wrap {
+      background: $white;
+      overflow: visible;
+      @include mobile {
+        @include padding-inline($rem-400);
+      }
+
+      > * {
+        margin-bottom: -3px;
+      }
+    }
+
+    .tabs__panel {
+      display: flex;
+      flex-direction: column;
+      grid-column: content;
+      background: transparent;
+      padding: $rem-500;
+
+      > * > .button {
+        margin-top: 1.5rem;
+        @include margin-inline(auto);
+      }
+
+      @include mobile {
+        padding: 0.5rem;
+      }
+    }
+
+    &-left {
+      grid-column: content;
+
+      .tabs__list {
+        grid-auto-columns: minmax(0, max-content);
+      }
+
+      > * {
+        @include desktop {
+          grid-column: 1 / 6;
+        }
+        @include tablet {
+          grid-column: 1 / 9;
+        }
+        @include mobile {
+          grid-column: 1 / -1;
+        }
+      }
+    }
+  }
+
+  &text {
+    gap: $rem-400;
+
+    > .content p + p {
+      margin-top: var(--owl-gap, 1rem);
+    }
+
+    &:not(.-columns) {
+      grid-template-columns: minmax(0, #{'max(50vw, 700px)'});
+
+      .text,
+      .heading {
+        max-width: unset;
+        grid-column: 1;
+      }
+
+      > div {
+        grid-column: 1 / 1;
+      }
+    }
+
+    &.-columns {
+      > div {
+        @include text-columns(2, $layout-gap);
+        -webkit-column-rule: 1px solid $light;
+        -moz-column-rule: 1px solid $light;
+        column-rule: 1px solid $light;
+      }
+    }
+  }
+
+  &timeline {
+    > .heading {
+      @include margin-inline(auto);
+    }
+  }
+
+  &accordion {
+    .accordion {
+      border: 1px solid $border-color;
+    }
+
+    @include desktop {
+      grid-column: column 3 / column 9;
+    }
+  }
+
+  &eligibility-checker-cta {
+    > * {
+      @include n(1) {
+        grid-column: content / half;
+        @include mobile {
+          grid-column: content;
+        }
+        text-align: center;
+        @include owl($rem-300);
+
+        > .heading {
+          --owl-gap: 0;
+        }
+
+        > * {
+          @include margin-inline(auto);
+        }
+
+        > .image {
+          max-width: 25rem;
+        }
+      }
+
+      @include n(2) {
+        grid-column: half / content;
+        @include mobile {
+          grid-column: content;
+        }
+        text-align: center;
+        @include owl($rem-300);
+
+        > .heading {
+          --owl-gap: 0;
+        }
+
+        > * {
+          @include margin-inline(auto);
+        }
+
+        > .image {
+          max-width: 25rem;
+        }
+      }
+    }
+  }
+
+  &steps {
+    &-4col {
+      gap: $rem-400;
+
+      @include desktop {
+        > * {
+          grid-column: span 3;
+        }
+      }
+      @include tablet {
+        > * {
+          grid-column: span 6;
+        }
+      }
+      @include mobile {
+        > * {
+          grid-column: content;
+        }
+      }
+    }
+
+    &-3col {
+      gap: $rem-400;
+
+      @include desktop {
+        > * {
+          grid-column: span 4;
+        }
+      }
+      @include tablet {
+        > * {
+          grid-column: span 6;
+        }
+      }
+      @include mobile {
+        > * {
+          grid-column: content;
+        }
+      }
+    }
+
+    &-4col,
+    &-3col {
+      > .heading {
+        grid-column: content;
+        place-self: center;
+      }
+    }
+  }
+
+  &manufacturer-grid {
+    gap: $rem-400;
+
+    > .heading {
+      grid-column: content;
+      place-self: center;
+    }
+
+    > div {
+      margin: -$rem-100;
+      display: flex;
+      flex-wrap: wrap;
+
+      @include mobile {
+        flex-wrap: nowrap;
+        flex-direction: column;
+        > * {
+          flex-grow: 1;
+          max-width: 100% !important;
+          margin: $rem-100;
+        }
+      }
+
+      @include tablet {
+        > * {
+          flex-grow: 1;
+          min-width: max-content;
+          width: 22%;
+          max-width: 100% !important;
+          margin: $rem-100;
+        }
+      }
+
+      @include desktop {
+        > * {
+          flex-grow: 1;
+          min-width: max-content;
+          width: 22%;
+          max-width: 100% !important;
+          margin: $rem-100;
+        }
+      }
+    }
+  }
+
+  &accessories {
+    gap: $rem-400;
+
+    @include desktop {
+      > * {
+        grid-column: span 3;
+      }
+    }
+    @include tablet {
+      > * {
+        grid-column: span 6;
+      }
+    }
+    @include mobile {
+      > * {
+        grid-column: content;
+      }
+    }
+
+    > .button,
+    > .text,
+    > .heading {
+      text-align: center;
+      grid-column: content;
+      place-self: center;
+    }
+
+    > .heading {
+      margin-bottom: $rem-400;
+    }
+
+    > div {
+      @include owl($rem-300);
+    }
+  }
+
+  &featured-logos {
+    gap: $rem-400;
+
+    > .button,
+    > .text,
+    > .heading {
+      text-align: center;
+      grid-column: content;
+      place-self: center;
+    }
+
+    > div {
+      display: grid;
+      grid-auto-rows: max-content;
+      place-items: center;
+      gap: $rem-300;
+
+      @include desktop {
+        grid-template-columns: repeat(9, minmax(0, 1fr));
+      }
+      @include tablet {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+      @include mobile {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+
+      .image {
+        max-width: 4rem;
+        filter: contrast(1.1) saturate(0.9);
+      }
+    }
+  }
+
+  &trustpilot {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 5rem;
+    grid-column: content;
+  }
+
+  &league {
+    gap: 1ch;
+
+    @include mobile {
+      gap: 0;
+    }
+
+    .image {
+      position: absolute;
+      max-width: 10rem;
+      top: 0;
+      bottom: 0;
+
+      @include mobile {
+        position: static;
+        margin: auto;
+      }
+    }
+
+    > :first-child {
+      background: linear-gradient(
+        to left,
+        #{rgba($black, 0.85)} 0%,
+        #{rgba($black, 1)} 100%
+      );
+      border-top-right-radius: $border-radius-large;
+      border-bottom-right-radius: $border-radius-large;
+      padding: $rem-500;
+
+      @include desktop {
+        grid-column: full / third 1;
+      }
+      @include tablet {
+        grid-column: full / third 1;
+      }
+
+      .image {
+        right: $rem-600;
+        max-width: 14rem;
+        filter: contrast(1.2) saturate(0.85);
+        mix-blend-mode: lighten;
+        @include mobile {
+          max-width: 12rem;
+        }
+      }
+    }
+
+    > :last-child {
+      background: linear-gradient(to right, #{$lighter} 0%, #{$light} 100%);
+      border-top-left-radius: $border-radius-large;
+      border-bottom-left-radius: $border-radius-large;
+      padding: $rem-500;
+      padding-left: 5rem + $rem-600;
+
+      @include desktop {
+        grid-column: third 1 / full;
+      }
+      @include tablet {
+        grid-column: third 1 / full;
+      }
+
+      .image {
+        mix-blend-mode: luminosity;
+        filter: contrast(1.3) brightness(0.8);
+        max-width: 5rem;
+        left: $rem-500;
+        @include mobile {
+          max-width: 6rem;
+        }
+      }
+    }
+
+    > :first-child,
+    > :last-child {
+      position: relative;
+      min-height: 5rem;
+
+      @include mobile {
+        width: 100vw;
+        text-align: center;
+        border-radius: 0;
+        grid-column: full;
+        padding: $rem-300 $rem-200;
+      }
+    }
+  }
+
+  &progress {
+    --page-gap: calc(var(--layout-gap) / 1.5);
+    + [class*='row:'] {
+      --page-gap: calc(var(--layout-gap) / 2);
+    }
+  }
+
+  &hero {
+    align-items: center;
+
+    .hero {
+      &--left {
+        @include desktop {
+          grid-column: content / column 7;
+        }
+        @include tablet {
+          grid-column: content / column 6;
+        }
+        @include mobile {
+          grid-column: content;
+          text-align: center;
+          place-self: center;
+        }
+        @include owl($rem-400, block);
+
+        .heading.-xlarge {
+          color: $orange;
+          line-height: 1.05;
+          @include desktop {
+            font-size: 3rem;
+            letter-spacing: -0.028em;
+          }
+          @include tablet {
+            font-size: 2.65rem;
+          }
+          @include mobile {
+            font-size: 2.65rem;
+          }
+
+          + .text {
+            --owl-gap: 0.25rem;
+            @include mobile {
+              --owl-gap: 1ch;
+              font-size: 1.25rem;
+            }
+          }
+        }
+
+        .text {
+          color: $darker;
+          max-width: 540px;
+        }
+
+        > * {
+          text-shadow: 0 0 1px rgba($black, 0.1);
+        }
+      }
+
+      &--right {
+        text-align: center;
+        @include desktop {
+          grid-column: column 8 / content;
+        }
+        @include tablet {
+          grid-column: column 7 / content;
+        }
+        @include mobile {
+          grid-column: content;
+          width: 100%;
+          min-width: 0;
+          max-width: 25rem;
+          order: -1;
+          @include margin-block(var(--layout-gap));
+          @include margin-inline(auto);
+        }
+
+        > * {
+          z-index: 3;
+          position: relative;
+        }
+
+        .callBack {
+          position: fixed;
+          z-index: 1000;
+          overflow: hidden;
+        }
+      }
+
+      &--small-print {
+        opacity: 0.75;
+      }
+
+      &--image {
+        max-width: 39rem;
+        filter: contrast(0.75) contrast(1.3) saturate(1.2);
+        z-index: 50;
+
+        @include mobile {
+          max-width: 20rem;
+          @include margin-inline(auto);
+        }
+      }
+
+      &-logomark {
+        position: absolute;
+        bottom: 0;
+        right: 5vw;
+        opacity: 0.15;
+        transform: scale(2.7);
+        fill: $white;
+        grid-column: full;
+        pointer-events: none;
+        mix-blend-mode: overlay;
+      }
+
+      &--curve,
+      &--curve-m {
+        display: block;
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        right: 0;
+        grid-column: full;
+        pointer-events: none;
+
+        &-foreground {
+          fill: $orange;
+        }
+
+        &-background {
+          fill: $white;
+        }
+      }
+
+      &--curve {
+        display: block;
+        @include mobile {
+          display: none;
+        }
+      }
+
+      &--curve-m {
+        display: none;
+        @include mobile {
+          display: block;
+        }
+      }
+
+      &-card,
+      &-benefits-bar {
+        text-align: center;
+        grid-template-rows: minmax(0, max-content);
+        gap: $rem-300 0;
+        box-shadow: 0 4px 16px -8px rgba($black, 0.1), $box-shadow-large !important;
+        border: 0 !important;
+        z-index: 3;
+      }
+
+      &-card {
+        padding: 0;
+        --card-columns-default: outer;
+
+        .form {
+          gap: $rem-300;
+        }
+
+        .structured-list {
+          text-align: left;
+        }
+
+        .tabs__list {
+          > .-active {
+            --tabs-border-active: transparent;
+          }
+
+          > :not(.-active) {
+            background-color: $lighter;
+          }
+        }
+
+        .tabs-wrap {
+          margin: -$rem-300 -1px 0 -1px;
+          width: calc(100% + 2px);
+        }
+
+        .tabs__list > * {
+          width: 100%;
+        }
+
+        &--inner {
+          padding: $rem-300;
+          @include distribute-children($rem-300);
+        }
+      }
+
+      &-benefits-bar {
+        @include padding-inline($rem-300);
+        margin-top: $rem-300;
+
+        &--inner {
+          display: flex;
+          grid-row: 1/-1 !important;
+          grid-column: 1/-1 !important;
+          justify-content: space-between;
+        }
+
+        .button .button--inner {
+          min-width: max-content;
+        }
+
+        &--content {
+          > .text {
+            margin: 0;
+          }
+        }
+      }
+
+      &--content-area {
+        background: $white;
+        border-radius: $border-radius-medium;
+        box-shadow: $box-shadow-header;
+        padding: $rem-400;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        > .heading {
+          font-size: 1.375rem;
+        }
+
+        > .icon:first-child {
+          margin-bottom: $rem-200;
+        }
+
+        > .button {
+          margin-top: $rem-400;
+        }
+      }
+    }
+  }
+
+  &olaf {
+    gap: $rem-400 0;
+    place-items: start;
+    display: grid;
+    grid-column: content;
+
+    > :not(.olaf-aside) {
+      @include desktop {
+        grid-column: content / column 7;
+      }
+      @include tablet {
+        grid-column: content / column 6;
+      }
+      @include mobile {
+        grid-column: content;
+      }
+    }
+
+    > .olaf-aside {
+      @include desktop {
+        grid-column: column 7 / content;
+      }
+      @include tablet {
+        grid-column: column 7 / content;
+      }
+      @include mobile {
+        grid-column: content;
+        order: -1;
+      }
+    }
+
+    .form {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      > * {
+        grid-column: 1 / -1;
+      }
+    }
+
+    .olaf {
+      // Text Input & Percentage Input & Remove Button
+      &--country-turnover {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 9ch max-content;
+        gap: 4px;
+
+        .select,
+        .select--native {
+          width: 100%;
+          max-width: 100%;
+        }
+      }
+
+      &--summary {
+        display: grid;
+        width: 100%;
+        margin-bottom: 3rem;
+        grid-template-columns: [full key value] minmax(0, 1fr);
+        grid-template-rows: repeat(auto-fit, minmax(0, max-content));
+        gap: 0;
+        place-items: baseline start;
+        --owl-gap: 0;
+
+        // .structured-list-row .structured-list-td {
+        //   line-height: unset;
+
+        //   &.structured-list-content--nowrap {
+        //     font-weight: 500;
+        //   }
+        // }
+
+        // .-styled-headers {
+        //   &:not(:first-child) {
+        //     margin-top: 3rem;
+        //   }
+
+        //   .text {
+        //     font-weight: $font-weight-semibold;
+        //     color: $black;
+        //   }
+        // }
+
+        @include desktop {
+          max-width: 100%;
+          padding-right: 5rem;
+          gap: 0.75ch 1rem;
+          grid-template-columns:
+            [full-start key] minmax(0, 1fr) [value] minmax(max-content, 2fr)
+            [full-end];
+        }
+
+        @include tablet {
+          max-width: 100%;
+        }
+
+        > div {
+          width: 100%;
+        }
+
+        > hr {
+          grid-column: full;
+          margin: 1ch 0;
+
+          @include desktop {
+            margin: 0;
+          }
+        }
+
+        &-edit {
+          grid-column: full;
+          margin-top: 1rem;
+        }
+
+        &-key {
+          grid-column: key;
+          font-weight: 600;
+
+          @include desktop {
+            font-weight: 500;
+          }
+        }
+
+        &-subtitle {
+          grid-column: full;
+          margin-top: 1.5rem;
+
+          + hr {
+            background: linear-gradient(
+              to top,
+              #{$medium},
+              #{$medium} 1px,
+              transparent 1px,
+              transparent
+            );
+          }
+        }
+
+        &-title {
+          grid-column: full;
+
+          + hr {
+            margin: 1ch 0;
+            background: linear-gradient(
+              to top,
+              #{$dark},
+              #{$dark} 1px,
+              transparent 1px,
+              transparent
+            );
+          }
+
+          &:not(:first-child) {
+            margin-top: 3rem;
+          }
+        }
+      }
+
+      &--bank-details {
+        &-legal {
+          display: inherit;
+          grid-template-columns: inherit;
+          gap: 1ch;
+          border: 1px solid $border-color;
+          border-bottom: 2px solid $border-color;
+          padding: $rem-300;
+          background: $lighter;
+          max-height: 50vh;
+          overflow-y: scroll;
+
+          > * {
+            grid-column: 1 / -1;
+          }
+        }
+      }
+
+      &--expenses {
+        &-tile {
+          display: inherit;
+          grid-template-columns: inherit;
+          gap: inherit;
+          background: lighten($lighter, $tint/3);
+          box-shadow: 0 0 0 1rem lighten($lighter, $tint/3);
+          @include margin-block($rem-400);
+        }
+
+        &-input {
+          grid-column: 1 / -1;
+          @include tablet {
+            grid-column: span 1;
+          }
+          @include desktop {
+            grid-column: span 1;
+          }
+
+          &.-calculated {
+            * {
+              font-weight: 500;
+              color: $black;
+            }
+
+            .textinput--native {
+              border: 0;
+              border-bottom: 2px solid $light;
+              border-radius: 0;
+              pointer-events: none;
+              cursor: not-allowed;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &my-details {
+    gap: $rem-500;
+    place-items: start stretch;
+
+    @include desktop {
+      > * {
+        grid-column: span 4;
+      }
+    }
+    @include tablet {
+      > * {
+        grid-column: span 4;
+      }
+    }
+    @include mobile {
+      > * {
+        grid-column: content;
+      }
+    }
+
+    .my-details {
+      &--form {
+        > .heading {
+          margin-bottom: $rem-300;
+        }
+        max-width: unset;
+        grid-column: span 6;
+        @include mobile {
+          grid-column: content;
+        }
+      }
+    }
+  }
+
+  &feedback {
+    gap: $rem-600;
+    grid-column: content;
+    @include mobile-tablet {
+      display: block;
+    }
+
+    > * {
+      @include distribute-children($rem-400);
+    }
+
+    > :first-child {
+      @include desktop {
+        grid-column: content / third 2;
+      }
+      @include mobile-tablet {
+        grid-column: content;
+      }
+    }
+
+    > :last-child {
+      @include desktop {
+        grid-column: third 2 / content;
+      }
+      @include mobile-tablet {
+        grid-column: content;
+      }
+    }
+
+    .feedback {
+      &--items {
+        display: grid;
+        grid-auto-rows: minmax(0, 1fr);
+        gap: $rem-200;
+        @include desktop {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        @include mobile-tablet {
+          grid-template-columns: minmax(0, 1fr);
+        }
+
+        > * {
+          padding: $rem-300;
+          @include distribute-children($rem-100);
+        }
+      }
+    }
+  }
+
+  &stepped-form {
+    gap: $rem-500 $rem-400;
+    place-items: center;
+    place-content: center;
+    text-align: center;
+
+    // Tweaks -> increase padding etc for mobile
+    > * > .choiceboxes {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 0.5rem;
+
+      svg {
+        margin-top: 0.5rem;
+        max-height: 40px;
+
+        &,
+        & * {
+          stroke: currentColor;
+          fill: currentColor;
+        }
+      }
+
+      > * {
+        @include padding-block(0.5rem);
+        @include padding-inline(0.5rem);
+      }
+    }
+
+    // Tweaks -> custom centered layout for desktop
+    @include tablet-desktop {
+      > * > .choiceboxes {
+        display: flex;
+        flex-wrap: wrap;
+        margin: -0.25rem;
+        justify-content: center;
+
+        > * {
+          flex-grow: 1;
+          min-width: max-content;
+          width: calc(33.33% - 1rem);
+          max-width: calc(33.33% - 1rem);
+          margin: 0.25rem;
+
+          @include padding-inline(1rem);
+          @include padding-block(0.75rem);
+        }
+      }
+    }
+
+    .stepped-form {
+      &--title {
+        @include tablet-desktop {
+          max-width: $vp-large / 2;
+        }
+        text-align: center;
+      }
+
+      &--choiceboxes {
+        text-align: center;
+        @include tablet-desktop {
+          max-width: $vp-large / 2;
+        }
+      }
+
+      &--button {
+        @include mobile {
+          @include margin-inline(auto);
+        }
+      }
+
+      &--filter {
+        text-align: center;
+        width: 100%;
+        max-width: $vp-large / 2;
+
+        > * + * {
+          margin-top: $rem-400;
+        }
+      }
+
+      &--results {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1rem;
+        width: 100%;
+        max-width: $vp-large / 1.25;
+
+        @include mobile {
+          grid-template-columns: repeat(1, minmax(0, 1fr));
+        }
+        @include tablet {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+        @include tablet-desktop {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+    }
+  }
+
+  &plain-hero {
+    gap: $rem-400 0;
+    place-items: auto;
+    place-items: center stretch;
+    margin-top: var(--page-gap) !important;
+
+    > * {
+      grid-column: span 6;
+    }
+
+    .card {
+      margin: auto;
+      width: 100%;
+      max-width: 40ch;
+      text-align: center;
+      place-items: start center;
+    }
+
+    .hero-buttons {
+      display: flex;
+
+      @include desktop {
+        flex-direction: row;
+
+        > * + * {
+          margin-left: 1ch;
+        }
+      }
+
+      @include mobile-tablet {
+        flex-direction: column;
+
+        > * {
+          max-width: unset;
+        }
+
+        > * + * {
+          margin-top: 1ch;
+        }
+      }
+    }
+
+    @include mobile-tablet {
+      display: flex;
+      flex-direction: column-reverse;
+      gap: 0;
+
+      > * {
+        width: 100%;
+        max-width: 512px;
+        margin-bottom: 2rem;
+      }
+    }
+  }
+}
+
+.row\:hero_carousel {
+  -ms-grid-columns: [full-start] var(--gutter, minmax(1rem, 1fr)) [content-start
+    column-start] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px)
+    [column] minmax(0, 101.333333333px) [quarter column]
+    minmax(0, 101.333333333px) [third column] minmax(0, 101.333333333px)
+    [column] minmax(0, 101.333333333px) [half quarter column]
+    minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [third
+    column] minmax(0, 101.333333333px) [quarter column]
+    minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column]
+    minmax(0, 101.333333333px) [column-end content-end]
+    var(--gutter, minmax(1rem, 1fr)) [full-end];
+  grid-template-columns:
+    [full-start] var(--gutter, minmax(1rem, 1fr))
+    [content-start column-start] minmax(0, 101.333333333px)
+    [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [quarter column] minmax(
+      0,
+      101.333333333px
+    )
+    [third column] minmax(0, 101.333333333px) [column] minmax(
+      0,
+      101.333333333px
+    )
+    [half quarter column] minmax(0, 101.333333333px) [column] minmax(
+      0,
+      101.333333333px
+    )
+    [third column] minmax(0, 101.333333333px) [quarter column] minmax(
+      0,
+      101.333333333px
+    )
+    [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column-end content-end] var(
+      --gutter,
+      minmax(1rem, 1fr)
+    )
+    [full-end];
+  -ms-grid-column: full;
+  grid-column: full;
+  background: #0a0d10;
+  background-size: cover;
+  min-height: 512px;
+  place-content: center stretch;
+  margin: 0 !important;
+  position: relative;
+}
+
+// .hero_carousel {
+//   -ms-grid-column: content;
+//       grid-column: content;
+//   display: inherit;
+//   -ms-grid-columns: [full-start content-start column-start] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [quarter column] minmax(0, 101.333333333px) [third column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [half quarter column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [third column] minmax(0, 101.333333333px) [quarter column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column-end content-end full-end];
+//       grid-template-columns: [full-start content-start column-start] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [quarter column] minmax(0, 101.333333333px) [third column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [half quarter column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [third column] minmax(0, 101.333333333px) [quarter column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column-end content-end full-end];
+//   place-items: center stretch;
+//   z-index: 2;
+//   margin: 180px 0 240px 0;
+// }
+
+// .hero_carousel-curve, .hero_carousel-curve-m {
+//   display: block;
+//   fill: white;
+// }
+
+// @media (min-width: 768px) {
+//   .hero_carousel-curve-m {
+//     display: none;
+//   }
+// }
+
+// @media (max-width: 767px) {
+//   .hero_carousel-curve {
+//     display: none;
+//   }
+// }
+
+// .hero_carousel-decals, .hero_carousel-image, .hero_carousel-image--overlay {
+//   width: 100%;
+//   position: absolute;
+//   grid-column: 1 / -1;
+//   right: 0;
+//   left: 0;
+// }
+
+// .hero_carousel-decals {
+//   z-index: 3;
+//   bottom: -1px;
+// }
+
+// .hero_carousel-image, .hero_carousel-image--overlay {
+//   height: 100%;
+//   object-fit: cover;
+//   top: 0;
+//   bottom: 0;
+//   z-index: 1;
+// }
+
+// .hero_carousel-image--overlay, .hero_carousel-image--overlay--overlay {
+//   background: rgba(10, 13, 16, 0.5);
+// }
+
+// .hero_carousel-image:not(.-open), .hero_carousel-slide:not(.-open) {
+//   display: none;
+// }
+
+// @media (max-width: 767px) {
+//   .hero_carousel-slides, .hero_carousel-fixed {
+//     grid-column: 1 / -1;
+//   }
+// }
+
+// @media (min-width: 768px) {
+//   .hero_carousel-slides {
+//     grid-column: full / half;
+//   }
+//   .hero_carousel-fixed {
+//     grid-column: half / full;
+//   }
+// }

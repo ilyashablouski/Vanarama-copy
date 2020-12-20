@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NumericInput /> renders correctly 1`] = `
+<ForwardRef(NumericInput)
+  id="accountNumber"
+>
+  <ForwardRef(TextInput)
+    id="accountNumber"
+    onKeyPress={[Function]}
+  >
+    <div
+      className="textinput regular"
+    >
+      <input
+        className="textinput--native regular"
+        id="accountNumber"
+        onKeyPress={[Function]}
+        type="text"
+      />
+    </div>
+  </ForwardRef(TextInput)>
+</ForwardRef(NumericInput)>
+`;

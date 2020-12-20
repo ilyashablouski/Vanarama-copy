@@ -1,9 +1,9 @@
 import { useRouter } from 'next/router';
 import { FC, useEffect, useState } from 'react';
-import Heading from '@vanarama/uibook/lib/components/atoms/heading';
-import Choiceboxes from '@vanarama/uibook/lib/components/atoms/choiceboxes';
-import Text from '@vanarama/uibook/lib/components/atoms/text';
-import SlidingInput from '@vanarama/uibook/lib/components/atoms/sliding-input';
+import Heading from 'core/atoms/heading';
+import Choiceboxes from 'core/atoms/choiceboxes';
+import Text from 'core/atoms/text';
+import SlidingInput from 'core/atoms/sliding-input';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { toPriceFormat } from '../../../utils/helpers';

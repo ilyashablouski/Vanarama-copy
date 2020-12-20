@@ -1,0 +1,119 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CardIcons /> should render correctly 1`] = `
+<div
+  className="features some-custom-class"
+>
+  <div
+    key="Aircon_1"
+  >
+    <Icon
+      icon={<Memo />}
+    />
+    <Memo(Text)
+      color="dark"
+      size="xsmall"
+    >
+      Aircon
+    </Memo(Text)>
+  </div>
+  <div
+    key="Bluetooth_2"
+  >
+    <Icon
+      icon={<Memo />}
+    />
+    <Memo(Text)
+      color="dark"
+      size="xsmall"
+    >
+      Bluetooth
+    </Memo(Text)>
+  </div>
+  <div
+    key="Navigation_3"
+  >
+    <Icon
+      icon={<Memo />}
+    />
+    <Memo(Text)
+      color="dark"
+      size="xsmall"
+    >
+      Navigation
+    </Memo(Text)>
+  </div>
+  <div
+    key="Sensors_4"
+  >
+    <Icon
+      icon={<Memo />}
+    />
+    <Memo(Text)
+      color="dark"
+      size="xsmall"
+    >
+      Sensors
+    </Memo(Text)>
+  </div>
+</div>
+`;
+
+exports[`<CardIcons /> should render no more than 4 icons 1`] = `
+<div
+  className="features some-custom-class"
+>
+  <div
+    key="Aircon_1"
+  >
+    <Icon
+      icon={<Memo />}
+    />
+    <Memo(Text)
+      color="dark"
+      size="xsmall"
+    >
+      Aircon
+    </Memo(Text)>
+  </div>
+  <div
+    key="Bluetooth_2"
+  >
+    <Icon
+      icon={<Memo />}
+    />
+    <Memo(Text)
+      color="dark"
+      size="xsmall"
+    >
+      Bluetooth
+    </Memo(Text)>
+  </div>
+  <div
+    key="Navigation_3"
+  >
+    <Icon
+      icon={<Memo />}
+    />
+    <Memo(Text)
+      color="dark"
+      size="xsmall"
+    >
+      Navigation
+    </Memo(Text)>
+  </div>
+  <div
+    key="Sensors_4"
+  >
+    <Icon
+      icon={<Memo />}
+    />
+    <Memo(Text)
+      color="dark"
+      size="xsmall"
+    >
+      Sensors
+    </Memo(Text)>
+  </div>
+</div>
+`;

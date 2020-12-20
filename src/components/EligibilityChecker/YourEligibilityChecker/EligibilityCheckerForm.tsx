@@ -1,10 +1,10 @@
 import dynamic from 'next/dynamic';
 import { Controller } from 'react-hook-form';
-import CheckBox from '@vanarama/uibook/lib/components/atoms/checkbox/';
-import Select from '@vanarama/uibook/lib/components/atoms/select/';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput/';
-import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
-import { IAddressSuggestion } from '@vanarama/uibook/lib/components/molecules/address-finder/interfaces';
+import CheckBox from 'core/atoms/checkbox/';
+import Select from 'core/atoms/select/';
+import TextInput from 'core/atoms/textinput/';
+import AddressFinder from 'core/molecules/address-finder';
+import { IAddressSuggestion } from 'core/molecules/address-finder/interfaces';
 import React, { FC, useState } from 'react';
 import { genMonths, genYears, genDays } from '../../../utils/helpers';
 import { IFormProps } from './interface';
@@ -12,37 +12,22 @@ import useDateOfBirthValidation from './useDateOfBirthValidation';
 import RouterLink from '../../RouterLink/RouterLink';
 import Skeleton from '../../Skeleton';
 
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const LockClosed = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/LockClosed'),
-  {
-    loading: () => <Skeleton count={1} />,
-    ssr: false,
-  },
-);
-const Form = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/form'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const FormGroup = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Button = dynamic(() => import('core/atoms/button'), {
+  loading: () => <Skeleton count={1} />,
+});
+const LockClosed = dynamic(() => import('core/assets/icons/LockClosed'), {
+  loading: () => <Skeleton count={1} />,
+  ssr: false,
+});
+const Form = dynamic(() => import('core/organisms/form'), {
+  loading: () => <Skeleton count={1} />,
+});
+const FormGroup = dynamic(() => import('core/molecules/formgroup'), {
+  loading: () => <Skeleton count={5} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 const EligibilityCheckerForm: FC<IFormProps> = ({
   submit,

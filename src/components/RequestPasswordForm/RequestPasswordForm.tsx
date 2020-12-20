@@ -1,10 +1,10 @@
 import React from 'react';
-import ArrowForwardSharp from '@vanarama/uibook/lib/assets/icons/ArrowForwardSharp';
-import Button from '@vanarama/uibook/lib/components/atoms/button';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
-import Form from '@vanarama/uibook/lib/components/organisms/form';
-import FormError from '@vanarama/uibook/lib/components/organisms/form/FormError';
+import ArrowForwardSharp from 'core/assets/icons/ArrowForwardSharp';
+import Button from 'core/atoms/button';
+import TextInput from 'core/atoms/textinput';
+import Formgroup from 'core/molecules/formgroup';
+import Form from 'core/organisms/form';
+import FormError from 'core/organisms/form/FormError';
 import { useForm } from 'react-hook-form';
 import {
   IRequestPasswordFormValues,

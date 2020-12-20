@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Tile /> renders correctly 1`] = `
+<div
+  className="tile"
+>
+  <p>
+    Child 1
+  </p>
+  <p>
+    Child 2
+  </p>
+  <p>
+    Child 3
+  </p>
+</div>
+`;
+
+exports[`<Tile /> renders correctly when centered 1`] = `
+<div
+  className="tile tile--centered"
+>
+  <p>
+    Child 1
+  </p>
+  <p>
+    Child 2
+  </p>
+  <p>
+    Child 3
+  </p>
+</div>
+`;
+
+exports[`<Tile /> renders correctly with optional props 1`] = `
+<div
+  className="tile -orange tile--color -scrollable"
+>
+  <p>
+    Child 1
+  </p>
+  <p>
+    Child 2
+  </p>
+  <p>
+    Child 3
+  </p>
+</div>
+`;

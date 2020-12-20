@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import SchemaJSON from 'core/atoms/schema-json';
 import {
   EligibilityCheckerPageData,
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets_questionAnswers as QuestionAnswers,
@@ -15,37 +15,25 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 
-const Loading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/loading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Loading = dynamic(() => import('core/atoms/loading'), {
+  loading: () => <Skeleton count={1} />,
+});
 const ErrorMessage = dynamic(
   () => import('../../components/ErrorMessage/ErrorMessage'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Accordion = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/accordion/Accordion'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const TrustPilot = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/trustpilot'),
-  {
-    loading: () => <Skeleton count={4} />,
-    ssr: false,
-  },
-);
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Accordion = dynamic(() => import('core/molecules/accordion/Accordion'), {
+  loading: () => <Skeleton count={1} />,
+});
+const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
+  loading: () => <Skeleton count={4} />,
+  ssr: false,
+});
 const Breadcrumb = dynamic(
   () => import('../../components/Breadcrumb/Breadcrumb'),
   {
