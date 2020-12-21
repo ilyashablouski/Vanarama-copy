@@ -9,7 +9,7 @@ export const features = (
 ): TIcon[] => {
   return keyInformation.map(info => ({
     icon: Icon ? (
-      <Icon key={info.name} name={info.name.replace(' ', '')} color="dark" />
+      <Icon key={info.name} name={info.name.replace(/\s+/g, '')} color="dark" />
     ) : null,
     label: info.value,
     index: `${capId}_${info.name}`,
