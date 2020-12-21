@@ -260,6 +260,8 @@ export const VansPage: NextPage<Props> = ({ data }) => {
           <DealOfMonth
             isPersonal={isPersonal}
             imageSrc={offer?.imageUrl || ''}
+            keyInfo={offer?.keyInformation || []}
+            capId={offer?.capId || ''}
             vehicle={`${offer?.manufacturerName} ${offer?.rangeName}`}
             specification={offer?.derivativeName || ''}
             price={

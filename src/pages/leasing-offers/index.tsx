@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
 import { MutableRefObject, useRef } from 'react';
-import { NextPage, NextPageContext } from 'next';
+import { NextPage } from 'next';
 import { useQuery } from '@apollo/client';
 import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
@@ -366,9 +366,8 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
   );
 };
 
-export async function getStaticProps(context: NextPageContext) {
+export async function getStaticProps() {
   const client = createApolloClient({});
-  const path = context.req?.url || '';
 
   try {
     const { data } = await client.query<
@@ -377,7 +376,7 @@ export async function getStaticProps(context: NextPageContext) {
     >({
       query: GENERIC_PAGE_HEAD,
       variables: {
-        slug: path.slice(1),
+        slug: 'leasing-offers',
       },
     });
     return {

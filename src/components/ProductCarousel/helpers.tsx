@@ -7,12 +7,12 @@ export const features = (
   capId: string,
   Icon?: ComponentType<IIconProps>,
 ): TIcon[] => {
-  return keyInformation.map(information => ({
+  return keyInformation.map(info => ({
     icon: Icon ? (
-      <Icon name={information.name.replace(' ', '')} color="dark" />
+      <Icon key={info.name} name={info.name.replace(' ', '')} color="dark" />
     ) : null,
-    label: information.value,
-    index: `${capId}_${information.name}`,
+    label: info.value,
+    index: `${capId}_${info.name}`,
   }));
 };
 
