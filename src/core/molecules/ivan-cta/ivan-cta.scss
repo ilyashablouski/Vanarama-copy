@@ -1,0 +1,22 @@
+.ivan-cta {
+  .-row {
+    gap: 2ch;
+  }
+
+  .image {
+    background-color: $orange;
+  }
+
+  &--svg {
+    max-width: 75%;
+    height: auto;
+  }
+
+  &--compact {
+    display: grid;
+    grid-template-columns: auto 3rem;
+    place-items: center end;
+    gap: 1ch;
+    text-align: right;
+  }
+}

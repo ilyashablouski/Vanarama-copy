@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Badge /> renders correctly 1`] = `
+<span
+  className="badge -success -regular"
+>
+  <span
+    className="badge--inner"
+  />
+</span>
+`;
+
+exports[`<Badge /> renders correctly with optional props 1`] = `
+<span
+  className="badge class -orange -small"
+>
+  <span
+    className="badge--inner"
+  >
+    Badge
+  </span>
+</span>
+`;

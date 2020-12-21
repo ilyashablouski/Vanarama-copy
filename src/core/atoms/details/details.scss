@@ -1,0 +1,38 @@
+.details {
+  &--summary {
+    display: inline-block;
+    font-size: var(--class-fs, #{$font-size-400});
+    color: $teal;
+    font-weight: 500;
+    white-space: nowrap;
+    line-height: calc(1em + 0.25rem);
+    cursor: pointer;
+    transition: color $duration-small $transition-soft,
+      border $duration-small $transition-soft,
+      box-shadow $duration-small $transition-soft,
+      background $duration-small $transition-soft;
+      
+
+    &:hover {
+      color: lighten($teal, $tint);
+    }
+
+    &:active,
+    &:focus {
+      color: darken($teal, $shade);
+    }
+    
+    &:focus {
+      background: rgba($teal, $focus-opacity);
+      box-shadow: $box-shadow-focus rgba($teal, $focus-opacity);
+    }
+  }
+
+  &--content {
+    border-left: $border-width-semibold solid $light;
+    padding: $rem-100 $rem-300;
+    margin-left: $rem-100;
+    margin-top: $rem-100;
+    font-size: var(--class-fs, #{$font-size-400});
+  }
+}

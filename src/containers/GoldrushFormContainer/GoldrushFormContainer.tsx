@@ -1,54 +1,35 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
-import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import * as toast from 'core/atoms/toast/Toast';
 import { GoldrushFormContainerProps } from './interfaces';
 import { useOpportunityCreation } from './gql';
 import Skeleton from '../../components/Skeleton';
 
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Price = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/price'),
-  {
-    loading: () => <Skeleton count={4} />,
-    ssr: false,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Price = dynamic(() => import('core/atoms/price'), {
+  loading: () => <Skeleton count={4} />,
+  ssr: false,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Button = dynamic(() => import('core/atoms/button'), {
+  loading: () => <Skeleton count={5} />,
+});
 const GoldrushForm = dynamic(() => import('../../components/GoldrushForm'), {
   loading: () => <Skeleton count={15} />,
   ssr: false,
 });
-const IconList = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/icon-list'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
+const IconList = dynamic(() => import('core/organisms/icon-list'), {
+  loading: () => <Skeleton count={3} />,
+});
 // @ts-ignore
 const IconListItem = dynamic(() =>
-  import('@vanarama/uibook/lib/components/organisms/icon-list').then(
-    mod => mod.IconListItem,
-  ),
+  import('core/organisms/icon-list').then(mod => mod.IconListItem),
 );
-const Link = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/link'),
-);
+const Link = dynamic(() => import('core/atoms/link'));
 
 export const DEFAULT_POSTCODE = 'HP27DE';
 

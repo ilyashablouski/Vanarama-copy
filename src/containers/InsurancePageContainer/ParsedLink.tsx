@@ -1,20 +1,14 @@
 import dynamic from 'next/dynamic';
-import { TColor } from '@vanarama/uibook/lib/types/color';
-import { TSize } from '@vanarama/uibook/lib/types/size';
+import { TColor } from '../../types/color';
+import { TSize } from '../../types/size';
 import Skeleton from '../../components/Skeleton';
 
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Link = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/link'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Button = dynamic(() => import('core/atoms/button'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Link = dynamic(() => import('core/atoms/link'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 export interface IParsedLinkProps {
   title: string;

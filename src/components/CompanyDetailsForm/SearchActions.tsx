@@ -1,4 +1,4 @@
-import Button from '@vanarama/uibook/lib/components/atoms/button';
+import Button from 'core/atoms/button';
 import React from 'react';
 
 interface IProps {

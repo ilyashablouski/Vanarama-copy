@@ -1,5 +1,5 @@
-import { TSize } from '@vanarama/uibook/lib/types/size';
-import { TColor } from '@vanarama/uibook/lib/types/color';
+import { TSize } from '../types/size';
+import { TColor } from '../types/color';
 
 export interface IClassNamesProps {
   size?: TSize;

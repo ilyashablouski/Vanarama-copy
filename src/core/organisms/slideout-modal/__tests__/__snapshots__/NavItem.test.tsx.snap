@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<NavItem /> should render correctly 1`] = `
+<button
+  className="slideout-modal--nav-item"
+  onClick={[MockFunction]}
+  type="button"
+>
+  <span
+    className="slideout-modal--nav-item-label"
+  >
+    Label
+  </span>
+</button>
+`;
+
+exports[`<NavItem /> should render correctly with selected 1`] = `
+<button
+  className="slideout-modal--nav-item"
+  onClick={[MockFunction]}
+  type="button"
+>
+  <span
+    className="slideout-modal--nav-item-label"
+  >
+    Label
+  </span>
+  <span
+    className="slideout-modal--nav-item-selected"
+  >
+    One, Two, Three
+  </span>
+</button>
+`;

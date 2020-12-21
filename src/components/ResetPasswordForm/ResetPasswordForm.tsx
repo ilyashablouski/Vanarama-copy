@@ -1,8 +1,8 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import TextInput from '@vanarama/uibook/lib/components/atoms/textinput';
+import TextInput from 'core/atoms/textinput';
 import { useForm } from 'react-hook-form';
-import Details from '@vanarama/uibook/lib/components/atoms/details';
+import Details from 'core/atoms/details';
 import {
   IResetPasswordFormValues,
   IResetPasswordFormProps,
@@ -20,43 +20,28 @@ import {
 } from './mapOldPasswordErrorMessage';
 import Skeleton from '../Skeleton';
 
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button/'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text/'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Button = dynamic(() => import('core/atoms/button/'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Text = dynamic(() => import('core/atoms/text/'), {
+  loading: () => <Skeleton count={1} />,
+});
 const ArrowForwardSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/ArrowForwardSharp'),
+  () => import('core/assets/icons/ArrowForwardSharp'),
   {
     loading: () => <Skeleton count={1} />,
     ssr: false,
   },
 );
-const Form = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/form'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const FormError = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/form/FormError'),
-  {
-    loading: () => <Skeleton count={5} />,
-  },
-);
-const Formgroup = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/formgroup'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Form = dynamic(() => import('core/organisms/form'), {
+  loading: () => <Skeleton count={1} />,
+});
+const FormError = dynamic(() => import('core/organisms/form/FormError'), {
+  loading: () => <Skeleton count={5} />,
+});
+const Formgroup = dynamic(() => import('core/molecules/formgroup'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 const PasswordResetContainer = ({
   hasError: error,

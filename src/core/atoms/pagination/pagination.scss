@@ -1,0 +1,99 @@
+.pagination {
+  max-width: max-content;
+  margin: auto;
+  display: grid;
+  grid-auto-flow: column;
+  gap: calc(var(--pagination-size) * 0.5);
+  padding-top: calc(var(--pagination-size) * 0.25);
+  padding-bottom: calc(var(--pagination-size) * 0.25);
+  place-items: center;
+  font-size: 1rem;
+
+  @include desktop {
+    --pagination-size: 1.125rem;
+  }
+
+  @include tablet {
+    --pagination-size: 1rem;
+  }
+
+  @include mobile {
+    --pagination-size: .75rem;
+    font-size: 0.875rem;
+  }
+
+  &--chevron,
+  &--item,
+  &--ellipsis {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: calc(var(--pagination-size) * 2.5);
+    width: calc(var(--pagination-size) * 2.5);
+  }
+
+  &--chevron {
+    .icon {
+      font-size: 1.25em;
+    }
+
+    &:first-child {
+      margin-right: calc(var(--pagination-size) * 0.25);
+    }
+
+    &:last-child {
+      margin-left: calc(var(--pagination-size) * 0.25);
+    }
+
+    &.-disabled {
+      opacity: 0.25;
+      pointer-events: none;
+
+      @include mobile {
+        display: none;
+      }
+    }
+  }
+
+  &--item {
+    color: $darker;
+    font-weight: 600;
+
+    &.-disabled {
+      opacity: 0.25;
+      pointer-events: none;
+    }
+  }
+
+  &--chevron,
+  &--item {
+    border-radius: .2em;
+    transition: background-color 250ms ease, color 150ms ease;
+
+    &.-active {
+      background-color: $teal;
+      color: $white;
+    }
+    &:not(.-active):hover {
+      background-color: $light;
+      color: $black;
+    }
+    &:not(.-active):active,
+    &:not(.-active):focus {
+      background-color: $medium;
+      color: $black;
+    }
+  }
+
+
+  &--ellipsis {
+    color: $dark;
+    width: calc(var(--pagination-size) * 1.5);
+    pointer-events: none;
+    letter-spacing: 0.05em;
+
+    @include mobile {
+      width: max-content;
+    }
+  }
+}

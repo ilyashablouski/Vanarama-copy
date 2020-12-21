@@ -1,0 +1,239 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Carousel /> should render correctly with children 1`] = `
+<div
+  className="carousel"
+>
+  <Carousel
+    afterSlide={[Function]}
+    autoGenerateStyleTag={true}
+    autoplay={false}
+    autoplayInterval={3000}
+    autoplayReverse={false}
+    beforeSlide={[Function]}
+    cellAlign="left"
+    cellSpacing={20}
+    defaultControlsConfig={Object {}}
+    disableAnimation={false}
+    disableEdgeSwiping={false}
+    dragging={true}
+    easing="easeCircleOut"
+    edgeEasing="easeElasticOut"
+    enableKeyboardControls={false}
+    frameOverflow="hidden"
+    framePadding="0px"
+    getControlsContainerStyles={[Function]}
+    height="inherit"
+    heightMode="max"
+    keyCodeConfig={Object {}}
+    onDragStart={[Function]}
+    onResize={[Function]}
+    pauseOnHover={true}
+    renderAnnounceSlideMessage={[Function]}
+    renderBottomCenterControls={[Function]}
+    renderCenterLeftControls={[Function]}
+    renderCenterRightControls={[Function]}
+    scrollMode="remainder"
+    slideIndex={0}
+    slideListMargin={10}
+    slideOffset={25}
+    slideWidth={1}
+    slidesToScroll={1}
+    slidesToShow={3}
+    speed={500}
+    style={Object {}}
+    swiping={true}
+    transitionMode="scroll"
+    vertical={false}
+    width="100%"
+    withoutControls={true}
+    wrapAround={true}
+  >
+    <div>
+      <p>
+        slide 1
+      </p>
+    </div>
+    <div>
+      <p>
+        slide 2
+      </p>
+    </div>
+    <div>
+      <p>
+        slide 3
+      </p>
+    </div>
+  </Carousel>
+  <nav
+    className="carousel--nav"
+  >
+    <button
+      className="carousel--nav-arrow"
+      onClick={[Function]}
+      type="button"
+    >
+      <Icon
+        color="darker"
+        icon={<Memo />}
+        size="regular"
+      />
+    </button>
+    <button
+      className="carousel--nav-item -active"
+      key="0/.0"
+      onClick={[Function]}
+      type="button"
+    >
+      <Icon
+        icon={<Memo />}
+        size="regular"
+      />
+    </button>
+    <button
+      className="carousel--nav-item"
+      key="1/.1"
+      onClick={[Function]}
+      type="button"
+    >
+      <Icon
+        icon={<Memo />}
+        size="regular"
+      />
+    </button>
+    <button
+      className="carousel--nav-item"
+      key="2/.2"
+      onClick={[Function]}
+      type="button"
+    >
+      <Icon
+        icon={<Memo />}
+        size="regular"
+      />
+    </button>
+    <button
+      className="carousel--nav-arrow"
+      onClick={[Function]}
+      type="button"
+    >
+      <Icon
+        color="darker"
+        icon={<Memo />}
+        size="regular"
+      />
+    </button>
+  </nav>
+</div>
+`;
+
+exports[`<Carousel /> should render correctly with two children 1`] = `
+<div
+  className="carousel"
+>
+  <Carousel
+    afterSlide={[Function]}
+    autoGenerateStyleTag={true}
+    autoplay={false}
+    autoplayInterval={3000}
+    autoplayReverse={false}
+    beforeSlide={[Function]}
+    cellAlign="left"
+    cellSpacing={20}
+    defaultControlsConfig={Object {}}
+    disableAnimation={false}
+    disableEdgeSwiping={false}
+    dragging={true}
+    easing="easeCircleOut"
+    edgeEasing="easeElasticOut"
+    enableKeyboardControls={false}
+    frameOverflow="hidden"
+    framePadding="0px"
+    getControlsContainerStyles={[Function]}
+    height="inherit"
+    heightMode="max"
+    keyCodeConfig={Object {}}
+    onDragStart={[Function]}
+    onResize={[Function]}
+    pauseOnHover={true}
+    renderAnnounceSlideMessage={[Function]}
+    renderBottomCenterControls={[Function]}
+    renderCenterLeftControls={[Function]}
+    renderCenterRightControls={[Function]}
+    scrollMode="remainder"
+    slideIndex={0}
+    slideListMargin={10}
+    slideOffset={25}
+    slideWidth={1}
+    slidesToScroll={1}
+    slidesToShow={2}
+    speed={500}
+    style={Object {}}
+    swiping={true}
+    transitionMode="scroll"
+    vertical={false}
+    width="100%"
+    withoutControls={true}
+    wrapAround={true}
+  >
+    <div>
+      <p>
+        slide 1
+      </p>
+    </div>
+    <div>
+      <p>
+        slide 2
+      </p>
+    </div>
+  </Carousel>
+  <nav
+    className="carousel--nav"
+  >
+    <button
+      className="carousel--nav-arrow"
+      onClick={[Function]}
+      type="button"
+    >
+      <Icon
+        color="darker"
+        icon={<Memo />}
+        size="regular"
+      />
+    </button>
+    <button
+      className="carousel--nav-item -active"
+      key="0/.0"
+      onClick={[Function]}
+      type="button"
+    >
+      <Icon
+        icon={<Memo />}
+        size="regular"
+      />
+    </button>
+    <button
+      className="carousel--nav-item"
+      key="1/.1"
+      onClick={[Function]}
+      type="button"
+    >
+      <Icon
+        icon={<Memo />}
+        size="regular"
+      />
+    </button>
+    <button
+      className="carousel--nav-arrow"
+      onClick={[Function]}
+      type="button"
+    >
+      <Icon
+        color="darker"
+        icon={<Memo />}
+        size="regular"
+      />
+    </button>
+  </nav>
+</div>
+`;

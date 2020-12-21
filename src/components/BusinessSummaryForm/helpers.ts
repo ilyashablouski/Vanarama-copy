@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { IList } from '@vanarama/uibook/lib/components/organisms/structured-list/interfaces';
+import { IList } from 'core/organisms/structured-list/interfaces';
 import { addressToDisplay } from '../../utils/address';
 import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
 

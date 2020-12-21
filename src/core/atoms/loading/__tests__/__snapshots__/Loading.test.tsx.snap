@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Loading /> renders correctly 1`] = `
+<div
+  className="loading -regular"
+>
+  <svg
+    className="loading--svg"
+    viewBox="-75 -75 150 150"
+  >
+    <circle
+      className="loading--stroke"
+      cx="0"
+      cy="0"
+      r="37.5"
+    />
+  </svg>
+</div>
+`;
+
+exports[`<Loading /> renders correctly with optional props 1`] = `
+<div
+  className="loading class -small"
+>
+  <svg
+    className="loading--svg"
+    viewBox="-75 -75 150 150"
+  >
+    <circle
+      className="loading--stroke"
+      cx="0"
+      cy="0"
+      r="37.5"
+    />
+  </svg>
+</div>
+`;

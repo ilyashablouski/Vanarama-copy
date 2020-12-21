@@ -1,0 +1,128 @@
+.markdown {
+  $md-gap: calc(1em - 0.25rem);
+  $md-lh: calc(1em + 0.5rem);
+  $md-headings: h1 $font-size-700 $font-size-600 600,
+    h2 $font-size-600 $font-size-500 600, h3 $font-size-500 $font-size-400 600,
+    h4 $font-size-400 $font-size-400 600, h5 $font-size-400 $font-size-400 600,
+    h6 $font-size-300 $font-size-300 600;
+
+  line-height: $md-lh;
+  max-width: $measure;
+
+  > * {
+    display: block;
+
+    + * {
+      margin-top: $md-gap;
+    }
+  }
+
+  @each $h, $fs-l, $fs-s, $fw in $md-headings {
+    #{$h} {
+      font-size: $fs-l;
+      font-weight: $fw;
+      color: $black;
+
+      @media (max-width: $vp-small) {
+        font-size: $fs-s;
+      }
+
+      > * {
+        font-size: inherit;
+        font-weight: inherit;
+        color: inherit;
+      }
+    }
+  }
+
+  p {
+    font-size: $font-size-400;
+    font-weight: 400;
+    color: $darker;
+  }
+
+  hr {
+    height: 1px;
+    background: linear-gradient(to top, $medium 0.5px, transparent 0.5px);
+    margin: $rem-500 0;
+  }
+
+  b,
+  strong {
+    font-weight: 500;
+    color: $black;
+  }
+
+  em {
+    font-size: italic;
+  }
+
+  a {
+    font-size: inherit;
+    line-height: inherit;
+    color: $teal;
+    text-decoration: none;
+    vertical-align: baseline;
+    cursor: pointer;
+    transition: color $duration-small $transition-soft,
+      border $duration-small $transition-soft,
+      box-shadow $duration-small $transition-soft,
+      background $duration-small $transition-soft;
+
+    &:hover {
+      opacity: $opacity-400;
+    }
+
+    &:focus {
+      opacity: 1;
+      background: rgba($teal, $focus-opacity);
+      box-shadow: $box-shadow-focus rgba($teal, $focus-opacity);
+    }
+  }
+
+  ul,
+  ol {
+    padding-left: 2ch;
+  }
+
+  ul {
+    list-style: disc outside none;
+  }
+
+  ol {
+    list-style: decimal outside none;
+  }
+
+  li {
+    display: list-item;
+    list-style: inherit;
+    padding-left: 0.5ch;
+  }
+
+  blockquote {
+    quotes: '“' '”' '‘' '’';
+    margin: 0;
+    font-size: $font-size-500;
+    font-weight: 400;
+    font-style: italic;
+    background: $lighter;
+    border-left: 2px solid $border-color;
+    padding: 1em 2ch;
+
+    @media (max-width: $vp-small) {
+      font-size: $font-size-400;
+    }
+
+    &:before {
+      content: open-quote;
+    }
+
+    &:after {
+      content: close-quote;
+    }
+  }
+
+  img {
+    width: 100%;
+  }
+}

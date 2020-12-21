@@ -1,0 +1,75 @@
+.choiceboxes {
+  display: grid;
+  min-width: 0;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+  grid-template-columns: repeat(2, 1fr);
+
+  @for $i from 1 through 12 {
+    &.-cols-#{$i} {
+      grid-template-columns: repeat($i, 1fr);
+    }
+  }
+}
+
+.choicebox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: $rem-200;
+  font-size: $font-size-400;
+  font-weight: 500;
+  cursor: pointer;
+  border-radius: $border-radius-small;
+  transition: all 50ms ease;
+
+  @include mobile {
+    @include padding-block(0.5ch);
+    @include padding-inline(1ch);
+    font-size: $font-size-300;
+  }
+
+  .icon {
+    transition: all 50ms ease;
+    margin-top: 0.5rem;
+    max-height: 2.25rem;
+  }
+
+  &.-active {
+    background: var(--class-color);
+    border: 1px solid var(--class-color);
+    color: var(--class-color-contrast);
+
+    .icon[src] {
+      filter: invert(1) !important;
+    }
+
+    &:hover,
+    &:focus {
+      background: var(--class-color-tint);
+    }
+
+    &:focus {
+      box-shadow: $box-shadow-focus var(--class-color-focus);
+    }
+  }
+
+  &:not(.-active) {
+    background: $white;
+    border: 1px solid darken($medium, 10%);
+    color: $darker;
+
+    &:hover,
+    &:focus {
+      border-color: $dark;
+      background: $lighter;
+      color: $black;
+    }
+
+    &:focus {
+      box-shadow: $box-shadow-focus var(--class-color-focus);
+    }
+  }
+}

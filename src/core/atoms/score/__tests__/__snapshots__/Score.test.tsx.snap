@@ -1,0 +1,547 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Score /> renders correctly with a failure score 1`] = `
+<div
+  className="score"
+>
+  <div
+    className="tile tile--centered"
+  >
+    <div
+      className="score-indicator--wrapper"
+    >
+      <svg
+        className="score-indicator"
+        height={120}
+        viewBox="0 0 120 120"
+        width={120}
+      >
+        <defs>
+          <linearGradient
+            gradientTransform="rotate(-90)"
+            id="progress-stops"
+            x1="0%"
+            x2="0%"
+            y1="0%"
+            y2="100%"
+          >
+            <stop
+              offset="0%"
+              stopColor="var(--stop-1)"
+            />
+            <stop
+              offset="50%"
+              stopColor="var(--stop-2)"
+            />
+            <stop
+              offset="90%"
+              stopColor="var(--stop-3)"
+            />
+            <stop
+              offset="100%"
+              stopColor="var(--stop-4)"
+            />
+          </linearGradient>
+        </defs>
+        <circle
+          className="score-indicator--progress"
+          cx={60}
+          cy={60}
+          fill="none"
+          r={54}
+          strokeWidth={12}
+        />
+        <circle
+          className="score-indicator--track"
+          cx={60}
+          cy={60}
+          fill="none"
+          r={54}
+          strokeDasharray={339.29200658769764}
+          strokeDashoffset={111.96636217394023}
+          strokeWidth={12}
+          transform="rotate(253.8 60 60)"
+        />
+      </svg>
+      <span
+        className="heading -black -large"
+      >
+        44
+        %
+      </span>
+    </div>
+    <div
+      className="-distribute-content"
+    >
+      <span
+        className="text -regular -black"
+      >
+        You’ve scored slightly under average on your eligibility check.
+      </span>
+      <span
+        className="heading -black -regular"
+      >
+        Call
+         
+        <a
+          className="link -teal -regular -plain"
+          href="01442838195"
+        >
+          01442 838 195
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Score /> renders correctly with a negative score 1`] = `
+<div
+  className="score"
+>
+  <div
+    className="tile tile--centered"
+  >
+    <div
+      className="score-indicator--wrapper"
+    >
+      <svg
+        className="score-indicator"
+        height={120}
+        viewBox="0 0 120 120"
+        width={120}
+      >
+        <defs>
+          <linearGradient
+            gradientTransform="rotate(-90)"
+            id="progress-stops"
+            x1="0%"
+            x2="0%"
+            y1="0%"
+            y2="100%"
+          >
+            <stop
+              offset="0%"
+              stopColor="var(--stop-1)"
+            />
+            <stop
+              offset="50%"
+              stopColor="var(--stop-2)"
+            />
+            <stop
+              offset="90%"
+              stopColor="var(--stop-3)"
+            />
+            <stop
+              offset="100%"
+              stopColor="var(--stop-4)"
+            />
+          </linearGradient>
+        </defs>
+        <circle
+          className="score-indicator--progress"
+          cx={60}
+          cy={60}
+          fill="none"
+          r={54}
+          strokeWidth={12}
+        />
+        <circle
+          className="score-indicator--track"
+          cx={60}
+          cy={60}
+          fill="none"
+          r={54}
+          strokeDasharray={339.29200658769764}
+          strokeDashoffset={0}
+          strokeWidth={12}
+          transform="rotate(135 60 60)"
+        />
+      </svg>
+      <span
+        className="heading -black -large"
+      >
+        0
+        %
+      </span>
+    </div>
+    <div
+      className="-distribute-content"
+    >
+      <span
+        className="text -regular -black"
+      >
+        You’ve scored slightly under average on your eligibility check.
+      </span>
+      <span
+        className="heading -black -regular"
+      >
+        Call
+         
+        <a
+          className="link -teal -regular -plain"
+          href="01442838195"
+        >
+          01442 838 195
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Score /> renders correctly with a partial score 1`] = `
+<div
+  className="score"
+>
+  <div
+    className="tile tile--centered"
+  >
+    <div
+      className="score-indicator--wrapper"
+    >
+      <svg
+        className="score-indicator"
+        height={120}
+        viewBox="0 0 120 120"
+        width={120}
+      >
+        <defs>
+          <linearGradient
+            gradientTransform="rotate(-90)"
+            id="progress-stops"
+            x1="0%"
+            x2="0%"
+            y1="0%"
+            y2="100%"
+          >
+            <stop
+              offset="0%"
+              stopColor="var(--stop-1)"
+            />
+            <stop
+              offset="50%"
+              stopColor="var(--stop-2)"
+            />
+            <stop
+              offset="90%"
+              stopColor="var(--stop-3)"
+            />
+            <stop
+              offset="100%"
+              stopColor="var(--stop-4)"
+            />
+          </linearGradient>
+        </defs>
+        <circle
+          className="score-indicator--progress"
+          cx={60}
+          cy={60}
+          fill="none"
+          r={54}
+          strokeWidth={12}
+        />
+        <circle
+          className="score-indicator--track"
+          cx={60}
+          cy={60}
+          fill="none"
+          r={54}
+          strokeDasharray={339.29200658769764}
+          strokeDashoffset={127.23450247038662}
+          strokeWidth={12}
+          transform="rotate(270 60 60)"
+        />
+      </svg>
+      <span
+        className="heading -black -large"
+      >
+        50
+        %
+      </span>
+    </div>
+    <div
+      className="-distribute-content"
+    >
+      <span
+        className="text -regular -black"
+      >
+        You’ve scored slightly under average on your eligibility check.
+      </span>
+      <span
+        className="heading -black -regular"
+      >
+        Call
+         
+        <a
+          className="link -teal -regular -plain"
+          href="01442838195"
+        >
+          01442 838 195
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Score /> renders correctly with a score above 100 1`] = `
+<div
+  className="score"
+>
+  <div
+    className="tile tile--centered"
+  >
+    <div
+      className="score-indicator--wrapper"
+    >
+      <svg
+        className="score-indicator"
+        height={120}
+        viewBox="0 0 120 120"
+        width={120}
+      >
+        <defs>
+          <linearGradient
+            gradientTransform="rotate(-90)"
+            id="progress-stops"
+            x1="0%"
+            x2="0%"
+            y1="0%"
+            y2="100%"
+          >
+            <stop
+              offset="0%"
+              stopColor="var(--stop-1)"
+            />
+            <stop
+              offset="50%"
+              stopColor="var(--stop-2)"
+            />
+            <stop
+              offset="90%"
+              stopColor="var(--stop-3)"
+            />
+            <stop
+              offset="100%"
+              stopColor="var(--stop-4)"
+            />
+          </linearGradient>
+        </defs>
+        <circle
+          className="score-indicator--progress"
+          cx={60}
+          cy={60}
+          fill="none"
+          r={54}
+          strokeWidth={12}
+        />
+        <circle
+          className="score-indicator--track"
+          cx={60}
+          cy={60}
+          fill="none"
+          r={54}
+          strokeDasharray={339.29200658769764}
+          strokeDashoffset={254.46900494077323}
+          strokeWidth={12}
+          transform="rotate(405 60 60)"
+        />
+      </svg>
+      <span
+        className="heading -black -large"
+      >
+        100
+        %
+      </span>
+    </div>
+    <div
+      className="-distribute-content"
+    >
+      <span
+        className="text -regular -black"
+      >
+        You’ve scored extremely high on your eligibility check.
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Score /> renders correctly with a score of zero 1`] = `
+<div
+  className="score"
+>
+  <div
+    className="tile tile--centered"
+  >
+    <div
+      className="score-indicator--wrapper"
+    >
+      <svg
+        className="score-indicator"
+        height={120}
+        viewBox="0 0 120 120"
+        width={120}
+      >
+        <defs>
+          <linearGradient
+            gradientTransform="rotate(-90)"
+            id="progress-stops"
+            x1="0%"
+            x2="0%"
+            y1="0%"
+            y2="100%"
+          >
+            <stop
+              offset="0%"
+              stopColor="var(--stop-1)"
+            />
+            <stop
+              offset="50%"
+              stopColor="var(--stop-2)"
+            />
+            <stop
+              offset="90%"
+              stopColor="var(--stop-3)"
+            />
+            <stop
+              offset="100%"
+              stopColor="var(--stop-4)"
+            />
+          </linearGradient>
+        </defs>
+        <circle
+          className="score-indicator--progress"
+          cx={60}
+          cy={60}
+          fill="none"
+          r={54}
+          strokeWidth={12}
+        />
+        <circle
+          className="score-indicator--track"
+          cx={60}
+          cy={60}
+          fill="none"
+          r={54}
+          strokeDasharray={339.29200658769764}
+          strokeDashoffset={0}
+          strokeWidth={12}
+          transform="rotate(135 60 60)"
+        />
+      </svg>
+      <span
+        className="heading -black -large"
+      >
+        0
+        %
+      </span>
+    </div>
+    <div
+      className="-distribute-content"
+    >
+      <span
+        className="text -regular -black"
+      >
+        You’ve scored slightly under average on your eligibility check.
+      </span>
+      <span
+        className="heading -black -regular"
+      >
+        Call
+         
+        <a
+          className="link -teal -regular -plain"
+          href="01442838195"
+        >
+          01442 838 195
+        </a>
+      </span>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`<Score /> renders correctly with a success score 1`] = `
+<div
+  className="score"
+>
+  <div
+    className="tile tile--centered"
+  >
+    <div
+      className="score-indicator--wrapper"
+    >
+      <svg
+        className="score-indicator"
+        height={120}
+        viewBox="0 0 120 120"
+        width={120}
+      >
+        <defs>
+          <linearGradient
+            gradientTransform="rotate(-90)"
+            id="progress-stops"
+            x1="0%"
+            x2="0%"
+            y1="0%"
+            y2="100%"
+          >
+            <stop
+              offset="0%"
+              stopColor="var(--stop-1)"
+            />
+            <stop
+              offset="50%"
+              stopColor="var(--stop-2)"
+            />
+            <stop
+              offset="90%"
+              stopColor="var(--stop-3)"
+            />
+            <stop
+              offset="100%"
+              stopColor="var(--stop-4)"
+            />
+          </linearGradient>
+        </defs>
+        <circle
+          className="score-indicator--progress"
+          cx={60}
+          cy={60}
+          fill="none"
+          r={54}
+          strokeWidth={12}
+        />
+        <circle
+          className="score-indicator--track"
+          cx={60}
+          cy={60}
+          fill="none"
+          r={54}
+          strokeDasharray={339.29200658769764}
+          strokeDashoffset={229.02210444669592}
+          strokeWidth={12}
+          transform="rotate(378 60 60)"
+        />
+      </svg>
+      <span
+        className="heading -black -large"
+      >
+        90
+        %
+      </span>
+    </div>
+    <div
+      className="-distribute-content"
+    >
+      <span
+        className="text -regular -black"
+      >
+        You’ve scored extremely high on your eligibility check.
+      </span>
+    </div>
+  </div>
+</div>
+`;

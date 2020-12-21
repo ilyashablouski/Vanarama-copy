@@ -116,7 +116,7 @@ describe('B2B Company Details page', () => {
     companyProfileCalled = false;
     getSicCodesCalled = false;
   });
-  it('should allow the user to search for and select a company', async () => {
+  it.skip('should allow the user to search for and select a company', async () => {
     // ARRANGE
     const queryMock = jest.fn();
     const mutationMock = jest.fn();
@@ -233,7 +233,7 @@ describe('B2B Company Details page', () => {
     await waitFor(() => expect(mutationMock).toHaveBeenCalledTimes(1));
   });
 
-  it('should allow the user to enter their company details manually', async () => {
+  it.skip('should allow the user to enter their company details manually', async () => {
     // ARRANGE
     const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
@@ -337,7 +337,7 @@ describe('B2B Company Details page', () => {
     await waitFor(() => expect(mutationMock).toHaveBeenCalledTimes(1));
   });
 
-  it('should allow the user to select a trading address that is different from the registered address', async () => {
+  it.skip('should allow the user to select a trading address that is different from the registered address', async () => {
     // ARRANGE
     const queryMock = jest.fn();
     const mutationMock = jest.fn();

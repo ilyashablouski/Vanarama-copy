@@ -1,0 +1,86 @@
+.search-filters {
+  display: grid;
+  &:not(.-open) > .dropdown { display: none; }
+  > .dropdown {
+    grid-row: span dropdown 1;
+    @include mobile-tablet { margin: 2px $rem-200; }    
+  }
+  &--chevron {
+    .-open & {
+      transform: rotate(180deg);
+    }
+    @include desktop { display: none; }
+  }
+  &--title {
+    grid-row: title;
+    grid-column: full;
+    display: grid;
+    width: 100%;
+    grid-template-columns: auto 1fr auto;
+    place-items: center start;
+    gap: $rem-200;
+    font-weight: 600;
+    color: $black;
+    &-icon { 
+      font-size: 1.2em !important;
+      align-items: center;
+      display: flex; 
+    }
+    > * { line-height: 1; }
+    @include desktop {
+      font-size: 1.6rem;
+      cursor: default;      
+    }
+    @include mobile-tablet {
+      margin-top: calc((var(--layout-gap)/2) * -1);
+      margin-bottom: calc(var(--layout-gap)/2);
+      font-size: 1.375rem;
+      cursor: pointer;
+      min-height: 48px;
+      background-color: $darker;
+      color: $white;
+      @include padding-inline($rem-200);
+      &-icon { 
+        svg {
+          fill: $white;
+        }
+      }
+
+    }
+  }
+  &--toggle {
+    grid-row: toggle;
+    grid-column: full;
+    @include mobile-tablet { place-self: center; }
+  }
+  @include desktop {
+    grid-template-columns: [full-start] repeat(5, minmax(0,1fr)) [full-end];
+    grid-template-rows: [title toggle] auto [dropdown] auto [tags] auto;
+    gap: $rem-400 $rem-200;
+    &--title {
+      place-self: center start;
+    }
+    &--toggle {
+      place-self: center end;
+    }
+  }
+  @include mobile-tablet {
+    grid-template-columns: [full-start] minmax(0,1fr) [full-end];
+    grid-template-rows: [title] minmax(48px, auto) repeat(5, [dropdown] minmax(0,1fr)) [tags] auto [toggle] minmax(48px, auto);
+  }
+  &--tags {
+    display: flex;
+    flex-wrap: wrap;
+    grid-column: full;
+    grid-row: tags;
+    margin: -1px;
+    @include mobile-tablet {
+      @include padding-block($rem-200);
+      @include padding-inline($rem-200);
+      justify-content: center;
+    }
+    > * {
+      margin: 2px;
+    }
+  }
+}

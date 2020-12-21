@@ -6,7 +6,7 @@ import { useProductCardDataQuery } from '../gql';
 
 jest.mock('../gql');
 
-jest.mock('@vanarama/uibook/lib/components/organisms/carousel', () => ({
+jest.mock('core/organisms/carousel', () => ({
   __esModule: true,
   default: ({ children }: any) => (
     <div className="mocked-carousel">{children}</div>
