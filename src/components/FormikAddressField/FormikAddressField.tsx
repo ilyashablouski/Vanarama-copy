@@ -1,5 +1,5 @@
-import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import AddressFinder from 'core/molecules/address-finder';
+import Formgroup from 'core/molecules/formgroup';
 import { useField } from 'formik';
 import React from 'react';
 

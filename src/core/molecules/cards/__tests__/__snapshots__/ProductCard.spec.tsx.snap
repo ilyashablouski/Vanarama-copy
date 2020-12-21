@@ -1,0 +1,49 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ProductCard /> Product Card should render correctly 1`] = `
+<Memo()
+  description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
+  features={Array []}
+  header={
+    Object {
+      "accentText": "Hot Deal",
+      "text": "In Stock - 14-21 Days Delivery",
+    }
+  }
+  imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
+  title={
+    Object {
+      "description": "1.0 IG-T 100 Tekna 5dr Xtronic [Leather]",
+      "link": <a
+        className="heading -large -black"
+        href="#"
+      >
+        Peugeot 208
+      </a>,
+      "score": 4.5,
+      "title": "",
+    }
+  }
+>
+  <div
+    className="card-footer"
+  >
+    <Memo([object Object])
+      color="dark"
+      fill="clear"
+      iconPosition="before"
+      label={
+        <React.Fragment>
+          <Memo(Icon)
+            color="dark"
+            icon={<Memo />}
+          />
+          Compare
+        </React.Fragment>
+      }
+      size="xsmall"
+      withoutDefaultClass={true}
+    />
+  </div>
+</Memo()>
+`;

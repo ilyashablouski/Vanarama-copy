@@ -1,0 +1,483 @@
+.header {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+  grid-column: content;
+  width: 100%;
+  background: $white;
+  color: $orange;
+  height: var(--header-height);
+  max-height: var(--header-height);
+  @include owl($rem-500, inline);
+  @include mobile {
+    --header-height: #{$header-height-mobile};
+  }
+  @include tablet {
+    --header-height: #{$header-height-tablet};
+  }
+  @include desktop {
+    --header-height: #{$header-height-desktop};
+  }
+  z-index: 99;
+
+@mixin overflow-padding($amount:$rem-400) {
+  @include pseudo(after) {
+    position:static;
+    height: $amount;
+    width: $amount;
+  }
+}
+
+@mixin menu-arrow($position:after) {
+  position: relative;
+  
+  @include pseudo(after) {
+    content: '';
+    border-top: 2px solid;
+    border-color: inherit;
+    
+    @include tablet-desktop {
+      top: ($block-size-large - $block-size-large/4) / 2;
+      height: $block-size-large/4;
+      width: $block-size-large/4;
+    }
+    
+    @include mobile {
+      top: ($block-size - $block-size/4) / 2;
+      height: $block-size/4;
+      width: $block-size/4;
+    }
+    
+    @if $position == after {
+      left: unset;
+      right: 1.5rem;
+      border-left: unset;
+      border-right: 2px solid;
+      border-color: inherit;
+      transform: rotate(45deg);
+    }
+    @else {
+      left: 1.5rem;
+      right: unset;
+      border-left: 2px solid;
+      border-color: inherit;
+      border-right: unset;
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+  > * {
+    flex-shrink: 0;
+  }
+
+  &--logo {
+    color: $orange;
+    width: 100%;
+    max-width: 11rem;
+    @include mobile {
+      max-width: 10rem;
+    }
+  }
+  @else {
+    top: $block-size*1.25 + 1px;
+    
+    &:not(.-open) {
+      transform: translateX(-100%);
+      opacity: 0;
+    }
+  }
+}
+
+.header {
+  display: inherit;
+  grid-template: inherit;
+  grid-column: full;
+  background-color: $white;
+  padding-top: $header-gap-block;
+  position: relative;
+  font-size: $header-font-size;
+  color: $header-font-color;
+  z-index: 99;
+  
+  &-shadow {
+    display: none;
+  }
+  
+  @include pseudo(after) {
+    top: unset;
+    bottom: -5px;
+    height: 5px;
+    box-shadow:
+      inset 0 1px 0 0 rgba($darker,0.15),
+      inset 0 4px 8px -3px rgba($darker,0.15);
+  }
+  
+  @include mobile {
+    padding-top: 0;
+    
+    &:after {
+      content: unset;
+    }
+  }
+  
+  &-content {
+    display: inherit;
+    grid-column: content;
+    grid-template-columns: auto minmax(0,1fr) repeat(2,auto);
+    grid-template-areas:
+      'logo search tel account'
+      'nav  nav    nav nav    ';
+    place-items: center start;
+    white-space: nowrap;
+    
+    @include mobile {
+      grid-column: full;
+      grid-template-rows: 1.25fr 1fr;
+      grid-template-columns:
+        1rem minmax(0,1fr) #{$block-size} #{$block-size} #{$block-size} .5rem;
+      grid-template-areas:
+        '.      logo   account tel    navtoggle .     '
+        'search search search  search search    search';
+      place-items: center;
+      gap: 0;
+    }
+    
+    @include desktop { gap: $header-gap-block $header-gap-inline; }
+    @include tablet  { gap: $header-gap-block 1.5rem }
+  }
+  
+  &-logo      { grid-area: logo; }
+  &-search    { grid-area: search; }
+  &-tel       { grid-area: tel; }
+  &-account   { grid-area: account; }
+  &-navtoggle { grid-area: navtoggle; }
+  .menu       { grid-area: nav; }
+  
+  &-logo {
+    width: $logo-width;
+    color: $orange;
+    
+    @include mobile { place-self: center start; }
+  }
+  
+  &-search {
+    display: grid;
+    grid-template-columns:
+      minmax(min-content,max-content) minmax(min-content,1fr);
+    gap: 0 1ch;
+    align-items: stretch;
+    justify-content: stretch;
+    place-self: stretch;
+    margin: -$header-gap-block 0;
+    transition: $header-color-transition;
+    cursor: text;
+    position: relative;
+
+    @include tablet { position: static; }
+    @include mobile {
+      background:
+        linear-gradient(to bottom, $border-color 0.5px, transparent 0.5px),
+        linear-gradient(to top, $border-color 0.5px, transparent 0.5px);
+      background-color: $lighter;
+      margin: 0;
+      padding: 0 4px;
+      height: $block-size;
+      gap: 0;
+    }
+    
+    &:hover,
+    &:focus-within {
+      --placeholder-color: #{$black};
+      &, & .icon { color: $black; }
+    }
+    
+    &:focus-within {
+      --placeholder-color: transparent;
+    }
+    
+    .icon {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      transition: $header-color-transition;
+      color: $header-icon-color;
+      font-size: $header-icon-size;
+      
+      @include mobile {
+        max-height: $block-size;
+        height: $block-size - 24px;
+        width: $block-size;
+        margin: auto;
+      }
+    }
+    
+    &--input {
+      display: block;
+      width: 100%;
+      max-width: unset;
+      transition: $header-color-transition;
+      cursor: text;
+      
+      @include mobile {
+        margin-left: -$block-size;
+        padding-left: $block-size;
+        font-size: 1rem;
+        text-align: center;
+      }
+      
+      &::placeholder {
+        transition: $header-color-transition;
+        color: var(--placeholder-color, #{darken($medium, 15%)});
+        opacity: 1;
+      }
+    }
+    
+    &--results {
+      display: grid;
+      grid-auto-flow: row;
+      grid-template-columns: minmax(0,1fr);
+      grid-template-areas:
+        'vehicles'
+        'autocomplete'
+        'support';
+      gap: $header-gap 0;
+      position: absolute;
+      left: 0;
+      right: 0;
+      z-index: 101;
+      top: $block-size;
+      background: $white;
+      box-shadow: $box-shadow-header;
+      width: 100%;
+      
+      @include tablet-desktop {
+        padding: $rem-400 0;
+        grid-auto-flow: unset;
+        place-items: start;
+        place-content:start;
+        grid-template-columns: minmax(0,max-content) minmax(0,1fr);
+        grid-template-rows: repeat(2, minmax(0,max-content));
+        grid-template-areas:
+          'autocomplete vehicles'
+          'support      vehicles';
+        top: calc(2.8rem + #{$header-gap-block * 2} - 4px);
+        border-radius: $border-radius-medium;
+        border: 1px solid $border-color;
+        max-width: 80vw;
+      
+        &:before {
+          content: '';
+          position: absolute;
+          height: 1rem;
+          width: 1rem;
+          top: calc(-.5rem - 1px);
+          left: 50%;
+          border-top: 1px solid $border-color;
+          border-left: 1px solid $border-color;
+          transform: rotate(45deg);
+          background: $lighter;
+        }
+
+        .icon {
+          color: rgba($dark, 0.5);
+          position: relative;
+          bottom: -2px;
+          height: var(--header-height);
+          max-height: var(--header-height);
+          display: flex;
+          align-items: center;
+        }
+
+        .heading {
+          color: $black;
+          font-size: 1.25rem;
+        }
+
+        .text {
+          color: $black;
+          font-size: 1rem;
+          font-weight: 500;
+          line-height: 1.25rem;
+        }
+        
+        
+        .card { 
+          --img-w: 130px;
+          
+          @include mobile {
+            &:not(:nth-child(1)):not(:nth-child(2)) {
+              display: none;
+            }
+          
+            > .card-image {
+              height: 120px;
+            }
+          }
+          
+          > .title {
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+            
+            * { display: inline; }
+            
+            :last-child:before {
+              content: "\A";
+              white-space: pre;
+            }
+          }
+        }
+      }
+      
+      &-link {
+        display: block;
+        font-size: 1rem;
+        height: 1.75rem;
+        line-height: 1.75rem;
+        color: $darker;
+        
+        @include tablet-desktop { padding: 0 $rem-500 0 $rem-400; }
+        @include mobile { padding: 0 $rem-400; }
+
+        .link {
+          align-items: center;
+          display: flex;
+
+          .icon {
+            margin-left: 10px;
+          }
+        }
+
+        nav {
+          display: none;
+          position: absolute;
+          top: calc(100% - 1px);
+          left: 0;
+          box-shadow: $box-shadow-header;
+
+          li {
+            display: block;
+            overflow: hidden;
+            break-inside: avoid-column;
+            width: 100%;
+
+            .link {
+              background: $white;
+              display: flex;
+              justify-content: space-between;
+              padding: 14px;
+              width: 300px;
+              margin: 0;
+              min-width: 300px;
+
+              &:hover,
+              &:focus {
+                color: $teal;
+              }
+            }
+          }
+        }
+
+        &:hover,
+        &:focus {
+          .icon {
+            transform: rotate(180deg);
+          }
+
+          > .icon,
+          > .heading,
+          > .text {
+            color: $orange;
+          }
+
+          &.-multiple:before {
+            opacity: 1;
+          }
+
+          nav {
+            display: flex;
+          }
+        }
+      }
+    }
+  }
+
+  &--cta {
+    .button {
+      font-size: 1.75rem;
+      font-family: $font-family-heading;
+      font-weight: 400;
+      letter-spacing: -0.025em;
+    }
+  }
+
+  &--menu,
+  &--cta {
+    @include mobile {
+      display: none;
+    }
+    @include tablet {
+      display: none;
+    }
+  }
+
+  &--compact-menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: $orange;
+
+    .button {
+      display: inline-flex;
+
+      > * {
+        place-items: center;
+      }
+
+    .icon {
+      font-size: $header-icon-size;
+      
+      @include mobile { color: $darker; }
+      @include tablet-desktop { color: $header-icon-color; }
+    }
+    
+    .icon-call {
+      font-size: $header-icon-size * 0.82;
+    }
+    
+    &:hover,
+    &:focus {
+      &, & .icon { color: $black; }
+    }
+    
+    @include distribute-children(1ch, inline);
+    @include mobile {
+      place-self: center;
+      
+      span  { display: none; }
+      
+      .icon {
+        font-size: 3rem;
+        display: flex;
+        align-items: center;
+        @include mobile {
+          font-size: 2.5rem;
+        }
+
+        &[name*='call'] {
+          font-size: 2rem;
+          @include mobile {
+            font-size: 1.8rem;
+          }
+        }
+      }
+    }
+
+    @include desktop {
+      display: none;
+    }
+  }
+}

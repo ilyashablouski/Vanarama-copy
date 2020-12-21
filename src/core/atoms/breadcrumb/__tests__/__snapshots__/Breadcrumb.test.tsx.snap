@@ -1,0 +1,149 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Breadcrumb /> renders correctly 1`] = `
+<nav>
+  <ol
+    className="breadcrumb"
+  />
+</nav>
+`;
+
+exports[`<Breadcrumb /> renders correctly with optional props 1`] = `
+<nav>
+  <ol
+    className="breadcrumb class"
+  >
+    <li
+      className="breadcrumb-item -parent"
+    >
+      <a
+        className="link breadcrumb-item--backlink -teal -small -plain"
+        href="/"
+      >
+        Back to 
+        Page1
+        <i
+          className="icon -medium -xsmall"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <polyline
+              points="328 112 184 256 328 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeLinejoin": "round",
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+      </a>
+      <a
+        className="link breadcrumb-item--parent -teal -small -plain"
+        href="/"
+      >
+        Page1
+      </a>
+      <i
+        className="icon -medium -xsmall"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <polyline
+            points="184 112 328 256 184 400"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "round",
+                "strokeLinejoin": "round",
+                "strokeWidth": 48,
+              }
+            }
+          />
+        </svg>
+      </i>
+    </li>
+    <li
+      className="breadcrumb-item -parent"
+    >
+      <a
+        className="link breadcrumb-item--backlink -teal -small -plain"
+        href="/"
+      >
+        Back to 
+        Page2
+        <i
+          className="icon -medium -xsmall"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <polyline
+              points="328 112 184 256 328 400"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeLinejoin": "round",
+                  "strokeWidth": 48,
+                }
+              }
+            />
+          </svg>
+        </i>
+      </a>
+      <a
+        className="link breadcrumb-item--parent -teal -small -plain"
+        href="/"
+      >
+        Page2
+      </a>
+      <i
+        className="icon -medium -xsmall"
+      >
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <polyline
+            points="184 112 328 256 184 400"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "round",
+                "strokeLinejoin": "round",
+                "strokeWidth": 48,
+              }
+            }
+          />
+        </svg>
+      </i>
+    </li>
+    <li
+      className="breadcrumb-item -child"
+    >
+      <span
+        className="text breadcrumb-item--child -small -darker"
+      >
+        Page3
+      </span>
+    </li>
+  </ol>
+</nav>
+`;

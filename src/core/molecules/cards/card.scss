@@ -1,0 +1,517 @@
+/// @name config
+$image-height: 240px;
+$image-width: var(--img-w, 200px);
+$card-padding: $rem-300;
+$card-gap-inline: $rem-300;
+$card-gap-block: $rem-300;
+$header-height: 26px;
+$content: ':not([class*="card-"])';
+$small: 0.875rem;
+
+.card {
+  position: relative;
+  display: grid;
+  place-content: start;
+  min-height: $card-padding;
+  width: 100%;
+  overflow: hidden;
+  border-radius: $border-radius-medium;
+  box-shadow: inset 0 -4px 0 -2px $medium, inset 0 0 0 1px $medium;
+  background: $white;
+  gap: 0 $card-gap-inline;
+  grid-auto-flow: row;
+  text-align: left;
+
+  // Core layout -> mobile/tablet
+  @include mobile-tablet {
+    grid-template-columns: 0 [content-start] repeat(4, minmax(0, 1fr)) [content-end] 0;
+    grid-template-rows:
+      minmax(0, auto)
+      minmax(0, auto)
+      [content] minmax(0, 1fr)
+      [content] repeat(auto-fit, minmax(1rem, auto))
+      minmax(0, auto);
+
+    > .card-header {
+      grid-area: span 1 / 1 / span 1 / -1;
+    }
+    > .card-footer {
+      grid-area: span 1 / 1 / span 1 / -1;
+      place-self: end stretch;
+    }
+    > .card-image,
+    .lazyload-wrapper {
+      grid-area: span 1 / 1 / span 1 / -1;
+    }
+  }
+
+  // Core layout -> desktop
+  @include desktop {
+    // Block direction -> .-block (default)
+    &.-block,
+    &:not(.-inline) {
+      grid-template-columns: 0 [content-start] repeat(4, minmax(0, 1fr)) [content-end] 0;
+      grid-template-rows:
+        minmax(0, auto)
+        minmax(0, auto)
+        [content] minmax(0, 1fr)
+        [content] repeat(auto-fit, minmax(1rem, auto))
+        minmax(0, auto);
+
+      > .card-header {
+        grid-area: span 1 / 1 / span 1 / -1;
+      }
+      > .card-footer {
+        grid-area: span 1 / 1 / span 1 / -1;
+        place-self: end stretch;
+      }
+      > .card-image,
+      .lazyload-wrapper {
+        grid-area: span 1 / 1 / span 1 / -1;
+      }
+    }
+    // Inline direction -> .-inline
+    &.-inline {
+      grid-template-columns: minmax(0, #{$image-width}) [content] minmax(0, 1fr) 0;
+      grid-template-rows: repeat(auto-fit, minmax(0, auto));
+      place-self: start;
+
+      > .card-header {
+        grid-area: 1 / 1 / 1 / -1;
+
+        + .card-image {
+          grid-area: 2 / 1 / -1 / content;
+        }
+      }
+      > .card-footer {
+        grid-area: -2 / content / -2 / -2;
+        place-self: end stretch;
+      }
+      > .card-image {
+        height: $image-width;
+        max-width: $image-width;
+        grid-area: 1 / 1 / -1 / content;
+      }
+    }
+  }
+
+  // Predefined areas -> all
+  &-header,
+  &-image,
+  &-footer {
+    mix-blend-mode: multiply;
+  }
+
+  // Predefined areas -> header
+  &-header {
+    @include card-flag;
+    overflow: hidden;
+    white-space: nowrap;
+    height: $header-height;
+    max-height: $header-height;
+    background-color: $darker;
+    align-items: stretch;
+    &.rounded {
+      border-radius: $border-radius-small;
+    }
+
+    > :only-child {
+      background-image: unset;
+      background-color: var(--class-color, #{$darker});
+      color: var(--class-color-contrast, #{$white});
+    }
+  }
+
+  // Predefined areas -> image
+  &-image {
+    height: $image-height;
+    width: 100%;
+    background: var(--class-color, #{$black});
+    color: transparent;
+
+    &.media {
+      height: auto;
+    }
+
+    &.-fit {
+      object-fit: contain;
+    }
+
+    &:not(.-fit),
+    &.-cover {
+      object-fit: cover;
+    }
+
+    &:last-child {
+      height: max-content;
+    }
+  }
+
+  // Predefined areas -> footer
+  &-footer {
+    display: grid;
+    grid-template-columns: repeat(1, 100%);
+    grid-template-rows: auto;
+    grid-auto-flow: column;
+    overflow: hidden;
+    border-top: 1px solid $light;
+
+    > * {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--class-color);
+      @include padding-block($card-gap-inline);
+      font-size: $small;
+      font-weight: 500;
+      line-height: 1.125rem;
+      color: var(--class-color, #{$darker});
+      background: $white;
+      transition: background 60ms $transition-soft, color 150ms $transition-soft;
+      cursor: pointer;
+
+      &:hover:not(:focus) {
+        background: $lighter;
+      }
+
+      &:active {
+        color: var(--class-color-tint, #{$darker});
+      }
+
+      &:not(:first-child) {
+        border-left: 1px solid $light;
+      }
+
+      .icon {
+        font-size: 1.125rem;
+        position: relative;
+        vertical-align: bottom;
+        bottom: 0.125em;
+      }
+    }
+  }
+
+  // Predefined areas -> content
+  > #{$content} {
+    grid-area: span 1 / content;
+
+    &:first-child {
+      margin-top: $card-padding;
+    }
+    &:last-child {
+      margin-bottom: $card-padding;
+    }
+    &:only-child {
+      grid-row: 1/-1;
+      grid-column: 1/-1;
+    }
+  }
+  > #{$content} + *,
+  > * + #{$content} {
+    margin-top: $card-gap-block;
+  }
+
+  // Tweaks -> pin last child to bottom (default)
+  > :last-child:not(.card-footer):not(.card-image) {
+    grid-area: -1 / content;
+  }
+
+  // Tweaks -> pin last child to bottom (when image exists)
+  > .card-image ~ :last-child:not(.card-footer) {
+    grid-area: -2 / content;
+  }
+
+  // Tweaks -> adjust button vertical alignment
+  .price + .button {
+    margin-top: auto;
+  }
+
+  // Tweaks -> skeleton (pre-load) styling
+  &.-skeleton {
+    box-shadow: inset 0 -4px 0 -2px $light, inset 0 0 0 1px $light;
+
+    > :not(.card-image) {
+      opacity: 0.34;
+    }
+
+    .card-image {
+      background-color: $medium;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
+
+  // Tweaks -> allow overflow for review author
+  &.-overflow {
+    overflow: visible;
+  }
+
+  // Tweaks -> reduce excessive line-height
+  > :not(.price) {
+    line-height: calc(1em + 0.375rem);
+  }
+
+  // Tweaks -> prevent .-flex-h horizontal misalignment
+  > .-flex-h {
+    --owl-gap: 0;
+  }
+
+  // Widgets -> expanded price information (for OLAF)
+  .price-expanded {
+    display: grid;
+    gap: $card-gap-inline;
+    place-items: center start;
+
+    @include desktop {
+      grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
+    }
+    @include mobile-tablet {
+      grid-template-columns: minmax(0, 1fr);
+      grid-auto-flow: row;
+    }
+  }
+
+  // Widgets -> title
+  .title {
+    > .heading + .heading,
+    > .heading + .rating {
+      margin-top: 0.375rem;
+    }
+
+    > .heading:first-of-type:before {
+      content: '';
+      display: block;
+      height: 0;
+      margin-top: calc(((1em + 0.5rem) * -0.5) + 1ex);
+      width: 0;
+    }
+    > a[href]:first-of-type {
+      // @include pseudo(after) {
+      //   will-change: opacity;
+      //   opacity: 0;
+      //   border-radius: $border-radius-medium;
+      //   background: bezier-gradient($lighter, 0.125, 300);
+      //   border: 1px solid rgba($black, 0.2);
+      //   transition: opacity 50ms $transition-soft;
+      //   pointer-events: all;
+      //   cursor: default;
+      // }
+
+      &:focus {
+        color: $teal;
+      }
+
+      &:hover:after,
+      &:active:after,
+      &:focus:after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.breakdown {
+    .card-image {
+      background: transparent;
+      height: var(--img-w, 220px);
+      object-fit: cover;
+      @include mobile-tablet {
+        object-fit: contain;
+      }
+    }
+    .card-image ~ :last-child:not(.card-footer) {
+      grid-area: 2 / content;
+    }
+    .title {
+      span:nth-child(2) {
+        text-transform: none;
+      }
+    }
+  }
+
+  // Widgets -> features (specs)
+  .features {
+    display: grid;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-template-rows: auto;
+    grid-auto-flow: column;
+    grid-column: 1 / -1;
+    color: $dark;
+
+    .icon {
+      font-size: 2.5rem;
+      max-height: 2.5rem;
+    }
+
+    .text {
+      display: block;
+      // font-size: $small;
+      font-weight: 500;
+      // line-height: 1.25;
+      word-break: break-word;
+      text-align: center;
+      margin: $rem-100 auto;
+      // max-width: 75%;
+
+      // @mixin TODO_8 {
+      font-size: 0.8rem;
+      line-height: 1.125;
+      max-width: 80%;
+      // }
+    }
+
+    > * {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+
+      @include padding-block($rem-100);
+
+      &:not(:first-child) {
+        border-left: 1px solid $light;
+      }
+    }
+  }
+
+  .review-text {
+    height: 66px;
+    overflow: hidden;
+  }
+
+  // Widgets -> author name banner
+  .review-author {
+    background: linear-gradient(
+      to right,
+      $orange 0%,
+      hsl(27.06, 82.58%, 50.9%) 64.7%,
+      $orange 100%
+    );
+    padding: 1ch calc(#{$card-padding} + 0.5rem) 1ch
+      calc(#{$card-padding} + 0.5rem);
+    margin-left: -0.5rem;
+    max-width: max-content;
+    grid-column: 1 / -1 !important;
+    color: $white;
+    line-height: 1em;
+    position: relative;
+    z-index: 1;
+
+    &:after {
+      content: '';
+      display: block;
+      position: absolute;
+      background: linear-gradient(
+        to top,
+        darken($orange, $shade) 0.5rem,
+        $orange 0.5rem
+      );
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 0.5rem));
+      height: calc(100% + 0.5rem);
+      width: 0.5rem;
+      top: 0;
+      left: 0;
+      z-index: 0;
+    }
+  }
+
+  // Widgets -> quotation mark decal
+  .review-decoration:after {
+    content: '”';
+    display: block;
+    font-size: 8rem;
+    line-height: 1em;
+    color: $light;
+    opacity: 1;
+    position: absolute;
+    bottom: -3.75rem;
+    right: $card-padding;
+    z-index: 0;
+  }
+
+  // Widgets -> top-right corner button
+  .corner-button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    right: 0;
+    grid-area: unset !important;
+    margin: unset;
+    font-size: 1.25rem;
+    border-radius: 0;
+    z-index: 99;
+    pointer-events: all;
+    border-top-right-radius: $border-radius-small;
+    border-bottom-left-radius: $border-radius-medium;
+    height: 1.75rem;
+    width: 1.75rem;
+    color: $white;
+    cursor: pointer;
+
+    @include tablet-desktop {
+      background: $orange;
+    }
+    @include mobile {
+      background: rgba($orange, 0.8);
+    }
+
+    &:hover,
+    &:focus {
+      background: darken($orange, $shade);
+    }
+  }
+
+  // Widgets -> vehicle specification list
+  .spec-list {
+    display: grid;
+
+    @include mobile {
+      grid-template-columns: minmax(0, 1fr);
+      grid-auto-rows: auto;
+      gap: 0.5ch;
+    }
+
+    @include tablet-desktop {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      grid-auto-rows: auto;
+      gap: 0.5ch 1ch;
+    }
+
+    > hr {
+      grid-column: 1 / -1;
+      max-width: unset;
+
+      ~ * {
+        font-weight: 500;
+        color: $black;
+      }
+    }
+  }
+
+  &.-compact {
+    --img-w: 180px;
+  }
+
+  &.-compact > .card-image {
+    @media (max-width: 1215px) {
+      height: 170px;
+      width: 100vw;
+    }
+  }
+
+  &.-compact > .title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  &.-compact > .title * {
+    display: inline;
+  }
+
+  &.-compact > .title :last-child:before {
+    content: '\A';
+    white-space: pre;
+  }
+}

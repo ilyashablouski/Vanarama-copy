@@ -1,4 +1,4 @@
-import StructuredList from '@vanarama/uibook/lib/components/organisms/structured-list';
+import StructuredList from 'core/organisms/structured-list';
 import React from 'react';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { AboutFormPerson } from '../../../generated/AboutFormPerson';

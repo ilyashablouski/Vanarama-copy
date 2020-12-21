@@ -1,4 +1,4 @@
-import Formgroup from '@vanarama/uibook/lib/components/molecules/formgroup';
+import Formgroup from 'core/molecules/formgroup';
 import { useField } from 'formik';
 import React from 'react';
 import { FormikRadioProvider } from './FormikRadioContext';

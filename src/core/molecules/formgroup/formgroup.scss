@@ -1,0 +1,92 @@
+.formgroup {
+  display: block;
+  max-width: 50ch;
+
+  &.-fullwidth {
+    max-width: 100%;
+  }
+
+  &--content {
+    display: grid;
+    min-width: 0;
+    grid-auto-flow: row;
+    gap: $rem-200;
+    max-width: var(--field-affordance, 50ch);
+
+    * + & {
+      padding-top: $rem-200;
+    }
+  }
+
+  &.-disabled > :not(.formgroup--content) {
+    color: darken($medium, 5%);
+  }
+
+  &.-inline &--content {
+    display: grid;
+    grid-auto-flow: column;
+    gap: $rem-200;
+    width: max-content;
+    min-width: 0;
+
+    @media (max-width: $vp-small) {
+      grid-auto-flow: row;
+    }
+  }
+
+  &.-inline-preserved &--content {
+    display: grid;
+    grid-auto-flow: column;
+    gap: $rem-200;
+    width: max-content;
+    min-width: 0;
+  }
+
+  &--legend {
+    color: $black;
+    padding: 0;
+  }
+
+  & &--error {
+    display: block;
+    font-weight: $font-weight-semibold !important;
+  }
+
+  &--editable {
+    grid-template-columns: auto;
+    display: grid;
+    justify-content: start;
+    grid-auto-flow: column;
+    place-items: baseline;
+    gap: $rem-300;
+  }
+
+  &--hint {
+    display: block;
+    color: $dark;
+    font-size: $font-size-400;
+    line-height: calc(1em + 0.25rem);
+    margin-top: -2px;
+  }
+
+  &.-invalid {
+    border-left: $border-width-bold solid $red;
+    padding-left: 1ch;
+
+    .select,
+    .textinput,
+    .textarea {
+      &--native:focus {
+        box-shadow: $box-shadow-focus rgba($red, $opacity-300);
+        border-color: $red;
+        background: $white;
+      }
+    }
+  }
+
+  *:invalid {
+    box-shadow: $box-shadow-focus rgba($red, $opacity-300);
+    border-color: $red;
+    background: $white;
+  }
+}

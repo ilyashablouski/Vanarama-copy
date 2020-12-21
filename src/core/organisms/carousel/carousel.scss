@@ -1,0 +1,132 @@
+/// @name config
+$carousel-gap: $rem-400;
+$carousel-arrow-size: 1.5rem;
+
+.carousel {
+  position: relative;
+  display: grid;
+  min-width: 0;
+  width: 100%;
+  grid-auto-flow: row;
+  place-items: center;
+  gap: $carousel-gap 0;
+
+  @include presentation-styles {
+    &--track-items {
+      display: grid;
+      grid-auto-flow: column;
+      gap: $carousel-gap;
+
+      > :not([class]) {
+        display: flex;
+        place-items: stretch;
+      }
+    }
+
+    &.-col1 &--track-items {
+      grid-template-columns: repeat(1, 1fr);
+      & > :nth-child(n + 2) {
+        display: none;
+      }
+    }
+
+    &.-col2 &--track-items {
+      @include desktop {
+        grid-template-columns: repeat(2, 1fr);
+        & > :nth-child(n + 3) {
+          display: none;
+        }
+      }
+      @include tablet {
+        grid-template-columns: repeat(2, 1fr);
+        & > :nth-child(n + 3) {
+          display: none;
+        }
+      }
+      @include mobile {
+        grid-template-columns: repeat(1, 1fr);
+        & > :nth-child(n + 2) {
+          display: none;
+        }
+      }
+    }
+
+    &.-col3 &--track-items {
+      @include desktop {
+        grid-template-columns: repeat(3, 1fr);
+        & > :nth-child(n + 4) {
+          display: none;
+        }
+      }
+      @include tablet {
+        grid-template-columns: repeat(2, 1fr);
+        & > :nth-child(n + 3) {
+          display: none;
+        }
+      }
+      @include mobile {
+        grid-template-columns: repeat(1, 1fr);
+        & > :nth-child(n + 2) {
+          display: none;
+        }
+      }
+    }
+  }
+
+  &--nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: $carousel-gap;
+
+    > * + * {
+      margin-left: $carousel-gap;
+    }
+
+    &-item,
+    &-arrow {
+      display: block;
+      cursor: pointer;
+      position: relative;
+      @include expand-tappable-area(30%);
+    }
+
+    &-item {
+      color: $medium;
+
+      &:hover,
+      &:focus {
+        color: darken($medium, $shade);
+      }
+
+      &.-active {
+        color: $orange;
+      }
+
+      svg {
+        fill: currentColor;
+      }
+    }
+
+    &-arrow {
+      color: $darker;
+      font-size: $carousel-arrow-size;
+
+      &:hover,
+      &:focus {
+        color: $black;
+      }
+    }
+
+    @include mobile {
+      flex-wrap: wrap;
+    }
+  }
+
+  &.top-offers {
+    ul,
+    li {
+      min-height: 35rem;
+    }
+  }
+}

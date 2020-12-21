@@ -1,0 +1,114 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<IconList /> renders correctly with default <IconListItem /> child 1`] = `
+<IconList>
+  <ul
+    className="icon-list"
+  >
+    <IconListItem>
+      <li>
+        <Icon
+          icon={<Memo(CheckmarkCircleSharp) />}
+        >
+          <i
+            className="icon"
+          >
+            <CheckmarkCircleSharp>
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
+              >
+                <title>
+                  ionicons-v5-e
+                </title>
+                <path
+                  d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48ZM218,360.38,137.4,270.81l23.79-21.41,56,62.22L350,153.46,374.54,174Z"
+                />
+              </svg>
+            </CheckmarkCircleSharp>
+          </i>
+        </Icon>
+        hello world
+      </li>
+    </IconListItem>
+  </ul>
+</IconList>
+`;
+
+exports[`<IconList /> renders correctly with optional props 1`] = `
+<ul
+  className="icon-list -teal"
+  data-testid="testID"
+>
+  <li>
+    hello world
+  </li>
+</ul>
+`;
+
+exports[`<IconListItem /> renders correctly with children 1`] = `
+<IconListItem>
+  <li>
+    <Icon
+      icon={<Memo(CheckmarkCircleSharp) />}
+    >
+      <i
+        className="icon"
+      >
+        <CheckmarkCircleSharp>
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-e
+            </title>
+            <path
+              d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48ZM218,360.38,137.4,270.81l23.79-21.41,56,62.22L350,153.46,374.54,174Z"
+            />
+          </svg>
+        </CheckmarkCircleSharp>
+      </i>
+    </Icon>
+    hello world
+  </li>
+</IconListItem>
+`;
+
+exports[`<IconListItem /> renders correctly with optional props 1`] = `
+<IconListItem
+  dataTestId="testID2"
+  iconColor="orange"
+>
+  <li
+    data-testid="testID2"
+  >
+    <Icon
+      color="orange"
+      icon={<Memo(CheckmarkCircleSharp) />}
+    >
+      <i
+        className="icon -orange"
+      >
+        <CheckmarkCircleSharp>
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <title>
+              ionicons-v5-e
+            </title>
+            <path
+              d="M256,48C141.31,48,48,141.31,48,256s93.31,208,208,208,208-93.31,208-208S370.69,48,256,48ZM218,360.38,137.4,270.81l23.79-21.41,56,62.22L350,153.46,374.54,174Z"
+            />
+          </svg>
+        </CheckmarkCircleSharp>
+      </i>
+    </Icon>
+    hello world
+  </li>
+</IconListItem>
+`;

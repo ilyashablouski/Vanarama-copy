@@ -5,7 +5,7 @@ import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import { useState, useContext } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
-import SchemaJSON from '@vanarama/uibook/lib/components/atoms/schema-json';
+import SchemaJSON from 'core/atoms/schema-json';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { isCompared } from '../../utils/comparatorHelpers';
@@ -41,81 +41,49 @@ import { features } from '../../components/ProductCarousel/helpers';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 
-const Icon = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/icon'),
-  {
-    ssr: false,
-  },
-);
-const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'), {
+const Icon = dynamic(() => import('core/atoms/icon'), {
+  ssr: false,
+});
+const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
 const ArrowForwardSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/ArrowForwardSharp'),
+  () => import('core/assets/icons/ArrowForwardSharp'),
   {
     loading: () => <Skeleton count={1} />,
   },
 );
-const Price = dynamic(() =>
-  import('@vanarama/uibook/lib/components/atoms/price'),
-);
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Image = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/image'),
-  {
-    loading: () => <Skeleton count={4} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Tile = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/tile'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
-const Media = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/media'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
-const Step = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/step'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
+const Price = dynamic(() => import('core/atoms/price'));
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Image = dynamic(() => import('core/atoms/image'), {
+  loading: () => <Skeleton count={4} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Tile = dynamic(() => import('core/molecules/tile'), {
+  loading: () => <Skeleton count={3} />,
+});
+const Media = dynamic(() => import('core/atoms/media'), {
+  loading: () => <Skeleton count={3} />,
+});
+const Step = dynamic(() => import('core/molecules/step'), {
+  loading: () => <Skeleton count={3} />,
+});
 const ProductCard = dynamic(
-  () =>
-    import(
-      '@vanarama/uibook/lib/components/molecules/cards/ProductCard/ProductCard'
-    ),
+  () => import('core/molecules/cards/ProductCard/ProductCard'),
   {
     loading: () => <Skeleton count={3} />,
   },
 );
-const TrustPilot = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/trustpilot'),
-  {
-    ssr: false,
-  },
-);
-const League = dynamic(
-  () => import('@vanarama/uibook/lib/components/organisms/league'),
-  {
-    loading: () => <Skeleton count={2} />,
-  },
-);
+const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
+  ssr: false,
+});
+const League = dynamic(() => import('core/organisms/league'), {
+  loading: () => <Skeleton count={2} />,
+});
 
 type Props = {
   data: HubPickupPageData;

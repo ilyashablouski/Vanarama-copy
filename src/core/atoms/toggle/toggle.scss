@@ -1,0 +1,70 @@
+.toggle {
+  position: absolute;
+  visibility: visible;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  border: 0;
+  white-space: nowrap;
+
+  &--off,
+  &--on {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid $border-color;
+    background: $white;
+    padding: 0 $rem-400;
+    height: 2rem;
+    font-size: $font-size-300;
+    font-weight: $font-weight-regular;
+    transition: background $duration-medium $transition-soft,
+      border-color $duration-medium $transition-soft,
+      color $duration-medium $transition-soft;
+  }
+
+  &--input:not(:checked) + &--input-label &--on {
+    background: var(--class-color);
+    border-color: var(--class-color);
+    color: var(--class-color-contrast);
+  }
+
+  &--input:checked + &--input-label &--off {
+    background: var(--class-color);
+    border-color: var(--class-color);
+    color: var(--class-color-contrast);
+  }
+
+  &--switch {
+    display: inline-grid;
+    justify-content: start;
+    white-space: nowrap;
+    grid-auto-flow: column;
+    place-items: center;
+
+    & > *:first-child {
+      border-right: 0;
+      border-top-left-radius: $border-radius-small;
+      border-bottom-left-radius: $border-radius-small;
+    }
+
+    & > *:last-child {
+      border-left: 0;
+      border-top-right-radius: $border-radius-small;
+      border-bottom-right-radius: $border-radius-small;
+    }
+  }
+
+  &--input-label {
+    cursor: pointer;
+    @include colour-selector(-primary, $teal, colour);
+    @include colour-selector(-secondary, $teal, colour);
+
+    &.-disabled {
+      cursor: not-allowed;
+    }
+  }
+}

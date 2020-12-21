@@ -1,11 +1,9 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import AddressFinder from '@vanarama/uibook/lib/components/molecules/address-finder';
+import AddressFinder from 'core/molecules/address-finder';
 import { Controller, useFormContext, ValidationOptions } from 'react-hook-form';
 
-const Formgroup = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/formgroup'),
-);
+const Formgroup = dynamic(() => import('core/molecules/formgroup'));
 
 interface IProps {
   dataTestId: string;

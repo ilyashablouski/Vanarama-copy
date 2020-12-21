@@ -26,12 +26,9 @@ const BusinessSummaryForm = dynamic(() =>
 const SoleTraderSummaryForm = dynamic(() =>
   import('../../components/BusinessSummaryForm/SoleTraderSummaryForm'),
 );
-const Loading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/loading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Loading = dynamic(() => import('core/atoms/loading'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 const getCompanyPartyIdFromPerson = (
   companyUuid: string,

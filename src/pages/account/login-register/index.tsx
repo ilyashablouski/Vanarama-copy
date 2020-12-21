@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import * as toast from 'core/atoms/toast/Toast';
 import { NextPage, NextPageContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
@@ -21,52 +21,32 @@ import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
 
-const Icon = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/icon'),
-  {
-    loading: () => <Skeleton count={1} />,
-    ssr: false,
-  },
-);
+const Icon = dynamic(() => import('core/atoms/icon'), {
+  loading: () => <Skeleton count={1} />,
+  ssr: false,
+});
 const CheckmarkSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/CheckmarkSharp'),
+  () => import('core/assets/icons/CheckmarkSharp'),
   {
     ssr: false,
   },
 );
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Tabs = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/tabs'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Tab = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/tabs/Tab'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const TabList = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/tabs/TabList'),
-);
-const TabPanel = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanel'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const TabPanels = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/tabs/TabPanels'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Tabs = dynamic(() => import('core/molecules/tabs'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Tab = dynamic(() => import('core/molecules/tabs/Tab'), {
+  loading: () => <Skeleton count={1} />,
+});
+const TabList = dynamic(() => import('core/molecules/tabs/TabList'));
+const TabPanel = dynamic(() => import('core/molecules/tabs/TabPanel'), {
+  loading: () => <Skeleton count={1} />,
+});
+const TabPanels = dynamic(() => import('core/molecules/tabs/TabPanels'), {
+  loading: () => <Skeleton count={3} />,
+});
 const Message = dynamic(() => import('../../../core/components/Message'), {
   loading: () => <Skeleton count={1} />,
 });

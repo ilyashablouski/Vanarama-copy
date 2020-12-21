@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Heading /> renders correctly 1`] = `
+<p
+  className="heading -primary -regular"
+/>
+`;
+
+exports[`<Heading /> renders correctly with optional props 1`] = `
+<p
+  className="heading class -orange -small"
+/>
+`;

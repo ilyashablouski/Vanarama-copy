@@ -1,0 +1,33 @@
+$amazon-button-width: 312px / 2;
+$amazon-button-height: 64px / 2;
+$amazon-button-color: hsl(44, 91%, 64%);
+
+.amazonbutton {
+  display: inline-block;
+  width: $amazon-button-width;
+  height: $amazon-button-height;
+  border: 0;
+  border-radius: 1px;
+  background-image: url('https://images-na.ssl-images-amazon.com/images/G/01/lwa/btnLWA_gold_312x64.png');
+  background-position: center;
+  background-size: $amazon-button-width $amazon-button-height;
+  background-repeat: no-repeat;
+  filter: contrast(1) brightness(1);
+  cursor: pointer;
+  transition: filter $duration-small $transition-soft;
+
+  &:hover {
+    filter: contrast(0.9) brightness(0.9);
+  }
+
+  &:active,
+  &:focus {
+    box-shadow: $box-shadow-focus rgba($amazon-button-color, $opacity-300);
+    filter: contrast(0.8) brightness(0.8);
+  }
+
+  &[disabled] {
+    filter: saturate(0);
+    pointer-events: none;
+  }
+}

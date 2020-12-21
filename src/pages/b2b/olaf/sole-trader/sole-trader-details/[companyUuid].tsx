@@ -2,7 +2,7 @@ import React from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import * as toast from 'core/atoms/toast/Toast';
 import { ApolloError } from '@apollo/client';
 import SoleTraderDetailsFormContainer from '../../../../../containers/SoleTraderDetailsFormContainer';
 import withApollo from '../../../../../hocs/withApollo';

@@ -13,18 +13,12 @@ import RemainingMonthsMessage from '../RemainingMonthsMessage/RemainingMonthsMes
 import { EMPTY_ADDRESS_ENTRY, IAddressFormValues } from './interfaces';
 import Skeleton from '../Skeleton';
 
-const Tile = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/tile'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Tile = dynamic(() => import('core/molecules/tile'), {
+  loading: () => <Skeleton count={3} />,
+});
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 interface IProps {
   arrayHelpers: FieldArrayRenderProps;

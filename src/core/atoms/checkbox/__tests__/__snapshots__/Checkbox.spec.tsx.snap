@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Checkbox /> should render correctly in the default state 1`] = `
+<div
+  className="checkbox -teal"
+>
+  <input
+    className="checkbox--native"
+    id="example"
+    type="checkbox"
+  />
+  <label
+    className="checkbox--label"
+    htmlFor="example"
+  >
+    <Memo(Text)
+      color="darker"
+      size="regular"
+    >
+      Label
+    </Memo(Text)>
+  </label>
+</div>
+`;
+
+exports[`<Checkbox /> should render correctly with optional props 1`] = `
+<div
+  className="checkbox -teal custom-class-name -outline -invalid"
+>
+  <input
+    className="checkbox--native"
+    data-testid="data-testid"
+    disabled={true}
+    id="chechbox-id"
+    name="chechbox-name"
+    type="checkbox"
+  />
+  <label
+    className="checkbox--label"
+    htmlFor="chechbox-id"
+  >
+    <Memo(Text)
+      color="darker"
+      size="regular"
+    >
+      Label
+    </Memo(Text)>
+  </label>
+</div>
+`;

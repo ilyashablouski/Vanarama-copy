@@ -4,68 +4,38 @@ import Skeleton from '../Skeleton';
 import { ProductCardData_productCarousel_keyInformation as IKeyInfo } from '../../../generated/ProductCardData';
 import { features } from '../ProductCarousel/helpers';
 
-const Card = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/cards'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
-
-const CardIcons = dynamic(
-  () => import('@vanarama/uibook/lib/components/molecules/cards/CardIcons'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-
-const Button = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/button'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-
-const Icon = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/icon'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Text = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/text'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Rating = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/rating'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Price = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/price'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Flame = dynamic(() => import('@vanarama/uibook/lib/assets/icons/Flame'), {
+const Card = dynamic(() => import('core/molecules/cards'), {
+  loading: () => <Skeleton count={3} />,
+});
+const CardIcons = dynamic(() => import('core/molecules/cards/CardIcons'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Icon = dynamic(() => import('core/atoms/icon'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Button = dynamic(() => import('core/atoms/button'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Rating = dynamic(() => import('core/atoms/rating'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Price = dynamic(() => import('core/atoms/price'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
-const CarSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/CarSharp'),
-  {
-    ssr: false,
-  },
-);
+const CarSharp = dynamic(() => import('core/assets/icons/CarSharp'), {
+  ssr: false,
+});
 const ArrowForwardSharp = dynamic(
-  () => import('@vanarama/uibook/lib/assets/icons/ArrowForwardSharp'),
+  () => import('core/assets/icons/ArrowForwardSharp'),
   {
     ssr: false,
   },
@@ -124,10 +94,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
         {rating && <Rating score={rating} color="orange" />}
       </div>
       {!!keyInfo?.length && (
-        <CardIcons
-          featuredProduct
-          icons={features(keyInfo || [], capId || '', Icon)}
-        />
+        <CardIcons icons={features(keyInfo || [], capId || '', Icon)} />
       )}
       <div className="-flex-h">
         <Price

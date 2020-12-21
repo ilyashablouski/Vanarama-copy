@@ -1,0 +1,113 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Choiceboxes /> renders correctly 1`] = `
+<div
+  className="choiceboxes -teal"
+>
+  <button
+    className="choicebox -active"
+    onClick={[Function]}
+    type="button"
+  >
+    Personal
+  </button>
+  <button
+    className="choicebox"
+    onClick={[Function]}
+    type="button"
+  >
+    Business
+  </button>
+</div>
+`;
+
+exports[`<Choiceboxes /> renders correctly 2`] = `
+<div
+  className="choiceboxes -teal"
+>
+  <button
+    className="choicebox -active"
+    onClick={[Function]}
+    type="button"
+  >
+    13
+  </button>
+  <button
+    className="choicebox"
+    onClick={[Function]}
+    type="button"
+  >
+    23
+  </button>
+  <button
+    className="choicebox"
+    onClick={[Function]}
+    type="button"
+  >
+    43
+  </button>
+  <button
+    className="choicebox"
+    onClick={[Function]}
+    type="button"
+  >
+    45
+  </button>
+  <button
+    className="choicebox"
+    onClick={[Function]}
+    type="button"
+  >
+    25763
+  </button>
+</div>
+`;
+
+exports[`<Choiceboxes /> renders correctly 3`] = `
+<div
+  className="choiceboxes -black"
+>
+  <button
+    className="choicebox -active"
+    onClick={[Function]}
+    type="button"
+  >
+    13
+  </button>
+  <button
+    className="choicebox"
+    onClick={[Function]}
+    type="button"
+  >
+    23
+  </button>
+  <button
+    className="choicebox"
+    onClick={[Function]}
+    type="button"
+  >
+    45
+  </button>
+  <button
+    className="choicebox"
+    onClick={[Function]}
+    type="button"
+  >
+    47
+  </button>
+  <button
+    className="choicebox"
+    onClick={[Function]}
+    type="button"
+  >
+    25763
+  </button>
+  <button
+    className="choicebox"
+    onClick={[Function]}
+    type="button"
+  >
+    clear
+  </button>
+</div>
+`;

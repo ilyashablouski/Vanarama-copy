@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
-import Carousel from '@vanarama/uibook/lib/components/organisms/carousel';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { useVehiclesList, useBodyStyleList } from './gql';
 import {
@@ -28,18 +27,12 @@ import Skeleton from '../../components/Skeleton';
 import VehicleCard from './VehicleCard';
 import ModelCard from './ModelCard';
 
-const Heading = dynamic(
-  () => import('@vanarama/uibook/lib/components/atoms/heading'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-// const Carousel = dynamic(
-//   () => import('@vanarama/uibook/lib/components/organisms/carousel'),
-//   {
-//     loading: () => <Skeleton count={5} />,
-//   },
-// );
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Carousel = dynamic(() => import('core/organisms/carousel'), {
+  loading: () => <Skeleton count={5} />,
+});
 
 interface IProps {
   isPersonal: boolean;

@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
-import * as toast from '@vanarama/uibook/lib/components/atoms/toast/Toast';
+import * as toast from 'core/atoms/toast/Toast';
 import Router from 'next/router';
 import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
 import { IGoldrushFromValues } from '../../components/GoldrushForm/interfaces';
@@ -13,9 +13,7 @@ import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 import { pushInsuranceEventDataLayer } from '../../utils/dataLayerHelpers';
 import Skeleton from '../../components/Skeleton';
 
-const Modal = dynamic(() =>
-  import('@vanarama/uibook/lib/components/molecules/modal'),
-);
+const Modal = dynamic(() => import('core/molecules/modal'));
 const Breadcrumb = dynamic(
   () => import('../../components/Breadcrumb/Breadcrumb'),
   {
