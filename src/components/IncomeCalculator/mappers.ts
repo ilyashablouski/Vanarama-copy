@@ -20,5 +20,6 @@ export const responseToInitialFormValues = (
     phoneAndInternet: expenditure?.phoneAndInternet?.toString() || '',
     studentLoans: expenditure?.studentLoan?.toString() || '',
     utilities: expenditure?.utilities?.toString() || '',
+    suitabilityConsent: Boolean(expenditure?.suitabilityConsent),
   };
 };
