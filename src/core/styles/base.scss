@@ -37,7 +37,7 @@ $include-presentation-styles: false !default;
 @import '../atoms/media/media.scss';
 @import '../atoms/numeric-input/numeric-input.scss';
 @import '../atoms/sliding-input/sliding-input.scss';
-@import '../atoms/pagination/pagination.scss';
+// @import '../atoms/pagination/pagination.scss';
 @import '../atoms/price/price.scss';
 @import '../atoms/radio/radio.scss';
 @import '../atoms/rating/rating.scss';
@@ -71,25 +71,23 @@ $include-presentation-styles: false !default;
 @import '../molecules/review/review.scss';
 
 // components (organisms)
-// @import '../organisms/comparator-bar/comparator-bar.scss';
 @import '../organisms/address-history/address-history.scss';
-@import '../organisms/comments/comments.scss';
-// @import '../organisms/comparator-table/comparator-table.scss';
+// @import '../organisms/comments/comments.scss';
 @import '../organisms/employment-history/employment-history.scss';
 // @import '../organisms/footer/footer.scss';
 // @import '../organisms/form/form.scss';
 @import '../organisms/header/header.scss';
 @import '../organisms/icon-list/icon-list.scss';
 // @import '../organisms/league/league.scss';
-@import '../organisms/lease-scanner/lease-scanner.scss';
+// @import '../organisms/lease-scanner/lease-scanner.scss';
 @import '../organisms/media-gallery/media-gallery.scss';
 @import '../organisms/search-filters/search-filters.scss';
 // @import '../organisms/slideout-modal/slideout-modal.scss';
 @import '../organisms/carousel/carousel.scss';
 @import '../organisms/structured-list/structured-list.scss';
 @import '../organisms/timeline/timeline.scss';
-@import '../organisms/comparator-bar/comparator-bar.scss';
-@import '../organisms/comparator-table/comparator-table.scss';
+// @import '../organisms/comparator-bar/comparator-bar.scss';
+// @import '../organisms/comparator-table/comparator-table.scss';
 
 // row is imported last (for overrides)
 // @import '../templates/row.scss';

@@ -1,56 +1,6 @@
-/// @name config
-$columns: 12;
-$gutter-width: $rem-400;
-$column-width: $vp-large/$columns;
-$layout-gap: var(--layout-gap);
+@import '../templates/page-vars.scss';
 
-/// @name templates
-$grid-template:
-  minmax(0, $column-width) 
-  [ column ]
-  minmax(0, $column-width) 
-  [ column ]
-  minmax(0, $column-width) 
-  [ quarter column ]
-  minmax(0, $column-width) 
-  [ third column ]
-  minmax(0, $column-width) 
-  [ column ]
-  minmax(0, $column-width) 
-  [ half quarter column ]
-  minmax(0, $column-width) 
-  [ column ]
-  minmax(0, $column-width) 
-  [ third column ]
-  minmax(0, $column-width) 
-  [ quarter column ]
-  minmax(0, $column-width) 
-  [ column ]
-  minmax(0, $column-width) 
-  [ column ]
-  minmax(0, $column-width);
-$parent-template:
-  [ full-start ]
-  var(--gutter, minmax(#{$gutter-width}, 1fr))
-  [ content-start column-start ]
-  $grid-template
-  [ column-end content-end ]
-  var(--gutter, minmax(#{$gutter-width}, 1fr))
-  [ full-end ];
-$child-template:
-  [ full-start content-start column-start ]
-  $grid-template
-  [ column-end content-end full-end ];
-$child-template-full:
-  [ full-start ]
-  var(--gutter)
-  [ content-start column-start ]
-  $grid-template
-  [ column-end content-end ]
-  var(--gutter)
-  [ full-end ];
-
-[class*="page:"] {
+[class*='page:'] {
   display: grid;
   min-width: 0;
   grid-template-columns: $parent-template;
@@ -60,12 +10,12 @@ $child-template-full:
     --layout-gap: #{$rem-600};
   }
 
-  @include tablet  {
+  @include tablet {
     --gutter: minmax(#{$rem-500 + 1rem}, 1fr);
     --layout-gap: #{$rem-500};
   }
 
-  @include mobile  {
+  @include mobile {
     --gutter: minmax(#{$rem-400}, 1fr);
     --layout-gap: #{$rem-400};
   }
@@ -80,29 +30,34 @@ $child-template-full:
     max-width: unset;
   }
 
-  .header + [class*="row:"]:not([class*="row:bg-"]) {
-    margin-top: calc(var(--page-gap)/2);
+  .header + [class*='row:']:not([class*='row:bg-']) {
+    margin-top: calc(var(--page-gap) / 2);
 
-    @include mobile  { margin-top: var(--page-gap); }
+    @include mobile {
+      margin-top: var(--page-gap);
+    }
   }
 
-  :not([class*="row:bg-"]) + .footer {
+  :not([class*='row:bg-']) + .footer {
     margin-top: var(--page-gap);
   }
 }
 
 .page\: {
-
   &default {
     overflow-x: hidden;
     --page-gap: calc(var(--layout-gap) * 1);
-    @include mobile  { --page-gap: calc(var(--layout-gap) * 2); }
+    @include mobile {
+      --page-gap: calc(var(--layout-gap) * 2);
+    }
   }
 
   &pdp {
     align-items: start;
     background: linear-gradient(to bottom, $white 0, $light 100vh);
-    @include mobile  { background: $lighter; }
+    @include mobile {
+      background: $lighter;
+    }
 
     .tabs:not(.-alt) {
       border-radius: 0;
@@ -124,16 +79,15 @@ $child-template-full:
       grid-template-columns: repeat(3, 1fr);
 
       @media (min-width: $vp-medium) {
-
-        &[columns="4"] {
+        &[columns='4'] {
           grid-template-columns: repeat(4, 1fr);
         }
 
-        &[columns="3"] {
+        &[columns='3'] {
           grid-template-columns: repeat(3, 1fr);
         }
 
-        &[columns="2"] {
+        &[columns='2'] {
           grid-template-columns: repeat(2, 1fr);
         }
       }
@@ -161,7 +115,6 @@ $child-template-full:
     }
 
     .pdp {
-
       &--flag {
         @include card-flag;
         z-index: 3;
@@ -198,27 +151,26 @@ $child-template-full:
         place-items: center start;
         gap: 1rem;
         border-radius: $border-radius-medium;
-        
+
         @include mobile {
           place-items: start;
-          
+
           .heading {
             text-align: left !important;
             font-size: 1.25rem;
           }
         }
-        
+
         > .icon {
           grid-area: icon;
         }
-        
+
         > :not(.icon) {
           grid-area: text;
         }
       }
 
       &--qanda {
-
         > .heading {
           font-weight: 500;
           font-size: 1rem;
@@ -256,8 +208,12 @@ $child-template-full:
         left: 0;
         right: 0;
 
-        @include mobile  { position: static }
-        @include desktop { @include margin-inline(-$rem-400); }
+        @include mobile {
+          position: static;
+        }
+        @include desktop {
+          @include margin-inline(-$rem-400);
+        }
 
         > .heading {
           display: block;
@@ -272,7 +228,10 @@ $child-template-full:
       &--mobile-download {
         display: none;
 
-        @include mobile { display: block; max-width: unset; }
+        @include mobile {
+          display: block;
+          max-width: unset;
+        }
       }
 
       &--reviews {
@@ -291,22 +250,36 @@ $child-template-full:
         position: relative;
         align-items: center;
 
-        @include desktop { grid-template-columns: repeat(5,minmax(0,auto)); }
-        @include tablet { grid-template-columns: 2.125rem auto; }
-        @include mobile { grid-template-columns: 2.125rem auto; }
+        @include desktop {
+          grid-template-columns: repeat(5, minmax(0, auto));
+        }
+        @include tablet {
+          grid-template-columns: 2.125rem auto;
+        }
+        @include mobile {
+          grid-template-columns: 2.125rem auto;
+        }
 
         > .heading {
-          @include mobile { place-self: center; margin-bottom: 1ch; }
-          @include desktop { grid-column: unset; }
+          @include mobile {
+            place-self: center;
+            margin-bottom: 1ch;
+          }
+          @include desktop {
+            grid-column: unset;
+          }
           grid-column: 1 / -1;
         }
 
         > .text {
-          @include desktop { width: 15ch; font-size: 0.875rem; }
+          @include desktop {
+            width: 15ch;
+            font-size: 0.875rem;
+          }
           font-size: 1rem;
           font-weight: 500;
         }
-        
+
         > .icon {
           min-height: 2.5rem;
           max-height: 2.5rem;
@@ -331,7 +304,7 @@ $child-template-full:
 
       &--feature-grid {
         display: grid;
-        grid-template-columns: repeat(3, minmax(0,1fr));
+        grid-template-columns: repeat(3, minmax(0, 1fr));
         background: $white;
         border: 1px solid $border-color;
         border-bottom: 2px solid $border-color;
@@ -340,57 +313,59 @@ $child-template-full:
           gap: $rem-200;
           padding: $rem-400 $rem-200;
         }
-        
+
         @include tablet-desktop {
           gap: $rem-400;
           padding: $rem-400;
         }
-        
+
         @include tablet {
-          grid-template-columns: repeat(2, minmax(0,1fr));
+          grid-template-columns: repeat(2, minmax(0, 1fr));
         }
-        
+
         &.-col2 {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
 
         > .heading.-lead {
           grid-column: 1 / -1;
-          @include mobile { place-self: center }
+          @include mobile {
+            place-self: center;
+          }
         }
-        
+
         &--item {
           display: flex;
-          
+
           @include mobile {
             text-align: center;
             flex-direction: column;
             align-items: center;
           }
-          
+
           @include tablet-desktop {
             text-align: left;
             flex-direction: row;
             align-items: center;
           }
-          
+
           > .icon {
             @include mobile {
               margin: 2px 0;
               font-size: 3.125rem;
             }
-            
+
             @include tablet-desktop {
               margin: 0 $rem-300 0 0;
               font-size: 3.5rem;
             }
           }
-          
+
           .heading {
             @include mobile {
               font-size: 0.875rem;
             }
-            
+
             @include tablet-desktop {
               font-size: 1rem;
               font-weight: 500;
@@ -398,25 +373,27 @@ $child-template-full:
           }
         }
       }
-      
+
       &--content {
         display: grid;
         min-width: 0;
         grid-column: content / column 7;
-        grid-template-columns: repeat(2, minmax(0,1fr));
+        grid-template-columns: repeat(2, minmax(0, 1fr));
         padding: 0;
         @include owl($rem-400);
-        @include desktop { @include padding-block($rem-500); }
-        @include tablet  {
+        @include desktop {
+          @include padding-block($rem-500);
+        }
+        @include tablet {
           grid-column: full / column 7;
           padding-left: $rem-400;
           @include padding-block($rem-400);
         }
-        @include mobile  {
+        @include mobile {
           @include padding-block($rem-400);
           grid-column: content;
         }
-        
+
         &-fullwidth {
           @include mobile {
             margin: 1rem -1rem;
@@ -424,7 +401,9 @@ $child-template-full:
           }
         }
 
-        > * { grid-column: 1 / -1 }
+        > * {
+          grid-column: 1 / -1;
+        }
 
         > .pdp--sidebar {
           display: none;
@@ -441,20 +420,28 @@ $child-template-full:
           }
 
           @include margin-inline(-$rem-400);
-          @include mobile { display: block; }
+          @include mobile {
+            display: block;
+          }
         }
 
         .breadcrumb {
-          @include mobile { margin-bottom: $rem-400; }
+          @include mobile {
+            margin-bottom: $rem-400;
+          }
         }
 
         .heading.-xlarge,
         .heading.-large {
-          @include mobile { text-align: center; }
+          @include mobile {
+            text-align: center;
+          }
         }
 
         > .text.-lead.-darker {
-          @include mobile { text-align: center; }
+          @include mobile {
+            text-align: center;
+          }
         }
 
         > .heading {
@@ -477,19 +464,20 @@ $child-template-full:
 
         .rating,
         .rating + .button {
-          margin-bottom: -.5rem;
+          margin-bottom: -0.5rem;
         }
 
         .rating + .button {
           font-weight: 500;
-          @include mobile { display: none; }
+          @include mobile {
+            display: none;
+          }
         }
 
         .tabs__panel > .accordion {
           box-shadow: inset 0 -2px 1px -1px $border-color;
           border: 1px solid $border-color;
         }
-
 
         > .rating {
           grid-column: 1;
@@ -580,23 +568,32 @@ $child-template-full:
     --page-gap: var(--layout-gap);
 
     .testimonials {
-
       &--content {
         display: grid;
         min-width: 0;
-        grid-template-columns: repeat(2, minmax(0,1fr));
-        gap: calc(var(--layout-gap)/3);
-        margin-top: calc(var(--page-gap)/3);
-        @include mobile  { margin-top: var(--page-gap); }
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: calc(var(--layout-gap) / 3);
+        margin-top: calc(var(--page-gap) / 3);
+        @include mobile {
+          margin-top: var(--page-gap);
+        }
 
-        @include desktop { grid-column: content / column 6; }
-        @include tablet  { grid-column: content / column 7; }
-        @include mobile  { grid-column: content; }
+        @include desktop {
+          grid-column: content / column 6;
+        }
+        @include tablet {
+          grid-column: content / column 7;
+        }
+        @include mobile {
+          grid-column: content;
+        }
 
         > .breadcrumb {
         }
 
-        > * { grid-column: 1 / -1 }
+        > * {
+          grid-column: 1 / -1;
+        }
 
         > h1 {
           margin-bottom: $rem-400;
@@ -607,7 +604,10 @@ $child-template-full:
         }
 
         &--rating {
-          @include desktop { grid-column: 1; place-self: baseline start; }
+          @include desktop {
+            grid-column: 1;
+            place-self: baseline start;
+          }
 
           &,
           &-text {
@@ -616,7 +616,11 @@ $child-template-full:
 
           &-text {
             text-align: left;
-            @include desktop { grid-column: 2; text-align: right; place-self: baseline end; }
+            @include desktop {
+              grid-column: 2;
+              text-align: right;
+              place-self: baseline end;
+            }
           }
         }
       }
@@ -626,25 +630,31 @@ $child-template-full:
         background: $lighter;
         height: 100%;
         @include owl($rem-400);
-        @include desktop  { text-align: center; }
+        @include desktop {
+          text-align: center;
+        }
 
         grid-column: column 8 / content;
-        @include mobile { grid-column: full; }
+        @include mobile {
+          grid-column: full;
+        }
 
-        & + [class*="row:bg-"] {
+        & + [class*='row:bg-'] {
           --owl-gap: 0;
         }
 
         &--banner {
           padding: $rem-400;
-          @include owl(.5ch);
+          @include owl(0.5ch);
 
           > .button {
             --owl-gap: #{$rem-400};
           }
 
           > .rating {
-            @include desktop { @include margin-inline(auto); }
+            @include desktop {
+              @include margin-inline(auto);
+            }
           }
         }
 
@@ -652,7 +662,9 @@ $child-template-full:
           padding: $rem-400;
 
           > .image {
-            @include desktop { @include margin-inline(auto); }
+            @include desktop {
+              @include margin-inline(auto);
+            }
             max-width: 4rem;
             max-height: 4rem;
             margin-bottom: 1ch;
@@ -666,4 +678,3 @@ $child-template-full:
     }
   }
 }
-

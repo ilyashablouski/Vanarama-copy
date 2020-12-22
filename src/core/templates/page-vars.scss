@@ -1,0 +1,21 @@
+/// @name config
+$columns: 12;
+$gutter-width: $rem-400;
+$column-width: $vp-large/$columns;
+$layout-gap: var(--layout-gap);
+
+/// @name templates
+$grid-template: minmax(0, $column-width) [ column ] minmax(0, $column-width) [
+  column ] minmax(0, $column-width) [ quarter column ] minmax(0, $column-width)
+  [ third column ] minmax(0, $column-width) [ column ] minmax(0, $column-width)
+  [ half quarter column ] minmax(0, $column-width) [ column ]
+  minmax(0, $column-width) [ third column ] minmax(0, $column-width) [ quarter
+  column ] minmax(0, $column-width) [ column ] minmax(0, $column-width) [ column
+  ] minmax(0, $column-width);
+$parent-template: [ full-start ] var(--gutter, minmax(#{$gutter-width}, 1fr)) [
+  content-start column-start ] $grid-template [ column-end content-end ]
+  var(--gutter, minmax(#{$gutter-width}, 1fr)) [ full-end ];
+$child-template: [ full-start content-start column-start ] $grid-template [
+  column-end content-end full-end ];
+$child-template-full: [ full-start ] var(--gutter) [ content-start column-start
+  ] $grid-template [ column-end content-end ] var(--gutter) [ full-end ];

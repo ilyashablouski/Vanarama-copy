@@ -1,4 +1,4 @@
-import React, { FC, memo, Suspense } from 'react';
+import React, { FC, memo } from 'react';
 import cx from 'classnames';
 import dynamic from 'next/dynamic';
 
@@ -21,11 +21,7 @@ const Icon: FC<IIconProps> = memo(props => {
         [`-${size}`]: size,
       })}
     >
-      {icon ?? (
-        <Suspense fallback={<SyncCircleOutline />}>
-          <DynamicIcon />
-        </Suspense>
-      )}
+      {icon ?? <DynamicIcon />}
     </i>
   );
 });

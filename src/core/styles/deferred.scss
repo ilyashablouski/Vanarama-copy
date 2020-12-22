@@ -10,7 +10,7 @@ $include-presentation-styles: false !default;
 @import '../util/markdown.scss';
 
 // page templates
-@import '../templates/page.scss';
+@import '../templates/page-vars.scss';
 
 // components (atoms)
 @import '../atoms/toast/toast.scss';
@@ -18,6 +18,7 @@ $include-presentation-styles: false !default;
 @import '../atoms/amazonbutton/amazonbutton.scss';
 @import '../atoms/avatar/avatar.scss';
 @import '../atoms/loading/loading.scss';
+@import '../atoms/pagination/pagination.scss';
 
 // components (molecules)
 @import '../molecules/formgroup/formgroup.scss';
@@ -26,12 +27,14 @@ $include-presentation-styles: false !default;
 @import '../molecules/trustpilot/trustpilot.scss';
 
 // components (organisms)
+@import '../organisms/comments/comments.scss';
 @import '../organisms/footer/footer.scss';
 @import '../organisms/form/form.scss';
 @import '../organisms/league/league.scss';
+@import '../organisms/slideout-modal/slideout-modal.scss';
+@import '../organisms/lease-scanner/lease-scanner.scss';
 @import '../organisms/comparator-bar/comparator-bar.scss';
 @import '../organisms/comparator-table/comparator-table.scss';
-@import '../organisms/slideout-modal/slideout-modal.scss';
 
 // row is imported last (for overrides)
 @import '../templates/row.scss';
