@@ -4,6 +4,7 @@ $include-presentation-styles: false !default;
 
 // utilities and global styles
 @import '../util/mixins.scss';
+@import '../util/font-face.scss';
 @import '../util/global.scss';
 @import '../util/color.scss';
 @import '../util/size.scss';
@@ -25,6 +26,9 @@ $include-presentation-styles: false !default;
 @import '../molecules/ivan-cta/ivan-cta.scss';
 @import '../molecules/modal/modal.scss';
 @import '../molecules/trustpilot/trustpilot.scss';
+@import '../molecules/review/review.scss';
+@import '../molecules/notification/notification.scss';
+@import '../molecules/progress-indicator/progress-indicator.scss';
 
 // components (organisms)
 @import '../organisms/comments/comments.scss';
@@ -37,4 +41,4 @@ $include-presentation-styles: false !default;
 @import '../organisms/comparator-table/comparator-table.scss';
 
 // row is imported last (for overrides)
-@import '../templates/row.scss';
+// @import '../templates/row.scss';

@@ -30,6 +30,10 @@ import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
 import { useMobileViewport } from '../hooks/useMediaQuery';
 
+const Deferred = dynamic(() => import('../components/Style/Deferred'), {
+  ssr: false,
+});
+
 // Dynamic component loading.
 const ToastContainer = dynamic(
   // @ts-ignore
@@ -177,7 +181,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       <LazyLoadComponent>
         <ToastContainer />
       </LazyLoadComponent>
-      <link rel="stylesheet" href="/styles/deferred.css" />
+      <Deferred />
     </>
   );
 };
