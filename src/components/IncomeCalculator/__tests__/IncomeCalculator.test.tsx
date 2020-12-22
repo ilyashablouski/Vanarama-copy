@@ -1,6 +1,6 @@
 import * as React from 'react';
 import preloadAll from 'jest-next-dynamic';
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import IncomeCalculator from '../IncomeCalculator';
 import { inputChange } from '../../../utils/testing';
 
@@ -233,6 +233,25 @@ describe('<IncomeCalculator Calculations />', () => {
     expect(totalMonthlyExpensesInput.getAttribute('value')).toEqual(expense);
     expect(netDisposableIncomeInput.getAttribute('value')).toEqual(
       totalMonthlyExpenses,
+    );
+  });
+
+  it('should show the correct validation messages', async () => {
+    renderComponent();
+
+    fireEvent.click(screen.getByText('Continue'));
+
+    // ASSERT
+    await waitFor(() =>
+      expect(
+        screen.getByText('You must accept to proceed'),
+      ).toBeInTheDocument(),
+    );
+
+    await waitFor(() =>
+      expect(
+        screen.getByText('Please enter your monthly income'),
+      ).toBeInTheDocument(),
     );
   });
 });

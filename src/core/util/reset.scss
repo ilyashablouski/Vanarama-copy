@@ -1,20 +1,23 @@
 *,
 *:before,
 *:after {
-  line-height: calc(1em + .5rem);
+  line-height: calc(1em + 0.5rem);
   box-sizing: inherit;
   background-repeat: no-repeat;
   outline: none;
 }
 
-// input[type="range"]::-moz-focus-outer { border: unset; }
-
 input,
-input[type="range"],
+input[type='range'],
 select,
 textarea {
-  &:-moz-focusring { outline: unset; text-shadow: unset; }
-  &::-moz-focus-outer { border: unset; }
+  &:-moz-focusring {
+    outline: unset;
+    text-shadow: unset;
+  }
+  &::-moz-focus-outer {
+    border: unset;
+  }
 }
 
 /* Document

@@ -1,31 +1,47 @@
+// applies to all rows
 [class*='row:'] {
   display: grid;
   grid-template-columns: $child-template;
   grid-column: content;
   place-content: start;
 
+  // add var(--page-gap) spacing between adjacent rows
   & + & {
     margin-top: var(--page-gap);
   }
 
+  // situate chidlren inside the main 'content' grid-area by default
   > * {
     grid-column: content;
   }
 }
 
+// rows can be nested inside a container with the class row:bg-*
+// this allows control over the full-width background-color of the section
+// it also allows control over spacing via utility classes (if desired)
 [class*='row:bg-'] {
+  // uses the parent grid-template so child rows can be full-width if needed
   grid-template-columns: $parent-template;
+
+  // takes up the entire width of the parent template
   grid-column: full;
+
+  // uses padding instead of margins for space
   @include padding-block(var(--layout-gap));
 
+  // no space between adjacent row:bg-* elements
   & + & {
     --page-gap: 0;
   }
 
+  // utility classes to control the amount of vertical space
+
+  // less space
   &.-thin {
     @include padding-block(calc(var(--layout-gap) / 2));
   }
 
+  // a lot less space
   &.-xthin {
     @include padding-block(calc(var(--layout-gap) / 2));
     @include desktop {
@@ -33,11 +49,14 @@
     }
   }
 
+  // no space
   &.-compact {
     @include padding-block(0);
   }
 }
 
+/// @todo: these could do with being split into separate files
+// all named rows are defined here
 .row\: {
   &comments {
     gap: $rem-400 $layout-gap;
@@ -580,8 +599,8 @@
       &-#{map-get($color, 'name')} {
         background-color: map-get($color, 'color');
         background-image: soft-gradient(
-          map-get($color, 'color'),
-          map-get($color, 'mod')
+                        map-get($color, 'color'),
+                        map-get($color, 'mod')
         );
 
         & + & {
@@ -597,17 +616,29 @@
       position: relative;
       color: $white;
       background-image: linear-gradient(
-        to bottom right,
-        #dbdcdf 20%,
-        #e7e9ec 50%,
-        #eff0f3 100%
+                      to bottom right,
+                      #dbdcdf 20%,
+                      #e7e9ec 50%,
+                      #eff0f3 100%
       );
       overflow: hidden;
       padding-bottom: calc(var(--layout-gap) * 2) !important;
 
+      // Fix layout shift.
+      min-height: 778px;
+      @media (min-width: 768px) {
+        min-height: 528px;
+      }
+      @media (min-width: 767.98px) {
+        min-height: 524px;
+      }
+      @media (min-width: 1217px) {
+        min-height: 677px;
+      }
+
       &[style*='--hero-bg:'] {
         background-image: var(--hero-bg),
-          linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+        linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
         // background-image: var(--hero-bg), $promo-gradient;
         background-size: cover;
         background-position: center center;
@@ -1045,9 +1076,9 @@
 
     > :first-child {
       background: linear-gradient(
-        to left,
-        #{rgba($black, 0.85)} 0%,
-        #{rgba($black, 1)} 100%
+                      to left,
+                      #{rgba($black, 0.85)} 0%,
+                      #{rgba($black, 1)} 100%
       );
       border-top-right-radius: $border-radius-large;
       border-bottom-right-radius: $border-radius-large;
@@ -1390,6 +1421,9 @@
       > * {
         grid-column: 1 / -1;
       }
+      label:not(.checkbox--label) {
+        text-transform: capitalize;
+      }
     }
 
     .olaf {
@@ -1481,11 +1515,11 @@
 
           + hr {
             background: linear-gradient(
-              to top,
-              #{$medium},
-              #{$medium} 1px,
-              transparent 1px,
-              transparent
+                            to top,
+                            #{$medium},
+                            #{$medium} 1px,
+                            transparent 1px,
+                            transparent
             );
           }
         }
@@ -1496,11 +1530,11 @@
           + hr {
             margin: 1ch 0;
             background: linear-gradient(
-              to top,
-              #{$dark},
-              #{$dark} 1px,
-              transparent 1px,
-              transparent
+                            to top,
+                            #{$dark},
+                            #{$dark} 1px,
+                            transparent 1px,
+                            transparent
             );
           }
 
@@ -1804,121 +1838,39 @@
       }
     }
   }
+
+  // I believe this was added by devs - not sure on usage
+  &hero_carousel {
+    grid-template-columns:
+      [full-start] var(--gutter, minmax(1rem, 1fr))
+      [content-start column-start] minmax(0, 101.333333333px)
+      [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [quarter column] minmax(
+        0,
+                      101.333333333px
+      )
+      [third column] minmax(0, 101.333333333px) [column] minmax(
+        0,
+                      101.333333333px
+      )
+      [half quarter column] minmax(0, 101.333333333px) [column] minmax(
+        0,
+                      101.333333333px
+      )
+      [third column] minmax(0, 101.333333333px) [quarter column] minmax(
+        0,
+                      101.333333333px
+      )
+      [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column-end content-end] var(
+        --gutter,
+                      minmax(1rem, 1fr)
+      )
+      [full-end];
+    grid-column: full;
+    background: #0a0d10;
+    background-size: cover;
+    min-height: 512px;
+    place-content: center stretch;
+    margin: 0 !important;
+    position: relative;
+  }
 }
-
-.row\:hero_carousel {
-  -ms-grid-columns: [full-start] var(--gutter, minmax(1rem, 1fr)) [content-start
-    column-start] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px)
-    [column] minmax(0, 101.333333333px) [quarter column]
-    minmax(0, 101.333333333px) [third column] minmax(0, 101.333333333px)
-    [column] minmax(0, 101.333333333px) [half quarter column]
-    minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [third
-    column] minmax(0, 101.333333333px) [quarter column]
-    minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column]
-    minmax(0, 101.333333333px) [column-end content-end]
-    var(--gutter, minmax(1rem, 1fr)) [full-end];
-  grid-template-columns:
-    [full-start] var(--gutter, minmax(1rem, 1fr))
-    [content-start column-start] minmax(0, 101.333333333px)
-    [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [quarter column] minmax(
-      0,
-      101.333333333px
-    )
-    [third column] minmax(0, 101.333333333px) [column] minmax(
-      0,
-      101.333333333px
-    )
-    [half quarter column] minmax(0, 101.333333333px) [column] minmax(
-      0,
-      101.333333333px
-    )
-    [third column] minmax(0, 101.333333333px) [quarter column] minmax(
-      0,
-      101.333333333px
-    )
-    [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column-end content-end] var(
-      --gutter,
-      minmax(1rem, 1fr)
-    )
-    [full-end];
-  -ms-grid-column: full;
-  grid-column: full;
-  background: #0a0d10;
-  background-size: cover;
-  min-height: 512px;
-  place-content: center stretch;
-  margin: 0 !important;
-  position: relative;
-}
-
-// .hero_carousel {
-//   -ms-grid-column: content;
-//       grid-column: content;
-//   display: inherit;
-//   -ms-grid-columns: [full-start content-start column-start] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [quarter column] minmax(0, 101.333333333px) [third column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [half quarter column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [third column] minmax(0, 101.333333333px) [quarter column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column-end content-end full-end];
-//       grid-template-columns: [full-start content-start column-start] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [quarter column] minmax(0, 101.333333333px) [third column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [half quarter column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [third column] minmax(0, 101.333333333px) [quarter column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column-end content-end full-end];
-//   place-items: center stretch;
-//   z-index: 2;
-//   margin: 180px 0 240px 0;
-// }
-
-// .hero_carousel-curve, .hero_carousel-curve-m {
-//   display: block;
-//   fill: white;
-// }
-
-// @media (min-width: 768px) {
-//   .hero_carousel-curve-m {
-//     display: none;
-//   }
-// }
-
-// @media (max-width: 767px) {
-//   .hero_carousel-curve {
-//     display: none;
-//   }
-// }
-
-// .hero_carousel-decals, .hero_carousel-image, .hero_carousel-image--overlay {
-//   width: 100%;
-//   position: absolute;
-//   grid-column: 1 / -1;
-//   right: 0;
-//   left: 0;
-// }
-
-// .hero_carousel-decals {
-//   z-index: 3;
-//   bottom: -1px;
-// }
-
-// .hero_carousel-image, .hero_carousel-image--overlay {
-//   height: 100%;
-//   object-fit: cover;
-//   top: 0;
-//   bottom: 0;
-//   z-index: 1;
-// }
-
-// .hero_carousel-image--overlay, .hero_carousel-image--overlay--overlay {
-//   background: rgba(10, 13, 16, 0.5);
-// }
-
-// .hero_carousel-image:not(.-open), .hero_carousel-slide:not(.-open) {
-//   display: none;
-// }
-
-// @media (max-width: 767px) {
-//   .hero_carousel-slides, .hero_carousel-fixed {
-//     grid-column: 1 / -1;
-//   }
-// }
-
-// @media (min-width: 768px) {
-//   .hero_carousel-slides {
-//     grid-column: full / half;
-//   }
-//   .hero_carousel-fixed {
-//     grid-column: half / full;
-//   }
-// }
