@@ -21,6 +21,13 @@ $include-presentation-styles: false !default;
 @import '../atoms/loading/loading.scss';
 @import '../atoms/pagination/pagination.scss';
 
+@import '../atoms/radio/radio.scss';
+@import '../atoms/search/search.scss';
+@import '../atoms/select/select.scss';
+@import '../atoms/sliding-input/sliding-input.scss';
+@import '../atoms/text/text.scss';
+@import '../atoms/textarea/textarea.scss';
+
 // components (molecules)
 @import '../molecules/formgroup/formgroup.scss';
 @import '../molecules/ivan-cta/ivan-cta.scss';
@@ -29,6 +36,7 @@ $include-presentation-styles: false !default;
 @import '../molecules/review/review.scss';
 @import '../molecules/notification/notification.scss';
 @import '../molecules/progress-indicator/progress-indicator.scss';
+@import '../molecules/sortcode/sortcode.scss';
 
 // components (organisms)
 @import '../organisms/comments/comments.scss';
