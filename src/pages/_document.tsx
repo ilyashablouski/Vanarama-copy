@@ -47,6 +47,8 @@ class MyDocument extends Document {
           {gtmEnvs.includes(env) && <GTMDataLayerScript />}
           {gtmEnvs.includes(env) && <GTMScript />}
           {/* <RollbarScript /> */}
+          <link rel="stylesheet" href="/styles/base.css" />
+          <link rel="preload" href="/styles/deferred.css" as="style" />
         </HeadCustom>
         <body>
           <Main />
@@ -58,6 +60,7 @@ class MyDocument extends Document {
           />
           <script defer src="https://www.riddle.com/files/js/embed.js" />
           {gtmEnvs.includes(env) && <GTMBody />}
+          {/* <link rel="stylesheet" href="/styles/deferred.css" /> */}
         </body>
       </Html>
     );
