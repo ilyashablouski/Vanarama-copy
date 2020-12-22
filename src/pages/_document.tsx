@@ -7,6 +7,7 @@ import HeadCustom from '../hacks/headCustom';
 //   import('../components/Rollbar').then(mod => mod.Script),
 // );
 
+const JS = dynamic(() => import('../components/JS'));
 // @ts-ignore
 const GTMScript = dynamic(() =>
   import('../components/GTM').then(mod => mod.Script),
@@ -53,14 +54,8 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <script
-            defer
-            src="//cdn.embedly.com/widgets/platform.js"
-            charSet="UTF-8"
-          />
-          <script defer src="https://www.riddle.com/files/js/embed.js" />
           {gtmEnvs.includes(env) && <GTMBody />}
-          {/* <link rel="stylesheet" href="/styles/deferred.css" /> */}
+          <JS />
         </body>
       </Html>
     );

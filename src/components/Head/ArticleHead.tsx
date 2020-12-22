@@ -29,6 +29,7 @@ const ArticleHead: FC<IHeadProps> = props => {
     <>
       <NextHead>
         <title>{title}</title>
+        <link rel="icon" type="image/png" href="/favicon.png" />
         <meta property="og:type" content="article" />
         <meta property="og:locale" content="en_GB" />
         <meta property="og:title" content={title || defaultTitle} />
