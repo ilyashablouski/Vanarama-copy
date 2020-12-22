@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+// import 'core/base.scss';
 import dynamic from 'next/dynamic';
-import 'core/base.scss';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
@@ -177,6 +177,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       <LazyLoadComponent>
         <ToastContainer />
       </LazyLoadComponent>
+      <link rel="stylesheet" href="/styles/deferred.css" />
     </>
   );
 };
