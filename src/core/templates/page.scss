@@ -5,56 +5,76 @@ $column-width: $vp-large/$columns;
 $layout-gap: var(--layout-gap);
 
 /// @name templates
-$grid-template:
-  minmax(0, $column-width) 
-  [ column ]
-  minmax(0, $column-width) 
-  [ column ]
-  minmax(0, $column-width) 
-  [ quarter column ]
-  minmax(0, $column-width) 
-  [ third column ]
-  minmax(0, $column-width) 
-  [ column ]
-  minmax(0, $column-width) 
-  [ half quarter column ]
-  minmax(0, $column-width) 
-  [ column ]
-  minmax(0, $column-width) 
-  [ third column ]
-  minmax(0, $column-width) 
-  [ quarter column ]
-  minmax(0, $column-width) 
-  [ column ]
-  minmax(0, $column-width) 
-  [ column ]
-  minmax(0, $column-width);
-$parent-template:
-  [ full-start ]
-  var(--gutter, minmax(#{$gutter-width}, 1fr))
-  [ content-start column-start ]
-  $grid-template
-  [ column-end content-end ]
-  var(--gutter, minmax(#{$gutter-width}, 1fr))
-  [ full-end ];
-$child-template:
-  [ full-start content-start column-start ]
-  $grid-template
-  [ column-end content-end full-end ];
-$child-template-full:
-  [ full-start ]
-  var(--gutter)
-  [ content-start column-start ]
-  $grid-template
-  [ column-end content-end ]
-  var(--gutter)
-  [ full-end ];
 
+// isolated 'columns' part of the main grid-template
+// the total width is $vp-large
+
+// looks like:
+// | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 |
+
+$grid-template:
+        minmax(0, $column-width)
+        [ column ]
+        minmax(0, $column-width)
+        [ column ]
+        minmax(0, $column-width)
+        [ quarter column ]
+        minmax(0, $column-width)
+        [ third column ]
+        minmax(0, $column-width)
+        [ column ]
+        minmax(0, $column-width)
+        [ half quarter column ]
+        minmax(0, $column-width)
+        [ column ]
+        minmax(0, $column-width)
+        [ third column ]
+        minmax(0, $column-width)
+        [ quarter column ]
+        minmax(0, $column-width)
+        [ column ]
+        minmax(0, $column-width)
+        [ column ]
+        minmax(0, $column-width);
+
+// the parent grid-template (for pages) that 'row:*' rows sit inside of
+
+// looks like:
+// |<--- auto --->| $grid-template |<--- auto --->|
+
+$parent-template:
+        [ full-start ]
+        var(--gutter, minmax(#{$gutter-width}, 1fr))
+        [ content-start column-start ]
+        $grid-template
+        [ column-end content-end ]
+        var(--gutter, minmax(#{$gutter-width}, 1fr))
+        [ full-end ];
+
+// the child grid-template used by 'row:*' rows
+// it's essentially just $grid-template wrapped in a named grid-area called 'content' (and 'full')
+$child-template:
+        [ full-start content-start column-start ]
+        $grid-template
+        [ column-end content-end full-end ];
+
+// as above, but with spacing either side (for things like the Footer component)
+$child-template-full:
+        [ full-start ]
+        var(--gutter)
+        [ content-start column-start ]
+        $grid-template
+        [ column-end content-end ]
+        var(--gutter)
+        [ full-end ];
+
+// all pages
 [class*="page:"] {
   display: grid;
   min-width: 0;
   grid-template-columns: $parent-template;
 
+  // adjust spacing based on the viewport size
   @include desktop {
     --gutter: minmax(#{$rem-500}, 1fr);
     --layout-gap: #{$rem-600};
@@ -70,6 +90,7 @@ $child-template-full:
     --layout-gap: #{$rem-400};
   }
 
+  // place children in the 'content' grid-area by default
   > * {
     grid-column: content;
     min-width: 0;
@@ -80,17 +101,21 @@ $child-template-full:
     max-width: unset;
   }
 
+  // header-specific spacing
   .header + [class*="row:"]:not([class*="row:bg-"]) {
     margin-top: calc(var(--page-gap)/2);
 
     @include mobile  { margin-top: var(--page-gap); }
   }
 
+  // footer-specific spacing
   :not([class*="row:bg-"]) + .footer {
     margin-top: var(--page-gap);
   }
 }
 
+/// @todo: these could do with being split into separate files
+// all named page templates are defined here (default, pdp, testimonials)
 .page\: {
 
   &default {
@@ -198,20 +223,20 @@ $child-template-full:
         place-items: center start;
         gap: 1rem;
         border-radius: $border-radius-medium;
-        
+
         @include mobile {
           place-items: start;
-          
+
           .heading {
             text-align: left !important;
             font-size: 1.25rem;
           }
         }
-        
+
         > .icon {
           grid-area: icon;
         }
-        
+
         > :not(.icon) {
           grid-area: text;
         }
@@ -306,7 +331,7 @@ $child-template-full:
           font-size: 1rem;
           font-weight: 500;
         }
-        
+
         > .icon {
           min-height: 2.5rem;
           max-height: 2.5rem;
@@ -340,16 +365,16 @@ $child-template-full:
           gap: $rem-200;
           padding: $rem-400 $rem-200;
         }
-        
+
         @include tablet-desktop {
           gap: $rem-400;
           padding: $rem-400;
         }
-        
+
         @include tablet {
           grid-template-columns: repeat(2, minmax(0,1fr));
         }
-        
+
         &.-col2 {
           grid-template-columns: repeat(2, minmax(0, 1fr));
         }
@@ -358,39 +383,39 @@ $child-template-full:
           grid-column: 1 / -1;
           @include mobile { place-self: center }
         }
-        
+
         &--item {
           display: flex;
-          
+
           @include mobile {
             text-align: center;
             flex-direction: column;
             align-items: center;
           }
-          
+
           @include tablet-desktop {
             text-align: left;
             flex-direction: row;
             align-items: center;
           }
-          
+
           > .icon {
             @include mobile {
               margin: 2px 0;
               font-size: 3.125rem;
             }
-            
+
             @include tablet-desktop {
               margin: 0 $rem-300 0 0;
               font-size: 3.5rem;
             }
           }
-          
+
           .heading {
             @include mobile {
               font-size: 0.875rem;
             }
-            
+
             @include tablet-desktop {
               font-size: 1rem;
               font-weight: 500;
@@ -398,7 +423,7 @@ $child-template-full:
           }
         }
       }
-      
+
       &--content {
         display: grid;
         min-width: 0;
@@ -416,7 +441,7 @@ $child-template-full:
           @include padding-block($rem-400);
           grid-column: content;
         }
-        
+
         &-fullwidth {
           @include mobile {
             margin: 1rem -1rem;
@@ -593,9 +618,6 @@ $child-template-full:
         @include tablet  { grid-column: content / column 7; }
         @include mobile  { grid-column: content; }
 
-        > .breadcrumb {
-        }
-
         > * { grid-column: 1 / -1 }
 
         > h1 {
@@ -666,4 +688,3 @@ $child-template-full:
     }
   }
 }
-
