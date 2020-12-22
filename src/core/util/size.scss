@@ -1,3 +1,18 @@
+// class-fs: "class font-size"
+// for typography
+
+// class-em: "class font-size (relative to element)"
+// for padding/margins relative to the current font-size
+
+// class-pm: "class padding-margin"
+// for padding/margins
+
+// class-sz: "class size"
+// for height/width declartions
+
+// class-br: "class border-radius"
+// for border radius
+
 @include desktop {
   .-xsmall {
     --class-fs: #{$font-size-300};
