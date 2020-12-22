@@ -1,17 +1,18 @@
-import React, { FC, memo } from 'react';
+import React, { FC, lazy, memo, Suspense } from 'react';
 import cx from 'classnames';
-import dynamic from 'next/dynamic';
 
 import { IIconProps } from './interfaces';
 import SyncCircleOutline from '../../assets/icons/SyncCircleOutline';
 
 const Icon: FC<IIconProps> = memo(props => {
   const { className, icon, color, size, name, ...rest } = props;
+  const isSsr = typeof window === 'undefined';
 
-  const DynamicIcon = dynamic(() => import(`../../assets/icons/${name}`), {
-    loading: () => <SyncCircleOutline />,
-    ssr: false,
-  });
+  const DynamicIcon = lazy(() =>
+    import(`./core/assets/icons/${name}`).catch(() =>
+      import('../../assets/icons/SyncCircleOutline'),
+    ),
+  );
 
   return (
     <i
@@ -21,7 +22,12 @@ const Icon: FC<IIconProps> = memo(props => {
         [`-${size}`]: size,
       })}
     >
-      {icon ?? <DynamicIcon />}
+      {icon ??
+        (isSsr ? null : (
+          <Suspense fallback={<SyncCircleOutline />}>
+            <DynamicIcon />
+          </Suspense>
+        ))}
     </i>
   );
 });
