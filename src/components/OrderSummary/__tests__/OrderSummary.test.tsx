@@ -63,8 +63,6 @@ describe('<CustomiseLease />', () => {
 
     expect(screen.getByText('Leather - Cranberry red')).toBeInTheDocument();
 
-    expect(
-      screen.getByText('Brand New - Free, Fast Delivery'),
-    ).toBeInTheDocument();
+    expect(screen.getByText('14-21 Day Delivery')).toBeInTheDocument();
   });
 });

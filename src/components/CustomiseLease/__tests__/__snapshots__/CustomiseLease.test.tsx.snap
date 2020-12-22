@@ -479,7 +479,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
             className="structured-list-td"
             data-testid="stock"
           >
-            Brand New - Free, Fast Delivery
+            14-21 Day Delivery
           </div>
         </div>
         <div
@@ -1073,7 +1073,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
             className="structured-list-td"
             data-testid="stock"
           >
-            Brand New - Free, Fast Delivery
+            14-21 Day Delivery
           </div>
         </div>
         <div
