@@ -15,7 +15,8 @@
     border: 1px solid;
     border-color: $border-color;
     border-radius: $border-radius-small;
-    background: $white;
+    background: transparent;
+    background-color: $white;
     cursor: pointer;
     padding-left: $rem-200;
     padding-right: $height-regular;
@@ -32,7 +33,7 @@
     &:focus {
       box-shadow: $box-shadow-focus rgba($teal, $focus-opacity);
       border-color: $teal;
-      background: $white;
+      background-color: $white;
     }
 
     &:hover,
@@ -98,5 +99,45 @@
 
   &.-disabled {
     cursor: not-allowed;
+  }
+
+  &.-featured {
+    color: var(--class-color-contrast);
+    font-weight: 500;
+
+    .select--native {
+      border-color: var(--class-color);
+      background-color: var(--class-color);
+
+      &:focus {
+        box-shadow: $box-shadow-focus var(--class-color-focus);
+        border-color: var(--class-color-shade);
+        background-color: var(--class-color);
+      }
+
+      &:hover,
+      &:focus,
+      &:hover + .icon,
+      &:focus + .icon {
+        color: var(--class-color-contrast);
+      }
+
+      &:disabled {
+        cursor: not-allowed;
+        color: var(--class-color-tint);
+        background-color: var(--class-color-focus);
+
+        &:hover,
+        &:focus,
+        &:hover + .icon,
+        &:focus + .icon {
+          color: var(--class-color-tint);
+        }
+      }
+    }
+
+    .icon {
+      color: inherit;
+    }
   }
 }
