@@ -12,4 +12,26 @@ $include-presentation-styles: false !default;
 // page templates
 @import '../templates/page.scss';
 
+// components (atoms)
+@import '../atoms/toast/toast.scss';
+@import '../atoms/tooltip/tooltip.scss';
+@import '../atoms/amazonbutton/amazonbutton.scss';
+@import '../atoms/avatar/avatar.scss';
+@import '../atoms/loading/loading.scss';
+
+// components (molecules)
+@import '../molecules/formgroup/formgroup.scss';
+@import '../molecules/ivan-cta/ivan-cta.scss';
+@import '../molecules/modal/modal.scss';
+@import '../molecules/trustpilot/trustpilot.scss';
+
+// components (organisms)
 @import '../organisms/footer/footer.scss';
+@import '../organisms/form/form.scss';
+@import '../organisms/league/league.scss';
+@import '../organisms/comparator-bar/comparator-bar.scss';
+@import '../organisms/comparator-table/comparator-table.scss';
+@import '../organisms/slideout-modal/slideout-modal.scss';
+
+// row is imported last (for overrides)
+@import '../templates/row.scss';

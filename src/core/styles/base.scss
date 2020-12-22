@@ -18,8 +18,8 @@ $include-presentation-styles: false !default;
 
 // components (atoms)
 @import '../atoms/details/details.scss';
-@import '../atoms/amazonbutton/amazonbutton.scss';
-@import '../atoms/avatar/avatar.scss';
+// @import '../atoms/amazonbutton/amazonbutton.scss';
+// @import '../atoms/avatar/avatar.scss';
 @import '../atoms/badge/badge.scss';
 @import '../atoms/breadcrumb/breadcrumb.scss';
 @import '../atoms/button/button.scss';
@@ -31,7 +31,7 @@ $include-presentation-styles: false !default;
 @import '../atoms/image/image.scss';
 @import '../atoms/link/link.scss';
 @import '../atoms/list/list.scss';
-@import '../atoms/loading/loading.scss';
+// @import '../atoms/loading/loading.scss';
 @import '../atoms/logo/logo.scss';
 @import '../atoms/map/map.scss';
 @import '../atoms/media/media.scss';
@@ -48,43 +48,43 @@ $include-presentation-styles: false !default;
 @import '../atoms/text/text.scss';
 @import '../atoms/textarea/textarea.scss';
 @import '../atoms/textinput/textinput.scss';
-@import '../atoms/toast/toast.scss';
+// @import '../atoms/toast/toast.scss';
 @import '../atoms/toggle/fancy-toggle.scss';
 @import '../atoms/toggle/toggle.scss';
-@import '../atoms/tooltip/tooltip.scss';
+// @import '../atoms/tooltip/tooltip.scss';
 
 // components (molecules)
-@import '../molecules/formgroup/formgroup.scss';
+// @import '../molecules/formgroup/formgroup.scss';
 @import '../molecules/accordion/accordion.scss';
 @import '../molecules/address-finder/address-finder.scss';
 @import '../molecules/cards/card.scss';
-@import '../molecules/ivan-cta/ivan-cta.scss';
-@import '../molecules/modal/modal.scss';
+// @import '../molecules/ivan-cta/ivan-cta.scss';
+// @import '../molecules/modal/modal.scss';
 @import '../molecules/notification/notification.scss';
 @import '../molecules/progress-indicator/progress-indicator.scss';
 @import '../molecules/sortcode/sortcode.scss';
 @import '../molecules/tabs/tabs.scss';
 @import '../molecules/tile/tile.scss';
-@import '../molecules/trustpilot/trustpilot.scss';
+// @import '../molecules/trustpilot/trustpilot.scss';
 @import '../molecules/typeahead/typeahead.scss';
 @import '../molecules/step/step.scss';
 @import '../molecules/review/review.scss';
 
 // components (organisms)
-@import '../organisms/comparator-bar/comparator-bar.scss';
+// @import '../organisms/comparator-bar/comparator-bar.scss';
 @import '../organisms/address-history/address-history.scss';
 @import '../organisms/comments/comments.scss';
-@import '../organisms/comparator-table/comparator-table.scss';
+// @import '../organisms/comparator-table/comparator-table.scss';
 @import '../organisms/employment-history/employment-history.scss';
 // @import '../organisms/footer/footer.scss';
-@import '../organisms/form/form.scss';
+// @import '../organisms/form/form.scss';
 @import '../organisms/header/header.scss';
 @import '../organisms/icon-list/icon-list.scss';
-@import '../organisms/league/league.scss';
+// @import '../organisms/league/league.scss';
 @import '../organisms/lease-scanner/lease-scanner.scss';
 @import '../organisms/media-gallery/media-gallery.scss';
 @import '../organisms/search-filters/search-filters.scss';
-@import '../organisms/slideout-modal/slideout-modal.scss';
+// @import '../organisms/slideout-modal/slideout-modal.scss';
 @import '../organisms/carousel/carousel.scss';
 @import '../organisms/structured-list/structured-list.scss';
 @import '../organisms/timeline/timeline.scss';
@@ -92,4 +92,4 @@ $include-presentation-styles: false !default;
 @import '../organisms/comparator-table/comparator-table.scss';
 
 // row is imported last (for overrides)
-@import '../templates/row.scss';
+// @import '../templates/row.scss';

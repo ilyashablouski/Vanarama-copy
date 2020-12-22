@@ -57,7 +57,7 @@ const Head: FC<IHeadProps> = props => {
       <meta name="twitter:title" content={title || defaultTitle} />
       <meta name="twitter:creator" content={twitter} />
       <meta name="twitter:site" content={twitter} />
-      {/* <link rel="stylesheet" href="styles/base.css" /> */}
+      <link rel="stylesheet" href="styles/base.css" />
 
       {FONT_LIST.map(font => {
         return (
