@@ -1,3 +1,5 @@
+// defines the global color variable classes
+
 // colour & shader mixin
 @mixin create-colour($colour, $contrast) {
   --class-color-contrast: #{$contrast};
@@ -8,25 +10,54 @@
 }
 
 // colour list
-$clrs: (teal : $teal, orange: $orange, sky : $sky, black : $black, white: $white);
-$cont: (dark : (contrast : $lighter, colour: $dark), darker : (contrast : $lighter, colour : $darker), medium : (contrast : $black, colour : $medium), light : (contrast : $darker, colour : $light), lighter : (contrast : $darker, colour : $lighter));
+$clrs: (
+        teal: $teal,
+        orange: $orange,
+        sky: $sky,
+        black: $black,
+        white: $white,
+);
+$cont: (
+        dark: (
+                contrast: $lighter,
+                colour: $dark,
+        ),
+        darker: (
+                contrast: $lighter,
+                colour: $darker,
+        ),
+        medium: (
+                contrast: $black,
+                colour: $medium,
+        ),
+        light: (
+                contrast: $darker,
+                colour: $light,
+        ),
+        lighter: (
+                contrast: $darker,
+                colour: $lighter,
+        ),
+);
 
 // default colour creator
 @each $name, $vrb in $clrs {
   .-#{$name} {
-    @include create-colour($vrb, $white)
+    @include create-colour($vrb, $white);
   }
 }
 
+// iterate through all colors and create global utility classes
 @each $contrast, $set in $cont {
   $set-contrast: map-get(map-get($cont, $contrast), contrast);
   $set-colour: map-get(map-get($cont, $contrast), colour);
 
   .-#{$contrast} {
-    @include create-colour($set-colour, $set-contrast)
+    @include create-colour($set-colour, $set-contrast);
   }
 }
 
+/// @deprecated
 // primary & secondary seletor for colours
 @mixin colour-selector($selector, $colour, $type) {
   @if $type==contrast {
@@ -34,17 +65,18 @@ $cont: (dark : (contrast : $lighter, colour: $dark), darker : (contrast : $light
     $set-colour: map-get(map-get($cont, $colour), colour);
 
     &.#{$selector} {
-      @include create-colour($set-colour, $set-contrast)
-      }
-  }
-  @else {
+      @include create-colour($set-colour, $set-contrast);
+    }
+  } @else {
     &.#{$selector} {
-      @include create-colour($colour, $white)
-      }
+      @include create-colour($colour, $white);
+    }
   }
 }
 
-//notifications
+// semantic colors
+
+// success color (green)
 .-success {
   --class-color-contrast: #{$white};
   --class-color-tint: #{lighten($green, $tint)};
@@ -53,6 +85,7 @@ $cont: (dark : (contrast : $lighter, colour: $dark), darker : (contrast : $light
   --class-color-focus: #{rgba($green, $focus-opacity)};
 }
 
+// warning color (yellow)
 .-warning {
   --class-color-contrast: #{$black};
   --class-color-tint: #{lighten($yellow, $tint)};
@@ -61,6 +94,7 @@ $cont: (dark : (contrast : $lighter, colour: $dark), darker : (contrast : $light
   --class-color-focus: #{rgba($yellow, $focus-opacity)};
 }
 
+// danger color (red)
 .-danger {
   --class-color-contrast: #{$white};
   --class-color-tint: #{lighten($red, $tint)};
@@ -69,6 +103,7 @@ $cont: (dark : (contrast : $lighter, colour: $dark), darker : (contrast : $light
   --class-color-focus: #{rgba($red, $focus-opacity)};
 }
 
+// disabled color (light)
 .-disabled {
   --class-color-contrast: #{$dark};
   --class-color-tint: #{lighten($light, $tint)};
@@ -77,7 +112,7 @@ $cont: (dark : (contrast : $lighter, colour: $dark), darker : (contrast : $light
   --class-color-focus: #{rgba($light, $focus-opacity)};
 }
 
-
+// inherit color utility class
 .-inherit {
   --class-color-contrast: inherit;
   --class-color-tint: inherit;

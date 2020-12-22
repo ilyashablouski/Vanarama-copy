@@ -1,7 +1,10 @@
+// toggles the styles required just for the documentation prototype
 $include-presentation-styles: false !default;
 
+// global variables (like color, spacing, border-radius etc)
 @import './variables.scss';
 
+// utilities and global styles
 @import 'util/mixins.scss';
 @import 'util/reset.scss';
 @import 'util/font-face.scss';
@@ -10,8 +13,10 @@ $include-presentation-styles: false !default;
 @import 'util/size.scss';
 @import 'util/markdown.scss';
 
+// page templates
 @import 'templates/page.scss';
 
+// components (atoms)
 @import 'atoms/details/details.scss';
 @import 'atoms/amazonbutton/amazonbutton.scss';
 @import 'atoms/avatar/avatar.scss';
@@ -48,6 +53,7 @@ $include-presentation-styles: false !default;
 @import 'atoms/toggle/toggle.scss';
 @import 'atoms/tooltip/tooltip.scss';
 
+// components (molecules)
 @import 'molecules/formgroup/formgroup.scss';
 @import 'molecules/accordion/accordion.scss';
 @import 'molecules/address-finder/address-finder.scss';
@@ -64,10 +70,8 @@ $include-presentation-styles: false !default;
 @import 'molecules/step/step.scss';
 @import 'molecules/review/review.scss';
 
-@import 'organisms/comparator-bar/comparator-bar.scss';
 @import 'organisms/address-history/address-history.scss';
 @import 'organisms/comments/comments.scss';
-@import 'organisms/comparator-table/comparator-table.scss';
 @import 'organisms/employment-history/employment-history.scss';
 @import 'organisms/footer/footer.scss';
 @import 'organisms/form/form.scss';
@@ -84,4 +88,5 @@ $include-presentation-styles: false !default;
 @import 'organisms/comparator-bar/comparator-bar.scss';
 @import 'organisms/comparator-table/comparator-table.scss';
 
+// row is imported last (for overrides)
 @import 'templates/row.scss';
