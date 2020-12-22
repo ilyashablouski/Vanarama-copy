@@ -177,6 +177,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       <LazyLoadComponent>
         <ToastContainer />
       </LazyLoadComponent>
+      {/* <link rel="stylesheet" href="styles/deferred.css" /> */}
     </>
   );
 };

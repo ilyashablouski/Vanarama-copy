@@ -1,0 +1,15 @@
+$include-presentation-styles: false !default;
+
+@import '../variables.scss';
+
+// utilities and global styles
+@import '../util/mixins.scss';
+@import '../util/global.scss';
+@import '../util/color.scss';
+@import '../util/size.scss';
+@import '../util/markdown.scss';
+
+// page templates
+@import '../templates/page.scss';
+
+@import '../organisms/footer/footer.scss';

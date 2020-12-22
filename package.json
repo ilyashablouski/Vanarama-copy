@@ -13,6 +13,7 @@
     "analyze-build": "NODE_OPTIONS=--max-old-space-size=8192 ANALYZE=true yarn build",
     "apollo:generate": "rimraf generated && apollo client:codegen generated --target=typescript --outputFlat --no-addTypename",
     "build": "next build",
+    "build:scss": "rimraf public/styles && node-sass --source-map true src/core/styles -o public/styles --output-style compressed",
     "dev": "NODE_ENV=development node express.js",
     "lint": "eslint --ext .js,.jsx,.ts,.tsx .",
     "start": "NODE_ENV=production NODE_OPTIONS=--max_old_space_size=4096 node express-cluster.js",
@@ -21,6 +22,7 @@
     "test": "jest",
     "pm2": "pm2 start pm2.json --env production",
     "pm2-docker": "pm2-runtime start pm2.json --env production",
+    "postbuild": "npm run build:scss",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
