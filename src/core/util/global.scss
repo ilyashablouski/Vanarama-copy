@@ -1,3 +1,5 @@
+// global inheritable defaults
+
 html {
   -moz-tab-size: 4;
   tab-size: 4;
@@ -8,24 +10,32 @@ html {
 }
 
 body {
+  // font smoothing
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: geometricPrecision;
+
+  // font ligatures etc.
   font-feature-settings: 'swsh' 1, 'calt' 1, 'liga' 1, 'kern' 1;
+
+  // general typography
   font-family: $font-family-body;
+  font-size: $font-size-400;
   word-break: normal;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  background-color: white;
-  font-size: $font-size-400;
   color: $darker;
+  background-color: white;
 
+  // this class prevents scrolling
+  // used while modal windows are open or when the Header menu is open
   &.-lock {
     max-width: 100vw;
     max-height: 100vh;
     overflow: hidden;
   }
 
+  // utility class for positioning groups of adjacent Buttons
   .button-group {
     $button-group-gap: 3px;
     display: flex;
@@ -44,30 +54,36 @@ body {
   }
 }
 
+/// @deprecated
 .clearfix {
   clear: both;
   display: block;
 }
 
+// text selection highlight color
 ::selection {
   background-color: rgba($teal, $opacity-200);
 }
 
+// adds a default gap between adjacent text blocks
 .text + .text {
   margin-top: var(--owl-gap, #{$rem-400});
 }
 
+// adds a default gap between headings and text blocks
 .heading:not(.-xlarge) + p.text,
 p.text + .heading {
   margin-top: var(--owl-gap, #{$rem-400});
 }
 
+// adds spacing between adjacent children
 .-distribute-content {
   > * + * {
     margin-top: $rem-400;
   }
 }
 
+// centers children with flex-wrapping and spacing
 .-justify-content-dense {
   display: flex;
   flex-wrap: wrap;
@@ -82,6 +98,7 @@ p.text + .heading {
   }
 }
 
+// as above, but in a row
 .-justify-content-row {
   display: flex;
   justify-content: center;
@@ -95,13 +112,14 @@ p.text + .heading {
   }
 }
 
+// default <hr /> styling
 hr {
   background: linear-gradient(
-    to top,
-    $border-color,
-    $border-color 0.5px,
-    transparent 0.5px,
-    transparent
+                  to top,
+                  $border-color,
+                  $border-color 0.5px,
+                  transparent 0.5px,
+                  transparent
   );
   border: 0;
   height: 1px;
@@ -116,13 +134,23 @@ hr {
   }
 }
 
+// spacing utility classes:
+
+// -pt-* padding-top
+// -pr-* padding-right
+// -pb-* padding-bottom
+// -pl-* padding-left
+// -pv-* padding (vertical)
+// -ph-* padding (horizontal)
+// -p-*  padding (all)
+
 $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
-  $rem-700;
+$rem-700;
 
 @for $i from 1 through 7 {
   $n: $i - 1;
 
-  // Padding
+  // padding utility class
 
   .-pt-#{$n}00 {
     padding-top: nth($rem-list, $i) !important;
@@ -151,7 +179,7 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
     padding-left: nth($rem-list, $i) !important;
   }
 
-  // Margins
+  // margin utility class
 
   .-mt-#{$n}00 {
     margin-top: nth($rem-list, $i) !important;
@@ -180,7 +208,7 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
     margin-left: nth($rem-list, $i) !important;
   }
 
-  // Negative Margins
+  // negative margin utility class
 
   .-mt--#{$n}00 {
     margin-top: nth($rem-list, $i) * -1 !important;
@@ -210,12 +238,15 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   }
 }
 
+/// horizontal flex utility class
 .-flex-h {
   display: flex !important;
   justify-content: space-between;
   align-items: center;
 }
 
+/// @deprecated
+// built for a specific use-case, not sure it's needed
 .-flex-row {
   display: flex;
   justify-content: flex-start;
@@ -242,6 +273,7 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   }
 }
 
+/// vertical flex utility class
 .-flex-v {
   display: flex;
   flex-direction: column;
@@ -249,6 +281,8 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   align-items: center;
 }
 
+/// @deprecated
+// built for a specific use-case, not sure it's needed
 .-mobile-row {
   display: grid;
   overflow: hidden;
@@ -287,6 +321,8 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   }
 }
 
+/// @deprecated
+// built for a specific use-case, not sure it's needed
 .-row {
   display: grid;
   grid-auto-flow: column;
@@ -309,6 +345,7 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   }
 }
 
+// for distributing icons in a row
 .-icon-row {
   display: grid;
   min-width: 0;
@@ -317,6 +354,7 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   gap: 1ch;
 }
 
+// distributes children with a gap from the $rem series of spaces
 .-col {
   > *:not(:last-child),
   &-400 > *:not(:last-child) {
@@ -344,6 +382,7 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   }
 }
 
+// margin-horizontal auto
 .-mh-auto {
   margin-right: auto !important;
   margin-left: auto !important;
@@ -357,8 +396,19 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   justify-self: center !important;
 }
 
+// adds a <hr /> style border
 .va-hr {
   border-top: 1px solid $lighter;
+}
+
+// alignment classes
+
+.-a-start {
+  align-self: flex-start;
+}
+
+.-a-end {
+  align-self: flex-end;
 }
 
 .-a-left {
@@ -377,6 +427,14 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   vertical-align: middle;
 }
 
+// placement classes
+
+.-place-center {
+  place-self: center;
+}
+
+// display classes
+
 .-d-block {
   display: block !important;
 }
@@ -389,6 +447,8 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   display: inline !important;
 }
 
+// height classes
+
 .-h-auto {
   height: auto !important;
 }
@@ -397,16 +457,20 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   height: max-content !important;
 }
 
+// background-color classes
 @each $color in $colors {
   .-bg-#{map-get($color, 'name')} {
     background: map-get($color, 'color');
   }
 }
 
+// position classes
+
 .-p-relative {
   position: relative;
 }
 
+// specific use-case quote styling
 .quote {
   background: #45596b;
   position: relative;
@@ -440,6 +504,16 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
     place-self: end;
   }
 }
+
+// viewport / media query targeted display classes
+
+// vp-max:small - hide above $vp-small
+// vp-max:medium - hide above $vp-medium
+// vp-max:large - hide above $vp-large
+
+// vp-min:small - hide below $vp-small
+// vp-min:medium - hide below $vp-medium
+// vp-min:large - hide below $vp-large
 
 .-vp {
   &-max {
@@ -483,6 +557,7 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   }
 }
 
+/// @deprecated
 .tilebox {
   border: 1px solid $border-color;
   border-bottom: 2px solid $border-color;
@@ -497,10 +572,20 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   }
 }
 
+// prevents element from exceeding $measure in width
 .-measure {
   max-width: $measure;
 }
 
+// sensible max-width for text and headings inside an article
+.-article {
+  .text,
+  .heading {
+    max-width: $measure;
+  }
+}
+
+// splits a text block two columns with a border between
 .-text-columns {
   -webkit-columns: 2 35ch;
   -moz-columns: 2 35ch;
@@ -519,13 +604,7 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   }
 }
 
-.-article {
-  .text,
-  .heading {
-    max-width: $measure;
-  }
-}
-
+/// @deprecated
 .search-tags {
   margin: -$rem-100;
   display: flex;
@@ -552,19 +631,14 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   }
 }
 
+/// @todo: investigate this - not sure what it does
 .homepage-accordion {
   .tabs__list-wrap {
     background: transparent;
   }
 }
 
-va-break {
-  display: inline;
-  @include desktop {
-    display: block;
-  }
-}
-
+// specific use-case class for the PDP pages I believe, ought to be refactored
 .accessory {
   display: grid;
   grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
@@ -605,14 +679,17 @@ va-break {
   }
 }
 
+// simple bold class
 .-b {
   font-weight: 600 !important;
 }
 
+// simple italics class
 .-i {
   font-style: italic !important;
 }
 
+/// @todo: merge with main accordion component
 .tile--accordion {
   border: 1px solid $border-color;
   border-bottom: 2px solid $border-color;
@@ -629,6 +706,7 @@ va-break {
   }
 }
 
+// |<------------------ LEFT ELEMENT ------------------>|<--- RIGHT ELEMENT --->|
 .-stretch-left {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, max-content);
@@ -641,6 +719,7 @@ va-break {
   }
 }
 
+// |<--- LEFT ELEMENT --->|<------------------ RIGHT ELEMENT ------------------>|
 .-stretch-right {
   display: grid;
   grid-template-columns: minmax(0, max-content) minmax(0, 1fr);
@@ -653,6 +732,7 @@ va-break {
   }
 }
 
+// styling for the global cookies bar
 .cookies {
   position: fixed;
   display: flex;
@@ -689,16 +769,18 @@ va-break {
   }
 }
 
+// 100% width utility
 .full-width {
   width: 100%;
 }
 
+// 100% height utility
 .full-height {
   height: 100%;
 }
 
+/// @deprecated
 .-truncate {
-  /* height: var(--truncation-height, 11rem); */
   overflow-y: hidden;
   position: relative;
 
@@ -711,20 +793,20 @@ va-break {
     background-repeat: no-repeat;
     background-size: 200% 200%;
     background: linear-gradient(
-      to top,
-      #fff 0,
-      hsla(0, 0%, 100%, 0.7) 8px,
-      hsla(0, 0%, 100%, 0.45) 14px,
-      hsla(0, 0%, 100%, 0.3) 19px,
-      hsla(0, 0%, 100%, 0.26) 21px,
-      hsla(0, 0%, 100%, 0.19) 25px,
-      hsla(0, 0%, 100%, 0.12) 29px,
-      hsla(0, 0%, 100%, 0.06) 32px,
-      hsla(0, 0%, 100%, 0.03) 34px,
-      hsla(0, 0%, 100%, 0.02) 36px,
-      hsla(0, 0%, 100%, 0.008) 38px,
-      hsla(0, 0%, 100%, 0.002) 39px,
-      hsla(0, 0%, 100%, 0) 40px
+                    to top,
+                    #fff 0,
+                    hsla(0, 0%, 100%, 0.7) 8px,
+                    hsla(0, 0%, 100%, 0.45) 14px,
+                    hsla(0, 0%, 100%, 0.3) 19px,
+                    hsla(0, 0%, 100%, 0.26) 21px,
+                    hsla(0, 0%, 100%, 0.19) 25px,
+                    hsla(0, 0%, 100%, 0.12) 29px,
+                    hsla(0, 0%, 100%, 0.06) 32px,
+                    hsla(0, 0%, 100%, 0.03) 34px,
+                    hsla(0, 0%, 100%, 0.02) 36px,
+                    hsla(0, 0%, 100%, 0.008) 38px,
+                    hsla(0, 0%, 100%, 0.002) 39px,
+                    hsla(0, 0%, 100%, 0) 40px
     );
   }
 }

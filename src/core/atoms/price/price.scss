@@ -2,20 +2,22 @@
   display: grid;
   align-self: baseline;
   grid-auto-flow: column;
-  grid-template-columns: repeat(auto-fit, minmax(0,max-content));
+  grid-template-columns: repeat(auto-fit, minmax(0, max-content));
   grid-template-rows:
-    [before] minmax(0,min-content)
-    [price] minmax(0,min-content)
-    [after] minmax(0,min-content);
-    
+    [before] minmax(0, min-content)
+    [price] minmax(0, min-content)
+    [after] minmax(0, min-content);
+
   color: var(--class-color);
   font-size: var(--class-fs);
   font-weight: 700;
   letter-spacing: $letter-spacing-narrow;
   white-space: nowrap;
   place-items: baseline start;
-  width: max-content;
-  
+  max-width: max-content;
+  width: 100%;
+  min-width: 1%;
+
   &--pounds,
   &--sub,
   &--label {
@@ -24,7 +26,7 @@
     white-space: inherit;
     line-height: 0.9em;
   }
-  
+
   &--pounds,
   &--sub {
     letter-spacing: inherit;
@@ -44,30 +46,30 @@
     letter-spacing: 0.015em;
     color: $darker;
     grid-column: 1 / -1;
-    
+
     > * {
       display: block;
-      
+
       &:first-child:not(:only-child) {
         font-weight: 600;
         color: $orange;
       }
     }
-    
+
     &:first-child {
       grid-row: before;
       font-weight: 600;
       font-size: 0.75rem;
       color: $black;
       text-transform: uppercase;
-      margin-bottom: .25em;
+      margin-bottom: 0.25em;
     }
-    
+
     &:last-child {
       grid-row: after;
       letter-spacing: 0;
       color: $dark;
-      margin-top: .25em;
+      margin-top: 0.25em;
     }
   }
 }
