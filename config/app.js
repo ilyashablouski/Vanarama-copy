@@ -54,7 +54,13 @@ module.exports = {
       };
     },
 
-    webpack: config => {
+    webpack: (config, { webpack }) => {
+      config.plugins.push(
+        new webpack.ContextReplacementPlugin(
+          /moment[/\\]locale/,
+          /(en-gb)\.js/,
+        ),
+      );
       // Allow absolute imports.
       config.resolve.modules = [...config.resolve.modules, 'src'];
 
