@@ -66,7 +66,7 @@ const Head: FC<IHeadProps> = props => {
             as="font"
             href={`${FONT_PATH}${font}`}
             type="font/woff2"
-            crossOrigin="anonymous"
+            crossOrigin=""
           />
         );
       })}
