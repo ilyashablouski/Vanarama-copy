@@ -34,14 +34,15 @@ import {
   LeaseTypeEnum,
   CreditApplicationTypeEnum as CATypeEnum,
   MyOrdersTypeEnum,
+  OrderInputObject,
 } from '../../../../generated/globalTypes';
 import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
 import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
-import { GetOlafData_orderByUuid } from '../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../generated/GetDerivative';
 import Skeleton from '../../../components/Skeleton';
+import useGetOrder from '../../../hooks/useGetOrder';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -88,15 +89,13 @@ export const handleAccountFetchError = () =>
 const AboutYouPage: NextPage = () => {
   const router = useRouter();
   const client = useApolloClient();
+  const order = useGetOrder();
   const { orderId, uuid } = router.query as OLAFB2CQueryParams;
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>(uuid);
   const [personLoggedIn, setPersonLoggedIn] = useState<boolean>(false);
-  const [
-    detailsData,
-    setDetailsData,
-  ] = useState<GetOlafData_orderByUuid | null>(null);
+  const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
   const [
     derivativeData,
     setDerivativeData,
@@ -142,34 +141,41 @@ const AboutYouPage: NextPage = () => {
     pushAboutYouDataLayer(detailsData, derivativeData, 'Car');
     await refetch({
       uuid: createUpdatePerson.uuid,
-    }).then(resp => {
-      const partyUuidDate = resp.data?.personByUuid?.partyUuid;
+    }).then(resp =>
       updateOrderHandle({
         variables: {
           input: {
             personUuid: personUuid || uuid,
-            leaseType: LeaseTypeEnum.PERSONAL,
-            lineItems: [
+            leaseType: order?.leaseType || LeaseTypeEnum.PERSONAL,
+            lineItems: order?.lineItems || [
               {
                 quantity: 1,
               },
             ],
-            partyUuid: partyUuidDate,
+            partyUuid: resp.data?.personByUuid?.partyUuid,
             uuid: orderId,
           },
         },
-      });
-    });
-    createUpdateCA({
-      variables: {
-        input: formValuesToInputCreditApplication({
-          ...creditApplication.data?.creditApplicationByOrderUuid,
-          orderUuid: orderId,
-          aboutDetails: createUpdatePerson,
-          creditApplicationType: CATypeEnum.B2C_PERSONAL,
-        }),
-      },
-    });
+      })
+        .then(response =>
+          localForage.setItem<string | undefined>(
+            'orderId',
+            response.data?.createUpdateOrder?.uuid,
+          ),
+        )
+        .then(orderUuid =>
+          createUpdateCA({
+            variables: {
+              input: formValuesToInputCreditApplication({
+                ...creditApplication.data?.creditApplicationByOrderUuid,
+                orderUuid: orderUuid || '',
+                aboutDetails: createUpdatePerson,
+                creditApplicationType: CATypeEnum.B2C_PERSONAL,
+              }),
+            },
+          }),
+        ),
+    );
 
     client.writeQuery({
       query: gql`

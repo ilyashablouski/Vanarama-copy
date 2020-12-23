@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
 import { getUrlParam } from '../../utils/url';
 import useProgressHistory from '../../hooks/useProgressHistory';
+import useGetOrderId from '../../hooks/useGetOrderId';
 
 type QueryParams = {
   redirect?: string;
@@ -17,7 +18,8 @@ type QueryParams = {
 const ConsumerProgressIndicator: React.FC = () => {
   // const [latestStep, setLatestStep] = useState(1);
   const { pathname, query } = useRouter();
-  const { redirect, uuid, orderId } = query as QueryParams;
+  const { redirect, uuid } = query as QueryParams;
+  const orderId = useGetOrderId();
   const { setCachedLastStep, cachedLastStep } = useProgressHistory(orderId);
 
   const latestStep = cachedLastStep;
