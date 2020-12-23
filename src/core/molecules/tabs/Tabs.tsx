@@ -31,4 +31,4 @@ const Tabs: FC<ITabsProps> = ({
   );
 };
 
-export default React.memo(Tabs);
+export default Tabs;

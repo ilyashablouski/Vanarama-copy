@@ -10,4 +10,4 @@ const TabPanels: React.FC<IProps> = ({ children, className, dataTestId }) => (
   </div>
 );
 
-export default React.memo(TabPanels);
+export default TabPanels;

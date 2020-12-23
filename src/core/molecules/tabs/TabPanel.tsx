@@ -30,4 +30,4 @@ const TabPanel: React.FC<IProps> = ({
   );
 };
 
-export default React.memo(TabPanel);
+export default TabPanel;
