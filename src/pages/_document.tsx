@@ -53,8 +53,9 @@ class MyDocument extends Document {
           {gtmEnvs.includes(env) && <GTMDataLayerScript />}
           {gtmEnvs.includes(env) && <GTMScript />}
           {/* <RollbarScript /> */}
-          <link rel="stylesheet" href="/styles/base.css" />
+          <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="preload" href="/styles/deferred.css" as="style" />
+          <link rel="stylesheet" href="/styles/base.css" />
         </HeadCustom>
         <body>
           <Main />
