@@ -1,4 +1,5 @@
 // import dynamic from 'next/dynamic';
+import React from 'react';
 import Heading from 'core/atoms/heading';
 import getTitleTag from '../../utils/getTitleTag';
 import { IHeroHeadingProps } from './interface';
@@ -25,4 +26,4 @@ const HeroHeading: React.FC<IHeroHeadingProps> = ({ text, titleTag }) => {
   );
 };
 
-export default HeroHeading;
+export default React.memo(HeroHeading);

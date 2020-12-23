@@ -190,4 +190,4 @@ const SearchPod = ({
   );
 };
 
-export default SearchPod;
+export default React.memo(SearchPod);

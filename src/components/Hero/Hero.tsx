@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
 import { IHeroProps } from './interface';
