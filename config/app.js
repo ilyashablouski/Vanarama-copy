@@ -68,6 +68,7 @@ module.exports = {
       if (config.mode === 'production' && config.name === 'client') {
         config.optimization.splitChunks = {
           ...config.optimization.splitChunks,
+          chunks: 'all',
           minSize: 10000,
           maxSize: 150000,
           maxAsyncRequests: 100,

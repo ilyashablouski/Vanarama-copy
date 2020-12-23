@@ -31,4 +31,4 @@ const TabList: React.FC<ITabListProps> = ({
   );
 };
 
-export default TabList;
+export default React.memo(TabList);

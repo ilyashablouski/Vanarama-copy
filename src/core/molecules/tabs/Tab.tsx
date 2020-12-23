@@ -27,4 +27,4 @@ const Tab: React.FC<IProps> = ({ children, className, dataTestId, index }) => {
   );
 };
 
-export default Tab;
+export default React.memo(Tab);

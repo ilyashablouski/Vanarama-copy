@@ -69,4 +69,4 @@ const TopInfoBlock = React.memo(({ topInfoSection }: ITopInfoBlockProps) => {
   );
 });
 
-export default TopInfoBlock;
+export default React.memo(TopInfoBlock);
