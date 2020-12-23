@@ -11,7 +11,7 @@ export const features = (
     icon: Icon ? (
       <Icon key={info.name} name={info.name.replace(/\s+/g, '')} color="dark" />
     ) : null,
-    label: info.name.replace(/\s+/g, ''),
+    label: info.value,
     index: `${capId}_${info.name}`,
   }));
 };

@@ -1,4 +1,4 @@
-import React, { FC, memo, Suspense } from 'react';
+import React, { FC, memo } from 'react';
 import cx from 'classnames';
 import dynamic from 'next/dynamic';
 import { IIconProps } from './interfaces';
@@ -7,7 +7,7 @@ import SyncCircleOutline from '../../assets/icons/SyncCircleOutline';
 const Icon: FC<IIconProps> = memo(props => {
   const { className, icon, color, size, name, ...rest } = props;
   const DynamicIcon = dynamic(
-    () => import(/* webpackMode: "eager" */ `../../assets/icons/${name}`),
+    () => import(/* webpackPrefetch: true */ `../../assets/icons/${name}`),
     {
       loading: () => <SyncCircleOutline />,
       ssr: false,
@@ -21,11 +21,7 @@ const Icon: FC<IIconProps> = memo(props => {
         [`-${size}`]: size,
       })}
     >
-      {icon ?? (
-        <Suspense fallback={<SyncCircleOutline />}>
-          <DynamicIcon />
-        </Suspense>
-      )}
+      {icon ?? <DynamicIcon />}
     </i>
   );
 });
