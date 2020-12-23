@@ -83,7 +83,7 @@ def mergeAndPushBranch(appEnvironment, destinationBranch) {
 
         sh """
         git tag -a ${dcName} -m \"Tagging a New Release\"
-        git merge origin/${currentBranch}
+        git rebase origin/${currentBranch}
         """
 
         sshagent(['autorama']) {
