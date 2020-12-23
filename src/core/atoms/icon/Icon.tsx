@@ -6,6 +6,7 @@ import SyncCircleOutline from '../../assets/icons/SyncCircleOutline';
 
 const Icon: FC<IIconProps> = memo(props => {
   const { className, icon, color, size, name, ...rest } = props;
+  console.log(name);
   const DynamicIcon = dynamic(
     () => import(/* webpackPrefetch: true */ `../../assets/icons/${name}`),
     {
