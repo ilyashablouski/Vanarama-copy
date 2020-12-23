@@ -141,4 +141,4 @@ const VehicleCard = React.memo(
   },
 );
 
-export default VehicleCard;
+export default React.memo(VehicleCard);
