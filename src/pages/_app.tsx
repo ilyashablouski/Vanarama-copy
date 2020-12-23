@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// import 'core/base.scss';
+// import 'core/styles/base.scss';
 import dynamic from 'next/dynamic';
 import { AppProps } from 'next/app';
 import Router from 'next/router';

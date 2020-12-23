@@ -63,7 +63,17 @@ module.exports = {
         fs: 'empty',
       };
 
-      config.mode = 'production';
+      // config.mode = 'production';
+
+      if (config.mode === 'production' && config.name === 'client') {
+        config.optimization.splitChunks = {
+          ...config.optimization.splitChunks,
+          minSize: 10000,
+          maxSize: 150000,
+          maxAsyncRequests: 100,
+          maxInitialRequests: 100,
+        };
+      };
 
       return config;
     },
