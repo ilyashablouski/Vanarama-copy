@@ -38,6 +38,7 @@ const Head: FC<IHeadProps> = props => {
   return (
     <NextHead>
       <title>{title}</title>
+      <link rel="icon" type="image/png" href="/favicon.png" />
       <meta name="og:type" content="website" />
       <meta property="og:locale" content="en_GB" />
       <meta property="og:title" content={title || defaultTitle} />
@@ -57,7 +58,6 @@ const Head: FC<IHeadProps> = props => {
       <meta name="twitter:title" content={title || defaultTitle} />
       <meta name="twitter:creator" content={twitter} />
       <meta name="twitter:site" content={twitter} />
-      <link rel="stylesheet" href="/styles/base.css" />
 
       {FONT_LIST.map(font => {
         return (
