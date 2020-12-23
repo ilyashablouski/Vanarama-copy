@@ -73,7 +73,7 @@ module.exports = {
           maxAsyncRequests: 100,
           maxInitialRequests: 100,
         };
-      };
+      }
 
       return config;
     },
