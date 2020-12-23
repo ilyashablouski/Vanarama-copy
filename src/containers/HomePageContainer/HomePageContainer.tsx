@@ -359,38 +359,42 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       </section>
 
       <section className="row:bg-lighter">
-        <div className="row:cards-3col">
-          {(getSectionsData(
-            ['cards', 'cards'],
-            data?.homePage?.sections,
-          ) as CardData[])?.map((card: CardData, index) => (
-            <RouterLink
-              link={{
-                href: card.link?.legacyUrl || card.link?.url || '#',
-                label: card.link?.text || '',
-              }}
-              key={card.title || index}
-            >
-              <Card
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                title={{
-                  title: '',
-                  withBtn: true,
-                  link: (
-                    <Heading tag={getTitleTag(card.titleTag || 'span') as any}>
-                      {card.title}
-                    </Heading>
-                  ),
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <div className="row:cards-3col">
+            {(getSectionsData(
+              ['cards', 'cards'],
+              data?.homePage?.sections,
+            ) as CardData[])?.map((card: CardData, index) => (
+              <RouterLink
+                link={{
+                  href: card.link?.legacyUrl || card.link?.url || '#',
+                  label: card.link?.text || '',
                 }}
-                imageSrc={
-                  card.image?.file?.url ||
-                  'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg'
-                }
-                description={card.body || ''}
-              />
-            </RouterLink>
-          ))}
-        </div>
+                key={card.title || index}
+              >
+                <Card
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  title={{
+                    title: '',
+                    withBtn: true,
+                    link: (
+                      <Heading
+                        tag={getTitleTag(card.titleTag || 'span') as any}
+                      >
+                        {card.title}
+                      </Heading>
+                    ),
+                  }}
+                  imageSrc={
+                    card.image?.file?.url ||
+                    'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg'
+                  }
+                  description={card.body || ''}
+                />
+              </RouterLink>
+            ))}
+          </div>
+        </LazyLoadComponent>
       </section>
 
       <section className="row:featured-right">
