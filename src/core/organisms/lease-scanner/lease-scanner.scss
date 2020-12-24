@@ -196,6 +196,20 @@
     pointer-events: all;
   }
 
+  .content-wrapper {
+    height: 2rem;
+    @include mobile  {
+      height: unset;
+    } 
+  }
+
+  .button-wrapper{
+    height: 5.5rem;
+    @include mobile  {
+      height: 3rem;
+    } 
+  }
+
   .button {
     position: relative;
     pointer-events: all;
