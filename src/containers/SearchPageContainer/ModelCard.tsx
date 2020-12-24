@@ -91,4 +91,4 @@ const ModelCard = memo(
   },
 );
 
-export default ModelCard;
+export default React.memo(ModelCard);
