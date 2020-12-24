@@ -63,9 +63,7 @@ module.exports = {
         fs: 'empty',
       };
 
-      // config.mode = 'production';
-
-      if (config.mode === 'production' && config.name === 'client') {
+      if (config.mode === 'pro;duction' && config.name === 'client') {
         config.optimization.splitChunks = {
           ...config.optimization.splitChunks,
           chunks: 'all',
