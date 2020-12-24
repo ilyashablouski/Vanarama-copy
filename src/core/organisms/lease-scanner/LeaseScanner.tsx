@@ -132,7 +132,7 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
         </div>
       )}
       <div className="lease-scanner" style={positionStyle}>
-        <div style={{ height: '2rem' }}>
+        <div className="content-wrapper">
           <Price price={price} size="xlarge" />
           {priceLabel && (
             <Heading
@@ -153,7 +153,7 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
             {headingText}
           </Heading>
         </div>
-        <div style={{ height: '5.5rem' }}>
+        <div className="button-wrapper">
           <Button
             className="-fullwidth"
             label="Order Now"
