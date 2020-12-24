@@ -79,4 +79,4 @@ const FooterColumn: FC<IFooterColumn> = props => {
   return <></>;
 };
 
-export default FooterColumn;
+export default React.memo(FooterColumn);
