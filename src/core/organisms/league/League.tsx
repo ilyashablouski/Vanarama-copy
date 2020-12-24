@@ -48,4 +48,4 @@ const League: FC<ILeagueProps> = memo(props => {
 
 League.displayName = 'League';
 
-export default League;
+export default React.memo(League);

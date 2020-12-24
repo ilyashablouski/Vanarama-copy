@@ -290,6 +290,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             monthlyPayment:
               leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental || null,
             maintenance: leaseScannerData?.maintenance,
+            leadTime,
             maintenancePrice: leaseScannerData?.maintenance
               ? leaseScannerData?.quoteByCapId?.maintenanceCost?.monthlyRental
               : undefined,

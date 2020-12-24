@@ -59,4 +59,4 @@ const Trustpilot: FC<ITrustpilotProps> = ({
   ) : null;
 };
 
-export default Trustpilot;
+export default React.memo(Trustpilot);

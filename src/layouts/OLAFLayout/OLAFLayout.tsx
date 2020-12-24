@@ -87,7 +87,9 @@ const OLAFLayout: React.FC<IProps> = ({
           <div className="olaf-aside">
             <OlafCard
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              header={{ text: '14-21 Days Delivery' }}
+              header={{
+                text: vehicleProduct?.leadTime || '',
+              }}
               olafDetails={createOlafDetails(
                 order.leaseType,
                 vehicleProduct!,
