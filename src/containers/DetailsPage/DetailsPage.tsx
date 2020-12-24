@@ -194,7 +194,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       price,
       category: getCategory({ cars, vans, pickups }),
     });
-    localForage.setItem('order', values).then(() => {
+    return localForage.setItem('order', values).then(() => {
       const url =
         leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
           ? '/olaf/about'
