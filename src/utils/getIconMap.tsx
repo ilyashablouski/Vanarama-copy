@@ -3,7 +3,8 @@ import dynamic from 'next/dynamic';
 import { ReactNode } from 'react';
 import { ProductCardData_productCarousel_keyInformation as IKeyInfo } from '../../generated/ProductCardData';
 import SyncCircleOutline from '../core/assets/icons/SyncCircleOutline';
-/* import AirCondition from '../core/assets/icons/AirConditioning';
+
+import AirCondition from '../core/assets/icons/AirConditioning';
 import Alloys from '../core/assets/icons/Alloys';
 import Bluetooth from '../core/assets/icons/Bluetooth';
 import BrandNewCar from '../core/assets/icons/BrandNewCar';
@@ -26,9 +27,9 @@ import Transmission from '../core/assets/icons/Transmission';
 import WarrantyRosette2 from '../core/assets/icons/WarrantyRosette2';
 import WarrantyRosette3 from '../core/assets/icons/WarrantyRosette3';
 import WarrantyRosette4 from '../core/assets/icons/WarrantyRosette4';
-import WarrantyRosette5 from '../core/assets/icons/WarrantyRosette5'; */
+import WarrantyRosette5 from '../core/assets/icons/WarrantyRosette5';
 
-const options = {
+/* const options = {
   loading: () => <SyncCircleOutline />,
   ssr: false,
 };
@@ -145,7 +146,7 @@ const WarrantyRosette5 = dynamic(
   {
     ...options,
   },
-);
+); */
 
 export function getFeatureIcon3(name: string = 'fallback') {
   const iconMap = new Map();
@@ -178,58 +179,132 @@ export function getFeatureIcon3(name: string = 'fallback') {
 }
 
 export function getFeatureIcon2(name: string = 'default') {
+  let iconToReturn;
   switch (name) {
     case 'AiConditioning':
-      return import('core/assets/icons/AirConditioning');
+      import('core/assets/icons/AirConditioning').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'Alloys':
-      return import('core/assets/icons/Alloys');
+      import('core/assets/icons/Alloys').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'BlueTooth':
-      return import('core/assets/icons/Bluetooth');
+      import('core/assets/icons/Bluetooth').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'BrandNewCar':
-      return import('core/assets/icons/BrandNewCar');
+      import('core/assets/icons/BrandNewCar').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'CruiseControl':
-      return import('core/assets/icons/CruiseControl');
+      import('core/assets/icons/CruiseControl').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'DABRadio':
-      return import('core/assets/icons/DABRadio');
+      import('core/assets/icons/DABRadio').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'DamageCover':
-      return import('core/assets/icons/DamageCover');
+      import('core/assets/icons/DamageCover').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'Emissions':
-      return import('core/assets/icons/Emissions');
+      import('core/assets/icons/Emissions').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'FuelEconomy':
-      return import('core/assets/icons/FuelEconomy');
+      import('core/assets/icons/FuelEconomy').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'FuelType':
-      return import('core/assets/icons/FuelType');
+      import('core/assets/icons/FuelType').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'HeatedSeats':
-      return import('core/assets/icons/HeatedSeats');
+      import('core/assets/icons/HeatedSeats').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'Leather':
-      return import('core/assets/icons/Leather');
+      import('core/assets/icons/Leather').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'LoadHeight':
-      return import('core/assets/icons/LoadHeight');
+      import('core/assets/icons/LoadHeight').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'LoadLength':
-      return import('core/assets/icons/LoadHeight');
+      import('core/assets/icons/LoadHeight').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'LoadWidth':
-      return import('core/assets/icons/LoadWidth');
+      import('core/assets/icons/LoadWidth').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'MileageBooster':
-      return import('core/assets/icons/MileageBooster');
+      import('core/assets/icons/MileageBooster').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'NoMot':
-      return import('core/assets/icons/NoMOT');
+      import('core/assets/icons/NoMOT').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'PlyLining':
-      return import('core/assets/icons/PlyLining');
+      import('core/assets/icons/PlyLining').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'SatNav':
-      return import('core/assets/icons/SatNav');
+      import('core/assets/icons/SatNav').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'Transmission':
-      return import('core/assets/icons/Transmission');
+      import('core/assets/icons/Transmission').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'WarrantyRosette2':
-      return import('core/assets/icons/WarrantyRosette2');
+      import('core/assets/icons/WarrantyRosette2').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'WarrantyRosette3':
-      return import('core/assets/icons/WarrantyRosette3');
+      import('core/assets/icons/WarrantyRosette3').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'WarrantyRosette4':
-      return import('core/assets/icons/WarrantyRosette4');
+      import('core/assets/icons/WarrantyRosette4').then(i => {
+        iconToReturn = i;
+      });
+      break;
     case 'WarrantyRosette5':
-      return import('core/assets/icons/WarrantyRosette5');
+      import('core/assets/icons/WarrantyRosette5').then(i => {
+        iconToReturn = i;
+      });
+      break;
     default:
-      return <SyncCircleOutline />;
+      iconToReturn = <SyncCircleOutline />;
   }
+  return iconToReturn;
 }
 
 type TIconMap = { [key: string]: ReactNode };
