@@ -90,4 +90,4 @@ const Image: FC<IImageProps> = props => {
 
 Image.displayName = 'Image';
 
-export default Image;
+export default React.memo(Image);
