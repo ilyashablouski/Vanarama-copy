@@ -154,6 +154,7 @@ export const GET_OLAF_DATA = gql`
           depositPayment
           monthlyPayment
           term
+          leadTime
           maintenancePrice
           annualMileage
           depositMonths

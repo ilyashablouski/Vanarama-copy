@@ -41,10 +41,11 @@ const OLAFLayout: React.FC<IProps> = ({
   // get Order data and Derivative data for order car
   const olafData = useOlafData(orderId);
   const orderByUuid = olafData && olafData.data?.orderByUuid;
+  const lineItem = orderByUuid?.lineItems[0];
 
   const [getDerivativeData, derivativeData] = useCarDerivativeData(
-    orderByUuid?.lineItems[0].vehicleProduct?.derivativeCapId || '',
-    orderByUuid?.lineItems[0].vehicleProduct?.vehicleType,
+    lineItem?.vehicleProduct?.derivativeCapId || '',
+    lineItem?.vehicleProduct?.vehicleType,
   );
   const derivative = derivativeData && derivativeData.data?.derivative;
   const mainImage =
@@ -94,10 +95,12 @@ const OLAFLayout: React.FC<IProps> = ({
           <div className="olaf-aside">
             <OlafCard
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              header={{ text: '14-21 Days Delivery' }}
+              header={{
+                text: lineItem?.vehicleProduct?.leadTime || '',
+              }}
               olafDetails={createOlafDetails(
                 orderByUuid.leaseType,
-                orderByUuid.lineItems[0].vehicleProduct!,
+                lineItem?.vehicleProduct!,
                 derivative,
               )}
               initialRentalDataTestId="about_intial-rental-testID"

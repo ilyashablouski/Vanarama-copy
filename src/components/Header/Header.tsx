@@ -11,7 +11,6 @@ import { IBaseProps } from 'core/interfaces/base';
 import Logo from 'core/atoms/logo';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
-// import HeaderMenu from './HeaderMenu';
 import {
   GetPerson_getPerson as Person,
   GetPerson,

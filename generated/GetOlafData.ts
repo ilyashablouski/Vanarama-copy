@@ -22,6 +22,7 @@ export interface GetOlafData_orderByUuid_lineItems_vehicleProduct {
   depositPayment: number | null;
   monthlyPayment: number | null;
   term: number | null;
+  leadTime: string | null;
   maintenancePrice: number | null;
   annualMileage: number | null;
   depositMonths: number | null;
