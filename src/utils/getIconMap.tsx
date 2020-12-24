@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { ReactNode } from 'react';
 import { ProductCardData_productCarousel_keyInformation as IKeyInfo } from '../../generated/ProductCardData';
 import SyncCircleOutline from '../core/assets/icons/SyncCircleOutline';
 /* import AirCondition from '../core/assets/icons/AirConditioning';
@@ -145,7 +146,7 @@ const WarrantyRosette5 = dynamic(
   },
 );
 
-export function getFeatureIcon(name: string = 'default') {
+export function getFeatureIcon3(name: string = 'default') {
   switch (name) {
     case 'AiConditioning':
       return <AirCondition />;
@@ -200,7 +201,7 @@ export function getFeatureIcon(name: string = 'default') {
   }
 }
 
-export function getFeatureIconMap(name: string = 'fallback') {
+export function getFeatureIcon2(name: string = 'fallback') {
   const iconMap = new Map();
   iconMap.set('AirConditioning', <AirCondition />);
   iconMap.set('Alloys', <Alloys />);
@@ -228,6 +229,37 @@ export function getFeatureIconMap(name: string = 'fallback') {
   iconMap.set('WarrantyRosette5', <WarrantyRosette5 />);
   iconMap.set('fallback', <SyncCircleOutline />);
   return iconMap.get(name);
+}
+
+type TIconMap = { [key: string]: ReactNode };
+export function getFeatureIcon1(name: string) {
+  const iconMap: TIconMap = {
+    AirConditioning: <AirCondition />,
+    Alloys: <Alloys />,
+    Bluetooth: <Bluetooth />,
+    BrandNewCar: <BrandNewCar />,
+    CruiseControl: <CruiseControl />,
+    DABRadio: <DABRadio />,
+    DamageCover: <DamageCover />,
+    Emissions: <Emissions />,
+    FuelEconomy: <FuelEconomy />,
+    FuelType: <FuelType />,
+    HeatedSeats: <HeatedSeats />,
+    Leather: <Leather />,
+    LoadHeight: <LoadHeight />,
+    LoadLength: <LoadLength />,
+    LoadWidth: <LoadWidth />,
+    MileageBooster: <MileageBooster />,
+    NoMot: <NoMot />,
+    PlyLining: <PlyLining />,
+    SatNav: <SatNav />,
+    Transmission: <Transmission />,
+    WarrantyRosette2: <WarrantyRosette2 />,
+    WarrantyRosette3: <WarrantyRosette3 />,
+    WarrantyRosette4: <WarrantyRosette4 />,
+    WarrantyRosette5: <WarrantyRosette5 />,
+  };
+  return iconMap[name];
 }
 
 // leave as reference incase dynamic import with expression solution is found
