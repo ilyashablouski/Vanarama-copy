@@ -1,3 +1,4 @@
+/* eslint-disable global-require */
 import dynamic from 'next/dynamic';
 import { ReactNode } from 'react';
 import { ProductCardData_productCarousel_keyInformation as IKeyInfo } from '../../generated/ProductCardData';
@@ -146,62 +147,7 @@ const WarrantyRosette5 = dynamic(
   },
 );
 
-export function getFeatureIcon3(name: string = 'default') {
-  switch (name) {
-    case 'AiConditioning':
-      return <AirCondition />;
-    case 'Alloys':
-      return <Alloys />;
-    case 'BlueTooth':
-      return <Bluetooth />;
-    case 'BrandNewCar':
-      return <BrandNewCar />;
-    case 'CruiseControl':
-      return <CruiseControl />;
-    case 'DABRadio':
-      return <DABRadio />;
-    case 'DamageCover':
-      return <DamageCover />;
-    case 'Emissions':
-      return <Emissions />;
-    case 'FuelEconomy':
-      return <FuelEconomy />;
-    case 'FuelType':
-      return <FuelType />;
-    case 'HeatedSeats':
-      return <HeatedSeats />;
-    case 'Leather':
-      return <Leather />;
-    case 'LoadHeight':
-      return <LoadHeight />;
-    case 'LoadLength':
-      return <LoadLength />;
-    case 'LoadWidth':
-      return <LoadWidth />;
-    case 'MileageBooster':
-      return <MileageBooster />;
-    case 'NoMot':
-      return <NoMot />;
-    case 'PlyLining':
-      return <PlyLining />;
-    case 'SatNav':
-      return <SatNav />;
-    case 'Transmission':
-      return <Transmission />;
-    case 'WarrantyRosette2':
-      return <WarrantyRosette2 />;
-    case 'WarrantyRosette3':
-      return <WarrantyRosette3 />;
-    case 'WarrantyRosette4':
-      return <WarrantyRosette4 />;
-    case 'WarrantyRosette5':
-      return <WarrantyRosette5 />;
-    default:
-      return <SyncCircleOutline />;
-  }
-}
-
-export function getFeatureIcon2(name: string = 'fallback') {
+export function getFeatureIcon3(name: string = 'fallback') {
   const iconMap = new Map();
   iconMap.set('AirConditioning', <AirCondition />);
   iconMap.set('Alloys', <Alloys />);
@@ -231,33 +177,88 @@ export function getFeatureIcon2(name: string = 'fallback') {
   return iconMap.get(name);
 }
 
+export function getFeatureIcon2(name: string = 'default') {
+  switch (name) {
+    case 'AiConditioning':
+      return import('core/assets/icons/AirConditioning');
+    case 'Alloys':
+      return import('core/assets/icons/Alloys');
+    case 'BlueTooth':
+      return import('core/assets/icons/Bluetooth');
+    case 'BrandNewCar':
+      return import('core/assets/icons/BrandNewCar');
+    case 'CruiseControl':
+      return import('core/assets/icons/CruiseControl');
+    case 'DABRadio':
+      return import('core/assets/icons/DABRadio');
+    case 'DamageCover':
+      return import('core/assets/icons/DamageCover');
+    case 'Emissions':
+      return import('core/assets/icons/Emissions');
+    case 'FuelEconomy':
+      return import('core/assets/icons/FuelEconomy');
+    case 'FuelType':
+      return import('core/assets/icons/FuelType');
+    case 'HeatedSeats':
+      return import('core/assets/icons/HeatedSeats');
+    case 'Leather':
+      return import('core/assets/icons/Leather');
+    case 'LoadHeight':
+      return import('core/assets/icons/LoadHeight');
+    case 'LoadLength':
+      return import('core/assets/icons/LoadHeight');
+    case 'LoadWidth':
+      return import('core/assets/icons/LoadWidth');
+    case 'MileageBooster':
+      return import('core/assets/icons/MileageBooster');
+    case 'NoMot':
+      return import('core/assets/icons/NoMOT');
+    case 'PlyLining':
+      return import('core/assets/icons/PlyLining');
+    case 'SatNav':
+      return import('core/assets/icons/SatNav');
+    case 'Transmission':
+      return import('core/assets/icons/Transmission');
+    case 'WarrantyRosette2':
+      return import('core/assets/icons/WarrantyRosette2');
+    case 'WarrantyRosette3':
+      return import('core/assets/icons/WarrantyRosette3');
+    case 'WarrantyRosette4':
+      return import('core/assets/icons/WarrantyRosette4');
+    case 'WarrantyRosette5':
+      return import('core/assets/icons/WarrantyRosette5');
+    default:
+      return <SyncCircleOutline />;
+  }
+}
+
 type TIconMap = { [key: string]: ReactNode };
 export function getFeatureIcon1(name: string) {
   const iconMap: TIconMap = {
-    AirConditioning: <AirCondition />,
-    Alloys: <Alloys />,
-    Bluetooth: <Bluetooth />,
-    BrandNewCar: <BrandNewCar />,
-    CruiseControl: <CruiseControl />,
-    DABRadio: <DABRadio />,
-    DamageCover: <DamageCover />,
-    Emissions: <Emissions />,
-    FuelEconomy: <FuelEconomy />,
-    FuelType: <FuelType />,
-    HeatedSeats: <HeatedSeats />,
-    Leather: <Leather />,
-    LoadHeight: <LoadHeight />,
-    LoadLength: <LoadLength />,
-    LoadWidth: <LoadWidth />,
-    MileageBooster: <MileageBooster />,
-    NoMot: <NoMot />,
-    PlyLining: <PlyLining />,
-    SatNav: <SatNav />,
-    Transmission: <Transmission />,
-    WarrantyRosette2: <WarrantyRosette2 />,
-    WarrantyRosette3: <WarrantyRosette3 />,
-    WarrantyRosette4: <WarrantyRosette4 />,
-    WarrantyRosette5: <WarrantyRosette5 />,
+    AirConditioning: require('core/assets/icons/AirConditioning').default,
+    Alloys: require('core/assets/icons/Alloys').default,
+    Bluetooth: require('core/assets/icons/Bluetooth').default,
+    BrandNewCar: require('core/assets/icons/BrandNewCar').default,
+    CruiseControl: require('core/assets/icons/CruiseControl').default,
+    DABRadio: require('core/assets/icons/DABRadio').default,
+    DamageCover: require('core/assets/icons/DamageCover').default,
+    Emissions: require('core/assets/icons/Emissions').default,
+    FuelEconomy: require('core/assets/icons/FuelEconomy').default,
+    FuelType: require('core/assets/icons/FuelType').default,
+    HeatedSeats: require('core/assets/icons/HeatedSeats').default,
+    Leather: require('core/assets/icons/Leather').default,
+    LoadHeight: require('core/assets/icons/LoadHeight').default,
+    LoadLength: require('core/assets/icons/LoadLength').default,
+    LoadWidth: require('core/assets/icons/LoadWidth').default,
+    MileageBooster: require('core/assets/icons/MileageBooster').default,
+    NoMot: require('core/assets/icons/NoMOT').default,
+    PlyLining: require('core/assets/icons/PlyLining').default,
+    SatNav: require('core/assets/icons/SatNav').default,
+    Transmission: require('core/assets/icons/Transmission').default,
+    WarrantyRosette2: require('core/assets/icons/WarrantyRosette2').default,
+    WarrantyRosette3: require('core/assets/icons/WarrantyRosette3').default,
+    WarrantyRosette4: require('core/assets/icons/WarrantyRosette4').default,
+    WarrantyRosette5: require('core/assets/icons/WarrantyRosette5').default,
   };
   return iconMap[name];
 }

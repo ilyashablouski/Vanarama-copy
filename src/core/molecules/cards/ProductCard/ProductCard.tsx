@@ -1,13 +1,15 @@
 import React, { FC } from 'react';
+import useFeatures from '../../../../hooks/useFeatures';
 import { ICardProps } from '../interfaces';
 import Card from '..';
-import CardIcons, { TIcon } from '../CardIcons';
+import CardIcons from '../CardIcons';
 import Button from '../../../atoms/button';
 import Icon from '../../../atoms/icon';
 import Scale from '../../../assets/icons/Scale';
 
 export interface IProductCardProps extends ICardProps {
-  features?: TIcon[];
+  capId: string;
+  keyInfo: any[];
   /**
    * Function called when the "Compare" button is clicked
    */
@@ -20,7 +22,9 @@ export interface IProductCardProps extends ICardProps {
 }
 
 const ProductCard: FC<IProductCardProps> = props => {
-  const { features, onCompare, children, compared } = props;
+  const { keyInfo, capId, onCompare, children, compared } = props;
+
+  const features = useFeatures(keyInfo, capId, Icon);
 
   return (
     <Card {...props}>
