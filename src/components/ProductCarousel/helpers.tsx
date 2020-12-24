@@ -1,7 +1,7 @@
 import { IIconProps } from 'core/atoms/icon/interfaces';
 import { TIcon } from 'core/molecules/cards/CardIcons';
 import { ComponentType } from 'react';
-import { getFeatureIcon } from '../../utils/iconMap';
+import { getFeatureIcon } from '../../utils/getIconMap';
 
 export const features = (
   keyInformation: any[],

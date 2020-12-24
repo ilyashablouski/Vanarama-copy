@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { ProductCardData_productCarousel_keyInformation as IKeyInfo } from '../../generated/ProductCardData';
 import SyncCircleOutline from '../core/assets/icons/SyncCircleOutline';
-import AirCondition from '../core/assets/icons/AirConditioning';
+/* import AirCondition from '../core/assets/icons/AirConditioning';
 import Alloys from '../core/assets/icons/Alloys';
 import Bluetooth from '../core/assets/icons/Bluetooth';
 import BrandNewCar from '../core/assets/icons/BrandNewCar';
@@ -24,15 +24,183 @@ import Transmission from '../core/assets/icons/Transmission';
 import WarrantyRosette2 from '../core/assets/icons/WarrantyRosette2';
 import WarrantyRosette3 from '../core/assets/icons/WarrantyRosette3';
 import WarrantyRosette4 from '../core/assets/icons/WarrantyRosette4';
-import WarrantyRosette5 from '../core/assets/icons/WarrantyRosette5';
+import WarrantyRosette5 from '../core/assets/icons/WarrantyRosette5'; */
 
-export function getFeatureIcon(name: string) {
-  /* switch (name) {
+const options = {
+  loading: () => <SyncCircleOutline />,
+  ssr: false,
+};
+
+const AirCondition = dynamic(
+  () => import('core/assets/icons/AirConditioning'),
+  {
+    ...options,
+  },
+);
+
+const Alloys = dynamic(() => import('core/assets/icons/Alloys'), {
+  ...options,
+});
+
+const Bluetooth = dynamic(() => import('core/assets/icons/Bluetooth'), {
+  ...options,
+});
+
+const BrandNewCar = dynamic(() => import('core/assets/icons/BrandNewCar'), {
+  ...options,
+});
+
+const CruiseControl = dynamic(() => import('core/assets/icons/CruiseControl'), {
+  ...options,
+});
+
+const DABRadio = dynamic(() => import('core/assets/icons/DABRadio'), {
+  ...options,
+});
+
+const DamageCover = dynamic(() => import('core/assets/icons/DamageCover'), {
+  ...options,
+});
+
+const Emissions = dynamic(() => import('core/assets/icons/Emissions'), {
+  ...options,
+});
+
+const FuelEconomy = dynamic(() => import('core/assets/icons/FuelEconomy'), {
+  ...options,
+});
+
+const FuelType = dynamic(() => import('core/assets/icons/FuelType'), {
+  ...options,
+});
+
+const HeatedSeats = dynamic(() => import('core/assets/icons/HeatedSeats'), {
+  ...options,
+});
+
+const Leather = dynamic(() => import('core/assets/icons/Leather'), {
+  ...options,
+});
+
+const LoadHeight = dynamic(() => import('core/assets/icons/LoadHeight'), {
+  ...options,
+});
+
+const LoadLength = dynamic(() => import('core/assets/icons/LoadLength'), {
+  ...options,
+});
+
+const LoadWidth = dynamic(() => import('core/assets/icons/LoadWidth'), {
+  ...options,
+});
+
+const MileageBooster = dynamic(
+  () => import('core/assets/icons/MileageBooster'),
+  {
+    ...options,
+  },
+);
+
+const NoMot = dynamic(() => import('core/assets/icons/NoMOT'), {
+  ...options,
+});
+
+const PlyLining = dynamic(() => import('core/assets/icons/PlyLining'), {
+  ...options,
+});
+
+const SatNav = dynamic(() => import('core/assets/icons/SatNav'), {
+  ...options,
+});
+
+const Transmission = dynamic(() => import('core/assets/icons/Transmission'), {
+  ...options,
+});
+
+const WarrantyRosette2 = dynamic(
+  () => import('core/assets/icons/WarrantyRosette2'),
+  {
+    ...options,
+  },
+);
+
+const WarrantyRosette3 = dynamic(
+  () => import('core/assets/icons/WarrantyRosette3'),
+  {
+    ...options,
+  },
+);
+
+const WarrantyRosette4 = dynamic(
+  () => import('core/assets/icons/WarrantyRosette4'),
+  {
+    ...options,
+  },
+);
+
+const WarrantyRosette5 = dynamic(
+  () => import('core/assets/icons/WarrantyRosette5'),
+  {
+    ...options,
+  },
+);
+
+export function getFeatureIcon(name: string = 'default') {
+  switch (name) {
+    case 'AiConditioning':
+      return <AirCondition />;
+    case 'Alloys':
+      return <Alloys />;
+    case 'BlueTooth':
+      return <Bluetooth />;
+    case 'BrandNewCar':
+      return <BrandNewCar />;
+    case 'CruiseControl':
+      return <CruiseControl />;
+    case 'DABRadio':
+      return <DABRadio />;
+    case 'DamageCover':
+      return <DamageCover />;
+    case 'Emissions':
+      return <Emissions />;
+    case 'FuelEconomy':
+      return <FuelEconomy />;
+    case 'FuelType':
+      return <FuelType />;
+    case 'HeatedSeats':
+      return <HeatedSeats />;
+    case 'Leather':
+      return <Leather />;
+    case 'LoadHeight':
+      return <LoadHeight />;
+    case 'LoadLength':
+      return <LoadLength />;
+    case 'LoadWidth':
+      return <LoadWidth />;
+    case 'MileageBooster':
+      return <MileageBooster />;
+    case 'NoMot':
+      return <NoMot />;
+    case 'PlyLining':
+      return <PlyLining />;
+    case 'SatNav':
+      return <SatNav />;
     case 'Transmission':
-      return <Transmission />
+      return <Transmission />;
+    case 'WarrantyRosette2':
+      return <WarrantyRosette2 />;
+    case 'WarrantyRosette3':
+      return <WarrantyRosette3 />;
+    case 'WarrantyRosette4':
+      return <WarrantyRosette4 />;
+    case 'WarrantyRosette5':
+      return <WarrantyRosette5 />;
     default:
       return <SyncCircleOutline />;
-  } */
+  }
+}
+
+export function getFeatureIconMap(name: string = 'fallback') {
   const iconMap = new Map();
   iconMap.set('AirConditioning', <AirCondition />);
   iconMap.set('Alloys', <Alloys />);
@@ -58,11 +226,12 @@ export function getFeatureIcon(name: string) {
   iconMap.set('WarrantyRosette3', <WarrantyRosette3 />);
   iconMap.set('WarrantyRosette4', <WarrantyRosette4 />);
   iconMap.set('WarrantyRosette5', <WarrantyRosette5 />);
+  iconMap.set('fallback', <SyncCircleOutline />);
   return iconMap.get(name);
 }
 
 // leave as reference incase dynamic import with expression solution is found
-export function getIconMap(keyInfo: (IKeyInfo | null)[]) {
+export default function getIconMap(keyInfo: (IKeyInfo | null)[]) {
   const iconMap = new Map();
   keyInfo.forEach(async key => {
     const iconRef = key?.name?.replace(/\s+/g, '');
