@@ -18,8 +18,11 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
   return (
     <footer className="footer">
       {linkGroups?.map(linkGroup => (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
-          <FooterColumn linkGroup={linkGroup} key={linkGroup?.name || ''} />
+        <LazyLoadComponent
+          visibleByDefault={typeof window === 'undefined'}
+          key={linkGroup?.name || ''}
+        >
+          <FooterColumn linkGroup={linkGroup} />
         </LazyLoadComponent>
       ))}
       <hr className="footer--divider -fullwidth" />
