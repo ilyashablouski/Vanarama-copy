@@ -63,14 +63,22 @@ module.exports = {
         fs: 'empty',
       };
 
-      if (config.mode === 'pro;duction' && config.name === 'client') {
+      if (config.mode === 'production' && config.name === 'client') {
         config.optimization.splitChunks = {
           ...config.optimization.splitChunks,
           chunks: 'all',
           minSize: 10000,
-          maxSize: 150000,
+          maxSize: 120000,
           maxAsyncRequests: 100,
           maxInitialRequests: 100,
+          cacheGroups: {
+            ...config.optimization.splitChunks.cacheGroups,
+            core: {
+              test: /[\\/]src[\\/]core[\\/]/,
+              chunks: 'all',
+              minSize: 0,
+            },
+          },
         };
       }
 
