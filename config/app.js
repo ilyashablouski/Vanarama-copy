@@ -78,6 +78,16 @@ module.exports = {
               chunks: 'all',
               minSize: 0,
             },
+            utils: {
+              test: /[\\/]src[\\/]utils[\\/]/,
+              chunks: 'all',
+              minSize: 0,
+            },
+            hooks: {
+              test: /[\\/]src[\\/]hooks[\\/]/,
+              chunks: 'all',
+              minSize: 0,
+            },
           },
         };
       }
