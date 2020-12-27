@@ -37,4 +37,4 @@ const CardIcons: React.FC<ICardIconsProps> = ({
   </div>
 );
 
-export default CardIcons;
+export default React.memo(CardIcons);

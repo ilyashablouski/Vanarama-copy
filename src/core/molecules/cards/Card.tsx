@@ -1,6 +1,5 @@
 import cx from 'classnames';
 import React, { FC, memo } from 'react';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { ICardProps } from './interfaces';
 import CardHeader from './CardHeader';
@@ -26,7 +25,6 @@ const Card: FC<ICardProps> = memo(props => {
     placeholderImage,
     optimisedHost,
     optimisationOptions,
-    loadImage = false,
   } = props;
 
   const { imageSrc } = props;
@@ -93,7 +91,8 @@ const Card: FC<ICardProps> = memo(props => {
     >
       {header?.text && <CardHeader {...header} />}
       {imageSrc !== undefined && (
-        <LazyLoadImage
+        <img
+          loading="lazy"
           srcSet={srcset}
           sizes="(min-width:3200px) 800px, 1200px"
           alt={alt}
@@ -101,7 +100,6 @@ const Card: FC<ICardProps> = memo(props => {
           src={srcDefault || imageSrc || placeholderImage || undefined}
           data-testid="card-image"
           onError={onImageError}
-          visibleByDefault={loadImage}
         />
       )}
       {(title?.title || title?.link) && <CardTitle {...title} />}

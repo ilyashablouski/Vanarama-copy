@@ -1,12 +1,18 @@
-import Document, { Html, Main, NextScript } from 'next/document';
+import Document, { Html, Main } from 'next/document';
 import dynamic from 'next/dynamic';
 import HeadCustom from '../hacks/headCustom';
+
+// @ts-ignore
+const NextScript = dynamic(() =>
+  import('next/document').then(mod => mod.NextScript),
+);
 
 // @ts-ignore
 // const RollbarScript = dynamic(() =>
 //   import('../components/Rollbar').then(mod => mod.Script),
 // );
 
+const JS = dynamic(() => import('../components/JS'));
 // @ts-ignore
 const GTMScript = dynamic(() =>
   import('../components/GTM').then(mod => mod.Script),
@@ -47,20 +53,15 @@ class MyDocument extends Document {
           {gtmEnvs.includes(env) && <GTMDataLayerScript />}
           {gtmEnvs.includes(env) && <GTMScript />}
           {/* <RollbarScript /> */}
-          <link rel="stylesheet" href="/styles/base.css" />
+          <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="preload" href="/styles/deferred.css" as="style" />
+          <link rel="stylesheet" href="/styles/base.css" />
         </HeadCustom>
         <body>
           <Main />
           <NextScript />
-          <script
-            defer
-            src="//cdn.embedly.com/widgets/platform.js"
-            charSet="UTF-8"
-          />
-          <script defer src="https://www.riddle.com/files/js/embed.js" />
           {gtmEnvs.includes(env) && <GTMBody />}
-          {/* <link rel="stylesheet" href="/styles/deferred.css" /> */}
+          <JS />
         </body>
       </Html>
     );

@@ -1,3 +1,4 @@
+import React from 'react';
 import ReactMarkdown from 'react-markdown';
 // import dynamic from 'next/dynamic';
 import Text from 'core/atoms/text';
@@ -30,4 +31,4 @@ const HeroTitle: React.FC<IHeroTitleProps> = ({ text }) => {
   );
 };
 
-export default HeroTitle;
+export default React.memo(HeroTitle);

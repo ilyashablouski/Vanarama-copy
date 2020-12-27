@@ -8,7 +8,7 @@
     "url": "https://github.com/iamgnlc"
   },
   "homepage": "https://github.com/Autorama/next-storefront",
-  "license": "UNLICENCED",
+  "license": "UNLICENSED",
   "scripts": {
     "analyze-build": "NODE_OPTIONS=--max-old-space-size=8192 ANALYZE=true yarn build",
     "apollo:generate": "rimraf generated && apollo client:codegen generated --target=typescript --outputFlat --no-addTypename",
@@ -54,6 +54,7 @@
     "next": "^10.0.1",
     "next-compose-plugins": "^2.2.0",
     "next-images": "^1.3.1",
+    "next-offline": "^5.0.3",
     "next-plugin-custom-babel-config": "^1.0.2",
     "next-with-apollo": "^5.0.1",
     "node-fetch": "^2.6.0",
@@ -158,7 +159,6 @@
     "jest-sonar-reporter": "^2.0.0",
     "js-yaml-loader": "^1.2.2",
     "mini-css-extract-plugin": "^1.3.3",
-    "moment": "^2.24.0",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^1.19.1",

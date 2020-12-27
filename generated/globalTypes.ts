@@ -505,6 +505,7 @@ export interface VehicleProductInputObject {
   finalPayment?: number | null;
   financeType?: string | null;
   funderId?: string | null;
+  leadTime?: string | null;
   maintenance?: boolean | null;
   maintenancePrice?: number | null;
   monthlyPayment?: number | null;

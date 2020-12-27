@@ -42,15 +42,14 @@ exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
   <div
     className="image -expand"
   >
-    <span
+    <img
+      alt="title"
       className="image--native"
-      style={
-        Object {
-          "display": "inline-block",
-          "height": "500",
-          "width": "900",
-        }
-      }
+      height="500"
+      loading="lazy"
+      sizes="(min-width:3200px) 800px, 1200px"
+      src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+      width="900"
     />
   </div>
 </div>

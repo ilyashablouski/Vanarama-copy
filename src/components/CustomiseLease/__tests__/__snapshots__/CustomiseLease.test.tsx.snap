@@ -518,11 +518,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       }
     >
       <div
-        style={
-          Object {
-            "height": "2rem",
-          }
-        }
+        className="content-wrapper"
       >
         <div
           className="price -xlarge -black"
@@ -551,11 +547,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         </div>
       </div>
       <div
-        style={
-          Object {
-            "height": "5.5rem",
-          }
-        }
+        className="button-wrapper"
       >
         <button
           className="button -fullwidth -teal -regular -solid"
@@ -1112,11 +1104,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       }
     >
       <div
-        style={
-          Object {
-            "height": "2rem",
-          }
-        }
+        className="content-wrapper"
       >
         <div
           className="price -xlarge -black"
@@ -1145,11 +1133,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         </div>
       </div>
       <div
-        style={
-          Object {
-            "height": "5.5rem",
-          }
-        }
+        className="button-wrapper"
       >
         <button
           className="button -fullwidth -teal -regular -solid"
