@@ -6,13 +6,11 @@ Array [
     <div
       className="image -expand -plain"
     >
-      <span
+      <img
         className="image--native"
-        style={
-          Object {
-            "display": "inline-block",
-          }
-        }
+        loading="lazy"
+        sizes="(min-width:3200px) 800px, 1200px"
+        src="https://www.vanarama.com/Assets/images-optimised/home/national-league.png"
       />
     </div>
   </div>,
@@ -37,13 +35,11 @@ Array [
     <div
       className="image -expand -plain"
     >
-      <span
+      <img
         className="image--native"
-        style={
-          Object {
-            "display": "inline-block",
-          }
-        }
+        loading="lazy"
+        sizes="(min-width:3200px) 800px, 1200px"
+        src="https://www.vanarama.com/Assets/images-optimised/home/league-cup.png"
       />
     </div>
   </div>,
@@ -56,13 +52,12 @@ Array [
     <div
       className="image -expand -plain"
     >
-      <span
+      <img
+        alt="image1"
         className="image--native"
-        style={
-          Object {
-            "display": "inline-block",
-          }
-        }
+        loading="lazy"
+        sizes="(min-width:3200px) 800px, 1200px"
+        src="https://www.vanarama.com/Assets/images-optimised/home/national-league.png"
       />
     </div>
   </div>,
@@ -87,13 +82,12 @@ Array [
     <div
       className="image -expand -plain"
     >
-      <span
+      <img
+        alt="image1"
         className="image--native"
-        style={
-          Object {
-            "display": "inline-block",
-          }
-        }
+        loading="lazy"
+        sizes="(min-width:3200px) 800px, 1200px"
+        src="https://www.vanarama.com/Assets/images-optimised/home/league-cup.png"
       />
     </div>
   </div>,
