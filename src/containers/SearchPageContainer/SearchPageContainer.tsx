@@ -64,8 +64,9 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Head from '../../components/Head/Head';
 import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
-import TopOffersContainer from './TopOffersContainer';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb'; // Note: Dynamic import this, will break search filter bar.
+import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import RangeCard from './RangeCard';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -94,16 +95,12 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
 });
-
 const TileLink = dynamic(() => import('../../components/TileLink/TileLink'), {
   loading: () => <Skeleton count={1} />,
 });
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
   ssr: false,
-});
-const RangeCard = dynamic(() => import('./RangeCard'), {
-  loading: () => <Skeleton count={3} />,
 });
 const VehicleCard = dynamic(() => import('./VehicleCard'), {
   loading: () => <Skeleton count={3} />,

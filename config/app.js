@@ -39,14 +39,35 @@ module.exports = {
 
     // Headers.
     async headers() {
+      const securityHeaders = [
+        {
+          key: 'Strict-Transport-Security',
+          value: 'max-age=31536000; includeSubDomains',
+        },
+        {
+          key: 'X-Frame-Options',
+          value: 'SAMEORIGIN',
+        },
+        {
+          key: 'X-XSS-Protection',
+          value: '1; mode=block',
+        },
+      ];
       return [
         {
-          // 30 days for CSS.
+          source: '/',
+          headers: securityHeaders,
+        },
+        {
+          source: '/:slug*',
+          headers: securityHeaders,
+        },
+        {
           source: '/styles/:slug',
           headers: [
             {
               key: 'Cache-Control',
-              value: 'public, max-age=3888000',
+              value: 'public, max-age=2592000',
             },
           ],
         },
