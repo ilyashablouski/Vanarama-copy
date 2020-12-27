@@ -73,9 +73,7 @@ const Head: FC<IHeadProps> = props => {
       })}
 
       {PRECONNECT.map(domain => {
-        return (
-          <link rel="preconnect dns-prefetch" href={domain} key={domain} />
-        );
+        return <link rel="dns-prefetch" href={domain} key={domain} />;
       })}
     </NextHead>
   );

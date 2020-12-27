@@ -5,22 +5,13 @@ exports[`<Card /> Article Card should render correctly 1`] = `
   className="card"
   data-testid="card"
 >
-  <t
-    afterLoad={[Function]}
-    beforeLoad={[Function]}
+  <img
     className="card-image"
     data-testid="card-image"
-    delayMethod="throttle"
-    delayTime={300}
-    effect=""
+    loading="lazy"
     onError={[Function]}
-    placeholderSrc={null}
     sizes="(min-width:3200px) 800px, 1200px"
     src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
-    threshold={100}
-    useIntersectionObserver={true}
-    visibleByDefault={false}
-    wrapperClassName=""
   />
   <Memo()
     title="Article Card"
@@ -56,22 +47,13 @@ exports[`<Card /> Featured Review Card should render correctly 1`] = `
   className="card"
   data-testid="card"
 >
-  <t
-    afterLoad={[Function]}
-    beforeLoad={[Function]}
+  <img
     className="card-image"
     data-testid="card-image"
-    delayMethod="throttle"
-    delayTime={300}
-    effect=""
+    loading="lazy"
     onError={[Function]}
-    placeholderSrc={null}
     sizes="(min-width:3200px) 800px, 1200px"
     src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
-    threshold={100}
-    useIntersectionObserver={true}
-    visibleByDefault={false}
-    wrapperClassName=""
   />
   <Memo()
     link={
@@ -99,22 +81,13 @@ exports[`<Card /> should render correctly only image 1`] = `
   className="card"
   data-testid="card"
 >
-  <t
-    afterLoad={[Function]}
-    beforeLoad={[Function]}
+  <img
     className="card-image"
     data-testid="card-image"
-    delayMethod="throttle"
-    delayTime={300}
-    effect=""
+    loading="lazy"
     onError={[Function]}
-    placeholderSrc={null}
     sizes="(min-width:3200px) 800px, 1200px"
     src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
-    threshold={100}
-    useIntersectionObserver={true}
-    visibleByDefault={false}
-    wrapperClassName=""
   />
 </div>
 `;

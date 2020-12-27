@@ -37,6 +37,43 @@ module.exports = {
       rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
     },
 
+    // Headers.
+    async headers() {
+      const securityHeaders = [
+        {
+          key: 'Strict-Transport-Security',
+          value: 'max-age=31536000; includeSubDomains',
+        },
+        {
+          key: 'X-Frame-Options',
+          value: 'SAMEORIGIN',
+        },
+        {
+          key: 'X-XSS-Protection',
+          value: '1; mode=block',
+        },
+      ];
+      return [
+        {
+          source: '/',
+          headers: securityHeaders,
+        },
+        {
+          source: '/:slug*',
+          headers: securityHeaders,
+        },
+        {
+          source: '/styles/:slug',
+          headers: [
+            {
+              key: 'Cache-Control',
+              value: 'public, max-age=2592000',
+            },
+          ],
+        },
+      ];
+    },
+
     // Rewrites.
     async rewrites() {
       if (process.env.LOCAL) {
@@ -63,14 +100,32 @@ module.exports = {
         fs: 'empty',
       };
 
-      if (config.mode === 'pro;duction' && config.name === 'client') {
+      if (config.mode === 'production' && config.name === 'client') {
         config.optimization.splitChunks = {
           ...config.optimization.splitChunks,
           chunks: 'all',
-          minSize: 10000,
-          maxSize: 150000,
+          // minSize: 10000,
+          maxSize: 120000,
           maxAsyncRequests: 100,
           maxInitialRequests: 100,
+          cacheGroups: {
+            ...config.optimization.splitChunks.cacheGroups,
+            core: {
+              test: /[\\/]src[\\/]core[\\/]/,
+              chunks: 'all',
+              minSize: 0,
+            },
+            utils: {
+              test: /[\\/]src[\\/]utils[\\/]/,
+              chunks: 'all',
+              minSize: 0,
+            },
+            hooks: {
+              test: /[\\/]src[\\/]hooks[\\/]/,
+              chunks: 'all',
+              minSize: 0,
+            },
+          },
         };
       }
 

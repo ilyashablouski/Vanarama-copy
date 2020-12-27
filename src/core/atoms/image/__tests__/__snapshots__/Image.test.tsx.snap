@@ -4,13 +4,11 @@ exports[`<Image /> renders correctly 1`] = `
 <div
   className="image -expand"
 >
-  <span
+  <img
     className="image--native"
-    style={
-      Object {
-        "display": "inline-block",
-      }
-    }
+    loading="lazy"
+    sizes="(min-width:3200px) 800px, 1200px"
+    src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349"
   />
 </div>
 `;
@@ -19,13 +17,11 @@ exports[`<Image /> renders correctly with optional props 1`] = `
 <div
   className="image class -small"
 >
-  <span
+  <img
     className="image--native"
-    style={
-      Object {
-        "display": "inline-block",
-      }
-    }
+    loading="lazy"
+    sizes="(min-width:3200px) 800px, 1200px"
+    src="https://source.unsplash.com/collection/2102317/1000x650?sig=40349"
   />
 </div>
 `;
