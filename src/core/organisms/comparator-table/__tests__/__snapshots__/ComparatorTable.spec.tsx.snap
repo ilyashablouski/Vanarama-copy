@@ -361,43 +361,14 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                               className="card"
                               data-testid="card"
                             >
-                              <t
-                                afterLoad={[Function]}
-                                beforeLoad={[Function]}
+                              <img
                                 className="card-image"
                                 data-testid="card-image"
-                                delayMethod="throttle"
-                                delayTime={300}
-                                effect=""
+                                loading="lazy"
                                 onError={[Function]}
-                                placeholderSrc={null}
                                 sizes="(min-width:3200px) 800px, 1200px"
                                 src="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg"
-                                threshold={100}
-                                useIntersectionObserver={true}
-                                visibleByDefault={false}
-                                wrapperClassName=""
-                              >
-                                <t
-                                  afterLoad={[Function]}
-                                  beforeLoad={[Function]}
-                                  className="card-image"
-                                  delayMethod="throttle"
-                                  delayTime={300}
-                                  threshold={100}
-                                  useIntersectionObserver={true}
-                                  visibleByDefault={false}
-                                >
-                                  <img
-                                    className="card-image"
-                                    data-testid="card-image"
-                                    onError={[Function]}
-                                    onLoad={[Function]}
-                                    sizes="(min-width:3200px) 800px, 1200px"
-                                    src="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg"
-                                  />
-                                </t>
-                              </t>
+                              />
                               <Memo()
                                 description="1.6 GDi SE Nav 5DR 2WD"
                                 title="Peugeot 208"
@@ -521,43 +492,14 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                               className="card"
                               data-testid="card"
                             >
-                              <t
-                                afterLoad={[Function]}
-                                beforeLoad={[Function]}
+                              <img
                                 className="card-image"
                                 data-testid="card-image"
-                                delayMethod="throttle"
-                                delayTime={300}
-                                effect=""
+                                loading="lazy"
                                 onError={[Function]}
-                                placeholderSrc={null}
                                 sizes="(min-width:3200px) 800px, 1200px"
                                 src="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg"
-                                threshold={100}
-                                useIntersectionObserver={true}
-                                visibleByDefault={false}
-                                wrapperClassName=""
-                              >
-                                <t
-                                  afterLoad={[Function]}
-                                  beforeLoad={[Function]}
-                                  className="card-image"
-                                  delayMethod="throttle"
-                                  delayTime={300}
-                                  threshold={100}
-                                  useIntersectionObserver={true}
-                                  visibleByDefault={false}
-                                >
-                                  <img
-                                    className="card-image"
-                                    data-testid="card-image"
-                                    onError={[Function]}
-                                    onLoad={[Function]}
-                                    sizes="(min-width:3200px) 800px, 1200px"
-                                    src="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg"
-                                  />
-                                </t>
-                              </t>
+                              />
                               <Memo()
                                 description="1.6 GDi SE Nav 5DR 2WD"
                                 title="Peugeot 208"

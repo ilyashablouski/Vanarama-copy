@@ -39,6 +39,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <img
               alt="Hero Image"
               class="image--native"
+              loading="lazy"
               sizes="(min-width:3200px) 800px, 1200px"
               src="https://www.vanarama.com/assets/images/insurance/home-hero/insurance-hero.png"
             />

@@ -30,6 +30,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
           >
             <img
               class="image--native"
+              loading="lazy"
               sizes="(min-width:3200px) 800px, 1200px"
               src="https://www.vanarama.com/assets/images/insurance/home-hero/insurance-hero.png"
             />
@@ -545,6 +546,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
         <img
           alt="AudiQ30718 4 k5ojqt"
           class="image--native"
+          loading="lazy"
           sizes="(min-width:3200px) 800px, 1200px"
           src="//images.ctfassets.net/3xid768u5joa/2QbzKD75ObIHIeVMzNeCF/1455166780ba4eb095c965e278a63b69/AudiQ30718_4_k5ojqt.jpg"
         />
