@@ -37,6 +37,22 @@ module.exports = {
       rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
     },
 
+    // Headers.
+    async headers() {
+      return [
+        {
+          // 30 days for CSS.
+          source: '/styles/:slug',
+          headers: [
+            {
+              key: 'Cache-Control',
+              value: 'public, max-age=3888000',
+            },
+          ],
+        },
+      ];
+    },
+
     // Rewrites.
     async rewrites() {
       if (process.env.LOCAL) {
