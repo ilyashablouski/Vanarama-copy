@@ -1,6 +1,9 @@
 import { AddressHistoryInputObject } from '../../../generated/globalTypes';
 import { IAddressFormValues } from '../../components/AddressForm/interfaces';
-import { historyToMoment } from '../../utils/dates';
+import {
+  reverseDefaultFormatDate,
+  historyToDateObject,
+} from '../../utils/dates';
 
 // eslint-disable-next-line import/prefer-default-export
 export const formValuesToInput = (
@@ -11,6 +14,6 @@ export const formValuesToInput = (
   addresses: values.history.map(item => ({
     serviceId: item.address?.id,
     propertyStatus: item.status,
-    startedOn: historyToMoment(item).format('YYYY-MM-DD'),
+    startedOn: reverseDefaultFormatDate(historyToDateObject(item)),
   })),
 });

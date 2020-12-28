@@ -1,14 +1,13 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 import { gql } from '@apollo/client';
-import moment from 'moment';
 import FCWithFragments from '../../utils/FCWithFragments';
 
 import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
 import { addressToDisplay } from '../../utils/address';
 import { sortAddresses } from './helpers';
 import { DirectorFormValues } from '../DirectorDetailsForm/interfaces';
-import { formatDate } from '../../utils/dates';
+import { fullMonthFormatDate, formatDate } from '../../utils/dates';
 import Skeleton from '../Skeleton';
 
 const StructuredList = dynamic(() => import('core/organisms/structured-list'), {
@@ -70,7 +69,7 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
       label: 'Date Moved In',
       value:
         (currentAddress &&
-          moment(currentAddress.startedOn).format('MMMM YYYY')) ||
+          fullMonthFormatDate(new Date(currentAddress.startedOn))) ||
         '',
       dataTestId: `summary-director[${orderBySharehold}]-curr-moved-in`,
     },

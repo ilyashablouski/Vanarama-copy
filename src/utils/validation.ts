@@ -1,13 +1,12 @@
 import * as Yup from 'yup';
-import moment from 'moment';
-import { historyToMoment } from './dates';
+import { diffInYear, historyToDateObject } from './dates';
 
 export function checkFuture(this: Yup.TestContext) {
   const { month, year } = this.parent as any;
   if (month && year) {
-    const asMoment = historyToMoment({ month, year });
-    const now = moment();
-    if (asMoment.isAfter(now)) {
+    const asMoment = historyToDateObject({ month, year });
+    const now = new Date();
+    if (asMoment.getTime() > now.getTime()) {
       return false;
     }
   }
@@ -32,15 +31,12 @@ export function isDateOfBirthValid<T extends WithDateOfBirthFields>({
   monthOfBirth,
   yearOfBirth,
 }: T) {
-  const now = moment();
-  const parsed = moment(
-    `${dayOfBirth}-${monthOfBirth}-${yearOfBirth}`,
-    'DD-MM-YYYY',
-  );
+  const parsed = `${monthOfBirth}-${dayOfBirth}-${yearOfBirth}`;
 
-  if (!parsed.isValid() || now.diff(parsed, 'years') > 120) {
+  // eslint-disable-next-line no-restricted-globals
+  if (isNaN(new Date(parsed).valueOf()) || diffInYear(parsed) > 120) {
     return 'Oops, is your age correct?';
   }
 
-  return now.diff(parsed, 'years') < 18 ? 'Oops, you’re too young.' : null;
+  return diffInYear(parsed) < 18 ? 'Oops, you’re too young.' : null;
 }
