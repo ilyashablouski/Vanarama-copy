@@ -9,10 +9,10 @@ import BusinessSummaryFormContainer from '../../../../containers/BusinessSummary
 import withApollo from '../../../../hocs/withApollo';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 import useSoleTraderJourney from '../../../../hooks/useSoleTraderJourney';
-import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
 import { pushSummaryDataLayer } from '../../../../utils/dataLayerHelpers';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
+import { OrderInputObject } from '../../../../../generated/globalTypes';
 
 type QueryParams = {
   companyUuid: string;
@@ -30,10 +30,7 @@ const BusinessSummaryPage: NextPage = () => {
   const orderId = useGetOrderId();
   const personUuid = useGetPersonUuid();
   const isSoleTrader = useSoleTraderJourney();
-  const [
-    detailsData,
-    setDetailsData,
-  ] = useState<GetOlafData_orderByUuid | null>(null);
+  const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
   const [
     derivativeData,
     setDerivativeData,

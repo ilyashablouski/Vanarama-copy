@@ -33,6 +33,7 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
               >
                 <img
                   class="image--native"
+                  loading="lazy"
                   sizes="(min-width:3200px) 800px, 1200px"
                   src="//images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg"
                 />

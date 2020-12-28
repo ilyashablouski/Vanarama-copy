@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import cx from 'classnames';
-import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 import { IImageProps } from './interfaces';
 
@@ -22,7 +21,6 @@ const Image: FC<IImageProps> = props => {
     onError,
     optimisedHost,
     optimisationOptions,
-    loadImage = false,
   } = props;
 
   const { src } = props;
@@ -73,8 +71,8 @@ const Image: FC<IImageProps> = props => {
         '-inline': inline,
       })}
     >
-      <LazyLoadImage
-        visibleByDefault={loadImage}
+      <img
+        loading="lazy"
         srcSet={srcset}
         sizes="(min-width:3200px) 800px, 1200px"
         alt={alt}
@@ -90,4 +88,4 @@ const Image: FC<IImageProps> = props => {
 
 Image.displayName = 'Image';
 
-export default Image;
+export default React.memo(Image);

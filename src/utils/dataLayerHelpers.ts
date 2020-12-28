@@ -8,12 +8,12 @@ import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_vehicleConfigurationByCapId,
 } from '../../generated/GetVehicleDetails';
-import { OrderInputObject, LeaseTypeEnum } from '../../generated/globalTypes';
-import { GetPerson } from '../../generated/GetPerson';
 import {
-  GetOlafData_orderByUuid,
-  GetOlafData_orderByUuid_lineItems,
-} from '../../generated/GetOlafData';
+  OrderInputObject,
+  LeaseTypeEnum,
+  LineItemInputObject,
+} from '../../generated/globalTypes';
+import { GetPerson } from '../../generated/GetPerson';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
 import { PAGES } from './pageTypes';
 import { getDeviceType } from './deviceType';
@@ -21,9 +21,9 @@ import { getDeviceType } from './deviceType';
 interface ICheckoutData {
   price: string | number | null | undefined;
   product?: IProduct;
-  detailsData: GetOlafData_orderByUuid | null;
+  detailsData: OrderInputObject | null;
   derivativeData: GetDerivative_derivative | null;
-  lineItem: GetOlafData_orderByUuid_lineItems | undefined;
+  lineItem: LineItemInputObject | undefined;
   type?: string;
 }
 
@@ -46,7 +46,7 @@ interface IPDPData {
 }
 
 interface ISummary {
-  detailsData: GetOlafData_orderByUuid | null;
+  detailsData: OrderInputObject | null;
   derivativeData: GetDerivative_derivative | null;
   orderId: string;
   emailAddress: string | undefined;
@@ -376,11 +376,11 @@ export const pushAddToCartDataLayer = ({
 };
 
 export const pushAboutYouDataLayer = (
-  detailsData: GetOlafData_orderByUuid | null,
+  detailsData: OrderInputObject | null,
   derivativeData: GetDerivative_derivative | null,
   type?: string,
 ) => {
-  const lineItem = detailsData?.lineItems[0];
+  const lineItem = detailsData?.lineItems?.[0];
   const price = lineItem?.vehicleProduct?.monthlyPayment;
   const data = {
     event: 'checkout',

@@ -162,4 +162,4 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   );
 };
 
-export default ProductCarousel;
+export default React.memo(ProductCarousel);

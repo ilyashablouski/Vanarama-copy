@@ -8,27 +8,13 @@
 
 Next.js Storefront frontend.
 
-## Getting Started
-
-Create `.npmrc` file in your home directory and add `_authToken`, for example:
-
-```sh
-//registry.npmjs.org/:_authToken=AUTH_TOKEN
-```
-
 Install the dependencies
 
 ```sh
 $ yarn install
 ```
 
-Create a `.env` file by copying `.env.example` and fill in the values
-
-```sh
-$ cp .env.example .env
-```
-
-## Developing locally
+## Development mode
 
 Run:
 
@@ -36,37 +22,25 @@ Run:
 $ yarn dev
 ```
 
+## Production mode
+
+Run:
+
+```sh
+$ yarn build
+
+$ yarn start
+```
+
 Open [http://localhost:6601](http://localhost:6601).
 
-## Generate Apollo types.
+## Generate Apollo types
 
 Run:
 
 ```sh
 $ yarn apollo:generate
 ```
-
-## (DEPRECATED) Developing locally with Docker
-
-You need to have the environment variable `NPM_TOKEN` set for this to install dependencies correctly. Easiest way to do this is to edit your `.bashrc` or `.zshrc` files with the following:
-
-```sh
-$ export NPM_TOKEN=your-token-goes-here
-```
-
-Or you can add it to your local `.env` if you want to keep your machine clean.
-
-**N.B.:** Don't wrap the token in quotes!
-
-You can get a token by logging into NPM as the user `autoramasultan` or by asking one of the devs.
-
-Then simply run:
-
-```sh
-$ docker-compose up
-```
-
-Volume mounting is configured in the `docker-compose.yml` and therefore you will get hot module reloading when changing code locally.
 
 ## Running tests
 
@@ -76,12 +50,6 @@ Tests are executed using [Jest](https://jestjs.io/).
 
 ```sh
 $ yarn test
-```
-
-### With Docker
-
-```sh
-$ docker-compose exec next-storefront yarn test
 ```
 
 ## Static Code Analysis

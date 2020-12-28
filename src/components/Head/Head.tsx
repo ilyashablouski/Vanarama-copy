@@ -38,6 +38,7 @@ const Head: FC<IHeadProps> = props => {
   return (
     <NextHead>
       <title>{title}</title>
+      <link rel="icon" type="image/png" href="/favicon.png" />
       <meta name="og:type" content="website" />
       <meta property="og:locale" content="en_GB" />
       <meta property="og:title" content={title || defaultTitle} />
@@ -72,9 +73,7 @@ const Head: FC<IHeadProps> = props => {
       })}
 
       {PRECONNECT.map(domain => {
-        return (
-          <link rel="preconnect dns-prefetch" href={domain} key={domain} />
-        );
+        return <link rel="dns-prefetch" href={domain} key={domain} />;
       })}
     </NextHead>
   );

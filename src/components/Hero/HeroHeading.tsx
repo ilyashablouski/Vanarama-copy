@@ -1,15 +1,8 @@
-// import dynamic from 'next/dynamic';
+import React from 'react';
 import Heading from 'core/atoms/heading';
 import getTitleTag from '../../utils/getTitleTag';
 import { IHeroHeadingProps } from './interface';
 import Skeleton from '../Skeleton';
-
-// const Heading = dynamic(
-//   () => import('core/atoms/heading'),
-//   {
-//     loading: () => <Skeleton count={1} />,
-//   },
-// );
 
 const HeroHeading: React.FC<IHeroHeadingProps> = ({ text, titleTag }) => {
   if (!text) return <Skeleton count={2} />;
@@ -25,4 +18,4 @@ const HeroHeading: React.FC<IHeroHeadingProps> = ({ text, titleTag }) => {
   );
 };
 
-export default HeroHeading;
+export default React.memo(HeroHeading);

@@ -1,16 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Select from 'core/atoms/select';
-// import Heading from 'core/atoms/heading';
-// import Button from 'core/atoms/button';
-// import Form from 'core/organisms/form';
-// import Formgroup from 'core/molecules/formgroup';
-// import Card from 'core/molecules/cards';
-// import Tabs from 'core/molecules/tabs';
-// import Tab from 'core/molecules/tabs/Tab';
-// import TabList from 'core/molecules/tabs/TabList';
-// import TabPanel from 'core/molecules/tabs/TabPanel';
-// import TabPanels from 'core/molecules/tabs/TabPanels';
 import {
   filterList_filterList_groupedRangesWithSlug as IRangesSlug,
   filterList_filterList_groupedRangesWithSlug_children as IOptionsDropdown,
@@ -190,4 +180,4 @@ const SearchPod = ({
   );
 };
 
-export default SearchPod;
+export default React.memo(SearchPod);

@@ -9,9 +9,9 @@ import SummaryFormContainer from '../../../containers/SummaryFormContainer/Summa
 import withApollo from '../../../hocs/withApollo';
 import { OLAFQueryParams } from '../../../utils/url';
 import { GET_PERSON_INFORMATION } from '../address-history/[orderId]';
-import { GetOlafData_orderByUuid } from '../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../generated/GetDerivative';
 import { pushSummaryDataLayer } from '../../../utils/dataLayerHelpers';
+import { OrderInputObject } from '../../../../generated/globalTypes';
 
 type QueryParams = OLAFQueryParams & {
   uuid: string;
@@ -20,10 +20,7 @@ type QueryParams = OLAFQueryParams & {
 const SummaryPage: NextPage = () => {
   const router = useRouter();
   const { orderId, uuid } = router.query as QueryParams;
-  const [
-    detailsData,
-    setDetailsData,
-  ] = useState<GetOlafData_orderByUuid | null>(null);
+  const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
   const [
     derivativeData,
     setDerivativeData,
