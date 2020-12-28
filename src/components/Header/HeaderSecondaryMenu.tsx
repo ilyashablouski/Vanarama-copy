@@ -197,6 +197,10 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
           <div className="menu-featured">
             <RouterLink link={{ href: promotionalImage?.url, label: '' }}>
               <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                optimisationOptions={{
+                  quality: 40,
+                }}
                 src={promotionalImage?.image.url || '/img-placeholder.png'}
                 alt={promotionalImage?.image.fileName}
               />
