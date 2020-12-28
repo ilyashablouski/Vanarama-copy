@@ -1,5 +1,5 @@
 import * as Yup from 'yup';
-import { diffInYear, historyToDateObject } from './dates';
+import { diffInYear, historyToDateObject, validateDateString } from './dates';
 
 export function checkFuture(this: Yup.TestContext) {
   const { month, year } = this.parent as any;
@@ -33,8 +33,12 @@ export function isDateOfBirthValid<T extends WithDateOfBirthFields>({
 }: T) {
   const parsed = `${monthOfBirth}-${dayOfBirth}-${yearOfBirth}`;
 
-  // eslint-disable-next-line no-restricted-globals
-  if (isNaN(new Date(parsed).valueOf()) || diffInYear(parsed) > 120) {
+  if (
+    !validateDateString(dayOfBirth, monthOfBirth, yearOfBirth) ||
+    // eslint-disable-next-line no-restricted-globals
+    isNaN(new Date(parsed).valueOf()) ||
+    diffInYear(parsed) > 120
+  ) {
     return 'Oops, is your age correct?';
   }
 

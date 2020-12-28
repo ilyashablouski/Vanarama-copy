@@ -154,3 +154,22 @@ export function calculateRemainingMonths(
   const diff = diffInMonth(earliest, new Date());
   return Math.max(required - diff, 0);
 }
+
+// validate for existing date, for example 31 Feb
+export const validateDateString = (
+  day: string,
+  month: string,
+  year: string,
+) => {
+  const dayNumber = Number(day);
+  const monthNumber = Number(month) - 1; // bloody 0-indexed month
+  const yearNumber = Number(year);
+
+  const d = new Date(`${month}-${day}-${year}`);
+
+  const yearMatches = d.getFullYear() === yearNumber;
+  const monthMatches = d.getMonth() === monthNumber;
+  const dayMatches = d.getDate() === dayNumber;
+
+  return yearMatches && monthMatches && dayMatches;
+};
