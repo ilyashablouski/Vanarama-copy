@@ -95,6 +95,11 @@ module.exports = {
       // Allow absolute imports.
       config.resolve.modules = [...config.resolve.modules, 'src'];
 
+      config.module.rules.push({
+        test: /\.css$/i,
+        use: 'raw-loader',
+      });
+
       // Fixes npm packages that depend on `fs` module.
       config.node = {
         fs: 'empty',
