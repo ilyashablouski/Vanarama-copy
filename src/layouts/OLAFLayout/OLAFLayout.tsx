@@ -8,18 +8,18 @@ import { useState, useEffect, ReactNode } from 'react';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import { useOlafData, useCarDerivativeData } from '../../gql/order';
+import { useCarDerivativeData } from '../../gql/order';
 import { createOlafDetails, useFunderTerm, OlafContext } from './helpers';
 import {
   GetDerivative_derivative,
   GetDerivative_vehicleImages as VehicleImages,
 } from '../../../generated/GetDerivative';
-import { GetOlafData_orderByUuid } from '../../../generated/GetOlafData';
-import useGetOrderId from '../../hooks/useGetOrderId';
+import useGetOrder from '../../hooks/useGetOrder';
+import { OrderInputObject } from '../../../generated/globalTypes';
 
 interface IProps {
   setDetailsData?: React.Dispatch<
-    React.SetStateAction<GetOlafData_orderByUuid | null>
+    React.SetStateAction<OrderInputObject | null>
   >;
   setDerivativeData?: React.Dispatch<
     React.SetStateAction<GetDerivative_derivative | null>
@@ -32,20 +32,17 @@ const OLAFLayout: React.FC<IProps> = ({
   setDetailsData,
   setDerivativeData,
 }) => {
-  const orderId = useGetOrderId();
+  const order = useGetOrder();
 
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
   const showAside = !isMobile || asideOpen;
 
-  // get Order data and Derivative data for order car
-  const olafData = useOlafData(orderId);
-  const orderByUuid = olafData && olafData.data?.orderByUuid;
-  const lineItem = orderByUuid?.lineItems[0];
+  const vehicleProduct = order?.lineItems?.[0]?.vehicleProduct;
 
   const [getDerivativeData, derivativeData] = useCarDerivativeData(
-    lineItem?.vehicleProduct?.derivativeCapId || '',
-    lineItem?.vehicleProduct?.vehicleType,
+    vehicleProduct?.derivativeCapId || '',
+    vehicleProduct?.vehicleType,
   );
   const derivative = derivativeData && derivativeData.data?.derivative;
   const mainImage =
@@ -54,24 +51,19 @@ const OLAFLayout: React.FC<IProps> = ({
     (derivativeData.data?.vehicleImages as VehicleImages[])[0]?.mainImageUrl;
 
   useEffect(() => {
-    if (orderByUuid) {
+    if (vehicleProduct) {
       getDerivativeData();
     }
-  }, [orderByUuid, getDerivativeData]);
+  }, [vehicleProduct, getDerivativeData]);
 
   useEffect(() => {
-    if (
-      orderByUuid &&
-      derivativeData.data &&
-      setDetailsData &&
-      setDerivativeData
-    ) {
-      setDetailsData(orderByUuid);
+    if (order && derivativeData.data && setDetailsData && setDerivativeData) {
+      setDetailsData(order);
       setDerivativeData(derivativeData.data.derivative);
     }
-  }, [orderByUuid, setDerivativeData, setDetailsData, derivativeData]);
+  }, [order, setDerivativeData, setDetailsData, derivativeData]);
 
-  const term = useFunderTerm(olafData.data?.orderByUuid);
+  const term = useFunderTerm(order);
 
   return (
     <>
@@ -91,16 +83,16 @@ const OLAFLayout: React.FC<IProps> = ({
         <OlafContext.Provider value={{ requiredMonths: term }}>
           {children}
         </OlafContext.Provider>
-        {showAside && orderByUuid && derivative && (
+        {showAside && order && derivative && (
           <div className="olaf-aside">
             <OlafCard
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               header={{
-                text: lineItem?.vehicleProduct?.leadTime || '',
+                text: vehicleProduct?.leadTime || '',
               }}
               olafDetails={createOlafDetails(
-                orderByUuid.leaseType,
-                lineItem?.vehicleProduct!,
+                order.leaseType,
+                vehicleProduct!,
                 derivative,
               )}
               initialRentalDataTestId="about_intial-rental-testID"
