@@ -109,14 +109,14 @@ module.exports = {
         config.optimization.splitChunks = {
           ...config.optimization.splitChunks,
           chunks: 'all',
-          // minSize: 10000,
+          minSize: 20000,
           maxSize: 120000,
           maxAsyncRequests: 100,
           maxInitialRequests: 100,
           cacheGroups: {
             ...config.optimization.splitChunks.cacheGroups,
             core: {
-              test: /[\\/]src[\\/]core[\\/]/,
+              test: /[\\/]src[\\/]core[\\/]assets[\\/]icons[\\/]/,
               chunks: 'all',
               minSize: 0,
             },
