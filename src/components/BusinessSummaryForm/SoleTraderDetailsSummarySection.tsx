@@ -1,9 +1,8 @@
-import moment from 'moment';
 import dynamic from 'next/dynamic';
 import { SummaryFormSoleTrader_associates as SoleTraderAssociate } from '../../../generated/SummaryFormSoleTrader';
 import { addressToDisplay } from '../../utils/address';
 import { sortAddresses } from './helpers';
-import { dateToFormat } from '../../utils/dates';
+import { fullMonthFormatDate, dateToFormat } from '../../utils/dates';
 
 import Skeleton from '../Skeleton';
 
@@ -97,7 +96,7 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
             label: 'Date Moved In',
             value:
               (currentAddress &&
-                moment(currentAddress.startedOn).format('MMMM YYYY')) ||
+                fullMonthFormatDate(new Date(currentAddress.startedOn))) ||
               '',
             dataTestId: `summary-soleTrader-curr-moved-in`,
           },

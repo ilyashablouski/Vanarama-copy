@@ -1,19 +1,19 @@
-import moment from 'moment';
 import { SoleTraderAssociate_associates as SoleTrader } from '../../../generated/SoleTraderAssociate';
 import { SoleTraderPerson as Person } from '../../../generated/SoleTraderPerson';
 import { CompanyAssociateInputObject } from '../../../generated/globalTypes';
 import { ISoleTraderDetailsFormValues } from './interfaces';
 import { addressToDisplay } from '../../utils/address';
-import { historyToMoment } from '../../utils/dates';
+import {
+  reverseDefaultFormatDate,
+  historyToDateObject,
+} from '../../utils/dates';
 
 export const formValuesToAssociate = (
   values: ISoleTraderDetailsFormValues,
   personUuid: string,
 ): CompanyAssociateInputObject => {
-  const dateOfBirth = moment(
-    `${values.dayOfBirth}-${values.monthOfBirth}-${values.yearOfBirth}`,
-    'DD-MM-YYYY',
-  ).format('YYYY-MM-DD');
+  // YYYY-MM-DD
+  const dateOfBirth = `${values.yearOfBirth}-${values.monthOfBirth}-${values.dayOfBirth}`;
 
   return {
     title: values.title,
@@ -31,7 +31,7 @@ export const formValuesToAssociate = (
     addresses: values.history.map(item => ({
       serviceId: item.address?.id,
       propertyStatus: item.status,
-      startedOn: historyToMoment(item).format('YYYY-MM-DD'),
+      startedOn: reverseDefaultFormatDate(historyToDateObject(item)),
     })),
     incomeAndExpense: {
       annualIncome: Number(values.annualIncome),

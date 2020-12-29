@@ -1,4 +1,3 @@
-import moment from 'moment';
 import { GetMyOrders_myOrders_lineItems_vehicleProduct as VehicleProduct } from '../../../generated/GetMyOrders';
 import { GetDerivatives_derivatives as Derivatives } from '../../../generated/GetDerivatives';
 import {
@@ -6,6 +5,7 @@ import {
   SortDirection,
   SortField,
 } from '../../../generated/globalTypes';
+import { defaultFormatDate } from '../../utils/dates';
 
 /**
  * @param id - string, order ID
@@ -43,7 +43,7 @@ export const createOffersObject = (
   color: offer.colour || '-',
   trim: offer.trim || '-',
   orderNumber: state !== 'draft' ? id : undefined,
-  orderDate: moment(createdAt).format('DD.MM.YYYY'),
+  orderDate: defaultFormatDate(new Date(createdAt)),
   orderButton: state === 'draft' || quote || !state ? button : undefined,
 });
 

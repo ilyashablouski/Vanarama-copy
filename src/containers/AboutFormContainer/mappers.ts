@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import moment from 'moment';
 import { PersonInputObject } from '../../../generated/globalTypes';
 import { IAboutFormValues } from '../../components/AboutForm/interface';
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
@@ -9,10 +8,7 @@ export const formValuesToInput = (
   values: IAboutFormValues,
   data?: IRegistrationResult | null,
 ): PersonInputObject => {
-  const dateOfBirth = moment(
-    `${values.dayOfBirth}-${values.monthOfBirth}-${values.yearOfBirth}`,
-    'DD-MM-YYYY',
-  ).format('YYYY-MM-DD');
+  const dateOfBirth = `-${values.yearOfBirth}-${values.monthOfBirth}-${values.dayOfBirth}`;
 
   return {
     uuid: data?.uuid,

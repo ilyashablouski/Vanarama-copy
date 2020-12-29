@@ -1,13 +1,9 @@
 import { FormikErrors } from 'formik';
 import * as Yup from 'yup';
-import moment from 'moment';
 import { GetDirectorDetailsQuery_companyOfficers_nodes as DirectorFieldsOfficer } from '../../../generated/GetDirectorDetailsQuery';
 import { sum } from '../../utils/array';
 import { dateOfBirthValidator, checkFuture } from '../../utils/validation';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
-import { CompanyAssociate } from '../../../generated/CompanyAssociate';
-import { TAddressEntry } from '../AddressForm/interfaces';
-import { addressToDisplay } from '../../utils/address';
 
 export const initialEditedFormValues = (
   directors: DirectorFormValues[],
@@ -179,39 +175,6 @@ export const parseOfficers = (
     };
   });
 };
-
-export const parseAssociates = (
-  associates: CompanyAssociate[],
-): DirectorFormValues[] =>
-  associates?.map(a => {
-    const dateOfBirth = moment(a.dateOfBirth);
-    const history: TAddressEntry[] =
-      a.addresses?.map(address => {
-        const startedOn = moment(address.startedOn);
-        return {
-          address: {
-            id: address.serviceId || '',
-            label: addressToDisplay(address),
-          },
-          month: (startedOn.month() + 1).toString() || '',
-          status: address.propertyStatus || '',
-          year: startedOn.year().toString() || '',
-        };
-      }) || [];
-    return {
-      uuid: a.uuid,
-      title: a.title || '',
-      firstName: a.firstName || '',
-      lastName: a.lastName || '',
-      gender: a.gender || '',
-      shareOfBusiness: `${a.businessShare}` || '',
-      dayOfBirth: (dateOfBirth.day() + 1).toString() || '',
-      monthOfBirth: (dateOfBirth.month() + 1).toString() || '',
-      yearOfBirth: dateOfBirth.year().toString() || '',
-      numberOfDependants: a.noOfDependants || '',
-      history,
-    };
-  });
 
 export const combineDirectorsData = (
   officers: DirectorFormValues[],

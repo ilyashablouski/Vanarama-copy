@@ -1,8 +1,8 @@
-import moment from 'moment';
 import { ICompanyBankDetails } from '../../components/CompanyBankDetails/interfaces';
 import { LimitedCompanyInputObject } from '../../../generated/globalTypes';
 import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
 import { UpdateLimitedBankDetailsMutation_createUpdateLimitedCompany_bankAccounts as BankAccount } from '../../../generated/UpdateLimitedBankDetailsMutation';
+import { reverseDefaultFormatDate } from '../../utils/dates';
 
 export const formValuesToInput = (
   uuid: string,
@@ -10,10 +10,8 @@ export const formValuesToInput = (
   accountUuid?: string,
   personUuid?: string,
 ): LimitedCompanyInputObject => {
-  const joiningDate = `${values.joinedAtMonth}-${values.joinedAtYear}`;
-  const joiningDateFormatted = moment(joiningDate, 'MM-YYYY').format(
-    'YYYY-MM-DD',
-  );
+  const joiningDate = `${values.joinedAtMonth}-01-${values.joinedAtYear}`;
+  const joiningDateFormatted = reverseDefaultFormatDate(new Date(joiningDate));
 
   return {
     uuid,
