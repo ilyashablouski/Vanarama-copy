@@ -22,7 +22,7 @@
     "test": "jest",
     "pm2": "pm2 start pm2.json --env production",
     "pm2-docker": "pm2-runtime start pm2.json --env production",
-    "postbuild": "npm run build:scss",
+    "prebuild": "npm run build:scss",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
