@@ -1,15 +1,16 @@
-import moment from 'moment';
 import { QuickCreditCheckerInputObject } from '../../../generated/globalTypes';
 import { IYourEligiblityCheckerValues } from '../../components/EligibilityChecker/YourEligibilityChecker/interface';
+import { reverseDefaultFormatDate } from '../../utils/dates';
 
 // eslint-disable-next-line import/prefer-default-export
 export const formValuesToInput = (
   values: IYourEligiblityCheckerValues,
 ): QuickCreditCheckerInputObject => {
-  const dateOfBirth = moment(
-    `${values.dayOfBirth}-${values.monthOfBirth}-${values.yearOfBirth}`,
-    'DD-MM-YYYY',
-  ).format('YYYY-MM-DD');
+  const dateOfBirth = reverseDefaultFormatDate(
+    new Date(
+      `${values.monthOfBirth}-${values.dayOfBirth}-${values.yearOfBirth}`,
+    ),
+  );
 
   return {
     person: {

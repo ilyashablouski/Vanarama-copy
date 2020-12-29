@@ -1,6 +1,9 @@
 import { EmploymentHistoryInputObject } from '../../../generated/globalTypes';
 import { IEmploymentFormValues } from '../../components/EmploymentForm/interfaces';
-import { historyToMoment } from '../../utils/dates';
+import {
+  reverseDefaultFormatDate,
+  historyToDateObject,
+} from '../../utils/dates';
 
 // eslint-disable-next-line import/prefer-default-export
 export const formValuesToInput = (
@@ -12,7 +15,7 @@ export const formValuesToInput = (
     companyAddressServiceId: item.address?.id || undefined,
     companyName: item.company || undefined,
     contract: item.contract || undefined,
-    employedSinceDate: historyToMoment(item).format('YYYY-MM-DD'),
+    employedSinceDate: reverseDefaultFormatDate(historyToDateObject(item)),
     employmentStatus: item.status || undefined,
     grossAnnualIncome: Number(item.income) || undefined,
     jobTitle: item.title || undefined,
