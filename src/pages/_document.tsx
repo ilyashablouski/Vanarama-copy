@@ -1,7 +1,7 @@
 import Document, { Html, Main } from 'next/document';
 import dynamic from 'next/dynamic';
 import HeadCustom from '../hacks/headCustom';
-import Inline from '../components/Style/Inlne';
+// import Inline from '../components/Style/Inlne';
 
 // @ts-ignore
 const NextScript = dynamic(() =>
@@ -54,10 +54,10 @@ class MyDocument extends Document {
           {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
           {scriptEnvs.gtm.includes(env) && <GTMScript />}
           {/* <RollbarScript /> */}
-          <Inline />
-          {/* <link rel="preload" href="/styles/base.css" as="style" /> */}
-          {/* <link rel="stylesheet" href="/styles/base.css" /> */}
+          {/* <Inline /> */}
+          <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="preload" href="/styles/deferred.css" as="style" />
+          <link rel="stylesheet" href="/styles/base.css" />
         </HeadCustom>
         <body>
           <Main />
