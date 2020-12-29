@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic';
-import moment from 'moment';
 import React from 'react';
 import { SearchCompaniesQuery_searchCompanies_nodes as SearchResult } from '../../../generated/SearchCompaniesQuery';
 import Skeleton from '../Skeleton';
+import { fullMonthFormatDate } from '../../utils/dates';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -21,7 +21,7 @@ interface IProps {
 export default function CompanyCard({ company }: IProps) {
   const tradingSince =
     company.dateOfCreation &&
-    moment(company.dateOfCreation).format('MMMM YYYY');
+    fullMonthFormatDate(new Date(company.dateOfCreation));
 
   return (
     <Card optimisedHost={process.env.IMG_OPTIMISATION_HOST}>

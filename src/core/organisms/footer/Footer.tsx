@@ -1,14 +1,13 @@
 import React, { FC, memo } from 'react';
 import cx from 'classnames';
-import moment from 'moment';
 
+import { ILink } from 'core/interfaces/link';
 import Heading from '../../atoms/heading';
 import Link from '../../atoms/link';
 import Text from '../../atoms/text';
 import Logo from '../../atoms/logo';
 
 import { IFooterProps } from './interfaces';
-import { ILink } from '../../interfaces/link';
 import Button from '../../atoms/button';
 
 import LogoFacebook from '../../assets/icons/LogoFacebook';
@@ -32,6 +31,8 @@ const Footer: FC<IFooterProps> = memo(props => {
     linkGroupThree,
     legalText,
   } = props;
+
+  const actualYear = new Date().getFullYear();
 
   const renderLinkGroup = (
     linkGroup: ILink[],
@@ -159,7 +160,7 @@ const Footer: FC<IFooterProps> = memo(props => {
       <div className="footer--divider -fullwidth" />
       <Text tag="p" size="xsmall" color="light" className="footer--copyright">
         &copy;
-        {moment().year()} Autorama UK LTD. All rights reserved.
+        {actualYear} Autorama UK LTD. All rights reserved.
       </Text>
       {legalText && (
         <Text tag="p" size="xsmall" color="medium">

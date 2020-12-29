@@ -1,7 +1,7 @@
-import moment from 'moment';
 import { IList } from 'core/organisms/structured-list/interfaces';
 import { addressToDisplay } from '../../utils/address';
 import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
+import { fullMonthFormatDate } from '../../utils/dates';
 
 export const formatPreviousAddressesArray = (
   addresses?: Address[],
@@ -17,7 +17,8 @@ export const formatPreviousAddressesArray = (
       },
       {
         label: 'Date Moved In',
-        value: (address && moment(address.startedOn).format('MMMM YYYY')) || '',
+        value:
+          (address && fullMonthFormatDate(new Date(address.startedOn))) || '',
         dataTestId: `summary-director-past-moved-in[${testId || indx}]`,
       },
       {

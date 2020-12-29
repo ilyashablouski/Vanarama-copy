@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
-import moment from 'moment';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { ICategoryPage } from './interface';
@@ -153,10 +152,10 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   const [activePage] = useState(activePageRoute || 1);
 
   const articlesSorted = articles
-    ? [...articles]?.sort((firstArticle, secondArticle) =>
-        moment(secondArticle?.publishedOn).diff(
-          moment(firstArticle?.publishedOn),
-        ),
+    ? [...articles]?.sort(
+        (firstArticle, secondArticle) =>
+          new Date(secondArticle?.publishedOn).getTime() -
+          new Date(firstArticle?.publishedOn).getTime(),
       )
     : [];
 
