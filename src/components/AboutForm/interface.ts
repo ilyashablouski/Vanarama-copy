@@ -1,6 +1,6 @@
 import { AboutFormDropdownData } from '../../../generated/AboutFormDropdownData';
 import { AboutFormPerson } from '../../../generated/AboutFormPerson';
-import { IExistenceCheckResult } from '../AboutForm/mapEmailErrorMessage';
+import { IExistenceCheckResult } from './mapEmailErrorMessage';
 
 export interface IAboutFormValues {
   title: string;

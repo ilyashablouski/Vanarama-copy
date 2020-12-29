@@ -21,7 +21,7 @@ const loginLink = {
 
 const RegisterLink = {
   href: '',
-  label: 'login',
+  label: 'register',
 };
 
 export const createEmailErrorMessage = (
