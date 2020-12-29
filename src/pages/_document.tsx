@@ -1,7 +1,7 @@
 import Document, { Html, Main } from 'next/document';
 import dynamic from 'next/dynamic';
 import HeadCustom from '../hacks/headCustom';
-// import Inline from '../components/Style/Inlne';
+// import Inline from '../components/Style/Inline';
 
 // @ts-ignore
 const NextScript = dynamic(() =>

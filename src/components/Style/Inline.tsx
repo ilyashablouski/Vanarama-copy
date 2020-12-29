@@ -4,9 +4,9 @@ import decode from 'decode-html';
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import css from '!!raw-loader!../../../public/styles/base.css';
 
-const Deferred = () => (
+const Inline = () => (
   // eslint-disable-next-line react/no-danger
   <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
 );
 
-export default React.memo(Deferred);
+export default React.memo(Inline);
