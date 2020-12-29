@@ -12,7 +12,7 @@ import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourite
 import { IBusinessAboutFormValues, IProps } from './interfaces';
 import {
   mapEmailErrorMessage,
-  EMAIL_ALREADY_EXISTS,
+  createEmailErrorMessage,
 } from '../AboutForm/mapEmailErrorMessage';
 import { companyTypesList } from '../../models/enum/CompanyTypes';
 import Skeleton from '../Skeleton';
@@ -41,6 +41,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
   personLoggedIn,
   onEmailExistenceCheck,
   onLogInCLick,
+  onRegistrationClick,
   isEdited,
 }) => {
   const defaultValues = person || {};
@@ -172,6 +173,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         label="Email Address"
         error={mapEmailErrorMessage(
           onLogInCLick,
+          onRegistrationClick,
           errors.email?.message?.toString(),
         )}
       >
@@ -192,11 +194,13 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
                 'Oops, this email is too long. Please keep it to 254 characters',
             },
             validate: async email => {
-              if (!person) {
-                const isEmailValid = await onEmailExistenceCheck?.(email);
-                return isEmailValid ? EMAIL_ALREADY_EXISTS : undefined;
+              if (person) {
+                return undefined;
               }
-              return undefined;
+
+              const result = await onEmailExistenceCheck?.(email);
+
+              return createEmailErrorMessage(result);
             },
           })}
         />

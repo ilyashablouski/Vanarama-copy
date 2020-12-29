@@ -196,6 +196,9 @@ const AboutYouPage: NextPage = () => {
     router.push(url, url.replace('[orderId]', orderId));
   };
 
+  const handleRegistrationClick = () =>
+    router.push(`/account/login-register?redirect=${router?.asPath || '/'}`);
+
   useEffect(() => {
     localForage.getItem('person').then(value => {
       if ((value as GetPerson)?.getPerson && !personUuid) {
@@ -244,6 +247,7 @@ const AboutYouPage: NextPage = () => {
           clickOnComplete(createUpdatePerson!)
         }
         onLogInClick={() => toggleLogInVisibility(true)}
+        onRegistrationClick={handleRegistrationClick}
         personUuid={personUuid}
       />
     </OLAFLayout>
