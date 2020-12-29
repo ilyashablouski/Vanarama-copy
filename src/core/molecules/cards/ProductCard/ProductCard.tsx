@@ -25,7 +25,7 @@ export interface IProductCardProps extends ICardProps {
 const ProductCard: FC<IProductCardProps> = props => {
   const { keyInfo, capId, onCompare, children, compared } = props;
 
-  const features = useFeatures(keyInfo, capId, Icon);
+  const features = useFeatures(keyInfo || [], capId || '', Icon);
 
   return (
     <Card {...props}>
