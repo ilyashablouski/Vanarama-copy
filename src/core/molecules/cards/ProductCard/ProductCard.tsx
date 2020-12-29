@@ -8,8 +8,8 @@ import Icon from '../../../atoms/icon';
 import Scale from '../../../assets/icons/Scale';
 
 export interface IProductCardProps extends ICardProps {
-  capId: string;
-  keyInfo: any[];
+  capId?: string;
+  keyInfo?: any[];
   features?: TIcon[];
   /**
    * Function called when the "Compare" button is clicked
