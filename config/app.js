@@ -109,28 +109,28 @@ module.exports = {
         config.optimization.splitChunks = {
           ...config.optimization.splitChunks,
           chunks: 'all',
-          minSize: 20000,
-          maxSize: 120000,
-          maxAsyncRequests: 100,
-          maxInitialRequests: 100,
-          cacheGroups: {
-            ...config.optimization.splitChunks.cacheGroups,
-            core: {
-              test: /[\\/]src[\\/]core[\\/]assets[\\/]icons[\\/]/,
-              chunks: 'all',
-              minSize: 0,
-            },
-            utils: {
-              test: /[\\/]src[\\/]utils[\\/]/,
-              chunks: 'all',
-              minSize: 0,
-            },
-            hooks: {
-              test: /[\\/]src[\\/]hooks[\\/]/,
-              chunks: 'all',
-              minSize: 0,
-            },
-          },
+          minSize: 100000,
+          // maxSize: 120000,
+          // maxAsyncRequests: 100,
+          maxInitialRequests: 25,
+          // cacheGroups: {
+          //   ...config.optimization.splitChunks.cacheGroups,
+          //   core: {
+          //     test: /[\\/]src[\\/]core[\\/]assets[\\/]icons[\\/]/,
+          //     chunks: 'all',
+          //     minSize: 0,
+          //   },
+          //   utils: {
+          //     test: /[\\/]src[\\/]utils[\\/]/,
+          //     chunks: 'all',
+          //     minSize: 0,
+          //   },
+          //   hooks: {
+          //     test: /[\\/]src[\\/]hooks[\\/]/,
+          //     chunks: 'all',
+          //     minSize: 0,
+          //   },
+          // },
         };
       }
 
