@@ -1,9 +1,9 @@
 import StructuredList from 'core/organisms/structured-list';
 import { gql } from '@apollo/client';
 import React from 'react';
-import moment from 'moment';
 import { SummaryFormDetailsSectionPerson } from '../../../generated/SummaryFormDetailsSectionPerson';
 import FCWithFragments from '../../utils/FCWithFragments';
+import { defaultFormatDate } from '../../utils/dates';
 
 interface IProps {
   person: SummaryFormDetailsSectionPerson;
@@ -38,7 +38,7 @@ const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
       {
         label: 'Date of Birth',
         value: person.dateOfBirth
-          ? moment(person.dateOfBirth).format('DD/MM/YYYY')
+          ? defaultFormatDate(new Date(person.dateOfBirth), '/')
           : '',
         dataTestId: 'summary-dob',
       },

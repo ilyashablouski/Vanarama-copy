@@ -1,9 +1,9 @@
 import StructuredList from 'core/organisms/structured-list';
 import React from 'react';
-import moment from 'moment';
 import FCWithFragments from '../../utils/FCWithFragments';
 import CompanyBankDetails from '../CompanyBankDetails';
 import { ICompanyBankDetails } from '../CompanyBankDetails/interfaces';
+import { fullMonthFormatDate } from '../../utils/dates';
 
 interface IProps {
   account: ICompanyBankDetails;
@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const formatTimeAtBank = (year?: string, month?: string) =>
-  moment(`${year} ${month}`, 'YYYY MM').format('MMMM YYYY');
+  fullMonthFormatDate(new Date(`${year} ${month} 01`));
 
 const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
   account,

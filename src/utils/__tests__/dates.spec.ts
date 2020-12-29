@@ -5,6 +5,9 @@ import {
   calculateExtraneousEntries,
   calculateUnorderedEntries,
   calculateRemainingMonths,
+  fullMonthFormatDate,
+  defaultFormatDate,
+  reverseDefaultFormatDate,
 } from '../dates';
 
 describe('Date utils', () => {
@@ -77,6 +80,16 @@ describe('Date utils', () => {
       expect(
         calculateRemainingMonths([{ month: '01', year: '1999' }], 4),
       ).toStrictEqual(0);
+    });
+  });
+
+  describe('fullMonthFormatDate + reverseDefaultFormatDate + defaultFormatDate', () => {
+    it('should format date', () => {
+      expect(fullMonthFormatDate(new Date('02-25-2012'))).toBe('February 2012');
+      expect(defaultFormatDate(new Date('1988-06-04'))).toBe('04.06.1988');
+      expect(reverseDefaultFormatDate(new Date('1988-06-04'))).toBe(
+        '1988-06-04',
+      );
     });
   });
 });
