@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import useFeatures from '../../../../hooks/useFeatures';
 import { ICardProps } from '../interfaces';
 import Card from '..';
-import CardIcons from '../CardIcons';
+import CardIcons, { TIcon } from '../CardIcons';
 import Button from '../../../atoms/button';
 import Icon from '../../../atoms/icon';
 import Scale from '../../../assets/icons/Scale';
@@ -10,6 +10,7 @@ import Scale from '../../../assets/icons/Scale';
 export interface IProductCardProps extends ICardProps {
   capId: string;
   keyInfo: any[];
+  features?: TIcon[];
   /**
    * Function called when the "Compare" button is clicked
    */
