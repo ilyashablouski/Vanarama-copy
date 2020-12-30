@@ -1,12 +1,12 @@
 import StructuredList from 'core/organisms/structured-list';
 import { IList } from 'core/organisms/structured-list/interfaces';
 import { gql } from '@apollo/client';
-import moment from 'moment';
 import React, { useMemo } from 'react';
 import { SummaryFormEmploymentHistoryEmployment } from '../../../generated/SummaryFormEmploymentHistoryEmployment';
 import { addressToDisplay } from '../../utils/address';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { toCurrencyDisplay } from '../../utils/helpers';
+import { defaultFormatDate } from '../../utils/dates';
 
 interface IProps {
   employments: SummaryFormEmploymentHistoryEmployment[];
@@ -91,7 +91,7 @@ function reduceToItems(employments: SummaryFormEmploymentHistoryEmployment[]) {
         {
           label: 'Since',
           value: employment.employedSinceDate
-            ? moment(employment.employedSinceDate).format('DD/MM/YYYY')
+            ? defaultFormatDate(new Date(employment.employedSinceDate), '/')
             : '',
           dataTestId: `summary-employment[${index}].since`,
         },

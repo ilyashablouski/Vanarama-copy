@@ -13,6 +13,10 @@
     padding-top: 0;
   }
 
+  @include mobile {
+    max-height: 3rem;
+  }
+
   &:after {
     display: block;
     content: '';
@@ -46,7 +50,7 @@
 
   @include mobile-tablet {
     grid-column: full;
-    grid-template-rows: 1.25fr;
+    grid-template-rows: 1fr;
     grid-template-columns: 1rem minmax(0, 1fr) 46px 46px 46px 0.5rem;
     grid-template-areas: '.      logo   account tel    navtoggle .     ' 'search search search  search search    search';
     place-items: center;

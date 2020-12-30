@@ -1,8 +1,8 @@
 import * as yup from 'yup';
-import moment from 'moment';
 import { IAboutFormValues } from './interface';
 import { WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
 import { EMAIL_ALREADY_EXISTS } from './mapEmailErrorMessage';
+import { diffInYear } from '../../utils/dates';
 
 const reqMsg = (rel: string) => `Please enter your ${rel}`;
 
@@ -11,11 +11,9 @@ function isAgeValid({
   monthOfBirth,
   yearOfBirth,
 }: IAboutFormValues) {
-  const dateStr = `${dayOfBirth}-${monthOfBirth}-${yearOfBirth}`;
-  const validMinAge =
-    moment().diff(moment(dateStr, 'DD-MM-YYYY'), 'years') >= 18;
-  const validMaxAge =
-    moment().diff(moment(dateStr, 'DD-MM-YYYY'), 'years') <= 120;
+  const dateStr = `${monthOfBirth}-${dayOfBirth}-${yearOfBirth}`;
+  const validMinAge = diffInYear(dateStr) >= 18;
+  const validMaxAge = diffInYear(dateStr) <= 120;
 
   if (!validMaxAge) {
     return 'Oops, is your age correct?';

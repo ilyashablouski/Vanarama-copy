@@ -7,7 +7,10 @@ import {
   SaveAddressHistoryMutation as Mutation,
   SaveAddressHistoryMutationVariables as MutationVariables,
 } from '../../../../generated/SaveAddressHistoryMutation';
-import { historyToMoment } from '../../../utils/dates';
+import {
+  reverseDefaultFormatDate,
+  historyToDateObject,
+} from '../../../utils/dates';
 import AddressFormContainer from '../AddressFormContainer';
 import {
   noSavedAddresses,
@@ -119,10 +122,12 @@ describe('<AddressFormContainer />', () => {
     const now = new Date();
     const lastYear = String(now.getFullYear() - 1);
     const currentMonth = String(now.getMonth() + 1);
-    const asDateString = historyToMoment({
-      month: currentMonth,
-      year: lastYear,
-    }).format('YYYY-MM-DD');
+    const asDateString = reverseDefaultFormatDate(
+      historyToDateObject({
+        month: currentMonth,
+        year: lastYear,
+      }),
+    );
 
     const onCompletedMock = jest.fn();
     const mocks: MockedResponse[] = [
@@ -222,10 +227,12 @@ describe('<AddressFormContainer />', () => {
     const now = new Date();
     const lastYear = String(now.getFullYear() - 1);
     const currentMonth = String(now.getMonth() + 1);
-    const asDateString = historyToMoment({
-      month: currentMonth,
-      year: lastYear,
-    }).format('YYYY-MM-DD');
+    const asDateString = reverseDefaultFormatDate(
+      historyToDateObject({
+        month: currentMonth,
+        year: lastYear,
+      }),
+    );
 
     const onCompletedMock = jest.fn();
     const mocks: MockedResponse[] = [

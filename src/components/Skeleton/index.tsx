@@ -23,4 +23,4 @@ const Skeleton: React.FC<ISkeleton> = ({ count }) => {
   );
 };
 
-export default Skeleton;
+export default React.memo(Skeleton);

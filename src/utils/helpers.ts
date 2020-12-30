@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import moment from 'moment';
 import {
   GetVehicleDetails_derivativeInfo_colours,
   GetVehicleDetails_derivativeInfo_trims,
@@ -8,7 +7,20 @@ import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
-export const genMonths = moment.months;
+export const genMonths = () => [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
 
 export const genYears = (back: number) => {
   const year = new Date().getFullYear();

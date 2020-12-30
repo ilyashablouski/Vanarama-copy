@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-// import 'core/base.scss';
+// import 'core/styles/base.scss';
 import dynamic from 'next/dynamic';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
@@ -30,10 +30,6 @@ import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
 import { useMobileViewport } from '../hooks/useMediaQuery';
 
-const Deferred = dynamic(() => import('../components/Style/Deferred'), {
-  ssr: false,
-});
-
 // Dynamic component loading.
 const ToastContainer = dynamic(
   // @ts-ignore
@@ -50,6 +46,10 @@ const Modal = dynamic(() => import('core/molecules/modal'), {
 });
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
+});
+
+const Deferred = dynamic(() => import('../components/Style/Deferred'), {
+  ssr: false,
 });
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {

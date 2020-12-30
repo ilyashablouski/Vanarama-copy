@@ -120,4 +120,4 @@ const RangeCard = memo(
   },
 );
 
-export default RangeCard;
+export default React.memo(RangeCard);

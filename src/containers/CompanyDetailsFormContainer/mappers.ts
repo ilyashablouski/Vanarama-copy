@@ -1,13 +1,13 @@
-import moment from 'moment';
-import { historyToMoment } from '../../utils/dates';
+import {
+  reverseDefaultFormatDate,
+  historyToDateObject,
+} from '../../utils/dates';
 import {
   SubmissionValues,
   ICompanyDetailsFormValues,
 } from '../../components/CompanyDetailsForm/interfaces';
 import { SaveCompanyDetailsMutation_createUpdateLimitedCompany as ICompany } from '../../../generated/SaveCompanyDetailsMutation';
 import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
-
-const DATE_FORMAT = 'DD-MM-YYYY';
 
 const getAddress = (
   addresess: {
@@ -65,11 +65,19 @@ export const mapFormValues = (
       ? searchResult.companyNumber
       : values.companyNumber,
     tradingSince: searchResult
-      ? moment(searchResult.dateOfCreation!).format(DATE_FORMAT)
-      : historyToMoment({
-          month: values.tradingSinceMonth,
-          year: values.tradingSinceYear,
-        }).format(DATE_FORMAT),
+      ? reverseDefaultFormatDate(new Date(searchResult.dateOfCreation!))
+          .split('-')
+          .reverse()
+          .join('-')
+      : reverseDefaultFormatDate(
+          historyToDateObject({
+            month: values.tradingSinceMonth,
+            year: values.tradingSinceYear,
+          }),
+        )
+          .split('-')
+          .reverse()
+          .join('-'),
     addresses: mapAddresses(values),
     withTradingAddress: values.tradingDifferent,
     companyNature: values.nature,

@@ -633,13 +633,11 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
         <div
           className="image -expand -plain"
         >
-          <span
+          <img
             className="image--native"
-            style={
-              Object {
-                "display": "inline-block",
-              }
-            }
+            loading="lazy"
+            sizes="(min-width:3200px) 800px, 1200px"
+            src="https://www.vanarama.com/assets/images-optimised/header-ivan.svg"
           />
         </div>
       </div>
@@ -1086,13 +1084,11 @@ exports[`<Header /> renders correctly with message 1`] = `
         <div
           className="image -expand -plain"
         >
-          <span
+          <img
             className="image--native"
-            style={
-              Object {
-                "display": "inline-block",
-              }
-            }
+            loading="lazy"
+            sizes="(min-width:3200px) 800px, 1200px"
+            src="https://www.vanarama.com/assets/images-optimised/header-ivan.svg"
           />
         </div>
       </div>
