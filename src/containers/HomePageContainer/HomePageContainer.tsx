@@ -11,6 +11,7 @@ import {
   HomePageData_homePage_sections_cards_cards as CardData,
   HomePageData_homePage_sections_featured1_iconList as IIconList,
 } from '../../../generated/HomePageData';
+import { filterList as IFilterList } from '../../../generated/filterList';
 import { ProductCardData } from '../../../generated/ProductCardData';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import getTitleTag from '../../utils/getTitleTag';
@@ -118,6 +119,8 @@ export interface IHomePageContainer {
   productsCarDerivatives: GetDerivatives;
   productsPickUpDerivatives: GetDerivatives;
   derivativeIds: string[];
+  searchPodVansData?: IFilterList;
+  searchPodCarsData?: IFilterList;
 }
 
 export const HomePageContainer: React.FC<IHomePageContainer> = ({
@@ -131,6 +134,8 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
   productsCar,
   productsPickUp,
   derivativeIds,
+  searchPodVansData,
+  searchPodCarsData,
 }) => {
   const [activeTab, setActiveTab] = useState(0);
   const { cachedLeaseType } = useLeaseType(null);
@@ -158,7 +163,10 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           featuredImage={data?.homePage.featuredImage}
         />
       )}
-      <Hero>
+      <Hero
+        searchPodVansData={searchPodVansData}
+        searchPodCarsData={searchPodCarsData}
+      >
         <div className="hero--title">
           <>
             <HeroHeading

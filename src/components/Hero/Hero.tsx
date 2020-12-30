@@ -30,6 +30,8 @@ const Hero: React.FC<IHeroProps> = ({
   children,
   withRequestCallbackForm,
   workingHoursCard,
+  searchPodCarsData,
+  searchPodVansData,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [createOpportunity, { loading }] = useOpportunityCreation(
@@ -77,7 +79,12 @@ const Hero: React.FC<IHeroProps> = ({
       return <WorkingHoursTable {...workingHoursCard} />;
     }
 
-    return <SearchPodContainer />;
+    return (
+      <SearchPodContainer
+        searchPodCarsData={searchPodCarsData}
+        searchPodVansData={searchPodVansData}
+      />
+    );
   };
 
   return (

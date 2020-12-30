@@ -105,6 +105,9 @@ export const BusinessAboutPage: NextPage = () => {
     router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);
 
+  const handleRegistrationClick = () =>
+    router.push(`/account/login-register?redirect=${router?.asPath || '/'}`);
+
   const handleCreateUpdateBusinessPersonCompletion = async (
     result: SubmitResult,
   ) => {
@@ -190,6 +193,7 @@ export const BusinessAboutPage: NextPage = () => {
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
         onLogInCLick={() => toggleLogInVisibility(true)}
+        onRegistrationClick={handleRegistrationClick}
         isEdited={router.query.redirect === 'summary'}
       />
     </OLAFLayout>

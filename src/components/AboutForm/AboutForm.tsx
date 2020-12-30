@@ -40,13 +40,14 @@ const AboutForm: FCWithFragments<IProps> = ({
   personLoggedIn,
   onEmailExistenceCheck,
   onLogInClick,
+  onRegistrationClick,
 }) => {
   const isEmailCheckerExists = onEmailExistenceCheck !== undefined;
   const validationSchema = useMemo(
     () =>
       isEmailCheckerExists
         ? createValidationSchema(onEmailExistenceCheck!)
-        : createValidationSchema(() => Promise.resolve(false)),
+        : createValidationSchema(() => Promise.resolve(null)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [isEmailCheckerExists],
   );
@@ -118,8 +119,9 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="email"
         label="Email"
         error={mapEmailErrorMessage(
-          onLogInClick,
           errors?.email?.message?.toString(),
+          onLogInClick,
+          onRegistrationClick,
         )}
       >
         <TextInput

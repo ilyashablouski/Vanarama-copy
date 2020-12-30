@@ -22,6 +22,7 @@ const AboutFormContainer: React.FC<IProps> = ({
   personLoggedIn,
   personUuid,
   onLogInClick,
+  onRegistrationClick,
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
   const [createPerson] = useCreatePerson(onCompleted);
@@ -30,10 +31,17 @@ const AboutFormContainer: React.FC<IProps> = ({
   const [registerTemporary] = useRegistrationForTemporaryAccessMutation();
 
   const onEmailCheck = async (email: string) => {
-    const results = await emailAlreadyExists({
+    const result = await emailAlreadyExists({
       variables: { email },
     });
-    return Boolean(results?.data?.emailAlreadyExists);
+
+    const checkResult = result.data?.emailAlreadyExists;
+
+    if (!checkResult?.isSuccessfull) {
+      return null;
+    }
+
+    return checkResult;
   };
 
   const handleTemporaryRegistrationIfGuest = (
@@ -88,6 +96,7 @@ const AboutFormContainer: React.FC<IProps> = ({
         aboutYouData.data?.personByUuid ? undefined : onEmailCheck
       }
       onLogInClick={onLogInClick}
+      onRegistrationClick={onRegistrationClick}
       submit={values =>
         handleTemporaryRegistrationIfGuest(
           values.email,

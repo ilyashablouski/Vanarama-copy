@@ -81,7 +81,11 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
         email: values.email,
       },
     });
-    setIsEmailExist(results?.data?.emailAlreadyExists || false);
+    setIsEmailExist(
+      (results?.data?.emailAlreadyExists?.isExists &&
+        !results?.data?.emailAlreadyExists?.isTemporary) ||
+        false,
+    );
     if (results?.data?.emailAlreadyExists) {
       await requestPassword({
         variables: {

@@ -45,6 +45,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   onError,
   personLoggedIn,
   onLogInCLick,
+  onRegistrationClick,
   isEdited,
 }) => {
   const order = useGetOrder();
@@ -78,10 +79,17 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   }, [creditApplication, personByUuid]);
 
   const onEmailCheck = async (email: string) => {
-    const results = await emailAlreadyExists({
+    const result = await emailAlreadyExists({
       variables: { email },
     });
-    return Boolean(results?.data?.emailAlreadyExists);
+
+    const checkResult = result.data?.emailAlreadyExists;
+
+    if (!checkResult?.isSuccessfull) {
+      return null;
+    }
+
+    return checkResult;
   };
 
   const email =
@@ -199,6 +207,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
       personLoggedIn={personLoggedIn}
       person={person}
       onLogInCLick={onLogInCLick}
+      onRegistrationClick={onRegistrationClick}
       onEmailExistenceCheck={onEmailCheck}
       onSubmit={values => {
         handleTemporaryRegistrationIfGuest(

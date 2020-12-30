@@ -34,6 +34,11 @@ import TileLink from '../../components/TileLink/TileLink';
 import { features } from '../../components/ProductCarousel/helpers';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
+import {
+  filterList as IFilterList,
+  filterListVariables as IFilterListVariables,
+} from '../../../generated/filterList';
+import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -75,9 +80,10 @@ const Flame = dynamic(() => import('core/assets/icons/Flame'), {
 
 type Props = {
   data: HubCarPageData;
+  searchPodCarsData: IFilterList;
 };
 
-export const CarsPage: NextPage<Props> = ({ data }) => {
+export const CarsPage: NextPage<Props> = ({ data, searchPodCarsData }) => {
   // pass in true for car leaseType
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
   const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
@@ -120,7 +126,7 @@ export const CarsPage: NextPage<Props> = ({ data }) => {
 
   return (
     <>
-      <Hero>
+      <Hero searchPodCarsData={searchPodCarsData}>
         <HeroHeading
           text={data?.hubCarPage.sections?.hero?.title || ''}
           titleTag={
@@ -607,10 +613,20 @@ export async function getServerSideProps() {
     const { data } = await client.query<HubCarPageData>({
       query: HUB_CAR_CONTENT,
     });
+    const { data: searchPodCarsData } = await client.query<
+      IFilterList,
+      IFilterListVariables
+    >({
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.CAR],
+      },
+    });
 
     return {
       props: {
         data,
+        searchPodCarsData,
       },
     };
   } catch {
