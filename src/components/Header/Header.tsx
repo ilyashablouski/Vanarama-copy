@@ -10,6 +10,9 @@ import cx from 'classnames';
 import localForage from 'localforage';
 import { IBaseProps } from 'core/interfaces/base';
 import Logo from 'core/atoms/logo';
+import Button from 'core/atoms/button';
+import Icon from 'core/atoms/icon';
+import HeaderMenu from './HeaderMenu';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
 import {
@@ -18,11 +21,6 @@ import {
 } from '../../../generated/GetPerson';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 
-const HeaderMenu = dynamic(() => import('./HeaderMenu'));
-const Button = dynamic(() => import('core/atoms/button'));
-const Icon = dynamic(() => import('core/atoms/icon'), {
-  ssr: false,
-});
 const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
   ssr: false,
 });

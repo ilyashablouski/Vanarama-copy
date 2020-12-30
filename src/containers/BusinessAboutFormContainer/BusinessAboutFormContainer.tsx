@@ -26,6 +26,7 @@ import {
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
 import Skeleton from '../../components/Skeleton';
 import { useCreateUpdateOrder } from '../../gql/order';
+import useGetOrder from '../../hooks/useGetOrder';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -44,8 +45,10 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   onError,
   personLoggedIn,
   onLogInCLick,
+  onRegistrationClick,
   isEdited,
 }) => {
+  const order = useGetOrder();
   const aboutPageDataQuery = useAboutPageDataQuery();
   const aboutYouData = useAboutYouData(personUuid);
   const [saveDetails] = useSaveAboutYouMutation(savePersonUuid);
@@ -76,10 +79,17 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   }, [creditApplication, personByUuid]);
 
   const onEmailCheck = async (email: string) => {
-    const results = await emailAlreadyExists({
+    const result = await emailAlreadyExists({
       variables: { email },
     });
-    return Boolean(results?.data?.emailAlreadyExists);
+
+    const checkResult = result.data?.emailAlreadyExists;
+
+    if (!checkResult?.isSuccessfull) {
+      return null;
+    }
+
+    return checkResult;
   };
 
   const email =
@@ -135,17 +145,20 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     createUpdateOrder({
       variables: {
         input: {
+          lineItems: order?.lineItems || [],
+          leaseType: order?.leaseType || LeaseTypeEnum.BUSINESS,
           uuid: orderId,
           personUuid: businessPersonUuid,
-          leaseType: LeaseTypeEnum.BUSINESS,
-          lineItems: [],
         },
       },
-    });
+    }).then(response =>
+      localForage.setItem('orderId', response.data?.createUpdateOrder?.uuid),
+    );
 
   const handleCreateUpdateCreditApplication = (
     values: IBusinessAboutFormValues,
     data?: SaveBusinessAboutYou | null,
+    orderUuid?: string | null,
   ) =>
     createUpdateApplication({
       variables: {
@@ -161,7 +174,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
             telephoneNumbers:
               data?.createUpdateBusinessPerson?.telephoneNumbers,
           },
-          orderUuid: orderId,
+          orderUuid: orderUuid || '',
           creditApplicationType:
             (values.companyType === CompanyTypes.limited &&
               CATypeEnum.B2B_LIMITED) ||
@@ -194,6 +207,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
       personLoggedIn={personLoggedIn}
       person={person}
       onLogInCLick={onLogInCLick}
+      onRegistrationClick={onRegistrationClick}
       onEmailExistenceCheck={onEmailCheck}
       onSubmit={values => {
         handleTemporaryRegistrationIfGuest(
@@ -205,15 +219,17 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
             handleDetailsSave(values, query.data?.registerForTemporaryAccess),
           )
           .then(({ data }) =>
-            handleOrderUpdate(data?.createUpdateBusinessPerson?.uuid).then(() =>
-              handleCreateUpdateCreditApplication(values, data).then(() => {
+            handleOrderUpdate(data?.createUpdateBusinessPerson?.uuid)
+              .then(orderUuid =>
+                handleCreateUpdateCreditApplication(values, data, orderUuid),
+              )
+              .then(() => {
                 const result = {
                   businessPersonUuid: data?.createUpdateBusinessPerson?.uuid,
                   companyType: values.companyType,
                 } as SubmitResult;
                 onCompleted?.(result);
               }),
-            ),
           )
           .catch(onError);
       }}

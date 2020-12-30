@@ -10,7 +10,11 @@ import {
 
 export const EMAIL_ALREADY_EXISTS = gql`
   mutation EmailAlreadyExistsMutation($email: String!) {
-    emailAlreadyExists(email: $email)
+    emailAlreadyExists(email: $email) {
+      isSuccessfull
+      isExists
+      isTemporary
+    }
   }
 `;
 

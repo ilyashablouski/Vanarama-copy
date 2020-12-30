@@ -23,9 +23,11 @@ import {
   pushAboutYouDataLayer,
   pushAuthorizationEventDataLayer,
 } from '../../../../utils/dataLayerHelpers';
-import { GetOlafData_orderByUuid } from '../../../../../generated/GetOlafData';
 import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
-import { MyOrdersTypeEnum } from '../../../../../generated/globalTypes';
+import {
+  MyOrdersTypeEnum,
+  OrderInputObject,
+} from '../../../../../generated/globalTypes';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
 import Skeleton from '../../../../components/Skeleton';
 
@@ -64,10 +66,7 @@ export const BusinessAboutPage: NextPage = () => {
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
   const [personLoggedIn, setPersonLoggedIn] = useState<boolean>(false);
-  const [
-    detailsData,
-    setDetailsData,
-  ] = useState<GetOlafData_orderByUuid | null>(null);
+  const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
   const [
     derivativeData,
     setDerivativeData,
@@ -105,6 +104,9 @@ export const BusinessAboutPage: NextPage = () => {
     });
     router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);
+
+  const handleRegistrationClick = () =>
+    router.push(`/account/login-register?redirect=${router?.asPath || '/'}`);
 
   const handleCreateUpdateBusinessPersonCompletion = async (
     result: SubmitResult,
@@ -191,6 +193,7 @@ export const BusinessAboutPage: NextPage = () => {
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
         onLogInCLick={() => toggleLogInVisibility(true)}
+        onRegistrationClick={handleRegistrationClick}
         isEdited={router.query.redirect === 'summary'}
       />
     </OLAFLayout>

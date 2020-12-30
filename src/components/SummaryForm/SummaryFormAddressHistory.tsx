@@ -1,11 +1,11 @@
 import StructuredList from 'core/organisms/structured-list';
 import { IList } from 'core/organisms/structured-list/interfaces';
 import { gql } from '@apollo/client';
-import moment from 'moment';
 import React, { useMemo } from 'react';
 import { SummaryFormAddressHistoryAddress } from '../../../generated/SummaryFormAddressHistoryAddress';
 import { addressToDisplay } from '../../utils/address';
 import FCWithFragments from '../../utils/FCWithFragments';
+import { defaultFormatDate } from '../../utils/dates';
 
 interface IProps {
   addresses: SummaryFormAddressHistoryAddress[];
@@ -51,7 +51,7 @@ function reduceToItems(addresses: SummaryFormAddressHistoryAddress[]) {
         {
           label: 'Date Moved In',
           value: address.startedOn
-            ? moment(address.startedOn).format('DD/MM/YYYY')
+            ? defaultFormatDate(new Date(address.startedOn), '/')
             : '',
           dataTestId: `summary-address[${index}].moved-in`,
         },

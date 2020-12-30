@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import NextHead from 'next/head';
-
 import { useRouter } from 'next/router';
 import { IHeadProps } from './interface';
 import { defaultTitle, twitter, defaultImage, fb } from './defaults';

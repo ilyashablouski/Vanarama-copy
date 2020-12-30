@@ -1,11 +1,11 @@
 import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
 import React from 'react';
-import moment from 'moment';
 import { SummaryFormDetailsSectionCompany } from '../../../generated/SummaryFormDetailsSectionCompany';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { addressToDisplay } from '../../utils/address';
 import Skeleton from '../Skeleton';
+import { fullMonthFormatDate } from '../../utils/dates';
 
 const StructuredList = dynamic(() => import('core/organisms/structured-list'), {
   loading: () => <Skeleton count={3} />,
@@ -69,7 +69,7 @@ const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
     },
     {
       label: 'Trading Since',
-      value: moment(company.tradingSince).format('MMMM YYYY') || '',
+      value: fullMonthFormatDate(new Date(company.tradingSince)) || '',
       dataTestId: 'summary-trading-since',
     },
     {

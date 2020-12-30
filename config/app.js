@@ -95,6 +95,11 @@ module.exports = {
       // Allow absolute imports.
       config.resolve.modules = [...config.resolve.modules, 'src'];
 
+      config.module.rules.push({
+        test: /\.css$/i,
+        use: 'raw-loader',
+      });
+
       // Fixes npm packages that depend on `fs` module.
       config.node = {
         fs: 'empty',
@@ -104,28 +109,28 @@ module.exports = {
         config.optimization.splitChunks = {
           ...config.optimization.splitChunks,
           chunks: 'all',
-          // minSize: 10000,
-          maxSize: 120000,
-          maxAsyncRequests: 100,
-          maxInitialRequests: 100,
-          cacheGroups: {
-            ...config.optimization.splitChunks.cacheGroups,
-            core: {
-              test: /[\\/]src[\\/]core[\\/]/,
-              chunks: 'all',
-              minSize: 0,
-            },
-            utils: {
-              test: /[\\/]src[\\/]utils[\\/]/,
-              chunks: 'all',
-              minSize: 0,
-            },
-            hooks: {
-              test: /[\\/]src[\\/]hooks[\\/]/,
-              chunks: 'all',
-              minSize: 0,
-            },
-          },
+          minSize: 100000,
+          // maxSize: 120000,
+          // maxAsyncRequests: 100,
+          maxInitialRequests: 25,
+          // cacheGroups: {
+          //   ...config.optimization.splitChunks.cacheGroups,
+          //   core: {
+          //     test: /[\\/]src[\\/]core[\\/]assets[\\/]icons[\\/]/,
+          //     chunks: 'all',
+          //     minSize: 0,
+          //   },
+          //   utils: {
+          //     test: /[\\/]src[\\/]utils[\\/]/,
+          //     chunks: 'all',
+          //     minSize: 0,
+          //   },
+          //   hooks: {
+          //     test: /[\\/]src[\\/]hooks[\\/]/,
+          //     chunks: 'all',
+          //     minSize: 0,
+          //   },
+          // },
         };
       }
 

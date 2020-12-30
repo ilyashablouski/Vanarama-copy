@@ -3,10 +3,12 @@ import { createContext } from 'react';
 import { GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA } from '../../gql/creditApplication';
 import { DEFAULT_TERM } from '../../models/enum/OlafVariables';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
-import { GetMyOrders_myOrders_lineItems_vehicleProduct as VehicleProduct } from '../../../generated/GetMyOrders';
 import { GetDerivatives_derivatives as Derivatives } from '../../../generated/GetDerivatives';
-import { LeaseTypeEnum } from '../../../generated/globalTypes';
-import { GetOlafData_orderByUuid as OrderByUuid } from '../../../generated/GetOlafData';
+import {
+  LeaseTypeEnum,
+  OrderInputObject,
+  VehicleProductInputObject,
+} from '../../../generated/globalTypes';
 
 /**
  * @param leaseType - string, offer leaseType
@@ -15,7 +17,7 @@ import { GetOlafData_orderByUuid as OrderByUuid } from '../../../generated/GetOl
  */
 export const createOlafDetails = (
   leaseType: string,
-  offer: VehicleProduct,
+  offer: VehicleProductInputObject,
   derivative: Derivatives,
 ) => ({
   price: offer.monthlyPayment || 0,
@@ -52,11 +54,11 @@ export const createOlafDetails = (
 });
 
 // get funder term for address/employement history
-export const useFunderTerm = (orderByUuid?: OrderByUuid | undefined | null) => {
+export const useFunderTerm = (order?: OrderInputObject | undefined | null) => {
   const client = useApolloClient();
-  const data = orderByUuid?.lineItems?.[0].vehicleProduct || ({} as any);
+  const data = order?.lineItems?.[0].vehicleProduct || ({} as any);
   if (Object.values(data).length > 0) {
-    if (orderByUuid?.leaseType === LeaseTypeEnum.PERSONAL) {
+    if (order?.leaseType === LeaseTypeEnum.PERSONAL) {
       return data.funderData?.b2c.address_history || DEFAULT_TERM;
     }
     try {
@@ -65,7 +67,7 @@ export const useFunderTerm = (orderByUuid?: OrderByUuid | undefined | null) => {
       } = client.readQuery({
         query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
         variables: {
-          id: orderByUuid?.uuid,
+          id: order?.uuid,
         },
       }) as any;
       switch (aboutDetails.company_type) {

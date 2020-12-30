@@ -9,6 +9,7 @@ import { IBusinessProgressIndicatorProps } from './interfaces';
 import { getUrlParam } from '../../utils/url';
 import useProgressHistory from '../../hooks/useProgressHistory';
 import useGetPersonUuid from '../../hooks/useGetPersonUuid';
+import useGetOrderId from '../../hooks/useGetOrderId';
 
 const ProgressIndicator = dynamic(() =>
   import('core/molecules/progress-indicator'),
@@ -28,7 +29,8 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   isSoleTraderJourney,
 }) => {
   const { pathname, query } = useRouter();
-  const { companyUuid, redirect, orderId } = query as QueryParams;
+  const { companyUuid, redirect } = query as QueryParams;
+  const orderId = useGetOrderId();
   const { setCachedLastStep, cachedLastStep } = useProgressHistory(orderId);
   const personUuid = useGetPersonUuid();
 

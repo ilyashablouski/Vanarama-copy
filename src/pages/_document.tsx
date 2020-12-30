@@ -1,6 +1,7 @@
 import Document, { Html, Main } from 'next/document';
 import dynamic from 'next/dynamic';
 import HeadCustom from '../hacks/headCustom';
+// import Inline from '../components/Style/Inline';
 
 // @ts-ignore
 const NextScript = dynamic(() =>
@@ -33,26 +34,27 @@ const GTMDataLayerScript = dynamic(() =>
 
 const env = process?.env?.ENV || '';
 
-// GTM environments.
-const gtmEnvs = ['uat', 'pre-prod', 'prod'];
+// Script environments
+const scriptEnvs = {
+  gtm: ['uat', 'pre-prod', 'prod'],
 
-// BlueConic environments.
-const bcEnvs = ['uat', 'pre-prod', 'prod'];
+  blueconic: ['uat', 'pre-prod', 'prod'],
 
-// VWO environments.
-// const vwoEnvs = ['uat', 'pre-prod', 'prod'];
+  // vwo: ['uat', 'pre-prod', 'prod'],
+};
 
 class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
         <HeadCustom>
-          {bcEnvs.includes(env) && (
+          {scriptEnvs.blueconic.includes(env) && (
             <script defer src="https://cdn.blueconic.net/vanarama.js" />
           )}
-          {gtmEnvs.includes(env) && <GTMDataLayerScript />}
-          {gtmEnvs.includes(env) && <GTMScript />}
+          {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
+          {scriptEnvs.gtm.includes(env) && <GTMScript />}
           {/* <RollbarScript /> */}
+          {/* <Inline /> */}
           <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="preload" href="/styles/deferred.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" />
@@ -60,7 +62,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          {gtmEnvs.includes(env) && <GTMBody />}
+          {scriptEnvs.gtm.includes(env) && <GTMBody />}
           <JS />
         </body>
       </Html>

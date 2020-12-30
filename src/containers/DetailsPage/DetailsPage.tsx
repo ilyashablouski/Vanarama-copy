@@ -27,7 +27,6 @@ import {
 } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
-import { useCreateUpdateOrder } from '../../gql/order';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getProductPageBreadCrumb } from '../../utils/url';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
@@ -182,8 +181,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     firstTimePushDataLayer,
   ]);
 
-  const [createOrderHandle] = useCreateUpdateOrder(() => {});
-
   const onSubmitClick = (values: OrderInputObject) => {
     const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
     const derivativeInfo = data?.derivativeInfo;
@@ -197,22 +194,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       price,
       category: getCategory({ cars, vans, pickups }),
     });
-    return createOrderHandle({
-      variables: {
-        input: values,
-      },
-    })
-      .then(response =>
-        localForage.setItem('orderId', response.data?.createUpdateOrder?.uuid),
-      )
-      .then(orderId => {
-        const url =
-          leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
-            ? '/olaf/about/[orderId]'
-            : '/b2b/olaf/about';
+    return localForage.setItem('order', values).then(() => {
+      const url =
+        leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
+          ? '/olaf/about'
+          : '/b2b/olaf/about';
 
-        router.push(url, url.replace('[orderId]', orderId || ''));
-      });
+      router.push(url, url);
+    });
   };
 
   if (loading) {
