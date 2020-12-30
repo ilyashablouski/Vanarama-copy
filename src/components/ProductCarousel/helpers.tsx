@@ -1,7 +1,7 @@
 import { IIconProps } from 'core/atoms/icon/interfaces';
 import { TIcon } from 'core/molecules/cards/CardIcons';
 import { ComponentType } from 'react';
-import { getFeatureIcon3 as getFeatureIcon } from '../../utils/getIconMap';
+import IconMap from '../../utils/cardIconMap';
 
 export const features = (
   keyInformation: any[],
@@ -12,7 +12,7 @@ export const features = (
     icon: Icon ? (
       <Icon
         key={info.name}
-        icon={getFeatureIcon(info?.name.replace(/\s+/g, ''))}
+        icon={IconMap.get(info?.name.replace(/\s+/g, ''))}
         color="dark"
       />
     ) : null,

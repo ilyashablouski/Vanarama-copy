@@ -12,6 +12,7 @@ import {
 } from '../../../generated/GetProductCard';
 import truncateString from '../../utils/truncateString';
 import useSliderProperties from '../../hooks/useSliderProperties';
+import { features } from './helpers';
 
 // Dynamic component loading.
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -78,8 +79,11 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                     }
                   : undefined
               }
-              capId={product.capId || ''}
-              keyInfo={product?.keyInformation || []}
+              features={features(
+                product.keyInformation || [],
+                product.capId || '',
+                Icon,
+              )}
               onCompare={() => {
                 compareChange({
                   pageUrl: formatProductPageUrl(

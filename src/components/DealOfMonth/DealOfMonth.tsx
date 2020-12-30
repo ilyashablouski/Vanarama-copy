@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import RouterLink from '../RouterLink/RouterLink';
 import Skeleton from '../Skeleton';
 import { ProductCardData_productCarousel_keyInformation as IKeyInfo } from '../../../generated/ProductCardData';
-import useFeatures from '../../hooks/useFeatures';
+import { features } from '../ProductCarousel/helpers';
 
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={3} />,
@@ -70,71 +70,73 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
   isPersonal,
   flagText = 'DEAL OF THE MONTH',
   link,
-}) => {
-  const features = useFeatures(keyInfo || [], capId || '', Icon);
-  return (
-    <>
+}) => (
+  <>
+    <div>
+      <Card
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+        header={{
+          accentIcon: <Icon icon={<Flame />} color="white" />,
+          accentText: 'Hot Deal',
+          text: flagText,
+        }}
+        imageSrc={imageSrc}
+      />
+    </div>
+    <div className="-col">
       <div>
-        <Card
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          header={{
-            accentIcon: <Icon icon={<Flame />} color="white" />,
-            accentText: 'Hot Deal',
-            text: flagText,
+        <Heading size="xlarge" color="black">
+          {vehicle}
+        </Heading>
+        <Text tag="p" size="lead" color="darker">
+          {specification}
+        </Text>
+        {rating && <Rating score={rating} color="orange" />}
+      </div>
+      {!!keyInfo?.length && (
+        <CardIcons
+          featuredProduct
+          icons={features(keyInfo || [], capId || '', Icon)}
+        />
+      )}
+      <div className="-flex-h">
+        <Price
+          size="xlarge"
+          price={price}
+          priceDescription={
+            isPersonal ? 'Per Month Inc VAT' : 'Per Month Excluding VAT'
+          }
+        />
+        <RouterLink
+          link={{
+            href: link.url,
+            label: 'View Offer',
           }}
-          imageSrc={imageSrc}
+          onClick={viewOfferClick}
+          classNames={{ color: 'teal', solid: true, size: 'regular' }}
+          className="button"
+          dataTestId="deal-of-month__view-offer"
+          withoutDefaultClassName
+        >
+          <div className="button--inner">
+            View Offer
+            <Icon color="white" icon={<ArrowForwardSharp />} />
+          </div>
+        </RouterLink>
+      </div>
+      <div className="card-footer">
+        <Button
+          color="dark"
+          iconColor="dark"
+          label="Compare"
+          fill="clear"
+          iconPosition="before"
+          icon={<CarSharp />}
+          size="expand"
         />
       </div>
-      <div className="-col">
-        <div>
-          <Heading size="xlarge" color="black">
-            {vehicle}
-          </Heading>
-          <Text tag="p" size="lead" color="darker">
-            {specification}
-          </Text>
-          {rating && <Rating score={rating} color="orange" />}
-        </div>
-        {!!keyInfo?.length && <CardIcons featuredProduct icons={features} />}
-        <div className="-flex-h">
-          <Price
-            size="xlarge"
-            price={price}
-            priceDescription={
-              isPersonal ? 'Per Month Inc VAT' : 'Per Month Excluding VAT'
-            }
-          />
-          <RouterLink
-            link={{
-              href: link.url,
-              label: 'View Offer',
-            }}
-            onClick={viewOfferClick}
-            classNames={{ color: 'teal', solid: true, size: 'regular' }}
-            className="button"
-            dataTestId="deal-of-month__view-offer"
-            withoutDefaultClassName
-          >
-            <div className="button--inner">
-              View Offer
-              <Icon color="white" icon={<ArrowForwardSharp />} />
-            </div>
-          </RouterLink>
-        </div>
-        <div className="card-footer">
-          <Button
-            color="dark"
-            iconColor="dark"
-            label="Compare"
-            fill="clear"
-            iconPosition="before"
-            icon={<CarSharp />}
-            size="expand"
-          />
-        </div>
-      </div>
-    </>
-  );
-};
+    </div>
+  </>
+);
 
 export default DealOfMonth;
