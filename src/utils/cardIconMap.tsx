@@ -22,7 +22,6 @@ import WarrantyRosette2 from '../core/assets/icons/WarrantyRosette2';
 import WarrantyRosette3 from '../core/assets/icons/WarrantyRosette3';
 import WarrantyRosette4 from '../core/assets/icons/WarrantyRosette4';
 import WarrantyRosette5 from '../core/assets/icons/WarrantyRosette5';
-import SyncCircleOutline from '../core/assets/icons/SyncCircleOutline';
 
 const IconMap = new Map();
 
@@ -49,7 +48,6 @@ IconMap.set('AirConditioning', <AirCondition />)
   .set('WarrantyRosette2', <WarrantyRosette2 />)
   .set('WarrantyRosette3', <WarrantyRosette3 />)
   .set('WarrantyRosette4', <WarrantyRosette4 />)
-  .set('WarrantyRosette5', <WarrantyRosette5 />)
-  .set('fallback', <SyncCircleOutline />);
+  .set('WarrantyRosette5', <WarrantyRosette5 />);
 
 export default IconMap;
