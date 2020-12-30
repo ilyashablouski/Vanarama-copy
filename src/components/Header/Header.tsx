@@ -4,6 +4,7 @@ import React, { FC, memo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import disableScroll from 'disable-scroll';
 
 import cx from 'classnames';
 import localForage from 'localforage';
@@ -117,9 +118,9 @@ export const Header: FC<IHeaderProps> = memo(props => {
 
   useEffect(() => {
     if (isMenuOpen) {
-      document.body.classList.add('-lock');
+      disableScroll.on();
     } else {
-      document.body.classList.remove('-lock');
+      disableScroll.off();
     }
   }, [isMenuOpen]);
 
