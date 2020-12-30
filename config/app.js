@@ -91,7 +91,15 @@ module.exports = {
       };
     },
 
-    webpack: config => {
+    webpack: (config /* { webpack } */) => {
+      // left as reference example incase we can use method for another pkg
+      /* config.plugins.push(
+        new webpack.ContextReplacementPlugin(
+          /moment[/\\]locale/,
+          /(en-gb)\.js/,
+        ),
+      ); */
+
       // Allow absolute imports.
       config.resolve.modules = [...config.resolve.modules, 'src'];
 

@@ -101,6 +101,7 @@ exports[`<Header /> renders correctly 1`] = `
       >
         <i
           className="icon -small"
+          name="call-sharp"
         >
           <svg
             fill="currentColor"
@@ -538,6 +539,7 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
       >
         <i
           className="icon -small"
+          name="call-sharp"
         >
           <svg
             fill="currentColor"
@@ -988,6 +990,7 @@ exports[`<Header /> renders correctly with message 1`] = `
       >
         <i
           className="icon -small"
+          name="call-sharp"
         >
           <svg
             fill="currentColor"
@@ -1447,6 +1450,7 @@ exports[`<Header /> renders correctly with optional props 1`] = `
       >
         <i
           className="icon -small"
+          name="call-sharp"
         >
           <svg
             fill="currentColor"

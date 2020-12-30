@@ -9,6 +9,7 @@ exports[`<KeyInformation /> renders correctly with data 1`] = `
   >
     <i
       className="icon icon-custom -orange -large"
+      name="name"
     >
       <svg
         height="1em"

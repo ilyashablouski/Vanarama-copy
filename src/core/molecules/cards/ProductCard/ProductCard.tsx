@@ -20,7 +20,7 @@ export interface IProductCardProps extends ICardProps {
 }
 
 const ProductCard: FC<IProductCardProps> = props => {
-  const { features, onCompare, children, compared } = props;
+  const { onCompare, children, compared, features } = props;
 
   return (
     <Card {...props}>
