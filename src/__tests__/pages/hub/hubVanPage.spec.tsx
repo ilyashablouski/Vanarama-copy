@@ -296,6 +296,35 @@ const DATA = {
     },
   },
 } as HubVanPageData;
+const filterList = {
+  filterList: {
+    vehicleTypes: [VehicleTypeEnum.LCV],
+    groupedRangesWithSlug: [
+      {
+        parent: { label: 'Citroën', slug: 'Citroën' },
+        children: [
+          { label: 'Berlingo', slug: 'Berlingo' },
+          { label: 'Dispatch', slug: 'Dispatch' },
+          { label: 'Relay', slug: 'Relay' },
+        ],
+      },
+      {
+        parent: { label: 'Dacia', slug: 'Dacia' },
+        children: [{ label: 'Duster', slug: 'Duster' }],
+      },
+      {
+        parent: { label: 'BMW', slug: 'BMW' },
+        children: [
+          { label: '3 series', slug: '3 series' },
+          { label: '4 series', slug: '4 series' },
+        ],
+      },
+    ],
+    bodyStyles: ['Dropside Tipper', 'Large Van'],
+    transmissions: ['Automatic', 'Manual'],
+    fuelTypes: ['diesel', 'iii'],
+  },
+};
 
 const mocked: MockedResponse[] = [
   {
@@ -549,7 +578,7 @@ describe('<VansPage />', () => {
 
     render(
       <MockedProvider addTypename={false} mocks={mocked}>
-        <VansPage data={DATA} />
+        <VansPage data={DATA} searchPodVansData={filterList} />
       </MockedProvider>,
     );
   });

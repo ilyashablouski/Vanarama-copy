@@ -40,6 +40,11 @@ import { PickupsSearch } from '../../models/enum/SearchByManufacturer';
 import { features } from '../../components/ProductCarousel/helpers';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
+import {
+  filterList as IFilterList,
+  filterListVariables as IFilterListVariables,
+} from '../../../generated/filterList';
+import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -87,9 +92,10 @@ const League = dynamic(() => import('core/organisms/league'), {
 
 type Props = {
   data: HubPickupPageData;
+  searchPodVansData: IFilterList;
 };
 
-export const PickupsPage: NextPage<Props> = ({ data }) => {
+export const PickupsPage: NextPage<Props> = ({ data, searchPodVansData }) => {
   const [offer, setOffer] = useState<ProdData>();
   const { cachedLeaseType } = useLeaseType(false);
 
@@ -137,7 +143,7 @@ export const PickupsPage: NextPage<Props> = ({ data }) => {
 
   return (
     <>
-      <Hero>
+      <Hero searchPodVansData={searchPodVansData}>
         <HeroHeading
           text={data?.hubPickupPage.sections?.hero?.title || ''}
           titleTag={
@@ -695,10 +701,20 @@ export async function getServerSideProps() {
     const { data } = await client.query<HubPickupPageData>({
       query: HUB_PICKUP_CONTENT,
     });
+    const { data: searchPodVansData } = await client.query<
+      IFilterList,
+      IFilterListVariables
+    >({
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.LCV],
+      },
+    });
 
     return {
       props: {
         data,
+        searchPodVansData,
       },
     };
   } catch {

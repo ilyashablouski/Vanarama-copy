@@ -12,6 +12,11 @@ import HomePageContainer from '../containers/HomePageContainer';
 import { IHomePageContainer } from '../containers/HomePageContainer/HomePageContainer';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { GetDerivatives } from '../../generated/GetDerivatives';
+import { GET_SEARCH_POD_DATA } from '../containers/SearchPodContainer/gql';
+import {
+  filterList as IFilterList,
+  filterListVariables as IFilterListVariables,
+} from '../../generated/filterList';
 
 export const HomePage: NextPage<IHomePageContainer> = ({
   data,
@@ -24,6 +29,8 @@ export const HomePage: NextPage<IHomePageContainer> = ({
   productsPickUp,
   productsVan,
   derivativeIds,
+  searchPodVansData,
+  searchPodCarsData,
 }) => (
   <HomePageContainer
     loading={loading}
@@ -36,6 +43,8 @@ export const HomePage: NextPage<IHomePageContainer> = ({
     productsCarDerivatives={productsCarDerivatives}
     productsPickUpDerivatives={productsPickUpDerivatives}
     derivativeIds={derivativeIds}
+    searchPodVansData={searchPodVansData}
+    searchPodCarsData={searchPodCarsData}
   />
 );
 
@@ -107,6 +116,29 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     }),
   ]);
+  // const { data: searchPodData, errors: serchPodError } = await client.query<
+  //   IFilterList,
+  //   IFilterListVariables
+  // >({
+  //   query: GET_SEARCH_POD_DATA,
+  // });
+  const [
+    { data: searchPodVansData },
+    { data: searchPodCarsData },
+  ] = await Promise.all([
+    client.query<IFilterList, IFilterListVariables>({
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.LCV],
+      },
+    }),
+    client.query<IFilterList, IFilterListVariables>({
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.CAR],
+      },
+    }),
+  ]);
   const derivativeIds = [
     ...productsVanCapIds,
     ...productsCarIds,
@@ -122,6 +154,8 @@ export async function getServerSideProps(context: NextPageContext) {
       productsPickUpDerivatives,
       productsCar,
       productsPickUp,
+      searchPodVansData,
+      searchPodCarsData,
       productsVan,
       derivativeIds,
     },
