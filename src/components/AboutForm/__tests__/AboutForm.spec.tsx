@@ -7,10 +7,10 @@ describe('<AboutForm />', () => {
   const submit = jest.fn();
   const emailExistenceCheckMock = jest.fn(() => Promise.resolve(null));
   const onLogInClickMock = jest.fn();
-  let a;
+
   beforeEach(async () => {
     await preloadAll();
-    a = render(
+    render(
       <AboutForm
         onLogInClick={onLogInClickMock}
         onEmailExistenceCheck={emailExistenceCheckMock}
