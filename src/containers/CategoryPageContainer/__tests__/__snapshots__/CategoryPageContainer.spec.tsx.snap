@@ -75,6 +75,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
               >
                 <i
                   class="icon -regular md hydrated -white"
+                  name="arrow-forward-sharp"
                 >
                   <svg
                     height="1em"

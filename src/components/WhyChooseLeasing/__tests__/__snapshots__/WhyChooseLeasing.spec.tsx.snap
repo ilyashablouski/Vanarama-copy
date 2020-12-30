@@ -14,6 +14,7 @@ exports[`<WhyChooseLeasing /> renders correctly with warranty 1`] = `
   >
     <i
       className="icon -orange -xlarge"
+      name="BrandNewCar"
     >
       <svg
         height="1em"
@@ -82,6 +83,7 @@ exports[`<WhyChooseLeasing /> renders correctly with warranty 1`] = `
   >
     <i
       className="icon -orange -xlarge"
+      name="WarrantyRosette5"
     >
       <svg
         height="1em"
@@ -150,6 +152,7 @@ exports[`<WhyChooseLeasing /> renders correctly with warranty 1`] = `
   >
     <i
       className="icon -orange -xlarge"
+      name="Calendar"
     >
       <svg
         height="1em"
@@ -218,6 +221,7 @@ exports[`<WhyChooseLeasing /> renders correctly with warranty 1`] = `
   >
     <i
       className="icon -orange -xlarge"
+      name="NoMOT"
     >
       <svg
         height="1em"
@@ -298,6 +302,7 @@ exports[`<WhyChooseLeasing /> renders correctly with warranty equal N/A 1`] = `
   >
     <i
       className="icon -orange -xlarge"
+      name="BrandNewCar"
     >
       <svg
         height="1em"
@@ -366,6 +371,7 @@ exports[`<WhyChooseLeasing /> renders correctly with warranty equal N/A 1`] = `
   >
     <i
       className="icon -orange -xlarge"
+      name="WarrantyRosetteFull"
     >
       <svg
         height="1em"
@@ -434,6 +440,7 @@ exports[`<WhyChooseLeasing /> renders correctly with warranty equal N/A 1`] = `
   >
     <i
       className="icon -orange -xlarge"
+      name="Calendar"
     >
       <svg
         height="1em"
@@ -502,6 +509,7 @@ exports[`<WhyChooseLeasing /> renders correctly with warranty equal N/A 1`] = `
   >
     <i
       className="icon -orange -xlarge"
+      name="NoMOT"
     >
       <svg
         height="1em"
