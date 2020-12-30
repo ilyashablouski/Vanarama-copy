@@ -79,12 +79,12 @@ export const createValidationSchema = (
         .test('isEmailRegistered', EMAIL_ALREADY_REGISTERED, value =>
           emailTester(value).then(
             result =>
-              createEmailErrorMessage(result) === EMAIL_ALREADY_REGISTERED,
+              createEmailErrorMessage(result) !== EMAIL_ALREADY_REGISTERED,
           ),
         )
         .test('isEmailInUse', EMAIL_ALREADY_IN_USE, value =>
           emailTester(value).then(
-            result => createEmailErrorMessage(result) === EMAIL_ALREADY_IN_USE,
+            result => createEmailErrorMessage(result) !== EMAIL_ALREADY_IN_USE,
           ),
         ),
       telephone: yup

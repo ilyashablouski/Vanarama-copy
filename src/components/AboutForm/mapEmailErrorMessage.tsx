@@ -39,9 +39,9 @@ export const createEmailErrorMessage = (
 };
 
 export const mapEmailErrorMessage = (
+  message?: string,
   onLoginClick?: () => void,
   onRegistrationClick?: () => void,
-  message?: string,
 ) => {
   switch (message) {
     case EMAIL_ALREADY_REGISTERED:

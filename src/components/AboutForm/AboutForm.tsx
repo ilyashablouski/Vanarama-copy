@@ -119,9 +119,9 @@ const AboutForm: FCWithFragments<IProps> = ({
         controlId="email"
         label="Email"
         error={mapEmailErrorMessage(
+          errors?.email?.message?.toString(),
           onLogInClick,
           onRegistrationClick,
-          errors?.email?.message?.toString(),
         )}
       >
         <TextInput

@@ -172,9 +172,9 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         hint="Please provide your email address"
         label="Email Address"
         error={mapEmailErrorMessage(
+          errors.email?.message?.toString(),
           onLogInCLick,
           onRegistrationClick,
-          errors.email?.message?.toString(),
         )}
       >
         <TextInput
