@@ -7,8 +7,14 @@
 // GraphQL mutation operation: EmailAlreadyExistsMutation
 // ====================================================
 
+export interface EmailAlreadyExistsMutation_emailAlreadyExists {
+  isSuccessfull: boolean | null;
+  isExists: boolean | null;
+  isTemporary: boolean | null;
+}
+
 export interface EmailAlreadyExistsMutation {
-  emailAlreadyExists: boolean | null;
+  emailAlreadyExists: EmailAlreadyExistsMutation_emailAlreadyExists | null;
 }
 
 export interface EmailAlreadyExistsMutationVariables {

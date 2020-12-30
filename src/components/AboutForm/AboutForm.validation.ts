@@ -1,7 +1,12 @@
 import * as yup from 'yup';
 import { IAboutFormValues } from './interface';
 import { WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
-import { EMAIL_ALREADY_EXISTS } from './mapEmailErrorMessage';
+import {
+  createEmailErrorMessage,
+  IExistenceCheckResult,
+  EMAIL_ALREADY_REGISTERED,
+  EMAIL_ALREADY_IN_USE,
+} from './mapEmailErrorMessage';
 import { diffInYear } from '../../utils/dates';
 
 const reqMsg = (rel: string) => `Please enter your ${rel}`;
@@ -34,7 +39,7 @@ function ageValidator(this: yup.TestContext) {
 }
 
 export const createValidationSchema = (
-  emailTester: (value: string) => Promise<boolean>,
+  emailTester: (value: string) => Promise<IExistenceCheckResult | null>,
 ) =>
   yup.object().shape<IAboutFormValues>(
     {
@@ -71,8 +76,16 @@ export const createValidationSchema = (
           'Oops, this email is too long. Please keep it to 254 characters',
         )
         .email('Oops, this email address is invalid')
-        .test('isEmailExists', EMAIL_ALREADY_EXISTS, value =>
-          emailTester(value).then(result => !result),
+        .test('isEmailRegistered', EMAIL_ALREADY_REGISTERED, value =>
+          emailTester(value).then(
+            result =>
+              createEmailErrorMessage(result) !== EMAIL_ALREADY_REGISTERED,
+          ),
+        )
+        .test('isEmailInUse', EMAIL_ALREADY_IN_USE, value =>
+          emailTester(value).then(
+            result => createEmailErrorMessage(result) !== EMAIL_ALREADY_IN_USE,
+          ),
         ),
       telephone: yup
         .string()

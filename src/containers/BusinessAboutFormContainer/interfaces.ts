@@ -12,5 +12,6 @@ export interface IBusinessAboutFormContainerProps {
   onCompleted?: (data: SubmitResult) => void;
   onError?: (error: ApolloError) => void;
   onLogInCLick?: () => void;
+  onRegistrationClick?: () => void;
   isEdited: boolean;
 }

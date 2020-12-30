@@ -30,7 +30,15 @@ const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
           variables: { email: value },
         });
 
-        return Boolean(results?.data?.emailAlreadyExists);
+        const isSuccessfull = results.data?.emailAlreadyExists?.isSuccessfull;
+        const isExists = results.data?.emailAlreadyExists?.isExists;
+        const isTemporary = results.data?.emailAlreadyExists?.isTemporary;
+
+        if (!isSuccessfull || isTemporary) {
+          return false;
+        }
+
+        return Boolean(isExists);
       }}
     />
   );
