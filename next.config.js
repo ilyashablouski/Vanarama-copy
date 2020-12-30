@@ -11,15 +11,14 @@ const withCustomBabelConfig = require('next-plugin-custom-babel-config');
  * to interpret this so we need to transpile it in here instead.
  */
 const path = require('path');
-const withBundleAnalyzer = require('@next/bundle-analyzer')({
-  enabled: process.env.ANALYZE === 'true',
-});
+// const withBundleAnalyzer = require('@next/bundle-analyzer')({
+//   enabled: process.env.ANALYZE === 'true',
+// });
 const config = require('./config/app');
 const generateMenuData = require('./plugins/genMenuData');
 
 module.exports = withPlugins(
   [
-    [withBundleAnalyzer],
     [generateMenuData],
     // [withFonts],
     [
