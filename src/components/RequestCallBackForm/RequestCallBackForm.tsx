@@ -1,3 +1,4 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
 import TextInput from 'core/atoms/textinput';
@@ -185,4 +186,4 @@ const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
   );
 };
 
-export default RequestCallBackForm;
+export default React.memo(RequestCallBackForm);

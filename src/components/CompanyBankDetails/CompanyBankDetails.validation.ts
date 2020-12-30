@@ -1,13 +1,14 @@
 import * as yup from 'yup';
-import moment from 'moment';
 import { ICompanyBankDetails } from './interfaces';
+import { diffInMonth } from '../../utils/dates';
 
 function isInPast({ joinedAtYear, joinedAtMonth }: ICompanyBankDetails) {
   if (!joinedAtYear || !joinedAtMonth) {
     return '';
   }
   const inPast =
-    moment(`${joinedAtMonth}-${joinedAtYear}`, 'MM-YYYY').diff() <= 0;
+    diffInMonth(new Date(), new Date(`${joinedAtMonth}-01-${joinedAtYear}`)) <=
+    0;
   return inPast ? '' : 'Oops, this date seems to be in the future';
 }
 

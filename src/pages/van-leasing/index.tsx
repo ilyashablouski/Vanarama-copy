@@ -40,6 +40,11 @@ import TileLink from '../../components/TileLink/TileLink';
 import { VansSearch } from '../../models/enum/SearchByManufacturer';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
+import {
+  filterList as IFilterList,
+  filterListVariables as IFilterListVariables,
+} from '../../../generated/filterList';
+import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 
 const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
@@ -78,9 +83,10 @@ const League = dynamic(() => import('core/organisms/league'), {
 type ProdCards = ProdCardData[];
 type Props = {
   data: HubVanPageData;
+  searchPodVansData: IFilterList;
 };
 
-export const VansPage: NextPage<Props> = ({ data }) => {
+export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
   const [offers, setOffers] = useState<ProdCards>([]);
   const { cachedLeaseType } = useLeaseType(false);
 
@@ -195,7 +201,7 @@ export const VansPage: NextPage<Props> = ({ data }) => {
 
   return (
     <>
-      <Hero>
+      <Hero searchPodVansData={searchPodVansData}>
         <HeroHeading
           text={
             getSectionsData(['hero', 'title'], data?.hubVanPage.sections) || ''
@@ -865,9 +871,19 @@ export async function getStaticProps() {
     const { data } = await client.query<HubVanPageData>({
       query: HUB_VAN_CONTENT,
     });
+    const { data: searchPodVansData } = await client.query<
+      IFilterList,
+      IFilterListVariables
+    >({
+      query: GET_SEARCH_POD_DATA,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.LCV],
+      },
+    });
     return {
       props: {
         data,
+        searchPodVansData,
       },
     };
   } catch {

@@ -37,6 +37,43 @@ module.exports = {
       rollbarClientToken: process.env.ROLLBAR_CLIENT_TOKEN || '',
     },
 
+    // Headers.
+    async headers() {
+      const securityHeaders = [
+        {
+          key: 'Strict-Transport-Security',
+          value: 'max-age=31536000; includeSubDomains',
+        },
+        {
+          key: 'X-Frame-Options',
+          value: 'SAMEORIGIN',
+        },
+        {
+          key: 'X-XSS-Protection',
+          value: '1; mode=block',
+        },
+      ];
+      return [
+        {
+          source: '/',
+          headers: securityHeaders,
+        },
+        {
+          source: '/:slug*',
+          headers: securityHeaders,
+        },
+        {
+          source: '/styles/:slug',
+          headers: [
+            {
+              key: 'Cache-Control',
+              value: 'public, max-age=2592000',
+            },
+          ],
+        },
+      ];
+    },
+
     // Rewrites.
     async rewrites() {
       if (process.env.LOCAL) {
@@ -64,12 +101,44 @@ module.exports = {
       // Allow absolute imports.
       config.resolve.modules = [...config.resolve.modules, 'src'];
 
+      config.module.rules.push({
+        test: /\.css$/i,
+        use: 'raw-loader',
+      });
+
       // Fixes npm packages that depend on `fs` module.
       config.node = {
         fs: 'empty',
       };
 
-      config.mode = 'production';
+      if (config.mode === 'production' && config.name === 'client') {
+        config.optimization.splitChunks = {
+          ...config.optimization.splitChunks,
+          chunks: 'all',
+          minSize: 100000,
+          // maxSize: 120000,
+          // maxAsyncRequests: 100,
+          maxInitialRequests: 25,
+          // cacheGroups: {
+          //   ...config.optimization.splitChunks.cacheGroups,
+          //   core: {
+          //     test: /[\\/]src[\\/]core[\\/]assets[\\/]icons[\\/]/,
+          //     chunks: 'all',
+          //     minSize: 0,
+          //   },
+          //   utils: {
+          //     test: /[\\/]src[\\/]utils[\\/]/,
+          //     chunks: 'all',
+          //     minSize: 0,
+          //   },
+          //   hooks: {
+          //     test: /[\\/]src[\\/]hooks[\\/]/,
+          //     chunks: 'all',
+          //     minSize: 0,
+          //   },
+          // },
+        };
+      }
 
       return config;
     },

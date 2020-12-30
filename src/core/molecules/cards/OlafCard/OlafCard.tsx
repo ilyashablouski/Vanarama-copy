@@ -122,4 +122,4 @@ const OlafCard: FC<IOlafCardProps> = props => {
   );
 };
 
-export default OlafCard;
+export default React.memo(OlafCard);

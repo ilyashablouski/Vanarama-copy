@@ -3,9 +3,9 @@
   "short_name": "nsf",
   "icons": [
     {
-      "src": "/public/favicon.icon",
-      "sizes": "32x32",
-      "type": "image/x-icon"
+      "src": "/public/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
     }
   ],
   "theme_color": "#FFFFFF",
