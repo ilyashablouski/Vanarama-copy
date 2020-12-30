@@ -46,6 +46,7 @@ exports[`<Icon /> renders correctly 1`] = `
 exports[`<Icon /> renders correctly by name 1`] = `
 <i
   className="icon"
+  name="Add"
 >
   <svg
     height="1em"
