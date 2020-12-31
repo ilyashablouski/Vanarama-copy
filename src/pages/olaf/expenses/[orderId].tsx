@@ -14,6 +14,7 @@ import {
   useGetCreditApplicationByOrderUuid,
 } from '../../../gql/creditApplication';
 import { CreateExpenseMutation_createUpdateIncomeAndExpense } from '../../../../generated/CreateExpenseMutation';
+import useGetOrderId from '../../../hooks/useGetOrderId';
 
 type QueryParams = OLAFQueryParams & {
   uuid: string;
@@ -21,7 +22,8 @@ type QueryParams = OLAFQueryParams & {
 
 const ExpensesPage: NextPage = () => {
   const router = useRouter();
-  const { orderId, uuid } = router.query as QueryParams;
+  const { uuid } = router.query as QueryParams;
+  const orderId = useGetOrderId();
 
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
   const creditApplication = useGetCreditApplicationByOrderUuid(orderId);

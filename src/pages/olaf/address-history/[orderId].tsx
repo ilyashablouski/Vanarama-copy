@@ -14,6 +14,7 @@ import {
   useCreateUpdateCreditApplication,
   useGetCreditApplicationByOrderUuid,
 } from '../../../gql/creditApplication';
+import useGetOrderId from '../../../hooks/useGetOrderId';
 
 export const GET_PERSON_INFORMATION = gql`
   query GetOrderInformation {
@@ -27,7 +28,8 @@ type QueryParams = OLAFQueryParams & {
 
 const AddressHistoryPage: NextPage = () => {
   const router = useRouter();
-  const { orderId, uuid } = router.query as QueryParams;
+  const { uuid } = router.query as QueryParams;
+  const orderId = useGetOrderId();
 
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
   const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
