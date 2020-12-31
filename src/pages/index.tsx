@@ -17,6 +17,11 @@ import {
   filterList as IFilterList,
   filterListVariables as IFilterListVariables,
 } from '../../generated/filterList';
+import { VEHICLE_LIST_URL } from '../gql/vehicleList';
+import {
+  VehicleListUrl,
+  VehicleListUrlVariables,
+} from '../../generated/VehicleListUrl';
 
 export const HomePage: NextPage<IHomePageContainer> = ({
   data,
@@ -28,9 +33,9 @@ export const HomePage: NextPage<IHomePageContainer> = ({
   productsCar,
   productsPickUp,
   productsVan,
-  derivativeIds,
   searchPodVansData,
   searchPodCarsData,
+  vehicleListUrlData,
 }) => (
   <HomePageContainer
     loading={loading}
@@ -42,9 +47,9 @@ export const HomePage: NextPage<IHomePageContainer> = ({
     productsVanDerivatives={productsVanDerivatives}
     productsCarDerivatives={productsCarDerivatives}
     productsPickUpDerivatives={productsPickUpDerivatives}
-    derivativeIds={derivativeIds}
     searchPodVansData={searchPodVansData}
     searchPodCarsData={searchPodCarsData}
+    vehicleListUrlData={vehicleListUrlData}
   />
 );
 
@@ -144,6 +149,42 @@ export async function getServerSideProps(context: NextPageContext) {
     ...productsCarIds,
     ...productsPickUpIds,
   ];
+  const { data: vehicleListUrlQuery } = await client.query<
+    VehicleListUrl,
+    VehicleListUrlVariables
+  >({
+    query: VEHICLE_LIST_URL,
+    variables: {
+      derivativeIds,
+    },
+  });
+  const vehicleListUrlData = {
+    pageInfo: vehicleListUrlQuery?.vehicleList.pageInfo,
+    totalCount: vehicleListUrlQuery?.vehicleList.totalCount,
+    edges: vehicleListUrlQuery?.vehicleList.edges,
+  };
+  const hasNextPage = vehicleListUrlQuery?.vehicleList.pageInfo.hasNextPage;
+  if (hasNextPage) {
+    const edges = vehicleListUrlQuery?.vehicleList.edges || [];
+    const lastCursor = edges[edges.length - 1]?.cursor;
+    const { data: fetchMoreData } = await client.query<
+      VehicleListUrl,
+      VehicleListUrlVariables
+    >({
+      query: VEHICLE_LIST_URL,
+      variables: {
+        derivativeIds,
+        after: lastCursor,
+      },
+    });
+    vehicleListUrlData.pageInfo = fetchMoreData?.vehicleList.pageInfo;
+    vehicleListUrlData.totalCount = fetchMoreData?.vehicleList.totalCount;
+    vehicleListUrlData.edges = [
+      ...(vehicleListUrlData.edges || []),
+      ...(fetchMoreData?.vehicleList?.edges || []),
+    ];
+  }
+
   return {
     props: {
       data,
@@ -157,7 +198,7 @@ export async function getServerSideProps(context: NextPageContext) {
       searchPodVansData,
       searchPodCarsData,
       productsVan,
-      derivativeIds,
+      vehicleListUrlData,
     },
   };
 }

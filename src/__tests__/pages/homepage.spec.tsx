@@ -3,7 +3,7 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import Router from 'next/router';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
-import { render, screen, waitFor, fireEvent } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { HomePageData } from '../../../generated/HomePageData';
 import { ALL_HOME_CONTENT } from '../../gql/homepage';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
@@ -13,7 +13,7 @@ import { mockSearchPodResponse } from '../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
-import { useVehicleListUrl } from '../../gql/vehicleList';
+import { VehicleListUrl_vehicleList as IVehicleList } from '../../../generated/VehicleListUrl';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -215,6 +215,26 @@ const homePageData = {
       },
     } as HomePageData,
   },
+};
+const vehicleListUrl: IVehicleList = {
+  totalCount: 1,
+  pageInfo: {
+    startCursor: 'startCursor',
+    endCursor: 'endCursor',
+    hasNextPage: false,
+    hasPreviousPage: false,
+  },
+  edges: [
+    {
+      cursor: 'cursor',
+      node: {
+        vehicleType: VehicleTypeEnum.CAR,
+        derivativeId: '44514',
+        url: 'url',
+        legacyUrl: 'legacyUrl',
+      },
+    },
+  ],
 };
 
 const mocked: MockedResponse[] = [
@@ -614,31 +634,6 @@ describe('<HomePage />', () => {
         },
       ],
     };
-    (useVehicleListUrl as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        vehicleList: {
-          totalCount: 1,
-          pageInfo: {
-            startCursor: 'startCursor',
-            endCursor: 'endCursor',
-            hasNextPage: 'hasNextPage',
-            hasPreviousPage: 'hasPreviousPage',
-          },
-          edges: [
-            {
-              cursor: 'cursor',
-              node: {
-                derivativeId: '44514',
-                url: 'url',
-                legacyUrl: 'legacyUrl',
-              },
-            },
-          ],
-        },
-      },
-      error: undefined,
-    });
 
     (useCarDerivativesData as jest.Mock).mockReturnValue({
       loading: false,
@@ -661,7 +656,7 @@ describe('<HomePage />', () => {
           productsCar={{ productCarousel: null }}
           productsPickUp={{ productCarousel: null }}
           productsVan={{ productCarousel: null }}
-          derivativeIds={['123', '12333']}
+          vehicleListUrlData={vehicleListUrl}
         />
       </MockedProvider>,
     );
