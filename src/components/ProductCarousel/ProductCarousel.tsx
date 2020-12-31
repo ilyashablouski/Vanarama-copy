@@ -80,7 +80,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                   : undefined
               }
               features={features(
-                product?.keyInformation || [],
+                product.keyInformation || [],
                 product.capId || '',
                 Icon,
               )}
