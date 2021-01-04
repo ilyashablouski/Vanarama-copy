@@ -8,7 +8,7 @@ const Trustpilot: FC<ITrustpilotProps> = ({
   className,
   src,
   dataTestId,
-  templateId = '54ad5defc6454f065c28af8b',
+  templateId = '53aa8912dec7e10d38f59f36',
   height = '130px',
   dataStyleHeight = '240px',
 }) => {
@@ -48,7 +48,7 @@ const Trustpilot: FC<ITrustpilotProps> = ({
         }}
       >
         <a
-          href={src || 'https://www.trustpilot.com/review/vanarama.com'}
+          href={src || 'https://uk.trustpilot.com/review/www.vanarama.com'}
           target="_blank"
           rel="noopener noreferrer"
         >
