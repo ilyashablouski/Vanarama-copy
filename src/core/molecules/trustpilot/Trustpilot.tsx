@@ -38,6 +38,7 @@ const Trustpilot: FC<ITrustpilotProps> = ({
         data-style-width="100%"
         data-theme="light"
         data-stars="4,5"
+        data-review-languages="en"
         style={{
           position: 'relative',
           height,
