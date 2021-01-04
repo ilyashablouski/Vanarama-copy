@@ -149,11 +149,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
         </div>
       </div>
       <div className="testimonials--sidebar">
-        <TrustPilot
-          templateId="5613c9cde69ddc09340c6beb"
-          height="100%"
-          dataStyleHeight="100%"
-        />
+        <TrustPilot />
         {sections?.tiles2?.tiles?.map(tile => {
           return (
             <div
