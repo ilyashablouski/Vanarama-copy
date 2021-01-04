@@ -9,7 +9,7 @@ const Trustpilot: FC<ITrustpilotProps> = ({
   src,
   dataTestId,
   templateId = '53aa8912dec7e10d38f59f36',
-  height = '130px',
+  height = '140px',
   dataStyleHeight = '240px',
 }) => {
   const [loaded, error] = useScript(
