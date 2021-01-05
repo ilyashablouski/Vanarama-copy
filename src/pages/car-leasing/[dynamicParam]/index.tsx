@@ -158,7 +158,7 @@ export async function getServerSideProps(context: NextPageContext) {
     } else if (isFuelType) {
       query.fuelTypes =
         fuelMapper[query.dynamicParam as keyof typeof fuelMapper];
-      filter.fuelTypes = [query.fuelTypes];
+      filter.fuelTypes = query.fuelTypes.split(',');
     } else if (isBudgetType) {
       const rate = budgetMapper[
         query.dynamicParam as keyof typeof budgetMapper

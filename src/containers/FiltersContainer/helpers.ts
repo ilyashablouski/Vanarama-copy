@@ -26,7 +26,7 @@ export const findPreselectFilterValue = (
     );
     return slugsArray?.find(element => isInclude(value, element || '')) || '';
   }
-  return (data as string[])?.find(element => isInclude(value, element)) || '';
+  return (data as string[])?.find(element => isInclude(element, value)) || '';
 };
 
 // build choiseboxes for preselected filters in custom page like a bodystyle page
