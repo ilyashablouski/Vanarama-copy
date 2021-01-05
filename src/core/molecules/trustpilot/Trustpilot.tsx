@@ -8,8 +8,8 @@ const Trustpilot: FC<ITrustpilotProps> = ({
   className,
   src,
   dataTestId,
-  templateId = '54ad5defc6454f065c28af8b',
-  height = '130px',
+  templateId = '53aa8912dec7e10d38f59f36',
+  height = '140px',
   dataStyleHeight = '240px',
 }) => {
   const [loaded, error] = useScript(
@@ -38,6 +38,7 @@ const Trustpilot: FC<ITrustpilotProps> = ({
         data-style-width="100%"
         data-theme="light"
         data-stars="4,5"
+        data-review-languages="en"
         style={{
           position: 'relative',
           height,
@@ -48,7 +49,7 @@ const Trustpilot: FC<ITrustpilotProps> = ({
         }}
       >
         <a
-          href={src || 'https://www.trustpilot.com/review/vanarama.com'}
+          href={src || 'https://uk.trustpilot.com/review/www.vanarama.com'}
           target="_blank"
           rel="noopener noreferrer"
         >
