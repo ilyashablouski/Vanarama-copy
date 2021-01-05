@@ -2,27 +2,20 @@
 import dynamic from 'next/dynamic';
 import { MutableRefObject, useRef } from 'react';
 import { NextPage } from 'next';
-import { useQuery } from '@apollo/client';
 import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import {
   GenericPageHeadQuery,
   GenericPageHeadQueryVariables,
 } from '../../../generated/GenericPageHeadQuery';
-import { ProductCardData } from '../../../generated/ProductCardData';
-import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
-import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
-import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
+import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { GENERIC_PAGE_HEAD } from '../../gql/genericPage';
-import {
-  useVehicleListUrl,
-  useVehicleListUrlFetchMore,
-} from '../../gql/vehicleList';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
+import { ISpecialOffersData, specialOffersRequest } from '../../utils/offers';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -57,82 +50,23 @@ const Breadcrumb = dynamic(
   },
 );
 
-type Props = {
+interface IProps extends ISpecialOffersData {
   genericPageCMS?: any;
-};
+}
 
-export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
+export const OffersPage: NextPage<IProps> = ({
+  genericPageCMS,
+  productsCarDerivatives,
+  productsPickupDerivatives,
+  productsCar,
+  productsPickup,
+  productsVan,
+  vehicleListUrlData,
+  productsVanDerivatives,
+}) => {
   const vanRef = useRef<HTMLDivElement>();
   const truckRef = useRef<HTMLDivElement>();
   const carRef = useRef<HTMLDivElement>();
-
-  const { data: productsVan } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        excludeBodyType: 'Pickup',
-        size: 9,
-        offer: true,
-      },
-    },
-  );
-
-  const productVanCapIds = productsVan?.productCarousel
-    ?.map(el => el?.capId || '')
-    .filter(Boolean) || [''];
-  const { data: productVanDerivatives } = useCarDerivativesData(
-    productVanCapIds,
-    VehicleTypeEnum.LCV,
-  );
-
-  const { data: productsPickup } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'Pickup',
-        size: 9,
-        offer: true,
-      },
-    },
-  );
-
-  const productPickupCapIds = productsPickup?.productCarousel
-    ?.map(el => el?.capId || '')
-    .filter(Boolean) || [''];
-  const { data: productPickupDerivatives } = useCarDerivativesData(
-    productPickupCapIds,
-    VehicleTypeEnum.LCV,
-  );
-
-  const { data: productsCar } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: {
-        type: VehicleTypeEnum.CAR,
-        size: 9,
-        offer: true,
-      },
-    },
-  );
-
-  const productCarCapIds = productsCar?.productCarousel
-    ?.map(el => el?.capId || '')
-    .filter(Boolean) || [''];
-  const { data: productCarDerivatives } = useCarDerivativesData(
-    productCarCapIds,
-    VehicleTypeEnum.CAR,
-  );
-
-  const derivativeIds = [
-    ...productVanCapIds,
-    ...productPickupCapIds,
-    ...productCarCapIds,
-  ].filter(Boolean);
-  const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
-
-  useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
 
   // NOTE: can still be made use of for products loading states combined
 
@@ -256,9 +190,9 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
           <ProductCarousel
             leaseType={LeaseTypeEnum.BUSINESS}
             data={{
-              derivatives: productVanDerivatives?.derivatives || null,
+              derivatives: productsVanDerivatives?.derivatives || null,
               productCard: productsVan?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+              vehicleList: vehicleListUrlData,
             }}
             countItems={productsVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
@@ -295,9 +229,9 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
           <ProductCarousel
             leaseType={LeaseTypeEnum.BUSINESS}
             data={{
-              derivatives: productPickupDerivatives?.derivatives || null,
+              derivatives: productsPickupDerivatives?.derivatives || null,
               productCard: productsPickup?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+              vehicleList: vehicleListUrlData,
             }}
             countItems={productsPickup?.productCarousel?.length || 6}
             dataTestIdBtn="pickup-view-offer"
@@ -334,9 +268,9 @@ export const OffersPage: NextPage<Props> = ({ genericPageCMS }) => {
           <ProductCarousel
             leaseType={LeaseTypeEnum.PERSONAL}
             data={{
-              derivatives: productCarDerivatives?.derivatives || null,
+              derivatives: productsCarDerivatives?.derivatives || null,
               productCard: productsCar?.productCarousel || null,
-              vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+              vehicleList: vehicleListUrlData,
             }}
             countItems={productsCar?.productCarousel?.length || 6}
             dataTestIdBtn="car-view-offer"
@@ -379,9 +313,25 @@ export async function getStaticProps() {
         slug: 'leasing-offers',
       },
     });
+    const {
+      productsVanDerivatives,
+      productsCarDerivatives,
+      productsPickupDerivatives,
+      productsCar,
+      productsPickup,
+      productsVan,
+      vehicleListUrlData,
+    } = await specialOffersRequest(client);
     return {
       props: {
         genericPageCMS: data,
+        productsVanDerivatives: productsVanDerivatives || null,
+        productsCarDerivatives: productsCarDerivatives || null,
+        productsPickupDerivatives: productsPickupDerivatives || null,
+        productsCar: productsCar || null,
+        productsPickup: productsPickup || null,
+        productsVan: productsVan || null,
+        vehicleListUrlData,
       },
     };
   } catch {

@@ -10,6 +10,8 @@ import { getUrlParam } from '../../utils/url';
 import useProgressHistory from '../../hooks/useProgressHistory';
 import useGetPersonUuid from '../../hooks/useGetPersonUuid';
 import useGetOrderId from '../../hooks/useGetOrderId';
+import { useMobileViewport } from '../../hooks/useMediaQuery';
+import { scrollingSteps } from '../ConsumerProgressIndicator/helpers';
 
 const ProgressIndicator = dynamic(() =>
   import('core/molecules/progress-indicator'),
@@ -33,6 +35,7 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   const orderId = useGetOrderId();
   const { setCachedLastStep, cachedLastStep } = useProgressHistory(orderId);
   const personUuid = useGetPersonUuid();
+  const isMobile = useMobileViewport();
 
   const latestStep = cachedLastStep;
 
@@ -61,12 +64,23 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
     }
   }, [currentStep]);
 
+  useEffect(() => {
+    if (isMobile && !!document) {
+      scrollingSteps(currentStep);
+    }
+  }, []);
+
   return (
-    <ProgressIndicator activeStep={activeStep || 0}>
+    <ProgressIndicator activeStep={activeStep || 0} id="progress-indicator">
       {steps.map(({ href, label, step }) => {
         const url = href + asHref;
         return (
-          <Step key={href} editing={editingStep === step} step={step}>
+          <Step
+            key={href}
+            editing={editingStep === step}
+            step={step}
+            id={`step_${step}`}
+          >
             <NextJsLink
               href={url}
               as={url
