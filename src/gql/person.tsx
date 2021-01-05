@@ -22,6 +22,7 @@ export function usePersonByUuidData(uuid: string) {
       variables: {
         uuid,
       },
+      skip: !uuid,
     },
   );
 }
