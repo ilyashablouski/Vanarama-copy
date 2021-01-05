@@ -8,6 +8,8 @@ import React, { useEffect, useMemo } from 'react';
 import { getUrlParam } from '../../utils/url';
 import useProgressHistory from '../../hooks/useProgressHistory';
 import useGetOrderId from '../../hooks/useGetOrderId';
+import { useMobileViewport } from '../../hooks/useMediaQuery';
+import { scrollingSteps } from './helpers';
 
 type QueryParams = {
   redirect?: string;
@@ -21,6 +23,7 @@ const ConsumerProgressIndicator: React.FC = () => {
   const { redirect, uuid } = query as QueryParams;
   const orderId = useGetOrderId();
   const { setCachedLastStep, cachedLastStep } = useProgressHistory(orderId);
+  const isMobile = useMobileViewport();
 
   const latestStep = cachedLastStep;
 
@@ -44,12 +47,23 @@ const ConsumerProgressIndicator: React.FC = () => {
     }
   }, [currentStep]);
 
+  useEffect(() => {
+    if (isMobile && !!document) {
+      scrollingSteps(currentStep);
+    }
+  }, []);
+
   return (
-    <ProgressIndicator activeStep={activeStep || 0}>
+    <ProgressIndicator activeStep={activeStep || 0} id="progress-indicator">
       {steps.map(({ href, label, step }) => {
         const url = href + asHref;
         return (
-          <Step key={href} editing={editingStep === step} step={step}>
+          <Step
+            key={href}
+            editing={editingStep === step}
+            step={step}
+            id={`step_${step}`}
+          >
             <NextJsLink
               href={url}
               as={url.replace('[orderId]', orderId)}
