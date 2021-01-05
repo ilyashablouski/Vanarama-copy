@@ -84,8 +84,7 @@ export function getProductCardContent(
     .then(resp => ({
       products: resp.data,
       productsCapIds: getCapIds(resp.data),
-    }))
-    .catch(() => Promise.resolve({ products: undefined, productsCapIds: [] }));
+    }));
 }
 
 export function getCarDerivatives(
