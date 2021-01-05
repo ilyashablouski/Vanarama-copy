@@ -144,8 +144,6 @@ export const BusinessAboutPage: NextPage = () => {
       } else if (savedPersonUuid && !personUuid) {
         setPersonUuid(savedPersonUuid);
         setPersonLoggedIn(false);
-      } else {
-        setPersonLoggedIn(false);
       }
     });
   }, [personUuid]);
@@ -181,6 +179,7 @@ export const BusinessAboutPage: NextPage = () => {
               onCompleted={() => {
                 pushAuthorizationEventDataLayer();
                 getPerson();
+                setPersonLoggedIn(true);
               }}
             />
           )}

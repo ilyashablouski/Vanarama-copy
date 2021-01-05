@@ -92,9 +92,7 @@ const AboutFormContainer: React.FC<IProps> = ({
       dropdownData={aboutPageDataQuery.data!.allDropDowns}
       person={aboutYouData.data?.personByUuid}
       personLoggedIn={personLoggedIn}
-      onEmailExistenceCheck={
-        aboutYouData.data?.personByUuid ? undefined : onEmailCheck
-      }
+      onEmailExistenceCheck={personLoggedIn ? undefined : onEmailCheck}
       onLogInClick={onLogInClick}
       onRegistrationClick={onRegistrationClick}
       submit={values =>
