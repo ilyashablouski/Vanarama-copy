@@ -12,6 +12,7 @@ import { GET_PERSON_INFORMATION } from '../address-history/[orderId]';
 import { GetDerivative_derivative } from '../../../../generated/GetDerivative';
 import { pushSummaryDataLayer } from '../../../utils/dataLayerHelpers';
 import { OrderInputObject } from '../../../../generated/globalTypes';
+import useGetOrderId from '../../../hooks/useGetOrderId';
 
 type QueryParams = OLAFQueryParams & {
   uuid: string;
@@ -19,7 +20,8 @@ type QueryParams = OLAFQueryParams & {
 
 const SummaryPage: NextPage = () => {
   const router = useRouter();
-  const { orderId, uuid } = router.query as QueryParams;
+  const { uuid } = router.query as QueryParams;
+  const orderId = useGetOrderId();
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
   const [
     derivativeData,
