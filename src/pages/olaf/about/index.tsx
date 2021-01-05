@@ -43,6 +43,7 @@ import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid
 import { GetDerivative_derivative } from '../../../../generated/GetDerivative';
 import Skeleton from '../../../components/Skeleton';
 import useGetOrder from '../../../hooks/useGetOrder';
+import useGetOrderId from '../../../hooks/useGetOrderId';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -90,10 +91,10 @@ const AboutYouPage: NextPage = () => {
   const router = useRouter();
   const client = useApolloClient();
   const order = useGetOrder();
-  const { orderId, uuid } = router.query as OLAFB2CQueryParams;
+  const orderId = useGetOrderId();
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
-  const [personUuid, setPersonUuid] = useState<string | undefined>(uuid);
+  const [personUuid, setPersonUuid] = useState<string | undefined>();
   const [personLoggedIn, setPersonLoggedIn] = useState<boolean>(false);
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
   const [
@@ -132,7 +133,7 @@ const AboutYouPage: NextPage = () => {
     });
     router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);
-  const { refetch } = usePersonByUuidData(personUuid || uuid || '');
+  const { refetch } = usePersonByUuidData(personUuid || '');
   const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
 
   const clickOnComplete = async (
@@ -145,7 +146,7 @@ const AboutYouPage: NextPage = () => {
       updateOrderHandle({
         variables: {
           input: {
-            personUuid: personUuid || uuid,
+            personUuid: personUuid || '',
             leaseType: order?.leaseType || LeaseTypeEnum.PERSONAL,
             lineItems: order?.lineItems || [
               {
@@ -200,11 +201,15 @@ const AboutYouPage: NextPage = () => {
     router.push(`/account/login-register?redirect=${router?.asPath || '/'}`);
 
   useEffect(() => {
-    localForage.getItem('person').then(value => {
-      if ((value as GetPerson)?.getPerson && !personUuid) {
-        setPersonUuid((value as GetPerson)?.getPerson?.uuid);
+    Promise.all([
+      localForage.getItem<GetPerson>('person'),
+      localForage.getItem<string>('personUuid'),
+    ]).then(([person, savedPersonUuid]) => {
+      if (person?.getPerson && !personUuid) {
+        setPersonUuid(person?.getPerson?.uuid);
         setPersonLoggedIn(true);
-      } else {
+      } else if (savedPersonUuid && !personUuid) {
+        setPersonUuid(savedPersonUuid);
         setPersonLoggedIn(false);
       }
     });
@@ -222,7 +227,7 @@ const AboutYouPage: NextPage = () => {
         To get you your brand new vehicle, firstly we’ll just need some details
         about you. This will be used for your credit check.
       </Text>
-      {!personUuid && (
+      {!personLoggedIn && (
         <div className="-mb-500">
           <div className="-pt-300 -pb-300">
             <Button
@@ -236,6 +241,7 @@ const AboutYouPage: NextPage = () => {
               onCompleted={() => {
                 pushAuthorizationEventDataLayer();
                 getPerson();
+                setPersonLoggedIn(true);
               }}
             />
           )}
