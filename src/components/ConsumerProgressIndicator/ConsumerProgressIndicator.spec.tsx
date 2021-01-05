@@ -12,6 +12,21 @@ describe('<ConsumerProgressIndicator />', () => {
   beforeEach(async () => {
     await preloadAll();
   });
+
+  Object.defineProperty(window, 'matchMedia', {
+    writable: true,
+    value: jest.fn().mockImplementation(mock => ({
+      matches: false,
+      media: mock,
+      onchange: null,
+      addListener: jest.fn(), // deprecated
+      removeListener: jest.fn(), // deprecated
+      addEventListener: jest.fn(),
+      removeEventListener: jest.fn(),
+      dispatchEvent: jest.fn(),
+    })),
+  });
+
   const mocks: MockedResponse[] = [
     {
       request: {

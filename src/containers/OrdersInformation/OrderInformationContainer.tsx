@@ -86,11 +86,11 @@ const OrderInformationContainer: React.FC<IProps> = () => {
               color: 'teal',
             }}
             link={{
-              href: `/account/my-orders/[partyByUuid]`,
+              href: `/account/my-orders`,
               label: '',
               query: { uuid },
             }}
-            as={`/account/my-orders/${partyByUuid}?uuid=${uuid}`}
+            as="/account/my-orders"
             onClick={ev => !ordersLength && ev.preventDefault()}
             dataTestId="orders-link"
           >

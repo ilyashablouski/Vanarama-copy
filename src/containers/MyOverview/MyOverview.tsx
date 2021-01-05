@@ -26,6 +26,10 @@ import {
 } from '../../../generated/GetMyOrders';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
+import {
+  GetPerson,
+  GetPerson_getPerson as Person,
+} from '../../../generated/GetPerson';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -60,9 +64,9 @@ interface IMyOverviewProps {
 
 const MyOverview: React.FC<IMyOverviewProps> = props => {
   const router = useRouter();
-  const { partyByUuid, uuid } = router.query as QueryParams;
   const { quote } = props;
 
+  const [person, setPerson] = useState<Person | null>(null);
   const [activePage, setActivePage] = useState(1);
   const [activeTab, setActiveTab] = useState(0);
   const [filter, changeFilter] = useState<MyOrdersTypeEnum>(
@@ -81,7 +85,17 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
   useEffect(() => {
-    if (partyByUuid && uuid) {
+    if (!person) {
+      localForage.getItem<GetPerson>('person').then(value => {
+        if (value) {
+          setPerson(value.getPerson);
+        }
+      });
+    }
+  }, [person]);
+
+  useEffect(() => {
+    if (person?.partyUuid && person?.uuid) {
       if (!breadcrumbPath.length) {
         setBreadcrumbPath([
           { link: { label: 'Home', href: '/' } },
@@ -90,12 +104,12 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
               label: 'My Account',
               href: '/account/my-details/[uuid]',
               query: {
-                partyByUuid,
-                uuid,
+                partyByUuid: person.partyUuid,
+                uuid: person.uuid,
               },
             },
-            as: `/account/my-details/${uuid}${getUrlParam({
-              partyByUuid,
+            as: `/account/my-details/${person.uuid}${getUrlParam({
+              partyByUuid: person.partyUuid,
             })}`,
           },
           {
@@ -108,7 +122,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
       }
       if (!partyUuidArray) {
         getCompaniesData({
-          personUuid: uuid,
+          personUuid: person.uuid,
         }).then(resp => {
           const companiesPartyUuid: string[] = resp.data?.companiesByPersonUuid?.map(
             (companies: CompaniesByPersonUuid) => companies.partyUuid,
@@ -117,28 +131,21 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
         });
       }
     }
-  }, [
-    partyByUuid,
-    uuid,
-    quote,
-    getCompaniesData,
-    partyUuidArray,
-    breadcrumbPath,
-  ]);
+  }, [person, quote, getCompaniesData, partyUuidArray, breadcrumbPath]);
 
   // call query for get Orders
   const [getOrders, { data, loading }] = useMyOrdersData(
     partyUuidArray
-      ? [partyByUuid as string, ...partyUuidArray]
-      : [partyByUuid as string] || [''],
+      ? [person?.partyUuid || '', ...partyUuidArray]
+      : [person?.partyUuid || ''] || [''],
     quote ? MyOrdersTypeEnum.ALL_QUOTES : filter,
   );
 
   useEffect(() => {
-    if (partyByUuid && partyUuidArray !== null && !data) {
+    if (person?.partyUuid && partyUuidArray !== null && !data) {
       getOrders();
     }
-  }, [partyByUuid, getOrders, router.query.partyByUuid, data, partyUuidArray]);
+  }, [getOrders, person, data, partyUuidArray]);
 
   // collect car and lcv capId from orders
   const capIdArrayData = data?.myOrders?.reduce(
