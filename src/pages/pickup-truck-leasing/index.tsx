@@ -675,7 +675,7 @@ export const PickupsPage: NextPage<Props> = ({ data, searchPodVansData }) => {
 
       <section className="row:trustpilot">
         <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
-          <TrustPilot src="https://widget.trustpilot.com/trustboxes/53aa8912dec7e10d38f59f36/index.html?templateId=53aa8912dec7e10d38f59f36&amp;businessunitId=594a982f0000ff0005a50d80#locale=en-GB&amp;styleHeight=130px&amp;styleWidth=100%25&amp;theme=light&amp;stars=4%2C5&amp;schemaType=Organization" />
+          <TrustPilot />
         </LazyLoadComponent>
       </section>
 
