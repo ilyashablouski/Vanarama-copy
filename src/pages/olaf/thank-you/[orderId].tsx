@@ -52,9 +52,10 @@ const ThankYouPage: NextPage = () => {
 
   useEffect(() => {
     if (!person) {
-      localForage.getItem('person').then(value => {
-        if ((value as GetPerson)?.getPerson)
-          setPerson((value as GetPerson)?.getPerson as Person);
+      localForage.getItem<GetPerson>('person').then(value => {
+        if (value) {
+          setPerson(value.getPerson);
+        }
       });
     }
   }, [person]);
@@ -116,12 +117,11 @@ const ThankYouPage: NextPage = () => {
             label="View order"
             onClick={() => {
               if (person) {
-                router.push(
-                  `/account/my-orders/[partyByUuid]?uuid=${person.uuid}`,
-                  `/account/my-orders/${person.partyUuid}?uuid=${person.uuid}`,
-                );
+                router.push(`/account/my-orders`);
               } else {
-                router.push('/');
+                router.push(
+                  '/account/login-register?redirect=/account/my-orders',
+                );
               }
             }}
           />

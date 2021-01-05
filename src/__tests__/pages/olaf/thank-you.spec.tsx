@@ -36,6 +36,8 @@ describe('<ThankYouPage />', () => {
 
     // ASSERT
     await waitFor(() => expect(mockPush).toBeCalledTimes(1));
-    expect(mockPush).toBeCalledWith('/');
+    expect(mockPush).toBeCalledWith(
+      '/account/login-register?redirect=/account/my-orders',
+    );
   });
 });
