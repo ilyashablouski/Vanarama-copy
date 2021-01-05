@@ -1,13 +1,13 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import Icon from 'core/atoms/icon';
+import IconMap from '../../utils/cardIconMap';
 import Skeleton from '../../components/Skeleton';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Icon = dynamic(() => import('core/atoms/icon'), {
-  loading: () => <Skeleton count={1} />,
-});
+
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -34,6 +34,13 @@ const KeyInformation: React.FC<IKeyInformationProps> = ({
                 ? 'Overclocking'
                 : info.name?.replace(' ', '')
             }`}
+            icon={IconMap.get(
+              `${
+                info.name === '0-62mph'
+                  ? 'Overclocking'
+                  : info.name?.replace(' ', '')
+              }`,
+            )}
             color="orange"
             className="icon-custom"
             size="large"
