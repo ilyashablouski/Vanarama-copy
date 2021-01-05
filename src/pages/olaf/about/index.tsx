@@ -20,7 +20,7 @@ import AboutFormContainer from '../../../containers/AboutFormContainer/AboutForm
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
-import { getUrlParam, OLAFB2CQueryParams } from '../../../utils/url';
+import { getUrlParam } from '../../../utils/url';
 import { GetPerson } from '../../../../generated/GetPerson';
 import { CreateUpdatePersonMutation_createUpdatePerson } from '../../../../generated/CreateUpdatePersonMutation';
 import {
