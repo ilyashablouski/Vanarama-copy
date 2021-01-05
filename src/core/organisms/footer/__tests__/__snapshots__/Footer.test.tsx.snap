@@ -163,7 +163,7 @@ exports[`<Footer /> renders correctly 1`] = `
     className="text footer--copyright -xsmall -light"
   >
     ©
-    2020
+    2021
      Autorama UK LTD. All rights reserved.
   </p>
 </footer>
@@ -688,7 +688,7 @@ exports[`<Footer /> renders correctly with optional props 1`] = `
     className="text footer--copyright -xsmall -light"
   >
     ©
-    2020
+    2021
      Autorama UK LTD. All rights reserved.
   </p>
   <p

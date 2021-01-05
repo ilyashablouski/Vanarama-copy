@@ -194,14 +194,17 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       price,
       category: getCategory({ cars, vans, pickups }),
     });
-    return localForage.setItem('order', values).then(() => {
-      const url =
-        leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
-          ? '/olaf/about'
-          : '/b2b/olaf/about';
+    return localForage
+      .setItem('order', values)
+      .then(() => localForage.removeItem('orderId'))
+      .then(() => {
+        const url =
+          leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
+            ? '/olaf/about'
+            : '/b2b/olaf/about';
 
-      router.push(url, url);
-    });
+        router.push(url, url);
+      });
   };
 
   if (loading) {

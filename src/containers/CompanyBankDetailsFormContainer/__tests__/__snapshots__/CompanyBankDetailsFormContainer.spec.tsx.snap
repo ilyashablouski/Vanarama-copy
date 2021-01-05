@@ -268,6 +268,11 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
                 Year
               </option>
               <option
+                value="2021"
+              >
+                2021
+              </option>
+              <option
                 value="2020"
               >
                 2020
@@ -761,11 +766,6 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
                 value="1922"
               >
                 1922
-              </option>
-              <option
-                value="1921"
-              >
-                1921
               </option>
             </select>
             <span
