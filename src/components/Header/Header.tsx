@@ -251,7 +251,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
                         className="header-account--link"
                         link={{
                           href: ordersLength
-                            ? '/account/my-orders/[partyByUuid]'
+                            ? '/account/my-orders'
                             : `/account/my-details/[uuid]`,
                           label: 'My Orders',
                           query: {
@@ -261,7 +261,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
                         }}
                         as={
                           ordersLength
-                            ? `/account/my-orders/${person.partyUuid}?uuid=${person.uuid}`
+                            ? `/account/my-orders`
                             : `/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`
                         }
                       >

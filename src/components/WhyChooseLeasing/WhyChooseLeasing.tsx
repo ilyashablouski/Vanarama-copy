@@ -1,8 +1,9 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import Icon from 'core/atoms/icon';
 import Skeleton from '../Skeleton';
+import IconMap from '../../utils/cardIconMap';
 
-const Icon = dynamic(() => import('core/atoms/icon'));
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -28,7 +29,12 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({ warranty }) => {
       case 'N/A':
         return renderGridItem(
           'Full Manufacturer Warranty',
-          <Icon name="WarrantyRosetteFull" color="orange" size="xlarge" />,
+          <Icon
+            name="WarrentyRossetaFull"
+            icon={IconMap.get('WarrantyRosetteFull')}
+            color="orange"
+            size="xlarge"
+          />,
         );
       case '2':
       case '3':
@@ -38,6 +44,7 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({ warranty }) => {
           `Full ${warranty} Year Warranty`,
           <Icon
             name={`WarrantyRosette${warranty}`}
+            icon={IconMap.get(`WarrantyRosette${warranty}`)}
             color="orange"
             size="xlarge"
           />,
@@ -54,16 +61,31 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({ warranty }) => {
       </Heading>
       {renderGridItem(
         'Brand New Vehicles',
-        <Icon name="BrandNewCar" color="orange" size="xlarge" />,
+        <Icon
+          name="BrandNewCar"
+          icon={IconMap.get('BrandNewCar')}
+          color="orange"
+          size="xlarge"
+        />,
       )}
       {warrantyRender()}
       {renderGridItem(
         'Fixed Monthly Payments',
-        <Icon name="Calendar" color="orange" size="xlarge" />,
+        <Icon
+          name="FixedMonthlyPayments"
+          icon={IconMap.get('FixedMonthlyPayments')}
+          color="orange"
+          size="xlarge"
+        />,
       )}
       {renderGridItem(
         'No MOT Costs',
-        <Icon name="NoMOT" color="orange" size="xlarge" />,
+        <Icon
+          name="NoMOT"
+          icon={IconMap.get('NoMOT')}
+          color="orange"
+          size="xlarge"
+        />,
       )}
     </div>
   );
