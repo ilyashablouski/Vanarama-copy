@@ -42,6 +42,8 @@ const ArrowForwardSharp = dynamic(
 );
 
 interface IDealOfMonthProps {
+  compared: boolean | undefined;
+  onCompare: () => void;
   vehicle: string;
   specification: string;
   rating?: number;
