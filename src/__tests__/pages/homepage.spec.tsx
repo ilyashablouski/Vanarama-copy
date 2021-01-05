@@ -652,9 +652,9 @@ describe('<HomePage />', () => {
           error={undefined}
           productsVanDerivatives={derivatives}
           productsCarDerivatives={derivatives}
-          productsPickUpDerivatives={derivatives}
+          productsPickupDerivatives={derivatives}
           productsCar={{ productCarousel: null }}
-          productsPickUp={{ productCarousel: null }}
+          productsPickup={{ productCarousel: null }}
           productsVan={{ productCarousel: null }}
           vehicleListUrlData={vehicleListUrl}
         />

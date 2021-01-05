@@ -12,17 +12,15 @@ import {
   HomePageData_homePage_sections_featured1_iconList as IIconList,
 } from '../../../generated/HomePageData';
 import { filterList as IFilterList } from '../../../generated/filterList';
-import { ProductCardData } from '../../../generated/ProductCardData';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getSectionsData } from '../../utils/getSectionsData';
 import TileLink from '../../components/TileLink/TileLink';
-import { GetDerivatives } from '../../../generated/GetDerivatives';
 // import Hero from '../../components/Hero';
 import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
-import { VehicleListUrl_vehicleList as IVehicleList } from '../../../generated/VehicleListUrl';
+import { ISpecialOffersData } from '../../utils/offers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -105,19 +103,12 @@ const optimisationOptions = {
   quality: 59,
 };
 
-export interface IHomePageContainer {
+export interface IHomePageContainer extends ISpecialOffersData {
   data: HomePageData;
   loading: boolean;
   error: ApolloError | undefined;
-  productsVan: ProductCardData;
-  productsCar: ProductCardData;
-  productsPickUp: ProductCardData;
-  productsVanDerivatives: GetDerivatives;
-  productsCarDerivatives: GetDerivatives;
-  productsPickUpDerivatives: GetDerivatives;
   searchPodVansData?: IFilterList;
   searchPodCarsData?: IFilterList;
-  vehicleListUrlData: IVehicleList;
 }
 
 export const HomePageContainer: React.FC<IHomePageContainer> = ({
@@ -126,10 +117,10 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
   data,
   productsVanDerivatives,
   productsCarDerivatives,
-  productsPickUpDerivatives,
+  productsPickupDerivatives,
   productsVan,
   productsCar,
-  productsPickUp,
+  productsPickup,
   searchPodVansData,
   searchPodCarsData,
   vehicleListUrlData,
@@ -283,11 +274,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                   }
                   productType="Pickup"
                   data={{
-                    derivatives: productsPickUpDerivatives?.derivatives || null,
-                    productCard: productsPickUp?.productCarousel || null,
+                    derivatives: productsPickupDerivatives?.derivatives || null,
+                    productCard: productsPickup?.productCarousel || null,
                     vehicleList: vehicleListUrlData,
                   }}
-                  countItems={productsPickUp?.productCarousel?.length || 6}
+                  countItems={productsPickup?.productCarousel?.length || 6}
                   dataTestIdBtn="pickup-view-offer"
                 />
                 <div className="-justify-content-row -pt-500">

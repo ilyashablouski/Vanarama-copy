@@ -2,29 +2,23 @@
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
-import { useEffect, useState } from 'react';
 import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
-import { ProductCardData } from '../../../generated/ProductCardData';
 import {
   VanOffersPageData,
   VanOffersPageData_vanOffersPage_sections_iconBullets_iconBullets as VanIconBullet,
 } from '../../../generated/VanOffersPageData';
 import { VAN_OFFERS_CONTENT } from '../../gql/special-offers/van-offers';
-import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
-import { GET_CAR_DERIVATIVES } from '../../containers/OrdersInformation/gql';
-import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
+import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import useLeaseType from '../../hooks/useLeaseType';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
-import {
-  useVehicleListUrl,
-  useVehicleListUrlFetchMore,
-} from '../../gql/vehicleList';
-import { useImperativeQuery } from '../../hooks/useImperativeQuery';
-import { GetDerivatives } from '../../../generated/GetDerivatives';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
+import {
+  IVansSpecialOffersData,
+  vansSpecialOffersRequest,
+} from '../../utils/offers';
 
 const AddCircle = dynamic(() => import('core/assets/icons/AddCircle'), {
   loading: () => <Skeleton count={1} />,
@@ -46,195 +40,27 @@ const ProductCarousel = dynamic(
   },
 );
 
-type Props = {
+interface IProps extends IVansSpecialOffersData {
   pageData: any;
-};
+}
 
-export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
-  const [productSmallVan, setProductSmallVan] = useState<
-    ProductCardData | undefined
-  >(undefined);
-  const [productSmallVanCapIds, setProductSmallVanCapIds] = useState<string[]>(
-    [],
-  );
-  const [productSmallVanDerivatives, setProductSmallVanDerivatives] = useState<
-    GetDerivatives | undefined
-  >(undefined);
-
-  const [productMediumVan, setProductMediumVan] = useState<
-    ProductCardData | undefined
-  >(undefined);
-  const [productMediumVanCapIds, setProductMediumVanCapIds] = useState<
-    string[]
-  >([]);
-  const [
-    productMediumVanDerivatives,
-    setProductMediumVanDerivatives,
-  ] = useState<GetDerivatives | undefined>(undefined);
-
-  const [productLargeVan, setProductLargeVan] = useState<
-    ProductCardData | undefined
-  >(undefined);
-  const [productLargeVanCapIds, setProductLargeVanCapIds] = useState<string[]>(
-    [],
-  );
-  const [productLargeVanDerivatives, setProductLargeVanDerivatives] = useState<
-    GetDerivatives | undefined
-  >(undefined);
-
-  const [productPickups, setProductPickups] = useState<
-    ProductCardData | undefined
-  >(undefined);
-  const [productPickupsCapIds, setProductPickupsCapIds] = useState<string[]>(
-    [],
-  );
-  const [productPickupsDerivatives, setProductPickupsDerivatives] = useState<
-    GetDerivatives | undefined
-  >(undefined);
-
-  const [productSpecialistVan, setProductSpecialistVan] = useState<
-    ProductCardData | undefined
-  >(undefined);
-  const [productSpecialistVanCapIds, setProductSpecialistVanCapIds] = useState<
-    string[]
-  >([]);
-  const [
-    productSpecialistVanDerivatives,
-    setProductSpecialistVanDerivatives,
-  ] = useState<GetDerivatives | undefined>(undefined);
-
-  const [productTippers, setProductTippers] = useState<
-    ProductCardData | undefined
-  >(undefined);
-  const [productTippersCapIds, setProductTippersCapIds] = useState<string[]>(
-    [],
-  );
-  const [productTippersDerivatives, setProductTippersDerivatives] = useState<
-    GetDerivatives | undefined
-  >(undefined);
-
+export const VanOffers: NextPage<IProps> = ({
+  pageData: data,
+  productsPickup,
+  productsSmallVan,
+  productsMediumVan,
+  productsLargeVan,
+  productsDropsideTipper,
+  productsSpecialist,
+  productsPickupDerivatives,
+  productsSmallVanDerivatives,
+  productsMediumVanDerivatives,
+  productsLargeVanDerivatives,
+  productsDropsideTipperDerivatives,
+  productsSpecialistDerivatives,
+  vehicleListUrlData,
+}) => {
   const { cachedLeaseType } = useLeaseType(false);
-
-  const getProduct = useImperativeQuery(PRODUCT_CARD_CONTENT);
-  const getProductDerivatives = useImperativeQuery(GET_CAR_DERIVATIVES);
-
-  useEffect(() => {
-    // get Small Vans
-    getProduct({
-      type: VehicleTypeEnum.LCV,
-      bodyType: 'SmallVan',
-      size: 9,
-      offer: true,
-    }).then(async (response: any) => {
-      setProductSmallVan(response.data);
-      const capIds = response.data.productCarousel
-        ?.map((el: any) => el?.capId)
-        .filter(Boolean);
-      if (capIds) setProductSmallVanCapIds(capIds);
-      getProductDerivatives({
-        ids: capIds,
-        vehicleType: VehicleTypeEnum.LCV,
-      }).then(resp => setProductSmallVanDerivatives(resp.data));
-    });
-    // get Medium Vans
-    getProduct({
-      type: VehicleTypeEnum.LCV,
-      bodyType: 'MediumVan',
-      size: 9,
-      offer: true,
-    }).then(response => {
-      setProductMediumVan(response.data);
-      const capIds = response.data.productCarousel
-        ?.map((el: any) => el?.capId)
-        .filter(Boolean);
-      if (capIds) setProductMediumVanCapIds(capIds);
-      getProductDerivatives({
-        ids: capIds,
-        vehicleType: VehicleTypeEnum.LCV,
-      }).then(resp => setProductMediumVanDerivatives(resp.data));
-    });
-    // get Large Vans
-    getProduct({
-      type: VehicleTypeEnum.LCV,
-      bodyType: 'LargeVan',
-      size: 9,
-      offer: true,
-    }).then(response => {
-      setProductLargeVan(response.data);
-      const capIds = response.data.productCarousel
-        ?.map((el: any) => el?.capId)
-        .filter(Boolean);
-      if (capIds) setProductLargeVanCapIds(capIds);
-      getProductDerivatives({
-        ids: capIds,
-        vehicleType: VehicleTypeEnum.LCV,
-      }).then(resp => setProductLargeVanDerivatives(resp.data));
-    });
-    // get Pickups
-    getProduct({
-      type: VehicleTypeEnum.LCV,
-      bodyType: 'Pickup',
-      size: 9,
-      offer: true,
-    }).then(response => {
-      setProductPickups(response.data);
-      const capIds = response.data.productCarousel
-        ?.map((el: any) => el?.capId)
-        .filter(Boolean);
-      if (capIds) setProductPickupsCapIds(capIds);
-      getProductDerivatives({
-        ids: capIds,
-        vehicleType: VehicleTypeEnum.LCV,
-      }).then(resp => setProductPickupsDerivatives(resp.data));
-    });
-    // get Specialist
-    getProduct({
-      type: VehicleTypeEnum.LCV,
-      bodyType: 'Specialist',
-      size: 9,
-      offer: true,
-    }).then(response => {
-      setProductSpecialistVan(response.data);
-      const capIds = response.data.productCarousel
-        ?.map((el: any) => el?.capId)
-        .filter(Boolean);
-      if (capIds) setProductSpecialistVanCapIds(capIds);
-      getProductDerivatives({
-        ids: capIds,
-        vehicleType: VehicleTypeEnum.LCV,
-      }).then(resp => setProductSpecialistVanDerivatives(resp.data));
-    });
-    // get DropsideTipper
-    getProduct({
-      type: VehicleTypeEnum.LCV,
-      bodyType: 'DropsideTipper',
-      size: 9,
-      offer: true,
-    }).then(response => {
-      setProductTippers(response.data);
-      const capIds = response.data.productCarousel
-        ?.map((el: any) => el?.capId)
-        .filter(Boolean);
-      if (capIds) setProductTippersCapIds(capIds);
-      getProductDerivatives({
-        ids: capIds,
-        vehicleType: VehicleTypeEnum.LCV,
-      }).then(resp => setProductTippersDerivatives(resp.data));
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const derivativeIds = [
-    ...productSmallVanCapIds,
-    ...productMediumVanCapIds,
-    ...productLargeVanCapIds,
-    ...productPickupsCapIds,
-    ...productSpecialistVanCapIds,
-    ...productTippersCapIds,
-  ];
-  const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
-
-  useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
 
   const isPersonal = cachedLeaseType === 'Personal';
   const metaDataName = getSectionsData(
@@ -253,8 +79,8 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
         </Text>
       </div>
 
-      {productSmallVan?.productCarousel &&
-        productSmallVan?.productCarousel?.length > 0 && (
+      {productsSmallVan?.productCarousel &&
+        productsSmallVan?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
               <Heading size="large" color="black">
@@ -270,11 +96,11 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
                   isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
                 }
                 data={{
-                  derivatives: productSmallVanDerivatives?.derivatives || null,
-                  productCard: productSmallVan?.productCarousel || null,
-                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                  derivatives: productsSmallVanDerivatives?.derivatives || null,
+                  productCard: productsSmallVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlData!,
                 }}
-                countItems={productSmallVan?.productCarousel?.length || 6}
+                countItems={productsSmallVan?.productCarousel?.length || 6}
                 dataTestIdBtn="van-view-offer"
               />
               <div className="-justify-content-row -pt-500">
@@ -295,8 +121,8 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
           </div>
         )}
 
-      {productMediumVan?.productCarousel &&
-        productMediumVan?.productCarousel?.length > 0 && (
+      {productsMediumVan?.productCarousel &&
+        productsMediumVan?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
               <Heading size="large" color="black">
@@ -312,11 +138,12 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
                   isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
                 }
                 data={{
-                  derivatives: productMediumVanDerivatives?.derivatives || null,
-                  productCard: productMediumVan?.productCarousel || null,
-                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                  derivatives:
+                    productsMediumVanDerivatives?.derivatives || null,
+                  productCard: productsMediumVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlData!,
                 }}
-                countItems={productMediumVan?.productCarousel?.length || 6}
+                countItems={productsMediumVan?.productCarousel?.length || 6}
                 dataTestIdBtn="van-view-offer"
               />
               <div className="-justify-content-row -pt-500">
@@ -337,8 +164,8 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
           </div>
         )}
 
-      {productLargeVan?.productCarousel &&
-        productLargeVan?.productCarousel?.length > 0 && (
+      {productsLargeVan?.productCarousel &&
+        productsLargeVan?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
               <Heading size="large" color="black">
@@ -354,11 +181,11 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
                   isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
                 }
                 data={{
-                  derivatives: productLargeVanDerivatives?.derivatives || null,
-                  productCard: productLargeVan?.productCarousel || null,
-                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                  derivatives: productsLargeVanDerivatives?.derivatives || null,
+                  productCard: productsLargeVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlData!,
                 }}
-                countItems={productLargeVan?.productCarousel?.length || 6}
+                countItems={productsLargeVan?.productCarousel?.length || 6}
                 dataTestIdBtn="van-view-offer"
               />
               <div className="-justify-content-row -pt-500">
@@ -379,8 +206,8 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
           </div>
         )}
 
-      {productPickups?.productCarousel &&
-        productPickups?.productCarousel?.length > 0 && (
+      {productsPickup?.productCarousel &&
+        productsPickup?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
               <Heading size="large" color="black">
@@ -396,11 +223,11 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
                   isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
                 }
                 data={{
-                  derivatives: productPickupsDerivatives?.derivatives || null,
-                  productCard: productPickups?.productCarousel || null,
-                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                  derivatives: productsPickupDerivatives?.derivatives || null,
+                  productCard: productsPickup?.productCarousel || null,
+                  vehicleList: vehicleListUrlData!,
                 }}
-                countItems={productPickups?.productCarousel?.length || 6}
+                countItems={productsPickup?.productCarousel?.length || 6}
                 dataTestIdBtn="van-view-offer"
               />
               <div className="-justify-content-row -pt-500">
@@ -421,8 +248,8 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
           </div>
         )}
 
-      {productTippers?.productCarousel &&
-        productTippers?.productCarousel?.length > 0 && (
+      {productsDropsideTipper?.productCarousel &&
+        productsDropsideTipper?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
               <Heading size="large" color="black">
@@ -438,11 +265,14 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
                   isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
                 }
                 data={{
-                  derivatives: productTippersDerivatives?.derivatives || null,
-                  productCard: productTippers?.productCarousel || null,
-                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                  derivatives:
+                    productsDropsideTipperDerivatives?.derivatives || null,
+                  productCard: productsDropsideTipper?.productCarousel || null,
+                  vehicleList: vehicleListUrlData!,
                 }}
-                countItems={productTippers?.productCarousel?.length || 6}
+                countItems={
+                  productsDropsideTipper?.productCarousel?.length || 6
+                }
                 dataTestIdBtn="van-view-offer"
               />
               <div className="-justify-content-row -pt-500">
@@ -463,8 +293,8 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
           </div>
         )}
 
-      {productSpecialistVan?.productCarousel &&
-        productSpecialistVan?.productCarousel?.length > 0 && (
+      {productsSpecialist?.productCarousel &&
+        productsSpecialist?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
               <Heading size="large" color="black">
@@ -481,11 +311,11 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
                 }
                 data={{
                   derivatives:
-                    productSpecialistVanDerivatives?.derivatives || null,
-                  productCard: productSpecialistVan?.productCarousel || null,
-                  vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                    productsSpecialistDerivatives?.derivatives || null,
+                  productCard: productsSpecialist?.productCarousel || null,
+                  vehicleList: vehicleListUrlData!,
                 }}
-                countItems={productSpecialistVan?.productCarousel?.length || 6}
+                countItems={productsSpecialist?.productCarousel?.length || 6}
                 dataTestIdBtn="van-view-offer"
               />
               <div className="-justify-content-row -pt-500">
@@ -600,19 +430,49 @@ export const VanOffers: NextPage<Props> = ({ pageData: data }) => {
 
 export async function getStaticProps() {
   const client = createApolloClient({});
-
+  let data;
   try {
-    const { data } = await client.query<VanOffersPageData>({
+    const { data: content } = await client.query<VanOffersPageData>({
       query: VAN_OFFERS_CONTENT,
     });
-    return {
-      props: {
-        pageData: data,
-      },
-    };
-  } catch {
+    data = content;
+  } catch (e) {
     return false;
   }
+  const {
+    productsPickup,
+    productsSmallVan,
+    productsMediumVan,
+    productsLargeVan,
+    productsDropsideTipper,
+    productsSpecialist,
+    productsPickupDerivatives,
+    productsSmallVanDerivatives,
+    productsMediumVanDerivatives,
+    productsLargeVanDerivatives,
+    productsDropsideTipperDerivatives,
+    productsSpecialistDerivatives,
+    vehicleListUrlData,
+  } = await vansSpecialOffersRequest(client);
+  return {
+    props: {
+      pageData: data,
+      productsPickup: productsPickup || null,
+      productsSmallVan: productsSmallVan || null,
+      productsMediumVan: productsMediumVan || null,
+      productsLargeVan: productsLargeVan || null,
+      productsDropsideTipper: productsDropsideTipper || null,
+      productsSpecialist: productsSpecialist || null,
+      productsPickupDerivatives: productsPickupDerivatives || null,
+      productsSmallVanDerivatives: productsSmallVanDerivatives || null,
+      productsMediumVanDerivatives: productsMediumVanDerivatives || null,
+      productsLargeVanDerivatives: productsLargeVanDerivatives || null,
+      productsDropsideTipperDerivatives:
+        productsDropsideTipperDerivatives || null,
+      productsSpecialistDerivatives: productsSpecialistDerivatives || null,
+      vehicleListUrlData,
+    },
+  };
 }
 
 export default VanOffers;
