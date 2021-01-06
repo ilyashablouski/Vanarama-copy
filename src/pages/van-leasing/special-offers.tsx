@@ -83,13 +83,13 @@ export const VanOffers: NextPage<IProps> = ({
         productsSmallVan?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
-              <Heading size="large" color="black">
-                <span
-                  style={{ textAlign: 'center', display: 'block' }}
-                  className="-mb-400"
-                >
-                  Best Small Van Lease Offers
-                </span>
+              <Heading
+                size="large"
+                color="black"
+                tag="h2"
+                className="-mb-400 -a-center"
+              >
+                Best Small Van Lease Offers
               </Heading>
               <ProductCarousel
                 leaseType={
@@ -125,13 +125,13 @@ export const VanOffers: NextPage<IProps> = ({
         productsMediumVan?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
-              <Heading size="large" color="black">
-                <span
-                  style={{ textAlign: 'center', display: 'block' }}
-                  className="-mb-400"
-                >
-                  Best Medium Van Lease Offers
-                </span>
+              <Heading
+                size="large"
+                color="black"
+                tag="h2"
+                className="-mb-400 -a-center"
+              >
+                Best Medium Van Lease Offers
               </Heading>
               <ProductCarousel
                 leaseType={
@@ -168,13 +168,13 @@ export const VanOffers: NextPage<IProps> = ({
         productsLargeVan?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
-              <Heading size="large" color="black">
-                <span
-                  style={{ textAlign: 'center', display: 'block' }}
-                  className="-mb-400"
-                >
-                  Best Large Van Lease Offers
-                </span>
+              <Heading
+                size="large"
+                color="black"
+                tag="h2"
+                className="-mb-400 -a-center"
+              >
+                Best Large Van Lease Offers
               </Heading>
               <ProductCarousel
                 leaseType={
@@ -210,13 +210,13 @@ export const VanOffers: NextPage<IProps> = ({
         productsPickup?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
-              <Heading size="large" color="black">
-                <span
-                  style={{ textAlign: 'center', display: 'block' }}
-                  className="-mb-400"
-                >
-                  Best Pickup Truck Lease Offers
-                </span>
+              <Heading
+                size="large"
+                color="black"
+                tag="h2"
+                className="-mb-400 -a-center"
+              >
+                Best Pickup Truck Lease Offers
               </Heading>
               <ProductCarousel
                 leaseType={
@@ -252,13 +252,13 @@ export const VanOffers: NextPage<IProps> = ({
         productsDropsideTipper?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
-              <Heading size="large" color="black">
-                <span
-                  style={{ textAlign: 'center', display: 'block' }}
-                  className="-mb-400"
-                >
-                  Best Dropside Tipper Offers
-                </span>
+              <Heading
+                size="large"
+                color="black"
+                tag="h2"
+                className="-mb-400 -a-center"
+              >
+                Best Dropside Tipper Offers
               </Heading>
               <ProductCarousel
                 leaseType={
@@ -297,13 +297,13 @@ export const VanOffers: NextPage<IProps> = ({
         productsSpecialist?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
-              <Heading size="large" color="black">
-                <span
-                  style={{ textAlign: 'center', display: 'block' }}
-                  className="-mb-400"
-                >
-                  Specialist Van Lease Offers
-                </span>
+              <Heading
+                size="large"
+                color="black"
+                tag="h2"
+                className="-mb-400 -a-center"
+              >
+                Specialist Van Lease Offers
               </Heading>
               <ProductCarousel
                 leaseType={
