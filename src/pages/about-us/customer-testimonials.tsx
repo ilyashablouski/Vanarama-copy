@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import { ApolloError } from '@apollo/client';
 import DefaultErrorPage from 'next/error';
 import SchemaJSON from 'core/atoms/schema-json';
 import { GENERIC_PAGE_TESTIMONIALS } from '../../containers/CustomerTestimonialsContainer/gql';
@@ -10,6 +9,8 @@ import Head from '../../components/Head/Head';
 import createApolloClient from '../../apolloClient';
 import { GenericPageTestimonialsQuery } from '../../../generated/GenericPageTestimonialsQuery';
 import Skeleton from '../../components/Skeleton';
+import { TESTIMONIALS_DATA } from '../../gql/testimonials';
+import { TestimonialsData } from '../../../generated/TestimonialsData';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -18,19 +19,21 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 interface ICustomerTestimonialPage {
   data: GenericPageTestimonialsQuery | undefined;
   loading: boolean;
-  error: ApolloError | undefined;
+  testimonialsData: TestimonialsData | undefined;
+  errorMessage: string | undefined;
 }
 
 const CustomerTestimonialPage: NextPage<ICustomerTestimonialPage> = ({
   data,
-  error,
   loading,
+  testimonialsData,
+  errorMessage,
 }) => {
   if (loading) {
     return <Loading size="large" />;
   }
 
-  if (error || !data) {
+  if (errorMessage || !data) {
     return <DefaultErrorPage statusCode={404} />;
   }
 
@@ -50,6 +53,7 @@ const CustomerTestimonialPage: NextPage<ICustomerTestimonialPage> = ({
         title={metaDataName}
         sections={sections}
         breadcrumbsItems={breadcrumbsItems}
+        initialTestimonials={testimonialsData?.testimonials}
       />
       {metaData && (
         <>
@@ -64,22 +68,35 @@ const CustomerTestimonialPage: NextPage<ICustomerTestimonialPage> = ({
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query({
-      query: GENERIC_PAGE_TESTIMONIALS,
-      variables: {
-        slug: 'about-us/customer-testimonials',
-      },
-    });
+
+    const [
+      genericTestimonialsPageQuery,
+      testimonialsDataQuery,
+    ] = await Promise.all([
+      client.query({
+        query: GENERIC_PAGE_TESTIMONIALS,
+        variables: {
+          slug: 'about-us/customer-testimonials',
+        },
+      }),
+      client.query({
+        query: TESTIMONIALS_DATA,
+        variables: { size: 4, page: 1 },
+      }),
+    ]);
+    const error =
+      genericTestimonialsPageQuery.error || testimonialsDataQuery.error;
     return {
       props: {
-        data,
-        error: errors ? errors[0] : null,
+        data: genericTestimonialsPageQuery.data,
+        testimonialsData: testimonialsDataQuery.data,
+        error: error?.message || null,
       },
     };
-  } catch {
+  } catch (error) {
     return {
       props: {
-        error: true,
+        error: error.message,
       },
     };
   }

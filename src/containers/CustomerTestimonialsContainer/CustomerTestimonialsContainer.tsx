@@ -1,9 +1,9 @@
 import React, { FC, useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import { useQuery } from '@apollo/client';
+import { useLazyQuery } from '@apollo/client';
 import {
   TestimonialsData,
-  TestimonialsData_testimonials as TestimonialData,
+  TestimonialsDataVariables,
 } from '../../../generated/TestimonialsData';
 import { GenericPageTestimonialsQuery_genericPage_sections as Section } from '../../../generated/GenericPageTestimonialsQuery';
 import getTitleTag from '../../utils/getTitleTag';
@@ -48,56 +48,45 @@ interface IProps {
   title: string | null;
   body: string | null;
   breadcrumbsItems: any;
+  initialTestimonials: TestimonialsData['testimonials'] | undefined;
 }
 
 const CustomerTestimonialsContainer: FC<IProps> = ({
   title,
   sections,
   breadcrumbsItems,
+  initialTestimonials,
 }) => {
-  const [page, setPage] = useState(1);
-  const [data, setTestimonialsData] = useState<TestimonialsData>();
+  const [page, setPage] = useState(initialTestimonials ? 2 : 1);
+  const [testimonials, setTestimonialsData] = useState<
+    TestimonialsData['testimonials'] | undefined
+  >(initialTestimonials);
 
-  const { loading, error, fetchMore } = useQuery<TestimonialsData>(
-    TESTIMONIALS_DATA,
-    {
-      variables: { size: 4, page },
-      notifyOnNetworkStatusChange: true,
-      onCompleted: d => {
-        const prev = data?.testimonials || [];
-        setTestimonialsData({
-          ...d,
-          testimonials: [...d.testimonials, ...prev],
-        });
-      },
+  const [getTestimonials, { error, loading }] = useLazyQuery<
+    TestimonialsData,
+    TestimonialsDataVariables
+  >(TESTIMONIALS_DATA, {
+    variables: { size: 4, page },
+    onCompleted: data => {
+      setTestimonialsData([...(testimonials || []), ...data.testimonials]);
+      setPage(page + 1);
     },
-  );
+  });
 
+  const handleFetchMore = () =>
+    getTestimonials({
+      variables: {
+        page,
+        size: 4,
+      },
+    });
+
+  // request testimonials in case if server not returned during first rendering
   useEffect(() => {
-    if (fetchMore) {
-      fetchMore({
-        variables: {
-          page,
-        },
-        updateQuery: (prev, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return prev;
-          return {
-            ...fetchMoreResult,
-            testimonials: [
-              ...prev.testimonials,
-              ...fetchMoreResult.testimonials?.filter(
-                n => !prev.testimonials?.some(p => p?.name === n?.name),
-              ),
-            ],
-          };
-        },
-      });
+    if (!initialTestimonials && page === 1) {
+      handleFetchMore();
     }
-  }, [page, fetchMore]);
-
-  const onFetchMore = () => {
-    setPage(page + 1);
-  };
+  }, []);
 
   if (loading && page === 1) {
     return <Loading size="large" />;
@@ -115,36 +104,34 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
           {title}
         </Heading>
         <br />
-        {data?.testimonials
-          ?.sort((a, b) => Date.parse(b?.date) - Date.parse(a?.date))
-          .map((item: TestimonialData | null, idx) => (
-            <div className="review" key={idx}>
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                size="expand"
-                round
-                src={`https://eu.ui-avatars.com/api/?name=name=${item?.name}&color=ffffff&background=0A0D10&format=svg&rounded=true`}
-              />
-              <Heading size="regular" color="black">
-                {item?.whyLease}
-              </Heading>
-              <Rating score={item?.overallRating || 4} />
-              <Text size="regular" color="darker" className="review--content">
-                {item?.comments}
-              </Text>
-              <Text size="xsmall" color="black" className="review--meta">
-                <span>{item?.name}</span>
-                <span>{item?.date}</span>
-              </Text>
-            </div>
-          ))}
+        {testimonials?.map((item, idx) => (
+          <div className="review" key={idx}>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              size="expand"
+              round
+              src={`https://eu.ui-avatars.com/api/?name=name=${item?.name}&color=ffffff&background=0A0D10&format=svg&rounded=true`}
+            />
+            <Heading size="regular" color="black">
+              {item?.whyLease}
+            </Heading>
+            <Rating score={item?.overallRating || 4} />
+            <Text size="regular" color="darker" className="review--content">
+              {item?.comments}
+            </Text>
+            <Text size="xsmall" color="black" className="review--meta">
+              <span>{item?.name}</span>
+              <span>{item?.date}</span>
+            </Text>
+          </div>
+        ))}
         <div className="button-group">
           <Button
             color="teal"
             size="regular"
             fill="outline"
             label="View More Reviews"
-            onClick={() => onFetchMore()}
+            onClick={handleFetchMore}
           />
         </div>
       </div>

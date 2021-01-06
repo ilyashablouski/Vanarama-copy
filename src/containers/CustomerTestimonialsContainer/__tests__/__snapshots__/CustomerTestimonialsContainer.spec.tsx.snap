@@ -149,6 +149,30 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
       class="testimonials--sidebar"
     >
       <div
+        class="trustpilot"
+      >
+        <div
+          class="trustpilot-widget"
+          data-businessunit-id="594a982f0000ff0005a50d80"
+          data-locale="en-GB"
+          data-review-languages="en"
+          data-stars="4,5"
+          data-style-height="240px"
+          data-style-width="100%"
+          data-template-id="53aa8912dec7e10d38f59f36"
+          data-theme="light"
+          style="position: relative; height: 140px; width: 100%; border-style: none; display: block; overflow: hidden;"
+        >
+          <a
+            href="https://uk.trustpilot.com/review/www.vanarama.com"
+            rel="noopener noreferrer"
+            target="_blank"
+          >
+            Trustpilot
+          </a>
+        </div>
+      </div>
+      <div
         class="testimonials--sidebar--service tilebox"
       >
         <div
