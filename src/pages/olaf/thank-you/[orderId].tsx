@@ -144,9 +144,6 @@ const ThankYouPage: NextPage = () => {
                 Free, Safe & Contactless Delivery Direct To Your Door
               </Heading>
             </span>
-            <Text color="darker" size="regular">
-              Pretium facilisi etiam pretium, cras interdum enim, nullam.
-            </Text>
           </Tile>
           <Tile plain className="-align-center -button">
             <span>
@@ -163,9 +160,6 @@ const ThankYouPage: NextPage = () => {
                 Rated Excellent On TrustPilot
               </Heading>
             </span>
-            <Text color="darker" size="regular">
-              Pretium facilisi etiam pretium, cras interdum enim, nullam.
-            </Text>
           </Tile>
           <Tile plain className="-align-center -button">
             <span>
@@ -182,9 +176,6 @@ const ThankYouPage: NextPage = () => {
                 Free 30-Day Returns
               </Heading>
             </span>
-            <Text color="darker" size="regular">
-              Pretium facilisi etiam pretium, cras interdum enim, nullam.
-            </Text>
           </Tile>
           <Tile plain className="-align-center -button">
             <span>
@@ -201,9 +192,6 @@ const ThankYouPage: NextPage = () => {
                 The Best Price Or We&apos;ll Give You £100*
               </Heading>
             </span>
-            <Text color="darker" size="regular">
-              Pretium facilisi etiam pretium, cras interdum enim, nullam.
-            </Text>
           </Tile>
         </div>
       )}
