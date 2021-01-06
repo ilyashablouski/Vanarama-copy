@@ -255,7 +255,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                 class="slider-control-centerleft"
                 style="position: absolute; top: 50%; left: 0px; transform: translateY(-50%);"
               >
-                <button>
+                <button
+                  type="button"
+                >
                   <span>
                     Previous
                   </span>
@@ -265,7 +267,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                 class="slider-control-centerright"
                 style="position: absolute; top: 50%; right: 0px; transform: translateY(-50%);"
               >
-                <button>
+                <button
+                  type="button"
+                >
                   <span>
                     Next
                   </span>

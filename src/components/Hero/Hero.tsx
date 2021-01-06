@@ -12,7 +12,7 @@ import {
 } from '../../containers/GoldrushFormContainer/GoldrushFormContainer';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
-import BenefitsSection from 'containers/FleetPageContainer/sections/BenefitsSection';
+// import BenefitsSection from 'containers/FleetPageContainer/sections/BenefitsSection';
 import BenefitsBar from '../../core/organisms/benefits-bar/BenefitsBar';
 
 const RequestCallBackForm = dynamic(() => import('../RequestCallBackForm'), {
@@ -94,9 +94,7 @@ const Hero: React.FC<IHeroProps> = ({
       <div className="row:hero">
         <div className="hero--left">{children}</div>
         <div className="hero--right" style={{ minHeight: '347px' }}>
-          <div>
-            {renderHeroRight()}
-          </div>
+          <div>{renderHeroRight()}</div>
           <BenefitsBar countItems={4} />
         </div>
         <div className="hero--decals">
