@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -14,10 +14,7 @@ import {
   HubPickupPageData_hubPickupPage_sections_tiles2_tiles as TileData,
   HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
 } from '../../../generated/HubPickupPageData';
-import {
-  ProductCardData,
-  ProductCardData_productCarousel as ProdData,
-} from '../../../generated/ProductCardData';
+import { ProductCardData } from '../../../generated/ProductCardData';
 import { HUB_PICKUP_CONTENT } from '../../gql/hub/hubPickupPage';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
 import createApolloClient from '../../apolloClient';
@@ -101,13 +98,7 @@ export const PickupsPage: NextPage<Props> = ({
   products,
 }) => {
   const { cachedLeaseType } = useLeaseType(false);
-  const [offer, setOffer] = useState<ProdData>();
-  useEffect(() => {
-    const topProduct = products?.productCarousel?.find(
-      p => p?.isOnOffer === true,
-    );
-    if (topProduct) setOffer(topProduct);
-  }, [products]);
+  const offer = products?.productCarousel?.find(p => p?.isOnOffer === true);
 
   const productsPickupsCapIds = products?.productCarousel
     ?.map(el => el?.capId || '')
