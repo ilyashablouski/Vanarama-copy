@@ -179,7 +179,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         role="tabpanel"
       >
         <ul
-          class="tilebox tabs--active accordion"
+          class="-tilebox tabs--active accordion"
         >
           <li
             class="accordion-item"
@@ -269,6 +269,102 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   class="text -regular -darker"
                 >
                   This can vary depending on the Funder. It can take as little as an hour to get a decision, but we will try to get an answer for you within 24 hours. We will sometimes get requests for further information and, in these cases, it can take slightly longer to get the final decision.
+                </p>
+              </div>
+            </div>
+          </li>
+        </ul>
+        <ul
+          class="-tilebox accordion"
+        >
+          <li
+            class="accordion-item"
+            data-testid="accordion-item"
+          >
+            <button
+              class="accordion--heading"
+              type="button"
+            >
+              <i
+                class="icon accordion-item--chevron"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <polyline
+                    points="184 112 328 256 184 400"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+              <div
+                class="accordion--title"
+              >
+                <span
+                  class="text -regular -black"
+                >
+                  Will I be responsible for parking tickets and speeding fines?
+                </span>
+              </div>
+            </button>
+            <div
+              class="accordion--content"
+            >
+              <div
+                class="markdown"
+              >
+                <p
+                  class="text -regular -darker"
+                >
+                  Yes, although if these are not settled straight away, the authority responsible for the offence will contact the funder who supplied the vehicle. An additional admin fee may be charged by the funder if they have to pay the fine on your behalf.
+                </p>
+              </div>
+            </div>
+          </li>
+          <li
+            class="accordion-item"
+            data-testid="accordion-item"
+          >
+            <button
+              class="accordion--heading"
+              type="button"
+            >
+              <i
+                class="icon accordion-item--chevron"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <polyline
+                    points="184 112 328 256 184 400"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+              <div
+                class="accordion--title"
+              >
+                <span
+                  class="text -regular -black"
+                >
+                  Who pays for new tyres/MOT/ servicing if I have taken the van out on Contract Hire?
+                </span>
+              </div>
+            </button>
+            <div
+              class="accordion--content"
+            >
+              <div
+                class="markdown"
+              >
+                <p
+                  class="text -regular -darker"
+                >
+                  With Contract Hire, you have the option to include a maintenance package for an additional low monthly fee. This will cover you for tyres, routine maintenance, servicing & any MOT that falls within the contract duration.
                 </p>
               </div>
             </div>

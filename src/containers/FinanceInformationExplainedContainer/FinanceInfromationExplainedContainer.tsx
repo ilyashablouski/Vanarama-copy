@@ -56,9 +56,17 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
     questionTypes ? questionTypes[0] : '',
   );
 
-  const getQuestions = () => {
+  const getQuestions = (type?: string) => {
+    if (!type)
+      return [
+        {
+          id: '',
+          title: '',
+          children: <></>,
+        },
+      ];
     const sets = faqs?.questionSets?.find(
-      questionSet => questionSet?.title === questionType,
+      questionSet => questionSet?.title === type,
     );
     return sets?.questionAnswers?.map(set => ({
       id: set?.question || '',
@@ -248,10 +256,16 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
             </div>
           </nav>
           <div className="tabs__panel -ph-000" role="tabpanel">
-            <Accordion
-              className="tilebox tabs--active"
-              items={getQuestions() || []}
-            />
+            {questionTypes?.map(type => (
+              <Accordion
+                key={`accordion-${type}`}
+                className={cx(
+                  '-tilebox',
+                  questionType === type ? 'tabs--active' : '',
+                )}
+                items={getQuestions(type || undefined) || []}
+              />
+            ))}
           </div>
         </div>
       )}
