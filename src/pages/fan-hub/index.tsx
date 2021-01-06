@@ -1,10 +1,22 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import dynamic from 'next/dynamic';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
-import SimplePageContainer from '../../containers/SimplePageContainer/SimplePageContainer';
+import Skeleton from '../../components/Skeleton';
 import createApolloClient from '../../apolloClient';
 
-const FanHub: NextPage<IGenericPage> = ({ data, loading, error }) => (
-  <SimplePageContainer data={data} loading={loading} error={error} />
+const FeaturedAndTilesContainer = dynamic(
+  () =>
+    import(
+      '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer'
+    ),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
+
+const FanHub: NextPage<IGenericPage> = ({ data }) => (
+  <FeaturedAndTilesContainer data={data} />
 );
 
 export async function getStaticProps(context: GetStaticPropsContext) {
