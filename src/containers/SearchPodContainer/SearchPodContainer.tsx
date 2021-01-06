@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
@@ -22,7 +22,6 @@ import {
 } from '../../../generated/filterList';
 // import SearchPod from '../../components/SearchPod';
 import Skeleton from '../../components/Skeleton';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 const SearchPod = dynamic(() => import('../../components/SearchPod'), {
   loading: () => <Skeleton count={7} />,
@@ -38,12 +37,25 @@ enum Tabs {
   'CAR',
 }
 const VANS_TAB_HEADING = 'Search Van Leasing';
+const CARS_TAB_HEADING = 'Search Car Leasing';
+const PICKUPS_TAB_HEADING = 'Search Pickup Leasing';
 
 const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   searchPodCarsData,
   searchPodVansData,
 }) => {
   const router = useRouter();
+
+  const initialHeadingText = useMemo(() => {
+    if (router.pathname.indexOf('car') > -1) {
+      return CARS_TAB_HEADING;
+    }
+    if (router.pathname.indexOf('pickup') > -1) {
+      return PICKUPS_TAB_HEADING;
+    }
+    return VANS_TAB_HEADING;
+  }, [router.pathname]);
+
   const setConfigInit = () => {
     if (router.pathname.indexOf('car') > -1) {
       return carPageTabFields;
@@ -56,25 +68,42 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     }
     return tabsFields;
   };
-  const [activeIndex, setActiveIndex] = useState(1);
 
-  const [vansDataCache, setVansDataCache] = useState({} as IFilterList);
-  const [carsDataCache, setCarsDataCache] = useState({} as IFilterList);
+  const [activeIndex, setActiveIndex] = useState(
+    router.pathname.indexOf('car') > -1 ? 2 : 1,
+  );
+
+  const [vansDataCache] = useState(
+    searchPodVansData?.filterList || ({} as IFilterList),
+  );
+  const [carsDataCache] = useState(
+    searchPodCarsData?.filterList || ({} as IFilterList),
+  );
   const [pickupMakes, setPickupMakes] = useState([] as IFiltersListOptions[]);
 
   const [config] = useState(setConfigInit());
-  const [headingText, setHeadingText] = useState(VANS_TAB_HEADING);
+  const [headingText, setHeadingText] = useState(initialHeadingText);
   // set it to true if we need preselect some data
-  const [isShouldPreselectTypes, setIsShouldPreselectTypes] = useState(false);
+  const [isShouldPreselectTypes, setIsShouldPreselectTypes] = useState(
+    router.pathname.indexOf('pickup') > -1,
+  );
 
   const [budgetVans, setBudgetVans] = useState(budget);
   const [budgetCars, setBudgetCars] = useState(budget);
 
-  const [typeVans, setTypesVans] = useState(['']);
-  const [typeCars, setTypesCars] = useState(['']);
+  const [typeVans, setTypesVans] = useState(
+    searchPodVansData?.filterList?.bodyStyles || [],
+  );
+  const [typeCars, setTypesCars] = useState(
+    searchPodCarsData?.filterList?.bodyStyles || [],
+  );
 
-  const [makeVans, setMakesVans] = useState([{}] as IFiltersListOptions[]);
-  const [makeCars, setMakesCars] = useState([{}] as IFiltersListOptions[]);
+  const [makeVans, setMakesVans] = useState(
+    makeHandler(searchPodVansData?.filterList || ({} as IFilterList)),
+  );
+  const [makeCars] = useState(
+    makeHandler(searchPodCarsData?.filterList || ({} as IFilterList)),
+  );
 
   const [modelVans, setModelsVans] = useState([{}] as IFiltersListOptions[]);
   const [modelCars, setModelsCars] = useState([{}] as IFiltersListOptions[]);
@@ -116,46 +145,6 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
         setPickupMakes(makeHandler(resp?.filterList));
     },
   );
-
-  const setAllDataForVans = (filtersData: IFilterList) => {
-    setVansDataCache(filtersData);
-    setMakesVans(makeHandler(filtersData));
-    setTypesVans(filtersData.bodyStyles || []);
-  };
-
-  const setAllDataForCars = (filtersData: IFilterList) => {
-    setCarsDataCache(filtersData);
-    setMakesCars(makeHandler(filtersData));
-    setTypesCars(filtersData.bodyStyles || []);
-    setModelsCars([]);
-  };
-
-  // use effect for handle hub pages
-  useEffect(() => {
-    if (router.pathname.indexOf('car') > -1) {
-      setHeadingText('Search Car Leasing');
-      setActiveIndex(2);
-    } else if (router.pathname.indexOf('van') > -1) {
-      setHeadingText(VANS_TAB_HEADING);
-    } else if (router.pathname.indexOf('pickup') > -1) {
-      setHeadingText('Search Pickup Leasing');
-      setIsShouldPreselectTypes(true);
-    }
-  }, [router.pathname]);
-
-  // get a data for dropdowns
-  useEffect(() => {
-    if (
-      searchPodCarsData?.filterList?.vehicleTypes?.[0] === VehicleTypeEnum.CAR
-    ) {
-      setAllDataForCars(searchPodCarsData?.filterList);
-    }
-    if (
-      searchPodVansData?.filterList?.vehicleTypes?.[0] === VehicleTypeEnum.LCV
-    ) {
-      setAllDataForVans(searchPodVansData?.filterList);
-    }
-  }, [searchPodCarsData, searchPodVansData]);
 
   // using for preselect data after first reqest to filterslist
   useEffect(() => {
