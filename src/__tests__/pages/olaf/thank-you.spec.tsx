@@ -2,7 +2,7 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
-import ThankYouPage from '../../../pages/olaf/thank-you/[orderId]';
+import ThankYouPage from '../../../pages/olaf/thank-you';
 
 jest.mock('../../../layouts/OLAFLayout/OLAFLayout');
 const mockPush = jest.fn();
