@@ -205,6 +205,14 @@ export const PickupsPage: NextPage<Props> = ({ data, searchPodVansData }) => {
             sessionStorage.setItem('capId', offer?.capId || '');
           }}
           link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
+          compared={isCompared(compareVehicles, offer)}
+          onCompare={() => {
+            compareChange(
+              offer
+                ? { ...offer, bodyStyle: 'Pickup', pageUrl: dealOfMonthUrl }
+                : null,
+            );
+          }}
         />
       </div>
 

@@ -5,7 +5,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
 import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
@@ -45,6 +45,8 @@ import {
   filterListVariables as IFilterListVariables,
 } from '../../../generated/filterList';
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
+import { CompareContext } from '../../utils/comparatorTool';
+import { isCompared } from '../../utils/comparatorHelpers';
 
 const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
@@ -80,7 +82,10 @@ const League = dynamic(() => import('core/organisms/league'), {
   loading: () => <Skeleton count={2} />,
 });
 
-type ProdCards = ProdCardData[];
+interface IExtProdCardData extends ProdCardData {
+  bodyStyle: string;
+}
+type ProdCards = IExtProdCardData[];
 type Props = {
   data: HubVanPageData;
   searchPodVansData: IFilterList;
@@ -91,7 +96,7 @@ export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
   const { cachedLeaseType } = useLeaseType(false);
 
   // pluck random offer until offer position available
-  const offer: ProdCardData | null =
+  const offer: IExtProdCardData | null =
     offers.find(card => card.offerPosition === 1) || null;
 
   const { data: productSmallVan } = useQuery<ProductCardData>(
@@ -107,7 +112,8 @@ export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
         const topProduct = prods?.productCarousel?.find(
           p => p?.isOnOffer === true,
         );
-        if (topProduct) setOffers([...offers, topProduct]);
+        if (topProduct)
+          setOffers([...offers, { ...topProduct, bodyStyle: 'SmallVan' }]);
       },
     },
   );
@@ -133,7 +139,8 @@ export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
         const topProduct = prods?.productCarousel?.find(
           p => p?.isOnOffer === true,
         );
-        if (topProduct) setOffers([...offers, topProduct]);
+        if (topProduct)
+          setOffers([...offers, { ...topProduct, bodyStyle: 'MediumVan' }]);
       },
     },
   );
@@ -159,7 +166,8 @@ export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
         const topProduct = prods?.productCarousel?.find(
           p => p?.isOnOffer === true,
         );
-        if (topProduct) setOffers([...offers, topProduct]);
+        if (topProduct)
+          setOffers([...offers, { ...topProduct, bodyStyle: 'LargeVan' }]);
       },
     },
   );
@@ -180,6 +188,8 @@ export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
   const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
 
   useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
+
+  const { compareVehicles, compareChange } = useContext(CompareContext);
 
   const dealOfMonthUrl = formatProductPageUrl(
     getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
@@ -278,6 +288,18 @@ export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
               sessionStorage.setItem('capId', offer?.capId || '');
             }}
             link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
+            compared={isCompared(compareVehicles, offer)}
+            onCompare={() => {
+              compareChange(
+                offer
+                  ? {
+                      ...offer,
+                      bodyStyle: offer.bodyStyle,
+                      pageUrl: dealOfMonthUrl,
+                    }
+                  : null,
+              );
+            }}
           />
         </div>
       )}

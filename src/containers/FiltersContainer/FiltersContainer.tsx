@@ -357,7 +357,8 @@ const FiltersContainer = ({
     // numberOfParams - number of required params for page type
     const searchWithParams = (numberOfParams: number) =>
       Object.values(selectedFiltersState)
-        ?.flat()
+        ?.map(value => value.join(','))
+        .flat()
         .filter(Boolean).length > numberOfParams;
     if (
       (selectedFilterTags[0] && isInitialLoad) ||

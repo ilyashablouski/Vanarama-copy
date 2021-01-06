@@ -12,6 +12,7 @@ import { IBaseProps } from 'core/interfaces/base';
 import Logo from 'core/atoms/logo';
 import Button from 'core/atoms/button';
 import Icon from 'core/atoms/icon';
+import { useMediaQuery } from 'react-responsive';
 import HeaderMenu from './HeaderMenu';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
@@ -91,6 +92,8 @@ export const Header: FC<IHeaderProps> = memo(props => {
   const [quotesLength, setQuotesLength] = useState<number | null>(null);
   const [isMenuOpen, setOpenMenu] = useState(false);
   const [isMyAccountOpen, setOpenMyAccount] = useState(false);
+
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
 
   useEffect(() => {
     if (!person) {
@@ -248,7 +251,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
                         className="header-account--link"
                         link={{
                           href: ordersLength
-                            ? '/account/my-orders/[partyByUuid]'
+                            ? '/account/my-orders'
                             : `/account/my-details/[uuid]`,
                           label: 'My Orders',
                           query: {
@@ -258,7 +261,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
                         }}
                         as={
                           ordersLength
-                            ? `/account/my-orders/${person.partyUuid}?uuid=${person.uuid}`
+                            ? `/account/my-orders`
                             : `/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`
                         }
                       >
@@ -293,7 +296,9 @@ export const Header: FC<IHeaderProps> = memo(props => {
                 fill="clear"
                 label={
                   <RouterLink link={loginLink}>
-                    {' '}
+                    {isTabletOrMobile && (
+                      <Icon icon={<PersonCircleSharp />} size="xsmall" />
+                    )}
                     <span>Login / Register</span>{' '}
                   </RouterLink>
                 }
