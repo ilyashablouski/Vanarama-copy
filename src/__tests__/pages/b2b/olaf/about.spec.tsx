@@ -171,6 +171,13 @@ describe('B2B About You page', () => {
       { target: { checked: true } },
     );
 
+    fireEvent.input(
+      screen.getByRole('checkbox', {
+        name: /I have read and understood the/i,
+      }),
+      { target: { checked: true } },
+    );
+
     fireEvent.click(screen.getByRole('button', { name: /continue/i }));
 
     await waitFor(() =>
@@ -300,6 +307,13 @@ describe('B2B About You page', () => {
     fireEvent.input(
       screen.getByRole('checkbox', {
         name: /I agree to the Terms and Condition/i,
+      }),
+      { target: { checked: true } },
+    );
+
+    fireEvent.input(
+      screen.getByRole('checkbox', {
+        name: /I have read and understood the/i,
       }),
       { target: { checked: true } },
     );

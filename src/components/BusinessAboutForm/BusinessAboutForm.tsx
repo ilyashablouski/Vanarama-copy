@@ -285,7 +285,10 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
               Privacy Policy
             </a>,
           ]}
-          ref={register}
+          ref={register({
+            validate: value =>
+              value ? undefined : 'The Privacy Policy must be accepted',
+          })}
         />
       </Formgroup>
       <Button
