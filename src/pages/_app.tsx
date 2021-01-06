@@ -72,8 +72,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     });
   }, []);
 
+  useEffect(() => {
+    pushPageData({ pathname: router.pathname });
+  }, [router.pathname]);
+
   // useEffect(() => {
-  //   pushPageData({ pathname: router.pathname });
   //   const getVehicles = async () => {
   //     const vehiclesCompares = (await getCompares()) as
   //       | IVehicle[]

@@ -42,6 +42,8 @@ const ArrowForwardSharp = dynamic(
 );
 
 interface IDealOfMonthProps {
+  compared: boolean | undefined;
+  onCompare: () => void;
   vehicle: string;
   specification: string;
   rating?: number;
@@ -70,6 +72,8 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
   isPersonal,
   flagText = 'DEAL OF THE MONTH',
   link,
+  compared,
+  onCompare,
 }) => (
   <>
     <div>
@@ -126,13 +130,18 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
       </div>
       <div className="card-footer">
         <Button
-          color="dark"
+          color={compared ? 'teal' : 'dark'}
           iconColor="dark"
-          label="Compare"
           fill="clear"
           iconPosition="before"
-          icon={<CarSharp />}
+          label={
+            <>
+              <Icon icon={<CarSharp />} color={compared ? 'teal' : 'dark'} />
+              {compared ? 'Remove' : 'Compare'}
+            </>
+          }
           size="expand"
+          onClick={onCompare}
         />
       </div>
     </div>
