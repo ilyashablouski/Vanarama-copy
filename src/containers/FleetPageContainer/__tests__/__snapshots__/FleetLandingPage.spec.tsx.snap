@@ -40,215 +40,448 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
           class="hero--right"
           style="min-height: 347px;"
         >
+          <div>
+            <div
+              class="card hero-card"
+              data-testid="card"
+            >
+              <div
+                class="hero-card--inner"
+              >
+                <p
+                  class="heading -primary -lead"
+                >
+                  Schedule A Call With Us
+                </p>
+                <form
+                  class="form"
+                  data-testid="fleet-request-call-back-form"
+                  id="fleet-request-call-back-form"
+                >
+                  <div
+                    class="formgroup"
+                  >
+                    <label
+                      class="formgroup--legend"
+                      for="fleet-call-back-form_full-name"
+                    >
+                      Full Name
+                    </label>
+                    <div
+                      class="formgroup--content"
+                    >
+                      <div
+                        class="textinput regular"
+                      >
+                        <input
+                          class="textinput--native regular"
+                          data-testid="fleet-call-back-form_full-name"
+                          id="fleet-call-back-form_full-name"
+                          name="fullName"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="formgroup"
+                  >
+                    <label
+                      class="formgroup--legend"
+                      for="fleet-call-back-form_company-name"
+                    >
+                      Company Name
+                    </label>
+                    <div
+                      class="formgroup--content"
+                    >
+                      <div
+                        class="textinput regular"
+                      >
+                        <input
+                          class="textinput--native regular"
+                          data-testid="fleet-call-back-form_company-name"
+                          name="companyName"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="formgroup"
+                  >
+                    <label
+                      class="formgroup--legend"
+                      for="fleet-call-back-form_fleet-name"
+                    >
+                      Fleet Size
+                    </label>
+                    <div
+                      class="formgroup--content"
+                    >
+                      <div
+                        class="textinput regular"
+                      >
+                        <input
+                          class="textinput--native regular"
+                          data-testid="fleet-call-back-form_fleet-size"
+                          name="fleetSize"
+                          type="number"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="formgroup"
+                  >
+                    <label
+                      class="formgroup--legend"
+                      for="fleet-call-back-form_email-name"
+                    >
+                      Email Address
+                    </label>
+                    <div
+                      class="formgroup--content"
+                    >
+                      <div
+                        class="textinput regular"
+                      >
+                        <input
+                          class="textinput--native regular"
+                          data-testid="fleet-call-back-form_email-address"
+                          name="email"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="formgroup"
+                  >
+                    <label
+                      class="formgroup--legend"
+                      for="fleet-call-back-form_phone-number"
+                    >
+                      Phone Number
+                    </label>
+                    <div
+                      class="formgroup--content"
+                    >
+                      <div
+                        class="textinput regular"
+                      >
+                        <input
+                          class="textinput--native regular"
+                          data-testid="fleet-call-back-form_phone-number"
+                          id="fleet-call-back-form_phone-number"
+                          name="phoneNumber"
+                          type="text"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                  <div
+                    class="formgroup"
+                  >
+                    <label
+                      class="formgroup--legend"
+                      for="fleet-call-back-form_agreement"
+                    >
+                      Agree To:
+                    </label>
+                    <div
+                      class="formgroup--content"
+                    >
+                      <div
+                        class="checkbox -teal"
+                      >
+                        <input
+                          class="checkbox--native"
+                          data-testid="fleet-call-back-form_agreement"
+                          id="agreement"
+                          name="agreement"
+                          type="checkbox"
+                          value=""
+                        />
+                        <label
+                          class="checkbox--label"
+                          for="agreement"
+                        >
+                          <span
+                            class="text -regular -darker"
+                          >
+                            Terms & Conditions & Privacy Policy.
+                          </span>
+                        </label>
+                      </div>
+                      <div
+                        class="checkbox -teal"
+                      >
+                        <input
+                          class="checkbox--native"
+                          data-testid="fleet-call-back-form_updates"
+                          id="updates"
+                          name="updates"
+                          type="checkbox"
+                          value=""
+                        />
+                        <label
+                          class="checkbox--label"
+                          for="updates"
+                        >
+                          <span
+                            class="text -regular -darker"
+                          >
+                            Keep me updated on the latest deals & offers.
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                  <button
+                    class="button -fullwidth -primary -large -solid"
+                    data-testid="fleet-call-back-form_continue"
+                    type="submit"
+                  >
+                    <div
+                      class="button--inner"
+                    >
+                      I'd Like A Callback
+                    </div>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
           <div
-            class="card hero-card"
-            data-testid="card"
+            class="new-hero-benefits-bar"
           >
             <div
-              class="hero-card--inner"
+              class="slider"
+              style="box-sizing: border-box; display: block; height: inherit; position: relative; width: 100%;"
+              tabindex="0"
             >
-              <p
-                class="heading -primary -lead"
+              <div
+                class="slider-frame"
+                style="box-sizing: border-box; display: block; height: 100%; margin: 0px; overflow: hidden; padding: 0px; position: relative; transform: translate3d(0, 0, 0);"
               >
-                Schedule A Call With Us
-              </p>
-              <form
-                class="form"
-                data-testid="fleet-request-call-back-form"
-                id="fleet-request-call-back-form"
+                <ul
+                  class="slider-list"
+                  style="box-sizing: border-box; cursor: pointer; display: block; height: 0px; margin: 0px 0px; padding: 0px; position: relative; transform: translate3d(0px, 0px, 0); width: auto; transition: 0s;"
+                >
+                  <li
+                    class="slider-slide slide-visible slide-current"
+                    style="box-sizing: border-box; display: inline-block; height: auto; left: 0px; list-style-type: none; margin: auto 0px auto 0px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: 0px;"
+                    tabindex="-1"
+                  >
+                    <div
+                      aria-hidden="false"
+                      tabindex="0"
+                    >
+                      <div
+                        class="text -small -black"
+                      >
+                        <b>
+                          Over 100,000 Vehicles Leased
+                        </b>
+                      </div>
+                      <div
+                        class="text -small -darker"
+                      >
+                        Van, pickup or car - lease yours today.
+                      </div>
+                    </div>
+                  </li>
+                  <li
+                    aria-hidden="true"
+                    class="slider-slide"
+                    inert=""
+                    style="box-sizing: border-box; display: inline-block; height: auto; left: 0px; list-style-type: none; margin: auto 0px auto 0px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: 0px;"
+                  >
+                    <div
+                      aria-hidden="true"
+                    >
+                      <div
+                        class="text -small -black"
+                      >
+                        <b>
+                          Over 100,000 Vehicles Leased
+                        </b>
+                      </div>
+                      <div
+                        class="text -small -darker"
+                      >
+                        Lorem ipsum dolor et 0
+                      </div>
+                    </div>
+                  </li>
+                  <li
+                    aria-hidden="true"
+                    class="slider-slide"
+                    inert=""
+                    style="box-sizing: border-box; display: inline-block; height: auto; left: 0px; list-style-type: none; margin: auto 0px auto 0px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: 0px;"
+                  >
+                    <div
+                      aria-hidden="true"
+                    >
+                      <div
+                        class="text -small -black"
+                      >
+                        <b>
+                          Over 100,000 Vehicles Leased
+                        </b>
+                      </div>
+                      <div
+                        class="text -small -darker"
+                      >
+                        Lorem ipsum dolor et 1
+                      </div>
+                    </div>
+                  </li>
+                  <li
+                    aria-hidden="true"
+                    class="slider-slide"
+                    inert=""
+                    style="box-sizing: border-box; display: inline-block; height: auto; left: 0px; list-style-type: none; margin: auto 0px auto 0px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: 0px;"
+                  >
+                    <div
+                      aria-hidden="true"
+                    >
+                      <div
+                        class="text -small -black"
+                      >
+                        <b>
+                          Over 100,000 Vehicles Leased
+                        </b>
+                      </div>
+                      <div
+                        class="text -small -darker"
+                      >
+                        Lorem ipsum dolor et 2
+                      </div>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+              <div
+                class="slider-control-centerleft"
+                style="position: absolute; top: 50%; left: 0px; transform: translateY(-50%);"
               >
-                <div
-                  class="formgroup"
-                >
-                  <label
-                    class="formgroup--legend"
-                    for="fleet-call-back-form_full-name"
-                  >
-                    Full Name
-                  </label>
-                  <div
-                    class="formgroup--content"
-                  >
-                    <div
-                      class="textinput regular"
-                    >
-                      <input
-                        class="textinput--native regular"
-                        data-testid="fleet-call-back-form_full-name"
-                        id="fleet-call-back-form_full-name"
-                        name="fullName"
-                        type="text"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="formgroup"
-                >
-                  <label
-                    class="formgroup--legend"
-                    for="fleet-call-back-form_company-name"
-                  >
-                    Company Name
-                  </label>
-                  <div
-                    class="formgroup--content"
-                  >
-                    <div
-                      class="textinput regular"
-                    >
-                      <input
-                        class="textinput--native regular"
-                        data-testid="fleet-call-back-form_company-name"
-                        name="companyName"
-                        type="text"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="formgroup"
-                >
-                  <label
-                    class="formgroup--legend"
-                    for="fleet-call-back-form_fleet-name"
-                  >
-                    Fleet Size
-                  </label>
-                  <div
-                    class="formgroup--content"
-                  >
-                    <div
-                      class="textinput regular"
-                    >
-                      <input
-                        class="textinput--native regular"
-                        data-testid="fleet-call-back-form_fleet-size"
-                        name="fleetSize"
-                        type="number"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="formgroup"
-                >
-                  <label
-                    class="formgroup--legend"
-                    for="fleet-call-back-form_email-name"
-                  >
-                    Email Address
-                  </label>
-                  <div
-                    class="formgroup--content"
-                  >
-                    <div
-                      class="textinput regular"
-                    >
-                      <input
-                        class="textinput--native regular"
-                        data-testid="fleet-call-back-form_email-address"
-                        name="email"
-                        type="text"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="formgroup"
-                >
-                  <label
-                    class="formgroup--legend"
-                    for="fleet-call-back-form_phone-number"
-                  >
-                    Phone Number
-                  </label>
-                  <div
-                    class="formgroup--content"
-                  >
-                    <div
-                      class="textinput regular"
-                    >
-                      <input
-                        class="textinput--native regular"
-                        data-testid="fleet-call-back-form_phone-number"
-                        id="fleet-call-back-form_phone-number"
-                        name="phoneNumber"
-                        type="text"
-                      />
-                    </div>
-                  </div>
-                </div>
-                <div
-                  class="formgroup"
-                >
-                  <label
-                    class="formgroup--legend"
-                    for="fleet-call-back-form_agreement"
-                  >
-                    Agree To:
-                  </label>
-                  <div
-                    class="formgroup--content"
-                  >
-                    <div
-                      class="checkbox -teal"
-                    >
-                      <input
-                        class="checkbox--native"
-                        data-testid="fleet-call-back-form_agreement"
-                        id="agreement"
-                        name="agreement"
-                        type="checkbox"
-                        value=""
-                      />
-                      <label
-                        class="checkbox--label"
-                        for="agreement"
-                      >
-                        <span
-                          class="text -regular -darker"
-                        >
-                          Terms & Conditions & Privacy Policy.
-                        </span>
-                      </label>
-                    </div>
-                    <div
-                      class="checkbox -teal"
-                    >
-                      <input
-                        class="checkbox--native"
-                        data-testid="fleet-call-back-form_updates"
-                        id="updates"
-                        name="updates"
-                        type="checkbox"
-                        value=""
-                      />
-                      <label
-                        class="checkbox--label"
-                        for="updates"
-                      >
-                        <span
-                          class="text -regular -darker"
-                        >
-                          Keep me updated on the latest deals & offers.
-                        </span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-                <button
-                  class="button -fullwidth -primary -large -solid"
-                  data-testid="fleet-call-back-form_continue"
-                  type="submit"
-                >
-                  <div
-                    class="button--inner"
-                  >
-                    I'd Like A Callback
-                  </div>
+                <button>
+                  <span>
+                    Previous
+                  </span>
                 </button>
-              </form>
+              </div>
+              <div
+                class="slider-control-centerright"
+                style="position: absolute; top: 50%; right: 0px; transform: translateY(-50%);"
+              >
+                <button>
+                  <span>
+                    Next
+                  </span>
+                </button>
+              </div>
+              <div
+                class="slider-control-bottomcenter"
+                style="position: absolute; bottom: 0px; left: 50%; transform: translateX(-50%);"
+              >
+                <ul
+                  style="position: relative; top: -10px; display: flex; margin: 0px; padding: 0px; list-style-type: none;"
+                >
+                  <li
+                    class="paging-item active"
+                  >
+                    <button
+                      aria-label="slide 1 bullet"
+                      style="cursor: pointer; opacity: 1; background: transparent; fill: black;"
+                      type="button"
+                    >
+                      <svg
+                        class="paging-dot"
+                        height="6"
+                        width="6"
+                      >
+                        <circle
+                          cx="3"
+                          cy="3"
+                          r="3"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                  <li
+                    class="paging-item"
+                  >
+                    <button
+                      aria-label="slide 2 bullet"
+                      style="cursor: pointer; opacity: 0.5; background: transparent; fill: black;"
+                      type="button"
+                    >
+                      <svg
+                        class="paging-dot"
+                        height="6"
+                        width="6"
+                      >
+                        <circle
+                          cx="3"
+                          cy="3"
+                          r="3"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                  <li
+                    class="paging-item"
+                  >
+                    <button
+                      aria-label="slide 3 bullet"
+                      style="cursor: pointer; opacity: 0.5; background: transparent; fill: black;"
+                      type="button"
+                    >
+                      <svg
+                        class="paging-dot"
+                        height="6"
+                        width="6"
+                      >
+                        <circle
+                          cx="3"
+                          cy="3"
+                          r="3"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                  <li
+                    class="paging-item"
+                  >
+                    <button
+                      aria-label="slide 4 bullet"
+                      style="cursor: pointer; opacity: 0.5; background: transparent; fill: black;"
+                      type="button"
+                    >
+                      <svg
+                        class="paging-dot"
+                        height="6"
+                        width="6"
+                      >
+                        <circle
+                          cx="3"
+                          cy="3"
+                          r="3"
+                        />
+                      </svg>
+                    </button>
+                  </li>
+                </ul>
+              </div>
+              <style
+                type="text/css"
+              >
+                .slider-slide &gt; img { width: 100%; display: block; }
+          .slider-slide &gt; img:focus { margin: auto; }
+              </style>
             </div>
           </div>
         </div>
