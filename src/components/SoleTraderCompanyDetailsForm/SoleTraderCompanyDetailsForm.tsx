@@ -240,7 +240,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
           dataTestId="sole-trader-company-details_existing-vehicle"
           id="existing-vehicle"
           name="existingVehicle"
-          label="Existing Vehicle Finance to be Replaced?"
+          label="Will this replace vehicle finance you have currently?"
           ref={register}
           defaultChecked={defaultValues?.monthlyAmountBeingReplaced !== ''}
         />
@@ -261,7 +261,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
           </Formgroup>
           <Formgroup
             controlId="monthlyAmountBeingReplaced"
-            hint="Monthly Amount Being Replaced"
+            hint="Your Current Monthly Finance Payment"
             error={errors.monthlyAmountBeingReplaced?.message?.toString()}
           >
             <TextInput
