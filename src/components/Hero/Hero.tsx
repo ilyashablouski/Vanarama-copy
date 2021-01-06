@@ -97,7 +97,7 @@ const Hero: React.FC<IHeroProps> = ({
           <div>
             {renderHeroRight()}
           </div>
-          <BenefitsBar countItems={0} />
+          <BenefitsBar countItems={4} />
         </div>
         <div className="hero--decals">
           {/* <svg
