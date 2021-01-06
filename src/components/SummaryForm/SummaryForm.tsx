@@ -62,10 +62,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
         },
       },
     });
-    router.push(
-      '/olaf/thank-you/[orderId]',
-      '/olaf/thank-you/[orderId]'.replace('[orderId]', orderId),
-    );
+    router.push('/olaf/thank-you', '/olaf/thank-you');
   };
 
   const [createCreditCheckMutation] = useMutation<
@@ -138,7 +135,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
   const handleEdit = (url: string) => () => {
     const params = getUrlParam({ uuid: person.uuid, redirect: 'summary' });
     const href = `${url}${params}`;
-    router.push(href, href.replace('[orderId]', orderId));
+    router.push(href, href);
   };
   return (
     <Form>
@@ -157,26 +154,26 @@ const SummaryForm: FCWithFragments<IProps> = ({
       </Text>
       <SummaryFormDetailsSection
         person={person}
-        onEdit={handleEdit('/olaf/about/[orderId]')}
+        onEdit={handleEdit('/olaf/about')}
       />
       <SummaryFormAddressHistory
         addresses={person.addresses || []}
-        onEdit={handleEdit('/olaf/address-history/[orderId]')}
+        onEdit={handleEdit('/olaf/address-history')}
       />
       <SummaryFormEmploymentHistory
         employments={person.employmentHistories || []}
-        onEdit={handleEdit('/olaf/employment-history/[orderId]')}
+        onEdit={handleEdit('/olaf/employment-history')}
       />
       {person.incomeAndExpense && (
         <SummaryFormIncomeSection
           income={person.incomeAndExpense}
-          onEdit={handleEdit('/olaf/expenses/[orderId]')}
+          onEdit={handleEdit('/olaf/expenses')}
         />
       )}
       {primaryBankAccount && (
         <SummaryFormBankDetailsSection
           account={primaryBankAccount}
-          onEdit={handleEdit('/olaf/bank-details/[orderId]')}
+          onEdit={handleEdit('/olaf/bank-details')}
         />
       )}
       <Button

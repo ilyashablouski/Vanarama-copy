@@ -3,24 +3,24 @@ import { getDataFromTree } from '@apollo/react-ssr';
 import { useQuery } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import ExpensesFormContainer from '../../../containers/ExpensesFormContainer/ExpensesFormContainer';
+import BankDetailsFormContainer from '../../../containers/BankDetailsFormContainer/BankDetailsFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
-import { GET_PERSON_INFORMATION } from '../address-history/[orderId]';
+import { GET_PERSON_INFORMATION } from '../address-history';
 import { formValuesToInputCreditApplication } from '../../../mappers/mappersCreditApplication';
 import {
   useCreateUpdateCreditApplication,
   useGetCreditApplicationByOrderUuid,
 } from '../../../gql/creditApplication';
-import { CreateExpenseMutation_createUpdateIncomeAndExpense } from '../../../../generated/CreateExpenseMutation';
+import { CreateUpdateBankAccountMutation_createUpdateBankAccount } from '../../../../generated/CreateUpdateBankAccountMutation';
 import useGetOrderId from '../../../hooks/useGetOrderId';
 
 type QueryParams = OLAFQueryParams & {
   uuid: string;
 };
 
-const ExpensesPage: NextPage = () => {
+const BankDetailsPage: NextPage = () => {
   const router = useRouter();
   const { uuid } = router.query as QueryParams;
   const orderId = useGetOrderId();
@@ -35,36 +35,32 @@ const ExpensesPage: NextPage = () => {
   }
 
   const onCompleteClick = (
-    createUpdateIncomeAndExpense: CreateExpenseMutation_createUpdateIncomeAndExpense | null,
+    createUpdateBankAccount: CreateUpdateBankAccountMutation_createUpdateBankAccount | null,
   ) => {
     createUpdateCA({
       variables: {
         input: formValuesToInputCreditApplication({
           ...creditApplication.data?.creditApplicationByOrderUuid,
           orderUuid: orderId,
-          incomeAndExpenses: createUpdateIncomeAndExpense,
+          bankAccounts: [createUpdateBankAccount],
         }),
       },
     });
     const params = getUrlParam({ uuid: personUuid });
-    const url =
-      router.query.redirect === 'summary'
-        ? `/olaf/summary/[orderId]${params}`
-        : `/olaf/bank-details/[orderId]${params}`;
-
-    router.push(url, url.replace('[orderId]', orderId));
+    const url = `/olaf/summary${params}`;
+    router.push(url, url);
   };
 
   return (
     <OLAFLayout>
-      <ExpensesFormContainer
-        onCompleted={({ createUpdateIncomeAndExpense }) =>
-          onCompleteClick(createUpdateIncomeAndExpense)
+      <BankDetailsFormContainer
+        onCompleted={({ createUpdateBankAccount }) =>
+          onCompleteClick(createUpdateBankAccount)
         }
-        personUuid={personUuid}
+        personUuid={uuid}
       />
     </OLAFLayout>
   );
 };
 
-export default withApollo(ExpensesPage, { getDataFromTree });
+export default withApollo(BankDetailsPage, { getDataFromTree });

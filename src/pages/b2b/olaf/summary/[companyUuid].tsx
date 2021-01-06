@@ -43,10 +43,7 @@ const BusinessSummaryPage: NextPage = () => {
       orderId,
       emailAddress,
     });
-    router.push(
-      '/olaf/thank-you/[orderId]?isB2b=1',
-      '/olaf/thank-you/[orderId]?isB2b=1'.replace('[orderId]', orderId),
-    );
+    router.push('/olaf/thank-you?isB2b=1', '/olaf/thank-you?isB2b=1');
   };
 
   return (
