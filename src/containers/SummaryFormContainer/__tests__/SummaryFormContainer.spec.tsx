@@ -241,10 +241,7 @@ describe('<SummaryFormContainer />', () => {
 
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/thank-you/[orderId]',
-      '/olaf/thank-you/17596f47-adf5-4e63-b250-238102cb831c',
-    );
+    expect(mockPush).toHaveBeenCalledWith('/olaf/thank-you', '/olaf/thank-you');
   });
 
   it('should redirect to about page when clicking "Edit" on the "Your Details" section', async () => {
@@ -267,8 +264,8 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/about/[orderId]?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
-      '/olaf/about/17596f47-adf5-4e63-b250-238102cb831c?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/about?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/about?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
     );
   });
 
@@ -292,8 +289,8 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/employment-history/[orderId]?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
-      '/olaf/employment-history/17596f47-adf5-4e63-b250-238102cb831c?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/employment-history?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/employment-history?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
     );
   });
 
@@ -317,8 +314,8 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/expenses/[orderId]?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
-      '/olaf/expenses/17596f47-adf5-4e63-b250-238102cb831c?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/expenses?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/expenses?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
     );
   });
 
@@ -342,8 +339,8 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/bank-details/[orderId]?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
-      '/olaf/bank-details/17596f47-adf5-4e63-b250-238102cb831c?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/bank-details?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/bank-details?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
     );
   });
 });

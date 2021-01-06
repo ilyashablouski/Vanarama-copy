@@ -8,7 +8,7 @@ import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import SummaryFormContainer from '../../../containers/SummaryFormContainer/SummaryFormContainer';
 import withApollo from '../../../hocs/withApollo';
 import { OLAFQueryParams } from '../../../utils/url';
-import { GET_PERSON_INFORMATION } from '../address-history/[orderId]';
+import { GET_PERSON_INFORMATION } from '../address-history';
 import { GetDerivative_derivative } from '../../../../generated/GetDerivative';
 import { pushSummaryDataLayer } from '../../../utils/dataLayerHelpers';
 import { OrderInputObject } from '../../../../generated/globalTypes';

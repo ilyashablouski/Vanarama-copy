@@ -164,12 +164,12 @@ const AboutYouPage: NextPage = () => {
             response.data?.createUpdateOrder?.uuid,
           ),
         )
-        .then(orderUuid =>
+        .then(savedOrderId =>
           createUpdateCA({
             variables: {
               input: formValuesToInputCreditApplication({
                 ...creditApplication.data?.creditApplicationByOrderUuid,
-                orderUuid: orderUuid || '',
+                orderUuid: savedOrderId || '',
                 aboutDetails: createUpdatePerson,
                 creditApplicationType: CATypeEnum.B2C_PERSONAL,
               }),
@@ -191,10 +191,10 @@ const AboutYouPage: NextPage = () => {
     const params = getUrlParam({ uuid: createUpdatePerson.uuid });
     const url =
       router.query.redirect === 'summary'
-        ? `/olaf/summary/[orderId]${params}`
-        : `/olaf/address-history/[orderId]${params}`;
+        ? `/olaf/summary${params}`
+        : `/olaf/address-history${params}`;
 
-    router.push(url, url.replace('[orderId]', orderId));
+    router.push(url, url);
   };
 
   const handleRegistrationClick = () =>

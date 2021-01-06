@@ -1,33 +1,38 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { getDataFromTree } from '@apollo/react-ssr';
-import { useQuery } from '@apollo/client';
+import { useQuery, gql } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
-import EmploymentFormContainer from '../../../containers/EmploymentFormContainer/EmploymentFormContainer';
+import AddressFormContainer from '../../../containers/AddressFormContainer/AddressFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
-import { GET_PERSON_INFORMATION } from '../address-history/[orderId]';
+import { SaveAddressHistoryMutation_createUpdateAddress } from '../../../../generated/SaveAddressHistoryMutation';
 import { formValuesToInputCreditApplication } from '../../../mappers/mappersCreditApplication';
 import {
   useCreateUpdateCreditApplication,
   useGetCreditApplicationByOrderUuid,
 } from '../../../gql/creditApplication';
-import { SaveEmploymentHistoryMutation_createUpdateEmploymentHistory } from '../../../../generated/SaveEmploymentHistoryMutation';
 import useGetOrderId from '../../../hooks/useGetOrderId';
 
+export const GET_PERSON_INFORMATION = gql`
+  query GetOrderInformation {
+    uuid @client
+  }
+`;
+
 type QueryParams = OLAFQueryParams & {
-  uuid: string;
+  uuid?: string;
 };
 
-const EmploymentHistoryPage: NextPage = () => {
+const AddressHistoryPage: NextPage = () => {
   const router = useRouter();
   const { uuid } = router.query as QueryParams;
   const orderId = useGetOrderId();
 
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-  const { data: caData } = useGetCreditApplicationByOrderUuid(orderId);
+  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
 
   let personUuid = uuid || '';
   const { data } = useQuery(GET_PERSON_INFORMATION);
@@ -36,33 +41,33 @@ const EmploymentHistoryPage: NextPage = () => {
   }
 
   const onCompleteClick = (
-    createUpdateEmploymentHistory:
-      | SaveEmploymentHistoryMutation_createUpdateEmploymentHistory[]
+    createUpdateAddress:
+      | SaveAddressHistoryMutation_createUpdateAddress[]
       | null,
   ) => {
     createUpdateCA({
       variables: {
         input: formValuesToInputCreditApplication({
-          ...caData?.creditApplicationByOrderUuid,
+          ...creditApplication.data?.creditApplicationByOrderUuid,
           orderUuid: orderId,
-          employmentHistories: createUpdateEmploymentHistory,
+          addresses: createUpdateAddress,
         }),
       },
     });
-    const params = getUrlParam({ uuid: personUuid });
+    const params = getUrlParam({ uuid });
     const url =
       router.query.redirect === 'summary'
-        ? `/olaf/summary/[orderId]${params}`
-        : `/olaf/expenses/[orderId]${params}`;
+        ? `/olaf/summary${params}`
+        : `/olaf/employment-history${params}`;
 
-    router.push(url, url.replace('[orderId]', orderId));
+    router.push(url, url);
   };
 
   return (
     <OLAFLayout>
-      <EmploymentFormContainer
-        onCompleted={({ createUpdateEmploymentHistory }) =>
-          onCompleteClick(createUpdateEmploymentHistory)
+      <AddressFormContainer
+        onCompleted={({ createUpdateAddress }) =>
+          onCompleteClick(createUpdateAddress)
         }
         personUuid={personUuid}
       />
@@ -70,4 +75,4 @@ const EmploymentHistoryPage: NextPage = () => {
   );
 };
 
-export default withApollo(EmploymentHistoryPage, { getDataFromTree });
+export default withApollo(AddressHistoryPage, { getDataFromTree });
