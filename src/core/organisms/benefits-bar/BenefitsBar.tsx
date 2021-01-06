@@ -35,9 +35,9 @@ const Slider: FC<ICarouselProps> = () => {
         renderCenterRightControls={({ nextSlide }) => (
           <button onClick={nextSlide}><span>Next</span></button>
         )}>
-        {items.map((item) => {
+        {items.map((item, i) => {
           return (
-            <div>
+            <div key={i}>
               <div className="text -small -black"><b>{item.title}</b></div>
               <div className="text -small -darker">{item.subtitle}</div>
             </div>
