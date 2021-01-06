@@ -64,11 +64,7 @@ const ConsumerProgressIndicator: React.FC = () => {
             step={step}
             id={`step_${step}`}
           >
-            <NextJsLink
-              href={url}
-              as={url.replace('[orderId]', orderId)}
-              passHref
-            >
+            <NextJsLink href={url} as={url} passHref>
               <StepLink label={label} />
             </NextJsLink>
           </Step>
@@ -81,32 +77,32 @@ const ConsumerProgressIndicator: React.FC = () => {
 function generateSteps() {
   return [
     {
-      href: '/olaf/about/[orderId]',
+      href: '/olaf/about',
       label: 'About You',
       step: 1,
     },
     {
-      href: '/olaf/address-history/[orderId]',
+      href: '/olaf/address-history',
       label: 'Address History',
       step: 2,
     },
     {
-      href: '/olaf/employment-history/[orderId]',
+      href: '/olaf/employment-history',
       label: 'Employment History',
       step: 3,
     },
     {
-      href: '/olaf/expenses/[orderId]',
+      href: '/olaf/expenses',
       label: 'Expenses',
       step: 4,
     },
     {
-      href: '/olaf/bank-details/[orderId]',
+      href: '/olaf/bank-details',
       label: 'Bank Details',
       step: 5,
     },
     {
-      href: '/olaf/summary/[orderId]',
+      href: '/olaf/summary',
       label: 'Summary',
       step: 6,
     },
