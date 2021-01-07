@@ -279,14 +279,14 @@ const TopOffersContainer: React.FC<IProps> = ({
         <div className="row:bg-lighter">
           <div
             className={cx({
-              'row:carousel': !isRangePage && !isDynamicFilterPage,
-              'row:cards-3col': isRangePage || isDynamicFilterPage,
+              'row:carousel': vehiclesList.length > 3,
+              'row:cards-3col': vehiclesList.length === 3,
             })}
           >
             <Heading size="large" color="black" tag="h3">
               Top Offers
             </Heading>
-            {isRangePage || isDynamicFilterPage ? (
+            {vehiclesList.length === 3 ? (
               vehiclesList.map((vehicle: IVehicles) => (
                 <VehicleCard
                   loadImage

@@ -1,0 +1,52 @@
+.new-hero-benefits-bar {
+  background: white;
+  box-shadow: 0 4px 16px -8px rgba(10,13,16,0.1), 0 18.1px 36.2px rgba(10,13,16,0.04);
+  border-radius: .375rem;
+  padding: .75rem;
+  margin-top: 0.75rem;
+  .slider {
+    padding: 0 24px;
+    .text + .text {
+      margin-top: 0;
+    }
+    .slider-control-bottomcenter {
+      display: none;
+    }
+    .slider-control-centerleft,
+    .slider-control-centerright {
+      position: absolute;
+      top: 0 !important;
+      transform: none !important;
+      bottom: 0;
+      width: 20px;
+      button {
+        display: block;
+        width: 20px;
+        height: 100%;
+        border-radius: 50px;
+        position: relative;
+        &:focus {
+          background-color: rgba(103, 128, 152, 0.15);
+        }
+        span {
+          position: absolute;
+          top: 50%;
+          display: block;
+          width: 9px;
+          height: 9px;
+          border-top: 2px solid #678098;
+          color: transparent;
+          overflow: hidden;
+        }
+      }
+    }
+    .slider-control-centerleft span {
+      border-left: 2px solid #678098;
+      transform: rotate(-45deg) translate(8px, 2px);
+    }
+    .slider-control-centerright span {
+      border-right: 2px solid #678098;
+      transform: rotate(45deg) translate(-1px, -5px);
+    }
+  }
+}
