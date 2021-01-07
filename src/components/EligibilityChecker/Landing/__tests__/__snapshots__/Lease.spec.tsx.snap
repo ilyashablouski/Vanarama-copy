@@ -37,11 +37,13 @@ exports[`<Lease /> renders correctly 1`] = `
     <div
       className="media media-player"
     >
-      <span
-        className=""
+      <div
+        className="media-player--embed"
+        src="https://player.vimeo.com/video/263419265"
         style={
           Object {
-            "display": "inline-block",
+            "height": "100%",
+            "width": "100%",
           }
         }
       />

@@ -222,6 +222,7 @@ describe('<CustomerTestimonialsContainer />', () => {
     const getComponent = render(
       <MockedProvider addTypename={false} mocks={mocked}>
         <CustomerTestimonialsContainer
+          initialTestimonials={undefined}
           sections={SECTIONS}
           title={METADATA.title}
           body={BODY}
