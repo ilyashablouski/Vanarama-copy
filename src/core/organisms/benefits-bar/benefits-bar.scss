@@ -9,6 +9,15 @@
     .text + .text {
       margin-top: 0;
     }
+    .text {
+      .b-bar-rating {
+        display: inline-block;
+        width: 59px;
+        overflow: hidden;
+        line-height: 100%;
+        margin: 0 4px -2px 0;
+      }
+    }
     .slider-control-bottomcenter {
       display: none;
     }
