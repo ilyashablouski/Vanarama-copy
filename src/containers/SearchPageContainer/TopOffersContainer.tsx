@@ -76,7 +76,7 @@ const TopOffersContainer: React.FC<IProps> = ({
     preLoadVehiclesList?.vehicleList.edges?.slice(0, 4) || ([] as any),
   );
   const [bodyStyleList, setBodyStyleList] = useState(
-    preloadBodyStylesList as IModelsData[],
+    (preloadBodyStylesList as IModelsData[]) || [],
   );
 
   const [capIds, setCapsIds] = useState([] as string[]);
