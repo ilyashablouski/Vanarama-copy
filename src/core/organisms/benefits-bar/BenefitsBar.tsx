@@ -43,9 +43,9 @@ const Slider: FC<ICarouselProps> = () => {
                 <b>{item.title}</b>
               </div>
               <div className="text -small -darker">
-                {item.rating ? (
+                {item.rating && (
                   <span className="b-bar-rating">{item.rating}</span>
-                ) : null}
+                )}
                 {item.subtitle}
               </div>
             </div>
