@@ -5,20 +5,17 @@ import { ICarouselProps } from '../carousel/interface';
 const Slider: FC<ICarouselProps> = () => {
   const items = [
     {
+      title: 'Lowest Price Guaranteed',
+      subtitle: "We'll beat any price or give you £100.",
+    },
+    {
+      title: 'Our Customers Love Us',
+      subtitle: ' on Trustpilot.',
+      rating: '★★★★★',
+    },
+    {
       title: 'Over 100,000 Vehicles Leased',
       subtitle: 'Van, pickup or car - lease yours today.',
-    },
-    {
-      title: 'Over 100,000 Vehicles Leased',
-      subtitle: 'Lorem ipsum dolor et 0',
-    },
-    {
-      title: 'Over 100,000 Vehicles Leased',
-      subtitle: 'Lorem ipsum dolor et 1',
-    },
-    {
-      title: 'Over 100,000 Vehicles Leased',
-      subtitle: 'Lorem ipsum dolor et 2',
     },
   ];
 
@@ -45,7 +42,12 @@ const Slider: FC<ICarouselProps> = () => {
               <div className="text -small -black">
                 <b>{item.title}</b>
               </div>
-              <div className="text -small -darker">{item.subtitle}</div>
+              <div className="text -small -darker">
+                {item.rating ? (
+                  <span className="b-bar-rating">{item.rating}</span>
+                ) : null}
+                {item.subtitle}
+              </div>
             </div>
           );
         })}

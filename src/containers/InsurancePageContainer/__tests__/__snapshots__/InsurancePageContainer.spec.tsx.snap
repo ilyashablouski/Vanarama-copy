@@ -170,6 +170,57 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                         class="text -small -black"
                       >
                         <b>
+                          Lowest Price Guaranteed
+                        </b>
+                      </div>
+                      <div
+                        class="text -small -darker"
+                      >
+                        We'll beat any price or give you £100.
+                      </div>
+                    </div>
+                  </li>
+                  <li
+                    aria-hidden="true"
+                    class="slider-slide"
+                    inert=""
+                    style="box-sizing: border-box; display: inline-block; height: auto; left: 0px; list-style-type: none; margin: auto 0px auto 0px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: 0px;"
+                  >
+                    <div
+                      aria-hidden="true"
+                    >
+                      <div
+                        class="text -small -black"
+                      >
+                        <b>
+                          Our Customers Love Us
+                        </b>
+                      </div>
+                      <div
+                        class="text -small -darker"
+                      >
+                        <span
+                          class="b-bar-rating"
+                        >
+                          ★★★★★
+                        </span>
+                         on Trustpilot.
+                      </div>
+                    </div>
+                  </li>
+                  <li
+                    aria-hidden="true"
+                    class="slider-slide"
+                    inert=""
+                    style="box-sizing: border-box; display: inline-block; height: auto; left: 0px; list-style-type: none; margin: auto 0px auto 0px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: 0px;"
+                  >
+                    <div
+                      aria-hidden="true"
+                    >
+                      <div
+                        class="text -small -black"
+                      >
+                        <b>
                           Over 100,000 Vehicles Leased
                         </b>
                       </div>
@@ -177,75 +228,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                         class="text -small -darker"
                       >
                         Van, pickup or car - lease yours today.
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    aria-hidden="true"
-                    class="slider-slide"
-                    inert=""
-                    style="box-sizing: border-box; display: inline-block; height: auto; left: 0px; list-style-type: none; margin: auto 0px auto 0px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: 0px;"
-                  >
-                    <div
-                      aria-hidden="true"
-                    >
-                      <div
-                        class="text -small -black"
-                      >
-                        <b>
-                          Over 100,000 Vehicles Leased
-                        </b>
-                      </div>
-                      <div
-                        class="text -small -darker"
-                      >
-                        Lorem ipsum dolor et 0
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    aria-hidden="true"
-                    class="slider-slide"
-                    inert=""
-                    style="box-sizing: border-box; display: inline-block; height: auto; left: 0px; list-style-type: none; margin: auto 0px auto 0px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: 0px;"
-                  >
-                    <div
-                      aria-hidden="true"
-                    >
-                      <div
-                        class="text -small -black"
-                      >
-                        <b>
-                          Over 100,000 Vehicles Leased
-                        </b>
-                      </div>
-                      <div
-                        class="text -small -darker"
-                      >
-                        Lorem ipsum dolor et 1
-                      </div>
-                    </div>
-                  </li>
-                  <li
-                    aria-hidden="true"
-                    class="slider-slide"
-                    inert=""
-                    style="box-sizing: border-box; display: inline-block; height: auto; left: 0px; list-style-type: none; margin: auto 0px auto 0px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: 0px;"
-                  >
-                    <div
-                      aria-hidden="true"
-                    >
-                      <div
-                        class="text -small -black"
-                      >
-                        <b>
-                          Over 100,000 Vehicles Leased
-                        </b>
-                      </div>
-                      <div
-                        class="text -small -darker"
-                      >
-                        Lorem ipsum dolor et 2
                       </div>
                     </div>
                   </li>
@@ -329,27 +311,6 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                   >
                     <button
                       aria-label="slide 3 bullet"
-                      style="cursor: pointer; opacity: 0.5; background: transparent; fill: black;"
-                      type="button"
-                    >
-                      <svg
-                        class="paging-dot"
-                        height="6"
-                        width="6"
-                      >
-                        <circle
-                          cx="3"
-                          cy="3"
-                          r="3"
-                        />
-                      </svg>
-                    </button>
-                  </li>
-                  <li
-                    class="paging-item"
-                  >
-                    <button
-                      aria-label="slide 4 bullet"
                       style="cursor: pointer; opacity: 0.5; background: transparent; fill: black;"
                       type="button"
                     >
