@@ -45,7 +45,6 @@ const SECTIONS = {
   },
   vehicleReviewMedia: {
     __typename: 'VehicleReviewMedia',
-    reviewVideo: 'https://www.youtube.com/embed/M-k__JMWG-k',
     reviewPhoto: {
       __typename: 'Image',
       file: {

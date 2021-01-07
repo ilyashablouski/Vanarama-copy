@@ -223,6 +223,45 @@ const DATA = {
     },
   },
 } as HubPickupPageData;
+
+const productsData = {
+  productCarousel: [
+    {
+      capId: '44514',
+      isOnOffer: true,
+      manufacturerName: 'Citroen',
+      derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
+      rangeName: 'Berlingo',
+      imageUrl:
+        'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
+      leadTime: 'Factory Order',
+      averageRating: 4.7,
+      businessRate: 139,
+      personalRate: 186.98,
+      offerPosition: null,
+      keyInformation: [
+        {
+          name: 'Transmission',
+          value: 'Manual',
+        },
+        {
+          name: 'Fuel Type',
+          value: 'Diesel',
+        },
+        {
+          name: 'Emissions',
+          value: '111',
+        },
+        {
+          name: 'Fuel Economy',
+          value: '67.2',
+        },
+      ],
+      vehicleType: VehicleTypeEnum.LCV,
+    },
+  ],
+} as ProductCardData;
+
 const filterList = {
   filterList: {
     vehicleTypes: [VehicleTypeEnum.LCV],
@@ -286,43 +325,7 @@ const mocked: MockedResponse[] = [
       },
     },
     result: {
-      data: {
-        productCarousel: [
-          {
-            capId: '44514',
-            isOnOffer: true,
-            manufacturerName: 'Citroen',
-            derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
-            rangeName: 'Berlingo',
-            imageUrl:
-              'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
-            leadTime: 'Factory Order',
-            averageRating: 4.7,
-            businessRate: 139,
-            personalRate: 186.98,
-            offerPosition: null,
-            keyInformation: [
-              {
-                name: 'Transmission',
-                value: 'Manual',
-              },
-              {
-                name: 'Fuel Type',
-                value: 'Diesel',
-              },
-              {
-                name: 'Emissions',
-                value: '111',
-              },
-              {
-                name: 'Fuel Economy',
-                value: '67.2',
-              },
-            ],
-            vehicleType: VehicleTypeEnum.LCV,
-          },
-        ],
-      } as ProductCardData,
+      data: productsData,
     },
   },
 ];
@@ -404,7 +407,11 @@ describe('<PickupsPage />', () => {
     await preloadAll();
     render(
       <MockedProvider addTypename={false} mocks={mocked}>
-        <PickupsPage data={DATA} searchPodVansData={filterList} />
+        <PickupsPage
+          products={productsData}
+          data={DATA}
+          searchPodVansData={filterList}
+        />
       </MockedProvider>,
     );
   });
