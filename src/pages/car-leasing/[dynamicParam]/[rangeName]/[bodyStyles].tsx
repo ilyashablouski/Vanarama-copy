@@ -135,23 +135,27 @@ export async function getServerSideProps(context: NextPageContext) {
           },
         })
         .then(resp => resp.data);
+
       try {
         bodyStyleList = await client
           .query({
             query: GET_BODY_STYLES,
             variables: {
-              vehicleTypes: [VehicleTypeEnum.CAR],
+              vehicleTypes: VehicleTypeEnum.CAR,
               leaseType: LeaseTypeEnum.PERSONAL,
               manufacturerSlug: (context?.query
                 ?.dynamicParam as string).toLowerCase(),
-              rangeSlug: (context?.query?.rangeName as string).toLowerCase(),
+              rangeSlug: (context?.query?.rangeName as string)
+                .split('+')
+                .join(' ')
+                .toLowerCase(),
             },
           })
           .then(resp => resp.data);
-          console.log(bodyStyleList);
       } catch {
-        return false;
+        bodyStyleList = null;
       }
+
       try {
         responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
         if (responseCapIds.length) {

@@ -3,7 +3,10 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
 import createApolloClient from '../../../../apolloClient';
-import { GET_VEHICLE_LIST } from '../../../../containers/SearchPageContainer/gql';
+import {
+  GET_VEHICLE_LIST,
+  GET_BODY_STYLES,
+} from '../../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../../containers/CustomerAlsoViewedContainer/gql';
 import SearchPageContainer from '../../../../containers/SearchPageContainer';
 import {
@@ -11,6 +14,7 @@ import {
   ssrCMSQueryExecutor,
 } from '../../../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
+import { bodyStyleList_bodyStyleList as IModelsData } from '../../../../../generated/bodyStyleList';
 import {
   LeaseTypeEnum,
   SortDirection,
@@ -33,6 +37,7 @@ interface IProps extends ISearchPageProps {
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
   filtersData?: IFilterList | undefined;
+  bodyStyleList?: IModelsData[];
 }
 
 const Page: NextPage<IProps> = ({
@@ -40,6 +45,7 @@ const Page: NextPage<IProps> = ({
   pageData,
   metaData,
   vehiclesList,
+  bodyStyleList,
   productCardsData,
   responseCapIds,
   error,
@@ -87,6 +93,7 @@ const Page: NextPage<IProps> = ({
       metaData={metaData}
       pageData={pageData}
       preLoadVehiclesList={vehiclesList}
+      preloadBodyStyleList={bodyStyleList}
       preLoadProductCardsData={productCardsData}
       preLoadResponseCapIds={responseCapIds}
       preLoadFiltersData={filtersData}
@@ -99,6 +106,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let vehiclesList;
   let productCardsData;
   let responseCapIds;
+  let bodyStyleList;
   try {
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
@@ -124,6 +132,28 @@ export async function getServerSideProps(context: NextPageContext) {
           },
         })
         .then(resp => resp.data);
+
+      try {
+        bodyStyleList = await client
+          .query({
+            query: GET_BODY_STYLES,
+            variables: {
+              vehicleTypes: VehicleTypeEnum.CAR,
+              leaseType: LeaseTypeEnum.PERSONAL,
+              manufacturerSlug: (context?.query
+                ?.dynamicParam as string).toLowerCase(),
+              rangeSlug: (context?.query?.rangeName as string)
+                .split('+')
+                .join(' ')
+                .toLowerCase(),
+            },
+          })
+          .then(resp => resp.data);
+      } catch (err) {
+        // console.error(err);
+        bodyStyleList = null;
+      }
+
       try {
         responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
         if (responseCapIds.length) {
@@ -157,6 +187,7 @@ export async function getServerSideProps(context: NextPageContext) {
         metaData: data.genericPage.metaData,
         isServer: !!context.req,
         vehiclesList: vehiclesList || null,
+        bodyStyleList: bodyStyleList || null,
         productCardsData: productCardsData || null,
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
