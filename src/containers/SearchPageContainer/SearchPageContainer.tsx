@@ -5,13 +5,7 @@
   We define type of this params before page rendering in root page container,
   this query param should be using only with page type context for prevent any issues with it
 */
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useLayoutEffect,
-  useMemo,
-} from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -132,7 +126,7 @@ interface IProps {
   rangesUrls?: ILegacyUrls[];
   makesUrls?: ILegacyUrls[];
   preLoadManufacturers?: manufacturerList | null;
-  preloadBodyStylesList?: IModelsData[];
+  preloadBodyStyleList?: IModelsData[];
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -154,7 +148,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   topInfoSection,
   preLoadFiltersData,
   preLoadVehiclesList,
-  preloadBodyStylesList,
+  preloadBodyStyleList,
   preLoadProductCardsData,
   preLoadResponseCapIds,
   preLoadRanges,
@@ -493,7 +487,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (isServer) setIsSpecialOffers(getValueFromStorage() ?? true);
   }, [isServer, getValueFromStorage]);
 
@@ -856,7 +850,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           isSpecialOfferPage={isSpecialOfferPage || false}
           manualBodyStyle={manualBodyStyle}
           preLoadVehiclesList={preLoadVehiclesList}
-          preloadBodyStylesList={preloadBodyStylesList}
+          preloadBodyStyleList={preloadBodyStyleList}
           preLoadProductCardsData={preLoadProductCardsData}
         />
       )}

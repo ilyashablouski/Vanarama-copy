@@ -35,7 +35,7 @@ interface IProps extends ISearchPageProps {
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
   filtersData?: IFilterList | undefined;
-  bodyStylesList?: IModelsData[];
+  bodyStyleList?: IModelsData[];
 }
 
 const Page: NextPage<IProps> = ({
@@ -44,7 +44,7 @@ const Page: NextPage<IProps> = ({
   metaData,
   filtersData,
   vehiclesList,
-  bodyStylesList,
+  bodyStyleList,
   productCardsData,
   responseCapIds,
   error,
@@ -88,7 +88,7 @@ const Page: NextPage<IProps> = ({
       metaData={metaData}
       preLoadFiltersData={filtersData}
       preLoadVehiclesList={vehiclesList}
-      preloadBodyStylesList={bodyStylesList}
+      preloadBodyStyleList={bodyStyleList}
       preLoadProductCardsData={productCardsData}
       preLoadResponseCapIds={responseCapIds}
     />
@@ -100,7 +100,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let vehiclesList;
   let productCardsData;
   let responseCapIds;
-  let bodyStylesList;
+  let bodyStyleList;
   try {
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
@@ -136,7 +136,7 @@ export async function getServerSideProps(context: NextPageContext) {
         })
         .then(resp => resp.data);
       try {
-        bodyStylesList = await client
+        bodyStyleList = await client
           .query({
             query: GET_BODY_STYLES,
             variables: {
@@ -148,6 +148,7 @@ export async function getServerSideProps(context: NextPageContext) {
             },
           })
           .then(resp => resp.data);
+          console.log(bodyStyleList);
       } catch {
         return false;
       }
@@ -175,7 +176,7 @@ export async function getServerSideProps(context: NextPageContext) {
         isServer: !!context.req,
         filtersData: filtersData?.filterList || null,
         vehiclesList: vehiclesList || null,
-        bodyStylesList: bodyStylesList || null,
+        bodyStyleList: bodyStyleList || null,
         productCardsData: productCardsData || null,
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
