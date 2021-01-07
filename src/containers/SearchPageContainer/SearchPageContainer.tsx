@@ -59,6 +59,7 @@ import { getLegacyUrl } from '../../utils/url';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { rangeList } from '../../../generated/rangeList';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
+import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
 import { manufacturerList } from '../../../generated/manufacturerList';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Head from '../../components/Head/Head';
@@ -131,6 +132,7 @@ interface IProps {
   rangesUrls?: ILegacyUrls[];
   makesUrls?: ILegacyUrls[];
   preLoadManufacturers?: manufacturerList | null;
+  preloadBodyStylesList?: IModelsData[];
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -152,6 +154,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   topInfoSection,
   preLoadFiltersData,
   preLoadVehiclesList,
+  preloadBodyStylesList,
   preLoadProductCardsData,
   preLoadResponseCapIds,
   preLoadRanges,
@@ -853,6 +856,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           isSpecialOfferPage={isSpecialOfferPage || false}
           manualBodyStyle={manualBodyStyle}
           preLoadVehiclesList={preLoadVehiclesList}
+          preloadBodyStylesList={preloadBodyStylesList}
           preLoadProductCardsData={preLoadProductCardsData}
         />
       )}

@@ -50,6 +50,7 @@ interface IProps {
   preLoadVehiclesList?: IVehiclesData;
   preLoadProductCardsData?: GetProductCard;
   preLoadResponseCapIds?: string[];
+  preloadBodyStylesList?: IModelsData[];
 }
 
 const TopOffersContainer: React.FC<IProps> = ({
@@ -67,13 +68,16 @@ const TopOffersContainer: React.FC<IProps> = ({
   manualBodyStyle,
   preLoadVehiclesList,
   preLoadProductCardsData,
+  preloadBodyStylesList,
 }: IProps) => {
   const router = useRouter();
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges?.slice(0, 4) || ([] as any),
   );
-  const [bodyStyleList, setBodyStyleList] = useState([] as IModelsData[]);
+  const [bodyStyleList, setBodyStyleList] = useState(
+    preloadBodyStylesList as IModelsData[],
+  );
 
   const [capIds, setCapsIds] = useState([] as string[]);
 

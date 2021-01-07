@@ -9,7 +9,10 @@ import {
   ssrCMSQueryExecutor,
 } from '../../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../../containers/SearchPageContainer';
-import { GET_VEHICLE_LIST } from '../../../../containers/SearchPageContainer/gql';
+import {
+  GET_VEHICLE_LIST,
+  GET_BODY_STYLES,
+} from '../../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../../containers/CustomerAlsoViewedContainer/gql';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
 import {
@@ -19,6 +22,7 @@ import {
   VehicleTypeEnum,
 } from '../../../../../generated/globalTypes';
 import { vehicleList } from '../../../../../generated/vehicleList';
+import { bodyStyleList_bodyStyleList as IModelsData } from '../../../../../generated/bodyStyleList';
 import { GetProductCard } from '../../../../../generated/GetProductCard';
 import { filterList_filterList as IFilterList } from '../../../../../generated/filterList';
 import { notFoundPageHandler } from '../../../../utils/url';
@@ -31,6 +35,7 @@ interface IProps extends ISearchPageProps {
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
   filtersData?: IFilterList | undefined;
+  bodyStylesList?: IModelsData[];
 }
 
 const Page: NextPage<IProps> = ({
@@ -39,6 +44,7 @@ const Page: NextPage<IProps> = ({
   metaData,
   filtersData,
   vehiclesList,
+  bodyStylesList,
   productCardsData,
   responseCapIds,
   error,
@@ -82,6 +88,7 @@ const Page: NextPage<IProps> = ({
       metaData={metaData}
       preLoadFiltersData={filtersData}
       preLoadVehiclesList={vehiclesList}
+      preloadBodyStylesList={bodyStylesList}
       preLoadProductCardsData={productCardsData}
       preLoadResponseCapIds={responseCapIds}
     />
@@ -93,6 +100,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let vehiclesList;
   let productCardsData;
   let responseCapIds;
+  let bodyStylesList;
   try {
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
@@ -128,6 +136,22 @@ export async function getServerSideProps(context: NextPageContext) {
         })
         .then(resp => resp.data);
       try {
+        bodyStylesList = await client
+          .query({
+            query: GET_BODY_STYLES,
+            variables: {
+              vehicleTypes: [VehicleTypeEnum.CAR],
+              leaseType: LeaseTypeEnum.PERSONAL,
+              manufacturerSlug: (context?.query
+                ?.dynamicParam as string).toLowerCase(),
+              rangeSlug: (context?.query?.rangeName as string).toLowerCase(),
+            },
+          })
+          .then(resp => resp.data);
+      } catch {
+        return false;
+      }
+      try {
         responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
         if (responseCapIds.length) {
           productCardsData = await client
@@ -151,6 +175,7 @@ export async function getServerSideProps(context: NextPageContext) {
         isServer: !!context.req,
         filtersData: filtersData?.filterList || null,
         vehiclesList: vehiclesList || null,
+        bodyStylesList: bodyStylesList || null,
         productCardsData: productCardsData || null,
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
