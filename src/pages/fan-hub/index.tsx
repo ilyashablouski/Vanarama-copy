@@ -11,7 +11,6 @@ const FeaturedAndTilesContainer = dynamic(
     ),
   {
     loading: () => <Skeleton count={1} />,
-    ssr: false,
   },
 );
 

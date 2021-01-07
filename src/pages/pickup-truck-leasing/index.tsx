@@ -2,8 +2,7 @@ import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
-import { useQuery } from '@apollo/client';
-import { useState, useContext } from 'react';
+import { useContext } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -15,10 +14,7 @@ import {
   HubPickupPageData_hubPickupPage_sections_tiles2_tiles as TileData,
   HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
 } from '../../../generated/HubPickupPageData';
-import {
-  ProductCardData,
-  ProductCardData_productCarousel as ProdData,
-} from '../../../generated/ProductCardData';
+import { ProductCardData } from '../../../generated/ProductCardData';
 import { HUB_PICKUP_CONTENT } from '../../gql/hub/hubPickupPage';
 import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
 import createApolloClient from '../../apolloClient';
@@ -93,26 +89,16 @@ const League = dynamic(() => import('core/organisms/league'), {
 type Props = {
   data: HubPickupPageData;
   searchPodVansData: IFilterList;
+  products: ProductCardData;
 };
 
-export const PickupsPage: NextPage<Props> = ({ data, searchPodVansData }) => {
-  const [offer, setOffer] = useState<ProdData>();
+export const PickupsPage: NextPage<Props> = ({
+  data,
+  searchPodVansData,
+  products,
+}) => {
   const { cachedLeaseType } = useLeaseType(false);
-
-  const { data: products } = useQuery<ProductCardData>(PRODUCT_CARD_CONTENT, {
-    variables: {
-      type: VehicleTypeEnum.LCV,
-      bodyType: 'Pickup',
-      size: 9,
-      offer: true,
-    },
-    onCompleted: prods => {
-      const topProduct = prods?.productCarousel?.find(
-        p => p?.isOnOffer === true,
-      );
-      if (topProduct) setOffer(topProduct);
-    },
-  });
+  const offer = products?.productCarousel?.find(p => p?.isOnOffer === true);
 
   const productsPickupsCapIds = products?.productCarousel
     ?.map(el => el?.capId || '')
@@ -704,7 +690,7 @@ export const PickupsPage: NextPage<Props> = ({ data, searchPodVansData }) => {
   );
 };
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
   const client = createApolloClient({});
 
   try {
@@ -721,10 +707,21 @@ export async function getServerSideProps() {
       },
     });
 
+    const { data: products } = await client.query<ProductCardData>({
+      query: PRODUCT_CARD_CONTENT,
+      variables: {
+        type: VehicleTypeEnum.LCV,
+        bodyType: 'Pickup',
+        size: 9,
+        offer: true,
+      },
+    });
+
     return {
       props: {
         data,
         searchPodVansData,
+        products,
       },
     };
   } catch {
