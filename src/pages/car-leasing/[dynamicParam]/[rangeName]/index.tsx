@@ -148,9 +148,8 @@ export async function getServerSideProps(context: NextPageContext) {
                 .toLowerCase(),
             },
           })
-          .then(resp => resp.data);
+          .then(resp => resp.data.bodyStyleList);
       } catch (err) {
-        // console.error(err);
         bodyStyleList = null;
       }
 
