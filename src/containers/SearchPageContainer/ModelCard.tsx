@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { bodyStyleList_bodyStyleList as IModelData } from '../../../generated/bodyStyleList';
 import { useModelImages } from './gql';
-// import { useGenericSearchPageSlug } from '../../gql/genericPage';
+import { useGenericSearchPageSlug } from '../../gql/genericPage';
 import { formatUrl } from '../../utils/url';
 import { capitalizeFirstLetter } from '../../utils/textTransform';
 import Skeleton from '../../components/Skeleton';
@@ -39,7 +39,7 @@ const ModelCard = memo(({ isPersonalPrice, data }: IModelCardProps) => {
   const newUrl = formatUrl(
     `car-leasing/${query.dynamicParam}/${rangeName}/${data?.bodyStyle}`,
   );
-  // const { data: legacySlug } = useGenericSearchPageSlug(newUrl);
+  const { data: legacySlug } = useGenericSearchPageSlug(newUrl);
   return (
     <Card
       loadImageProps={loadImageData}
@@ -51,7 +51,7 @@ const ModelCard = memo(({ isPersonalPrice, data }: IModelCardProps) => {
         link: (
           <RouterLink
             link={{
-              href: /* legacySlug?.genericPage.metaData.legacyUrl || */ newUrl,
+              href: legacySlug?.genericPage.metaData.legacyUrl || newUrl,
               label: `${capitalizeFirstLetter(make)} ${capitalizeFirstLetter(
                 rangeName,
               )} ${data?.bodyStyle || ''}`,
@@ -72,7 +72,7 @@ const ModelCard = memo(({ isPersonalPrice, data }: IModelCardProps) => {
         />
         <RouterLink
           link={{
-            href: /* legacySlug?.genericPage.metaData.legacyUrl || */ newUrl,
+            href: legacySlug?.genericPage.metaData.legacyUrl || newUrl,
             label: `View ${data?.count || 'All'} Offers`,
           }}
           className="button"

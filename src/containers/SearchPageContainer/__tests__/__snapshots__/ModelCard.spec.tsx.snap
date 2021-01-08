@@ -18,8 +18,8 @@ exports[`<ModelCard /> should be render correctly 1`] = `
       >
         <a
           class="heading link -black -large"
-          data-testid="router-link"
-          href="/car-leasing/bmw/3-series/coupe"
+          data-testid="link"
+          href="/bmw-car-leasing/3-series/coupe.html"
         >
           BMW 3 series coupe
         </a>
@@ -59,8 +59,8 @@ exports[`<ModelCard /> should be render correctly 1`] = `
         </div>
         <a
           class="button -teal -regular -solid"
-          data-testid="router-link"
-          href="/car-leasing/bmw/3-series/coupe"
+          data-testid="link"
+          href="/bmw-car-leasing/3-series/coupe.html"
         >
           <div
             class="button--inner"
