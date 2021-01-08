@@ -50,6 +50,9 @@ interface IProps {
   preLoadVehiclesList?: IVehiclesData;
   preLoadProductCardsData?: GetProductCard;
   preLoadResponseCapIds?: string[];
+  preloadBodyStyleList?: IModelsData[];
+  preloadMake?: string;
+  preloadRange?: string;
 }
 
 const TopOffersContainer: React.FC<IProps> = ({
@@ -67,13 +70,18 @@ const TopOffersContainer: React.FC<IProps> = ({
   manualBodyStyle,
   preLoadVehiclesList,
   preLoadProductCardsData,
+  preloadBodyStyleList,
+  preloadMake,
+  preloadRange,
 }: IProps) => {
   const router = useRouter();
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges?.slice(0, 4) || ([] as any),
   );
-  const [bodyStyleList, setBodyStyleList] = useState([] as IModelsData[]);
+  const [bodyStyleList, setBodyStyleList] = useState(
+    (preloadBodyStyleList as IModelsData[]) || [],
+  );
 
   const [capIds, setCapsIds] = useState([] as string[]);
 
@@ -335,23 +343,20 @@ const TopOffersContainer: React.FC<IProps> = ({
           </div>
         </div>
       )}
-      <>
-        {isRangePage && isCarSearch && bodyStyleList.length > 1 ? (
-          <div className="row:bg-lighter">
-            <div className="row:cards-2col">
-              {bodyStyleList.map(bodyStyle => (
-                <ModelCard
-                  loadImage
-                  data={bodyStyle}
-                  isPersonalPrice={isPersonal}
-                />
-              ))}
-            </div>
+      {isRangePage && isCarSearch && bodyStyleList.length > 1 && (
+        <div className="row:bg-lighter">
+          <div className="row:cards-2col">
+            {bodyStyleList.map(bodyStyle => (
+              <ModelCard
+                data={bodyStyle}
+                make={preloadMake}
+                range={preloadRange}
+                isPersonalPrice={isPersonal}
+              />
+            ))}
           </div>
-        ) : (
-          <></>
-        )}
-      </>
+        </div>
+      )}
     </>
   );
 };

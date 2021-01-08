@@ -17,32 +17,32 @@ const Card = dynamic(() => import('core/molecules/cards/Card'), {
 });
 
 interface IModelCardProps {
-  loadImage?: boolean;
   isPersonalPrice: boolean;
   data?: IModelData;
+  range?: string;
+  make?: string;
 }
 
 const ModelCard = memo(
-  ({ isPersonalPrice, data, loadImage }: IModelCardProps) => {
+  ({ isPersonalPrice, data, range, make }: IModelCardProps) => {
     const { query } = useRouter();
-    const { data: imagesData } = useModelImages(
+    const { data: imageData } = useModelImages(
       [data?.capId?.toString() || '1'],
       !data?.capId,
     );
-    const imageProps = imagesData?.vehicleImages?.[0]
-      ? {
-          imageSrc: imagesData?.vehicleImages?.[0]?.mainImageUrl || '',
-        }
-      : {};
-    const make = query.make as string;
-    const rangeName = (query.rangeName as string).split('+').join(' ') || '';
+    const imageProps = {
+      imageSrc: imageData?.vehicleImages?.[0]?.mainImageUrl || '',
+    };
+
+    const makeName = make || (query.dynamicParam as string);
+    const rangeName =
+      range || (query.rangeName as string).split('+').join(' ') || '';
     const newUrl = formatUrl(
-      `car-leasing/${query.dynamicParam}/${rangeName}/${data?.bodyStyle}`,
+      `car-leasing/${makeName}/${rangeName}/${data?.bodyStyle}`,
     );
     const { data: legacySlug } = useGenericSearchPageSlug(newUrl);
     return (
       <Card
-        loadImage={loadImage}
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         inline
         {...imageProps}
@@ -52,9 +52,10 @@ const ModelCard = memo(
             <RouterLink
               link={{
                 href: legacySlug?.genericPage.metaData.legacyUrl || newUrl,
-                label: `${capitalizeFirstLetter(make)} ${capitalizeFirstLetter(
-                  rangeName,
-                )} ${data?.bodyStyle || ''}`,
+                label: `${capitalizeFirstLetter(
+                  makeName,
+                )} ${capitalizeFirstLetter(rangeName)} ${data?.bodyStyle ||
+                  ''}`,
               }}
               className="heading"
               classNames={{ size: 'large', color: 'black' }}
