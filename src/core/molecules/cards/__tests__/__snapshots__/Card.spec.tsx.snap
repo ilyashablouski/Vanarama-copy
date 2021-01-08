@@ -9,7 +9,7 @@ exports[`<Card /> Article Card should render correctly 1`] = `
     afterLoad={[Function]}
     beforeLoad={[Function]}
     useIntersectionObserver={true}
-    visibleByDefault={false}
+    visibleByDefault={true}
   >
     <img
       className="card-image"
@@ -57,7 +57,7 @@ exports[`<Card /> Featured Review Card should render correctly 1`] = `
     afterLoad={[Function]}
     beforeLoad={[Function]}
     useIntersectionObserver={true}
-    visibleByDefault={false}
+    visibleByDefault={true}
   >
     <img
       className="card-image"
@@ -97,7 +97,7 @@ exports[`<Card /> should render correctly only image 1`] = `
     afterLoad={[Function]}
     beforeLoad={[Function]}
     useIntersectionObserver={true}
-    visibleByDefault={false}
+    visibleByDefault={true}
   >
     <img
       className="card-image"
