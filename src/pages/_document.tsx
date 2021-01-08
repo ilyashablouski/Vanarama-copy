@@ -14,18 +14,10 @@ const NextScript = dynamic(() =>
 // );
 
 const JS = dynamic(() => import('../components/JS'));
-// @ts-ignore
-const GTMScript = dynamic(() =>
-  import('../components/GTM').then(mod => mod.Script),
-);
-// @ts-ignore
-const GTMBody = dynamic(() =>
-  import('../components/GTM').then(mod => mod.Body),
-);
-// @ts-ignore
-const GTMDataLayerScript = dynamic(() =>
-  import('../components/GTM').then(mod => mod.DataLayer),
-);
+
+import { Script as GTMScript } from '../components/GTM';
+import { Body as GTMBody } from '../components/GTM';
+import { DataLayer as GTMDataLayerScript } from '../components/GTM';
 
 // @ts-ignore
 // const SpeedCurveScript = dynamic(() =>
