@@ -234,7 +234,7 @@ export function useModelImages(capIds: (string | null)[]) {
   return useLazyQuery<ModelImages, ModelImagesVariables>(GET_MODEL_IMAGES, {
     variables: {
       capIds,
-    }
+    },
   });
 }
 
