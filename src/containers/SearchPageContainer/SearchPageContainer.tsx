@@ -5,13 +5,7 @@
   We define type of this params before page rendering in root page container,
   this query param should be using only with page type context for prevent any issues with it
 */
-import React, {
-  useState,
-  useEffect,
-  useCallback,
-  useLayoutEffect,
-  useMemo,
-} from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -59,6 +53,7 @@ import { getLegacyUrl } from '../../utils/url';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { rangeList } from '../../../generated/rangeList';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
+import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
 import { manufacturerList } from '../../../generated/manufacturerList';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import Head from '../../components/Head/Head';
@@ -131,6 +126,9 @@ interface IProps {
   rangesUrls?: ILegacyUrls[];
   makesUrls?: ILegacyUrls[];
   preLoadManufacturers?: manufacturerList | null;
+  preloadBodyStyleList?: IModelsData[];
+  preloadRange?: string;
+  preloadMake?: string;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -152,12 +150,15 @@ const SearchPageContainer: React.FC<IProps> = ({
   topInfoSection,
   preLoadFiltersData,
   preLoadVehiclesList,
+  preloadBodyStyleList,
   preLoadProductCardsData,
   preLoadResponseCapIds,
   preLoadRanges,
   rangesUrls,
   makesUrls,
   preLoadManufacturers,
+  preloadMake,
+  preloadRange,
 }: IProps) => {
   const router = useRouter();
   const isDynamicFilterPage = useMemo(
@@ -490,7 +491,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data]);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (isServer) setIsSpecialOffers(getValueFromStorage() ?? true);
   }, [isServer, getValueFromStorage]);
 
@@ -853,7 +854,10 @@ const SearchPageContainer: React.FC<IProps> = ({
           isSpecialOfferPage={isSpecialOfferPage || false}
           manualBodyStyle={manualBodyStyle}
           preLoadVehiclesList={preLoadVehiclesList}
+          preloadBodyStyleList={preloadBodyStyleList}
           preLoadProductCardsData={preLoadProductCardsData}
+          preloadMake={preloadMake}
+          preloadRange={preloadRange}
         />
       )}
       {!isMakePage &&
