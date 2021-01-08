@@ -26,15 +26,15 @@ const ModelCard = memo(
   ({ isPersonalPrice, data, loadImage }: IModelCardProps) => {
     const { query } = useRouter();
     const [imageProps, setImageProps] = useState({});
-    const [loadImageData, { data: imagesData }] = useModelImages([
+    const [loadImageData, { data: imageData }] = useModelImages([
       data?.capId?.toString() || '1',
     ]);
 
     useEffect(() => {
       setImageProps({
-        imageSrc: imagesData?.vehicleImages?.[0]?.mainImageUrl || '',
+        imageSrc: imageData?.vehicleImages?.[0]?.mainImageUrl || '',
       });
-    }, [imagesData]);
+    }, [imageData]);
 
     const make = query.make as string;
     const rangeName = (query.rangeName as string).split('+').join(' ') || '';
@@ -44,7 +44,7 @@ const ModelCard = memo(
     // const { data: legacySlug } = useGenericSearchPageSlug(newUrl);
     return (
       <Card
-        loadImageData={loadImageData}
+        loadImageProps={loadImageData}
         loadImage={loadImage}
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         inline
