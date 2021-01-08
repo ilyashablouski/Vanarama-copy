@@ -23,9 +23,10 @@ interface IModelCardProps {
 
 const ModelCard = memo(({ isPersonalPrice, data }: IModelCardProps) => {
   const { query } = useRouter();
-  const [loadImageData, { data: imageData }] = useModelImages([
-    data?.capId?.toString() || '1',
-  ]);
+  const { data: imageData } = useModelImages(
+    [data?.capId?.toString() || '1'],
+    !data?.capId,
+  );
   const imageProps = {
     imageSrc: imageData?.vehicleImages?.[0]?.mainImageUrl || '',
   };
@@ -38,7 +39,6 @@ const ModelCard = memo(({ isPersonalPrice, data }: IModelCardProps) => {
   const { data: legacySlug } = useGenericSearchPageSlug(newUrl);
   return (
     <Card
-      loadImageProps={loadImageData}
       optimisedHost={process.env.IMG_OPTIMISATION_HOST}
       inline
       {...imageProps}

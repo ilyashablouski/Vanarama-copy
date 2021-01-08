@@ -1,5 +1,5 @@
 import cx from 'classnames';
-import React, { FC, memo, useEffect } from 'react';
+import React, { FC, memo } from 'react';
 
 import { ICardProps } from './interfaces';
 import CardHeader from './CardHeader';
@@ -25,16 +25,9 @@ const Card: FC<ICardProps> = memo(props => {
     placeholderImage,
     optimisedHost,
     optimisationOptions,
-    loadImageProps,
   } = props;
 
   const { imageSrc } = props;
-
-  useEffect(() => {
-    if (loadImageProps) {
-      loadImageProps();
-    }
-  }, [loadImageProps]);
 
   const onImageError = (e: any) => {
     e.target.onerror = null;

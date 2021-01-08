@@ -229,12 +229,13 @@ export const GET_MODEL_IMAGES = gql`
   }
 `;
 
-export function useModelImages(capIds: (string | null)[]) {
+export function useModelImages(capIds: (string | null)[], skip = false) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  return useLazyQuery<ModelImages, ModelImagesVariables>(GET_MODEL_IMAGES, {
+  return useQuery<ModelImages, ModelImagesVariables>(GET_MODEL_IMAGES, {
     variables: {
       capIds,
     },
+    skip,
   });
 }
 
