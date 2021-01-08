@@ -1,10 +1,10 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { bodyStyleList_bodyStyleList as IModelData } from '../../../generated/bodyStyleList';
 import { useModelImages } from './gql';
-import { useGenericSearchPageSlug } from '../../gql/genericPage';
+// import { useGenericSearchPageSlug } from '../../gql/genericPage';
 import { formatUrl } from '../../utils/url';
 import { capitalizeFirstLetter } from '../../utils/textTransform';
 import Skeleton from '../../components/Skeleton';
@@ -25,23 +25,26 @@ interface IModelCardProps {
 const ModelCard = memo(
   ({ isPersonalPrice, data, loadImage }: IModelCardProps) => {
     const { query } = useRouter();
-    const { data: imagesData } = useModelImages(
-      [data?.capId?.toString() || '1'],
-      !data?.capId,
-    );
-    const imageProps = imagesData?.vehicleImages?.[0]
-      ? {
-          imageSrc: imagesData?.vehicleImages?.[0]?.mainImageUrl || '',
-        }
-      : {};
+    const [imageProps, setImageProps] = useState({});
+    const [loadImageData, { data: imagesData }] = useModelImages([
+      data?.capId?.toString() || '1',
+    ]);
+
+    useEffect(() => {
+      setImageProps({
+        imageSrc: imagesData?.vehicleImages?.[0]?.mainImageUrl || '',
+      });
+    }, [imagesData]);
+
     const make = query.make as string;
     const rangeName = (query.rangeName as string).split('+').join(' ') || '';
     const newUrl = formatUrl(
       `car-leasing/${query.dynamicParam}/${rangeName}/${data?.bodyStyle}`,
     );
-    const { data: legacySlug } = useGenericSearchPageSlug(newUrl);
+    // const { data: legacySlug } = useGenericSearchPageSlug(newUrl);
     return (
       <Card
+        loadImageData={loadImageData}
         loadImage={loadImage}
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         inline
@@ -51,7 +54,7 @@ const ModelCard = memo(
           link: (
             <RouterLink
               link={{
-                href: legacySlug?.genericPage.metaData.legacyUrl || newUrl,
+                href: /* legacySlug?.genericPage.metaData.legacyUrl || */ newUrl,
                 label: `${capitalizeFirstLetter(make)} ${capitalizeFirstLetter(
                   rangeName,
                 )} ${data?.bodyStyle || ''}`,
@@ -74,7 +77,7 @@ const ModelCard = memo(
           />
           <RouterLink
             link={{
-              href: legacySlug?.genericPage.metaData.legacyUrl || newUrl,
+              href: /* legacySlug?.genericPage.metaData.legacyUrl || */ newUrl,
               label: `View ${data?.count || 'All'} Offers`,
             }}
             className="button"
