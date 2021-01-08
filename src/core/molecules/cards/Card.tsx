@@ -1,6 +1,5 @@
 import cx from 'classnames';
-import React, { FC, memo } from 'react';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import React, { FC, memo, useEffect } from 'react';
 
 import { ICardProps } from './interfaces';
 import CardHeader from './CardHeader';
@@ -30,6 +29,12 @@ const Card: FC<ICardProps> = memo(props => {
   } = props;
 
   const { imageSrc } = props;
+
+  useEffect(() => {
+    if (loadImageProps) {
+      loadImageProps();
+    }
+  }, [loadImageProps]);
 
   const onImageError = (e: any) => {
     e.target.onerror = null;
@@ -93,20 +98,16 @@ const Card: FC<ICardProps> = memo(props => {
     >
       {header?.text && <CardHeader {...header} />}
       {imageSrc !== undefined && (
-        <LazyLoadComponent
-          beforeLoad={() => loadImageProps && loadImageProps()}
-          visibleByDefault={!loadImageProps}
-        >
-          <img
-            srcSet={srcset}
-            sizes="(min-width:3200px) 800px, 1200px"
-            alt={alt}
-            className="card-image"
-            src={srcDefault || imageSrc || placeholderImage || undefined}
-            data-testid="card-image"
-            onError={onImageError}
-          />
-        </LazyLoadComponent>
+        <img
+          loading="lazy"
+          srcSet={srcset}
+          sizes="(min-width:3200px) 800px, 1200px"
+          alt={alt}
+          className="card-image"
+          src={srcDefault || imageSrc || placeholderImage || undefined}
+          data-testid="card-image"
+          onError={onImageError}
+        />
       )}
       {(title?.title || title?.link) && <CardTitle {...title} />}
       {description && (
