@@ -1,6 +1,11 @@
 import Document, { Html, Main } from 'next/document';
 import dynamic from 'next/dynamic';
 import HeadCustom from '../hacks/headCustom';
+import {
+  Script as GTMScript,
+  Body as GTMBody,
+  DataLayer as GTMDataLayerScript,
+} from '../components/GTM';
 // import Inline from '../components/Style/Inline';
 
 // @ts-ignore
@@ -14,10 +19,6 @@ const NextScript = dynamic(() =>
 // );
 
 const JS = dynamic(() => import('../components/JS'));
-
-import { Script as GTMScript } from '../components/GTM';
-import { Body as GTMBody } from '../components/GTM';
-import { DataLayer as GTMDataLayerScript } from '../components/GTM';
 
 // @ts-ignore
 // const SpeedCurveScript = dynamic(() =>
