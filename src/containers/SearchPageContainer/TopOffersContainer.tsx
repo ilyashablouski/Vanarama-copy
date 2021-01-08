@@ -343,11 +343,7 @@ const TopOffersContainer: React.FC<IProps> = ({
         <div className="row:bg-lighter">
           <div className="row:cards-2col">
             {bodyStyleList.map(bodyStyle => (
-              <ModelCard
-                loadImage
-                data={bodyStyle}
-                isPersonalPrice={isPersonal}
-              />
+              <ModelCard data={bodyStyle} isPersonalPrice={isPersonal} />
             ))}
           </div>
         </div>

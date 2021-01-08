@@ -26,7 +26,6 @@ const Card: FC<ICardProps> = memo(props => {
     placeholderImage,
     optimisedHost,
     optimisationOptions,
-    loadImage,
     loadImageProps,
   } = props;
 
@@ -93,7 +92,7 @@ const Card: FC<ICardProps> = memo(props => {
       style={style}
     >
       {header?.text && <CardHeader {...header} />}
-      {loadImage && (
+      {imageSrc !== undefined && (
         <LazyLoadComponent
           beforeLoad={() => loadImageProps && loadImageProps()}
         >
