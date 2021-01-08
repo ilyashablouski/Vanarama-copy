@@ -95,6 +95,7 @@ const Card: FC<ICardProps> = memo(props => {
       {imageSrc !== undefined && (
         <LazyLoadComponent
           beforeLoad={() => loadImageProps && loadImageProps()}
+          visibleByDefault={!loadImageProps}
         >
           <img
             srcSet={srcset}
