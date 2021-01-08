@@ -5,14 +5,20 @@ exports[`<Card /> Article Card should render correctly 1`] = `
   className="card"
   data-testid="card"
 >
-  <img
-    className="card-image"
-    data-testid="card-image"
-    loading="lazy"
-    onError={[Function]}
-    sizes="(min-width:3200px) 800px, 1200px"
-    src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
-  />
+  <t
+    afterLoad={[Function]}
+    beforeLoad={[Function]}
+    useIntersectionObserver={true}
+    visibleByDefault={false}
+  >
+    <img
+      className="card-image"
+      data-testid="card-image"
+      onError={[Function]}
+      sizes="(min-width:3200px) 800px, 1200px"
+      src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
+    />
+  </t>
   <Memo()
     title="Article Card"
   />
@@ -47,14 +53,20 @@ exports[`<Card /> Featured Review Card should render correctly 1`] = `
   className="card"
   data-testid="card"
 >
-  <img
-    className="card-image"
-    data-testid="card-image"
-    loading="lazy"
-    onError={[Function]}
-    sizes="(min-width:3200px) 800px, 1200px"
-    src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
-  />
+  <t
+    afterLoad={[Function]}
+    beforeLoad={[Function]}
+    useIntersectionObserver={true}
+    visibleByDefault={false}
+  >
+    <img
+      className="card-image"
+      data-testid="card-image"
+      onError={[Function]}
+      sizes="(min-width:3200px) 800px, 1200px"
+      src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
+    />
+  </t>
   <Memo()
     link={
       <a
@@ -81,14 +93,20 @@ exports[`<Card /> should render correctly only image 1`] = `
   className="card"
   data-testid="card"
 >
-  <img
-    className="card-image"
-    data-testid="card-image"
-    loading="lazy"
-    onError={[Function]}
-    sizes="(min-width:3200px) 800px, 1200px"
-    src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
-  />
+  <t
+    afterLoad={[Function]}
+    beforeLoad={[Function]}
+    useIntersectionObserver={true}
+    visibleByDefault={false}
+  >
+    <img
+      className="card-image"
+      data-testid="card-image"
+      onError={[Function]}
+      sizes="(min-width:3200px) 800px, 1200px"
+      src="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
+    />
+  </t>
 </div>
 `;
 

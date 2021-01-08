@@ -10,7 +10,6 @@ exports[`<ModelCard /> should be render correctly 1`] = `
       <img
         class="card-image"
         data-testid="card-image"
-        loading="lazy"
         sizes="(min-width:3200px) 800px, 1200px"
         src="https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg"
       />
@@ -19,8 +18,8 @@ exports[`<ModelCard /> should be render correctly 1`] = `
       >
         <a
           class="heading link -black -large"
-          data-testid="link"
-          href="/bmw-car-leasing/3-series/coupe.html"
+          data-testid="router-link"
+          href="/car-leasing/bmw/3-series/coupe"
         >
           BMW 3 series coupe
         </a>
@@ -60,8 +59,8 @@ exports[`<ModelCard /> should be render correctly 1`] = `
         </div>
         <a
           class="button -teal -regular -solid"
-          data-testid="link"
-          href="/bmw-car-leasing/3-series/coupe.html"
+          data-testid="router-link"
+          href="/car-leasing/bmw/3-series/coupe"
         >
           <div
             class="button--inner"

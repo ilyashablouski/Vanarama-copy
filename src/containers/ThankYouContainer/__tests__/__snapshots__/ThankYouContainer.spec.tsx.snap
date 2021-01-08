@@ -55,7 +55,6 @@ exports[`<ThankYouContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
           />
@@ -118,7 +117,6 @@ exports[`<ThankYouContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
           />
@@ -181,7 +179,6 @@ exports[`<ThankYouContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
             src="//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
           />

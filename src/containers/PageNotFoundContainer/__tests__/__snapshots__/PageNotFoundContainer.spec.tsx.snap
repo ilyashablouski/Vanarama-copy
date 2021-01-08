@@ -52,7 +52,6 @@ exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
             src="//images.ctfassets.net/3xid768u5joa/22zuZfMLYzskVi3MQPcu7c/32caa929339dc2e88eee09ea2af84b79/renaulttrafic0917_2_.jpg"
           />
@@ -111,7 +110,6 @@ exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
             src="//images.ctfassets.net/3xid768u5joa/22zuZfMLYzskVi3MQPcu7c/32caa929339dc2e88eee09ea2af84b79/renaulttrafic0917_2_.jpg"
           />

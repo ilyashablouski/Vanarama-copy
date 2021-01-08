@@ -60,7 +60,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
           />
           <div
@@ -95,7 +94,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
           />
           <div
@@ -130,7 +128,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
           />
           <div

@@ -56,7 +56,6 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
             src="//images.ctfassets.net/3xid768u5joa/2orLDit2z21KrvoHfleXI5/ff92ffe3245b88f55b4ad3bf442e4283/boxer4.jpg"
           />
@@ -122,7 +121,6 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
-            loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
           />
           <div

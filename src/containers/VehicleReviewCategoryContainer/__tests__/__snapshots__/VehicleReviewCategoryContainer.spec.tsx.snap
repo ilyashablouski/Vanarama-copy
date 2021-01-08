@@ -33,7 +33,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         <img
           class="card-image"
           data-testid="card-image"
-          loading="lazy"
           sizes="(min-width:3200px) 800px, 1200px"
           src="//images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg"
         />
@@ -159,7 +158,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         <img
           class="card-image"
           data-testid="card-image"
-          loading="lazy"
           sizes="(min-width:3200px) 800px, 1200px"
           src="//images.ctfassets.net/3xid768u5joa/3eBmv58a6e5OM3Ja5Tg2dJ/e47409765ce01ce8a19d874a465ac03b/citroen_dispatch_hero.jpg"
         />
@@ -285,7 +283,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         <img
           class="card-image"
           data-testid="card-image"
-          loading="lazy"
           sizes="(min-width:3200px) 800px, 1200px"
           src="//images.ctfassets.net/3xid768u5joa/1TFjMfDaIJZyMSTHDNmzsI/795d1ce5e299bfb5f3af44f5ebb9af31/citroen-relay-hero.jpg"
         />
