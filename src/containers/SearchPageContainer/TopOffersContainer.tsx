@@ -51,6 +51,8 @@ interface IProps {
   preLoadProductCardsData?: GetProductCard;
   preLoadResponseCapIds?: string[];
   preloadBodyStyleList?: IModelsData[];
+  preloadMake?: string;
+  preloadRange?: string;
 }
 
 const TopOffersContainer: React.FC<IProps> = ({
@@ -69,6 +71,8 @@ const TopOffersContainer: React.FC<IProps> = ({
   preLoadVehiclesList,
   preLoadProductCardsData,
   preloadBodyStyleList,
+  preloadMake,
+  preloadRange,
 }: IProps) => {
   const router = useRouter();
 
@@ -343,7 +347,12 @@ const TopOffersContainer: React.FC<IProps> = ({
         <div className="row:bg-lighter">
           <div className="row:cards-2col">
             {bodyStyleList.map(bodyStyle => (
-              <ModelCard data={bodyStyle} isPersonalPrice={isPersonal} />
+              <ModelCard
+                data={bodyStyle}
+                make={preloadMake}
+                range={preloadRange}
+                isPersonalPrice={isPersonal}
+              />
             ))}
           </div>
         </div>

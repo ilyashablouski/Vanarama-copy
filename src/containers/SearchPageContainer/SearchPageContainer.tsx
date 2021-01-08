@@ -127,6 +127,8 @@ interface IProps {
   makesUrls?: ILegacyUrls[];
   preLoadManufacturers?: manufacturerList | null;
   preloadBodyStyleList?: IModelsData[];
+  preloadRange?: string;
+  preloadMake?: string;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -155,6 +157,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   rangesUrls,
   makesUrls,
   preLoadManufacturers,
+  preloadMake,
+  preloadRange,
 }: IProps) => {
   const router = useRouter();
   const isDynamicFilterPage = useMemo(
@@ -852,6 +856,8 @@ const SearchPageContainer: React.FC<IProps> = ({
           preLoadVehiclesList={preLoadVehiclesList}
           preloadBodyStyleList={preloadBodyStyleList}
           preLoadProductCardsData={preLoadProductCardsData}
+          preloadMake={preloadMake}
+          preloadRange={preloadRange}
         />
       )}
       {!isMakePage &&

@@ -38,6 +38,8 @@ interface IProps extends ISearchPageProps {
   responseCapIds?: string[];
   filtersData?: IFilterList | undefined;
   bodyStyleList?: IModelsData[];
+  makeParam: string;
+  rangeParam?: string;
 }
 
 const Page: NextPage<IProps> = ({
@@ -51,6 +53,8 @@ const Page: NextPage<IProps> = ({
   error,
   notFoundPageData,
   filtersData,
+  rangeParam,
+  makeParam,
 }) => {
   const router = useRouter();
 
@@ -97,6 +101,8 @@ const Page: NextPage<IProps> = ({
       preLoadProductCardsData={productCardsData}
       preLoadResponseCapIds={responseCapIds}
       preLoadFiltersData={filtersData}
+      preloadMake={makeParam}
+      preloadRange={rangeParam}
     />
   );
 };
@@ -191,6 +197,8 @@ export async function getServerSideProps(context: NextPageContext) {
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
         filtersData: filtersData?.filterList || null,
+        makeParam: (context?.query?.dynamicParam as string).toLowerCase(),
+        rangeParam: (context?.query?.rangeName as string).toLowerCase(),
       },
     };
   } catch {
