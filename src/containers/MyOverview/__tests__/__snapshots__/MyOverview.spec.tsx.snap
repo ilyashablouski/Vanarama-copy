@@ -180,13 +180,12 @@ Array [
             }
           }
         >
-          <span
-            className=""
-            style={
-              Object {
-                "display": "inline-block",
-              }
-            }
+          <img
+            className="card-image"
+            data-testid="card-image"
+            loading="lazy"
+            onError={[Function]}
+            sizes="(min-width:3200px) 800px, 1200px"
           />
           <div
             className="title"
@@ -313,13 +312,12 @@ Array [
             }
           }
         >
-          <span
-            className=""
-            style={
-              Object {
-                "display": "inline-block",
-              }
-            }
+          <img
+            className="card-image"
+            data-testid="card-image"
+            loading="lazy"
+            onError={[Function]}
+            sizes="(min-width:3200px) 800px, 1200px"
           />
           <div
             className="title"
@@ -543,13 +541,12 @@ Array [
             }
           }
         >
-          <span
-            className=""
-            style={
-              Object {
-                "display": "inline-block",
-              }
-            }
+          <img
+            className="card-image"
+            data-testid="card-image"
+            loading="lazy"
+            onError={[Function]}
+            sizes="(min-width:3200px) 800px, 1200px"
           />
           <div
             className="title"
@@ -676,13 +673,12 @@ Array [
             }
           }
         >
-          <span
-            className=""
-            style={
-              Object {
-                "display": "inline-block",
-              }
-            }
+          <img
+            className="card-image"
+            data-testid="card-image"
+            loading="lazy"
+            onError={[Function]}
+            sizes="(min-width:3200px) 800px, 1200px"
           />
           <div
             className="title"

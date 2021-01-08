@@ -95,6 +95,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
             src="//images.ctfassets.net/3xid768u5joa/FRg0wIDLXZqVIB9ZoJEw7/e04f3cfdfb2ad9405be84ef106d83d26/company-cash-allowance-vs-company-car.jpg"
           />
@@ -131,6 +132,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <img
             class="card-image"
             data-testid="card-image"
+            loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
             src="//images.ctfassets.net/3xid768u5joa/2gBj5lixlkrla8kFNF8XSi/0fea9544b48e892f4f96d612b9be9c70/what-happens-at-end-of-car-lease.jpg"
           />
