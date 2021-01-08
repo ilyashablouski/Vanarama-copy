@@ -1,4 +1,4 @@
-import React, { memo, useEffect, useState } from 'react';
+import React, { memo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -23,16 +23,12 @@ interface IModelCardProps {
 
 const ModelCard = memo(({ isPersonalPrice, data }: IModelCardProps) => {
   const { query } = useRouter();
-  const [imageProps, setImageProps] = useState({});
   const [loadImageData, { data: imageData }] = useModelImages([
     data?.capId?.toString() || '1',
   ]);
-
-  useEffect(() => {
-    setImageProps({
-      imageSrc: imageData?.vehicleImages?.[0]?.mainImageUrl || '',
-    });
-  }, [imageData]);
+  const imageProps = {
+    imageSrc: imageData?.vehicleImages?.[0]?.mainImageUrl || '',
+  };
 
   const make = query.make as string;
   const rangeName = (query.rangeName as string).split('+').join(' ') || '';
