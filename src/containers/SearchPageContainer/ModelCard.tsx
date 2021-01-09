@@ -17,7 +17,7 @@ const Card = dynamic(() => import('core/molecules/cards/Card'), {
 });
 
 interface IExtModelData extends IModelData {
-  legacyUrl: string;
+  legacyUrl?: string;
 }
 interface IModelCardProps {
   isPersonalPrice: boolean;
