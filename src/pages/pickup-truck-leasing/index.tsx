@@ -27,11 +27,7 @@ import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
-import {
-  getVehicleListUrl,
-  useVehicleListUrl,
-  useVehicleListUrlFetchMore,
-} from '../../gql/vehicleList';
+import { getVehicleListUrl } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 import { PickupsSearch } from '../../models/enum/SearchByManufacturer';
 import { features } from '../../components/ProductCarousel/helpers';
@@ -103,24 +99,13 @@ export const PickupsPage: NextPage<IProps> = ({
   const { cachedLeaseType } = useLeaseType(false);
   const offer = products?.productCarousel?.find(p => p?.isOnOffer === true);
 
-  const vehicleListUrlQuery = useVehicleListUrl(products.productsPickupsCapIds);
-
-  useVehicleListUrlFetchMore(
-    vehicleListUrlQuery,
-    products.productsPickupsCapIds,
-  );
-
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
-  const dealOfMonthUrl = formatProductPageUrl(
-    getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
-    offer?.capId,
-  );
+  // @ts-ignore
+  const dealOfMonthUrl = offer?.legacyUrl;
 
-  const dealOfMonthHref = getNewUrl(
-    vehicleListUrlQuery.data?.vehicleList?.edges,
-    offer?.capId,
-  );
+  // @ts-ignore
+  const dealOfMonthHref = offer?.newUrl;
 
   const isPersonal = cachedLeaseType === 'Personal';
 
@@ -208,13 +193,8 @@ export const PickupsPage: NextPage<IProps> = ({
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
           {products?.productCarousel?.map((item, idx) => {
-            const productUrl = formatProductPageUrl(
-              getLegacyUrl(
-                vehicleListUrlQuery.data?.vehicleList?.edges,
-                item?.capId,
-              ),
-              item?.capId,
-            );
+            // @ts-ignore
+            const productUrl = item?.legacyUrl;
             return (
               <LazyLoadComponent
                 visibleByDefault={typeof window === 'undefined'}
@@ -728,14 +708,18 @@ export async function getStaticProps() {
           productsPickupsCapIds,
         );
         const productCarousel = res.data?.productCarousel?.map(item => {
-          const productUrl = formatProductPageUrl(
+          const legacyUrl = formatProductPageUrl(
             getLegacyUrl(
               vehicleListUrlQuery.data?.vehicleList?.edges,
               item?.capId,
             ),
             item?.capId,
           );
-          return { ...item, productUrl };
+          const newUrl = getNewUrl(
+            vehicleListUrlQuery.data?.vehicleList?.edges,
+            item?.capId,
+          );
+          return { ...item, legacyUrl, newUrl };
         });
         return { ...res.data, productCarousel, productsPickupsCapIds };
       });
