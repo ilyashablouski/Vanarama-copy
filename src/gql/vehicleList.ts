@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { gql, useQuery, QueryResult } from '@apollo/client';
 import { MockedResponse } from '@apollo/client/testing';
+import createApolloClient from '../apolloClient';
 import {
   VehicleListUrl,
   VehicleListUrlVariables,
@@ -34,6 +35,14 @@ export function useVehicleListUrl(derivativeIds?: string[], after?: string) {
   return useQuery<VehicleListUrl, VehicleListUrlVariables>(VEHICLE_LIST_URL, {
     variables: { derivativeIds, after },
     skip: !derivativeIds?.length || derivativeIds?.includes(''),
+  });
+}
+
+export function getVehicleListUrl(derivativeIds?: string[], after?: string) {
+  const client = createApolloClient({});
+  return client.query<VehicleListUrl, VehicleListUrlVariables>({
+    query: VEHICLE_LIST_URL,
+    variables: { derivativeIds, after },
   });
 }
 

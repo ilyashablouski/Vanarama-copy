@@ -28,6 +28,7 @@ import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import {
+  getVehicleListUrl,
   useVehicleListUrl,
   useVehicleListUrlFetchMore,
 } from '../../gql/vehicleList';
@@ -85,14 +86,16 @@ const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
 const League = dynamic(() => import('core/organisms/league'), {
   loading: () => <Skeleton count={2} />,
 });
-
-type Props = {
+interface IExtProductCardData extends ProductCardData {
+  productsPickupsCapIds: string[];
+}
+interface IProps {
   data: HubPickupPageData;
   searchPodVansData: IFilterList;
-  products: ProductCardData;
-};
+  products: IExtProductCardData;
+}
 
-export const PickupsPage: NextPage<Props> = ({
+export const PickupsPage: NextPage<IProps> = ({
   data,
   searchPodVansData,
   products,
@@ -100,12 +103,12 @@ export const PickupsPage: NextPage<Props> = ({
   const { cachedLeaseType } = useLeaseType(false);
   const offer = products?.productCarousel?.find(p => p?.isOnOffer === true);
 
-  const productsPickupsCapIds = products?.productCarousel
-    ?.map(el => el?.capId || '')
-    .filter(Boolean) || [''];
-  const vehicleListUrlQuery = useVehicleListUrl(productsPickupsCapIds);
+  const vehicleListUrlQuery = useVehicleListUrl(products.productsPickupsCapIds);
 
-  useVehicleListUrlFetchMore(vehicleListUrlQuery, productsPickupsCapIds);
+  useVehicleListUrlFetchMore(
+    vehicleListUrlQuery,
+    products.productsPickupsCapIds,
+  );
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
@@ -707,15 +710,35 @@ export async function getStaticProps() {
       },
     });
 
-    const { data: products } = await client.query<ProductCardData>({
-      query: PRODUCT_CARD_CONTENT,
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'Pickup',
-        size: 9,
-        offer: true,
-      },
-    });
+    const products = await client
+      .query<ProductCardData>({
+        query: PRODUCT_CARD_CONTENT,
+        variables: {
+          type: VehicleTypeEnum.LCV,
+          bodyType: 'Pickup',
+          size: 9,
+          offer: true,
+        },
+      })
+      .then(async res => {
+        const productsPickupsCapIds = res.data?.productCarousel
+          ?.map(el => el?.capId || '')
+          .filter(Boolean) || [''];
+        const vehicleListUrlQuery = await getVehicleListUrl(
+          productsPickupsCapIds,
+        );
+        const productCarousel = res.data?.productCarousel?.map(item => {
+          const productUrl = formatProductPageUrl(
+            getLegacyUrl(
+              vehicleListUrlQuery.data?.vehicleList?.edges,
+              item?.capId,
+            ),
+            item?.capId,
+          );
+          return { ...item, productUrl };
+        });
+        return { ...res.data, productCarousel, productsPickupsCapIds };
+      });
 
     return {
       props: {
