@@ -68,8 +68,8 @@ export function useVehicleListUrlFetchMore(
               pageInfo: fetchMoreResult.vehicleList.pageInfo,
               totalCount: fetchMoreResult.vehicleList.totalCount,
               edges: [
-                ...prev.vehicleList.edges,
-                ...fetchMoreResult?.vehicleList?.edges,
+                ...(prev.vehicleList.edges || []),
+                ...(fetchMoreResult?.vehicleList?.edges || []),
               ],
             },
           };
