@@ -255,10 +255,12 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       </div>
       {featured && (
         <div className="row:featured-left">
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src={featured?.image?.file?.url || ''}
-          />
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={featured?.image?.file?.url || ''}
+            />
+          </div>
           <div>
             <Heading size="large" color="black">
               {featured?.title}
