@@ -6,13 +6,12 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { HubCarPageData } from '../../../../generated/HubCarPageData';
 import { HUB_CAR_CONTENT } from '../../../gql/hub/hubCarPage';
-import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
-import { useVehicleListUrl } from '../../../gql/vehicleList';
 import { CarsPage } from '../../../pages/car-leasing';
+import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -183,6 +182,63 @@ const filterList = {
     fuelTypes: ['diesel', 'iii'],
   },
 };
+const productsCar = {
+  productCarousel: [
+    {
+      capId: '44514',
+      isOnOffer: true,
+      manufacturerName: 'Ford',
+      derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
+      rangeName: 'Focus',
+      imageUrl:
+        'https://images.autorama.co.uk/Photos/Vehicles/155485/im_3411.jpg',
+      leadTime: '14-21 Day Delivery',
+      averageRating: 4.8,
+      businessRate: 175.96,
+      personalRate: 210.96,
+      offerPosition: 1,
+      keyInformation: [
+        {
+          name: 'Transmission',
+          value: 'Manual',
+        },
+        {
+          name: 'Fuel Type',
+          value: 'Petrol',
+        },
+        {
+          name: 'Emissions',
+          value: '97',
+        },
+        {
+          name: 'Fuel Economy',
+          value: '67.3',
+        },
+      ],
+      vehicleType: VehicleTypeEnum.CAR,
+    },
+  ],
+} as ProductCardData;
+const vehicleListUrl: IVehicleList = {
+  totalCount: 1,
+  pageInfo: {
+    startCursor: 'startCursor',
+    endCursor: 'endCursor',
+    hasNextPage: false,
+    hasPreviousPage: false,
+  },
+  edges: [
+    {
+      cursor: 'cursor',
+      node: {
+        vehicleType: VehicleTypeEnum.CAR,
+        derivativeId: '44514',
+        url: '/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr',
+        legacyUrl: null,
+      },
+    },
+  ],
+};
 
 const mocked: MockedResponse[] = [
   {
@@ -206,90 +262,20 @@ const mocked: MockedResponse[] = [
       },
     },
   },
-  {
-    request: {
-      query: PRODUCT_CARD_CONTENT,
-      variables: {
-        type: VehicleTypeEnum.CAR,
-        offer: true,
-        size: 9,
-      },
-    },
-    result: {
-      data: {
-        productCarousel: [
-          {
-            capId: '83615',
-            isOnOffer: true,
-            manufacturerName: 'Ford',
-            derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-            rangeName: 'Focus',
-            imageUrl:
-              'https://images.autorama.co.uk/Photos/Vehicles/155485/im_3411.jpg',
-            leadTime: '14-21 Day Delivery',
-            averageRating: 4.8,
-            businessRate: 175.96,
-            personalRate: 210.96,
-            offerPosition: 1,
-            keyInformation: [
-              {
-                name: 'Transmission',
-                value: 'Manual',
-              },
-              {
-                name: 'Fuel Type',
-                value: 'Petrol',
-              },
-              {
-                name: 'Emissions',
-                value: '97',
-              },
-              {
-                name: 'Fuel Economy',
-                value: '67.3',
-              },
-            ],
-            vehicleType: VehicleTypeEnum.CAR,
-          },
-        ],
-      } as ProductCardData,
-    },
-  },
 ];
 
 describe('<CarPage />', () => {
   beforeEach(async () => {
-    (useVehicleListUrl as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        vehicleList: {
-          totalCount: 1,
-          pageInfo: {
-            startCursor: 'startCursor',
-            endCursor: 'endCursor',
-            hasNextPage: 'hasNextPage',
-            hasPreviousPage: 'hasPreviousPage',
-          },
-          edges: [
-            {
-              cursor: 'cursor',
-              node: {
-                derivativeId: '83615',
-                url: '/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr',
-                legacyUrl: null,
-                vehicleType: VehicleTypeEnum.CAR,
-              },
-            },
-          ],
-        },
-      },
-      error: undefined,
-    });
     await preloadAll();
 
     render(
       <MockedProvider addTypename={false} mocks={mocked}>
-        <CarsPage data={DATA} searchPodCarsData={filterList} />
+        <CarsPage
+          data={DATA}
+          searchPodCarsData={filterList}
+          productsCar={productsCar}
+          vehicleListUrlData={vehicleListUrl}
+        />
       </MockedProvider>,
     );
   });

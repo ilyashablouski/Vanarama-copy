@@ -2,7 +2,6 @@ import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
-import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { useContext, useEffect, useState } from 'react';
@@ -15,9 +14,7 @@ import {
   HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
   HubCarPageData_hubCarPage_sections_steps_steps as StepData,
 } from '../../../generated/HubCarPageData';
-import { ProductCardData } from '../../../generated/ProductCardData';
 import { HUB_CAR_CONTENT } from '../../gql/hub/hubCarPage';
-import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
 import createApolloClient from '../../apolloClient';
 import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -26,10 +23,6 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { getLegacyUrl, formatProductPageUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
-import {
-  useVehicleListUrl,
-  useVehicleListUrlFetchMore,
-} from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 import { features } from '../../components/ProductCarousel/helpers';
 import Head from '../../components/Head/Head';
@@ -39,6 +32,7 @@ import {
   filterListVariables as IFilterListVariables,
 } from '../../../generated/filterList';
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
+import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -78,40 +72,26 @@ const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
 
-type Props = {
+interface IProps extends ICarsPageOffersData {
   data: HubCarPageData;
   searchPodCarsData: IFilterList;
-};
+}
 
-export const CarsPage: NextPage<Props> = ({ data, searchPodCarsData }) => {
+export const CarsPage: NextPage<IProps> = ({
+  data,
+  searchPodCarsData,
+  productsCar,
+  vehicleListUrlData,
+}) => {
   // pass in true for car leaseType
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
   const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
-
-  const { data: products, error: productsError } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: { type: VehicleTypeEnum.CAR, size: 9, offer: true },
-    },
-  );
-
-  const productsCapIds = products?.productCarousel
-    ?.map(el => el?.capId || '')
-    .filter(Boolean) || [''];
-  const vehicleListUrlQuery = useVehicleListUrl(productsCapIds);
-
-  useVehicleListUrlFetchMore(vehicleListUrlQuery, productsCapIds);
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   useEffect(() => {
     setCachedLeaseType(isPersonal ? 'Personal' : 'Business');
   }, [isPersonal, setCachedLeaseType]);
-
-  if (productsError) {
-    const err = productsError;
-    return <p>Error: {err?.message}</p>;
-  }
 
   const leaseTypes = [
     { label: 'Personal', value: 'Personal', active: isPersonal },
@@ -233,12 +213,9 @@ export const CarsPage: NextPage<Props> = ({ data, searchPodCarsData }) => {
               setIsPersonal(value.label === 'Personal');
             }}
           />
-          {products?.productCarousel?.map((item, idx) => {
+          {productsCar?.productCarousel?.map((item, idx) => {
             const productUrl = formatProductPageUrl(
-              getLegacyUrl(
-                vehicleListUrlQuery.data?.vehicleList?.edges,
-                item?.capId,
-              ),
+              getLegacyUrl(vehicleListUrlData.edges, item?.capId),
               item?.capId,
             );
             return (
@@ -623,10 +600,16 @@ export async function getServerSideProps() {
       },
     });
 
+    const { productsCar, vehicleListUrlData } = await carsPageOffersRequest(
+      client,
+    );
+
     return {
       props: {
         data,
         searchPodCarsData,
+        productsCar: productsCar || null,
+        vehicleListUrlData,
       },
     };
   } catch {

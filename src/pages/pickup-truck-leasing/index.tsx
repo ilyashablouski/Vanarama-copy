@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -14,9 +14,7 @@ import {
   HubPickupPageData_hubPickupPage_sections_tiles2_tiles as TileData,
   HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
 } from '../../../generated/HubPickupPageData';
-import { ProductCardData } from '../../../generated/ProductCardData';
 import { HUB_PICKUP_CONTENT } from '../../gql/hub/hubPickupPage';
-import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
 import createApolloClient from '../../apolloClient';
 import DealOfMonth from '../../components/DealOfMonth';
 import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
@@ -27,7 +25,6 @@ import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
-import { getVehicleListUrl } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 import { PickupsSearch } from '../../models/enum/SearchByManufacturer';
 import { features } from '../../components/ProductCarousel/helpers';
@@ -38,7 +35,10 @@ import {
   filterListVariables as IFilterListVariables,
 } from '../../../generated/filterList';
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
-import getProductsCapIds from '../../utils/getProductCarouselCapIds';
+import {
+  IPickupsPageOffersData,
+  pickupsPageOffersRequest,
+} from '../../utils/offers';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -83,30 +83,39 @@ const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
 const League = dynamic(() => import('core/organisms/league'), {
   loading: () => <Skeleton count={2} />,
 });
-interface IExtProductCardData extends ProductCardData {
-  productsPickupsCapIds: string[];
-}
-interface IProps {
+
+interface IProps extends IPickupsPageOffersData {
   data: HubPickupPageData;
   searchPodVansData: IFilterList;
-  products: IExtProductCardData;
 }
 
 export const PickupsPage: NextPage<IProps> = ({
   data,
   searchPodVansData,
-  products,
+  productsPickup,
+  vehicleListUrlData,
 }) => {
   const { cachedLeaseType } = useLeaseType(false);
-  const offer = products?.productCarousel?.find(p => p?.isOnOffer === true);
+  const offer = useMemo(
+    () => productsPickup?.productCarousel?.find(p => p?.isOnOffer === true),
+    [productsPickup],
+  );
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
-  // @ts-ignore
-  const dealOfMonthUrl = offer?.legacyUrl;
+  const dealOfMonthUrl = useMemo(
+    () =>
+      formatProductPageUrl(
+        getLegacyUrl(vehicleListUrlData.edges, offer?.capId),
+        offer?.capId,
+      ),
+    [vehicleListUrlData, offer],
+  );
 
-  // @ts-ignore
-  const dealOfMonthHref = offer?.newUrl;
+  const dealOfMonthHref = useMemo(
+    () => getNewUrl(vehicleListUrlData.edges, offer?.capId),
+    [vehicleListUrlData, offer],
+  );
 
   const isPersonal = cachedLeaseType === 'Personal';
 
@@ -193,9 +202,11 @@ export const PickupsPage: NextPage<IProps> = ({
 
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
-          {products?.productCarousel?.map((item, idx) => {
-            // @ts-ignore
-            const productUrl = item?.legacyUrl;
+          {productsPickup?.productCarousel?.map((item, idx) => {
+            const productUrl = formatProductPageUrl(
+              getLegacyUrl(vehicleListUrlData.edges, item?.capId),
+              item?.capId,
+            );
             return (
               <LazyLoadComponent
                 visibleByDefault={typeof window === 'undefined'}
@@ -691,43 +702,17 @@ export async function getStaticProps() {
       },
     });
 
-    const products = await client
-      .query<ProductCardData>({
-        query: PRODUCT_CARD_CONTENT,
-        variables: {
-          type: VehicleTypeEnum.LCV,
-          bodyType: 'Pickup',
-          size: 9,
-          offer: true,
-        },
-      })
-      .then(async res => {
-        const productsPickupsCapIds = getProductsCapIds(res.data);
-        const vehicleListUrlQuery = await getVehicleListUrl(
-          productsPickupsCapIds,
-        );
-        const productCarousel = res.data?.productCarousel?.map(item => {
-          const legacyUrl = formatProductPageUrl(
-            getLegacyUrl(
-              vehicleListUrlQuery.data?.vehicleList?.edges,
-              item?.capId,
-            ),
-            item?.capId,
-          );
-          const newUrl = getNewUrl(
-            vehicleListUrlQuery.data?.vehicleList?.edges,
-            item?.capId,
-          );
-          return { ...item, legacyUrl, newUrl };
-        });
-        return { ...res.data, productCarousel, productsPickupsCapIds };
-      });
+    const {
+      productsPickup,
+      vehicleListUrlData,
+    } = await pickupsPageOffersRequest(client);
 
     return {
       props: {
         data,
         searchPodVansData,
-        products,
+        productsPickup: productsPickup || null,
+        vehicleListUrlData,
       },
     };
   } catch {
