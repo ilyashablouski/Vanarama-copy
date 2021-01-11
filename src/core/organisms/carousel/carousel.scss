@@ -129,4 +129,13 @@ $carousel-arrow-size: 1.5rem;
       min-height: 35rem;
     }
   }
+
+  .card {
+    height: 100%;
+    .title {
+      .link {
+        white-space: normal;
+      }
+    }
+  }
 }
