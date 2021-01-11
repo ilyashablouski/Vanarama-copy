@@ -3,6 +3,7 @@ import {
   InMemoryCache,
   createHttpLink,
   from,
+  ApolloLink,
 } from '@apollo/client';
 // import Router from 'next/router';
 // import { onError } from '@apollo/client/link/error';
@@ -10,9 +11,14 @@ import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
 // import localforage from 'localforage';
 
-// const inspect = require('../inspect');
+const inspect = require('../inspect');
 
 // const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
+
+const LogLink = new ApolloLink((operation, forward) => {
+  console.log(operation);
+  return forward(operation);
+});
 
 const HttpLink = createHttpLink({
   uri: process.env.API_URL!,
@@ -63,6 +69,8 @@ export default function createApolloClient(
     // use it to extract auth headers (ctx.req) or similar.
     ssrMode: Boolean(ctx),
     link: from([HttpLink]),
+    // link: from([LogLink, HttpLink]), // Enable for logging.
+
     connectToDevTools: Boolean(process.env.ENABLE_DEV_TOOLS),
     cache: new InMemoryCache({
       typePolicies: {
