@@ -44,6 +44,11 @@ import {
   GetTrimAndColor_trimList as ITrimList,
   GetTrimAndColorVariables,
 } from '../../../../generated/GetTrimAndColor';
+import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
+import {
+  GetProductCard,
+  GetProductCardVariables,
+} from '../../../../generated/GetProductCard';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -57,6 +62,7 @@ interface IProps {
   genericPages: GenericPages[];
   trim: ITrimList[];
   colour: IColourList[];
+  productCard: GetProductCard | null;
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -69,6 +75,7 @@ const CarDetailsPage: NextPage<IProps> = ({
   genericPages,
   trim,
   colour,
+  productCard,
 }) => {
   if (notFoundPageData) {
     return (
@@ -176,6 +183,7 @@ const CarDetailsPage: NextPage<IProps> = ({
         colourList={colour}
         genericPageHead={genericPageHead}
         genericPages={genericPages}
+        productCard={productCard}
       />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
@@ -269,6 +277,25 @@ export async function getServerSideProps(context: NextPageContext) {
       breadcrumbSlugsArray.slice(0, id + 1).join('/'),
     );
 
+    const capsIds =
+      getCarDataQuery.data?.vehicleDetails?.relatedVehicles?.map(
+        el => el?.capId || '',
+      ) || [];
+
+    let productCard;
+
+    if (capsIds.length) {
+      productCard = await client.query<GetProductCard, GetProductCardVariables>(
+        {
+          query: GET_PRODUCT_CARDS_DATA,
+          variables: {
+            capIds: capsIds,
+            vehicleType: VehicleTypeEnum.CAR,
+          },
+        },
+      );
+    }
+
     const genericPages = await client
       .query({
         query: GET_LEGACY_URLS,
@@ -288,6 +315,7 @@ export async function getServerSideProps(context: NextPageContext) {
         colour: trimAndColorData?.data?.colourList || null,
         genericPageHead: data,
         genericPages,
+        productCard,
       },
     };
   } catch (error) {

@@ -1,14 +1,16 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React from 'react';
+import { useLazyQuery } from '@apollo/client';
+import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { useProductCardDataQuery } from './gql';
+import { GET_PRODUCT_CARDS_DATA } from './gql';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import Skeleton from '../../components/Skeleton';
+import {
+  GetProductCard,
+  GetProductCardVariables,
+} from '../../../generated/GetProductCard';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -17,41 +19,33 @@ interface ICustomerAlsoViewedContainerProps {
   capsId: string[];
   leaseType: string;
   vehicleType?: VehicleTypeEnum;
+  initProductCard?: any;
 }
 
 const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> = ({
   capsId,
   leaseType,
   vehicleType,
+  initProductCard,
 }) => {
-  const { data, loading, error } = useProductCardDataQuery(
-    capsId,
-    vehicleType,
-    !capsId.length,
-  );
-  if (loading) {
-    return (
-      <div
-        className="pdp--content"
-        style={{ minHeight: '10rem', display: 'flex', alignItems: 'center' }}
-      >
-        <Loading size="xlarge" />
-      </div>
-    );
-  }
+  const [productCardData, setProductCardData] = useState(initProductCard);
 
-  if (error) {
-    return (
-      <div
-        className="pdp--content"
-        style={{ minHeight: '10rem', display: 'flex', alignItems: 'center' }}
-      >
-        {error?.message}
-      </div>
-    );
-  }
+  const [getProductCard] = useLazyQuery<
+    GetProductCard,
+    GetProductCardVariables
+  >(GET_PRODUCT_CARDS_DATA, {
+    variables: {
+      capIds: capsId,
+      vehicleType,
+    },
+    onCompleted: result => setProductCardData({ data: { ...result } }),
+  });
 
-  if (!data?.productCard?.length) {
+  useEffect(() => {
+    getProductCard();
+  }, [getProductCard, vehicleType]);
+
+  if (!productCardData?.data) {
     return null;
   }
 
@@ -64,7 +58,7 @@ const CustomerAlsoViewedContainer: React.FC<ICustomerAlsoViewedContainerProps> =
         <div className="full-width">
           <ProductCarousel
             leaseType={leaseType}
-            data={data}
+            data={productCardData.data}
             dataTestIdBtn="customer-also-view"
           />
         </div>
