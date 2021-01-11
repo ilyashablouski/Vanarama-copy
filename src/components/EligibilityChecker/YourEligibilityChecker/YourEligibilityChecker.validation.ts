@@ -9,9 +9,13 @@ function isAgeValid({
   monthOfBirth,
   yearOfBirth,
 }: IYourEligiblityCheckerValues) {
-  const dateStr = `${monthOfBirth}-${dayOfBirth}-${yearOfBirth}`;
-  const validMinAge = diffInYear(dateStr) >= 18;
-  const validMaxAge = diffInYear(dateStr) <= 120;
+  const yearsDifference = diffInYear(
+    parseInt(yearOfBirth, 10),
+    parseInt(monthOfBirth, 10),
+    parseInt(dayOfBirth, 10),
+  );
+  const validMinAge = yearsDifference >= 18;
+  const validMaxAge = yearsDifference <= 120;
 
   if (!validMaxAge) {
     return 'Oops, is your age correct?';
