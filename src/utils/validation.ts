@@ -31,16 +31,19 @@ export function isDateOfBirthValid<T extends WithDateOfBirthFields>({
   monthOfBirth,
   yearOfBirth,
 }: T) {
-  const parsed = `${monthOfBirth}-${dayOfBirth}-${yearOfBirth}`;
+  const yearsDifference = diffInYear(
+    parseInt(yearOfBirth, 10),
+    parseInt(monthOfBirth, 10),
+    parseInt(dayOfBirth, 10),
+  );
 
   if (
     !validateDateString(dayOfBirth, monthOfBirth, yearOfBirth) ||
-    // eslint-disable-next-line no-restricted-globals
-    isNaN(new Date(parsed).valueOf()) ||
-    diffInYear(parsed) > 120
+    Number.isNaN(yearsDifference) ||
+    yearsDifference > 120
   ) {
     return 'Oops, is your age correct?';
   }
 
-  return diffInYear(parsed) < 18 ? 'Oops, you’re too young.' : null;
+  return yearsDifference < 18 ? 'Oops, you’re too young.' : null;
 }
