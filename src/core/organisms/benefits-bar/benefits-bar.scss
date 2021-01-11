@@ -34,6 +34,7 @@
         height: 100%;
         border-radius: 50px;
         position: relative;
+        cursor: pointer;
         &:focus {
           background-color: rgba(103, 128, 152, 0.15);
         }
