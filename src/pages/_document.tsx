@@ -1,6 +1,11 @@
 import Document, { Html, Main } from 'next/document';
 import dynamic from 'next/dynamic';
 import HeadCustom from '../hacks/headCustom';
+import {
+  Script as GTMScript,
+  Body as GTMBody,
+  DataLayer as GTMDataLayerScript,
+} from '../components/GTM';
 // import Inline from '../components/Style/Inline';
 
 // @ts-ignore
@@ -14,18 +19,6 @@ const NextScript = dynamic(() =>
 // );
 
 const JS = dynamic(() => import('../components/JS'));
-// @ts-ignore
-const GTMScript = dynamic(() =>
-  import('../components/GTM').then(mod => mod.Script),
-);
-// @ts-ignore
-const GTMBody = dynamic(() =>
-  import('../components/GTM').then(mod => mod.Body),
-);
-// @ts-ignore
-const GTMDataLayerScript = dynamic(() =>
-  import('../components/GTM').then(mod => mod.DataLayer),
-);
 
 // @ts-ignore
 // const SpeedCurveScript = dynamic(() =>
@@ -36,7 +29,7 @@ const env = process?.env?.ENV || '';
 
 // Script environments
 const scriptEnvs = {
-  gtm: ['uat', 'pre-prod', 'prod'],
+  gtm: ['dev', 'uat', 'pre-prod', 'prod'],
 
   blueconic: ['uat', 'pre-prod', 'prod'],
 

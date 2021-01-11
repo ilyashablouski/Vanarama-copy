@@ -27,10 +27,7 @@ import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
-import {
-  useVehicleListUrl,
-  useVehicleListUrlFetchMore,
-} from '../../gql/vehicleList';
+import { getVehicleListUrl } from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 import { PickupsSearch } from '../../models/enum/SearchByManufacturer';
 import { features } from '../../components/ProductCarousel/helpers';
@@ -41,6 +38,7 @@ import {
   filterListVariables as IFilterListVariables,
 } from '../../../generated/filterList';
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
+import getProductsCapIds from '../../utils/getProductCarouselCapIds';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -85,14 +83,16 @@ const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
 const League = dynamic(() => import('core/organisms/league'), {
   loading: () => <Skeleton count={2} />,
 });
-
-type Props = {
+interface IExtProductCardData extends ProductCardData {
+  productsPickupsCapIds: string[];
+}
+interface IProps {
   data: HubPickupPageData;
   searchPodVansData: IFilterList;
-  products: ProductCardData;
-};
+  products: IExtProductCardData;
+}
 
-export const PickupsPage: NextPage<Props> = ({
+export const PickupsPage: NextPage<IProps> = ({
   data,
   searchPodVansData,
   products,
@@ -100,24 +100,13 @@ export const PickupsPage: NextPage<Props> = ({
   const { cachedLeaseType } = useLeaseType(false);
   const offer = products?.productCarousel?.find(p => p?.isOnOffer === true);
 
-  const productsPickupsCapIds = products?.productCarousel
-    ?.map(el => el?.capId || '')
-    .filter(Boolean) || [''];
-  const vehicleListUrlQuery = useVehicleListUrl(productsPickupsCapIds);
-
-  useVehicleListUrlFetchMore(vehicleListUrlQuery, productsPickupsCapIds);
-
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
-  const dealOfMonthUrl = formatProductPageUrl(
-    getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
-    offer?.capId,
-  );
+  // @ts-ignore
+  const dealOfMonthUrl = offer?.legacyUrl;
 
-  const dealOfMonthHref = getNewUrl(
-    vehicleListUrlQuery.data?.vehicleList?.edges,
-    offer?.capId,
-  );
+  // @ts-ignore
+  const dealOfMonthHref = offer?.newUrl;
 
   const isPersonal = cachedLeaseType === 'Personal';
 
@@ -205,13 +194,8 @@ export const PickupsPage: NextPage<Props> = ({
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
           {products?.productCarousel?.map((item, idx) => {
-            const productUrl = formatProductPageUrl(
-              getLegacyUrl(
-                vehicleListUrlQuery.data?.vehicleList?.edges,
-                item?.capId,
-              ),
-              item?.capId,
-            );
+            // @ts-ignore
+            const productUrl = item?.legacyUrl;
             return (
               <LazyLoadComponent
                 visibleByDefault={typeof window === 'undefined'}
@@ -707,15 +691,37 @@ export async function getStaticProps() {
       },
     });
 
-    const { data: products } = await client.query<ProductCardData>({
-      query: PRODUCT_CARD_CONTENT,
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'Pickup',
-        size: 9,
-        offer: true,
-      },
-    });
+    const products = await client
+      .query<ProductCardData>({
+        query: PRODUCT_CARD_CONTENT,
+        variables: {
+          type: VehicleTypeEnum.LCV,
+          bodyType: 'Pickup',
+          size: 9,
+          offer: true,
+        },
+      })
+      .then(async res => {
+        const productsPickupsCapIds = getProductsCapIds(res.data);
+        const vehicleListUrlQuery = await getVehicleListUrl(
+          productsPickupsCapIds,
+        );
+        const productCarousel = res.data?.productCarousel?.map(item => {
+          const legacyUrl = formatProductPageUrl(
+            getLegacyUrl(
+              vehicleListUrlQuery.data?.vehicleList?.edges,
+              item?.capId,
+            ),
+            item?.capId,
+          );
+          const newUrl = getNewUrl(
+            vehicleListUrlQuery.data?.vehicleList?.edges,
+            item?.capId,
+          );
+          return { ...item, legacyUrl, newUrl };
+        });
+        return { ...res.data, productCarousel, productsPickupsCapIds };
+      });
 
     return {
       props: {
