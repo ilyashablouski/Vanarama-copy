@@ -28,7 +28,7 @@ const HttpLink = createHttpLink({
 const LogLink = new ApolloLink((operation, forward) => {
   const query = {
     name: operation.operationName,
-    variables: operation.variables
+    variables: operation.variables,
   };
 
   console.log('\nGraphQL Query:');
