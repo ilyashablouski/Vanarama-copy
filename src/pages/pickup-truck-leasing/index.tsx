@@ -14,9 +14,7 @@ import {
   HubPickupPageData_hubPickupPage_sections_tiles2_tiles as TileData,
   HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
 } from '../../../generated/HubPickupPageData';
-import { ProductCardData } from '../../../generated/ProductCardData';
 import { HUB_PICKUP_CONTENT } from '../../gql/hub/hubPickupPage';
-import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
 import createApolloClient from '../../apolloClient';
 import DealOfMonth from '../../components/DealOfMonth';
 import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
@@ -27,10 +25,6 @@ import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
-import {
-  useVehicleListUrl,
-  useVehicleListUrlFetchMore,
-} from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 import { PickupsSearch } from '../../models/enum/SearchByManufacturer';
 import { features } from '../../components/ProductCarousel/helpers';
@@ -41,6 +35,10 @@ import {
   filterListVariables as IFilterListVariables,
 } from '../../../generated/filterList';
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
+import {
+  IPickupsPageOffersData,
+  pickupsPageOffersRequest,
+} from '../../utils/offers';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -86,38 +84,30 @@ const League = dynamic(() => import('core/organisms/league'), {
   loading: () => <Skeleton count={2} />,
 });
 
-type Props = {
+interface IProps extends IPickupsPageOffersData {
   data: HubPickupPageData;
   searchPodVansData: IFilterList;
-  products: ProductCardData;
-};
+}
 
-export const PickupsPage: NextPage<Props> = ({
+export const PickupsPage: NextPage<IProps> = ({
   data,
   searchPodVansData,
-  products,
+  productsPickup,
+  vehicleListUrlData,
 }) => {
   const { cachedLeaseType } = useLeaseType(false);
-  const offer = products?.productCarousel?.find(p => p?.isOnOffer === true);
-
-  const productsPickupsCapIds = products?.productCarousel
-    ?.map(el => el?.capId || '')
-    .filter(Boolean) || [''];
-  const vehicleListUrlQuery = useVehicleListUrl(productsPickupsCapIds);
-
-  useVehicleListUrlFetchMore(vehicleListUrlQuery, productsPickupsCapIds);
+  const offer = productsPickup?.productCarousel?.find(
+    p => p?.isOnOffer === true,
+  );
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   const dealOfMonthUrl = formatProductPageUrl(
-    getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
+    getLegacyUrl(vehicleListUrlData.edges, offer?.capId),
     offer?.capId,
   );
 
-  const dealOfMonthHref = getNewUrl(
-    vehicleListUrlQuery.data?.vehicleList?.edges,
-    offer?.capId,
-  );
+  const dealOfMonthHref = getNewUrl(vehicleListUrlData.edges, offer?.capId);
 
   const isPersonal = cachedLeaseType === 'Personal';
 
@@ -204,12 +194,9 @@ export const PickupsPage: NextPage<Props> = ({
 
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
-          {products?.productCarousel?.map((item, idx) => {
+          {productsPickup?.productCarousel?.map((item, idx) => {
             const productUrl = formatProductPageUrl(
-              getLegacyUrl(
-                vehicleListUrlQuery.data?.vehicleList?.edges,
-                item?.capId,
-              ),
+              getLegacyUrl(vehicleListUrlData.edges, item?.capId),
               item?.capId,
             );
             return (
@@ -707,21 +694,17 @@ export async function getStaticProps() {
       },
     });
 
-    const { data: products } = await client.query<ProductCardData>({
-      query: PRODUCT_CARD_CONTENT,
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'Pickup',
-        size: 9,
-        offer: true,
-      },
-    });
+    const {
+      productsPickup,
+      vehicleListUrlData,
+    } = await pickupsPageOffersRequest(client);
 
     return {
       props: {
         data,
         searchPodVansData,
-        products,
+        productsPickup: productsPickup || null,
+        vehicleListUrlData,
       },
     };
   } catch {

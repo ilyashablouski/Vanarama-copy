@@ -6,14 +6,12 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { HubPickupPageData } from '../../../../generated/HubPickupPageData';
 import { HUB_PICKUP_CONTENT } from '../../../gql/hub/hubPickupPage';
-import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../../generated/ProductCardData';
-import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
-import { useVehicleListUrl } from '../../../gql/vehicleList';
 import { PickupsPage } from '../../../pages/pickup-truck-leasing';
+import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -224,6 +222,27 @@ const DATA = {
   },
 } as HubPickupPageData;
 
+const vehicleListUrl: IVehicleList = {
+  totalCount: 1,
+  pageInfo: {
+    startCursor: 'startCursor',
+    endCursor: 'endCursor',
+    hasNextPage: false,
+    hasPreviousPage: false,
+  },
+  edges: [
+    {
+      cursor: 'cursor',
+      node: {
+        vehicleType: VehicleTypeEnum.LCV,
+        derivativeId: '44514',
+        url: '/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
+        legacyUrl: null,
+      },
+    },
+  ],
+};
+
 const productsData = {
   productCarousel: [
     {
@@ -314,102 +333,17 @@ const mocked: MockedResponse[] = [
       },
     },
   },
-  {
-    request: {
-      query: PRODUCT_CARD_CONTENT,
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'Pickup',
-        size: 9,
-        offer: true,
-      },
-    },
-    result: {
-      data: productsData,
-    },
-  },
 ];
 
 describe('<PickupsPage />', () => {
   beforeEach(async () => {
-    (useVehicleListUrl as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        vehicleList: {
-          totalCount: 1,
-          pageInfo: {
-            startCursor: 'startCursor',
-            endCursor: 'endCursor',
-            hasNextPage: 'hasNextPage',
-            hasPreviousPage: 'hasPreviousPage',
-          },
-          edges: [
-            {
-              cursor: 'cursor',
-              node: {
-                derivativeId: '44514',
-                url: '/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
-                legacyUrl: null,
-                vehicleType: VehicleTypeEnum.LCV,
-              },
-            },
-          ],
-        },
-      },
-      error: undefined,
-    });
-
-    (useCarDerivativesData as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        derivatives: [
-          {
-            id: '44514',
-            derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-            slug: '10-ecoBoost-125-st-line-nav-5dr',
-            capCode: 'capCode',
-            name: 'name',
-            manufacturer: {
-              name: 'Ford',
-              slug: 'ford',
-            },
-            model: {
-              name: 'Focus',
-              slug: 'focus',
-            },
-            fuelType: {
-              name: 'name',
-            },
-            transmission: {
-              name: 'name',
-            },
-            bodyStyle: {
-              name: 'Hatchback',
-            },
-            range: {
-              name: 'Focus',
-              slug: 'focus',
-            },
-            __typename: 'derivative',
-          },
-        ],
-        vehicleImages: [
-          {
-            vehicleType: VehicleTypeEnum.LCV,
-            capId: 1212,
-            mainImageUrl: 'mainImageUrl',
-          },
-        ],
-      },
-      error: undefined,
-    });
-
     await preloadAll();
     render(
       <MockedProvider addTypename={false} mocks={mocked}>
         <PickupsPage
-          products={productsData}
           data={DATA}
+          productsPickup={productsData}
+          vehicleListUrlData={vehicleListUrl}
           searchPodVansData={filterList}
         />
       </MockedProvider>,

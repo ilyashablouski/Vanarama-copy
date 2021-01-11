@@ -1,19 +1,14 @@
 import React from 'react';
 // @ts-ignore
 import preloadAll from 'jest-next-dynamic';
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { MockedProvider } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import Router from 'next/router';
 import { HubVanPageData } from '../../../../generated/HubVanPageData';
-import { HUB_VAN_CONTENT } from '../../../gql/hub/hubVanPage';
-import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
-import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
-import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
 import { ProductCardData } from '../../../../generated/ProductCardData';
-import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
-import { useVehicleListUrl } from '../../../gql/vehicleList';
 import { VansPage } from '../../../pages/van-leasing';
+import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -296,6 +291,217 @@ const DATA = {
     },
   },
 } as HubVanPageData;
+const vehicleListUrl: IVehicleList = {
+  totalCount: 1,
+  pageInfo: {
+    startCursor: 'startCursor',
+    endCursor: 'endCursor',
+    hasNextPage: false,
+    hasPreviousPage: false,
+  },
+  edges: [
+    {
+      cursor: 'cursor',
+      node: {
+        vehicleType: VehicleTypeEnum.LCV,
+        derivativeId: '44514',
+        url: '/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
+        legacyUrl: null,
+      },
+    },
+  ],
+};
+
+const derivatives = {
+  derivatives: [
+    {
+      id: '44514',
+      manufacturerName: 'Ford',
+      derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
+      rangeName: 'Focus',
+      bodyStyleName: 'Hatchback',
+      slug: '10-ecoBoost-125-st-line-nav-5dr',
+      capCode: 'capCode',
+      name: 'name',
+      modelName: 'modelName',
+      manufacturer: {
+        name: 'name',
+        slug: 'name',
+      },
+      model: {
+        name: 'name',
+        slug: 'name',
+      },
+      fuelType: {
+        name: 'name',
+      },
+      fuelTypeName: 'fuelTypeName',
+      transmission: {
+        name: 'name',
+      },
+      transmissionName: 'transmissionName',
+      bodyStyle: {
+        name: 'name',
+      },
+      range: {
+        name: 'name',
+        slug: 'name',
+      },
+    },
+  ],
+  vehicleImages: [
+    {
+      vehicleType: VehicleTypeEnum.LCV,
+      capId: 1212,
+      mainImageUrl: 'mainImageUrl',
+    },
+  ],
+};
+const offer = {
+  capId: '44514',
+  isOnOffer: true,
+  bodyStyle: 'LargeVan',
+  manufacturerName: 'Volkswagen',
+  derivativeName: '2.0 TDI BMT 102 Highline Kombi Van Euro 6',
+  rangeName: 'Transporter',
+  imageUrl:
+    'https://images.autorama.co.uk/Photos/Cap/Vehicles/129783/cap-35088-129783.jpg',
+  leadTime: 'Factory Order',
+  averageRating: 4.8,
+  businessRate: 219,
+  personalRate: 278.98,
+  offerPosition: null,
+  keyInformation: [
+    {
+      name: 'Transmission',
+      value: 'Manual',
+    },
+    {
+      name: 'Fuel Type',
+      value: 'Diesel',
+    },
+    {
+      name: 'Emissions',
+      value: '189',
+    },
+    {
+      name: 'Fuel Economy',
+      value: '39.2',
+    },
+  ],
+  vehicleType: VehicleTypeEnum.LCV,
+};
+const productsSmallVan = {
+  productCarousel: [
+    {
+      capId: '44514',
+      isOnOffer: true,
+      manufacturerName: 'Volkswagen',
+      derivativeName: '2.0 TDI BMT 102 Highline Kombi Van Euro 6',
+      rangeName: 'Transporter',
+      imageUrl:
+        'https://images.autorama.co.uk/Photos/Cap/Vehicles/129783/cap-35088-129783.jpg',
+      leadTime: 'Factory Order',
+      averageRating: 4.8,
+      businessRate: 219,
+      personalRate: 278.98,
+      offerPosition: null,
+      keyInformation: [
+        {
+          name: 'Transmission',
+          value: 'Manual',
+        },
+        {
+          name: 'Fuel Type',
+          value: 'Diesel',
+        },
+        {
+          name: 'Emissions',
+          value: '189',
+        },
+        {
+          name: 'Fuel Economy',
+          value: '39.2',
+        },
+      ],
+      vehicleType: VehicleTypeEnum.LCV,
+    },
+  ],
+} as ProductCardData;
+const productsMediumVan = {
+  productCarousel: [
+    {
+      capId: '44514',
+      isOnOffer: true,
+      manufacturerName: 'Citroen',
+      derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
+      rangeName: 'Berlingo',
+      imageUrl:
+        'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
+      leadTime: 'Factory Order',
+      averageRating: 4.7,
+      businessRate: 139,
+      personalRate: 186.98,
+      offerPosition: null,
+      keyInformation: [
+        {
+          name: 'Transmission',
+          value: 'Manual',
+        },
+        {
+          name: 'Fuel Type',
+          value: 'Diesel',
+        },
+        {
+          name: 'Emissions',
+          value: '111',
+        },
+        {
+          name: 'Fuel Economy',
+          value: '67.2',
+        },
+      ],
+      vehicleType: VehicleTypeEnum.LCV,
+    },
+  ],
+} as ProductCardData;
+const productsLargeVan = {
+  productCarousel: [
+    {
+      capId: '44514',
+      isOnOffer: true,
+      manufacturerName: 'Citroen',
+      derivativeName: '2.2 BlueHDi H2 Van 140ps Enterprise',
+      rangeName: 'Relay',
+      imageUrl:
+        'https://images.autorama.co.uk/Photos/Cap/Vehicles/162520/cap-44275-162520.jpg',
+      leadTime: 'Factory Order',
+      averageRating: 4.5,
+      businessRate: 216.97,
+      personalRate: 260.97,
+      offerPosition: null,
+      keyInformation: [
+        {
+          name: 'Transmission',
+          value: 'Manual',
+        },
+        {
+          name: 'Fuel Type',
+          value: 'Diesel',
+        },
+        {
+          name: 'Emissions',
+          value: '162',
+        },
+        {
+          name: 'Load Height',
+          value: '1932',
+        },
+      ],
+      vehicleType: VehicleTypeEnum.LCV,
+    },
+  ],
+} as ProductCardData;
 const filterList = {
   filterList: {
     vehicleTypes: [VehicleTypeEnum.LCV],
@@ -326,259 +532,24 @@ const filterList = {
   },
 };
 
-const mocked: MockedResponse[] = [
-  {
-    request: {
-      query: HUB_VAN_CONTENT,
-    },
-    result: {
-      data: DATA,
-    },
-  },
-  {
-    request: {
-      query: GET_SEARCH_POD_DATA,
-      variables: {
-        vehicleTypes: [VehicleTypeEnum.LCV],
-      },
-    },
-    result: {
-      data: {
-        ...mockSearchPodResponse,
-      },
-    },
-  },
-  {
-    request: {
-      query: PRODUCT_CARD_CONTENT,
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'SmallVan',
-        size: 9,
-        offer: true,
-      },
-    },
-    result: {
-      data: {
-        productCarousel: [
-          {
-            capId: '44514',
-            isOnOffer: true,
-            manufacturerName: 'Volkswagen',
-            derivativeName: '2.0 TDI BMT 102 Highline Kombi Van Euro 6',
-            rangeName: 'Transporter',
-            imageUrl:
-              'https://images.autorama.co.uk/Photos/Cap/Vehicles/129783/cap-35088-129783.jpg',
-            leadTime: 'Factory Order',
-            averageRating: 4.8,
-            businessRate: 219,
-            personalRate: 278.98,
-            offerPosition: 1,
-            keyInformation: [
-              {
-                name: 'Transmission',
-                value: 'Manual',
-              },
-              {
-                name: 'Fuel Type',
-                value: 'Diesel',
-              },
-              {
-                name: 'Emissions',
-                value: '189',
-              },
-              {
-                name: 'Fuel Economy',
-                value: '39.2',
-              },
-            ],
-            vehicleType: VehicleTypeEnum.LCV,
-          },
-        ],
-      } as ProductCardData,
-    },
-  },
-  {
-    request: {
-      query: PRODUCT_CARD_CONTENT,
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'MediumVan',
-        size: 9,
-        offer: true,
-      },
-    },
-    result: {
-      data: {
-        productCarousel: [
-          {
-            capId: '44514',
-            isOnOffer: true,
-            manufacturerName: 'Citroen',
-            derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
-            rangeName: 'Berlingo',
-            imageUrl:
-              'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
-            leadTime: 'Factory Order',
-            averageRating: 4.7,
-            businessRate: 139,
-            personalRate: 186.98,
-            offerPosition: null,
-            keyInformation: [
-              {
-                name: 'Transmission',
-                value: 'Manual',
-              },
-              {
-                name: 'Fuel Type',
-                value: 'Diesel',
-              },
-              {
-                name: 'Emissions',
-                value: '111',
-              },
-              {
-                name: 'Fuel Economy',
-                value: '67.2',
-              },
-            ],
-            vehicleType: VehicleTypeEnum.LCV,
-          },
-        ],
-      } as ProductCardData,
-    },
-  },
-  {
-    request: {
-      query: PRODUCT_CARD_CONTENT,
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'LargeVan',
-        size: 9,
-        offer: true,
-      },
-    },
-    result: {
-      data: {
-        productCarousel: [
-          {
-            capId: '44514',
-            isOnOffer: true,
-            manufacturerName: 'Citroen',
-            derivativeName: '2.2 BlueHDi H2 Van 140ps Enterprise',
-            rangeName: 'Relay',
-            imageUrl:
-              'https://images.autorama.co.uk/Photos/Cap/Vehicles/162520/cap-44275-162520.jpg',
-            leadTime: 'Factory Order',
-            averageRating: 4.5,
-            businessRate: 216.97,
-            personalRate: 260.97,
-            offerPosition: null,
-            keyInformation: [
-              {
-                name: 'Transmission',
-                value: 'Manual',
-              },
-              {
-                name: 'Fuel Type',
-                value: 'Diesel',
-              },
-              {
-                name: 'Emissions',
-                value: '162',
-              },
-              {
-                name: 'Load Height',
-                value: '1932',
-              },
-            ],
-            vehicleType: VehicleTypeEnum.LCV,
-          },
-        ],
-      } as ProductCardData,
-    },
-  },
-];
-
 describe('<VansPage />', () => {
   beforeEach(async () => {
-    (useVehicleListUrl as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        vehicleList: {
-          totalCount: 1,
-          pageInfo: {
-            startCursor: 'startCursor',
-            endCursor: 'endCursor',
-            hasNextPage: 'hasNextPage',
-            hasPreviousPage: 'hasPreviousPage',
-          },
-          edges: [
-            {
-              cursor: 'cursor',
-              node: {
-                derivativeId: '44514',
-                url: '/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
-                legacyUrl: null,
-                vehicleType: VehicleTypeEnum.LCV,
-              },
-            },
-          ],
-        },
-      },
-      error: undefined,
-    });
-
-    (useCarDerivativesData as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        derivatives: [
-          {
-            id: '44514',
-            derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-            slug: '10-ecoBoost-125-st-line-nav-5dr',
-            capCode: 'capCode',
-            name: 'name',
-            manufacturer: {
-              name: 'Ford',
-              slug: 'ford',
-            },
-            model: {
-              name: 'Focus',
-              slug: 'focus',
-            },
-            fuelType: {
-              name: 'name',
-            },
-            transmission: {
-              name: 'name',
-            },
-            bodyStyle: {
-              name: 'Hatchback',
-            },
-            range: {
-              name: 'Focus',
-              slug: 'focus',
-            },
-            __typename: 'derivative',
-          },
-        ],
-        vehicleImages: [
-          {
-            vehicleType: VehicleTypeEnum.LCV,
-            capId: 1212,
-            mainImageUrl: 'mainImageUrl',
-          },
-        ],
-      },
-      error: undefined,
-    });
-
     await preloadAll();
 
     render(
-      <MockedProvider addTypename={false} mocks={mocked}>
-        <VansPage data={DATA} searchPodVansData={filterList} />
+      <MockedProvider addTypename={false}>
+        <VansPage
+          data={DATA}
+          searchPodVansData={filterList}
+          vehicleListUrlData={vehicleListUrl}
+          productsLargeVanDerivatives={derivatives}
+          productsLargeVan={productsLargeVan}
+          productsMediumVan={productsMediumVan}
+          productsMediumVanDerivatives={derivatives}
+          productsSmallVan={productsSmallVan}
+          productsSmallVanDerivatives={derivatives}
+          offer={offer}
+        />
       </MockedProvider>,
     );
   });
