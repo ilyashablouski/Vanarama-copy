@@ -29,7 +29,7 @@ const env = process?.env?.ENV || '';
 
 // Script environments
 const scriptEnvs = {
-  gtm: ['uat', 'pre-prod', 'prod'],
+  gtm: ['dev', 'uat', 'pre-prod', 'prod'],
 
   blueconic: ['uat', 'pre-prod', 'prod'],
 
