@@ -215,6 +215,84 @@ export const vansSpecialOffersRequest = async (
   };
 };
 
+export const vansPageOffersRequest = async (
+  client: ApolloClient<any>,
+): Promise<IVansPageOffersData> => {
+  const [
+    { products: productsSmallVan, productsCapIds: productsSmallVanCapIds },
+    { products: productsMediumVan, productsCapIds: productsMediumVanIds },
+    { products: productsLargeVan, productsCapIds: productsLargeVanIds },
+  ] = await Promise.all([
+    getProductCardContent(client, VehicleTypeEnum.LCV, 'SmallVan'),
+    getProductCardContent(client, VehicleTypeEnum.LCV, 'MediumVan'),
+    getProductCardContent(client, VehicleTypeEnum.LCV, 'LargeVan'),
+  ]);
+
+  const [
+    { data: productsSmallVanDerivatives },
+    { data: productsMediumVanDerivatives },
+    { data: productsLargeVanDerivatives },
+  ] = await Promise.all([
+    getCarDerivatives(client, VehicleTypeEnum.LCV, productsSmallVanCapIds),
+    getCarDerivatives(client, VehicleTypeEnum.LCV, productsMediumVanIds),
+    getCarDerivatives(client, VehicleTypeEnum.LCV, productsLargeVanIds),
+  ]);
+  const derivativeIds = [
+    ...productsSmallVanCapIds,
+    ...productsMediumVanIds,
+    ...productsLargeVanIds,
+  ];
+  const vehicleListUrlData = await getVehicleListUrlQuery(
+    client,
+    derivativeIds,
+  );
+  return {
+    productsSmallVan,
+    productsMediumVan,
+    productsLargeVan,
+    productsSmallVanDerivatives,
+    productsMediumVanDerivatives,
+    productsLargeVanDerivatives,
+    vehicleListUrlData,
+  };
+};
+
+export const carsPageOffersRequest = async (
+  client: ApolloClient<any>,
+): Promise<ICarsPageOffersData> => {
+  const {
+    products: productsCar,
+    productsCapIds: productsCarIds,
+  } = await getProductCardContent(client, VehicleTypeEnum.CAR);
+
+  const vehicleListUrlData = await getVehicleListUrlQuery(
+    client,
+    productsCarIds,
+  );
+  return {
+    productsCar,
+    vehicleListUrlData,
+  };
+};
+
+export const pickupsPageOffersRequest = async (
+  client: ApolloClient<any>,
+): Promise<IPickupsPageOffersData> => {
+  const {
+    products: productsPickup,
+    productsCapIds: productsPickupIds,
+  } = await getProductCardContent(client, VehicleTypeEnum.LCV, 'Pickup');
+
+  const vehicleListUrlData = await getVehicleListUrlQuery(
+    client,
+    productsPickupIds,
+  );
+  return {
+    productsPickup,
+    vehicleListUrlData,
+  };
+};
+
 export interface ISpecialOffersData {
   productsVan?: ProductCardData;
   productsCar?: ProductCardData;
@@ -238,5 +316,25 @@ export interface IVansSpecialOffersData {
   productsDropsideTipperDerivatives?: GetDerivatives;
   productsSpecialistDerivatives?: GetDerivatives;
   productsPickupDerivatives?: GetDerivatives;
+  vehicleListUrlData: IVehicleList;
+}
+
+export interface IVansPageOffersData {
+  productsSmallVan?: ProductCardData;
+  productsMediumVan?: ProductCardData;
+  productsLargeVan?: ProductCardData;
+  productsSmallVanDerivatives?: GetDerivatives;
+  productsMediumVanDerivatives?: GetDerivatives;
+  productsLargeVanDerivatives?: GetDerivatives;
+  vehicleListUrlData: IVehicleList;
+}
+
+export interface ICarsPageOffersData {
+  productsCar?: ProductCardData;
+  vehicleListUrlData: IVehicleList;
+}
+
+export interface IPickupsPageOffersData {
+  productsPickup?: ProductCardData;
   vehicleListUrlData: IVehicleList;
 }
