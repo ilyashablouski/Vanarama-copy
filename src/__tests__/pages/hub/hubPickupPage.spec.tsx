@@ -6,11 +6,12 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { render, screen, waitFor, fireEvent } from '@testing-library/react';
 import { HubPickupPageData } from '../../../../generated/HubPickupPageData';
 import { HUB_PICKUP_CONTENT } from '../../../gql/hub/hubPickupPage';
-import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
+import { ProductCardData } from '../../../../generated/ProductCardData';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { PickupsPage } from '../../../pages/pickup-truck-leasing';
+import { VehicleListUrl_vehicleList as IVehicleList } from '../../../../generated/VehicleListUrl';
 
 /**
  * NOTE: Mock the SearchPodContainer as it is out of scope for this test and is doing state
@@ -221,12 +222,30 @@ const DATA = {
   },
 } as HubPickupPageData;
 
+const vehicleListUrl: IVehicleList = {
+  totalCount: 1,
+  pageInfo: {
+    startCursor: 'startCursor',
+    endCursor: 'endCursor',
+    hasNextPage: false,
+    hasPreviousPage: false,
+  },
+  edges: [
+    {
+      cursor: 'cursor',
+      node: {
+        vehicleType: VehicleTypeEnum.LCV,
+        derivativeId: '44514',
+        url: '/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
+        legacyUrl: null,
+      },
+    },
+  ],
+};
+
 const productsData = {
-  productsPickupsCapIds: [''],
   productCarousel: [
     {
-      legacyUrl: { url: '/ford/focus/10-ecoBoost-125-st-line-nav-5dr' },
-      newUrl: '/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
       capId: '44514',
       isOnOffer: true,
       manufacturerName: 'Citroen',
@@ -260,7 +279,7 @@ const productsData = {
       vehicleType: VehicleTypeEnum.LCV,
     },
   ],
-};
+} as ProductCardData;
 
 const filterList = {
   filterList: {
@@ -314,20 +333,6 @@ const mocked: MockedResponse[] = [
       },
     },
   },
-  {
-    request: {
-      query: PRODUCT_CARD_CONTENT,
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'Pickup',
-        size: 9,
-        offer: true,
-      },
-    },
-    result: {
-      data: productsData,
-    },
-  },
 ];
 
 describe('<PickupsPage />', () => {
@@ -336,8 +341,9 @@ describe('<PickupsPage />', () => {
     render(
       <MockedProvider addTypename={false} mocks={mocked}>
         <PickupsPage
-          products={productsData}
           data={DATA}
+          productsPickup={productsData}
+          vehicleListUrlData={vehicleListUrl}
           searchPodVansData={filterList}
         />
       </MockedProvider>,

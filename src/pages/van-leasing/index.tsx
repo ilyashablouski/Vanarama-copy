@@ -3,9 +3,8 @@ import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
-import { useQuery } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
-import { useContext, useState } from 'react';
+import { useContext } from 'react';
 import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
@@ -15,27 +14,18 @@ import {
   HubVanPageData_hubVanPage_sections_cards_cards as CardData,
   HubVanPageData_hubVanPage_sections_steps_steps as StepData,
 } from '../../../generated/HubVanPageData';
-import {
-  ProductCardData,
-  ProductCardData_productCarousel as ProdCardData,
-} from '../../../generated/ProductCardData';
+import { ProductCardData_productCarousel as ProdCardData } from '../../../generated/ProductCardData';
 
 import { HUB_VAN_CONTENT } from '../../gql/hub/hubVanPage';
-import { PRODUCT_CARD_CONTENT } from '../../gql/productCard';
 import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
 import DealOfMonth from '../../components/DealOfMonth';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { useCarDerivativesData } from '../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getSectionsData, getCardsName } from '../../utils/getSectionsData';
-import {
-  useVehicleListUrl,
-  useVehicleListUrlFetchMore,
-} from '../../gql/vehicleList';
 import TileLink from '../../components/TileLink/TileLink';
 import { VansSearch } from '../../models/enum/SearchByManufacturer';
 import Head from '../../components/Head/Head';
@@ -47,6 +37,7 @@ import {
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 import { CompareContext } from '../../utils/comparatorTool';
 import { isCompared } from '../../utils/comparatorHelpers';
+import { IVansPageOffersData, vansPageOffersRequest } from '../../utils/offers';
 
 const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
@@ -85,121 +76,34 @@ const League = dynamic(() => import('core/organisms/league'), {
 interface IExtProdCardData extends ProdCardData {
   bodyStyle: string;
 }
-type ProdCards = IExtProdCardData[];
-type Props = {
+
+interface IProps extends IVansPageOffersData {
   data: HubVanPageData;
   searchPodVansData: IFilterList;
-};
+  offer?: IExtProdCardData;
+}
 
-export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
-  const [offers, setOffers] = useState<ProdCards>([]);
+export const VansPage: NextPage<IProps> = ({
+  data,
+  searchPodVansData,
+  productsSmallVan,
+  productsMediumVan,
+  productsLargeVan,
+  productsSmallVanDerivatives,
+  productsMediumVanDerivatives,
+  productsLargeVanDerivatives,
+  vehicleListUrlData,
+  offer,
+}) => {
   const { cachedLeaseType } = useLeaseType(false);
-
-  // pluck random offer until offer position available
-  const offer: IExtProdCardData | null =
-    offers.find(card => card.offerPosition === 1) || null;
-
-  const { data: productSmallVan } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'SmallVan',
-        size: 9,
-        offer: true,
-      },
-      onCompleted: prods => {
-        const topProduct = prods?.productCarousel?.find(
-          p => p?.isOnOffer === true,
-        );
-        if (topProduct)
-          setOffers([...offers, { ...topProduct, bodyStyle: 'SmallVan' }]);
-      },
-    },
-  );
-
-  const productSmallVanCapIds = productSmallVan?.productCarousel
-    ?.map(el => el?.capId || '')
-    .filter(Boolean) || [''];
-  const { data: productSmallVanDerivatives } = useCarDerivativesData(
-    productSmallVanCapIds,
-    VehicleTypeEnum.LCV,
-  );
-
-  const { data: productMediumVan } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'MediumVan',
-        size: 9,
-        offer: true,
-      },
-      onCompleted: prods => {
-        const topProduct = prods?.productCarousel?.find(
-          p => p?.isOnOffer === true,
-        );
-        if (topProduct)
-          setOffers([...offers, { ...topProduct, bodyStyle: 'MediumVan' }]);
-      },
-    },
-  );
-
-  const productMediumVanCapIds = productMediumVan?.productCarousel
-    ?.map(el => el?.capId || '')
-    .filter(Boolean) || [''];
-  const { data: productMediumVanDerivatives } = useCarDerivativesData(
-    productMediumVanCapIds,
-    VehicleTypeEnum.LCV,
-  );
-
-  const { data: productLargeVan } = useQuery<ProductCardData>(
-    PRODUCT_CARD_CONTENT,
-    {
-      variables: {
-        type: VehicleTypeEnum.LCV,
-        bodyType: 'LargeVan',
-        size: 9,
-        offer: true,
-      },
-      onCompleted: prods => {
-        const topProduct = prods?.productCarousel?.find(
-          p => p?.isOnOffer === true,
-        );
-        if (topProduct)
-          setOffers([...offers, { ...topProduct, bodyStyle: 'LargeVan' }]);
-      },
-    },
-  );
-
-  const productLargeVanCapIds = productLargeVan?.productCarousel
-    ?.map(el => el?.capId || '')
-    .filter(Boolean) || [''];
-  const { data: productLargeVanDerivatives } = useCarDerivativesData(
-    productLargeVanCapIds,
-    VehicleTypeEnum.LCV,
-  );
-
-  const derivativeIds = [
-    ...productSmallVanCapIds,
-    ...productMediumVanCapIds,
-    ...productLargeVanCapIds,
-  ].filter(Boolean);
-  const vehicleListUrlQuery = useVehicleListUrl(derivativeIds);
-
-  useVehicleListUrlFetchMore(vehicleListUrlQuery, derivativeIds);
-
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   const dealOfMonthUrl = formatProductPageUrl(
-    getLegacyUrl(vehicleListUrlQuery.data?.vehicleList?.edges, offer?.capId),
+    getLegacyUrl(vehicleListUrlData.edges, offer?.capId),
     offer?.capId,
   );
 
-  const dealOfMonthHref = getNewUrl(
-    vehicleListUrlQuery.data?.vehicleList?.edges,
-    offer?.capId,
-  );
+  const dealOfMonthHref = getNewUrl(vehicleListUrlData.edges, offer?.capId);
 
   const isPersonal = cachedLeaseType === 'Personal';
 
@@ -303,8 +207,8 @@ export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
           />
         </div>
       )}
-      {productSmallVan?.productCarousel &&
-        productSmallVan?.productCarousel?.length > 0 && (
+      {productsSmallVan?.productCarousel &&
+        productsSmallVan?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
               <Heading size="large" color="black" tag="h2">
@@ -324,11 +228,11 @@ export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
                   }
                   data={{
                     derivatives:
-                      productSmallVanDerivatives?.derivatives || null,
-                    productCard: productSmallVan?.productCarousel || null,
-                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                      productsSmallVanDerivatives?.derivatives || null,
+                    productCard: productsSmallVan?.productCarousel || null,
+                    vehicleList: vehicleListUrlData!,
                   }}
-                  countItems={productSmallVan?.productCarousel?.length || 6}
+                  countItems={productsSmallVan?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
                 />
               </LazyLoadComponent>
@@ -350,8 +254,8 @@ export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
           </div>
         )}
 
-      {productMediumVan?.productCarousel &&
-        productMediumVan?.productCarousel?.length > 0 && (
+      {productsMediumVan?.productCarousel &&
+        productsMediumVan?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
               <Heading size="large" color="black" tag="h2">
@@ -371,11 +275,11 @@ export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
                   }
                   data={{
                     derivatives:
-                      productMediumVanDerivatives?.derivatives || null,
-                    productCard: productMediumVan?.productCarousel || null,
-                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                      productsMediumVanDerivatives?.derivatives || null,
+                    productCard: productsMediumVan?.productCarousel || null,
+                    vehicleList: vehicleListUrlData!,
                   }}
-                  countItems={productMediumVan?.productCarousel?.length || 6}
+                  countItems={productsMediumVan?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
                 />
               </LazyLoadComponent>
@@ -397,8 +301,8 @@ export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
           </div>
         )}
 
-      {productLargeVan?.productCarousel &&
-        productLargeVan?.productCarousel?.length > 0 && (
+      {productsLargeVan?.productCarousel &&
+        productsLargeVan?.productCarousel?.length > 0 && (
           <div className="row:bg-lighter">
             <div>
               <Heading size="large" color="black" tag="h2">
@@ -418,11 +322,11 @@ export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
                   }
                   data={{
                     derivatives:
-                      productLargeVanDerivatives?.derivatives || null,
-                    productCard: productLargeVan?.productCarousel || null,
-                    vehicleList: vehicleListUrlQuery.data?.vehicleList!,
+                      productsLargeVanDerivatives?.derivatives || null,
+                    productCard: productsLargeVan?.productCarousel || null,
+                    vehicleList: vehicleListUrlData!,
                   }}
-                  countItems={productLargeVan?.productCarousel?.length || 6}
+                  countItems={productsLargeVan?.productCarousel?.length || 6}
                   dataTestIdBtn="van-view-offer"
                 />
               </LazyLoadComponent>
@@ -778,6 +682,7 @@ export const VansPage: NextPage<Props> = ({ data, searchPodVansData }) => {
             {VansSearch.map(man => (
               <RouterLink
                 className="button"
+                key={man.label}
                 classNames={{ color: 'teal', solid: true, size: 'large' }}
                 link={{
                   label: man.label,
@@ -902,10 +807,52 @@ export async function getStaticProps() {
         vehicleTypes: [VehicleTypeEnum.LCV],
       },
     });
+    const {
+      productsSmallVan,
+      productsMediumVan,
+      productsLargeVan,
+      productsSmallVanDerivatives,
+      productsMediumVanDerivatives,
+      productsLargeVanDerivatives,
+      vehicleListUrlData,
+    } = await vansPageOffersRequest(client);
+    const offers = [
+      productsSmallVan?.productCarousel?.[0]
+        ? {
+            ...productsSmallVan?.productCarousel?.[0],
+            bodyStyle: 'SmallVan',
+          }
+        : ({} as IExtProdCardData),
+      productsMediumVan?.productCarousel?.[0]
+        ? {
+            ...productsMediumVan?.productCarousel?.[0],
+            bodyStyle: 'MediumVan',
+          }
+        : ({} as IExtProdCardData),
+      productsLargeVan?.productCarousel?.[0]
+        ? {
+            ...productsLargeVan?.productCarousel?.[0],
+            bodyStyle: 'LargeVan',
+          }
+        : ({} as IExtProdCardData),
+    ].filter(value => Object.keys(value).length !== 0);
+
+    // pluck random offer until offer position available
+    const offer: IExtProdCardData | null =
+      offers.find(card => card?.offerPosition === 1) || null;
+
     return {
       props: {
         data,
         searchPodVansData,
+        productsSmallVan: productsSmallVan || null,
+        productsMediumVan: productsMediumVan || null,
+        productsLargeVan: productsLargeVan || null,
+        productsSmallVanDerivatives: productsSmallVanDerivatives || null,
+        productsMediumVanDerivatives: productsMediumVanDerivatives || null,
+        productsLargeVanDerivatives: productsLargeVanDerivatives || null,
+        vehicleListUrlData,
+        offer,
       },
     };
   } catch {
