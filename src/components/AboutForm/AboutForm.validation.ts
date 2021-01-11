@@ -16,7 +16,6 @@ function isAgeValid({
   monthOfBirth,
   yearOfBirth,
 }: IAboutFormValues) {
-  // const dateStr = `${yearOfBirth}-${monthOfBirth}-${dayOfBirth}`;
   const yearsDifference = diffInYear(
     parseInt(yearOfBirth, 10),
     parseInt(monthOfBirth, 10),
