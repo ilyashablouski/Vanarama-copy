@@ -11,14 +11,14 @@ import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
 // import localforage from 'localforage';
 
-const inspect = require('../inspect');
+// const inspect = require('../inspect');
 
 // const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 
-const LogLink = new ApolloLink((operation, forward) => {
-  console.log(operation);
-  return forward(operation);
-});
+// const LogLink = new ApolloLink((operation, forward) => {
+//   console.log(operation);
+//   return forward(operation);
+// });
 
 const HttpLink = createHttpLink({
   uri: process.env.API_URL!,
