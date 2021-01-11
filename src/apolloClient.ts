@@ -1,9 +1,9 @@
 import {
   ApolloClient,
+  ApolloLink,
   InMemoryCache,
   createHttpLink,
   from,
-  // ApolloLink,
 } from '@apollo/client';
 // import Router from 'next/router';
 // import { onError } from '@apollo/client/link/error';
@@ -15,11 +15,6 @@ import { NextPageContext } from 'next';
 
 // const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 
-// const LogLink = new ApolloLink((operation, forward) => {
-//   console.log(operation);
-//   return forward(operation);
-// });
-
 const HttpLink = createHttpLink({
   uri: process.env.API_URL!,
   fetch,
@@ -29,6 +24,28 @@ const HttpLink = createHttpLink({
     'x-api-key': process.env.API_KEY!,
   },
 });
+
+const LogLink = new ApolloLink((operation, forward) => {
+  const query = {
+    name: operation.operationName,
+    variables: operation.variables,
+  };
+
+  console.log('\nGraphQL Query:');
+  console.log(query);
+
+  return forward(operation);
+});
+
+function apolloClientLink() {
+  const links = [HttpLink];
+
+  if (process.env.ENV && process.env.ENV !== 'production') {
+    return from([LogLink, ...links]);
+  }
+
+  return from(links);
+}
 
 //  TODO: to return redirect need to find
 //   out how to refresh token for temp user and finally fix olaf
@@ -68,9 +85,7 @@ export default function createApolloClient(
     // The `ctx` (NextPageContext) will only be present on the server.
     // use it to extract auth headers (ctx.req) or similar.
     ssrMode: Boolean(ctx),
-    link: from([HttpLink]),
-    // link: from([LogLink, HttpLink]), // Enable for logging.
-
+    link: apolloClientLink(),
     connectToDevTools: Boolean(process.env.ENABLE_DEV_TOOLS),
     cache: new InMemoryCache({
       typePolicies: {
