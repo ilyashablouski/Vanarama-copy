@@ -70,4 +70,6 @@ export interface ICardProps extends IBaseProps {
   optimisationOptions?: ICloudflareOptimisation;
 
   loadImage?: boolean;
+
+  loadImageProps?: (options?: any) => void;
 }

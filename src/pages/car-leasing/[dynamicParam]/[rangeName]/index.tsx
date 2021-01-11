@@ -3,14 +3,19 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
 import createApolloClient from '../../../../apolloClient';
-import { GET_VEHICLE_LIST } from '../../../../containers/SearchPageContainer/gql';
+import {
+  GET_VEHICLE_LIST,
+  GET_BODY_STYLES,
+} from '../../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../../containers/CustomerAlsoViewedContainer/gql';
+import { getGenericSearchPageSlug } from '../../../../gql/genericPage';
 import SearchPageContainer from '../../../../containers/SearchPageContainer';
 import {
   getCapsIds,
   ssrCMSQueryExecutor,
 } from '../../../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
+import { bodyStyleList_bodyStyleList as IModelsData } from '../../../../../generated/bodyStyleList';
 import {
   LeaseTypeEnum,
   SortDirection,
@@ -19,7 +24,7 @@ import {
 } from '../../../../../generated/globalTypes';
 import { GetProductCard } from '../../../../../generated/GetProductCard';
 import { vehicleList } from '../../../../../generated/vehicleList';
-import { notFoundPageHandler } from '../../../../utils/url';
+import { formatUrl, notFoundPageHandler } from '../../../../utils/url';
 import { ISearchPageProps } from '../../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { GET_SEARCH_POD_DATA } from '../../../../containers/SearchPodContainer/gql';
@@ -33,6 +38,9 @@ interface IProps extends ISearchPageProps {
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
   filtersData?: IFilterList | undefined;
+  bodyStyleList?: IModelsData[];
+  makeParam: string;
+  rangeParam?: string;
 }
 
 const Page: NextPage<IProps> = ({
@@ -40,11 +48,14 @@ const Page: NextPage<IProps> = ({
   pageData,
   metaData,
   vehiclesList,
+  bodyStyleList,
   productCardsData,
   responseCapIds,
   error,
   notFoundPageData,
   filtersData,
+  rangeParam,
+  makeParam,
 }) => {
   const router = useRouter();
 
@@ -87,18 +98,24 @@ const Page: NextPage<IProps> = ({
       metaData={metaData}
       pageData={pageData}
       preLoadVehiclesList={vehiclesList}
+      preloadBodyStyleList={bodyStyleList}
       preLoadProductCardsData={productCardsData}
       preLoadResponseCapIds={responseCapIds}
       preLoadFiltersData={filtersData}
+      preloadMake={makeParam}
+      preloadRange={rangeParam}
     />
   );
 };
 
 export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({});
+  const makeName = (context?.query?.dynamicParam as string).toLowerCase();
+  const rangeName = (context?.query?.rangeName as string).toLowerCase();
   let vehiclesList;
   let productCardsData;
   let responseCapIds;
+  let bodyStyleList;
   try {
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
@@ -118,12 +135,40 @@ export async function getServerSideProps(context: NextPageContext) {
             first: 9,
             sortField: SortField.availability,
             sortDirection: SortDirection.ASC,
-            manufacturerSlug: (context?.query
-              ?.dynamicParam as string).toLowerCase(),
-            rangeSlug: (context?.query?.rangeName as string).toLowerCase(),
+            manufacturerSlug: makeName,
+            rangeSlug: rangeName,
           },
         })
         .then(resp => resp.data);
+
+      try {
+        const resp = await client.query({
+          query: GET_BODY_STYLES,
+          variables: {
+            vehicleTypes: VehicleTypeEnum.CAR,
+            leaseType: LeaseTypeEnum.PERSONAL,
+            manufacturerSlug: makeName,
+            rangeSlug: rangeName,
+          },
+        });
+        // assign re mapped list
+        bodyStyleList = await Promise.all(
+          resp.data.bodyStyleList.map(async (listItem: IModelsData) => {
+            const { data: slug } = await getGenericSearchPageSlug(
+              formatUrl(
+                `car-leasing/${makeName}/${rangeName}/${listItem.bodyStyle}`,
+              ),
+            );
+            return {
+              ...listItem,
+              legacyUrl: slug?.genericPage.metaData.legacyUrl,
+            };
+          }),
+        );
+      } catch (err) {
+        bodyStyleList = null;
+      }
+
       try {
         responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
         if (responseCapIds.length) {
@@ -157,10 +202,13 @@ export async function getServerSideProps(context: NextPageContext) {
         metaData: data.genericPage.metaData,
         isServer: !!context.req,
         vehiclesList: vehiclesList || null,
+        bodyStyleList: bodyStyleList || null,
         productCardsData: productCardsData || null,
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
         filtersData: filtersData?.filterList || null,
+        makeParam: (context?.query?.dynamicParam as string).toLowerCase(),
+        rangeParam: (context?.query?.rangeName as string).toLowerCase(),
       },
     };
   } catch {
