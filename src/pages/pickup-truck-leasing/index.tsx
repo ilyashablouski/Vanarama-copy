@@ -2,7 +2,7 @@ import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
-import { useContext } from 'react';
+import { useContext, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -96,18 +96,26 @@ export const PickupsPage: NextPage<IProps> = ({
   vehicleListUrlData,
 }) => {
   const { cachedLeaseType } = useLeaseType(false);
-  const offer = productsPickup?.productCarousel?.find(
-    p => p?.isOnOffer === true,
+  const offer = useMemo(
+    () => productsPickup?.productCarousel?.find(p => p?.isOnOffer === true),
+    [productsPickup],
   );
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
-  const dealOfMonthUrl = formatProductPageUrl(
-    getLegacyUrl(vehicleListUrlData.edges, offer?.capId),
-    offer?.capId,
+  const dealOfMonthUrl = useMemo(
+    () =>
+      formatProductPageUrl(
+        getLegacyUrl(vehicleListUrlData.edges, offer?.capId),
+        offer?.capId,
+      ),
+    [vehicleListUrlData, offer],
   );
 
-  const dealOfMonthHref = getNewUrl(vehicleListUrlData.edges, offer?.capId);
+  const dealOfMonthHref = useMemo(
+    () => getNewUrl(vehicleListUrlData.edges, offer?.capId),
+    [vehicleListUrlData, offer],
+  );
 
   const isPersonal = cachedLeaseType === 'Personal';
 

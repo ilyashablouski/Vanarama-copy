@@ -131,9 +131,10 @@ export const diffInMonth = (d1: Date, d2: Date) => {
   return months <= 0 ? 0 : months;
 };
 
-export const diffInYear = (date: string) =>
-  new Date(new Date().getTime() - new Date(date).getTime()).getFullYear() -
-  1970;
+export const diffInYear = (year: number, month: number, day: number) =>
+  new Date(
+    new Date().getTime() - new Date(year, month, day).getTime(),
+  ).getFullYear() - 1970;
 
 export function calculateRemainingMonths(
   entries: THistoryEntry[],

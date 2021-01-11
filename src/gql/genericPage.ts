@@ -1,4 +1,5 @@
 import { ApolloError, gql, useQuery } from '@apollo/client';
+import createApolloClient from '../apolloClient';
 import {
   GenericPageQuery,
   GenericPageQueryVariables,
@@ -272,4 +273,14 @@ export function useGenericSearchPageSlug(slug: string) {
       },
     },
   );
+}
+
+export function getGenericSearchPageSlug(newUrl: string) {
+  const client = createApolloClient({});
+  return client.query<SearchPageSlug>({
+    query: GENERIC_SEARCH_PAGE_SLUG,
+    variables: {
+      slug: newUrl,
+    },
+  });
 }
