@@ -25,6 +25,7 @@ describe('<ModelCard />', () => {
         count: 2,
         minPrice: 120,
         capId: 123,
+        legacyUrl: '/bmw-car-leasing/3-series/coupe.html',
       },
       isPersonalPrice: true,
     };

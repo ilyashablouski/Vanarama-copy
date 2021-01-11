@@ -9,10 +9,7 @@ import { HUB_PICKUP_CONTENT } from '../../../gql/hub/hubPickupPage';
 import { PRODUCT_CARD_CONTENT } from '../../../gql/productCard';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import { mockSearchPodResponse } from '../../../../__mocks__/searchpod';
-import { ProductCardData } from '../../../../generated/ProductCardData';
-import { useCarDerivativesData } from '../../../containers/OrdersInformation/gql';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
-import { useVehicleListUrl } from '../../../gql/vehicleList';
 import { PickupsPage } from '../../../pages/pickup-truck-leasing';
 
 /**
@@ -225,8 +222,11 @@ const DATA = {
 } as HubPickupPageData;
 
 const productsData = {
+  productsPickupsCapIds: [''],
   productCarousel: [
     {
+      legacyUrl: { url: '/ford/focus/10-ecoBoost-125-st-line-nav-5dr' },
+      newUrl: '/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
       capId: '44514',
       isOnOffer: true,
       manufacturerName: 'Citroen',
@@ -260,7 +260,7 @@ const productsData = {
       vehicleType: VehicleTypeEnum.LCV,
     },
   ],
-} as ProductCardData;
+};
 
 const filterList = {
   filterList: {
@@ -332,78 +332,6 @@ const mocked: MockedResponse[] = [
 
 describe('<PickupsPage />', () => {
   beforeEach(async () => {
-    (useVehicleListUrl as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        vehicleList: {
-          totalCount: 1,
-          pageInfo: {
-            startCursor: 'startCursor',
-            endCursor: 'endCursor',
-            hasNextPage: 'hasNextPage',
-            hasPreviousPage: 'hasPreviousPage',
-          },
-          edges: [
-            {
-              cursor: 'cursor',
-              node: {
-                derivativeId: '44514',
-                url: '/ford/focus/10-ecoBoost-125-st-line-nav-5dr',
-                legacyUrl: null,
-                vehicleType: VehicleTypeEnum.LCV,
-              },
-            },
-          ],
-        },
-      },
-      error: undefined,
-    });
-
-    (useCarDerivativesData as jest.Mock).mockReturnValue({
-      loading: false,
-      data: {
-        derivatives: [
-          {
-            id: '44514',
-            derivativeName: '1.0 EcoBoost 125 ST-Line Nav 5dr',
-            slug: '10-ecoBoost-125-st-line-nav-5dr',
-            capCode: 'capCode',
-            name: 'name',
-            manufacturer: {
-              name: 'Ford',
-              slug: 'ford',
-            },
-            model: {
-              name: 'Focus',
-              slug: 'focus',
-            },
-            fuelType: {
-              name: 'name',
-            },
-            transmission: {
-              name: 'name',
-            },
-            bodyStyle: {
-              name: 'Hatchback',
-            },
-            range: {
-              name: 'Focus',
-              slug: 'focus',
-            },
-            __typename: 'derivative',
-          },
-        ],
-        vehicleImages: [
-          {
-            vehicleType: VehicleTypeEnum.LCV,
-            capId: 1212,
-            mainImageUrl: 'mainImageUrl',
-          },
-        ],
-      },
-      error: undefined,
-    });
-
     await preloadAll();
     render(
       <MockedProvider addTypename={false} mocks={mocked}>
