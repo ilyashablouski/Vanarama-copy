@@ -38,6 +38,7 @@ import {
   filterListVariables as IFilterListVariables,
 } from '../../../generated/filterList';
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
+import getProductsCapIds from '../../utils/getProductCarouselCapIds';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -701,9 +702,7 @@ export async function getStaticProps() {
         },
       })
       .then(async res => {
-        const productsPickupsCapIds = res.data?.productCarousel
-          ?.map(el => el?.capId || '')
-          .filter(Boolean) || [''];
+        const productsPickupsCapIds = getProductsCapIds(res.data);
         const vehicleListUrlQuery = await getVehicleListUrl(
           productsPickupsCapIds,
         );
