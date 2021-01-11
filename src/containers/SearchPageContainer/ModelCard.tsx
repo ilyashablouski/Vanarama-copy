@@ -1,10 +1,10 @@
-import React, { memo } from 'react';
+import React, { memo, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { bodyStyleList_bodyStyleList as IModelData } from '../../../generated/bodyStyleList';
 import { useModelImages } from './gql';
-import { useGenericSearchPageSlug } from '../../gql/genericPage';
+import { getGenericSearchPageSlug } from '../../gql/genericPage';
 import { formatUrl } from '../../utils/url';
 import { capitalizeFirstLetter } from '../../utils/textTransform';
 import Skeleton from '../../components/Skeleton';
@@ -16,15 +16,19 @@ const Card = dynamic(() => import('core/molecules/cards/Card'), {
   loading: () => <Skeleton count={1} />,
 });
 
+interface IExtModelData extends IModelData {
+  legacyUrl?: string;
+}
 interface IModelCardProps {
   isPersonalPrice: boolean;
-  data?: IModelData;
+  data?: IExtModelData;
   range?: string;
   make?: string;
 }
 
 const ModelCard = memo(
   ({ isPersonalPrice, data, range, make }: IModelCardProps) => {
+    const [legacySlug, setLegacySlug] = useState(data?.legacyUrl || '');
     const { query } = useRouter();
     const { data: imageData } = useModelImages(
       [data?.capId?.toString() || '1'],
@@ -37,10 +41,21 @@ const ModelCard = memo(
     const makeName = make || (query.dynamicParam as string);
     const rangeName =
       range || (query.rangeName as string).split('+').join(' ') || '';
-    const newUrl = formatUrl(
-      `car-leasing/${makeName}/${rangeName}/${data?.bodyStyle}`,
-    );
-    const { data: legacySlug } = useGenericSearchPageSlug(newUrl);
+
+    // request made on client when model pages navigated using client side router
+    useEffect(() => {
+      if (!legacySlug) {
+        const initGetSlug = async () => {
+          const newUrl = formatUrl(
+            `car-leasing/${makeName}/${rangeName}/${data?.bodyStyle}`,
+          );
+          const { data: slug } = await getGenericSearchPageSlug(newUrl);
+          setLegacySlug(slug?.genericPage.metaData.legacyUrl || newUrl);
+        };
+        initGetSlug();
+      }
+    }, [data, legacySlug, makeName, rangeName]);
+
     return (
       <Card
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -51,7 +66,7 @@ const ModelCard = memo(
           link: (
             <RouterLink
               link={{
-                href: legacySlug?.genericPage.metaData.legacyUrl || newUrl,
+                href: legacySlug,
                 label: `${capitalizeFirstLetter(
                   makeName,
                 )} ${capitalizeFirstLetter(rangeName)} ${data?.bodyStyle ||
@@ -75,7 +90,7 @@ const ModelCard = memo(
           />
           <RouterLink
             link={{
-              href: legacySlug?.genericPage.metaData.legacyUrl || newUrl,
+              href: legacySlug,
               label: `View ${data?.count || 'All'} Offers`,
             }}
             className="button"
