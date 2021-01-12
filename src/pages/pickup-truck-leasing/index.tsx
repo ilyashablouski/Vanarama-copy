@@ -209,6 +209,7 @@ export const PickupsPage: NextPage<IProps> = ({
             );
             return (
               <LazyLoadComponent
+                key={`${item?.capId}_${idx}`}
                 visibleByDefault={typeof window === 'undefined'}
               >
                 <ProductCard
@@ -585,6 +586,7 @@ export const PickupsPage: NextPage<IProps> = ({
                   href: man.href,
                 }}
                 withoutDefaultClassName
+                key={man.label}
               >
                 <div className="button--inner">{man.label}</div>
               </RouterLink>
