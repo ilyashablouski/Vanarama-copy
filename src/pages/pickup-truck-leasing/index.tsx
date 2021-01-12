@@ -352,16 +352,18 @@ export const PickupsPage: NextPage<IProps> = ({
             height="360px"
           />
         ) : (
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src={
-              getSectionsData(
-                ['featured1', 'image', 'file', 'url'],
-                data?.hubPickupPage.sections,
-              ) ||
-              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-            }
-          />
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={
+                getSectionsData(
+                  ['featured1', 'image', 'file', 'url'],
+                  data?.hubPickupPage.sections,
+                ) ||
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+              }
+            />
+          </div>
         )}
         <div style={{ padding: '1rem' }}>
           <Heading
@@ -411,16 +413,18 @@ export const PickupsPage: NextPage<IProps> = ({
             height="360px"
           />
         ) : (
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src={
-              getSectionsData(
-                ['featured2', 'image', 'file', 'url'],
-                data?.hubPickupPage.sections,
-              ) ||
-              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-            }
-          />
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={
+                getSectionsData(
+                  ['featured2', 'image', 'file', 'url'],
+                  data?.hubPickupPage.sections,
+                ) ||
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+              }
+            />
+          </div>
         )}
         <div className="-inset -middle -col-400">
           <Heading
