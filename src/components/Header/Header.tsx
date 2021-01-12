@@ -127,11 +127,11 @@ export const Header: FC<IHeaderProps> = memo(props => {
       } else {
         document.body.classList.add('-lock'); // can replace above when lock class is fixed properly
       }
-    } else {
+    } else if (!isMenuOpen) {
       if (el) {
         enableBodyScroll(el);
       } else {
-        document.body.classList.remove('-lock'); //can replace above when lock class is fixed
+        document.body.classList.remove('-lock'); // can replace above when lock class is fixed
       }
     }
   }, [isMenuOpen]);
