@@ -122,11 +122,17 @@ export const Header: FC<IHeaderProps> = memo(props => {
   useEffect(() => {
     const el = document.querySelector('#nav');
     if (isMenuOpen) {
-      if (el) disableBodyScroll(el);
-      // document.body.classList.add('-lock'); can replace above when lock class is fixed
+      if (el) {
+        disableBodyScroll(el);
+      } else {
+        document.body.classList.add('-lock'); // can replace above when lock class is fixed properly
+      }
     } else {
-      if (el) enableBodyScroll(el);
-      // document.body.classList.remove('-lock'); can replace above when lock class is fixed
+      if (el) {
+        enableBodyScroll(el);
+      } else {
+        document.body.classList.remove('-lock'); //can replace above when lock class is fixed
+      }
     }
   }, [isMenuOpen]);
 
