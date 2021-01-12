@@ -478,7 +478,7 @@ export const VansPage: NextPage<IProps> = ({
           />
         )}
 
-        <div style={{ padding: '1rem' }}>
+        <div className="" style={{ padding: '1rem' }}>
           <Heading
             size="large"
             color="black"
@@ -533,16 +533,18 @@ export const VansPage: NextPage<IProps> = ({
             height="360px"
           />
         ) : (
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src={
-              getSectionsData(
-                ['featured2', 'image', 'file', 'url'],
-                data?.hubVanPage.sections,
-              ) ||
-              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-            }
-          />
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={
+                getSectionsData(
+                  ['featured2', 'image', 'file', 'url'],
+                  data?.hubVanPage.sections,
+                ) ||
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+              }
+            />
+          </div>
         )}
         <div className="-inset -middle -col-400">
           <Heading

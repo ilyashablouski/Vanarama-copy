@@ -15,16 +15,18 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
     <section
       class="row:featured-right"
     >
-      <div
-        class="image -expand"
-      >
-        <img
-          alt="gymarama.jpg"
-          class="image--native"
-          loading="lazy"
-          sizes="(min-width:3200px) 800px, 1200px"
-          src="//images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg"
-        />
+      <div>
+        <div
+          class="image -expand"
+        >
+          <img
+            alt="gymarama.jpg"
+            class="image--native"
+            loading="lazy"
+            sizes="(min-width:3200px) 800px, 1200px"
+            src="//images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg"
+          />
+        </div>
       </div>
       <div>
         <h2
