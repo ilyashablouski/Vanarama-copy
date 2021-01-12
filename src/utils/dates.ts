@@ -166,7 +166,7 @@ export const validateDateString = (
   const monthNumber = Number(month) - 1; // bloody 0-indexed month
   const yearNumber = Number(year);
 
-  const d = new Date(`${month}-${day}-${year}`);
+  const d = new Date(yearNumber, monthNumber, dayNumber);
 
   const yearMatches = d.getFullYear() === yearNumber;
   const monthMatches = d.getMonth() === monthNumber;
