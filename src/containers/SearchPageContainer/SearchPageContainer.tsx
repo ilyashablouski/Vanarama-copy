@@ -689,11 +689,13 @@ const SearchPageContainer: React.FC<IProps> = ({
 
         <section className="row:featured-right">
           {pageData?.genericPage?.featuredImage?.file?.url && (
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={pageData.genericPage.featuredImage.file.url}
-              alt="Featured image"
-            />
+            <div>
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                src={pageData.genericPage.featuredImage.file.url}
+                alt="Featured image"
+              />
+            </div>
           )}
 
           <div>
@@ -779,11 +781,13 @@ const SearchPageContainer: React.FC<IProps> = ({
       {!(isSpecialOfferPage && isCarSearch) && featured && (
         <div className={`row:${getFeaturedClassPartial(featured)}`}>
           {!featured?.layout?.includes('Full Width') && (
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              size="expand"
-              src={featured.image?.file?.url || ''}
-            />
+            <div>
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                size="expand"
+                src={featured.image?.file?.url || ''}
+              />
+            </div>
           )}
           <div>
             <div
