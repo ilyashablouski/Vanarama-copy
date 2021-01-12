@@ -37,6 +37,7 @@ import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
 } from '../../../generated/GetTrimAndColor';
+import { GetProductCard } from '../../../generated/GetProductCard';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
@@ -113,6 +114,7 @@ interface IDetailsPageProps {
   genericPages: GenericPages[] | null | undefined;
   trimList: ITrimList[];
   colourList: IColourList[];
+  productCard: GetProductCard | null;
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -128,6 +130,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   genericPages,
   trimList,
   colourList,
+  productCard,
 }) => {
   const router = useRouter();
   // pass cars prop(Boolean)
@@ -450,9 +453,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           onCompleted={values => onSubmitClick(values)}
         />
       )}
-      {!!capsId?.length && (
+      {(!!productCard || !!capsId?.length) && (
         <CustomerAlsoViewedContainer
-          capsId={capsId}
+          initProductCard={productCard}
+          capsId={capsId || []}
           vehicleType={vehicleType}
           leaseType={leaseType.toUpperCase() || ''}
         />

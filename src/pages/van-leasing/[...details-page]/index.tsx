@@ -44,6 +44,11 @@ import {
   GetTrimAndColor_trimList as ITrimList,
   GetTrimAndColorVariables,
 } from '../../../../generated/GetTrimAndColor';
+import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
+import {
+  GetProductCard,
+  GetProductCardVariables,
+} from '../../../../generated/GetProductCard';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -56,6 +61,7 @@ interface IProps {
   genericPages: GenericPages[];
   trim: ITrimList[];
   colour: IColourList[];
+  productCard: GetProductCard | null;
 }
 
 const VanDetailsPage: NextPage<IProps> = ({
@@ -68,6 +74,7 @@ const VanDetailsPage: NextPage<IProps> = ({
   genericPages,
   trim,
   colour,
+  productCard,
 }) => {
   const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
 
@@ -200,6 +207,7 @@ const VanDetailsPage: NextPage<IProps> = ({
         quote={quote}
         genericPageHead={genericPageHead}
         genericPages={genericPages}
+        productCard={productCard}
       />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
@@ -293,6 +301,25 @@ export async function getServerSideProps(context: NextPageContext) {
       breadcrumbSlugsArray.slice(0, id + 1).join('/'),
     );
 
+    const capsIds =
+      getCarDataQuery.data?.vehicleDetails?.relatedVehicles?.map(
+        el => el?.capId || '',
+      ) || [];
+
+    let productCard = null;
+
+    if (capsIds.length) {
+      productCard = await client.query<GetProductCard, GetProductCardVariables>(
+        {
+          query: GET_PRODUCT_CARDS_DATA,
+          variables: {
+            capIds: capsIds,
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        },
+      );
+    }
+
     const genericPages = await client
       .query({
         query: GET_LEGACY_URLS,
@@ -312,6 +339,7 @@ export async function getServerSideProps(context: NextPageContext) {
         colour: trimAndColorData?.data?.colourList || null,
         genericPageHead: data,
         genericPages,
+        productCard,
       },
     };
   } catch (error) {
