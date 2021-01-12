@@ -25,10 +25,12 @@ interface ITopInfoBlockProps {
 const TopInfoBlock = React.memo(({ topInfoSection }: ITopInfoBlockProps) => {
   return topInfoSection ? (
     <section className={`row:${getFeaturedClassPartial(topInfoSection)}`}>
-      <Image
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        src={topInfoSection.featured?.image?.file?.url || ''}
-      />
+      <div>
+        <Image
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          src={topInfoSection.featured?.image?.file?.url || ''}
+        />
+      </div>
       <div>
         <Heading
           size="large"
