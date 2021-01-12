@@ -27,6 +27,9 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
 });
+const Flame = dynamic(() => import('core/assets/icons/Flame'), {
+  ssr: false,
+});
 const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
   {
@@ -93,7 +96,7 @@ export const OffersPage: NextPage<IProps> = ({
       <div className="row:plain-hero">
         <div className="-col-100">
           <Heading color="black" size="xlarge" tag="h1">
-            <Icon name="Flame" color="orange" /> {metaData?.name}
+            <Icon icon={<Flame />} color="orange" /> {metaData?.name}
           </Heading>
           <Text size="large" color="darker">
             {genericPageCMS?.genericPage.intro}
@@ -105,7 +108,7 @@ export const OffersPage: NextPage<IProps> = ({
               color="orange"
               label={
                 <>
-                  <Icon name="Flame" color="white" /> Vans
+                  <Icon icon={<Flame />} color="white" /> Vans
                 </>
               }
               icon={<ArrowForwardSharp />}
@@ -122,7 +125,7 @@ export const OffersPage: NextPage<IProps> = ({
               color="orange"
               label={
                 <>
-                  <Icon name="Flame" color="white" /> Trucks
+                  <Icon icon={<Flame />} color="white" /> Trucks
                 </>
               }
               icon={<ArrowForwardSharp />}
@@ -139,7 +142,7 @@ export const OffersPage: NextPage<IProps> = ({
               color="orange"
               label={
                 <>
-                  <Icon name="Flame" color="white" /> Cars
+                  <Icon icon={<Flame />} color="white" /> Cars
                 </>
               }
               icon={<ArrowForwardSharp />}
