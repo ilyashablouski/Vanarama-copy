@@ -781,11 +781,13 @@ const SearchPageContainer: React.FC<IProps> = ({
       {!(isSpecialOfferPage && isCarSearch) && featured && (
         <div className={`row:${getFeaturedClassPartial(featured)}`}>
           {!featured?.layout?.includes('Full Width') && (
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              size="expand"
-              src={featured.image?.file?.url || ''}
-            />
+            <div>
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                size="expand"
+                src={featured.image?.file?.url || ''}
+              />
+            </div>
           )}
           <div>
             <div
