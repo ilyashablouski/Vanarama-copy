@@ -38,7 +38,7 @@ const Slider: FC<ICarouselProps> = () => {
       >
         {items.map(item => {
           return (
-            <div>
+            <div key={item.title}>
               <div className="text -small -black">
                 <b>{item.title}</b>
               </div>
