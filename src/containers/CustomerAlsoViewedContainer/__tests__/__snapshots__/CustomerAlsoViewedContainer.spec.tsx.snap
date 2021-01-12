@@ -2,46 +2,6 @@
 
 exports[`<CustomerAlsoViewedContainer /> renders correctly with empty data 1`] = `null`;
 
-exports[`<CustomerAlsoViewedContainer /> renders correctly with error 1`] = `
-<div
-  className="pdp--content"
-  style={
-    Object {
-      "alignItems": "center",
-      "display": "flex",
-      "minHeight": "10rem",
-    }
-  }
->
-  message
-</div>
-`;
+exports[`<CustomerAlsoViewedContainer /> renders correctly with error 1`] = `null`;
 
-exports[`<CustomerAlsoViewedContainer /> renders correctly with loading 1`] = `
-<div
-  className="pdp--content"
-  style={
-    Object {
-      "alignItems": "center",
-      "display": "flex",
-      "minHeight": "10rem",
-    }
-  }
->
-  <div
-    className="loading -xlarge"
-  >
-    <svg
-      className="loading--svg"
-      viewBox="-75 -75 150 150"
-    >
-      <circle
-        className="loading--stroke"
-        cx="0"
-        cy="0"
-        r="37.5"
-      />
-    </svg>
-  </div>
-</div>
-`;
+exports[`<CustomerAlsoViewedContainer /> renders correctly with loading 1`] = `null`;
