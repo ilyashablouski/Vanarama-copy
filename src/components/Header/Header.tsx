@@ -4,7 +4,7 @@ import React, { FC, memo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import disableScroll from 'disable-scroll';
+import { disableBodyScroll, enableBodyScroll } from 'body-scroll-lock';
 
 import cx from 'classnames';
 import localForage from 'localforage';
@@ -120,10 +120,11 @@ export const Header: FC<IHeaderProps> = memo(props => {
   }, [router]);
 
   useEffect(() => {
+    const el = document.querySelector('#nav');
     if (isMenuOpen) {
-      disableScroll.on();
+      disableBodyScroll(el);
     } else {
-      disableScroll.off();
+      enableBodyScroll(el);
     }
   }, [isMenuOpen]);
 
