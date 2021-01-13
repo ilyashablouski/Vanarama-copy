@@ -8,7 +8,7 @@ export const formValuesToInput = (
   values: IAboutFormValues,
   data?: IRegistrationResult | null,
 ): PersonInputObject => {
-  const dateOfBirth = `-${values.yearOfBirth}-${values.monthOfBirth}-${values.dayOfBirth}`;
+  const dateOfBirth = `${values.yearOfBirth}-${values.monthOfBirth}-${values.dayOfBirth}`;
 
   return {
     uuid: data?.uuid,
