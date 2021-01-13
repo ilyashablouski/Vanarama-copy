@@ -122,6 +122,8 @@ interface IProps {
   preLoadVehiclesList?: IVehiclesData;
   preLoadProductCardsData?: GetProductCard;
   preLoadResponseCapIds?: string[];
+  preLoadTopOffersList?: IVehiclesData;
+  preLoadTopOffersCardsData?: GetProductCard;
   preLoadRanges?: rangeList;
   rangesUrls?: ILegacyUrls[];
   makesUrls?: ILegacyUrls[];
@@ -159,6 +161,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadManufacturers,
   preloadMake,
   preloadRange,
+  preLoadTopOffersList,
+  preLoadTopOffersCardsData,
 }: IProps) => {
   const router = useRouter();
   const isDynamicFilterPage = useMemo(
@@ -781,11 +785,13 @@ const SearchPageContainer: React.FC<IProps> = ({
       {!(isSpecialOfferPage && isCarSearch) && featured && (
         <div className={`row:${getFeaturedClassPartial(featured)}`}>
           {!featured?.layout?.includes('Full Width') && (
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              size="expand"
-              src={featured.image?.file?.url || ''}
-            />
+            <div>
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                size="expand"
+                src={featured.image?.file?.url || ''}
+              />
+            </div>
           )}
           <div>
             <div
@@ -855,9 +861,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           isPickups={isPickups || false}
           isSpecialOfferPage={isSpecialOfferPage || false}
           manualBodyStyle={manualBodyStyle}
-          preLoadVehiclesList={preLoadVehiclesList}
+          preLoadVehiclesList={preLoadTopOffersList}
           preloadBodyStyleList={preloadBodyStyleList}
-          preLoadProductCardsData={preLoadProductCardsData}
+          preLoadProductCardsData={preLoadTopOffersCardsData}
           preloadMake={preloadMake}
           preloadRange={preloadRange}
         />
