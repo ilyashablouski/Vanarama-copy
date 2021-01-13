@@ -2,7 +2,6 @@
 import React, { FC, memo } from 'react';
 
 const DataLayer: FC = () => {
-
   /* React.useEffect(() => {
     Object.assign(preparedData, {
       deviceType: window.navigator.userAgent,
