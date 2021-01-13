@@ -58,6 +58,8 @@ interface IProps extends ISearchPageProps {
   vehiclesList?: vehicleList;
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
+  topOffersList?: vehicleList;
+  topOffersCardsData?: GetProductCard;
 }
 
 const Page: NextPage<IProps> = ({
@@ -73,6 +75,8 @@ const Page: NextPage<IProps> = ({
   rangesUrls,
   error,
   notFoundPageData,
+  topOffersList,
+  topOffersCardsData,
 }) => {
   const router = useRouter();
   useEffect(() => {
@@ -117,6 +121,8 @@ const Page: NextPage<IProps> = ({
       preLoadVehiclesList={vehiclesList}
       preLoadProductCardsData={productCardsData}
       preLoadResponseCapIds={responseCapIds}
+      preLoadTopOffersList={topOffersList}
+      preLoadTopOffersCardsData={topOffersCardsData}
     />
   );
 };
@@ -126,6 +132,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let ranges;
   let rangesUrls;
   let vehiclesList;
+  let topOffersCardsData;
   let productCardsData;
   let responseCapIds;
   const filter = {} as any;
@@ -170,7 +177,7 @@ export async function getServerSideProps(context: NextPageContext) {
       query.pricePerMonth =
         budgetMapper[query.dynamicParam as keyof typeof budgetMapper];
     }
-    if (Object.keys(context.query).length === 1) {
+    if (Object.keys(context.query).length === 2) {
       vehiclesList = await client
         .query({
           query: GET_VEHICLE_LIST,
@@ -243,6 +250,35 @@ export async function getServerSideProps(context: NextPageContext) {
     },
   });
   const [type] = Object.entries(pageType).find(([, value]) => value) || '';
+  const topOffersList = await client
+    .query({
+      query: GET_VEHICLE_LIST,
+      variables: {
+        vehicleTypes: [VehicleTypeEnum.CAR],
+        leaseType: LeaseTypeEnum.PERSONAL,
+        onOffer: true,
+        first: pageType.isMakePage ? 6 : 3,
+        sortField: SortField.offerRanking,
+        sortDirection: SortDirection.ASC,
+        ...filter,
+      },
+    })
+    .then(resp => resp.data);
+  const topOffersListCapIds = getCapsIds(
+    topOffersList.vehicleList?.edges || [],
+  );
+  if (topOffersListCapIds.length) {
+    topOffersCardsData = await client
+      .query({
+        query: GET_PRODUCT_CARDS_DATA,
+        variables: {
+          capIds: topOffersListCapIds,
+          vehicleType: VehicleTypeEnum.CAR,
+        },
+      })
+      .then(resp => resp.data);
+  }
+
   try {
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
@@ -260,6 +296,8 @@ export async function getServerSideProps(context: NextPageContext) {
         vehiclesList: vehiclesList || null,
         productCardsData: productCardsData || null,
         responseCapIds: responseCapIds || null,
+        topOffersList: topOffersList || null,
+        topOffersCardsData: topOffersCardsData || null,
         ranges: ranges || null,
         rangesUrls: rangesUrls || null,
         error: errors ? errors[0] : null,
