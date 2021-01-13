@@ -9,9 +9,10 @@ import {
   GetVehicleDetails_vehicleConfigurationByCapId,
 } from '../../generated/GetVehicleDetails';
 import {
-  OrderInputObject,
   LeaseTypeEnum,
   LineItemInputObject,
+  OrderInputObject,
+  VehicleTypeEnum,
 } from '../../generated/globalTypes';
 import { GetPerson } from '../../generated/GetPerson';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
@@ -394,7 +395,36 @@ export const pushAboutYouDataLayer = (
         actionField: {
           step: '1',
         },
-        products: [{}],
+        products: [
+          {
+            id: derivativeData?.id || 'undefined',
+            name: derivativeData?.name || 'undefined',
+            price: `${lineItem?.vehicleProduct?.monthlyPayment}` || 'undefined',
+            category: getCategory({
+              cars:
+                lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.CAR,
+              pickups: derivativeData?.bodyStyle?.name === 'Pickup',
+              vans:
+                lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.LCV,
+            }),
+            brand: derivativeData?.manufacturer.name || 'undefined',
+            variant: derivativeData?.range.name || 'undefined',
+            quantity: `${lineItem?.quantity}`,
+            vehicleModel: derivativeData?.model.name || 'undefined',
+            annualMileage:
+              `${lineItem?.vehicleProduct?.annualMileage}` || 'undefined',
+            journeyType: detailsData?.leaseType || 'undefined',
+            priceType:
+              detailsData?.leaseType === LeaseTypeEnum.BUSINESS
+                ? PRICE_TYPE.excVAT
+                : PRICE_TYPE.incVAT,
+            lengthOfLease: `${lineItem?.vehicleProduct?.term}` || 'undefined',
+            initialPayment:
+              `${lineItem?.vehicleProduct?.depositPayment}` || 'undefined',
+            addMaintenance:
+              `${lineItem?.vehicleProduct?.maintenancePrice}` || 'undefined',
+          },
+        ],
       },
     },
   };
