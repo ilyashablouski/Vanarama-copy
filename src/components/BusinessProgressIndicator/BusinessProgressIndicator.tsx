@@ -68,7 +68,7 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
     if (isMobile && !!document) {
       scrollingSteps(currentStep);
     }
-  }, []);
+  }, [isMobile]);
 
   return (
     <ProgressIndicator activeStep={activeStep || 0} id="progress-indicator">
