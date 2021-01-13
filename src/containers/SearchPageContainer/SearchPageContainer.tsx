@@ -122,6 +122,8 @@ interface IProps {
   preLoadVehiclesList?: IVehiclesData;
   preLoadProductCardsData?: GetProductCard;
   preLoadResponseCapIds?: string[];
+  preLoadTopOffersList?: IVehiclesData;
+  preLoadTopOffersCardsData?: GetProductCard;
   preLoadRanges?: rangeList;
   rangesUrls?: ILegacyUrls[];
   makesUrls?: ILegacyUrls[];
@@ -159,6 +161,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadManufacturers,
   preloadMake,
   preloadRange,
+  preLoadTopOffersList,
+  preLoadTopOffersCardsData,
 }: IProps) => {
   const router = useRouter();
   const isDynamicFilterPage = useMemo(
@@ -853,9 +857,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           isPickups={isPickups || false}
           isSpecialOfferPage={isSpecialOfferPage || false}
           manualBodyStyle={manualBodyStyle}
-          preLoadVehiclesList={preLoadVehiclesList}
+          preLoadVehiclesList={preLoadTopOffersList}
           preloadBodyStyleList={preloadBodyStyleList}
-          preLoadProductCardsData={preLoadProductCardsData}
+          preLoadProductCardsData={preLoadTopOffersCardsData}
           preloadMake={preloadMake}
           preloadRange={preloadRange}
         />
