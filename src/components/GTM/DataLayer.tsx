@@ -22,7 +22,7 @@ const DataLayer: FC = () => {
         BCUID: getCookie('BCSessionID'),
         deviceType: window.navigator.userAgent,
     });
-  })(window, document');
+  })(window, document);
   `;
 
   return process.env.GTM_ID ? (
