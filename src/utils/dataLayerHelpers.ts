@@ -284,7 +284,7 @@ export const pushPDPDataLayer = ({
     eventCategory: 'Ecommerce',
     eventAction: 'PDP View',
     eventLabel:
-      `${derivativeInfo?.manufacturer.name} ${derivativeInfo?.range.name} ${derivativeInfo?.name} ` ||
+      `${derivativeInfo?.manufacturer.name} ${derivativeInfo?.range.name} ${derivativeInfo?.name}` ||
       'undefined',
     eventValue: `${price || 'undefined'}`,
     ecommerce: {
