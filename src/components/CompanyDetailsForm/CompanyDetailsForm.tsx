@@ -57,11 +57,11 @@ const CompanyDetailsForm: React.FC<IProps> = ({
   );
 
   useEffect(() => {
-    if (company !== undefined && companySearchResult === undefined) {
+    if (company && companySearchResult) {
       methods.reset(company);
       setProceedCompany(company?.companySearchResult);
       setHasConfirmedCompany(true);
-      setNatureOfBusiness(company.nature.split('.'));
+      setNatureOfBusiness(company.nature?.split('.') || []);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [company]);
