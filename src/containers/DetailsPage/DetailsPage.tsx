@@ -427,7 +427,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <WhyChooseLeasing warranty={warranty || ''} />
         <WhyChooseVanarama />
         <div className="pdp--reviews">
-          <CustomerReviews reviews={reviews || []} title="Customer Reviews" />
+          <CustomerReviews
+            reviews={reviews || []}
+            title="Customer Reviews"
+            sliderClassName="customer-reviews"
+          />
         </div>
         <FrequentlyAskedQuestions
           rangeFAQ={rangeFAQs || []}
