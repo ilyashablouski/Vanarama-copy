@@ -41,6 +41,8 @@ interface IProps extends ISearchPageProps {
   bodyStyleList?: IModelsData[];
   makeParam: string;
   rangeParam?: string;
+  topOffersList?: vehicleList;
+  topOffersCardsData?: GetProductCard;
 }
 
 const Page: NextPage<IProps> = ({
@@ -56,6 +58,8 @@ const Page: NextPage<IProps> = ({
   filtersData,
   rangeParam,
   makeParam,
+  topOffersList,
+  topOffersCardsData,
 }) => {
   const router = useRouter();
 
@@ -104,6 +108,8 @@ const Page: NextPage<IProps> = ({
       preLoadFiltersData={filtersData}
       preloadMake={makeParam}
       preloadRange={rangeParam}
+      preLoadTopOffersList={topOffersList}
+      preLoadTopOffersCardsData={topOffersCardsData}
     />
   );
 };
@@ -116,6 +122,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let productCardsData;
   let responseCapIds;
   let bodyStyleList;
+  let topOffersCardsData;
   try {
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
@@ -196,6 +203,35 @@ export async function getServerSideProps(context: NextPageContext) {
         rangeSlug: (context?.query?.rangeName as string).toLowerCase(),
       },
     });
+    const topOffersList = await client
+      .query({
+        query: GET_VEHICLE_LIST,
+        variables: {
+          vehicleTypes: [VehicleTypeEnum.CAR],
+          leaseType: LeaseTypeEnum.PERSONAL,
+          onOffer: true,
+          first: 3,
+          sortField: SortField.offerRanking,
+          sortDirection: SortDirection.ASC,
+          manufacturerSlug: makeName,
+          rangeSlug: rangeName,
+        },
+      })
+      .then(resp => resp.data);
+    const topOffersListCapIds = getCapsIds(
+      topOffersList.vehicleList?.edges || [],
+    );
+    if (topOffersListCapIds.length) {
+      topOffersCardsData = await client
+        .query({
+          query: GET_PRODUCT_CARDS_DATA,
+          variables: {
+            capIds: topOffersListCapIds,
+            vehicleType: VehicleTypeEnum.CAR,
+          },
+        })
+        .then(resp => resp.data);
+    }
     return {
       props: {
         pageData: data,
@@ -204,6 +240,8 @@ export async function getServerSideProps(context: NextPageContext) {
         vehiclesList: vehiclesList || null,
         bodyStyleList: bodyStyleList || null,
         productCardsData: productCardsData || null,
+        topOffersList: topOffersList || null,
+        topOffersCardsData: topOffersCardsData || null,
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
         filtersData: filtersData?.filterList || null,

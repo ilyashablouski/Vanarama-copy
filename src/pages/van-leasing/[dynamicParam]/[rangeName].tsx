@@ -31,6 +31,8 @@ interface IProps extends ISearchPageProps {
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
   filtersData?: IFilterList | undefined;
+  topOffersList?: vehicleList;
+  topOffersCardsData?: GetProductCard;
 }
 
 const Page: NextPage<IProps> = ({
@@ -43,6 +45,8 @@ const Page: NextPage<IProps> = ({
   error,
   notFoundPageData,
   filtersData,
+  topOffersList,
+  topOffersCardsData,
 }) => {
   const router = useRouter();
 
@@ -84,6 +88,8 @@ const Page: NextPage<IProps> = ({
       preLoadProductCardsData={productCardsData}
       preLoadResponseCapIds={responseCapIds}
       preLoadFiltersData={filtersData}
+      preLoadTopOffersList={topOffersList}
+      preLoadTopOffersCardsData={topOffersCardsData}
     />
   );
 };
@@ -93,6 +99,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let vehiclesList;
   let productCardsData;
   let responseCapIds;
+  let topOffersCardsData;
   try {
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
@@ -145,6 +152,36 @@ export async function getServerSideProps(context: NextPageContext) {
         rangeSlug: (context?.query?.rangeName as string).toLowerCase(),
       },
     });
+    const topOffersList = await client
+      .query({
+        query: GET_VEHICLE_LIST,
+        variables: {
+          vehicleTypes: [VehicleTypeEnum.LCV],
+          leaseType: LeaseTypeEnum.PERSONAL,
+          onOffer: true,
+          first: 3,
+          sortField: SortField.offerRanking,
+          sortDirection: SortDirection.ASC,
+          manufacturerSlug: (context?.query
+            ?.dynamicParam as string).toLowerCase(),
+          rangeSlug: (context?.query?.rangeName as string).toLowerCase(),
+        },
+      })
+      .then(resp => resp.data);
+    const topOffersListCapIds = getCapsIds(
+      topOffersList.vehicleList?.edges || [],
+    );
+    if (topOffersListCapIds.length) {
+      topOffersCardsData = await client
+        .query({
+          query: GET_PRODUCT_CARDS_DATA,
+          variables: {
+            capIds: topOffersListCapIds,
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        })
+        .then(resp => resp.data);
+    }
     return {
       props: {
         pageData: data,
@@ -155,6 +192,8 @@ export async function getServerSideProps(context: NextPageContext) {
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
         filtersData: filtersData?.filterList || null,
+        topOffersList: topOffersList || null,
+        topOffersCardsData: topOffersCardsData || null,
       },
     };
   } catch {
