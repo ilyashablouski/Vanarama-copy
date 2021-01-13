@@ -177,7 +177,7 @@ export async function getServerSideProps(context: NextPageContext) {
       query.pricePerMonth =
         budgetMapper[query.dynamicParam as keyof typeof budgetMapper];
     }
-    if (Object.keys(context.query).length === 2) {
+    if (Object.keys(context.query).length === 1) {
       vehiclesList = await client
         .query({
           query: GET_VEHICLE_LIST,

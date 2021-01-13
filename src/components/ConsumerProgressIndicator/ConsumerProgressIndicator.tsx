@@ -51,7 +51,7 @@ const ConsumerProgressIndicator: React.FC = () => {
     if (isMobile && !!document) {
       scrollingSteps(currentStep);
     }
-  }, []);
+  }, [isMobile]);
 
   return (
     <ProgressIndicator activeStep={activeStep || 0} id="progress-indicator">
