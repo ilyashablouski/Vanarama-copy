@@ -130,6 +130,13 @@ $carousel-arrow-size: 1.5rem;
     }
   }
 
+  &.customer-reviews {
+    ul,
+    li {
+      min-height: 10rem;
+    }
+  }
+
   .card {
     height: 100%;
     .title {
