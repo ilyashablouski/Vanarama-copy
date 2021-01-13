@@ -12,7 +12,7 @@ const DataLayer: FC = () => {
   /* const data = JSON.stringify(preparedData); */
 
   const code = `
-  (function(window, document, section, pType) {
+  (function(window, document, section) {
     function getCookie(name) {
         var v = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
         return v ? v[2] : undefined;
