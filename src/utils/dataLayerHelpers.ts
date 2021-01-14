@@ -181,6 +181,11 @@ export const pushPageData = async ({
       siteSection: pageData?.siteSection || 'undefined',
     };
   }
+  const getCookie = (name: string) => {
+    const v = document.cookie.match(`(^|;) ?${name}=([^;]*)(;|$)`);
+    return v ? v[2] : undefined;
+  };
+  pushDetail('BCUID', getCookie('BCSessionID') || 'undefined', data);
 
   pushDetail('customerId', person?.uuid || 'undefined', data);
   pushDetail('deviceType', getDeviceType(), data);
