@@ -432,16 +432,18 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             height="360px"
           />
         ) : (
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src={
-              getSectionsData(
-                ['featured1', 'image', 'file', 'url'],
-                data?.homePage.sections,
-              ) ||
-              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-            }
-          />
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={
+                getSectionsData(
+                  ['featured1', 'image', 'file', 'url'],
+                  data?.homePage.sections,
+                ) ||
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+              }
+            />
+          </div>
         )}
       </section>
 
@@ -458,16 +460,18 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             height="360px"
           />
         ) : (
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src={
-              getSectionsData(
-                ['featured2', 'image', 'file', 'url'],
-                data?.homePage.sections,
-              ) ||
-              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-            }
-          />
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={
+                getSectionsData(
+                  ['featured2', 'image', 'file', 'url'],
+                  data?.homePage.sections,
+                ) ||
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+              }
+            />
+          </div>
         )}
         <div>
           <Heading
