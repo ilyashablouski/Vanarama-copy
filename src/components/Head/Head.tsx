@@ -48,9 +48,6 @@ const Head: FC<IHeadProps> = props => {
   return (
     <NextHead>
       <title>{title}</title>
-      {/* Preload and Preconnect */}
-      <link rel="preload" href="/styles/base.css" as="style" />
-      <link rel="preload" href="/styles/deferred.css" as="style" />
       {FONT_LIST.map(font => {
         return (
           <link
