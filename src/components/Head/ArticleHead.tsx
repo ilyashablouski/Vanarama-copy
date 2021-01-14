@@ -7,6 +7,27 @@ import { IHeadProps } from './interface';
 import { defaultTitle, twitter, fb } from './defaults';
 import { FONT_LIST, FONT_PATH } from './fonts';
 
+const env = process?.env?.ENV || '';
+
+// Script environments
+const scriptEnvs = {
+  gtm: ['dev', 'uat', 'pre-prod', 'prod'],
+
+  blueconic: ['dev', 'uat', 'pre-prod', 'prod'],
+
+  // vwo: ['uat', 'pre-prod', 'prod'],
+};
+
+const PRECONNECT = [
+  process?.env?.API_URL?.replace('/graphql/', ''),
+  process.env.STATIC_DOMAIN,
+  '//cdn.embedly.com',
+  'https://cdn.blueconic.net',
+  'https://www.riddle.com',
+  'https://widget.trustpilot.com',
+  // 'https://cdn.speedcurve.com',
+];
+
 const ArticleHead: FC<IHeadProps> = props => {
   const router = useRouter();
 
@@ -29,21 +50,44 @@ const ArticleHead: FC<IHeadProps> = props => {
     <>
       <NextHead>
         <title>{title}</title>
-        <link rel="icon" type="image/png" href="/favicon.png" />
+        {/* Preload and Preconnect */}
+        <link rel="preload" href="/styles/base.css" as="style" />
+        <link rel="preload" href="/styles/deferred.css" as="style" />
+        {FONT_LIST.map(font => {
+          return (
+            <link
+              key={font}
+              rel="preload"
+              as="font"
+              href={`${FONT_PATH}${font}`}
+              type="font/woff2"
+              crossOrigin="anonymous"
+            />
+          );
+        })}
+        {PRECONNECT.map(domain => {
+          return <link rel="dns-prefetch" href={domain} key={domain} />;
+        })}
+        {/* Style */}
+        <link rel="stylesheet" href="/styles/base.css" />
+        {/* Scripts */}
+        {scriptEnvs.blueconic.includes(env) && (
+          <script defer src="https://cdn.blueconic.net/vanarama.js" />
+        )}
+        {/* Meta */}
+        {metaRobots && <meta name="robots" content={metaRobots} />}
+        {metaDescription && (
+          <meta name="description" content={metaDescription} />
+        )}
         <meta property="og:type" content="article" />
         <meta property="og:locale" content="en_GB" />
         <meta property="og:title" content={title || defaultTitle} />
         <meta property="fb:app_id" content={String(fb.appId)} />
         <meta property="fb:admins" content={String(fb.admins)} />
-        {metaRobots && <meta name="robots" content={metaRobots} />}
         {metaDescription && (
           <meta property="og:description" content={metaDescription} />
         )}
-        <link
-          rel="canonical"
-          href={canonicalUrl ?? legacyUrl ?? router.asPath}
-        />
-        {legacyUrl && <meta property="og:url" content={legacyUrl} />}
+        <meta property="og:url" content={legacyUrl ?? router.asPath} />
         <meta property="og:site_name" content={defaultTitle} />
         <meta
           property="article:publisher"
@@ -74,19 +118,12 @@ const ArticleHead: FC<IHeadProps> = props => {
         <meta name="twitter:title" content={title || defaultTitle} />
         <meta name="twitter:creator" content={twitter} />
         <meta name="twitter:site" content={twitter} />
-
-        {FONT_LIST.map(font => {
-          return (
-            <link
-              key={font}
-              rel="preload"
-              as="font"
-              href={`${FONT_PATH}${font}`}
-              type="font/woff2"
-              crossOrigin="anonymous"
-            />
-          );
-        })}
+        {/* Icon, Canonical */}
+        <link rel="icon" type="image/png" href="/favicon.png" />
+        <link
+          rel="canonical"
+          href={canonicalUrl ?? legacyUrl ?? router.asPath}
+        />
       </NextHead>
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
