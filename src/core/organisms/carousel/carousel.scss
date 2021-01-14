@@ -126,20 +126,20 @@ $carousel-arrow-size: 1.5rem;
   &.top-offers {
     ul,
     li {
-      min-height: 36rem;
+      min-height: 35rem;
     }
   }
 
   &.customer-reviews {
     ul,
     li {
-      min-height: 15rem;
+      min-height: 10rem;
     }
   }
 
-  // li {
-  //   display: flex !important;
-  // }
+  li {
+    display: flex !important;
+  }
 
   .card {
     .title {
