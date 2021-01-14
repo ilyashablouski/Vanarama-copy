@@ -3,11 +3,7 @@ import {
   DirectorFormValues,
   DirectorDetails,
 } from '../../components/DirectorDetailsForm/interfaces';
-import {
-  reverseDefaultFormatDate,
-  historyToDateObject,
-  parseDate,
-} from '../../utils/dates';
+import { parseDate } from '../../utils/dates';
 import { SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates as Associate } from '../../../generated/SaveDirectorDetailsMutation';
 
 export const mapFormValues = (
@@ -19,7 +15,7 @@ export const mapFormValues = (
     director.history.map(directorHistory => ({
       serviceId: directorHistory.address!.id,
       propertyStatus: directorHistory.status,
-      startedOn: reverseDefaultFormatDate(historyToDateObject(directorHistory)),
+      startedOn: `${directorHistory.year}-${directorHistory.month}-01`,
     }));
   return {
     person: {
