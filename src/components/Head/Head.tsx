@@ -63,8 +63,6 @@ const Head: FC<IHeadProps> = props => {
       {PRECONNECT.map(domain => {
         return <link rel="dns-prefetch" href={domain} key={domain} />;
       })}
-      {/* Style */}
-      <link rel="stylesheet" href="/styles/base.css" />
       {/* Scripts */}
       {scriptEnvs.blueconic.includes(env) && (
         <script defer src="https://cdn.blueconic.net/vanarama.js" />
