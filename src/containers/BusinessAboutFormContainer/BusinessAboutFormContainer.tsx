@@ -35,8 +35,13 @@ const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const savePersonUuid = async (data: SaveBusinessAboutYou) =>
+const savePersonUuid = async (data: SaveBusinessAboutYou) => {
   localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
+  localForage.setItem(
+    'personEmail',
+    data.createUpdateBusinessPerson?.emailAddresses[0].value,
+  );
+};
 
 export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerProps> = ({
   orderId,
