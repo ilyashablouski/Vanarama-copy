@@ -192,7 +192,11 @@ export const pushPageData = async ({
   if (!window.dataLayer) return;
   setDataLayer();
   const personData = (await localForage.getItem('person')) as GetPerson | null;
+  const personUuid = (await localForage.getItem('personUuid')) as string | null;
   const person = personData?.getPerson;
+  const personEmail =
+    (person?.emailAddresses && person?.emailAddresses[0]?.value) ||
+    ((await localForage.getItem('personEmail')) as string | null);
 
   let data = {};
 
@@ -216,13 +220,11 @@ export const pushPageData = async ({
     };
   }
 
-  pushDetail('customerId', person?.uuid || 'undefined', data);
+  pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
   pushDetail('deviceType', getDeviceType(), data);
   pushDetail(
     'visitorEmail',
-    person?.emailAddresses && person?.emailAddresses[0]?.value
-      ? sha256(person?.emailAddresses[0].value)
-      : 'undefined',
+    personEmail ? sha256(personEmail) : 'undefined',
     data,
   );
   window.dataLayer.push(data);
