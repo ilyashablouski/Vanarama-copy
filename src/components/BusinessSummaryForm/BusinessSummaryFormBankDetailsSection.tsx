@@ -10,8 +10,8 @@ interface IProps {
   onEdit: () => any;
 }
 
-const formatTimeAtBank = (year?: string, month?: string) =>
-  fullMonthFormatDate(new Date(`${year} ${month} 01`));
+const formatTimeAtBank = (year: string = '', month: string = '') =>
+  fullMonthFormatDate(new Date(parseInt(year, 10), parseInt(month, 10), 1));
 
 const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
   account,

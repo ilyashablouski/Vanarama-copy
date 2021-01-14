@@ -3,10 +3,6 @@ import { SoleTraderPerson as Person } from '../../../generated/SoleTraderPerson'
 import { CompanyAssociateInputObject } from '../../../generated/globalTypes';
 import { ISoleTraderDetailsFormValues } from './interfaces';
 import { addressToDisplay } from '../../utils/address';
-import {
-  reverseDefaultFormatDate,
-  historyToDateObject,
-} from '../../utils/dates';
 
 export const formValuesToAssociate = (
   values: ISoleTraderDetailsFormValues,
@@ -20,7 +16,6 @@ export const formValuesToAssociate = (
     firstName: values.firstName,
     lastName: values.lastName,
     gender: values.gender,
-    // emailAddress: { kind: 'Home', value: values.email, primary: true },
     dateOfBirth,
     countryOfBirth: values.placeOfBirth,
     nationality: values.nationality,
@@ -31,7 +26,7 @@ export const formValuesToAssociate = (
     addresses: values.history.map(item => ({
       serviceId: item.address?.id,
       propertyStatus: item.status,
-      startedOn: reverseDefaultFormatDate(historyToDateObject(item)),
+      startedOn: `${item.year}-${item.month}-01`,
     })),
     incomeAndExpense: {
       annualIncome: Number(values.annualIncome),
