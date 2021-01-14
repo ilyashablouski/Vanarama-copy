@@ -177,6 +177,8 @@ export async function getServerSideProps(context: NextPageContext) {
       query.pricePerMonth =
         budgetMapper[query.dynamicParam as keyof typeof budgetMapper];
     }
+    // length should be 2, because we added manually query param for dynamic param
+    // it's use for correct filters preselect
     if (Object.keys(context.query).length === 2) {
       vehiclesList = await client
         .query({
