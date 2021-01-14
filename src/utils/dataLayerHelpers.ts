@@ -240,7 +240,11 @@ const getProductData = ({
   const vehicleModel = vehicleConfigurationByCapId?.capModelDescription;
 
   pushDetail('id', capId, product);
-  pushDetail('name', derivativeInfo?.name, product);
+  pushDetail(
+    'name',
+    `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleModel} ${derivativeInfo?.name}`,
+    product,
+  );
   pushDetail('price', price, product);
   pushDetail('category', category, product);
   pushDetail(
@@ -317,7 +321,9 @@ export const pushPDPDataLayer = ({
     event: 'detailView',
     eventCategory: 'Ecommerce',
     eventAction: 'PDP View',
-    eventLabel: derivativeInfo?.name || 'undefined',
+    eventLabel:
+      `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capModelDescription} ${derivativeInfo?.name}` ||
+      'undefined',
     eventValue: `${price || 'undefined'}`,
     ecommerce: {
       currencyCode: 'GBP',
