@@ -5,6 +5,17 @@ import { IHeadProps } from './interface';
 import { defaultTitle, twitter, defaultImage, fb } from './defaults';
 import { FONT_LIST, FONT_PATH } from './fonts';
 
+const env = process?.env?.ENV || '';
+
+// Script environments
+const scriptEnvs = {
+  // gtm: ['dev', 'uat', 'pre-prod', 'prod'],
+
+  blueconic: ['dev', 'uat', 'pre-prod', 'prod'],
+
+  // vwo: ['uat', 'pre-prod', 'prod'],
+};
+
 // const STATIC_DOMAIN = 'https://static.vanarama-nonprod.com';
 
 const PRECONNECT = [
@@ -37,27 +48,9 @@ const Head: FC<IHeadProps> = props => {
   return (
     <NextHead>
       <title>{title}</title>
-      <link rel="icon" type="image/png" href="/favicon.png" />
-      <meta name="og:type" content="website" />
-      <meta property="og:locale" content="en_GB" />
-      <meta property="og:title" content={title || defaultTitle} />
-      <meta property="fb:app_id" content={String(fb.appId)} />
-      <meta property="fb:admins" content={String(fb.admins)} />
-      {metaRobots && <meta name="robots" content={metaRobots} />}
-      {metaDescription && (
-        <meta property="og:description" content={metaDescription} />
-      )}
-      {metaDescription && <meta name="description" content={metaDescription} />}
-      <link rel="canonical" href={canonicalUrl ?? legacyUrl ?? router.asPath} />
-      {legacyUrl && <meta property="og:url" content={legacyUrl} />}
-      <meta property="og:site_name" content={defaultTitle} />
-      <meta name="og:image" content={defaultImage} />
-      <meta name="twitter:image" content={defaultImage} />
-      <meta name="twitter:card" content="summary" />
-      <meta name="twitter:title" content={title || defaultTitle} />
-      <meta name="twitter:creator" content={twitter} />
-      <meta name="twitter:site" content={twitter} />
-
+      {/* Preload and Preconnect */}
+      <link rel="preload" href="/styles/base.css" as="style" />
+      <link rel="preload" href="/styles/deferred.css" as="style" />
       {FONT_LIST.map(font => {
         return (
           <link
@@ -70,10 +63,37 @@ const Head: FC<IHeadProps> = props => {
           />
         );
       })}
-
       {PRECONNECT.map(domain => {
         return <link rel="dns-prefetch" href={domain} key={domain} />;
       })}
+      {/* Style */}
+      <link rel="stylesheet" href="/styles/base.css" />
+      {/* Scripts */}
+      {scriptEnvs.blueconic.includes(env) && (
+        <script defer src="https://cdn.blueconic.net/vanarama.js" />
+      )}
+      {/* Meta */}
+      {metaRobots && <meta name="robots" content={metaRobots} />}
+      {metaDescription && <meta name="description" content={metaDescription} />}
+      <meta name="og:type" content="website" />
+      <meta property="og:locale" content="en_GB" />
+      <meta property="og:title" content={title || defaultTitle} />
+      <meta property="fb:app_id" content={String(fb.appId)} />
+      <meta property="fb:admins" content={String(fb.admins)} />
+      {metaDescription && (
+        <meta property="og:description" content={metaDescription} />
+      )}
+      <meta property="og:url" content={legacyUrl ?? router.asPath} />
+      <meta property="og:site_name" content={defaultTitle} />
+      <meta name="og:image" content={defaultImage} />
+      <meta name="twitter:image" content={defaultImage} />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:title" content={title || defaultTitle} />
+      <meta name="twitter:creator" content={twitter} />
+      <meta name="twitter:site" content={twitter} />
+      {/* Icon, Canonical */}
+      <link rel="icon" type="image/png" href="/favicon.png" />
+      <link rel="canonical" href={canonicalUrl ?? legacyUrl ?? router.asPath} />
     </NextHead>
   );
 };
