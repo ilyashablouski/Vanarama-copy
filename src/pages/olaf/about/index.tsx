@@ -139,7 +139,7 @@ const AboutYouPage: NextPage = () => {
   const clickOnComplete = async (
     createUpdatePerson: CreateUpdatePersonMutation_createUpdatePerson,
   ) => {
-    pushAboutYouDataLayer(detailsData, derivativeData, 'Car');
+    pushAboutYouDataLayer(detailsData, derivativeData);
     await refetch({
       uuid: createUpdatePerson.uuid,
     }).then(resp =>
