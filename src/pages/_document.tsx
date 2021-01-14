@@ -31,7 +31,7 @@ const env = process?.env?.ENV || '';
 const scriptEnvs = {
   gtm: ['dev', 'uat', 'pre-prod', 'prod'],
 
-  blueconic: ['dev', 'uat', 'pre-prod', 'prod'],
+  // blueconic: ['dev', 'uat', 'pre-prod', 'prod'],
 
   // vwo: ['uat', 'pre-prod', 'prod'],
 };
@@ -41,16 +41,10 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <HeadCustom>
-          {scriptEnvs.blueconic.includes(env) && (
-            <script defer src="https://cdn.blueconic.net/vanarama.js" />
-          )}
           {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
           {scriptEnvs.gtm.includes(env) && <GTMScript />}
           {/* <RollbarScript /> */}
           {/* <Inline /> */}
-          <link rel="preload" href="/styles/base.css" as="style" />
-          <link rel="preload" href="/styles/deferred.css" as="style" />
-          <link rel="stylesheet" href="/styles/base.css" />
         </HeadCustom>
         <body>
           <Main />
