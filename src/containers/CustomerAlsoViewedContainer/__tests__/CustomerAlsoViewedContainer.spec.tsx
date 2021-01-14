@@ -1,8 +1,10 @@
 import React from 'react';
+import { useLazyQuery } from '@apollo/client';
 import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
 import CustomerAlsoViewedContainer from '../CustomerAlsoViewedContainer';
-import { useProductCardDataQuery } from '../gql';
+
+jest.mock('@apollo/client');
 
 jest.mock('../gql');
 
@@ -19,11 +21,14 @@ describe('<CustomerAlsoViewedContainer />', () => {
   });
 
   it('renders correctly with loading', () => {
-    (useProductCardDataQuery as jest.Mock).mockReturnValue({
-      loading: true,
-      data: undefined,
-      error: undefined,
-    });
+    (useLazyQuery as jest.Mock).mockReturnValue([
+      jest.fn(),
+      {
+        loading: true,
+        data: undefined,
+        error: undefined,
+      },
+    ]);
 
     const getComponent = () => {
       return renderer
@@ -38,11 +43,14 @@ describe('<CustomerAlsoViewedContainer />', () => {
   });
 
   it('renders correctly with error', () => {
-    (useProductCardDataQuery as jest.Mock).mockReturnValue({
-      loading: false,
-      data: undefined,
-      error: { message: 'message' },
-    });
+    (useLazyQuery as jest.Mock).mockReturnValue([
+      jest.fn(),
+      {
+        loading: false,
+        data: undefined,
+        error: { message: 'message' },
+      },
+    ]);
 
     const getComponent = () => {
       return renderer
@@ -57,11 +65,14 @@ describe('<CustomerAlsoViewedContainer />', () => {
   });
 
   it('renders correctly with empty data', () => {
-    (useProductCardDataQuery as jest.Mock).mockReturnValue({
-      loading: false,
-      data: { productCards: [] },
-      error: undefined,
-    });
+    (useLazyQuery as jest.Mock).mockReturnValue([
+      jest.fn(),
+      {
+        loading: false,
+        data: { productCards: [] },
+        error: undefined,
+      },
+    ]);
 
     const getComponent = () => {
       return renderer
