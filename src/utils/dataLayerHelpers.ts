@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import Cookies from 'js-cookie';
 import localForage from 'localforage';
 import { sha256 } from 'js-sha256';
 import { NextRouter } from 'next/router';
@@ -181,11 +182,8 @@ export const pushPageData = async ({
       siteSection: pageData?.siteSection || 'undefined',
     };
   }
-  const getCookie = (name: string) => {
-    const v = document.cookie.match(`(^|;) ?${name}=([^;]*)(;|$)`);
-    return v ? v[2] : undefined;
-  };
-  pushDetail('BCUID', getCookie('BCSessionID') || 'undefined', data);
+
+  pushDetail('BCUID', Cookies.get('BCSessionID') || 'undefined', data);
 
   pushDetail('customerId', person?.uuid || 'undefined', data);
   pushDetail('deviceType', getDeviceType(), data);
