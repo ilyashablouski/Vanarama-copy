@@ -9,9 +9,10 @@ import {
   GetVehicleDetails_vehicleConfigurationByCapId,
 } from '../../generated/GetVehicleDetails';
 import {
-  OrderInputObject,
   LeaseTypeEnum,
   LineItemInputObject,
+  OrderInputObject,
+  VehicleTypeEnum,
 } from '../../generated/globalTypes';
 import { GetPerson } from '../../generated/GetPerson';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
@@ -113,6 +114,38 @@ export const getCategory = ({ cars, pickups }: ICategory): string => {
   return 'Van';
 };
 
+export const productsMapper = (
+  detailsData: OrderInputObject | null,
+  derivativeData: GetDerivative_derivative | null,
+) => {
+  const lineItem = detailsData?.lineItems?.[0];
+  return {
+    id: derivativeData?.id || 'undefined',
+    name: derivativeData?.name || 'undefined',
+    price: `${lineItem?.vehicleProduct?.monthlyPayment}` || 'undefined',
+    category: getCategory({
+      cars: lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.CAR,
+      pickups: derivativeData?.bodyType?.name?.includes('Pick-Up'),
+      vans: lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.LCV,
+    }),
+    brand: derivativeData?.manufacturer.name || 'undefined',
+    variant: derivativeData?.range.name || 'undefined',
+    quantity: `${lineItem?.quantity}`,
+    vehicleModel: derivativeData?.model.name || 'undefined',
+    annualMileage: `${lineItem?.vehicleProduct?.annualMileage}` || 'undefined',
+    journeyType: detailsData?.leaseType || 'undefined',
+    priceType:
+      detailsData?.leaseType === LeaseTypeEnum.BUSINESS
+        ? PRICE_TYPE.excVAT
+        : PRICE_TYPE.incVAT,
+    lengthOfLease: `${lineItem?.vehicleProduct?.term}` || 'undefined',
+    initialPayment:
+      `${lineItem?.vehicleProduct?.depositPayment}` || 'undefined',
+    addMaintenance:
+      `${lineItem?.vehicleProduct?.maintenancePrice}` || 'undefined',
+  };
+};
+
 export const getCategoryAboutYouData = (
   derivativeData: GetDerivative_derivative | null,
 ) => {
@@ -125,6 +158,7 @@ export const getCategoryAboutYouData = (
 
 export const pushToDataLayer = (data: IPageDataLayer) => {
   window.dataLayer?.push(data);
+  console.log('dataLayer', window.dataLayer);
 };
 
 export const pushDetail = (
@@ -386,7 +420,6 @@ export const pushAddToCartDataLayer = ({
 export const pushAboutYouDataLayer = (
   detailsData: OrderInputObject | null,
   derivativeData: GetDerivative_derivative | null,
-  type?: string,
 ) => {
   const lineItem = detailsData?.lineItems?.[0];
   const price = lineItem?.vehicleProduct?.monthlyPayment;
@@ -402,7 +435,7 @@ export const pushAboutYouDataLayer = (
         actionField: {
           step: '1',
         },
-        products: [{}],
+        products: [productsMapper(detailsData, derivativeData)],
       },
     },
   };
@@ -413,7 +446,11 @@ export const pushAboutYouDataLayer = (
     detailsData,
     derivativeData,
     price,
-    type,
+    type: getCategory({
+      cars: lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.CAR,
+      pickups: derivativeData?.bodyType?.name?.includes('Pick-Up'),
+      vans: lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.LCV,
+    }),
     lineItem,
   });
 
@@ -424,8 +461,6 @@ export const pushSummaryDataLayer = ({
   detailsData,
   derivativeData,
   orderId,
-  emailAddress,
-  type,
 }: ISummary) => {
   const lineItem = detailsData?.lineItems[0];
   const price = lineItem?.vehicleProduct?.monthlyPayment;
@@ -436,14 +471,13 @@ export const pushSummaryDataLayer = ({
     eventLabel: orderId || 'undefined',
     eventValue: `${price || 'undefined'}`,
     ecommerce: {
-      visitorEmail: emailAddress ? sha256(emailAddress) : 'undefined',
       currencyCode: 'GBP',
       purchase: {
         actionField: {
           id: orderId,
           revenue: `${price}`,
         },
-        products: [{}],
+        products: [productsMapper(detailsData, derivativeData)],
       },
     },
   };
@@ -454,7 +488,11 @@ export const pushSummaryDataLayer = ({
     detailsData,
     derivativeData,
     price,
-    type,
+    type: getCategory({
+      cars: lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.CAR,
+      pickups: derivativeData?.bodyType?.name?.includes('Pick-Up'),
+      vans: lineItem?.vehicleProduct?.vehicleType === VehicleTypeEnum.LCV,
+    }),
     lineItem,
   });
 
