@@ -7,10 +7,7 @@ import {
   SaveAddressHistoryMutation as Mutation,
   SaveAddressHistoryMutationVariables as MutationVariables,
 } from '../../../../generated/SaveAddressHistoryMutation';
-import {
-  reverseDefaultFormatDate,
-  historyToDateObject,
-} from '../../../utils/dates';
+import { parseDate } from '../../../utils/dates';
 import AddressFormContainer from '../AddressFormContainer';
 import {
   noSavedAddresses,
@@ -122,12 +119,7 @@ describe('<AddressFormContainer />', () => {
     const now = new Date();
     const lastYear = String(now.getFullYear() - 1);
     const currentMonth = String(now.getMonth() + 1);
-    const asDateString = reverseDefaultFormatDate(
-      historyToDateObject({
-        month: currentMonth,
-        year: lastYear,
-      }),
-    );
+    const asDateString = parseDate('01', currentMonth, lastYear);
 
     const onCompletedMock = jest.fn();
     const mocks: MockedResponse[] = [
@@ -157,7 +149,7 @@ describe('<AddressFormContainer />', () => {
                 {
                   serviceId: 'GB|002',
                   propertyStatus: 'Mortgage',
-                  startedOn: '1990-01-01',
+                  startedOn: '1990-1-01',
                 },
               ],
             },
@@ -227,12 +219,7 @@ describe('<AddressFormContainer />', () => {
     const now = new Date();
     const lastYear = String(now.getFullYear() - 1);
     const currentMonth = String(now.getMonth() + 1);
-    const asDateString = reverseDefaultFormatDate(
-      historyToDateObject({
-        month: currentMonth,
-        year: lastYear,
-      }),
-    );
+    const asDateString = parseDate('01', currentMonth, lastYear);
 
     const onCompletedMock = jest.fn();
     const mocks: MockedResponse[] = [
@@ -262,7 +249,7 @@ describe('<AddressFormContainer />', () => {
                 {
                   serviceId: 'GB|002',
                   propertyStatus: 'Mortgage',
-                  startedOn: '1990-01-01',
+                  startedOn: '1990-1-01',
                 },
               ],
             },

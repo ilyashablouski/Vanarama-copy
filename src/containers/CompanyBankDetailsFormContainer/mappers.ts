@@ -2,32 +2,31 @@ import { ICompanyBankDetails } from '../../components/CompanyBankDetails/interfa
 import { LimitedCompanyInputObject } from '../../../generated/globalTypes';
 import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
 import { UpdateLimitedBankDetailsMutation_createUpdateLimitedCompany_bankAccounts as BankAccount } from '../../../generated/UpdateLimitedBankDetailsMutation';
-import { reverseDefaultFormatDate } from '../../utils/dates';
+import { parseDate } from '../../utils/dates';
 
 export const formValuesToInput = (
   uuid: string,
   values: ICompanyBankDetails,
   accountUuid?: string,
   personUuid?: string,
-): LimitedCompanyInputObject => {
-  const joiningDate = `${values.joinedAtMonth}-01-${values.joinedAtYear}`;
-  const joiningDateFormatted = reverseDefaultFormatDate(new Date(joiningDate));
-
-  return {
-    uuid,
-    person: {
-      uuid: personUuid,
-    },
-    bankAccount: {
-      uuid: accountUuid || null,
-      bankName: values.bankName || null,
-      accountName: values.accountName || null,
-      accountNumber: values.accountNumber || null,
-      sortCode: values.sortCode?.join('') || null,
-      joinedAt: joiningDateFormatted,
-    },
-  };
-};
+): LimitedCompanyInputObject => ({
+  uuid,
+  person: {
+    uuid: personUuid,
+  },
+  bankAccount: {
+    uuid: accountUuid || null,
+    bankName: values.bankName || null,
+    accountName: values.accountName || null,
+    accountNumber: values.accountNumber || null,
+    sortCode: values.sortCode?.join('') || null,
+    joinedAt: parseDate(
+      '01',
+      values.joinedAtMonth || '',
+      values.joinedAtYear || '',
+    ),
+  },
+});
 
 export const mapBankAccountsForCreditApplication = (
   values: ICompanyBankDetails,
