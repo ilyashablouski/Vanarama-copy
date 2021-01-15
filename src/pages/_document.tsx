@@ -45,7 +45,6 @@ class MyDocument extends Document {
           {scriptEnvs.gtm.includes(env) && <GTMScript />}
           {/* <RollbarScript /> */}
           {/* <Inline /> */}
-          {/* Preload and Preconnect */}
           <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="preload" href="/styles/deferred.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" />
