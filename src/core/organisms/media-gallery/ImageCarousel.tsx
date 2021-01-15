@@ -64,7 +64,12 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
                 '-active': index === activeSlide,
               })}
             >
-              <Image src={image} size="expand" plain />
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                src={image}
+                size="expand"
+                plain
+              />
             </div>
           ))}
         </div>
@@ -98,7 +103,11 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
               })}
               onClick={() => onChangeSlide(index)}
             >
-              <Image src={image} size="xlarge" />
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                src={image}
+                size="xlarge"
+              />
             </div>
           ))}
         </div>

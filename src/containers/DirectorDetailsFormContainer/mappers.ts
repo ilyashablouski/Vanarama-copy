@@ -15,7 +15,7 @@ export const mapFormValues = (
     director.history.map(directorHistory => ({
       serviceId: directorHistory.address!.id,
       propertyStatus: directorHistory.status,
-      startedOn: `${directorHistory.year}-${directorHistory.month}-01`,
+      startedOn: parseDate('01', directorHistory.month, directorHistory.year),
     }));
   return {
     person: {
