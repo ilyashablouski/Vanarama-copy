@@ -51,8 +51,6 @@ const ArticleHead: FC<IHeadProps> = props => {
       <NextHead>
         <title>{title}</title>
         {/* Preload and Preconnect */}
-        <link rel="preload" href="/styles/base.css" as="style" />
-        <link rel="preload" href="/styles/deferred.css" as="style" />
         {FONT_LIST.map(font => {
           return (
             <link
@@ -68,8 +66,6 @@ const ArticleHead: FC<IHeadProps> = props => {
         {PRECONNECT.map(domain => {
           return <link rel="dns-prefetch" href={domain} key={domain} />;
         })}
-        {/* Style */}
-        <link rel="stylesheet" href="/styles/base.css" />
         {/* Scripts */}
         {scriptEnvs.blueconic.includes(env) && (
           <script defer src="https://cdn.blueconic.net/vanarama.js" />
