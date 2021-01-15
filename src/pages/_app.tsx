@@ -48,10 +48,6 @@ const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const Base = dynamic(() => import('../components/Style/Base'), {
-  ssr: false,
-});
-
 const Deferred = dynamic(() => import('../components/Style/Deferred'), {
   ssr: false,
 });
@@ -188,7 +184,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       <LazyLoadComponent>
         <ToastContainer />
       </LazyLoadComponent>
-      <Base />
       <Deferred />
     </>
   );
