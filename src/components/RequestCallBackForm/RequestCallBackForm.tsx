@@ -169,7 +169,7 @@ const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
                 </a>,
                 ' and ',
                 <a
-                  key="a"
+                  key="a-privacy"
                   className="link -teal"
                   href="/legal/privacy-policy.html"
                   target="_blank"
