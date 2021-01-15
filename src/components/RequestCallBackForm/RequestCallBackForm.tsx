@@ -158,7 +158,25 @@ const RequestCallBackForm: React.FC<IFleetCallBackFormProps> = ({
               id="agreement"
               name="agreement"
               dataTestId="fleet-call-back-form_agreement"
-              label="Terms & Conditions & Privacy Policy."
+              label={[
+                <a
+                  key="a"
+                  className="link -teal"
+                  href="/legal/terms-and-conditions.html"
+                  target="_blank"
+                >
+                  Terms and Conditions
+                </a>,
+                ' and ',
+                <a
+                  key="a"
+                  className="link -teal"
+                  href="/legal/privacy-policy.html"
+                  target="_blank"
+                >
+                  Privacy Policy
+                </a>,
+              ]}
               ref={register(
                 requiredField('The terms and conditions must be accepted'),
               )}

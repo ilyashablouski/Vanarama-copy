@@ -300,7 +300,7 @@ const AboutForm: FCWithFragments<IProps> = ({
             <a
               key="a"
               className="link -teal"
-              href="/legal/terms-and-conditions/"
+              href="/legal/terms-and-conditions.html"
               target="_blank"
             >
               Terms and Conditions
