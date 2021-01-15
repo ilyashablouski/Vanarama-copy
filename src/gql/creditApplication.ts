@@ -49,6 +49,7 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
           vehicleType
         }
       }
+      creditApplicationType
       leadManagerProposalId
       createdAt
       status
