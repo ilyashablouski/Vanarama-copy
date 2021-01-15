@@ -90,7 +90,7 @@ const VatDetailsForm: React.FC<IProps> = ({
         <FormGroup
           controlId="vatNumber"
           error={errors.vatNumber?.message?.toString()}
-          hint="Please enter your VAT number without characters"
+          hint="Please enter your VAT number without characters or spaces"
           label="VAT Number"
         >
           <TextInput

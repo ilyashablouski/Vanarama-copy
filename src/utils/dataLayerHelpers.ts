@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
+import Cookies from 'js-cookie';
 import localForage from 'localforage';
 import { sha256 } from 'js-sha256';
 import { NextRouter } from 'next/router';
@@ -220,6 +221,7 @@ export const pushPageData = async ({
     };
   }
 
+  pushDetail('BCUID', Cookies.get('BCSessionID') || 'undefined', data);
   pushDetail('customerId', person?.uuid || personUuid || 'undefined', data);
   pushDetail('deviceType', getDeviceType(), data);
   pushDetail(
