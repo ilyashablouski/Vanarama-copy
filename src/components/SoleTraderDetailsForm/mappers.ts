@@ -3,20 +3,22 @@ import { SoleTraderPerson as Person } from '../../../generated/SoleTraderPerson'
 import { CompanyAssociateInputObject } from '../../../generated/globalTypes';
 import { ISoleTraderDetailsFormValues } from './interfaces';
 import { addressToDisplay } from '../../utils/address';
+import { parseDate } from '../../utils/dates';
 
 export const formValuesToAssociate = (
   values: ISoleTraderDetailsFormValues,
   personUuid: string,
 ): CompanyAssociateInputObject => {
-  // YYYY-MM-DD
-  const dateOfBirth = `${values.yearOfBirth}-${values.monthOfBirth}-${values.dayOfBirth}`;
-
   return {
     title: values.title,
     firstName: values.firstName,
     lastName: values.lastName,
     gender: values.gender,
-    dateOfBirth,
+    dateOfBirth: parseDate(
+      values.dayOfBirth,
+      values.monthOfBirth,
+      values.yearOfBirth,
+    ),
     countryOfBirth: values.placeOfBirth,
     nationality: values.nationality,
     maritalStatus: values.maritalStatus,
@@ -26,7 +28,7 @@ export const formValuesToAssociate = (
     addresses: values.history.map(item => ({
       serviceId: item.address?.id,
       propertyStatus: item.status,
-      startedOn: `${item.year}-${item.month}-01`,
+      startedOn: parseDate('01', item.month, item.year),
     })),
     incomeAndExpense: {
       annualIncome: Number(values.annualIncome),
