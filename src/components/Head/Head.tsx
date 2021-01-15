@@ -89,6 +89,7 @@ const Head: FC<IHeadProps> = props => {
       {/* Icon, Canonical */}
       <link rel="icon" type="image/png" href="/favicon.png" />
       <link rel="canonical" href={canonicalUrl ?? legacyUrl ?? router.asPath} />
+      <link rel="stylesheet" href="/styles/base.css" />
     </NextHead>
   );
 };
