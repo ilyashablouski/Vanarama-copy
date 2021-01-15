@@ -210,7 +210,21 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                           <span
                             class="text -regular -darker"
                           >
-                            Terms & Conditions & Privacy Policy.
+                            <a
+                              class="link -teal"
+                              href="/legal/terms-and-conditions.html"
+                              target="_blank"
+                            >
+                              Terms and Conditions
+                            </a>
+                             and 
+                            <a
+                              class="link -teal"
+                              href="/legal/privacy-policy.html"
+                              target="_blank"
+                            >
+                              Privacy Policy
+                            </a>
                           </span>
                         </label>
                       </div>
