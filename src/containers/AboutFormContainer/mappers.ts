@@ -2,14 +2,13 @@
 import { PersonInputObject } from '../../../generated/globalTypes';
 import { IAboutFormValues } from '../../components/AboutForm/interface';
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
+import { parseDate } from '../../utils/dates';
 
 // eslint-disable-next-line import/prefer-default-export
 export const formValuesToInput = (
   values: IAboutFormValues,
   data?: IRegistrationResult | null,
 ): PersonInputObject => {
-  const dateOfBirth = `${values.yearOfBirth}-${values.monthOfBirth}-${values.dayOfBirth}`;
-
   return {
     uuid: data?.uuid,
     title: values.title,
@@ -24,7 +23,11 @@ export const formValuesToInput = (
     telephoneNumbers: [
       { kind: 'Mobile', value: values.telephone, primary: true },
     ],
-    dateOfBirth,
+    dateOfBirth: parseDate(
+      values.dayOfBirth,
+      values.monthOfBirth,
+      values.yearOfBirth,
+    ),
     countryOfBirth: values.countryOfBirth,
     nationality: values.nationality,
     maritalStatus: values.maritalStatus,
