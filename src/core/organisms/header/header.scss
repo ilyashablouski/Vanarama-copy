@@ -355,6 +355,12 @@
     grid-auto-rows: max-content;
     grid-auto-flow: row;
     place-items: start stretch;
+    height: 100%;
+    > li {
+      &:last-child {
+        padding-bottom: 150px;
+      }
+    }
   }
 }
 
@@ -559,7 +565,7 @@
 
 @include mobile {
   .menu-secondary--wrapper-inner {
-    padding-bottom: 100px;
+    padding-bottom: 150px;
   }
 }
 
@@ -611,7 +617,7 @@
     &.-open {
       li {
         &:last-child {
-          padding-bottom: 100px;
+          padding-bottom: 150px;
         }
       }
     }
