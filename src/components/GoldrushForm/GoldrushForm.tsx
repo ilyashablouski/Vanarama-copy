@@ -67,8 +67,36 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
       name="termsAndCons"
       label={
         callBack
-          ? 'Terms & Conditions and Privacy Policy'
-          : 'I agree to the terms and conditions.'
+          ? [
+              <a
+                key="a"
+                className="link -teal"
+                href="/legal/terms-and-conditions.html"
+                target="_blank"
+              >
+                Terms and Conditions
+              </a>,
+              ' and ',
+              <a
+                key="a-privacy"
+                className="link -teal"
+                href="/legal/privacy-policy.html"
+                target="_blank"
+              >
+                Privacy Policy
+              </a>,
+            ]
+          : [
+              'I agree to the ',
+              <a
+                key="a"
+                className="link -teal"
+                href="/legal/terms-and-conditions.html"
+                target="_blank"
+              >
+                Terms and Conditions
+              </a>,
+            ]
       }
       ref={register(termsAndCons)}
     />
@@ -81,7 +109,7 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
       name="consent"
       label={
         callBack
-          ? 'Subscribe to get updates, exclusive offers and amazing deals'
+          ? 'Keep me updated on the latest deals & offers.'
           : 'I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.'
       }
       ref={register}
