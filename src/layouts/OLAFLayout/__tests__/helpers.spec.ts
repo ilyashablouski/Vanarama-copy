@@ -1,8 +1,12 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { createOlafDetails, useFunderTerm } from '../helpers';
-import { LeaseTypeEnum } from '../../../../generated/globalTypes';
-import { GetOlafData_orderByUuid } from '../../../../generated/GetOlafData';
+import { createOlafDetails, getFunderTerm } from '../helpers';
+import {
+  LeaseTypeEnum,
+  OrderInputObject,
+} from '../../../../generated/globalTypes';
 import { DEFAULT_TERM } from '../../../models/enum/OlafVariables';
+import { GetLeaseCompanyData as ILeaseData } from '../../../../generated/GetLeaseCompanyData';
+import { CompanyTypes } from '../../../models/enum/CompanyTypes';
 
 jest.mock('@apollo/client', () => ({
   useApolloClient: () => ({
@@ -100,14 +104,17 @@ describe('helpers', () => {
       });
     });
   });
-  describe('useFunderTerm', () => {
+  describe('getFunderTerm', () => {
     const b2cValue = 24;
     const b2bValue = 60;
     const data = {
-      leaseType: 'BUSINESS',
-      lineItems: [
-        {
+      creditApplicationByOrderUuid: {
+        aboutDetails: {
+          company_type: CompanyTypes.limited,
+        },
+        lineItem: {
           vehicleProduct: {
+            funderId: '5',
             funderData: {
               funder_name: 'Hitachi',
               b2c: {
@@ -128,20 +135,23 @@ describe('helpers', () => {
             },
           },
         },
-      ],
-    };
+      },
+    } as ILeaseData;
     it('Incorrect argument object should return a default value', () => {
-      const term = useFunderTerm({} as GetOlafData_orderByUuid);
+      const term = getFunderTerm(null, null);
       expect(term).toEqual(DEFAULT_TERM);
     });
     it('Should return correct value for b2c', () => {
-      const newData = { ...data, leaseType: LeaseTypeEnum.PERSONAL };
-      const term = useFunderTerm(newData as GetOlafData_orderByUuid);
+      const term = getFunderTerm(
+        data as ILeaseData,
+        { leaseType: LeaseTypeEnum.PERSONAL } as OrderInputObject,
+      );
       expect(term).toEqual(b2cValue);
     });
     it('Should return correct value for b2b', () => {
-      const newData = { ...data, leaseType: LeaseTypeEnum.BUSINESS };
-      const term = useFunderTerm(newData as GetOlafData_orderByUuid);
+      const term = getFunderTerm(data, {
+        leaseType: LeaseTypeEnum.BUSINESS,
+      } as OrderInputObject);
       expect(term).toEqual(b2bValue);
     });
   });
