@@ -1,7 +1,4 @@
-import {
-  reverseDefaultFormatDate,
-  historyToDateObject,
-} from '../../utils/dates';
+import { parseDate } from '../../utils/dates';
 import {
   SubmissionValues,
   ICompanyDetailsFormValues,
@@ -65,19 +62,8 @@ export const mapFormValues = (
       ? searchResult.companyNumber
       : values.companyNumber,
     tradingSince: searchResult
-      ? reverseDefaultFormatDate(new Date(searchResult.dateOfCreation!))
-          .split('-')
-          .reverse()
-          .join('-')
-      : reverseDefaultFormatDate(
-          historyToDateObject({
-            month: values.tradingSinceMonth,
-            year: values.tradingSinceYear,
-          }),
-        )
-          .split('-')
-          .reverse()
-          .join('-'),
+      ? searchResult.dateOfCreation
+      : parseDate('01', values.tradingSinceMonth, values.tradingSinceYear),
     addresses: mapAddresses(values),
     withTradingAddress: values.tradingDifferent,
     companyNature: values.nature,
@@ -161,10 +147,10 @@ export const mapCompanyDetailsToCreditApplication = (
           }
         : undefined,
     ].filter(Boolean),
-    tradingSince: new Date(
-      parseInt(values.tradingSinceYear, 10),
-      parseInt(values.tradingSinceMonth, 10),
-      0,
+    tradingSince: parseDate(
+      '01',
+      values.tradingSinceMonth,
+      values.tradingSinceYear,
     ),
     companyType: aboutDetails?.companyType || 'Limited',
     telephoneNumbers: [{ value: values.telephone, kind: 'business' }],

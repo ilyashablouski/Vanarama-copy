@@ -54,7 +54,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
 
   useEffect(() => {
     if (mappedCompanyDetails) {
-      setNatureOfBusiness(mappedCompanyDetails?.nature.split('.'));
+      setNatureOfBusiness(mappedCompanyDetails?.nature?.split('.') || []);
     }
   }, [mappedCompanyDetails]);
 

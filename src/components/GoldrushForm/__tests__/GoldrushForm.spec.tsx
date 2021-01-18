@@ -328,16 +328,12 @@ describe('<GoldrushForm />', () => {
     );
 
     await waitFor(() => {
-      expect(
-        screen.getByText('Terms & Conditions and Privacy Policy'),
-      ).toBeInTheDocument();
+      expect(screen.getByTestId('aboutTermsAndCons')).toBeInTheDocument();
     });
 
     await waitFor(() => {
       expect(
-        screen.getByText(
-          'Subscribe to get updates, exclusive offers and amazing deals',
-        ),
+        screen.getByText('Keep me updated on the latest deals & offers.'),
       ).toBeInTheDocument();
     });
   });
