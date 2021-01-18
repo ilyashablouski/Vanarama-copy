@@ -38,7 +38,7 @@ describe('<Typeahead />', () => {
           aria-haspopup="listbox"
           aria-owns="react-autowhatever-1"
           role="combobox"
-          style="position: relative; max-height: 200px;"
+          style="position: relative;"
         >
           <div
             class="textinput regular"

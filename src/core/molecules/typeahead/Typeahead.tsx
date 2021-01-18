@@ -17,7 +17,6 @@ function Typeahead<TOption>(props: TypeaheadProps<TOption>) {
       theme={{
         container: {
           position: 'relative',
-          maxHeight: 200,
         },
         suggestionsList: 'typeahead--optgroup',
       }}
