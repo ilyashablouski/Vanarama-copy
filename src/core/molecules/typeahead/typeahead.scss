@@ -6,7 +6,7 @@
     right: 0;
     overflow-y: scroll;
     overflow-x: hidden;
-    background: black;
+    background: $white;
     border: $dropdown-border;
     border-top-left-radius: 0;
     border-top-right-radius: 0;
@@ -15,7 +15,6 @@
     z-index: 98;
     box-shadow: $box-shadow-header;
     cursor: default;
-    max-height: 200px;
 
     > * {
       white-space: nowrap;
