@@ -105,8 +105,15 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                 highlight: link.highlight,
                 withChildren: !!link.children?.length,
               })}
+              onClick={
+                isMobile && link.children?.length
+                  ? () => {
+                      setActiveTertiaryMenu(link?.id || '');
+                    }
+                  : undefined
+              }
               onMouseOver={
-                link.children?.length
+                !isMobile && link.children?.length
                   ? () => {
                       setActiveTertiaryMenu(link?.id || '');
                     }
