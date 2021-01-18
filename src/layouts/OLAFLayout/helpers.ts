@@ -1,6 +1,4 @@
-import { useApolloClient } from '@apollo/client';
 import { createContext } from 'react';
-import { GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA } from '../../gql/creditApplication';
 import { DEFAULT_TERM } from '../../models/enum/OlafVariables';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
 import { GetDerivatives_derivatives as Derivatives } from '../../../generated/GetDerivatives';
@@ -9,6 +7,7 @@ import {
   OrderInputObject,
   VehicleProductInputObject,
 } from '../../../generated/globalTypes';
+import { GetLeaseCompanyData as ILeaseData } from '../../../generated/GetLeaseCompanyData';
 
 /**
  * @param leaseType - string, offer leaseType
@@ -54,36 +53,29 @@ export const createOlafDetails = (
 });
 
 // get funder term for address/employement history
-export const useFunderTerm = (order?: OrderInputObject | undefined | null) => {
-  const client = useApolloClient();
-  const data = order?.lineItems?.[0].vehicleProduct || ({} as any);
-  if (Object.values(data).length > 0) {
+export const getFunderTerm = (
+  data: ILeaseData | undefined | null,
+  order: OrderInputObject | null,
+) => {
+  if (data?.creditApplicationByOrderUuid?.lineItem) {
+    const vehicleProduct =
+      data?.creditApplicationByOrderUuid?.lineItem?.vehicleProduct;
+    const aboutDetails = data?.creditApplicationByOrderUuid?.aboutDetails;
     if (order?.leaseType === LeaseTypeEnum.PERSONAL) {
-      return data.funderData?.b2c.address_history || DEFAULT_TERM;
+      return vehicleProduct?.funderData?.b2c.address_history || DEFAULT_TERM;
     }
-    try {
-      const {
-        creditApplicationByOrderUuid: { aboutDetails },
-      } = client.readQuery({
-        query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
-        variables: {
-          id: order?.uuid,
-        },
-      }) as any;
-      switch (aboutDetails.company_type) {
-        case CompanyTypes.limited:
-          return data.funderData?.b2b.limited.address_history;
-        case CompanyTypes.partnership:
-          return data.funderData?.b2b.partnership.address_history;
-        case CompanyTypes.soleTrader:
-          return data.funderData?.b2b.sole_trader.address_history;
-        default:
-          return DEFAULT_TERM;
-      }
-    } catch (err) {
-      return DEFAULT_TERM;
+    switch (aboutDetails?.company_type) {
+      case CompanyTypes.limited:
+        return vehicleProduct?.funderData?.b2b.limited.address_history;
+      case CompanyTypes.partnership:
+        return vehicleProduct?.funderData?.b2b.partnership.address_history;
+      case CompanyTypes.soleTrader:
+        return vehicleProduct?.funderData?.b2b.sole_trader.address_history;
+      default:
+        return DEFAULT_TERM;
     }
   } else return DEFAULT_TERM;
 };
 
 export const OlafContext = createContext({ requiredMonths: DEFAULT_TERM });
+OlafContext.displayName = 'OlafContext';

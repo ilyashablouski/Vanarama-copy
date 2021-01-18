@@ -1,4 +1,4 @@
-import { useQuery, gql, useMutation } from '@apollo/client';
+import { useQuery, gql, useMutation, useLazyQuery } from '@apollo/client';
 import { MockedResponse } from '@apollo/client/testing';
 import {
   CreateUpdateCreditApplication,
@@ -9,6 +9,11 @@ import {
   GetCreditApplicationByOrderUuid as Query,
   GetCreditApplicationByOrderUuidVariables as QueryVariables,
 } from '../../generated/GetCreditApplicationByOrderUuid';
+
+import {
+  GetLeaseCompanyData as ILeaseData,
+  GetLeaseCompanyDataVariables as IleaseDataVariables,
+} from '../../generated/GetLeaseCompanyData';
 
 export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
   query GetCreditApplicationByOrderUuid($id: ID!) {
@@ -57,6 +62,32 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
     }
   }
 `;
+
+export const GET_LEASE_COMPANY_BY_ORDER_UUID_DATA = gql`
+  query GetLeaseCompanyData($id: ID!) {
+    creditApplicationByOrderUuid(orderUuid: $id) {
+      aboutDetails
+      lineItem {
+        vehicleProduct {
+          funderId
+          funderData
+        }
+      }
+    }
+  }
+`;
+
+export function useGetLeaseCompanyDataByOrderUuid(id: string) {
+  return useLazyQuery<ILeaseData, IleaseDataVariables>(
+    GET_LEASE_COMPANY_BY_ORDER_UUID_DATA,
+    {
+      variables: {
+        id,
+      },
+      fetchPolicy: 'no-cache',
+    },
+  );
+}
 
 export function useGetCreditApplicationByOrderUuid(id: string) {
   return useQuery<Query, QueryVariables>(
