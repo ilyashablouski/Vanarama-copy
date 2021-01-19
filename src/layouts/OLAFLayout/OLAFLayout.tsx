@@ -4,18 +4,20 @@ import ChevronUpSharp from 'core/assets/icons/ChevronUpSharp';
 import Button from 'core/atoms/button';
 import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
-import { useState, useEffect, ReactNode } from 'react';
+import { useState, useEffect, ReactNode, useMemo } from 'react';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useCarDerivativeData } from '../../gql/order';
-import { createOlafDetails, useFunderTerm, OlafContext } from './helpers';
+import { createOlafDetails, getFunderTerm, OlafContext } from './helpers';
 import {
   GetDerivative_derivative,
   GetDerivative_vehicleImages as VehicleImages,
 } from '../../../generated/GetDerivative';
 import useGetOrder from '../../hooks/useGetOrder';
 import { OrderInputObject } from '../../../generated/globalTypes';
+import useGetOrderId from '../../hooks/useGetOrderId';
+import { useGetLeaseCompanyDataByOrderUuid } from '../../gql/creditApplication';
 
 interface IProps {
   setDetailsData?: React.Dispatch<
@@ -33,6 +35,10 @@ const OLAFLayout: React.FC<IProps> = ({
   setDerivativeData,
 }) => {
   const order = useGetOrder();
+  const orderId = useGetOrderId();
+  const [getLeaseData, { data: leaseData }] = useGetLeaseCompanyDataByOrderUuid(
+    orderId,
+  );
 
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
@@ -63,7 +69,16 @@ const OLAFLayout: React.FC<IProps> = ({
     }
   }, [order, setDerivativeData, setDetailsData, derivativeData]);
 
-  const term = useFunderTerm(order);
+  useEffect(() => {
+    if (orderId) {
+      getLeaseData();
+    }
+  }, [orderId]);
+
+  const term = useMemo(() => getFunderTerm(leaseData, order), [
+    leaseData,
+    order,
+  ]);
 
   return (
     <>
