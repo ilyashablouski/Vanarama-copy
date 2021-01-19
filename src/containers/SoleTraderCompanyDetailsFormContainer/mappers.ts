@@ -82,9 +82,9 @@ export const prelodedValuesToInput = (details: {
     tradingSinceMonth: String(new Date(details.trading_since).getMonth() + 1),
     businessTelephoneNumber: details.telephone_numbers?.[0].value,
     email: details.email_addresses?.[0].value,
-    annualTurnover: String(details.annual_turnover),
-    annualCostOfSales: String(details.annual_sales_cost),
-    annualExpenses: String(details.annual_expenses),
+    annualTurnover: String(details.annual_turnover || ''),
+    annualCostOfSales: String(details.annual_sales_cost || ''),
+    annualExpenses: String(details.annual_expenses || ''),
     vehicleRegistrationNumber: details.vehicle_registration_number,
     existingFinanceReplacement: '',
     monthlyAmountBeingReplaced: String(
