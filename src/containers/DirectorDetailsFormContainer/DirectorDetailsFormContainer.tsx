@@ -59,7 +59,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       ?.directorsDetails;
 
   const defaultValues = useMemo(() => {
-    return directorsDetails
+    return directorsDetails?.directors?.length > 0
       ? mapDirectorsDefaultValues(directorsDetails)
       : undefined;
   }, [directorsDetails]);
