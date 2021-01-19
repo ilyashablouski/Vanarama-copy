@@ -23,16 +23,22 @@ const Page: NextPage<IProps> = ({ isServer, pageData, metaData }) => {
 };
 export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({});
+  const contextData = {
+    req: {
+      url: context.req?.url || '',
+    },
+    query: { ...context.query },
+  };
   const { data } = (await ssrCMSQueryExecutor(
     client,
-    context,
+    contextData,
     false,
     '',
-  )) as ApolloQueryResult<any>;
+  )) as ApolloQueryResult<GenericPageQuery>;
   return {
     props: {
       pageData: data,
-      metaData: data.genericPage.metaData,
+      metaData: data?.genericPage.metaData || null,
       isServer: !!context.req,
     },
   };

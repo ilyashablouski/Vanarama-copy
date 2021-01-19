@@ -38,3 +38,10 @@ export interface IFilters {
 export interface ISelectedFiltersState {
   [index: string]: string[];
 }
+
+export interface IDynamicPageType {
+  isBodyStylePage: boolean;
+  isFuelType: boolean;
+  isBudgetType: boolean;
+  isTransmissionType: boolean;
+}
