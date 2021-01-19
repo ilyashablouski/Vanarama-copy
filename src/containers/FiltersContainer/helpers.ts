@@ -1,9 +1,14 @@
 import { filterFields } from './config';
-import { ISelectedFiltersState } from './interfaces';
+import { IDynamicPageType, ISelectedFiltersState } from './interfaces';
 import {
   filterList_filterList_groupedRangesWithSlug_children as IFiltersChildren,
   filterList_filterList as IFilterList,
 } from '../../../generated/filterList';
+import {
+  bodyUrlsSlugMapper,
+  budgetMapper,
+  fuelMapper,
+} from '../SearchPageContainer/helpers';
 
 /**
  * formating and check for including strings
@@ -98,4 +103,42 @@ export const getLabelForSlug = (
     return !!label;
   });
   return label?.label;
+};
+
+export const setFiltersAfterPageChange = (
+  {
+    isBodyStylePage,
+    isFuelType,
+    isBudgetType,
+    isTransmissionType,
+  }: IDynamicPageType,
+  value: string,
+) => {
+  const presetFilters = {} as ISelectedFiltersState;
+  switch (true) {
+    case isBodyStylePage:
+      presetFilters.bodyStyles = [
+        bodyUrlsSlugMapper[value as keyof typeof bodyUrlsSlugMapper],
+      ];
+      return presetFilters;
+    case isFuelType:
+      presetFilters.fuelTypes = fuelMapper[
+        value as keyof typeof fuelMapper
+      ].split(',');
+      return presetFilters;
+    case isBudgetType:
+      presetFilters.from =
+        [budgetMapper[value as keyof typeof budgetMapper].split('|')[0]] ||
+        null;
+      presetFilters.to =
+        [budgetMapper[value as keyof typeof budgetMapper].split('|')[1]] ||
+        null;
+      return presetFilters;
+    case isTransmissionType:
+      presetFilters.transmissions = [value.replace('-', ' ')];
+      return presetFilters;
+    default:
+      presetFilters.make = [value.toLowerCase()];
+      return presetFilters;
+  }
 };

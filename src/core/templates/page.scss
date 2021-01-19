@@ -57,6 +57,7 @@
     background: linear-gradient(to bottom, $white 0, $light 100vh);
     @include mobile {
       background: $lighter;
+      overflow: hidden;
     }
 
     .tabs:not(.-alt) {
@@ -661,7 +662,7 @@
         &--service {
           padding: $rem-400;
 
-          > .image {
+          .image {
             @include desktop {
               @include margin-inline(auto);
             }

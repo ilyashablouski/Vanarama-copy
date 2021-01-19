@@ -45,9 +45,15 @@ const Page: NextPage<IProps> = ({
 export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({}, context);
   let manufacturers;
+  const contextData = {
+    req: {
+      url: context.req?.url || '',
+    },
+    query: { ...context.query },
+  };
   const { data } = (await ssrCMSQueryExecutor(
     client,
-    context,
+    contextData,
     true,
     'isAllMakesPage',
   )) as ApolloQueryResult<any>;

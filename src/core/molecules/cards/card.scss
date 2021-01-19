@@ -381,6 +381,9 @@ $small: 0.875rem;
   &--review-text {
     min-height: 66px;
     overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
   }
 
   // Widgets -> author name banner
