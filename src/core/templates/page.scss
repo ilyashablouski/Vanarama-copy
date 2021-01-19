@@ -57,6 +57,7 @@
     background: linear-gradient(to bottom, $white 0, $light 100vh);
     @include mobile {
       background: $lighter;
+      overflow: hidden;
     }
 
     .tabs:not(.-alt) {
