@@ -105,31 +105,42 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                 highlight: link.highlight,
                 withChildren: !!link.children?.length,
               })}
-              onMouseOver={
-                link.children?.length
-                  ? () => {
-                      setActiveTertiaryMenu(link?.id || '');
-                    }
-                  : undefined
-              }
-              onFocus={
-                link.children?.length
-                  ? () => {
-                      setActiveTertiaryMenu(link?.id || '');
-                    }
-                  : undefined
-              }
               data-testid={link.label}
             >
               {!link.href ? (
-                <span
-                  className={link.highlight ? 'link -white' : 'link -inherit'}
-                >
-                  {link.highlight && (
-                    <Icon icon={<FlameSharp />} color="white" size="xsmall" />
-                  )}
-                  {link.label}
-                </span>
+                <>
+                  <button
+                    type="button"
+                    key={`${link.label}_${title}`}
+                    className={link.highlight ? 'link -white' : 'link -inherit'}
+                    onClick={
+                      isMobile && link.children?.length
+                        ? () => {
+                            setActiveTertiaryMenu(link?.id || '');
+                          }
+                        : undefined
+                    }
+                    onMouseOver={
+                      !isMobile && link.children?.length
+                        ? () => {
+                            setActiveTertiaryMenu(link?.id || '');
+                          }
+                        : undefined
+                    }
+                    onFocus={
+                      link.children?.length
+                        ? () => {
+                            setActiveTertiaryMenu(link?.id || '');
+                          }
+                        : undefined
+                    }
+                  >
+                    {link.highlight && (
+                      <Icon icon={<FlameSharp />} color="white" size="xsmall" />
+                    )}
+                    {link.label}
+                  </button>
+                </>
               ) : (
                 <RouterLink
                   link={link}
