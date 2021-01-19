@@ -546,7 +546,7 @@
     grid-column: content;
     grid-auto-columns: minmax(0, 2fr);
     grid-auto-flow: column;
-    min-height: 40vh;
+    min-height: min-content;
     text-align: left;
     background: white;
     border-bottom-left-radius: 0.25rem;
@@ -571,7 +571,7 @@
 
 @include desktop {
   .menu-tertiary {
-    max-height: 60vh;
+    min-height: min-content;
     padding: 1rem 0;
     display: grid;
     grid-template-columns: repeat(12, minmax(min-content, 1fr));
@@ -703,6 +703,7 @@
 .menu-li > .link {
   display: block;
   width: 100%;
+  text-align: left;
 }
 
 @include mobile-tablet {
