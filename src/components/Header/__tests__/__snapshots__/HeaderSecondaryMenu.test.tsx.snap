@@ -30,8 +30,9 @@ exports[`<HeaderSecondaryMenu /> renders correctly 1`] = `
         className="menu-li -highlight"
         data-testid="VANS Special Offers"
       >
-        <span
+        <button
           className="link -white"
+          type="button"
         >
           <i
             className="icon -white -xsmall"
@@ -47,43 +48,46 @@ exports[`<HeaderSecondaryMenu /> renders correctly 1`] = `
             </svg>
           </i>
           VANS Special Offers
-        </span>
+        </button>
       </li>
       <li
         className="menu-li -open -with-children"
         data-testid="Vans By Manufacturer"
-        onFocus={[Function]}
-        onMouseOver={[Function]}
       >
-        <span
+        <button
           className="link -inherit"
+          onFocus={[Function]}
+          onMouseOver={[Function]}
+          type="button"
         >
           Vans By Manufacturer
-        </span>
+        </button>
       </li>
       <li
         className="menu-li -with-children"
         data-testid="Vans By Size"
-        onFocus={[Function]}
-        onMouseOver={[Function]}
       >
-        <span
+        <button
           className="link -inherit"
+          onFocus={[Function]}
+          onMouseOver={[Function]}
+          type="button"
         >
           Vans By Size
-        </span>
+        </button>
       </li>
       <li
         className="menu-li -with-children"
         data-testid="Vans By Type"
-        onFocus={[Function]}
-        onMouseOver={[Function]}
       >
-        <span
+        <button
           className="link -inherit"
+          onFocus={[Function]}
+          onMouseOver={[Function]}
+          type="button"
         >
           Vans By Type
-        </span>
+        </button>
       </li>
       <li
         className="menu-li"
