@@ -6,6 +6,7 @@ import {
   Body as GTMBody,
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
+import { VWOScript } from '../components/VWOScript';
 // import Inline from '../components/Style/Inline';
 
 // @ts-ignore
@@ -29,11 +30,11 @@ const env = process?.env?.ENV || '';
 
 // Script environments
 const scriptEnvs = {
-  gtm: ['dev', 'uat', 'pre-prod', 'prod'],
+  gtm: ['uat', 'pre-prod', 'prod'],
 
   // blueconic: ['dev', 'uat', 'pre-prod', 'prod'],
 
-  // vwo: ['uat', 'pre-prod', 'prod'],
+  vwo: ['uat', 'pre-prod', 'prod'],
 };
 
 class MyDocument extends Document {
@@ -43,6 +44,7 @@ class MyDocument extends Document {
         <HeadCustom>
           {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
           {scriptEnvs.gtm.includes(env) && <GTMScript />}
+          {scriptEnvs.vwo.includes(env) && <VWOScript />}
           {/* <RollbarScript /> */}
           {/* <Inline /> */}
           <link rel="preload" href="/styles/base.css" as="style" />
