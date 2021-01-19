@@ -1,5 +1,4 @@
 import { ApolloClient, DocumentNode, QueryLazyOptions } from '@apollo/client';
-import { NextPageContext } from 'next';
 import { removeUrlQueryPart } from '../../utils/url';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
@@ -9,6 +8,11 @@ import { GenericPageHeadQueryVariables } from '../../../generated/GenericPageHea
 import { SortDirection, SortField } from '../../../generated/globalTypes';
 import { GET_ALL_MAKES_PAGE } from './gql';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
+
+interface ISSRRequest {
+  req: { url: string };
+  query: { [x: string]: string | string[] };
+}
 
 export const buildRewriteRoute = (
   {
@@ -178,7 +182,7 @@ const onCallQuery = async (
 // get content data for different search pages
 export const ssrCMSQueryExecutor = async (
   client: ApolloClient<any>,
-  context: NextPageContext,
+  context: ISSRRequest,
   isCarSearch: boolean,
   pageType: string,
 ) => {
@@ -221,3 +225,30 @@ export const ssrCMSQueryExecutor = async (
 // get Caps ids for product card request
 export const getCapsIds = (data: (IVehicles | null)[]) =>
   data.map(vehicle => vehicle?.node?.derivativeId || '') || [];
+
+export const dynamicQueryTypeCheck = (value: string) => {
+  // check for bodystyle page
+  const isBodyStylePage = !!bodyUrls.find(
+    getBodyStyleForCms,
+    value.toLowerCase(),
+  );
+  // check for fuel page
+  const isFuelType = !!fuelMapper[value as keyof typeof fuelMapper];
+  // check for budget page
+  const isBudgetType = !!budgetMapper[value as keyof typeof budgetMapper];
+  // check for transmissons page
+  const isTransmissionPage = isTransmission(value);
+
+  return {
+    isBodyStylePage,
+    isFuelType,
+    isBudgetType,
+    isTransmissionPage,
+    isMakePage: !(
+      isBodyStylePage ||
+      isFuelType ||
+      isBudgetType ||
+      isTransmissionPage
+    ),
+  };
+};
