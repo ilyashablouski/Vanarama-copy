@@ -12,12 +12,10 @@ import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql'
 import createApolloClient from '../../../apolloClient';
 import { PAGE_TYPES, SITE_SECTIONS } from '../../../utils/pageTypes';
 import {
-  bodyUrls,
   bodyUrlsSlugMapper,
   budgetMapper,
-  getBodyStyleForCms,
+  dynamicQueryTypeCheck,
   getCapsIds,
-  isTransmission,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
@@ -132,23 +130,8 @@ export async function getServerSideProps(context: NextPageContext) {
   let responseCapIds;
   let topOffersCardsData;
   const filter = {} as any;
-  // check for bodystyle page
-  const isBodyStylePage = !!bodyUrls.find(
-    getBodyStyleForCms,
-    (query.dynamicParam as string).toLowerCase(),
-  );
-  // check for transmissons page
-  const isTransmissionPage = isTransmission(query.dynamicParam as string);
-  // check for budget page
-  const isBudgetType = !!budgetMapper[
-    query.dynamicParam as keyof typeof budgetMapper
-  ];
-  const pageType = {
-    isBodyStylePage,
-    isTransmissionPage,
-    isBudgetType,
-    isMakePage: !(isBodyStylePage || isTransmissionPage || isBudgetType),
-  };
+  const pageType = dynamicQueryTypeCheck(query.dynamicParam as string);
+  const { isBodyStylePage, isTransmissionPage, isBudgetType } = pageType;
   if (isBodyStylePage || isTransmissionPage || isBudgetType) {
     if (isBodyStylePage) {
       query.bodyStyles =
@@ -275,18 +258,24 @@ export async function getServerSideProps(context: NextPageContext) {
   }
 
   try {
+    const contextData = {
+      req: {
+        url: context.req?.url || '',
+      },
+      query: { ...context.query },
+    };
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
-      context,
+      contextData,
       false,
       type as string,
-    )) as ApolloQueryResult<any>;
+    )) as ApolloQueryResult<GenericPageQuery>;
     return {
       props: {
         isServer: !!req,
         pageType,
         pageData: data,
-        metaData: data.genericPage.metaData,
+        metaData: data?.genericPage.metaData || null,
         filtersData: filtersData?.filterList,
         vehiclesList: vehiclesList || null,
         productCardsData: productCardsData || null,
