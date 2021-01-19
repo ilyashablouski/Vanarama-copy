@@ -12,6 +12,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Select from 'core/atoms/select';
 import SchemaJSON from 'core/atoms/schema-json';
+import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -30,9 +31,11 @@ import {
 } from '../../../generated/globalTypes';
 import {
   buildRewriteRoute,
+  dynamicQueryTypeCheck,
   fuelMapper,
   getCapsIds,
   sortValues,
+  ssrCMSQueryExecutor,
 } from './helpers';
 import {
   GetProductCard_productCard as IProductCard,
@@ -147,8 +150,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   isTransmissionPage,
   isFuelPage,
   isBudgetPage,
-  pageData,
-  metaData,
+  pageData: pageDataSSR,
+  metaData: metaDataSSR,
   topInfoSection,
   preLoadFiltersData,
   preLoadVehiclesList,
@@ -164,6 +167,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadTopOffersList,
   preLoadTopOffersCardsData,
 }: IProps) => {
+  const client = useApolloClient();
   const router = useRouter();
   const isDynamicFilterPage = useMemo(
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
@@ -181,6 +185,9 @@ const SearchPageContainer: React.FC<IProps> = ({
     },
     [isCarSearch],
   );
+
+  const [pageData, setPageData] = useState(pageDataSSR);
+  const [metaData, setMetaData] = useState(metaDataSSR);
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
@@ -232,6 +239,38 @@ const SearchPageContainer: React.FC<IProps> = ({
     const type = isPersonal ? 'Personal' : 'Business';
     setCachedLeaseType(type);
   }, [isPersonal, setCachedLeaseType]);
+
+  // when we change page with one dynamic route by Next router(like from car-leasing/coupe to car-leasing/saloon)
+  // Next doesn't call a ssr requests, this workaround should call request fpr page data on client side
+  useEffect(() => {
+    if (router.query.isChangePage === 'true') {
+      const fetchPageData = async () => {
+        const type = Object.entries(
+          dynamicQueryTypeCheck(router.query.dynamicParam as string),
+        ).find(element => element[1])?.[0];
+        const context = {
+          req: {
+            url: router.route.replace(
+              '[dynamicParam]',
+              router.query.dynamicParam as string,
+            ),
+          },
+          query: { ...router.query },
+        };
+        const { data, errors } = (await ssrCMSQueryExecutor(
+          client,
+          context,
+          false,
+          type as string,
+        )) as ApolloQueryResult<GenericPageQuery>;
+        if (data && !errors?.[0]) {
+          setPageData(data);
+          setMetaData(data.genericPage.metaData);
+        }
+      };
+      fetchPageData();
+    }
+  }, [router, router.query, client]);
 
   const [getProductCardData, { loading }] = useProductCardDataLazyQuery(
     capIds,

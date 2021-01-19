@@ -101,12 +101,18 @@ export async function getServerSideProps(context: NextPageContext) {
   let responseCapIds;
   let topOffersCardsData;
   try {
+    const contextData = {
+      req: {
+        url: context.req?.url || '',
+      },
+      query: { ...context.query },
+    };
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
-      context,
+      contextData,
       false,
       'isRangePage',
-    )) as ApolloQueryResult<any>;
+    )) as ApolloQueryResult<GenericPageQuery>;
     // should contain only 2 routs params(make, range)
     if (Object.keys(context.query).length === 2) {
       vehiclesList = await client
@@ -185,7 +191,7 @@ export async function getServerSideProps(context: NextPageContext) {
     return {
       props: {
         pageData: data,
-        metaData: data.genericPage.metaData,
+        metaData: data?.genericPage.metaData || null,
         isServer: !!context.req,
         vehiclesList: vehiclesList || null,
         productCardsData: productCardsData || null,

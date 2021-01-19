@@ -100,12 +100,18 @@ export async function getServerSideProps(context: NextPageContext) {
   let productCardsData;
   let responseCapIds;
   try {
+    const contextData = {
+      req: {
+        url: context.req?.url || '',
+      },
+      query: { ...context.query },
+    };
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
-      context,
+      contextData,
       true,
       'isModelPage',
-    )) as ApolloQueryResult<any>;
+    )) as ApolloQueryResult<GenericPageQuery>;
     const { data: filtersData } = await client.query({
       query: GET_SEARCH_POD_DATA,
       variables: {
@@ -154,7 +160,7 @@ export async function getServerSideProps(context: NextPageContext) {
     return {
       props: {
         pageData: data,
-        metaData: data.genericPage.metaData,
+        metaData: data?.genericPage.metaData || null,
         isServer: !!context.req,
         filtersData: filtersData?.filterList || null,
         vehiclesList: vehiclesList || null,

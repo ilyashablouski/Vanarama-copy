@@ -21,8 +21,10 @@ import {
   isInclude,
   filtersSearchMapper,
   getLabelForSlug,
+  setFiltersAfterPageChange,
 } from './helpers';
 import Skeleton from '../../components/Skeleton';
+import { dynamicQueryTypeCheck } from '../SearchPageContainer/helpers';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -252,72 +254,92 @@ const FiltersContainer = ({
         Object.keys(allFiltersData || {}).length) ||
       router.query.isChangePage === 'true';
     if (shouldPreselect) {
-      const presetFilters = {} as ISelectedFiltersState;
+      let presetFilters = {} as ISelectedFiltersState;
       const routerQuery = Object.entries(router.query);
       // flag for checking if any value from query don't exist in filters data
       // using in case when we load search which actual only for none special offers
       let isValueLose = false;
-      routerQuery.forEach(entry => {
-        const [key, values] = entry;
-        if (key === 'rangeName') {
-          const isExist = filtersData.groupedRangesWithSlug?.some(element => {
-            let value = '';
-            // if make correct then we are looking for a rangeName
-            if (
-              isInclude(
-                element.parent?.slug || '',
-                (router.query?.make || router.query?.dynamicParam) as string,
-              )
-            ) {
-              value = findPreselectFilterValue(
-                Array.isArray(values)
-                  ? values[0].split('+').join(' ')
-                  : values.split('+').join(' '),
-                element.children,
-              );
+      // when we change page with one dynamic route by Next router(like from car-leasing/coupe to car-leasing/saloon)
+      // Next doesn't call a ssr requests, this workaround should call requests on client side
+      if (router.query.isChangePage === 'true') {
+        const {
+          isBodyStylePage,
+          isFuelType,
+          isBudgetType,
+          isTransmissionPage: isTransmissionType,
+        } = dynamicQueryTypeCheck(router.query.dynamicParam as string);
+        presetFilters = setFiltersAfterPageChange(
+          {
+            isBodyStylePage,
+            isFuelType,
+            isBudgetType,
+            isTransmissionType,
+          },
+          router.query.dynamicParam as string,
+        );
+      } else {
+        routerQuery.forEach(entry => {
+          const [key, values] = entry;
+          if (key === 'rangeName') {
+            const isExist = filtersData.groupedRangesWithSlug?.some(element => {
+              let value = '';
+              // if make correct then we are looking for a rangeName
+              if (
+                isInclude(
+                  element.parent?.slug || '',
+                  (router.query?.make || router.query?.dynamicParam) as string,
+                )
+              ) {
+                value = findPreselectFilterValue(
+                  Array.isArray(values)
+                    ? values[0].split('+').join(' ')
+                    : values.split('+').join(' '),
+                  element.children,
+                );
+              }
+              // saving model to temp because after set makes model will be removed
+              if (value) {
+                setTempModelName(value);
+                presetFilters.model = [value];
+                return true;
+              }
+              return false;
+            });
+            isValueLose = isExist ? isValueLose : true;
+          } else if (key !== 'pricePerMonth' && key !== 'isChangePage') {
+            let query: string | string[];
+            // transformation the query value to expected type
+            if (!Array.isArray(values)) {
+              query = values.split(',').length > 1 ? values.split(',') : values;
+            } else {
+              query = values;
             }
-            // saving model to temp because after set makes model will be removed
-            if (value) {
-              setTempModelName(value);
-              presetFilters.model = [value];
-              return true;
-            }
-            return false;
-          });
-          isValueLose = isExist ? isValueLose : true;
-        } else if (key !== 'pricePerMonth' && key !== 'isChangePage') {
-          let query: string | string[];
-          // transformation the query value to expected type
-          if (!Array.isArray(values)) {
-            query = values.split(',').length > 1 ? values.split(',') : values;
-          } else {
-            query = values;
-          }
-          presetFilters[key] = Array.isArray(query)
-            ? query.map(value =>
-                findPreselectFilterValue(
-                  value,
-                  filtersMapper[key as keyof typeof filtersMapper],
-                ),
-              )
-            : [
-                findPreselectFilterValue(
-                  query,
-                  filtersMapper[key as keyof typeof filtersMapper],
-                ),
+            presetFilters[key] = Array.isArray(query)
+              ? query.map(value =>
+                  findPreselectFilterValue(
+                    value,
+                    filtersMapper[key as keyof typeof filtersMapper],
+                  ),
+                )
+              : [
+                  findPreselectFilterValue(
+                    query,
+                    filtersMapper[key as keyof typeof filtersMapper],
+                  ),
+                ];
+            if (key === 'dynamicParam' && (isMakePage || isRangePage)) {
+              presetFilters.make = [
+                findPreselectFilterValue(values as string, filtersMapper.make),
               ];
-          if (key === 'dynamicParam' && (isMakePage || isRangePage)) {
-            presetFilters.make = [
-              findPreselectFilterValue(values as string, filtersMapper.make),
-            ];
+            }
+            isValueLose = presetFilters[key][0] ? isValueLose : true;
+          } else if (key !== 'isChangePage') {
+            const rate = (values as string).split('|');
+            presetFilters.from = [rate[0]] || null;
+            presetFilters.to = [rate[1]] || null;
           }
-          isValueLose = presetFilters[key][0] ? isValueLose : true;
-        } else if (key !== 'isChangePage') {
-          const rate = (values as string).split('|');
-          presetFilters.from = [rate[0]] || null;
-          presetFilters.to = [rate[1]] || null;
-        }
-      });
+        });
+      }
       // check if try to preset values actual only for none special offers search
       if (isSpecialOffers && isValueLose) {
         setIsSpecialOffers(false);
@@ -352,7 +374,7 @@ const FiltersContainer = ({
 
   useEffect(() => {
     // don't call onSearch already after render
-    if (!isInitialLoad) onViewResults();
+    if (!isInitialLoad || router.query.isChangePage === 'true') onViewResults();
     // using for checking if user try to load page without additional params
     // numberOfParams - number of required params for page type
     const searchWithParams = (numberOfParams: number) =>
