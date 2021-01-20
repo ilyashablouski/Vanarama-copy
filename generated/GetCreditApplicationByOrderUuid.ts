@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { VehicleTypeEnum } from "./globalTypes";
+import { VehicleTypeEnum, CreditApplicationTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetCreditApplicationByOrderUuid
@@ -54,6 +54,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid {
   employmentHistories: any | null;
   incomeAndExpenses: any | null;
   lineItem: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem | null;
+  creditApplicationType: CreditApplicationTypeEnum | null;
   leadManagerProposalId: string | null;
   createdAt: any | null;
   status: string;
