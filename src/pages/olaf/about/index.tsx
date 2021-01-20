@@ -87,6 +87,13 @@ export const handleAccountFetchError = () =>
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
   );
 
+const savePersonUuid = async (
+  data: CreateUpdatePersonMutation_createUpdatePerson,
+) => {
+  localForage.setItem('personUuid', data.uuid);
+  localForage.setItem('personEmail', data.emailAddresses[0].value);
+};
+
 const AboutYouPage: NextPage = () => {
   const router = useRouter();
   const client = useApolloClient();
@@ -139,6 +146,7 @@ const AboutYouPage: NextPage = () => {
   const clickOnComplete = async (
     createUpdatePerson: CreateUpdatePersonMutation_createUpdatePerson,
   ) => {
+    await savePersonUuid(createUpdatePerson);
     pushAboutYouDataLayer(detailsData, derivativeData);
     await refetch({
       uuid: createUpdatePerson.uuid,
