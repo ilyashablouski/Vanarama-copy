@@ -40,7 +40,9 @@ interface IProps {
 
 export const PASSWORD_REQUEST_MUTATION = gql`
   mutation PasswordRequestMutation($username: String!) {
-    passwordReset(username: $username)
+    passwordReset(username: $username) {
+      isSuccessfull
+    }
   }
 `;
 

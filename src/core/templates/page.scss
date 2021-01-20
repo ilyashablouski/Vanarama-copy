@@ -432,19 +432,6 @@
           }
         }
 
-        .heading.-xlarge,
-        .heading.-large {
-          @include mobile {
-            text-align: center;
-          }
-        }
-
-        > .text.-lead.-darker {
-          @include mobile {
-            text-align: center;
-          }
-        }
-
         > .heading {
           margin: 0;
           margin-top: 0.25rem;
