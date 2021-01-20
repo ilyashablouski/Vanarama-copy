@@ -89,6 +89,11 @@ export interface GetVehicleDetails_derivativeInfo_bodyType {
   slug: string;
 }
 
+export interface GetVehicleDetails_derivativeInfo_model {
+  name: string;
+  slug: string;
+}
+
 export interface GetVehicleDetails_derivativeInfo_technicals {
   id: string;
   derivativeId: string;
@@ -129,6 +134,7 @@ export interface GetVehicleDetails_derivativeInfo {
   transmission: GetVehicleDetails_derivativeInfo_transmission;
   bodyStyle: GetVehicleDetails_derivativeInfo_bodyStyle | null;
   bodyType: GetVehicleDetails_derivativeInfo_bodyType;
+  model: GetVehicleDetails_derivativeInfo_model;
   technicals: (GetVehicleDetails_derivativeInfo_technicals | null)[];
   standardEquipments: (GetVehicleDetails_derivativeInfo_standardEquipments | null)[];
   colours: (GetVehicleDetails_derivativeInfo_colours | null)[] | null;

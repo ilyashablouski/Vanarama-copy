@@ -109,6 +109,10 @@ describe('<CustomiseLease />', () => {
           name: '',
           slug: '',
         },
+        model: {
+          name: '',
+          slug: '',
+        },
         transmission: {
           name: 'Manual',
         },
@@ -233,6 +237,10 @@ describe('<CustomiseLease />', () => {
       derivativeInfo: {
         name: '',
         manufacturer: {
+          name: '',
+          slug: '',
+        },
+        model: {
           name: '',
           slug: '',
         },
@@ -379,6 +387,10 @@ describe('<CustomiseLease />', () => {
         derivativeInfo={{
           name: '',
           manufacturer: {
+            name: '',
+            slug: '',
+          },
+          model: {
             name: '',
             slug: '',
           },
