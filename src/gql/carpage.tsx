@@ -79,6 +79,10 @@ export const GET_CAR_DATA = gql`
         name
         slug
       }
+      model {
+        name
+        slug
+      }
       technicals {
         id
         derivativeId
