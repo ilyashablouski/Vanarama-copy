@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
 import {
   pushPDPDataLayer,
@@ -424,19 +425,25 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             onCompleted={values => onSubmitClick(values)}
           />
         )}
-        <WhyChooseLeasing warranty={warranty || ''} />
-        <WhyChooseVanarama />
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <WhyChooseLeasing warranty={warranty || ''} />
+          <WhyChooseVanarama />
+        </LazyLoadComponent>
         <div className="pdp--reviews">
-          <CustomerReviews
-            reviews={reviews || []}
-            title="Customer Reviews"
-            sliderClassName="customer-reviews"
-          />
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            <CustomerReviews
+              reviews={reviews || []}
+              title="Customer Reviews"
+              sliderClassName="customer-reviews"
+            />
+          </LazyLoadComponent>
         </div>
-        <FrequentlyAskedQuestions
-          rangeFAQ={rangeFAQs || []}
-          rangeFAQTitle={pageTitle}
-        />
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <FrequentlyAskedQuestions
+            rangeFAQ={rangeFAQs || []}
+            rangeFAQTitle={pageTitle}
+          />
+        </LazyLoadComponent>
       </div>
       {!isMobile && (
         <CustomiseLeaseContainer
