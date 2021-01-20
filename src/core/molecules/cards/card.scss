@@ -225,6 +225,8 @@ $small: 0.875rem;
   // Tweaks -> adjust button vertical alignment
   .price + .button {
     margin-top: auto;
+    position: relative;
+    z-index: 1;
   }
 
   // Tweaks -> skeleton (pre-load) styling
