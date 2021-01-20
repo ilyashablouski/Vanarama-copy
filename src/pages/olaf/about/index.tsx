@@ -87,7 +87,7 @@ export const handleAccountFetchError = () =>
     'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
   );
 
-const savePersonUuid = async (
+const savePersonUuid = (
   data: CreateUpdatePersonMutation_createUpdatePerson,
 ) => {
   localForage.setItem('personUuid', data.uuid);
@@ -146,7 +146,7 @@ const AboutYouPage: NextPage = () => {
   const clickOnComplete = async (
     createUpdatePerson: CreateUpdatePersonMutation_createUpdatePerson,
   ) => {
-    await savePersonUuid(createUpdatePerson);
+    savePersonUuid(createUpdatePerson);
     pushAboutYouDataLayer(detailsData, derivativeData);
     await refetch({
       uuid: createUpdatePerson.uuid,
