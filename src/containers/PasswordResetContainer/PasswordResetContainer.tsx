@@ -18,7 +18,9 @@ export const RESET_PASSWORD_MUTATION = gql`
       verificationCode: $verificationCode
       username: $username
       password: $password
-    )
+    ) {
+      isSuccessfull
+    }
   }
 `;
 
@@ -28,7 +30,7 @@ const PasswordResetContainer = ({
   oldPassword,
 }: IPasswordResetContainerProps) => {
   const router = useRouter();
-  const [resetPassword, { loading, error }] = useMutation<
+  const [resetPassword, { loading, data }] = useMutation<
     Mutation,
     MutationVariables
   >(RESET_PASSWORD_MUTATION, {
@@ -48,7 +50,7 @@ const PasswordResetContainer = ({
       username={username}
       code={code}
       oldPassword={oldPassword}
-      hasError={Boolean(error)}
+      hasError={Boolean(!data?.passwordConfirm?.isSuccessfull)}
       onSubmit={async values => {
         await resetPassword({
           variables: {
