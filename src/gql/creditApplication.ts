@@ -237,6 +237,7 @@ export function useCreateUpdateCreditApplication(
               vatDetails,
               soleTraderDetails,
               directorsDetails,
+              creditApplicationType: null,
             },
           },
         });
