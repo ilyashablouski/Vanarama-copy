@@ -44,6 +44,8 @@ function ageValidator(this: yup.TestContext) {
 
 export const createValidationSchema = (
   emailTester: (value: string) => Promise<IExistenceCheckResult | null>,
+  initialData?: IAboutFormValues,
+  isLoggedIn?: boolean,
 ) =>
   yup.object().shape<IAboutFormValues>(
     {
@@ -80,17 +82,29 @@ export const createValidationSchema = (
           'Oops, this email is too long. Please keep it to 254 characters',
         )
         .email('Oops, this email address is invalid')
-        .test('isEmailRegistered', EMAIL_ALREADY_REGISTERED, value =>
-          emailTester(value).then(
+        .test('isEmailRegistered', EMAIL_ALREADY_REGISTERED, value => {
+          if (
+            isLoggedIn ||
+            (initialData?.email && initialData?.email === value)
+          ) {
+            return true;
+          }
+          return emailTester(value).then(
             result =>
               createEmailErrorMessage(result) !== EMAIL_ALREADY_REGISTERED,
-          ),
-        )
-        .test('isEmailInUse', EMAIL_ALREADY_IN_USE, value =>
-          emailTester(value).then(
+          );
+        })
+        .test('isEmailInUse', EMAIL_ALREADY_IN_USE, value => {
+          if (
+            isLoggedIn ||
+            (initialData?.email && initialData?.email === value)
+          ) {
+            return true;
+          }
+          return emailTester(value).then(
             result => createEmailErrorMessage(result) !== EMAIL_ALREADY_IN_USE,
-          ),
-        ),
+          );
+        }),
       telephone: yup
         .string()
         .required(reqMsg('telephone number'))
