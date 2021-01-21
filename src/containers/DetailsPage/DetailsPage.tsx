@@ -184,6 +184,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     leaseScannerData,
     firstTimePushDataLayer,
   ]);
+  const vehicleDetails = data?.vehicleDetails;
 
   const onSubmitClick = (values: OrderInputObject) => {
     const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
@@ -199,7 +200,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       category: getCategory({ cars, vans, pickups }),
     });
     return localForage
-      .setItem('order', values)
+      .setItem('order', {
+        ...values,
+        rating: vehicleDetails?.averageRating || 0,
+      })
       .then(() => localForage.removeItem('orderId'))
       .then(() => {
         const url =
@@ -222,7 +226,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     );
   }
 
-  const vehicleDetails = data?.vehicleDetails;
   const derivativeInfo = data?.derivativeInfo;
   const leaseAdjustParams = data?.leaseAdjustParams;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;

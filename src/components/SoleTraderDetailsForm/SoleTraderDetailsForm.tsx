@@ -115,6 +115,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
           <FormikDateField
             label="Date Of Birth"
             fieldNames={['dayOfBirth', 'monthOfBirth', 'yearOfBirth']}
+            className="-inline-preserved"
           />
           <FormikTextField
             name="placeOfBirth"

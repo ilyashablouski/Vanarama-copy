@@ -132,7 +132,7 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
           errors?.openingMonth?.message?.toString() ||
           errors?.openingYear?.message?.toString()
         }
-        inline
+        className="-inline-preserved"
       >
         <Select
           id="accountOpenSinceMonth"
