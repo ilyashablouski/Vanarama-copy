@@ -215,6 +215,18 @@ export function useCreateUpdateCreditApplication(
         const directorsDetails =
           result.data?.createUpdateCreditApplication?.directorsDetails ||
           data?.creditApplicationByOrderUuid?.directorsDetails;
+        const creditApplicationType =
+          result.data?.createUpdateCreditApplication?.creditApplicationType ||
+          data?.creditApplicationByOrderUuid?.creditApplicationType ||
+          null;
+        const lineItem =
+          result.data?.createUpdateCreditApplication?.lineItem ||
+          data?.creditApplicationByOrderUuid?.lineItem ||
+          null;
+        const leadManagerProposalId =
+          result.data?.createUpdateCreditApplication?.leadManagerProposalId ||
+          data?.creditApplicationByOrderUuid?.leadManagerProposalId ||
+          null;
 
         // Write our data back to the cache.
         store.writeQuery<Query, QueryVariables>({
@@ -228,16 +240,16 @@ export function useCreateUpdateCreditApplication(
               bankAccounts,
               employmentHistories,
               incomeAndExpenses,
-              lineItem: null,
+              lineItem,
               status: status || 'draft',
               updatedAt,
               uuid: orderId,
-              leadManagerProposalId: null,
+              leadManagerProposalId,
               companyDetails,
               vatDetails,
               soleTraderDetails,
               directorsDetails,
-              creditApplicationType: null,
+              creditApplicationType,
             },
           },
         });
