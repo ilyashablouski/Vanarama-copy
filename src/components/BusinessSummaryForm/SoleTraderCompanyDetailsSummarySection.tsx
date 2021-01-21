@@ -1,6 +1,7 @@
 import StructuredList from 'core/organisms/structured-list';
 import React from 'react';
 import { gql } from '@apollo/client';
+import { toCurrencyDisplay } from '../../utils/helpers';
 import FCWithFragments from '../../utils/FCWithFragments';
 import { SoleTraderCompanyDetailsSummary } from '../../../generated/SoleTraderCompanyDetailsSummary';
 import { dateToFormat } from '../../utils/dates';
@@ -72,17 +73,17 @@ const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
         },
         {
           label: 'Annual Turnover',
-          value: String(company.annualTurnover || 'N/A'),
+          value: toCurrencyDisplay(company.annualTurnover || 0),
           dataTestId: 'summary-company-annual-turnover',
         },
         {
           label: 'Annual Cost of Sales',
-          value: String(company.annualSalesCost || 'N/A'),
+          value: toCurrencyDisplay(company.annualSalesCost || 0),
           dataTestId: 'summary-company-annual-sales-cost',
         },
         {
           label: 'Annual Expenses',
-          value: String(company.annualExpenses || 'N/A'),
+          value: toCurrencyDisplay(company.annualExpenses || 0),
           dataTestId: 'summary-company-annual-expenses',
         },
         ...financeToBeReplaced(company),
