@@ -1,6 +1,7 @@
 import {
   DocumentNode,
-  OperationVariables, QueryOptions,
+  OperationVariables,
+  QueryOptions,
   useApolloClient,
 } from '@apollo/client';
 import React from 'react';
