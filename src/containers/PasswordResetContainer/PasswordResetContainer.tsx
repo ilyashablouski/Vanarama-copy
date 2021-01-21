@@ -30,7 +30,7 @@ const PasswordResetContainer = ({
   oldPassword,
 }: IPasswordResetContainerProps) => {
   const router = useRouter();
-  const [resetPassword, { loading, data }] = useMutation<
+  const [resetPassword, { loading, data, called }] = useMutation<
     Mutation,
     MutationVariables
   >(RESET_PASSWORD_MUTATION, {
@@ -50,7 +50,7 @@ const PasswordResetContainer = ({
       username={username}
       code={code}
       oldPassword={oldPassword}
-      hasError={Boolean(!data?.passwordConfirm?.isSuccessfull)}
+      hasError={Boolean(called && !data?.passwordConfirm?.isSuccessfull)}
       onSubmit={async values => {
         await resetPassword({
           variables: {
