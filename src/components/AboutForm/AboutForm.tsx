@@ -43,17 +43,23 @@ const AboutForm: FCWithFragments<IProps> = ({
   onRegistrationClick,
 }) => {
   const isEmailCheckerExists = onEmailExistenceCheck !== undefined;
+  const defaultValues = useMemo(() => responseToInitialFormValues(person), [
+    person,
+  ]);
   const validationSchema = useMemo(
     () =>
       isEmailCheckerExists
-        ? createValidationSchema(onEmailExistenceCheck!)
+        ? createValidationSchema(
+            onEmailExistenceCheck!,
+            defaultValues,
+            personLoggedIn,
+          )
         : createValidationSchema(() => Promise.resolve(null)),
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isEmailCheckerExists],
+    [isEmailCheckerExists, defaultValues],
   );
   const months = genMonths();
   const years = genYears(100);
-  const defaultValues = responseToInitialFormValues(person);
   const {
     errors,
     handleSubmit,
