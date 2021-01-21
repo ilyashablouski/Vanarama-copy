@@ -7,8 +7,12 @@
 // GraphQL mutation operation: ResetPasswordMutation
 // ====================================================
 
+export interface ResetPasswordMutation_passwordConfirm {
+  isSuccessfull: boolean | null;
+}
+
 export interface ResetPasswordMutation {
-  passwordConfirm: string | null;
+  passwordConfirm: ResetPasswordMutation_passwordConfirm | null;
 }
 
 export interface ResetPasswordMutationVariables {
