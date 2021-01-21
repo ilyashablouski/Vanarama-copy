@@ -107,6 +107,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
         {testimonials?.map((item, idx) => (
           <div className="review" key={idx}>
             <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               size="expand"
               round
               src={`https://eu.ui-avatars.com/api/?name=name=${item?.name}&color=ffffff&background=0A0D10&format=svg&rounded=true`}
