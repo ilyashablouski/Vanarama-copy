@@ -153,7 +153,7 @@ const AboutForm: FCWithFragments<IProps> = ({
       <FormGroup
         controlId="dayOfBirth"
         label="Date of Birth"
-        inline
+        className="-inline-preserved"
         error={
           errors?.dayOfBirth?.message?.toString() ||
           errors?.monthOfBirth?.message?.toString() ||
