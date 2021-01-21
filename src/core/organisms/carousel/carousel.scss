@@ -144,4 +144,8 @@ $carousel-arrow-size: 1.5rem;
       }
     }
   }
+
+  .slider-slide {
+    display: flex !important;
+  }
 }
