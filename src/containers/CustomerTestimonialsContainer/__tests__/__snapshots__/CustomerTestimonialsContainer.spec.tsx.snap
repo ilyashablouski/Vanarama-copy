@@ -163,13 +163,7 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
           data-theme="light"
           style="position: relative; height: 140px; width: 100%; border-style: none; display: block; overflow: hidden;"
         >
-          <a
-            href="https://uk.trustpilot.com/review/www.vanarama.com"
-            rel="noopener noreferrer"
-            target="_blank"
-          >
-            Trustpilot
-          </a>
+          <noscript />
         </div>
       </div>
       <div
@@ -262,19 +256,6 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
       <div
         class="testimonials--sidebar--service tilebox"
       >
-        <div>
-          <div
-            class="image -expand -round"
-          >
-            <img
-              alt=""
-              class="image--native"
-              loading="lazy"
-              sizes="(min-width:3200px) 800px, 1200px"
-              src=""
-            />
-          </div>
-        </div>
         <div>
           <p
             class="heading -black -regular"
