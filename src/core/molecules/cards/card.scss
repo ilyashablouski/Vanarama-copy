@@ -21,7 +21,6 @@ $small: 0.875rem;
   gap: 0 $card-gap-inline;
   grid-auto-flow: row;
   text-align: left;
-  height: 100%;
 
   // Core layout -> mobile/tablet
   @include mobile-tablet {
