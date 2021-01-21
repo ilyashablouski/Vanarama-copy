@@ -78,7 +78,7 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
       value: (currentAddress && currentAddress.propertyStatus) || '',
       dataTestId: `summary-director[${orderBySharehold}]-curr-prop-status`,
     },
-    ...previousAddress,
+    ...(previousAddress || []),
   ];
 
   return (

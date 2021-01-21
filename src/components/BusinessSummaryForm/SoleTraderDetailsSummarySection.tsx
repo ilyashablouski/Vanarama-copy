@@ -3,6 +3,7 @@ import { SummaryFormSoleTrader_associates as SoleTraderAssociate } from '../../.
 import { addressToDisplay } from '../../utils/address';
 import { sortAddresses } from './helpers';
 import { fullMonthFormatDate, dateToFormat } from '../../utils/dates';
+import { toCurrencyDisplay } from '../../utils/helpers';
 
 import Skeleton from '../Skeleton';
 
@@ -100,7 +101,7 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
               '',
             dataTestId: `summary-soleTrader-curr-moved-in`,
           },
-          ...previousAddress,
+          ...(previousAddress || []),
           {
             label: 'Property Status',
             value: (currentAddress && currentAddress.propertyStatus) || '',
@@ -113,32 +114,36 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
           },
           {
             label: 'Annual Income',
-            value: String(soleTrader?.incomeAndExpense?.annualIncome || 'N/A'),
+            value: toCurrencyDisplay(
+              soleTrader?.incomeAndExpense?.annualIncome || 0,
+            ),
             dataTestId: 'summary-soleTrader-annual-income',
           },
           {
             label: 'Average Monthly Income',
-            value: String(
-              soleTrader?.incomeAndExpense?.averageMonthlyIncome || 'N/A',
+            value: toCurrencyDisplay(
+              soleTrader?.incomeAndExpense?.averageMonthlyIncome || 0,
             ),
             dataTestId: 'summary-soleTrader-monthly-income',
           },
           {
             label: 'Monthly Mortgage Payments',
-            value: String(
-              soleTrader?.incomeAndExpense?.mortgageOrRent || 'N/A',
+            value: toCurrencyDisplay(
+              soleTrader?.incomeAndExpense?.mortgageOrRent || 0,
             ),
             dataTestId: 'summary-soleTrader-monthly-payments',
           },
           {
             label: 'Monthly Student Payments',
-            value: String(soleTrader?.incomeAndExpense?.studentLoan || 'N/A'),
+            value: toCurrencyDisplay(
+              soleTrader?.incomeAndExpense?.studentLoan || 0,
+            ),
             dataTestId: 'summary-soleTrader-student-payments',
           },
           {
             label: 'Future Monthly Income',
-            value: String(
-              soleTrader?.incomeAndExpense?.futureMonthlyIncome || 'N/A',
+            value: toCurrencyDisplay(
+              soleTrader?.incomeAndExpense?.futureMonthlyIncome || 0,
             ),
             dataTestId: 'summary-soleTrader-future-income',
           },
