@@ -191,7 +191,7 @@ export const pushPageData = async ({
   siteSection,
 }: IPageData) => {
   if (!window.dataLayer) return;
-  setDataLayer();
+  // setDataLayer();
   const personData = (await localForage.getItem('person')) as GetPerson | null;
   const personUuid = (await localForage.getItem('personUuid')) as string | null;
   const person = personData?.getPerson;
