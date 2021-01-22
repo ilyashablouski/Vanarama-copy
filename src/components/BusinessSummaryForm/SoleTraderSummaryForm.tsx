@@ -58,7 +58,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
     [creditApplication],
   );
 
-  const selectLabel = isSubmitting ? 'Saving...' : 'Continue';
+  const selectLabel = isSubmitting ? 'Saving...' : 'Submit';
 
   const handleEdit = (
     url: string,
