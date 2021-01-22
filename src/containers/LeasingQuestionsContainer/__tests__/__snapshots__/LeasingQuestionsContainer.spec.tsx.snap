@@ -95,7 +95,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               >
                 <li
                   class="slider-slide slide-visible slide-current"
-                  style="box-sizing: border-box; display: flex; height: auto; left: 0px; list-style-type: none; margin: auto 10px auto 10px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: -13.33333333333333px;"
+                  style="box-sizing: border-box; display: inline-block; height: auto; left: 0px; list-style-type: none; margin: auto 10px auto 10px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: -13.33333333333333px;"
                   tabindex="-1"
                 >
                   <div
