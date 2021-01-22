@@ -11,7 +11,6 @@ import {
 import { VAN_OFFERS_CONTENT } from '../../gql/special-offers/van-offers';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import useLeaseType from '../../hooks/useLeaseType';
-import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -38,6 +37,9 @@ const ProductCarousel = dynamic(
   {
     loading: () => <Skeleton count={4} />,
   },
+);
+const RouterLink = dynamic(() =>
+  import('../../components/RouterLink/RouterLink'),
 );
 
 interface IProps extends IVansSpecialOffersData {
@@ -103,20 +105,20 @@ export const VanOffers: NextPage<IProps> = ({
                 countItems={productsSmallVan?.productCarousel?.length || 6}
                 dataTestIdBtn="van-view-offer"
               />
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'See All Small Vans',
-                    href: '/small-van-leasing.html',
-                  }}
-                  withoutDefaultClassName
-                  dataTestId="small-van-leasing"
-                >
-                  <div className="button--inner">See All Small Vans</div>
-                </RouterLink>
-              </div>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'See All Small Vans',
+                  href: '/small-van-leasing.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="small-van-leasing"
+              >
+                <div className="button--inner">See All Small Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
@@ -146,20 +148,20 @@ export const VanOffers: NextPage<IProps> = ({
                 countItems={productsMediumVan?.productCarousel?.length || 6}
                 dataTestIdBtn="van-view-offer"
               />
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'See All Medium Vans',
-                    href: '/medium-van-leasing.html',
-                  }}
-                  withoutDefaultClassName
-                  dataTestId="medium-van-leasing"
-                >
-                  <div className="button--inner">See All Medium Vans</div>
-                </RouterLink>
-              </div>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'See All Medium Vans',
+                  href: '/medium-van-leasing.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="medium-van-leasing"
+              >
+                <div className="button--inner">See All Medium Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
@@ -188,20 +190,20 @@ export const VanOffers: NextPage<IProps> = ({
                 countItems={productsLargeVan?.productCarousel?.length || 6}
                 dataTestIdBtn="van-view-offer"
               />
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'See All Large Vans',
-                    href: '/large-van-leasing.html',
-                  }}
-                  withoutDefaultClassName
-                  dataTestId="large-van-leasing"
-                >
-                  <div className="button--inner">See All Large Vans</div>
-                </RouterLink>
-              </div>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'See All Large Vans',
+                  href: '/large-van-leasing.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="large-van-leasing"
+              >
+                <div className="button--inner">See All Large Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
@@ -230,20 +232,20 @@ export const VanOffers: NextPage<IProps> = ({
                 countItems={productsPickup?.productCarousel?.length || 6}
                 dataTestIdBtn="van-view-offer"
               />
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'See All Pickup Vans',
-                    href: '/pickup-special-offers.html',
-                  }}
-                  withoutDefaultClassName
-                  dataTestId="pickup-special-offer"
-                >
-                  <div className="button--inner">See All Pickup Vans</div>
-                </RouterLink>
-              </div>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'See All Pickup Vans',
+                  href: '/pickup-special-offers.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="pickup-special-offer"
+              >
+                <div className="button--inner">See All Pickup Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
@@ -275,20 +277,20 @@ export const VanOffers: NextPage<IProps> = ({
                 }
                 dataTestIdBtn="van-view-offer"
               />
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'See All Dropside Vans',
-                    href: '/dropside-tipper-leasing.html',
-                  }}
-                  withoutDefaultClassName
-                  dataTestId="dropside-tipper-leasing"
-                >
-                  <div className="button--inner">See All Dropside Vans</div>
-                </RouterLink>
-              </div>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'See All Dropside Vans',
+                  href: '/dropside-tipper-leasing.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="dropside-tipper-leasing"
+              >
+                <div className="button--inner">See All Dropside Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
@@ -318,20 +320,20 @@ export const VanOffers: NextPage<IProps> = ({
                 countItems={productsSpecialist?.productCarousel?.length || 6}
                 dataTestIdBtn="van-view-offer"
               />
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'See All Specialist Vans',
-                    href: '/crew-vans.html',
-                  }}
-                  withoutDefaultClassName
-                  dataTestId="crew-vans"
-                >
-                  <div className="button--inner">See All Specialist Vans</div>
-                </RouterLink>
-              </div>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'See All Specialist Vans',
+                  href: '/crew-vans.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="crew-vans"
+              >
+                <div className="button--inner">See All Specialist Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
