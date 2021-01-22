@@ -142,6 +142,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
     true,
   );
+  const [screenY, setScreenY] = useState<number | null>(null);
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
@@ -152,6 +153,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     setLeaseScannerData,
   ] = useState<null | ILeaseScannerData>(null);
   const isMobile = useMobileViewport();
+
+  const scrollChange = () => {
+    setScreenY(window.pageYOffset);
+  };
+
+  useEffect(() => {
+    if (isMobile) {
+      window.addEventListener('scroll', scrollChange);
+    }
+  }, [isMobile]);
 
   useEffect(() => {
     if (
@@ -477,7 +488,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       )}
       {isMobile && (
         <div
-          className={cx('lease-scanner--sticky-wrap')}
+          className={cx(
+            'lease-scanner--sticky-wrap',
+            (screenY || 0) <
+              document.getElementsByClassName('pdp--content')[0].scrollHeight -
+                window.innerHeight
+              ? 'fixed'
+              : '',
+          )}
           style={{ opacity: '1' }}
         >
           <LeaseScanner

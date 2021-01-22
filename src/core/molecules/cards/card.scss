@@ -326,6 +326,9 @@ $small: 0.875rem;
     }
     .card-image ~ :last-child:not(.card-footer) {
       grid-area: 2 / content;
+      @include mobile-tablet {
+        grid-area: inherit;
+      }
     }
     .title {
       span:nth-child(2) {
