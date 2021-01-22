@@ -179,7 +179,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
       <Button
         type="button"
         color="teal"
-        label="Continue"
+        label="Submit"
         dataTestId="olaf_summary_continue_buttton"
         onClick={() => {
           handleSubmit();

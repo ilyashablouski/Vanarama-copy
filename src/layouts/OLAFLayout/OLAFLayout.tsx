@@ -126,7 +126,7 @@ const OLAFLayout: React.FC<IProps> = ({
                 title: `${derivative?.manufacturer.name || ''} ${derivative
                   ?.model.name || ''}`,
                 description: derivative?.name || '',
-                score: 4.5,
+                score: order?.rating,
                 dataTestId: 'olaf_about_title_derivative',
                 size: 'large',
                 ratingSize: 'lead',

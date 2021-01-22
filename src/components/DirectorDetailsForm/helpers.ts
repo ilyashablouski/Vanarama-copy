@@ -167,6 +167,7 @@ export const parseOfficers = (
       firstName,
       lastName,
       gender: '',
+      email: '',
       shareOfBusiness: '',
       dayOfBirth: '',
       monthOfBirth: '',

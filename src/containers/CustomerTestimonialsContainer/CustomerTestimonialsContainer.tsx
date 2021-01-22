@@ -143,15 +143,17 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
               className="testimonials--sidebar--service tilebox"
               key={tile.title || ''}
             >
-              <div>
-                <Image
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  src={tile.image?.file?.url || ''}
-                  alt={tile.image?.title || ''}
-                  size="expand"
-                  round
-                />
-              </div>
+              {!!tile.image?.file?.url && (
+                <div>
+                  <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    src={tile.image?.file?.url || ''}
+                    alt={tile.image?.title || ''}
+                    size="expand"
+                    round
+                  />
+                </div>
+              )}
               <div>
                 <Heading size="regular" color="black">
                   {tile.title}

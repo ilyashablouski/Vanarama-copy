@@ -48,13 +48,12 @@ const Trustpilot: FC<ITrustpilotProps> = ({
           overflow: 'hidden',
         }}
       >
-        <a
-          href={src || 'https://uk.trustpilot.com/review/www.vanarama.com'}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Trustpilot
-        </a>
+        <noscript>
+          <iframe
+            title="Trustpilot"
+            src={src || 'https://uk.trustpilot.com/review/www.vanarama.com'}
+          />
+        </noscript>
       </div>
     </div>
   ) : null;

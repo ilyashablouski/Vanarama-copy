@@ -118,7 +118,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
         error={(
           errors.tradingSinceMonth || errors.tradingSinceYear
         )?.message?.toString()}
-        inline
+        className="-inline-preserved"
       >
         <Select
           dataTestId="company-details_trading-since-month"

@@ -143,7 +143,7 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
           errors?.joinedAtMonth?.message?.toString() ||
           errors?.joinedAtYear?.message?.toString()
         }
-        inline
+        className="-inline-preserved"
       >
         <Select
           id="joinedAtMonth"

@@ -224,6 +224,8 @@ $small: 0.875rem;
   // Tweaks -> adjust button vertical alignment
   .price + .button {
     margin-top: auto;
+    position: relative;
+    z-index: 1;
   }
 
   // Tweaks -> skeleton (pre-load) styling
@@ -289,6 +291,7 @@ $small: 0.875rem;
       width: 0;
     }
     > a[href]:first-of-type {
+      white-space: normal;
       @include pseudo(after) {
         will-change: opacity;
         opacity: 0;

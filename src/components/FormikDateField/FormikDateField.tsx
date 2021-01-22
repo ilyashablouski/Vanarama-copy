@@ -7,9 +7,10 @@ import { genDays, genMonths, genYears } from '../../utils/helpers';
 type Props = {
   label?: string;
   fieldNames: [string, string, string];
+  className?: string;
 };
 
-const FormikDateField: React.FC<Props> = ({ label, fieldNames }) => {
+const FormikDateField: React.FC<Props> = ({ label, fieldNames, className }) => {
   const [dayId, monthId, yearId] = fieldNames;
 
   const [dayField, dayMeta] = useField(dayId);
@@ -19,7 +20,11 @@ const FormikDateField: React.FC<Props> = ({ label, fieldNames }) => {
   const touched = dayMeta.touched && monthMeta.touched && yearMeta.touched;
   const error = dayMeta.error || monthMeta.error || yearMeta.error;
   return (
-    <Formgroup label={label} inline error={(touched && error) || undefined}>
+    <Formgroup
+      label={label}
+      error={(touched && error) || undefined}
+      className={className}
+    >
       <Select id={dayId} dataTestId={dayId} placeholder="Day" {...dayField}>
         {genDays().map(value => (
           <option key={value} value={value}>

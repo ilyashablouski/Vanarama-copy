@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
@@ -62,6 +62,8 @@ export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
   const orderId = useGetOrderId();
   const { companyUuid } = router.query as QueryParams;
+
+  const loginFormRef = useRef<HTMLDivElement>(null);
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
@@ -166,7 +168,7 @@ export const BusinessAboutPage: NextPage = () => {
         about you and your company.
       </Text>
       {!personLoggedIn && (
-        <div className="-mb-500">
+        <div className="-mb-500" ref={loginFormRef}>
           <div className="-pt-300 -pb-300">
             <Button
               label="Login For A Speedy Checkout"
@@ -191,7 +193,13 @@ export const BusinessAboutPage: NextPage = () => {
         personLoggedIn={personLoggedIn}
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
-        onLogInCLick={() => toggleLogInVisibility(true)}
+        onLogInCLick={() => {
+          loginFormRef?.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+          toggleLogInVisibility(true);
+        }}
         onRegistrationClick={handleRegistrationClick}
         isEdited={router.query.redirect === 'summary'}
       />
