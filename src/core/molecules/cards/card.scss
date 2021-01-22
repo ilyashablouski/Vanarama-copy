@@ -291,6 +291,7 @@ $small: 0.875rem;
       width: 0;
     }
     > a[href]:first-of-type {
+      white-space: normal;
       @include pseudo(after) {
         will-change: opacity;
         opacity: 0;
