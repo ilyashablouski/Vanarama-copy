@@ -18,12 +18,12 @@ const NextScript = dynamic(() =>
 //   import('../components/Rollbar').then(mod => mod.Script),
 // );
 
-const JS = dynamic(() => import('../components/JS'));
-
 // @ts-ignore
 // const SpeedCurveScript = dynamic(() =>
 //   import('../components/SpeedCurveScript').then(mod => mod.SpeedCurveScript),
 // );
+
+const JS = dynamic(() => import('../components/JS'));
 
 const env = process?.env?.ENV || '';
 
@@ -41,8 +41,8 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <HeadCustom>
-          {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
-          {scriptEnvs.gtm.includes(env) && <GTMScript />}
+          {/* {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
+          {scriptEnvs.gtm.includes(env) && <GTMScript />} */}
           {/* <RollbarScript /> */}
           <link rel="preload" href="/styles/deferred.css" as="style" />
           {/* <link rel="preload" href="/styles/base.css" as="style" />
@@ -52,7 +52,13 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          {scriptEnvs.gtm.includes(env) && <GTMBody />}
+          {scriptEnvs.gtm.includes(env) && (
+            <>
+              <GTMDataLayerScript />
+              <GTMScript />
+              <GTMBody />
+            </>
+          )}
           <JS />
         </body>
       </Html>
