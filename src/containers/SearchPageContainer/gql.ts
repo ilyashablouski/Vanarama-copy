@@ -177,6 +177,7 @@ export function getRangesList(
   bodyStyles?: string[],
   transmissions?: string[],
   fuelTypes?: string[],
+  rangeSlug?: string,
 ) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useLazyQuery<rangeList, rangeListVariables>(GET_RANGES, {

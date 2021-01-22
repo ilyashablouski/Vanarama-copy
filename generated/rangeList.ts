@@ -27,6 +27,7 @@ export interface rangeListVariables {
   vehicleTypes?: VehicleTypeEnum | null;
   leaseType?: LeaseTypeEnum | null;
   manufacturerSlug: string;
+  rangeSlug?: string | null;
   bodyStyles?: string[] | null;
   transmissions?: string[] | null;
   fuelTypes?: string[] | null;
