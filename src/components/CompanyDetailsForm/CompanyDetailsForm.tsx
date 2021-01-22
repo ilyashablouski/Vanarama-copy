@@ -163,6 +163,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
       {(hasConfirmedCompany || inputMode === 'manual') && (
         <FormContext {...methods}>
           <CompanyDetailsFormFields
+            registeredAddr={selectedCompanyData?.addressSnippet || ''}
             isEdited={isEdited}
             inputMode={inputMode}
             setNatureValue={handleNatureSelect}

@@ -34,6 +34,7 @@ interface IProps {
   inputMode: InputMode;
   isEdited: boolean;
   natureOfBusinessValue: string[];
+  registeredAddr: string;
   setNatureValue: (values: string[]) => void;
 }
 
@@ -42,6 +43,7 @@ export default function CompanyDetailsFormFields({
   isEdited,
   natureOfBusinessValue,
   setNatureValue,
+  registeredAddr,
 }: IProps) {
   const { formState, errors, register, watch } = useFormContext<
     ICompanyDetailsFormValues
@@ -155,6 +157,7 @@ export default function CompanyDetailsFormFields({
         dataTestId="company-details_registered-address"
         id="registeredAddress"
         label="Registered Address"
+        registeredAddr={registeredAddr}
         rules={{
           required: 'Please enter the registered business address',
         }}
