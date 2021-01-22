@@ -19,7 +19,6 @@ import { ProductCardData_productCarousel as ProdCardData } from '../../../genera
 import { HUB_VAN_CONTENT } from '../../gql/hub/hubVanPage';
 import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
 import DealOfMonth from '../../components/DealOfMonth';
-import RouterLink from '../../components/RouterLink/RouterLink';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
@@ -72,6 +71,9 @@ const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
 const League = dynamic(() => import('core/organisms/league'), {
   loading: () => <Skeleton count={2} />,
 });
+const RouterLink = dynamic(() =>
+  import('../../components/RouterLink/RouterLink'),
+);
 
 interface IExtProdCardData extends ProdCardData {
   bodyStyle: string;
@@ -236,20 +238,20 @@ export const VansPage: NextPage<IProps> = ({
                   dataTestIdBtn="van-view-offer"
                 />
               </LazyLoadComponent>
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'View Small Vans',
-                    href: '/small-van-leasing.html',
-                  }}
-                  withoutDefaultClassName
-                  dataTestId="small-van-leasing"
-                >
-                  <div className="button--inner">View Small Vans</div>
-                </RouterLink>
-              </div>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'View Small Vans',
+                  href: '/small-van-leasing.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="small-van-leasing"
+              >
+                <div className="button--inner">View Small Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
@@ -283,20 +285,20 @@ export const VansPage: NextPage<IProps> = ({
                   dataTestIdBtn="van-view-offer"
                 />
               </LazyLoadComponent>
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'View Medium Vans',
-                    href: '/medium-van-leasing.html',
-                  }}
-                  withoutDefaultClassName
-                  dataTestId="medium-van-leasing"
-                >
-                  <div className="button--inner">View Medium Vans</div>
-                </RouterLink>
-              </div>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'View Medium Vans',
+                  href: '/medium-van-leasing.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="medium-van-leasing"
+              >
+                <div className="button--inner">View Medium Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
@@ -330,20 +332,20 @@ export const VansPage: NextPage<IProps> = ({
                   dataTestIdBtn="van-view-offer"
                 />
               </LazyLoadComponent>
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'View Large Vans',
-                    href: '/large-van-leasing.html',
-                  }}
-                  withoutDefaultClassName
-                  dataTestId="large-van-leasing"
-                >
-                  <div className="button--inner">View Large Vans</div>
-                </RouterLink>
-              </div>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'View Large Vans',
+                  href: '/large-van-leasing.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="large-van-leasing"
+              >
+                <div className="button--inner">View Large Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
