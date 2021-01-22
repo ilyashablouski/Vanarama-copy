@@ -420,7 +420,6 @@ const FiltersContainer = ({
   useEffect(() => {
     if (
       filtersObject.manufacturerSlug &&
-      !isMakePage &&
       !((isRangePage || isModelPage) && !tempModelName)
     ) {
       // every time when filters update active model missed
@@ -678,10 +677,9 @@ const FiltersContainer = ({
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
                       disabled={
-                        ((isMakePage ||
-                          isRangePage ||
-                          isModelPage ||
-                          isAllMakesPage) &&
+                        (isMakePage &&
+                          dropdown.accessor === filterFields.make) ||
+                        ((isRangePage || isModelPage || isAllMakesPage) &&
                           (dropdown.accessor === filterFields.make ||
                             dropdown.accessor === filterFields.model)) ||
                         (isBudgetPage &&
