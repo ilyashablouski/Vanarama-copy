@@ -142,8 +142,7 @@ export const productsMapper = (
     lengthOfLease: `${lineItem?.vehicleProduct?.term}` || 'undefined',
     initialPayment:
       `${lineItem?.vehicleProduct?.depositPayment}` || 'undefined',
-    addMaintenance:
-      `${lineItem?.vehicleProduct?.maintenancePrice}` || 'undefined',
+    addMaintenance: lineItem?.vehicleProduct?.maintenancePrice ? 'Yes' : 'No',
   };
 };
 
