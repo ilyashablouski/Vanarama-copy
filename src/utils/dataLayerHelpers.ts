@@ -170,20 +170,20 @@ export const pushDetail = (
   if (value) Object.assign(product, { [field]: `${value}` });
 };
 
-const setDataLayer = () => {
-  if (
-    !window.dataLayer.find(obj =>
-      Object.keys(obj).some(key => key === 'pageType'),
-    )
-  )
-    return;
+// const setDataLayer = () => {
+//   if (
+//     !window.dataLayer.find(obj =>
+//       Object.keys(obj).some(key => key === 'pageType'),
+//     )
+//   )
+//     return;
 
-  window.dataLayer = [];
-  window.dataLayer.push({
-    'gtm.start': new Date().getTime(),
-    event: 'gtm.js',
-  });
-};
+//   window.dataLayer = [];
+//   window.dataLayer.push({
+//     'gtm.start': new Date().getTime(),
+//     event: 'gtm.js',
+//   });
+// };
 
 export const pushPageData = async ({
   pathname,
@@ -191,7 +191,7 @@ export const pushPageData = async ({
   siteSection,
 }: IPageData) => {
   if (!window.dataLayer) return;
-  setDataLayer();
+  // setDataLayer();
   const personData = (await localForage.getItem('person')) as GetPerson | null;
   const personUuid = (await localForage.getItem('personUuid')) as string | null;
   const person = personData?.getPerson;
@@ -246,7 +246,7 @@ const getProductData = ({
   pushDetail('id', capId, product);
   pushDetail(
     'name',
-    `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleModel} ${derivativeInfo?.name}`,
+    `${derivativeInfo?.manufacturer.name} ${derivativeInfo?.model.name} ${derivativeInfo?.name}`,
     product,
   );
   pushDetail('price', price, product);
@@ -326,7 +326,7 @@ export const pushPDPDataLayer = ({
     eventCategory: 'Ecommerce',
     eventAction: 'PDP View',
     eventLabel:
-      `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capModelDescription} ${derivativeInfo?.name}` ||
+      `${derivativeInfo?.manufacturer.name} ${derivativeInfo?.model.name} ${derivativeInfo?.name}` ||
       'undefined',
     eventValue: `${price || 'undefined'}`,
     ecommerce: {

@@ -342,281 +342,301 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       </section>
 
       <section className="row:bg-lighter">
-        <div className="row:cards-3col">
-          {(getSectionsData(
-            ['cards', 'cards'],
-            data?.homePage?.sections,
-          ) as CardData[])?.map((card: CardData, index) => (
-            <RouterLink
-              link={{
-                href: card.link?.legacyUrl || card.link?.url || '#',
-                label: card.link?.text || '',
-              }}
-              key={card.title || index}
-            >
-              <Card
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                title={{
-                  title: '',
-                  withBtn: true,
-                  link: (
-                    <Heading tag={getTitleTag(card.titleTag || 'span') as any}>
-                      {card.title}
-                    </Heading>
-                  ),
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <div className="row:cards-3col">
+            {(getSectionsData(
+              ['cards', 'cards'],
+              data?.homePage?.sections,
+            ) as CardData[])?.map((card: CardData, index) => (
+              <RouterLink
+                link={{
+                  href: card.link?.legacyUrl || card.link?.url || '#',
+                  label: card.link?.text || '',
                 }}
-                imageSrc={
-                  card.image?.file?.url ||
-                  'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg'
-                }
-                description={card.body || ''}
-              />
-            </RouterLink>
-          ))}
-        </div>
+                key={card.title || index}
+              >
+                <Card
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  title={{
+                    title: '',
+                    withBtn: true,
+                    link: (
+                      <Heading
+                        tag={getTitleTag(card.titleTag || 'span') as any}
+                      >
+                        {card.title}
+                      </Heading>
+                    ),
+                  }}
+                  imageSrc={
+                    card.image?.file?.url ||
+                    'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/CitroenBerlingo0718_4_xjonps.jpg'
+                  }
+                  description={card.body || ''}
+                />
+              </RouterLink>
+            ))}
+          </div>
+        </LazyLoadComponent>
       </section>
 
       <section className="row:featured-right">
-        <div style={{ padding: '1rem' }}>
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                getSectionsData(
-                  ['featured1', 'titleTag'],
-                  data?.homePage?.sections,
-                ) || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {getSectionsData(['featured1', 'title'], data?.homePage?.sections)}
-          </Heading>
-          <div className="markdown">
-            <ReactMarkdown
-              allowDangerousHtml
-              source={
-                getSectionsData(
-                  ['featured1', 'body'],
-                  data?.homePage?.sections,
-                ) || ''
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <div style={{ padding: '1rem' }}>
+            <Heading
+              size="large"
+              color="black"
+              tag={
+                getTitleTag(
+                  getSectionsData(
+                    ['featured1', 'titleTag'],
+                    data?.homePage?.sections,
+                  ) || 'p',
+                ) as keyof JSX.IntrinsicElements
               }
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-              }}
-            />
+            >
+              {getSectionsData(
+                ['featured1', 'title'],
+                data?.homePage?.sections,
+              )}
+            </Heading>
+            <div className="markdown">
+              <ReactMarkdown
+                allowDangerousHtml
+                source={
+                  getSectionsData(
+                    ['featured1', 'body'],
+                    data?.homePage?.sections,
+                  ) || ''
+                }
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                }}
+              />
+            </div>
+            <IconList>
+              {(getSectionsData(
+                ['featured1', 'iconList'],
+                data?.homePage?.sections,
+              ) as IIconList[])?.map((icon: IIconList, idx) => (
+                <IconListItem iconColor="orange" key={icon?.text || idx}>
+                  {icon?.text}
+                </IconListItem>
+              ))}
+            </IconList>
           </div>
-          <IconList>
-            {(getSectionsData(
-              ['featured1', 'iconList'],
-              data?.homePage?.sections,
-            ) as IIconList[])?.map((icon: IIconList, idx) => (
-              <IconListItem iconColor="orange" key={icon?.text || idx}>
-                {icon?.text}
-              </IconListItem>
-            ))}
-          </IconList>
-        </div>
-        {data?.homePage?.sections?.featured1?.video ? (
-          <Media
-            src={
-              getSectionsData(
-                ['featured1', 'video'],
-                data?.homePage.sections,
-              ) || ''
-            }
-            width="100%"
-            height="360px"
-          />
-        ) : (
-          <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          {data?.homePage?.sections?.featured1?.video ? (
+            <Media
               src={
                 getSectionsData(
-                  ['featured1', 'image', 'file', 'url'],
+                  ['featured1', 'video'],
                   data?.homePage.sections,
-                ) ||
-                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+                ) || ''
               }
+              width="100%"
+              height="360px"
             />
-          </div>
-        )}
+          ) : (
+            <div>
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                src={
+                  getSectionsData(
+                    ['featured1', 'image', 'file', 'url'],
+                    data?.homePage.sections,
+                  ) ||
+                  'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+                }
+              />
+            </div>
+          )}
+        </LazyLoadComponent>
       </section>
 
       <section className="row:featured-left">
-        {data?.homePage?.sections?.featured2?.video ? (
-          <Media
-            src={
-              getSectionsData(
-                ['featured2', 'video'],
-                data?.homePage.sections,
-              ) || ''
-            }
-            width="100%"
-            height="360px"
-          />
-        ) : (
-          <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          {data?.homePage?.sections?.featured2?.video ? (
+            <Media
               src={
                 getSectionsData(
-                  ['featured2', 'image', 'file', 'url'],
+                  ['featured2', 'video'],
                   data?.homePage.sections,
-                ) ||
-                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+                ) || ''
               }
+              width="100%"
+              height="360px"
             />
+          ) : (
+            <div>
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                src={
+                  getSectionsData(
+                    ['featured2', 'image', 'file', 'url'],
+                    data?.homePage.sections,
+                  ) ||
+                  'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+                }
+              />
+            </div>
+          )}
+          <div>
+            <Heading
+              size="large"
+              color="black"
+              tag={
+                getTitleTag(
+                  getSectionsData(
+                    ['featured2', 'titleTag'],
+                    data?.homePage?.sections,
+                  ) || 'p',
+                ) as keyof JSX.IntrinsicElements
+              }
+            >
+              {getSectionsData(
+                ['featured2', 'title'],
+                data?.homePage?.sections,
+              )}
+            </Heading>
+            <div className="markdown">
+              <ReactMarkdown
+                allowDangerousHtml
+                source={
+                  getSectionsData(
+                    ['featured2', 'body'],
+                    data?.homePage?.sections,
+                  ) || ''
+                }
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                }}
+              />
+            </div>
           </div>
-        )}
-        <div>
+        </LazyLoadComponent>
+      </section>
+
+      <section className="row:features-4col">
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <Heading
             size="large"
             color="black"
             tag={
               getTitleTag(
                 getSectionsData(
-                  ['featured2', 'titleTag'],
+                  ['tiles', 'titleTag'],
                   data?.homePage?.sections,
                 ) || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {getSectionsData(['featured2', 'title'], data?.homePage?.sections)}
+            {getSectionsData(['tiles', 'tilesTitle'], data?.homePage?.sections)}
           </Heading>
-          <div className="markdown">
-            <ReactMarkdown
-              allowDangerousHtml
-              source={
-                getSectionsData(
-                  ['featured2', 'body'],
-                  data?.homePage?.sections,
-                ) || ''
-              }
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-              }}
-            />
-          </div>
-        </div>
-      </section>
-
-      <section className="row:features-4col">
-        <Heading
-          size="large"
-          color="black"
-          tag={
-            getTitleTag(
-              getSectionsData(
-                ['tiles', 'titleTag'],
-                data?.homePage?.sections,
-              ) || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {getSectionsData(['tiles', 'tilesTitle'], data?.homePage?.sections)}
-        </Heading>
-        {(getSectionsData(
-          ['tiles', 'tiles'],
-          data?.homePage?.sections,
-        ) as TileData[])?.map((tile: TileData, idx) => (
-          <div key={tile.title || idx}>
-            <Tile className="-plain -button -align-center" plain>
-              <div style={{ display: 'flex', justifyContent: 'center' }}>
-                <Image
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  inline
-                  round
-                  size="large"
-                  src={
-                    tile.image?.file?.url ||
-                    ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                  }
-                />
-              </div>
-              <TileLink tile={tile} />
-              <Text tag="p">{tile.body}</Text>
-            </Tile>
-          </div>
-        ))}
+          {(getSectionsData(
+            ['tiles', 'tiles'],
+            data?.homePage?.sections,
+          ) as TileData[])?.map((tile: TileData, idx) => (
+            <div key={tile.title || idx}>
+              <Tile className="-plain -button -align-center" plain>
+                <div style={{ display: 'flex', justifyContent: 'center' }}>
+                  <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    inline
+                    round
+                    size="large"
+                    src={
+                      tile.image?.file?.url ||
+                      ' https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                    }
+                  />
+                </div>
+                <TileLink tile={tile} />
+                <Text tag="p">{tile.body}</Text>
+              </Tile>
+            </div>
+          ))}
+        </LazyLoadComponent>
       </section>
 
       <section className="row:league">
-        <League
-          clickReadMore={() => Router.push('/fan-hub.html')}
-          altText="vanarama national league"
-        />
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <League
+            clickReadMore={() => Router.push('/fan-hub.html')}
+            altText="vanarama national league"
+          />
+        </LazyLoadComponent>
       </section>
 
       <section className="row:featured-logos">
-        <Heading tag="span" size="small" color="darker">
-          AS FEATURED ON
-        </Heading>
-        <div>
-          {[
-            {
-              label: 'bbc',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
-            },
-            {
-              label: 'btsport',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
-            },
-            {
-              label: 'dailymail',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
-            },
-            {
-              label: 'dailymirror',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymirror.png',
-            },
-            {
-              label: 'itv',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
-            },
-            {
-              label: 'metro',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
-            },
-            {
-              label: 'thesun',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
-            },
-            {
-              label: 'sky',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
-            },
-            {
-              label: 'thetelegraph',
-              href:
-                'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
-            },
-          ].map(({ href, label }) => (
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={label}
-              src={href}
-              alt={label}
-              size="expand"
-              plain
-            />
-          ))}
-        </div>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <Heading tag="span" size="small" color="darker">
+            AS FEATURED ON
+          </Heading>
+          <div>
+            {[
+              {
+                label: 'bbc',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
+              },
+              {
+                label: 'btsport',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
+              },
+              {
+                label: 'dailymail',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
+              },
+              {
+                label: 'dailymirror',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymirror.png',
+              },
+              {
+                label: 'itv',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
+              },
+              {
+                label: 'metro',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
+              },
+              {
+                label: 'thesun',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
+              },
+              {
+                label: 'sky',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
+              },
+              {
+                label: 'thetelegraph',
+                href:
+                  'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
+              },
+            ].map(({ href, label }) => (
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                key={label}
+                src={href}
+                alt={label}
+                size="expand"
+                plain
+              />
+            ))}
+          </div>
+        </LazyLoadComponent>
       </section>
 
       <section className="row:trustpilot">

@@ -1,13 +1,28 @@
-import { useQuery, DocumentNode } from '@apollo/client';
+import {
+  DocumentNode,
+  OperationVariables,
+  QueryOptions,
+  useApolloClient,
+} from '@apollo/client';
+import React from 'react';
 
-export const useImperativeQuery = (query: DocumentNode) => {
-  const { refetch } = useQuery(query, { skip: true });
-
-  const imperativelyCallQuery = (variables: any) => {
-    return refetch(variables);
-  };
-
-  return imperativelyCallQuery;
-};
+export function useImperativeQuery<
+  TData = any,
+  TVariables = OperationVariables
+>(
+  query: DocumentNode,
+  fetchPolicy: QueryOptions['fetchPolicy'] = 'network-only',
+) {
+  const client = useApolloClient();
+  return React.useCallback(
+    (variables: TVariables) =>
+      client.query<TData, TVariables>({
+        query,
+        variables,
+        fetchPolicy,
+      }),
+    [client, query],
+  );
+}
 
 export default useImperativeQuery;

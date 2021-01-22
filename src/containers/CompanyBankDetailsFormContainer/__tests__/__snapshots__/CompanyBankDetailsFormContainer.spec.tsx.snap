@@ -144,7 +144,7 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
         </div>
       </div>
       <div
-        class="formgroup -inline"
+        class="formgroup -inline-preserved"
       >
         <label
           class="formgroup--legend"

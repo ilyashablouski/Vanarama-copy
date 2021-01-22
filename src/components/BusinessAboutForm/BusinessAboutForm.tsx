@@ -194,7 +194,10 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
                 'Oops, this email is too long. Please keep it to 254 characters',
             },
             validate: async email => {
-              if (personLoggedIn) {
+              if (
+                personLoggedIn ||
+                (person?.email && person?.email === email)
+              ) {
                 return undefined;
               }
 

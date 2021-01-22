@@ -100,6 +100,10 @@ describe('<CustomiseLeaseContainer />', () => {
             name: '',
             slug: '',
           },
+          model: {
+            name: '',
+            slug: '',
+          },
           range: {
             name: '',
             slug: '',
@@ -226,6 +230,10 @@ describe('<CustomiseLeaseContainer />', () => {
           name: '',
           slug: '',
         },
+        model: {
+          name: '',
+          slug: '',
+        },
         range: {
           name: '',
           slug: '',
@@ -305,6 +313,10 @@ describe('<CustomiseLeaseContainer />', () => {
       },
       derivativeInfo: {
         name: '',
+        model: {
+          name: '',
+          slug: '',
+        },
         manufacturer: {
           name: '',
           slug: '',
@@ -420,6 +432,10 @@ describe('<CustomiseLeaseContainer />', () => {
         derivativeInfo={{
           name: '',
           manufacturer: {
+            name: '',
+            slug: '',
+          },
+          model: {
             name: '',
             slug: '',
           },

@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQuery_genericPage_metaData } from '../../../generated/GenericPageHeadQuery';
@@ -131,47 +132,49 @@ const BlogPostContainer: NextPage<IProps> = ({
           />
         </article>
         <div>
-          {articles && (
-            <Heading tag="span" size="large" color="black">
-              Related Articles
-            </Heading>
-          )}
-          {articles?.map((el, indx) => {
-            const hrefLink = setSource(el?.legacyUrl || '');
-            return (
-              <Card
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={`${el?.name}_${indx.toString()}`}
-                className="card__article"
-                imageSrc={el?.featuredImage?.file?.url || ''}
-                title={{
-                  title: '',
-                  link: (
-                    <RouterLink
-                      withoutDefaultClassName
-                      className="heading"
-                      classNames={{ color: 'black', size: 'lead' }}
-                      link={{
-                        href: hrefLink,
-                        label: el?.name || '',
-                      }}
-                    >
-                      {el?.name}
-                    </RouterLink>
-                  ),
-                }}
-                description={el?.excerpt || ''}
-              >
-                <RouterLink
-                  classNames={{ color: 'teal', size: 'regular' }}
-                  link={{
-                    label: 'Read More',
-                    href: hrefLink,
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            {articles && (
+              <Heading tag="span" size="large" color="black">
+                Related Articles
+              </Heading>
+            )}
+            {articles?.map((el, indx) => {
+              const hrefLink = setSource(el?.legacyUrl || '');
+              return (
+                <Card
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  key={`${el?.name}_${indx.toString()}`}
+                  className="card__article"
+                  imageSrc={el?.featuredImage?.file?.url || ''}
+                  title={{
+                    title: '',
+                    link: (
+                      <RouterLink
+                        withoutDefaultClassName
+                        className="heading"
+                        classNames={{ color: 'black', size: 'lead' }}
+                        link={{
+                          href: hrefLink,
+                          label: el?.name || '',
+                        }}
+                      >
+                        {el?.name}
+                      </RouterLink>
+                    ),
                   }}
-                />
-              </Card>
-            );
-          })}
+                  description={el?.excerpt || ''}
+                >
+                  <RouterLink
+                    classNames={{ color: 'teal', size: 'regular' }}
+                    link={{
+                      label: 'Read More',
+                      href: hrefLink,
+                    }}
+                  />
+                </Card>
+              );
+            })}
+          </LazyLoadComponent>
         </div>
       </div>
       {metaData && (

@@ -80,10 +80,7 @@ const AboutFormContainer: React.FC<IProps> = ({
     return <p>Error: {aboutPageDataQuery.error.message}</p>;
   }
 
-  if (
-    !aboutPageDataQuery.data?.allDropDowns ||
-    aboutPageDataQuery.data?.allDropDowns === null
-  ) {
+  if (!aboutPageDataQuery.data?.allDropDowns) {
     return null;
   }
 
