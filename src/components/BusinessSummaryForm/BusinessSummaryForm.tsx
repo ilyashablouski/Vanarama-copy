@@ -49,7 +49,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
     [creditApplication],
   );
 
-  const selectLabel = isSubmitting ? 'Saving...' : 'Continue';
+  const selectLabel = isSubmitting ? 'Saving...' : 'Submit';
 
   const handleEdit = useCallback(
     (url: string, additionalParameters?: { [key: string]: string }) => () => {
