@@ -143,6 +143,7 @@ export const GET_RANGES = gql`
     $vehicleTypes: VehicleTypeEnum
     $leaseType: LeaseTypeEnum
     $manufacturerSlug: String!
+    $rangeSlug: String
     $bodyStyles: [String!]
     $transmissions: [String!]
     $fuelTypes: [String!]
@@ -152,6 +153,7 @@ export const GET_RANGES = gql`
       filter: {
         vehicleType: $vehicleTypes
         manufacturerSlug: $manufacturerSlug
+        rangeSlug: $rangeSlug
         rate: $rate
         bodyStyles: $bodyStyles
         transmissions: $transmissions
@@ -166,7 +168,7 @@ export const GET_RANGES = gql`
     }
   }
 `;
-
+// TODO: add rangeSlug param
 export function getRangesList(
   vehicleTypes: VehicleTypeEnum,
   manufacturerSlug: string,
@@ -175,6 +177,7 @@ export function getRangesList(
   bodyStyles?: string[],
   transmissions?: string[],
   fuelTypes?: string[],
+  rangeSlug?: string,
 ) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useLazyQuery<rangeList, rangeListVariables>(GET_RANGES, {
@@ -186,6 +189,7 @@ export function getRangesList(
       bodyStyles,
       transmissions,
       fuelTypes,
+      rangeSlug,
     },
   });
 }
