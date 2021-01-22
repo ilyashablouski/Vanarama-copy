@@ -143,6 +143,7 @@ export const GET_RANGES = gql`
     $vehicleTypes: VehicleTypeEnum
     $leaseType: LeaseTypeEnum
     $manufacturerSlug: String!
+    $rangeSlug: String
     $bodyStyles: [String!]
     $transmissions: [String!]
     $fuelTypes: [String!]
@@ -152,6 +153,7 @@ export const GET_RANGES = gql`
       filter: {
         vehicleType: $vehicleTypes
         manufacturerSlug: $manufacturerSlug
+        rangeSlug: $rangeSlug
         rate: $rate
         bodyStyles: $bodyStyles
         transmissions: $transmissions
@@ -186,6 +188,7 @@ export function getRangesList(
       bodyStyles,
       transmissions,
       fuelTypes,
+      rangeSlug,
     },
   });
 }
