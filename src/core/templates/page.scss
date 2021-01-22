@@ -432,19 +432,6 @@
           }
         }
 
-        .heading.-xlarge,
-        .heading.-large {
-          @include mobile {
-            text-align: center;
-          }
-        }
-
-        > .text.-lead.-darker {
-          @include mobile {
-            text-align: center;
-          }
-        }
-
         > .heading {
           margin: 0;
           margin-top: 0.25rem;
@@ -669,6 +656,8 @@
             max-width: 4rem;
             max-height: 4rem;
             margin-bottom: 1ch;
+            width: 4rem;
+            height: 4rem;
           }
 
           > * {

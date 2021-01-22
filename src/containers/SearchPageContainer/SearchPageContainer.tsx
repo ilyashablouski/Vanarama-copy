@@ -718,7 +718,9 @@ const SearchPageContainer: React.FC<IProps> = ({
     link: { href: el.href || '', label: el.label },
   }));
 
-  const [readmore, setReadMore] = useState(true);
+  const isReadMoreIncluded = featured?.layout?.includes('Read More');
+
+  const [readmore, setReadMore] = useState(isReadMoreIncluded);
 
   // TODO: render must be refactored, some components should be moved to separate components
   // Some props should be contain in one param for achieve more readable code
@@ -867,7 +869,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 }}
               />
             </div>
-            {featured?.layout?.includes('Read More') && (
+            {isReadMoreIncluded && (
               <Button
                 size="small"
                 color="teal"
@@ -1078,7 +1080,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               className={readmore ? '-truncate' : ''}
               style={{
                 height:
-                  featured?.layout?.includes('Read More') && readmore
+                  isReadMoreIncluded && readmore
                     ? featured?.defaultHeight || 100
                     : '',
               }}

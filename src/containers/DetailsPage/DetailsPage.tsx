@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
 import {
   pushPDPDataLayer,
@@ -183,6 +184,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     leaseScannerData,
     firstTimePushDataLayer,
   ]);
+  const vehicleDetails = data?.vehicleDetails;
 
   const onSubmitClick = (values: OrderInputObject) => {
     const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
@@ -198,7 +200,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       category: getCategory({ cars, vans, pickups }),
     });
     return localForage
-      .setItem('order', values)
+      .setItem('order', {
+        ...values,
+        rating: vehicleDetails?.averageRating || 0,
+      })
       .then(() => localForage.removeItem('orderId'))
       .then(() => {
         const url =
@@ -221,7 +226,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     );
   }
 
-  const vehicleDetails = data?.vehicleDetails;
   const derivativeInfo = data?.derivativeInfo;
   const leaseAdjustParams = data?.leaseAdjustParams;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
@@ -424,19 +428,25 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             onCompleted={values => onSubmitClick(values)}
           />
         )}
-        <WhyChooseLeasing warranty={warranty || ''} />
-        <WhyChooseVanarama />
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <WhyChooseLeasing warranty={warranty || ''} />
+          <WhyChooseVanarama />
+        </LazyLoadComponent>
         <div className="pdp--reviews">
-          <CustomerReviews
-            reviews={reviews || []}
-            title="Customer Reviews"
-            sliderClassName="customer-reviews"
-          />
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            <CustomerReviews
+              reviews={reviews || []}
+              title="Customer Reviews"
+              sliderClassName="customer-reviews"
+            />
+          </LazyLoadComponent>
         </div>
-        <FrequentlyAskedQuestions
-          rangeFAQ={rangeFAQs || []}
-          rangeFAQTitle={pageTitle}
-        />
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <FrequentlyAskedQuestions
+            rangeFAQ={rangeFAQs || []}
+            rangeFAQTitle={pageTitle}
+          />
+        </LazyLoadComponent>
       </div>
       {!isMobile && (
         <CustomiseLeaseContainer

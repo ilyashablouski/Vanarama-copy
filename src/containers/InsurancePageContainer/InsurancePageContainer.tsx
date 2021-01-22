@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 import { GetInsuranceLandingPage } from '../../../generated/GetInsuranceLandingPage';
 import Head from '../../components/Head/Head';
@@ -54,25 +55,31 @@ const InsurancePageContainer = ({ data }: IInsurancePageContainer) => {
         />
       )}
       {data?.insuranceLandingPage?.sections?.featured1 && (
-        <MediaFeatureSection
-          {...data?.insuranceLandingPage?.sections?.featured1}
-          imageOnly
-        >
-          <MediaFeatureText
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <MediaFeatureSection
             {...data?.insuranceLandingPage?.sections?.featured1}
-          />
-        </MediaFeatureSection>
+            imageOnly
+          >
+            <MediaFeatureText
+              {...data?.insuranceLandingPage?.sections?.featured1}
+            />
+          </MediaFeatureSection>
+        </LazyLoadComponent>
       )}
       <hr className="-fullwidth" />
       {data?.insuranceLandingPage?.sections?.featured2 && (
-        <InsuranceFAQSection
-          {...data?.insuranceLandingPage?.sections?.featured2}
-        />
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <InsuranceFAQSection
+            {...data?.insuranceLandingPage?.sections?.featured2}
+          />
+        </LazyLoadComponent>
       )}
       {data?.insuranceLandingPage?.sections?.carousel && (
-        <InsuranceNewsSection
-          {...data?.insuranceLandingPage?.sections?.carousel}
-        />
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <InsuranceNewsSection
+            {...data?.insuranceLandingPage?.sections?.carousel}
+          />
+        </LazyLoadComponent>
       )}
       {data?.insuranceLandingPage.metaData && (
         <>

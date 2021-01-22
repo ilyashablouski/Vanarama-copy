@@ -7,8 +7,12 @@
 // GraphQL mutation operation: PasswordRequestMutation
 // ====================================================
 
+export interface PasswordRequestMutation_passwordReset {
+  isSuccessfull: boolean | null;
+}
+
 export interface PasswordRequestMutation {
-  passwordReset: string | null;
+  passwordReset: PasswordRequestMutation_passwordReset | null;
 }
 
 export interface PasswordRequestMutationVariables {
