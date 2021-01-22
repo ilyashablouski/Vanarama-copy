@@ -6,7 +6,7 @@ import {
   Body as GTMBody,
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
-// import Inline from '../components/Style/Inline';
+import Inline from '../components/Style/Inline';
 
 // @ts-ignore
 const NextScript = dynamic(() =>
@@ -45,9 +45,10 @@ class MyDocument extends Document {
           {scriptEnvs.gtm.includes(env) && <GTMScript />}
           {/* <RollbarScript /> */}
           {/* <Inline /> */}
-          <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="preload" href="/styles/deferred.css" as="style" />
-          <link rel="stylesheet" href="/styles/base.css" />
+          {/* <link rel="preload" href="/styles/base.css" as="style" />
+          <link rel="stylesheet" href="/styles/base.css" /> */}
+          <Inline />
         </HeadCustom>
         <body>
           <Main />
