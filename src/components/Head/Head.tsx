@@ -16,8 +16,6 @@ const scriptEnvs = {
   // vwo: ['uat', 'pre-prod', 'prod'],
 };
 
-// const STATIC_DOMAIN = 'https://static.vanarama-nonprod.com';
-
 const PRECONNECT = [
   process?.env?.API_URL?.replace('/graphql/', ''),
   process.env.STATIC_DOMAIN,
