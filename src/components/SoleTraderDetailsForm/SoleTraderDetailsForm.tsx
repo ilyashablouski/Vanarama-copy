@@ -210,10 +210,12 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
             dataTestId="suitabilityConsent"
             isChecked={formikProps.values.suitabilityConsent}
           />
-          (Before answering this you should consider the consequences of changes
-          in your personal circumstances e.g. the end of a work contract,
-          retirement, redundancy and or a significant increase in mortgage
-          interest rates during the term of the agreement)
+          <Text tag="p">
+            (Before answering this you should consider the consequences of
+            changes in your personal circumstances e.g. the end of a work
+            contract, retirement, redundancy and or a significant increase in
+            mortgage interest rates during the term of the agreement)
+          </Text>
           <Button
             color="primary"
             dataTestId="sole-trader-details"

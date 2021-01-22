@@ -7,7 +7,7 @@ import {
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
 import { VWOScript } from '../components/VWOScript';
-// import Inline from '../components/Style/Inline';
+import Inline from '../components/Style/Inline';
 
 // @ts-ignore
 const NextScript = dynamic(() =>
@@ -19,12 +19,12 @@ const NextScript = dynamic(() =>
 //   import('../components/Rollbar').then(mod => mod.Script),
 // );
 
-const JS = dynamic(() => import('../components/JS'));
-
 // @ts-ignore
 // const SpeedCurveScript = dynamic(() =>
 //   import('../components/SpeedCurveScript').then(mod => mod.SpeedCurveScript),
 // );
+
+const JS = dynamic(() => import('../components/JS'));
 
 const env = process?.env?.ENV || '';
 
@@ -32,7 +32,7 @@ const env = process?.env?.ENV || '';
 const scriptEnvs = {
   gtm: ['uat', 'pre-prod', 'prod'],
 
-  // blueconic: ['dev', 'uat', 'pre-prod', 'prod'],
+  // blueconic: ['uat', 'pre-prod', 'prod'],
 
   vwo: ['uat', 'pre-prod', 'prod'],
 };
@@ -42,19 +42,23 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <HeadCustom>
-          {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
-          {scriptEnvs.gtm.includes(env) && <GTMScript />}
-          {scriptEnvs.vwo.includes(env) && <VWOScript />}
           {/* <RollbarScript /> */}
-          {/* <Inline /> */}
-          <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="preload" href="/styles/deferred.css" as="style" />
-          <link rel="stylesheet" href="/styles/base.css" />
+          {/* <link rel="preload" href="/styles/base.css" as="style" />
+          <link rel="stylesheet" href="/styles/base.css" /> */}
+          <Inline />
         </HeadCustom>
         <body>
           <Main />
           <NextScript />
-          {scriptEnvs.gtm.includes(env) && <GTMBody />}
+          {scriptEnvs.vwo.includes(env) && <VWOScript />}
+          {scriptEnvs.gtm.includes(env) && (
+            <>
+              <GTMDataLayerScript />
+              <GTMScript />
+              <GTMBody />
+            </>
+          )}
           <JS />
         </body>
       </Html>
