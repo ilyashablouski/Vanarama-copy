@@ -369,7 +369,9 @@ export const pushAddToCartDataLayer = ({
     event: 'addToCart',
     eventCategory: 'Ecommerce',
     eventAction: 'Order Start',
-    eventLabel: derivativeInfo?.name || 'undefined',
+    eventLabel:
+      `${derivativeInfo?.manufacturer.name} ${derivativeInfo?.model.name} ${derivativeInfo?.name}` ||
+      'undefined',
     eventValue: `${price || 'undefined'}`,
     ecommerce: {
       currencyCode: 'GBP',
@@ -429,7 +431,9 @@ export const pushAboutYouDataLayer = (
     event: 'checkout',
     eventCategory: 'Ecommerce',
     eventAction: 'Checkout - Step 1 Complete',
-    eventLabel: derivativeData?.name || 'undefined',
+    eventLabel:
+      `${derivativeData?.manufacturer.name} ${derivativeData?.model.name} ${derivativeData?.name}` ||
+      'undefined',
     eventValue: `${price || 'undefined'}`,
     ecommerce: {
       currencyCode: 'GBP',
@@ -526,7 +530,9 @@ export const pushCallBackDataLayer = ({
     event: 'enquiry',
     eventCategory: 'Enquiries',
     eventAction: 'Vehicle Enquiry',
-    eventLabel: derivativeInfo?.name || 'undefined',
+    eventLabel:
+      `${derivativeInfo?.manufacturer.name} ${derivativeInfo?.model.name} ${derivativeInfo?.name}` ||
+      'undefined',
     eventValue: `${price || 'undefined'}`,
   };
 
