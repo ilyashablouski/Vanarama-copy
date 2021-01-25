@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import cx from 'classnames';
 
 import { IInitialsProps } from './interfaces';
+import getInitials from './helpers';
 
 const Initials: FC<IInitialsProps> = props => {
   const { className, fullName } = props;
@@ -11,12 +12,7 @@ const Initials: FC<IInitialsProps> = props => {
   }
 
   // Get First and Last except get First 2 in case there is only first.
-  const title = fullName
-    .match(/(^\S\S?|\b\S)?/g)
-    ?.join('')
-    .match(/(^\S|\S$)?/g)
-    ?.join('')
-    .toUpperCase();
+  const title = getInitials(fullName);
 
   return (
     <div
