@@ -17,7 +17,6 @@ import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getSectionsData } from '../../utils/getSectionsData';
 import TileLink from '../../components/TileLink/TileLink';
-// import Hero from '../../components/Hero';
 import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData } from '../../utils/offers';
@@ -76,22 +75,6 @@ const ProductCarousel = dynamic(
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
-
-// // Hero
-// const HeroHeading = dynamic(
-//   // @ts-ignore
-//   () => import('../../components/Hero').then(mod => mod.HeroHeading),
-//   {
-//     loading: () => <Skeleton count={2} />,
-//   },
-// );
-// const HeroTitle = dynamic(
-//   // @ts-ignore
-//   () => import('../../components/Hero').then(mod => mod.HeroTitle),
-//   {
-//     loading: () => <Skeleton count={2} />,
-//   },
-// );
 
 const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
   loading: () => <Skeleton count={1} />,
@@ -230,20 +213,24 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           <TabPanels>
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <ProductCarousel
-                  leaseType={
-                    isPersonalLcv
-                      ? LeaseTypeEnum.PERSONAL
-                      : LeaseTypeEnum.BUSINESS
-                  }
-                  data={{
-                    derivatives: productsVanDerivatives?.derivatives || null,
-                    productCard: productsVan?.productCarousel || null,
-                    vehicleList: vehicleListUrlData,
-                  }}
-                  countItems={productsVan?.productCarousel?.length || 6}
-                  dataTestIdBtn="van-view-offer"
-                />
+                <LazyLoadComponent
+                  visibleByDefault={typeof window === 'undefined'}
+                >
+                  <ProductCarousel
+                    leaseType={
+                      isPersonalLcv
+                        ? LeaseTypeEnum.PERSONAL
+                        : LeaseTypeEnum.BUSINESS
+                    }
+                    data={{
+                      derivatives: productsVanDerivatives?.derivatives || null,
+                      productCard: productsVan?.productCarousel || null,
+                      vehicleList: vehicleListUrlData,
+                    }}
+                    countItems={productsVan?.productCarousel?.length || 6}
+                    dataTestIdBtn="van-view-offer"
+                  />
+                </LazyLoadComponent>
                 <div className="-justify-content-row -pt-500">
                   <RouterLink
                     className="button"
@@ -266,21 +253,26 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             </TabPanel>
             <TabPanel index={1}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <ProductCarousel
-                  leaseType={
-                    isPersonalLcv
-                      ? LeaseTypeEnum.PERSONAL
-                      : LeaseTypeEnum.BUSINESS
-                  }
-                  productType="Pickup"
-                  data={{
-                    derivatives: productsPickupDerivatives?.derivatives || null,
-                    productCard: productsPickup?.productCarousel || null,
-                    vehicleList: vehicleListUrlData,
-                  }}
-                  countItems={productsPickup?.productCarousel?.length || 6}
-                  dataTestIdBtn="pickup-view-offer"
-                />
+                <LazyLoadComponent
+                  visibleByDefault={typeof window === 'undefined'}
+                >
+                  <ProductCarousel
+                    leaseType={
+                      isPersonalLcv
+                        ? LeaseTypeEnum.PERSONAL
+                        : LeaseTypeEnum.BUSINESS
+                    }
+                    productType="Pickup"
+                    data={{
+                      derivatives:
+                        productsPickupDerivatives?.derivatives || null,
+                      productCard: productsPickup?.productCarousel || null,
+                      vehicleList: vehicleListUrlData,
+                    }}
+                    countItems={productsPickup?.productCarousel?.length || 6}
+                    dataTestIdBtn="pickup-view-offer"
+                  />
+                </LazyLoadComponent>
                 <div className="-justify-content-row -pt-500">
                   <RouterLink
                     className="button"
@@ -303,20 +295,25 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             </TabPanel>
             <TabPanel index={2}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <ProductCarousel
-                  leaseType={
-                    isPersonalCar
-                      ? LeaseTypeEnum.PERSONAL
-                      : LeaseTypeEnum.BUSINESS
-                  }
-                  data={{
-                    derivatives: productsCarDerivatives?.derivatives || null,
-                    productCard: productsCar?.productCarousel || null,
-                    vehicleList: vehicleListUrlData,
-                  }}
-                  countItems={productsCar?.productCarousel?.length || 6}
-                  dataTestIdBtn="car-view-offer"
-                />
+                <LazyLoadComponent
+                  visibleByDefault={typeof window === 'undefined'}
+                >
+                  <ProductCarousel
+                    leaseType={
+                      isPersonalCar
+                        ? LeaseTypeEnum.PERSONAL
+                        : LeaseTypeEnum.BUSINESS
+                    }
+                    data={{
+                      derivatives: productsCarDerivatives?.derivatives || null,
+                      productCard: productsCar?.productCarousel || null,
+                      vehicleList: vehicleListUrlData,
+                    }}
+                    countItems={productsCar?.productCarousel?.length || 6}
+                    dataTestIdBtn="car-view-offer"
+                  />
+                </LazyLoadComponent>
+
                 <div className="-justify-content-row -pt-500">
                   <RouterLink
                     className="button"
