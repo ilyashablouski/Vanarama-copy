@@ -6,7 +6,12 @@ import TabPanel from '../TabPanel';
 import TabPanels from '../TabPanels';
 import Tabs from '../Tabs';
 
+const { getComputedStyle } = window;
+
 describe('<Tabs />', () => {
+  beforeAll(() => {
+    window.getComputedStyle = elt => getComputedStyle(elt);
+  });
   it('should only render the content for the active tab', () => {
     render(
       <Tabs activeIndex={2} onChange={jest.fn()}>
