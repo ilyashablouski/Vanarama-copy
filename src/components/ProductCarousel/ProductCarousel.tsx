@@ -43,7 +43,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   dataTestIdBtn,
   productType,
 }) => {
-  const { slidesToShow } = useSliderProperties();
+  // const { slidesToShow } = useSliderProperties();
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
@@ -69,14 +69,12 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 product.leadTime || product.isOnOffer
                   ? {
                       text: product.leadTime || '',
-                      accentIcon:
-                        slidesToShow > 2 && product.isOnOffer ? (
-                          <Icon icon={<Flame />} color="white" />
-                        ) : (
-                          ''
-                        ),
-                      accentText:
-                        slidesToShow > 2 && product.isOnOffer ? 'Hot Deal' : '',
+                      accentIcon: product.isOnOffer ? (
+                        <Icon icon={<Flame />} color="white" />
+                      ) : (
+                        ''
+                      ),
+                      accentText: product.isOnOffer ? 'Hot Deal' : '',
                     }
                   : undefined
               }
