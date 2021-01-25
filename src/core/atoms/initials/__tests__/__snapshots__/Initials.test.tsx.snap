@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Initials /> renders correctly first/last/second name 1`] = `
+<div
+  className="initials"
+>
+  AC
+</div>
+`;
+
+exports[`<Initials /> renders correctly with first/last name 1`] = `
+<div
+  className="initials"
+>
+  GA
+</div>
+`;
+
+exports[`<Initials /> should return null 1`] = `null`;
