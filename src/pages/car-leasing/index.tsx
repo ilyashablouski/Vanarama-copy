@@ -504,8 +504,9 @@ export const CarsPage: NextPage<IProps> = ({
       <section className="row:league">
         <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <League
-            clickReadMore={() => Router.push('/fan-hub')}
+            clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
+            link="/fan-hub.html"
           />
         </LazyLoadComponent>
       </section>

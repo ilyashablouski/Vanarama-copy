@@ -715,6 +715,7 @@ export const VansPage: NextPage<IProps> = ({
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
+            link="/fan-hub.html"
           />
         </LazyLoadComponent>
       </section>
