@@ -147,11 +147,9 @@ export const mapCompanyDetailsToCreditApplication = (
           }
         : undefined,
     ].filter(Boolean),
-    tradingSince: parseDate(
-      '01',
-      values.tradingSinceMonth,
-      values.tradingSinceYear,
-    ),
+    tradingSince: values?.companySearchResult?.dateOfCreation
+      ? values.companySearchResult.dateOfCreation
+      : parseDate('01', values.tradingSinceMonth, values.tradingSinceYear),
     companyType: aboutDetails?.companyType || 'Limited',
     telephoneNumbers: [{ value: values.telephone, kind: 'business' }],
     emailAddresses: [{ kind: 'Home', value: values.email, primary: true }],
