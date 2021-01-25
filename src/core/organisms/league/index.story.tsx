@@ -7,5 +7,5 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 import League from '.';
 
 storiesOf(`${atomicDir(base)}|League`, module).add('Default', () => (
-  <League clickReadMore={() => {}} altText="alternative" />
+  <League clickReadMore={() => {}} altText="alternative" link="" />
 ));

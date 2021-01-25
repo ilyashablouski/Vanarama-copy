@@ -214,7 +214,7 @@ export default function CompanyDetailsFormFields({
       </Formgroup>
       <Formgroup
         controlId="email"
-        hint="Please provide a general company email address only"
+        hint="Please provide a company email address"
         label="Email Address"
         error={errors.email?.message?.toString()}
       >
