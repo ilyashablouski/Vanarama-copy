@@ -188,6 +188,24 @@ const TopOffersContainer: React.FC<IProps> = ({
 
   const getCardData = (capId: string, dataForCards = cardsData) =>
     dataForCards?.filter(card => card?.capId === capId)[0];
+
+  const renderVehicleCard = (vehicle: IVehicles) => (
+    <VehicleCard
+      loadImage
+      derivativeId={vehicle.node?.derivativeId}
+      url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
+      key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
+      data={
+        getCardData(vehicle.node?.derivativeId || '', cardsData) as IProductCard
+      }
+      title={{
+        title: '',
+        description: vehicle.node?.derivativeName || '',
+      }}
+      isPersonalPrice={isPersonal}
+    />
+  );
+
   return (
     <>
       {((isMakePage && vehiclesList.length > 3 && !!carDer.length) ||
@@ -206,49 +224,17 @@ const TopOffersContainer: React.FC<IProps> = ({
               Top Offers
             </Heading>
             {vehiclesList.length === 3 ? (
-              vehiclesList.map((vehicle: IVehicles) => (
-                <VehicleCard
-                  loadImage
-                  derivativeId={vehicle.node?.derivativeId}
-                  url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
-                  key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
-                  data={
-                    getCardData(
-                      vehicle.node?.derivativeId || '',
-                      cardsData,
-                    ) as IProductCard
-                  }
-                  title={{
-                    title: '',
-                    description: vehicle.node?.derivativeName || '',
-                  }}
-                  isPersonalPrice={isPersonal}
-                />
-              ))
+              vehiclesList.map((vehicle: IVehicles) =>
+                renderVehicleCard(vehicle),
+              )
             ) : (
               <Carousel
                 className="-mh-auto top-offers"
                 countItems={vehiclesList.length || 0}
               >
-                {vehiclesList.map((vehicle: IVehicles) => (
-                  <VehicleCard
-                    loadImage
-                    derivativeId={vehicle.node?.derivativeId}
-                    url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
-                    key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
-                    data={
-                      getCardData(
-                        vehicle.node?.derivativeId || '',
-                        cardsData,
-                      ) as IProductCard
-                    }
-                    title={{
-                      title: '',
-                      description: vehicle.node?.derivativeName || '',
-                    }}
-                    isPersonalPrice={isPersonal}
-                  />
-                ))}
+                {vehiclesList.map((vehicle: IVehicles) =>
+                  renderVehicleCard(vehicle),
+                )}
               </Carousel>
             )}
           </div>
