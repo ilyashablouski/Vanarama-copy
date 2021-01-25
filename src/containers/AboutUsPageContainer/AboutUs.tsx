@@ -1,5 +1,6 @@
 import React, { ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
 import Carousel from 'core/organisms/carousel';
@@ -63,9 +64,7 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
     card?.title && card.body && card.name ? (
       <Card
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        // TODO: remove width when Carousel component is fixed
-        // now its slider is wider than carousel itself, and cards adapts and its right border is hidden
-        style={{ width: '362px' }}
+        style={{ maxHeight: 320 }}
         key={card.name}
         title={{
           title: card.title,
@@ -190,15 +189,15 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, error, data }) => {
             }}
           />
         </article>
-        <div>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <div className="-pb-400">
             {sections?.carousel?.cards && (
-              <Carousel countItems={1}>
+              <Carousel countItems={1} className="-mh-auto">
                 {renderCarouselCards(sections?.carousel.cards)}
               </Carousel>
             )}
           </div>
-        </div>
+        </LazyLoadComponent>
       </div>
       <div className="row:cards-2col">
         {renderMeetCard(directorsCard)}

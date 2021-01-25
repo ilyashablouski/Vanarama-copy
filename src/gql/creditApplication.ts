@@ -237,7 +237,7 @@ export function useCreateUpdateCreditApplication(
             creditApplicationByOrderUuid: {
               createdAt: data?.creditApplicationByOrderUuid?.createdAt,
               aboutDetails,
-              addresses,
+              addresses: addresses?.length ? addresses : null,
               bankAccounts,
               employmentHistories,
               incomeAndExpenses,
