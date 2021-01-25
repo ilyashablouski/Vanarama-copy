@@ -61,7 +61,6 @@ export const mapAddresses = (data?: any) =>
 
 export const mapDirectorDetails = (data: any): DirectorDetails => ({
   dayOfBirth: data?.day_of_birth,
-  firstName: data?.first_name,
   gender: data?.gender,
   email: data?.email,
   history: data?.history?.map((item: any) => ({
@@ -75,7 +74,10 @@ export const mapDirectorDetails = (data: any): DirectorDetails => ({
         }
       : undefined,
   })),
+  firstName: data?.first_name,
+  originalFirstName: data?.original_first_name,
   lastName: data?.last_name,
+  originalLastName: data?.original_last_name,
   monthOfBirth: data?.month_of_birth,
   numberOfDependants: data?.number_of_dependants,
   shareOfBusiness: data?.share_of_business,
@@ -101,8 +103,8 @@ export const combineUpdatedDirectors = (
   return directors.map(director => {
     const data = associates?.find(
       associate =>
-        associate.firstName === director.firstName &&
-        associate.lastName === director.lastName,
+        associate.firstName === director.originalFirstName &&
+        associate.lastName === director.originalLastName,
     );
 
     return {

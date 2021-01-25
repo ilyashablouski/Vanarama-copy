@@ -24,6 +24,7 @@ const handleDirectorSelected = (
     director =>
       director.firstName === firstName && director.lastName === lastName,
   );
+
   arrayHelpers.push(
     selected || {
       title: '',
