@@ -16,14 +16,9 @@ exports[`<CustomerTestimonialsContainer /> should match snapshot 1`] = `
         class="review"
       >
         <div
-          class="image -expand -round"
+          class="initials"
         >
-          <img
-            class="image--native"
-            loading="lazy"
-            sizes="(min-width:3200px) 800px, 1200px"
-            src="https://eu.ui-avatars.com/api/?name=name=Steven Buckle&color=ffffff&background=0A0D10&format=svg&rounded=true"
-          />
+          SB
         </div>
         <p
           class="heading -black -regular"

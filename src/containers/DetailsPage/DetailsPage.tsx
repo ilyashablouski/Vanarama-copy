@@ -142,6 +142,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
     true,
   );
+  const [screenY, setScreenY] = useState<number | null>(null);
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
@@ -152,6 +153,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     setLeaseScannerData,
   ] = useState<null | ILeaseScannerData>(null);
   const isMobile = useMobileViewport();
+
+  const scrollChange = () => {
+    setScreenY(window.pageYOffset);
+  };
+
+  useEffect(() => {
+    if (isMobile) {
+      window.addEventListener('scroll', scrollChange);
+    }
+  }, [isMobile]);
 
   useEffect(() => {
     if (
@@ -401,13 +412,17 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
         />
-        <VehicleTechDetails
-          vehicleDetails={vehicleDetails}
-          derivativeInfo={derivativeInfo}
-        />
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <VehicleTechDetails
+            vehicleDetails={vehicleDetails}
+            derivativeInfo={derivativeInfo}
+          />
+        </LazyLoadComponent>
         {(vans || cars) && <Banner vans={vans} />}
         {(vans || pickups) && !!independentReview && (
-          <IndependentReview review={independentReview || ''} />
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            <IndependentReview review={independentReview || ''} />
+          </LazyLoadComponent>
         )}
         {isMobile && (
           <CustomiseLeaseContainer
@@ -468,56 +483,67 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         />
       )}
       {(!!productCard || !!capsId?.length) && (
-        <CustomerAlsoViewedContainer
-          initProductCard={productCard}
-          capsId={capsId || []}
-          vehicleType={vehicleType}
-          leaseType={leaseType.toUpperCase() || ''}
-        />
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <CustomerAlsoViewedContainer
+            initProductCard={productCard}
+            capsId={capsId || []}
+            vehicleType={vehicleType}
+            leaseType={leaseType.toUpperCase() || ''}
+          />
+        </LazyLoadComponent>
       )}
       {isMobile && (
         <div
-          className={cx('lease-scanner--sticky-wrap')}
+          className={cx(
+            'lease-scanner--sticky-wrap',
+            (screenY || 0) <
+              document.getElementsByClassName('pdp--content')[0].scrollHeight -
+                window.innerHeight
+              ? 'fixed'
+              : '',
+          )}
           style={{ opacity: '1' }}
         >
-          <LeaseScanner
-            classNameHeading="headingText"
-            className="pdp-footer"
-            nextBestPrice={
-              leaseScannerData?.maintenance
-                ? `£${toPriceFormat(
-                    leaseScannerData?.quoteByCapId?.nextBestPrice?.maintained,
-                  )} PM ${leaseScannerData?.stateVAT}. VAT`
-                : `£${toPriceFormat(
-                    leaseScannerData?.quoteByCapId?.nextBestPrice
-                      ?.nonMaintained,
-                  )} PM ${leaseScannerData?.stateVAT}. VAT`
-            }
-            priceLabel={
-              leaseScannerData?.maintenance
-                ? `+£${toPriceFormat(
-                    leaseScannerData?.quoteByCapId?.maintenanceCost
-                      ?.monthlyRental,
-                  )} Maintenance`
-                : undefined
-            }
-            price={
-              +toPriceFormat(
-                leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
-              )
-            }
-            orderNowClick={onSubmitClickMobile}
-            headingText={`PM ${leaseScannerData?.stateVAT}. VAT`}
-            leasingProviders={LEASING_PROVIDERS}
-            startLoading={isDisabled}
-            endAnimation={() => {
-              setIsDisabled(false);
-              leaseScannerData?.endAnimation();
-            }}
-            requestCallBack={() => {
-              leaseScannerData?.requestCallBack();
-            }}
-          />
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            <LeaseScanner
+              classNameHeading="headingText"
+              className="pdp-footer"
+              nextBestPrice={
+                leaseScannerData?.maintenance
+                  ? `£${toPriceFormat(
+                      leaseScannerData?.quoteByCapId?.nextBestPrice?.maintained,
+                    )} PM ${leaseScannerData?.stateVAT}. VAT`
+                  : `£${toPriceFormat(
+                      leaseScannerData?.quoteByCapId?.nextBestPrice
+                        ?.nonMaintained,
+                    )} PM ${leaseScannerData?.stateVAT}. VAT`
+              }
+              priceLabel={
+                leaseScannerData?.maintenance
+                  ? `+£${toPriceFormat(
+                      leaseScannerData?.quoteByCapId?.maintenanceCost
+                        ?.monthlyRental,
+                    )} Maintenance`
+                  : undefined
+              }
+              price={
+                +toPriceFormat(
+                  leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+                )
+              }
+              orderNowClick={onSubmitClickMobile}
+              headingText={`PM ${leaseScannerData?.stateVAT}. VAT`}
+              leasingProviders={LEASING_PROVIDERS}
+              startLoading={isDisabled}
+              endAnimation={() => {
+                setIsDisabled(false);
+                leaseScannerData?.endAnimation();
+              }}
+              requestCallBack={() => {
+                leaseScannerData?.requestCallBack();
+              }}
+            />
+          </LazyLoadComponent>
         </div>
       )}
       <Head

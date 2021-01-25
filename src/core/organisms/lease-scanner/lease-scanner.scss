@@ -5,7 +5,7 @@
   background-color: $white;
   padding: $rem-300 $rem-400;
   @include desktop { @include margin-inline(-$rem-500); }
-  @include mobile-tablet  { @include margin-inline(-$rem-400); }
+  @include mobile-tablet  { margin: 0; }
   box-shadow: 0 -8px 32px -8px rgba($dark, .5);
   background-image: linear-gradient(to bottom, $border-color 0.5px, transparent 0.5px);
   --owl-gap: 0;
@@ -26,6 +26,9 @@
 
     @media screen and (max-width: 767px) {
       height: auto; 
+      &.fixed {
+        position: fixed;
+      }
     }
 
     &.start-screen {

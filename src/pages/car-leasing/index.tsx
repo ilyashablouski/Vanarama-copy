@@ -106,6 +106,15 @@ export const CarsPage: NextPage<IProps> = ({
 
   return (
     <>
+      {data?.hubCarPage.metaData && (
+        <>
+          <Head
+            metaData={data?.hubCarPage.metaData}
+            featuredImage={data?.hubCarPage.featuredImage}
+          />
+          <SchemaJSON json={JSON.stringify(data?.hubCarPage.metaData.schema)} />
+        </>
+      )}
       <Hero searchPodCarsData={searchPodCarsData}>
         <HeroHeading
           text={data?.hubCarPage.sections?.hero?.title || ''}
@@ -572,15 +581,6 @@ export const CarsPage: NextPage<IProps> = ({
           <TrustPilot />
         </LazyLoadComponent>
       </section>
-      {data?.hubCarPage.metaData && (
-        <>
-          <Head
-            metaData={data?.hubCarPage.metaData}
-            featuredImage={data?.hubCarPage.featuredImage}
-          />
-          <SchemaJSON json={JSON.stringify(data?.hubCarPage.metaData.schema)} />
-        </>
-      )}
     </>
   );
 };
