@@ -11,7 +11,7 @@ import {
   GetProductCard_productCard,
 } from '../../../generated/GetProductCard';
 import truncateString from '../../utils/truncateString';
-import useSliderProperties from '../../hooks/useSliderProperties';
+// import useSliderProperties from '../../hooks/useSliderProperties';
 import { features } from './helpers';
 
 // Dynamic component loading.
