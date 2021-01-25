@@ -8,7 +8,7 @@ import Image from '../../atoms/image';
 import { ILeagueProps } from './interfaces';
 
 const League: FC<ILeagueProps> = memo(props => {
-  const { clickReadMore, altText } = props;
+  const { clickReadMore, altText, link } = props;
 
   return (
     <>
@@ -31,6 +31,7 @@ const League: FC<ILeagueProps> = memo(props => {
             onClick={() => {
               clickReadMore();
             }}
+            href={link}
           >
             Here
           </Link>
