@@ -61,7 +61,7 @@ const AddressFormFieldArray: FCWithFragments<IProps> = ({
               </Heading>
               <FormikAddressField
                 name={nameGenerator('address')}
-                label="Your Postcode or Address"
+                label="Enter Your Postcode"
               />
               <FormikSelectField
                 name={nameGenerator('status')}
