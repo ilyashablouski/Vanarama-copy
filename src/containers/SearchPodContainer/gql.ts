@@ -105,9 +105,9 @@ export function filterTypeAndBudget(
     onCompleted,
     variables: {
       vehicleTypes,
-      manufacturerSlug,
-      rangeName,
-      bodyStyles,
+      manufacturerSlug: manufacturerSlug || undefined,
+      rangeName: rangeName || undefined,
+      bodyStyles: !bodyStyles || bodyStyles[0] ? bodyStyles : undefined,
     },
   });
 }
