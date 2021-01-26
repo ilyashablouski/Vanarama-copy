@@ -8,11 +8,12 @@ import { ILeagueProps } from '../interfaces';
 const optionalProps = {
   clickReadMore: jest.fn(),
   altText: 'image1',
+  link: '',
 };
 
 function getComponent(props?: ILeagueProps) {
   return renderer
-    .create(<League clickReadMore={jest.fn()} {...props} />)
+    .create(<League clickReadMore={jest.fn()} {...props} link="" />)
     .toJSON();
 }
 

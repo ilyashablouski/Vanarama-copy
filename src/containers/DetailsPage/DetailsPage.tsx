@@ -300,6 +300,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         {
           vehicleProduct: {
             vehicleType,
+            funderId: `${leaseScannerData?.quoteByCapId?.funderId}`,
             derivativeCapId: capId.toString(),
             colour: colourDescription,
             trim: trimDescription,
