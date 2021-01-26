@@ -46,7 +46,7 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
         error={errors.nature?.message?.toString()}
         controlId="nature"
         label="Nature of Business"
-        hint="e.g. building firm/marketing agency"
+        hint="Please select from the list"
       >
         <Typeahead
           getSuggestionValue={suggestion => suggestion.description}
