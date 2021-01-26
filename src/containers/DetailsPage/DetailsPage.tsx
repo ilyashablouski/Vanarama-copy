@@ -134,6 +134,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   productCard,
 }) => {
   const router = useRouter();
+  const pdpContent = React.useRef<HTMLDivElement>(null);
   // pass cars prop(Boolean)
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(cars);
   const [leaseType, setLeaseType] = useState<string>(cachedLeaseType);
@@ -366,9 +367,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     });
   };
 
+  const calcScrollHeight = () => {
+    const pdpContentHeight = pdpContent.current!.scrollHeight;
+    return pdpContentHeight - window.innerHeight;
+  };
+
   return (
     <>
-      <div className="pdp--content">
+      <div className="pdp--content" ref={pdpContent}>
         {breadcrumbItems && (
           <div className="row:title">
             <Breadcrumb items={breadcrumbItems} />
@@ -497,11 +503,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <div
           className={cx(
             'lease-scanner--sticky-wrap',
-            (screenY || 0) <
-              document.getElementsByClassName('pdp--content')[0].scrollHeight -
-                window.innerHeight
-              ? 'fixed'
-              : '',
+            (screenY || 0) < calcScrollHeight() ? 'fixed' : '',
           )}
           style={{ opacity: '1' }}
         >
