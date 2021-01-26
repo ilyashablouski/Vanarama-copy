@@ -27,16 +27,22 @@ const FormGroup = dynamic(() => import('core/molecules/formgroup'), {
   loading: () => <Skeleton count={5} />,
 });
 
+const getAddressFromPerson = (person: IProps['person']) =>
+  person?.address
+    ? {
+        id: person?.address?.serviceId || '',
+        label: `${person?.address?.lineOne}${person?.address?.lineTwo ??
+          ''} - ${person?.address?.city}, ${person?.address?.postcode}`,
+      }
+    : undefined;
+
 const PersonalInformation = ({ person, submit }: IProps) => {
-  const personAddress = person?.address;
+  const personAddress = getAddressFromPerson(person);
 
   const [editData, setEditData] = useState(false);
-  const [address, setAddress] = useState<IAddressPerson | undefined>({
-    id: personAddress?.serviceId || '',
-    label: `${personAddress?.lineOne}${
-      personAddress?.lineTwo ? `, ${personAddress?.lineTwo}` : ''
-    } - ${personAddress?.city}, ${personAddress?.postcode}`,
-  });
+  const [address, setAddress] = useState<IAddressPerson | undefined>(
+    personAddress,
+  );
 
   const { errors, handleSubmit, register, formState } = useForm<
     IPersonInformationFormValues
