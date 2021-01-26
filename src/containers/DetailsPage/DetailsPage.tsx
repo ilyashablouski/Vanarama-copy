@@ -365,6 +365,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     });
   };
 
+  const calcScrollHeight = () => {
+    const alsoViewCarousel = document.getElementsByClassName('row:bg-lighter');
+    const alsoViewCarouselHeight = alsoViewCarousel.length
+      ? alsoViewCarousel[0].scrollHeight
+      : 0;
+    const pdpContent = document.getElementsByClassName('pdp--content');
+    const pdpContentHeight = pdpContent[0].scrollHeight;
+    return pdpContentHeight - alsoViewCarouselHeight - window.innerHeight;
+  };
+
   return (
     <>
       <div className="pdp--content">
@@ -496,11 +506,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <div
           className={cx(
             'lease-scanner--sticky-wrap',
-            (screenY || 0) <
-              document.getElementsByClassName('pdp--content')[0].scrollHeight -
-                window.innerHeight
-              ? 'fixed'
-              : '',
+            (screenY || 0) < calcScrollHeight() ? 'fixed' : '',
           )}
           style={{ opacity: '1' }}
         >
