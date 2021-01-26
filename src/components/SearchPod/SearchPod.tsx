@@ -47,6 +47,7 @@ const SearchPod = ({
   getOptions,
   hasCarMakeSelected,
   hasVansMakeSelected,
+  vansData,
   vansCachedData,
   isHomePage,
   headingText,
@@ -136,7 +137,10 @@ const SearchPod = ({
                               </option>
                             ) : null;
                           })
-                        : vansCachedData.groupedRangesWithSlug
+                        : (
+                            vansData?.groupedRangesWithSlug ||
+                            vansCachedData.groupedRangesWithSlug
+                          )
                             ?.filter((range: IRangesSlug) =>
                               getOptions('makeVans').some(
                                 option =>

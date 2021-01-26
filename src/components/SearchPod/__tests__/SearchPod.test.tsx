@@ -2,6 +2,8 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen } from '@testing-library/react';
 
+import { filterList_filterList as IFilterList } from '../../../../generated/filterList';
+
 import SearchPod from '../SearchPod';
 import { tabsFields } from '../../../containers/SearchPodContainer/config';
 
@@ -35,7 +37,7 @@ describe('<SearchPod />', () => {
           },
         ],
         bodyStyles: ['Dropside Tipper', 'Large Van'],
-      },
+      } as IFilterList,
     };
   };
 
