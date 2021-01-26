@@ -52,6 +52,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
 
   const values = watch();
   const { disposableIncome, monthlyExpenses } = calculateIncome(values);
+
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
       <Heading color="black" size="xlarge" dataTestId="expenses" tag="h1">
@@ -122,6 +123,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           controlId="mortgageOrRent"
           label="Mortgage or Rent"
           className="olaf--expenses-input"
+          error={errors?.mortgageOrRent?.message?.toString()}
         >
           <Controller
             id="mortgageOrRent"
@@ -135,6 +137,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           controlId="phoneAndInternet"
           label="Phone and Internet"
           className="olaf--expenses-input"
+          error={errors?.phoneAndInternet?.message?.toString()}
         >
           <Controller
             id="phoneAndInternet"
@@ -148,6 +151,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           controlId="creditCardPayments"
           label="Credit Card Payments"
           className="olaf--expenses-input"
+          error={errors?.creditCardPayments?.message?.toString()}
         >
           <Controller
             id="creditCardPayments"
@@ -161,6 +165,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           controlId="utilities"
           label="Utilities"
           className="olaf--expenses-input"
+          error={errors?.utilities?.message?.toString()}
         >
           <Controller
             id="utilities"
@@ -174,6 +179,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           controlId="insurance"
           label="Insurance"
           className="olaf--expenses-input"
+          error={errors?.insurance?.message?.toString()}
         >
           <Controller
             id="insurance"
@@ -187,6 +193,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           controlId="carFinance"
           label="Car Finance"
           className="olaf--expenses-input"
+          error={errors?.carFinance?.message?.toString()}
         >
           <Controller
             id="carFinance"
@@ -200,6 +207,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           controlId="foodAndClothes"
           label="Food and Clothes"
           className="olaf--expenses-input"
+          error={errors?.foodAndClothes?.message?.toString()}
         >
           <Controller
             id="foodAndClothes"
@@ -213,6 +221,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           controlId="fuel"
           label="Fuel"
           className="olaf--expenses-input"
+          error={errors?.fuel?.message?.toString()}
         >
           <Controller
             id="fuel"
@@ -226,6 +235,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           controlId="studentLoans"
           label="Student Loan"
           className="olaf--expenses-input"
+          error={errors?.studentLoans?.message?.toString()}
         >
           <Controller
             id="studentLoans"
@@ -239,6 +249,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           controlId="otherCredit"
           label="Other Credit"
           className="olaf--expenses-input"
+          error={errors?.otherCredit?.message?.toString()}
         >
           <Controller
             id="otherCredit"
