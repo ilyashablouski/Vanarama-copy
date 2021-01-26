@@ -232,6 +232,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
   const { savedSortOrder, saveSortOrder } = useSortOrder();
   const [sortOrder, setSortOrder] = useState(savedSortOrder);
+  const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(
+    isSpecialOffers,
+  );
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
   const [pageOffset, setPageOffset] = useState(0);
 
@@ -241,7 +244,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   }, [isPersonal, setCachedLeaseType]);
 
   // when we change page with one dynamic route by Next router(like from car-leasing/coupe to car-leasing/saloon)
-  // Next doesn't call a ssr requests, this workaround should call request fpr page data on client side
+  // Next doesn't call a ssr requests, this workaround should call request for page data on client side
   useEffect(() => {
     if (router.query.isChangePage === 'true') {
       const fetchPageData = async () => {
@@ -437,8 +440,10 @@ const SearchPageContainer: React.FC<IProps> = ({
             : LeaseTypeEnum.BUSINESS,
           onOffer,
           ...filters,
-          sortField: isSpecialOffers ? SortField.offerRanking : sortOrder.type,
-          sortDirection: isSpecialOffers
+          sortField: isSpecialOffersOrder
+            ? SortField.offerRanking
+            : sortOrder.type,
+          sortDirection: isSpecialOffersOrder
             ? SortDirection.ASC
             : sortOrder.direction,
           ...{
@@ -624,8 +629,10 @@ const SearchPageContainer: React.FC<IProps> = ({
             : null,
           after: lastCard,
           ...filtersData,
-          sortField: isSpecialOffers ? SortField.offerRanking : sortOrder.type,
-          sortDirection: isSpecialOffers
+          sortField: isSpecialOffersOrder
+            ? SortField.offerRanking
+            : sortOrder.type,
+          sortDirection: isSpecialOffersOrder
             ? SortDirection.ASC
             : sortOrder.direction,
         },
@@ -643,6 +650,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isDynamicFilterPage,
     sortOrder.direction,
     sortOrder.type,
+    isSpecialOffersOrder,
     isPersonal,
     isSpecialOfferPage,
     isSimpleSearchPage,
@@ -667,6 +675,9 @@ const SearchPageContainer: React.FC<IProps> = ({
       type: type as SortField,
       direction: direction as SortDirection,
     });
+    if (isSpecialOffersOrder) {
+      setIsSpecialOffersOrder(false);
+    }
   };
 
   useFirstRenderEffect(() => {
@@ -971,9 +982,13 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Text>
           {!(isAllMakesPage && isMakePage) && (
             <Select
-              value={`${sortOrder.type}_${sortOrder.direction}`}
+              value={
+                isSpecialOffersOrder
+                  ? ''
+                  : `${sortOrder.type}_${sortOrder.direction}`
+              }
               onChange={e => onChangeSortOrder(e.target.value)}
-              disabled={isSpecialOffers}
+              disabled={isSpecialOffers && !isSpecialOfferPage}
             >
               {sortValues.map(option => (
                 <option key={option.value} value={option.value}>
