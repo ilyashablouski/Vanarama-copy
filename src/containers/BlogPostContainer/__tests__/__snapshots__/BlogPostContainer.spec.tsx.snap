@@ -3,6 +3,11 @@
 exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
 <body>
   <div>
+    <script
+      type="application/ld+json"
+    >
+      null
+    </script>
     <div
       class="row:title"
     >
@@ -161,10 +166,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       </div>
     </div>
     <script
-      type="application/ld+json"
-    >
-      null
-    </script>
+      async=""
+      src="https://www.riddle.com/files/js/embed.js"
+    />
   </div>
 </body>
 `;

@@ -73,6 +73,13 @@ const BlogPostContainer: NextPage<IProps> = ({
 }) => {
   return (
     <>
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={null} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
+
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black">
@@ -177,12 +184,7 @@ const BlogPostContainer: NextPage<IProps> = ({
           </LazyLoadComponent>
         </div>
       </div>
-      {metaData && (
-        <>
-          <Head metaData={metaData} featuredImage={null} />
-          <SchemaJSON json={JSON.stringify(metaData.schema)} />
-        </>
-      )}
+      <script async src="https://www.riddle.com/files/js/embed.js" />
     </>
   );
 };
