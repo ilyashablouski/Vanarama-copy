@@ -21,9 +21,7 @@ const scriptEnvs = {
 const PRECONNECT = [
   process?.env?.API_URL?.replace('/graphql/', ''),
   process.env.STATIC_DOMAIN,
-  '//cdn.embedly.com',
   'https://cdn.blueconic.net',
-  'https://www.riddle.com',
   'https://widget.trustpilot.com',
   // 'https://cdn.speedcurve.com',
 ];
