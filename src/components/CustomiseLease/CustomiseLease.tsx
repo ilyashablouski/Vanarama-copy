@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
 import React, { Dispatch, SetStateAction } from 'react';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Choiceboxes from 'core/atoms/choiceboxes';
 import Select from 'core/atoms/select';
 import SlidingInput from 'core/atoms/sliding-input';
@@ -233,14 +234,16 @@ const CustomiseLease = ({
           disabled={isDisabled}
         />
       </Formgroup>
-      <OrderSummary
-        quoteByCapId={quoteByCapId}
-        stateVAT={stateVAT}
-        maintenance={maintenance}
-        colours={derivativeInfo?.colours}
-        trims={derivativeInfo?.trims}
-        trim={trim}
-      />
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <OrderSummary
+          quoteByCapId={quoteByCapId}
+          stateVAT={stateVAT}
+          maintenance={maintenance}
+          colours={derivativeInfo?.colours}
+          trims={derivativeInfo?.trims}
+          trim={trim}
+        />
+      </LazyLoadComponent>
       {!isMobile && (
         <div
           className={cx(
@@ -249,43 +252,45 @@ const CustomiseLease = ({
           )}
           style={{ opacity: '1' }}
         >
-          <LeaseScanner
-            classNameHeading="headingText"
-            className="pdp-footer"
-            nextBestPrice={
-              maintenance
-                ? `£${toPriceFormat(
-                    quoteByCapId?.nextBestPrice?.maintained,
-                  )} PM ${stateVAT}. VAT`
-                : `£${toPriceFormat(
-                    quoteByCapId?.nextBestPrice?.nonMaintained,
-                  )} PM ${stateVAT}. VAT`
-            }
-            priceLabel={
-              maintenance
-                ? `+£${toPriceFormat(
-                    quoteByCapId?.maintenanceCost?.monthlyRental,
-                  )} Maintenance`
-                : undefined
-            }
-            price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
-            orderNowClick={() =>
-              onSubmit({
-                leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
-                lineItems: [lineItem],
-              })
-            }
-            headingText={`PM ${stateVAT}. VAT`}
-            leasingProviders={LEASING_PROVIDERS}
-            startLoading={isDisabled}
-            endAnimation={() => {
-              setIsInitialLoading(true);
-              setIsDisabled(false);
-            }}
-            requestCallBack={() => {
-              showCallBackForm(true);
-            }}
-          />
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            <LeaseScanner
+              classNameHeading="headingText"
+              className="pdp-footer"
+              nextBestPrice={
+                maintenance
+                  ? `£${toPriceFormat(
+                      quoteByCapId?.nextBestPrice?.maintained,
+                    )} PM ${stateVAT}. VAT`
+                  : `£${toPriceFormat(
+                      quoteByCapId?.nextBestPrice?.nonMaintained,
+                    )} PM ${stateVAT}. VAT`
+              }
+              priceLabel={
+                maintenance
+                  ? `+£${toPriceFormat(
+                      quoteByCapId?.maintenanceCost?.monthlyRental,
+                    )} Maintenance`
+                  : undefined
+              }
+              price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
+              orderNowClick={() =>
+                onSubmit({
+                  leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
+                  lineItems: [lineItem],
+                })
+              }
+              headingText={`PM ${stateVAT}. VAT`}
+              leasingProviders={LEASING_PROVIDERS}
+              startLoading={isDisabled}
+              endAnimation={() => {
+                setIsInitialLoading(true);
+                setIsDisabled(false);
+              }}
+              requestCallBack={() => {
+                showCallBackForm(true);
+              }}
+            />
+          </LazyLoadComponent>
         </div>
       )}
       {isModalShowing && (
@@ -295,8 +300,7 @@ const CustomiseLease = ({
           text="Servicing, MOTs, tyres, brakes, wipes and bulbs. All you need to worry about is insurance and fuel!"
           show={isModalShowing}
           onRequestClose={() => setIsModalShowing(false)}
-          additionalText="PS: Without the package you’ll have to deal with the MOTs, servicing
-      and replacements for your new vehicle, for the duration of your lease."
+          additionalText="PS: Without the package you’ll have to deal with the MOTs, servicing and replacements for your new vehicle, for the duration of your lease."
         >
           <Button
             className="-mt-200"

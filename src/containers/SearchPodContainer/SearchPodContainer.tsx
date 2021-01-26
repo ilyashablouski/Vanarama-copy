@@ -79,12 +79,11 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   const [carsDataCache] = useState(
     searchPodCarsData?.filterList || ({} as IFilterList),
   );
-  const [pickupMakes, setPickupMakes] = useState([] as IFiltersListOptions[]);
 
   const [config] = useState(setConfigInit());
   const [headingText, setHeadingText] = useState(initialHeadingText);
   // set it to true if we need preselect some data
-  const [isShouldPreselectTypes, setIsShouldPreselectTypes] = useState(
+  const [isShouldPreselectTypes] = useState(
     router.pathname.indexOf('pickup') > -1,
   );
 
@@ -101,7 +100,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   const [makeVans, setMakesVans] = useState(
     makeHandler(searchPodVansData?.filterList || ({} as IFilterList)),
   );
-  const [makeCars] = useState(
+  const [makeCars, setMakeCars] = useState(
     makeHandler(searchPodCarsData?.filterList || ({} as IFilterList)),
   );
 
@@ -122,7 +121,23 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     modelCars,
   };
 
-  const { register, getValues, watch, setValue } = useForm();
+  const defaultValues = useMemo(
+    () => ({
+      budgetVans: '',
+      budgetCars: '',
+      typeVans: isShouldPreselectTypes ? 'Pickup' : '',
+      typeCars: '',
+      makeVans: '',
+      makeCars: '',
+      modelVans: '',
+      modelCars: '',
+    }),
+    [isShouldPreselectTypes],
+  );
+
+  const { register, getValues, watch, setValue } = useForm({
+    defaultValues,
+  });
   const selectMakeCars = watch('makeCars');
   const selectMakeVans = watch('makeVans');
   const selectModelVans = watch('modelVans');
@@ -135,48 +150,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     activeIndex === 1 ? selectMakeVans : selectMakeCars,
     activeIndex === 1 ? selectModelVans : selectModelCars,
     activeIndex === 1 ? [selectTypeVans] : [selectTypeCars],
-    resp => {
-      if (
-        selectTypeVans === 'Pickup' &&
-        activeIndex === 1 &&
-        !pickupMakes.length &&
-        resp?.filterList
-      )
-        setPickupMakes(makeHandler(resp?.filterList));
-    },
   );
-
-  // using for preselect data after first reqest to filterslist
-  useEffect(() => {
-    if (typeVans.length && isShouldPreselectTypes && selectTypeVans === '') {
-      setValue('typeVans', 'Pickup');
-      setIsShouldPreselectTypes(false);
-      getVehicleData();
-    }
-  }, [
-    typeVans,
-    isShouldPreselectTypes,
-    setValue,
-    getVehicleData,
-    selectTypeVans,
-  ]);
-
-  // using for set actual makes for pickups and return back all makes for other types
-  useEffect(() => {
-    const makes = makeHandler(vansDataCache);
-    // compare current state with new and update
-    const shouldUpdateState =
-      makes.length === makeVans.length &&
-      makes.sort().every((value, index) => value === makeVans.sort()[index]);
-    if (selectTypeVans !== 'Pickup' && activeIndex === 1 && !shouldUpdateState)
-      setMakesVans(makes);
-    else if (
-      selectTypeVans === 'Pickup' &&
-      activeIndex === 1 &&
-      !!pickupMakes.length
-    )
-      setMakesVans(pickupMakes);
-  }, [selectTypeVans, pickupMakes, activeIndex, makeVans, vansDataCache]);
 
   // set actual models value for a specific manufacturer
   useEffect(() => {
@@ -204,8 +178,13 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       const parent = vansDataCache.groupedRangesWithSlug?.find(range =>
         range.children.some(ranges => ranges.slug === selectModelVans),
       );
-      setValue('makeVans', parent?.parent.slug);
-    } else if (modelVansTemp && selectMakeVans && !selectModelVans) {
+      setValue('makeVans', parent?.parent.slug as string);
+    } else if (
+      modelVansTemp &&
+      selectMakeVans &&
+      !selectModelVans &&
+      modelVans.length
+    ) {
       // return back a model value because auto change make call a rerender options list
       setValue('modelVans', modelVansTemp);
       setModelsVansTemp('');
@@ -217,17 +196,18 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     setValue,
     getValues,
     vansDataCache.groupedRangesWithSlug,
+    modelVans,
   ]);
 
   // refetch body types and budgets for selected vehicle
   useEffect(() => {
-    // if make don't selected set initial bodystyles
-    if (activeIndex === 1 && !selectMakeVans) {
+    // if make and bodystyles don't selected set initial values
+    if (activeIndex === 1 && !selectMakeVans && !selectTypeVans) {
       setTypesVans(vansDataCache.bodyStyles || []);
-      setValue('modelVans', null);
-    } else if (activeIndex === 2 && !selectMakeCars) {
+      setValue('modelVans', '');
+    } else if (activeIndex === 2 && !selectMakeCars && !selectTypeCars) {
       setTypesVans(carsDataCache.bodyStyles || []);
-      setValue('modelCars', null);
+      setValue('modelCars', '');
     }
     // else fetch actual
     else if (!modelVansTemp) {
@@ -235,7 +215,9 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     }
   }, [
     selectMakeVans,
+    selectTypeVans,
     selectMakeCars,
+    selectTypeCars,
     modelVansTemp,
     activeIndex,
     carsDataCache.bodyStyles,
@@ -278,6 +260,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
             ? budget.slice(minBudgetIndex, maxBudgetIndex)
             : budget,
         );
+        setMakesVans(makeHandler(actualVehicleData?.filterList));
       } else {
         setTypesCars(actualVehicleData?.filterList.bodyStyles || []);
         setBudgetCars(
@@ -285,6 +268,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
             ? budget.slice(minBudgetIndex, maxBudgetIndex)
             : budget,
         );
+        setMakeCars(makeHandler(actualVehicleData?.filterList));
       }
     }
   }, [actualVehicleData, activeIndex]);
@@ -300,17 +284,19 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     const routerUrl = `/${searchType}/search`;
     const query = {} as any;
     // make
-    if (values[`make${tabType}`]) {
-      query.make = values[`make${tabType}`];
+    if (values[`make${tabType}` as keyof typeof defaultValues]) {
+      query.make = values[`make${tabType}` as keyof typeof defaultValues];
     }
-    if (values[`model${tabType}`]) {
-      query.rangeName = values[`model${tabType}`];
+    if (values[`model${tabType}` as keyof typeof defaultValues]) {
+      query.rangeName = values[`model${tabType}` as keyof typeof defaultValues];
     }
-    if (values[`type${tabType}`]) {
-      query.bodyStyles = values[`type${tabType}`];
+    if (values[`type${tabType}` as keyof typeof defaultValues]) {
+      query.bodyStyles = values[`type${tabType}` as keyof typeof defaultValues];
     }
-    if (values[`budget${tabType}`]) {
-      query.pricePerMonth = getBudgetForQuery(values[`budget${tabType}`]);
+    if (values[`budget${tabType}` as keyof typeof defaultValues]) {
+      query.pricePerMonth = getBudgetForQuery(
+        values[`budget${tabType}` as keyof typeof defaultValues],
+      );
     }
     router.push({
       pathname: routerUrl,

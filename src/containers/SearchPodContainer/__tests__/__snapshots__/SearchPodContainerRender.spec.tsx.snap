@@ -164,6 +164,21 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                     Make
                     s
                   </option>
+                  <option
+                    value="Citroën"
+                  >
+                    Citroën
+                  </option>
+                  <option
+                    value="Dacia"
+                  >
+                    Dacia
+                  </option>
+                  <option
+                    value="BMW"
+                  >
+                    BMW
+                  </option>
                 </select>
                 <span
                   className="icon select--chevron"

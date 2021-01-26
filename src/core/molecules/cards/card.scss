@@ -21,7 +21,6 @@ $small: 0.875rem;
   gap: 0 $card-gap-inline;
   grid-auto-flow: row;
   text-align: left;
-  height: 100%;
 
   // Core layout -> mobile/tablet
   @include mobile-tablet {
@@ -225,6 +224,8 @@ $small: 0.875rem;
   // Tweaks -> adjust button vertical alignment
   .price + .button {
     margin-top: auto;
+    position: relative;
+    z-index: 1;
   }
 
   // Tweaks -> skeleton (pre-load) styling
@@ -290,6 +291,7 @@ $small: 0.875rem;
       width: 0;
     }
     > a[href]:first-of-type {
+      white-space: normal;
       @include pseudo(after) {
         will-change: opacity;
         opacity: 0;
@@ -324,6 +326,9 @@ $small: 0.875rem;
     }
     .card-image ~ :last-child:not(.card-footer) {
       grid-area: 2 / content;
+      @include mobile-tablet {
+        grid-area: inherit;
+      }
     }
     .title {
       span:nth-child(2) {

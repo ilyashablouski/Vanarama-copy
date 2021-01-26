@@ -127,6 +127,17 @@ export const PickupsPage: NextPage<IProps> = ({
 
   return (
     <>
+      {data?.hubPickupPage.metaData && (
+        <>
+          <Head
+            metaData={data?.hubPickupPage.metaData}
+            featuredImage={data?.hubPickupPage.featuredImage}
+          />
+          <SchemaJSON
+            json={JSON.stringify(data?.hubPickupPage.metaData.schema)}
+          />
+        </>
+      )}
       <Hero searchPodVansData={searchPodVansData}>
         <HeroHeading
           text={data?.hubPickupPage.sections?.hero?.title || ''}
@@ -600,6 +611,7 @@ export const PickupsPage: NextPage<IProps> = ({
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
+            link="/fan-hub.html"
           />
         </LazyLoadComponent>
       </section>
@@ -675,18 +687,6 @@ export const PickupsPage: NextPage<IProps> = ({
           <TrustPilot />
         </LazyLoadComponent>
       </section>
-
-      {data?.hubPickupPage.metaData && (
-        <>
-          <Head
-            metaData={data?.hubPickupPage.metaData}
-            featuredImage={data?.hubPickupPage.featuredImage}
-          />
-          <SchemaJSON
-            json={JSON.stringify(data?.hubPickupPage.metaData.schema)}
-          />
-        </>
-      )}
     </>
   );
 };

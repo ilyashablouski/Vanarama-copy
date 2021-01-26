@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
@@ -11,7 +12,6 @@ import {
 import { VAN_OFFERS_CONTENT } from '../../gql/special-offers/van-offers';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import useLeaseType from '../../hooks/useLeaseType';
-import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -38,6 +38,9 @@ const ProductCarousel = dynamic(
   {
     loading: () => <Skeleton count={4} />,
   },
+);
+const RouterLink = dynamic(() =>
+  import('../../components/RouterLink/RouterLink'),
 );
 
 interface IProps extends IVansSpecialOffersData {
@@ -91,32 +94,37 @@ export const VanOffers: NextPage<IProps> = ({
               >
                 Best Small Van Lease Offers
               </Heading>
-              <ProductCarousel
-                leaseType={
-                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-                }
-                data={{
-                  derivatives: productsSmallVanDerivatives?.derivatives || null,
-                  productCard: productsSmallVan?.productCarousel || null,
-                  vehicleList: vehicleListUrlData!,
-                }}
-                countItems={productsSmallVan?.productCarousel?.length || 6}
-                dataTestIdBtn="van-view-offer"
-              />
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'See All Small Vans',
-                    href: '/small-van-leasing.html',
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
+                <ProductCarousel
+                  leaseType={
+                    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                  }
+                  data={{
+                    derivatives:
+                      productsSmallVanDerivatives?.derivatives || null,
+                    productCard: productsSmallVan?.productCarousel || null,
+                    vehicleList: vehicleListUrlData!,
                   }}
-                  withoutDefaultClassName
-                  dataTestId="small-van-leasing"
-                >
-                  <div className="button--inner">See All Small Vans</div>
-                </RouterLink>
-              </div>
+                  countItems={productsSmallVan?.productCarousel?.length || 6}
+                  dataTestIdBtn="van-view-offer"
+                />
+              </LazyLoadComponent>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'See All Small Vans',
+                  href: '/small-van-leasing.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="small-van-leasing"
+              >
+                <div className="button--inner">See All Small Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
@@ -133,33 +141,37 @@ export const VanOffers: NextPage<IProps> = ({
               >
                 Best Medium Van Lease Offers
               </Heading>
-              <ProductCarousel
-                leaseType={
-                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-                }
-                data={{
-                  derivatives:
-                    productsMediumVanDerivatives?.derivatives || null,
-                  productCard: productsMediumVan?.productCarousel || null,
-                  vehicleList: vehicleListUrlData!,
-                }}
-                countItems={productsMediumVan?.productCarousel?.length || 6}
-                dataTestIdBtn="van-view-offer"
-              />
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'See All Medium Vans',
-                    href: '/medium-van-leasing.html',
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
+                <ProductCarousel
+                  leaseType={
+                    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                  }
+                  data={{
+                    derivatives:
+                      productsMediumVanDerivatives?.derivatives || null,
+                    productCard: productsMediumVan?.productCarousel || null,
+                    vehicleList: vehicleListUrlData!,
                   }}
-                  withoutDefaultClassName
-                  dataTestId="medium-van-leasing"
-                >
-                  <div className="button--inner">See All Medium Vans</div>
-                </RouterLink>
-              </div>
+                  countItems={productsMediumVan?.productCarousel?.length || 6}
+                  dataTestIdBtn="van-view-offer"
+                />
+              </LazyLoadComponent>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'See All Medium Vans',
+                  href: '/medium-van-leasing.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="medium-van-leasing"
+              >
+                <div className="button--inner">See All Medium Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
@@ -176,32 +188,37 @@ export const VanOffers: NextPage<IProps> = ({
               >
                 Best Large Van Lease Offers
               </Heading>
-              <ProductCarousel
-                leaseType={
-                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-                }
-                data={{
-                  derivatives: productsLargeVanDerivatives?.derivatives || null,
-                  productCard: productsLargeVan?.productCarousel || null,
-                  vehicleList: vehicleListUrlData!,
-                }}
-                countItems={productsLargeVan?.productCarousel?.length || 6}
-                dataTestIdBtn="van-view-offer"
-              />
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'See All Large Vans',
-                    href: '/large-van-leasing.html',
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
+                <ProductCarousel
+                  leaseType={
+                    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                  }
+                  data={{
+                    derivatives:
+                      productsLargeVanDerivatives?.derivatives || null,
+                    productCard: productsLargeVan?.productCarousel || null,
+                    vehicleList: vehicleListUrlData!,
                   }}
-                  withoutDefaultClassName
-                  dataTestId="large-van-leasing"
-                >
-                  <div className="button--inner">See All Large Vans</div>
-                </RouterLink>
-              </div>
+                  countItems={productsLargeVan?.productCarousel?.length || 6}
+                  dataTestIdBtn="van-view-offer"
+                />
+              </LazyLoadComponent>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'See All Large Vans',
+                  href: '/large-van-leasing.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="large-van-leasing"
+              >
+                <div className="button--inner">See All Large Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
@@ -218,32 +235,36 @@ export const VanOffers: NextPage<IProps> = ({
               >
                 Best Pickup Truck Lease Offers
               </Heading>
-              <ProductCarousel
-                leaseType={
-                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-                }
-                data={{
-                  derivatives: productsPickupDerivatives?.derivatives || null,
-                  productCard: productsPickup?.productCarousel || null,
-                  vehicleList: vehicleListUrlData!,
-                }}
-                countItems={productsPickup?.productCarousel?.length || 6}
-                dataTestIdBtn="van-view-offer"
-              />
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'See All Pickup Vans',
-                    href: '/pickup-special-offers.html',
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
+                <ProductCarousel
+                  leaseType={
+                    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                  }
+                  data={{
+                    derivatives: productsPickupDerivatives?.derivatives || null,
+                    productCard: productsPickup?.productCarousel || null,
+                    vehicleList: vehicleListUrlData!,
                   }}
-                  withoutDefaultClassName
-                  dataTestId="pickup-special-offer"
-                >
-                  <div className="button--inner">See All Pickup Vans</div>
-                </RouterLink>
-              </div>
+                  countItems={productsPickup?.productCarousel?.length || 6}
+                  dataTestIdBtn="van-view-offer"
+                />
+              </LazyLoadComponent>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'See All Pickup Vans',
+                  href: '/pickup-special-offers.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="pickup-special-offer"
+              >
+                <div className="button--inner">See All Pickup Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
@@ -260,35 +281,40 @@ export const VanOffers: NextPage<IProps> = ({
               >
                 Best Dropside Tipper Offers
               </Heading>
-              <ProductCarousel
-                leaseType={
-                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-                }
-                data={{
-                  derivatives:
-                    productsDropsideTipperDerivatives?.derivatives || null,
-                  productCard: productsDropsideTipper?.productCarousel || null,
-                  vehicleList: vehicleListUrlData!,
-                }}
-                countItems={
-                  productsDropsideTipper?.productCarousel?.length || 6
-                }
-                dataTestIdBtn="van-view-offer"
-              />
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'See All Dropside Vans',
-                    href: '/dropside-tipper-leasing.html',
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
+                <ProductCarousel
+                  leaseType={
+                    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                  }
+                  data={{
+                    derivatives:
+                      productsDropsideTipperDerivatives?.derivatives || null,
+                    productCard:
+                      productsDropsideTipper?.productCarousel || null,
+                    vehicleList: vehicleListUrlData!,
                   }}
-                  withoutDefaultClassName
-                  dataTestId="dropside-tipper-leasing"
-                >
-                  <div className="button--inner">See All Dropside Vans</div>
-                </RouterLink>
-              </div>
+                  countItems={
+                    productsDropsideTipper?.productCarousel?.length || 6
+                  }
+                  dataTestIdBtn="van-view-offer"
+                />
+              </LazyLoadComponent>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'See All Dropside Vans',
+                  href: '/dropside-tipper-leasing.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="dropside-tipper-leasing"
+              >
+                <div className="button--inner">See All Dropside Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
@@ -305,86 +331,46 @@ export const VanOffers: NextPage<IProps> = ({
               >
                 Specialist Van Lease Offers
               </Heading>
-              <ProductCarousel
-                leaseType={
-                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-                }
-                data={{
-                  derivatives:
-                    productsSpecialistDerivatives?.derivatives || null,
-                  productCard: productsSpecialist?.productCarousel || null,
-                  vehicleList: vehicleListUrlData!,
-                }}
-                countItems={productsSpecialist?.productCarousel?.length || 6}
-                dataTestIdBtn="van-view-offer"
-              />
-              <div className="-justify-content-row -pt-500">
-                <RouterLink
-                  className="button"
-                  classNames={{ color: 'teal', solid: true, size: 'regular' }}
-                  link={{
-                    label: 'See All Specialist Vans',
-                    href: '/crew-vans.html',
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
+                <ProductCarousel
+                  leaseType={
+                    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                  }
+                  data={{
+                    derivatives:
+                      productsSpecialistDerivatives?.derivatives || null,
+                    productCard: productsSpecialist?.productCarousel || null,
+                    vehicleList: vehicleListUrlData!,
                   }}
-                  withoutDefaultClassName
-                  dataTestId="crew-vans"
-                >
-                  <div className="button--inner">See All Specialist Vans</div>
-                </RouterLink>
-              </div>
+                  countItems={productsSpecialist?.productCarousel?.length || 6}
+                  dataTestIdBtn="van-view-offer"
+                />
+              </LazyLoadComponent>
+            </div>
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{ color: 'teal', solid: true, size: 'regular' }}
+                link={{
+                  label: 'See All Specialist Vans',
+                  href: '/crew-vans.html',
+                }}
+                withoutDefaultClassName
+                dataTestId="crew-vans"
+              >
+                <div className="button--inner">See All Specialist Vans</div>
+              </RouterLink>
             </div>
           </div>
         )}
 
       <div className="row:text -columns">
-        <ReactMarkdown
-          allowDangerousHtml
-          source={data?.vanOffersPage.body || ''}
-          renderers={{
-            link: props => {
-              const { href, children } = props;
-              return <RouterLink link={{ href, label: children }} />;
-            },
-            heading: props => (
-              <Text {...props} size="lead" color="darker" tag="h3" />
-            ),
-            paragraph: props => <Text {...props} tag="p" color="darker" />,
-          }}
-        />
-      </div>
-      <div className="row:icon-list">
-        <Heading tag="span" size="lead" color="black">
-          {data?.vanOffersPage?.sections?.iconBullets?.title || ''}
-        </Heading>
-        <hr />
-        {data?.vanOffersPage?.sections?.iconBullets?.iconBullets?.map(
-          (item: VanIconBullet, idx: number) => (
-            <>
-              <Icon
-                key={`${item?.text || idx}-icon`}
-                icon={<AddCircle />}
-                color="orange"
-                size="large"
-              />
-              <Text
-                key={`${item?.text || idx}-text`}
-                size="regular"
-                color="darker"
-              >
-                {item?.text}
-              </Text>
-            </>
-          ),
-        )}
-      </div>
-      <div className="row:text -columns">
-        <Heading size="large" color="black">
-          {data?.vanOffersPage?.sections?.featured?.title || ''}
-        </Heading>
-        <div>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <ReactMarkdown
             allowDangerousHtml
-            source={data?.vanOffersPage?.sections?.featured?.body || ''}
+            source={data?.vanOffersPage.body || ''}
             renderers={{
               link: props => {
                 const { href, children } = props;
@@ -396,23 +382,78 @@ export const VanOffers: NextPage<IProps> = ({
               paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
           />
-        </div>
+        </LazyLoadComponent>
       </div>
+      <div className="row:icon-list">
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <Heading tag="span" size="lead" color="black">
+            {data?.vanOffersPage?.sections?.iconBullets?.title || ''}
+          </Heading>
+          <hr />
+          {data?.vanOffersPage?.sections?.iconBullets?.iconBullets?.map(
+            (item: VanIconBullet, idx: number) => (
+              <>
+                <Icon
+                  key={`${item?.text || idx}-icon`}
+                  icon={<AddCircle />}
+                  color="orange"
+                  size="large"
+                />
+                <Text
+                  key={`${item?.text || idx}-text`}
+                  size="regular"
+                  color="darker"
+                >
+                  {item?.text}
+                </Text>
+              </>
+            ),
+          )}
+        </LazyLoadComponent>
+      </div>
+
+      <div className="row:text -columns">
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <Heading size="large" color="black">
+            {data?.vanOffersPage?.sections?.featured?.title || ''}
+          </Heading>
+          <div>
+            <ReactMarkdown
+              allowDangerousHtml
+              source={data?.vanOffersPage?.sections?.featured?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+                heading: props => (
+                  <Text {...props} size="lead" color="darker" tag="h3" />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
+          </div>
+        </LazyLoadComponent>
+      </div>
+
       <div className="row:text">
-        <Text size="regular" color="dark">
-          Photos and videos are for illustration purposes only.*{' '}
-          <RouterLink
-            link={{
-              href: '/legal/terms-and-conditions.html',
-              label: 'Terms and conditions apply',
-            }}
-            classNames={{ color: 'teal' }}
-          >
-            Terms and conditions apply
-          </RouterLink>
-          .
-        </Text>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <Text size="regular" color="dark">
+            Photos and videos are for illustration purposes only.*{' '}
+            <RouterLink
+              link={{
+                href: '/legal/terms-and-conditions.html',
+                label: 'Terms and conditions apply',
+              }}
+              classNames={{ color: 'teal' }}
+            >
+              Terms and conditions apply
+            </RouterLink>
+            .
+          </Text>
+        </LazyLoadComponent>
       </div>
+
       {data?.vanOffersPage.metaData && (
         <>
           <Head

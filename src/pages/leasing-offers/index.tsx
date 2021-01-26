@@ -11,7 +11,6 @@ import {
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { GENERIC_PAGE_HEAD } from '../../gql/genericPage';
-import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -51,6 +50,9 @@ const Breadcrumb = dynamic(
   {
     loading: () => <Skeleton count={1} />,
   },
+);
+const RouterLink = dynamic(() =>
+  import('../../components/RouterLink/RouterLink'),
 );
 
 interface IProps extends ISpecialOffersData {
@@ -200,19 +202,19 @@ export const OffersPage: NextPage<IProps> = ({
             countItems={productsVan?.productCarousel?.length || 6}
             dataTestIdBtn="van-view-offer"
           />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'View All Van Offers',
-                href: '/special-offers.html',
-              }}
-              withoutDefaultClassName
-            >
-              <div className="button--inner">View All Van Offers</div>
-            </RouterLink>
-          </div>
+        </div>
+        <div className="-justify-content-row -pt-500">
+          <RouterLink
+            className="button"
+            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            link={{
+              label: 'View All Van Offers',
+              href: '/special-offers.html',
+            }}
+            withoutDefaultClassName
+          >
+            <div className="button--inner">View All Van Offers</div>
+          </RouterLink>
         </div>
       </div>
       <div
@@ -239,19 +241,19 @@ export const OffersPage: NextPage<IProps> = ({
             countItems={productsPickup?.productCarousel?.length || 6}
             dataTestIdBtn="pickup-view-offer"
           />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'View All Truck Offers',
-                href: '/pickup-special-offers.html',
-              }}
-              withoutDefaultClassName
-            >
-              <div className="button--inner">View All Truck Offers</div>
-            </RouterLink>
-          </div>
+        </div>
+        <div className="-justify-content-row -pt-500">
+          <RouterLink
+            className="button"
+            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            link={{
+              label: 'View All Truck Offers',
+              href: '/pickup-special-offers.html',
+            }}
+            withoutDefaultClassName
+          >
+            <div className="button--inner">View All Truck Offers</div>
+          </RouterLink>
         </div>
       </div>
       <div
@@ -278,19 +280,19 @@ export const OffersPage: NextPage<IProps> = ({
             countItems={productsCar?.productCarousel?.length || 6}
             dataTestIdBtn="car-view-offer"
           />
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'View All Car Offers',
-                href: '/car-leasing-special-offers.html',
-              }}
-              withoutDefaultClassName
-            >
-              <div className="button--inner">View All Car Offers</div>
-            </RouterLink>
-          </div>
+        </div>
+        <div className="-justify-content-row -pt-500">
+          <RouterLink
+            className="button"
+            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            link={{
+              label: 'View All Car Offers',
+              href: '/car-leasing-special-offers.html',
+            }}
+            withoutDefaultClassName
+          >
+            <div className="button--inner">View All Car Offers</div>
+          </RouterLink>
         </div>
       </div>
       {metaData && (

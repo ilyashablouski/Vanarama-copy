@@ -53,7 +53,6 @@ const SummaryForm: FCWithFragments<IProps> = ({
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
 
   const onCreditCheckComplete = () => {
-    onComplete?.();
     createUpdateCA({
       variables: {
         input: {
@@ -61,7 +60,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
           submittedAt: new Date(),
         },
       },
-    });
+    }).then(() => onComplete?.());
     router.push('/olaf/thank-you', '/olaf/thank-you');
   };
 
@@ -137,6 +136,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
     const href = `${url}${params}`;
     router.push(href, href);
   };
+
   return (
     <Form>
       <Heading
@@ -179,7 +179,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
       <Button
         type="button"
         color="teal"
-        label="Continue"
+        label="Submit"
         dataTestId="olaf_summary_continue_buttton"
         onClick={() => {
           handleSubmit();

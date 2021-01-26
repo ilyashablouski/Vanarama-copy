@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import {
   gql,
@@ -99,6 +99,8 @@ const AboutYouPage: NextPage = () => {
   const client = useApolloClient();
   const order = useGetOrder();
   const orderId = useGetOrderId();
+
+  const loginFormRef = useRef<HTMLDivElement>(null);
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
@@ -236,7 +238,7 @@ const AboutYouPage: NextPage = () => {
         about you. This will be used for your credit check.
       </Text>
       {!personLoggedIn && (
-        <div className="-mb-500">
+        <div className="-mb-500" ref={loginFormRef}>
           <div className="-pt-300 -pb-300">
             <Button
               label="Login For A Speedy Checkout"
@@ -260,7 +262,13 @@ const AboutYouPage: NextPage = () => {
         onCompleted={({ createUpdatePerson }) =>
           clickOnComplete(createUpdatePerson!)
         }
-        onLogInClick={() => toggleLogInVisibility(true)}
+        onLogInClick={() => {
+          loginFormRef?.current?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start',
+          });
+          toggleLogInVisibility(true);
+        }}
         onRegistrationClick={handleRegistrationClick}
         personUuid={personUuid}
       />

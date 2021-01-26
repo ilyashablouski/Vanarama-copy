@@ -298,7 +298,9 @@ describe('<CarPage />', () => {
   it('should trigger route push when clicking Here', async () => {
     await screen.findByText('View All Cars');
     fireEvent.click(screen.getByText('Here'));
-    await waitFor(() => expect(Router.push).toHaveBeenCalledWith('/fan-hub'));
+    await waitFor(() =>
+      expect(Router.push).toHaveBeenCalledWith('/fan-hub.html'),
+    );
   });
 
   it('should have link in View Offer', async () => {

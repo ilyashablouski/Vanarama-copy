@@ -142,8 +142,7 @@ export const productsMapper = (
     lengthOfLease: `${lineItem?.vehicleProduct?.term}` || 'undefined',
     initialPayment:
       `${lineItem?.vehicleProduct?.depositPayment}` || 'undefined',
-    addMaintenance:
-      `${lineItem?.vehicleProduct?.maintenancePrice}` || 'undefined',
+    addMaintenance: lineItem?.vehicleProduct?.maintenancePrice ? 'Yes' : 'No',
   };
 };
 
@@ -170,20 +169,20 @@ export const pushDetail = (
   if (value) Object.assign(product, { [field]: `${value}` });
 };
 
-const setDataLayer = () => {
-  if (
-    !window.dataLayer.find(obj =>
-      Object.keys(obj).some(key => key === 'pageType'),
-    )
-  )
-    return;
+// const setDataLayer = () => {
+//   if (
+//     !window.dataLayer.find(obj =>
+//       Object.keys(obj).some(key => key === 'pageType'),
+//     )
+//   )
+//     return;
 
-  window.dataLayer = [];
-  window.dataLayer.push({
-    'gtm.start': new Date().getTime(),
-    event: 'gtm.js',
-  });
-};
+//   window.dataLayer = [];
+//   window.dataLayer.push({
+//     'gtm.start': new Date().getTime(),
+//     event: 'gtm.js',
+//   });
+// };
 
 export const pushPageData = async ({
   pathname,
@@ -191,7 +190,7 @@ export const pushPageData = async ({
   siteSection,
 }: IPageData) => {
   if (!window.dataLayer) return;
-  setDataLayer();
+  // setDataLayer();
   const personData = (await localForage.getItem('person')) as GetPerson | null;
   const personUuid = (await localForage.getItem('personUuid')) as string | null;
   const person = personData?.getPerson;
@@ -369,7 +368,9 @@ export const pushAddToCartDataLayer = ({
     event: 'addToCart',
     eventCategory: 'Ecommerce',
     eventAction: 'Order Start',
-    eventLabel: derivativeInfo?.name || 'undefined',
+    eventLabel:
+      `${derivativeInfo?.manufacturer.name} ${derivativeInfo?.model.name} ${derivativeInfo?.name}` ||
+      'undefined',
     eventValue: `${price || 'undefined'}`,
     ecommerce: {
       currencyCode: 'GBP',
@@ -429,7 +430,9 @@ export const pushAboutYouDataLayer = (
     event: 'checkout',
     eventCategory: 'Ecommerce',
     eventAction: 'Checkout - Step 1 Complete',
-    eventLabel: derivativeData?.name || 'undefined',
+    eventLabel:
+      `${derivativeData?.manufacturer.name} ${derivativeData?.model.name} ${derivativeData?.name}` ||
+      'undefined',
     eventValue: `${price || 'undefined'}`,
     ecommerce: {
       currencyCode: 'GBP',
@@ -526,7 +529,9 @@ export const pushCallBackDataLayer = ({
     event: 'enquiry',
     eventCategory: 'Enquiries',
     eventAction: 'Vehicle Enquiry',
-    eventLabel: derivativeInfo?.name || 'undefined',
+    eventLabel:
+      `${derivativeInfo?.manufacturer.name} ${derivativeInfo?.model.name} ${derivativeInfo?.name}` ||
+      'undefined',
     eventValue: `${price || 'undefined'}`,
   };
 

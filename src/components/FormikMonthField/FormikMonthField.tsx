@@ -16,7 +16,12 @@ const FormikMonthField: React.FC<IProps> = ({ monthName, yearName, label }) => {
   const touched = monthMeta.touched && yearMeta.touched;
   const error = (touched && (monthMeta.error || yearMeta.error)) || undefined;
   return (
-    <Formgroup error={error} controlId={monthName} label={label} inline>
+    <Formgroup
+      error={error}
+      controlId={monthName}
+      label={label}
+      className="-inline-preserved"
+    >
       <Select
         id={monthName}
         dataTestId={monthName}

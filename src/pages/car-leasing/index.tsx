@@ -106,6 +106,15 @@ export const CarsPage: NextPage<IProps> = ({
 
   return (
     <>
+      {data?.hubCarPage.metaData && (
+        <>
+          <Head
+            metaData={data?.hubCarPage.metaData}
+            featuredImage={data?.hubCarPage.featuredImage}
+          />
+          <SchemaJSON json={JSON.stringify(data?.hubCarPage.metaData.schema)} />
+        </>
+      )}
       <Hero searchPodCarsData={searchPodCarsData}>
         <HeroHeading
           text={data?.hubCarPage.sections?.hero?.title || ''}
@@ -495,8 +504,9 @@ export const CarsPage: NextPage<IProps> = ({
       <section className="row:league">
         <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <League
-            clickReadMore={() => Router.push('/fan-hub')}
+            clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
+            link="/fan-hub.html"
           />
         </LazyLoadComponent>
       </section>
@@ -572,15 +582,6 @@ export const CarsPage: NextPage<IProps> = ({
           <TrustPilot />
         </LazyLoadComponent>
       </section>
-      {data?.hubCarPage.metaData && (
-        <>
-          <Head
-            metaData={data?.hubCarPage.metaData}
-            featuredImage={data?.hubCarPage.featuredImage}
-          />
-          <SchemaJSON json={JSON.stringify(data?.hubCarPage.metaData.schema)} />
-        </>
-      )}
     </>
   );
 };

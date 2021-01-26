@@ -11,7 +11,7 @@ import {
   GetProductCard_productCard,
 } from '../../../generated/GetProductCard';
 import truncateString from '../../utils/truncateString';
-import useSliderProperties from '../../hooks/useSliderProperties';
+// import useSliderProperties from '../../hooks/useSliderProperties';
 import { features } from './helpers';
 
 // Dynamic component loading.
@@ -43,7 +43,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   dataTestIdBtn,
   productType,
 }) => {
-  const { slidesToShow } = useSliderProperties();
+  // const { slidesToShow } = useSliderProperties();
 
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
@@ -61,6 +61,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
           product && (
             <ProductCard
               // loadImage
+              style={{ maxHeight: 600 }}
               alt={`${product?.manufacturerName} ${product?.rangeName} ${product?.derivativeName}`}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={`${product.capId}_${inx}` || ''}
@@ -68,14 +69,12 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 product.leadTime || product.isOnOffer
                   ? {
                       text: product.leadTime || '',
-                      accentIcon:
-                        slidesToShow > 2 && product.isOnOffer ? (
-                          <Icon icon={<Flame />} color="white" />
-                        ) : (
-                          ''
-                        ),
-                      accentText:
-                        slidesToShow > 2 && product.isOnOffer ? 'Hot Deal' : '',
+                      accentIcon: product.isOnOffer ? (
+                        <Icon icon={<Flame />} color="white" />
+                      ) : (
+                        ''
+                      ),
+                      accentText: product.isOnOffer ? 'Hot Deal' : '',
                     }
                   : undefined
               }
