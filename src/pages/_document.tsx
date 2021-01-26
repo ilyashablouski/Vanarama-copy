@@ -59,7 +59,6 @@ class MyDocument extends Document {
               <GTMBody />
             </>
           )}
-          <JS />
         </body>
       </Html>
     );
