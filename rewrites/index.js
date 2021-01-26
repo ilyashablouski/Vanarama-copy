@@ -5,7 +5,7 @@ async function fetchRewritesList() {
 
   // Get list from dev S3 bucket.
   const raw = await fetch(
-    'https://devstatic.vanarama-nonprod.com/rewrites/dev/rewrites.json',
+    'https://devstatic.vanarama-nonprod.com/rewrites/rewrites.json',
   );
   const json = await raw.json();
 
