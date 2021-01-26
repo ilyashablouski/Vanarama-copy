@@ -71,7 +71,7 @@ const VehicleCard = React.memo(
         {...imageProps}
         header={{
           accentIcon: data?.isOnOffer ? (
-            <Icon icon={<Flame />} color="white" className="md hydrated" />
+            <Icon icon={<Flame />} color="white" className="sm hydrated" />
           ) : null,
           accentText: data?.isOnOffer ? 'Hot Deal' : '',
           text: data?.leadTime || '',
