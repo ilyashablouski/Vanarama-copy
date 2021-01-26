@@ -11,7 +11,7 @@ export const makeHandler = (
   data.groupedRangesWithSlug?.map(range => range.parent) || [];
 
 export const modelHandler = (
-  data: IFilterList,
+  data: IFilterList | IFilterTypeAndBudget,
   make: string,
 ): IFiltersChildren[] => {
   if (make && data.groupedRangesWithSlug) {
