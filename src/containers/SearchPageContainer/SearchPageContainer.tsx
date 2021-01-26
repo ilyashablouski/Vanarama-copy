@@ -650,6 +650,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isDynamicFilterPage,
     sortOrder.direction,
     sortOrder.type,
+    isSpecialOffersOrder,
     isPersonal,
     isSpecialOfferPage,
     isSimpleSearchPage,
