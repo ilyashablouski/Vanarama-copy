@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { MutableRefObject, useRef } from 'react';
 import { NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -192,16 +193,18 @@ export const OffersPage: NextPage<IProps> = ({
               Van Offers
             </span>
           </Heading>
-          <ProductCarousel
-            leaseType={LeaseTypeEnum.BUSINESS}
-            data={{
-              derivatives: productsVanDerivatives?.derivatives || null,
-              productCard: productsVan?.productCarousel || null,
-              vehicleList: vehicleListUrlData,
-            }}
-            countItems={productsVan?.productCarousel?.length || 6}
-            dataTestIdBtn="van-view-offer"
-          />
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            <ProductCarousel
+              leaseType={LeaseTypeEnum.BUSINESS}
+              data={{
+                derivatives: productsVanDerivatives?.derivatives || null,
+                productCard: productsVan?.productCarousel || null,
+                vehicleList: vehicleListUrlData,
+              }}
+              countItems={productsVan?.productCarousel?.length || 6}
+              dataTestIdBtn="van-view-offer"
+            />
+          </LazyLoadComponent>
         </div>
         <div className="-justify-content-row -pt-500">
           <RouterLink
@@ -231,16 +234,18 @@ export const OffersPage: NextPage<IProps> = ({
               Truck Offers
             </span>
           </Heading>
-          <ProductCarousel
-            leaseType={LeaseTypeEnum.BUSINESS}
-            data={{
-              derivatives: productsPickupDerivatives?.derivatives || null,
-              productCard: productsPickup?.productCarousel || null,
-              vehicleList: vehicleListUrlData,
-            }}
-            countItems={productsPickup?.productCarousel?.length || 6}
-            dataTestIdBtn="pickup-view-offer"
-          />
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            <ProductCarousel
+              leaseType={LeaseTypeEnum.BUSINESS}
+              data={{
+                derivatives: productsPickupDerivatives?.derivatives || null,
+                productCard: productsPickup?.productCarousel || null,
+                vehicleList: vehicleListUrlData,
+              }}
+              countItems={productsPickup?.productCarousel?.length || 6}
+              dataTestIdBtn="pickup-view-offer"
+            />
+          </LazyLoadComponent>
         </div>
         <div className="-justify-content-row -pt-500">
           <RouterLink
@@ -270,16 +275,18 @@ export const OffersPage: NextPage<IProps> = ({
               Car Offers
             </span>
           </Heading>
-          <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
-            data={{
-              derivatives: productsCarDerivatives?.derivatives || null,
-              productCard: productsCar?.productCarousel || null,
-              vehicleList: vehicleListUrlData,
-            }}
-            countItems={productsCar?.productCarousel?.length || 6}
-            dataTestIdBtn="car-view-offer"
-          />
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            <ProductCarousel
+              leaseType={LeaseTypeEnum.PERSONAL}
+              data={{
+                derivatives: productsCarDerivatives?.derivatives || null,
+                productCard: productsCar?.productCarousel || null,
+                vehicleList: vehicleListUrlData,
+              }}
+              countItems={productsCar?.productCarousel?.length || 6}
+              dataTestIdBtn="car-view-offer"
+            />
+          </LazyLoadComponent>
         </div>
         <div className="-justify-content-row -pt-500">
           <RouterLink
