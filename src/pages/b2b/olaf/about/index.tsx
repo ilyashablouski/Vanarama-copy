@@ -51,7 +51,7 @@ const handleCreateUpdateBusinessPersonError = () =>
 const handleAccountFetchError = () =>
   toast.error(
     'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
-    'Dolor ut tempor eiusmod enim consequat laboris dolore ut pariatur labore sunt incididunt dolore veniam mollit excepteur dolor aliqua minim nostrud adipisicing culpa aliquip ex',
+    '',
   );
 
 type QueryParams = OLAFQueryParams & {

@@ -177,9 +177,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
             />
           </Modal>
         )}
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
-          <FooterContainer />
-        </LazyLoadComponent>
+        <FooterContainer />
       </main>
       <LazyLoadComponent>
         <ToastContainer />

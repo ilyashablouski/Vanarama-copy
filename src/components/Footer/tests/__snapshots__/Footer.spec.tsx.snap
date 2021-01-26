@@ -12,52 +12,5 @@ exports[`<Footer /> renders correctly with body 1`] = `
       }
     }
   />
-  <span
-    className=""
-    style={
-      Object {
-        "display": "inline-block",
-      }
-    }
-  />
-  <span
-    className=""
-    style={
-      Object {
-        "display": "inline-block",
-      }
-    }
-  />
-  <span
-    className=""
-    style={
-      Object {
-        "display": "inline-block",
-      }
-    }
-  />
-  <hr
-    className="footer--divider -fullwidth"
-  />
-  <span
-    className=""
-    style={
-      Object {
-        "display": "inline-block",
-      }
-    }
-  />
-  <div
-    className="-text-columns"
-  >
-    <span
-      className=""
-      style={
-        Object {
-          "display": "inline-block",
-        }
-      }
-    />
-  </div>
 </footer>
 `;

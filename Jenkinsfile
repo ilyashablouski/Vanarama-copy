@@ -132,11 +132,12 @@ pipeline {
 
         stage("2: Unit testing") {
             //TODO: run me in docker -- zero cleanup required; also concurrency safe
-            agent {
-                ecs {
-                    inheritFrom 'grid-dev-jenkins-agent'  // This is not within customers
-                }
-            }
+            // agent {
+            //     ecs {
+            //         inheritFrom 'grid-dev-jenkins-agent'  // This is not within customers
+            //     }
+            // }
+            agent { node('master') }
             environment { //todo can the agent determine path.
                 PATH = "${env.PATH}:/usr/local/bin"
             }
