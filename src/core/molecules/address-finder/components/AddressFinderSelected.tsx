@@ -14,8 +14,6 @@ const AddressFinderSelected: React.FC<IBaseProps> = ({
     return null;
   }
 
-  console.log('+>+>+>', selectedSuggestion.label);
-
   return (
     <div className={cx('formgroup--editable', className)}>
       <Text className="address-finder--input" color="dark" size="regular">

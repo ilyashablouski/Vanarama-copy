@@ -9,7 +9,6 @@ interface IProps {
   dataTestId: string;
   id: string;
   label: string;
-  registeredAddr?: string;
   rules?: ValidationOptions;
 }
 
@@ -18,10 +17,8 @@ export default function AddressFormField({
   id,
   label,
   rules,
-  registeredAddr,
 }: IProps) {
   const { control, errors } = useFormContext();
-  console.log('<<>>', registeredAddr);
   return (
     <Controller
       name={id}
@@ -31,7 +28,6 @@ export default function AddressFormField({
         <AddressFinder
           apiKey={process.env.LOQATE_KEY!}
           onSuggestionChange={() => {}}
-          selected={{ id: '', label: registeredAddr || '' }}
         >
           <Formgroup
             controlId={id}

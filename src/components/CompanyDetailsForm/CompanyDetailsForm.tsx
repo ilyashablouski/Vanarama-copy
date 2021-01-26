@@ -72,6 +72,14 @@ const CompanyDetailsForm: React.FC<IProps> = ({
     }
   }, [selectedCompanyData, getCompanyDetails]);
 
+  useEffect(() => {
+    methods.setValue(
+      'registeredAddress',
+      { id: '', label: selectedCompanyData?.addressSnippet || '' },
+      true,
+    );
+  }, [methods, selectedCompanyData]);
+
   const handleNatureSelect = (selectedNature: string | string[]) => {
     const isArray = Array.isArray(selectedNature);
     setNatureOfBusiness(
@@ -163,7 +171,6 @@ const CompanyDetailsForm: React.FC<IProps> = ({
       {(hasConfirmedCompany || inputMode === 'manual') && (
         <FormContext {...methods}>
           <CompanyDetailsFormFields
-            registeredAddr={selectedCompanyData?.addressSnippet || ''}
             isEdited={isEdited}
             inputMode={inputMode}
             setNatureValue={handleNatureSelect}
