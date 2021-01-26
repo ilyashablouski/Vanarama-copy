@@ -99,22 +99,22 @@ export const PAGES = [
   {
     pages: ['/b2b/olaf'],
     pageType: PAGE_TYPES.checkoutPage,
-    siteSection: SITE_SECTIONS.vans,
+    siteSection: SITE_SECTIONS.ecommerce,
   },
   {
     pages: ['/olaf/about/sole-trader/summary', '/olaf/about/summary'],
     pageType: PAGE_TYPES.orderConfirmationPage,
-    siteSection: SITE_SECTIONS.cars,
+    siteSection: SITE_SECTIONS.ecommerce,
   },
   {
     pages: ['/olaf/thank-you'],
     pageType: PAGE_TYPES.enquiryConfirmationPage,
-    siteSection: SITE_SECTIONS.cars,
+    siteSection: SITE_SECTIONS.ecommerce,
   },
   {
-    pages: ['/olaf/about'],
+    pages: ['/olaf'],
     pageType: PAGE_TYPES.checkoutPage,
-    siteSection: SITE_SECTIONS.cars,
+    siteSection: SITE_SECTIONS.ecommerce,
   },
   {
     pages: ['/black-friday'],
