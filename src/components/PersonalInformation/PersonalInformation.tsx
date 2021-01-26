@@ -31,7 +31,7 @@ const getAddressFromPerson = (person: IProps['person']) =>
   person?.address
     ? {
         id: person?.address?.serviceId || '',
-        label: `${person?.address?.lineOne}${person?.address?.lineTwo ??
+        label: `${person?.address?.lineOne}, ${person?.address?.lineTwo ??
           ''} - ${person?.address?.city}, ${person?.address?.postcode}`,
       }
     : undefined;
