@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 
 const Svg: FC = memo(() => (
-  <svg width="1rem" height="1rem" viewBox="0 0 512 512" fill="none">
+  <svg width="1em" height="1em" viewBox="0 0 512 512" fill="none">
     <path
       d="M236 175.721L200.639 105L128 105L128 65L384 65V105L311.361 105L276 175.721V386.88H404V447H108V386.88H236V175.721Z"
       style={{

@@ -10,7 +10,9 @@ export type DirectorFormValues = {
   uuid?: string;
   title: string;
   firstName: string;
+  originalFirstName: string;
   lastName: string;
+  originalLastName: string;
   gender: string;
   shareOfBusiness: string;
   dayOfBirth: string;

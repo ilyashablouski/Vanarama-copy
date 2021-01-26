@@ -9,7 +9,6 @@ const Button = dynamic(() => import('core/atoms/button'), {
 });
 const Carousel = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={4} />,
-  ssr: false,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,

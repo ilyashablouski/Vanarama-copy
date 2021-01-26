@@ -1,5 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 import { GetFleetLandingPage } from '../../../generated/GetFleetLandingPage';
 import Head from '../../components/Head/Head';
@@ -38,31 +39,6 @@ interface IFleetLandingPage {
 const FleetLandingPage = ({ data }: IFleetLandingPage) => {
   return (
     <>
-      {data?.fleetLandingPage?.sections?.hero && (
-        <HeroSection {...data?.fleetLandingPage?.sections?.hero} />
-      )}
-      {data?.fleetLandingPage?.sections?.leadText && (
-        <LeadTextSection {...data?.fleetLandingPage?.sections?.leadText} />
-      )}
-      {data?.fleetLandingPage?.sections?.featured1 && (
-        <TestimonialSection {...data?.fleetLandingPage?.sections?.featured1} />
-      )}
-      {data?.fleetLandingPage?.sections?.featured2 && (
-        <MediaFeatureSection {...data?.fleetLandingPage?.sections?.featured2} />
-      )}
-      {data?.fleetLandingPage?.sections?.featured3 && (
-        <MediaFeatureSection {...data?.fleetLandingPage?.sections?.featured3} />
-      )}
-      {data?.fleetLandingPage?.sections?.featured4 && (
-        <MediaFeatureSection {...data?.fleetLandingPage?.sections?.featured4} />
-      )}
-      <hr className="-fullwidth" />
-      {data?.fleetLandingPage?.sections?.tiles && (
-        <BenefitsSection {...data?.fleetLandingPage?.sections?.tiles} />
-      )}
-      <SchemaJSON
-        json={JSON.stringify(data?.fleetLandingPage?.metaData?.schema)}
-      />
       {data?.fleetLandingPage.metaData && (
         <>
           <Head
@@ -73,6 +49,46 @@ const FleetLandingPage = ({ data }: IFleetLandingPage) => {
             json={JSON.stringify(data?.fleetLandingPage.metaData.schema)}
           />
         </>
+      )}
+      {data?.fleetLandingPage?.sections?.hero && (
+        <HeroSection {...data?.fleetLandingPage?.sections?.hero} />
+      )}
+      {data?.fleetLandingPage?.sections?.leadText && (
+        <LeadTextSection {...data?.fleetLandingPage?.sections?.leadText} />
+      )}
+      {data?.fleetLandingPage?.sections?.featured1 && (
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <TestimonialSection
+            {...data?.fleetLandingPage?.sections?.featured1}
+          />
+        </LazyLoadComponent>
+      )}
+      {data?.fleetLandingPage?.sections?.featured2 && (
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <MediaFeatureSection
+            {...data?.fleetLandingPage?.sections?.featured2}
+          />
+        </LazyLoadComponent>
+      )}
+      {data?.fleetLandingPage?.sections?.featured3 && (
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <MediaFeatureSection
+            {...data?.fleetLandingPage?.sections?.featured3}
+          />
+        </LazyLoadComponent>
+      )}
+      {data?.fleetLandingPage?.sections?.featured4 && (
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <MediaFeatureSection
+            {...data?.fleetLandingPage?.sections?.featured4}
+          />
+        </LazyLoadComponent>
+      )}
+      <hr className="-fullwidth" />
+      {data?.fleetLandingPage?.sections?.tiles && (
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <BenefitsSection {...data?.fleetLandingPage?.sections?.tiles} />
+        </LazyLoadComponent>
       )}
     </>
   );

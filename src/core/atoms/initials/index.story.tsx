@@ -4,8 +4,8 @@ import base from 'paths.macro';
 
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 
-import League from '.';
+import Initials from '.';
 
-storiesOf(`${atomicDir(base)}|League`, module).add('Default', () => (
-  <League clickReadMore={() => {}} altText="alternative" link="" />
+storiesOf(`${atomicDir(base)}|Initials`, module).add('default', () => (
+  <Initials fullName="Gianluca Agnocchetti" />
 ));

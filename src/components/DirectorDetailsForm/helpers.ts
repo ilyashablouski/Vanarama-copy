@@ -22,11 +22,13 @@ export const initialEditedFormValues = (
 
   if (directorUuid) {
     const selected = directors.find(d => d.uuid === directorUuid);
-    if (selected)
+
+    if (selected) {
       return {
         directors: [selected],
         totalPercentage,
       };
+    }
   }
   return {
     directors: [],
@@ -165,7 +167,9 @@ export const parseOfficers = (
     return {
       title: '',
       firstName,
+      originalFirstName: firstName,
       lastName,
+      originalLastName: lastName,
       gender: '',
       email: '',
       shareOfBusiness: '',
@@ -185,8 +189,8 @@ export const combineDirectorsData = (
   return officers.map(officer => {
     const data = directors?.find(
       director =>
-        officer.firstName === director.firstName &&
-        officer.lastName === director.lastName,
+        officer.firstName === director.originalFirstName &&
+        officer.lastName === director.originalLastName,
     );
     return {
       ...officer,

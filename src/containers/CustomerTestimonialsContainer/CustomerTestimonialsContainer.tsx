@@ -21,6 +21,9 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={4} />,
 });
+const Initials = dynamic(() => import('core/atoms/initials'), {
+  loading: () => <Skeleton count={4} />,
+});
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -106,12 +109,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
         <br />
         {testimonials?.map((item, idx) => (
           <div className="review" key={idx}>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              size="expand"
-              round
-              src={`https://eu.ui-avatars.com/api/?name=name=${item?.name}&color=ffffff&background=0A0D10&format=svg&rounded=true`}
-            />
+            <Initials fullName={item?.name || ''} />
             <Heading size="regular" color="black">
               {item?.whyLease}
             </Heading>
