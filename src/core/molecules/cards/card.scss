@@ -92,6 +92,38 @@ $small: 0.875rem;
         max-width: $image-width;
         grid-area: 1 / 1 / -1 / content;
       }
+
+      // Model version of inline card, only for desktop  
+      @include desktop {
+        &.-model {
+          grid-template-columns: minmax(0, var(--img-w, 50%)) [content] minmax(0, 1fr) 0;
+          img {
+            width: 100%;
+            max-width: inherit;
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+          }
+          .title {
+            grid-row: 6;
+            margin-top: 1.2rem;
+          }
+          p {
+            grid-row: 7;
+          }
+          .-flex-h {
+            grid-row: 8;
+            padding-bottom: 1.25rem;
+            flex-wrap: wrap;
+            margin-bottom: 0;
+            margin-top: 1rem;
+            .price {
+              min-width: 100%;
+              margin-bottom: 20px;
+            }
+          }
+        }
+      }
     }
   }
 

@@ -232,6 +232,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
   const { savedSortOrder, saveSortOrder } = useSortOrder();
   const [sortOrder, setSortOrder] = useState(savedSortOrder);
+  const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(
+    isSpecialOffers,
+  );
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
   const [pageOffset, setPageOffset] = useState(0);
 
@@ -241,7 +244,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   }, [isPersonal, setCachedLeaseType]);
 
   // when we change page with one dynamic route by Next router(like from car-leasing/coupe to car-leasing/saloon)
-  // Next doesn't call a ssr requests, this workaround should call request fpr page data on client side
+  // Next doesn't call a ssr requests, this workaround should call request for page data on client side
   useEffect(() => {
     if (router.query.isChangePage === 'true') {
       const fetchPageData = async () => {
@@ -437,8 +440,10 @@ const SearchPageContainer: React.FC<IProps> = ({
             : LeaseTypeEnum.BUSINESS,
           onOffer,
           ...filters,
-          sortField: isSpecialOffers ? SortField.offerRanking : sortOrder.type,
-          sortDirection: isSpecialOffers
+          sortField: isSpecialOffersOrder
+            ? SortField.offerRanking
+            : sortOrder.type,
+          sortDirection: isSpecialOffersOrder
             ? SortDirection.ASC
             : sortOrder.direction,
           ...{
@@ -624,8 +629,10 @@ const SearchPageContainer: React.FC<IProps> = ({
             : null,
           after: lastCard,
           ...filtersData,
-          sortField: isSpecialOffers ? SortField.offerRanking : sortOrder.type,
-          sortDirection: isSpecialOffers
+          sortField: isSpecialOffersOrder
+            ? SortField.offerRanking
+            : sortOrder.type,
+          sortDirection: isSpecialOffersOrder
             ? SortDirection.ASC
             : sortOrder.direction,
         },
@@ -643,6 +650,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isDynamicFilterPage,
     sortOrder.direction,
     sortOrder.type,
+    isSpecialOffersOrder,
     isPersonal,
     isSpecialOfferPage,
     isSimpleSearchPage,
@@ -667,6 +675,9 @@ const SearchPageContainer: React.FC<IProps> = ({
       type: type as SortField,
       direction: direction as SortDirection,
     });
+    if (isSpecialOffersOrder) {
+      setIsSpecialOffersOrder(false);
+    }
   };
 
   useFirstRenderEffect(() => {
@@ -726,6 +737,12 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Some props should be contain in one param for achieve more readable code
   return (
     <>
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={null} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
@@ -965,9 +982,13 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Text>
           {!(isAllMakesPage && isMakePage) && (
             <Select
-              value={`${sortOrder.type}_${sortOrder.direction}`}
+              value={
+                isSpecialOffersOrder
+                  ? ''
+                  : `${sortOrder.type}_${sortOrder.direction}`
+              }
               onChange={e => onChangeSortOrder(e.target.value)}
-              disabled={isSpecialOffers}
+              disabled={isSpecialOffers && !isSpecialOfferPage}
             >
               {sortValues.map(option => (
                 <option key={option.value} value={option.value}>
@@ -1068,35 +1089,74 @@ const SearchPageContainer: React.FC<IProps> = ({
 
       {isSpecialOfferPage && isCarSearch && featured && (
         <section className="row:featured-right">
-          {!featured?.layout?.includes('Full Width') && (
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              size="expand"
-              src={featured.image?.file?.url || ''}
-            />
-          )}
-          <div>
-            <div
-              className={readmore ? '-truncate' : ''}
-              style={{
-                height:
-                  isReadMoreIncluded && readmore
-                    ? featured?.defaultHeight || 100
-                    : '',
-              }}
-            >
-              <Heading
-                tag={featured.titleTag || 'span'}
-                size="large"
-                color="black"
-                className="-mb-300"
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            {!featured?.layout?.includes('Full Width') && (
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                size="expand"
+                src={featured.image?.file?.url || ''}
+              />
+            )}
+            <div>
+              <div
+                className={readmore ? '-truncate' : ''}
+                style={{
+                  height:
+                    isReadMoreIncluded && readmore
+                      ? featured?.defaultHeight || 100
+                      : '',
+                }}
               >
-                {featured.title}
-              </Heading>
+                <Heading
+                  tag={featured.titleTag || 'span'}
+                  size="large"
+                  color="black"
+                  className="-mb-300"
+                >
+                  {featured.title}
+                </Heading>
+                <ReactMarkdown
+                  className="markdown"
+                  source={featured.body || ''}
+                  allowDangerousHtml
+                  renderers={{
+                    link: props => {
+                      const { href, children } = props;
+                      return (
+                        <RouterLink
+                          link={{ href, label: children }}
+                          classNames={{ color: 'teal' }}
+                        />
+                      );
+                    },
+                  }}
+                />
+              </div>
+              {featured?.layout?.includes('Read More') && (
+                <Button
+                  size="small"
+                  color="teal"
+                  fill="clear"
+                  label={readmore ? 'Read More' : 'Read Less'}
+                  onClick={() => setReadMore(!readmore)}
+                />
+              )}
+            </div>
+          </LazyLoadComponent>
+        </section>
+      )}
+
+      {pageData?.genericPage?.sections?.featured2?.body && (
+        <div className="row:text">
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            <Heading tag="h2" size="large" color="black" className="-mb-300">
+              {pageData.genericPage.sections.featured2.title}
+            </Heading>
+            <Text color="darker" size="regular" tag="div">
               <ReactMarkdown
                 className="markdown"
-                source={featured.body || ''}
                 allowDangerousHtml
+                source={pageData.genericPage.sections.featured2.body}
                 renderers={{
                   link: props => {
                     const { href, children } = props;
@@ -1107,53 +1167,22 @@ const SearchPageContainer: React.FC<IProps> = ({
                       />
                     );
                   },
+                  image: props => {
+                    const { src, alt } = props;
+                    return (
+                      <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
+                    );
+                  },
+                  heading: props => (
+                    <Text {...props} size="lead" color="darker" tag="h3" />
+                  ),
+                  paragraph: props => (
+                    <Text {...props} tag="p" color="darker" />
+                  ),
                 }}
               />
-            </div>
-            {featured?.layout?.includes('Read More') && (
-              <Button
-                size="small"
-                color="teal"
-                fill="clear"
-                label={readmore ? 'Read More' : 'Read Less'}
-                onClick={() => setReadMore(!readmore)}
-              />
-            )}
-          </div>
-        </section>
-      )}
-
-      {pageData?.genericPage?.sections?.featured2?.body && (
-        <div className="row:text">
-          <Heading tag="h2" size="large" color="black" className="-mb-300">
-            {pageData.genericPage.sections.featured2.title}
-          </Heading>
-          <Text color="darker" size="regular" tag="div">
-            <ReactMarkdown
-              className="markdown"
-              allowDangerousHtml
-              source={pageData.genericPage.sections.featured2.body}
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return (
-                    <RouterLink
-                      link={{ href, label: children }}
-                      classNames={{ color: 'teal' }}
-                    />
-                  );
-                },
-                image: props => {
-                  const { src, alt } = props;
-                  return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
-                },
-                heading: props => (
-                  <Text {...props} size="lead" color="darker" tag="h3" />
-                ),
-                paragraph: props => <Text {...props} tag="p" color="darker" />,
-              }}
-            />
-          </Text>
+            </Text>
+          </LazyLoadComponent>
         </div>
       )}
 
@@ -1161,28 +1190,30 @@ const SearchPageContainer: React.FC<IProps> = ({
 
       {isDynamicFilterPage && (
         <div className="row:features-4col">
-          {tiles?.tiles?.length &&
-            tiles.tiles.map((tile, indx) => (
-              <Tile
-                plain
-                className="-align-center -button"
-                key={`${tile.title}_${indx.toString()}`}
-              >
-                <span>
-                  <Image
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    src={tile.image?.file?.url || ''}
-                    inline
-                    round
-                    size="large"
-                  />
-                </span>
-                <TileLink tile={tile} />
-                <Text color="darker" size="regular">
-                  {tile.body}
-                </Text>
-              </Tile>
-            ))}
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            {tiles?.tiles?.length &&
+              tiles.tiles.map((tile, indx) => (
+                <Tile
+                  plain
+                  className="-align-center -button"
+                  key={`${tile.title}_${indx.toString()}`}
+                >
+                  <span>
+                    <Image
+                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                      src={tile.image?.file?.url || ''}
+                      inline
+                      round
+                      size="large"
+                    />
+                  </span>
+                  <TileLink tile={tile} />
+                  <Text color="darker" size="regular">
+                    {tile.body}
+                  </Text>
+                </Tile>
+              ))}
+          </LazyLoadComponent>
         </div>
       )}
 
@@ -1190,7 +1221,9 @@ const SearchPageContainer: React.FC<IProps> = ({
         <>
           {(isRangePage || isDynamicFilterPage) && (
             <div className="row:text -columns">
-              <div>
+              <LazyLoadComponent
+                visibleByDefault={typeof window === 'undefined'}
+              >
                 <ReactMarkdown
                   className="markdown"
                   source={pageData?.genericPage.body || ''}
@@ -1213,7 +1246,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                     ),
                   }}
                 />
-              </div>
+              </LazyLoadComponent>
             </div>
           )}
 
@@ -1358,12 +1391,6 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Text>
         </LazyLoadComponent>
       </div>
-      {metaData && (
-        <>
-          <Head metaData={metaData} featuredImage={null} />
-          <SchemaJSON json={JSON.stringify(metaData.schema)} />
-        </>
-      )}
     </>
   );
 };

@@ -25,6 +25,7 @@ import {
 } from './helpers';
 import Skeleton from '../../components/Skeleton';
 import { dynamicQueryTypeCheck } from '../SearchPageContainer/helpers';
+import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -372,6 +373,10 @@ const FiltersContainer = ({
     else setFilterExpandStatus(false);
   }, [isTabletOrMobile]);
 
+  useFirstRenderEffect(() => {
+    onViewResults();
+  }, [isSpecialOffers]);
+
   useEffect(() => {
     // don't call onSearch already after render
     if (!isInitialLoad || router.query.isChangePage === 'true') onViewResults();
@@ -402,13 +407,7 @@ const FiltersContainer = ({
     )
       setInitialLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    selectedFilterTags,
-    isSpecialOffers,
-    isInitialLoad,
-    isPersonal,
-    sortOrder,
-  ]);
+  }, [selectedFilterTags, isInitialLoad, isPersonal, sortOrder]);
 
   /** return true if model exist in filters data */
   const isCurrentModelValid = (model: string) =>
