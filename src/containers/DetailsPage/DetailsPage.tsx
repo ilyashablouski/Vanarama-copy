@@ -134,6 +134,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   productCard,
 }) => {
   const router = useRouter();
+  const pdpContent = React.useRef<HTMLDivElement>(null);
   // pass cars prop(Boolean)
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(cars);
   const [leaseType, setLeaseType] = useState<string>(cachedLeaseType);
@@ -367,18 +368,13 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   };
 
   const calcScrollHeight = () => {
-    const alsoViewCarousel = document.getElementsByClassName('row:bg-lighter');
-    const alsoViewCarouselHeight = alsoViewCarousel.length
-      ? alsoViewCarousel[0].scrollHeight
-      : 0;
-    const pdpContent = document.getElementsByClassName('pdp--content');
-    const pdpContentHeight = pdpContent[0].scrollHeight;
-    return pdpContentHeight - alsoViewCarouselHeight - window.innerHeight;
+    const pdpContentHeight = pdpContent.current!.scrollHeight;
+    return pdpContentHeight - window.innerHeight;
   };
 
   return (
     <>
-      <div className="pdp--content">
+      <div className="pdp--content" ref={pdpContent}>
         {breadcrumbItems && (
           <div className="row:title">
             <Breadcrumb items={breadcrumbItems} />
