@@ -15,6 +15,7 @@ export type DirectorFormValues = {
   originalLastName: string;
   gender: string;
   shareOfBusiness: string;
+  nationality: string;
   dayOfBirth: string;
   monthOfBirth: string;
   yearOfBirth: string;
