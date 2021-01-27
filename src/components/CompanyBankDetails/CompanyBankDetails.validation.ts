@@ -9,7 +9,7 @@ function isInPast({ joinedAtYear, joinedAtMonth }: ICompanyBankDetails) {
   const inPast =
     diffInMonth(
       new Date(),
-      new Date(parseInt(joinedAtYear, 10), parseInt(joinedAtMonth, 10), 1),
+      new Date(parseInt(joinedAtYear, 10), parseInt(joinedAtMonth, 10) - 1, 1),
     ) <= 0;
   return inPast ? '' : 'Oops, this date seems to be in the future';
 }
