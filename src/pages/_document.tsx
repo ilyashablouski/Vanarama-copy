@@ -24,8 +24,6 @@ const NextScript = dynamic(() =>
 //   import('../components/SpeedCurveScript').then(mod => mod.SpeedCurveScript),
 // );
 
-const JS = dynamic(() => import('../components/JS'));
-
 const env = process?.env?.ENV || '';
 
 // Script environments
@@ -59,7 +57,6 @@ class MyDocument extends Document {
               <GTMBody />
             </>
           )}
-          <JS />
         </body>
       </Html>
     );
