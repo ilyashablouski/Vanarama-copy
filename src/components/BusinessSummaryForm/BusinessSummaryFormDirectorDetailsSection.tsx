@@ -56,6 +56,11 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
       dataTestId: `summary-director[${orderBySharehold}]-business-share`,
     },
     {
+      label: 'Nationality',
+      value: director.nationality || '',
+      dataTestId: `summary-director[${orderBySharehold}]-nationality`,
+    },
+    {
       label: 'Number of Dependants',
       value: director.numberOfDependants || '',
       dataTestId: `summary-director[${orderBySharehold}]-noOfDependants`,
@@ -105,6 +110,7 @@ BusinessSummaryFormDirectorDetailsSection.fragments = {
       gender
       dateOfBirth
       noOfDependants
+      nationality
       businessShare
       roles {
         position
