@@ -42,6 +42,11 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
       dataTestId: `summary-director[${orderBySharehold}]-gender`,
     },
     {
+      label: 'Email',
+      value: director.email || '',
+      dataTestId: `summary-director[${orderBySharehold}]-email`,
+    },
+    {
       label: 'Date Of Birth',
       value: formatDate(
         director.yearOfBirth,

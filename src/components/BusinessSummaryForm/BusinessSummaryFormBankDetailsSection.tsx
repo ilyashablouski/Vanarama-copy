@@ -46,7 +46,7 @@ const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
           dataTestId: 'summary-sort-code',
         },
         {
-          label: 'Time At Bank',
+          label: 'Account Open Since',
           value: formatTimeAtBank(account.joinedAtYear, account.joinedAtMonth),
           dataTestId: 'summary-account-time',
         },
