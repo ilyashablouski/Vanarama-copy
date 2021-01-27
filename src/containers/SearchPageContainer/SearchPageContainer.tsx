@@ -937,7 +937,10 @@ const SearchPageContainer: React.FC<IProps> = ({
               id="specialOffer"
               label="View Special Offers Only"
               checked={isSpecialOffers}
-              onChange={e => onSaveSpecialOffersStatus(e.target.checked)}
+              onChange={e => {
+                onSaveSpecialOffersStatus(e.target.checked);
+                setIsSpecialOffersOrder(e.target.checked);
+              }}
             />
           </div>
         )}
@@ -988,7 +991,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                   : `${sortOrder.type}_${sortOrder.direction}`
               }
               onChange={e => onChangeSortOrder(e.target.value)}
-              disabled={isSpecialOffers && !isSpecialOfferPage}
             >
               {sortValues.map(option => (
                 <option key={option.value} value={option.value}>
