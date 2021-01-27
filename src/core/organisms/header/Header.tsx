@@ -95,7 +95,7 @@ const Header: FC<IHeaderProps> = memo(props => {
           isCompact
           body="We're open again at 8:30am. Why not chat to iVan?"
           title=""
-          imageSrc="https://www.vanarama.com/assets/images-optimised/header-ivan.svg"
+          imageSrc={`${process.env.HOST_DOMAIN}/assets/images-optimised/header-ivan.svg`}
         />
       );
     }

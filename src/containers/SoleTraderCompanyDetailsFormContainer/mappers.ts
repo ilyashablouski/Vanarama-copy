@@ -5,7 +5,7 @@ import { UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany as Compan
 export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
   const tradingSince = new Date(
     Number(values.tradingSinceYear),
-    Number(values.tradingSinceMonth),
+    Number(values.tradingSinceMonth) - 1,
     0,
   );
 
