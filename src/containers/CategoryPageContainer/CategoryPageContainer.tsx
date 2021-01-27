@@ -49,6 +49,7 @@ const renderCarouselCards = (cards: any[] | undefined) =>
     return (
       card && (
         <Card
+          style={{ minHeight: 420 }}
           loadImage
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           key={`${card.title}_${index.toString()}_${card.excerpt}`}
