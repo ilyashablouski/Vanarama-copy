@@ -135,6 +135,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 }) => {
   const router = useRouter();
   const pdpContent = React.useRef<HTMLDivElement>(null);
+  const leaseScanner = React.useRef<HTMLDivElement>(null);
   // pass cars prop(Boolean)
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(cars);
   const [leaseType, setLeaseType] = useState<string>(cachedLeaseType);
@@ -162,6 +163,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   useEffect(() => {
     if (isMobile) {
       window.addEventListener('scroll', scrollChange);
+      leaseScanner.current?.classList.remove('-fixed');
+      setTimeout(() => {
+        leaseScanner.current?.classList.add('-fixed');
+      }, 1000);
     }
   }, [isMobile]);
 
@@ -501,11 +506,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       )}
       {isMobile && (
         <div
-          className={cx(
-            'lease-scanner--sticky-wrap',
-            (screenY || 0) < calcScrollHeight() ? 'fixed' : '',
-          )}
-          style={{ opacity: '1' }}
+          className={cx('lease-scanner--sticky-wrap', {
+            '-fixed': (screenY || 0) < calcScrollHeight(),
+          })}
+          ref={leaseScanner}
         >
           <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
             <LeaseScanner

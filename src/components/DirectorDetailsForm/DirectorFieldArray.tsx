@@ -36,6 +36,7 @@ const handleDirectorSelected = (
       monthOfBirth: '',
       yearOfBirth: '',
       numberOfDependants: '',
+      nationality: '',
       history: [],
     },
   );

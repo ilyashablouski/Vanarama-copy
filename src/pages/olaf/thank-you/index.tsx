@@ -65,15 +65,15 @@ const ThankYouPage: NextPage = () => {
       <List>
         <li>
           <Text color="darker" tag="p">
-            We’ll then send you some finance documents to sign which you can do
-            straight from your phone.
+            We&apos;ll then send you some finance documents to sign which you
+            can do straight from your phone.
           </Text>
         </li>
         <li>
           <Text color="darker" tag="p">
-            Once the dealer has arranged a suitable time with you, we’ll deliver
-            your brand new vehicle straight to your door - free, safe &
-            contactless.
+            Once we&apos;ve arranged a suitable time for you via our dealer
+            partners, we&apos;ll deliver your brand new vehicle straight to your
+            door – free, safe & contactless.
           </Text>
         </li>
       </List>
@@ -92,9 +92,9 @@ const ThankYouPage: NextPage = () => {
             We&apos;ve Received Your Order
           </Text>
           <Text color="darker" tag="p">
-            As soon as your finance is sorted, we&apos;ll reserve your vehicle
-            and process your order. We&apos;ll be in touch within 24 business
-            hours.
+            As soon as your application has been approved with the finance
+            company, we&apos;ll reserve your vehicle and process your order.
+            We&apos;ll be in touch within 24 business hours.
           </Text>
           <Heading color="black" tag="h2" size="lead">
             {isB2b ? `What's Next?` : `What Happens Next?`}

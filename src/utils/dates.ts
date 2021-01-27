@@ -40,12 +40,24 @@ export const dateToFormat = (date: string) => {
   return formatDate(arr[0], arr[1], arr[2]);
 };
 
-export const parseDate = (day: string, month: string, year: string) =>
-  `${year}-${month}-${day}`;
+export const parseDate = (day: string, month: string, year: string) => {
+  const date = new Date(
+    parseInt(year, 10),
+    parseInt(month, 10),
+    parseInt(day, 10),
+  );
+
+  const [formattedMonth, formattedDay] = [
+    date.getMonth() - 1 || 1,
+    date.getDate() || 1,
+  ].map(value => value.toLocaleString(undefined, { minimumIntegerDigits: 2 }));
+
+  return `${date.getFullYear()}-${formattedMonth}-${formattedDay}`;
+};
 
 export const historyToDateObject = <T extends THistoryEntry>(history: T) =>
   // NOTE: Default to the first of the month because we don't capture the day
-  new Date(`${history.month}-01-${history.year}`);
+  new Date(parseInt(history.year, 10), parseInt(history.month, 10) - 1, 1);
 
 export const historyToDate = <T extends THistoryEntry>(history: T) =>
   historyToDateObject(history);
@@ -133,7 +145,7 @@ export const diffInMonth = (d1: Date, d2: Date) => {
 
 export const diffInYear = (year: number, month: number, day: number) =>
   new Date(
-    new Date().getTime() - new Date(year, month, day).getTime(),
+    new Date().getTime() - new Date(year, month - 1, day).getTime(),
   ).getFullYear() - 1970;
 
 export function calculateRemainingMonths(

@@ -128,6 +128,12 @@ const DirectorFields: FCWithFragments<Props> = ({
           {...shareField}
         />
       </Formgroup>
+      <FormikSelectField
+        name={generateFieldKey('nationality')}
+        label="Nationality"
+      >
+        <OptionsWithFavourites options={dropDownData.nationalities} />
+      </FormikSelectField>
       {requiredMonths > 0 && (
         <>
           <hr className="mv-400" />
@@ -165,6 +171,11 @@ DirectorFields.fragments = {
         favourites
       }
       noOfDependants {
+        __typename
+        data
+        favourites
+      }
+      nationalities {
         __typename
         data
         favourites

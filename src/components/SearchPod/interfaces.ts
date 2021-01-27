@@ -1,4 +1,8 @@
-import { filterList_filterList_groupedRangesWithSlug_children as IOptionsDropdown } from '../../../generated/filterList';
+import {
+  filterList_filterList_groupedRangesWithSlug_children as IOptionsDropdown,
+  filterList_filterList as IFilterList,
+} from '../../../generated/filterList';
+import { filterTypeAndBudget_filterList as IFilterTypeAndBudget } from '../../../generated/filterTypeAndBudget';
 
 export interface ISearchPodProps {
   activeTab: number;
@@ -9,7 +13,8 @@ export interface ISearchPodProps {
   registerDropdown: () => void;
   hasCarMakeSelected: boolean;
   hasVansMakeSelected: boolean;
-  vansCachedData: any;
+  vansData?: IFilterTypeAndBudget;
+  vansCachedData: IFilterList;
   isHomePage?: boolean;
   headingText: string;
 }

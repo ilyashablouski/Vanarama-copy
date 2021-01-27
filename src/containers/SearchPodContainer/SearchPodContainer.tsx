@@ -22,6 +22,7 @@ import {
 } from '../../../generated/filterList';
 // import SearchPod from '../../components/SearchPod';
 import Skeleton from '../../components/Skeleton';
+import { filterTypeAndBudget_filterList as IFilterTypeAndBudget } from '../../../generated/filterTypeAndBudget';
 
 const SearchPod = dynamic(() => import('../../components/SearchPod'), {
   loading: () => <Skeleton count={7} />,
@@ -76,9 +77,12 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   const [vansDataCache] = useState(
     searchPodVansData?.filterList || ({} as IFilterList),
   );
+  const [vansData, setVansData] = useState({} as IFilterTypeAndBudget);
+
   const [carsDataCache] = useState(
     searchPodCarsData?.filterList || ({} as IFilterList),
   );
+  const [carsData, setCarsData] = useState({} as IFilterTypeAndBudget);
 
   const [config] = useState(setConfigInit());
   const [headingText, setHeadingText] = useState(initialHeadingText);
@@ -154,23 +158,14 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
 
   // set actual models value for a specific manufacturer
   useEffect(() => {
-    if (
-      vansDataCache.groupedRangesWithSlug ||
-      carsDataCache.groupedRangesWithSlug
-    ) {
+    if (vansData.groupedRangesWithSlug || carsData.groupedRangesWithSlug) {
       if (activeIndex === 1) {
-        setModelsVans(modelHandler(vansDataCache, selectMakeVans));
+        setModelsVans(modelHandler(vansData, selectMakeVans));
       } else {
-        setModelsCars(modelHandler(carsDataCache, selectMakeCars));
+        setModelsCars(modelHandler(carsData, selectMakeCars));
       }
     }
-  }, [
-    selectMakeVans,
-    selectMakeCars,
-    vansDataCache,
-    carsDataCache,
-    activeIndex,
-  ]);
+  }, [selectMakeVans, selectMakeCars, vansData, carsData, activeIndex]);
 
   useEffect(() => {
     if (!selectMakeVans && getValues('modelVans')) {
@@ -261,6 +256,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
             : budget,
         );
         setMakesVans(makeHandler(actualVehicleData?.filterList));
+        setVansData(actualVehicleData?.filterList);
       } else {
         setTypesCars(actualVehicleData?.filterList.bodyStyles || []);
         setBudgetCars(
@@ -269,6 +265,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
             : budget,
         );
         setMakeCars(makeHandler(actualVehicleData?.filterList));
+        setCarsData(actualVehicleData.filterList);
       }
     }
   }, [actualVehicleData, activeIndex]);
@@ -320,6 +317,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       registerDropdown={register}
       hasCarMakeSelected={!!selectMakeCars}
       hasVansMakeSelected={!!selectMakeVans}
+      vansData={vansData}
       vansCachedData={vansDataCache}
       isHomePage={config.length > 1}
       headingText={headingText}
