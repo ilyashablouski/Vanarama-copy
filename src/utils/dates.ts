@@ -45,7 +45,7 @@ export const parseDate = (day: string, month: string, year: string) =>
 
 export const historyToDateObject = <T extends THistoryEntry>(history: T) =>
   // NOTE: Default to the first of the month because we don't capture the day
-  new Date(`${history.month}-01-${history.year}`);
+  new Date(parseInt(history.year, 10), parseInt(history.month, 10) - 1, 1);
 
 export const historyToDate = <T extends THistoryEntry>(history: T) =>
   historyToDateObject(history);

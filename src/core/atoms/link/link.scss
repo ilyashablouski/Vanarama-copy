@@ -76,12 +76,17 @@
   &.-plain {
     border-bottom: unset;
   }
- 
+
   > .icon {
     position: relative;
     bottom: -0.1em;
   }
-  
+
+  &.pagination--item,
+  &.pagination--chevron {
+    display: flex;
+  }
+
   @include colour-selector(-primary, $teal, colour);
   @include colour-selector(-secondary, darker, contrast);
 }

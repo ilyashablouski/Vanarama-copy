@@ -374,7 +374,8 @@ const FiltersContainer = ({
   }, [isTabletOrMobile]);
 
   useFirstRenderEffect(() => {
-    onViewResults();
+    // prevent request after automatically untick view offer checkbox
+    if (!forceFiltersPreset) onViewResults();
   }, [isSpecialOffers]);
 
   useEffect(() => {
