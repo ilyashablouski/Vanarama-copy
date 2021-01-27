@@ -24,6 +24,12 @@ export interface GetCompanyDirectorDetailsQuery_allDropDowns_noOfDependants {
   favourites: string[];
 }
 
+export interface GetCompanyDirectorDetailsQuery_allDropDowns_nationalities {
+  __typename: "DropDownDataType";
+  data: string[];
+  favourites: string[];
+}
+
 export interface GetCompanyDirectorDetailsQuery_allDropDowns_propertyStatuses {
   __typename: "DropDownDataType";
   data: string[];
@@ -34,6 +40,7 @@ export interface GetCompanyDirectorDetailsQuery_allDropDowns {
   __typename: "DropDownType";
   titles: GetCompanyDirectorDetailsQuery_allDropDowns_titles;
   noOfDependants: GetCompanyDirectorDetailsQuery_allDropDowns_noOfDependants;
+  nationalities: GetCompanyDirectorDetailsQuery_allDropDowns_nationalities;
   propertyStatuses: GetCompanyDirectorDetailsQuery_allDropDowns_propertyStatuses;
 }
 

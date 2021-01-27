@@ -503,7 +503,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <div
           className={cx(
             'lease-scanner--sticky-wrap',
-            (screenY || 0) < calcScrollHeight() ? 'fixed' : '',
+            (screenY || 0) > calcScrollHeight() ? '' : 'fixed',
           )}
           style={{ opacity: '1' }}
         >
