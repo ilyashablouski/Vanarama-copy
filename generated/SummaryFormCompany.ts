@@ -69,6 +69,7 @@ export interface SummaryFormCompany_associates {
   gender: string | null;
   dateOfBirth: any | null;
   noOfDependants: string | null;
+  nationality: string | null;
   businessShare: number | null;
   roles: SummaryFormCompany_associates_roles[] | null;
   addresses: SummaryFormCompany_associates_addresses[] | null;
