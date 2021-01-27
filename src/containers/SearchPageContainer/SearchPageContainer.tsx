@@ -448,7 +448,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           ...{
             bodyStyles:
               isPickups || isModelPage || isBodyStylePage
-                ? (filters.bodyStyles[0] && filters.bodyStyles) ||
+                ? (filters.bodyStyles?.[0] && filters.bodyStyles) ||
                   manualBodyStyle
                 : filters.bodyStyles,
             transmissions: isTransmissionPage
