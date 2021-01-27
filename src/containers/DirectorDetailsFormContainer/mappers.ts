@@ -41,6 +41,7 @@ export const mapFormValues = (
       ),
       role: { position: 'Director' },
       noOfDependants: director.numberOfDependants,
+      nationality: director.nationality,
     })),
   };
 };
@@ -81,6 +82,7 @@ export const mapDirectorDetails = (data: any): DirectorDetails => ({
   monthOfBirth: data?.month_of_birth,
   numberOfDependants: data?.number_of_dependants,
   shareOfBusiness: data?.share_of_business,
+  nationality: data?.nationality,
   title: data?.title,
   yearOfBirth: data?.year_of_birth,
   uuid: data?.uuid,
