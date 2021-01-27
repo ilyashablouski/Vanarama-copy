@@ -19,6 +19,12 @@ export interface DirectorFieldsDropDownData_noOfDependants {
   favourites: string[];
 }
 
+export interface DirectorFieldsDropDownData_nationalities {
+  __typename: "DropDownDataType";
+  data: string[];
+  favourites: string[];
+}
+
 export interface DirectorFieldsDropDownData_propertyStatuses {
   __typename: "DropDownDataType";
   data: string[];
@@ -29,5 +35,6 @@ export interface DirectorFieldsDropDownData {
   __typename: "DropDownType";
   titles: DirectorFieldsDropDownData_titles;
   noOfDependants: DirectorFieldsDropDownData_noOfDependants;
+  nationalities: DirectorFieldsDropDownData_nationalities;
   propertyStatuses: DirectorFieldsDropDownData_propertyStatuses;
 }
