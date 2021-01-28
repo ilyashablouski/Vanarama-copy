@@ -93,7 +93,7 @@
         },
         {
           "name": "HOST_DOMAIN",
-          "valueFrom": "https://%ALTERNATEDOMAIN%"
+          "value": "https://%ALTERNATEDOMAIN%"
         }
       ],
       "portMappings": [
