@@ -1,3 +1,4 @@
+import { createContext } from 'react';
 import { DEFAULT_TERM } from '../../models/enum/OlafVariables';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
 import { GetDerivatives_derivatives as Derivatives } from '../../../generated/GetDerivatives';
@@ -75,3 +76,6 @@ export const getFunderTerm = (
     }
   } else return DEFAULT_TERM;
 };
+
+export const OlafContext = createContext({ requiredMonths: DEFAULT_TERM });
+OlafContext.displayName = 'OlafContext';
