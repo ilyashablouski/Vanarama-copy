@@ -58,6 +58,7 @@ const ModelCard = memo(
 
     return (
       <Card
+        className="-model"
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         inline
         {...imageProps}
