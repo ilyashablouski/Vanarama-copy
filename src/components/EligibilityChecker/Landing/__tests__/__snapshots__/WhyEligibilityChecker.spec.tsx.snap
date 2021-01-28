@@ -48,7 +48,8 @@ exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
       height="500"
       loading="lazy"
       sizes="(min-width:3200px) 800px, 1200px"
-      src="https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+      src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://source.unsplash.com/collection/2102317/1000x650?sig=40344"
+      srcSet="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://source.unsplash.com/collection/2102317/1000x650?sig=40344 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://source.unsplash.com/collection/2102317/1000x650?sig=40344 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://source.unsplash.com/collection/2102317/1000x650?sig=40344 1200w"
       width="900"
     />
   </div>

@@ -15,7 +15,7 @@ const League: FC<ILeagueProps> = memo(props => {
       <div>
         <Image
           plain
-          src="https://www.vanarama.com/Assets/images-optimised/home/national-league.png"
+          src={`${process.env.HOST_DOMAIN}/Assets/images-optimised/home/national-league.png`}
           size="expand"
           alt={altText}
         />
@@ -38,7 +38,7 @@ const League: FC<ILeagueProps> = memo(props => {
         </Text>
         <Image
           plain
-          src="https://www.vanarama.com/Assets/images-optimised/home/league-cup.png"
+          src={`${process.env.HOST_DOMAIN}/Assets/images-optimised/home/league-cup.png`}
           size="expand"
           alt={altText}
         />
