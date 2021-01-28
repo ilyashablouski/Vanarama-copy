@@ -2,10 +2,16 @@ serviceName = 'next-storefront'
 ecrRegion = 'eu-west-2'
 stack = 'grid'
 taskDefFile = "deploy/aws/task-definition.json"
-currentCommit = ""
+dateNow = new Date()
+branchName = "${env.BRANCH_NAME}"
+
+// Get souce branch name for PR based Jenkins build
+if (branchName =~ /PR-\d+/) {
+    branchName = "${env.CHANGE_BRANCH}"
+}
 
 def app_environment = [
-    "develop": [
+    "dev": [
         clusterName: 'grid-dev',
         logGroupName: "dev/grid/apps",
         taskFamily: "grid-dev-${serviceName}",
@@ -26,7 +32,7 @@ def app_environment = [
         terraformService: true,
         alternateDomain: 'dev.vanarama-nonprod.com'
     ],
-    "master": [
+    "uat": [
         clusterName: 'grid-uat',
         logGroupName: "uat/grid/apps",
         taskFamily: "grid-uat-${serviceName}",
@@ -62,28 +68,34 @@ def ecrLogin(String accountId) {
 def getTaskDefinition(family, region) {
     return "${family}:" + sh(
         returnStdout: true,
-        script: "aws ecs describe-task-definition --task-definition ${family} --region ${region} | egrep 'revision'  | tr ',' ' ' | awk '{print \$2}'"
+        st: "aws ecs describe-task-definition --task-definition ${family} --region ${region} | egrep 'revision'  | tr ',' ' ' | awk '{print \$2}'"
     ).trim()
 }
 
-def mergeAndPushBranch(appEnvironment, destinationBranch) {
+def getConfig() {
+    if ( "${branchName}".contains('release/') || "${branchName}".contains('hotfix/') ) {
+        return 'uat'
+    } else {
+        return 'dev'
+    }
+}
+
+def createReleaseBranch(appEnvironment, sourceBranch) {
 
     cleanWs()
 
-    def dcName = "${env.JOB_NAME}-${env.BUILD_NUMBER}"
-    def appName = appEnvironment["${env.BRANCH_NAME}"].app
-    def currentBranch = "${env.BRANCH_NAME}"
+    def appName = appEnvironment["${getConfig()}"].app
+    def releaseBranchName = "release/R${env.BUILD_NUMBER}-${dateNow.format('ddMMyyyy')}"
 
     try {
-        git branch: "${destinationBranch}", credentialsId: 'TechAmigo-DevOps-New', url: "https://github.com/Autorama/${appName}.git"
+        git branch: "${sourceBranch}", credentialsId: 'TechAmigo-DevOps-New', url: "https://github.com/Autorama/${appName}.git"
 
         sh "git config user.email devops@techamigos.com"
         sh "git config user.name 'devops'"
         sh "git remote set-url origin git@github.com:Autorama/${appName}.git"
 
         sh """
-        git tag -a ${dcName} -m \"Tagging a New Release\"
-        git rebase origin/${currentBranch}
+        git checkout -b ${releaseBranchName}
         """
 
         sshagent(['autorama']) {
@@ -91,15 +103,25 @@ def mergeAndPushBranch(appEnvironment, destinationBranch) {
             #!/usr/bin/env bash
             set +x
             export GIT_SSH_COMMAND="ssh -oStrictHostKeyChecking=no"
-            git push origin ${dcName}
-            git push origin ${destinationBranch}
+            git push origin ${releaseBranchName}
         """
         }
     } catch (err) {
-        slackSend channel: appEnvironment["${env.BRANCH_NAME}"].slackChannelQA, color: 'warning', message: "Merge to ${destinationBranch} has failed for : ${env.JOB_NAME} - ${env.BUILD_NUMBER} "
+        println err
+        slackSend channel: appEnvironment["${getConfig()}"].slackChannelQA, color: 'warning', message: "Release branch ${releaseBranchName} creation failed for : ${env.JOB_NAME} - ${env.BUILD_NUMBER} "
         currentBuild.result = 'UNSTABLE'
     }
 }
+
+def getDockerTagName() {
+    if ( "${branchName}" =~ "hotfix/*" ) {
+        return "${branchName}".replace("hotfix/", "hotfix-H${env.CHANGE_ID}-")
+    } else {
+        def cleanBranchName = "${branchName}".replace('/', '-')
+        return "${cleanBranchName}"
+    }
+}
+
 
 pipeline {
     agent none
@@ -117,12 +139,14 @@ pipeline {
                 anyOf {
                   branch 'develop'
                   branch 'master'
+                  branch 'release/*'
+                  changeRequest target: 'master'
                 }
             }
 
             steps {
               script {
-                def jenkinsCredentialsId = app_environment["${env.BRANCH_NAME}"].jenkinsCredentialsId
+                def jenkinsCredentialsId = app_environment["${getConfig()}"].jenkinsCredentialsId
                 withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "${jenkinsCredentialsId}" , secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
                     sh "aws ecr describe-repositories --repository-names ${serviceName} --region ${ecrRegion} || aws ecr create-repository --repository-name ${serviceName} --region ${ecrRegion}"
                 }
@@ -202,6 +226,8 @@ pipeline {
                 anyOf {
                   branch 'develop'
                   branch 'master'
+                  branch 'release/*'
+                  changeRequest target: 'master'
                 }
             }
 
@@ -209,24 +235,23 @@ pipeline {
               milestone(30)
 
               script {
-                def jenkinsCredentialsId = app_environment["${env.BRANCH_NAME}"].jenkinsCredentialsId
+                def jenkinsCredentialsId = app_environment["${getConfig()}"].jenkinsCredentialsId
                 ecrLogin(jenkinsCredentialsId)
-                def dockerRepoName = app_environment["${env.BRANCH_NAME}"].dockerRepoName
-                def envs = app_environment["${BRANCH_NAME}"].env
-                def stack = app_environment["${BRANCH_NAME}"].stack
-                def NODE_ENV = app_environment["${BRANCH_NAME}"].NODE_ENV
-                def alternateDomain = app_environment["${BRANCH_NAME}"].alternateDomain
+                def dockerRepoName = app_environment["${getConfig()}"].dockerRepoName
+                def envs = app_environment["${getConfig()}"].env
+                def stack = app_environment["${getConfig()}"].stack
+                def NODE_ENV = app_environment["${getConfig()}"].NODE_ENV
+                def alternateDomain = app_environment["${getConfig()}"].alternateDomain
                 
-                currentCommit = env.GIT_COMMIT
                     //TO DO - Paramaterise the source function with env variable
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "${jenkinsCredentialsId}" , secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
                     sh """
-                      source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${BRANCH_NAME} ${alternateDomain}
+                      source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${getConfig()} ${alternateDomain}
                       docker pull $dockerRepoName:latest || true
-                      docker build -t $dockerRepoName:${env.GIT_COMMIT} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg PRERENDER_SERVICE_URL=\${PRERENDER_SERVICE_URL} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${ENV} --build-arg GTM_ID=\${GTM_ID} --build-arg MICROBLINK_URL=\${MICROBLINK_URL} --build-arg IMG_OPTIMISATION_HOST=\${IMG_OPTIMISATION_HOST} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=${NODE_ENV}  --cache-from $dockerRepoName:latest .
-                      docker push $dockerRepoName:${env.GIT_COMMIT}
-                      docker tag $dockerRepoName:${env.GIT_COMMIT} $dockerRepoName:latest
+                      docker build -t $dockerRepoName:${getDockerTagName()} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg PRERENDER_SERVICE_URL=\${PRERENDER_SERVICE_URL} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${ENV} --build-arg GTM_ID=\${GTM_ID} --build-arg MICROBLINK_URL=\${MICROBLINK_URL} --build-arg IMG_OPTIMISATION_HOST=\${IMG_OPTIMISATION_HOST} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=${NODE_ENV} --build-arg HOST_DOMAIN=\${HOST_DOMAIN} --cache-from $dockerRepoName:latest .
+                      docker push $dockerRepoName:${getDockerTagName()}
+                      docker tag $dockerRepoName:${getDockerTagName()} $dockerRepoName:latest
                       docker push $dockerRepoName:latest
                       docker rmi $dockerRepoName:latest
                     """
@@ -246,30 +271,32 @@ pipeline {
                 anyOf {
                   branch 'develop'
                   branch 'master'
+                  branch 'release/*'
+                  changeRequest target: 'master'
                 }
             }
 
             steps {
                 milestone(40)
                 script {
-                    def clusterName = app_environment["${BRANCH_NAME}"].clusterName
-                    def appName = app_environment["${BRANCH_NAME}"].app
-                    def logGroupName = app_environment["${BRANCH_NAME}"].logGroupName
-                    def taskFamily = app_environment["${BRANCH_NAME}"].taskFamily
-                    def env = app_environment["${BRANCH_NAME}"].env
-                    def ssmParametersBase = app_environment["${BRANCH_NAME}"].ssmParametersBase
-                    def accountId =  app_environment["${BRANCH_NAME}"].accountId
-                    def dockerRepoName = app_environment["${BRANCH_NAME}"].dockerRepoName
-                    def alternateDomain = app_environment["${BRANCH_NAME}"].alternateDomain
+                    def clusterName = app_environment["${getConfig()}"].clusterName
+                    def appName = app_environment["${getConfig()}"].app
+                    def logGroupName = app_environment["${getConfig()}"].logGroupName
+                    def taskFamily = app_environment["${getConfig()}"].taskFamily
+                    def env = app_environment["${getConfig()}"].env
+                    def ssmParametersBase = app_environment["${getConfig()}"].ssmParametersBase
+                    def accountId =  app_environment["${getConfig()}"].accountId
+                    def dockerRepoName = app_environment["${getConfig()}"].dockerRepoName
+                    def alternateDomain = app_environment["${getConfig()}"].alternateDomain
                      
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: app_environment["${BRANCH_NAME}"].jenkinsCredentialsId, secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: app_environment["${getConfig()}"].jenkinsCredentialsId, secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                       sshagent (credentials: ['git-ssh-credentials-readonly']) {
                       // 1. register-task-definition - new task def
                         sh  """
                         cat ${taskDefFile} \
                             | sed -e "s;%APP_NAME%;${appName};g" \
                             | sed -e "s;%LOG_GROUP%;${logGroupName};g" \
-                            | sed -e "s;%IMAGE%;$dockerRepoName:$currentCommit;g" \
+                            | sed -e "s;%IMAGE%;$dockerRepoName:${getDockerTagName()};g" \
                             | sed -e "s;%ENVIRONMENT%;${env};g" \
                             | sed -e "s;%AWS_REGION%;${ecrRegion};g" \
                             | sed -e "s;%SSM_PARAMETER_BASE%;${ssmParametersBase};g" \
@@ -288,40 +315,42 @@ pipeline {
         stage("6. Infra - plan") {
             agent {
               ecs {
-                inheritFrom "${app_environment[env.BRANCH_NAME].jenkinsAgent}"
-                image "${app_environment[env.BRANCH_NAME].accountId}.dkr.ecr.eu-west-2.amazonaws.com/jenkins-terraform-slave:latest"
+                inheritFrom "${app_environment[getConfig()].jenkinsAgent}"
+                image "${app_environment[getConfig()].accountId}.dkr.ecr.eu-west-2.amazonaws.com/jenkins-terraform-slave:latest"
               }
             }
             environment { //todo can the agent determine path.
                 PATH = "${env.PATH}:/usr/local/bin"
                 J_NAME = "${env.JOB_NAME}"
                 B_NUMBER = "${env.BUILD_NUMBER}"
-                TF_VAR_aws_account_id = "${app_environment["${env.BRANCH_NAME}"].accountId}"
-                TF_VAR_aws_master_role = "${app_environment["${env.BRANCH_NAME}"].awsMasterRole}"
-                TF_VAR_alb_listener_host_override = "${app_environment["${env.BRANCH_NAME}"].alternateDomain}"
+                TF_VAR_aws_account_id = "${app_environment["${getConfig()}"].accountId}"
+                TF_VAR_aws_master_role = "${app_environment["${getConfig()}"].awsMasterRole}"
+                TF_VAR_alb_listener_host_override = "${app_environment["${getConfig()}"].alternateDomain}"
             }
             when {
                   beforeAgent true
                   anyOf {
                     branch 'develop'
                     branch 'master'
+                    branch 'release/*'
+                    changeRequest target: 'master'
                   }
               }
 
               steps {
                   lock(env.JOB_NAME) {
-                  withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: app_environment["${BRANCH_NAME}"].jenkinsCredentialsId, secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                  withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: app_environment["${getConfig()}"].jenkinsCredentialsId, secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                           sshagent (credentials: ['git-ssh-credentials-readonly']) {
                               script {
-                                def taskFamily = app_environment["${BRANCH_NAME}"].taskFamily
+                                def taskFamily = app_environment["${getConfig()}"].taskFamily
                                 def taskDefinition = getTaskDefinition(taskFamily, ecrRegion)
-                                def app = app_environment["${BRANCH_NAME}"].app
-                                def env = app_environment["${BRANCH_NAME}"].env
-                                def clusterName = app_environment["${BRANCH_NAME}"].clusterName
-                                def state_bucket = app_environment["${BRANCH_NAME}"].state_bucket
-                                def slackChannelInfra = app_environment["${BRANCH_NAME}"].slackChannelInfra
-                                def backend_config_dynamodb_table = app_environment["${BRANCH_NAME}"].backendConfigDynamoDbTable
-                                def terraformService = app_environment["${BRANCH_NAME}"].terraformService
+                                def app = app_environment["${getConfig()}"].app
+                                def env = app_environment["${getConfig()}"].env
+                                def clusterName = app_environment["${getConfig()}"].clusterName
+                                def state_bucket = app_environment["${getConfig()}"].state_bucket
+                                def slackChannelInfra = app_environment["${getConfig()}"].slackChannelInfra
+                                def backend_config_dynamodb_table = app_environment["${getConfig()}"].backendConfigDynamoDbTable
+                                def terraformService = app_environment["${getConfig()}"].terraformService
 
                                   sh """
                                       set +e
@@ -376,17 +405,17 @@ pipeline {
               }
               agent {
                   ecs {
-                  inheritFrom "${app_environment[env.BRANCH_NAME].jenkinsAgent}"
-                  image "${app_environment[env.BRANCH_NAME].accountId}.dkr.ecr.eu-west-2.amazonaws.com/jenkins-terraform-slave:latest"
+                  inheritFrom "${app_environment[getConfig()].jenkinsAgent}"
+                  image "${app_environment[getConfig()].accountId}.dkr.ecr.eu-west-2.amazonaws.com/jenkins-terraform-slave:latest"
                   }
               }
               environment { //todo can the agent determine path.
                   PATH = "${env.PATH}:/usr/local/bin"
                   J_NAME = "${env.JOB_NAME}"
                   B_NUMBER = "${env.BUILD_NUMBER}"
-                  TF_VAR_aws_account_id = "${app_environment["${env.BRANCH_NAME}"].accountId}"
-                  TF_VAR_aws_master_role = "${app_environment["${env.BRANCH_NAME}"].awsMasterRole}"
-                  TF_VAR_alb_listener_host_override = "${app_environment["${env.BRANCH_NAME}"].alternateDomain}"
+                  TF_VAR_aws_account_id = "${app_environment["${getConfig()}"].accountId}"
+                  TF_VAR_aws_master_role = "${app_environment["${getConfig()}"].awsMasterRole}"
+                  TF_VAR_alb_listener_host_override = "${app_environment["${getConfig()}"].alternateDomain}"
               }
               when {
                   beforeAgent true
@@ -394,6 +423,8 @@ pipeline {
                   anyOf {
                     branch 'develop'
                     branch 'master'
+                    branch 'release/*'
+                    changeRequest target: 'master'
                   }
                   expression { terraformHasChange == true }
               }
@@ -401,14 +432,14 @@ pipeline {
                   lock(env.JOB_NAME) {
                       // TODO - move tf here - needs approval steps e.g. following stages only when required
                       // TODO - env -> plan mapping
-                      withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: app_environment["${env.BRANCH_NAME}"].jenkinsCredentialsId, secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                      withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: app_environment["${getConfig()}"].jenkinsCredentialsId, secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                           sshagent (credentials: ['git-ssh-credentials-readonly']) {
                               unstash 'plan'
                               script {
-                                  def app = app_environment["${BRANCH_NAME}"].app
-                                  def clusterName = app_environment["${BRANCH_NAME}"].clusterName
-                                  def backend_config_dynamodb_table = app_environment["${BRANCH_NAME}"].backendConfigDynamoDbTable
-                                  def state_bucket = app_environment["${BRANCH_NAME}"].state_bucket
+                                  def app = app_environment["${getConfig()}"].app
+                                  def clusterName = app_environment["${getConfig()}"].clusterName
+                                  def backend_config_dynamodb_table = app_environment["${getConfig()}"].backendConfigDynamoDbTable
+                                  def state_bucket = app_environment["${getConfig()}"].state_bucket
 
                                   sh """
                                       mkdir $HOME/.ssh && chmod 700 $HOME/.ssh && ssh-keyscan -t rsa github.com >> ~/.ssh/known_hosts
@@ -434,24 +465,26 @@ pipeline {
                   PATH = "${env.PATH}:/usr/local/bin"
                   J_NAME = "${env.JOB_NAME}"
                   B_NUMBER = "${env.BUILD_NUMBER}"
-                  TF_VAR_aws_account_id = "${app_environment[env.BRANCH_NAME].accountId}"
-                  TF_VAR_aws_master_role = "${app_environment[env.BRANCH_NAME].awsMasterRole}"
+                  TF_VAR_aws_account_id = "${app_environment[getConfig()].accountId}"
+                  TF_VAR_aws_master_role = "${app_environment[getConfig()].awsMasterRole}"
               }
               when {
                   beforeAgent true
                   anyOf {
                     branch 'develop'
                     branch 'master'
+                    branch 'release/*'
+                    changeRequest target: 'master'
                   }
               }
 
               steps {
               milestone(70)
                   script {
-                  def clusterName = app_environment["${BRANCH_NAME}"].clusterName
-                  def logGroupName = app_environment["${BRANCH_NAME}"].logGroupName
-                  def taskFamily = app_environment["${BRANCH_NAME}"].taskFamily                  // 3. update-service to new taskdef, with previous desired count (or 1, whichever greater)
-                  withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: app_environment["${env.BRANCH_NAME}"].jenkinsCredentialsId, secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
+                  def clusterName = app_environment["${getConfig()}"].clusterName
+                  def logGroupName = app_environment["${getConfig()}"].logGroupName
+                  def taskFamily = app_environment["${getConfig()}"].taskFamily                  // 3. update-service to new taskdef, with previous desired count (or 1, whichever greater)
+                  withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: app_environment["${getConfig()}"].jenkinsCredentialsId, secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
 
                     sshagent (credentials: ['git-ssh-credentials-readonly']) {
 
@@ -475,7 +508,7 @@ pipeline {
             when {
                   beforeAgent true
                   anyOf {
-                    branch 'develop'
+                    branch 'release/*'
                   }
               }
             steps {
@@ -485,31 +518,31 @@ pipeline {
                   currentBranch = scm.branches[0].name
                   jiraSendBuildInfo branch: "${currentBranch}", site: 'autorama.atlassian.net'
                 //
-              slackSend channel: app_environment["${BRANCH_NAME}"].slackChannelQA, color: 'good', message: "Jenkins Job is Awaiting Approval: ${J_NAME} - ${B_NUMBER} to Merge to Master"
+              slackSend channel: app_environment["${getConfig()}"].slackChannelQA, color: 'good', message: "Jenkins Job: ${J_NAME} - ${B_NUMBER} is ready for approval"
               }
             }
           }
-          stage("10. Merge to Master?") {
-              input {
-                  message 'Merge to master?'
-              }
-              agent { node('master') }
-              environment { //todo can the agent determine path.
-                  PATH = "${env.PATH}:/usr/local/bin"
-              }
-              when {
-                  beforeAgent true
-                  beforeInput true
-                  anyOf {
-                    branch 'develop'
-                  }
-              }
-              steps {
-                  milestone(80)
-                  script {
-                      mergeAndPushBranch(app_environment, 'master');
-                  }
-              }
+          stage("10. Cut a release?") {
+            input {
+                message 'Cut a release?'
+            }
+            agent { node('master') }
+            environment { //todo can the agent determine path.
+                PATH = "${env.PATH}:/usr/local/bin"
+            }
+            when {
+                beforeAgent true
+                beforeInput true
+                anyOf {
+                  branch 'develop'
+                }
+            }
+            steps {
+                milestone(80)
+                script {
+                    createReleaseBranch(app_environment, 'develop')
+                }
+            }
           }
       }
   }

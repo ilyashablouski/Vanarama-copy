@@ -58,7 +58,7 @@ export const withoutPrefilledEmployments = (
                 companyAddressServiceId: undefined,
                 companyName: undefined,
                 contract: undefined,
-                employedSinceDate: '1990-1-01',
+                employedSinceDate: '1990-01-01',
                 employmentStatus: 'Retired',
                 grossAnnualIncome: undefined,
                 jobTitle: undefined,
