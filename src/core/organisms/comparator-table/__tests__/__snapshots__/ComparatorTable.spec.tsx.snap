@@ -264,7 +264,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                     cellAlign="left"
                     cellSpacing={20}
                     currentSlide={0}
-                    deltaX={-0}
+                    deltaX={0}
                     deltaY={0}
                     dragging={true}
                     frameWidth={0}
