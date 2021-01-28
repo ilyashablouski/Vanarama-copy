@@ -1,4 +1,4 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useState, useEffect } from 'react';
 import cx from 'classnames';
 import Carousel from 'nuka-carousel';
 import { useMediaQuery } from 'react-responsive';
@@ -21,6 +21,15 @@ const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
   } else if (isMediumScreen) {
     slidesToShow = 2;
   }
+
+  useEffect(() => {
+    setTimeout(() => {
+      const sliders = document.querySelectorAll('.carousel .card');
+      Array.from(Array(sliders.length)).forEach((el, id) => {
+        (sliders[id] as HTMLElement).className += ' -v-height';
+      });
+    }, 300);
+  }, []);
 
   return (
     <div className={cx('carousel', className)}>
