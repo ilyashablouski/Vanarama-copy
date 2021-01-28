@@ -36,6 +36,7 @@
       height: auto;
       &.-fixed {
         position: fixed;
+        display: block;
         top: auto;
       }
     }
