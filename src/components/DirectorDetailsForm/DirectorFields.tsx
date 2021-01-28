@@ -2,8 +2,8 @@ import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
 import NumericInput from 'core/atoms/numeric-input';
 import { FieldArray, useField, useFormikContext } from 'formik';
-import React, { useContext } from 'react';
-import { OlafContext } from '../../layouts/OLAFLayout/helpers';
+// import React, { useContext } from 'react';
+// import { OlafContext } from '../../layouts/OLAFLayout/helpers';
 import { DirectorFieldsDropDownData } from '../../../generated/DirectorFieldsDropDownData';
 import FCWithFragments from '../../utils/FCWithFragments';
 import AddressFormFieldArray from '../AddressForm/AddressFormFieldArray';
@@ -13,6 +13,7 @@ import FormikTextField from '../FormikTextField/FormikTextField';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import { createKeyGenerator } from './helpers';
 import { DirectorDetailsFormValues } from './interfaces';
+import { DEFAULT_TERM } from '../../models/enum/OlafVariables';
 import Skeleton from '../Skeleton';
 
 const CloseSharp = dynamic(() => import('core/assets/icons/CloseSharp'), {
@@ -51,7 +52,7 @@ const DirectorFields: FCWithFragments<Props> = ({
   const { values, errors } = useFormikContext<DirectorDetailsFormValues>();
   const currentDirector = values.directors[index];
   const generateFieldKey = createKeyGenerator(index);
-  const { requiredMonths } = useContext(OlafContext);
+  const requiredMonths = DEFAULT_TERM;
 
   // Manually reguster the shareOfBusiness field because it has validation rules
   // based on itself and the total percentage
