@@ -85,7 +85,7 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
     },
     {
       label: 'Property Status',
-      value: (currentAddress && currentAddress.propertyStatus) || '',
+      value: currentAddress?.propertyStatus || 'hello',
       dataTestId: `summary-director[${orderBySharehold}]-curr-prop-status`,
     },
     ...(previousAddress || []),

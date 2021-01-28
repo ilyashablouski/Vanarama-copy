@@ -35,13 +35,14 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
     <AddressForm
       addresses={addresses || []}
       dropDownData={data.allDropDowns}
-      onSubmit={values =>
-        updateAddresses({
+      onSubmit={values => {
+        console.log('>>>', values);
+        return updateAddresses({
           variables: {
             input: formValuesToInput(partyId, values),
           },
-        })
-      }
+        });
+      }}
     />
   );
 };

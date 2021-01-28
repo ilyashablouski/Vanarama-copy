@@ -23,7 +23,7 @@ export const formatPreviousAddressesArray = (
       },
       {
         label: 'Property Status',
-        value: (address && address.propertyStatus) || '',
+        value: address?.propertyStatus || 'hello',
         dataTestId: `summary-director-past-prop-status[${testId || indx}]`,
       },
     ],
