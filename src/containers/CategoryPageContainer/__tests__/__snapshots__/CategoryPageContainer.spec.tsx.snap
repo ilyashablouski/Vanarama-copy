@@ -23,7 +23,8 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
             class="image--native"
             loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
-            src="//images.ctfassets.net/3xid768u5joa/3NMAHSKcOLSuiHzRa6DE46/190659547927a1af84fa8ca2eb5afb40/photo-1543934686-54bae151bd4c"
+            src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3NMAHSKcOLSuiHzRa6DE46/190659547927a1af84fa8ca2eb5afb40/photo-1543934686-54bae151bd4c"
+            srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3NMAHSKcOLSuiHzRa6DE46/190659547927a1af84fa8ca2eb5afb40/photo-1543934686-54bae151bd4c 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3NMAHSKcOLSuiHzRa6DE46/190659547927a1af84fa8ca2eb5afb40/photo-1543934686-54bae151bd4c 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3NMAHSKcOLSuiHzRa6DE46/190659547927a1af84fa8ca2eb5afb40/photo-1543934686-54bae151bd4c 1200w"
           />
         </div>
       </div>
@@ -60,7 +61,8 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
             data-testid="card-image"
             loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
-            src="//images.ctfassets.net/3xid768u5joa/2orLDit2z21KrvoHfleXI5/ff92ffe3245b88f55b4ad3bf442e4283/boxer4.jpg"
+            src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/2orLDit2z21KrvoHfleXI5/ff92ffe3245b88f55b4ad3bf442e4283/boxer4.jpg"
+            srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/2orLDit2z21KrvoHfleXI5/ff92ffe3245b88f55b4ad3bf442e4283/boxer4.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/2orLDit2z21KrvoHfleXI5/ff92ffe3245b88f55b4ad3bf442e4283/boxer4.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/2orLDit2z21KrvoHfleXI5/ff92ffe3245b88f55b4ad3bf442e4283/boxer4.jpg 1200w"
           />
           <div
             class="title -flex-h"
@@ -126,6 +128,8 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
             data-testid="card-image"
             loading="lazy"
             sizes="(min-width:3200px) 800px, 1200px"
+            src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https:"
+            srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https: 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https: 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https: 1200w"
           />
           <div
             class="title"

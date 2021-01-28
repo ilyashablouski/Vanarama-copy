@@ -10,6 +10,7 @@ module.exports = {
     // Env vars.
     env: {
       ENV: process.env.ENV,
+      HOST_DOMAIN: process.env.HOST_DOMAIN,
       IMG_OPTIMISATION_HOST: process.env.IMG_OPTIMISATION_HOST,
       STATIC_DOMAIN: process.env.STATIC_DOMAIN,
       GTM_ID: process.env.GTM_ID,

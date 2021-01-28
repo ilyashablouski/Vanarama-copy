@@ -35,7 +35,8 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
           data-testid="card-image"
           loading="lazy"
           sizes="(min-width:3200px) 800px, 1200px"
-          src="//images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg"
+          src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg"
+          srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg 1200w"
         />
         <div
           class="title"
@@ -161,7 +162,8 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
           data-testid="card-image"
           loading="lazy"
           sizes="(min-width:3200px) 800px, 1200px"
-          src="//images.ctfassets.net/3xid768u5joa/3eBmv58a6e5OM3Ja5Tg2dJ/e47409765ce01ce8a19d874a465ac03b/citroen_dispatch_hero.jpg"
+          src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3eBmv58a6e5OM3Ja5Tg2dJ/e47409765ce01ce8a19d874a465ac03b/citroen_dispatch_hero.jpg"
+          srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3eBmv58a6e5OM3Ja5Tg2dJ/e47409765ce01ce8a19d874a465ac03b/citroen_dispatch_hero.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3eBmv58a6e5OM3Ja5Tg2dJ/e47409765ce01ce8a19d874a465ac03b/citroen_dispatch_hero.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3eBmv58a6e5OM3Ja5Tg2dJ/e47409765ce01ce8a19d874a465ac03b/citroen_dispatch_hero.jpg 1200w"
         />
         <div
           class="title"
@@ -287,7 +289,8 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
           data-testid="card-image"
           loading="lazy"
           sizes="(min-width:3200px) 800px, 1200px"
-          src="//images.ctfassets.net/3xid768u5joa/1TFjMfDaIJZyMSTHDNmzsI/795d1ce5e299bfb5f3af44f5ebb9af31/citroen-relay-hero.jpg"
+          src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/1TFjMfDaIJZyMSTHDNmzsI/795d1ce5e299bfb5f3af44f5ebb9af31/citroen-relay-hero.jpg"
+          srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/1TFjMfDaIJZyMSTHDNmzsI/795d1ce5e299bfb5f3af44f5ebb9af31/citroen-relay-hero.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/1TFjMfDaIJZyMSTHDNmzsI/795d1ce5e299bfb5f3af44f5ebb9af31/citroen-relay-hero.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/1TFjMfDaIJZyMSTHDNmzsI/795d1ce5e299bfb5f3af44f5ebb9af31/citroen-relay-hero.jpg 1200w"
         />
         <div
           class="title"

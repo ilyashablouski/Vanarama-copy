@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const formatTimeAtBank = (year: string = '', month: string = '') =>
-  fullMonthFormatDate(new Date(parseInt(year, 10), parseInt(month, 10), 1));
+  fullMonthFormatDate(new Date(parseInt(year, 10), parseInt(month, 10) - 1, 1));
 
 const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
   account,
