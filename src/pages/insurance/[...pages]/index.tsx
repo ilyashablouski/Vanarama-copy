@@ -46,7 +46,12 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data, error }) => {
   if (metaData.title?.includes('FAQ')) {
     return (
       <>
-        <FAQContainer title={metaData.name} sections={sections} intro={intro} />
+        <FAQContainer
+          title={metaData.name}
+          sections={sections}
+          intro={intro}
+          breadcrumbsData={breadcrumbsItems}
+        />
         {metaData && (
           <>
             <Head metaData={metaData} featuredImage={featuredImage} />

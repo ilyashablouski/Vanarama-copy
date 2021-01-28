@@ -71,6 +71,12 @@ const SECTIONS = {
   __typename: 'Sections',
 } as any;
 
+const BREADCRUMBS = [
+  { href: '/', label: 'Home' },
+  { href: '/van-insurance.html', label: 'Van Insurance' },
+  { label: 'FAQ' },
+];
+
 describe('<FinanceExplainedContainer />', () => {
   beforeEach(async () => {
     await preloadAll();
@@ -83,6 +89,7 @@ describe('<FinanceExplainedContainer />', () => {
           sections={SECTIONS}
           title={METADATA.title}
           intro={INTRO}
+          breadcrumbsData={BREADCRUMBS}
         />
       </MockedProvider>,
     );
