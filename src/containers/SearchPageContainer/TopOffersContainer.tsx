@@ -199,7 +199,7 @@ const TopOffersContainer: React.FC<IProps> = ({
         getCardData(vehicle.node?.derivativeId || '', cardsData) as IProductCard
       }
       title={{
-        title: '',
+        title: `${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`,
         description: vehicle.node?.derivativeName || '',
       }}
       isPersonalPrice={isPersonal}

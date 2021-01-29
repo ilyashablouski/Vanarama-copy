@@ -11,10 +11,10 @@
   &:focus {
     color: var(--class-color-shade);
   }
-  
+
   &:focus {
-    background: var(--class-color-focus);
-    box-shadow: $box-shadow-focus var(--class-color-focus);
+    background: transparent !important;
+    box-shadow: transparent !important;
   }
 
   &--asset {
