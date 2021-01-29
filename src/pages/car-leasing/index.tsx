@@ -268,7 +268,7 @@ export const CarsPage: NextPage<IProps> = ({
                       >
                         <Heading tag="span" size="large" className="-pb-100">
                           {truncateString(
-                            `${item?.manufacturerName} ${item?.rangeName}`,
+                            `${item?.manufacturerName} ${item?.modelName}`,
                           )}
                         </Heading>
                         <Heading tag="span" size="small" color="dark">
