@@ -20,6 +20,7 @@ export interface ProductCardData_productCarousel {
   manufacturerName: string | null;
   derivativeName: string | null;
   rangeName: string | null;
+  modelName: string | null;
   imageUrl: string | null;
   leadTime: string | null;
   averageRating: number | null;
