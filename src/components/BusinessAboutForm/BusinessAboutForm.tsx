@@ -38,11 +38,11 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
   dropDownData,
   onSubmit,
   person,
-  personLoggedIn,
-  onEmailExistenceCheck,
+  emailValidator,
   onLogInCLick,
   onRegistrationClick,
-  isEdited,
+  isEdit,
+  isEmailDisabled,
 }) => {
   const defaultValues = person || {};
   const { formState, handleSubmit, errors, register, reset } = useForm<
@@ -57,11 +57,11 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
   }, [person]);
 
   const selectLabel = useMemo(() => {
-    if (isEdited) {
+    if (isEdit) {
       return 'Save & Return';
     }
     return formState.isSubmitting ? 'Saving...' : 'Continue';
-  }, [isEdited, formState.isSubmitting]);
+  }, [isEdit, formState.isSubmitting]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -178,7 +178,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         )}
       >
         <TextInput
-          disabled={!!person?.email && personLoggedIn}
+          disabled={isEmailDisabled}
           id="email"
           name="email"
           dataTestId="about-you_email"
@@ -193,18 +193,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
               message:
                 'Oops, this email is too long. Please keep it to 254 characters',
             },
-            validate: async email => {
-              if (
-                personLoggedIn ||
-                (person?.email && person?.email === email)
-              ) {
-                return undefined;
-              }
-
-              const result = await onEmailExistenceCheck?.(email);
-
-              return createEmailErrorMessage(result);
-            },
+            validate: email => emailValidator?.(email),
           })}
         />
       </Formgroup>

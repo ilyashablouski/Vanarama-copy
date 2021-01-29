@@ -16,14 +16,12 @@ export interface IBusinessAboutFormValues {
 }
 
 export interface IProps {
-  isEdited: boolean;
+  isEdit: boolean;
+  isEmailDisabled?: boolean;
   dropDownData: BusinessAboutFormDropDownData;
-  personLoggedIn?: boolean;
   onSubmit: OnSubmit<IBusinessAboutFormValues>;
   person?: IBusinessAboutFormValues | null;
   onLogInCLick?: () => void;
   onRegistrationClick?: () => void;
-  onEmailExistenceCheck?: (
-    email: string,
-  ) => Promise<IExistenceCheckResult | null>;
+  emailValidator?: (email: string) => Promise<string | undefined>;
 }
