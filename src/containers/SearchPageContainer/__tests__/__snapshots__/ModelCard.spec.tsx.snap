@@ -4,7 +4,7 @@ exports[`<ModelCard /> should be render correctly 1`] = `
 <body>
   <div>
     <div
-      class="card -inline"
+      class="card -model -inline"
       data-testid="card"
     >
       <img

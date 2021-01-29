@@ -57,7 +57,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
   );
 
   useEffect(() => {
-    if (company && companySearchResult) {
+    if (company && !companySearchResult) {
       methods.reset(company);
       setProceedCompany(company?.companySearchResult);
       setHasConfirmedCompany(true);
@@ -75,7 +75,13 @@ const CompanyDetailsForm: React.FC<IProps> = ({
   useEffect(() => {
     methods.setValue(
       'registeredAddress',
-      { id: '', label: selectedCompanyData?.addressSnippet || '' },
+      {
+        id: company?.registeredAddress?.id || '',
+        label:
+          company?.registeredAddress?.label ||
+          selectedCompanyData?.addressSnippet ||
+          '',
+      },
       true,
     );
   }, [methods, selectedCompanyData]);

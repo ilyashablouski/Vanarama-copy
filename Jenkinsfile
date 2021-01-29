@@ -68,7 +68,7 @@ def ecrLogin(String accountId) {
 def getTaskDefinition(family, region) {
     return "${family}:" + sh(
         returnStdout: true,
-        st: "aws ecs describe-task-definition --task-definition ${family} --region ${region} | egrep 'revision'  | tr ',' ' ' | awk '{print \$2}'"
+        script: "aws ecs describe-task-definition --task-definition ${family} --region ${region} | egrep 'revision'  | tr ',' ' ' | awk '{print \$2}'"
     ).trim()
 }
 
@@ -156,12 +156,12 @@ pipeline {
 
         stage("2: Unit testing") {
             //TODO: run me in docker -- zero cleanup required; also concurrency safe
-            // agent {
-            //     ecs {
-            //         inheritFrom 'grid-dev-jenkins-agent'  // This is not within customers
-            //     }
-            // }
-            agent { node('master') }
+            agent {
+               ecs {
+                   inheritFrom 'grid-dev-jenkins-agent'  // This is not within customers
+                }
+            }
+            //agent { node('master') }
             environment { //todo can the agent determine path.
                 PATH = "${env.PATH}:/usr/local/bin"
             }
@@ -171,11 +171,13 @@ pipeline {
               withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                   nodejs('node') {
                     sh '''npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"'''
+                    sh "du -sh *" 
                     sh "yarn install"
                     // sh "yarn pack --filename next-storefront.tar.gz"
                     sh "yarn test --coverage"
                     sh "yarn lint"
                     sh "yarn typecheck"
+                    sh "du -sh *"   
                     // sh "yarn build"
                     // stash includes: 'next-storefront.tar.gz', name: 'package'
                     }

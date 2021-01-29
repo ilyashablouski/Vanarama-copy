@@ -19,11 +19,18 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
+const Breadcrumb = dynamic(
+  () => import('../../components/Breadcrumb/Breadcrumb'),
+  {
+    loading: () => <Skeleton count={1} />,
+  },
+);
 
 interface IProps {
   sections: Section | null | undefined;
   title: string | null | undefined;
   intro: string | null | undefined;
+  breadcrumbsData: any;
 }
 
 const getAccordionItemsInside = (
@@ -78,12 +85,20 @@ const getAccordionItems = (
   }));
 };
 
-const FAQContainer: FC<IProps> = ({ title, sections, intro }) => {
+const FAQContainer: FC<IProps> = ({
+  title,
+  sections,
+  intro,
+  breadcrumbsData,
+}) => {
   const questionSets = sections?.faqs?.questionSets;
-
+  const breadcrumbsItems = breadcrumbsData?.map((el: any) => ({
+    link: { href: el.href || '', label: el.label },
+  }));
   return (
     <>
       <div className="row:title">
+        {breadcrumbsItems && <Breadcrumb items={breadcrumbsItems} />}
         <Heading size="xlarge" color="black" tag="h1">
           {title || ''}
         </Heading>
