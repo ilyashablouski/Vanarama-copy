@@ -1,5 +1,6 @@
 import { IList } from 'core/organisms/structured-list/interfaces';
 import { TAddressEntry } from '../AddressForm/interfaces';
+import { months } from '../../utils/dates';
 
 export const formatPreviousAddressesArray = (
   addresses?: TAddressEntry[],
@@ -15,7 +16,8 @@ export const formatPreviousAddressesArray = (
       },
       {
         label: 'Date Moved In',
-        value: (address && `${address.month} ${address.year}`) || '',
+        value:
+          (address && `${months[Number(address.month)]} ${address.year}`) || '',
         dataTestId: `summary-director-past-moved-in[${testId || indx}]`,
       },
       {
