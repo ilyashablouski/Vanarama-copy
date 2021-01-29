@@ -105,17 +105,18 @@ const VehicleReviewContainer: FC<IProps> = ({
               <Tab index={1}>Video</Tab>
             </TabList>
           </Tabs>
-          <ReactMarkdown
-            allowDangerousHtml
-            className="markdown -mt-500"
-            source={body || ''}
-            renderers={{
-              link: props => {
-                const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
-              },
-            }}
-          />
+          <div className="markdown -mt-500">
+            <ReactMarkdown
+              allowDangerousHtml
+              source={body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
+            />
+          </div>
           <div className="button-group">
             <RouterLink
               classNames={{ color: 'teal', size: 'regular' }}
