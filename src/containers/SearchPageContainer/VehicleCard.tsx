@@ -103,7 +103,7 @@ const VehicleCard = React.memo(
               dataTestId="heading-link"
             >
               <Heading tag="span" size="large" className="-pb-100">
-                {truncateString(`${data?.manufacturerName} ${data?.rangeName}`)}
+                {title?.title || ''}
               </Heading>
               <Heading tag="span" size="small" color="dark">
                 {title?.description || ''}
