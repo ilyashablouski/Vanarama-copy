@@ -62,7 +62,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
             <ProductCard
               // loadImage
               style={{ maxHeight: 600 }}
-              alt={`${product?.manufacturerName} ${product?.rangeName} ${product?.derivativeName}`}
+              alt={`${product?.manufacturerName} ${product?.modelName} ${product?.derivativeName}`}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={`${product.capId}_${inx}` || ''}
               header={
@@ -115,7 +115,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                   >
                     <Heading tag="span" size="large" className="-pb-100">
                       {truncateString(
-                        `${product?.manufacturerName} ${product?.rangeName}`,
+                        `${product?.manufacturerName} ${product?.modelName}`,
                       )}
                     </Heading>
                     <Heading tag="span" size="small" color="dark">

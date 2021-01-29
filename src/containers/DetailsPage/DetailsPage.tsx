@@ -374,7 +374,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const calcScrollHeight = () => {
     const pdpContentHeight = pdpContent.current!.scrollHeight;
-    return pdpContentHeight - window.innerHeight;
+    const customerAlsoViewHeight = !!productCard || !!capsId?.length ? 700 : 0;
+    return pdpContentHeight + customerAlsoViewHeight - window.innerHeight;
   };
 
   return (

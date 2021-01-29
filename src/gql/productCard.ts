@@ -21,6 +21,7 @@ export const PRODUCT_CARD_CONTENT = gql`
       manufacturerName
       derivativeName
       rangeName
+      modelName
       imageUrl
       leadTime
       averageRating

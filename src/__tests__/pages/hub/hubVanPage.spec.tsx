@@ -364,6 +364,7 @@ const offer = {
   manufacturerName: 'Volkswagen',
   derivativeName: '2.0 TDI BMT 102 Highline Kombi Van Euro 6',
   rangeName: 'Transporter',
+  modelName: 'Transporter',
   imageUrl:
     'https://images.autorama.co.uk/Photos/Cap/Vehicles/129783/cap-35088-129783.jpg',
   leadTime: 'Factory Order',

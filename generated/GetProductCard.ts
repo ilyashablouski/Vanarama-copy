@@ -19,6 +19,7 @@ export interface GetProductCard_productCard {
   capId: string | null;
   manufacturerName: string | null;
   rangeName: string | null;
+  modelName: string | null;
   derivativeName: string | null;
   averageRating: number | null;
   isOnOffer: boolean | null;
