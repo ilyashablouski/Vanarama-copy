@@ -21,6 +21,7 @@ const PRODUCT_CARDS = [
     manufacturerName: 'Citroen',
     derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
     rangeName: 'Berlingo',
+    modelName: 'Berlingo M',
     imageUrl:
       'https://images.autorama.co.uk/Photos/Cap/Vehicles/161237/cap-44514-161237.jpg',
     leadTime: 'Factory Order',

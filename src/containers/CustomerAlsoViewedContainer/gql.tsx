@@ -12,6 +12,7 @@ export const GET_PRODUCT_CARDS_DATA = gql`
       capId
       manufacturerName
       rangeName
+      modelName
       derivativeName
       averageRating
       isOnOffer

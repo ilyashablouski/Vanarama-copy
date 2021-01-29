@@ -40,4 +40,8 @@ describe('<ImageCarousel />', () => {
       mocks.images.length - 1,
     );
   });
+  it('should be render without arrows', () => {
+    const wrapper = shallow(<ImageCarousel {...mocks} images={['test']} />);
+    expect(wrapper.find('.media-gallery--x-scroll-nav').exists()).toBeFalsy();
+  });
 });
