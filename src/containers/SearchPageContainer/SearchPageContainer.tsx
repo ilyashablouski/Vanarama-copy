@@ -1049,7 +1049,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         vehicle.node?.derivativeId,
                       )}
                       title={{
-                        title: '',
+                        title: `${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`,
                         description: vehicle.node?.derivativeName || '',
                       }}
                       isPersonalPrice={isPersonal}
