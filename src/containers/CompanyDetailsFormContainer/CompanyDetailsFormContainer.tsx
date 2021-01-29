@@ -74,17 +74,22 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
     orderId,
   );
 
-  const companyDetailsRaw = data?.creditApplicationByOrderUuid?.companyDetails;
-  const aboutDetailsRaw = data?.creditApplicationByOrderUuid?.aboutDetails;
+  const companyDetailsRaw =
+    data?.creditApplicationByOrderUuid?.companyDetails || {};
+  const aboutDetailsRaw =
+    data?.creditApplicationByOrderUuid?.aboutDetails || {};
 
   const company = useMemo(
-    () => (companyDetailsRaw ? mapDefaultValues(companyDetailsRaw) : undefined),
+    () =>
+      Object.values(companyDetailsRaw).length !== 0
+        ? mapDefaultValues(companyDetailsRaw)
+        : undefined,
     [companyDetailsRaw],
   );
 
   const aboutDetails = useMemo(
     () =>
-      aboutDetailsRaw
+      Object.values(aboutDetailsRaw).length !== 0
         ? responseToInitialFormValues(aboutDetailsRaw)
         : undefined,
     [aboutDetailsRaw],

@@ -14,7 +14,7 @@ export const responseToInitialFormValues = (
     mobile: data?.telephone_numbers?.[0].value,
     termsAndConditions: data?.terms_and_conditions,
     title: data?.title,
-    privacyPolicy: data?.privacyPolicy,
+    privacyPolicy: data?.privacy_policy,
   };
 };
 
