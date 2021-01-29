@@ -4,7 +4,7 @@ import { gql } from '@apollo/client';
 import FCWithFragments from '../../utils/FCWithFragments';
 
 import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
-import { sortAddresses } from './helpers';
+import { sortDirectorAddresses } from './helpers';
 import { DirectorFormValues } from '../DirectorDetailsForm/interfaces';
 import { formatDate, months } from '../../utils/dates';
 import Skeleton from '../Skeleton';
@@ -24,7 +24,7 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
   director,
   orderBySharehold,
 }) => {
-  const { currentAddress, previousAddress } = sortAddresses(
+  const { currentAddress, previousAddress } = sortDirectorAddresses(
     director.history,
     orderBySharehold,
   );

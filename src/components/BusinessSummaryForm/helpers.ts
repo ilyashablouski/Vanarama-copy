@@ -1,8 +1,10 @@
 import { IList } from 'core/organisms/structured-list/interfaces';
 import { TAddressEntry } from '../AddressForm/interfaces';
-import { months } from '../../utils/dates';
+import { addressToDisplay } from '../../utils/address';
+import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
+import { fullMonthFormatDate, months } from '../../utils/dates';
 
-export const formatPreviousAddressesArray = (
+export const formatPreviousDirectorAddresses = (
   addresses?: TAddressEntry[],
   testId?: number,
 ) =>
@@ -29,7 +31,34 @@ export const formatPreviousAddressesArray = (
     [],
   );
 
-export const sortAddresses = (
+export const formatPreviousSoletrederAddresses = (
+  addresses?: Address[],
+  testId?: number,
+) =>
+  addresses?.slice(1).reduce<IList[]>(
+    (acc, address, indx) => [
+      ...acc,
+      {
+        label: 'Past Address',
+        value: (address && addressToDisplay(address)) || '',
+        dataTestId: `summary-director-past-address[${testId || indx}]`,
+      },
+      {
+        label: 'Date Moved In',
+        value:
+          (address && fullMonthFormatDate(new Date(address.startedOn))) || '',
+        dataTestId: `summary-director-past-moved-in[${testId || indx}]`,
+      },
+      {
+        label: 'Property Status',
+        value: address?.propertyStatus || 'hello',
+        dataTestId: `summary-director-past-prop-status[${testId || indx}]`,
+      },
+    ],
+    [],
+  );
+
+export const sortDirectorAddresses = (
   addresses: TAddressEntry[] | null | undefined,
   orderBySharehold?: number,
 ) => {
@@ -38,7 +67,29 @@ export const sortAddresses = (
     .sort((a, b) => new Date(a.year).getTime() - new Date(b.year).getTime())
     .reverse();
   const currentAddress = sorted?.[0] || null;
-  const previousAddress = formatPreviousAddressesArray(
+  const previousAddress = formatPreviousDirectorAddresses(
+    sorted,
+    orderBySharehold,
+  );
+  return {
+    currentAddress,
+    previousAddress,
+  };
+};
+
+export const sortSoleTraderAddresses = (
+  addresses: Address[] | null | undefined,
+  orderBySharehold?: number,
+) => {
+  const sorted = addresses
+    ?.slice()
+    .sort(
+      (a, b) =>
+        new Date(a.startedOn).getTime() - new Date(b.startedOn).getTime(),
+    )
+    .reverse();
+  const currentAddress = sorted?.[0] || null;
+  const previousAddress = formatPreviousSoletrederAddresses(
     sorted,
     orderBySharehold,
   );
