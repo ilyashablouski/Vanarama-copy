@@ -36,7 +36,7 @@ const ACCORDION_ITEMS = [
   },
   {
     id: 5,
-    title: 'Our Trust Pilot Score',
+    title: 'Rated Excellent On Trustpilot',
     children:
       'Delivering a 5-star service to you is at the heart of everything we do. That’s why we’re rated excellent on Trust Pilot for our customer service.',
   },
