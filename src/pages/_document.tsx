@@ -1,4 +1,4 @@
-import Document, { Html, Main, Head } from 'next/document';
+import Document, { Html, Main } from 'next/document';
 import dynamic from 'next/dynamic';
 import {
   Script as GTMScript,
@@ -6,6 +6,7 @@ import {
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
 import Inline from '../components/Style/Inline';
+import HeadCustom from '../hacks/headCustom';
 
 // @ts-ignore
 const NextScript = dynamic(() =>
@@ -37,14 +38,14 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <Head>
+        <HeadCustom>
           {/* {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
           {scriptEnvs.gtm.includes(env) && <GTMScript />} */}
           {/* <RollbarScript /> */}
           {/* <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" /> */}
           <Inline />
-        </Head>
+        </HeadCustom>
         <body>
           <Main />
           <NextScript />

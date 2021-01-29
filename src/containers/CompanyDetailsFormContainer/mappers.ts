@@ -12,8 +12,7 @@ const getAddress = (
   },
   kind: string,
 ) =>
-  addresess?.find((address: { [key: string]: any }) => address.kind === kind) ||
-  {};
+  addresess?.find((address: { [key: string]: any }) => address.kind === kind);
 
 export const mapAddresses = (values: SubmissionValues) =>
   values.tradingDifferent
@@ -93,6 +92,10 @@ export const mapDefaultValues = (data: {
   const tradingSince = data.trading_since
     ? new Date(data?.trading_since)
     : undefined;
+
+  const registeredAddress = getAddress(data?.addresses, 'registered');
+  const tradingAddress = getAddress(data?.addresses, 'trading');
+
   return {
     uuid: data?.uuid,
     companySearchResult: data?.company_search_result
@@ -109,10 +112,9 @@ export const mapDefaultValues = (data: {
     tradingSinceMonth: (tradingSince?.getMonth() || '').toString(),
     tradingSinceYear: (tradingSince?.getFullYear() || '').toString(),
     nature: data?.nature_of_business,
-    registeredAddress: mapAddress(getAddress(data?.addresses, 'registered')),
-    tradingDifferent: !!Object.keys(getAddress(data?.addresses, 'trading'))
-      .length,
-    tradingAddress: mapAddress(getAddress(data?.addresses, 'trading')),
+    registeredAddress: registeredAddress ?? mapAddress(registeredAddress),
+    tradingDifferent: !!tradingAddress,
+    tradingAddress: tradingAddress ?? mapAddress(tradingAddress),
     email: data?.email_addresses?.[0]?.value,
     telephone: data?.telephone_numbers?.[0]?.value,
   };
