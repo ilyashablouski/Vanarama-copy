@@ -82,5 +82,13 @@
     > * {
       margin: 2px;
     }
+    .button {
+      &.-outline {
+        svg {
+          position: relative;
+          top: -2.75px;
+        }
+      }
+    }
   }
 }
