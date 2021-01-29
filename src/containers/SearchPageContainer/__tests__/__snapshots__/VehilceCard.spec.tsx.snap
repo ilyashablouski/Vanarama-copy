@@ -36,7 +36,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
       <span
         className="heading -pb-100 -primary -large"
       >
-        Vauxhall Crossland X
+        
       </span>
       <span
         className="heading -dark -small"
@@ -250,7 +250,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       <span
         className="heading -pb-100 -primary -large"
       >
-        Vauxhall Crossland X
+        
       </span>
       <span
         className="heading -dark -small"
@@ -464,7 +464,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
       <span
         className="heading -pb-100 -primary -large"
       >
-        Vauxhall Crossland X
+        
       </span>
       <span
         className="heading -dark -small"
