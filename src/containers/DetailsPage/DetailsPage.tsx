@@ -465,6 +465,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
               reviews={reviews || []}
               title="Customer Reviews"
               sliderClassName="customer-reviews"
+              headingClassName="-mb-200"
             />
           </LazyLoadComponent>
         </div>

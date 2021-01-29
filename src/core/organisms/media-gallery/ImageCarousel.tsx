@@ -73,24 +73,26 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
             </div>
           ))}
         </div>
-        <nav className="media-gallery--x-scroll-nav">
-          <button onClick={onPreviousSlide} type="button">
-            <Icon
-              icon={<ChevronBackCircleSharp />}
-              color="orange"
-              className="md hydrated"
-              size="lead"
-            />
-          </button>
-          <button onClick={onNextSlide} type="button">
-            <Icon
-              icon={<ChevronForwardCircleSharp />}
-              color="orange"
-              className="md hydrated"
-              size="lead"
-            />
-          </button>
-        </nav>
+        {images.length > 1 && (
+          <nav className="media-gallery--x-scroll-nav">
+            <button onClick={onPreviousSlide} type="button">
+              <Icon
+                icon={<ChevronBackCircleSharp />}
+                color="orange"
+                className="md hydrated"
+                size="lead"
+              />
+            </button>
+            <button onClick={onNextSlide} type="button">
+              <Icon
+                icon={<ChevronForwardCircleSharp />}
+                color="orange"
+                className="md hydrated"
+                size="lead"
+              />
+            </button>
+          </nav>
+        )}
       </div>
       <div className="media-gallery--y-scroll" ref={scroll}>
         <div className="media-gallery--y-track" ref={yTrackRef}>
