@@ -34,9 +34,17 @@
 
     @media screen and (max-width: 767px) {
       height: auto;
+      flex-direction: unset;
+      justify-content: unset;
+      margin: 0 -16px;
+      .lease-scanner {
+        width:100%;
+      }
       &.-fixed {
         position: fixed;
+        display: block;
         top: auto;
+        margin: 0;
       }
     }
 

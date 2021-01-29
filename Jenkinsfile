@@ -68,7 +68,7 @@ def ecrLogin(String accountId) {
 def getTaskDefinition(family, region) {
     return "${family}:" + sh(
         returnStdout: true,
-        st: "aws ecs describe-task-definition --task-definition ${family} --region ${region} | egrep 'revision'  | tr ',' ' ' | awk '{print \$2}'"
+        script: "aws ecs describe-task-definition --task-definition ${family} --region ${region} | egrep 'revision'  | tr ',' ' ' | awk '{print \$2}'"
     ).trim()
 }
 
