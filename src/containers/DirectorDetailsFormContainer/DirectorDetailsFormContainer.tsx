@@ -115,7 +115,6 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       defaultValues={defaultValues}
       dropdownData={allDropDowns}
       onSubmit={async values => {
-        console.log(values);
         await handleDirectorDetailsSave(values)
           .then(query =>
             combineUpdatedDirectors(

@@ -4,10 +4,9 @@ import { gql } from '@apollo/client';
 import FCWithFragments from '../../utils/FCWithFragments';
 
 import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
-import { addressToDisplay } from '../../utils/address';
 import { sortAddresses } from './helpers';
 import { DirectorFormValues } from '../DirectorDetailsForm/interfaces';
-import { fullMonthFormatDate, formatDate } from '../../utils/dates';
+import { formatDate } from '../../utils/dates';
 import Skeleton from '../Skeleton';
 
 const StructuredList = dynamic(() => import('core/organisms/structured-list'), {
@@ -26,7 +25,7 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
   orderBySharehold,
 }) => {
   const { currentAddress, previousAddress } = sortAddresses(
-    director.addresses,
+    director.history,
     orderBySharehold,
   );
 
@@ -72,20 +71,20 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
     },
     {
       label: 'Current Address',
-      value: (currentAddress && addressToDisplay(currentAddress)) || '',
+      value: currentAddress?.address?.label || '',
       dataTestId: `summary-director[${orderBySharehold}]-curr-address`,
     },
     {
       label: 'Date Moved In',
       value:
         (currentAddress &&
-          fullMonthFormatDate(new Date(currentAddress.startedOn))) ||
+          `${currentAddress.month} / ${currentAddress.year}`) ||
         '',
       dataTestId: `summary-director[${orderBySharehold}]-curr-moved-in`,
     },
     {
       label: 'Property Status',
-      value: currentAddress?.propertyStatus || '',
+      value: currentAddress?.status || '',
       dataTestId: `summary-director[${orderBySharehold}]-curr-prop-status`,
     },
     ...(previousAddress || []),
