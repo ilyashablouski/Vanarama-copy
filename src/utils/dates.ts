@@ -89,20 +89,21 @@ export const toYearsAndMonthsDisplay = (totalMonths: number) => {
   );
 };
 
-export const months = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December',
-];
+export const getMonth = (n: number) =>
+  [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ][n - 1];
 
 export const getMonday = (timestamp: number) => {
   const date = new Date(timestamp);
