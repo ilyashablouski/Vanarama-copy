@@ -78,7 +78,9 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
       label: 'Date Moved In',
       value:
         (currentAddress &&
-          `${getMonth(currentAddress.month)}  ${currentAddress.year}`) ||
+          `${getMonth(Number(currentAddress.month))}  ${
+            currentAddress.year
+          }`) ||
         '',
       dataTestId: `summary-director[${orderBySharehold}]-curr-moved-in`,
     },
