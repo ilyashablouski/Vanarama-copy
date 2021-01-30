@@ -2,7 +2,7 @@ import { IList } from 'core/organisms/structured-list/interfaces';
 import { TAddressEntry } from '../AddressForm/interfaces';
 import { addressToDisplay } from '../../utils/address';
 import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
-import { fullMonthFormatDate, getMonth } from '../../utils/dates';
+import { fullMonthFormatDate, getMonthName } from '../../utils/dates';
 
 export const formatPreviousDirectorAddresses = (
   addresses?: TAddressEntry[],
@@ -19,7 +19,8 @@ export const formatPreviousDirectorAddresses = (
       {
         label: 'Date Moved In',
         value:
-          (address && `${getMonth(Number(address.month))} ${address.year}`) ||
+          (address &&
+            `${getMonthName(Number(address.month))} ${address.year}`) ||
           '',
         dataTestId: `summary-director-past-moved-in[${testId || indx}]`,
       },

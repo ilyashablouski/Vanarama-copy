@@ -89,7 +89,7 @@ export const toYearsAndMonthsDisplay = (totalMonths: number) => {
   );
 };
 
-export const getMonth = (n: number) =>
+export const getMonthName = (n: number) =>
   [
     'January',
     'February',

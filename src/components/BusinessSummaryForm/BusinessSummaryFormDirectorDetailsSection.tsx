@@ -6,7 +6,7 @@ import FCWithFragments from '../../utils/FCWithFragments';
 import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
 import { sortDirectorAddresses } from './helpers';
 import { DirectorFormValues } from '../DirectorDetailsForm/interfaces';
-import { formatDate, getMonth } from '../../utils/dates';
+import { formatDate, getMonthName } from '../../utils/dates';
 import Skeleton from '../Skeleton';
 
 const StructuredList = dynamic(() => import('core/organisms/structured-list'), {
@@ -78,7 +78,7 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
       label: 'Date Moved In',
       value:
         (currentAddress &&
-          `${getMonth(Number(currentAddress.month))}  ${
+          `${getMonthName(Number(currentAddress.month))}  ${
             currentAddress.year
           }`) ||
         '',
