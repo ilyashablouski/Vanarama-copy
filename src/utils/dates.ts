@@ -40,20 +40,8 @@ export const dateToFormat = (date: string) => {
   return formatDate(arr[0], arr[1], arr[2]);
 };
 
-export const parseDate = (day: string, month: string, year: string) => {
-  const date = new Date(
-    parseInt(year, 10),
-    parseInt(month, 10),
-    parseInt(day, 10),
-  );
-
-  const [formattedMonth, formattedDay] = [
-    date.getMonth() - 1 || 1,
-    date.getDate() || 1,
-  ].map(value => value.toLocaleString(undefined, { minimumIntegerDigits: 2 }));
-
-  return `${date.getFullYear()}-${formattedMonth}-${formattedDay}`;
-};
+export const parseDate = (day: string, month: string, year: string) =>
+  `${year}-${month}-${day}`;
 
 export const historyToDateObject = <T extends THistoryEntry>(history: T) =>
   // NOTE: Default to the first of the month because we don't capture the day
