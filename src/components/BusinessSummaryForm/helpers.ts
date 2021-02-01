@@ -66,8 +66,8 @@ export const sortDirectorAddresses = (
 ) => {
   const sorted = addresses
     ?.slice()
-    .sort((a, b) => new Date(a.year).getTime() - new Date(b.year).getTime())
-    .reverse();
+    .sort((a, b) => new Date(b.year).getTime() - new Date(a.year).getTime());
+
   const currentAddress = sorted?.[0] || null;
   const previousAddress = formatPreviousDirectorAddresses(
     sorted,
@@ -87,9 +87,9 @@ export const sortSoleTraderAddresses = (
     ?.slice()
     .sort(
       (a, b) =>
-        new Date(a.startedOn).getTime() - new Date(b.startedOn).getTime(),
-    )
-    .reverse();
+        new Date(b.startedOn).getTime() - new Date(a.startedOn).getTime(),
+    );
+
   const currentAddress = sorted?.[0] || null;
   const previousAddress = formatPreviousSoletrederAddresses(
     sorted,
