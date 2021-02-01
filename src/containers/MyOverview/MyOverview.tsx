@@ -249,14 +249,19 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     }
   };
 
-  const onClickOrderBtn = (orderUuid: string, leaseType: LeaseTypeEnum) => {
+  const onClickOrderBtn = (
+    orderUuid: string,
+    leaseType: LeaseTypeEnum,
+    order: GetMyOrders_myOrders,
+  ) => {
+    localForage.setItem('order', order);
     localForage.setItem('orderId', orderUuid).then(() => {
       const url =
         leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
-          ? '/olaf/about/[orderId]'
+          ? '/olaf/about'
           : '/b2b/olaf/about';
 
-      router.push(url, url.replace('[orderId]', orderUuid || ''));
+      router.push(url);
     });
   };
 
@@ -337,7 +342,9 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             <Button
               color="teal"
               label={quote ? 'Continue To Order' : 'View Order'}
-              onClick={() => onClickOrderBtn(order.uuid, order.leaseType)}
+              onClick={() =>
+                onClickOrderBtn(order.uuid, order.leaseType, order)
+              }
             />,
             quote,
           )}
