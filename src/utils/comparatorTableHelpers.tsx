@@ -52,7 +52,7 @@ export const getPrice = (
     title: 'Price',
     values: currentCompareVehicles?.map(item => ({
       capId: item.capId || '',
-      price: item.personalRate || 0,
+      price: item.businessRate || 0,
     })),
   };
 };
