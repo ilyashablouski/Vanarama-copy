@@ -39,7 +39,6 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
   onSubmit,
 }) => {
   const context = useContext(OlafContext);
-  console.log({ init:  responseToInitialFormValues(addresses)});
   return (
     <Formik<IFormValues>
       initialValues={responseToInitialFormValues(addresses)}
