@@ -10,7 +10,7 @@ Array [
         className="image--native"
         loading="lazy"
         sizes="(min-width:3200px) 800px, 1200px"
-        src="https://vanarama.com/Assets/images-optimised/home/national-league.png"
+        src="https://vanarama-nonprod.com/Assets/images-optimised/home/national-league.png"
       />
     </div>
   </div>,
@@ -40,7 +40,7 @@ Array [
         className="image--native"
         loading="lazy"
         sizes="(min-width:3200px) 800px, 1200px"
-        src="https://vanarama.com/Assets/images-optimised/home/league-cup.png"
+        src="https://vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png"
       />
     </div>
   </div>,
@@ -58,7 +58,7 @@ Array [
         className="image--native"
         loading="lazy"
         sizes="(min-width:3200px) 800px, 1200px"
-        src="https://vanarama.com/Assets/images-optimised/home/national-league.png"
+        src="https://vanarama-nonprod.com/Assets/images-optimised/home/national-league.png"
       />
     </div>
   </div>,
@@ -89,7 +89,7 @@ Array [
         className="image--native"
         loading="lazy"
         sizes="(min-width:3200px) 800px, 1200px"
-        src="https://vanarama.com/Assets/images-optimised/home/league-cup.png"
+        src="https://vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png"
       />
     </div>
   </div>,
