@@ -94,7 +94,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 });
               }}
               compared={isCompared(compareVehicles, product)}
-              imageSrc={product.imageUrl || '/vehiclePlaceholder.jpg'}
+              imageSrc={product.imageUrl || '/.jpg'}
               onWishlist={() => true}
               title={{
                 title: '',
