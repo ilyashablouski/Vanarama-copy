@@ -86,7 +86,7 @@ describe('comparatorTableHelpers', () => {
       const actual = getPrice([
         {
           capId: 'capId',
-          personalRate: 'personalRate',
+          businessRate: 'businessRate',
         } as any,
       ]);
 
@@ -95,7 +95,7 @@ describe('comparatorTableHelpers', () => {
         values: [
           {
             capId: 'capId',
-            price: 'personalRate',
+            price: 'businessRate',
           },
         ],
       });
@@ -111,7 +111,7 @@ describe('comparatorTableHelpers', () => {
         [
           {
             capId: 'capId',
-            personalRate: 'personalRate',
+            businessRate: 'businessRate',
           } as any,
         ],
       );
@@ -122,7 +122,7 @@ describe('comparatorTableHelpers', () => {
           title: 'Heading',
           values: [{ capId: 'capId', description: '', image: '', name: '' }],
         },
-        { title: 'Price', values: [{ capId: 'capId', price: 'personalRate' }] },
+        { title: 'Price', values: [{ capId: 'capId', price: 'businessRate' }] },
       ]);
     });
   });
@@ -137,7 +137,7 @@ describe('comparatorTableHelpers', () => {
       const actual = getVehiclesIds([
         {
           capId: '124',
-          personalRate: 'personalRate',
+          businessRate: 'businessRate',
         } as any,
       ]);
 
