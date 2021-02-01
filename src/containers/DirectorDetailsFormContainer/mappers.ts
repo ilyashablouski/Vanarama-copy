@@ -94,7 +94,6 @@ export const mapDirectorsDefaultValues = (
   data: any,
 ): DirectorDetailsFormValues => ({
   directors: (data?.directors || []).map((item: any) => {
-    // console.log(item);
     return mapDirectorDetails(item);
   }),
   totalPercentage: data?.total_percentage,
