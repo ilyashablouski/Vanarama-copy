@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import getTitleTag from '../../utils/getTitleTag';
 import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
@@ -109,7 +110,8 @@ const VehicleReviewContainer: FC<IProps> = ({
               <Tab index={1}>Video</Tab>
             </TabList>
           </Tabs>
-          <div>
+
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
             <div className="markdown -mt-500" key="markdown">
               <ReactMarkdown
                 allowDangerousHtml
@@ -134,7 +136,7 @@ const VehicleReviewContainer: FC<IProps> = ({
                 <div className="button--inner">{sections?.link?.text}</div>
               </RouterLink>
             </div>
-          </div>
+          </LazyLoadComponent>
         </article>
         <div>
           <Heading tag="h2" color="black" size="lead">
