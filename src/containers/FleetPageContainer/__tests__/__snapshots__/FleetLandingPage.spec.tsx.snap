@@ -32,8 +32,8 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
               class="image--native"
               loading="lazy"
               sizes="(min-width:3200px) 800px, 1200px"
-              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://vanarama.com/Assets/images/insurance/home-hero/insurance-hero.png"
-              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://vanarama.com/Assets/images/insurance/home-hero/insurance-hero.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://vanarama.com/Assets/images/insurance/home-hero/insurance-hero.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://vanarama.com/Assets/images/insurance/home-hero/insurance-hero.png 1200w"
+              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png"
+              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1200w"
             />
           </div>
         </div>
