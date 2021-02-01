@@ -63,7 +63,7 @@ const StructuredList: FC<IStructuredListProps> = ({
       <div className="structured-list-tbody">
         {list.map((item, index) => (
           <ListItem
-            key={`${item.value}${item.label}`}
+            key={item.dataTestId}
             testId={index}
             onChange={onChange}
             editing={editing}
