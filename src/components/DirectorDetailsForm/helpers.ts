@@ -86,6 +86,7 @@ export const validationSchema = Yup.object().shape({
           shareOfBusiness: Yup.string().required(
             'Please enter the share of business',
           ),
+          nationality: Yup.string().required('Please select a nationality'),
           dayOfBirth: Yup.string()
             .required('Please select a date of birth')
             .when(['monthOfBirth', 'yearOfBirth'], {
@@ -173,6 +174,7 @@ export const parseOfficers = (
       gender: '',
       email: '',
       shareOfBusiness: '',
+      nationality: '',
       dayOfBirth: '',
       monthOfBirth: '',
       yearOfBirth: '',

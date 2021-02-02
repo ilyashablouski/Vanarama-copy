@@ -19,7 +19,8 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
     loading="lazy"
     onError={[Function]}
     sizes="(min-width:3200px) 800px, 1200px"
-    src="https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg"
+    src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg"
+    srcSet="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 1200w"
   />
   <div
     className="title"
@@ -35,7 +36,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
       <span
         className="heading -pb-100 -primary -large"
       >
-        Vauxhall Crossland X
+        
       </span>
       <span
         className="heading -dark -small"
@@ -232,7 +233,8 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     loading="lazy"
     onError={[Function]}
     sizes="(min-width:3200px) 800px, 1200px"
-    src="https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg"
+    src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg"
+    srcSet="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 1200w"
   />
   <div
     className="title"
@@ -248,7 +250,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       <span
         className="heading -pb-100 -primary -large"
       >
-        Vauxhall Crossland X
+        
       </span>
       <span
         className="heading -dark -small"
@@ -445,7 +447,8 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
     loading="lazy"
     onError={[Function]}
     sizes="(min-width:3200px) 800px, 1200px"
-    src="https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg"
+    src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg"
+    srcSet="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.autorama.co.uk/Photos/Cap/Vehicles/157703/cap-86343-157703.jpg 1200w"
   />
   <div
     className="title"
@@ -461,7 +464,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
       <span
         className="heading -pb-100 -primary -large"
       >
-        Vauxhall Crossland X
+        
       </span>
       <span
         className="heading -dark -small"

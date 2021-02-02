@@ -76,6 +76,7 @@ const getCompanyMock: MockedResponse = {
             dateOfBirth: '1987-06-01',
             roles: [{ position: 'director' }],
             noOfDependants: 'One',
+            nationality: 'British',
           },
         ],
       },
@@ -89,6 +90,11 @@ const getCompanyMock: MockedResponse = {
         noOfDependants: {
           __typename: 'DropDownDataType',
           data: ['None', 'One', 'Two'],
+          favourites: [],
+        },
+        nationalities: {
+          __typename: 'DropDownDataType',
+          data: ['None', 'Canadian', 'British'],
           favourites: [],
         },
         propertyStatuses: {

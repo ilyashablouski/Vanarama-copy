@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
@@ -39,6 +39,7 @@ import {
   GetTrimAndColor_trimList as ITrimList,
 } from '../../../generated/GetTrimAndColor';
 import { GetProductCard } from '../../../generated/GetProductCard';
+import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
@@ -135,6 +136,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 }) => {
   const router = useRouter();
   const pdpContent = React.useRef<HTMLDivElement>(null);
+  const leaseScanner = React.useRef<HTMLDivElement>(null);
   // pass cars prop(Boolean)
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(cars);
   const [leaseType, setLeaseType] = useState<string>(cachedLeaseType);
@@ -159,9 +161,28 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     setScreenY(window.pageYOffset);
   };
 
+  const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
+
+  const onPushPDPDataLayer = useCallback(() => {
+    const derivativeInfo = data?.derivativeInfo;
+    const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+    // tracking
+    pushPDPDataLayer({
+      capId,
+      derivativeInfo,
+      vehicleConfigurationByCapId,
+      price,
+      category: getCategory({ cars, vans, pickups }),
+    });
+  }, [capId, cars, data, price, pickups, vans]);
+
   useEffect(() => {
     if (isMobile) {
       window.addEventListener('scroll', scrollChange);
+      leaseScanner.current?.classList.remove('-fixed');
+      setTimeout(() => {
+        leaseScanner.current?.classList.add('-fixed');
+      }, 1000);
     }
   }, [isMobile]);
 
@@ -173,18 +194,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       data?.vehicleConfigurationByCapId &&
       leaseScannerData?.quoteByCapId
     ) {
-      const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
-      const derivativeInfo = data?.derivativeInfo;
-      const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
-      // tracking
-      pushPDPDataLayer({
-        capId,
-        derivativeInfo,
-        vehicleConfigurationByCapId,
-        price,
-        category: getCategory({ cars, vans, pickups }),
-      });
-
+      onPushPDPDataLayer();
       setFirstTimePushDataLayer(false);
     }
   }, [
@@ -195,11 +205,15 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     capId,
     leaseScannerData,
     firstTimePushDataLayer,
+    onPushPDPDataLayer,
   ]);
+
+  useFirstRenderEffect(() => {
+    if (price && !firstTimePushDataLayer) onPushPDPDataLayer();
+  }, [price]);
   const vehicleDetails = data?.vehicleDetails;
 
   const onSubmitClick = (values: OrderInputObject) => {
-    const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
     const derivativeInfo = data?.derivativeInfo;
     const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
     pushAddToCartDataLayer({
@@ -356,8 +370,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   // tracking
   const onCompletedCallBack = () => {
-    const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
-
     pushCallBackDataLayer({
       capId,
       derivativeInfo,
@@ -369,7 +381,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const calcScrollHeight = () => {
     const pdpContentHeight = pdpContent.current!.scrollHeight;
-    return pdpContentHeight - window.innerHeight;
+    const customerAlsoViewHeight = !!productCard || !!capsId?.length ? 700 : 0;
+    return pdpContentHeight + customerAlsoViewHeight - window.innerHeight;
   };
 
   return (
@@ -460,6 +473,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
               reviews={reviews || []}
               title="Customer Reviews"
               sliderClassName="customer-reviews"
+              headingClassName="-mb-200"
             />
           </LazyLoadComponent>
         </div>
@@ -501,11 +515,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       )}
       {isMobile && (
         <div
-          className={cx(
-            'lease-scanner--sticky-wrap',
-            (screenY || 0) < calcScrollHeight() ? 'fixed' : '',
-          )}
-          style={{ opacity: '1' }}
+          className={cx('lease-scanner--sticky-wrap', {
+            '-fixed': (screenY || 0) < calcScrollHeight(),
+          })}
+          ref={leaseScanner}
         >
           <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
             <LeaseScanner

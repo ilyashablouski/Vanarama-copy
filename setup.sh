@@ -5,6 +5,7 @@ APP=${3}
 REGION=${4}
 CURRENTBRANCH=${5}
 ALTERNATEDOMAIN=${6}
+HOST_DOMAIN="https://${6}"
 
 export ENV=$ENV
 export API_KEY="$(aws ssm get-parameter --name "/$ENV/$STACK/$APP/fed-gateway-api-key" --region $REGION --with-decryption | jq -r ".Parameter.Value")"

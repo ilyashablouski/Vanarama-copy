@@ -11,7 +11,7 @@ interface IProps {
 }
 
 const formatTimeAtBank = (year: string = '', month: string = '') =>
-  fullMonthFormatDate(new Date(parseInt(year, 10), parseInt(month, 10), 1));
+  fullMonthFormatDate(new Date(parseInt(year, 10), parseInt(month, 10) - 1, 1));
 
 const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
   account,
@@ -46,7 +46,7 @@ const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
           dataTestId: 'summary-sort-code',
         },
         {
-          label: 'Time At Bank',
+          label: 'Account Open Since',
           value: formatTimeAtBank(account.joinedAtYear, account.joinedAtMonth),
           dataTestId: 'summary-account-time',
         },

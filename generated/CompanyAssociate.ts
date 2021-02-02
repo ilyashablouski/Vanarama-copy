@@ -29,6 +29,7 @@ export interface CompanyAssociate {
   gender: string | null;
   dateOfBirth: any | null;
   noOfDependants: string | null;
+  nationality: string | null;
   businessShare: number | null;
   roles: CompanyAssociate_roles[] | null;
   addresses: CompanyAssociate_addresses[] | null;

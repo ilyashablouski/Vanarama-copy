@@ -4,10 +4,9 @@ import { gql } from '@apollo/client';
 import FCWithFragments from '../../utils/FCWithFragments';
 
 import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
-import { addressToDisplay } from '../../utils/address';
-import { sortAddresses } from './helpers';
+import { sortDirectorAddresses } from './helpers';
 import { DirectorFormValues } from '../DirectorDetailsForm/interfaces';
-import { fullMonthFormatDate, formatDate } from '../../utils/dates';
+import { formatDate, getMonthName } from '../../utils/dates';
 import Skeleton from '../Skeleton';
 
 const StructuredList = dynamic(() => import('core/organisms/structured-list'), {
@@ -25,8 +24,8 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
   director,
   orderBySharehold,
 }) => {
-  const { currentAddress, previousAddress } = sortAddresses(
-    director.addresses,
+  const { currentAddress, previousAddress } = sortDirectorAddresses(
+    director.history,
     orderBySharehold,
   );
 
@@ -40,6 +39,11 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
       label: 'Gender',
       value: director.gender || '',
       dataTestId: `summary-director[${orderBySharehold}]-gender`,
+    },
+    {
+      label: 'Email',
+      value: director.email || '',
+      dataTestId: `summary-director[${orderBySharehold}]-email`,
     },
     {
       label: 'Date Of Birth',
@@ -56,26 +60,33 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
       dataTestId: `summary-director[${orderBySharehold}]-business-share`,
     },
     {
+      label: 'Nationality',
+      value: director.nationality || '',
+      dataTestId: `summary-director[${orderBySharehold}]-nationality`,
+    },
+    {
       label: 'Number of Dependants',
       value: director.numberOfDependants || '',
       dataTestId: `summary-director[${orderBySharehold}]-noOfDependants`,
     },
     {
       label: 'Current Address',
-      value: (currentAddress && addressToDisplay(currentAddress)) || '',
+      value: currentAddress?.address?.label || '',
       dataTestId: `summary-director[${orderBySharehold}]-curr-address`,
     },
     {
       label: 'Date Moved In',
       value:
         (currentAddress &&
-          fullMonthFormatDate(new Date(currentAddress.startedOn))) ||
+          `${getMonthName(Number(currentAddress.month))}  ${
+            currentAddress.year
+          }`) ||
         '',
       dataTestId: `summary-director[${orderBySharehold}]-curr-moved-in`,
     },
     {
       label: 'Property Status',
-      value: (currentAddress && currentAddress.propertyStatus) || '',
+      value: currentAddress?.status || '',
       dataTestId: `summary-director[${orderBySharehold}]-curr-prop-status`,
     },
     ...(previousAddress || []),
@@ -105,6 +116,7 @@ BusinessSummaryFormDirectorDetailsSection.fragments = {
       gender
       dateOfBirth
       noOfDependants
+      nationality
       businessShare
       roles {
         position

@@ -4,17 +4,19 @@
   width: auto;
 
   &:hover {
-    color: var(--class-color-tint);
+    // color: var(--class-color-tint);
+    color: var(--class-color, currentColor);
   }
 
   &:active,
   &:focus {
-    color: var(--class-color-shade);
+    // color: var(--class-color-shade);
+    color: var(--class-color, currentColor);
   }
-  
+
   &:focus {
-    background: var(--class-color-focus);
-    box-shadow: $box-shadow-focus var(--class-color-focus);
+    background: transparent !important;
+    box-shadow: none !important;
   }
 
   &--asset {

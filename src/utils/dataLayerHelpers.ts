@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable @typescript-eslint/camelcase */
 import Cookies from 'js-cookie';
 import localForage from 'localforage';
@@ -132,7 +133,7 @@ export const productsMapper = (
     brand: derivativeData?.manufacturer.name || 'undefined',
     variant: derivativeData?.range.name || 'undefined',
     quantity: `${lineItem?.quantity}`,
-    vehicleModel: derivativeData?.model.name || 'undefined',
+    vehicleModel: derivativeData?.bodyType?.name || 'undefined',
     annualMileage: `${lineItem?.vehicleProduct?.annualMileage}` || 'undefined',
     journeyType: detailsData?.leaseType || 'undefined',
     priceType:
@@ -240,7 +241,6 @@ const getProductData = ({
   category,
 }: IPDPData) => {
   const variant = vehicleConfigurationByCapId?.capRangeDescription;
-  const vehicleModel = vehicleConfigurationByCapId?.capModelDescription;
 
   pushDetail('id', capId, product);
   pushDetail(
@@ -258,7 +258,7 @@ const getProductData = ({
   pushDetail('variant', variant, product);
   pushDetail(
     'vehicleModel',
-    vehicleModel !== variant ? vehicleModel : null,
+    derivativeInfo?.bodyType?.name || 'undefined',
     product,
   );
 };
@@ -284,9 +284,7 @@ const getProductDataForCheckout = ({
   pushDetail('quantity', lineItem?.quantity, product);
   pushDetail(
     'vehicleModel',
-    derivativeData?.model.name !== derivativeData?.range.name
-      ? derivativeData?.model.name
-      : null,
+    derivativeData?.bodyType?.name || 'undefined',
     product,
   );
   pushDetail('annualMileage', lineItem?.vehicleProduct?.annualMileage, product);

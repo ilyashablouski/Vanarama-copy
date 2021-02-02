@@ -41,6 +41,7 @@ export const mapFormValues = (
       ),
       role: { position: 'Director' },
       noOfDependants: director.numberOfDependants,
+      nationality: director.nationality,
     })),
   };
 };
@@ -57,6 +58,7 @@ export const mapAddresses = (data?: any) =>
     postcode: item?.postcode,
     serviceId: item?.service_id,
     startedOn: item?.started_on,
+    status: item?.propertyStatus,
   }));
 
 export const mapDirectorDetails = (data: any): DirectorDetails => ({
@@ -81,6 +83,7 @@ export const mapDirectorDetails = (data: any): DirectorDetails => ({
   monthOfBirth: data?.month_of_birth,
   numberOfDependants: data?.number_of_dependants,
   shareOfBusiness: data?.share_of_business,
+  nationality: data?.nationality,
   title: data?.title,
   yearOfBirth: data?.year_of_birth,
   uuid: data?.uuid,
@@ -90,9 +93,9 @@ export const mapDirectorDetails = (data: any): DirectorDetails => ({
 export const mapDirectorsDefaultValues = (
   data: any,
 ): DirectorDetailsFormValues => ({
-  directors: (data?.directors || []).map((item: any) =>
-    mapDirectorDetails(item),
-  ),
+  directors: (data?.directors || []).map((item: any) => {
+    return mapDirectorDetails(item);
+  }),
   totalPercentage: data?.total_percentage,
 });
 

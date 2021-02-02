@@ -50,7 +50,7 @@ const PasswordResetContainer = ({
       username={username}
       code={code}
       oldPassword={oldPassword}
-      hasError={Boolean(called && !data?.passwordConfirm?.isSuccessfull)}
+      hasError={called && data?.passwordConfirm?.isSuccessfull === false}
       onSubmit={async values => {
         await resetPassword({
           variables: {

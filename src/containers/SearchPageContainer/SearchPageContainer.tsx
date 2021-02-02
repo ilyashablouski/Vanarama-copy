@@ -10,7 +10,6 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import Select from 'core/atoms/select';
 import SchemaJSON from 'core/atoms/schema-json';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
@@ -34,7 +33,6 @@ import {
   dynamicQueryTypeCheck,
   fuelMapper,
   getCapsIds,
-  sortValues,
   ssrCMSQueryExecutor,
 } from './helpers';
 import {
@@ -65,6 +63,7 @@ import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import RangeCard from './RangeCard';
+import SortOrder from './SortOrder';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -319,7 +318,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   ]);
 
   // using onCompleted callback for request card data after vehicle list was loaded
-  const [getVehicles, { data, called }] = useVehiclesList(
+  const [getVehicles, { data }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
     isMakePage || isDynamicFilterPage || isSpecialOfferPage
@@ -449,7 +448,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           ...{
             bodyStyles:
               isPickups || isModelPage || isBodyStylePage
-                ? (filters.bodyStyles[0] && filters.bodyStyles) ||
+                ? (filters.bodyStyles?.[0] && filters.bodyStyles) ||
                   manualBodyStyle
                 : filters.bodyStyles,
             transmissions: isTransmissionPage
@@ -519,13 +518,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getVehicles, isCarSearch, isMakePage, getRanges, isSpecialOfferPage]);
 
-  // force call getVehicles query if user press to checkbox after SSR and getVehicles instanse don't exist
-  useEffect(() => {
-    if (isSpecialOffers && !isSpecialOfferPage && !called) {
-      // getVehicles();
-    }
-  }, [isSpecialOffers, called, getVehicles, isSpecialOfferPage]);
-
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
     if (data && !cardsData.length && loading) {
@@ -565,11 +557,6 @@ const SearchPageContainer: React.FC<IProps> = ({
       // use range lenght for manufacture page
       if (!isMakePage && !isAllMakesPage)
         setTotalCount(data.vehicleList.totalCount);
-      setCapsIds(
-        data.vehicleList?.edges?.map(
-          vehicle => vehicle?.node?.derivativeId || '',
-        ) || [],
-      );
     }
   }, [
     data,
@@ -937,7 +924,10 @@ const SearchPageContainer: React.FC<IProps> = ({
               id="specialOffer"
               label="View Special Offers Only"
               checked={isSpecialOffers}
-              onChange={e => onSaveSpecialOffersStatus(e.target.checked)}
+              onChange={e => {
+                onSaveSpecialOffersStatus(e.target.checked);
+                setIsSpecialOffersOrder(e.target.checked);
+              }}
             />
           </div>
         )}
@@ -981,21 +971,11 @@ const SearchPageContainer: React.FC<IProps> = ({
             {`Showing ${totalCount} Results`}
           </Text>
           {!(isAllMakesPage && isMakePage) && (
-            <Select
-              value={
-                isSpecialOffersOrder
-                  ? ''
-                  : `${sortOrder.type}_${sortOrder.direction}`
-              }
-              onChange={e => onChangeSortOrder(e.target.value)}
-              disabled={isSpecialOffers && !isSpecialOfferPage}
-            >
-              {sortValues.map(option => (
-                <option key={option.value} value={option.value}>
-                  {option.text}
-                </option>
-              ))}
-            </Select>
+            <SortOrder
+              isSpecialOffersOrder={isSpecialOffersOrder}
+              sortOrder={sortOrder}
+              onChangeSortOrder={onChangeSortOrder}
+            />
           )}
           <div className="row:cards-3col">
             {useCallback(
@@ -1057,7 +1037,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         vehicle.node?.derivativeId,
                       )}
                       title={{
-                        title: '',
+                        title: `${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`,
                         description: vehicle.node?.derivativeName || '',
                       }}
                       isPersonalPrice={isPersonal}
@@ -1303,7 +1283,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                             className="card__article"
                             imageSrc={
                               card?.image?.file?.url ||
-                              '/vehiclePlaceholder.jpg'
+                              `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
                             }
                             title={{
                               title:

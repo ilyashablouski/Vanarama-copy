@@ -88,13 +88,13 @@ export interface GetCompanySummaryQuery_companyByUuid_associates {
   gender: string | null;
   dateOfBirth: any | null;
   noOfDependants: string | null;
+  nationality: string | null;
   businessShare: number | null;
   roles: GetCompanySummaryQuery_companyByUuid_associates_roles[] | null;
   addresses: GetCompanySummaryQuery_companyByUuid_associates_addresses[] | null;
   __typename: "PersonType";
   emailAddresses: GetCompanySummaryQuery_companyByUuid_associates_emailAddresses[];
   countryOfBirth: string | null;
-  nationality: string | null;
   maritalStatus: string | null;
   noOfAdultsInHousehold: string | null;
   occupation: string | null;

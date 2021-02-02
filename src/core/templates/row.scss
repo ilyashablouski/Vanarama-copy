@@ -558,6 +558,12 @@
           @include margin-block($rem-400);
         }
       }
+      .card {
+        img {
+          width: 100%;
+          height: auto;
+        }
+      }
     }
   }
 

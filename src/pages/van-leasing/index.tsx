@@ -193,7 +193,7 @@ export const VansPage: NextPage<IProps> = ({
             imageSrc={offer?.imageUrl || ''}
             keyInfo={offer?.keyInformation || []}
             capId={offer?.capId || ''}
-            vehicle={`${offer?.manufacturerName} ${offer?.rangeName}`}
+            vehicle={`${offer?.manufacturerName} ${offer?.modelName}`}
             specification={offer?.derivativeName || ''}
             price={
               (isPersonal ? offer?.personalRate : offer?.businessRate) || 0
@@ -729,48 +729,39 @@ export const VansPage: NextPage<IProps> = ({
             {[
               {
                 label: 'bbc',
-                href:
-                  'https://www.vanarama.com/Assets/images-optimised/home/featured/bbc.png',
+                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/bbc.png`,
               },
               {
                 label: 'btsport',
-                href:
-                  'https://www.vanarama.com/Assets/images-optimised/home/featured/btsport.png',
+                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/btsport.png`,
               },
               {
                 label: 'dailymail',
-                href:
-                  'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymail.png',
+                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymail.png`,
               },
               {
                 label: 'dailymirror',
-                href:
-                  'https://www.vanarama.com/Assets/images-optimised/home/featured/dailymirror.png',
+                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymirror.png`,
               },
               {
                 label: 'itv',
-                href:
-                  'https://www.vanarama.com/Assets/images-optimised/home/featured/itv.png',
+                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/itv.png`,
               },
               {
                 label: 'metro',
-                href:
-                  'https://www.vanarama.com/Assets/images-optimised/home/featured/metro.png',
+                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/metro.png`,
               },
               {
                 label: 'thesun',
-                href:
-                  'https://www.vanarama.com/Assets/images-optimised/home/featured/thesun.png',
+                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thesun.pn`,
               },
               {
                 label: 'sky',
-                href:
-                  'https://www.vanarama.com/Assets/images-optimised/home/featured/sky.png',
+                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/sky.png`,
               },
               {
                 label: 'thetelegraph',
-                href:
-                  'https://www.vanarama.com/Assets/images-optimised/home/featured/thetelegraph.png',
+                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thetelegraph.png`,
               },
             ].map(({ href, label }) => (
               <Image

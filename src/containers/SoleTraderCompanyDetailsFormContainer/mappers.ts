@@ -1,14 +1,9 @@
 import { ISoleTraderCompanyDetailsFormValues } from '../../components/SoleTraderCompanyDetailsForm/interfaces';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
 import { UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany as Company } from '../../../generated/UpdateSoleTraderCompanyMutation';
+import { parseDate } from '../../utils/dates';
 
 export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
-  const tradingSince = new Date(
-    Number(values.tradingSinceYear),
-    Number(values.tradingSinceMonth),
-    0,
-  );
-
   return {
     addresses: [
       {
@@ -35,7 +30,11 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
     annualExpenses: parseFloat(values.annualExpenses),
     vehicleRegistrationNumber: values.vehicleRegistrationNumber,
     companyType: CompanyTypes.soleTrader,
-    tradingSince,
+    tradingSince: parseDate(
+      '01',
+      values.tradingSinceMonth,
+      values.tradingSinceYear,
+    ),
   };
 };
 
@@ -74,6 +73,7 @@ export const prelodedValuesToInput = (details: {
         },
       }
     : null;
+
   return {
     tradingName: details.business_name,
     ...tradingAddress,

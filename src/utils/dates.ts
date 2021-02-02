@@ -45,7 +45,7 @@ export const parseDate = (day: string, month: string, year: string) =>
 
 export const historyToDateObject = <T extends THistoryEntry>(history: T) =>
   // NOTE: Default to the first of the month because we don't capture the day
-  new Date(`${history.month}-01-${history.year}`);
+  new Date(parseInt(history.year, 10), parseInt(history.month, 10) - 1, 1);
 
 export const historyToDate = <T extends THistoryEntry>(history: T) =>
   historyToDateObject(history);
@@ -76,6 +76,22 @@ export const toYearsAndMonthsDisplay = (totalMonths: number) => {
     ' ',
   );
 };
+
+export const getMonthName = (n: number) =>
+  [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December',
+  ][n - 1];
 
 export const getMonday = (timestamp: number) => {
   const date = new Date(timestamp);
@@ -133,7 +149,7 @@ export const diffInMonth = (d1: Date, d2: Date) => {
 
 export const diffInYear = (year: number, month: number, day: number) =>
   new Date(
-    new Date().getTime() - new Date(year, month, day).getTime(),
+    new Date().getTime() - new Date(year, month - 1, day).getTime(),
   ).getFullYear() - 1970;
 
 export function calculateRemainingMonths(

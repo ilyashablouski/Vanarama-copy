@@ -93,10 +93,12 @@ $small: 0.875rem;
         grid-area: 1 / 1 / -1 / content;
       }
 
-      // Model version of inline card, only for desktop  
+      // Model version of inline card, only for desktop
       @include desktop {
         &.-model {
-          grid-template-columns: minmax(0, var(--img-w, 50%)) [content] minmax(0, 1fr) 0;
+          grid-template-columns:
+            minmax(0, var(--img-w, 50%)) [content] minmax(0, 1fr)
+            0;
           img {
             width: 100%;
             max-width: inherit;

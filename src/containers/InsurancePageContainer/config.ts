@@ -1,8 +1,7 @@
 const config = {
   errorMessage: 'Error: {{error}}',
   heroImage: {
-    src:
-      'https://www.vanarama.com/assets/images/insurance/home-hero/insurance-hero.png',
+    src: `${process.env.HOST_DOMAIN}/Assets/images/insurance/home-hero/insurance-hero.png`,
   },
 };
 

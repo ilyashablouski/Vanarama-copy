@@ -39,6 +39,7 @@ describe('<VehicleCard />', () => {
         offerPosition: null,
         personalRate: 189.97,
         rangeName: 'Crossland X',
+        modelName: 'Crossland X',
         vehicleType: VehicleTypeEnum.CAR,
       },
       dataDerivatives: [

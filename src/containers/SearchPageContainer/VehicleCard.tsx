@@ -2,7 +2,7 @@
 import React, { useContext } from 'react';
 import dynamic from 'next/dynamic';
 import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
-import truncateString from '../../utils/truncateString';
+// import truncateString from '../../utils/truncateString';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { formatProductPageUrl } from '../../utils/url';
@@ -60,7 +60,9 @@ const VehicleCard = React.memo(
 
     const imageProps = !isModelPage
       ? {
-          imageSrc: data?.imageUrl || '/vehiclePlaceholder.jpg',
+          imageSrc:
+            data?.imageUrl ||
+            `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
         }
       : {};
 
@@ -103,7 +105,7 @@ const VehicleCard = React.memo(
               dataTestId="heading-link"
             >
               <Heading tag="span" size="large" className="-pb-100">
-                {truncateString(`${data?.manufacturerName} ${data?.rangeName}`)}
+                {title?.title || ''}
               </Heading>
               <Heading tag="span" size="small" color="dark">
                 {title?.description || ''}

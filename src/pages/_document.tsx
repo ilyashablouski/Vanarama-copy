@@ -1,6 +1,5 @@
 import Document, { Html, Main } from 'next/document';
 import dynamic from 'next/dynamic';
-import HeadCustom from '../hacks/headCustom';
 import {
   Script as GTMScript,
   Body as GTMBody,
@@ -8,6 +7,7 @@ import {
 } from '../components/GTM';
 import { VWOScript } from '../components/VWOScript';
 import Inline from '../components/Style/Inline';
+import HeadCustom from '../hacks/headCustom';
 
 // @ts-ignore
 const NextScript = dynamic(() =>
@@ -41,7 +41,6 @@ class MyDocument extends Document {
       <Html lang="en">
         <HeadCustom>
           {/* <RollbarScript /> */}
-          <link rel="preload" href="/styles/deferred.css" as="style" />
           {/* <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" /> */}
           <Inline />

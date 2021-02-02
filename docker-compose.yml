@@ -15,6 +15,7 @@ services:
         - IMG_OPTIMISATION_HOST
         - ENABLE_DEV_TOOLS
         - MICROBLINK_URL
+        - HOST_DOMAIN
     command: yarn dev
     volumes:
       - '.:/usr/src/app'
