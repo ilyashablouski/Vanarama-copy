@@ -652,7 +652,7 @@ export const PickupsPage: NextPage<IProps> = ({
               },
               {
                 label: 'thesun',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thesun.pn`,
+                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thesun.png`,
               },
               {
                 label: 'sky',
