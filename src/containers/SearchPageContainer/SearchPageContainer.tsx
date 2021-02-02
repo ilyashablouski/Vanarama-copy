@@ -278,7 +278,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     capIds,
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     data => {
-
       setCardsData(data?.productCard || []);
       setCarDerivatives(data?.derivatives || []);
     },
