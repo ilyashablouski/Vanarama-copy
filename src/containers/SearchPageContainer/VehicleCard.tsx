@@ -60,7 +60,9 @@ const VehicleCard = React.memo(
 
     const imageProps = !isModelPage
       ? {
-          imageSrc: data?.imageUrl || '/vehiclePlaceholder.jpg',
+          imageSrc:
+            data?.imageUrl ||
+            `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
         }
       : {};
 

@@ -1,6 +1,7 @@
 import React, { FC, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import getTitleTag from '../../utils/getTitleTag';
 import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
@@ -76,7 +77,11 @@ const VehicleReviewContainer: FC<IProps> = ({
       </div>
       <div className="row:article">
         <article>
-          <Tabs activeIndex={activeTab} onChange={index => setActiveTab(index)}>
+          <Tabs
+            activeIndex={activeTab}
+            onChange={index => setActiveTab(index)}
+            key="tabs"
+          >
             <TabPanels className="-p-000">
               <TabPanel index={0}>
                 <Image
@@ -105,29 +110,33 @@ const VehicleReviewContainer: FC<IProps> = ({
               <Tab index={1}>Video</Tab>
             </TabList>
           </Tabs>
-          <ReactMarkdown
-            allowDangerousHtml
-            className="markdown -mt-500"
-            source={body || ''}
-            renderers={{
-              link: props => {
-                const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
-              },
-            }}
-          />
-          <div className="button-group">
-            <RouterLink
-              classNames={{ color: 'teal', size: 'regular' }}
-              className="button"
-              link={{
-                href: sections?.link?.legacyUrl || sections?.link?.url || '',
-                label: sections?.link?.text || '',
-              }}
-            >
-              <div className="button--inner">{sections?.link?.text}</div>
-            </RouterLink>
-          </div>
+
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            <div className="markdown -mt-500" key="markdown">
+              <ReactMarkdown
+                allowDangerousHtml
+                source={body || ''}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                }}
+              />
+            </div>
+            <div className="button-group">
+              <RouterLink
+                classNames={{ color: 'teal', size: 'regular' }}
+                className="button"
+                link={{
+                  href: sections?.link?.legacyUrl || sections?.link?.url || '',
+                  label: sections?.link?.text || '',
+                }}
+              >
+                <div className="button--inner">{sections?.link?.text}</div>
+              </RouterLink>
+            </div>
+          </LazyLoadComponent>
         </article>
         <div>
           <Heading tag="h2" color="black" size="lead">
