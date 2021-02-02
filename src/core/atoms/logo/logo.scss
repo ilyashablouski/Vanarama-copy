@@ -4,12 +4,14 @@
   width: auto;
 
   &:hover {
-    color: var(--class-color-tint);
+    // color: var(--class-color-tint);
+    color: var(--class-color, currentColor);
   }
 
   &:active,
   &:focus {
-    color: var(--class-color-shade);
+    // color: var(--class-color-shade);
+    color: var(--class-color, currentColor);
   }
 
   &:focus {
