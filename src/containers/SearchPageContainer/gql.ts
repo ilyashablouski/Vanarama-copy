@@ -135,6 +135,7 @@ export function useVehiclesList(
       sortDirection: onOffer ? SortDirection.ASC : savedSortOrder.direction,
       first,
     },
+    fetchPolicy: 'cache-and-network',
   });
 }
 
