@@ -24,17 +24,17 @@ export const responseToInitialFormValues = (
       )
       .map(item => {
         const started = new Date(item.employedSinceDate);
+
         return {
           company: item.companyName,
           contract: item.contract,
-          income:
-            typeof item.grossAnnualIncome !== 'undefined'
-              ? String(item.grossAnnualIncome)
-              : null,
+          income: item.grossAnnualIncome
+            ? String(item.grossAnnualIncome)
+            : null,
           month: String(started.getMonth() + 1),
           phoneNumber: item.workPhoneNumber,
           status: item.employmentStatus || '',
-          title: item.jobTitle,
+          title: item.jobTitle || '',
           year: String(started.getFullYear()),
           address: item.companyAddressServiceId
             ? {
