@@ -58,6 +58,7 @@ export const mapAddresses = (data?: any) =>
     postcode: item?.postcode,
     serviceId: item?.service_id,
     startedOn: item?.started_on,
+    status: item?.propertyStatus,
   }));
 
 export const mapDirectorDetails = (data: any): DirectorDetails => ({
@@ -92,9 +93,9 @@ export const mapDirectorDetails = (data: any): DirectorDetails => ({
 export const mapDirectorsDefaultValues = (
   data: any,
 ): DirectorDetailsFormValues => ({
-  directors: (data?.directors || []).map((item: any) =>
-    mapDirectorDetails(item),
-  ),
+  directors: (data?.directors || []).map((item: any) => {
+    return mapDirectorDetails(item);
+  }),
   totalPercentage: data?.total_percentage,
 });
 

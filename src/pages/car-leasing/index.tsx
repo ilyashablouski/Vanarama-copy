@@ -244,7 +244,10 @@ export const CarsPage: NextPage<IProps> = ({
                     item?.capId || '',
                     Icon,
                   )}
-                  imageSrc={item?.imageUrl || '/vehiclePlaceholder.jpg'}
+                  imageSrc={
+                    item?.imageUrl ||
+                    `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+                  }
                   onCompare={() =>
                     compareChange(
                       item ? { ...item, pageUrl: productUrl } : null,

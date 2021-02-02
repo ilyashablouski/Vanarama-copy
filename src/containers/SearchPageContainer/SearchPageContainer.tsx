@@ -1284,7 +1284,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                             className="card__article"
                             imageSrc={
                               card?.image?.file?.url ||
-                              '/vehiclePlaceholder.jpg'
+                              `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
                             }
                             title={{
                               title:

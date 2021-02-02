@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { SummaryFormSoleTrader_associates as SoleTraderAssociate } from '../../../generated/SummaryFormSoleTrader';
 import { addressToDisplay } from '../../utils/address';
-import { sortAddresses } from './helpers';
+import { sortSoleTraderAddresses } from './helpers';
 import { fullMonthFormatDate, dateToFormat } from '../../utils/dates';
 import { toCurrencyDisplay } from '../../utils/helpers';
 
@@ -20,7 +20,7 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
   soleTrader,
   onEdit,
 }) => {
-  const { currentAddress, previousAddress } = sortAddresses(
+  const { currentAddress, previousAddress } = sortSoleTraderAddresses(
     soleTrader?.addresses,
   );
   return (

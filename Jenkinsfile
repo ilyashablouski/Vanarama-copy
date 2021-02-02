@@ -520,10 +520,10 @@ pipeline {
                     currentBranch = scm.branches[0].name
                     if ( branchName == 'develop' ) {
                         jiraSendBuildInfo branch: "${currentBranch}", site: 'autorama.atlassian.net'
-                        slackSend channel: app_environment["${app_env_map}"].slackChannelQA, color: 'warning', message: "Jenkins Job: ${J_NAME} - ${B_NUMBER} is ready for approval into UAT"
+                        slackSend channel: app_environment["${getConfig()}"].slackChannelQA, color: 'warning', message: "Jenkins Job: ${J_NAME} - ${B_NUMBER} is ready for approval into UAT"
                     } else if (branchName =~ 'release/*') {
                         // jiraSendDeploymentInfo
-                        slackSend channel: app_environment["${app_env_map}"].slackChannelQA, color: 'good', message: "Jenkins Job: ${J_NAME} - ${B_NUMBER} is applied to UAT"
+                        slackSend channel: app_environment["${getConfig()}"].slackChannelQA, color: 'good', message: "Jenkins Job: ${J_NAME} - ${B_NUMBER} is applied to UAT"
                     }
                 //
               }
