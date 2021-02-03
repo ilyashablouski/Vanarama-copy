@@ -46,6 +46,7 @@ interface IPDPData {
   values?: OrderInputObject;
   product?: IProduct;
   category?: string;
+  mileage?: number | null;
 }
 
 interface ISummary {
@@ -315,6 +316,7 @@ export const pushPDPDataLayer = ({
   vehicleConfigurationByCapId,
   price,
   category,
+  mileage,
 }: IPDPData) => {
   if (!window.dataLayer) return;
 
@@ -346,7 +348,7 @@ export const pushPDPDataLayer = ({
 
   pushDetail(
     'annualMileage',
-    vehicleConfigurationByCapId?.financeProfile?.mileage,
+    mileage || vehicleConfigurationByCapId?.financeProfile?.mileage,
     product,
   );
 
