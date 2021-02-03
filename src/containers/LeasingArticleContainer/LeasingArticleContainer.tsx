@@ -49,7 +49,7 @@ const LeasingArticleContainer: FC<IProps> = ({
         <div className="row:featured-image">
           {image && (
             <Image
-              loadImage
+              loadImage={false}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               className="-white"
               size="expand"
