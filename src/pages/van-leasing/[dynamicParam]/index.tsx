@@ -1,6 +1,6 @@
 import { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
 import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
 import {
@@ -61,7 +61,7 @@ interface IProps extends ISearchPageProps {
 
 const Page: NextPage<IProps> = ({
   isServer,
-  pageType = {},
+  pageType: ssrPageType,
   pageData,
   metaData,
   filtersData,
@@ -76,9 +76,14 @@ const Page: NextPage<IProps> = ({
   topOffersCardsData,
 }) => {
   const router = useRouter();
+  /** using for dynamically change type when we navigate between different page type (exp. make -> budget) */
+  const pageType = useRef<IPageType>();
   useEffect(() => {
+    pageType.current = dynamicQueryTypeCheck(
+      router.query.dynamicParam as string,
+    );
     pushPageData({
-      pageType: pageType.isMakePage
+      pageType: pageType?.current?.isMakePage
         ? PAGE_TYPES.makePage
         : PAGE_TYPES.vehicleTypePage,
       siteSection: SITE_SECTIONS.vans,
@@ -86,7 +91,7 @@ const Page: NextPage<IProps> = ({
     });
     // it's should executed only when page init
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [router.query.dynamicParam]);
 
   if (error) {
     return (
@@ -102,11 +107,17 @@ const Page: NextPage<IProps> = ({
     <SearchPageContainer
       isServer={isServer}
       isCarSearch={false}
-      isMakePage={pageType.isMakePage}
-      isBodyStylePage={pageType.isBodyStylePage}
-      isTransmissionPage={pageType.isTransmissionPage}
+      isMakePage={pageType?.current?.isMakePage ?? ssrPageType?.isMakePage}
+      isBodyStylePage={
+        pageType?.current?.isBodyStylePage ?? ssrPageType?.isBodyStylePage
+      }
+      isTransmissionPage={
+        pageType?.current?.isTransmissionPage ?? ssrPageType?.isTransmissionPage
+      }
       pageData={pageData}
-      isBudgetPage={pageType.isBudgetType}
+      isBudgetPage={
+        pageType?.current?.isBudgetType ?? ssrPageType?.isBudgetType
+      }
       metaData={metaData}
       preLoadFiltersData={filtersData}
       preLoadRanges={ranges}
