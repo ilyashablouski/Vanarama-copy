@@ -97,7 +97,7 @@ const TileLink = dynamic(() => import('../../components/TileLink/TileLink'), {
 });
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
-  ssr: false,
+  ssr: true,
 });
 const VehicleCard = dynamic(() => import('./VehicleCard'), {
   loading: () => <Skeleton count={3} />,
