@@ -1,6 +1,6 @@
 import { NextPage, NextPageContext } from 'next';
 import { useRouter } from 'next/router';
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
 import {
   GET_RANGES,
@@ -63,7 +63,7 @@ interface IProps extends ISearchPageProps {
 
 const Page: NextPage<IProps> = ({
   isServer,
-  pageType = {},
+  pageType: sssPageType,
   pageData,
   metaData,
   filtersData,
@@ -78,9 +78,14 @@ const Page: NextPage<IProps> = ({
   topOffersCardsData,
 }) => {
   const router = useRouter();
+  /** using for dynamically change type when we navigate between different page type (exp. make -> budget) */
+  const pageType = useRef<IPageType>();
   useEffect(() => {
+    pageType.current = dynamicQueryTypeCheck(
+      router.query.dynamicParam as string,
+    );
     pushPageData({
-      pageType: pageType.isMakePage
+      pageType: pageType?.current?.isMakePage
         ? PAGE_TYPES.makePage
         : PAGE_TYPES.vehicleTypePage,
       siteSection: SITE_SECTIONS.cars,
@@ -88,7 +93,7 @@ const Page: NextPage<IProps> = ({
     });
     // it's should executed only when page init
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [router.query.dynamicParam]);
 
   if (error) {
     return (
@@ -108,10 +113,14 @@ const Page: NextPage<IProps> = ({
     <SearchPageContainer
       isServer={isServer}
       isCarSearch
-      isMakePage={pageType.isMakePage}
-      isBodyStylePage={pageType.isBodyStylePage}
-      isFuelPage={pageType.isFuelType}
-      isBudgetPage={pageType.isBudgetType}
+      isMakePage={pageType?.current?.isMakePage ?? sssPageType?.isMakePage}
+      isBodyStylePage={
+        pageType?.current?.isBodyStylePage ?? sssPageType?.isBodyStylePage
+      }
+      isFuelPage={pageType?.current?.isFuelType ?? sssPageType?.isFuelType}
+      isBudgetPage={
+        pageType?.current?.isBudgetType ?? sssPageType?.isBudgetType
+      }
       pageData={pageData}
       metaData={metaData}
       preLoadFiltersData={filtersData}
