@@ -15,15 +15,15 @@ const scriptEnvs = {
 
   blueconic: ['dev', 'uat', 'pre-prod', 'prod'],
 
-  // vwo: ['dev', 'uat', 'pre-prod', 'prod'],
+  vwo: ['dev', 'uat', 'pre-prod', 'prod'],
 };
 
 const PRECONNECT = [
   process?.env?.API_URL?.replace('/graphql/', ''),
   process.env.STATIC_DOMAIN,
   scriptEnvs.blueconic.includes(env) ? 'https://cdn.blueconic.net' : '',
+  scriptEnvs.vwo.includes(env) ? 'https://dev.visualwebsiteoptimizer.com' : '',
   'https://widget.trustpilot.com',
-  // 'https://cdn.speedcurve.com',
 ].filter(value => value !== '');
 
 const ArticleHead: FC<IHeadProps> = props => {
