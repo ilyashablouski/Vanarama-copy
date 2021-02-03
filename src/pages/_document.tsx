@@ -5,6 +5,7 @@ import {
   Body as GTMBody,
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
+import { VWOScript } from '../components/VWOScript';
 import Inline from '../components/Style/Inline';
 import HeadCustom from '../hacks/headCustom';
 
@@ -29,9 +30,9 @@ const env = process?.env?.ENV || '';
 const scriptEnvs = {
   gtm: ['dev', 'uat', 'pre-prod', 'prod'],
 
-  // blueconic: ['uat', 'pre-prod', 'prod'],
+  blueconic: ['dev', 'uat', 'pre-prod', 'prod'],
 
-  // vwo: ['uat', 'pre-prod', 'prod'],
+  vwo: ['dev', 'uat', 'pre-prod', 'prod'],
 };
 
 class MyDocument extends Document {
@@ -39,8 +40,6 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <HeadCustom>
-          {/* {scriptEnvs.gtm.includes(env) && <GTMDataLayerScript />}
-          {scriptEnvs.gtm.includes(env) && <GTMScript />} */}
           {/* <RollbarScript /> */}
           {/* <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" /> */}
@@ -49,12 +48,16 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          {scriptEnvs.vwo.includes(env) && <VWOScript />}
           {scriptEnvs.gtm.includes(env) && (
             <>
               <GTMDataLayerScript />
               <GTMScript />
               <GTMBody />
             </>
+          )}
+          {scriptEnvs.blueconic.includes(env) && (
+            <script defer src="https://cdn.blueconic.net/vanarama.js" />
           )}
         </body>
       </Html>

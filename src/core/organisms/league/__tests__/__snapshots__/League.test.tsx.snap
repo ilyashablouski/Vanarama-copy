@@ -8,9 +8,9 @@ Array [
     >
       <img
         className="image--native"
-        loading="lazy"
+        loading="eager"
         sizes="(min-width:3200px) 800px, 1200px"
-        src="https://vanarama-nonprod.com/Assets/images-optimised/home/national-league.png"
+        src="https://dev.vanarama-nonprod.com/Assets/images-optimised/home/national-league.png"
       />
     </div>
   </div>,
@@ -38,9 +38,9 @@ Array [
     >
       <img
         className="image--native"
-        loading="lazy"
+        loading="eager"
         sizes="(min-width:3200px) 800px, 1200px"
-        src="https://vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png"
+        src="https://dev.vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png"
       />
     </div>
   </div>,
@@ -56,9 +56,9 @@ Array [
       <img
         alt="image1"
         className="image--native"
-        loading="lazy"
+        loading="eager"
         sizes="(min-width:3200px) 800px, 1200px"
-        src="https://vanarama-nonprod.com/Assets/images-optimised/home/national-league.png"
+        src="https://dev.vanarama-nonprod.com/Assets/images-optimised/home/national-league.png"
       />
     </div>
   </div>,
@@ -87,9 +87,9 @@ Array [
       <img
         alt="image1"
         className="image--native"
-        loading="lazy"
+        loading="eager"
         sizes="(min-width:3200px) 800px, 1200px"
-        src="https://vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png"
+        src="https://dev.vanarama-nonprod.com/Assets/images-optimised/home/league-cup.png"
       />
     </div>
   </div>,

@@ -343,7 +343,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         return false;
       }
     },
-    9,
+    12,
     undefined,
     isPickups || isModelPage || isBodyStylePage ? manualBodyStyle : [],
   );

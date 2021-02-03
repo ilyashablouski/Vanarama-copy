@@ -32,8 +32,8 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
               class="image--native"
               loading="lazy"
               sizes="(min-width:3200px) 800px, 1200px"
-              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png"
-              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1200w"
+              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png"
+              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none,format=auto/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1200w"
             />
           </div>
         </div>
@@ -759,7 +759,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
         <img
           alt="AudiQ30718 4 k5ojqt"
           class="image--native"
-          loading="lazy"
+          loading="eager"
           sizes="(min-width:3200px) 800px, 1200px"
           src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/2QbzKD75ObIHIeVMzNeCF/1455166780ba4eb095c965e278a63b69/AudiQ30718_4_k5ojqt.jpg"
           srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/2QbzKD75ObIHIeVMzNeCF/1455166780ba4eb095c965e278a63b69/AudiQ30718_4_k5ojqt.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/2QbzKD75ObIHIeVMzNeCF/1455166780ba4eb095c965e278a63b69/AudiQ30718_4_k5ojqt.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/2QbzKD75ObIHIeVMzNeCF/1455166780ba4eb095c965e278a63b69/AudiQ30718_4_k5ojqt.jpg 1200w"
