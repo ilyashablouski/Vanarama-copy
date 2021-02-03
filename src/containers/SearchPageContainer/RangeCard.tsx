@@ -72,9 +72,10 @@ const RangeCard = memo(
       ? {
           imageSrc:
             (!isAllMakesCard ? imagesData : imagesMakeData)?.vehicleImages?.[0]
-              ?.mainImageUrl || '',
+              ?.mainImageUrl ||
+            `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
         }
-      : {};
+      : { imageSrc: `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg` };
     return (
       <Card
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
