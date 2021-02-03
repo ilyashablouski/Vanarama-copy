@@ -30,7 +30,7 @@ const IndependentReview: React.FC<IIndependentReviewProps> = ({ review }) => {
       <Heading tag="h2" color="black" size="lead">
         Independent Review By Car & Driving
       </Heading>
-      <Text color="darker" size="regular" tag="p">
+      <Text color="darker" size="regular" tag="span">
         <span {...props} />
         <Link color="teal" onClick={() => toggleRead(!readMore)}>
           {readMore ? 'Read More' : 'Read Less'}

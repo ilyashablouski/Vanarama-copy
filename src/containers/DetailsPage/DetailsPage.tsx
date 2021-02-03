@@ -210,6 +210,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   useFirstRenderEffect(() => {
     if (price && !firstTimePushDataLayer) onPushPDPDataLayer();
+    if (isMobile) {
+      leaseScanner.current!.style.display = 'flex';
+      setTimeout(() => {
+        leaseScanner.current!.style.removeProperty('display');
+      }, 1000);
+    }
   }, [price]);
   const vehicleDetails = data?.vehicleDetails;
 
