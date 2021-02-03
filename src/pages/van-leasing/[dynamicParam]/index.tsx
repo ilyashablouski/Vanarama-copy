@@ -61,7 +61,7 @@ interface IProps extends ISearchPageProps {
 
 const Page: NextPage<IProps> = ({
   isServer,
-  pageType: sssPageType,
+  pageType: ssrPageType,
   pageData,
   metaData,
   filtersData,
@@ -107,16 +107,16 @@ const Page: NextPage<IProps> = ({
     <SearchPageContainer
       isServer={isServer}
       isCarSearch={false}
-      isMakePage={pageType?.current?.isMakePage ?? sssPageType?.isMakePage}
+      isMakePage={pageType?.current?.isMakePage ?? ssrPageType?.isMakePage}
       isBodyStylePage={
-        pageType?.current?.isBodyStylePage ?? sssPageType?.isBodyStylePage
+        pageType?.current?.isBodyStylePage ?? ssrPageType?.isBodyStylePage
       }
       isTransmissionPage={
-        pageType?.current?.isTransmissionPage ?? sssPageType?.isTransmissionPage
+        pageType?.current?.isTransmissionPage ?? ssrPageType?.isTransmissionPage
       }
       pageData={pageData}
       isBudgetPage={
-        pageType?.current?.isBudgetType ?? sssPageType?.isBudgetType
+        pageType?.current?.isBudgetType ?? ssrPageType?.isBudgetType
       }
       metaData={metaData}
       preLoadFiltersData={filtersData}
