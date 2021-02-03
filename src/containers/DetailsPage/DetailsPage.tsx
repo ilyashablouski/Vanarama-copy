@@ -146,6 +146,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     true,
   );
   const [screenY, setScreenY] = useState<number | null>(null);
+  const [mileage, setMileage] = useState<number | null>(
+    quote?.quoteByCapId?.mileage || null,
+  );
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
@@ -173,8 +176,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       vehicleConfigurationByCapId,
       price,
       category: getCategory({ cars, vans, pickups }),
+      mileage,
     });
-  }, [capId, cars, data, price, pickups, vans]);
+  }, [capId, cars, data, price, pickups, vans, mileage]);
 
   useEffect(() => {
     if (isMobile) {
@@ -210,6 +214,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   useFirstRenderEffect(() => {
     if (price && !firstTimePushDataLayer) onPushPDPDataLayer();
+    if (isMobile) {
+      leaseScanner.current!.style.display = 'flex';
+      setTimeout(() => {
+        leaseScanner.current!.style.removeProperty('display');
+      }, 1000);
+    }
   }, [price]);
   const vehicleDetails = data?.vehicleDetails;
 
@@ -461,6 +471,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             setIsDisabled={setIsDisabled}
             setLeaseScannerData={setLeaseScannerData}
             onCompleted={values => onSubmitClick(values)}
+            mileage={mileage}
+            setMileage={setMileage}
           />
         )}
         <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
@@ -501,6 +513,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           setLeaseScannerData={setLeaseScannerData}
           onCompletedCallBack={onCompletedCallBack}
           onCompleted={values => onSubmitClick(values)}
+          mileage={mileage}
+          setMileage={setMileage}
         />
       )}
       {(!!productCard || !!capsId?.length) && (
