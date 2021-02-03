@@ -64,6 +64,10 @@ const ArticleHead: FC<IHeadProps> = props => {
         {PRECONNECT.map(domain => {
           return <link rel="dns-prefetch" href={domain} key={domain} />;
         })}
+        {/* Script */}
+        {scriptEnvs.blueconic.includes(env) && (
+          <script async src="https://cdn.blueconic.net/vanarama.js" />
+        )}
         {/* Meta */}
         {metaRobots && <meta name="robots" content={metaRobots} />}
         {metaDescription && (
