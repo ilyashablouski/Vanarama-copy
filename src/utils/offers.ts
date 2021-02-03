@@ -77,7 +77,7 @@ export function getProductCardContent(
         type,
         bodyType: bodyType || undefined,
         excludeBodyType: excludeBodyType || undefined,
-        size: 9,
+        size: 12,
         offer: true,
       },
     })
