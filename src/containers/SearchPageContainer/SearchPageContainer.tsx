@@ -933,33 +933,35 @@ const SearchPageContainer: React.FC<IProps> = ({
         )}
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
-          <FiltersContainer
-            isPersonal={isPersonal}
-            isMakePage={isMakePage}
-            isRangePage={isRangePage}
-            setType={value => setIsPersonal(value)}
-            onSearch={onSearch}
-            isPickups={isPickups}
-            isCarSearch={isCarSearch}
-            preSearchVehicleCount={totalCount}
-            isSpecialOffers={
-              (isSpecialOffers &&
-                !(isRangePage || isModelPage || isDynamicFilterPage)) ||
-              null
-            }
-            setIsSpecialOffers={setIsSpecialOffers}
-            isModelPage={isModelPage}
-            isAllMakesPage={isAllMakesPage}
-            isBodyPage={isBodyStylePage}
-            isBudgetPage={isBudgetPage}
-            isDynamicFilterPage={isDynamicFilterPage}
-            isFuelPage={isFuelPage}
-            isTransmissionPage={isTransmissionPage}
-            sortOrder={sortOrder}
-            isPreloadList={!!preLoadVehiclesList}
-            setSearchFilters={setFiltersData}
-            preLoadFilters={preLoadFiltersData}
-          />
+          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            <FiltersContainer
+              isPersonal={isPersonal}
+              isMakePage={isMakePage}
+              isRangePage={isRangePage}
+              setType={value => setIsPersonal(value)}
+              onSearch={onSearch}
+              isPickups={isPickups}
+              isCarSearch={isCarSearch}
+              preSearchVehicleCount={totalCount}
+              isSpecialOffers={
+                (isSpecialOffers &&
+                  !(isRangePage || isModelPage || isDynamicFilterPage)) ||
+                null
+              }
+              setIsSpecialOffers={setIsSpecialOffers}
+              isModelPage={isModelPage}
+              isAllMakesPage={isAllMakesPage}
+              isBodyPage={isBodyStylePage}
+              isBudgetPage={isBudgetPage}
+              isDynamicFilterPage={isDynamicFilterPage}
+              isFuelPage={isFuelPage}
+              isTransmissionPage={isTransmissionPage}
+              sortOrder={sortOrder}
+              isPreloadList={!!preLoadVehiclesList}
+              setSearchFilters={setFiltersData}
+              preLoadFilters={preLoadFiltersData}
+            />
+          </LazyLoadComponent>
         </div>
       </div>
 
