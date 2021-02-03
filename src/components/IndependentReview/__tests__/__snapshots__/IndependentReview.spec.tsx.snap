@@ -9,7 +9,7 @@ exports[`<IndependentReview /> renders correctly with empty review 1`] = `
   >
     Independent Review By Car & Driving
   </h2>
-  <p
+  <span
     className="text -regular -darker"
   >
     <span
@@ -25,7 +25,7 @@ exports[`<IndependentReview /> renders correctly with empty review 1`] = `
     >
       Read More
     </a>
-  </p>
+  </span>
 </div>
 `;
 
@@ -38,7 +38,7 @@ exports[`<IndependentReview /> renders correctly with review 1`] = `
   >
     Independent Review By Car & Driving
   </h2>
-  <p
+  <span
     className="text -regular -darker"
   >
     <span
@@ -54,6 +54,6 @@ exports[`<IndependentReview /> renders correctly with review 1`] = `
     >
       Read More
     </a>
-  </p>
+  </span>
 </div>
 `;
