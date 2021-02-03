@@ -98,6 +98,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 product.imageUrl ||
                 `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
               }
+              placeholderImage={`${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`}
               onWishlist={() => true}
               title={{
                 title: '',
