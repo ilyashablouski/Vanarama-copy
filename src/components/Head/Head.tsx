@@ -46,6 +46,7 @@ const Head: FC<IHeadProps> = props => {
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width" />
       <title>{title}</title>
+      {/* Preload and Preconnect */}
       {FONT_LIST.map(font => {
         return (
           <link
@@ -61,6 +62,10 @@ const Head: FC<IHeadProps> = props => {
       {PRECONNECT.map(domain => {
         return <link rel="dns-prefetch" href={domain} key={domain} />;
       })}
+      {/* Script */}
+      {scriptEnvs.blueconic.includes(env) && (
+        <script async src="https://cdn.blueconic.net/vanarama.js" />
+      )}
       <link rel="preload" href="/styles/deferred.css" as="style" />
       {/* Meta */}
       {metaRobots && <meta name="robots" content={metaRobots} />}
