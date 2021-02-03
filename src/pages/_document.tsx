@@ -56,9 +56,6 @@ class MyDocument extends Document {
               <GTMBody />
             </>
           )}
-          {scriptEnvs.blueconic.includes(env) && (
-            <script defer src="https://cdn.blueconic.net/vanarama.js" />
-          )}
         </body>
       </Html>
     );
