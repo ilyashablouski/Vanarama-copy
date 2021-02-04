@@ -19,7 +19,6 @@ import {
   GetPerson_getPerson as Person,
   GetPerson,
 } from '../../../generated/GetPerson';
-import { useMobileViewport } from '../../hooks/useMediaQuery';
 
 const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
   ssr: false,
@@ -129,7 +128,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
   return (
     <header
       style={
-        useMobileViewport()
+        isTabletOrMobile
           ? { position: 'fixed', top: 0 }
           : { position: 'relative' }
       }
@@ -147,7 +146,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
           {' '}
           <Logo asset="vanarama" />{' '}
         </RouterLink>{' '}
-        {!useMobileViewport() && (
+        {!isTabletOrMobile && (
           <label className="header-search" htmlFor="search">
             {' '}
             {/* {TODO: commit for this search lines should be reverted after implement search functionality} */}

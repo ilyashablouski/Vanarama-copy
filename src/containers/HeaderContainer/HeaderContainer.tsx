@@ -3,6 +3,7 @@ import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import { ILink } from 'core/interfaces/link';
+import { useMediaQuery } from 'react-responsive';
 
 import { PHONE_NUMBER_LINK } from '../../models/enum/HeaderLinks';
 
@@ -25,7 +26,7 @@ export const LOGOUT_USER_MUTATION = gql`
 const HeaderContainer: FC = () => {
   const data: HeaderData = HEADER_DATA;
   const router = useRouter();
-  const isMobile = useMobileViewport();
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
 
   const LOGIN_LINK = {
     label: 'Login',
@@ -91,7 +92,7 @@ const HeaderContainer: FC = () => {
                 linksGroup?.promotionalImage?.image?.[0]?.file?.fileName || '',
             },
           },
-          children: isMobile
+          children: isTabletOrMobile
             ? [linksGroupUrl, ...childrenGroupLinks]
             : childrenGroupLinks,
         };
