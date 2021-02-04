@@ -14,6 +14,7 @@ exports[`<NumericInput /> renders correctly 1`] = `
       <input
         className="textinput--native regular"
         id="accountNumber"
+        maxLength={NaN}
         onKeyPress={[Function]}
         type="text"
       />
