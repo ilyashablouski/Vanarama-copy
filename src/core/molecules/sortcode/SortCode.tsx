@@ -59,6 +59,7 @@ const SortCode: React.FC<ISortCodeProps> = ({
         value={last}
         name="sc-3"
         type="number"
+        role="textbox"
       />
     </div>
   );
