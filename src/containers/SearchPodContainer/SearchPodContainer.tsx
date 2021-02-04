@@ -174,12 +174,9 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
         range.children.some(ranges => ranges.slug === selectModelVans),
       );
       setValue('makeVans', parent?.parent.slug as string);
-    } else if (
-      modelVansTemp &&
-      selectMakeVans &&
-      !selectModelVans &&
-      modelVans.length
-    ) {
+      if (!modelVans?.[0]?.label)
+        setModelsVans(modelHandler(vansDataCache, parent?.parent.slug || ''));
+    } else if (modelVansTemp && selectMakeVans && modelVans.length) {
       // return back a model value because auto change make call a rerender options list
       setValue('modelVans', modelVansTemp);
       setModelsVansTemp('');
@@ -190,7 +187,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     modelVansTemp,
     setValue,
     getValues,
-    vansDataCache.groupedRangesWithSlug,
+    vansDataCache,
     modelVans,
   ]);
 
