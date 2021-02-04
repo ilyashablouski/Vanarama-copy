@@ -650,12 +650,12 @@ const FiltersContainer = ({
     if (isTabletOrMobile) setFilterExpandStatus(prevValue => !prevValue);
   };
   return (
-    <SearchFilters isOpen={isOpenFilter}>
+    <SearchFilters isOpen={false}>
       <SearchFiltersHead onClick={handleFilterExpand}>
         <Icon icon={<OptionsIcon />} className="search-filters--title-icon" />
         <span>Filters</span>
         <Icon
-          icon={isOpenFilter ? <ChevronUp /> : <ChevronDown />}
+          icon={<ChevronDown />}
           className="search-filters--title-icon"
           color="white"
         />

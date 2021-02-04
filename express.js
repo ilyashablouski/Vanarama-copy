@@ -10,7 +10,7 @@ process.env.UV_THREADPOOL_SIZE = OS.cpus().length;
 const express = require('express');
 const cors = require('cors');
 const next = require('next');
-const prerender = require('prerender-node');
+// const prerender = require('prerender-node');
 const hpp = require('hpp');
 const compression = require('compression');
 
@@ -55,9 +55,9 @@ app
     }
 
     // Prerender.
-    if (prerender && process.env.PRERENDER_SERVICE_URL) {
-      server.use(prerender);
-    }
+    // if (prerender && process.env.PRERENDER_SERVICE_URL) {
+    //   server.use(prerender);
+    // }
 
     server.use(hpp());
     server.use(compression());
