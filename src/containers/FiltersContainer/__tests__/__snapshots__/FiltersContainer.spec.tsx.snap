@@ -4,7 +4,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
 <body>
   <div>
     <div
-      class="search-filters"
+      class="search-filters -open"
     >
       <div
         class="search-filters--title"
@@ -41,7 +41,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
             width="1em"
           >
             <polyline
-              points="112 184 256 328 400 184"
+              points="112 328 256 184 400 328"
               style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
             />
           </svg>
