@@ -30,6 +30,7 @@ const SortCode: React.FC<ISortCodeProps> = ({
         value={first}
         name="sc-1"
         type="number"
+        role="textbox"
       />
       <NumericInput
         {...middleInputProps}
@@ -44,6 +45,7 @@ const SortCode: React.FC<ISortCodeProps> = ({
         value={middle}
         name="sc-2"
         type="number"
+        role="textbox"
       />
       <NumericInput
         {...lastInputProps}
@@ -57,6 +59,7 @@ const SortCode: React.FC<ISortCodeProps> = ({
         value={last}
         name="sc-3"
         type="number"
+        role="textbox"
       />
     </div>
   );
