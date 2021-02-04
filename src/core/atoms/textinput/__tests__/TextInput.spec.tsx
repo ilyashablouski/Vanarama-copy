@@ -53,7 +53,6 @@ describe('<TextInput />', () => {
       >
         <input
           className="textinput--native regular -suffix"
-          maxLength={NaN}
           type="text"
         />
         <Memo(Text)

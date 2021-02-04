@@ -6,7 +6,6 @@ exports[`<TextInput /> should render correctly in the default state 1`] = `
 >
   <input
     className="textinput--native regular"
-    maxLength={NaN}
     type="text"
   />
 </div>
@@ -25,7 +24,6 @@ exports[`<TextInput /> should render correctly with optional props 1`] = `
     className="textinput--native regular custom-class-name -calculated -prefix"
     data-testid="data-testid"
     id="input-id"
-    maxLength={NaN}
     name="input-name"
     placeholder="Placeholder"
     readOnly={true}
