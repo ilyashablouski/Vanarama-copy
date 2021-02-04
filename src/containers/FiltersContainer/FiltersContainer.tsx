@@ -121,7 +121,9 @@ const FiltersContainer = ({
     {} as IChoiceBoxesData,
   );
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1216px)' });
-  function setFilterExpandStatus() {}
+  function setFilterExpandStatus(value: boolean) {
+    console.log(value);
+  }
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
@@ -647,7 +649,7 @@ const FiltersContainer = ({
 
   /** handle filter expand status */
   const handleFilterExpand = () => {
-    if (isTabletOrMobile) setFilterExpandStatus(prevValue => !prevValue);
+    if (isTabletOrMobile) setFilterExpandStatus(false);
   };
   return (
     <SearchFilters isOpen={false}>
