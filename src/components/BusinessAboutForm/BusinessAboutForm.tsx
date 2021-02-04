@@ -249,7 +249,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
           name="marketing"
           dataTestId="about-you_marketing"
           ref={register}
-          label="I wish to receive email and SMS messages for updates on the latest deals, offers and promotions"
+          label="I want to be kept updated about exclusive deals & offers."
         />
         <Checkbox
           id="terms_and_conditions"
