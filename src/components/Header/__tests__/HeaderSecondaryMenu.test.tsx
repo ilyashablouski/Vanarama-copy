@@ -10,7 +10,7 @@ const mocks = {
   links: TOP_BAR_LINKS[1].children as IHeaderLink[],
   title: 'title',
   onClickTitle: jest.fn(),
-  isMobile: false,
+  isTabletOrMobile: false,
   isMenuOpen: false,
   promotionalImage: {
     url: '',
