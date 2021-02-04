@@ -24,7 +24,6 @@ const SortCode: React.FC<ISortCodeProps> = ({
         onChange={e => {
           if (isLessThanThreeCharacters(e)) {
             onChange(e, [e.target.value, middle, last]);
-            console.log('heee');
             handleAutoFocus(e);
           }
         }}
