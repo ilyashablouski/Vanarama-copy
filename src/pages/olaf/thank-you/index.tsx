@@ -129,7 +129,7 @@ const ThankYouPage: NextPage = () => {
       </OLAFLayout>
       {isB2b && (
         <div className="row:features-4col">
-          <Tile plain className="-align-center -button">
+          <Tile plain className="-align-center">
             <span>
               <Image
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -145,7 +145,7 @@ const ThankYouPage: NextPage = () => {
               </Heading>
             </span>
           </Tile>
-          <Tile plain className="-align-center -button">
+          <Tile plain className="-align-center">
             <span>
               <Image
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -161,7 +161,7 @@ const ThankYouPage: NextPage = () => {
               </Heading>
             </span>
           </Tile>
-          <Tile plain className="-align-center -button">
+          <Tile plain className="-align-center">
             <span>
               <Image
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -177,7 +177,7 @@ const ThankYouPage: NextPage = () => {
               </Heading>
             </span>
           </Tile>
-          <Tile plain className="-align-center -button">
+          <Tile plain className="-align-center">
             <span>
               <Image
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}

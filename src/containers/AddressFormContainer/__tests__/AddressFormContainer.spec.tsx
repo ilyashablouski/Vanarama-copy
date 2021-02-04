@@ -149,7 +149,7 @@ describe('<AddressFormContainer />', () => {
                 {
                   serviceId: 'GB|002',
                   propertyStatus: 'Mortgage',
-                  startedOn: '1990-01-01',
+                  startedOn: '1990-1-01',
                 },
               ],
             },
@@ -249,7 +249,7 @@ describe('<AddressFormContainer />', () => {
                 {
                   serviceId: 'GB|002',
                   propertyStatus: 'Mortgage',
-                  startedOn: '1990-01-01',
+                  startedOn: '1990-1-01',
                 },
               ],
             },

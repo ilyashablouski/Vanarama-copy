@@ -11,20 +11,20 @@ const env = process?.env?.ENV || '';
 
 // Script environments
 const scriptEnvs = {
-  gtm: ['dev', 'uat', 'pre-prod', 'prod'],
+  // gtm: ['dev', 'uat', 'pre-prod', 'prod'],
 
   blueconic: ['dev', 'uat', 'pre-prod', 'prod'],
 
-  // vwo: ['uat', 'pre-prod', 'prod'],
+  vwo: ['dev', 'uat', 'pre-prod', 'prod'],
 };
 
 const PRECONNECT = [
   process?.env?.API_URL?.replace('/graphql/', ''),
   process.env.STATIC_DOMAIN,
-  'https://cdn.blueconic.net',
+  scriptEnvs.blueconic.includes(env) ? 'https://cdn.blueconic.net' : '',
+  scriptEnvs.vwo.includes(env) ? 'https://dev.visualwebsiteoptimizer.com' : '',
   'https://widget.trustpilot.com',
-  // 'https://cdn.speedcurve.com',
-];
+].filter(value => value !== '');
 
 const ArticleHead: FC<IHeadProps> = props => {
   const router = useRouter();
@@ -64,10 +64,6 @@ const ArticleHead: FC<IHeadProps> = props => {
         {PRECONNECT.map(domain => {
           return <link rel="dns-prefetch" href={domain} key={domain} />;
         })}
-        {/* Scripts */}
-        {scriptEnvs.blueconic.includes(env) && (
-          <script defer src="https://cdn.blueconic.net/vanarama.js" />
-        )}
         {/* Meta */}
         {metaRobots && <meta name="robots" content={metaRobots} />}
         {metaDescription && (

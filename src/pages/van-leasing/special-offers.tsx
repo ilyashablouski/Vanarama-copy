@@ -94,23 +94,18 @@ export const VanOffers: NextPage<IProps> = ({
               >
                 Best Small Van Lease Offers
               </Heading>
-              <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
-              >
-                <ProductCarousel
-                  leaseType={
-                    isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-                  }
-                  data={{
-                    derivatives:
-                      productsSmallVanDerivatives?.derivatives || null,
-                    productCard: productsSmallVan?.productCarousel || null,
-                    vehicleList: vehicleListUrlData!,
-                  }}
-                  countItems={productsSmallVan?.productCarousel?.length || 6}
-                  dataTestIdBtn="van-view-offer"
-                />
-              </LazyLoadComponent>
+              <ProductCarousel
+                leaseType={
+                  isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+                }
+                data={{
+                  derivatives: productsSmallVanDerivatives?.derivatives || null,
+                  productCard: productsSmallVan?.productCarousel || null,
+                  vehicleList: vehicleListUrlData!,
+                }}
+                countItems={productsSmallVan?.productCarousel?.length || 6}
+                dataTestIdBtn="van-view-offer"
+              />
             </div>
             <div className="-justify-content-row -pt-500">
               <RouterLink

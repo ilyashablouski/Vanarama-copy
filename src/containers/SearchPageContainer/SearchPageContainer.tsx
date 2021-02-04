@@ -97,7 +97,7 @@ const TileLink = dynamic(() => import('../../components/TileLink/TileLink'), {
 });
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
-  ssr: false,
+  ssr: true,
 });
 const VehicleCard = dynamic(() => import('./VehicleCard'), {
   loading: () => <Skeleton count={3} />,
@@ -318,7 +318,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   ]);
 
   // using onCompleted callback for request card data after vehicle list was loaded
-  const [getVehicles, { data, called }] = useVehiclesList(
+  const [getVehicles, { data }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
     isMakePage || isDynamicFilterPage || isSpecialOfferPage
@@ -343,7 +343,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         return false;
       }
     },
-    9,
+    12,
     undefined,
     isPickups || isModelPage || isBodyStylePage ? manualBodyStyle : [],
   );
@@ -518,13 +518,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getVehicles, isCarSearch, isMakePage, getRanges, isSpecialOfferPage]);
 
-  // force call getVehicles query if user press to checkbox after SSR and getVehicles instanse don't exist
-  useEffect(() => {
-    if (isSpecialOffers && !isSpecialOfferPage && !called) {
-      // getVehicles();
-    }
-  }, [isSpecialOffers, called, getVehicles, isSpecialOfferPage]);
-
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
     if (data && !cardsData.length && loading) {
@@ -564,11 +557,6 @@ const SearchPageContainer: React.FC<IProps> = ({
       // use range lenght for manufacture page
       if (!isMakePage && !isAllMakesPage)
         setTotalCount(data.vehicleList.totalCount);
-      setCapsIds(
-        data.vehicleList?.edges?.map(
-          vehicle => vehicle?.node?.derivativeId || '',
-        ) || [],
-      );
     }
   }, [
     data,
@@ -945,35 +933,33 @@ const SearchPageContainer: React.FC<IProps> = ({
         )}
       <div className="row:bg-light -xthin">
         <div className="row:search-filters">
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
-            <FiltersContainer
-              isPersonal={isPersonal}
-              isMakePage={isMakePage}
-              isRangePage={isRangePage}
-              setType={value => setIsPersonal(value)}
-              onSearch={onSearch}
-              isPickups={isPickups}
-              isCarSearch={isCarSearch}
-              preSearchVehicleCount={totalCount}
-              isSpecialOffers={
-                (isSpecialOffers &&
-                  !(isRangePage || isModelPage || isDynamicFilterPage)) ||
-                null
-              }
-              setIsSpecialOffers={setIsSpecialOffers}
-              isModelPage={isModelPage}
-              isAllMakesPage={isAllMakesPage}
-              isBodyPage={isBodyStylePage}
-              isBudgetPage={isBudgetPage}
-              isDynamicFilterPage={isDynamicFilterPage}
-              isFuelPage={isFuelPage}
-              isTransmissionPage={isTransmissionPage}
-              sortOrder={sortOrder}
-              isPreloadList={!!preLoadVehiclesList}
-              setSearchFilters={setFiltersData}
-              preLoadFilters={preLoadFiltersData}
-            />
-          </LazyLoadComponent>
+          <FiltersContainer
+            isPersonal={isPersonal}
+            isMakePage={isMakePage}
+            isRangePage={isRangePage}
+            setType={value => setIsPersonal(value)}
+            onSearch={onSearch}
+            isPickups={isPickups}
+            isCarSearch={isCarSearch}
+            preSearchVehicleCount={totalCount}
+            isSpecialOffers={
+              (isSpecialOffers &&
+                !(isRangePage || isModelPage || isDynamicFilterPage)) ||
+              null
+            }
+            setIsSpecialOffers={setIsSpecialOffers}
+            isModelPage={isModelPage}
+            isAllMakesPage={isAllMakesPage}
+            isBodyPage={isBodyStylePage}
+            isBudgetPage={isBudgetPage}
+            isDynamicFilterPage={isDynamicFilterPage}
+            isFuelPage={isFuelPage}
+            isTransmissionPage={isTransmissionPage}
+            sortOrder={sortOrder}
+            isPreloadList={!!preLoadVehiclesList}
+            setSearchFilters={setFiltersData}
+            preLoadFilters={preLoadFiltersData}
+          />
         </div>
       </div>
 
@@ -1295,7 +1281,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                             className="card__article"
                             imageSrc={
                               card?.image?.file?.url ||
-                              '/vehiclePlaceholder.jpg'
+                              `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
                             }
                             title={{
                               title:

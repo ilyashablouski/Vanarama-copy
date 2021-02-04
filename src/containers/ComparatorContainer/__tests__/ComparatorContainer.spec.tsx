@@ -3,8 +3,10 @@ import renderer from 'react-test-renderer';
 import preloadAll from 'jest-next-dynamic';
 import ComparatorContainer from '../ComparatorContainer';
 import { useVehicleData } from '../gql';
+import cachedLeaseType from '../../../hooks/useLeaseType';
 
 jest.mock('../gql');
+jest.mock('../../../hooks/useLeaseType');
 
 describe('<ComparatorContainer />', () => {
   beforeEach(async () => {
@@ -18,6 +20,7 @@ describe('<ComparatorContainer />', () => {
       data: undefined,
       error: { message: 'Error' },
     });
+    (cachedLeaseType as jest.Mock).mockReturnValue({});
 
     const getComponent = () => {
       return renderer.create(<ComparatorContainer />).toJSON();
@@ -34,6 +37,7 @@ describe('<ComparatorContainer />', () => {
       data: undefined,
       error: undefined,
     });
+    (cachedLeaseType as jest.Mock).mockReturnValue({});
 
     const getComponent = () => {
       return renderer.create(<ComparatorContainer />).toJSON();
