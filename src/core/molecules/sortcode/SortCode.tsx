@@ -17,6 +17,7 @@ const SortCode: React.FC<ISortCodeProps> = ({
     <NumericInput
       {...firstInputProps}
       disabled={disabled}
+      max={2}
       onChange={e => {
         if (isLessThanThreeCharacters(e)) {
           onChange(e, [e.target.value, middle, last]);
@@ -27,6 +28,7 @@ const SortCode: React.FC<ISortCodeProps> = ({
     <NumericInput
       {...middleInputProps}
       disabled={disabled}
+      max={2}
       onChange={e => {
         if (isLessThanThreeCharacters(e)) {
           onChange(e, [first, e.target.value, last]);
@@ -37,6 +39,7 @@ const SortCode: React.FC<ISortCodeProps> = ({
     <NumericInput
       {...lastInputProps}
       disabled={disabled}
+      max={2}
       onChange={e => {
         if (isLessThanThreeCharacters(e)) {
           onChange(e, [first, middle, e.target.value]);
