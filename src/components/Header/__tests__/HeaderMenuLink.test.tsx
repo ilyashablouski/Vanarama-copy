@@ -15,7 +15,6 @@ jest.mock('next/router', () => ({
     asPath: '/',
   }),
 }));
-jest.mock('../../../hooks/useMediaQuery');
 
 describe('<HeaderMenuLink />', () => {
   beforeEach(async () => {
