@@ -22,5 +22,5 @@ export interface ITextInputProps
   /**
    * Max input length
    */
-  max?: number;
+  max?: number | string;
 }
