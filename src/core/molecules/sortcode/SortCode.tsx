@@ -1,5 +1,6 @@
 import cx from 'classnames';
 import React from 'react';
+import useAutoFocus from '../../../hooks/useAutoFocus';
 import NumericInput from '../../atoms/numeric-input';
 import { ISortCodeProps } from './interfaces';
 
@@ -12,40 +13,57 @@ const SortCode: React.FC<ISortCodeProps> = ({
   middleInputProps = {},
   onChange,
   value: [first, middle, last] = ['', '', ''],
-}) => (
-  <div className={cx('sortcode', className)} data-testid={dataTestId}>
-    <NumericInput
-      {...firstInputProps}
-      disabled={disabled}
-      onChange={e => {
-        if (isLessThanThreeCharacters(e)) {
-          onChange(e, [e.target.value, middle, last]);
-        }
-      }}
-      value={first}
-    />
-    <NumericInput
-      {...middleInputProps}
-      disabled={disabled}
-      onChange={e => {
-        if (isLessThanThreeCharacters(e)) {
-          onChange(e, [first, e.target.value, last]);
-        }
-      }}
-      value={middle}
-    />
-    <NumericInput
-      {...lastInputProps}
-      disabled={disabled}
-      onChange={e => {
-        if (isLessThanThreeCharacters(e)) {
-          onChange(e, [first, middle, e.target.value]);
-        }
-      }}
-      value={last}
-    />
-  </div>
-);
+}) => {
+  const { handleAutoFocus } = useAutoFocus(3);
+  return (
+    <div className={cx('sortcode', className)} data-testid={dataTestId}>
+      <NumericInput
+        {...firstInputProps}
+        disabled={disabled}
+        max={2}
+        onChange={e => {
+          if (isLessThanThreeCharacters(e)) {
+            onChange(e, [e.target.value, middle, last]);
+            handleAutoFocus(e);
+          }
+        }}
+        value={first}
+        name="sc-1"
+        type="number"
+        role="textbox"
+      />
+      <NumericInput
+        {...middleInputProps}
+        disabled={disabled}
+        max={2}
+        onChange={e => {
+          if (isLessThanThreeCharacters(e)) {
+            onChange(e, [first, e.target.value, last]);
+            handleAutoFocus(e);
+          }
+        }}
+        value={middle}
+        name="sc-2"
+        type="number"
+        role="textbox"
+      />
+      <NumericInput
+        {...lastInputProps}
+        disabled={disabled}
+        max={2}
+        onChange={e => {
+          if (isLessThanThreeCharacters(e)) {
+            onChange(e, [first, middle, e.target.value]);
+          }
+        }}
+        value={last}
+        name="sc-3"
+        type="number"
+        role="textbox"
+      />
+    </div>
+  );
+};
 
 function isLessThanThreeCharacters(e: React.ChangeEvent<HTMLInputElement>) {
   return e.target.value.length < 3;
