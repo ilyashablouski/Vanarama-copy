@@ -11,7 +11,6 @@ import Header from '../../components/Header';
 import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
 import { PrimaryHeader_primaryHeader_linkGroups_linkGroups as LinkGroups } from '../../../generated/PrimaryHeader';
 import { IHeaderLink } from '../../components/Header/Header';
-import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { GetPrimaryHeaderData as HeaderData } from '../../../generated/GetPrimaryHeaderData';
 import HEADER_DATA from '../../deps/data/menuData.json';
 
