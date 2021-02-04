@@ -56,7 +56,7 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
 });
 const OptionsIcon = dynamic(() => import('core/assets/icons/Options'));
-const ChevronUp = dynamic(() => import('core/assets/icons/ChevronUp'));
+// const ChevronUp = dynamic(() => import('core/assets/icons/ChevronUp'));
 const ChevronDown = dynamic(() => import('core/assets/icons/ChevronDown'));
 
 interface IChoiceBoxesData {
@@ -121,7 +121,7 @@ const FiltersContainer = ({
     {} as IChoiceBoxesData,
   );
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1216px)' });
-  const [isOpenFilter, setFilterExpandStatus] = useState(false);
+  function setFilterExpandStatus() {}
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
