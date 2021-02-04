@@ -347,10 +347,15 @@ const FiltersContainer = ({
         setForceFiltersPreset(true);
         return;
       }
-      setSelectedFiltersState(prevState => ({
-        ...prevState,
-        ...presetFilters,
-      }));
+      setSelectedFiltersState(prevState => {
+        if (router.query.isChangePage === 'true') {
+          return { ...initialState, ...presetFilters };
+        }
+        return {
+          ...prevState,
+          ...presetFilters,
+        };
+      });
       if (isPreloadList) {
         setSearchFilters(
           filtersSearchMapper({ ...selectedFiltersState, ...presetFilters }),
