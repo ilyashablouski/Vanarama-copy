@@ -51,7 +51,7 @@ export const mapFormValues = (
 ) => {
   const searchResult =
     values.inputMode === 'search' && values.companySearchResult;
-
+  console.log({values});
   return {
     person: { uuid: personUuid },
     uuid: companyUuid || values.uuid || null,
