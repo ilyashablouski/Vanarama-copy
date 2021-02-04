@@ -23,7 +23,7 @@ const TextInput: React.FC<ITextInputProps> = React.forwardRef<
   return (
     <div className={cx('textinput regular', className)} style={style}>
       <input
-        maxLength={max}
+        maxLength={Number(max)}
         {...rest}
         className={cx('textinput--native regular', className, {
           '-calculated': calculated,
