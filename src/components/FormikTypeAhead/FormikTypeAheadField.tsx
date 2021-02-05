@@ -10,9 +10,15 @@ import useDebounce from '../../hooks/useDebounce';
 interface IProps extends ITextInputProps {
   name: string;
   label: string;
+  hint?: string;
 }
 
-const FormikTypeAheadField: React.FC<IProps> = ({ name, label, ...rest }) => {
+const FormikTypeAheadField: React.FC<IProps> = ({
+  name,
+  label,
+  hint,
+  ...rest
+}) => {
   const [field, meta, helpers] = useField(name);
   const [searchValue, setSearchValue] = useState(field.value || '');
   const debouncedSearchTerm = useDebounce(searchValue);
@@ -32,7 +38,7 @@ const FormikTypeAheadField: React.FC<IProps> = ({ name, label, ...rest }) => {
   }
 
   return (
-    <Formgroup controlId={name} label={label} error={error}>
+    <Formgroup controlId={name} label={label} error={error} hint={hint}>
       <Typeahead
         getSuggestionValue={suggestion => suggestion}
         inputProps={{

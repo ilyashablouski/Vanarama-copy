@@ -44,7 +44,7 @@ export const withSavedAddresses = (
         city: 'Springfield',
         postcode: '49007',
         propertyStatus: 'Mortgage',
-        startedOn: '1990-01-01',
+        startedOn: '1990-1-01',
       },
     ],
   },
@@ -74,7 +74,7 @@ export const withSavedAddressesInWrongOrder = (
         city: 'Springfield',
         postcode: '49007',
         propertyStatus: 'Mortgage',
-        startedOn: '1990-01-01',
+        startedOn: '1990-1-01',
       },
       {
         __typename: 'AddressType',

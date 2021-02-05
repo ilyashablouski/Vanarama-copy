@@ -17,6 +17,7 @@ const cluster = require('cluster');
 
 const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
+const cache = require('./cache');
 const { version } = require('./package.json');
 
 // const inspect = require('./inspect');
@@ -72,6 +73,7 @@ if (cluster.isMaster) {
       server.use(hpp());
       server.use(compression());
       server.disable('x-powered-by');
+      server.use(cache);
 
       return server;
     })
@@ -103,9 +105,6 @@ if (cluster.isMaster) {
         // Disable indexing on live domain.
         if (!req.get('host').includes('vanarama.com'))
           res.setHeader('X-Robots-Tag', 'noindex');
-
-        if (!dev)
-          res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
 
         return handle(req, res);
       });

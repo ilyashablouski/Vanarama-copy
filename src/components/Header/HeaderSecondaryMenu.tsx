@@ -26,7 +26,7 @@ export interface IHeaderSecondaryMenuProps extends IBaseProps {
   links: IHeaderLink[];
   title: string;
   onClickTitle: () => void;
-  isMobile: boolean;
+  isTabletOrMobile: boolean;
   isMenuOpen: boolean;
   promotionalImage?: IHeaderPromoImage;
 }
@@ -37,7 +37,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     links,
     title,
     onClickTitle,
-    isMobile,
+    isTabletOrMobile,
     isMenuOpen,
     promotionalImage,
   } = props;
@@ -56,10 +56,10 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
   );
 
   useEffect(() => {
-    if (isMobile) {
+    if (isTabletOrMobile) {
       setActiveTertiaryMenu(null);
     }
-  }, [router, setActiveTertiaryMenu, isMenuOpen, isMobile]);
+  }, [router, setActiveTertiaryMenu, isMenuOpen, isTabletOrMobile]);
 
   const linkClassName = (classes: {
     title?: boolean;
@@ -114,14 +114,14 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                     key={`${link.label}_${title}`}
                     className={link.highlight ? 'link -white' : 'link -inherit'}
                     onClick={
-                      isMobile && link.children?.length
+                      isTabletOrMobile && link.children?.length
                         ? () => {
                             setActiveTertiaryMenu(link?.id || '');
                           }
                         : undefined
                     }
                     onMouseOver={
-                      !isMobile && link.children?.length
+                      !isTabletOrMobile && link.children?.length
                         ? () => {
                             setActiveTertiaryMenu(link?.id || '');
                           }
@@ -148,7 +148,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                     color: (!!link.highlight && 'white') || 'inherit',
                   }}
                   onClick={
-                    isMobile && link.children?.length
+                    isTabletOrMobile && link.children?.length
                       ? el => {
                           el.preventDefault();
                           setActiveTertiaryMenu(link.id || null);

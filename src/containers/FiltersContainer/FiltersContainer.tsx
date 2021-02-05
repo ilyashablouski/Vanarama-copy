@@ -120,13 +120,13 @@ const FiltersContainer = ({
   const [choiceBoxesData, setChoiceBoxesData] = useState(
     {} as IChoiceBoxesData,
   );
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1216px)' });
+  const isTabletOrMobile = useMediaQuery({ maxDeviceWidth: 1216 });
   const [isOpenFilter, setFilterExpandStatus] = useState(false);
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
   >(initialState);
-  const [selectedFilterTags, setSelectedFilterTags] = useState(['']);
+  const [selectedFilterTags, setSelectedFilterTags] = useState([] as string[]);
   const [isInitialLoad, setInitialLoad] = useState(true);
 
   const choiseBoxReference = {} as any;
@@ -347,10 +347,15 @@ const FiltersContainer = ({
         setForceFiltersPreset(true);
         return;
       }
-      setSelectedFiltersState(prevState => ({
-        ...prevState,
-        ...presetFilters,
-      }));
+      setSelectedFiltersState(prevState => {
+        if (router.query.isChangePage === 'true') {
+          return { ...initialState, ...presetFilters };
+        }
+        return {
+          ...prevState,
+          ...presetFilters,
+        };
+      });
       if (isPreloadList) {
         setSearchFilters(
           filtersSearchMapper({ ...selectedFiltersState, ...presetFilters }),
@@ -369,7 +374,7 @@ const FiltersContainer = ({
   }, [setSelectedFiltersState, router]);
 
   useEffect(() => {
-    if (!isTabletOrMobile) setFilterExpandStatus(true);
+    if (window && !isTabletOrMobile) setFilterExpandStatus(true);
     else setFilterExpandStatus(false);
   }, [isTabletOrMobile]);
 

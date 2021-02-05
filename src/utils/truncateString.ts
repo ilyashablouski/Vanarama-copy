@@ -1,4 +1,4 @@
-function truncateString(str: string = '', num: number = 25) {
+function truncateString(str: string = '', num: number = 45) {
   if (str.length <= num) {
     return str;
   }

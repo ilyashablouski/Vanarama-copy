@@ -16,6 +16,7 @@ const compression = require('compression');
 
 const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
+const cache = require('./cache');
 const { version } = require('./package.json');
 
 // const inspect = require('./inspect');
@@ -62,6 +63,7 @@ app
     server.use(hpp());
     server.use(compression());
     server.disable('x-powered-by');
+    server.use(cache);
 
     return server;
   })
@@ -93,9 +95,6 @@ app
       // Disable indexing on live domain.
       if (!req.get('host').includes('vanarama.com'))
         res.setHeader('X-Robots-Tag', 'noindex');
-
-      if (!dev)
-        res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
 
       return handle(req, res);
     });

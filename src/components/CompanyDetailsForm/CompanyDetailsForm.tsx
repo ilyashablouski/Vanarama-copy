@@ -62,6 +62,14 @@ const CompanyDetailsForm: React.FC<IProps> = ({
       setProceedCompany(company?.companySearchResult);
       setHasConfirmedCompany(true);
       setNatureOfBusiness(company.nature?.split('.') || []);
+      methods.setValue(
+        'registeredAddress',
+        {
+          id: company.registeredAddress?.id || '',
+          label: company.registeredAddress?.label || '',
+        },
+        true,
+      );
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [company]);
@@ -73,17 +81,16 @@ const CompanyDetailsForm: React.FC<IProps> = ({
   }, [selectedCompanyData, getCompanyDetails]);
 
   useEffect(() => {
-    methods.setValue(
-      'registeredAddress',
-      {
-        id: company?.registeredAddress?.id || '',
-        label:
-          company?.registeredAddress?.label ||
-          selectedCompanyData?.addressSnippet ||
-          '',
-      },
-      true,
-    );
+    if (selectedCompanyData) {
+      methods.setValue(
+        'registeredAddress',
+        {
+          id: '',
+          label: selectedCompanyData.addressSnippet || '',
+        },
+        true,
+      );
+    }
   }, [methods, selectedCompanyData]);
 
   const handleNatureSelect = (selectedNature: string | string[]) => {

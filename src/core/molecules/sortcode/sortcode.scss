@@ -5,4 +5,9 @@
   gap: 1ch;
   grid-auto-flow: column;
   grid-auto-columns: 4.25ch;
+  input[type='number']::-webkit-inner-spin-button,
+  input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 }

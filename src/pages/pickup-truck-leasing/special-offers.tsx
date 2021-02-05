@@ -73,7 +73,7 @@ export async function getServerSideProps(context: NextPageContext) {
           vehicleTypes: [VehicleTypeEnum.LCV],
           leaseType: LeaseTypeEnum.BUSINESS,
           onOffer: true,
-          first: 9,
+          first: 12,
           sortField: SortField.offerRanking,
           sortDirection: SortDirection.ASC,
           bodyStyles: ['Pickup'],

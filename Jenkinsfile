@@ -41,6 +41,7 @@ def app_environment = [
         env: 'uat',
         stack: 'grid',
         slackChannelInfra: '#dev-infra-approvals',
+        slackChannelQA: '#qa-code-approvals',
         jenkinsCredentialsId: 'aws-keys-terraform-grid-test',
         accountId: '126764662304',
         awsMasterRole: 'arn:aws:iam::126764662304:role/AutoramaGridDelegate',
@@ -508,17 +509,23 @@ pipeline {
             when {
                   beforeAgent true
                   anyOf {
+                    branch 'develop'
                     branch 'release/*'
                   }
               }
             steps {
               script{
                 // This is for Build Feedback to Jira
-                  println scm.branches[0].name
-                  currentBranch = scm.branches[0].name
-                  jiraSendBuildInfo branch: "${currentBranch}", site: 'autorama.atlassian.net'
+                    println scm.branches[0].name
+                    currentBranch = scm.branches[0].name
+                    if ( branchName == 'develop' ) {
+                        jiraSendBuildInfo branch: "${currentBranch}", site: 'autorama.atlassian.net'
+                        slackSend channel: app_environment["${getConfig()}"].slackChannelQA, color: 'warning', message: "Jenkins Job: ${J_NAME} - ${B_NUMBER} is ready for approval into UAT"
+                    } else if (branchName =~ 'release/*') {
+                        // jiraSendDeploymentInfo
+                        slackSend channel: app_environment["${getConfig()}"].slackChannelQA, color: 'good', message: "Jenkins Job: ${J_NAME} - ${B_NUMBER} is applied to UAT"
+                    }
                 //
-              slackSend channel: app_environment["${getConfig()}"].slackChannelQA, color: 'good', message: "Jenkins Job: ${J_NAME} - ${B_NUMBER} is ready for approval"
               }
             }
           }
