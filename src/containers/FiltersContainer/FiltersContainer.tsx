@@ -120,7 +120,7 @@ const FiltersContainer = ({
   const [choiceBoxesData, setChoiceBoxesData] = useState(
     {} as IChoiceBoxesData,
   );
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1216px)' });
+  const isTabletOrMobile = useMediaQuery({ maxDeviceWidth: 1216 });
   const [isOpenFilter, setFilterExpandStatus] = useState(false);
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
@@ -374,8 +374,10 @@ const FiltersContainer = ({
   }, [setSelectedFiltersState, router]);
 
   useEffect(() => {
-    if (!isTabletOrMobile) setFilterExpandStatus(true);
-    else setFilterExpandStatus(false);
+    if (window) {
+      if (!isTabletOrMobile) setFilterExpandStatus(true);
+      else setFilterExpandStatus(false);
+    }
   }, [isTabletOrMobile]);
 
   useFirstRenderEffect(() => {
