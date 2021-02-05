@@ -1,9 +1,25 @@
 import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
+import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import SoleTraderDetailsForm from '../SoleTraderDetailsForm';
 import { ISoleTraderDetailsFormValues } from '../interfaces';
+import { GET_OCCUPATIONS } from '../../EmploymentForm/gql';
 
+const sicData: MockedResponse[] = [
+  {
+    request: {
+      query: GET_OCCUPATIONS,
+    },
+    result: {
+      data: {
+        occupationList: {
+          occupations: ['AAA'],
+        },
+      },
+    },
+  },
+];
 describe('<SoleTraderDetailsForm />', () => {
   const onSubmitMock = jest.fn<Promise<void>, [ISoleTraderDetailsFormValues]>();
 
@@ -11,53 +27,55 @@ describe('<SoleTraderDetailsForm />', () => {
     await preloadAll();
     onSubmitMock.mockRestore();
     render(
-      <SoleTraderDetailsForm
-        isEdited={false}
-        dropdownData={{
-          __typename: 'DropDownType',
-          titles: {
-            __typename: 'DropDownDataType',
-            data: ['Mr.', 'Mrs.', 'Professor'],
-            favourites: [],
-          },
-          countries: {
-            __typename: 'DropDownDataType',
-            data: ['United Kingdom', 'United States'],
-            favourites: [],
-          },
-          nationalities: {
-            __typename: 'DropDownDataType',
-            data: ['British', 'Irish'],
-            favourites: [],
-          },
-          maritalStatuses: {
-            __typename: 'DropDownDataType',
-            data: ['Single', 'Married'],
-            favourites: [],
-          },
-          noOfAdultsInHousehold: {
-            __typename: 'DropDownDataType',
-            data: ['1', 'More than 1'],
-            favourites: [],
-          },
-          noOfDependants: {
-            __typename: 'DropDownDataType',
-            data: ['None', 'Lots...'],
-            favourites: [],
-          },
-          propertyStatuses: {
-            __typename: 'DropDownDataType',
-            data: ['Owned outright', 'Rented'],
-            favourites: [],
-          },
-          occupations: {
-            __typename: 'DropDownDataType',
-            data: [''],
-            favourites: [],
-          },
-        }}
-        onSubmit={onSubmitMock}
-      />,
+      <MockedProvider mocks={sicData}>
+        <SoleTraderDetailsForm
+          isEdited={false}
+          dropdownData={{
+            __typename: 'DropDownType',
+            titles: {
+              __typename: 'DropDownDataType',
+              data: ['Mr.', 'Mrs.', 'Professor'],
+              favourites: [],
+            },
+            countries: {
+              __typename: 'DropDownDataType',
+              data: ['United Kingdom', 'United States'],
+              favourites: [],
+            },
+            nationalities: {
+              __typename: 'DropDownDataType',
+              data: ['British', 'Irish'],
+              favourites: [],
+            },
+            maritalStatuses: {
+              __typename: 'DropDownDataType',
+              data: ['Single', 'Married'],
+              favourites: [],
+            },
+            noOfAdultsInHousehold: {
+              __typename: 'DropDownDataType',
+              data: ['1', 'More than 1'],
+              favourites: [],
+            },
+            noOfDependants: {
+              __typename: 'DropDownDataType',
+              data: ['None', 'Lots...'],
+              favourites: [],
+            },
+            propertyStatuses: {
+              __typename: 'DropDownDataType',
+              data: ['Owned outright', 'Rented'],
+              favourites: [],
+            },
+            occupations: {
+              __typename: 'DropDownDataType',
+              data: [''],
+              favourites: [],
+            },
+          }}
+          onSubmit={onSubmitMock}
+        />
+      </MockedProvider>,
     );
   });
 
