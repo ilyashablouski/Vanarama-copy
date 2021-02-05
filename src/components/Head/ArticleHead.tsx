@@ -13,9 +13,9 @@ const env = process?.env?.ENV || '';
 const scriptEnvs = {
   // gtm: ['dev', 'uat', 'pre-prod', 'prod'],
 
-  blueconic: ['dev', 'uat', 'pre-prod', 'prod'],
+  blueconic: ['uat', 'pre-prod', 'prod'],
 
-  vwo: ['dev', 'uat', 'pre-prod', 'prod'],
+  vwo: ['uat', 'pre-prod', 'prod'],
 };
 
 const PRECONNECT = [
