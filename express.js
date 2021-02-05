@@ -16,6 +16,7 @@ const compression = require('compression');
 
 const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
+const cache = require('./cache');
 const { version } = require('./package.json');
 
 // const inspect = require('./inspect');
@@ -62,6 +63,7 @@ app
     server.use(hpp());
     server.use(compression());
     server.disable('x-powered-by');
+    server.use(cache);
 
     return server;
   })
