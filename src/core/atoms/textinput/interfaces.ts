@@ -19,4 +19,8 @@ export interface ITextInputProps
    * A ref to attach to the input
    */
   ref?: React.Ref<HTMLInputElement>;
+  /**
+   * Max input length
+   */
+  max?: number | string;
 }

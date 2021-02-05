@@ -56,7 +56,7 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
 });
 const OptionsIcon = dynamic(() => import('core/assets/icons/Options'));
-const ChevronUp = dynamic(() => import('core/assets/icons/ChevronUp'));
+// const ChevronUp = dynamic(() => import('core/assets/icons/ChevronUp'));
 const ChevronDown = dynamic(() => import('core/assets/icons/ChevronDown'));
 
 interface IChoiceBoxesData {
@@ -121,7 +121,9 @@ const FiltersContainer = ({
     {} as IChoiceBoxesData,
   );
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1216px)' });
-  const [isOpenFilter, setFilterExpandStatus] = useState(false);
+  function setFilterExpandStatus(value: boolean) {
+    console.log(value);
+  }
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
@@ -347,10 +349,15 @@ const FiltersContainer = ({
         setForceFiltersPreset(true);
         return;
       }
-      setSelectedFiltersState(prevState => ({
-        ...prevState,
-        ...presetFilters,
-      }));
+      setSelectedFiltersState(prevState => {
+        if (router.query.isChangePage === 'true') {
+          return { ...initialState, ...presetFilters };
+        }
+        return {
+          ...prevState,
+          ...presetFilters,
+        };
+      });
       if (isPreloadList) {
         setSearchFilters(
           filtersSearchMapper({ ...selectedFiltersState, ...presetFilters }),
@@ -642,15 +649,15 @@ const FiltersContainer = ({
 
   /** handle filter expand status */
   const handleFilterExpand = () => {
-    if (isTabletOrMobile) setFilterExpandStatus(prevValue => !prevValue);
+    if (isTabletOrMobile) setFilterExpandStatus(false);
   };
   return (
-    <SearchFilters isOpen={isOpenFilter}>
+    <SearchFilters isOpen={false}>
       <SearchFiltersHead onClick={handleFilterExpand}>
         <Icon icon={<OptionsIcon />} className="search-filters--title-icon" />
         <span>Filters</span>
         <Icon
-          icon={isOpenFilter ? <ChevronUp /> : <ChevronDown />}
+          icon={<ChevronDown />}
           className="search-filters--title-icon"
           color="white"
         />
