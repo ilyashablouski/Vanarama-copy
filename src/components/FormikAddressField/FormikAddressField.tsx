@@ -1,7 +1,7 @@
 import AddressFinder from 'core/molecules/address-finder';
 import Formgroup from 'core/molecules/formgroup';
 import { useField } from 'formik';
-import React from 'react';
+import React, { useState } from 'react';
 
 interface IProps {
   name: string;
@@ -10,7 +10,9 @@ interface IProps {
 
 const FormikAddressField: React.FC<IProps> = ({ name, label }) => {
   const [field, meta, helpers] = useField(name);
-  const error = (meta.touched && meta.error) || undefined;
+  const [isFocused, setIsFocused] = useState(false);
+  const error = (meta.touched && !isFocused && meta.error) || undefined;
+
   return (
     <AddressFinder
       apiKey={process.env.LOQATE_KEY!}
@@ -23,7 +25,11 @@ const FormikAddressField: React.FC<IProps> = ({ name, label }) => {
         <AddressFinder.Input
           id={name}
           dataTestId={name}
-          onBlur={field.onBlur}
+          onBlur={e => {
+            setIsFocused(false);
+            field.onBlur(e);
+          }}
+          onFocus={() => setIsFocused(true)}
         />
         <AddressFinder.Selected />
         <AddressFinder.Intermediate />
