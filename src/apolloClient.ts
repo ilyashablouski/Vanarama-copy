@@ -5,7 +5,7 @@ import {
   InMemoryCache,
   HttpLink,
 } from '@apollo/client';
-import { createPersistedQueryLink } from "apollo-link-persisted-queries";
+import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
 // import Router from 'next/router';
 // import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
@@ -27,7 +27,9 @@ const httpLink = new HttpLink({
 });
 
 // NOTE: Type 'HttpLink | ApolloLink' is not assignable to type 'ApolloLink | RequestHandler' - https://github.com/apollographql/apollo-client/issues/6011
-const persistedQueryLink = createPersistedQueryLink({ useGETForHashedQueries: true }) as any;
+const persistedQueryLink = createPersistedQueryLink({
+  useGETForHashedQueries: true,
+}) as any;
 
 const logLink = new ApolloLink((operation, forward) => {
   const query = {
