@@ -37,27 +37,28 @@ const HelpMeChooseResult: FC<HelpMeChooseStep> = props => {
   const {
     setSteps,
     steps,
-    getProductsFilterList,
-    productsFilterListData,
+    getProductVehicleList,
+    productVehicleListData,
   } = props;
 
   const stateVAT =
     (steps?.financeTypes?.value as any) === 'PCH' ? 'inc' : 'exc';
   const minRental = getSectionsData(
-    ['productsFilterList', 'rental', 'stats', 'min'],
-    productsFilterListData?.data,
+    ['productVehicleList', 'rental', 'stats', 'min'],
+    productVehicleListData?.data,
   );
   const defaultRental =
     (steps.rental?.value as any) ??
     RENTAL_DATA.find(el => el.value > minRental)?.value;
   const vehiclesResultNumber = getSectionsData(
-    ['productsFilterList', 'manufacturers', 'docCount'],
-    productsFilterListData?.data,
+    ['productVehicleList', 'totalCount'],
+    productVehicleListData?.data,
   );
-  const initialPaymentNumber = getSectionsData(
-    ['productsFilterList', 'initialPayment', 'stats', 'min'],
-    productsFilterListData?.data,
-  );
+  const initialPaymentNumber =
+    getSectionsData(
+      ['productVehicleList', 'aggs', 'initialPayment', 'stats', 'min'],
+      productVehicleListData?.data,
+    ) || 0;
 
   const [rental, setRental] = useState<number>(defaultRental ?? 550);
   const [initialPeriods, setInitialPeriods] = useState<string>(
@@ -111,10 +112,10 @@ const HelpMeChooseResult: FC<HelpMeChooseStep> = props => {
       });
       setRental(rentalQuey || rental);
       setInitialPeriods(initialPeriodsQuey || initialPeriods);
-      getProductsFilterList({
+      getProductVehicleList({
         variables: {
           filter: {
-            ...buildAnObjectFromAQuery(searchParams),
+            ...buildAnObjectFromAQuery(searchParams, steps),
           },
         },
       });
@@ -125,10 +126,10 @@ const HelpMeChooseResult: FC<HelpMeChooseStep> = props => {
   const onChangeParams = (rentalId: number, initialPeriodValue: string) => {
     const searchParams = new URLSearchParams(window.location.search);
     const rentalValue = RENTAL_DATA[rentalId - 1].value;
-    getProductsFilterList({
+    getProductVehicleList({
       variables: {
         filter: {
-          ...buildAnObjectFromAQuery(searchParams),
+          ...buildAnObjectFromAQuery(searchParams, steps),
           rental: {
             min: rentalValue,
           },
