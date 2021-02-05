@@ -82,6 +82,7 @@ const EmploymentFormFieldArray: FCWithFragments<IProps> = ({
                 <FormikTypeAheadField
                   name={`history[${index}].title`}
                   label="Job Title"
+                  hint="Please select from the list"
                 />
                 <FormikTextField
                   name={`history[${index}].company`}
