@@ -104,9 +104,6 @@ if (cluster.isMaster) {
         if (!req.get('host').includes('vanarama.com'))
           res.setHeader('X-Robots-Tag', 'noindex');
 
-        if (!dev)
-          res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
-
         return handle(req, res);
       });
       return server;
