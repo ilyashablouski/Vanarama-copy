@@ -12,7 +12,6 @@ import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
-import { useMediaQuery } from 'react-responsive';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -237,7 +236,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
   const [pageOffset, setPageOffset] = useState(0);
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1216px)' });
 
   useEffect(() => {
     const type = isPersonal ? 'Personal' : 'Business';
@@ -735,7 +733,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
-          {`mobile:${isTabletOrMobile}`}
+          {metaData?.name}
         </Heading>
 
         <section className="row:featured-right">
