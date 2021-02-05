@@ -7,7 +7,6 @@ const DEFAULT_OPTIMISATION: ICloudflareOptimisation = {
   quality: 75,
   sharpness: 0,
   metadata: 'none',
-  format: 'auto',
 };
 
 function setProtocol(url: string, protocol: string) {
