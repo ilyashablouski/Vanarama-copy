@@ -37,26 +37,20 @@ const AboutForm: FCWithFragments<IProps> = ({
   dropdownData,
   person,
   submit,
-  personLoggedIn,
-  onEmailExistenceCheck,
+  emailValidator,
+  isEmailDisabled,
   onLogInClick,
   onRegistrationClick,
 }) => {
-  const isEmailCheckerExists = onEmailExistenceCheck !== undefined;
   const defaultValues = useMemo(() => responseToInitialFormValues(person), [
     person,
   ]);
   const validationSchema = useMemo(
     () =>
-      isEmailCheckerExists
-        ? createValidationSchema(
-            onEmailExistenceCheck!,
-            defaultValues,
-            personLoggedIn,
-          )
-        : createValidationSchema(() => Promise.resolve(null)),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [isEmailCheckerExists, defaultValues],
+      emailValidator
+        ? createValidationSchema(emailValidator)
+        : createValidationSchema(() => Promise.resolve(undefined)),
+    [emailValidator, defaultValues],
   );
   const months = genMonths();
   const years = genYears(100);
@@ -131,7 +125,7 @@ const AboutForm: FCWithFragments<IProps> = ({
         )}
       >
         <TextInput
-          disabled={!!defaultValues?.email && personLoggedIn}
+          disabled={isEmailDisabled && errors.email?.message === undefined}
           id="email"
           type="email"
           name="email"

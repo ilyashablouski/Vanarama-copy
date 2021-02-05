@@ -10,10 +10,7 @@ import FCWithFragments from '../../utils/FCWithFragments';
 import { EMAIL_REGEX, WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
 import OptionsWithFavourites from '../OptionsWithFavourites/OptionsWithFavourites';
 import { IBusinessAboutFormValues, IProps } from './interfaces';
-import {
-  mapEmailErrorMessage,
-  createEmailErrorMessage,
-} from '../AboutForm/mapEmailErrorMessage';
+import { mapEmailErrorMessage } from '../AboutForm/mapEmailErrorMessage';
 import { companyTypesList } from '../../models/enum/CompanyTypes';
 import Skeleton from '../Skeleton';
 
@@ -178,7 +175,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         )}
       >
         <TextInput
-          disabled={isEmailDisabled}
+          disabled={isEmailDisabled && errors.email?.message === undefined}
           id="email"
           name="email"
           dataTestId="about-you_email"

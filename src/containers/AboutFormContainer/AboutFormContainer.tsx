@@ -12,6 +12,7 @@ import {
 } from '../../gql/temporaryRegistration';
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';
 import Skeleton from '../../components/Skeleton';
+import { createEmailErrorMessage } from '../../components/AboutForm/mapEmailErrorMessage';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -19,7 +20,6 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 
 const AboutFormContainer: React.FC<IProps> = ({
   onCompleted,
-  personLoggedIn,
   personUuid,
   onLogInClick,
   onRegistrationClick,
@@ -30,18 +30,18 @@ const AboutFormContainer: React.FC<IProps> = ({
   const [emailAlreadyExists] = useEmailCheck();
   const [registerTemporary] = useRegistrationForTemporaryAccessMutation();
 
-  const onEmailCheck = async (email: string) => {
+  const emailValidator = async (email: string) => {
     const result = await emailAlreadyExists({
       variables: { email },
     });
 
     const checkResult = result.data?.emailAlreadyExists;
 
-    if (!checkResult?.isSuccessfull) {
-      return null;
+    if (!checkResult?.isSuccessfull || !!aboutYouData.data?.personByUuid) {
+      return undefined;
     }
 
-    return checkResult;
+    return createEmailErrorMessage(checkResult);
   };
 
   const handleTemporaryRegistrationIfGuest = (
@@ -88,8 +88,8 @@ const AboutFormContainer: React.FC<IProps> = ({
     <AboutForm
       dropdownData={aboutPageDataQuery.data!.allDropDowns}
       person={aboutYouData.data?.personByUuid}
-      personLoggedIn={personLoggedIn}
-      onEmailExistenceCheck={personLoggedIn ? undefined : onEmailCheck}
+      emailValidator={emailValidator}
+      isEmailDisabled={!!aboutYouData.data?.personByUuid}
       onLogInClick={onLogInClick}
       onRegistrationClick={onRegistrationClick}
       submit={values =>
