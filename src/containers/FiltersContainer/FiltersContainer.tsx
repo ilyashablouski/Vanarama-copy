@@ -22,6 +22,7 @@ import {
   filtersSearchMapper,
   getLabelForSlug,
   setFiltersAfterPageChange,
+  filterOrderByNumMap,
 } from './helpers';
 import Skeleton from '../../components/Skeleton';
 import { dynamicQueryTypeCheck } from '../SearchPageContainer/helpers';
@@ -61,6 +62,11 @@ const ChevronDown = dynamic(() => import('core/assets/icons/ChevronDown'));
 
 interface IChoiceBoxesData {
   [index: string]: IChoice[];
+}
+
+interface ISelectedWithOrder {
+  order: number;
+  value: string;
 }
 
 const initialState = {
@@ -126,7 +132,9 @@ const FiltersContainer = ({
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
   >(initialState);
-  const [selectedFilterTags, setSelectedFilterTags] = useState(['']);
+  const [selectedFilterTags, setSelectedFilterTags] = useState<
+    ISelectedWithOrder[]
+  >([]);
   const [isInitialLoad, setInitialLoad] = useState(true);
 
   const choiseBoxReference = {} as any;
@@ -480,7 +488,7 @@ const FiltersContainer = ({
 
   // subscribe for change applied filters value for manage tags state
   useEffect(() => {
-    const selected: string[] = Object.entries(selectedFiltersState)
+    const selected: ISelectedWithOrder[] = Object.entries(selectedFiltersState)
       // makes in make page should not to be added
       // makes, model, bodystyles in model page should not to be added
       // makes, model in range page should not to be added
@@ -490,7 +498,10 @@ const FiltersContainer = ({
           (entry[0] === filterFields.from || entry[0] === filterFields.to) &&
           entry[1]?.[0]
         ) {
-          return isBudgetPage ? '' : `£${entry[1]}`;
+          return {
+            order: filterOrderByNumMap.budget,
+            value: isBudgetPage ? '' : `£${entry[1]}`,
+          };
         }
         const value =
           ((isMakePage || isRangePage || isModelPage) &&
@@ -502,22 +513,27 @@ const FiltersContainer = ({
             ? ''
             : entry[1];
         // for make and model we should get label value
-        return (entry[0] === filterFields.make ||
-          entry[0] === filterFields.model) &&
-          value.length
-          ? getLabelForSlug(
-              entry[1][0],
-              filtersData,
-              entry[0] === filterFields.make,
-            )
-          : value;
+        return {
+          order: filterOrderByNumMap[entry[0]],
+          value:
+            (entry[0] === filterFields.make ||
+              entry[0] === filterFields.model) &&
+            value.length
+              ? getLabelForSlug(
+                  entry[1][0],
+                  filtersData,
+                  entry[0] === filterFields.make,
+                )
+              : value,
+        };
       })
       .flat()
       .filter(Boolean);
     // prevented useless updates
     // check for empty array used for prevent cases when initial render don't call a request
     if (!isArraySame(selected, selectedFilterTags) || !selected.length)
-      setSelectedFilterTags(selected);
+      console.log('>>>', selected);
+    setSelectedFilterTags(selected);
     // can't to add selectedFilterTags to deps, because it have circular dependency with selectedFiltersState
     // TODO: try to resolve circular dependency
     // eslint-disable-next-line react-hooks/exhaustive-deps

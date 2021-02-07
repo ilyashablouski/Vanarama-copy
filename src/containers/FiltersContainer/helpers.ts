@@ -142,3 +142,12 @@ export const setFiltersAfterPageChange = (
       return presetFilters;
   }
 };
+
+export const filterOrderByNumMap: { [key: string]: number } = {
+  make: 1,
+  model: 2,
+  budget: 3,
+  bodyType: 4,
+  transmission: 5,
+  fuelType: 6,
+};
