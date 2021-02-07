@@ -10,7 +10,7 @@ export interface ISearchFiltersHeadProps extends IBaseProps {
   onClick?: () => void;
 }
 
-type TSelectedWithOrder = {
+export type TSelectedWithOrder = {
   order: number;
   value: string;
 };
