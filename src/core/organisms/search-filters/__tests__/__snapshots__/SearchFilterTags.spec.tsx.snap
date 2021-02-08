@@ -9,9 +9,28 @@ exports[`<SearchFilterTags /> should render correctly with a custom class name 1
     fill="outline"
     icon={<Memo />}
     iconPosition="after"
-    id="Audi, Coupe"
-    key="Audi, Coupe"
-    label="Audi, Coupe"
+    id="Audi"
+    key="Audi"
+    label="Audi"
+    onClick={[Function]}
+    size="xsmall"
+  />
+  <Memo([object Object])
+    color="teal"
+    fill="outline"
+    icon={<Memo />}
+    iconPosition="after"
+    id="Coupe"
+    key="Coupe"
+    label="Coupe"
+    onClick={[Function]}
+    size="xsmall"
+  />
+  <Memo([object Object])
+    color="teal"
+    fill="solid"
+    id="clearAllButton"
+    label="Clear All"
     onClick={[Function]}
     size="xsmall"
   />
