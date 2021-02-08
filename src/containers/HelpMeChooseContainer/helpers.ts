@@ -19,7 +19,7 @@ export const getBuckets = (data: any[], activeData: string[], type?: string) =>
   data.map(bucket => ({
     label: getBucketLabel(type || '', bucket.key),
     value: bucket.key,
-    active: activeData.includes(bucket.key),
+    active: activeData?.includes(bucket.key),
   }));
 
 export const onReplace = (
@@ -36,7 +36,6 @@ export const onReplace = (
     initialPeriods: IStep;
   },
 ) => {
-  console.log(newStep);
   let pathname = router.route.replace('[[...param]]', '');
   const queryString = new URLSearchParams();
   const queries = {} as any;

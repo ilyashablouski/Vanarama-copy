@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { ProductVehicleListInputObject, FinanceTypeEnum } from "./globalTypes";
+import { ProductVehicleListInputObject, FinanceTypeEnum, VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: ProductVehicleList
@@ -38,21 +38,6 @@ export interface ProductVehicleList_productVehicleList_aggs_vehicleType {
   docCount: number | null;
 }
 
-export interface ProductVehicleList_productVehicleList_aggs_manufacturerName {
-  key: string | null;
-  docCount: number | null;
-}
-
-export interface ProductVehicleList_productVehicleList_aggs_modelName {
-  key: string | null;
-  docCount: number | null;
-}
-
-export interface ProductVehicleList_productVehicleList_aggs_rangeName {
-  key: string | null;
-  docCount: number | null;
-}
-
 export interface ProductVehicleList_productVehicleList_aggs_transmission {
   key: string | null;
   docCount: number | null;
@@ -83,22 +68,38 @@ export interface ProductVehicleList_productVehicleList_aggs_initialPeriod {
   docCount: number | null;
 }
 
+export interface ProductVehicleList_productVehicleList_aggs_availability {
+  key: string | null;
+  docCount: number | null;
+}
+
+export interface ProductVehicleList_productVehicleList_aggs_rental {
+  key: string | null;
+  docCount: number | null;
+}
+
+export interface ProductVehicleList_productVehicleList_aggs_initialPayment {
+  key: string | null;
+  docCount: number | null;
+}
+
 export interface ProductVehicleList_productVehicleList_aggs {
   financeType: ProductVehicleList_productVehicleList_aggs_financeType[] | null;
   vehicleType: ProductVehicleList_productVehicleList_aggs_vehicleType[] | null;
-  manufacturerName: ProductVehicleList_productVehicleList_aggs_manufacturerName[] | null;
-  modelName: ProductVehicleList_productVehicleList_aggs_modelName[] | null;
-  rangeName: ProductVehicleList_productVehicleList_aggs_rangeName[] | null;
   transmission: ProductVehicleList_productVehicleList_aggs_transmission[] | null;
   fuelType: ProductVehicleList_productVehicleList_aggs_fuelType[] | null;
   capBodyStyle: ProductVehicleList_productVehicleList_aggs_capBodyStyle[] | null;
   term: ProductVehicleList_productVehicleList_aggs_term[] | null;
   mileage: ProductVehicleList_productVehicleList_aggs_mileage[] | null;
   initialPeriod: ProductVehicleList_productVehicleList_aggs_initialPeriod[] | null;
+  availability: ProductVehicleList_productVehicleList_aggs_availability[] | null;
+  rental: ProductVehicleList_productVehicleList_aggs_rental[] | null;
+  initialPayment: ProductVehicleList_productVehicleList_aggs_initialPayment[] | null;
 }
 
 export interface ProductVehicleList_productVehicleList_edges_node {
   financeType: FinanceTypeEnum | null;
+  vehicleType: VehicleTypeEnum | null;
   manufacturerName: string | null;
   modelName: string | null;
   rental: number | null;
@@ -112,6 +113,7 @@ export interface ProductVehicleList_productVehicleList_edges_node {
   availability: number | null;
   capId: string | null;
   derivativeId: string | null;
+  derivativeName: string | null;
 }
 
 export interface ProductVehicleList_productVehicleList_edges {

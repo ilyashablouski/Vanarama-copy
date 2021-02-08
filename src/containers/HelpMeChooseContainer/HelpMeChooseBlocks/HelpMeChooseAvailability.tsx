@@ -18,21 +18,56 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
     steps.availability.value as string[],
   );
 
+  const availabilityData: [{ docCount: number; key: string }] = getSectionsData(
+    ['productVehicleList', 'aggs', 'availability'],
+    productVehicleListData?.data,
+  );
+
   const availabilityTypes = [
     {
+      label: 'Within 1 Week',
+      value: '7',
+      active: availabilityValue.includes('7'),
+    },
+    {
       label: 'Within 2 Weeks',
-      value: '2',
-      active: availabilityValue.includes('2'),
+      value: '14',
+      active: availabilityValue.includes('14'),
+    },
+    {
+      label: 'Within 3 Weeks',
+      value: '21',
+      active: availabilityValue.includes('21'),
     },
     {
       label: 'Within 4 Weeks',
-      value: '4',
-      active: availabilityValue.includes('4'),
+      value: '28',
+      active: availabilityValue.includes('28'),
     },
     {
       label: 'Within 6 Weeks',
-      value: '6',
-      active: availabilityValue.includes('6'),
+      value: '45',
+      active: availabilityValue.includes('45'),
+    },
+    {
+      label: 'Within 8 Weeks',
+      value: '80',
+      active: availabilityValue.includes('80'),
+    },
+    {
+      label: 'Within 12 Weeks',
+      value: '90',
+      active: availabilityValue.includes('90'),
+    },
+    {
+      label: 'Over 16 Weeks',
+      value: '95',
+      active: availabilityValue.includes('95'),
+    },
+    {
+      label: 'Subject To Stock',
+      value: '100',
+      active: availabilityValue.includes('100'),
     },
   ];
 
@@ -74,7 +109,9 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
   return (
     <HelpMeChooseContainer
       title="How quickly do you need the vehicle?"
-      choicesValues={availabilityTypes}
+      choicesValues={availabilityTypes.filter(el =>
+        availabilityData.find(x => x.key === el.value),
+      )}
       setChoice={(value: string[]) => {
         setAvailabilityValue(value);
         const searchParams = new URLSearchParams(window.location.search);
@@ -97,7 +134,7 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
           },
           initialPeriods: {
             active: true,
-            value: steps.initialPeriods.value as any,
+            value: steps.initialPeriods.value ?? '6',
           },
         });
         onReplace(router, {

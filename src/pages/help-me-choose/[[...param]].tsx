@@ -95,6 +95,10 @@ const HelpMeChoose: NextPage = () => {
     ['productVehicleList', 'aggs', 'mileage'],
     productVehicleListData?.data,
   );
+  const availabilityData = getSectionsData(
+    ['productVehicleList', 'aggs', 'availability'],
+    productVehicleListData?.data,
+  );
 
   useEffect(() => {
     if (window?.location.search.length) {
@@ -189,7 +193,8 @@ const HelpMeChoose: NextPage = () => {
         variables,
       });
     }
-  }, [getProductVehicleList, steps]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getProductVehicleList]);
 
   if (productVehicleListData.loading) {
     return <Loading size="large" />;
@@ -245,7 +250,7 @@ const HelpMeChoose: NextPage = () => {
           productVehicleListData={productVehicleListData}
         />
       )}
-      {steps.availability.active && (
+      {steps.availability.active && availabilityData?.length && (
         <HelpMeChooseAvailability
           steps={steps}
           setSteps={setSteps}

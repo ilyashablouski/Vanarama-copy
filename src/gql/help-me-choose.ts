@@ -44,12 +44,24 @@ export const PRODUCTS_FILTER_LIST = gql`
           key
           docCount
         }
+        availability {
+          key
+          docCount
+        }
+        rental {
+          key
+          docCount
+        }
+        initialPayment {
+          key
+          docCount
+        }
       }
       edges {
         cursor
         node {
           financeType
-          # vehicleType
+          vehicleType
           manufacturerName
           modelName
           rental
@@ -63,6 +75,7 @@ export const PRODUCTS_FILTER_LIST = gql`
           availability
           capId
           derivativeId
+          derivativeName
         }
       }
     }
