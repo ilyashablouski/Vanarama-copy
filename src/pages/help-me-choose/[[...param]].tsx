@@ -5,10 +5,10 @@ import { useLazyQuery } from '@apollo/client';
 import withApollo from '../../hocs/withApollo';
 import { PRODUCTS_FILTER_LIST } from '../../gql/help-me-choose';
 import {
-  ProductFilterListInputObject,
+  ProductVehicleListInputObject,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
-import { ProductsFilterListVariables } from '../../../generated/ProductsFilterList';
+import { ProductVehicleListVariables } from '../../../generated/ProductVehicleList';
 import {
   buildAnObjectFromAQuery,
   IInitStep,
@@ -70,30 +70,34 @@ const initialSteps: IInitStep = {
 const HelpMeChoose: NextPage = () => {
   const [steps, setSteps] = useState<IInitStep>(initialSteps);
 
-  const [getProductsFilterList, productsFilterListData] = useLazyQuery<
-    ProductFilterListInputObject,
-    ProductsFilterListVariables
+  const [getProductVehicleList, productVehicleListData] = useLazyQuery<
+    ProductVehicleListInputObject,
+    ProductVehicleListVariables
   >(PRODUCTS_FILTER_LIST);
 
   const bodyStyleData = getSectionsData(
-    ['productsFilterList', 'bodyStyles', 'buckets'],
-    productsFilterListData?.data,
+    ['productVehicleList', 'aggs', 'capBodyStyle'],
+    productVehicleListData?.data,
   );
   const fuelTypesData = getSectionsData(
-    ['productsFilterList', 'fuelTypes', 'buckets'],
-    productsFilterListData?.data,
+    ['productVehicleList', 'aggs', 'fuelType'],
+    productVehicleListData?.data,
   );
   const transmissionsData = getSectionsData(
-    ['productsFilterList', 'transmissions', 'buckets'],
-    productsFilterListData?.data,
+    ['productVehicleList', 'aggs', 'transmission'],
+    productVehicleListData?.data,
   );
   const termsData = getSectionsData(
-    ['productsFilterList', 'terms', 'buckets'],
-    productsFilterListData?.data,
+    ['productVehicleList', 'aggs', 'term'],
+    productVehicleListData?.data,
   );
   const mileagesData = getSectionsData(
-    ['productsFilterList', 'mileages', 'buckets'],
-    productsFilterListData?.data,
+    ['productVehicleList', 'aggs', 'mileage'],
+    productVehicleListData?.data,
+  );
+  const availabilityData = getSectionsData(
+    ['productVehicleList', 'aggs', 'availability'],
+    productVehicleListData?.data,
   );
 
   useEffect(() => {
@@ -181,17 +185,18 @@ const HelpMeChoose: NextPage = () => {
       });
       const variables = {
         filter: {
-          ...buildAnObjectFromAQuery(searchParams),
+          ...buildAnObjectFromAQuery(searchParams, steps),
           vehicleTypes: [VehicleTypeEnum.CAR],
         },
       };
-      getProductsFilterList({
+      getProductVehicleList({
         variables,
       });
     }
-  }, [getProductsFilterList]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getProductVehicleList]);
 
-  if (productsFilterListData.loading) {
+  if (productVehicleListData.loading) {
     return <Loading size="large" />;
   }
 
@@ -201,64 +206,64 @@ const HelpMeChoose: NextPage = () => {
         <HelpMeChooseAboutYou
           steps={steps}
           setSteps={setSteps}
-          getProductsFilterList={getProductsFilterList}
-          productsFilterListData={productsFilterListData}
+          getProductVehicleList={getProductVehicleList}
+          productVehicleListData={productVehicleListData}
         />
       )}
       {steps.bodyStyles.active && bodyStyleData?.length && (
         <HelpMeChooseBodyStyle
           steps={steps}
           setSteps={setSteps}
-          getProductsFilterList={getProductsFilterList}
-          productsFilterListData={productsFilterListData}
+          getProductVehicleList={getProductVehicleList}
+          productVehicleListData={productVehicleListData}
         />
       )}
       {steps.fuelTypes.active && fuelTypesData?.length && (
         <HelpMeChooseFuelTypes
           steps={steps}
           setSteps={setSteps}
-          getProductsFilterList={getProductsFilterList}
-          productsFilterListData={productsFilterListData}
+          getProductVehicleList={getProductVehicleList}
+          productVehicleListData={productVehicleListData}
         />
       )}
       {steps.transmissions.active && transmissionsData?.length && (
         <HelpMeChooseTransmissions
           steps={steps}
           setSteps={setSteps}
-          getProductsFilterList={getProductsFilterList}
-          productsFilterListData={productsFilterListData}
+          getProductVehicleList={getProductVehicleList}
+          productVehicleListData={productVehicleListData}
         />
       )}
       {steps.terms.active && termsData?.length && (
         <HelpMeChooseTerms
           steps={steps}
           setSteps={setSteps}
-          getProductsFilterList={getProductsFilterList}
-          productsFilterListData={productsFilterListData}
+          getProductVehicleList={getProductVehicleList}
+          productVehicleListData={productVehicleListData}
         />
       )}
       {steps.mileages.active && mileagesData?.length && (
         <HelpMeChooseMiles
           steps={steps}
           setSteps={setSteps}
-          getProductsFilterList={getProductsFilterList}
-          productsFilterListData={productsFilterListData}
+          getProductVehicleList={getProductVehicleList}
+          productVehicleListData={productVehicleListData}
         />
       )}
-      {steps.availability.active && (
+      {steps.availability.active && availabilityData?.length && (
         <HelpMeChooseAvailability
           steps={steps}
           setSteps={setSteps}
-          getProductsFilterList={getProductsFilterList}
-          productsFilterListData={productsFilterListData}
+          getProductVehicleList={getProductVehicleList}
+          productVehicleListData={productVehicleListData}
         />
       )}
       {steps.rental.active && steps.initialPeriods.active && (
         <HelpMeChooseResult
           steps={steps}
           setSteps={setSteps}
-          getProductsFilterList={getProductsFilterList}
-          productsFilterListData={productsFilterListData}
+          getProductVehicleList={getProductVehicleList}
+          productVehicleListData={productVehicleListData}
         />
       )}
     </>

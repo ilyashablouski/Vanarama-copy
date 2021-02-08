@@ -10,8 +10,8 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
   const {
     setSteps,
     steps,
-    getProductsFilterList,
-    productsFilterListData,
+    getProductVehicleList,
+    productVehicleListData,
   } = props;
   const router = useRouter();
   const [transmissionsValue, setTransmissionsValue] = useState<string[]>(
@@ -35,10 +35,10 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
         },
       });
       setTransmissionsValue(transmissionsQueryValue);
-      getProductsFilterList({
+      getProductVehicleList({
         variables: {
           filter: {
-            ...buildAnObjectFromAQuery(searchParams),
+            ...buildAnObjectFromAQuery(searchParams, steps),
             vehicleTypes: [VehicleTypeEnum.CAR],
           },
         },
@@ -48,8 +48,8 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
   }, []);
 
   const transmissionsData = getSectionsData(
-    ['productsFilterList', 'transmissions', 'buckets'],
-    productsFilterListData?.data,
+    ['productVehicleList', 'aggs', 'transmission'],
+    productVehicleListData?.data,
   );
 
   return (

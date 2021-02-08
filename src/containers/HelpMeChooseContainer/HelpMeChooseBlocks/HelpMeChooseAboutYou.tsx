@@ -7,12 +7,12 @@ import { onReplace, IInitStep } from '../helpers';
 export interface HelpMeChooseStep {
   steps: IInitStep;
   setSteps: (step: IInitStep) => void;
-  getProductsFilterList: any;
-  productsFilterListData: any;
+  getProductVehicleList: any;
+  productVehicleListData: any;
 }
 
 const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
-  const { setSteps, steps, getProductsFilterList } = props;
+  const { setSteps, steps, getProductVehicleList } = props;
   const router = useRouter();
   const [financeTypesValue, setFinanceTypesValue] = useState<string>(
     steps.financeTypes.value as any,
@@ -47,7 +47,7 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
       choicesValues={financeTypes}
       setChoice={setFinanceTypesValue}
       onClickContinue={() => {
-        getProductsFilterList({
+        getProductVehicleList({
           variables: {
             filter: {
               vehicleTypes: [VehicleTypeEnum.CAR],

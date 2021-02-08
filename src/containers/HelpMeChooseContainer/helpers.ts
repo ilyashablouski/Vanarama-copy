@@ -19,7 +19,7 @@ export const getBuckets = (data: any[], activeData: string[], type?: string) =>
   data.map(bucket => ({
     label: getBucketLabel(type || '', bucket.key),
     value: bucket.key,
-    active: activeData.includes(bucket.key),
+    active: activeData?.includes(bucket.key),
   }));
 
 export const onReplace = (
@@ -42,7 +42,7 @@ export const onReplace = (
   Object.entries(newStep).forEach(filter => {
     const [key, step] = filter;
     if (
-      step.value.length ||
+      step?.value?.length ||
       ((key === 'rental' || key === 'initialPeriods') && step.value)
     ) {
       queries[key] = step.value;
@@ -64,26 +64,30 @@ export const onReplace = (
   );
 };
 
-export const buildAnObjectFromAQuery = (query: any) => {
+export const buildAnObjectFromAQuery = (query: any, steps: IInitStep) => {
   const object = {} as any;
-  object.initialPeriods = [6];
+  // object.initialPeriods = [6];
   query.forEach((value: string, key: string) => {
-    if (key === 'financeTypes' && value.length) {
+    if (key === 'financeTypes' && value.length && !steps.financeTypes.active) {
       object.financeTypes = value;
     }
-    if (key === 'bodyStyles' && value.length) {
+    if (key === 'bodyStyles' && value.length && !steps.bodyStyles.active) {
       object.bodyStyles = value.split(',');
     }
-    if (key === 'fuelTypes' && value.length) {
+    if (key === 'fuelTypes' && value.length && !steps.fuelTypes.active) {
       object.fuelTypes = value.split(',');
     }
-    if (key === 'transmissions' && value.length) {
+    if (
+      key === 'transmissions' &&
+      value.length &&
+      !steps.transmissions.active
+    ) {
       object.transmissions = value.split(',');
     }
-    if (key === 'terms' && value.length) {
+    if (key === 'terms' && value.length && !steps.terms.active) {
       object.terms = [parseInt(value, 10)];
     }
-    if (key === 'mileages' && value.length) {
+    if (key === 'mileages' && value.length && !steps.mileages.active) {
       object.mileages = [parseInt(value, 10)];
     }
     if (key === 'rental' && value.length) {
