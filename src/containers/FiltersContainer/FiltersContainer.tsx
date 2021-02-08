@@ -132,9 +132,9 @@ const FiltersContainer = ({
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
   >(initialState);
-  const [selectedFilterTags, setSelectedFilterTags] = useState<
-    ISelectedWithOrder[]
-  >([]);
+  const [selectedFilterTags, setSelectedFilterTags] = useState(
+    [] as ISelectedWithOrder[],
+  );
   const [isInitialLoad, setInitialLoad] = useState(true);
 
   const choiseBoxReference = {} as any;
