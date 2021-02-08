@@ -10,12 +10,13 @@ process.env.UV_THREADPOOL_SIZE = OS.cpus().length;
 const express = require('express');
 const cors = require('cors');
 const next = require('next');
-// const prerender = require('prerender-node');
+const prerender = require('prerender-node');
 const hpp = require('hpp');
 const compression = require('compression');
 
 const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
+const cache = require('./cache');
 const { version } = require('./package.json');
 
 // const inspect = require('./inspect');
@@ -55,13 +56,14 @@ app
     }
 
     // Prerender.
-    // if (prerender && process.env.PRERENDER_SERVICE_URL) {
-    //   server.use(prerender);
-    // }
+    if (prerender && process.env.PRERENDER_SERVICE_URL) {
+      server.use(prerender);
+    }
 
     server.use(hpp());
     server.use(compression());
     server.disable('x-powered-by');
+    server.use(cache);
 
     return server;
   })
@@ -93,9 +95,6 @@ app
       // Disable indexing on live domain.
       if (!req.get('host').includes('vanarama.com'))
         res.setHeader('X-Robots-Tag', 'noindex');
-
-      if (!dev)
-        res.setHeader('Cache-Control', 's-maxage=1, stale-while-revalidate');
 
       return handle(req, res);
     });

@@ -56,7 +56,7 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
 });
 const OptionsIcon = dynamic(() => import('core/assets/icons/Options'));
-// const ChevronUp = dynamic(() => import('core/assets/icons/ChevronUp'));
+const ChevronUp = dynamic(() => import('core/assets/icons/ChevronUp'));
 const ChevronDown = dynamic(() => import('core/assets/icons/ChevronDown'));
 
 interface IChoiceBoxesData {
@@ -120,10 +120,8 @@ const FiltersContainer = ({
   const [choiceBoxesData, setChoiceBoxesData] = useState(
     {} as IChoiceBoxesData,
   );
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1216px)' });
-  function setFilterExpandStatus(value: boolean) {
-    console.log(value);
-  }
+  const isTabletOrMobile = useMediaQuery({ maxDeviceWidth: 1216 });
+  const [isOpenFilter, setFilterExpandStatus] = useState(false);
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
@@ -376,7 +374,7 @@ const FiltersContainer = ({
   }, [setSelectedFiltersState, router]);
 
   useEffect(() => {
-    if (!isTabletOrMobile) setFilterExpandStatus(true);
+    if (window && !isTabletOrMobile) setFilterExpandStatus(true);
     else setFilterExpandStatus(false);
   }, [isTabletOrMobile]);
 
@@ -649,15 +647,15 @@ const FiltersContainer = ({
 
   /** handle filter expand status */
   const handleFilterExpand = () => {
-    if (isTabletOrMobile) setFilterExpandStatus(false);
+    if (isTabletOrMobile) setFilterExpandStatus(prevValue => !prevValue);
   };
   return (
-    <SearchFilters isOpen={false}>
+    <SearchFilters isOpen={isOpenFilter}>
       <SearchFiltersHead onClick={handleFilterExpand}>
         <Icon icon={<OptionsIcon />} className="search-filters--title-icon" />
         <span>Filters</span>
         <Icon
-          icon={<ChevronDown />}
+          icon={isOpenFilter ? <ChevronUp /> : <ChevronDown />}
           className="search-filters--title-icon"
           color="white"
         />

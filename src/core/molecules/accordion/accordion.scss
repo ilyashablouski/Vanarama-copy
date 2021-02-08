@@ -122,7 +122,7 @@
     overflow: visible;
   }
 
-  &-item--active &--content {
+  &-item--active > &--content {
     display: block;
     padding-bottom: 1.5rem;
     padding-top: 0.5rem;
@@ -130,7 +130,7 @@
       padding-bottom $duration-small $transition-soft;
   }
 
-  &-item--active .accordion-item--chevron {
+  &-item--active > &--heading .accordion-item--chevron {
     transform: rotate(-90deg);
     color: $black;
   }
