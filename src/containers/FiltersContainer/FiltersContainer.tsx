@@ -528,7 +528,7 @@ const FiltersContainer = ({
         };
       })
       .flat()
-      .filter(x => x.value.length > 0);
+      .filter(({ value }) => value.length > 0);
     // prevented useless updates
     // check for empty array used for prevent cases when initial render don't call a request
     if (!isArraySame(selected, selectedFilterTags) || !selected.length)
