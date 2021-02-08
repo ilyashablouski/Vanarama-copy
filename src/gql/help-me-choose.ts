@@ -1,151 +1,85 @@
 import { gql } from '@apollo/client';
 
-export const PRODUCTS_FILTER_LIST_BODY_STYLE = gql`
-  query ProductsFilterListBodyStyle($filter: ProductFilterListInputObject) {
-    productsFilterList(filter: $filter) {
-      bodyStyles {
-        docCount
-        buckets {
-          docCount
-          key
-        }
-      }
-    }
-  }
-`;
-
-export const PRODUCTS_FILTER_LIST_FUEL_TYPES = gql`
-  query ProductsFilterListFuelTypes($filter: ProductFilterListInputObject) {
-    productsFilterList(filter: $filter) {
-      fuelTypes {
-        docCount
-        buckets {
-          docCount
-          key
-        }
-      }
-    }
-  }
-`;
-
 export const PRODUCTS_FILTER_LIST = gql`
-  query ProductsFilterList($filter: ProductFilterListInputObject) {
-    productsFilterList(filter: $filter) {
-      transmissions {
-        docCount
-        buckets {
-          docCount
+  query ProductVehicleList($filter: ProductVehicleListInputObject) {
+    productVehicleList(filter: $filter) {
+      totalCount
+      nodesCount
+      pageInfo {
+        endCursor
+        startCursor
+        hasPreviousPage
+        hasNextPage
+      }
+      aggs {
+        financeType {
           key
-        }
-      }
-      fuelTypes {
-        docCount
-        buckets {
           docCount
-          key
         }
-      }
-      bodyStyles {
-        docCount
-        buckets {
+        vehicleType {
+          key
           docCount
-          key
         }
-      }
-      terms {
-        docCount
-        buckets {
+        transmission {
+          key
           docCount
-          key
         }
-      }
-      mileages {
-        docCount
-        buckets {
+        fuelType {
+          key
           docCount
-          key
         }
-      }
-      initialPeriods {
-        docCount
-        buckets {
+        capBodyStyle {
+          key
           docCount
+        }
+        term {
           key
-        }
-      }
-      initialPayment {
-        stats {
-          min
-          max
-        }
-      }
-      rental {
-        stats {
-          min
-          max
-        }
-      }
-      manufacturers {
-        docCount
-        buckets {
           docCount
+        }
+        mileage {
           key
+          docCount
+        }
+        initialPeriod {
+          key
+          docCount
+        }
+        availability {
+          key
+          docCount
+        }
+        rental {
+          key
+          docCount
+        }
+        initialPayment {
+          key
+          docCount
         }
       }
-      ranges {
-        docCount
-        buckets {
-          docCount
-          key
-        }
-      }
-      models {
-        docCount
-        buckets {
-          docCount
-          key
+      edges {
+        cursor
+        node {
+          financeType
+          vehicleType
+          manufacturerName
+          modelName
+          rental
+          initialPayment
+          rangeName
+          transmission
+          fuelType
+          capBodyStyle
+          term
+          mileage
+          availability
+          capId
+          derivativeId
+          derivativeName
         }
       }
     }
   }
 `;
 
-export const PRODUCTS_FILTER_LIST_RESULTS = gql`
-  query ProductsFilterListResults($filter: ProductFilterListInputObject) {
-    productsFilterList(filter: $filter) {
-      manufacturers {
-        docCount
-        buckets {
-          docCount
-          key
-        }
-      }
-      ranges {
-        docCount
-        buckets {
-          docCount
-          key
-        }
-      }
-      models {
-        docCount
-        buckets {
-          docCount
-          key
-        }
-      }
-      initialPayment {
-        stats {
-          min
-          max
-        }
-      }
-      rental {
-        stats {
-          min
-          max
-        }
-      }
-    }
-  }
-`;
+export default PRODUCTS_FILTER_LIST;

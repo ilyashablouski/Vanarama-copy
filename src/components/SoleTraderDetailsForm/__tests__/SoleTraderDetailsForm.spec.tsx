@@ -67,11 +67,6 @@ describe('<SoleTraderDetailsForm />', () => {
               data: ['Owned outright', 'Rented'],
               favourites: [],
             },
-            occupations: {
-              __typename: 'DropDownDataType',
-              data: [''],
-              favourites: [],
-            },
           }}
           onSubmit={onSubmitMock}
         />
