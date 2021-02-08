@@ -14,24 +14,26 @@ const SearchFilterTags: FC<ISearchFilterTagsProps> = ({
 }) => {
   return (
     <div className={cx('search-filters--tags', className)}>
-      {selectedFilters.map(val => {
-        return (
-          <Button
-            key={val}
-            color="teal"
-            size="xsmall"
-            fill="outline"
-            icon={<CloseSharp />}
-            iconPosition="after"
-            label={val}
-            id={val}
-            data-testid={dataTestId}
-            onClick={e => {
-              if (onRemove) onRemove(e);
-            }}
-          />
-        );
-      })}
+      {selectedFilters
+        .sort((a, b) => a.order - b.order)
+        .map(selected => {
+          return (
+            <Button
+              key={selected.value}
+              color="teal"
+              size="xsmall"
+              fill="outline"
+              icon={<CloseSharp />}
+              iconPosition="after"
+              label={selected.value}
+              id={selected.value}
+              data-testid={dataTestId}
+              onClick={e => {
+                if (onRemove) onRemove(e);
+              }}
+            />
+          );
+        })}
       {selectedFilters.length > 1 && (
         <Button
           onClick={() => {
