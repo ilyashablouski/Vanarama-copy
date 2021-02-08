@@ -32,6 +32,8 @@ jest.mock('next/router', () => ({
   },
 }));
 
+jest.mock('../../../hooks/useMediaQuery');
+
 let mockCalled = false;
 
 const mocksResponse: MockedResponse[] = [
