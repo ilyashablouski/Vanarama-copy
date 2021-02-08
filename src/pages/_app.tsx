@@ -137,10 +137,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   return (
     <>
-      <main
-        className={cx(resolveMainClass())}
-        style={{ paddingTop: useMobileViewport() ? '46px' : '0' }}
-      >
+      <main className={cx(resolveMainClass())}>
         <HeaderContainer />
         <CompareContext.Provider
           value={{
