@@ -270,11 +270,6 @@ SoleTraderDetailsForm.fragments = {
         data
         favourites
       }
-      occupations {
-        __typename
-        data
-        favourites
-      }
       ...AddressFormFieldArrayDownData
     }
     ${AddressFormFieldArray.fragments.dropDownData}
