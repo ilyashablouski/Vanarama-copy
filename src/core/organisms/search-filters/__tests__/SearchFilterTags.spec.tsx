@@ -5,7 +5,12 @@ import SearchFilterTags from '../SearchFilterTags';
 describe('<SearchFilterTags />', () => {
   it('should render correctly with children & default props', () => {
     const wrapper = shallow(
-      <SearchFilterTags selectedFilters={['Audi', 'Coupe']}>
+      <SearchFilterTags
+        selectedFilters={[
+          { order: 1, value: 'Audi' },
+          { order: 5, value: 'Coupe' },
+        ]}
+      >
         <div>
           <span>child element</span>
         </div>
@@ -19,7 +24,10 @@ describe('<SearchFilterTags />', () => {
   it('should render correctly with a custom class name', () => {
     const wrapper = shallow(
       <SearchFilterTags
-        selectedFilters={['Audi, Coupe']}
+        selectedFilters={[
+          { order: 1, value: 'Audi' },
+          { order: 5, value: 'Coupe' },
+        ]}
         className="some-custom-class-name"
       >
         <p>child element</p>
@@ -34,7 +42,10 @@ describe('<SearchFilterTags />', () => {
     const onClearAll = jest.fn();
     const wrap = mount(
       <SearchFilterTags
-        selectedFilters={['Audi', 'Coupe']}
+        selectedFilters={[
+          { order: 1, value: 'Audi' },
+          { order: 5, value: 'Coupe' },
+        ]}
         className="some-custom-class-name"
         onClearAll={onClearAll}
       >
