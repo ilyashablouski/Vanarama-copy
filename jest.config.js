@@ -2,6 +2,7 @@ module.exports = {
   coveragePathIgnorePatterns: ['/node_modules/', 'enzyme.js'],
   transformIgnorePatterns: ['node_modules/(?!(@vanarama)/)'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
+  setupFiles: ['dotenv/config'],
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   coverageReporters: ['json', 'lcov', 'text', 'text-summary'],
   moduleNameMapper: {
