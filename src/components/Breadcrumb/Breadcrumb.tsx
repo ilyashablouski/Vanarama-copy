@@ -2,7 +2,7 @@ import React, { FC, memo } from 'react';
 import dynamic from 'next/dynamic';
 import RouterLink from '../RouterLink/RouterLink';
 import { IBreadcrumbLink } from './helpers';
-import { useMobileViewport } from '../../hooks/useMediaQuery';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 import Skeleton from '../Skeleton';
 
@@ -29,12 +29,12 @@ interface IBreadcrumbProps {
 }
 
 const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
-  const isMobile = useMobileViewport();
+  const isDesktop = useMediaQuery('(min-width: 768px)');
   const { items } = props;
 
   const renderParent = (item: IBreadcrumbLink) => (
     <li className="breadcrumb-item -parent" key={item.link.label}>
-      {isMobile ? (
+      {!isDesktop ? (
         <RouterLink
           classNames={{ color: 'teal', size: 'small' }}
           className="breadcrumb-item--backlink"
