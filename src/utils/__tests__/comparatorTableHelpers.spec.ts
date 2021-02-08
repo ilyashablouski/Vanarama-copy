@@ -78,17 +78,23 @@ describe('comparatorTableHelpers', () => {
 
   describe('getPrice', () => {
     it('getPrice should return null', () => {
-      const actual = getPrice(null);
+      const actual = getPrice(null, {});
 
       expect(actual).toEqual(null);
     });
     it('getPrice should new object', () => {
-      const actual = getPrice([
+      const actual = getPrice(
+        [
+          {
+            capId: 'capId',
+            businessRate: 'businessRate',
+          } as any,
+        ],
         {
-          capId: 'capId',
-          businessRate: 'businessRate',
-        } as any,
-      ]);
+          lcv: 'Business',
+          car: 'Personal',
+        },
+      );
 
       expect(actual).toEqual({
         title: 'Price',
@@ -114,6 +120,10 @@ describe('comparatorTableHelpers', () => {
             businessRate: 'businessRate',
           } as any,
         ],
+        {
+          lcv: 'Business',
+          car: 'Personal',
+        },
       );
 
       expect(actual).toEqual([

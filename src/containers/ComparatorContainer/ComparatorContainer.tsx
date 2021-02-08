@@ -12,6 +12,7 @@ import { useVehicleData } from './gql';
 import { vehicleComparator } from '../../../generated/vehicleComparator';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
+import useLeaseType from '../../hooks/useLeaseType';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -22,6 +23,7 @@ const ComparatorContainer: React.FC = () => {
     { capId: number; vehicleType: VehicleTypeEnum | null }[]
   >([]);
   const { compareVehicles, compareChange } = useContext(CompareContext);
+  const { cachedLeaseType } = useLeaseType(null);
 
   useEffect(() => {
     if (compareVehicles?.length) {
@@ -83,6 +85,7 @@ const ComparatorContainer: React.FC = () => {
           ? getCriterials(
               data as vehicleComparator | undefined,
               compareVehicles,
+              cachedLeaseType,
             )
           : []
       }

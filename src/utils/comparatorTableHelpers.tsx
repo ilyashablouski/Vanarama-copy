@@ -1,6 +1,7 @@
 import { ICriterias } from 'core/organisms/comparator-table/interface';
 import { IVehicle } from './comparatorHelpers';
 import { vehicleComparator } from '../../generated/vehicleComparator';
+import { VehicleTypeEnum } from '../../generated/globalTypes';
 
 export const getUniqueCriterias = (data: vehicleComparator | undefined) => {
   const criterias: (string | undefined | null)[] = [];
@@ -45,14 +46,22 @@ export const getHeading = (
 
 export const getPrice = (
   compareVehicles: [] | IVehicle[] | null | undefined,
+  cachedLeaseType: any,
 ) => {
   if (!compareVehicles?.length) return null;
   const currentCompareVehicles = compareVehicles as IVehicle[];
+
+  const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
+  const isPersonalCar = cachedLeaseType.car === 'Personal';
   return {
     title: 'Price',
     values: currentCompareVehicles?.map(item => ({
       capId: item.capId || '',
-      price: item.businessRate || 0,
+      price:
+        (item.vehicleType === VehicleTypeEnum.CAR && isPersonalCar) ||
+        (item.vehicleType === VehicleTypeEnum.LCV && isPersonalLcv)
+          ? item.personalRate || 0
+          : item.businessRate || 0,
     })),
   };
 };
@@ -60,6 +69,7 @@ export const getPrice = (
 export const getCriterials = (
   data: vehicleComparator | undefined,
   compareVehicles: [] | IVehicle[] | null | undefined,
+  cachedLeaseType: any,
 ): ICriterias[] => {
   const result: ICriterias[] = [];
   const allCriterias = getUniqueCriterias(data);
@@ -74,7 +84,7 @@ export const getCriterials = (
 
   if (result.length) {
     result.push(getHeading(compareVehicles));
-    const price = getPrice(compareVehicles);
+    const price = getPrice(compareVehicles, cachedLeaseType);
     if (price) {
       result.push(price);
     }

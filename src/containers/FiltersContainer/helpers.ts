@@ -25,13 +25,18 @@ export const findPreselectFilterValue = (
   value: string,
   data: (string | IFiltersChildren)[] | null | undefined,
 ): string => {
+  // sorting using for prevent cases with incorrect select
   if (data?.length && typeof data[0] !== 'string') {
-    const slugsArray = data.map(
-      childrenWithSlug => (childrenWithSlug as IFiltersChildren)?.slug,
-    );
-    return slugsArray?.find(element => isInclude(value, element || '')) || '';
+    const slugsArray = data
+      .map(childrenWithSlug => (childrenWithSlug as IFiltersChildren)?.slug)
+      .sort((a, b) => (a?.length || 0) - (b?.length || 0));
+    return slugsArray?.find(element => isInclude(element || '', value)) || '';
   }
-  return (data as string[])?.find(element => isInclude(element, value)) || '';
+  return (
+    (data as string[])
+      ?.sort((a, b) => a.length - b.length)
+      .find(element => isInclude(element, value)) || ''
+  );
 };
 
 // build choiseboxes for preselected filters in custom page like a bodystyle page

@@ -107,7 +107,7 @@ export function useVehiclesList(
   leaseType: LeaseTypeEnum,
   onOffer = false,
   onCompleted?: (data: vehicleList) => void,
-  first = 9,
+  first = 12,
   after?: string,
   bodyStyles?: string[],
   manufacturerSlug?: string,
@@ -135,6 +135,7 @@ export function useVehiclesList(
       sortDirection: onOffer ? SortDirection.ASC : savedSortOrder.direction,
       first,
     },
+    fetchPolicy: 'cache-and-network',
   });
 }
 

@@ -3,9 +3,9 @@ import {
   ApolloClient,
   ApolloLink,
   InMemoryCache,
-  createHttpLink,
-  from,
+  HttpLink,
 } from '@apollo/client';
+import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
 // import Router from 'next/router';
 // import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
@@ -16,7 +16,7 @@ import { NextPageContext } from 'next';
 
 // const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 
-const HttpLink = createHttpLink({
+const httpLink = new HttpLink({
   uri: process.env.API_URL!,
   fetch,
   credentials: 'include',
@@ -26,7 +26,12 @@ const HttpLink = createHttpLink({
   },
 });
 
-const LogLink = new ApolloLink((operation, forward) => {
+// NOTE: Type 'HttpLink | ApolloLink' is not assignable to type 'ApolloLink | RequestHandler' - https://github.com/apollographql/apollo-client/issues/6011
+const persistedQueryLink = createPersistedQueryLink({
+  useGETForHashedQueries: true,
+}) as any;
+
+const logLink = new ApolloLink((operation, forward) => {
   const query = {
     name: operation.operationName,
     variables: operation.variables,
@@ -39,13 +44,13 @@ const LogLink = new ApolloLink((operation, forward) => {
 });
 
 function apolloClientLink() {
-  const links = [HttpLink];
+  const links = [persistedQueryLink, httpLink];
 
   if (process.env.ENV && process.env.ENV !== 'production') {
-    return from([LogLink, ...links]);
+    return ApolloLink.from([logLink, ...links]);
   }
 
-  return from(links);
+  return ApolloLink.from(links);
 }
 
 //  TODO: to return redirect need to find

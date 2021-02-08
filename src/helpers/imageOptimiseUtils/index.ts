@@ -7,7 +7,6 @@ const DEFAULT_OPTIMISATION: ICloudflareOptimisation = {
   quality: 75,
   sharpness: 0,
   metadata: 'none',
-  format: 'auto',
 };
 
 function setProtocol(url: string, protocol: string) {
@@ -23,15 +22,7 @@ const optimiseImage = (
   src: string,
   confuguration: ICloudflareOptimisation,
 ): string => {
-  const {
-    fit,
-    height,
-    width,
-    quality,
-    sharpness,
-    metadata,
-    format,
-  } = confuguration;
+  const { fit, height, width, quality, sharpness, metadata } = confuguration;
 
   // Extract protocol from host.
   const protocol = host.split(':')[0];
@@ -43,7 +34,7 @@ const optimiseImage = (
   return `${host.replace(
     /\/$/,
     '',
-  )}/cdn-cgi/image/fit=${fit},height=${height},width=${width},quality=${quality},sharpness=${sharpness},metadata=${metadata},format=${format}/${imgSrc}`;
+  )}/cdn-cgi/image/fit=${fit},height=${height},width=${width},quality=${quality},sharpness=${sharpness},metadata=${metadata}/${imgSrc}`;
 };
 
 export { DEFAULT_OPTIMISATION, optimiseImage };

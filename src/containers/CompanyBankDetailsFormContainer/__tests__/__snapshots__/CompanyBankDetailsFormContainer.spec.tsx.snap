@@ -116,7 +116,10 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
               <input
                 aria-label="Sort code first two digits"
                 class="textinput--native regular"
-                type="text"
+                maxlength="2"
+                name="sc-1"
+                role="textbox"
+                type="number"
                 value="01"
               />
             </div>
@@ -126,7 +129,10 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
               <input
                 aria-label="Sort code middle two digits"
                 class="textinput--native regular"
-                type="text"
+                maxlength="2"
+                name="sc-2"
+                role="textbox"
+                type="number"
                 value="93"
               />
             </div>
@@ -136,7 +142,10 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
               <input
                 aria-label="Sort code last two digits"
                 class="textinput--native regular"
-                type="text"
+                maxlength="2"
+                name="sc-3"
+                role="textbox"
+                type="number"
                 value="87"
               />
             </div>
