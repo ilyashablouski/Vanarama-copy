@@ -47,7 +47,9 @@ storiesOf(`${atomicDir(base)}|SearchFilters`, module).add('Default', () =>
     const [selectedFiltersState, setSelectedFiltersState] = useState<
       ISelectedFiltersState
     >(presetFilters || initialState);
-    const [selectedFilterTags, setSelectedFilterTags] = useState(['']);
+    const [selectedFilterTags, setSelectedFilterTags] = useState([
+      { order: 0, value: '' },
+    ]);
     const [isOpenFilter, setFilterExpandStatus] = useState(true);
 
     useEffect(() => {
@@ -55,7 +57,12 @@ storiesOf(`${atomicDir(base)}|SearchFilters`, module).add('Default', () =>
         ?.map(entry => entry[1])
         .flat()
         .filter(Boolean);
-      setSelectedFilterTags([...new Set(selected)]);
+      setSelectedFilterTags(
+        [...new Set(selected)].map((item, idx) => ({
+          order: idx,
+          value: item,
+        })),
+      );
     }, [selectedFiltersState]);
 
     const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
