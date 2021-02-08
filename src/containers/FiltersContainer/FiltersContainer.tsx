@@ -3,8 +3,8 @@ import dynamic from 'next/dynamic';
 import Select from 'core/atoms/select';
 import Choiceboxes from 'core/atoms/choiceboxes';
 import { IChoice } from 'core/atoms/choiceboxes/interfaces';
-import { useMediaQuery } from 'react-responsive';
 import { useRouter } from 'next/router';
+import useMediaQuery from '../../hooks/useMediaQuery';
 import { isArraySame } from '../../utils/helpers';
 import { useFilterList } from '../SearchPodContainer/gql';
 import { makeHandler, modelHandler } from '../SearchPodContainer/helpers';
@@ -120,7 +120,7 @@ const FiltersContainer = ({
   const [choiceBoxesData, setChoiceBoxesData] = useState(
     {} as IChoiceBoxesData,
   );
-  const isTabletOrMobile = useMediaQuery({ maxDeviceWidth: 1216 });
+  const isTabletOrMobile = useMediaQuery('(max-width: 1216px)');
   const [isOpenFilter, setFilterExpandStatus] = useState(false);
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
