@@ -146,8 +146,9 @@ export const setFiltersAfterPageChange = (
 export const filterOrderByNumMap: { [key: string]: number } = {
   make: 1,
   model: 2,
-  budget: 3,
-  bodyType: 4,
-  transmission: 5,
-  fuelType: 6,
+  from: 3,
+  to: 4,
+  bodyStyles: 5,
+  transmissions: 6,
+  fuelTypes: 7,
 };
