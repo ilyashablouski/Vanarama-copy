@@ -79,7 +79,7 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
           <Choiceboxes
             className={`-cols-${
               choicesValues?.length < 3 ? 2 : 3
-            } -teal stepped-form--choiceboxes`}
+            } -teal stepped-form--choiceboxes -mb-400`}
             choices={choicesValues}
             onSubmit={value => {
               // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -91,7 +91,7 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
             withIcons={withIcons}
           />
           {choicesValues.length === 1 && (
-            <Text className="-mt-100">
+            <Text>
               It seems there is only 1 option available, please go back a step
               and change your selection to expand your choice
             </Text>

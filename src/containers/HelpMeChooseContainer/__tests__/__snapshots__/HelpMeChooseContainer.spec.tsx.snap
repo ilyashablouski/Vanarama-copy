@@ -17,7 +17,7 @@ Array [
       className="stepped-form--filter"
     >
       <div
-        className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -teal"
+        className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -mb-400 -teal"
       >
         <button
           className="choicebox"
@@ -98,7 +98,7 @@ Array [
       className="stepped-form--filter"
     >
       <div
-        className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -teal"
+        className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -mb-400 -teal"
       >
         <button
           className="choicebox"

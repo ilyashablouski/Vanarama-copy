@@ -12,8 +12,8 @@ exports[`<ModelCard /> should be render correctly 1`] = `
         data-testid="card-image"
         loading="lazy"
         sizes="(min-width:3200px) 800px, 1200px"
-        src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg"
-        srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.autorama.co.uk/Photos/Cap/Vehicles/126268/cap-68051-126268.jpg 1200w"
+        src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https:"
+        srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https: 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https: 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https: 1200w"
       />
       <div
         class="title"

@@ -324,18 +324,20 @@ const FiltersContainer = ({
               query = values;
             }
             presetFilters[key] = Array.isArray(query)
-              ? query.map(value =>
-                  findPreselectFilterValue(
-                    value,
-                    filtersMapper[key as keyof typeof filtersMapper],
-                  ),
-                )
+              ? query
+                  .map(value =>
+                    findPreselectFilterValue(
+                      value,
+                      filtersMapper[key as keyof typeof filtersMapper],
+                    ),
+                  )
+                  .filter(el => !!el)
               : [
                   findPreselectFilterValue(
                     query,
                     filtersMapper[key as keyof typeof filtersMapper],
                   ),
-                ];
+                ].filter(el => !!el);
             if (key === 'dynamicParam' && (isMakePage || isRangePage)) {
               presetFilters.make = [
                 findPreselectFilterValue(values as string, filtersMapper.make),
