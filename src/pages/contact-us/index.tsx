@@ -232,7 +232,7 @@ export const ContactUsPage: NextPage<IGenericPage> = ({
             <Text color="darker">{c?.body}</Text>
             <RouterLink
               classNames={{ color: 'teal' }}
-              className="button"
+              className="button -clear"
               link={{
                 href: c?.link?.legacyUrl || c?.link?.url || '',
                 label: c?.link?.text || '',
