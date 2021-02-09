@@ -1,8 +1,9 @@
 import { AboutFormPerson } from '../../../generated/AboutFormPerson';
+import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as ICreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
 import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
 
 export const responseToInitialFormValues = (
-  data: any,
+  data: ICreditApplication['aboutDetails'],
 ): IBusinessAboutFormValues => {
   return {
     companyType: data?.company_type,

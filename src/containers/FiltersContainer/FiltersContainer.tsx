@@ -126,7 +126,7 @@ const FiltersContainer = ({
   const [choiceBoxesData, setChoiceBoxesData] = useState(
     {} as IChoiceBoxesData,
   );
-  const isTabletOrMobile = useMediaQuery('(max-width: 1216px)');
+  const isDesktop = useMediaQuery('(min-width: 1217px)');
   const [isOpenFilter, setFilterExpandStatus] = useState(false);
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
@@ -384,9 +384,9 @@ const FiltersContainer = ({
   }, [setSelectedFiltersState, router]);
 
   useEffect(() => {
-    if (window && !isTabletOrMobile) setFilterExpandStatus(true);
-    else setFilterExpandStatus(false);
-  }, [isTabletOrMobile]);
+    if (!isDesktop) setFilterExpandStatus(false);
+    else setFilterExpandStatus(true);
+  }, [isDesktop]);
 
   useFirstRenderEffect(() => {
     // prevent request after automatically untick view offer checkbox
@@ -519,6 +519,7 @@ const FiltersContainer = ({
           ((isModelPage || isBodyPage) && entry[0] === filterFields.bodyStyles)
             ? ''
             : entry[1];
+
         // for make and model we should get label value
         return {
           order: filterOrderByNumMap[entry[0]],
@@ -535,7 +536,7 @@ const FiltersContainer = ({
         };
       })
       .flat()
-      .filter(({ value }) => value.length > 0);
+      .filter(({ order, value }) => value.length > 0 && order !== undefined);
     // prevented useless updates
     // check for empty array used for prevent cases when initial render don't call a request
     if (!isArraySame(selected, selectedFilterTags) || !selected.length)
@@ -664,7 +665,7 @@ const FiltersContainer = ({
 
   /** handle filter expand status */
   const handleFilterExpand = () => {
-    if (isTabletOrMobile) setFilterExpandStatus(prevValue => !prevValue);
+    if (!isDesktop) setFilterExpandStatus(prevValue => !prevValue);
   };
   return (
     <SearchFilters isOpen={isOpenFilter}>
