@@ -1,6 +1,5 @@
 import { OnSubmit } from 'react-hook-form';
 import { BusinessAboutFormDropDownData } from '../../../generated/BusinessAboutFormDropDownData';
-import { IExistenceCheckResult } from '../AboutForm/mapEmailErrorMessage';
 
 export interface IBusinessAboutFormValues {
   title: string;
