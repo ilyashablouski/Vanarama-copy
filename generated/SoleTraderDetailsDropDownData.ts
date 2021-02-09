@@ -43,12 +43,6 @@ export interface SoleTraderDetailsDropDownData_noOfAdultsInHousehold {
   favourites: string[];
 }
 
-export interface SoleTraderDetailsDropDownData_occupations {
-  __typename: "DropDownDataType";
-  data: string[];
-  favourites: string[];
-}
-
 export interface SoleTraderDetailsDropDownData_propertyStatuses {
   __typename: "DropDownDataType";
   data: string[];
@@ -63,6 +57,5 @@ export interface SoleTraderDetailsDropDownData {
   maritalStatuses: SoleTraderDetailsDropDownData_maritalStatuses;
   noOfDependants: SoleTraderDetailsDropDownData_noOfDependants;
   noOfAdultsInHousehold: SoleTraderDetailsDropDownData_noOfAdultsInHousehold;
-  occupations: SoleTraderDetailsDropDownData_occupations;
   propertyStatuses: SoleTraderDetailsDropDownData_propertyStatuses;
 }

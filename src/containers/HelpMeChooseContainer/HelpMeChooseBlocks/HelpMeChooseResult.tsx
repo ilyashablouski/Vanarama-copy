@@ -1,12 +1,11 @@
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Heading from 'core/atoms/heading';
 import Choiceboxes from 'core/atoms/choiceboxes';
 import Text from 'core/atoms/text';
 import SlidingInput from 'core/atoms/sliding-input';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 import { getSectionsData } from '../../../utils/getSectionsData';
-import { toPriceFormat } from '../../../utils/helpers';
 import { buildAnObjectFromAQuery, onReplace } from '../helpers';
 
 const RENTAL_DATA = [
@@ -37,33 +36,37 @@ const HelpMeChooseResult: FC<HelpMeChooseStep> = props => {
   const {
     setSteps,
     steps,
-    getProductsFilterList,
-    productsFilterListData,
+    getProductVehicleList,
+    productVehicleListData,
   } = props;
 
   const stateVAT =
     (steps?.financeTypes?.value as any) === 'PCH' ? 'inc' : 'exc';
-  const minRental = getSectionsData(
-    ['productsFilterList', 'rental', 'stats', 'min'],
-    productsFilterListData?.data,
+  const rentalData: [{ key: string }] = getSectionsData(
+    ['productVehicleList', 'aggs', 'rental'],
+    productVehicleListData?.data,
+  );
+  const minRental = rentalData?.reduce((prev, curr) =>
+    parseFloat(prev.key) < parseFloat(curr.key) ? prev : curr,
   );
   const defaultRental =
     (steps.rental?.value as any) ??
-    RENTAL_DATA.find(el => el.value > minRental)?.value;
+    RENTAL_DATA.reduce((prev, curr) =>
+      prev.value < parseFloat(minRental.key) &&
+      prev.value < curr.value &&
+      parseFloat(minRental.key) < curr.value
+        ? prev
+        : curr,
+    ).value;
   const vehiclesResultNumber = getSectionsData(
-    ['productsFilterList', 'manufacturers', 'docCount'],
-    productsFilterListData?.data,
-  );
-  const initialPaymentNumber = getSectionsData(
-    ['productsFilterList', 'initialPayment', 'stats', 'min'],
-    productsFilterListData?.data,
+    ['productVehicleList', 'totalCount'],
+    productVehicleListData?.data,
   );
 
   const [rental, setRental] = useState<number>(defaultRental ?? 550);
   const [initialPeriods, setInitialPeriods] = useState<string>(
     (steps.initialPeriods?.value as any) || '6',
   );
-  const price = initialPaymentNumber;
 
   const INITIAL_PERIODS_DATA = [
     {
@@ -111,10 +114,10 @@ const HelpMeChooseResult: FC<HelpMeChooseStep> = props => {
       });
       setRental(rentalQuey || rental);
       setInitialPeriods(initialPeriodsQuey || initialPeriods);
-      getProductsFilterList({
+      getProductVehicleList({
         variables: {
           filter: {
-            ...buildAnObjectFromAQuery(searchParams),
+            ...buildAnObjectFromAQuery(searchParams, steps),
           },
         },
       });
@@ -125,17 +128,6 @@ const HelpMeChooseResult: FC<HelpMeChooseStep> = props => {
   const onChangeParams = (rentalId: number, initialPeriodValue: string) => {
     const searchParams = new URLSearchParams(window.location.search);
     const rentalValue = RENTAL_DATA[rentalId - 1].value;
-    getProductsFilterList({
-      variables: {
-        filter: {
-          ...buildAnObjectFromAQuery(searchParams),
-          rental: {
-            min: rentalValue,
-          },
-          initialPeriods: [+initialPeriodValue],
-        },
-      },
-    });
     setSteps({
       ...steps,
       rental: {
@@ -145,6 +137,17 @@ const HelpMeChooseResult: FC<HelpMeChooseStep> = props => {
       initialPeriods: {
         active: true,
         value: initialPeriodValue as any,
+      },
+    });
+    getProductVehicleList({
+      variables: {
+        filter: {
+          ...buildAnObjectFromAQuery(searchParams, steps),
+          rental: {
+            min: rentalValue,
+          },
+          initialPeriods: [+initialPeriodValue],
+        },
       },
     });
     onReplace(router, {
@@ -180,10 +183,7 @@ const HelpMeChooseResult: FC<HelpMeChooseStep> = props => {
           />
         </div>
         <Heading tag="span" size="regular" color="black">
-          Initial Payment - No. Of Months: £
-          <Text color="orange" className="-b -ml-100">
-            {toPriceFormat(price)} {stateVAT}.VAT
-          </Text>
+          Initial Payment - No. Of Months
         </Heading>
         <Choiceboxes
           className="-cols-5 stepped-form--choiceboxes"
@@ -208,7 +208,7 @@ const HelpMeChooseResult: FC<HelpMeChooseStep> = props => {
           </Text>
           Vehicles
         </Heading>
-        <div className="stepped-form--results">work</div>
+        <div className="stepped-form--results" />
       </div>
     </>
   );
