@@ -190,7 +190,6 @@ export const BusinessAboutPage: NextPage = () => {
       <BusinessAboutFormContainer
         personUuid={personUuid}
         orderId={orderId}
-        personLoggedIn={personLoggedIn}
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
         onLogInCLick={() => {
@@ -201,7 +200,6 @@ export const BusinessAboutPage: NextPage = () => {
           toggleLogInVisibility(true);
         }}
         onRegistrationClick={handleRegistrationClick}
-        isEdited={router.query.redirect === 'summary'}
       />
     </OLAFLayout>
   );
