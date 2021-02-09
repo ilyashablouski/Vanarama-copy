@@ -493,7 +493,6 @@ const FiltersContainer = ({
 
   // subscribe for change applied filters value for manage tags state
   useEffect(() => {
-    console.log('filter state >>>', selectedFiltersState);
     const selected: ISelectedWithOrder[] = Object.entries(selectedFiltersState)
       // makes in make page should not to be added
       // makes, model, bodystyles in model page should not to be added
@@ -540,7 +539,6 @@ const FiltersContainer = ({
     // check for empty array used for prevent cases when initial render don't call a request
     if (!isArraySame(selected, selectedFilterTags) || !selected.length)
       setSelectedFilterTags(selected);
-    console.log('selected filter tags >>>', selectedFilterTags);
     // can't to add selectedFilterTags to deps, because it have circular dependency with selectedFiltersState
     // TODO: try to resolve circular dependency
     // eslint-disable-next-line react-hooks/exhaustive-deps
