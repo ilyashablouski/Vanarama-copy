@@ -5,7 +5,7 @@ import AboutForm from '..';
 
 describe('<AboutForm />', () => {
   const submit = jest.fn();
-  const emailExistenceCheckMock = jest.fn(() => Promise.resolve(null));
+  const emailExistenceCheckMock = jest.fn(() => Promise.resolve(undefined));
   const onLogInClickMock = jest.fn();
 
   beforeEach(async () => {
@@ -13,7 +13,7 @@ describe('<AboutForm />', () => {
     render(
       <AboutForm
         onLogInClick={onLogInClickMock}
-        onEmailExistenceCheck={emailExistenceCheckMock}
+        emailValidator={emailExistenceCheckMock}
         submit={submit}
         dropdownData={{
           __typename: 'DropDownType',
