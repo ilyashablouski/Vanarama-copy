@@ -126,7 +126,7 @@ const FiltersContainer = ({
   const [choiceBoxesData, setChoiceBoxesData] = useState(
     {} as IChoiceBoxesData,
   );
-  const isTabletOrMobile = useMediaQuery('(max-width: 1216px)');
+  const isDesktop = useMediaQuery('(min-width: 1217px)');
   const [isOpenFilter, setFilterExpandStatus] = useState(false);
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
@@ -382,9 +382,9 @@ const FiltersContainer = ({
   }, [setSelectedFiltersState, router]);
 
   useEffect(() => {
-    if (window && !isTabletOrMobile) setFilterExpandStatus(true);
-    else setFilterExpandStatus(false);
-  }, [isTabletOrMobile]);
+    if (!isDesktop) setFilterExpandStatus(false);
+    else setFilterExpandStatus(true);
+  }, [isDesktop]);
 
   useFirstRenderEffect(() => {
     // prevent request after automatically untick view offer checkbox
@@ -663,7 +663,7 @@ const FiltersContainer = ({
 
   /** handle filter expand status */
   const handleFilterExpand = () => {
-    if (isTabletOrMobile) setFilterExpandStatus(prevValue => !prevValue);
+    if (!isDesktop) setFilterExpandStatus(prevValue => !prevValue);
   };
   return (
     <SearchFilters isOpen={isOpenFilter}>
