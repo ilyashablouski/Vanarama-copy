@@ -1,6 +1,5 @@
 import { OnSubmit } from 'react-hook-form';
 import { BusinessAboutFormDropDownData } from '../../../generated/BusinessAboutFormDropDownData';
-import { IExistenceCheckResult } from '../AboutForm/mapEmailErrorMessage';
 
 export interface IBusinessAboutFormValues {
   title: string;
@@ -16,14 +15,12 @@ export interface IBusinessAboutFormValues {
 }
 
 export interface IProps {
-  isEdited: boolean;
+  isEdit: boolean;
+  isEmailDisabled?: boolean;
   dropDownData: BusinessAboutFormDropDownData;
-  personLoggedIn?: boolean;
   onSubmit: OnSubmit<IBusinessAboutFormValues>;
   person?: IBusinessAboutFormValues | null;
   onLogInCLick?: () => void;
   onRegistrationClick?: () => void;
-  onEmailExistenceCheck?: (
-    email: string,
-  ) => Promise<IExistenceCheckResult | null>;
+  emailValidator?: (email: string) => Promise<string | undefined>;
 }

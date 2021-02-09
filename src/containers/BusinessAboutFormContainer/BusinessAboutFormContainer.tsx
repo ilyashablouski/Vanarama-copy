@@ -27,6 +27,7 @@ import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationR
 import Skeleton from '../../components/Skeleton';
 import { useCreateUpdateOrder } from '../../gql/order';
 import useGetOrder from '../../hooks/useGetOrder';
+import { createEmailErrorMessage } from '../../components/AboutForm/mapEmailErrorMessage';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -36,11 +37,13 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 
 const savePersonUuid = async (data: SaveBusinessAboutYou) => {
-  localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid);
-  localForage.setItem(
-    'personEmail',
-    data.createUpdateBusinessPerson?.emailAddresses[0].value,
-  );
+  await Promise.all([
+    localForage.setItem('personUuid', data.createUpdateBusinessPerson?.uuid),
+    localForage.setItem(
+      'personEmail',
+      data.createUpdateBusinessPerson?.emailAddresses[0].value,
+    ),
+  ]);
 };
 
 export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerProps> = ({
@@ -48,10 +51,8 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   personUuid,
   onCompleted,
   onError,
-  personLoggedIn,
   onLogInCLick,
   onRegistrationClick,
-  isEdited,
 }) => {
   const order = useGetOrder();
   const aboutPageDataQuery = useAboutPageDataQuery();
@@ -70,31 +71,38 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 
   const creditApplication =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid;
+  const isEdit =
+    Object.values(creditApplication?.aboutDetails || {}).length > 0;
   const personByUuid = aboutYouData.data?.personByUuid;
+
   const person = useMemo(() => {
-    if (creditApplication?.aboutDetails) {
-      return responseToInitialFormValues(creditApplication.aboutDetails);
+    // after the first filling (during the edit) data should be taken from CA
+    if (isEdit) {
+      return responseToInitialFormValues(creditApplication?.aboutDetails);
     }
 
+    // at the first filling there is not credit application data
+    // take data from personByUuid to prefill form for logged in users
     if (personByUuid) {
       return mapAboutPersonData(personByUuid);
     }
 
+    // anonymous user that came first time to the about form
     return null;
   }, [creditApplication, personByUuid]);
 
-  const onEmailCheck = async (email: string) => {
+  const emailValidator = async (email: string) => {
     const result = await emailAlreadyExists({
       variables: { email },
     });
 
     const checkResult = result.data?.emailAlreadyExists;
 
-    if (!checkResult?.isSuccessfull) {
-      return null;
+    if (!checkResult?.isSuccessfull || isEdit) {
+      return undefined;
     }
 
-    return checkResult;
+    return createEmailErrorMessage(checkResult);
   };
 
   const email =
@@ -207,13 +215,13 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 
   return (
     <BusinessAboutForm
-      isEdited={isEdited}
+      isEdit={isEdit}
+      isEmailDisabled={person !== null}
       dropDownData={aboutPageDataQuery.data?.allDropDowns}
-      personLoggedIn={personLoggedIn}
       person={person}
       onLogInCLick={onLogInCLick}
       onRegistrationClick={onRegistrationClick}
-      onEmailExistenceCheck={onEmailCheck}
+      emailValidator={emailValidator}
       onSubmit={values => {
         handleTemporaryRegistrationIfGuest(
           values.email,
