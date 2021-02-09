@@ -31,6 +31,10 @@ const AboutFormContainer: React.FC<IProps> = ({
   const [registerTemporary] = useRegistrationForTemporaryAccessMutation();
 
   const emailValidator = async (email: string) => {
+    if (!email) {
+      return undefined;
+    }
+
     const result = await emailAlreadyExists({
       variables: { email },
     });
