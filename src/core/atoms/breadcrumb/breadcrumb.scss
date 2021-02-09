@@ -1,5 +1,6 @@
 .breadcrumb {
   display: grid;
+  margin-top: 0.5rem;
   grid-template-columns: repeat(6, max-content);
   place-items: center start;
   gap: 0.5ch;
@@ -23,14 +24,14 @@
       &.-child > * {
         display: none;
       }
-
-      &.-parent:nth-last-child(2) > .breadcrumb-item--backlink.link {
-        display: inline;
-      }
     }
 
     &--backlink.link {
       display: none;
+    }
+
+    &.-parent:nth-last-child(2) > .breadcrumb-item--backlink.link {
+      display: inline;
     }
 
     &--arrow {

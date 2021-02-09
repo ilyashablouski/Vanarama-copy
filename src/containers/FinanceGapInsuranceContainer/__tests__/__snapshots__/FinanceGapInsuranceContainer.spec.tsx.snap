@@ -448,6 +448,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           </li>
           <li
             class="breadcrumb-item -child"
+            style="display: none;"
           >
             <span
               class="text breadcrumb-item--child -small -darker"
