@@ -23,7 +23,7 @@ describe('BusinessAboutForm', () => {
       <BusinessAboutForm
         dropDownData={mockDropdownData}
         onSubmit={jest.fn()}
-        isEdited={false}
+        isEdit={false}
       />,
     );
 
@@ -58,7 +58,7 @@ describe('BusinessAboutForm', () => {
       <BusinessAboutForm
         dropDownData={mockDropdownData}
         onSubmit={jest.fn()}
-        isEdited={false}
+        isEdit={false}
       />,
     );
 
@@ -97,7 +97,7 @@ describe('BusinessAboutForm', () => {
       <BusinessAboutForm
         dropDownData={mockDropdownData}
         onSubmit={jest.fn()}
-        isEdited={false}
+        isEdit={false}
       />,
     );
 
@@ -136,7 +136,7 @@ describe('BusinessAboutForm', () => {
       <BusinessAboutForm
         dropDownData={mockDropdownData}
         onSubmit={jest.fn()}
-        isEdited={false}
+        isEdit={false}
       />,
     );
 
@@ -198,7 +198,7 @@ describe('BusinessAboutForm', () => {
       <BusinessAboutForm
         dropDownData={mockDropdownData}
         onSubmit={jest.fn()}
-        isEdited={false}
+        isEdit={false}
       />,
     );
 
@@ -221,7 +221,7 @@ describe('BusinessAboutForm', () => {
       <BusinessAboutForm
         dropDownData={mockDropdownData}
         onSubmit={jest.fn()}
-        isEdited={false}
+        isEdit={false}
       />,
     );
 

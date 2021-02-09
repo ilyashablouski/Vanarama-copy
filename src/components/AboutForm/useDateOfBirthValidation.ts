@@ -15,5 +15,5 @@ export default function useDateOfBirthValidation(
     if (day && mth && year) {
       triggerValidation(['dayOfBirth', 'yearOfBirth', 'monthOfBirth']);
     }
-  }, [day, mth, year, triggerValidation]);
+  }, [day, mth, year]);
 }

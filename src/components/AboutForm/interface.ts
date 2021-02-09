@@ -1,6 +1,5 @@
 import { AboutFormDropdownData } from '../../../generated/AboutFormDropdownData';
 import { AboutFormPerson } from '../../../generated/AboutFormPerson';
-import { IExistenceCheckResult } from './mapEmailErrorMessage';
 
 export interface IAboutFormValues {
   title: string;
@@ -28,10 +27,8 @@ export interface IProps {
   dropdownData: AboutFormDropdownData;
   person?: AboutFormPerson | null;
   submit: (values: IAboutFormValues) => Promise<any>;
-  onEmailExistenceCheck?: (
-    value: string,
-  ) => Promise<IExistenceCheckResult | null>;
+  emailValidator: (email: string) => Promise<string | undefined>;
+  isEmailDisabled?: boolean;
   onLogInClick?: () => void;
   onRegistrationClick?: () => void;
-  personLoggedIn?: boolean;
 }
