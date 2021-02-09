@@ -58,7 +58,7 @@ const AddressFinder: AddressFinderComponent = ({
 
   useEffect(() => {
     if (!selected?.id && selected?.label && data.length) {
-      if (data.length === 1 && data[0].type === 'Address') {
+      if ((data.length === 1 && data[0].type === 'Address') || intermediate) {
         handleSuggestionSelect(data[0]);
       } else {
         // force user to input address in case
