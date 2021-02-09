@@ -8,7 +8,7 @@ import Skeleton from '../Skeleton';
 
 const ChevronBack = dynamic(() => import('core/assets/icons/ChevronBack'), {
   loading: () => <Skeleton count={1} />,
-  ssr: false,
+  ssr: true,
 });
 const ChevronForward = dynamic(
   () => import('core/assets/icons/ChevronForward'),
@@ -29,12 +29,12 @@ interface IBreadcrumbProps {
 }
 
 const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
-  const isDesktop = useMediaQuery('(min-width: 768px)');
+  const isDesktopOrTablet = useMediaQuery('(min-width: 768px)');
   const { items } = props;
 
   const renderParent = (item: IBreadcrumbLink) => (
     <li className="breadcrumb-item -parent" key={item.link.label}>
-      {!isDesktop ? (
+      {!isDesktopOrTablet ? (
         <RouterLink
           classNames={{ color: 'teal', size: 'small' }}
           className="breadcrumb-item--backlink"
@@ -61,7 +61,11 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
   );
 
   const renderChild = (item: IBreadcrumbLink) => (
-    <li className="breadcrumb-item -child" key={item.link.label}>
+    <li
+      className="breadcrumb-item -child"
+      key={item.link.label}
+      style={{ display: isDesktopOrTablet ? 'grid' : 'none' }}
+    >
       <Text size="small" color="darker" className="breadcrumb-item--child">
         {decodeURIComponent(item.link.label)}
       </Text>

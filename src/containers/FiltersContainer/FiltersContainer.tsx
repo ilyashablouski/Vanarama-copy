@@ -517,6 +517,7 @@ const FiltersContainer = ({
           ((isModelPage || isBodyPage) && entry[0] === filterFields.bodyStyles)
             ? ''
             : entry[1];
+
         // for make and model we should get label value
         return {
           order: filterOrderByNumMap[entry[0]],
@@ -533,7 +534,7 @@ const FiltersContainer = ({
         };
       })
       .flat()
-      .filter(({ value }) => value.length > 0);
+      .filter(({ order, value }) => value.length > 0 && order !== undefined);
     // prevented useless updates
     // check for empty array used for prevent cases when initial render don't call a request
     if (!isArraySame(selected, selectedFilterTags) || !selected.length)
