@@ -11,7 +11,6 @@ import { IBaseProps } from 'core/interfaces/base';
 import Logo from 'core/atoms/logo';
 import Button from 'core/atoms/button';
 import Icon from 'core/atoms/icon';
-import { useMediaQuery } from 'react-responsive';
 import HeaderMenu from './HeaderMenu';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
@@ -19,7 +18,7 @@ import {
   GetPerson_getPerson as Person,
   GetPerson,
 } from '../../../generated/GetPerson';
-import { useMobileViewport } from '../../hooks/useMediaQuery';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
   ssr: false,
@@ -92,7 +91,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
   const [isMenuOpen, setOpenMenu] = useState(false);
   const [isMyAccountOpen, setOpenMyAccount] = useState(false);
 
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
+  const isTabletOrMobile = useMediaQuery('(max-width: 1215px)');
 
   useEffect(() => {
     if (!person) {
@@ -129,7 +128,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
   return (
     <header
       style={
-        useMobileViewport()
+        isTabletOrMobile
           ? { position: 'fixed', top: 0 }
           : { position: 'relative' }
       }
@@ -147,7 +146,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
           {' '}
           <Logo asset="vanarama" />{' '}
         </RouterLink>{' '}
-        {!useMobileViewport() && (
+        {!isTabletOrMobile && (
           <label className="header-search" htmlFor="search">
             {' '}
             {/* {TODO: commit for this search lines should be reverted after implement search functionality} */}

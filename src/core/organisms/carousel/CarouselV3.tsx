@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState } from 'react';
 import cx from 'classnames';
 import Carousel from 'nuka-carousel';
 import { useMediaQuery } from 'react-responsive';
@@ -22,15 +22,6 @@ const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
     slidesToShow = 2;
   }
 
-  useEffect(() => {
-    setTimeout(() => {
-      const sliders = document.querySelectorAll('.carousel .card');
-      Array.from(Array(sliders.length)).forEach((el, id) => {
-        (sliders[id] as HTMLElement).className += ' -v-height';
-      });
-    }, 300);
-  }, []);
-
   return (
     <div className={cx('carousel', className)}>
       <Carousel
@@ -45,6 +36,8 @@ const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
         slideIndex={index}
         afterSlide={(slideIndex: number) => setIndex(slideIndex)}
         cellSpacing={20}
+        initialSlideWidth={300}
+        initialSlideHeight={575}
       >
         {children}
       </Carousel>

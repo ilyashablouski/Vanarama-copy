@@ -10,8 +10,8 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
   const {
     setSteps,
     steps,
-    getProductsFilterList,
-    productsFilterListData,
+    getProductVehicleList,
+    productVehicleListData,
   } = props;
   const router = useRouter();
   const [bodyStylesValue, setBodyStylesValue] = useState<string[]>(
@@ -35,10 +35,10 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
         },
       });
       setBodyStylesValue(bodyStylesQueryValue);
-      getProductsFilterList({
+      getProductVehicleList({
         variables: {
           filter: {
-            ...buildAnObjectFromAQuery(searchParams),
+            ...buildAnObjectFromAQuery(searchParams, steps),
             vehicleTypes: [VehicleTypeEnum.CAR],
           },
         },
@@ -48,8 +48,8 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
   }, []);
 
   const bodyStyleData = getSectionsData(
-    ['productsFilterList', 'bodyStyles', 'buckets'],
-    productsFilterListData?.data,
+    ['productVehicleList', 'aggs', 'capBodyStyle'],
+    productVehicleListData?.data,
   );
 
   return (
@@ -65,6 +65,7 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
         });
         onReplace(router, {
           ...steps,
+          fuelTypes: { active: true, value: steps.fuelTypes.value },
           bodyStyles: { active: false, value: bodyStylesValue },
         });
       }}

@@ -18,6 +18,7 @@ import {
 import { validationSchema } from './helpers';
 import { OlafContext } from '../../layouts/OLAFLayout/helpers';
 import Skeleton from '../Skeleton';
+import FormikTypeAheadField from '../FormikTypeAhead/FormikTypeAheadField';
 
 const ChevronForwardSharp = dynamic(
   () => import('core/assets/icons/ChevronForwardSharp'),
@@ -163,9 +164,11 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
               />
             )}
           </FieldArray>
-          <FormikSelectField name="occupation" label="Occupation">
-            <OptionsWithFavourites options={dropdownData.occupations} />
-          </FormikSelectField>
+          <FormikTypeAheadField
+            name="occupation"
+            label="Occupation"
+            hint="Please select from the list"
+          />
           <AnnualIncomeField />
           <FormikNumericField
             name="avgMonthlyIncome"
@@ -263,11 +266,6 @@ SoleTraderDetailsForm.fragments = {
         favourites
       }
       noOfAdultsInHousehold {
-        __typename
-        data
-        favourites
-      }
-      occupations {
         __typename
         data
         favourites

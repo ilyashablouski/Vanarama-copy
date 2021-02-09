@@ -23,6 +23,7 @@ export enum CreditApplicationTypeEnum {
  */
 export enum FinanceTypeEnum {
   BCH = "BCH",
+  FL = "FL",
   PCH = "PCH",
 }
 
@@ -386,11 +387,20 @@ export interface PersonInputObject {
 }
 
 /**
- * Search filters
+ * Search filter range
  */
-export interface ProductFilterListInputObject {
+export interface ProductFilterRangeListObject {
+  max?: number | null;
+  min?: number | null;
+}
+
+/**
+ * Filter object to search vehicles
+ */
+export interface ProductVehicleListInputObject {
+  availability?: number | null;
   bodyStyles?: string[] | null;
-  financeTypes?: FinanceTypeEnum | null;
+  financeTypes?: FinanceTypeEnum[] | null;
   fuelTypes?: string[] | null;
   initialPayment?: ProductFilterRangeListObject | null;
   initialPeriods?: number[] | null;
@@ -402,14 +412,6 @@ export interface ProductFilterListInputObject {
   terms?: number[] | null;
   transmissions?: string[] | null;
   vehicleTypes?: VehicleTypeEnum[] | null;
-}
-
-/**
- * Search filter range
- */
-export interface ProductFilterRangeListObject {
-  max?: number | null;
-  min?: number | null;
 }
 
 /**

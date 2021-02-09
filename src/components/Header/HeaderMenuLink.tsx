@@ -5,10 +5,10 @@ import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { useRouter } from 'next/router';
 import { IBaseProps } from 'core/interfaces/base';
+import { useMediaQuery } from 'react-responsive';
 import RouterLink from '../RouterLink/RouterLink';
 import { IHeaderLink } from './Header';
 import { useHover } from '../../hooks/useHover';
-import { useMobileViewport } from '../../hooks/useMediaQuery';
 
 const HeaderSecondaryMenu = dynamic(() => import('./HeaderSecondaryMenu'));
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -26,8 +26,8 @@ export interface IHeaderMenuLinkProps extends IBaseProps {
 const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
   const router = useRouter();
   const { link, isMenuOpen } = props;
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
 
-  const isMobile = useMobileViewport();
   const [hoverRef, isHovered] = useHover<HTMLLIElement>();
 
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -47,7 +47,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
 
   const isOpen =
     !!link.children?.length &&
-    ((!isMobile && isHovered) || (isMobile && isOpenMenu));
+    ((!isTabletOrMobile && isHovered) || (isTabletOrMobile && isOpenMenu));
 
   useEffect(() => {
     setIsOpenMenu(false);
@@ -66,7 +66,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
         key={link.id}
         link={link}
         onClick={
-          isMobile && link.children?.length
+          isTabletOrMobile && link.children?.length
             ? el => {
                 el.preventDefault();
                 setIsOpenMenu(true);
@@ -77,7 +77,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
         {link.highlight && (
           <Icon
             icon={<FlameSharp />}
-            color={isMobile ? 'white' : 'orange'}
+            color={isTabletOrMobile ? 'white' : 'orange'}
             size="xsmall"
           />
         )}
@@ -91,7 +91,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
             links={link.children as IHeaderLink[]}
             title={link.label}
             onClickTitle={() => setIsOpenMenu(false)}
-            isMobile={isMobile}
+            isTabletOrMobile={isTabletOrMobile}
             isMenuOpen={isMenuOpen}
           />
         </LazyLoadComponent>

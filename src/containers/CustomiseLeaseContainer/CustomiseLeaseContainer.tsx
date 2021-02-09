@@ -49,15 +49,14 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   setIsDisabled,
   trimData,
   colourData,
+  mileage,
+  setMileage,
 }) => {
   const isInitialMount = useRef(true);
 
   const [quoteData, setQuoteData] = useState<
     GetQuoteDetails | null | undefined
   >(quote || null);
-  const [mileage, setMileage] = useState<number | null>(
-    quote?.quoteByCapId?.mileage || null,
-  );
   const [upfront, setUpfront] = useState<number | null>(
     quote?.quoteByCapId?.upfront || null,
   );

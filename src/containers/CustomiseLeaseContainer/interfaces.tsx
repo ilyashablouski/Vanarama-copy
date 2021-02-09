@@ -45,6 +45,8 @@ export interface IProps {
   quote?: GetQuoteDetails;
   trimData: ITrimList[];
   colourData: IColourList[];
+  mileage: number | null;
+  setMileage: React.Dispatch<React.SetStateAction<number | null>>;
 }
 
 export interface IQuoteDataInputs {

@@ -153,6 +153,8 @@ describe('<CustomiseLeaseContainer />', () => {
         leaseType="Business"
         setLeaseType={jest.fn()}
         onCompleted={jest.fn()}
+        mileage={6000}
+        setMileage={jest.fn()}
       />,
     );
 
@@ -282,6 +284,8 @@ describe('<CustomiseLeaseContainer />', () => {
       setLeaseType: jest.fn(),
       onCompleted: jest.fn(),
       onCompletedCallBack: jest.fn(),
+      mileage: 6000,
+      setMileage: jest.fn(),
     });
     expect(tree).toMatchSnapshot();
   });
@@ -368,6 +372,8 @@ describe('<CustomiseLeaseContainer />', () => {
       leaseType: 'Personal',
       setLeaseType: jest.fn(),
       onCompleted: jest.fn(),
+      mileage: 6000,
+      setMileage: jest.fn(),
     });
     expect(tree).toMatchSnapshot();
   });
@@ -488,6 +494,8 @@ describe('<CustomiseLeaseContainer />', () => {
         leaseType="Business"
         setLeaseType={jest.fn()}
         onCompleted={jest.fn()}
+        mileage={6000}
+        setMileage={jest.fn()}
       />,
     );
 

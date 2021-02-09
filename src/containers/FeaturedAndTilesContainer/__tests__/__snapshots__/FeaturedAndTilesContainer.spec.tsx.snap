@@ -22,10 +22,10 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
           <img
             alt="gymarama.jpg"
             class="image--native"
-            loading="lazy"
+            loading="eager"
             sizes="(min-width:3200px) 800px, 1200px"
-            src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg"
-            srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg 1200w"
+            src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg"
+            srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/6kt6I38iXsoiLAxzJDH9Ti/f3d607d7c220c9c038f434553927878d/gymarama.jpg 1200w"
           />
         </div>
       </div>
@@ -64,8 +64,8 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
               data-testid="card-image"
               loading="lazy"
               sizes="(min-width:3200px) 800px, 1200px"
-              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
-              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 1200w"
+              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png"
+              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3a609lEJL2WBF9fBG9V6N6/9bbcee8eba6f7deecfbbab92582283e2/Fleet-Icon.png 1200w"
             />
             <div
               class="title"
@@ -94,8 +94,8 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
               data-testid="card-image"
               loading="lazy"
               sizes="(min-width:3200px) 800px, 1200px"
-              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/7gH6pHpHcgXHt14wJlfqmz/0acc5f3d654e0a2f1e2e1e584901983e/delivery.jpg"
-              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/7gH6pHpHcgXHt14wJlfqmz/0acc5f3d654e0a2f1e2e1e584901983e/delivery.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/7gH6pHpHcgXHt14wJlfqmz/0acc5f3d654e0a2f1e2e1e584901983e/delivery.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/7gH6pHpHcgXHt14wJlfqmz/0acc5f3d654e0a2f1e2e1e584901983e/delivery.jpg 1200w"
+              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/7gH6pHpHcgXHt14wJlfqmz/0acc5f3d654e0a2f1e2e1e584901983e/delivery.jpg"
+              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/7gH6pHpHcgXHt14wJlfqmz/0acc5f3d654e0a2f1e2e1e584901983e/delivery.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/7gH6pHpHcgXHt14wJlfqmz/0acc5f3d654e0a2f1e2e1e584901983e/delivery.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/7gH6pHpHcgXHt14wJlfqmz/0acc5f3d654e0a2f1e2e1e584901983e/delivery.jpg 1200w"
             />
             <div
               class="title"
@@ -124,8 +124,8 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
               data-testid="card-image"
               loading="lazy"
               sizes="(min-width:3200px) 800px, 1200px"
-              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png"
-              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png 1200w"
+              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png"
+              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/3KhuHOZWIeppLEsCTcouiY/a384211adc3f246728f3c5fd9d8cf637/Insurance-Icon.png 1200w"
             />
             <div
               class="title"
@@ -154,8 +154,8 @@ exports[`<FeaturedAndTilesContainer /> should match snapshot 1`] = `
               data-testid="card-image"
               loading="lazy"
               sizes="(min-width:3200px) 800px, 1200px"
-              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png"
-              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none,format=auto/https://images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png 1200w"
+              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png"
+              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/4v2ALClaL6YnE0NYRsd8uc/7e92f2b83eb9e594ced8269152961026/Icon-PricePromise-RGB.png 1200w"
             />
             <div
               class="title"

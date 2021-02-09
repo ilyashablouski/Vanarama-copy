@@ -193,7 +193,7 @@ export const VansPage: NextPage<IProps> = ({
             imageSrc={offer?.imageUrl || ''}
             keyInfo={offer?.keyInformation || []}
             capId={offer?.capId || ''}
-            vehicle={`${offer?.manufacturerName} ${offer?.rangeName}`}
+            vehicle={`${offer?.manufacturerName} ${offer?.modelName}`}
             specification={offer?.derivativeName || ''}
             price={
               (isPersonal ? offer?.personalRate : offer?.businessRate) || 0
@@ -753,7 +753,7 @@ export const VansPage: NextPage<IProps> = ({
               },
               {
                 label: 'thesun',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thesun.pn`,
+                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thesun.png`,
               },
               {
                 label: 'sky',

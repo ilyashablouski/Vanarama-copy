@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
@@ -39,6 +39,7 @@ import {
   GetTrimAndColor_trimList as ITrimList,
 } from '../../../generated/GetTrimAndColor';
 import { GetProductCard } from '../../../generated/GetProductCard';
+import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
@@ -145,6 +146,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     true,
   );
   const [screenY, setScreenY] = useState<number | null>(null);
+  const [mileage, setMileage] = useState<number | null>(
+    quote?.quoteByCapId?.mileage || null,
+  );
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
@@ -159,6 +163,22 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const scrollChange = () => {
     setScreenY(window.pageYOffset);
   };
+
+  const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
+
+  const onPushPDPDataLayer = useCallback(() => {
+    const derivativeInfo = data?.derivativeInfo;
+    const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+    // tracking
+    pushPDPDataLayer({
+      capId,
+      derivativeInfo,
+      vehicleConfigurationByCapId,
+      price,
+      category: getCategory({ cars, vans, pickups }),
+      mileage,
+    });
+  }, [capId, cars, data, price, pickups, vans, mileage]);
 
   useEffect(() => {
     if (isMobile) {
@@ -178,18 +198,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       data?.vehicleConfigurationByCapId &&
       leaseScannerData?.quoteByCapId
     ) {
-      const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
-      const derivativeInfo = data?.derivativeInfo;
-      const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
-      // tracking
-      pushPDPDataLayer({
-        capId,
-        derivativeInfo,
-        vehicleConfigurationByCapId,
-        price,
-        category: getCategory({ cars, vans, pickups }),
-      });
-
+      onPushPDPDataLayer();
       setFirstTimePushDataLayer(false);
     }
   }, [
@@ -200,11 +209,21 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     capId,
     leaseScannerData,
     firstTimePushDataLayer,
+    onPushPDPDataLayer,
   ]);
+
+  useFirstRenderEffect(() => {
+    if (price && !firstTimePushDataLayer) onPushPDPDataLayer();
+    if (isMobile) {
+      leaseScanner.current!.style.display = 'flex';
+      setTimeout(() => {
+        leaseScanner.current!.style.removeProperty('display');
+      }, 1000);
+    }
+  }, [price]);
   const vehicleDetails = data?.vehicleDetails;
 
   const onSubmitClick = (values: OrderInputObject) => {
-    const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
     const derivativeInfo = data?.derivativeInfo;
     const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
     pushAddToCartDataLayer({
@@ -361,8 +380,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   // tracking
   const onCompletedCallBack = () => {
-    const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
-
     pushCallBackDataLayer({
       capId,
       derivativeInfo,
@@ -454,6 +471,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             setIsDisabled={setIsDisabled}
             setLeaseScannerData={setLeaseScannerData}
             onCompleted={values => onSubmitClick(values)}
+            mileage={mileage}
+            setMileage={setMileage}
           />
         )}
         <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
@@ -494,6 +513,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           setLeaseScannerData={setLeaseScannerData}
           onCompletedCallBack={onCompletedCallBack}
           onCompleted={values => onSubmitClick(values)}
+          mileage={mileage}
+          setMileage={setMileage}
         />
       )}
       {(!!productCard || !!capsId?.length) && (

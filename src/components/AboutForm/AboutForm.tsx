@@ -288,7 +288,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           id="consent"
           dataTestId="aboutConsent"
           name="consent"
-          label="I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions."
+          label="I want to be kept updated about exclusive deals & offers."
           ref={register}
         />
         <CheckBox

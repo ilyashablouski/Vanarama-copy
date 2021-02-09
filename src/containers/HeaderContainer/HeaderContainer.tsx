@@ -3,6 +3,7 @@ import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import { ILink } from 'core/interfaces/link';
+import { useMediaQuery } from 'react-responsive';
 
 import { PHONE_NUMBER_LINK } from '../../models/enum/HeaderLinks';
 
@@ -10,7 +11,6 @@ import Header from '../../components/Header';
 import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
 import { PrimaryHeader_primaryHeader_linkGroups_linkGroups as LinkGroups } from '../../../generated/PrimaryHeader';
 import { IHeaderLink } from '../../components/Header/Header';
-import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { GetPrimaryHeaderData as HeaderData } from '../../../generated/GetPrimaryHeaderData';
 import HEADER_DATA from '../../deps/data/menuData.json';
 
@@ -25,7 +25,7 @@ export const LOGOUT_USER_MUTATION = gql`
 const HeaderContainer: FC = () => {
   const data: HeaderData = HEADER_DATA;
   const router = useRouter();
-  const isMobile = useMobileViewport();
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
 
   const LOGIN_LINK = {
     label: 'Login',
@@ -91,7 +91,7 @@ const HeaderContainer: FC = () => {
                 linksGroup?.promotionalImage?.image?.[0]?.file?.fileName || '',
             },
           },
-          children: isMobile
+          children: isTabletOrMobile
             ? [linksGroupUrl, ...childrenGroupLinks]
             : childrenGroupLinks,
         };

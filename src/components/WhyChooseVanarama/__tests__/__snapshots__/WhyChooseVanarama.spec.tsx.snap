@@ -237,7 +237,7 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
           <span
             className="text -regular -black"
           >
-            Our Trust Pilot Score
+            Rated Excellent On Trustpilot
           </span>
         </div>
       </button>
