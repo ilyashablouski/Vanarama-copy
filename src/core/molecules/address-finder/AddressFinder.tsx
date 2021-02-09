@@ -44,6 +44,7 @@ const AddressFinder: AddressFinderComponent = ({
   );
 
   function handleSuggestionSelect(loqateSuggestion: ILoqateSuggestion) {
+    // only suggestions with type Address have ID
     if (loqateSuggestion.type === 'Address') {
       dispatch({ type: 'SELECT_ADDRESS', suggestion: loqateSuggestion });
       onSuggestionChange({
@@ -57,14 +58,15 @@ const AddressFinder: AddressFinderComponent = ({
 
   useEffect(() => {
     if (!selected?.id && selected?.label && data.length) {
-      handleSuggestionSelect({
-        type: 'Address',
-        id: data[0].id,
-        text: data[0].text,
-        description: data[0].description,
-      });
+      if (data.length === 1 && data[0].type === 'Address') {
+        handleSuggestionSelect(data[0]);
+      } else {
+        // force user to input address in case
+        // if there are not one specific suggestion
+        dispatch({ type: 'CHANGE_INPUT', value: '' });
+        onSuggestionChange();
+      }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, selected]);
 
   return (
@@ -72,25 +74,18 @@ const AddressFinder: AddressFinderComponent = ({
       <AddressFinderProvider
         value={{
           data,
-          inputFocused: focused,
-          intermediate,
-          onChange: e => {
-            dispatch({ type: 'CHANGE_INPUT', value: e.target.value });
-          },
-          onClearIntermediate: () => {
-            dispatch({ type: 'CLEAR_INTERMEDIATE' });
-          },
-          onClearSuggestion: () => onSuggestionChange(),
-          onSuggestionSelected: handleSuggestionSelect,
-          preventBlur,
-          selectedSuggestion: selected,
-          setInputBlur: () => {
-            dispatch({ type: 'BLUR_INPUT' });
-          },
-          setInputFocus: () => {
-            dispatch({ type: 'FOCUS_INPUT' });
-          },
           value,
+          intermediate,
+          preventBlur,
+          inputFocused: focused,
+          selectedSuggestion: selected,
+          onChange: e =>
+            dispatch({ type: 'CHANGE_INPUT', value: e.target.value }),
+          setInputBlur: () => dispatch({ type: 'BLUR_INPUT' }),
+          setInputFocus: () => dispatch({ type: 'FOCUS_INPUT' }),
+          onClearSuggestion: () => onSuggestionChange(),
+          onClearIntermediate: () => dispatch({ type: 'CLEAR_INTERMEDIATE' }),
+          onSuggestionSelected: handleSuggestionSelect,
         }}
       >
         {children}
