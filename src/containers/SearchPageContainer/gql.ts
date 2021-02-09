@@ -229,6 +229,7 @@ export function getRangeImages(
 export const GET_MODEL_IMAGES = gql`
   query ModelImages($capIds: [ID]) {
     vehicleImages(capIds: $capIds, all: false) {
+      capId
       mainImageUrl
     }
   }

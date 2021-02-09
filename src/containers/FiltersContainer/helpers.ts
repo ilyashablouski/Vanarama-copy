@@ -25,6 +25,7 @@ export const findPreselectFilterValue = (
   value: string,
   data: (string | IFiltersChildren)[] | null | undefined,
 ): string => {
+  if (!data?.length) return '';
   // sorting using for prevent cases with incorrect select
   if (data?.length && typeof data[0] !== 'string') {
     const slugsArray = data
@@ -34,7 +35,8 @@ export const findPreselectFilterValue = (
   }
   return (
     (data as string[])
-      ?.sort((a, b) => a.length - b.length)
+      ?.slice()
+      .sort((a, b) => a.length - b.length)
       .find(element => isInclude(element, value)) || ''
   );
 };

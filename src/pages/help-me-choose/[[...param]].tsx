@@ -12,6 +12,7 @@ import { ProductVehicleListVariables } from '../../../generated/ProductVehicleLi
 import {
   buildAnObjectFromAQuery,
   IInitStep,
+  initialSteps,
 } from '../../containers/HelpMeChooseContainer/helpers';
 import { getSectionsData } from '../../utils/getSectionsData';
 import HelpMeChooseAboutYou from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseAboutYou';
@@ -27,45 +28,6 @@ import Skeleton from '../../components/Skeleton';
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
-
-const initialSteps: IInitStep = {
-  financeTypes: {
-    active: true,
-    value: 'PCH' as any,
-  },
-  bodyStyles: {
-    active: false,
-    value: [],
-  },
-  fuelTypes: {
-    active: false,
-    value: [],
-  },
-  transmissions: {
-    active: false,
-    value: [],
-  },
-  terms: {
-    active: false,
-    value: '' as any,
-  },
-  mileages: {
-    active: false,
-    value: '' as any,
-  },
-  availability: {
-    active: false,
-    value: '' as any,
-  },
-  rental: {
-    active: false,
-    value: '' as any,
-  },
-  initialPeriods: {
-    active: false,
-    value: '' as any,
-  },
-};
 
 const HelpMeChoose: NextPage = () => {
   const [steps, setSteps] = useState<IInitStep>(initialSteps);

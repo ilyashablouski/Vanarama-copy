@@ -1,4 +1,5 @@
 import { NextRouter } from 'next/router';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 const getBucketLabel = (type: string, label: string) => {
   switch (type) {
@@ -35,8 +36,9 @@ export const onReplace = (
     rental: IStep;
     initialPeriods: IStep;
   },
+  pathName?: string,
 ) => {
-  let pathname = router.route.replace('[[...param]]', '');
+  let pathname = pathName || router.route.replace('[[...param]]', '');
   const queryString = new URLSearchParams();
   const queries = {} as any;
   Object.entries(newStep).forEach(filter => {
@@ -47,6 +49,9 @@ export const onReplace = (
     ) {
       queries[key] = step.value;
     }
+    if (pathName && key === 'rental') {
+      queries.pricePerMonth = step.value;
+    }
   });
   Object.entries(queries).forEach(([key, value]) =>
     queryString.set(key, value as string),
@@ -56,7 +61,7 @@ export const onReplace = (
   // changing url dynamically
   router.replace(
     {
-      pathname: router.route,
+      pathname: pathName || router.route,
       query: queries,
     },
     pathname,
@@ -66,7 +71,6 @@ export const onReplace = (
 
 export const buildAnObjectFromAQuery = (query: any, steps: IInitStep) => {
   const object = {} as any;
-  // object.initialPeriods = [6];
   query.forEach((value: string, key: string) => {
     if (key === 'financeTypes' && value.length && !steps.financeTypes.active) {
       object.financeTypes = value;
@@ -99,6 +103,7 @@ export const buildAnObjectFromAQuery = (query: any, steps: IInitStep) => {
       object.initialPeriods = [parseInt(value, 10)];
     }
   });
+  object.vehicleTypes = [VehicleTypeEnum.CAR];
   return object;
 };
 
@@ -118,3 +123,42 @@ export interface IInitStep {
   rental: IStep;
   initialPeriods: IStep;
 }
+
+export const initialSteps: IInitStep = {
+  financeTypes: {
+    active: true,
+    value: 'PCH' as any,
+  },
+  bodyStyles: {
+    active: false,
+    value: [],
+  },
+  fuelTypes: {
+    active: false,
+    value: [],
+  },
+  transmissions: {
+    active: false,
+    value: [],
+  },
+  terms: {
+    active: false,
+    value: '' as any,
+  },
+  mileages: {
+    active: false,
+    value: '' as any,
+  },
+  availability: {
+    active: false,
+    value: '' as any,
+  },
+  rental: {
+    active: false,
+    value: '' as any,
+  },
+  initialPeriods: {
+    active: false,
+    value: '' as any,
+  },
+};

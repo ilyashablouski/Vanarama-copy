@@ -134,7 +134,9 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
           },
           initialPeriods: {
             active: true,
-            value: steps.initialPeriods.value ?? '6',
+            value: steps.initialPeriods.value
+              ? (steps.initialPeriods.value as any)
+              : '6',
           },
         });
         onReplace(router, {

@@ -8,6 +8,7 @@
 // ====================================================
 
 export interface ModelImages_vehicleImages {
+  capId: number | null;
   mainImageUrl: string | null;
 }
 
