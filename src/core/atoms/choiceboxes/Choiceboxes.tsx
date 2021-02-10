@@ -3,6 +3,7 @@ import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import cx from 'classnames';
 import { IChoiceboxesProps, IChoice } from './interfaces';
 import Icon from '../icon';
+import BodyStyleIconMap from '../../../utils/bodyStyleIconMap';
 
 const Choiceboxes = forwardRef(
   (
@@ -68,7 +69,12 @@ const Choiceboxes = forwardRef(
           >
             {choice.label}
             {withIcons && (
-              <Icon color="teal" name={choice.label.replace(' ', '-')} />
+              <Icon
+                color="teal"
+                icon={BodyStyleIconMap.get(choice?.label.replace(/\s+/g, ''))}
+                size="xlarge"
+                className="md hydrated"
+              />
             )}
           </button>
         ))}
