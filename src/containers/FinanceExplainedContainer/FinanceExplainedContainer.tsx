@@ -19,9 +19,6 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -31,7 +28,6 @@ const IvanCta = dynamic(() => import('core/molecules/ivan-cta'), {
 const Carousel = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={1} />,
 });
-
 interface IProps {
   data: GenericPageQuery;
 }
@@ -66,6 +62,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
       <div className="row:text -columns">
         <div>
           <ReactMarkdown
+            className="markdown"
             source={body || ''}
             allowDangerousHtml
             renderers={{
@@ -78,10 +75,6 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
                   />
                 );
               },
-              heading: props => (
-                <Text {...props} size="lead" color="darker" tag="h3" />
-              ),
-              paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
           />
         </div>
@@ -157,32 +150,6 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
                       />
                     );
                   },
-                  heading: props => (
-                    <Text {...props} size="lead" color="darker" tag="h3" />
-                  ),
-                  paragraph: props => (
-                    <div style={{ display: 'inline-block' }}>
-                      <Text {...props} tag="p" color="darker" />
-                    </div>
-                  ),
-                  list: props => {
-                    const { children } = props;
-                    return <ol>{children}</ol>;
-                  },
-                  listItem: props => {
-                    const { children } = props;
-                    return (
-                      <li
-                        style={{
-                          display: 'list-item',
-                          listStyleType: 'decimal',
-                          listStylePosition: 'inside',
-                        }}
-                      >
-                        {children}
-                      </li>
-                    );
-                  },
                 }}
               />
             </div>
@@ -223,6 +190,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
                 >
                   <div>
                     <ReactMarkdown
+                      className="markdown"
                       source={el?.body || ''}
                       allowDangerousHtml
                       renderers={{
@@ -235,12 +203,6 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
                             />
                           );
                         },
-                        heading: props => (
-                          <Text {...props} size="lead" color="dark" tag="h3" />
-                        ),
-                        paragraph: props => (
-                          <Text {...props} tag="p" color="dark" />
-                        ),
                       }}
                     />
                   </div>
@@ -284,6 +246,7 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
             </Heading>
             <div>
               <ReactMarkdown
+                className="markdown"
                 source={featured2.body || ''}
                 allowDangerousHtml
                 renderers={{
@@ -296,12 +259,6 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
                       />
                     );
                   },
-                  heading: props => (
-                    <Text {...props} size="lead" color="darker" tag="h3" />
-                  ),
-                  paragraph: props => (
-                    <Text {...props} tag="p" color="darker" />
-                  ),
                 }}
               />
             </div>
