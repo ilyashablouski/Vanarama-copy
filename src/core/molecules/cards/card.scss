@@ -541,14 +541,14 @@ $small: 0.875rem;
   }
 
   &.-compact {
-    --img-w: 240px;
+    --img-w: 200px;
   }
 
   &.-compact > .card-image {
     min-height: 160px;
     height: 160px;
-    min-width: 240px;
-    width: 240px;
+    min-width: 200px;
+    width: 200px;
 
     @include mobile {
       height: calc((100vmin - 2rem) / (3 / 2));
@@ -556,7 +556,7 @@ $small: 0.875rem;
     }
 
     @include mobile-tablet {
-      height: 240px;
+      height: 200px;
       width: 100%;
     }
   }

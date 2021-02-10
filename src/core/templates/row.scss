@@ -1752,6 +1752,7 @@
           width: calc(33.33% - 1rem);
           max-width: calc(33.33% - 1rem);
           margin: 0.25rem;
+          text-transform: capitalize;
 
           @include padding-inline(1rem);
           @include padding-block(0.75rem);
