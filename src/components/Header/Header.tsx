@@ -91,7 +91,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
   const [isMenuOpen, setOpenMenu] = useState(false);
   const [isMyAccountOpen, setOpenMyAccount] = useState(false);
 
-  const isTabletOrMobile = useMediaQuery('(max-width: 1215px)');
+  const isDesktop = useMediaQuery('(min-width: 1216px)');
 
   useEffect(() => {
     if (!person) {
@@ -128,9 +128,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
   return (
     <header
       style={
-        isTabletOrMobile
-          ? { position: 'fixed', top: 0 }
-          : { position: 'relative' }
+        !isDesktop ? { position: 'fixed', top: 0 } : { position: 'relative' }
       }
       className={cx('header', className)}
       data-testid="header"
@@ -146,7 +144,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
           {' '}
           <Logo asset="vanarama" />{' '}
         </RouterLink>{' '}
-        {!isTabletOrMobile && (
+        {isDesktop && (
           <label className="header-search" htmlFor="search">
             {' '}
             {/* {TODO: commit for this search lines should be reverted after implement search functionality} */}
@@ -290,14 +288,16 @@ export const Header: FC<IHeaderProps> = memo(props => {
               </>
             ) : (
               <Button
+                withoutDefaultClass
                 className="header-account--toggle"
                 fill="clear"
                 label={
                   <RouterLink link={loginLink}>
-                    {isTabletOrMobile && (
+                    {!isDesktop ? (
                       <Icon icon={<PersonCircleSharp />} size="xsmall" />
+                    ) : (
+                      <span>Login / Register</span>
                     )}
-                    <span>Login / Register</span>{' '}
                   </RouterLink>
                 }
               />
