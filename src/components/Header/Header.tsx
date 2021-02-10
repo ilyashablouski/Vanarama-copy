@@ -126,13 +126,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
   }, [isMenuOpen]);
 
   return (
-    <header
-      style={
-        !isDesktop ? { position: 'fixed', top: 0 } : { position: 'relative' }
-      }
-      className={cx('header', className)}
-      data-testid="header"
-    >
+    <header className={cx('header', className)} data-testid="header">
       {' '}
       <div className="header-content">
         {' '}
