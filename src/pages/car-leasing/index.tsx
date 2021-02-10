@@ -5,7 +5,6 @@ import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { useContext, useEffect, useState } from 'react';
-import Media from 'core/atoms/media';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { isCompared } from '../../utils/comparatorHelpers';
@@ -54,9 +53,9 @@ const Price = dynamic(() => import('core/atoms/price'));
 const ProductCard = dynamic(() =>
   import('core/molecules/cards/ProductCard/ProductCard'),
 );
-// const Media = dynamic(() => import('core/atoms/media'), {
-//   loading: () => <Skeleton count={3} />,
-// });
+const Media = dynamic(() => import('core/atoms/media'), {
+  loading: () => <Skeleton count={3} />,
+});
 const Choiceboxes = dynamic(() => import('core/atoms/choiceboxes'), {
   loading: () => <Skeleton count={3} />,
 });
@@ -196,17 +195,20 @@ export const CarsPage: NextPage<IProps> = ({
             <Heading size="large" color="black">
               Not Sure Which Vehicle Is Best For You?
             </Heading>
-            <RouterLink
-              className="button"
-              classNames={{ color: 'teal', solid: true, size: 'regular' }}
-              link={{
-                label: 'Help Me Choose',
-                href: '/help-me-choose',
-              }}
-              withoutDefaultClassName
-            >
-              <div className="button--inner">Help Me Choose</div>
-            </RouterLink>
+            {/* <RouterLink
+            className="button"
+            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            link={{
+              label: 'Help Me Choose',
+              href: '/help-me-choose',
+            }}
+            withoutDefaultClassName
+          >
+            <div className="button--inner">Help Me Choose</div>
+          </RouterLink> */}
+            <Text color="orange" size="lead">
+              Coming Soon
+            </Text>
           </div>
         </LazyLoadComponent>
       </section>
@@ -351,6 +353,7 @@ export const CarsPage: NextPage<IProps> = ({
       >
         {data?.hubCarPage?.sections?.featured1?.video ? (
           <Media
+            iframe
             src={
               getSectionsData(
                 ['featured1', 'video'],
