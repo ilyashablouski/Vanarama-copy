@@ -4,12 +4,6 @@ exports[`<Header /> renders correctly 1`] = `
 <header
   className="header"
   data-testid="header"
-  style={
-    Object {
-      "position": "fixed",
-      "top": 0,
-    }
-  }
 >
    
   <div
@@ -406,12 +400,6 @@ exports[`<Header /> renders correctly with login user 1`] = `
 <header
   className="header"
   data-testid="header"
-  style={
-    Object {
-      "position": "fixed",
-      "top": 0,
-    }
-  }
 >
    
   <div

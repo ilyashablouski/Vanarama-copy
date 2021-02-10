@@ -60,7 +60,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     boolean | undefined
   >(false);
   // const [existComparator, setExistComparator] = useState(false);
-  const isTabletOrMobile = useMediaQuery('(max-width: 1215px)');
 
   useEffect(() => {
     // Anytime router.push is called, scroll to the top of the page.
@@ -138,12 +137,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   return (
     <>
-      <main
-        className={cx(resolveMainClass())}
-        style={{
-          paddingTop: isTabletOrMobile ? '46px' : '0',
-        }}
-      >
+      <main className={cx(resolveMainClass())}>
         <HeaderContainer />
         <CompareContext.Provider
           value={{
