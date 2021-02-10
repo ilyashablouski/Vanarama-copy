@@ -353,7 +353,6 @@ export const CarsPage: NextPage<IProps> = ({
       >
         {data?.hubCarPage?.sections?.featured1?.video ? (
           <Media
-            iframe
             src={
               getSectionsData(
                 ['featured1', 'video'],
@@ -415,7 +414,6 @@ export const CarsPage: NextPage<IProps> = ({
       >
         {data?.hubCarPage?.sections?.featured2?.video ? (
           <Media
-            iframe
             src={
               getSectionsData(
                 ['featured2', 'video'],
