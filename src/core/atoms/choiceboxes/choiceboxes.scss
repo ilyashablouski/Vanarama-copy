@@ -35,6 +35,7 @@
     transition: all 50ms ease;
     margin-top: 0.5rem;
     max-height: 2.25rem;
+    display: flex;
   }
 
   &.-active {
@@ -42,8 +43,8 @@
     border: 1px solid var(--class-color);
     color: var(--class-color-contrast);
 
-    .icon[src] {
-      filter: invert(1) !important;
+    .icon {
+      filter: brightness(0) invert(1);
     }
 
     &:hover,

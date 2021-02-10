@@ -1,18 +1,18 @@
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { Dispatch, FC, SetStateAction, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
-import { onReplace, IInitStep } from '../helpers';
+import { onReplace, IInitStep, buildAnObjectFromAQuery } from '../helpers';
 
 export interface HelpMeChooseStep {
   steps: IInitStep;
   setSteps: (step: IInitStep) => void;
   getProductVehicleList: any;
   productVehicleListData: any;
+  setLoadingStatus: Dispatch<SetStateAction<boolean>>;
 }
 
 const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
-  const { setSteps, steps, getProductVehicleList } = props;
+  const { setSteps, steps, getProductVehicleList, setLoadingStatus } = props;
   const router = useRouter();
   const [financeTypesValue, setFinanceTypesValue] = useState<string>(
     steps.financeTypes.value as any,
@@ -23,35 +23,25 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
     { label: 'Business', value: 'BCH', active: financeTypesValue === 'BCH' },
   ];
 
-  useEffect(() => {
-    if (window?.location.search.length) {
-      const searchParams = new URLSearchParams(window.location.search);
-      const financeTypesQueryValue = searchParams.get('financeTypes');
-      const isFinanceTypesActive =
-        searchParams.has('financeTypes') && !searchParams.has('bodyStyles');
-      setSteps({
-        ...steps,
-        financeTypes: {
-          active: steps.financeTypes.active || isFinanceTypesActive,
-          value: financeTypesQueryValue as any,
-        },
-      });
-      setFinanceTypesValue(financeTypesQueryValue as string);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <HelpMeChooseContainer
       title="Are you looking for a lease for you personally or for your business?"
       choicesValues={financeTypes}
       setChoice={setFinanceTypesValue}
       onClickContinue={() => {
+        setLoadingStatus(true);
+        const searchParams = new URLSearchParams(window.location.search);
         getProductVehicleList({
           variables: {
             filter: {
-              vehicleTypes: [VehicleTypeEnum.CAR],
-              financeTypes: financeTypesValue,
+              ...buildAnObjectFromAQuery(searchParams, {
+                ...steps,
+                financeTypes: {
+                  active: false,
+                  value: financeTypesValue as any,
+                },
+                bodyStyles: { active: true, value: steps.bodyStyles.value },
+              }),
             },
           },
         });
@@ -60,10 +50,15 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
           financeTypes: { active: false, value: financeTypesValue as any },
           bodyStyles: { active: true, value: steps.bodyStyles.value },
         });
-        onReplace(router, {
-          ...steps,
-          financeTypes: { active: false, value: financeTypesValue as any },
-        });
+        onReplace(
+          router,
+          {
+            ...steps,
+            financeTypes: { active: false, value: financeTypesValue as any },
+          },
+          '',
+          router.query.isEdit as string,
+        );
       }}
       currentValue={financeTypesValue}
     />
