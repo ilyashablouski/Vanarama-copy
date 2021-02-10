@@ -61,7 +61,12 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
               </RouterLink>
             )}
           </div>
-          <Media src={featured?.video || ''} width="100%" height="360px" />
+          <Media
+            noLazy
+            src={featured?.video || ''}
+            width="100%"
+            height="360px"
+          />
         </div>
       </div>
       <div className="row:lead-text">
