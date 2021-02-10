@@ -1,5 +1,8 @@
 import { NextRouter } from 'next/router';
+import { formatProductPageUrl } from '../../utils/url';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { ProductVehicleList_productVehicleList_edges_node as EdgesNode } from '../../../generated/ProductVehicleList';
+import { IVehicleCarousel } from '../../utils/comparatorHelpers';
 
 const getBucketLabel = (type: string, label: string) => {
   switch (type) {
@@ -37,10 +40,14 @@ export const onReplace = (
     initialPeriods: IStep;
   },
   pathName?: string,
+  isEdit?: string,
 ) => {
   let pathname = pathName || router.route.replace('[[...param]]', '');
   const queryString = new URLSearchParams();
   const queries = {} as any;
+  if (isEdit) {
+    queries.isEdit = isEdit;
+  }
   Object.entries(newStep).forEach(filter => {
     const [key, step] = filter;
     if (
@@ -50,7 +57,7 @@ export const onReplace = (
       queries[key] = step.value;
     }
     if (pathName && key === 'rental') {
-      queries.pricePerMonth = step.value;
+      queries.pricePerMonth = `0|${step.value}`;
     }
   });
   Object.entries(queries).forEach(([key, value]) =>
@@ -96,7 +103,7 @@ export const buildAnObjectFromAQuery = (query: any, steps: IInitStep) => {
     }
     if (key === 'rental' && value.length) {
       object.rental = {
-        min: parseFloat(value),
+        max: parseFloat(value),
       };
     }
     if (key === 'initialPeriods' && value.length) {
@@ -105,6 +112,38 @@ export const buildAnObjectFromAQuery = (query: any, steps: IInitStep) => {
   });
   object.vehicleTypes = [VehicleTypeEnum.CAR];
   return object;
+};
+
+export const formatForCompare = (
+  node: EdgesNode | null,
+  financeTypes: string,
+  mainImageUrl: string,
+): IVehicleCarousel | null => {
+  if (!node) {
+    return null;
+  }
+  return {
+    pageUrl: formatProductPageUrl(
+      // el.legacyUrl || el.url || '',
+      '',
+      node?.derivativeId,
+    ),
+    bodyStyle: node?.capBodyStyle,
+    capId: node?.derivativeId || '',
+    manufacturerName: node?.manufacturerName || '',
+    rangeName: node?.rangeName || '',
+    modelName: node?.modelName || '',
+    derivativeName: node?.derivativeName || '',
+    averageRating: null,
+    isOnOffer: null,
+    offerPosition: null,
+    leadTime: null,
+    imageUrl: mainImageUrl || null,
+    keyInformation: null,
+    businessRate: financeTypes === 'BCH' ? node?.rental || null : null,
+    personalRate: financeTypes === 'PCH' ? node?.rental || null : null,
+    vehicleType: VehicleTypeEnum.CAR,
+  };
 };
 
 export interface IStep {

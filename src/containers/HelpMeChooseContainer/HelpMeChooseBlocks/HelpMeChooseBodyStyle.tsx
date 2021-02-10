@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
 import { buildAnObjectFromAQuery, getBuckets, onReplace } from '../helpers';
 import { getSectionsData } from '../../../utils/getSectionsData';
@@ -12,40 +11,12 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
     steps,
     getProductVehicleList,
     productVehicleListData,
+    setLoadingStatus,
   } = props;
   const router = useRouter();
   const [bodyStylesValue, setBodyStylesValue] = useState<string[]>(
     steps.bodyStyles.value as string[],
   );
-
-  useEffect(() => {
-    if (window?.location.search.length) {
-      const searchParams = new URLSearchParams(window.location.search);
-      const bodyStylesQuery = searchParams.getAll('bodyStyles');
-      const bodyStylesQueryValue = bodyStylesQuery.length
-        ? bodyStylesQuery[0].split(',')
-        : [];
-      const isBodyStylesActive =
-        searchParams.has('bodyStyles') && !searchParams.has('fuelTypes');
-      setSteps({
-        ...steps,
-        bodyStyles: {
-          active: steps.bodyStyles.active || isBodyStylesActive,
-          value: bodyStylesQueryValue,
-        },
-      });
-      setBodyStylesValue(bodyStylesQueryValue);
-      getProductVehicleList({
-        variables: {
-          filter: {
-            ...buildAnObjectFromAQuery(searchParams, steps),
-            vehicleTypes: [VehicleTypeEnum.CAR],
-          },
-        },
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const bodyStyleData = getSectionsData(
     ['productVehicleList', 'aggs', 'capBodyStyle'],
@@ -58,16 +29,33 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
       choicesValues={getBuckets(bodyStyleData, bodyStylesValue)}
       setChoice={setBodyStylesValue}
       onClickContinue={() => {
+        setLoadingStatus(true);
+        const searchParams = new URLSearchParams(window.location.search);
+        getProductVehicleList({
+          variables: {
+            filter: {
+              ...buildAnObjectFromAQuery(searchParams, {
+                ...steps,
+                bodyStyles: { active: false, value: bodyStylesValue },
+              }),
+            },
+          },
+        });
         setSteps({
           ...steps,
           bodyStyles: { active: false, value: bodyStylesValue },
           fuelTypes: { active: true, value: steps.fuelTypes.value },
         });
-        onReplace(router, {
-          ...steps,
-          fuelTypes: { active: true, value: steps.fuelTypes.value },
-          bodyStyles: { active: false, value: bodyStylesValue },
-        });
+        onReplace(
+          router,
+          {
+            ...steps,
+            fuelTypes: { active: true, value: steps.fuelTypes.value },
+            bodyStyles: { active: false, value: bodyStylesValue },
+          },
+          '',
+          router.query.isEdit as string,
+        );
       }}
       multiSelect
       withIcons

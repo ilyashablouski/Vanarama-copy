@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
 import { buildAnObjectFromAQuery, getBuckets, onReplace } from '../helpers';
 import { getSectionsData } from '../../../utils/getSectionsData';
@@ -12,40 +11,12 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
     steps,
     getProductVehicleList,
     productVehicleListData,
+    setLoadingStatus,
   } = props;
   const router = useRouter();
   const [mileagesValue, setMileagesValue] = useState<string[]>(
     steps.mileages.value as string[],
   );
-
-  useEffect(() => {
-    if (window?.location.search.length) {
-      const searchParams = new URLSearchParams(window.location.search);
-      const mileagesQuery = searchParams.getAll('mileages');
-      const mileagesQueryValue = mileagesQuery.length
-        ? mileagesQuery[0].split(',')
-        : [];
-      const isMileagesActive =
-        searchParams.has('mileages') && !searchParams.has('availability');
-      setSteps({
-        ...steps,
-        mileages: {
-          active: steps.mileages.active || isMileagesActive,
-          value: mileagesQueryValue,
-        },
-      });
-      setMileagesValue(mileagesQueryValue);
-      getProductVehicleList({
-        variables: {
-          filter: {
-            ...buildAnObjectFromAQuery(searchParams, steps),
-            vehicleTypes: [VehicleTypeEnum.CAR],
-          },
-        },
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const mileagesData = getSectionsData(
     ['productVehicleList', 'aggs', 'mileage'],
@@ -58,6 +29,18 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
       choicesValues={getBuckets(mileagesData, mileagesValue, 'mileages')}
       setChoice={setMileagesValue}
       onClickContinue={() => {
+        setLoadingStatus(true);
+        const searchParams = new URLSearchParams(window.location.search);
+        getProductVehicleList({
+          variables: {
+            filter: {
+              ...buildAnObjectFromAQuery(searchParams, {
+                ...steps,
+                mileages: { active: false, value: mileagesValue },
+              }),
+            },
+          },
+        });
         setSteps({
           ...steps,
           mileages: { active: false, value: mileagesValue },
