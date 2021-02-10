@@ -188,8 +188,9 @@ export const BusinessAboutPage: NextPage = () => {
         </div>
       )}
       <BusinessAboutFormContainer
-        personUuid={personUuid}
         orderId={orderId}
+        personUuid={personUuid}
+        personLoggedIn={personLoggedIn}
         onCompleted={handleCreateUpdateBusinessPersonCompletion}
         onError={handleCreateUpdateBusinessPersonError}
         onLogInCLick={() => {
