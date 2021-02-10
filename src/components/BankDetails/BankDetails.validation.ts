@@ -13,7 +13,7 @@ const ValidationSchema = yup.object().shape({
       yup
         .string()
         .required('Please enter sort code')
-        .min(2, 'Please enter sort code'),
+        .min(6, 'Please enter sort code'),
     )
     .required('Please enter sort code'),
   bankName: yup.string().required('Please enter bank name'),
