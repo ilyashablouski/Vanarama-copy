@@ -730,6 +730,9 @@
       border: 0;
       font-weight: 500;
       color: $black;
+      @include mobile {
+        width: 120px;
+      }
     }
 
     > .select,
