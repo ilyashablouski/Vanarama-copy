@@ -10,46 +10,15 @@ exports[`<Media /> renders correctly with className 1`] = `
     useIntersectionObserver={true}
     visibleByDefault={false}
   >
-    <ReactPlayer
+    <div
       className=""
-      config={
-        Object {
-          "vimeo": Object {
-            "playerOptions": undefined,
-          },
-        }
-      }
-      controls={true}
-      height="360px"
-      light={false}
-      loop={false}
-      muted={false}
-      onBuffer={[Function]}
-      onBufferEnd={[Function]}
-      onDisablePIP={[Function]}
-      onDuration={[Function]}
-      onEnablePIP={[Function]}
-      onEnded={[Function]}
-      onError={[Function]}
-      onPause={[Function]}
-      onPlay={[Function]}
-      onProgress={[Function]}
-      onReady={[Function]}
-      onSeek={[Function]}
-      onStart={[Function]}
-      pip={false}
-      playbackRate={1}
-      playing={false}
-      playsinline={false}
-      progressInterval={1000}
-      src="https://player.vimeo.com/video/263419265"
-      stopOnUnmount={true}
-      style={Object {}}
-      url="https://player.vimeo.com/video/263419265"
-      volume={null}
-      width="640px"
-      wrapper="div"
-    />
+    >
+      <iframe
+        frameBorder={0}
+        src="https://player.vimeo.com/video/263419265"
+        title="media"
+      />
+    </div>
   </t>
 </div>
 `;
@@ -64,49 +33,15 @@ exports[`<Media /> renders correctly with config 1`] = `
     useIntersectionObserver={true}
     visibleByDefault={false}
   >
-    <ReactPlayer
+    <div
       className=""
-      config={
-        Object {
-          "vimeo": Object {
-            "playerOptions": Object {
-              "color": "EC6408",
-              "portrait": false,
-            },
-          },
-        }
-      }
-      controls={true}
-      height="360px"
-      light={false}
-      loop={false}
-      muted={false}
-      onBuffer={[Function]}
-      onBufferEnd={[Function]}
-      onDisablePIP={[Function]}
-      onDuration={[Function]}
-      onEnablePIP={[Function]}
-      onEnded={[Function]}
-      onError={[Function]}
-      onPause={[Function]}
-      onPlay={[Function]}
-      onProgress={[Function]}
-      onReady={[Function]}
-      onSeek={[Function]}
-      onStart={[Function]}
-      pip={false}
-      playbackRate={1}
-      playing={false}
-      playsinline={false}
-      progressInterval={1000}
-      src="https://player.vimeo.com/video/263419265"
-      stopOnUnmount={true}
-      style={Object {}}
-      url="https://player.vimeo.com/video/263419265"
-      volume={null}
-      width="640px"
-      wrapper="div"
-    />
+    >
+      <iframe
+        frameBorder={0}
+        src="https://player.vimeo.com/video/263419265"
+        title="media"
+      />
+    </div>
   </t>
 </div>
 `;
@@ -121,47 +56,15 @@ exports[`<Media /> renders correctly with data-testid 1`] = `
     useIntersectionObserver={true}
     visibleByDefault={false}
   >
-    <ReactPlayer
+    <div
       className=""
-      config={
-        Object {
-          "vimeo": Object {
-            "playerOptions": undefined,
-          },
-        }
-      }
-      controls={true}
-      data-testid="helloWorld"
-      height="360px"
-      light={false}
-      loop={false}
-      muted={false}
-      onBuffer={[Function]}
-      onBufferEnd={[Function]}
-      onDisablePIP={[Function]}
-      onDuration={[Function]}
-      onEnablePIP={[Function]}
-      onEnded={[Function]}
-      onError={[Function]}
-      onPause={[Function]}
-      onPlay={[Function]}
-      onProgress={[Function]}
-      onReady={[Function]}
-      onSeek={[Function]}
-      onStart={[Function]}
-      pip={false}
-      playbackRate={1}
-      playing={false}
-      playsinline={false}
-      progressInterval={1000}
-      src="https://player.vimeo.com/video/263419265"
-      stopOnUnmount={true}
-      style={Object {}}
-      url="https://player.vimeo.com/video/263419265"
-      volume={null}
-      width="640px"
-      wrapper="div"
-    />
+    >
+      <iframe
+        frameBorder={0}
+        src="https://player.vimeo.com/video/263419265"
+        title="media"
+      />
+    </div>
   </t>
 </div>
 `;
@@ -176,46 +79,15 @@ exports[`<Media /> renders correctly with default prop 1`] = `
     useIntersectionObserver={true}
     visibleByDefault={false}
   >
-    <ReactPlayer
+    <div
       className=""
-      config={
-        Object {
-          "vimeo": Object {
-            "playerOptions": undefined,
-          },
-        }
-      }
-      controls={true}
-      height="360px"
-      light={false}
-      loop={false}
-      muted={false}
-      onBuffer={[Function]}
-      onBufferEnd={[Function]}
-      onDisablePIP={[Function]}
-      onDuration={[Function]}
-      onEnablePIP={[Function]}
-      onEnded={[Function]}
-      onError={[Function]}
-      onPause={[Function]}
-      onPlay={[Function]}
-      onProgress={[Function]}
-      onReady={[Function]}
-      onSeek={[Function]}
-      onStart={[Function]}
-      pip={false}
-      playbackRate={1}
-      playing={false}
-      playsinline={false}
-      progressInterval={1000}
-      src="https://player.vimeo.com/video/263419265"
-      stopOnUnmount={true}
-      style={Object {}}
-      url="https://player.vimeo.com/video/263419265"
-      volume={null}
-      width="640px"
-      wrapper="div"
-    />
+    >
+      <iframe
+        frameBorder={0}
+        src="https://player.vimeo.com/video/263419265"
+        title="media"
+      />
+    </div>
   </t>
 </div>
 `;
@@ -234,6 +106,7 @@ exports[`<Media /> renders correctly with iframe and responsive 1`] = `
       className="media-player--embed"
     >
       <iframe
+        frameBorder={0}
         src="https://ssl.caranddriving.com/cdwebsite/player.aspx?id=8221&cid=autorama&responsive=true"
         title="media"
       />

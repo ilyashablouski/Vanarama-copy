@@ -124,12 +124,7 @@ const BlogPostContainer: NextPage<IProps> = ({
                     .split('href="')[1]
                     .split('"')[0];
                   return (
-                    <Media
-                      iframe
-                      src={iframeSrc || ''}
-                      height="350px"
-                      width="100%"
-                    />
+                    <Media src={iframeSrc || ''} height="350px" width="100%" />
                   );
                 }
                 return <Text {...props} tag="p" color="darker" />;

@@ -532,6 +532,16 @@
         grid-row-start: 1;
         grid-column: 1 / 11;
       }
+      @include mobile {
+        > :first-child {
+          grid-column: 1 / 13;
+        }
+      }
+      @include tablet {
+        > :first-child {
+          grid-column: 1 / 13;
+        }
+      }
     }
 
     &-product {
@@ -605,8 +615,8 @@
       &-#{map-get($color, 'name')} {
         background-color: map-get($color, 'color');
         background-image: soft-gradient(
-                        map-get($color, 'color'),
-                        map-get($color, 'mod')
+          map-get($color, 'color'),
+          map-get($color, 'mod')
         );
 
         & + & {
@@ -622,10 +632,10 @@
       position: relative;
       color: $white;
       background-image: linear-gradient(
-                      to bottom right,
-                      #dbdcdf 20%,
-                      #e7e9ec 50%,
-                      #eff0f3 100%
+        to bottom right,
+        #dbdcdf 20%,
+        #e7e9ec 50%,
+        #eff0f3 100%
       );
       overflow: hidden;
       padding-bottom: calc(var(--layout-gap) * 2) !important;
@@ -644,7 +654,7 @@
 
       &[style*='--hero-bg:'] {
         background-image: var(--hero-bg),
-        linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
+          linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.4));
         // background-image: var(--hero-bg), $promo-gradient;
         background-size: cover;
         background-position: center center;
@@ -720,6 +730,9 @@
       border: 0;
       font-weight: 500;
       color: $black;
+      @include mobile {
+        width: 120px;
+      }
     }
 
     > .select,
@@ -1090,9 +1103,9 @@
 
     > :first-child {
       background: linear-gradient(
-                      to left,
-                      #{rgba($black, 0.85)} 0%,
-                      #{rgba($black, 1)} 100%
+        to left,
+        #{rgba($black, 0.85)} 0%,
+        #{rgba($black, 1)} 100%
       );
       border-top-right-radius: $border-radius-large;
       border-bottom-right-radius: $border-radius-large;
@@ -1529,11 +1542,11 @@
 
           + hr {
             background: linear-gradient(
-                            to top,
-                            #{$medium},
-                            #{$medium} 1px,
-                            transparent 1px,
-                            transparent
+              to top,
+              #{$medium},
+              #{$medium} 1px,
+              transparent 1px,
+              transparent
             );
           }
         }
@@ -1544,11 +1557,11 @@
           + hr {
             margin: 1ch 0;
             background: linear-gradient(
-                            to top,
-                            #{$dark},
-                            #{$dark} 1px,
-                            transparent 1px,
-                            transparent
+              to top,
+              #{$dark},
+              #{$dark} 1px,
+              transparent 1px,
+              transparent
             );
           }
 
@@ -1859,23 +1872,23 @@
       [content-start column-start] minmax(0, 101.333333333px)
       [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [quarter column] minmax(
         0,
-                      101.333333333px
+        101.333333333px
       )
       [third column] minmax(0, 101.333333333px) [column] minmax(
         0,
-                      101.333333333px
+        101.333333333px
       )
       [half quarter column] minmax(0, 101.333333333px) [column] minmax(
         0,
-                      101.333333333px
+        101.333333333px
       )
       [third column] minmax(0, 101.333333333px) [quarter column] minmax(
         0,
-                      101.333333333px
+        101.333333333px
       )
       [column] minmax(0, 101.333333333px) [column] minmax(0, 101.333333333px) [column-end content-end] var(
         --gutter,
-                      minmax(1rem, 1fr)
+        minmax(1rem, 1fr)
       )
       [full-end];
     grid-column: full;
