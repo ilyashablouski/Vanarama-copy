@@ -29,7 +29,6 @@ storiesOf(`${atomicDir(base)}|Media`, module)
           width="100%"
           height="100%"
           responsive
-          iframe
         />
       </div>
       <div style={{ position: 'relative', height: '200px' }}>
@@ -38,7 +37,6 @@ storiesOf(`${atomicDir(base)}|Media`, module)
           width="100%"
           height="100%"
           responsive
-          iframe
         />
       </div>
       <div style={{ position: 'relative', height: '200px' }}>
@@ -47,7 +45,6 @@ storiesOf(`${atomicDir(base)}|Media`, module)
           width="100%"
           height="100%"
           responsive
-          iframe
         />
       </div>
     </div>

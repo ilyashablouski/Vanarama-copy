@@ -46,7 +46,6 @@ describe('<Media />', () => {
       <Media
         src="https://ssl.caranddriving.com/cdwebsite/player.aspx?id=8221&cid=autorama&responsive=true"
         dataTestId="helloWorld"
-        iframe
         responsive
       />,
     );

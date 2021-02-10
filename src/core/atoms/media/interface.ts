@@ -10,7 +10,7 @@ export interface IVimeoCustom {
 
 export interface IMediaProps extends IBaseProps {
   src: string;
-  iframe?: boolean;
+  player?: boolean;
   playing?: boolean;
   width?: string;
   height?: string;
