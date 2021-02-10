@@ -234,6 +234,7 @@ exports[`<Media /> renders correctly with iframe and responsive 1`] = `
       className="media-player--embed"
     >
       <iframe
+        frameBorder={0}
         src="https://ssl.caranddriving.com/cdwebsite/player.aspx?id=8221&cid=autorama&responsive=true"
         title="media"
       />
