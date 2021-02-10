@@ -26,7 +26,7 @@ const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
 const PersonCircleSharp = dynamic(
   () => import('core/assets/icons/PersonCircleSharp'),
   {
-    ssr: false,
+    ssr: true,
   },
 );
 const HomeOutline = dynamic(() => import('core/assets/icons/HomeOutline'), {
@@ -42,7 +42,7 @@ const CarOutline = dynamic(() => import('core/assets/icons/CarOutline'), {
   ssr: false,
 });
 const Menu = dynamic(() => import('core/assets/icons/Menu'), {
-  ssr: false,
+  ssr: true,
 });
 const LogOutOutline = dynamic(() => import('core/assets/icons/LogOutOutline'), {
   ssr: false,
@@ -51,7 +51,7 @@ const Close = dynamic(() => import('core/assets/icons/Close'), {
   ssr: false,
 });
 const Call = dynamic(() => import('core/assets/icons/Call'), {
-  ssr: false,
+  ssr: true,
 });
 
 export interface IHeaderPromoImage {
