@@ -4,7 +4,7 @@
 @font-face {
   font-family: -system-emoji;
   src: local('Apple Color Emoji'), local('Segoe UI Emoji'),
-    local('Segoe UI Symbol'), local('Noto Color Emoji');
+  local('Segoe UI Symbol'), local('Noto Color Emoji');
 }
 
 // Code font
@@ -24,27 +24,15 @@
 //   font-style: italic;
 // }
 
-@font-face {
-  font-family: 'VA Body';
-  src: local('Helvetica Neue'), local('Arial'), local('-apple-system'),
-    local('BlinkMacSystemFont'), local('Segoe UI'), local('Roboto'),
-    local('Oxygen'), local('Ubuntu'), local('Cantarell'), local('Fira Sans'),
-    local('Droid Sans'), local('sans-serif');
-  // src: local('-apple-system'), local('BlinkMacSystemFont'), local('Segoe UI'),
-  //   local('Roboto'), local('Oxygen'), local('Ubuntu'), local('Cantarell'),
-  //   local('Fira Sans'), local('Droid Sans'), local('Helvetica Neue'),
-  //   local('sans-serif');
-}
-
 // heading font
 
-// @font-face {
-//   font-family: 'VA Heading';
-//   src: url($font-path+'FFCocon/FFCocon-300-normal.otf') format('opentype');
-//   font-display: swap;
-//   font-weight: 300;
-//   font-style: normal;
-// }
+@font-face {
+  font-family: 'VA Heading';
+  src: url($font-path+'FFCocon/FFCocon-300-normal.otf') format('opentype');
+  font-display: swap;
+  font-weight: 300;
+  font-style: normal;
+}
 
 // @font-face {
 //   font-family: 'VA Heading';
@@ -87,13 +75,13 @@
 //   font-style: italic;
 // }
 
-// @font-face {
-//   font-family: 'VA Body';
-//   src: url($font-path+'NunitoSans/NunitoSans-300-normal.otf') format('opentype');
-//   font-display: swap;
-//   font-weight: 300;
-//   font-style: normal;
-// }
+@font-face {
+  font-family: 'VA Body';
+  src: url($font-path+'NunitoSans/NunitoSans-300-normal.otf') format('opentype');
+  font-display: swap;
+  font-weight: 300;
+  font-style: normal;
+}
 
 // @font-face {
 //   font-family: 'VA Body';
@@ -103,13 +91,13 @@
 //   font-style: italic;
 // }
 
-// @font-face {
-//   font-family: 'VA Body';
-//   src: url($font-path+'NunitoSans/NunitoSans-400-normal.otf') format('opentype');
-//   font-display: swap;
-//   font-weight: 400;
-//   font-style: normal;
-// }
+@font-face {
+  font-family: 'VA Body';
+  src: url($font-path+'NunitoSans/NunitoSans-400-normal.otf') format('opentype');
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+}
 
 // @font-face {
 //   font-family: 'VA Body';
@@ -119,13 +107,13 @@
 //   font-style: italic;
 // }
 
-// @font-face {
-//   font-family: 'VA Body';
-//   src: url($font-path+'NunitoSans/NunitoSans-500-normal.otf') format('opentype');
-//   font-display: swap;
-//   font-weight: 500;
-//   font-style: normal;
-// }
+@font-face {
+  font-family: 'VA Body';
+  src: url($font-path+'NunitoSans/NunitoSans-500-normal.otf') format('opentype');
+  font-display: swap;
+  font-weight: 500;
+  font-style: normal;
+}
 
 // @font-face {
 //   font-family: 'VA Body';
@@ -135,13 +123,13 @@
 //   font-style: italic;
 // }
 
-// @font-face {
-//   font-family: 'VA Body';
-//   src: url($font-path+'NunitoSans/NunitoSans-600-normal.otf') format('opentype');
-//   font-display: swap;
-//   font-weight: 600;
-//   font-style: normal;
-// }
+@font-face {
+  font-family: 'VA Body';
+  src: url($font-path+'NunitoSans/NunitoSans-600-normal.otf') format('opentype');
+  font-display: swap;
+  font-weight: 600;
+  font-style: normal;
+}
 
 // @font-face {
 //   font-family: 'VA Body';
