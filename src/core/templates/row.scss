@@ -1763,7 +1763,7 @@
     .stepped-form {
       &--title {
         @include tablet-desktop {
-          max-width: $vp-large / 2;
+          max-width: $vp-large / 1.5;
         }
         text-align: center;
       }
