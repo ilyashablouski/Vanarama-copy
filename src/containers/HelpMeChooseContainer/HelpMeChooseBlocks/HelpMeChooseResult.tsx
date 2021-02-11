@@ -218,6 +218,7 @@ const HelpMeChooseResult: FC<HelpMeChooseStep> = props => {
             resultsData.map((el: Edges, id: number) => (
               <div key={`${el.node?.capId || 0 + id}`}>
                 <ProductCard
+                  className="-compact"
                   inline
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   imageSrc={
