@@ -149,7 +149,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             </div>
           </div>
           <div
-            class="new-hero-benefits-bar"
+            class="hero-benefits-bar"
           >
             <div
               class="slider"
