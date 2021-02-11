@@ -1,12 +1,6 @@
 @mixin body-font-face-fallback {
-  letter-spacing: 0.25px;
-  word-spacing: -1.4px;
-  line-height: 142.5%;
-}
-
-@mixin heading-font-face-fallback {
-  letter-spacing: 0.525px;
-  word-spacing: -1.4px;
+  letter-spacing: 0.04px;
+  word-spacing: -1px;
   line-height: 142.5%;
 }
 
