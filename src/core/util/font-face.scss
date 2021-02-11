@@ -13,10 +13,10 @@
     local('BlinkMacSystemFont'), local('Segoe UI'), local('Roboto'),
     local('Oxygen'), local('Ubuntu'), local('Cantarell'), local('Fira Sans'),
     local('Droid Sans'), local('sans-serif');
-  ascent-override: 101.1%;
-  descent-override: 35.3%;
+  ascent-override: 108.4%;
+  descent-override: 31.3%;
   line-gap-override: normal;
-  advance-override: 1327;
+  advance-override: 1101;
 }
 
 // Code font
@@ -37,7 +37,7 @@
 //   font-style: italic;
 // }
 
-// heading font
+// Heading font
 
 @font-face {
   font-family: 'VA Heading';
@@ -72,6 +72,7 @@
 // }
 
 // Body font
+
 // @font-face {
 //   font-family: 'VA Body';
 //   src: url($font-path+'NunitoSans/NunitoSans-200-normal.woff2') format('woff2');
