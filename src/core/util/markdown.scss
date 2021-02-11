@@ -2,7 +2,6 @@
 // this is used for things like blog posts / articles and CMS managed text areas
 
 .markdown {
-  font-family: 'VA System';
   $md-gap: calc(1em - 0.25rem);
   $md-lh: calc(1em + 0.5rem);
   $md-headings: h1 $font-size-700 $font-size-600 600,
