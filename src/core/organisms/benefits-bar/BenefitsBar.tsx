@@ -20,7 +20,7 @@ const Slider: FC<ICarouselProps> = () => {
   ];
 
   return (
-    <div className="new-hero-benefits-bar">
+    <div className="hero-benefits-bar">
       <Carousel
         wrapAround
         autoplay
