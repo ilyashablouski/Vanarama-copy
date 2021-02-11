@@ -208,6 +208,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           name="countryOfBirth"
           dataTestId="aboutSelectCOB"
           ref={register}
+          style={{ maxWidth: '295px' }}
         >
           <OptionsWithFavourites options={dropdownData.countries} />
         </Select>
@@ -222,6 +223,7 @@ const AboutForm: FCWithFragments<IProps> = ({
           name="nationality"
           dataTestId="aboutNationality"
           ref={register}
+          style={{ maxWidth: '220px' }}
         >
           <OptionsWithFavourites options={dropdownData.nationalities} />
         </Select>
