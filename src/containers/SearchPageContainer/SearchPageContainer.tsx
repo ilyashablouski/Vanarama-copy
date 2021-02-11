@@ -33,6 +33,7 @@ import {
   dynamicQueryTypeCheck,
   fuelMapper,
   getCapsIds,
+  onMadeLineBreaks,
   ssrCMSQueryExecutor,
 } from './helpers';
 import {
@@ -64,6 +65,7 @@ import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import t
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import RangeCard from './RangeCard';
 import SortOrder from './SortOrder';
+import useMediaQuery from '../../hooks/useMediaQuery';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -184,6 +186,8 @@ const SearchPageContainer: React.FC<IProps> = ({
     },
     [isCarSearch],
   );
+
+  const isDesktopOrTablet = useMediaQuery('(min-width: 768px)');
 
   const [pageData, setPageData] = useState(pageDataSSR);
   const [metaData, setMetaData] = useState(metaDataSSR);
@@ -316,6 +320,11 @@ const SearchPageContainer: React.FC<IProps> = ({
     isBodyStylePage,
     preLoadFiltersData,
   ]);
+
+  const titleWithBreaks = useMemo(
+    () => onMadeLineBreaks(metaData?.name || ''),
+    [metaData],
+  );
 
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data }] = useVehiclesList(
@@ -733,7 +742,13 @@ const SearchPageContainer: React.FC<IProps> = ({
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
-          {metaData?.name}
+          {isDesktopOrTablet
+            ? metaData?.name
+            : titleWithBreaks.map(line => (
+                <>
+                  {line} <br />
+                </>
+              ))}
         </Heading>
 
         <section className="row:featured-right">
