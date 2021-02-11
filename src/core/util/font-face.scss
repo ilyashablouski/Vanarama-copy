@@ -8,11 +8,15 @@
 }
 
 @font-face {
-  font-family: 'VA System';
+  font-family: 'VA Body Fallback';
   src: local('Helvetica Neue'), local('Arial'), local('-apple-system'),
     local('BlinkMacSystemFont'), local('Segoe UI'), local('Roboto'),
     local('Oxygen'), local('Ubuntu'), local('Cantarell'), local('Fira Sans'),
     local('Droid Sans'), local('sans-serif');
+  ascent-override: 101.1%;
+  descent-override: 35.3%;
+  line-gap-override: normal;
+  advance-override: 1327;
 }
 
 // Code font

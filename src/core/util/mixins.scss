@@ -1,3 +1,15 @@
+@mixin body-font-face-fallback {
+  letter-spacing: 0.25px;
+  word-spacing: -1.4px;
+  line-height: 142.5%;
+}
+
+@mixin heading-font-face-fallback {
+  letter-spacing: 0.525px;
+  word-spacing: -1.4px;
+  line-height: 142.5%;
+}
+
 @mixin global-inset {
   // this mixin represents the minimum space between the edge of the display and the content of the website
 
@@ -181,23 +193,23 @@
 @function bezier-gradient($color: $white, $mod: 1, $deg: 335) {
   $mod: $mod / 100;
   @return linear-gradient(
-                  #{$deg}deg,
-                  #{rgba($color, (0.1 * $mod))} 0%,
-                  #{rgba($color, (2 * $mod))} 10.5%,
-                  #{rgba($color, (6 * $mod))} 19.3%,
-                  #{rgba($color, (11 * $mod))} 26.7%,
-                  #{rgba($color, (17 * $mod))} 33%,
-                  #{rgba($color, (24 * $mod))} 38.4%,
-                  #{rgba($color, (32 * $mod))} 43.1%,
-                  #{rgba($color, (42 * $mod))} 47.5%,
-                  #{rgba($color, (51 * $mod))} 51.8%,
-                  #{rgba($color, (61 * $mod))} 56.2%,
-                  #{rgba($color, (71 * $mod))} 61%,
-                  #{rgba($color, (80 * $mod))} 66.4%,
-                  #{rgba($color, (88 * $mod))} 72.8%,
-                  #{rgba($color, (94 * $mod))} 80.3%,
-                  #{rgba($color, (98 * $mod))} 89.3%,
-                  #{rgba($color, (99.9 * $mod))} 100%
+    #{$deg}deg,
+    #{rgba($color, (0.1 * $mod))} 0%,
+    #{rgba($color, (2 * $mod))} 10.5%,
+    #{rgba($color, (6 * $mod))} 19.3%,
+    #{rgba($color, (11 * $mod))} 26.7%,
+    #{rgba($color, (17 * $mod))} 33%,
+    #{rgba($color, (24 * $mod))} 38.4%,
+    #{rgba($color, (32 * $mod))} 43.1%,
+    #{rgba($color, (42 * $mod))} 47.5%,
+    #{rgba($color, (51 * $mod))} 51.8%,
+    #{rgba($color, (61 * $mod))} 56.2%,
+    #{rgba($color, (71 * $mod))} 61%,
+    #{rgba($color, (80 * $mod))} 66.4%,
+    #{rgba($color, (88 * $mod))} 72.8%,
+    #{rgba($color, (94 * $mod))} 80.3%,
+    #{rgba($color, (98 * $mod))} 89.3%,
+    #{rgba($color, (99.9 * $mod))} 100%
   );
 }
 
@@ -216,11 +228,11 @@
   $step-3: lighten($color, 1.25 * $mod);
   $step-4: lighten($color, 0.75 * $mod);
   @return linear-gradient(
-                  160deg,
-                  $step-1 0%,
-                  $step-2 20%,
-                  $step-3 40%,
-                  $step-4 100%
+    160deg,
+    $step-1 0%,
+    $step-2 20%,
+    $step-3 40%,
+    $step-4 100%
   );
 }
 
@@ -241,10 +253,10 @@
     &:only-child {
       $flag-color: darken($darker, 2%);
       background-image: linear-gradient(
-                      to top,
-                      darken($darker, 15%) 0.5px,
-                      $flag-color 0.5px,
-                      $flag-color
+        to top,
+        darken($darker, 15%) 0.5px,
+        $flag-color 0.5px,
+        $flag-color
       );
       color: $lighter;
     }
@@ -252,10 +264,10 @@
     &:not(:only-child) {
       font-weight: 700;
       background-image: linear-gradient(
-                      to top,
-                      darken($orange, 15%) 0.5px,
-                      $orange 0.5px,
-                      $orange
+        to top,
+        darken($orange, 15%) 0.5px,
+        $orange 0.5px,
+        $orange
       );
       color: $white;
 

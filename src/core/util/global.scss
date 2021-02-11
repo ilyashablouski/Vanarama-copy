@@ -10,6 +10,8 @@ html {
 }
 
 body {
+  @include body-font-face-fallback;
+
   // font smoothing
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
