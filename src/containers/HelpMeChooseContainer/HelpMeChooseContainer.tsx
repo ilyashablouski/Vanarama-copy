@@ -47,7 +47,7 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
 }) => {
   /** handler for multiselect */
   const handleChecked = (checked: IChoice) => {
-    let newSelectedData: string[] = [...currentValue];
+    let newSelectedData: string[] = [...(currentValue as any)];
     // Add.
     if (checked.active)
       newSelectedData = [
@@ -63,9 +63,16 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
     setChoice(newSelectedData.filter(Boolean));
   };
 
+  const onSubmitChoice = (value: IChoice) => {
+    if (multiSelect) {
+      handleChecked(value);
+    } else {
+      setChoice(value.value);
+    }
+  };
+
   return (
     <>
-      <div className="row:progress">{/* <ConsumerProgressIndicator /> */}</div>
       <div className="row:stepped-form">
         <Heading
           tag="h1"
@@ -81,10 +88,7 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
               choicesValues?.length < 3 ? 2 : 3
             } -teal stepped-form--choiceboxes -mb-400`}
             choices={choicesValues}
-            onSubmit={value => {
-              // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-              multiSelect ? handleChecked(value) : setChoice(value.value);
-            }}
+            onSubmit={value => onSubmitChoice(value)}
             multiSelect={multiSelect}
             clearMultiSelectTitle={clearMultiSelectTitle}
             onClearClick={() => setChoice([''])}

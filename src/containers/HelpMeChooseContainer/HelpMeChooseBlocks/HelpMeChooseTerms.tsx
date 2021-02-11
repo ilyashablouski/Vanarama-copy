@@ -1,6 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
 import { buildAnObjectFromAQuery, getBuckets, onReplace } from '../helpers';
 import { getSectionsData } from '../../../utils/getSectionsData';
@@ -12,38 +11,12 @@ const HelpMeChooseTerms: FC<HelpMeChooseStep> = props => {
     steps,
     getProductVehicleList,
     productVehicleListData,
+    setLoadingStatus,
   } = props;
   const router = useRouter();
   const [termsValue, setTermsValue] = useState<string[]>(
     steps.terms.value as string[],
   );
-
-  useEffect(() => {
-    if (window?.location.search.length) {
-      const searchParams = new URLSearchParams(window.location.search);
-      const termsQuery = searchParams.getAll('terms');
-      const termsQueryValue = termsQuery.length ? termsQuery[0].split(',') : [];
-      const isTermsActive =
-        searchParams.has('terms') && !searchParams.has('mileages');
-      setSteps({
-        ...steps,
-        terms: {
-          active: steps.terms.active || isTermsActive,
-          value: termsQueryValue,
-        },
-      });
-      setTermsValue(termsQueryValue);
-      getProductVehicleList({
-        variables: {
-          filter: {
-            ...buildAnObjectFromAQuery(searchParams, steps),
-            vehicleTypes: [VehicleTypeEnum.CAR],
-          },
-        },
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   const termsData = getSectionsData(
     ['productVehicleList', 'aggs', 'term'],
@@ -56,6 +29,18 @@ const HelpMeChooseTerms: FC<HelpMeChooseStep> = props => {
       choicesValues={getBuckets(termsData, termsValue, 'terms')}
       setChoice={setTermsValue}
       onClickContinue={() => {
+        setLoadingStatus(true);
+        const searchParams = new URLSearchParams(window.location.search);
+        getProductVehicleList({
+          variables: {
+            filter: {
+              ...buildAnObjectFromAQuery(searchParams, {
+                ...steps,
+                terms: { active: false, value: termsValue },
+              }),
+            },
+          },
+        });
         setSteps({
           ...steps,
           terms: { active: false, value: termsValue },

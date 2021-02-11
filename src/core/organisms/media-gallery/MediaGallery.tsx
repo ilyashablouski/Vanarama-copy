@@ -66,7 +66,7 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
                 width="100%"
                 height="100%"
                 className="media-player"
-                iframe={videoIframe}
+                player={!videoIframe}
               />
             </TabPanel>
           )}
@@ -79,7 +79,7 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
                 responsive
                 width="100%"
                 height="100%"
-                iframe={videoIframe}
+                player={!videoIframe}
               />
             </TabPanel>
           )}

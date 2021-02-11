@@ -10,6 +10,8 @@ html {
 }
 
 body {
+  @include body-font-face-fallback;
+
   // font smoothing
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -51,6 +53,13 @@ body {
     @include mobile {
       flex-wrap: wrap;
     }
+  }
+}
+
+main {
+  padding-top: 0;
+  @include mobile-tablet {
+    padding-top: 46px;
   }
 }
 
@@ -115,11 +124,11 @@ p.text + .heading {
 // default <hr /> styling
 hr {
   background: linear-gradient(
-                  to top,
-                  $border-color,
-                  $border-color 0.5px,
-                  transparent 0.5px,
-                  transparent
+    to top,
+    $border-color,
+    $border-color 0.5px,
+    transparent 0.5px,
+    transparent
   );
   border: 0;
   height: 1px;
@@ -145,7 +154,7 @@ hr {
 // -p-*  padding (all)
 
 $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
-$rem-700;
+  $rem-700;
 
 @for $i from 1 through 7 {
   $n: $i - 1;
@@ -793,20 +802,20 @@ $rem-700;
     background-repeat: no-repeat;
     background-size: 200% 200%;
     background: linear-gradient(
-                    to top,
-                    #fff 0,
-                    hsla(0, 0%, 100%, 0.7) 8px,
-                    hsla(0, 0%, 100%, 0.45) 14px,
-                    hsla(0, 0%, 100%, 0.3) 19px,
-                    hsla(0, 0%, 100%, 0.26) 21px,
-                    hsla(0, 0%, 100%, 0.19) 25px,
-                    hsla(0, 0%, 100%, 0.12) 29px,
-                    hsla(0, 0%, 100%, 0.06) 32px,
-                    hsla(0, 0%, 100%, 0.03) 34px,
-                    hsla(0, 0%, 100%, 0.02) 36px,
-                    hsla(0, 0%, 100%, 0.008) 38px,
-                    hsla(0, 0%, 100%, 0.002) 39px,
-                    hsla(0, 0%, 100%, 0) 40px
+      to top,
+      #fff 0,
+      hsla(0, 0%, 100%, 0.7) 8px,
+      hsla(0, 0%, 100%, 0.45) 14px,
+      hsla(0, 0%, 100%, 0.3) 19px,
+      hsla(0, 0%, 100%, 0.26) 21px,
+      hsla(0, 0%, 100%, 0.19) 25px,
+      hsla(0, 0%, 100%, 0.12) 29px,
+      hsla(0, 0%, 100%, 0.06) 32px,
+      hsla(0, 0%, 100%, 0.03) 34px,
+      hsla(0, 0%, 100%, 0.02) 36px,
+      hsla(0, 0%, 100%, 0.008) 38px,
+      hsla(0, 0%, 100%, 0.002) 39px,
+      hsla(0, 0%, 100%, 0) 40px
     );
   }
 }

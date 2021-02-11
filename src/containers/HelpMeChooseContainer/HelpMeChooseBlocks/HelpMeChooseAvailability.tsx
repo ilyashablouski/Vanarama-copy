@@ -1,5 +1,5 @@
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
 import { buildAnObjectFromAQuery, onReplace } from '../helpers';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
@@ -12,6 +12,7 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
     steps,
     getProductVehicleList,
     productVehicleListData,
+    setLoadingStatus,
   } = props;
   const router = useRouter();
   const [availabilityValue, setAvailabilityValue] = useState<string[]>(
@@ -71,84 +72,57 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
     },
   ];
 
-  useEffect(() => {
-    if (window?.location.search.length) {
-      const searchParams = new URLSearchParams(window.location.search);
-      const isAvailabilityActive =
-        searchParams.has('availability') &&
-        !(searchParams.has('initialPeriods') || searchParams.has('rental'));
-      const availabilityQuery = searchParams.getAll('availability');
-      const availabilityQueryValue = availabilityQuery.length
-        ? availabilityQuery[0].split(',')
-        : [];
-      setSteps({
-        ...steps,
-        availability: {
-          active: steps.availability.active || isAvailabilityActive,
-          value: availabilityQueryValue,
-        },
-      });
-      setAvailabilityValue(availabilityQueryValue);
-      getProductVehicleList({
-        variables: {
-          filter: {
-            ...buildAnObjectFromAQuery(searchParams, steps),
-            vehicleTypes: [VehicleTypeEnum.CAR],
-          },
-        },
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const vehiclesResultNumber = getSectionsData(
-    ['productVehicleList', 'totalCount'],
-    productVehicleListData?.data,
-  );
-
   return (
     <HelpMeChooseContainer
       title="How quickly do you need the vehicle?"
       choicesValues={availabilityTypes.filter(el =>
         availabilityData.find(x => x.key === el.value),
       )}
-      setChoice={(value: string[]) => {
-        setAvailabilityValue(value);
+      setChoice={setAvailabilityValue}
+      onClickContinue={() => {
+        setLoadingStatus(true);
         const searchParams = new URLSearchParams(window.location.search);
         getProductVehicleList({
           variables: {
             filter: {
-              ...buildAnObjectFromAQuery(searchParams, steps),
+              ...buildAnObjectFromAQuery(searchParams, {
+                ...steps,
+                availability: {
+                  active: false,
+                  value: availabilityValue as any,
+                },
+              }),
               vehicleTypes: [VehicleTypeEnum.CAR],
+              rental: { max: 350 },
+              initialPeriods: [6],
             },
           },
         });
-      }}
-      onClickContinue={() => {
         setSteps({
           ...steps,
           availability: { active: false, value: availabilityValue as any },
           rental: {
             active: true,
-            value: steps.rental.value as any,
+            value: '350' as any,
           },
           initialPeriods: {
             active: true,
-            value: steps.initialPeriods.value
-              ? (steps.initialPeriods.value as any)
-              : '6',
+            value: '6' as any,
           },
         });
-        onReplace(router, {
-          ...steps,
-          availability: { active: false, value: availabilityValue as any },
-        });
+        onReplace(
+          router,
+          {
+            ...steps,
+            availability: { active: false, value: availabilityValue as any },
+          },
+          '',
+          router.query.isEdit as string,
+        );
       }}
       currentValue={availabilityValue}
       clearMultiSelectTitle="I Don't Mind"
-      submitBtnText={`View Results ${
-        availabilityValue.length ? `(${vehiclesResultNumber || 0})` : ''
-      }`}
+      submitBtnText="View Results"
     />
   );
 };

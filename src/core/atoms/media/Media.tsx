@@ -18,33 +18,52 @@ const Media: React.FC<IMediaProps> = ({
   dataTestId,
   vimeoConfig,
   responsive,
-  iframe,
-}) => (
-  <div className={cx('media', className)}>
-    <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
-      {iframe ? (
-        <div className={cx({ 'media-player--embed': responsive })}>
-          <iframe width={width} height={height} src={src} title="media" />
-        </div>
+  player,
+  noLazy,
+}) => {
+  const renderIframe = () => (
+    <div className={cx({ 'media-player--embed': responsive })}>
+      <iframe
+        frameBorder={0}
+        width={width}
+        height={height}
+        src={src}
+        title="media"
+      />
+    </div>
+  );
+
+  const renderPlayer = () => (
+    <ReactPlayer
+      className={cx({ 'media-player--embed': responsive })}
+      url={src}
+      playing={playing}
+      src={src}
+      width={width}
+      height={height}
+      loop={loop}
+      controls={controls}
+      light={light}
+      volume={volume}
+      muted={muted}
+      data-testid={dataTestId}
+      config={{ vimeo: { playerOptions: vimeoConfig } }}
+    />
+  );
+
+  const render = () => (player ? renderPlayer() : renderIframe());
+
+  return (
+    <div className={cx('media', className)}>
+      {noLazy ? (
+        render()
       ) : (
-        <ReactPlayer
-          className={cx({ 'media-player--embed': responsive })}
-          url={src}
-          playing={playing}
-          src={src}
-          width={width}
-          height={height}
-          loop={loop}
-          controls={controls}
-          light={light}
-          volume={volume}
-          muted={muted}
-          data-testid={dataTestId}
-          config={{ vimeo: { playerOptions: vimeoConfig } }}
-        />
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          {render()}
+        </LazyLoadComponent>
       )}
-    </LazyLoadComponent>
-  </div>
-);
+    </div>
+  );
+};
 
 export default React.memo(Media);

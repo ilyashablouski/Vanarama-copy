@@ -1,163 +1,153 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
-Array [
-  <div
-    className="row:progress"
-  />,
-  <div
-    className="row:stepped-form"
+<div
+  className="row:stepped-form"
+>
+  <h1
+    className="heading stepped-form--title -mb-100 -black -xlarge"
   >
-    <h1
-      className="heading stepped-form--title -mb-100 -black -xlarge"
-    >
-      Which Fuel Type Do You Prefer?
-    </h1>
+    Which Fuel Type Do You Prefer?
+  </h1>
+  <div
+    className="stepped-form--filter"
+  >
     <div
-      className="stepped-form--filter"
+      className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -mb-400 -teal"
     >
-      <div
-        className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -mb-400 -teal"
+      <button
+        className="choicebox"
+        onClick={[Function]}
+        type="button"
       >
-        <button
-          className="choicebox"
-          onClick={[Function]}
-          type="button"
-        >
-          Diesel
-        </button>
-        <button
-          className="choicebox"
-          onClick={[Function]}
-          type="button"
-        >
-          Petrol
-        </button>
-        <button
-          className="choicebox"
-          onClick={[Function]}
-          type="button"
-        >
-          I Don't Mind
-        </button>
-      </div>
+        Diesel
+      </button>
+      <button
+        className="choicebox"
+        onClick={[Function]}
+        type="button"
+      >
+        Petrol
+      </button>
+      <button
+        className="choicebox"
+        onClick={[Function]}
+        type="button"
+      >
+        I Don't Mind
+      </button>
     </div>
-    <button
-      className="button -primary -large -solid -disabled"
-      data-testid="submit"
-      disabled={true}
-      onClick={[MockFunction]}
-      type="submit"
+  </div>
+  <button
+    className="button -primary -large -solid -disabled"
+    data-testid="submit"
+    disabled={true}
+    onClick={[MockFunction]}
+    type="submit"
+  >
+    <div
+      className="button--inner"
     >
-      <div
-        className="button--inner"
+      Continue
+      <i
+        className="icon -white"
       >
-        Continue
-        <i
-          className="icon -white"
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
         >
-          <svg
-            height="1em"
-            viewBox="0 0 512 512"
-            width="1em"
-          >
-            <polyline
-              points="184 112 328 256 184 400"
-              style={
-                Object {
-                  "fill": "none",
-                  "stroke": "var(--class-color)",
-                  "strokeLinecap": "square",
-                  "strokeMiterlimit": 10,
-                  "strokeWidth": 48,
-                }
+          <polyline
+            points="184 112 328 256 184 400"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "square",
+                "strokeMiterlimit": 10,
+                "strokeWidth": 48,
               }
-            />
-          </svg>
-        </i>
-      </div>
-    </button>
-  </div>,
-]
+            }
+          />
+        </svg>
+      </i>
+    </div>
+  </button>
+</div>
 `;
 
 exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
-Array [
-  <div
-    className="row:progress"
-  />,
-  <div
-    className="row:stepped-form"
+<div
+  className="row:stepped-form"
+>
+  <h1
+    className="heading stepped-form--title -mb-100 -black -xlarge"
   >
-    <h1
-      className="heading stepped-form--title -mb-100 -black -xlarge"
-    >
-      Which Fuel Type Do You Prefer?
-    </h1>
+    Which Fuel Type Do You Prefer?
+  </h1>
+  <div
+    className="stepped-form--filter"
+  >
     <div
-      className="stepped-form--filter"
+      className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -mb-400 -teal"
     >
-      <div
-        className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -mb-400 -teal"
+      <button
+        className="choicebox"
+        onClick={[Function]}
+        type="button"
       >
-        <button
-          className="choicebox"
-          onClick={[Function]}
-          type="button"
-        >
-          Diesel
-        </button>
-        <button
-          className="choicebox -active"
-          onClick={[Function]}
-          type="button"
-        >
-          Petrol
-        </button>
-        <button
-          className="choicebox"
-          onClick={[Function]}
-          type="button"
-        >
-          I Don't Mind
-        </button>
-      </div>
+        Diesel
+      </button>
+      <button
+        className="choicebox -active"
+        onClick={[Function]}
+        type="button"
+      >
+        Petrol
+      </button>
+      <button
+        className="choicebox"
+        onClick={[Function]}
+        type="button"
+      >
+        I Don't Mind
+      </button>
     </div>
-    <button
-      className="button -primary -large -solid"
-      data-testid="submit"
-      disabled={false}
-      onClick={[MockFunction]}
-      type="submit"
+  </div>
+  <button
+    className="button -primary -large -solid"
+    data-testid="submit"
+    disabled={false}
+    onClick={[MockFunction]}
+    type="submit"
+  >
+    <div
+      className="button--inner"
     >
-      <div
-        className="button--inner"
+      Continue
+      <i
+        className="icon -white"
       >
-        Continue
-        <i
-          className="icon -white"
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
         >
-          <svg
-            height="1em"
-            viewBox="0 0 512 512"
-            width="1em"
-          >
-            <polyline
-              points="184 112 328 256 184 400"
-              style={
-                Object {
-                  "fill": "none",
-                  "stroke": "var(--class-color)",
-                  "strokeLinecap": "square",
-                  "strokeMiterlimit": 10,
-                  "strokeWidth": 48,
-                }
+          <polyline
+            points="184 112 328 256 184 400"
+            style={
+              Object {
+                "fill": "none",
+                "stroke": "var(--class-color)",
+                "strokeLinecap": "square",
+                "strokeMiterlimit": 10,
+                "strokeWidth": 48,
               }
-            />
-          </svg>
-        </i>
-      </div>
-    </button>
-  </div>,
-]
+            }
+          />
+        </svg>
+      </i>
+    </div>
+  </button>
+</div>
 `;
