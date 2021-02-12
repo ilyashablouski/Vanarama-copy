@@ -6,7 +6,7 @@ import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import { SEARCH_PAGES } from '../utils/url';
+import { removeUrlQueryPart, SEARCH_PAGES } from '../utils/url';
 import {
   PAGES_WITH_COMPARATOR,
   CompareContext,
@@ -23,7 +23,7 @@ import {
   changeCompares,
 } from '../utils/comparatorHelpers';
 import withApollo from '../hocs/withApollo';
-import { pushPageData } from '../utils/dataLayerHelpers';
+import { pushPageData, pushPageViewEvent } from '../utils/dataLayerHelpers';
 
 import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
@@ -74,6 +74,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   useEffect(() => {
     pushPageData({ pathname: router.pathname });
+    pushPageViewEvent(removeUrlQueryPart(router.asPath), document.title);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
   // useEffect(() => {
