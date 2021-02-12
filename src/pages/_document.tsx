@@ -43,6 +43,9 @@ class MyDocument extends Document {
           {/* <RollbarScript /> */}
           {/* <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" /> */}
+          {scriptEnvs.blueconic.includes(env) && (
+            <script async src="https://cdn.blueconic.net/vanarama.js" />
+          )}
           <Inline />
         </HeadCustom>
         <body>
@@ -55,9 +58,6 @@ class MyDocument extends Document {
               <GTMScript />
               <GTMBody />
             </>
-          )}
-          {scriptEnvs.blueconic.includes(env) && (
-            <script defer src="https://cdn.blueconic.net/vanarama.js" />
           )}
         </body>
       </Html>
