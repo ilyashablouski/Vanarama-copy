@@ -12,6 +12,9 @@ import {
   SortField,
   SortDirection,
   MyOrdersTypeEnum,
+  LineItemInputObject,
+  OrderInputObject,
+  VehicleProductInputObject,
 } from '../../../generated/globalTypes';
 import { createOffersObject, sortOrders, sortOrderValues } from './helpers';
 import { getUrlParam } from '../../utils/url';
@@ -23,6 +26,8 @@ import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import {
   GetMyOrders,
   GetMyOrders_myOrders,
+  GetMyOrders_myOrders_lineItems as GetMyOrdersLineItem,
+  GetMyOrders_myOrders_lineItems_vehicleProduct as GetMyOrdersVehicleProduct,
 } from '../../../generated/GetMyOrders';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -61,6 +66,50 @@ type QueryParams = {
 interface IMyOverviewProps {
   quote: boolean;
 }
+
+const createVehicleProductInput = (
+  vehicleProduct: GetMyOrdersVehicleProduct | null,
+): VehicleProductInputObject => ({
+  annualMileage: vehicleProduct?.annualMileage,
+  colour: vehicleProduct?.colour,
+  depositMonths: vehicleProduct?.depositMonths,
+  depositPayment: vehicleProduct?.depositPayment,
+  derivativeCapId: vehicleProduct!.derivativeCapId,
+  description: vehicleProduct?.description,
+  finalPayment: vehicleProduct?.finalPayment,
+  financeType: vehicleProduct?.financeType,
+  funderId: vehicleProduct?.funderId,
+  leadTime: vehicleProduct?.leadTime,
+  maintenance: vehicleProduct?.maintenance,
+  maintenancePrice: vehicleProduct?.maintenancePrice,
+  monthlyPayment: vehicleProduct?.monthlyPayment,
+  term: vehicleProduct?.term,
+  trim: vehicleProduct?.trim,
+  vehicleType: vehicleProduct!.vehicleType,
+  vsku: vehicleProduct?.vsku,
+});
+
+const createLineItemsInputFromMyOrder = (
+  myOrdersLineItems: GetMyOrdersLineItem[],
+): LineItemInputObject[] =>
+  myOrdersLineItems.map(item => ({
+    leadManagerQuoteId: item.leadManagerQuoteId,
+    orderId: item.order?.id,
+    quantity: item.quantity,
+    vehicleProduct: createVehicleProductInput(item.vehicleProduct),
+  }));
+
+const createOrderInputFromMyOrder = (
+  myOrder: GetMyOrders_myOrders,
+): OrderInputObject => ({
+  leaseType: myOrder.leaseType,
+  lineItems: createLineItemsInputFromMyOrder(myOrder.lineItems),
+  partyUuid: myOrder.partyUuid,
+  personUuid: myOrder.personUuid,
+  referenceNumber: myOrder.referenceNumber,
+  salesChannel: myOrder.salesChannel,
+  uuid: myOrder.uuid,
+});
 
 const MyOverview: React.FC<IMyOverviewProps> = props => {
   const router = useRouter();
@@ -250,19 +299,21 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   };
 
   const onClickOrderBtn = (
-    orderUuid: string,
+    myOrder: GetMyOrders_myOrders,
     leaseType: LeaseTypeEnum,
-    order: GetMyOrders_myOrders,
   ) => {
-    localForage.setItem('order', order);
-    localForage.setItem('orderId', orderUuid).then(() => {
-      const url =
+    const order = createOrderInputFromMyOrder(myOrder);
+
+    Promise.all([
+      localForage.setItem('order', order),
+      localForage.setItem('orderId', order.uuid),
+    ])
+      .then(() =>
         leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
           ? '/olaf/about'
-          : '/b2b/olaf/about';
-
-      router.push(url);
-    });
+          : '/b2b/olaf/about',
+      )
+      .then(url => router.push(url));
   };
 
   const renderChoiceBtn = (index: number, text: string) => (
@@ -342,9 +393,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             <Button
               color="teal"
               label={quote ? 'Continue To Order' : 'View Order'}
-              onClick={() =>
-                onClickOrderBtn(order.uuid, order.leaseType, order)
-              }
+              onClick={() => onClickOrderBtn(order, order.leaseType)}
             />,
             quote,
           )}

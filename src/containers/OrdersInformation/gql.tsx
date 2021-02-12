@@ -19,10 +19,17 @@ export const GET_MY_ORDERS_DATA = gql`
       id
       leaseType
       partyUuid
+      personUuid
+      referenceNumber
+      salesChannel
       status
       createdAt
       updatedAt
       lineItems {
+        order {
+          id
+          uuid
+        }
         createdAt
         leadManagerQuoteId
         productId
@@ -36,6 +43,9 @@ export const GET_MY_ORDERS_DATA = gql`
           uuid
         }
         vehicleProduct {
+          finalPayment
+          leadTime
+          maintenancePrice
           derivativeCapId
           description
           vsku

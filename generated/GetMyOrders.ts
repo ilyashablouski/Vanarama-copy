@@ -9,12 +9,20 @@ import { MyOrdersTypeEnum, LeaseTypeEnum, VehicleTypeEnum } from "./globalTypes"
 // GraphQL query operation: GetMyOrders
 // ====================================================
 
+export interface GetMyOrders_myOrders_lineItems_order {
+  id: string;
+  uuid: string;
+}
+
 export interface GetMyOrders_myOrders_lineItems_creditApplications {
   status: string;
   uuid: string;
 }
 
 export interface GetMyOrders_myOrders_lineItems_vehicleProduct {
+  finalPayment: number | null;
+  leadTime: string | null;
+  maintenancePrice: number | null;
   derivativeCapId: string;
   description: string | null;
   vsku: string | null;
@@ -33,6 +41,7 @@ export interface GetMyOrders_myOrders_lineItems_vehicleProduct {
 }
 
 export interface GetMyOrders_myOrders_lineItems {
+  order: GetMyOrders_myOrders_lineItems_order | null;
   createdAt: any | null;
   leadManagerQuoteId: string | null;
   productId: string;
@@ -50,6 +59,9 @@ export interface GetMyOrders_myOrders {
   id: string;
   leaseType: LeaseTypeEnum;
   partyUuid: string | null;
+  personUuid: string | null;
+  referenceNumber: string | null;
+  salesChannel: string;
   status: string;
   createdAt: any | null;
   updatedAt: any | null;
