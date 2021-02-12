@@ -49,7 +49,7 @@ const logLink = new ApolloLink((operation, forward) => {
 function apolloClientLink() {
   let links = [httpLink];
 
-  if (process.env.ENV && ['production', 'uat'].includes(process.env.ENV)) {
+  if (process.env.ENV && ['uat', 'production'].includes(process.env.ENV)) {
     links = [persistedQueriesLink, ...links];
   }
 
