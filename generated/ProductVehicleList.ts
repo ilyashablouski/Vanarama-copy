@@ -150,4 +150,5 @@ export interface ProductVehicleList {
 
 export interface ProductVehicleListVariables {
   filter?: ProductVehicleListInputObject | null;
+  first?: number | null;
 }
