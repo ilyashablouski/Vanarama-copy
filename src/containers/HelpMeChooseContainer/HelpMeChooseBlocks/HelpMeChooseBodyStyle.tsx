@@ -1,7 +1,12 @@
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
-import { buildAnObjectFromAQuery, getBuckets, onReplace } from '../helpers';
+import {
+  buildAnObjectFromAQuery,
+  getBuckets,
+  initialSteps,
+  onReplace,
+} from '../helpers';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 
@@ -23,6 +28,43 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
     productVehicleListData?.data,
   );
 
+  const getNextSteps = (searchParams: URLSearchParams) => {
+    let nextSteps = {
+      ...steps,
+      bodyStyles: {
+        active: false,
+        value: bodyStylesValue as any,
+      },
+      fuelTypes: { active: true, value: steps.fuelTypes.value },
+    };
+    const searchParamsValue = searchParams
+      .getAll('bodyStyles')[0]
+      ?.split(',')
+      .slice()
+      .sort();
+    const array2Sorted = bodyStylesValue?.slice().sort();
+    if (
+      searchParamsValue?.length === bodyStylesValue?.length &&
+      searchParamsValue?.every((value, index) => {
+        return value !== array2Sorted[index];
+      })
+    ) {
+      nextSteps = {
+        ...initialSteps,
+        bodyStyles: {
+          active: false,
+          value: bodyStylesValue as any,
+        },
+        financeTypes: {
+          active: false,
+          value: steps.financeTypes.value as any,
+        },
+        fuelTypes: { active: true, value: initialSteps.fuelTypes.value },
+      };
+    }
+    return nextSteps;
+  };
+
   return (
     <HelpMeChooseContainer
       title="What Type Of Vehicle Suits You Best?"
@@ -31,31 +73,17 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
       onClickContinue={() => {
         setLoadingStatus(true);
         const searchParams = new URLSearchParams(window.location.search);
+        const nextSteps = getNextSteps(searchParams);
         getProductVehicleList({
           variables: {
             filter: {
-              ...buildAnObjectFromAQuery(searchParams, {
-                ...steps,
-                bodyStyles: { active: false, value: bodyStylesValue },
-              }),
+              ...buildAnObjectFromAQuery(searchParams, nextSteps),
             },
+            first: 12,
           },
         });
-        setSteps({
-          ...steps,
-          bodyStyles: { active: false, value: bodyStylesValue },
-          fuelTypes: { active: true, value: steps.fuelTypes.value },
-        });
-        onReplace(
-          router,
-          {
-            ...steps,
-            fuelTypes: { active: true, value: steps.fuelTypes.value },
-            bodyStyles: { active: false, value: bodyStylesValue },
-          },
-          '',
-          router.query.isEdit as string,
-        );
+        setSteps(nextSteps);
+        onReplace(router, nextSteps);
       }}
       multiSelect
       withIcons

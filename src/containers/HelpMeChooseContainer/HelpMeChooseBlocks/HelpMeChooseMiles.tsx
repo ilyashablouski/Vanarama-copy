@@ -1,7 +1,12 @@
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
-import { buildAnObjectFromAQuery, getBuckets, onReplace } from '../helpers';
+import {
+  buildAnObjectFromAQuery,
+  getBuckets,
+  initialSteps,
+  onReplace,
+} from '../helpers';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 
@@ -23,6 +28,33 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
     productVehicleListData?.data,
   );
 
+  const getNextSteps = (searchParams: URLSearchParams) => {
+    let nextSteps = {
+      ...steps,
+      mileages: { active: false, value: mileagesValue },
+      availability: { active: true, value: steps.availability.value },
+    };
+    if (searchParams.getAll('mileages')[0] !== mileagesValue[0]) {
+      nextSteps = {
+        ...steps,
+        mileages: { active: false, value: mileagesValue },
+        availability: {
+          active: true,
+          value: initialSteps.availability.value,
+        },
+        rental: {
+          active: false,
+          value: initialSteps.rental.value,
+        },
+        initialPeriods: {
+          active: false,
+          value: initialSteps.initialPeriods.value,
+        },
+      };
+    }
+    return nextSteps;
+  };
+
   return (
     <HelpMeChooseContainer
       title="How Many Miles Do You Normally Drive In A Year?"
@@ -31,25 +63,17 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
       onClickContinue={() => {
         setLoadingStatus(true);
         const searchParams = new URLSearchParams(window.location.search);
+        const nextSteps = getNextSteps(searchParams);
         getProductVehicleList({
           variables: {
             filter: {
-              ...buildAnObjectFromAQuery(searchParams, {
-                ...steps,
-                mileages: { active: false, value: mileagesValue },
-              }),
+              ...buildAnObjectFromAQuery(searchParams, nextSteps),
             },
+            first: 12,
           },
         });
-        setSteps({
-          ...steps,
-          mileages: { active: false, value: mileagesValue },
-          availability: { active: true, value: steps.availability.value },
-        });
-        onReplace(router, {
-          ...steps,
-          mileages: { active: false, value: mileagesValue },
-        });
+        setSteps(nextSteps);
+        onReplace(router, nextSteps);
       }}
       currentValue={mileagesValue}
       clearMultiSelectTitle="I Don't Mind"

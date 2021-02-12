@@ -1,7 +1,12 @@
 import { useRouter } from 'next/router';
 import { Dispatch, FC, SetStateAction, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
-import { onReplace, IInitStep, buildAnObjectFromAQuery } from '../helpers';
+import {
+  onReplace,
+  IInitStep,
+  buildAnObjectFromAQuery,
+  initialSteps,
+} from '../helpers';
 
 export interface HelpMeChooseStep {
   steps: IInitStep;
@@ -14,14 +19,44 @@ export interface HelpMeChooseStep {
 const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
   const { setSteps, steps, getProductVehicleList, setLoadingStatus } = props;
   const router = useRouter();
-  const [financeTypesValue, setFinanceTypesValue] = useState<string>(
-    steps.financeTypes.value as any,
+  const [financeTypesValue, setFinanceTypesValue] = useState<string[]>(
+    steps.financeTypes.value as string[],
   );
 
   const financeTypes = [
-    { label: 'Personal', value: 'PCH', active: financeTypesValue === 'PCH' },
-    { label: 'Business', value: 'BCH', active: financeTypesValue === 'BCH' },
+    {
+      label: 'Personal',
+      value: 'PCH',
+      active: financeTypesValue.includes('PCH'),
+    },
+    {
+      label: 'Business',
+      value: 'BCH',
+      active: financeTypesValue.includes('BCH'),
+    },
   ];
+
+  const getNextSteps = (searchParams: URLSearchParams) => {
+    let nextSteps = {
+      ...steps,
+      financeTypes: {
+        active: false,
+        value: financeTypesValue,
+      },
+      bodyStyles: { active: true, value: steps.bodyStyles.value },
+    };
+    if (searchParams.getAll('financeTypes')[0] !== financeTypesValue[0]) {
+      nextSteps = {
+        ...initialSteps,
+        financeTypes: {
+          active: false,
+          value: financeTypesValue,
+        },
+        bodyStyles: { active: true, value: initialSteps.bodyStyles.value },
+      };
+    }
+    return nextSteps;
+  };
 
   return (
     <HelpMeChooseContainer
@@ -31,34 +66,17 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
       onClickContinue={() => {
         setLoadingStatus(true);
         const searchParams = new URLSearchParams(window.location.search);
+        const nextSteps = getNextSteps(searchParams);
         getProductVehicleList({
           variables: {
             filter: {
-              ...buildAnObjectFromAQuery(searchParams, {
-                ...steps,
-                financeTypes: {
-                  active: false,
-                  value: financeTypesValue as any,
-                },
-                bodyStyles: { active: true, value: steps.bodyStyles.value },
-              }),
+              ...buildAnObjectFromAQuery(searchParams, nextSteps),
             },
+            first: 12,
           },
         });
-        setSteps({
-          ...steps,
-          financeTypes: { active: false, value: financeTypesValue as any },
-          bodyStyles: { active: true, value: steps.bodyStyles.value },
-        });
-        onReplace(
-          router,
-          {
-            ...steps,
-            financeTypes: { active: false, value: financeTypesValue as any },
-          },
-          '',
-          router.query.isEdit as string,
-        );
+        setSteps(nextSteps);
+        onReplace(router, nextSteps);
       }}
       currentValue={financeTypesValue}
     />
