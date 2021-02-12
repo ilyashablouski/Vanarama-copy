@@ -1180,10 +1180,9 @@ const SearchPageContainer: React.FC<IProps> = ({
       )}
 
       {!pageData && isRangePage && <Loading size="large" />}
-
-      {isDynamicFilterPage && (
-        <div className="row:features-4col">
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        {isDynamicFilterPage && (
+          <div className="row:features-4col">
             {tiles?.tiles?.length &&
               tiles.tiles.map((tile, indx) => (
                 <Tile
@@ -1206,9 +1205,9 @@ const SearchPageContainer: React.FC<IProps> = ({
                   </Text>
                 </Tile>
               ))}
-          </LazyLoadComponent>
-        </div>
-      )}
+          </div>
+        )}
+      </LazyLoadComponent>
 
       {pageData && (
         <>
