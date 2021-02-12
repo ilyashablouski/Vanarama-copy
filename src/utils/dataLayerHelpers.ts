@@ -111,6 +111,16 @@ const PRICE_TYPE = {
   incVAT: 'Including VAT',
 };
 
+export const pushPageViewEvent = (path: string, title = '') => {
+  window.dataLayer?.push({
+    event: 'pageview',
+    page: {
+      path,
+      title,
+    },
+  });
+};
+
 export const getCategory = ({ cars, pickups }: ICategory): string => {
   if (pickups) return 'Pickup';
   if (cars) return 'Car';
