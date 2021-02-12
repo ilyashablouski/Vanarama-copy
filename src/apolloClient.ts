@@ -5,13 +5,12 @@ import {
   InMemoryCache,
   HttpLink,
 } from '@apollo/client';
-import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
+import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
 
 // import Router from 'next/router';
 // import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
-import { sha256 } from 'crypto-hash';
 // import localforage from 'localforage';
 
 // const inspect = require('../inspect');
@@ -30,7 +29,6 @@ const httpLink = new HttpLink({
 
 // NOTE: Type 'HttpLink | ApolloLink' is not assignable to type 'ApolloLink | RequestHandler' - https://github.com/apollographql/apollo-client/issues/6011
 const persistedQueriesLink = createPersistedQueryLink({
-  sha256,
   useGETForHashedQueries: true,
 }) as any;
 
