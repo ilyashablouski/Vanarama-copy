@@ -252,3 +252,21 @@ export const dynamicQueryTypeCheck = (value: string) => {
     ),
   };
 };
+
+export const onMadeLineBreaks = (value: string, maxLeght = 16) => {
+  const wordsArray = value.split(' ');
+  return wordsArray.reduce((acc, current) => {
+    if (
+      current.length > maxLeght ||
+      `${acc[acc.length - 1] ? acc[acc.length - 1] : ''} ${current}`.length >
+        maxLeght
+    ) {
+      acc.push(current);
+    } else {
+      acc[acc.length - 1 > -1 ? acc.length - 1 : 0] = `${
+        acc[acc.length - 1] ? acc[acc.length - 1] : ''
+      } ${current}`.trim();
+    }
+    return acc;
+  }, [] as string[]);
+};

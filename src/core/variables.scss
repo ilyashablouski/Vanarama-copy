@@ -6,8 +6,8 @@ $img-path: '/images/';
 // font-family
 $font-family-heading: #{'VA Heading', -apple-system, system-ui, sans-serif,
   -system-emoji};
-$font-family-body: #{'VA Body', -apple-system, system-ui, sans-serif,
-  -system-emoji};
+$font-family-body: #{'VA Body', 'VA Body Fallback', -apple-system, system-ui,
+  sans-serif, -system-emoji};
 $font-family-code: #{'VA Code', monospace, -system-emoji};
 
 // font-weight
@@ -109,71 +109,71 @@ $yellow: hsl(43, 94%, 55%); // warning
 $green: hsl(132, 60%, 32%); // success
 
 $colors: (
-        (
-                name: 'white',
-                color: $white,
-                mod: 0%,
-        ),
-        (
-                name: 'lighter',
-                color: $lighter,
-                mod: 1%,
-        ),
-        (
-                name: 'light',
-                color: $light,
-                mod: 2%,
-        ),
-        (
-                name: 'medium',
-                color: $medium,
-                mod: 3%,
-        ),
-        (
-                name: 'dark',
-                color: $dark,
-                mod: 4%,
-        ),
-        (
-                name: 'darker',
-                color: $darker,
-                mod: 5%,
-        ),
-        (
-                name: 'black',
-                color: $black,
-                mod: 6%,
-        ),
-        (
-                name: 'orange',
-                color: $orange,
-                mod: 4%,
-        ),
-        (
-                name: 'teal',
-                color: $teal,
-                mod: 4%,
-        ),
-        (
-                name: 'sky',
-                color: $sky,
-                mod: 4%,
-        ),
-        (
-                name: 'danger',
-                color: $red,
-                mod: 4%,
-        ),
-        (
-                name: 'warning',
-                color: $yellow,
-                mod: 4%,
-        ),
-        (
-                name: 'success',
-                color: $green,
-                mod: 4%,
-        )
+  (
+    name: 'white',
+    color: $white,
+    mod: 0%,
+  ),
+  (
+    name: 'lighter',
+    color: $lighter,
+    mod: 1%,
+  ),
+  (
+    name: 'light',
+    color: $light,
+    mod: 2%,
+  ),
+  (
+    name: 'medium',
+    color: $medium,
+    mod: 3%,
+  ),
+  (
+    name: 'dark',
+    color: $dark,
+    mod: 4%,
+  ),
+  (
+    name: 'darker',
+    color: $darker,
+    mod: 5%,
+  ),
+  (
+    name: 'black',
+    color: $black,
+    mod: 6%,
+  ),
+  (
+    name: 'orange',
+    color: $orange,
+    mod: 4%,
+  ),
+  (
+    name: 'teal',
+    color: $teal,
+    mod: 4%,
+  ),
+  (
+    name: 'sky',
+    color: $sky,
+    mod: 4%,
+  ),
+  (
+    name: 'danger',
+    color: $red,
+    mod: 4%,
+  ),
+  (
+    name: 'warning',
+    color: $yellow,
+    mod: 4%,
+  ),
+  (
+    name: 'success',
+    color: $green,
+    mod: 4%,
+  )
 );
 
 // percentages to adjust lightness of a colour (shade - darker, tint - lighter)
@@ -231,44 +231,56 @@ $box-shadow-medium: box-shadow(medium, $black, 1);
 $box-shadow-large: box-shadow(large, $black, 1);
 $box-shadow-xlarge: box-shadow(xlarge, $black, 1);
 $box-shadow-all: $box-shadow-small, $box-shadow-medium, $box-shadow-large,
-$box-shadow-xlarge;
+  $box-shadow-xlarge;
 $box-shadow-header: box-shadow(small, $dark, 1), box-shadow(medium, $dark, 1),
-box-shadow(large, $dark, 1), box-shadow(xlarge, $dark, 1);
+  box-shadow(large, $dark, 1), box-shadow(xlarge, $dark, 1);
 
 /// smooth gradient
 /// @see "https://larsenwork.com/easing-gradients/"
 
 $promo-gradient: linear-gradient(
-                to top left,
-                hsl(20.96, 88.94%, 53.92%) 0%,
-                hsl(21.07, 88.82%, 53.87%) 8.1%,
-                hsl(21.39, 88.51%, 53.71%) 15.5%,
-                hsl(21.87, 88.03%, 53.47%) 22.5%,
-                hsl(22.49, 87.41%, 53.16%) 29%,
-                hsl(23.2, 86.68%, 52.8%) 35.3%,
-                hsl(23.97, 85.89%, 52.41%) 41.2%,
-                hsl(24.77, 85.05%, 52.01%) 47.1%,
-                hsl(25.57, 84.2%, 51.62%) 52.9%,
-                hsl(26.34, 83.36%, 51.24%) 58.8%,
-                hsl(27.06, 82.58%, 50.9%) 64.7%,
-                hsl(27.69, 81.87%, 50.59%) 71%,
-                hsl(28.22, 81.27%, 50.35%) 77.5%,
-                hsl(28.62, 80.8%, 50.16%) 84.5%,
-                hsl(28.88, 80.5%, 50.04%) 91.9%,
-                hsl(28.98, 80.39%, 50%) 100%
+  to top left,
+  hsl(20.96, 88.94%, 53.92%) 0%,
+  hsl(21.07, 88.82%, 53.87%) 8.1%,
+  hsl(21.39, 88.51%, 53.71%) 15.5%,
+  hsl(21.87, 88.03%, 53.47%) 22.5%,
+  hsl(22.49, 87.41%, 53.16%) 29%,
+  hsl(23.2, 86.68%, 52.8%) 35.3%,
+  hsl(23.97, 85.89%, 52.41%) 41.2%,
+  hsl(24.77, 85.05%, 52.01%) 47.1%,
+  hsl(25.57, 84.2%, 51.62%) 52.9%,
+  hsl(26.34, 83.36%, 51.24%) 58.8%,
+  hsl(27.06, 82.58%, 50.9%) 64.7%,
+  hsl(27.69, 81.87%, 50.59%) 71%,
+  hsl(28.22, 81.27%, 50.35%) 77.5%,
+  hsl(28.62, 80.8%, 50.16%) 84.5%,
+  hsl(28.88, 80.5%, 50.04%) 91.9%,
+  hsl(28.98, 80.39%, 50%) 100%
 );
 
 // filters -> convert #000 to $color
-$filter-orange: invert(44%) sepia(96%) saturate(655%) hue-rotate(343deg) brightness(94%) contrast(85%);
-$filter-teal: invert(37%) sepia(41%) saturate(612%) hue-rotate(136deg) brightness(102%) contrast(82%);
-$filter-sky: invert(73%) sepia(32%) saturate(730%) hue-rotate(147deg) brightness(90%) contrast(86%);
-$filter-success: invert(41%) sepia(55%) saturate(464%) hue-rotate(70deg) brightness(91%) contrast(86%);
-$filter-warning: invert(95%) sepia(43%) saturate(7434%) hue-rotate(319deg) brightness(100%) contrast(89%);
-$filter-danger: invert(15%) sepia(77%) saturate(6326%) hue-rotate(14deg) brightness(92%) contrast(101%);
-$filter-black: invert(3%) sepia(8%) saturate(3031%) hue-rotate(169deg) brightness(90%) contrast(95%);
-$filter-darker: invert(32%) sepia(27%) saturate(397%) hue-rotate(170deg) brightness(95%) contrast(92%);
-$filter-dark: invert(55%) sepia(10%) saturate(946%) hue-rotate(170deg) brightness(87%) contrast(84%);
-$filter-medium: invert(92%) sepia(5%) saturate(342%) hue-rotate(169deg) brightness(97%) contrast(82%);
-$filter-light: invert(87%) sepia(5%) saturate(130%) hue-rotate(169deg) brightness(108%) contrast(94%);
-$filter-lighter: invert(100%) sepia(79%) saturate(149%) hue-rotate(104deg) brightness(107%) contrast(92%);
+$filter-orange: invert(44%) sepia(96%) saturate(655%) hue-rotate(343deg)
+  brightness(94%) contrast(85%);
+$filter-teal: invert(37%) sepia(41%) saturate(612%) hue-rotate(136deg)
+  brightness(102%) contrast(82%);
+$filter-sky: invert(73%) sepia(32%) saturate(730%) hue-rotate(147deg)
+  brightness(90%) contrast(86%);
+$filter-success: invert(41%) sepia(55%) saturate(464%) hue-rotate(70deg)
+  brightness(91%) contrast(86%);
+$filter-warning: invert(95%) sepia(43%) saturate(7434%) hue-rotate(319deg)
+  brightness(100%) contrast(89%);
+$filter-danger: invert(15%) sepia(77%) saturate(6326%) hue-rotate(14deg)
+  brightness(92%) contrast(101%);
+$filter-black: invert(3%) sepia(8%) saturate(3031%) hue-rotate(169deg)
+  brightness(90%) contrast(95%);
+$filter-darker: invert(32%) sepia(27%) saturate(397%) hue-rotate(170deg)
+  brightness(95%) contrast(92%);
+$filter-dark: invert(55%) sepia(10%) saturate(946%) hue-rotate(170deg)
+  brightness(87%) contrast(84%);
+$filter-medium: invert(92%) sepia(5%) saturate(342%) hue-rotate(169deg)
+  brightness(97%) contrast(82%);
+$filter-light: invert(87%) sepia(5%) saturate(130%) hue-rotate(169deg)
+  brightness(108%) contrast(94%);
+$filter-lighter: invert(100%) sepia(79%) saturate(149%) hue-rotate(104deg)
+  brightness(107%) contrast(92%);
 $filter-white: invert(100%) brightness(100%) contrast(100%);
