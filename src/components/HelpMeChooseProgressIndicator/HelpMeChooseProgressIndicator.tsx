@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { Dispatch, SetStateAction } from 'react';
 import { useRouter } from 'next/router';
 import ProgressIndicator from 'core/molecules/progress-indicator';
 import Step from 'core/molecules/progress-indicator/Step';
 import StepLink from 'core/molecules/progress-indicator/StepLink';
 import {
+  buildAnObjectFromAQuery,
   IInitStep,
   onReplace,
 } from '../../containers/HelpMeChooseContainer/helpers';
@@ -12,9 +13,15 @@ interface IProps {
   steps: IInitStep;
   setSteps: (step: IInitStep) => void;
   getProductVehicleList: any;
+  setLoadingStatus: Dispatch<SetStateAction<boolean>>;
 }
 
-const ContextualProgressIndicator: React.FC<IProps> = ({ setSteps, steps }) => {
+const ContextualProgressIndicator: React.FC<IProps> = ({
+  setSteps,
+  steps,
+  getProductVehicleList,
+  setLoadingStatus,
+}) => {
   const router = useRouter();
 
   const progressSteps = [
@@ -75,9 +82,9 @@ const ContextualProgressIndicator: React.FC<IProps> = ({ setSteps, steps }) => {
     ? progressSteps.find(x => x.key === router.query.isEdit)
     : 0;
   // If the current step is being edited then mark the summary step as the active step
-  const activeStep = editingStep
-    ? progressSteps.find(x => x.active)?.step
-    : currentStep?.step;
+  const activeStep: number = editingStep
+    ? progressSteps.find(x => x.active)?.step || 1
+    : currentStep?.step || 1;
 
   return (
     <div className="row:progress">
@@ -86,12 +93,52 @@ const ContextualProgressIndicator: React.FC<IProps> = ({ setSteps, steps }) => {
           <Step key={el.key} editing={editingStep === el.step} step={el.step}>
             <StepLink
               onClick={() => {
-                setSteps({
-                  ...steps,
-                  [el.key]: { active: true, value: router.query[el.key] },
-                  [currentStep?.key || '']: { active: false },
-                });
-                onReplace(router, { ...steps }, '', el.key);
+                if (activeStep > el.step) {
+                  setLoadingStatus(true);
+                  const searchParams = new URLSearchParams(
+                    window.location.search,
+                  );
+                  const currentStepObject =
+                    currentStep?.key === 'results'
+                      ? {
+                          rental: {
+                            active: false,
+                            value: steps.rental.value,
+                          },
+                          initialPeriods: {
+                            active: false,
+                            value: steps.initialPeriods.value,
+                          },
+                        }
+                      : { [currentStep?.key || '']: { active: false } };
+                  getProductVehicleList({
+                    variables: {
+                      filter: {
+                        ...buildAnObjectFromAQuery(
+                          searchParams,
+                          {
+                            ...steps,
+                            [el.key]: {
+                              active: true,
+                              value: router.query[el.key],
+                            },
+                            ...currentStepObject,
+                          },
+                          el.step,
+                        ),
+                      },
+                    },
+                  });
+                  setSteps({
+                    ...steps,
+                    [el.key]: {
+                      active: true,
+                      value: (router.query[el.key] as string).split(','),
+                    },
+                    ...currentStepObject,
+                  });
+                  onReplace(router, { ...steps }, '', el.key);
+                }
               }}
               label={el.label}
             />

@@ -16,4 +16,5 @@ export interface IChoiceboxesProps extends IBaseProps {
   clearMultiSelectTitle?: string;
   onClearClick?: () => void;
   withIcons?: boolean;
+  currentValue?: string | string[];
 }

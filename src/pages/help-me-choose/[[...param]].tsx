@@ -4,10 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import withApollo from '../../hocs/withApollo';
 import { PRODUCTS_FILTER_LIST } from '../../gql/help-me-choose';
-import {
-  ProductVehicleListInputObject,
-  VehicleTypeEnum,
-} from '../../../generated/globalTypes';
+import { ProductVehicleListInputObject } from '../../../generated/globalTypes';
 import { ProductVehicleListVariables } from '../../../generated/ProductVehicleList';
 import {
   buildAnObjectFromAQuery,
@@ -33,6 +30,7 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 const HelpMeChoose: NextPage = () => {
   const [steps, setSteps] = useState<IInitStep>(initialSteps);
   const [isLoading, setLoadingStatus] = useState(false);
+  const [counterState, setCounterState] = useState(0);
 
   const [getProductVehicleList, productVehicleListData] = useLazyQuery<
     ProductVehicleListInputObject,
@@ -67,7 +65,7 @@ const HelpMeChoose: NextPage = () => {
   useEffect(() => {
     if (window?.location.search.length) {
       const searchParams = new URLSearchParams(window.location.search);
-      const financeTypesQueryValue = searchParams.get('financeTypes');
+      const financeTypesQueryValue = searchParams.getAll('financeTypes');
       const bodyStylesQuery = searchParams.getAll('bodyStyles');
       const fuelTypesQuery = searchParams.getAll('fuelTypes');
       const transmissionsQuery = searchParams.getAll('transmissions');
@@ -112,7 +110,7 @@ const HelpMeChoose: NextPage = () => {
       const stepsFromSearch = {
         financeTypes: {
           active: isFinanceTypesActive,
-          value: financeTypesQueryValue as any,
+          value: financeTypesQueryValue,
         },
         bodyStyles: {
           active: isBodyStylesActive,
@@ -128,15 +126,15 @@ const HelpMeChoose: NextPage = () => {
         },
         terms: {
           active: isTermsActive,
-          value: termsQueryValue as any,
+          value: termsQueryValue,
         },
         mileages: {
           active: isMileagesActive,
-          value: mileagesQueryValue as any,
+          value: mileagesQueryValue,
         },
         availability: {
           active: isAvailabilityActive,
-          value: availabilityQueryValue as any,
+          value: availabilityQueryValue,
         },
         rental: {
           active: isResultsActive,
@@ -151,8 +149,8 @@ const HelpMeChoose: NextPage = () => {
       const variables = {
         filter: {
           ...buildAnObjectFromAQuery(searchParams, stepsFromSearch),
-          vehicleTypes: [VehicleTypeEnum.CAR],
         },
+        first: 12,
       };
       getProductVehicleList({
         variables,
@@ -184,6 +182,7 @@ const HelpMeChoose: NextPage = () => {
         steps={steps}
         setSteps={setSteps}
         getProductVehicleList={getProductVehicleList}
+        setLoadingStatus={setLoadingStatus}
       />
       {steps.financeTypes.active && (
         <HelpMeChooseAboutYou
@@ -255,6 +254,8 @@ const HelpMeChoose: NextPage = () => {
           getProductVehicleList={getProductVehicleList}
           productVehicleListData={productVehicleListData}
           setLoadingStatus={setLoadingStatus}
+          counterState={counterState}
+          setCounterState={setCounterState}
         />
       )}
     </>

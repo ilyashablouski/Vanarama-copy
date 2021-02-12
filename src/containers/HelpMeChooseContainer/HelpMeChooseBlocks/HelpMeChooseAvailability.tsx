@@ -3,7 +3,6 @@ import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
 import { buildAnObjectFromAQuery, onReplace } from '../helpers';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { getSectionsData } from '../../../utils/getSectionsData';
 
 const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
@@ -16,7 +15,7 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
   } = props;
   const router = useRouter();
   const [availabilityValue, setAvailabilityValue] = useState<string[]>(
-    steps.availability.value as string[],
+    (steps.availability.value as string[]) || [''],
   );
 
   const availabilityData: [{ docCount: number; key: string }] = getSectionsData(
@@ -72,6 +71,23 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
     },
   ];
 
+  const getNextSteps = (searchParams: URLSearchParams) => {
+    const isValueChanges =
+      searchParams.getAll('availability')[0] !== availabilityValue[0];
+    return {
+      ...steps,
+      availability: { active: false, value: availabilityValue as any },
+      rental: {
+        active: true,
+        value: isValueChanges ? ('350' as any) : steps.rental.value,
+      },
+      initialPeriods: {
+        active: true,
+        value: isValueChanges ? ('6' as any) : steps.initialPeriods.value,
+      },
+    };
+  };
+
   return (
     <HelpMeChooseContainer
       title="How quickly do you need the vehicle?"
@@ -82,43 +98,17 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
       onClickContinue={() => {
         setLoadingStatus(true);
         const searchParams = new URLSearchParams(window.location.search);
+        const nextSteps = getNextSteps(searchParams);
         getProductVehicleList({
           variables: {
             filter: {
-              ...buildAnObjectFromAQuery(searchParams, {
-                ...steps,
-                availability: {
-                  active: false,
-                  value: availabilityValue as any,
-                },
-              }),
-              vehicleTypes: [VehicleTypeEnum.CAR],
-              rental: { max: 350 },
-              initialPeriods: [6],
+              ...buildAnObjectFromAQuery(searchParams, nextSteps),
             },
+            first: 12,
           },
         });
-        setSteps({
-          ...steps,
-          availability: { active: false, value: availabilityValue as any },
-          rental: {
-            active: true,
-            value: '350' as any,
-          },
-          initialPeriods: {
-            active: true,
-            value: '6' as any,
-          },
-        });
-        onReplace(
-          router,
-          {
-            ...steps,
-            availability: { active: false, value: availabilityValue as any },
-          },
-          '',
-          router.query.isEdit as string,
-        );
+        setSteps(nextSteps);
+        onReplace(router, nextSteps);
       }}
       currentValue={availabilityValue}
       clearMultiSelectTitle="I Don't Mind"

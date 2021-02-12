@@ -1,5 +1,11 @@
 import { useRouter } from 'next/router';
-import React, { FC, useContext, useState } from 'react';
+import React, {
+  Dispatch,
+  FC,
+  SetStateAction,
+  useContext,
+  useState,
+} from 'react';
 import SlidingInput from 'core/atoms/sliding-input';
 import Heading from 'core/atoms/heading';
 import Text from 'core/atoms/text';
@@ -45,7 +51,12 @@ const RENTAL_DATA = [
   },
 ];
 
-const HelpMeChooseResult: FC<HelpMeChooseStep> = props => {
+interface IHelpMeChooseResult extends HelpMeChooseStep {
+  setCounterState: Dispatch<SetStateAction<number>>;
+  counterState: number;
+}
+
+const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
   const router = useRouter();
   const { compareVehicles, compareChange } = useContext(CompareContext);
   const {
@@ -54,6 +65,8 @@ const HelpMeChooseResult: FC<HelpMeChooseStep> = props => {
     getProductVehicleList,
     productVehicleListData,
     setLoadingStatus,
+    counterState,
+    setCounterState,
   } = props;
   const stateVAT =
     (steps?.financeTypes?.value as any) === 'PCH' ? 'inc' : 'exc';
@@ -322,6 +335,32 @@ const HelpMeChooseResult: FC<HelpMeChooseStep> = props => {
               </div>
             ))}
         </div>
+        {!!vehiclesResultNumber && vehiclesResultNumber > 12 && (
+          <div>
+            <Button
+              color="primary"
+              dataTestId="help-me-choose_load-more"
+              label="Load More"
+              onClick={() => {
+                setCounterState(counterState + 1);
+                setLoadingStatus(true);
+                const searchParams = new URLSearchParams();
+                getProductVehicleList({
+                  variables: {
+                    filter: {
+                      ...buildAnObjectFromAQuery(searchParams, steps),
+                    },
+                    first: 12 * (counterState + 1),
+                  },
+                });
+              }}
+              size="large"
+              className="stepped-form--button"
+              type="button"
+              fill="clear"
+            />
+          </div>
+        )}
         <div className="button-group">
           {!!resultsData?.length && (
             <Button
