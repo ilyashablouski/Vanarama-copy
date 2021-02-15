@@ -10,7 +10,6 @@ import { MyOrdersTypeEnum, LeaseTypeEnum, VehicleTypeEnum } from "./globalTypes"
 // ====================================================
 
 export interface GetMyOrders_myOrders_lineItems_order {
-  id: string;
   uuid: string;
 }
 

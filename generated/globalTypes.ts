@@ -401,6 +401,7 @@ export interface ProductVehicleListInputObject {
   availability?: number | null;
   bodyStyles?: string[] | null;
   financeTypes?: FinanceTypeEnum[] | null;
+  from?: number | null;
   fuelTypes?: string[] | null;
   initialPayment?: ProductFilterRangeListObject | null;
   initialPeriods?: number[] | null;
@@ -409,6 +410,7 @@ export interface ProductVehicleListInputObject {
   modelName?: string | null;
   rangeName?: string | null;
   rental?: ProductFilterRangeListObject | null;
+  size?: number | null;
   terms?: number[] | null;
   transmissions?: string[] | null;
   vehicleTypes?: VehicleTypeEnum[] | null;

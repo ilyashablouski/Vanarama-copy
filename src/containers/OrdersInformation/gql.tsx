@@ -27,7 +27,6 @@ export const GET_MY_ORDERS_DATA = gql`
       updatedAt
       lineItems {
         order {
-          id
           uuid
         }
         createdAt
