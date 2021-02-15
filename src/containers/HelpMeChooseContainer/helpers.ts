@@ -76,37 +76,79 @@ export const onReplace = (
   );
 };
 
-export const buildAnObjectFromAQuery = (query: any, steps: IInitStep) => {
+export const buildAnObjectFromAQuery = (
+  query: any,
+  steps: IInitStep,
+  editStep?: number,
+) => {
   const object = {} as any;
   query.forEach((value: string, key: string) => {
-    if (key === 'financeTypes' && value.length && !steps.financeTypes.active) {
-      object.financeTypes = value;
+    if (
+      (key === 'financeTypes' &&
+        value.length &&
+        !steps.financeTypes.active &&
+        !editStep) ||
+      (key === 'financeTypes' && value.length && editStep && editStep > 1)
+    ) {
+      object.financeTypes = [value];
     }
-    if (key === 'bodyStyles' && value.length && !steps.bodyStyles.active) {
+    if (
+      (key === 'bodyStyles' &&
+        value.length &&
+        !steps.bodyStyles.active &&
+        !editStep) ||
+      (key === 'bodyStyles' && value.length && editStep && editStep > 2)
+    ) {
       object.bodyStyles = value.split(',');
     }
-    if (key === 'fuelTypes' && value.length && !steps.fuelTypes.active) {
+    if (
+      (key === 'fuelTypes' &&
+        value.length &&
+        !steps.fuelTypes.active &&
+        !editStep) ||
+      (key === 'fuelTypes' && value.length && editStep && editStep > 3)
+    ) {
       object.fuelTypes = value.split(',');
     }
     if (
-      key === 'transmissions' &&
-      value.length &&
-      !steps.transmissions.active
+      (key === 'transmissions' &&
+        value.length &&
+        !steps.transmissions.active &&
+        !editStep) ||
+      (key === 'transmissions' && value.length && editStep && editStep > 4)
     ) {
       object.transmissions = value.split(',');
     }
-    if (key === 'terms' && value.length && !steps.terms.active) {
+    if (
+      (key === 'terms' && value.length && !steps.terms.active && !editStep) ||
+      (key === 'terms' && value.length && editStep && editStep > 5)
+    ) {
       object.terms = [parseInt(value, 10)];
     }
-    if (key === 'mileages' && value.length && !steps.mileages.active) {
+    if (
+      (key === 'mileages' &&
+        value.length &&
+        !steps.mileages.active &&
+        !editStep) ||
+      (key === 'mileages' && value.length && editStep && editStep > 6)
+    ) {
       object.mileages = [parseInt(value, 10)];
     }
-    if (key === 'rental' && value.length) {
+    if (
+      (key === 'availability' &&
+        value.length &&
+        !steps.availability.active &&
+        !editStep) ||
+      (key === 'availability' && value.length && editStep && editStep > 7)
+    ) {
+      object.availability = parseInt(value, 10);
+    }
+    if (key === 'rental' && value.length && !editStep) {
       object.rental = {
         max: parseFloat(value),
       };
     }
-    if (key === 'initialPeriods' && value.length) {
+    if (key === 'initialPeriods' && value.length && !editStep) {
       object.initialPeriods = [parseInt(value, 10)];
     }
   });
@@ -166,7 +208,7 @@ export interface IInitStep {
 export const initialSteps: IInitStep = {
   financeTypes: {
     active: true,
-    value: 'PCH' as any,
+    value: ['PCH'],
   },
   bodyStyles: {
     active: false,
@@ -182,15 +224,15 @@ export const initialSteps: IInitStep = {
   },
   terms: {
     active: false,
-    value: '' as any,
+    value: [],
   },
   mileages: {
     active: false,
-    value: '' as any,
+    value: [],
   },
   availability: {
     active: false,
-    value: '' as any,
+    value: [],
   },
   rental: {
     active: false,
