@@ -80,6 +80,7 @@ export const buildAnObjectFromAQuery = (
   query: any,
   steps: IInitStep,
   editStep?: number,
+  showResults?: number,
 ) => {
   const object = {} as any;
   query.forEach((value: string, key: string) => {
@@ -143,15 +144,23 @@ export const buildAnObjectFromAQuery = (
     ) {
       object.availability = parseInt(value, 10);
     }
-    if (key === 'rental' && value.length && !editStep) {
+    if (
+      (key === 'rental' && value.length && !editStep) ||
+      steps.rental.active
+    ) {
       object.rental = {
-        max: parseFloat(value),
+        max: parseFloat(steps.rental.value as any),
       };
     }
-    if (key === 'initialPeriods' && value.length && !editStep) {
-      object.initialPeriods = [parseInt(value, 10)];
+    if (
+      (key === 'initialPeriods' && value.length && !editStep) ||
+      steps.initialPeriods.active
+    ) {
+      object.initialPeriods = [parseInt(steps.initialPeriods.value as any, 10)];
     }
   });
+  object.from = 0;
+  object.size = showResults || 12;
   object.vehicleTypes = [VehicleTypeEnum.CAR];
   return object;
 };
