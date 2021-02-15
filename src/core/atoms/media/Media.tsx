@@ -1,5 +1,5 @@
 import React from 'react';
-import ReactPlayer from 'react-player/lazy';
+import ReactPlayer from 'react-player';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
 import { IMediaProps } from './interface';
