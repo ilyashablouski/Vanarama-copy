@@ -80,6 +80,7 @@ export const buildAnObjectFromAQuery = (
   query: any,
   steps: IInitStep,
   editStep?: number,
+  showResults?: number,
 ) => {
   const object = {} as any;
   query.forEach((value: string, key: string) => {
@@ -143,15 +144,23 @@ export const buildAnObjectFromAQuery = (
     ) {
       object.availability = parseInt(value, 10);
     }
-    if (key === 'rental' && value.length && !editStep) {
+    if (
+      (key === 'rental' && value.length && !editStep) ||
+      steps.rental.active
+    ) {
       object.rental = {
-        max: parseFloat(value),
+        max: parseFloat(steps.rental.value as any),
       };
     }
-    if (key === 'initialPeriods' && value.length && !editStep) {
-      object.initialPeriods = [parseInt(value, 10)];
+    if (
+      (key === 'initialPeriods' && value.length && !editStep) ||
+      steps.initialPeriods.active
+    ) {
+      object.initialPeriods = [parseInt(steps.initialPeriods.value as any, 10)];
     }
   });
+  object.from = 0;
+  object.size = showResults || 12;
   object.vehicleTypes = [VehicleTypeEnum.CAR];
   return object;
 };
@@ -190,7 +199,7 @@ export const formatForCompare = (
 
 export interface IStep {
   active: boolean;
-  value: string[];
+  value: string[] | string;
 }
 
 export interface IInitStep {
@@ -243,3 +252,34 @@ export const initialSteps: IInitStep = {
     value: '' as any,
   },
 };
+
+export const RENTAL_VALUE = {
+  '150': 150,
+  '250': 250,
+  '350': 350,
+  '450': 450,
+  '550': 550,
+};
+
+export const RENTAL_DATA = [
+  {
+    value: RENTAL_VALUE['150'],
+    label: '£150',
+  },
+  {
+    value: RENTAL_VALUE['250'],
+    label: '£250',
+  },
+  {
+    value: RENTAL_VALUE['350'],
+    label: '£350',
+  },
+  {
+    value: RENTAL_VALUE['450'],
+    label: '£450',
+  },
+  {
+    value: RENTAL_VALUE['550'],
+    label: '£550+',
+  },
+];
