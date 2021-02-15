@@ -730,8 +730,8 @@ const SearchPageContainer: React.FC<IProps> = ({
     <>
       {metaData && (
         <>
-          <Head metaData={metaData} featuredImage={null} />
           <SchemaJSON json={JSON.stringify(metaData.schema)} />
+          <Head metaData={metaData} featuredImage={null} />
         </>
       )}
       <div className="row:title">
