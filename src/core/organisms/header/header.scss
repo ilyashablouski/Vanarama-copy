@@ -112,6 +112,12 @@
   }
 }
 
+@include mobile {
+  .header-logo {
+    transform: scale(0.8) translateX(-22px);
+  }
+}
+
 .header-tel,
 .header-account--toggle,
 .header-navtoggle {

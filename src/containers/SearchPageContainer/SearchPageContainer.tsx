@@ -66,10 +66,8 @@ import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import RangeCard from './RangeCard';
 import SortOrder from './SortOrder';
 import useMediaQuery from '../../hooks/useMediaQuery';
+import TilesBlock from './TilesBlock';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
 });
@@ -90,12 +88,6 @@ const Carousel = dynamic(() => import('core/organisms/carousel'), {
 });
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={10} />,
-});
-const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={3} />,
-});
-const TileLink = dynamic(() => import('../../components/TileLink/TileLink'), {
-  loading: () => <Skeleton count={1} />,
 });
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
@@ -738,8 +730,8 @@ const SearchPageContainer: React.FC<IProps> = ({
     <>
       {metaData && (
         <>
-          <Head metaData={metaData} featuredImage={null} />
           <SchemaJSON json={JSON.stringify(metaData.schema)} />
+          <Head metaData={metaData} featuredImage={null} />
         </>
       )}
       <div className="row:title">
@@ -1184,43 +1176,17 @@ const SearchPageContainer: React.FC<IProps> = ({
         </div>
       )}
 
-      {!pageData && isRangePage && <Loading size="large" />}
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
-        {isDynamicFilterPage && (
-          <div className="row:features-4col">
-            {tiles?.tiles?.length &&
-              tiles.tiles.map((tile, indx) => (
-                <Tile
-                  plain
-                  className="-align-center -button"
-                  key={`${tile.title}_${indx.toString()}`}
-                >
-                  <span>
-                    <Image
-                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                      src={tile.image?.file?.url || ''}
-                      inline
-                      round
-                      size="large"
-                    />
-                  </span>
-                  <TileLink tile={tile} />
-                  <Text color="darker" size="regular">
-                    {tile.body}
-                  </Text>
-                </Tile>
-              ))}
-          </div>
-        )}
-      </LazyLoadComponent>
+      {isDynamicFilterPage && tiles?.tiles?.length && (
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <TilesBlock tiles={tiles} />
+        </LazyLoadComponent>
+      )}
 
       {pageData && (
         <>
           {(isRangePage || isDynamicFilterPage) && (
-            <div className="row:text -columns">
-              <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
-              >
+            <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+              <div className="row:text -columns">
                 <ReactMarkdown
                   className="markdown"
                   source={pageData?.genericPage.body || ''}
@@ -1243,41 +1209,14 @@ const SearchPageContainer: React.FC<IProps> = ({
                     ),
                   }}
                 />
-              </LazyLoadComponent>
-            </div>
+              </div>
+            </LazyLoadComponent>
           )}
-
-          {tiles && !isDynamicFilterPage && (
-            <div className="row:features-4col">
-              <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
-              >
-                {tiles?.tiles?.length &&
-                  tiles.tiles.map((tile, indx) => (
-                    <Tile
-                      plain
-                      className="-align-center -button"
-                      key={`${tile.title}_${indx.toString()}`}
-                    >
-                      <span>
-                        <Image
-                          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                          src={tile.image?.file?.url || ''}
-                          inline
-                          round
-                          size="large"
-                        />
-                      </span>
-                      <TileLink tile={tile} />
-                      <Text color="darker" size="regular">
-                        {tile.body}
-                      </Text>
-                    </Tile>
-                  ))}
-              </LazyLoadComponent>
-            </div>
+          {!isDynamicFilterPage && tiles?.tiles?.length && (
+            <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+              <TilesBlock tiles={tiles} />
+            </LazyLoadComponent>
           )}
-
           {carousel?.cards?.length && (
             <div className="row:bg-lighter ">
               <div className="row:carousel">

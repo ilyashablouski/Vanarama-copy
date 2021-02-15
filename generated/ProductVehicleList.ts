@@ -130,6 +130,7 @@ export interface ProductVehicleList_productVehicleList_edges {
 export interface ProductVehicleList_productVehicleList {
   totalCount: number;
   nodesCount: number;
+  totalVehicles: number;
   /**
    * Information to aid in pagination.
    */

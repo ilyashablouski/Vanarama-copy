@@ -8,6 +8,7 @@ export const PRODUCTS_FILTER_LIST = gql`
     productVehicleList(filter: $filter, first: $first) {
       totalCount
       nodesCount
+      totalVehicles
       pageInfo {
         endCursor
         startCursor
