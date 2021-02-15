@@ -6,6 +6,7 @@ import {
   HttpLink,
 } from '@apollo/client';
 import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
+
 // import Router from 'next/router';
 // import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
@@ -27,7 +28,7 @@ const httpLink = new HttpLink({
 });
 
 // NOTE: Type 'HttpLink | ApolloLink' is not assignable to type 'ApolloLink | RequestHandler' - https://github.com/apollographql/apollo-client/issues/6011
-const persistedQueryLink = createPersistedQueryLink({
+const persistedQueriesLink = createPersistedQueryLink({
   useGETForHashedQueries: true,
 }) as any;
 
@@ -44,10 +45,15 @@ const logLink = new ApolloLink((operation, forward) => {
 });
 
 function apolloClientLink() {
-  const links = [persistedQueryLink, httpLink];
+  let links = [httpLink];
 
-  if (process.env.ENV && process.env.ENV !== 'production') {
-    return ApolloLink.from([logLink, ...links]);
+  if (process.env.ENV && ['uat', 'production'].includes(process.env.ENV)) {
+    links = [persistedQueriesLink, ...links];
+  }
+
+  if (process.env.ENV && ['dev', 'uat'].includes(process.env.ENV)) {
+    // NOTE: Type 'ApolloLink' is missing the following properties from type 'HttpLink': options, requester
+    links = [logLink as any, ...links];
   }
 
   return ApolloLink.from(links);
