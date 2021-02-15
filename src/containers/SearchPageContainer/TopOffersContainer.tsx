@@ -53,6 +53,8 @@ interface IProps {
   preloadBodyStyleList?: IModelsData[];
   preloadMake?: string;
   preloadRange?: string;
+  shouldForceUpdate: boolean;
+  setShouldForceUpdate: (value: boolean) => void;
 }
 
 const TopOffersContainer: React.FC<IProps> = ({
@@ -71,6 +73,8 @@ const TopOffersContainer: React.FC<IProps> = ({
   preloadBodyStyleList,
   preloadMake,
   preloadRange,
+  shouldForceUpdate,
+  setShouldForceUpdate,
 }: IProps) => {
   const router = useRouter();
 
@@ -137,10 +141,7 @@ const TopOffersContainer: React.FC<IProps> = ({
 
   // using for get vehicles for carousel when we switching between pages by header links
   useEffect(() => {
-    if (
-      (isMakePage || isDynamicFilterPage) &&
-      router.query.isChangePage === 'true'
-    ) {
+    if ((isMakePage || isDynamicFilterPage) && shouldForceUpdate) {
       getVehicles({
         variables: {
           vehicleTypes: isCarSearch
@@ -173,9 +174,10 @@ const TopOffersContainer: React.FC<IProps> = ({
           first: 6,
         },
       });
+      setShouldForceUpdate(false);
     }
   }, [
-    router,
+    shouldForceUpdate,
     isFuelPage,
     isCarSearch,
     isMakePage,
@@ -184,6 +186,8 @@ const TopOffersContainer: React.FC<IProps> = ({
     isDynamicFilterPage,
     getVehicles,
     isPersonal,
+    router.query,
+    setShouldForceUpdate,
   ]);
 
   const getCardData = (capId: string, dataForCards = cardsData) =>
