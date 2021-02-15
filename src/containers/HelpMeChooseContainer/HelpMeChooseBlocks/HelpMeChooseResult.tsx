@@ -87,7 +87,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
           : curr,
       ).value;
   const vehiclesResultNumber = getSectionsData(
-    ['productVehicleList', 'totalCount'],
+    ['productVehicleList', 'totalVehicles'],
     productVehicleListData?.data,
   );
 
@@ -348,9 +348,13 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                 getProductVehicleList({
                   variables: {
                     filter: {
-                      ...buildAnObjectFromAQuery(searchParams, steps),
+                      ...buildAnObjectFromAQuery(
+                        searchParams,
+                        steps,
+                        undefined,
+                        12 * (counterState + 1),
+                      ),
                     },
-                    first: 12 * (counterState + 1),
                   },
                 });
               }}

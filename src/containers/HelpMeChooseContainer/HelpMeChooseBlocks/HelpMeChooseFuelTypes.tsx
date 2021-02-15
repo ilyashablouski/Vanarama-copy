@@ -82,7 +82,6 @@ const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
             filter: {
               ...buildAnObjectFromAQuery(searchParams, nextSteps),
             },
-            first: 12,
           },
         });
         setSteps(nextSteps);
