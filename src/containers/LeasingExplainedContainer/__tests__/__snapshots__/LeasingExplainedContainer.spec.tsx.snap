@@ -9,7 +9,12 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       <h1
         class="heading -black -xlarge"
       >
-        Car Leasing Explained
+        Car Leasing
+         
+        <br />
+        Explained
+         
+        <br />
       </h1>
     </div>
     <div
