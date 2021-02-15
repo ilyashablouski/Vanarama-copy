@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
-import { buildAnObjectFromAQuery, onReplace } from '../helpers';
+import { buildAnObjectFromAQuery, onReplace, RENTAL_VALUE } from '../helpers';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { PRODUCTS_FILTER_LIST } from '../../../gql/help-me-choose';
@@ -81,41 +81,45 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
       filter: {
         ...buildAnObjectFromAQuery(searchParams, {
           ...steps,
-          availability: { active: false, value: availabilityValue as any },
+          availability: { active: false, value: availabilityValue },
           rental: {
             active: true,
-            value: isValueChanges ? ('350' as any) : steps.rental.value,
+            value: isValueChanges
+              ? RENTAL_VALUE['350'].toString()
+              : steps.rental.value,
           },
           initialPeriods: {
             active: true,
-            value: isValueChanges ? ('6' as any) : steps.initialPeriods.value,
+            value: isValueChanges ? '6' : steps.initialPeriods.value,
           },
         }),
       },
     }).then(result => {
       if (result.data?.productVehicleList.totalVehicles) {
-        return '350';
+        return RENTAL_VALUE['350'].toString();
       }
       return getProducts({
         filter: {
           ...buildAnObjectFromAQuery(searchParams, {
             ...steps,
-            availability: { active: false, value: availabilityValue as any },
+            availability: { active: false, value: availabilityValue },
             rental: {
               active: true,
-              value: isValueChanges ? ('450' as any) : steps.rental.value,
+              value: isValueChanges
+                ? RENTAL_VALUE['450'].toString()
+                : steps.rental.value,
             },
             initialPeriods: {
               active: true,
-              value: isValueChanges ? ('6' as any) : steps.initialPeriods.value,
+              value: isValueChanges ? '6' : steps.initialPeriods.value,
             },
           }),
         },
       }).then(res => {
         if (res.data?.productVehicleList.totalVehicles) {
-          return '450';
+          return RENTAL_VALUE['450'].toString();
         }
-        return '550';
+        return RENTAL_VALUE['550'].toString();
       });
     });
     return {

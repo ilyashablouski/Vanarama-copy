@@ -199,7 +199,7 @@ export const formatForCompare = (
 
 export interface IStep {
   active: boolean;
-  value: string[];
+  value: string[] | string;
 }
 
 export interface IInitStep {
@@ -252,3 +252,34 @@ export const initialSteps: IInitStep = {
     value: '' as any,
   },
 };
+
+export const RENTAL_VALUE = {
+  '150': 150,
+  '250': 250,
+  '350': 350,
+  '450': 450,
+  '550': 550,
+};
+
+export const RENTAL_DATA = [
+  {
+    value: RENTAL_VALUE['150'],
+    label: '£150',
+  },
+  {
+    value: RENTAL_VALUE['250'],
+    label: '£250',
+  },
+  {
+    value: RENTAL_VALUE['350'],
+    label: '£350',
+  },
+  {
+    value: RENTAL_VALUE['450'],
+    label: '£450',
+  },
+  {
+    value: RENTAL_VALUE['550'],
+    label: '£550+',
+  },
+];
