@@ -183,6 +183,7 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const [pageData, setPageData] = useState(pageDataSSR);
   const [metaData, setMetaData] = useState(metaDataSSR);
+  const [shouldUpdateTopOffers, setShouldUpdateTopOffers] = useState(false);
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
@@ -264,11 +265,13 @@ const SearchPageContainer: React.FC<IProps> = ({
         if (data && !errors?.[0]) {
           setPageData(data);
           setMetaData(data.genericPage.metaData);
+          setLastCard('');
+          if (isMakePage || isDynamicFilterPage) setShouldUpdateTopOffers(true);
         }
       };
       fetchPageData();
     }
-  }, [router, router.query, client]);
+  }, [router, router.query, client, isMakePage, isDynamicFilterPage]);
 
   const [getProductCardData, { loading }] = useProductCardDataLazyQuery(
     capIds,
@@ -625,10 +628,10 @@ const SearchPageContainer: React.FC<IProps> = ({
             : sortOrder.direction,
         },
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     lastCard,
     getVehiclesCache,
-    filtersData,
     isCarSearch,
     isSpecialOffers,
     isMakePage,
@@ -902,6 +905,8 @@ const SearchPageContainer: React.FC<IProps> = ({
         isDynamicFilterPage) && (
         <TopOffersContainer
           isCarSearch={isCarSearch}
+          shouldForceUpdate={shouldUpdateTopOffers}
+          setShouldForceUpdate={setShouldUpdateTopOffers}
           isMakePage={isMakePage || false}
           isBodyPage={isBodyStylePage || false}
           isBudgetPage={isBudgetPage || false}
