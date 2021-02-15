@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import {
   GenericPageQuery_genericPage_sections as Section,
@@ -7,6 +7,8 @@ import {
 import { getSectionsData } from '../../utils/getSectionsData';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
+import useMediaQuery from '../../hooks/useMediaQuery';
+import { onMadeLineBreaks } from '../SearchPageContainer/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -31,12 +33,20 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
   const cards = getSectionsData(['cards', 'cards'], sections);
   const featured = sections?.featured;
   const leadText = sections?.leadText;
+  const isDesktopOrTablet = useMediaQuery('(min-width: 768px)');
+  const titleWithBreaks = useMemo(() => onMadeLineBreaks(title || ''), [title]);
 
   return (
     <>
       <div className="row:title">
         <Heading size="xlarge" color="black" tag="h1">
-          {title}
+          {isDesktopOrTablet
+            ? title
+            : titleWithBreaks.map(line => (
+                <>
+                  {line} <br />
+                </>
+              ))}
         </Heading>
       </div>
       <div className="row:bg-black">
@@ -61,7 +71,12 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
               </RouterLink>
             )}
           </div>
-          <Media src={featured?.video || ''} width="100%" height="360px" />
+          <Media
+            noLazy
+            src={featured?.video || ''}
+            width="100%"
+            height="360px"
+          />
         </div>
       </div>
       <div className="row:lead-text">

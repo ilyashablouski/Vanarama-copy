@@ -730,6 +730,9 @@
       border: 0;
       font-weight: 500;
       color: $black;
+      @include mobile {
+        width: 120px;
+      }
     }
 
     > .select,
@@ -1720,8 +1723,7 @@
       gap: 0.5rem;
 
       svg {
-        margin-top: 0.5rem;
-        max-height: 40px;
+        height: 100%;
 
         &,
         & * {
@@ -1750,6 +1752,7 @@
           width: calc(33.33% - 1rem);
           max-width: calc(33.33% - 1rem);
           margin: 0.25rem;
+          text-transform: capitalize;
 
           @include padding-inline(1rem);
           @include padding-block(0.75rem);
@@ -1760,7 +1763,7 @@
     .stepped-form {
       &--title {
         @include tablet-desktop {
-          max-width: $vp-large / 2;
+          max-width: $vp-large / 1.5;
         }
         text-align: center;
       }

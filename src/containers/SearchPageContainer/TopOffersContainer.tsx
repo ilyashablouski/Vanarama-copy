@@ -21,7 +21,7 @@ import {
 } from '../../../generated/GetProductCard';
 import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
-import { bodyUrlsSlugMapper, fuelMapper } from './helpers';
+import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from './helpers';
 import { getLegacyUrl } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
 import VehicleCard from './VehicleCard';
@@ -53,12 +53,15 @@ interface IProps {
   preloadBodyStyleList?: IModelsData[];
   preloadMake?: string;
   preloadRange?: string;
+  shouldForceUpdate: boolean;
+  setShouldForceUpdate: (value: boolean) => void;
 }
 
 const TopOffersContainer: React.FC<IProps> = ({
   isCarSearch,
   isMakePage,
   isBodyPage,
+  isBudgetPage,
   isSpecialOfferPage,
   isTransmissionPage,
   isPickups,
@@ -71,6 +74,8 @@ const TopOffersContainer: React.FC<IProps> = ({
   preloadBodyStyleList,
   preloadMake,
   preloadRange,
+  shouldForceUpdate,
+  setShouldForceUpdate,
 }: IProps) => {
   const router = useRouter();
 
@@ -137,10 +142,7 @@ const TopOffersContainer: React.FC<IProps> = ({
 
   // using for get vehicles for carousel when we switching between pages by header links
   useEffect(() => {
-    if (
-      (isMakePage || isDynamicFilterPage) &&
-      router.query.isChangePage === 'true'
-    ) {
+    if ((isMakePage || isDynamicFilterPage) && shouldForceUpdate) {
       getVehicles({
         variables: {
           vehicleTypes: isCarSearch
@@ -152,6 +154,24 @@ const TopOffersContainer: React.FC<IProps> = ({
           onOffer: true,
           sortField: SortField.offerRanking,
           sortDirection: SortDirection.ASC,
+          rate: isBudgetPage
+            ? {
+                min:
+                  parseInt(
+                    budgetMapper[
+                      router.query.dynamicParam as keyof typeof budgetMapper
+                    ].split('|')[0],
+                    10,
+                  ) || undefined,
+                max:
+                  parseInt(
+                    budgetMapper[
+                      router.query.dynamicParam as keyof typeof budgetMapper
+                    ].split('|')[1],
+                    10,
+                  ) || undefined,
+              }
+            : undefined,
           manufacturerSlug: isMakePage
             ? (router.query?.dynamicParam as string).toLowerCase()
             : undefined,
@@ -173,9 +193,10 @@ const TopOffersContainer: React.FC<IProps> = ({
           first: 6,
         },
       });
+      setShouldForceUpdate(false);
     }
   }, [
-    router,
+    shouldForceUpdate,
     isFuelPage,
     isCarSearch,
     isMakePage,
@@ -184,6 +205,9 @@ const TopOffersContainer: React.FC<IProps> = ({
     isDynamicFilterPage,
     getVehicles,
     isPersonal,
+    router.query,
+    setShouldForceUpdate,
+    isBudgetPage,
   ]);
 
   const getCardData = (capId: string, dataForCards = cardsData) =>

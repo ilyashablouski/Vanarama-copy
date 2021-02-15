@@ -1,8 +1,14 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import React, { useState, forwardRef, useImperativeHandle } from 'react';
+import React, {
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  useEffect,
+} from 'react';
 import cx from 'classnames';
 import { IChoiceboxesProps, IChoice } from './interfaces';
 import Icon from '../icon';
+import BodyStyleIconMap from '../../../utils/bodyStyleIconMap';
 
 const Choiceboxes = forwardRef(
   (
@@ -16,6 +22,7 @@ const Choiceboxes = forwardRef(
       clearMultiSelectTitle,
       onClearClick,
       withIcons,
+      currentValue,
     }: IChoiceboxesProps,
     ref,
   ) => {
@@ -53,6 +60,13 @@ const Choiceboxes = forwardRef(
       },
     }));
 
+    useEffect(() => {
+      if (currentValue?.length && currentValue[0] === '') {
+        setClearMultiSelectActive(true);
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
     return (
       <div className={cx('choiceboxes', className, `-${color}`)}>
         {currentChoices.map((choice: IChoice, index: number) => (
@@ -68,7 +82,12 @@ const Choiceboxes = forwardRef(
           >
             {choice.label}
             {withIcons && (
-              <Icon color="teal" name={choice.label.replace(' ', '-')} />
+              <Icon
+                color="teal"
+                icon={BodyStyleIconMap.get(choice?.label.replace(/\s+/g, ''))}
+                size="xlarge"
+                className="md hydrated"
+              />
             )}
           </button>
         ))}

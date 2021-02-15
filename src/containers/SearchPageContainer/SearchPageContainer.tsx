@@ -33,6 +33,7 @@ import {
   dynamicQueryTypeCheck,
   fuelMapper,
   getCapsIds,
+  onMadeLineBreaks,
   ssrCMSQueryExecutor,
 } from './helpers';
 import {
@@ -64,10 +65,9 @@ import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import t
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import RangeCard from './RangeCard';
 import SortOrder from './SortOrder';
+import useMediaQuery from '../../hooks/useMediaQuery';
+import TilesBlock from './TilesBlock';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
 });
@@ -88,12 +88,6 @@ const Carousel = dynamic(() => import('core/organisms/carousel'), {
 });
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={10} />,
-});
-const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={3} />,
-});
-const TileLink = dynamic(() => import('../../components/TileLink/TileLink'), {
-  loading: () => <Skeleton count={1} />,
 });
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
@@ -185,8 +179,11 @@ const SearchPageContainer: React.FC<IProps> = ({
     [isCarSearch],
   );
 
+  const isDesktopOrTablet = useMediaQuery('(min-width: 768px)');
+
   const [pageData, setPageData] = useState(pageDataSSR);
   const [metaData, setMetaData] = useState(metaDataSSR);
+  const [shouldUpdateTopOffers, setShouldUpdateTopOffers] = useState(false);
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
@@ -268,11 +265,13 @@ const SearchPageContainer: React.FC<IProps> = ({
         if (data && !errors?.[0]) {
           setPageData(data);
           setMetaData(data.genericPage.metaData);
+          setLastCard('');
+          if (isMakePage || isDynamicFilterPage) setShouldUpdateTopOffers(true);
         }
       };
       fetchPageData();
     }
-  }, [router, router.query, client]);
+  }, [router, router.query, client, isMakePage, isDynamicFilterPage]);
 
   const [getProductCardData, { loading }] = useProductCardDataLazyQuery(
     capIds,
@@ -316,6 +315,11 @@ const SearchPageContainer: React.FC<IProps> = ({
     isBodyStylePage,
     preLoadFiltersData,
   ]);
+
+  const titleWithBreaks = useMemo(
+    () => onMadeLineBreaks(metaData?.name || ''),
+    [metaData],
+  );
 
   // using onCompleted callback for request card data after vehicle list was loaded
   const [getVehicles, { data }] = useVehiclesList(
@@ -624,10 +628,10 @@ const SearchPageContainer: React.FC<IProps> = ({
             : sortOrder.direction,
         },
       });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     lastCard,
     getVehiclesCache,
-    filtersData,
     isCarSearch,
     isSpecialOffers,
     isMakePage,
@@ -726,14 +730,20 @@ const SearchPageContainer: React.FC<IProps> = ({
     <>
       {metaData && (
         <>
-          <Head metaData={metaData} featuredImage={null} />
           <SchemaJSON json={JSON.stringify(metaData.schema)} />
+          <Head metaData={metaData} featuredImage={null} />
         </>
       )}
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
-          {metaData?.name}
+          {isDesktopOrTablet
+            ? metaData?.name
+            : titleWithBreaks.map(line => (
+                <>
+                  {line} <br />
+                </>
+              ))}
         </Heading>
 
         <section className="row:featured-right">
@@ -895,6 +905,8 @@ const SearchPageContainer: React.FC<IProps> = ({
         isDynamicFilterPage) && (
         <TopOffersContainer
           isCarSearch={isCarSearch}
+          shouldForceUpdate={shouldUpdateTopOffers}
+          setShouldForceUpdate={setShouldUpdateTopOffers}
           isMakePage={isMakePage || false}
           isBodyPage={isBodyStylePage || false}
           isBudgetPage={isBudgetPage || false}
@@ -1164,44 +1176,17 @@ const SearchPageContainer: React.FC<IProps> = ({
         </div>
       )}
 
-      {!pageData && isRangePage && <Loading size="large" />}
-
-      {isDynamicFilterPage && (
-        <div className="row:features-4col">
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
-            {tiles?.tiles?.length &&
-              tiles.tiles.map((tile, indx) => (
-                <Tile
-                  plain
-                  className="-align-center -button"
-                  key={`${tile.title}_${indx.toString()}`}
-                >
-                  <span>
-                    <Image
-                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                      src={tile.image?.file?.url || ''}
-                      inline
-                      round
-                      size="large"
-                    />
-                  </span>
-                  <TileLink tile={tile} />
-                  <Text color="darker" size="regular">
-                    {tile.body}
-                  </Text>
-                </Tile>
-              ))}
-          </LazyLoadComponent>
-        </div>
+      {isDynamicFilterPage && tiles?.tiles?.length && (
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <TilesBlock tiles={tiles} />
+        </LazyLoadComponent>
       )}
 
       {pageData && (
         <>
           {(isRangePage || isDynamicFilterPage) && (
-            <div className="row:text -columns">
-              <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
-              >
+            <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+              <div className="row:text -columns">
                 <ReactMarkdown
                   className="markdown"
                   source={pageData?.genericPage.body || ''}
@@ -1224,41 +1209,14 @@ const SearchPageContainer: React.FC<IProps> = ({
                     ),
                   }}
                 />
-              </LazyLoadComponent>
-            </div>
+              </div>
+            </LazyLoadComponent>
           )}
-
-          {tiles && !isDynamicFilterPage && (
-            <div className="row:features-4col">
-              <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
-              >
-                {tiles?.tiles?.length &&
-                  tiles.tiles.map((tile, indx) => (
-                    <Tile
-                      plain
-                      className="-align-center -button"
-                      key={`${tile.title}_${indx.toString()}`}
-                    >
-                      <span>
-                        <Image
-                          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                          src={tile.image?.file?.url || ''}
-                          inline
-                          round
-                          size="large"
-                        />
-                      </span>
-                      <TileLink tile={tile} />
-                      <Text color="darker" size="regular">
-                        {tile.body}
-                      </Text>
-                    </Tile>
-                  ))}
-              </LazyLoadComponent>
-            </div>
+          {!isDynamicFilterPage && tiles?.tiles?.length && (
+            <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+              <TilesBlock tiles={tiles} />
+            </LazyLoadComponent>
           )}
-
           {carousel?.cards?.length && (
             <div className="row:bg-lighter ">
               <div className="row:carousel">

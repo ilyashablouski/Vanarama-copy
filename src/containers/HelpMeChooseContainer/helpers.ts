@@ -1,5 +1,8 @@
 import { NextRouter } from 'next/router';
+import { formatProductPageUrl } from '../../utils/url';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { ProductVehicleList_productVehicleList_edges_node as EdgesNode } from '../../../generated/ProductVehicleList';
+import { IVehicleCarousel } from '../../utils/comparatorHelpers';
 
 const getBucketLabel = (type: string, label: string) => {
   switch (type) {
@@ -37,10 +40,14 @@ export const onReplace = (
     initialPeriods: IStep;
   },
   pathName?: string,
+  isEdit?: string,
 ) => {
   let pathname = pathName || router.route.replace('[[...param]]', '');
   const queryString = new URLSearchParams();
   const queries = {} as any;
+  if (isEdit) {
+    queries.isEdit = isEdit;
+  }
   Object.entries(newStep).forEach(filter => {
     const [key, step] = filter;
     if (
@@ -50,7 +57,7 @@ export const onReplace = (
       queries[key] = step.value;
     }
     if (pathName && key === 'rental') {
-      queries.pricePerMonth = step.value;
+      queries.pricePerMonth = `0|${step.value}`;
     }
   });
   Object.entries(queries).forEach(([key, value]) =>
@@ -69,47 +76,130 @@ export const onReplace = (
   );
 };
 
-export const buildAnObjectFromAQuery = (query: any, steps: IInitStep) => {
+export const buildAnObjectFromAQuery = (
+  query: any,
+  steps: IInitStep,
+  editStep?: number,
+  showResults?: number,
+) => {
   const object = {} as any;
   query.forEach((value: string, key: string) => {
-    if (key === 'financeTypes' && value.length && !steps.financeTypes.active) {
-      object.financeTypes = value;
+    if (
+      (key === 'financeTypes' &&
+        value.length &&
+        !steps.financeTypes.active &&
+        !editStep) ||
+      (key === 'financeTypes' && value.length && editStep && editStep > 1)
+    ) {
+      object.financeTypes = [value];
     }
-    if (key === 'bodyStyles' && value.length && !steps.bodyStyles.active) {
+    if (
+      (key === 'bodyStyles' &&
+        value.length &&
+        !steps.bodyStyles.active &&
+        !editStep) ||
+      (key === 'bodyStyles' && value.length && editStep && editStep > 2)
+    ) {
       object.bodyStyles = value.split(',');
     }
-    if (key === 'fuelTypes' && value.length && !steps.fuelTypes.active) {
+    if (
+      (key === 'fuelTypes' &&
+        value.length &&
+        !steps.fuelTypes.active &&
+        !editStep) ||
+      (key === 'fuelTypes' && value.length && editStep && editStep > 3)
+    ) {
       object.fuelTypes = value.split(',');
     }
     if (
-      key === 'transmissions' &&
-      value.length &&
-      !steps.transmissions.active
+      (key === 'transmissions' &&
+        value.length &&
+        !steps.transmissions.active &&
+        !editStep) ||
+      (key === 'transmissions' && value.length && editStep && editStep > 4)
     ) {
       object.transmissions = value.split(',');
     }
-    if (key === 'terms' && value.length && !steps.terms.active) {
+    if (
+      (key === 'terms' && value.length && !steps.terms.active && !editStep) ||
+      (key === 'terms' && value.length && editStep && editStep > 5)
+    ) {
       object.terms = [parseInt(value, 10)];
     }
-    if (key === 'mileages' && value.length && !steps.mileages.active) {
+    if (
+      (key === 'mileages' &&
+        value.length &&
+        !steps.mileages.active &&
+        !editStep) ||
+      (key === 'mileages' && value.length && editStep && editStep > 6)
+    ) {
       object.mileages = [parseInt(value, 10)];
     }
-    if (key === 'rental' && value.length) {
+    if (
+      (key === 'availability' &&
+        value.length &&
+        !steps.availability.active &&
+        !editStep) ||
+      (key === 'availability' && value.length && editStep && editStep > 7)
+    ) {
+      object.availability = parseInt(value, 10);
+    }
+    if (
+      (key === 'rental' && value.length && !editStep) ||
+      steps.rental.active
+    ) {
       object.rental = {
-        min: parseFloat(value),
+        max: parseFloat(steps.rental.value as any),
       };
     }
-    if (key === 'initialPeriods' && value.length) {
-      object.initialPeriods = [parseInt(value, 10)];
+    if (
+      (key === 'initialPeriods' && value.length && !editStep) ||
+      steps.initialPeriods.active
+    ) {
+      object.initialPeriods = [parseInt(steps.initialPeriods.value as any, 10)];
     }
   });
+  object.from = 0;
+  object.size = showResults || 12;
   object.vehicleTypes = [VehicleTypeEnum.CAR];
   return object;
 };
 
+export const formatForCompare = (
+  node: EdgesNode | null,
+  financeTypes: string,
+  mainImageUrl: string,
+): IVehicleCarousel | null => {
+  if (!node) {
+    return null;
+  }
+  return {
+    pageUrl: formatProductPageUrl(
+      // el.legacyUrl || el.url || '',
+      '',
+      node?.derivativeId,
+    ),
+    bodyStyle: node?.capBodyStyle,
+    capId: node?.derivativeId || '',
+    manufacturerName: node?.manufacturerName || '',
+    rangeName: node?.rangeName || '',
+    modelName: node?.modelName || '',
+    derivativeName: node?.derivativeName || '',
+    averageRating: null,
+    isOnOffer: null,
+    offerPosition: null,
+    leadTime: null,
+    imageUrl: mainImageUrl || null,
+    keyInformation: null,
+    businessRate: financeTypes === 'BCH' ? node?.rental || null : null,
+    personalRate: financeTypes === 'PCH' ? node?.rental || null : null,
+    vehicleType: VehicleTypeEnum.CAR,
+  };
+};
+
 export interface IStep {
   active: boolean;
-  value: string[];
+  value: string[] | string;
 }
 
 export interface IInitStep {
@@ -127,7 +217,7 @@ export interface IInitStep {
 export const initialSteps: IInitStep = {
   financeTypes: {
     active: true,
-    value: 'PCH' as any,
+    value: ['PCH'],
   },
   bodyStyles: {
     active: false,
@@ -143,15 +233,15 @@ export const initialSteps: IInitStep = {
   },
   terms: {
     active: false,
-    value: '' as any,
+    value: [],
   },
   mileages: {
     active: false,
-    value: '' as any,
+    value: [],
   },
   availability: {
     active: false,
-    value: '' as any,
+    value: [],
   },
   rental: {
     active: false,
@@ -162,3 +252,34 @@ export const initialSteps: IInitStep = {
     value: '' as any,
   },
 };
+
+export const RENTAL_VALUE = {
+  '150': 150,
+  '250': 250,
+  '350': 350,
+  '450': 450,
+  '550': 550,
+};
+
+export const RENTAL_DATA = [
+  {
+    value: RENTAL_VALUE['150'],
+    label: '£150',
+  },
+  {
+    value: RENTAL_VALUE['250'],
+    label: '£250',
+  },
+  {
+    value: RENTAL_VALUE['350'],
+    label: '£350',
+  },
+  {
+    value: RENTAL_VALUE['450'],
+    label: '£450',
+  },
+  {
+    value: RENTAL_VALUE['550'],
+    label: '£550+',
+  },
+];

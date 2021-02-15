@@ -12,4 +12,5 @@ export interface IBusinessAboutFormContainerProps {
   onError?: (error: ApolloError) => void;
   onLogInCLick?: () => void;
   onRegistrationClick?: () => void;
+  personLoggedIn?: boolean;
 }

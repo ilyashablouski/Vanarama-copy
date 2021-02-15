@@ -1,6 +1,8 @@
 import { IBaseProps } from '../../interfaces/base';
 
-export interface ISelectProps extends IBaseProps {
+export interface ISelectProps
+  extends IBaseProps,
+    React.InputHTMLAttributes<HTMLSelectElement> {
   children: React.ReactNode;
   /**
    * The default value for the select when used in uncontrolled mode

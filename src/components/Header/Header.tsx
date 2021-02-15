@@ -3,7 +3,6 @@
 import React, { FC, memo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 import cx from 'classnames';
 import localForage from 'localforage';
@@ -26,7 +25,7 @@ const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
 const PersonCircleSharp = dynamic(
   () => import('core/assets/icons/PersonCircleSharp'),
   {
-    ssr: false,
+    ssr: true,
   },
 );
 const HomeOutline = dynamic(() => import('core/assets/icons/HomeOutline'), {
@@ -42,7 +41,7 @@ const CarOutline = dynamic(() => import('core/assets/icons/CarOutline'), {
   ssr: false,
 });
 const Menu = dynamic(() => import('core/assets/icons/Menu'), {
-  ssr: false,
+  ssr: true,
 });
 const LogOutOutline = dynamic(() => import('core/assets/icons/LogOutOutline'), {
   ssr: false,
@@ -51,7 +50,7 @@ const Close = dynamic(() => import('core/assets/icons/Close'), {
   ssr: false,
 });
 const Call = dynamic(() => import('core/assets/icons/Call'), {
-  ssr: false,
+  ssr: true,
 });
 
 export interface IHeaderPromoImage {
@@ -91,7 +90,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
   const [isMenuOpen, setOpenMenu] = useState(false);
   const [isMyAccountOpen, setOpenMyAccount] = useState(false);
 
-  const isTabletOrMobile = useMediaQuery('(max-width: 1215px)');
+  const isDesktop = useMediaQuery('(min-width: 1216px)');
 
   useEffect(() => {
     if (!person) {
@@ -126,15 +125,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
   }, [isMenuOpen]);
 
   return (
-    <header
-      style={
-        isTabletOrMobile
-          ? { position: 'fixed', top: 0 }
-          : { position: 'relative' }
-      }
-      className={cx('header', className)}
-      data-testid="header"
-    >
+    <header className={cx('header', className)} data-testid="header">
       {' '}
       <div className="header-content">
         {' '}
@@ -146,7 +137,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
           {' '}
           <Logo asset="vanarama" />{' '}
         </RouterLink>{' '}
-        {!isTabletOrMobile && (
+        {isDesktop && (
           <label className="header-search" htmlFor="search">
             {' '}
             {/* {TODO: commit for this search lines should be reverted after implement search functionality} */}
@@ -165,145 +156,145 @@ export const Header: FC<IHeaderProps> = memo(props => {
           {' '}
           <Icon icon={<Call />} size="xsmall" /> <span>01442 838195</span>{' '}
         </RouterLink>{' '}
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
-          <div className="header-account">
-            {' '}
-            {person ? (
-              <>
-                {' '}
-                <Button
-                  withoutDefaultClass
-                  fill="clear"
-                  onClick={() => setOpenMyAccount(!isMyAccountOpen)}
-                  className="header-account--toggle"
-                  label={
-                    <>
-                      {' '}
-                      <Icon icon={<PersonCircleSharp />} size="xsmall" />{' '}
-                      <span>My Account</span>{' '}
-                    </>
-                  }
-                />{' '}
-                <div
-                  className={cx('header-account--content', {
-                    '-open': isMyAccountOpen,
-                  })}
-                >
-                  {' '}
-                  <div className="header-account--header">
-                    {' '}
-                    <span>
-                      {' '}
-                      Hi{' '}
-                      {person?.firstName &&
-                        person?.lastName &&
-                        `, ${person?.firstName} ${person?.lastName}`}{' '}
-                    </span>{' '}
-                  </div>{' '}
-                  <ul className="header-account--nav">
-                    {' '}
-                    <li>
-                      {' '}
-                      <RouterLink
-                        className="header-account--link"
-                        link={{
-                          href: `/account/my-details/[uuid]`,
-                          label: 'Dashboard',
-                          query: { partyByUuid: person.partyUuid },
-                        }}
-                        as={`/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`}
-                      >
-                        {' '}
-                        <Icon icon={<HomeOutline />} size="xsmall" />{' '}
-                        <span>Dashboard</span>{' '}
-                      </RouterLink>{' '}
-                    </li>{' '}
-                    <li>
-                      {' '}
-                      <RouterLink
-                        className="header-account--link"
-                        link={{
-                          href: quotesLength
-                            ? '/account/my-quotes/[partyByUuid]'
-                            : `/account/my-details/[uuid]`,
-                          label: 'My Quotes',
-                          query: {
-                            partyByUuid: person.partyUuid,
-                            uuid: person.uuid,
-                          },
-                        }}
-                        as={
-                          quotesLength
-                            ? `/account/my-quotes/${person.partyUuid}?uuid=${person.uuid}`
-                            : `/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`
-                        }
-                      >
-                        {' '}
-                        <Icon icon={<ReceiptOutline />} size="xsmall" />{' '}
-                        <span>My Quotes</span>{' '}
-                      </RouterLink>{' '}
-                    </li>{' '}
-                    <li>
-                      {' '}
-                      <RouterLink
-                        className="header-account--link"
-                        link={{
-                          href: ordersLength
-                            ? '/account/my-orders'
-                            : `/account/my-details/[uuid]`,
-                          label: 'My Orders',
-                          query: {
-                            partyByUuid: person.partyUuid,
-                            uuid: person.uuid,
-                          },
-                        }}
-                        as={
-                          ordersLength
-                            ? `/account/my-orders`
-                            : `/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`
-                        }
-                      >
-                        {' '}
-                        <Icon icon={<CarOutline />} size="xsmall" />{' '}
-                        <span>My Orders</span>{' '}
-                      </RouterLink>{' '}
-                    </li>{' '}
-                    <li>
-                      {' '}
-                      <RouterLink
-                        className="header-account--link"
-                        link={{ href: router.pathname, label: 'Log Out' }}
-                        as={router.asPath}
-                        onClick={async () => {
-                          await onLogOut();
-                          setPerson(null);
-                        }}
-                        replace
-                      >
-                        {' '}
-                        <Icon icon={<LogOutOutline />} size="xsmall" />{' '}
-                        <span>Log Out</span>{' '}
-                      </RouterLink>{' '}
-                    </li>{' '}
-                  </ul>{' '}
-                </div>{' '}
-              </>
-            ) : (
+        <div className="header-account">
+          {' '}
+          {person ? (
+            <>
+              {' '}
               <Button
-                className="header-account--toggle"
+                withoutDefaultClass
                 fill="clear"
+                onClick={() => setOpenMyAccount(!isMyAccountOpen)}
+                className="header-account--toggle"
                 label={
-                  <RouterLink link={loginLink}>
-                    {isTabletOrMobile && (
-                      <Icon icon={<PersonCircleSharp />} size="xsmall" />
-                    )}
-                    <span>Login / Register</span>{' '}
-                  </RouterLink>
+                  <>
+                    {' '}
+                    <Icon icon={<PersonCircleSharp />} size="xsmall" />{' '}
+                    <span>My Account</span>{' '}
+                  </>
                 }
-              />
-            )}{' '}
-          </div>{' '}
-        </LazyLoadComponent>
+              />{' '}
+              <div
+                className={cx('header-account--content', {
+                  '-open': isMyAccountOpen,
+                })}
+              >
+                {' '}
+                <div className="header-account--header">
+                  {' '}
+                  <span>
+                    {' '}
+                    Hi{' '}
+                    {person?.firstName &&
+                      person?.lastName &&
+                      `, ${person?.firstName} ${person?.lastName}`}{' '}
+                  </span>{' '}
+                </div>{' '}
+                <ul className="header-account--nav">
+                  {' '}
+                  <li>
+                    {' '}
+                    <RouterLink
+                      className="header-account--link"
+                      link={{
+                        href: `/account/my-details/[uuid]`,
+                        label: 'Dashboard',
+                        query: { partyByUuid: person.partyUuid },
+                      }}
+                      as={`/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`}
+                    >
+                      {' '}
+                      <Icon icon={<HomeOutline />} size="xsmall" />{' '}
+                      <span>Dashboard</span>{' '}
+                    </RouterLink>{' '}
+                  </li>{' '}
+                  <li>
+                    {' '}
+                    <RouterLink
+                      className="header-account--link"
+                      link={{
+                        href: quotesLength
+                          ? '/account/my-quotes/[partyByUuid]'
+                          : `/account/my-details/[uuid]`,
+                        label: 'My Quotes',
+                        query: {
+                          partyByUuid: person.partyUuid,
+                          uuid: person.uuid,
+                        },
+                      }}
+                      as={
+                        quotesLength
+                          ? `/account/my-quotes/${person.partyUuid}?uuid=${person.uuid}`
+                          : `/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`
+                      }
+                    >
+                      {' '}
+                      <Icon icon={<ReceiptOutline />} size="xsmall" />{' '}
+                      <span>My Quotes</span>{' '}
+                    </RouterLink>{' '}
+                  </li>{' '}
+                  <li>
+                    {' '}
+                    <RouterLink
+                      className="header-account--link"
+                      link={{
+                        href: ordersLength
+                          ? '/account/my-orders'
+                          : `/account/my-details/[uuid]`,
+                        label: 'My Orders',
+                        query: {
+                          partyByUuid: person.partyUuid,
+                          uuid: person.uuid,
+                        },
+                      }}
+                      as={
+                        ordersLength
+                          ? `/account/my-orders`
+                          : `/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`
+                      }
+                    >
+                      {' '}
+                      <Icon icon={<CarOutline />} size="xsmall" />{' '}
+                      <span>My Orders</span>{' '}
+                    </RouterLink>{' '}
+                  </li>{' '}
+                  <li>
+                    {' '}
+                    <RouterLink
+                      className="header-account--link"
+                      link={{ href: router.pathname, label: 'Log Out' }}
+                      as={router.asPath}
+                      onClick={async () => {
+                        await onLogOut();
+                        setPerson(null);
+                      }}
+                      replace
+                    >
+                      {' '}
+                      <Icon icon={<LogOutOutline />} size="xsmall" />{' '}
+                      <span>Log Out</span>{' '}
+                    </RouterLink>{' '}
+                  </li>{' '}
+                </ul>{' '}
+              </div>{' '}
+            </>
+          ) : (
+            <Button
+              withoutDefaultClass
+              className="header-account--toggle"
+              fill="clear"
+              label={
+                <RouterLink link={loginLink}>
+                  {!isDesktop ? (
+                    <Icon icon={<PersonCircleSharp />} size="xsmall" />
+                  ) : (
+                    <span>Login / Register</span>
+                  )}
+                </RouterLink>
+              }
+            />
+          )}{' '}
+        </div>{' '}
         <HeaderMenu
           menuLinks={topBarLinks}
           open={isMenuOpen}

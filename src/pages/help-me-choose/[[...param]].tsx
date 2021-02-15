@@ -4,10 +4,7 @@ import { useEffect, useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import withApollo from '../../hocs/withApollo';
 import { PRODUCTS_FILTER_LIST } from '../../gql/help-me-choose';
-import {
-  ProductVehicleListInputObject,
-  VehicleTypeEnum,
-} from '../../../generated/globalTypes';
+import { ProductVehicleListInputObject } from '../../../generated/globalTypes';
 import { ProductVehicleListVariables } from '../../../generated/ProductVehicleList';
 import {
   buildAnObjectFromAQuery,
@@ -24,6 +21,7 @@ import HelpMeChooseMiles from '../../containers/HelpMeChooseContainer/HelpMeChoo
 import HelpMeChooseAvailability from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseAvailability';
 import HelpMeChooseResult from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseResult';
 import Skeleton from '../../components/Skeleton';
+import HelpMeChooseProgressIndicator from '../../components/HelpMeChooseProgressIndicator/HelpMeChooseProgressIndicator';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -31,6 +29,8 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 
 const HelpMeChoose: NextPage = () => {
   const [steps, setSteps] = useState<IInitStep>(initialSteps);
+  const [isLoading, setLoadingStatus] = useState(false);
+  const [counterState, setCounterState] = useState(0);
 
   const [getProductVehicleList, productVehicleListData] = useLazyQuery<
     ProductVehicleListInputObject,
@@ -65,7 +65,7 @@ const HelpMeChoose: NextPage = () => {
   useEffect(() => {
     if (window?.location.search.length) {
       const searchParams = new URLSearchParams(window.location.search);
-      const financeTypesQueryValue = searchParams.get('financeTypes');
+      const financeTypesQueryValue = searchParams.getAll('financeTypes');
       const bodyStylesQuery = searchParams.getAll('bodyStyles');
       const fuelTypesQuery = searchParams.getAll('fuelTypes');
       const transmissionsQuery = searchParams.getAll('transmissions');
@@ -107,10 +107,10 @@ const HelpMeChoose: NextPage = () => {
         !(searchParams.has('initialPeriods') || searchParams.has('rental'));
       const isResultsActive =
         searchParams.has('rental') || searchParams.has('initialPeriods');
-      setSteps({
+      const stepsFromSearch = {
         financeTypes: {
           active: isFinanceTypesActive,
-          value: financeTypesQueryValue as any,
+          value: financeTypesQueryValue,
         },
         bodyStyles: {
           active: isBodyStylesActive,
@@ -126,15 +126,15 @@ const HelpMeChoose: NextPage = () => {
         },
         terms: {
           active: isTermsActive,
-          value: termsQueryValue as any,
+          value: termsQueryValue,
         },
         mileages: {
           active: isMileagesActive,
-          value: mileagesQueryValue as any,
+          value: mileagesQueryValue,
         },
         availability: {
           active: isAvailabilityActive,
-          value: availabilityQueryValue as any,
+          value: availabilityQueryValue,
         },
         rental: {
           active: isResultsActive,
@@ -144,80 +144,107 @@ const HelpMeChoose: NextPage = () => {
           active: isResultsActive,
           value: initialPeriodsQuery as any,
         },
-      });
+      };
+      setSteps(stepsFromSearch);
       const variables = {
         filter: {
-          ...buildAnObjectFromAQuery(searchParams, steps),
-          vehicleTypes: [VehicleTypeEnum.CAR],
+          ...buildAnObjectFromAQuery(searchParams, stepsFromSearch),
         },
+        first: 12,
       };
       getProductVehicleList({
         variables,
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getProductVehicleList]);
+  }, []);
 
-  if (productVehicleListData.loading) {
+  useEffect(() => {
+    let animation: any;
+    if (isLoading) {
+      animation = setTimeout(() => {
+        // endAnimation();
+        setLoadingStatus(false);
+      }, 1500);
+    }
+    return () => {
+      clearTimeout(animation);
+    };
+  }, [isLoading]);
+
+  if (isLoading) {
     return <Loading size="large" />;
   }
 
   return (
     <>
+      <HelpMeChooseProgressIndicator
+        steps={steps}
+        setSteps={setSteps}
+        getProductVehicleList={getProductVehicleList}
+        setLoadingStatus={setLoadingStatus}
+      />
       {steps.financeTypes.active && (
         <HelpMeChooseAboutYou
           steps={steps}
           setSteps={setSteps}
           getProductVehicleList={getProductVehicleList}
           productVehicleListData={productVehicleListData}
+          setLoadingStatus={setLoadingStatus}
         />
       )}
-      {steps.bodyStyles.active && bodyStyleData?.length && (
+      {steps.bodyStyles.active && !!bodyStyleData?.length && (
         <HelpMeChooseBodyStyle
           steps={steps}
           setSteps={setSteps}
           getProductVehicleList={getProductVehicleList}
           productVehicleListData={productVehicleListData}
+          setLoadingStatus={setLoadingStatus}
         />
       )}
-      {steps.fuelTypes.active && fuelTypesData?.length && (
+      {steps.fuelTypes.active && !!fuelTypesData?.length && (
         <HelpMeChooseFuelTypes
           steps={steps}
           setSteps={setSteps}
           getProductVehicleList={getProductVehicleList}
           productVehicleListData={productVehicleListData}
+          setLoadingStatus={setLoadingStatus}
         />
       )}
-      {steps.transmissions.active && transmissionsData?.length && (
+      {steps.transmissions.active && !!transmissionsData?.length && (
         <HelpMeChooseTransmissions
           steps={steps}
           setSteps={setSteps}
           getProductVehicleList={getProductVehicleList}
           productVehicleListData={productVehicleListData}
+          setLoadingStatus={setLoadingStatus}
         />
       )}
-      {steps.terms.active && termsData?.length && (
+      {steps.terms.active && !!termsData?.length && (
         <HelpMeChooseTerms
           steps={steps}
           setSteps={setSteps}
           getProductVehicleList={getProductVehicleList}
           productVehicleListData={productVehicleListData}
+          setLoadingStatus={setLoadingStatus}
         />
       )}
-      {steps.mileages.active && mileagesData?.length && (
+      {steps.mileages.active && !!mileagesData?.length && (
         <HelpMeChooseMiles
           steps={steps}
           setSteps={setSteps}
           getProductVehicleList={getProductVehicleList}
           productVehicleListData={productVehicleListData}
+          setLoadingStatus={setLoadingStatus}
         />
       )}
-      {steps.availability.active && availabilityData?.length && (
+      {steps.availability.active && !!availabilityData?.length && (
         <HelpMeChooseAvailability
           steps={steps}
           setSteps={setSteps}
           getProductVehicleList={getProductVehicleList}
           productVehicleListData={productVehicleListData}
+          setLoadingStatus={setLoadingStatus}
         />
       )}
       {steps.rental.active && steps.initialPeriods.active && (
@@ -226,6 +253,9 @@ const HelpMeChoose: NextPage = () => {
           setSteps={setSteps}
           getProductVehicleList={getProductVehicleList}
           productVehicleListData={productVehicleListData}
+          setLoadingStatus={setLoadingStatus}
+          counterState={counterState}
+          setCounterState={setCounterState}
         />
       )}
     </>

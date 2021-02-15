@@ -6,7 +6,7 @@ import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import { SEARCH_PAGES } from '../utils/url';
+import { removeUrlQueryPart, SEARCH_PAGES } from '../utils/url';
 import {
   PAGES_WITH_COMPARATOR,
   CompareContext,
@@ -23,7 +23,7 @@ import {
   changeCompares,
 } from '../utils/comparatorHelpers';
 import withApollo from '../hocs/withApollo';
-import { pushPageData } from '../utils/dataLayerHelpers';
+import { pushPageData, pushPageViewEvent } from '../utils/dataLayerHelpers';
 
 import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
@@ -60,7 +60,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     boolean | undefined
   >(false);
   // const [existComparator, setExistComparator] = useState(false);
-  const isTabletOrMobile = useMediaQuery('(max-width: 1215px)');
 
   useEffect(() => {
     // Anytime router.push is called, scroll to the top of the page.
@@ -75,6 +74,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   useEffect(() => {
     pushPageData({ pathname: router.pathname });
+    pushPageViewEvent(removeUrlQueryPart(router.asPath), document.title);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
   // useEffect(() => {
@@ -138,12 +139,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   return (
     <>
-      <main
-        className={cx(resolveMainClass())}
-        style={{
-          paddingTop: isTabletOrMobile ? '46px' : '0',
-        }}
-      >
+      <main className={cx(resolveMainClass())}>
         <HeaderContainer />
         <CompareContext.Provider
           value={{

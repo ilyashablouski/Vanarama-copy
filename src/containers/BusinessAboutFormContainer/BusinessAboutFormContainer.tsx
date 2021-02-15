@@ -53,6 +53,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   onError,
   onLogInCLick,
   onRegistrationClick,
+  personLoggedIn,
 }) => {
   const order = useGetOrder();
   const aboutPageDataQuery = useAboutPageDataQuery();
@@ -98,7 +99,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 
     const checkResult = result.data?.emailAlreadyExists;
 
-    if (!checkResult?.isSuccessfull || isEdit) {
+    if (!checkResult?.isSuccessfull || isEdit || personLoggedIn) {
       return undefined;
     }
 

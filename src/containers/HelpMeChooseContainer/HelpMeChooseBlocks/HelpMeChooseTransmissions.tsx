@@ -1,8 +1,12 @@
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
-import { buildAnObjectFromAQuery, getBuckets, onReplace } from '../helpers';
+import {
+  buildAnObjectFromAQuery,
+  getBuckets,
+  initialSteps,
+  onReplace,
+} from '../helpers';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 
@@ -12,45 +16,58 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
     steps,
     getProductVehicleList,
     productVehicleListData,
+    setLoadingStatus,
   } = props;
   const router = useRouter();
   const [transmissionsValue, setTransmissionsValue] = useState<string[]>(
     steps.transmissions.value as string[],
   );
 
-  useEffect(() => {
-    if (window?.location.search.length) {
-      const searchParams = new URLSearchParams(window.location.search);
-      const transmissionsQuery = searchParams.getAll('transmissions');
-      const transmissionsQueryValue = transmissionsQuery.length
-        ? transmissionsQuery[0].split(',')
-        : [];
-      const isTransmissionsActive =
-        searchParams.has('transmissions') && !searchParams.has('terms');
-      setSteps({
-        ...steps,
-        transmissions: {
-          active: steps.transmissions.active || isTransmissionsActive,
-          value: transmissionsQueryValue,
-        },
-      });
-      setTransmissionsValue(transmissionsQueryValue);
-      getProductVehicleList({
-        variables: {
-          filter: {
-            ...buildAnObjectFromAQuery(searchParams, steps),
-            vehicleTypes: [VehicleTypeEnum.CAR],
-          },
-        },
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const transmissionsData = getSectionsData(
     ['productVehicleList', 'aggs', 'transmission'],
     productVehicleListData?.data,
   );
+
+  const getNextSteps = (searchParams: URLSearchParams) => {
+    let nextSteps = {
+      ...steps,
+      transmissions: { active: false, value: transmissionsValue },
+      terms: { active: true, value: steps.terms.value },
+    };
+    const searchParamsValue = searchParams
+      .getAll('transmissions')[0]
+      ?.split(',')
+      .slice()
+      .sort();
+    const array2Sorted = transmissionsValue.slice().sort();
+    if (
+      !(
+        searchParamsValue?.length === transmissionsValue.length &&
+        searchParamsValue?.every((value, index) => {
+          return value === array2Sorted[index];
+        })
+      )
+    ) {
+      nextSteps = {
+        ...initialSteps,
+        bodyStyles: {
+          active: false,
+          value: steps.bodyStyles.value as any,
+        },
+        financeTypes: {
+          active: false,
+          value: steps.financeTypes.value as any,
+        },
+        fuelTypes: { active: false, value: steps.fuelTypes.value },
+        transmissions: {
+          active: false,
+          value: transmissionsValue,
+        },
+        terms: { active: true, value: initialSteps.terms.value },
+      };
+    }
+    return nextSteps;
+  };
 
   return (
     <HelpMeChooseContainer
@@ -58,15 +75,18 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
       choicesValues={getBuckets(transmissionsData, transmissionsValue)}
       setChoice={setTransmissionsValue}
       onClickContinue={() => {
-        setSteps({
-          ...steps,
-          transmissions: { active: false, value: transmissionsValue },
-          terms: { active: true, value: steps.terms.value },
+        setLoadingStatus(true);
+        const searchParams = new URLSearchParams(window.location.search);
+        const nextSteps = getNextSteps(searchParams);
+        getProductVehicleList({
+          variables: {
+            filter: {
+              ...buildAnObjectFromAQuery(searchParams, nextSteps),
+            },
+          },
         });
-        onReplace(router, {
-          ...steps,
-          transmissions: { active: true, value: transmissionsValue },
-        });
+        setSteps(nextSteps);
+        onReplace(router, nextSteps);
       }}
       multiSelect
       currentValue={transmissionsValue}

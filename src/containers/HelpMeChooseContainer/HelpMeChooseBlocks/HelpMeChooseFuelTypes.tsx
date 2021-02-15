@@ -1,8 +1,12 @@
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
-import { buildAnObjectFromAQuery, getBuckets, onReplace } from '../helpers';
+import {
+  buildAnObjectFromAQuery,
+  getBuckets,
+  initialSteps,
+  onReplace,
+} from '../helpers';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 
@@ -12,45 +16,57 @@ const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
     steps,
     getProductVehicleList,
     productVehicleListData,
+    setLoadingStatus,
   } = props;
   const router = useRouter();
   const [fuelTypesValue, setFuelTypesValue] = useState<string[]>(
     steps.fuelTypes.value as string[],
   );
 
-  useEffect(() => {
-    if (window?.location.search.length) {
-      const searchParams = new URLSearchParams(window.location.search);
-      const fuelTypesQuery = searchParams.getAll('fuelTypes');
-      const fuelTypesQueryValue = fuelTypesQuery.length
-        ? fuelTypesQuery[0].split(',')
-        : [];
-      const isFuelTypesActive =
-        searchParams.has('fuelTypes') && !searchParams.has('transmissions');
-      setSteps({
-        ...steps,
-        fuelTypes: {
-          active: steps.fuelTypes.active || isFuelTypesActive,
-          value: fuelTypesQueryValue,
-        },
-      });
-      setFuelTypesValue(fuelTypesQueryValue);
-      getProductVehicleList({
-        variables: {
-          filter: {
-            ...buildAnObjectFromAQuery(searchParams, steps),
-            vehicleTypes: [VehicleTypeEnum.CAR],
-          },
-        },
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const fuelTypesData = getSectionsData(
     ['productVehicleList', 'aggs', 'fuelType'],
     productVehicleListData?.data,
   );
+
+  const getNextSteps = (searchParams: URLSearchParams) => {
+    let nextSteps = {
+      ...steps,
+      fuelTypes: { active: false, value: fuelTypesValue },
+      transmissions: { active: true, value: steps.transmissions.value },
+    };
+    const searchParamsValue = searchParams
+      .getAll('fuelTypes')[0]
+      ?.split(',')
+      .slice()
+      .sort();
+    const array2Sorted = fuelTypesValue?.slice().sort();
+    if (
+      !(
+        searchParamsValue?.length === fuelTypesValue?.length &&
+        searchParamsValue?.every((value, index) => {
+          return value === array2Sorted[index];
+        })
+      )
+    ) {
+      nextSteps = {
+        ...initialSteps,
+        bodyStyles: {
+          active: false,
+          value: steps.bodyStyles.value as any,
+        },
+        financeTypes: {
+          active: false,
+          value: steps.financeTypes.value as any,
+        },
+        fuelTypes: { active: false, value: fuelTypesValue },
+        transmissions: {
+          active: true,
+          value: initialSteps.transmissions.value,
+        },
+      };
+    }
+    return nextSteps;
+  };
 
   return (
     <HelpMeChooseContainer
@@ -58,15 +74,18 @@ const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
       choicesValues={getBuckets(fuelTypesData, fuelTypesValue)}
       setChoice={setFuelTypesValue}
       onClickContinue={() => {
-        setSteps({
-          ...steps,
-          fuelTypes: { active: false, value: fuelTypesValue },
-          transmissions: { active: true, value: steps.transmissions.value },
+        setLoadingStatus(true);
+        const searchParams = new URLSearchParams(window.location.search);
+        const nextSteps = getNextSteps(searchParams);
+        getProductVehicleList({
+          variables: {
+            filter: {
+              ...buildAnObjectFromAQuery(searchParams, nextSteps),
+            },
+          },
         });
-        onReplace(router, {
-          ...steps,
-          fuelTypes: { active: false, value: fuelTypesValue },
-        });
+        setSteps(nextSteps);
+        onReplace(router, nextSteps);
       }}
       multiSelect
       currentValue={fuelTypesValue}

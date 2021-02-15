@@ -1,10 +1,11 @@
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
-import { buildAnObjectFromAQuery, onReplace } from '../helpers';
+import { buildAnObjectFromAQuery, onReplace, RENTAL_VALUE } from '../helpers';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { getSectionsData } from '../../../utils/getSectionsData';
+import { PRODUCTS_FILTER_LIST } from '../../../gql/help-me-choose';
+import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
 
 const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
   const {
@@ -12,11 +13,13 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
     steps,
     getProductVehicleList,
     productVehicleListData,
+    setLoadingStatus,
   } = props;
   const router = useRouter();
   const [availabilityValue, setAvailabilityValue] = useState<string[]>(
-    steps.availability.value as string[],
+    (steps.availability.value as string[]) || [''],
   );
+  const getProducts = useImperativeQuery(PRODUCTS_FILTER_LIST);
 
   const availabilityData: [{ docCount: number; key: string }] = getSectionsData(
     ['productVehicleList', 'aggs', 'availability'],
@@ -71,40 +74,67 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
     },
   ];
 
-  useEffect(() => {
-    if (window?.location.search.length) {
-      const searchParams = new URLSearchParams(window.location.search);
-      const isAvailabilityActive =
-        searchParams.has('availability') &&
-        !(searchParams.has('initialPeriods') || searchParams.has('rental'));
-      const availabilityQuery = searchParams.getAll('availability');
-      const availabilityQueryValue = availabilityQuery.length
-        ? availabilityQuery[0].split(',')
-        : [];
-      setSteps({
-        ...steps,
-        availability: {
-          active: steps.availability.active || isAvailabilityActive,
-          value: availabilityQueryValue,
-        },
-      });
-      setAvailabilityValue(availabilityQueryValue);
-      getProductVehicleList({
-        variables: {
-          filter: {
-            ...buildAnObjectFromAQuery(searchParams, steps),
-            vehicleTypes: [VehicleTypeEnum.CAR],
+  const getNextSteps = async (searchParams: URLSearchParams) => {
+    const isValueChanges =
+      searchParams.getAll('availability')[0] !== availabilityValue[0];
+    const defRentalValue = await getProducts({
+      filter: {
+        ...buildAnObjectFromAQuery(searchParams, {
+          ...steps,
+          availability: { active: false, value: availabilityValue },
+          rental: {
+            active: true,
+            value: isValueChanges
+              ? RENTAL_VALUE['350'].toString()
+              : steps.rental.value,
           },
+          initialPeriods: {
+            active: true,
+            value: isValueChanges ? '6' : steps.initialPeriods.value,
+          },
+        }),
+      },
+    }).then(result => {
+      if (result.data?.productVehicleList.totalVehicles) {
+        return RENTAL_VALUE['350'].toString();
+      }
+      return getProducts({
+        filter: {
+          ...buildAnObjectFromAQuery(searchParams, {
+            ...steps,
+            availability: { active: false, value: availabilityValue },
+            rental: {
+              active: true,
+              value: isValueChanges
+                ? RENTAL_VALUE['450'].toString()
+                : steps.rental.value,
+            },
+            initialPeriods: {
+              active: true,
+              value: isValueChanges ? '6' : steps.initialPeriods.value,
+            },
+          }),
         },
+      }).then(res => {
+        if (res.data?.productVehicleList.totalVehicles) {
+          return RENTAL_VALUE['450'].toString();
+        }
+        return RENTAL_VALUE['550'].toString();
       });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const vehiclesResultNumber = getSectionsData(
-    ['productVehicleList', 'totalCount'],
-    productVehicleListData?.data,
-  );
+    });
+    return {
+      ...steps,
+      availability: { active: false, value: availabilityValue as any },
+      rental: {
+        active: true,
+        value: isValueChanges ? (defRentalValue as any) : steps.rental.value,
+      },
+      initialPeriods: {
+        active: true,
+        value: isValueChanges ? ('6' as any) : steps.initialPeriods.value,
+      },
+    };
+  };
 
   return (
     <HelpMeChooseContainer
@@ -112,43 +142,24 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
       choicesValues={availabilityTypes.filter(el =>
         availabilityData.find(x => x.key === el.value),
       )}
-      setChoice={(value: string[]) => {
-        setAvailabilityValue(value);
+      setChoice={setAvailabilityValue}
+      onClickContinue={async () => {
+        setLoadingStatus(true);
         const searchParams = new URLSearchParams(window.location.search);
+        const nextSteps = await getNextSteps(searchParams);
         getProductVehicleList({
           variables: {
             filter: {
-              ...buildAnObjectFromAQuery(searchParams, steps),
-              vehicleTypes: [VehicleTypeEnum.CAR],
+              ...buildAnObjectFromAQuery(searchParams, nextSteps),
             },
           },
         });
-      }}
-      onClickContinue={() => {
-        setSteps({
-          ...steps,
-          availability: { active: false, value: availabilityValue as any },
-          rental: {
-            active: true,
-            value: steps.rental.value as any,
-          },
-          initialPeriods: {
-            active: true,
-            value: steps.initialPeriods.value
-              ? (steps.initialPeriods.value as any)
-              : '6',
-          },
-        });
-        onReplace(router, {
-          ...steps,
-          availability: { active: false, value: availabilityValue as any },
-        });
+        setSteps(nextSteps);
+        onReplace(router, nextSteps);
       }}
       currentValue={availabilityValue}
       clearMultiSelectTitle="I Don't Mind"
-      submitBtnText={`View Results ${
-        availabilityValue.length ? `(${vehiclesResultNumber || 0})` : ''
-      }`}
+      submitBtnText="View Results"
     />
   );
 };

@@ -1,8 +1,12 @@
 import { useRouter } from 'next/router';
-import { FC, useEffect, useState } from 'react';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
-import { buildAnObjectFromAQuery, getBuckets, onReplace } from '../helpers';
+import {
+  buildAnObjectFromAQuery,
+  getBuckets,
+  initialSteps,
+  onReplace,
+} from '../helpers';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 
@@ -12,45 +16,54 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
     steps,
     getProductVehicleList,
     productVehicleListData,
+    setLoadingStatus,
   } = props;
   const router = useRouter();
   const [bodyStylesValue, setBodyStylesValue] = useState<string[]>(
     steps.bodyStyles.value as string[],
   );
 
-  useEffect(() => {
-    if (window?.location.search.length) {
-      const searchParams = new URLSearchParams(window.location.search);
-      const bodyStylesQuery = searchParams.getAll('bodyStyles');
-      const bodyStylesQueryValue = bodyStylesQuery.length
-        ? bodyStylesQuery[0].split(',')
-        : [];
-      const isBodyStylesActive =
-        searchParams.has('bodyStyles') && !searchParams.has('fuelTypes');
-      setSteps({
-        ...steps,
-        bodyStyles: {
-          active: steps.bodyStyles.active || isBodyStylesActive,
-          value: bodyStylesQueryValue,
-        },
-      });
-      setBodyStylesValue(bodyStylesQueryValue);
-      getProductVehicleList({
-        variables: {
-          filter: {
-            ...buildAnObjectFromAQuery(searchParams, steps),
-            vehicleTypes: [VehicleTypeEnum.CAR],
-          },
-        },
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   const bodyStyleData = getSectionsData(
     ['productVehicleList', 'aggs', 'capBodyStyle'],
     productVehicleListData?.data,
   );
+
+  const getNextSteps = (searchParams: URLSearchParams) => {
+    let nextSteps = {
+      ...steps,
+      bodyStyles: {
+        active: false,
+        value: bodyStylesValue as any,
+      },
+      fuelTypes: { active: true, value: steps.fuelTypes.value },
+    };
+    const searchParamsValue = searchParams
+      .getAll('bodyStyles')[0]
+      ?.split(',')
+      .slice()
+      .sort();
+    const array2Sorted = bodyStylesValue?.slice().sort();
+    if (
+      searchParamsValue?.length === bodyStylesValue?.length &&
+      searchParamsValue?.every((value, index) => {
+        return value !== array2Sorted[index];
+      })
+    ) {
+      nextSteps = {
+        ...initialSteps,
+        bodyStyles: {
+          active: false,
+          value: bodyStylesValue as any,
+        },
+        financeTypes: {
+          active: false,
+          value: steps.financeTypes.value as any,
+        },
+        fuelTypes: { active: true, value: initialSteps.fuelTypes.value },
+      };
+    }
+    return nextSteps;
+  };
 
   return (
     <HelpMeChooseContainer
@@ -58,16 +71,18 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
       choicesValues={getBuckets(bodyStyleData, bodyStylesValue)}
       setChoice={setBodyStylesValue}
       onClickContinue={() => {
-        setSteps({
-          ...steps,
-          bodyStyles: { active: false, value: bodyStylesValue },
-          fuelTypes: { active: true, value: steps.fuelTypes.value },
+        setLoadingStatus(true);
+        const searchParams = new URLSearchParams(window.location.search);
+        const nextSteps = getNextSteps(searchParams);
+        getProductVehicleList({
+          variables: {
+            filter: {
+              ...buildAnObjectFromAQuery(searchParams, nextSteps),
+            },
+          },
         });
-        onReplace(router, {
-          ...steps,
-          fuelTypes: { active: true, value: steps.fuelTypes.value },
-          bodyStyles: { active: false, value: bodyStylesValue },
-        });
+        setSteps(nextSteps);
+        onReplace(router, nextSteps);
       }}
       multiSelect
       withIcons

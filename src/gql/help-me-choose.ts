@@ -1,10 +1,14 @@
 import { gql } from '@apollo/client';
 
 export const PRODUCTS_FILTER_LIST = gql`
-  query ProductVehicleList($filter: ProductVehicleListInputObject) {
-    productVehicleList(filter: $filter) {
+  query ProductVehicleList(
+    $filter: ProductVehicleListInputObject
+    $first: Int
+  ) {
+    productVehicleList(filter: $filter, first: $first) {
       totalCount
       nodesCount
+      totalVehicles
       pageInfo {
         endCursor
         startCursor

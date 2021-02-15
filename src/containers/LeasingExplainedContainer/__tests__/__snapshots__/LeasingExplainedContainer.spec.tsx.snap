@@ -9,7 +9,12 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       <h1
         class="heading -black -xlarge"
       >
-        Car Leasing Explained
+        Car Leasing
+         
+        <br />
+        Explained
+         
+        <br />
       </h1>
     </div>
     <div
@@ -48,9 +53,15 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         >
           <div
             class=""
-            src=""
-            style="width: 100%; height: 360px;"
-          />
+          >
+            <iframe
+              frameborder="0"
+              height="360px"
+              src=""
+              title="media"
+              width="100%"
+            />
+          </div>
         </div>
       </div>
     </div>

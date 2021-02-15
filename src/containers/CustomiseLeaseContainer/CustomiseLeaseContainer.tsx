@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
 import React, { useState, useEffect, useRef } from 'react';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Modal from 'core/molecules/modal';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteDataLazyQuery } from './gql';
@@ -302,27 +301,23 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         onSubmit={values => onCompleted(values)}
         showCallBackForm={() => setShowCallBackForm(true)}
       />
-      {showCallBackForm && (
-        <Modal
-          className="-mt-000 callBack"
-          show
-          onRequestClose={() => setShowCallBackForm(false)}
-        >
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
-            <GoldrushFormContainer
-              isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
-              capId={capId}
-              callBack
-              opportunityType={OpportunityTypeEnum.QUOTE}
-              vehicleType={vehicleType}
-              onCompleted={() => {
-                onCompletedCallBack();
-                setShowCallBackForm(false);
-              }}
-            />
-          </LazyLoadComponent>
-        </Modal>
-      )}
+      <Modal
+        className="-mt-000 callBack"
+        show={showCallBackForm}
+        onRequestClose={() => setShowCallBackForm(false)}
+      >
+        <GoldrushFormContainer
+          isPostcodeVisible={vehicleType !== VehicleTypeEnum.CAR}
+          capId={capId}
+          callBack
+          opportunityType={OpportunityTypeEnum.QUOTE}
+          vehicleType={vehicleType}
+          onCompleted={() => {
+            onCompletedCallBack();
+            setShowCallBackForm(false);
+          }}
+        />
+      </Modal>
     </>
   );
 };
