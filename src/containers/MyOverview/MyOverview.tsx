@@ -94,7 +94,7 @@ const createLineItemsInputFromMyOrder = (
 ): LineItemInputObject[] =>
   myOrdersLineItems.map(item => ({
     leadManagerQuoteId: item.leadManagerQuoteId,
-    orderId: item.order?.id,
+    orderId: item.order?.uuid,
     quantity: item.quantity,
     vehicleProduct: createVehicleProductInput(item.vehicleProduct),
   }));
@@ -377,14 +377,13 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
           style={{ '--img-w': '300px' } as CSSProperties}
           inline
           imageSrc={imageSrc?.mainImageUrl || ''}
-          key={order.id}
+          key={order.uuid}
           title={{
             title: `${derivative?.manufacturer.name || ''} ${derivative?.model
               .name || ''}`,
             description: derivative?.name || '',
           }}
           orderDetails={createOffersObject(
-            order.id,
             order.createdAt,
             order.leaseType,
             creditState,

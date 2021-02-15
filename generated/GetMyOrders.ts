@@ -55,7 +55,6 @@ export interface GetMyOrders_myOrders_lineItems {
 
 export interface GetMyOrders_myOrders {
   uuid: string;
-  id: string;
   leaseType: LeaseTypeEnum;
   partyUuid: string | null;
   personUuid: string | null;
