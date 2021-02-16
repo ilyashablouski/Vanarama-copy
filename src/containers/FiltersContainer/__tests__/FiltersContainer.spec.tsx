@@ -5,7 +5,6 @@ import preloadAll from 'jest-next-dynamic';
 import FiltersContainer from '../FiltersContainer';
 
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
-import { SortDirection, SortField } from '../../../../generated/globalTypes';
 // TODO: Invistigate useQuery refetch problem
 
 // ARRANGE
@@ -20,7 +19,6 @@ const resetMocks = () => {
     setIsSpecialOffers: jest.fn(),
     isPreloadList: false,
     setSearchFilters: jest.fn(),
-    sortOrder: { type: SortField.availability, direction: SortDirection.ASC },
   };
 };
 

@@ -97,7 +97,6 @@ const FiltersContainer = ({
   isFuelPage,
   isTransmissionPage,
   isDynamicFilterPage,
-  sortOrder,
   preLoadFilters,
   isPreloadList,
   setSearchFilters,
@@ -423,7 +422,7 @@ const FiltersContainer = ({
     )
       setInitialLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFilterTags, isInitialLoad, isPersonal, sortOrder]);
+  }, [selectedFilterTags, isInitialLoad, isPersonal]);
 
   /** return true if model exist in filters data */
   const isCurrentModelValid = (model: string) =>
