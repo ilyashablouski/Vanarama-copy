@@ -6,4 +6,5 @@ export interface IProps {
   onRegistrationClick?: () => void;
   personUuid?: string;
   personLoggedIn?: boolean;
+  isEdit?: boolean;
 }
