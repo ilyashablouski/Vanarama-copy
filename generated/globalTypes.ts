@@ -353,6 +353,7 @@ export interface OrderInputObject {
  */
 export interface PersonInputObject {
   about?: string | null;
+  b2c?: boolean | null;
   cognitoSub?: string | null;
   company?: CompanyInputObject | null;
   countryOfBirth?: string | null;

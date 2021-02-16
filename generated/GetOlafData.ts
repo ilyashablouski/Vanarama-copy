@@ -49,7 +49,6 @@ export interface GetOlafData_orderByUuid_lineItems {
 
 export interface GetOlafData_orderByUuid {
   uuid: string;
-  id: string;
   leaseType: LeaseTypeEnum;
   status: string;
   createdAt: any | null;
