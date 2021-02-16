@@ -146,7 +146,7 @@ type QueryParams = {
 function ProgressSection() {
   const { pathname, query } = useRouter();
   const { isSoleTraderJourney } = (query as unknown) as QueryParams;
-  const hideProgress = pathname === '/olaf/thank-you';
+  const hideProgress = pathname.includes('/olaf/thank-you');
   if (hideProgress) {
     return null;
   }

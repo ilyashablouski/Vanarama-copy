@@ -46,7 +46,6 @@ export interface GetOrderByUuid_orderByUuid_lineItems {
 
 export interface GetOrderByUuid_orderByUuid {
   uuid: string;
-  id: string;
   leaseType: LeaseTypeEnum;
   status: string;
   createdAt: any | null;

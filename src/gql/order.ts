@@ -18,7 +18,6 @@ export const GET_ORDER_BY_UUID_DATA = gql`
   query GetOrderByUuid($uuid: ID!) {
     orderByUuid(uuid: $uuid) {
       uuid
-      id
       leaseType
       status
       createdAt
@@ -128,7 +127,6 @@ export const GET_OLAF_DATA = gql`
   query GetOlafData($uuid: ID!) {
     orderByUuid(uuid: $uuid) {
       uuid
-      id
       leaseType
       status
       createdAt
