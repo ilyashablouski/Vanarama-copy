@@ -65,6 +65,7 @@ export interface IHeaderLink extends ILinkProps {
   id?: string;
   as?: string;
   highlight?: boolean;
+  highlightLabel?: string;
   promotionalImage?: IHeaderPromoImage;
 }
 

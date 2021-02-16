@@ -12,6 +12,7 @@ const query = gql`
       links {
         text
         url
+        label
       }
       linkGroups {
         name
@@ -29,12 +30,14 @@ const query = gql`
         links {
           text
           url
+          label
         }
         linkGroups {
           name
           links {
             text
             url
+            label
           }
         }
       }
