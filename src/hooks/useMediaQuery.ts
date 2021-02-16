@@ -15,7 +15,7 @@ export default function useMediaQuery(query: string) {
     // Then subscribe to additional changes
     mql.onchange = handleChange;
     return () => {
-      mql.onchange = () => null;
+      mql.onchange = null;
     };
   }, [query]);
 
