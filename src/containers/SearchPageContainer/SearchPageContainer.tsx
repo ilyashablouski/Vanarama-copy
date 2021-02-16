@@ -184,6 +184,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [pageData, setPageData] = useState(pageDataSSR);
   const [metaData, setMetaData] = useState(metaDataSSR);
   const [shouldUpdateTopOffers, setShouldUpdateTopOffers] = useState(false);
+  const [shouldUpdateCache, setShouldUpdateCache] = useState(
+    preLoadVehiclesList?.vehicleList?.pageInfo.hasNextPage ?? true,
+  );
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
@@ -400,8 +403,6 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   // new search with new filters
   const onSearch = (filters = filtersData) => {
-    // set search filters data
-    setFiltersData(filters);
     if (isMakePage) {
       const filtersForRanges = { ...filters, manufacturerSlug: undefined };
       getRanges({
@@ -497,6 +498,8 @@ const SearchPageContainer: React.FC<IProps> = ({
       pathname,
       { shallow: true },
     );
+    // set search filters data
+    setFiltersData(filters);
   };
 
   // API call after load new pages
@@ -557,6 +560,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       }
       setVehicleList(data.vehicleList?.edges || []);
       setLastCard(data.vehicleList.pageInfo.endCursor || '');
+      setShouldUpdateCache(data.vehicleList.pageInfo.hasNextPage || false);
       setHasNextPage(data.vehicleList.pageInfo.hasNextPage || false);
       // use range lenght for manufacture page
       if (!isMakePage && !isAllMakesPage)
@@ -601,12 +605,14 @@ const SearchPageContainer: React.FC<IProps> = ({
       lastCard &&
       !isMakePage &&
       hasNextPage &&
+      shouldUpdateCache &&
       ((isRangePage && filtersData.rangeSlug) ||
         (isDynamicFilterPage && Object.values(filtersData).flat().length > 0) ||
         (isModelPage && filtersData.rangeSlug) ||
         isSpecialOfferPage ||
         isSimpleSearchPage)
-    )
+    ) {
+      setShouldUpdateCache(false);
       getVehiclesCache({
         variables: {
           vehicleTypes: isCarSearch
@@ -628,14 +634,16 @@ const SearchPageContainer: React.FC<IProps> = ({
             : sortOrder.direction,
         },
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }
   }, [
     lastCard,
     getVehiclesCache,
     isCarSearch,
     isSpecialOffers,
     isMakePage,
+    shouldUpdateCache,
     hasNextPage,
+    filtersData,
     isRangePage,
     isModelPage,
     isDynamicFilterPage,
@@ -691,8 +699,12 @@ const SearchPageContainer: React.FC<IProps> = ({
     // Chrome sroll down page after load new offers
     // using for prevent it
     setPageOffset(window.pageYOffset);
-    if (vehiclesList.length < totalCount)
+    if (vehiclesList.length < totalCount) {
       setLastCard(cacheData?.vehicleList.pageInfo.endCursor || '');
+      setShouldUpdateCache(
+        cacheData?.vehicleList.pageInfo.hasNextPage || false,
+      );
+    }
   };
 
   /** save to sessions storage special offers status */
@@ -967,7 +979,6 @@ const SearchPageContainer: React.FC<IProps> = ({
             isDynamicFilterPage={isDynamicFilterPage}
             isFuelPage={isFuelPage}
             isTransmissionPage={isTransmissionPage}
-            sortOrder={sortOrder}
             isPreloadList={!!preLoadVehiclesList}
             setSearchFilters={setFiltersData}
             preLoadFilters={preLoadFiltersData}
