@@ -1,6 +1,6 @@
 import CityCar from '../core/assets/icons/custom/CityCar';
 import Convertible from '../core/assets/icons/custom/Convertible';
-import Coupe from '../core/assets/icons/custom/_Coupe';
+import Coupe from '../core/assets/icons/custom/Coupe';
 import Estate from '../core/assets/icons/custom/Estate';
 import Hatchback from '../core/assets/icons/custom/Hatchback';
 import PeopleCarrier from '../core/assets/icons/custom/PeopleCarrier';
