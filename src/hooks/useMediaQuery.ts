@@ -13,8 +13,10 @@ export default function useMediaQuery(query: string) {
     }
 
     // Then subscribe to additional changes
-    mql.addEventListener('change', handleChange);
-    return () => mql.removeEventListener('change', handleChange);
+    mql.onchange = handleChange;
+    return () => {
+      mql.onchange = () => null;
+    };
   }, [query]);
 
   return matches;
