@@ -1229,14 +1229,12 @@ const SearchPageContainer: React.FC<IProps> = ({
             </LazyLoadComponent>
           )}
           {carousel?.cards?.length && (
-            <div className="row:bg-lighter ">
-              <div className="row:carousel">
-                <Heading size="large" color="black" tag="h3">
-                  {carousel.title}
-                </Heading>
-                <LazyLoadComponent
-                  visibleByDefault={typeof window === 'undefined'}
-                >
+            <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+              <div className="row:bg-lighter">
+                <div className="row:carousel">
+                  <Heading size="large" color="black" tag="h3">
+                    {carousel.title}
+                  </Heading>
                   <Carousel
                     countItems={carousel?.cards?.length || 0}
                     className="-col3"
@@ -1314,15 +1312,14 @@ const SearchPageContainer: React.FC<IProps> = ({
                         ),
                     )}
                   </Carousel>
-                </LazyLoadComponent>
+                </div>
               </div>
-            </div>
+            </LazyLoadComponent>
           )}
         </>
       )}
-
-      <div className="row:text">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <div className="row:text">
           <Text color="darker" size="regular" tag="span">
             Photos and videos are for illustration purposes only.*{' '}
             <RouterLink
@@ -1336,8 +1333,8 @@ const SearchPageContainer: React.FC<IProps> = ({
             </RouterLink>
             .
           </Text>
-        </LazyLoadComponent>
-      </div>
+        </div>
+      </LazyLoadComponent>
     </>
   );
 };
