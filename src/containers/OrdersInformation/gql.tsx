@@ -16,13 +16,18 @@ export const GET_MY_ORDERS_DATA = gql`
   query GetMyOrders($partyUuid: [ID!]!, $filter: MyOrdersTypeEnum!) {
     myOrders(partyUuids: $partyUuid, filter: $filter) {
       uuid
-      id
       leaseType
       partyUuid
+      personUuid
+      referenceNumber
+      salesChannel
       status
       createdAt
       updatedAt
       lineItems {
+        order {
+          uuid
+        }
         createdAt
         leadManagerQuoteId
         productId
@@ -36,6 +41,9 @@ export const GET_MY_ORDERS_DATA = gql`
           uuid
         }
         vehicleProduct {
+          finalPayment
+          leadTime
+          maintenancePrice
           derivativeCapId
           description
           vsku

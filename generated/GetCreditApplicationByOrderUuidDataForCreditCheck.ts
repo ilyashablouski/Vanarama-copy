@@ -16,7 +16,6 @@ export interface GetCreditApplicationByOrderUuidDataForCreditCheck_creditApplica
 }
 
 export interface GetCreditApplicationByOrderUuidDataForCreditCheck_creditApplicationByOrderUuid_lineItem_order {
-  id: string;
   partyUuid: string | null;
 }
 

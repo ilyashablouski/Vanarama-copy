@@ -250,14 +250,6 @@ Array [
             <hr />
             <div>
               <span>
-                Order No: 
-              </span>
-              <span>
-                id
-              </span>
-            </div>
-            <div>
-              <span>
                 Date: 
               </span>
               <span>
@@ -382,14 +374,6 @@ Array [
               trim
             </span>
             <hr />
-            <div>
-              <span>
-                Order No: 
-              </span>
-              <span>
-                id1
-              </span>
-            </div>
             <div>
               <span>
                 Date: 
@@ -615,14 +599,6 @@ Array [
             <hr />
             <div>
               <span>
-                Order No: 
-              </span>
-              <span>
-                id
-              </span>
-            </div>
-            <div>
-              <span>
                 Date: 
               </span>
               <span>
@@ -747,14 +723,6 @@ Array [
               trim
             </span>
             <hr />
-            <div>
-              <span>
-                Order No: 
-              </span>
-              <span>
-                id1
-              </span>
-            </div>
             <div>
               <span>
                 Date: 
