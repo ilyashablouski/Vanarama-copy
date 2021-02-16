@@ -50,6 +50,7 @@ const HeaderContainer: FC = () => {
         href: el?.url || '',
         label: el?.text || '',
         id: el?.url || '',
+        highlightLabel: el?.label || '',
       }));
       let headerTopLinks: IHeaderLink;
       if (transformLinks && transformLinks?.length > 1) {

@@ -139,6 +139,12 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                       <Icon icon={<FlameSharp />} color="white" size="xsmall" />
                     )}
                     {link.label}
+
+                    {link.highlightLabel && (
+                      <span style={{ color: 'orange' }}>
+                        {link.highlightLabel}
+                      </span>
+                    )}
                   </button>
                 </>
               ) : (
