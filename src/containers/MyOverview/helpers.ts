@@ -18,7 +18,6 @@ import { defaultFormatDate } from '../../utils/dates';
  * @param quote - boolean, this order is quote
  */
 export const createOffersObject = (
-  id: string,
   createdAt: string,
   leaseType: string,
   state: string,
@@ -42,7 +41,7 @@ export const createOffersObject = (
   transmission: derivative?.transmission.name || '-',
   color: offer.colour || '-',
   trim: offer.trim || '-',
-  orderNumber: state !== 'draft' ? id : undefined,
+  orderNumber: undefined,
   orderDate: defaultFormatDate(new Date(createdAt)),
   orderButton: state === 'draft' || quote || !state ? button : undefined,
 });
