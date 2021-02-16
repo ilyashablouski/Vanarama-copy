@@ -141,7 +141,20 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                     {link.label}
 
                     {link.highlightLabel && (
-                      <span style={{ color: 'orange' }}>
+                      <span
+                        style={{
+                          color: 'white',
+                          backgroundColor: '#ec6409',
+                          fontSize: '11px',
+                          paddingRight: '8px',
+                          paddingLeft: '8px',
+                          paddingTop: '1px',
+                          paddingBottom: '1px',
+                          borderRadius: '4px',
+                          marginLeft: '10px',
+                          display: 'inline-block',
+                        }}
+                      >
                         {link.highlightLabel}
                       </span>
                     )}
