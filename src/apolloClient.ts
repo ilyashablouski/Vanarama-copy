@@ -5,7 +5,7 @@ import {
   InMemoryCache,
   HttpLink,
 } from '@apollo/client';
-import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
+// import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
 
 // import Router from 'next/router';
 // import { onError } from '@apollo/client/link/error';
@@ -28,9 +28,9 @@ const httpLink = new HttpLink({
 });
 
 // NOTE: Type 'HttpLink | ApolloLink' is not assignable to type 'ApolloLink | RequestHandler' - https://github.com/apollographql/apollo-client/issues/6011
-const persistedQueriesLink = createPersistedQueryLink({
-  useGETForHashedQueries: true,
-}) as any;
+// const persistedQueriesLink = createPersistedQueryLink({
+//   useGETForHashedQueries: true,
+// }) as any;
 
 const logLink = new ApolloLink((operation, forward) => {
   const query = {
@@ -47,9 +47,10 @@ const logLink = new ApolloLink((operation, forward) => {
 function apolloClientLink() {
   let links = [httpLink];
 
-  if (process.env.ENV && ['uat', 'production'].includes(process.env.ENV)) {
-    links = [persistedQueriesLink, ...links];
-  }
+  // TODO: https://autorama.atlassian.net/browse/DIG-5174
+  // if (process.env.ENV && ['uat', 'production'].includes(process.env.ENV)) {
+  //   links = [persistedQueriesLink, ...links];
+  // }
 
   if (process.env.ENV && ['dev', 'uat'].includes(process.env.ENV)) {
     // NOTE: Type 'ApolloLink' is missing the following properties from type 'HttpLink': options, requester
