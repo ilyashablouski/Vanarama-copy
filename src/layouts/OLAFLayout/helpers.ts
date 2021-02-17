@@ -79,3 +79,18 @@ export const getFunderTerm = (
 
 export const OlafContext = createContext({ requiredMonths: DEFAULT_TERM });
 OlafContext.displayName = 'OlafContext';
+
+export const olafTitleMapper = {
+  about: 'OLAF - About you | Vanarama',
+  'company-details': 'OLAF - Company Details | Vanarama',
+  'vat-details': 'OLAF - VAT Details | Vanarama',
+  'director-details': 'OLAF - Director Details | Vanarama',
+  'company-bank-details': 'OLAF - Company Bank Details | Vanarama',
+  summary: 'OLAF - Summary | Vanarama',
+  'sole-trader': 'OLAF - Sole Trader | Vanarama',
+  'thank-you': 'OLAF - Thank You | Vanarama',
+  expenses: 'OLAF - Expenses | Vanarama',
+  'employment-history': 'OLAF - Employment History | Vanarama',
+  'bank-details': 'OLAF - Bank Details | Vanarama',
+  'address-history': 'OLAF - Address History | Vanarama',
+};

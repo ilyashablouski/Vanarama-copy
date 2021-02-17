@@ -9,7 +9,12 @@ import BusinessProgressIndicator from '../../components/BusinessProgressIndicato
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useCarDerivativeData } from '../../gql/order';
-import { createOlafDetails, getFunderTerm, OlafContext } from './helpers';
+import {
+  createOlafDetails,
+  getFunderTerm,
+  OlafContext,
+  olafTitleMapper,
+} from './helpers';
 import {
   GetDerivative_derivative,
   GetDerivative_vehicleImages as VehicleImages,
@@ -18,6 +23,7 @@ import useGetOrder from '../../hooks/useGetOrder';
 import { OrderInputObject } from '../../../generated/globalTypes';
 import useGetOrderId from '../../hooks/useGetOrderId';
 import { useGetLeaseCompanyDataByOrderUuid } from '../../gql/creditApplication';
+import Head from '../../components/Head/Head';
 
 interface IProps {
   setDetailsData?: React.Dispatch<
@@ -34,6 +40,7 @@ const OLAFLayout: React.FC<IProps> = ({
   setDetailsData,
   setDerivativeData,
 }) => {
+  const router = useRouter();
   const order = useGetOrder();
   const orderId = useGetOrderId();
   const [getLeaseData, { data: leaseData }] = useGetLeaseCompanyDataByOrderUuid(
@@ -79,9 +86,30 @@ const OLAFLayout: React.FC<IProps> = ({
     leaseData,
     order,
   ]);
+  const meta = useMemo(() => {
+    const pathnameArray = router.pathname.split('/');
+    const title =
+      olafTitleMapper[
+        (pathnameArray.pop() || '') as keyof typeof olafTitleMapper
+      ];
+    return {
+      title: title || 'Vanarama',
+      name: null,
+      metaRobots: null,
+      metaDescription: null,
+      legacyUrl: null,
+      pageType: null,
+      canonicalUrl: null,
+      slug: null,
+      schema: null,
+      publishedOn: null,
+      breadcrumbs: null,
+    };
+  }, [router.pathname]);
 
   return (
     <>
+      <Head metaData={meta} />
       <ProgressSection />
       {isMobile && (
         <Button
