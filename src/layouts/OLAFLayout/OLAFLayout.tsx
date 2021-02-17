@@ -103,7 +103,7 @@ const OLAFLayout: React.FC<IProps> = ({
             <OlafCard
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               header={{
-                text: vehicleProduct?.leadTime || '',
+                text: `${vehicleProduct?.leadTime} †` || '',
               }}
               olafDetails={createOlafDetails(
                 order.leaseType,
@@ -132,6 +132,10 @@ const OLAFLayout: React.FC<IProps> = ({
                 ratingSize: 'lead',
               }}
             />
+            <div className="text -small description-block">
+              <span>** Excess mileage charges apply.</span>
+              <span>† After we’ve received your eSigned documents.</span>
+            </div>
           </div>
         )}
       </div>
