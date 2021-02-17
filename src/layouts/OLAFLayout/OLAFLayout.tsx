@@ -88,10 +88,9 @@ const OLAFLayout: React.FC<IProps> = ({
   ]);
   const meta = useMemo(() => {
     const pathnameArray = router.pathname.split('/');
-    const title =
-      olafTitleMapper[
-        (pathnameArray.pop() || '') as keyof typeof olafTitleMapper
-      ];
+    const [, title] = Object.entries(olafTitleMapper).find(([key]) =>
+      pathnameArray.includes(key),
+    );
     return {
       title: title || 'Vanarama',
       name: null,
