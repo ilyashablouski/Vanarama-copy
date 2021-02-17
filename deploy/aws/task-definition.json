@@ -56,6 +56,10 @@
           "value": "true"
         },
         {
+          "name": "LOCAL",
+          "value": "false"
+        },
+        {
           "name": "NODE_ENV",
           "value": "production"
         },
