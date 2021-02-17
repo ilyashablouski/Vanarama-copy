@@ -30,11 +30,13 @@ export interface GetPrimaryHeaderData_primaryHeader_linkGroups_promotionalImage 
 export interface GetPrimaryHeaderData_primaryHeader_linkGroups_links {
   text: string | null;
   url: string | null;
+  label: string | null;
 }
 
 export interface GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_links {
   text: string | null;
   url: string | null;
+  label: string | null;
 }
 
 export interface GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups {
