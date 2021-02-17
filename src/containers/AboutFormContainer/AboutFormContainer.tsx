@@ -23,6 +23,8 @@ const AboutFormContainer: React.FC<IProps> = ({
   personUuid,
   onLogInClick,
   onRegistrationClick,
+  personLoggedIn,
+  isEdit,
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
   const [createPerson] = useCreatePerson(onCompleted);
@@ -41,7 +43,7 @@ const AboutFormContainer: React.FC<IProps> = ({
 
     const checkResult = result.data?.emailAlreadyExists;
 
-    if (!checkResult?.isSuccessfull || !!aboutYouData.data?.personByUuid) {
+    if (!checkResult?.isSuccessfull || isEdit || personLoggedIn) {
       return undefined;
     }
 
