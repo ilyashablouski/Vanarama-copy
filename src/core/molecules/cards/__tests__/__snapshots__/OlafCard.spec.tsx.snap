@@ -71,7 +71,7 @@ exports[`<OlafCard /> Olaf Card should render correctly 1`] = `
           "dataTestId": undefined,
           "label": "Annual Mileage",
           "name": "annualMileage",
-          "value": "6000 miles",
+          "value": "6000 miles**",
         },
         Object {
           "dataTestId": undefined,
