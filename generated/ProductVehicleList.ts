@@ -111,7 +111,6 @@ export interface ProductVehicleList_productVehicleList_edges_node {
   term: number | null;
   mileage: number | null;
   availability: number | null;
-  capId: string | null;
   derivativeId: string | null;
   derivativeName: string | null;
 }

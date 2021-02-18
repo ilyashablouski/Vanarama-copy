@@ -29,26 +29,13 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
   );
 
   const getNextSteps = (searchParams: URLSearchParams) => {
-    let nextSteps = {
-      ...steps,
-      transmissions: { active: false, value: transmissionsValue },
-      terms: { active: true, value: steps.terms.value },
-    };
-    const searchParamsValue = searchParams
-      .getAll('transmissions')[0]
-      ?.split(',')
-      .slice()
-      .sort();
-    const array2Sorted = transmissionsValue.slice().sort();
-    if (
-      !(
-        searchParamsValue?.length === transmissionsValue.length &&
-        searchParamsValue?.every((value, index) => {
-          return value === array2Sorted[index];
-        })
-      )
-    ) {
-      nextSteps = {
+    const nextSteps = {
+      step: {
+        ...steps,
+        transmissions: { active: false, value: transmissionsValue },
+        terms: { active: true, value: steps.terms.value },
+      },
+      query: {
         ...initialSteps,
         bodyStyles: {
           active: false,
@@ -64,7 +51,23 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
           value: transmissionsValue,
         },
         terms: { active: true, value: initialSteps.terms.value },
-      };
+      },
+    };
+    const searchParamsValue = searchParams
+      .getAll('transmissions')[0]
+      ?.split(',')
+      .slice()
+      .sort();
+    const array2Sorted = transmissionsValue.slice().sort();
+    if (
+      !(
+        searchParamsValue?.length === transmissionsValue.length &&
+        searchParamsValue?.every((value, index) => {
+          return value === array2Sorted[index];
+        })
+      )
+    ) {
+      nextSteps.step = nextSteps.query;
     }
     return nextSteps;
   };
@@ -81,12 +84,12 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
         getProductVehicleList({
           variables: {
             filter: {
-              ...buildAnObjectFromAQuery(searchParams, nextSteps),
+              ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
             },
           },
         });
-        setSteps(nextSteps);
-        onReplace(router, nextSteps);
+        setSteps(nextSteps.step);
+        onReplace(router, nextSteps.step);
       }}
       multiSelect
       currentValue={transmissionsValue}
