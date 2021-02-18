@@ -1,7 +1,9 @@
+import React, { useContext } from 'react';
 import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
 import NumericInput from 'core/atoms/numeric-input';
 import { FieldArray, useField, useFormikContext } from 'formik';
+import { OlafContext } from '../../layouts/OLAFLayout/helpers';
 import { DirectorFieldsDropDownData } from '../../../generated/DirectorFieldsDropDownData';
 import FCWithFragments from '../../utils/FCWithFragments';
 import AddressFormFieldArray from '../AddressForm/AddressFormFieldArray';
@@ -50,7 +52,7 @@ const DirectorFields: FCWithFragments<Props> = ({
   const { values, errors } = useFormikContext<DirectorDetailsFormValues>();
   const currentDirector = values.directors[index];
   const generateFieldKey = createKeyGenerator(index);
-  const requiredMonths = DEFAULT_TERM;
+  const { requiredMonths } = useContext(OlafContext) ?? DEFAULT_TERM;
 
   // Manually reguster the shareOfBusiness field because it has validation rules
   // based on itself and the total percentage
