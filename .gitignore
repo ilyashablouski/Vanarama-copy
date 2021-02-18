@@ -14,7 +14,7 @@ test-report.xml
 /dist
 /out
 /.next
-src/deps/data/menuData.json
+#src/deps/data/menuData.json
 
 
 # misc
