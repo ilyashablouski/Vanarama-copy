@@ -143,7 +143,11 @@ const AboutYouPage: NextPage = () => {
     router.replace(router.pathname, router.asPath);
   }, handleAccountFetchError);
   const { refetch } = usePersonByUuidData(personUuid || '');
-  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
+  const creditApplicationQuery = useGetCreditApplicationByOrderUuid(orderId);
+  const creditApplication =
+    creditApplicationQuery.data?.creditApplicationByOrderUuid;
+  const isEdit =
+    Object.values(creditApplication?.aboutDetails || {}).length > 0;
 
   const clickOnComplete = async (
     createUpdatePerson: CreateUpdatePersonMutation_createUpdatePerson,
@@ -178,7 +182,7 @@ const AboutYouPage: NextPage = () => {
           createUpdateCA({
             variables: {
               input: formValuesToInputCreditApplication({
-                ...creditApplication.data?.creditApplicationByOrderUuid,
+                ...creditApplication,
                 orderUuid: savedOrderId || '',
                 aboutDetails: createUpdatePerson,
                 creditApplicationType: CATypeEnum.B2C_PERSONAL,
@@ -258,6 +262,7 @@ const AboutYouPage: NextPage = () => {
         </div>
       )}
       <AboutFormContainer
+        isEdit={isEdit}
         personLoggedIn={personLoggedIn}
         onCompleted={({ createUpdatePerson }) =>
           clickOnComplete(createUpdatePerson!)

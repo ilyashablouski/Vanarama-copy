@@ -73,27 +73,6 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
       link.href = `/${link.href}`;
     }
 
-    // TODO: Possible fix for local rewrites. To be tested.
-    // if (process.env.LOCAL)
-    //   return (
-    //     <Link
-    //       href={{
-    //         pathname: link.href,
-    //         query: link.query || {},
-    //       }}
-    //     >
-    //       <a
-    //         className={linkClassName}
-    //         target={link.target}
-    //         rel={setRel(link)}
-    //         onClick={e => onClick && onClick(e)}
-    //         data-testid={dataTestId ?? 'link'}
-    //       >
-    //         {children || link.label}
-    //       </a>
-    //     </Link>
-    //   );
-
     return (
       <a
         href={link.href}

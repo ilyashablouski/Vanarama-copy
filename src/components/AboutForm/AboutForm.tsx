@@ -65,7 +65,6 @@ const AboutForm: FCWithFragments<IProps> = ({
   } = useForm<IAboutFormValues>({
     mode: 'onBlur',
     validationSchema,
-    defaultValues,
   });
 
   useDateOfBirthValidation(watch, triggerValidation);
@@ -73,6 +72,14 @@ const AboutForm: FCWithFragments<IProps> = ({
     reset(defaultValues);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [person]);
+
+  const email = watch('email');
+  useEffect(() => {
+    if (email && defaultValues.email) {
+      triggerValidation('email');
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [email, defaultValues]);
 
   return (
     <Form onSubmit={handleSubmit(submit)}>
