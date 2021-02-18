@@ -5,6 +5,7 @@ interface IState {
   focused: boolean;
   intermediate?: ILoqateSuggestion;
   preventBlur: boolean;
+  formFocus: boolean;
   value: string;
 }
 
@@ -14,6 +15,8 @@ type TAction =
   | { type: 'CHANGE_INPUT'; value: string }
   | { type: 'CLEAR_INTERMEDIATE' }
   | { type: 'FOCUS_INPUT' }
+  | { type: 'FOCUS_FORM' }
+  | { type: 'BLUR_FORM' }
   | { type: 'BLUR_INPUT' };
 
 export default function reducer(state: IState, action: TAction): IState {
@@ -40,6 +43,12 @@ export default function reducer(state: IState, action: TAction): IState {
 
     case 'CHANGE_INPUT':
       return { ...state, value: action.value };
+
+    case 'FOCUS_FORM':
+      return { ...state, formFocus: true };
+
+    case 'BLUR_FORM':
+      return { ...state, formFocus: false };
 
     default:
       return state;

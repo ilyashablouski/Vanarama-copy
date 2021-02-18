@@ -229,7 +229,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
         <div className="stepped-form--results">
           {!!resultsData?.length &&
             resultsData.map((el: Edges, id: number) => (
-              <div key={`${el.node?.capId || 0 + id}`}>
+              <div key={`${el.node?.derivativeId || 0 + id}`}>
                 <ProductCard
                   className="-compact"
                   inline
