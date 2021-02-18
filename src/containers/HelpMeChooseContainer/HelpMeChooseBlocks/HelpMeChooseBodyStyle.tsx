@@ -29,13 +29,27 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
   );
 
   const getNextSteps = (searchParams: URLSearchParams) => {
-    let nextSteps = {
-      ...steps,
-      bodyStyles: {
-        active: false,
-        value: bodyStylesValue as any,
+    const nextSteps = {
+      step: {
+        ...steps,
+        bodyStyles: {
+          active: false,
+          value: bodyStylesValue as any,
+        },
+        fuelTypes: { active: true, value: steps.fuelTypes.value },
       },
-      fuelTypes: { active: true, value: steps.fuelTypes.value },
+      query: {
+        ...initialSteps,
+        bodyStyles: {
+          active: false,
+          value: bodyStylesValue as any,
+        },
+        financeTypes: {
+          active: false,
+          value: steps.financeTypes.value as any,
+        },
+        fuelTypes: { active: true, value: initialSteps.fuelTypes.value },
+      }
     };
     const searchParamsValue = searchParams
       .getAll('bodyStyles')[0]
@@ -49,18 +63,7 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
         return value !== array2Sorted[index];
       })
     ) {
-      nextSteps = {
-        ...initialSteps,
-        bodyStyles: {
-          active: false,
-          value: bodyStylesValue as any,
-        },
-        financeTypes: {
-          active: false,
-          value: steps.financeTypes.value as any,
-        },
-        fuelTypes: { active: true, value: initialSteps.fuelTypes.value },
-      };
+      nextSteps.step = nextSteps.query;
     }
     return nextSteps;
   };
@@ -77,12 +80,12 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
         getProductVehicleList({
           variables: {
             filter: {
-              ...buildAnObjectFromAQuery(searchParams, nextSteps),
+              ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
             },
           },
         });
-        setSteps(nextSteps);
-        onReplace(router, nextSteps);
+        setSteps(nextSteps.step);
+        onReplace(router, nextSteps.step);
       }}
       multiSelect
       withIcons

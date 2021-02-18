@@ -37,23 +37,26 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
   ];
 
   const getNextSteps = (searchParams: URLSearchParams) => {
-    let nextSteps = {
-      ...steps,
-      financeTypes: {
-        active: false,
-        value: financeTypesValue,
+    const nextSteps = {
+      step: {
+        ...steps,
+        financeTypes: {
+          active: false,
+          value: financeTypesValue,
+        },
+        bodyStyles: { active: true, value: steps.bodyStyles.value },
       },
-      bodyStyles: { active: true, value: steps.bodyStyles.value },
-    };
-    if (searchParams.getAll('financeTypes')[0] !== financeTypesValue[0]) {
-      nextSteps = {
+      query: {
         ...initialSteps,
         financeTypes: {
           active: false,
           value: financeTypesValue,
         },
         bodyStyles: { active: true, value: initialSteps.bodyStyles.value },
-      };
+      }
+    };
+    if (searchParams.getAll('financeTypes')[0] !== financeTypesValue[0]) {
+      nextSteps.step = nextSteps.query;
     }
     return nextSteps;
   };
@@ -70,12 +73,12 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
         getProductVehicleList({
           variables: {
             filter: {
-              ...buildAnObjectFromAQuery(searchParams, nextSteps),
+              ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
             },
           },
         });
-        setSteps(nextSteps);
-        onReplace(router, nextSteps);
+        setSteps(nextSteps.step);
+        onReplace(router, nextSteps.step);
       }}
       currentValue={financeTypesValue}
     />

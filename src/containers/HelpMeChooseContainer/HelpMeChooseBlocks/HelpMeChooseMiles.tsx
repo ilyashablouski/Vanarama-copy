@@ -29,13 +29,13 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
   );
 
   const getNextSteps = (searchParams: URLSearchParams) => {
-    let nextSteps = {
-      ...steps,
-      mileages: { active: false, value: mileagesValue },
-      availability: { active: true, value: steps.availability.value },
-    };
-    if (searchParams.getAll('mileages')[0] !== mileagesValue[0]) {
-      nextSteps = {
+    const nextSteps = {
+      step: {
+        ...steps,
+        mileages: { active: false, value: mileagesValue },
+        availability: { active: true, value: steps.availability.value },
+      },
+      query:{
         ...steps,
         mileages: { active: false, value: mileagesValue },
         availability: {
@@ -50,7 +50,10 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
           active: false,
           value: initialSteps.initialPeriods.value,
         },
-      };
+      }
+    };
+    if (searchParams.getAll('mileages')[0] !== mileagesValue[0]) {
+      nextSteps.step = nextSteps.query;
     }
     return nextSteps;
   };
@@ -67,12 +70,12 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
         getProductVehicleList({
           variables: {
             filter: {
-              ...buildAnObjectFromAQuery(searchParams, nextSteps),
+              ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
             },
           },
         });
-        setSteps(nextSteps);
-        onReplace(router, nextSteps);
+        setSteps(nextSteps.step);
+        onReplace(router, nextSteps.step);
       }}
       currentValue={mileagesValue}
       clearMultiSelectTitle="I Don't Mind"
