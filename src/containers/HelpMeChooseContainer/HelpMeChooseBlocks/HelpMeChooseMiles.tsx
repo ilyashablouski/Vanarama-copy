@@ -35,7 +35,7 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
         mileages: { active: false, value: mileagesValue },
         availability: { active: true, value: steps.availability.value },
       },
-      query:{
+      query: {
         ...steps,
         mileages: { active: false, value: mileagesValue },
         availability: {
@@ -50,7 +50,7 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
           active: false,
           value: initialSteps.initialPeriods.value,
         },
-      }
+      },
     };
     if (searchParams.getAll('mileages')[0] !== mileagesValue[0]) {
       nextSteps.step = nextSteps.query;

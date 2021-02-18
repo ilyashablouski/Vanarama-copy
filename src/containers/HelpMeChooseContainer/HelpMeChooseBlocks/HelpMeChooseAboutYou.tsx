@@ -53,7 +53,7 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
           value: financeTypesValue,
         },
         bodyStyles: { active: true, value: initialSteps.bodyStyles.value },
-      }
+      },
     };
     if (searchParams.getAll('financeTypes')[0] !== financeTypesValue[0]) {
       nextSteps.step = nextSteps.query;

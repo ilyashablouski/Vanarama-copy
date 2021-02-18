@@ -49,7 +49,7 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
           value: steps.financeTypes.value as any,
         },
         fuelTypes: { active: true, value: initialSteps.fuelTypes.value },
-      }
+      },
     };
     const searchParamsValue = searchParams
       .getAll('bodyStyles')[0]

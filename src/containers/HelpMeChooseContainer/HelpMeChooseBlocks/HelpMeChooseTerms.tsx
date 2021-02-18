@@ -35,7 +35,7 @@ const HelpMeChooseTerms: FC<HelpMeChooseStep> = props => {
         terms: { active: false, value: termsValue },
         mileages: { active: true, value: steps.mileages.value },
       },
-      query:{
+      query: {
         ...steps,
         terms: { active: false, value: termsValue },
         mileages: { active: true, value: initialSteps.mileages.value },
@@ -51,7 +51,7 @@ const HelpMeChooseTerms: FC<HelpMeChooseStep> = props => {
           active: false,
           value: initialSteps.initialPeriods.value,
         },
-      }
+      },
     };
     if (searchParams.getAll('terms')[0] !== termsValue[0]) {
       nextSteps.step = nextSteps.query;
