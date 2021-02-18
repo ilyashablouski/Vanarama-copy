@@ -102,7 +102,7 @@ if (cluster.isMaster) {
 
       // All routes.
       server.all('*', cors(), (req, res) => {
-        // Disable indexing on live domain.
+        // Disable indexing on non live domain.
         if (!req.get('host').includes('vanarama.com'))
           res.setHeader('X-Robots-Tag', 'noindex');
 

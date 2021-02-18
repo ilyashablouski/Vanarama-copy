@@ -2,6 +2,8 @@
 require('dotenv').config({ path: '.env.secret' });
 require('dotenv').config();
 
+const yn = require('yn');
+
 const fetchRewritesList = require('../rewrites');
 
 module.exports = {
@@ -77,7 +79,7 @@ module.exports = {
 
     // Rewrites.
     async rewrites() {
-      if (process.env.LOCAL) {
+      if (yn(process.env.LOCAL)) {
         const rewriteList = await fetchRewritesList();
 
         return rewriteList;
