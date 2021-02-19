@@ -21,9 +21,9 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-const Link = dynamic(() => import('core/atoms/link'), {
-  loading: () => <Skeleton count={1} />,
-});
+// const Link = dynamic(() => import('core/atoms/link'), {
+//   loading: () => <Skeleton count={1} />,
+// });
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -120,9 +120,9 @@ const CreditChecker: NextPage = () => {
             label={contentForCurrentScore.buttonLabel}
             role="button"
           />
-          <Text tag="p">
+          {/* <Text tag="p">
             Not sure? We can <Link>help you choose</Link>
-          </Text>
+          </Text> */}
         </div>
       </div>
 
