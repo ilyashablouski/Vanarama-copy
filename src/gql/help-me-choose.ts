@@ -77,9 +77,9 @@ export const PRODUCTS_FILTER_LIST = gql`
           term
           mileage
           availability
-          capId
           derivativeId
           derivativeName
+          availability
         }
       }
     }

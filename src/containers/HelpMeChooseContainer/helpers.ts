@@ -185,7 +185,7 @@ export const buildAnObjectFromAQuery = (
   });
   object.from = 0;
   object.size = showResults || 12;
-  // object.vehicleTypes = [VehicleTypeEnum.CAR];
+  object.vehicleTypes = [VehicleTypeEnum.CAR];
   return object;
 };
 
