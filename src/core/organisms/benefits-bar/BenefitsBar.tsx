@@ -25,6 +25,7 @@ const Slider: FC<ICarouselProps> = () => {
         wrapAround
         autoplay
         pauseOnHover
+        autoplayInterval={4000}
         renderCenterLeftControls={({ previousSlide }) => (
           <button onClick={previousSlide} type="button">
             <span>Previous</span>
