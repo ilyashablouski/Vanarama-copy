@@ -87,10 +87,11 @@ export const olafTitleMapper = {
   'director-details': 'OLAF - Director Details | Vanarama',
   'company-bank-details': 'OLAF - Company Bank Details | Vanarama',
   summary: 'OLAF - Summary | Vanarama',
-  'sole-trader': 'OLAF - Sole Trader | Vanarama',
+  'sole-trader-details': 'OLAF - Sole Trader Details | Vanarama',
   'thank-you': 'OLAF - Thank You | Vanarama',
   expenses: 'OLAF - Expenses | Vanarama',
   'employment-history': 'OLAF - Employment History | Vanarama',
   'bank-details': 'OLAF - Bank Details | Vanarama',
   'address-history': 'OLAF - Address History | Vanarama',
+  'sole-trader': 'OLAF - Sole Trader | Vanarama',
 };
