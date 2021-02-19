@@ -21,9 +21,9 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-const Link = dynamic(() => import('core/atoms/link'), {
-  loading: () => <Skeleton count={1} />,
-});
+// const Link = dynamic(() => import('core/atoms/link'), {
+//   loading: () => <Skeleton count={1} />,
+// });
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
