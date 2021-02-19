@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import ProgressIndicator from 'core/molecules/progress-indicator';
 import Step from 'core/molecules/progress-indicator/Step';
@@ -8,6 +8,8 @@ import {
   IInitStep,
   onReplace,
 } from '../../containers/HelpMeChooseContainer/helpers';
+import { useMobileViewport } from '../../hooks/useMediaQuery';
+import { scrollingSteps } from '../ConsumerProgressIndicator/helpers';
 
 interface IProps {
   steps: IInitStep;
@@ -23,6 +25,7 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
   setLoadingStatus,
 }) => {
   const router = useRouter();
+  const isMobile = useMobileViewport();
 
   const progressSteps = [
     {
@@ -86,11 +89,23 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
     ? progressSteps.find(x => x.active)?.step || 1
     : currentStep?.step || 1;
 
+  useEffect(() => {
+    if (isMobile && !!document) {
+      scrollingSteps(currentStep?.step || 0);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isMobile]);
+
   return (
     <div className="row:progress">
-      <ProgressIndicator activeStep={activeStep || 1}>
+      <ProgressIndicator activeStep={activeStep || 1} id="progress-indicator">
         {progressSteps.map(el => (
-          <Step key={el.key} editing={editingStep === el.step} step={el.step}>
+          <Step
+            key={el.key}
+            editing={editingStep === el.step}
+            step={el.step}
+            id={`step_${el.step}`}
+          >
             <StepLink
               onClick={() => {
                 if (activeStep > el.step) {
