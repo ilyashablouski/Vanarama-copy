@@ -120,6 +120,9 @@ const CreditChecker: NextPage = () => {
             label={contentForCurrentScore.buttonLabel}
             role="button"
           />
+          {/* <Text tag="p">
+            Not sure? We can <Link>help you choose</Link>
+          </Text> */}
         </div>
       </div>
 
