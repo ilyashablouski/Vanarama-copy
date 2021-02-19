@@ -29,7 +29,7 @@ const InsuranceFormSection = ({
   return (
     <div className="row:featured-left">
       <div>
-        <Heading size="large" color="black">
+        <Heading tag="h1" size="large" color="black">
           {title || ''}
         </Heading>
         <ReactMarkdown allowDangerousHtml source={body || ''} />
