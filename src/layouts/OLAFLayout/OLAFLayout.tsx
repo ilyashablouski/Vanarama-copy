@@ -87,7 +87,8 @@ const OLAFLayout: React.FC<IProps> = ({
     order,
   ]);
   const meta = useMemo(() => {
-    const pathnameArray = router.pathname.split('/');
+    // make reverse for get last route for first
+    const pathnameArray = router.pathname.split('/').reverse();
     const [, title] = Object.entries(olafTitleMapper).find(([key]) =>
       pathnameArray.includes(key),
     );
