@@ -538,14 +538,14 @@ pipeline {
               B_NUMBER = "${env.BUILD_NUMBER}"
 
             }
-            //when {
-            //      beforeAgent true
-            //      anyOf {
-            //        branch 'develop'
-            //        branch 'release/*'
-            //        changeRequest target: 'master'
-            //      }
-            //}
+            when {
+                  beforeAgent true
+                  anyOf {
+                    branch 'develop'
+                    branch 'release/*'
+                    changeRequest target: 'master'
+                  }
+            }
             steps {
               script{
                 withCredentials([string(credentialsId: 'cloudflare-nonprod-token', variable: 'CLOUDFLARE_NONPROD_TOKEN')]) {
