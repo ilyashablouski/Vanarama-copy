@@ -548,7 +548,7 @@ pipeline {
             //}
             steps {
               script{
-                withCredentials([usernamePassword(credentialsId: 'cloudflare-nonprod-token', usernameVariable: 'USERNAME', passwordVariable: 'CLOUDFLARE_NONPROD_TOKEN')]) {
+                withCredentials([string(credentialsId: 'cloudflare-nonprod-token', variable: 'CLOUDFLARE_NONPROD_TOKEN')]) {
                     sh """
                         curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${cloudflareZone}/purge_cache" \
                             -H "Authorization: Bearer ${CLOUDFLARE_NONPROD_TOKEN}" \
