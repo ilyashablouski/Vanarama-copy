@@ -14,7 +14,14 @@ export const getBlogPaths = (
   const slugs = blogPosts?.articles?.map(article =>
     article?.slug?.split('/').pop(),
   );
-  const notEmptySlugs = slugs?.filter(slug => slug);
+  const notEmptySlugs = slugs?.filter(slug => {
+    if (slug && slug.includes('.html')) {
+      // eslint-disable-next-line no-console
+      console.log('INCORRECT SLUG:', slug);
+      return false;
+    }
+    return !!slug;
+  });
   return notEmptySlugs?.map(slug => ({
     params: { articles: [slug] },
   }));
