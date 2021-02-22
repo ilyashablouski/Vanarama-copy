@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
@@ -17,7 +17,11 @@ import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getSectionsData } from '../../utils/getSectionsData';
 import TileLink from '../../components/TileLink/TileLink';
-import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
+import Hero, {
+  HeroHeading,
+  HeroTitle,
+  HeroPrompt,
+} from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData } from '../../utils/offers';
 
@@ -172,6 +176,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               data?.homePage?.sections,
             ) || null
           }
+        />
+        <HeroPrompt
+          label="Help Me Choose"
+          url="."
+          text="Not sure what you are looking for?"
         />
       </Hero>
 

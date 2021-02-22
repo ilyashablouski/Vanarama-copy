@@ -5,7 +5,6 @@ import Skeleton from '../Skeleton';
 
 interface IHeroPromptProps {
   text: string;
-  altText?: string;
   label: string;
   url: string;
 }
