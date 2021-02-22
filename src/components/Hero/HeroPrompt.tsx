@@ -1,5 +1,5 @@
 import React from 'react';
-import Text from 'core/atoms/text';
+import Heading from 'core/atoms/heading';
 import RouterLink from '../RouterLink/RouterLink';
 import Skeleton from '../Skeleton';
 
@@ -14,7 +14,9 @@ const HeroPrompt: React.FC<IHeroPromptProps> = ({ text, label, url }) => {
 
   return (
     <div className="hero-prompt">
-      <Text tag="p">{text}</Text>
+      <Heading tag="p" size="regular" color="black">
+        {text}
+      </Heading>
       <RouterLink
         link={{
           href: url,
