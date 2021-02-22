@@ -88,13 +88,13 @@ export const bodyUrlsSlugMapper = {
   prestige: 'prestige',
   saloon: 'saloon',
   'city-car': 'city-car',
-  'crew-vans': 'specialist',
+  'crew-vans': 'crew',
   'dropside-tipper': 'dropside tipper',
   'large-van': 'large van',
   'medium-van': 'medium van',
   'refrigerated-van': 'refrigerated van',
   'small-van': 'small van',
-  'specialist-van-leasing': 'specialist',
+  'specialist-van-leasing': 'crew',
 };
 
 export const budgetMapper = {
