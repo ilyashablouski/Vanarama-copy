@@ -128,6 +128,14 @@ export const GENERIC_PAGE = gql`
             title
             body
           }
+          heroLabel {
+            text
+            link {
+              text
+              legacyUrl
+              url
+            }
+          }
         }
         rowText {
           position
