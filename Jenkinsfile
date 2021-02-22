@@ -530,7 +530,7 @@ pipeline {
               }
             }
           }
-        stage("clear-cloudflare-cache"){
+        stage("10. Clear Coudflare Cache"){
             agent { node('master') }
             environment { //todo can the agent determine path.
               PATH = "${env.PATH}:/usr/local/bin"
@@ -559,7 +559,7 @@ pipeline {
               }
             }
           }
-          stage("10. Cut a release?") {
+          stage("11. Cut a release?") {
             input {
                 message 'Cut a release?'
             }
