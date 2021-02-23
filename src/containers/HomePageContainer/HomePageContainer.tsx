@@ -179,15 +179,16 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             }
           />
         </div>
-        <HeroPrompt
-          label={
-            data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
-          }
-          url={data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.url || ''}
-          text={data?.homePage.sections?.hero?.heroLabel?.[0]?.text || ''}
-        />
+        {data?.homePage.sections?.hero?.heroLabel?.[0]?.visible && (
+          <HeroPrompt
+            label={
+              data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
+            }
+            url={data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.url || ''}
+            text={data?.homePage.sections?.hero?.heroLabel?.[0]?.text || ''}
+          />
+        )}
       </Hero>
-
       <section className="row:lead-text">
         <Heading
           size="xlarge"
