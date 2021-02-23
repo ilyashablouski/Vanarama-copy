@@ -128,7 +128,7 @@ export function useVehiclesList(
       manufacturerSlug,
       rangeSlug,
       rate,
-      bodyStyles,
+      bodyStyles: bodyStyles?.[0] ? bodyStyles : undefined,
       transmissions,
       fuelTypes,
       sortField: onOffer ? SortField.offerRanking : savedSortOrder.type,

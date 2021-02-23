@@ -80,78 +80,111 @@ export const buildAnObjectFromAQuery = (
   query: any,
   steps: IInitStep,
   editStep?: number,
+  showResults?: number,
 ) => {
   const object = {} as any;
   query.forEach((value: string, key: string) => {
     if (
       (key === 'financeTypes' &&
-        value.length &&
+        steps.financeTypes.value.length &&
         !steps.financeTypes.active &&
         !editStep) ||
-      (key === 'financeTypes' && value.length && editStep && editStep > 1)
+      (key === 'financeTypes' &&
+        steps.financeTypes.value.length &&
+        editStep &&
+        editStep > 1)
     ) {
-      object.financeTypes = [value];
+      object.financeTypes = steps.financeTypes.value;
     }
     if (
       (key === 'bodyStyles' &&
-        value.length &&
+        steps.bodyStyles.value.length &&
         !steps.bodyStyles.active &&
         !editStep) ||
-      (key === 'bodyStyles' && value.length && editStep && editStep > 2)
+      (key === 'bodyStyles' &&
+        steps.bodyStyles.value.length &&
+        editStep &&
+        editStep > 2)
     ) {
-      object.bodyStyles = value.split(',');
+      object.bodyStyles = steps.bodyStyles.value;
     }
     if (
       (key === 'fuelTypes' &&
-        value.length &&
+        steps.fuelTypes.value.length &&
         !steps.fuelTypes.active &&
         !editStep) ||
-      (key === 'fuelTypes' && value.length && editStep && editStep > 3)
+      (key === 'fuelTypes' &&
+        steps.fuelTypes.value.length &&
+        editStep &&
+        editStep > 3)
     ) {
-      object.fuelTypes = value.split(',');
+      object.fuelTypes = steps.fuelTypes.value;
     }
     if (
       (key === 'transmissions' &&
-        value.length &&
+        steps.transmissions.value.length &&
         !steps.transmissions.active &&
         !editStep) ||
-      (key === 'transmissions' && value.length && editStep && editStep > 4)
+      (key === 'transmissions' &&
+        steps.transmissions.value.length &&
+        editStep &&
+        editStep > 4)
     ) {
-      object.transmissions = value.split(',');
+      object.transmissions = steps.transmissions.value;
     }
     if (
-      (key === 'terms' && value.length && !steps.terms.active && !editStep) ||
-      (key === 'terms' && value.length && editStep && editStep > 5)
+      (key === 'terms' &&
+        steps.terms.value.length &&
+        !steps.terms.active &&
+        !editStep) ||
+      (key === 'terms' && steps.terms.value.length && editStep && editStep > 5)
     ) {
-      object.terms = [parseInt(value, 10)];
+      object.terms = [parseInt(steps.terms.value[0], 10)];
     }
     if (
       (key === 'mileages' &&
-        value.length &&
+        steps.mileages.value.length &&
         !steps.mileages.active &&
         !editStep) ||
-      (key === 'mileages' && value.length && editStep && editStep > 6)
+      (key === 'mileages' &&
+        steps.mileages.value.length &&
+        editStep &&
+        editStep > 6)
     ) {
-      object.mileages = [parseInt(value, 10)];
+      object.mileages = [parseInt(steps.mileages.value[0] || '', 10)];
     }
     if (
       (key === 'availability' &&
-        value.length &&
+        steps.availability.value.length &&
         !steps.availability.active &&
         !editStep) ||
-      (key === 'availability' && value.length && editStep && editStep > 7)
+      (key === 'availability' &&
+        steps.availability.value.length &&
+        editStep &&
+        editStep > 7)
     ) {
-      object.availability = parseInt(value, 10);
+      object.availability = parseInt(steps.availability.value[0] || '', 10);
     }
-    if (key === 'rental' && value.length && !editStep) {
+    if (
+      (key === 'rental' && value.length && !editStep && steps.rental.active) ||
+      steps.rental.active
+    ) {
       object.rental = {
-        max: parseFloat(value),
+        max: parseFloat(steps.rental.value as any),
       };
     }
-    if (key === 'initialPeriods' && value.length && !editStep) {
-      object.initialPeriods = [parseInt(value, 10)];
+    if (
+      (key === 'initialPeriods' &&
+        value.length &&
+        !editStep &&
+        steps.initialPeriods.active) ||
+      steps.initialPeriods.active
+    ) {
+      object.initialPeriods = [parseInt(steps.initialPeriods.value as any, 10)];
     }
   });
+  object.from = 0;
+  object.size = showResults || 12;
   object.vehicleTypes = [VehicleTypeEnum.CAR];
   return object;
 };
@@ -190,7 +223,7 @@ export const formatForCompare = (
 
 export interface IStep {
   active: boolean;
-  value: string[];
+  value: string[] | string;
 }
 
 export interface IInitStep {
@@ -243,3 +276,34 @@ export const initialSteps: IInitStep = {
     value: '' as any,
   },
 };
+
+export const RENTAL_VALUE = {
+  '150': 150,
+  '250': 250,
+  '350': 350,
+  '450': 450,
+  '550': 550,
+};
+
+export const RENTAL_DATA = [
+  {
+    value: RENTAL_VALUE['150'],
+    label: '£150',
+  },
+  {
+    value: RENTAL_VALUE['250'],
+    label: '£250',
+  },
+  {
+    value: RENTAL_VALUE['350'],
+    label: '£350',
+  },
+  {
+    value: RENTAL_VALUE['450'],
+    label: '£450',
+  },
+  {
+    value: RENTAL_VALUE['550'],
+    label: '£550+',
+  },
+];

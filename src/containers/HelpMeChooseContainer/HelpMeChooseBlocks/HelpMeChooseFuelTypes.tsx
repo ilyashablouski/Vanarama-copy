@@ -29,10 +29,28 @@ const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
   );
 
   const getNextSteps = (searchParams: URLSearchParams) => {
-    let nextSteps = {
-      ...steps,
-      fuelTypes: { active: false, value: fuelTypesValue },
-      transmissions: { active: true, value: steps.transmissions.value },
+    const nextSteps = {
+      step: {
+        ...steps,
+        fuelTypes: { active: false, value: fuelTypesValue },
+        transmissions: { active: true, value: steps.transmissions.value },
+      },
+      query: {
+        ...initialSteps,
+        bodyStyles: {
+          active: false,
+          value: steps.bodyStyles.value as any,
+        },
+        financeTypes: {
+          active: false,
+          value: steps.financeTypes.value as any,
+        },
+        fuelTypes: { active: false, value: fuelTypesValue },
+        transmissions: {
+          active: true,
+          value: initialSteps.transmissions.value,
+        },
+      },
     };
     const searchParamsValue = searchParams
       .getAll('fuelTypes')[0]
@@ -48,22 +66,7 @@ const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
         })
       )
     ) {
-      nextSteps = {
-        ...initialSteps,
-        bodyStyles: {
-          active: false,
-          value: steps.bodyStyles.value as any,
-        },
-        financeTypes: {
-          active: false,
-          value: steps.financeTypes.value as any,
-        },
-        fuelTypes: { active: false, value: fuelTypesValue },
-        transmissions: {
-          active: true,
-          value: initialSteps.transmissions.value,
-        },
-      };
+      nextSteps.step = nextSteps.query;
     }
     return nextSteps;
   };
@@ -80,13 +83,12 @@ const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
         getProductVehicleList({
           variables: {
             filter: {
-              ...buildAnObjectFromAQuery(searchParams, nextSteps),
+              ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
             },
-            first: 12,
           },
         });
-        setSteps(nextSteps);
-        onReplace(router, nextSteps);
+        setSteps(nextSteps.step);
+        onReplace(router, nextSteps.step);
       }}
       multiSelect
       currentValue={fuelTypesValue}

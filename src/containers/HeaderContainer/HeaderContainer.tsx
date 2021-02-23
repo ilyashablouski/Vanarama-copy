@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { gql, useMutation } from '@apollo/client';
+import { gql, useMutation, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import { ILink } from 'core/interfaces/link';
@@ -25,6 +25,7 @@ export const LOGOUT_USER_MUTATION = gql`
 const HeaderContainer: FC = () => {
   const data: HeaderData = HEADER_DATA;
   const router = useRouter();
+  const client = useApolloClient();
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
 
   const LOGIN_LINK = {
@@ -50,6 +51,7 @@ const HeaderContainer: FC = () => {
         href: el?.url || '',
         label: el?.text || '',
         id: el?.url || '',
+        highlightLabel: el?.label || '',
       }));
       let headerTopLinks: IHeaderLink;
       if (transformLinks && transformLinks?.length > 1) {
@@ -121,8 +123,9 @@ const HeaderContainer: FC = () => {
     return (
       <Header
         onLogOut={async () => {
-          await logOut();
+          await logOut().catch();
           await localForage.clear();
+          await client.resetStore();
         }}
         loginLink={LOGIN_LINK}
         phoneNumberLink={PHONE_NUMBER_LINK}

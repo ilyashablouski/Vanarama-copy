@@ -3,7 +3,10 @@ import TextInput from '../../../atoms/textinput';
 import { ITextInputProps } from '../../../atoms/textinput/interfaces';
 import { useAddressFinderContext } from '../context';
 
-const AddressFinderInput: React.FC<Omit<ITextInputProps, 'value'>> = props => {
+const AddressFinderInput: React.FC<Omit<
+  ITextInputProps,
+  'value'
+>> = React.forwardRef<HTMLInputElement, ITextInputProps>((props, ref) => {
   const {
     onChange,
     preventBlur,
@@ -11,6 +14,8 @@ const AddressFinderInput: React.FC<Omit<ITextInputProps, 'value'>> = props => {
     setInputBlur,
     setInputFocus,
     value,
+    formFocus,
+    setBlurForm,
   } = useAddressFinderContext();
 
   if (selectedSuggestion) {
@@ -20,10 +25,18 @@ const AddressFinderInput: React.FC<Omit<ITextInputProps, 'value'>> = props => {
   return (
     <TextInput
       {...props}
+      ref={ref}
       onBlur={e => {
-        props.onBlur?.(e);
         if (!preventBlur) {
           setInputBlur();
+        }
+        if (!formFocus) {
+          props.onBlur?.(e);
+          setInputBlur();
+        } else {
+          (ref as React.RefObject<HTMLInputElement>)?.current?.focus();
+          props.onFocus?.(e);
+          setBlurForm?.();
         }
       }}
       onChange={e => {
@@ -37,6 +50,6 @@ const AddressFinderInput: React.FC<Omit<ITextInputProps, 'value'>> = props => {
       value={value}
     />
   );
-};
+});
 
 export default AddressFinderInput;

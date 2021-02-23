@@ -17,7 +17,10 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
 
   return (
     <footer className="footer">
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={typeof window === 'undefined'}
+        threshold={250}
+      >
         {linkGroups?.map(linkGroup => (
           <FooterColumn key={linkGroup?.name || ''} linkGroup={linkGroup} />
         ))}

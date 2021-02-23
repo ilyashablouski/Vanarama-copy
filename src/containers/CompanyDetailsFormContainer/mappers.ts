@@ -112,9 +112,9 @@ export const mapDefaultValues = (data: {
     tradingSinceMonth: (tradingSince?.getMonth() || '').toString(),
     tradingSinceYear: (tradingSince?.getFullYear() || '').toString(),
     nature: data?.nature_of_business,
-    registeredAddress: registeredAddress ?? mapAddress(registeredAddress),
+    registeredAddress: registeredAddress && mapAddress(registeredAddress),
     tradingDifferent: !!tradingAddress,
-    tradingAddress: tradingAddress ?? mapAddress(tradingAddress),
+    tradingAddress: tradingAddress && mapAddress(tradingAddress),
     email: data?.email_addresses?.[0]?.value,
     telephone: data?.telephone_numbers?.[0]?.value,
   };

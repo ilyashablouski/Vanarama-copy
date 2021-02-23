@@ -29,13 +29,13 @@ const HelpMeChooseTerms: FC<HelpMeChooseStep> = props => {
   );
 
   const getNextSteps = (searchParams: URLSearchParams) => {
-    let nextSteps = {
-      ...steps,
-      terms: { active: false, value: termsValue },
-      mileages: { active: true, value: steps.mileages.value },
-    };
-    if (searchParams.getAll('terms')[0] !== termsValue[0]) {
-      nextSteps = {
+    const nextSteps = {
+      step: {
+        ...steps,
+        terms: { active: false, value: termsValue },
+        mileages: { active: true, value: steps.mileages.value },
+      },
+      query: {
         ...steps,
         terms: { active: false, value: termsValue },
         mileages: { active: true, value: initialSteps.mileages.value },
@@ -51,7 +51,10 @@ const HelpMeChooseTerms: FC<HelpMeChooseStep> = props => {
           active: false,
           value: initialSteps.initialPeriods.value,
         },
-      };
+      },
+    };
+    if (searchParams.getAll('terms')[0] !== termsValue[0]) {
+      nextSteps.step = nextSteps.query;
     }
     return nextSteps;
   };
@@ -68,13 +71,12 @@ const HelpMeChooseTerms: FC<HelpMeChooseStep> = props => {
         getProductVehicleList({
           variables: {
             filter: {
-              ...buildAnObjectFromAQuery(searchParams, nextSteps),
+              ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
             },
-            first: 12,
           },
         });
-        setSteps(nextSteps);
-        onReplace(router, nextSteps);
+        setSteps(nextSteps.step);
+        onReplace(router, nextSteps.step);
       }}
       currentValue={termsValue}
       clearMultiSelectTitle="I Don't Mind"

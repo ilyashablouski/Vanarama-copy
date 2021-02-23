@@ -5,6 +5,7 @@ import { IAddressSuggestion } from './interfaces';
 export interface IAddressFinderContext {
   data: ILoqateSuggestion[];
   inputFocused: boolean;
+  formFocus?: boolean;
   intermediate?: ILoqateSuggestion;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onClearIntermediate: () => void;
@@ -13,6 +14,7 @@ export interface IAddressFinderContext {
   preventBlur: boolean;
   selectedSuggestion?: IAddressSuggestion;
   setInputBlur: () => void;
+  setBlurForm?: () => void;
   setInputFocus: () => void;
   value: string;
 }

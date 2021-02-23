@@ -1431,6 +1431,12 @@
     }
 
     > .olaf-aside {
+      .description-block {
+        padding: 0.5rem;
+        span {
+          display: block;
+        }
+      }
       @include desktop {
         grid-column: column 7 / content;
       }

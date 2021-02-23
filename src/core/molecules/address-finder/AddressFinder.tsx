@@ -27,14 +27,15 @@ const AddressFinder: AddressFinderComponent = ({
   onSuggestionChange,
   selected,
 }) => {
-  const [{ focused, intermediate, preventBlur, value }, dispatch] = useReducer(
-    reducer,
-    {
-      focused: false,
-      preventBlur: false,
-      value: selected?.label || '',
-    },
-  );
+  const [
+    { focused, intermediate, preventBlur, value, formFocus },
+    dispatch,
+  ] = useReducer(reducer, {
+    formFocus: false,
+    focused: false,
+    preventBlur: false,
+    value: selected?.label || '',
+  });
 
   // Debounce state changes to value so we don't execute lots of XHR requests
   const searchTerm = useDebounce(value);
@@ -53,6 +54,7 @@ const AddressFinder: AddressFinderComponent = ({
       });
     } else {
       dispatch({ type: 'SELECT_POSTCODE', suggestion: loqateSuggestion });
+      dispatch({ type: 'FOCUS_FORM' });
     }
   }
 
@@ -77,11 +79,13 @@ const AddressFinder: AddressFinderComponent = ({
           value,
           intermediate,
           preventBlur,
+          formFocus,
           inputFocused: focused,
           selectedSuggestion: selected,
           onChange: e =>
             dispatch({ type: 'CHANGE_INPUT', value: e.target.value }),
           setInputBlur: () => dispatch({ type: 'BLUR_INPUT' }),
+          setBlurForm: () => dispatch({ type: 'BLUR_FORM' }),
           setInputFocus: () => dispatch({ type: 'FOCUS_INPUT' }),
           onClearSuggestion: () => onSuggestionChange(),
           onClearIntermediate: () => dispatch({ type: 'CLEAR_INTERMEDIATE' }),

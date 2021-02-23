@@ -63,7 +63,7 @@ const OlafCard: FC<IOlafCardProps> = props => {
     {
       name: 'annualMileage',
       label: 'Annual Mileage',
-      value: olafDetails.annualMileage,
+      value: `${olafDetails.annualMileage}**`,
       dataTestId: annualMileageDataTestId,
     },
     {

@@ -66,10 +66,8 @@ import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import RangeCard from './RangeCard';
 import SortOrder from './SortOrder';
 import useMediaQuery from '../../hooks/useMediaQuery';
+import TilesBlock from './TilesBlock';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
 });
@@ -90,12 +88,6 @@ const Carousel = dynamic(() => import('core/organisms/carousel'), {
 });
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={10} />,
-});
-const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={3} />,
-});
-const TileLink = dynamic(() => import('../../components/TileLink/TileLink'), {
-  loading: () => <Skeleton count={1} />,
 });
 const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
@@ -191,6 +183,10 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const [pageData, setPageData] = useState(pageDataSSR);
   const [metaData, setMetaData] = useState(metaDataSSR);
+  const [shouldUpdateTopOffers, setShouldUpdateTopOffers] = useState(false);
+  const [shouldUpdateCache, setShouldUpdateCache] = useState(
+    preLoadVehiclesList?.vehicleList?.pageInfo.hasNextPage ?? true,
+  );
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
@@ -272,11 +268,13 @@ const SearchPageContainer: React.FC<IProps> = ({
         if (data && !errors?.[0]) {
           setPageData(data);
           setMetaData(data.genericPage.metaData);
+          setLastCard('');
+          if (isMakePage || isDynamicFilterPage) setShouldUpdateTopOffers(true);
         }
       };
       fetchPageData();
     }
-  }, [router, router.query, client]);
+  }, [router, router.query, client, isMakePage, isDynamicFilterPage]);
 
   const [getProductCardData, { loading }] = useProductCardDataLazyQuery(
     capIds,
@@ -405,8 +403,6 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   // new search with new filters
   const onSearch = (filters = filtersData) => {
-    // set search filters data
-    setFiltersData(filters);
     if (isMakePage) {
       const filtersForRanges = { ...filters, manufacturerSlug: undefined };
       getRanges({
@@ -502,6 +498,8 @@ const SearchPageContainer: React.FC<IProps> = ({
       pathname,
       { shallow: true },
     );
+    // set search filters data
+    setFiltersData(filters);
   };
 
   // API call after load new pages
@@ -562,6 +560,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       }
       setVehicleList(data.vehicleList?.edges || []);
       setLastCard(data.vehicleList.pageInfo.endCursor || '');
+      setShouldUpdateCache(data.vehicleList.pageInfo.hasNextPage || false);
       setHasNextPage(data.vehicleList.pageInfo.hasNextPage || false);
       // use range lenght for manufacture page
       if (!isMakePage && !isAllMakesPage)
@@ -606,12 +605,14 @@ const SearchPageContainer: React.FC<IProps> = ({
       lastCard &&
       !isMakePage &&
       hasNextPage &&
+      shouldUpdateCache &&
       ((isRangePage && filtersData.rangeSlug) ||
         (isDynamicFilterPage && Object.values(filtersData).flat().length > 0) ||
         (isModelPage && filtersData.rangeSlug) ||
         isSpecialOfferPage ||
         isSimpleSearchPage)
-    )
+    ) {
+      setShouldUpdateCache(false);
       getVehiclesCache({
         variables: {
           vehicleTypes: isCarSearch
@@ -633,14 +634,16 @@ const SearchPageContainer: React.FC<IProps> = ({
             : sortOrder.direction,
         },
       });
+    }
   }, [
     lastCard,
     getVehiclesCache,
-    filtersData,
     isCarSearch,
     isSpecialOffers,
     isMakePage,
+    shouldUpdateCache,
     hasNextPage,
+    filtersData,
     isRangePage,
     isModelPage,
     isDynamicFilterPage,
@@ -696,8 +699,12 @@ const SearchPageContainer: React.FC<IProps> = ({
     // Chrome sroll down page after load new offers
     // using for prevent it
     setPageOffset(window.pageYOffset);
-    if (vehiclesList.length < totalCount)
+    if (vehiclesList.length < totalCount) {
       setLastCard(cacheData?.vehicleList.pageInfo.endCursor || '');
+      setShouldUpdateCache(
+        cacheData?.vehicleList.pageInfo.hasNextPage || false,
+      );
+    }
   };
 
   /** save to sessions storage special offers status */
@@ -904,6 +911,8 @@ const SearchPageContainer: React.FC<IProps> = ({
         isDynamicFilterPage) && (
         <TopOffersContainer
           isCarSearch={isCarSearch}
+          shouldForceUpdate={shouldUpdateTopOffers}
+          setShouldForceUpdate={setShouldUpdateTopOffers}
           isMakePage={isMakePage || false}
           isBodyPage={isBodyStylePage || false}
           isBudgetPage={isBudgetPage || false}
@@ -964,7 +973,6 @@ const SearchPageContainer: React.FC<IProps> = ({
             isDynamicFilterPage={isDynamicFilterPage}
             isFuelPage={isFuelPage}
             isTransmissionPage={isTransmissionPage}
-            sortOrder={sortOrder}
             isPreloadList={!!preLoadVehiclesList}
             setSearchFilters={setFiltersData}
             preLoadFilters={preLoadFiltersData}
@@ -1173,43 +1181,17 @@ const SearchPageContainer: React.FC<IProps> = ({
         </div>
       )}
 
-      {!pageData && isRangePage && <Loading size="large" />}
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
-        {isDynamicFilterPage && (
-          <div className="row:features-4col">
-            {tiles?.tiles?.length &&
-              tiles.tiles.map((tile, indx) => (
-                <Tile
-                  plain
-                  className="-align-center -button"
-                  key={`${tile.title}_${indx.toString()}`}
-                >
-                  <span>
-                    <Image
-                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                      src={tile.image?.file?.url || ''}
-                      inline
-                      round
-                      size="large"
-                    />
-                  </span>
-                  <TileLink tile={tile} />
-                  <Text color="darker" size="regular">
-                    {tile.body}
-                  </Text>
-                </Tile>
-              ))}
-          </div>
-        )}
-      </LazyLoadComponent>
+      {isDynamicFilterPage && tiles?.tiles?.length && (
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <TilesBlock tiles={tiles} />
+        </LazyLoadComponent>
+      )}
 
       {pageData && (
         <>
           {(isRangePage || isDynamicFilterPage) && (
-            <div className="row:text -columns">
-              <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
-              >
+            <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+              <div className="row:text -columns">
                 <ReactMarkdown
                   className="markdown"
                   source={pageData?.genericPage.body || ''}
@@ -1232,50 +1214,21 @@ const SearchPageContainer: React.FC<IProps> = ({
                     ),
                   }}
                 />
-              </LazyLoadComponent>
-            </div>
+              </div>
+            </LazyLoadComponent>
           )}
-
-          {tiles && !isDynamicFilterPage && (
-            <div className="row:features-4col">
-              <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
-              >
-                {tiles?.tiles?.length &&
-                  tiles.tiles.map((tile, indx) => (
-                    <Tile
-                      plain
-                      className="-align-center -button"
-                      key={`${tile.title}_${indx.toString()}`}
-                    >
-                      <span>
-                        <Image
-                          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                          src={tile.image?.file?.url || ''}
-                          inline
-                          round
-                          size="large"
-                        />
-                      </span>
-                      <TileLink tile={tile} />
-                      <Text color="darker" size="regular">
-                        {tile.body}
-                      </Text>
-                    </Tile>
-                  ))}
-              </LazyLoadComponent>
-            </div>
+          {!isDynamicFilterPage && tiles?.tiles?.length && (
+            <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+              <TilesBlock tiles={tiles} />
+            </LazyLoadComponent>
           )}
-
           {carousel?.cards?.length && (
-            <div className="row:bg-lighter ">
-              <div className="row:carousel">
-                <Heading size="large" color="black" tag="h3">
-                  {carousel.title}
-                </Heading>
-                <LazyLoadComponent
-                  visibleByDefault={typeof window === 'undefined'}
-                >
+            <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+              <div className="row:bg-lighter">
+                <div className="row:carousel">
+                  <Heading size="large" color="black" tag="h3">
+                    {carousel.title}
+                  </Heading>
                   <Carousel
                     countItems={carousel?.cards?.length || 0}
                     className="-col3"
@@ -1353,15 +1306,14 @@ const SearchPageContainer: React.FC<IProps> = ({
                         ),
                     )}
                   </Carousel>
-                </LazyLoadComponent>
+                </div>
               </div>
-            </div>
+            </LazyLoadComponent>
           )}
         </>
       )}
-
-      <div className="row:text">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <div className="row:text">
           <Text color="darker" size="regular" tag="span">
             Photos and videos are for illustration purposes only.*{' '}
             <RouterLink
@@ -1375,8 +1327,8 @@ const SearchPageContainer: React.FC<IProps> = ({
             </RouterLink>
             .
           </Text>
-        </LazyLoadComponent>
-      </div>
+        </div>
+      </LazyLoadComponent>
       {metaData && (
         <>
           <Head metaData={metaData} featuredImage={null} />
