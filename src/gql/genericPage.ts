@@ -130,9 +130,9 @@ export const GENERIC_PAGE = gql`
           }
           heroLabel {
             text
+            visible
             link {
               text
-              legacyUrl
               url
             }
           }

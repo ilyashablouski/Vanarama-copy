@@ -43,9 +43,9 @@ const ALL_HOME_CONTENT = gql`
           }
           heroLabel {
             text
+            visible
             link {
               text
-              legacyUrl
               url
             }
           }
