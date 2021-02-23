@@ -20,6 +20,22 @@ type QueryParams = OLAFQueryParams & {
   uuid: string;
 };
 
+const mapBankAccountToCreditApplication = (
+  createUpdateBankAccount: CreateUpdateBankAccountMutation_createUpdateBankAccount | null,
+) => {
+  const [
+    joinedAtYear,
+    joinedAtMonth,
+  ] = createUpdateBankAccount?.joinedAt?.split('-');
+
+  return {
+    ...(createUpdateBankAccount || {}),
+    joinedAtYear,
+    joinedAtMonth,
+    joinedAt: undefined,
+  };
+};
+
 const BankDetailsPage: NextPage = () => {
   const router = useRouter();
   const { uuid } = router.query as QueryParams;
@@ -42,7 +58,9 @@ const BankDetailsPage: NextPage = () => {
         input: formValuesToInputCreditApplication({
           ...creditApplication.data?.creditApplicationByOrderUuid,
           orderUuid: orderId,
-          bankAccounts: [createUpdateBankAccount],
+          bankAccounts: [
+            mapBankAccountToCreditApplication(createUpdateBankAccount),
+          ],
         }),
       },
     });

@@ -98,7 +98,6 @@ export function useGetCreditApplicationByOrderUuid(id: string) {
         id,
       },
       skip: !id,
-      fetchPolicy: 'no-cache',
     },
   );
 }

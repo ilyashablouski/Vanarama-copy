@@ -740,12 +740,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Some props should be contain in one param for achieve more readable code
   return (
     <>
-      {metaData && (
-        <>
-          <SchemaJSON json={JSON.stringify(metaData.schema)} />
-          <Head metaData={metaData} featuredImage={null} />
-        </>
-      )}
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
@@ -1335,6 +1329,12 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Text>
         </div>
       </LazyLoadComponent>
+      {metaData && (
+        <>
+          <Head metaData={metaData} featuredImage={null} />
+          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

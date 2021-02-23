@@ -5,7 +5,10 @@ import { useLazyQuery } from '@apollo/client';
 import withApollo from '../../hocs/withApollo';
 import { PRODUCTS_FILTER_LIST } from '../../gql/help-me-choose';
 import { ProductVehicleListInputObject } from '../../../generated/globalTypes';
-import { ProductVehicleListVariables } from '../../../generated/ProductVehicleList';
+import {
+  ProductVehicleListVariables,
+  ProductVehicleList_productVehicleList_edges as Edges,
+} from '../../../generated/ProductVehicleList';
 import {
   buildAnObjectFromAQuery,
   IInitStep,
@@ -31,6 +34,7 @@ const HelpMeChoose: NextPage = () => {
   const [steps, setSteps] = useState<IInitStep>(initialSteps);
   const [isLoading, setLoadingStatus] = useState(false);
   const [counterState, setCounterState] = useState(0);
+  const [resultsData, setResultsData] = useState<Edges[]>([]);
 
   const [getProductVehicleList, productVehicleListData] = useLazyQuery<
     ProductVehicleListInputObject,
@@ -256,6 +260,8 @@ const HelpMeChoose: NextPage = () => {
           setLoadingStatus={setLoadingStatus}
           counterState={counterState}
           setCounterState={setCounterState}
+          resultsData={resultsData}
+          setResultsData={setResultsData}
         />
       )}
     </>
