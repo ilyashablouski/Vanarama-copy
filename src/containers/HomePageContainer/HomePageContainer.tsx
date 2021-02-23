@@ -163,21 +163,22 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             />
           </>
         </div>
-        <Image
-          loadImage
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          optimisationOptions={optimisationOptions}
-          className="hero--image"
-          plain
-          size="expand"
-          src={
-            getSectionsData(
-              ['hero', 'image', 'file', 'url'],
-              data?.homePage?.sections,
-            ) || null
-          }
-        />
-
+        <div>
+          <Image
+            loadImage
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            optimisationOptions={optimisationOptions}
+            className="hero--image"
+            plain
+            size="expand"
+            src={
+              getSectionsData(
+                ['hero', 'image', 'file', 'url'],
+                data?.homePage?.sections,
+              ) || null
+            }
+          />
+        </div>
         <HeroPrompt
           label={
             data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
