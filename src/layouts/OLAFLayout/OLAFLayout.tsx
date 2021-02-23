@@ -4,7 +4,9 @@ import ChevronUpSharp from 'core/assets/icons/ChevronUpSharp';
 import Button from 'core/atoms/button';
 import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
-import { useState, useEffect, ReactNode, useMemo } from 'react';
+import React, { useState, useEffect, ReactNode, useMemo } from 'react';
+import localforage from 'localforage';
+import Modal from 'core/molecules/modal';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
@@ -24,6 +26,10 @@ import { OrderInputObject } from '../../../generated/globalTypes';
 import useGetOrderId from '../../hooks/useGetOrderId';
 import { useGetLeaseCompanyDataByOrderUuid } from '../../gql/creditApplication';
 import Head from '../../components/Head/Head';
+import Heading from '../../core/atoms/heading';
+import Text from '../../core/atoms/text';
+
+const SESSION_ERROR_KEY = 'isSessionFinished';
 
 interface IProps {
   setDetailsData?: React.Dispatch<
@@ -47,6 +53,7 @@ const OLAFLayout: React.FC<IProps> = ({
     orderId,
   );
 
+  const [isModalVisible, setModalVisibility] = useState(false);
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
   const showAside = !isMobile || asideOpen;
@@ -62,6 +69,14 @@ const OLAFLayout: React.FC<IProps> = ({
     derivativeData &&
     derivativeData.data?.vehicleImages &&
     (derivativeData.data?.vehicleImages as VehicleImages[])[0]?.mainImageUrl;
+
+  useEffect(() => {
+    localforage.getItem<boolean>(SESSION_ERROR_KEY).then(value => {
+      if (value) {
+        setModalVisibility(true);
+      }
+    });
+  });
 
   useEffect(() => {
     if (vehicleProduct) {
@@ -105,6 +120,14 @@ const OLAFLayout: React.FC<IProps> = ({
       breadcrumbs: null,
     };
   }, [router.pathname]);
+
+  const handleNewSessionStart = () => {
+    // get saved url of order's pdp page and delete error
+    Promise.all([
+      localforage.getItem<string>('orderUrl'),
+      localforage.removeItem(SESSION_ERROR_KEY),
+    ]).then(([url]) => router.push(url, url));
+  };
 
   return (
     <>
@@ -166,6 +189,35 @@ const OLAFLayout: React.FC<IProps> = ({
           </div>
         )}
       </div>
+      <Modal show={isModalVisible} containerClassName="modal-container-large">
+        <div className="-mb-400">
+          <div className="-mb-600">
+            <Heading
+              className="-mb-300"
+              color="black"
+              dataTestId="about-you_heading"
+              size="xlarge"
+              tag="h1"
+            >
+              Your Session Has Timed Out
+            </Heading>
+            <Text size="large" color="black">
+              We’re sorry, it looks like your session has expired. For security
+              reasons, sessions automatically end if there’s no activity for 1
+              hour. Don’t worry, none of your personal information has been
+              saved.
+            </Text>
+          </div>
+          <Button
+            label="Start Again"
+            size="regular"
+            fill="solid"
+            color="teal"
+            onClick={handleNewSessionStart}
+            type="button"
+          />
+        </div>
+      </Modal>
     </>
   );
 };

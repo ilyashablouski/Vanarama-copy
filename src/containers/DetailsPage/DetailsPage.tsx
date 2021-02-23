@@ -119,6 +119,25 @@ interface IDetailsPageProps {
   productCard: GetProductCard | null;
 }
 
+const ORDER_URL_KEY = 'orderUrl';
+const ORDER_ID_KEY = 'orderId';
+const ORDER_KEY = 'order';
+
+const clearOrder = () =>
+  Promise.all([
+    localForage.removeItem(ORDER_ID_KEY),
+    localForage.removeItem(ORDER_URL_KEY),
+  ]);
+
+const saveOrder = (order: OrderInputObject, rating: number, orderUrl: string) =>
+  Promise.all([
+    localForage.setItem(ORDER_KEY, {
+      ...order,
+      rating,
+    }),
+    localForage.setItem(ORDER_URL_KEY, orderUrl),
+  ]);
+
 const DetailsPage: React.FC<IDetailsPageProps> = ({
   capId,
   cars,
@@ -235,12 +254,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       price,
       category: getCategory({ cars, vans, pickups }),
     });
-    return localForage
-      .setItem('order', {
-        ...values,
-        rating: vehicleDetails?.averageRating || 0,
-      })
-      .then(() => localForage.removeItem('orderId'))
+
+    return saveOrder(values, vehicleDetails?.averageRating || 0, router.asPath)
+      .then(() => clearOrder())
       .then(() => {
         const url =
           leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
