@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
+import { useApolloClient } from '@apollo/client';
 import React, { useState, CSSProperties, useEffect } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
@@ -115,6 +116,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const router = useRouter();
   const { quote } = props;
 
+  const client = useApolloClient();
   const [person, setPerson] = useState<Person | null>(null);
   const [activePage, setActivePage] = useState(1);
   const [activeTab, setActiveTab] = useState(0);
@@ -308,6 +310,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
       localForage.setItem('order', order),
       localForage.setItem('orderId', order.uuid),
     ])
+      .then(() => client.clearStore())
       .then(() =>
         leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
           ? '/olaf/about'
