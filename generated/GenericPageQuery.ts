@@ -126,6 +126,17 @@ export interface GenericPageQuery_genericPage_sections_hero_heroCard {
   body: string | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_hero_heroLabel_link {
+  text: string | null;
+  url: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_hero_heroLabel {
+  text: string | null;
+  visible: boolean | null;
+  link: GenericPageQuery_genericPage_sections_hero_heroLabel_link | null;
+}
+
 export interface GenericPageQuery_genericPage_sections_hero {
   position: number | null;
   flag: string | null;
@@ -134,6 +145,7 @@ export interface GenericPageQuery_genericPage_sections_hero {
   body: string | null;
   image: GenericPageQuery_genericPage_sections_hero_image | null;
   heroCard: (GenericPageQuery_genericPage_sections_hero_heroCard | null)[] | null;
+  heroLabel: (GenericPageQuery_genericPage_sections_hero_heroLabel | null)[] | null;
 }
 
 export interface GenericPageQuery_genericPage_sections_rowText {

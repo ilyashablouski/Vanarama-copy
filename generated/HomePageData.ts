@@ -48,11 +48,23 @@ export interface HomePageData_homePage_sections_hero_image {
   file: HomePageData_homePage_sections_hero_image_file | null;
 }
 
+export interface HomePageData_homePage_sections_hero_heroLabel_link {
+  text: string | null;
+  url: string | null;
+}
+
+export interface HomePageData_homePage_sections_hero_heroLabel {
+  text: string | null;
+  visible: boolean | null;
+  link: HomePageData_homePage_sections_hero_heroLabel_link | null;
+}
+
 export interface HomePageData_homePage_sections_hero {
   title: string | null;
   titleTag: string | null;
   body: string | null;
   image: HomePageData_homePage_sections_hero_image | null;
+  heroLabel: (HomePageData_homePage_sections_hero_heroLabel | null)[] | null;
 }
 
 export interface HomePageData_homePage_sections_leadText {

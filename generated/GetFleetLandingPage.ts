@@ -110,10 +110,22 @@ export interface GetFleetLandingPage_fleetLandingPage_sections_hero_image {
   file: GetFleetLandingPage_fleetLandingPage_sections_hero_image_file | null;
 }
 
+export interface GetFleetLandingPage_fleetLandingPage_sections_hero_heroLabel_link {
+  text: string | null;
+  url: string | null;
+}
+
+export interface GetFleetLandingPage_fleetLandingPage_sections_hero_heroLabel {
+  text: string | null;
+  visible: boolean | null;
+  link: GetFleetLandingPage_fleetLandingPage_sections_hero_heroLabel_link | null;
+}
+
 export interface GetFleetLandingPage_fleetLandingPage_sections_hero {
   title: string | null;
   body: string | null;
   image: GetFleetLandingPage_fleetLandingPage_sections_hero_image | null;
+  heroLabel: (GetFleetLandingPage_fleetLandingPage_sections_hero_heroLabel | null)[] | null;
 }
 
 export interface GetFleetLandingPage_fleetLandingPage_sections_tiles_tiles_image_file {
