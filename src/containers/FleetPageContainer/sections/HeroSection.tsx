@@ -3,11 +3,7 @@ import React from 'react';
 import Image from 'core/atoms/image';
 import { GetFleetLandingPage_fleetLandingPage_sections_hero as IHeroData } from '../../../../generated/GetFleetLandingPage';
 import config from '../config';
-import Hero, {
-  HeroTitle,
-  HeroHeading,
-  HeroPrompt,
-} from '../../../components/Hero';
+import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
 // import Skeleton from '../../../components/Skeleton';
 
 // const Image = dynamic(
@@ -50,11 +46,6 @@ const HeroSection = ({ title, body, image }: IHeroData) => (
       src={image?.file?.url || config.heroImage.src}
       plain
       className="hero--image"
-    />
-    <HeroPrompt
-      label="Help Me Choose"
-      url="."
-      text="Not sure what you are looking for?"
     />
   </Hero>
 );
