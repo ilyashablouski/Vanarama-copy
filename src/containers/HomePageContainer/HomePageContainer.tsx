@@ -177,11 +177,31 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             ) || null
           }
         />
-        <HeroPrompt
-          label="Help Me Choose"
-          url="."
-          text="Not sure what you are looking for?"
-        />
+        {getSectionsData(
+          ['hero', 'heroLabel', 'visible'],
+          data?.homePage?.sections,
+        ) && (
+          <HeroPrompt
+            label={
+              getSectionsData(
+                ['hero', 'heroLabel', 'link', 'text'],
+                data?.homePage?.sections,
+              ) || ''
+            }
+            url={
+              getSectionsData(
+                ['hero', 'heroLabel', 'link', 'url'],
+                data?.homePage?.sections,
+              ) || ''
+            }
+            text={
+              getSectionsData(
+                ['hero', 'heroLabel', 'text'],
+                data?.homePage?.sections,
+              ) || ''
+            }
+          />
+        )}
       </Hero>
 
       <section className="row:lead-text">
