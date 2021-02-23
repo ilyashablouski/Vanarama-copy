@@ -80,17 +80,20 @@ export const buildAnObjectFromAQuery = (
   query: any,
   steps: IInitStep,
   editStep?: number,
-  showResults?: number,
+  showResults?: {
+    from: number;
+    size: number;
+  },
 ) => {
   const object = {} as any;
   query.forEach((value: string, key: string) => {
     if (
       (key === 'financeTypes' &&
-        steps.financeTypes.value.length &&
+        steps.financeTypes?.value?.length &&
         !steps.financeTypes.active &&
         !editStep) ||
       (key === 'financeTypes' &&
-        steps.financeTypes.value.length &&
+        steps.financeTypes?.value?.length &&
         editStep &&
         editStep > 1)
     ) {
@@ -98,11 +101,11 @@ export const buildAnObjectFromAQuery = (
     }
     if (
       (key === 'bodyStyles' &&
-        steps.bodyStyles.value.length &&
+        steps.bodyStyles?.value?.length &&
         !steps.bodyStyles.active &&
         !editStep) ||
       (key === 'bodyStyles' &&
-        steps.bodyStyles.value.length &&
+        steps.bodyStyles?.value?.length &&
         editStep &&
         editStep > 2)
     ) {
@@ -110,11 +113,11 @@ export const buildAnObjectFromAQuery = (
     }
     if (
       (key === 'fuelTypes' &&
-        steps.fuelTypes.value.length &&
+        steps.fuelTypes?.value?.length &&
         !steps.fuelTypes.active &&
         !editStep) ||
       (key === 'fuelTypes' &&
-        steps.fuelTypes.value.length &&
+        steps.fuelTypes?.value?.length &&
         editStep &&
         editStep > 3)
     ) {
@@ -122,11 +125,11 @@ export const buildAnObjectFromAQuery = (
     }
     if (
       (key === 'transmissions' &&
-        steps.transmissions.value.length &&
+        steps.transmissions?.value?.length &&
         !steps.transmissions.active &&
         !editStep) ||
       (key === 'transmissions' &&
-        steps.transmissions.value.length &&
+        steps.transmissions?.value?.length &&
         editStep &&
         editStep > 4)
     ) {
@@ -134,20 +137,23 @@ export const buildAnObjectFromAQuery = (
     }
     if (
       (key === 'terms' &&
-        steps.terms.value.length &&
+        steps.terms?.value?.length &&
         !steps.terms.active &&
         !editStep) ||
-      (key === 'terms' && steps.terms.value.length && editStep && editStep > 5)
+      (key === 'terms' &&
+        steps.terms?.value?.length &&
+        editStep &&
+        editStep > 5)
     ) {
       object.terms = [parseInt(steps.terms.value[0], 10)];
     }
     if (
       (key === 'mileages' &&
-        steps.mileages.value.length &&
+        steps.mileages?.value?.length &&
         !steps.mileages.active &&
         !editStep) ||
       (key === 'mileages' &&
-        steps.mileages.value.length &&
+        steps.mileages?.value?.length &&
         editStep &&
         editStep > 6)
     ) {
@@ -155,18 +161,18 @@ export const buildAnObjectFromAQuery = (
     }
     if (
       (key === 'availability' &&
-        steps.availability.value.length &&
+        steps.availability?.value?.length &&
         !steps.availability.active &&
         !editStep) ||
       (key === 'availability' &&
-        steps.availability.value.length &&
+        steps.availability?.value?.length &&
         editStep &&
         editStep > 7)
     ) {
       object.availability = parseInt(steps.availability.value[0] || '', 10);
     }
     if (
-      (key === 'rental' && value.length && !editStep && steps.rental.active) ||
+      (key === 'rental' && value?.length && !editStep && steps.rental.active) ||
       steps.rental.active
     ) {
       object.rental = {
@@ -175,7 +181,7 @@ export const buildAnObjectFromAQuery = (
     }
     if (
       (key === 'initialPeriods' &&
-        value.length &&
+        value?.length &&
         !editStep &&
         steps.initialPeriods.active) ||
       steps.initialPeriods.active
@@ -183,9 +189,9 @@ export const buildAnObjectFromAQuery = (
       object.initialPeriods = [parseInt(steps.initialPeriods.value as any, 10)];
     }
   });
-  object.from = 0;
-  object.size = showResults || 12;
-  object.vehicleTypes = [VehicleTypeEnum.CAR];
+  object.from = showResults?.from || 0;
+  object.size = showResults?.size || 12;
+  // object.vehicleTypes = [VehicleTypeEnum.CAR];
   return object;
 };
 
