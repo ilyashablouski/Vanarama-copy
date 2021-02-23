@@ -34,6 +34,7 @@ import {
   fuelMapper,
   getCapsIds,
   onMadeLineBreaks,
+  sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from './helpers';
 import {
@@ -444,12 +445,16 @@ const SearchPageContainer: React.FC<IProps> = ({
             : LeaseTypeEnum.BUSINESS,
           onOffer,
           ...filters,
-          sortField: isSpecialOffersOrder
-            ? SortField.offerRanking
-            : sortOrder.type,
-          sortDirection: isSpecialOffersOrder
-            ? SortDirection.ASC
-            : sortOrder.direction,
+          sort: sortObjectGenerator([
+            {
+              field: isSpecialOffersOrder
+                ? SortField.offerRanking
+                : sortOrder.type,
+              direction: isSpecialOffersOrder
+                ? SortDirection.ASC
+                : sortOrder.direction,
+            },
+          ]),
           ...{
             bodyStyles:
               isPickups || isModelPage || isBodyStylePage
@@ -626,12 +631,16 @@ const SearchPageContainer: React.FC<IProps> = ({
             : null,
           after: lastCard,
           ...filtersData,
-          sortField: isSpecialOffersOrder
-            ? SortField.offerRanking
-            : sortOrder.type,
-          sortDirection: isSpecialOffersOrder
-            ? SortDirection.ASC
-            : sortOrder.direction,
+          sort: sortObjectGenerator([
+            {
+              field: isSpecialOffersOrder
+                ? SortField.offerRanking
+                : sortOrder.type,
+              direction: isSpecialOffersOrder
+                ? SortDirection.ASC
+                : sortOrder.direction,
+            },
+          ]),
         },
       });
     }

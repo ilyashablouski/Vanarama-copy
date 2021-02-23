@@ -31,6 +31,8 @@ import {
 } from '../../../generated/manufacturerList';
 
 import { manufacturerPage } from '../../../generated/manufacturerPage';
+// eslint-disable-next-line import/no-cycle
+import { sortObjectGenerator } from './helpers';
 
 export const GET_VEHICLE_LIST = gql`
   query vehicleList(
@@ -43,10 +45,9 @@ export const GET_VEHICLE_LIST = gql`
     $bodyStyles: [String!]
     $transmissions: [String!]
     $fuelTypes: [String!]
-    $sortField: SortField!
     $first: Int
-    $sortDirection: SortDirection!
     $leaseType: LeaseTypeEnum
+    $sort: [SortObject!]
   ) {
     vehicleList(
       first: $first
@@ -62,7 +63,7 @@ export const GET_VEHICLE_LIST = gql`
         fuelTypes: $fuelTypes
         leaseType: $leaseType
       }
-      sort: { field: $sortField, direction: $sortDirection }
+      sort: $sort
     ) {
       totalCount
       pageInfo {
@@ -131,8 +132,12 @@ export function useVehiclesList(
       bodyStyles: bodyStyles?.[0] ? bodyStyles : undefined,
       transmissions,
       fuelTypes,
-      sortField: onOffer ? SortField.offerRanking : savedSortOrder.type,
-      sortDirection: onOffer ? SortDirection.ASC : savedSortOrder.direction,
+      sort: sortObjectGenerator([
+        {
+          field: onOffer ? SortField.offerRanking : savedSortOrder.type,
+          direction: onOffer ? SortDirection.ASC : savedSortOrder.direction,
+        },
+      ]),
       first,
     },
     fetchPolicy: 'cache-and-network',

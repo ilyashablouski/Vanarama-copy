@@ -16,6 +16,7 @@ import {
   budgetMapper,
   dynamicQueryTypeCheck,
   getCapsIds,
+  sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
@@ -175,8 +176,12 @@ export async function getServerSideProps(context: NextPageContext) {
             leaseType: LeaseTypeEnum.BUSINESS,
             onOffer: null,
             first: 12,
-            sortField: SortField.availability,
-            sortDirection: SortDirection.ASC,
+            sort: sortObjectGenerator([
+              {
+                field: SortField.availability,
+                direction: SortDirection.ASC,
+              },
+            ]),
             ...filter,
           },
         })
@@ -247,8 +252,7 @@ export async function getServerSideProps(context: NextPageContext) {
         leaseType: LeaseTypeEnum.BUSINESS,
         onOffer: true,
         first: pageType.isMakePage ? 6 : 3,
-        sortField: SortField.offerRanking,
-        sortDirection: SortDirection.ASC,
+        sort: [{ field: SortField.offerRanking, direction: SortDirection.ASC }],
         ...filter,
       },
     })

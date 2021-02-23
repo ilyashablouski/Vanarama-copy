@@ -8,6 +8,7 @@ import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedCo
 import SearchPageContainer from '../../../containers/SearchPageContainer';
 import {
   getCapsIds,
+  sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
@@ -123,8 +124,12 @@ export async function getServerSideProps(context: NextPageContext) {
             leaseType: LeaseTypeEnum.BUSINESS,
             onOffer: null,
             first: 12,
-            sortField: SortField.availability,
-            sortDirection: SortDirection.ASC,
+            sort: sortObjectGenerator([
+              {
+                field: SortField.availability,
+                direction: SortDirection.ASC,
+              },
+            ]),
             manufacturerSlug: (context?.query
               ?.dynamicParam as string).toLowerCase(),
             rangeSlug: (context?.query?.rangeName as string).toLowerCase(),
@@ -166,8 +171,9 @@ export async function getServerSideProps(context: NextPageContext) {
           leaseType: LeaseTypeEnum.PERSONAL,
           onOffer: true,
           first: 3,
-          sortField: SortField.offerRanking,
-          sortDirection: SortDirection.ASC,
+          sort: [
+            { field: SortField.offerRanking, direction: SortDirection.ASC },
+          ],
           manufacturerSlug: (context?.query
             ?.dynamicParam as string).toLowerCase(),
           rangeSlug: (context?.query?.rangeName as string).toLowerCase(),

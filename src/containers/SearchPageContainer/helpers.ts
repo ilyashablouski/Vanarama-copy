@@ -5,7 +5,12 @@ import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import { IFilters } from '../FiltersContainer/interfaces';
 import { GenericPageQueryVariables } from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQueryVariables } from '../../../generated/GenericPageHeadQuery';
-import { SortDirection, SortField } from '../../../generated/globalTypes';
+import {
+  SortDirection,
+  SortField,
+  SortObject,
+} from '../../../generated/globalTypes';
+// eslint-disable-next-line import/no-cycle
 import { GET_ALL_MAKES_PAGE } from './gql';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 
@@ -269,4 +274,14 @@ export const onMadeLineBreaks = (value: string, maxLeght = 16) => {
     }
     return acc;
   }, [] as string[]);
+};
+
+export const sortObjectGenerator = (sortArray: SortObject[]) => {
+  if (sortArray?.[0].field === SortField.availability) {
+    return [
+      ...sortArray,
+      { field: SortField.rate, direction: SortDirection.ASC },
+    ];
+  }
+  return sortArray;
 };

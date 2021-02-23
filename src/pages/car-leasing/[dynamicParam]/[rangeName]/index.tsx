@@ -12,6 +12,7 @@ import { getGenericSearchPageSlug } from '../../../../gql/genericPage';
 import SearchPageContainer from '../../../../containers/SearchPageContainer';
 import {
   getCapsIds,
+  sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
@@ -146,8 +147,12 @@ export async function getServerSideProps(context: NextPageContext) {
             leaseType: LeaseTypeEnum.PERSONAL,
             onOffer: null,
             first: 12,
-            sortField: SortField.availability,
-            sortDirection: SortDirection.ASC,
+            sort: sortObjectGenerator([
+              {
+                field: SortField.availability,
+                direction: SortDirection.ASC,
+              },
+            ]),
             manufacturerSlug: makeName,
             rangeSlug: rangeName,
           },
@@ -217,8 +222,9 @@ export async function getServerSideProps(context: NextPageContext) {
           leaseType: LeaseTypeEnum.PERSONAL,
           onOffer: true,
           first: 3,
-          sortField: SortField.offerRanking,
-          sortDirection: SortDirection.ASC,
+          sort: [
+            { field: SortField.offerRanking, direction: SortDirection.ASC },
+          ],
           manufacturerSlug: makeName,
           rangeSlug: rangeName,
         },
