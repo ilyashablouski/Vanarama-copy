@@ -520,19 +520,24 @@ const FiltersContainer = ({
             : entry[1];
 
         // for make and model we should get label value
-        return {
-          order: filterOrderByNumMap[entry[0]],
-          value:
-            (entry[0] === filterFields.make ||
-              entry[0] === filterFields.model) &&
-            value.length
-              ? getLabelForSlug(
-                  entry[1][0],
-                  filtersData,
-                  entry[0] === filterFields.make,
-                )
-              : value,
-        };
+        return typeof value === 'string'
+          ? {
+              order: filterOrderByNumMap[entry[0]],
+              value:
+                (entry[0] === filterFields.make ||
+                  entry[0] === filterFields.model) &&
+                value.length
+                  ? getLabelForSlug(
+                      entry[1][0],
+                      filtersData,
+                      entry[0] === filterFields.make,
+                    )
+                  : value,
+            }
+          : value.map(v => ({
+              order: filterOrderByNumMap[entry[0]],
+              value: v,
+            }));
       })
       .flat()
       .filter(({ order, value }) => value.length > 0 && order !== undefined);
