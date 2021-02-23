@@ -4,6 +4,7 @@ import React, {
   FC,
   SetStateAction,
   useContext,
+  useEffect,
   useState,
 } from 'react';
 import SlidingInput from 'core/atoms/sliding-input';
@@ -26,7 +27,10 @@ import { useModelImages } from '../../SearchPageContainer/gql';
 import { CompareContext } from '../../../utils/comparatorTool';
 import { isCompared } from '../../../utils/comparatorHelpers';
 import RouterLink from '../../../components/RouterLink/RouterLink';
-import { ProductVehicleList_productVehicleList_edges as Edges } from '../../../../generated/ProductVehicleList';
+import {
+  ProductVehicleList,
+  ProductVehicleList_productVehicleList_edges as Edges,
+} from '../../../../generated/ProductVehicleList';
 
 const RENTAL_DATA = [
   {
@@ -54,6 +58,8 @@ const RENTAL_DATA = [
 interface IHelpMeChooseResult extends HelpMeChooseStep {
   setCounterState: Dispatch<SetStateAction<number>>;
   counterState: number;
+  resultsData: Edges[];
+  setResultsData: Dispatch<SetStateAction<Edges[]>>;
 }
 
 const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
@@ -67,7 +73,18 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
     setLoadingStatus,
     counterState,
     setCounterState,
+    resultsData,
+    setResultsData,
   } = props;
+
+  useEffect(() => {
+    const resultsDataArray: Edges[] = getSectionsData(
+      ['productVehicleList', 'edges'],
+      productVehicleListData?.data,
+    );
+    setResultsData(resultsDataArray);
+  }, []);
+
   const stateVAT =
     (steps?.financeTypes?.value as any) === 'PCH' ? 'inc' : 'exc';
   const rentalData: [{ key: string }] = getSectionsData(
@@ -91,12 +108,6 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
     productVehicleListData?.data,
   );
 
-  const resultsData: Edges[] = getSectionsData(
-    ['productVehicleList', 'edges'],
-    productVehicleListData?.data,
-  )
-    ?.slice()
-    .sort((a: any, b: any) => a.node?.availability - b.node?.availability);
   const capIds: string[] = resultsData?.map(
     el => el.node?.derivativeId || '',
   ) || [''];
@@ -228,21 +239,40 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
         </Heading>
         <div className="stepped-form--results">
           {!!resultsData?.length &&
-            resultsData.map((el: Edges, id: number) => (
-              <div key={`${el.node?.derivativeId || 0 + id}`}>
-                <ProductCard
-                  className="-compact"
-                  inline
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  imageSrc={
-                    imageData?.vehicleImages?.find(
-                      x =>
-                        x?.capId === parseInt(el.node?.derivativeId || '', 10),
-                    )?.mainImageUrl ||
-                    `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                  }
-                  onCompare={() => {
-                    compareChange(
+            resultsData
+              ?.slice()
+              .sort(
+                (a: any, b: any) => a.node?.availability - b.node?.availability,
+              )
+              .map((el: Edges, id: number) => (
+                <div key={`${el.node?.derivativeId || 0 + id}`}>
+                  <ProductCard
+                    className="-compact"
+                    inline
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    imageSrc={
+                      imageData?.vehicleImages?.find(
+                        x =>
+                          x?.capId ===
+                          parseInt(el.node?.derivativeId || '', 10),
+                      )?.mainImageUrl ||
+                      `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+                    }
+                    onCompare={() => {
+                      compareChange(
+                        formatForCompare(
+                          el.node,
+                          steps.financeTypes.value as any,
+                          imageData?.vehicleImages?.find(
+                            x =>
+                              x?.capId ===
+                              parseInt(el.node?.derivativeId || '', 10),
+                          )?.mainImageUrl || '',
+                        ),
+                      );
+                    }}
+                    compared={isCompared(
+                      compareVehicles,
                       formatForCompare(
                         el.node,
                         steps.financeTypes.value as any,
@@ -252,29 +282,54 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                             parseInt(el.node?.derivativeId || '', 10),
                         )?.mainImageUrl || '',
                       ),
-                    );
-                  }}
-                  compared={isCompared(
-                    compareVehicles,
-                    formatForCompare(
-                      el.node,
-                      steps.financeTypes.value as any,
-                      imageData?.vehicleImages?.find(
-                        x =>
-                          x?.capId ===
-                          parseInt(el.node?.derivativeId || '', 10),
-                      )?.mainImageUrl || '',
-                    ),
-                  )}
-                  onWishlist={() => true}
-                  title={{
-                    title: '',
-                    link: (
+                    )}
+                    onWishlist={() => true}
+                    title={{
+                      title: '',
+                      link: (
+                        <RouterLink
+                          link={{
+                            // href: el.legacyUrl || el.url || '',
+                            href: '',
+                            label: '',
+                          }}
+                          onClick={() =>
+                            sessionStorage.setItem(
+                              'capId',
+                              el.node?.derivativeId || '',
+                            )
+                          }
+                          className="heading"
+                          classNames={{ size: 'large', color: 'black' }}
+                        >
+                          <Heading tag="span" size="large" className="-pb-100">
+                            {truncateString(
+                              `${el.node?.manufacturerName} ${el.node?.modelName}`,
+                            )}
+                          </Heading>
+                          <Heading tag="span" size="small" color="dark">
+                            {el.node?.derivativeName || ''}
+                          </Heading>
+                        </RouterLink>
+                      ),
+                    }}
+                  >
+                    <div className="-flex-h">
+                      <Price
+                        price={el.node?.rental}
+                        size="large"
+                        separator="."
+                        priceDescription={`Per Month ${
+                          (steps.financeTypes.value as any) === 'PCH'
+                            ? 'Inc.VAT'
+                            : 'Exc.VAT'
+                        }`}
+                      />
                       <RouterLink
                         link={{
                           // href: el.legacyUrl || el.url || '',
                           href: '',
-                          label: '',
+                          label: 'View Offer',
                         }}
                         onClick={() =>
                           sessionStorage.setItem(
@@ -282,58 +337,20 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                             el.node?.derivativeId || '',
                           )
                         }
-                        className="heading"
-                        classNames={{ size: 'large', color: 'black' }}
+                        classNames={{
+                          color: 'teal',
+                          solid: true,
+                          size: 'regular',
+                        }}
+                        className="button"
+                        dataTestId="view-offer"
                       >
-                        <Heading tag="span" size="large" className="-pb-100">
-                          {truncateString(
-                            `${el.node?.manufacturerName} ${el.node?.modelName}`,
-                          )}
-                        </Heading>
-                        <Heading tag="span" size="small" color="dark">
-                          {el.node?.derivativeName || ''}
-                        </Heading>
+                        <div className="button--inner">View Offer</div>
                       </RouterLink>
-                    ),
-                  }}
-                >
-                  <div className="-flex-h">
-                    <Price
-                      price={el.node?.rental}
-                      size="large"
-                      separator="."
-                      priceDescription={`Per Month ${
-                        (steps.financeTypes.value as any) === 'PCH'
-                          ? 'Inc.VAT'
-                          : 'Exc.VAT'
-                      }`}
-                    />
-                    <RouterLink
-                      link={{
-                        // href: el.legacyUrl || el.url || '',
-                        href: '',
-                        label: 'View Offer',
-                      }}
-                      onClick={() =>
-                        sessionStorage.setItem(
-                          'capId',
-                          el.node?.derivativeId || '',
-                        )
-                      }
-                      classNames={{
-                        color: 'teal',
-                        solid: true,
-                        size: 'regular',
-                      }}
-                      className="button"
-                      dataTestId="view-offer"
-                    >
-                      <div className="button--inner">View Offer</div>
-                    </RouterLink>
-                  </div>
-                </ProductCard>
-              </div>
-            ))}
+                    </div>
+                  </ProductCard>
+                </div>
+              ))}
         </div>
         {!!vehiclesResultNumber && vehiclesResultNumber > 12 && (
           <div>
@@ -352,10 +369,19 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                         searchParams,
                         steps,
                         undefined,
-                        12 * (counterState + 1),
+                        {
+                          from: counterState,
+                          size: 12,
+                        },
                       ),
                     },
                   },
+                }).then((result: ProductVehicleList) => {
+                  const resultsDataArray: Edges[] = getSectionsData(
+                    ['data', 'productVehicleList', 'edges'],
+                    result,
+                  );
+                  setResultsData(resultsData.concat(resultsDataArray));
                 });
               }}
               size="large"
@@ -366,29 +392,43 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
           </div>
         )}
         <div className="button-group">
-          {!!resultsData?.length && (
-            <Button
-              color="primary"
-              dataTestId="help-me-choose_view-all"
-              label="View All Offers"
-              onClick={() => {
-                onReplace(
-                  router,
-                  {
-                    ...steps,
-                    rental: {
-                      active: true,
-                      value: rental as any,
-                    },
-                  },
-                  '/car-leasing/special-offers',
-                );
-              }}
-              size="large"
-              className="stepped-form--button"
-              type="button"
-            />
-          )}
+          {!!vehiclesResultNumber &&
+            vehiclesResultNumber > 12 &&
+            !!resultsData?.length &&
+            resultsData?.length < vehiclesResultNumber && (
+              <div>
+                <Button
+                  color="primary"
+                  dataTestId="help-me-choose_load-more"
+                  label="Load More"
+                  onClick={() => {
+                    setCounterState(counterState + 1);
+                    setLoadingStatus(true);
+                    const searchParams = new URLSearchParams();
+                    getProductVehicleList({
+                      variables: {
+                        filter: {
+                          ...buildAnObjectFromAQuery(
+                            searchParams,
+                            steps,
+                            undefined,
+                            {
+                              from: counterState * 12,
+                              size: 12,
+                            },
+                            // 12 * (counterState + 1),
+                          ),
+                        },
+                      },
+                    });
+                  }}
+                  size="large"
+                  className="stepped-form--button"
+                  type="button"
+                  fill="clear"
+                />
+              </div>
+            )}
           <Button
             color="primary"
             dataTestId="help-me-choose_search-again"
