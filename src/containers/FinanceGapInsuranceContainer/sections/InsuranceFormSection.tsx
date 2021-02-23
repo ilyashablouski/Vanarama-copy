@@ -41,6 +41,7 @@ const InsuranceFormSection = ({
           isPostcodeVisible
           onSubmit={onSubmit}
           isTextInVisible
+          className="-full-width-fields"
         />
       </div>
     </div>
