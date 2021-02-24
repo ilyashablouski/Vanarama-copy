@@ -220,3 +220,10 @@ export const getMetadataForPagination = (metadata: IMetadata, page = 1) => {
     canonicalUrl: canonicalUrl || metadata.canonicalUrl,
   };
 };
+
+export const formatToSlugFormat = (value: string) =>
+  value
+    .toLowerCase()
+    .split(' ')
+    .join('-')
+    .replace('.', '-');
