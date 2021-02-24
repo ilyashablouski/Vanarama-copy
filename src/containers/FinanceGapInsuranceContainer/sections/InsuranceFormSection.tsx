@@ -34,13 +34,14 @@ const InsuranceFormSection = ({
         </Heading>
         <ReactMarkdown allowDangerousHtml source={body || ''} />
       </div>
-      <div className="card">
+      <div className="card -mt-000">
         <GoldrushForm
           callBack
           isSubmitting={isSubmitting}
           isPostcodeVisible
           onSubmit={onSubmit}
           isTextInVisible
+          className="-full-width-fields"
         />
       </div>
     </div>
