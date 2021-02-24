@@ -26,6 +26,7 @@ import {
   LeaseTypeEnum,
   SortDirection,
   SortField,
+  SortObject,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
 import { filterList_filterList as IFilterList } from '../../../../generated/filterList';
@@ -58,6 +59,7 @@ interface IProps extends ISearchPageProps {
   rangesUrls: IRangeUrls[];
   topOffersList?: vehicleList;
   topOffersCardsData?: GetProductCard;
+  defaultSort?: SortObject[];
 }
 
 const Page: NextPage<IProps> = ({
@@ -75,6 +77,7 @@ const Page: NextPage<IProps> = ({
   notFoundPageData,
   topOffersList,
   topOffersCardsData,
+  defaultSort,
 }) => {
   const router = useRouter();
   /** using for dynamically change type when we navigate between different page type (exp. make -> budget) */
@@ -128,6 +131,7 @@ const Page: NextPage<IProps> = ({
       preLoadResponseCapIds={responseCapIds}
       preLoadTopOffersList={topOffersList}
       preLoadTopOffersCardsData={topOffersCardsData}
+      defaultSort={defaultSort}
     />
   );
 };
@@ -141,6 +145,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let productCardsData;
   let responseCapIds;
   let topOffersCardsData;
+  let defaultSort;
   const filter = {} as any;
   const pageType = dynamicQueryTypeCheck(query.dynamicParam as string);
   const { isBodyStylePage, isTransmissionPage, isBudgetType } = pageType;
@@ -167,6 +172,16 @@ export async function getServerSideProps(context: NextPageContext) {
     }
     // length should be 2, because we added manually query param for dynamic param
     // it's use for correct filters preselect
+    defaultSort = sortObjectGenerator([
+      {
+        field: SortField.offerRanking,
+        direction: SortDirection.ASC,
+      },
+      {
+        field: SortField.availability,
+        direction: SortDirection.ASC,
+      },
+    ]);
     if (Object.keys(context.query).length === 2) {
       vehiclesList = await client
         .query({
@@ -176,12 +191,7 @@ export async function getServerSideProps(context: NextPageContext) {
             leaseType: LeaseTypeEnum.BUSINESS,
             onOffer: null,
             first: 12,
-            sort: sortObjectGenerator([
-              {
-                field: SortField.availability,
-                direction: SortDirection.ASC,
-              },
-            ]),
+            sort: defaultSort,
             ...filter,
           },
         })
@@ -298,6 +308,7 @@ export async function getServerSideProps(context: NextPageContext) {
         topOffersList: topOffersList || null,
         topOffersCardsData: topOffersCardsData || null,
         ranges: ranges || null,
+        defaultSort: defaultSort || null,
         rangesUrls: rangesUrls || null,
         error: errors ? errors[0] : null,
       },

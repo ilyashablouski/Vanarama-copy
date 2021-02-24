@@ -17,6 +17,7 @@ import {
   LeaseTypeEnum,
   SortDirection,
   SortField,
+  SortObject,
   VehicleTypeEnum,
 } from '../../../../../generated/globalTypes';
 import { vehicleList } from '../../../../../generated/vehicleList';
@@ -34,6 +35,7 @@ interface IProps extends ISearchPageProps {
   filtersData?: IFilterList | undefined;
   makeParam: string;
   rangeParam?: string;
+  defaultSort?: SortObject[];
 }
 
 const Page: NextPage<IProps> = ({
@@ -48,6 +50,7 @@ const Page: NextPage<IProps> = ({
   notFoundPageData,
   rangeParam,
   makeParam,
+  defaultSort,
 }) => {
   const router = useRouter();
 
@@ -91,6 +94,7 @@ const Page: NextPage<IProps> = ({
       preLoadResponseCapIds={responseCapIds}
       preloadMake={makeParam}
       preloadRange={rangeParam}
+      defaultSort={defaultSort}
     />
   );
 };
@@ -100,6 +104,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let vehiclesList;
   let productCardsData;
   let responseCapIds;
+  let defaultSort;
   try {
     const contextData = {
       req: {
@@ -120,6 +125,16 @@ export async function getServerSideProps(context: NextPageContext) {
         vehicleTypes: [VehicleTypeEnum.CAR],
       },
     });
+    defaultSort = sortObjectGenerator([
+      {
+        field: SortField.offerRanking,
+        direction: SortDirection.ASC,
+      },
+      {
+        field: SortField.availability,
+        direction: SortDirection.ASC,
+      },
+    ]);
     if (Object.keys(context.query).length === 3) {
       vehiclesList = await client
         .query({
@@ -129,12 +144,7 @@ export async function getServerSideProps(context: NextPageContext) {
             leaseType: LeaseTypeEnum.PERSONAL,
             onOffer: null,
             first: 12,
-            sort: sortObjectGenerator([
-              {
-                field: SortField.availability,
-                direction: SortDirection.ASC,
-              },
-            ]),
+            sort: defaultSort,
             manufacturerSlug: (context?.query
               ?.dynamicParam as string).toLowerCase(),
             rangeSlug: (context?.query?.rangeName as string).toLowerCase(),
@@ -172,6 +182,7 @@ export async function getServerSideProps(context: NextPageContext) {
         productCardsData: productCardsData || null,
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
+        defaultSort: defaultSort || null,
         makeParam: (context?.query?.dynamicParam as string).toLowerCase(),
         rangeParam: (context?.query?.rangeName as string).toLowerCase(),
       },

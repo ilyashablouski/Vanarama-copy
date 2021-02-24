@@ -7,11 +7,11 @@ import {
 } from '../../../generated/vehicleList';
 import { rangeList, rangeListVariables } from '../../../generated/rangeList';
 import {
-  VehicleTypeEnum,
-  RateInputObject,
-  SortField,
   LeaseTypeEnum,
+  RateInputObject,
   SortDirection,
+  SortField,
+  VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import {
   RangesImages,
@@ -31,8 +31,6 @@ import {
 } from '../../../generated/manufacturerList';
 
 import { manufacturerPage } from '../../../generated/manufacturerPage';
-// eslint-disable-next-line import/no-cycle
-import { sortObjectGenerator } from './helpers';
 
 export const GET_VEHICLE_LIST = gql`
   query vehicleList(
@@ -132,12 +130,9 @@ export function useVehiclesList(
       bodyStyles: bodyStyles?.[0] ? bodyStyles : undefined,
       transmissions,
       fuelTypes,
-      sort: sortObjectGenerator([
-        {
-          field: onOffer ? SortField.offerRanking : savedSortOrder.type,
-          direction: onOffer ? SortDirection.ASC : savedSortOrder.direction,
-        },
-      ]),
+      sort: onOffer
+        ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
+        : savedSortOrder,
       first,
     },
     fetchPolicy: 'cache-and-network',

@@ -16,6 +16,7 @@ import {
   LeaseTypeEnum,
   SortDirection,
   SortField,
+  SortObject,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
 import { GetProductCard } from '../../../../generated/GetProductCard';
@@ -34,6 +35,7 @@ interface IProps extends ISearchPageProps {
   filtersData?: IFilterList | undefined;
   topOffersList?: vehicleList;
   topOffersCardsData?: GetProductCard;
+  defaultSort?: SortObject[];
 }
 
 const Page: NextPage<IProps> = ({
@@ -48,6 +50,7 @@ const Page: NextPage<IProps> = ({
   filtersData,
   topOffersList,
   topOffersCardsData,
+  defaultSort,
 }) => {
   const router = useRouter();
 
@@ -91,6 +94,7 @@ const Page: NextPage<IProps> = ({
       preLoadFiltersData={filtersData}
       preLoadTopOffersList={topOffersList}
       preLoadTopOffersCardsData={topOffersCardsData}
+      defaultSort={defaultSort}
     />
   );
 };
@@ -101,6 +105,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let productCardsData;
   let responseCapIds;
   let topOffersCardsData;
+  let defaultSort;
   try {
     const contextData = {
       req: {
@@ -114,6 +119,16 @@ export async function getServerSideProps(context: NextPageContext) {
       false,
       'isRangePage',
     )) as ApolloQueryResult<GenericPageQuery>;
+    defaultSort = sortObjectGenerator([
+      {
+        field: SortField.offerRanking,
+        direction: SortDirection.ASC,
+      },
+      {
+        field: SortField.availability,
+        direction: SortDirection.ASC,
+      },
+    ]);
     // should contain only 2 routs params(make, range)
     if (Object.keys(context.query).length === 2) {
       vehiclesList = await client
@@ -124,12 +139,7 @@ export async function getServerSideProps(context: NextPageContext) {
             leaseType: LeaseTypeEnum.BUSINESS,
             onOffer: null,
             first: 12,
-            sort: sortObjectGenerator([
-              {
-                field: SortField.availability,
-                direction: SortDirection.ASC,
-              },
-            ]),
+            sort: defaultSort,
             manufacturerSlug: (context?.query
               ?.dynamicParam as string).toLowerCase(),
             rangeSlug: (context?.query?.rangeName as string).toLowerCase(),
@@ -206,6 +216,7 @@ export async function getServerSideProps(context: NextPageContext) {
         filtersData: filtersData?.filterList || null,
         topOffersList: topOffersList || null,
         topOffersCardsData: topOffersCardsData || null,
+        defaultSort: defaultSort || null,
       },
     };
   } catch {

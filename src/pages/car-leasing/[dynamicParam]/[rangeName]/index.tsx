@@ -21,6 +21,7 @@ import {
   LeaseTypeEnum,
   SortDirection,
   SortField,
+  SortObject,
   VehicleTypeEnum,
 } from '../../../../../generated/globalTypes';
 import { GetProductCard } from '../../../../../generated/GetProductCard';
@@ -44,6 +45,7 @@ interface IProps extends ISearchPageProps {
   rangeParam?: string;
   topOffersList?: vehicleList;
   topOffersCardsData?: GetProductCard;
+  defaultSort?: SortObject[];
 }
 
 const Page: NextPage<IProps> = ({
@@ -61,6 +63,7 @@ const Page: NextPage<IProps> = ({
   makeParam,
   topOffersList,
   topOffersCardsData,
+  defaultSort,
 }) => {
   const router = useRouter();
 
@@ -111,6 +114,7 @@ const Page: NextPage<IProps> = ({
       preloadRange={rangeParam}
       preLoadTopOffersList={topOffersList}
       preLoadTopOffersCardsData={topOffersCardsData}
+      defaultSort={defaultSort}
     />
   );
 };
@@ -124,6 +128,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let responseCapIds;
   let bodyStyleList;
   let topOffersCardsData;
+  let defaultSort;
   try {
     const contextData = {
       req: {
@@ -137,6 +142,16 @@ export async function getServerSideProps(context: NextPageContext) {
       true,
       'isRangePage',
     )) as ApolloQueryResult<GenericPageQuery>;
+    defaultSort = sortObjectGenerator([
+      {
+        field: SortField.offerRanking,
+        direction: SortDirection.ASC,
+      },
+      {
+        field: SortField.availability,
+        direction: SortDirection.ASC,
+      },
+    ]);
     // should contain only 2 routs params(make, range)
     if (Object.keys(context.query).length === 2) {
       vehiclesList = await client
@@ -147,12 +162,7 @@ export async function getServerSideProps(context: NextPageContext) {
             leaseType: LeaseTypeEnum.PERSONAL,
             onOffer: null,
             first: 12,
-            sort: sortObjectGenerator([
-              {
-                field: SortField.availability,
-                direction: SortDirection.ASC,
-              },
-            ]),
+            sort: defaultSort,
             manufacturerSlug: makeName,
             rangeSlug: rangeName,
           },
@@ -259,6 +269,7 @@ export async function getServerSideProps(context: NextPageContext) {
         filtersData: filtersData?.filterList || null,
         makeParam: (context?.query?.dynamicParam as string).toLowerCase(),
         rangeParam: (context?.query?.rangeName as string).toLowerCase(),
+        defaultSort: defaultSort || null,
       },
     };
   } catch {

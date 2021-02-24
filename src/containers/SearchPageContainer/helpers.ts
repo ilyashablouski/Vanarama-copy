@@ -10,7 +10,6 @@ import {
   SortField,
   SortObject,
 } from '../../../generated/globalTypes';
-// eslint-disable-next-line import/no-cycle
 import { GET_ALL_MAKES_PAGE } from './gql';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 
@@ -277,7 +276,9 @@ export const onMadeLineBreaks = (value: string, maxLeght = 16) => {
 };
 
 export const sortObjectGenerator = (sortArray: SortObject[]) => {
-  if (sortArray?.[0].field === SortField.availability) {
+  if (
+    sortArray?.find(sortObject => sortObject.field === SortField.availability)
+  ) {
     return [
       ...sortArray,
       { field: SortField.rate, direction: SortDirection.ASC },
