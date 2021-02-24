@@ -93,6 +93,15 @@ const GET_INSURANCE_LANDING_PAGE = gql`
             title
             body
           }
+          heroLabel {
+            text
+            visible
+            link {
+              text
+              url
+              visible
+            }
+          }
         }
       }
     }
