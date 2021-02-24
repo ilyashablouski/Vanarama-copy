@@ -16,6 +16,7 @@ import {
 } from '../../../generated/manufacturerList';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 import { genericPagesQuery_genericPages_items as IMakeUrl } from '../../../generated/genericPagesQuery';
+import { formatToSlugFormat } from '../../utils/url';
 
 interface IProps extends ISearchPageProps {
   topInfoSection?: sections | null;
@@ -69,11 +70,7 @@ export async function getServerSideProps(context: NextPageContext) {
       .then(resp => resp.data);
   }
   const slugs = manufacturers?.manufacturerList?.map(
-    make =>
-      `car-leasing/${(make?.manufacturerName || '')
-        .toLowerCase()
-        .split(' ')
-        .join('-')}`,
+    make => `car-leasing/${formatToSlugFormat(make?.manufacturerName || '')}`,
   );
   const makesUrls = await client
     .query({
