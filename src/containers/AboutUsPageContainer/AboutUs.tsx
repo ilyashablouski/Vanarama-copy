@@ -48,7 +48,6 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 const Link = dynamic(() => import('core/atoms/link'));
 
 export interface IAboutPageProps {
-  error: ApolloError | undefined;
   loading: boolean;
   data: Query;
   children?: ReactNode;
@@ -126,13 +125,9 @@ const renderMeetCard = (card: ICard | undefined) =>
   )) ||
   null;
 
-const AboutUs: React.FC<IAboutPageProps> = ({ loading, error, data }) => {
+const AboutUs: React.FC<IAboutPageProps> = ({ loading, data }) => {
   if (loading) {
     return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
   }
 
   if (!data) {

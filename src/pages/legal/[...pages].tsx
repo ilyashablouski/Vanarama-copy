@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
 import SchemaJSON from 'core/atoms/schema-json';
 import {
   ILegalPage,
@@ -17,11 +16,7 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
 
-const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
-  if (error || !data?.genericPage) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
-
+const BlogPost: NextPage<ILegalPage> = ({ data }) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const body = getSectionsData(['body'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
@@ -84,18 +79,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: `legal/${paths?.join('/')}`,
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

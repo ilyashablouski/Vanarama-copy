@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
 import createApolloClient from '../../../../apolloClient';
 import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import CategoryPageContainer from '../../../../containers/CategoryPageContainer/CategoryPageContainer';
@@ -9,10 +8,6 @@ import { buildStaticPathes, getBlogPosts } from '../../../../utils/pagination';
 import { getMetadataForPagination } from '../../../../utils/url';
 
 const CategoryPage: NextPage<IBlogCategory> = ({ data, error, pageNumber }) => {
-  if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
-
   const articles = getSectionsData(['articles'], data?.blogPosts);
   const pageTitle = getSectionsData(['pageTitle'], data?.blogPosts);
   const metaData = getMetadataForPagination(

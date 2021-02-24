@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
 import SchemaJSON from 'core/atoms/schema-json';
 import { GENERIC_PAGE_TESTIMONIALS } from '../../containers/CustomerTestimonialsContainer/gql';
 import CustomerTestimonialsContainer from '../../containers/CustomerTestimonialsContainer/CustomerTestimonialsContainer';
@@ -20,21 +19,15 @@ interface ICustomerTestimonialPage {
   data: GenericPageTestimonialsQuery | undefined;
   loading: boolean;
   testimonialsData: TestimonialsData | undefined;
-  errorMessage: string | undefined;
 }
 
 const CustomerTestimonialPage: NextPage<ICustomerTestimonialPage> = ({
   data,
   loading,
   testimonialsData,
-  errorMessage,
 }) => {
   if (loading) {
     return <Loading size="large" />;
-  }
-
-  if (errorMessage || !data) {
-    return <DefaultErrorPage statusCode={404} />;
   }
 
   const metaDataName = getSectionsData(['metaData', 'name'], data?.genericPage);
@@ -86,19 +79,17 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     ]);
     const error =
       genericTestimonialsPageQuery.error || testimonialsDataQuery.error;
+    if (error) {
+      throw new Error(error.message);
+    }
     return {
       props: {
         data: genericTestimonialsPageQuery.data,
         testimonialsData: testimonialsDataQuery.data,
-        error: error?.message || null,
       },
     };
-  } catch (error) {
-    return {
-      props: {
-        error: error.message,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 
