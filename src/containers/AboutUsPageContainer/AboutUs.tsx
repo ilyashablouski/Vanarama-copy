@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import dynamic from 'next/dynamic';
-import { ApolloError } from '@apollo/client';
 import Carousel from 'core/organisms/carousel';
 import { ABOUT_US_MEET_SECTION_NAMES } from './config';
 import {
