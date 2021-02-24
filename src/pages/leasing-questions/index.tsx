@@ -1,4 +1,3 @@
-import DefaultErrorPage from 'next/error';
 import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
@@ -15,9 +14,9 @@ const LeasingQuestionsContainer = dynamic(
   },
 );
 
-const FinanceInfo: NextPage<IGenericPage> = ({ data, error }) => {
-  if (error || !data?.genericPage) {
-    return <DefaultErrorPage statusCode={404} />;
+const FinanceInfo: NextPage<IGenericPage> = ({ data }) => {
+  if (!data?.genericPage) {
+    return <></>;
   }
 
   return <LeasingQuestionsContainer data={data} />;
@@ -33,18 +32,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'leasing-questions',
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

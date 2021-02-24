@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
@@ -13,14 +12,9 @@ import { BlogPosts } from '../../../../../generated/BlogPosts';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
-  error,
-  blogPosts,
-  blogPostsError,
-}) => {
-  if (error || blogPostsError || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
 
+  blogPosts,
+}) => {
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
   const body = getSectionsData(['body'], data?.blogPost);
   const name = getSectionsData(['metaData', 'name'], data?.blogPost);
@@ -93,20 +87,17 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       getSectionsData(['blogPosts', 'articles'], blogPosts),
       `/blog/national-league/${context?.params?.articles}`,
     );
+    if (errors || blogPostsError) {
+      throw new Error(errors?.[0].message) || blogPostsError?.[0].message;
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
         blogPosts: newBlogPosts,
-        blogPostsError: blogPostsError ? blogPostsError[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

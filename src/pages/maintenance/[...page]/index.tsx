@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import DefaultErrorPage from 'next/error';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
 import createApolloClient from '../../../apolloClient';
@@ -16,9 +15,9 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const MaintenancePage: NextPage<IGenericPage> = ({ data, error, loading }) => {
-  if (error || !data?.genericPage) {
-    return <DefaultErrorPage statusCode={404} />;
+const MaintenancePage: NextPage<IGenericPage> = ({ data, loading }) => {
+  if (!data?.genericPage) {
+    return <></>;
   }
 
   if (loading) {
@@ -55,18 +54,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: `maintenance/${paths?.join('/')}`,
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

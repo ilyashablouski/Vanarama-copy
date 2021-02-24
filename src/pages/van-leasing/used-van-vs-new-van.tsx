@@ -6,8 +6,7 @@ import createApolloClient from '../../apolloClient';
 const ReferAFriendReferredPage: NextPage<IGenericPage> = ({
   data,
   loading,
-  error,
-}) => <SimplePageContainer data={data} loading={loading} error={error} />;
+}) => <SimplePageContainer data={data} loading={loading} />;
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
@@ -19,18 +18,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'van-leasing/used-van-vs-new-van',
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

@@ -1,6 +1,5 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React from 'react';
-import DefaultErrorPage from 'next/error';
 import { ApolloError } from '@apollo/client';
 import FleetLandingPage from '../../containers/FleetPageContainer';
 import createApolloClient from '../../apolloClient';
@@ -12,11 +11,7 @@ interface IFleetPage {
   error: ApolloError | undefined;
 }
 
-const FleetPage: NextPage<IFleetPage> = ({ data, error }) => {
-  if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
-
+const FleetPage: NextPage<IFleetPage> = ({ data }) => {
   return <FleetLandingPage data={data} />;
 };
 
@@ -26,18 +21,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const { data, errors } = await client.query({
       query: GET_FLEET_PAGE_CONTENT,
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 
