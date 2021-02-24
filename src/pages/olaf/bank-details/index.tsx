@@ -63,10 +63,10 @@ const BankDetailsPage: NextPage = () => {
           ],
         }),
       },
-    });
-    const params = getUrlParam({ uuid: personUuid });
-    const url = `/olaf/summary${params}`;
-    router.push(url, url);
+    })
+      .then(() => getUrlParam({ uuid: personUuid }))
+      .then(params => `/olaf/summary${params}`)
+      .then(url => router.push(url, url));
   };
 
   return (
