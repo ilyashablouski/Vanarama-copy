@@ -156,59 +156,61 @@ const AboutYouPage: NextPage = () => {
     pushAboutYouDataLayer(detailsData, derivativeData);
     await refetch({
       uuid: createUpdatePerson.uuid,
-    }).then(resp =>
-      updateOrderHandle({
-        variables: {
-          input: {
-            personUuid: personUuid || '',
-            leaseType: order?.leaseType || LeaseTypeEnum.PERSONAL,
-            lineItems: order?.lineItems || [
-              {
-                quantity: 1,
-              },
-            ],
-            partyUuid: resp.data?.personByUuid?.partyUuid,
-            uuid: orderId,
-          },
-        },
-      })
-        .then(response =>
-          localForage.setItem<string | undefined>(
-            'orderId',
-            response.data?.createUpdateOrder?.uuid,
-          ),
-        )
-        .then(savedOrderId =>
-          createUpdateCA({
-            variables: {
-              input: formValuesToInputCreditApplication({
-                ...creditApplication,
-                orderUuid: savedOrderId || '',
-                aboutDetails: createUpdatePerson,
-                creditApplicationType: CATypeEnum.B2C_PERSONAL,
-              }),
+    })
+      .then(resp =>
+        updateOrderHandle({
+          variables: {
+            input: {
+              personUuid: personUuid || '',
+              leaseType: order?.leaseType || LeaseTypeEnum.PERSONAL,
+              lineItems: order?.lineItems || [
+                {
+                  quantity: 1,
+                },
+              ],
+              partyUuid: resp.data?.personByUuid?.partyUuid,
+              uuid: orderId,
             },
-          }),
-        ),
-    );
-
-    client.writeQuery({
-      query: gql`
-        query WriteCachedPersonInformation {
-          uuid @client
-        }
-      `,
-      data: {
-        uuid: personUuid,
-      },
-    });
-    const params = getUrlParam({ uuid: createUpdatePerson.uuid });
-    const url =
-      router.query.redirect === 'summary'
-        ? `/olaf/summary${params}`
-        : `/olaf/address-history${params}`;
-
-    router.push(url, url);
+          },
+        })
+          .then(response =>
+            localForage.setItem<string | undefined>(
+              'orderId',
+              response.data?.createUpdateOrder?.uuid,
+            ),
+          )
+          .then(savedOrderId =>
+            createUpdateCA({
+              variables: {
+                input: formValuesToInputCreditApplication({
+                  ...creditApplication,
+                  orderUuid: savedOrderId || '',
+                  aboutDetails: createUpdatePerson,
+                  creditApplicationType: CATypeEnum.B2C_PERSONAL,
+                }),
+              },
+            }),
+          ),
+      )
+      .then(() =>
+        client.writeQuery({
+          query: gql`
+            query WriteCachedPersonInformation {
+              uuid @client
+            }
+          `,
+          data: {
+            uuid: personUuid,
+          },
+        }),
+      )
+      .then(() => getUrlParam({ uuid: createUpdatePerson.uuid }))
+      .then(params =>
+        router.query.redirect === 'summary'
+          ? `/olaf/summary${params}`
+          : `/olaf/address-history${params}`,
+      )
+      .then(url => router.push(url, url));
   };
 
   const handleRegistrationClick = () =>
