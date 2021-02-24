@@ -113,6 +113,7 @@ export interface GetFleetLandingPage_fleetLandingPage_sections_hero_image {
 export interface GetFleetLandingPage_fleetLandingPage_sections_hero_heroLabel_link {
   text: string | null;
   url: string | null;
+  visible: boolean | null;
 }
 
 export interface GetFleetLandingPage_fleetLandingPage_sections_hero_heroLabel {

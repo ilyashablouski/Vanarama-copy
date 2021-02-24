@@ -96,6 +96,7 @@ const GET_FLEET_PAGE_CONTENT = gql`
             link {
               text
               url
+              visible
             }
           }
         }

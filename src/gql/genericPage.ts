@@ -134,6 +134,7 @@ export const GENERIC_PAGE = gql`
             link {
               text
               url
+              visible
             }
           }
         }

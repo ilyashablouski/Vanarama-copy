@@ -1,22 +1,25 @@
 import React from 'react';
 import Heading from 'core/atoms/heading';
 import RouterLink from '../RouterLink/RouterLink';
-import Skeleton from '../Skeleton';
 
 interface IHeroPromptProps {
   text: string;
   label: string;
   url: string;
+  btnVisible?: boolean | null;
 }
 
-const HeroPrompt: React.FC<IHeroPromptProps> = ({ text, label, url }) => {
-  if (!text) return <Skeleton count={2} />;
-
-  return (
-    <div className="hero-prompt">
-      <Heading tag="p" size="regular" color="black">
-        {text}
-      </Heading>
+const HeroPrompt: React.FC<IHeroPromptProps> = ({
+  text,
+  label,
+  url,
+  btnVisible,
+}) => (
+  <div className="hero-prompt">
+    <Heading tag="p" size="regular" color="black">
+      {text}
+    </Heading>
+    {btnVisible && (
       <RouterLink
         link={{
           href: url,
@@ -29,8 +32,8 @@ const HeroPrompt: React.FC<IHeroPromptProps> = ({ text, label, url }) => {
       >
         <div className="button--inner">{label}</div>
       </RouterLink>
-    </div>
-  );
-};
+    )}
+  </div>
+);
 
 export default React.memo(HeroPrompt);

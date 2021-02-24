@@ -129,6 +129,7 @@ export interface GenericPageQuery_genericPage_sections_hero_heroCard {
 export interface GenericPageQuery_genericPage_sections_hero_heroLabel_link {
   text: string | null;
   url: string | null;
+  visible: boolean | null;
 }
 
 export interface GenericPageQuery_genericPage_sections_hero_heroLabel {

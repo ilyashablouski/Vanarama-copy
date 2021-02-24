@@ -16,7 +16,11 @@ import {
 } from '../../../generated/HubCarPageData';
 import { HUB_CAR_CONTENT } from '../../gql/hub/hubCarPage';
 import createApolloClient from '../../apolloClient';
-import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
+import Hero, {
+  HeroTitle,
+  HeroHeading,
+  HeroPrompt,
+} from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import truncateString from '../../utils/truncateString';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -127,18 +131,34 @@ export const CarsPage: NextPage<IProps> = ({
         <br />
         <HeroTitle text={data?.hubCarPage.sections?.hero?.body || ''} />
         <br />
-        <Image
-          loadImage
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          optimisationOptions={optimisationOptions}
-          className="hero--image"
-          plain
-          size="expand"
-          src={
-            data?.hubCarPage.sections?.hero?.image?.file?.url ||
-            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
-          }
-        />
+        <div>
+          <Image
+            loadImage
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            optimisationOptions={optimisationOptions}
+            className="hero--image"
+            plain
+            size="expand"
+            src={
+              data?.hubCarPage.sections?.hero?.image?.file?.url ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+            }
+          />
+        </div>
+        {data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.visible && (
+          <HeroPrompt
+            label={
+              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
+            }
+            url={
+              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
+            }
+            text={data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.text || ''}
+            btnVisible={
+              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.visible
+            }
+          />
+        )}
       </Hero>
 
       <section className="row:lead-text">

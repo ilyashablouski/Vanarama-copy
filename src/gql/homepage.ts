@@ -47,6 +47,7 @@ const ALL_HOME_CONTENT = gql`
             link {
               text
               url
+              visible
             }
           }
         }

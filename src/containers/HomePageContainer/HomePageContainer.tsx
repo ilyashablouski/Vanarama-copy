@@ -186,6 +186,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             }
             url={data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.url || ''}
             text={data?.homePage.sections?.hero?.heroLabel?.[0]?.text || ''}
+            btnVisible={
+              data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.visible
+            }
           />
         )}
       </Hero>
