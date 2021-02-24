@@ -1,6 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
-import { ApolloError } from '@apollo/client';
 import InsurancePageContainer from '../../containers/InsurancePageContainer/InsurancePageContainer';
 import createApolloClient from '../../apolloClient';
 import GET_INSURANCE_LANDING_PAGE from '../../containers/InsurancePageContainer/gql';

@@ -1,4 +1,3 @@
-import DefaultErrorPage from 'next/error';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../components/Skeleton';

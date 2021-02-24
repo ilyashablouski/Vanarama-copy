@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import DefaultErrorPage from 'next/error';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
 import createApolloClient from '../../../apolloClient';

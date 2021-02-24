@@ -7,7 +7,7 @@ import { IBlogCategory } from '../../../../models/IBlogsProps';
 import { buildStaticPathes, getBlogPosts } from '../../../../utils/pagination';
 import { getMetadataForPagination } from '../../../../utils/url';
 
-const CategoryPage: NextPage<IBlogCategory> = ({ data, error, pageNumber }) => {
+const CategoryPage: NextPage<IBlogCategory> = ({ data, pageNumber }) => {
   const articles = getSectionsData(['articles'], data?.blogPosts);
   const pageTitle = getSectionsData(['pageTitle'], data?.blogPosts);
   const metaData = getMetadataForPagination(

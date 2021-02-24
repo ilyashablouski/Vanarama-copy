@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import { ApolloError } from '@apollo/client';
 import SchemaJSON from 'core/atoms/schema-json';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../../../components/Skeleton';
