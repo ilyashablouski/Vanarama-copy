@@ -7,11 +7,11 @@ import {
 } from '../../../generated/vehicleList';
 import { rangeList, rangeListVariables } from '../../../generated/rangeList';
 import {
-  VehicleTypeEnum,
-  RateInputObject,
-  SortField,
   LeaseTypeEnum,
+  RateInputObject,
   SortDirection,
+  SortField,
+  VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import {
   RangesImages,
@@ -43,10 +43,9 @@ export const GET_VEHICLE_LIST = gql`
     $bodyStyles: [String!]
     $transmissions: [String!]
     $fuelTypes: [String!]
-    $sortField: SortField!
     $first: Int
-    $sortDirection: SortDirection!
     $leaseType: LeaseTypeEnum
+    $sort: [SortObject!]
   ) {
     vehicleList(
       first: $first
@@ -62,7 +61,7 @@ export const GET_VEHICLE_LIST = gql`
         fuelTypes: $fuelTypes
         leaseType: $leaseType
       }
-      sort: { field: $sortField, direction: $sortDirection }
+      sort: $sort
     ) {
       totalCount
       pageInfo {
@@ -131,8 +130,9 @@ export function useVehiclesList(
       bodyStyles: bodyStyles?.[0] ? bodyStyles : undefined,
       transmissions,
       fuelTypes,
-      sortField: onOffer ? SortField.offerRanking : savedSortOrder.type,
-      sortDirection: onOffer ? SortDirection.ASC : savedSortOrder.direction,
+      sort: onOffer
+        ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
+        : savedSortOrder,
       first,
     },
     fetchPolicy: 'cache-and-network',

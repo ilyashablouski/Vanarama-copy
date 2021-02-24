@@ -3,8 +3,8 @@ import { useRouter } from 'next/router';
 import { useEffect, useRef } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
 import {
-  GET_RANGES,
   GET_LEGACY_URLS,
+  GET_RANGES,
   GET_VEHICLE_LIST,
 } from '../../../containers/SearchPageContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
@@ -16,6 +16,7 @@ import {
   dynamicQueryTypeCheck,
   fuelMapper,
   getCapsIds,
+  sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../../containers/SearchPageContainer';
@@ -30,6 +31,7 @@ import {
   LeaseTypeEnum,
   SortDirection,
   SortField,
+  SortObject,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
 import { filterList_filterList as IFilterList } from '../../../../generated/filterList';
@@ -59,6 +61,7 @@ interface IProps extends ISearchPageProps {
   responseCapIds?: string[];
   topOffersList?: vehicleList;
   topOffersCardsData?: GetProductCard;
+  defaultSort?: SortObject[];
 }
 
 const Page: NextPage<IProps> = ({
@@ -76,6 +79,7 @@ const Page: NextPage<IProps> = ({
   notFoundPageData,
   topOffersList,
   topOffersCardsData,
+  defaultSort,
 }) => {
   const router = useRouter();
   /** using for dynamically change type when we navigate between different page type (exp. make -> budget) */
@@ -131,6 +135,7 @@ const Page: NextPage<IProps> = ({
       preLoadResponseCapIds={responseCapIds}
       preLoadTopOffersList={topOffersList}
       preLoadTopOffersCardsData={topOffersCardsData}
+      defaultSort={defaultSort}
     />
   );
 };
@@ -143,6 +148,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let topOffersCardsData;
   let productCardsData;
   let responseCapIds;
+  let defaultSort;
   const filter = {} as any;
   const pageType = dynamicQueryTypeCheck(query.dynamicParam as string);
   const { isBodyStylePage, isFuelType, isBudgetType } = pageType;
@@ -170,6 +176,16 @@ export async function getServerSideProps(context: NextPageContext) {
     }
     // length should be 2, because we added manually query param for dynamic param
     // it's use for correct filters preselect
+    defaultSort = sortObjectGenerator([
+      {
+        field: SortField.offerRanking,
+        direction: SortDirection.ASC,
+      },
+      {
+        field: SortField.availability,
+        direction: SortDirection.ASC,
+      },
+    ]);
     if (Object.keys(context.query).length === 2) {
       vehiclesList = await client
         .query({
@@ -179,8 +195,7 @@ export async function getServerSideProps(context: NextPageContext) {
             leaseType: LeaseTypeEnum.PERSONAL,
             onOffer: null,
             first: 12,
-            sortField: SortField.availability,
-            sortDirection: SortDirection.ASC,
+            sort: defaultSort,
             ...filter,
           },
         })
@@ -251,8 +266,7 @@ export async function getServerSideProps(context: NextPageContext) {
         leaseType: LeaseTypeEnum.PERSONAL,
         onOffer: true,
         first: pageType.isMakePage ? 6 : 3,
-        sortField: SortField.offerRanking,
-        sortDirection: SortDirection.ASC,
+        sort: [{ field: SortField.offerRanking, direction: SortDirection.ASC }],
         ...filter,
       },
     })
@@ -298,6 +312,7 @@ export async function getServerSideProps(context: NextPageContext) {
         topOffersList: topOffersList || null,
         topOffersCardsData: topOffersCardsData || null,
         ranges: ranges || null,
+        defaultSort: defaultSort || null,
         rangesUrls: rangesUrls || null,
         error: errors ? errors[0] : null,
       },

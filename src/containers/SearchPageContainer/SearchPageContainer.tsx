@@ -27,6 +27,7 @@ import {
   SortField,
   LeaseTypeEnum,
   SortDirection,
+  SortObject,
 } from '../../../generated/globalTypes';
 import {
   buildRewriteRoute,
@@ -34,6 +35,7 @@ import {
   fuelMapper,
   getCapsIds,
   onMadeLineBreaks,
+  sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from './helpers';
 import {
@@ -127,6 +129,7 @@ interface IProps {
   preloadBodyStyleList?: IModelsData[];
   preloadRange?: string;
   preloadMake?: string;
+  defaultSort?: SortObject[];
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -159,6 +162,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   preloadRange,
   preLoadTopOffersList,
   preLoadTopOffersCardsData,
+  defaultSort,
 }: IProps) => {
   const client = useApolloClient();
   const router = useRouter();
@@ -222,14 +226,16 @@ const SearchPageContainer: React.FC<IProps> = ({
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
   const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
   const [isSpecialOffers, setIsSpecialOffers] = useState(
-    isSpecialOfferPage ? true : getValueFromStorage(isServer) ?? true,
+    isSpecialOfferPage
+      ? true
+      : getValueFromStorage(isServer) ?? isSimpleSearchPage,
   );
   const [totalCount, setTotalCount] = useState(
     isMakePage
       ? preLoadRanges?.rangeList?.length || 0
       : preLoadVehiclesList?.vehicleList.totalCount || 0,
   );
-  const { savedSortOrder, saveSortOrder } = useSortOrder();
+  const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
   const [sortOrder, setSortOrder] = useState(savedSortOrder);
   const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(
     isSpecialOffers,
@@ -444,12 +450,9 @@ const SearchPageContainer: React.FC<IProps> = ({
             : LeaseTypeEnum.BUSINESS,
           onOffer,
           ...filters,
-          sortField: isSpecialOffersOrder
-            ? SortField.offerRanking
-            : sortOrder.type,
-          sortDirection: isSpecialOffersOrder
-            ? SortDirection.ASC
-            : sortOrder.direction,
+          sort: isSpecialOffersOrder
+            ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
+            : sortOrder,
           ...{
             bodyStyles:
               isPickups || isModelPage || isBodyStylePage
@@ -626,12 +629,9 @@ const SearchPageContainer: React.FC<IProps> = ({
             : null,
           after: lastCard,
           ...filtersData,
-          sortField: isSpecialOffersOrder
-            ? SortField.offerRanking
-            : sortOrder.type,
-          sortDirection: isSpecialOffersOrder
-            ? SortDirection.ASC
-            : sortOrder.direction,
+          sort: isSpecialOffersOrder
+            ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
+            : sortOrder,
         },
       });
     }
@@ -647,8 +647,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isRangePage,
     isModelPage,
     isDynamicFilterPage,
-    sortOrder.direction,
-    sortOrder.type,
+    sortOrder,
     isSpecialOffersOrder,
     isPersonal,
     isSpecialOfferPage,
@@ -669,11 +668,16 @@ const SearchPageContainer: React.FC<IProps> = ({
   // handler for changing sort dropdown
   const onChangeSortOrder = (value: string) => {
     const [type, direction] = value.split('_');
-    setSortOrder({ type, direction });
-    saveSortOrder({
-      type: type as SortField,
-      direction: direction as SortDirection,
-    });
+    setSortOrder(
+      sortObjectGenerator([
+        { field: type as SortField, direction: direction as SortDirection },
+      ]),
+    );
+    saveSortOrder(
+      sortObjectGenerator([
+        { field: type as SortField, direction: direction as SortDirection },
+      ]),
+    );
     if (isSpecialOffersOrder) {
       setIsSpecialOffersOrder(false);
     }
@@ -988,7 +992,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           {!(isAllMakesPage && isMakePage) && (
             <SortOrder
               isSpecialOffersOrder={isSpecialOffersOrder}
-              sortOrder={sortOrder}
+              sortOrder={sortOrder[0]}
               onChangeSortOrder={onChangeSortOrder}
             />
           )}
