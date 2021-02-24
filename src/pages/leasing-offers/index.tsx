@@ -346,8 +346,8 @@ export async function getStaticProps() {
         vehicleListUrlData,
       },
     };
-  } catch {
-    return false;
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

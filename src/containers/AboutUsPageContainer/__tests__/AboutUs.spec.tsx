@@ -1,7 +1,6 @@
 import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import renderer from 'react-test-renderer';
-import { ApolloError } from '@apollo/client';
 import AboutUs from '../AboutUs';
 import { GetAboutUsPageData_aboutUsLandingPage as AboutUsLandingPage } from '../../../../generated/GetAboutUsPageData';
 
@@ -112,13 +111,7 @@ describe('<AboutUs />', () => {
   it('renders correctly with data', async () => {
     const getComponent = () => {
       return renderer
-        .create(
-          <AboutUs
-            data={mockData.data}
-            loading={mockData.loading}
-            error={mockData.error}
-          />,
-        )
+        .create(<AboutUs data={mockData.data} loading={mockData.loading} />)
         .toJSON();
     };
 
@@ -126,28 +119,9 @@ describe('<AboutUs />', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  it('renders correctly with error', async () => {
-    const getComponent = () => {
-      return renderer
-        .create(
-          <AboutUs
-            data={mockData.data}
-            loading={mockData.loading}
-            error={{ message: 'Error' } as ApolloError}
-          />,
-        )
-        .toJSON();
-    };
-
-    const tree = getComponent();
-    expect(tree).toMatchSnapshot();
-  });
-
   it('renders correctly with loading', async () => {
     const getComponent = () => {
-      return renderer
-        .create(<AboutUs data={mockData.data} loading error={mockData.error} />)
-        .toJSON();
+      return renderer.create(<AboutUs data={mockData.data} loading />).toJSON();
     };
 
     const tree = getComponent();

@@ -870,8 +870,8 @@ export async function getStaticProps() {
         offer,
       },
     };
-  } catch {
-    return false;
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

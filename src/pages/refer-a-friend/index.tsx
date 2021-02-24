@@ -1,4 +1,3 @@
-import DefaultErrorPage from 'next/error';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../components/Skeleton';
@@ -10,11 +9,7 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const ReferAFriendPage: NextPage<IGenericPage> = ({ data, error, loading }) => {
-  if (error || !data?.genericPage) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
-
+const ReferAFriendPage: NextPage<IGenericPage> = ({ data, loading }) => {
   if (loading) {
     return <Loading size="large" />;
   }
@@ -32,18 +27,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'refer-a-friend',
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

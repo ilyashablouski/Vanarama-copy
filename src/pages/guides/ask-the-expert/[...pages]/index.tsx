@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
 import React from 'react';
 import createApolloClient from '../../../../apolloClient';
 import { PAGE_COLLECTION } from '../../../../gql/pageCollection';
@@ -11,11 +10,7 @@ import {
 } from '../../../../../generated/PageCollection';
 import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
 
-const AskTheExpertPage: NextPage<IGenericPage> = ({ data, error }) => {
-  if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
-
+const AskTheExpertPage: NextPage<IGenericPage> = ({ data }) => {
   return <SimplePageContainer data={data} />;
 };
 
@@ -46,18 +41,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: `guides/ask-the-expert/${paths?.join('/')}`,
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 
