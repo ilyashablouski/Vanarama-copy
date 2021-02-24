@@ -53,14 +53,14 @@ const AddressHistoryPage: NextPage = () => {
           addresses: createUpdateAddress,
         }),
       },
-    });
-    const params = getUrlParam({ uuid });
-    const url =
-      router.query.redirect === 'summary'
-        ? `/olaf/summary${params}`
-        : `/olaf/employment-history${params}`;
-
-    router.push(url, url);
+    })
+      .then(() => getUrlParam({ uuid }))
+      .then(params =>
+        router.query.redirect === 'summary'
+          ? `/olaf/summary${params}`
+          : `/olaf/employment-history${params}`,
+      )
+      .then(url => router.push(url, url));
   };
 
   return (
