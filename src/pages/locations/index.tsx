@@ -2,7 +2,6 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
-import DefaultErrorPage from 'next/error';
 import { GenericPageQuery_genericPage_sections_cards_cards as ICard } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import getTitleTag from '../../utils/getTitleTag';
@@ -34,17 +33,13 @@ const Breadcrumb = dynamic(
   },
 );
 
-export const LocationsPage: NextPage<IGenericPage> = ({
-  data,
-  loading,
-  error,
-}) => {
+export const LocationsPage: NextPage<IGenericPage> = ({ data, loading }) => {
   if (loading) {
     return <Loading size="large" />;
   }
 
-  if (error || !data?.genericPage) {
-    return <DefaultErrorPage statusCode={404} />;
+  if (!data?.genericPage) {
+    return <></>;
   }
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
@@ -141,18 +136,17 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'locations',
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
         error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

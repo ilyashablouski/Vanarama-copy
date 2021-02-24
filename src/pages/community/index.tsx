@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import BlogPostContainer from '../../containers/BlogPostContainer/BlogPostContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -11,11 +10,7 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const CommunityPage: NextPage<IGenericPage> = ({ data, error, loading }) => {
-  if (error || !data?.genericPage) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
-
+const CommunityPage: NextPage<IGenericPage> = ({ data, loading }) => {
   if (loading) {
     return <Loading size="large" />;
   }
@@ -56,18 +51,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'community',
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

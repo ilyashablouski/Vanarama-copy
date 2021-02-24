@@ -1,6 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import { ApolloError } from '@apollo/client';
-import DefaultErrorPage from 'next/error';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import SimplePageContainer from '../../../containers/SimplePageContainer/SimplePageContainer';
 import createApolloClient from '../../../apolloClient';
@@ -15,33 +13,34 @@ import {
 interface IAboutUsPage {
   data: GenericPageQuery | undefined;
   loading: boolean;
-  error: ApolloError | undefined;
 }
 
-const AboutUsPage: NextPage<IAboutUsPage> = ({ data, error }) => {
-  if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
-
-  return <SimplePageContainer data={data} loading={!data} error={error} />;
+const AboutUsPage: NextPage<IAboutUsPage> = ({ data }) => {
+  return <SimplePageContainer data={data} loading={!data} />;
 };
 
 export async function getStaticPaths() {
   const client = createApolloClient({});
-  const { data } = await client.query<PageCollection, PageCollectionVariables>({
-    query: PAGE_COLLECTION,
-    variables: {
-      pageType: 'About Us',
-    },
-  });
-  const items = data?.pageCollection?.items;
-
-  return {
-    paths: getPathsFromPageCollection(items, 'about-us', [
-      '/customer-testimonials',
-    ]),
-    fallback: false,
-  };
+  try {
+    const { data } = await client.query<
+      PageCollection,
+      PageCollectionVariables
+    >({
+      query: PAGE_COLLECTION,
+      variables: {
+        pageType: 'About Us',
+      },
+    });
+    const items = data?.pageCollection?.items;
+    return {
+      paths: getPathsFromPageCollection(items, 'about-us', [
+        '/customer-testimonials',
+      ]),
+      fallback: false,
+    };
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
@@ -55,18 +54,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: `about-us/${paths?.join('/')}`,
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

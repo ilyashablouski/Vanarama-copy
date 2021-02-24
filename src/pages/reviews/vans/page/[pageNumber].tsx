@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -8,14 +7,6 @@ import { GENERIC_PAGE_QUESTION_HUB } from '../../../../containers/VehicleReviewC
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import { ReviewsHubCategoryQuery } from '../../../../../generated/ReviewsHubCategoryQuery';
 import Head from '../../../../components/Head/Head';
-import Skeleton from '../../../../components/Skeleton';
-
-const ErrorMessage = dynamic(
-  () => import('../../../../components/ErrorMessage/ErrorMessage'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 
 export interface IReviewHubPage {
   data: ReviewsHubCategoryQuery | undefined;
@@ -23,11 +14,7 @@ export interface IReviewHubPage {
   pageNumber?: number;
 }
 
-const ReviewHub: NextPage<IReviewHubPage> = ({ data, error, pageNumber }) => {
-  if (error) {
-    return <ErrorMessage message={error.message} />;
-  }
-
+const ReviewHub: NextPage<IReviewHubPage> = ({ data, pageNumber }) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
@@ -75,31 +62,33 @@ export async function getStaticPaths() {
       paths,
       fallback: false,
     };
-  } catch {
-    return {
-      paths: [],
-      fallback: false,
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   const client = createApolloClient({}, context as NextPageContext);
-
-  const { data, error } = await client.query({
-    query: GENERIC_PAGE_QUESTION_HUB,
-    variables: {
-      slug: 'reviews/vans',
-    },
-  });
-  return {
-    props: {
-      data,
-      error: error || null,
-      pageNumber:
-        parseInt((context?.params?.pageNumber as string) || '', 10) || null,
-    },
-  };
+  try {
+    const { data, error } = await client.query({
+      query: GENERIC_PAGE_QUESTION_HUB,
+      variables: {
+        slug: 'reviews/vans',
+      },
+    });
+    if (error) {
+      throw new Error(error.message);
+    }
+    return {
+      props: {
+        data,
+        pageNumber:
+          parseInt((context?.params?.pageNumber as string) || '', 10) || null,
+      },
+    };
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 
 export default ReviewHub;

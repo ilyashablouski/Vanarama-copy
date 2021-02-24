@@ -1,6 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import { ApolloError } from '@apollo/client';
-import DefaultErrorPage from 'next/error';
 import SchemaJSON from 'core/atoms/schema-json';
 import dynamic from 'next/dynamic';
 import Skeleton from '../../../../components/Skeleton';
@@ -25,16 +23,11 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 interface IReviewPage {
   data: any;
   loading: boolean;
-  error: ApolloError | undefined;
 }
 
-const ReviewHub: NextPage<IReviewPage> = ({ data, loading, error }) => {
+const ReviewHub: NextPage<IReviewPage> = ({ data, loading }) => {
   if (loading) {
     return <Loading size="large" />;
-  }
-
-  if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
   }
 
   if (data?.reviewsPage) {
@@ -120,18 +113,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: `reviews/vans/${hub?.join('/')}`,
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

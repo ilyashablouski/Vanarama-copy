@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
 import SchemaJSON from 'core/atoms/schema-json';
 import FinanceInformationExplainedContainer from '../../../containers/FinanceInformationExplainedContainer/FinanceInfromationExplainedContainer';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
@@ -16,9 +15,9 @@ import {
 } from '../../../../generated/PageCollection';
 import Head from '../../../components/Head/Head';
 
-const EligibilityChecker: NextPage<IGenericPage> = ({ data, error }) => {
-  if (error || !data?.genericPage) {
-    return <DefaultErrorPage statusCode={404} />;
+const EligibilityChecker: NextPage<IGenericPage> = ({ data }) => {
+  if (!data?.genericPage) {
+    return <></>;
   }
 
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
@@ -122,18 +121,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: `lease-finance/${paths?.join('/')}`,
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 
