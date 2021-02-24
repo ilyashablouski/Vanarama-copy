@@ -989,7 +989,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           <Text color="darker" size="regular" tag="span">
             {`Showing ${totalCount} Results`}
           </Text>
-          {!(isAllMakesPage && isMakePage) && (
+          {!(isAllMakesPage || isMakePage) && (
             <SortOrder
               isSpecialOffersOrder={isSpecialOffersOrder}
               sortOrder={sortOrder[0]}
