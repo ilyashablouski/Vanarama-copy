@@ -479,6 +479,14 @@ export interface SoleTraderCompanyInputObject {
 }
 
 /**
+ * Sort object to order Es
+ */
+export interface SortObject {
+  direction: SortDirection;
+  field: SortField;
+}
+
+/**
  * Input object to create and add a Telephone Number
  */
 export interface TelephoneNumberInputObject {

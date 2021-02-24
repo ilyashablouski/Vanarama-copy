@@ -558,10 +558,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         </p>
       </div>
       <div
-        class="card"
+        class="card -mt-000"
       >
         <form
-          class="form"
+          class="form -full-width-fields"
           data-testid="goldrush-form"
         >
           <div

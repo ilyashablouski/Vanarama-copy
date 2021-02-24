@@ -1,11 +1,11 @@
 import React from 'react';
 import Select from 'core/atoms/select';
 import { sortValues } from './helpers';
-import { ISortOrder } from '../../hooks/useSortOrder';
+import { SortObject } from '../../../generated/globalTypes';
 
 interface IProps {
   isSpecialOffersOrder: boolean;
-  sortOrder: ISortOrder;
+  sortOrder: SortObject;
   onChangeSortOrder: (value: string) => void;
 }
 
@@ -17,7 +17,12 @@ const SortOrder = ({
   return (
     <Select
       value={
-        isSpecialOffersOrder ? '' : `${sortOrder.type}_${sortOrder.direction}`
+        isSpecialOffersOrder ||
+        !sortValues.find(
+          ({ value }) => value === `${sortOrder.field}_${sortOrder.direction}`,
+        )
+          ? ''
+          : `${sortOrder.field}_${sortOrder.direction}`
       }
       onChange={e => onChangeSortOrder(e.target.value)}
     >

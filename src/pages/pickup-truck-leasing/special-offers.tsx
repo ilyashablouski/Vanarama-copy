@@ -74,8 +74,9 @@ export async function getServerSideProps(context: NextPageContext) {
           leaseType: LeaseTypeEnum.BUSINESS,
           onOffer: true,
           first: 12,
-          sortField: SortField.offerRanking,
-          sortDirection: SortDirection.ASC,
+          sort: [
+            { field: SortField.offerRanking, direction: SortDirection.ASC },
+          ],
           bodyStyles: ['Pickup'],
         },
       })
