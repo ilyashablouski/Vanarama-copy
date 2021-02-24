@@ -479,11 +479,11 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       class="row:featured-left"
     >
       <div>
-        <p
+        <h1
           class="heading -black -large"
         >
           Finance Gap Explained
-        </p>
+        </h1>
         <p>
           Vehicle value depreciation could mean there is a risk you will owe more to the Finance Company than the Insurance Company pay-out if the vehicle is written off or stolen. Finance Gap Insurance allows you to insure against the difference (up to a maximum of £20,000) between your Insurance Company pay-out and the amount you owe to the Finance Company. Check out the video below for more information:
         </p>
@@ -556,10 +556,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         </p>
       </div>
       <div
-        class="card"
+        class="card -mt-000"
       >
         <form
-          class="form"
+          class="form -full-width-fields"
           data-testid="goldrush-form"
         >
           <div

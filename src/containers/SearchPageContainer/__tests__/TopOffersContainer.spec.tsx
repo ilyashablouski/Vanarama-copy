@@ -4,7 +4,11 @@ import { render, screen, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import TopOffersContainer from '../TopOffersContainer';
 import { GET_VEHICLE_LIST } from '../gql';
-import { VehicleTypeEnum, SortField } from '../../../../generated/globalTypes';
+import {
+  VehicleTypeEnum,
+  SortField,
+  SortDirection,
+} from '../../../../generated/globalTypes';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 
 const mockData = {
@@ -72,7 +76,7 @@ const mocksResponse: MockedResponse[] = [
         bodyStyles: [],
         first: 3,
         onOffer: true,
-        sortField: SortField.offerRanking,
+        sort: [{ field: SortField.offerRanking, direction: SortDirection.ASC }],
         vehicleTypes: [VehicleTypeEnum.CAR],
       },
     },

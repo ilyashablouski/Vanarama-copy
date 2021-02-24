@@ -24,4 +24,12 @@
       font-weight: 600;
     }
   }
+
+  &.-full-width-fields {
+    max-width: unset;
+    .formgroup, 
+    .formgroup--content {
+      max-width: unset;
+    }
+  }
 }

@@ -7,6 +7,7 @@ import { IBaseProps } from 'core/interfaces/base';
 import RouterLink from '../RouterLink/RouterLink';
 import { IHeaderLink, IHeaderPromoImage } from './Header';
 import Skeleton from '../Skeleton';
+import Label from './Label';
 
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={4} />,
@@ -141,22 +142,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                     {link.label}
 
                     {link.highlightLabel && (
-                      <span
-                        style={{
-                          color: 'white',
-                          backgroundColor: '#ec6409',
-                          fontSize: '11px',
-                          paddingRight: '8px',
-                          paddingLeft: '8px',
-                          paddingTop: '1px',
-                          paddingBottom: '1px',
-                          borderRadius: '4px',
-                          marginLeft: '10px',
-                          display: 'inline-block',
-                        }}
-                      >
-                        {link.highlightLabel}
-                      </span>
+                      <Label text={link.highlightLabel} />
                     )}
                   </button>
                 </>
@@ -179,6 +165,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                     <Icon icon={<FlameSharp />} color="white" size="xsmall" />
                   )}
                   <span>{link.label}</span>
+                  {link.highlightLabel && <Label text={link.highlightLabel} />}
                 </RouterLink>
               )}
             </li>

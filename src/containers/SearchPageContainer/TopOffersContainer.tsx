@@ -152,8 +152,9 @@ const TopOffersContainer: React.FC<IProps> = ({
             ? LeaseTypeEnum.PERSONAL
             : LeaseTypeEnum.BUSINESS,
           onOffer: true,
-          sortField: SortField.offerRanking,
-          sortDirection: SortDirection.ASC,
+          sort: [
+            { field: SortField.offerRanking, direction: SortDirection.ASC },
+          ],
           rate: isBudgetPage
             ? {
                 min:
