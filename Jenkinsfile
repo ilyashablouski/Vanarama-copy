@@ -4,6 +4,7 @@ stack = 'grid'
 taskDefFile = "deploy/aws/task-definition.json"
 dateNow = new Date()
 branchName = "${env.BRANCH_NAME}"
+cloudflareZone = "b5c6ca8c47a2f751ca780000a91202bc"
 
 // Get souce branch name for PR based Jenkins build
 if (branchName =~ /PR-\d+/) {
@@ -529,7 +530,36 @@ pipeline {
               }
             }
           }
-          stage("10. Cut a release?") {
+        stage("10. Clear Coudflare Cache"){
+            agent { node('master') }
+            environment { //todo can the agent determine path.
+              PATH = "${env.PATH}:/usr/local/bin"
+              J_NAME = "${env.JOB_NAME}"
+              B_NUMBER = "${env.BUILD_NUMBER}"
+
+            }
+            when {
+                  beforeAgent true
+                  anyOf {
+                    branch 'develop'
+                    branch 'release/*'
+                    changeRequest target: 'master'
+                  }
+            }
+            steps {
+              script{
+                withCredentials([string(credentialsId: 'cloudflare-nonprod-token', variable: 'CLOUDFLARE_NONPROD_TOKEN')]) {
+                    sh """
+                        curl -X DELETE "https://api.cloudflare.com/client/v4/zones/${cloudflareZone}/purge_cache" \
+                            -H "Authorization: Bearer ${CLOUDFLARE_NONPROD_TOKEN}" \
+                            -H "Content-Type: application/json" \
+                            --data '{"purge_everything":true}'
+                    """
+                }
+              }
+            }
+          }
+          stage("11. Cut a release?") {
             input {
                 message 'Cut a release?'
             }
