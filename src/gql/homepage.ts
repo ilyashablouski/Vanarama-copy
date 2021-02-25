@@ -41,6 +41,15 @@ const ALL_HOME_CONTENT = gql`
               url
             }
           }
+          heroLabel {
+            text
+            visible
+            link {
+              text
+              url
+              visible
+            }
+          }
         }
         leadText {
           heading

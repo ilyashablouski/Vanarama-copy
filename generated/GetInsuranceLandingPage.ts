@@ -238,11 +238,24 @@ export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_hero
   body: string | null;
 }
 
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroLabel_link {
+  text: string | null;
+  url: string | null;
+  visible: boolean | null;
+}
+
+export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroLabel {
+  text: string | null;
+  visible: boolean | null;
+  link: GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroLabel_link | null;
+}
+
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections_hero {
   title: string | null;
   body: string | null;
   image: GetInsuranceLandingPage_insuranceLandingPage_sections_hero_image | null;
   heroCard: (GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard | null)[] | null;
+  heroLabel: (GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroLabel | null)[] | null;
 }
 
 export interface GetInsuranceLandingPage_insuranceLandingPage_sections {

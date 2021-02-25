@@ -3,7 +3,11 @@ import React from 'react';
 import Image from 'core/atoms/image';
 import { GetFleetLandingPage_fleetLandingPage_sections_hero as IHeroData } from '../../../../generated/GetFleetLandingPage';
 import config from '../config';
-import Hero, { HeroTitle, HeroHeading } from '../../../components/Hero';
+import Hero, {
+  HeroTitle,
+  HeroHeading,
+  HeroPrompt,
+} from '../../../components/Hero';
 // import Skeleton from '../../../components/Skeleton';
 
 // const Image = dynamic(
@@ -33,20 +37,30 @@ const optimisationOptions = {
   quality: 59,
 };
 
-const HeroSection = ({ title, body, image }: IHeroData) => (
+const HeroSection = ({ title, body, image, heroLabel }: IHeroData) => (
   <Hero withRequestCallbackForm>
     <HeroHeading text={title || ''} />
     <HeroTitle text={body || ''} />
-    <Image
-      loadImage
-      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-      optimisationOptions={optimisationOptions}
-      dataTestId="fleet_hero-image"
-      size="expand"
-      src={image?.file?.url || config.heroImage.src}
-      plain
-      className="hero--image"
-    />
+    <div>
+      <Image
+        loadImage
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+        optimisationOptions={optimisationOptions}
+        dataTestId="fleet_hero-image"
+        size="expand"
+        src={image?.file?.url || config.heroImage.src}
+        plain
+        className="hero--image"
+      />
+    </div>
+    {heroLabel?.[0]?.visible && (
+      <HeroPrompt
+        label={heroLabel?.[0]?.link?.text || ''}
+        url={heroLabel?.[0]?.link?.url || ''}
+        text={heroLabel?.[0]?.text || ''}
+        btnVisible={heroLabel?.[0]?.link?.visible}
+      />
+    )}
   </Hero>
 );
 

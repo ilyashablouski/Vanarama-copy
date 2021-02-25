@@ -35,6 +35,15 @@ const HUB_CAR_CONTENT = gql`
               url
             }
           }
+          heroLabel {
+            text
+            visible
+            link {
+              text
+              url
+              visible
+            }
+          }
         }
         leadText {
           heading
