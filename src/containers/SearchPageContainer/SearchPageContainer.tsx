@@ -1087,8 +1087,8 @@ const SearchPageContainer: React.FC<IProps> = ({
       </div>
 
       {isSpecialOfferPage && isCarSearch && featured && (
-        <section className="row:featured-right">
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <section className="row:featured-right">
             {!featured?.layout?.includes('Full Width') && (
               <Image
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -1141,13 +1141,13 @@ const SearchPageContainer: React.FC<IProps> = ({
                 />
               )}
             </div>
-          </LazyLoadComponent>
-        </section>
+          </section>
+        </LazyLoadComponent>
       )}
 
       {pageData?.genericPage?.sections?.featured2?.body && (
-        <div className="row:text">
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <div className="row:text">
             <Heading tag="h2" size="large" color="black" className="-mb-300">
               {pageData.genericPage.sections.featured2.title}
             </Heading>
@@ -1181,8 +1181,8 @@ const SearchPageContainer: React.FC<IProps> = ({
                 }}
               />
             </Text>
-          </LazyLoadComponent>
-        </div>
+          </div>
+        </LazyLoadComponent>
       )}
 
       {isDynamicFilterPage && tiles?.tiles?.length && (
