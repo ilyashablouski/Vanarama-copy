@@ -38,11 +38,24 @@ export interface HubCarPageData_hubCarPage_sections_hero_image {
   file: HubCarPageData_hubCarPage_sections_hero_image_file | null;
 }
 
+export interface HubCarPageData_hubCarPage_sections_hero_heroLabel_link {
+  text: string | null;
+  url: string | null;
+  visible: boolean | null;
+}
+
+export interface HubCarPageData_hubCarPage_sections_hero_heroLabel {
+  text: string | null;
+  visible: boolean | null;
+  link: HubCarPageData_hubCarPage_sections_hero_heroLabel_link | null;
+}
+
 export interface HubCarPageData_hubCarPage_sections_hero {
   title: string | null;
   titleTag: string | null;
   body: string | null;
   image: HubCarPageData_hubCarPage_sections_hero_image | null;
+  heroLabel: (HubCarPageData_hubCarPage_sections_hero_heroLabel | null)[] | null;
 }
 
 export interface HubCarPageData_hubCarPage_sections_leadText {

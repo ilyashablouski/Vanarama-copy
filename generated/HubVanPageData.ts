@@ -38,11 +38,24 @@ export interface HubVanPageData_hubVanPage_sections_hero_image {
   file: HubVanPageData_hubVanPage_sections_hero_image_file | null;
 }
 
+export interface HubVanPageData_hubVanPage_sections_hero_heroLabel_link {
+  text: string | null;
+  url: string | null;
+  visible: boolean | null;
+}
+
+export interface HubVanPageData_hubVanPage_sections_hero_heroLabel {
+  text: string | null;
+  visible: boolean | null;
+  link: HubVanPageData_hubVanPage_sections_hero_heroLabel_link | null;
+}
+
 export interface HubVanPageData_hubVanPage_sections_hero {
   title: string | null;
   titleTag: string | null;
   body: string | null;
   image: HubVanPageData_hubVanPage_sections_hero_image | null;
+  heroLabel: (HubVanPageData_hubVanPage_sections_hero_heroLabel | null)[] | null;
 }
 
 export interface HubVanPageData_hubVanPage_sections_leadText {

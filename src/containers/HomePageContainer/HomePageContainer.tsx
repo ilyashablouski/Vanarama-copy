@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
@@ -17,7 +17,11 @@ import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getSectionsData } from '../../utils/getSectionsData';
 import TileLink from '../../components/TileLink/TileLink';
-import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
+import Hero, {
+  HeroHeading,
+  HeroTitle,
+  HeroPrompt,
+} from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData } from '../../utils/offers';
 
@@ -159,22 +163,35 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             />
           </>
         </div>
-        <Image
-          loadImage
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          optimisationOptions={optimisationOptions}
-          className="hero--image"
-          plain
-          size="expand"
-          src={
-            getSectionsData(
-              ['hero', 'image', 'file', 'url'],
-              data?.homePage?.sections,
-            ) || null
-          }
-        />
+        <div>
+          <Image
+            loadImage
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            optimisationOptions={optimisationOptions}
+            className="hero--image"
+            plain
+            size="expand"
+            src={
+              getSectionsData(
+                ['hero', 'image', 'file', 'url'],
+                data?.homePage?.sections,
+              ) || null
+            }
+          />
+        </div>
+        {data?.homePage.sections?.hero?.heroLabel?.[0]?.visible && (
+          <HeroPrompt
+            label={
+              data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
+            }
+            url={data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.url || ''}
+            text={data?.homePage.sections?.hero?.heroLabel?.[0]?.text || ''}
+            btnVisible={
+              data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.visible
+            }
+          />
+        )}
       </Hero>
-
       <section className="row:lead-text">
         <Heading
           size="xlarge"
