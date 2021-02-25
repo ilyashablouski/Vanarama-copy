@@ -117,15 +117,6 @@ export const VansPage: NextPage<IProps> = ({
 
   return (
     <>
-      {data?.hubVanPage.metaData && (
-        <>
-          <Head
-            metaData={data?.hubVanPage.metaData}
-            featuredImage={data?.hubVanPage.featuredImage}
-          />
-          <SchemaJSON json={JSON.stringify(data?.hubVanPage.metaData.schema)} />
-        </>
-      )}
       <Hero searchPodVansData={searchPodVansData}>
         <HeroHeading
           text={
@@ -782,6 +773,15 @@ export const VansPage: NextPage<IProps> = ({
           <TrustPilot />
         </LazyLoadComponent>
       </section>
+      {data?.hubVanPage.metaData && (
+        <>
+          <Head
+            metaData={data?.hubVanPage.metaData}
+            featuredImage={data?.hubVanPage.featuredImage}
+          />
+          <SchemaJSON json={JSON.stringify(data?.hubVanPage.metaData.schema)} />
+        </>
+      )}
     </>
   );
 };
@@ -850,8 +850,8 @@ export async function getStaticProps() {
         offer,
       },
     };
-  } catch {
-    return false;
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

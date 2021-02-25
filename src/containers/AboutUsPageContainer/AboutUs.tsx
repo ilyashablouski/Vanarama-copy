@@ -2,7 +2,6 @@ import React, { ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import dynamic from 'next/dynamic';
-import { ApolloError } from '@apollo/client';
 import Carousel from 'core/organisms/carousel';
 import { ABOUT_US_MEET_SECTION_NAMES } from './config';
 import {
@@ -48,7 +47,6 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 const Link = dynamic(() => import('core/atoms/link'));
 
 export interface IAboutPageProps {
-  error: ApolloError | undefined;
   loading: boolean;
   data: Query;
   children?: ReactNode;
@@ -126,13 +124,9 @@ const renderMeetCard = (card: ICard | undefined) =>
   )) ||
   null;
 
-const AboutUs: React.FC<IAboutPageProps> = ({ loading, error, data }) => {
+const AboutUs: React.FC<IAboutPageProps> = ({ loading, data }) => {
   if (loading) {
     return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
   }
 
   if (!data) {

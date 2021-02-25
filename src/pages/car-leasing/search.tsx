@@ -73,8 +73,9 @@ export async function getServerSideProps(context: NextPageContext) {
           leaseType: LeaseTypeEnum.PERSONAL,
           onOffer: true,
           first: 12,
-          sortField: SortField.offerRanking,
-          sortDirection: SortDirection.ASC,
+          sort: [
+            { field: SortField.offerRanking, direction: SortDirection.ASC },
+          ],
         },
       })
       .then(resp => resp.data);

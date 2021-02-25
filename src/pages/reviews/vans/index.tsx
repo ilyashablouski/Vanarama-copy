@@ -1,7 +1,5 @@
 import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import { ApolloError } from '@apollo/client';
-import DefaultErrorPage from 'next/error';
 import VehicleReviewCategoryContainer from '../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import createApolloClient from '../../../apolloClient';
 import { getSectionsData } from '../../../utils/getSectionsData';
@@ -15,18 +13,12 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 interface IReviewHub {
   data: any;
   loading: boolean;
-  error: ApolloError | undefined;
 }
 
-const ReviewHub: NextPage<IReviewHub> = ({ data, loading, error }) => {
+const ReviewHub: NextPage<IReviewHub> = ({ data, loading }) => {
   if (loading) {
     return <Loading size="large" />;
   }
-
-  if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
-
   const metaData = getSectionsData(['metaData'], data.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
@@ -50,18 +42,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'reviews/vans',
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 
