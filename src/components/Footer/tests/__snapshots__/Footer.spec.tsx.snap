@@ -1,16 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<Footer /> renders correctly with body 1`] = `
-<footer
-  className="footer"
->
-  <span
-    className=""
-    style={
-      Object {
-        "display": "inline-block",
-      }
+<span
+  className=""
+  style={
+    Object {
+      "display": "inline-block",
     }
-  />
-</footer>
+  }
+/>
 `;

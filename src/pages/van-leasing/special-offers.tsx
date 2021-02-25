@@ -361,8 +361,8 @@ export const VanOffers: NextPage<IProps> = ({
           </div>
         )}
 
-      <div className="row:text -columns">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <div className="row:text -columns">
           <ReactMarkdown
             allowDangerousHtml
             source={data?.vanOffersPage.body || ''}
@@ -377,10 +377,11 @@ export const VanOffers: NextPage<IProps> = ({
               paragraph: props => <Text {...props} tag="p" color="darker" />,
             }}
           />
-        </LazyLoadComponent>
-      </div>
-      <div className="row:icon-list">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        </div>
+      </LazyLoadComponent>
+
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <div className="row:icon-list">
           <Heading tag="span" size="lead" color="black">
             {data?.vanOffersPage?.sections?.iconBullets?.title || ''}
           </Heading>
@@ -404,11 +405,11 @@ export const VanOffers: NextPage<IProps> = ({
               </>
             ),
           )}
-        </LazyLoadComponent>
-      </div>
+        </div>
+      </LazyLoadComponent>
 
-      <div className="row:text -columns">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <div className="row:text -columns">
           <Heading size="large" color="black">
             {data?.vanOffersPage?.sections?.featured?.title || ''}
           </Heading>
@@ -428,11 +429,11 @@ export const VanOffers: NextPage<IProps> = ({
               }}
             />
           </div>
-        </LazyLoadComponent>
-      </div>
+        </div>
+      </LazyLoadComponent>
 
-      <div className="row:text">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <div className="row:text">
           <Text size="regular" color="dark">
             Photos and videos are for illustration purposes only.*{' '}
             <RouterLink
@@ -446,8 +447,8 @@ export const VanOffers: NextPage<IProps> = ({
             </RouterLink>
             .
           </Text>
-        </LazyLoadComponent>
-      </div>
+        </div>
+      </LazyLoadComponent>
 
       {data?.vanOffersPage.metaData && (
         <>
