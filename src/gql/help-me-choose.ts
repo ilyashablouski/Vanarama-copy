@@ -9,6 +9,7 @@ export const PRODUCTS_FILTER_LIST = gql`
       totalCount
       nodesCount
       totalVehicles
+      afterKey
       pageInfo {
         endCursor
         startCursor
