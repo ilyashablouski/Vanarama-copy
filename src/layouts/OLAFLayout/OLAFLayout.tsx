@@ -5,12 +5,12 @@ import Button from 'core/atoms/button';
 import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
 import React, { useState, useEffect, ReactNode, useMemo } from 'react';
-import localforage from 'localforage';
 import Modal from 'core/molecules/modal';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useCarDerivativeData } from '../../gql/order';
+import useSessionState from '../../gql/session';
 import {
   createOlafDetails,
   getFunderTerm,
@@ -29,7 +29,7 @@ import Head from '../../components/Head/Head';
 import Heading from '../../core/atoms/heading';
 import Text from '../../core/atoms/text';
 
-const SESSION_ERROR_KEY = 'isSessionFinished';
+import { isSessionFinishedCache } from '../../cache';
 
 interface IProps {
   setDetailsData?: React.Dispatch<
@@ -49,6 +49,7 @@ const OLAFLayout: React.FC<IProps> = ({
   const router = useRouter();
   const order = useGetOrder();
   const orderId = useGetOrderId();
+  const { data: sessionState } = useSessionState();
   const [getLeaseData, { data: leaseData }] = useGetLeaseCompanyDataByOrderUuid(
     orderId,
   );
@@ -71,12 +72,10 @@ const OLAFLayout: React.FC<IProps> = ({
     (derivativeData.data?.vehicleImages as VehicleImages[])[0]?.mainImageUrl;
 
   useEffect(() => {
-    localforage.getItem<boolean>(SESSION_ERROR_KEY).then(value => {
-      if (value) {
-        setModalVisibility(true);
-      }
-    });
-  });
+    if (sessionState?.isSessionFinished) {
+      setModalVisibility(true);
+    }
+  }, [sessionState]);
 
   useEffect(() => {
     if (vehicleProduct) {
@@ -123,10 +122,10 @@ const OLAFLayout: React.FC<IProps> = ({
 
   const handleNewSessionStart = () => {
     // get saved url of order's pdp page and delete error
-    Promise.all([
-      localforage.getItem<string>('orderUrl'),
-      localforage.removeItem(SESSION_ERROR_KEY),
-    ]).then(([url]) => router.push(url, url));
+    isSessionFinishedCache(undefined);
+    router.replace(
+      derivativeData.data?.vehicleConfigurationByCapId?.url || '/',
+    );
   };
 
   return (

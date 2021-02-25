@@ -13,6 +13,8 @@ import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
 import localforage from 'localforage';
 
+import { isSessionFinishedCache } from './cache';
+
 const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 
 const httpLink = new HttpLink({
@@ -57,18 +59,16 @@ const ErrorLink = onError(({ graphQLErrors }) => {
       const currentPath = Router.router?.asPath || '/';
       const isOlaf = currentPath.includes('/olaf/');
 
-      if (!isOlaf) {
-        // cookies are already deleted by gateway after auth error
-        // clear local data and redirect to login-register
-        localforage
-          .clear()
-          .finally(() =>
-            Router.replace(`/account/login-register?redirect=${currentPath}`),
-          );
-      } else {
-        // if user is on olaf - show popup with information about session timeout
-        localforage.setItem('isSessionFinished', true);
-      }
+      // cookies are already deleted by gateway after auth error
+      // clear local data
+      localforage.clear().finally(() => {
+        if (!isOlaf) {
+          // redirect to login-register from private pages except olaf
+          Router.replace(`/account/login-register?redirect=${currentPath}`);
+        }
+
+        isSessionFinishedCache(true);
+      });
     }
   }
 });
@@ -108,6 +108,11 @@ export default function createApolloClient(
                 existing ||
                 toReference({ __typename: 'PersonType', uuid: args?.uuid })
               );
+            },
+            isSessionFinished: {
+              read() {
+                return isSessionFinishedCache() || false;
+              },
             },
           },
         },

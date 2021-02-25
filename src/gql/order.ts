@@ -68,7 +68,10 @@ export function useGetOrder(uuid: string) {
 }
 
 export const GET_CAR_DERIVATIVE = gql`
-  query GetDerivative($id: ID!, $vehicleType: VehicleTypeEnum) {
+  query GetDerivative($id: ID!, $capId: Int!, $vehicleType: VehicleTypeEnum) {
+    vehicleConfigurationByCapId(capId: $capId, vehicleType: $vehicleType) {
+      url
+    }
     derivative(id: $id, vehicleType: $vehicleType) {
       id
       capCode
@@ -117,6 +120,7 @@ export function useCarDerivativeData(
     {
       variables: {
         id,
+        capId: parseInt(id, 10),
         vehicleType,
       },
     },
