@@ -235,6 +235,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       price,
       category: getCategory({ cars, vans, pickups }),
     });
+
     return localForage
       .setItem('order', {
         ...values,

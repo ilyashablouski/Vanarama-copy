@@ -7,15 +7,15 @@ import {
 } from '@apollo/client';
 // import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
 
-// import Router from 'next/router';
-// import { onError } from '@apollo/client/link/error';
+import Router from 'next/router';
+import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
-// import localforage from 'localforage';
+import localforage from 'localforage';
 
-// const inspect = require('../inspect');
+import { isSessionFinishedCache } from './cache';
 
-// const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
+const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 
 const httpLink = new HttpLink({
   uri: process.env.API_URL!,
@@ -44,8 +44,37 @@ const logLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
+const ErrorLink = onError(({ graphQLErrors }) => {
+  if (graphQLErrors) {
+    const authorizationError = graphQLErrors.find(
+      error =>
+        AUTHORIZATION_ERROR_CODE.localeCompare(
+          error?.extensions?.code,
+          undefined,
+          { sensitivity: 'base' },
+        ) === 0,
+    );
+
+    if (authorizationError) {
+      const currentPath = Router.router?.asPath || '/';
+      const isOlaf = currentPath.includes('/olaf/');
+
+      // cookies are already deleted by gateway after auth error
+      // clear local data
+      localforage.clear().finally(() => {
+        if (!isOlaf) {
+          // redirect to login-register from private pages except olaf
+          Router.replace(`/account/login-register?redirect=${currentPath}`);
+        }
+
+        isSessionFinishedCache(true);
+      });
+    }
+  }
+});
+
 function apolloClientLink() {
-  let links = [httpLink];
+  let links = [ErrorLink, httpLink];
 
   // TODO: https://autorama.atlassian.net/browse/DIG-5174
   // if (process.env.ENV && ['uat', 'production'].includes(process.env.ENV)) {
@@ -59,36 +88,6 @@ function apolloClientLink() {
 
   return ApolloLink.from(links);
 }
-
-//  TODO: to return redirect need to find
-//   out how to refresh token for temp user and finally fix olaf
-// const ErrorLink = onError(({ networkError, graphQLErrors }) => {
-//   if (networkError) {
-//     inspect(['Network Error', networkError]);
-//   }
-//
-//   if (graphQLErrors) {
-//     inspect(['GQL Error', graphQLErrors]);
-//
-//     const authorizationError = graphQLErrors.find(
-//       error =>
-//         AUTHORIZATION_ERROR_CODE.localeCompare(
-//           error?.extensions?.code,
-//           undefined,
-//           { sensitivity: 'base' },
-//         ) === 0,
-//     );
-//     if (authorizationError) {
-//       localforage
-//         .removeItem('person')
-//         .finally(() =>
-//           Router.replace(
-//             `/account/login-register?redirect=${Router.router?.asPath || '/'}`,
-//           ),
-//         );
-//     }
-//   }
-// });
 
 export default function createApolloClient(
   initialState: any,
@@ -109,6 +108,11 @@ export default function createApolloClient(
                 existing ||
                 toReference({ __typename: 'PersonType', uuid: args?.uuid })
               );
+            },
+            isSessionFinished: {
+              read() {
+                return isSessionFinishedCache() || false;
+              },
             },
           },
         },

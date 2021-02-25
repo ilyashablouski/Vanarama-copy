@@ -5,5 +5,6 @@ export interface IModalProps extends IBaseProps {
   text?: string;
   show: boolean;
   additionalText?: string;
-  onRequestClose: () => void;
+  onRequestClose?: () => void;
+  containerClassName?: string;
 }
