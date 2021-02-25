@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import Router from 'next/router';
 import Map from 'core/atoms/map';
 import ReactMarkdown from 'react-markdown/with-html';
-import DefaultErrorPage from 'next/error';
 import SchemaJSON from 'core/atoms/schema-json';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -46,16 +45,8 @@ const Breadcrumb = dynamic(
   },
 );
 
-export const ContactUsPage: NextPage<IGenericPage> = ({
-  data,
-  error,
-  loading,
-}) => {
+export const ContactUsPage: NextPage<IGenericPage> = ({ data, loading }) => {
   const [show, setShow] = useState(false);
-
-  if (error || !data?.genericPage) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
 
   if (loading) {
     return <Loading size="large" />;
@@ -266,18 +257,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'contact-us',
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

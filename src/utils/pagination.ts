@@ -22,20 +22,18 @@ export const getBlogPosts = async (
         slug,
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
         pageNumber:
           parseInt((context?.params?.pageNumber as string) || '', 10) || null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 };
 

@@ -5,7 +5,11 @@ import { getBudgetForQuery } from '../SearchPodContainer/helpers';
 import { IFilters } from '../FiltersContainer/interfaces';
 import { GenericPageQueryVariables } from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQueryVariables } from '../../../generated/GenericPageHeadQuery';
-import { SortDirection, SortField } from '../../../generated/globalTypes';
+import {
+  SortDirection,
+  SortField,
+  SortObject,
+} from '../../../generated/globalTypes';
 import { GET_ALL_MAKES_PAGE } from './gql';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 
@@ -88,13 +92,13 @@ export const bodyUrlsSlugMapper = {
   prestige: 'prestige',
   saloon: 'saloon',
   'city-car': 'city-car',
-  'crew-vans': 'specialist',
+  'crew-vans': 'crew',
   'dropside-tipper': 'dropside tipper',
   'large-van': 'large van',
   'medium-van': 'medium van',
   'refrigerated-van': 'refrigerated van',
   'small-van': 'small van',
-  'specialist-van-leasing': 'specialist',
+  'specialist-van-leasing': 'crew',
 };
 
 export const budgetMapper = {
@@ -269,4 +273,16 @@ export const onMadeLineBreaks = (value: string, maxLeght = 16) => {
     }
     return acc;
   }, [] as string[]);
+};
+
+export const sortObjectGenerator = (sortArray: SortObject[]) => {
+  if (
+    sortArray?.find(sortObject => sortObject.field === SortField.availability)
+  ) {
+    return [
+      ...sortArray,
+      { field: SortField.rate, direction: SortDirection.ASC },
+    ];
+  }
+  return sortArray;
 };

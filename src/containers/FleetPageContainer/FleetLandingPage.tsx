@@ -39,17 +39,6 @@ interface IFleetLandingPage {
 const FleetLandingPage = ({ data }: IFleetLandingPage) => {
   return (
     <>
-      {data?.fleetLandingPage.metaData && (
-        <>
-          <Head
-            metaData={data?.fleetLandingPage.metaData}
-            featuredImage={data?.fleetLandingPage.featuredImage}
-          />
-          <SchemaJSON
-            json={JSON.stringify(data?.fleetLandingPage.metaData.schema)}
-          />
-        </>
-      )}
       {data?.fleetLandingPage?.sections?.hero && (
         <HeroSection {...data?.fleetLandingPage?.sections?.hero} />
       )}
@@ -89,6 +78,17 @@ const FleetLandingPage = ({ data }: IFleetLandingPage) => {
         <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
           <BenefitsSection {...data?.fleetLandingPage?.sections?.tiles} />
         </LazyLoadComponent>
+      )}
+      {data?.fleetLandingPage.metaData && (
+        <>
+          <Head
+            metaData={data?.fleetLandingPage.metaData}
+            featuredImage={data?.fleetLandingPage.featuredImage}
+          />
+          <SchemaJSON
+            json={JSON.stringify(data?.fleetLandingPage.metaData.schema)}
+          />
+        </>
       )}
     </>
   );

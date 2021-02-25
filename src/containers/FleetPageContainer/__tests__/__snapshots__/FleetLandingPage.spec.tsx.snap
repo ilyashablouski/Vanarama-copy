@@ -25,16 +25,18 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
               No Hidden Costs
             </strong>
           </p>
-          <div
-            class="image hero--image -expand -plain"
-          >
-            <img
-              class="image--native"
-              loading="lazy"
-              sizes="(min-width:3200px) 800px, 1200px"
-              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png"
-              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1200w"
-            />
+          <div>
+            <div
+              class="image hero--image -expand -plain"
+            >
+              <img
+                class="image--native"
+                loading="lazy"
+                sizes="(min-width:3200px) 800px, 1200px"
+                src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png"
+                srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1200w"
+              />
+            </div>
           </div>
         </div>
         <div

@@ -48,14 +48,14 @@ const EmploymentHistoryPage: NextPage = () => {
           employmentHistories: createUpdateEmploymentHistory,
         }),
       },
-    });
-    const params = getUrlParam({ uuid: personUuid });
-    const url =
-      router.query.redirect === 'summary'
-        ? `/olaf/summary${params}`
-        : `/olaf/expenses${params}`;
-
-    router.push(url, url);
+    })
+      .then(() => getUrlParam({ uuid: personUuid }))
+      .then(params =>
+        router.query.redirect === 'summary'
+          ? `/olaf/summary${params}`
+          : `/olaf/expenses${params}`,
+      )
+      .then(url => router.push(url, url));
   };
 
   return (

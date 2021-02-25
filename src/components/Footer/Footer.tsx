@@ -16,11 +16,11 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
   const { linkGroups, legalStatement } = primaryFooter;
 
   return (
-    <footer className="footer">
-      <LazyLoadComponent
-        visibleByDefault={typeof window === 'undefined'}
-        threshold={250}
-      >
+    <LazyLoadComponent
+      visibleByDefault={typeof window === 'undefined'}
+      threshold={250}
+    >
+      <footer className="footer">
         {linkGroups?.map(linkGroup => (
           <FooterColumn key={linkGroup?.name || ''} linkGroup={linkGroup} />
         ))}
@@ -45,8 +45,8 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
             </Text>
           </div>
         )}
-      </LazyLoadComponent>
-    </footer>
+      </footer>
+    </LazyLoadComponent>
   );
 };
 

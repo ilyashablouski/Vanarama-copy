@@ -57,9 +57,10 @@ const CompanyDetailsForm: React.FC<IProps> = ({
   );
 
   useEffect(() => {
+    // prefill form with data from credit application
     if (company && !companySearchResult) {
       methods.reset(company);
-      setProceedCompany(company?.companySearchResult);
+      setSelectedCompanyData(company?.companySearchResult);
       setHasConfirmedCompany(true);
       setNatureOfBusiness(company.nature?.split('.') || []);
       methods.setValue(
@@ -79,19 +80,6 @@ const CompanyDetailsForm: React.FC<IProps> = ({
       getCompanyDetails();
     }
   }, [selectedCompanyData, getCompanyDetails]);
-
-  useEffect(() => {
-    if (selectedCompanyData) {
-      methods.setValue(
-        'registeredAddress',
-        {
-          id: '',
-          label: selectedCompanyData.addressSnippet || '',
-        },
-        true,
-      );
-    }
-  }, [methods, selectedCompanyData]);
 
   const handleNatureSelect = (selectedNature: string | string[]) => {
     const isArray = Array.isArray(selectedNature);
@@ -132,6 +120,15 @@ const CompanyDetailsForm: React.FC<IProps> = ({
   const handleProceed = () => {
     setHasConfirmedCompany(true);
     setProceedCompany(companySearchResult);
+
+    // fill input with data from company search result
+    methods.reset({
+      companySearchResult: selectedCompanyData,
+      registeredAddress: {
+        id: '',
+        label: companySearchResult?.addressSnippet || '',
+      },
+    });
   };
 
   return (

@@ -17,7 +17,11 @@ import {
 import { ProductCardData_productCarousel as ProdCardData } from '../../../generated/ProductCardData';
 
 import { HUB_VAN_CONTENT } from '../../gql/hub/hubVanPage';
-import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
+import Hero, {
+  HeroTitle,
+  HeroHeading,
+  HeroPrompt,
+} from '../../components/Hero';
 import DealOfMonth from '../../components/DealOfMonth';
 import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
@@ -117,15 +121,6 @@ export const VansPage: NextPage<IProps> = ({
 
   return (
     <>
-      {data?.hubVanPage.metaData && (
-        <>
-          <Head
-            metaData={data?.hubVanPage.metaData}
-            featuredImage={data?.hubVanPage.featuredImage}
-          />
-          <SchemaJSON json={JSON.stringify(data?.hubVanPage.metaData.schema)} />
-        </>
-      )}
       <Hero searchPodVansData={searchPodVansData}>
         <HeroHeading
           text={
@@ -147,21 +142,37 @@ export const VansPage: NextPage<IProps> = ({
           }
         />
         <br />
-        <Image
-          loadImage
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          optimisationOptions={optimisationOptions}
-          className="hero--image"
-          plain
-          size="expand"
-          src={
-            getSectionsData(
-              ['hero', 'image', 'file', 'url'],
-              data?.hubVanPage.sections,
-            ) ||
-            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
-          }
-        />
+        <div>
+          <Image
+            loadImage
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            optimisationOptions={optimisationOptions}
+            className="hero--image"
+            plain
+            size="expand"
+            src={
+              getSectionsData(
+                ['hero', 'image', 'file', 'url'],
+                data?.hubVanPage.sections,
+              ) ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
+            }
+          />
+        </div>
+        {data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.visible && (
+          <HeroPrompt
+            label={
+              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
+            }
+            url={
+              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
+            }
+            text={data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.text || ''}
+            btnVisible={
+              data?.hubVanPage.sections?.hero?.heroLabel?.[0]?.link?.visible
+            }
+          />
+        )}
       </Hero>
       <div className="row:lead-text">
         <Heading
@@ -636,8 +647,8 @@ export const VansPage: NextPage<IProps> = ({
 
       <hr className="fullWidth" />
 
-      <section className="row:features-4col">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:features-4col">
           <Heading
             size="large"
             color="black"
@@ -678,11 +689,11 @@ export const VansPage: NextPage<IProps> = ({
               </Tile>
             </div>
           ))}
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:manufacturer-grid">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:manufacturer-grid">
           <Heading
             size="large"
             color="black"
@@ -707,21 +718,21 @@ export const VansPage: NextPage<IProps> = ({
               </RouterLink>
             ))}
           </div>
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:league">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:league">
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
             link="/fan-hub.html"
           />
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:featured-logos">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:featured-logos">
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
           </Heading>
@@ -774,14 +785,23 @@ export const VansPage: NextPage<IProps> = ({
               />
             ))}
           </div>
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:trustpilot">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:trustpilot">
           <TrustPilot />
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
+      {data?.hubVanPage.metaData && (
+        <>
+          <Head
+            metaData={data?.hubVanPage.metaData}
+            featuredImage={data?.hubVanPage.featuredImage}
+          />
+          <SchemaJSON json={JSON.stringify(data?.hubVanPage.metaData.schema)} />
+        </>
+      )}
     </>
   );
 };
@@ -850,8 +870,8 @@ export async function getStaticProps() {
         offer,
       },
     };
-  } catch {
-    return false;
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

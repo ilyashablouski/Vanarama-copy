@@ -29,18 +29,19 @@ const InsuranceFormSection = ({
   return (
     <div className="row:featured-left">
       <div>
-        <Heading size="large" color="black">
+        <Heading tag="h1" size="large" color="black">
           {title || ''}
         </Heading>
         <ReactMarkdown allowDangerousHtml source={body || ''} />
       </div>
-      <div className="card">
+      <div className="card -mt-000">
         <GoldrushForm
           callBack
           isSubmitting={isSubmitting}
           isPostcodeVisible
           onSubmit={onSubmit}
           isTextInVisible
+          className="-full-width-fields"
         />
       </div>
     </div>

@@ -16,7 +16,11 @@ import {
 } from '../../../generated/HubCarPageData';
 import { HUB_CAR_CONTENT } from '../../gql/hub/hubCarPage';
 import createApolloClient from '../../apolloClient';
-import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
+import Hero, {
+  HeroTitle,
+  HeroHeading,
+  HeroPrompt,
+} from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import truncateString from '../../utils/truncateString';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -106,15 +110,6 @@ export const CarsPage: NextPage<IProps> = ({
 
   return (
     <>
-      {data?.hubCarPage.metaData && (
-        <>
-          <Head
-            metaData={data?.hubCarPage.metaData}
-            featuredImage={data?.hubCarPage.featuredImage}
-          />
-          <SchemaJSON json={JSON.stringify(data?.hubCarPage.metaData.schema)} />
-        </>
-      )}
       <Hero searchPodCarsData={searchPodCarsData}>
         <HeroHeading
           text={data?.hubCarPage.sections?.hero?.title || ''}
@@ -127,18 +122,34 @@ export const CarsPage: NextPage<IProps> = ({
         <br />
         <HeroTitle text={data?.hubCarPage.sections?.hero?.body || ''} />
         <br />
-        <Image
-          loadImage
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          optimisationOptions={optimisationOptions}
-          className="hero--image"
-          plain
-          size="expand"
-          src={
-            data?.hubCarPage.sections?.hero?.image?.file?.url ||
-            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
-          }
-        />
+        <div>
+          <Image
+            loadImage
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            optimisationOptions={optimisationOptions}
+            className="hero--image"
+            plain
+            size="expand"
+            src={
+              data?.hubCarPage.sections?.hero?.image?.file?.url ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/Audi-Hero-Image-removebg-preview.png'
+            }
+          />
+        </div>
+        {data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.visible && (
+          <HeroPrompt
+            label={
+              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
+            }
+            url={
+              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
+            }
+            text={data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.text || ''}
+            btnVisible={
+              data?.hubCarPage.sections?.hero?.heroLabel?.[0]?.link?.visible
+            }
+          />
+        )}
       </Hero>
 
       <section className="row:lead-text">
@@ -158,8 +169,8 @@ export const CarsPage: NextPage<IProps> = ({
         </Text>
       </section>
 
-      <section className="row:eligibility-checker-cta">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:eligibility-checker-cta">
           <div>
             <Image
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -210,8 +221,8 @@ export const CarsPage: NextPage<IProps> = ({
               Coming Soon
             </Text>
           </div>
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
@@ -466,8 +477,8 @@ export const CarsPage: NextPage<IProps> = ({
         </div>
       </section>
 
-      <section className="row:features-4col">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:features-4col">
           <Heading
             size="large"
             color="black"
@@ -501,21 +512,21 @@ export const CarsPage: NextPage<IProps> = ({
               </div>
             ),
           )}
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:league">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:league">
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
             link="/fan-hub.html"
           />
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:featured-logos">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:featured-logos">
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
           </Heading>
@@ -568,14 +579,23 @@ export const CarsPage: NextPage<IProps> = ({
               />
             ))}
           </div>
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:trustpilot">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:trustpilot">
           <TrustPilot />
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
+      {data?.hubCarPage.metaData && (
+        <>
+          <Head
+            metaData={data?.hubCarPage.metaData}
+            featuredImage={data?.hubCarPage.featuredImage}
+          />
+          <SchemaJSON json={JSON.stringify(data?.hubCarPage.metaData.schema)} />
+        </>
+      )}
     </>
   );
 };

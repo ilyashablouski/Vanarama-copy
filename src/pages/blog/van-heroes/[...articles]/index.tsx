@@ -1,5 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
@@ -11,16 +10,7 @@ import createApolloClient from '../../../../apolloClient';
 import { getBlogPaths } from '../../../../utils/pageSlugs';
 import { BlogPosts } from '../../../../../generated/BlogPosts';
 
-const BlogPost: NextPage<IBlogPost> = ({
-  data,
-  error,
-  blogPosts,
-  blogPostsError,
-}) => {
-  if (error || blogPostsError || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
-
+const BlogPost: NextPage<IBlogPost> = ({ data, blogPosts }) => {
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
   const body = getSectionsData(['body'], data?.blogPost);
   const name = getSectionsData(['metaData', 'name'], data?.blogPost);
@@ -46,29 +36,18 @@ const BlogPost: NextPage<IBlogPost> = ({
 };
 
 export async function getStaticPaths() {
-  try {
-    const client = createApolloClient({});
-    const { data } = await client.query<BlogPosts>({
-      query: BLOG_POSTS_PAGE,
-      variables: {
-        slug: 'blog/van-heroes',
-      },
-    });
+  const client = createApolloClient({});
+  const { data } = await client.query<BlogPosts>({
+    query: BLOG_POSTS_PAGE,
+    variables: {
+      slug: 'blog/van-heroes',
+    },
+  });
 
-    return {
-      paths: getBlogPaths(data?.blogPosts),
-      fallback: false,
-    };
-  } catch {
-    return {
-      paths: [
-        {
-          params: { articles: ['/'] },
-        },
-      ],
-      fallback: false,
-    };
-  }
+  return {
+    paths: getBlogPaths(data?.blogPosts),
+    fallback: false,
+  };
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
@@ -93,20 +72,17 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       getSectionsData(['blogPosts', 'articles'], blogPosts),
       `/blog/van-heroes/${context?.params?.articles}`,
     );
+    if (errors || blogPostsError) {
+      throw new Error(errors?.[0].message) || blogPostsError?.[0].message;
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
         blogPosts: newBlogPosts,
-        blogPostsError: blogPostsError ? blogPostsError[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

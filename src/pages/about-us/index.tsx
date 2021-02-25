@@ -9,11 +9,7 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
 
-const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
-  data,
-  loading,
-  error,
-}) => {
+const AboutUsLandingPage: NextPage<IAboutPageProps> = ({ data, loading }) => {
   const metaData = getSectionsData(['metaData'], data?.aboutUsLandingPage);
   const featuredImage = getSectionsData(
     ['featuredImage'],
@@ -30,7 +26,7 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
           <Breadcrumb items={breadcrumbsItems} />
         </div>
       )}
-      <AboutUs data={data} loading={loading} error={error} />
+      <AboutUs data={data} loading={loading} />
       {metaData && (
         <>
           <Head metaData={metaData} featuredImage={featuredImage} />
@@ -43,10 +39,17 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
 
 export async function getStaticProps(context: NextPageContext) {
   const client = createApolloClient({}, context);
-  const { data, loading, errors } = await client.query({
-    query: GET_ABOUT_US_PAGE_DATA,
-  });
-  return { props: { data, loading, error: errors || null } };
+  try {
+    const { data, loading, errors } = await client.query({
+      query: GET_ABOUT_US_PAGE_DATA,
+    });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
+    return { props: { data, loading } };
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 
 export default AboutUsLandingPage;

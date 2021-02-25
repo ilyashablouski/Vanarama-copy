@@ -352,13 +352,6 @@ Array [
 ]
 `;
 
-exports[`<AboutUs /> renders correctly with error 1`] = `
-<p>
-  Error: 
-  Error
-</p>
-`;
-
 exports[`<AboutUs /> renders correctly with loading 1`] = `
 <div
   className="loading -large"

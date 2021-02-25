@@ -33,17 +33,19 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           >
             Extra Protection Should The Worst happen
           </h3>
-          <div
-            class="image hero--image -expand -plain"
-          >
-            <img
-              alt="Hero Image"
-              class="image--native"
-              loading="eager"
-              sizes="(min-width:3200px) 800px, 1200px"
-              src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png"
-              srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1200w"
-            />
+          <div>
+            <div
+              class="image hero--image -expand -plain"
+            >
+              <img
+                alt="Hero Image"
+                class="image--native"
+                loading="eager"
+                sizes="(min-width:3200px) 800px, 1200px"
+                src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png"
+                srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1200w"
+              />
+            </div>
           </div>
         </div>
         <div
@@ -479,11 +481,11 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       class="row:featured-left"
     >
       <div>
-        <p
+        <h1
           class="heading -black -large"
         >
           Finance Gap Explained
-        </p>
+        </h1>
         <p>
           Vehicle value depreciation could mean there is a risk you will owe more to the Finance Company than the Insurance Company pay-out if the vehicle is written off or stolen. Finance Gap Insurance allows you to insure against the difference (up to a maximum of £20,000) between your Insurance Company pay-out and the amount you owe to the Finance Company. Check out the video below for more information:
         </p>
@@ -556,10 +558,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         </p>
       </div>
       <div
-        class="card"
+        class="card -mt-000"
       >
         <form
-          class="form"
+          class="form -full-width-fields"
           data-testid="goldrush-form"
         >
           <div

@@ -3,8 +3,8 @@ import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import SimplePageContainer from '../../containers/SimplePageContainer/SimplePageContainer';
 import createApolloClient from '../../apolloClient';
 
-const OurLendersPage: NextPage<IGenericPage> = ({ data, loading, error }) => (
-  <SimplePageContainer data={data} loading={loading} error={error} />
+const OurLendersPage: NextPage<IGenericPage> = ({ data, loading }) => (
+  <SimplePageContainer data={data} loading={loading} />
 );
 
 export async function getStaticProps(context: GetStaticPropsContext) {
@@ -17,18 +17,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'fca/our-lenders',
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

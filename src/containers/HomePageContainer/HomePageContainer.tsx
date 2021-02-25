@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
@@ -17,7 +17,11 @@ import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getSectionsData } from '../../utils/getSectionsData';
 import TileLink from '../../components/TileLink/TileLink';
-import Hero, { HeroHeading, HeroTitle } from '../../components/Hero';
+import Hero, {
+  HeroHeading,
+  HeroTitle,
+  HeroPrompt,
+} from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData } from '../../utils/offers';
 
@@ -159,22 +163,35 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             />
           </>
         </div>
-        <Image
-          loadImage
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          optimisationOptions={optimisationOptions}
-          className="hero--image"
-          plain
-          size="expand"
-          src={
-            getSectionsData(
-              ['hero', 'image', 'file', 'url'],
-              data?.homePage?.sections,
-            ) || null
-          }
-        />
+        <div>
+          <Image
+            loadImage
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            optimisationOptions={optimisationOptions}
+            className="hero--image"
+            plain
+            size="expand"
+            src={
+              getSectionsData(
+                ['hero', 'image', 'file', 'url'],
+                data?.homePage?.sections,
+              ) || null
+            }
+          />
+        </div>
+        {data?.homePage.sections?.hero?.heroLabel?.[0]?.visible && (
+          <HeroPrompt
+            label={
+              data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
+            }
+            url={data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.url || ''}
+            text={data?.homePage.sections?.hero?.heroLabel?.[0]?.text || ''}
+            btnVisible={
+              data?.homePage.sections?.hero?.heroLabel?.[0]?.link?.visible
+            }
+          />
+        )}
       </Hero>
-
       <section className="row:lead-text">
         <Heading
           size="xlarge"
@@ -338,8 +355,8 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         </Tabs>
       </section>
 
-      <section className="row:bg-lighter">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:bg-lighter">
           <div className="row:cards-3col">
             {(getSectionsData(
               ['cards', 'cards'],
@@ -374,11 +391,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               </RouterLink>
             ))}
           </div>
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:featured-right">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:featured-right">
           <div style={{ padding: '1rem' }}>
             <Heading
               size="large"
@@ -450,11 +467,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               />
             </div>
           )}
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:featured-left">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:featured-left">
           {data?.homePage?.sections?.featured2?.video ? (
             <Media
               src={
@@ -516,11 +533,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               />
             </div>
           </div>
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:features-4col">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:features-4col">
           <Heading
             size="large"
             color="black"
@@ -558,21 +575,21 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               </Tile>
             </div>
           ))}
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:league">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:league">
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
             link="/fan-hub.html"
           />
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:featured-logos">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:featured-logos">
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
           </Heading>
@@ -625,14 +642,14 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               />
             ))}
           </div>
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:trustpilot">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:trustpilot">
           <TrustPilot />
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
       {data && (
         <SchemaJSON json={JSON.stringify(data?.homePage?.metaData?.schema)} />

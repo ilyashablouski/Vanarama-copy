@@ -90,6 +90,15 @@ const GET_FLEET_PAGE_CONTENT = gql`
               url
             }
           }
+          heroLabel {
+            text
+            visible
+            link {
+              text
+              url
+              visible
+            }
+          }
         }
 
         tiles {
