@@ -120,13 +120,13 @@ const OLAFLayout: React.FC<IProps> = ({
     };
   }, [router.pathname]);
 
-  const handleNewSessionStart = () => {
-    // get saved url of order's pdp page and delete error
-    isSessionFinishedCache(undefined);
-    router.replace(
-      derivativeData.data?.vehicleConfigurationByCapId?.url || '/',
-    );
-  };
+  // get saved url of order's pdp page and delete error
+  const handleNewSessionStart = () =>
+    router
+      .replace(
+        `/${derivativeData.data?.vehicleConfigurationByCapId?.url || ''}`,
+      )
+      .then(() => isSessionFinishedCache(undefined));
 
   return (
     <>
