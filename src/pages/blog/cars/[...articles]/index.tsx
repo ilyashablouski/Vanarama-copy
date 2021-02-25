@@ -37,29 +37,18 @@ const BlogPost: NextPage<IBlogPost> = ({ data, blogPosts }) => {
 };
 
 export async function getStaticPaths() {
-  try {
-    const client = createApolloClient({});
-    const { data } = await client.query<BlogPosts>({
-      query: BLOG_POSTS_PAGE,
-      variables: {
-        slug: 'blog/cars',
-      },
-    });
+  const client = createApolloClient({});
+  const { data } = await client.query<BlogPosts>({
+    query: BLOG_POSTS_PAGE,
+    variables: {
+      slug: 'blog/cars',
+    },
+  });
 
-    return {
-      paths: getBlogPaths(data?.blogPosts),
-      fallback: false,
-    };
-  } catch {
-    return {
-      paths: [
-        {
-          params: { articles: ['/'] },
-        },
-      ],
-      fallback: false,
-    };
-  }
+  return {
+    paths: getBlogPaths(data?.blogPosts),
+    fallback: false,
+  };
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {

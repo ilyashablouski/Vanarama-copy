@@ -40,31 +40,28 @@ const ReviewHub: NextPage<IReviewHubPage> = ({ data, pageNumber }) => {
 
 export async function getStaticPaths() {
   const client = createApolloClient({});
-  try {
-    const { data } = await client.query({
-      query: GENERIC_PAGE_QUESTION_HUB,
-      variables: {
-        slug: 'reviews/vans',
-      },
-    });
-    const cards = getSectionsData(
-      ['sections', 'cards', 'cards'],
-      data?.genericPage,
-    );
 
-    let paths = [] as any[];
-    const countPages = Math.ceil((cards.length || 0) / 12);
-    for (let i = 1; i <= countPages; i += 1) {
-      paths = [...paths, { params: { pageNumber: i.toString() } }];
-    }
+  const { data } = await client.query({
+    query: GENERIC_PAGE_QUESTION_HUB,
+    variables: {
+      slug: 'reviews/vans',
+    },
+  });
+  const cards = getSectionsData(
+    ['sections', 'cards', 'cards'],
+    data?.genericPage,
+  );
 
-    return {
-      paths,
-      fallback: false,
-    };
-  } catch (err) {
-    throw new Error(err);
+  let paths = [] as any[];
+  const countPages = Math.ceil((cards.length || 0) / 12);
+  for (let i = 1; i <= countPages; i += 1) {
+    paths = [...paths, { params: { pageNumber: i.toString() } }];
   }
+
+  return {
+    paths,
+    fallback: false,
+  };
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {

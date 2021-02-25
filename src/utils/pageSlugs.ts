@@ -14,16 +14,19 @@ export const getBlogPaths = (
   const slugs = blogPosts?.articles?.map(article =>
     article?.slug?.split('/').pop(),
   );
-  slugs?.forEach(slug => {
+  slugs?.forEach((slug, index) => {
     if (!slug) {
-      throw new Error('MISSING SLUG');
+      throw new Error(
+        `MISSING SLUG: ${JSON.stringify(blogPosts?.articles?.[index])}`,
+      );
     }
-
     if (slug && slug.includes('.html')) {
       throw new Error(`INCORRECT SLUG: ${slug}`);
     }
   });
-  return slugs;
+  return slugs?.map(slug => ({
+    params: { articles: [slug] },
+  }));
 };
 
 export const getLeasingPaths = (
