@@ -9,6 +9,10 @@ import { VehicleTypeEnum } from "./globalTypes";
 // GraphQL query operation: GetDerivative
 // ====================================================
 
+export interface GetDerivative_vehicleConfigurationByCapId {
+  url: string | null;
+}
+
 export interface GetDerivative_derivative_bodyType {
   name: string | null;
   slug: string;
@@ -62,11 +66,16 @@ export interface GetDerivative_vehicleImages {
 }
 
 export interface GetDerivative {
+  /**
+   * Find vehicle configuration by cap id
+   */
+  vehicleConfigurationByCapId: GetDerivative_vehicleConfigurationByCapId | null;
   derivative: GetDerivative_derivative | null;
   vehicleImages: (GetDerivative_vehicleImages | null)[] | null;
 }
 
 export interface GetDerivativeVariables {
   id: string;
+  capId: number;
   vehicleType?: VehicleTypeEnum | null;
 }

@@ -4,11 +4,13 @@ import ChevronUpSharp from 'core/assets/icons/ChevronUpSharp';
 import Button from 'core/atoms/button';
 import OlafCard from 'core/molecules/cards/OlafCard/OlafCard';
 import { useRouter } from 'next/router';
-import { useState, useEffect, ReactNode, useMemo } from 'react';
+import React, { useState, useEffect, ReactNode, useMemo } from 'react';
+import Modal from 'core/molecules/modal';
 import BusinessProgressIndicator from '../../components/BusinessProgressIndicator/BusinessProgressIndicator';
 import ConsumerProgressIndicator from '../../components/ConsumerProgressIndicator/ConsumerProgressIndicator';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { useCarDerivativeData } from '../../gql/order';
+import useSessionState from '../../gql/session';
 import {
   createOlafDetails,
   getFunderTerm,
@@ -24,6 +26,10 @@ import { OrderInputObject } from '../../../generated/globalTypes';
 import useGetOrderId from '../../hooks/useGetOrderId';
 import { useGetLeaseCompanyDataByOrderUuid } from '../../gql/creditApplication';
 import Head from '../../components/Head/Head';
+import Heading from '../../core/atoms/heading';
+import Text from '../../core/atoms/text';
+
+import { isSessionFinishedCache } from '../../cache';
 
 interface IProps {
   setDetailsData?: React.Dispatch<
@@ -43,10 +49,12 @@ const OLAFLayout: React.FC<IProps> = ({
   const router = useRouter();
   const order = useGetOrder();
   const orderId = useGetOrderId();
+  const { data: sessionState } = useSessionState();
   const [getLeaseData, { data: leaseData }] = useGetLeaseCompanyDataByOrderUuid(
     orderId,
   );
 
+  const [isModalVisible, setModalVisibility] = useState(false);
   const isMobile = useMobileViewport();
   const [asideOpen, setAsideOpen] = useState(false);
   const showAside = !isMobile || asideOpen;
@@ -62,6 +70,12 @@ const OLAFLayout: React.FC<IProps> = ({
     derivativeData &&
     derivativeData.data?.vehicleImages &&
     (derivativeData.data?.vehicleImages as VehicleImages[])[0]?.mainImageUrl;
+
+  useEffect(() => {
+    if (sessionState?.isSessionFinished) {
+      setModalVisibility(true);
+    }
+  }, [sessionState]);
 
   useEffect(() => {
     if (vehicleProduct) {
@@ -106,6 +120,14 @@ const OLAFLayout: React.FC<IProps> = ({
       breadcrumbs: null,
     };
   }, [router.pathname]);
+
+  // get saved url of order's pdp page and delete error
+  const handleNewSessionStart = () =>
+    router
+      .replace(
+        `/${derivativeData.data?.vehicleConfigurationByCapId?.url || ''}`,
+      )
+      .then(() => isSessionFinishedCache(undefined));
 
   return (
     <>
@@ -167,6 +189,35 @@ const OLAFLayout: React.FC<IProps> = ({
           </div>
         )}
       </div>
+      <Modal show={isModalVisible} containerClassName="modal-container-large">
+        <div className="-mb-400">
+          <div className="-mb-600">
+            <Heading
+              className="-mb-300"
+              color="black"
+              dataTestId="about-you_heading"
+              size="xlarge"
+              tag="h1"
+            >
+              Your Session Has Timed Out
+            </Heading>
+            <Text size="large" color="black">
+              We’re sorry, it looks like your session has expired. For security
+              reasons, sessions automatically end if there’s no activity for 1
+              hour. Don’t worry, none of your personal information has been
+              saved.
+            </Text>
+          </div>
+          <Button
+            label="Start Again"
+            size="regular"
+            fill="solid"
+            color="teal"
+            onClick={handleNewSessionStart}
+            type="button"
+          />
+        </div>
+      </Modal>
     </>
   );
 };

@@ -16,7 +16,6 @@ $modal-padding: $rem-200;
   border-radius: $border-radius-small;
   padding: $modal-padding;
   z-index: 901;
-  max-width: $vp-large / 2.5;
   
   @include distribute-children($modal-padding + 1rem);
   @include tablet-desktop { padding: $modal-padding + 1rem; }
@@ -28,6 +27,14 @@ $modal-padding: $rem-200;
   
   > .heading:first-child + .text {
     margin-top: $rem-300;
+  }
+
+  &-container-base {
+    max-width: $vp-large / 2.5;
+  }
+
+  &-container-large {
+    max-width: $vp-small;
   }
   
   &-wrap {

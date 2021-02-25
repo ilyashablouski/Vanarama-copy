@@ -12,6 +12,7 @@ const Modal: FC<IModalProps> = props => {
   const {
     children,
     className,
+    containerClassName = 'modal-container-base',
     title,
     text,
     show,
@@ -22,7 +23,7 @@ const Modal: FC<IModalProps> = props => {
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.keyCode === 27 && show) {
-        onRequestClose();
+        onRequestClose?.();
       }
     };
 
@@ -35,17 +36,19 @@ const Modal: FC<IModalProps> = props => {
       role="dialog"
       className={cx('modal-wrap :target', { '-open': show }, className)}
     >
-      <Button
-        className="modal-close"
-        icon={<CloseSharp />}
-        iconPosition="after"
-        onClick={onRequestClose}
-        label="Close"
-        fill="clear"
-        name="close"
-        dataTestId="close"
-      />
-      <div className="modal -col-400">
+      {onRequestClose && (
+        <Button
+          className="modal-close"
+          icon={<CloseSharp />}
+          iconPosition="after"
+          onClick={onRequestClose}
+          label="Close"
+          fill="clear"
+          name="close"
+          dataTestId="close"
+        />
+      )}
+      <div className={cx('modal', containerClassName)}>
         {title && (
           <Heading tag="span" color="black">
             {title}
