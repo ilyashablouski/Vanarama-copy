@@ -11,9 +11,10 @@ import { getSectionsData } from './getSectionsData';
 export const getBlogPaths = (
   blogPosts: BlogPosts_blogPosts | undefined | null,
 ) => {
-  const slugs = blogPosts?.articles?.map(article =>
-    article?.slug?.split('/').pop(),
-  );
+  const slugs = blogPosts?.articles
+    // NOTE: Filter out draft/unpublished articles
+    ?.filter(article => article?.publishedOn !== null)
+    .map(article => article?.slug?.split('/').pop());
   slugs?.forEach((slug, index) => {
     if (!slug) {
       throw new Error(
