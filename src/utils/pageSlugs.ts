@@ -11,18 +11,21 @@ import { getSectionsData } from './getSectionsData';
 export const getBlogPaths = (
   blogPosts: BlogPosts_blogPosts | undefined | null,
 ) => {
-  const slugs = blogPosts?.articles?.map(article =>
-    article?.slug?.split('/').pop(),
-  );
-  const notEmptySlugs = slugs?.filter(slug => {
-    if (slug && slug.includes('.html')) {
-      // eslint-disable-next-line no-console
-      console.log('INCORRECT SLUG:', slug);
-      return false;
+  const slugs = blogPosts?.articles
+    // NOTE: Filter out draft/unpublished articles
+    ?.filter(article => article?.publishedOn !== null)
+    .map(article => article?.slug?.split('/').pop());
+  slugs?.forEach((slug, index) => {
+    if (!slug) {
+      throw new Error(
+        `MISSING SLUG: ${JSON.stringify(blogPosts?.articles?.[index])}`,
+      );
     }
-    return !!slug;
+    if (slug && slug.includes('.html')) {
+      throw new Error(`INCORRECT SLUG: ${slug}`);
+    }
   });
-  return notEmptySlugs?.map(slug => ({
+  return slugs?.map(slug => ({
     params: { articles: [slug] },
   }));
 };

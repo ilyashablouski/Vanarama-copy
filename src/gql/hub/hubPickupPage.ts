@@ -35,6 +35,15 @@ const HUB_PICKUP_CONTENT = gql`
               url
             }
           }
+          heroLabel {
+            text
+            visible
+            link {
+              text
+              url
+              visible
+            }
+          }
         }
         leadText {
           heading

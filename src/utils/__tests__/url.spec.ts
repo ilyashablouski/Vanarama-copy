@@ -9,6 +9,7 @@ import {
   getVehicleConfigurationPath,
   removeUrlQueryPart,
   getProductPageBreadCrumb,
+  formatToSlugFormat,
 } from '../url';
 
 describe('Url utils', () => {
@@ -254,6 +255,12 @@ describe('Url utils', () => {
         },
         { link: { href: '', label: '109CDI Van' } },
       ]);
+    });
+  });
+  describe('formatToSlugFormat', () => {
+    it('formatToSlugFormat should return valid slug value', () => {
+      const actual = formatToSlugFormat('test ID.3');
+      expect(actual).toEqual('test-id-3');
     });
   });
 });

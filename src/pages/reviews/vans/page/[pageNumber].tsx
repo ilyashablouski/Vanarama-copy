@@ -1,4 +1,3 @@
-import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -8,14 +7,6 @@ import { GENERIC_PAGE_QUESTION_HUB } from '../../../../containers/VehicleReviewC
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import { ReviewsHubCategoryQuery } from '../../../../../generated/ReviewsHubCategoryQuery';
 import Head from '../../../../components/Head/Head';
-import Skeleton from '../../../../components/Skeleton';
-
-const ErrorMessage = dynamic(
-  () => import('../../../../components/ErrorMessage/ErrorMessage'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 
 export interface IReviewHubPage {
   data: ReviewsHubCategoryQuery | undefined;
@@ -23,11 +14,7 @@ export interface IReviewHubPage {
   pageNumber?: number;
 }
 
-const ReviewHub: NextPage<IReviewHubPage> = ({ data, error, pageNumber }) => {
-  if (error) {
-    return <ErrorMessage message={error.message} />;
-  }
-
+const ReviewHub: NextPage<IReviewHubPage> = ({ data, pageNumber }) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
@@ -53,53 +40,52 @@ const ReviewHub: NextPage<IReviewHubPage> = ({ data, error, pageNumber }) => {
 
 export async function getStaticPaths() {
   const client = createApolloClient({});
-  try {
-    const { data } = await client.query({
-      query: GENERIC_PAGE_QUESTION_HUB,
-      variables: {
-        slug: 'reviews/vans',
-      },
-    });
-    const cards = getSectionsData(
-      ['sections', 'cards', 'cards'],
-      data?.genericPage,
-    );
 
-    let paths = [] as any[];
-    const countPages = Math.ceil((cards.length || 0) / 12);
-    for (let i = 1; i <= countPages; i += 1) {
-      paths = [...paths, { params: { pageNumber: i.toString() } }];
-    }
-
-    return {
-      paths,
-      fallback: false,
-    };
-  } catch {
-    return {
-      paths: [],
-      fallback: false,
-    };
-  }
-}
-
-export async function getStaticProps(context: GetStaticPropsContext) {
-  const client = createApolloClient({}, context as NextPageContext);
-
-  const { data, error } = await client.query({
+  const { data } = await client.query({
     query: GENERIC_PAGE_QUESTION_HUB,
     variables: {
       slug: 'reviews/vans',
     },
   });
+  const cards = getSectionsData(
+    ['sections', 'cards', 'cards'],
+    data?.genericPage,
+  );
+
+  let paths = [] as any[];
+  const countPages = Math.ceil((cards.length || 0) / 12);
+  for (let i = 1; i <= countPages; i += 1) {
+    paths = [...paths, { params: { pageNumber: i.toString() } }];
+  }
+
   return {
-    props: {
-      data,
-      error: error || null,
-      pageNumber:
-        parseInt((context?.params?.pageNumber as string) || '', 10) || null,
-    },
+    paths,
+    fallback: false,
   };
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
+  const client = createApolloClient({}, context as NextPageContext);
+  try {
+    const { data, error } = await client.query({
+      query: GENERIC_PAGE_QUESTION_HUB,
+      variables: {
+        slug: 'reviews/vans',
+      },
+    });
+    if (error) {
+      throw new Error(error.message);
+    }
+    return {
+      props: {
+        data,
+        pageNumber:
+          parseInt((context?.params?.pageNumber as string) || '', 10) || null,
+      },
+    };
+  } catch (err) {
+    throw new Error(err);
+  }
 }
 
 export default ReviewHub;

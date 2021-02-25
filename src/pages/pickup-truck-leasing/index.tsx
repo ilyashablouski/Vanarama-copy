@@ -17,7 +17,11 @@ import {
 import { HUB_PICKUP_CONTENT } from '../../gql/hub/hubPickupPage';
 import createApolloClient from '../../apolloClient';
 import DealOfMonth from '../../components/DealOfMonth';
-import Hero, { HeroTitle, HeroHeading } from '../../components/Hero';
+import Hero, {
+  HeroTitle,
+  HeroHeading,
+  HeroPrompt,
+} from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import truncateString from '../../utils/truncateString';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -139,18 +143,38 @@ export const PickupsPage: NextPage<IProps> = ({
         <br />
         <HeroTitle text={data?.hubPickupPage.sections?.hero?.body || ''} />
         <br />
-        <Image
-          loadImage
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          optimisationOptions={optimisationOptions}
-          className="hero--image"
-          plain
-          size="expand"
-          src={
-            data?.hubPickupPage.sections?.hero?.image?.file?.url ||
-            'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
-          }
-        />
+        <div>
+          <Image
+            loadImage
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            optimisationOptions={optimisationOptions}
+            className="hero--image"
+            plain
+            size="expand"
+            src={
+              data?.hubPickupPage.sections?.hero?.image?.file?.url ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/hilux-removebg-preview.png'
+            }
+          />
+        </div>
+        {data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.visible && (
+          <HeroPrompt
+            label={
+              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.text ||
+              ''
+            }
+            url={
+              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.url ||
+              ''
+            }
+            text={
+              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.text || ''
+            }
+            btnVisible={
+              data?.hubPickupPage.sections?.hero?.heroLabel?.[0]?.link?.visible
+            }
+          />
+        )}
       </Hero>
 
       <section className="row:lead-text">
@@ -715,8 +739,8 @@ export async function getStaticProps() {
         vehicleListUrlData,
       },
     };
-  } catch {
-    return false;
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

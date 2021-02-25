@@ -472,18 +472,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: `locations/${paths?.join('/')}`,
       },
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

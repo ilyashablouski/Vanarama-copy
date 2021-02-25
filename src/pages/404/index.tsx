@@ -1,7 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
 import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
@@ -17,11 +16,7 @@ const PageNotFoundContainer = dynamic(
   },
 );
 
-const PageNotFound: NextPage<IGenericPage> = ({ error, data }) => {
-  if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
-
+const PageNotFound: NextPage<IGenericPage> = ({ data }) => {
   const name = getSectionsData(['metaData', 'name'], data?.genericPage);
   const cards = getSectionsData(
     ['sections', 'cards', 'cards'],
@@ -34,7 +29,7 @@ const PageNotFound: NextPage<IGenericPage> = ({ error, data }) => {
   );
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const schema = getSectionsData(['metaData', 'schema'], data?.genericPage);
-  const metaData = getSectionsData(['metaData'], data.genericPage);
+  const metaData = getSectionsData(['metaData'], data?.genericPage);
 
   return (
     <>
@@ -63,14 +58,12 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: '404',
       },
     });
-
-    return { props: { data, loading, error: errors ? errors[0] : null } };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
+    return { props: { data, loading } };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

@@ -1,6 +1,4 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import DefaultErrorPage from 'next/error';
-import { ApolloError } from '@apollo/client';
 import InsurancePageContainer from '../../containers/InsurancePageContainer/InsurancePageContainer';
 import createApolloClient from '../../apolloClient';
 import GET_INSURANCE_LANDING_PAGE from '../../containers/InsurancePageContainer/gql';
@@ -8,14 +6,9 @@ import { GetInsuranceLandingPage } from '../../../generated/GetInsuranceLandingP
 
 interface IInsurancePage {
   data: GetInsuranceLandingPage | undefined;
-  error: ApolloError;
 }
 
-const InsurancePage: NextPage<IInsurancePage> = ({ data, error }) => {
-  if (error || !data) {
-    return <DefaultErrorPage statusCode={404} />;
-  }
-
+const InsurancePage: NextPage<IInsurancePage> = ({ data }) => {
   return <InsurancePageContainer data={data} />;
 };
 
@@ -25,18 +18,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const { data, errors } = await client.query({
       query: GET_INSURANCE_LANDING_PAGE,
     });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       props: {
         data,
-        error: errors ? errors[0] : null,
       },
     };
-  } catch {
-    return {
-      props: {
-        error: true,
-      },
-    };
+  } catch (err) {
+    throw new Error(err);
   }
 }
 

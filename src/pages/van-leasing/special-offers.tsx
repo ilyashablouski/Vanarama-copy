@@ -474,7 +474,7 @@ export async function getStaticProps() {
     });
     data = content;
   } catch (e) {
-    return false;
+    throw new Error(e);
   }
   const {
     productsPickup,

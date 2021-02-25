@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero as IHero } from '../../../../generated/GetInsuranceLandingPage';
-import Hero, { HeroHeading } from '../../../components/Hero';
+import Hero, { HeroHeading, HeroPrompt } from '../../../components/Hero';
 import config from '../config';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import Skeleton from '../../../components/Skeleton';
@@ -14,7 +14,13 @@ const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const InsuranceHeroSection = ({ title, body, heroCard, image }: IHero) => (
+const InsuranceHeroSection = ({
+  title,
+  body,
+  heroCard,
+  image,
+  heroLabel,
+}: IHero) => (
   <Hero workingHoursCard={(heroCard && heroCard[0]) || undefined}>
     <HeroHeading text={title || ''} />
     <ReactMarkdown
@@ -44,15 +50,25 @@ const InsuranceHeroSection = ({ title, body, heroCard, image }: IHero) => (
         },
       }}
     />
-    <Image
-      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-      alt="Hero Image"
-      dataTestId="insurance_hero-image"
-      size="expand"
-      src={image?.file?.url || config.heroImage.src}
-      plain
-      className="hero--image"
-    />
+    <div>
+      <Image
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+        alt="Hero Image"
+        dataTestId="insurance_hero-image"
+        size="expand"
+        src={image?.file?.url || config.heroImage.src}
+        plain
+        className="hero--image"
+      />
+    </div>
+    {heroLabel?.[0]?.visible && (
+      <HeroPrompt
+        label={heroLabel?.[0]?.link?.text || ''}
+        url={heroLabel?.[0]?.link?.url || ''}
+        text={heroLabel?.[0]?.text || ''}
+        btnVisible={heroLabel?.[0]?.link?.visible}
+      />
+    )}
   </Hero>
 );
 

@@ -36,7 +36,7 @@ import {
   rangeList,
   rangeList_rangeList as IRange,
 } from '../../../../generated/rangeList';
-import { notFoundPageHandler } from '../../../utils/url';
+import { formatToSlugFormat, notFoundPageHandler } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../../generated/genericPagesQuery';
@@ -228,13 +228,9 @@ export async function getServerSideProps(context: NextPageContext) {
       .then(resp => resp.data);
     const slugs = ranges.rangeList.map(
       (range: IRange) =>
-        `van-leasing/${(query.make as string)
-          .toLowerCase()
-          .split(' ')
-          .join('-')}/${range.rangeName
-          ?.toLowerCase()
-          .split(' ')
-          .join('-')}`,
+        `van-leasing/${formatToSlugFormat(
+          query.make as string,
+        )}/${formatToSlugFormat(range.rangeName || '')}`,
     );
     rangesUrls = await client
       .query({

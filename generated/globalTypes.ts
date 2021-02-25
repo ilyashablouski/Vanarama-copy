@@ -399,10 +399,10 @@ export interface ProductFilterRangeListObject {
  * Filter object to search vehicles
  */
 export interface ProductVehicleListInputObject {
+  after?: number | null;
   availability?: number | null;
   bodyStyles?: string[] | null;
   financeTypes?: FinanceTypeEnum[] | null;
-  from?: number | null;
   fuelTypes?: string[] | null;
   initialPayment?: ProductFilterRangeListObject | null;
   initialPeriods?: number[] | null;
