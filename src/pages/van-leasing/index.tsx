@@ -627,8 +627,8 @@ export const VansPage: NextPage<IProps> = ({
 
       <hr className="fullWidth" />
 
-      <section className="row:features-4col">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:features-4col">
           <Heading
             size="large"
             color="black"
@@ -669,11 +669,11 @@ export const VansPage: NextPage<IProps> = ({
               </Tile>
             </div>
           ))}
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:manufacturer-grid">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:manufacturer-grid">
           <Heading
             size="large"
             color="black"
@@ -698,21 +698,21 @@ export const VansPage: NextPage<IProps> = ({
               </RouterLink>
             ))}
           </div>
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:league">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:league">
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
             link="/fan-hub.html"
           />
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:featured-logos">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:featured-logos">
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
           </Heading>
@@ -765,14 +765,14 @@ export const VansPage: NextPage<IProps> = ({
               />
             ))}
           </div>
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:trustpilot">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:trustpilot">
           <TrustPilot />
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
       {data?.hubVanPage.metaData && (
         <>
           <Head

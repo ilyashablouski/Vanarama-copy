@@ -338,8 +338,8 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         </Tabs>
       </section>
 
-      <section className="row:bg-lighter">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:bg-lighter">
           <div className="row:cards-3col">
             {(getSectionsData(
               ['cards', 'cards'],
@@ -374,11 +374,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               </RouterLink>
             ))}
           </div>
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:featured-right">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:featured-right">
           <div style={{ padding: '1rem' }}>
             <Heading
               size="large"
@@ -450,11 +450,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               />
             </div>
           )}
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:featured-left">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:featured-left">
           {data?.homePage?.sections?.featured2?.video ? (
             <Media
               src={
@@ -516,11 +516,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               />
             </div>
           </div>
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:features-4col">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:features-4col">
           <Heading
             size="large"
             color="black"
@@ -558,21 +558,21 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               </Tile>
             </div>
           ))}
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:league">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:league">
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
             link="/fan-hub.html"
           />
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:featured-logos">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:featured-logos">
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
           </Heading>
@@ -625,14 +625,14 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               />
             ))}
           </div>
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
-      <section className="row:trustpilot">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <section className="row:trustpilot">
           <TrustPilot />
-        </LazyLoadComponent>
-      </section>
+        </section>
+      </LazyLoadComponent>
 
       {data && (
         <SchemaJSON json={JSON.stringify(data?.homePage?.metaData?.schema)} />
