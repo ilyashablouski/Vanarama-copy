@@ -15,25 +15,19 @@ const AuthorPage: NextPage<IGenericPage> = ({ data, loading }) => {
 
 export async function getStaticPaths() {
   const client = createApolloClient({});
-  try {
-    const { data } = await client.query<
-      PageCollection,
-      PageCollectionVariables
-    >({
-      query: PAGE_COLLECTION,
-      variables: {
-        pageType: 'Authors',
-      },
-    });
-    const items = data?.pageCollection?.items;
 
-    return {
-      paths: getPathsFromPageCollection(items, 'authors'),
-      fallback: false,
-    };
-  } catch (err) {
-    throw new Error(err);
-  }
+  const { data } = await client.query<PageCollection, PageCollectionVariables>({
+    query: PAGE_COLLECTION,
+    variables: {
+      pageType: 'Authors',
+    },
+  });
+  const items = data?.pageCollection?.items;
+
+  return {
+    paths: getPathsFromPageCollection(items, 'authors'),
+    fallback: false,
+  };
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
