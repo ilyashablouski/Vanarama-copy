@@ -65,13 +65,7 @@ const OrderInformationContainer: React.FC<IProps> = () => {
         });
       });
     }
-  }, [
-    person,
-    getOrdersData,
-    quotesLength,
-    ordersLength,
-    getCompaniesData,
-  ]);
+  }, [person, getOrdersData, quotesLength, ordersLength, getCompaniesData]);
 
   return (
     <div className="row:bg-light">
