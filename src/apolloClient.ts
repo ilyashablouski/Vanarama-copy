@@ -5,6 +5,8 @@ import {
   InMemoryCache,
   HttpLink,
 } from '@apollo/client';
+import { RetryLink } from 'apollo-link-retry';
+
 // import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
 
 import Router from 'next/router';
@@ -24,6 +26,18 @@ const httpLink = new HttpLink({
   // useGETForQueries: true,
   headers: {
     'x-api-key': process.env.API_KEY!,
+  },
+});
+
+const retryLink = new RetryLink({
+  delay: {
+    initial: 300,
+    max: Infinity,
+    jitter: true,
+  },
+  attempts: {
+    max: 5,
+    retryIf: error => !!error,
   },
 });
 
@@ -74,7 +88,7 @@ const ErrorLink = onError(({ graphQLErrors }) => {
 });
 
 function apolloClientLink() {
-  let links = [ErrorLink, httpLink];
+  let links = [ErrorLink, retryLink, httpLink];
 
   // TODO: https://autorama.atlassian.net/browse/DIG-5174
   // if (process.env.ENV && ['uat', 'production'].includes(process.env.ENV)) {
@@ -86,7 +100,8 @@ function apolloClientLink() {
     links = [logLink as any, ...links];
   }
 
-  return ApolloLink.from(links);
+  // NOTE: Type 'RetryLink' is missing the following properties from type 'ApolloLink': onError, setOnError
+  return ApolloLink.from(links as any);
 }
 
 export default function createApolloClient(
