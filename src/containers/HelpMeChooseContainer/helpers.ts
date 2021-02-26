@@ -91,10 +91,12 @@ export const buildAnObjectFromAQuery = (
       if (
         (key === 'bodyStyles' &&
           steps.bodyStyles?.value?.length &&
+          steps.bodyStyles?.value[0].length &&
           !steps.bodyStyles.active &&
           !editStep) ||
         (key === 'bodyStyles' &&
           steps.bodyStyles?.value?.length &&
+          steps.bodyStyles?.value[0].length &&
           editStep &&
           editStep > 2)
       ) {
@@ -103,10 +105,12 @@ export const buildAnObjectFromAQuery = (
       if (
         (key === 'fuelTypes' &&
           steps.fuelTypes?.value?.length &&
+          steps.fuelTypes?.value[0].length &&
           !steps.fuelTypes.active &&
           !editStep) ||
         (key === 'fuelTypes' &&
           steps.fuelTypes?.value?.length &&
+          steps.fuelTypes?.value[0].length &&
           editStep &&
           editStep > 3)
       ) {
@@ -115,10 +119,12 @@ export const buildAnObjectFromAQuery = (
       if (
         (key === 'transmissions' &&
           steps.transmissions?.value?.length &&
+          steps.transmissions?.value[0].length &&
           !steps.transmissions.active &&
           !editStep) ||
         (key === 'transmissions' &&
           steps.transmissions?.value?.length &&
+          steps.transmissions?.value[0].length &&
           editStep &&
           editStep > 4)
       ) {
@@ -127,10 +133,12 @@ export const buildAnObjectFromAQuery = (
       if (
         (key === 'terms' &&
           steps.terms?.value?.length &&
+          steps.terms?.value[0].length &&
           !steps.terms.active &&
           !editStep) ||
         (key === 'terms' &&
           steps.terms?.value?.length &&
+          steps.terms?.value[0].length &&
           editStep &&
           editStep > 5)
       ) {
@@ -139,10 +147,12 @@ export const buildAnObjectFromAQuery = (
       if (
         (key === 'mileages' &&
           steps.mileages?.value?.length &&
+          steps.mileages?.value[0].length &&
           !steps.mileages.active &&
           !editStep) ||
         (key === 'mileages' &&
           steps.mileages?.value?.length &&
+          steps.mileages?.value[0].length &&
           editStep &&
           editStep > 6)
       ) {
@@ -151,10 +161,12 @@ export const buildAnObjectFromAQuery = (
       if (
         (key === 'availability' &&
           steps.availability?.value?.length &&
+          steps.availability?.value[0].length &&
           !steps.availability.active &&
           !editStep) ||
         (key === 'availability' &&
           steps.availability?.value?.length &&
+          steps.availability?.value[0].length &&
           editStep &&
           editStep > 7)
       ) {
@@ -185,13 +197,28 @@ export const buildAnObjectFromAQuery = (
     });
   } else {
     Object.entries(steps).forEach(([key, val]) => {
-      if (key === 'bodyStyles' && val.value?.length && !val.active) {
+      if (
+        key === 'bodyStyles' &&
+        val.value?.length &&
+        val.value[0].length &&
+        !val.active
+      ) {
         object.bodyStyles = val.value;
       }
-      if (key === 'fuelTypes' && val.value?.length && !val.active) {
+      if (
+        key === 'fuelTypes' &&
+        val.value?.length &&
+        val.value[0].length &&
+        !val.active
+      ) {
         object.fuelTypes = val.value;
       }
-      if (key === 'transmissions' && val?.value?.length && !val.active) {
+      if (
+        key === 'transmissions' &&
+        val?.value?.length &&
+        val.value[0].length &&
+        !val.active
+      ) {
         object.transmissions = val.value;
       }
       if (

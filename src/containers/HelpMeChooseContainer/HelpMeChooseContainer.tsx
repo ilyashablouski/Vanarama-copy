@@ -51,7 +51,7 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
     // Add.
     if (checked.active)
       newSelectedData = [
-        ...(currentValue as string[]),
+        ...((currentValue as string[]) || ''),
         checked.value as string,
       ];
     // Remove.
