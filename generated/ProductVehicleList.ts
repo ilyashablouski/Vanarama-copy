@@ -130,6 +130,7 @@ export interface ProductVehicleList_productVehicleList {
   totalCount: number;
   nodesCount: number;
   totalVehicles: number;
+  afterKey: number;
   /**
    * Information to aid in pagination.
    */

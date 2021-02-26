@@ -81,117 +81,190 @@ export const buildAnObjectFromAQuery = (
   steps: IInitStep,
   editStep?: number,
   showResults?: {
-    from: number;
+    after: number;
     size: number;
   },
 ) => {
   const object = {} as any;
-  query.forEach((value: string, key: string) => {
-    if (
-      (key === 'financeTypes' &&
-        steps.financeTypes?.value?.length &&
-        !steps.financeTypes.active &&
-        !editStep) ||
-      (key === 'financeTypes' &&
-        steps.financeTypes?.value?.length &&
-        editStep &&
-        editStep > 1)
-    ) {
-      object.financeTypes = steps.financeTypes.value;
-    }
-    if (
-      (key === 'bodyStyles' &&
-        steps.bodyStyles?.value?.length &&
-        !steps.bodyStyles.active &&
-        !editStep) ||
-      (key === 'bodyStyles' &&
-        steps.bodyStyles?.value?.length &&
-        editStep &&
-        editStep > 2)
-    ) {
-      object.bodyStyles = steps.bodyStyles.value;
-    }
-    if (
-      (key === 'fuelTypes' &&
-        steps.fuelTypes?.value?.length &&
-        !steps.fuelTypes.active &&
-        !editStep) ||
-      (key === 'fuelTypes' &&
-        steps.fuelTypes?.value?.length &&
-        editStep &&
-        editStep > 3)
-    ) {
-      object.fuelTypes = steps.fuelTypes.value;
-    }
-    if (
-      (key === 'transmissions' &&
-        steps.transmissions?.value?.length &&
-        !steps.transmissions.active &&
-        !editStep) ||
-      (key === 'transmissions' &&
-        steps.transmissions?.value?.length &&
-        editStep &&
-        editStep > 4)
-    ) {
-      object.transmissions = steps.transmissions.value;
-    }
-    if (
-      (key === 'terms' &&
-        steps.terms?.value?.length &&
-        !steps.terms.active &&
-        !editStep) ||
-      (key === 'terms' &&
-        steps.terms?.value?.length &&
-        editStep &&
-        editStep > 5)
-    ) {
-      object.terms = [parseInt(steps.terms.value[0], 10)];
-    }
-    if (
-      (key === 'mileages' &&
-        steps.mileages?.value?.length &&
-        !steps.mileages.active &&
-        !editStep) ||
-      (key === 'mileages' &&
-        steps.mileages?.value?.length &&
-        editStep &&
-        editStep > 6)
-    ) {
-      object.mileages = [parseInt(steps.mileages.value[0] || '', 10)];
-    }
-    if (
-      (key === 'availability' &&
-        steps.availability?.value?.length &&
-        !steps.availability.active &&
-        !editStep) ||
-      (key === 'availability' &&
-        steps.availability?.value?.length &&
-        editStep &&
-        editStep > 7)
-    ) {
-      object.availability = parseInt(steps.availability.value[0] || '', 10);
-    }
-    if (
-      (key === 'rental' && value?.length && !editStep && steps.rental.active) ||
-      steps.rental.active
-    ) {
-      object.rental = {
-        max: parseFloat(steps.rental.value as any),
-      };
-    }
-    if (
-      (key === 'initialPeriods' &&
-        value?.length &&
-        !editStep &&
-        steps.initialPeriods.active) ||
-      steps.initialPeriods.active
-    ) {
-      object.initialPeriods = [parseInt(steps.initialPeriods.value as any, 10)];
-    }
-  });
-  object.from = showResults?.from || 0;
+  if (editStep) {
+    query.forEach((value: string, key: string) => {
+      if (
+        (key === 'bodyStyles' &&
+          steps.bodyStyles?.value?.length &&
+          steps.bodyStyles?.value[0].length &&
+          !steps.bodyStyles.active &&
+          !editStep) ||
+        (key === 'bodyStyles' &&
+          steps.bodyStyles?.value?.length &&
+          steps.bodyStyles?.value[0].length &&
+          editStep &&
+          editStep > 2)
+      ) {
+        object.bodyStyles = steps.bodyStyles.value;
+      }
+      if (
+        (key === 'fuelTypes' &&
+          steps.fuelTypes?.value?.length &&
+          steps.fuelTypes?.value[0].length &&
+          !steps.fuelTypes.active &&
+          !editStep) ||
+        (key === 'fuelTypes' &&
+          steps.fuelTypes?.value?.length &&
+          steps.fuelTypes?.value[0].length &&
+          editStep &&
+          editStep > 3)
+      ) {
+        object.fuelTypes = steps.fuelTypes.value;
+      }
+      if (
+        (key === 'transmissions' &&
+          steps.transmissions?.value?.length &&
+          steps.transmissions?.value[0].length &&
+          !steps.transmissions.active &&
+          !editStep) ||
+        (key === 'transmissions' &&
+          steps.transmissions?.value?.length &&
+          steps.transmissions?.value[0].length &&
+          editStep &&
+          editStep > 4)
+      ) {
+        object.transmissions = steps.transmissions.value;
+      }
+      if (
+        (key === 'terms' &&
+          steps.terms?.value?.length &&
+          steps.terms?.value[0].length &&
+          !steps.terms.active &&
+          !editStep) ||
+        (key === 'terms' &&
+          steps.terms?.value?.length &&
+          steps.terms?.value[0].length &&
+          editStep &&
+          editStep > 5)
+      ) {
+        object.terms = [parseInt(steps.terms.value[0], 10)];
+      }
+      if (
+        (key === 'mileages' &&
+          steps.mileages?.value?.length &&
+          steps.mileages?.value[0].length &&
+          !steps.mileages.active &&
+          !editStep) ||
+        (key === 'mileages' &&
+          steps.mileages?.value?.length &&
+          steps.mileages?.value[0].length &&
+          editStep &&
+          editStep > 6)
+      ) {
+        object.mileages = [parseInt(steps.mileages.value[0] || '', 10)];
+      }
+      if (
+        (key === 'availability' &&
+          steps.availability?.value?.length &&
+          steps.availability?.value[0].length &&
+          !steps.availability.active &&
+          !editStep) ||
+        (key === 'availability' &&
+          steps.availability?.value?.length &&
+          steps.availability?.value[0].length &&
+          editStep &&
+          editStep > 7)
+      ) {
+        object.availability = parseInt(steps.availability.value[0] || '', 10);
+      }
+      if (
+        (key === 'rental' &&
+          value?.length &&
+          !editStep &&
+          steps.rental.active) ||
+        steps.rental.active
+      ) {
+        object.rental = {
+          max: parseFloat(steps.rental.value as any),
+        };
+      }
+      if (
+        (key === 'initialPeriods' &&
+          value?.length &&
+          !editStep &&
+          steps.initialPeriods.active) ||
+        steps.initialPeriods.active
+      ) {
+        object.initialPeriods = [
+          parseInt(steps.initialPeriods.value as any, 10),
+        ];
+      }
+    });
+  } else {
+    Object.entries(steps).forEach(([key, val]) => {
+      if (
+        key === 'bodyStyles' &&
+        val.value?.length &&
+        val.value[0].length &&
+        !val.active
+      ) {
+        object.bodyStyles = val.value;
+      }
+      if (
+        key === 'fuelTypes' &&
+        val.value?.length &&
+        val.value[0].length &&
+        !val.active
+      ) {
+        object.fuelTypes = val.value;
+      }
+      if (
+        key === 'transmissions' &&
+        val?.value?.length &&
+        val.value[0].length &&
+        !val.active
+      ) {
+        object.transmissions = val.value;
+      }
+      if (
+        key === 'terms' &&
+        val?.value?.length &&
+        val.value[0].length &&
+        !val.active
+      ) {
+        object.terms = [parseInt(val.value[0], 10)];
+      }
+      if (
+        key === 'mileages' &&
+        val?.value?.length &&
+        val.value[0].length &&
+        !val.active
+      ) {
+        object.mileages = [parseInt(val.value[0] || '', 10)];
+      }
+      if (
+        key === 'availability' &&
+        val?.value?.length &&
+        val.value[0].length &&
+        !val.active
+      ) {
+        object.availability = parseInt(val.value[0] || '', 10);
+      }
+      if (
+        (key === 'rental' && val.value?.length && val.active) ||
+        (key === 'rental' && val.active)
+      ) {
+        object.rental = {
+          max: parseFloat(val.value as any),
+        };
+      }
+      if (
+        (key === 'initialPeriods' && val.value?.length && val.active) ||
+        (key === 'initialPeriods' && val.active)
+      ) {
+        object.initialPeriods = [parseInt(val.value as any, 10)];
+      }
+    });
+  }
+  object.financeTypes = steps.financeTypes.value;
+  object.after = null;
   object.size = showResults?.size || 12;
-  // object.vehicleTypes = [VehicleTypeEnum.CAR];
+  object.vehicleTypes = [VehicleTypeEnum.CAR];
   return object;
 };
 

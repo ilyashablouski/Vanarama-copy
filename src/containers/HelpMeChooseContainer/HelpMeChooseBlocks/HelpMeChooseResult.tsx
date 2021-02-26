@@ -27,10 +27,7 @@ import { useModelImages } from '../../SearchPageContainer/gql';
 import { CompareContext } from '../../../utils/comparatorTool';
 import { isCompared } from '../../../utils/comparatorHelpers';
 import RouterLink from '../../../components/RouterLink/RouterLink';
-import {
-  ProductVehicleList,
-  ProductVehicleList_productVehicleList_edges as Edges,
-} from '../../../../generated/ProductVehicleList';
+import { ProductVehicleList_productVehicleList_edges as Edges } from '../../../../generated/ProductVehicleList';
 
 const RENTAL_DATA = [
   {
@@ -352,45 +349,6 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                 </div>
               ))}
         </div>
-        {!!vehiclesResultNumber && vehiclesResultNumber > 12 && (
-          <div>
-            <Button
-              color="primary"
-              dataTestId="help-me-choose_load-more"
-              label="Load More"
-              onClick={() => {
-                setCounterState(counterState + 1);
-                setLoadingStatus(true);
-                const searchParams = new URLSearchParams();
-                getProductVehicleList({
-                  variables: {
-                    filter: {
-                      ...buildAnObjectFromAQuery(
-                        searchParams,
-                        steps,
-                        undefined,
-                        {
-                          from: counterState,
-                          size: 12,
-                        },
-                      ),
-                    },
-                  },
-                }).then((result: ProductVehicleList) => {
-                  const resultsDataArray: Edges[] = getSectionsData(
-                    ['data', 'productVehicleList', 'edges'],
-                    result,
-                  );
-                  setResultsData(resultsData.concat(resultsDataArray));
-                });
-              }}
-              size="large"
-              className="stepped-form--button"
-              type="button"
-              fill="clear"
-            />
-          </div>
-        )}
         <div className="button-group">
           {!!vehiclesResultNumber &&
             vehiclesResultNumber > 12 &&
@@ -413,10 +371,9 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                             steps,
                             undefined,
                             {
-                              from: counterState * 12,
-                              size: 12,
+                              after: 0,
+                              size: 12 * (counterState + 1),
                             },
-                            // 12 * (counterState + 1),
                           ),
                         },
                       },
