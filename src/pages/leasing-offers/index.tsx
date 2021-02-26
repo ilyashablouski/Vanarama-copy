@@ -193,7 +193,12 @@ export const OffersPage: NextPage<IProps> = ({
               Van Offers
             </span>
           </Heading>
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             <ProductCarousel
               leaseType={LeaseTypeEnum.BUSINESS}
               data={{
@@ -234,7 +239,12 @@ export const OffersPage: NextPage<IProps> = ({
               Truck Offers
             </span>
           </Heading>
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             <ProductCarousel
               leaseType={LeaseTypeEnum.BUSINESS}
               data={{
@@ -275,7 +285,12 @@ export const OffersPage: NextPage<IProps> = ({
               Car Offers
             </span>
           </Heading>
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             <ProductCarousel
               leaseType={LeaseTypeEnum.PERSONAL}
               data={{

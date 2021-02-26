@@ -58,7 +58,12 @@ const Media: React.FC<IMediaProps> = ({
       {noLazy ? (
         render()
       ) : (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           {render()}
         </LazyLoadComponent>
       )}

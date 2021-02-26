@@ -127,7 +127,12 @@ const BlogPostContainer: NextPage<IProps> = ({
           />
         </article>
         <div>
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             {articles && (
               <Heading tag="span" size="large" color="black">
                 Related Articles

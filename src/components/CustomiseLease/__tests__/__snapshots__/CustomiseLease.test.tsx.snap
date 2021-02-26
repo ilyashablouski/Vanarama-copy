@@ -340,14 +340,167 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       </div>
     </div>
   </div>
-  <span
-    className=""
-    style={
-      Object {
-        "display": "inline-block",
-      }
-    }
-  />
+  <div
+    className="pdp--order-summary"
+  >
+    <p
+      className="heading -inherit -primary -small"
+    >
+      ORDER SUMMARY
+    </p>
+    <section
+      className="structured-list -compact"
+    >
+      <div
+        className="structured-list-tbody"
+      >
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-0-Processing Fee:"
+          >
+            Processing Fee:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="processingFee"
+          >
+            FREE
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-1-Initial Payment:"
+          >
+            Initial Payment:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="initialPayment"
+          >
+            £605.95 (exc. VAT)
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-2-Contract Length:"
+          >
+            Contract Length:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="contractLengthile"
+          >
+            24 months
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-3-Annual Mileage:"
+          >
+            Annual Mileage:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="annualMileage"
+          >
+            8000 miles
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-4-Maintenance:"
+          >
+            Maintenance:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="maintenance"
+          >
+            No
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-5-Colour:"
+          >
+            Colour:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="colour"
+          >
+            Solid - Polar white
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-6-Trim / Interior:"
+          >
+            Trim / Interior:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="trim"
+          >
+            -
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-7-Stock:"
+          >
+            Stock:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="stock"
+          >
+            14-21 Day Delivery
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-8-Redundancy & Life Cover:"
+          >
+            Redundancy & Life Cover:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="redundancy"
+          >
+            Included
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
   <div
     className="lease-scanner--sticky-wrap start-screen"
     style={
@@ -356,14 +509,79 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       }
     }
   >
-    <span
-      className=""
+    <div
+      className="lease-scanner"
       style={
         Object {
-          "display": "inline-block",
+          "--lease-scanner-height": "6.75rem",
         }
       }
-    />
+    >
+      <div
+        className="content-wrapper"
+      >
+        <div
+          className="price -xlarge -black"
+        >
+          <span
+            className="price--sub"
+          >
+            £
+          </span>
+          <span
+            className="price--pounds"
+          >
+            605
+          </span>
+          <span
+            className="price--sub"
+          >
+            .
+            95
+          </span>
+        </div>
+        <div
+          className="heading headingText -pt-100 -darker -small"
+        >
+          PM exc. VAT
+        </div>
+      </div>
+      <div
+        className="button-wrapper"
+      >
+        <button
+          className="button -fullwidth -teal -regular -solid"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            Order Now
+          </div>
+        </button>
+      </div>
+      <div />
+      <div
+        style={
+          Object {
+            "height": "1rem",
+          }
+        }
+      >
+        <div
+          className="text -regular -darker"
+        >
+          Need Help?
+           
+          <a
+            className="link -primary -regular -plain"
+            onClick={[Function]}
+          >
+            Request a Call Back
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
@@ -708,14 +926,167 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       </div>
     </div>
   </div>
-  <span
-    className=""
-    style={
-      Object {
-        "display": "inline-block",
-      }
-    }
-  />
+  <div
+    className="pdp--order-summary"
+  >
+    <p
+      className="heading -inherit -primary -small"
+    >
+      ORDER SUMMARY
+    </p>
+    <section
+      className="structured-list -compact"
+    >
+      <div
+        className="structured-list-tbody"
+      >
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-0-Processing Fee:"
+          >
+            Processing Fee:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="processingFee"
+          >
+            FREE
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-1-Initial Payment:"
+          >
+            Initial Payment:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="initialPayment"
+          >
+            £605.95 (exc. VAT)
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-2-Contract Length:"
+          >
+            Contract Length:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="contractLengthile"
+          >
+            24 months
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-3-Annual Mileage:"
+          >
+            Annual Mileage:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="annualMileage"
+          >
+            8000 miles
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-4-Maintenance:"
+          >
+            Maintenance:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="maintenance"
+          >
+            No
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-5-Colour:"
+          >
+            Colour:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="colour"
+          >
+            Solid - Polar white
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-6-Trim / Interior:"
+          >
+            Trim / Interior:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="trim"
+          >
+            -
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-7-Stock:"
+          >
+            Stock:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="stock"
+          >
+            14-21 Day Delivery
+          </div>
+        </div>
+        <div
+          className="structured-list-row "
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-8-Redundancy & Life Cover:"
+          >
+            Redundancy & Life Cover:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="redundancy"
+          >
+            Included
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
   <div
     className="lease-scanner--sticky-wrap start-screen"
     style={
@@ -724,14 +1095,79 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       }
     }
   >
-    <span
-      className=""
+    <div
+      className="lease-scanner"
       style={
         Object {
-          "display": "inline-block",
+          "--lease-scanner-height": "6.75rem",
         }
       }
-    />
+    >
+      <div
+        className="content-wrapper"
+      >
+        <div
+          className="price -xlarge -black"
+        >
+          <span
+            className="price--sub"
+          >
+            £
+          </span>
+          <span
+            className="price--pounds"
+          >
+            605
+          </span>
+          <span
+            className="price--sub"
+          >
+            .
+            95
+          </span>
+        </div>
+        <div
+          className="heading headingText -pt-100 -darker -small"
+        >
+          PM exc. VAT
+        </div>
+      </div>
+      <div
+        className="button-wrapper"
+      >
+        <button
+          className="button -fullwidth -teal -regular -solid"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            Order Now
+          </div>
+        </button>
+      </div>
+      <div />
+      <div
+        style={
+          Object {
+            "height": "1rem",
+          }
+        }
+      >
+        <div
+          className="text -regular -darker"
+        >
+          Need Help?
+           
+          <a
+            className="link -primary -regular -plain"
+            onClick={[Function]}
+          >
+            Request a Call Back
+          </a>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 `;
