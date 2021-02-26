@@ -33,7 +33,7 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 const HelpMeChoose: NextPage = () => {
   const [steps, setSteps] = useState<IInitStep>(initialSteps);
   const [isLoading, setLoadingStatus] = useState(false);
-  const [counterState, setCounterState] = useState(0);
+  const [counterState, setCounterState] = useState(1);
   const [resultsData, setResultsData] = useState<Edges[]>([]);
 
   const [getProductVehicleList, productVehicleListData] = useLazyQuery<
@@ -63,6 +63,10 @@ const HelpMeChoose: NextPage = () => {
   );
   const availabilityData = getSectionsData(
     ['productVehicleList', 'aggs', 'availability'],
+    productVehicleListData?.data,
+  );
+  const resultsDataArray: Edges[] = getSectionsData(
+    ['productVehicleList', 'edges'],
     productVehicleListData?.data,
   );
 
@@ -154,7 +158,6 @@ const HelpMeChoose: NextPage = () => {
         filter: {
           ...buildAnObjectFromAQuery(searchParams, stepsFromSearch),
         },
-        first: 12,
       };
       getProductVehicleList({
         variables,
@@ -251,19 +254,21 @@ const HelpMeChoose: NextPage = () => {
           setLoadingStatus={setLoadingStatus}
         />
       )}
-      {steps.rental.active && steps.initialPeriods.active && (
-        <HelpMeChooseResult
-          steps={steps}
-          setSteps={setSteps}
-          getProductVehicleList={getProductVehicleList}
-          productVehicleListData={productVehicleListData}
-          setLoadingStatus={setLoadingStatus}
-          counterState={counterState}
-          setCounterState={setCounterState}
-          resultsData={resultsData}
-          setResultsData={setResultsData}
-        />
-      )}
+      {steps.rental.active &&
+        steps.initialPeriods.active &&
+        !!resultsDataArray && (
+          <HelpMeChooseResult
+            steps={steps}
+            setSteps={setSteps}
+            getProductVehicleList={getProductVehicleList}
+            productVehicleListData={productVehicleListData}
+            setLoadingStatus={setLoadingStatus}
+            counterState={counterState}
+            setCounterState={setCounterState}
+            resultsData={resultsData}
+            setResultsData={setResultsData}
+          />
+        )}
     </>
   );
 };
