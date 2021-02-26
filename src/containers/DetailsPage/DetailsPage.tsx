@@ -443,7 +443,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
         />
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <VehicleTechDetails
             vehicleDetails={vehicleDetails}
             derivativeInfo={derivativeInfo}
@@ -451,7 +456,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         </LazyLoadComponent>
         {(vans || cars) && <Banner vans={vans} />}
         {(vans || pickups) && !!independentReview && (
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             <IndependentReview review={independentReview || ''} />
           </LazyLoadComponent>
         )}
@@ -476,12 +486,22 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             setMileage={setMileage}
           />
         )}
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <WhyChooseLeasing warranty={warranty || ''} />
           <WhyChooseVanarama />
         </LazyLoadComponent>
         <div className="pdp--reviews">
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             <CustomerReviews
               reviews={reviews || []}
               title="Customer Reviews"
@@ -490,7 +510,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             />
           </LazyLoadComponent>
         </div>
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <FrequentlyAskedQuestions
             rangeFAQ={rangeFAQs || []}
             rangeFAQTitle={pageTitle}
@@ -519,7 +544,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         />
       )}
       {(!!productCard || !!capsId?.length) && (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <CustomerAlsoViewedContainer
             initProductCard={productCard}
             capsId={capsId || []}
@@ -535,7 +565,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           })}
           ref={leaseScanner}
         >
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             <LeaseScanner
               classNameHeading="headingText"
               className="pdp-footer"
