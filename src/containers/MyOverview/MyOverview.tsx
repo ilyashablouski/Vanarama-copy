@@ -18,7 +18,6 @@ import {
   VehicleProductInputObject,
 } from '../../../generated/globalTypes';
 import { createOffersObject, sortOrders, sortOrderValues } from './helpers';
-import { getUrlParam } from '../../utils/url';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../generated/GetCompaniesByPersonUuid';
@@ -58,11 +57,6 @@ const OrderCard = dynamic(
     loading: () => <Skeleton count={5} />,
   },
 );
-
-type QueryParams = {
-  partyByUuid?: string;
-  uuid?: string;
-};
 
 interface IMyOverviewProps {
   quote: boolean;
@@ -153,15 +147,9 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
           {
             link: {
               label: 'My Account',
-              href: '/account/my-details/[uuid]',
-              query: {
-                partyByUuid: person.partyUuid,
-                uuid: person.uuid,
-              },
+              href: '/account/my-details',
             },
-            as: `/account/my-details/${person.uuid}${getUrlParam({
-              partyByUuid: person.partyUuid,
-            })}`,
+            as: `/account/my-details`,
           },
           {
             link: {

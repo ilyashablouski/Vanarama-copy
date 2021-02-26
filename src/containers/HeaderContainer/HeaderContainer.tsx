@@ -125,7 +125,7 @@ const HeaderContainer: FC = () => {
         onLogOut={async () => {
           await logOut().catch();
           await localForage.clear();
-          await client.resetStore();
+          await client.clearStore();
         }}
         loginLink={LOGIN_LINK}
         phoneNumberLink={PHONE_NUMBER_LINK}

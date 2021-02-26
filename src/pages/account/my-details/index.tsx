@@ -1,16 +1,19 @@
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
-import { useRouter } from 'next/router';
 import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import localForage from 'localforage';
 import withApollo from '../../../hocs/withApollo';
 import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
-import { MyDetailsQueryParams } from '../../../utils/url';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
+import {
+  GetPerson,
+  GetPerson_getPerson as Person,
+} from '../../../../generated/GetPerson';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -71,12 +74,20 @@ const metaData = {
 };
 
 const MyDetailsPage: NextPage<IProps> = () => {
-  const router = useRouter();
-  const { uuid } = router.query as MyDetailsQueryParams;
-
+  const [person, setPerson] = useState<Person | null>(null);
   const [resetPassword, setResetPassword] = useState(false);
 
-  if (!uuid) {
+  useEffect(() => {
+    if (!person) {
+      localForage.getItem<GetPerson>('person').then(value => {
+        if (value) {
+          setPerson(value.getPerson);
+        }
+      });
+    }
+  }, [person]);
+
+  if (!person) {
     return <Loading size="large" />;
   }
 
@@ -96,7 +107,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
       <OrderInformationContainer />
       <div className="row:my-details">
         <div className="my-details--form">
-          <PersonalInformationFormContainer personUuid={uuid} />
+          <PersonalInformationFormContainer personUuid={person?.uuid} />
         </div>
         <div className="my-details--form ">
           <Heading tag="span" size="large" color="black" className="-mb-300">
@@ -119,7 +130,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
             </div>
           ) : (
             <PasswordChangeContainer
-              uuid={uuid}
+              uuid={person?.uuid}
               onCompleted={() => {
                 toast.success('Your New Password Has Been Saved', '');
                 setResetPassword(false);
