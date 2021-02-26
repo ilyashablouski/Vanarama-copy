@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 import localForage from 'localforage';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -10,6 +9,10 @@ import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import { MyOrdersTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
+import {
+  GetPerson,
+  GetPerson_getPerson as Person,
+} from '../../../generated/GetPerson';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -18,25 +21,29 @@ const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={5} />,
 });
 
-type QueryParams = {
-  partyByUuid: string;
-  uuid: string;
-};
-
 const OrderInformationContainer: React.FC<IProps> = () => {
-  const router = useRouter();
-  const { uuid, partyByUuid } = router.query as QueryParams;
   const [ordersLength, setOrdersLength] = useState<number | null>(null);
   const [quotesLength, setQuotesLength] = useState<number | null>(null);
+  const [person, setPerson] = useState<Person | null>(null);
 
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
   const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
 
   useEffect(() => {
-    if (partyByUuid && quotesLength === null && ordersLength === null) {
-      const partyUuidArray = [partyByUuid];
+    if (!person) {
+      localForage.getItem<GetPerson>('person').then(value => {
+        if (value) {
+          setPerson(value.getPerson);
+        }
+      });
+    }
+  }, [person]);
+
+  useEffect(() => {
+    if (person?.partyUuid && quotesLength === null && ordersLength === null) {
+      const partyUuidArray = [person.partyUuid];
       getCompaniesData({
-        personUuid: uuid,
+        personUuid: person.uuid,
       }).then(resp => {
         resp.data?.companiesByPersonUuid?.forEach(
           (companies: CompaniesByPersonUuid) =>
@@ -59,12 +66,13 @@ const OrderInformationContainer: React.FC<IProps> = () => {
       });
     }
   }, [
-    partyByUuid,
+    // partyByUuid,
+    // uuid,
+    person,
     getOrdersData,
     quotesLength,
     ordersLength,
     getCompaniesData,
-    uuid,
   ]);
 
   return (
@@ -88,7 +96,7 @@ const OrderInformationContainer: React.FC<IProps> = () => {
             link={{
               href: `/account/my-orders`,
               label: '',
-              query: { uuid },
+              query: { uuid: person?.uuid },
             }}
             as="/account/my-orders"
             onClick={ev => !ordersLength && ev.preventDefault()}
@@ -114,11 +122,10 @@ const OrderInformationContainer: React.FC<IProps> = () => {
               color: 'teal',
             }}
             link={{
-              href: `/account/my-quotes/[partyByUuid]`,
+              href: `/account/my-quotes`,
               label: '',
-              query: { uuid },
             }}
-            as={`/account/my-quotes/${partyByUuid}?uuid=${uuid}`}
+            as="account/my-quotes"
             onClick={ev => !quotesLength && ev.preventDefault()}
             dataTestId="quotes-link"
           >

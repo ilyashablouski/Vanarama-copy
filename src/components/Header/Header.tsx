@@ -198,11 +198,10 @@ export const Header: FC<IHeaderProps> = memo(props => {
                     <RouterLink
                       className="header-account--link"
                       link={{
-                        href: `/account/my-details/[uuid]`,
+                        href: `/account/my-details`,
                         label: 'Dashboard',
-                        query: { partyByUuid: person.partyUuid },
                       }}
-                      as={`/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`}
+                      as="/account/my-details"
                     >
                       {' '}
                       <Icon icon={<HomeOutline />} size="xsmall" />{' '}
@@ -215,18 +214,14 @@ export const Header: FC<IHeaderProps> = memo(props => {
                       className="header-account--link"
                       link={{
                         href: quotesLength
-                          ? '/account/my-quotes/[partyByUuid]'
-                          : `/account/my-details/[uuid]`,
+                          ? '/account/my-quotes'
+                          : `/account/my-details`,
                         label: 'My Quotes',
-                        query: {
-                          partyByUuid: person.partyUuid,
-                          uuid: person.uuid,
-                        },
                       }}
                       as={
                         quotesLength
-                          ? `/account/my-quotes/${person.partyUuid}?uuid=${person.uuid}`
-                          : `/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`
+                          ? '/account/my-quotes'
+                          : '/account/my-details'
                       }
                     >
                       {' '}
@@ -241,17 +236,13 @@ export const Header: FC<IHeaderProps> = memo(props => {
                       link={{
                         href: ordersLength
                           ? '/account/my-orders'
-                          : `/account/my-details/[uuid]`,
+                          : `/account/my-details`,
                         label: 'My Orders',
-                        query: {
-                          partyByUuid: person.partyUuid,
-                          uuid: person.uuid,
-                        },
                       }}
                       as={
                         ordersLength
                           ? `/account/my-orders`
-                          : `/account/my-details/${person.uuid}?partyByUuid=${person.partyUuid}`
+                          : '/account/my-details'
                       }
                     >
                       {' '}
