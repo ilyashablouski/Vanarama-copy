@@ -185,13 +185,28 @@ export const buildAnObjectFromAQuery = (
     });
   } else {
     Object.entries(steps).forEach(([key, val]) => {
-      if (key === 'bodyStyles' && val.value?.length && !val.active) {
+      if (
+        key === 'bodyStyles' &&
+        val.value?.length &&
+        !!val.value[0] &&
+        !val.active
+      ) {
         object.bodyStyles = val.value;
       }
-      if (key === 'fuelTypes' && val.value?.length && !val.active) {
+      if (
+        key === 'fuelTypes' &&
+        val.value?.length &&
+        !!val.value[0] &&
+        !val.active
+      ) {
         object.fuelTypes = val.value;
       }
-      if (key === 'transmissions' && val?.value?.length && !val.active) {
+      if (
+        key === 'transmissions' &&
+        val?.value?.length &&
+        !!val.value[0] &&
+        !val.active
+      ) {
         object.transmissions = val.value;
       }
       if (
