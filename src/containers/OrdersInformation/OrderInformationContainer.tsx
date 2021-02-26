@@ -66,8 +66,6 @@ const OrderInformationContainer: React.FC<IProps> = () => {
       });
     }
   }, [
-    // partyByUuid,
-    // uuid,
     person,
     getOrdersData,
     quotesLength,
