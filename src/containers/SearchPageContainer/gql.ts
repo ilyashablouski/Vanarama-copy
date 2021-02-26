@@ -135,7 +135,8 @@ export function useVehiclesList(
         : savedSortOrder,
       first,
     },
-    fetchPolicy: 'cache-and-network',
+    // TODO: investigate issue with duplicate requests on SearchPage
+    fetchPolicy: 'network-only',
   });
 }
 
