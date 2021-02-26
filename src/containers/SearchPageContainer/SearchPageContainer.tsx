@@ -1087,7 +1087,12 @@ const SearchPageContainer: React.FC<IProps> = ({
       </div>
 
       {isSpecialOfferPage && isCarSearch && featured && (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <section className="row:featured-right">
             {!featured?.layout?.includes('Full Width') && (
               <Image
@@ -1146,7 +1151,12 @@ const SearchPageContainer: React.FC<IProps> = ({
       )}
 
       {pageData?.genericPage?.sections?.featured2?.body && (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <div className="row:text">
             <Heading tag="h2" size="large" color="black" className="-mb-300">
               {pageData.genericPage.sections.featured2.title}
@@ -1186,7 +1196,12 @@ const SearchPageContainer: React.FC<IProps> = ({
       )}
 
       {isDynamicFilterPage && tiles?.tiles?.length && (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <TilesBlock tiles={tiles} />
         </LazyLoadComponent>
       )}
@@ -1194,7 +1209,12 @@ const SearchPageContainer: React.FC<IProps> = ({
       {pageData && (
         <>
           {(isRangePage || isDynamicFilterPage) && (
-            <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            <LazyLoadComponent
+              visibleByDefault={
+                typeof window === 'undefined' ||
+                navigator?.vendor === 'Apple Computer, Inc.'
+              }
+            >
               <div className="row:text -columns">
                 <ReactMarkdown
                   className="markdown"
@@ -1222,12 +1242,23 @@ const SearchPageContainer: React.FC<IProps> = ({
             </LazyLoadComponent>
           )}
           {!isDynamicFilterPage && tiles?.tiles?.length && (
-            <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+            <LazyLoadComponent
+              visibleByDefault={
+                typeof window === 'undefined' ||
+                navigator?.vendor === 'Apple Computer, Inc.'
+              }
+            >
               <TilesBlock tiles={tiles} />
             </LazyLoadComponent>
           )}
-          {carousel?.cards?.length && (
-            <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
+            {carousel?.cards?.length && (
               <div className="row:bg-lighter">
                 <div className="row:carousel">
                   <Heading size="large" color="black" tag="h3">
@@ -1312,11 +1343,16 @@ const SearchPageContainer: React.FC<IProps> = ({
                   </Carousel>
                 </div>
               </div>
-            </LazyLoadComponent>
-          )}
+            )}
+          </LazyLoadComponent>
         </>
       )}
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <div className="row:text">
           <Text color="darker" size="regular" tag="span">
             Photos and videos are for illustration purposes only.*{' '}

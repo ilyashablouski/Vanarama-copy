@@ -242,7 +242,10 @@ export const VansPage: NextPage<IProps> = ({
                 </span>
               </Heading>
               <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
+                visibleByDefault={
+                  typeof window === 'undefined' ||
+                  navigator?.vendor === 'Apple Computer, Inc.'
+                }
               >
                 <ProductCarousel
                   leaseType={
@@ -289,7 +292,10 @@ export const VansPage: NextPage<IProps> = ({
                 </span>
               </Heading>
               <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
+                visibleByDefault={
+                  typeof window === 'undefined' ||
+                  navigator?.vendor === 'Apple Computer, Inc.'
+                }
               >
                 <ProductCarousel
                   leaseType={
@@ -336,7 +342,10 @@ export const VansPage: NextPage<IProps> = ({
                 </span>
               </Heading>
               <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
+                visibleByDefault={
+                  typeof window === 'undefined' ||
+                  navigator?.vendor === 'Apple Computer, Inc.'
+                }
               >
                 <ProductCarousel
                   leaseType={
@@ -397,7 +406,12 @@ export const VansPage: NextPage<IProps> = ({
               data?.hubVanPage.sections,
             )}
           </Text>
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             {(getSectionsData(
               ['cards', 'cards'],
               data?.hubVanPage.sections,
@@ -440,7 +454,12 @@ export const VansPage: NextPage<IProps> = ({
       </div>
 
       <section className="row:steps-4col">
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <Heading
             className="-a-center -mb-400"
             size="large"
@@ -647,7 +666,12 @@ export const VansPage: NextPage<IProps> = ({
 
       <hr className="fullWidth" />
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <section className="row:features-4col">
           <Heading
             size="large"
@@ -692,7 +716,12 @@ export const VansPage: NextPage<IProps> = ({
         </section>
       </LazyLoadComponent>
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <section className="row:manufacturer-grid">
           <Heading
             size="large"
@@ -721,7 +750,12 @@ export const VansPage: NextPage<IProps> = ({
         </section>
       </LazyLoadComponent>
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <section className="row:league">
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
@@ -731,7 +765,12 @@ export const VansPage: NextPage<IProps> = ({
         </section>
       </LazyLoadComponent>
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <section className="row:featured-logos">
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
@@ -788,7 +827,12 @@ export const VansPage: NextPage<IProps> = ({
         </section>
       </LazyLoadComponent>
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <section className="row:trustpilot">
           <TrustPilot />
         </section>

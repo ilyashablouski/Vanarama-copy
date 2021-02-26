@@ -55,7 +55,12 @@ const InsurancePageContainer = ({ data }: IInsurancePageContainer) => {
         />
       )}
       {data?.insuranceLandingPage?.sections?.featured1 && (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <MediaFeatureSection
             {...data?.insuranceLandingPage?.sections?.featured1}
             imageOnly
@@ -68,14 +73,24 @@ const InsurancePageContainer = ({ data }: IInsurancePageContainer) => {
       )}
       <hr className="-fullwidth" />
       {data?.insuranceLandingPage?.sections?.featured2 && (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <InsuranceFAQSection
             {...data?.insuranceLandingPage?.sections?.featured2}
           />
         </LazyLoadComponent>
       )}
       {data?.insuranceLandingPage?.sections?.carousel && (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <InsuranceNewsSection
             {...data?.insuranceLandingPage?.sections?.carousel}
           />

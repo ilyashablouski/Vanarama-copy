@@ -234,7 +234,12 @@ const CustomiseLease = ({
           disabled={isDisabled}
         />
       </Formgroup>
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <OrderSummary
           quoteByCapId={quoteByCapId}
           stateVAT={stateVAT}
@@ -252,7 +257,12 @@ const CustomiseLease = ({
           )}
           style={{ opacity: '1' }}
         >
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             <LeaseScanner
               classNameHeading="headingText"
               className="pdp-footer"

@@ -46,28 +46,48 @@ const FleetLandingPage = ({ data }: IFleetLandingPage) => {
         <LeadTextSection {...data?.fleetLandingPage?.sections?.leadText} />
       )}
       {data?.fleetLandingPage?.sections?.featured1 && (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <TestimonialSection
             {...data?.fleetLandingPage?.sections?.featured1}
           />
         </LazyLoadComponent>
       )}
       {data?.fleetLandingPage?.sections?.featured2 && (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <MediaFeatureSection
             {...data?.fleetLandingPage?.sections?.featured2}
           />
         </LazyLoadComponent>
       )}
       {data?.fleetLandingPage?.sections?.featured3 && (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <MediaFeatureSection
             {...data?.fleetLandingPage?.sections?.featured3}
           />
         </LazyLoadComponent>
       )}
       {data?.fleetLandingPage?.sections?.featured4 && (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <MediaFeatureSection
             {...data?.fleetLandingPage?.sections?.featured4}
           />
@@ -75,7 +95,12 @@ const FleetLandingPage = ({ data }: IFleetLandingPage) => {
       )}
       <hr className="-fullwidth" />
       {data?.fleetLandingPage?.sections?.tiles && (
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <BenefitsSection {...data?.fleetLandingPage?.sections?.tiles} />
         </LazyLoadComponent>
       )}
