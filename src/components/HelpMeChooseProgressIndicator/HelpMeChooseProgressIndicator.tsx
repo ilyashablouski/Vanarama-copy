@@ -148,9 +148,7 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
                     ...steps,
                     [el.key]: {
                       active: true,
-                      value: (router.query[el.key] as string)
-                        .slice()
-                        .split(','),
+                      value: router.query[el.key],
                     },
                     ...currentStepObject,
                   });
