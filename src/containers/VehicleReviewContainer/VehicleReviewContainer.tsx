@@ -111,7 +111,12 @@ const VehicleReviewContainer: FC<IProps> = ({
             </TabList>
           </Tabs>
 
-          <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             <div className="markdown -mt-500" key="markdown">
               <ReactMarkdown
                 allowDangerousHtml

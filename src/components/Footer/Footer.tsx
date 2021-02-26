@@ -17,7 +17,10 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
 
   return (
     <LazyLoadComponent
-      visibleByDefault={typeof window === 'undefined'}
+      visibleByDefault={
+        typeof window === 'undefined' ||
+        navigator?.vendor === 'Apple Computer, Inc.'
+      }
       threshold={250}
     >
       <footer className="footer">

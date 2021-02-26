@@ -137,7 +137,10 @@ export const VanOffers: NextPage<IProps> = ({
                 Best Medium Van Lease Offers
               </Heading>
               <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
+                visibleByDefault={
+                  typeof window === 'undefined' ||
+                  navigator?.vendor === 'Apple Computer, Inc.'
+                }
               >
                 <ProductCarousel
                   leaseType={
@@ -184,7 +187,10 @@ export const VanOffers: NextPage<IProps> = ({
                 Best Large Van Lease Offers
               </Heading>
               <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
+                visibleByDefault={
+                  typeof window === 'undefined' ||
+                  navigator?.vendor === 'Apple Computer, Inc.'
+                }
               >
                 <ProductCarousel
                   leaseType={
@@ -231,7 +237,10 @@ export const VanOffers: NextPage<IProps> = ({
                 Best Pickup Truck Lease Offers
               </Heading>
               <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
+                visibleByDefault={
+                  typeof window === 'undefined' ||
+                  navigator?.vendor === 'Apple Computer, Inc.'
+                }
               >
                 <ProductCarousel
                   leaseType={
@@ -277,7 +286,10 @@ export const VanOffers: NextPage<IProps> = ({
                 Best Dropside Tipper Offers
               </Heading>
               <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
+                visibleByDefault={
+                  typeof window === 'undefined' ||
+                  navigator?.vendor === 'Apple Computer, Inc.'
+                }
               >
                 <ProductCarousel
                   leaseType={
@@ -327,7 +339,10 @@ export const VanOffers: NextPage<IProps> = ({
                 Specialist Van Lease Offers
               </Heading>
               <LazyLoadComponent
-                visibleByDefault={typeof window === 'undefined'}
+                visibleByDefault={
+                  typeof window === 'undefined' ||
+                  navigator?.vendor === 'Apple Computer, Inc.'
+                }
               >
                 <ProductCarousel
                   leaseType={
@@ -361,7 +376,12 @@ export const VanOffers: NextPage<IProps> = ({
           </div>
         )}
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <div className="row:text -columns">
           <ReactMarkdown
             allowDangerousHtml
@@ -380,7 +400,12 @@ export const VanOffers: NextPage<IProps> = ({
         </div>
       </LazyLoadComponent>
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <div className="row:icon-list">
           <Heading tag="span" size="lead" color="black">
             {data?.vanOffersPage?.sections?.iconBullets?.title || ''}
@@ -408,7 +433,12 @@ export const VanOffers: NextPage<IProps> = ({
         </div>
       </LazyLoadComponent>
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <div className="row:text -columns">
           <Heading size="large" color="black">
             {data?.vanOffersPage?.sections?.featured?.title || ''}
@@ -432,7 +462,12 @@ export const VanOffers: NextPage<IProps> = ({
         </div>
       </LazyLoadComponent>
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <div className="row:text">
           <Text size="regular" color="dark">
             Photos and videos are for illustration purposes only.*{' '}

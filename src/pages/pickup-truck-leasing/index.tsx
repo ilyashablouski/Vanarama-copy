@@ -234,7 +234,10 @@ export const PickupsPage: NextPage<IProps> = ({
             return (
               <LazyLoadComponent
                 key={`${item?.capId}_${idx}`}
-                visibleByDefault={typeof window === 'undefined'}
+                visibleByDefault={
+                  typeof window === 'undefined' ||
+                  navigator?.vendor === 'Apple Computer, Inc.'
+                }
               >
                 <ProductCard
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -555,7 +558,12 @@ export const PickupsPage: NextPage<IProps> = ({
 
       <hr className="fullWidth" />
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <section className="row:features-4col">
           <Heading
             size="large"
@@ -593,7 +601,12 @@ export const PickupsPage: NextPage<IProps> = ({
         </section>
       </LazyLoadComponent>
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <section className="row:manufacturer-grid">
           <Heading
             size="large"
@@ -622,7 +635,12 @@ export const PickupsPage: NextPage<IProps> = ({
         </section>
       </LazyLoadComponent>
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <section className="row:league">
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
@@ -632,7 +650,12 @@ export const PickupsPage: NextPage<IProps> = ({
         </section>
       </LazyLoadComponent>
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <section className="row:featured-logos">
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
@@ -689,7 +712,12 @@ export const PickupsPage: NextPage<IProps> = ({
         </section>
       </LazyLoadComponent>
 
-      <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <section className="row:trustpilot">
           <TrustPilot />
         </section>
