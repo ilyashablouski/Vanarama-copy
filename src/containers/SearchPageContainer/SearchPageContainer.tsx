@@ -408,7 +408,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
 
   // new search with new filters
-  const onSearch = (filters = filtersData) => {
+  const onSearch = (filtersObject?: IFilters) => {
+    const filters = filtersObject || filtersData;
     if (isMakePage) {
       const filtersForRanges = { ...filters, manufacturerSlug: undefined };
       getRanges({
@@ -471,38 +472,39 @@ const SearchPageContainer: React.FC<IProps> = ({
         },
       });
     }
-
-    let pathname = router.route
-      .replace('[dynamicParam]', router.query?.dynamicParam as string)
-      .replace('[rangeName]', router.query?.rangeName as string)
-      .replace('[bodyStyles]', router.query?.bodyStyles as string);
-    const queryString = new URLSearchParams();
-    // don't add range and make to query for make/range pages
-    const query = buildRewriteRoute(
-      filters as IFilters,
-      isMakePage || isRangePage,
-      isModelPage,
-      isBodyStylePage,
-      isTransmissionPage,
-      isFuelPage,
-      isBudgetPage,
-    );
-    Object.entries(query).forEach(([key, value]) =>
-      queryString.set(key, value as string),
-    );
-    if (Object.keys(query).length)
-      pathname += `?${decodeURIComponent(queryString.toString())}`;
-    // changing url dynamically
-    router.replace(
-      {
-        pathname: router.route,
-        query,
-      },
-      pathname,
-      { shallow: true },
-    );
-    // set search filters data
-    setFiltersData(filters);
+    if (filtersObject) {
+      let pathname = router.route
+        .replace('[dynamicParam]', router.query?.dynamicParam as string)
+        .replace('[rangeName]', router.query?.rangeName as string)
+        .replace('[bodyStyles]', router.query?.bodyStyles as string);
+      const queryString = new URLSearchParams();
+      // don't add range and make to query for make/range pages
+      const query = buildRewriteRoute(
+        filters as IFilters,
+        isMakePage || isRangePage,
+        isModelPage,
+        isBodyStylePage,
+        isTransmissionPage,
+        isFuelPage,
+        isBudgetPage,
+      );
+      Object.entries(query).forEach(([key, value]) =>
+        queryString.set(key, value as string),
+      );
+      if (Object.keys(query).length)
+        pathname += `?${decodeURIComponent(queryString.toString())}`;
+      // changing url dynamically
+      router.replace(
+        {
+          pathname: router.route,
+          query,
+        },
+        pathname,
+        { shallow: true },
+      );
+      // set search filters data
+      setFiltersData(filters);
+    }
   };
 
   // API call after load new pages
@@ -685,6 +687,7 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   useFirstRenderEffect(() => {
     onSearch();
+    setLastCard('');
   }, [sortOrder]);
 
   useEffect(() => {
