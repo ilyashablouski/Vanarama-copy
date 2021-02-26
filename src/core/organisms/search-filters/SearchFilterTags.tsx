@@ -25,7 +25,9 @@ const SearchFilterTags: FC<ISearchFilterTagsProps> = ({
               fill="outline"
               icon={<CloseSharp />}
               iconPosition="after"
-              label={selected.value}
+              label={
+                selected.value.charAt(0).toUpperCase() + selected.value.slice(1)
+              }
               id={selected.value}
               data-testid={dataTestId}
               onClick={e => {
