@@ -61,7 +61,7 @@ export function useAboutYouData(personByUuid?: string) {
 }
 
 export function useCreatePerson(
-  onCompleted: (data: CreateUpdatePersonMutation) => void,
+  onCompleted?: (data: CreateUpdatePersonMutation) => void,
 ) {
   return useMutation<
     CreateUpdatePersonMutation,

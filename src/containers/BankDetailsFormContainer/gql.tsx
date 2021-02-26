@@ -15,6 +15,13 @@ export const GET_BANK_DETAILS_PAGE_DATA = gql`
     personByUuid(uuid: $uuid) {
       uuid
       partyId
+      emailAddresses {
+        uuid
+        value
+        primary
+        kind
+        partyId
+      }
       bankAccounts {
         ...BankDetailsAccount
       }

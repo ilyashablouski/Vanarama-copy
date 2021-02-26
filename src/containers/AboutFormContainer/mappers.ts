@@ -36,5 +36,6 @@ export const formValuesToInput = (
     emailConsent: values.consent,
     smsConsent: values.consent,
     privacyPolicy: values.privacyPolicy,
+    termsAndConditions: values.termsAndConditions,
   };
 };

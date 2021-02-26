@@ -7,6 +7,14 @@
 // GraphQL query operation: GetBankDetailsPageDataQuery
 // ====================================================
 
+export interface GetBankDetailsPageDataQuery_personByUuid_emailAddresses {
+  uuid: string;
+  value: string;
+  primary: boolean;
+  kind: string | null;
+  partyId: string;
+}
+
 export interface GetBankDetailsPageDataQuery_personByUuid_bankAccounts {
   __typename: "BankAccountType";
   uuid: string;
@@ -20,6 +28,7 @@ export interface GetBankDetailsPageDataQuery_personByUuid_bankAccounts {
 export interface GetBankDetailsPageDataQuery_personByUuid {
   uuid: string;
   partyId: string;
+  emailAddresses: GetBankDetailsPageDataQuery_personByUuid_emailAddresses[];
   bankAccounts: GetBankDetailsPageDataQuery_personByUuid_bankAccounts[] | null;
 }
 
