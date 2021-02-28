@@ -245,6 +245,7 @@ export const CarsPage: NextPage<IProps> = ({
             );
             return (
               <LazyLoadComponent
+                key={idx}
                 visibleByDefault={
                   typeof window === 'undefined' ||
                   navigator?.vendor === 'Apple Computer, Inc.'

@@ -752,10 +752,10 @@ const SearchPageContainer: React.FC<IProps> = ({
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
           {isDesktopOrTablet
             ? metaData?.name
-            : titleWithBreaks.map(line => (
-                <>
+            : titleWithBreaks.map((line, idx) => (
+                <React.Fragment key={String(idx)}>
                   {line} <br />
-                </>
+                </React.Fragment>
               ))}
         </Heading>
 
@@ -1255,99 +1255,92 @@ const SearchPageContainer: React.FC<IProps> = ({
             </LazyLoadComponent>
           )}
 
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
-          >
-            {carousel?.cards?.length && (
-              <div className="row:bg-lighter">
-                <div className="row:carousel">
-                  <Heading size="large" color="black" tag="h3">
-                    {carousel.title}
-                  </Heading>
-                  <Carousel
-                    countItems={carousel?.cards?.length || 0}
-                    className="-col3"
-                  >
-                    {carousel?.cards.map(
-                      (card, indx) =>
-                        card && (
-                          <Card
-                            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                            key={`${card.name}_${indx.toString()}`}
-                            className="card__article"
-                            imageSrc={
-                              card?.image?.file?.url ||
-                              `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                            }
-                            title={{
-                              title:
-                                card.link?.legacyUrl || card.link?.url
-                                  ? ''
-                                  : card.title || '',
-                              link: (
-                                <RouterLink
-                                  link={{
-                                    href:
-                                      card.link?.legacyUrl ||
-                                      card.link?.url ||
-                                      '',
-                                    label: card.title || '',
-                                  }}
-                                  className="card--link"
-                                  classNames={{
-                                    color: 'black',
-                                    size: 'regular',
-                                  }}
+          {carousel?.cards?.length && (
+            <div className="row:bg-lighter">
+              <div className="row:carousel">
+                <Heading size="large" color="black" tag="h3">
+                  {carousel.title}
+                </Heading>
+                <Carousel
+                  countItems={carousel?.cards?.length || 0}
+                  className="-col3"
+                >
+                  {carousel?.cards.map(
+                    (card, indx) =>
+                      card && (
+                        <Card
+                          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                          key={`${card.name}_${indx.toString()}`}
+                          className="card__article"
+                          imageSrc={
+                            card?.image?.file?.url ||
+                            `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+                          }
+                          title={{
+                            title:
+                              card.link?.legacyUrl || card.link?.url
+                                ? ''
+                                : card.title || '',
+                            link: (
+                              <RouterLink
+                                link={{
+                                  href:
+                                    card.link?.legacyUrl ||
+                                    card.link?.url ||
+                                    '',
+                                  label: card.title || '',
+                                }}
+                                className="card--link"
+                                classNames={{
+                                  color: 'black',
+                                  size: 'regular',
+                                }}
+                              />
+                            ),
+                          }}
+                        >
+                          <ReactMarkdown
+                            className="markdown"
+                            allowDangerousHtml
+                            source={card.body || ''}
+                            renderers={{
+                              link: props => {
+                                const { href, children } = props;
+                                return (
+                                  <RouterLink
+                                    link={{ href, label: children }}
+                                    classNames={{ color: 'teal' }}
+                                  />
+                                );
+                              },
+                              heading: props => (
+                                <Text
+                                  {...props}
+                                  size="lead"
+                                  color="darker"
+                                  tag="h3"
                                 />
                               ),
+                              paragraph: props => (
+                                <Text {...props} tag="p" color="darker" />
+                              ),
                             }}
-                          >
-                            <ReactMarkdown
-                              className="markdown"
-                              allowDangerousHtml
-                              source={card.body || ''}
-                              renderers={{
-                                link: props => {
-                                  const { href, children } = props;
-                                  return (
-                                    <RouterLink
-                                      link={{ href, label: children }}
-                                      classNames={{ color: 'teal' }}
-                                    />
-                                  );
-                                },
-                                heading: props => (
-                                  <Text
-                                    {...props}
-                                    size="lead"
-                                    color="darker"
-                                    tag="h3"
-                                  />
-                                ),
-                                paragraph: props => (
-                                  <Text {...props} tag="p" color="darker" />
-                                ),
-                              }}
-                            />
-                            <RouterLink
-                              link={{
-                                href:
-                                  card.link?.legacyUrl || card.link?.url || '',
-                                label: card.link?.text || '',
-                              }}
-                              classNames={{ color: 'teal' }}
-                            />
-                          </Card>
-                        ),
-                    )}
-                  </Carousel>
-                </div>
+                          />
+                          <RouterLink
+                            link={{
+                              href:
+                                card.link?.legacyUrl || card.link?.url || '',
+                              label: card.link?.text || '',
+                            }}
+                            classNames={{ color: 'teal' }}
+                          />
+                        </Card>
+                      ),
+                  )}
+                </Carousel>
               </div>
-            )}
-          </LazyLoadComponent>
+            </div>
+          )}
         </>
       )}
       <LazyLoadComponent
