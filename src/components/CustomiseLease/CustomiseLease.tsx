@@ -175,7 +175,7 @@ const CustomiseLease = ({
       {choices(
         upfronts,
         value => setUpfront(+(value || 0) || null),
-        'Initial Payment: ',
+        'Initial Payment - Months: ',
         isDisabled,
         `£${toPriceFormat(
           quoteByCapId?.leaseCost?.initialRental,
