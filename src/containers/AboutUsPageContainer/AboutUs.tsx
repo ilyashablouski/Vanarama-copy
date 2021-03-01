@@ -183,7 +183,12 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, data }) => {
             }}
           />
         </article>
-        <LazyLoadComponent visibleByDefault={typeof window === 'undefined'}>
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <div className="-pb-400">
             {sections?.carousel?.cards && (
               <Carousel countItems={1} className="-mh-auto">

@@ -217,14 +217,11 @@ Array [
         </em>
       </p>
     </article>
-    <span
-      className=""
-      style={
-        Object {
-          "display": "inline-block",
-        }
-      }
-    />
+    <div
+      className="-pb-400"
+    >
+      <div />
+    </div>
   </div>,
   <div
     className="row:cards-2col"

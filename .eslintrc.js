@@ -48,17 +48,12 @@ module.exports = {
       },
     },
   ],
-  "settings": {
-    "import/resolver": {
+  settings: {
+    'import/resolver': {
       alias: {
-        map: [
-          ['core', './src/core'],
-        ],
-        extensions: ['.ts', '.js', '.jsx', '.tsx', '.json']
-
+        map: [['core', './src/core']],
+        extensions: ['.ts', '.js', '.jsx', '.tsx', '.json'],
       },
-
     },
   },
-
 };
