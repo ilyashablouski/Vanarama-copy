@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import localForage from 'localforage';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
+import Button from 'core/atoms/button';
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
@@ -404,33 +405,35 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             <Breadcrumb items={breadcrumbItems} />
           </div>
         )}
-        <Heading tag="h1">
-          <Heading className="-pt-100" tag="span" size="xlarge" color="black">
-            {pageTitle}
-          </Heading>
-          <Text tag="span" size="lead" color="darker">
-            {vehicleConfigurationByCapId?.capDerivativeDescription}
-          </Text>
+        <Heading className="-pt-100" tag="span" size="xlarge" color="black">
+          {pageTitle}
         </Heading>
-        <div
-          className="-mt-500 -mb-200"
-          style={{ display: 'flex', justifyContent: 'space-between' }}
-        >
+        <Text tag="span" size="lead" color="darker">
+          {vehicleConfigurationByCapId?.capDerivativeDescription}
+        </Text>
+        {!isMobile ? (
+          <div
+            className="-mt-500 -mb-200"
+            style={{ display: 'flex', justifyContent: 'space-between' }}
+          >
+            <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
+            {vehicleDetails?.brochureUrl && (
+              <RouterLink
+                link={{
+                  href: vehicleDetails?.brochureUrl,
+                  label: '',
+                  target: '_blank',
+                }}
+                classNames={{ color: 'teal', size: 'xsmall' }}
+              >
+                Download Brochure{' '}
+                <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
+              </RouterLink>
+            )}
+          </div>
+        ) : (
           <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
-          {vehicleDetails?.brochureUrl && (
-            <RouterLink
-              link={{
-                href: vehicleDetails?.brochureUrl,
-                label: '',
-                target: '_blank',
-              }}
-              classNames={{ color: 'teal', size: 'xsmall' }}
-            >
-              Download Brochure{' '}
-              <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
-            </RouterLink>
-          )}
-        </div>
+        )}
         <MediaGallery
           flag={{
             accentIcon: <Icon icon={<Flame />} color="white" />,
@@ -454,6 +457,27 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             derivativeInfo={derivativeInfo}
           />
         </LazyLoadComponent>
+        {isMobile && vehicleDetails?.brochureUrl && (
+          <Button
+            className="pdp--mobile-download"
+            size="regular"
+            color="teal"
+            fill="outline"
+            label={
+              <RouterLink
+                link={{
+                  href: vehicleDetails?.brochureUrl,
+                  label: '',
+                  target: '_blank',
+                }}
+                classNames={{ color: 'teal', size: 'regular' }}
+              >
+                Download Brochure{' '}
+                <Icon color="teal" size="regular" icon={<DownloadSharp />} />
+              </RouterLink>
+            }
+          />
+        )}
         {(vans || cars) && <Banner vans={vans} />}
         {(vans || pickups) && !!independentReview && (
           <LazyLoadComponent
