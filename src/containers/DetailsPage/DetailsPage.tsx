@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import localForage from 'localforage';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
+import Button from 'core/atoms/button';
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
@@ -40,7 +41,6 @@ import {
 } from '../../../generated/GetTrimAndColor';
 import { GetProductCard } from '../../../generated/GetProductCard';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
-import Button from 'core/atoms/button';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
