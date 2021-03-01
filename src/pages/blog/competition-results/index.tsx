@@ -1,4 +1,5 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import DefaultErrorPage from 'next/error';
 import { BLOG_POSTS_PAGE } from '../../../gql/blogPosts';
 import withApollo from '../../../hocs/withApollo';
 import CategoryPageContainer from '../../../containers/CategoryPageContainer/CategoryPageContainer';
@@ -6,7 +7,11 @@ import { getSectionsData } from '../../../utils/getSectionsData';
 import createApolloClient from '../../../apolloClient';
 import { IBlogCategory } from '../../../models/IBlogsProps';
 
-const CategoryPage: NextPage<IBlogCategory> = ({ data }) => {
+const CategoryPage: NextPage<IBlogCategory> = ({ data, error }) => {
+  if (error || !data) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
+
   const articles = getSectionsData(['articles'], data?.blogPosts);
   const pageTitle = getSectionsData(['pageTitle'], data?.blogPosts);
   const metaData = getSectionsData(['metaData'], data?.blogPosts);
@@ -33,12 +38,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'blog/competition-results',
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
-    return { props: { data } };
-  } catch (err) {
-    throw new Error(err);
+    return { props: { data, error: errors ? errors[0] : null } };
+  } catch {
+    return { props: { error: true } };
   }
 }
 

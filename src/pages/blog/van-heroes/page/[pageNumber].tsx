@@ -1,4 +1,5 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import DefaultErrorPage from 'next/error';
 import createApolloClient from '../../../../apolloClient';
 import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import CategoryPageContainer from '../../../../containers/CategoryPageContainer/CategoryPageContainer';
@@ -7,7 +8,11 @@ import { IBlogCategory } from '../../../../models/IBlogsProps';
 import { buildStaticPathes, getBlogPosts } from '../../../../utils/pagination';
 import { getMetadataForPagination } from '../../../../utils/url';
 
-const CategoryPage: NextPage<IBlogCategory> = ({ data, pageNumber }) => {
+const CategoryPage: NextPage<IBlogCategory> = ({ data, error, pageNumber }) => {
+  if (error || !data) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
+
   const articles = getSectionsData(['articles'], data?.blogPosts);
   const pageTitle = getSectionsData(['pageTitle'], data?.blogPosts);
   const metaData = getMetadataForPagination(
@@ -30,18 +35,29 @@ const CategoryPage: NextPage<IBlogCategory> = ({ data, pageNumber }) => {
 };
 
 export async function getStaticPaths() {
-  const client = createApolloClient({});
-  const { data } = await client.query({
-    query: BLOG_POSTS_PAGE,
-    variables: {
-      slug: 'blog/van-heroes',
-    },
-  });
-  const paths = buildStaticPathes(data);
-  return {
-    paths,
-    fallback: false,
-  };
+  try {
+    const client = createApolloClient({});
+    const { data } = await client.query({
+      query: BLOG_POSTS_PAGE,
+      variables: {
+        slug: 'blog/van-heroes',
+      },
+    });
+    const paths = buildStaticPathes(data);
+    return {
+      paths,
+      fallback: false,
+    };
+  } catch {
+    return {
+      paths: [
+        {
+          params: { pageNumber: '/' },
+        },
+      ],
+      fallback: false,
+    };
+  }
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
