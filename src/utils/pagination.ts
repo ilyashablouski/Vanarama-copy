@@ -54,13 +54,14 @@ export function sortingArticles(this: any[]) {
   );
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export const buildStaticPathes = (data: BlogPosts) => {
-  const articles = getSectionsData(['articles'], data?.blogPosts);
-  const pageCount = Math.ceil(
-    (sortingArticles.call(articles)?.articles?.length || 0) / ARTICLES_PER_PAGE,
-  );
+  // const articles = getSectionsData(['articles'], data?.blogPosts);
+  // const pageCount = Math.ceil(
+  //   (sortingArticles.call(articles)?.articles?.length || 0) / ARTICLES_PER_PAGE,
+  // );
   let paths = [] as any[];
-  for (let i = 1; i <= pageCount; i += 1) {
+  for (let i = 1; i <= 2; i += 1) {
     paths = [...paths, { params: { pageNumber: i.toString() } }];
   }
   return paths;

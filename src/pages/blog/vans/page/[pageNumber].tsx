@@ -40,7 +40,7 @@ export async function getStaticPaths() {
   const paths = buildStaticPathes(data);
   return {
     paths,
-    fallback: false,
+    fallback: true,
   };
 }
 

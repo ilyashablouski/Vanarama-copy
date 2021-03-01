@@ -25,7 +25,8 @@ export const getBlogPaths = (
       throw new Error(`INCORRECT SLUG: ${slug}`);
     }
   });
-  return slugs?.map(slug => ({
+  const newSlugs = slugs?.slice(0, 5);
+  return newSlugs?.map(slug => ({
     params: { articles: [slug] },
   }));
 };

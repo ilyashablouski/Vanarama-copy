@@ -210,14 +210,14 @@ export const notFoundPageHandler = async (
 export const getMetadataForPagination = (metadata: IMetadata, page = 1) => {
   const canonicalUrl =
     page > 1
-      ? `${metadata.canonicalUrl?.slice(
+      ? `${metadata?.canonicalUrl?.slice(
           0,
-          metadata.canonicalUrl?.indexOf('.html'),
+          metadata?.canonicalUrl?.indexOf('.html'),
         )}/page/${page}.html`
-      : metadata.canonicalUrl;
+      : metadata?.canonicalUrl;
   return {
     ...metadata,
-    canonicalUrl: canonicalUrl || metadata.canonicalUrl,
+    canonicalUrl: canonicalUrl || metadata?.canonicalUrl,
   };
 };
 
