@@ -66,7 +66,7 @@ export async function getStaticPaths() {
           params: { articles: ['/'] },
         },
       ],
-      fallback: false,
+      fallback: true,
     };
   }
 }
@@ -106,6 +106,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       props: {
         error: true,
       },
+      revalidate: 5,
     };
   }
 }

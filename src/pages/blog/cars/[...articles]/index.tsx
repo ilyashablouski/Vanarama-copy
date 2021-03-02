@@ -61,13 +61,14 @@ export async function getStaticPaths() {
       fallback: false,
     };
   } catch {
+    console.log('fallback');
     return {
       paths: [
         {
           params: { articles: ['/'] },
         },
       ],
-      fallback: false,
+      fallback: true,
     };
   }
 }
@@ -113,6 +114,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       props: {
         error: true,
       },
+      revalidate: 5,
     };
   }
 }
