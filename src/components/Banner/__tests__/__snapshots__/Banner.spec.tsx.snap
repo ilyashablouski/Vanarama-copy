@@ -304,7 +304,7 @@ exports[`Banner should correct render 1`] = `
     <p
       className="heading -white -large"
     >
-      Redundancy & Life Event Cover
+      Free Redundancy & Life Event Cover
     </p>
     <span
       className="text -pr-100 -small -white"

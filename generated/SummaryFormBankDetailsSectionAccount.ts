@@ -14,4 +14,5 @@ export interface SummaryFormBankDetailsSectionAccount {
   accountName: string | null;
   sortCode: string | null;
   accountNumber: string | null;
+  joinedAt: any | null;
 }
