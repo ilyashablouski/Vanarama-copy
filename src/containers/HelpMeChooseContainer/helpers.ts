@@ -296,8 +296,8 @@ export const formatForCompare = (
     leadTime: null,
     imageUrl: mainImageUrl || null,
     keyInformation: null,
-    businessRate: financeTypes === 'BCH' ? node?.rental || null : null,
-    personalRate: financeTypes === 'PCH' ? node?.rental || null : null,
+    businessRate: financeTypes[0] === 'BCH' ? node!.rental || null : null,
+    personalRate: financeTypes[0] === 'PCH' ? node!.rental || null : null,
     vehicleType: VehicleTypeEnum.CAR,
   };
 };
