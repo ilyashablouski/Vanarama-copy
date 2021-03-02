@@ -12,7 +12,7 @@ const getBucketLabel = (type: string, label: string) => {
       // eslint-disable-next-line no-case-declarations
       const mileage = parseInt(label, 10) / 1000;
       return `${mileage === 6 ? '<' : ''}${mileage}K${
-        mileage === 20 ? '+' : ''
+        mileage === 30 ? '+' : ''
       }`;
     default:
       return label;
