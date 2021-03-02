@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
@@ -253,6 +253,21 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       });
   };
 
+  const breadcrumbItems = useMemo(() => {
+    return (
+      (genericPageHead?.genericPage.metaData?.breadcrumbs &&
+        genericPageHead.genericPage.metaData.breadcrumbs.map((el: any) => ({
+          link: { href: el.href || '', label: el.label },
+        }))) ??
+      getProductPageBreadCrumb(
+        data?.derivativeInfo,
+        genericPages,
+        genericPageHead?.genericPage.metaData.slug || '',
+        cars,
+      )
+    );
+  }, [cars, data, genericPageHead, genericPages]);
+
   if (loading) {
     return (
       <div
@@ -350,14 +365,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     });
   };
 
-  const breadcrumbItems =
-    genericPageHead?.genericPage.metaData?.breadcrumbs ??
-    getProductPageBreadCrumb(
-      data?.derivativeInfo,
-      genericPages,
-      genericPageHead?.genericPage.metaData.slug || '',
-      cars,
-    );
   const metaData = genericPageHead?.genericPage.metaData ?? {
     title:
       `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 
