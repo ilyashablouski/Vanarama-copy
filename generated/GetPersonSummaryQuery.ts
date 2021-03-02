@@ -62,6 +62,7 @@ export interface GetPersonSummaryQuery_personByUuid_bankAccounts {
   accountName: string | null;
   sortCode: string | null;
   accountNumber: string | null;
+  joinedAt: any | null;
 }
 
 export interface GetPersonSummaryQuery_personByUuid {

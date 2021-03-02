@@ -125,10 +125,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       return `-${slug}` === pathSlug;
     };
 
-    if (
-      isTrailingSlug('details') ||
-      router.pathname.includes('[...details-page]')
-    ) {
+    if (router.pathname.includes('[...details-page]')) {
       return 'page:pdp';
     }
     if (isTrailingSlug('testimonials')) {

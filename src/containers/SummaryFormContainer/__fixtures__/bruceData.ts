@@ -49,6 +49,7 @@ export default (uuid: string) =>
               accountNumber: '12345678',
               bankName: 'Bank of Merica!',
               sortCode: '001122',
+              joinedAt: '2012-02-02',
             },
           ],
           countryOfBirth: 'United Kingdom',

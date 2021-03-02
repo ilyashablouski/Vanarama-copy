@@ -120,7 +120,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <span
     className="heading -black -regular"
   >
-    Initial Payment: 
+    Initial Payment - Months: 
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -571,7 +571,13 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="text -regular -darker"
         >
-          Need Help?
+          <a
+            className="link -primary -regular -plain"
+            href="tel:+441442838195"
+          >
+            Call 01442 838 195
+          </a>
+           |
            
           <a
             className="link -primary -regular -plain"
@@ -706,7 +712,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <span
     className="heading -black -regular"
   >
-    Initial Payment: 
+    Initial Payment - Months: 
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -1157,7 +1163,13 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="text -regular -darker"
         >
-          Need Help?
+          <a
+            className="link -primary -regular -plain"
+            href="tel:+441442838195"
+          >
+            Call 01442 838 195
+          </a>
+           |
            
           <a
             className="link -primary -regular -plain"

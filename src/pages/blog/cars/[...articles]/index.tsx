@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/camelcase */
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import DefaultErrorPage from 'next/error';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
@@ -11,7 +12,16 @@ import { IBlogPost } from '../../../../models/IBlogsProps';
 import { BlogPosts } from '../../../../../generated/BlogPosts';
 import { getBlogPaths } from '../../../../utils/pageSlugs';
 
-const BlogPost: NextPage<IBlogPost> = ({ data, blogPosts }) => {
+const BlogPost: NextPage<IBlogPost> = ({
+  data,
+  error,
+  blogPosts,
+  blogPostsError,
+}) => {
+  if (error || blogPostsError || !data) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
+
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
   const body = getSectionsData(['body'], data?.blogPost);
   const name = getSectionsData(['metaData', 'name'], data?.blogPost);
@@ -37,18 +47,29 @@ const BlogPost: NextPage<IBlogPost> = ({ data, blogPosts }) => {
 };
 
 export async function getStaticPaths() {
-  const client = createApolloClient({});
-  const { data } = await client.query<BlogPosts>({
-    query: BLOG_POSTS_PAGE,
-    variables: {
-      slug: 'blog/cars',
-    },
-  });
+  try {
+    const client = createApolloClient({});
+    const { data } = await client.query<BlogPosts>({
+      query: BLOG_POSTS_PAGE,
+      variables: {
+        slug: 'blog/cars',
+      },
+    });
 
-  return {
-    paths: getBlogPaths(data?.blogPosts),
-    fallback: false,
-  };
+    return {
+      paths: getBlogPaths(data?.blogPosts),
+      fallback: false,
+    };
+  } catch {
+    return {
+      paths: [
+        {
+          params: { articles: ['/'] },
+        },
+      ],
+      fallback: false,
+    };
+  }
 }
 
 export async function getStaticProps(context: GetStaticPropsContext) {
@@ -78,19 +99,21 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       getSectionsData(['blogPosts', 'articles'], blogPosts),
       `/blog/cars/${context?.params?.articles}`,
     );
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
     return {
       props: {
         data,
+        error: errors ? errors[0] : null,
         blogPosts: newBlogPosts,
         blogPostsLoading,
         blogPostsError: blogPostsError ? blogPostsError[0] : null,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch {
+    return {
+      props: {
+        error: true,
+      },
+    };
   }
 }
 
