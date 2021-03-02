@@ -43,7 +43,11 @@ const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
       },
       {
         label: 'Account Open Since',
-        value: account.joinedAt.split('-').join('/') || '',
+        value:
+          account.joinedAt
+            .split('-')
+            .reverse()
+            .join('/') || '',
         dataTestId: 'account-open-since',
       },
     ]}
