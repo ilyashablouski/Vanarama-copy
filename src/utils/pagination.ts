@@ -38,6 +38,7 @@ export const getBlogPosts = async (
         data: null,
         pageNumber: null,
       },
+      revalidate: 5,
     };
   }
 };

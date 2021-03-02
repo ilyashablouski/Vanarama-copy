@@ -53,8 +53,8 @@ const Head: FC<IHeadProps> = props => {
             rel="preload"
             as="font"
             href={`${FONT_PATH}${font}`}
-            type="font/woff2"
-            crossOrigin=""
+            type={`font/${font.split('.')[1]}`}
+            crossOrigin="anonymous"
           />
         );
       })}
