@@ -58,12 +58,16 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
     return nextSteps;
   };
 
+  const choicesValues = getBuckets(
+    mileagesData,
+    mileagesValue,
+    'mileages',
+  ).sort((a, b) => (+a.value || 0) - (+b.value || 0));
+
   return (
     <HelpMeChooseContainer
       title="How Many Miles Do You Normally Drive In A Year?"
-      choicesValues={getBuckets(mileagesData, mileagesValue, 'mileages').sort(
-        (a, b) => (+a.value || 0) - (+b.value || 0),
-      )}
+      choicesValues={choicesValues}
       setChoice={setMileagesValue}
       onClickContinue={() => {
         setLoadingStatus(true);
