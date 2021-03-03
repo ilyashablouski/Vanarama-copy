@@ -629,7 +629,7 @@ exports[`Banner should correct render with text for vans 1`] = `
     <p
       className="heading -white -large"
     >
-      Loss Of Earnings & Life Event Cover
+      Free Loss Of Earnings & Life Event Cover
     </p>
     <span
       className="text -pr-100 -small -white"
