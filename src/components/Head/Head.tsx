@@ -36,7 +36,7 @@ const Head: FC<IHeadProps> = props => {
   } = props;
 
   // Dev override.
-  if (process.env.ENV && process.env.ENV !== 'production') {
+  if (process.env.ENV && process.env.ENV !== 'prod') {
     title = `[${process.env.ENV?.toUpperCase()}] ${title}`;
     metaRobots = 'noindex';
   }
