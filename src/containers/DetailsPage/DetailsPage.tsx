@@ -423,12 +423,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             <Breadcrumb items={breadcrumbItems} />
           </div>
         )}
-        <Heading className="-pt-100" tag="h1" size="xlarge" color="black">
-          {pageTitle}
+        <Heading tag="h1">
+          <Heading className="-pt-100" tag="span" size="xlarge" color="black">
+            {pageTitle}
+          </Heading>
+          <Text tag="span" size="lead" color="darker">
+            {vehicleConfigurationByCapId?.capDerivativeDescription}
+          </Text>
         </Heading>
-        <Text tag="span" size="lead" color="darker">
-          {vehicleConfigurationByCapId?.capDerivativeDescription}
-        </Text>
         {!isMobile ? (
           <div
             className="-mt-500 -mb-200"
