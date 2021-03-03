@@ -260,6 +260,12 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     colourList?.length === 0 ||
     trimList?.length === 0
   ) {
+    console.error({
+      colourList,
+      trimList,
+      monthlyRental: quoteData?.quoteByCapId?.leaseCost?.monthlyRental,
+    });
+
     return (
       <GoldrushFormContainer
         termsAndConditions
