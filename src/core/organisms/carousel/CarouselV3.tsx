@@ -46,8 +46,6 @@ const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
         afterSlide={(slideIndex: number) => setIndex(slideIndex)}
         cellSpacing={20}
         initialSlideWidth={300}
-        // initialSlideHeight={575}
-        //heightMode="max"
       >
         {children}
       </Carousel>
