@@ -5,7 +5,7 @@ import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import CategoryPageContainer from '../../../../containers/CategoryPageContainer/CategoryPageContainer';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import { IBlogCategory } from '../../../../models/IBlogsProps';
-import { buildStaticPathes, getBlogPosts } from '../../../../utils/pagination';
+import { buildStaticPaths, getBlogPosts } from '../../../../utils/pagination';
 import { getMetadataForPagination } from '../../../../utils/url';
 
 const CategoryPage: NextPage<IBlogCategory> = ({ data, error, pageNumber }) => {
@@ -43,7 +43,7 @@ export async function getStaticPaths() {
         slug: 'blog/cars',
       },
     });
-    const paths = buildStaticPathes(data);
+    const paths = buildStaticPaths(data);
     return {
       paths,
       fallback: false,
@@ -55,7 +55,7 @@ export async function getStaticPaths() {
           params: { pageNumber: '/' },
         },
       ],
-      fallback: false,
+      fallback: true,
     };
   }
 }

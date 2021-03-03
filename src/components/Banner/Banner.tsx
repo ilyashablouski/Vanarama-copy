@@ -33,8 +33,8 @@ const Banner: React.FC<IBanner> = ({ vans }) => {
       <div>
         <Heading color="white" size="large">
           {vans
-            ? 'Loss Of Earnings & Life Event Cover'
-            : 'Redundancy & Life Event Cover'}
+            ? 'Free Loss Of Earnings & Life Event Cover'
+            : 'Free Redundancy & Life Event Cover'}
         </Heading>
         <Text className="-pr-100" color="white" size="small">
           If the worst happens, return your vehicle, no charge.

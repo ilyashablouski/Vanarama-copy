@@ -4,6 +4,8 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { ProductVehicleList_productVehicleList_edges_node as EdgesNode } from '../../../generated/ProductVehicleList';
 import { IVehicleCarousel } from '../../utils/comparatorHelpers';
 
+const MOR_MILES_VALUE = 30;
+
 const getBucketLabel = (type: string, label: string) => {
   switch (type) {
     case 'terms':
@@ -12,7 +14,7 @@ const getBucketLabel = (type: string, label: string) => {
       // eslint-disable-next-line no-case-declarations
       const mileage = parseInt(label, 10) / 1000;
       return `${mileage === 6 ? '<' : ''}${mileage}K${
-        mileage === 20 ? '+' : ''
+        mileage === MOR_MILES_VALUE ? '+' : ''
       }`;
     default:
       return label;
@@ -294,8 +296,8 @@ export const formatForCompare = (
     leadTime: null,
     imageUrl: mainImageUrl || null,
     keyInformation: null,
-    businessRate: financeTypes === 'BCH' ? node?.rental || null : null,
-    personalRate: financeTypes === 'PCH' ? node?.rental || null : null,
+    businessRate: financeTypes[0] === 'BCH' ? node!.rental || null : null,
+    personalRate: financeTypes[0] === 'PCH' ? node!.rental || null : null,
     vehicleType: VehicleTypeEnum.CAR,
   };
 };

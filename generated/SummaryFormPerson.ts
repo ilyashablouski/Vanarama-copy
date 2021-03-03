@@ -62,6 +62,7 @@ export interface SummaryFormPerson_bankAccounts {
   accountName: string | null;
   sortCode: string | null;
   accountNumber: string | null;
+  joinedAt: any | null;
 }
 
 export interface SummaryFormPerson {

@@ -540,7 +540,7 @@ const FiltersContainer = ({
             }));
       })
       .flat()
-      .filter(({ order, value }) => value.length > 0 && order !== undefined);
+      .filter(({ order, value }) => value?.length > 0 && order !== undefined);
     // prevented useless updates
     // check for empty array used for prevent cases when initial render don't call a request
     if (!isArraySame(selected, selectedFilterTags) || !selected.length)

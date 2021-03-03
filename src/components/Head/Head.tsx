@@ -11,9 +11,9 @@ const env = process?.env?.ENV || '';
 const scriptEnvs = {
   // gtm: ['dev', 'uat', 'pre-prod', 'prod'],
 
-  blueconic: ['dev', 'uat', 'pre-prod', 'prod'],
+  blueconic: ['uat', 'pre-prod', 'prod'],
 
-  vwo: ['dev', 'uat', 'pre-prod', 'prod'],
+  vwo: ['uat', 'pre-prod', 'prod'],
 };
 
 const PRECONNECT = [
@@ -36,7 +36,7 @@ const Head: FC<IHeadProps> = props => {
   } = props;
 
   // Dev override.
-  if (process.env.ENV && process.env.ENV !== 'production') {
+  if (process.env.ENV && process.env.ENV !== 'prod') {
     title = `[${process.env.ENV?.toUpperCase()}] ${title}`;
     metaRobots = 'noindex';
   }
@@ -53,8 +53,8 @@ const Head: FC<IHeadProps> = props => {
             rel="preload"
             as="font"
             href={`${FONT_PATH}${font}`}
-            type="font/woff2"
-            crossOrigin=""
+            type={`font/${font.split('.')[1]}`}
+            crossOrigin="anonymous"
           />
         );
       })}

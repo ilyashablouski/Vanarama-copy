@@ -266,6 +266,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                               parseInt(el.node?.derivativeId || '', 10),
                           )?.mainImageUrl || '',
                         ),
+                        // el.node?.derivativeId || '',
                       );
                     }}
                     compared={isCompared(
