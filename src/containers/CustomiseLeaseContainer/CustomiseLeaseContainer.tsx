@@ -255,7 +255,11 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     { label: 'Business', value: 'Business', active: leaseType === 'Business' },
   ];
 
-  if (!quoteData?.quoteByCapId?.leaseCost?.monthlyRental) {
+  if (
+    !quoteData?.quoteByCapId?.leaseCost?.monthlyRental ||
+    colourList?.length === 0 ||
+    trimList?.length === 0
+  ) {
     return (
       <GoldrushFormContainer
         termsAndConditions
