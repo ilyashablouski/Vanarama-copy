@@ -38,6 +38,7 @@ export const getBlogPosts = async (
         data: null,
         pageNumber: null,
       },
+      revalidate: 5,
     };
   }
 };
@@ -60,7 +61,7 @@ export function sortingArticles(this: any[]) {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export const buildStaticPathes = (data: BlogPosts) => {
+export const buildStaticPaths = (data: BlogPosts) => {
   const articles = getSectionsData(['articles'], data?.blogPosts);
   const pageCount = Math.ceil(
     (sortingArticles.call(articles)?.articles?.length || 0) / ARTICLES_PER_PAGE,

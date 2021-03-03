@@ -327,7 +327,7 @@ pipeline {
                 B_NUMBER = "${env.BUILD_NUMBER}"
                 TF_VAR_aws_account_id = "${app_environment["${getConfig()}"].accountId}"
                 TF_VAR_aws_master_role = "${app_environment["${getConfig()}"].awsMasterRole}"
-                TF_VAR_alb_listener_host_override = "${app_environment["${getConfig()}"].alternateDomain}"
+                TF_VAR_alb_listener_host_override = "*.${app_environment["${getConfig()}"].alternateDomain}"
             }
             when {
                   beforeAgent true

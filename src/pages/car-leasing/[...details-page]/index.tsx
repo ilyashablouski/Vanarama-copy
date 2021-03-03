@@ -314,8 +314,8 @@ export async function getServerSideProps(context: NextPageContext) {
         trim: trimAndColorData?.data?.trimList || null,
         colour: trimAndColorData?.data?.colourList || null,
         genericPageHead: data,
-        genericPages,
-        productCard,
+        genericPages: genericPages || null,
+        productCard: productCard || null,
       },
     };
   } catch (error) {

@@ -11,11 +11,11 @@ const env = process?.env?.ENV || '';
 
 // Script environments
 const scriptEnvs = {
-  // gtm: ['dev', 'uat', 'pre-prod', 'prod'],
+  // gtm: ['uat', 'pre-prod', 'prod'],
 
-  blueconic: ['dev', 'uat', 'pre-prod', 'prod'],
+  blueconic: ['uat', 'pre-prod', 'prod'],
 
-  vwo: ['dev', 'uat', 'pre-prod', 'prod'],
+  vwo: ['uat', 'pre-prod', 'prod'],
 };
 
 const PRECONNECT = [
@@ -39,7 +39,7 @@ const ArticleHead: FC<IHeadProps> = props => {
   } = props;
 
   // Dev override.
-  if (process.env.ENV && process.env.ENV !== 'production') {
+  if (process.env.ENV && process.env.ENV !== 'prod') {
     title = `[${process.env.ENV?.toUpperCase()}] ${title}`;
     metaRobots = 'noindex';
   }
@@ -49,14 +49,14 @@ const ArticleHead: FC<IHeadProps> = props => {
       <NextHead>
         <title>{title}</title>
         {/* Preload and Preconnect */}
-        {FONT_LIST.map(font => {
+        {FONT_LIST.map((font: any) => {
           return (
             <link
               key={font}
               rel="preload"
               as="font"
               href={`${FONT_PATH}${font}`}
-              type="font/woff2"
+              type={`font/${font.split('.')[1]}`}
               crossOrigin="anonymous"
             />
           );

@@ -41,6 +41,15 @@ const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
         value: account.accountNumber || '',
         dataTestId: 'summary-account-number',
       },
+      {
+        label: 'Account Open Since',
+        value:
+          account.joinedAt
+            .split('-')
+            .reverse()
+            .join('/') || '',
+        dataTestId: 'account-open-since',
+      },
     ]}
     heading="Bank Details"
     headingDataTestId="bank_details_heading_data_testId"
@@ -56,6 +65,7 @@ SummaryFormBankDetailsSection.fragments = {
       accountName
       sortCode
       accountNumber
+      joinedAt
     }
   `,
 };
