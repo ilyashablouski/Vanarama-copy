@@ -412,7 +412,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             <Breadcrumb items={breadcrumbItems} />
           </div>
         )}
-        <Heading className="-pt-100" tag="span" size="xlarge" color="black">
+        <Heading className="-pt-100" tag="h1" size="xlarge" color="black">
           {pageTitle}
         </Heading>
         <Text tag="span" size="lead" color="darker">
