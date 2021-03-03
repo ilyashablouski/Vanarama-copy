@@ -11,6 +11,7 @@ import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -1184,125 +1185,147 @@ const SearchPageContainer: React.FC<IProps> = ({
       )}
 
       {pageData && (
-        <div>
-          {(isRangePage || isDynamicFilterPage) && (
-            <div className="row:text -columns">
-              <ReactMarkdown
-                className="markdown"
-                source={pageData?.genericPage.body || ''}
-                allowDangerousHtml
-                renderers={{
-                  link: props => {
-                    const { href, children } = props;
-                    return (
-                      <RouterLink
-                        link={{ href, label: children }}
-                        classNames={{ color: 'teal' }}
-                      />
-                    );
-                  },
-                  heading: props => (
-                    <Text {...props} size="lead" color="darker" tag="h3" />
-                  ),
-                  paragraph: props => (
-                    <Text {...props} tag="p" color="darker" />
-                  ),
-                }}
-              />
-            </div>
-          )}
+        <>
+          {isRangePage ||
+            (isDynamicFilterPage && (
+              <LazyLoadComponent
+                visibleByDefault={
+                  typeof window === 'undefined' ||
+                  navigator?.vendor === 'Apple Computer, Inc.'
+                }
+              >
+                <div className="row:text -columns">
+                  <ReactMarkdown
+                    className="markdown"
+                    source={pageData?.genericPage.body || ''}
+                    allowDangerousHtml
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return (
+                          <RouterLink
+                            link={{ href, label: children }}
+                            classNames={{ color: 'teal' }}
+                          />
+                        );
+                      },
+                      heading: props => (
+                        <Text {...props} size="lead" color="darker" tag="h3" />
+                      ),
+                      paragraph: props => (
+                        <Text {...props} tag="p" color="darker" />
+                      ),
+                    }}
+                  />
+                </div>
+              </LazyLoadComponent>
+            ))}
 
           {!isDynamicFilterPage && tiles?.tiles?.length && (
-            <TilesBlock tiles={tiles} />
+            <LazyLoadComponent
+              visibleByDefault={
+                typeof window === 'undefined' ||
+                navigator?.vendor === 'Apple Computer, Inc.'
+              }
+            >
+              <TilesBlock tiles={tiles} />
+            </LazyLoadComponent>
           )}
 
           {carousel?.cards?.length && (
-            <div className="row:bg-lighter">
-              <div className="row:carousel">
-                <Heading size="large" color="black" tag="h3">
-                  {carousel.title}
-                </Heading>
-                <Carousel
-                  countItems={carousel?.cards?.length || 0}
-                  className="-col3"
-                >
-                  {carousel?.cards.map(
-                    (card, indx) =>
-                      card && (
-                        <Card
-                          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                          key={`${card.name}_${indx.toString()}`}
-                          className="card__article"
-                          imageSrc={
-                            card?.image?.file?.url ||
-                            `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                          }
-                          title={{
-                            title:
-                              card.link?.legacyUrl || card.link?.url
-                                ? ''
-                                : card.title || '',
-                            link: (
-                              <RouterLink
-                                link={{
-                                  href:
-                                    card.link?.legacyUrl ||
-                                    card.link?.url ||
-                                    '',
-                                  label: card.title || '',
-                                }}
-                                className="card--link"
-                                classNames={{
-                                  color: 'black',
-                                  size: 'regular',
-                                }}
-                              />
-                            ),
-                          }}
-                        >
-                          <ReactMarkdown
-                            className="markdown"
-                            allowDangerousHtml
-                            source={card.body || ''}
-                            renderers={{
-                              link: props => {
-                                const { href, children } = props;
-                                return (
-                                  <RouterLink
-                                    link={{ href, label: children }}
-                                    classNames={{ color: 'teal' }}
-                                  />
-                                );
-                              },
-                              heading: props => (
-                                <Text
-                                  {...props}
-                                  size="lead"
-                                  color="darker"
-                                  tag="h3"
+            <LazyLoadComponent
+              visibleByDefault={
+                typeof window === 'undefined' ||
+                navigator?.vendor === 'Apple Computer, Inc.'
+              }
+            >
+              <div className="row:bg-lighter">
+                <div className="row:carousel">
+                  <Heading size="large" color="black" tag="h3">
+                    {carousel.title}
+                  </Heading>
+                  <Carousel
+                    countItems={carousel?.cards?.length || 0}
+                    className="-col3"
+                  >
+                    {carousel?.cards.map(
+                      (card, indx) =>
+                        card && (
+                          <Card
+                            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                            key={`${card.name}_${indx.toString()}`}
+                            className="card__article"
+                            imageSrc={
+                              card?.image?.file?.url ||
+                              `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+                            }
+                            title={{
+                              title:
+                                card.link?.legacyUrl || card.link?.url
+                                  ? ''
+                                  : card.title || '',
+                              link: (
+                                <RouterLink
+                                  link={{
+                                    href:
+                                      card.link?.legacyUrl ||
+                                      card.link?.url ||
+                                      '',
+                                    label: card.title || '',
+                                  }}
+                                  className="card--link"
+                                  classNames={{
+                                    color: 'black',
+                                    size: 'regular',
+                                  }}
                                 />
                               ),
-                              paragraph: props => (
-                                <Text {...props} tag="p" color="darker" />
-                              ),
                             }}
-                          />
-                          <RouterLink
-                            link={{
-                              href:
-                                card.link?.legacyUrl || card.link?.url || '',
-                              label: card.link?.text || '',
-                            }}
-                            classNames={{ color: 'teal' }}
-                          />
-                        </Card>
-                      ),
-                  )}
-                </Carousel>
+                          >
+                            <ReactMarkdown
+                              className="markdown"
+                              allowDangerousHtml
+                              source={card.body || ''}
+                              renderers={{
+                                link: props => {
+                                  const { href, children } = props;
+                                  return (
+                                    <RouterLink
+                                      link={{ href, label: children }}
+                                      classNames={{ color: 'teal' }}
+                                    />
+                                  );
+                                },
+                                heading: props => (
+                                  <Text
+                                    {...props}
+                                    size="lead"
+                                    color="darker"
+                                    tag="h3"
+                                  />
+                                ),
+                                paragraph: props => (
+                                  <Text {...props} tag="p" color="darker" />
+                                ),
+                              }}
+                            />
+                            <RouterLink
+                              link={{
+                                href:
+                                  card.link?.legacyUrl || card.link?.url || '',
+                                label: card.link?.text || '',
+                              }}
+                              classNames={{ color: 'teal' }}
+                            />
+                          </Card>
+                        ),
+                    )}
+                  </Carousel>
+                </div>
               </div>
-            </div>
+            </LazyLoadComponent>
           )}
-        </div>
+        </>
       )}
 
       <div className="row:text">
