@@ -22,9 +22,9 @@ const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
     slidesToShow = 2;
   }
 
-  //  Carousel card height fix 
-  //  useEffect has been used to apply a CSS class '-v-height' to each .card found within 
-  //  the carousel component after a short delay. This is because we had to wait until 
+  //  Carousel card height fix
+  //  useEffect has been used to apply a CSS class '-v-height' to each .card found within
+  //  the carousel component after a short delay. This is because we had to wait until
   //  the <Carousel> component had finshed applying all its inline CSS calculations.
 
   useEffect(() => {
