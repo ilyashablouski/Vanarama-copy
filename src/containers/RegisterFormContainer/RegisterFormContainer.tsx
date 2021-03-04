@@ -23,6 +23,7 @@ const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
           },
         }).then(() => {
           event.target.reset(); // reset form after form submit
+          window.scrollTo(0, 0);
         });
       }}
       onCheckEmailExists={async value => {
