@@ -6,7 +6,7 @@ const { RateLimiterRedis } = require('rate-limiter-flexible');
 
 let rateLimiterMiddleware;
 
-if (process.env.ENV === 'production') {
+if (process.env.ENV === 'prod') {
   const redisClient = redis.createClient({
     host: process.env.REDIS_CACHE_HOST,
     port: process.env.REDIS_CACHE_PORT,

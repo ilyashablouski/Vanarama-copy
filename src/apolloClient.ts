@@ -96,7 +96,10 @@ function apolloClientLink() {
   let links = [ErrorLink, retryLink, httpLink];
 
   // TODO: https://autorama.atlassian.net/browse/DIG-5174
-  if (process.env.ENV && ['uat', 'production'].includes(process.env.ENV)) {
+  if (
+    process.env.ENV &&
+    ['uat', 'pre-prod', 'prod'].includes(process.env.ENV)
+  ) {
     links = [persistedQueriesLink, ...links];
   }
 

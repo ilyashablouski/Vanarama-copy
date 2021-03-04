@@ -61,7 +61,7 @@ if (cluster.isMaster) {
     })
     .then(server => {
       // Prevent brute force attack in production.
-      if (!process.env.ENV === 'dev') {
+      if (process.env.ENV === 'prod') {
         server.use(rateLimiterRedisMiddleware);
       }
 
