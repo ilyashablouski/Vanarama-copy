@@ -609,8 +609,23 @@ const FiltersContainer = ({
    * clear all filters
    */
   const handleClearAll = () => {
-    setSelectedFiltersState(initialState);
-    setChoiceBoxesData(buildChoiseBoxData(initialState));
+    let newSelectedFiltersState = selectedFiltersState;
+    selectedFilterTags.forEach(({ value }) => {
+      const formatedValue = value
+        .replace('£', '')
+        .split(' ')
+        .join('-')
+        .toLowerCase();
+      const filter = getValueKey(formatedValue) as keyof typeof filtersMapper;
+      newSelectedFiltersState = {
+        ...newSelectedFiltersState,
+        [filter]: newSelectedFiltersState[filter].filter(
+          selectedValue => selectedValue.toLowerCase() !== formatedValue,
+        ),
+      };
+    });
+    setSelectedFiltersState(newSelectedFiltersState);
+    setChoiceBoxesData(buildChoiseBoxData(newSelectedFiltersState));
     setTempFilterName('all');
   };
 
