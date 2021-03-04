@@ -261,7 +261,7 @@ export async function getServerSideProps(context: NextPageContext) {
         vehicleTypes: [VehicleTypeEnum.CAR],
         leaseType: LeaseTypeEnum.PERSONAL,
         onOffer: true,
-        first: pageType.isMakePage ? 6 : 3,
+        first: pageType.isMakePage ? 6 : 9,
         sort: [{ field: SortField.offerRanking, direction: SortDirection.ASC }],
         ...filter,
       },
