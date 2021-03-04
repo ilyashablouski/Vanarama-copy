@@ -15,14 +15,14 @@ const scriptEnvs = {
 
   blueconic: ['uat', 'pre-prod', 'prod'],
 
-  vwo: ['uat', 'pre-prod', 'prod'],
+  // vwo: ['uat', 'pre-prod', 'prod'],
 };
 
 const PRECONNECT = [
   process?.env?.API_URL?.replace('/graphql/', ''),
   process.env.STATIC_DOMAIN,
   scriptEnvs.blueconic.includes(env) ? 'https://cdn.blueconic.net' : '',
-  scriptEnvs.vwo.includes(env) ? 'https://dev.visualwebsiteoptimizer.com' : '',
+  // scriptEnvs.vwo.includes(env) ? 'https://dev.visualwebsiteoptimizer.com' : '',
   'https://widget.trustpilot.com',
 ].filter(value => value !== '');
 

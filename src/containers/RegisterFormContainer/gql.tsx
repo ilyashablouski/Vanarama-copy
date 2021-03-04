@@ -24,12 +24,14 @@ export const REGISTER_USER_MUTATION = gql`
     $lastName: String!
     $username: String!
     $password: String!
+    $redirectUrl: String
   ) {
     register(
       firstName: $firstName
       lastName: $lastName
       username: $username
       password: $password
+      redirectUrl: $redirectUrl
     ) {
       uuid
     }

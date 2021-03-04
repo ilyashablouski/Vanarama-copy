@@ -35,6 +35,17 @@ const HelpMeChoose: NextPage = () => {
   const [isLoading, setLoadingStatus] = useState(false);
   const [counterState, setCounterState] = useState(1);
   const [resultsData, setResultsData] = useState<Edges[]>([]);
+  const [pageOffset, setPageOffset] = useState(0);
+
+  useEffect(() => {
+    if (!isLoading) {
+      window.scrollTo({
+        top: pageOffset,
+        // @ts-ignore
+        behavior: 'instant',
+      });
+    }
+  }, [isLoading, pageOffset]);
 
   const [getProductVehicleList, productVehicleListData] = useLazyQuery<
     ProductVehicleListInputObject,
@@ -267,6 +278,7 @@ const HelpMeChoose: NextPage = () => {
             setCounterState={setCounterState}
             resultsData={resultsData}
             setResultsData={setResultsData}
+            setPageOffset={setPageOffset}
           />
         )}
     </>

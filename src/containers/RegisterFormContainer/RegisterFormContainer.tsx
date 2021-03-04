@@ -6,6 +6,7 @@ import { useEmailCheck, useRegistration } from './gql';
 const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
   onCompleted,
   onError,
+  redirectUrl,
 }) => {
   const [register, { loading }] = useRegistration(onCompleted, onError);
   const [emailAlreadyExists] = useEmailCheck();
@@ -20,6 +21,7 @@ const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
             lastName: values.lastName,
             username: values.email,
             password: values.password,
+            redirectUrl,
           },
         }).then(() => {
           event.target.reset(); // reset form after form submit
