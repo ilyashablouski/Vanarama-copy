@@ -18,8 +18,8 @@ import useLeaseType from '../../hooks/useLeaseType';
 import { getSectionsData } from '../../utils/getSectionsData';
 import TileLink from '../../components/TileLink/TileLink';
 import Hero, {
-  HeroHeading,
-  HeroTitle,
+  // HeroHeading,
+  // HeroTitle,
   HeroPrompt,
 } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
@@ -138,7 +138,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         searchPodVansData={searchPodVansData}
         searchPodCarsData={searchPodCarsData}
       >
-        <div className="hero--title">
+        {/* <div className="hero--title">
           <>
             <HeroHeading
               text={
@@ -162,6 +162,11 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               }
             />
           </>
+        </div> */}
+        <div className="nlol">
+          <p>Find Your</p>
+          <h2>New Lease Of Life</h2>
+          <p>With Vanarama</p>
         </div>
         <div>
           <Image
