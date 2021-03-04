@@ -275,9 +275,7 @@ pipeline {
                 beforeAgent true
                 anyOf {
                   branch 'develop'
-                  branch 'master'
                   branch 'release/*'
-                  changeRequest target: 'master'
                 }
             }
 
@@ -338,9 +336,7 @@ pipeline {
                   beforeAgent true
                   anyOf {
                     branch 'develop'
-                    branch 'master'
                     branch 'release/*'
-                    changeRequest target: 'master'
                   }
               }
 
@@ -429,9 +425,7 @@ pipeline {
                   beforeInput true
                   anyOf {
                     branch 'develop'
-                    branch 'master'
                     branch 'release/*'
-                    changeRequest target: 'master'
                   }
                   expression { terraformHasChange == true }
               }
@@ -479,9 +473,7 @@ pipeline {
                   beforeAgent true
                   anyOf {
                     branch 'develop'
-                    branch 'master'
                     branch 'release/*'
-                    changeRequest target: 'master'
                   }
               }
 
@@ -548,7 +540,6 @@ pipeline {
                   anyOf {
                     branch 'develop'
                     branch 'release/*'
-                    changeRequest target: 'master'
                   }
             }
             steps {
