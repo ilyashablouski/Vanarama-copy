@@ -32,7 +32,7 @@ const scriptEnvs = {
 
   blueconic: ['uat', 'pre-prod', 'prod'],
 
-  vwo: ['uat', 'pre-prod', 'prod'],
+  // vwo: ['uat', 'pre-prod', 'prod'],
 };
 
 class MyDocument extends Document {
@@ -51,7 +51,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          {scriptEnvs.vwo.includes(env) && <VWOScript />}
+          {/* {scriptEnvs.vwo.includes(env) && <VWOScript />} */}
           {scriptEnvs.gtm.includes(env) && (
             <>
               <GTMDataLayerScript />
