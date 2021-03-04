@@ -326,7 +326,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capModelDescription}`;
 
   // eslint-disable-next-line no-console
-  if (process.env.ENV !== 'production') console.log('CAP Id:', capId);
+  if (process.env.ENV !== 'prod') console.log('CAP Id:', capId);
 
   const onSubmitClickMobile = () => {
     const colourDescription = derivativeInfo?.colours?.find(
@@ -423,12 +423,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             <Breadcrumb items={breadcrumbItems} />
           </div>
         )}
-        <Heading className="-pt-100" tag="h1" size="xlarge" color="black">
-          {pageTitle}
+        <Heading tag="h1">
+          <Heading className="-pt-100" tag="span" size="xlarge" color="black">
+            {pageTitle}
+          </Heading>{' '}
+          <Text tag="span" size="lead" color="darker">
+            {vehicleConfigurationByCapId?.capDerivativeDescription}
+          </Text>
         </Heading>
-        <Text tag="span" size="lead" color="darker">
-          {vehicleConfigurationByCapId?.capDerivativeDescription}
-        </Text>
         {!isMobile ? (
           <div
             className="-mt-500 -mb-200"
