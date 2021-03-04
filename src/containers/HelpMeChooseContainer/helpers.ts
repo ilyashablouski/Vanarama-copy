@@ -53,7 +53,7 @@ export const onReplace = (
   Object.entries(newStep).forEach(filter => {
     const [key, step] = filter;
     if (
-      step?.value?.length ||
+      (step?.value?.length && step.value[0].length) ||
       ((key === 'rental' || key === 'initialPeriods') && step.value)
     ) {
       queries[key] = step.value;
@@ -62,9 +62,9 @@ export const onReplace = (
       queries.pricePerMonth = `0|${step.value}`;
     }
   });
-  Object.entries(queries).forEach(([key, value]) =>
-    queryString.set(key, value as string),
-  );
+  Object.entries(queries).forEach(([key, value]) => {
+    return queryString.set(key, value as string);
+  });
   if (Object.keys(queries).length)
     pathname += `?${decodeURIComponent(queryString.toString())}`;
   // changing url dynamically
