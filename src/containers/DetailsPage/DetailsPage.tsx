@@ -26,6 +26,7 @@ import {
   GetVehicleDetails_vehicleImages,
   GetVehicleDetails_derivativeInfo_colours,
   GetVehicleDetails_derivativeInfo_trims,
+  GetVehicleDetails_vehicleConfigurationByCapId,
 } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
@@ -389,10 +390,20 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   // tracking
   const onCompletedCallBack = () => {
+    const vehicleConfiguration = {
+      ...vehicleConfigurationByCapId,
+      financeProfile: {
+        ...vehicleConfigurationByCapId?.financeProfile,
+        mileage:
+          leaseScannerData?.quoteByCapId?.mileage ||
+          vehicleConfigurationByCapId?.financeProfile?.mileage,
+      },
+    } as GetVehicleDetails_vehicleConfigurationByCapId;
+
     pushCallBackDataLayer({
       capId,
       derivativeInfo,
-      vehicleConfigurationByCapId,
+      vehicleConfigurationByCapId: vehicleConfiguration,
       price,
       category: getCategory({ cars, vans, pickups }),
     });
@@ -412,7 +423,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             <Breadcrumb items={breadcrumbItems} />
           </div>
         )}
-        <Heading className="-pt-100" tag="span" size="xlarge" color="black">
+        <Heading className="-pt-100" tag="h1" size="xlarge" color="black">
           {pageTitle}
         </Heading>
         <Text tag="span" size="lead" color="darker">
