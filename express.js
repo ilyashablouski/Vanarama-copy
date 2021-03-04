@@ -51,9 +51,9 @@ app
   })
   .then(server => {
     // Prevent brute force attack in production.
-    if (process.env.ENV === 'prod') {
-      server.use(rateLimiterRedisMiddleware);
-    }
+    // if (process.env.ENV === 'prod') {
+    //   server.use(rateLimiterRedisMiddleware);
+    // }
 
     // Prerender.
     if (prerender && process.env.PRERENDER_SERVICE_URL) {
