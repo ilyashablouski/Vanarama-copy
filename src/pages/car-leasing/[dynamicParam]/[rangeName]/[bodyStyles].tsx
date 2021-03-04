@@ -101,6 +101,7 @@ const Page: NextPage<IProps> = ({
 
 export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({});
+  const { query } = context;
   let vehiclesList;
   let productCardsData;
   let responseCapIds;
@@ -172,6 +173,7 @@ export async function getServerSideProps(context: NextPageContext) {
         return false;
       }
     }
+    query.make = (query.dynamicParam as string).toLowerCase();
     return {
       props: {
         pageData: data,
