@@ -36,7 +36,9 @@
       height: auto;
       flex-direction: unset;
       justify-content: unset;
+      flex-wrap: wrap;
       margin: 0 -16px;
+      .lease-card-header,
       .lease-scanner {
         width:100%;
       }
