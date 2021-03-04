@@ -17,8 +17,8 @@ import {
 import { HUB_CAR_CONTENT } from '../../gql/hub/hubCarPage';
 import createApolloClient from '../../apolloClient';
 import Hero, {
-  HeroTitle,
-  HeroHeading,
+  // HeroTitle,
+  // HeroHeading,
   HeroPrompt,
 } from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -111,7 +111,7 @@ export const CarsPage: NextPage<IProps> = ({
   return (
     <>
       <Hero searchPodCarsData={searchPodCarsData}>
-        <HeroHeading
+        {/* <HeroHeading
           text={data?.hubCarPage.sections?.hero?.title || ''}
           titleTag={
             getTitleTag(
@@ -121,7 +121,12 @@ export const CarsPage: NextPage<IProps> = ({
         />
         <br />
         <HeroTitle text={data?.hubCarPage.sections?.hero?.body || ''} />
-        <br />
+        <br /> */}
+        <div className="nlol">
+          <p>Find Your</p>
+          <h2>New Lease Of Life</h2>
+          <p>With Vanarama</p>
+        </div>
         <div>
           <Image
             loadImage
