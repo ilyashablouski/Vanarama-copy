@@ -1180,7 +1180,7 @@
     align-items: center;
 
     .hero {
-      &--left {
+      /* &--left {
         @include desktop {
           grid-column: content / column 7;
         }
@@ -1225,7 +1225,7 @@
         > * {
           text-shadow: 0 0 1px rgba($black, 0.1);
         }
-      }
+      } */
 
       &--right {
         text-align: center;
