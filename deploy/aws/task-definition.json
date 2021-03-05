@@ -85,7 +85,7 @@
         },
         {
           "name": "IMG_OPTIMISATION_HOST",
-          "value": "https://vanarama-nonprod.com"
+          "value": "%IMG_OPTIMISATION_HOST%"
         },
         {
           "name": "PRERENDER_SERVICE_URL",
