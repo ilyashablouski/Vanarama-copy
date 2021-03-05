@@ -231,7 +231,7 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             .
           </Text>
         </div>
-        <div style={{ marginTop: '30px' }}>
+        <div style={{ marginTop: '15px' }}>
           {editData && (
             <Button
               type="submit"
