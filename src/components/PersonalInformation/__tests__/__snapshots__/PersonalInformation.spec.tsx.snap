@@ -10,7 +10,7 @@ exports[`<PersonalInformation /> should render correctly 1`] = `
   }
 >
   <form
-    className="form form"
+    className="form"
     onSubmit={[Function]}
   >
     <p
@@ -175,19 +175,27 @@ exports[`<PersonalInformation /> should render correctly 1`] = `
         .
       </p>
     </div>
-    <button
-      className="button -primary -regular -solid"
-      data-testid="personalSubmit"
-      disabled={false}
-      onClick={[Function]}
-      type="button"
+    <div
+      style={
+        Object {
+          "marginTop": "30px",
+        }
+      }
     >
-      <div
-        className="button--inner"
+      <button
+        className="button -teal -regular -solid"
+        data-testid="personalSubmit"
+        disabled={false}
+        onClick={[Function]}
+        type="button"
       >
-        Edit Personal Details
-      </div>
-    </button>
+        <div
+          className="button--inner"
+        >
+          Edit Personal Details
+        </div>
+      </button>
+    </div>
   </form>
 </div>
 `;
