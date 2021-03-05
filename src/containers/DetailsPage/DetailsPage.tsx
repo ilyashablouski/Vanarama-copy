@@ -6,6 +6,8 @@ import localForage from 'localforage';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
 import Button from 'core/atoms/button';
+import Heading from 'core/atoms/heading';
+import Text from 'core/atoms/text';
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
@@ -46,12 +48,6 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
 const Loading = dynamic(() => import('core/atoms/loading'));
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Rating = dynamic(() => import('core/atoms/rating'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -423,12 +419,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             <Breadcrumb items={breadcrumbItems} />
           </div>
         )}
-        <Heading className="-pt-100" tag="h1" size="xlarge" color="black">
-          {pageTitle}
-        </Heading>
-        <Text tag="span" size="lead" color="darker">
+        <h1 className="heading -pt-100 -black -xlarge">{pageTitle}</h1>
+        <span className="text -lead -darker">
           {vehicleConfigurationByCapId?.capDerivativeDescription}
-        </Text>
+        </span>
         {!isMobile ? (
           <div
             className="-mt-500 -mb-200"
