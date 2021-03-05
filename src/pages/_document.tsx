@@ -5,7 +5,7 @@ import {
   Body as GTMBody,
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
-import { VWOScript } from '../components/VWOScript';
+// import { VWOScript } from '../components/VWOScript';
 import Inline from '../components/Style/Inline';
 import HeadCustom from '../hacks/headCustom';
 
@@ -32,7 +32,7 @@ const scriptEnvs = {
 
   blueconic: ['uat', 'pre-prod', 'prod'],
 
-  vwo: ['uat', 'pre-prod', 'prod'],
+  // vwo: ['uat', 'pre-prod', 'prod'],
 };
 
 class MyDocument extends Document {
@@ -51,7 +51,7 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          {scriptEnvs.vwo.includes(env) && <VWOScript />}
+          {/* {scriptEnvs.vwo.includes(env) && <VWOScript />} */}
           {scriptEnvs.gtm.includes(env) && (
             <>
               <GTMDataLayerScript />

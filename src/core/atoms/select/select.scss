@@ -2,6 +2,7 @@
   display: block;
   position: relative;
   width: max-content;
+  max-width: 100%;
   color: darken($dark, 5%);
 
   &.-fullwidth,
