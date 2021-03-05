@@ -78,7 +78,7 @@ app
       };
 
       // Protecting with authentication in prod.
-      if (process.env.ENV === 'dev') {
+      if (['pre-prod', 'prod'].includes(process.env.ENV)) {
         const reject = () => {
           res.setHeader('www-authenticate', 'Basic');
           res.sendStatus(401);
@@ -104,7 +104,7 @@ app
           return reject();
       }
 
-      env();
+      return env();
     });
 
     // All routes.
