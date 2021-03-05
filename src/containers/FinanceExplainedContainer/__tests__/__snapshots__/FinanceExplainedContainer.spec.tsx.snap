@@ -213,41 +213,43 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
     <div
       class="row:featured-right"
     >
-      <div
-        class="card ivan-cta -inline"
-        data-testid="card"
-      >
+      <div>
         <div
-          class="image card-image -expand -plain"
+          class="card ivan-cta -inline"
+          data-testid="card"
         >
-          <img
-            class="image--native"
-            loading="eager"
-            sizes="(min-width:3200px) 800px, 1200px"
-            src="//images.ctfassets.net/3xid768u5joa/31iQbyGS1DYs7b9viQHtXh/86ae2d62793162409d230b2042d9e00a/header-ivan.svg"
-          />
-        </div>
-        <div
-          class="title"
-        >
-          <p
-            class="heading -black -lead"
+          <div
+            class="image card-image -expand -plain"
           >
-            Meet iVan
-          </p>
+            <img
+              class="image--native"
+              loading="eager"
+              sizes="(min-width:3200px) 800px, 1200px"
+              src="//images.ctfassets.net/3xid768u5joa/31iQbyGS1DYs7b9viQHtXh/86ae2d62793162409d230b2042d9e00a/header-ivan.svg"
+            />
+          </div>
+          <div
+            class="title"
+          >
+            <p
+              class="heading -black -lead"
+            >
+              Meet iVan
+            </p>
+          </div>
+          <span
+            class="text -regular -dark"
+          >
+            Our helpful chatbot iVan is available 24/7 to answer your van financing questions
+          </span>
+          <a
+            class="link -teal"
+            data-testid="link"
+            href="https://www.vanarama.com"
+          >
+            Chat With iVan
+          </a>
         </div>
-        <span
-          class="text -regular -dark"
-        >
-          Our helpful chatbot iVan is available 24/7 to answer your van financing questions
-        </span>
-        <a
-          class="link -teal"
-          data-testid="link"
-          href="https://www.vanarama.com"
-        >
-          Chat With iVan
-        </a>
       </div>
       <div>
         <p
