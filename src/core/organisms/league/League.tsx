@@ -15,6 +15,7 @@ const League: FC<ILeagueProps> = memo(props => {
       <div>
         <Image
           plain
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           src={`${process.env.HOST_DOMAIN}/Assets/images-optimised/home/national-league.png`}
           size="expand"
           alt={altText}
@@ -38,6 +39,7 @@ const League: FC<ILeagueProps> = memo(props => {
         </Text>
         <Image
           plain
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           src={`${process.env.HOST_DOMAIN}/Assets/images-optimised/home/league-cup.png`}
           size="expand"
           alt={altText}
