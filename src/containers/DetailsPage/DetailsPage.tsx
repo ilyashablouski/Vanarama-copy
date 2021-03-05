@@ -6,8 +6,6 @@ import localForage from 'localforage';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
 import Button from 'core/atoms/button';
-import Heading from 'core/atoms/heading';
-import Text from 'core/atoms/text';
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
