@@ -29,13 +29,22 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           >
             Your Guide To Car Leasing
           </span>
-          <p
-            class="text -regular -white"
+          <div
+            class="markdown -lighter"
           >
-            If you're looking for a brand new car and don't want to buy one outright, leasing could be the perfect solution. Car leasing makes getting behind the wheel of your dream car easy through hassle-free fixed monthly payments on 2 to 5-year contracts. Find out what leasing is, how it works & how Vanarama makes car leasing simple.
-
-[Read More](https://beta.vanarama.com/car-leasing-explained/what-is-car-leasing.html)
-          </p>
+            <p>
+              If you're looking for a brand new car and don't want to buy one outright, leasing could be the perfect solution. Car leasing makes getting behind the wheel of your dream car easy through hassle-free fixed monthly payments on 2 to 5-year contracts. Find out what leasing is, how it works & how Vanarama makes car leasing simple.
+            </p>
+            <p>
+              <a
+                class="link"
+                data-testid="link"
+                href="https://beta.vanarama.com/car-leasing-explained/what-is-car-leasing.html"
+              >
+                Read More
+              </a>
+            </p>
+          </div>
           <a
             class="button link -teal -regular -solid"
             data-testid="link"
