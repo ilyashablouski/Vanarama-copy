@@ -322,7 +322,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capModelDescription}`;
 
   // eslint-disable-next-line no-console
-  if (process.env.ENV !== 'production') console.log('CAP Id:', capId);
+  if (process.env.ENV !== 'prod') console.log('CAP Id:', capId);
 
   const onSubmitClickMobile = () => {
     const colourDescription = derivativeInfo?.colours?.find(

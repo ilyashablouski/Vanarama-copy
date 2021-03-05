@@ -135,7 +135,7 @@ const TopOffersContainer: React.FC<IProps> = ({
         return false;
       }
     },
-    isMakePage ? 6 : 3,
+    isMakePage ? 6 : 9,
     undefined,
     isPickups ? ['Pickup'] : [],
   );
@@ -191,7 +191,7 @@ const TopOffersContainer: React.FC<IProps> = ({
                 router.query.dynamicParam as keyof typeof fuelMapper
               ] as string).split(',')
             : undefined,
-          first: 6,
+          first: isMakePage ? 6 : 9,
         },
       });
       setShouldForceUpdate(false);
