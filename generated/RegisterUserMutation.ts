@@ -20,4 +20,5 @@ export interface RegisterUserMutationVariables {
   lastName: string;
   username: string;
   password: string;
+  redirectUrl?: string | null;
 }

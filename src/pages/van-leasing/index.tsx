@@ -18,8 +18,8 @@ import { ProductCardData_productCarousel as ProdCardData } from '../../../genera
 
 import { HUB_VAN_CONTENT } from '../../gql/hub/hubVanPage';
 import Hero, {
-  HeroTitle,
-  HeroHeading,
+  // HeroTitle,
+  // HeroHeading,
   HeroPrompt,
 } from '../../components/Hero';
 import DealOfMonth from '../../components/DealOfMonth';
@@ -122,7 +122,7 @@ export const VansPage: NextPage<IProps> = ({
   return (
     <>
       <Hero searchPodVansData={searchPodVansData}>
-        <HeroHeading
+        {/* <HeroHeading
           text={
             getSectionsData(['hero', 'title'], data?.hubVanPage.sections) || ''
           }
@@ -141,7 +141,12 @@ export const VansPage: NextPage<IProps> = ({
             getSectionsData(['hero', 'body'], data?.hubVanPage.sections) || ''
           }
         />
-        <br />
+        <br /> */}
+        <div className="nlol">
+          <p>Find Your</p>
+          <h2>New Lease Of Life</h2>
+          <p>With Vanarama</p>
+        </div>
         <div>
           <Image
             loadImage

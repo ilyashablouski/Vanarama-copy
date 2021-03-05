@@ -9,9 +9,9 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { findPreselectFilterValue } from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -1090,85 +1090,36 @@ const SearchPageContainer: React.FC<IProps> = ({
       </div>
 
       {isSpecialOfferPage && isCarSearch && featured && (
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
-          <section className="row:featured-right">
-            {!featured?.layout?.includes('Full Width') && (
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                size="expand"
-                src={featured.image?.file?.url || ''}
-              />
-            )}
-            <div>
-              <div
-                className={readmore ? '-truncate' : ''}
-                style={{
-                  height:
-                    isReadMoreIncluded && readmore
-                      ? featured?.defaultHeight || 100
-                      : '',
-                }}
+        <section className="row:featured-right">
+          {!featured?.layout?.includes('Full Width') && (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              size="expand"
+              src={featured.image?.file?.url || ''}
+            />
+          )}
+          <div>
+            <div
+              className={readmore ? '-truncate' : ''}
+              style={{
+                height:
+                  isReadMoreIncluded && readmore
+                    ? featured?.defaultHeight || 100
+                    : '',
+              }}
+            >
+              <Heading
+                tag={featured.titleTag || 'span'}
+                size="large"
+                color="black"
+                className="-mb-300"
               >
-                <Heading
-                  tag={featured.titleTag || 'span'}
-                  size="large"
-                  color="black"
-                  className="-mb-300"
-                >
-                  {featured.title}
-                </Heading>
-                <ReactMarkdown
-                  className="markdown"
-                  source={featured.body || ''}
-                  allowDangerousHtml
-                  renderers={{
-                    link: props => {
-                      const { href, children } = props;
-                      return (
-                        <RouterLink
-                          link={{ href, label: children }}
-                          classNames={{ color: 'teal' }}
-                        />
-                      );
-                    },
-                  }}
-                />
-              </div>
-              {featured?.layout?.includes('Read More') && (
-                <Button
-                  size="small"
-                  color="teal"
-                  fill="clear"
-                  label={readmore ? 'Read More' : 'Read Less'}
-                  onClick={() => setReadMore(!readmore)}
-                />
-              )}
-            </div>
-          </section>
-        </LazyLoadComponent>
-      )}
-
-      {pageData?.genericPage?.sections?.featured2?.body && (
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
-          <div className="row:text">
-            <Heading tag="h2" size="large" color="black" className="-mb-300">
-              {pageData.genericPage.sections.featured2.title}
-            </Heading>
-            <Text color="darker" size="regular" tag="div">
+                {featured.title}
+              </Heading>
               <ReactMarkdown
                 className="markdown"
+                source={featured.body || ''}
                 allowDangerousHtml
-                source={pageData.genericPage.sections.featured2.body}
                 renderers={{
                   link: props => {
                     const { href, children } = props;
@@ -1179,69 +1130,115 @@ const SearchPageContainer: React.FC<IProps> = ({
                       />
                     );
                   },
-                  image: props => {
-                    const { src, alt } = props;
-                    return (
-                      <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
-                    );
-                  },
-                  heading: props => (
-                    <Text {...props} size="lead" color="darker" tag="h3" />
-                  ),
-                  paragraph: props => (
-                    <Text {...props} tag="p" color="darker" />
-                  ),
                 }}
               />
-            </Text>
+            </div>
+            {featured?.layout?.includes('Read More') && (
+              <Button
+                size="small"
+                color="teal"
+                fill="clear"
+                label={readmore ? 'Read More' : 'Read Less'}
+                onClick={() => setReadMore(!readmore)}
+              />
+            )}
           </div>
-        </LazyLoadComponent>
+        </section>
+      )}
+
+      {pageData?.genericPage?.sections?.featured2?.body && (
+        <div className="row:text">
+          <Heading tag="h2" size="large" color="black" className="-mb-300">
+            {pageData.genericPage.sections.featured2.title}
+          </Heading>
+          <Text color="darker" size="regular" tag="div">
+            <ReactMarkdown
+              className="markdown"
+              allowDangerousHtml
+              source={pageData.genericPage.sections.featured2.body}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return (
+                    <RouterLink
+                      link={{ href, label: children }}
+                      classNames={{ color: 'teal' }}
+                    />
+                  );
+                },
+                image: props => {
+                  const { src, alt } = props;
+                  return <img {...{ src, alt }} style={{ maxWidth: '100%' }} />;
+                },
+                heading: props => (
+                  <Text {...props} size="lead" color="darker" tag="h3" />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
+          </Text>
+        </div>
       )}
 
       {isDynamicFilterPage && tiles?.tiles?.length && (
         <TilesBlock tiles={tiles} />
       )}
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        {pageData && (
-          <div>
-            {(isRangePage || isDynamicFilterPage) && (
-              <div className="row:text -columns">
-                <ReactMarkdown
-                  className="markdown"
-                  source={pageData?.genericPage.body || ''}
-                  allowDangerousHtml
-                  renderers={{
-                    link: props => {
-                      const { href, children } = props;
-                      return (
-                        <RouterLink
-                          link={{ href, label: children }}
-                          classNames={{ color: 'teal' }}
-                        />
-                      );
-                    },
-                    heading: props => (
-                      <Text {...props} size="lead" color="darker" tag="h3" />
-                    ),
-                    paragraph: props => (
-                      <Text {...props} tag="p" color="darker" />
-                    ),
-                  }}
-                />
-              </div>
-            )}
+      {pageData && (
+        <>
+          {isRangePage ||
+            (isDynamicFilterPage && (
+              <LazyLoadComponent
+                visibleByDefault={
+                  typeof window === 'undefined' ||
+                  navigator?.vendor === 'Apple Computer, Inc.'
+                }
+              >
+                <div className="row:text -columns">
+                  <ReactMarkdown
+                    className="markdown"
+                    source={pageData?.genericPage.body || ''}
+                    allowDangerousHtml
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return (
+                          <RouterLink
+                            link={{ href, label: children }}
+                            classNames={{ color: 'teal' }}
+                          />
+                        );
+                      },
+                      heading: props => (
+                        <Text {...props} size="lead" color="darker" tag="h3" />
+                      ),
+                      paragraph: props => (
+                        <Text {...props} tag="p" color="darker" />
+                      ),
+                    }}
+                  />
+                </div>
+              </LazyLoadComponent>
+            ))}
 
-            {!isDynamicFilterPage && tiles?.tiles?.length && (
+          {!isDynamicFilterPage && tiles?.tiles?.length && (
+            <LazyLoadComponent
+              visibleByDefault={
+                typeof window === 'undefined' ||
+                navigator?.vendor === 'Apple Computer, Inc.'
+              }
+            >
               <TilesBlock tiles={tiles} />
-            )}
+            </LazyLoadComponent>
+          )}
 
-            {carousel?.cards?.length && (
+          {carousel?.cards?.length && (
+            <LazyLoadComponent
+              visibleByDefault={
+                typeof window === 'undefined' ||
+                navigator?.vendor === 'Apple Computer, Inc.'
+              }
+            >
               <div className="row:bg-lighter">
                 <div className="row:carousel">
                   <Heading size="large" color="black" tag="h3">
@@ -1326,33 +1323,26 @@ const SearchPageContainer: React.FC<IProps> = ({
                   </Carousel>
                 </div>
               </div>
-            )}
-          </div>
-        )}
-      </LazyLoadComponent>
+            </LazyLoadComponent>
+          )}
+        </>
+      )}
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <div className="row:text">
-          <Text color="darker" size="regular" tag="span">
-            Photos and videos are for illustration purposes only.*{' '}
-            <RouterLink
-              link={{
-                href: '/legal/terms-and-conditions.html',
-                label: 'Terms and conditions apply',
-              }}
-              classNames={{ color: 'teal' }}
-            >
-              Terms and conditions apply
-            </RouterLink>
-            .
-          </Text>
-        </div>
-      </LazyLoadComponent>
+      <div className="row:text">
+        <Text color="darker" size="regular" tag="span">
+          Photos and videos are for illustration purposes only.*{' '}
+          <RouterLink
+            link={{
+              href: '/legal/terms-and-conditions.html',
+              label: 'Terms and conditions apply',
+            }}
+            classNames={{ color: 'teal' }}
+          >
+            Terms and conditions apply
+          </RouterLink>
+          .
+        </Text>
+      </div>
       {metaData && (
         <>
           <Head metaData={metaData} featuredImage={null} />

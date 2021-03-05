@@ -215,22 +215,24 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
       {featured2 && (
         <div className={`row:${getFeaturedClassPartial(featured2)}`}>
           {featured2.cards?.length && (
-            <IvanCta
-              title={featured2.cards[0]?.title || ''}
-              body={featured2.cards[0]?.body || ''}
-              imageSrc={featured2.cards[0]?.image?.file?.url || ''}
-            >
-              <RouterLink
-                link={{
-                  href:
-                    featured2.cards[0]?.link?.legacyUrl ||
-                    featured2.cards[0]?.link?.url ||
-                    '',
-                  label: featured2.cards[0]?.link?.text || '',
-                }}
-                classNames={{ color: 'teal' }}
-              />
-            </IvanCta>
+            <div>
+              <IvanCta
+                title={featured2.cards[0]?.title || ''}
+                body={featured2.cards[0]?.body || ''}
+                imageSrc={featured2.cards[0]?.image?.file?.url || ''}
+              >
+                <RouterLink
+                  link={{
+                    href:
+                      featured2.cards[0]?.link?.legacyUrl ||
+                      featured2.cards[0]?.link?.url ||
+                      '',
+                    label: featured2.cards[0]?.link?.text || '',
+                  }}
+                  classNames={{ color: 'teal' }}
+                />
+              </IvanCta>
+            </div>
           )}
           <div>
             <Heading

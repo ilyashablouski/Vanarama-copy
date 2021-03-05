@@ -57,6 +57,7 @@ interface IHelpMeChooseResult extends HelpMeChooseStep {
   counterState: number;
   resultsData: Edges[];
   setResultsData: Dispatch<SetStateAction<Edges[]>>;
+  setPageOffset: Dispatch<SetStateAction<number>>;
 }
 
 const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
@@ -72,6 +73,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
     setCounterState,
     resultsData,
     setResultsData,
+    setPageOffset,
   } = props;
 
   useEffect(() => {
@@ -102,6 +104,10 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
       ).value;
   const vehiclesResultNumber = getSectionsData(
     ['productVehicleList', 'totalVehicles'],
+    productVehicleListData?.data,
+  );
+  const nodesCount = getSectionsData(
+    ['productVehicleList', 'nodesCount'],
     productVehicleListData?.data,
   );
 
@@ -189,6 +195,23 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
     onReplace(router, { ...initialSteps });
   };
 
+  const loadMoreResults = () => {
+    setCounterState(counterState + 1);
+    setLoadingStatus(true);
+    const searchParams = new URLSearchParams();
+    getProductVehicleList({
+      variables: {
+        filter: {
+          ...buildAnObjectFromAQuery(searchParams, steps, undefined, {
+            after: 0,
+            size: 12 * (counterState + 1),
+          }),
+        },
+      },
+    });
+    setPageOffset(window.pageYOffset);
+  };
+
   return (
     <>
       <div className="row:stepped-form">
@@ -266,6 +289,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                               parseInt(el.node?.derivativeId || '', 10),
                           )?.mainImageUrl || '',
                         ),
+                        // el.node?.derivativeId || '',
                       );
                     }}
                     compared={isCompared(
@@ -352,6 +376,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
         <div className="button-group">
           {!!vehiclesResultNumber &&
             vehiclesResultNumber > 12 &&
+            nodesCount < 48 &&
             !!resultsData?.length &&
             resultsData?.length < vehiclesResultNumber && (
               <div>
@@ -359,26 +384,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                   color="primary"
                   dataTestId="help-me-choose_load-more"
                   label="Load More"
-                  onClick={() => {
-                    setCounterState(counterState + 1);
-                    setLoadingStatus(true);
-                    const searchParams = new URLSearchParams();
-                    getProductVehicleList({
-                      variables: {
-                        filter: {
-                          ...buildAnObjectFromAQuery(
-                            searchParams,
-                            steps,
-                            undefined,
-                            {
-                              after: 0,
-                              size: 12 * (counterState + 1),
-                            },
-                          ),
-                        },
-                      },
-                    });
-                  }}
+                  onClick={loadMoreResults}
                   size="large"
                   className="stepped-form--button"
                   type="button"
@@ -386,6 +392,29 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                 />
               </div>
             )}
+        </div>
+        <div className="button-group">
+          <Button
+            color="primary"
+            dataTestId="help-me-choose_view-all"
+            label="View All Offers"
+            onClick={() => {
+              onReplace(
+                router,
+                {
+                  ...steps,
+                  rental: {
+                    active: true,
+                    value: rental as any,
+                  },
+                },
+                '/car-leasing/special-offers',
+              );
+            }}
+            size="large"
+            className="stepped-form--button"
+            type="button"
+          />
           <Button
             color="primary"
             dataTestId="help-me-choose_search-again"

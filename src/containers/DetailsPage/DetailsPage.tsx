@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
@@ -26,6 +26,7 @@ import {
   GetVehicleDetails_vehicleImages,
   GetVehicleDetails_derivativeInfo_colours,
   GetVehicleDetails_derivativeInfo_trims,
+  GetVehicleDetails_vehicleConfigurationByCapId,
 } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
@@ -45,12 +46,6 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
 const Loading = dynamic(() => import('core/atoms/loading'));
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Rating = dynamic(() => import('core/atoms/rating'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -253,6 +248,21 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       });
   };
 
+  const breadcrumbItems = useMemo(() => {
+    return (
+      (genericPageHead?.genericPage.metaData?.breadcrumbs &&
+        genericPageHead.genericPage.metaData.breadcrumbs.map((el: any) => ({
+          link: { href: el.href || '', label: el.label },
+        }))) ??
+      getProductPageBreadCrumb(
+        data?.derivativeInfo,
+        genericPages,
+        genericPageHead?.genericPage.metaData.slug || '',
+        cars,
+      )
+    );
+  }, [cars, data, genericPageHead, genericPages]);
+
   if (loading) {
     return (
       <div
@@ -310,7 +320,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capModelDescription}`;
 
   // eslint-disable-next-line no-console
-  if (process.env.ENV !== 'production') console.log('CAP Id:', capId);
+  if (process.env.ENV !== 'prod') console.log('CAP Id:', capId);
 
   const onSubmitClickMobile = () => {
     const colourDescription = derivativeInfo?.colours?.find(
@@ -350,14 +360,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     });
   };
 
-  const breadcrumbItems =
-    genericPageHead?.genericPage.metaData?.breadcrumbs ??
-    getProductPageBreadCrumb(
-      data?.derivativeInfo,
-      genericPages,
-      genericPageHead?.genericPage.metaData.slug || '',
-      cars,
-    );
   const metaData = genericPageHead?.genericPage.metaData ?? {
     title:
       `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 
@@ -382,10 +384,20 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   // tracking
   const onCompletedCallBack = () => {
+    const vehicleConfiguration = {
+      ...vehicleConfigurationByCapId,
+      financeProfile: {
+        ...vehicleConfigurationByCapId?.financeProfile,
+        mileage:
+          leaseScannerData?.quoteByCapId?.mileage ||
+          vehicleConfigurationByCapId?.financeProfile?.mileage,
+      },
+    } as GetVehicleDetails_vehicleConfigurationByCapId;
+
     pushCallBackDataLayer({
       capId,
       derivativeInfo,
-      vehicleConfigurationByCapId,
+      vehicleConfigurationByCapId: vehicleConfiguration,
       price,
       category: getCategory({ cars, vans, pickups }),
     });
@@ -405,12 +417,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             <Breadcrumb items={breadcrumbItems} />
           </div>
         )}
-        <Heading className="-pt-100" tag="span" size="xlarge" color="black">
-          {pageTitle}
-        </Heading>
-        <Text tag="span" size="lead" color="darker">
+        <h1 className="heading -pt-100 -black -xlarge">{pageTitle}</h1>
+        <span className="text -lead -darker">
           {vehicleConfigurationByCapId?.capDerivativeDescription}
-        </Text>
+        </span>
         {!isMobile ? (
           <div
             className="-mt-500 -mb-200"

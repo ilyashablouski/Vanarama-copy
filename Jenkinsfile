@@ -31,7 +31,8 @@ def app_environment = [
         dockerRepoName: "000379120260.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
         NODE_ENV: 'development',
         terraformService: true,
-        alternateDomain: 'dev.vanarama-nonprod.com'
+        alternateDomain: 'dev.vanarama-nonprod.com',
+        imgOptimisationHost: 'https://vanarama-nonprod.com'
     ],
     "uat": [
         clusterName: 'grid-uat',
@@ -52,7 +53,8 @@ def app_environment = [
         dockerRepoName: "126764662304.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
         NODE_ENV: 'development',
         terraformService: true,
-        alternateDomain: 'uat.vanarama-nonprod.com'
+        alternateDomain: 'uat.vanarama-nonprod.com',
+        imgOptimisationHost: 'https://vanarama-nonprod.com'
     ]
 ]
 
@@ -244,12 +246,13 @@ pipeline {
                 def stack = app_environment["${getConfig()}"].stack
                 def NODE_ENV = app_environment["${getConfig()}"].NODE_ENV
                 def alternateDomain = app_environment["${getConfig()}"].alternateDomain
+                def imgOptimisationHost = app_environment["${getConfig()}"].imgOptimisationHost
                 
                     //TO DO - Paramaterise the source function with env variable
                     withCredentials([string(credentialsId: 'npm_token', variable: 'NPM_TOKEN')]) {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "${jenkinsCredentialsId}" , secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
                     sh """
-                      source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${getConfig()} ${alternateDomain}
+                      source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${getConfig()} ${alternateDomain} ${imgOptimisationHost}
                       docker pull $dockerRepoName:latest || true
                       docker build -t $dockerRepoName:${getDockerTagName()} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg PRERENDER_SERVICE_URL=\${PRERENDER_SERVICE_URL} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${ENV} --build-arg GTM_ID=\${GTM_ID} --build-arg MICROBLINK_URL=\${MICROBLINK_URL} --build-arg IMG_OPTIMISATION_HOST=\${IMG_OPTIMISATION_HOST} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=${NODE_ENV} --build-arg HOST_DOMAIN=\${HOST_DOMAIN} --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${getDockerTagName()}
@@ -272,9 +275,7 @@ pipeline {
                 beforeAgent true
                 anyOf {
                   branch 'develop'
-                  branch 'master'
                   branch 'release/*'
-                  changeRequest target: 'master'
                 }
             }
 
@@ -290,6 +291,7 @@ pipeline {
                     def accountId =  app_environment["${getConfig()}"].accountId
                     def dockerRepoName = app_environment["${getConfig()}"].dockerRepoName
                     def alternateDomain = app_environment["${getConfig()}"].alternateDomain
+                    def imgOptimisationHost = app_environment["${getConfig()}"].imgOptimisationHost
                      
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: app_environment["${getConfig()}"].jenkinsCredentialsId, secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                       sshagent (credentials: ['git-ssh-credentials-readonly']) {
@@ -304,6 +306,7 @@ pipeline {
                             | sed -e "s;%SSM_PARAMETER_BASE%;${ssmParametersBase};g" \
                             | sed -e "s;%ACCOUNT_NUMBER%;${accountId};g" \
                             | sed -e "s;%ALTERNATEDOMAIN%;${alternateDomain};g" \
+                            | sed -e "s;%IMG_OPTIMISATION_HOST%;${imgOptimisationHost};g" \
                             | tee ${taskDefFile}_final.json
                         aws ecs register-task-definition --execution-role-arn arn:aws:iam::${accountId}:role/Acorn-DevOps \
                             --family ${taskFamily} --cli-input-json file://${taskDefFile}_final.json --region ${ecrRegion}
@@ -327,15 +330,13 @@ pipeline {
                 B_NUMBER = "${env.BUILD_NUMBER}"
                 TF_VAR_aws_account_id = "${app_environment["${getConfig()}"].accountId}"
                 TF_VAR_aws_master_role = "${app_environment["${getConfig()}"].awsMasterRole}"
-                TF_VAR_alb_listener_host_override = "${app_environment["${getConfig()}"].alternateDomain}"
+                TF_VAR_alb_listener_host_override = "*${app_environment["${getConfig()}"].alternateDomain}"
             }
             when {
                   beforeAgent true
                   anyOf {
                     branch 'develop'
-                    branch 'master'
                     branch 'release/*'
-                    changeRequest target: 'master'
                   }
               }
 
@@ -424,9 +425,7 @@ pipeline {
                   beforeInput true
                   anyOf {
                     branch 'develop'
-                    branch 'master'
                     branch 'release/*'
-                    changeRequest target: 'master'
                   }
                   expression { terraformHasChange == true }
               }
@@ -474,9 +473,7 @@ pipeline {
                   beforeAgent true
                   anyOf {
                     branch 'develop'
-                    branch 'master'
                     branch 'release/*'
-                    changeRequest target: 'master'
                   }
               }
 
@@ -543,7 +540,6 @@ pipeline {
                   anyOf {
                     branch 'develop'
                     branch 'release/*'
-                    changeRequest target: 'master'
                   }
             }
             steps {

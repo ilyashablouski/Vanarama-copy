@@ -13,14 +13,14 @@ const scriptEnvs = {
 
   blueconic: ['uat', 'pre-prod', 'prod'],
 
-  vwo: ['uat', 'pre-prod', 'prod'],
+  // vwo: ['uat', 'pre-prod', 'prod'],
 };
 
 const PRECONNECT = [
   process?.env?.API_URL?.replace('/graphql/', ''),
   process.env.STATIC_DOMAIN,
   scriptEnvs.blueconic.includes(env) ? 'https://cdn.blueconic.net' : '',
-  scriptEnvs.vwo.includes(env) ? 'https://dev.visualwebsiteoptimizer.com' : '',
+  // scriptEnvs.vwo.includes(env) ? 'https://dev.visualwebsiteoptimizer.com' : '',
   'https://widget.trustpilot.com',
 ].filter(value => value !== '');
 
@@ -36,7 +36,7 @@ const Head: FC<IHeadProps> = props => {
   } = props;
 
   // Dev override.
-  if (process.env.ENV && process.env.ENV !== 'production') {
+  if (process.env.ENV && process.env.ENV !== 'prod') {
     title = `[${process.env.ENV?.toUpperCase()}] ${title}`;
     metaRobots = 'noindex';
   }

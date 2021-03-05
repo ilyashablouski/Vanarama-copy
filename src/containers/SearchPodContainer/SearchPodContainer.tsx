@@ -210,6 +210,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     selectTypeVans,
     selectMakeCars,
     selectTypeCars,
+    selectModelCars,
     modelVansTemp,
     activeIndex,
     carsDataCache.bodyStyles,
