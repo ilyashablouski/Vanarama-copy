@@ -75,9 +75,14 @@ const handleRegisterError = () =>
     'You can not be registered now. Please try submitting the form again.',
   );
 
+interface IQueryParams {
+  redirect?: string;
+}
+
 export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   const { query } = props;
   const router = useRouter();
+  const { redirect } = router.query as IQueryParams;
 
   const [activeTab, setActiveTab] = useState(1);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
@@ -110,7 +115,6 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
     });
 
     // Redirect to the user's previous route or homepage.
-    const { redirect } = router.query;
     const nextUrl =
       typeof redirect === 'string' && redirect !== '/_error' ? redirect : '/';
 
@@ -163,6 +167,7 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
             </TabPanel>
             <TabPanel index={2}>
               <RegisterFormContainer
+                redirectUrl={redirect}
                 onCompleted={() => {
                   pushAuthorizationEventDataLayer(true);
                   setRegistrationSuccess(true);
