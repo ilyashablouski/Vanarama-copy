@@ -96,7 +96,7 @@ export const GET_TYPE_AND_BUDGET_DATA = gql`
 export function filterTypeAndBudget(
   vehicleTypes: string[],
   manufacturerSlug?: string,
-  rangeName?: string,
+  rangeSlug?: string,
   bodyStyles?: string[],
   onCompleted?: (data: IFilterTypeAndBudget) => void,
 ) {
@@ -106,7 +106,7 @@ export function filterTypeAndBudget(
     variables: {
       vehicleTypes,
       manufacturerSlug: manufacturerSlug || undefined,
-      rangeName: rangeName || undefined,
+      rangeSlug: rangeSlug || undefined,
       bodyStyles: !bodyStyles || bodyStyles[0] ? bodyStyles : undefined,
     },
   });
