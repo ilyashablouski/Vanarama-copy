@@ -124,6 +124,9 @@ export async function getServerSideProps(context: NextPageContext) {
       variables: {
         onOffer: null,
         vehicleTypes: [VehicleTypeEnum.CAR],
+        manufacturerSlug: (query?.dynamicParam as string).toLowerCase(),
+        rangeSlug: (query?.rangeName as string).toLowerCase(),
+        bodyStyles: [(context?.query?.bodyStyles as string).replace('-', ' ')],
       },
     });
     defaultSort = sortObjectGenerator([

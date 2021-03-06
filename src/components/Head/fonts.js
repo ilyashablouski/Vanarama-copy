@@ -16,6 +16,14 @@ const FONT_LIST = [
   'NunitoSans/NunitoSans-400-normal.ttf',
   'NunitoSans/NunitoSans-500-normal.ttf',
   'NunitoSans/NunitoSans-600-normal.ttf',
+
+  // 'FFCocon/FFCocon-300-normal.otf',
+  // 'FFCocon/FFCocon-400-normal.otf',
+
+  // 'NunitoSans/NunitoSans-300-normal.otf',
+  // 'NunitoSans/NunitoSans-400-normal.otf',
+  // 'NunitoSans/NunitoSans-500-normal.otf',
+  // 'NunitoSans/NunitoSans-600-normal.otf',
 ];
 
 export { FONT_LIST, FONT_PATH };
