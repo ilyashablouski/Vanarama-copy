@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, SyntheticEvent } from 'react';
 import cx from 'classnames';
 
 import { IImageProps } from './interfaces';
@@ -80,7 +80,7 @@ const Image: FC<IImageProps> = props => {
       <img
         loading={loadImage ? 'lazy' : 'eager'}
         srcSet={srcset}
-        sizes="(min-width:3200px) 800px, 1200px"
+        sizes="(min-width:320px) 800px, 1200px"
         alt={alt}
         width={width}
         height={height}

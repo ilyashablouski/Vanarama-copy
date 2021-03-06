@@ -29,11 +29,6 @@ const Card: FC<ICardProps> = memo(props => {
 
   const { imageSrc } = props;
 
-  const onImageError = (e: any) => {
-    e.target.srcset = '';
-    e.target.src = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
-  };
-
   let srcset;
   let srcDefault = imageSrc;
   let src1200;
@@ -70,13 +65,10 @@ const Card: FC<ICardProps> = memo(props => {
     srcset = `${src320} 320w, ${src800} 800w, ${src1200} 1200w`;
   }
 
-  // Check if image should be optimised.
-  // if (imageSrc !== undefined && optimisedHost) {
-  //   imageSrc = optimiseImage(optimisedHost, imageSrc || '', {
-  //     ...DEFAULT_OPTIMISATION,
-  //     ...optimisationOptions,
-  //   });
-  // }
+  const onImageError = (e: any) => {
+    e.target.srcset = '';
+    e.target.src = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
+  };
 
   return (
     <div
@@ -92,7 +84,7 @@ const Card: FC<ICardProps> = memo(props => {
         <img
           loading="lazy"
           srcSet={srcset}
-          sizes="(min-width:3200px) 800px, 1200px"
+          sizes="(min-width:320px) 800px, 1200px"
           alt={alt}
           className="card-image"
           src={srcDefault || imageSrc || placeholderImage || undefined}
