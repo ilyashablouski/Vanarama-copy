@@ -18,7 +18,7 @@ const Image: FC<IImageProps> = props => {
     round,
     plain,
     inline,
-    onError,
+    // onError,
     optimisedHost,
     optimisationOptions,
     loadImage,
@@ -61,6 +61,11 @@ const Image: FC<IImageProps> = props => {
 
     srcset = `${src320} 320w, ${src800} 800w, ${src1200} 1200w`;
   }
+
+  const onError = (e: any) => {
+    e.target.srcset = '';
+    e.target.src = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
+  };
 
   return (
     <div

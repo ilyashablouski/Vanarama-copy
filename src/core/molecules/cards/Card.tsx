@@ -30,10 +30,8 @@ const Card: FC<ICardProps> = memo(props => {
   const { imageSrc } = props;
 
   const onImageError = (e: any) => {
-    e.target.onerror = null;
-    if (placeholderImage) {
-      e.target.src = placeholderImage;
-    }
+    e.target.srcset = '';
+    e.target.src = `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
   };
 
   let srcset;
