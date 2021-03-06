@@ -170,7 +170,7 @@ export const getCategoryAboutYouData = (
 
 export const pushToDataLayer = (data: IPageDataLayer) => {
   window.dataLayer?.push(data);
-  console.log('dataLayer', window.dataLayer);
+  // console.log('dataLayer', window.dataLayer);
 };
 
 export const pushDetail = (
