@@ -18,7 +18,6 @@ const Image: FC<IImageProps> = props => {
     round,
     plain,
     inline,
-    // onError,
     optimisedHost,
     optimisationOptions,
     loadImage,
