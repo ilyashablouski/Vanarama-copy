@@ -42,7 +42,8 @@
 @font-face {
   font-family: 'VA Heading';
   src: url($font-path+'FFCocon/FFCocon-300-normal.woff2') format('woff2'),
-    url($font-path+'FFCocon/FFCocon-300-normal.ttf') format('ttf');
+    // url($font-path+'FFCocon/FFCocon-300-normal.otf') format('otf'),
+      url($font-path+'FFCocon/FFCocon-300-normal.ttf') format('truetype');
   font-display: swap;
   font-weight: 300;
   font-style: normal;
@@ -59,7 +60,8 @@
 @font-face {
   font-family: 'VA Heading';
   src: url($font-path+'FFCocon/FFCocon-400-normal.woff2') format('woff2'),
-    url($font-path+'FFCocon/FFCocon-400-normal.ttf') format('ttf');
+    // url($font-path+'FFCocon/FFCocon-400-normal.otf') format('otf'),
+      url($font-path+'FFCocon/FFCocon-400-normal.ttf') format('truetype');
   font-display: swap;
   font-weight: 400;
   font-style: normal;
@@ -94,7 +96,8 @@
 @font-face {
   font-family: 'VA Body';
   src: url($font-path+'NunitoSans/NunitoSans-300-normal.woff2') format('woff2'),
-    url($font-path+'NunitoSans/NunitoSans-300-normal.ttf') format('ttf');
+    // url($font-path+'NunitoSans/NunitoSans-300-normal.otf') format('otf'),
+      url($font-path+'NunitoSans/NunitoSans-300-normal.ttf') format('truetype');
   font-display: swap;
   font-weight: 300;
   font-style: normal;
@@ -111,7 +114,8 @@
 @font-face {
   font-family: 'VA Body';
   src: url($font-path+'NunitoSans/NunitoSans-400-normal.woff2') format('woff2'),
-    url($font-path+'NunitoSans/NunitoSans-400-normal.ttf') format('ttf');
+    // url($font-path+'NunitoSans/NunitoSans-400-normal.otf') format('otf'),
+      url($font-path+'NunitoSans/NunitoSans-400-normal.ttf') format('truetype');
   font-display: swap;
   font-weight: 400;
   font-style: normal;
@@ -128,7 +132,8 @@
 @font-face {
   font-family: 'VA Body';
   src: url($font-path+'NunitoSans/NunitoSans-500-normal.woff2') format('woff2'),
-    url($font-path+'NunitoSans/NunitoSans-500-normal.ttf') format('ttf');
+    // url($font-path+'NunitoSans/NunitoSans-500-normal.otf') format('otf'),
+      url($font-path+'NunitoSans/NunitoSans-500-normal.ttf') format('truetype');
   font-display: swap;
   font-weight: 500;
   font-style: normal;
@@ -145,7 +150,8 @@
 @font-face {
   font-family: 'VA Body';
   src: url($font-path+'NunitoSans/NunitoSans-600-normal.woff2') format('woff2'),
-    url($font-path+'NunitoSans/NunitoSans-600-normal.ttf') format('ttf');
+    // url($font-path+'NunitoSans/NunitoSans-600-normal.otf') format('otf'),
+      url($font-path+'NunitoSans/NunitoSans-600-normal.ttf') format('truetype');
   font-display: swap;
   font-weight: 600;
   font-style: normal;
