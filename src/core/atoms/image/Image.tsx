@@ -1,4 +1,4 @@
-import React, { FC, SyntheticEvent } from 'react';
+import React, { FC } from 'react';
 import cx from 'classnames';
 
 import { IImageProps } from './interfaces';
