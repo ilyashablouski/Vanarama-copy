@@ -1,6 +1,6 @@
 import { useFormContext } from 'react-hook-form';
 import CheckBox from 'core/atoms/checkbox';
-import { termsAndCons } from '../../utils/inputValidators';
+import { termsAndCons, privacyPolicy } from '../../utils/inputValidators';
 
 interface IGenericCheckboxes {
   id: string;
@@ -48,7 +48,7 @@ export const PrivacyPolicy: React.FC<IGenericCheckboxes> = ({ id }) => {
           Privacy Policy
         </a>,
       ]}
-      ref={register}
+      ref={register(privacyPolicy)}
     />
   );
 };
@@ -62,7 +62,7 @@ export const Consent: React.FC<IGenericCheckboxes> = ({ id, altLabel }) => {
       name="consent"
       label={
         altLabel
-          ? 'Keep me updated on the latest deals & offers.'
+          ? 'I want to be kept updated about exclusive deals & offers'
           : 'I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.'
       }
       ref={register}
