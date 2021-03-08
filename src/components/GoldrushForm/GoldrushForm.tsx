@@ -136,7 +136,10 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
           <>
             {callBack ? (
               <FormGroup
-                error={methods.errors?.termsAndCons?.message?.toString()}
+                error={
+                  methods.errors?.termsAndCons?.message?.toString() ||
+                  methods.errors?.privacyPolicy?.message?.toString()
+                }
               >
                 <TermsAndConditions id={termsAndConditionsId || ''} altLabel />
                 <PrivacyPolicy id={termsAndConditionsId || ''} altLabel />
