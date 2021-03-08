@@ -44,10 +44,10 @@ const retryLink = new RetryLink({
 const persistedQueriesLink = createPersistedQueryLink({
   useGETForHashedQueries: true,
   // disable hash for a session in case if some of queries is not found in cache
-  disable: errorResponse =>
-    errorResponse.graphQLErrors?.some(
-      error => error.extensions?.code === 'PERSISTED_QUERY_NOT_FOUND',
-    ) || false,
+  // disable: errorResponse =>
+  //   errorResponse.graphQLErrors?.some(
+  //     error => error.extensions?.code === 'PERSISTED_QUERY_NOT_FOUND',
+  //   ) || false,
 }) as any;
 
 const logLink = new ApolloLink((operation, forward) => {
@@ -97,7 +97,7 @@ function apolloClientLink() {
   // Enable persisted query per env.
   if (
     process.env.ENV &&
-    ['uat', 'pre-prod', 'prod'].includes(process.env.ENV)
+    ['dev', 'uat', 'pre-prod', 'prod'].includes(process.env.ENV)
   ) {
     links = [persistedQueriesLink, ...links];
   }
