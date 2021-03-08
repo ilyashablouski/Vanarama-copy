@@ -65,40 +65,38 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
       id={`termsAndCons${termsAndConditionsId || ''}`}
       dataTestId="aboutTermsAndCons"
       name="termsAndCons"
-      label={
-        callBack
-          ? [
-              <a
-                key="a"
-                className="link -teal"
-                href="/legal/terms-and-conditions.html"
-                target="_blank"
-              >
-                Terms and Conditions
-              </a>,
-              ' and ',
-              <a
-                key="a-privacy"
-                className="link -teal"
-                href="/legal/privacy-policy.html"
-                target="_blank"
-              >
-                Privacy Policy
-              </a>,
-            ]
-          : [
-              'I agree to the ',
-              <a
-                key="a"
-                className="link -teal"
-                href="/legal/terms-and-conditions.html"
-                target="_blank"
-              >
-                Terms and Conditions
-              </a>,
-            ]
-      }
+      label={[
+        'I agree to the ',
+        <a
+          key="a"
+          className="link -teal"
+          href="/legal/terms-and-conditions.html"
+          target="_blank"
+        >
+          Terms and Conditions
+        </a>,
+      ]}
       ref={register(termsAndCons)}
+    />
+  );
+
+  const privacyPolicy = () => (
+    <CheckBox
+      id={`privacy${termsAndConditionsId || ''}`}
+      dataTestId="aboutPrivacyPolicy"
+      name="privacyPolicy"
+      label={[
+        'I have read and understood the Privacy Policy',
+        <a
+          key="a-privacy"
+          className="link -teal"
+          href="/legal/privacy-policy.html"
+          target="_blank"
+        >
+          Privacy Policy
+        </a>,
+      ]}
+      ref={register}
     />
   );
 
@@ -189,11 +187,9 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
       {!noTermsAndConditions && (
         <>
           {callBack ? (
-            <FormGroup
-              label="Agree To:"
-              error={errors?.termsAndCons?.message?.toString()}
-            >
+            <FormGroup error={errors?.termsAndCons?.message?.toString()}>
               {termsAndConditions()}
+              {privacyPolicy()}
               {consent()}
             </FormGroup>
           ) : (

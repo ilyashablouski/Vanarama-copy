@@ -14,6 +14,7 @@ export const CREATE_OPPORTUNITY_MUTATION = gql`
     $phoneNumber: String!
     $postcode: String
     $termsAndConditions: Boolean
+    $privacy: Boolean
     $vehicleType: String
     $companyName: String
     $fleetSize: Int
@@ -28,6 +29,7 @@ export const CREATE_OPPORTUNITY_MUTATION = gql`
         phoneNumber: $phoneNumber
         postcode: $postcode
         termsAndConditions: $termsAndConditions
+        privacyPolicy: $privacy
         vehicleType: $vehicleType
         companyName: $companyName
         fleetSize: $fleetSize
