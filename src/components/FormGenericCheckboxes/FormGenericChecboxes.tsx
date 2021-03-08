@@ -37,7 +37,7 @@ export const PrivacyPolicy: React.FC<IGenericCheckboxes> = ({ id }) => {
       dataTestId="aboutPrivacyPolicy"
       name="privacyPolicy"
       label={[
-        'I have read and understood the Privacy Policy',
+        'I have read and understood the ',
         <a
           key="a-privacy"
           className="link -teal"
