@@ -259,6 +259,9 @@ YourEligibilityChecker.fragments = {
           postcode
         }
       }
+      termsAndConditions
+      privacyPolicy
+      marketingPreference
     }
   `,
 };

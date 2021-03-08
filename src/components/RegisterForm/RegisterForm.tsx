@@ -153,9 +153,9 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
             methods.errors?.privacyPolicy?.message?.toString()
           }
         >
-          <TermsAndConditions id="register-form-terms" altLabel />
-          <PrivacyPolicy id="register-form-privacy-policy" altLabel />
-          <Consent id="register-form-consent" altLabel />
+          <TermsAndConditions id="register-form-terms" />
+          <PrivacyPolicy id="register-form-privacy-policy" />
+          <Consent id="register-form-consent" />
         </Formgroup>
 
         <Button

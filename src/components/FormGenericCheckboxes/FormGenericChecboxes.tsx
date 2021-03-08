@@ -4,7 +4,6 @@ import { termsAndCons, privacyPolicy } from '../../utils/inputValidators';
 
 interface IGenericCheckboxes {
   id: string;
-  altLabel?: Boolean;
 }
 
 export const TermsAndConditions: React.FC<IGenericCheckboxes> = ({ id }) => {
@@ -53,18 +52,14 @@ export const PrivacyPolicy: React.FC<IGenericCheckboxes> = ({ id }) => {
   );
 };
 
-export const Consent: React.FC<IGenericCheckboxes> = ({ id, altLabel }) => {
+export const Consent: React.FC<IGenericCheckboxes> = ({ id }) => {
   const { register } = useFormContext();
   return (
     <CheckBox
       id={`consent${id || ''}`}
       dataTestId="aboutConsent"
       name="consent"
-      label={
-        altLabel
-          ? 'I want to be kept updated about exclusive deals & offers'
-          : 'I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.'
-      }
+      label="Keep me updated on the latest deals & offers"
       ref={register}
     />
   );

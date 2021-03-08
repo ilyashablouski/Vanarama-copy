@@ -12,4 +12,5 @@ export interface IRegisterFormValues {
   confirmPassword: string;
   termsAndCons: boolean;
   privacyPolicy: boolean;
+  consent: boolean;
 }

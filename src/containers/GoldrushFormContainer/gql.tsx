@@ -9,12 +9,12 @@ export const CREATE_OPPORTUNITY_MUTATION = gql`
     $capId: Int
     $email: String!
     $fullName: String!
-    $marketingPreference: Boolean
     $opportunityType: OpportunityTypeEnum!
     $phoneNumber: String!
     $postcode: String
     $termsAndConditions: Boolean
     $privacyPolicy: Boolean
+    $marketingPreference: Boolean
     $vehicleType: String
     $companyName: String
     $fleetSize: Int
@@ -30,6 +30,7 @@ export const CREATE_OPPORTUNITY_MUTATION = gql`
         postcode: $postcode
         termsAndConditions: $termsAndConditions
         privacyPolicy: $privacyPolicy
+        marketingPreference: $marketingPreference
         vehicleType: $vehicleType
         companyName: $companyName
         fleetSize: $fleetSize

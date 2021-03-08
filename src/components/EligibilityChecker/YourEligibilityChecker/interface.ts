@@ -21,6 +21,7 @@ export interface IYourEligiblityCheckerValues {
   };
   termsAndCons: boolean;
   privacyPolicy: boolean;
+  consent: boolean;
 }
 
 export interface IFormProps {

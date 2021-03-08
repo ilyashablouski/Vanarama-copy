@@ -1,6 +1,5 @@
 import dynamic from 'next/dynamic';
 import { Controller } from 'react-hook-form';
-import CheckBox from 'core/atoms/checkbox/';
 import Select from 'core/atoms/select/';
 import TextInput from 'core/atoms/textinput/';
 import AddressFinder from 'core/molecules/address-finder';
@@ -166,26 +165,14 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
         />
       </FormGroup>
       <FormGroup
-        label="Please Confirm"
-        error={errors?.promotions?.message?.toString()}
-      >
-        <CheckBox
-          id="promotions"
-          dataTestId="eligibilityCheckoutPromotions"
-          name="promotions"
-          label="I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions."
-          ref={register}
-        />
-      </FormGroup>
-      <FormGroup
         error={
           errors?.termsAndCons?.message?.toString() ||
           errors?.privacyPolicy?.message?.toString()
         }
       >
-        <TermsAndConditions id="register-form-terms" altLabel />
-        <PrivacyPolicy id="register-form-privacy-policy" altLabel />
-        <Consent id="register-form-consent" altLabel />
+        <TermsAndConditions id="register-form-terms" />
+        <PrivacyPolicy id="register-form-privacy-policy" />
+        <Consent id="register-form-consent" />
       </FormGroup>
       <Text tag="p" color="darker" size="regular">
         By checking your eligibility, you agree to a soft credit check.

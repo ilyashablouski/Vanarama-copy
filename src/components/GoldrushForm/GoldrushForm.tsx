@@ -141,9 +141,9 @@ const GoldrushForm: React.FC<IGoldrushFormProps> = ({
                   methods.errors?.privacyPolicy?.message?.toString()
                 }
               >
-                <TermsAndConditions id={termsAndConditionsId || ''} altLabel />
-                <PrivacyPolicy id={termsAndConditionsId || ''} altLabel />
-                <Consent id={termsAndConditionsId || ''} altLabel />
+                <TermsAndConditions id={termsAndConditionsId || ''} />
+                <PrivacyPolicy id={termsAndConditionsId || ''} />
+                <Consent id={termsAndConditionsId || ''} />
               </FormGroup>
             ) : (
               <FormGroup

@@ -17,4 +17,7 @@ export const formValuesToInput = (
   },
   emailAddress: { kind: 'Home', value: values.email, primary: true },
   addressServiceId: values.addressFinder?.id ? values.addressFinder?.id : '',
+  termsAndConditions: Boolean(values.termsAndCons),
+  privacyPolicy: Boolean(values.privacyPolicy),
+  marketingPreference: Boolean(values.consent),
 });
