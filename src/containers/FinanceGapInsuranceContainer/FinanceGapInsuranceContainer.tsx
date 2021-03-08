@@ -126,6 +126,7 @@ const FinanceGapInsurancePageContainer = ({
                   postcode: values.postcode,
                   opportunityType: OpportunityTypeEnum.INSURANCE,
                   termsAndConditions: Boolean(values.termsAndCons),
+                  privacyPolicy: Boolean(values.privacyPolicy),
                   marketingPreference: Boolean(values.consent),
                 },
               });

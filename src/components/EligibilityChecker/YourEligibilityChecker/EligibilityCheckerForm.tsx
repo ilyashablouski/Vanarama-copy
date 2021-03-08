@@ -9,7 +9,11 @@ import React, { FC, useState } from 'react';
 import { genMonths, genYears, genDays } from '../../../utils/helpers';
 import { IFormProps } from './interface';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
-import RouterLink from '../../RouterLink/RouterLink';
+import {
+  TermsAndConditions,
+  Consent,
+  PrivacyPolicy,
+} from '../../FormGenericCheckboxes/FormGenericChecboxes';
 import Skeleton from '../../Skeleton';
 
 const Button = dynamic(() => import('core/atoms/button'), {
@@ -173,36 +177,18 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
           ref={register}
         />
       </FormGroup>
+      <FormGroup
+        error={
+          errors?.termsAndCons?.message?.toString() ||
+          errors?.privacyPolicy?.message?.toString()
+        }
+      >
+        <TermsAndConditions id="register-form-terms" altLabel />
+        <PrivacyPolicy id="register-form-privacy-policy" altLabel />
+        <Consent id="register-form-consent" altLabel />
+      </FormGroup>
       <Text tag="p" color="darker" size="regular">
-        By checking your eligibility, you agree to our{' '}
-        <span>
-          <RouterLink
-            dataTestId="terms_and_conditions"
-            link={{
-              href: '/legal/terms-and-conditions.html',
-              label: 'Terms and Conditions',
-            }}
-            classNames={{ size: 'regular', color: 'teal' }}
-            key="terms_and_conditions"
-          >
-            Terms and Conditions
-          </RouterLink>
-        </span>{' '}
-        and{' '}
-        <span>
-          <RouterLink
-            dataTestId="privacy_policy"
-            link={{
-              href: '/legal/privacy-policy.html',
-              label: 'Privacy Policy',
-            }}
-            classNames={{ size: 'regular', color: 'teal' }}
-            key="privacy_policy"
-          >
-            Privacy Policy
-          </RouterLink>
-        </span>{' '}
-        and a soft credit check.
+        By checking your eligibility, you agree to a soft credit check.
       </Text>
       <Button
         type="submit"

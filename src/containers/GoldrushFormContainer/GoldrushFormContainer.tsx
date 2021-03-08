@@ -78,6 +78,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
             vehicleType,
             termsAndConditions:
               termsAndConditions || Boolean(values.termsAndCons),
+            privacyPolicy: Boolean(values.privacyPolicy),
           },
         });
       }}
