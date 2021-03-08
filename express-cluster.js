@@ -15,7 +15,6 @@ const hpp = require('hpp');
 const compression = require('compression');
 const cluster = require('cluster');
 
-const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
 const cache = require('./cache');
 const { version } = require('./package.json');
@@ -46,11 +45,6 @@ if (cluster.isMaster) {
       return server;
     })
     .then(server => {
-      // Prevent brute force attack in production.
-      if (!process.env.ENV === 'dev') {
-        server.use(rateLimiterRedisMiddleware);
-      }
-
       // Prerender.
       if (prerender && process.env.PRERENDER_SERVICE_URL) {
         server.use(prerender);
