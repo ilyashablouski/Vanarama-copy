@@ -366,7 +366,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                                 data-testid="card-image"
                                 loading="lazy"
                                 onError={[Function]}
-                                sizes="(min-width:3200px) 800px, 1200px"
+                                sizes="(min-width:320px) 800px, 1200px"
                                 src="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg"
                               />
                               <Memo()
@@ -497,7 +497,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                                 data-testid="card-image"
                                 loading="lazy"
                                 onError={[Function]}
-                                sizes="(min-width:3200px) 800px, 1200px"
+                                sizes="(min-width:320px) 800px, 1200px"
                                 src="https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ70719_2_kk0b0n.jpg"
                               />
                               <Memo()
