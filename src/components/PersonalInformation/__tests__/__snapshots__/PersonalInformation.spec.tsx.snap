@@ -178,7 +178,7 @@ exports[`<PersonalInformation /> should render correctly 1`] = `
     <div
       style={
         Object {
-          "marginTop": "30px",
+          "marginTop": "15px",
         }
       }
     >
