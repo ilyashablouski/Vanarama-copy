@@ -98,6 +98,8 @@ export interface ProductVehicleList_productVehicleList_aggs {
 }
 
 export interface ProductVehicleList_productVehicleList_edges_node {
+  lqUrl: string | null;
+  url: string | null;
   financeType: FinanceTypeEnum | null;
   vehicleType: VehicleTypeEnum | null;
   manufacturerName: string | null;
