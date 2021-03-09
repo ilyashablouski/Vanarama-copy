@@ -65,6 +65,8 @@ export const PRODUCTS_FILTER_LIST = gql`
       edges {
         cursor
         node {
+          lqUrl
+          url
           financeType
           vehicleType
           manufacturerName

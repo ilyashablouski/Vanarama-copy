@@ -160,10 +160,12 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
       rental: {
         active: true,
         value: rentalValue as any,
+        title: steps.rental.title,
       },
       initialPeriods: {
         active: true,
         value: initialPeriodValue as any,
+        title: steps.initialPeriods.title,
       },
     };
     setSteps(newStep);
@@ -289,7 +291,6 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                               parseInt(el.node?.derivativeId || '', 10),
                           )?.mainImageUrl || '',
                         ),
-                        // el.node?.derivativeId || '',
                       );
                     }}
                     compared={isCompared(
@@ -310,16 +311,9 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                       link: (
                         <RouterLink
                           link={{
-                            // href: el.legacyUrl || el.url || '',
-                            href: '',
+                            href: el.node?.lqUrl || el.node?.url || '',
                             label: '',
                           }}
-                          onClick={() =>
-                            sessionStorage.setItem(
-                              'capId',
-                              el.node?.derivativeId || '',
-                            )
-                          }
                           className="heading"
                           classNames={{ size: 'large', color: 'black' }}
                         >
@@ -348,16 +342,9 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                       />
                       <RouterLink
                         link={{
-                          // href: el.legacyUrl || el.url || '',
-                          href: '',
+                          href: el.node?.lqUrl || el.node?.url || '',
                           label: 'View Offer',
                         }}
-                        onClick={() =>
-                          sessionStorage.setItem(
-                            'capId',
-                            el.node?.derivativeId || '',
-                          )
-                        }
                         classNames={{
                           color: 'teal',
                           solid: true,
@@ -406,6 +393,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                   rental: {
                     active: true,
                     value: rental as any,
+                    title: 'Result',
                   },
                 },
                 '/car-leasing/special-offers',

@@ -81,16 +81,22 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
       filter: {
         ...buildAnObjectFromAQuery(searchParams, {
           ...steps,
-          availability: { active: false, value: availabilityValue },
+          availability: {
+            active: false,
+            value: availabilityValue,
+            title: steps.availability.title,
+          },
           rental: {
             active: true,
             value: isValueChanges
               ? RENTAL_VALUE['350'].toString()
               : steps.rental.value,
+            title: steps.rental.title,
           },
           initialPeriods: {
             active: true,
             value: isValueChanges ? '6' : steps.initialPeriods.value,
+            title: steps.initialPeriods.title,
           },
         }),
       },
@@ -102,16 +108,22 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
         filter: {
           ...buildAnObjectFromAQuery(searchParams, {
             ...steps,
-            availability: { active: false, value: availabilityValue },
+            availability: {
+              active: false,
+              value: availabilityValue,
+              title: steps.availability.title,
+            },
             rental: {
               active: true,
               value: isValueChanges
                 ? RENTAL_VALUE['450'].toString()
                 : steps.rental.value,
+              title: steps.rental.title,
             },
             initialPeriods: {
               active: true,
               value: isValueChanges ? '6' : steps.initialPeriods.value,
+              title: steps.initialPeriods.title,
             },
           }),
         },
@@ -124,14 +136,20 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
     });
     return {
       ...steps,
-      availability: { active: false, value: availabilityValue as any },
+      availability: {
+        active: false,
+        value: availabilityValue as any,
+        title: steps.availability.title,
+      },
       rental: {
         active: true,
         value: isValueChanges ? (defRentalValue as any) : steps.rental.value,
+        title: steps.rental.title,
       },
       initialPeriods: {
         active: true,
         value: isValueChanges ? ('6' as any) : steps.initialPeriods.value,
+        title: steps.initialPeriods.title,
       },
     };
   };
