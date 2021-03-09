@@ -636,7 +636,8 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
           <img
             className="image--native"
             loading="eager"
-            sizes="(min-width:3200px) 800px, 1200px"
+            onError={[Function]}
+            sizes="(min-width:320px) 800px, 1200px"
             src="https://dev.vanarama-nonprod.com/assets/images-optimised/header-ivan.svg"
           />
         </div>
@@ -1087,7 +1088,8 @@ exports[`<Header /> renders correctly with message 1`] = `
           <img
             className="image--native"
             loading="eager"
-            sizes="(min-width:3200px) 800px, 1200px"
+            onError={[Function]}
+            sizes="(min-width:320px) 800px, 1200px"
             src="https://dev.vanarama-nonprod.com/assets/images-optimised/header-ivan.svg"
           />
         </div>

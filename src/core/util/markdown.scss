@@ -51,6 +51,12 @@
     color: $darker;
   }
 
+  &.-lighter {
+    p {
+      color: $lighter;
+    }
+  }
+
   hr {
     height: 1px;
     background: linear-gradient(to top, $medium 0.5px, transparent 0.5px);

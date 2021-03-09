@@ -13,7 +13,7 @@ const Trustpilot: FC<ITrustpilotProps> = ({
   dataStyleHeight = '240px',
 }) => {
   const [loaded, error] = useScript(
-    'https://widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js',
+    '//widget.trustpilot.com/bootstrap/v5/tp.widget.bootstrap.min.js',
   );
 
   // Create a reference to the <div> element which will represent the TrustBox
@@ -39,6 +39,7 @@ const Trustpilot: FC<ITrustpilotProps> = ({
         data-theme="light"
         data-stars="4,5"
         data-review-languages="en"
+        data-font-family="Nunito Sans"
         style={{
           position: 'relative',
           height,
@@ -48,12 +49,12 @@ const Trustpilot: FC<ITrustpilotProps> = ({
           overflow: 'hidden',
         }}
       >
-        <noscript>
-          <iframe
-            title="Trustpilot"
-            src={src || 'https://uk.trustpilot.com/review/www.vanarama.com'}
-          />
-        </noscript>
+        <a
+          href={src || 'https://uk.trustpilot.com/review/www.vanarama.com'}
+          rel="noopener"
+        >
+          Trustpilot
+        </a>
       </div>
     </div>
   ) : null;

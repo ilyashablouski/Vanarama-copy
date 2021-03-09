@@ -52,14 +52,21 @@ export const onReplace = (
   }
   Object.entries(newStep).forEach(filter => {
     const [key, step] = filter;
-    if (
-      (step?.value?.length && step.value[0].length) ||
+    if (pathName) {
+      if (
+        (step?.value?.length && step.value[0].length) ||
+        (key === 'initialPeriods' && step.value)
+      ) {
+        queries[key] = step.value;
+      }
+      if (key === 'rental') {
+        queries.pricePerMonth = `0|${step.value}`;
+      }
+    } else if (
+      step?.value?.length ||
       ((key === 'rental' || key === 'initialPeriods') && step.value)
     ) {
       queries[key] = step.value;
-    }
-    if (pathName && key === 'rental') {
-      queries.pricePerMonth = `0|${step.value}`;
     }
   });
   Object.entries(queries).forEach(([key, value]) => {
@@ -305,6 +312,7 @@ export const formatForCompare = (
 export interface IStep {
   active: boolean;
   value: string[] | string;
+  title: string;
 }
 
 export interface IInitStep {
@@ -323,38 +331,47 @@ export const initialSteps: IInitStep = {
   financeTypes: {
     active: true,
     value: ['PCH'],
+    title: 'About You',
   },
   bodyStyles: {
     active: false,
     value: [],
+    title: 'Style',
   },
   fuelTypes: {
     active: false,
     value: [],
+    title: 'Fuel Types',
   },
   transmissions: {
     active: false,
     value: [],
+    title: 'Gearbox',
   },
   terms: {
     active: false,
     value: [],
+    title: 'Lease Length',
   },
   mileages: {
     active: false,
     value: [],
+    title: 'Mileage',
   },
   availability: {
     active: false,
     value: [],
+    title: 'Availability',
   },
   rental: {
     active: false,
     value: '' as any,
+    title: 'Results',
   },
   initialPeriods: {
     active: false,
     value: '' as any,
+    title: 'Results',
   },
 };
 

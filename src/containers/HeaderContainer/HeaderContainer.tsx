@@ -12,7 +12,8 @@ import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
 import { PrimaryHeader_primaryHeader_linkGroups_linkGroups as LinkGroups } from '../../../generated/PrimaryHeader';
 import { IHeaderLink } from '../../components/Header/Header';
 import { GetPrimaryHeaderData as HeaderData } from '../../../generated/GetPrimaryHeaderData';
-import HEADER_DATA from '../../deps/data/menuData.json';
+// eslint-disable-next-line import/no-unresolved
+const HEADER_DATA = require('../../deps/data/menuData.json');
 
 export const LOGOUT_USER_MUTATION = gql`
   mutation LogOutUserMutation {
