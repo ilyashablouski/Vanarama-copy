@@ -32,7 +32,7 @@ export function useOccupationList(searchTerm?: string) {
       return data?.occupationList?.occupations || [];
     }
 
-    if (searchTerm && searchTerm.length > 2) {
+    if (searchTerm && searchTerm.length > 0) {
       fetchData(searchTerm)
         .then(setSuggestions)
         .catch(() => setSuggestions([]));
