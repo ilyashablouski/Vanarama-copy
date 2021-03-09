@@ -231,6 +231,9 @@ export const PickupsPage: NextPage<IProps> = ({
 
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
+          <Heading size="large" color="black">
+            Hot Deals - Fastest Delivery
+          </Heading>
           {productsPickup?.productCarousel?.map((item, idx) => {
             const productUrl = formatProductPageUrl(
               getLegacyUrl(vehicleListUrlData.edges, item?.capId),
