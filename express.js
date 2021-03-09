@@ -14,7 +14,6 @@ const prerender = require('prerender-node');
 const hpp = require('hpp');
 const compression = require('compression');
 
-const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
 const cache = require('./cache');
 const { version } = require('./package.json');
@@ -36,11 +35,6 @@ app
     return server;
   })
   .then(server => {
-    // Prevent brute force attack in production.
-    if (!process.env.ENV === 'dev') {
-      server.use(rateLimiterRedisMiddleware);
-    }
-
     // Prerender.
     if (prerender && process.env.PRERENDER_SERVICE_URL) {
       server.use(prerender);
