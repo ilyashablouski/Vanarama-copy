@@ -15,7 +15,6 @@ const hpp = require('hpp');
 const compression = require('compression');
 const cluster = require('cluster');
 
-const rateLimiterRedisMiddleware = require('./middleware/rateLimiterRedis');
 const logo = require('./logo');
 const cache = require('./cache');
 const { version } = require('./package.json');
@@ -46,25 +45,6 @@ if (cluster.isMaster) {
       return server;
     })
     .then(server => {
-      // Handle redirect list.
-      // const redirectList = [{ from: '/old-link', to: '/redirect', type: 301 }];
-      const redirectList = null;
-
-      if (redirectList)
-        redirectList.forEach(({ from, to, type = 301, method = 'get' }) => {
-          server[method](from, (_req, res) => {
-            res.redirect(type, to);
-          });
-        });
-
-      return server;
-    })
-    .then(server => {
-      // Prevent brute force attack in production.
-      if (!process.env.ENV === 'dev') {
-        server.use(rateLimiterRedisMiddleware);
-      }
-
       // Prerender.
       if (prerender && process.env.PRERENDER_SERVICE_URL) {
         server.use(prerender);
@@ -93,13 +73,43 @@ if (cluster.isMaster) {
       });
 
       // Env route.
-      if (process.env.ENV !== 'prod')
-        server.get('/env', (_req, res) => {
+      server.get('/env', (req, res) => {
+        const env = () => {
           const statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
           res.status(statusCode);
           res.json(process.env);
-        });
+        };
+
+        // Protecting with authentication in prod.
+        if (['pre-prod', 'prod'].includes(process.env.ENV)) {
+          const reject = () => {
+            res.setHeader('www-authenticate', 'Basic');
+            res.sendStatus(401);
+          };
+
+          const { authorization } = req.headers;
+
+          if (!authorization) return reject();
+
+          const [username, password] = Buffer.from(
+            authorization.replace('Basic ', ''),
+            'base64',
+          )
+            .toString()
+            .split(':');
+
+          if (
+            !(
+              username === process.env.APP_AUTH_USR &&
+              password === process.env.APP_AUTH_PWD
+            )
+          )
+            return reject();
+        }
+
+        return env();
+      });
 
       // All routes.
       server.all('*', cors(), (req, res) => {
