@@ -65,15 +65,15 @@ describe('<helpers />', () => {
         query: {},
       } as any;
       onReplace(router, {
-        bodyStyles: { active: false, value: [] },
-        financeTypes: { active: false, value: 'PHC' as any },
-        fuelTypes: { active: false, value: [] },
-        transmissions: { active: false, value: [] },
-        terms: { active: false, value: [] },
-        mileages: { active: false, value: [] },
-        availability: { active: false, value: [] },
-        rental: { active: false, value: '' as any },
-        initialPeriods: { active: false, value: '' as any },
+        bodyStyles: { active: false, value: [], title: 'title' },
+        financeTypes: { active: false, value: 'PHC' as any, title: 'title' },
+        fuelTypes: { active: false, value: [], title: 'title' },
+        transmissions: { active: false, value: [], title: 'title' },
+        terms: { active: false, value: [], title: 'title' },
+        mileages: { active: false, value: [], title: 'title' },
+        availability: { active: false, value: [], title: 'title' },
+        rental: { active: false, value: '' as any, title: 'title' },
+        initialPeriods: { active: false, value: '' as any, title: 'title' },
       });
       expect(router.replace).toBeCalledWith(
         {
