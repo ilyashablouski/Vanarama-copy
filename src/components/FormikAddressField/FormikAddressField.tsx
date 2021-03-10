@@ -6,9 +6,10 @@ import React, { useRef, useState } from 'react';
 interface IProps {
   name: string;
   label: string;
+  hint?: string;
 }
 
-const FormikAddressField: React.FC<IProps> = ({ name, label }) => {
+const FormikAddressField: React.FC<IProps> = ({ name, label, hint }) => {
   const [field, meta, helpers] = useField(name);
   const [isFocused, setIsFocused] = useState(false);
   const error = (meta.touched && !isFocused && meta.error) || undefined;
@@ -22,7 +23,7 @@ const FormikAddressField: React.FC<IProps> = ({ name, label }) => {
       }}
       selected={field.value}
     >
-      <Formgroup error={error} controlId={name} label={label}>
+      <Formgroup error={error} controlId={name} label={label} hint={hint}>
         <AddressFinder.Input
           id={name}
           dataTestId={name}
