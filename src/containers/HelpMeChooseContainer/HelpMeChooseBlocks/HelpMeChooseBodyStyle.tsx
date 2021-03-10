@@ -35,20 +35,31 @@ const HelpMeChooseBodyStyle: FC<HelpMeChooseStep> = props => {
         bodyStyles: {
           active: false,
           value: bodyStylesValue as any,
+          title: steps.bodyStyles.title,
         },
-        fuelTypes: { active: true, value: steps.fuelTypes.value },
+        fuelTypes: {
+          active: true,
+          value: steps.fuelTypes.value,
+          title: steps.fuelTypes.title,
+        },
       },
       query: {
         ...initialSteps,
         bodyStyles: {
           active: false,
           value: bodyStylesValue as any,
+          title: steps.bodyStyles.title,
         },
         financeTypes: {
           active: false,
           value: steps.financeTypes.value as any,
+          title: steps.financeTypes.title,
         },
-        fuelTypes: { active: true, value: initialSteps.fuelTypes.value },
+        fuelTypes: {
+          active: true,
+          value: initialSteps.fuelTypes.value,
+          title: steps.fuelTypes.title,
+        },
       },
     };
     const searchParamsValue = searchParams

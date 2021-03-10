@@ -32,23 +32,38 @@ const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
     const nextSteps = {
       step: {
         ...steps,
-        fuelTypes: { active: false, value: fuelTypesValue },
-        transmissions: { active: true, value: steps.transmissions.value },
+        fuelTypes: {
+          active: false,
+          value: fuelTypesValue,
+          title: steps.fuelTypes.title,
+        },
+        transmissions: {
+          active: true,
+          value: steps.transmissions.value,
+          title: steps.transmissions.title,
+        },
       },
       query: {
         ...initialSteps,
         bodyStyles: {
           active: false,
           value: steps.bodyStyles.value as any,
+          title: steps.bodyStyles.title,
         },
         financeTypes: {
           active: false,
           value: steps.financeTypes.value as any,
+          title: steps.financeTypes.title,
         },
-        fuelTypes: { active: false, value: fuelTypesValue },
+        fuelTypes: {
+          active: false,
+          value: fuelTypesValue,
+          title: steps.fuelTypes.title,
+        },
         transmissions: {
           active: true,
           value: initialSteps.transmissions.value,
+          title: steps.transmissions.title,
         },
       },
     };
