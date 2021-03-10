@@ -95,7 +95,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       `/blog/vans/${context?.params?.articles}`,
     );
     return {
-      revalidate: 60,
+      revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data,
         error: errors ? errors[0] : null,
@@ -105,6 +105,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     };
   } catch {
     return {
+      revalidate: 1,
       props: {
         error: true,
       },
