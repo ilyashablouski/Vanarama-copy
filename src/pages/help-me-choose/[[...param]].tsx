@@ -25,6 +25,7 @@ import HelpMeChooseAvailability from '../../containers/HelpMeChooseContainer/Hel
 import HelpMeChooseResult from '../../containers/HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseResult';
 import Skeleton from '../../components/Skeleton';
 import HelpMeChooseProgressIndicator from '../../components/HelpMeChooseProgressIndicator/HelpMeChooseProgressIndicator';
+import Head from '../../components/Head/Head';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -130,38 +131,47 @@ const HelpMeChoose: NextPage = () => {
         financeTypes: {
           active: isFinanceTypesActive,
           value: financeTypesQueryValue,
+          title: 'About You',
         },
         bodyStyles: {
           active: isBodyStylesActive,
           value: bodyStylesQueryValue,
+          title: 'Style',
         },
         fuelTypes: {
           active: isFuelTypesActive,
           value: fuelTypesQueryValue,
+          title: 'Fuel Types',
         },
         transmissions: {
           active: isTransmissionsActive,
           value: transmissionsQueryValue,
+          title: 'Gearbox',
         },
         terms: {
           active: isTermsActive,
           value: termsQueryValue,
+          title: 'Lease Length',
         },
         mileages: {
           active: isMileagesActive,
           value: mileagesQueryValue,
+          title: 'Mileage',
         },
         availability: {
           active: isAvailabilityActive,
           value: availabilityQueryValue,
+          title: 'Availability',
         },
         rental: {
           active: isResultsActive,
           value: rentalQuery as any,
+          title: 'Results',
         },
         initialPeriods: {
           active: isResultsActive,
           value: initialPeriodsQuery as any,
+          title: 'Results',
         },
       };
       setSteps(stepsFromSearch);
@@ -190,97 +200,118 @@ const HelpMeChoose: NextPage = () => {
     };
   }, [isLoading]);
 
-  if (isLoading) {
-    return <Loading size="large" />;
-  }
+  const pageTitle = Object.values(steps).find(el => el.active).title;
+
+  const metaData = {
+    title: `${pageTitle} Help Me Choose | Vanarama` || null,
+    name: '' || null,
+    metaRobots: '' || null,
+    metaDescription:
+      `${pageTitle} help me choose at Vanarama. ✅ 5* Customer Service ✅ Brand-New ✅ Free Delivery ✅ Road Tax Included` ||
+      null,
+    publishedOn: '' || null,
+    legacyUrl: '' || null,
+    pageType: '' || null,
+    canonicalUrl: '' || null,
+    slug: '' || null,
+    schema: null,
+    breadcrumbs: null,
+  };
 
   return (
     <>
-      <HelpMeChooseProgressIndicator
-        steps={steps}
-        setSteps={setSteps}
-        getProductVehicleList={getProductVehicleList}
-        setLoadingStatus={setLoadingStatus}
-      />
-      {steps.financeTypes.active && (
-        <HelpMeChooseAboutYou
-          steps={steps}
-          setSteps={setSteps}
-          getProductVehicleList={getProductVehicleList}
-          productVehicleListData={productVehicleListData}
-          setLoadingStatus={setLoadingStatus}
-        />
-      )}
-      {steps.bodyStyles.active && !!bodyStyleData?.length && (
-        <HelpMeChooseBodyStyle
-          steps={steps}
-          setSteps={setSteps}
-          getProductVehicleList={getProductVehicleList}
-          productVehicleListData={productVehicleListData}
-          setLoadingStatus={setLoadingStatus}
-        />
-      )}
-      {steps.fuelTypes.active && !!fuelTypesData?.length && (
-        <HelpMeChooseFuelTypes
-          steps={steps}
-          setSteps={setSteps}
-          getProductVehicleList={getProductVehicleList}
-          productVehicleListData={productVehicleListData}
-          setLoadingStatus={setLoadingStatus}
-        />
-      )}
-      {steps.transmissions.active && !!transmissionsData?.length && (
-        <HelpMeChooseTransmissions
-          steps={steps}
-          setSteps={setSteps}
-          getProductVehicleList={getProductVehicleList}
-          productVehicleListData={productVehicleListData}
-          setLoadingStatus={setLoadingStatus}
-        />
-      )}
-      {steps.terms.active && !!termsData?.length && (
-        <HelpMeChooseTerms
-          steps={steps}
-          setSteps={setSteps}
-          getProductVehicleList={getProductVehicleList}
-          productVehicleListData={productVehicleListData}
-          setLoadingStatus={setLoadingStatus}
-        />
-      )}
-      {steps.mileages.active && !!mileagesData?.length && (
-        <HelpMeChooseMiles
-          steps={steps}
-          setSteps={setSteps}
-          getProductVehicleList={getProductVehicleList}
-          productVehicleListData={productVehicleListData}
-          setLoadingStatus={setLoadingStatus}
-        />
-      )}
-      {steps.availability.active && !!availabilityData?.length && (
-        <HelpMeChooseAvailability
-          steps={steps}
-          setSteps={setSteps}
-          getProductVehicleList={getProductVehicleList}
-          productVehicleListData={productVehicleListData}
-          setLoadingStatus={setLoadingStatus}
-        />
-      )}
-      {steps.rental.active &&
-        steps.initialPeriods.active &&
-        !!resultsDataArray && (
-          <HelpMeChooseResult
+      {isLoading ? (
+        <Loading size="large" />
+      ) : (
+        <>
+          <HelpMeChooseProgressIndicator
             steps={steps}
             setSteps={setSteps}
             getProductVehicleList={getProductVehicleList}
-            productVehicleListData={productVehicleListData}
             setLoadingStatus={setLoadingStatus}
-            counterState={counterState}
-            setCounterState={setCounterState}
-            resultsData={resultsData}
-            setResultsData={setResultsData}
-            setPageOffset={setPageOffset}
           />
-        )}
+          {steps.financeTypes.active && (
+            <HelpMeChooseAboutYou
+              steps={steps}
+              setSteps={setSteps}
+              getProductVehicleList={getProductVehicleList}
+              productVehicleListData={productVehicleListData}
+              setLoadingStatus={setLoadingStatus}
+            />
+          )}
+          {steps.bodyStyles.active && !!bodyStyleData?.length && (
+            <HelpMeChooseBodyStyle
+              steps={steps}
+              setSteps={setSteps}
+              getProductVehicleList={getProductVehicleList}
+              productVehicleListData={productVehicleListData}
+              setLoadingStatus={setLoadingStatus}
+            />
+          )}
+          {steps.fuelTypes.active && !!fuelTypesData?.length && (
+            <HelpMeChooseFuelTypes
+              steps={steps}
+              setSteps={setSteps}
+              getProductVehicleList={getProductVehicleList}
+              productVehicleListData={productVehicleListData}
+              setLoadingStatus={setLoadingStatus}
+            />
+          )}
+          {steps.transmissions.active && !!transmissionsData?.length && (
+            <HelpMeChooseTransmissions
+              steps={steps}
+              setSteps={setSteps}
+              getProductVehicleList={getProductVehicleList}
+              productVehicleListData={productVehicleListData}
+              setLoadingStatus={setLoadingStatus}
+            />
+          )}
+          {steps.terms.active && !!termsData?.length && (
+            <HelpMeChooseTerms
+              steps={steps}
+              setSteps={setSteps}
+              getProductVehicleList={getProductVehicleList}
+              productVehicleListData={productVehicleListData}
+              setLoadingStatus={setLoadingStatus}
+            />
+          )}
+          {steps.mileages.active && !!mileagesData?.length && (
+            <HelpMeChooseMiles
+              steps={steps}
+              setSteps={setSteps}
+              getProductVehicleList={getProductVehicleList}
+              productVehicleListData={productVehicleListData}
+              setLoadingStatus={setLoadingStatus}
+            />
+          )}
+          {steps.availability.active && !!availabilityData?.length && (
+            <HelpMeChooseAvailability
+              steps={steps}
+              setSteps={setSteps}
+              getProductVehicleList={getProductVehicleList}
+              productVehicleListData={productVehicleListData}
+              setLoadingStatus={setLoadingStatus}
+            />
+          )}
+          {steps.rental.active &&
+            steps.initialPeriods.active &&
+            !!resultsDataArray && (
+              <HelpMeChooseResult
+                steps={steps}
+                setSteps={setSteps}
+                getProductVehicleList={getProductVehicleList}
+                productVehicleListData={productVehicleListData}
+                setLoadingStatus={setLoadingStatus}
+                counterState={counterState}
+                setCounterState={setCounterState}
+                resultsData={resultsData}
+                setResultsData={setResultsData}
+                setPageOffset={setPageOffset}
+              />
+            )}
+        </>
+      )}
+      <Head metaData={metaData} featuredImage={null} />
     </>
   );
 };

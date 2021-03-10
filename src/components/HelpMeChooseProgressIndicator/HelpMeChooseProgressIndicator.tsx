@@ -119,10 +119,12 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
                           rental: {
                             active: false,
                             value: steps.rental.value,
+                            title: el.label,
                           },
                           initialPeriods: {
                             active: false,
                             value: steps.initialPeriods.value,
+                            title: el.label,
                           },
                         }
                       : { [currentStep?.key || '']: { active: false } };
@@ -136,6 +138,7 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
                             [el.key]: {
                               active: true,
                               value: router.query[el.key],
+                              title: el.label,
                             },
                             ...currentStepObject,
                           },
@@ -152,6 +155,7 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
                         typeof router.query[el.key] !== 'object'
                           ? [router.query[el.key]]
                           : router.query[el.key],
+                      title: el.label,
                     },
                     ...currentStepObject,
                   });
