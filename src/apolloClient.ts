@@ -62,44 +62,54 @@ const logLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 });
 
-const ErrorLink = onError(({ graphQLErrors }) => {
-  if (graphQLErrors) {
-    const authorizationError = graphQLErrors.find(
-      error =>
-        AUTHORIZATION_ERROR_CODE.localeCompare(
-          error?.extensions?.code,
-          undefined,
-          { sensitivity: 'base' },
-        ) === 0,
-    );
-
-    if (authorizationError) {
-      const currentPath = Router.router?.asPath || '/';
-      const isOlaf = currentPath.includes('/olaf/');
-
-      // cookies are already deleted by gateway after auth error
-      // clear local data
-      localforage.clear().finally(() => {
-        if (!isOlaf) {
-          // redirect to login-register from private pages except olaf
-          Router.replace(`/account/login-register?redirect=${currentPath}`);
-        }
-
-        isSessionFinishedCache(true);
-      });
-    }
+// eslint-disable-next-line consistent-return
+const AuthErrorLink = onError(({ graphQLErrors, forward, operation }) => {
+  // only graphQLErrors contain information about auth error
+  if (!graphQLErrors) {
+    return forward(operation);
   }
+
+  const authorizationError = graphQLErrors.find(
+    error =>
+      AUTHORIZATION_ERROR_CODE.localeCompare(
+        error?.extensions?.code,
+        undefined,
+        { sensitivity: 'base' },
+      ) === 0,
+  );
+
+  // handle only auth errors and
+  // avoid error handling on server
+  // because of functionality that only can be called on client
+  if (!authorizationError || typeof window === 'undefined') {
+    return forward(operation);
+  }
+
+  // cookies are already deleted by gateway after auth error
+  // clear local data
+  localforage.clear().finally(() => {
+    const currentPath = Router.router?.asPath || '/';
+    const isOlaf = currentPath.includes('/olaf/');
+
+    if (!isOlaf) {
+      // redirect to login-register from private pages except olaf
+      Router.replace(`/account/login-register?redirect=${currentPath}`);
+    }
+
+    isSessionFinishedCache(true);
+  });
 });
 
 function apolloClientLink() {
-  let links = [ErrorLink, retryLink, httpLink];
+  let links = [AuthErrorLink, retryLink, httpLink];
 
   // Enable persisted query per env.
   if (
     process.env.ENV &&
     ['dev', 'uat', 'pre-prod', 'prod'].includes(process.env.ENV)
   ) {
-    links = [persistedQueriesLink, ...links];
+    // save order to have possibility to retry operations
+    links = [AuthErrorLink, retryLink, persistedQueriesLink, httpLink];
   }
 
   if (process.env.ENV && ['dev', 'uat'].includes(process.env.ENV)) {
