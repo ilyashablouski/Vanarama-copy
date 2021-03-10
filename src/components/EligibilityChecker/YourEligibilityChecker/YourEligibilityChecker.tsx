@@ -258,10 +258,10 @@ YourEligibilityChecker.fragments = {
           lineTwo
           postcode
         }
+        termsAndConditions
+        privacyPolicy
+        emailConsent
       }
-      termsAndConditions
-      privacyPolicy
-      marketingPreference
     }
   `,
 };

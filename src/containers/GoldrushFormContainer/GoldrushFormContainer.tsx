@@ -78,7 +78,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
             termsAndConditions:
               termsAndConditions || Boolean(values.termsAndCons),
             privacyPolicy: Boolean(values.privacyPolicy),
-            marketingPreference: Boolean(values.consent),
+            communicationsConsent: Boolean(values.consent),
           },
         });
       }}

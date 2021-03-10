@@ -14,10 +14,10 @@ export const formValuesToInput = (
       values.monthOfBirth,
       values.yearOfBirth,
     ),
+    termsAndConditions: Boolean(values.termsAndCons),
+    privacyPolicy: Boolean(values.privacyPolicy),
+    emailConsent: Boolean(values.consent),
   },
   emailAddress: { kind: 'Home', value: values.email, primary: true },
   addressServiceId: values.addressFinder?.id ? values.addressFinder?.id : '',
-  termsAndConditions: Boolean(values.termsAndCons),
-  privacyPolicy: Boolean(values.privacyPolicy),
-  marketingPreference: Boolean(values.consent),
 });
