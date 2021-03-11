@@ -83,6 +83,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       throw new Error(error.message);
     }
     return {
+      revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data: genericTestimonialsPageQuery.data,
         testimonialsData: testimonialsDataQuery.data,

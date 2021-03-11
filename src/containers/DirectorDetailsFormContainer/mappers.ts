@@ -1,3 +1,4 @@
+import { IAddressSuggestion } from 'core/molecules/address-finder/interfaces';
 import {
   DirectorDetailsFormValues,
   DirectorFormValues,
@@ -5,6 +6,7 @@ import {
 } from '../../components/DirectorDetailsForm/interfaces';
 import { parseDate } from '../../utils/dates';
 import { SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates as Associate } from '../../../generated/SaveDirectorDetailsMutation';
+import { AddressInputObject } from '../../../generated/globalTypes';
 
 export const mapFormValues = (
   values: DirectorDetailsFormValues,
@@ -110,9 +112,25 @@ export const combineUpdatedDirectors = (
         associate.lastName === director.originalLastName,
     );
 
+    // merge addresses data from BE and address finder
+    const history = director.history.map(item => {
+      const associatedAddress = data?.addresses?.find(
+        address => address.serviceId === item.address?.id,
+      );
+
+      return {
+        ...item,
+        address: {
+          ...item.address,
+          ...(associatedAddress || {}),
+        } as IAddressSuggestion & AddressInputObject,
+      };
+    });
+
     return {
       ...director,
       ...(data || {}),
+      history,
     };
   });
 };
