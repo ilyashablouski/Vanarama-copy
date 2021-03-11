@@ -398,6 +398,7 @@ AboutForm.fragments = {
         primary
         value
         kind
+        partyId
       }
       telephoneNumbers {
         __typename
