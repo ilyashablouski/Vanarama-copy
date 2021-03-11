@@ -26,6 +26,7 @@ export const getBlogPosts = async (
       throw new Error(errors[0].message);
     }
     return {
+      revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data,
         pageNumber:
@@ -34,11 +35,11 @@ export const getBlogPosts = async (
     };
   } catch (err) {
     return {
+      revalidate: 1,
       props: {
         data: null,
         pageNumber: null,
       },
-      revalidate: 5,
     };
   }
 };
