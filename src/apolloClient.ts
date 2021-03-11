@@ -81,7 +81,7 @@ const retryLink = new RetryLink({
 });
 
 const logLink = new ApolloLink((operation, forward) => {
-  if (['dev', 'uat', 'pre-prod', 'prod'].includes(process.env.ENV as string)) {
+  if (['dev', 'uat'].includes(process.env.ENV as string)) {
     const query = {
       name: operation.operationName,
       variables: operation.variables,
