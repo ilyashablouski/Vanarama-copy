@@ -56,54 +56,19 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
       <div
         className="accordion--content"
       >
-        Our unique Price Promise means we’ll find you the very best deal on your chosen vehicle. And if you do find a competitors’ quote we can’t beat, we’ll give you £100*!
-      </div>
-    </li>
-    <li
-      className="accordion-item"
-      data-testid="accordion-item"
-    >
-      <button
-        className="accordion--heading"
-        onClick={[Function]}
-        type="button"
-      >
-        <i
-          className="icon accordion-item--chevron"
+        Our unique Price Promise means we’ll find you the very best deal on your chosen vehicle. And if you do find a competitors’ quote we can’t beat, we’ll give you £100.
+         
+        <a
+          className="link -teal -regular"
+          data-testid="terms_and_conditions"
+          href="/legal/terms-and-conditions.html"
+          onClick={[Function]}
+          target="_blank"
         >
-          <svg
-            height="1em"
-            viewBox="0 0 512 512"
-            width="1em"
-          >
-            <polyline
-              points="184 112 328 256 184 400"
-              style={
-                Object {
-                  "fill": "none",
-                  "stroke": "var(--class-color)",
-                  "strokeLinecap": "square",
-                  "strokeMiterlimit": 10,
-                  "strokeWidth": 48,
-                }
-              }
-            />
-          </svg>
-        </i>
-        <div
-          className="accordion--title"
-        >
-          <span
-            className="text -regular -black"
-          >
-            Redundancy & Life Event Cover
-          </span>
-        </div>
-      </button>
-      <div
-        className="accordion--content"
-      >
-        If something changes unexpectedly with your personal circumstances, the last thing you want to be worrying about is your vehicle. That’s why with Vanarama, if the worst happens, you can return it, hassle-free*.
+          Terms and Conditions
+        </a>
+         
+        apply
       </div>
     </li>
     <li
@@ -151,6 +116,18 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
         className="accordion--content"
       >
         If you change your mind up to 30 days after your vehicle has been delivered, you don’t have to worry! We’ll collect it from wherever you are, free of charge.
+         
+        <a
+          className="link -teal -regular"
+          data-testid="terms_and_conditions"
+          href="/legal/terms-and-conditions.html"
+          onClick={[Function]}
+          target="_blank"
+        >
+          Terms and Conditions
+        </a>
+         
+        apply
       </div>
     </li>
     <li
