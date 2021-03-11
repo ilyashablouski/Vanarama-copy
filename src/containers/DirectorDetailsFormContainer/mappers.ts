@@ -110,9 +110,25 @@ export const combineUpdatedDirectors = (
         associate.lastName === director.originalLastName,
     );
 
+    // merge addresses data from BE and address finder
+    const history = director.history.map(item => {
+      const associatedAddress = data?.addresses?.find(
+        address => address.serviceId === item.address?.id,
+      );
+
+      return {
+        ...item,
+        address: {
+          ...item.address,
+          ...(associatedAddress || {}),
+        },
+      };
+    });
+
     return {
       ...director,
       ...(data || {}),
+      history,
     };
   });
 };
