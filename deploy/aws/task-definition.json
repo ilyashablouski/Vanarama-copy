@@ -48,6 +48,10 @@
         {
           "name": "STATIC_DOMAIN",
           "valueFrom": "%SSM_PARAMETER_BASE%/static-domain"
+        },
+        {
+          "name": "REVALIDATE_INTERVAL",
+          "valueFrom": "%SSM_PARAMETER_BASE%/revalidate-interval"
         }
       ],
       "environment": [
