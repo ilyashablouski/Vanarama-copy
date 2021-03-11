@@ -1,3 +1,4 @@
+import { IAddressSuggestion } from 'core/molecules/address-finder/interfaces';
 import {
   DirectorDetailsFormValues,
   DirectorFormValues,
@@ -5,6 +6,7 @@ import {
 } from '../../components/DirectorDetailsForm/interfaces';
 import { parseDate } from '../../utils/dates';
 import { SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates as Associate } from '../../../generated/SaveDirectorDetailsMutation';
+import { AddressInputObject } from '../../../generated/globalTypes';
 
 export const mapFormValues = (
   values: DirectorDetailsFormValues,
@@ -121,7 +123,7 @@ export const combineUpdatedDirectors = (
         address: {
           ...item.address,
           ...(associatedAddress || {}),
-        },
+        } as IAddressSuggestion & AddressInputObject,
       };
     });
 
