@@ -136,8 +136,8 @@ function apolloClientLink() {
   const links = [
     logLink,
     authErrorLink,
-    persistedQueryLink,
     retryLink,
+    persistedQueryLink,
     httpLink,
   ];
 
