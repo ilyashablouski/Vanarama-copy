@@ -94,7 +94,8 @@ const EmploymentFormFieldArray: FCWithFragments<IProps> = ({
                 />
                 <FormikAddressField
                   name={`history[${index}].address`}
-                  label="Company Postcode or Address"
+                  label="Company Address"
+                  hint="Enter Postcode Or Just Start Typing Address"
                 />
                 <FormikNumericField
                   name={`history[${index}].income`}
