@@ -127,7 +127,7 @@ const FinanceGapInsurancePageContainer = ({
                   opportunityType: OpportunityTypeEnum.INSURANCE,
                   termsAndConditions: Boolean(values.termsAndCons),
                   privacyPolicy: Boolean(values.privacyPolicy),
-                  marketingPreference: Boolean(values.consent),
+                  communicationsConsent: Boolean(values.consent),
                 },
               });
             }}
