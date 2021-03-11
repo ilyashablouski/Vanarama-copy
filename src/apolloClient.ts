@@ -133,7 +133,13 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
 });
 
 function apolloClientLink() {
-  let links = [logLink, authErrorLink, persistedQueryLink, retryLink, httpLink];
+  const links = [
+    logLink,
+    authErrorLink,
+    persistedQueryLink,
+    retryLink,
+    httpLink,
+  ];
 
   // NOTE: Type 'RetryLink' is missing the following properties from type 'ApolloLink': onError, setOnError
   return ApolloLink.from(links as any);
