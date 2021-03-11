@@ -158,6 +158,7 @@ export default function CompanyDetailsFormFields({
         rules={{
           required: 'Please enter the registered business address',
         }}
+        hint="Enter Postcode Or Just Start Typing Address"
       />
       <Formgroup>
         <Checkbox
@@ -179,6 +180,7 @@ export default function CompanyDetailsFormFields({
                 ? 'Please enter the trading address'
                 : undefined,
           }}
+          hint="Enter Postcode Or Just Start Typing Address"
         />
       )}
       <hr className="-mv-400" />

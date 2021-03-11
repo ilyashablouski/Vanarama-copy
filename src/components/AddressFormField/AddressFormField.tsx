@@ -10,6 +10,7 @@ interface IProps {
   id: string;
   label: string;
   rules?: ValidationOptions;
+  hint?: string;
 }
 
 export default function AddressFormField({
@@ -17,6 +18,7 @@ export default function AddressFormField({
   id,
   label,
   rules,
+  hint,
 }: IProps) {
   const { control, errors } = useFormContext();
   return (
@@ -33,6 +35,7 @@ export default function AddressFormField({
             controlId={id}
             label={label}
             error={errors[id]?.message?.toString()}
+            hint={hint}
           >
             <AddressFinder.Input id={id} dataTestId={dataTestId} />
             <AddressFinder.Selected />
