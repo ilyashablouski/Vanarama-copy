@@ -32,25 +32,44 @@ const HelpMeChooseTransmissions: FC<HelpMeChooseStep> = props => {
     const nextSteps = {
       step: {
         ...steps,
-        transmissions: { active: false, value: transmissionsValue },
-        terms: { active: true, value: steps.terms.value },
+        transmissions: {
+          active: false,
+          value: transmissionsValue,
+          title: steps.transmissions.title,
+        },
+        terms: {
+          active: true,
+          value: steps.terms.value,
+          title: steps.terms.title,
+        },
       },
       query: {
         ...initialSteps,
         bodyStyles: {
           active: false,
           value: steps.bodyStyles.value as any,
+          title: steps.bodyStyles.title,
         },
         financeTypes: {
           active: false,
           value: steps.financeTypes.value as any,
+          title: steps.financeTypes.title,
         },
-        fuelTypes: { active: false, value: steps.fuelTypes.value },
+        fuelTypes: {
+          active: false,
+          value: steps.fuelTypes.value,
+          title: steps.fuelTypes.title,
+        },
         transmissions: {
           active: false,
           value: transmissionsValue,
+          title: steps.transmissions.title,
         },
-        terms: { active: true, value: initialSteps.terms.value },
+        terms: {
+          active: true,
+          value: initialSteps.terms.value,
+          title: steps.terms.title,
+        },
       },
     };
     const searchParamsValue = searchParams
