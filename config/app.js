@@ -19,6 +19,7 @@ module.exports = {
       MICROBLINK_URL: process.env.MICROBLINK_URL,
       API_URL: process.env.API_URL,
       API_KEY: process.env.API_KEY,
+      REVALIDATE_INTERVAL: Number(process.env.REVALIDATE_INTERVAL),
       LOQATE_KEY: process.env.LOQATE_KEY,
       ENABLE_DEV_TOOLS: process.env.ENABLE_DEV_TOOLS,
       REDIS_CACHE_HOST: process.env.REDIS_CACHE_HOST,
