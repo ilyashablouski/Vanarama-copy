@@ -527,7 +527,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           }
         >
           <WhyChooseLeasing warranty={warranty || ''} />
-          <WhyChooseVanarama />
+          <WhyChooseVanarama cars={cars} vans={vans} pickups={pickups} />
         </LazyLoadComponent>
         <div className="pdp--reviews">
           <LazyLoadComponent
