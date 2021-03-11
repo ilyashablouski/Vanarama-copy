@@ -18,6 +18,23 @@ import localforage from 'localforage';
 import { isSessionFinishedCache } from './cache';
 
 const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
+// TODO: Make a comprehensive list of queries that we don't want to be cached in CloudFlare
+const PERSISTED_GRAPHQL_QUERIES_WITHOUT_CLOUDFLARE_CACHE = [
+  'GetLeaseCompanyData',
+  'GetCreditApplicationByOrderUuid',
+  'GetCompanyDirectorDetailsQuery',
+  'GetDirectorDetailsQuery',
+  'GetCompanySummaryQuery',
+  'GetAboutYouDataQuery',
+  'GetPartyByUuid',
+  'GetAboutYouPageQuery',
+  'GetPersonByUuid',
+  'GetAddressContainerDataQuery',
+  'GetEmploymentContainerDataQuery',
+  'GetExpensesPageDataQuery',
+  'GetBankDetailsPageDataQuery',
+  'GetPersonSummaryQuery',
+];
 
 const httpLink = new HttpLink({
   uri: process.env.API_URL!,
@@ -27,6 +44,29 @@ const httpLink = new HttpLink({
     'x-api-key': process.env.API_KEY!,
   },
 });
+
+const persistedQueryLink = new ApolloLink((operation, forward) => {
+  return forward(operation);
+}).split(
+  () => ['dev', 'uat', 'pre-prod', 'prod'].includes(process.env.ENV as string),
+  new ApolloLink((operation, forward) => {
+    return forward(operation);
+  }).split(
+    operation =>
+      PERSISTED_GRAPHQL_QUERIES_WITHOUT_CLOUDFLARE_CACHE.includes(
+        operation.operationName,
+      ),
+    createPersistedQueryLink({
+      useGETForHashedQueries: true,
+    }) as any,
+    createPersistedQueryLink({
+      useGETForHashedQueries: false,
+    }) as any,
+  ),
+  new ApolloLink((operation, forward) => {
+    return forward(operation);
+  }),
+);
 
 const retryLink = new RetryLink({
   delay: {
@@ -40,30 +80,22 @@ const retryLink = new RetryLink({
   },
 });
 
-// NOTE: Type 'HttpLink | ApolloLink' is not assignable to type 'ApolloLink | RequestHandler' - https://github.com/apollographql/apollo-client/issues/6011
-const persistedQueriesLink = createPersistedQueryLink({
-  useGETForHashedQueries: true,
-  // disable hash for a session in case if some of queries is not found in cache
-  // disable: errorResponse =>
-  //   errorResponse.graphQLErrors?.some(
-  //     error => error.extensions?.code === 'PERSISTED_QUERY_NOT_FOUND',
-  //   ) || false,
-}) as any;
-
 const logLink = new ApolloLink((operation, forward) => {
-  const query = {
-    name: operation.operationName,
-    variables: operation.variables,
-  };
+  if (['dev', 'uat', 'pre-prod', 'prod'].includes(process.env.ENV as string)) {
+    const query = {
+      name: operation.operationName,
+      variables: operation.variables,
+    };
 
-  console.log('\nGraphQL Query:');
-  console.log(query);
+    console.log('\nGraphQL Query:');
+    console.log(query);
+  }
 
   return forward(operation);
 });
 
 // eslint-disable-next-line consistent-return
-const AuthErrorLink = onError(({ graphQLErrors, forward, operation }) => {
+const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
   // only graphQLErrors contain information about auth error
   if (!graphQLErrors) {
     return forward(operation);
@@ -101,21 +133,7 @@ const AuthErrorLink = onError(({ graphQLErrors, forward, operation }) => {
 });
 
 function apolloClientLink() {
-  let links = [AuthErrorLink, retryLink, httpLink];
-
-  // Enable persisted query per env.
-  if (
-    process.env.ENV &&
-    ['dev', 'uat', 'pre-prod', 'prod'].includes(process.env.ENV)
-  ) {
-    // save order to have possibility to retry operations
-    links = [AuthErrorLink, retryLink, persistedQueriesLink, httpLink];
-  }
-
-  if (process.env.ENV && ['dev', 'uat'].includes(process.env.ENV)) {
-    // NOTE: Type 'ApolloLink' is missing the following properties from type 'HttpLink': options, requester
-    links = [logLink as any, ...links];
-  }
+  let links = [logLink, authErrorLink, persistedQueryLink, retryLink, httpLink];
 
   // NOTE: Type 'RetryLink' is missing the following properties from type 'ApolloLink': onError, setOnError
   return ApolloLink.from(links as any);
