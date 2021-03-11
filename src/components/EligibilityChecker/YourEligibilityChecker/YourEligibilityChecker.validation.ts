@@ -93,7 +93,13 @@ const ValidationSchema = yup.object().shape<IYourEligiblityCheckerValues>(
         is: (dayOfBirth, monthOfBirth) => !!dayOfBirth && !!monthOfBirth,
         then: yup.string().test('age', 'Invalid age', ageValidator),
       }),
-    promotions: yup.boolean().notRequired(),
+    termsAndCons: yup
+      .boolean()
+      .required('The terms and conditions must be accepted'),
+    privacyPolicy: yup
+      .boolean()
+      .required('The privacy policy must be confirmed'),
+    consent: yup.boolean().notRequired(),
   },
   [
     ['dayOfBirth', 'monthOfBirth'],
