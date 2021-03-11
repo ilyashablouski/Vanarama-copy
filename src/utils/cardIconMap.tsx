@@ -18,7 +18,10 @@ import LoadWidth from '../core/assets/icons/LoadWidth';
 import MileageBooster from '../core/assets/icons/MileageBooster';
 import NoMOT from '../core/assets/icons/NoMOT';
 import OverClocking from '../core/assets/icons/Overclocking';
+import ParkingSensors from '../core/assets/icons/ParkingSensors';
+import Price from '../core/assets/icons/Price';
 import Scale from '../core/assets/icons/Barbell';
+import Speedometer from '../core/assets/icons/62mph';
 import PlyLining from '../core/assets/icons/PlyLining';
 import SatNav from '../core/assets/icons/SatNav';
 import Transmission from '../core/assets/icons/Transmission';
@@ -51,8 +54,10 @@ IconMap.set('AirConditioning', <AirCondition />)
   .set('MileageBooster', <MileageBooster />)
   .set('NoMOT', <NoMOT />)
   .set('OverClocking', <OverClocking />)
+  .set('ParkingSensors', <ParkingSensors />)
   .set('PlyLining', <PlyLining />)
   .set('Payload', <Scale />)
+  .set('RRP', <Price />)
   .set('ReversingCamera', <ReversingCamera />)
   .set('SatNav', <SatNav />)
   .set('Transmission', <Transmission />)
@@ -60,6 +65,7 @@ IconMap.set('AirConditioning', <AirCondition />)
   .set('WarrantyRosette2', <WarrantyRosette2 />)
   .set('WarrantyRosette3', <WarrantyRosette3 />)
   .set('WarrantyRosette4', <WarrantyRosette4 />)
-  .set('WarrantyRosette5', <WarrantyRosette5 />);
+  .set('WarrantyRosette5', <WarrantyRosette5 />)
+  .set('0-62mph', <Speedometer />);
 
 export default IconMap;

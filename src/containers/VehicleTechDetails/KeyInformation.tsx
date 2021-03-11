@@ -29,18 +29,8 @@ const KeyInformation: React.FC<IKeyInformationProps> = ({
       {keysInformation.slice(0, 12).map((info: IKeyInformationItem) => (
         <div className="pdp--feature-grid--item" key={info.name || ''}>
           <Icon
-            name={`${
-              info.name === '0-62mph'
-                ? 'Overclocking'
-                : info.name?.replace(' ', '')
-            }`}
-            icon={IconMap.get(
-              `${
-                info.name === '0-62mph'
-                  ? 'Overclocking'
-                  : info.name?.replace(' ', '')
-              }`,
-            )}
+            name={info.name?.replace(' ', '')}
+            icon={IconMap.get(info.name?.replace(' ', ''))}
             color="orange"
             className="icon-custom"
             size="large"
