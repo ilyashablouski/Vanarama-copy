@@ -41,7 +41,11 @@ export async function getStaticProps(context: NextPageContext) {
       },
     });
     return {
-      props: { data, error: errors ? errors[0] : null },
+      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
     };
   } catch {
     return {

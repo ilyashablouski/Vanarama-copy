@@ -527,6 +527,7 @@ export async function getStaticProps() {
     vehicleListUrlData,
   } = await vansSpecialOffersRequest(client);
   return {
+    revalidate: Number(process.env.REVALIDATE_INTERVAL),
     props: {
       pageData: data,
       productsPickup: productsPickup || null,

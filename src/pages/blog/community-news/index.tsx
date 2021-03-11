@@ -38,9 +38,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'blog/community-news',
       },
     });
-    return { props: { data, error: errors ? errors[0] : null } };
+    return {
+      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
   } catch {
     return {
+      revalidate: 1,
       props: {
         error: true,
       },

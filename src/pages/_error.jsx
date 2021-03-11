@@ -41,7 +41,10 @@ export async function getStaticProps({ res, err }) {
   // Uncomment to enable Rollbar
   // if (!process.browser) reportError(err, req);
 
-  return { props: { statusCode } };
+  return {
+    revalidate: Number(process.env.REVALIDATE_INTERVAL),
+    props: { statusCode },
+  };
 }
 
 export default Error;
