@@ -717,7 +717,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   <span
                     class="text -regular -darker"
                   >
-                    I have read and understood the Privacy Policy
+                    I have read and understood the 
                     <a
                       class="link -teal"
                       href="/legal/privacy-policy.html"

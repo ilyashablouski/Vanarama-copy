@@ -34,8 +34,8 @@ export const REGISTER_USER_MUTATION = gql`
       lastName: $lastName
       username: $username
       password: $password
-      termsAndConditions: $termsAndConditions
       privacyPolicy: $privacyPolicy
+      termsAndConditions: $termsAndConditions
       communicationsConsent: $communicationsConsent
       redirectUrl: $redirectUrl
     ) {
