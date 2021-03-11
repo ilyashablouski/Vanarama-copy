@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
@@ -43,6 +43,27 @@ interface IProps {
   orderId: string;
   onComplete?: () => void;
 }
+
+const getFinishedSteps = (person: SummaryFormPerson) => {
+  const {
+    addresses,
+    employmentHistories,
+    incomeAndExpense,
+    bankAccounts,
+    ...aboutDetails
+  } = person;
+
+  return [
+    addresses,
+    employmentHistories,
+    incomeAndExpense,
+    bankAccounts,
+    aboutDetails,
+  ];
+};
+
+const isContainsEmptySteps = (steps: (any | null)[]) =>
+  steps.some(step => Object.values(step || {}).length === 0);
 
 const SummaryForm: FCWithFragments<IProps> = ({
   person,
@@ -138,6 +159,11 @@ const SummaryForm: FCWithFragments<IProps> = ({
     router.push(href, href);
   };
 
+  const isSubmitDisabled = useMemo(
+    () => isContainsEmptySteps(getFinishedSteps(person)),
+    [person],
+  );
+
   return (
     <Form>
       <Heading
@@ -182,6 +208,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
         color="teal"
         label="Submit"
         dataTestId="olaf_summary_continue_buttton"
+        disabled={isSubmitDisabled}
         onClick={() => {
           handleSubmit();
         }}

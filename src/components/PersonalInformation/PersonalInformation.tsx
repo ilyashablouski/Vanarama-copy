@@ -59,7 +59,6 @@ const PersonalInformation = ({ person, submit }: IProps) => {
           setEditData(false);
           return submit(values, address?.id);
         })}
-        className="form"
       >
         <Heading color="black" size="large" dataTestId="personHeading">
           Personal Information
@@ -232,31 +231,35 @@ const PersonalInformation = ({ person, submit }: IProps) => {
             .
           </Text>
         </div>
-        {editData && (
-          <Button
-            type="submit"
-            label={
-              formState.isSubmitting ? 'Saving...' : 'Save New Personal Details'
-            }
-            color="primary"
-            disabled={formState.isSubmitting}
-            dataTestId="personalSubmitEdit"
-          />
-        )}
-        {!editData && (
-          <Button
-            type="button"
-            label={
-              formState.isSubmitting ? 'Saving...' : 'Edit Personal Details'
-            }
-            color="primary"
-            onClick={() => {
-              setEditData(!editData);
-            }}
-            disabled={formState.isSubmitting}
-            dataTestId="personalSubmit"
-          />
-        )}
+        <div style={{ marginTop: '15px' }}>
+          {editData && (
+            <Button
+              type="submit"
+              label={
+                formState.isSubmitting
+                  ? 'Saving...'
+                  : 'Save New Personal Details'
+              }
+              color="teal"
+              disabled={formState.isSubmitting}
+              dataTestId="personalSubmitEdit"
+            />
+          )}
+          {!editData && (
+            <Button
+              type="button"
+              label={
+                formState.isSubmitting ? 'Saving...' : 'Edit Personal Details'
+              }
+              color="teal"
+              onClick={() => {
+                setEditData(!editData);
+              }}
+              disabled={formState.isSubmitting}
+              dataTestId="personalSubmit"
+            />
+          )}
+        </div>
       </Form>
     </div>
   );

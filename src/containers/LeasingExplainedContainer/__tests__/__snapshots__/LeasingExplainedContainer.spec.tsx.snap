@@ -29,13 +29,22 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           >
             Your Guide To Car Leasing
           </span>
-          <p
-            class="text -regular -white"
+          <div
+            class="markdown -lighter"
           >
-            If you're looking for a brand new car and don't want to buy one outright, leasing could be the perfect solution. Car leasing makes getting behind the wheel of your dream car easy through hassle-free fixed monthly payments on 2 to 5-year contracts. Find out what leasing is, how it works & how Vanarama makes car leasing simple.
-
-[Read More](https://beta.vanarama.com/car-leasing-explained/what-is-car-leasing.html)
-          </p>
+            <p>
+              If you're looking for a brand new car and don't want to buy one outright, leasing could be the perfect solution. Car leasing makes getting behind the wheel of your dream car easy through hassle-free fixed monthly payments on 2 to 5-year contracts. Find out what leasing is, how it works & how Vanarama makes car leasing simple.
+            </p>
+            <p>
+              <a
+                class="link"
+                data-testid="link"
+                href="https://beta.vanarama.com/car-leasing-explained/what-is-car-leasing.html"
+              >
+                Read More
+              </a>
+            </p>
+          </div>
           <a
             class="button link -teal -regular -solid"
             data-testid="link"
@@ -96,7 +105,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               class="card-image"
               data-testid="card-image"
               loading="lazy"
-              sizes="(min-width:3200px) 800px, 1200px"
+              sizes="(min-width:320px) 800px, 1200px"
               src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/FRg0wIDLXZqVIB9ZoJEw7/e04f3cfdfb2ad9405be84ef106d83d26/company-cash-allowance-vs-company-car.jpg"
               srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/FRg0wIDLXZqVIB9ZoJEw7/e04f3cfdfb2ad9405be84ef106d83d26/company-cash-allowance-vs-company-car.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/FRg0wIDLXZqVIB9ZoJEw7/e04f3cfdfb2ad9405be84ef106d83d26/company-cash-allowance-vs-company-car.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/FRg0wIDLXZqVIB9ZoJEw7/e04f3cfdfb2ad9405be84ef106d83d26/company-cash-allowance-vs-company-car.jpg 1200w"
             />
@@ -139,7 +148,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               class="card-image"
               data-testid="card-image"
               loading="lazy"
-              sizes="(min-width:3200px) 800px, 1200px"
+              sizes="(min-width:320px) 800px, 1200px"
               src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/2gBj5lixlkrla8kFNF8XSi/0fea9544b48e892f4f96d612b9be9c70/what-happens-at-end-of-car-lease.jpg"
               srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/2gBj5lixlkrla8kFNF8XSi/0fea9544b48e892f4f96d612b9be9c70/what-happens-at-end-of-car-lease.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/2gBj5lixlkrla8kFNF8XSi/0fea9544b48e892f4f96d612b9be9c70/what-happens-at-end-of-car-lease.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/2gBj5lixlkrla8kFNF8XSi/0fea9544b48e892f4f96d612b9be9c70/what-happens-at-end-of-car-lease.jpg 1200w"
             />

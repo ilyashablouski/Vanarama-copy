@@ -38,9 +38,20 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'blog/vans',
       },
     });
-    return { props: { data, error: errors ? errors[0] : null } };
+    return {
+      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      props: {
+        data,
+        error: errors ? errors[0] : null,
+      },
+    };
   } catch {
-    return { props: { error: true } };
+    return {
+      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      props: {
+        error: true,
+      },
+    };
   }
 }
 

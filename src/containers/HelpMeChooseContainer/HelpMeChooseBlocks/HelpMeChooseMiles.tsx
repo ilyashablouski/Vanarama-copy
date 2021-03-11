@@ -32,23 +32,38 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
     const nextSteps = {
       step: {
         ...steps,
-        mileages: { active: false, value: mileagesValue },
-        availability: { active: true, value: steps.availability.value },
+        mileages: {
+          active: false,
+          value: mileagesValue,
+          title: steps.mileages.title,
+        },
+        availability: {
+          active: true,
+          value: steps.availability.value,
+          title: steps.availability.title,
+        },
       },
       query: {
         ...steps,
-        mileages: { active: false, value: mileagesValue },
+        mileages: {
+          active: false,
+          value: mileagesValue,
+          title: steps.mileages.title,
+        },
         availability: {
           active: true,
           value: initialSteps.availability.value,
+          title: steps.availability.title,
         },
         rental: {
           active: false,
           value: initialSteps.rental.value,
+          title: steps.rental.title,
         },
         initialPeriods: {
           active: false,
           value: initialSteps.initialPeriods.value,
+          title: steps.initialPeriods.title,
         },
       },
     };

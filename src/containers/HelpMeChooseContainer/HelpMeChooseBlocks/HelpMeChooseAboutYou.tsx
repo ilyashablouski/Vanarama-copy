@@ -43,16 +43,26 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
         financeTypes: {
           active: false,
           value: financeTypesValue,
+          title: steps.financeTypes.title,
         },
-        bodyStyles: { active: true, value: steps.bodyStyles.value },
+        bodyStyles: {
+          active: true,
+          value: steps.bodyStyles.value,
+          title: steps.bodyStyles.title,
+        },
       },
       query: {
         ...initialSteps,
         financeTypes: {
           active: false,
           value: financeTypesValue,
+          title: steps.financeTypes.title,
         },
-        bodyStyles: { active: true, value: initialSteps.bodyStyles.value },
+        bodyStyles: {
+          active: true,
+          value: initialSteps.bodyStyles.value,
+          title: steps.bodyStyles.title,
+        },
       },
     };
     if (searchParams.getAll('financeTypes')[0] !== financeTypesValue[0]) {

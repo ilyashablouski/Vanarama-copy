@@ -350,6 +350,7 @@ export async function getStaticProps() {
       vehicleListUrlData,
     } = await specialOffersRequest(client);
     return {
+      revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
         genericPageCMS: data,
         productsVanDerivatives: productsVanDerivatives || null,

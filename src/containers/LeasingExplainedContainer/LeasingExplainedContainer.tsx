@@ -1,5 +1,6 @@
 import React, { FC, useMemo } from 'react';
 import dynamic from 'next/dynamic';
+import ReactMarkdown from 'react-markdown/with-html';
 import {
   GenericPageQuery_genericPage_sections as Section,
   GenericPageQuery_genericPage_sections_cards_cards as Cards,
@@ -55,9 +56,18 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
             <Heading tag="span" size="large" color="white">
               {featured?.title || ''}
             </Heading>
-            <Text tag="p" size="regular" color="white">
-              {featured?.body || ''}
-            </Text>
+            <div className="markdown -lighter">
+              <ReactMarkdown
+                allowDangerousHtml
+                source={featured?.body || ''}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return <RouterLink link={{ href, label: children }} />;
+                  },
+                }}
+              />
+            </div>
             {featured?.link && (
               <RouterLink
                 classNames={{ color: 'teal', solid: true, size: 'regular' }}
