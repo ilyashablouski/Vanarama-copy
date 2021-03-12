@@ -21,6 +21,9 @@ const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
             lastName: values.lastName,
             username: values.email,
             password: values.password,
+            termsAndConditions: Boolean(values.termsAndCons),
+            privacyPolicy: Boolean(values.privacyPolicy),
+            communicationsConsent: Boolean(values.consent),
             redirectUrl,
           },
         }).then(() => {

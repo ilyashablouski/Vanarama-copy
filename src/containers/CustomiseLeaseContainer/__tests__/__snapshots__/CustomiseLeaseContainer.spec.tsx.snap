@@ -159,7 +159,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
             <span
               className="text -regular -darker"
             >
-              I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions.
+              Keep me updated on the latest deals & offers
             </span>
           </label>
         </div>

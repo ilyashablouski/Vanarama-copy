@@ -17,5 +17,6 @@ export interface IGoldrushFromValues {
   phoneNumber: string;
   postcode?: string;
   termsAndCons: boolean;
+  privacyPolicy: boolean;
   consent: boolean;
 }
