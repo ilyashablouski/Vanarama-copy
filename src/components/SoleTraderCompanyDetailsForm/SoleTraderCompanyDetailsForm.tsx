@@ -105,6 +105,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
           rules={{
             required: 'Please enter the registered business address',
           }}
+          hint="Enter Postcode Or Just Start Typing Address"
         />
         <NatureTypeahead
           setNatureValue={setNatureOfBusiness}
