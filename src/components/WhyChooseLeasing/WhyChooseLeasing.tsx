@@ -79,7 +79,7 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({ warranty }) => {
         />,
       )}
       {renderGridItem(
-        'No MOT Costs',
+        'No MOT Costs For 3 Years',
         <Icon
           name="NoMOT"
           icon={IconMap.get('NoMOT')}
