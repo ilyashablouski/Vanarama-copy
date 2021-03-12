@@ -93,7 +93,8 @@ const FinanceGapInsurancePageContainer = ({
                 postcode: values.postcode,
                 opportunityType: OpportunityTypeEnum.INSURANCE,
                 termsAndConditions: Boolean(values.termsAndCons),
-                marketingPreference: Boolean(values.consent),
+                privacyPolicy: Boolean(values.privacyPolicy),
+                communicationsConsent: Boolean(values.consent),
               },
             });
           }}
@@ -125,7 +126,8 @@ const FinanceGapInsurancePageContainer = ({
                   postcode: values.postcode,
                   opportunityType: OpportunityTypeEnum.INSURANCE,
                   termsAndConditions: Boolean(values.termsAndCons),
-                  marketingPreference: Boolean(values.consent),
+                  privacyPolicy: Boolean(values.privacyPolicy),
+                  communicationsConsent: Boolean(values.consent),
                 },
               });
             }}
