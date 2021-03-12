@@ -38,6 +38,7 @@ export function modifyObjectStringValues({ object, modify }: any) {
       !['__typename', 'id'].includes(key) &&
       typeof object[key] === 'string'
     ) {
+      // eslint-disable-next-line no-param-reassign
       object[key] = modify(object[key]);
     }
   });
