@@ -333,7 +333,7 @@ describe('<GoldrushForm />', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText('Keep me updated on the latest deals & offers.'),
+        screen.getByText('Keep me updated on the latest deals & offers'),
       ).toBeInTheDocument();
     });
   });

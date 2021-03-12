@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { useForm } from 'react-hook-form';
+import { useForm, FormContext as FormProvider } from 'react-hook-form';
 import { gql } from '@apollo/client';
 import React, { useState } from 'react';
 import validationSchema from './YourEligibilityChecker.validation';
@@ -68,21 +68,14 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
     firstName: '',
     lastName: '',
     addressFinder: undefined,
-    promotions: false,
+    termsAndCons: false,
+    privacyPolicy: false,
+    consent: false,
     dayOfBirth: '',
     monthOfBirth: '',
     yearOfBirth: '',
   };
-  const {
-    errors,
-    handleSubmit,
-    register,
-    triggerValidation,
-    watch,
-    formState,
-    control,
-    reset,
-  } = useForm<IYourEligiblityCheckerValues>({
+  const methods = useForm<IYourEligiblityCheckerValues>({
     mode: 'onBlur',
     validationSchema,
     defaultValues,
@@ -96,7 +89,7 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
     setLoadingData(true);
     setImgSrc(null);
     toggleCamera(false);
-    reset(defaultValues);
+    methods.reset(defaultValues);
 
     return new Promise((resolve, reject) => {
       resolve(
@@ -166,16 +159,18 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
           Or you can enter your details manually:
         </Text>
       </div>
-      <EligibilityCheckerForm
-        submit={submit}
-        errors={errors}
-        handleSubmit={handleSubmit}
-        register={register}
-        triggerValidation={triggerValidation}
-        watch={watch}
-        formState={formState}
-        control={control}
-      />
+      <FormProvider {...methods}>
+        <EligibilityCheckerForm
+          submit={submit}
+          errors={methods.errors}
+          handleSubmit={methods.handleSubmit}
+          register={methods.register}
+          triggerValidation={methods.triggerValidation}
+          watch={methods.watch}
+          formState={methods.formState}
+          control={methods.control}
+        />
+      </FormProvider>
       {isModalShowing && (
         <Modal
           className="-mt-000"
@@ -213,7 +208,9 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
                       setIsModalShowing(false);
                       const drivingLicence: IDrivingLicence =
                         response.data.result;
-                      reset(responseBlinkIdToInitialFormValues(drivingLicence));
+                      methods.reset(
+                        responseBlinkIdToInitialFormValues(drivingLicence),
+                      );
                     } else {
                       toggleNotificationCamera('Something went wrong.');
                     }
@@ -263,6 +260,9 @@ YourEligibilityChecker.fragments = {
           lineTwo
           postcode
         }
+        termsAndConditions
+        privacyPolicy
+        emailConsent
       }
     }
   `,
