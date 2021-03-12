@@ -14,7 +14,7 @@ const BodyStyleIconMap = new Map();
 
 BodyStyleIconMap.set('Convertible', <Convertible />)
   .set('4x4', <SUV />)
-  .set('CityCar', <CityCar />)
+  .set('City-Car', <CityCar />)
   .set('Coupe', <Coupe />)
   .set('Estate', <Estate />)
   .set('Hatchback', <Hatchback />)
