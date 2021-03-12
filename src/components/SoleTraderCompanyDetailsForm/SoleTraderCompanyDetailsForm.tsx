@@ -101,7 +101,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
         <AddressFormField
           dataTestId="sole-trader-company-details_trading-address"
           id="tradingAddress"
-          label="Trading Address"
+          label="Company Address"
           rules={{
             required: 'Please enter the registered business address',
           }}
