@@ -12,7 +12,7 @@ import {
   TermsAndConditions,
   Consent,
   PrivacyPolicy,
-} from '../../FormGenericCheckboxes/FormGenericChecboxes';
+} from '../../FormGenericCheckboxes/FormGenericCheckboxes';
 import Skeleton from '../../Skeleton';
 
 const Button = dynamic(() => import('core/atoms/button'), {
