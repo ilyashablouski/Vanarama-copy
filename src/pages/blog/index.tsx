@@ -49,7 +49,10 @@ export async function getStaticProps(context: NextPageContext) {
     };
   } catch {
     return {
-      props: { error: true },
+      revalidate: 1,
+      props: {
+        error: true,
+      },
     };
   }
 }
