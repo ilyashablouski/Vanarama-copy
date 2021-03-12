@@ -906,6 +906,7 @@ export async function getStaticProps() {
       offers.find(card => card?.offerPosition === 1) || null;
 
     return {
+      revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data,
         searchPodVansData,

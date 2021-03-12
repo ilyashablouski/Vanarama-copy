@@ -56,6 +56,10 @@
         {
           "name": "APP_AUTH_PWD",
           "valueFrom": "%SSM_PARAMETER_BASE%/app-auth-pwd"
+        },
+        {
+          "name": "REVALIDATE_INTERVAL",
+          "valueFrom": "%SSM_PARAMETER_BASE%/revalidate-interval"
         }
       ],
       "environment": [
