@@ -6,7 +6,7 @@ import {
   TermsAndConditions,
   Consent,
   PrivacyPolicy,
-} from '../FormGenericCheckboxes/FormGenericChecboxes';
+} from '../FormGenericCheckboxes/FormGenericCheckboxes';
 import {
   postcodeValidator,
   emailValidator,
