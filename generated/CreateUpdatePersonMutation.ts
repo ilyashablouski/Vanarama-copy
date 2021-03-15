@@ -15,6 +15,7 @@ export interface CreateUpdatePersonMutation_createUpdatePerson_emailAddresses {
   primary: boolean;
   value: string;
   kind: string | null;
+  partyId: string;
 }
 
 export interface CreateUpdatePersonMutation_createUpdatePerson_telephoneNumbers {
