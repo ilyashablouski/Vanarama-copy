@@ -40,6 +40,7 @@ type IDirectorDetailsFormProps = {
   directorUuid?: string;
   defaultValues?: DirectorDetailsFormValues;
   officers: any;
+  funderId?: string | null;
 };
 
 const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
@@ -56,6 +57,7 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
   directorUuid,
   defaultValues,
   officers,
+  funderId,
 }) => {
   const directors =
     combineDirectorsData(officers, defaultValues?.directors) || [];
@@ -68,7 +70,7 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
     <Formik<DirectorDetailsFormValues>
       initialValues={initialValues}
       validationSchema={validationSchema}
-      validate={validate}
+      validate={values => validate(values, officers, funderId)}
       onSubmit={onSubmit}
     >
       {({ handleSubmit, isSubmitting }) => (
