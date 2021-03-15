@@ -2,7 +2,6 @@ serviceName = 'next-storefront'
 ecrRegion = 'eu-west-2'
 stack = 'grid'
 taskDefFile = "deploy/aws/task-definition.json"
-dateNow = new Date()
 branchName = "${env.BRANCH_NAME}"
 cloudflareZone = "b5c6ca8c47a2f751ca780000a91202bc"
 
@@ -22,7 +21,7 @@ def app_environment = [
         stack: 'grid',
         slackChannelInfra: '#dev-infra-approvals',
         slackChannelQA: '#qa-code-approvals',
-        jenkinsCredentialsId: 'aws-techamigo-keys',
+        jenkinsCredentialsId: 'aws-keys-terraform-grid-dev',
         accountId: '000379120260',
         awsMasterRole: '', //empty while dev has master account credentials
         state_bucket: 'autorama-terraform-state',
@@ -87,7 +86,8 @@ def getConfig() {
 def createReleaseBranch(appEnvironment, sourceBranch) {
 
     cleanWs()
-
+    
+    def dateNow = new Date()
     def appName = appEnvironment["${getConfig()}"].app
     def releaseBranchName = "release/R${env.BUILD_NUMBER}-${dateNow.format('ddMMyyyy')}"
 
