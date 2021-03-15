@@ -398,6 +398,7 @@
 
   &featured {
     &-image {
+      z-index: 1;
       grid-column: full;
       grid-template-columns: $parent-template;
 
