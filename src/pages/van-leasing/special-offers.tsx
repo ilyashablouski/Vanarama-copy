@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -500,8 +500,8 @@ export const VanOffers: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps() {
-  const client = createApolloClient({});
+export async function getServerSideProps(context: NextPageContext) {
+  const client = createApolloClient({}, context);
   let data;
   try {
     const { data: content } = await client.query<VanOffersPageData>({
@@ -527,7 +527,6 @@ export async function getStaticProps() {
     vehicleListUrlData,
   } = await vansSpecialOffersRequest(client);
   return {
-    revalidate: Number(process.env.REVALIDATE_INTERVAL),
     props: {
       pageData: data,
       productsPickup: productsPickup || null,
