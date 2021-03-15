@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface IsPasswordCorrectMutation_passwordCorrectV2 {
-  isSuccessfull: boolean | null;
+  isSuccessful: boolean | null;
 }
 
 export interface IsPasswordCorrectMutation {

@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface ChangePasswordByUuidMutation_passwordChangeV2 {
-  isSuccessfull: boolean | null;
+  isSuccessful: boolean | null;
 }
 
 export interface ChangePasswordByUuidMutation {
