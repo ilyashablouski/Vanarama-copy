@@ -12,7 +12,7 @@ Array [
     </h1>
   </div>,
   <div
-    className="row:bg-black -compact"
+    className="row:bg-white -compact"
   >
     <div
       className="row:featured-image"
