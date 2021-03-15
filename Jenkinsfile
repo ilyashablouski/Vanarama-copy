@@ -22,7 +22,7 @@ def app_environment = [
         stack: 'grid',
         slackChannelInfra: '#dev-infra-approvals',
         slackChannelQA: '#qa-code-approvals',
-        jenkinsCredentialsId: 'aws-techamigo-keys',
+        jenkinsCredentialsId: 'aws-keys-terraform-grid-dev',
         accountId: '000379120260',
         awsMasterRole: '', //empty while dev has master account credentials
         state_bucket: 'autorama-terraform-state',
