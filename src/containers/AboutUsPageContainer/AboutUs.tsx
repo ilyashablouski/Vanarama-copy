@@ -149,7 +149,7 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, data }) => {
           {metaData.name}
         </Heading>
       </div>
-      <div className="row:bg-black -compact">
+      <div className="row:bg-white -compact">
         <div className="row:featured-image">
           {featuredImage?.file?.url && (
             <Image
