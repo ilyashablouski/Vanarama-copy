@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface LogOutUserMutation_logoutV2 {
-  isSuccessfull: boolean | null;
+  isSuccessful: boolean | null;
 }
 
 export interface LogOutUserMutation {
