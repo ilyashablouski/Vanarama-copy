@@ -57,6 +57,9 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   const directorsDetails =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.directorsDetails;
+  const funderId =
+    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
+      ?.lineItem?.vehicleProduct?.funderId;
 
   const defaultValues = useMemo(() => {
     return directorsDetails?.directors?.length > 0
@@ -110,6 +113,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   return (
     <DirectorDetailsForm
       officers={officers}
+      funderId={funderId}
       isEdited={isEdited}
       directorUuid={directorUuid}
       defaultValues={defaultValues}
