@@ -17,7 +17,7 @@ export const CHANGE_PASSWORD_BY_UUID_MUTATION = gql`
     $newPassword: String!
   ) {
     passwordChangeV2(oldPassword: $oldPassword, newPassword: $newPassword) {
-      isSuccessfull
+      isSuccessful
     }
   }
 `;
@@ -25,7 +25,7 @@ export const CHANGE_PASSWORD_BY_UUID_MUTATION = gql`
 export const IS_PASSWORD_CORRECT = gql`
   mutation IsPasswordCorrectMutation($password: String!) {
     passwordCorrectV2(password: $password) {
-      isSuccessfull
+      isSuccessful
     }
   }
 `;
@@ -78,7 +78,7 @@ const PasswordChangeContainer = ({
           variables: { password: value },
         });
 
-        return Boolean(!results?.data?.passwordCorrectV2?.isSuccessfull);
+        return Boolean(!results?.data?.passwordCorrectV2?.isSuccessful);
       }}
     />
   );
