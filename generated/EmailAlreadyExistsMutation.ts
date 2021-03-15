@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface EmailAlreadyExistsMutation_emailAlreadyExists {
-  isSuccessfull: boolean | null;
+  isSuccessful: boolean | null;
   isExists: boolean | null;
   isTemporary: boolean | null;
 }

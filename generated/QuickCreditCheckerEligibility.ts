@@ -31,6 +31,9 @@ export interface QuickCreditCheckerEligibility_person {
   dateOfBirth: any | null;
   emailAddresses: QuickCreditCheckerEligibility_person_emailAddresses[];
   addresses: QuickCreditCheckerEligibility_person_addresses[] | null;
+  termsAndConditions: boolean | null;
+  privacyPolicy: boolean | null;
+  emailConsent: boolean | null;
 }
 
 export interface QuickCreditCheckerEligibility {

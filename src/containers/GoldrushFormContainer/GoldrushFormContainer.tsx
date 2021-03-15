@@ -72,12 +72,13 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
             phoneNumber: values.phoneNumber,
             fullName: values.fullName,
             postcode: values.postcode || DEFAULT_POSTCODE,
-            marketingPreference: Boolean(values.consent),
             capId,
             opportunityType,
             vehicleType,
             termsAndConditions:
               termsAndConditions || Boolean(values.termsAndCons),
+            privacyPolicy: Boolean(values.privacyPolicy),
+            communicationsConsent: Boolean(values.consent),
           },
         });
       }}

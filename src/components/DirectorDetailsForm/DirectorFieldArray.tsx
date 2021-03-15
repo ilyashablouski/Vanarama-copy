@@ -1,11 +1,21 @@
 import dynamic from 'next/dynamic';
 import Select from 'core/atoms/select';
-import { FieldArray, FieldArrayRenderProps, useFormikContext } from 'formik';
+import {
+  FieldArray,
+  FieldArrayRenderProps,
+  useFormikContext,
+  FormikErrors,
+  FormikTouched,
+} from 'formik';
 import React from 'react';
 import { DirectorFieldsDropDownData } from '../../../generated/DirectorFieldsDropDownData';
 import DirectorFields from './DirectorFields';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
 import Skeleton from '../Skeleton';
+import {
+  NOT_ENOUGH_DIRECTORS_ERROR_MESSAGE,
+  TOO_LOW_ERROR_MESSAGE,
+} from './helpers';
 
 const Formgroup = dynamic(() => import('core/molecules/formgroup'), {
   loading: () => <Skeleton count={1} />,
@@ -13,6 +23,49 @@ const Formgroup = dynamic(() => import('core/molecules/formgroup'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
+
+const mapErrorMessage = (
+  errors: FormikErrors<DirectorDetailsFormValues>,
+  touched: FormikTouched<DirectorDetailsFormValues>,
+) => {
+  const isTouched = touched.directors?.some(_ => _.shareOfBusiness);
+
+  if (!isTouched) {
+    return undefined;
+  }
+
+  if (errors.totalPercentage === NOT_ENOUGH_DIRECTORS_ERROR_MESSAGE) {
+    return 'We require details of at least 2 director(s) with a combined shareholding of over 25%. Please add another director.';
+  }
+
+  if (errors.totalPercentage === TOO_LOW_ERROR_MESSAGE) {
+    return 'We require details of a director(s) with a combined shareholding of over 25%. Please add another director.';
+  }
+
+  return undefined;
+};
+
+const createFullName = (director: DirectorFormValues) =>
+  `${director.lastName}, ${director.firstName}`;
+
+const optionsRender = (
+  itemsToShow: DirectorFormValues[],
+  selectedDirectors: string[],
+) => {
+  return itemsToShow?.map(item => {
+    const fullName = createFullName(item);
+
+    return (
+      <option
+        key={fullName}
+        value={fullName}
+        disabled={selectedDirectors.includes(fullName)}
+      >
+        {fullName}
+      </option>
+    );
+  });
+};
 
 const handleDirectorSelected = (
   fullname: string,
@@ -55,74 +108,36 @@ export default function DirectorFieldArray({
   isEdited,
   officers,
 }: Props) {
-  const { errors, touched, values, submitCount } = useFormikContext<
+  const { errors, touched, values } = useFormikContext<
     DirectorDetailsFormValues
   >();
-  const selectedDirectors = values.directors.map(
-    _ => `${_.lastName}, ${_.firstName}`,
-  );
-
-  const hasMultipleDirectors = isEdited
-    ? directors && directors.length > 1
-    : officers && officers.length > 1;
-  const showMinimumPercentageMessage =
-    errors.totalPercentage === 'TOO_LOW' &&
-    touched.directors?.some(_ => _.shareOfBusiness);
-
+  const errorMessage = mapErrorMessage(errors, touched);
+  const itemsToShow = (isEdited ? directors : officers) || [];
+  const hasMultipleDirectors = itemsToShow.length > 1;
+  const selectedDirectors = values.directors.map(createFullName);
   const showDirectorDropdown =
-    hasMultipleDirectors &&
-    (showMinimumPercentageMessage || values.directors.length === 0);
-
-  const optionsRender = () => {
-    if (isEdited) {
-      return directors?.map(_ => (
-        <option
-          key={`${_.lastName}, ${_.firstName}`}
-          value={`${_.lastName}, ${_.firstName}`}
-          disabled={selectedDirectors.includes(`${_.lastName}, ${_.firstName}`)}
-        >
-          {`${_.lastName}, ${_.firstName}`}
-        </option>
-      ));
-    }
-    return officers?.map(_ => (
-      <option
-        key={`${_.lastName}, ${_.firstName}`}
-        value={`${_.lastName}, ${_.firstName}`}
-        disabled={selectedDirectors.includes(`${_.lastName}, ${_.firstName}`)}
-      >
-        {`${_.lastName}, ${_.firstName}`}
-      </option>
-    ));
-  };
+    hasMultipleDirectors && (errorMessage || values.directors.length === 0);
 
   return (
     <FieldArray name="directors">
       {arrayHelpers => (
         <>
-          {values.directors.map((_, index) => (
+          {values.directors.map((director, index) => (
             <DirectorFields
-              key={index} // eslint-disable-line react/no-array-index-key
-              canBeRemoved={hasMultipleDirectors as boolean}
-              dropDownData={dropdownData}
               index={index}
+              key={createFullName(director)}
+              dropDownData={dropdownData}
+              canBeRemoved={hasMultipleDirectors}
               onRemoveClick={() => arrayHelpers.remove(index)}
             />
           ))}
-          {showMinimumPercentageMessage && (
+          {errorMessage && (
             <Text tag="span" color="darker" size="regular">
-              We require details of a director(s) with a combined shareholding
-              of over 25%. Please add another director.
+              {errorMessage}
             </Text>
           )}
           {showDirectorDropdown && (
-            <Formgroup
-              error={
-                submitCount > 0 &&
-                showMinimumPercentageMessage &&
-                'Please select a director'
-              }
-            >
+            <Formgroup error={errorMessage && 'Please select a director'}>
               <Select
                 aria-label="Select director"
                 placeholder="Select Director..."
@@ -134,7 +149,7 @@ export default function DirectorFieldArray({
                   )
                 }
               >
-                {optionsRender()}
+                {optionsRender(itemsToShow, selectedDirectors)}
               </Select>
             </Formgroup>
           )}

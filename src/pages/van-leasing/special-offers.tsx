@@ -470,7 +470,7 @@ export const VanOffers: NextPage<IProps> = ({
       >
         <div className="row:text">
           <Text size="regular" color="dark">
-            Photos and videos are for illustration purposes only.*{' '}
+            Photos and videos are for illustration purposes only.{' '}
             <RouterLink
               link={{
                 href: '/legal/terms-and-conditions.html',

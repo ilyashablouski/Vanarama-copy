@@ -1330,7 +1330,7 @@ const SearchPageContainer: React.FC<IProps> = ({
 
       <div className="row:text">
         <Text color="darker" size="regular" tag="span">
-          Photos and videos are for illustration purposes only.*{' '}
+          Photos and videos are for illustration purposes only.{' '}
           <RouterLink
             link={{
               href: '/legal/terms-and-conditions.html',

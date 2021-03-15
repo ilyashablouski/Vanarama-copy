@@ -21,6 +21,9 @@ const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
             lastName: values.lastName,
             username: values.email,
             password: values.password,
+            termsAndConditions: Boolean(values.termsAndCons),
+            privacyPolicy: Boolean(values.privacyPolicy),
+            communicationsConsent: Boolean(values.consent),
             redirectUrl,
           },
         }).then(() => {
@@ -33,11 +36,11 @@ const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
           variables: { email: value },
         });
 
-        const isSuccessfull = results.data?.emailAlreadyExists?.isSuccessfull;
+        const isSuccessful = results.data?.emailAlreadyExists?.isSuccessful;
         const isExists = results.data?.emailAlreadyExists?.isExists;
         const isTemporary = results.data?.emailAlreadyExists?.isTemporary;
 
-        if (!isSuccessfull || isTemporary) {
+        if (!isSuccessful || isTemporary) {
           return false;
         }
 

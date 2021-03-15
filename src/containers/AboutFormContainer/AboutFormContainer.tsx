@@ -43,7 +43,7 @@ const AboutFormContainer: React.FC<IProps> = ({
 
     const checkResult = result.data?.emailAlreadyExists;
 
-    if (!checkResult?.isSuccessfull || isEdit || personLoggedIn) {
+    if (!checkResult?.isSuccessful || isEdit || personLoggedIn) {
       return undefined;
     }
 
