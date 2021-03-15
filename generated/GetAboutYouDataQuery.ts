@@ -13,6 +13,7 @@ export interface GetAboutYouDataQuery_personByUuid_emailAddresses {
   primary: boolean;
   value: string;
   kind: string | null;
+  partyId: string;
 }
 
 export interface GetAboutYouDataQuery_personByUuid_telephoneNumbers {
