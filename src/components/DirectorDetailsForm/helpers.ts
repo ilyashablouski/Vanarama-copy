@@ -5,7 +5,7 @@ import { sum } from '../../utils/array';
 import { dateOfBirthValidator, checkFuture } from '../../utils/validation';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
 
-const LEX_FUNDER_ID = '2';
+const LEX_FUNDER_ID = '4';
 
 export const TOO_LOW_ERROR_MESSAGE = 'TOO_LOW';
 export const TOO_HIGH_ERROR_MESSAGE = 'TOO_HIGH';
