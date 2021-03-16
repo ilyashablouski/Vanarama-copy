@@ -35,7 +35,6 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   personUuid,
   onCompleted,
   onError,
-  isEdited,
 }) => {
   const [saveDirectorDetails] = useSaveDirectorDetailsMutation();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
@@ -59,6 +58,10 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   const funderId =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.lineItem?.vehicleProduct?.funderId;
+
+  const isEdit = useMemo(() => (directorsDetails?.directors || []).length > 0, [
+    directorsDetails,
+  ]);
 
   const defaultValues = useMemo(() => {
     return directorsDetails?.directors?.length > 0
@@ -111,7 +114,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     <DirectorDetailsForm
       officers={officers}
       funderId={funderId}
-      isEdited={isEdited}
+      isEdit={isEdit}
       directorUuid={directorUuid}
       defaultValues={defaultValues}
       dropdownData={allDropDowns}

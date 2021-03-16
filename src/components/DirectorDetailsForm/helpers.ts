@@ -47,6 +47,7 @@ export const initialEditedFormValues = (
 export const validate = (
   values: DirectorDetailsFormValues,
   officers: DirectorFormValues[],
+  isEdit: boolean,
   funderId?: string | null,
 ): FormikErrors<DirectorDetailsFormValues> => {
   const errors: FormikErrors<DirectorDetailsFormValues> = {};
@@ -54,6 +55,7 @@ export const validate = (
   const totalPercentage = sum(values.directors, _ => Number(_.shareOfBusiness));
 
   if (
+    !isEdit &&
     funderId === LEX_FUNDER_ID &&
     officers.length >= 2 &&
     values.directors.length < 2
