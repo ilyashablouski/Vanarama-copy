@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { getDataFromTree } from '@apollo/react-ssr';
@@ -23,7 +22,7 @@ import {
   pushAboutYouDataLayer,
   pushAuthorizationEventDataLayer,
 } from '../../../../utils/dataLayerHelpers';
-import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
+import { GetDerivative_derivative as IDerivative } from '../../../../../generated/GetDerivative';
 import {
   MyOrdersTypeEnum,
   OrderInputObject,
@@ -69,10 +68,9 @@ export const BusinessAboutPage: NextPage = () => {
   const [personUuid, setPersonUuid] = useState<string | undefined>();
   const [personLoggedIn, setPersonLoggedIn] = useState<boolean>(false);
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
-  const [
-    derivativeData,
-    setDerivativeData,
-  ] = useState<GetDerivative_derivative | null>(null);
+  const [derivativeData, setDerivativeData] = useState<IDerivative | null>(
+    null,
+  );
 
   const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);

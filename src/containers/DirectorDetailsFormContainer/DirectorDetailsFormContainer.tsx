@@ -20,7 +20,6 @@ import {
   mapDirectorsDefaultValues,
   combineUpdatedDirectors,
 } from './mappers';
-import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { parseOfficers } from '../../components/DirectorDetailsForm/helpers';
 import { isTruthy } from '../../utils/array';
 import Skeleton from '../../components/Skeleton';
@@ -82,15 +81,13 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   ) =>
     createUpdateApplication({
       variables: {
-        input: formValuesToInputCreditApplication({
-          ...getCreditApplicationByOrderUuidQuery.data
-            ?.creditApplicationByOrderUuid,
+        input: {
           directorsDetails: {
             directors,
             totalPercentage,
           },
           orderUuid,
-        }),
+        },
       },
     });
 
