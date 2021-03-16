@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
@@ -9,7 +8,7 @@ import BusinessSummaryFormContainer from '../../../../containers/BusinessSummary
 import withApollo from '../../../../hocs/withApollo';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
 import useSoleTraderJourney from '../../../../hooks/useSoleTraderJourney';
-import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
+import { GetDerivative_derivative as IDerivative } from '../../../../../generated/GetDerivative';
 import { pushSummaryDataLayer } from '../../../../utils/dataLayerHelpers';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
 import { OrderInputObject } from '../../../../../generated/globalTypes';
@@ -31,10 +30,9 @@ const BusinessSummaryPage: NextPage = () => {
   const personUuid = useGetPersonUuid();
   const isSoleTrader = useSoleTraderJourney();
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
-  const [
-    derivativeData,
-    setDerivativeData,
-  ] = useState<GetDerivative_derivative | null>(null);
+  const [derivativeData, setDerivativeData] = useState<IDerivative | null>(
+    null,
+  );
 
   const handleComplete = (emailAddress: string | undefined) => {
     pushSummaryDataLayer({

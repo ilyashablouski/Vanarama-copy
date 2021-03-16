@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useQuery } from '@apollo/client';
 import { NextPage } from 'next';
@@ -9,7 +8,7 @@ import SummaryFormContainer from '../../../containers/SummaryFormContainer/Summa
 import withApollo from '../../../hocs/withApollo';
 import { OLAFQueryParams } from '../../../utils/url';
 import { GET_PERSON_INFORMATION } from '../address-history';
-import { GetDerivative_derivative } from '../../../../generated/GetDerivative';
+import { GetDerivative_derivative as IDerivative } from '../../../../generated/GetDerivative';
 import { pushSummaryDataLayer } from '../../../utils/dataLayerHelpers';
 import { OrderInputObject } from '../../../../generated/globalTypes';
 import useGetOrderId from '../../../hooks/useGetOrderId';
@@ -23,10 +22,9 @@ const SummaryPage: NextPage = () => {
   const { uuid } = router.query as QueryParams;
   const orderId = useGetOrderId();
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
-  const [
-    derivativeData,
-    setDerivativeData,
-  ] = useState<GetDerivative_derivative | null>(null);
+  const [derivativeData, setDerivativeData] = useState<IDerivative | null>(
+    null,
+  );
 
   let personUuid = uuid || '';
   const { data } = useQuery(GET_PERSON_INFORMATION);

@@ -15,7 +15,6 @@ import {
   mapFormValues,
   prelodedValuesToInput,
 } from './mappers';
-import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany as Company } from '../../../generated/UpdateSoleTraderCompanyMutation';
 import Skeleton from '../../components/Skeleton';
 
@@ -96,11 +95,10 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
   ) =>
     createUpdateApplication({
       variables: {
-        input: formValuesToInputCreditApplication({
-          ...data?.creditApplicationByOrderUuid,
+        input: {
           companyDetails: mapCreateUpdteApplicationData(values, companyData),
           orderUuid: orderId,
-        }),
+        },
       },
     });
 
