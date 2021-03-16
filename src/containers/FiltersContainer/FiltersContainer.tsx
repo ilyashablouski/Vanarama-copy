@@ -263,7 +263,9 @@ const FiltersContainer = ({
       router.query.isChangePage === 'true';
     if (shouldPreselect) {
       let presetFilters = {} as ISelectedFiltersState;
-      const routerQuery = Object.entries(router.query);
+      const routerQuery = Object.entries(router.query).filter(
+        ([key]) => key !== 'dynamicParam',
+      );
       // flag for checking if any value from query don't exist in filters data
       // using in case when we load search which actual only for none special offers
       let isValueLose = false;
