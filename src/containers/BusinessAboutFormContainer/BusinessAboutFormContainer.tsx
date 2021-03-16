@@ -12,7 +12,6 @@ import {
 import { useAboutPageDataQuery, useSaveAboutYouMutation } from './gql';
 import { IBusinessAboutFormContainerProps, SubmitResult } from './interfaces';
 import { SaveBusinessAboutYou } from '../../../generated/SaveBusinessAboutYou';
-import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { responseToInitialFormValues, mapAboutPersonData } from './mappers';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
 import {
@@ -176,9 +175,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   ) =>
     createUpdateApplication({
       variables: {
-        input: formValuesToInputCreditApplication({
-          ...getCreditApplicationByOrderUuidQuery.data
-            ?.creditApplicationByOrderUuid,
+        input: {
           aboutDetails: {
             ...values,
             emailAddress: undefined,
@@ -195,7 +192,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
             (values.companyType === CompanyTypes.partnership &&
               CATypeEnum.B2B_REGISTERED_PARTNERSHIP) ||
             CATypeEnum.B2B_SOLE_TRADER,
-        }),
+        },
       },
     });
 
