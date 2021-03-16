@@ -1804,7 +1804,29 @@
         gap: 1rem;
         width: 100%;
         max-width: $vp-large / 1.25;
-
+        @include desktop {
+          .card {
+            height: 100%;
+            .title {
+              margin-bottom: 115px;
+              + .-flex-h {
+                position: absolute;
+                right: 0.75rem;
+                bottom: 61px;
+                grid-area: unset;
+                width: calc(100% - 223px);
+              }
+            }
+            .card-footer {
+              position: absolute;
+              bottom: 0;
+              right: 0.75rem;
+              place-self: unset;
+              grid-area: unset;
+              width: calc(100% - 223px);
+            }
+          }
+        }
         @include mobile {
           grid-template-columns: repeat(1, minmax(0, 1fr));
         }
