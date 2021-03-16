@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useQuery } from '@apollo/client';
 import { NextPage } from 'next';
@@ -8,12 +7,8 @@ import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { GET_PERSON_INFORMATION } from '../address-history';
-import { formValuesToInputCreditApplication } from '../../../mappers/mappersCreditApplication';
-import {
-  useCreateUpdateCreditApplication,
-  useGetCreditApplicationByOrderUuid,
-} from '../../../gql/creditApplication';
-import { CreateUpdateBankAccountMutation_createUpdateBankAccount } from '../../../../generated/CreateUpdateBankAccountMutation';
+import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
+import { CreateUpdateBankAccountMutation_createUpdateBankAccount as IBankAccount } from '../../../../generated/CreateUpdateBankAccountMutation';
 import useGetOrderId from '../../../hooks/useGetOrderId';
 
 type QueryParams = OLAFQueryParams & {
@@ -21,7 +16,7 @@ type QueryParams = OLAFQueryParams & {
 };
 
 const mapBankAccountToCreditApplication = (
-  createUpdateBankAccount: CreateUpdateBankAccountMutation_createUpdateBankAccount | null,
+  createUpdateBankAccount: IBankAccount | null,
 ) => {
   const [
     joinedAtYear,
@@ -42,7 +37,6 @@ const BankDetailsPage: NextPage = () => {
   const orderId = useGetOrderId();
 
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
 
   let personUuid = uuid || '';
   const { data } = useQuery(GET_PERSON_INFORMATION);
@@ -50,18 +44,15 @@ const BankDetailsPage: NextPage = () => {
     personUuid = data.uuid;
   }
 
-  const onCompleteClick = (
-    createUpdateBankAccount: CreateUpdateBankAccountMutation_createUpdateBankAccount | null,
-  ) => {
+  const onCompleteClick = (createUpdateBankAccount: IBankAccount | null) => {
     createUpdateCA({
       variables: {
-        input: formValuesToInputCreditApplication({
-          ...creditApplication.data?.creditApplicationByOrderUuid,
+        input: {
           orderUuid: orderId,
           bankAccounts: [
             mapBankAccountToCreditApplication(createUpdateBankAccount),
           ],
-        }),
+        },
       },
     })
       .then(() => getUrlParam({ uuid: personUuid }))
