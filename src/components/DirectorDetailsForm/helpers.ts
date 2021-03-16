@@ -5,9 +5,9 @@ import { sum } from '../../utils/array';
 import { dateOfBirthValidator, checkFuture } from '../../utils/validation';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
 
-// TODO: remove hardcoded value,
-//  information obout required quantity of the directors should be sent from BE
-const LEX_FUNDER_ID = '2';
+// TODO: hardcoded value should be removed,
+//  information about required quantity of directors should be sent from BE
+const LEX_FUNDER_ID = '4';
 
 export const TOO_LOW_ERROR_MESSAGE = 'TOO_LOW';
 export const TOO_HIGH_ERROR_MESSAGE = 'TOO_HIGH';
