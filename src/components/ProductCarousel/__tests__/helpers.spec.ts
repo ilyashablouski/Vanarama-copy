@@ -14,16 +14,19 @@ describe('<helpers />', () => {
     ).toEqual([
       {
         icon: null,
+        name: 'name',
         label: 'value',
         index: 'id_name',
       },
       {
         icon: null,
+        name: 'name_1',
         label: 'value_1',
         index: 'id_name_1',
       },
       {
         icon: null,
+        name: 'name_2',
         label: 'value_2',
         index: 'id_name_2',
       },
