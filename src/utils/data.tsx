@@ -35,7 +35,7 @@ export function encodeString(text: any) {
 }
 
 export function decodeString(base64Text: any) {
-  return Buffer.from(base64Text, 'base64').toString('ascii');
+  return Buffer.from(base64Text, 'base64').toString('utf-8');
 }
 
 function modifyKey({ key, modify }: { key: string; modify: Function }) {
