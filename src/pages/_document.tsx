@@ -1,11 +1,11 @@
 import Document, { Html, Main } from 'next/document';
 import dynamic from 'next/dynamic';
+import { HeapScript } from '../components/HeapScript';
 import {
   Script as GTMScript,
   Body as GTMBody,
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
-import { HeapScript } from 'components/HeapScript';
 import { VWOScript } from '../components/VWOScript';
 import Inline from '../components/Style/Inline';
 import HeadCustom from '../hacks/headCustom';
@@ -34,7 +34,7 @@ const scriptEnvs = {
   blueconic: ['uat', 'pre-prod', 'prod'],
 
   vwo: ['uat', 'pre-prod', 'prod'],
-  
+
   heap: ['uat', 'pre-prod', 'prod'],
 };
 
