@@ -31,7 +31,7 @@ def app_environment = [
         NODE_ENV: 'development',
         terraformService: true,
         alternateDomain: 'dev.vanarama-nonprod.com',
-        imgOptimisationHost: 'https://vanarama-nonprod.com'
+        imgOptimisationHost: 'https://dev.vanarama-nonprod.com'
     ],
     "uat": [
         clusterName: 'grid-uat',
@@ -53,7 +53,7 @@ def app_environment = [
         NODE_ENV: 'development',
         terraformService: true,
         alternateDomain: 'uat.vanarama-nonprod.com',
-        imgOptimisationHost: 'https://vanarama-nonprod.com'
+        imgOptimisationHost: 'https://uat.vanarama-nonprod.com'
     ]
 ]
 

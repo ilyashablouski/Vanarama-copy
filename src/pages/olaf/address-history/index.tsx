@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useQuery, gql } from '@apollo/client';
 import { NextPage } from 'next';
@@ -8,12 +7,8 @@ import AddressFormContainer from '../../../containers/AddressFormContainer/Addre
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
-import { SaveAddressHistoryMutation_createUpdateAddress } from '../../../../generated/SaveAddressHistoryMutation';
-import { formValuesToInputCreditApplication } from '../../../mappers/mappersCreditApplication';
-import {
-  useCreateUpdateCreditApplication,
-  useGetCreditApplicationByOrderUuid,
-} from '../../../gql/creditApplication';
+import { SaveAddressHistoryMutation_createUpdateAddress as IAddress } from '../../../../generated/SaveAddressHistoryMutation';
+import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
 import useGetOrderId from '../../../hooks/useGetOrderId';
 
 export const GET_PERSON_INFORMATION = gql`
@@ -32,7 +27,6 @@ const AddressHistoryPage: NextPage = () => {
   const orderId = useGetOrderId();
 
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-  const creditApplication = useGetCreditApplicationByOrderUuid(orderId);
 
   let personUuid = uuid || '';
   const { data } = useQuery(GET_PERSON_INFORMATION);
@@ -40,18 +34,13 @@ const AddressHistoryPage: NextPage = () => {
     personUuid = data.uuid;
   }
 
-  const onCompleteClick = (
-    createUpdateAddress:
-      | SaveAddressHistoryMutation_createUpdateAddress[]
-      | null,
-  ) => {
+  const onCompleteClick = (createUpdateAddress: IAddress[] | null) => {
     createUpdateCA({
       variables: {
-        input: formValuesToInputCreditApplication({
-          ...creditApplication.data?.creditApplicationByOrderUuid,
+        input: {
           orderUuid: orderId,
           addresses: createUpdateAddress,
-        }),
+        },
       },
     })
       .then(() => getUrlParam({ uuid }))
