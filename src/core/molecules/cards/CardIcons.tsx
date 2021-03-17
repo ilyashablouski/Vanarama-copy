@@ -15,6 +15,16 @@ interface ICardIconsProps {
   featuredProduct?: boolean;
 }
 
+const shortName = (name: string) => {
+  if (name === 'Fuel Economy') {
+    return name.split(' ')[1];
+  }
+  if (name === 'Electric Driving Range (WLTP)') {
+    return name.split(' ')[2];
+  }
+  return name;
+};
+
 const CardIcons: React.FC<ICardIconsProps> = ({
   className,
   icons,
@@ -32,7 +42,7 @@ const CardIcons: React.FC<ICardIconsProps> = ({
         <Icon icon={item.icon} />
         {item.name && (
           <Text size="xsmall" color="darker">
-            {item.name === 'Fuel Economy' ? item.name.split(' ')[1] : item.name}
+            {shortName(item.name)}
           </Text>
         )}
         <Text size="xsmall" color="dark">

@@ -8,6 +8,7 @@ import DABRadio from '../core/assets/icons/DABRadio';
 import DamageCover from '../core/assets/icons/DamageCover';
 import Emissions from '../core/assets/icons/Emissions';
 import ElectricRange from '../core/assets/icons/ElectricRange';
+import ElectricRangeSmall from '../core/assets/icons/ElectricRangeSmall';
 import FuelEconomy from '../core/assets/icons/FuelEconomy';
 import FuelType from '../core/assets/icons/FuelType';
 import HeatedSeats from '../core/assets/icons/HeatedSeats';
@@ -43,6 +44,7 @@ IconMap.set('AirConditioning', <AirCondition />)
   .set('DABRadio', <DABRadio />)
   .set('DamageCover', <DamageCover />)
   .set('Emissions', <Emissions />)
+  .set('ElectricDrivingRange(WLTP)', <ElectricRangeSmall />)
   .set('ElectricDriving Range (WLTP)', <ElectricRange />)
   .set('FixedMonthlyPayments', <Calendar />)
   .set('FuelEconomy', <FuelEconomy />)

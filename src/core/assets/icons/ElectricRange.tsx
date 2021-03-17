@@ -3,21 +3,15 @@ import React, { FC, memo } from 'react';
 const Svg: FC = memo(() => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    width="56"
-    height="56"
+    width="58"
+    height="58"
     viewBox="0 0 250 250"
   >
-    <defs>
-      <clipPath id="clip-Electric_Driving_Range">
-        <rect width="250" height="250" />
-      </clipPath>
-    </defs>
     <g
       id="Electric_Driving_Range"
       data-name="Electric Driving Range"
       clipPath="url(#clip-Electric_Driving_Range)"
     >
-      <rect width="250" height="250" fill="#fff" />
       <g
         id="Group_11"
         data-name="Group 11"
