@@ -35,7 +35,7 @@ const scriptEnvs = {
 
   vwo: ['uat', 'pre-prod', 'prod'],
 
-  heap: ['uat', 'pre-prod', 'prod'],
+  heap: ['dev', 'uat', 'pre-prod', 'prod'],
 };
 
 class MyDocument extends Document {
