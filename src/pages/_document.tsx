@@ -5,6 +5,7 @@ import {
   Body as GTMBody,
   DataLayer as GTMDataLayerScript,
 } from '../components/GTM';
+import { HeapScript } from 'components/HeapScript';
 import { VWOScript } from '../components/VWOScript';
 import Inline from '../components/Style/Inline';
 import HeadCustom from '../hacks/headCustom';
@@ -33,15 +34,18 @@ const scriptEnvs = {
   blueconic: ['uat', 'pre-prod', 'prod'],
 
   vwo: ['uat', 'pre-prod', 'prod'],
+  
+  heap: ['uat', 'pre-prod', 'prod'],
 };
 
 class MyDocument extends Document {
   render() {
+    console.log('fired')
     return (
       <Html lang="en">
         <HeadCustom>
           {/* <RollbarScript /> */}
-          {/* <link rel="preload" href="/styles/base.css" as="style" />
+          {/* <link rel="preload" href="/styles/base.css" as="style" /> 
           <link rel="stylesheet" href="/styles/base.css" /> */}
           {scriptEnvs.blueconic.includes(env) && (
             <script async src="https://cdn.blueconic.net/vanarama.js" />
@@ -59,6 +63,7 @@ class MyDocument extends Document {
               <GTMBody />
             </>
           )}
+          {scriptEnvs.heap.includes(env) && <HeapScript />}
         </body>
       </Html>
     );
