@@ -40,7 +40,6 @@ const scriptEnvs = {
 
 class MyDocument extends Document {
   render() {
-    console.log('fired')
     return (
       <Html lang="en">
         <HeadCustom>
