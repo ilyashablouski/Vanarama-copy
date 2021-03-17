@@ -7,6 +7,7 @@ export type TIcon = {
   icon: React.ReactNode;
   label: string;
   index: string;
+  name: string;
 };
 interface ICardIconsProps {
   className?: string;
@@ -29,6 +30,11 @@ const CardIcons: React.FC<ICardIconsProps> = ({
     {icons.slice(0, 4).map(item => (
       <div key={`${item.label}_${item.index}`}>
         <Icon icon={item.icon} />
+        {item.name && (
+          <Text size="xsmall" color="darker">
+            {item.name === 'Fuel Economy' ? item.name.split(' ')[1] : item.name}
+          </Text>
+        )}
         <Text size="xsmall" color="dark">
           {item.label}
         </Text>
