@@ -44,7 +44,7 @@ class MyDocument extends Document {
       <Html lang="en">
         <HeadCustom>
           {/* <RollbarScript /> */}
-          {/* <link rel="preload" href="/styles/base.css" as="style" /> 
+          {/* <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" /> */}
           {scriptEnvs.blueconic.includes(env) && (
             <script async src="https://cdn.blueconic.net/vanarama.js" />
