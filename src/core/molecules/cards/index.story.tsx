@@ -28,21 +28,25 @@ const FEATURES = [
   {
     icon: <Icon icon={<SnowSharp />} color="dark" />,
     label: 'Aircon',
+    name: 'Aircon',
     index: '1',
   },
   {
     icon: <Icon icon={<BluetoothSharp />} color="dark" />,
     label: 'Bluetooth',
+    name: 'Bluetooth',
     index: '2',
   },
   {
     icon: <Icon icon={<CompassSharp />} color="dark" />,
     label: 'Navigation',
+    name: 'Navigation',
     index: '3',
   },
   {
     icon: <Icon icon={<WifiSharp />} color="dark" />,
     label: 'Sensors',
+    name: 'Sensors',
     index: '4',
   },
 ];

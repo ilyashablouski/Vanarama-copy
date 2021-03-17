@@ -109,6 +109,11 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
         </i>
       </i>
       <span
+        className="text -xsmall -darker"
+      >
+        Transmission
+      </span>
+      <span
         className="text -xsmall -dark"
       >
         Manual
@@ -323,6 +328,11 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
         </i>
       </i>
       <span
+        className="text -xsmall -darker"
+      >
+        Transmission
+      </span>
+      <span
         className="text -xsmall -dark"
       >
         Manual
@@ -536,6 +546,11 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
           </svg>
         </i>
       </i>
+      <span
+        className="text -xsmall -darker"
+      >
+        Transmission
+      </span>
       <span
         className="text -xsmall -dark"
       >
