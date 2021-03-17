@@ -57,10 +57,10 @@ const persistedQueryLink = new ApolloLink((operation, forward) => {
         operation.operationName,
       ),
     createPersistedQueryLink({
-      useGETForHashedQueries: true,
+      useGETForHashedQueries: false,
     }) as any,
     createPersistedQueryLink({
-      useGETForHashedQueries: false,
+      useGETForHashedQueries: true,
     }) as any,
   ),
   new ApolloLink((operation, forward) => {
