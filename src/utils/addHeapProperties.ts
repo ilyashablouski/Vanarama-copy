@@ -4,7 +4,6 @@ export const addHeapUserIdentity = (userID: string) => {
 }
 
 export const addHeapUserProperties = (properties: {}) => {
-    console.log(properties)
     //@ts-expect-error
     window.heap?.addUserProperties(properties)
 }
