@@ -67,9 +67,6 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     () => {},
   );
 
-  useEffect(() => {
-    console.log(Cookies.get('BCSessionID'))
-  }, [])
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
     orderId,
   );
@@ -135,8 +132,8 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   ) => {
     addHeapUserIdentity(values.email)
     addHeapUserProperties({
-      bcuid: Cookies.get('BCSessionID'),
-      uuid: data?.emailAddress?.uuid
+      uuid: data?.emailAddress?.uuid,
+      bcuid: Cookies.get('BCSessionID') || 'undefined'
     })
     return saveDetails({
       variables: {

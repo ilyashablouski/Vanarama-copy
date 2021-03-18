@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable import/no-cycle */
+import Cookies from 'js-cookie';
 import React, { FC, memo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -105,7 +106,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
       addHeapUserIdentity(person.emailAddresses[0].value)
       addHeapUserProperties({
         uuid: person.uuid,
-        bcuid: 'xxxxx'
+        bcuid: Cookies.get('BCSessionID') || 'undefined'
       })
     }
     if (!ordersLength) {
