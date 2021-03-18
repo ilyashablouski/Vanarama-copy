@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react';
+import Cookies from 'js-cookie';
+import React, { useEffect, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
@@ -27,6 +28,7 @@ import Skeleton from '../../components/Skeleton';
 import { useCreateUpdateOrder } from '../../gql/order';
 import useGetOrder from '../../hooks/useGetOrder';
 import { createEmailErrorMessage } from '../../components/AboutForm/mapEmailErrorMessage';
+import { addHeapUserIdentity, addHeapUserProperties } from 'utils/addHeapProperties';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -64,6 +66,10 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     orderId,
     () => {},
   );
+
+  useEffect(() => {
+    console.log(Cookies.get('BCSessionID'))
+  }, [])
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
     orderId,
   );
@@ -127,6 +133,11 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     values: IBusinessAboutFormValues,
     data?: IRegistrationResult | null,
   ) => {
+    addHeapUserIdentity(values.email)
+    addHeapUserProperties({
+      bcuid: Cookies.get('BCSessionID'),
+      uuid: data?.emailAddress?.uuid
+    })
     return saveDetails({
       variables: {
         input: {

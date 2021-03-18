@@ -18,6 +18,7 @@ import {
   GetPerson,
 } from '../../../generated/GetPerson';
 import useMediaQuery from '../../hooks/useMediaQuery';
+import { addHeapUserIdentity, addHeapUserProperties } from 'utils/addHeapProperties';
 
 const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
   ssr: false,
@@ -99,6 +100,13 @@ export const Header: FC<IHeaderProps> = memo(props => {
         if ((value as GetPerson)?.getPerson)
           setPerson((value as GetPerson)?.getPerson as Person);
       });
+    }
+    if (person) {
+      addHeapUserIdentity(person.emailAddresses[0].value)
+      addHeapUserProperties({
+        uuid: person.uuid,
+        bcuid: 'xxxxx'
+      })
     }
     if (!ordersLength) {
       localForage.getItem('ordersLength').then(value => {
