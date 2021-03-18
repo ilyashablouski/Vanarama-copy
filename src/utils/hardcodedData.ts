@@ -750,8 +750,7 @@ export const FOOTER_DATA = {
     ],
     legalStatement: {
       name: 'Global Disclaimer',
-      title:
-        '©2020 Autorama UK LTD. All rights reserved.                            ',
+      title: '©2021 Autorama UK LTD. All rights reserved.',
       body:
         'Autorama UK Ltd Registered in England and Wales with registered number: 05137709 Registered office: Vanarama, Maylands Avenue, Hemel Hempstead, HP2 7DE, United Kingdom. Vanarama, Vanarama Cars, Pickup Trucks Direct, Vanarama Short Term Leasing and Vanarama Insurance Services are trading styles of Autorama UK Ltd, who are authorised and regulated by the Financial Conduct Authority (Our Financial Conduct Authority Register number is 630748). VAT number GB842814720. Autorama UK Ltd is a Credit Broker not a Lender, we can introduce you to a selected group of Lenders. Calls are recorded for compliance and training purposes.',
     },

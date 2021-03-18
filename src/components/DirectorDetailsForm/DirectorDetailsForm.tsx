@@ -36,7 +36,7 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 type IDirectorDetailsFormProps = {
   dropdownData: CompanyDirectorDetails;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
-  isEdited: boolean;
+  isEdit: boolean;
   directorUuid?: string;
   defaultValues?: DirectorDetailsFormValues;
   officers: any;
@@ -53,7 +53,7 @@ const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
 const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
   onSubmit,
   dropdownData,
-  isEdited,
+  isEdit,
   directorUuid,
   defaultValues,
   officers,
@@ -62,7 +62,7 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
   const directors =
     combineDirectorsData(officers, defaultValues?.directors) || [];
 
-  const initialValues = isEdited
+  const initialValues = isEdit
     ? initialEditedFormValues(directors, directorUuid)
     : defaultValues || initialFormValues(officers);
 
@@ -70,7 +70,7 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
     <Formik<DirectorDetailsFormValues>
       initialValues={initialValues}
       validationSchema={validationSchema}
-      validate={values => validate(values, officers, funderId)}
+      validate={values => validate(values, officers, isEdit, funderId)}
       onSubmit={onSubmit}
     >
       {({ handleSubmit, isSubmitting }) => (
@@ -86,7 +86,7 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
             directors={directors}
             dropdownData={dropdownData}
             officers={officers}
-            isEdited={isEdited}
+            isEdited={isEdit}
           />
           <Button
             color="primary"
@@ -95,7 +95,7 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
             icon={<ChevronForwardSharp />}
             iconColor="white"
             iconPosition="after"
-            label={selectButtonLabel(isSubmitting, isEdited)}
+            label={selectButtonLabel(isSubmitting, isEdit)}
             size="large"
             type="submit"
           />
