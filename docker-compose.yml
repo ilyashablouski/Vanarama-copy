@@ -16,6 +16,7 @@ services:
         - ENABLE_DEV_TOOLS
         - MICROBLINK_URL
         - HOST_DOMAIN
+        - HEAP_ID
     command: yarn dev
     volumes:
       - '.:/usr/src/app'
