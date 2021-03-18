@@ -45,7 +45,10 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   const router = useRouter();
 
   const primaryBankAccount = useMemo(
-    () => (creditApplication ? mapDefaultValues(creditApplication) : undefined),
+    () =>
+      (creditApplication?.bankAccounts || []).length > 0
+        ? mapDefaultValues(creditApplication)
+        : undefined,
     [creditApplication],
   );
 
