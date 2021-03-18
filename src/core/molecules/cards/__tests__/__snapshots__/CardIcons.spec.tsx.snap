@@ -11,6 +11,12 @@ exports[`<CardIcons /> should render correctly 1`] = `
       icon={<Memo />}
     />
     <Memo(Text)
+      color="darker"
+      size="xsmall"
+    >
+      Aircon
+    </Memo(Text)>
+    <Memo(Text)
       color="dark"
       size="xsmall"
     >
@@ -23,6 +29,12 @@ exports[`<CardIcons /> should render correctly 1`] = `
     <Icon
       icon={<Memo />}
     />
+    <Memo(Text)
+      color="darker"
+      size="xsmall"
+    >
+      Bluetooth
+    </Memo(Text)>
     <Memo(Text)
       color="dark"
       size="xsmall"
@@ -37,6 +49,12 @@ exports[`<CardIcons /> should render correctly 1`] = `
       icon={<Memo />}
     />
     <Memo(Text)
+      color="darker"
+      size="xsmall"
+    >
+      Navigation
+    </Memo(Text)>
+    <Memo(Text)
       color="dark"
       size="xsmall"
     >
@@ -49,6 +67,12 @@ exports[`<CardIcons /> should render correctly 1`] = `
     <Icon
       icon={<Memo />}
     />
+    <Memo(Text)
+      color="darker"
+      size="xsmall"
+    >
+      Sensors
+    </Memo(Text)>
     <Memo(Text)
       color="dark"
       size="xsmall"
@@ -70,6 +94,12 @@ exports[`<CardIcons /> should render no more than 4 icons 1`] = `
       icon={<Memo />}
     />
     <Memo(Text)
+      color="darker"
+      size="xsmall"
+    >
+      Aircon
+    </Memo(Text)>
+    <Memo(Text)
       color="dark"
       size="xsmall"
     >
@@ -82,6 +112,12 @@ exports[`<CardIcons /> should render no more than 4 icons 1`] = `
     <Icon
       icon={<Memo />}
     />
+    <Memo(Text)
+      color="darker"
+      size="xsmall"
+    >
+      Bluetooth
+    </Memo(Text)>
     <Memo(Text)
       color="dark"
       size="xsmall"
@@ -96,6 +132,12 @@ exports[`<CardIcons /> should render no more than 4 icons 1`] = `
       icon={<Memo />}
     />
     <Memo(Text)
+      color="darker"
+      size="xsmall"
+    >
+      Navigation
+    </Memo(Text)>
+    <Memo(Text)
       color="dark"
       size="xsmall"
     >
@@ -108,6 +150,12 @@ exports[`<CardIcons /> should render no more than 4 icons 1`] = `
     <Icon
       icon={<Memo />}
     />
+    <Memo(Text)
+      color="darker"
+      size="xsmall"
+    >
+      Sensors
+    </Memo(Text)>
     <Memo(Text)
       color="dark"
       size="xsmall"
