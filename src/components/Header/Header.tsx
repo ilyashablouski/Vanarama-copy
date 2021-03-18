@@ -15,11 +15,14 @@ import HeaderMenu from './HeaderMenu';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
 import {
+  addHeapUserIdentity,
+  addHeapUserProperties,
+} from '../../utils/addHeapProperties';
+import {
   GetPerson_getPerson as Person,
   GetPerson,
 } from '../../../generated/GetPerson';
 import useMediaQuery from '../../hooks/useMediaQuery';
-import { addHeapUserIdentity, addHeapUserProperties } from 'utils/addHeapProperties';
 
 const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
   ssr: false,
@@ -103,11 +106,11 @@ export const Header: FC<IHeaderProps> = memo(props => {
       });
     }
     if (person) {
-      addHeapUserIdentity(person.emailAddresses[0].value)
+      addHeapUserIdentity(person.emailAddresses[0].value);
       addHeapUserProperties({
         uuid: person.uuid,
-        bcuid: Cookies.get('BCSessionID') || 'undefined'
-      })
+        bcuid: Cookies.get('BCSessionID') || 'undefined',
+      });
     }
     if (!ordersLength) {
       localForage.getItem('ordersLength').then(value => {

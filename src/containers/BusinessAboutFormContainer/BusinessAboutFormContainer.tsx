@@ -1,5 +1,5 @@
 import Cookies from 'js-cookie';
-import React, { useEffect, useMemo } from 'react';
+import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
 import BusinessAboutForm from '../../components/BusinessAboutForm/BusinessAboutForm';
@@ -16,6 +16,10 @@ import { SaveBusinessAboutYou } from '../../../generated/SaveBusinessAboutYou';
 import { responseToInitialFormValues, mapAboutPersonData } from './mappers';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
 import {
+  addHeapUserIdentity,
+  addHeapUserProperties,
+} from '../../utils/addHeapProperties';
+import {
   CreditApplicationTypeEnum as CATypeEnum,
   LeaseTypeEnum,
 } from '../../../generated/globalTypes';
@@ -28,7 +32,6 @@ import Skeleton from '../../components/Skeleton';
 import { useCreateUpdateOrder } from '../../gql/order';
 import useGetOrder from '../../hooks/useGetOrder';
 import { createEmailErrorMessage } from '../../components/AboutForm/mapEmailErrorMessage';
-import { addHeapUserIdentity, addHeapUserProperties } from 'utils/addHeapProperties';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -130,11 +133,11 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     values: IBusinessAboutFormValues,
     data?: IRegistrationResult | null,
   ) => {
-    addHeapUserIdentity(values.email)
+    addHeapUserIdentity(values.email);
     addHeapUserProperties({
       uuid: data?.emailAddress?.uuid,
-      bcuid: Cookies.get('BCSessionID') || 'undefined'
-    })
+      bcuid: Cookies.get('BCSessionID') || 'undefined',
+    });
     return saveDetails({
       variables: {
         input: {
