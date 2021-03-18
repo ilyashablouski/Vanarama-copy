@@ -55,7 +55,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
 
   const primaryBankAccount = useMemo(
     () =>
-      (creditApplication?.bankAccounts || []).lenght > 0
+      (creditApplication?.bankAccounts || []).length > 0
         ? mapDefaultValues(creditApplication)
         : undefined,
     [creditApplication],
