@@ -60,6 +60,10 @@
         {
           "name": "REVALIDATE_INTERVAL",
           "valueFrom": "%SSM_PARAMETER_BASE%/revalidate-interval"
+        },
+        {
+          "name": "HEAP_ID",
+          "valueFrom": "%SSM_PARAMETER_BASE%/heap-id"
         }
       ],
       "environment": [

@@ -48,7 +48,9 @@ export const validationSchema = Yup.object().shape(
       }),
     adultsInHousehold: Yup.string().required('Please enter a number of adults'),
     dependants: Yup.string().required('Please enter a number of dependants'),
-    occupation: Yup.string().required('Please select your occupation'),
+    occupation: Yup.string().required(
+      'Please search for your job title & select from the list',
+    ),
     history: Yup.array().of(
       Yup.object().shape({
         address: Yup.object().required('Please enter your address'),
