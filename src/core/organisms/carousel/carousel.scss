@@ -137,6 +137,19 @@ $carousel-arrow-size: 1.5rem;
     }
   }
 
+  &.about-us {
+    .card {
+      max-height: unset !important;
+      grid-template-rows: auto;
+    }
+    @include mobile {
+      ul,
+      li {
+        min-height: 366px !important;
+      }
+    }
+  }  
+
   .card {
     .title {
       .link {

@@ -191,7 +191,7 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, data }) => {
         >
           <div className="-pb-400">
             {sections?.carousel?.cards && (
-              <Carousel countItems={1} className="-mh-auto">
+              <Carousel countItems={1} className="-mh-auto about-us">
                 {renderCarouselCards(sections?.carousel.cards)}
               </Carousel>
             )}
