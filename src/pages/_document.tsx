@@ -63,7 +63,7 @@ class MyDocument extends Document {
               <GTMBody />
             </>
           )}
-          {scriptEnvs.heap.includes(env) && <HeapScript />}
+          {scriptEnvs.heap.includes(env) && <HeapScript heapID={process.env.HEAP_ID} />}
         </body>
       </Html>
     );
