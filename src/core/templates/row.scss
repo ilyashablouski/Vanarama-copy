@@ -1631,6 +1631,12 @@
           }
         }
       }
+      .-v-align-icon {
+        .icon {
+          position: relative;
+          top: 4px;
+        }
+      }
     }
   }
 

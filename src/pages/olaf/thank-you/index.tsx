@@ -87,13 +87,15 @@ const ThankYouPage: NextPage = () => {
           <Heading color="black" tag="h1" size="xlarge">
             Great News...
           </Heading>
-          <Text color="black" size="large">
+          <Text color="black" size="large" className="-v-align-icon">
             <Icon icon={<CheckmarkCircleSharp />} color="success" />
             We&apos;ve Received Your Order
           </Text>
           <Text color="darker" tag="p">
             As soon as your application has been approved with the finance
             company, we&apos;ll reserve your vehicle and process your order.
+          </Text>
+          <Text color="orange" tag="p">
             We&apos;ll be in touch within 24 business hours.
           </Text>
           <Heading color="black" tag="h2" size="lead">
@@ -110,6 +112,10 @@ const ThankYouPage: NextPage = () => {
               01442 838 195
             </a>
             .
+          </Text>
+          <Text color="darker" tag="p">
+            We&apos;ve also sent an order confirmation to your inbox outlining
+            your next steps.
           </Text>
           <Button
             type="button"
