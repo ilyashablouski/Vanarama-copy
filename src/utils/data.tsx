@@ -2,7 +2,7 @@ import clonedeep from 'lodash.clonedeep';
 
 const ENCODED_KEY_PREFIX = '__b64__';
 const KEYS_TO_ENCODE = ['schema'];
-const VALUES_TO_ENCODE = ['body'];
+const VALUES_TO_ENCODE = [] as any;
 
 export function encodeData(data: any) {
   const newData = clonedeep(data);
@@ -38,18 +38,30 @@ export function decodeString(base64Text: any) {
   return Buffer.from(base64Text, 'base64').toString('utf-8');
 }
 
+function isEncodedKey(key: string) {
+  return key.includes(ENCODED_KEY_PREFIX);
+}
+
 function modifyKey({ key, modify }: { key: string; modify: Function }) {
   // Decode key
-  if (key.includes(ENCODED_KEY_PREFIX)) {
-    return modify(key);
+  if (isEncodedKey(key)) {
+    const keyWithoutPrefix = key.split(ENCODED_KEY_PREFIX)[1];
+
+    return modify(keyWithoutPrefix);
   }
 
   // Encode key
-  if (!key.includes(ENCODED_KEY_PREFIX)) {
-    return `${ENCODED_KEY_PREFIX}${modify(key)}`;
+  return `${ENCODED_KEY_PREFIX}${modify(key)}`;
+}
+
+function isKeyIncludedIn(key: string, keysToEncodeOrDecode: String[]) {
+  if (isEncodedKey(key)) {
+    const keyWithoutPrefix = key.split(ENCODED_KEY_PREFIX)[1];
+
+    return keysToEncodeOrDecode.includes(decodeString(keyWithoutPrefix));
   }
 
-  return key;
+  return keysToEncodeOrDecode.includes(key);
 }
 
 export function modifyObjectStringValues({
@@ -60,8 +72,9 @@ export function modifyObjectStringValues({
 }: any) {
   Object.keys(object).forEach(key => {
     // Encode and decode object keys that we don't want to expose to Googlebot
-    if (keysToEncode.includes(key)) {
+    if (isKeyIncludedIn(key, keysToEncode)) {
       const modifiedKey = modifyKey({ key, modify });
+
       // eslint-disable-next-line no-param-reassign
       object[modifiedKey] = object[key];
       // eslint-disable-next-line no-param-reassign
