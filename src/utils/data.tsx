@@ -1,7 +1,7 @@
 import clonedeep from 'lodash.clonedeep';
 
 const ENCODED_KEY_PREFIX = '__b64__';
-const KEYS_TO_ENCODE = ['schema'] as any;
+const KEYS_TO_ENCODE = ['schema'];
 const VALUES_TO_ENCODE = [] as any;
 
 export function encodeData(data: any) {
