@@ -1,7 +1,8 @@
 import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
-import { FOOTER_DATA } from '../../utils/hardcodedData';
 import Skeleton from '../../components/Skeleton';
+// eslint-disable-next-line import/no-unresolved
+const FOOTER_DATA = require('../../deps/data/footerData.json');
 
 const Footer = dynamic(() => import('../../components/Footer'), {
   loading: () => <Skeleton count={9} />,
