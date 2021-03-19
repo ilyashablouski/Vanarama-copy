@@ -15,6 +15,7 @@ test-report.xml
 /out
 /.next
 src/deps/data/menuData.json
+src/deps/data/footerData.json
 
 
 # misc
