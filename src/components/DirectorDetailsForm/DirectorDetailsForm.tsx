@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { Formik } from 'formik';
-import React from 'react';
+import React, { useCallback } from 'react';
 import DirectorFieldArray from './DirectorFieldArray';
 import {
   initialFormValues,
@@ -66,12 +66,35 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
     ? initialEditedFormValues(directors, directorUuid)
     : defaultValues || initialFormValues(officers);
 
+  const combineDirectorsOnSubmit = useCallback<
+    (values: DirectorDetailsFormValues) => Promise<void>
+  >(
+    values => {
+      if (isEdit) {
+        const uuidsOfUpdatedDirectors = values.directors
+          .map(director => director?.uuid)
+          .filter(item => !!item);
+        const directorsToLeave = directors.filter(
+          director => !uuidsOfUpdatedDirectors.includes(director?.uuid),
+        );
+
+        return onSubmit({
+          directors: [...directorsToLeave, ...values.directors],
+          totalPercentage: values.totalPercentage,
+        });
+      }
+
+      return onSubmit(values);
+    },
+    [onSubmit],
+  );
+
   return (
     <Formik<DirectorDetailsFormValues>
       initialValues={initialValues}
       validationSchema={validationSchema}
-      validate={values => validate(values, officers, isEdit, funderId)}
-      onSubmit={onSubmit}
+      validate={values => validate(values, directors, isEdit, funderId)}
+      onSubmit={combineDirectorsOnSubmit}
     >
       {({ handleSubmit, isSubmitting }) => (
         <Form onSubmit={handleSubmit}>
