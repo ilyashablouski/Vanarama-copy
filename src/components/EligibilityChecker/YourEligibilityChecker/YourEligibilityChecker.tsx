@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { useForm, FormContext as FormProvider } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { gql } from '@apollo/client';
 import React, { useState } from 'react';
 import validationSchema from './YourEligibilityChecker.validation';
@@ -159,18 +159,18 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
           Or you can enter your details manually:
         </Text>
       </div>
-      <FormProvider {...methods}>
-        <EligibilityCheckerForm
-          submit={submit}
-          errors={methods.errors}
-          handleSubmit={methods.handleSubmit}
-          register={methods.register}
-          triggerValidation={methods.triggerValidation}
-          watch={methods.watch}
-          formState={methods.formState}
-          control={methods.control}
-        />
-      </FormProvider>
+
+      <EligibilityCheckerForm
+        submit={submit}
+        errors={methods.errors}
+        handleSubmit={methods.handleSubmit}
+        register={methods.register}
+        triggerValidation={methods.triggerValidation}
+        watch={methods.watch}
+        formState={methods.formState}
+        control={methods.control}
+      />
+
       {isModalShowing && (
         <Modal
           className="-mt-000"
