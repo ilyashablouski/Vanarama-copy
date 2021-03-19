@@ -4,16 +4,17 @@ import { useRouter } from 'next/router';
 import { IHeadProps } from './interface';
 import { defaultTitle, twitter, defaultImage, fb } from './defaults';
 import { FONT_LIST, FONT_PATH } from './fonts';
+import { Env } from '../../../generated/globalTypes';
 
-const env = process?.env?.ENV || '';
+const env: any = process?.env?.ENV || '';
 
 // Script environments
 const scriptEnvs = {
   // gtm: ['dev', 'uat', 'pre-prod', 'prod'],
 
-  blueconic: ['uat', 'pre-prod', 'prod'],
+  blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD],
 
-  vwo: ['uat', 'pre-prod', 'prod'],
+  vwo: [Env.UAT, Env.PRE_PROD, Env.PROD],
 };
 
 const PRECONNECT = [
