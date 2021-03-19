@@ -16,10 +16,12 @@ const path = require('path');
 // });
 const config = require('./config/app');
 const generateMenuData = require('./plugins/genMenuData');
+const generateFooterData = require('./plugins/genFooterData');
 
 module.exports = withPlugins(
   [
     [generateMenuData],
+    [generateFooterData],
     // [withFonts],
     [
       withCustomBabelConfig,
