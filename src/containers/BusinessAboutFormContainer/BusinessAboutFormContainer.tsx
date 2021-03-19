@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
@@ -14,6 +15,10 @@ import { IBusinessAboutFormContainerProps, SubmitResult } from './interfaces';
 import { SaveBusinessAboutYou } from '../../../generated/SaveBusinessAboutYou';
 import { responseToInitialFormValues, mapAboutPersonData } from './mappers';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
+import {
+  addHeapUserIdentity,
+  addHeapUserProperties,
+} from '../../utils/addHeapProperties';
 import {
   CreditApplicationTypeEnum as CATypeEnum,
   LeaseTypeEnum,
@@ -64,6 +69,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     orderId,
     () => {},
   );
+
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
     orderId,
   );
@@ -127,6 +133,11 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     values: IBusinessAboutFormValues,
     data?: IRegistrationResult | null,
   ) => {
+    addHeapUserIdentity(values.email);
+    addHeapUserProperties({
+      uuid: data?.emailAddress?.uuid,
+      bcuid: Cookies.get('BCSessionID') || 'undefined',
+    });
     return saveDetails({
       variables: {
         input: {
