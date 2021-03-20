@@ -1,5 +1,6 @@
 import Document, { Html, Main } from 'next/document';
 import dynamic from 'next/dynamic';
+import { HeapScript } from '../components/HeapScript';
 import {
   Script as GTMScript,
   Body as GTMBody,
@@ -8,6 +9,7 @@ import {
 import { VWOScript } from '../components/VWOScript';
 import Inline from '../components/Style/Inline';
 import HeadCustom from '../hacks/headCustom';
+import { Env } from '../../generated/globalTypes';
 
 // @ts-ignore
 const NextScript = dynamic(() =>
@@ -24,15 +26,17 @@ const NextScript = dynamic(() =>
 //   import('../components/SpeedCurveScript').then(mod => mod.SpeedCurveScript),
 // );
 
-const env = process?.env?.ENV || '';
+const env: any = process?.env?.ENV || '';
 
 // Script environments
 const scriptEnvs = {
-  gtm: ['uat', 'pre-prod', 'prod'],
+  gtm: [Env.UAT, Env.PRE_PROD, Env.PROD],
 
-  blueconic: ['uat', 'pre-prod', 'prod'],
+  blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD],
 
-  vwo: ['uat', 'pre-prod', 'prod'],
+  vwo: [Env.UAT, Env.PRE_PROD, Env.PROD],
+
+  heap: [Env.DEV, Env.UAT, Env.PRE_PROD, Env.PROD],
 };
 
 class MyDocument extends Document {
@@ -58,6 +62,9 @@ class MyDocument extends Document {
               <GTMScript />
               <GTMBody />
             </>
+          )}
+          {scriptEnvs.heap.includes(env) && (
+            <HeapScript heapID={process.env.HEAP_ID} />
           )}
         </body>
       </Html>

@@ -541,6 +541,13 @@ export interface VehicleToCompare {
   vehicleType?: VehicleTypeEnum | null;
 }
 
+export enum Env {
+  DEV="dev",
+  UAT="uat",
+  PRE_PROD="pre-prod",
+  PROD="prod"
+}
+
 //==============================================================
 // END Enums and Input Objects
 //==============================================================

@@ -16,6 +16,7 @@ export const features = (
         color="dark"
       />
     ) : null,
+    name: info.name,
     label: info.value,
     index: `${capId}_${info.name}`,
   }));

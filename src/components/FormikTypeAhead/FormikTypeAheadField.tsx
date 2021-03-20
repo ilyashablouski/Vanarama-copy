@@ -32,9 +32,19 @@ const FormikTypeAheadField: React.FC<IProps> = ({
     if (data.method === 'enter') {
       event.preventDefault();
     }
-
     // set formik field value
     helpers.setValue(data.suggestionValue);
+  }
+
+  function handleRenderSuggestion(result: string) {
+    if (!result) {
+      return (
+        <span className="text -small">
+          We can&apos;t find that - please give it another try
+        </span>
+      );
+    }
+    return <span className="text -small">{result}</span>;
   }
 
   return (
@@ -52,9 +62,7 @@ const FormikTypeAheadField: React.FC<IProps> = ({
           setSearchValue(nextValue)
         }
         onSuggestionSelected={handleSuggestionSelected}
-        renderSuggestion={result => (
-          <span className="text -small">{result}</span>
-        )}
+        renderSuggestion={handleRenderSuggestion}
         suggestions={suggestions}
       />
     </Formgroup>

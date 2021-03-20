@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable import/no-cycle */
+import Cookies from 'js-cookie';
 import React, { FC, memo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -13,6 +14,10 @@ import Icon from 'core/atoms/icon';
 import HeaderMenu from './HeaderMenu';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
+import {
+  addHeapUserIdentity,
+  addHeapUserProperties,
+} from '../../utils/addHeapProperties';
 import {
   GetPerson_getPerson as Person,
   GetPerson,
@@ -98,6 +103,13 @@ export const Header: FC<IHeaderProps> = memo(props => {
       localForage.getItem('person').then(value => {
         if ((value as GetPerson)?.getPerson)
           setPerson((value as GetPerson)?.getPerson as Person);
+      });
+    }
+    if (person) {
+      addHeapUserIdentity(person.emailAddresses[0].value);
+      addHeapUserProperties({
+        uuid: person.uuid,
+        bcuid: Cookies.get('BCSessionID') || 'undefined',
       });
     }
     if (!ordersLength) {

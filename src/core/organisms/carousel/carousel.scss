@@ -137,10 +137,47 @@ $carousel-arrow-size: 1.5rem;
     }
   }
 
+  &.about-us {
+    .card {
+      max-height: unset !important;
+      grid-template-rows: auto;
+    }
+    @include mobile {
+      ul,
+      li {
+        min-height: 366px;
+      }
+    }
+  }  
+
   .card {
     .title {
       .link {
         white-space: normal;
+      }
+    }
+  }
+
+  &.-product {
+    .card {
+      grid-template-rows: auto;
+      max-height: unset !important;
+      > div {
+        &.features {
+          padding-bottom: 115px;
+        }
+        &.-flex-h,
+        &.card-footer {
+          position: absolute;
+          left: 0;
+          right: 0;          
+        }
+        &.-flex-h {
+          bottom: 61px;
+        }
+        &.card-footer {
+          bottom: 0;
+        }
       }
     }
   }

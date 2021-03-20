@@ -113,7 +113,11 @@ describe('<SoleTraderDetailsForm />', () => {
     expect(
       screen.getByText('Please enter a number of dependants'),
     ).toBeVisible();
-    expect(screen.getByText('Please select your occupation')).toBeVisible();
+    expect(
+      screen.getByText(
+        'Please search for your job title & select from the list',
+      ),
+    ).toBeVisible();
     expect(screen.getByText('Please enter your address')).toBeVisible();
     expect(
       screen.getByText('Please select your property status'),

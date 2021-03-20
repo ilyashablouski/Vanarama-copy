@@ -55,7 +55,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   };
 
   return (
-    <Carousel className="-mh-auto" countItems={countItems || 6}>
+    <Carousel className="-product -mh-auto" countItems={countItems || 6}>
       {data.productCard?.map(
         (product, inx) =>
           product && (
