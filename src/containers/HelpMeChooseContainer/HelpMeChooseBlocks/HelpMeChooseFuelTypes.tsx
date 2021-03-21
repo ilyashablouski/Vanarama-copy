@@ -14,8 +14,8 @@ const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
   const {
     setSteps,
     steps,
-    getProductVehicleList,
-    productVehicleListData,
+    getHelpMeChoose,
+    helpMeChooseData,
     setLoadingStatus,
   } = props;
   const router = useRouter();
@@ -24,8 +24,8 @@ const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
   );
 
   const fuelTypesData = getSectionsData(
-    ['productVehicleList', 'aggs', 'fuelType'],
-    productVehicleListData?.data,
+    ['helpMeChoose', 'aggregation', 'fuelType'],
+    helpMeChooseData?.data,
   );
 
   const getNextSteps = (searchParams: URLSearchParams) => {
@@ -66,6 +66,7 @@ const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
           title: steps.transmissions.title,
         },
       },
+      isEdit: null as string | null,
     };
     const searchParamsValue = searchParams
       .getAll('fuelTypes')[0]
@@ -82,6 +83,8 @@ const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
       )
     ) {
       nextSteps.step = nextSteps.query;
+    } else {
+      nextSteps.isEdit = searchParams.get('isEdit');
     }
     return nextSteps;
   };
@@ -95,15 +98,13 @@ const HelpMeChooseFuelTypes: FC<HelpMeChooseStep> = props => {
         setLoadingStatus(true);
         const searchParams = new URLSearchParams(window.location.search);
         const nextSteps = getNextSteps(searchParams);
-        getProductVehicleList({
+        getHelpMeChoose({
           variables: {
-            filter: {
-              ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
-            },
+            ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
           },
         });
         setSteps(nextSteps.step);
-        onReplace(router, nextSteps.step);
+        onReplace(router, nextSteps.step, '', nextSteps.isEdit);
       }}
       multiSelect
       currentValue={fuelTypesValue}

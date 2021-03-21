@@ -1,4 +1,5 @@
-import React, { Dispatch, SetStateAction, useEffect } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import ProgressIndicator from 'core/molecules/progress-indicator';
 import Step from 'core/molecules/progress-indicator/Step';
@@ -14,18 +15,19 @@ import { scrollingSteps } from '../ConsumerProgressIndicator/helpers';
 interface IProps {
   steps: IInitStep;
   setSteps: (step: IInitStep) => void;
-  getProductVehicleList: any;
+  getHelpMeChoose: any;
   setLoadingStatus: Dispatch<SetStateAction<boolean>>;
 }
 
 const ContextualProgressIndicator: React.FC<IProps> = ({
   setSteps,
   steps,
-  getProductVehicleList,
+  getHelpMeChoose,
   setLoadingStatus,
 }) => {
   const router = useRouter();
   const isMobile = useMobileViewport();
+  const [cachedLastStep, setCachedLastStep] = useState(0);
 
   const progressSteps = [
     {
@@ -78,22 +80,27 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
     },
   ];
 
+  const latestStep = cachedLastStep;
+
   // Work out the current step based on the URL
   const currentStep = progressSteps.find(x => x.active);
-  // If the querystring contains `redirect=summary` then the current step is being edited
-  const editingStep = router.query.isEdit
-    ? progressSteps.find(x => x.key === router.query.isEdit)
-    : 0;
+  // If the querystring contains `isEdit` then the current step is being edited
+  const editingStep = router.query.isEdit ? currentStep?.step : 0;
   // If the current step is being edited then mark the summary step as the active step
   const activeStep: number = editingStep
-    ? progressSteps.find(x => x.active)?.step || 1
-    : currentStep?.step || 1;
+    ? progressSteps[progressSteps.length - 1]?.step || 1
+    : latestStep || 1;
+
+  useEffect(() => {
+    if (currentStep!.step > latestStep) {
+      setCachedLastStep(currentStep!.step);
+    }
+  }, [currentStep]);
 
   useEffect(() => {
     if (isMobile && !!document) {
       scrollingSteps(currentStep?.step || 0);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isMobile]);
 
   return (
@@ -128,23 +135,21 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
                           },
                         }
                       : { [currentStep?.key || '']: { active: false } };
-                  getProductVehicleList({
+                  getHelpMeChoose({
                     variables: {
-                      filter: {
-                        ...buildAnObjectFromAQuery(
-                          searchParams,
-                          {
-                            ...steps,
-                            [el.key]: {
-                              active: true,
-                              value: router.query[el.key],
-                              title: el.label,
-                            },
-                            ...currentStepObject,
+                      ...buildAnObjectFromAQuery(
+                        searchParams,
+                        {
+                          ...steps,
+                          [el.key]: {
+                            active: true,
+                            value: router.query[el.key],
+                            title: el.label,
                           },
-                          el.step,
-                        ),
-                      },
+                          ...currentStepObject,
+                        },
+                        el.step,
+                      ),
                     },
                   });
                   setSteps({
@@ -159,7 +164,12 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
                     },
                     ...currentStepObject,
                   });
-                  onReplace(router, { ...steps }, '', el.key);
+                  onReplace(
+                    router,
+                    { ...steps },
+                    '',
+                    activeStep === 8 ? el.key : undefined,
+                  );
                 }
               }}
               label={el.label}

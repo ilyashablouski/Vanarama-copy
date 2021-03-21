@@ -14,8 +14,8 @@ const HelpMeChooseTerms: FC<HelpMeChooseStep> = props => {
   const {
     setSteps,
     steps,
-    getProductVehicleList,
-    productVehicleListData,
+    getHelpMeChoose,
+    helpMeChooseData,
     setLoadingStatus,
   } = props;
   const router = useRouter();
@@ -24,8 +24,8 @@ const HelpMeChooseTerms: FC<HelpMeChooseStep> = props => {
   );
 
   const termsData = getSectionsData(
-    ['productVehicleList', 'aggs', 'term'],
-    productVehicleListData?.data,
+    ['helpMeChoose', 'aggregation', 'term'],
+    helpMeChooseData?.data,
   );
 
   const getNextSteps = (searchParams: URLSearchParams) => {
@@ -71,9 +71,12 @@ const HelpMeChooseTerms: FC<HelpMeChooseStep> = props => {
           title: steps.initialPeriods.title,
         },
       },
+      isEdit: null as string | null,
     };
     if (searchParams.getAll('terms')[0] !== termsValue[0]) {
       nextSteps.step = nextSteps.query;
+    } else {
+      nextSteps.isEdit = searchParams.get('isEdit');
     }
     return nextSteps;
   };
@@ -81,21 +84,25 @@ const HelpMeChooseTerms: FC<HelpMeChooseStep> = props => {
   return (
     <HelpMeChooseContainer
       title="How Often Do You Want To Change Your Vehicle?"
-      choicesValues={getBuckets(termsData, termsValue, 'terms')}
+      choicesValues={getBuckets(
+        termsData
+          .slice()
+          .sort((a: any, b: any) => (+a.key || 0) - (+b.key || 0)),
+        termsValue,
+        'terms',
+      )}
       setChoice={setTermsValue}
       onClickContinue={() => {
         setLoadingStatus(true);
         const searchParams = new URLSearchParams(window.location.search);
         const nextSteps = getNextSteps(searchParams);
-        getProductVehicleList({
+        getHelpMeChoose({
           variables: {
-            filter: {
-              ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
-            },
+            ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
           },
         });
         setSteps(nextSteps.step);
-        onReplace(router, nextSteps.step);
+        onReplace(router, nextSteps.step, '', nextSteps.isEdit);
       }}
       currentValue={termsValue}
       clearMultiSelectTitle="I Don't Mind"

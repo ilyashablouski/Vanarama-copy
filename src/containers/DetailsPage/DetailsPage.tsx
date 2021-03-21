@@ -113,6 +113,7 @@ interface IDetailsPageProps {
   trimList: ITrimList[];
   colourList: IColourList[];
   productCard: GetProductCard | null;
+  leaseTypeQuery?: string | null;
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -129,13 +130,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   trimList,
   colourList,
   productCard,
+  leaseTypeQuery,
 }) => {
   const router = useRouter();
   const pdpContent = React.useRef<HTMLDivElement>(null);
   const leaseScanner = React.useRef<HTMLDivElement>(null);
   // pass cars prop(Boolean)
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(cars);
-  const [leaseType, setLeaseType] = useState<string>(cachedLeaseType);
+  const [leaseType, setLeaseType] = useState<string>(
+    leaseTypeQuery ?? cachedLeaseType,
+  );
   const [leadTime, setLeadTime] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(

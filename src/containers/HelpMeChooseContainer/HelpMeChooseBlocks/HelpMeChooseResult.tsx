@@ -14,6 +14,8 @@ import Choiceboxes from 'core/atoms/choiceboxes';
 import Price from 'core/atoms/price';
 import Button from 'core/atoms/button';
 import ProductCard from 'core/molecules/cards/ProductCard/ProductCard';
+import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
+import { HELP_ME_CHOOSE } from '../../../gql/help-me-choose';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import {
@@ -27,7 +29,7 @@ import { useModelImages } from '../../SearchPageContainer/gql';
 import { CompareContext } from '../../../utils/comparatorTool';
 import { isCompared } from '../../../utils/comparatorHelpers';
 import RouterLink from '../../../components/RouterLink/RouterLink';
-import { ProductVehicleList_productVehicleList_edges as Edges } from '../../../../generated/ProductVehicleList';
+import { HelpMeChoose_helpMeChoose_vehicles as Vehicles } from '../../../../generated/HelpMeChoose';
 
 const RENTAL_DATA = [
   {
@@ -55,8 +57,8 @@ const RENTAL_DATA = [
 interface IHelpMeChooseResult extends HelpMeChooseStep {
   setCounterState: Dispatch<SetStateAction<number>>;
   counterState: number;
-  resultsData: Edges[];
-  setResultsData: Dispatch<SetStateAction<Edges[]>>;
+  resultsData: Vehicles[];
+  setResultsData: Dispatch<SetStateAction<Vehicles[]>>;
   setPageOffset: Dispatch<SetStateAction<number>>;
 }
 
@@ -66,8 +68,8 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
   const {
     setSteps,
     steps,
-    getProductVehicleList,
-    productVehicleListData,
+    getHelpMeChoose,
+    helpMeChooseData,
     setLoadingStatus,
     counterState,
     setCounterState,
@@ -75,20 +77,22 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
     setResultsData,
     setPageOffset,
   } = props;
+  const getProducts = useImperativeQuery(HELP_ME_CHOOSE);
 
   useEffect(() => {
-    const resultsDataArray: Edges[] = getSectionsData(
-      ['productVehicleList', 'edges'],
-      productVehicleListData?.data,
+    const resultsDataArray: Vehicles[] = getSectionsData(
+      ['helpMeChoose', 'vehicles'],
+      helpMeChooseData?.data,
     );
     setResultsData(resultsDataArray);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const stateVAT =
     (steps?.financeTypes?.value as any) === 'PCH' ? 'inc' : 'exc';
   const rentalData: [{ key: string }] = getSectionsData(
-    ['productVehicleList', 'aggs', 'rental'],
-    productVehicleListData?.data,
+    ['helpMeChoose', 'aggregation', 'rental'],
+    helpMeChooseData?.data,
   );
   const minRental = rentalData?.reduce((prev, curr) =>
     parseFloat(prev.key) < parseFloat(curr.key) ? prev : curr,
@@ -103,17 +107,13 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
           : curr,
       ).value;
   const vehiclesResultNumber = getSectionsData(
-    ['productVehicleList', 'totalVehicles'],
-    productVehicleListData?.data,
-  );
-  const nodesCount = getSectionsData(
-    ['productVehicleList', 'nodesCount'],
-    productVehicleListData?.data,
+    ['helpMeChoose', 'aggregation', 'totalVehicles'],
+    helpMeChooseData?.data,
   );
 
-  const capIds: string[] = resultsData?.map(
-    el => el.node?.derivativeId || '',
-  ) || [''];
+  const capIds: string[] = resultsData?.map(el => el.derivativeId || '') || [
+    '',
+  ];
   const { data: imageData } = useModelImages(capIds, !capIds.length);
 
   const [rental, setRental] = useState<number>(
@@ -169,15 +169,9 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
       },
     };
     setSteps(newStep);
-    getProductVehicleList({
+    getHelpMeChoose({
       variables: {
-        filter: {
-          ...buildAnObjectFromAQuery(searchParams, steps),
-          rental: {
-            max: rentalValue,
-          },
-          initialPeriods: [+initialPeriodValue],
-        },
+        ...buildAnObjectFromAQuery(searchParams, newStep),
       },
     });
     onReplace(router, newStep);
@@ -187,11 +181,9 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
     setLoadingStatus(true);
     const searchParams = new URLSearchParams();
     setSteps(initialSteps);
-    getProductVehicleList({
+    getHelpMeChoose({
       variables: {
-        filter: {
-          ...buildAnObjectFromAQuery(searchParams, steps),
-        },
+        ...buildAnObjectFromAQuery(searchParams, steps),
       },
     });
     onReplace(router, { ...initialSteps });
@@ -199,18 +191,17 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
 
   const loadMoreResults = () => {
     setCounterState(counterState + 1);
-    setLoadingStatus(true);
     const searchParams = new URLSearchParams();
-    getProductVehicleList({
-      variables: {
-        filter: {
-          ...buildAnObjectFromAQuery(searchParams, steps, undefined, {
-            after: 0,
-            size: 12 * (counterState + 1),
-          }),
-        },
-      },
-    });
+    getProducts({
+      ...buildAnObjectFromAQuery(searchParams, steps, undefined, {
+        size: 12 * counterState,
+      }),
+    }).then(result =>
+      setResultsData(prevState => [
+        ...prevState,
+        ...result.data?.helpMeChoose.vehicles,
+      ]),
+    );
     setPageOffset(window.pageYOffset);
   };
 
@@ -261,109 +252,113 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
         </Heading>
         <div className="stepped-form--results">
           {!!resultsData?.length &&
-            resultsData
-              ?.slice()
-              .sort(
-                (a: any, b: any) => a.node?.availability - b.node?.availability,
-              )
-              .map((el: Edges, id: number) => (
-                <div key={`${el.node?.derivativeId || 0 + id}`}>
-                  <ProductCard
-                    className="-compact"
-                    inline
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    imageSrc={
-                      imageData?.vehicleImages?.find(
-                        x =>
-                          x?.capId ===
-                          parseInt(el.node?.derivativeId || '', 10),
-                      )?.mainImageUrl ||
-                      `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                    }
-                    onCompare={() => {
-                      compareChange(
-                        formatForCompare(
-                          el.node,
-                          steps.financeTypes.value as any,
-                          imageData?.vehicleImages?.find(
-                            x =>
-                              x?.capId ===
-                              parseInt(el.node?.derivativeId || '', 10),
-                          )?.mainImageUrl || '',
-                        ),
-                      );
-                    }}
-                    compared={isCompared(
-                      compareVehicles,
+            resultsData?.slice().map((el: Vehicles, id: number) => (
+              <div key={`${el.derivativeId || 0 + id}`}>
+                <ProductCard
+                  className="-compact"
+                  inline
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  imageSrc={
+                    imageData?.vehicleImages?.find(
+                      x => x?.capId === parseInt(el.derivativeId || '', 10),
+                    )?.mainImageUrl ||
+                    `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+                  }
+                  onCompare={() => {
+                    compareChange(
                       formatForCompare(
-                        el.node,
+                        el,
                         steps.financeTypes.value as any,
                         imageData?.vehicleImages?.find(
-                          x =>
-                            x?.capId ===
-                            parseInt(el.node?.derivativeId || '', 10),
+                          x => x?.capId === parseInt(el.derivativeId || '', 10),
                         )?.mainImageUrl || '',
                       ),
-                    )}
-                    onWishlist={() => true}
-                    title={{
-                      title: '',
-                      link: (
-                        <RouterLink
-                          link={{
-                            href: el.node?.lqUrl || el.node?.url || '',
-                            label: '',
-                          }}
-                          className="heading"
-                          classNames={{ size: 'large', color: 'black' }}
-                        >
-                          <Heading tag="span" size="large" className="-pb-100">
-                            {truncateString(
-                              `${el.node?.manufacturerName} ${el.node?.modelName}`,
-                            )}
-                          </Heading>
-                          <Heading tag="span" size="small" color="dark">
-                            {el.node?.derivativeName || ''}
-                          </Heading>
-                        </RouterLink>
-                      ),
-                    }}
-                  >
-                    <div className="-flex-h">
-                      <Price
-                        price={el.node?.rental}
-                        size="large"
-                        separator="."
-                        priceDescription={`Per Month ${
-                          (steps.financeTypes.value as any) === 'PCH'
-                            ? 'Inc.VAT'
-                            : 'Exc.VAT'
-                        }`}
-                      />
+                    );
+                  }}
+                  compared={isCompared(
+                    compareVehicles,
+                    formatForCompare(
+                      el,
+                      steps.financeTypes.value as any,
+                      imageData?.vehicleImages?.find(
+                        x => x?.capId === parseInt(el.derivativeId || '', 10),
+                      )?.mainImageUrl || '',
+                    ),
+                  )}
+                  onWishlist={() => true}
+                  title={{
+                    title: '',
+                    link: (
                       <RouterLink
                         link={{
-                          href: el.node?.lqUrl || el.node?.url || '',
-                          label: 'View Offer',
+                          href: el.lqUrl
+                            ? `${el.lqUrl}?leaseType=${steps.financeTypes.value}&mileage=${steps.mileages.value}&term=${steps.terms.value}&upfront=${initialPeriods}`
+                            : el.url || '',
+                          label: '',
+                          query: {
+                            leaseType: steps.financeTypes.value,
+                            mileage: steps.mileages.value,
+                            term: steps.terms.value,
+                            upfront: initialPeriods,
+                          },
                         }}
-                        classNames={{
-                          color: 'teal',
-                          solid: true,
-                          size: 'regular',
-                        }}
-                        className="button"
-                        dataTestId="view-offer"
+                        className="heading"
+                        classNames={{ size: 'large', color: 'black' }}
                       >
-                        <div className="button--inner">View Offer</div>
+                        <Heading tag="span" size="large" className="-pb-100">
+                          {truncateString(
+                            `${el.manufacturerName} ${el.modelName}`,
+                          )}
+                        </Heading>
+                        <Heading tag="span" size="small" color="dark">
+                          {el.derivativeName || ''}
+                        </Heading>
                       </RouterLink>
-                    </div>
-                  </ProductCard>
-                </div>
-              ))}
+                    ),
+                  }}
+                >
+                  <div className="-flex-h">
+                    <Price
+                      price={el.rental}
+                      size="large"
+                      separator="."
+                      priceDescription={`Per Month ${
+                        (steps.financeTypes.value as any) === 'PCH'
+                          ? 'Inc.VAT'
+                          : 'Exc.VAT'
+                      }`}
+                    />
+                    <RouterLink
+                      link={{
+                        href: el.lqUrl
+                          ? `${el.lqUrl}?leaseType=${steps.financeTypes.value}&mileage=${steps.mileages.value}&term=${steps.terms.value}&upfront=${initialPeriods}`
+                          : el.url || '',
+                        label: 'View Offer',
+                        query: {
+                          leaseType: steps.financeTypes.value,
+                          mileage: steps.mileages.value,
+                          term: steps.terms.value,
+                          upfront: initialPeriods,
+                        },
+                      }}
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
+                      }}
+                      className="button"
+                      dataTestId="view-offer"
+                    >
+                      <div className="button--inner">View Offer</div>
+                    </RouterLink>
+                  </div>
+                </ProductCard>
+              </div>
+            ))}
         </div>
         <div className="button-group">
           {!!vehiclesResultNumber &&
             vehiclesResultNumber > 12 &&
-            nodesCount < 48 &&
             !!resultsData?.length &&
             resultsData?.length < vehiclesResultNumber && (
               <div>
