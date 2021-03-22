@@ -171,6 +171,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
             />
           </svg>
         </i>
+        <span />
       </div>
     </div>
   </span>
@@ -763,6 +764,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
             />
           </svg>
         </i>
+        <span />
       </div>
     </div>
   </span>
