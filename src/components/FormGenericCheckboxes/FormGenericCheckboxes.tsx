@@ -33,7 +33,7 @@ export const PrivacyPolicy: React.FC<IGenericCheckboxes> = ({ id }) => {
   const { register } = useFormContext();
   return (
     <CheckBox
-      id={`privacy${id || ''}`}
+      id={`privacyPolicy${id || ''}`}
       dataTestId="aboutPrivacyPolicy"
       name="privacyPolicy"
       label={[

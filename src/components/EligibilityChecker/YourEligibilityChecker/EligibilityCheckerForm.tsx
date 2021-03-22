@@ -5,6 +5,7 @@ import TextInput from 'core/atoms/textinput/';
 import AddressFinder from 'core/molecules/address-finder';
 import { IAddressSuggestion } from 'core/molecules/address-finder/interfaces';
 import React, { FC, useState } from 'react';
+import CheckBox from 'core/atoms/checkbox';
 import { genMonths, genYears, genDays } from '../../../utils/helpers';
 import { IFormProps } from './interface';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
@@ -25,10 +26,6 @@ const FormGroup = dynamic(() => import('core/molecules/formgroup'), {
 });
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
-});
-
-const CheckBox = dynamic(() => import('core/atoms/checkbox'), {
-  loading: () => <Skeleton count={5} />,
 });
 
 const EligibilityCheckerForm: FC<IFormProps> = ({
@@ -164,14 +161,15 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
         />
       </FormGroup>
       <FormGroup
+        label="Please Confirm"
         error={
           errors?.termsAndCons?.message?.toString() ||
           errors?.privacyPolicy?.message?.toString()
         }
       >
         <CheckBox
-          id="register-form-terms"
-          dataTestId="aboutTermsAndCons"
+          id="termsAndCons"
+          dataTestId="eligibilityTermsAndCons"
           name="termsAndCons"
           label={[
             'I agree to the ',
@@ -187,8 +185,8 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
           ref={register}
         />
         <CheckBox
-          id="register-form-privacy-policy"
-          dataTestId="aboutPrivacyPolicy"
+          id="privacyPolicy"
+          dataTestId="eligibilityPrivacyPolicy"
           name="privacyPolicy"
           label={[
             'I have read and understood the ',
@@ -204,10 +202,10 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
           ref={register}
         />
         <CheckBox
-          id="register-form-consent"
-          dataTestId="aboutConsent"
+          id="consent"
+          dataTestId="eligibilityCheckoutConsent"
           name="consent"
-          label="Keep me updated on the latest deals & offers"
+          label="I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions."
           ref={register}
         />
       </FormGroup>
