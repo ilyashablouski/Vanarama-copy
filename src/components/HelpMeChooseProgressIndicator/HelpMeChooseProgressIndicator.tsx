@@ -1,5 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useCallback,
+  useEffect,
+  useState,
+} from 'react';
 import { useRouter } from 'next/router';
 import ProgressIndicator from 'core/molecules/progress-indicator';
 import Step from 'core/molecules/progress-indicator/Step';
@@ -28,6 +34,7 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
   const router = useRouter();
   const isMobile = useMobileViewport();
   const [cachedLastStep, setCachedLastStep] = useState(0);
+  const [isClickBack, setClickBack] = useState(false);
 
   const progressSteps = [
     {
@@ -93,9 +100,24 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
 
   useEffect(() => {
     if (currentStep!.step > latestStep) {
+      setClickBack(false);
+      setCachedLastStep(currentStep!.step);
+    }
+    if (isClickBack) {
       setCachedLastStep(currentStep!.step);
     }
   }, [currentStep]);
+
+  const getBackData = useCallback(() => {
+    setClickBack(true);
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('popstate', getBackData);
+    return () => {
+      window.removeEventListener('popstate', getBackData);
+    };
+  }, [getBackData]);
 
   useEffect(() => {
     if (isMobile && !!document) {
