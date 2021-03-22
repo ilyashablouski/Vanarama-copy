@@ -25,7 +25,6 @@ export interface HelpMeChoose_helpMeChoose_vehicles {
   availability: number | null;
   derivativeId: string | null;
   derivativeName: string | null;
-  availabilityMessage: string | null;
   onOffer: boolean | null;
   lqUrl: string | null;
   url: string | null;
