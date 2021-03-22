@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 import { IHeadProps } from './interface';
 import { defaultTitle, twitter, defaultImage, fb } from './defaults';
 import { FONT_LIST, FONT_PATH } from './fonts';
-import { Env } from '../../../generated/globalTypes';
+import { Env } from '../../pages/_document';
 
 const env: any = process?.env?.ENV || '';
 

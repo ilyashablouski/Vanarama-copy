@@ -27,7 +27,7 @@ const NextScript = dynamic(() =>
 
 const env: any = process?.env?.ENV || '';
 
-enum Env {
+export enum Env {
   DEV = 'dev',
   UAT = 'uat',
   PRE_PROD = 'pre-prod',
