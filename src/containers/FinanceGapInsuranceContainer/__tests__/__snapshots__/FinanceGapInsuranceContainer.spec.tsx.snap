@@ -705,14 +705,14 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                 <input
                   class="checkbox--native"
                   data-testid="aboutPrivacyPolicy"
-                  id="privacy"
+                  id="privacyPolicy"
                   name="privacyPolicy"
                   type="checkbox"
                   value=""
                 />
                 <label
                   class="checkbox--label"
-                  for="privacy"
+                  for="privacyPolicy"
                 >
                   <span
                     class="text -regular -darker"

@@ -224,14 +224,14 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                         <input
                           class="checkbox--native"
                           data-testid="aboutPrivacyPolicy"
-                          id="privacyregister-form-privacy-policy"
+                          id="privacyPolicyregister-form-privacy-policy"
                           name="privacyPolicy"
                           type="checkbox"
                           value=""
                         />
                         <label
                           class="checkbox--label"
-                          for="privacyregister-form-privacy-policy"
+                          for="privacyPolicyregister-form-privacy-policy"
                         >
                           <span
                             class="text -regular -darker"

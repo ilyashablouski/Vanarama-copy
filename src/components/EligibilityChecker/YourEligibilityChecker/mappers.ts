@@ -1,9 +1,9 @@
-import { IDrivingLicence, IYourEligiblityCheckerValues } from './interface';
+import { IDrivingLicence } from './interface';
 
 // eslint-disable-next-line import/prefer-default-export
 export const responseBlinkIdToInitialFormValues = (
   drivingLicence: IDrivingLicence,
-): IYourEligiblityCheckerValues => {
+) => {
   const birthData = drivingLicence.birthData
     .split(' ')[0]
     .split('.')

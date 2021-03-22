@@ -18,8 +18,8 @@ export interface IYourEligiblityCheckerValues {
     id?: string;
     label?: string;
   };
-  termsAndCons?: boolean;
-  privacyPolicy?: boolean;
+  termsAndCons: boolean;
+  privacyPolicy: boolean;
   consent?: boolean;
 }
 
