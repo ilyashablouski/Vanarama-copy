@@ -542,6 +542,8 @@ $small: 0.875rem;
 
   &.-inline.-compact {
     .card-header {
+      margin: 1px 0 0 1px;
+      border-top-left-radius: 0.35rem;
       mix-blend-mode: unset;
       position: relative;
       > div {
@@ -561,6 +563,8 @@ $small: 0.875rem;
       }
     }
     .card-image {
+      margin: 1px 0 0 1px;
+      border-top-left-radius: 0.35rem;
       mix-blend-mode: unset;
     }
 
