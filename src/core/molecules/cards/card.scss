@@ -568,6 +568,21 @@ $small: 0.875rem;
       mix-blend-mode: unset;
     }
 
+    @include mobile-tablet {
+      .card.-compact {
+        .card-header {
+          border-top-left-radius: 0.35rem;
+          border-top-right-radius: 0.35rem;
+          margin: 1px 1px 0;
+        }
+
+        .card-image {
+          width: calc(100% - 2px);
+          margin: 0 auto;
+        }
+      }
+    }
+
     @include desktop {
       --img-w: 200px;
       place-self: unset;
