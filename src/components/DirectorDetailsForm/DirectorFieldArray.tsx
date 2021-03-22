@@ -68,11 +68,11 @@ const optionsRender = (
 };
 
 const handleDirectorSelected = (
-  fullname: string,
+  fullName: string,
   arrayHelpers: FieldArrayRenderProps,
   directors?: DirectorFormValues[],
 ) => {
-  const [lastName, firstName] = fullname.split(', ');
+  const [lastName, firstName] = fullName.split(', ');
   const selected = directors?.find(
     director =>
       director.firstName === firstName && director.lastName === lastName,

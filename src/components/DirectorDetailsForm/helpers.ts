@@ -23,9 +23,8 @@ export const initialEditedFormValues = (
       totalPercentage: parseInt(directors[0].shareOfBusiness, 10),
     };
   }
-  const totalPercentage = directors.reduce(
-    (prev, curr) => prev + (parseInt(curr.shareOfBusiness, 10) || 0),
-    0,
+  const totalPercentage = sum(directors, director =>
+    parseInt(director.shareOfBusiness, 10),
   );
 
   if (directorUuid) {
@@ -46,7 +45,7 @@ export const initialEditedFormValues = (
 
 export const validate = (
   values: DirectorDetailsFormValues,
-  officers: DirectorFormValues[],
+  directors: DirectorFormValues[],
   isEdit: boolean,
   funderId?: string | null,
 ): FormikErrors<DirectorDetailsFormValues> => {
@@ -54,10 +53,14 @@ export const validate = (
 
   const totalPercentage = sum(values.directors, _ => Number(_.shareOfBusiness));
 
+  // if (isEdit) {
+  //   const editedDirectorsUuids = values.directors.map();
+  //   // totalPercentage = 0;
+  // }
+
   if (
-    !isEdit &&
     funderId === LEX_FUNDER_ID &&
-    officers.length >= 2 &&
+    directors.length >= 2 &&
     values.directors.length < 2
   ) {
     errors.totalPercentage = NOT_ENOUGH_DIRECTORS_ERROR_MESSAGE;
