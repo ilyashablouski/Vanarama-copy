@@ -9,6 +9,7 @@ import {
 import { VWOScript } from '../components/VWOScript';
 import Inline from '../components/Style/Inline';
 import HeadCustom from '../hacks/headCustom';
+import { Env } from '../utils/env';
 
 // @ts-ignore
 const NextScript = dynamic(() =>
@@ -26,13 +27,6 @@ const NextScript = dynamic(() =>
 // );
 
 const env: any = process?.env?.ENV || '';
-
-export enum Env {
-  DEV = 'dev',
-  UAT = 'uat',
-  PRE_PROD = 'pre-prod',
-  PROD = 'prod',
-}
 
 // Script environments
 const scriptEnvs = {
