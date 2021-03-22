@@ -95,10 +95,10 @@ const ValidationSchema = yup.object().shape<IYourEligiblityCheckerValues>(
       }),
     termsAndCons: yup
       .boolean()
-      .required('The terms and conditions must be accepted'),
+      .oneOf([true], 'The terms and conditions must be accepted'),
     privacyPolicy: yup
       .boolean()
-      .required('The privacy policy must be confirmed'),
+      .oneOf([true], 'The privacy policy must be confirmed'),
     consent: yup.boolean().notRequired(),
   },
   [
