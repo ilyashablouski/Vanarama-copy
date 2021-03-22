@@ -4,7 +4,7 @@ export const HELP_ME_CHOOSE = gql`
   query HelpMeChoose(
     $filter: FilterListObject
     $pagination: PaginationInputObject
-    $sort: SortObject
+    $sort: [SortObject!]
   ) {
     helpMeChoose(filter: $filter, pagination: $pagination, sort: $sort) {
       vehicles {
