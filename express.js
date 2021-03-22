@@ -117,8 +117,8 @@ app
       if (err) throw err;
       console.log(logo);
       console.log(`Ready on http://localhost:${PORT}`.cyan);
-      console.log(`Environment: ${process.env.NODE_ENV.toUpperCase()}`.grey);
-      // console.log(`Environment: ${process.env.ENV.toUpperCase()}`.grey);
+      console.log(`Mode: ${process.env.NODE_ENV.toUpperCase()}`.grey);
+      console.log(`Environment: ${process.env.ENV.toUpperCase()}`.grey);
     });
   })
   .catch(err => {
