@@ -6,7 +6,6 @@ import {
   HttpLink,
 } from '@apollo/client';
 import { RetryLink } from '@apollo/client/link/retry';
-import { Env } from './utils/env';
 
 import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
 
@@ -15,6 +14,7 @@ import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
 import localforage from 'localforage';
+import { Env } from './utils/env';
 
 import { isSessionFinishedCache } from './cache';
 
@@ -135,11 +135,9 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
 });
 
 const errorLink = onError(({ graphQLErrors, networkError }) => {
-  if (
-    [Env.DEV, Env.UAT, Env.PRE_PROD, Env.PROD].includes(process.env.ENV as Env)
-  ) {
+  if ([Env.DEV, Env.UAT].includes(process.env.ENV as Env)) {
     if (graphQLErrors) {
-      graphQLErrors.map(graphQLError => {
+      graphQLErrors.forEach(graphQLError => {
         console.log('[GraphQL error]:');
         console.log(JSON.stringify(graphQLError, null, 4));
       });
