@@ -87,6 +87,10 @@
     display: flex;
   }
 
+  @include mobile {
+    white-space: initial;
+  }
+
   @include colour-selector(-primary, $teal, colour);
   @include colour-selector(-secondary, darker, contrast);
 }
