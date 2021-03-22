@@ -92,4 +92,5 @@ $include-presentation-styles: false !default;
 @import '../organisms/nlol-hero/nlol-hero.scss';
 
 // row is imported last (for overrides)
+@import '../templates/footer.scss';
 @import '../templates/row.scss';
