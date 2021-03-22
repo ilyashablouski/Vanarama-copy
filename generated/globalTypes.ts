@@ -264,6 +264,7 @@ export interface FilterListObject {
   mileages?: number[] | null;
   modelName?: string | null;
   modelSlug?: string | null;
+  offerRanking?: number | null;
   onOffer?: boolean | null;
   rangeName?: string | null;
   rangeSlug?: string | null;
@@ -539,13 +540,6 @@ export interface VehicleProductInputObject {
 export interface VehicleToCompare {
   capId?: number | null;
   vehicleType?: VehicleTypeEnum | null;
-}
-
-export enum Env {
-  DEV="dev",
-  UAT="uat",
-  PRE_PROD="pre-prod",
-  PROD="prod"
 }
 
 //==============================================================

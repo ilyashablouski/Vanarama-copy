@@ -9,7 +9,7 @@ import {
 import { VWOScript } from '../components/VWOScript';
 import Inline from '../components/Style/Inline';
 import HeadCustom from '../hacks/headCustom';
-import { Env } from '../../generated/globalTypes';
+import { Env } from '../utils/env';
 
 // @ts-ignore
 const NextScript = dynamic(() =>
