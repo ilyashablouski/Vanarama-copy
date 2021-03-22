@@ -540,39 +540,57 @@ $small: 0.875rem;
     }
   }
 
-  &.-compact {
-    --img-w: 200px;
-  }
-
-  &.-compact > .card-image {
-    min-height: 160px;
-    height: 160px;
-    min-width: 200px;
-    width: 200px;
-
-    @include mobile {
-      height: calc((100vmin - 2rem) / (3 / 2));
-      width: 100%;
+  &.-inline.-compact {
+    .card-header {
+      margin: 1px 0 0 1px;
+      border-top-left-radius: 0.35rem;
+      mix-blend-mode: unset;
+      position: relative;
+      > div {
+        &:only-child {
+          text-align: center;
+          background: linear-gradient(to top, #a24406 0.5px, #ec6409 0.5px, #ec6409);
+          justify-content: center;
+        }
+      }
+      .icon {
+        font-size: 1.25rem;
+        margin-right: 0.2ch;
+        svg {
+          position: relative;
+          top: -2px;
+        }
+      }
+    }
+    .card-image {
+      margin: 1px 0 0 1px;
+      border-top-left-radius: 0.35rem;
+      mix-blend-mode: unset;
     }
 
-    @include mobile-tablet {
-      height: 200px;
-      width: 100%;
+    @include desktop {
+      --img-w: 200px;
+      place-self: unset;
+      .card-header {
+        width: 200px;
+        grid-area: 1 / 1 / -1 / content;
+        > div {
+          span {
+            display: none;
+          }
+          &:only-child {
+            span {
+              display: inline-block;
+            }
+          }
+        }
+      }
+      .card-image {
+        grid-area: 1 / 1 / -1 / content;
+        min-width: 200px;
+        width: 200px;
+        height: auto;
+      }
     }
-  }
-
-  &.-compact > .title {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  &.-compact > .title * {
-    display: inline;
-  }
-
-  &.-compact > .title :last-child:before {
-    content: '\A';
-    white-space: pre;
   }
 }
