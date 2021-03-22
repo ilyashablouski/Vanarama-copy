@@ -23,7 +23,7 @@ export const HELP_ME_CHOOSE = gql`
         availability
         derivativeId
         derivativeName
-        availability
+        onOffer
         lqUrl
         url
       }
