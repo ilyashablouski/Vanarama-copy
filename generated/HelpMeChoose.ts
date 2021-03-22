@@ -114,5 +114,5 @@ export interface HelpMeChoose {
 export interface HelpMeChooseVariables {
   filter?: FilterListObject | null;
   pagination?: PaginationInputObject | null;
-  sort?: SortObject | null;
+  sort?: SortObject[] | null;
 }

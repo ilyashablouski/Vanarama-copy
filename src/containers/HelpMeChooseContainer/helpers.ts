@@ -284,10 +284,20 @@ export const buildAnObjectFromAQuery = (
       size: 12,
       from: showResults?.size || 0,
     },
-    sort: {
-      field: SortField.availability,
-      direction: SortDirection.ASC,
-    },
+    sort: [
+      {
+        field: SortField.offer_ranking,
+        direction: SortDirection.ASC,
+      },
+      {
+        field: SortField.availability,
+        direction: SortDirection.ASC,
+      },
+      {
+        field: SortField.rental,
+        direction: SortDirection.ASC,
+      },
+    ],
   };
   return variables;
 };

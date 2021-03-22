@@ -6,7 +6,7 @@ import { IHeadProps } from './interface';
 
 import { defaultTitle, twitter, fb } from './defaults';
 import { FONT_LIST, FONT_PATH } from './fonts';
-import { Env } from '../../../generated/globalTypes';
+import { Env } from '../../utils/env';
 
 const env: any = process?.env?.ENV || '';
 
