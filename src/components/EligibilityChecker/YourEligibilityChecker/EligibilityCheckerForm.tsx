@@ -205,7 +205,7 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
           id="consent"
           dataTestId="eligibilityCheckoutConsent"
           name="consent"
-          label="I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions."
+          label="Keep me updated on the latest deals & offers"
           ref={register}
         />
       </FormGroup>
