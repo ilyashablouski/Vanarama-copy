@@ -77,10 +77,6 @@ const HelpMeChoose: NextPage = () => {
     ['helpMeChoose', 'aggregation', 'availability'],
     helpMeChooseData?.data,
   );
-  const resultsDataArray: Vehicles[] = getSectionsData(
-    ['helpMeChoose', 'vehicles'],
-    helpMeChooseData?.data,
-  );
 
   const getData = useCallback(() => {
     const searchParams = new URLSearchParams(window.location.search);
@@ -302,22 +298,20 @@ const HelpMeChoose: NextPage = () => {
               setLoadingStatus={setLoadingStatus}
             />
           )}
-          {steps.rental.active &&
-            steps.initialPeriods.active &&
-            !!resultsDataArray && (
-              <HelpMeChooseResult
-                steps={steps}
-                setSteps={setSteps}
-                getHelpMeChoose={getHelpMeChoose}
-                helpMeChooseData={helpMeChooseData}
-                setLoadingStatus={setLoadingStatus}
-                counterState={counterState}
-                setCounterState={setCounterState}
-                resultsData={resultsData}
-                setResultsData={setResultsData}
-                setPageOffset={setPageOffset}
-              />
-            )}
+          {steps.rental.active && steps.initialPeriods.active && (
+            <HelpMeChooseResult
+              steps={steps}
+              setSteps={setSteps}
+              getHelpMeChoose={getHelpMeChoose}
+              helpMeChooseData={helpMeChooseData}
+              setLoadingStatus={setLoadingStatus}
+              counterState={counterState}
+              setCounterState={setCounterState}
+              resultsData={resultsData}
+              setResultsData={setResultsData}
+              setPageOffset={setPageOffset}
+            />
+          )}
         </>
       )}
       <Head metaData={metaData} featuredImage={null} />

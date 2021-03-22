@@ -86,17 +86,19 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
     );
     setResultsData(resultsDataArray);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [helpMeChooseData]);
 
   const stateVAT =
-    (steps?.financeTypes?.value as any) === 'PCH' ? 'inc' : 'exc';
+    (steps?.financeTypes?.value[0] as any) === 'PCH' ? 'inc' : 'exc';
   const rentalData: [{ key: string }] = getSectionsData(
     ['helpMeChoose', 'aggregation', 'rental'],
     helpMeChooseData?.data,
   );
-  const minRental = rentalData?.reduce((prev, curr) =>
-    parseFloat(prev.key) < parseFloat(curr.key) ? prev : curr,
-  );
+  const minRental = rentalData?.length
+    ? rentalData?.reduce((prev, curr) =>
+        parseFloat(prev.key) < parseFloat(curr.key) ? prev : curr,
+      )
+    : { key: router.query.rental as string };
   const defaultRental = steps.rental?.value
     ? (steps.rental?.value as any)
     : RENTAL_DATA.reduce((prev, curr) =>
@@ -292,13 +294,17 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                       <RouterLink
                         link={{
                           href: el.lqUrl
-                            ? `${el.lqUrl}?leaseType=${steps.financeTypes.value}&mileage=${steps.mileages.value}&term=${steps.terms.value}&upfront=${initialPeriods}`
+                            ? `${el.lqUrl}?leaseType=${
+                                steps.financeTypes.value
+                              }&mileage=${steps.mileages.value[0] ||
+                                el.mileage}&term=${steps.terms.value[0] ||
+                                el.term}&upfront=${initialPeriods}`
                             : el.url || '',
                           label: '',
                           query: {
                             leaseType: steps.financeTypes.value,
-                            mileage: steps.mileages.value,
-                            term: steps.terms.value,
+                            mileage: steps.mileages.value[0] || el.mileage,
+                            term: steps.terms.value[0] || el.term,
                             upfront: initialPeriods,
                           },
                         }}
@@ -323,7 +329,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                       size="large"
                       separator="."
                       priceDescription={`Per Month ${
-                        (steps.financeTypes.value as any) === 'PCH'
+                        (steps.financeTypes.value[0] as any) === 'PCH'
                           ? 'Inc.VAT'
                           : 'Exc.VAT'
                       }`}
@@ -331,13 +337,17 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                     <RouterLink
                       link={{
                         href: el.lqUrl
-                          ? `${el.lqUrl}?leaseType=${steps.financeTypes.value}&mileage=${steps.mileages.value}&term=${steps.terms.value}&upfront=${initialPeriods}`
+                          ? `${el.lqUrl}?leaseType=${
+                              steps.financeTypes.value
+                            }&mileage=${steps.mileages.value[0] ||
+                              el.mileage}&term=${steps.terms.value[0] ||
+                              el.term}&upfront=${initialPeriods}`
                           : el.url || '',
                         label: 'View Offer',
                         query: {
                           leaseType: steps.financeTypes.value,
-                          mileage: steps.mileages.value,
-                          term: steps.terms.value,
+                          mileage: steps.mileages.value[0] || el.mileage,
+                          term: steps.terms.value[0] || el.term,
                           upfront: initialPeriods,
                         },
                       }}
