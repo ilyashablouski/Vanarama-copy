@@ -577,8 +577,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           >
             Call 01442 838 195
           </a>
-           |
-           
+           | 
           <a
             className="link -primary -regular -plain"
             onClick={[Function]}
@@ -1169,8 +1168,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           >
             Call 01442 838 195
           </a>
-           |
-           
+           | 
           <a
             className="link -primary -regular -plain"
             onClick={[Function]}
