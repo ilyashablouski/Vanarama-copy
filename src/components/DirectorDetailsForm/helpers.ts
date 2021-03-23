@@ -43,6 +43,12 @@ export const initialEditedFormValues = (
   };
 };
 
+const createOriginalFullName = (director: DirectorFormValues) =>
+  `${director.originalLastName}, ${director.originalFirstName}`;
+
+const calculateTotalPercentage = (directors: DirectorFormValues[]) =>
+  sum(directors, _ => Number(_.shareOfBusiness));
+
 export const validate = (
   values: DirectorDetailsFormValues,
   directors: DirectorFormValues[],
@@ -51,20 +57,35 @@ export const validate = (
 ): FormikErrors<DirectorDetailsFormValues> => {
   const errors: FormikErrors<DirectorDetailsFormValues> = {};
 
-  const totalPercentage = sum(values.directors, _ => Number(_.shareOfBusiness));
+  let totalPercentage = calculateTotalPercentage(values.directors);
 
-  // if (isEdit) {
-  //   const editedDirectorsUuids = values.directors.map();
-  //   // totalPercentage = 0;
-  // }
-
+  // don't check quantity of directors during edit
+  // because it is not possible to delete a director
   if (
+    !isEdit &&
     funderId === LEX_FUNDER_ID &&
     directors.length >= 2 &&
     values.directors.length < 2
   ) {
     errors.totalPercentage = NOT_ENOUGH_DIRECTORS_ERROR_MESSAGE;
     return errors;
+  }
+
+  // in case of editing recalculate total percentage for edited and not edited directors
+  // to met the required percentage
+  if (isEdit) {
+    const editedDirectorsFullNames = values.directors.map(director =>
+      createOriginalFullName(director),
+    );
+    const originalDirectors = directors.filter(
+      director =>
+        !editedDirectorsFullNames.includes(createOriginalFullName(director)),
+    );
+
+    totalPercentage = calculateTotalPercentage([
+      ...originalDirectors,
+      ...values.directors,
+    ]);
   }
 
   if (totalPercentage < 25) {
