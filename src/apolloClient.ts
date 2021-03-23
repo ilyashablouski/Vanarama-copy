@@ -14,11 +14,12 @@ import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
 import localforage from 'localforage';
+import { Env } from './utils/env';
 
 import { isSessionFinishedCache } from './cache';
 
 const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
-// TODO: Make a comprehensive list of queries that we don't want to be cached in CloudFlare
+// A list of queries that we don't want to be cached in CloudFlare
 const PERSISTED_GRAPHQL_QUERIES_WITHOUT_CLOUDFLARE_CACHE = [
   'GetLeaseCompanyData',
   'GetCreditApplicationByOrderUuid',
@@ -48,7 +49,8 @@ const httpLink = new HttpLink({
 const persistedQueryLink = new ApolloLink((operation, forward) => {
   return forward(operation);
 }).split(
-  () => ['dev', 'uat', 'pre-prod', 'prod'].includes(process.env.ENV as string),
+  () =>
+    [Env.DEV, Env.UAT, Env.PRE_PROD, Env.PROD].includes(process.env.ENV as Env),
   new ApolloLink((operation, forward) => {
     return forward(operation);
   }).split(
@@ -81,7 +83,7 @@ const retryLink = new RetryLink({
 });
 
 const logLink = new ApolloLink((operation, forward) => {
-  if (['dev', 'uat'].includes(process.env.ENV as string)) {
+  if ([Env.DEV, Env.UAT].includes(process.env.ENV as Env)) {
     const query = {
       name: operation.operationName,
       variables: operation.variables,
@@ -132,9 +134,25 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
   });
 });
 
+const errorLink = onError(({ graphQLErrors, networkError }) => {
+  if ([Env.DEV, Env.UAT].includes(process.env.ENV as Env)) {
+    if (graphQLErrors) {
+      graphQLErrors.forEach(graphQLError => {
+        console.log('[GraphQL error]:');
+        console.log(JSON.stringify(graphQLError, null, 4));
+      });
+    }
+
+    if (networkError) {
+      console.log(`[Network error]: ${networkError}`);
+    }
+  }
+});
+
 function apolloClientLink() {
   const links = [
     logLink,
+    errorLink,
     authErrorLink,
     retryLink,
     persistedQueryLink,
