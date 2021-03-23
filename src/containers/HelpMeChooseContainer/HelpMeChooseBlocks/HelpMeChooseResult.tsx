@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import React, {
   Dispatch,
@@ -31,6 +32,13 @@ import { isCompared } from '../../../utils/comparatorHelpers';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import { HelpMeChoose_helpMeChoose_vehicles as Vehicles } from '../../../../generated/HelpMeChoose';
 
+const Icon = dynamic(() => import('core/atoms/icon'), {
+  ssr: false,
+});
+const Flame = dynamic(() => import('core/assets/icons/Flame'), {
+  ssr: false,
+});
+
 const RENTAL_DATA = [
   {
     value: 150,
@@ -53,6 +61,18 @@ const RENTAL_DATA = [
     label: '£550+',
   },
 ];
+
+const AVAILABILITY_LABELS = {
+  '7': '7-10 Day Delivery',
+  '14': '10-14 Day Delivery',
+  '21': '14-21 Day Delivery',
+  '28': '4-6 Week Delivery',
+  '45': '6-8 Week Delivery',
+  '80': '8-12 Week Delivery',
+  '90': '12-16 Week Delivery',
+  '95': 'Over 16 Week Delivery',
+  '100': 'Call For Availability',
+} as { [key: string]: string };
 
 interface IHelpMeChooseResult extends HelpMeChooseStep {
   setCounterState: Dispatch<SetStateAction<number>>;
@@ -86,17 +106,19 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
     );
     setResultsData(resultsDataArray);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [helpMeChooseData]);
 
   const stateVAT =
-    (steps?.financeTypes?.value as any) === 'PCH' ? 'inc' : 'exc';
+    (steps?.financeTypes?.value[0] as any) === 'PCH' ? 'inc' : 'exc';
   const rentalData: [{ key: string }] = getSectionsData(
     ['helpMeChoose', 'aggregation', 'rental'],
     helpMeChooseData?.data,
   );
-  const minRental = rentalData?.reduce((prev, curr) =>
-    parseFloat(prev.key) < parseFloat(curr.key) ? prev : curr,
-  );
+  const minRental = rentalData?.length
+    ? rentalData?.reduce((prev, curr) =>
+        parseFloat(prev.key) < parseFloat(curr.key) ? prev : curr,
+      )
+    : { key: router.query.rental as string };
   const defaultRental = steps.rental?.value
     ? (steps.rental?.value as any)
     : RENTAL_DATA.reduce((prev, curr) =>
@@ -255,6 +277,15 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
             resultsData?.slice().map((el: Vehicles, id: number) => (
               <div key={`${el.derivativeId || 0 + id}`}>
                 <ProductCard
+                  header={
+                    el.onOffer && el.availability
+                      ? {
+                          text: AVAILABILITY_LABELS[el.availability],
+                          accentIcon: <Icon icon={<Flame />} color="white" />,
+                          accentText: el.onOffer ? 'Hot Deal' : '',
+                        }
+                      : undefined
+                  }
                   className="-compact"
                   inline
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -292,13 +323,17 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                       <RouterLink
                         link={{
                           href: el.lqUrl
-                            ? `${el.lqUrl}?leaseType=${steps.financeTypes.value}&mileage=${steps.mileages.value}&term=${steps.terms.value}&upfront=${initialPeriods}`
+                            ? `${el.lqUrl}?leaseType=${
+                                steps.financeTypes.value
+                              }&mileage=${steps.mileages.value[0] ||
+                                el.mileage}&term=${steps.terms.value[0] ||
+                                el.term}&upfront=${initialPeriods}`
                             : el.url || '',
                           label: '',
                           query: {
                             leaseType: steps.financeTypes.value,
-                            mileage: steps.mileages.value,
-                            term: steps.terms.value,
+                            mileage: steps.mileages.value[0] || el.mileage,
+                            term: steps.terms.value[0] || el.term,
                             upfront: initialPeriods,
                           },
                         }}
@@ -323,7 +358,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                       size="large"
                       separator="."
                       priceDescription={`Per Month ${
-                        (steps.financeTypes.value as any) === 'PCH'
+                        (steps.financeTypes.value[0] as any) === 'PCH'
                           ? 'Inc.VAT'
                           : 'Exc.VAT'
                       }`}
@@ -331,13 +366,17 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                     <RouterLink
                       link={{
                         href: el.lqUrl
-                          ? `${el.lqUrl}?leaseType=${steps.financeTypes.value}&mileage=${steps.mileages.value}&term=${steps.terms.value}&upfront=${initialPeriods}`
+                          ? `${el.lqUrl}?leaseType=${
+                              steps.financeTypes.value
+                            }&mileage=${steps.mileages.value[0] ||
+                              el.mileage}&term=${steps.terms.value[0] ||
+                              el.term}&upfront=${initialPeriods}`
                           : el.url || '',
                         label: 'View Offer',
                         query: {
                           leaseType: steps.financeTypes.value,
-                          mileage: steps.mileages.value,
-                          term: steps.terms.value,
+                          mileage: steps.mileages.value[0] || el.mileage,
+                          term: steps.terms.value[0] || el.term,
                           upfront: initialPeriods,
                         },
                       }}
