@@ -23,6 +23,7 @@ export interface IComparatorTable extends IBaseProps {
   criterias: ICriterias[];
   addVehicle: () => void;
   viewOffer?: (capId: string | number) => void;
+  isNotEmptyPage?: boolean;
 }
 
 export interface IVehicle {

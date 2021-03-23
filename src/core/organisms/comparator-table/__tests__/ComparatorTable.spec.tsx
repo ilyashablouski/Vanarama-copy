@@ -91,6 +91,7 @@ describe('<ComparatorTable />', () => {
         deleteVehicle={mockDeleteVehicle}
         criterias={criterias}
         viewOffer={mockViewOffer}
+        isNotEmptyPage
       />,
     );
     expect(wrapper).toMatchSnapshot();
@@ -103,6 +104,7 @@ describe('<ComparatorTable />', () => {
         deleteVehicle={mockDeleteVehicle}
         criterias={criterias}
         viewOffer={mockViewOffer}
+        isNotEmptyPage
       />,
     );
 
