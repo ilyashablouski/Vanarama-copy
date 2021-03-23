@@ -183,14 +183,16 @@ const CustomiseLease = ({
       )}
       <Heading tag="span" size="regular" color="black" className="-flex-h">
         Vehicle Options
-        <CardHeader
-          text={data.quoteByCapId?.leadTime || ''}
-          incomplete
-          className="rounded"
-          accentIcon={
-            <Icon icon={<Flame />} color="white" className="md hydrated" />
-          }
-        />
+        {data.quoteByCapId?.leadTime && (
+          <CardHeader
+            text={data.quoteByCapId.leadTime}
+            incomplete
+            className="rounded"
+            accentIcon={
+              <Icon icon={<Flame />} color="white" className="md hydrated" />
+            }
+          />
+        )}
       </Heading>
 
       {select(

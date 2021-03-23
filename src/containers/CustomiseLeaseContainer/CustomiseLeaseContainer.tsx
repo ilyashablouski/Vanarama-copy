@@ -31,6 +31,41 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 const parseQuoteParams = (param?: string | null) =>
   parseInt(param || '', 10) || null;
 
+const createEmptyQuoteData = (
+  term: number | null,
+  mileage: number | null,
+  upfront: number | null,
+  vehicleType: string | null,
+  trim: number | null,
+  colour: number | null,
+  leaseType: string | null,
+) => ({
+  quoteByCapId: {
+    term,
+    mileage,
+    upfront,
+    vehicleType:
+      vehicleType === 'CAR' ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    trim: trim?.toString() || null,
+    colour: colour?.toString() || null,
+    leaseType:
+      leaseType === 'PERSONAL'
+        ? LeaseTypeEnum.PERSONAL
+        : LeaseTypeEnum.BUSINESS,
+    funderId: null,
+    leadTime: null,
+    stock: null,
+    processingFee: null,
+    nextBestPrice: null,
+    maintenanceCost: null,
+    leaseCost: {
+      monthlyRental: null,
+      initialRental: null,
+      excessMileage: null,
+    },
+  },
+});
+
 // eslint-disable-next-line no-empty-pattern
 const CustomiseLeaseContainer: React.FC<IProps> = ({
   quote,
@@ -79,10 +114,21 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [isInitialLoading, setIsInitialLoading] = useState<boolean>(false);
   const [showCallBackForm, setShowCallBackForm] = useState<boolean>(false);
   const [screenY, setScreenY] = useState<number | null>(null);
-  const [
-    getQuoteData,
-    { error, loading },
-  ] = useQuoteDataLazyQuery(updatedQuote => setQuoteData(updatedQuote));
+  const [getQuoteData, { loading }] = useQuoteDataLazyQuery(
+    updatedQuote => setQuoteData(updatedQuote),
+    () =>
+      setQuoteData(
+        createEmptyQuoteData(
+          term,
+          mileage,
+          upfront,
+          vehicleType,
+          trim,
+          colour,
+          leaseType,
+        ),
+      ),
+  );
 
   const [getTrimAndColour] = useTrimAndColour(
     `${capId}`,
@@ -119,6 +165,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     getTrimAndColour();
   }, [trim, colour]);
 
+  const currentQuoteTrim = quoteData?.quoteByCapId?.trim;
+  const currentQuoteColour = quoteData?.quoteByCapId?.colour;
+
   useEffect(() => {
     if (!isInitialMount.current) {
       getQuoteData({
@@ -132,10 +181,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
             leaseType === 'Personal'
               ? LeaseTypeEnum.PERSONAL
               : LeaseTypeEnum.BUSINESS,
-          trim: trim
-            ? +(trim || 0) || null
-            : parseQuoteParams(quoteData?.quoteByCapId?.trim),
-          colour: colour || parseQuoteParams(quoteData?.quoteByCapId?.colour),
+          trim: trim ? +trim || null : parseQuoteParams(currentQuoteTrim),
+          colour: colour || parseQuoteParams(currentQuoteColour),
         },
       });
       setIsDisabled(true);
@@ -151,7 +198,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     term,
     trim,
     getQuoteData,
-    quoteData,
+    currentQuoteTrim,
+    currentQuoteColour,
     vehicleType,
     capId,
   ]);
@@ -214,17 +262,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [quoteData, leaseType, getQuoteData, isDisabled, maintenance]);
 
-  if (error) {
-    return (
-      <div
-        className="pdp--sidebar"
-        style={{ minHeight: '40rem', display: 'flex', alignItems: 'center' }}
-      >
-        {error?.message}
-      </div>
-    );
-  }
-
   if (!quoteData) {
     return (
       <div
@@ -255,8 +292,11 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     { label: 'Business', value: 'Business', active: leaseType === 'Business' },
   ];
 
+  // - show POA form in case if during first render (SSR) monthlyRental is not returned
+  // - show POA form in case if monthlyRental returned but colors or trim lists are empty
+  // - all other cases of errors from server will be handled in LeaseScanner
   if (
-    !quoteData?.quoteByCapId?.leaseCost?.monthlyRental ||
+    !quote?.quoteByCapId?.leaseCost?.monthlyRental ||
     colourList?.length === 0 ||
     trimList?.length === 0
   ) {
