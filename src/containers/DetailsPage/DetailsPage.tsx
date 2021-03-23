@@ -459,7 +459,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           videoSrc={video && video}
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
-          activeTabIndex={2}
         />
         <LazyLoadComponent
           visibleByDefault={
