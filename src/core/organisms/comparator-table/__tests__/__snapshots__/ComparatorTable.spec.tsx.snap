@@ -108,6 +108,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
     ]
   }
   deleteVehicle={[MockFunction]}
+  isNotEmptyPage={true}
   viewOffer={[MockFunction]}
 >
   <div
