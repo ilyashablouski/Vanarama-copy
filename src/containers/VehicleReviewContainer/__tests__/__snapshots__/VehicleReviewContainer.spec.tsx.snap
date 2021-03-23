@@ -24,7 +24,8 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
           >
             <div
               aria-labelledby="tab:1-0"
-              class="tabs--active"
+              class=""
+              hidden=""
               id="panel:1-0"
               role="tabpanel"
             >
@@ -42,8 +43,7 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
             </div>
             <div
               aria-labelledby="tab:1-1"
-              class=""
-              hidden=""
+              class="tabs--active"
               id="panel:1-1"
               role="tabpanel"
             >
@@ -80,8 +80,8 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
               >
                 <button
                   aria-controls="panel:1-0"
-                  aria-selected="true"
-                  class="-active"
+                  aria-selected="false"
+                  class=""
                   id="tab:1-0"
                   role="tab"
                   type="button"
@@ -90,8 +90,8 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
                 </button>
                 <button
                   aria-controls="panel:1-1"
-                  aria-selected="false"
-                  class=""
+                  aria-selected="true"
+                  class="-active"
                   id="tab:1-1"
                   role="tab"
                   type="button"
