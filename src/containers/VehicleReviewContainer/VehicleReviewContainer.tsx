@@ -60,7 +60,7 @@ const VehicleReviewContainer: FC<IProps> = ({
   breadcrumbsItems,
 }) => {
   const [reviewsExpanded, setReviewsExpanded] = useState(false);
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(1);
 
   const expertName = sections?.vehicleReview?.author?.length
     ? sections?.vehicleReview?.author[0]?.name || ''

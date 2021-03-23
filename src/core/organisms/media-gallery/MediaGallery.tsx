@@ -20,9 +20,10 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
     flag,
     threeSixtyVideoSrc,
     videoIframe,
+    activeTabIndex,
   } = props;
   const [activeSlide, setActiveSlide] = useState(0);
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(activeTabIndex || 1);
 
   // if we have preset slide assign value for actual
   useEffect(() => {

@@ -11,13 +11,13 @@ import {
 export interface HelpMeChooseStep {
   steps: IInitStep;
   setSteps: (step: IInitStep) => void;
-  getProductVehicleList: any;
-  productVehicleListData: any;
+  getHelpMeChoose: any;
+  helpMeChooseData: any;
   setLoadingStatus: Dispatch<SetStateAction<boolean>>;
 }
 
 const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
-  const { setSteps, steps, getProductVehicleList, setLoadingStatus } = props;
+  const { setSteps, steps, getHelpMeChoose, setLoadingStatus } = props;
   const router = useRouter();
   const [financeTypesValue, setFinanceTypesValue] = useState<string[]>(
     steps.financeTypes.value as string[],
@@ -64,9 +64,12 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
           title: steps.bodyStyles.title,
         },
       },
+      isEdit: null as string | null,
     };
     if (searchParams.getAll('financeTypes')[0] !== financeTypesValue[0]) {
       nextSteps.step = nextSteps.query;
+    } else {
+      nextSteps.isEdit = searchParams.get('isEdit');
     }
     return nextSteps;
   };
@@ -80,15 +83,13 @@ const HelpMeChooseAboutYou: FC<HelpMeChooseStep> = props => {
         setLoadingStatus(true);
         const searchParams = new URLSearchParams(window.location.search);
         const nextSteps = getNextSteps(searchParams);
-        getProductVehicleList({
+        getHelpMeChoose({
           variables: {
-            filter: {
-              ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
-            },
+            ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
           },
         });
         setSteps(nextSteps.step);
-        onReplace(router, nextSteps.step);
+        onReplace(router, nextSteps.step, '', nextSteps.isEdit);
       }}
       currentValue={financeTypesValue}
     />

@@ -1,7 +1,14 @@
 import { NextRouter } from 'next/router';
 import { formatProductPageUrl } from '../../utils/url';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { ProductVehicleList_productVehicleList_edges_node as EdgesNode } from '../../../generated/ProductVehicleList';
+import {
+  SortDirection,
+  SortField,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
+import {
+  HelpMeChooseVariables,
+  HelpMeChoose_helpMeChoose_vehicles as Vehicles,
+} from '../../../generated/HelpMeChoose';
 import { IVehicleCarousel } from '../../utils/comparatorHelpers';
 
 const MOR_MILES_VALUE = 30;
@@ -42,7 +49,7 @@ export const onReplace = (
     initialPeriods: IStep;
   },
   pathName?: string,
-  isEdit?: string,
+  isEdit?: string | null,
 ) => {
   let pathname = pathName || router.route.replace('[[...param]]', '');
   const queryString = new URLSearchParams();
@@ -75,7 +82,7 @@ export const onReplace = (
   if (Object.keys(queries).length)
     pathname += `?${decodeURIComponent(queryString.toString())}`;
   // changing url dynamically
-  router.replace(
+  router.push(
     {
       pathname: pathName || router.route,
       query: queries,
@@ -90,10 +97,9 @@ export const buildAnObjectFromAQuery = (
   steps: IInitStep,
   editStep?: number,
   showResults?: {
-    after: number;
     size: number;
   },
-) => {
+): HelpMeChooseVariables => {
   const object = {} as any;
   if (editStep) {
     query.forEach((value: string, key: string) => {
@@ -271,14 +277,33 @@ export const buildAnObjectFromAQuery = (
     });
   }
   object.financeTypes = steps.financeTypes.value;
-  object.after = null;
-  object.size = showResults?.size || 12;
   object.vehicleTypes = [VehicleTypeEnum.CAR];
-  return object;
+  const variables = {
+    filter: object,
+    pagination: {
+      size: 12,
+      from: showResults?.size || 0,
+    },
+    sort: [
+      {
+        field: SortField.offer_ranking,
+        direction: SortDirection.ASC,
+      },
+      {
+        field: SortField.availability,
+        direction: SortDirection.ASC,
+      },
+      {
+        field: SortField.rental,
+        direction: SortDirection.ASC,
+      },
+    ],
+  };
+  return variables;
 };
 
 export const formatForCompare = (
-  node: EdgesNode | null,
+  node: Vehicles | null,
   financeTypes: string,
   mainImageUrl: string,
 ): IVehicleCarousel | null => {

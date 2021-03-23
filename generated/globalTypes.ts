@@ -68,9 +68,14 @@ export enum SortDirection {
  */
 export enum SortField {
   availability = "availability",
+  initial_payment = "initial_payment",
   manufacturer = "manufacturer",
+  mileage = "mileage",
   offerRanking = "offerRanking",
+  offer_ranking = "offer_ranking",
   rate = "rate",
+  rental = "rental",
+  term = "term",
 }
 
 /**
@@ -245,6 +250,32 @@ export interface EmploymentInputObject {
 }
 
 /**
+ * Search filters
+ */
+export interface FilterListObject {
+  availability?: number | null;
+  bodyStyles?: string[] | null;
+  financeTypes?: FinanceTypeEnum[] | null;
+  fuelTypes?: string[] | null;
+  initialPayment?: RateInputObject | null;
+  initialPeriods?: number[] | null;
+  manufacturerName?: string | null;
+  manufacturerSlug?: string | null;
+  mileages?: number[] | null;
+  modelName?: string | null;
+  modelSlug?: string | null;
+  offerRanking?: number | null;
+  onOffer?: boolean | null;
+  rangeName?: string | null;
+  rangeSlug?: string | null;
+  rate?: RateInputObject | null;
+  rental?: RateInputObject | null;
+  terms?: number[] | null;
+  transmissions?: string[] | null;
+  vehicleTypes?: VehicleTypeEnum[] | null;
+}
+
+/**
  * Input object to make full credit check
  */
 export interface FullCreditCheckerInputObject {
@@ -349,6 +380,14 @@ export interface OrderInputObject {
 }
 
 /**
+ * Query pagination
+ */
+export interface PaginationInputObject {
+  from?: number | null;
+  size?: number | null;
+}
+
+/**
  * Input object to create a Person
  */
 export interface PersonInputObject {
@@ -385,36 +424,6 @@ export interface PersonInputObject {
   tradingName?: string | null;
   uuid?: string | null;
   vatRegistrationNumber?: string | null;
-}
-
-/**
- * Search filter range
- */
-export interface ProductFilterRangeListObject {
-  max?: number | null;
-  min?: number | null;
-}
-
-/**
- * Filter object to search vehicles
- */
-export interface ProductVehicleListInputObject {
-  after?: number | null;
-  availability?: number | null;
-  bodyStyles?: string[] | null;
-  financeTypes?: FinanceTypeEnum[] | null;
-  fuelTypes?: string[] | null;
-  initialPayment?: ProductFilterRangeListObject | null;
-  initialPeriods?: number[] | null;
-  manufacturerName?: string | null;
-  mileages?: number[] | null;
-  modelName?: string | null;
-  rangeName?: string | null;
-  rental?: ProductFilterRangeListObject | null;
-  size?: number | null;
-  terms?: number[] | null;
-  transmissions?: string[] | null;
-  vehicleTypes?: VehicleTypeEnum[] | null;
 }
 
 /**
@@ -531,13 +540,6 @@ export interface VehicleProductInputObject {
 export interface VehicleToCompare {
   capId?: number | null;
   vehicleType?: VehicleTypeEnum | null;
-}
-
-export enum Env {
-  DEV="dev",
-  UAT="uat",
-  PRE_PROD="pre-prod",
-  PROD="prod"
 }
 
 //==============================================================

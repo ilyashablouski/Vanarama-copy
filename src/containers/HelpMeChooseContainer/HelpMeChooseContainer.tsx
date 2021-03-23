@@ -78,10 +78,15 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
           tag="h1"
           color="black"
           size="xlarge"
-          className="stepped-form--title -mb-100"
+          className="stepped-form--title"
         >
           {title}
         </Heading>
+        {multiSelect && (
+          <Text tag="p" size="regular" color="darker" className="-mb-100">
+            Select As Many As You Like
+          </Text>
+        )}
         <div className="stepped-form--filter">
           <Choiceboxes
             className={`-cols-${
