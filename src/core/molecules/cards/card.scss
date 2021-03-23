@@ -555,47 +555,60 @@ $small: 0.875rem;
       }
       .icon {
         font-size: 1.25rem;
-        margin-right: 0.2ch;
+        margin-right: 0.4ch;
+        top: auto;
         svg {
           position: relative;
-          top: -2px;
+          top: -3px;
         }
       }
     }
     .card-image {
       margin: 1px 0 0 1px;
-      border-top-left-radius: 0.35rem;
       mix-blend-mode: unset;
     }
 
-    @include mobile-tablet {
-      .card.-compact {
-        .card-header {
-          border-top-left-radius: 0.35rem;
-          border-top-right-radius: 0.35rem;
-          margin: 1px 1px 0;
-        }
+    @include tablet-desktop {
+      height: 100%;
+    }
 
-        .card-image {
-          width: calc(100% - 2px);
-          margin: 0 auto;
+    @include mobile-tablet {
+      .card-header {
+        margin: 1px 1px 0;
+      }
+      .card-image {
+        width: calc(100% - 2px);
+        margin: 1px auto 0;
+      }
+      .card-header,
+      .card-image {
+        border-top-left-radius: 0.35rem;
+        border-top-right-radius: 0.35rem;
+        + .card-image {
+          border-radius: unset;
+          margin-top: 0;
         }
       }
     }
 
     @include desktop {
       --img-w: 200px;
-      place-self: unset;
       .card-header {
         width: 200px;
         grid-area: 1 / 1 / -1 / content;
         > div {
+          padding: 3px 10px;
           span {
             display: none;
           }
           &:only-child {
             span {
               display: inline-block;
+            }
+          }
+          &:not(:only-child) {
+            &:last-of-type {
+              padding: 3px 3px 3px 0;
             }
           }
         }
@@ -605,6 +618,7 @@ $small: 0.875rem;
         min-width: 200px;
         width: 200px;
         height: auto;
+        border-top-left-radius: 0.35rem;
       }
     }
   }
