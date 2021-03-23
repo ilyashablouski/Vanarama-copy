@@ -10,6 +10,7 @@ export interface IMediaGalleryProps extends IBaseProps {
   threeSixtyVideoSrc?: string;
   flag: ICardHeaderProps;
   videoIframe?: boolean;
+  activeTabIndex?: number;
 }
 
 export interface IImageCarouselProps extends IBaseProps {
