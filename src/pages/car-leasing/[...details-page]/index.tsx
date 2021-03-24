@@ -138,7 +138,7 @@ const CarDetailsPage: NextPage<IProps> = ({
       availability: 'http://schema.org/InStock',
       name: `${quote?.quoteByCapId?.term} month Contract Hire agreement`,
       lowPrice: quote?.quoteByCapId?.leaseCost?.monthlyRental,
-      url: `https://www.vanarama.com/car-leasing${data?.vehicleConfigurationByCapId?.url}`,
+      url: `https://www.vanarama.com/${data?.vehicleConfigurationByCapId?.url}`,
       priceCurrency: 'GBP',
       seller,
     },
