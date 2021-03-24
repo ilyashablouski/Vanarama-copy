@@ -133,11 +133,6 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     values: IBusinessAboutFormValues,
     data?: IRegistrationResult | null,
   ) => {
-    addHeapUserIdentity(values.email);
-    addHeapUserProperties({
-      uuid: data?.emailAddress?.uuid,
-      bcuid: Cookies.get('BCSessionID') || 'undefined',
-    });
     return saveDetails({
       variables: {
         input: {
@@ -251,6 +246,13 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
                   companyType: values.companyType,
                 } as SubmitResult;
                 onCompleted?.(result);
+              })
+              .then(() => {
+                addHeapUserIdentity(values.email);
+                addHeapUserProperties({
+                  uuid: data?.createUpdateBusinessPerson?.uuid,
+                  bcuid: Cookies.get('BCSessionID') || 'undefined',
+                });
               }),
           )
           .catch(onError);
