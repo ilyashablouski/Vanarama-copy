@@ -349,9 +349,9 @@ $small: 0.875rem;
     }
     .button {
       &.-round {
-        svg {
-          position: relative;
-          top: -2.8px;
+        .icon {
+          height: auto;
+          display: flex;
         }
       }
     }
