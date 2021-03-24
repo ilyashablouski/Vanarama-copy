@@ -26,6 +26,7 @@ export const GET_CAR_DATA = gql`
       onOffer
       offerRanking
       url
+      legacyUrl
       financeProfile {
         leaseType
         term
