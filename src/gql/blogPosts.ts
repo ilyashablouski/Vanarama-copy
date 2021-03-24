@@ -102,7 +102,9 @@ export const BLOG_POSTS_PAGE = gql`
         intro
         name
         excerpt
-        publishedOn
+        metaData {
+          publishedOn
+        }
         featuredImage {
           file {
             url
