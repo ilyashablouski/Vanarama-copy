@@ -347,6 +347,14 @@ $small: 0.875rem;
         opacity: 1;
       }
     }
+    .button {
+      &.-round {
+        .icon {
+          height: auto;
+          display: flex;
+        }
+      }
+    }
   }
 
   &.breakdown {
