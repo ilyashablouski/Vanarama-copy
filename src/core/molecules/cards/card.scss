@@ -347,6 +347,14 @@ $small: 0.875rem;
         opacity: 1;
       }
     }
+    .button {
+      &.-round {
+        svg {
+          position: relative;
+          top: -2.8px;
+        }
+      }
+    }
   }
 
   &.breakdown {
