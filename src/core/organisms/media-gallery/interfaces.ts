@@ -11,10 +11,12 @@ export interface IMediaGalleryProps extends IBaseProps {
   flag: ICardHeaderProps;
   videoIframe?: boolean;
   activeTabIndex?: number;
+  imageAltText?: string;
 }
 
 export interface IImageCarouselProps extends IBaseProps {
   images: string[];
   activeSlide: number;
   changeSlideHandler: (index: number) => void;
+  imageAltText?: string;
 }

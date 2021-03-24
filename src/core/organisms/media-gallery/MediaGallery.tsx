@@ -21,6 +21,7 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
     threeSixtyVideoSrc,
     videoIframe,
     activeTabIndex,
+    imageAltText,
   } = props;
   const [activeSlide, setActiveSlide] = useState(0);
   const [activeTab, setActiveTab] = useState(activeTabIndex || 1);
@@ -56,6 +57,7 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
               images={images}
               activeSlide={activeSlide}
               changeSlideHandler={setActiveSlide}
+              imageAltText={imageAltText}
             />
           </TabPanel>
           {videoSrc && (
