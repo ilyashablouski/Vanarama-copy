@@ -3,7 +3,7 @@ import dynamic from 'next/dynamic';
 import React, { useEffect, useState, useContext } from 'react';
 import ComparatorTable from 'core/organisms/comparator-table';
 import Router from 'next/router';
-import { CompareContext } from '../../utils/comparatorTool';
+import { CompareContext, INIT_VEHICLE } from '../../utils/comparatorTool';
 import {
   getVehiclesIds,
   getCriterials,
@@ -52,7 +52,7 @@ const ComparatorContainer: React.FC = () => {
     );
   }
 
-  if (loading || !compareVehicles?.length) {
+  if (loading) {
     return (
       <div
         style={{ minHeight: '10rem', display: 'flex', alignItems: 'center' }}
@@ -80,18 +80,15 @@ const ComparatorContainer: React.FC = () => {
       deleteVehicle={capId => {
         compareChange(null, capId);
       }}
-      criterias={
-        compareVehicles?.length
-          ? getCriterials(
-              data as vehicleComparator | undefined,
-              compareVehicles,
-              cachedLeaseType,
-            )
-          : []
-      }
+      criterias={getCriterials(
+        (data as vehicleComparator) ?? (INIT_VEHICLE as vehicleComparator),
+        compareVehicles,
+        cachedLeaseType,
+      )}
       viewOffer={capId => {
         viewOffer(`${capId}`);
       }}
+      isNotEmptyPage={!!data}
     />
   );
 };
