@@ -100,9 +100,9 @@ export const BLOG_POSTS_PAGE = gql`
       pageTitle
       articles {
         intro
-        name
         excerpt
         metaData {
+          name
           publishedOn
         }
         featuredImage {
