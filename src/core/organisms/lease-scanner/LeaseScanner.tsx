@@ -172,9 +172,9 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
           )}
         </div>
         <div style={{ height: '1rem' }}>
-          <Text tag="div">
-            <Link href="tel:+441442838195">Call 01442 838 195</Link> |{' '}
-            <Link onClick={requestCallBack}>Request a Call Back</Link>
+          <Text tag="div" size="small">
+            <Link href="tel:+441442838195" size="small">Call 01442 838 195</Link> |{' '}
+            <Link onClick={requestCallBack} size="small">Request a Call Back</Link>
           </Text>
         </div>
         {isLoading && (
