@@ -146,19 +146,19 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-        {(compareVehicles && compareVehicles.length > 0) ||
-          (router.pathname === '/comparator' && (
-            <ComparatorBar
-              deleteVehicle={async vehicle => {
-                const vehicles = await deleteCompare(vehicle);
-                setCompareVehicles(vehicles);
-              }}
-              compareVehicles={() => {
-                Router.push('/comparator');
-              }}
-              vehicles={getVehiclesForComparator(compareVehicles || null)}
-            />
-          ))}
+        {((compareVehicles && compareVehicles.length > 0) ||
+          router.pathname === '/comparator') && (
+          <ComparatorBar
+            deleteVehicle={async vehicle => {
+              const vehicles = await deleteCompare(vehicle);
+              setCompareVehicles(vehicles);
+            }}
+            compareVehicles={() => {
+              Router.push('/comparator');
+            }}
+            vehicles={getVehiclesForComparator(compareVehicles || null)}
+          />
+        )}
         {modalCompareTypeError && (
           <Modal
             title="You cannot compare two different vehicle types."
