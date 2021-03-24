@@ -57,9 +57,9 @@ describe('<helpers />', () => {
   });
 
   describe('onReplace', () => {
-    it('should call router.replace', async () => {
+    it('should call router.push', async () => {
       const router = {
-        replace: jest.fn(),
+        push: jest.fn(),
         pathname: '/help-me-choose/[[...param]]',
         route: '/help-me-choose/[[...param]]',
         query: {},
@@ -75,7 +75,7 @@ describe('<helpers />', () => {
         rental: { active: false, value: '' as any, title: 'title' },
         initialPeriods: { active: false, value: '' as any, title: 'title' },
       });
-      expect(router.replace).toBeCalledWith(
+      expect(router.push).toBeCalledWith(
         {
           pathname: router.route,
           query: {

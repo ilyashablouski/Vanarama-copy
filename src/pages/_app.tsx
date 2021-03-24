@@ -146,8 +146,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-        {/* {compareVehicles && compareVehicles.length > 0 && existComparator && ( */}
-        {compareVehicles && compareVehicles.length > 0 && (
+        {((compareVehicles && compareVehicles.length > 0) ||
+          router.pathname === '/comparator') && (
           <ComparatorBar
             deleteVehicle={async vehicle => {
               const vehicles = await deleteCompare(vehicle);
@@ -156,7 +156,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
             compareVehicles={() => {
               Router.push('/comparator');
             }}
-            vehicles={getVehiclesForComparator(compareVehicles)}
+            vehicles={getVehiclesForComparator(compareVehicles || null)}
           />
         )}
         {modalCompareTypeError && (

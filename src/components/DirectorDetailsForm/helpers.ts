@@ -5,6 +5,14 @@ import { sum } from '../../utils/array';
 import { dateOfBirthValidator, checkFuture } from '../../utils/validation';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
 
+// TODO: hardcoded value should be removed,
+//  information about required quantity of directors should be sent from BE
+const LEX_FUNDER_ID = '4';
+
+export const TOO_LOW_ERROR_MESSAGE = 'TOO_LOW';
+export const TOO_HIGH_ERROR_MESSAGE = 'TOO_HIGH';
+export const NOT_ENOUGH_DIRECTORS_ERROR_MESSAGE = 'NOT_ENOUGH_DIRECTORS';
+
 export const initialEditedFormValues = (
   directors: DirectorFormValues[],
   directorUuid?: string,
@@ -38,14 +46,28 @@ export const initialEditedFormValues = (
 
 export const validate = (
   values: DirectorDetailsFormValues,
+  officers: DirectorFormValues[],
+  isEdit: boolean,
+  funderId?: string | null,
 ): FormikErrors<DirectorDetailsFormValues> => {
   const errors: FormikErrors<DirectorDetailsFormValues> = {};
 
   const totalPercentage = sum(values.directors, _ => Number(_.shareOfBusiness));
+
+  if (
+    !isEdit &&
+    funderId === LEX_FUNDER_ID &&
+    officers.length >= 2 &&
+    values.directors.length < 2
+  ) {
+    errors.totalPercentage = NOT_ENOUGH_DIRECTORS_ERROR_MESSAGE;
+    return errors;
+  }
+
   if (totalPercentage < 25) {
-    errors.totalPercentage = 'TOO_LOW';
+    errors.totalPercentage = TOO_LOW_ERROR_MESSAGE;
   } else if (totalPercentage > 100) {
-    errors.totalPercentage = 'TOO_HIGH';
+    errors.totalPercentage = TOO_HIGH_ERROR_MESSAGE;
   }
 
   return errors;

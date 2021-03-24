@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface ResetPasswordMutation_passwordConfirm {
-  isSuccessfull: boolean | null;
+  isSuccessful: boolean | null;
 }
 
 export interface ResetPasswordMutation {

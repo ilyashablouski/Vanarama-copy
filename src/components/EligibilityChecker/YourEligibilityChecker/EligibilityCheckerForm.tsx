@@ -1,15 +1,14 @@
 import dynamic from 'next/dynamic';
 import { Controller } from 'react-hook-form';
-import CheckBox from 'core/atoms/checkbox/';
 import Select from 'core/atoms/select/';
 import TextInput from 'core/atoms/textinput/';
 import AddressFinder from 'core/molecules/address-finder';
 import { IAddressSuggestion } from 'core/molecules/address-finder/interfaces';
 import React, { FC, useState } from 'react';
+import CheckBox from 'core/atoms/checkbox';
 import { genMonths, genYears, genDays } from '../../../utils/helpers';
 import { IFormProps } from './interface';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
-import RouterLink from '../../RouterLink/RouterLink';
 import Skeleton from '../../Skeleton';
 
 const Button = dynamic(() => import('core/atoms/button'), {
@@ -163,46 +162,55 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
       </FormGroup>
       <FormGroup
         label="Please Confirm"
-        error={errors?.promotions?.message?.toString()}
+        error={
+          errors?.termsAndCons?.message?.toString() ||
+          errors?.privacyPolicy?.message?.toString()
+        }
       >
         <CheckBox
-          id="promotions"
-          dataTestId="eligibilityCheckoutPromotions"
-          name="promotions"
-          label="I wish to receive emails and SMS messages for updates on the latest deals, offers and promotions."
+          id="termsAndCons"
+          dataTestId="eligibilityTermsAndCons"
+          name="termsAndCons"
+          label={[
+            'I agree to the ',
+            <a
+              key="a"
+              className="link -teal"
+              href="/legal/terms-and-conditions.html"
+              target="_blank"
+            >
+              Terms and Conditions
+            </a>,
+          ]}
+          ref={register}
+        />
+        <CheckBox
+          id="privacyPolicy"
+          dataTestId="eligibilityPrivacyPolicy"
+          name="privacyPolicy"
+          label={[
+            'I have read and understood the ',
+            <a
+              key="a-privacy"
+              className="link -teal"
+              href="/legal/privacy-policy.html"
+              target="_blank"
+            >
+              Privacy Policy
+            </a>,
+          ]}
+          ref={register}
+        />
+        <CheckBox
+          id="consent"
+          dataTestId="eligibilityCheckoutConsent"
+          name="consent"
+          label="Keep me updated on the latest deals & offers"
           ref={register}
         />
       </FormGroup>
       <Text tag="p" color="darker" size="regular">
-        By checking your eligibility, you agree to our{' '}
-        <span>
-          <RouterLink
-            dataTestId="terms_and_conditions"
-            link={{
-              href: '/legal/terms-and-conditions.html',
-              label: 'Terms and Conditions',
-            }}
-            classNames={{ size: 'regular', color: 'teal' }}
-            key="terms_and_conditions"
-          >
-            Terms and Conditions
-          </RouterLink>
-        </span>{' '}
-        and{' '}
-        <span>
-          <RouterLink
-            dataTestId="privacy_policy"
-            link={{
-              href: '/legal/privacy-policy.html',
-              label: 'Privacy Policy',
-            }}
-            classNames={{ size: 'regular', color: 'teal' }}
-            key="privacy_policy"
-          >
-            Privacy Policy
-          </RouterLink>
-        </span>{' '}
-        and a soft credit check.
+        By checking your eligibility, you agree to a soft credit check.
       </Text>
       <Button
         type="submit"

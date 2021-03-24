@@ -17,7 +17,9 @@ export default Yup.object().shape({
       status: Yup.string().required('Please enter your employment status'),
       title: Yup.string().when(
         'status',
-        requiredWhenEmployed('Please enter the job title'),
+        requiredWhenEmployed(
+          'Please search for your job title & select from the list',
+        ),
       ),
       contract: Yup.string().when(
         'status',

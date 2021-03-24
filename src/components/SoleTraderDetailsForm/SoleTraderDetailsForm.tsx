@@ -167,7 +167,7 @@ const SoleTraderDetailsForm: FCWithFragments<ISoleTraderDetailsProps> = ({
           <FormikTypeAheadField
             name="occupation"
             label="Occupation"
-            hint="Please select from the list"
+            hint="Start typing your job title & then select from the list"
           />
           <AnnualIncomeField />
           <FormikNumericField

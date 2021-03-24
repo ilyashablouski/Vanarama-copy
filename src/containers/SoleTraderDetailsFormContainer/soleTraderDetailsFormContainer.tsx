@@ -1,14 +1,10 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 import SoleTraderDetailsForm from '../../components/SoleTraderDetailsForm';
-import {
-  useCreateUpdateCreditApplication,
-  useGetCreditApplicationByOrderUuid,
-} from '../../gql/creditApplication';
+import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 import { ISoleTraderDetailsFormContainerProps } from './interface';
 import { ISoleTraderDetailsFormValues } from '../../components/SoleTraderDetailsForm/interfaces';
 import { formValuesToAssociate } from '../../components/SoleTraderDetailsForm/mappers';
-import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import {
   useSoleTraderDetailsFormDataQuery,
   useUpdateSoleTraderMutation,
@@ -37,9 +33,6 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
     orderId,
     () => {},
   );
-  const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
-    orderId,
-  );
 
   if (soleTraderDetailsFormData.loading) {
     return <Loading size="large" />;
@@ -49,17 +42,11 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
     return <p>Error: {soleTraderDetailsFormData.error.message}</p>;
   }
 
-  if (
-    !soleTraderDetailsFormData.data?.allDropDowns ||
-    soleTraderDetailsFormData.data?.allDropDowns === null
-  ) {
+  if (!soleTraderDetailsFormData.data?.allDropDowns) {
     return null;
   }
 
-  if (
-    !soleTraderDetailsFormData.data?.personByUuid?.addresses ||
-    soleTraderDetailsFormData.data?.personByUuid.addresses === null
-  ) {
+  if (!soleTraderDetailsFormData.data?.personByUuid?.addresses) {
     return null;
   }
 
@@ -79,9 +66,7 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
   ) =>
     createUpdateApplication({
       variables: {
-        input: formValuesToInputCreditApplication({
-          ...getCreditApplicationByOrderUuidQuery.data
-            ?.creditApplicationByOrderUuid,
+        input: {
           soleTraderDetails: {
             uuid: companyUuid,
             associate: {
@@ -91,7 +76,7 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
             },
           },
           orderUuid: orderId,
-        }),
+        },
       },
     });
 

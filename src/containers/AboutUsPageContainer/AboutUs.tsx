@@ -149,7 +149,7 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, data }) => {
           {metaData.name}
         </Heading>
       </div>
-      <div className="row:bg-black -compact">
+      <div className="row:bg-white -compact">
         <div className="row:featured-image">
           {featuredImage?.file?.url && (
             <Image
@@ -191,7 +191,7 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, data }) => {
         >
           <div className="-pb-400">
             {sections?.carousel?.cards && (
-              <Carousel countItems={1} className="-mh-auto">
+              <Carousel countItems={1} className="-mh-auto about-us">
                 {renderCarouselCards(sections?.carousel.cards)}
               </Carousel>
             )}

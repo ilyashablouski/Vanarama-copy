@@ -1,4 +1,5 @@
 import React from 'react';
+import { vehicleComparator } from '../../generated/vehicleComparator';
 import { IVehicle, IVehicleCarousel } from './comparatorHelpers';
 
 export const PAGES_WITH_COMPARATOR = [
@@ -20,6 +21,45 @@ export const PAGES_WITHOUT_COMPARATOR = [
 ];
 
 export const WHOLE_PATHS_PAGES_WITH_COMPARATOR = ['/'];
+
+export const INIT_VEHICLE: vehicleComparator = {
+  vehicleComparator: [
+    {
+      capId: null,
+      vehicleType: null,
+      data: [
+        {
+          name: 'List Price',
+          value: '',
+        },
+        {
+          name: 'WLTP Combined (g/km)',
+          value: '',
+        },
+        {
+          name: 'Fuel Type',
+          value: '',
+        },
+        {
+          name: 'Fuel Consumption (mpg)',
+          value: '',
+        },
+        {
+          name: '0-60 mph (secs)',
+          value: '',
+        },
+        {
+          name: 'Engine Size (cc)',
+          value: '',
+        },
+        {
+          name: 'Engine Power (BHP)',
+          value: '',
+        },
+      ],
+    },
+  ],
+};
 
 interface IInitialState {
   compareVehicles: IVehicle[] | [] | undefined | null;

@@ -4,26 +4,26 @@ import HelpMeChooseContainer from '../HelpMeChooseContainer';
 import { buildAnObjectFromAQuery, onReplace, RENTAL_VALUE } from '../helpers';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
 import { getSectionsData } from '../../../utils/getSectionsData';
-import { PRODUCTS_FILTER_LIST } from '../../../gql/help-me-choose';
+import { HELP_ME_CHOOSE } from '../../../gql/help-me-choose';
 import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
 
 const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
   const {
     setSteps,
     steps,
-    getProductVehicleList,
-    productVehicleListData,
+    getHelpMeChoose,
+    helpMeChooseData,
     setLoadingStatus,
   } = props;
   const router = useRouter();
   const [availabilityValue, setAvailabilityValue] = useState<string[]>(
     (steps.availability.value as string[]) || [''],
   );
-  const getProducts = useImperativeQuery(PRODUCTS_FILTER_LIST);
+  const getProducts = useImperativeQuery(HELP_ME_CHOOSE);
 
   const availabilityData: [{ docCount: number; key: string }] = getSectionsData(
-    ['productVehicleList', 'aggs', 'availability'],
-    productVehicleListData?.data,
+    ['helpMeChoose', 'aggregation', 'availability'],
+    helpMeChooseData?.data,
   );
 
   const availabilityTypes = [
@@ -78,7 +78,31 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
     const isValueChanges =
       searchParams.getAll('availability')[0] !== availabilityValue[0];
     const defRentalValue = await getProducts({
-      filter: {
+      ...buildAnObjectFromAQuery(searchParams, {
+        ...steps,
+        availability: {
+          active: false,
+          value: availabilityValue,
+          title: steps.availability.title,
+        },
+        rental: {
+          active: true,
+          value: isValueChanges
+            ? RENTAL_VALUE['350'].toString()
+            : steps.rental.value,
+          title: steps.rental.title,
+        },
+        initialPeriods: {
+          active: true,
+          value: isValueChanges ? '6' : steps.initialPeriods.value,
+          title: steps.initialPeriods.title,
+        },
+      }),
+    }).then(result => {
+      if (result.data?.helpMeChoose.aggregation.totalVehicles) {
+        return RENTAL_VALUE['350'].toString();
+      }
+      return getProducts({
         ...buildAnObjectFromAQuery(searchParams, {
           ...steps,
           availability: {
@@ -89,7 +113,7 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
           rental: {
             active: true,
             value: isValueChanges
-              ? RENTAL_VALUE['350'].toString()
+              ? RENTAL_VALUE['450'].toString()
               : steps.rental.value,
             title: steps.rental.title,
           },
@@ -99,36 +123,8 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
             title: steps.initialPeriods.title,
           },
         }),
-      },
-    }).then(result => {
-      if (result.data?.productVehicleList.totalVehicles) {
-        return RENTAL_VALUE['350'].toString();
-      }
-      return getProducts({
-        filter: {
-          ...buildAnObjectFromAQuery(searchParams, {
-            ...steps,
-            availability: {
-              active: false,
-              value: availabilityValue,
-              title: steps.availability.title,
-            },
-            rental: {
-              active: true,
-              value: isValueChanges
-                ? RENTAL_VALUE['450'].toString()
-                : steps.rental.value,
-              title: steps.rental.title,
-            },
-            initialPeriods: {
-              active: true,
-              value: isValueChanges ? '6' : steps.initialPeriods.value,
-              title: steps.initialPeriods.title,
-            },
-          }),
-        },
       }).then(res => {
-        if (res.data?.productVehicleList.totalVehicles) {
+        if (res.data?.helpMeChoose.aggregation.totalVehicles) {
           return RENTAL_VALUE['450'].toString();
         }
         return RENTAL_VALUE['550'].toString();
@@ -165,11 +161,9 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
         setLoadingStatus(true);
         const searchParams = new URLSearchParams(window.location.search);
         const nextSteps = await getNextSteps(searchParams);
-        getProductVehicleList({
+        getHelpMeChoose({
           variables: {
-            filter: {
-              ...buildAnObjectFromAQuery(searchParams, nextSteps),
-            },
+            ...buildAnObjectFromAQuery(searchParams, nextSteps),
           },
         });
         setSteps(nextSteps);

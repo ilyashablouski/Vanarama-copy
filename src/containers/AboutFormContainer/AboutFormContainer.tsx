@@ -1,5 +1,10 @@
 import dynamic from 'next/dynamic';
+import Cookies from 'js-cookie';
 import React from 'react';
+import {
+  addHeapUserIdentity,
+  addHeapUserProperties,
+} from '../../utils/addHeapProperties';
 import AboutForm from '../../components/AboutForm';
 import { IAboutFormValues } from '../../components/AboutForm/interface';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
@@ -43,7 +48,7 @@ const AboutFormContainer: React.FC<IProps> = ({
 
     const checkResult = result.data?.emailAlreadyExists;
 
-    if (!checkResult?.isSuccessfull || isEdit || personLoggedIn) {
+    if (!checkResult?.isSuccessful || isEdit || personLoggedIn) {
       return undefined;
     }
 
@@ -104,7 +109,16 @@ const AboutFormContainer: React.FC<IProps> = ({
           values.firstName,
           values.lastName,
         ).then(query =>
-          handlePersonCreation(values, query.data?.registerForTemporaryAccess),
+          handlePersonCreation(
+            values,
+            query.data?.registerForTemporaryAccess,
+          ).then(({ data }) => {
+            addHeapUserIdentity(values.email);
+            addHeapUserProperties({
+              uuid: data?.createUpdatePerson?.uuid,
+              bcuid: Cookies.get('BCSessionID') || 'undefined',
+            });
+          }),
         )
       }
     />

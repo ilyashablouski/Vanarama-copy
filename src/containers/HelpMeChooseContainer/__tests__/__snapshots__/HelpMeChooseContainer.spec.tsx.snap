@@ -5,10 +5,15 @@ exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
   className="row:stepped-form"
 >
   <h1
-    className="heading stepped-form--title -mb-100 -black -xlarge"
+    className="heading stepped-form--title -black -xlarge"
   >
     Which Fuel Type Do You Prefer?
   </h1>
+  <p
+    className="text -mb-100 -regular -darker"
+  >
+    Select As Many As You Like
+  </p>
   <div
     className="stepped-form--filter"
   >
@@ -81,10 +86,15 @@ exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
   className="row:stepped-form"
 >
   <h1
-    className="heading stepped-form--title -mb-100 -black -xlarge"
+    className="heading stepped-form--title -black -xlarge"
   >
     Which Fuel Type Do You Prefer?
   </h1>
+  <p
+    className="text -mb-100 -regular -darker"
+  >
+    Select As Many As You Like
+  </p>
   <div
     className="stepped-form--filter"
   >

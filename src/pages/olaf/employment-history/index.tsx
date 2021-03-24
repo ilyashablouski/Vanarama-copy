@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useQuery } from '@apollo/client';
 import { NextPage } from 'next';
@@ -9,12 +8,8 @@ import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { GET_PERSON_INFORMATION } from '../address-history';
-import { formValuesToInputCreditApplication } from '../../../mappers/mappersCreditApplication';
-import {
-  useCreateUpdateCreditApplication,
-  useGetCreditApplicationByOrderUuid,
-} from '../../../gql/creditApplication';
-import { SaveEmploymentHistoryMutation_createUpdateEmploymentHistory } from '../../../../generated/SaveEmploymentHistoryMutation';
+import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
+import { SaveEmploymentHistoryMutation_createUpdateEmploymentHistory as IEmploymentHistory } from '../../../../generated/SaveEmploymentHistoryMutation';
 import useGetOrderId from '../../../hooks/useGetOrderId';
 
 type QueryParams = OLAFQueryParams & {
@@ -27,7 +22,6 @@ const EmploymentHistoryPage: NextPage = () => {
   const orderId = useGetOrderId();
 
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-  const { data: caData } = useGetCreditApplicationByOrderUuid(orderId);
 
   let personUuid = uuid || '';
   const { data } = useQuery(GET_PERSON_INFORMATION);
@@ -36,17 +30,14 @@ const EmploymentHistoryPage: NextPage = () => {
   }
 
   const onCompleteClick = (
-    createUpdateEmploymentHistory:
-      | SaveEmploymentHistoryMutation_createUpdateEmploymentHistory[]
-      | null,
+    createUpdateEmploymentHistory: IEmploymentHistory[] | null,
   ) => {
     createUpdateCA({
       variables: {
-        input: formValuesToInputCreditApplication({
-          ...caData?.creditApplicationByOrderUuid,
+        input: {
           orderUuid: orderId,
           employmentHistories: createUpdateEmploymentHistory,
-        }),
+        },
       },
     })
       .then(() => getUrlParam({ uuid: personUuid }))

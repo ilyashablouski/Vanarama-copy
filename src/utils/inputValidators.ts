@@ -149,6 +149,13 @@ export const termsAndCons = {
   },
 };
 
+export const privacyPolicy = {
+  required: {
+    value: true,
+    message: 'The privacy policy must be confirmed',
+  },
+};
+
 export const annualValidator = (message: string) => ({
   required: { value: true, message },
   maxLength: {

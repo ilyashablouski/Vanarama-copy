@@ -24,7 +24,8 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
           >
             <div
               aria-labelledby="tab:1-0"
-              class="tabs--active"
+              class=""
+              hidden=""
               id="panel:1-0"
               role="tabpanel"
             >
@@ -35,15 +36,14 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
                   class="image--native"
                   loading="eager"
                   sizes="(min-width:320px) 800px, 1200px"
-                  src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg"
-                  srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg 1200w"
+                  src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg"
+                  srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/1ufFnJNOsfjenEKcmSUeXt/f0978cb49686d6466600a17ea0d6d0e9/berlingo-outside.jpg 1200w"
                 />
               </div>
             </div>
             <div
               aria-labelledby="tab:1-1"
-              class=""
-              hidden=""
+              class="tabs--active"
               id="panel:1-1"
               role="tabpanel"
             >
@@ -80,8 +80,8 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
               >
                 <button
                   aria-controls="panel:1-0"
-                  aria-selected="true"
-                  class="-active"
+                  aria-selected="false"
+                  class=""
                   id="tab:1-0"
                   role="tab"
                   type="button"
@@ -90,8 +90,8 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
                 </button>
                 <button
                   aria-controls="panel:1-1"
-                  aria-selected="false"
-                  class=""
+                  aria-selected="true"
+                  class="-active"
                   id="tab:1-1"
                   role="tab"
                   type="button"

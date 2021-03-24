@@ -12,7 +12,7 @@ import {
 
 import {
   GetLeaseCompanyData as ILeaseData,
-  GetLeaseCompanyDataVariables as IleaseDataVariables,
+  GetLeaseCompanyDataVariables as ILeaseDataVariables,
 } from '../../generated/GetLeaseCompanyData';
 
 export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
@@ -79,7 +79,7 @@ export const GET_LEASE_COMPANY_BY_ORDER_UUID_DATA = gql`
 `;
 
 export function useGetLeaseCompanyDataByOrderUuid(id: string) {
-  return useLazyQuery<ILeaseData, IleaseDataVariables>(
+  return useLazyQuery<ILeaseData, ILeaseDataVariables>(
     GET_LEASE_COMPANY_BY_ORDER_UUID_DATA,
     {
       variables: {
@@ -98,6 +98,7 @@ export function useGetCreditApplicationByOrderUuid(id: string) {
         id,
       },
       skip: !id,
+      fetchPolicy: 'no-cache',
     },
   );
 }
@@ -162,100 +163,6 @@ export function useCreateUpdateCreditApplication(
     CreateUpdateCreditApplicationVariables
   >(CREATE_UPDATE_CREDIT_APPLICATION, {
     onCompleted,
-    update: (store, result) => {
-      let data;
-      try {
-        // Read the data from our cache for this query.
-        data = store.readQuery<Query, QueryVariables>(
-          {
-            query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
-            variables: { id: orderId },
-          },
-          true,
-        );
-      } catch (error) {
-        data = null;
-      }
-
-      // Add the employment from the mutation to the end.
-      if (
-        data?.creditApplicationByOrderUuid ||
-        result.data?.createUpdateCreditApplication
-      ) {
-        const aboutDetails =
-          result.data?.createUpdateCreditApplication?.aboutDetails ||
-          data?.creditApplicationByOrderUuid?.aboutDetails;
-        const addresses =
-          result.data?.createUpdateCreditApplication?.addresses ||
-          data?.creditApplicationByOrderUuid?.addresses;
-        const bankAccounts =
-          result.data?.createUpdateCreditApplication?.bankAccounts ||
-          data?.creditApplicationByOrderUuid?.bankAccounts;
-        const employmentHistories =
-          result.data?.createUpdateCreditApplication?.employmentHistories ||
-          data?.creditApplicationByOrderUuid?.employmentHistories;
-        const incomeAndExpenses =
-          result.data?.createUpdateCreditApplication?.incomeAndExpenses ||
-          data?.creditApplicationByOrderUuid?.incomeAndExpenses;
-        const status =
-          result.data?.createUpdateCreditApplication?.status ||
-          data?.creditApplicationByOrderUuid?.status;
-        const updatedAt =
-          result.data?.createUpdateCreditApplication?.updatedAt ||
-          data?.creditApplicationByOrderUuid?.updatedAt;
-        const companyDetails =
-          result.data?.createUpdateCreditApplication?.companyDetails ||
-          data?.creditApplicationByOrderUuid?.companyDetails;
-        const vatDetails =
-          result.data?.createUpdateCreditApplication?.vatDetails ||
-          data?.creditApplicationByOrderUuid?.vatDetails;
-        const soleTraderDetails =
-          result.data?.createUpdateCreditApplication?.soleTraderDetails ||
-          data?.creditApplicationByOrderUuid?.soleTraderDetails;
-        const directorsDetails =
-          result.data?.createUpdateCreditApplication?.directorsDetails ||
-          data?.creditApplicationByOrderUuid?.directorsDetails;
-        const creditApplicationType =
-          result.data?.createUpdateCreditApplication?.creditApplicationType ||
-          data?.creditApplicationByOrderUuid?.creditApplicationType ||
-          null;
-        const lineItem =
-          result.data?.createUpdateCreditApplication?.lineItem ||
-          data?.creditApplicationByOrderUuid?.lineItem ||
-          null;
-        // TODO: https://autorama.atlassian.net/browse/DIG-4930
-        const leadManagerProposalId =
-          result.data?.createUpdateCreditApplication?.leadManagerProposalId ||
-          data?.creditApplicationByOrderUuid?.leadManagerProposalId ||
-          null;
-
-        // Write our data back to the cache.
-        store.writeQuery<Query, QueryVariables>({
-          query: GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA,
-          variables: { id: orderId },
-          data: {
-            creditApplicationByOrderUuid: {
-              createdAt: data?.creditApplicationByOrderUuid?.createdAt,
-              aboutDetails,
-              addresses: addresses?.length ? addresses : null,
-              bankAccounts,
-              employmentHistories,
-              incomeAndExpenses,
-              lineItem,
-              status: status || 'draft',
-              updatedAt,
-              uuid: orderId,
-              leadManagerProposalId,
-              companyDetails,
-              vatDetails,
-              soleTraderDetails,
-              directorsDetails,
-              creditApplicationType,
-            },
-          },
-        });
-      }
-    },
   });
 }
 

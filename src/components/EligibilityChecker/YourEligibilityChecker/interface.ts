@@ -14,11 +14,13 @@ export interface IYourEligiblityCheckerValues {
   dayOfBirth: string;
   monthOfBirth: string;
   yearOfBirth: string;
-  promotions?: boolean;
   addressFinder?: {
     id?: string;
     label?: string;
   };
+  termsAndCons: boolean;
+  privacyPolicy: boolean;
+  consent?: boolean;
 }
 
 export interface IFormProps {

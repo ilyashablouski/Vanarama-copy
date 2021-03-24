@@ -18,7 +18,7 @@ const HEADER_DATA = require('../../deps/data/menuData.json');
 export const LOGOUT_USER_MUTATION = gql`
   mutation LogOutUserMutation {
     logoutV2 {
-      isSuccessfull
+      isSuccessful
     }
   }
 `;
@@ -40,11 +40,12 @@ const HeaderContainer: FC = () => {
 
   const [logOut] = useMutation<LogOutUserMutation>(LOGOUT_USER_MUTATION);
 
-  const offerLink = data?.primaryHeader?.links?.map(el => ({
-    href: el?.url || '',
-    label: el?.text || '',
-    highlight: true,
-  }));
+  const offerLink =
+    data?.primaryHeader?.links?.map(el => ({
+      href: el?.url || '',
+      label: el?.text || '',
+      highlight: true,
+    })) || [];
 
   const topLinks = data?.primaryHeader.linkGroups?.reduce(
     (link, linksGroup) => {

@@ -18,7 +18,7 @@ export const REGISTER_FOR_TEMPORARY_ACCESS_MUTATION = gql`
     ) {
       uuid
       accessToken
-      isSuccessfull
+      isSuccessful
       emailAddress {
         uuid
         value
@@ -46,7 +46,7 @@ export const handlerMock = (
             uuid,
             emailAddress,
             accessToken: null,
-            isSuccessfull: true,
+            isSuccessful: true,
           }
         : null,
     },

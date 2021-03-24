@@ -113,6 +113,7 @@ interface IDetailsPageProps {
   trimList: ITrimList[];
   colourList: IColourList[];
   productCard: GetProductCard | null;
+  leaseTypeQuery?: string | null;
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -129,13 +130,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   trimList,
   colourList,
   productCard,
+  leaseTypeQuery,
 }) => {
   const router = useRouter();
   const pdpContent = React.useRef<HTMLDivElement>(null);
   const leaseScanner = React.useRef<HTMLDivElement>(null);
   // pass cars prop(Boolean)
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(cars);
-  const [leaseType, setLeaseType] = useState<string>(cachedLeaseType);
+  const [leaseType, setLeaseType] = useState<string>(
+    leaseTypeQuery ?? cachedLeaseType,
+  );
   const [leadTime, setLeadTime] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
@@ -360,16 +364,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     });
   };
 
+  const metaTitle = `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription}`;
+
   const metaData = genericPageHead?.genericPage.metaData ?? {
-    title:
-      `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 
-    Leasing Deals | Vanarama` || null,
+    title: `${metaTitle} Leasing Deals | Vanarama` || null,
     name: '' || null,
     metaRobots: '' || null,
     metaDescription:
-      `Get top ${pageTitle} ${
-        vehicleConfigurationByCapId?.capDerivativeDescription
-      } leasing deals at Vanarama. ✅ 5* Customer Service ✅ Brand-New ${
+      `Get top ${metaTitle} leasing deals at Vanarama. ✅ 5* Customer Service ✅ Brand-New ${
         // eslint-disable-next-line no-nested-ternary
         cars ? 'Cars' : vans ? 'Vans' : 'Pickups'
       } ✅ Free Delivery ✅ Road Tax Included` || null,
@@ -455,6 +457,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           videoSrc={video && video}
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
+          imageAltText={metaTitle}
         />
         <LazyLoadComponent
           visibleByDefault={

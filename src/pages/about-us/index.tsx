@@ -8,8 +8,14 @@ import createApolloClient from '../../apolloClient';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
+import { encodeData, decodeData } from '../../utils/data';
 
-const AboutUsLandingPage: NextPage<IAboutPageProps> = ({ data, loading }) => {
+const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
+  data: encodedData,
+  loading,
+}) => {
+  // De-obfuscate data for user
+  const data = decodeData(encodedData);
   const metaData = getSectionsData(['metaData'], data?.aboutUsLandingPage);
   const featuredImage = getSectionsData(
     ['featuredImage'],
@@ -40,12 +46,17 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({ data, loading }) => {
 export async function getStaticProps(context: NextPageContext) {
   const client = createApolloClient({}, context);
   try {
-    const { data, loading, errors } = await client.query({
+    const { data: rawData, loading, errors } = await client.query({
       query: GET_ABOUT_US_PAGE_DATA,
     });
+
     if (errors) {
       throw new Error(errors[0].message);
     }
+
+    // Obfuscate data from Googlebot
+    const data = encodeData(rawData);
+
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: { data, loading },

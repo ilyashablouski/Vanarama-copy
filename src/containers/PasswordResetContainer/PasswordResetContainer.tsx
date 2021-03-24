@@ -19,7 +19,7 @@ export const RESET_PASSWORD_MUTATION = gql`
       username: $username
       password: $password
     ) {
-      isSuccessfull
+      isSuccessful
     }
   }
 `;
@@ -50,7 +50,7 @@ const PasswordResetContainer = ({
       username={username}
       code={code}
       oldPassword={oldPassword}
-      hasError={called && data?.passwordConfirm?.isSuccessfull === false}
+      hasError={called && data?.passwordConfirm?.isSuccessful === false}
       onSubmit={async values => {
         await resetPassword({
           variables: {

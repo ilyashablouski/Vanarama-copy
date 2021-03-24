@@ -23,15 +23,14 @@ const ACCORDION_ITEMS = [
           dataTestId="terms_and_conditions"
           link={{
             href: '/legal/terms-and-conditions.html',
-            label: 'Terms and Conditions',
+            label: 'Full terms and conditions can be found here.',
             target: '_blank',
           }}
           classNames={{ size: 'regular', color: 'teal' }}
           key="terms_and_conditions"
         >
-          Terms and Conditions
-        </RouterLink>{' '}
-        apply
+          Full terms and conditions can be found here.
+        </RouterLink>
       </>
     ),
   },
@@ -41,21 +40,21 @@ const ACCORDION_ITEMS = [
     children: (
       <>
         If you change your mind up to 30 days after your vehicle has been
-        delivered, you don’t have to worry! We’ll collect it from wherever you
-        are, free of charge.{' '}
+        delivered, you don’t have to worry! As long as haven&apos;t exceeded
+        your mileage by 50 miles, we’ll collect it from wherever you are, free
+        of charge.{' '}
         <RouterLink
           dataTestId="terms_and_conditions"
           link={{
             href: '/legal/terms-and-conditions.html',
-            label: 'Terms and Conditions',
+            label: 'Full terms and conditions can be found here.',
             target: '_blank',
           }}
           classNames={{ size: 'regular', color: 'teal' }}
           key="terms_and_conditions"
         >
-          Terms and Conditions
-        </RouterLink>{' '}
-        apply
+          Full terms and conditions can be found here.
+        </RouterLink>
       </>
     ),
   },
@@ -108,15 +107,14 @@ const WhyChooseVanarama: React.FC<IWhyChooseVanaramaProps> = ({
                   dataTestId="terms_and_conditions"
                   link={{
                     href: '/legal/terms-and-conditions.html',
-                    label: 'Terms and Conditions',
+                    label: 'Full terms and conditions can be found here.',
                     target: '_blank',
                   }}
                   classNames={{ size: 'regular', color: 'teal' }}
                   key="terms_and_conditions"
                 >
-                  Terms and Conditions
-                </RouterLink>{' '}
-                apply
+                  Full terms and conditions can be found here.
+                </RouterLink>
               </>
             ),
           },

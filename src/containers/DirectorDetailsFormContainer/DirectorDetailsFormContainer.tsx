@@ -20,7 +20,6 @@ import {
   mapDirectorsDefaultValues,
   combineUpdatedDirectors,
 } from './mappers';
-import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { parseOfficers } from '../../components/DirectorDetailsForm/helpers';
 import { isTruthy } from '../../utils/array';
 import Skeleton from '../../components/Skeleton';
@@ -36,7 +35,6 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   personUuid,
   onCompleted,
   onError,
-  isEdited,
 }) => {
   const [saveDirectorDetails] = useSaveDirectorDetailsMutation();
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
@@ -57,6 +55,13 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   const directorsDetails =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.directorsDetails;
+  const funderId =
+    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
+      ?.lineItem?.vehicleProduct?.funderId;
+
+  const isEdit = useMemo(() => (directorsDetails?.directors || []).length > 0, [
+    directorsDetails,
+  ]);
 
   const defaultValues = useMemo(() => {
     return directorsDetails?.directors?.length > 0
@@ -79,15 +84,13 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   ) =>
     createUpdateApplication({
       variables: {
-        input: formValuesToInputCreditApplication({
-          ...getCreditApplicationByOrderUuidQuery.data
-            ?.creditApplicationByOrderUuid,
+        input: {
           directorsDetails: {
             directors,
             totalPercentage,
           },
           orderUuid,
-        }),
+        },
       },
     });
 
@@ -110,7 +113,8 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   return (
     <DirectorDetailsForm
       officers={officers}
-      isEdited={isEdited}
+      funderId={funderId}
+      isEdit={isEdit}
       directorUuid={directorUuid}
       defaultValues={defaultValues}
       dropdownData={allDropDowns}

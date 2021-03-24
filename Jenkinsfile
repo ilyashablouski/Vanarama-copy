@@ -2,7 +2,6 @@ serviceName = 'next-storefront'
 ecrRegion = 'eu-west-2'
 stack = 'grid'
 taskDefFile = "deploy/aws/task-definition.json"
-dateNow = new Date()
 branchName = "${env.BRANCH_NAME}"
 cloudflareZone = "b5c6ca8c47a2f751ca780000a91202bc"
 
@@ -22,7 +21,7 @@ def app_environment = [
         stack: 'grid',
         slackChannelInfra: '#dev-infra-approvals',
         slackChannelQA: '#qa-code-approvals',
-        jenkinsCredentialsId: 'aws-techamigo-keys',
+        jenkinsCredentialsId: 'aws-keys-terraform-grid-dev',
         accountId: '000379120260',
         awsMasterRole: '', //empty while dev has master account credentials
         state_bucket: 'autorama-terraform-state',
@@ -32,7 +31,7 @@ def app_environment = [
         NODE_ENV: 'development',
         terraformService: true,
         alternateDomain: 'dev.vanarama-nonprod.com',
-        imgOptimisationHost: 'https://vanarama-nonprod.com'
+        imgOptimisationHost: 'https://dev.vanarama-nonprod.com'
     ],
     "uat": [
         clusterName: 'grid-uat',
@@ -54,7 +53,7 @@ def app_environment = [
         NODE_ENV: 'development',
         terraformService: true,
         alternateDomain: 'uat.vanarama-nonprod.com',
-        imgOptimisationHost: 'https://vanarama-nonprod.com'
+        imgOptimisationHost: 'https://uat.vanarama-nonprod.com'
     ]
 ]
 
@@ -87,7 +86,8 @@ def getConfig() {
 def createReleaseBranch(appEnvironment, sourceBranch) {
 
     cleanWs()
-
+    
+    def dateNow = new Date()
     def appName = appEnvironment["${getConfig()}"].app
     def releaseBranchName = "release/R${env.BUILD_NUMBER}-${dateNow.format('ddMMyyyy')}"
 
@@ -254,7 +254,7 @@ pipeline {
                     sh """
                       source ./setup.sh ${envs} ${stack} ${serviceName} ${ecrRegion} ${getConfig()} ${alternateDomain} ${imgOptimisationHost}
                       docker pull $dockerRepoName:latest || true
-                      docker build -t $dockerRepoName:${getDockerTagName()} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg PRERENDER_SERVICE_URL=\${PRERENDER_SERVICE_URL} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${ENV} --build-arg GTM_ID=\${GTM_ID} --build-arg MICROBLINK_URL=\${MICROBLINK_URL} --build-arg IMG_OPTIMISATION_HOST=\${IMG_OPTIMISATION_HOST} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=${NODE_ENV} --build-arg HOST_DOMAIN=\${HOST_DOMAIN} --cache-from $dockerRepoName:latest .
+                      docker build -t $dockerRepoName:${getDockerTagName()} --build-arg NPM_TOKEN=${NPM_TOKEN} --build-arg PRERENDER_SERVICE_URL=\${PRERENDER_SERVICE_URL} --build-arg API_KEY=\${API_KEY} --build-arg API_URL=\${API_URL} --build-arg ENV=\${ENV} --build-arg GTM_ID=\${GTM_ID} --build-arg HEAP_ID=\${HEAP_ID} --build-arg MICROBLINK_URL=\${MICROBLINK_URL} --build-arg IMG_OPTIMISATION_HOST=\${IMG_OPTIMISATION_HOST} --build-arg LOQATE_KEY=\${LOQATE_KEY} --build-arg NODE_ENV=${NODE_ENV} --build-arg HOST_DOMAIN=\${HOST_DOMAIN} --cache-from $dockerRepoName:latest .
                       docker push $dockerRepoName:${getDockerTagName()}
                       docker tag $dockerRepoName:${getDockerTagName()} $dockerRepoName:latest
                       docker push $dockerRepoName:latest

@@ -64,6 +64,16 @@ describe('<RegisterForm />', () => {
       target: { value: 'Password1' },
     });
 
+    // Set terms and conditions
+    fireEvent.click(screen.getByTestId('aboutTermsAndCons'), {
+      target: { value: true },
+    });
+
+    // Set privacy policy
+    fireEvent.click(screen.getByTestId('aboutPrivacyPolicy'), {
+      target: { value: true },
+    });
+
     fireEvent.click(screen.getByText('Register'));
 
     // ASSERT
