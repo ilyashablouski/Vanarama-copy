@@ -108,8 +108,8 @@ export const combineUpdatedDirectors = (
   return directors.map(director => {
     const data = associates?.find(
       associate =>
-        associate.firstName === director.originalFirstName &&
-        associate.lastName === director.originalLastName,
+        associate.firstName === director.firstName &&
+        associate.lastName === director.lastName,
     );
 
     // merge addresses data from BE and address finder
