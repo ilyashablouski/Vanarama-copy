@@ -49,7 +49,7 @@ const StructuredList: FC<IStructuredListProps> = ({
               <div className="structured-list-th">
                 <Text
                   tag="p"
-                  color="darker"
+                  color="black"
                   size={headingSize}
                   dataTestId={headingDataTestId}
                 >
