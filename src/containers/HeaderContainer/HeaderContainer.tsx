@@ -18,7 +18,7 @@ const HEADER_DATA = require('../../deps/data/menuData.json');
 export const LOGOUT_USER_MUTATION = gql`
   mutation LogOutUserMutation {
     logoutV2 {
-      isSuccessfull
+      isSuccessful
     }
   }
 `;

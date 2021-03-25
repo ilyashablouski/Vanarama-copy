@@ -134,8 +134,9 @@ describe('<FleetLandingPage />', () => {
     expect(
       screen.getByTestId('fleet-call-back-form_phone-number'),
     ).toBeVisible();
-    expect(screen.getByTestId('fleet-call-back-form_agreement')).toBeVisible();
-    expect(screen.getByTestId('fleet-call-back-form_continue')).toBeVisible();
+    expect(screen.getByTestId('aboutTermsAndCons')).toBeVisible();
+    expect(screen.getByTestId('aboutPrivacyPolicy')).toBeVisible();
+    expect(screen.getByTestId('aboutConsent')).toBeVisible();
   });
 
   it('should render testimonial section correctly', async () => {

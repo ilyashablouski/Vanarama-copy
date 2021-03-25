@@ -11,6 +11,7 @@ export interface IFleetCallBackFormValues {
   fleetSize: number;
   email: string;
   phoneNumber: string;
-  agreement?: boolean;
-  updates?: boolean;
+  termsAndCons: boolean;
+  privacyPolicy: boolean;
+  consent?: boolean;
 }

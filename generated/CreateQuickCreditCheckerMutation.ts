@@ -33,6 +33,9 @@ export interface CreateQuickCreditCheckerMutation_quickCreditChecker_person {
   dateOfBirth: any | null;
   emailAddresses: CreateQuickCreditCheckerMutation_quickCreditChecker_person_emailAddresses[];
   addresses: CreateQuickCreditCheckerMutation_quickCreditChecker_person_addresses[] | null;
+  termsAndConditions: boolean | null;
+  privacyPolicy: boolean | null;
+  emailConsent: boolean | null;
 }
 
 export interface CreateQuickCreditCheckerMutation_quickCreditChecker {

@@ -24,11 +24,12 @@ export interface CreateOpportunityVariables {
   capId?: number | null;
   email: string;
   fullName: string;
-  marketingPreference?: boolean | null;
   opportunityType: OpportunityTypeEnum;
   phoneNumber: string;
   postcode?: string | null;
-  termsAndConditions?: boolean | null;
+  termsAndConditions: boolean;
+  privacyPolicy: boolean;
+  communicationsConsent?: boolean | null;
   vehicleType?: string | null;
   companyName?: string | null;
   fleetSize?: number | null;

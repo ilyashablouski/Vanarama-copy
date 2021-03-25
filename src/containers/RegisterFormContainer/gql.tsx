@@ -11,7 +11,7 @@ import {
 export const EMAIL_ALREADY_EXISTS = gql`
   mutation EmailAlreadyExistsMutation($email: String!) {
     emailAlreadyExists(email: $email) {
-      isSuccessfull
+      isSuccessful
       isExists
       isTemporary
     }
@@ -24,6 +24,9 @@ export const REGISTER_USER_MUTATION = gql`
     $lastName: String!
     $username: String!
     $password: String!
+    $termsAndConditions: Boolean!
+    $privacyPolicy: Boolean!
+    $communicationsConsent: Boolean
     $redirectUrl: String
   ) {
     register(
@@ -31,6 +34,9 @@ export const REGISTER_USER_MUTATION = gql`
       lastName: $lastName
       username: $username
       password: $password
+      privacyPolicy: $privacyPolicy
+      termsAndConditions: $termsAndConditions
+      communicationsConsent: $communicationsConsent
       redirectUrl: $redirectUrl
     ) {
       uuid

@@ -20,5 +20,8 @@ export interface RegisterUserMutationVariables {
   lastName: string;
   username: string;
   password: string;
+  termsAndConditions: boolean;
+  privacyPolicy: boolean;
+  communicationsConsent?: boolean | null;
   redirectUrl?: string | null;
 }

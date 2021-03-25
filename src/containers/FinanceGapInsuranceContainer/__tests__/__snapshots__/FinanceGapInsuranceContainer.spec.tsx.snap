@@ -667,11 +667,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           <div
             class="formgroup"
           >
-            <label
-              class="formgroup--legend"
-            >
-              Agree To:
-            </label>
             <div
               class="formgroup--content"
             >
@@ -693,6 +688,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   <span
                     class="text -regular -darker"
                   >
+                    I agree to the 
                     <a
                       class="link -teal"
                       href="/legal/terms-and-conditions.html"
@@ -700,7 +696,28 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                     >
                       Terms and Conditions
                     </a>
-                     and 
+                  </span>
+                </label>
+              </div>
+              <div
+                class="checkbox -teal"
+              >
+                <input
+                  class="checkbox--native"
+                  data-testid="aboutPrivacyPolicy"
+                  id="privacy"
+                  name="privacyPolicy"
+                  type="checkbox"
+                  value=""
+                />
+                <label
+                  class="checkbox--label"
+                  for="privacy"
+                >
+                  <span
+                    class="text -regular -darker"
+                  >
+                    I have read and understood the 
                     <a
                       class="link -teal"
                       href="/legal/privacy-policy.html"
@@ -729,7 +746,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   <span
                     class="text -regular -darker"
                   >
-                    Keep me updated on the latest deals & offers.
+                    Keep me updated on the latest deals & offers
                   </span>
                 </label>
               </div>

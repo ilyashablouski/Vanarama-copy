@@ -67,8 +67,9 @@ const Hero: React.FC<IHeroProps> = ({
                 companyName: values.companyName,
                 fleetSize: +values.fleetSize,
                 opportunityType: OpportunityTypeEnum.FLEET,
-                marketingPreference: Boolean(values.updates),
-                termsAndConditions: Boolean(values.agreement),
+                communicationsConsent: Boolean(values.consent),
+                termsAndConditions: Boolean(values.termsAndCons),
+                privacyPolicy: Boolean(values.privacyPolicy),
                 postcode: DEFAULT_POSTCODE,
               },
             });
