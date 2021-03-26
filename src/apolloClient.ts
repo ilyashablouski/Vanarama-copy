@@ -89,8 +89,8 @@ const logLink = new ApolloLink((operation, forward) => {
       variables: operation.variables,
     };
 
-    console.log('\nGraphQL Query:');
-    console.log(query);
+    console.log('\n[GraphQL query]:');
+    console.log(`${JSON.stringify(query, null, 4)}\n`);
   }
 
   return forward(operation);
