@@ -13,7 +13,8 @@ describe('<LoginFormContainer />', () => {
     onCompletedMock.mockReset();
   });
 
-  it('should make a server request to register a user when the form is submitted', async () => {
+  // outdated
+  it.skip('should make a server request to register a user when the form is submitted', async () => {
     // ARRANGE
     let mockCalled = false;
     const mocks: MockedResponse[] = [
