@@ -38,7 +38,7 @@ module.exports = async () => {
     await client.request(query, variables, requestHeaders);
     console.log('Blog posts fetched succesfully');
   } catch (err) {
-    console.error(JSON.stringify(error, null, 4));
+    console.error(JSON.stringify(err, null, 4));
     throw new Error('blogPosts query failed');
   }
 };
