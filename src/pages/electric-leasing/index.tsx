@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/camelcase */
-import { NextPage } from 'next';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
@@ -543,17 +543,20 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
   );
 };
 
-export async function getStaticProps() {
-  const client = createApolloClient({});
-
+export async function getStaticProps(context: GetStaticPropsContext) {
   try {
-    const { data } = await client.query<GenericPageQuery>({
+    const client = createApolloClient({}, context as NextPageContext);
+    // const paths = context?.params?.pages as string[];
+
+    const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
         slug: 'electric-leasing',
       },
     });
-
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
