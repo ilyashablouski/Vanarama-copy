@@ -35,9 +35,10 @@ const requestHeaders = {
 module.exports = async () => {
   const client = new GraphQLClient(process.env.API_URL);
   try {
-    const data = await client.request(query, variables, requestHeaders);
+    await client.request(query, variables, requestHeaders);
     console.log('Blog posts fetched succesfully');
   } catch (err) {
-    throw console.error(err);
+    console.error(JSON.stringify(error, null, 4));
+    throw new Error('blogPosts query failed');
   }
 };

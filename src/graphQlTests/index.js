@@ -1,3 +1,12 @@
-const runQueryBlogPosts = require('./blogPosts');
+const blogPosts = require('./blogPosts');
 
-runQueryBlogPosts();
+var delay = 1000;
+
+function runQuery(callBack) {
+  setTimeout(function() {
+    callBack();
+  }, delay);
+  delay = delay + 1000;
+}
+
+runQuery(blogPosts);
