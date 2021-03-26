@@ -396,6 +396,27 @@
           grid-column: content;
         }
 
+        &-details {
+          display: flex;
+          justify-content: space-between;
+
+          > .pdp--brochure {
+            @include mobile {
+              display: none;
+            }
+          }
+
+          @include desktop {
+            margin-top: $rem-500;
+            margin-bottom: $rem-200;
+          }
+
+          @include mobile {
+            margin-top: 0;
+            justify-content: center;
+          }
+        }
+
         &-fullwidth {
           @include mobile {
             margin: 1rem -1rem;

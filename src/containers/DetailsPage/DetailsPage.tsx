@@ -423,12 +423,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <span className="text -lead -darker">
           {vehicleConfigurationByCapId?.capDerivativeDescription}
         </span>
-        {!isMobile ? (
-          <div
-            className="-mt-500 -mb-200"
-            style={{ display: 'flex', justifyContent: 'space-between' }}
-          >
-            <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
+        <div className="pdp--content-details">
+          <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
+          <div className="pdp--brochure">
             {vehicleDetails?.brochureUrl && (
               <RouterLink
                 link={{
@@ -438,14 +435,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
                 }}
                 classNames={{ color: 'teal', size: 'xsmall' }}
               >
-                Download Brochure{' '}
+                {'Download Brochure '}
                 <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
               </RouterLink>
             )}
           </div>
-        ) : (
-          <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
-        )}
+        </div>
         <MediaGallery
           flag={{
             accentIcon: <Icon icon={<Flame />} color="white" />,
