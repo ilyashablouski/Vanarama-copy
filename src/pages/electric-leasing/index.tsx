@@ -23,7 +23,6 @@ import Hero, {
 // import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import getTitleTag from '../../utils/getTitleTag';
 // import useLeaseType from '../../hooks/useLeaseType';
-import { getSectionsData, getCardsName } from '../../utils/getSectionsData';
 import TileLink from '../../components/TileLink/TileLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -77,26 +76,25 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
     quality: 59,
   };
 
+  const sections = data?.genericPage.sections;
+
   return (
     <>
       <Hero>
         {/* <HeroHeading
           text={
-            getSectionsData(['hero', 'title'], data?.genericPage.sections) || ''
+            sections?.hero?.title || ''
           }
           titleTag={
             getTitleTag(
-              getSectionsData(
-                ['hero', 'titleTag'],
-                data?.genericPage.sections,
-              ) || 'p',
+              sections?.hero?.titleTag || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         />
         <br />
         <HeroTitle
           text={
-            getSectionsData(['hero', 'body'], data?.genericPage.sections) || ''
+            sections?.hero?.body || ''
           }
         />
         <br /> */}
@@ -114,26 +112,17 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
             plain
             size="expand"
             src={
-              getSectionsData(
-                ['hero', 'image', 'file', 'url'],
-                data?.genericPage.sections,
-              ) ||
+              sections?.hero?.image?.file?.url ||
               'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
             }
           />
         </div>
-        {data?.genericPage.sections?.hero?.heroLabel?.[0]?.visible && (
+        {sections?.hero?.heroLabel?.[0]?.visible && (
           <HeroPrompt
-            label={
-              data?.genericPage.sections?.hero?.heroLabel?.[0]?.link?.text || ''
-            }
-            url={
-              data?.genericPage.sections?.hero?.heroLabel?.[0]?.link?.url || ''
-            }
-            text={data?.genericPage.sections?.hero?.heroLabel?.[0]?.text || ''}
-            btnVisible={
-              data?.genericPage.sections?.hero?.heroLabel?.[0]?.link?.visible
-            }
+            label={sections?.hero?.heroLabel?.[0]?.link?.text || ''}
+            url={sections?.hero?.heroLabel?.[0]?.link?.url || ''}
+            text={sections?.hero?.heroLabel?.[0]?.text || ''}
+            btnVisible={sections?.hero?.heroLabel?.[0]?.link?.visible}
           />
         )}
       </Hero>
@@ -143,20 +132,14 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
           color="black"
           tag={
             getTitleTag(
-              getSectionsData(
-                ['leadText', 'titleTag'],
-                data?.genericPage.sections,
-              ) || null,
+              sections?.leadText?.titleTag || null,
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {getSectionsData(['leadText', 'heading'], data?.genericPage.sections)}
+          {sections?.leadText?.heading}
         </Heading>
         <Text tag="span" size="lead" color="darker">
-          {getSectionsData(
-            ['leadText', 'description'],
-            data?.genericPage.sections,
-          )}
+          {sections?.leadText?.description}
         </Text>
       </div>
 
@@ -167,14 +150,11 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
             color="black"
             tag={
               getTitleTag(
-                getSectionsData(
-                  ['cards', 'titleTag'],
-                  data?.genericPage.sections,
-                ) || null,
+                sections?.cards?.titleTag || null,
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {getCardsName(data?.genericPage)}
+            {sections?.cards?.name}
           </Heading>
           <Text
             className="-justify-content-row -mb-400"
@@ -182,10 +162,7 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
             size="regular"
             color="darker"
           >
-            {getSectionsData(
-              ['cards', 'description'],
-              data?.genericPage.sections,
-            )}
+            {sections?.cards?.description}
           </Text>
           <LazyLoadComponent
             visibleByDefault={
@@ -193,10 +170,7 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
               navigator?.vendor === 'Apple Computer, Inc.'
             }
           >
-            {(getSectionsData(
-              ['cards', 'cards'],
-              data?.genericPage.sections,
-            ) as CardData[])?.map((card: CardData, idx) => (
+            {sections?.cards?.cards?.map((card: CardData, idx) => (
               <Card
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 key={card.title || idx}
@@ -235,11 +209,9 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
       </div>
 
       <section
-        className={`row:${getFeaturedClassPartial(
-          getSectionsData(['featured1'], data?.genericPage.sections),
-        )}`}
+        className={`row:${getFeaturedClassPartial(sections?.featured1)}`}
       >
-        {data?.genericPage?.sections?.featured1?.video ? (
+        {sections?.featured1?.video ? (
           <LazyLoadComponent
             visibleByDefault={
               typeof window === 'undefined' ||
@@ -247,12 +219,7 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
             }
           >
             <Media
-              src={
-                getSectionsData(
-                  ['featured1', 'video'],
-                  data?.genericPage.sections,
-                ) || ''
-              }
+              src={sections?.featured1.video || ''}
               width="100%"
               height="360px"
             />
@@ -261,10 +228,7 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
           <Image
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={
-              getSectionsData(
-                ['featured1', 'image', 'file', 'url'],
-                data?.genericPage.sections,
-              ) ||
+              sections?.featured1?.image?.file?.url ||
               'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
             }
           />
@@ -276,27 +240,16 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
             color="black"
             tag={
               getTitleTag(
-                getSectionsData(
-                  ['featured1', 'titleTag'],
-                  data?.genericPage.sections,
-                ) || 'p',
+                sections?.featured1?.titleTag || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {getSectionsData(
-              ['featured1', 'title'],
-              data?.genericPage.sections,
-            )}
+            {sections?.featured1?.title}
           </Heading>
           <div className="markdown">
             <ReactMarkdown
               allowDangerousHtml
-              source={
-                getSectionsData(
-                  ['featured1', 'body'],
-                  data?.genericPage.sections,
-                ) || ''
-              }
+              source={sections?.featured1?.body || ''}
               renderers={{
                 link: props => {
                   const { href, children } = props;
@@ -312,18 +265,11 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
         </div>
       </section>
       <section
-        className={`row:${getFeaturedClassPartial(
-          getSectionsData(['featured2'], data?.genericPage.sections),
-        )}`}
+        className={`row:${getFeaturedClassPartial(sections?.featured2)}`}
       >
-        {data?.genericPage?.sections?.featured2?.video ? (
+        {sections?.featured2?.video ? (
           <Media
-            src={
-              getSectionsData(
-                ['featured2', 'video'],
-                data?.genericPage.sections,
-              ) || ''
-            }
+            src={sections?.featured2?.video || ''}
             width="100%"
             height="360px"
           />
@@ -332,10 +278,7 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
             <Image
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={
-                getSectionsData(
-                  ['featured2', 'image', 'file', 'url'],
-                  data?.genericPage.sections,
-                ) ||
+                sections?.featured2?.image?.file?.url ||
                 'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
               }
             />
@@ -347,27 +290,16 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
             color="black"
             tag={
               getTitleTag(
-                getSectionsData(
-                  ['featured2', 'titleTag'],
-                  data?.genericPage.sections,
-                ) || 'p',
+                sections?.featured2?.titleTag || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {getSectionsData(
-              ['featured2', 'title'],
-              data?.genericPage.sections,
-            )}
+            {sections?.featured2?.title}
           </Heading>
           <div className="markdown">
             <ReactMarkdown
               allowDangerousHtml
-              source={
-                getSectionsData(
-                  ['featured2', 'body'],
-                  data?.genericPage.sections,
-                ) || ''
-              }
+              source={sections?.featured2?.body || ''}
               renderers={{
                 link: props => {
                   const { href, children } = props;
@@ -383,18 +315,11 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
         </div>
       </section>
       <section
-        className={`row:${getFeaturedClassPartial(
-          getSectionsData(['featured3'], data?.genericPage.sections),
-        )}`}
+        className={`row:${getFeaturedClassPartial(sections?.featured3)}`}
       >
-        {data?.genericPage?.sections?.featured3?.video ? (
+        {sections?.featured3?.video ? (
           <Media
-            src={
-              getSectionsData(
-                ['featured3', 'video'],
-                data?.genericPage.sections,
-              ) || ''
-            }
+            src={sections?.featured3?.video || ''}
             width="100%"
             height="360px"
           />
@@ -403,10 +328,7 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
             <Image
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={
-                getSectionsData(
-                  ['featured3', 'image', 'file', 'url'],
-                  data?.genericPage.sections,
-                ) ||
+                sections?.featured3?.image?.file?.url ||
                 'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
               }
             />
@@ -418,27 +340,16 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
             color="black"
             tag={
               getTitleTag(
-                getSectionsData(
-                  ['featured3', 'titleTag'],
-                  data?.genericPage.sections,
-                ) || 'p',
+                sections?.featured3?.titleTag || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {getSectionsData(
-              ['featured3', 'title'],
-              data?.genericPage.sections,
-            )}
+            {sections?.featured3?.title}
           </Heading>
           <div className="markdown">
             <ReactMarkdown
               allowDangerousHtml
-              source={
-                getSectionsData(
-                  ['featured3', 'body'],
-                  data?.genericPage.sections,
-                ) || ''
-              }
+              source={sections?.featured3?.body || ''}
               renderers={{
                 link: props => {
                   const { href, children } = props;
@@ -461,24 +372,18 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
           color="black"
           tag={
             getTitleTag(
-              getSectionsData(
-                ['rowText', 'titleTag'],
-                data?.genericPage.sections,
-              ) || 'p',
+              sections?.rowText?.titleTag || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {getSectionsData(['rowText', 'heading'], data?.genericPage.sections)}
+          {sections?.rowText?.heading}
         </Heading>
         <div>
           <Text tag="p" size="regular" color="darker">
-            {getSectionsData(['rowText', 'body'], data?.genericPage.sections)}
+            {sections?.rowText?.body}
           </Text>
           <Heading size="regular" color="black">
-            {getSectionsData(
-              ['rowText', 'subHeading'],
-              data?.genericPage.sections,
-            )}
+            {sections?.rowText?.subHeading}
           </Heading>
           <RouterLink
             className="-pt-200"
@@ -507,22 +412,13 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
             color="black"
             tag={
               getTitleTag(
-                getSectionsData(
-                  ['tiles', 'titleTag'],
-                  data?.genericPage.sections,
-                ) || 'p',
+                sections?.tiles?.titleTag || 'p',
               ) as keyof JSX.IntrinsicElements
             }
           >
-            {getSectionsData(
-              ['tiles', 'tilesTitle'],
-              data?.genericPage.sections,
-            )}
+            {sections?.tiles?.tilesTitle}
           </Heading>
-          {(getSectionsData(
-            ['tiles', 'tiles'],
-            data?.genericPage.sections,
-          ) as TileData[])?.map((tile: TileData, idx) => (
+          {sections?.tiles?.tiles?.map((tile: TileData, idx) => (
             <div key={tile.title || idx}>
               <Tile className="-plain -button -align-center" plain>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -653,6 +549,9 @@ export async function getStaticProps() {
   try {
     const { data } = await client.query<GenericPageQuery>({
       query: GENERIC_PAGE,
+      variables: {
+        slug: 'electric-leasing',
+      },
     });
 
     return {
