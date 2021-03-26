@@ -10,6 +10,8 @@ const vehicleImages = require('./vehicleImages');
 const filterList = require('./filterList');
 const quoteByCapId = require('./quoteByCapId');
 const getTrimAndColor = require('./getTrimAndColorList');
+const bodyStyleList = require('./bodyStyleList');
+const vehicleConfigurationByCapId = require('./vehicleConfigurationByCapId');
 
 let delay = 1000;
 
@@ -32,3 +34,5 @@ runQuery(vehicleImages);
 runQuery(filterList);
 runQuery(quoteByCapId);
 runQuery(getTrimAndColor);
+runQuery(bodyStyleList);
+runQuery(vehicleConfigurationByCapId);
