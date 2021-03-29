@@ -82,7 +82,7 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
         >
           {title}
         </Heading>
-        {multiSelect && (
+        {multiSelect && choicesValues.length !== 1 && (
           <Text tag="p" size="regular" color="darker" className="-mb-100">
             Select As Many As You Like
           </Text>
@@ -100,12 +100,6 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
             withIcons={withIcons}
             currentValue={currentValue}
           />
-          {choicesValues.length === 1 && (
-            <Text>
-              It seems there is only 1 option available, please go back a step
-              and change your selection to expand your choice
-            </Text>
-          )}
         </div>
         <Button
           color="primary"
