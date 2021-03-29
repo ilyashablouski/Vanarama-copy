@@ -635,11 +635,7 @@ const FiltersContainer = ({
    * remove value from filter after deleting tag
    */
   const handleRemoveTag = (value: string) => {
-    const formatedValue = value
-      .replace('£', '')
-      .split(' ')
-      .join('-')
-      .toLowerCase();
+    const formatedValue = value.replace('£', '').toLowerCase();
     const filter = getValueKey(formatedValue) as keyof typeof filtersMapper;
     const newSelectedFiltersState = {
       ...selectedFiltersState,
