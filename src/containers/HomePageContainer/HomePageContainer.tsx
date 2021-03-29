@@ -91,16 +91,14 @@ const optimisationOptions = {
 };
 
 export interface IHomePageContainer extends ISpecialOffersData {
-  data: HomePageData;
+  data: HomePageData | undefined;
   loading: boolean;
-  error: ApolloError | undefined;
   searchPodVansData?: IFilterList;
   searchPodCarsData?: IFilterList;
 }
 
 export const HomePageContainer: React.FC<IHomePageContainer> = ({
   // loading,
-  error,
   data,
   productsVanDerivatives,
   productsCarDerivatives,
@@ -118,10 +116,6 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
   // if (loading) {
   //   return <Loading size="large" />;
   // }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
 
   const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
   const isPersonalCar = cachedLeaseType.car === 'Personal';
