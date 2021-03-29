@@ -425,20 +425,22 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         </span>
         <div className="pdp--content-details">
           <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
-          <div className="pdp--brochure">
-            {vehicleDetails?.brochureUrl && (
-              <RouterLink
-                link={{
-                  href: vehicleDetails?.brochureUrl,
-                  label: '',
-                  target: '_blank',
-                }}
-                classNames={{ color: 'teal', size: 'xsmall' }}
-              >
-                {'Download Brochure '}
-                <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
-              </RouterLink>
-            )}
+          <div>
+            <div className="pdp--brochure">
+              {vehicleDetails?.brochureUrl && (
+                <RouterLink
+                  link={{
+                    href: vehicleDetails?.brochureUrl,
+                    label: '',
+                    target: '_blank',
+                  }}
+                  classNames={{ color: 'teal', size: 'xsmall' }}
+                >
+                  {'Download Brochure '}
+                  <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
+                </RouterLink>
+              )}
+            </div>
           </div>
         </div>
         <MediaGallery
