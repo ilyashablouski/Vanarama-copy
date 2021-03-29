@@ -75,7 +75,9 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
           .map(director => director?.uuid)
           .filter(item => !!item);
         const directorsToLeave = directors.filter(
-          director => !uuidsOfUpdatedDirectors.includes(director?.uuid),
+          director =>
+            !uuidsOfUpdatedDirectors.includes(director?.uuid) &&
+            director.shareOfBusiness,
         );
 
         return onSubmit({
