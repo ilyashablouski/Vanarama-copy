@@ -15,7 +15,7 @@ describe('articles', () => {
           {
             intro: null,
             name: null,
-            publishedOn: '2020-10-17T03:24:00',
+            metaData: { publishedOn: '2020-10-17T03:24:00' },
             featuredImage: null,
             isFeatured: null,
             title: null,
@@ -27,7 +27,7 @@ describe('articles', () => {
           {
             intro: null,
             name: null,
-            publishedOn: '2020-11-17T03:24:00',
+            metaData: { publishedOn: '2020-11-17T03:24:00' },
             featuredImage: null,
             isFeatured: null,
             title: null,
@@ -44,7 +44,7 @@ describe('articles', () => {
         {
           intro: null,
           name: null,
-          publishedOn: '2020-10-17T03:24:00',
+          metaData: { publishedOn: '2020-10-17T03:24:00' },
           featuredImage: null,
           isFeatured: null,
           title: null,
