@@ -649,7 +649,6 @@ describe('<HomePage />', () => {
         <HomePage
           data={homePageData.result.data}
           loading={false}
-          error={undefined}
           productsVanDerivatives={derivatives}
           productsCarDerivatives={derivatives}
           productsPickupDerivatives={derivatives}

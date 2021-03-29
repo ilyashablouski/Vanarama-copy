@@ -165,7 +165,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
   );
 
   return (
-    <Form>
+    <Form className="olaf-summary">
       <Heading
         color="black"
         size="xlarge"
