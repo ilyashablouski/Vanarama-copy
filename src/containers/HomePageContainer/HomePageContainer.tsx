@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
-import { ApolloError } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Head from '../../components/Head/Head';
