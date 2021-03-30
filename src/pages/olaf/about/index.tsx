@@ -1,12 +1,7 @@
 import dynamic from 'next/dynamic';
 import { useState, useEffect, useRef } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
-import {
-  gql,
-  useLazyQuery,
-  useApolloClient,
-  ApolloError,
-} from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
@@ -31,13 +26,8 @@ import { useCreateUpdateOrder } from '../../../gql/order';
 import {
   LeaseTypeEnum,
   CreditApplicationTypeEnum as CATypeEnum,
-  MyOrdersTypeEnum,
   OrderInputObject,
 } from '../../../../generated/globalTypes';
-import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
-import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
-import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
-import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { GetDerivative_derivative as IDerivative } from '../../../../generated/GetDerivative';
 import Skeleton from '../../../components/Skeleton';
 import useGetOrder from '../../../hooks/useGetOrder';
@@ -52,32 +42,6 @@ const Text = dynamic(() => import('core/atoms/text'), {
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-
-export const GET_PERSON_QUERY = gql`
-  query GetPerson {
-    getPerson {
-      uuid
-      firstName
-      lastName
-      partyUuid
-      emailAddresses {
-        value
-        partyId
-      }
-    }
-  }
-`;
-
-export function useGetPersonLazyQuery(
-  onCompleted: (data: GetPerson) => void,
-  onError: (error: ApolloError) => void,
-) {
-  return useLazyQuery<GetPerson>(GET_PERSON_QUERY, {
-    fetchPolicy: 'no-cache',
-    onCompleted,
-    onError,
-  });
-}
 
 export const handleAccountFetchError = () =>
   toast.error(
@@ -106,37 +70,8 @@ const AboutYouPage: NextPage = () => {
     null,
   );
 
-  const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
-  const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
-
   const [updateOrderHandle] = useCreateUpdateOrder(() => {});
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-  const [getPerson] = useGetPersonLazyQuery(async data => {
-    setPersonUuid(data?.getPerson?.uuid);
-    await localForage.setItem('person', data);
-    const partyUuid = [data.getPerson?.partyUuid];
-    await getCompaniesData({
-      personUuid: data.getPerson?.uuid,
-    }).then(resp => {
-      resp.data?.companiesByPersonUuid?.forEach(
-        (companies: CompaniesByPersonUuid) =>
-          partyUuid.push(companies.partyUuid),
-      );
-    });
-    getOrdersData({
-      partyUuid,
-      filter: MyOrdersTypeEnum.ALL_ORDERS,
-    }).then(response => {
-      localForage.setItem('ordersLength', response.data?.myOrders.length);
-    });
-    getOrdersData({
-      partyUuid,
-      filter: MyOrdersTypeEnum.ALL_QUOTES,
-    }).then(response => {
-      localForage.setItem('quotesLength', response.data?.myOrders.length);
-    });
-    router.replace(router.pathname, router.asPath);
-  }, handleAccountFetchError);
   const { refetch } = usePersonByUuidData(personUuid || '');
   const creditApplicationQuery = useGetCreditApplicationByOrderUuid(orderId);
   const creditApplication =
@@ -246,11 +181,13 @@ const AboutYouPage: NextPage = () => {
           </div>
           {isLogInVisible && (
             <LoginFormContainer
-              onCompleted={() => {
+              onCompleted={person => {
                 pushAuthorizationEventDataLayer();
-                getPerson();
+                setPersonUuid(person?.uuid);
                 setPersonLoggedIn(true);
+                return router.replace(router.pathname, router.asPath);
               }}
+              onError={handleAccountFetchError}
             />
           )}
         </div>
