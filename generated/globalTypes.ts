@@ -127,6 +127,20 @@ export interface BankAccountInputObject {
 }
 
 /**
+ * Input object to create and add a Bank Account
+ */
+export interface BankAccountV2InputObject {
+  accountName?: string | null;
+  accountNumber?: string | null;
+  bankName?: string | null;
+  joinedAt?: any | null;
+  joinedAtMonth?: string | null;
+  joinedAtYear?: string | null;
+  sortCode?: string | null;
+  uuid?: string | null;
+}
+
+/**
  * Input object to create a Company Associate (Director, Partner etc.)
  */
 export interface CompanyAssociateInputObject {
@@ -193,6 +207,7 @@ export interface CreditApplicationInputObject {
   aboutDetails?: any | null;
   addresses?: any | null;
   bankAccounts?: any | null;
+  bankAccountsV2?: BankAccountV2InputObject[] | null;
   companyDetails?: any | null;
   creditApplicationType?: CreditApplicationTypeEnum | null;
   directorsDetails?: any | null;

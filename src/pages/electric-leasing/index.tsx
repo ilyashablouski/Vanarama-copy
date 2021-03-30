@@ -10,14 +10,14 @@ import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
-  GenericPageQuery_genericPage_sections_cards_cards as CardData,
 } from '../../../generated/GenericPageQuery';
 // import { ProductCardData_productCarousel as ProdCardData } from '../../../generated/ProductCardData';
 
 import { GENERIC_PAGE } from '../../gql/genericPage';
-import Hero, {
+import {
   // HeroTitle,
   // HeroHeading,
+  HeroEv as Hero,
   HeroPrompt,
 } from '../../components/Hero';
 // import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
@@ -27,12 +27,6 @@ import TileLink from '../../components/TileLink/TileLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 
-const ArrowForwardSharp = dynamic(
-  () => import('core/assets/icons/ArrowForwardSharp'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -46,9 +40,6 @@ const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
 });
 const Media = dynamic(() => import('core/atoms/media'), {
-  loading: () => <Skeleton count={3} />,
-});
-const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={3} />,
 });
 const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
@@ -81,7 +72,8 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
   return (
     <>
       <Hero>
-        {/* <HeroHeading
+        <div className="hero--left">
+          {/* <HeroHeading
           text={
             sections?.hero?.title || ''
           }
@@ -98,12 +90,21 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
           }
         />
         <br /> */}
-        <div className="nlol">
-          <p>Find Your</p>
-          <h2>New Lease Of Life</h2>
-          <p>With Vanarama</p>
+          <div className="nlol">
+            <p>Find Your</p>
+            <h2>New Lease Of Life</h2>
+            <p>With Vanarama</p>
+          </div>
+          {sections?.hero?.heroLabel?.[0]?.visible && (
+            <HeroPrompt
+              label={sections?.hero?.heroLabel?.[0]?.link?.text || ''}
+              url={sections?.hero?.heroLabel?.[0]?.link?.url || ''}
+              text={sections?.hero?.heroLabel?.[0]?.text || ''}
+              btnVisible={sections?.hero?.heroLabel?.[0]?.link?.visible}
+            />
+          )}
         </div>
-        <div>
+        <div className="hero--right">
           <Image
             loadImage
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -117,14 +118,6 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
             }
           />
         </div>
-        {sections?.hero?.heroLabel?.[0]?.visible && (
-          <HeroPrompt
-            label={sections?.hero?.heroLabel?.[0]?.link?.text || ''}
-            url={sections?.hero?.heroLabel?.[0]?.link?.url || ''}
-            text={sections?.hero?.heroLabel?.[0]?.text || ''}
-            btnVisible={sections?.hero?.heroLabel?.[0]?.link?.visible}
-          />
-        )}
       </Hero>
       <div className="row:lead-text">
         <Heading
@@ -141,71 +134,6 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
         <Text tag="span" size="lead" color="darker">
           {sections?.leadText?.description}
         </Text>
-      </div>
-
-      <div className="row:bg-lighter ">
-        <div className="row:cards-4col">
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                sections?.cards?.titleTag || null,
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {sections?.cards?.name}
-          </Heading>
-          <Text
-            className="-justify-content-row -mb-400"
-            tag="p"
-            size="regular"
-            color="darker"
-          >
-            {sections?.cards?.description}
-          </Text>
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
-          >
-            {sections?.cards?.cards?.map((card: CardData, idx) => (
-              <Card
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={card.title || idx}
-                title={{
-                  title: '',
-                  withBtn: true,
-                  link: (
-                    <RouterLink
-                      link={{
-                        href: card.link?.legacyUrl || card.link?.url || '#',
-                        label: card.title || '',
-                      }}
-                      className="heading"
-                      classNames={{ size: 'lead', color: 'black' }}
-                    >
-                      <Heading
-                        size="regular"
-                        color="black"
-                        tag={
-                          getTitleTag(
-                            card.titleTag || null,
-                          ) as keyof JSX.IntrinsicElements
-                        }
-                      >
-                        {card.title}
-                      </Heading>
-                    </RouterLink>
-                  ),
-                }}
-                imageSrc={card.image?.file?.url}
-                description={card.body || ''}
-              />
-            ))}
-          </LazyLoadComponent>
-        </div>
       </div>
 
       <section
@@ -364,41 +292,6 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
           </div>
         </div>
       </section>
-
-      <hr className="fullWidth" />
-      <section className="row:text">
-        <Heading
-          size="large"
-          color="black"
-          tag={
-            getTitleTag(
-              sections?.rowText?.titleTag || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
-        >
-          {sections?.rowText?.heading}
-        </Heading>
-        <div>
-          <Text tag="p" size="regular" color="darker">
-            {sections?.rowText?.body}
-          </Text>
-          <Heading size="regular" color="black">
-            {sections?.rowText?.subHeading}
-          </Heading>
-          <RouterLink
-            className="-pt-200"
-            classNames={{ color: 'teal', size: 'regular' }}
-            link={{
-              label: 'View Leasing Guides',
-              href: '/van-leasing-explained.html',
-            }}
-          >
-            View Leasing Guides <ArrowForwardSharp />
-          </RouterLink>
-        </div>
-      </section>
-
-      <hr className="fullWidth" />
 
       <LazyLoadComponent
         visibleByDefault={
