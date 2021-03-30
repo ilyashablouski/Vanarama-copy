@@ -20,7 +20,7 @@ const VersionPage: NextPage<IVersionPageProps> = ({ buildVersion }) => {
 };
 
 export async function getStaticProps() {
-  const buildVersion = process.env.BUILD_VERSION || 'No build version';
+  const buildVersion = process.env.NSF_BUILD_VERSION || 'No build version';
 
   return {
     props: { buildVersion },
