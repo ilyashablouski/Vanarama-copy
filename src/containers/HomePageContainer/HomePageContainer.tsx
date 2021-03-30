@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
-import { ApolloError } from '@apollo/client';
 import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Head from '../../components/Head/Head';
@@ -91,16 +90,14 @@ const optimisationOptions = {
 };
 
 export interface IHomePageContainer extends ISpecialOffersData {
-  data: HomePageData;
+  data: HomePageData | undefined;
   loading: boolean;
-  error: ApolloError | undefined;
   searchPodVansData?: IFilterList;
   searchPodCarsData?: IFilterList;
 }
 
 export const HomePageContainer: React.FC<IHomePageContainer> = ({
   // loading,
-  error,
   data,
   productsVanDerivatives,
   productsCarDerivatives,
@@ -118,10 +115,6 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
   // if (loading) {
   //   return <Loading size="large" />;
   // }
-
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
 
   const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
   const isPersonalCar = cachedLeaseType.car === 'Personal';
