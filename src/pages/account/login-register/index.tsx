@@ -2,22 +2,13 @@ import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
 import { NextPage, NextPageContext } from 'next';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useState } from 'react';
-import localForage from 'localforage';
+import React, { useCallback, useState } from 'react';
 import { useRouter } from 'next/router';
+import { handleAccountFetchError } from '../../olaf/about';
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import RegisterFormContainer from '../../../containers/RegisterFormContainer/RegisterFormContainer';
 import withApollo from '../../../hocs/withApollo';
-import {
-  useGetPersonLazyQuery,
-  handleAccountFetchError,
-} from '../../olaf/about';
-import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
-import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
-import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
-import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
 import { pushAuthorizationEventDataLayer } from '../../../utils/dataLayerHelpers';
-import { MyOrdersTypeEnum } from '../../../../generated/globalTypes';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
 
@@ -87,39 +78,15 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
   const [activeTab, setActiveTab] = useState(1);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
 
-  const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
-  const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
-
-  const [getPerson] = useGetPersonLazyQuery(async data => {
-    await localForage.setItem('person', data);
-    const partyUuid = [data.getPerson?.partyUuid];
-    await getCompaniesData({
-      personUuid: data.getPerson?.uuid,
-    }).then(resp => {
-      resp.data?.companiesByPersonUuid?.forEach(
-        (companies: CompaniesByPersonUuid) =>
-          partyUuid.push(companies.partyUuid),
-      );
-    });
-    getOrdersData({
-      partyUuid,
-      filter: MyOrdersTypeEnum.ALL_ORDERS,
-    }).then(response => {
-      localForage.setItem('ordersLength', response.data?.myOrders.length);
-    });
-    getOrdersData({
-      partyUuid,
-      filter: MyOrdersTypeEnum.ALL_QUOTES,
-    }).then(response => {
-      localForage.setItem('quotesLength', response.data?.myOrders.length);
-    });
-
+  const handleLoginComplete = useCallback(() => {
     // Redirect to the user's previous route or homepage.
     const nextUrl =
       typeof redirect === 'string' && redirect !== '/_error' ? redirect : '/';
 
-    router.push(nextUrl);
-  }, handleAccountFetchError);
+    pushAuthorizationEventDataLayer();
+
+    return router.push(nextUrl);
+  }, []);
 
   return (
     <>
@@ -159,10 +126,8 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
           <TabPanels className="-pv-400">
             <TabPanel index={1}>
               <LoginFormContainer
-                onCompleted={() => {
-                  pushAuthorizationEventDataLayer();
-                  getPerson();
-                }}
+                onCompleted={handleLoginComplete}
+                onError={handleAccountFetchError}
               />
             </TabPanel>
             <TabPanel index={2}>
