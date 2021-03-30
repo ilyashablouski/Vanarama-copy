@@ -90,7 +90,7 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
           }
         />
         <br /> */}
-          <div className="nlol">
+          <div className="nlol" style={{ left: 'auto' }}>
             <p>Find Your</p>
             <h2>New Lease Of Life</h2>
             <p>With Vanarama</p>
@@ -140,29 +140,26 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
         className={`row:${getFeaturedClassPartial(sections?.featured1)}`}
       >
         {sections?.featured1?.video ? (
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
-          >
+          <>
             <Media
               src={sections?.featured1.video || ''}
               width="100%"
               height="360px"
             />
-          </LazyLoadComponent>
+          </>
         ) : (
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src={
-              sections?.featured1?.image?.file?.url ||
-              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-            }
-          />
+          <div>
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={
+                sections?.featured1?.image?.file?.url ||
+                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+              }
+            />
+          </div>
         )}
 
-        <div className="" style={{ padding: '1rem' }}>
+        <div className="-inset -middle -col-400">
           <Heading
             size="large"
             color="black"
@@ -196,11 +193,13 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
         className={`row:${getFeaturedClassPartial(sections?.featured2)}`}
       >
         {sections?.featured2?.video ? (
-          <Media
-            src={sections?.featured2?.video || ''}
-            width="100%"
-            height="360px"
-          />
+          <>
+            <Media
+              src={sections?.featured2?.video || ''}
+              width="100%"
+              height="360px"
+            />
+          </>
         ) : (
           <div>
             <Image
@@ -212,6 +211,7 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
             />
           </div>
         )}
+
         <div className="-inset -middle -col-400">
           <Heading
             size="large"
@@ -246,11 +246,13 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
         className={`row:${getFeaturedClassPartial(sections?.featured3)}`}
       >
         {sections?.featured3?.video ? (
-          <Media
-            src={sections?.featured3?.video || ''}
-            width="100%"
-            height="360px"
-          />
+          <>
+            <Media
+              src={sections?.featured3?.video || ''}
+              width="100%"
+              height="360px"
+            />
+          </>
         ) : (
           <div>
             <Image

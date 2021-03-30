@@ -5,7 +5,7 @@ import { IHeroProps } from './interface';
 const HeroEv: React.FC<IHeroProps> = ({ children }) => {
   return (
     <div className="row:bg-hero">
-      <div className="row:hero -flipped">
+      <div className="row:hero">
         {children}
         <div className="hero--decals">
           <svg
