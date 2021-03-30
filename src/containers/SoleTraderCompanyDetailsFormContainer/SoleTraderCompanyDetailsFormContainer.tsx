@@ -17,6 +17,7 @@ import {
 } from './mappers';
 import { UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany as Company } from '../../../generated/UpdateSoleTraderCompanyMutation';
 import Skeleton from '../../components/Skeleton';
+import { NATURE_OF_BUSINESS_SEPARATOR } from '../../models/enum/OlafVariables';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -53,7 +54,9 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
 
   useEffect(() => {
     if (mappedCompanyDetails) {
-      setNatureOfBusiness(mappedCompanyDetails?.nature?.split('|') || []);
+      setNatureOfBusiness(
+        mappedCompanyDetails?.nature?.split(NATURE_OF_BUSINESS_SEPARATOR) || [],
+      );
     }
   }, [mappedCompanyDetails]);
 
@@ -114,7 +117,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
       onSubmit={async values => {
         handleSoleTraderCompanyDetailsSave({
           ...values,
-          nature: natureOfBusiness.join('|'),
+          nature: natureOfBusiness.join(NATURE_OF_BUSINESS_SEPARATOR),
         })
           .then(response =>
             handleOrderUpdate(
