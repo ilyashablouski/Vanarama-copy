@@ -53,7 +53,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
 
   useEffect(() => {
     if (mappedCompanyDetails) {
-      setNatureOfBusiness(mappedCompanyDetails?.nature?.split('.') || []);
+      setNatureOfBusiness(mappedCompanyDetails?.nature?.split('|') || []);
     }
   }, [mappedCompanyDetails]);
 
@@ -114,7 +114,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
       onSubmit={async values => {
         handleSoleTraderCompanyDetailsSave({
           ...values,
-          nature: natureOfBusiness.join('.'),
+          nature: natureOfBusiness.join('|'),
         })
           .then(response =>
             handleOrderUpdate(

@@ -62,7 +62,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
       methods.reset(company);
       setSelectedCompanyData(company?.companySearchResult);
       setHasConfirmedCompany(true);
-      setNatureOfBusiness(company.nature?.split('.') || []);
+      setNatureOfBusiness(company.nature?.split('|') || []);
       methods.setValue(
         'registeredAddress',
         {
@@ -139,7 +139,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
           uuid: company?.uuid,
           companySearchResult: values.companySearchResult ?? proceedCompany,
           inputMode,
-          nature: applyedNatureOfBusiness.join('.'),
+          nature: applyedNatureOfBusiness.join('|'),
         }),
       )}
     >
