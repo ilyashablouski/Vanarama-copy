@@ -95,6 +95,8 @@ const Hero: React.FC<IHeroProps> = ({
       <div className="row:hero">
         <div className="hero--left">{children}</div>
         <div className="hero--right" style={{ minHeight: '347px' }}>
+          {/* NOTE: Some components using dynamic imports are causing issues affecting next sibling CSS classnames 
+              from rendering as expected. This issue is happening when rehydrating on the client-side */}
           {renderHeroRight()}
           <BenefitsBar countItems={4} />
         </div>
