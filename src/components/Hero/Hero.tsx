@@ -95,7 +95,7 @@ const Hero: React.FC<IHeroProps> = ({
       <div className="row:hero">
         <div className="hero--left">{children}</div>
         <div className="hero--right" style={{ minHeight: '347px' }}>
-          <div>{renderHeroRight()}</div>
+          {renderHeroRight()}
           <BenefitsBar countItems={4} />
         </div>
         <div className="hero--decals">
