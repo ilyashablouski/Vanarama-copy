@@ -5,6 +5,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
+import Media from 'core/atoms/media';
 import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -39,9 +40,7 @@ const Text = dynamic(() => import('core/atoms/text'), {
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
 });
-const Media = dynamic(() => import('core/atoms/media'), {
-  loading: () => <Skeleton count={3} />,
-});
+
 const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
   ssr: false,
 });
@@ -140,23 +139,19 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
         className={`row:${getFeaturedClassPartial(sections?.featured1)}`}
       >
         {sections?.featured1?.video ? (
-          <>
-            <Media
-              src={sections?.featured1.video || ''}
-              width="100%"
-              height="360px"
-            />
-          </>
+          <Media
+            src={sections?.featured1.video || ''}
+            width="100%"
+            height="360px"
+          />
         ) : (
-          <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={
-                sections?.featured1?.image?.file?.url ||
-                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-              }
-            />
-          </div>
+          <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            src={
+              sections?.featured1?.image?.file?.url ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
         )}
 
         <div className="-inset -middle -col-400">
@@ -193,23 +188,19 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
         className={`row:${getFeaturedClassPartial(sections?.featured2)}`}
       >
         {sections?.featured2?.video ? (
-          <>
-            <Media
-              src={sections?.featured2?.video || ''}
-              width="100%"
-              height="360px"
-            />
-          </>
+          <Media
+            src={sections?.featured2?.video || ''}
+            width="100%"
+            height="360px"
+          />
         ) : (
-          <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={
-                sections?.featured2?.image?.file?.url ||
-                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-              }
-            />
-          </div>
+          <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            src={
+              sections?.featured2?.image?.file?.url ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
         )}
 
         <div className="-inset -middle -col-400">
@@ -246,23 +237,19 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
         className={`row:${getFeaturedClassPartial(sections?.featured3)}`}
       >
         {sections?.featured3?.video ? (
-          <>
-            <Media
-              src={sections?.featured3?.video || ''}
-              width="100%"
-              height="360px"
-            />
-          </>
+          <Media
+            src={sections?.featured3?.video || ''}
+            width="100%"
+            height="360px"
+          />
         ) : (
-          <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={
-                sections?.featured3?.image?.file?.url ||
-                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-              }
-            />
-          </div>
+          <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            src={
+              sections?.featured3?.image?.file?.url ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
         )}
         <div className="-inset -middle -col-400">
           <Heading
