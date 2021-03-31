@@ -252,6 +252,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
         <Choiceboxes
           className="-cols-5 stepped-form--choiceboxes"
           choices={INITIAL_PERIODS_DATA}
+          shouldSelectTheOnlyValue
           onSubmit={el => {
             setInitialPeriods(el.value || '');
             onChangeParams(
