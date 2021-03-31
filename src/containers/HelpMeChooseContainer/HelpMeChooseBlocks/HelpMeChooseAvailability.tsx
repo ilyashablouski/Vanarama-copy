@@ -28,47 +28,22 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
 
   const availabilityTypes = [
     {
-      label: 'Within 1 Week',
-      value: '7',
-      active: availabilityValue.includes('7'),
-    },
-    {
-      label: 'Within 2 Weeks',
+      label: 'ASAP',
       value: '14',
       active: availabilityValue.includes('14'),
     },
     {
-      label: 'Within 3 Weeks',
+      label: 'Within A Month',
       value: '21',
       active: availabilityValue.includes('21'),
     },
     {
-      label: 'Within 4 Weeks',
+      label: 'Within A Few Months',
       value: '28',
       active: availabilityValue.includes('28'),
     },
     {
-      label: 'Within 6 Weeks',
-      value: '45',
-      active: availabilityValue.includes('45'),
-    },
-    {
-      label: 'Within 8 Weeks',
-      value: '80',
-      active: availabilityValue.includes('80'),
-    },
-    {
-      label: 'Within 12 Weeks',
-      value: '90',
-      active: availabilityValue.includes('90'),
-    },
-    {
-      label: 'Over 16 Weeks',
-      value: '95',
-      active: availabilityValue.includes('95'),
-    },
-    {
-      label: 'Subject To Stock',
+      label: 'I Am Happy To Wait For The Right Vehicle',
       value: '100',
       active: availabilityValue.includes('100'),
     },
@@ -170,7 +145,6 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
         onReplace(router, nextSteps);
       }}
       currentValue={availabilityValue}
-      clearMultiSelectTitle="I Don't Mind"
       submitBtnText="View Results"
     />
   );

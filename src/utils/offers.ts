@@ -24,44 +24,59 @@ export const getVehicleListUrlQuery = async (
   client: ApolloClient<any>,
   derivativeIds: string[],
 ) => {
-  const { data: vehicleListUrlQuery } = await client.query<
-    VehicleListUrl,
-    VehicleListUrlVariables
-  >({
-    query: VEHICLE_LIST_URL,
-    variables: {
-      derivativeIds,
-    },
-  });
-  const vehicleListUrlData = {
-    pageInfo: vehicleListUrlQuery?.vehicleList.pageInfo,
-    totalCount: vehicleListUrlQuery?.vehicleList.totalCount || 0,
-    edges: vehicleListUrlQuery?.vehicleList.edges,
-  } as IVehicleList;
-  const hasNextPage = vehicleListUrlQuery?.vehicleList.pageInfo.hasNextPage;
-  if (hasNextPage) {
-    const edges = vehicleListUrlQuery?.vehicleList.edges || [];
-    const lastCursor = edges[edges.length - 1]?.cursor;
-    const { data: fetchMoreData } = await client.query<
+  try {
+    const { data: vehicleListUrlQuery } = await client.query<
       VehicleListUrl,
       VehicleListUrlVariables
     >({
       query: VEHICLE_LIST_URL,
       variables: {
         derivativeIds,
-        after: lastCursor,
       },
     });
-    vehicleListUrlData.pageInfo =
-      fetchMoreData?.vehicleList.pageInfo || vehicleListUrlData.pageInfo;
-    vehicleListUrlData.totalCount =
-      fetchMoreData?.vehicleList.totalCount || vehicleListUrlData.totalCount;
-    vehicleListUrlData.edges = [
-      ...(vehicleListUrlData.edges || []),
-      ...(fetchMoreData?.vehicleList?.edges || []),
-    ];
+    const vehicleListUrlData = {
+      pageInfo: vehicleListUrlQuery?.vehicleList.pageInfo,
+      totalCount: vehicleListUrlQuery?.vehicleList.totalCount || 0,
+      edges: vehicleListUrlQuery?.vehicleList.edges,
+    } as IVehicleList;
+    const hasNextPage = vehicleListUrlQuery?.vehicleList.pageInfo.hasNextPage;
+    if (hasNextPage) {
+      const edges = vehicleListUrlQuery?.vehicleList.edges || [];
+      const lastCursor = edges[edges.length - 1]?.cursor;
+      const { data: fetchMoreData } = await client.query<
+        VehicleListUrl,
+        VehicleListUrlVariables
+      >({
+        query: VEHICLE_LIST_URL,
+        variables: {
+          derivativeIds,
+          after: lastCursor,
+        },
+      });
+      vehicleListUrlData.pageInfo =
+        fetchMoreData?.vehicleList.pageInfo || vehicleListUrlData.pageInfo;
+      vehicleListUrlData.totalCount =
+        fetchMoreData?.vehicleList.totalCount || vehicleListUrlData.totalCount;
+      vehicleListUrlData.edges = [
+        ...(vehicleListUrlData.edges || []),
+        ...(fetchMoreData?.vehicleList?.edges || []),
+      ];
+    }
+    return vehicleListUrlData;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log('Error:', err);
+    return {
+      totalCount: 0,
+      pageInfo: {
+        startCursor: null,
+        endCursor: null,
+        hasNextPage: false,
+        hasPreviousPage: false,
+      },
+      edges: null,
+    };
   }
-  return vehicleListUrlData;
 };
 
 export function getProductCardContent(
@@ -84,7 +99,15 @@ export function getProductCardContent(
     .then(resp => ({
       products: resp.data,
       productsCapIds: getCapIds(resp.data),
-    }));
+    }))
+    .catch(err => {
+      // eslint-disable-next-line no-console
+      console.log('Error:', err);
+      return {
+        products: undefined,
+        productsCapIds: [],
+      };
+    });
 }
 
 export function getCarDerivatives(

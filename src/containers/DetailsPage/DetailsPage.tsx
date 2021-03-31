@@ -423,29 +423,26 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <span className="text -lead -darker">
           {vehicleConfigurationByCapId?.capDerivativeDescription}
         </span>
-        {!isMobile ? (
-          <div
-            className="-mt-500 -mb-200"
-            style={{ display: 'flex', justifyContent: 'space-between' }}
-          >
-            <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
-            {vehicleDetails?.brochureUrl && (
-              <RouterLink
-                link={{
-                  href: vehicleDetails?.brochureUrl,
-                  label: '',
-                  target: '_blank',
-                }}
-                classNames={{ color: 'teal', size: 'xsmall' }}
-              >
-                Download Brochure{' '}
-                <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
-              </RouterLink>
-            )}
-          </div>
-        ) : (
+        <div className="pdp--content-details">
           <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
-        )}
+          <div>
+            <div className="pdp--brochure">
+              {vehicleDetails?.brochureUrl && (
+                <RouterLink
+                  link={{
+                    href: vehicleDetails?.brochureUrl,
+                    label: '',
+                    target: '_blank',
+                  }}
+                  classNames={{ color: 'teal', size: 'xsmall' }}
+                >
+                  {'Download Brochure '}
+                  <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
+                </RouterLink>
+              )}
+            </div>
+          </div>
+        </div>
         <MediaGallery
           flag={{
             accentIcon: <Icon icon={<Flame />} color="white" />,

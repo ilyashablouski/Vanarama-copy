@@ -1,5 +1,7 @@
-import { LoginUserMutation } from '../../../generated/LoginUserMutation';
+import { ApolloError } from '@apollo/client';
+import { GetPerson } from '../../../generated/GetPerson';
 
 export interface ILogInFormContainerProps {
-  onCompleted?: (data: LoginUserMutation) => void;
+  onCompleted?: (data?: GetPerson['getPerson']) => Promise<any>;
+  onError?: (error: ApolloError) => void;
 }
