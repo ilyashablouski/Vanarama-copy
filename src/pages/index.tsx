@@ -15,7 +15,6 @@ import { specialOffersRequest } from '../utils/offers';
 export const HomePage: NextPage<IHomePageContainer> = ({
   data,
   loading,
-  error,
   productsVanDerivatives,
   productsCarDerivatives,
   productsPickupDerivatives,
@@ -29,7 +28,6 @@ export const HomePage: NextPage<IHomePageContainer> = ({
   <HomePageContainer
     loading={loading}
     data={data}
-    error={error}
     productsCar={productsCar}
     productsPickup={productsPickup}
     productsVan={productsVan}
@@ -44,7 +42,7 @@ export const HomePage: NextPage<IHomePageContainer> = ({
 
 export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({}, context);
-  const { data, loading, errors } = await client.query<HomePageData>({
+  const { data, loading } = await client.query<HomePageData>({
     query: ALL_HOME_CONTENT,
   });
   const {
@@ -76,9 +74,8 @@ export async function getServerSideProps(context: NextPageContext) {
 
   return {
     props: {
-      data,
+      data: data || null,
       loading,
-      error: errors || null,
       productsVanDerivatives: productsVanDerivatives || null,
       productsCarDerivatives: productsCarDerivatives || null,
       productsPickupDerivatives: productsPickupDerivatives || null,
@@ -87,7 +84,7 @@ export async function getServerSideProps(context: NextPageContext) {
       productsVan: productsVan || null,
       searchPodVansData,
       searchPodCarsData,
-      vehicleListUrlData,
+      vehicleListUrlData: vehicleListUrlData || null,
     },
   };
 }

@@ -23,6 +23,7 @@ const Choiceboxes = forwardRef(
       onClearClick,
       withIcons,
       currentValue,
+      shouldSelectTheOnlyValue = false,
     }: IChoiceboxesProps,
     ref,
   ) => {
@@ -64,6 +65,9 @@ const Choiceboxes = forwardRef(
       if (currentValue?.length && currentValue[0] === '') {
         setClearMultiSelectActive(true);
       }
+      if (currentChoices.length === 1 && shouldSelectTheOnlyValue) {
+        changeChoices(0);
+      }
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
@@ -91,7 +95,7 @@ const Choiceboxes = forwardRef(
             )}
           </button>
         ))}
-        {clearMultiSelectTitle && (
+        {clearMultiSelectTitle && choices.length !== 1 && (
           <button
             key={clearMultiSelectTitle}
             type="button"

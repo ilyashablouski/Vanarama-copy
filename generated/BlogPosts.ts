@@ -134,6 +134,10 @@ export interface BlogPosts_blogPosts_sections {
   tiles: BlogPosts_blogPosts_sections_tiles | null;
 }
 
+export interface BlogPosts_blogPosts_articles_metaData {
+  publishedOn: any | null;
+}
+
 export interface BlogPosts_blogPosts_articles_featuredImage_file {
   url: string;
 }
@@ -146,7 +150,7 @@ export interface BlogPosts_blogPosts_articles {
   intro: string | null;
   name: string | null;
   excerpt: string | null;
-  publishedOn: any | null;
+  metaData: BlogPosts_blogPosts_articles_metaData | null;
   featuredImage: BlogPosts_blogPosts_articles_featuredImage | null;
   isFeatured: boolean | null;
   title: string | null;
