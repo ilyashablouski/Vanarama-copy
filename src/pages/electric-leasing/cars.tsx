@@ -5,9 +5,8 @@ import { GENERIC_PAGE } from '../../gql/genericPage';
 import {
   GenericPageQuery
 } from '../../../generated/GenericPageQuery';
-import Hero, {
-  // HeroTitle,
-  // HeroHeading,
+import {
+  HeroEv as Hero,
   HeroPrompt,
 } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
@@ -27,11 +26,38 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
     quality: 59,
   };
   const { sections } = data?.genericPage;
+  console.log(data)
   return (
     <>
-      <Hero>
-        <h1 className="heading -xlarge -inherit">Best Car Lease Deals</h1>
-        <p className="text -large -inherit">Brand New Cars, In Stock Delivered Fast and Free <b>From Just £115pm</b></p>
+      <Hero >
+        <div className="hero--left">
+          <div className="nlol" style={{ left: 'auto' }}>
+            <p>{sections?.hero?.title}</p>
+            <h2>{sections?.hero?.body}</h2>
+          </div>
+          {sections?.hero?.heroLabel?.[0]?.visible && (
+            <HeroPrompt
+              label={sections?.hero?.heroLabel?.[0]?.link?.text || ''}
+              url={sections?.hero?.heroLabel?.[0]?.link?.url || ''}
+              text={sections?.hero?.heroLabel?.[0]?.text || ''}
+              btnVisible={sections?.hero?.heroLabel?.[0]?.link?.visible}
+            />
+          )}
+        </div>
+        <div className="hero--right">
+          <Image
+            loadImage
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            optimisationOptions={optimisationOptions}
+            className="hero--image"
+            plain
+            size="expand"
+            src={
+              sections?.hero?.image?.file?.url ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
+            }
+          />
+        </div>
 
       </Hero>
     </>

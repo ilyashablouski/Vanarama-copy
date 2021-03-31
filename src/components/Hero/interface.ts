@@ -7,6 +7,7 @@ export interface IHeroProps {
   workingHoursCard?: WorkingHoursCard;
   searchPodVansData?: IFilterList;
   searchPodCarsData?: IFilterList;
+  showImageonRight?: boolean;
 }
 
 export interface IHeroTitleProps {
