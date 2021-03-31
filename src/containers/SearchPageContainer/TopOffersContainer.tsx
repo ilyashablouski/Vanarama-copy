@@ -271,6 +271,7 @@ const TopOffersContainer: React.FC<IProps> = ({
             {bodyStyleList.map(bodyStyle => (
               <ModelCard
                 data={bodyStyle}
+                key={`${bodyStyle.bodyStyle}_${bodyStyle.capId}`}
                 make={preloadMake}
                 range={preloadRange}
                 isPersonalPrice={isPersonal}
