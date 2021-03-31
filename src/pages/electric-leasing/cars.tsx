@@ -30,11 +30,9 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
   return (
     <>
       <Hero>
-        <div className="nlol">
-          <p>Find Your</p>
-          <h2>New Lease Of Life</h2>
-          <p>With Vanarama</p>
-        </div>
+        <h1 className="heading -xlarge -inherit">Best Car Lease Deals</h1>
+        <p className="text -large -inherit">Brand New Cars, In Stock Delivered Fast and Free <b>From Just £115pm</b></p>
+
       </Hero>
     </>
   )
