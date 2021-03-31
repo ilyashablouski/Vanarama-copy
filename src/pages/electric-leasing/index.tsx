@@ -5,7 +5,6 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
-import Media from 'core/atoms/media';
 import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -31,8 +30,13 @@ import Skeleton from '../../components/Skeleton';
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
+const Media = dynamic(() => import('core/atoms/media'), {
+  loading: () => <Skeleton count={4} />,
+  ssr: false,
+});
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={4} />,
+  ssr: false,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
