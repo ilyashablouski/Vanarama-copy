@@ -13,7 +13,7 @@ import SUV from '../core/assets/icons/custom/SUV';
 const BodyStyleIconMap = new Map();
 
 BodyStyleIconMap.set('Convertible', <Convertible />)
-  .set('4x4', <SUV />)
+  .set('4x4/SUV', <SUV />)
   .set('City-Car', <CityCar />)
   .set('Coupe', <Coupe />)
   .set('Estate', <Estate />)

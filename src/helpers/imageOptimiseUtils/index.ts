@@ -10,7 +10,7 @@ const DEFAULT_OPTIMISATION: ICloudflareOptimisation = {
 };
 
 function setProtocol(url: string, protocol: string) {
-  if (url.search(/^http[s]?:\/\//) === -1) {
+  if (url?.search(/^http[s]?:\/\//) === -1) {
     return `${protocol}:${url}`;
   }
   return url;
