@@ -6,6 +6,12 @@ export const PHONE_NUMBER_LINK = {
   linkType: LinkTypes.external,
 };
 
+export const FLEET_PHONE_NUMBER_LINK = {
+  href: 'tel:01442507645',
+  label: '01442 507645',
+  linkType: LinkTypes.external,
+};
+
 export const TOP_BAR_LINKS = [
   {
     label: 'Offers',
