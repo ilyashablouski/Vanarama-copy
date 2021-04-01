@@ -1,29 +1,28 @@
+import SchemaJSON from 'core/atoms/schema-json';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
-import ReactMarkdown from 'react-markdown/with-html';
-import Media from 'core/atoms/media';
 import Router from 'next/router';
+import { useEffect, useState } from 'react';
+import ReactMarkdown from 'react-markdown/with-html';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import Media from 'core/atoms/media';
+import League from 'core/organisms/league';
 import getTitleTag from 'utils/getTitleTag';
+import { getFeaturedSectionsAsArray } from 'utils/sections';
+import { getFeaturedClassPartial } from 'utils/layout';
 import createApolloClient from '../../apolloClient';
-import { GENERIC_PAGE } from '../../gql/genericPage';
-import {
-  GenericPageQuery,
-  GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
-} from '../../../generated/GenericPageQuery';
 import {
   HeroEv as Hero,
   HeroPrompt,
 } from '../../components/Hero';
+import { GENERIC_PAGE } from '../../gql/genericPage';
+import Head from '../../components/Head/Head'
 import Skeleton from '../../components/Skeleton';
-import { getFeaturedClassPartial } from 'utils/layout';
-import { getFeaturedSectionsAsArray } from 'utils/sections';
-import { useEffect, useState } from 'react';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import TileLink from '../../components/TileLink/TileLink';
-import League from 'core/organisms/league';
-import Trustpilot from 'core/molecules/trustpilot';
-import Head from 'next/head';
-import SchemaJSON from 'core/atoms/schema-json';
+import {
+  GenericPageQuery,
+  GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
+} from '../../../generated/GenericPageQuery';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -39,6 +38,9 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
+});
+const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
+  ssr: false,
 });
 
 interface IProps {
@@ -298,6 +300,19 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
     </LazyLoadComponent>
   )
 
+  const TrustPilotBanner = () => (
+    <LazyLoadComponent
+      visibleByDefault={
+        typeof window === 'undefined' ||
+        navigator?.vendor === 'Apple Computer, Inc.'
+      }
+    >
+      <section className="row:trustpilot">
+        <TrustPilot />
+      </section>
+    </LazyLoadComponent>
+  )
+
   return (
     <>
       <HeroSection />
@@ -308,6 +323,18 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
       <WhyLeaseWithVanarama />
       <NationalLeagueBanner />
       <FeaturedOnBanner />
+      <TrustPilotBanner />
+      {data?.genericPage.metaData && (
+        <>
+          <Head
+            metaData={data?.genericPage.metaData}
+            featuredImage={data?.genericPage.featuredImage}
+          />
+          <SchemaJSON
+            json={JSON.stringify(data?.genericPage.metaData.schema)}
+          />
+        </>
+      )}
     </>
   )
 }
