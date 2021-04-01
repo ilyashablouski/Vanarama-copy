@@ -39,7 +39,7 @@ export interface ProductCardDataVariables {
   type: VehicleTypeEnum;
   bodyType?: string | null;
   excludeBodyType?: string | null;
-  fuelType?: (string | null)[] | null;
+  fuelTypes?: (string | null)[] | null;
   size?: number | null;
   offer?: boolean | null;
 }

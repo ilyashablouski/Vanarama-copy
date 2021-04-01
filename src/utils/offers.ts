@@ -84,7 +84,7 @@ export function getProductCardContent(
   type: VehicleTypeEnum,
   bodyType?: string,
   excludeBodyType?: string,
-  fuelType?: string[],
+  fuelTypes?: string[],
 ) {
   return client
     .query<ProductCardData, ProductCardDataVariables>({
@@ -93,7 +93,7 @@ export function getProductCardContent(
         type,
         bodyType: bodyType || undefined,
         excludeBodyType: excludeBodyType || undefined,
-        fuelType: fuelType || undefined,
+        fuelTypes: fuelTypes || undefined,
         size: 12,
         offer: true,
       },
@@ -140,8 +140,20 @@ export const evOffersRequest = async (
     { products: productsEvVan, productsCapIds: productsEvVanCapIds },
     { products: productsEvCar, productsCapIds: productsEvCarIds },
   ] = await Promise.all([
-    getProductCardContent(client, VehicleTypeEnum.LCV, '', '', ['Electric']),
-    getProductCardContent(client, VehicleTypeEnum.CAR, '', '', ['Electric']),
+    getProductCardContent(client, VehicleTypeEnum.LCV, '', '', [
+      'Electric',
+      'DieselAndElectricHybrid',
+      'PetrolAndPlugInElectricHybrid',
+      'DieselAndPlugInElectricHybrid',
+      'Hybrid',
+    ]),
+    getProductCardContent(client, VehicleTypeEnum.CAR, '', '', [
+      'Electric',
+      'DieselAndElectricHybrid',
+      'PetrolAndPlugInElectricHybrid',
+      'DieselAndPlugInElectricHybrid',
+      'Hybrid',
+    ]),
   ]);
 
   const [
