@@ -66,5 +66,5 @@ $include-presentation-styles: false !default;
 
 // row is imported last (for overrides)
 @import '../templates/row.scss';
-
+@import '../templates/ev-templates.scss';
 @import '../util/youtube.scss';
