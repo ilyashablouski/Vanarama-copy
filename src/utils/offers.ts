@@ -140,13 +140,7 @@ export const evOffersRequest = async (
     { products: productsEvVan, productsCapIds: productsEvVanCapIds },
     { products: productsEvCar, productsCapIds: productsEvCarIds },
   ] = await Promise.all([
-    getProductCardContent(client, VehicleTypeEnum.LCV, '', '', [
-      'Electric',
-      'DieselAndElectricHybrid',
-      'PetrolAndPlugInElectricHybrid',
-      'DieselAndPlugInElectricHybrid',
-      'Hybrid',
-    ]),
+    getProductCardContent(client, VehicleTypeEnum.LCV, '', '', ['Electric']),
     getProductCardContent(client, VehicleTypeEnum.CAR, '', '', [
       'Electric',
       'DieselAndElectricHybrid',
