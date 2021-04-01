@@ -185,7 +185,7 @@ exports[`<Header /> renders correctly 1`] = `
       className="header--cta"
     >
       <a
-        className="link button -clear -inherit -large -plain"
+        className="link button -clear InfinityNumber clickable -inherit -large -plain"
         href="tel:01442838195"
       >
         01442 838195
@@ -1536,7 +1536,7 @@ exports[`<Header /> renders correctly with optional props 1`] = `
       className="header--cta"
     >
       <a
-        className="link button -clear -inherit -large -plain"
+        className="link button -clear InfinityNumber clickable -inherit -large -plain"
         href="tel:01442838195"
       >
         01442 838195

@@ -573,7 +573,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           className="text -small -darker"
         >
           <a
-            className="link -primary -small -plain"
+            className="link InfinityNumber clickable -primary -small -plain"
             href="tel:+441442838195"
           >
             Call 01442 838 195
@@ -1167,7 +1167,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           className="text -small -darker"
         >
           <a
-            className="link -primary -small -plain"
+            className="link InfinityNumber clickable -primary -small -plain"
             href="tel:+441442838195"
           >
             Call 01442 838 195
