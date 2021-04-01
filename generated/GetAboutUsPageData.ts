@@ -29,10 +29,16 @@ export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage {
   file: GetAboutUsPageData_aboutUsLandingPage_featuredImage_file | null;
 }
 
+export interface GetAboutUsPageData_aboutUsLandingPage_sections_rowText_link {
+  text: string | null;
+  url: string | null;
+}
+
 export interface GetAboutUsPageData_aboutUsLandingPage_sections_rowText {
   heading: string | null;
   subHeading: string | null;
   body: string | null;
+  link: GetAboutUsPageData_aboutUsLandingPage_sections_rowText_link | null;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_sections_cards_cards {

@@ -29,6 +29,10 @@ export const GET_ABOUT_US_PAGE_DATA = gql`
           heading
           subHeading
           body
+          link {
+            text
+            url
+          }
         }
         cards {
           name
