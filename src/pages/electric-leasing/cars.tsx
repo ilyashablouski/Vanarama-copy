@@ -6,7 +6,8 @@ import getTitleTag from 'utils/getTitleTag';
 import createApolloClient from '../../apolloClient';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import {
-  GenericPageQuery
+  GenericPageQuery,
+  GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
 } from '../../../generated/GenericPageQuery';
 import {
   HeroEv as Hero,
@@ -16,6 +17,8 @@ import Skeleton from '../../components/Skeleton';
 import { getFeaturedClassPartial } from 'utils/layout';
 import { getFeaturedSectionsAsArray } from 'utils/sections';
 import { useEffect, useState } from 'react';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import TileLink from '../../components/TileLink/TileLink';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -28,6 +31,9 @@ const RouterLink = dynamic(() =>
 );
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
+});
+const Tile = dynamic(() => import('core/molecules/tile'), {
+  loading: () => <Skeleton count={3} />,
 });
 
 interface IProps {
@@ -163,6 +169,49 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
     </section>
   )
 
+  const WhyLeaseWithVanarama = () => (
+    <LazyLoadComponent
+      visibleByDefault={
+        typeof window === 'undefined' ||
+        navigator?.vendor === 'Apple Computer, Inc.'
+      }
+    >
+      <section className="row:features-4col">
+        <Heading
+          size="large"
+          color="black"
+          tag={
+            getTitleTag(
+              sections?.tiles?.titleTag || 'p',
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
+          {sections?.tiles?.tilesTitle}
+        </Heading>
+        {sections?.tiles?.tiles?.map((tile: TileData, idx) => (
+          <div key={tile.title || idx}>
+            <Tile className="-plain -button -align-center" plain>
+              <div style={{ display: 'flex', justifyContent: 'center' }}>
+                <Image
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  inline
+                  round
+                  size="large"
+                  src={
+                    tile.image?.file?.url ||
+                    'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
+                  }
+                />
+              </div>
+              <TileLink tile={tile} />
+              <Text tag="p">{tile.body}</Text>
+            </Tile>
+          </div>
+        ))}
+      </section>
+    </LazyLoadComponent>
+  )
+
   return (
     <>
       <HeroSection />
@@ -170,6 +219,7 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
       {featuresArray.map(({ title, body, image, titleTag, video }, i) => (
         <Section body={body} title={title} titleTag={titleTag} image={image} key={i} video={video} />
       ))}
+      <WhyLeaseWithVanarama />
     </>
   )
 }
