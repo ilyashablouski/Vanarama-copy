@@ -66,6 +66,8 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
 
   const sections = data?.genericPage.sections;
 
+  console.log(sections)
+
   return (
     <>
       <Hero>
