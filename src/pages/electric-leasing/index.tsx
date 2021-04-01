@@ -211,7 +211,9 @@ export const EVHubPage: NextPage<IProps> = ({
                     withoutDefaultClassName
                     dataTestId="view-all-vans"
                   >
-                    <div className="button--inner">View All Van Offers</div>
+                    <div className="button--inner">
+                      View Latest Electric Van Deals
+                    </div>
                   </RouterLink>
                 </div>
               </div>
@@ -256,7 +258,9 @@ export const EVHubPage: NextPage<IProps> = ({
                     withoutDefaultClassName
                     dataTestId="view-all-cars"
                   >
-                    <div className="button--inner">View All Car Offers</div>
+                    <div className="button--inner">
+                      View Latest Electric Car Deals
+                    </div>
                   </RouterLink>
                 </div>
               </div>
