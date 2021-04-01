@@ -485,6 +485,17 @@ export interface GenericPageQuery_genericPage_sections_tiles {
   tiles: GenericPageQuery_genericPage_sections_tiles_tiles[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_steps_steps {
+  title: string | null;
+  body: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sections_steps {
+  heading: string | null;
+  titleTag: string | null;
+  steps: GenericPageQuery_genericPage_sections_steps_steps[] | null;
+}
+
 export interface GenericPageQuery_genericPage_sections {
   leadText: GenericPageQuery_genericPage_sections_leadText | null;
   iconBullets1: GenericPageQuery_genericPage_sections_iconBullets1 | null;
@@ -499,6 +510,7 @@ export interface GenericPageQuery_genericPage_sections {
   featured3: GenericPageQuery_genericPage_sections_featured3 | null;
   carousel: GenericPageQuery_genericPage_sections_carousel | null;
   tiles: GenericPageQuery_genericPage_sections_tiles | null;
+  steps: GenericPageQuery_genericPage_sections_steps | null;
 }
 
 export interface GenericPageQuery_genericPage {
