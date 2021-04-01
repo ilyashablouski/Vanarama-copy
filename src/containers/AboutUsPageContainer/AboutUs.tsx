@@ -38,13 +38,6 @@ const ArrowForwardSharp = dynamic(
 const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
 });
-// const Carousel = dynamic(
-//   () => import('core/organisms/carousel'),
-//   {
-//     loading: () => <Skeleton count={3} />,
-//   },
-// );
-const Link = dynamic(() => import('core/atoms/link'));
 
 export interface IAboutPageProps {
   loading: boolean;
@@ -206,29 +199,20 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, data }) => {
         <Heading size="lead" color="black">
           {sections?.rowText?.heading || ''}
         </Heading>
-        <Link color="teal" href="#">
-          <ReactMarkdown
-            allowDangerousHtml
-            source={sections?.rowText?.body || ''}
-            renderers={{
-              paragraph: props => <React.Fragment {...props} />,
-              link: props => {
-                const { href, children } = props;
-                return (
-                  <RouterLink
-                    link={{ href, label: children }}
-                    classNames={{ color: 'teal' }}
-                  />
-                );
-              },
-            }}
-          />{' '}
+        <RouterLink
+          link={{
+            href: sections?.rowText?.link?.url || '',
+            label: sections?.rowText?.link?.text || '',
+          }}
+          classNames={{ color: 'teal' }}
+        >
+          {sections?.rowText?.link?.text}{' '}
           <Icon
             icon={<ArrowForwardSharp />}
             className="md hydrated"
             size="xsmall"
           />
-        </Link>
+        </RouterLink>
       </div>
     </>
   );
