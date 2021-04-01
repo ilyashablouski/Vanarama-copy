@@ -6,6 +6,7 @@ export const PRODUCT_CARD_CONTENT = gql`
     $type: VehicleTypeEnum!
     $bodyType: String
     $excludeBodyType: String
+    $fuelType: [String]
     $size: Int
     $offer: Boolean
   ) {
@@ -13,6 +14,7 @@ export const PRODUCT_CARD_CONTENT = gql`
       vehicleType: $type
       bodyType: $bodyType
       excludeBodyType: $excludeBodyType
+      fuelType: $fuelType
       pageSize: $size
       onOffer: $offer
     ) {

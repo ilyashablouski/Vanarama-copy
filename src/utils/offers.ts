@@ -84,6 +84,7 @@ export function getProductCardContent(
   type: VehicleTypeEnum,
   bodyType?: string,
   excludeBodyType?: string,
+  fuelType?: string[],
 ) {
   return client
     .query<ProductCardData, ProductCardDataVariables>({
@@ -92,6 +93,7 @@ export function getProductCardContent(
         type,
         bodyType: bodyType || undefined,
         excludeBodyType: excludeBodyType || undefined,
+        fuelType: fuelType || undefined,
         size: 12,
         offer: true,
       },
@@ -130,6 +132,39 @@ export function getCarDerivatives(
   }
   return { data: undefined };
 }
+
+export const evOffersRequest = async (
+  client: ApolloClient<any>,
+): Promise<IEvOffersData> => {
+  const [
+    { products: productsEvVan, productsCapIds: productsEvVanCapIds },
+    { products: productsEvCar, productsCapIds: productsEvCarIds },
+  ] = await Promise.all([
+    getProductCardContent(client, VehicleTypeEnum.LCV, '', '', ['Electric']),
+    getProductCardContent(client, VehicleTypeEnum.CAR, '', '', ['Electric']),
+  ]);
+
+  const [
+    { data: productsEvVanDerivatives },
+    { data: productsEvCarDerivatives },
+  ] = await Promise.all([
+    getCarDerivatives(client, VehicleTypeEnum.LCV, productsEvVanCapIds),
+    getCarDerivatives(client, VehicleTypeEnum.CAR, productsEvCarIds),
+  ]);
+
+  const vehicleListUrlData = await getVehicleListUrlQuery(client, [
+    ...productsEvVanCapIds,
+    ...productsEvCarIds,
+  ]);
+
+  return {
+    productsEvVan,
+    productsEvCar,
+    productsEvVanDerivatives,
+    productsEvCarDerivatives,
+    vehicleListUrlData,
+  };
+};
 
 export const specialOffersRequest = async (
   client: ApolloClient<any>,
@@ -315,6 +350,14 @@ export const pickupsPageOffersRequest = async (
     vehicleListUrlData,
   };
 };
+
+export interface IEvOffersData {
+  productsEvVan?: ProductCardData;
+  productsEvCar?: ProductCardData;
+  productsEvVanDerivatives?: GetDerivatives;
+  productsEvCarDerivatives?: GetDerivatives;
+  vehicleListUrlData: IVehicleList;
+}
 
 export interface ISpecialOffersData {
   productsVan?: ProductCardData;
