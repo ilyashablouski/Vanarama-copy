@@ -47,7 +47,6 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
     setFeaturesArray(features)
   }, [sections])
 
-  console.log(featuresArray)
   const HeroSection = () => (
     <Hero >
       <div className="hero--left">
@@ -100,13 +99,25 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
     </div>
   )
 
-  const Section = () => (
+  interface ISection {
+    body: string;
+    title: string;
+    titleTag: string;
+    image?: {
+      file: {
+        url: string;
+      }
+    };
+    video?: string;
+  }
+
+  const Section = ({ title, titleTag, body, image, video }: ISection) => (
     <section
       className={`row:${getFeaturedClassPartial(sections?.featured1)}`}
     >
-      {sections?.featured1?.video ? (
+      {video ? (
         <Media
-          src={sections?.featured1.video || ''}
+          src={video || ''}
           width="100%"
           height="360px"
         />
@@ -114,7 +125,7 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
         <Image
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           src={
-            sections?.featured1?.image?.file?.url ||
+            image?.file?.url ||
             'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
           }
         />
@@ -126,16 +137,16 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
           color="black"
           tag={
             getTitleTag(
-              sections?.featured1?.titleTag || 'p',
+              titleTag || 'p',
             ) as keyof JSX.IntrinsicElements
           }
         >
-          {sections?.featured1?.title}
+          {title}
         </Heading>
         <div className="markdown">
           <ReactMarkdown
             allowDangerousHtml
-            source={sections?.featured1?.body || ''}
+            source={body || ''}
             renderers={{
               link: props => {
                 const { href, children } = props;
@@ -156,7 +167,9 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
     <>
       <HeroSection />
       <HeadingSection />
-      <Section />
+      {featuresArray.map(({ title, body, image, titleTag, video }, i) => (
+        <Section body={body} title={title} titleTag={titleTag} image={image} key={i} video={video} />
+      ))}
     </>
   )
 }
