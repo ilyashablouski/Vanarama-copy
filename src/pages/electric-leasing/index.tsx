@@ -17,8 +17,6 @@ import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
 } from '../../../generated/GenericPageQuery';
-// import { ProductCardData_productCarousel as ProdCardData } from '../../../generated/ProductCardData';
-
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import {
   // HeroTitle,
@@ -26,9 +24,7 @@ import {
   HeroEv as Hero,
   HeroPrompt,
 } from '../../components/Hero';
-// import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import getTitleTag from '../../utils/getTitleTag';
-// import useLeaseType from '../../hooks/useLeaseType';
 import TileLink from '../../components/TileLink/TileLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
