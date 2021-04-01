@@ -2,6 +2,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import Media from 'core/atoms/media';
+import Router from 'next/router';
 import getTitleTag from 'utils/getTitleTag';
 import createApolloClient from '../../apolloClient';
 import { GENERIC_PAGE } from '../../gql/genericPage';
@@ -19,6 +20,10 @@ import { getFeaturedSectionsAsArray } from 'utils/sections';
 import { useEffect, useState } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import TileLink from '../../components/TileLink/TileLink';
+import League from 'core/organisms/league';
+import Trustpilot from 'core/molecules/trustpilot';
+import Head from 'next/head';
+import SchemaJSON from 'core/atoms/schema-json';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -212,6 +217,87 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
     </LazyLoadComponent>
   )
 
+  const NationalLeagueBanner = () => (
+    <LazyLoadComponent
+      visibleByDefault={
+        typeof window === 'undefined' ||
+        navigator?.vendor === 'Apple Computer, Inc.'
+      }
+    >
+      <section className="row:league">
+        <League
+          clickReadMore={() => Router.push('/fan-hub.html')}
+          altText="vanarama national league"
+          link="/fan-hub.html"
+        />
+      </section>
+    </LazyLoadComponent>
+  )
+
+  const FeaturedOnBanner = () => (
+    <LazyLoadComponent
+      visibleByDefault={
+        typeof window === 'undefined' ||
+        navigator?.vendor === 'Apple Computer, Inc.'
+      }
+    >
+      <section className="row:featured-logos">
+        <Heading tag="span" size="small" color="darker">
+          AS FEATURED ON
+          </Heading>
+        <div>
+          {[
+            {
+              label: 'bbc',
+              href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/bbc.png`,
+            },
+            {
+              label: 'btsport',
+              href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/btsport.png`,
+            },
+            {
+              label: 'dailymail',
+              href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymail.png`,
+            },
+            {
+              label: 'dailymirror',
+              href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymirror.png`,
+            },
+            {
+              label: 'itv',
+              href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/itv.png`,
+            },
+            {
+              label: 'metro',
+              href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/metro.png`,
+            },
+            {
+              label: 'thesun',
+              href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thesun.png`,
+            },
+            {
+              label: 'sky',
+              href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/sky.png`,
+            },
+            {
+              label: 'thetelegraph',
+              href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thetelegraph.png`,
+            },
+          ].map(({ href, label }) => (
+            <Image
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              key={label}
+              src={href}
+              alt={label}
+              size="expand"
+              plain
+            />
+          ))}
+        </div>
+      </section>
+    </LazyLoadComponent>
+  )
+
   return (
     <>
       <HeroSection />
@@ -220,6 +306,8 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
         <Section body={body} title={title} titleTag={titleTag} image={image} key={i} video={video} />
       ))}
       <WhyLeaseWithVanarama />
+      <NationalLeagueBanner />
+      <FeaturedOnBanner />
     </>
   )
 }
