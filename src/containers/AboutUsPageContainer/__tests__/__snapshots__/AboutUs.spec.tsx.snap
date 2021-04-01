@@ -301,11 +301,11 @@ Array [
     >
       Want To Be Part Of The Vanarama Team?
     </p>
-    <a
-      className="link -teal -regular -plain"
-      href="#"
+    <span
+      className="link -teal"
+      data-testid="withoutLink"
+      onClick={[Function]}
     >
-      Start Your Journey with Us Here
        
       <i
         className="icon md hydrated -xsmall"
@@ -344,7 +344,7 @@ Array [
           />
         </svg>
       </i>
-    </a>
+    </span>
   </div>,
 ]
 `;

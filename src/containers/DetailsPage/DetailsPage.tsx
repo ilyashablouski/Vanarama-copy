@@ -242,6 +242,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         rating: vehicleDetails?.averageRating || 0,
       })
       .then(() => localForage.removeItem('orderId'))
+      .then(() => localForage.removeItem('personEmail'))
+      .then(() => localForage.removeItem('personUuid'))
       .then(() => {
         const url =
           leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL

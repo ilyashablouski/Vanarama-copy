@@ -35,6 +35,9 @@ const PERSISTED_GRAPHQL_QUERIES_WITHOUT_CLOUDFLARE_CACHE = [
   'GetExpensesPageDataQuery',
   'GetBankDetailsPageDataQuery',
   'GetPersonSummaryQuery',
+  'GetCompaniesByPersonUuid',
+  'GetMyOrders',
+  'GetOrderByUuid',
 ];
 
 const httpLink = new HttpLink({

@@ -1,6 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Select from 'core/atoms/select';
+import Card from 'core/molecules/cards';
 import {
   filterList_filterList_groupedRangesWithSlug as IRangesSlug,
   filterList_filterList_groupedRangesWithSlug_children as IOptionsDropdown,
@@ -16,9 +17,7 @@ const Button = dynamic(() => import('core/atoms/button'), {
 });
 const Form = dynamic(() => import('core/organisms/form'));
 const Formgroup = dynamic(() => import('core/molecules/formgroup'));
-const Card = dynamic(() => import('core/molecules/cards'), {
-  loading: () => <Skeleton count={5} />,
-});
+
 const Tabs = dynamic(() => import('core/molecules/tabs'), {
   loading: () => <Skeleton count={1} />,
 });
