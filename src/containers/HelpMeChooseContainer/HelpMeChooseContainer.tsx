@@ -95,6 +95,7 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
             choices={choicesValues}
             onSubmit={value => onSubmitChoice(value)}
             multiSelect={multiSelect}
+            shouldSelectTheOnlyValue
             clearMultiSelectTitle={clearMultiSelectTitle}
             onClearClick={() => setChoice([''])}
             withIcons={withIcons}

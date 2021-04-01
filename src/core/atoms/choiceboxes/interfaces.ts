@@ -17,4 +17,5 @@ export interface IChoiceboxesProps extends IBaseProps {
   onClearClick?: () => void;
   withIcons?: boolean;
   currentValue?: string | string[];
+  shouldSelectTheOnlyValue?: boolean;
 }

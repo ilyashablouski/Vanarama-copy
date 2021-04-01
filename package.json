@@ -11,7 +11,7 @@
   "license": "UNLICENSED",
   "scripts": {
     "analyze-build": "NODE_OPTIONS=--max-old-space-size=8192 ANALYZE=true yarn build",
-    "apollo:generate": "rimraf generated && apollo client:codegen generated --target=typescript --outputFlat --no-addTypename",
+    "apollo:generate": "rimraf generated && apollo client:codegen generated --target=typescript --outputFlat --no-addTypename --excludes=*/graphQlTests/*",
     "build": "next build",
     "build:scss": "rimraf public/styles && node-sass --source-map true src/core/styles -o public/styles --output-style compressed",
     "dev": "NODE_ENV=development node express.js",

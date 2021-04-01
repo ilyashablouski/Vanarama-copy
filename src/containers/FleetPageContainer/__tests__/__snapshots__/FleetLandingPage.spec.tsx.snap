@@ -43,247 +43,245 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
           class="hero--right"
           style="min-height: 347px;"
         >
-          <div>
+          <div
+            class="card hero-card"
+            data-testid="card"
+          >
             <div
-              class="card hero-card"
-              data-testid="card"
+              class="hero-card--inner"
             >
-              <div
-                class="hero-card--inner"
+              <p
+                class="heading -primary -lead"
               >
-                <p
-                  class="heading -primary -lead"
+                Schedule A Call With Us
+              </p>
+              <form
+                class="form"
+                data-testid="fleet-request-call-back-form"
+                id="fleet-request-call-back-form"
+              >
+                <div
+                  class="formgroup"
                 >
-                  Schedule A Call With Us
-                </p>
-                <form
-                  class="form"
-                  data-testid="fleet-request-call-back-form"
-                  id="fleet-request-call-back-form"
+                  <label
+                    class="formgroup--legend"
+                    for="fleet-call-back-form_full-name"
+                  >
+                    Full Name
+                  </label>
+                  <div
+                    class="formgroup--content"
+                  >
+                    <div
+                      class="textinput regular"
+                    >
+                      <input
+                        class="textinput--native regular"
+                        data-testid="fleet-call-back-form_full-name"
+                        id="fleet-call-back-form_full-name"
+                        name="fullName"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="formgroup"
+                >
+                  <label
+                    class="formgroup--legend"
+                    for="fleet-call-back-form_company-name"
+                  >
+                    Company Name
+                  </label>
+                  <div
+                    class="formgroup--content"
+                  >
+                    <div
+                      class="textinput regular"
+                    >
+                      <input
+                        class="textinput--native regular"
+                        data-testid="fleet-call-back-form_company-name"
+                        name="companyName"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="formgroup"
+                >
+                  <label
+                    class="formgroup--legend"
+                    for="fleet-call-back-form_fleet-name"
+                  >
+                    Fleet Size
+                  </label>
+                  <div
+                    class="formgroup--content"
+                  >
+                    <div
+                      class="textinput regular"
+                    >
+                      <input
+                        class="textinput--native regular"
+                        data-testid="fleet-call-back-form_fleet-size"
+                        name="fleetSize"
+                        type="number"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="formgroup"
+                >
+                  <label
+                    class="formgroup--legend"
+                    for="fleet-call-back-form_email-name"
+                  >
+                    Email Address
+                  </label>
+                  <div
+                    class="formgroup--content"
+                  >
+                    <div
+                      class="textinput regular"
+                    >
+                      <input
+                        class="textinput--native regular"
+                        data-testid="fleet-call-back-form_email-address"
+                        name="email"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="formgroup"
+                >
+                  <label
+                    class="formgroup--legend"
+                    for="fleet-call-back-form_phone-number"
+                  >
+                    Phone Number
+                  </label>
+                  <div
+                    class="formgroup--content"
+                  >
+                    <div
+                      class="textinput regular"
+                    >
+                      <input
+                        class="textinput--native regular"
+                        data-testid="fleet-call-back-form_phone-number"
+                        id="fleet-call-back-form_phone-number"
+                        name="phoneNumber"
+                        type="text"
+                      />
+                    </div>
+                  </div>
+                </div>
+                <div
+                  class="formgroup"
                 >
                   <div
-                    class="formgroup"
-                  >
-                    <label
-                      class="formgroup--legend"
-                      for="fleet-call-back-form_full-name"
-                    >
-                      Full Name
-                    </label>
-                    <div
-                      class="formgroup--content"
-                    >
-                      <div
-                        class="textinput regular"
-                      >
-                        <input
-                          class="textinput--native regular"
-                          data-testid="fleet-call-back-form_full-name"
-                          id="fleet-call-back-form_full-name"
-                          name="fullName"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="formgroup"
-                  >
-                    <label
-                      class="formgroup--legend"
-                      for="fleet-call-back-form_company-name"
-                    >
-                      Company Name
-                    </label>
-                    <div
-                      class="formgroup--content"
-                    >
-                      <div
-                        class="textinput regular"
-                      >
-                        <input
-                          class="textinput--native regular"
-                          data-testid="fleet-call-back-form_company-name"
-                          name="companyName"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="formgroup"
-                  >
-                    <label
-                      class="formgroup--legend"
-                      for="fleet-call-back-form_fleet-name"
-                    >
-                      Fleet Size
-                    </label>
-                    <div
-                      class="formgroup--content"
-                    >
-                      <div
-                        class="textinput regular"
-                      >
-                        <input
-                          class="textinput--native regular"
-                          data-testid="fleet-call-back-form_fleet-size"
-                          name="fleetSize"
-                          type="number"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="formgroup"
-                  >
-                    <label
-                      class="formgroup--legend"
-                      for="fleet-call-back-form_email-name"
-                    >
-                      Email Address
-                    </label>
-                    <div
-                      class="formgroup--content"
-                    >
-                      <div
-                        class="textinput regular"
-                      >
-                        <input
-                          class="textinput--native regular"
-                          data-testid="fleet-call-back-form_email-address"
-                          name="email"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="formgroup"
-                  >
-                    <label
-                      class="formgroup--legend"
-                      for="fleet-call-back-form_phone-number"
-                    >
-                      Phone Number
-                    </label>
-                    <div
-                      class="formgroup--content"
-                    >
-                      <div
-                        class="textinput regular"
-                      >
-                        <input
-                          class="textinput--native regular"
-                          data-testid="fleet-call-back-form_phone-number"
-                          id="fleet-call-back-form_phone-number"
-                          name="phoneNumber"
-                          type="text"
-                        />
-                      </div>
-                    </div>
-                  </div>
-                  <div
-                    class="formgroup"
+                    class="formgroup--content"
                   >
                     <div
-                      class="formgroup--content"
+                      class="checkbox -teal"
                     >
-                      <div
-                        class="checkbox -teal"
+                      <input
+                        class="checkbox--native"
+                        data-testid="aboutTermsAndCons"
+                        id="termsAndConsregister-form-terms"
+                        name="termsAndCons"
+                        type="checkbox"
+                        value=""
+                      />
+                      <label
+                        class="checkbox--label"
+                        for="termsAndConsregister-form-terms"
                       >
-                        <input
-                          class="checkbox--native"
-                          data-testid="aboutTermsAndCons"
-                          id="termsAndConsregister-form-terms"
-                          name="termsAndCons"
-                          type="checkbox"
-                          value=""
-                        />
-                        <label
-                          class="checkbox--label"
-                          for="termsAndConsregister-form-terms"
+                        <span
+                          class="text -regular -darker"
                         >
-                          <span
-                            class="text -regular -darker"
+                          I agree to the 
+                          <a
+                            class="link -teal"
+                            href="/legal/terms-and-conditions.html"
+                            target="_blank"
                           >
-                            I agree to the 
-                            <a
-                              class="link -teal"
-                              href="/legal/terms-and-conditions.html"
-                              target="_blank"
-                            >
-                              Terms and Conditions
-                            </a>
-                          </span>
-                        </label>
-                      </div>
-                      <div
-                        class="checkbox -teal"
+                            Terms and Conditions
+                          </a>
+                        </span>
+                      </label>
+                    </div>
+                    <div
+                      class="checkbox -teal"
+                    >
+                      <input
+                        class="checkbox--native"
+                        data-testid="aboutPrivacyPolicy"
+                        id="privacyPolicyregister-form-privacy-policy"
+                        name="privacyPolicy"
+                        type="checkbox"
+                        value=""
+                      />
+                      <label
+                        class="checkbox--label"
+                        for="privacyPolicyregister-form-privacy-policy"
                       >
-                        <input
-                          class="checkbox--native"
-                          data-testid="aboutPrivacyPolicy"
-                          id="privacyPolicyregister-form-privacy-policy"
-                          name="privacyPolicy"
-                          type="checkbox"
-                          value=""
-                        />
-                        <label
-                          class="checkbox--label"
-                          for="privacyPolicyregister-form-privacy-policy"
+                        <span
+                          class="text -regular -darker"
                         >
-                          <span
-                            class="text -regular -darker"
+                          I have read and understood the 
+                          <a
+                            class="link -teal"
+                            href="/legal/privacy-policy.html"
+                            target="_blank"
                           >
-                            I have read and understood the 
-                            <a
-                              class="link -teal"
-                              href="/legal/privacy-policy.html"
-                              target="_blank"
-                            >
-                              Privacy Policy
-                            </a>
-                          </span>
-                        </label>
-                      </div>
-                      <div
-                        class="checkbox -teal"
+                            Privacy Policy
+                          </a>
+                        </span>
+                      </label>
+                    </div>
+                    <div
+                      class="checkbox -teal"
+                    >
+                      <input
+                        class="checkbox--native"
+                        data-testid="aboutConsent"
+                        id="consentregister-form-consent"
+                        name="consent"
+                        type="checkbox"
+                        value=""
+                      />
+                      <label
+                        class="checkbox--label"
+                        for="consentregister-form-consent"
                       >
-                        <input
-                          class="checkbox--native"
-                          data-testid="aboutConsent"
-                          id="consentregister-form-consent"
-                          name="consent"
-                          type="checkbox"
-                          value=""
-                        />
-                        <label
-                          class="checkbox--label"
-                          for="consentregister-form-consent"
+                        <span
+                          class="text -regular -darker"
                         >
-                          <span
-                            class="text -regular -darker"
-                          >
-                            Keep me updated on the latest deals & offers
-                          </span>
-                        </label>
-                      </div>
+                          Keep me updated on the latest deals & offers
+                        </span>
+                      </label>
                     </div>
                   </div>
-                  <button
-                    class="button -fullwidth -primary -large -solid"
-                    data-testid="fleet-call-back-form_continue"
-                    type="submit"
+                </div>
+                <button
+                  class="button -fullwidth -primary -large -solid"
+                  data-testid="fleet-call-back-form_continue"
+                  type="submit"
+                >
+                  <div
+                    class="button--inner"
                   >
-                    <div
-                      class="button--inner"
-                    >
-                      I'd Like A Callback
-                    </div>
-                  </button>
-                </form>
-              </div>
+                    I'd Like A Callback
+                  </div>
+                </button>
+              </form>
             </div>
           </div>
           <div

@@ -78,6 +78,7 @@ export function useMyOrdersData(
       partyUuid: partyByUuid,
       filter,
     },
+    fetchPolicy: 'network-only',
   });
 }
 
