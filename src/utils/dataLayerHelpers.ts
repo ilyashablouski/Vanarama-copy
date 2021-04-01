@@ -111,7 +111,7 @@ const PRICE_TYPE = {
   incVAT: 'Including VAT',
 };
 
-export const pushPageViewEvent = (path: string, title = '') => {
+export const pushPageViewEvent = async (path: string, title = '') => {
   window.dataLayer?.push({
     event: 'pageview',
     page: {
