@@ -182,6 +182,14 @@ export const GENERIC_PAGE = gql`
         tiles {
           ...GenericPageQueryTiles
         }
+        steps {
+          heading
+          titleTag
+          steps {
+            title
+            body
+          }
+        }
       }
       intro
       body
