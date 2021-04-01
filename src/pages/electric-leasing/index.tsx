@@ -206,7 +206,8 @@ export const EVHubPage: NextPage<IProps> = ({
                     }}
                     link={{
                       label: 'View Latest Electric Van Deals',
-                      href: '/special-offers.html',
+                      href:
+                        '/van-leasing/search?fuelTypes=Electric,Petrol/plugin+Elec+Hybrid',
                     }}
                     withoutDefaultClassName
                     dataTestId="view-all-vans"
@@ -253,7 +254,8 @@ export const EVHubPage: NextPage<IProps> = ({
                     }}
                     link={{
                       label: 'View Latest Electric Car Deals',
-                      href: '/car-leasing-special-offers.html',
+                      href:
+                        '/car-leasing/search?fuelTypes=Diesel/plugin+Elec+Hybrid,Electric,Petrol/plugin+Elec+Hybrid',
                     }}
                     withoutDefaultClassName
                     dataTestId="view-all-cars"
