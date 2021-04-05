@@ -93,7 +93,7 @@ exports[`<Header /> renders correctly 1`] = `
     </a>
      
     <a
-      className="header-tel link"
+      className="header-tel link InfinityNumber clickable"
       data-testid="link"
       href="tel:01442838195"
       onClick={[Function]}
@@ -2079,7 +2079,7 @@ exports[`<Header /> renders correctly with login user 1`] = `
     </a>
      
     <a
-      className="header-tel link"
+      className="header-tel link InfinityNumber clickable"
       data-testid="link"
       href="tel:01442838195"
       onClick={[Function]}
