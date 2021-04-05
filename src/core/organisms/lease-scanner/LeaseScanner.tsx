@@ -173,7 +173,11 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
         </div>
         <div style={{ height: '1rem' }}>
           <Text tag="div" size="small">
-            <Link href="tel:+441442838195" size="small">
+            <Link
+              href="tel:+441442838195"
+              size="small"
+              className="InfinityNumber clickable"
+            >
               Call 01442 838 195
             </Link>{' '}
             |{' '}
