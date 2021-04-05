@@ -26,6 +26,7 @@ import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
 import { filterList_filterList as IFilterList } from '../../../../generated/filterList';
+import { decodeData, encodeData } from '../../../utils/data';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -42,17 +43,22 @@ const Page: NextPage<IProps> = ({
   isServer,
   pageData,
   metaData,
-  vehiclesList,
-  productCardsData,
   responseCapIds,
   error,
   notFoundPageData,
   filtersData,
-  topOffersList,
-  topOffersCardsData,
+  vehiclesList: encodedData,
+  productCardsData: productEncodedData,
+  topOffersList: topOffersListEncodedData,
+  topOffersCardsData: topOffersCardsEncodedData,
   defaultSort,
 }) => {
   const router = useRouter();
+  // De-obfuscate data for user
+  const vehiclesList = decodeData(encodedData);
+  const productCardsData = decodeData(productEncodedData);
+  const topOffersList = decodeData(topOffersListEncodedData);
+  const topOffersCardsData = decodeData(topOffersCardsEncodedData);
 
   useEffect(() => {
     if (!router.query.make) {
@@ -209,13 +215,13 @@ export async function getServerSideProps(context: NextPageContext) {
         pageData: data,
         metaData: data?.genericPage.metaData || null,
         isServer: !!context.req,
-        vehiclesList: vehiclesList || null,
-        productCardsData: productCardsData || null,
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
         filtersData: filtersData?.filterList || null,
-        topOffersList: topOffersList || null,
-        topOffersCardsData: topOffersCardsData || null,
+        vehiclesList: encodeData(vehiclesList) || null,
+        productCardsData: encodeData(productCardsData) || null,
+        topOffersList: encodeData(topOffersList) || null,
+        topOffersCardsData: encodeData(topOffersCardsData) || null,
         defaultSort: defaultSort || null,
       },
     };

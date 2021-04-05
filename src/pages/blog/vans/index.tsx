@@ -6,8 +6,15 @@ import { getSectionsData } from '../../../utils/getSectionsData';
 import { IBlogCategory } from '../../../models/IBlogsProps';
 import createApolloClient from '../../../apolloClient';
 import { BLOG_POSTS_PAGE } from '../../../gql/blogPosts';
+import { decodeData, encodeData } from '../../../utils/data';
 
-const CategoryPage: NextPage<IBlogCategory> = ({ data, error }) => {
+const CategoryPage: NextPage<IBlogCategory> = ({
+  data: encodedData,
+  error,
+}) => {
+  // De-obfuscate data for user
+  const data = decodeData(encodedData);
+
   if (error || !data) {
     return <DefaultErrorPage statusCode={404} />;
   }
@@ -32,12 +39,16 @@ const CategoryPage: NextPage<IBlogCategory> = ({ data, error }) => {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query({
+    const { data: blogPosts, errors } = await client.query({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/vans',
       },
     });
+
+    // Obfuscate data from Googlebot
+    const data = encodeData(blogPosts);
+
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {

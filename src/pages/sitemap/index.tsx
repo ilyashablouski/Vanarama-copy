@@ -2,10 +2,12 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import SimplePageContainer from '../../containers/SimplePageContainer/SimplePageContainer';
 import createApolloClient from '../../apolloClient';
+import { decodeData, encodeData } from '../../utils/data';
 
-const SitemapPage: NextPage<IGenericPage> = ({ data, loading }) => (
-  <SimplePageContainer data={data} loading={loading} />
-);
+const SitemapPage: NextPage<IGenericPage> = ({
+  data: encodedData,
+  loading,
+}) => <SimplePageContainer data={decodeData(encodedData)} loading={loading} />;
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
@@ -23,7 +25,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
+        data: encodeData(data),
       },
     };
   } catch (err) {
