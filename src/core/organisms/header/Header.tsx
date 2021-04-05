@@ -104,7 +104,7 @@ const Header: FC<IHeaderProps> = memo(props => {
         href="tel:01442838195"
         size="large"
         color="inherit"
-        className="button -clear"
+        className="button -clear InfinityNumber clickable"
       >
         01442 838195
       </Link>
