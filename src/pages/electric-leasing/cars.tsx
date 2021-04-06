@@ -11,12 +11,9 @@ import getTitleTag from 'utils/getTitleTag';
 import { getFeaturedSectionsAsArray } from 'utils/sections';
 import { getFeaturedClassPartial } from 'utils/layout';
 import createApolloClient from '../../apolloClient';
-import {
-  HeroEv as Hero,
-  HeroPrompt,
-} from '../../components/Hero';
+import { HeroEv as Hero, HeroPrompt } from '../../components/Hero';
 import { GENERIC_PAGE } from '../../gql/genericPage';
-import Head from '../../components/Head/Head'
+import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import TileLink from '../../components/TileLink/TileLink';
 import {
@@ -48,7 +45,7 @@ interface IProps {
 }
 
 const ECarsPage: NextPage<IProps> = ({ data }) => {
-  const [featuresArray, setFeaturesArray] = useState([])
+  const [featuresArray, setFeaturesArray] = useState([]);
   const optimisationOptions = {
     height: 620,
     width: 620,
@@ -56,12 +53,12 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
   };
   const { sections } = data?.genericPage;
   useEffect(() => {
-    const features: any = getFeaturedSectionsAsArray(sections)
-    setFeaturesArray(features)
-  }, [sections])
+    const features: any = getFeaturedSectionsAsArray(sections);
+    setFeaturesArray(features);
+  }, [sections]);
 
   const HeroSection = () => (
-    <Hero >
+    <Hero>
       <div className="hero--left">
         <div className="nlol" style={{ left: 'auto' }}>
           <p>{sections?.hero?.title}</p>
@@ -91,7 +88,7 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
         />
       </div>
     </Hero>
-  )
+  );
 
   const HeadingSection = () => (
     <div className="row:lead-text">
@@ -110,7 +107,7 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
         {sections?.leadText?.description}
       </Text>
     </div>
-  )
+  );
 
   interface ISection {
     body: string;
@@ -119,21 +116,15 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
     image?: {
       file: {
         url: string;
-      }
+      };
     };
     video?: string;
   }
 
   const Section = ({ title, titleTag, body, image, video }: ISection) => (
-    <section
-      className={`row:${getFeaturedClassPartial(sections?.featured1)}`}
-    >
+    <section className={`row:${getFeaturedClassPartial(sections?.featured1)}`}>
       {video ? (
-        <Media
-          src={video || ''}
-          width="100%"
-          height="360px"
-        />
+        <Media src={video || ''} width="100%" height="360px" />
       ) : (
         <Image
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -148,11 +139,7 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
         <Heading
           size="large"
           color="black"
-          tag={
-            getTitleTag(
-              titleTag || 'p',
-            ) as keyof JSX.IntrinsicElements
-          }
+          tag={getTitleTag(titleTag || 'p') as keyof JSX.IntrinsicElements}
         >
           {title}
         </Heading>
@@ -174,7 +161,7 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
         </div>
       </div>
     </section>
-  )
+  );
 
   const WhyLeaseWithVanarama = () => (
     <LazyLoadComponent
@@ -217,7 +204,7 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
         ))}
       </section>
     </LazyLoadComponent>
-  )
+  );
 
   const TrustPilotBanner = () => (
     <LazyLoadComponent
@@ -230,14 +217,21 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
         <TrustPilot />
       </section>
     </LazyLoadComponent>
-  )
+  );
 
   return (
     <>
       <HeroSection />
       <HeadingSection />
       {featuresArray.map(({ title, body, image, titleTag, video }, i) => (
-        <Section body={body} title={title} titleTag={titleTag} image={image} key={i} video={video} />
+        <Section
+          body={body}
+          title={title}
+          titleTag={titleTag}
+          image={image}
+          key={i}
+          video={video}
+        />
       ))}
       <WhyLeaseWithVanarama />
       <NationalLeagueBanner />
@@ -255,8 +249,8 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
         </>
       )}
     </>
-  )
-}
+  );
+};
 
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
@@ -281,4 +275,4 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export default ECarsPage
+export default ECarsPage;

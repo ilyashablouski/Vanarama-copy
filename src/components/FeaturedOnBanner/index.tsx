@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React from 'react'
+import React from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Skeleton from 'components/Skeleton';
 
@@ -21,7 +21,7 @@ export const FeaturedOnBanner = () => (
     <section className="row:featured-logos">
       <Heading tag="span" size="small" color="darker">
         AS FEATURED ON
-          </Heading>
+      </Heading>
       <div>
         {[
           {
@@ -73,4 +73,4 @@ export const FeaturedOnBanner = () => (
       </div>
     </section>
   </LazyLoadComponent>
-)
+);

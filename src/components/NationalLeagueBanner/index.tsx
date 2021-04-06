@@ -1,6 +1,6 @@
 import Router from 'next/router';
 import League from 'core/organisms/league';
-import React from 'react'
+import React from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 export const NationalLeagueBanner = () => (
@@ -18,4 +18,4 @@ export const NationalLeagueBanner = () => (
       />
     </section>
   </LazyLoadComponent>
-)
+);
