@@ -40,6 +40,7 @@ import { formatToSlugFormat, notFoundPageHandler } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../../generated/genericPagesQuery';
+import { decodeData, encodeData } from '../../../utils/data';
 
 interface IPageType {
   isBodyStylePage: boolean;
@@ -68,18 +69,23 @@ const Page: NextPage<IProps> = ({
   pageData,
   metaData,
   filtersData,
-  vehiclesList,
-  productCardsData,
   responseCapIds,
   ranges,
   rangesUrls,
   error,
   notFoundPageData,
-  topOffersList,
-  topOffersCardsData,
   defaultSort,
+  vehiclesList: encodedData,
+  productCardsData: productEncodedData,
+  topOffersList: topOffersListEncodedData,
+  topOffersCardsData: topOffersCardsEncodedData,
 }) => {
   const router = useRouter();
+  // De-obfuscate data for user
+  const vehiclesList = decodeData(encodedData);
+  const productCardsData = decodeData(productEncodedData);
+  const topOffersList = decodeData(topOffersListEncodedData);
+  const topOffersCardsData = decodeData(topOffersCardsEncodedData);
   /** using for dynamically change type when we navigate between different page type (exp. make -> budget) */
   const pageType = useRef<IPageType>();
   useEffect(() => {
@@ -298,11 +304,11 @@ export async function getServerSideProps(context: NextPageContext) {
         pageData: data,
         metaData: data?.genericPage.metaData || null,
         filtersData: filtersData?.filterList,
-        vehiclesList: vehiclesList || null,
-        productCardsData: productCardsData || null,
         responseCapIds: responseCapIds || null,
-        topOffersList: topOffersList || null,
-        topOffersCardsData: topOffersCardsData || null,
+        vehiclesList: encodeData(vehiclesList) || null,
+        productCardsData: encodeData(productCardsData) || null,
+        topOffersList: encodeData(topOffersList) || null,
+        topOffersCardsData: encodeData(topOffersCardsData) || null,
         ranges: ranges || null,
         defaultSort: defaultSort || null,
         rangesUrls: rangesUrls || null,

@@ -17,6 +17,7 @@ import {
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 import { genericPagesQuery_genericPages_items as IMakeUrl } from '../../../generated/genericPagesQuery';
 import { formatToSlugFormat } from '../../utils/url';
+import { decodeData, encodeData } from '../../utils/data';
 
 interface IProps extends ISearchPageProps {
   topInfoSection?: sections | null;
@@ -26,10 +27,10 @@ interface IProps extends ISearchPageProps {
 
 const Page: NextPage<IProps> = ({
   isServer,
-  topInfoSection,
+  topInfoSection: topInfoSectionEncodedData,
   metaData,
   manufacturers,
-  makesUrls,
+  makesUrls: encodedData,
 }) => {
   return (
     <SearchPageContainer
@@ -37,9 +38,9 @@ const Page: NextPage<IProps> = ({
       isCarSearch
       isAllMakesPage
       metaData={metaData}
-      topInfoSection={topInfoSection}
+      topInfoSection={decodeData(topInfoSectionEncodedData)}
       preLoadManufacturers={manufacturers}
-      makesUrls={makesUrls}
+      makesUrls={decodeData(encodedData)}
     />
   );
 };
@@ -82,11 +83,11 @@ export async function getServerSideProps(context: NextPageContext) {
     .then(resp => resp.data.genericPages.items);
   return {
     props: {
-      topInfoSection: data.manufacturerPage.sections,
+      topInfoSection: encodeData(data.manufacturerPage.sections),
       metaData: data.manufacturerPage.metaData,
       isServer: !!context.req,
       manufacturers: manufacturers || null,
-      makesUrls: makesUrls || null,
+      makesUrls: encodeData(makesUrls) || null,
     },
   };
 }

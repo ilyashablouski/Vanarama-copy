@@ -5,8 +5,12 @@ import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import withApollo from '../../hocs/withApollo';
 import CategoryPageContainer from '../../containers/CategoryPageContainer/CategoryPageContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
+import { decodeData, encodeData } from '../../utils/data';
 
-const CategoryPage: NextPage<IGenericPage> = ({ data, error }) => {
+const CategoryPage: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
+  // De-obfuscate data for user
+  const data = decodeData(encodedData);
+
   if (error || !data) {
     return <DefaultErrorPage statusCode={404} />;
   }
@@ -34,12 +38,16 @@ const CategoryPage: NextPage<IGenericPage> = ({ data, error }) => {
 export async function getStaticProps(context: NextPageContext) {
   try {
     const client = createApolloClient({}, context);
-    const { data, errors } = await client.query({
+    const { data: genericPage, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
         slug: 'blog',
       },
     });
+
+    // Obfuscate data from Googlebot
+    const data = encodeData(genericPage);
+
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {

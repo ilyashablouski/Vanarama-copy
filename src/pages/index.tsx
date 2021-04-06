@@ -11,6 +11,7 @@ import {
   filterListVariables as IFilterListVariables,
 } from '../../generated/filterList';
 import { specialOffersRequest } from '../utils/offers';
+import { decodeData, encodeData } from '../utils/data';
 
 export const HomePage: NextPage<IHomePageContainer> = ({
   data,
@@ -27,16 +28,16 @@ export const HomePage: NextPage<IHomePageContainer> = ({
 }) => (
   <HomePageContainer
     loading={loading}
-    data={data}
+    data={decodeData(data)}
     productsCar={productsCar}
     productsPickup={productsPickup}
     productsVan={productsVan}
     productsVanDerivatives={productsVanDerivatives}
     productsCarDerivatives={productsCarDerivatives}
     productsPickupDerivatives={productsPickupDerivatives}
-    searchPodVansData={searchPodVansData}
-    searchPodCarsData={searchPodCarsData}
-    vehicleListUrlData={vehicleListUrlData}
+    searchPodVansData={decodeData(searchPodVansData)}
+    searchPodCarsData={decodeData(searchPodCarsData)}
+    vehicleListUrlData={decodeData(vehicleListUrlData)}
   />
 );
 
@@ -74,7 +75,7 @@ export async function getServerSideProps(context: NextPageContext) {
 
   return {
     props: {
-      data: data || null,
+      data: encodeData(data) || null,
       loading,
       productsVanDerivatives: productsVanDerivatives || null,
       productsCarDerivatives: productsCarDerivatives || null,
@@ -82,9 +83,9 @@ export async function getServerSideProps(context: NextPageContext) {
       productsCar: productsCar || null,
       productsPickup: productsPickup || null,
       productsVan: productsVan || null,
-      searchPodVansData,
-      searchPodCarsData,
-      vehicleListUrlData: vehicleListUrlData || null,
+      searchPodVansData: encodeData(searchPodVansData),
+      searchPodCarsData: encodeData(searchPodCarsData),
+      vehicleListUrlData: encodeData(vehicleListUrlData) || null,
     },
   };
 }
