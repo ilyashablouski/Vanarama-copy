@@ -7,6 +7,7 @@ import { GENERIC_PAGE_QUESTION_HUB } from '../../../../containers/VehicleReviewC
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import { ReviewsHubCategoryQuery } from '../../../../../generated/ReviewsHubCategoryQuery';
 import Head from '../../../../components/Head/Head';
+import { decodeData, encodeData } from '../../../../utils/data';
 
 export interface IReviewHubPage {
   data: ReviewsHubCategoryQuery | undefined;
@@ -14,7 +15,11 @@ export interface IReviewHubPage {
   pageNumber?: number;
 }
 
-const ReviewHub: NextPage<IReviewHubPage> = ({ data, pageNumber }) => {
+const ReviewHub: NextPage<IReviewHubPage> = ({
+  data: encodedData,
+  pageNumber,
+}) => {
+  const data = decodeData(encodedData);
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
@@ -79,7 +84,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
+        data: encodeData(data),
         pageNumber:
           parseInt((context?.params?.pageNumber as string) || '', 10) || null,
       },

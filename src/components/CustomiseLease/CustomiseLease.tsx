@@ -310,7 +310,7 @@ const CustomiseLease = ({
           text="Servicing, MOTs, tyres, brakes, wipes and bulbs. All you need to worry about is insurance and fuel!"
           show={isModalShowing}
           onRequestClose={() => setIsModalShowing(false)}
-          additionalText="PS: Without the package you’ll have to deal with the MOTs, servicing and replacements for your new vehicle, for the duration of your lease."
+          additionalText="PS: Without this package you’ll have to deal with servicing and maintenance for your vehicle for the duration of your lease."
         >
           <Button
             className="-mt-200"

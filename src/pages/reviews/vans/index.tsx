@@ -5,6 +5,7 @@ import createApolloClient from '../../../apolloClient';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { GENERIC_PAGE_QUESTION_HUB } from '../../../containers/VehicleReviewCategoryContainer/gql';
 import Skeleton from '../../../components/Skeleton';
+import { decodeData, encodeData } from '../../../utils/data';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -15,10 +16,11 @@ interface IReviewHub {
   loading: boolean;
 }
 
-const ReviewHub: NextPage<IReviewHub> = ({ data, loading }) => {
+const ReviewHub: NextPage<IReviewHub> = ({ data: encodedData, loading }) => {
   if (loading) {
     return <Loading size="large" />;
   }
+  const data = decodeData(encodedData);
   const metaData = getSectionsData(['metaData'], data.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
@@ -48,7 +50,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
+        data: encodeData(data),
       },
     };
   } catch (err) {
