@@ -7,8 +7,16 @@ import { getSectionsData } from '../../../../utils/getSectionsData';
 import { IBlogCategory } from '../../../../models/IBlogsProps';
 import { buildStaticPaths, getBlogPosts } from '../../../../utils/pagination';
 import { getMetadataForPagination } from '../../../../utils/url';
+import { decodeData } from '../../../../utils/data';
 
-const CategoryPage: NextPage<IBlogCategory> = ({ data, error, pageNumber }) => {
+const CategoryPage: NextPage<IBlogCategory> = ({
+  data: encodedData,
+  error,
+  pageNumber,
+}) => {
+  // De-obfuscate data for user
+  const data = decodeData(encodedData);
+
   if (error || !data) {
     return <DefaultErrorPage statusCode={404} />;
   }

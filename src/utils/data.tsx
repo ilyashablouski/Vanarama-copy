@@ -2,7 +2,7 @@ import clonedeep from 'lodash.clonedeep';
 
 const ENCODED_KEY_PREFIX = '__b64__';
 const KEYS_TO_ENCODE = ['schema'];
-const VALUES_TO_ENCODE = [] as any;
+const VALUES_TO_ENCODE = ['legacyUrl', 'slug', 'url'] as any;
 
 export function encodeData(data: any) {
   const newData = clonedeep(data);
@@ -70,31 +70,33 @@ export function modifyObjectStringValues({
   keysToEncode,
   valuesToEncode,
 }: any) {
-  Object.keys(object).forEach(key => {
-    // Encode and decode object keys that we don't want to expose to Googlebot
-    if (isKeyIncludedIn(key, keysToEncode)) {
-      const modifiedKey = modifyKey({ key, modify });
+  if (object) {
+    Object.keys(object).forEach(key => {
+      // Encode and decode object keys that we don't want to expose to Googlebot
+      if (isKeyIncludedIn(key, keysToEncode)) {
+        const modifiedKey = modifyKey({ key, modify });
 
-      // eslint-disable-next-line no-param-reassign
-      object[modifiedKey] = object[key];
-      // eslint-disable-next-line no-param-reassign
-      delete object[key];
-    }
+        // eslint-disable-next-line no-param-reassign
+        object[modifiedKey] = object[key];
+        // eslint-disable-next-line no-param-reassign
+        delete object[key];
+      }
 
-    // Encode and decode object values that we don't want to expose to Googlebot
-    if (typeof object[key] === 'object' && object[key] !== null) {
-      modifyObjectStringValues({
-        object: object[key],
-        modify,
-        keysToEncode,
-        valuesToEncode,
-      });
-    } else if (
-      valuesToEncode.includes(key) &&
-      typeof object[key] === 'string'
-    ) {
-      // eslint-disable-next-line no-param-reassign
-      object[key] = modify(object[key]);
-    }
-  });
+      // Encode and decode object values that we don't want to expose to Googlebot
+      if (typeof object[key] === 'object' && object[key] !== null) {
+        modifyObjectStringValues({
+          object: object[key],
+          modify,
+          keysToEncode,
+          valuesToEncode,
+        });
+      } else if (
+        valuesToEncode.includes(key) &&
+        typeof object[key] === 'string'
+      ) {
+        // eslint-disable-next-line no-param-reassign
+        object[key] = modify(object[key]);
+      }
+    });
+  }
 }

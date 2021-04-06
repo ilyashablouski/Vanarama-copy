@@ -18,6 +18,7 @@ import { vehicleList } from '../../../generated/vehicleList';
 import { GET_PRODUCT_CARDS_DATA } from '../../containers/CustomerAlsoViewedContainer/gql';
 import { GetProductCard } from '../../../generated/GetProductCard';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
+import { decodeData, encodeData } from '../../utils/data';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -39,10 +40,10 @@ const Page: NextPage<IProps> = ({
       isServer={isServer}
       isSpecialOfferPage
       isPickups
-      pageData={pageData}
+      pageData={decodeData(pageData)}
       metaData={metaData}
-      preLoadVehiclesList={vehiclesList}
-      preLoadProductCardsData={productCardsData}
+      preLoadVehiclesList={decodeData(vehiclesList)}
+      preLoadProductCardsData={decodeData(productCardsData)}
       preLoadResponseCapIds={responseCapIds}
     />
   );
@@ -100,11 +101,11 @@ export async function getServerSideProps(context: NextPageContext) {
   }
   return {
     props: {
-      pageData: data,
+      pageData: encodeData(data),
       metaData: data?.genericPage.metaData || null,
       isServer: !!context.req,
-      vehiclesList: vehiclesList || null,
-      productCardsData: productCardsData || null,
+      vehiclesList: encodeData(vehiclesList) || null,
+      productCardsData: encodeData(productCardsData) || null,
       responseCapIds: responseCapIds || null,
     },
   };

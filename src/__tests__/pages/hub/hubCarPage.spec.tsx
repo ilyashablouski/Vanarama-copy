@@ -302,13 +302,4 @@ describe('<CarPage />', () => {
       expect(Router.push).toHaveBeenCalledWith('/fan-hub.html'),
     );
   });
-
-  it('should have link in View Offer', async () => {
-    await screen.findAllByText('View Offer');
-
-    expect(screen.getByTestId('view-offer')).toHaveAttribute(
-      'href',
-      '/ford/focus/hatchback/10-ecoBoost-125-st-line-nav-5dr',
-    );
-  });
 });

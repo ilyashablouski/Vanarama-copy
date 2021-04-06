@@ -3,6 +3,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import createApolloClient from '../../apolloClient';
 import Skeleton from '../../components/Skeleton';
+import { decodeData, encodeData } from '../../utils/data';
 
 const LeasingQuestionsContainer = dynamic(
   () =>
@@ -14,7 +15,9 @@ const LeasingQuestionsContainer = dynamic(
   },
 );
 
-const FinanceInfo: NextPage<IGenericPage> = ({ data }) => {
+const FinanceInfo: NextPage<IGenericPage> = ({ data: encodedData }) => {
+  const data = decodeData(encodedData);
+
   if (!data?.genericPage) {
     return <></>;
   }
@@ -38,7 +41,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
+        data: encodeData(data),
       },
     };
   } catch (err) {
