@@ -10,6 +10,7 @@ import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import Head from '../../components/Head/Head';
 import createApolloClient from '../../apolloClient';
 import Skeleton from '../../components/Skeleton';
+import { decodeData, encodeData } from '../../utils/data';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -33,7 +34,11 @@ const Breadcrumb = dynamic(
   },
 );
 
-export const LocationsPage: NextPage<IGenericPage> = ({ data, loading }) => {
+export const LocationsPage: NextPage<IGenericPage> = ({
+  data: encodedData,
+  loading,
+}) => {
+  const data = decodeData(encodedData);
   if (loading) {
     return <Loading size="large" />;
   }
@@ -142,7 +147,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
+        data: encodeData(data),
         error: errors ? errors[0] : null,
       },
     };

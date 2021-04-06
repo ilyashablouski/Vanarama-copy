@@ -33,6 +33,7 @@ import { GET_SEARCH_POD_DATA } from '../../../../containers/SearchPodContainer/g
 import { filterList_filterList as IFilterList } from '../../../../../generated/filterList';
 import FeaturedAndTilesContainer from '../../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { PAGE_TYPES } from '../../../../utils/pageTypes';
+import { decodeData, encodeData } from '../../../../utils/data';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -52,20 +53,26 @@ const Page: NextPage<IProps> = ({
   isServer,
   pageData,
   metaData,
-  vehiclesList,
-  bodyStyleList,
-  productCardsData,
+  bodyStyleList: bodyStyleEncodedData,
+  vehiclesList: encodedData,
+  productCardsData: productEncodedData,
+  topOffersList: topOffersListEncodedData,
+  topOffersCardsData: topOffersCardsEncodedData,
   responseCapIds,
   error,
   notFoundPageData,
   filtersData,
   rangeParam,
   makeParam,
-  topOffersList,
-  topOffersCardsData,
   defaultSort,
 }) => {
   const router = useRouter();
+  // De-obfuscate data for user
+  const vehiclesList = decodeData(encodedData);
+  const productCardsData = decodeData(productEncodedData);
+  const bodyStyleList = decodeData(bodyStyleEncodedData);
+  const topOffersList = decodeData(topOffersListEncodedData);
+  const topOffersCardsData = decodeData(topOffersCardsEncodedData);
 
   useEffect(() => {
     if (!router.query.make) {
@@ -259,11 +266,11 @@ export async function getServerSideProps(context: NextPageContext) {
         pageData: data,
         metaData: data?.genericPage.metaData || null,
         isServer: !!context.req,
-        vehiclesList: vehiclesList || null,
-        bodyStyleList: bodyStyleList || null,
-        productCardsData: productCardsData || null,
-        topOffersList: topOffersList || null,
-        topOffersCardsData: topOffersCardsData || null,
+        vehiclesList: encodeData(vehiclesList) || null,
+        bodyStyleList: encodeData(bodyStyleList) || null,
+        productCardsData: encodeData(productCardsData) || null,
+        topOffersList: encodeData(topOffersList) || null,
+        topOffersCardsData: encodeData(topOffersCardsData) || null,
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
         filtersData: filtersData?.filterList || null,

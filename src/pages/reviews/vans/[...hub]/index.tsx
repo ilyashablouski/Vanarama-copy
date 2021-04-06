@@ -15,6 +15,7 @@ import VehicleReviewContainer from '../../../../containers/VehicleReviewContaine
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import Head from '../../../../components/Head/Head';
 import { GENERIC_PAGE_QUESTION_HUB } from '../../../../containers/VehicleReviewCategoryContainer/gql';
+import { decodeData, encodeData } from '../../../../utils/data';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -25,10 +26,12 @@ interface IReviewPage {
   loading: boolean;
 }
 
-const ReviewHub: NextPage<IReviewPage> = ({ data, loading }) => {
+const ReviewHub: NextPage<IReviewPage> = ({ data: encodedData, loading }) => {
   if (loading) {
     return <Loading size="large" />;
   }
+
+  const data = decodeData(encodedData);
 
   if (data?.reviewsPage) {
     const title = getSectionsData(['metaData', 'name'], data?.reviewsPage);
@@ -79,7 +82,7 @@ export async function getStaticPaths() {
       pageType: 'Van Reviews',
     },
   });
-  const items = data?.pageCollection?.items;
+  const items: any = data?.pageCollection?.items;
 
   const { data: vehicleData } = await client.query<
     PageCollection,
@@ -90,7 +93,7 @@ export async function getStaticPaths() {
       pageType: 'Vehicle Review',
     },
   });
-  const itemsVehicle = vehicleData?.pageCollection?.items;
+  const itemsVehicle: any = vehicleData?.pageCollection?.items;
   const pathCollection = [...items, ...itemsVehicle].filter(
     el => el?.slug !== 'reviews/vans',
   );
@@ -119,7 +122,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
+        data: encodeData(data),
       },
     };
   } catch (err) {

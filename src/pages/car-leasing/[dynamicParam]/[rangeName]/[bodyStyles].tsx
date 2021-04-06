@@ -26,6 +26,7 @@ import { filterList_filterList as IFilterList } from '../../../../../generated/f
 import { notFoundPageHandler } from '../../../../utils/url';
 import { ISearchPageProps } from '../../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../../containers/PageNotFoundContainer/PageNotFoundContainer';
+import { decodeData, encodeData } from '../../../../utils/data';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -43,8 +44,8 @@ const Page: NextPage<IProps> = ({
   pageData,
   metaData,
   filtersData,
-  vehiclesList,
-  productCardsData,
+  vehiclesList: encodedData,
+  productCardsData: productEncodedData,
   responseCapIds,
   error,
   notFoundPageData,
@@ -53,6 +54,9 @@ const Page: NextPage<IProps> = ({
   defaultSort,
 }) => {
   const router = useRouter();
+  // De-obfuscate data for user
+  const vehiclesList = decodeData(encodedData);
+  const productCardsData = decodeData(productEncodedData);
 
   useEffect(() => {
     if (!router.query.make) {
@@ -177,14 +181,18 @@ export async function getServerSideProps(context: NextPageContext) {
       }
     }
     query.make = (query.dynamicParam as string).toLowerCase();
+
+    // Obfuscate data from Googlebot
+    const vehiclesListData = encodeData(vehiclesList);
+    const productCards = encodeData(productCardsData);
     return {
       props: {
         pageData: data,
         metaData: data?.genericPage.metaData || null,
         isServer: !!context.req,
         filtersData: filtersData?.filterList || null,
-        vehiclesList: vehiclesList || null,
-        productCardsData: productCardsData || null,
+        vehiclesList: vehiclesListData || null,
+        productCardsData: productCards || null,
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
         defaultSort: defaultSort || null,

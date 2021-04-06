@@ -5,12 +5,18 @@ import SearchPageContainer from '../../containers/SearchPageContainer';
 import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
+import { decodeData, encodeData } from '../../utils/data';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
 }
 
-const Page: NextPage<IProps> = ({ isServer, pageData, metaData }) => {
+const Page: NextPage<IProps> = ({
+  isServer,
+  pageData: encodedData,
+  metaData,
+}) => {
+  const pageData = decodeData(encodedData);
   return (
     <SearchPageContainer
       isServer={isServer}
@@ -37,7 +43,7 @@ export async function getServerSideProps(context: NextPageContext) {
   )) as ApolloQueryResult<GenericPageQuery>;
   return {
     props: {
-      pageData: data,
+      pageData: encodeData(data),
       metaData: data?.genericPage.metaData || null,
       isServer: !!context.req,
     },
