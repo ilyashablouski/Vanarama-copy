@@ -3,7 +3,7 @@ import League from 'core/organisms/league';
 import React from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
-export const NationalLeagueBanner = () => (
+const NationalLeagueBanner = () => (
   <LazyLoadComponent
     visibleByDefault={
       typeof window === 'undefined' ||
@@ -19,3 +19,5 @@ export const NationalLeagueBanner = () => (
     </section>
   </LazyLoadComponent>
 );
+
+export default NationalLeagueBanner;

@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import Skeleton from 'components/Skeleton';
+import Skeleton from '../Skeleton';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -11,7 +11,7 @@ const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={4} />,
 });
 
-export const FeaturedOnBanner = () => (
+const FeaturedOnBanner = () => (
   <LazyLoadComponent
     visibleByDefault={
       typeof window === 'undefined' ||
@@ -74,3 +74,5 @@ export const FeaturedOnBanner = () => (
     </section>
   </LazyLoadComponent>
 );
+
+export default FeaturedOnBanner;

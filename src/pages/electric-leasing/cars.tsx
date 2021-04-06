@@ -4,18 +4,18 @@ import dynamic from 'next/dynamic';
 import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import { FeaturedOnBanner } from 'components/FeaturedOnBanner';
-import { NationalLeagueBanner } from 'components/NationalLeagueBanner';
 import Media from 'core/atoms/media';
-import getTitleTag from 'utils/getTitleTag';
-import { getFeaturedSectionsAsArray } from 'utils/sections';
-import { getFeaturedClassPartial } from 'utils/layout';
 import createApolloClient from '../../apolloClient';
-import { HeroEv as Hero, HeroPrompt } from '../../components/Hero';
-import { GENERIC_PAGE } from '../../gql/genericPage';
+import FeaturedOnBanner from '../../components/FeaturedOnBanner';
+import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import Head from '../../components/Head/Head';
+import { HeroEv as Hero, HeroPrompt } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
 import TileLink from '../../components/TileLink/TileLink';
+import { GENERIC_PAGE } from '../../gql/genericPage';
+import getTitleTag from '../../utils/getTitleTag';
+import { getFeaturedClassPartial } from '../../utils/layout';
+import { getFeaturedSectionsAsArray } from '../../utils/sections';
 import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
@@ -223,13 +223,13 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
     <>
       <HeroSection />
       <HeadingSection />
-      {featuresArray.map(({ title, body, image, titleTag, video }, i) => (
+      {featuresArray.map(({ title, body, image, titleTag, video }) => (
         <Section
           body={body}
           title={title}
           titleTag={titleTag}
           image={image}
-          key={i}
+          key={title}
           video={video}
         />
       ))}
