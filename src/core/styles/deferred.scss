@@ -14,7 +14,6 @@ $include-presentation-styles: false !default;
 @import '../templates/page-vars.scss';
 
 // components (atoms)
-@import '../atoms/dropdown/dropdown.scss';
 @import '../atoms/details/details.scss';
 @import '../atoms/badge/badge.scss';
 @import '../atoms/checkbox/checkbox.scss';
@@ -36,7 +35,6 @@ $include-presentation-styles: false !default;
 @import '../atoms/sliding-input/sliding-input.scss';
 @import '../atoms/text/text.scss';
 @import '../atoms/textarea/textarea.scss';
-@import '../atoms/textinput/textinput.scss';
 @import '../atoms/toggle/fancy-toggle.scss';
 @import '../atoms/toggle/toggle.scss';
 
