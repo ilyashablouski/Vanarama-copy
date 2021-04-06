@@ -21,6 +21,7 @@ const FormikTypeAheadField: React.FC<IProps> = ({
 }) => {
   const [field, meta, helpers] = useField(name);
   const [searchValue, setSearchValue] = useState(field.value || '');
+  const [isSelected, setSelected] = useState(false);
   const debouncedSearchTerm = useDebounce(searchValue);
   const suggestions = useOccupationList(debouncedSearchTerm);
   const error = (meta.touched && meta.error) || undefined;
@@ -34,6 +35,7 @@ const FormikTypeAheadField: React.FC<IProps> = ({
     }
     // set formik field value
     helpers.setValue(data.suggestionValue);
+    setSelected(true);
   }
 
   function handleRenderSuggestion(result: string) {
@@ -56,6 +58,20 @@ const FormikTypeAheadField: React.FC<IProps> = ({
           dataTestId: name,
           ...field,
           ...rest,
+          onBlur: (e: React.FocusEvent<any>) => {
+            field.onBlur(e);
+            if (!suggestions.length && !isSelected) {
+              setSearchValue('');
+              helpers.setValue('');
+            }
+            if (suggestions.length && !isSelected) {
+              helpers.setValue(suggestions[0]);
+            }
+          },
+          onChange: (e: React.FocusEvent<any>) => {
+            field.onChange(e);
+            setSelected(false);
+          },
         }}
         onSuggestionsClearRequested={() => setSearchValue('')}
         onSuggestionsFetchRequested={({ value: nextValue }) =>
