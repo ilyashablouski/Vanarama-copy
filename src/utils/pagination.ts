@@ -5,6 +5,7 @@ import {
   BlogPosts,
   BlogPosts_blogPosts_articles,
 } from '../../generated/BlogPosts';
+import { encodeData } from './data';
 import { getSectionsData } from './getSectionsData';
 
 export const ARTICLES_PER_PAGE = 9;
@@ -16,7 +17,7 @@ export const getBlogPosts = async (
   context: GetStaticPropsContext,
 ) => {
   try {
-    const { data, errors } = await client.query({
+    const { data: blogPosts, errors } = await client.query({
       query,
       variables: {
         slug,
@@ -25,6 +26,10 @@ export const getBlogPosts = async (
     if (errors) {
       throw new Error(errors[0].message);
     }
+
+    // Obfuscate data from Googlebot
+    const data = encodeData(blogPosts);
+
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {

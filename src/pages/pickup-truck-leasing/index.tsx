@@ -43,6 +43,7 @@ import {
   IPickupsPageOffersData,
   pickupsPageOffersRequest,
 } from '../../utils/offers';
+import { decodeData, encodeData } from '../../utils/data';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -94,11 +95,13 @@ interface IProps extends IPickupsPageOffersData {
 }
 
 export const PickupsPage: NextPage<IProps> = ({
-  data,
+  data: encodedData,
   searchPodVansData,
   productsPickup,
-  vehicleListUrlData,
+  vehicleListUrlData: vehicleListUrlDataEncode,
 }) => {
+  const data = decodeData(encodedData);
+  const vehicleListUrlData = decodeData(vehicleListUrlDataEncode);
   const { cachedLeaseType } = useLeaseType(false);
   const offer = useMemo(
     () => productsPickup?.productCarousel?.find(p => p?.isOnOffer === true),
@@ -770,10 +773,10 @@ export async function getStaticProps() {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
+        data: encodeData(data),
         searchPodVansData,
         productsPickup: productsPickup || null,
-        vehicleListUrlData,
+        vehicleListUrlData: encodeData(vehicleListUrlData),
       },
     };
   } catch (err) {

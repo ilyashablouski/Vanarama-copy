@@ -50,6 +50,7 @@ import {
   GetProductCard,
   GetProductCardVariables,
 } from '../../../../generated/GetProductCard';
+import { decodeData, encodeData } from '../../../utils/data';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -77,7 +78,7 @@ const CarDetailsPage: NextPage<IProps> = ({
   genericPages,
   trim,
   colour,
-  productCard,
+  productCard: encodedData,
   leaseTypeQuery,
 }) => {
   if (notFoundPageData) {
@@ -100,6 +101,9 @@ const CarDetailsPage: NextPage<IProps> = ({
       </div>
     );
   }
+
+  // De-obfuscate data for user
+  const productCard = decodeData(encodedData);
 
   // Schema JSON.
   const seller = {
@@ -298,15 +302,19 @@ export async function getServerSideProps(context: NextPageContext) {
     let productCard;
 
     if (capsIds.length) {
-      productCard = await client.query<GetProductCard, GetProductCardVariables>(
-        {
-          query: GET_PRODUCT_CARDS_DATA,
-          variables: {
-            capIds: capsIds,
-            vehicleType: VehicleTypeEnum.CAR,
-          },
+      const productCardData = await client.query<
+        GetProductCard,
+        GetProductCardVariables
+      >({
+        query: GET_PRODUCT_CARDS_DATA,
+        variables: {
+          capIds: capsIds,
+          vehicleType: VehicleTypeEnum.CAR,
         },
-      );
+      });
+
+      // Obfuscate data from Googlebot
+      productCard = encodeData(productCardData);
     }
 
     const genericPages = await client

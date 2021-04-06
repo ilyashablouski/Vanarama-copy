@@ -8,8 +8,12 @@ import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
 import { getLeasingPaths } from '../../../../utils/pageSlugs';
 import Breadcrumb from '../../../../components/Breadcrumb/Breadcrumb';
 import Head from '../../../../components/Head/Head';
+import { decodeData, encodeData } from '../../../../utils/data';
 
-const FinanceInfo: NextPage<IGenericPage> = ({ data }) => {
+const FinanceInfo: NextPage<IGenericPage> = ({ data: encodedData }) => {
+  // De-obfuscate data for user
+  const data = decodeData(encodedData);
+
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const title = metaData.name;
@@ -76,7 +80,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
+        data: encodeData(data),
       },
     };
   } catch (err) {
