@@ -233,7 +233,7 @@
 @media (min-width: 768px) {
   .row {
     // Hero
-    &\:hero {
+    &\:hero.ev-hero {
       .hero--left {
         grid-column: content / column 6;
       }
