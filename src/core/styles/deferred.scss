@@ -14,6 +14,7 @@ $include-presentation-styles: false !default;
 @import '../templates/page-vars.scss';
 
 // components (atoms)
+@import '../atoms/dropdown/dropdown.scss';
 @import '../atoms/details/details.scss';
 @import '../atoms/badge/badge.scss';
 @import '../atoms/checkbox/checkbox.scss';
