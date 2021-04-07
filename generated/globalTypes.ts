@@ -28,6 +28,14 @@ export enum FinanceTypeEnum {
 }
 
 /**
+ * Company types for funder
+ */
+export enum FunderCompanyTypeEnum {
+  limited = "limited",
+  partnership = "partnership",
+}
+
+/**
  * Lease type
  */
 export enum LeaseTypeEnum {
@@ -304,6 +312,17 @@ export interface FullCreditCheckerInputObject {
   partyId: string;
   term?: number | null;
   vehicleType: VehicleTypeEnum;
+}
+
+/**
+ * Input object to get funder details
+ */
+export interface FunderInputObject {
+  companiesHouseDirectors: number;
+  companyType: FunderCompanyTypeEnum;
+  id: string;
+  percentageShares?: number | null;
+  userDirectors?: number | null;
 }
 
 /**

@@ -7,6 +7,7 @@ import {
 import { parseDate } from '../../utils/dates';
 import { SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates as Associate } from '../../../generated/SaveDirectorDetailsMutation';
 import { AddressInputObject } from '../../../generated/globalTypes';
+import { FunderDirectors } from '../../../generated/FunderDirectors';
 
 export const mapFormValues = (
   values: DirectorDetailsFormValues,
@@ -133,6 +134,20 @@ export const combineUpdatedDirectors = (
       history,
     };
   });
+};
+
+export const mapValidationParams = (
+  data?: FunderDirectors['funderDirectors'],
+) => {
+  const numOfDirectors = parseInt(data?.funderData?.num_of_directors, 10);
+  const percentageShares = parseInt(data?.funderData?.percentage_shares, 10);
+
+  return {
+    id: data?.id,
+    // request minimum 1 director and minimum 25% of share in case of invalid data
+    numOfDirectors: Number.isNaN(numOfDirectors) ? 1 : numOfDirectors,
+    percentageShares: Number.isNaN(percentageShares) ? 25 : percentageShares,
+  };
 };
 
 export default mapFormValues;

@@ -12,6 +12,7 @@ import {
 import { DirectorDetailsFormValues } from './interfaces';
 import { GetCompanyDirectorDetailsQuery_allDropDowns as CompanyDirectorDetails } from '../../../generated/GetCompanyDirectorDetailsQuery';
 import Skeleton from '../Skeleton';
+import { IValidationParams } from '../../containers/DirectorDetailsFormContainer/interfaces';
 
 const ChevronForwardSharp = dynamic(
   () => import('core/assets/icons/ChevronForwardSharp'),
@@ -40,7 +41,7 @@ type IDirectorDetailsFormProps = {
   directorUuid?: string;
   defaultValues?: DirectorDetailsFormValues;
   officers: any;
-  funderId?: string | null;
+  validationParams: IValidationParams;
 };
 
 const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
@@ -57,7 +58,7 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
   directorUuid,
   defaultValues,
   officers,
-  funderId,
+  validationParams,
 }) => {
   const directors =
     combineDirectorsData(officers, defaultValues?.directors) || [];
@@ -95,7 +96,7 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
     <Formik<DirectorDetailsFormValues>
       initialValues={initialValues}
       validationSchema={validationSchema}
-      validate={values => validate(values, directors, isEdit, funderId)}
+      validate={values => validate(values, directors, isEdit, validationParams)}
       onSubmit={combineDirectorsOnSubmit}
     >
       {({ handleSubmit, isSubmitting }) => (

@@ -4,10 +4,7 @@ import { GetDirectorDetailsQuery_companyOfficers_nodes as DirectorFieldsOfficer 
 import { sum } from '../../utils/array';
 import { dateOfBirthValidator, checkFuture } from '../../utils/validation';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
-
-// TODO: hardcoded value should be removed,
-//  information about required quantity of directors should be sent from BE
-const LEX_FUNDER_ID = '4';
+import { IValidationParams } from '../../containers/DirectorDetailsFormContainer/interfaces';
 
 export const TOO_LOW_ERROR_MESSAGE = 'TOO_LOW';
 export const TOO_HIGH_ERROR_MESSAGE = 'TOO_HIGH';
@@ -53,7 +50,7 @@ export const validate = (
   values: DirectorDetailsFormValues,
   directors: DirectorFormValues[],
   isEdit: boolean,
-  funderId?: string | null,
+  validationParams: IValidationParams,
 ): FormikErrors<DirectorDetailsFormValues> => {
   const errors: FormikErrors<DirectorDetailsFormValues> = {};
 
@@ -61,19 +58,14 @@ export const validate = (
 
   // don't check quantity of directors during edit
   // because it is not possible to delete a director
-  if (
-    !isEdit &&
-    funderId === LEX_FUNDER_ID &&
-    directors.length >= 2 &&
-    values.directors.length < 2
-  ) {
+  if (!isEdit && values.directors.length < validationParams.numOfDirectors) {
     errors.totalPercentage = NOT_ENOUGH_DIRECTORS_ERROR_MESSAGE;
     return errors;
   }
 
   // in case of editing recalculate total percentage for edited and not edited directors
   // to met the required percentage
-  if (isEdit) {
+  if (isEdit && directors.length > 1) {
     const editedDirectorsFullNames = values.directors.map(director =>
       createOriginalFullName(director),
     );
@@ -88,7 +80,7 @@ export const validate = (
     ]);
   }
 
-  if (totalPercentage < 25) {
+  if (totalPercentage < validationParams.percentageShares) {
     errors.totalPercentage = TOO_LOW_ERROR_MESSAGE;
   } else if (totalPercentage > 100) {
     errors.totalPercentage = TOO_HIGH_ERROR_MESSAGE;
