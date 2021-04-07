@@ -10,20 +10,20 @@ import FeaturedOnBanner from '../../components/FeaturedOnBanner';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import Head from '../../components/Head/Head';
 import { HeroEv as Hero, HeroPrompt } from '../../components/Hero';
+import { features } from '../../components/ProductCarousel/helpers';
 import Skeleton from '../../components/Skeleton';
 import TileLink from '../../components/TileLink/TileLink';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
+import { evOffersRequest, IEvOffersData } from '../../utils/offers';
 import { getFeaturedSectionsAsArray } from '../../utils/sections';
+import truncateString from '../../utils/truncateString';
+import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
 import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
 } from '../../../generated/GenericPageQuery';
-import { evOffersRequest, IEvOffersData } from 'utils/offers';
-import features from 'components/ProductCarousel/helpers';
-import truncateString from 'utils/truncateString';
-import { formatProductPageUrl, getLegacyUrl } from 'utils/url';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -71,11 +71,9 @@ const ECarsPage: NextPage<IProps> = ({
   };
   const { sections } = data?.genericPage;
   useEffect(() => {
-    const features: any = getFeaturedSectionsAsArray(sections);
-    setFeaturesArray(features);
+    const featuresArry: any = getFeaturedSectionsAsArray(sections);
+    setFeaturesArray(featuresArry);
   }, [sections]);
-
-  console.log(productsElectricOnlyCar);
 
   const HeroSection = () => (
     <Hero>
@@ -138,86 +136,88 @@ const ECarsPage: NextPage<IProps> = ({
     >
       <section className="row:bg-lighter">
         <div className="row:cards-3col">
-          {productsElectricOnlyCar?.productCarousel?.map((item, idx) => {
-            const productUrl = formatProductPageUrl(
-              getLegacyUrl(vehicleListUrlData.edges, item?.capId),
-              item?.capId,
-            );
-            return (
-              <ProductCard
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={item?.capId || idx}
-                header={{
-                  accentIcon: <Icon icon={<Flame />} color="white" />,
-                  accentText: item?.isOnOffer ? 'Hot Deal' : '',
-                  text: item?.leadTime || '',
-                }}
-                features={features(
-                  item?.keyInformation || [],
-                  item?.capId || '',
-                  Icon,
-                )}
-                imageSrc={
-                  item?.imageUrl ||
-                  `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                }
-                onWishlist={() => true}
-                title={{
-                  title: '',
-                  link: (
+          {productsElectricOnlyCar?.productCarousel
+            ?.slice(0, 6)
+            .map((item, idx) => {
+              const productUrl = formatProductPageUrl(
+                getLegacyUrl(vehicleListUrlData.edges, item?.capId),
+                item?.capId,
+              );
+              return (
+                <ProductCard
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  key={item?.capId || idx}
+                  header={{
+                    accentIcon: <Icon icon={<Flame />} color="white" />,
+                    accentText: item?.isOnOffer ? 'Hot Deal' : '',
+                    text: item?.leadTime || '',
+                  }}
+                  features={features(
+                    item?.keyInformation || [],
+                    item?.capId || '',
+                    Icon,
+                  )}
+                  imageSrc={
+                    item?.imageUrl ||
+                    `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+                  }
+                  onWishlist={() => true}
+                  title={{
+                    title: '',
+                    link: (
+                      <RouterLink
+                        link={{
+                          href: productUrl?.url,
+                          label: '',
+                        }}
+                        onClick={() =>
+                          sessionStorage.setItem('capId', item?.capId || '')
+                        }
+                        className="heading"
+                        classNames={{ size: 'large', color: 'black' }}
+                      >
+                        <Heading tag="span" size="large" className="-pb-100">
+                          {truncateString(
+                            `${item?.manufacturerName} ${item?.modelName}`,
+                          )}
+                        </Heading>
+                        <Heading tag="span" size="small" color="dark">
+                          {item?.derivativeName || ''}
+                        </Heading>
+                      </RouterLink>
+                    ),
+                    score: item?.averageRating || 5,
+                  }}
+                >
+                  <div className="-flex-h">
+                    <Price
+                      price={item?.businessRate}
+                      size="large"
+                      separator="."
+                      priceDescription="Per Month Exc.VAT"
+                    />
                     <RouterLink
                       link={{
                         href: productUrl?.url,
-                        label: '',
+                        label: 'View Offer',
                       }}
                       onClick={() =>
                         sessionStorage.setItem('capId', item?.capId || '')
                       }
-                      className="heading"
-                      classNames={{ size: 'large', color: 'black' }}
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
+                      }}
+                      className="button"
+                      dataTestId="view-offer"
                     >
-                      <Heading tag="span" size="large" className="-pb-100">
-                        {truncateString(
-                          `${item?.manufacturerName} ${item?.modelName}`,
-                        )}
-                      </Heading>
-                      <Heading tag="span" size="small" color="dark">
-                        {item?.derivativeName || ''}
-                      </Heading>
+                      <div className="button--inner">View Offer</div>
                     </RouterLink>
-                  ),
-                  score: item?.averageRating || 5,
-                }}
-              >
-                <div className="-flex-h">
-                  <Price
-                    price={item?.businessRate}
-                    size="large"
-                    separator="."
-                    priceDescription={`Per Month Exc.VAT`}
-                  />
-                  <RouterLink
-                    link={{
-                      href: productUrl?.url,
-                      label: 'View Offer',
-                    }}
-                    onClick={() =>
-                      sessionStorage.setItem('capId', item?.capId || '')
-                    }
-                    classNames={{
-                      color: 'teal',
-                      solid: true,
-                      size: 'regular',
-                    }}
-                    className="button"
-                    dataTestId="view-offer"
-                  >
-                    <div className="button--inner">View Offer</div>
-                  </RouterLink>
-                </div>
-              </ProductCard>
-            );
-          })}
+                  </div>
+                </ProductCard>
+              );
+            })}
         </div>
       </section>
     </LazyLoadComponent>
