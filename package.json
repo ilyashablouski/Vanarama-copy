@@ -24,6 +24,7 @@
     "pm2": "pm2 start pm2.json --env production",
     "pm2-docker": "pm2-runtime start pm2.json --env production",
     "prebuild": "npm run build:scss",
+    "predev": "npm run build:scss",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {

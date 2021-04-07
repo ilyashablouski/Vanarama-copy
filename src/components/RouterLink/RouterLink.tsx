@@ -48,6 +48,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     '-plain': classNames?.plain,
     '-solid': classNames?.solid,
     '-clear': classNames?.clear,
+    'InfinityNumber clickable': link.href?.includes('tel:'),
   });
 
   if (withoutLink || link.href === '') {

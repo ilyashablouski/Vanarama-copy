@@ -111,7 +111,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         >
           Of course, feel free to pick up the phone to one of our Account Managers on tel: 
           <a
-            class="link -teal"
+            class="link -teal InfinityNumber clickable"
             data-testid="router-link"
             href="/tel:01442838195"
           >

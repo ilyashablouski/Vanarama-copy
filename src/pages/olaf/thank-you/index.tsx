@@ -108,7 +108,10 @@ const ThankYouPage: NextPage = () => {
           <Text color="darker" tag="p">
             If you need anything else in the meantime, you can login to your
             online account or feel free to give us a call on&nbsp;
-            <a href="tel:01442838195" className="link -teal">
+            <a
+              href="tel:01442838195"
+              className="link -teal InfinityNumber clickable"
+            >
               01442 838 195
             </a>
             .
