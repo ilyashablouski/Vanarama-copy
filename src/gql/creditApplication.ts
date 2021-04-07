@@ -168,7 +168,9 @@ export function useCreateUpdateCreditApplication(
 
 const responseMock = {
   addresses: [],
-  aboutDetails: 'aboutDetails',
+  aboutDetails: {
+    company_type: 'Limited',
+  },
   bankAccounts: [
     {
       account_name: 'Eternal account',
