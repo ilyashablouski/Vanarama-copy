@@ -87,7 +87,9 @@ const Head: FC<IHeadProps> = props => {
       <link rel="icon" type="image/png" href="/favicon.png" />
       <link
         rel="canonical"
-        href={removeUrlQueryPart(canonicalUrl ?? legacyUrl ?? router.asPath)}
+        href={removeUrlQueryPart(
+          canonicalUrl ?? legacyUrl ?? router.asPath ?? '',
+        )}
       />
     </NextHead>
   );
