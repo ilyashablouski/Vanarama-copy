@@ -219,6 +219,33 @@ const ECarsPage: NextPage<IProps> = ({
               );
             })}
         </div>
+        <div className="-justify-content-row -pt-500">
+          <RouterLink
+            className="button"
+            classNames={{
+              color: 'teal',
+              solid: true,
+              size: 'regular',
+            }}
+            link={{
+              label: 'View Latest Electric Car Deals',
+              href: '/car-leasing/search',
+              query: {
+                fuelTypes: [
+                  'petrol/electric hybrid',
+                  'petrol/plugin elec hybrid',
+                  'Electric',
+                  'diesel/plugin elec hybrid',
+                  'hydrogen fuel cell',
+                ],
+              },
+            }}
+            withoutDefaultClassName
+            dataTestId="view-all-electric-cars"
+          >
+            <div className="button--inner">View Latest Electric Car Deals</div>
+          </RouterLink>
+        </div>
       </section>
     </LazyLoadComponent>
   );
