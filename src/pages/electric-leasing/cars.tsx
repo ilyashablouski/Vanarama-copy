@@ -119,10 +119,18 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
       };
     };
     video?: string;
+    index: number;
   }
 
-  const Section = ({ title, titleTag, body, image, video }: ISection) => (
-    <section className={`row:${getFeaturedClassPartial(sections?.featured1)}`}>
+  const Section = ({
+    title,
+    titleTag,
+    body,
+    image,
+    video,
+    index,
+  }: ISection) => (
+    <section className={`row:${getFeaturedClassPartial(featuresArray[index])}`}>
       {video ? (
         <Media src={video || ''} width="100%" height="360px" />
       ) : (
@@ -223,8 +231,9 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
     <>
       <HeroSection />
       <HeadingSection />
-      {featuresArray.map(({ title, body, image, titleTag, video }) => (
+      {featuresArray.map(({ title, body, image, titleTag, video }, index) => (
         <Section
+          index={index}
           body={body}
           title={title}
           titleTag={titleTag}
