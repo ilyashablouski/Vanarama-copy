@@ -122,7 +122,14 @@ const ECarsPage: NextPage<IProps> = ({ data }) => {
     index: number;
   }
 
-  const Section = ({ title, titleTag, body, image, video, index }: ISection) => (
+  const Section = ({
+    title,
+    titleTag,
+    body,
+    image,
+    video,
+    index,
+  }: ISection) => (
     <section className={`row:${getFeaturedClassPartial(featuresArray[index])}`}>
       {video ? (
         <Media src={video || ''} width="100%" height="360px" />
