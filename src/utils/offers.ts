@@ -139,6 +139,10 @@ export const evOffersRequest = async (
   const [
     { products: productsEvVan, productsCapIds: productsEvVanCapIds },
     { products: productsEvCar, productsCapIds: productsEvCarIds },
+    {
+      products: productsElectricOnlyCar,
+      productsCapIds: productsElectricOnlyCarIds,
+    },
   ] = await Promise.all([
     getProductCardContent(client, VehicleTypeEnum.LCV, '', '', [
       'Electric',
@@ -151,6 +155,7 @@ export const evOffersRequest = async (
       'DieselAndPlugInElectricHybrid',
       'Hybrid',
     ]),
+    getProductCardContent(client, VehicleTypeEnum.CAR, '', '', ['Electric']),
   ]);
 
   const [
@@ -164,11 +169,13 @@ export const evOffersRequest = async (
   const vehicleListUrlData = await getVehicleListUrlQuery(client, [
     ...productsEvVanCapIds,
     ...productsEvCarIds,
+    ...productsElectricOnlyCarIds,
   ]);
 
   return {
     productsEvVan,
     productsEvCar,
+    productsElectricOnlyCar,
     productsEvVanDerivatives,
     productsEvCarDerivatives,
     vehicleListUrlData,
@@ -363,6 +370,7 @@ export const pickupsPageOffersRequest = async (
 export interface IEvOffersData {
   productsEvVan?: ProductCardData;
   productsEvCar?: ProductCardData;
+  productsElectricOnlyCar?: ProductCardData;
   productsEvVanDerivatives?: GetDerivatives;
   productsEvCarDerivatives?: GetDerivatives;
   vehicleListUrlData: IVehicleList;
