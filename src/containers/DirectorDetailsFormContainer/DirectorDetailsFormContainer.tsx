@@ -19,7 +19,8 @@ import { IDirectorDetailsFormContainerProps } from './interfaces';
 import {
   combineUpdatedDirectors,
   mapDirectorsDefaultValues,
-  mapFormValues, mapValidationParams
+  mapFormValues,
+  mapValidationParams,
 } from './mappers';
 import { parseOfficers } from '../../components/DirectorDetailsForm/helpers';
 import { isTruthy } from '../../utils/array';
