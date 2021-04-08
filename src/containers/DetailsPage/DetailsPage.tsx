@@ -446,8 +446,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         )}
         <MediaGallery
           flag={{
-            accentIcon: <Icon icon={<Flame />} color="white" />,
-            accentText: 'Hot Deal',
+            accentIcon: data?.vehicleConfigurationByCapId?.onOffer ? (
+              <Icon icon={<Flame />} color="white" />
+            ) : (
+              ''
+            ),
+            accentText: data?.vehicleConfigurationByCapId?.onOffer
+              ? 'Hot Deal'
+              : '',
             text: leadTime,
             incomplete: true,
           }}
@@ -455,6 +461,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           videoSrc={video && video}
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
+          onOffer={Boolean(data?.vehicleConfigurationByCapId?.onOffer)}
         />
         <LazyLoadComponent
           visibleByDefault={
