@@ -18,6 +18,7 @@ import {
   IVansSpecialOffersData,
   vansSpecialOffersRequest,
 } from '../../utils/offers';
+import { decodeData, encodeData } from '../../utils/data';
 
 const AddCircle = dynamic(() => import('core/assets/icons/AddCircle'), {
   loading: () => <Skeleton count={1} />,
@@ -47,7 +48,7 @@ interface IProps extends IVansSpecialOffersData {
 }
 
 export const VanOffers: NextPage<IProps> = ({
-  pageData: data,
+  pageData: encodedData,
   productsPickup,
   productsSmallVan,
   productsMediumVan,
@@ -60,9 +61,11 @@ export const VanOffers: NextPage<IProps> = ({
   productsLargeVanDerivatives,
   productsDropsideTipperDerivatives,
   productsSpecialistDerivatives,
-  vehicleListUrlData,
+  vehicleListUrlData: encodeVehicleListUrlData,
 }) => {
   const { cachedLeaseType } = useLeaseType(false);
+  const data = decodeData(encodedData);
+  const vehicleListUrlData = decodeData(encodeVehicleListUrlData);
 
   const isPersonal = cachedLeaseType === 'Personal';
   const metaDataName = getSectionsData(
@@ -527,7 +530,7 @@ export async function getServerSideProps(context: NextPageContext) {
   } = await vansSpecialOffersRequest(client);
   return {
     props: {
-      pageData: data,
+      pageData: encodeData(data),
       productsPickup: productsPickup || null,
       productsSmallVan: productsSmallVan || null,
       productsMediumVan: productsMediumVan || null,
@@ -541,7 +544,7 @@ export async function getServerSideProps(context: NextPageContext) {
       productsDropsideTipperDerivatives:
         productsDropsideTipperDerivatives || null,
       productsSpecialistDerivatives: productsSpecialistDerivatives || null,
-      vehicleListUrlData,
+      vehicleListUrlData: encodeData(vehicleListUrlData),
     },
   };
 }

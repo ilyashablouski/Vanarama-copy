@@ -5,6 +5,7 @@ import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { useContext, useEffect, useState } from 'react';
+import { decodeData, encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { isCompared } from '../../utils/comparatorHelpers';
@@ -82,11 +83,14 @@ interface IProps extends ICarsPageOffersData {
 }
 
 export const CarsPage: NextPage<IProps> = ({
-  data,
-  searchPodCarsData,
+  data: encodedData,
+  searchPodCarsData: searchPodCarsDataEncoded,
   productsCar,
-  vehicleListUrlData,
+  vehicleListUrlData: vehicleListUrlDataEncoded,
 }) => {
+  const data: HubCarPageData = decodeData(encodedData);
+  const searchPodCarsData = decodeData(searchPodCarsDataEncoded);
+  const vehicleListUrlData = decodeData(vehicleListUrlDataEncoded);
   // pass in true for car leaseType
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
   const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
@@ -635,7 +639,7 @@ export async function getServerSideProps() {
   const client = createApolloClient({});
 
   try {
-    const { data } = await client.query<HubCarPageData>({
+    const { data: hubCarPage } = await client.query<HubCarPageData>({
       query: HUB_CAR_CONTENT,
     });
     const { data: searchPodCarsData } = await client.query<
@@ -652,12 +656,14 @@ export async function getServerSideProps() {
       client,
     );
 
+    const data = encodeData(hubCarPage);
+
     return {
       props: {
         data,
-        searchPodCarsData,
+        searchPodCarsData: encodeData(searchPodCarsData),
         productsCar: productsCar || null,
-        vehicleListUrlData,
+        vehicleListUrlData: encodeData(vehicleListUrlData),
       },
     };
   } catch {

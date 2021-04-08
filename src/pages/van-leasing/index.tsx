@@ -40,6 +40,7 @@ import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 import { CompareContext } from '../../utils/comparatorTool';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { IVansPageOffersData, vansPageOffersRequest } from '../../utils/offers';
+import { decodeData, encodeData } from '../../utils/data';
 
 const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
@@ -89,7 +90,7 @@ interface IProps extends IVansPageOffersData {
 }
 
 export const VansPage: NextPage<IProps> = ({
-  data,
+  data: encodedData,
   searchPodVansData,
   productsSmallVan,
   productsMediumVan,
@@ -97,11 +98,13 @@ export const VansPage: NextPage<IProps> = ({
   productsSmallVanDerivatives,
   productsMediumVanDerivatives,
   productsLargeVanDerivatives,
-  vehicleListUrlData,
+  vehicleListUrlData: encodeVehicleListUrlData,
   offer,
 }) => {
   const { cachedLeaseType } = useLeaseType(false);
   const { compareVehicles, compareChange } = useContext(CompareContext);
+  const data = decodeData(encodedData);
+  const vehicleListUrlData = decodeData(encodeVehicleListUrlData);
 
   const dealOfMonthUrl = formatProductPageUrl(
     getLegacyUrl(vehicleListUrlData.edges, offer?.capId),
@@ -914,7 +917,7 @@ export async function getStaticProps() {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
+        data: encodeData(data),
         searchPodVansData,
         productsSmallVan: productsSmallVan || null,
         productsMediumVan: productsMediumVan || null,
@@ -922,7 +925,7 @@ export async function getStaticProps() {
         productsSmallVanDerivatives: productsSmallVanDerivatives || null,
         productsMediumVanDerivatives: productsMediumVanDerivatives || null,
         productsLargeVanDerivatives: productsLargeVanDerivatives || null,
-        vehicleListUrlData,
+        vehicleListUrlData: encodeData(vehicleListUrlData),
         offer,
       },
     };

@@ -255,8 +255,11 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       </div>
       {featured && (
         <div className="row:featured-left">
-          <div>
+          {/* using this class for prevent major layout shifts */}
+          <div className="imgPlaceholderWrapper">
             <Image
+              width="100%"
+              height="auto"
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={featured?.image?.file?.url || ''}
             />

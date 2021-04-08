@@ -10,16 +10,19 @@ import { IBlogPost } from '../../../../models/IBlogsProps';
 import createApolloClient from '../../../../apolloClient';
 import { getBlogPaths } from '../../../../utils/pageSlugs';
 import { BlogPosts } from '../../../../../generated/BlogPosts';
+import { decodeData, encodeData } from '../../../../utils/data';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
   error,
-  blogPosts,
+  blogPosts: encodedData,
   blogPostsError,
 }) => {
   if (error || blogPostsError || !data) {
     return <DefaultErrorPage statusCode={404} />;
   }
+  // De-obfuscate data for user
+  const blogPosts = decodeData(encodedData);
 
   const articles = getSectionsData(['blogPosts', 'articles'], blogPosts);
   const body = getSectionsData(['body'], data?.blogPost);
@@ -93,12 +96,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       getSectionsData(['blogPosts', 'articles'], blogPosts),
       `/blog/community-news/${context?.params?.articles}`,
     );
+
+    // Obfuscate data from Googlebot
+    const newBlogPostsData = encodeData(newBlogPosts);
+
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data,
         error: errors ? errors[0] : null,
-        blogPosts: newBlogPosts,
+        blogPosts: newBlogPostsData,
         blogPostsError: blogPostsError ? blogPostsError[0] : null,
       },
     };
