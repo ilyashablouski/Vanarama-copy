@@ -461,7 +461,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           videoSrc={video && video}
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
-          onOffer={Boolean(data?.vehicleConfigurationByCapId?.onOffer)}
         />
         <LazyLoadComponent
           visibleByDefault={

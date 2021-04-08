@@ -10,7 +10,6 @@ export interface IMediaGalleryProps extends IBaseProps {
   threeSixtyVideoSrc?: string;
   flag: ICardHeaderProps;
   videoIframe?: boolean;
-  onOffer?: boolean;
 }
 
 export interface IImageCarouselProps extends IBaseProps {

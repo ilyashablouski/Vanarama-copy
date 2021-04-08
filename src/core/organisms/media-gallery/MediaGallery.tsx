@@ -43,9 +43,9 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
         <div>
           <span>{flag.text}</span>
         </div>
-        {props.onOffer && (
+        {flag.accentIcon && flag.accentText && (
           <div>
-            {flag.accentIcon && <Icon icon={flag.accentIcon} />}
+            <Icon icon={flag.accentIcon} />
             <span>{flag.accentText}</span>
           </div>
         )}
