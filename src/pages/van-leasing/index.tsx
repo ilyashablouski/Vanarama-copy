@@ -531,7 +531,7 @@ export const VansPage: NextPage<IProps> = ({
           />
         )}
 
-        <div className="" style={{ padding: '1rem' }}>
+        <div className="-inset -middle -col-400">
           <Heading
             size="large"
             color="black"
