@@ -5,6 +5,7 @@ import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from 'core/atoms/schema-json';
 import { GET_CAR_DATA, GET_TRIM_AND_COLOR_DATA } from '../../../gql/carpage';
 import {
+  FinanceTypeEnum,
   LeaseTypeEnum,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
@@ -49,6 +50,7 @@ import {
   GetProductCard,
   GetProductCardVariables,
 } from '../../../../generated/GetProductCard';
+import { decodeData, encodeData } from '../../../utils/data';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -63,6 +65,7 @@ interface IProps {
   trim: ITrimList[];
   colour: IColourList[];
   productCard: GetProductCard | null;
+  leaseTypeQuery?: string | null;
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -75,7 +78,8 @@ const CarDetailsPage: NextPage<IProps> = ({
   genericPages,
   trim,
   colour,
-  productCard,
+  productCard: encodedData,
+  leaseTypeQuery,
 }) => {
   if (notFoundPageData) {
     return (
@@ -97,6 +101,9 @@ const CarDetailsPage: NextPage<IProps> = ({
       </div>
     );
   }
+
+  // De-obfuscate data for user
+  const productCard = decodeData(encodedData);
 
   // Schema JSON.
   const seller = {
@@ -138,7 +145,8 @@ const CarDetailsPage: NextPage<IProps> = ({
       availability: 'http://schema.org/InStock',
       name: `${quote?.quoteByCapId?.term} month Contract Hire agreement`,
       lowPrice: quote?.quoteByCapId?.leaseCost?.monthlyRental,
-      url: `https://www.vanarama.com/car-leasing${data?.vehicleConfigurationByCapId?.url}`,
+      url: `https://www.vanarama.com/${data?.vehicleConfigurationByCapId
+        ?.legacyUrl || data?.vehicleConfigurationByCapId?.url}`,
       priceCurrency: 'GBP',
       seller,
     },
@@ -184,6 +192,7 @@ const CarDetailsPage: NextPage<IProps> = ({
         genericPageHead={genericPageHead}
         genericPages={genericPages}
         productCard={productCard}
+        leaseTypeQuery={leaseTypeQuery}
       />
       <SchemaJSON json={JSON.stringify(schema)} />
     </>
@@ -192,7 +201,7 @@ const CarDetailsPage: NextPage<IProps> = ({
 
 export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({});
-  const path = context.req?.url || '';
+  const path = context.req?.url?.split('?')[0] || '';
 
   try {
     const vehicleConfigurationByUrlQuery = await client.query<
@@ -220,14 +229,22 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     });
 
-    const mileage =
-      getCarDataQuery.data?.vehicleConfigurationByCapId?.financeProfile
-        ?.mileage;
-    const term =
-      getCarDataQuery.data?.vehicleConfigurationByCapId?.financeProfile?.term;
-    const upfront =
-      getCarDataQuery.data?.vehicleConfigurationByCapId?.financeProfile
-        ?.upfront;
+    const mileage = context.query?.mileage
+      ? +context.query?.mileage
+      : getCarDataQuery.data?.vehicleConfigurationByCapId?.financeProfile
+          ?.mileage;
+    const term = context.query?.term
+      ? +context.query?.term
+      : getCarDataQuery.data?.vehicleConfigurationByCapId?.financeProfile?.term;
+    const upfront = context.query?.upfront
+      ? +context.query?.upfront
+      : getCarDataQuery.data?.vehicleConfigurationByCapId?.financeProfile
+          ?.upfront;
+
+    const leaseType =
+      context.query.leaseType === FinanceTypeEnum.BCH
+        ? LeaseTypeEnum.BUSINESS
+        : LeaseTypeEnum.PERSONAL;
 
     const quoteDataQuery = await client.query<
       GetQuoteDetails,
@@ -240,7 +257,7 @@ export async function getServerSideProps(context: NextPageContext) {
         mileage,
         term,
         upfront,
-        leaseType: LeaseTypeEnum.PERSONAL,
+        leaseType,
         trim: null,
         colour: null,
       },
@@ -252,7 +269,7 @@ export async function getServerSideProps(context: NextPageContext) {
     >({
       query: GENERIC_PAGE_HEAD,
       variables: {
-        slug: path.slice(1),
+        slug: path.split('?')[0].slice(1),
       },
     });
 
@@ -285,15 +302,19 @@ export async function getServerSideProps(context: NextPageContext) {
     let productCard;
 
     if (capsIds.length) {
-      productCard = await client.query<GetProductCard, GetProductCardVariables>(
-        {
-          query: GET_PRODUCT_CARDS_DATA,
-          variables: {
-            capIds: capsIds,
-            vehicleType: VehicleTypeEnum.CAR,
-          },
+      const productCardData = await client.query<
+        GetProductCard,
+        GetProductCardVariables
+      >({
+        query: GET_PRODUCT_CARDS_DATA,
+        variables: {
+          capIds: capsIds,
+          vehicleType: VehicleTypeEnum.CAR,
         },
-      );
+      });
+
+      // Obfuscate data from Googlebot
+      productCard = encodeData(productCardData);
     }
 
     const genericPages = await client
@@ -316,6 +337,9 @@ export async function getServerSideProps(context: NextPageContext) {
         genericPageHead: data,
         genericPages: genericPages || null,
         productCard: productCard || null,
+        leaseTypeQuery: context.query.leaseType
+          ? leaseType.charAt(0) + leaseType.slice(1).toLowerCase()
+          : null,
       },
     };
   } catch (error) {

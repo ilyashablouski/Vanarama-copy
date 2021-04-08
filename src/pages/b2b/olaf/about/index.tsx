@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { getDataFromTree } from '@apollo/react-ssr';
@@ -12,22 +11,14 @@ import { OLAFQueryParams } from '../../../../utils/url';
 import LoginFormContainer from '../../../../containers/LoginFormContainer/LoginFormContainer';
 import BusinessAboutFormContainer from '../../../../containers/BusinessAboutFormContainer';
 import { SubmitResult } from '../../../../containers/BusinessAboutFormContainer/interfaces';
-import { useGetPersonLazyQuery } from '../../../olaf/about';
 import { CompanyTypes } from '../../../../models/enum/CompanyTypes';
 import { GetPerson } from '../../../../../generated/GetPerson';
-import { useImperativeQuery } from '../../../../hooks/useImperativeQuery';
-import { GET_MY_ORDERS_DATA } from '../../../../containers/OrdersInformation/gql';
-import { GET_COMPANIES_BY_PERSON_UUID } from '../../../../gql/companies';
-import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../../generated/GetCompaniesByPersonUuid';
 import {
   pushAboutYouDataLayer,
   pushAuthorizationEventDataLayer,
 } from '../../../../utils/dataLayerHelpers';
-import { GetDerivative_derivative } from '../../../../../generated/GetDerivative';
-import {
-  MyOrdersTypeEnum,
-  OrderInputObject,
-} from '../../../../../generated/globalTypes';
+import { GetDerivative_derivative as IDerivative } from '../../../../../generated/GetDerivative';
+import { OrderInputObject } from '../../../../../generated/globalTypes';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
 import Skeleton from '../../../../components/Skeleton';
 
@@ -69,43 +60,9 @@ export const BusinessAboutPage: NextPage = () => {
   const [personUuid, setPersonUuid] = useState<string | undefined>();
   const [personLoggedIn, setPersonLoggedIn] = useState<boolean>(false);
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
-  const [
-    derivativeData,
-    setDerivativeData,
-  ] = useState<GetDerivative_derivative | null>(null);
-
-  const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
-  const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
-
-  const [getPerson] = useGetPersonLazyQuery(async data => {
-    setPersonUuid(data?.getPerson?.uuid);
-    await localForage.setItem('person', data);
-
-    const companyData = await getCompaniesData({
-      personUuid: data.getPerson?.uuid,
-    });
-
-    const partyUuid = [
-      data.getPerson?.partyUuid,
-      ...companyData.data?.companiesByPersonUuid?.map(
-        (companies: CompaniesByPersonUuid) => companies.partyUuid,
-      ),
-    ];
-
-    getOrdersData({
-      partyUuid,
-      filter: MyOrdersTypeEnum.ALL_ORDERS,
-    }).then(response => {
-      localForage.setItem('ordersLength', response.data?.myOrders.length);
-    });
-    getOrdersData({
-      partyUuid,
-      filter: MyOrdersTypeEnum.ALL_QUOTES,
-    }).then(response => {
-      localForage.setItem('quotesLength', response.data?.myOrders.length);
-    });
-    router.replace(router.pathname, router.asPath);
-  }, handleAccountFetchError);
+  const [derivativeData, setDerivativeData] = useState<IDerivative | null>(
+    null,
+  );
 
   const handleRegistrationClick = () =>
     router.push(`/account/login-register?redirect=${router?.asPath || '/'}`);
@@ -178,11 +135,13 @@ export const BusinessAboutPage: NextPage = () => {
           </div>
           {isLogInVisible && (
             <LoginFormContainer
-              onCompleted={() => {
+              onCompleted={person => {
                 pushAuthorizationEventDataLayer();
-                getPerson();
+                setPersonUuid(person?.uuid);
                 setPersonLoggedIn(true);
+                return router.replace(router.pathname, router.asPath);
               }}
+              onError={handleAccountFetchError}
             />
           )}
         </div>

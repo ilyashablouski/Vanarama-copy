@@ -171,6 +171,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
             />
           </svg>
         </i>
+        <span />
       </div>
     </div>
   </span>
@@ -569,17 +570,19 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         }
       >
         <div
-          className="text -regular -darker"
+          className="text -small -darker"
         >
           <a
-            className="link -primary -regular -plain"
+            className="link InfinityNumber clickable -primary -small -plain"
             href="tel:+441442838195"
           >
             Call 01442 838 195
           </a>
-           | 
+           
+          |
+           
           <a
-            className="link -primary -regular -plain"
+            className="link -primary -small -plain"
             onClick={[Function]}
           >
             Request a Call Back
@@ -762,6 +765,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
             />
           </svg>
         </i>
+        <span />
       </div>
     </div>
   </span>
@@ -1160,17 +1164,19 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         }
       >
         <div
-          className="text -regular -darker"
+          className="text -small -darker"
         >
           <a
-            className="link -primary -regular -plain"
+            className="link InfinityNumber clickable -primary -small -plain"
             href="tel:+441442838195"
           >
             Call 01442 838 195
           </a>
-           | 
+           
+          |
+           
           <a
-            className="link -primary -regular -plain"
+            className="link -primary -small -plain"
             onClick={[Function]}
           >
             Request a Call Back

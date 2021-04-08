@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { Dispatch, SetStateAction } from 'react';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import {

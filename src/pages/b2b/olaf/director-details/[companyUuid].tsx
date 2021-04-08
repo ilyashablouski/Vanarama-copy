@@ -38,7 +38,6 @@ export const DirectorDetailsPage: NextPage = () => {
   return (
     <OLAFLayout>
       <DirectorDetailsFormContainer
-        isEdited={router.query.redirect === 'summary'}
         directorUuid={directorUuid}
         companyUuid={companyUuid}
         personUuid={personUuid}

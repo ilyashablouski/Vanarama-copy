@@ -16,7 +16,6 @@ import {
   mapDefaultValues,
   mapBankAccountsForCreditApplication,
 } from './mappers';
-import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import Skeleton from '../../components/Skeleton';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
@@ -84,14 +83,13 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
       setBankUuid(pluckBankAccountData(res)?.[0]?.uuid);
       await createUpdateApplication({
         variables: {
-          input: formValuesToInputCreditApplication({
-            ...data?.creditApplicationByOrderUuid,
+          input: {
             bankAccounts: mapBankAccountsForCreditApplication(
               values,
               pluckBankAccountData(res),
             ),
             orderUuid,
-          }),
+          },
         },
       });
       onCompleted();

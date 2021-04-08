@@ -8,7 +8,7 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 import { isArraySame } from '../../utils/helpers';
 import { useFilterList } from '../SearchPodContainer/gql';
 import { makeHandler, modelHandler } from '../SearchPodContainer/helpers';
-import { filtersConfig, budgets, filterFields } from './config';
+import { filtersConfig, budgets, FilterFields } from './config';
 import { IFilterContainerProps, ISelectedFiltersState } from './interfaces';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
@@ -263,7 +263,9 @@ const FiltersContainer = ({
       router.query.isChangePage === 'true';
     if (shouldPreselect) {
       let presetFilters = {} as ISelectedFiltersState;
-      const routerQuery = Object.entries(router.query);
+      const routerQuery = Object.entries(router.query).filter(
+        ([key]) => key !== 'dynamicParam',
+      );
       // flag for checking if any value from query don't exist in filters data
       // using in case when we load search which actual only for none special offers
       let isValueLose = false;
@@ -501,7 +503,7 @@ const FiltersContainer = ({
       // bodyStyles/transmissions/fuels in body/transmission/fuel page should not to be added
       .map(entry => {
         if (
-          (entry[0] === filterFields.from || entry[0] === filterFields.to) &&
+          (entry[0] === FilterFields.from || entry[0] === FilterFields.to) &&
           entry[1]?.[0]
         ) {
           return {
@@ -511,11 +513,11 @@ const FiltersContainer = ({
         }
         const value =
           ((isMakePage || isRangePage || isModelPage) &&
-            entry[0] === filterFields.make) ||
-          ((isRangePage || isModelPage) && entry[0] === filterFields.model) ||
-          (isFuelPage && entry[0] === filterFields.fuelTypes) ||
-          (isTransmissionPage && entry[0] === filterFields.transmissions) ||
-          ((isModelPage || isBodyPage) && entry[0] === filterFields.bodyStyles)
+            entry[0] === FilterFields.make) ||
+          ((isRangePage || isModelPage) && entry[0] === FilterFields.model) ||
+          (isFuelPage && entry[0] === FilterFields.fuelTypes) ||
+          (isTransmissionPage && entry[0] === FilterFields.transmissions) ||
+          ((isModelPage || isBodyPage) && entry[0] === FilterFields.bodyStyles)
             ? ''
             : entry[1];
 
@@ -524,13 +526,13 @@ const FiltersContainer = ({
           ? {
               order: filterOrderByNumMap[entry[0]],
               value:
-                (entry[0] === filterFields.make ||
-                  entry[0] === filterFields.model) &&
+                (entry[0] === FilterFields.make ||
+                  entry[0] === FilterFields.model) &&
                 value.length
                   ? getLabelForSlug(
                       entry[1][0],
                       filtersData,
-                      entry[0] === filterFields.make,
+                      entry[0] === FilterFields.make,
                     )
                   : value,
             }
@@ -633,11 +635,7 @@ const FiltersContainer = ({
    * remove value from filter after deleting tag
    */
   const handleRemoveTag = (value: string) => {
-    const formatedValue = value
-      .replace('£', '')
-      .split(' ')
-      .join('-')
-      .toLowerCase();
+    const formatedValue = value.replace('£', '').toLowerCase();
     const filter = getValueKey(formatedValue) as keyof typeof filtersMapper;
     const newSelectedFiltersState = {
       ...selectedFiltersState,
@@ -720,13 +718,13 @@ const FiltersContainer = ({
                     <Select
                       disabled={
                         (isMakePage &&
-                          dropdown.accessor === filterFields.make) ||
+                          dropdown.accessor === FilterFields.make) ||
                         ((isRangePage || isModelPage || isAllMakesPage) &&
-                          (dropdown.accessor === filterFields.make ||
-                            dropdown.accessor === filterFields.model)) ||
+                          (dropdown.accessor === FilterFields.make ||
+                            dropdown.accessor === FilterFields.model)) ||
                         (isBudgetPage &&
-                          (dropdown.accessor === filterFields.from ||
-                            dropdown.accessor === filterFields.to))
+                          (dropdown.accessor === FilterFields.from ||
+                            dropdown.accessor === FilterFields.to))
                       }
                       name={dropdown.accessor}
                       placeholder={`Select ${dropdown.accessor}`}
@@ -770,11 +768,11 @@ const FiltersContainer = ({
                       // don't render list of selected values
                       (
                         ((isModelPage || isBodyPage) &&
-                          filter.accessor === filterFields.bodyStyles) ||
+                          filter.accessor === FilterFields.bodyStyles) ||
                         (isFuelPage &&
-                          filter.accessor === filterFields.fuelTypes) ||
+                          filter.accessor === FilterFields.fuelTypes) ||
                         (isTransmissionPage &&
-                          filter.accessor === filterFields.transmissions)
+                          filter.accessor === FilterFields.transmissions)
                       )
                     ) && (
                       <div className="dropdown--header">
@@ -831,11 +829,11 @@ const FiltersContainer = ({
                         color="medium"
                         multiSelect
                         disabled={
-                          (filter.accessor === filterFields.bodyStyles &&
+                          (filter.accessor === FilterFields.bodyStyles &&
                             (isPickups || isModelPage || isBodyPage)) ||
-                          (filter.accessor === filterFields.fuelTypes &&
+                          (filter.accessor === FilterFields.fuelTypes &&
                             isFuelPage) ||
-                          (filter.accessor === filterFields.transmissions &&
+                          (filter.accessor === FilterFields.transmissions &&
                             isTransmissionPage)
                         }
                         ref={getOrCreateRef(filter.accessor)}

@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { Formik } from 'formik';
-import React from 'react';
+import React, { useCallback } from 'react';
 import DirectorFieldArray from './DirectorFieldArray';
 import {
   initialFormValues,
@@ -12,6 +12,7 @@ import {
 import { DirectorDetailsFormValues } from './interfaces';
 import { GetCompanyDirectorDetailsQuery_allDropDowns as CompanyDirectorDetails } from '../../../generated/GetCompanyDirectorDetailsQuery';
 import Skeleton from '../Skeleton';
+import { IValidationParams } from '../../containers/DirectorDetailsFormContainer/interfaces';
 
 const ChevronForwardSharp = dynamic(
   () => import('core/assets/icons/ChevronForwardSharp'),
@@ -36,11 +37,11 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 type IDirectorDetailsFormProps = {
   dropdownData: CompanyDirectorDetails;
   onSubmit: (values: DirectorDetailsFormValues) => Promise<void>;
-  isEdited: boolean;
+  isEdit: boolean;
   directorUuid?: string;
   defaultValues?: DirectorDetailsFormValues;
   officers: any;
-  funderId?: string | null;
+  validationParams: IValidationParams;
 };
 
 const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
@@ -53,25 +54,50 @@ const selectButtonLabel = (isSubmitting: boolean, isEdited: boolean) => {
 const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
   onSubmit,
   dropdownData,
-  isEdited,
+  isEdit,
   directorUuid,
   defaultValues,
   officers,
-  funderId,
+  validationParams,
 }) => {
   const directors =
     combineDirectorsData(officers, defaultValues?.directors) || [];
 
-  const initialValues = isEdited
+  const initialValues = isEdit
     ? initialEditedFormValues(directors, directorUuid)
     : defaultValues || initialFormValues(officers);
+
+  const combineDirectorsOnSubmit = useCallback<
+    (values: DirectorDetailsFormValues) => Promise<void>
+  >(
+    values => {
+      if (isEdit) {
+        const uuidsOfUpdatedDirectors = values.directors
+          .map(director => director?.uuid)
+          .filter(item => !!item);
+        const directorsToLeave = directors.filter(
+          director =>
+            !uuidsOfUpdatedDirectors.includes(director?.uuid) &&
+            director.shareOfBusiness,
+        );
+
+        return onSubmit({
+          directors: [...directorsToLeave, ...values.directors],
+          totalPercentage: values.totalPercentage,
+        });
+      }
+
+      return onSubmit(values);
+    },
+    [onSubmit],
+  );
 
   return (
     <Formik<DirectorDetailsFormValues>
       initialValues={initialValues}
       validationSchema={validationSchema}
-      validate={values => validate(values, officers, funderId)}
-      onSubmit={onSubmit}
+      validate={values => validate(values, directors, isEdit, validationParams)}
+      onSubmit={combineDirectorsOnSubmit}
     >
       {({ handleSubmit, isSubmitting }) => (
         <Form onSubmit={handleSubmit}>
@@ -86,7 +112,7 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
             directors={directors}
             dropdownData={dropdownData}
             officers={officers}
-            isEdited={isEdited}
+            isEdited={isEdit}
           />
           <Button
             color="primary"
@@ -95,7 +121,7 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
             icon={<ChevronForwardSharp />}
             iconColor="white"
             iconPosition="after"
-            label={selectButtonLabel(isSubmitting, isEdited)}
+            label={selectButtonLabel(isSubmitting, isEdit)}
             size="large"
             type="submit"
           />

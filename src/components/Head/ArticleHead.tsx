@@ -6,16 +6,18 @@ import { IHeadProps } from './interface';
 
 import { defaultTitle, twitter, fb } from './defaults';
 import { FONT_LIST, FONT_PATH } from './fonts';
+import { Env } from '../../utils/env';
+import { removeUrlQueryPart } from '../../utils/url';
 
-const env = process?.env?.ENV || '';
+const env: any = process?.env?.ENV || '';
 
 // Script environments
 const scriptEnvs = {
   // gtm: ['uat', 'pre-prod', 'prod'],
 
-  blueconic: ['uat', 'pre-prod', 'prod'],
+  blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD],
 
-  vwo: ['uat', 'pre-prod', 'prod'],
+  vwo: [Env.UAT, Env.PRE_PROD, Env.PROD],
 };
 
 const PRECONNECT = [
@@ -112,7 +114,9 @@ const ArticleHead: FC<IHeadProps> = props => {
         <link rel="icon" type="image/png" href="/favicon.png" />
         <link
           rel="canonical"
-          href={canonicalUrl ?? legacyUrl ?? router.asPath}
+          href={removeUrlQueryPart(
+            canonicalUrl ?? legacyUrl ?? router.asPath ?? '',
+          )}
         />
       </NextHead>
       <SchemaJSON json={JSON.stringify(schema)} />

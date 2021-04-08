@@ -347,6 +347,14 @@ $small: 0.875rem;
         opacity: 1;
       }
     }
+    .button {
+      &.-round {
+        .icon {
+          height: auto;
+          display: flex;
+        }
+      }
+    }
   }
 
   &.breakdown {
@@ -540,39 +548,86 @@ $small: 0.875rem;
     }
   }
 
-  &.-compact {
-    --img-w: 200px;
-  }
+  &.-inline.-compact {
+    .card-header {
+      margin: 1px 0 0 1px;
+      border-top-left-radius: 0.35rem;
+      mix-blend-mode: unset;
+      position: relative;
+      > div {
+        &:only-child {
+          text-align: center;
+          background: linear-gradient(to top, #a24406 0.5px, #ec6409 0.5px, #ec6409);
+          justify-content: center;
+        }
+      }
+      .icon {
+        font-size: 1.25rem;
+        margin-right: 0.4ch;
+        top: auto;
+        svg {
+          position: relative;
+          top: -3px;
+        }
+      }
+    }
+    .card-image {
+      margin: 1px 0 0 1px;
+      mix-blend-mode: unset;
+    }
 
-  &.-compact > .card-image {
-    min-height: 160px;
-    height: 160px;
-    min-width: 200px;
-    width: 200px;
-
-    @include mobile {
-      height: calc((100vmin - 2rem) / (3 / 2));
-      width: 100%;
+    @include tablet-desktop {
+      height: 100%;
     }
 
     @include mobile-tablet {
-      height: 200px;
-      width: 100%;
+      .card-header {
+        margin: 1px 1px 0;
+      }
+      .card-image {
+        width: calc(100% - 2px);
+        margin: 1px auto 0;
+      }
+      .card-header,
+      .card-image {
+        border-top-left-radius: 0.35rem;
+        border-top-right-radius: 0.35rem;
+        + .card-image {
+          border-radius: unset;
+          margin-top: 0;
+        }
+      }
     }
-  }
 
-  &.-compact > .title {
-    text-overflow: ellipsis;
-    overflow: hidden;
-    white-space: nowrap;
-  }
-
-  &.-compact > .title * {
-    display: inline;
-  }
-
-  &.-compact > .title :last-child:before {
-    content: '\A';
-    white-space: pre;
+    @include desktop {
+      --img-w: 200px;
+      .card-header {
+        width: 200px;
+        grid-area: 1 / 1 / -1 / content;
+        > div {
+          padding: 3px 10px;
+          span {
+            display: none;
+          }
+          &:only-child {
+            span {
+              display: inline-block;
+            }
+          }
+          &:not(:only-child) {
+            &:last-of-type {
+              padding: 3px 3px 3px 0;
+            }
+          }
+        }
+      }
+      .card-image {
+        grid-area: 1 / 1 / -1 / content;
+        min-width: 200px;
+        width: 200px;
+        height: auto;
+        border-top-left-radius: 0.35rem;
+      }
+    }
   }
 }

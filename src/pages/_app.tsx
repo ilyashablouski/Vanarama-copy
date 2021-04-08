@@ -73,8 +73,15 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   }, []);
 
   useEffect(() => {
-    pushPageData({ pathname: router.pathname });
-    pushPageViewEvent(removeUrlQueryPart(router.asPath), document.title);
+    async function pushAnalytics() {
+      await pushPageData({ pathname: router.pathname });
+      await pushPageViewEvent(
+        removeUrlQueryPart(router.asPath),
+        document.title,
+      );
+    }
+
+    pushAnalytics();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
@@ -146,8 +153,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-        {/* {compareVehicles && compareVehicles.length > 0 && existComparator && ( */}
-        {compareVehicles && compareVehicles.length > 0 && (
+        {((compareVehicles && compareVehicles.length > 0) ||
+          router.pathname === '/comparator') && (
           <ComparatorBar
             deleteVehicle={async vehicle => {
               const vehicles = await deleteCompare(vehicle);
@@ -156,7 +163,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
             compareVehicles={() => {
               Router.push('/comparator');
             }}
-            vehicles={getVehiclesForComparator(compareVehicles)}
+            vehicles={getVehiclesForComparator(compareVehicles || null)}
           />
         )}
         {modalCompareTypeError && (

@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef, useMemo } from 'react';
+import React, { FC, useState, useEffect, useRef } from 'react';
 import { ILeaseScannerProps } from './interfaces';
 import Icon from '../../atoms/icon';
 
@@ -11,11 +11,6 @@ import Link from '../../atoms/link';
 import Loading from '../../atoms/loading';
 import CheckmarkSharp from '../../assets/icons/CheckmarkSharp';
 import CheckmarkCircleOutline from '../../assets/icons/CheckmarkCircleOutline';
-
-const createSubmitButtonProps = (label: string, onClick?: () => void) => ({
-  label,
-  onClick,
-});
 
 const LeaseScanner: FC<ILeaseScannerProps> = props => {
   const {
@@ -129,14 +124,6 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [startLoading, isInitialLoading]);
 
-  const submitButtonProps = useMemo(
-    () =>
-      price
-        ? createSubmitButtonProps('Order Now', orderNowClick)
-        : createSubmitButtonProps('Call Me Back', requestCallBack),
-    [price],
-  );
-
   return (
     <>
       {!isInitialLoading && nextBestPrice && !isLoading && (
@@ -167,7 +154,12 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
           </Heading>
         </div>
         <div className="button-wrapper">
-          <Button className="-fullwidth" color="teal" {...submitButtonProps} />
+          <Button
+            className="-fullwidth"
+            label="Order Now"
+            color="teal"
+            onClick={orderNowClick}
+          />
         </div>
         <div>
           {withCheckBox && (
@@ -180,14 +172,18 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
           )}
         </div>
         <div style={{ height: '1rem' }}>
-          <Text tag="div">
-            <Link href="tel:+441442838195">Call 01442 838 195</Link>
-            {(price || null) && (
-              <>
-                {` | `}
-                <Link onClick={requestCallBack}>Request a Call Back</Link>
-              </>
-            )}
+          <Text tag="div" size="small">
+            <Link
+              href="tel:+441442838195"
+              size="small"
+              className="InfinityNumber clickable"
+            >
+              Call 01442 838 195
+            </Link>{' '}
+            |{' '}
+            <Link onClick={requestCallBack} size="small">
+              Request a Call Back
+            </Link>
           </Text>
         </div>
         {isLoading && (

@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import localForage from 'localforage';
@@ -12,9 +13,12 @@ import {
 import { useAboutPageDataQuery, useSaveAboutYouMutation } from './gql';
 import { IBusinessAboutFormContainerProps, SubmitResult } from './interfaces';
 import { SaveBusinessAboutYou } from '../../../generated/SaveBusinessAboutYou';
-import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { responseToInitialFormValues, mapAboutPersonData } from './mappers';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
+import {
+  addHeapUserIdentity,
+  addHeapUserProperties,
+} from '../../utils/addHeapProperties';
 import {
   CreditApplicationTypeEnum as CATypeEnum,
   LeaseTypeEnum,
@@ -65,6 +69,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     orderId,
     () => {},
   );
+
   const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
     orderId,
   );
@@ -176,9 +181,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   ) =>
     createUpdateApplication({
       variables: {
-        input: formValuesToInputCreditApplication({
-          ...getCreditApplicationByOrderUuidQuery.data
-            ?.creditApplicationByOrderUuid,
+        input: {
           aboutDetails: {
             ...values,
             emailAddress: undefined,
@@ -195,7 +198,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
             (values.companyType === CompanyTypes.partnership &&
               CATypeEnum.B2B_REGISTERED_PARTNERSHIP) ||
             CATypeEnum.B2B_SOLE_TRADER,
-        }),
+        },
       },
     });
 
@@ -243,6 +246,13 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
                   companyType: values.companyType,
                 } as SubmitResult;
                 onCompleted?.(result);
+              })
+              .then(() => {
+                addHeapUserIdentity(values.email);
+                addHeapUserProperties({
+                  uuid: data?.createUpdateBusinessPerson?.uuid,
+                  bcuid: Cookies.get('BCSessionID') || 'undefined',
+                });
               }),
           )
           .catch(onError);

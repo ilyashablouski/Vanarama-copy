@@ -3,13 +3,14 @@ import InsurancePageContainer from '../../containers/InsurancePageContainer/Insu
 import createApolloClient from '../../apolloClient';
 import GET_INSURANCE_LANDING_PAGE from '../../containers/InsurancePageContainer/gql';
 import { GetInsuranceLandingPage } from '../../../generated/GetInsuranceLandingPage';
+import { decodeData, encodeData } from '../../utils/data';
 
 interface IInsurancePage {
   data: GetInsuranceLandingPage | undefined;
 }
 
-const InsurancePage: NextPage<IInsurancePage> = ({ data }) => {
-  return <InsurancePageContainer data={data} />;
+const InsurancePage: NextPage<IInsurancePage> = ({ data: encodedData }) => {
+  return <InsurancePageContainer data={decodeData(encodedData)} />;
 };
 
 export async function getStaticProps(context: GetStaticPropsContext) {
@@ -24,7 +25,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
+        data: encodeData(data),
       },
     };
   } catch (err) {

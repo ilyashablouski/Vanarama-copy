@@ -138,8 +138,18 @@ export const getCompares = () => {
 };
 
 export const getVehiclesForComparator = (
-  vehicles: IVehicle[] | IVehicleCarousel[],
+  vehicles: IVehicle[] | IVehicleCarousel[] | null,
 ): ICompareVehicle[] => {
+  if (!vehicles) {
+    return [
+      {
+        capId: '',
+        derivativeName: '',
+        manufacturerName: '',
+        rangeName: '',
+      },
+    ];
+  }
   return vehicles.map(vehicle => ({
     capId: vehicle.capId,
     derivativeName: vehicle.derivativeName,

@@ -36,7 +36,7 @@ const ARTICLES = [
     intro: null,
     slug: 'blog/cars/best-cars-for-mpg',
     tags: null,
-    publishedOn: '2020-02-22',
+    metaData: { publishedOn: '2020-02-22' },
     isFeatured: false,
     name: 'Best Cars For MPG',
     title: 'Best Cars For MPG | Vanarama',

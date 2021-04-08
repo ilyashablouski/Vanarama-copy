@@ -65,7 +65,7 @@ describe('pageSlugs', () => {
         {
           intro: null,
           name: 'Matthew Newton is the #VanaramaUltimateFan',
-          publishedOn: '2016-05-17',
+          metaData: { publishedOn: '2016-05-17' },
           excerpt: null,
           featuredImage: {
             file: {
@@ -84,7 +84,7 @@ describe('pageSlugs', () => {
           intro: null,
           name:
             'Vanarama Conference half season ticket and signed shirt competition winners',
-          publishedOn: '2014-12-30',
+          metaData: { publishedOn: '2014-12-30' },
           featuredImage: {
             file: {
               url:

@@ -14,8 +14,8 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
   const {
     setSteps,
     steps,
-    getProductVehicleList,
-    productVehicleListData,
+    getHelpMeChoose,
+    helpMeChooseData,
     setLoadingStatus,
   } = props;
   const router = useRouter();
@@ -24,8 +24,8 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
   );
 
   const mileagesData = getSectionsData(
-    ['productVehicleList', 'aggs', 'mileage'],
-    productVehicleListData?.data,
+    ['helpMeChoose', 'aggregation', 'mileage'],
+    helpMeChooseData?.data,
   );
 
   const getNextSteps = (searchParams: URLSearchParams) => {
@@ -66,9 +66,12 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
           title: steps.initialPeriods.title,
         },
       },
+      isEdit: null as string | null,
     };
     if (searchParams.getAll('mileages')[0] !== mileagesValue[0]) {
       nextSteps.step = nextSteps.query;
+    } else {
+      nextSteps.isEdit = searchParams.get('isEdit');
     }
     return nextSteps;
   };
@@ -88,15 +91,13 @@ const HelpMeChooseMiles: FC<HelpMeChooseStep> = props => {
         setLoadingStatus(true);
         const searchParams = new URLSearchParams(window.location.search);
         const nextSteps = getNextSteps(searchParams);
-        getProductVehicleList({
+        getHelpMeChoose({
           variables: {
-            filter: {
-              ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
-            },
+            ...buildAnObjectFromAQuery(searchParams, nextSteps.query),
           },
         });
         setSteps(nextSteps.step);
-        onReplace(router, nextSteps.step);
+        onReplace(router, nextSteps.step, '', nextSteps.isEdit);
       }}
       currentValue={mileagesValue}
       clearMultiSelectTitle="I Don't Mind"

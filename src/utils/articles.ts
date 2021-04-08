@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-/* eslint-disable @typescript-eslint/camelcase */
+
 import { NextRouter } from 'next/router';
 import { BlogPosts_blogPosts_articles } from '../../generated/BlogPosts';
 
@@ -10,8 +10,8 @@ export const getArticles = (
   const articlesSorted = articles
     ? [...articles]?.sort(
         (firstArticle, secondArticle) =>
-          new Date(secondArticle?.publishedOn).getTime() -
-          new Date(firstArticle?.publishedOn).getTime(),
+          new Date(secondArticle?.metaData?.publishedOn).getTime() -
+          new Date(firstArticle?.metaData?.publishedOn).getTime(),
       )
     : null;
 

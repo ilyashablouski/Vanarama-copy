@@ -5,7 +5,10 @@ import localForage from 'localforage';
 import { ILink } from 'core/interfaces/link';
 import { useMediaQuery } from 'react-responsive';
 
-import { PHONE_NUMBER_LINK } from '../../models/enum/HeaderLinks';
+import {
+  PHONE_NUMBER_LINK,
+  FLEET_PHONE_NUMBER_LINK,
+} from '../../models/enum/HeaderLinks';
 
 import Header from '../../components/Header';
 import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
@@ -28,6 +31,8 @@ const HeaderContainer: FC = () => {
   const router = useRouter();
   const client = useApolloClient();
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
+  const phoneNumberLink =
+    router.pathname === '/fleet' ? FLEET_PHONE_NUMBER_LINK : PHONE_NUMBER_LINK;
 
   const LOGIN_LINK = {
     label: 'Login',
@@ -40,11 +45,12 @@ const HeaderContainer: FC = () => {
 
   const [logOut] = useMutation<LogOutUserMutation>(LOGOUT_USER_MUTATION);
 
-  const offerLink = data?.primaryHeader?.links?.map(el => ({
-    href: el?.url || '',
-    label: el?.text || '',
-    highlight: true,
-  }));
+  const offerLink =
+    data?.primaryHeader?.links?.map(el => ({
+      href: el?.url || '',
+      label: el?.text || '',
+      highlight: true,
+    })) || [];
 
   const topLinks = data?.primaryHeader.linkGroups?.reduce(
     (link, linksGroup) => {
@@ -129,7 +135,7 @@ const HeaderContainer: FC = () => {
           await client.resetStore();
         }}
         loginLink={LOGIN_LINK}
-        phoneNumberLink={PHONE_NUMBER_LINK}
+        phoneNumberLink={phoneNumberLink}
         topBarLinks={[...offerLink, ...topLinks]}
       />
     );

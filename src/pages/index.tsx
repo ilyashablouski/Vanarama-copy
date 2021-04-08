@@ -11,11 +11,11 @@ import {
   filterListVariables as IFilterListVariables,
 } from '../../generated/filterList';
 import { specialOffersRequest } from '../utils/offers';
+import { decodeData, encodeData } from '../utils/data';
 
 export const HomePage: NextPage<IHomePageContainer> = ({
   data,
   loading,
-  error,
   productsVanDerivatives,
   productsCarDerivatives,
   productsPickupDerivatives,
@@ -28,23 +28,22 @@ export const HomePage: NextPage<IHomePageContainer> = ({
 }) => (
   <HomePageContainer
     loading={loading}
-    data={data}
-    error={error}
+    data={decodeData(data)}
     productsCar={productsCar}
     productsPickup={productsPickup}
     productsVan={productsVan}
     productsVanDerivatives={productsVanDerivatives}
     productsCarDerivatives={productsCarDerivatives}
     productsPickupDerivatives={productsPickupDerivatives}
-    searchPodVansData={searchPodVansData}
-    searchPodCarsData={searchPodCarsData}
-    vehicleListUrlData={vehicleListUrlData}
+    searchPodVansData={decodeData(searchPodVansData)}
+    searchPodCarsData={decodeData(searchPodCarsData)}
+    vehicleListUrlData={decodeData(vehicleListUrlData)}
   />
 );
 
 export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({}, context);
-  const { data, loading, errors } = await client.query<HomePageData>({
+  const { data, loading } = await client.query<HomePageData>({
     query: ALL_HOME_CONTENT,
   });
   const {
@@ -76,18 +75,17 @@ export async function getServerSideProps(context: NextPageContext) {
 
   return {
     props: {
-      data,
+      data: encodeData(data) || null,
       loading,
-      error: errors || null,
       productsVanDerivatives: productsVanDerivatives || null,
       productsCarDerivatives: productsCarDerivatives || null,
       productsPickupDerivatives: productsPickupDerivatives || null,
       productsCar: productsCar || null,
       productsPickup: productsPickup || null,
       productsVan: productsVan || null,
-      searchPodVansData,
-      searchPodCarsData,
-      vehicleListUrlData,
+      searchPodVansData: encodeData(searchPodVansData),
+      searchPodCarsData: encodeData(searchPodCarsData),
+      vehicleListUrlData: encodeData(vehicleListUrlData) || null,
     },
   };
 }

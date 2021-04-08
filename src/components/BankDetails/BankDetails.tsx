@@ -275,7 +275,7 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
         />
         <CheckBox
           id="termsAndConditions"
-          dataTestId="termsAndConditions"
+          dataTestId="bank-details_terms-and-conditions"
           name="termsAndConditions"
           label={[
             'I agree to the ',

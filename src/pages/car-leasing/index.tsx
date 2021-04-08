@@ -5,6 +5,7 @@ import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { useContext, useEffect, useState } from 'react';
+import { decodeData, encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { isCompared } from '../../utils/comparatorHelpers';
@@ -82,11 +83,14 @@ interface IProps extends ICarsPageOffersData {
 }
 
 export const CarsPage: NextPage<IProps> = ({
-  data,
-  searchPodCarsData,
+  data: encodedData,
+  searchPodCarsData: searchPodCarsDataEncoded,
   productsCar,
-  vehicleListUrlData,
+  vehicleListUrlData: vehicleListUrlDataEncoded,
 }) => {
+  const data: HubCarPageData = decodeData(encodedData);
+  const searchPodCarsData = decodeData(searchPodCarsDataEncoded);
+  const vehicleListUrlData = decodeData(vehicleListUrlDataEncoded);
   // pass in true for car leaseType
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
   const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
@@ -216,20 +220,17 @@ export const CarsPage: NextPage<IProps> = ({
             <Heading size="large" color="black">
               Not Sure Which Vehicle Is Best For You?
             </Heading>
-            {/* <RouterLink
-            className="button"
-            classNames={{ color: 'teal', solid: true, size: 'regular' }}
-            link={{
-              label: 'Help Me Choose',
-              href: '/help-me-choose',
-            }}
-            withoutDefaultClassName
-          >
-            <div className="button--inner">Help Me Choose</div>
-          </RouterLink> */}
-            <Text color="orange" size="lead">
-              Coming Soon
-            </Text>
+            <RouterLink
+              className="button"
+              classNames={{ color: 'teal', solid: true, size: 'regular' }}
+              link={{
+                label: 'Help Me Choose',
+                href: '/help-me-choose',
+              }}
+              withoutDefaultClassName
+            >
+              <div className="button--inner">Help Me Choose</div>
+            </RouterLink>
           </div>
         </section>
       </LazyLoadComponent>
@@ -250,7 +251,7 @@ export const CarsPage: NextPage<IProps> = ({
             );
             return (
               <LazyLoadComponent
-                key={idx}
+                key={item?.capId || idx}
                 visibleByDefault={
                   typeof window === 'undefined' ||
                   navigator?.vendor === 'Apple Computer, Inc.'
@@ -638,7 +639,7 @@ export async function getServerSideProps() {
   const client = createApolloClient({});
 
   try {
-    const { data } = await client.query<HubCarPageData>({
+    const { data: hubCarPage } = await client.query<HubCarPageData>({
       query: HUB_CAR_CONTENT,
     });
     const { data: searchPodCarsData } = await client.query<
@@ -655,12 +656,14 @@ export async function getServerSideProps() {
       client,
     );
 
+    const data = encodeData(hubCarPage);
+
     return {
       props: {
         data,
-        searchPodCarsData,
+        searchPodCarsData: encodeData(searchPodCarsData),
         productsCar: productsCar || null,
-        vehicleListUrlData,
+        vehicleListUrlData: encodeData(vehicleListUrlData),
       },
     };
   } catch {

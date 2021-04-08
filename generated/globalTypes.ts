@@ -28,6 +28,14 @@ export enum FinanceTypeEnum {
 }
 
 /**
+ * Company types for funder
+ */
+export enum FunderCompanyTypeEnum {
+  limited = "limited",
+  partnership = "partnership",
+}
+
+/**
  * Lease type
  */
 export enum LeaseTypeEnum {
@@ -68,9 +76,14 @@ export enum SortDirection {
  */
 export enum SortField {
   availability = "availability",
+  initial_payment = "initial_payment",
   manufacturer = "manufacturer",
+  mileage = "mileage",
   offerRanking = "offerRanking",
+  offer_ranking = "offer_ranking",
   rate = "rate",
+  rental = "rental",
+  term = "term",
 }
 
 /**
@@ -117,6 +130,20 @@ export interface BankAccountInputObject {
   bankName?: string | null;
   joinedAt?: any | null;
   partyId?: string | null;
+  sortCode?: string | null;
+  uuid?: string | null;
+}
+
+/**
+ * Input object to create and add a Bank Account
+ */
+export interface BankAccountV2InputObject {
+  accountName?: string | null;
+  accountNumber?: string | null;
+  bankName?: string | null;
+  joinedAt?: any | null;
+  joinedAtMonth?: string | null;
+  joinedAtYear?: string | null;
   sortCode?: string | null;
   uuid?: string | null;
 }
@@ -188,6 +215,7 @@ export interface CreditApplicationInputObject {
   aboutDetails?: any | null;
   addresses?: any | null;
   bankAccounts?: any | null;
+  bankAccountsV2?: BankAccountV2InputObject[] | null;
   companyDetails?: any | null;
   creditApplicationType?: CreditApplicationTypeEnum | null;
   directorsDetails?: any | null;
@@ -245,6 +273,32 @@ export interface EmploymentInputObject {
 }
 
 /**
+ * Search filters
+ */
+export interface FilterListObject {
+  availability?: number | null;
+  bodyStyles?: string[] | null;
+  financeTypes?: FinanceTypeEnum[] | null;
+  fuelTypes?: string[] | null;
+  initialPayment?: RateInputObject | null;
+  initialPeriods?: number[] | null;
+  manufacturerName?: string | null;
+  manufacturerSlug?: string | null;
+  mileages?: number[] | null;
+  modelName?: string | null;
+  modelSlug?: string | null;
+  offerRanking?: number | null;
+  onOffer?: boolean | null;
+  rangeName?: string | null;
+  rangeSlug?: string | null;
+  rate?: RateInputObject | null;
+  rental?: RateInputObject | null;
+  terms?: number[] | null;
+  transmissions?: string[] | null;
+  vehicleTypes?: VehicleTypeEnum[] | null;
+}
+
+/**
  * Input object to make full credit check
  */
 export interface FullCreditCheckerInputObject {
@@ -258,6 +312,17 @@ export interface FullCreditCheckerInputObject {
   partyId: string;
   term?: number | null;
   vehicleType: VehicleTypeEnum;
+}
+
+/**
+ * Input object to get funder details
+ */
+export interface FunderInputObject {
+  companiesHouseDirectors: number;
+  companyType: FunderCompanyTypeEnum;
+  id: string;
+  percentageShares?: number | null;
+  userDirectors?: number | null;
 }
 
 /**
@@ -349,6 +414,14 @@ export interface OrderInputObject {
 }
 
 /**
+ * Query pagination
+ */
+export interface PaginationInputObject {
+  from?: number | null;
+  size?: number | null;
+}
+
+/**
  * Input object to create a Person
  */
 export interface PersonInputObject {
@@ -385,36 +458,6 @@ export interface PersonInputObject {
   tradingName?: string | null;
   uuid?: string | null;
   vatRegistrationNumber?: string | null;
-}
-
-/**
- * Search filter range
- */
-export interface ProductFilterRangeListObject {
-  max?: number | null;
-  min?: number | null;
-}
-
-/**
- * Filter object to search vehicles
- */
-export interface ProductVehicleListInputObject {
-  after?: number | null;
-  availability?: number | null;
-  bodyStyles?: string[] | null;
-  financeTypes?: FinanceTypeEnum[] | null;
-  fuelTypes?: string[] | null;
-  initialPayment?: ProductFilterRangeListObject | null;
-  initialPeriods?: number[] | null;
-  manufacturerName?: string | null;
-  mileages?: number[] | null;
-  modelName?: string | null;
-  rangeName?: string | null;
-  rental?: ProductFilterRangeListObject | null;
-  size?: number | null;
-  terms?: number[] | null;
-  transmissions?: string[] | null;
-  vehicleTypes?: VehicleTypeEnum[] | null;
 }
 
 /**

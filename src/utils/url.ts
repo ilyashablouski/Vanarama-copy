@@ -130,10 +130,10 @@ export const getProductPageBreadCrumb = (
 
 export const getVehicleConfigurationPath = (path: string) => {
   // used regexp to save functionality for local builds
-  return path.replace(/^(\/)/, match => match.slice(1));
+  return path.split('?')[0].replace(/^(\/)/, match => match.slice(1));
 };
 
-export type productPageUrlData = {
+export type ProductPageUrlData = {
   manufacturer: string | null;
   range: string | null;
   slug: string | null;
@@ -170,8 +170,7 @@ export type MyDetailsQueryParams = {
 
 export const SEARCH_PAGES = ['/car-leasing', '/van-leasing', '/special-offers'];
 
-export const removeUrlQueryPart = (url: string) =>
-  url.slice(0, url.indexOf('?') > -1 ? url.indexOf('?') : url.length);
+export const removeUrlQueryPart = (url: string) => url.split('?')[0];
 
 /**
  * make request for 404 page data on server side

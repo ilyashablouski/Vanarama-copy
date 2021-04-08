@@ -8,7 +8,7 @@ const requiredWhenEmployed = (message: string) => (
 ) =>
   // TODO: Work out how to get these magic strings from the BE instead
   status === 'Employed' || status === 'Self employed'
-    ? schema.required(message)
+    ? schema.nullable().required(message)
     : schema.nullable();
 
 export default Yup.object().shape({
@@ -17,7 +17,9 @@ export default Yup.object().shape({
       status: Yup.string().required('Please enter your employment status'),
       title: Yup.string().when(
         'status',
-        requiredWhenEmployed('Please enter the job title'),
+        requiredWhenEmployed(
+          'Please search for your job title & select from the list',
+        ),
       ),
       contract: Yup.string().when(
         'status',

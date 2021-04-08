@@ -355,7 +355,9 @@ describe('<EmploymentForm />', () => {
     // ASSERT
     await waitFor(() =>
       expect(
-        screen.getByText('Please enter the job title'),
+        screen.getByText(
+          'Please search for your job title & select from the list',
+        ),
       ).toBeInTheDocument(),
     );
 
@@ -402,7 +404,9 @@ describe('<EmploymentForm />', () => {
     // ASSERT
     await waitFor(() =>
       expect(
-        screen.queryByText('Please enter the job title'),
+        screen.queryByText(
+          'Please search for your job title & select from the list',
+        ),
       ).not.toBeInTheDocument(),
     );
     expect(

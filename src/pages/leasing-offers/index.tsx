@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { MutableRefObject, useRef } from 'react';
@@ -16,12 +15,13 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData, specialOffersRequest } from '../../utils/offers';
+import { decodeData, encodeData } from '../../utils/data';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
 });
 const Card = dynamic(() => import('core/molecules/cards'), {
-  loading: () => <Skeleton count={1} />,
+  loading: () => <Skeleton count={9} />,
 });
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -67,12 +67,14 @@ export const OffersPage: NextPage<IProps> = ({
   productsCar,
   productsPickup,
   productsVan,
-  vehicleListUrlData,
+  vehicleListUrlData: encodedData,
   productsVanDerivatives,
 }) => {
   const vanRef = useRef<HTMLDivElement>();
   const truckRef = useRef<HTMLDivElement>();
   const carRef = useRef<HTMLDivElement>();
+  // De-obfuscate data for user
+  const vehicleListUrlData = decodeData(encodedData);
 
   // NOTE: can still be made use of for products loading states combined
 
@@ -285,23 +287,16 @@ export const OffersPage: NextPage<IProps> = ({
               Car Offers
             </span>
           </Heading>
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
-          >
-            <ProductCarousel
-              leaseType={LeaseTypeEnum.PERSONAL}
-              data={{
-                derivatives: productsCarDerivatives?.derivatives || null,
-                productCard: productsCar?.productCarousel || null,
-                vehicleList: vehicleListUrlData,
-              }}
-              countItems={productsCar?.productCarousel?.length || 6}
-              dataTestIdBtn="car-view-offer"
-            />
-          </LazyLoadComponent>
+          <ProductCarousel
+            leaseType={LeaseTypeEnum.PERSONAL}
+            data={{
+              derivatives: productsCarDerivatives?.derivatives || null,
+              productCard: productsCar?.productCarousel || null,
+              vehicleList: vehicleListUrlData,
+            }}
+            countItems={productsCar?.productCarousel?.length || 6}
+            dataTestIdBtn="car-view-offer"
+          />
         </div>
         <div className="-justify-content-row -pt-500">
           <RouterLink
@@ -359,7 +354,7 @@ export async function getStaticProps() {
         productsCar: productsCar || null,
         productsPickup: productsPickup || null,
         productsVan: productsVan || null,
-        vehicleListUrlData,
+        vehicleListUrlData: encodeData(vehicleListUrlData),
       },
     };
   } catch (err) {

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';
@@ -155,8 +154,8 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   const articlesSorted = articles
     ? [...articles]?.sort(
         (firstArticle, secondArticle) =>
-          new Date(secondArticle?.publishedOn).getTime() -
-          new Date(firstArticle?.publishedOn).getTime(),
+          new Date(secondArticle?.metaData?.publishedOn).getTime() -
+          new Date(firstArticle?.metaData?.publishedOn).getTime(),
       )
     : [];
 
@@ -256,8 +255,11 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       </div>
       {featured && (
         <div className="row:featured-left">
-          <div>
+          {/* using this class for prevent major layout shifts */}
+          <div className="imgPlaceholderWrapper">
             <Image
+              width="100%"
+              height="auto"
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={featured?.image?.file?.url || ''}
             />

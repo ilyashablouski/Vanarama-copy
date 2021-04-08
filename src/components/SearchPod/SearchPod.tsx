@@ -1,6 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Select from 'core/atoms/select';
+import Card from 'core/molecules/cards';
 import {
   filterList_filterList_groupedRangesWithSlug as IRangesSlug,
   filterList_filterList_groupedRangesWithSlug_children as IOptionsDropdown,
@@ -16,9 +17,7 @@ const Button = dynamic(() => import('core/atoms/button'), {
 });
 const Form = dynamic(() => import('core/organisms/form'));
 const Formgroup = dynamic(() => import('core/molecules/formgroup'));
-const Card = dynamic(() => import('core/molecules/cards'), {
-  loading: () => <Skeleton count={5} />,
-});
+
 const Tabs = dynamic(() => import('core/molecules/tabs'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -33,7 +32,7 @@ const TabPanels = dynamic(() => import('core/molecules/tabs/TabPanels'), {
   loading: () => <Skeleton count={3} />,
 });
 
-enum typeToIndex {
+enum TypeToIndex {
   'Vans' = 1,
   'Cars',
 }
@@ -65,7 +64,7 @@ const SearchPod = ({
           {isHomePage &&
             config.map(({ tabName, type }) => (
               <Tab
-                index={parseInt(typeToIndex[type as any], 10)}
+                index={parseInt(TypeToIndex[type as any], 10)}
                 key={`${tabName}-tab`}
                 dataTestId={`${tabName}tab`}
               >
@@ -76,7 +75,7 @@ const SearchPod = ({
         <TabPanels dataTestId="tabPanels">
           {config.map(tab => (
             <TabPanel
-              index={parseInt(typeToIndex[tab.type as any], 10)}
+              index={parseInt(TypeToIndex[tab.type as any], 10)}
               className="hero-card--inner"
               key={`${tab.tabName}-panels`}
               dataTestId={`${tab.tabName}-panel`}

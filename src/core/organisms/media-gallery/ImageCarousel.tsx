@@ -10,7 +10,7 @@ import ChevronBackCircleSharp from '../../assets/icons/ChevronBackCircleSharp';
 import ChevronForwardCircleSharp from '../../assets/icons/ChevronForwardCircleSharp';
 
 const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
-  const { activeSlide, images, changeSlideHandler } = props;
+  const { activeSlide, images, changeSlideHandler, imageAltText } = props;
   const positionStyle = {
     '--x': activeSlide,
     '--y': 0,
@@ -69,6 +69,7 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
                 src={image}
                 size="expand"
                 plain
+                alt={imageAltText}
               />
             </div>
           ))}
@@ -109,6 +110,7 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src={image}
                 size="xlarge"
+                alt={imageAltText}
               />
             </div>
           ))}

@@ -42,8 +42,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                 class="image--native"
                 loading="eager"
                 sizes="(min-width:320px) 800px, 1200px"
-                src="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png"
-                srcset="https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 320w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 800w, https://vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1200w"
+                src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png"
+                srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1200w"
               />
             </div>
           </div>
@@ -52,102 +52,100 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           class="hero--right"
           style="min-height: 347px;"
         >
-          <div>
+          <div
+            class="card hero-card"
+            data-testid="card"
+          >
             <div
-              class="card hero-card"
-              data-testid="card"
+              class="hero-card--inner"
             >
-              <div
-                class="hero-card--inner"
+              <p
+                class="heading -black -lead"
               >
-                <p
-                  class="heading -black -lead"
-                >
-                  Contact Us
-                </p>
-                <section
-                  class="structured-list -styled-headers -small -opening-times"
+                Contact Us
+              </p>
+              <section
+                class="structured-list -styled-headers -small -opening-times"
+              >
+                <div
+                  class="structured-list-tbody"
                 >
                   <div
-                    class="structured-list-tbody"
+                    class="structured-list-row "
                   >
                     <div
-                      class="structured-list-row "
+                      class="structured-list-td structured-list-content--nowrap"
+                      data-testid="data_id-0-Monday–Thursday"
                     >
-                      <div
-                        class="structured-list-td structured-list-content--nowrap"
-                        data-testid="data_id-0-Monday–Thursday"
-                      >
-                        Monday–Thursday
-                      </div>
-                      <div
-                        class="structured-list-td"
-                      >
-                        8:30am–7pm
-                      </div>
+                      Monday–Thursday
                     </div>
                     <div
-                      class="structured-list-row "
+                      class="structured-list-td"
                     >
-                      <div
-                        class="structured-list-td structured-list-content--nowrap"
-                        data-testid="data_id-1-Friday"
-                      >
-                        Friday
-                      </div>
-                      <div
-                        class="structured-list-td"
-                      >
-                        9am–5pm
-                      </div>
-                    </div>
-                    <div
-                      class="structured-list-row "
-                    >
-                      <div
-                        class="structured-list-td structured-list-content--nowrap"
-                        data-testid="data_id-2-Saturday"
-                      >
-                        Saturday
-                      </div>
-                      <div
-                        class="structured-list-td"
-                      >
-                        9am–3pm
-                      </div>
-                    </div>
-                    <div
-                      class="structured-list-row "
-                    >
-                      <div
-                        class="structured-list-td structured-list-content--nowrap"
-                        data-testid="data_id-3-Sunday"
-                      >
-                        Sunday
-                      </div>
-                      <div
-                        class="structured-list-td"
-                      >
-                        Closed
-                      </div>
+                      8:30am–7pm
                     </div>
                   </div>
-                </section>
-                <a
-                  class="link -primary -regular -plain"
-                  href="tel:0144283817301442838173"
-                >
-                  <button
-                    class="button -fullwidth -teal -large -solid"
+                  <div
+                    class="structured-list-row "
                   >
                     <div
-                      class="button--inner"
+                      class="structured-list-td structured-list-content--nowrap"
+                      data-testid="data_id-1-Friday"
                     >
-                      Call 01442 838173
+                      Friday
                     </div>
-                  </button>
-                </a>
-              </div>
+                    <div
+                      class="structured-list-td"
+                    >
+                      9am–5pm
+                    </div>
+                  </div>
+                  <div
+                    class="structured-list-row "
+                  >
+                    <div
+                      class="structured-list-td structured-list-content--nowrap"
+                      data-testid="data_id-2-Saturday"
+                    >
+                      Saturday
+                    </div>
+                    <div
+                      class="structured-list-td"
+                    >
+                      9am–3pm
+                    </div>
+                  </div>
+                  <div
+                    class="structured-list-row "
+                  >
+                    <div
+                      class="structured-list-td structured-list-content--nowrap"
+                      data-testid="data_id-3-Sunday"
+                    >
+                      Sunday
+                    </div>
+                    <div
+                      class="structured-list-td"
+                    >
+                      Closed
+                    </div>
+                  </div>
+                </div>
+              </section>
+              <a
+                class="link -primary -regular -plain"
+                href="tel:0144283817301442838173"
+              >
+                <button
+                  class="button -fullwidth -teal -large -solid"
+                >
+                  <div
+                    class="button--inner"
+                  >
+                    Call 01442 838173
+                  </div>
+                </button>
+              </a>
             </div>
           </div>
           <div
@@ -705,14 +703,14 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                 <input
                   class="checkbox--native"
                   data-testid="aboutPrivacyPolicy"
-                  id="privacy"
+                  id="privacyPolicy"
                   name="privacyPolicy"
                   type="checkbox"
                   value=""
                 />
                 <label
                   class="checkbox--label"
-                  for="privacy"
+                  for="privacyPolicy"
                 >
                   <span
                     class="text -regular -darker"

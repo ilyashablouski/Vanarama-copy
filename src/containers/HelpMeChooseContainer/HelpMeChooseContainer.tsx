@@ -78,10 +78,15 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
           tag="h1"
           color="black"
           size="xlarge"
-          className="stepped-form--title -mb-100"
+          className="stepped-form--title"
         >
           {title}
         </Heading>
+        {multiSelect && choicesValues.length !== 1 && (
+          <Text tag="p" size="regular" color="darker" className="-mb-100">
+            Select As Many As You Like
+          </Text>
+        )}
         <div className="stepped-form--filter">
           <Choiceboxes
             className={`-cols-${
@@ -90,17 +95,12 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
             choices={choicesValues}
             onSubmit={value => onSubmitChoice(value)}
             multiSelect={multiSelect}
+            shouldSelectTheOnlyValue
             clearMultiSelectTitle={clearMultiSelectTitle}
             onClearClick={() => setChoice([''])}
             withIcons={withIcons}
             currentValue={currentValue}
           />
-          {choicesValues.length === 1 && (
-            <Text>
-              It seems there is only 1 option available, please go back a step
-              and change your selection to expand your choice
-            </Text>
-          )}
         </div>
         <Button
           color="primary"

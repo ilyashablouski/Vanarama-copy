@@ -5,14 +5,10 @@ import TextInput from 'core/atoms/textinput/';
 import AddressFinder from 'core/molecules/address-finder';
 import { IAddressSuggestion } from 'core/molecules/address-finder/interfaces';
 import React, { FC, useState } from 'react';
+import CheckBox from 'core/atoms/checkbox';
 import { genMonths, genYears, genDays } from '../../../utils/helpers';
 import { IFormProps } from './interface';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
-import {
-  TermsAndConditions,
-  Consent,
-  PrivacyPolicy,
-} from '../../FormGenericCheckboxes/FormGenericCheckboxes';
 import Skeleton from '../../Skeleton';
 
 const Button = dynamic(() => import('core/atoms/button'), {
@@ -165,14 +161,53 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
         />
       </FormGroup>
       <FormGroup
+        label="Please Confirm"
         error={
           errors?.termsAndCons?.message?.toString() ||
           errors?.privacyPolicy?.message?.toString()
         }
       >
-        <TermsAndConditions id="register-form-terms" />
-        <PrivacyPolicy id="register-form-privacy-policy" />
-        <Consent id="register-form-consent" />
+        <CheckBox
+          id="termsAndCons"
+          dataTestId="eligibilityTermsAndCons"
+          name="termsAndCons"
+          label={[
+            'I agree to the ',
+            <a
+              key="a"
+              className="link -teal"
+              href="/legal/terms-and-conditions.html"
+              target="_blank"
+            >
+              Terms and Conditions
+            </a>,
+          ]}
+          ref={register}
+        />
+        <CheckBox
+          id="privacyPolicy"
+          dataTestId="eligibilityPrivacyPolicy"
+          name="privacyPolicy"
+          label={[
+            'I have read and understood the ',
+            <a
+              key="a-privacy"
+              className="link -teal"
+              href="/legal/privacy-policy.html"
+              target="_blank"
+            >
+              Privacy Policy
+            </a>,
+          ]}
+          ref={register}
+        />
+        <CheckBox
+          id="consent"
+          dataTestId="eligibilityCheckoutConsent"
+          name="consent"
+          label="Keep me updated on the latest deals & offers"
+          ref={register}
+        />
       </FormGroup>
       <Text tag="p" color="darker" size="regular">
         By checking your eligibility, you agree to a soft credit check.

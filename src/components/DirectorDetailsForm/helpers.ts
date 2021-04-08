@@ -4,10 +4,7 @@ import { GetDirectorDetailsQuery_companyOfficers_nodes as DirectorFieldsOfficer 
 import { sum } from '../../utils/array';
 import { dateOfBirthValidator, checkFuture } from '../../utils/validation';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
-
-// TODO: hardcoded value should be removed,
-//  information about required quantity of directors should be sent from BE
-const LEX_FUNDER_ID = '4';
+import { IValidationParams } from '../../containers/DirectorDetailsFormContainer/interfaces';
 
 export const TOO_LOW_ERROR_MESSAGE = 'TOO_LOW';
 export const TOO_HIGH_ERROR_MESSAGE = 'TOO_HIGH';
@@ -23,9 +20,8 @@ export const initialEditedFormValues = (
       totalPercentage: parseInt(directors[0].shareOfBusiness, 10),
     };
   }
-  const totalPercentage = directors.reduce(
-    (prev, curr) => prev + (parseInt(curr.shareOfBusiness, 10) || 0),
-    0,
+  const totalPercentage = sum(directors, director =>
+    parseInt(director.shareOfBusiness, 10),
   );
 
   if (directorUuid) {
@@ -44,25 +40,47 @@ export const initialEditedFormValues = (
   };
 };
 
+const createOriginalFullName = (director: DirectorFormValues) =>
+  `${director.originalLastName}, ${director.originalFirstName}`;
+
+const calculateTotalPercentage = (directors: DirectorFormValues[]) =>
+  sum(directors, _ => Number(_.shareOfBusiness));
+
 export const validate = (
   values: DirectorDetailsFormValues,
-  officers: DirectorFormValues[],
-  funderId?: string | null,
+  directors: DirectorFormValues[],
+  isEdit: boolean,
+  validationParams: IValidationParams,
 ): FormikErrors<DirectorDetailsFormValues> => {
   const errors: FormikErrors<DirectorDetailsFormValues> = {};
 
-  const totalPercentage = sum(values.directors, _ => Number(_.shareOfBusiness));
+  let totalPercentage = calculateTotalPercentage(values.directors);
 
-  if (
-    funderId === LEX_FUNDER_ID &&
-    officers.length >= 2 &&
-    values.directors.length < 2
-  ) {
+  // don't check quantity of directors during edit
+  // because it is not possible to delete a director
+  if (!isEdit && values.directors.length < validationParams.numOfDirectors) {
     errors.totalPercentage = NOT_ENOUGH_DIRECTORS_ERROR_MESSAGE;
     return errors;
   }
 
-  if (totalPercentage < 25) {
+  // in case of editing recalculate total percentage for edited and not edited directors
+  // to met the required percentage
+  if (isEdit && directors.length > 1) {
+    const editedDirectorsFullNames = values.directors.map(director =>
+      createOriginalFullName(director),
+    );
+    const originalDirectors = directors.filter(
+      director =>
+        !editedDirectorsFullNames.includes(createOriginalFullName(director)),
+    );
+
+    totalPercentage = calculateTotalPercentage([
+      ...originalDirectors,
+      ...values.directors,
+    ]);
+  }
+
+  if (totalPercentage < validationParams.percentageShares) {
     errors.totalPercentage = TOO_LOW_ERROR_MESSAGE;
   } else if (totalPercentage > 100) {
     errors.totalPercentage = TOO_HIGH_ERROR_MESSAGE;

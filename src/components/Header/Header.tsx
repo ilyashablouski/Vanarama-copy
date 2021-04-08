@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
 /* eslint-disable import/no-cycle */
+import Cookies from 'js-cookie';
 import React, { FC, memo, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -14,10 +15,15 @@ import HeaderMenu from './HeaderMenu';
 import { ILinkProps } from '../RouterLink/interface';
 import RouterLink from '../RouterLink/RouterLink';
 import {
+  addHeapUserIdentity,
+  addHeapUserProperties,
+} from '../../utils/addHeapProperties';
+import {
   GetPerson_getPerson as Person,
   GetPerson,
 } from '../../../generated/GetPerson';
 import useMediaQuery from '../../hooks/useMediaQuery';
+import PhoneNumber from '../PhoneNumber/PhoneNumber';
 
 const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
   ssr: false,
@@ -48,9 +54,6 @@ const LogOutOutline = dynamic(() => import('core/assets/icons/LogOutOutline'), {
 });
 const Close = dynamic(() => import('core/assets/icons/Close'), {
   ssr: false,
-});
-const Call = dynamic(() => import('core/assets/icons/Call'), {
-  ssr: true,
 });
 
 export interface IHeaderPromoImage {
@@ -98,6 +101,13 @@ export const Header: FC<IHeaderProps> = memo(props => {
       localForage.getItem('person').then(value => {
         if ((value as GetPerson)?.getPerson)
           setPerson((value as GetPerson)?.getPerson as Person);
+      });
+    }
+    if (person) {
+      addHeapUserIdentity(person.emailAddresses[0].value);
+      addHeapUserProperties({
+        uuid: person.uuid,
+        bcuid: Cookies.get('BCSessionID') || 'undefined',
       });
     }
     if (!ordersLength) {
@@ -153,10 +163,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
             {/* <div className="header-search--results -is-hidden" /> */}{' '}
           </label>
         )}
-        <RouterLink link={phoneNumberLink} className="header-tel">
-          {' '}
-          <Icon icon={<Call />} size="xsmall" /> <span>01442 838195</span>{' '}
-        </RouterLink>{' '}
+        <PhoneNumber phoneNumberLink={phoneNumberLink} withIcon />{' '}
         <div className="header-account">
           {' '}
           {person ? (

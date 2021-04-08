@@ -1,13 +1,7 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
 import { useState, useEffect, useRef } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
-import {
-  gql,
-  useLazyQuery,
-  useApolloClient,
-  ApolloError,
-} from '@apollo/client';
+import { gql, useApolloClient } from '@apollo/client';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
@@ -22,25 +16,19 @@ import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 import { getUrlParam } from '../../../utils/url';
 import { GetPerson } from '../../../../generated/GetPerson';
-import { CreateUpdatePersonMutation_createUpdatePerson } from '../../../../generated/CreateUpdatePersonMutation';
+import { CreateUpdatePersonMutation_createUpdatePerson as IPerson } from '../../../../generated/CreateUpdatePersonMutation';
 import {
   useCreateUpdateCreditApplication,
   useGetCreditApplicationByOrderUuid,
 } from '../../../gql/creditApplication';
-import { formValuesToInputCreditApplication } from '../../../mappers/mappersCreditApplication';
 import { usePersonByUuidData } from '../../../gql/person';
 import { useCreateUpdateOrder } from '../../../gql/order';
 import {
   LeaseTypeEnum,
   CreditApplicationTypeEnum as CATypeEnum,
-  MyOrdersTypeEnum,
   OrderInputObject,
 } from '../../../../generated/globalTypes';
-import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
-import { GET_MY_ORDERS_DATA } from '../../../containers/OrdersInformation/gql';
-import { GET_COMPANIES_BY_PERSON_UUID } from '../../../gql/companies';
-import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../../generated/GetCompaniesByPersonUuid';
-import { GetDerivative_derivative } from '../../../../generated/GetDerivative';
+import { GetDerivative_derivative as IDerivative } from '../../../../generated/GetDerivative';
 import Skeleton from '../../../components/Skeleton';
 import useGetOrder from '../../../hooks/useGetOrder';
 import useGetOrderId from '../../../hooks/useGetOrderId';
@@ -55,41 +43,13 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
 
-export const GET_PERSON_QUERY = gql`
-  query GetPerson {
-    getPerson {
-      uuid
-      firstName
-      lastName
-      partyUuid
-      emailAddresses {
-        value
-        partyId
-      }
-    }
-  }
-`;
-
-export function useGetPersonLazyQuery(
-  onCompleted: (data: GetPerson) => void,
-  onError: (error: ApolloError) => void,
-) {
-  return useLazyQuery<GetPerson>(GET_PERSON_QUERY, {
-    fetchPolicy: 'no-cache',
-    onCompleted,
-    onError,
-  });
-}
-
 export const handleAccountFetchError = () =>
   toast.error(
     'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',
     '',
   );
 
-const savePersonUuid = (
-  data: CreateUpdatePersonMutation_createUpdatePerson,
-) => {
+const savePersonUuid = (data: IPerson) => {
   localForage.setItem('personUuid', data.uuid);
   localForage.setItem('personEmail', data.emailAddresses[0].value);
 };
@@ -106,42 +66,12 @@ const AboutYouPage: NextPage = () => {
   const [personUuid, setPersonUuid] = useState<string | undefined>();
   const [personLoggedIn, setPersonLoggedIn] = useState<boolean>(false);
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
-  const [
-    derivativeData,
-    setDerivativeData,
-  ] = useState<GetDerivative_derivative | null>(null);
-
-  const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
-  const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
+  const [derivativeData, setDerivativeData] = useState<IDerivative | null>(
+    null,
+  );
 
   const [updateOrderHandle] = useCreateUpdateOrder(() => {});
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-  const [getPerson] = useGetPersonLazyQuery(async data => {
-    setPersonUuid(data?.getPerson?.uuid);
-    await localForage.setItem('person', data);
-    const partyUuid = [data.getPerson?.partyUuid];
-    await getCompaniesData({
-      personUuid: data.getPerson?.uuid,
-    }).then(resp => {
-      resp.data?.companiesByPersonUuid?.forEach(
-        (companies: CompaniesByPersonUuid) =>
-          partyUuid.push(companies.partyUuid),
-      );
-    });
-    getOrdersData({
-      partyUuid,
-      filter: MyOrdersTypeEnum.ALL_ORDERS,
-    }).then(response => {
-      localForage.setItem('ordersLength', response.data?.myOrders.length);
-    });
-    getOrdersData({
-      partyUuid,
-      filter: MyOrdersTypeEnum.ALL_QUOTES,
-    }).then(response => {
-      localForage.setItem('quotesLength', response.data?.myOrders.length);
-    });
-    router.replace(router.pathname, router.asPath);
-  }, handleAccountFetchError);
   const { refetch } = usePersonByUuidData(personUuid || '');
   const creditApplicationQuery = useGetCreditApplicationByOrderUuid(orderId);
   const creditApplication =
@@ -149,9 +79,7 @@ const AboutYouPage: NextPage = () => {
   const isEdit =
     Object.values(creditApplication?.aboutDetails || {}).length > 0;
 
-  const clickOnComplete = async (
-    createUpdatePerson: CreateUpdatePersonMutation_createUpdatePerson,
-  ) => {
+  const clickOnComplete = async (createUpdatePerson: IPerson) => {
     savePersonUuid(createUpdatePerson);
     pushAboutYouDataLayer(detailsData, derivativeData);
     await refetch({
@@ -182,12 +110,11 @@ const AboutYouPage: NextPage = () => {
           .then(savedOrderId =>
             createUpdateCA({
               variables: {
-                input: formValuesToInputCreditApplication({
-                  ...creditApplication,
+                input: {
                   orderUuid: savedOrderId || '',
                   aboutDetails: createUpdatePerson,
                   creditApplicationType: CATypeEnum.B2C_PERSONAL,
-                }),
+                },
               },
             }),
           ),
@@ -254,11 +181,13 @@ const AboutYouPage: NextPage = () => {
           </div>
           {isLogInVisible && (
             <LoginFormContainer
-              onCompleted={() => {
+              onCompleted={person => {
                 pushAuthorizationEventDataLayer();
-                getPerson();
+                setPersonUuid(person?.uuid);
                 setPersonLoggedIn(true);
+                return router.replace(router.pathname, router.asPath);
               }}
+              onError={handleAccountFetchError}
             />
           )}
         </div>

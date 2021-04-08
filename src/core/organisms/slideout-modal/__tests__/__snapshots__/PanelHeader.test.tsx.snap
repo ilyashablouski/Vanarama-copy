@@ -4,7 +4,7 @@ exports[`<PanelHeader /> should render correctly 1`] = `
 <header
   className="slideout-modal--tile-header"
 >
-  <Memo([object Object])
+  <Memo(ForwardRef(Button))
     color="black"
     fill="clear"
     icon={<Memo />}
@@ -13,7 +13,7 @@ exports[`<PanelHeader /> should render correctly 1`] = `
     onClick={[Function]}
     size="regular"
   />
-  <Memo([object Object])
+  <Memo(ForwardRef(Button))
     color="dark"
     fill="clear"
     icon={<Memo />}

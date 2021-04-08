@@ -23,7 +23,6 @@ import {
   mapDefaultValues,
   mapCompanyDetailsToCreditApplication,
 } from './mappers';
-import { formValuesToInputCreditApplication } from '../../mappers/mappersCreditApplication';
 import { responseToInitialFormValues } from '../BusinessAboutFormContainer/mappers';
 import Skeleton from '../../components/Skeleton';
 
@@ -120,15 +119,14 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
   ) =>
     createUpdateApplication({
       variables: {
-        input: formValuesToInputCreditApplication({
-          ...data?.creditApplicationByOrderUuid,
+        input: {
           companyDetails: mapCompanyDetailsToCreditApplication(
             values,
             companyData,
             aboutDetails,
           ),
           orderUuid: orderId,
-        }),
+        },
       },
     });
 

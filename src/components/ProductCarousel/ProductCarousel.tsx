@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useContext } from 'react';
 import dynamic from 'next/dynamic';
 import { isCompared } from '../../utils/comparatorHelpers';
@@ -55,7 +54,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   };
 
   return (
-    <Carousel className="-mh-auto" countItems={countItems || 6}>
+    <Carousel className="-product -mh-auto" countItems={countItems || 6}>
       {data.productCard?.map(
         (product, inx) =>
           product && (

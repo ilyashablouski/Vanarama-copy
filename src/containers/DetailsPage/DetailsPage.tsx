@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -113,6 +112,7 @@ interface IDetailsPageProps {
   trimList: ITrimList[];
   colourList: IColourList[];
   productCard: GetProductCard | null;
+  leaseTypeQuery?: string | null;
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -129,13 +129,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   trimList,
   colourList,
   productCard,
+  leaseTypeQuery,
 }) => {
   const router = useRouter();
   const pdpContent = React.useRef<HTMLDivElement>(null);
   const leaseScanner = React.useRef<HTMLDivElement>(null);
   // pass cars prop(Boolean)
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(cars);
-  const [leaseType, setLeaseType] = useState<string>(cachedLeaseType);
+  const [leaseType, setLeaseType] = useState<string>(
+    leaseTypeQuery ?? cachedLeaseType,
+  );
   const [leadTime, setLeadTime] = useState<string>('');
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
@@ -238,6 +241,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         rating: vehicleDetails?.averageRating || 0,
       })
       .then(() => localForage.removeItem('orderId'))
+      .then(() => localForage.removeItem('personEmail'))
+      .then(() => localForage.removeItem('personUuid'))
       .then(() => {
         const url =
           leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
@@ -360,16 +365,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     });
   };
 
+  const metaTitle = `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription}`;
+
   const metaData = genericPageHead?.genericPage.metaData ?? {
-    title:
-      `${pageTitle} ${vehicleConfigurationByCapId?.capDerivativeDescription} 
-    Leasing Deals | Vanarama` || null,
+    title: `${metaTitle} Leasing Deals | Vanarama` || null,
     name: '' || null,
     metaRobots: '' || null,
     metaDescription:
-      `Get top ${pageTitle} ${
-        vehicleConfigurationByCapId?.capDerivativeDescription
-      } leasing deals at Vanarama. ✅ 5* Customer Service ✅ Brand-New ${
+      `Get top ${metaTitle} leasing deals at Vanarama. ✅ 5* Customer Service ✅ Brand-New ${
         // eslint-disable-next-line no-nested-ternary
         cars ? 'Cars' : vans ? 'Vans' : 'Pickups'
       } ✅ Free Delivery ✅ Road Tax Included` || null,
@@ -421,29 +424,26 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <span className="text -lead -darker">
           {vehicleConfigurationByCapId?.capDerivativeDescription}
         </span>
-        {!isMobile ? (
-          <div
-            className="-mt-500 -mb-200"
-            style={{ display: 'flex', justifyContent: 'space-between' }}
-          >
-            <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
-            {vehicleDetails?.brochureUrl && (
-              <RouterLink
-                link={{
-                  href: vehicleDetails?.brochureUrl,
-                  label: '',
-                  target: '_blank',
-                }}
-                classNames={{ color: 'teal', size: 'xsmall' }}
-              >
-                Download Brochure{' '}
-                <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
-              </RouterLink>
-            )}
-          </div>
-        ) : (
+        <div className="pdp--content-details">
           <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
-        )}
+          <div>
+            <div className="pdp--brochure">
+              {vehicleDetails?.brochureUrl && (
+                <RouterLink
+                  link={{
+                    href: vehicleDetails?.brochureUrl,
+                    label: '',
+                    target: '_blank',
+                  }}
+                  classNames={{ color: 'teal', size: 'xsmall' }}
+                >
+                  {'Download Brochure '}
+                  <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
+                </RouterLink>
+              )}
+            </div>
+          </div>
+        </div>
         <MediaGallery
           flag={{
             accentIcon: <Icon icon={<Flame />} color="white" />,
@@ -455,6 +455,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           videoSrc={video && video}
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
+          imageAltText={metaTitle}
         />
         <LazyLoadComponent
           visibleByDefault={

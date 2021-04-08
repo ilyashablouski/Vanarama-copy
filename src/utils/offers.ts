@@ -24,44 +24,59 @@ export const getVehicleListUrlQuery = async (
   client: ApolloClient<any>,
   derivativeIds: string[],
 ) => {
-  const { data: vehicleListUrlQuery } = await client.query<
-    VehicleListUrl,
-    VehicleListUrlVariables
-  >({
-    query: VEHICLE_LIST_URL,
-    variables: {
-      derivativeIds,
-    },
-  });
-  const vehicleListUrlData = {
-    pageInfo: vehicleListUrlQuery?.vehicleList.pageInfo,
-    totalCount: vehicleListUrlQuery?.vehicleList.totalCount || 0,
-    edges: vehicleListUrlQuery?.vehicleList.edges,
-  } as IVehicleList;
-  const hasNextPage = vehicleListUrlQuery?.vehicleList.pageInfo.hasNextPage;
-  if (hasNextPage) {
-    const edges = vehicleListUrlQuery?.vehicleList.edges || [];
-    const lastCursor = edges[edges.length - 1]?.cursor;
-    const { data: fetchMoreData } = await client.query<
+  try {
+    const { data: vehicleListUrlQuery } = await client.query<
       VehicleListUrl,
       VehicleListUrlVariables
     >({
       query: VEHICLE_LIST_URL,
       variables: {
         derivativeIds,
-        after: lastCursor,
       },
     });
-    vehicleListUrlData.pageInfo =
-      fetchMoreData?.vehicleList.pageInfo || vehicleListUrlData.pageInfo;
-    vehicleListUrlData.totalCount =
-      fetchMoreData?.vehicleList.totalCount || vehicleListUrlData.totalCount;
-    vehicleListUrlData.edges = [
-      ...(vehicleListUrlData.edges || []),
-      ...(fetchMoreData?.vehicleList?.edges || []),
-    ];
+    const vehicleListUrlData = {
+      pageInfo: vehicleListUrlQuery?.vehicleList.pageInfo,
+      totalCount: vehicleListUrlQuery?.vehicleList.totalCount || 0,
+      edges: vehicleListUrlQuery?.vehicleList.edges,
+    } as IVehicleList;
+    const hasNextPage = vehicleListUrlQuery?.vehicleList.pageInfo.hasNextPage;
+    if (hasNextPage) {
+      const edges = vehicleListUrlQuery?.vehicleList.edges || [];
+      const lastCursor = edges[edges.length - 1]?.cursor;
+      const { data: fetchMoreData } = await client.query<
+        VehicleListUrl,
+        VehicleListUrlVariables
+      >({
+        query: VEHICLE_LIST_URL,
+        variables: {
+          derivativeIds,
+          after: lastCursor,
+        },
+      });
+      vehicleListUrlData.pageInfo =
+        fetchMoreData?.vehicleList.pageInfo || vehicleListUrlData.pageInfo;
+      vehicleListUrlData.totalCount =
+        fetchMoreData?.vehicleList.totalCount || vehicleListUrlData.totalCount;
+      vehicleListUrlData.edges = [
+        ...(vehicleListUrlData.edges || []),
+        ...(fetchMoreData?.vehicleList?.edges || []),
+      ];
+    }
+    return vehicleListUrlData;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log('Error:', err);
+    return {
+      totalCount: 0,
+      pageInfo: {
+        startCursor: null,
+        endCursor: null,
+        hasNextPage: false,
+        hasPreviousPage: false,
+      },
+      edges: null,
+    };
   }
-  return vehicleListUrlData;
 };
 
 export function getProductCardContent(
@@ -69,6 +84,7 @@ export function getProductCardContent(
   type: VehicleTypeEnum,
   bodyType?: string,
   excludeBodyType?: string,
+  fuelTypes?: string[],
 ) {
   return client
     .query<ProductCardData, ProductCardDataVariables>({
@@ -77,6 +93,7 @@ export function getProductCardContent(
         type,
         bodyType: bodyType || undefined,
         excludeBodyType: excludeBodyType || undefined,
+        fuelTypes: fuelTypes || undefined,
         size: 12,
         offer: true,
       },
@@ -84,7 +101,15 @@ export function getProductCardContent(
     .then(resp => ({
       products: resp.data,
       productsCapIds: getCapIds(resp.data),
-    }));
+    }))
+    .catch(err => {
+      // eslint-disable-next-line no-console
+      console.log('Error:', err);
+      return {
+        products: undefined,
+        productsCapIds: [],
+      };
+    });
 }
 
 export function getCarDerivatives(
@@ -107,6 +132,48 @@ export function getCarDerivatives(
   }
   return { data: undefined };
 }
+
+export const evOffersRequest = async (
+  client: ApolloClient<any>,
+): Promise<IEvOffersData> => {
+  const [
+    { products: productsEvVan, productsCapIds: productsEvVanCapIds },
+    { products: productsEvCar, productsCapIds: productsEvCarIds },
+  ] = await Promise.all([
+    getProductCardContent(client, VehicleTypeEnum.LCV, '', '', [
+      'Electric',
+      'PetrolAndPlugInElectricHybrid',
+    ]),
+    getProductCardContent(client, VehicleTypeEnum.CAR, '', '', [
+      'Electric',
+      'DieselAndElectricHybrid',
+      'PetrolAndPlugInElectricHybrid',
+      'DieselAndPlugInElectricHybrid',
+      'Hybrid',
+    ]),
+  ]);
+
+  const [
+    { data: productsEvVanDerivatives },
+    { data: productsEvCarDerivatives },
+  ] = await Promise.all([
+    getCarDerivatives(client, VehicleTypeEnum.LCV, productsEvVanCapIds),
+    getCarDerivatives(client, VehicleTypeEnum.CAR, productsEvCarIds),
+  ]);
+
+  const vehicleListUrlData = await getVehicleListUrlQuery(client, [
+    ...productsEvVanCapIds,
+    ...productsEvCarIds,
+  ]);
+
+  return {
+    productsEvVan,
+    productsEvCar,
+    productsEvVanDerivatives,
+    productsEvCarDerivatives,
+    vehicleListUrlData,
+  };
+};
 
 export const specialOffersRequest = async (
   client: ApolloClient<any>,
@@ -292,6 +359,14 @@ export const pickupsPageOffersRequest = async (
     vehicleListUrlData,
   };
 };
+
+export interface IEvOffersData {
+  productsEvVan?: ProductCardData;
+  productsEvCar?: ProductCardData;
+  productsEvVanDerivatives?: GetDerivatives;
+  productsEvCarDerivatives?: GetDerivatives;
+  vehicleListUrlData: IVehicleList;
+}
 
 export interface ISpecialOffersData {
   productsVan?: ProductCardData;

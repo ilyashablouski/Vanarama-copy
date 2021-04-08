@@ -354,6 +354,7 @@
             @include mobile {
               margin: 2px 0;
               font-size: 3.125rem;
+              height: 3.5rem;
             }
 
             @include tablet-desktop {
@@ -393,6 +394,27 @@
         @include mobile {
           @include padding-block($rem-400);
           grid-column: content;
+        }
+
+        &-details {
+          display: flex;
+          justify-content: space-between;
+
+          .pdp--brochure {
+            @include mobile {
+              display: none;
+            }
+          }
+
+          @include desktop {
+            margin-top: $rem-500;
+            margin-bottom: $rem-200;
+          }
+
+          @include mobile {
+            margin-top: 0;
+            justify-content: center;
+          }
         }
 
         &-fullwidth {

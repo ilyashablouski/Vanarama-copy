@@ -14,6 +14,7 @@ import SearchActions from './SearchActions';
 import { useCompanyProfile } from '../../containers/CompanyDetailsFormContainer/gql';
 import { sicCodes_sicCodes_sicData as ISicData } from '../../../generated/sicCodes';
 import Skeleton from '../Skeleton';
+import { NATURE_OF_BUSINESS_SEPARATOR } from '../../models/enum/OlafVariables';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -62,7 +63,9 @@ const CompanyDetailsForm: React.FC<IProps> = ({
       methods.reset(company);
       setSelectedCompanyData(company?.companySearchResult);
       setHasConfirmedCompany(true);
-      setNatureOfBusiness(company.nature?.split('.') || []);
+      setNatureOfBusiness(
+        company.nature?.split(NATURE_OF_BUSINESS_SEPARATOR) || [],
+      );
       methods.setValue(
         'registeredAddress',
         {
@@ -139,7 +142,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
           uuid: company?.uuid,
           companySearchResult: values.companySearchResult ?? proceedCompany,
           inputMode,
-          nature: applyedNatureOfBusiness.join('.'),
+          nature: applyedNatureOfBusiness.join(NATURE_OF_BUSINESS_SEPARATOR),
         }),
       )}
     >

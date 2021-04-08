@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/camelcase */
+
 import Cookies from 'js-cookie';
 import localForage from 'localforage';
 import { sha256 } from 'js-sha256';
@@ -111,7 +111,7 @@ const PRICE_TYPE = {
   incVAT: 'Including VAT',
 };
 
-export const pushPageViewEvent = (path: string, title = '') => {
+export const pushPageViewEvent = async (path: string, title = '') => {
   window.dataLayer?.push({
     event: 'pageview',
     page: {

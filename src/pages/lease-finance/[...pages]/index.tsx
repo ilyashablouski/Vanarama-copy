@@ -14,8 +14,12 @@ import {
   PageCollectionVariables,
 } from '../../../../generated/PageCollection';
 import Head from '../../../components/Head/Head';
+import { decodeData, encodeData } from '../../../utils/data';
 
-const EligibilityChecker: NextPage<IGenericPage> = ({ data }) => {
+const EligibilityChecker: NextPage<IGenericPage> = ({ data: encodedData }) => {
+  // De-obfuscate data for user
+  const data = decodeData(encodedData);
+
   if (!data?.genericPage) {
     return <></>;
   }
@@ -127,7 +131,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
+        data: encodeData(data),
       },
     };
   } catch (err) {

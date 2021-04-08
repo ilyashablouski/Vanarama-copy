@@ -1,22 +1,34 @@
 import { gql } from '@apollo/client';
 
-export const PRODUCTS_FILTER_LIST = gql`
-  query ProductVehicleList(
-    $filter: ProductVehicleListInputObject
-    $first: Int
+export const HELP_ME_CHOOSE = gql`
+  query HelpMeChoose(
+    $filter: FilterListObject
+    $pagination: PaginationInputObject
+    $sort: [SortObject!]
   ) {
-    productVehicleList(filter: $filter, first: $first) {
-      totalCount
-      nodesCount
-      totalVehicles
-      afterKey
-      pageInfo {
-        endCursor
-        startCursor
-        hasPreviousPage
-        hasNextPage
+    helpMeChoose(filter: $filter, pagination: $pagination, sort: $sort) {
+      vehicles {
+        financeType
+        vehicleType
+        manufacturerName
+        modelName
+        rental
+        initialPayment
+        rangeName
+        transmission
+        fuelType
+        capBodyStyle
+        term
+        mileage
+        availability
+        derivativeId
+        derivativeName
+        onOffer
+        lqUrl
+        url
       }
-      aggs {
+      aggregation {
+        totalVehicles
         financeType {
           key
           docCount
@@ -62,31 +74,8 @@ export const PRODUCTS_FILTER_LIST = gql`
           docCount
         }
       }
-      edges {
-        cursor
-        node {
-          lqUrl
-          url
-          financeType
-          vehicleType
-          manufacturerName
-          modelName
-          rental
-          initialPayment
-          rangeName
-          transmission
-          fuelType
-          capBodyStyle
-          term
-          mileage
-          availability
-          derivativeId
-          derivativeName
-          availability
-        }
-      }
     }
   }
 `;
 
-export default PRODUCTS_FILTER_LIST;
+export default HELP_ME_CHOOSE;

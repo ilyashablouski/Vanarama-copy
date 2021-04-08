@@ -19,6 +19,7 @@ const ComporatorTable: React.FC<IComparatorTable> = ({
   criterias,
   addVehicle,
   viewOffer,
+  isNotEmptyPage,
 }) => {
   const [index, setIndex] = useState(0);
   const columns = Array(MAX_AMOUNT_VEHICLES).fill('');
@@ -68,13 +69,15 @@ const ComporatorTable: React.FC<IComparatorTable> = ({
             />
           ),
       )}
-      <ComparatorRow
-        index={index}
-        setIndex={setIndex}
-        columns={columns}
-        priceValues={priceValues?.values}
-        viewOffer={capId => viewOffer && viewOffer(capId)}
-      />
+      {isNotEmptyPage && (
+        <ComparatorRow
+          index={index}
+          setIndex={setIndex}
+          columns={columns}
+          priceValues={priceValues?.values}
+          viewOffer={capId => viewOffer && viewOffer(capId)}
+        />
+      )}
     </div>
   );
 };

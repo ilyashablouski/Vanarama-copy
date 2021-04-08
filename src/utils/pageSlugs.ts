@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable import/prefer-default-export */
 import { BlogPosts_blogPosts } from '../../generated/BlogPosts';
 import {
@@ -13,7 +12,7 @@ export const getBlogPaths = (
 ) => {
   const slugs = blogPosts?.articles
     // NOTE: Filter out draft/unpublished articles
-    ?.filter(article => article?.publishedOn !== null)
+    ?.filter(article => article?.metaData?.publishedOn !== null)
     .map(article => article?.slug?.split('/').pop());
   slugs?.forEach((slug, index) => {
     if (!slug) {
