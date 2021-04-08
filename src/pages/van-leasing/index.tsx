@@ -501,23 +501,16 @@ export const VansPage: NextPage<IProps> = ({
         )}`}
       >
         {data?.hubVanPage?.sections?.featured1?.video ? (
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
+          <Media
+            src={
+              getSectionsData(
+                ['featured1', 'video'],
+                data?.hubVanPage.sections,
+              ) || ''
             }
-          >
-            <Media
-              src={
-                getSectionsData(
-                  ['featured1', 'video'],
-                  data?.hubVanPage.sections,
-                ) || ''
-              }
-              width="100%"
-              height="360px"
-            />
-          </LazyLoadComponent>
+            width="100%"
+            height="360px"
+          />
         ) : (
           <Image
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
