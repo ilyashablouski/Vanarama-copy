@@ -105,6 +105,7 @@ interface IProps {
   isTransmissionPage?: boolean;
   isFuelPage?: boolean;
   isBudgetPage?: boolean;
+  isEvPage?: boolean;
   pageData?: GenericPageQuery;
   metaData: PageMetaData;
   topInfoSection?: sections | null;
@@ -138,6 +139,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   isTransmissionPage,
   isFuelPage,
   isBudgetPage,
+  isEvPage,
   pageData: pageDataSSR,
   metaData: metaDataSSR,
   topInfoSection,
@@ -1132,7 +1134,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   navigator?.vendor === 'Apple Computer, Inc.'
                 }
               >
-                <div className="row:text -columns">
+                <div className={`row:text ${isEvPage ? '-columns' : ''}`}>
                   <ReactMarkdown
                     className="markdown"
                     source={pageData?.genericPage.body || ''}
