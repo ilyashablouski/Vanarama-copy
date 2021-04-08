@@ -558,7 +558,8 @@ describe('B2B Company Details page', () => {
     // Type a search term and wait for the results to load
     typeIntoSearchField('INACTIVE LTD');
     await waitFor(() => expect(inactiveQueryMock).toHaveBeenCalledTimes(1));
-
+    const field = screen.getByRole('textbox', { name: /Company Lookup/i });
+    fireEvent.focus(field);
     // Click the inactive company result
     fireEvent.click(screen.getByText(/INACTIVE LTD/i));
 

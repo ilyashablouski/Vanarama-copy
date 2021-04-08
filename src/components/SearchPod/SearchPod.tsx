@@ -32,7 +32,7 @@ const TabPanels = dynamic(() => import('core/molecules/tabs/TabPanels'), {
   loading: () => <Skeleton count={3} />,
 });
 
-enum typeToIndex {
+enum TypeToIndex {
   'Vans' = 1,
   'Cars',
 }
@@ -64,7 +64,7 @@ const SearchPod = ({
           {isHomePage &&
             config.map(({ tabName, type }) => (
               <Tab
-                index={parseInt(typeToIndex[type as any], 10)}
+                index={parseInt(TypeToIndex[type as any], 10)}
                 key={`${tabName}-tab`}
                 dataTestId={`${tabName}tab`}
               >
@@ -75,7 +75,7 @@ const SearchPod = ({
         <TabPanels dataTestId="tabPanels">
           {config.map(tab => (
             <TabPanel
-              index={parseInt(typeToIndex[tab.type as any], 10)}
+              index={parseInt(TypeToIndex[tab.type as any], 10)}
               className="hero-card--inner"
               key={`${tab.tabName}-panels`}
               dataTestId={`${tab.tabName}-panel`}

@@ -228,7 +228,7 @@ export const ssrCMSQueryExecutor = async (
 
 // get Caps ids for product card request
 export const getCapsIds = (data: (IVehicles | null)[]) =>
-  data.map(vehicle => vehicle?.node?.derivativeId || '') || [];
+  data?.map(vehicle => vehicle?.node?.derivativeId || '') || [];
 
 export const dynamicQueryTypeCheck = (value: string) => {
   // check for bodystyle page

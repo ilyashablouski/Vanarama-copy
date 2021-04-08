@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';

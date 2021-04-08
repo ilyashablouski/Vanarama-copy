@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import ChevronDownSharp from 'core/assets/icons/ChevronDownSharp';
 import ChevronUpSharp from 'core/assets/icons/ChevronUpSharp';
 import Button from 'core/atoms/button';

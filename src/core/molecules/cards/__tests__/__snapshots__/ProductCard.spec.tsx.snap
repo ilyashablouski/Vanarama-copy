@@ -28,7 +28,7 @@ exports[`<ProductCard /> Product Card should render correctly 1`] = `
   <div
     className="card-footer"
   >
-    <Memo([object Object])
+    <Memo(ForwardRef(Button))
       color="dark"
       fill="clear"
       iconPosition="before"

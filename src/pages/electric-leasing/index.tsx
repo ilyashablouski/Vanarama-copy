@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { useState } from 'react';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';

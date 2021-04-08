@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';

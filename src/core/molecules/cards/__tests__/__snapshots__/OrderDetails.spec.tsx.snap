@@ -120,7 +120,7 @@ exports[`<OrderCard /> should render correctly 1`] = `
       separator="."
       size="large"
     />
-    <Memo([object Object])
+    <Memo(ForwardRef(Button))
       color="teal"
       fill="solid"
       label="View Order"

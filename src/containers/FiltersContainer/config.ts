@@ -1,4 +1,4 @@
-export enum filterFields {
+export enum FilterFields {
   make = 'make',
   model = 'model',
   from = 'from',
@@ -14,8 +14,8 @@ export const filtersConfig = [
     accessor: '',
     contentType: 'dropdowns',
     dropdowns: [
-      { label: 'Make', accessor: filterFields.make },
-      { label: 'Model', accessor: filterFields.model },
+      { label: 'Make', accessor: FilterFields.make },
+      { label: 'Model', accessor: FilterFields.model },
     ],
   },
   {
@@ -23,23 +23,23 @@ export const filtersConfig = [
     accessor: 'budget',
     contentType: 'dropdowns',
     dropdowns: [
-      { label: 'Price From', accessor: filterFields.from },
-      { label: 'Price To', accessor: filterFields.to },
+      { label: 'Price From', accessor: FilterFields.from },
+      { label: 'Price To', accessor: FilterFields.to },
     ],
   },
   {
     label: 'Body Type',
-    accessor: filterFields.bodyStyles,
+    accessor: FilterFields.bodyStyles,
     contentType: 'multiSelect',
   },
   {
     label: 'Transmission',
-    accessor: filterFields.transmissions,
+    accessor: FilterFields.transmissions,
     contentType: 'multiSelect',
   },
   {
     label: 'Fuel Type',
-    accessor: filterFields.fuelTypes,
+    accessor: FilterFields.fuelTypes,
     contentType: 'multiSelect',
   },
 ];

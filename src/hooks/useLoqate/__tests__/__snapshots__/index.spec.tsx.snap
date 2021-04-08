@@ -2,6 +2,41 @@
 
 exports[`useLoqate hook should fetch results correctly 1`] = `
 Object {
+  "all": Array [
+    Object {
+      "data": Array [],
+      "error": undefined,
+      "loading": false,
+    },
+    Object {
+      "data": Array [],
+      "error": undefined,
+      "loading": true,
+    },
+    Object {
+      "data": Array [],
+      "error": undefined,
+      "loading": false,
+    },
+    Object {
+      "data": Array [
+        Object {
+          "description": "Fakenham",
+          "id": "1",
+          "text": "123 Fake Street",
+          "type": "Address",
+        },
+        Object {
+          "description": "Fakenham",
+          "id": "2",
+          "text": "Fakenham Town Hall",
+          "type": "Address",
+        },
+      ],
+      "error": undefined,
+      "loading": false,
+    },
+  ],
   "current": Object {
     "data": Array [
       Object {
@@ -26,6 +61,23 @@ Object {
 
 exports[`useLoqate hook should return an error if the fetch fails 1`] = `
 Object {
+  "all": Array [
+    Object {
+      "data": Array [],
+      "error": undefined,
+      "loading": false,
+    },
+    Object {
+      "data": Array [],
+      "error": undefined,
+      "loading": true,
+    },
+    Object {
+      "data": Array [],
+      "error": "API request to Loqate failed with status code undefined",
+      "loading": true,
+    },
+  ],
   "current": Object {
     "data": Array [],
     "error": "API request to Loqate failed with status code undefined",
