@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';

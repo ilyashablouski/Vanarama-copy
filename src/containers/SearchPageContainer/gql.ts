@@ -104,7 +104,7 @@ export const GET_VEHICLE_LIST = gql`
 export function useVehiclesList(
   vehicleTypes: VehicleTypeEnum[],
   leaseType: LeaseTypeEnum,
-  onOffer = false,
+  onOffer?: boolean | null,
   onCompleted?: (data: vehicleList) => void,
   first = 12,
   after?: string,

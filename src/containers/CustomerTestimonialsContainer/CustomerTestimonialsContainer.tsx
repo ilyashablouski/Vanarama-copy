@@ -107,8 +107,8 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
           {title}
         </Heading>
         <br />
-        {testimonials?.map((item, idx) => (
-          <div className="review" key={idx}>
+        {testimonials?.map(item => (
+          <div className="review" key={item?.name + item?.date}>
             <Initials fullName={item?.name || ''} />
             <Heading size="regular" color="black">
               {item?.whyLease}
@@ -178,9 +178,9 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
           >
             {sections?.tiles1?.name}
           </Heading>
-          {sections?.tiles1?.tiles?.map((tile, key) => {
+          {sections?.tiles1?.tiles?.map(tile => {
             return (
-              <div key={`Tile1_${key}`}>
+              <div key={`Tile1_${tile.title}`}>
                 <Tile className="-plain -button -align-center" plain>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Image

@@ -133,7 +133,7 @@ export const getVehicleConfigurationPath = (path: string) => {
   return path.split('?')[0].replace(/^(\/)/, match => match.slice(1));
 };
 
-export type productPageUrlData = {
+export type ProductPageUrlData = {
   manufacturer: string | null;
   range: string | null;
   slug: string | null;

@@ -4,6 +4,12 @@ module.exports = api => {
   const presets = [
     'next/babel',
     ['@babel/preset-typescript', { isTSX: true, allExtensions: true }],
+    [
+      '@babel/preset-react',
+      {
+        runtime: 'automatic',
+      },
+    ],
   ];
 
   const plugins = [

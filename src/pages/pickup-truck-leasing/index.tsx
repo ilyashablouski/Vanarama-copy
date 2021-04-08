@@ -241,7 +241,7 @@ export const PickupsPage: NextPage<IProps> = ({
             );
             return (
               <LazyLoadComponent
-                key={`${item?.capId}_${idx}`}
+                key={item?.capId || idx}
                 visibleByDefault={
                   typeof window === 'undefined' ||
                   navigator?.vendor === 'Apple Computer, Inc.'
