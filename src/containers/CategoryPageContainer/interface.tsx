@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import {
   GenericPageQuery_genericPage_sections_carousel,
   GenericPageQuery_genericPage_featuredImage,

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 /* eslint-disable import/prefer-default-export */
 import { BlogPosts_blogPosts } from '../../generated/BlogPosts';
 import {

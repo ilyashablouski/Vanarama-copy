@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { getOrderList } from '../../utils/helpers';

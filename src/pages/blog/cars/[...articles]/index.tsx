@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
 import withApollo from '../../../../hocs/withApollo';

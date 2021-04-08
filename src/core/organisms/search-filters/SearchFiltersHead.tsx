@@ -12,6 +12,7 @@ const SearchFiltersHead: FC<ISearchFiltersHeadProps> = ({
     <div
       className={cx('search-filters--title', className)}
       role="heading"
+      aria-level={3}
       onClick={onClick}
     >
       {children}

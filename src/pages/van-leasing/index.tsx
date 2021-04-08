@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';

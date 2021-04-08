@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
 import React, { Dispatch, SetStateAction } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';

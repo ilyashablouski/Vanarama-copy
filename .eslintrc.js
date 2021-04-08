@@ -11,9 +11,12 @@ module.exports = {
   parserOptions: {
     project: './tsconfig.json',
   },
+  ignorePatterns: ['.eslintrc.js'],
   rules: {
+    "@typescript-eslint/camelcase": 0,
     'react/react-in-jsx-scope': 0,
     'react/prop-types': 0,
+    'react/require-default-props': 0,
     'react/static-property-placement': 0,
     'jsx-a11y/anchor-is-valid': ['error', { components: ['a'] }],
     'react-hooks/rules-of-hooks': 'error',
@@ -37,6 +40,7 @@ module.exports = {
         'jsx-a11y/click-events-have-key-events': 0,
         'jsx-a11y/interactive-supports-focus': 0,
         'jsx-a11y/label-has-associated-control': 0,
+        "@typescript-eslint/camelcase": 0,
       },
     },
     {
@@ -45,6 +49,7 @@ module.exports = {
         'react/jsx-props-no-spreading': 0,
         'react/state-in-constructor': 0,
         'react/react-in-jsx-scope': 0,
+        "@typescript-eslint/camelcase": 0,
       },
     },
   ],
