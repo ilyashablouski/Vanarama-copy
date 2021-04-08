@@ -79,7 +79,7 @@ export const EVHubPage: NextPage<IProps> = ({
   productsEvCarDerivatives,
   vehicleListUrlData,
 }) => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(1);
   const { cachedLeaseType } = useLeaseType(null);
 
   const optimisationOptions = {
@@ -188,7 +188,8 @@ export const EVHubPage: NextPage<IProps> = ({
                     data={{
                       derivatives:
                         productsEvVanDerivatives?.derivatives || null,
-                      productCard: productsEvVan?.productCarousel || null,
+                      productCard:
+                        productsEvVan?.productCarousel?.slice(0, 6) || null,
                       vehicleList: vehicleListUrlData,
                     }}
                     countItems={productsEvVan?.productCarousel?.length || 6}
@@ -237,7 +238,8 @@ export const EVHubPage: NextPage<IProps> = ({
                     data={{
                       derivatives:
                         productsEvCarDerivatives?.derivatives || null,
-                      productCard: productsEvCar?.productCarousel || null,
+                      productCard:
+                        productsEvCar?.productCarousel?.slice(0, 6) || null,
                       vehicleList: vehicleListUrlData,
                     }}
                     countItems={productsEvCar?.productCarousel?.length || 6}
