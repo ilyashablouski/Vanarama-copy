@@ -128,126 +128,119 @@ const ECarsPage: NextPage<IProps> = ({
   );
 
   const CardsSection = () => (
-    <LazyLoadComponent
-      visibleByDefault={
-        typeof window === 'undefined' ||
-        navigator?.vendor === 'Apple Computer, Inc.'
-      }
-    >
-      <section className="row:bg-lighter">
-        <div className="row:cards-3col">
-          {productsElectricOnlyCar?.productCarousel
-            ?.slice(0, 6)
-            .map((item, idx) => {
-              const productUrl = formatProductPageUrl(
-                getLegacyUrl(vehicleListUrlData.edges, item?.capId),
-                item?.capId,
-              );
-              return (
-                <ProductCard
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  key={item?.capId || idx}
-                  header={{
-                    accentIcon: <Icon icon={<Flame />} color="white" />,
-                    accentText: item?.isOnOffer ? 'Hot Deal' : '',
-                    text: item?.leadTime || '',
-                  }}
-                  features={features(
-                    item?.keyInformation || [],
-                    item?.capId || '',
-                    Icon,
-                  )}
-                  imageSrc={
-                    item?.imageUrl ||
-                    `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                  }
-                  onWishlist={() => true}
-                  title={{
-                    title: '',
-                    link: (
-                      <RouterLink
-                        link={{
-                          href: productUrl?.url,
-                          label: '',
-                        }}
-                        onClick={() =>
-                          sessionStorage.setItem('capId', item?.capId || '')
-                        }
-                        className="heading"
-                        classNames={{ size: 'large', color: 'black' }}
-                      >
-                        <Heading tag="span" size="large" className="-pb-100">
-                          {truncateString(
-                            `${item?.manufacturerName} ${item?.modelName}`,
-                          )}
-                        </Heading>
-                        <Heading tag="span" size="small" color="dark">
-                          {item?.derivativeName || ''}
-                        </Heading>
-                      </RouterLink>
-                    ),
-                    score: item?.averageRating || 5,
-                  }}
-                >
-                  <div className="-flex-h">
-                    <Price
-                      price={item?.businessRate}
-                      size="large"
-                      separator="."
-                      priceDescription="Per Month Exc.VAT"
-                    />
+    <section className="row:bg-lighter">
+      <div className="row:cards-3col">
+        {productsElectricOnlyCar?.productCarousel
+          ?.slice(0, 6)
+          .map((item, idx) => {
+            const productUrl = formatProductPageUrl(
+              getLegacyUrl(vehicleListUrlData.edges, item?.capId),
+              item?.capId,
+            );
+            return (
+              <ProductCard
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                key={item?.capId || idx}
+                header={{
+                  accentIcon: <Icon icon={<Flame />} color="white" />,
+                  accentText: item?.isOnOffer ? 'Hot Deal' : '',
+                  text: item?.leadTime || '',
+                }}
+                features={features(
+                  item?.keyInformation || [],
+                  item?.capId || '',
+                  Icon,
+                )}
+                imageSrc={
+                  item?.imageUrl ||
+                  `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+                }
+                onWishlist={() => true}
+                title={{
+                  title: '',
+                  link: (
                     <RouterLink
                       link={{
                         href: productUrl?.url,
-                        label: 'View Offer',
+                        label: '',
                       }}
                       onClick={() =>
                         sessionStorage.setItem('capId', item?.capId || '')
                       }
-                      classNames={{
-                        color: 'teal',
-                        solid: true,
-                        size: 'regular',
-                      }}
-                      className="button"
-                      dataTestId="view-offer"
+                      className="heading"
+                      classNames={{ size: 'large', color: 'black' }}
                     >
-                      <div className="button--inner">View Offer</div>
+                      <Heading tag="span" size="large" className="-pb-100">
+                        {truncateString(
+                          `${item?.manufacturerName} ${item?.modelName}`,
+                        )}
+                      </Heading>
+                      <Heading tag="span" size="small" color="dark">
+                        {item?.derivativeName || ''}
+                      </Heading>
                     </RouterLink>
-                  </div>
-                </ProductCard>
-              );
-            })}
-        </div>
-        <div className="-justify-content-row -pt-500">
-          <RouterLink
-            className="button"
-            classNames={{
-              color: 'teal',
-              solid: true,
-              size: 'regular',
-            }}
-            link={{
-              label: 'View Latest Electric Car Deals',
-              href: '/car-leasing/search',
-              query: {
-                fuelTypes: [
-                  'petrol/electric hybrid',
-                  'petrol/plugin elec hybrid',
-                  'Electric',
-                  'diesel/plugin elec hybrid',
-                  'hydrogen fuel cell',
-                ],
-              },
-            }}
-            withoutDefaultClassName
-            dataTestId="view-all-electric-cars"
-          >
-            <div className="button--inner">View Latest Electric Car Deals</div>
-          </RouterLink>
-        </div>
-      </section>
-    </LazyLoadComponent>
+                  ),
+                  score: item?.averageRating || 5,
+                }}
+              >
+                <div className="-flex-h">
+                  <Price
+                    price={item?.businessRate}
+                    size="large"
+                    separator="."
+                    priceDescription="Per Month Exc.VAT"
+                  />
+                  <RouterLink
+                    link={{
+                      href: productUrl?.url,
+                      label: 'View Offer',
+                    }}
+                    onClick={() =>
+                      sessionStorage.setItem('capId', item?.capId || '')
+                    }
+                    classNames={{
+                      color: 'teal',
+                      solid: true,
+                      size: 'regular',
+                    }}
+                    className="button"
+                    dataTestId="view-offer"
+                  >
+                    <div className="button--inner">View Offer</div>
+                  </RouterLink>
+                </div>
+              </ProductCard>
+            );
+          })}
+      </div>
+      <div className="-justify-content-row -pt-500">
+        <RouterLink
+          className="button"
+          classNames={{
+            color: 'teal',
+            solid: true,
+            size: 'regular',
+          }}
+          link={{
+            label: 'View Latest Electric Car Deals',
+            href: '/car-leasing/search',
+            query: {
+              fuelTypes: [
+                'petrol/electric hybrid',
+                'petrol/plugin elec hybrid',
+                'Electric',
+                'diesel/plugin elec hybrid',
+                'hydrogen fuel cell',
+              ],
+            },
+          }}
+          withoutDefaultClassName
+          dataTestId="view-all-electric-cars"
+        >
+          <div className="button--inner">View Latest Electric Car Deals</div>
+        </RouterLink>
+      </div>
+    </section>
   );
 
   interface ISection {
