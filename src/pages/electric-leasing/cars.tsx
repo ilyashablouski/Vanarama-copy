@@ -372,6 +372,7 @@ const ECarsPage: NextPage<IProps> = ({
     <>
       <HeroSection />
       <HeadingSection />
+      <CardsSection />
       {featuresArray.map(({ title, body, image, titleTag, video }, index) => (
         <Section
           index={index}
