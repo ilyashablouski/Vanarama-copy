@@ -12,6 +12,11 @@ import {
   GetDirectorDetailsQuery,
   GetDirectorDetailsQueryVariables,
 } from '../../../generated/GetDirectorDetailsQuery';
+import { FunderCompanyTypeEnum } from '../../../generated/globalTypes';
+import {
+  FunderDirectors,
+  FunderDirectorsVariables,
+} from '../../../generated/FunderDirectors';
 
 /**
  * NOTE: Unfotunately, it is not possible to get the officers for a company using only
@@ -99,6 +104,35 @@ export function useCompanyOfficers(companyNumber: string) {
         companyNumber,
       },
       skip: !companyNumber,
+    },
+  );
+}
+
+export const FUNDER_DIRECTORS_QUERY = gql`
+  query FunderDirectors($input: FunderInputObject!) {
+    funderDirectors(input: $input) {
+      id
+      funderData
+    }
+  }
+`;
+
+export function useFunderDirectors(
+  id: string = '',
+  companiesHouseDirectors: number = 0,
+  companyType: FunderCompanyTypeEnum = FunderCompanyTypeEnum.limited,
+) {
+  return useQuery<FunderDirectors, FunderDirectorsVariables>(
+    FUNDER_DIRECTORS_QUERY,
+    {
+      variables: {
+        input: {
+          companiesHouseDirectors,
+          companyType,
+          id,
+        },
+      },
+      skip: Boolean(!companiesHouseDirectors || !companyType || !id),
     },
   );
 }

@@ -7,6 +7,7 @@ import {
   GET_COMPANY_DIRECTOR_DETAILS,
   SAVE_DIRECTOR_DETAILS,
   GET_DIRECTOR_DETAILS,
+  FUNDER_DIRECTORS_QUERY,
 } from '../../../../containers/DirectorDetailsFormContainer/gql';
 import {
   GetCompanyDirectorDetailsQueryVariables,
@@ -41,6 +42,30 @@ jest.mock('next/router', () => ({
 }));
 
 const updateCreditApplication = makeGetCreditApplicationMock(MOCK_ORDER_UUID);
+
+const getValidationParams: MockedResponse = {
+  request: {
+    query: FUNDER_DIRECTORS_QUERY,
+    variables: {
+      input: {
+        companiesHouseDirectors: 3,
+        companyType: 'partnership',
+        id: '',
+      },
+    },
+  },
+  result: {
+    data: {
+      funderDirectors: {
+        id: '2',
+        funderData: {
+          percentage_shares: '25',
+          num_of_directors: '1',
+        },
+      },
+    },
+  },
+};
 
 const getCompanyMock: MockedResponse = {
   request: {
@@ -158,6 +183,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -189,6 +215,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -230,6 +257,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -281,6 +309,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -327,6 +356,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -385,6 +415,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -452,6 +483,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -501,6 +533,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -544,6 +577,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -609,6 +643,7 @@ describe('B2B Director Details page', () => {
       // indeed called twice
       multiDirectorMock,
       multiDirectorMock,
+      getValidationParams,
       {
         request: {
           query: SAVE_DIRECTOR_DETAILS,
@@ -730,6 +765,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -779,6 +815,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -826,6 +863,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -869,6 +907,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -913,6 +952,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
@@ -952,6 +992,7 @@ describe('B2B Director Details page', () => {
           multiDirectorMock,
           multiDirectorMock,
           updateCreditApplication,
+          getValidationParams,
         ]}
       >
         <DirectorDetailsPage />
