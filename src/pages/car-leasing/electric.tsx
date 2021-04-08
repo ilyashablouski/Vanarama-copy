@@ -39,6 +39,7 @@ const Page: NextPage<IProps> = ({
     <SearchPageContainer
       isServer={isServer}
       isSpecialOfferPage
+      isEvPage
       isCarSearch
       pageData={decodeData(pageData)}
       metaData={metaData}
