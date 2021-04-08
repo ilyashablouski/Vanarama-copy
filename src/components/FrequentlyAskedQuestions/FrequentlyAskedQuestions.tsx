@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { GetVehicleDetails_vehicleDetails_rangeFaqs } from '../../../generated/GetVehicleDetails';

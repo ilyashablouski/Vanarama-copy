@@ -26,15 +26,6 @@ interface IProps {
   breadcrumbsData: any;
 }
 
-interface IValues {
-  fullName: string;
-  email: string;
-  phoneNumber: string;
-  postcode: string;
-  consent: boolean;
-  termsAndCons: boolean;
-}
-
 export const handleNetworkError = () =>
   toast.error(
     'Sorry there seems to be an issue with your request. Pleaser try again in a few moments',

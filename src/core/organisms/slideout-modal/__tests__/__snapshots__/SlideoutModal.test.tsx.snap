@@ -4,7 +4,7 @@ exports[`<SlideoutModal /> should render correctly with search filters 1`] = `
 <div
   className="slideout-modal-wrapper"
 >
-  <Memo([object Object])
+  <Memo(ForwardRef(Button))
     className="slideout-modal--trigger"
     color="teal"
     fill="solid"
@@ -23,7 +23,7 @@ exports[`<SlideoutModal /> should render correctly with selected filters 1`] = `
 <div
   className="slideout-modal-wrapper"
 >
-  <Memo([object Object])
+  <Memo(ForwardRef(Button))
     className="slideout-modal--trigger"
     color="teal"
     fill="solid"

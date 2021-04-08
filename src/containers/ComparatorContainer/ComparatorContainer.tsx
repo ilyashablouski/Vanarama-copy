@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState, useContext } from 'react';
 import ComparatorTable from 'core/organisms/comparator-table';

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { PersonInputObject } from '../../../generated/globalTypes';
 import { IAboutFormValues } from '../../components/AboutForm/interface';
 import { RegisterForTemporaryAccess_registerForTemporaryAccess as IRegistrationResult } from '../../../generated/RegisterForTemporaryAccess';

@@ -23,7 +23,7 @@ exports[`<Search/> renders Intermediate state correctly  1`] = `
       type="text"
       value=""
     />
-    <Memo([object Object])
+    <Memo(ForwardRef(Button))
       className="search-close"
       fill="clear"
       label={
@@ -73,7 +73,7 @@ exports[`<Search/> renders default state correctly 1`] = `
       type="text"
       value=""
     />
-    <Memo([object Object])
+    <Memo(ForwardRef(Button))
       className="search-close"
       fill="clear"
       label={

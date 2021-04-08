@@ -1,4 +1,4 @@
-import { filterFields } from './config';
+import { FilterFields } from './config';
 import { IDynamicPageType, ISelectedFiltersState } from './interfaces';
 import {
   filterList_filterList_groupedRangesWithSlug_children as IFiltersChildren,
@@ -55,7 +55,7 @@ export const buildPreselectChoiseboxes = (
 ) => {
   if (
     (isPickups || isModelPage || isBodyPage) &&
-    accessor === filterFields.bodyStyles
+    accessor === FilterFields.bodyStyles
   )
     return [
       {
@@ -65,8 +65,8 @@ export const buildPreselectChoiseboxes = (
       },
     ];
   if (
-    (isFuelPage && accessor === filterFields.fuelTypes) ||
-    (isTransmissionPage && accessor === filterFields.transmissions)
+    (isFuelPage && accessor === FilterFields.fuelTypes) ||
+    (isTransmissionPage && accessor === FilterFields.transmissions)
   )
     return selectedFiltersState[accessor].map(value => ({
       label: value,

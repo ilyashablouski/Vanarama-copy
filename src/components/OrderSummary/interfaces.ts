@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { GetQuoteDetails_quoteByCapId } from '../../../generated/GetQuoteDetails';
 import {
   GetVehicleDetails_derivativeInfo_colours,
