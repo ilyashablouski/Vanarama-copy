@@ -54,7 +54,12 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
     onChangeSlide(activeSlide === images.length - 1 ? 0 : activeSlide + 1);
 
   return (
-    <div className="media-gallery" style={positionStyle}>
+    <div
+      className={cx('media-gallery', {
+        '-d-block': images.length === 1,
+      })}
+      style={positionStyle}
+    >
       <div className="media-gallery--x-scroll">
         <div className="media-gallery--x-track">
           {images.map((image, index) => (
@@ -95,27 +100,29 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
           </nav>
         )}
       </div>
-      <div className="media-gallery--y-scroll" ref={scroll}>
-        <div className="media-gallery--y-track" ref={yTrackRef}>
-          {images.map((image, index) => (
-            <div
-              role="list"
-              key={uniqid()}
-              className={cx('media-gallery--y-track-item', {
-                '-active': index === activeSlide,
-              })}
-              onClick={() => onChangeSlide(index)}
-            >
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                src={image}
-                size="xlarge"
-                alt={imageAltText}
-              />
-            </div>
-          ))}
+      {images.length > 1 && (
+        <div className="media-gallery--y-scroll" ref={scroll}>
+          <div className="media-gallery--y-track" ref={yTrackRef}>
+            {images.map((image, index) => (
+              <div
+                role="list"
+                key={uniqid()}
+                className={cx('media-gallery--y-track-item', {
+                  '-active': index === activeSlide,
+                })}
+                onClick={() => onChangeSlide(index)}
+              >
+                <Image
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  src={image}
+                  size="xlarge"
+                  alt={imageAltText}
+                />
+              </div>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </div>
   );
 });
