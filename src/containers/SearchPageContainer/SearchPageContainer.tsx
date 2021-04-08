@@ -1134,7 +1134,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   navigator?.vendor === 'Apple Computer, Inc.'
                 }
               >
-                <div className={`row:text ${isEvPage ? '-columns' : ''}`}>
+                <div className={`row:text ${!isEvPage ? '-columns' : ''}`}>
                   <ReactMarkdown
                     className="markdown"
                     source={pageData?.genericPage.body || ''}
