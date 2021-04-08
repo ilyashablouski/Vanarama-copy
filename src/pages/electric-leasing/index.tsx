@@ -208,7 +208,7 @@ export const EVHubPage: NextPage<IProps> = ({
                       label: 'View Latest Electric Van Deals',
                       href: '/van-leasing/search',
                       query: {
-                        fuelTypes: 'Electric,Petrol/plugin+Elec+Hybrid',
+                        fuelTypes: ['Electric', 'Petrol/plugin+Elec+Hybrid'],
                       },
                     }}
                     withoutDefaultClassName
@@ -259,8 +259,11 @@ export const EVHubPage: NextPage<IProps> = ({
                       label: 'View Latest Electric Car Deals',
                       href: '/car-leasing/search',
                       query: {
-                        fuelTypes:
-                          'Diesel/plugin+Elec+Hybrid,Electric,Petrol/plugin+Elec+Hybrid',
+                        fuelTypes: [
+                          'Diesel/plugin+Elec+Hybrid',
+                          'Electric',
+                          'Petrol/plugin+Elec+Hybrid',
+                        ],
                       },
                     }}
                     withoutDefaultClassName
