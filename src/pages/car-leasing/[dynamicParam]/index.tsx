@@ -147,7 +147,8 @@ const Page: NextPage<IProps> = ({
   );
 };
 export async function getServerSideProps(context: NextPageContext) {
-  const { query, req, res } = context;
+  const { query: ctxQuery, req, res } = context;
+  const query = { ...ctxQuery };
   const client = createApolloClient({}, context);
   let ranges;
   let rangesUrls;
