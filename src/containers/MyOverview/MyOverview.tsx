@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
 import { useApolloClient } from '@apollo/client';
 import React, { useState, CSSProperties, useEffect } from 'react';

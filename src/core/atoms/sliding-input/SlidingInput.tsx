@@ -1,4 +1,4 @@
-import React, { FC, useState, CSSProperties } from 'react';
+import React, { useState, CSSProperties } from 'react';
 import cx from 'classnames';
 import { ISlidingInputProps, ISlidingObject } from './interfaces';
 

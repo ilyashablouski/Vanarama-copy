@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-/* eslint-disable @typescript-eslint/camelcase */
+
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import { IKeyInformationItem } from './KeyInformation';

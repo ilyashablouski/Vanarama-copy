@@ -103,7 +103,7 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
             {cards?.map((el: Cards, ind: number) => (
               <Card
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={`${el?.title}_${ind}`}
+                key={`${el?.title}_${el?.name || ind}`}
                 title={{
                   title: el?.title || '',
                   link: (

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { createOlafDetails, getFunderTerm } from '../helpers';
 import {
   LeaseTypeEnum,

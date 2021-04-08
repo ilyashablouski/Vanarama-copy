@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { ApolloClient, DocumentNode } from '@apollo/client';
 import { GetStaticPropsContext } from 'next';
 import {

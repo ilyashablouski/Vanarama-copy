@@ -1,5 +1,5 @@
 /* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/camelcase */
+
 import Cookies from 'js-cookie';
 import localForage from 'localforage';
 import { sha256 } from 'js-sha256';

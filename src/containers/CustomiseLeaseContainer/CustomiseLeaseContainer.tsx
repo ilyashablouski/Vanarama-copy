@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import dynamic from 'next/dynamic';
 import React, { useState, useEffect, useRef } from 'react';
 import Modal from 'core/molecules/modal';

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { useLazyQuery } from '@apollo/client';
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
