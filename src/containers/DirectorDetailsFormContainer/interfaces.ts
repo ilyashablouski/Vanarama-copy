@@ -8,3 +8,9 @@ export interface IDirectorDetailsFormContainerProps {
   onCompleted: () => void;
   onError: (error: ApolloError) => void;
 }
+
+export interface IValidationParams {
+  id?: string | null;
+  numOfDirectors: number;
+  percentageShares: number;
+}

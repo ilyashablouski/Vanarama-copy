@@ -10,19 +10,23 @@ import {
   useGetCreditApplicationByOrderUuid,
 } from '../../gql/creditApplication';
 import {
+  useCompanyOfficers,
+  useFunderDirectors,
   useGetDirectorDetailsQuery,
   useSaveDirectorDetailsMutation,
-  useCompanyOfficers,
 } from './gql';
 import { IDirectorDetailsFormContainerProps } from './interfaces';
 import {
-  mapFormValues,
-  mapDirectorsDefaultValues,
   combineUpdatedDirectors,
+  mapDirectorsDefaultValues,
+  mapFormValues,
+  mapValidationParams,
 } from './mappers';
 import { parseOfficers } from '../../components/DirectorDetailsForm/helpers';
 import { isTruthy } from '../../utils/array';
 import Skeleton from '../../components/Skeleton';
+import { CompanyTypes } from '../../models/enum/CompanyTypes';
+import { FunderCompanyTypeEnum } from '../../../generated/globalTypes';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -58,9 +62,31 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   const funderId =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.lineItem?.vehicleProduct?.funderId;
+  const companyTypeLabel =
+    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
+      ?.aboutDetails?.company_type;
+  const companyType = useMemo(
+    () =>
+      companyTypeLabel === CompanyTypes.limited
+        ? FunderCompanyTypeEnum.limited
+        : FunderCompanyTypeEnum.partnership,
+    [companyTypeLabel],
+  );
+
+  const funderDirectorsQuery = useFunderDirectors(
+    funderId || undefined,
+    officersNodes.length,
+    companyType,
+  );
 
   const isEdit = useMemo(() => (directorsDetails?.directors || []).length > 0, [
     directorsDetails,
+  ]);
+
+  const funderDirectors = funderDirectorsQuery?.data?.funderDirectors;
+  const funderDirectorsId = funderDirectorsQuery?.data?.funderDirectors?.id;
+  const validationParams = useMemo(() => mapValidationParams(funderDirectors), [
+    funderDirectorsId,
   ]);
 
   const defaultValues = useMemo(() => {
@@ -94,9 +120,15 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       },
     });
 
-  if (getDirectorDetailsQuery?.error || companyOfficersQuery?.error) {
+  if (
+    getDirectorDetailsQuery?.error ||
+    companyOfficersQuery?.error ||
+    funderDirectorsQuery?.error
+  ) {
     const errorMessage = (
-      getDirectorDetailsQuery?.error || companyOfficersQuery?.error
+      getDirectorDetailsQuery?.error ||
+      companyOfficersQuery?.error ||
+      funderDirectorsQuery?.error
     )?.message;
     return <p>Error: {errorMessage}</p>;
   }
@@ -105,6 +137,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     getDirectorDetailsQuery?.loading ||
     getCreditApplicationByOrderUuidQuery?.loading ||
     companyOfficersQuery?.loading ||
+    funderDirectorsQuery?.loading ||
     !allDropDowns
   ) {
     return <Loading size="xlarge" />;
@@ -113,11 +146,11 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   return (
     <DirectorDetailsForm
       officers={officers}
-      funderId={funderId}
       isEdit={isEdit}
       directorUuid={directorUuid}
       defaultValues={defaultValues}
       dropdownData={allDropDowns}
+      validationParams={validationParams}
       onSubmit={async values => {
         await handleDirectorDetailsSave(values)
           .then(query =>
