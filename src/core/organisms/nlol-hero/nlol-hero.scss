@@ -109,6 +109,14 @@
       }
     }
   }
+  .nlol-higlighted-price {
+    h2 {
+      font-size: 2.4vw !important;
+      & span {
+        font-size: 4vw;
+      }
+    }
+  }
 }
 
 @media (max-width: 767px) {
@@ -142,6 +150,14 @@
       }
     }
   }
+  .nlol-higlighted-price {
+    h2 {
+      font-size: 1.3rem !important;
+      & span {
+        font-size: 2rem;
+      }
+    }
+  }
 }
 
 @media (max-width: 375px) {
@@ -151,6 +167,13 @@
   .nlol {
     h2 {
       font-size: 8.1vw;
+    }
+  }
+  .nlol-higlighted-price {
+    h2 {
+      & span {
+        font-size: 8.1vw;
+      }
     }
   }
 }
