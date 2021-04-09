@@ -158,7 +158,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadTopOffersCardsData,
   defaultSort,
 }: IProps) => {
-  const className = `row:text ${!isEvPage ? '-columns' : ''}`;
+  // assign here as when inline causing hook lint errors
+  const applyColumns = !isEvPage ? '-columns' : '';
 
   const client = useApolloClient();
   const router = useRouter();
@@ -1136,7 +1137,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   navigator?.vendor === 'Apple Computer, Inc.'
                 }
               >
-                <div className={className}>
+                <div className={`row:text ${applyColumns}`}>
                   <ReactMarkdown
                     className="markdown"
                     source={pageData?.genericPage.body || ''}
