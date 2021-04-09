@@ -158,6 +158,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadTopOffersCardsData,
   defaultSort,
 }: IProps) => {
+  const className = `row:text ${!isEvPage ? '-columns' : ''}`;
+
   const client = useApolloClient();
   const router = useRouter();
   const isDynamicFilterPage = useMemo(
@@ -1134,7 +1136,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   navigator?.vendor === 'Apple Computer, Inc.'
                 }
               >
-                <div className={`row:text ${!isEvPage ? '-columns' : ''}`}>
+                <div className={className}>
                   <ReactMarkdown
                     className="markdown"
                     source={pageData?.genericPage.body || ''}
