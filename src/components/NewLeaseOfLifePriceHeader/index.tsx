@@ -9,10 +9,10 @@ const wrapSpanAroundString = (text: string) => {
   const array: any = text.split(' ');
   const string = array.find((phrase: string) => phrase.includes('£'));
   const index = array.indexOf(string);
-  array[index] = `<span>${string}</span>`;
-  if (string.includes('+')) {
+  array[index] = `<span data-testid="price">${string}</span>`;
+  if (string?.includes('+')) {
     const newString = string.slice(0, -1);
-    array[index] = `<span>${newString}</span>+`;
+    array[index] = `<span data-testid="price">${newString}</span>+`;
   }
   return array.join(' ');
 };
