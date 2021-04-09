@@ -10,6 +10,7 @@ import FeaturedOnBanner from '../../components/FeaturedOnBanner';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
 import Head from '../../components/Head/Head';
 import { HeroEv as Hero, HeroPrompt } from '../../components/Hero';
+import NewLeaseOfLifePriceHeader from '../../components/NewLeaseOfLifePriceHeader';
 import { features } from '../../components/ProductCarousel/helpers';
 import Skeleton from '../../components/Skeleton';
 import TileLink from '../../components/TileLink/TileLink';
@@ -78,10 +79,10 @@ const ECarsPage: NextPage<IProps> = ({
   const HeroSection = () => (
     <Hero>
       <div className="hero--left">
-        <div className="nlol" style={{ left: 'auto' }}>
-          <p>{sections?.hero?.title}</p>
-          <h2>{sections?.hero?.body}</h2>
-        </div>
+        <NewLeaseOfLifePriceHeader
+          title={sections?.hero?.title}
+          body={sections?.hero?.body}
+        />
         {sections?.hero?.heroLabel?.[0]?.visible && (
           <HeroPrompt
             label={sections?.hero?.heroLabel?.[0]?.link?.text || ''}
