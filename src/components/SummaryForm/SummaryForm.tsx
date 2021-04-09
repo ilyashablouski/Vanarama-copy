@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { gql, useMutation } from '@apollo/client';
 import { useRouter } from 'next/router';
@@ -24,6 +24,7 @@ import {
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { useCreateUpdateCreditApplication } from '../../gql/creditApplication';
 import Skeleton from '../Skeleton';
+import RouterLink from '../RouterLink/RouterLink';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -35,6 +36,9 @@ const Form = dynamic(() => import('core/organisms/form'), {
   loading: () => <Skeleton count={1} />,
 });
 const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Modal = dynamic(() => import('core/molecules/modal'), {
   loading: () => <Skeleton count={1} />,
 });
 
@@ -70,6 +74,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
   orderId,
   onComplete,
 }) => {
+  const [showModal, setShowModal] = useState(false);
   const router = useRouter();
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
 
@@ -165,55 +170,88 @@ const SummaryForm: FCWithFragments<IProps> = ({
   );
 
   return (
-    <Form className="olaf-summary">
-      <Heading
-        color="black"
-        size="xlarge"
-        dataTestId="summary-heading"
-        tag="h1"
-      >
-        Summary
-      </Heading>
-      <Text color="darker" size="lead" dataTestId="olaf_summary_text">
-        Here’s a summary of all the details you’ve entered. Have a look below to
-        check everything is correct. If you do spot a mistake, simply edit to
-        make a change.
-      </Text>
-      <SummaryFormDetailsSection
-        person={person}
-        onEdit={handleEdit('/olaf/about')}
-      />
-      <SummaryFormAddressHistory
-        addresses={person.addresses || []}
-        onEdit={handleEdit('/olaf/address-history')}
-      />
-      <SummaryFormEmploymentHistory
-        employments={person.employmentHistories || []}
-        onEdit={handleEdit('/olaf/employment-history')}
-      />
-      {person.incomeAndExpense && (
-        <SummaryFormIncomeSection
-          income={person.incomeAndExpense}
-          onEdit={handleEdit('/olaf/expenses')}
+    <>
+      <Form className="olaf-summary">
+        <Heading
+          color="black"
+          size="xlarge"
+          dataTestId="summary-heading"
+          tag="h1"
+        >
+          Summary
+        </Heading>
+        <Text color="darker" size="lead" dataTestId="olaf_summary_text">
+          Here’s a summary of all the details you’ve entered. Have a look below
+          to check everything is correct. If you do spot a mistake, simply edit
+          to make a change.
+        </Text>
+        <SummaryFormDetailsSection
+          person={person}
+          onEdit={handleEdit('/olaf/about')}
         />
-      )}
-      {primaryBankAccount && (
-        <SummaryFormBankDetailsSection
-          account={primaryBankAccount}
-          onEdit={handleEdit('/olaf/bank-details')}
+        <SummaryFormAddressHistory
+          addresses={person.addresses || []}
+          onEdit={handleEdit('/olaf/address-history')}
         />
+        <SummaryFormEmploymentHistory
+          employments={person.employmentHistories || []}
+          onEdit={handleEdit('/olaf/employment-history')}
+        />
+        {person.incomeAndExpense && (
+          <SummaryFormIncomeSection
+            income={person.incomeAndExpense}
+            onEdit={handleEdit('/olaf/expenses')}
+          />
+        )}
+        {primaryBankAccount && (
+          <SummaryFormBankDetailsSection
+            account={primaryBankAccount}
+            onEdit={handleEdit('/olaf/bank-details')}
+          />
+        )}
+        <Text color="darker">
+          By submitting this application you are confirming that the details you
+          have entered are accurate and that that the application is made on
+          your behalf.{' '}
+          <RouterLink
+            link={{ href: '', label: '' }}
+            onClick={() => setShowModal(true)}
+            classNames={{ color: 'teal' }}
+          >
+            Learn More
+          </RouterLink>
+        </Text>
+        <Button
+          type="button"
+          color="teal"
+          label="Submit"
+          dataTestId="olaf_summary_continue_buttton"
+          disabled={isSubmitDisabled}
+          onClick={() => {
+            handleSubmit();
+          }}
+        />
+      </Form>
+      {showModal && (
+        <Modal
+          className="-mt-000 callBack"
+          show
+          onRequestClose={() => {
+            setShowModal(false);
+          }}
+        >
+          <Text color="darker" size="lead">
+            If you have completed this application in your name but you are not
+            the main driver of the vehicle, this is a fraudulent act. People may
+            do this to help other people get accepted for credit. If you have
+            done this, please do not submit this order as it is considered a
+            criminal offence. If we suspect fraud or that you’ve intentionally
+            given inaccurate information, we may also pass this onto other
+            organizations involved in crime and fraud prevention.
+          </Text>
+        </Modal>
       )}
-      <Button
-        type="button"
-        color="teal"
-        label="Submit"
-        dataTestId="olaf_summary_continue_buttton"
-        disabled={isSubmitDisabled}
-        onClick={() => {
-          handleSubmit();
-        }}
-      />
-    </Form>
+    </>
   );
 };
 
