@@ -8,6 +8,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
 import useLeaseType from '../../hooks/useLeaseType';
+import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import { evOffersRequest, IEvOffersData } from '../../utils/offers';
 import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
@@ -483,67 +484,7 @@ export const EVHubPage: NextPage<IProps> = ({
         </section>
       </LazyLoadComponent>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:featured-logos">
-          <Heading tag="span" size="small" color="darker">
-            AS FEATURED ON
-          </Heading>
-          <div>
-            {[
-              {
-                label: 'bbc',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/bbc.png`,
-              },
-              {
-                label: 'btsport',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/btsport.png`,
-              },
-              {
-                label: 'dailymail',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymail.png`,
-              },
-              {
-                label: 'dailymirror',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymirror.png`,
-              },
-              {
-                label: 'itv',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/itv.png`,
-              },
-              {
-                label: 'metro',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/metro.png`,
-              },
-              {
-                label: 'thesun',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thesun.png`,
-              },
-              {
-                label: 'sky',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/sky.png`,
-              },
-              {
-                label: 'thetelegraph',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thetelegraph.png`,
-              },
-            ].map(({ href, label }) => (
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={label}
-                src={href}
-                alt={label}
-                size="expand"
-                plain
-              />
-            ))}
-          </div>
-        </section>
-      </LazyLoadComponent>
+      <FeaturedOnSection />
 
       <LazyLoadComponent
         visibleByDefault={
