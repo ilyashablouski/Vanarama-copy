@@ -129,6 +129,7 @@ const Page: NextPage<IProps> = ({
         pageType?.current?.isBodyStylePage ?? ssrPageType?.isBodyStylePage
       }
       isFuelPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
+      isEvPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
       isBudgetPage={
         pageType?.current?.isBudgetType ?? ssrPageType?.isBudgetType
       }
@@ -147,7 +148,8 @@ const Page: NextPage<IProps> = ({
   );
 };
 export async function getServerSideProps(context: NextPageContext) {
-  const { query, req, res } = context;
+  const { query: ctxQuery, req, res } = context;
+  const query = { ...ctxQuery };
   const client = createApolloClient({}, context);
   let ranges;
   let rangesUrls;
