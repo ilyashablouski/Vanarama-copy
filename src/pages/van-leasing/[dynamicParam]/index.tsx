@@ -15,6 +15,7 @@ import {
   bodyUrlsSlugMapper,
   budgetMapper,
   dynamicQueryTypeCheck,
+  fuelMapper,
   getCapsIds,
   sortObjectGenerator,
   ssrCMSQueryExecutor,
@@ -154,8 +155,13 @@ export async function getServerSideProps(context: NextPageContext) {
   let defaultSort;
   const filter = {} as any;
   const pageType = dynamicQueryTypeCheck(query.dynamicParam as string);
-  const { isBodyStylePage, isTransmissionPage, isBudgetType } = pageType;
-  if (isBodyStylePage || isTransmissionPage || isBudgetType) {
+  const {
+    isBodyStylePage,
+    isTransmissionPage,
+    isBudgetType,
+    isFuelType,
+  } = pageType;
+  if (isBodyStylePage || isFuelType || isTransmissionPage || isBudgetType) {
     if (isBodyStylePage) {
       query.bodyStyles =
         bodyUrlsSlugMapper[
@@ -165,6 +171,10 @@ export async function getServerSideProps(context: NextPageContext) {
     } else if (isTransmissionPage) {
       query.transmissions = (query.dynamicParam as string).replace('-', ' ');
       filter.transmissions = [query.transmissions];
+    } else if (isFuelType) {
+      query.fuelTypes =
+        fuelMapper[query.dynamicParam as keyof typeof fuelMapper];
+      filter.fuelTypes = query.fuelTypes.split(',');
     } else if (isBudgetType) {
       const rate = budgetMapper[
         query.dynamicParam as keyof typeof budgetMapper
