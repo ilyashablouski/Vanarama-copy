@@ -1,0 +1,243 @@
+{
+  "insuranceLandingPage": {
+    "__typename": "GenericPage",
+    "id": "7hZTNl0QA3NnggZlSXao8S",
+    "body": "Plus receive £50 if you switch from your current Insurance provider to Vanarama Insurance*\n\n*Only available to Vanarama leasing customers. Other terms and conditions apply.!!!",
+    "metaData": {
+      "__typename": "Meta",
+      "title": "Van Insurance | Cheap Van Insurance Quote - Vanarama",
+      "name": "Get Your Low Cost Vehicle Insurance Quote",
+      "metaRobots": null,
+      "metaDescription": "Switch from your current insurance provider to Vanarama Insurance & we'll give you ¬£100. You'll get the correct insurance cover at the cheapest possible price.",
+      "legacyUrl": "van-insurance.html",
+      "pageType": "Insurance home",
+      "canonicalUrl": "https://www.vanarama.com/van-insurance.html",
+      "slug": "insurance",
+      "schema": {
+        "@type": "BreadcrumbList",
+        "@context": "https://schema.org",
+        "itemListElement": [
+          {
+            "item": "https://www.vanarama.com/",
+            "name": "Home",
+            "@type": "ListItem",
+            "position": 1
+          },
+          {
+            "name": "Van Insurance",
+            "@type": "ListItem",
+            "position": 2
+          }
+        ]
+      },
+      "publishedOn": null,
+      "breadcrumbs": [
+        {
+          "href": "/",
+          "label": "Home"
+        },
+        {
+          "label": "Van Insurance"
+        }
+      ]
+    },
+    "featuredImage": null,
+    "sections": {
+      "__typename": "Sections",
+      "featured1": {
+        "__typename": "Featured",
+        "layout": ["Media Right"],
+        "body": "At Vanarama, our policies are built specifically for leasing, so you know your're getting the best deal for you. \n\n__FREEZE Your Premium For Up To 5 Years__\nBeat the annual premium price rise with multi-year insurance\n\n__75% Of Our Customers Renew With Us__\nBecause our insurance policies are built to suit your needs\n\n__No Hidden Charges__\nPay for the vehicle cover you NEED, not what you can get!\n",
+        "title": "Why Choose Vanarama For Your Insurance?",
+        "titleTag": "h2",
+        "video": null,
+        "defaultHeight": null,
+        "iconList": null,
+        "link": null,
+        "cards": null,
+        "image": {
+          "__typename": "Image",
+          "title": "Van-Insurance ",
+          "description": "Van Insurance ",
+          "file": {
+            "__typename": "File",
+            "url": "//images.ctfassets.net/3xid768u5joa/7MB5TSB8TwbCkBh45btE51/b30d635afa2298b0c63a6eb987da09ce/Van_Insurance.jpg",
+            "fileName": "Van Insurance.jpg"
+          }
+        },
+        "testimonials": null
+      },
+      "featured2": {
+        "__typename": "Featured",
+        "layout": null,
+        "body": "### What You Need To Know\n\nFrom how to get a quote right through to your no claims bonus, we've tried to make everything about van insurance a little clearer by putting together answers to some of our most frequently asked questions.\n\n[Read Our FAQs](/van-insurance/faq.html \"Read Our FAQs\")",
+        "title": "Our Van Insurance Services",
+        "titleTag": "h2",
+        "video": null,
+        "defaultHeight": null,
+        "iconList": null,
+        "link": null,
+        "cards": null,
+        "image": null,
+        "testimonials": null
+      },
+      "cards": {
+        "__typename": "Cards",
+        "name": "Insurance Types",
+        "description": "At Vanarama we offer a wide range of insurance policies to suit your needs. Whether you want short-term 7-day driveaway insurance or to cover your whole lease, we've removed all the hassle and extra costs you'd usually expect when insuring your vehicle. You can compare insurance prices and purchase policies online, insure your tools and even freeze your premium for up to 5 years... all in one place!",
+        "cards": [
+          {
+            "__typename": "Card",
+            "titleTag": "h3",
+            "name": "Multi-Year Insurance",
+            "title": "Multi-Year Insurance",
+            "body": "Protect yourself against future insurance price increases",
+            "link": {
+              "__typename": "Link",
+              "text": "Multi-Year Van Insurance",
+              "url": "/insurance/multi-year-insurance",
+              "legacyUrl": "/van-insurance/multi-year-van-insurance.html"
+            },
+            "image": {
+              "__typename": "Image",
+              "title": "multi-year-insurance",
+              "file": {
+                "__typename": "File",
+                "url": "//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/71c2c820d70ba31552ac2ba556e60ff4/multiyear_insurance_.jpg"
+              }
+            }
+          },
+          {
+            "__typename": "Card",
+            "titleTag": "h3",
+            "name": "Finance GAP Insurance",
+            "title": "Finance GAP Insurance",
+            "body": "Extra protection should the worst happen",
+            "link": {
+              "__typename": "Link",
+              "text": "Finance GAP Insurance",
+              "url": "/van-insurance/finance-gap-insurance.html",
+              "legacyUrl": null
+            },
+            "image": {
+              "__typename": "Image",
+              "title": "Finance-GAP-Insurance",
+              "file": {
+                "__typename": "File",
+                "url": "//images.ctfassets.net/3xid768u5joa/6zfHr39vf5hfPI3yef5ZGG/5f279db521207bb529b85c378dd0e26b/GAP_insurance.jpg"
+              }
+            }
+          },
+          {
+            "__typename": "Card",
+            "titleTag": "h3",
+            "name": "Tools In Transit Insurance",
+            "title": "Tools in Transit Insurance",
+            "body": "Get up to £3k's worth of tools cover for only £75 per year",
+            "link": {
+              "__typename": "Link",
+              "text": "Tools in Transit Insurance",
+              "url": "/van-insurance/tools-in-transit.html",
+              "legacyUrl": null
+            },
+            "image": {
+              "__typename": "Image",
+              "title": "Tools-In-Transit-Insurance",
+              "file": {
+                "__typename": "File",
+                "url": "//images.ctfassets.net/3xid768u5joa/4Ug4A5lwvw3qykueAj4kDH/f3f30d37896dcb1bd6fbffbf7f5c0e14/tools_insurance.jpg"
+              }
+            }
+          }
+        ]
+      },
+      "carousel": {
+        "__typename": "Carousel",
+        "name": "Insurance News",
+        "cards": [
+          {
+            "__typename": "Card",
+            "titleTag": null,
+            "name": "Do I Need Insurance For A Leased Car?",
+            "title": "Do I Need Insurance For A Leased Car?",
+            "body": "Find out what type of coverage you need for a new leased car.",
+            "link": {
+              "__typename": "Link",
+              "text": "Read More",
+              "url": "/car-leasing-explained/do-i-need-insurance-for-leased-car.html",
+              "legacyUrl": null
+            },
+            "image": {
+              "__typename": "Image",
+              "file": {
+                "__typename": "File",
+                "url": "//images.ctfassets.net/3xid768u5joa/22ybEevo2hRu2pJImPp8tz/327aba1204a84c35b02490ca075c290c/insurance-on-leased-cars.jpg"
+              }
+            }
+          },
+          {
+            "__typename": "Card",
+            "titleTag": "h3",
+            "name": "How Much Does Your Job Title Impact Your Car Insurance Costs?",
+            "title": "How Much Does Your Job Title Impact Your Car Insurance Costs?",
+            "body": "Find out how your job title can impact car insurance costs",
+            "link": {
+              "__typename": "Link",
+              "text": "Read More",
+              "url": "/car-leasing/blog/how-much-job-title-impacts-car-insurance-cost.html",
+              "legacyUrl": null
+            },
+            "image": {
+              "__typename": "Image",
+              "file": {
+                "__typename": "File",
+                "url": "//images.ctfassets.net/3xid768u5joa/PCvfFQ3blw0dqmjMkjj8U/bac55263a70b0fc4956d1ee2a6b5e5b2/insuranve-vs-job-header.jpg"
+              }
+            }
+          },
+          {
+            "__typename": "Card",
+            "titleTag": "h3",
+            "name": "The Real Cost Of Having Your Van Or Tools Stolen",
+            "title": "The Real Cost Of Having Your Van Or Tools Stolen",
+            "body": "It's something we all dread happening & you'll want to know you've got a backup.",
+            "link": {
+              "__typename": "Link",
+              "text": "Read More",
+              "url": "/van-insurance/news/the-real-cost-of-losing-your-van.html",
+              "legacyUrl": null
+            },
+            "image": {
+              "__typename": "Image",
+              "file": {
+                "__typename": "File",
+                "url": "//images.ctfassets.net/3xid768u5joa/3lHt0hudsNclD70oe20o9n/c394604b4ffb56b2fae22a503c1e8d3c/burglar1.jpg"
+              }
+            }
+          }
+        ]
+      },
+      "leadText": null,
+      "hero": {
+        "__typename": "Hero",
+        "title": "Get Your Low Cost Vehicle Insurance Quote",
+        "body": "## Plus receive £50 if you switch from your current Insurance provider to Vanarama Insurance*\n\n*Only available to Vanarama leasing customers. Other terms and conditions apply.",
+        "image": {
+          "__typename": "Image",
+          "file": {
+            "__typename": "File",
+            "url": "//images.ctfassets.net/3xid768u5joa/4YO8AKzE12E7u5JdJg4aW4/be411adedff3c98051202a047fd5fe42/Insurance_Family_Image.png"
+          }
+        },
+        "heroCard": [
+          {
+            "__typename": "HeroCard",
+            "title": "Contact Us",
+            "body": "\n|      |      |\n| ---------- | ---------- |\n| Monday–Thursday | 8:30am–5:30pm |\n| Friday | 9am–5pm |\n| Saturday | Closed |\n| Sunday | Closed |\n\n[Call 01442 838173](\"Call 01442 838173\")\n"
+          }
+        ],
+        "heroLabel": null
+      }
+    }
+  }
+}
