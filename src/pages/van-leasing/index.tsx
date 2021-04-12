@@ -5,6 +5,8 @@ import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import { useContext } from 'react';
 import SchemaJSON from 'core/atoms/schema-json';
+import Media from 'core/atoms/media';
+import Image from 'core/atoms/image';
 import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -31,6 +33,7 @@ import { getSectionsData, getCardsName } from '../../utils/getSectionsData';
 import TileLink from '../../components/TileLink/TileLink';
 import { VansSearch } from '../../models/enum/SearchByManufacturer';
 import Head from '../../components/Head/Head';
+import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import Skeleton from '../../components/Skeleton';
 import {
   filterList as IFilterList,
@@ -51,16 +54,10 @@ const ArrowForwardSharp = dynamic(
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Image = dynamic(() => import('core/atoms/image'), {
-  loading: () => <Skeleton count={4} />,
-});
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
 const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={3} />,
-});
-const Media = dynamic(() => import('core/atoms/media'), {
   loading: () => <Skeleton count={3} />,
 });
 const Step = dynamic(() => import('core/molecules/step'), {
@@ -503,23 +500,16 @@ export const VansPage: NextPage<IProps> = ({
         )}`}
       >
         {data?.hubVanPage?.sections?.featured1?.video ? (
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
+          <Media
+            src={
+              getSectionsData(
+                ['featured1', 'video'],
+                data?.hubVanPage.sections,
+              ) || ''
             }
-          >
-            <Media
-              src={
-                getSectionsData(
-                  ['featured1', 'video'],
-                  data?.hubVanPage.sections,
-                ) || ''
-              }
-              width="100%"
-              height="360px"
-            />
-          </LazyLoadComponent>
+            width="100%"
+            height="360px"
+          />
         ) : (
           <Image
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -533,7 +523,7 @@ export const VansPage: NextPage<IProps> = ({
           />
         )}
 
-        <div className="" style={{ padding: '1rem' }}>
+        <div className="-inset -middle -col-400">
           <Heading
             size="large"
             color="black"
@@ -588,18 +578,16 @@ export const VansPage: NextPage<IProps> = ({
             height="360px"
           />
         ) : (
-          <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={
-                getSectionsData(
-                  ['featured2', 'image', 'file', 'url'],
-                  data?.hubVanPage.sections,
-                ) ||
-                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-              }
-            />
-          </div>
+          <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            src={
+              getSectionsData(
+                ['featured2', 'image', 'file', 'url'],
+                data?.hubVanPage.sections,
+              ) ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
         )}
         <div className="-inset -middle -col-400">
           <Heading
@@ -779,67 +767,7 @@ export const VansPage: NextPage<IProps> = ({
         </section>
       </LazyLoadComponent>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:featured-logos">
-          <Heading tag="span" size="small" color="darker">
-            AS FEATURED ON
-          </Heading>
-          <div>
-            {[
-              {
-                label: 'bbc',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/bbc.png`,
-              },
-              {
-                label: 'btsport',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/btsport.png`,
-              },
-              {
-                label: 'dailymail',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymail.png`,
-              },
-              {
-                label: 'dailymirror',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymirror.png`,
-              },
-              {
-                label: 'itv',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/itv.png`,
-              },
-              {
-                label: 'metro',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/metro.png`,
-              },
-              {
-                label: 'thesun',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thesun.png`,
-              },
-              {
-                label: 'sky',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/sky.png`,
-              },
-              {
-                label: 'thetelegraph',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thetelegraph.png`,
-              },
-            ].map(({ href, label }) => (
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={label}
-                src={href}
-                alt={label}
-                size="expand"
-                plain
-              />
-            ))}
-          </div>
-        </section>
-      </LazyLoadComponent>
+      <FeaturedOnSection />
 
       <LazyLoadComponent
         visibleByDefault={
