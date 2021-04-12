@@ -9,6 +9,9 @@ const fetchRewritesList = require('../rewrites');
 module.exports = {
   // Next.
   next: {
+    future: {
+      webpack5: true,
+    },
     // Env vars.
     env: {
       ENV: process.env.ENV,
@@ -111,11 +114,6 @@ module.exports = {
         test: /\.css$/i,
         use: 'raw-loader',
       });
-
-      // Fixes npm packages that depend on `fs` module.
-      config.node = {
-        fs: 'empty',
-      };
 
       if (config.mode === 'production' && config.name === 'client') {
         config.optimization.splitChunks = {

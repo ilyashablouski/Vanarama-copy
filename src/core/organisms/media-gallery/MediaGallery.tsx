@@ -45,10 +45,12 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
         <div>
           <span>{flag.text}</span>
         </div>
-        <div>
-          {flag.accentIcon && <Icon icon={flag.accentIcon} />}
-          <span>{flag.accentText}</span>
-        </div>
+        {flag.accentIcon && flag.accentText && (
+          <div>
+            <Icon icon={flag.accentIcon} />
+            <span>{flag.accentText}</span>
+          </div>
+        )}
       </nav>
       <Tabs activeIndex={activeTab} onChange={index => onChangeTab(index)}>
         <TabPanels className="-pt-000">

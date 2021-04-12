@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
@@ -447,8 +446,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         </div>
         <MediaGallery
           flag={{
-            accentIcon: <Icon icon={<Flame />} color="white" />,
-            accentText: 'Hot Deal',
+            accentIcon: data?.vehicleConfigurationByCapId?.onOffer ? (
+              <Icon icon={<Flame />} color="white" />
+            ) : (
+              ''
+            ),
+            accentText: data?.vehicleConfigurationByCapId?.onOffer
+              ? 'Hot Deal'
+              : '',
             text: leadTime,
             incomplete: true,
           }}

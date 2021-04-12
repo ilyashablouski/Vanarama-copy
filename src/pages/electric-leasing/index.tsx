@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { useState } from 'react';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
@@ -80,7 +79,7 @@ export const EVHubPage: NextPage<IProps> = ({
   productsEvCarDerivatives,
   vehicleListUrlData,
 }) => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(1);
   const { cachedLeaseType } = useLeaseType(null);
 
   const optimisationOptions = {
@@ -189,7 +188,8 @@ export const EVHubPage: NextPage<IProps> = ({
                     data={{
                       derivatives:
                         productsEvVanDerivatives?.derivatives || null,
-                      productCard: productsEvVan?.productCarousel || null,
+                      productCard:
+                        productsEvVan?.productCarousel?.slice(0, 6) || null,
                       vehicleList: vehicleListUrlData,
                     }}
                     countItems={productsEvVan?.productCarousel?.length || 6}
@@ -208,7 +208,7 @@ export const EVHubPage: NextPage<IProps> = ({
                       label: 'View Latest Electric Van Deals',
                       href: '/van-leasing/search',
                       query: {
-                        fuelTypes: 'Electric,Petrol/plugin+Elec+Hybrid',
+                        fuelTypes: ['Electric', 'Petrol/plugin Elec Hybrid'],
                       },
                     }}
                     withoutDefaultClassName
@@ -238,7 +238,8 @@ export const EVHubPage: NextPage<IProps> = ({
                     data={{
                       derivatives:
                         productsEvCarDerivatives?.derivatives || null,
-                      productCard: productsEvCar?.productCarousel || null,
+                      productCard:
+                        productsEvCar?.productCarousel?.slice(0, 6) || null,
                       vehicleList: vehicleListUrlData,
                     }}
                     countItems={productsEvCar?.productCarousel?.length || 6}
@@ -258,8 +259,11 @@ export const EVHubPage: NextPage<IProps> = ({
                       label: 'View Latest Electric Car Deals',
                       href: '/car-leasing/search',
                       query: {
-                        fuelTypes:
-                          'Diesel/plugin+Elec+Hybrid,Electric,Petrol/plugin+Elec+Hybrid',
+                        fuelTypes: [
+                          'Diesel/plugin Elec Hybrid',
+                          'Electric',
+                          'Petrol/plugin Elec Hybrid',
+                        ],
                       },
                     }}
                     withoutDefaultClassName

@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import { PageCollection_pageCollection_items } from '../../../generated/PageCollection';
 import { getPathsFromPageCollection } from '../pageSlugs';
 

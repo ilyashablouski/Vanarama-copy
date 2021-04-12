@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
@@ -46,10 +45,8 @@ interface IProps {
   isFuelPage: boolean;
   isBudgetPage: boolean;
   isDynamicFilterPage: boolean;
-  manualBodyStyle: string[];
   preLoadVehiclesList?: IVehiclesData;
   preLoadProductCardsData?: GetProductCard;
-  preLoadResponseCapIds?: string[];
   preloadBodyStyleList?: IModelsData[];
   preloadMake?: string;
   preloadRange?: string;
@@ -121,7 +118,7 @@ const TopOffersContainer: React.FC<IProps> = ({
         setVehicleList(vehicles.vehicleList.edges);
         setCapsIds(responseCapIds);
         if (responseCapIds.length) {
-          return await getProductCardData({
+          return getProductCardData({
             variables: {
               capIds: responseCapIds,
               vehicleType: isCarSearch

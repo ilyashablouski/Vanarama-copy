@@ -2,6 +2,7 @@
 
 exports[`<SearchFiltersHead /> should render correctly with a custom class name 1`] = `
 <div
+  aria-level={3}
   className="search-filters--title some-custom-class-name"
   onClick={[Function]}
   role="heading"
@@ -16,6 +17,7 @@ exports[`<SearchFiltersHead /> should render correctly with a custom class name 
 
 exports[`<SearchFiltersHead /> should render correctly with children 1`] = `
 <div
+  aria-level={3}
   className="search-filters--title"
   onClick={[Function]}
   role="heading"

@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-/* eslint-disable @typescript-eslint/camelcase */
+
 import { NextRouter } from 'next/router';
 import { BlogPosts_blogPosts_articles } from '../../generated/BlogPosts';
 

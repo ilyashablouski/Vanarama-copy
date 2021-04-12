@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/camelcase */
 import React, { useContext } from 'react';
 import dynamic from 'next/dynamic';
 import { isCompared } from '../../utils/comparatorHelpers';
