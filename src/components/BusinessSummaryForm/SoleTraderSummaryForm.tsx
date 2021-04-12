@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
 import { useRouter } from 'next/router';
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import FCWithFragments from '../../utils/FCWithFragments';
 import BusinessSummaryFormBankDetailsSection from './BusinessSummaryFormBankDetailsSection';
 import { getUrlParam } from '../../utils/url';
@@ -13,6 +13,7 @@ import { mapDefaultValues } from '../../containers/CompanyBankDetailsFormContain
 import SoleTraderDetailsForm from '../SoleTraderDetailsForm';
 import SoleTraderCompanyDetailsSummarySection from './SoleTraderCompanyDetailsSummarySection';
 import Skeleton from '../Skeleton';
+import RouterLink from '../RouterLink/RouterLink';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -21,6 +22,12 @@ const Form = dynamic(() => import('core/organisms/form'), {
   loading: () => <Skeleton count={1} />,
 });
 const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Modal = dynamic(() => import('core/molecules/modal'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
 const SoleTraderDetailsSummarySection = dynamic(
@@ -52,6 +59,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
   isSubmitting,
 }) => {
   const router = useRouter();
+  const [showModal, setShowModal] = useState(false);
 
   const primaryBankAccount = useMemo(
     () =>
@@ -81,67 +89,99 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
   };
 
   return (
-    <div className="full-width">
-      <Heading
-        color="black"
-        size="xlarge"
-        dataTestId="summary-heading"
-        tag="h1"
-      >
-        Summary
-      </Heading>
-      <br />
-      <Form className="olaf--summary">
-        <BusinessSummaryFormAboutSection
-          soletrader
-          person={person}
-          onEdit={handleEdit('/b2b/olaf/about/', {
-            companyUuid: company.uuid,
-          })}
-        />
-        <SoleTraderCompanyDetailsSummarySection
-          company={company}
-          onEdit={handleEdit(
-            '/b2b/olaf/sole-trader/company-details/[personUuid]',
-            {
+    <>
+      <div className="full-width">
+        <Heading
+          color="black"
+          size="xlarge"
+          dataTestId="summary-heading"
+          tag="h1"
+        >
+          Summary
+        </Heading>
+        <br />
+        <Form className="olaf--summary">
+          <BusinessSummaryFormAboutSection
+            soletrader
+            person={person}
+            onEdit={handleEdit('/b2b/olaf/about/', {
               companyUuid: company.uuid,
-            },
-          )}
-        />
-        {company.isVatRegistered && (
-          <BusinessSummaryFormVATDetailsSection
-            vatDetails={company}
+            })}
+          />
+          <SoleTraderCompanyDetailsSummarySection
+            company={company}
             onEdit={handleEdit(
-              '/b2b/olaf/sole-trader/vat-details/[companyUuid]',
+              '/b2b/olaf/sole-trader/company-details/[personUuid]',
+              {
+                companyUuid: company.uuid,
+              },
             )}
           />
-        )}
-        <SoleTraderDetailsSummarySection
-          soleTrader={company.associates?.[0]}
-          onEdit={handleEdit(
-            '/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]',
+          {company.isVatRegistered && (
+            <BusinessSummaryFormVATDetailsSection
+              vatDetails={company}
+              onEdit={handleEdit(
+                '/b2b/olaf/sole-trader/vat-details/[companyUuid]',
+              )}
+            />
           )}
-        />
-        {primaryBankAccount && (
-          <BusinessSummaryFormBankDetailsSection
-            account={primaryBankAccount}
+          <SoleTraderDetailsSummarySection
+            soleTrader={company.associates?.[0]}
             onEdit={handleEdit(
-              '/b2b/olaf/sole-trader/bank-details/[companyUuid]',
+              '/b2b/olaf/sole-trader/sole-trader-details/[companyUuid]',
             )}
           />
-        )}
-      </Form>
-      <Button
-        disabled={isSubmitting}
-        size="large"
-        className="-mt-400"
-        type="button"
-        color="teal"
-        label={selectLabel}
-        dataTestId="olaf_summary_continue_buttton"
-        onClick={onSubmit}
-      />
-    </div>
+          {primaryBankAccount && (
+            <BusinessSummaryFormBankDetailsSection
+              account={primaryBankAccount}
+              onEdit={handleEdit(
+                '/b2b/olaf/sole-trader/bank-details/[companyUuid]',
+              )}
+            />
+          )}
+        </Form>
+        <Text color="darker">
+          By submitting this application you are confirming that the details you
+          have entered are accurate and that that the application is made on
+          your behalf.{' '}
+          <RouterLink
+            link={{ href: '', label: '' }}
+            onClick={() => setShowModal(true)}
+            classNames={{ color: 'teal' }}
+          >
+            Learn More
+          </RouterLink>
+        </Text>
+        <Button
+          disabled={isSubmitting}
+          size="large"
+          className="-mt-400"
+          type="button"
+          color="teal"
+          label={selectLabel}
+          dataTestId="olaf_summary_continue_buttton"
+          onClick={onSubmit}
+        />
+      </div>
+      {showModal && (
+        <Modal
+          show
+          onRequestClose={() => {
+            setShowModal(false);
+          }}
+        >
+          <Text color="darker" size="lead">
+            If you have completed this application in your name but you are not
+            the main driver of the vehicle, this is a fraudulent act. People may
+            do this to help other people get accepted for credit. If you have
+            done this, please do not submit this order as it is considered a
+            criminal offence. If we suspect fraud or that you’ve intentionally
+            given inaccurate information, we may also pass this onto other
+            organizations involved in crime and fraud prevention.
+          </Text>
+        </Modal>
+      )}
+    </>
   );
 };
 

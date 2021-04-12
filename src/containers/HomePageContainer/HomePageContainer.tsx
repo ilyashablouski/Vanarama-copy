@@ -3,6 +3,8 @@ import Router from 'next/router';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import Media from 'core/atoms/media';
+import Image from 'core/atoms/image';
 import Head from '../../components/Head/Head';
 import {
   HomePageData,
@@ -26,9 +28,6 @@ import { ISpecialOffersData } from '../../utils/offers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
-});
-const Image = dynamic(() => import('core/atoms/image'), {
-  loading: () => <Skeleton count={4} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -65,9 +64,6 @@ const IconListItem = dynamic(() =>
 );
 const League = dynamic(() => import('core/organisms/league'), {
   loading: () => <Skeleton count={2} />,
-});
-const Media = dynamic(() => import('core/atoms/media'), {
-  loading: () => <Skeleton count={3} />,
 });
 const ProductCarousel = dynamic(
   () => import('../../components/ProductCarousel/ProductCarousel'),
@@ -418,7 +414,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           }
         >
           <section className="row:featured-right">
-            <div style={{ padding: '1rem' }}>
+            <div className="-inset -middle -col-400">
               <Heading
                 size="large"
                 color="black"
@@ -476,18 +472,16 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                 height="360px"
               />
             ) : (
-              <div>
-                <Image
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  src={
-                    getSectionsData(
-                      ['featured1', 'image', 'file', 'url'],
-                      data?.homePage.sections,
-                    ) ||
-                    'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-                  }
-                />
-              </div>
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                src={
+                  getSectionsData(
+                    ['featured1', 'image', 'file', 'url'],
+                    data?.homePage.sections,
+                  ) ||
+                  'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+                }
+              />
             )}
           </section>
         </LazyLoadComponent>
@@ -513,18 +507,16 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                 height="360px"
               />
             ) : (
-              <div>
-                <Image
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  src={
-                    getSectionsData(
-                      ['featured2', 'image', 'file', 'url'],
-                      data?.homePage.sections,
-                    ) ||
-                    'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-                  }
-                />
-              </div>
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                src={
+                  getSectionsData(
+                    ['featured2', 'image', 'file', 'url'],
+                    data?.homePage.sections,
+                  ) ||
+                  'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+                }
+              />
             )}
             <div>
               <Heading

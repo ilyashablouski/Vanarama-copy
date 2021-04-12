@@ -4,6 +4,8 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
+import Media from 'core/atoms/media';
+import Image from 'core/atoms/image';
 import { useContext, useEffect, useState } from 'react';
 import { decodeData, encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -31,6 +33,7 @@ import useLeaseType from '../../hooks/useLeaseType';
 import TileLink from '../../components/TileLink/TileLink';
 import { features } from '../../components/ProductCarousel/helpers';
 import Head from '../../components/Head/Head';
+import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import Skeleton from '../../components/Skeleton';
 import {
   filterList as IFilterList,
@@ -41,9 +44,6 @@ import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
-});
-const Image = dynamic(() => import('core/atoms/image'), {
-  loading: () => <Skeleton count={4} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -58,9 +58,6 @@ const Price = dynamic(() => import('core/atoms/price'));
 const ProductCard = dynamic(() =>
   import('core/molecules/cards/ProductCard/ProductCard'),
 );
-const Media = dynamic(() => import('core/atoms/media'), {
-  loading: () => <Skeleton count={3} />,
-});
 const Choiceboxes = dynamic(() => import('core/atoms/choiceboxes'), {
   loading: () => <Skeleton count={3} />,
 });
@@ -389,20 +386,18 @@ export const CarsPage: NextPage<IProps> = ({
             height="360px"
           />
         ) : (
-          <div>
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              src={
-                getSectionsData(
-                  ['featured1', 'image', 'file', 'url'],
-                  data?.hubCarPage.sections,
-                ) ||
-                'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-              }
-            />
-          </div>
+          <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            src={
+              getSectionsData(
+                ['featured1', 'image', 'file', 'url'],
+                data?.hubCarPage.sections,
+              ) ||
+              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+            }
+          />
         )}
-        <div style={{ padding: '1rem' }}>
+        <div className="-inset -middle -col-400">
           <Heading
             size="large"
             color="black"
@@ -550,67 +545,7 @@ export const CarsPage: NextPage<IProps> = ({
         </section>
       </LazyLoadComponent>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:featured-logos">
-          <Heading tag="span" size="small" color="darker">
-            AS FEATURED ON
-          </Heading>
-          <div>
-            {[
-              {
-                label: 'bbc',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/bbc.png`,
-              },
-              {
-                label: 'btsport',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/btsport.png`,
-              },
-              {
-                label: 'dailymail',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymail.png`,
-              },
-              {
-                label: 'dailymirror',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymirror.png`,
-              },
-              {
-                label: 'itv',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/itv.png`,
-              },
-              {
-                label: 'metro',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/metro.png`,
-              },
-              {
-                label: 'thesun',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thesun.png`,
-              },
-              {
-                label: 'sky',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/sky.png`,
-              },
-              {
-                label: 'thetelegraph',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thetelegraph.png`,
-              },
-            ].map(({ href, label }) => (
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={label}
-                src={href}
-                alt={label}
-                size="expand"
-                plain
-              />
-            ))}
-          </div>
-        </section>
-      </LazyLoadComponent>
+      <FeaturedOnSection />
 
       <LazyLoadComponent
         visibleByDefault={
