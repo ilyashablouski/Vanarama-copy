@@ -78,12 +78,12 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="typeVans"
-                  defaultValue=""
+                  defaultValue="Select Type"
                   name="typeVans"
                 >
                   <option
                     disabled={true}
-                    value=""
+                    value="Select Type"
                   >
                     Select Type
                   </option>
@@ -147,12 +147,12 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="makeVans"
-                  defaultValue=""
+                  defaultValue="Select Make"
                   name="makeVans"
                 >
                   <option
                     disabled={true}
-                    value=""
+                    value="Select Make"
                   >
                     Select Make
                   </option>
@@ -221,12 +221,12 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="modelVans"
-                  defaultValue=""
+                  defaultValue="Select Model"
                   name="modelVans"
                 >
                   <option
                     disabled={true}
-                    value=""
+                    value="Select Model"
                   >
                     Select Model
                   </option>
@@ -322,12 +322,12 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="budgetVans"
-                  defaultValue=""
+                  defaultValue="Select Budget"
                   name="budgetVans"
                 >
                   <option
                     disabled={true}
-                    value=""
+                    value="Select Budget"
                   >
                     Select Budget
                   </option>
@@ -440,12 +440,12 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="makeCars"
-                  defaultValue=""
+                  defaultValue="Select Make"
                   name="makeCars"
                 >
                   <option
                     disabled={true}
-                    value=""
+                    value="Select Make"
                   >
                     Select Make
                   </option>
@@ -499,12 +499,12 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="modelCars"
-                  defaultValue=""
+                  defaultValue="Select Model"
                   name="modelCars"
                 >
                   <option
                     disabled={true}
-                    value=""
+                    value="Select Model"
                   >
                     Select Model
                   </option>
@@ -553,12 +553,12 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="typeCars"
-                  defaultValue=""
+                  defaultValue="Select Type"
                   name="typeCars"
                 >
                   <option
                     disabled={true}
-                    value=""
+                    value="Select Type"
                   >
                     Select Type
                   </option>
@@ -612,12 +612,12 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="budgetCars"
-                  defaultValue=""
+                  defaultValue="Select Budget"
                   name="budgetCars"
                 >
                   <option
                     disabled={true}
-                    value=""
+                    value="Select Budget"
                   >
                     Select Budget
                   </option>

@@ -116,7 +116,7 @@ Array [
         >
           <option
             disabled={true}
-            value=""
+            value="Please Select"
           >
             Please Select
           </option>
@@ -465,7 +465,7 @@ Array [
         >
           <option
             disabled={true}
-            value=""
+            value="Please Select"
           >
             Please Select
           </option>

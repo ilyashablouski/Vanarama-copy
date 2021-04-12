@@ -53,7 +53,7 @@ $include-presentation-styles: false !default;
 
 // components (organisms)
 @import '../organisms/comments/comments.scss';
-@import '../organisms/form/form.scss';
+// @import '../organisms/form/form.scss';
 @import '../organisms/hero-prompt/hero-prompt.scss';
 @import '../organisms/league/league.scss';
 @import '../organisms/slideout-modal/slideout-modal.scss';

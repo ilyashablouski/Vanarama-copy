@@ -187,7 +187,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     >
       <option
         disabled={true}
-        value=""
+        value="Select Paint Colour"
       >
         Select Paint Colour
       </option>
@@ -232,11 +232,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       data-testid="112981"
       disabled={false}
       onChange={[Function]}
-      value=""
+      value="Select Interior"
     >
       <option
         disabled={true}
-        value=""
+        value="Select Interior"
       >
         Select Interior
       </option>
@@ -781,7 +781,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     >
       <option
         disabled={true}
-        value=""
+        value="Select Paint Colour"
       >
         Select Paint Colour
       </option>
@@ -826,11 +826,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       data-testid="112981"
       disabled={false}
       onChange={[Function]}
-      value=""
+      value="Select Interior"
     >
       <option
         disabled={true}
-        value=""
+        value="Select Interior"
       >
         Select Interior
       </option>

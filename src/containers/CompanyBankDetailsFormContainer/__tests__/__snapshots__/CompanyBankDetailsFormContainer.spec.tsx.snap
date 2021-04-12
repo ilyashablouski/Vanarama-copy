@@ -176,7 +176,7 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
               <option
                 disabled=""
                 selected=""
-                value=""
+                value="Month"
               >
                 Month
               </option>
@@ -272,7 +272,7 @@ exports[`<CompanyBankDetailsFormContainer /> should be render correctly 1`] = `
               <option
                 disabled=""
                 selected=""
-                value=""
+                value="Year"
               >
                 Year
               </option>

@@ -4,8 +4,6 @@ import ChevronDown from '../../assets/icons/ChevronDown';
 import Icon from '../icon';
 import { ISelectProps } from './interfaces';
 
-const PLACEHOLDER_VALUE = '';
-
 const Select: React.FC<ISelectProps> = React.forwardRef<
   HTMLSelectElement,
   ISelectProps
@@ -38,9 +36,7 @@ const Select: React.FC<ISelectProps> = React.forwardRef<
         className="select--native"
         data-testid={dataTestId}
         defaultValue={
-          showPlaceholder && !isControlledMode
-            ? PLACEHOLDER_VALUE
-            : defaultValue
+          showPlaceholder && !isControlledMode ? placeholder : defaultValue
         }
         disabled={disabled}
         name={name}
@@ -48,9 +44,9 @@ const Select: React.FC<ISelectProps> = React.forwardRef<
         onChange={onChange}
         onFocus={onFocus}
         ref={ref}
-        value={showPlaceholder && isControlledMode ? PLACEHOLDER_VALUE : value}
+        value={showPlaceholder && isControlledMode ? placeholder : value}
       >
-        <option disabled value={PLACEHOLDER_VALUE}>
+        <option disabled value={placeholder}>
           {placeholder}
         </option>
         {children}
