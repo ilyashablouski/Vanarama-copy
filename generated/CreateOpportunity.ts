@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { OpportunityTypeEnum } from "./globalTypes";
+import { OpportunityTypeEnum, OpportunitySubtypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateOpportunity
@@ -33,4 +33,5 @@ export interface CreateOpportunityVariables {
   vehicleType?: string | null;
   companyName?: string | null;
   fleetSize?: number | null;
+  opportunitySubtype?: OpportunitySubtypeEnum | null;
 }
