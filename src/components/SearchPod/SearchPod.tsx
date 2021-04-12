@@ -103,7 +103,7 @@ const SearchPod = ({
                           tab.type === 'Cars' &&
                           !hasCarMakeSelected
                         ) ? (
-                          <option key="All" value="">
+                          <option key="All" value=" ">
                             All{' '}
                             {accessor
                               .replace(tab.type, '')

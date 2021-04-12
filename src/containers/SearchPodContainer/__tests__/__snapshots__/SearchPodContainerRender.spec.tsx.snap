@@ -78,17 +78,17 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="typeVans"
-                  defaultValue="Select Type"
+                  defaultValue=""
                   name="typeVans"
                 >
                   <option
                     disabled={true}
-                    value="Select Type"
+                    value=""
                   >
                     Select Type
                   </option>
                   <option
-                    value=""
+                    value=" "
                   >
                     All
                      
@@ -147,17 +147,17 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="makeVans"
-                  defaultValue="Select Make"
+                  defaultValue=""
                   name="makeVans"
                 >
                   <option
                     disabled={true}
-                    value="Select Make"
+                    value=""
                   >
                     Select Make
                   </option>
                   <option
-                    value=""
+                    value=" "
                   >
                     All
                      
@@ -221,17 +221,17 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="modelVans"
-                  defaultValue="Select Model"
+                  defaultValue=""
                   name="modelVans"
                 >
                   <option
                     disabled={true}
-                    value="Select Model"
+                    value=""
                   >
                     Select Model
                   </option>
                   <option
-                    value=""
+                    value=" "
                   >
                     All
                      
@@ -322,17 +322,17 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="budgetVans"
-                  defaultValue="Select Budget"
+                  defaultValue=""
                   name="budgetVans"
                 >
                   <option
                     disabled={true}
-                    value="Select Budget"
+                    value=""
                   >
                     Select Budget
                   </option>
                   <option
-                    value=""
+                    value=" "
                   >
                     All
                      
@@ -440,17 +440,17 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="makeCars"
-                  defaultValue="Select Make"
+                  defaultValue=""
                   name="makeCars"
                 >
                   <option
                     disabled={true}
-                    value="Select Make"
+                    value=""
                   >
                     Select Make
                   </option>
                   <option
-                    value=""
+                    value=" "
                   >
                     All
                      
@@ -499,12 +499,12 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="modelCars"
-                  defaultValue="Select Model"
+                  defaultValue=""
                   name="modelCars"
                 >
                   <option
                     disabled={true}
-                    value="Select Model"
+                    value=""
                   >
                     Select Model
                   </option>
@@ -553,17 +553,17 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="typeCars"
-                  defaultValue="Select Type"
+                  defaultValue=""
                   name="typeCars"
                 >
                   <option
                     disabled={true}
-                    value="Select Type"
+                    value=""
                   >
                     Select Type
                   </option>
                   <option
-                    value=""
+                    value=" "
                   >
                     All
                      
@@ -612,17 +612,17 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
                 <select
                   className="select--native"
                   data-testid="budgetCars"
-                  defaultValue="Select Budget"
+                  defaultValue=""
                   name="budgetCars"
                 >
                   <option
                     disabled={true}
-                    value="Select Budget"
+                    value=""
                   >
                     Select Budget
                   </option>
                   <option
-                    value=""
+                    value=" "
                   >
                     All
                      

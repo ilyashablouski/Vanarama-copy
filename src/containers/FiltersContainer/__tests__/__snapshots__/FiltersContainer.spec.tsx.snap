@@ -125,7 +125,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                 >
                   <option
                     disabled=""
-                    value="Select make"
+                    value=""
                   >
                     Select make
                   </option>
@@ -186,7 +186,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                 >
                   <option
                     disabled=""
-                    value="Select model"
+                    value=""
                   >
                     Select model
                   </option>
@@ -272,7 +272,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                 >
                   <option
                     disabled=""
-                    value="Select from"
+                    value=""
                   >
                     Select from
                   </option>
@@ -348,7 +348,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                 >
                   <option
                     disabled=""
-                    value="Select to"
+                    value=""
                   >
                     Select to
                   </option>
