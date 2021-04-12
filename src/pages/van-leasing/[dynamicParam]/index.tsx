@@ -45,6 +45,7 @@ import { decodeData, encodeData } from '../../../utils/data';
 
 interface IPageType {
   isBodyStylePage: boolean;
+  isFuelType: boolean;
   isTransmissionPage: boolean;
   isMakePage: boolean;
   isBudgetType: boolean;
@@ -122,6 +123,8 @@ const Page: NextPage<IProps> = ({
       isBodyStylePage={
         pageType?.current?.isBodyStylePage ?? ssrPageType?.isBodyStylePage
       }
+      isFuelPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
+      isEvPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
       isTransmissionPage={
         pageType?.current?.isTransmissionPage ?? ssrPageType?.isTransmissionPage
       }
