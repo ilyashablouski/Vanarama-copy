@@ -140,18 +140,20 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
             />
           )}
         </Form>
-        <Text color="darker">
-          By submitting this application you are confirming that the details you
-          have entered are accurate and that that the application is made on
-          your behalf.{' '}
-          <RouterLink
-            link={{ href: '', label: '' }}
-            onClick={() => setShowModal(true)}
-            classNames={{ color: 'teal' }}
-          >
-            Learn More
-          </RouterLink>
-        </Text>
+        <div>
+          <Text color="darker">
+            By submitting this application you are confirming that the details
+            you have entered are accurate and that that the application is made
+            on your behalf.{' '}
+            <RouterLink
+              link={{ href: '', label: '' }}
+              onClick={() => setShowModal(true)}
+              classNames={{ color: 'teal' }}
+            >
+              Learn More
+            </RouterLink>
+          </Text>
+        </div>
         <Button
           disabled={isSubmitting}
           size="large"
@@ -177,7 +179,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
             done this, please do not submit this order as it is considered a
             criminal offence. If we suspect fraud or that you’ve intentionally
             given inaccurate information, we may also pass this onto other
-            organizations involved in crime and fraud prevention.
+            organisations involved in crime and fraud prevention.
           </Text>
         </Modal>
       )}
