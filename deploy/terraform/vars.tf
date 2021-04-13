@@ -47,4 +47,18 @@ variable "alb_listener_host_override" {
   type = string
   description = "Optional extra host name to associate with the ALB listener for your target."
   default = null
-} 	
+}
+
+variable "log_metric_alarms" {
+  description = "list of map of log metric alarm configuration."
+  type        = "list"
+  default     = [
+    {
+      "name": "504-alert",
+      "pattern": "\"504: Gateway Time-out\"",
+      "threshold" : "1",
+      "type" : "danger",
+      "statistic" : "Average"
+    }
+  ]
+} 

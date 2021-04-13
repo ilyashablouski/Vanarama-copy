@@ -18,6 +18,7 @@ export const CREATE_OPPORTUNITY_MUTATION = gql`
     $vehicleType: String
     $companyName: String
     $fleetSize: Int
+    $opportunitySubtype: OpportunitySubtypeEnum
   ) {
     createOpportunity(
       input: {
@@ -33,6 +34,7 @@ export const CREATE_OPPORTUNITY_MUTATION = gql`
         vehicleType: $vehicleType
         companyName: $companyName
         fleetSize: $fleetSize
+        opportunitySubtype: $opportunitySubtype
       }
     ) {
       uuid
