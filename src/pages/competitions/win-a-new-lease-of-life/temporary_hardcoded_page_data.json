@@ -1,18 +1,18 @@
 {
   "insuranceLandingPage": {
     "__typename": "GenericPage",
-    "id": "7hZTNl0QA3NnggZlSXao8S",
-    "body": "Plus receive £50 if you switch from your current Insurance provider to Vanarama Insurance*\n\n*Only available to Vanarama leasing customers. Other terms and conditions apply.!!!",
+    "id": "7hZTNl0QA3NnggZlSXao8DEMO",
+    "body": "To celebrate the launch of our new brand campaign, 1 lucky person will win a top-of-the-range-car for 3 years LIVE on our Instagram channel on the 26th of April.",
     "metaData": {
       "__typename": "Meta",
-      "title": "Van Insurance | Cheap Van Insurance Quote - Vanarama",
-      "name": "Get Your Low Cost Vehicle Insurance Quote",
+      "title": "Win A New Lease Of Life | Vanarama",
+      "name": "Win A New Lease Of Life",
       "metaRobots": null,
-      "metaDescription": "Switch from your current insurance provider to Vanarama Insurance & we'll give you ¬£100. You'll get the correct insurance cover at the cheapest possible price.",
-      "legacyUrl": "van-insurance.html",
-      "pageType": "Insurance home",
-      "canonicalUrl": "https://www.vanarama.com/van-insurance.html",
-      "slug": "insurance",
+      "metaDescription": "To celebrate the launch of our new brand campaign, 1 lucky person will win a top-of-the-range-car for 3 years LIVE on our Instagram channel on the 26th of April.",
+      "legacyUrl": "null",
+      "pageType": "Competitions",
+      "canonicalUrl": "https://www.vanarama.com/competitions/win-a-new-lease-of-life",
+      "slug": "competitions/win-a-new-lease-of-life",
       "schema": {
         "@type": "BreadcrumbList",
         "@context": "https://schema.org",
@@ -24,7 +24,7 @@
             "position": 1
           },
           {
-            "name": "Van Insurance",
+            "name": "Win A New Lease Of Life",
             "@type": "ListItem",
             "position": 2
           }
@@ -37,7 +37,7 @@
           "label": "Home"
         },
         {
-          "label": "Van Insurance"
+          "label": "Win A New Lease Of Life"
         }
       ]
     },
@@ -47,8 +47,8 @@
       "featured1": {
         "__typename": "Featured",
         "layout": ["Media Right"],
-        "body": "At Vanarama, our policies are built specifically for leasing, so you know your're getting the best deal for you. \n\n__FREEZE Your Premium For Up To 5 Years__\nBeat the annual premium price rise with multi-year insurance\n\n__75% Of Our Customers Renew With Us__\nBecause our insurance policies are built to suit your needs\n\n__No Hidden Charges__\nPay for the vehicle cover you NEED, not what you can get!\n",
-        "title": "Why Choose Vanarama For Your Insurance?",
+        "body": "To celebrate our giveaway, we’re launching a very special video starring some well-known guests! \n\nSubscribe to our social channels to stay updated.\n\n[Twitter](https://twitter.com/Vanarama)\n[YouTube](https://www.youtube.com/channel/UCILSi_cw7ympg5M7B-07SoA)\n[Instagram](https://www.instagram.com/vanaramauk/?hl=en)\n[Facebook](https://www.facebook.com/vanarama)",
+        "title": "April 21st – Keep Your Eyes Peeled",
         "titleTag": "h2",
         "video": null,
         "defaultHeight": null,
@@ -57,12 +57,12 @@
         "cards": null,
         "image": {
           "__typename": "Image",
-          "title": "Van-Insurance ",
-          "description": "Van Insurance ",
+          "title": "social-media",
+          "description": "Social Media Apps",
           "file": {
             "__typename": "File",
-            "url": "//images.ctfassets.net/3xid768u5joa/7MB5TSB8TwbCkBh45btE51/b30d635afa2298b0c63a6eb987da09ce/Van_Insurance.jpg",
-            "fileName": "Van Insurance.jpg"
+            "url": "//images.ctfassets.net/3xid768u5joa/2DBuHzXn6KycNBP128GK89/97f8f1c1c7ae2570d79a8baa2fffc4d2/social-media.jpg",
+            "fileName": "social-media.jpg"
           }
         },
         "testimonials": null
@@ -70,9 +70,9 @@
       "featured2": {
         "__typename": "Featured",
         "layout": null,
-        "body": "### What You Need To Know\n\nFrom how to get a quote right through to your no claims bonus, we've tried to make everything about van insurance a little clearer by putting together answers to some of our most frequently asked questions.\n\n[Read Our FAQs](/van-insurance/faq.html \"Read Our FAQs\")",
-        "title": "Our Van Insurance Services",
-        "titleTag": "h2",
+        "body": "For full competition terms and conditions please click on the link below\n\n[Terms & Conditions](/legal/terms-and-conditions/win-a-new-lease-of-life \"Terms & Conditions\")",
+        "title": "Terms & Conditions",
+        "titleTag": "h3",
         "video": null,
         "defaultHeight": null,
         "iconList": null,
@@ -83,69 +83,70 @@
       },
       "cards": {
         "__typename": "Cards",
-        "name": "Insurance Types",
-        "description": "At Vanarama we offer a wide range of insurance policies to suit your needs. Whether you want short-term 7-day driveaway insurance or to cover your whole lease, we've removed all the hassle and extra costs you'd usually expect when insuring your vehicle. You can compare insurance prices and purchase policies online, insure your tools and even freeze your premium for up to 5 years... all in one place!",
+        "name": "How To Win The Car",
+        "description": "Fill in the sign-up form.\nJoin us for a special Live show at 6pm on [Instagram](https://www.instagram.com/vanaramauk/) on 26th April where we’ll call the lucky winner.\n<br />There’ll be a very simple question to answer to win the car so make sure you’re following us on [Instagram](https://www.instagram.com/vanaramauk/) and [YouTube channel](https://www.youtube.com/channel/UCILSi_cw7ympg5M7B-07SoA) to stay updated.\n<br />*There will also be other prizes to be won during the live show but to be in with a chance of winning the car follow the steps above. ",
+
         "cards": [
           {
             "__typename": "Card",
             "titleTag": "h3",
-            "name": "Multi-Year Insurance",
-            "title": "Multi-Year Insurance",
-            "body": "Protect yourself against future insurance price increases",
+            "name": "Latest Car Reviews",
+            "title": "Latest Car Reviews",
+            "body": "Watch Mark Nichol's latest car reviews",
             "link": {
               "__typename": "Link",
-              "text": "Multi-Year Van Insurance",
-              "url": "/insurance/multi-year-insurance",
-              "legacyUrl": "/van-insurance/multi-year-van-insurance.html"
+              "text": "Car Reviews",
+              "url": "https://www.youtube.com/watch?v=73lFd5lxQ0k&list=PLuO1JoAYPMfSmbiqrRFwuBUygsQNkm6MO",
+              "legacyUrl": "Null"
             },
             "image": {
               "__typename": "Image",
-              "title": "multi-year-insurance",
+              "title": "car-reviews",
               "file": {
                 "__typename": "File",
-                "url": "//images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/71c2c820d70ba31552ac2ba556e60ff4/multiyear_insurance_.jpg"
+                "url": "//images.ctfassets.net/3xid768u5joa/34r4u29iToJmXIjMyOPL73/deebd64c62fc279746893fb5c0c6aa16/Car-Review.jpg"
               }
             }
           },
           {
             "__typename": "Card",
             "titleTag": "h3",
-            "name": "Finance GAP Insurance",
-            "title": "Finance GAP Insurance",
-            "body": "Extra protection should the worst happen",
+            "name": "Car Leasing Explained",
+            "title": "Car Leasing Explained",
+            "body": "Everything you need to know about leasing",
             "link": {
               "__typename": "Link",
-              "text": "Finance GAP Insurance",
-              "url": "/van-insurance/finance-gap-insurance.html",
+              "text": "Car Leasing Explained",
+              "url": "/car-leasing-explained.html",
               "legacyUrl": null
             },
             "image": {
               "__typename": "Image",
-              "title": "Finance-GAP-Insurance",
+              "title": "car-leasing-explained",
               "file": {
                 "__typename": "File",
-                "url": "//images.ctfassets.net/3xid768u5joa/6zfHr39vf5hfPI3yef5ZGG/5f279db521207bb529b85c378dd0e26b/GAP_insurance.jpg"
+                "url": "//images.ctfassets.net/3xid768u5joa/7IDep60buyKbU0NwFTO6zR/7f499d28ceb14c73b1ac8b84fccbd1ef/car-leasing-explained.jpg"
               }
             }
           },
           {
             "__typename": "Card",
             "titleTag": "h3",
-            "name": "Tools In Transit Insurance",
-            "title": "Tools in Transit Insurance",
-            "body": "Get up to £3k's worth of tools cover for only £75 per year",
+            "name": "Latest Car Deals",
+            "title": "Latest Car Deals",
+            "body": "The best offers on brand-new cars",
             "link": {
               "__typename": "Link",
-              "text": "Tools in Transit Insurance",
-              "url": "/van-insurance/tools-in-transit.html",
+              "text": "Latest Car Deals",
+              "url": "/car-leasing-special-offers.html",
               "legacyUrl": null
             },
             "image": {
               "__typename": "Image",
-              "title": "Tools-In-Transit-Insurance",
+              "title": "Latest Car Deals",
               "file": {
                 "__typename": "File",
-                "url": "//images.ctfassets.net/3xid768u5joa/4Ug4A5lwvw3qykueAj4kDH/f3f30d37896dcb1bd6fbffbf7f5c0e14/tools_insurance.jpg"
+                "url": "//images.ctfassets.net/3xid768u5joa/2oEMzj6RAqjA2JTgQbvMUT/69dc6796ca7b0da0185708bb7f4c6869/land-20roverrangeroverevoque1118.jpg"
               }
             }
           }
@@ -153,65 +154,65 @@
       },
       "carousel": {
         "__typename": "Carousel",
-        "name": "Insurance News",
+        "name": "Read More",
         "cards": [
           {
             "__typename": "Card",
+            "titleTag": "h3",
+            "name": "Latest Car Articles",
+            "title": "Latest Car Articles",
+            "body": "Motoring news, reviews and features from Vanarama",
+            "link": {
+              "__typename": "Link",
+              "text": "Read More",
+              "url": "/car-leasing/blog/category/car-news.html",
+              "legacyUrl": null
+            },
+            "image": {
+              "__typename": "Image",
+              "file": {
+                "__typename": "File",
+                "url": "//images.ctfassets.net/3xid768u5joa/2guytzczq35ZZmzYGDvjI0/d3d64f0faabaa3d017b5afe96c5770ce/driver-differently-header__1_.jpg"
+              }
+            }
+          },
+          {
+            "__typename": "Card",
+            "titleTag": "h3",
+            "name": "Latest Leasing Deals",
+            "title": "Latest Leasing Deals",
+            "body": "Check out our best leasing offers on brand-new cars",
+            "link": {
+              "__typename": "Link",
+              "text": "Read More",
+              "url": "/car-leasing-special-offers.html",
+              "legacyUrl": null
+            },
+            "image": {
+              "__typename": "Image",
+              "file": {
+                "__typename": "File",
+                "url": "//images.ctfassets.net/3xid768u5joa/1EI6UzZtosX6MGLSsemOrZ/d301e69d3f58494e55e1dcf276c831a8/t-roc-exterior__3_.jpg"
+              }
+            }
+          },
+          {
+            "__typename": "Card",
             "titleTag": null,
-            "name": "Do I Need Insurance For A Leased Car?",
-            "title": "Do I Need Insurance For A Leased Car?",
-            "body": "Find out what type of coverage you need for a new leased car.",
+            "name": "The World’s Weirdest Car Patents Brought To Life",
+            "title": "The World’s Weirdest Car Patents Brought To Life",
+            "body": "In the high-pressure world of automotive tech, what are the most bizarre patents submitted?...",
             "link": {
               "__typename": "Link",
               "text": "Read More",
-              "url": "/car-leasing-explained/do-i-need-insurance-for-leased-car.html",
+              "url": "/car-leasing/blog/worlds-weirdest-car-patents.html",
               "legacyUrl": null
             },
             "image": {
               "__typename": "Image",
               "file": {
                 "__typename": "File",
-                "url": "//images.ctfassets.net/3xid768u5joa/22ybEevo2hRu2pJImPp8tz/327aba1204a84c35b02490ca075c290c/insurance-on-leased-cars.jpg"
-              }
-            }
-          },
-          {
-            "__typename": "Card",
-            "titleTag": "h3",
-            "name": "How Much Does Your Job Title Impact Your Car Insurance Costs?",
-            "title": "How Much Does Your Job Title Impact Your Car Insurance Costs?",
-            "body": "Find out how your job title can impact car insurance costs",
-            "link": {
-              "__typename": "Link",
-              "text": "Read More",
-              "url": "/car-leasing/blog/how-much-job-title-impacts-car-insurance-cost.html",
-              "legacyUrl": null
-            },
-            "image": {
-              "__typename": "Image",
-              "file": {
-                "__typename": "File",
-                "url": "//images.ctfassets.net/3xid768u5joa/PCvfFQ3blw0dqmjMkjj8U/bac55263a70b0fc4956d1ee2a6b5e5b2/insuranve-vs-job-header.jpg"
-              }
-            }
-          },
-          {
-            "__typename": "Card",
-            "titleTag": "h3",
-            "name": "The Real Cost Of Having Your Van Or Tools Stolen",
-            "title": "The Real Cost Of Having Your Van Or Tools Stolen",
-            "body": "It's something we all dread happening & you'll want to know you've got a backup.",
-            "link": {
-              "__typename": "Link",
-              "text": "Read More",
-              "url": "/van-insurance/news/the-real-cost-of-losing-your-van.html",
-              "legacyUrl": null
-            },
-            "image": {
-              "__typename": "Image",
-              "file": {
-                "__typename": "File",
-                "url": "//images.ctfassets.net/3xid768u5joa/3lHt0hudsNclD70oe20o9n/c394604b4ffb56b2fae22a503c1e8d3c/burglar1.jpg"
+                "url": "https://images.ctfassets.net/3xid768u5joa/17vr9c4QBvDMysqyvH7D6y/11f0e02c61930c3985a3facf63d09797/Weird-Car-Patents-Header.jpg"
               }
             }
           }
@@ -220,13 +221,13 @@
       "leadText": null,
       "hero": {
         "__typename": "Hero",
-        "title": "Get Your Low Cost Vehicle Insurance Quote",
-        "body": "## Plus receive £50 if you switch from your current Insurance provider to Vanarama Insurance*\n\n*Only available to Vanarama leasing customers. Other terms and conditions apply.",
+        "title": "Win A New Lease Of Life!",
+        "body": "## To celebrate the launch of our new brand campaign, 1 lucky person will win a top-of-the-range-car for 3 years LIVE on our Instagram channel on the 26th of April.",
         "image": {
           "__typename": "Image",
           "file": {
             "__typename": "File",
-            "url": "//images.ctfassets.net/3xid768u5joa/4YO8AKzE12E7u5JdJg4aW4/be411adedff3c98051202a047fd5fe42/Insurance_Family_Image.png"
+            "url": "//images.ctfassets.net/3xid768u5joa/Ytt0ktJo0v7fyFi5dJISe/12ce90c636d08313aa8f32cf16004828/Car_cutout-01-optimised.png"
           }
         },
         "heroCard": [
