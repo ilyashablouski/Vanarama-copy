@@ -104,3 +104,13 @@ module "aws_cloudwatch_ecs_alarms" {
   app   = "${var.app}"
   cluster = "${data.terraform_remote_state.grid.outputs.cluster_arn}"
 }
+
+module "aws_log_metric_alarms" {
+  source = "git@github.com:Autorama/autorama-infra-modules.git//log_metric_alarms"
+
+  env   = "${var.env}"
+  stack = "${var.stack}"
+  app   = "${var.app}"
+
+  log_metric_alarms = "${var.log_metric_alarms}"
+}
