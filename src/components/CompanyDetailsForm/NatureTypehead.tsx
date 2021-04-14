@@ -28,18 +28,16 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
       required:
         'Please search for your nature of business & select from the list',
       validate: (val: string) => {
-        if (val && !suggestions.length && !isSelected && !value.length) {
+        if (!!val && !suggestions.length && !isSelected) {
           return "We can't find that - please give it another try";
         }
-        if (val && suggestions.length && !isSelected && !value.length) {
+        if (!!val && !!suggestions.length && !isSelected) {
           return 'Please search for your nature of business & select from the list';
         }
         return undefined;
       },
     });
-    // using for form validation
-    setValue('nature', value[0] || '');
-  }, [register, isSelected, value, suggestions, setValue]);
+  }, [register, isSelected, fieldValue, suggestions, setValue]);
 
   function handleSuggestionSelected(
     event: FormEvent<any>,
@@ -70,6 +68,10 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
             onChange: (_, { newValue }) => {
               setFieldValue(newValue);
               setSelected(false);
+              setValue('nature', fieldValue, true);
+            },
+            onBlur: () => {
+              setValue('nature', fieldValue, true);
             },
             value: fieldValue,
           }}
