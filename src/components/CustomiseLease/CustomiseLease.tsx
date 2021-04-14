@@ -281,17 +281,17 @@ const CustomiseLease = ({
               nextBestPrice={
                 maintenance
                   ? `£${toPriceFormat(
-                    quoteByCapId?.nextBestPrice?.maintained,
-                  )} PM ${stateVAT}. VAT`
+                      quoteByCapId?.nextBestPrice?.maintained,
+                    )} PM ${stateVAT}. VAT`
                   : `£${toPriceFormat(
-                    quoteByCapId?.nextBestPrice?.nonMaintained,
-                  )} PM ${stateVAT}. VAT`
+                      quoteByCapId?.nextBestPrice?.nonMaintained,
+                    )} PM ${stateVAT}. VAT`
               }
               priceLabel={
                 maintenance
                   ? `+£${toPriceFormat(
-                    quoteByCapId?.maintenanceCost?.monthlyRental,
-                  )} Maintenance`
+                      quoteByCapId?.maintenanceCost?.monthlyRental,
+                    )} Maintenance`
                   : undefined
               }
               price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
