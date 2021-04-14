@@ -39,10 +39,6 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
     });
   }, [register, isSelected, fieldValue, suggestions, setValue]);
 
-  const checkValidate = () => {
-    setValue('nature', fieldValue, true);
-  };
-
   function handleSuggestionSelected(
     event: FormEvent<any>,
     data: SuggestionSelectedEventData<ISuggestions>,
@@ -55,7 +51,6 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
     setNatureValue([data.suggestionValue]);
     // using for form validation
     setValue('nature', data.suggestionValue, true);
-    checkValidate();
   }
   return (
     <>
@@ -73,10 +68,10 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
             onChange: (_, { newValue }) => {
               setFieldValue(newValue);
               setSelected(false);
-              checkValidate();
+              setValue('nature', fieldValue, true);
             },
             onBlur: () => {
-              checkValidate();
+              setValue('nature', fieldValue, true);
             },
             value: fieldValue,
           }}
