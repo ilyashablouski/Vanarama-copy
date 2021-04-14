@@ -131,9 +131,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
 
   const [getTrimAndColour] = useTrimAndColour(
     `${capId}`,
-    colour || 0,
-    trim || 0,
     vehicleType,
+    colour || undefined,
+    trim || undefined,
     result => {
       setTrimList(result?.trimList);
       setColourList(result.colourList || []);
