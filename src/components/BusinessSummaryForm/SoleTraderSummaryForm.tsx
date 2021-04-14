@@ -139,31 +139,32 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
               )}
             />
           )}
+          <div>
+            <Text color="darker">
+              By submitting this application you are confirming that the details
+              you have entered are accurate and that that the application is
+              made on your behalf.{' '}
+              <RouterLink
+                link={{ href: '', label: '' }}
+                onClick={() => setShowModal(true)}
+                classNames={{ color: 'teal' }}
+              >
+                Learn More
+              </RouterLink>
+            </Text>
+          </div>
+          <Button
+            disabled={isSubmitting}
+            style={{ width: '100%' }}
+            size="large"
+            className="-mt-400"
+            type="button"
+            color="teal"
+            label={selectLabel}
+            dataTestId="olaf_summary_continue_buttton"
+            onClick={onSubmit}
+          />
         </Form>
-        <div>
-          <Text color="darker">
-            By submitting this application you are confirming that the details
-            you have entered are accurate and that that the application is made
-            on your behalf.{' '}
-            <RouterLink
-              link={{ href: '', label: '' }}
-              onClick={() => setShowModal(true)}
-              classNames={{ color: 'teal' }}
-            >
-              Learn More
-            </RouterLink>
-          </Text>
-        </div>
-        <Button
-          disabled={isSubmitting}
-          size="large"
-          className="-mt-400"
-          type="button"
-          color="teal"
-          label={selectLabel}
-          dataTestId="olaf_summary_continue_buttton"
-          onClick={onSubmit}
-        />
       </div>
       {showModal && (
         <Modal
