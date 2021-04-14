@@ -129,6 +129,7 @@ const Page: NextPage<IProps> = ({
         pageType?.current?.isBodyStylePage ?? ssrPageType?.isBodyStylePage
       }
       isFuelPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
+      isEvPage={pageType?.current?.isFuelType ?? ssrPageType?.isFuelType}
       isBudgetPage={
         pageType?.current?.isBudgetType ?? ssrPageType?.isBudgetType
       }

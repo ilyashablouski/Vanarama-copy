@@ -54,14 +54,13 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
-
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
 }
 
-const ECarsPage: NextPage<IProps> = ({
+const EVansPage: NextPage<IProps> = ({
   data,
-  productsElectricOnlyCar,
+  productsElectricOnlyVan,
   vehicleListUrlData,
 }) => {
   const [featuresArray, setFeaturesArray] = useState([]);
@@ -131,7 +130,7 @@ const ECarsPage: NextPage<IProps> = ({
   const CardsSection = () => (
     <section className="row:bg-lighter">
       <div className="row:cards-3col">
-        {productsElectricOnlyCar?.productCarousel
+        {productsElectricOnlyVan?.productCarousel
           ?.slice(0, 6)
           .map((item, idx) => {
             const productUrl = formatProductPageUrl(
@@ -223,8 +222,8 @@ const ECarsPage: NextPage<IProps> = ({
             size: 'regular',
           }}
           link={{
-            label: 'View Latest Electric Car Deals',
-            href: '/car-leasing/search',
+            label: 'View Latest Electric Van Deals',
+            href: '/van-leasing/search',
             query: {
               fuelTypes: [
                 'petrol/electric hybrid',
@@ -236,9 +235,9 @@ const ECarsPage: NextPage<IProps> = ({
             },
           }}
           withoutDefaultClassName
-          dataTestId="view-all-electric-cars"
+          dataTestId="view-all-electric-vans"
         >
-          <div className="button--inner">View Latest Electric Car Deals</div>
+          <div className="button--inner">View Latest Electric Van Deals</div>
         </RouterLink>
       </div>
     </section>
@@ -403,14 +402,14 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
-        slug: 'electric-leasing/cars',
+        slug: 'electric-leasing/vans',
       },
     });
     if (errors) {
       throw new Error(errors[0].message);
     }
     const {
-      productsElectricOnlyCar,
+      productsElectricOnlyVan,
       vehicleListUrlData,
     } = await evOffersRequest(client);
 
@@ -418,7 +417,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data,
-        productsElectricOnlyCar,
+        productsElectricOnlyVan,
         vehicleListUrlData,
       },
     };
@@ -427,4 +426,4 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   }
 }
 
-export default ECarsPage;
+export default EVansPage;
