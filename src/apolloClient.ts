@@ -137,17 +137,36 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
   });
 });
 
-const errorLink = onError(({ graphQLErrors, networkError }) => {
+const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
   if ([Env.DEV, Env.UAT].includes(process.env.ENV as Env)) {
+    const { query, ...operationWithoutQuery } = operation;
+
     if (graphQLErrors) {
       graphQLErrors.forEach(graphQLError => {
-        console.log('[GraphQL error]:');
-        console.log(JSON.stringify(graphQLError, null, 4));
+        console.log(
+          `\n[GraphQL][Error]:${JSON.stringify(graphQLError, null, 4)}\n`,
+        );
+        console.log(
+          `[GraphQL][Operation]:\n${JSON.stringify(
+            operationWithoutQuery,
+            null,
+            4,
+          )}\n`,
+        );
       });
     }
 
     if (networkError) {
-      console.log(`[Network error]: ${networkError}`);
+      console.log(
+        `\n[Network][Error]:\n${JSON.stringify(networkError, null, 4)}`,
+      );
+      console.log(
+        `[Network][Operation]:\n${JSON.stringify(
+          operationWithoutQuery,
+          null,
+          4,
+        )}\n`,
+      );
     }
   }
 });
