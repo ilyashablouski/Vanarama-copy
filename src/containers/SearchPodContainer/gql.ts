@@ -107,7 +107,7 @@ export function filterTypeAndBudget(
       vehicleTypes,
       manufacturerSlug: manufacturerSlug || undefined,
       rangeSlug: rangeSlug || undefined,
-      bodyStyles: !bodyStyles || bodyStyles[0] ? bodyStyles : undefined,
+      bodyStyles: !bodyStyles || bodyStyles[0]?.trim() ? bodyStyles : undefined,
     },
   });
 }

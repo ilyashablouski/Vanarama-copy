@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { Dispatch, SetStateAction } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Choiceboxes from 'core/atoms/choiceboxes';
 import Select from 'core/atoms/select';
@@ -140,7 +140,20 @@ const CustomiseLease = ({
   trimList,
   colourList,
 }: IProps) => {
+  const [initialPayment, setInitialPayment] = useState(
+    data?.quoteByCapId?.leaseCost?.initialRental,
+  );
   const quoteByCapId = data?.quoteByCapId;
+  useEffect(() => {
+    const upfront = quoteByCapId?.upfront;
+    const maintenanceCost = quoteByCapId?.maintenanceCost?.monthlyRental;
+    const initialRental = quoteByCapId?.leaseCost?.initialRental;
+    if (upfront && maintenanceCost && maintenance) {
+      const extraPayment = upfront * maintenanceCost;
+      if (initialRental) setInitialPayment(extraPayment + initialRental);
+    }
+    if (!maintenance) setInitialPayment(initialRental);
+  }, [quoteByCapId, maintenance]);
   const isMobile = useMobileViewport();
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 
@@ -176,9 +189,7 @@ const CustomiseLease = ({
         value => setUpfront(+(value || 0) || null),
         'Initial Payment - Months: ',
         isDisabled,
-        `£${toPriceFormat(
-          quoteByCapId?.leaseCost?.initialRental,
-        )} ${stateVAT}. VAT`,
+        `£${toPriceFormat(initialPayment)} ${stateVAT}. VAT`,
       )}
       <Heading tag="span" size="regular" color="black" className="-flex-h">
         Vehicle Options

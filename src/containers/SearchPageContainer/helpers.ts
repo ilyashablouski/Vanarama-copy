@@ -81,7 +81,7 @@ export const fuelMapper = {
 // using for get CMS slugs from url
 export const bodyUrlsSlugMapper = {
   automatic: 'automatic-vans',
-  '4x4': '4x4',
+  '4x4': '4x4/SUV',
   convertible: 'convertible',
   coupe: 'coupe',
   eco: 'eco',

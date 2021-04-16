@@ -1,3 +1,4 @@
+import { IChoice } from 'core/atoms/choiceboxes/interfaces';
 import { FilterFields } from './config';
 import { IDynamicPageType, ISelectedFiltersState } from './interfaces';
 import {
@@ -52,6 +53,7 @@ export const buildPreselectChoiseboxes = (
   },
   accessor: string,
   selectedFiltersState: ISelectedFiltersState,
+  choiceBoxesData: IChoice[],
 ) => {
   if (
     (isPickups || isModelPage || isBodyPage) &&
@@ -73,6 +75,16 @@ export const buildPreselectChoiseboxes = (
       value,
       active: true,
     }));
+  // If only one choice, return as a single option array with active set to true
+  if (choiceBoxesData.length === 1) {
+    return [
+      {
+        label: choiceBoxesData[0].label,
+        value: choiceBoxesData[0].value,
+        active: true,
+      },
+    ];
+  }
   return null;
 };
 

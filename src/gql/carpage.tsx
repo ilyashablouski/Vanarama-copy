@@ -170,9 +170,9 @@ export const GET_TRIM_AND_COLOR_DATA = gql`
 
 export function useTrimAndColour(
   capId: string,
-  colourId: number,
-  trimId: number,
   vehicleType: VehicleTypeEnum,
+  colourId?: number,
+  trimId?: number,
   onCompleted?: (data: GetTrimAndColor) => void,
 ) {
   return useLazyQuery<GetTrimAndColor, GetTrimAndColorVariables>(

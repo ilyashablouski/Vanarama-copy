@@ -1665,6 +1665,7 @@
       }
     }
     @include mobile {
+      gap: 2rem 0;
       > * {
         grid-column: content;
       }
