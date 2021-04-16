@@ -18,15 +18,26 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
   const [searchValue, setSearchValue] = useState(value[0] || '');
   // field value
   const [fieldValue, setFieldValue] = useState(value[0] || '');
+  // selected option from the list
+  const [isSelected, setSelected] = useState(false);
   const debouncedSearchTerm = useDebounce(searchValue);
   const suggestions = useSicCodes(debouncedSearchTerm);
 
   useEffect(() => {
-    register('nature', { required: 'Please enter the nature of business' });
-    // using for form validation
-    setValue('nature', value[0] || '');
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [register, setValue]);
+    register('nature', {
+      required:
+        'Please search for your nature of business & select from the list',
+      validate: (val: string) => {
+        if (!!val && !suggestions.length && !isSelected) {
+          return "We can't find that - please give it another try";
+        }
+        if (!!val && !!suggestions.length && !isSelected) {
+          return 'Please search for your nature of business & select from the list';
+        }
+        return undefined;
+      },
+    });
+  }, [register, isSelected, fieldValue, suggestions, setValue]);
 
   function handleSuggestionSelected(
     event: FormEvent<any>,
@@ -35,6 +46,7 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
     if (data.method === 'enter') {
       event.preventDefault();
     }
+    setSelected(true);
     // set value for container state this array will be send in mutation
     setNatureValue([data.suggestionValue]);
     // using for form validation
@@ -46,14 +58,21 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
         error={errors.nature?.message?.toString()}
         controlId="nature"
         label="Nature of Business"
-        hint="Please select from the list"
+        hint="Start typing & then select from the list"
       >
         <Typeahead
           getSuggestionValue={suggestion => suggestion.description}
           inputProps={{
             id: 'nature',
             dataTestId: 'company-details_nature',
-            onChange: (_, { newValue }) => setFieldValue(newValue),
+            onChange: (_, { newValue }) => {
+              setFieldValue(newValue);
+              setSelected(false);
+              setValue('nature', fieldValue, true);
+            },
+            onBlur: () => {
+              setValue('nature', fieldValue, true);
+            },
             value: fieldValue,
           }}
           onSuggestionsClearRequested={() => setSearchValue('')}

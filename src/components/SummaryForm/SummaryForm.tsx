@@ -247,7 +247,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
             done this, please do not submit this order as it is considered a
             criminal offence. If we suspect fraud or that you’ve intentionally
             given inaccurate information, we may also pass this onto other
-            organizations involved in crime and fraud prevention.
+            organisations involved in crime and fraud prevention.
           </Text>
         </Modal>
       )}

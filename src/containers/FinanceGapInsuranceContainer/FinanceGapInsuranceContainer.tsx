@@ -9,7 +9,10 @@ import { GenericPageQuery_genericPage_sections as Section } from '../../../gener
 import InsuranceTypeSection from './sections/InsuranceTypeSection';
 import InsuranceFormSection from './sections/InsuranceFormSection';
 import { useOpportunityCreation } from '../GoldrushFormContainer/gql';
-import { OpportunityTypeEnum } from '../../../generated/globalTypes';
+import {
+  OpportunitySubtypeEnum,
+  OpportunityTypeEnum,
+} from '../../../generated/globalTypes';
 import { pushInsuranceEventDataLayer } from '../../utils/dataLayerHelpers';
 import Skeleton from '../../components/Skeleton';
 
@@ -61,6 +64,25 @@ const FinanceGapInsurancePageContainer = ({
     link: { href: el.href || '', label: el.label },
   }));
 
+  const getOpportunitySubtype = () => {
+    switch (Router.asPath) {
+      case 'insurance/short-term-insurance':
+      case '/van-insurance/short-term-insurance.html':
+        return OpportunitySubtypeEnum.SHORTTERM;
+      case 'insurance/tools-in-transit':
+      case '/van-insurance/tools-in-transit.html':
+        return OpportunitySubtypeEnum.TOOLSINTRANSIT;
+      case 'insurance/finance-gap-insurance':
+      case '/van-insurance/finance-gap-insurance.html':
+        return OpportunitySubtypeEnum.GAPINSURANCE;
+      case 'insurance/multi-year-insurance':
+      case '/van-insurance/multi-year-van-insurance.html':
+        return OpportunitySubtypeEnum.MULTIYEAR;
+      default:
+        return null;
+    }
+  };
+
   return (
     <>
       {hero && <InsuranceHeroSection {...hero} />}
@@ -86,6 +108,7 @@ const FinanceGapInsurancePageContainer = ({
                 termsAndConditions: Boolean(values.termsAndCons),
                 privacyPolicy: Boolean(values.privacyPolicy),
                 communicationsConsent: Boolean(values.consent),
+                opportunitySubtype: getOpportunitySubtype(),
               },
             });
           }}
@@ -119,6 +142,7 @@ const FinanceGapInsurancePageContainer = ({
                   termsAndConditions: Boolean(values.termsAndCons),
                   privacyPolicy: Boolean(values.privacyPolicy),
                   communicationsConsent: Boolean(values.consent),
+                  opportunitySubtype: getOpportunitySubtype(),
                 },
               });
             }}
