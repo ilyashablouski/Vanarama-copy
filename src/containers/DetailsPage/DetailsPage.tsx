@@ -10,6 +10,8 @@ import {
   pushAddToCartDataLayer,
   getCategory,
   pushCallBackDataLayer,
+  pushPageData,
+  pushPageViewEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
@@ -30,7 +32,7 @@ import {
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
 import useLeaseType from '../../hooks/useLeaseType';
-import { getProductPageBreadCrumb } from '../../utils/url';
+import { getProductPageBreadCrumb, removeUrlQueryPart } from '../../utils/url';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
 import { genericPagesQuery_genericPages_items as GenericPages } from '../../../generated/genericPagesQuery';
@@ -165,7 +167,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
 
-  const onPushPDPDataLayer = useCallback(() => {
+  const onPushPDPDataLayer = useCallback(async () => {
     const derivativeInfo = data?.derivativeInfo;
     const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
     // tracking
@@ -190,6 +192,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   }, [isMobile]);
 
   useEffect(() => {
+    async function pushAnalytics() {
+      await pushPageData({ pathname: router.pathname });
+      await pushPageViewEvent(
+        removeUrlQueryPart(router.asPath),
+        document.title,
+      );
+      await onPushPDPDataLayer();
+    }
     if (
       window &&
       firstTimePushDataLayer &&
@@ -197,7 +207,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       data?.vehicleConfigurationByCapId &&
       leaseScannerData?.quoteByCapId
     ) {
-      onPushPDPDataLayer();
+      pushAnalytics();
       setFirstTimePushDataLayer(false);
     }
   }, [
@@ -209,6 +219,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     leaseScannerData,
     firstTimePushDataLayer,
     onPushPDPDataLayer,
+    router.pathname,
+    router.asPath,
   ]);
 
   useFirstRenderEffect(() => {
