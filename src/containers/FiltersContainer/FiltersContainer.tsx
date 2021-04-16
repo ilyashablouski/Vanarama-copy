@@ -822,6 +822,7 @@ const FiltersContainer = ({
                                 },
                                 filter.accessor,
                                 selectedFiltersState,
+                                choiceBoxesData[filter.accessor],
                               ) || choiceBoxesData[filter.accessor]
                             : choiceBoxesData[filter.accessor]
                         }
@@ -834,7 +835,9 @@ const FiltersContainer = ({
                           (filter.accessor === FilterFields.fuelTypes &&
                             isFuelPage) ||
                           (filter.accessor === FilterFields.transmissions &&
-                            isTransmissionPage)
+                            isTransmissionPage) ||
+                          // disable if only one option is available
+                          choiceBoxesData[filter.accessor]?.length === 1
                         }
                         ref={getOrCreateRef(filter.accessor)}
                       />
