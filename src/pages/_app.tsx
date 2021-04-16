@@ -73,8 +73,19 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   }, []);
 
   useEffect(() => {
-    pushPageData({ pathname: router.pathname });
-    pushPageViewEvent(removeUrlQueryPart(router.asPath), document.title);
+    async function pushAnalytics() {
+      await pushPageData({ pathname: router.pathname });
+      await pushPageViewEvent(
+        removeUrlQueryPart(router.asPath),
+        document.title,
+      );
+    }
+    // condition using for prevent incorrect events order on PDP
+    if (
+      router.pathname !== '/car-leasing/[...details-page]' &&
+      router.pathname !== '/van-leasing/[...details-page]'
+    )
+      pushAnalytics();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
