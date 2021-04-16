@@ -24,10 +24,8 @@ import {
 } from '../../../generated/GetPerson';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import PhoneNumber from '../PhoneNumber/PhoneNumber';
+import GlobalSearchContainer from '../../containers/GlobalSearchContainer';
 
-const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
-  ssr: false,
-});
 const PersonCircleSharp = dynamic(
   () => import('core/assets/icons/PersonCircleSharp'),
   {
@@ -148,21 +146,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
           {' '}
           <Logo asset="vanarama" />{' '}
         </RouterLink>{' '}
-        {isDesktop && (
-          <label className="header-search" htmlFor="search">
-            {' '}
-            {/* {TODO: commit for this search lines should be reverted after implement search functionality} */}
-            <Icon icon={<SearchCircle />} />{' '}
-            <input
-              className="header-search--input"
-              id="search"
-              type="text"
-              disabled
-              placeholder=""
-            />{' '}
-            {/* <div className="header-search--results -is-hidden" /> */}{' '}
-          </label>
-        )}
+        <GlobalSearchContainer />
         <PhoneNumber phoneNumberLink={phoneNumberLink} withIcon />{' '}
         <div className="header-account">
           {' '}
