@@ -80,8 +80,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         document.title,
       );
     }
-
-    pushAnalytics();
+    // condition using for prevent incorrect events order on PDP
+    if (
+      router.pathname !== '/car-leasing/[...details-page]' &&
+      router.pathname !== '/van-leasing/[...details-page]'
+    )
+      pushAnalytics();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
