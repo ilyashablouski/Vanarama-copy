@@ -323,6 +323,9 @@ export const EVHubPage: NextPage<IProps> = ({
           </div>
         </div>
       </section>
+      <FeaturedSection {...sections?.featured?.[3]} />
+      <section>...carousel</section>
+      <FeaturedSection {...sections?.featured?.[4]} />
 
       <LazyLoadComponent
         visibleByDefault={
