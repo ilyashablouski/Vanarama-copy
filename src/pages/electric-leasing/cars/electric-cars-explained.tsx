@@ -23,6 +23,7 @@ import getTitleTag from '../../../utils/getTitleTag';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -33,9 +34,6 @@ const Text = dynamic(() => import('core/atoms/text'), {
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={5} />,
 });
-const RouterLink = dynamic(() =>
-  import('../../../components/RouterLink/RouterLink'),
-);
 
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
@@ -272,7 +270,8 @@ export const EVHubPage: NextPage<IProps> = ({
           </div>
         </div>
       </section>
-
+      <FeaturedSection {...sections?.featured?.[1]} />
+      <FeaturedSection {...sections?.featured?.[2]} />
       <section className="row:bg-lighter">
         <div>
           <Heading
@@ -324,8 +323,6 @@ export const EVHubPage: NextPage<IProps> = ({
           </div>
         </div>
       </section>
-
-      <FeaturedSection {...sections?.featured?.[1]} />
 
       <LazyLoadComponent
         visibleByDefault={
