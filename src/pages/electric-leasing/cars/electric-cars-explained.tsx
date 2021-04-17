@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
+import Accordion from 'core/molecules/accordion/Accordion';
 import useLeaseType from '../../../hooks/useLeaseType';
 import { evHubOffersRequest, IEvOffersData } from '../../../utils/offers';
 import createApolloClient from '../../../apolloClient';
@@ -19,7 +20,6 @@ import {
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import { HeroEv as Hero, HeroHeading } from '../../../components/Hero';
 import getTitleTag from '../../../utils/getTitleTag';
-import TileLink from '../../../components/TileLink/TileLink';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
@@ -30,8 +30,8 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-const Tile = dynamic(() => import('core/molecules/tile'), {
-  loading: () => <Skeleton count={3} />,
+const Card = dynamic(() => import('core/molecules/cards'), {
+  loading: () => <Skeleton count={5} />,
 });
 const RouterLink = dynamic(() =>
   import('../../../components/RouterLink/RouterLink'),
@@ -50,9 +50,9 @@ const FeaturedSection: FC<any> = ({
   layout,
 }) => (
   <section className={`row:${getFeaturedClassPartial(layout)}`}>
-    {video ? (
-      <Media src={video || ''} width="100%" height="360px" />
-    ) : (
+    {video && <Media src={video || ''} width="100%" height="360px" />}
+
+    {image && (
       <Image
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         src={
@@ -134,40 +134,118 @@ export const EVHubPage: NextPage<IProps> = ({
           />
         </div>
       </Hero>
-
       <FeaturedSection {...sections?.featured?.[0]} />
+      <section className="row">
+        <div className="tilebox -mv-600">
+          {sections?.questionSet?.[0]?.questionAnswers?.map(set => (
+            <Accordion
+              items={[
+                {
+                  id: 'first',
+                  title: set?.question || '',
+                  children: (
+                    <ReactMarkdown
+                      allowDangerousHtml
+                      source={set?.answer || ''}
+                    />
+                  ),
+                },
+              ]}
+            />
+          ))}
+        </div>
+      </section>
+      <section className="row:bg-lighter">
+        <div className="row:cards-3col">
+          {sections?.cards?.[0]?.cards?.map(card => (
+            <Card
+              className="-title-only"
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              title={{
+                title: card.title || '',
+              }}
+              imageSrc={card.image?.file?.url}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section className="row:bg-default">
+        <div className="-mh-auto">
+          <div className="markdown">
+            <ReactMarkdown
+              allowDangerousHtml
+              source={sections?.rowText?.[0]?.body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
+          </div>
+          <Heading
+            className="-a-center -mt-600 -pt-500"
+            size="large"
+            color="black"
+            tag="h2"
+          >
+            {sections?.tiles?.[0]?.tilesTitle}
+          </Heading>
+          <div className="-flex-default -two-items -mt-500">
+            {sections?.tiles?.[0]?.tiles?.map((tile: TileData, idx) => (
+              <div key={tile.title || idx}>
+                <Heading
+                  size="large"
+                  color="black"
+                  className="-a-center -mv-500"
+                  tag="span"
+                >
+                  {tile.title}
+                </Heading>
+                <Image
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  src={tile.image?.file?.url || ''}
+                />
+                <Heading
+                  tag="span"
+                  color="black"
+                  size="lead"
+                  className=" -a-center -mv-500 -ph-600"
+                >
+                  {tile.body}
+                </Heading>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <section className="row:bg-lighter">
         <div>
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
+          <Heading
+            tag="h2"
+            color="black"
+            size="large"
+            className="-a-center -mb-600"
           >
-            <Heading
-              tag="h2"
-              color="black"
-              size="large"
-              className="-a-center -mb-600"
-            >
-              Examples of popular BEV electric cars include:
-            </Heading>
-            <ProductCarousel
-              leaseType={
-                isPersonalCar ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-              }
-              data={{
-                derivatives:
-                  productsElectricOnlyCarDerivatives?.derivatives || null,
-                productCard:
-                  productsElectricOnlyCar?.productCarousel?.slice(0, 6) || null,
-                vehicleList: vehicleListUrlData,
-              }}
-              countItems={productsElectricOnlyCar?.productCarousel?.length || 6}
-              dataTestIdBtn="car-view-offer"
-            />
-          </LazyLoadComponent>
+            Examples of popular BEV electric cars include:
+          </Heading>
+          <ProductCarousel
+            leaseType={
+              isPersonalCar ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+            }
+            data={{
+              derivatives:
+                productsElectricOnlyCarDerivatives?.derivatives || null,
+              productCard:
+                productsElectricOnlyCar?.productCarousel?.slice(0, 6) || null,
+              vehicleList: vehicleListUrlData,
+            }}
+            countItems={productsElectricOnlyCar?.productCarousel?.length || 6}
+            dataTestIdBtn="car-view-offer"
+          />
 
           <div className="-justify-content-row -pt-500">
             <RouterLink
@@ -197,30 +275,28 @@ export const EVHubPage: NextPage<IProps> = ({
 
       <section className="row:bg-lighter">
         <div>
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
+          <Heading
+            tag="h2"
+            color="black"
+            size="large"
+            className="-a-center -mb-600"
           >
-            <Heading tag="h2" color="black" size="large" className="-a-center">
-              Examples of popular HEV models include:
-            </Heading>
-            <ProductCarousel
-              leaseType={
-                isPersonalCar ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-              }
-              data={{
-                derivatives:
-                  productsHybridOnlyCarDerivatives?.derivatives || null,
-                productCard:
-                  productsHybridOnlyCar?.productCarousel?.slice(0, 6) || null,
-                vehicleList: vehicleListUrlData,
-              }}
-              countItems={productsHybridOnlyCar?.productCarousel?.length || 6}
-              dataTestIdBtn="car-view-offer"
-            />
-          </LazyLoadComponent>
+            Examples of popular HEV models include:
+          </Heading>
+          <ProductCarousel
+            leaseType={
+              isPersonalCar ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+            }
+            data={{
+              derivatives:
+                productsHybridOnlyCarDerivatives?.derivatives || null,
+              productCard:
+                productsHybridOnlyCar?.productCarousel?.slice(0, 6) || null,
+              vehicleList: vehicleListUrlData,
+            }}
+            countItems={productsHybridOnlyCar?.productCarousel?.length || 6}
+            dataTestIdBtn="car-view-offer"
+          />
 
           <div className="-justify-content-row -pt-500">
             <RouterLink
@@ -250,48 +326,6 @@ export const EVHubPage: NextPage<IProps> = ({
       </section>
 
       <FeaturedSection {...sections?.featured?.[1]} />
-      <FeaturedSection {...sections?.featured?.[2]} />
-
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:features-4col">
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                sections?.tiles?.[0]?.titleTag || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {sections?.tiles?.[0]?.tilesTitle}
-          </Heading>
-          {sections?.tiles?.[0]?.tiles?.map((tile: TileData, idx) => (
-            <div key={tile.title || idx}>
-              <Tile className="-plain -button -align-center" plain>
-                <div style={{ display: 'flex', justifyContent: 'center' }}>
-                  <Image
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    inline
-                    round
-                    size="large"
-                    src={
-                      tile.image?.file?.url ||
-                      'https://source.unsplash.com/collection/2102317/1000x650?sig=403411'
-                    }
-                  />
-                </div>
-                <TileLink tile={tile} />
-                <Text tag="p">{tile.body}</Text>
-              </Tile>
-            </div>
-          ))}
-        </section>
-      </LazyLoadComponent>
 
       <LazyLoadComponent
         visibleByDefault={
@@ -339,7 +373,7 @@ export const EVHubPage: NextPage<IProps> = ({
 export async function getServerSideProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const path = `electric-leasing/cars/${context.params?.dynamicParam}`;
+    const path = `electric-leasing/cars/electric-cars-explained`;
 
     const { data } = await client.query({
       query: GENERIC_PAGE,
