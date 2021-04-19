@@ -1,10 +1,12 @@
 // eslint-disable-next-line import/prefer-default-export
-export function getFeaturedClassPartial(layout: any) {
-  if (layout?.includes('Default')) {
+export function getFeaturedClassPartial(featured: any) {
+  if (featured?.layout?.includes('Default')) {
     return 'bg-default';
   }
-  if (layout?.includes('Full Width')) {
+  if (featured?.layout?.includes('Full Width')) {
     return 'featured-fullwidth';
   }
-  return layout?.includes('Media Left') ? 'featured-left' : 'featured-right';
+  return featured?.layout?.includes('Media Left')
+    ? 'featured-left'
+    : 'featured-right';
 }

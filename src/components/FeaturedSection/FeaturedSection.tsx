@@ -47,7 +47,7 @@ const FeaturedSection: FC<any> = ({
   ]);
   const [readmore, setReadMore] = useState(isReadMoreIncluded);
   return (
-    <section className={`row:${getFeaturedClassPartial(layout)}`} id={id}>
+    <section className={`row:${getFeaturedClassPartial({ layout })}`} id={id}>
       {video && <Media src={video || ''} width="100%" height="360px" />}
 
       {image && (
