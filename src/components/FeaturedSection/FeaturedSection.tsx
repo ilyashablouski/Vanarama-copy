@@ -7,8 +7,8 @@ import Image from 'core/atoms/image';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { GenericPageQuery_genericPage_sectionsAsArray_featured as IFeatured } from '../../../generated/GenericPageQuery';
 import getTitleTag from '../../utils/getTitleTag';
-import Skeleton from '../../components/Skeleton';
-import RouterLink from '../../components/RouterLink/RouterLink';
+import Skeleton from '../Skeleton';
+import RouterLink from '../RouterLink/RouterLink';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
