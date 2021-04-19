@@ -294,11 +294,12 @@ export async function getServerSideProps(context: NextPageContext) {
       variables: {
         capId: `${capId}`,
         vehicleType: VehicleTypeEnum.LCV,
-        trimId: parseInt(quoteDataQuery.data?.quoteByCapId?.trim || '0', 10),
-        colourId: parseInt(
-          quoteDataQuery.data?.quoteByCapId?.colour || '0',
-          10,
-        ),
+        trimId:
+          parseInt(quoteDataQuery.data?.quoteByCapId?.trim || '0', 10) ||
+          undefined,
+        colourId:
+          parseInt(quoteDataQuery.data?.quoteByCapId?.colour || '0', 10) ||
+          undefined,
       },
     });
     const breadcrumbSlugsArray = data?.genericPage.metaData.slug?.split('/');

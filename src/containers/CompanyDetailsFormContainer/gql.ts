@@ -61,7 +61,7 @@ export function useSicCodes(searchTerm?: string) {
       return data?.sicCodes?.sicData || [];
     }
 
-    if (searchTerm && searchTerm.length > 2) {
+    if (searchTerm && searchTerm.length) {
       fetchData(searchTerm)
         .then(setSuggestions)
         .catch(() => setSuggestions([]));

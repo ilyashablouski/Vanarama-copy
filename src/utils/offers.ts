@@ -143,6 +143,10 @@ export const evOffersRequest = async (
       products: productsElectricOnlyCar,
       productsCapIds: productsElectricOnlyCarIds,
     },
+    {
+      products: productsElectricOnlyVan,
+      productsCapIds: productsElectricOnlyVanIds,
+    },
   ] = await Promise.all([
     getProductCardContent(client, VehicleTypeEnum.LCV, '', '', [
       'Electric',
@@ -156,6 +160,7 @@ export const evOffersRequest = async (
       'Hybrid',
     ]),
     getProductCardContent(client, VehicleTypeEnum.CAR, '', '', ['Electric']),
+    getProductCardContent(client, VehicleTypeEnum.LCV, '', '', ['Electric']),
   ]);
 
   const [
@@ -170,12 +175,14 @@ export const evOffersRequest = async (
     ...productsEvVanCapIds,
     ...productsEvCarIds,
     ...productsElectricOnlyCarIds,
+    ...productsElectricOnlyVanIds,
   ]);
 
   return {
     productsEvVan,
     productsEvCar,
     productsElectricOnlyCar,
+    productsElectricOnlyVan,
     productsEvVanDerivatives,
     productsEvCarDerivatives,
     vehicleListUrlData,
