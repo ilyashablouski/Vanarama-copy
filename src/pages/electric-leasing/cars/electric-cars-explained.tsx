@@ -1,13 +1,14 @@
 import { FC } from 'react';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
+// import { LazyLoadComponent } from 'react-lazy-load-image-component';
 // import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
 import Accordion from 'core/molecules/accordion/Accordion';
+import Carousel from 'core/organisms/carousel';
 import useLeaseType from '../../../hooks/useLeaseType';
 import { evHubOffersRequest, IEvOffersData } from '../../../utils/offers';
 import createApolloClient from '../../../apolloClient';
@@ -324,36 +325,67 @@ export const EVHubPage: NextPage<IProps> = ({
         </div>
       </section>
       <FeaturedSection {...sections?.featured?.[3]} />
-      <section>...carousel</section>
       <FeaturedSection {...sections?.featured?.[4]} />
+      <section className="row:bg-deafault">
+        <hr className="-fullwidth" />
+        <h2
+          className="heading -xlarge -orange -mv-500"
+          style={{ transform: 'scale(0.9)' }}
+        >
+          {sections?.leadText?.[0]?.heading}
+        </h2>
+        <hr className="-fullwidth" />
+        <div className="markdown -m-zero-auto -mt-600">
+          <ReactMarkdown
+            allowDangerousHtml
+            source={sections?.leadText?.[0]?.description || ''}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return <RouterLink link={{ href, label: children }} />;
+              },
+            }}
+          />
+        </div>
+      </section>
+      <FeaturedSection {...sections?.featured?.[5]} />
+      <FeaturedSection {...sections?.featured?.[6]} />
+      <FeaturedSection {...sections?.featured?.[7]} />
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:bg-default">
-          <ul className="four-stats">
+      <section className="row:bg-default">
+        <ul className="four-stats">
+          {sections?.steps?.[0]?.steps?.map(step => (
             <li>
-              <div className="heading -large -orange">140,000</div>
-              <p className="heading -regular -darker">Domestic Chargers</p>
+              <div className="heading -large -orange">{step.title}</div>
+              <p className="heading -regular -darker">{step.body}</p>
             </li>
-            <li>
-              <div className="heading -large -orange">9,000</div>
-              <p className="heading -regular -darker">Workplace Chargers</p>
-            </li>
-            <li>
-              <div className="heading -large -orange">22,000</div>
-              <p className="heading -regular -darker">Public Chargers</p>
-            </li>
-            <li>
-              <div className="heading -large -orange">3,500</div>
-              <p className="heading -regular -darker">Rapid Chargers</p>
-            </li>
-          </ul>
-        </section>
-      </LazyLoadComponent>
+          ))}
+        </ul>
+      </section>
+
+      <FeaturedSection {...sections?.featured?.[8]} />
+      <FeaturedSection {...sections?.featured?.[9]} />
+      <FeaturedSection {...sections?.featured?.[10]} />
+
+      <section className="row:bg-lighter">
+        <div>
+          <Heading color="black" size="large" className="-a-center -mb-400">
+            More Articles
+          </Heading>
+          {sections?.carousel?.[2]?.cards && (
+            <Carousel countItems={3} className="-mh-auto about-us">
+              {sections?.carousel?.[2]?.cards.map((card, idx) => (
+                <Card
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  key={card?.name || idx}
+                  imageSrc={card?.image?.file?.url}
+                  description={card?.body || ''}
+                />
+              ))}
+            </Carousel>
+          )}
+        </div>
+      </section>
 
       {data?.genericPage.metaData && (
         <>
