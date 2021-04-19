@@ -27,8 +27,8 @@ export interface IGenericPage {
 }
 
 export const GENERIC_PAGE = gql`
-  query GenericPageQuery($slug: String!) {
-    genericPage(slug: $slug) {
+  query GenericPageQuery($slug: String!, $sectionsAsArray: Boolean) {
+    genericPage(slug: $slug, sectionsAsArray: $sectionsAsArray) {
       id
       intro
       metaData {
@@ -188,6 +188,136 @@ export const GENERIC_PAGE = gql`
           steps {
             title
             body
+          }
+        }
+      }
+      sectionsAsArray {
+        carousel {
+          title
+          name
+          cards {
+            name
+            title
+            image {
+              title
+              description
+              file {
+                url
+                fileName
+              }
+            }
+            body
+            link {
+              text
+              url
+              legacyUrl
+            }
+          }
+        }
+        cards {
+          position
+          name
+          titleTag
+          description
+          title
+          cards {
+            title
+            name
+            image {
+              title
+              description
+              file {
+                url
+                fileName
+              }
+            }
+            body
+            titleTag
+            link {
+              text
+              url
+              legacyUrl
+            }
+          }
+        }
+        faqs {
+          title
+          body
+          questionSets {
+            title
+            questionAnswers {
+              question
+              answer
+            }
+          }
+        }
+        featured {
+          ...GenericPageQueryFeatured
+        }
+        hero {
+          position
+          flag
+          title
+          titleTag
+          body
+          image {
+            title
+            description
+            file {
+              url
+              fileName
+              contentType
+            }
+          }
+          heroCard {
+            title
+            body
+          }
+          heroLabel {
+            text
+            visible
+            link {
+              text
+              url
+              visible
+            }
+          }
+        }
+        iconBullets {
+          title
+          iconBullets {
+            text
+          }
+        }
+        leadText {
+          titleTag
+          heading
+          description
+          position
+        }
+        rowText {
+          position
+          heading
+          titleTag
+          subHeading
+          body
+        }
+        steps {
+          heading
+          titleTag
+          steps {
+            title
+            body
+          }
+        }
+        tiles {
+          ...GenericPageQueryTiles
+        }
+        questionSet {
+          title
+          questionAnswers {
+            question
+            answer
           }
         }
       }

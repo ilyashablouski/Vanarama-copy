@@ -1,5 +1,7 @@
 import React, { useContext } from 'react';
 import dynamic from 'next/dynamic';
+import Carousel from 'core/organisms/carousel';
+import ProductCard from 'core/molecules/cards/ProductCard/ProductCard';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
@@ -17,10 +19,6 @@ import { features } from './helpers';
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
 });
-const Carousel = dynamic(() => import('core/organisms/carousel'));
-const ProductCard = dynamic(() =>
-  import('core/molecules/cards/ProductCard/ProductCard'),
-);
 const Heading = dynamic(() => import('core/atoms/heading'));
 const Price = dynamic(() => import('core/atoms/price'));
 const Flame = dynamic(() => import('core/assets/icons/Flame'), {

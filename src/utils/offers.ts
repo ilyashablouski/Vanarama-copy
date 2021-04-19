@@ -189,6 +189,50 @@ export const evOffersRequest = async (
   };
 };
 
+export const evHubOffersRequest = async (
+  client: ApolloClient<any>,
+): Promise<IEvOffersData> => {
+  const [
+    {
+      products: productsElectricOnlyCar,
+      productsCapIds: productsElectricOnlyCarIds,
+    },
+    {
+      products: productsHybridOnlyCar,
+      productsCapIds: productsHybridOnlyCarIds,
+    },
+  ] = await Promise.all([
+    getProductCardContent(client, VehicleTypeEnum.CAR, '', '', ['Electric']),
+    getProductCardContent(client, VehicleTypeEnum.CAR, '', '', [
+      'DieselAndElectricHybrid',
+      'PetrolAndPlugInElectricHybrid',
+      'DieselAndPlugInElectricHybrid',
+      'Hybrid',
+    ]),
+  ]);
+
+  const [
+    { data: productsElectricOnlyCarDerivatives },
+    { data: productsHybridOnlyCarDerivatives },
+  ] = await Promise.all([
+    getCarDerivatives(client, VehicleTypeEnum.CAR, productsElectricOnlyCarIds),
+    getCarDerivatives(client, VehicleTypeEnum.CAR, productsHybridOnlyCarIds),
+  ]);
+
+  const vehicleListUrlData = await getVehicleListUrlQuery(client, [
+    ...productsElectricOnlyCarIds,
+    ...productsHybridOnlyCarIds,
+  ]);
+
+  return {
+    productsElectricOnlyCar,
+    productsHybridOnlyCar,
+    productsElectricOnlyCarDerivatives,
+    productsHybridOnlyCarDerivatives,
+    vehicleListUrlData,
+  };
+};
+
 export const specialOffersRequest = async (
   client: ApolloClient<any>,
 ): Promise<ISpecialOffersData> => {
@@ -379,8 +423,11 @@ export interface IEvOffersData {
   productsEvCar?: ProductCardData;
   productsElectricOnlyCar?: ProductCardData;
   productsElectricOnlyVan?: ProductCardData;
+  productsHybridOnlyCar?: ProductCardData;
   productsEvVanDerivatives?: GetDerivatives;
   productsEvCarDerivatives?: GetDerivatives;
+  productsElectricOnlyCarDerivatives?: GetDerivatives;
+  productsHybridOnlyCarDerivatives?: GetDerivatives;
   vehicleListUrlData: IVehicleList;
 }
 
