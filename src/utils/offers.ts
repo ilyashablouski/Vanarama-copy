@@ -422,6 +422,7 @@ export interface IEvOffersData {
   productsEvVan?: ProductCardData;
   productsEvCar?: ProductCardData;
   productsElectricOnlyCar?: ProductCardData;
+  productsElectricOnlyVan?: ProductCardData;
   productsHybridOnlyCar?: ProductCardData;
   productsEvVanDerivatives?: GetDerivatives;
   productsEvCarDerivatives?: GetDerivatives;
