@@ -5,7 +5,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
 import { getFeaturedClassPartial } from '../../utils/layout';
-import { GenericPageQuery_genericPage_sectionsAsArray_featured as IFeatured } from '../../../generated/GenericPageQuery';
+import { GenericPageQuery_genericPage_sections_featured as IFeatured } from '../../../generated/GenericPageQuery';
 import getTitleTag from '../../utils/getTitleTag';
 import Skeleton from '../Skeleton';
 import RouterLink from '../RouterLink/RouterLink';
