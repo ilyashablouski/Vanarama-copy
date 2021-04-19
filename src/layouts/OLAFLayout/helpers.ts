@@ -19,15 +19,20 @@ export const createOlafDetails = (
   offer: VehicleProductInputObject,
   derivative: Derivatives,
 ) => ({
-  price: offer.monthlyPayment || 0,
+  price:
+    offer.maintenance && offer.maintenancePrice && offer.monthlyPayment
+      ? offer.monthlyPayment + offer.maintenancePrice
+      : offer.monthlyPayment || 0,
   priceDescription: `Per Month ${
     leaseType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
   }.VAT`,
   available: 'Now',
   initailRental: offer.depositPayment
-    ? `£${offer.depositPayment} (${
-        leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'
-      } VAT)`
+    ? `£${
+        offer.maintenance && offer.maintenancePrice
+          ? offer.maintenancePrice + offer.depositPayment
+          : offer.depositPayment
+      } (${leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'} VAT)`
     : '-',
   contractLength: offer.term ? `${offer.term} month` : '-',
   annualMileage: offer.annualMileage ? `${offer.annualMileage} miles` : '-',
