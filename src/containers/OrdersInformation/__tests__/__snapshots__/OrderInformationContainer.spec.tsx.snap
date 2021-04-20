@@ -32,7 +32,9 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
         data-testid="orders-link"
         href="/account/my-orders"
         onClick={[Function]}
+        onFocus={[Function]}
         onMouseEnter={[Function]}
+        onMouseOver={[Function]}
       >
         View Orders
       </a>
@@ -62,7 +64,9 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
         data-testid="quotes-link"
         href="/account/my-quotes"
         onClick={[Function]}
+        onFocus={[Function]}
         onMouseEnter={[Function]}
+        onMouseOver={[Function]}
       >
         View Quotes
       </a>

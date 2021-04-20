@@ -12,9 +12,11 @@ import {
 
 import Header from '../../components/Header';
 import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
-import { PrimaryHeader_primaryHeader_linkGroups_linkGroups as LinkGroups } from '../../../generated/PrimaryHeader';
 import { IHeaderLink } from '../../components/Header/Header';
-import { GetPrimaryHeaderData as HeaderData } from '../../../generated/GetPrimaryHeaderData';
+import {
+  GetPrimaryHeaderData as HeaderData,
+  GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups as LinkGroups,
+} from '../../../generated/GetPrimaryHeaderData';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -103,6 +105,51 @@ const HeaderContainer: FC = () => {
           children: isTabletOrMobile
             ? [linksGroupUrl, ...childrenGroupLinks]
             : childrenGroupLinks,
+        };
+      } else if (linksGroup?.linkGroups?.length) {
+        const transformGroupLink =
+          linksGroup?.linkGroups &&
+          (linksGroup?.linkGroups as LinkGroups[]).map(el => {
+            const childrenLinkArray: ILink[] = el.links!.map(
+              j =>
+                ({
+                  label: j?.text || '',
+                  href: j?.url || '',
+                  query: { isChangePage: 'true' },
+                  id: j?.url || '',
+                  as: j?.url,
+                } as ILink),
+            );
+            const linksGroupUrl = childrenLinkArray.shift() as ILink;
+            const specialOffersLinks = {
+              ...(childrenLinkArray.shift() as ILink),
+              highlight: true,
+            };
+            const childrenLink = [specialOffersLinks, ...childrenLinkArray];
+
+            return {
+              label: el.name || '',
+              href: linksGroupUrl.href,
+              id: el?.name || '',
+              children: isTabletOrMobile
+                ? [linksGroupUrl, ...childrenLink]
+                : childrenLink,
+              promotionalImage: {
+                url: el?.promotionalImage?.legacyUrl || '',
+                image: {
+                  url: el?.promotionalImage?.image?.[0]?.file?.url || '',
+                  fileName:
+                    el?.promotionalImage?.image?.[0]?.file?.fileName || '',
+                },
+              },
+            };
+          });
+
+        headerTopLinks = {
+          href: '',
+          label: linksGroup?.name || '',
+          id: linksGroup.name || '',
+          children: transformGroupLink,
         };
       } else {
         const linksGroupUrl = transformLinks?.shift();
