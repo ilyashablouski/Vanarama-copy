@@ -110,6 +110,7 @@ const DATA = {
     id: 'id',
     featuredImage: null,
     intro: '',
+    sectionsAsArray: null,
   },
 } as GenericPageQuery;
 

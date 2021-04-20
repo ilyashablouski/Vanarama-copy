@@ -513,12 +513,293 @@ export interface GenericPageQuery_genericPage_sections {
   steps: GenericPageQuery_genericPage_sections_steps | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image_file | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_link {
+  text: string | null;
+  url: string | null;
+  legacyUrl: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_carousel_cards {
+  name: string | null;
+  title: string | null;
+  image: GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_image | null;
+  body: string | null;
+  link: GenericPageQuery_genericPage_sectionsAsArray_carousel_cards_link | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_carousel {
+  title: string | null;
+  name: string | null;
+  cards: (GenericPageQuery_genericPage_sectionsAsArray_carousel_cards | null)[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image_file | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_cards_cards_link {
+  text: string | null;
+  url: string | null;
+  legacyUrl: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_cards_cards {
+  title: string | null;
+  name: string | null;
+  image: GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image | null;
+  body: string | null;
+  titleTag: string | null;
+  link: GenericPageQuery_genericPage_sectionsAsArray_cards_cards_link | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_cards {
+  position: number | null;
+  name: string | null;
+  titleTag: string | null;
+  description: string | null;
+  title: string | null;
+  cards: GenericPageQuery_genericPage_sectionsAsArray_cards_cards[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_faqs_questionSets_questionAnswers {
+  question: string | null;
+  answer: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_faqs_questionSets {
+  title: string | null;
+  questionAnswers: (GenericPageQuery_genericPage_sectionsAsArray_faqs_questionSets_questionAnswers | null)[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_faqs {
+  title: string | null;
+  body: string | null;
+  questionSets: (GenericPageQuery_genericPage_sectionsAsArray_faqs_questionSets | null)[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured_iconList {
+  text: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured_link {
+  url: string | null;
+  text: string | null;
+  legacyUrl: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured_cards_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured_cards_image {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sectionsAsArray_featured_cards_image_file | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured_cards_link {
+  text: string | null;
+  url: string | null;
+  legacyUrl: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured_cards {
+  name: string | null;
+  title: string | null;
+  image: GenericPageQuery_genericPage_sectionsAsArray_featured_cards_image | null;
+  body: string | null;
+  link: GenericPageQuery_genericPage_sectionsAsArray_featured_cards_link | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured_image {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sectionsAsArray_featured_image_file | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured_testimonials {
+  customerName: string | null;
+  summary: string | null;
+  rating: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_featured {
+  layout: (string | null)[] | null;
+  body: string | null;
+  title: string | null;
+  titleTag: string | null;
+  video: string | null;
+  defaultHeight: number | null;
+  iconList: (GenericPageQuery_genericPage_sectionsAsArray_featured_iconList | null)[] | null;
+  link: GenericPageQuery_genericPage_sectionsAsArray_featured_link | null;
+  cards: (GenericPageQuery_genericPage_sectionsAsArray_featured_cards | null)[] | null;
+  image: GenericPageQuery_genericPage_sectionsAsArray_featured_image | null;
+  testimonials: (GenericPageQuery_genericPage_sectionsAsArray_featured_testimonials | null)[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_image_file {
+  url: string;
+  fileName: string;
+  contentType: string;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_image {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sectionsAsArray_hero_image_file | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroCard {
+  title: string | null;
+  body: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroLabel_link {
+  text: string | null;
+  url: string | null;
+  visible: boolean | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero_heroLabel {
+  text: string | null;
+  visible: boolean | null;
+  link: GenericPageQuery_genericPage_sectionsAsArray_hero_heroLabel_link | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_hero {
+  position: number | null;
+  flag: string | null;
+  title: string | null;
+  titleTag: string | null;
+  body: string | null;
+  image: GenericPageQuery_genericPage_sectionsAsArray_hero_image | null;
+  heroCard: (GenericPageQuery_genericPage_sectionsAsArray_hero_heroCard | null)[] | null;
+  heroLabel: (GenericPageQuery_genericPage_sectionsAsArray_hero_heroLabel | null)[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_iconBullets_iconBullets {
+  text: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_iconBullets {
+  title: string | null;
+  iconBullets: (GenericPageQuery_genericPage_sectionsAsArray_iconBullets_iconBullets | null)[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_leadText {
+  titleTag: string | null;
+  heading: string | null;
+  description: string | null;
+  position: number | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_rowText {
+  position: number | null;
+  heading: string | null;
+  titleTag: string | null;
+  subHeading: string | null;
+  body: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_steps_steps {
+  title: string | null;
+  body: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_steps {
+  heading: string | null;
+  titleTag: string | null;
+  steps: GenericPageQuery_genericPage_sectionsAsArray_steps_steps[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_link {
+  text: string | null;
+  url: string | null;
+  legacyUrl: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image_file {
+  url: string;
+  fileName: string;
+  contentType: string;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image {
+  title: string | null;
+  description: string | null;
+  file: GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image_file | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles {
+  body: string | null;
+  title: string | null;
+  link: GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_link | null;
+  image: GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles_image | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_tiles {
+  position: number | null;
+  name: string | null;
+  tilesTitle: string | null;
+  titleTag: string | null;
+  tiles: GenericPageQuery_genericPage_sectionsAsArray_tiles_tiles[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_questionSet_questionAnswers {
+  question: string | null;
+  answer: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_questionSet {
+  title: string | null;
+  questionAnswers: (GenericPageQuery_genericPage_sectionsAsArray_questionSet_questionAnswers | null)[] | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray {
+  carousel: (GenericPageQuery_genericPage_sectionsAsArray_carousel | null)[] | null;
+  cards: (GenericPageQuery_genericPage_sectionsAsArray_cards | null)[] | null;
+  faqs: (GenericPageQuery_genericPage_sectionsAsArray_faqs | null)[] | null;
+  featured: (GenericPageQuery_genericPage_sectionsAsArray_featured | null)[] | null;
+  hero: (GenericPageQuery_genericPage_sectionsAsArray_hero | null)[] | null;
+  iconBullets: (GenericPageQuery_genericPage_sectionsAsArray_iconBullets | null)[] | null;
+  leadText: (GenericPageQuery_genericPage_sectionsAsArray_leadText | null)[] | null;
+  rowText: (GenericPageQuery_genericPage_sectionsAsArray_rowText | null)[] | null;
+  steps: (GenericPageQuery_genericPage_sectionsAsArray_steps | null)[] | null;
+  tiles: (GenericPageQuery_genericPage_sectionsAsArray_tiles | null)[] | null;
+  questionSet: (GenericPageQuery_genericPage_sectionsAsArray_questionSet | null)[] | null;
+}
+
 export interface GenericPageQuery_genericPage {
   id: string;
   intro: string | null;
   metaData: GenericPageQuery_genericPage_metaData;
   featuredImage: GenericPageQuery_genericPage_featuredImage | null;
   sections: GenericPageQuery_genericPage_sections | null;
+  sectionsAsArray: GenericPageQuery_genericPage_sectionsAsArray | null;
   body: string | null;
 }
 
@@ -528,4 +809,5 @@ export interface GenericPageQuery {
 
 export interface GenericPageQueryVariables {
   slug: string;
+  sectionsAsArray?: boolean | null;
 }

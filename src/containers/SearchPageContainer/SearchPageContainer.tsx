@@ -38,7 +38,6 @@ import {
   GetProductCard_productCard as IProductCard,
   GetProductCard,
 } from '../../../generated/GetProductCard';
-import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import TopInfoBlock from './TopInfoBlock';
 import { manufacturerPage_manufacturerPage_sections as sections } from '../../../generated/manufacturerPage';
 import {
@@ -47,7 +46,6 @@ import {
   GenericPageQuery_genericPage_sections_carousel as CarouselData,
   GenericPageQuery_genericPage_sections_tiles as Tiles,
 } from '../../../generated/GenericPageQuery';
-import { getFeaturedClassPartial } from '../../utils/layout';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { rangeList } from '../../../generated/rangeList';
@@ -64,6 +62,8 @@ import SortOrder from './SortOrder';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import TilesBlock from './TilesBlock';
 import ResultsContainer from './ResultsContainer';
+import CommonDescriptionContainer from './CommonDescriptionContainer';
+import ReadMoreBlock from './ReadMoreBlock';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -76,9 +76,6 @@ const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
 });
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
-});
-const Image = dynamic(() => import('core/atoms/image'), {
-  loading: () => <Skeleton count={3} />,
 });
 const Carousel = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={5} />,
@@ -209,13 +206,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [cardsData, setCardsData] = useState(
     preLoadProductCardsData?.productCard || ([] as (IProductCard | null)[]),
   );
-  const [carDerivativesCache, setCarDerivativesCache] = useState(
-    [] as (GetDerivatives_derivatives | null)[],
-  );
-  const [carDer, setCarDerivatives] = useState(
-    preLoadProductCardsData?.derivatives ||
-      ([] as (GetDerivatives_derivatives | null)[]),
-  );
+
   const [lastCard, setLastCard] = useState(
     preLoadVehiclesList?.vehicleList.pageInfo.endCursor || '',
   );
@@ -290,7 +281,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     data => {
       setCardsData(data?.productCard || []);
-      setCarDerivatives(data?.derivatives || []);
     },
   );
   const [getProductCacheCardData] = useProductCardDataLazyQuery(
@@ -298,7 +288,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     data => {
       setCardsDataCache(data?.productCard || []);
-      setCarDerivativesCache(data?.derivatives || []);
     },
   );
 
@@ -604,26 +593,18 @@ const SearchPageContainer: React.FC<IProps> = ({
     sessionStorage.setItem(isCarSearch ? 'Car' : 'Vans', JSON.stringify(value));
   };
 
-  const getCardData = (capId: string, dataForCards = cardsData) =>
-    dataForCards?.filter(card => card?.capId === capId)[0];
-
-  const tiles: Tiles = getSectionsData(
-    ['sections', 'tiles'],
-    pageData?.genericPage,
+  const featured = useMemo(
+    () => getSectionsData(['sections', 'featured'], pageData?.genericPage),
+    [pageData],
   );
-  const carousel: CarouselData = getSectionsData(
-    ['sections', 'carousel'],
-    pageData?.genericPage,
+  const carousel: CarouselData = useMemo(
+    () => getSectionsData(['sections', 'carousel'], pageData?.genericPage),
+    [pageData],
   );
-  const featured = getSectionsData(
-    ['sections', 'featured'],
-    pageData?.genericPage,
+  const tiles: Tiles = useMemo(
+    () => getSectionsData(['sections', 'tiles'], pageData?.genericPage),
+    [pageData],
   );
-  const isReadMoreIncluded = useMemo(
-    () => featured?.layout?.includes('Read More'),
-    [featured],
-  );
-  const [readmore, setReadMore] = useState(isReadMoreIncluded);
 
   const breadcrumbsItems = useMemo(
     () =>
@@ -730,7 +711,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   const onLoadMore = () => {
     setVehicleList([...vehiclesList, ...(cacheData?.vehicleList.edges || [])]);
     setCardsData(prevState => [...prevState, ...cardsDataCache]);
-    setCarDerivatives(prevState => [...prevState, ...carDerivativesCache]);
     // Chrome sroll down page after load new offers
     // using for prevent it
     setPageOffset(window.pageYOffset);
@@ -757,56 +737,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               ))}
         </Heading>
 
-        <section className="row:featured-right">
-          {pageData?.genericPage?.featuredImage?.file?.url && (
-            <div>
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                src={pageData.genericPage.featuredImage.file.url}
-                alt="Featured image"
-              />
-            </div>
-          )}
-
-          <div>
-            {(pageData?.genericPage?.sections?.featured1?.body ||
-              pageData?.genericPage?.intro) && (
-              <Text color="darker" size="regular" tag="div">
-                <ReactMarkdown
-                  className="markdown"
-                  allowDangerousHtml
-                  source={
-                    (pageData?.genericPage?.intro as string) ||
-                    (pageData?.genericPage?.sections?.featured1?.body as string)
-                  }
-                  renderers={{
-                    link: props => {
-                      const { href, children } = props;
-                      return (
-                        <RouterLink
-                          link={{ href, label: children }}
-                          classNames={{ color: 'teal' }}
-                        />
-                      );
-                    },
-                    image: props => {
-                      const { src, alt } = props;
-                      return (
-                        <img {...{ src, alt }} style={{ maxWidth: '100%' }} />
-                      );
-                    },
-                    heading: props => (
-                      <Text {...props} size="lead" color="darker" tag="h3" />
-                    ),
-                    paragraph: props => (
-                      <Text {...props} tag="p" color="darker" />
-                    ),
-                  }}
-                />
-              </Text>
-            )}
-          </div>
-        </section>
+        <CommonDescriptionContainer pageData={pageData} />
       </div>
 
       {pageData && (
@@ -849,62 +780,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       )}
 
       {!(isSpecialOfferPage && isCarSearch) && featured && (
-        <div className={`row:${getFeaturedClassPartial(featured)}`}>
-          {!featured?.layout?.includes('Full Width') && (
-            <div>
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                size="expand"
-                src={featured.image?.file?.url || ''}
-              />
-            </div>
-          )}
-          <div>
-            <div
-              className={readmore ? '-truncate' : ''}
-              style={{
-                height:
-                  featured?.layout?.includes('Read More') && readmore
-                    ? featured?.defaultHeight || 100
-                    : '',
-              }}
-            >
-              <Heading
-                tag={featured.titleTag || 'span'}
-                size="large"
-                color="black"
-                className="-mb-300"
-              >
-                {featured.title}
-              </Heading>
-              <ReactMarkdown
-                className="markdown"
-                source={featured.body || ''}
-                allowDangerousHtml
-                renderers={{
-                  link: props => {
-                    const { href, children } = props;
-                    return (
-                      <RouterLink
-                        link={{ href, label: children }}
-                        classNames={{ color: 'teal' }}
-                      />
-                    );
-                  },
-                }}
-              />
-            </div>
-            {isReadMoreIncluded && (
-              <Button
-                size="small"
-                color="teal"
-                fill="clear"
-                label={readmore ? 'Read More' : 'Read Less'}
-                onClick={() => setReadMore(!readmore)}
-              />
-            )}
-          </div>
-        </div>
+        <ReadMoreBlock featured={featured} />
       )}
 
       {isAllMakesPage && topInfoSection && (
@@ -1007,10 +883,8 @@ const SearchPageContainer: React.FC<IProps> = ({
               manufacturers={manufacturers}
               makesUrls={makesUrls}
               cardsData={cardsData}
-              carDer={carDer}
               vehiclesList={vehiclesList}
               isModelPage={isModelPage}
-              getCardData={getCardData}
             />
           </div>
           {!(isMakePage || isAllMakesPage) ? (
@@ -1033,60 +907,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       </div>
 
       {isSpecialOfferPage && isCarSearch && featured && (
-        <section className="row:featured-right">
-          {!featured?.layout?.includes('Full Width') && (
-            <Image
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              size="expand"
-              src={featured.image?.file?.url || ''}
-            />
-          )}
-          <div>
-            <div
-              className={readmore ? '-truncate' : ''}
-              style={{
-                height:
-                  isReadMoreIncluded && readmore
-                    ? featured?.defaultHeight || 100
-                    : '',
-              }}
-            >
-              <Heading
-                tag={featured.titleTag || 'span'}
-                size="large"
-                color="black"
-                className="-mb-300"
-              >
-                {featured.title}
-              </Heading>
-              <ReactMarkdown
-                className="markdown"
-                source={featured.body || ''}
-                allowDangerousHtml
-                renderers={{
-                  link: props => {
-                    const { href, children } = props;
-                    return (
-                      <RouterLink
-                        link={{ href, label: children }}
-                        classNames={{ color: 'teal' }}
-                      />
-                    );
-                  },
-                }}
-              />
-            </div>
-            {featured?.layout?.includes('Read More') && (
-              <Button
-                size="small"
-                color="teal"
-                fill="clear"
-                label={readmore ? 'Read More' : 'Read Less'}
-                onClick={() => setReadMore(!readmore)}
-              />
-            )}
-          </div>
-        </section>
+        <ReadMoreBlock featured={featured} />
       )}
 
       {pageData?.genericPage?.sections?.featured2?.body && (
