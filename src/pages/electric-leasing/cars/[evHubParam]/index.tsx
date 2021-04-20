@@ -2,6 +2,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 // import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
+import ReactMarkdown from 'react-markdown/with-html';
 import Image from 'core/atoms/image';
 import Carousel from 'core/organisms/carousel';
 import createApolloClient from '../../../../apolloClient';
@@ -11,6 +12,7 @@ import { HeroEv as Hero, HeroHeading } from '../../../../components/Hero';
 import FeaturedSection from '../../../../components/FeaturedSection';
 import Head from '../../../../components/Head/Head';
 import Skeleton from '../../../../components/Skeleton';
+import RouterLink from '../../../../components/RouterLink/RouterLink';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -55,8 +57,34 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
         </div>
       </Hero>
 
-      {sections?.featured?.map(section => (
-        <FeaturedSection {...section} />
+      {sections?.featured?.map((section, idx) => (
+        <>
+          <FeaturedSection {...section} />
+          {sections?.leadText?.[0]?.position === idx && (
+            <section className="row:bg-default">
+              <hr className="-fullwidth" />
+              <h2
+                className="heading -xlarge -orange -mv-500"
+                style={{ transform: 'scale(0.9)' }}
+              >
+                {sections?.leadText?.[0]?.heading}
+              </h2>
+              <hr className="-fullwidth" />
+              <div className="markdown -m-zero-auto -mt-600">
+                <ReactMarkdown
+                  allowDangerousHtml
+                  source={sections?.leadText?.[0]?.description || ''}
+                  renderers={{
+                    link: props => {
+                      const { href, children } = props;
+                      return <RouterLink link={{ href, label: children }} />;
+                    },
+                  }}
+                />
+              </div>
+            </section>
+          )}
+        </>
       ))}
 
       <section className="row:bg-lighter">
@@ -64,9 +92,9 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
           <Heading color="black" size="large" className="-a-center -mb-400">
             More Articles
           </Heading>
-          {sections?.carousel?.[2]?.cards && (
+          {sections?.carousel?.[0]?.cards && (
             <Carousel countItems={3} className="-mh-auto about-us">
-              {sections?.carousel?.[2]?.cards.map((card, idx) => (
+              {sections?.carousel?.[0]?.cards.map((card, idx) => (
                 <div className="card" key={card?.name || idx}>
                   <img
                     className="card-image"
