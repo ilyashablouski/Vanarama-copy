@@ -22,6 +22,8 @@ interface IAppLinkProps extends IBaseProps {
   dataMenu?: string;
   withoutDefaultClassName?: boolean;
   withoutLink?: boolean;
+  onMouseOver?: React.MouseEventHandler<HTMLAnchorElement>;
+  onFocus?: React.FocusEventHandler<HTMLAnchorElement>;
 }
 
 const RouterLink: React.FC<IAppLinkProps> = props => {
@@ -37,6 +39,8 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     as,
     withoutDefaultClassName,
     withoutLink,
+    onMouseOver,
+    onFocus,
   } = props;
   const router = useRouter();
   const linkClassName = cx(className, {
@@ -111,6 +115,8 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         onClick={e => onClick && onClick(e)}
         data-testid={dataTestId ?? 'router-link'}
         data-menu={dataMenu ?? null}
+        onMouseOver={e => onMouseOver && onMouseOver(e)}
+        onFocus={e => onFocus && onFocus(e)}
       >
         {children || link.label}
       </a>
