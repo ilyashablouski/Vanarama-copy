@@ -1,4 +1,4 @@
-import { FC, memo, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import Accordion from 'core/molecules/accordion/Accordion';
 import Skeleton from '../../components/Skeleton';
@@ -55,4 +55,4 @@ const JumpMenu: FC<IJumpMenu> = ({ links, title }) => {
   );
 };
 
-export default memo(JumpMenu);
+export default JumpMenu;
