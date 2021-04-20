@@ -19,7 +19,7 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
   // field value
   const [fieldValue, setFieldValue] = useState(value[0] || '');
   // selected option from the list
-  const [isSelected, setSelected] = useState(false);
+  const [isSelected, setSelected] = useState(!!value?.[0]);
   const debouncedSearchTerm = useDebounce(searchValue);
   const suggestions = useSicCodes(debouncedSearchTerm);
 
