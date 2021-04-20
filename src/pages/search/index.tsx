@@ -46,7 +46,7 @@ export async function getServerSideProps(context: NextPageContext) {
       query: GET_TEXT_SEARCH_VEHICLES_DATA,
       variables: {
         query: contextData.query.searchTerm as string,
-        from: 1,
+        from: 0,
       },
     })
     .then(resp => resp.data);

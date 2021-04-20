@@ -34,6 +34,16 @@ export const GET_PRIMARY_HEADER_DATA = gql`
             url
             label
           }
+          promotionalImage {
+            url
+            legacyUrl
+            image {
+              file {
+                url
+                fileName
+              }
+            }
+          }
         }
       }
     }

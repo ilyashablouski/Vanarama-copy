@@ -56,13 +56,27 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
                   <div
                     class="media-player--embed"
                   >
-                    <iframe
-                      frameborder="0"
-                      height="100%"
-                      src=""
-                      title="media"
-                      width="100%"
-                    />
+                    <div
+                      class="preview-wrapper"
+                      role="img"
+                    >
+                      <div
+                        aria-label="Play"
+                        class="play-btn"
+                        role="button"
+                      />
+                      <div
+                        class="image -expand"
+                      >
+                        <img
+                          class="image--native"
+                          loading="eager"
+                          sizes="(min-width:320px) 800px, 1200px"
+                          src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://img.youtube.com/vi//maxresdefault.jpg"
+                          srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://img.youtube.com/vi//maxresdefault.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://img.youtube.com/vi//maxresdefault.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://img.youtube.com/vi//maxresdefault.jpg 1200w"
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

@@ -10,7 +10,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
     data-testid="router-link"
     href="/hub/vans"
     onClick={[Function]}
+    onFocus={[Function]}
     onMouseEnter={[Function]}
+    onMouseOver={[Function]}
   >
     <span>
       Vans
@@ -114,7 +116,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing/finance-options"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Van Leasing Explained
@@ -149,7 +153,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing/Citroen"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Citroen
@@ -165,7 +171,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing/Ford"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Ford
@@ -181,7 +189,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing/Benz"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Benz
@@ -197,7 +207,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing/Nissan"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Nissan
@@ -213,7 +225,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing/Renault"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Renault
@@ -229,7 +243,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing/Vauxhall"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Vauxhall
@@ -245,7 +261,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing/Fiat"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Fiat
@@ -261,7 +279,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing/Isuzu"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Isuzu
@@ -277,7 +297,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing/Mitsubishi"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Mitsubishi
@@ -293,7 +315,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing/Peugeot"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Peugeot
@@ -309,7 +333,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing/Toyota"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Toyota
@@ -325,7 +351,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing/Volkswagen"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Volkswagen
@@ -360,7 +388,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing?bodyStyles=Small%20Van"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Small
@@ -376,7 +406,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing?bodyStyles=Medium%20Van"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Medium
@@ -392,7 +424,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing?bodyStyles=Large%20Van"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Large
@@ -427,7 +461,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing?bodyStyles=Refrigerated%20Van"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Refrigerated
@@ -443,7 +479,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing?bodyStyles=Dropside%20Tipper,Luton%20Box%20Van"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Tippers/Lutons
@@ -459,7 +497,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing?bodyStyles=Minibus"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Crew/Minibus
@@ -475,7 +515,9 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing?bodyStyles=Specialist"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Specialist
@@ -498,7 +540,9 @@ exports[`<HeaderMenuLink /> renders correctly without children 1`] = `
     data-testid="router-link"
     href="/van-leasing"
     onClick={[Function]}
+    onFocus={[Function]}
     onMouseEnter={[Function]}
+    onMouseOver={[Function]}
   >
     <i
       className="icon -orange -xsmall"
