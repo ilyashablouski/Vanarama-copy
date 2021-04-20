@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow } from 'enzyme';
+import { mount, shallow } from 'enzyme';
 
 import Media from '..';
 
@@ -16,6 +16,7 @@ describe('<Media />', () => {
       <Media
         src="https://player.vimeo.com/video/263419265"
         className="hello-world"
+        player
       />,
     );
     expect(wrapper).toMatchSnapshot();
@@ -26,6 +27,7 @@ describe('<Media />', () => {
       <Media
         src="https://player.vimeo.com/video/263419265"
         vimeoConfig={{ color: 'EC6408', portrait: false }}
+        player
       />,
     );
     expect(wrapper).toMatchSnapshot();
@@ -36,6 +38,7 @@ describe('<Media />', () => {
       <Media
         src="https://player.vimeo.com/video/263419265"
         dataTestId="helloWorld"
+        player
       />,
     );
     expect(wrapper).toMatchSnapshot();
@@ -47,6 +50,31 @@ describe('<Media />', () => {
         src="https://ssl.caranddriving.com/cdwebsite/player.aspx?id=8221&cid=autorama&responsive=true"
         dataTestId="helloWorld"
         responsive
+        player
+      />,
+    );
+    expect(wrapper).toMatchSnapshot();
+  });
+  it('renders youtube player correctly after click on thumb', () => {
+    const wrapper = mount(
+      <Media
+        src="https://www.youtube.com/watch?v=hZVXqcKEBmQ"
+        dataTestId="helloWorld"
+        width="100%"
+        height="360px"
+      />,
+    );
+    wrapper.find('.play-btn').simulate('click');
+    expect(wrapper).toMatchSnapshot();
+  });
+
+  it('renders youtube thumb correctly', () => {
+    const wrapper = mount(
+      <Media
+        src="https://www.youtube.com/watch?v=hZVXqcKEBmQ"
+        dataTestId="helloWorld"
+        width="100%"
+        height="360px"
       />,
     );
     expect(wrapper).toMatchSnapshot();

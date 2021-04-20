@@ -16,7 +16,9 @@ exports[`<Header /> renders correctly 1`] = `
       data-testid="router-link"
       href="/"
       onClick={[Function]}
+      onFocus={[Function]}
       onMouseEnter={[Function]}
+      onMouseOver={[Function]}
     >
        
       <span
@@ -136,7 +138,9 @@ exports[`<Header /> renders correctly 1`] = `
             data-testid="router-link"
             href="/account/login-register"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <i
               className="icon -xsmall"
@@ -189,7 +193,9 @@ exports[`<Header /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-leasing"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <i
               className="icon -orange -xsmall"
@@ -218,7 +224,9 @@ exports[`<Header /> renders correctly 1`] = `
             data-testid="router-link"
             href="/hub/vans"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Vans
@@ -322,7 +330,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/finance-options"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Van Leasing Explained
@@ -357,7 +367,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Citroen"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Citroen
@@ -373,7 +385,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Ford"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Ford
@@ -389,7 +403,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Benz"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Benz
@@ -405,7 +421,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Nissan"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Nissan
@@ -421,7 +439,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Renault"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Renault
@@ -437,7 +457,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Vauxhall"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Vauxhall
@@ -453,7 +475,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Fiat"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Fiat
@@ -469,7 +493,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Isuzu"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Isuzu
@@ -485,7 +511,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Mitsubishi"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Mitsubishi
@@ -501,7 +529,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Peugeot"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Peugeot
@@ -517,7 +547,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Toyota"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Toyota
@@ -533,7 +565,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Volkswagen"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Volkswagen
@@ -568,7 +602,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Small%20Van"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Small
@@ -584,7 +620,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Medium%20Van"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Medium
@@ -600,7 +638,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Large%20Van"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Large
@@ -635,7 +675,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Refrigerated%20Van"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Refrigerated
@@ -651,7 +693,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Dropside%20Tipper,Luton%20Box%20Van"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Tippers/Lutons
@@ -667,7 +711,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Minibus"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Crew/Minibus
@@ -683,7 +729,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Specialist"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Specialist
@@ -703,7 +751,9 @@ exports[`<Header /> renders correctly 1`] = `
             data-testid="router-link"
             href="/hub/pickups"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Pickups
@@ -744,7 +794,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/pickup-truck-leasing/special-offers"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <i
                       className="icon -white -xsmall"
@@ -818,7 +870,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Citroen?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Citroen
@@ -834,7 +888,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Ford?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Ford
@@ -850,7 +906,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Benz?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Benz
@@ -866,7 +924,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Nissan?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Nissan
@@ -882,7 +942,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Renault?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Renault
@@ -898,7 +960,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Vauxhall?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Vauxhall
@@ -914,7 +978,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Fiat?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Fiat
@@ -930,7 +996,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Isuzu?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Isuzu
@@ -946,7 +1014,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Mitsubishi?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Mitsubishi
@@ -962,7 +1032,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Peugeot?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Peugeot
@@ -978,7 +1050,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Toyota?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Toyota
@@ -994,7 +1068,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Volkswagen?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Volkswagen
@@ -1029,7 +1105,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/ford/ranger/pick-up-double-cab-wildtrak-3-2-ecoblue-200-auto"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Ford Ranger Wildtrack
@@ -1045,7 +1123,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/nissan/navara/double-cab-pick-up-tekna-2-3dci-190-tt-4wd-auto"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Nissan Navara Tekna Auto
@@ -1061,7 +1141,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/toyota/hilux/invincible-x-d/cab-pick-up-2-4-d-4d-auto"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Toyota Hilux Invincible X Auto
@@ -1077,7 +1159,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/mitsubishi/l200/double-cab-di-d-150-barbarian-4wd-auto"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Mitsubishi L200 Barbarian Auto
@@ -1097,7 +1181,9 @@ exports[`<Header /> renders correctly 1`] = `
             data-testid="router-link"
             href="/hub/cars"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Cars
@@ -1138,7 +1224,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/special-offers"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <i
                       className="icon -white -xsmall"
@@ -1194,7 +1282,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/finance-options"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Car Leasing Explained
@@ -1229,7 +1319,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Audi"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Audi
@@ -1245,7 +1337,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/BMW"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       BMW
@@ -1261,7 +1355,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Ford"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Ford
@@ -1277,7 +1373,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Hyundai"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Hyundai
@@ -1293,7 +1391,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Jaguar"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Jaguar
@@ -1309,7 +1409,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Kia"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Kia
@@ -1325,7 +1427,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Land%20Rover"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Land Rover
@@ -1341,7 +1445,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Mercedes-Benz"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Mercedes-Benz
@@ -1357,7 +1463,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Mini"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Mini
@@ -1373,7 +1481,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Nissan"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Nissan
@@ -1389,7 +1499,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Peugeot"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Peugeot
@@ -1405,7 +1517,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Seat"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Seat
@@ -1421,7 +1535,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Skoda"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Skoda
@@ -1437,7 +1553,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Smart"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Smart
@@ -1453,7 +1571,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Tesla"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Tesla
@@ -1469,7 +1589,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Toyota"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Toyota
@@ -1485,7 +1607,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Vauxhall"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Vauxhall
@@ -1501,7 +1625,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Volkswagen"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Volkswagen
@@ -1517,7 +1643,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Volvo"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Volvo
@@ -1533,7 +1661,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/all-car-manufacturers"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       View All
@@ -1568,7 +1698,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=4x4"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       4x4/SUV
@@ -1584,7 +1716,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Coupe"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Coupe
@@ -1600,7 +1734,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Estate"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Estate
@@ -1616,7 +1752,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Hatchback"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Hatchback
@@ -1632,7 +1770,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Prestige"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Prestige
@@ -1648,7 +1788,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Small"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Small
@@ -1664,7 +1806,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Convertible"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Convertible
@@ -1680,7 +1824,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Eco"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Eco
@@ -1696,7 +1842,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Family"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Family
@@ -1712,7 +1860,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=People%20Carrier"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       People Carrier
@@ -1728,7 +1878,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Saloon"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Saloon
@@ -1744,7 +1896,9 @@ exports[`<Header /> renders correctly 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/search"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       View All
@@ -1764,7 +1918,9 @@ exports[`<Header /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-insurance"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Insurance
@@ -1874,7 +2030,9 @@ exports[`<Header /> renders correctly 1`] = `
             data-testid="router-link"
             href="/fleet"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Fleet
@@ -1890,7 +2048,9 @@ exports[`<Header /> renders correctly 1`] = `
             data-testid="router-link"
             href="/van-insurance"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               News
@@ -2002,7 +2162,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
       data-testid="router-link"
       href="/"
       onClick={[Function]}
+      onFocus={[Function]}
       onMouseEnter={[Function]}
+      onMouseOver={[Function]}
     >
        
       <span
@@ -2122,7 +2284,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
             data-testid="router-link"
             href="/account/login-register"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <i
               className="icon -xsmall"
@@ -2175,7 +2339,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
             data-testid="router-link"
             href="/van-leasing"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <i
               className="icon -orange -xsmall"
@@ -2204,7 +2370,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
             data-testid="router-link"
             href="/hub/vans"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Vans
@@ -2308,7 +2476,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/finance-options"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Van Leasing Explained
@@ -2343,7 +2513,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Citroen"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Citroen
@@ -2359,7 +2531,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Ford"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Ford
@@ -2375,7 +2549,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Benz"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Benz
@@ -2391,7 +2567,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Nissan"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Nissan
@@ -2407,7 +2585,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Renault"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Renault
@@ -2423,7 +2603,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Vauxhall"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Vauxhall
@@ -2439,7 +2621,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Fiat"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Fiat
@@ -2455,7 +2639,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Isuzu"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Isuzu
@@ -2471,7 +2657,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Mitsubishi"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Mitsubishi
@@ -2487,7 +2675,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Peugeot"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Peugeot
@@ -2503,7 +2693,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Toyota"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Toyota
@@ -2519,7 +2711,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Volkswagen"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Volkswagen
@@ -2554,7 +2748,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Small%20Van"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Small
@@ -2570,7 +2766,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Medium%20Van"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Medium
@@ -2586,7 +2784,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Large%20Van"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Large
@@ -2621,7 +2821,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Refrigerated%20Van"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Refrigerated
@@ -2637,7 +2839,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Dropside%20Tipper,Luton%20Box%20Van"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Tippers/Lutons
@@ -2653,7 +2857,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Minibus"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Crew/Minibus
@@ -2669,7 +2875,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing?bodyStyles=Specialist"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Specialist
@@ -2689,7 +2897,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
             data-testid="router-link"
             href="/hub/pickups"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Pickups
@@ -2730,7 +2940,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/pickup-truck-leasing/special-offers"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <i
                       className="icon -white -xsmall"
@@ -2804,7 +3016,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Citroen?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Citroen
@@ -2820,7 +3034,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Ford?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Ford
@@ -2836,7 +3052,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Benz?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Benz
@@ -2852,7 +3070,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Nissan?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Nissan
@@ -2868,7 +3088,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Renault?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Renault
@@ -2884,7 +3106,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Vauxhall?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Vauxhall
@@ -2900,7 +3124,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Fiat?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Fiat
@@ -2916,7 +3142,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Isuzu?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Isuzu
@@ -2932,7 +3160,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Mitsubishi?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Mitsubishi
@@ -2948,7 +3178,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Peugeot?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Peugeot
@@ -2964,7 +3196,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Toyota?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Toyota
@@ -2980,7 +3214,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/Volkswagen?bodyStyles=Pickup"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Volkswagen
@@ -3015,7 +3251,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/ford/ranger/pick-up-double-cab-wildtrak-3-2-ecoblue-200-auto"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Ford Ranger Wildtrack
@@ -3031,7 +3269,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/nissan/navara/double-cab-pick-up-tekna-2-3dci-190-tt-4wd-auto"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Nissan Navara Tekna Auto
@@ -3047,7 +3287,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/toyota/hilux/invincible-x-d/cab-pick-up-2-4-d-4d-auto"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Toyota Hilux Invincible X Auto
@@ -3063,7 +3305,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/van-leasing/mitsubishi/l200/double-cab-di-d-150-barbarian-4wd-auto"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Mitsubishi L200 Barbarian Auto
@@ -3083,7 +3327,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
             data-testid="router-link"
             href="/hub/cars"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Cars
@@ -3124,7 +3370,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/special-offers"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <i
                       className="icon -white -xsmall"
@@ -3180,7 +3428,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/finance-options"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Car Leasing Explained
@@ -3215,7 +3465,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Audi"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Audi
@@ -3231,7 +3483,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/BMW"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       BMW
@@ -3247,7 +3501,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Ford"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Ford
@@ -3263,7 +3519,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Hyundai"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Hyundai
@@ -3279,7 +3537,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Jaguar"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Jaguar
@@ -3295,7 +3555,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Kia"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Kia
@@ -3311,7 +3573,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Land%20Rover"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Land Rover
@@ -3327,7 +3591,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Mercedes-Benz"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Mercedes-Benz
@@ -3343,7 +3609,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Mini"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Mini
@@ -3359,7 +3627,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Nissan"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Nissan
@@ -3375,7 +3645,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Peugeot"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Peugeot
@@ -3391,7 +3663,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Seat"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Seat
@@ -3407,7 +3681,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Skoda"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Skoda
@@ -3423,7 +3699,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Smart"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Smart
@@ -3439,7 +3717,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Tesla"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Tesla
@@ -3455,7 +3735,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Toyota"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Toyota
@@ -3471,7 +3753,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Vauxhall"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Vauxhall
@@ -3487,7 +3771,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Volkswagen"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Volkswagen
@@ -3503,7 +3789,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/Volvo"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Volvo
@@ -3519,7 +3807,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/all-car-manufacturers"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       View All
@@ -3554,7 +3844,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=4x4"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       4x4/SUV
@@ -3570,7 +3862,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Coupe"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Coupe
@@ -3586,7 +3880,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Estate"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Estate
@@ -3602,7 +3898,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Hatchback"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Hatchback
@@ -3618,7 +3916,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Prestige"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Prestige
@@ -3634,7 +3934,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Small"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Small
@@ -3650,7 +3952,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Convertible"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Convertible
@@ -3666,7 +3970,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Eco"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Eco
@@ -3682,7 +3988,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Family"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Family
@@ -3698,7 +4006,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=People%20Carrier"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       People Carrier
@@ -3714,7 +4024,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing?bodyStyles=Saloon"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       Saloon
@@ -3730,7 +4042,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
                     data-testid="router-link"
                     href="/car-leasing/search"
                     onClick={[Function]}
+                    onFocus={[Function]}
                     onMouseEnter={[Function]}
+                    onMouseOver={[Function]}
                   >
                     <span>
                       View All
@@ -3750,7 +4064,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
             data-testid="router-link"
             href="/van-insurance"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Insurance
@@ -3860,7 +4176,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
             data-testid="router-link"
             href="/fleet"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               Fleet
@@ -3876,7 +4194,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
             data-testid="router-link"
             href="/van-insurance"
             onClick={[Function]}
+            onFocus={[Function]}
             onMouseEnter={[Function]}
+            onMouseOver={[Function]}
           >
             <span>
               News

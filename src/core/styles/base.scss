@@ -23,7 +23,7 @@ $include-presentation-styles: false !default;
 // @import '../atoms/badge/badge.scss';
 @import '../atoms/breadcrumb/breadcrumb.scss';
 @import '../atoms/button/button.scss';
-// @import '../atoms/checkbox/checkbox.scss';
+@import '../atoms/checkbox/checkbox.scss';
 // @import '../atoms/choiceboxes/choiceboxes.scss';
 @import '../atoms/dropdown/dropdown.scss';
 @import '../atoms/heading/heading.scss';
@@ -55,7 +55,7 @@ $include-presentation-styles: false !default;
 // @import '../atoms/tooltip/tooltip.scss';
 
 // components (molecules)
-// @import '../molecules/formgroup/formgroup.scss';
+@import '../molecules/formgroup/formgroup.scss';
 // @import '../molecules/accordion/accordion.scss';
 @import '../molecules/address-finder/address-finder.scss';
 @import '../molecules/cards/card.scss';

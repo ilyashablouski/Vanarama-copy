@@ -43,7 +43,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     promotionalImage,
   } = props;
   const firstChildrenLinks: IHeaderLink | undefined = useMemo(
-    () => links.find(el => !!el.children?.length),
+    () => links.find(el => !!el.children?.length && !el.promotionalImage?.url),
     [links],
   );
 
@@ -160,6 +160,20 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                         }
                       : undefined
                   }
+                  onMouseOver={
+                    !isTabletOrMobile && link.children?.length
+                      ? () => {
+                          setActiveTertiaryMenu(link?.id || '');
+                        }
+                      : undefined
+                  }
+                  onFocus={
+                    link.children?.length
+                      ? () => {
+                          setActiveTertiaryMenu(link?.id || '');
+                        }
+                      : undefined
+                  }
                 >
                   {link.highlight && (
                     <Icon icon={<FlameSharp />} color="white" size="xsmall" />
@@ -172,42 +186,79 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
           ))}
         </ul>
         {tertiaryLinks.map(tertiaryBlock => (
-          <ul
-            key={`menu-tertiary-${tertiaryBlock?.id}`}
-            className={cx('menu-tertiary', {
-              '-open': activeTertiaryMenu === tertiaryBlock.id,
-            })}
-          >
-            <li className={linkClassName({ title: true })}>
-              <Button
-                withoutDefaultClass
-                className="link"
-                onClick={el => {
-                  el.preventDefault();
-                  setActiveTertiaryMenu(null);
-                }}
-                dataTestId={`menu-tertiary-${tertiaryBlock.id}`}
-                color="black"
-                fill="clear"
-                label={tertiaryBlock.label}
-              />
-            </li>
-            {(tertiaryBlock.children as IHeaderLink[]).map(
-              (linkSecondary: IHeaderLink) => (
-                <li
-                  key={linkSecondary.label}
-                  className={linkClassName({
-                    highlight: linkSecondary.highlight,
-                    half: tertiaryBlock?.children!.length > 4,
-                  })}
+          <>
+            <ul
+              key={`menu-tertiary-${tertiaryBlock?.id}`}
+              className={cx('menu-tertiary', {
+                '-open': activeTertiaryMenu === tertiaryBlock.id,
+              })}
+            >
+              <li className={linkClassName({ title: true })}>
+                <Button
+                  withoutDefaultClass
+                  className="link"
+                  onClick={el => {
+                    el.preventDefault();
+                    setActiveTertiaryMenu(null);
+                  }}
+                  dataTestId={`menu-tertiary-${tertiaryBlock.id}`}
+                  color="black"
+                  fill="clear"
+                  label={tertiaryBlock.label}
+                />
+              </li>
+              {(tertiaryBlock.children as IHeaderLink[]).map(
+                (linkSecondary: IHeaderLink) => (
+                  <li
+                    key={linkSecondary.label}
+                    className={linkClassName({
+                      highlight: linkSecondary.highlight,
+                      half: tertiaryBlock?.children!.length > 4,
+                    })}
+                  >
+                    <RouterLink link={linkSecondary} as={linkSecondary.as}>
+                      {linkSecondary.highlight && (
+                        <Icon
+                          icon={<FlameSharp />}
+                          color="white"
+                          size="xsmall"
+                        />
+                      )}
+                      <span>{linkSecondary.label}</span>
+                    </RouterLink>
+                  </li>
+                ),
+              )}
+            </ul>
+            {tertiaryBlock.promotionalImage?.url && (
+              <div
+                className={cx('menu-featured', 'tertiary', {
+                  '-hide':
+                    activeTertiaryMenu !== tertiaryBlock.id &&
+                    activeTertiaryMenu !== '',
+                })}
+              >
+                <RouterLink
+                  link={{
+                    href: tertiaryBlock.promotionalImage?.url,
+                    label: '',
+                  }}
                 >
-                  <RouterLink link={linkSecondary} as={linkSecondary.as}>
-                    <span>{linkSecondary.label}</span>
-                  </RouterLink>
-                </li>
-              ),
+                  <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    optimisationOptions={{
+                      quality: 40,
+                    }}
+                    src={
+                      tertiaryBlock.promotionalImage?.image.url ||
+                      '/img-placeholder.png'
+                    }
+                    alt={tertiaryBlock.promotionalImage?.image.fileName}
+                  />
+                </RouterLink>
+              </div>
             )}
-          </ul>
+          </>
         ))}
 
         {promotionalImage?.url && (
