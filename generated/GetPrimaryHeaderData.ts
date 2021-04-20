@@ -39,9 +39,25 @@ export interface GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_links 
   label: string | null;
 }
 
+export interface GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_promotionalImage_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_promotionalImage_image {
+  file: GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_promotionalImage_image_file | null;
+}
+
+export interface GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_promotionalImage {
+  url: string | null;
+  legacyUrl: string | null;
+  image: (GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_promotionalImage_image | null)[] | null;
+}
+
 export interface GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups {
   name: string | null;
   links: (GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_links | null)[] | null;
+  promotionalImage: GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_promotionalImage | null;
 }
 
 export interface GetPrimaryHeaderData_primaryHeader_linkGroups {

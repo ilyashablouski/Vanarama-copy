@@ -39,6 +39,16 @@ const query = gql`
             url
             label
           }
+          promotionalImage {
+            url
+            legacyUrl
+            image {
+              file {
+                url
+                fileName
+              }
+            }
+          }
         }
       }
     }
