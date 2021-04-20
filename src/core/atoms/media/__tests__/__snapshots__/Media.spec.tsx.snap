@@ -10,15 +10,46 @@ exports[`<Media /> renders correctly with className 1`] = `
     useIntersectionObserver={true}
     visibleByDefault={true}
   >
-    <div
+    <ReactPlayer
       className=""
-    >
-      <iframe
-        frameBorder={0}
-        src="https://player.vimeo.com/video/263419265"
-        title="media"
-      />
-    </div>
+      config={
+        Object {
+          "vimeo": Object {
+            "playerOptions": undefined,
+          },
+        }
+      }
+      controls={true}
+      height="360px"
+      light={false}
+      loop={false}
+      muted={false}
+      onBuffer={[Function]}
+      onBufferEnd={[Function]}
+      onDisablePIP={[Function]}
+      onDuration={[Function]}
+      onEnablePIP={[Function]}
+      onEnded={[Function]}
+      onError={[Function]}
+      onPause={[Function]}
+      onPlay={[Function]}
+      onProgress={[Function]}
+      onReady={[Function]}
+      onSeek={[Function]}
+      onStart={[Function]}
+      pip={false}
+      playbackRate={1}
+      playing={false}
+      playsinline={false}
+      progressInterval={1000}
+      src="https://player.vimeo.com/video/263419265"
+      stopOnUnmount={true}
+      style={Object {}}
+      url="https://player.vimeo.com/video/263419265"
+      volume={null}
+      width="640px"
+      wrapper="div"
+    />
   </t>
 </div>
 `;
@@ -33,15 +64,49 @@ exports[`<Media /> renders correctly with config 1`] = `
     useIntersectionObserver={true}
     visibleByDefault={true}
   >
-    <div
+    <ReactPlayer
       className=""
-    >
-      <iframe
-        frameBorder={0}
-        src="https://player.vimeo.com/video/263419265"
-        title="media"
-      />
-    </div>
+      config={
+        Object {
+          "vimeo": Object {
+            "playerOptions": Object {
+              "color": "EC6408",
+              "portrait": false,
+            },
+          },
+        }
+      }
+      controls={true}
+      height="360px"
+      light={false}
+      loop={false}
+      muted={false}
+      onBuffer={[Function]}
+      onBufferEnd={[Function]}
+      onDisablePIP={[Function]}
+      onDuration={[Function]}
+      onEnablePIP={[Function]}
+      onEnded={[Function]}
+      onError={[Function]}
+      onPause={[Function]}
+      onPlay={[Function]}
+      onProgress={[Function]}
+      onReady={[Function]}
+      onSeek={[Function]}
+      onStart={[Function]}
+      pip={false}
+      playbackRate={1}
+      playing={false}
+      playsinline={false}
+      progressInterval={1000}
+      src="https://player.vimeo.com/video/263419265"
+      stopOnUnmount={true}
+      style={Object {}}
+      url="https://player.vimeo.com/video/263419265"
+      volume={null}
+      width="640px"
+      wrapper="div"
+    />
   </t>
 </div>
 `;
@@ -56,15 +121,47 @@ exports[`<Media /> renders correctly with data-testid 1`] = `
     useIntersectionObserver={true}
     visibleByDefault={true}
   >
-    <div
+    <ReactPlayer
       className=""
-    >
-      <iframe
-        frameBorder={0}
-        src="https://player.vimeo.com/video/263419265"
-        title="media"
-      />
-    </div>
+      config={
+        Object {
+          "vimeo": Object {
+            "playerOptions": undefined,
+          },
+        }
+      }
+      controls={true}
+      data-testid="helloWorld"
+      height="360px"
+      light={false}
+      loop={false}
+      muted={false}
+      onBuffer={[Function]}
+      onBufferEnd={[Function]}
+      onDisablePIP={[Function]}
+      onDuration={[Function]}
+      onEnablePIP={[Function]}
+      onEnded={[Function]}
+      onError={[Function]}
+      onPause={[Function]}
+      onPlay={[Function]}
+      onProgress={[Function]}
+      onReady={[Function]}
+      onSeek={[Function]}
+      onStart={[Function]}
+      pip={false}
+      playbackRate={1}
+      playing={false}
+      playsinline={false}
+      progressInterval={1000}
+      src="https://player.vimeo.com/video/263419265"
+      stopOnUnmount={true}
+      style={Object {}}
+      url="https://player.vimeo.com/video/263419265"
+      volume={null}
+      width="640px"
+      wrapper="div"
+    />
   </t>
 </div>
 `;
@@ -82,11 +179,22 @@ exports[`<Media /> renders correctly with default prop 1`] = `
     <div
       className=""
     >
-      <iframe
-        frameBorder={0}
-        src="https://player.vimeo.com/video/263419265"
-        title="media"
-      />
+      <div
+        className="preview-wrapper"
+        onClick={[Function]}
+        role="img"
+      >
+        <div
+          aria-label="Play"
+          className="play-btn"
+          onClick={[Function]}
+          role="button"
+        />
+        <Memo(Image)
+          optimisedHost="https://dev.vanarama-nonprod.com"
+          src="https://img.youtube.com/vi/263419265/maxresdefault.jpg"
+        />
+      </div>
     </div>
   </t>
 </div>
@@ -102,15 +210,133 @@ exports[`<Media /> renders correctly with iframe and responsive 1`] = `
     useIntersectionObserver={true}
     visibleByDefault={true}
   >
-    <div
+    <ReactPlayer
       className="media-player--embed"
-    >
-      <iframe
-        frameBorder={0}
-        src="https://ssl.caranddriving.com/cdwebsite/player.aspx?id=8221&cid=autorama&responsive=true"
-        title="media"
-      />
-    </div>
+      config={
+        Object {
+          "vimeo": Object {
+            "playerOptions": undefined,
+          },
+        }
+      }
+      controls={true}
+      data-testid="helloWorld"
+      height="360px"
+      light={false}
+      loop={false}
+      muted={false}
+      onBuffer={[Function]}
+      onBufferEnd={[Function]}
+      onDisablePIP={[Function]}
+      onDuration={[Function]}
+      onEnablePIP={[Function]}
+      onEnded={[Function]}
+      onError={[Function]}
+      onPause={[Function]}
+      onPlay={[Function]}
+      onProgress={[Function]}
+      onReady={[Function]}
+      onSeek={[Function]}
+      onStart={[Function]}
+      pip={false}
+      playbackRate={1}
+      playing={false}
+      playsinline={false}
+      progressInterval={1000}
+      src="https://ssl.caranddriving.com/cdwebsite/player.aspx?id=8221&cid=autorama&responsive=true"
+      stopOnUnmount={true}
+      style={Object {}}
+      url="https://ssl.caranddriving.com/cdwebsite/player.aspx?id=8221&cid=autorama&responsive=true"
+      volume={null}
+      width="640px"
+      wrapper="div"
+    />
   </t>
 </div>
+`;
+
+exports[`<Media /> renders youtube player correctly after click on thumb 1`] = `
+<Memo(Media)
+  dataTestId="helloWorld"
+  height="360px"
+  src="https://www.youtube.com/watch?v=hZVXqcKEBmQ"
+  width="100%"
+>
+  <div
+    className="media"
+  >
+    <t
+      afterLoad={[Function]}
+      beforeLoad={[Function]}
+      useIntersectionObserver={true}
+      visibleByDefault={true}
+    >
+      <div
+        className=""
+      >
+        <iframe
+          frameBorder={0}
+          height="360px"
+          src="https://www.youtube.com/watch?v=hZVXqcKEBmQ"
+          title="media"
+          width="100%"
+        />
+      </div>
+    </t>
+  </div>
+</Memo(Media)>
+`;
+
+exports[`<Media /> renders youtube thumb correctly 1`] = `
+<Memo(Media)
+  dataTestId="helloWorld"
+  height="360px"
+  src="https://www.youtube.com/watch?v=hZVXqcKEBmQ"
+  width="100%"
+>
+  <div
+    className="media"
+  >
+    <t
+      afterLoad={[Function]}
+      beforeLoad={[Function]}
+      useIntersectionObserver={true}
+      visibleByDefault={true}
+    >
+      <div
+        className=""
+      >
+        <div
+          className="preview-wrapper"
+          onClick={[Function]}
+          role="img"
+        >
+          <div
+            aria-label="Play"
+            className="play-btn"
+            onClick={[Function]}
+            role="button"
+          />
+          <Memo(Image)
+            optimisedHost="https://dev.vanarama-nonprod.com"
+            src="https://img.youtube.com/vi/watch?v=hZVXqcKEBmQ/maxresdefault.jpg"
+          >
+            <div
+              className="image -expand"
+            >
+              <img
+                className="image--native"
+                loading="eager"
+                onError={[Function]}
+                sizes="(min-width:320px) 800px, 1200px"
+                src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://img.youtube.com/vi/watch?v=hZVXqcKEBmQ/maxresdefault.jpg"
+                srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://img.youtube.com/vi/watch?v=hZVXqcKEBmQ/maxresdefault.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://img.youtube.com/vi/watch?v=hZVXqcKEBmQ/maxresdefault.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://img.youtube.com/vi/watch?v=hZVXqcKEBmQ/maxresdefault.jpg 1200w"
+              />
+            </div>
+          </Memo(Image)>
+        </div>
+      </div>
+    </t>
+  </div>
+</Memo(Media)>
 `;
