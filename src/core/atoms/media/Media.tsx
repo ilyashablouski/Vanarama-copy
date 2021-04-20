@@ -2,6 +2,7 @@ import React from 'react';
 import ReactPlayer from 'react-player';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
+import IframeContainer from './IframeContainer';
 import { IMediaProps } from './interface';
 
 const Media: React.FC<IMediaProps> = ({
@@ -21,18 +22,6 @@ const Media: React.FC<IMediaProps> = ({
   player,
   noLazy,
 }) => {
-  const renderIframe = () => (
-    <div className={cx({ 'media-player--embed': responsive })}>
-      <iframe
-        frameBorder={0}
-        width={width}
-        height={height}
-        src={src}
-        title="media"
-      />
-    </div>
-  );
-
   const renderPlayer = () => (
     <ReactPlayer
       className={cx({ 'media-player--embed': responsive })}
@@ -51,7 +40,10 @@ const Media: React.FC<IMediaProps> = ({
     />
   );
 
-  const render = () => (player ? renderPlayer() : renderIframe());
+  const render = () =>
+    player
+      ? renderPlayer()
+      : IframeContainer({ responsive, width, height, src });
 
   return (
     <div className={cx('media', className)}>
