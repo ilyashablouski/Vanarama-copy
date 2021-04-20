@@ -24,6 +24,7 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
   const suggestions = useSicCodes(debouncedSearchTerm);
 
   useEffect(() => {
+    setValue('nature', fieldValue || '', true);
     register('nature', {
       required:
         'Please search for your nature of business & select from the list',
