@@ -31,7 +31,9 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
       data-testid="heading-link"
       href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
       onClick={[Function]}
+      onFocus={[Function]}
       onMouseEnter={[Function]}
+      onMouseOver={[Function]}
     >
       <span
         className="heading -pb-100 -primary -large"
@@ -154,7 +156,9 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
       data-testid="view-offer"
       href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
       onClick={[Function]}
+      onFocus={[Function]}
       onMouseEnter={[Function]}
+      onMouseOver={[Function]}
     >
       <div
         className="button--inner"
@@ -250,7 +254,9 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       data-testid="heading-link"
       href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
       onClick={[Function]}
+      onFocus={[Function]}
       onMouseEnter={[Function]}
+      onMouseOver={[Function]}
     >
       <span
         className="heading -pb-100 -primary -large"
@@ -373,7 +379,9 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       data-testid="view-offer"
       href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
       onClick={[Function]}
+      onFocus={[Function]}
       onMouseEnter={[Function]}
+      onMouseOver={[Function]}
     >
       <div
         className="button--inner"
@@ -469,7 +477,9 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
       data-testid="heading-link"
       href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
       onClick={[Function]}
+      onFocus={[Function]}
       onMouseEnter={[Function]}
+      onMouseOver={[Function]}
     >
       <span
         className="heading -pb-100 -primary -large"
@@ -592,7 +602,9 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
       data-testid="view-offer"
       href="/car-leasing/vauxhall/crossland-x/bodystylename/slug"
       onClick={[Function]}
+      onFocus={[Function]}
       onMouseEnter={[Function]}
+      onMouseOver={[Function]}
     >
       <div
         className="button--inner"
