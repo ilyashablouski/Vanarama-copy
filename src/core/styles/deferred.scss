@@ -17,7 +17,7 @@ $include-presentation-styles: false !default;
 @import '../atoms/dropdown/dropdown.scss';
 @import '../atoms/details/details.scss';
 @import '../atoms/badge/badge.scss';
-@import '../atoms/checkbox/checkbox.scss';
+// @import '../atoms/checkbox/checkbox.scss';
 @import '../atoms/choiceboxes/choiceboxes.scss';
 @import '../atoms/toast/toast.scss';
 @import '../atoms/tooltip/tooltip.scss';
@@ -41,7 +41,7 @@ $include-presentation-styles: false !default;
 
 // components (molecules)
 @import '../molecules/accordion/accordion.scss';
-@import '../molecules/formgroup/formgroup.scss';
+// @import '../molecules/formgroup/formgroup.scss';
 @import '../molecules/ivan-cta/ivan-cta.scss';
 @import '../molecules/modal/modal.scss';
 @import '../molecules/trustpilot/trustpilot.scss';
