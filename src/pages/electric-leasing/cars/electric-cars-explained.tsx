@@ -17,7 +17,7 @@ import { GENERIC_PAGE } from '../../../gql/genericPage';
 import { HeroEv as Hero, HeroHeading } from '../../../components/Hero';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 import FeaturedSection from '../../../components/FeaturedSection';
-import JumpMenu from '../JumpMenu';
+import JumpMenu from '../../../components/JumpMenu/JumpMenu';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
 import RouterLink from '../../../components/RouterLink/RouterLink';
