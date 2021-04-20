@@ -1,7 +1,7 @@
-import { FC, useEffect } from 'react';
+import { FC, useEffect, memo } from 'react';
 import dynamic from 'next/dynamic';
 import Accordion from 'core/molecules/accordion/Accordion';
-import Skeleton from '../../components/Skeleton';
+import Skeleton from '../Skeleton';
 
 const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
@@ -55,4 +55,4 @@ const JumpMenu: FC<IJumpMenu> = ({ links, title }) => {
   );
 };
 
-export default JumpMenu;
+export default memo(JumpMenu);
