@@ -1,6 +1,7 @@
 const blogPosts = require('./blogPosts');
 const blogPost = require('./blogPost');
 const genericPage = require('./genericPage');
+const genericPages = require('./genericPages');
 const pageCollection = require('./pageCollection');
 const vehicleList = require('./vehicleList');
 const productCard = require('./productCard');
@@ -25,6 +26,7 @@ function runQuery(callBack) {
 runQuery(blogPosts);
 runQuery(blogPost);
 runQuery(genericPage);
+runQuery(genericPages);
 runQuery(pageCollection);
 runQuery(vehicleList);
 runQuery(productCard);
