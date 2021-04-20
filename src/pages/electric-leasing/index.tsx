@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, FC } from 'react';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
@@ -71,6 +71,55 @@ const ProductCarousel = dynamic(
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
 }
+
+const FeaturedSection: FC<any> = ({
+  video,
+  image,
+  title,
+  titleTag,
+  body,
+  layout,
+}) => (
+  <section className={`row:${getFeaturedClassPartial(layout)}`}>
+    {video ? (
+      <Media src={video || ''} width="100%" height="360px" />
+    ) : (
+      <Image
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+        src={
+          image?.file?.url ||
+          'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+        }
+      />
+    )}
+
+    <div className="-inset -middle -col-400">
+      <Heading
+        size="large"
+        color="black"
+        tag={getTitleTag(titleTag || 'p') as keyof JSX.IntrinsicElements}
+      >
+        {title}
+      </Heading>
+      <div className="markdown">
+        <ReactMarkdown
+          allowDangerousHtml
+          source={body || ''}
+          renderers={{
+            link: props => {
+              const { href, children } = props;
+              return <RouterLink link={{ href, label: children }} />;
+            },
+            heading: props => (
+              <Text {...props} size="lead" color="darker" tag="h3" />
+            ),
+            paragraph: props => <Text {...props} tag="p" color="darker" />,
+          }}
+        />
+      </div>
+    </div>
+  </section>
+);
 
 export const EVHubPage: NextPage<IProps> = ({
   data,
@@ -281,152 +330,9 @@ export const EVHubPage: NextPage<IProps> = ({
         </Tabs>
       </section>
 
-      <section
-        className={`row:${getFeaturedClassPartial(sections?.featured1)}`}
-      >
-        {sections?.featured1?.video ? (
-          <Media
-            src={sections?.featured1.video || ''}
-            width="100%"
-            height="360px"
-          />
-        ) : (
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src={
-              sections?.featured1?.image?.file?.url ||
-              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-            }
-          />
-        )}
-
-        <div className="-inset -middle -col-400">
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                sections?.featured1?.titleTag || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {sections?.featured1?.title}
-          </Heading>
-          <div className="markdown">
-            <ReactMarkdown
-              allowDangerousHtml
-              source={sections?.featured1?.body || ''}
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-                heading: props => (
-                  <Text {...props} size="lead" color="darker" tag="h3" />
-                ),
-                paragraph: props => <Text {...props} tag="p" color="darker" />,
-              }}
-            />
-          </div>
-        </div>
-      </section>
-      <section
-        className={`row:${getFeaturedClassPartial(sections?.featured2)}`}
-      >
-        {sections?.featured2?.video ? (
-          <Media
-            src={sections?.featured2?.video || ''}
-            width="100%"
-            height="360px"
-          />
-        ) : (
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src={
-              sections?.featured2?.image?.file?.url ||
-              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-            }
-          />
-        )}
-
-        <div className="-inset -middle -col-400">
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                sections?.featured2?.titleTag || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {sections?.featured2?.title}
-          </Heading>
-          <div className="markdown">
-            <ReactMarkdown
-              allowDangerousHtml
-              source={sections?.featured2?.body || ''}
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-                heading: props => (
-                  <Text {...props} size="lead" color="darker" tag="h3" />
-                ),
-                paragraph: props => <Text {...props} tag="p" color="darker" />,
-              }}
-            />
-          </div>
-        </div>
-      </section>
-      <section
-        className={`row:${getFeaturedClassPartial(sections?.featured3)}`}
-      >
-        {sections?.featured3?.video ? (
-          <Media
-            src={sections?.featured3?.video || ''}
-            width="100%"
-            height="360px"
-          />
-        ) : (
-          <Image
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            src={
-              sections?.featured3?.image?.file?.url ||
-              'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-            }
-          />
-        )}
-        <div className="-inset -middle -col-400">
-          <Heading
-            size="large"
-            color="black"
-            tag={
-              getTitleTag(
-                sections?.featured3?.titleTag || 'p',
-              ) as keyof JSX.IntrinsicElements
-            }
-          >
-            {sections?.featured3?.title}
-          </Heading>
-          <div className="markdown">
-            <ReactMarkdown
-              allowDangerousHtml
-              source={sections?.featured3?.body || ''}
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return <RouterLink link={{ href, label: children }} />;
-                },
-                heading: props => (
-                  <Text {...props} size="lead" color="darker" tag="h3" />
-                ),
-                paragraph: props => <Text {...props} tag="p" color="darker" />,
-              }}
-            />
-          </div>
-        </div>
-      </section>
+      <FeaturedSection {...sections?.featured1} />
+      <FeaturedSection {...sections?.featured2} />
+      <FeaturedSection {...sections?.featured3} />
 
       <LazyLoadComponent
         visibleByDefault={
