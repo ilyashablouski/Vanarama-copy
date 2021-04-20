@@ -326,6 +326,7 @@ $small: 0.875rem;
     }
     > a[href]:first-of-type {
       white-space: normal;
+      word-break: break-word;
       @include pseudo(after) {
         will-change: opacity;
         opacity: 0;
