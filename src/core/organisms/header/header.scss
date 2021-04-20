@@ -883,6 +883,13 @@
     height: 100%;
     grid-auto-flow: column;
     grid-column: 1 / -1;
+
+    &.tertiary {
+      position: absolute;
+      height: auto;
+      bottom: 0;
+      z-index: 122;
+    }
   }
   .menu-featured > .image {
     margin: auto;

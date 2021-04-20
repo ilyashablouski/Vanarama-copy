@@ -232,7 +232,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
             </ul>
             {tertiaryBlock.promotionalImage?.url && (
               <div
-                className={cx('menu-featured', {
+                className={cx('menu-featured', 'tertiary', {
                   '-hide':
                     activeTertiaryMenu !== tertiaryBlock.id &&
                     activeTertiaryMenu !== '',
