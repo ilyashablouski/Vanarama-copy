@@ -642,6 +642,7 @@
 .menu-li > .link,
 .menu-li > a[data-menu] {
   position: relative;
+  text-transform: uppercase;
 }
 
 .menu-li.-with-children > .link:after,
