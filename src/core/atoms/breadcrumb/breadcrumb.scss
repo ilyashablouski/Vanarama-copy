@@ -20,6 +20,9 @@
     }
 
     @include mobile {
+      grid-template-columns: auto;
+      place-items: flex-start;
+
       &.-child > * {
         display: none;
       }
