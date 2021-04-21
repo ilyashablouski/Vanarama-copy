@@ -1,9 +1,14 @@
-import { IBaseProps } from '../../interfaces/base';
+import { IBaseProps } from 'core/interfaces/base';
+import {
+  IVehicle as IVehicleState,
+  IVehicleCarousel,
+} from '../../../utils/comparatorHelpers';
 
 export interface IComparatorBar extends IBaseProps {
   deleteVehicle: (vehicle: IVehicle) => void;
   compareVehicles: () => void;
   vehicles: IVehicle[];
+  setCompareVehicles: (vehicles: IVehicleState[] | IVehicleCarousel[]) => void;
 }
 
 export interface IVehicle {

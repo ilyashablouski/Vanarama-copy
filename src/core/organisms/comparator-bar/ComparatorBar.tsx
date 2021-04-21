@@ -1,9 +1,20 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
+import { useRouter } from 'next/router';
 import { IComparatorBar } from './interface';
 import ComporatorBarCard from './ComparatorBarCard';
 import Heading from '../../atoms/heading/Heading';
 import Button from '../../atoms/button';
+import {
+  getCompares,
+  IVehicle,
+  IVehicleCarousel,
+} from '../../../utils/comparatorHelpers';
+import {
+  PAGES_WITH_COMPARATOR,
+  PAGES_WITHOUT_COMPARATOR,
+  WHOLE_PATHS_PAGES_WITH_COMPARATOR,
+} from '../../../utils/comparatorTool';
 
 const MAX_AMOUNT_VEHICLES = 3;
 
@@ -13,15 +24,43 @@ const ComporatorBar: React.FC<IComparatorBar> = ({
   deleteVehicle,
   compareVehicles,
   vehicles,
+  setCompareVehicles,
 }) => {
+  const router = useRouter();
   const arrayCards = Array(MAX_AMOUNT_VEHICLES).fill('');
+  const [existComparator, setExistComparator] = useState(false);
 
   const vehiclesAdded =
     vehicles.length === 1
       ? `1 Vehicle Added`
       : `${vehicles.length} Vehicles Added`;
 
-  return (
+  useEffect(() => {
+    const getVehicles = async () => {
+      const vehiclesCompares = (await getCompares()) as
+        | IVehicle[]
+        | IVehicleCarousel[]
+        | null;
+      if (vehiclesCompares?.length) {
+        setCompareVehicles(vehiclesCompares);
+      }
+    };
+    getVehicles();
+
+    if (
+      (PAGES_WITH_COMPARATOR.some(page => router.pathname.includes(page)) &&
+        !PAGES_WITHOUT_COMPARATOR.some(page =>
+          router.pathname.includes(page),
+        )) ||
+      WHOLE_PATHS_PAGES_WITH_COMPARATOR.some(page => router.pathname === page)
+    ) {
+      setExistComparator(true);
+    } else {
+      setExistComparator(false);
+    }
+  }, [router.pathname]);
+  return (vehicles?.length > 0 || router.pathname === '/comparator') &&
+    existComparator ? (
     <div className={cx('comparator-bar', className)} data-testid={dataTestId}>
       <div className="comparator-bar--container">
         {arrayCards.map((card, index) => (
@@ -63,6 +102,8 @@ const ComporatorBar: React.FC<IComparatorBar> = ({
         </div>
       </div>
     </div>
+  ) : (
+    <></>
   );
 };
 

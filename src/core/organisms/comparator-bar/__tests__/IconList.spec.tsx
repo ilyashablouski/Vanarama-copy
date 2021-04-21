@@ -30,6 +30,7 @@ describe('<ComparatorBar />', () => {
         deleteVehicle={() => {}}
         compareVehicles={() => {}}
         vehicles={vehicles}
+        setCompareVehicles={() => {}}
       />,
     );
     expect(wrapper).toMatchSnapshot();
@@ -43,6 +44,7 @@ describe('<ComparatorBar />', () => {
           mockCompareVehicles();
         }}
         vehicles={vehicles}
+        setCompareVehicles={() => {}}
       />,
     );
 
@@ -60,6 +62,7 @@ describe('<ComparatorBar />', () => {
           mockCompareVehicles();
         }}
         vehicles={vehicles}
+        setCompareVehicles={() => {}}
       />,
     );
 
