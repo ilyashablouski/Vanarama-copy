@@ -4,6 +4,7 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
 <ComporatorBar
   compareVehicles={[Function]}
   deleteVehicle={[Function]}
+  setCompareVehicles={[Function]}
   vehicles={
     Array [
       Object {

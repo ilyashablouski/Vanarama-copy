@@ -22,7 +22,11 @@ const vehicles = [
 
 const mockCompareVehicles = jest.fn();
 const mockDeleteVehicle = jest.fn();
-
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    pathname: '/',
+  }),
+}));
 describe('<ComparatorBar />', () => {
   it('renders correctly with default <ComparatorBar />', () => {
     const wrapper = mount(
