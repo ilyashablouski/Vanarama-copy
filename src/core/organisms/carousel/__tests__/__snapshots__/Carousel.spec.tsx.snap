@@ -87,6 +87,7 @@ exports[`<Carousel /> should render correctly with children 1`] = `
       type="button"
     >
       <Icon
+        color="darker"
         icon={<Memo />}
         size="regular"
       />
@@ -98,6 +99,7 @@ exports[`<Carousel /> should render correctly with children 1`] = `
       type="button"
     >
       <Icon
+        color="darker"
         icon={<Memo />}
         size="regular"
       />
@@ -109,6 +111,7 @@ exports[`<Carousel /> should render correctly with children 1`] = `
       type="button"
     >
       <Icon
+        color="darker"
         icon={<Memo />}
         size="regular"
       />
@@ -210,6 +213,7 @@ exports[`<Carousel /> should render correctly with two children 1`] = `
       type="button"
     >
       <Icon
+        color="darker"
         icon={<Memo />}
         size="regular"
       />
@@ -221,6 +225,7 @@ exports[`<Carousel /> should render correctly with two children 1`] = `
       type="button"
     >
       <Icon
+        color="darker"
         icon={<Memo />}
         size="regular"
       />
