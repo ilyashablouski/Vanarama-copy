@@ -348,9 +348,9 @@ const ECarsPage: NextPage<IProps> = ({
   );
 
   const TrustPilotBanner = () => (
-      <section className="row:trustpilot">
-        <TrustPilot />
-      </section>
+    <section className="row:trustpilot">
+      <TrustPilot />
+    </section>
   );
 
   return (
