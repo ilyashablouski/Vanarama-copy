@@ -75,7 +75,7 @@ const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
                 '-active': index === k,
               })}
             >
-              <Icon icon={<Ellipse />} size="regular" />
+              <Icon icon={<Ellipse />} color="darker" size="regular" />
             </button>
           ))}
         <button
