@@ -57,6 +57,7 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
           </div>
         )}
       </nav>
+
       <Tabs activeIndex={activeTab} onChange={index => onChangeTab(index)}>
         <TabPanels className="-pt-000">
           <TabPanel index={1}>
