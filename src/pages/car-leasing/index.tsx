@@ -215,7 +215,7 @@ export const CarsPage: NextPage<IProps> = ({
             <Heading size="large" color="black">
               Not Sure Which Vehicle Is Best For You?
             </Heading>
-            {/* <RouterLink
+            <RouterLink
               className="button"
               classNames={{ color: 'teal', solid: true, size: 'regular' }}
               link={{
@@ -225,10 +225,7 @@ export const CarsPage: NextPage<IProps> = ({
               withoutDefaultClassName
             >
               <div className="button--inner">Help Me Choose</div>
-            </RouterLink> */}
-            <Text color="orange" size="lead">
-              Coming Soon
-            </Text>
+            </RouterLink>
           </div>
         </section>
       </LazyLoadComponent>
