@@ -5,6 +5,7 @@ import Router from 'next/router';
 import { useContext, useMemo } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
+import TrustPilot from 'core/molecules/trustpilot';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { isCompared } from '../../utils/comparatorHelpers';
@@ -82,9 +83,6 @@ const ProductCard = dynamic(
     loading: () => <Skeleton count={3} />,
   },
 );
-const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
-  ssr: false,
-});
 const League = dynamic(() => import('core/organisms/league'), {
   loading: () => <Skeleton count={2} />,
 });
@@ -723,16 +721,10 @@ export const PickupsPage: NextPage<IProps> = ({
         </section>
       </LazyLoadComponent>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:trustpilot">
-          <TrustPilot />
-        </section>
-      </LazyLoadComponent>
+      <section className="row:trustpilot">
+        <TrustPilot />
+      </section>
+
       {data?.hubPickupPage.metaData && (
         <>
           <Head

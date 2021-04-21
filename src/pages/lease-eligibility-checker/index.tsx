@@ -3,6 +3,7 @@ import { NextPage } from 'next';
 import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import SchemaJSON from 'core/atoms/schema-json';
+import TrustPilot from 'core/molecules/trustpilot';
 import {
   EligibilityCheckerPageData,
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets_questionAnswers as QuestionAnswers,
@@ -29,10 +30,6 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 });
 const Accordion = dynamic(() => import('core/molecules/accordion/Accordion'), {
   loading: () => <Skeleton count={1} />,
-});
-const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
-  loading: () => <Skeleton count={4} />,
-  ssr: false,
 });
 const Breadcrumb = dynamic(
   () => import('../../components/Breadcrumb/Breadcrumb'),

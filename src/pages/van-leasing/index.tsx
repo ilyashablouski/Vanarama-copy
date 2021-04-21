@@ -7,6 +7,7 @@ import { useContext } from 'react';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
+import TrustPilot from 'core/molecules/trustpilot';
 import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -65,9 +66,6 @@ const Step = dynamic(() => import('core/molecules/step'), {
 });
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={3} />,
-});
-const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
-  ssr: false,
 });
 const League = dynamic(() => import('core/organisms/league'), {
   loading: () => <Skeleton count={2} />,
@@ -769,16 +767,10 @@ export const VansPage: NextPage<IProps> = ({
 
       <FeaturedOnSection />
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:trustpilot">
-          <TrustPilot />
-        </section>
-      </LazyLoadComponent>
+      <section className="row:trustpilot">
+        <TrustPilot />
+      </section>
+
       {data?.hubVanPage.metaData && (
         <>
           <Head

@@ -7,6 +7,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
 import { useContext, useEffect, useState } from 'react';
+import TrustPilot from 'core/molecules/trustpilot';
 import { decodeData, encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
@@ -60,9 +61,6 @@ const ProductCard = dynamic(() =>
 );
 const Choiceboxes = dynamic(() => import('core/atoms/choiceboxes'), {
   loading: () => <Skeleton count={3} />,
-});
-const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
-  ssr: false,
 });
 const League = dynamic(() => import('core/organisms/league'), {
   loading: () => <Skeleton count={2} />,
@@ -550,16 +548,10 @@ export const CarsPage: NextPage<IProps> = ({
 
       <FeaturedOnSection />
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:trustpilot">
-          <TrustPilot />
-        </section>
-      </LazyLoadComponent>
+      <section className="row:trustpilot">
+        <TrustPilot />
+      </section>
+
       {data?.hubCarPage.metaData && (
         <>
           <Head

@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Media from 'core/atoms/media';
+import TrustPilot from 'core/molecules/trustpilot';
 import createApolloClient from '../../apolloClient';
 import FeaturedOnBanner from '../../components/FeaturedOnBanner';
 import NationalLeagueBanner from '../../components/NationalLeagueBanner';
@@ -44,9 +45,6 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
-});
-const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
-  ssr: false,
 });
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -349,16 +347,9 @@ const EVansPage: NextPage<IProps> = ({
   );
 
   const TrustPilotBanner = () => (
-    <LazyLoadComponent
-      visibleByDefault={
-        typeof window === 'undefined' ||
-        navigator?.vendor === 'Apple Computer, Inc.'
-      }
-    >
-      <section className="row:trustpilot">
-        <TrustPilot />
-      </section>
-    </LazyLoadComponent>
+    <section className="row:trustpilot">
+      <TrustPilot />
+    </section>
   );
 
   return (

@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
+import TrustPilot from 'core/molecules/trustpilot';
 import useLeaseType from '../../hooks/useLeaseType';
 import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import { evOffersRequest, IEvOffersData } from '../../utils/offers';
@@ -37,10 +38,6 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
-});
-
-const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
-  ssr: false,
 });
 const League = dynamic(() => import('core/organisms/league'), {
   loading: () => <Skeleton count={2} />,
@@ -392,16 +389,10 @@ export const EVHubPage: NextPage<IProps> = ({
 
       <FeaturedOnSection />
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:trustpilot">
-          <TrustPilot />
-        </section>
-      </LazyLoadComponent>
+      <section className="row:trustpilot">
+        <TrustPilot />
+      </section>
+
       {data?.genericPage.metaData && (
         <>
           <Head
