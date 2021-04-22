@@ -326,20 +326,13 @@ export const EVHubPage: NextPage<IProps> = ({
           {sections?.carousel?.[2]?.cards && (
             <Carousel countItems={3} className="-mh-auto about-us">
               {sections?.carousel?.[2]?.cards.map((card, idx) => (
-                <div className="card" key={card?.name || idx}>
-                  <img
-                    className="card-image"
-                    alt="img"
-                    src={card?.image?.file?.url}
-                    width="600"
-                    height="240"
-                  />
+                <Card imageSrc={card?.image?.file?.url} key={card?.name || idx}>
                   <div className="card-footer basic">
                     <Heading tag="p" color="black" className="-mb-400">
                       {card?.body}
                     </Heading>
                   </div>
-                </div>
+                </Card>
               ))}
             </Carousel>
           )}

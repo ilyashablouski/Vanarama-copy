@@ -18,6 +18,9 @@ import RouterLink from '../../../../components/RouterLink/RouterLink';
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
+const Card = dynamic(() => import('core/molecules/cards'), {
+  loading: () => <Skeleton count={5} />,
+});
 
 interface IProps {
   data: GenericPageQuery;
@@ -132,20 +135,13 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
           {sections?.carousel?.[0]?.cards && (
             <Carousel countItems={3} className="-mh-auto about-us">
               {sections?.carousel?.[0]?.cards.map((card, idx) => (
-                <div className="card" key={card?.name || idx}>
-                  <img
-                    className="card-image"
-                    alt="img"
-                    src={card?.image?.file?.url}
-                    width="600"
-                    height="240"
-                  />
+                <Card imageSrc={card?.image?.file?.url} key={card?.name || idx}>
                   <div className="card-footer basic">
                     <Heading tag="p" color="black" className="-mb-400">
                       {card?.body}
                     </Heading>
                   </div>
-                </div>
+                </Card>
               ))}
             </Carousel>
           )}
