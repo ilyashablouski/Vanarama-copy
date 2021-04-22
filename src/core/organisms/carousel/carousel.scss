@@ -101,6 +101,7 @@ $carousel-arrow-size: 1.5rem;
 
       &.-active {
         color: $orange;
+        font-size: 1.5rem;
       }
 
       svg {
@@ -185,4 +186,18 @@ $carousel-arrow-size: 1.5rem;
  
 .-v-height {
   height: 100%;
+}
+
+.tabs__panel {
+  @include mobile {
+    .carousel {
+      &.-product {
+        .card {
+          &.-v-height {
+            max-height: 600px !important;
+          }
+        }
+      }
+    }
+  }
 }

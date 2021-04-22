@@ -20,6 +20,9 @@
     }
 
     @include mobile {
+      grid-template-columns: auto;
+      place-items: flex-start;
+
       &.-child > * {
         display: none;
       }
@@ -31,6 +34,7 @@
 
     &.-parent:nth-last-child(2) > .breadcrumb-item--backlink.link {
       display: inline;
+      width: 100%;
     }
 
     &--arrow {

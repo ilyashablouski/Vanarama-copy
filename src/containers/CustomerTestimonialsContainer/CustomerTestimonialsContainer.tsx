@@ -1,6 +1,7 @@
 import React, { FC, useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useLazyQuery } from '@apollo/client';
+import TrustPilot from 'core/molecules/trustpilot';
 import {
   TestimonialsData,
   TestimonialsDataVariables,
@@ -41,9 +42,6 @@ const Breadcrumb = dynamic(
 );
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
-});
-const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
-  ssr: false,
 });
 
 interface IProps {

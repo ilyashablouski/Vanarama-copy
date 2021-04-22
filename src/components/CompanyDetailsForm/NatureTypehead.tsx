@@ -19,20 +19,18 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
   // field value
   const [fieldValue, setFieldValue] = useState(value[0] || '');
   // selected option from the list
-  const [isSelected, setSelected] = useState(false);
+  const [isSelected, setSelected] = useState(!!value?.[0]);
   const debouncedSearchTerm = useDebounce(searchValue);
   const suggestions = useSicCodes(debouncedSearchTerm);
 
   useEffect(() => {
-    setValue('nature', fieldValue || '', true);
+    setValue('nature', fieldValue, true);
     register('nature', {
-      required:
-        'Please search for your nature of business & select from the list',
       validate: (val: string) => {
         if (!!val && !suggestions.length && !isSelected) {
           return "We can't find that - please give it another try";
         }
-        if (!!val && !!suggestions.length && !isSelected) {
+        if ((!!val && !!suggestions.length && !isSelected) || !fieldValue) {
           return 'Please search for your nature of business & select from the list';
         }
         return undefined;

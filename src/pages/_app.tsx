@@ -7,14 +7,8 @@ import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { removeUrlQueryPart, SEARCH_PAGES } from '../utils/url';
+import { CompareContext } from '../utils/comparatorTool';
 import {
-  PAGES_WITH_COMPARATOR,
-  CompareContext,
-  WHOLE_PATHS_PAGES_WITH_COMPARATOR,
-  PAGES_WITHOUT_COMPARATOR,
-} from '../utils/comparatorTool';
-import {
-  getCompares,
   deleteCompare,
   getVehiclesForComparator,
   IVehicle,
@@ -28,7 +22,6 @@ import { pushPageData, pushPageViewEvent } from '../utils/dataLayerHelpers';
 import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
-import useMediaQuery, { useMobileViewport } from '../hooks/useMediaQuery';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -54,12 +47,11 @@ const Deferred = dynamic(() => import('../components/Style/Deferred'), {
 
 const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [compareVehicles, setCompareVehicles] = useState<
-    IVehicle[] | IVehicleCarousel[] | [] | null | undefined
+    IVehicle[] | IVehicleCarousel[]
   >([]);
   const [modalCompareTypeError, setModalCompareTypeError] = useState<
     boolean | undefined
   >(false);
-  // const [existComparator, setExistComparator] = useState(false);
 
   useEffect(() => {
     // Anytime router.push is called, scroll to the top of the page.
@@ -89,31 +81,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
-  // useEffect(() => {
-  //   const getVehicles = async () => {
-  //     const vehiclesCompares = (await getCompares()) as
-  //       | IVehicle[]
-  //       | IVehicleCarousel[]
-  //       | null;
-  //     if (vehiclesCompares) {
-  //       setCompareVehicles(vehiclesCompares);
-  //     }
-  //   };
-  //   getVehicles();
-
-  //   if (
-  //     (PAGES_WITH_COMPARATOR.some(page => router.pathname.includes(page)) &&
-  //       !PAGES_WITHOUT_COMPARATOR.some(page =>
-  //         router.pathname.includes(page),
-  //       )) ||
-  //     WHOLE_PATHS_PAGES_WITH_COMPARATOR.some(page => router.pathname === page)
-  //   ) {
-  //     setExistComparator(true);
-  //   } else {
-  //     setExistComparator(false);
-  //   }
-  // }, [router.pathname]);
-
   const compareChange = async (
     product?: IVehicle | IVehicleCarousel | null | undefined,
     capId?: string | number,
@@ -123,7 +90,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         product || null,
         capId || undefined,
       )) as IVehicle[] | IVehicleCarousel[] | null;
-      setCompareVehicles(compares);
+      setCompareVehicles(compares || []);
     } else {
       setModalCompareTypeError(true);
     }
@@ -157,19 +124,19 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-        {((compareVehicles && compareVehicles.length > 0) ||
-          router.pathname === '/comparator') && (
-          <ComparatorBar
-            deleteVehicle={async vehicle => {
-              const vehicles = await deleteCompare(vehicle);
-              setCompareVehicles(vehicles);
-            }}
-            compareVehicles={() => {
-              Router.push('/comparator');
-            }}
-            vehicles={getVehiclesForComparator(compareVehicles || null)}
-          />
-        )}
+
+        <ComparatorBar
+          deleteVehicle={async vehicle => {
+            const vehicles = await deleteCompare(vehicle);
+            setCompareVehicles(vehicles);
+          }}
+          compareVehicles={() => {
+            Router.push('/comparator');
+          }}
+          vehicles={getVehiclesForComparator(compareVehicles || null)}
+          setCompareVehicles={setCompareVehicles}
+        />
+
         {modalCompareTypeError && (
           <Modal
             title="You cannot compare two different vehicle types."

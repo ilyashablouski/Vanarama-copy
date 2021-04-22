@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
+import TrustPilot from 'core/molecules/trustpilot';
 import Head from '../../components/Head/Head';
 import {
   HomePageData,
@@ -50,10 +51,6 @@ const TabPanels = dynamic(() => import('core/molecules/tabs/TabPanels'), {
 });
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
-});
-const TrustPilot = dynamic(() => import('core/molecules/trustpilot'), {
-  loading: () => <Skeleton count={4} />,
-  ssr: false,
 });
 const IconList = dynamic(() => import('core/organisms/icon-list'), {
   loading: () => <Skeleton count={3} />,
@@ -687,16 +684,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         </section>
       </LazyLoadComponent>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:trustpilot">
-          <TrustPilot />
-        </section>
-      </LazyLoadComponent>
+      <section className="row:trustpilot">
+        <TrustPilot />
+      </section>
 
       {data && (
         <SchemaJSON json={JSON.stringify(data?.homePage?.metaData?.schema)} />
