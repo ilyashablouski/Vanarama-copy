@@ -259,7 +259,7 @@ exports[`<Media /> renders youtube player correctly after click on thumb 1`] = `
 <Memo(Media)
   dataTestId="helloWorld"
   height="360px"
-  src="https://www.youtube.com/watch?v=hZVXqcKEBmQ"
+  src="https://www.youtube.com/embed/hZVXqcKEBmQ"
   width="100%"
 >
   <div
@@ -277,7 +277,7 @@ exports[`<Media /> renders youtube player correctly after click on thumb 1`] = `
         <iframe
           frameBorder={0}
           height="360px"
-          src="https://www.youtube.com/watch?v=hZVXqcKEBmQ"
+          src="https://www.youtube.com/embed/hZVXqcKEBmQ"
           title="media"
           width="100%"
         />
@@ -291,7 +291,7 @@ exports[`<Media /> renders youtube thumb correctly 1`] = `
 <Memo(Media)
   dataTestId="helloWorld"
   height="360px"
-  src="https://www.youtube.com/watch?v=hZVXqcKEBmQ"
+  src="https://www.youtube.com/embed/hZVXqcKEBmQ"
   width="100%"
 >
   <div
@@ -319,7 +319,7 @@ exports[`<Media /> renders youtube thumb correctly 1`] = `
           />
           <Memo(Image)
             optimisedHost="https://dev.vanarama-nonprod.com"
-            src="https://img.youtube.com/vi/watch?v=hZVXqcKEBmQ/maxresdefault.jpg"
+            src="https://img.youtube.com/vi/hZVXqcKEBmQ/maxresdefault.jpg"
           >
             <div
               className="image -expand"
@@ -329,8 +329,8 @@ exports[`<Media /> renders youtube thumb correctly 1`] = `
                 loading="eager"
                 onError={[Function]}
                 sizes="(min-width:320px) 800px, 1200px"
-                src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://img.youtube.com/vi/watch?v=hZVXqcKEBmQ/maxresdefault.jpg"
-                srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://img.youtube.com/vi/watch?v=hZVXqcKEBmQ/maxresdefault.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://img.youtube.com/vi/watch?v=hZVXqcKEBmQ/maxresdefault.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://img.youtube.com/vi/watch?v=hZVXqcKEBmQ/maxresdefault.jpg 1200w"
+                src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://img.youtube.com/vi/hZVXqcKEBmQ/maxresdefault.jpg"
+                srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://img.youtube.com/vi/hZVXqcKEBmQ/maxresdefault.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://img.youtube.com/vi/hZVXqcKEBmQ/maxresdefault.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://img.youtube.com/vi/hZVXqcKEBmQ/maxresdefault.jpg 1200w"
               />
             </div>
           </Memo(Image)>
