@@ -967,7 +967,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
               type="button"
             >
               <i
-                class="icon -regular"
+                class="icon -darker -regular"
               >
                 <svg
                   height="1em"
