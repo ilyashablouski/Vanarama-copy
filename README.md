@@ -1,6 +1,6 @@
 # Next-Storefront
 
-[![Build Status](https://jenkins.autorama.co.uk/buildStatus/icon?job=next-storefront%2Fdevelop)](https://jenkins.autorama.co.uk/job/next-storefront/job/develop/)
+[![Build Status](https://jenkins.autorama.co.uk/buildStatus/icon?job=next-storefront%2Fdevelop&config=BuildBadge)](https://jenkins.autorama.co.uk/job/next-storefront/job/develop/)
 ![Version](https://img.shields.io/badge/dynamic/json?color=blue&label=version&prefix=v&query=%24.version&url=https%3A%2F%2Fe49ee07a33e40aab8c7c4b39816a12eb6734f2f0%40raw.githubusercontent.com%2FAutorama%2Fnext-storefront%2Fdevelop%2Fpackage.json)
 ![License](https://img.shields.io/badge/dynamic/json?color=888&label=license&query=%24.license&url=https%3A%2F%2Fe49ee07a33e40aab8c7c4b39816a12eb6734f2f0%40raw.githubusercontent.com%2FAutorama%2Fnext-storefront%2Fdevelop%2Fpackage.json)
 
