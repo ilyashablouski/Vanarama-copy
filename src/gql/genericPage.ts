@@ -289,6 +289,14 @@ export const GENERIC_PAGE = gql`
             text
           }
         }
+        jumpMenu {
+          position
+          title
+          links {
+            label
+            url
+          }
+        }
         leadText {
           titleTag
           heading
@@ -303,6 +311,7 @@ export const GENERIC_PAGE = gql`
           body
         }
         steps {
+          position
           heading
           titleTag
           steps {

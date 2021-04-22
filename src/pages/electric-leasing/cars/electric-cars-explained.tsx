@@ -82,45 +82,16 @@ export const EVHubPage: NextPage<IProps> = ({
         </div>
       </Hero>
       <FeaturedSection {...sections?.featured?.[0]} />
-      <section className="row">
-        <JumpMenu
-          title="Learn More About Electric Cars"
-          links={[
-            {
-              label: 'Electric Cars Vs Hybrid Cars What’S The Difference?',
-              target: '#vs-hybrid',
-            },
-            {
-              label: 'Plug-In Hybrid Electric Vehicles (Phevs)',
-              target: '#plug-in',
-            },
-            {
-              label: 'Mild Hybrid Electric Vehicles (Mhevs)',
-              target: '#mild',
-            },
-            {
-              label: 'How Do Electric Cars Work?',
-              target: '#how-it-works',
-            },
-            {
-              label: 'How Do You Charge An Electric Car?',
-              target: '#how-to-charge',
-            },
-            {
-              label: 'So How Much Does It Cost To Charge An Ev?',
-              target: '#charge-cost',
-            },
-            {
-              label: 'But How Long Do Electric Car Batteries Last?',
-              target: '#battery-lifespan',
-            },
-            {
-              label: 'Why Leasing An Electric Car Makes Sense',
-              target: '#why-lease',
-            },
-          ]}
-        />
-      </section>
+
+      {sections?.jumpMenu?.[0] && (
+        <section className="row">
+          <JumpMenu
+            title="Learn More About Electric Cars"
+            links={sections?.jumpMenu?.[0]?.links}
+          />
+        </section>
+      )}
+
       <section className="row:bg-lighter">
         <div className="row:cards-3col">
           {sections?.cards?.[0]?.cards?.map(card => (

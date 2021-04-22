@@ -11,6 +11,7 @@ import { GENERIC_PAGE } from '../../../../gql/genericPage';
 import { HeroEv as Hero, HeroHeading } from '../../../../components/Hero';
 import FeaturedSection from '../../../../components/FeaturedSection';
 import Head from '../../../../components/Head/Head';
+import JumpMenu from '../../../../components/JumpMenu/JumpMenu';
 import Skeleton from '../../../../components/Skeleton';
 import RouterLink from '../../../../components/RouterLink/RouterLink';
 
@@ -57,35 +58,71 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
         </div>
       </Hero>
 
-      {sections?.featured?.map((section, idx) => (
-        <>
-          <FeaturedSection {...section} />
-          {sections?.leadText?.[0]?.position === idx && (
-            <section className="row:bg-default">
-              <hr className="-fullwidth" />
-              <h2
-                className="heading -xlarge -orange -mv-500"
-                style={{ transform: 'scale(0.9)' }}
-              >
-                {sections?.leadText?.[0]?.heading}
-              </h2>
-              <hr className="-fullwidth" />
-              <div className="markdown -m-zero-auto -mt-600">
-                <ReactMarkdown
-                  allowDangerousHtml
-                  source={sections?.leadText?.[0]?.description || ''}
-                  renderers={{
-                    link: props => {
-                      const { href, children } = props;
-                      return <RouterLink link={{ href, label: children }} />;
-                    },
-                  }}
+      {sections?.featured?.map((section, index) => {
+        const idx = index + 1;
+        let leadTextIdx = 0;
+        let stepsIdx = 0;
+
+        const leadTextPos = sections?.leadText?.[leadTextIdx]?.position;
+        if (leadTextPos === idx) leadTextIdx += 1;
+
+        const stepsPos = sections?.steps?.[stepsIdx]?.position;
+        if (stepsPos === idx) stepsIdx += 1;
+
+        const jumpMenuPos = sections?.jumpMenu?.[0]?.position;
+
+        return (
+          <>
+            {jumpMenuPos === idx && (
+              <section className="row">
+                <JumpMenu
+                  title={sections?.jumpMenu?.[0]?.title}
+                  links={sections?.jumpMenu?.[0]?.links}
                 />
-              </div>
-            </section>
-          )}
-        </>
-      ))}
+              </section>
+            )}
+            {leadTextPos === idx && (
+              <section className="row:bg-default">
+                <hr className="-fullwidth" />
+                <h2
+                  className="heading -xlarge -orange -mv-500"
+                  style={{ transform: 'scale(0.9)' }}
+                >
+                  {sections?.leadText?.[leadTextIdx - 1]?.heading}
+                </h2>
+                <hr className="-fullwidth" />
+                <div className="markdown -m-zero-auto -mt-600">
+                  <ReactMarkdown
+                    allowDangerousHtml
+                    source={
+                      sections?.leadText?.[leadTextIdx - 1]?.description || ''
+                    }
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return <RouterLink link={{ href, label: children }} />;
+                      },
+                    }}
+                  />
+                </div>
+              </section>
+            )}
+            {stepsPos === idx && (
+              <section className="row:bg-default">
+                <ul className="four-stats">
+                  {sections?.steps?.[stepsIdx - 1]?.steps?.map(step => (
+                    <li>
+                      <div className="heading -large -orange">{step.title}</div>
+                      <p className="heading -regular -darker">{step.body}</p>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            )}
+            <FeaturedSection {...section} />
+          </>
+        );
+      })}
 
       <section className="row:bg-lighter">
         <div>

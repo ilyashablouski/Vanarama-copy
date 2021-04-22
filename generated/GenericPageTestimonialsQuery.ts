@@ -157,6 +157,7 @@ export interface GenericPageTestimonialsQuery_genericPage_sections_featured {
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  targetId: string | null;
   defaultHeight: number | null;
   iconList: (GenericPageTestimonialsQuery_genericPage_sections_featured_iconList | null)[] | null;
   link: GenericPageTestimonialsQuery_genericPage_sections_featured_link | null;
