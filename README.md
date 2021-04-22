@@ -8,7 +8,7 @@
 
 Next.js Storefront frontend.
 
-Install the dependencies
+Install the dependencies 
 
 ```sh
 $ yarn install

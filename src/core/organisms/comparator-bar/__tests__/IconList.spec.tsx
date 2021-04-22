@@ -22,7 +22,11 @@ const vehicles = [
 
 const mockCompareVehicles = jest.fn();
 const mockDeleteVehicle = jest.fn();
-
+jest.mock('next/router', () => ({
+  useRouter: () => ({
+    pathname: '/',
+  }),
+}));
 describe('<ComparatorBar />', () => {
   it('renders correctly with default <ComparatorBar />', () => {
     const wrapper = mount(
@@ -30,6 +34,7 @@ describe('<ComparatorBar />', () => {
         deleteVehicle={() => {}}
         compareVehicles={() => {}}
         vehicles={vehicles}
+        setCompareVehicles={() => {}}
       />,
     );
     expect(wrapper).toMatchSnapshot();
@@ -43,6 +48,7 @@ describe('<ComparatorBar />', () => {
           mockCompareVehicles();
         }}
         vehicles={vehicles}
+        setCompareVehicles={() => {}}
       />,
     );
 
@@ -60,6 +66,7 @@ describe('<ComparatorBar />', () => {
           mockCompareVehicles();
         }}
         vehicles={vehicles}
+        setCompareVehicles={() => {}}
       />,
     );
 
