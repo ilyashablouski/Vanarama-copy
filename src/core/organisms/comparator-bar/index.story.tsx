@@ -31,6 +31,7 @@ storiesOf(`${atomicDir(base)}|ComparatorBar`, module).add('Default', () => (
       deleteVehicle={() => {}}
       compareVehicles={() => {}}
       vehicles={vehicles}
+      setCompareVehicles={() => {}}
     />
   </div>
 ));
