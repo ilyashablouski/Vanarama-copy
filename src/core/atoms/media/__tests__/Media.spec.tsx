@@ -58,7 +58,7 @@ describe('<Media />', () => {
   it('renders youtube player correctly after click on thumb', () => {
     const wrapper = mount(
       <Media
-        src="https://www.youtube.com/watch?v=hZVXqcKEBmQ"
+        src="https://www.youtube.com/embed/hZVXqcKEBmQ"
         dataTestId="helloWorld"
         width="100%"
         height="360px"
@@ -71,7 +71,7 @@ describe('<Media />', () => {
   it('renders youtube thumb correctly', () => {
     const wrapper = mount(
       <Media
-        src="https://www.youtube.com/watch?v=hZVXqcKEBmQ"
+        src="https://www.youtube.com/embed/hZVXqcKEBmQ"
         dataTestId="helloWorld"
         width="100%"
         height="360px"

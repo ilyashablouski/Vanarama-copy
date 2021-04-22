@@ -1,6 +1,7 @@
 import React, { useMemo, useState } from 'react';
 import cx from 'classnames';
 import Image from 'core/atoms/image';
+import { removeUrlQueryPart } from '../../../utils/url';
 
 interface IIframeContainer {
   width?: string;
@@ -20,7 +21,7 @@ const IframeContainer = ({
     if (isThumbnail) setIsThumbnail(false);
   };
   const thumbSrc = useMemo(() => {
-    const id = src.split('/').slice(-1)[0];
+    const id = removeUrlQueryPart(src.split('/').slice(-1)[0]);
     return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
   }, [src]);
 
