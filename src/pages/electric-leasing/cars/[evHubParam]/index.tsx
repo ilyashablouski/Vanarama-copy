@@ -122,7 +122,7 @@ export const EVHubPage: NextPage<IProps> = ({ data }) => {
                 </ul>
               </section>
             )}
-            <FeaturedSection {...section} />
+            <FeaturedSection featured={section} />
           </>
         );
       })}

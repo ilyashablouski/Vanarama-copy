@@ -13,7 +13,7 @@ import {
   GenericPageBreadcrumbsQueryVariables,
 } from '../../generated/GenericPageBreadcrumbsQuery';
 import TilesContainer from '../containers/TilesContainer/TilesContainer';
-import { FeaturedHtml } from '../containers/FeaturedAndTilesContainer/getFeaturedHtml';
+import FeaturedSection from '../components/FeaturedSection';
 import {
   SearchPageSlug,
   SearchPageSlugVariables,
@@ -335,7 +335,7 @@ export const GENERIC_PAGE = gql`
     }
   }
   ${TilesContainer.fragments.tiles}
-  ${FeaturedHtml.fragments.featured}
+  ${FeaturedSection.fragments.featured}
 `;
 
 export function useGenericPage(slug: string) {

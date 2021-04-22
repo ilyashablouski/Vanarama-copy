@@ -81,7 +81,7 @@ export const EVHubPage: NextPage<IProps> = ({
           />
         </div>
       </Hero>
-      <FeaturedSection {...sections?.featured?.[0]} />
+      <FeaturedSection featured={sections?.featured?.[0]} />
 
       {sections?.jumpMenu?.[0] && (
         <section className="row">
@@ -222,8 +222,8 @@ export const EVHubPage: NextPage<IProps> = ({
           </div>
         </div>
       </section>
-      <FeaturedSection {...sections?.featured?.[1]} />
-      <FeaturedSection {...sections?.featured?.[2]} id="plug-in" />
+      <FeaturedSection featured={sections?.featured?.[1]} />
+      <FeaturedSection featured={sections?.featured?.[2]} id="plug-in" />
       <section className="row:bg-lighter">
         <div>
           <Heading
@@ -275,8 +275,8 @@ export const EVHubPage: NextPage<IProps> = ({
           </div>
         </div>
       </section>
-      <FeaturedSection {...sections?.featured?.[3]} id="mild" />
-      <FeaturedSection {...sections?.featured?.[4]} id="how-it-works" />
+      <FeaturedSection featured={sections?.featured?.[3]} id="mild" />
+      <FeaturedSection featured={sections?.featured?.[4]} id="how-it-works" />
       <section className="row:bg-default">
         <hr className="-fullwidth" />
         <h2
@@ -299,9 +299,9 @@ export const EVHubPage: NextPage<IProps> = ({
           />
         </div>
       </section>
-      <FeaturedSection {...sections?.featured?.[5]} id="how-to-charge" />
-      <FeaturedSection {...sections?.featured?.[6]} />
-      <FeaturedSection {...sections?.featured?.[7]} />
+      <FeaturedSection featured={sections?.featured?.[5]} id="how-to-charge" />
+      <FeaturedSection featured={sections?.featured?.[6]} />
+      <FeaturedSection featured={sections?.featured?.[7]} />
 
       <section className="row:bg-default">
         <ul className="four-stats">
@@ -314,9 +314,12 @@ export const EVHubPage: NextPage<IProps> = ({
         </ul>
       </section>
 
-      <FeaturedSection {...sections?.featured?.[8]} id="charge-cost" />
-      <FeaturedSection {...sections?.featured?.[9]} id="battery-lifespan" />
-      <FeaturedSection {...sections?.featured?.[10]} id="why-lease" />
+      <FeaturedSection featured={sections?.featured?.[8]} id="charge-cost" />
+      <FeaturedSection
+        featured={sections?.featured?.[9]}
+        id="battery-lifespan"
+      />
+      <FeaturedSection featured={sections?.featured?.[10]} id="why-lease" />
 
       <section className="row:bg-lighter">
         <div>
