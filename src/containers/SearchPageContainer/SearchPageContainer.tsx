@@ -175,9 +175,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   };
 
   const [isSpecialOffers, setIsSpecialOffers] = useState(
-    isSpecialOfferPage
-      ? true
-      : getValueFromStorage(isServer) ?? !!isSimpleSearchPage,
+    isSpecialOfferPage ? true : getValueFromStorage(isServer) ?? false,
   );
 
   const isDesktopOrTablet = useMediaQuery('(min-width: 768px)');
@@ -223,9 +221,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
   const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
   const [sortOrder, setSortOrder] = useState(savedSortOrder);
-  const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(
-    isSpecialOffers,
-  );
+  const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(true);
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
   const [pageOffset, setPageOffset] = useState(0);
 
@@ -375,7 +371,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     // if it's simple search page with presave special offers param made new request for actual params
     if (
       !queryLength &&
-      !getValueFromStorage() &&
+      getValueFromStorage() &&
       !isAllMakesPage &&
       !isSpecialOfferPage &&
       !isDynamicFilterPage &&
@@ -509,7 +505,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   }, [sortOrder]);
 
   useEffect(() => {
-    if (isServer) setIsSpecialOffers(getValueFromStorage() ?? true);
+    if (isServer) setIsSpecialOffers(getValueFromStorage() ?? false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isServer]);
 
