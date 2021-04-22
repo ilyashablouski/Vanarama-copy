@@ -34,6 +34,7 @@
 
     &.-parent:nth-last-child(2) > .breadcrumb-item--backlink.link {
       display: inline;
+      width: 100%;
     }
 
     &--arrow {
