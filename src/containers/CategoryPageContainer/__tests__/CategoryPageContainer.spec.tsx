@@ -74,6 +74,7 @@ const FEATURED = {
   cards: null,
   testimonials: null,
   defaultHeight: null,
+  targetId: null,
   __typename: 'Featured',
 } as Featured;
 
