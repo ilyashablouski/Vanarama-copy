@@ -21,6 +21,12 @@ import Skeleton from '../Skeleton';
 const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
+const InformationCircle = dynamic(
+  () => import('core/assets/icons/InformationCircle'),
+  {
+    ssr: false,
+  },
+);
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -142,6 +148,8 @@ const CustomiseLease = ({
   screenY,
   trimList,
   colourList,
+  isInitPayModalShowing,
+  setIsInitPayModalShowing,
 }: IProps) => {
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
@@ -194,6 +202,13 @@ const CustomiseLease = ({
         `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
           12} Years`,
       )}
+      <Icon
+        icon={<InformationCircle />}
+        color="teal"
+        className="md hydrated"
+        onClick={() => setIsInitPayModalShowing(true)}
+        onMouseEnter={() => setIsInitPayModalShowing(true)}
+      />
       {choices(
         upfronts,
         value => setUpfront(+(value || 0) || null),
@@ -343,6 +358,15 @@ const CustomiseLease = ({
             label="Okay"
           />
         </Modal>
+      )}
+      {isInitPayModalShowing && (
+        <Modal
+          className="-mt-000"
+          title="How much do you want to pay upfront?"
+          text="Your upfront payment is calculated based on your monthly payments. The more you pay upfront, the lower your monthly payments."
+          show={isInitPayModalShowing}
+          onRequestClose={() => setIsInitPayModalShowing(false)}
+        />
       )}
     </div>
   );
