@@ -73,7 +73,7 @@ export async function getServerSideProps(context: NextPageContext) {
         variables: {
           vehicleTypes: [VehicleTypeEnum.LCV],
           leaseType: LeaseTypeEnum.BUSINESS,
-          onOffer: true,
+          onOffer: null,
           first: 12,
           sort: [
             { field: SortField.offerRanking, direction: SortDirection.ASC },
