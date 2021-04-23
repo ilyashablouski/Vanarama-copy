@@ -1,5 +1,5 @@
 import { gql, useLazyQuery, useQuery } from '@apollo/client';
-import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
+import FeaturedSection from '../../components/FeaturedSection';
 import useSortOrder from '../../hooks/useSortOrder';
 import {
   vehicleList,
@@ -361,7 +361,7 @@ export const GET_ALL_MAKES_PAGE = gql`
       }
     }
   }
-  ${FeaturedHtml.fragments.featured}
+  ${FeaturedSection.fragments.featured}
 `;
 
 export function useAllMakePage(skip = false) {

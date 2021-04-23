@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
+import FeaturedSection from '../../components/FeaturedSection';
 
 const GET_INSURANCE_LANDING_PAGE = gql`
   query GetInsuranceLandingPage {
@@ -106,7 +106,7 @@ const GET_INSURANCE_LANDING_PAGE = gql`
       }
     }
   }
-  ${FeaturedHtml.fragments.featured}
+  ${FeaturedSection.fragments.featured}
 `;
 
 export default GET_INSURANCE_LANDING_PAGE;

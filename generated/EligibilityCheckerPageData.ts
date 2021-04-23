@@ -92,6 +92,7 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  targetId: string | null;
   defaultHeight: number | null;
   iconList: (EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_iconList | null)[] | null;
   link: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured1_link | null;
@@ -158,6 +159,7 @@ export interface EligibilityCheckerPageData_eligibilityCheckerLandingPage_sectio
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  targetId: string | null;
   defaultHeight: number | null;
   iconList: (EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_iconList | null)[] | null;
   link: EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_featured2_link | null;

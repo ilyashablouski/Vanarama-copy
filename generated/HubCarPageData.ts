@@ -122,6 +122,7 @@ export interface HubCarPageData_hubCarPage_sections_featured1 {
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  targetId: string | null;
   defaultHeight: number | null;
   iconList: (HubCarPageData_hubCarPage_sections_featured1_iconList | null)[] | null;
   link: HubCarPageData_hubCarPage_sections_featured1_link | null;
@@ -188,6 +189,7 @@ export interface HubCarPageData_hubCarPage_sections_featured2 {
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  targetId: string | null;
   defaultHeight: number | null;
   iconList: (HubCarPageData_hubCarPage_sections_featured2_iconList | null)[] | null;
   link: HubCarPageData_hubCarPage_sections_featured2_link | null;
