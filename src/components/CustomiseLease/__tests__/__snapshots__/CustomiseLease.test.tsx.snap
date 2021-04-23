@@ -12,7 +12,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <span
     className="heading -black -regular"
   >
-    Lease Type
+    Is this for you, or for your business?
   </span>
   <div
     className="choiceboxes -cols-2 -teal"
@@ -37,9 +37,10 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <span
     className="heading -black -regular"
   >
-    Annual Mileage:
+    How many miles will you be driving a year?
+    <br />
     <span
-      className="text -b -ml-100 -regular -orange"
+      className="text -b -regular -orange"
     >
       8000 Miles
     </span>
@@ -90,11 +91,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <span
     className="heading -black -regular"
   >
-    Length Of Lease:
+    How long do you want your vehicle for?
+    <br />
     <span
-      className="text -b -ml-100 -regular -orange"
+      className="text -b -regular -orange"
     >
-      24 Months
+      24 Months - 2 Years
     </span>
   </span>
   <div
@@ -135,11 +137,12 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <span
     className="heading -black -regular"
   >
-    Initial Payment - Months: 
+    How much do you want to pay upfront?
+    <br />
     <span
-      className="text -b -ml-100 -regular -orange"
+      className="text -b -regular -orange"
     >
-      £605.95 exc. VAT
+      1 Months - £605.95 exc. VAT
     </span>
   </span>
   <div
@@ -621,7 +624,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <span
     className="heading -black -regular"
   >
-    Lease Type
+    Is this for you, or for your business?
   </span>
   <div
     className="choiceboxes -cols-2 -teal"
@@ -646,9 +649,10 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <span
     className="heading -black -regular"
   >
-    Annual Mileage:
+    How many miles will you be driving a year?
+    <br />
     <span
-      className="text -b -ml-100 -regular -orange"
+      className="text -b -regular -orange"
     >
       8000 Miles
     </span>
@@ -699,11 +703,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <span
     className="heading -black -regular"
   >
-    Length Of Lease:
+    How long do you want your vehicle for?
+    <br />
     <span
-      className="text -b -ml-100 -regular -orange"
+      className="text -b -regular -orange"
     >
-      24 Months
+      24 Months - 2 Years
     </span>
   </span>
   <div
@@ -744,11 +749,12 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <span
     className="heading -black -regular"
   >
-    Initial Payment - Months: 
+    How much do you want to pay upfront?
+    <br />
     <span
-      className="text -b -ml-100 -regular -orange"
+      className="text -b -regular -orange"
     >
-      £605.95 exc. VAT
+      1 Months - £605.95 exc. VAT
     </span>
   </span>
   <div
