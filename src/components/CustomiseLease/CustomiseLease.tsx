@@ -18,9 +18,6 @@ import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
 
-const Flame = dynamic(() => import('core/assets/icons/Flame'), {
-  ssr: false,
-});
 const InformationCircle = dynamic(
   () => import('core/assets/icons/InformationCircle'),
   {
@@ -28,9 +25,6 @@ const InformationCircle = dynamic(
   },
 );
 const Button = dynamic(() => import('core/atoms/button/'), {
-  loading: () => <Skeleton count={1} />,
-});
-const CardHeader = dynamic(() => import('core/molecules/cards/CardHeader'), {
   loading: () => <Skeleton count={1} />,
 });
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -61,10 +55,12 @@ const choices = (
   heading: string,
   isDisabled: boolean,
   currentValue?: string,
+  icon?: JSX.Element,
 ) => (
   <>
     <Heading tag="span" size="regular" color="black">
       {heading}
+      {icon}
       {currentValue && (
         <>
           <br />
@@ -202,13 +198,6 @@ const CustomiseLease = ({
         `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
           12} Years`,
       )}
-      <Icon
-        icon={<InformationCircle />}
-        color="teal"
-        className="md hydrated"
-        onClick={() => setIsInitPayModalShowing(true)}
-        onMouseEnter={() => setIsInitPayModalShowing(true)}
-      />
       {choices(
         upfronts,
         value => setUpfront(+(value || 0) || null),
@@ -217,18 +206,20 @@ const CustomiseLease = ({
         `${quoteByCapId?.upfront} Months - £${toPriceFormat(
           initialPayment,
         )} ${stateVAT}. VAT`,
+        <Icon
+          icon={<InformationCircle />}
+          color="teal"
+          className="md hydrated -ml-100"
+          onClick={() => setIsInitPayModalShowing(true)}
+          onMouseEnter={() => setIsInitPayModalShowing(true)}
+        />,
       )}
       <Heading tag="span" size="regular" color="black" className="-flex-h">
         Vehicle Options
         {data.quoteByCapId?.leadTime && (
-          <CardHeader
-            text={data.quoteByCapId.leadTime}
-            incomplete
-            className="rounded"
-            accentIcon={
-              <Icon icon={<Flame />} color="white" className="md hydrated" />
-            }
-          />
+          <Text color="orange" className="-b">
+            {data.quoteByCapId.leadTime}
+          </Text>
         )}
       </Heading>
 
