@@ -16,7 +16,7 @@ const IframeContainer = ({
   responsive,
   src,
 }: IIframeContainer) => {
-  const [isThumbnail, setIsThumbnail] = useState(true);
+  const [isThumbnail, setIsThumbnail] = useState(src.includes('youtube'));
   const onLoadPlayerHandler = () => {
     if (isThumbnail) setIsThumbnail(false);
   };
