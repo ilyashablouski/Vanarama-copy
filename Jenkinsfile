@@ -126,6 +126,9 @@ def getDockerTagName() {
     }
 }
 
+// Definition for Build Badge Status 
+def BuildBadge = addEmbeddableBadgeConfiguration(id: "BuildBadge", subject: "Build Status")
+
 
 pipeline {
     agent none
@@ -480,6 +483,7 @@ pipeline {
               steps {
               milestone(70)
                   script {
+                  BuildBadge.setStatus('Passing')
                   def clusterName = app_environment["${getConfig()}"].clusterName
                   def logGroupName = app_environment["${getConfig()}"].logGroupName
                   def taskFamily = app_environment["${getConfig()}"].taskFamily                  // 3. update-service to new taskdef, with previous desired count (or 1, whichever greater)
