@@ -51,6 +51,8 @@ export interface IProps {
   maintenance: boolean | null;
   setIsModalShowing: Dispatch<SetStateAction<boolean>>;
   isModalShowing: boolean;
+  isInitPayModalShowing: boolean;
+  setIsInitPayModalShowing: Dispatch<SetStateAction<boolean>>;
   isDisabled: boolean;
   setIsInitialLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;

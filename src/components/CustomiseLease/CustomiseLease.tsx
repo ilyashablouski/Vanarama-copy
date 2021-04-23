@@ -21,6 +21,12 @@ import Skeleton from '../Skeleton';
 const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
+const InformationCircle = dynamic(
+  () => import('core/assets/icons/InformationCircle'),
+  {
+    ssr: false,
+  },
+);
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -60,9 +66,12 @@ const choices = (
     <Heading tag="span" size="regular" color="black">
       {heading}
       {currentValue && (
-        <Text color="orange" className="-b -ml-100">
-          {currentValue}
-        </Text>
+        <>
+          <br />
+          <Text color="orange" className="-b">
+            {currentValue}
+          </Text>
+        </>
       )}
     </Heading>
     <Choiceboxes
@@ -139,6 +148,8 @@ const CustomiseLease = ({
   screenY,
   trimList,
   colourList,
+  isInitPayModalShowing,
+  setIsInitPayModalShowing,
 }: IProps) => {
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
@@ -162,10 +173,16 @@ const CustomiseLease = ({
       <Heading tag="h2" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
-      {choices(leaseTypes, setLeaseType, 'Lease Type', isDisabled)}
+      {choices(
+        leaseTypes,
+        setLeaseType,
+        'Is this for you, or for your business?',
+        isDisabled,
+      )}
       <Heading tag="span" size="regular" color="black">
-        Annual Mileage:
-        <Text color="orange" className="-b -ml-100">
+        How many miles will you be driving a year?
+        <br />
+        <Text color="orange" className="-b">
           {`${quoteByCapId?.mileage} Miles`}
         </Text>
       </Heading>
@@ -180,16 +197,26 @@ const CustomiseLease = ({
       {choices(
         terms,
         value => setTerm(+(value || 0) || null),
-        'Length Of Lease:',
+        'How long do you want your vehicle for?',
         isDisabled,
-        `${quoteByCapId?.term} Months`,
+        `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
+          12} Years`,
       )}
+      <Icon
+        icon={<InformationCircle />}
+        color="teal"
+        className="md hydrated"
+        onClick={() => setIsInitPayModalShowing(true)}
+        onMouseEnter={() => setIsInitPayModalShowing(true)}
+      />
       {choices(
         upfronts,
         value => setUpfront(+(value || 0) || null),
-        'Initial Payment - Months: ',
+        'How much do you want to pay upfront?',
         isDisabled,
-        `£${toPriceFormat(initialPayment)} ${stateVAT}. VAT`,
+        `${quoteByCapId?.upfront} Months - £${toPriceFormat(
+          initialPayment,
+        )} ${stateVAT}. VAT`,
       )}
       <Heading tag="span" size="regular" color="black" className="-flex-h">
         Vehicle Options
@@ -331,6 +358,15 @@ const CustomiseLease = ({
             label="Okay"
           />
         </Modal>
+      )}
+      {isInitPayModalShowing && (
+        <Modal
+          className="-mt-000"
+          title="How much do you want to pay upfront?"
+          text="Your upfront payment is calculated based on your monthly payments. The more you pay upfront, the lower your monthly payments."
+          show={isInitPayModalShowing}
+          onRequestClose={() => setIsInitPayModalShowing(false)}
+        />
       )}
     </div>
   );

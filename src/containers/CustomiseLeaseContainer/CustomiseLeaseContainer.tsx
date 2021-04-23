@@ -110,6 +110,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   );
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
+  const [isInitPayModalShowing, setIsInitPayModalShowing] = useState<boolean>(
+    false,
+  );
   const [isInitialLoading, setIsInitialLoading] = useState<boolean>(false);
   const [showCallBackForm, setShowCallBackForm] = useState<boolean>(false);
   const [screenY, setScreenY] = useState<number | null>(null);
@@ -344,6 +347,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         setMaintenance={setMaintenance}
         isModalShowing={isModalShowing}
         setIsModalShowing={setIsModalShowing}
+        isInitPayModalShowing={isInitPayModalShowing}
+        setIsInitPayModalShowing={setIsInitPayModalShowing}
         setIsInitialLoading={setIsInitialLoading}
         lineItem={lineItem()}
         screenY={screenY}
