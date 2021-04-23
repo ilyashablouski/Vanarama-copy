@@ -60,9 +60,12 @@ const choices = (
     <Heading tag="span" size="regular" color="black">
       {heading}
       {currentValue && (
-        <Text color="orange" className="-b -ml-100">
-          {currentValue}
-        </Text>
+        <>
+          <br />
+          <Text color="orange" className="-b">
+            {currentValue}
+          </Text>
+        </>
       )}
     </Heading>
     <Choiceboxes
@@ -162,10 +165,16 @@ const CustomiseLease = ({
       <Heading tag="h2" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
-      {choices(leaseTypes, setLeaseType, 'Lease Type', isDisabled)}
+      {choices(
+        leaseTypes,
+        setLeaseType,
+        'Is this for you, or for your business?',
+        isDisabled,
+      )}
       <Heading tag="span" size="regular" color="black">
-        Annual Mileage:
-        <Text color="orange" className="-b -ml-100">
+        How many miles will you be driving a year?
+        <br />
+        <Text color="orange" className="-b">
           {`${quoteByCapId?.mileage} Miles`}
         </Text>
       </Heading>
@@ -180,16 +189,19 @@ const CustomiseLease = ({
       {choices(
         terms,
         value => setTerm(+(value || 0) || null),
-        'Length Of Lease:',
+        'How long do you want your vehicle for?',
         isDisabled,
-        `${quoteByCapId?.term} Months`,
+        `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
+          12} Years`,
       )}
       {choices(
         upfronts,
         value => setUpfront(+(value || 0) || null),
-        'Initial Payment - Months: ',
+        'How much do you want to pay upfront?',
         isDisabled,
-        `£${toPriceFormat(initialPayment)} ${stateVAT}. VAT`,
+        `${quoteByCapId?.upfront} Months - £${toPriceFormat(
+          initialPayment,
+        )} ${stateVAT}. VAT`,
       )}
       <Heading tag="span" size="regular" color="black" className="-flex-h">
         Vehicle Options
