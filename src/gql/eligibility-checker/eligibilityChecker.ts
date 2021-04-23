@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { FeaturedHtml } from '../../containers/FeaturedAndTilesContainer/getFeaturedHtml';
+import FeaturedSection from '../../components/FeaturedSection';
 
 // eslint-disable-next-line import/prefer-default-export
 export const ELIGIBILITY_CHECKER_CONTENT = gql`
@@ -60,5 +60,5 @@ export const ELIGIBILITY_CHECKER_CONTENT = gql`
       }
     }
   }
-  ${FeaturedHtml.fragments.featured}
+  ${FeaturedSection.fragments.featured}
 `;

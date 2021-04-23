@@ -14,8 +14,8 @@ const Link = dynamic(() => import('core/atoms/link'), {
 });
 
 interface IJumpMenu {
-  links: { label: string; target: string }[];
-  title: string;
+  links: any[] | null | undefined;
+  title: string | null | undefined;
 }
 
 const JumpMenu: FC<IJumpMenu> = ({ links, title }) => {
@@ -38,11 +38,11 @@ const JumpMenu: FC<IJumpMenu> = ({ links, title }) => {
         items={[
           {
             id: 'jumpMenu',
-            title,
+            title: title || '',
             children: (
               <div className="-flex-column">
-                {links.map(({ label, target }) => (
-                  <Link href={target} color="teal">
+                {links?.map(({ label, url }) => (
+                  <Link href={url} color="teal">
                     {`${label} `} <ArrowForwardSharp />
                   </Link>
                 ))}

@@ -13,7 +13,7 @@ import {
   GenericPageBreadcrumbsQueryVariables,
 } from '../../generated/GenericPageBreadcrumbsQuery';
 import TilesContainer from '../containers/TilesContainer/TilesContainer';
-import { FeaturedHtml } from '../containers/FeaturedAndTilesContainer/getFeaturedHtml';
+import FeaturedSection from '../components/FeaturedSection';
 import {
   SearchPageSlug,
   SearchPageSlugVariables,
@@ -289,6 +289,14 @@ export const GENERIC_PAGE = gql`
             text
           }
         }
+        jumpMenu {
+          position
+          title
+          links {
+            label
+            url
+          }
+        }
         leadText {
           titleTag
           heading
@@ -303,6 +311,7 @@ export const GENERIC_PAGE = gql`
           body
         }
         steps {
+          position
           heading
           titleTag
           steps {
@@ -326,7 +335,7 @@ export const GENERIC_PAGE = gql`
     }
   }
   ${TilesContainer.fragments.tiles}
-  ${FeaturedHtml.fragments.featured}
+  ${FeaturedSection.fragments.featured}
 `;
 
 export function useGenericPage(slug: string) {
