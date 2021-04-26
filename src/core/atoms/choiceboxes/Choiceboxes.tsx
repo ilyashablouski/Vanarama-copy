@@ -24,11 +24,18 @@ const Choiceboxes = forwardRef(
       withIcons,
       currentValue,
       shouldSelectTheOnlyValue = false,
+      setIndex,
     }: IChoiceboxesProps,
     ref,
   ) => {
     const [currentChoices, setCurrentChoices] = useState(choices);
     const [clearMultiSelectActive, setClearMultiSelectActive] = useState(false);
+
+    useEffect(() => {
+      if(setIndex) {
+        changeChoices(setIndex)
+      }
+    }, [setIndex])
 
     const changeChoices = (index: number) => {
       const changedChoices = currentChoices.map(
