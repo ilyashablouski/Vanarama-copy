@@ -18,7 +18,6 @@
   position: relative;
 
   &.-compact {
-
     * {
       font-size: 0.875rem !important;
       color: $black !important;
@@ -43,11 +42,11 @@
     align-items: center;
 
     &.-top {
-      top: 0
+      top: 0;
     }
 
     &.-bottom {
-      bottom: 0
+      bottom: 0;
     }
   }
 }
@@ -59,8 +58,15 @@
     display: block;
   }
 
-  background: linear-gradient(to top, $border-color, $border-color 0.5px, transparent 0.5px, transparent);
+  background: linear-gradient(
+    to top,
+    $border-color,
+    $border-color 0.5px,
+    transparent 0.5px,
+    transparent
+  );
   transition: background-color $duration-medium $transition-soft;
+  border-bottom: 1px solid $border-color;
 
   > :not(:first-child) {
     font-size: var(--class-fs, inherit);
@@ -78,7 +84,7 @@
   }
 }
 
-.structured-list-row ,
+.structured-list-row,
 .structured-list-row--header-row {
   @media (max-width: $vp-medium) {
     margin-top: 1ch;
@@ -105,13 +111,25 @@
       color: $darker !important;
     }
   }
+
+  &.orange {
+    > :first-child {
+      color: $orange !important;
+    }
+
+    > :last-child {
+      color: $orange !important;
+      font-weight: 900 !important;
+    }
+  }
 }
 
 .structured-list-row:last-of-type {
   background-image: unset;
 }
 
-.structured-list--selection .structured-list-row:hover:not(.structured-list-row--header-row):not(.structured-list-row--selected) {
+.structured-list--selection
+  .structured-list-row:hover:not(.structured-list-row--header-row):not(.structured-list-row--selected) {
   background-color: $lighter;
   cursor: pointer;
 }
@@ -148,7 +166,6 @@
     }
   }
 }
-
 
 .structured-list-thead {
   display: table-header-group;
@@ -264,8 +281,6 @@
   background-image: unset;
   cursor: inherit;
 
-
-
   .-styled-headers & > * {
     font-size: $font-size-500;
     font-weight: $font-weight-semibold;
@@ -274,14 +289,13 @@
 }
 
 .structured-list {
-  
   // Tweaks -> align structured list text for opening times
   &.-opening-times {
     .structured-list-row {
       display: grid;
-      grid-template-columns: repeat(2,minmax(0,1fr));
+      grid-template-columns: repeat(2, minmax(0, 1fr));
       gap: 1ch;
-      
+
       > :first-child {
         text-align: left;
         padding-right: 0;
