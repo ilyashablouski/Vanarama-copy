@@ -1,5 +1,5 @@
 import { gql } from '@apollo/client';
-import { FeaturedHtml } from '../../containers/FeaturedAndTilesContainer/getFeaturedHtml';
+import FeaturedSection from '../../components/FeaturedSection';
 import TilesContainer from '../../containers/TilesContainer/TilesContainer';
 
 const HUB_VAN_CONTENT = gql`
@@ -97,7 +97,7 @@ const HUB_VAN_CONTENT = gql`
     }
   }
   ${TilesContainer.fragments.tiles}
-  ${FeaturedHtml.fragments.featured}
+  ${FeaturedSection.fragments.featured}
 `;
 
 // eslint-disable-next-line import/prefer-default-export

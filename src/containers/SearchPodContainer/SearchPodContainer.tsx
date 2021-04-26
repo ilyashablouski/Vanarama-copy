@@ -273,16 +273,16 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     const routerUrl = `/${searchType}/search`;
     const query = {} as any;
     // make
-    if (values[`make${tabType}` as keyof typeof defaultValues]) {
+    if (values[`make${tabType}` as keyof typeof defaultValues].trim()) {
       query.make = values[`make${tabType}` as keyof typeof defaultValues];
     }
-    if (values[`model${tabType}` as keyof typeof defaultValues]) {
+    if (values[`model${tabType}` as keyof typeof defaultValues].trim()) {
       query.rangeName = values[`model${tabType}` as keyof typeof defaultValues];
     }
-    if (values[`type${tabType}` as keyof typeof defaultValues]) {
+    if (values[`type${tabType}` as keyof typeof defaultValues].trim()) {
       query.bodyStyles = values[`type${tabType}` as keyof typeof defaultValues];
     }
-    if (values[`budget${tabType}` as keyof typeof defaultValues]) {
+    if (values[`budget${tabType}` as keyof typeof defaultValues].trim()) {
       query.pricePerMonth = getBudgetForQuery(
         values[`budget${tabType}` as keyof typeof defaultValues],
       );

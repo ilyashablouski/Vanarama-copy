@@ -30,6 +30,7 @@ const PERSISTED_GRAPHQL_QUERIES_WITHOUT_CLOUDFLARE_CACHE = [
   'GetPartyByUuid',
   'GetAboutYouPageQuery',
   'GetPersonByUuid',
+  'GetPerson',
   'GetAddressContainerDataQuery',
   'GetEmploymentContainerDataQuery',
   'GetExpensesPageDataQuery',
