@@ -40,30 +40,13 @@ exports[`<Lease /> renders correctly 1`] = `
       <div
         className="media-player--embed"
       >
-        <div
-          className="preview-wrapper"
-          onClick={[Function]}
-          role="img"
-        >
-          <div
-            aria-label="Play"
-            className="play-btn"
-            onClick={[Function]}
-            role="button"
-          />
-          <div
-            className="image -expand"
-          >
-            <img
-              className="image--native"
-              loading="eager"
-              onError={[Function]}
-              sizes="(min-width:320px) 800px, 1200px"
-              src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://img.youtube.com/vi/263419265/maxresdefault.jpg"
-              srcSet="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://img.youtube.com/vi/263419265/maxresdefault.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://img.youtube.com/vi/263419265/maxresdefault.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://img.youtube.com/vi/263419265/maxresdefault.jpg 1200w"
-            />
-          </div>
-        </div>
+        <iframe
+          frameBorder={0}
+          height="100%"
+          src="https://player.vimeo.com/video/263419265"
+          title="media"
+          width="100%"
+        />
       </div>
     </div>
   </div>
