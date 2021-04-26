@@ -31,12 +31,6 @@ const Choiceboxes = forwardRef(
     const [currentChoices, setCurrentChoices] = useState(choices);
     const [clearMultiSelectActive, setClearMultiSelectActive] = useState(false);
 
-    useEffect(() => {
-      if(setIndex) {
-        changeChoices(setIndex)
-      }
-    }, [setIndex])
-
     const changeChoices = (index: number) => {
       const changedChoices = currentChoices.map(
         (choice: IChoice, number: number) => {
@@ -61,6 +55,12 @@ const Choiceboxes = forwardRef(
       index !== -1 && onSubmit(changedChoices[index]);
       setCurrentChoices(changedChoices);
     };
+
+    useEffect(() => {
+      if (setIndex) {
+        changeChoices(setIndex);
+      }
+    }, [setIndex]);
 
     useImperativeHandle(ref, () => ({
       updateState() {

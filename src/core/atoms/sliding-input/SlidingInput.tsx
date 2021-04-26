@@ -13,8 +13,8 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
   const [mileageValue, setMileageValue] = useState(defaultValue);
 
   useEffect(() => {
-    setMileageValue(defaultValue)
-  }, [defaultValue])
+    setMileageValue(defaultValue);
+  }, [defaultValue]);
 
   const valueChange = (pageX: number, click?: string) => {
     if (!disabled) {

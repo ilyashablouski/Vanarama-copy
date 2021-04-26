@@ -61,7 +61,7 @@ const choices = (
   heading: string,
   isDisabled: boolean,
   currentValue?: string,
-  monthIndex?: any
+  monthIndex?: any,
 ) => (
   <>
     <Heading tag="span" size="regular" color="black">
@@ -154,9 +154,11 @@ const CustomiseLease = ({
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
   );
-  const [defaultMileage, setDefaultMileage] = useState(mileages.indexOf(mileage || 0) + 1);
-  const [monthIndex, setMonthIndex]: any = useState(null)
-  const [upfrontIndex, setUpfrontIndex]: any = useState(null)
+  const [defaultMileage, setDefaultMileage] = useState(
+    mileages.indexOf(mileage || 0) + 1,
+  );
+  const [monthIndex, setMonthIndex]: any = useState(null);
+  const [upfrontIndex, setUpfrontIndex]: any = useState(null);
   const quoteByCapId = data?.quoteByCapId;
 
   useEffect(() => {
@@ -166,16 +168,23 @@ const CustomiseLease = ({
       if (leaseSettings && leaseSettings.capId === capId) {
         setDefaultMileage(leaseSettings.mileageValue);
         setMileage(leaseSettings.mileage);
-        setTerm(leaseSettings.term)
-        setMonthIndex(terms.findIndex((term) => term.value === leaseSettings.term?.toString()))
-        setUpfront(leaseSettings.upfront)
-        setUpfrontIndex(upfronts.findIndex((upfront) => upfront.value === leaseSettings.upfront?.toString()))
+        setTerm(leaseSettings.term);
+        setMonthIndex(
+          terms.findIndex(
+            term => term.value === leaseSettings.term?.toString(),
+          ),
+        );
+        setUpfront(leaseSettings.upfront);
+        setUpfrontIndex(
+          upfronts.findIndex(
+            upfront => upfront.value === leaseSettings.upfront?.toString(),
+          ),
+        );
       }
     }
   }, []);
 
-  useEffect(() => {
-  }, [])
+  useEffect(() => {}, []);
 
   useEffect(() => {
     const upfront = quoteByCapId?.upfront;
@@ -191,16 +200,19 @@ const CustomiseLease = ({
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 
   const setSessionValues = () => {
-    const mileageValue = mileages.indexOf(mileage || 0) + 1
+    const mileageValue = mileages.indexOf(mileage || 0) + 1;
     const leaseSettings: any = {
       capId,
       mileage,
       mileageValue,
       term: quoteByCapId?.term,
       upfront: quoteByCapId?.upfront,
-    }
-    window.sessionStorage.setItem('leaseSettings', JSON.stringify(leaseSettings));
-  }
+    };
+    window.sessionStorage.setItem(
+      'leaseSettings',
+      JSON.stringify(leaseSettings),
+    );
+  };
 
   return (
     <div className={cx('pdp--sidebar', isDisabled ? 'disabled' : '')}>
@@ -335,17 +347,17 @@ const CustomiseLease = ({
               nextBestPrice={
                 maintenance
                   ? `£${toPriceFormat(
-                    quoteByCapId?.nextBestPrice?.maintained,
-                  )} PM ${stateVAT}. VAT`
+                      quoteByCapId?.nextBestPrice?.maintained,
+                    )} PM ${stateVAT}. VAT`
                   : `£${toPriceFormat(
-                    quoteByCapId?.nextBestPrice?.nonMaintained,
-                  )} PM ${stateVAT}. VAT`
+                      quoteByCapId?.nextBestPrice?.nonMaintained,
+                    )} PM ${stateVAT}. VAT`
               }
               priceLabel={
                 maintenance
                   ? `+£${toPriceFormat(
-                    quoteByCapId?.maintenanceCost?.monthlyRental,
-                  )} Maintenance`
+                      quoteByCapId?.maintenanceCost?.monthlyRental,
+                    )} Maintenance`
                   : undefined
               }
               price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
