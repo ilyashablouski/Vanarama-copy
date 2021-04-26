@@ -21,7 +21,8 @@ const getKey = (person: IPerson | null): string => {
   return `${person?.firstName}${person?.lastName}${person?.address?.serviceId}${person?.telephoneNumber}${person?.emailConsent}`;
 };
 
-const PersonalInformationContainer: React.FC<IProps> = ({ personUuid }) => {
+const PersonalInformationContainer: React.FC<IProps> = ({ person }) => {
+  const personUuid = person?.uuid;
   const { loading, data, error, refetch } = useQuery<
     MyAccount,
     MyAccountVariables
