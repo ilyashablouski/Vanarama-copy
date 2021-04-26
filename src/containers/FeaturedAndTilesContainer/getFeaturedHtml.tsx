@@ -1,4 +1,3 @@
-import { gql } from '@apollo/client';
 import React from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
@@ -6,7 +5,6 @@ import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQueryFeatured } from '../../../generated/GenericPageQueryFeatured';
-import FCWithFragments from '../../utils/FCWithFragments';
 import Skeleton from '../../components/Skeleton';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
@@ -23,7 +21,7 @@ interface IFeatured {
   featured: GenericPageQueryFeatured | null | undefined;
 }
 
-export const FeaturedHtml: FCWithFragments<IFeatured> = ({ featured }) => {
+export const FeaturedHtml: React.FC<IFeatured> = ({ featured }) => {
   const featuredClass = getFeaturedClassPartial(featured);
   return (
     <>
@@ -74,59 +72,6 @@ export const FeaturedHtml: FCWithFragments<IFeatured> = ({ featured }) => {
       )}
     </>
   );
-};
-
-FeaturedHtml.fragments = {
-  featured: gql`
-    fragment GenericPageQueryFeatured on Featured {
-      layout
-      body
-      title
-      titleTag
-      video
-      defaultHeight
-      iconList {
-        text
-      }
-      link {
-        url
-        text
-        legacyUrl
-      }
-      title
-      cards {
-        name
-        title
-        image {
-          title
-          description
-          file {
-            url
-            fileName
-          }
-        }
-        body
-        link {
-          text
-          url
-          legacyUrl
-        }
-      }
-      image {
-        title
-        description
-        file {
-          url
-          fileName
-        }
-      }
-      testimonials {
-        customerName
-        summary
-        rating
-      }
-    }
-  `,
 };
 
 export default FeaturedHtml;

@@ -215,6 +215,7 @@ export interface GenericPageQuery_genericPage_sections_featured {
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  targetId: string | null;
   defaultHeight: number | null;
   iconList: (GenericPageQuery_genericPage_sections_featured_iconList | null)[] | null;
   link: GenericPageQuery_genericPage_sections_featured_link | null;
@@ -281,6 +282,7 @@ export interface GenericPageQuery_genericPage_sections_featured1 {
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  targetId: string | null;
   defaultHeight: number | null;
   iconList: (GenericPageQuery_genericPage_sections_featured1_iconList | null)[] | null;
   link: GenericPageQuery_genericPage_sections_featured1_link | null;
@@ -347,6 +349,7 @@ export interface GenericPageQuery_genericPage_sections_featured2 {
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  targetId: string | null;
   defaultHeight: number | null;
   iconList: (GenericPageQuery_genericPage_sections_featured2_iconList | null)[] | null;
   link: GenericPageQuery_genericPage_sections_featured2_link | null;
@@ -413,6 +416,7 @@ export interface GenericPageQuery_genericPage_sections_featured3 {
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  targetId: string | null;
   defaultHeight: number | null;
   iconList: (GenericPageQuery_genericPage_sections_featured3_iconList | null)[] | null;
   link: GenericPageQuery_genericPage_sections_featured3_link | null;
@@ -653,6 +657,7 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_featured {
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  targetId: string | null;
   defaultHeight: number | null;
   iconList: (GenericPageQuery_genericPage_sectionsAsArray_featured_iconList | null)[] | null;
   link: GenericPageQuery_genericPage_sectionsAsArray_featured_link | null;
@@ -710,6 +715,17 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_iconBullets {
   iconBullets: (GenericPageQuery_genericPage_sectionsAsArray_iconBullets_iconBullets | null)[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links {
+  label: string | null;
+  url: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_jumpMenu {
+  position: number | null;
+  title: string | null;
+  links: (GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links | null)[] | null;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_leadText {
   titleTag: string | null;
   heading: string | null;
@@ -731,6 +747,7 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_steps_steps {
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_steps {
+  position: number | null;
   heading: string | null;
   titleTag: string | null;
   steps: GenericPageQuery_genericPage_sectionsAsArray_steps_steps[] | null;
@@ -786,6 +803,7 @@ export interface GenericPageQuery_genericPage_sectionsAsArray {
   featured: (GenericPageQuery_genericPage_sectionsAsArray_featured | null)[] | null;
   hero: (GenericPageQuery_genericPage_sectionsAsArray_hero | null)[] | null;
   iconBullets: (GenericPageQuery_genericPage_sectionsAsArray_iconBullets | null)[] | null;
+  jumpMenu: (GenericPageQuery_genericPage_sectionsAsArray_jumpMenu | null)[] | null;
   leadText: (GenericPageQuery_genericPage_sectionsAsArray_leadText | null)[] | null;
   rowText: (GenericPageQuery_genericPage_sectionsAsArray_rowText | null)[] | null;
   steps: (GenericPageQuery_genericPage_sectionsAsArray_steps | null)[] | null;

@@ -1,5 +1,5 @@
 import { gql, useQuery } from '@apollo/client';
-import { FeaturedHtml } from '../containers/FeaturedAndTilesContainer/getFeaturedHtml';
+import FeaturedSection from '../components/FeaturedSection';
 import TilesContainer from '../containers/TilesContainer/TilesContainer';
 import { BlogPost, BlogPostVariables } from '../../generated/BlogPost';
 
@@ -113,7 +113,7 @@ export const BLOG_POST_PAGE = gql`
     }
   }
   ${TilesContainer.fragments.tiles}
-  ${FeaturedHtml.fragments.featured}
+  ${FeaturedSection.fragments.featured}
 `;
 
 export function useBlogPostPage(slug: string) {

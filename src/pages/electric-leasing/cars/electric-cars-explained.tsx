@@ -81,46 +81,17 @@ export const EVHubPage: NextPage<IProps> = ({
           />
         </div>
       </Hero>
-      <FeaturedSection {...sections?.featured?.[0]} />
-      <section className="row">
-        <JumpMenu
-          title="Learn More About Electric Cars"
-          links={[
-            {
-              label: 'Electric Cars Vs Hybrid Cars What’S The Difference?',
-              target: '#vs-hybrid',
-            },
-            {
-              label: 'Plug-In Hybrid Electric Vehicles (Phevs)',
-              target: '#plug-in',
-            },
-            {
-              label: 'Mild Hybrid Electric Vehicles (Mhevs)',
-              target: '#mild',
-            },
-            {
-              label: 'How Do Electric Cars Work?',
-              target: '#how-it-works',
-            },
-            {
-              label: 'How Do You Charge An Electric Car?',
-              target: '#how-to-charge',
-            },
-            {
-              label: 'So How Much Does It Cost To Charge An Ev?',
-              target: '#charge-cost',
-            },
-            {
-              label: 'But How Long Do Electric Car Batteries Last?',
-              target: '#battery-lifespan',
-            },
-            {
-              label: 'Why Leasing An Electric Car Makes Sense',
-              target: '#why-lease',
-            },
-          ]}
-        />
-      </section>
+      <FeaturedSection featured={sections?.featured?.[0]} />
+
+      {sections?.jumpMenu?.[0] && (
+        <section className="row">
+          <JumpMenu
+            title="Learn More About Electric Cars"
+            links={sections?.jumpMenu?.[0]?.links}
+          />
+        </section>
+      )}
+
       <section className="row:bg-lighter">
         <div className="row:cards-3col">
           {sections?.cards?.[0]?.cards?.map(card => (
@@ -251,8 +222,8 @@ export const EVHubPage: NextPage<IProps> = ({
           </div>
         </div>
       </section>
-      <FeaturedSection {...sections?.featured?.[1]} />
-      <FeaturedSection {...sections?.featured?.[2]} id="plug-in" />
+      <FeaturedSection featured={sections?.featured?.[1]} />
+      <FeaturedSection featured={sections?.featured?.[2]} id="plug-in" />
       <section className="row:bg-lighter">
         <div>
           <Heading
@@ -304,8 +275,8 @@ export const EVHubPage: NextPage<IProps> = ({
           </div>
         </div>
       </section>
-      <FeaturedSection {...sections?.featured?.[3]} id="mild" />
-      <FeaturedSection {...sections?.featured?.[4]} id="how-it-works" />
+      <FeaturedSection featured={sections?.featured?.[3]} id="mild" />
+      <FeaturedSection featured={sections?.featured?.[4]} id="how-it-works" />
       <section className="row:bg-default">
         <hr className="-fullwidth" />
         <h2
@@ -328,9 +299,9 @@ export const EVHubPage: NextPage<IProps> = ({
           />
         </div>
       </section>
-      <FeaturedSection {...sections?.featured?.[5]} id="how-to-charge" />
-      <FeaturedSection {...sections?.featured?.[6]} />
-      <FeaturedSection {...sections?.featured?.[7]} />
+      <FeaturedSection featured={sections?.featured?.[5]} id="how-to-charge" />
+      <FeaturedSection featured={sections?.featured?.[6]} />
+      <FeaturedSection featured={sections?.featured?.[7]} />
 
       <section className="row:bg-default">
         <ul className="four-stats">
@@ -343,9 +314,12 @@ export const EVHubPage: NextPage<IProps> = ({
         </ul>
       </section>
 
-      <FeaturedSection {...sections?.featured?.[8]} id="charge-cost" />
-      <FeaturedSection {...sections?.featured?.[9]} id="battery-lifespan" />
-      <FeaturedSection {...sections?.featured?.[10]} id="why-lease" />
+      <FeaturedSection featured={sections?.featured?.[8]} id="charge-cost" />
+      <FeaturedSection
+        featured={sections?.featured?.[9]}
+        id="battery-lifespan"
+      />
+      <FeaturedSection featured={sections?.featured?.[10]} id="why-lease" />
 
       <section className="row:bg-lighter">
         <div>
@@ -355,20 +329,13 @@ export const EVHubPage: NextPage<IProps> = ({
           {sections?.carousel?.[2]?.cards && (
             <Carousel countItems={3} className="-mh-auto about-us">
               {sections?.carousel?.[2]?.cards.map((card, idx) => (
-                <div className="card" key={card?.name || idx}>
-                  <img
-                    className="card-image"
-                    alt="img"
-                    src={card?.image?.file?.url}
-                    width="600"
-                    height="240"
-                  />
+                <Card imageSrc={card?.image?.file?.url} key={card?.name || idx}>
                   <div className="card-footer basic">
                     <Heading tag="p" color="black" className="-mb-400">
                       {card?.body}
                     </Heading>
                   </div>
-                </div>
+                </Card>
               ))}
             </Carousel>
           )}
