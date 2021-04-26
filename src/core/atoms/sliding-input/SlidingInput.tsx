@@ -1,4 +1,4 @@
-import React, { useState, CSSProperties } from 'react';
+import React, { useState, CSSProperties, useEffect } from 'react';
 import cx from 'classnames';
 import { ISlidingInputProps, ISlidingObject } from './interfaces';
 
@@ -11,6 +11,10 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
   const myRef = React.createRef<HTMLDivElement>();
   const [mouseDown, setMouseDown] = useState(false);
   const [mileageValue, setMileageValue] = useState(defaultValue);
+
+  useEffect(() => {
+    setMileageValue(defaultValue)
+  }, [defaultValue])
 
   const valueChange = (pageX: number, click?: string) => {
     if (!disabled) {

@@ -129,6 +129,7 @@ const CustomiseLease = ({
   setTerm,
   setTrim,
   data,
+  capId,
   derivativeInfo,
   maintenance,
   setMaintenance,
@@ -151,7 +152,25 @@ const CustomiseLease = ({
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
   );
+  const [defaultMileage, setDefaultMileage] = useState(mileages.indexOf(mileage || 0) + 1);
   const quoteByCapId = data?.quoteByCapId;
+
+  useEffect(() => {
+    // check for any previously set lease settings
+    if(window.sessionStorage.leaseSettings) {
+      const leaseSettings = JSON.parse(window.sessionStorage?.leaseSettings);
+      if (leaseSettings && leaseSettings.capId === capId) {
+        setDefaultMileage(leaseSettings.mileageValue);
+        setMileage(leaseSettings.mileage);
+        setTerm(leaseSettings.term)
+      }
+    }
+  }, []);
+  
+  useEffect(() => {
+    console.log(terms)
+  }, [quoteByCapId])
+
   useEffect(() => {
     const upfront = quoteByCapId?.upfront;
     const maintenanceCost = quoteByCapId?.maintenanceCost?.monthlyRental;
@@ -164,6 +183,20 @@ const CustomiseLease = ({
   }, [quoteByCapId, maintenance]);
   const isMobile = useMobileViewport();
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
+
+  const setSessionValues = () => {
+    const leaseSettings: any = {
+      capId,
+    }
+    const storage = window.sessionStorage
+    if(mileage) {
+      const mileageValue = mileages.indexOf(mileage) + 1
+      leaseSettings.mileage = mileage;
+      leaseSettings.mileageValue = mileageValue;
+      leaseSettings.term = quoteByCapId?.term;
+    }
+    storage.setItem('leaseSettings', JSON.stringify(leaseSettings));
+  }
 
   return (
     <div className={cx('pdp--sidebar', isDisabled ? 'disabled' : '')}>
@@ -180,7 +213,7 @@ const CustomiseLease = ({
       <SlidingInput
         steps={mileages}
         disabled={isDisabled}
-        defaultValue={mileages.indexOf(mileage || 0) + 1}
+        defaultValue={defaultMileage}
         onChange={value => {
           setMileage(mileages[value - 1]);
         }}
@@ -310,12 +343,13 @@ const CustomiseLease = ({
                   : undefined
               }
               price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
-              orderNowClick={() =>
+              orderNowClick={() => {
                 onSubmit({
                   leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
                   lineItems: [lineItem],
-                })
-              }
+                });
+                setSessionValues();
+              }}
               headingText={`PM ${stateVAT}. VAT`}
               leasingProviders={LEASING_PROVIDERS}
               startLoading={isDisabled}

@@ -42,6 +42,7 @@ export interface IProps {
   setTrim: Dispatch<SetStateAction<number | null>>;
   setMaintenance: Dispatch<SetStateAction<boolean | null>>;
   data: GetQuoteDetails;
+  capId: number;
   leaseType: string;
   trim: number | null;
   colour: number | null;
