@@ -19,16 +19,33 @@ import {
 } from '../../../generated/GetCompaniesByPersonUuid';
 import { ILoginFormValues } from '../../components/LoginForm/interfaces';
 
-const filterExistingUuids = (personUuid: string | undefined = '') => (
+export const filterExistingUuids = (personUuid: string | undefined = '') => (
   uuids: string[] | undefined = [],
 ): string[] => [...uuids, personUuid].filter(uuid => !!uuid);
 
-const getPartyUuidsFromCompanies = (
+export const getPartyUuidsFromCompanies = (
   getCompaniesQuery: ApolloQueryResult<GetCompaniesByPersonUuid>,
 ) =>
   getCompaniesQuery.data?.companiesByPersonUuid?.map(
     companies => companies.partyUuid,
   );
+
+export const saveOrders = ([ordersQuery, quotesQuery]: ApolloQueryResult<
+  GetMyOrders
+>[]) =>
+  Promise.all([
+    localForage.setItem<number | undefined>(
+      'ordersLength',
+      ordersQuery.data?.myOrders.length,
+    ),
+    localForage.setItem<number | undefined>(
+      'quotesLength',
+      quotesQuery.data?.myOrders.length,
+    ),
+  ]);
+
+export const savePerson = (getPersonQuery: ApolloQueryResult<GetPerson>) =>
+  localForage.setItem<GetPerson | undefined>('person', getPersonQuery.data);
 
 export const GET_PERSON_QUERY = gql`
   query GetPerson {
@@ -69,9 +86,6 @@ const LoginFormContainer = ({
 
   const requestPerson = () => getPerson({});
 
-  const savePerson = (getPersonQuery: ApolloQueryResult<GetPerson>) =>
-    localForage.setItem<GetPerson | undefined>('person', getPersonQuery.data);
-
   const requestCompanies = (data?: GetPerson) =>
     getCompaniesData({
       personUuid: data?.getPerson?.uuid || '',
@@ -87,20 +101,6 @@ const LoginFormContainer = ({
         partyUuid,
         filter: MyOrdersTypeEnum.ALL_QUOTES,
       }),
-    ]);
-
-  const saveOrders = ([ordersQuery, quotesQuery]: ApolloQueryResult<
-    GetMyOrders
-  >[]) =>
-    Promise.all([
-      localForage.setItem<number | undefined>(
-        'ordersLength',
-        ordersQuery.data?.myOrders.length,
-      ),
-      localForage.setItem<number | undefined>(
-        'quotesLength',
-        quotesQuery.data?.myOrders.length,
-      ),
     ]);
 
   const handleLoginComplete = useCallback(

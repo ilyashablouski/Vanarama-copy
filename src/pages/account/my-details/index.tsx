@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
 import { NextPage } from 'next';
+import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect, useState } from 'react';
 import localForage from 'localforage';
@@ -74,17 +75,19 @@ const metaData = {
 };
 
 const MyDetailsPage: NextPage<IProps> = () => {
+  const router = useRouter();
   const [person, setPerson] = useState<Person | null>(null);
   const [resetPassword, setResetPassword] = useState(false);
 
   useEffect(() => {
-    if (!person) {
-      localForage.getItem<GetPerson>('person').then(value => {
-        if (value) {
-          setPerson(value.getPerson);
-        }
-      });
-    }
+    localForage
+      .getItem<GetPerson>('person')
+      .then(value => setPerson(value.getPerson))
+      // if value is null exception will be thrown
+      // and user should be redirected to authentication
+      .catch(() =>
+        router.replace(`/account/login-register?redirect=${router.pathname}`),
+      );
   }, [person]);
 
   if (!person) {
@@ -104,10 +107,10 @@ const MyDetailsPage: NextPage<IProps> = () => {
           My Details
         </Heading>
       </div>
-      <OrderInformationContainer />
+      <OrderInformationContainer person={person} />
       <div className="row:my-details">
         <div className="my-details--form">
-          <PersonalInformationFormContainer personUuid={person?.uuid} />
+          <PersonalInformationFormContainer person={person} />
         </div>
         <div className="my-details--form ">
           <Heading tag="span" size="large" color="black" className="-mb-300">

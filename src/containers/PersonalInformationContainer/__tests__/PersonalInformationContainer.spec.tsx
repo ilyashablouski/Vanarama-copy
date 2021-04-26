@@ -44,7 +44,14 @@ describe('<PersonalInformation />', () => {
     // ACT
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
-        <PersonalInformation personUuid="aa08cca2-5f8d-4b8c-9506-193d9c32e05f" />
+        <PersonalInformation
+          person={{
+            firstName: 'Jack',
+            lastName: 'Jones',
+            partyUuid: '00000000-1111-2222-3333-193d9c32e05f',
+            emailAddresses: [],
+            uuid: 'aa08cca2-5f8d-4b8c-9506-193d9c32e05f',
+        }} />
       </MockedProvider>,
     );
 
