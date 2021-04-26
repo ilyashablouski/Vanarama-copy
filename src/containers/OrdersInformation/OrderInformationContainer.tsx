@@ -1,18 +1,25 @@
 import dynamic from 'next/dynamic';
 import React, { useEffect, useState } from 'react';
-import localForage from 'localforage';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GET_MY_ORDERS_DATA } from './gql';
 import { IProps } from './interfaces';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
-import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../generated/GetCompaniesByPersonUuid';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import { MyOrdersTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
 import {
-  GetPerson,
-  GetPerson_getPerson as Person,
-} from '../../../generated/GetPerson';
+  GetCompaniesByPersonUuid,
+  GetCompaniesByPersonUuidVariables,
+} from '../../../generated/GetCompaniesByPersonUuid';
+import {
+  GetMyOrders,
+  GetMyOrdersVariables,
+} from '../../../generated/GetMyOrders';
+import {
+  getPartyUuidsFromCompanies,
+  filterExistingUuids,
+  saveOrders,
+} from '../LoginFormContainer/LoginFormContainer';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -21,49 +28,43 @@ const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={5} />,
 });
 
-const OrderInformationContainer: React.FC<IProps> = () => {
+const OrderInformationContainer: React.FC<IProps> = ({ person }) => {
   const [ordersLength, setOrdersLength] = useState<number | null>(null);
   const [quotesLength, setQuotesLength] = useState<number | null>(null);
-  const [person, setPerson] = useState<Person | null>(null);
 
-  const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
-  const getOrdersData = useImperativeQuery(GET_MY_ORDERS_DATA);
-
-  useEffect(() => {
-    if (!person) {
-      localForage.getItem<GetPerson>('person').then(value => {
-        if (value) {
-          setPerson(value.getPerson);
-        }
-      });
-    }
-  }, [person]);
+  const getCompaniesData = useImperativeQuery<
+    GetCompaniesByPersonUuid,
+    GetCompaniesByPersonUuidVariables
+  >(GET_COMPANIES_BY_PERSON_UUID);
+  const getOrdersData = useImperativeQuery<GetMyOrders, GetMyOrdersVariables>(
+    GET_MY_ORDERS_DATA,
+  );
 
   useEffect(() => {
     if (person?.partyUuid && quotesLength === null && ordersLength === null) {
-      const partyUuidArray = [person.partyUuid];
       getCompaniesData({
         personUuid: person.uuid,
-      }).then(resp => {
-        resp.data?.companiesByPersonUuid?.forEach(
-          (companies: CompaniesByPersonUuid) =>
-            partyUuidArray.push(companies.partyUuid),
-        );
-        getOrdersData({
-          partyUuid: partyUuidArray,
-          filter: MyOrdersTypeEnum.ALL_ORDERS,
-        }).then(response => {
-          setOrdersLength(response.data?.myOrders.length);
-          localForage.setItem('ordersLength', response.data?.myOrders.length);
+      })
+        .then(getPartyUuidsFromCompanies)
+        .then(filterExistingUuids(person.partyUuid))
+        .then(partyUuid =>
+          Promise.all([
+            getOrdersData({
+              partyUuid,
+              filter: MyOrdersTypeEnum.ALL_ORDERS,
+            }),
+            getOrdersData({
+              partyUuid,
+              filter: MyOrdersTypeEnum.ALL_QUOTES,
+            }),
+          ]),
+        )
+        .then(saveOrders)
+        .catch(() => [])
+        .then(([orders, quotes]) => {
+          setOrdersLength(orders || 0);
+          setQuotesLength(quotes || 0);
         });
-        getOrdersData({
-          partyUuid: partyUuidArray,
-          filter: MyOrdersTypeEnum.ALL_QUOTES,
-        }).then(response => {
-          setQuotesLength(response.data?.myOrders.length);
-          localForage.setItem('quotesLength', response.data?.myOrders.length);
-        });
-      });
     }
   }, [person, getOrdersData, quotesLength, ordersLength, getCompaniesData]);
 
