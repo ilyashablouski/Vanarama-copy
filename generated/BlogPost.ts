@@ -156,6 +156,7 @@ export interface BlogPost_blogPost_sections_featured {
   title: string | null;
   titleTag: string | null;
   video: string | null;
+  targetId: string | null;
   defaultHeight: number | null;
   iconList: (BlogPost_blogPost_sections_featured_iconList | null)[] | null;
   link: BlogPost_blogPost_sections_featured_link | null;

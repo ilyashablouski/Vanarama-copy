@@ -80,6 +80,7 @@ const FEATURED = {
   title: null,
   titleTag: null,
   video: null,
+  targetId: null,
 };
 
 describe('<PageNotFoundContainer />', () => {

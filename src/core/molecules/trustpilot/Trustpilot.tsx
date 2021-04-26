@@ -20,10 +20,10 @@ const Trustpilot: FC<ITrustpilotProps> = ({
   const ref = React.useRef(null);
 
   React.useEffect(() => {
-    if (window.Trustpilot) {
+    if (loaded && window.Trustpilot) {
       window.Trustpilot.loadFromElement(ref.current, true);
     }
-  }, []);
+  }, [loaded]);
 
   return loaded && !error ? (
     <div className={cx('trustpilot', className)}>

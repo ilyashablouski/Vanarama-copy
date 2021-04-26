@@ -11,6 +11,7 @@ import Link from '../../atoms/link';
 import Loading from '../../atoms/loading';
 import CheckmarkSharp from '../../assets/icons/CheckmarkSharp';
 import CheckmarkCircleOutline from '../../assets/icons/CheckmarkCircleOutline';
+import Clock from '../../assets/icons/Clock';
 
 const LeaseScanner: FC<ILeaseScannerProps> = props => {
   const {
@@ -160,6 +161,12 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
             color="teal"
             onClick={orderNowClick}
           />
+          <div className="-eta">
+            <Icon icon={<Clock />} color="orange" size="small" />
+            <Text size="small" color="orange">
+              In Under 3 Minutes
+            </Text>
+          </div>
         </div>
         <div>
           {withCheckBox && (
