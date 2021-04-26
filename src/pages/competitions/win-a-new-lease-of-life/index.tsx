@@ -1,5 +1,5 @@
 import { NextPage } from 'next';
-import InsurancePageContainer from '../../../containers/InsurancePageContainer/InsurancePageContainer';
+import CompetitionPageContainer from '../../../containers/CompetitionPageContainer/CompetitionPageContainer';
 import { GetInsuranceLandingPage } from '../../../../generated/GetInsuranceLandingPage';
 import { decodeData, encodeData } from '../../../utils/data';
 import data from './temporary_hardcoded_page_data.json';
@@ -11,7 +11,7 @@ interface IWinANewLeaseOfLifePagePage {
 const WinANewLeaseOfLifePage: NextPage<IWinANewLeaseOfLifePagePage> = ({
   data: encodedData,
 }) => {
-  return <InsurancePageContainer data={decodeData(encodedData)} />;
+  return <CompetitionPageContainer data={decodeData(encodedData)} />;
 };
 
 export async function getStaticProps() {
