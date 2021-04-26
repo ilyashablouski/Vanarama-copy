@@ -356,7 +356,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         className="structured-list-tbody"
       >
         <div
-          className="structured-list-row "
+          className="structured-list-row orange"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -372,7 +372,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -388,7 +388,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -404,7 +404,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -420,7 +420,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -436,7 +436,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -452,7 +452,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -468,7 +468,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -484,19 +484,51 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row orange"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-8-Redundancy & Life Cover:"
+            data-testid="data_id-8-Road Tax:"
           >
-            Redundancy & Life Cover:
+            Road Tax:
           </div>
           <div
             className="structured-list-td"
-            data-testid="redundancy"
+            data-testid="roadTax"
           >
-            Included
+            INCLUDED
+          </div>
+        </div>
+        <div
+          className="structured-list-row orange"
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-9-Redundancy & Life Event Cover:"
+          >
+            Redundancy & Life Event Cover:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="lifeEventCover"
+          >
+            FREE
+          </div>
+        </div>
+        <div
+          className="structured-list-row orange"
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-10-Delivery"
+          >
+            Delivery
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="delivery"
+          >
+            FREE
           </div>
         </div>
       </div>
@@ -984,7 +1016,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         className="structured-list-tbody"
       >
         <div
-          className="structured-list-row "
+          className="structured-list-row orange"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -1000,7 +1032,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -1016,7 +1048,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -1032,7 +1064,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -1048,7 +1080,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -1064,7 +1096,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -1080,7 +1112,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -1096,7 +1128,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -1112,19 +1144,51 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           </div>
         </div>
         <div
-          className="structured-list-row "
+          className="structured-list-row orange"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-8-Redundancy & Life Cover:"
+            data-testid="data_id-8-Road Tax:"
           >
-            Redundancy & Life Cover:
+            Road Tax:
           </div>
           <div
             className="structured-list-td"
-            data-testid="redundancy"
+            data-testid="roadTax"
           >
-            Included
+            INCLUDED
+          </div>
+        </div>
+        <div
+          className="structured-list-row orange"
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-9-Redundancy & Life Event Cover:"
+          >
+            Redundancy & Life Event Cover:
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="lifeEventCover"
+          >
+            FREE
+          </div>
+        </div>
+        <div
+          className="structured-list-row orange"
+        >
+          <div
+            className="structured-list-td structured-list-content--nowrap"
+            data-testid="data_id-10-Delivery"
+          >
+            Delivery
+          </div>
+          <div
+            className="structured-list-td"
+            data-testid="delivery"
+          >
+            FREE
           </div>
         </div>
       </div>

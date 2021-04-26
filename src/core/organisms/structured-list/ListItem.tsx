@@ -1,4 +1,5 @@
 import React, { FC, ChangeEvent, useState } from 'react';
+import cx from 'classnames';
 
 import Select from '../../atoms/select';
 import TextInput from '../../atoms/textinput';
@@ -18,6 +19,7 @@ const ListItem: FC<IListItemProps> = props => {
     editing,
     onChange,
     dataTestId,
+    isOrange,
   } = props;
 
   const [input, setInput] = useState(value);
@@ -87,7 +89,7 @@ const ListItem: FC<IListItemProps> = props => {
   };
 
   return (
-    <div className="structured-list-row ">
+    <div className={cx('structured-list-row', { orange: isOrange })}>
       <div
         className="structured-list-td structured-list-content--nowrap"
         data-testid={`data_id-${testId}-${label}`}
