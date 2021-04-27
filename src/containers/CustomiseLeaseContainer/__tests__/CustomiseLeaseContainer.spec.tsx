@@ -132,6 +132,7 @@ describe('<CustomiseLeaseContainer />', () => {
               technicalDescription: 'Minimum Kerbweight',
               technicalLongDescription: 'Minimum Kerbweight',
               value: '1515',
+              unit: 'kg',
             },
           ],
           standardEquipments: [
@@ -264,6 +265,7 @@ describe('<CustomiseLeaseContainer />', () => {
             technicalDescription: 'Minimum Kerbweight',
             technicalLongDescription: 'Minimum Kerbweight',
             value: '1515',
+            unit: 'kg',
           },
         ],
         standardEquipments: [
@@ -353,6 +355,7 @@ describe('<CustomiseLeaseContainer />', () => {
             technicalDescription: 'Minimum Kerbweight',
             technicalLongDescription: 'Minimum Kerbweight',
             value: '1515',
+            unit: 'kg',
           },
         ],
         standardEquipments: [
@@ -473,6 +476,7 @@ describe('<CustomiseLeaseContainer />', () => {
               technicalDescription: 'Minimum Kerbweight',
               technicalLongDescription: 'Minimum Kerbweight',
               value: '1515',
+              unit: 'kg',
             },
           ],
           standardEquipments: [

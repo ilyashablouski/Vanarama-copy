@@ -17,6 +17,12 @@ interface ITechDataItemGroup {
   items: ITechDataItem[];
 }
 
+const getValue = (value: string, unit: string) => {
+  if (value === 'N') return '-';
+  if (unit) return `${value} ${unit}`;
+  return value;
+};
+
 export const getTechData = (
   derivativeInfo: (
     | GetVehicleDetails_derivativeInfo_technicals
@@ -35,13 +41,14 @@ export const getTechData = (
         categoryDescription,
         technicalDescription,
         value,
+        unit,
       } = el as any;
       if (index !== -1) {
         (genericDescription || value) &&
           arr[index].items.push({
             id,
             label: genericDescription || technicalDescription,
-            value: value || optionDescription,
+            value: getValue(value, unit) || optionDescription,
           });
       } else {
         arr.push({
@@ -52,7 +59,7 @@ export const getTechData = (
               {
                 id,
                 label: genericDescription || technicalDescription,
-                value: value || optionDescription,
+                value: getValue(value, unit) || optionDescription,
               },
             ]) ||
             [],

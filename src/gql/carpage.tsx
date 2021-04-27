@@ -93,6 +93,7 @@ export const GET_CAR_DATA = gql`
         effectiveFrom
         effectiveTo
         value
+        unit
       }
       standardEquipments {
         id
