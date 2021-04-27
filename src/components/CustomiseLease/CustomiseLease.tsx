@@ -163,8 +163,8 @@ const CustomiseLease = ({
 
   useEffect(() => {
     // check for any previously set lease settings
-    if (window.sessionStorage.leaseSettings) {
-      const leaseSettings = JSON.parse(window.sessionStorage?.leaseSettings);
+    if (window.sessionStorage?.[`leaseSettings-${capId}`]) {
+      const leaseSettings = JSON.parse(window.sessionStorage?.[`leaseSettings-${capId}`]);
       if (leaseSettings && leaseSettings.capId === capId) {
         setDefaultMileage(leaseSettings.mileageValue);
         setMileage(leaseSettings.mileage);
@@ -184,8 +184,6 @@ const CustomiseLease = ({
     }
   }, []);
 
-  useEffect(() => {}, []);
-
   useEffect(() => {
     const upfront = quoteByCapId?.upfront;
     const maintenanceCost = quoteByCapId?.maintenanceCost?.monthlyRental;
@@ -201,7 +199,7 @@ const CustomiseLease = ({
 
   const setSessionValues = () => {
     const mileageValue = mileages.indexOf(mileage || 0) + 1;
-    const leaseSettings: any = {
+    const leaseSettings = {
       capId,
       mileage,
       mileageValue,
@@ -209,7 +207,7 @@ const CustomiseLease = ({
       upfront: quoteByCapId?.upfront,
     };
     window.sessionStorage.setItem(
-      'leaseSettings',
+      `leaseSettings-${capId}`,
       JSON.stringify(leaseSettings),
     );
   };
