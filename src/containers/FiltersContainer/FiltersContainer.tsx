@@ -162,10 +162,6 @@ const FiltersContainer = ({
   // subscribe for change applied filters value for manage tags state
   useEffect(() => {
     const selected: ISelectedWithOrder[] = Object.entries(selectedFiltersState)
-      // makes in make page should not to be added
-      // makes, model, bodystyles in model page should not to be added
-      // makes, model in range page should not to be added
-      // bodyStyles/transmissions/fuels in body/transmission/fuel page should not to be added
       .map(entry => tagArrayBuilderHelper(entry, filtersData))
       .flat()
       .filter(({ order, value }) => value?.length > 0 && order !== undefined);

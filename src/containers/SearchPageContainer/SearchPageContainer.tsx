@@ -738,6 +738,10 @@ const SearchPageContainer: React.FC<IProps> = ({
     entry: [string, string[]],
     filtersContainerData: IFilterList,
   ) => {
+    // makes in make page should not to be added
+    // makes, model, bodystyles in model page should not to be added
+    // makes, model in range page should not to be added
+    // bodyStyles/transmissions/fuels in body/transmission/fuel page should not to be added
     if (
       (entry[0] === FilterFields.from || entry[0] === FilterFields.to) &&
       entry[1]?.[0]
