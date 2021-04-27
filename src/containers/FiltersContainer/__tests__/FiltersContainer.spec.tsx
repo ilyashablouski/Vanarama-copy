@@ -5,6 +5,7 @@ import preloadAll from 'jest-next-dynamic';
 import FiltersContainer from '../FiltersContainer';
 
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
+import SearchPageFilters from '../../../components/SearchPageFilters';
 // TODO: Invistigate useQuery refetch problem
 
 // ARRANGE
@@ -12,6 +13,22 @@ const resetMocks = () => {
   return {
     isPersonal: true,
     setType: jest.fn(),
+    tagArrayBuilderHelper: () => [],
+    initialState: {
+      bodyStyles: [],
+      transmissions: [],
+      fuelTypes: [],
+      make: [],
+      model: [],
+      from: [],
+      to: [],
+    },
+  };
+};
+
+const resetChildrenMocks = () => {
+  return {
+    isPersonal: true,
     isCarSearch: true,
     onSearch: jest.fn(),
     preSearchVehicleCount: 10,
@@ -120,6 +137,7 @@ const mocksResponse: MockedResponse[] = [
 ];
 
 const mocks = resetMocks();
+const childMocks = resetChildrenMocks();
 
 describe('<FiltersContainer />', () => {
   beforeEach(async () => {
@@ -135,7 +153,9 @@ describe('<FiltersContainer />', () => {
 
     render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <FiltersContainer {...mocks} />
+        <FiltersContainer {...mocks}>
+          <SearchPageFilters {...childMocks} />
+        </FiltersContainer>
       </MockedProvider>,
     );
     // ASSERT
@@ -213,7 +233,9 @@ describe('<FiltersContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocksResponse}>
-        <FiltersContainer {...mocks} />
+        <FiltersContainer {...mocks}>
+          <SearchPageFilters {...childMocks} />
+        </FiltersContainer>
       </MockedProvider>,
     );
     await waitFor(() => {
@@ -227,7 +249,9 @@ describe('<FiltersContainer />', () => {
     // ACT
     const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <FiltersContainer {...mocks} />
+        <FiltersContainer {...mocks}>
+          <SearchPageFilters {...childMocks} />
+        </FiltersContainer>
       </MockedProvider>,
     );
 

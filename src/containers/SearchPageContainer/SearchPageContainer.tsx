@@ -11,7 +11,11 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import { findPreselectFilterValue } from '../FiltersContainer/helpers';
+import {
+  filterOrderByNumMap,
+  findPreselectFilterValue,
+  getLabelForSlug,
+} from '../FiltersContainer/helpers';
 import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
@@ -64,6 +68,8 @@ import TilesBlock from './TilesBlock';
 import ResultsContainer from './ResultsContainer';
 import CommonDescriptionContainer from './CommonDescriptionContainer';
 import ReadMoreBlock from './ReadMoreBlock';
+import SearchPageFilters from '../../components/SearchPageFilters';
+import { FilterFields } from '../FiltersContainer/config';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -87,6 +93,16 @@ const FiltersContainer = dynamic(() => import('../FiltersContainer'), {
   loading: () => <Skeleton count={2} />,
   ssr: true,
 });
+
+const initialFiltersState = {
+  bodyStyles: [],
+  transmissions: [],
+  fuelTypes: [],
+  make: [],
+  model: [],
+  from: [],
+  to: [],
+};
 
 interface IProps {
   isServer: boolean;
@@ -717,6 +733,50 @@ const SearchPageContainer: React.FC<IProps> = ({
       );
     }
   };
+
+  const tagArrayBuilderHelper = (
+    entry: [string, string[]],
+    filtersContainerData: IFilterList,
+  ) => {
+    if (
+      (entry[0] === FilterFields.from || entry[0] === FilterFields.to) &&
+      entry[1]?.[0]
+    ) {
+      return {
+        order: filterOrderByNumMap[entry[0]],
+        value: isBudgetPage ? '' : `£${entry[1]}`,
+      };
+    }
+    const value =
+      ((isMakePage || isRangePage || isModelPage) &&
+        entry[0] === FilterFields.make) ||
+      ((isRangePage || isModelPage) && entry[0] === FilterFields.model) ||
+      (isFuelPage && entry[0] === FilterFields.fuelTypes) ||
+      (isTransmissionPage && entry[0] === FilterFields.transmissions) ||
+      ((isModelPage || isBodyStylePage) && entry[0] === FilterFields.bodyStyles)
+        ? ''
+        : entry[1];
+
+    // for make and model we should get label value
+    return typeof value === 'string'
+      ? {
+          order: filterOrderByNumMap[entry[0]],
+          value:
+            (entry[0] === FilterFields.make ||
+              entry[0] === FilterFields.model) &&
+            value.length
+              ? getLabelForSlug(
+                  entry[1][0],
+                  filtersContainerData,
+                  entry[0] === FilterFields.make,
+                )
+              : value,
+        }
+      : value.map(v => ({
+          order: filterOrderByNumMap[entry[0]],
+          value: v,
+        }));
+  };
   // TODO: render must be refactored, some components should be moved to separate components
   // Some props should be contain in one param for achieve more readable code
   return (
@@ -829,30 +889,37 @@ const SearchPageContainer: React.FC<IProps> = ({
         <div className="row:search-filters">
           <FiltersContainer
             isPersonal={isPersonal}
-            isMakePage={isMakePage}
-            isRangePage={isRangePage}
             setType={value => setIsPersonal(value)}
-            onSearch={onSearch}
-            isPickups={isPickups}
-            isCarSearch={isCarSearch}
-            preSearchVehicleCount={totalCount}
-            isSpecialOffers={
-              (isSpecialOffers &&
-                !(isRangePage || isModelPage || isDynamicFilterPage)) ||
-              null
-            }
-            setIsSpecialOffers={setIsSpecialOffers}
-            isModelPage={isModelPage}
-            isAllMakesPage={isAllMakesPage}
-            isBodyPage={isBodyStylePage}
-            isBudgetPage={isBudgetPage}
-            isDynamicFilterPage={isDynamicFilterPage}
-            isFuelPage={isFuelPage}
-            isTransmissionPage={isTransmissionPage}
-            isPreloadList={!!preLoadVehiclesList}
-            setSearchFilters={setFiltersData}
+            tagArrayBuilderHelper={tagArrayBuilderHelper}
             preLoadFilters={preLoadFiltersData}
-          />
+            initialState={initialFiltersState}
+          >
+            <SearchPageFilters
+              onSearch={onSearch}
+              isPersonal={isPersonal}
+              isCarSearch={isCarSearch}
+              isMakePage={isMakePage}
+              isRangePage={isRangePage}
+              isPickups={isPickups}
+              preSearchVehicleCount={totalCount}
+              isModelPage={isModelPage}
+              isAllMakesPage={isAllMakesPage}
+              isBodyPage={isBodyStylePage}
+              isBudgetPage={isBudgetPage}
+              isDynamicFilterPage={isDynamicFilterPage}
+              isFuelPage={isFuelPage}
+              isTransmissionPage={isTransmissionPage}
+              isPreloadList={!!preLoadVehiclesList}
+              setSearchFilters={setFiltersData}
+              preLoadFilters={preLoadFiltersData}
+              isSpecialOffers={
+                (isSpecialOffers &&
+                  !(isRangePage || isModelPage || isDynamicFilterPage)) ||
+                null
+              }
+              setIsSpecialOffers={setIsSpecialOffers}
+            />
+          </FiltersContainer>
         </div>
       </div>
 
