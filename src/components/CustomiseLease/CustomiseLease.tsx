@@ -159,12 +159,16 @@ const CustomiseLease = ({
   );
   const [monthIndex, setMonthIndex]: any = useState(null);
   const [upfrontIndex, setUpfrontIndex]: any = useState(null);
+  const [defaultColor, setDefaultColor]: any = useState(null);
+  const [defaultTrim, setDefaultTrim]: any = useState(null);
   const quoteByCapId = data?.quoteByCapId;
 
   useEffect(() => {
     // check for any previously set lease settings
     if (window.sessionStorage?.[`leaseSettings-${capId}`]) {
-      const leaseSettings = JSON.parse(window.sessionStorage?.[`leaseSettings-${capId}`]);
+      const leaseSettings = JSON.parse(
+        window.sessionStorage?.[`leaseSettings-${capId}`],
+      );
       if (leaseSettings && leaseSettings.capId === capId) {
         setDefaultMileage(leaseSettings.mileageValue);
         setMileage(leaseSettings.mileage);
@@ -180,6 +184,14 @@ const CustomiseLease = ({
             upfront => upfront.value === leaseSettings.upfront?.toString(),
           ),
         );
+        if (leaseSettings.colour) {
+          setDefaultColor(leaseSettings.colour);
+          setColour(+leaseSettings.colour);
+        }
+        if (leaseSettings.trim) {
+          setDefaultTrim(leaseSettings.trim);
+          setTrim(+leaseSettings.trim);
+        }
       }
     }
   }, []);
@@ -205,6 +217,8 @@ const CustomiseLease = ({
       mileageValue,
       term: quoteByCapId?.term,
       upfront: quoteByCapId?.upfront,
+      colour: quoteByCapId?.colour,
+      trim: quoteByCapId?.trim,
     };
     window.sessionStorage.setItem(
       `leaseSettings-${capId}`,
@@ -270,14 +284,14 @@ const CustomiseLease = ({
       </Heading>
 
       {select(
-        `${quoteByCapId?.colour}`,
+        `${defaultColor || quoteByCapId?.colour}`,
         setColour,
         colourList,
         'Select Paint Colour',
         isDisabled,
       )}
       {select(
-        `${quoteByCapId?.trim || trim}`,
+        `${defaultTrim || quoteByCapId?.trim || trim}`,
         setTrim,
         trimList,
         'Select Interior',
