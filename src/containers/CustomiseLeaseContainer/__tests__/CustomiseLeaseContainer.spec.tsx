@@ -132,6 +132,7 @@ describe('<CustomiseLeaseContainer />', () => {
               technicalDescription: 'Minimum Kerbweight',
               technicalLongDescription: 'Minimum Kerbweight',
               value: '1515',
+              unit: 'kg',
             },
           ],
           standardEquipments: [
@@ -160,7 +161,7 @@ describe('<CustomiseLeaseContainer />', () => {
 
     expect(screen.getByText('12000 Miles'));
 
-    expect(screen.getByText('24 Months'));
+    expect(screen.getByText('24 Months - 2 Years'));
 
     fireEvent.click(screen.getByText('Business'));
 
@@ -169,7 +170,7 @@ describe('<CustomiseLeaseContainer />', () => {
     });
 
     await waitFor(() => {
-      expect(screen.getByText('24 Months'));
+      expect(screen.getByText('24 Months - 2 Years'));
     });
 
     await waitFor(() => {
@@ -264,6 +265,7 @@ describe('<CustomiseLeaseContainer />', () => {
             technicalDescription: 'Minimum Kerbweight',
             technicalLongDescription: 'Minimum Kerbweight',
             value: '1515',
+            unit: 'kg',
           },
         ],
         standardEquipments: [
@@ -353,6 +355,7 @@ describe('<CustomiseLeaseContainer />', () => {
             technicalDescription: 'Minimum Kerbweight',
             technicalLongDescription: 'Minimum Kerbweight',
             value: '1515',
+            unit: 'kg',
           },
         ],
         standardEquipments: [
@@ -473,6 +476,7 @@ describe('<CustomiseLeaseContainer />', () => {
               technicalDescription: 'Minimum Kerbweight',
               technicalLongDescription: 'Minimum Kerbweight',
               value: '1515',
+              unit: 'kg',
             },
           ],
           standardEquipments: [

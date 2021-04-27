@@ -1,11 +1,14 @@
-import { FC, useState, useMemo, memo } from 'react';
+import { useState, useMemo } from 'react';
+import { gql } from '@apollo/client';
 import dynamic from 'next/dynamic';
 // import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
+import FCWithFragments from '../../utils/FCWithFragments';
 import { getFeaturedClassPartial } from '../../utils/layout';
-import { GenericPageQuery_genericPage_sections_featured as IFeatured } from '../../../generated/GenericPageQuery';
+// import { GenericPageQuery_genericPage_sections_featured as IFeatured } from '../../../generated/GenericPageQuery';
+import { GenericPageQueryFeatured as IFeatured } from '../../../generated/GenericPageQueryFeatured';
 import getTitleTag from '../../utils/getTitleTag';
 import Skeleton from '../Skeleton';
 import RouterLink from '../RouterLink/RouterLink';
@@ -27,27 +30,32 @@ const IconListItem = dynamic(() =>
   import('core/organisms/icon-list').then(mod => mod.IconListItem),
 );
 
-interface IFeaturedEx extends IFeatured {
-  id: string;
+interface IFeaturedEx {
+  id?: string;
+  featured: IFeatured | null | undefined;
 }
 
-const FeaturedSection: FC<any> = ({
-  video,
-  image,
-  title,
-  titleTag,
-  body,
-  layout,
-  defaultHeight,
-  iconList,
-  id,
-}: IFeaturedEx) => {
+const FeaturedSection: FCWithFragments<IFeaturedEx> = ({ featured, id }) => {
+  const {
+    video,
+    image,
+    title,
+    titleTag,
+    body,
+    layout,
+    defaultHeight,
+    iconList,
+    targetId,
+  } = featured as IFeatured;
   const isReadMoreIncluded = useMemo(() => layout?.includes('Read More'), [
     layout,
   ]);
   const [readmore, setReadMore] = useState(isReadMoreIncluded);
   return (
-    <section className={`row:${getFeaturedClassPartial({ layout })}`} id={id}>
+    <section
+      className={`row:${getFeaturedClassPartial({ layout })}`}
+      id={targetId || id}
+    >
       {video && <Media src={video || ''} width="100%" height="360px" />}
 
       {image && (
@@ -120,4 +128,58 @@ const FeaturedSection: FC<any> = ({
   );
 };
 
-export default memo(FeaturedSection);
+FeaturedSection.fragments = {
+  featured: gql`
+    fragment GenericPageQueryFeatured on Featured {
+      layout
+      body
+      title
+      titleTag
+      video
+      targetId
+      defaultHeight
+      iconList {
+        text
+      }
+      link {
+        url
+        text
+        legacyUrl
+      }
+      title
+      cards {
+        name
+        title
+        image {
+          title
+          description
+          file {
+            url
+            fileName
+          }
+        }
+        body
+        link {
+          text
+          url
+          legacyUrl
+        }
+      }
+      image {
+        title
+        description
+        file {
+          url
+          fileName
+        }
+      }
+      testimonials {
+        customerName
+        summary
+        rating
+      }
+    }
+  `,
+};
+
+export default FeaturedSection;
