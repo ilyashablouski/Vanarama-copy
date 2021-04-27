@@ -61,7 +61,7 @@ exports[`<VehicleTechDetails /> renders correctly with props 1`] = `
       role="tabpanel"
     >
       <p>
-        Error: No data
+        Sorry, no key information data availbale.
       </p>
     </div>
     <div
@@ -72,7 +72,7 @@ exports[`<VehicleTechDetails /> renders correctly with props 1`] = `
       role="tabpanel"
     >
       <p>
-        Error: No data
+        Sorry, no standard equipment data available.
       </p>
     </div>
     <div
@@ -83,7 +83,7 @@ exports[`<VehicleTechDetails /> renders correctly with props 1`] = `
       role="tabpanel"
     >
       <p>
-        Error: No data
+        Sorry, no data technical data available.
       </p>
     </div>
   </div>
@@ -151,7 +151,7 @@ exports[`<VehicleTechDetails /> renders correctly with props equal null 1`] = `
       role="tabpanel"
     >
       <p>
-        Error: No data
+        Sorry, no key information data availbale.
       </p>
     </div>
     <div
@@ -162,7 +162,7 @@ exports[`<VehicleTechDetails /> renders correctly with props equal null 1`] = `
       role="tabpanel"
     >
       <p>
-        Error: No data
+        Sorry, no standard equipment data available.
       </p>
     </div>
     <div
@@ -173,7 +173,7 @@ exports[`<VehicleTechDetails /> renders correctly with props equal null 1`] = `
       role="tabpanel"
     >
       <p>
-        Error: No data
+        Sorry, no data technical data available.
       </p>
     </div>
   </div>

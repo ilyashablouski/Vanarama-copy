@@ -74,6 +74,13 @@ export enum OpportunityTypeEnum {
 }
 
 /**
+ * Partner slug type enum
+ */
+export enum PartnerSlugTypeEnum {
+  OVO = "OVO",
+}
+
+/**
  * Sort direction
  */
 export enum SortDirection {
@@ -575,6 +582,7 @@ export interface VehicleProductInputObject {
   maintenance?: boolean | null;
   maintenancePrice?: number | null;
   monthlyPayment?: number | null;
+  partnerSlug?: PartnerSlugTypeEnum | null;
   term?: number | null;
   trim?: string | null;
   vehicleType: VehicleTypeEnum;
