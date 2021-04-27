@@ -104,6 +104,7 @@ export interface GetVehicleDetails_derivativeInfo_technicals {
   effectiveFrom: any;
   effectiveTo: any | null;
   value: string;
+  unit: string | null;
 }
 
 export interface GetVehicleDetails_derivativeInfo_standardEquipments {
