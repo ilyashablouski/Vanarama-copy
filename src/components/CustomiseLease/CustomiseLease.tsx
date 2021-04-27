@@ -266,6 +266,13 @@ const CustomiseLease = ({
           initialPayment,
         )} ${stateVAT}. VAT`,
         upfrontIndex,
+        <Icon
+          icon={<InformationCircle />}
+          color="teal"
+          className="md hydrated -ml-100"
+          onClick={() => setIsInitPayModalShowing(true)}
+          onMouseEnter={() => setIsInitPayModalShowing(true)}
+        />,
       )}
       <Heading tag="span" size="regular" color="black" className="-flex-h">
         Vehicle Options
