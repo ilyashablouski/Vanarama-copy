@@ -4,7 +4,7 @@ import {
   GenericPageTestimonialsQueryVariables,
 } from '../../../generated/GenericPageTestimonialsQuery';
 import TilesContainer from '../TilesContainer/TilesContainer';
-import { FeaturedHtml } from '../FeaturedAndTilesContainer/getFeaturedHtml';
+import FeaturedSection from '../../components/FeaturedSection';
 
 export const GENERIC_PAGE_TESTIMONIALS = gql`
   query GenericPageTestimonialsQuery($slug: String!) {
@@ -47,7 +47,7 @@ export const GENERIC_PAGE_TESTIMONIALS = gql`
       }
     }
   }
-  ${FeaturedHtml.fragments.featured}
+  ${FeaturedSection.fragments.featured}
   ${TilesContainer.fragments.tiles}
 `;
 

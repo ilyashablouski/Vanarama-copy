@@ -90,6 +90,7 @@ $include-presentation-styles: false !default;
 // @import '../organisms/comparator-bar/comparator-bar.scss';
 // @import '../organisms/comparator-table/comparator-table.scss';
 @import '../organisms/nlol-hero/nlol-hero.scss';
+@import '../organisms/competition/win-a-new-lease-of-life.scss';
 
 // row is imported last (for overrides)
 @import '../templates/footer.scss';

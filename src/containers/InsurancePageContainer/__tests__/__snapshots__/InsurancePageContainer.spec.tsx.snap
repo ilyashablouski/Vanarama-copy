@@ -65,7 +65,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                   class="structured-list-tbody"
                 >
                   <div
-                    class="structured-list-row "
+                    class="structured-list-row"
                   >
                     <div
                       class="structured-list-td structured-list-content--nowrap"
@@ -80,7 +80,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     </div>
                   </div>
                   <div
-                    class="structured-list-row "
+                    class="structured-list-row"
                   >
                     <div
                       class="structured-list-td structured-list-content--nowrap"
@@ -95,7 +95,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     </div>
                   </div>
                   <div
-                    class="structured-list-row "
+                    class="structured-list-row"
                   >
                     <div
                       class="structured-list-td structured-list-content--nowrap"
@@ -110,7 +110,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                     </div>
                   </div>
                   <div
-                    class="structured-list-row "
+                    class="structured-list-row"
                   >
                     <div
                       class="structured-list-td structured-list-content--nowrap"

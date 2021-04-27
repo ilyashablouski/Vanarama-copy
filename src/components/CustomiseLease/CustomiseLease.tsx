@@ -18,9 +18,6 @@ import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
 
-const Flame = dynamic(() => import('core/assets/icons/Flame'), {
-  ssr: false,
-});
 const InformationCircle = dynamic(
   () => import('core/assets/icons/InformationCircle'),
   {
@@ -28,9 +25,6 @@ const InformationCircle = dynamic(
   },
 );
 const Button = dynamic(() => import('core/atoms/button/'), {
-  loading: () => <Skeleton count={1} />,
-});
-const CardHeader = dynamic(() => import('core/molecules/cards/CardHeader'), {
   loading: () => <Skeleton count={1} />,
 });
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -62,14 +56,19 @@ const choices = (
   isDisabled: boolean,
   currentValue?: string,
   monthIndex?: any,
+  icon?: JSX.Element,
 ) => (
   <>
     <Heading tag="span" size="regular" color="black">
       {heading}
+      {icon}
       {currentValue && (
-        <Text color="orange" className="-b -ml-100">
-          {currentValue}
-        </Text>
+        <>
+          <br />
+          <Text color="orange" className="-b">
+            {currentValue}
+          </Text>
+        </>
       )}
     </Heading>
     <Choiceboxes
@@ -231,10 +230,16 @@ const CustomiseLease = ({
       <Heading tag="h2" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
-      {choices(leaseTypes, setLeaseType, 'Lease Type', isDisabled)}
+      {choices(
+        leaseTypes,
+        setLeaseType,
+        'Is this for you, or for your business?',
+        isDisabled,
+      )}
       <Heading tag="span" size="regular" color="black">
-        Annual Mileage:
-        <Text color="orange" className="-b -ml-100">
+        How many miles will you be driving a year?
+        <br />
+        <Text color="orange" className="-b">
           {`${quoteByCapId?.mileage} Miles`}
         </Text>
       </Heading>
@@ -249,37 +254,28 @@ const CustomiseLease = ({
       {choices(
         terms,
         value => setTerm(+(value || 0) || null),
-        'Length Of Lease:',
+        'How long do you want your vehicle for?',
         isDisabled,
-        `${quoteByCapId?.term} Months`,
+        `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
+        12} Years`,
         monthIndex,
       )}
-      <Icon
-        icon={<InformationCircle />}
-        color="teal"
-        className="md hydrated"
-        onClick={() => setIsInitPayModalShowing(true)}
-        onMouseEnter={() => setIsInitPayModalShowing(true)}
-      />
       {choices(
         upfronts,
         value => setUpfront(+(value || 0) || null),
-        'Initial Payment - Months: ',
+        'How much do you want to pay upfront?',
         isDisabled,
-        `£${toPriceFormat(initialPayment)} ${stateVAT}. VAT`,
+        `${quoteByCapId?.upfront} Months - £${toPriceFormat(
+          initialPayment,
+        )} ${stateVAT}. VAT`,
         upfrontIndex,
       )}
       <Heading tag="span" size="regular" color="black" className="-flex-h">
         Vehicle Options
         {data.quoteByCapId?.leadTime && (
-          <CardHeader
-            text={data.quoteByCapId.leadTime}
-            incomplete
-            className="rounded"
-            accentIcon={
-              <Icon icon={<Flame />} color="white" className="md hydrated" />
-            }
-          />
+          <Text color="orange" className="-b">
+            {data.quoteByCapId.leadTime}
+          </Text>
         )}
       </Heading>
 
@@ -359,17 +355,17 @@ const CustomiseLease = ({
               nextBestPrice={
                 maintenance
                   ? `£${toPriceFormat(
-                      quoteByCapId?.nextBestPrice?.maintained,
-                    )} PM ${stateVAT}. VAT`
+                    quoteByCapId?.nextBestPrice?.maintained,
+                  )} PM ${stateVAT}. VAT`
                   : `£${toPriceFormat(
-                      quoteByCapId?.nextBestPrice?.nonMaintained,
-                    )} PM ${stateVAT}. VAT`
+                    quoteByCapId?.nextBestPrice?.nonMaintained,
+                  )} PM ${stateVAT}. VAT`
               }
               priceLabel={
                 maintenance
                   ? `+£${toPriceFormat(
-                      quoteByCapId?.maintenanceCost?.monthlyRental,
-                    )} Maintenance`
+                    quoteByCapId?.maintenanceCost?.monthlyRental,
+                  )} Maintenance`
                   : undefined
               }
               price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
