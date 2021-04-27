@@ -27,9 +27,6 @@ const InformationCircle = dynamic(
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
 });
-const Icon = dynamic(() => import('core/atoms/icon'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -257,7 +254,7 @@ const CustomiseLease = ({
         'How long do you want your vehicle for?',
         isDisabled,
         `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
-        12} Years`,
+          12} Years`,
         monthIndex,
       )}
       {choices(
@@ -355,17 +352,17 @@ const CustomiseLease = ({
               nextBestPrice={
                 maintenance
                   ? `£${toPriceFormat(
-                    quoteByCapId?.nextBestPrice?.maintained,
-                  )} PM ${stateVAT}. VAT`
+                      quoteByCapId?.nextBestPrice?.maintained,
+                    )} PM ${stateVAT}. VAT`
                   : `£${toPriceFormat(
-                    quoteByCapId?.nextBestPrice?.nonMaintained,
-                  )} PM ${stateVAT}. VAT`
+                      quoteByCapId?.nextBestPrice?.nonMaintained,
+                    )} PM ${stateVAT}. VAT`
               }
               priceLabel={
                 maintenance
                   ? `+£${toPriceFormat(
-                    quoteByCapId?.maintenanceCost?.monthlyRental,
-                  )} Maintenance`
+                      quoteByCapId?.maintenanceCost?.monthlyRental,
+                    )} Maintenance`
                   : undefined
               }
               price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
