@@ -43,7 +43,7 @@ const FiltersContainer = ({
   setType,
   preLoadFilters,
   tagArrayBuilderHelper,
-  children,
+  renderFilters,
   initialState,
 }: IFilterContainerProps) => {
   const [filtersData, setFiltersData] = useState(
@@ -314,7 +314,7 @@ const FiltersContainer = ({
         checked={isPersonal}
         className="search-filters--toggle"
       />
-      {React.cloneElement(children, {
+      {renderFilters({
         setSelectedFiltersState,
         selectedFiltersState,
         handleChecked,

@@ -153,9 +153,12 @@ describe('<FiltersContainer />', () => {
 
     render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <FiltersContainer {...mocks}>
-          <SearchPageFilters {...childMocks} />
-        </FiltersContainer>
+        <FiltersContainer
+          {...mocks}
+          renderFilters={innerProps => (
+            <SearchPageFilters {...childMocks} {...innerProps} />
+          )}
+        />
       </MockedProvider>,
     );
     // ASSERT
@@ -233,9 +236,12 @@ describe('<FiltersContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocksResponse}>
-        <FiltersContainer {...mocks}>
-          <SearchPageFilters {...childMocks} />
-        </FiltersContainer>
+        <FiltersContainer
+          {...mocks}
+          renderFilters={innerProps => (
+            <SearchPageFilters {...childMocks} {...innerProps} />
+          )}
+        />
       </MockedProvider>,
     );
     await waitFor(() => {
@@ -249,9 +255,12 @@ describe('<FiltersContainer />', () => {
     // ACT
     const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <FiltersContainer {...mocks}>
-          <SearchPageFilters {...childMocks} />
-        </FiltersContainer>
+        <FiltersContainer
+          {...mocks}
+          renderFilters={innerProps => (
+            <SearchPageFilters {...childMocks} {...innerProps} />
+          )}
+        />
       </MockedProvider>,
     );
 

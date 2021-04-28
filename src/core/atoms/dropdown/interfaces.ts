@@ -1,5 +1,5 @@
 import { ReactChild, ReactPortal } from 'react';
-import { IBaseProps } from '../../interfaces/base';
+import { IBaseProps } from 'core/interfaces/base';
 
 type Children = ReactChild | Array<Children> | ReactPortal;
 

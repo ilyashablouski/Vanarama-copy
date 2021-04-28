@@ -465,9 +465,7 @@ const SearchPageFilters = ({
                           fill="outline"
                           label="Clear"
                           onClick={() =>
-                            clearFilter?.(
-                              filter.accessor as keyof typeof filtersMapper,
-                            )
+                            clearFilter?.(filter.accessor as FilterFields)
                           }
                         />
                       </div>

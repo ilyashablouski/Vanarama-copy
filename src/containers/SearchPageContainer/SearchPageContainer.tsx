@@ -897,33 +897,35 @@ const SearchPageContainer: React.FC<IProps> = ({
             tagArrayBuilderHelper={tagArrayBuilderHelper}
             preLoadFilters={preLoadFiltersData}
             initialState={initialFiltersState}
-          >
-            <SearchPageFilters
-              onSearch={onSearch}
-              isPersonal={isPersonal}
-              isCarSearch={isCarSearch}
-              isMakePage={isMakePage}
-              isRangePage={isRangePage}
-              isPickups={isPickups}
-              preSearchVehicleCount={totalCount}
-              isModelPage={isModelPage}
-              isAllMakesPage={isAllMakesPage}
-              isBodyPage={isBodyStylePage}
-              isBudgetPage={isBudgetPage}
-              isDynamicFilterPage={isDynamicFilterPage}
-              isFuelPage={isFuelPage}
-              isTransmissionPage={isTransmissionPage}
-              isPreloadList={!!preLoadVehiclesList}
-              setSearchFilters={setFiltersData}
-              preLoadFilters={preLoadFiltersData}
-              isSpecialOffers={
-                (isSpecialOffers &&
-                  !(isRangePage || isModelPage || isDynamicFilterPage)) ||
-                null
-              }
-              setIsSpecialOffers={setIsSpecialOffers}
-            />
-          </FiltersContainer>
+            renderFilters={innerProps => (
+              <SearchPageFilters
+                onSearch={onSearch}
+                isPersonal={isPersonal}
+                isCarSearch={isCarSearch}
+                isMakePage={isMakePage}
+                isRangePage={isRangePage}
+                isPickups={isPickups}
+                preSearchVehicleCount={totalCount}
+                isModelPage={isModelPage}
+                isAllMakesPage={isAllMakesPage}
+                isBodyPage={isBodyStylePage}
+                isBudgetPage={isBudgetPage}
+                isDynamicFilterPage={isDynamicFilterPage}
+                isFuelPage={isFuelPage}
+                isTransmissionPage={isTransmissionPage}
+                isPreloadList={!!preLoadVehiclesList}
+                setSearchFilters={setFiltersData}
+                preLoadFilters={preLoadFiltersData}
+                isSpecialOffers={
+                  (isSpecialOffers &&
+                    !(isRangePage || isModelPage || isDynamicFilterPage)) ||
+                  null
+                }
+                setIsSpecialOffers={setIsSpecialOffers}
+                {...innerProps}
+              />
+            )}
+          />
         </div>
       </div>
 

@@ -1,10 +1,41 @@
-import React, { ReactElement } from 'react';
+import React, { ReactChild, ReactPortal } from 'react';
 import { IChoice } from 'core/atoms/choiceboxes/interfaces';
 import { RateInputObject } from '../../../generated/globalTypes';
 import {
   filterList_filterList as IFilterList,
   filterList_filterList_groupedRangesWithSlug_children as IFiltersChildren,
 } from '../../../generated/filterList';
+
+type Component = ReactChild | Array<Component> | ReactPortal;
+
+export interface ISelectedFiltersState {
+  [index: string]: string[];
+}
+
+// props which injected by FiltersContainer
+export interface IFiltersContainerInjectedProps {
+  filtersData?: IFilterList;
+  setFiltersData?: (filtersData: IFilterList) => void;
+  setSelectedFiltersState?: React.Dispatch<
+    React.SetStateAction<ISelectedFiltersState>
+  >;
+  selectedFiltersState?: ISelectedFiltersState;
+  handleChecked?: (value: IChoice, filterName: keyof IFiltersMapper) => void;
+  handleSelect?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  getOrCreateRef?: (id: string | number) => any;
+  choiceBoxesData?: IChoiceBoxesData;
+  initialState?: ISelectedFiltersState;
+  clearFilter?: (filterName: keyof IFiltersMapper) => void;
+  isInvalidBudget?: (value: string, type: string) => boolean;
+  selectedFilterTags?: ISelectedWithOrder[];
+  setShouldMakeChoiceboxesForceUpdate?: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+}
+
+export type FiltersRenderCallback = (
+  innerProps: IFiltersContainerInjectedProps,
+) => Component;
 
 export interface ISelectedWithOrder {
   order: number;
@@ -19,7 +50,7 @@ export interface IFilterContainerProps {
     entry: [string, string[]],
     filtersContainerData: IFilterList,
   ) => ISelectedWithOrder | ISelectedWithOrder[];
-  children: ReactElement;
+  renderFilters: FiltersRenderCallback;
   initialState: ISelectedFiltersState;
 }
 
@@ -30,10 +61,6 @@ export interface IFilters {
   bodyStyles: string[];
   transmissions: string[];
   fuelTypes: string[];
-}
-
-export interface ISelectedFiltersState {
-  [index: string]: string[];
 }
 
 export interface IDynamicPageType {
@@ -55,25 +82,4 @@ export interface IFiltersMapper {
   bodyStyles: string[];
   transmissions: string[];
   fuelTypes: string[];
-}
-
-// props which injected by FiltersContainer
-export interface IFiltersContainerInjectedProps {
-  filtersData?: IFilterList;
-  setFiltersData?: (filtersData: IFilterList) => void;
-  setSelectedFiltersState?: React.Dispatch<
-    React.SetStateAction<ISelectedFiltersState>
-  >;
-  selectedFiltersState?: ISelectedFiltersState;
-  handleChecked?: (value: IChoice, filterName: keyof IFiltersMapper) => void;
-  handleSelect?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
-  getOrCreateRef?: (id: string | number) => any;
-  choiceBoxesData?: IChoiceBoxesData;
-  initialState?: ISelectedFiltersState;
-  clearFilter?: (filterName: keyof ISelectedFiltersState) => void;
-  isInvalidBudget?: (value: string, type: string) => boolean;
-  selectedFilterTags?: ISelectedWithOrder[];
-  setShouldMakeChoiceboxesForceUpdate?: React.Dispatch<
-    React.SetStateAction<boolean>
-  >;
 }
