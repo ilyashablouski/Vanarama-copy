@@ -82,6 +82,7 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
     return {
       props: {
         data: encodeData(data),
+        isContentHubPage,
       },
     };
   } catch (err) {
