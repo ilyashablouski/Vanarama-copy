@@ -19,6 +19,8 @@ interface ITechDataItemGroup {
 
 const getValue = (value: string, unit: string) => {
   if (value === 'N') return '-';
+  if (value === 'True') return 'Yes';
+  if (value === 'False') return 'No';
   if (unit) return `${value} ${unit}`;
   return value;
 };
