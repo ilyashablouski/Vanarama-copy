@@ -18,4 +18,5 @@ export interface IChoiceboxesProps extends IBaseProps {
   withIcons?: boolean;
   currentValue?: string | string[];
   shouldSelectTheOnlyValue?: boolean;
+  setIndex?: number;
 }

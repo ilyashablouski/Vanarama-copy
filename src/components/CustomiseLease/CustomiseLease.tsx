@@ -55,6 +55,7 @@ const choices = (
   heading: string,
   isDisabled: boolean,
   currentValue?: string,
+  monthIndex?: any,
   icon?: JSX.Element,
 ) => (
   <>
@@ -77,6 +78,7 @@ const choices = (
       onSubmit={value => {
         setChoice(value.label);
       }}
+      setIndex={monthIndex}
     />
   </>
 );
@@ -128,6 +130,7 @@ const CustomiseLease = ({
   setTerm,
   setTrim,
   data,
+  capId,
   derivativeInfo,
   maintenance,
   setMaintenance,
@@ -150,7 +153,48 @@ const CustomiseLease = ({
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
   );
+  const [defaultMileage, setDefaultMileage] = useState(
+    mileages.indexOf(mileage || 0) + 1,
+  );
+  const [monthIndex, setMonthIndex]: any = useState(null);
+  const [upfrontIndex, setUpfrontIndex]: any = useState(null);
+  const [defaultColor, setDefaultColor]: any = useState(null);
+  const [defaultTrim, setDefaultTrim]: any = useState(null);
   const quoteByCapId = data?.quoteByCapId;
+
+  useEffect(() => {
+    // check for any previously set lease settings
+    if (window.sessionStorage?.[`leaseSettings-${capId}`]) {
+      const leaseSettings = JSON.parse(
+        window.sessionStorage?.[`leaseSettings-${capId}`],
+      );
+      if (leaseSettings && leaseSettings.capId === capId) {
+        setDefaultMileage(leaseSettings.mileageValue);
+        setMileage(leaseSettings.mileage);
+        setTerm(leaseSettings.term);
+        setMonthIndex(
+          terms.findIndex(
+            term => term.value === leaseSettings.term?.toString(),
+          ),
+        );
+        setUpfront(leaseSettings.upfront);
+        setUpfrontIndex(
+          upfronts.findIndex(
+            upfront => upfront.value === leaseSettings.upfront?.toString(),
+          ),
+        );
+        if (leaseSettings.colour) {
+          setDefaultColor(leaseSettings.colour);
+          setColour(+leaseSettings.colour);
+        }
+        if (leaseSettings.trim) {
+          setDefaultTrim(leaseSettings.trim);
+          setTrim(+leaseSettings.trim);
+        }
+      }
+    }
+  }, []);
+
   useEffect(() => {
     const upfront = quoteByCapId?.upfront;
     const maintenanceCost = quoteByCapId?.maintenanceCost?.monthlyRental;
@@ -163,6 +207,23 @@ const CustomiseLease = ({
   }, [quoteByCapId, maintenance]);
   const isMobile = useMobileViewport();
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
+
+  const setSessionValues = () => {
+    const mileageValue = mileages.indexOf(mileage || 0) + 1;
+    const leaseSettings = {
+      capId,
+      mileage,
+      mileageValue,
+      term: quoteByCapId?.term,
+      upfront: quoteByCapId?.upfront,
+      colour: quoteByCapId?.colour,
+      trim: quoteByCapId?.trim,
+    };
+    window.sessionStorage.setItem(
+      `leaseSettings-${capId}`,
+      JSON.stringify(leaseSettings),
+    );
+  };
 
   return (
     <div className={cx('pdp--sidebar', isDisabled ? 'disabled' : '')}>
@@ -185,7 +246,7 @@ const CustomiseLease = ({
       <SlidingInput
         steps={mileages}
         disabled={isDisabled}
-        defaultValue={mileages.indexOf(mileage || 0) + 1}
+        defaultValue={defaultMileage}
         onChange={value => {
           setMileage(mileages[value - 1]);
         }}
@@ -197,6 +258,7 @@ const CustomiseLease = ({
         isDisabled,
         `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
           12} Years`,
+        monthIndex,
       )}
       {choices(
         upfronts,
@@ -206,6 +268,7 @@ const CustomiseLease = ({
         `${quoteByCapId?.upfront} Months - £${toPriceFormat(
           initialPayment,
         )} ${stateVAT}. VAT`,
+        upfrontIndex,
         <Icon
           icon={<InformationCircle />}
           color="teal"
@@ -224,14 +287,14 @@ const CustomiseLease = ({
       </Heading>
 
       {select(
-        `${quoteByCapId?.colour}`,
+        `${defaultColor || quoteByCapId?.colour}`,
         setColour,
         colourList,
         'Select Paint Colour',
         isDisabled,
       )}
       {select(
-        `${quoteByCapId?.trim || trim}`,
+        `${defaultTrim || quoteByCapId?.trim || trim}`,
         setTrim,
         trimList,
         'Select Interior',
@@ -313,12 +376,13 @@ const CustomiseLease = ({
                   : undefined
               }
               price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
-              orderNowClick={() =>
+              orderNowClick={() => {
                 onSubmit({
                   leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
                   lineItems: [lineItem],
-                })
-              }
+                });
+                setSessionValues();
+              }}
               headingText={`PM ${stateVAT}. VAT`}
               leasingProviders={LEASING_PROVIDERS}
               startLoading={isDisabled}
