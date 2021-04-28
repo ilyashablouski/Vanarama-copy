@@ -127,7 +127,7 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
           if (r.data?.helpMeChoose.aggregation.totalVehicles) {
             return RENTAL_VALUE['550'].toString();
           }
-          return RENTAL_VALUE['551'].toString();
+          return RENTAL_VALUE['0'].toString();
         });
       });
     });

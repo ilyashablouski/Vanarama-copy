@@ -68,7 +68,7 @@ export const onReplace = (
       }
       if (key === 'rental') {
         queries.pricePerMonth =
-          (step.value as any) === 551 ? '550|' : `0|${step.value}`;
+          (step.value as any) === 0 ? '0|' : `0|${step.value}`;
       }
     } else if (
       step?.value?.length ||
@@ -196,9 +196,9 @@ export const buildAnObjectFromAQuery = (
         steps.rental.active
       ) {
         object.rental =
-          parseFloat(steps.rental.value as any) === 551
+          parseFloat(steps.rental.value as any) === 0
             ? {
-                min: 550,
+                min: 0,
               }
             : {
                 max: parseFloat(steps.rental.value as any),
@@ -271,9 +271,9 @@ export const buildAnObjectFromAQuery = (
         (key === 'rental' && val.active)
       ) {
         object.rental =
-          parseFloat(val.value as any) === 551
+          parseFloat(val.value as any) === 0
             ? {
-                min: 550,
+                min: 0,
               }
             : {
                 max: parseFloat(val.value as any),
@@ -417,7 +417,7 @@ export const RENTAL_VALUE = {
   '350': 350,
   '450': 450,
   '550': 550,
-  '551': 551,
+  '0': 0,
 };
 
 export const RENTAL_DATA = [
@@ -442,7 +442,7 @@ export const RENTAL_DATA = [
     label: '£550+',
   },
   {
-    value: RENTAL_VALUE['551'],
+    value: RENTAL_VALUE['0'],
     label: 'above £550',
   },
 ];
