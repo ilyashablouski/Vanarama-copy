@@ -154,7 +154,7 @@ export const getOrderList = ({
       isOrange: true,
     },
     {
-      label: 'Delivery',
+      label: 'Delivery:',
       value: 'FREE',
       id: 'delivery',
       key: 'delivery',
