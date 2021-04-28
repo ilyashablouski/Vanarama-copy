@@ -196,7 +196,7 @@ export const buildAnObjectFromAQuery = (
         steps.rental.active
       ) {
         object.rental =
-          (steps.rental.value as any) === 551
+          parseFloat(steps.rental.value as any) === 551
             ? {
                 min: 550,
               }
@@ -271,7 +271,7 @@ export const buildAnObjectFromAQuery = (
         (key === 'rental' && val.active)
       ) {
         object.rental =
-          (val.value as any) === 551
+          parseFloat(val.value as any) === 551
             ? {
                 min: 550,
               }
@@ -417,6 +417,7 @@ export const RENTAL_VALUE = {
   '350': 350,
   '450': 450,
   '550': 550,
+  '551': 551,
 };
 
 export const RENTAL_DATA = [
@@ -439,5 +440,9 @@ export const RENTAL_DATA = [
   {
     value: RENTAL_VALUE['550'],
     label: '£550+',
+  },
+  {
+    value: RENTAL_VALUE['551'],
+    label: 'above £550',
   },
 ];
