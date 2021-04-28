@@ -24,6 +24,7 @@ const Choiceboxes = forwardRef(
       withIcons,
       currentValue,
       shouldSelectTheOnlyValue = false,
+      setIndex,
     }: IChoiceboxesProps,
     ref,
   ) => {
@@ -54,6 +55,12 @@ const Choiceboxes = forwardRef(
       index !== -1 && onSubmit(changedChoices[index]);
       setCurrentChoices(changedChoices);
     };
+
+    useEffect(() => {
+      if (setIndex) {
+        changeChoices(setIndex);
+      }
+    }, [setIndex]);
 
     useImperativeHandle(ref, () => ({
       updateState() {

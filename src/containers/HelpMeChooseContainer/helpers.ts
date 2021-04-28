@@ -67,7 +67,8 @@ export const onReplace = (
         queries[key] = step.value;
       }
       if (key === 'rental') {
-        queries.pricePerMonth = `0|${step.value}`;
+        queries.pricePerMonth =
+          (step.value as any) === 551 ? '550|' : `0|${step.value}`;
       }
     } else if (
       step?.value?.length ||
@@ -194,9 +195,14 @@ export const buildAnObjectFromAQuery = (
           steps.rental.active) ||
         steps.rental.active
       ) {
-        object.rental = {
-          max: parseFloat(steps.rental.value as any),
-        };
+        object.rental =
+          (steps.rental.value as any) === 551
+            ? {
+                min: 550,
+              }
+            : {
+                max: parseFloat(steps.rental.value as any),
+              };
       }
       if (
         (key === 'initialPeriods' &&
@@ -264,9 +270,14 @@ export const buildAnObjectFromAQuery = (
         (key === 'rental' && val.value?.length && val.active) ||
         (key === 'rental' && val.active)
       ) {
-        object.rental = {
-          max: parseFloat(val.value as any),
-        };
+        object.rental =
+          (val.value as any) === 551
+            ? {
+                min: 550,
+              }
+            : {
+                max: parseFloat(val.value as any),
+              };
       }
       if (
         (key === 'initialPeriods' && val.value?.length && val.active) ||
