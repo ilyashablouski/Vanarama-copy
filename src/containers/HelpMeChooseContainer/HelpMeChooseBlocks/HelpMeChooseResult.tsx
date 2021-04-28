@@ -65,7 +65,7 @@ const RENTAL_DATA = [
     label: '£550',
   },
   {
-    value: 0,
+    value: 551,
     label: 'above £550',
   },
 ];
@@ -242,7 +242,9 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
           <Heading tag="span" size="regular" color="black">
             Monthly Budget:
             <Text color="orange" className="-b -ml-100">
-              Up To £{rental} PM {stateVAT}.VAT
+              {rental === 551
+                ? `Above £550 PM ${stateVAT}.VAT`
+                : `Up To £${rental} PM ${stateVAT}.VAT`}
             </Text>
           </Heading>
           <SlidingInput
@@ -253,7 +255,6 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
               onChangeParams(value, initialPeriods);
             }}
             disabledFirstStep
-            disabledLastStep
           />
         </div>
         <Heading tag="span" size="regular" color="black">
