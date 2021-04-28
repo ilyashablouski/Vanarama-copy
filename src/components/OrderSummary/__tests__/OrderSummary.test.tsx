@@ -51,7 +51,7 @@ describe('<CustomiseLease />', () => {
       />,
     );
 
-    expect(screen.getByText('FREE')).toBeInTheDocument();
+    expect(screen.getByTestId('delivery')).toBeInTheDocument();
 
     expect(screen.getByText('24 months')).toBeInTheDocument();
 
