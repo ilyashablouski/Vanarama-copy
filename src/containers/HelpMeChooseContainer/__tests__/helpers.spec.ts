@@ -1,6 +1,10 @@
+import preloadAll from 'jest-next-dynamic';
 import { getBuckets, onReplace } from '../helpers';
 
 describe('<helpers />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   describe('getBuckets', () => {
     it('should return new array with all active = false', async () => {
       expect(
