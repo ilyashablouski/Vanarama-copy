@@ -1,26 +1,19 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-// import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 import LeasingArticleContainer from '../../../../containers/LeasingArticleContainer/LeasingArticleContainer';
-import ContentHubContainer from '../../../../containers/EvContentHubContainer';
-import Breadcrumb from '../../../../components/Breadcrumb/Breadcrumb';
-import createApolloClient from '../../../../apolloClient';
+import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
+import createApolloClient from '../../../../apolloClient';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
-import { GENERIC_PAGE } from '../../../../gql/genericPage';
+import { getLeasingPaths } from '../../../../utils/pageSlugs';
+import Breadcrumb from '../../../../components/Breadcrumb/Breadcrumb';
 import Head from '../../../../components/Head/Head';
 import { decodeData, encodeData } from '../../../../utils/data';
 
-interface IProps {
-  data: GenericPageQuery;
-  isContentHubPage: boolean;
-}
+const FinanceInfo: NextPage<IGenericPage> = ({ data: encodedData }) => {
+  // De-obfuscate data for user
+  const data = decodeData(encodedData);
 
-export const EVHubPage: NextPage<IProps> = ({
-  data: encodedData,
-  isContentHubPage,
-}) => {
-  const data = decodeData(encodedData) as GenericPageQuery;
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
   const title = metaData.name;
@@ -33,9 +26,7 @@ export const EVHubPage: NextPage<IProps> = ({
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
-  if (isContentHubPage) {
-    return <ContentHubContainer data={data} />;
-  }
+
   return (
     <>
       {breadcrumbsItems && (
@@ -59,27 +50,34 @@ export const EVHubPage: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: GetStaticPropsContext) {
+export async function getStaticPaths() {
+  const client = createApolloClient({});
+  const { data } = await client.query<GenericPageQuery>({
+    query: GENERIC_PAGE,
+    variables: {
+      slug: 'electric-leasing/cars/',
+    },
+  });
+  return {
+    paths: getLeasingPaths(data?.genericPage),
+    fallback: false,
+  };
+}
+
+export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const param = context?.params?.evHubParam as string;
-    const path = `electric-leasing/cars/${param}`;
-    const isContentHubPage = [
-      'electric-car-charging-everything-you-need-to-know',
-      'electric-cars-and-the-environment',
-      'how-electric-cars-work',
-      'your-guide-to-ev-range',
-    ].includes(param);
-
-    const { data } = await client.query({
+    const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
-        slug: path,
-        sectionsAsArray: isContentHubPage,
+        slug: `electric-leasing/cars/${context?.params?.evHubParam}`,
       },
     });
-
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
     return {
+      revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data: encodeData(data),
       },
@@ -89,4 +87,4 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
   }
 }
 
-export default EVHubPage;
+export default FinanceInfo;
