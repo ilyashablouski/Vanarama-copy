@@ -64,19 +64,21 @@ const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
         </button>
         {!isSmallScreen &&
           React.Children.map(children, (_, k) => (
-            <button
-              key={k.toString()}
-              type="button"
-              onClick={() => {
-                setIndex(k);
-                carouselRef.goToSlide(k);
-              }}
-              className={cx('carousel--nav-item', {
-                '-active': index === k,
-              })}
-            >
-              <Icon icon={<Ellipse />} color="darker" size="regular" />
-            </button>
+            <div>
+              <button
+                key={k.toString()}
+                type="button"
+                onClick={() => {
+                  setIndex(k);
+                  carouselRef.goToSlide(k);
+                }}
+                className={cx('carousel--nav-item', {
+                  '-active': index === k,
+                })}
+              >
+                <Icon icon={<Ellipse />} size="regular" />
+              </button>
+            </div>
           ))}
         <button
           className="carousel--nav-arrow"
