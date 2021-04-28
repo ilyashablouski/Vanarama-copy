@@ -1,4 +1,5 @@
 import renderer from 'react-test-renderer';
+import preloadAll from 'jest-next-dynamic';
 import React from 'react';
 
 import ArticleHead from '../ArticleHead';
@@ -19,6 +20,9 @@ const meta = {
 };
 
 describe('<ArticleHead />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('renders correctly', () => {
     const getComponent = () => {
       return renderer.create(<ArticleHead metaData={meta} />).toJSON();
