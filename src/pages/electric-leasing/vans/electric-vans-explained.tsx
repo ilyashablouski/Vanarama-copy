@@ -1,6 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 // import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import { evCarHubOffersRequest, IEvOffersData } from '../../../utils/offers';
+import { evVanHubOffersRequest, IEvOffersData } from '../../../utils/offers';
 import createApolloClient from '../../../apolloClient';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import EvLeaseExplainedContainer from '../../../containers/EvLeaseExplainedContainer';
@@ -12,18 +12,18 @@ interface IProps extends IEvOffersData {
 
 export const EVHubPage: NextPage<IProps> = ({
   data,
-  productsElectricOnlyCar,
-  productsElectricOnlyCarDerivatives,
-  productsHybridOnlyCar,
-  productsHybridOnlyCarDerivatives,
+  productsElectricOnlyVan,
+  productsElectricOnlyVanDerivatives,
+  productsHybridOnlyVan,
+  productsHybridOnlyVanDerivatives,
   vehicleListUrlData,
 }) => (
   <EvLeaseExplainedContainer
     data={data}
-    evProducts={productsElectricOnlyCar}
-    evDerivatives={productsElectricOnlyCarDerivatives}
-    hevProducts={productsHybridOnlyCar}
-    hevDerivatives={productsHybridOnlyCarDerivatives}
+    evProducts={productsElectricOnlyVan}
+    evDerivatives={productsElectricOnlyVanDerivatives}
+    hevProducts={productsHybridOnlyVan}
+    hevDerivatives={productsHybridOnlyVanDerivatives}
     vehicleListUrlData={vehicleListUrlData}
   />
 );
@@ -31,7 +31,7 @@ export const EVHubPage: NextPage<IProps> = ({
 export async function getServerSideProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const path = `electric-leasing/cars/electric-cars-explained`;
+    const path = `electric-leasing/vans/electric-vans-explained`;
 
     const { data } = await client.query({
       query: GENERIC_PAGE,
@@ -42,20 +42,20 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
     });
 
     const {
-      productsElectricOnlyCar,
-      productsElectricOnlyCarDerivatives,
-      productsHybridOnlyCar,
-      productsHybridOnlyCarDerivatives,
+      productsElectricOnlyVan,
+      productsElectricOnlyVanDerivatives,
+      productsHybridOnlyVan,
+      productsHybridOnlyVanDerivatives,
       vehicleListUrlData,
-    } = await evCarHubOffersRequest(client);
+    } = await evVanHubOffersRequest(client);
 
     return {
       props: {
         data,
-        productsElectricOnlyCar,
-        productsElectricOnlyCarDerivatives,
-        productsHybridOnlyCar,
-        productsHybridOnlyCarDerivatives,
+        productsElectricOnlyVan,
+        productsElectricOnlyVanDerivatives,
+        productsHybridOnlyVan,
+        productsHybridOnlyVanDerivatives,
         vehicleListUrlData,
       },
     };
