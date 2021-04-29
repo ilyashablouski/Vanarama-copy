@@ -8,6 +8,7 @@ export const PAGES_WITH_COMPARATOR = [
   '/car-leasing',
   '/van-leasing',
   '/leasing-offers',
+  '/help-me-choose',
 ];
 
 export const PAGES_WITHOUT_COMPARATOR = [

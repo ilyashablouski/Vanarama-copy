@@ -67,7 +67,8 @@ export const onReplace = (
         queries[key] = step.value;
       }
       if (key === 'rental') {
-        queries.pricePerMonth = `0|${step.value}`;
+        queries.pricePerMonth =
+          (step.value as any) === 0 ? '0|' : `0|${step.value}`;
       }
     } else if (
       step?.value?.length ||
@@ -194,9 +195,14 @@ export const buildAnObjectFromAQuery = (
           steps.rental.active) ||
         steps.rental.active
       ) {
-        object.rental = {
-          max: parseFloat(steps.rental.value as any),
-        };
+        object.rental =
+          parseFloat(steps.rental.value as any) === 0
+            ? {
+                min: 0,
+              }
+            : {
+                max: parseFloat(steps.rental.value as any),
+              };
       }
       if (
         (key === 'initialPeriods' &&
@@ -264,9 +270,14 @@ export const buildAnObjectFromAQuery = (
         (key === 'rental' && val.value?.length && val.active) ||
         (key === 'rental' && val.active)
       ) {
-        object.rental = {
-          max: parseFloat(val.value as any),
-        };
+        object.rental =
+          parseFloat(val.value as any) === 0
+            ? {
+                min: 0,
+              }
+            : {
+                max: parseFloat(val.value as any),
+              };
       }
       if (
         (key === 'initialPeriods' && val.value?.length && val.active) ||
@@ -406,6 +417,7 @@ export const RENTAL_VALUE = {
   '350': 350,
   '450': 450,
   '550': 550,
+  '0': 0,
 };
 
 export const RENTAL_DATA = [
@@ -428,5 +440,9 @@ export const RENTAL_DATA = [
   {
     value: RENTAL_VALUE['550'],
     label: '£550+',
+  },
+  {
+    value: RENTAL_VALUE['0'],
+    label: 'above £550',
   },
 ];

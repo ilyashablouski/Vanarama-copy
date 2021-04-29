@@ -1,27 +1,57 @@
+import React, { ReactChild, ReactPortal } from 'react';
+import { IChoice } from 'core/atoms/choiceboxes/interfaces';
 import { RateInputObject } from '../../../generated/globalTypes';
-import { filterList_filterList as IFilterList } from '../../../generated/filterList';
+import {
+  filterList_filterList as IFilterList,
+  filterList_filterList_groupedRangesWithSlug_children as IFiltersChildren,
+} from '../../../generated/filterList';
+
+type Component = ReactChild | Array<Component> | ReactPortal;
+
+export interface ISelectedFiltersState {
+  [index: string]: string[];
+}
+
+// props which injected by FiltersContainer
+export interface IFiltersContainerInjectedProps {
+  filtersData?: IFilterList;
+  setFiltersData?: (filtersData: IFilterList) => void;
+  setSelectedFiltersState?: React.Dispatch<
+    React.SetStateAction<ISelectedFiltersState>
+  >;
+  selectedFiltersState?: ISelectedFiltersState;
+  handleChecked?: (value: IChoice, filterName: keyof IFiltersMapper) => void;
+  handleSelect?: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  getOrCreateRef?: (id: string | number) => any;
+  choiceBoxesData?: IChoiceBoxesData;
+  initialState?: ISelectedFiltersState;
+  clearFilter?: (filterName: keyof IFiltersMapper) => void;
+  isInvalidBudget?: (value: string, type: string) => boolean;
+  selectedFilterTags?: ISelectedWithOrder[];
+  setShouldMakeChoiceboxesForceUpdate?: React.Dispatch<
+    React.SetStateAction<boolean>
+  >;
+}
+
+export type FiltersRenderCallback = (
+  innerProps: IFiltersContainerInjectedProps,
+) => Component;
+
+export interface ISelectedWithOrder {
+  order: number;
+  value: string;
+}
 
 export interface IFilterContainerProps {
   isPersonal: boolean;
   setType: (value: boolean) => void;
-  isCarSearch: boolean;
-  onSearch: (filters: IFilters) => void;
-  preSearchVehicleCount: number;
-  isSpecialOffers: boolean | null;
-  setIsSpecialOffers: (value: boolean) => void;
-  isMakePage?: boolean;
-  isPickups?: boolean;
-  isRangePage?: boolean;
-  isModelPage?: boolean;
-  isAllMakesPage?: boolean;
-  isBodyPage?: boolean;
-  isBudgetPage?: boolean;
-  isFuelPage?: boolean;
-  isTransmissionPage?: boolean;
-  isDynamicFilterPage?: boolean;
   preLoadFilters?: IFilterList;
-  isPreloadList: boolean;
-  setSearchFilters: (filters: IFilters) => void;
+  tagArrayBuilderHelper: (
+    entry: [string, string[]],
+    filtersContainerData: IFilterList,
+  ) => ISelectedWithOrder | ISelectedWithOrder[];
+  renderFilters: FiltersRenderCallback;
+  initialState: ISelectedFiltersState;
 }
 
 export interface IFilters {
@@ -33,13 +63,23 @@ export interface IFilters {
   fuelTypes: string[];
 }
 
-export interface ISelectedFiltersState {
-  [index: string]: string[];
-}
-
 export interface IDynamicPageType {
   isBodyStylePage: boolean;
   isFuelType: boolean;
   isBudgetType: boolean;
   isTransmissionType: boolean;
+}
+
+export interface IChoiceBoxesData {
+  [index: string]: IChoice[];
+}
+
+export interface IFiltersMapper {
+  make: IFiltersChildren[];
+  model: IFiltersChildren[];
+  from: string[];
+  to: string[];
+  bodyStyles: string[];
+  transmissions: string[];
+  fuelTypes: string[];
 }

@@ -102,7 +102,33 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
         if (res.data?.helpMeChoose.aggregation.totalVehicles) {
           return RENTAL_VALUE['450'].toString();
         }
-        return RENTAL_VALUE['550'].toString();
+        return getProducts({
+          ...buildAnObjectFromAQuery(searchParams, {
+            ...steps,
+            availability: {
+              active: false,
+              value: availabilityValue,
+              title: steps.availability.title,
+            },
+            rental: {
+              active: true,
+              value: isValueChanges
+                ? RENTAL_VALUE['550'].toString()
+                : steps.rental.value,
+              title: steps.rental.title,
+            },
+            initialPeriods: {
+              active: true,
+              value: isValueChanges ? '6' : steps.initialPeriods.value,
+              title: steps.initialPeriods.title,
+            },
+          }),
+        }).then(r => {
+          if (r.data?.helpMeChoose.aggregation.totalVehicles) {
+            return RENTAL_VALUE['550'].toString();
+          }
+          return RENTAL_VALUE['0'].toString();
+        });
       });
     });
     return {
@@ -129,7 +155,9 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
     <HelpMeChooseContainer
       title="How quickly do you need the vehicle?"
       choicesValues={availabilityTypes.filter(el =>
-        availabilityData.find(x => x.key === el.value),
+        availabilityData.find(
+          x => parseInt(x.key, 10) <= parseInt(el.value, 10),
+        ),
       )}
       setChoice={setAvailabilityValue}
       onClickContinue={async () => {

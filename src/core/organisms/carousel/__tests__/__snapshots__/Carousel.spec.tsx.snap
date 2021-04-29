@@ -80,42 +80,51 @@ exports[`<Carousel /> should render correctly with children 1`] = `
         size="regular"
       />
     </button>
-    <button
-      className="carousel--nav-item -active"
-      key="0/.0"
-      onClick={[Function]}
-      type="button"
+    <div
+      key=".0"
     >
-      <Icon
-        color="darker"
-        icon={<Memo />}
-        size="regular"
-      />
-    </button>
-    <button
-      className="carousel--nav-item"
-      key="1/.1"
-      onClick={[Function]}
-      type="button"
+      <button
+        className="carousel--nav-item -active"
+        key="0"
+        onClick={[Function]}
+        type="button"
+      >
+        <Icon
+          icon={<Memo />}
+          size="regular"
+        />
+      </button>
+    </div>
+    <div
+      key=".1"
     >
-      <Icon
-        color="darker"
-        icon={<Memo />}
-        size="regular"
-      />
-    </button>
-    <button
-      className="carousel--nav-item"
-      key="2/.2"
-      onClick={[Function]}
-      type="button"
+      <button
+        className="carousel--nav-item"
+        key="1"
+        onClick={[Function]}
+        type="button"
+      >
+        <Icon
+          icon={<Memo />}
+          size="regular"
+        />
+      </button>
+    </div>
+    <div
+      key=".2"
     >
-      <Icon
-        color="darker"
-        icon={<Memo />}
-        size="regular"
-      />
-    </button>
+      <button
+        className="carousel--nav-item"
+        key="2"
+        onClick={[Function]}
+        type="button"
+      >
+        <Icon
+          icon={<Memo />}
+          size="regular"
+        />
+      </button>
+    </div>
     <button
       className="carousel--nav-arrow"
       onClick={[Function]}
@@ -206,30 +215,36 @@ exports[`<Carousel /> should render correctly with two children 1`] = `
         size="regular"
       />
     </button>
-    <button
-      className="carousel--nav-item -active"
-      key="0/.0"
-      onClick={[Function]}
-      type="button"
+    <div
+      key=".0"
     >
-      <Icon
-        color="darker"
-        icon={<Memo />}
-        size="regular"
-      />
-    </button>
-    <button
-      className="carousel--nav-item"
-      key="1/.1"
-      onClick={[Function]}
-      type="button"
+      <button
+        className="carousel--nav-item -active"
+        key="0"
+        onClick={[Function]}
+        type="button"
+      >
+        <Icon
+          icon={<Memo />}
+          size="regular"
+        />
+      </button>
+    </div>
+    <div
+      key=".1"
     >
-      <Icon
-        color="darker"
-        icon={<Memo />}
-        size="regular"
-      />
-    </button>
+      <button
+        className="carousel--nav-item"
+        key="1"
+        onClick={[Function]}
+        type="button"
+      >
+        <Icon
+          icon={<Memo />}
+          size="regular"
+        />
+      </button>
+    </div>
     <button
       className="carousel--nav-arrow"
       onClick={[Function]}

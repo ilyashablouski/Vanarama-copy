@@ -41,7 +41,7 @@ const Flame = dynamic(() => import('core/assets/icons/Flame'), {
 
 const RENTAL_DATA = [
   {
-    value: 0,
+    value: 1,
     label: '£0',
   },
   {
@@ -242,7 +242,9 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
           <Heading tag="span" size="regular" color="black">
             Monthly Budget:
             <Text color="orange" className="-b -ml-100">
-              Up To £{rental} PM {stateVAT}.VAT
+              {rental === 0
+                ? `Above £550 PM ${stateVAT}.VAT`
+                : `Up To £${rental} PM ${stateVAT}.VAT`}
             </Text>
           </Heading>
           <SlidingInput
@@ -253,7 +255,6 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
               onChangeParams(value, initialPeriods);
             }}
             disabledFirstStep
-            disabledLastStep
           />
         </div>
         <Heading tag="span" size="regular" color="black">
@@ -441,7 +442,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                     title: 'Result',
                   },
                 },
-                '/car-leasing/special-offers',
+                '/car-leasing/search',
               );
             }}
             size="large"

@@ -20,10 +20,6 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
 import useLeaseType from '../../hooks/useLeaseType';
 
-import pickUpImage from '../../../../public/Assets/images/comparator/modal/cap-44067-160978.png';
-import vanImage from '../../../../public/Assets/images/comparator/modal/cap-51392-171678.png';
-import carImage from '../../../../public/Assets/images/comparator/modal/cap-88928-161019.png';
-
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -39,7 +35,7 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
-const ArrowForward = dynamic(
+const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
   {
     ssr: false,
@@ -56,24 +52,28 @@ const PICKUP_SEARCH_URL = 'van-leasing/search?bodyStyles=Pickup';
 const VAN_SEARCH_URL = '/van-leasing/search';
 const CAR_SEARCH_URL = '/car-leasing/search';
 
-const createModalCards = (offersCount: number[]) => [
+const createModalCards = (
+  vansOffersCount: number = 0,
+  pickupsOffersCount: number = 0,
+  carsOffersCount: number = 0,
+) => [
   {
     header: 'Vans',
-    imageSrc: vanImage,
+    imageSrc: `${process.env.HOST_DOMAIN}/Assets/images/comparator/modal/cap-51392-171678.png`,
     redirect: VAN_SEARCH_URL,
-    totalCount: offersCount[0],
+    totalCount: vansOffersCount,
   },
   {
     header: 'Pickups',
-    imageSrc: pickUpImage,
+    imageSrc: `${process.env.HOST_DOMAIN}/Assets/images/comparator/modal/cap-44067-160978.png`,
     redirect: PICKUP_SEARCH_URL,
-    totalCount: offersCount[1],
+    totalCount: pickupsOffersCount,
   },
   {
     header: 'Cars',
-    imageSrc: carImage,
+    imageSrc: `${process.env.HOST_DOMAIN}/Assets/images/comparator/modal/cap-88928-161019.png`,
     redirect: CAR_SEARCH_URL,
-    totalCount: offersCount[2],
+    totalCount: carsOffersCount,
   },
 ];
 
@@ -112,11 +112,11 @@ const ComparatorContainer: React.FC = () => {
     }
   }, [vehicles, compareVehicles, refetch]);
 
-  const vansTotalCount = vansOptions.data?.vehicleList.totalCount || 0;
-  const pickupsTotalCount = pickupsOptions.data?.vehicleList.totalCount || 0;
-  const carsTotalCount = carsOptions.data?.vehicleList.totalCount || 0;
+  const vansTotalCount = vansOptions.data?.vehicleList.totalCount;
+  const pickupsTotalCount = pickupsOptions.data?.vehicleList.totalCount;
+  const carsTotalCount = carsOptions.data?.vehicleList.totalCount;
   const cards = useMemo(
-    () => createModalCards([vansTotalCount, pickupsTotalCount, carsTotalCount]),
+    () => createModalCards(vansTotalCount, pickupsTotalCount, carsTotalCount),
     [vansTotalCount, pickupsTotalCount, carsTotalCount],
   );
 
@@ -233,7 +233,14 @@ const ComparatorContainer: React.FC = () => {
                         round
                         color="teal"
                         size="xsmall"
-                        icon={<Icon icon={<ArrowForward />} color="white" />}
+                        label={
+                          <Icon
+                            icon={<ArrowForwardSharp />}
+                            className="-regular md hydrated -flex-h"
+                            name="arrow-forward-sharp"
+                            color="white"
+                          />
+                        }
                         onClick={() => Router.push(card.redirect)}
                       />
                     </div>
