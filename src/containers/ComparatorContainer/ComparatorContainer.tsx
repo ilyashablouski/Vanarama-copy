@@ -52,23 +52,27 @@ const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
 
+const PICKUP_SEARCH_URL = 'van-leasing/search?bodyStyles=Pickup';
+const VAN_SEARCH_URL = '/van-leasing/search';
+const CAR_SEARCH_URL = '/car-leasing/search';
+
 const createModalCards = (offersCount: number[]) => [
   {
     header: 'Vans',
     imageSrc: vanImage,
-    redirect: '/van-leasing/search',
+    redirect: VAN_SEARCH_URL,
     totalCount: offersCount[0],
   },
   {
     header: 'Pickups',
     imageSrc: pickUpImage,
-    redirect: 'van-leasing/search?bodyStyles=Pickup',
+    redirect: PICKUP_SEARCH_URL,
     totalCount: offersCount[1],
   },
   {
     header: 'Cars',
     imageSrc: carImage,
-    redirect: '/car-leasing/search',
+    redirect: CAR_SEARCH_URL,
     totalCount: offersCount[2],
   },
 ];
@@ -108,17 +112,6 @@ const ComparatorContainer: React.FC = () => {
     }
   }, [vehicles, compareVehicles, refetch]);
 
-  const handleVehicleAdd = useCallback(() => {
-    if ((compareVehicles || []).length > 0) {
-      Router.back();
-    } else {
-      setModalVisibility(true);
-      getCarsOffers();
-      getVansOffers();
-      getPickupsOffers();
-    }
-  }, [compareVehicles]);
-
   const vansTotalCount = vansOptions.data?.vehicleList.totalCount || 0;
   const pickupsTotalCount = pickupsOptions.data?.vehicleList.totalCount || 0;
   const carsTotalCount = carsOptions.data?.vehicleList.totalCount || 0;
@@ -126,6 +119,27 @@ const ComparatorContainer: React.FC = () => {
     () => createModalCards([vansTotalCount, pickupsTotalCount, carsTotalCount]),
     [vansTotalCount, pickupsTotalCount, carsTotalCount],
   );
+
+  const handleVehicleAdd = useCallback(() => {
+    if ((compareVehicles || []).length > 0) {
+      const vehicleToCompare = compareVehicles?.[0];
+      if (vehicleToCompare?.vehicleType === VehicleTypeEnum.CAR) {
+        Router.push(CAR_SEARCH_URL);
+      } else if (
+        vehicleToCompare?.vehicleType === VehicleTypeEnum.LCV &&
+        vehicleToCompare.bodyStyle === 'Pickup'
+      ) {
+        Router.push(PICKUP_SEARCH_URL);
+      } else {
+        Router.push(VAN_SEARCH_URL);
+      }
+    } else {
+      setModalVisibility(true);
+      getCarsOffers();
+      getVansOffers();
+      getPickupsOffers();
+    }
+  }, [compareVehicles]);
 
   if (error) {
     return (
