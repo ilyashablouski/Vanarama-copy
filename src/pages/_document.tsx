@@ -1,4 +1,4 @@
-import Document, { Html, Main } from 'next/document';
+import Document, { Html, Main, Head } from 'next/document';
 import dynamic from 'next/dynamic';
 import { HeapScript } from '../components/HeapScript';
 import {
@@ -8,7 +8,6 @@ import {
 } from '../components/GTM';
 import { VWOScript } from '../components/VWOScript';
 import Inline from '../components/Style/Inline';
-import HeadCustom from '../hacks/headCustom';
 import { Env } from '../utils/env';
 
 // @ts-ignore
@@ -43,7 +42,7 @@ class MyDocument extends Document {
   render() {
     return (
       <Html lang="en">
-        <HeadCustom>
+        <Head>
           {/* <RollbarScript /> */}
           {/* <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" /> */}
@@ -51,7 +50,7 @@ class MyDocument extends Document {
             <script async src="https://cdn.blueconic.net/vanarama.js" />
           )}
           <Inline />
-        </HeadCustom>
+        </Head>
         <body>
           <Main />
           <NextScript />
