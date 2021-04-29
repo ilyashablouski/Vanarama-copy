@@ -8,7 +8,6 @@ import {
   VehicleListTotalCount,
   VehicleListTotalCountVariables,
 } from '../../../generated/VehicleListTotalCount';
-// import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 
 export const GET_VEHICLES_DATA = gql`
   query vehicleComparator($vehicles: [VehicleToCompare!]!) {
