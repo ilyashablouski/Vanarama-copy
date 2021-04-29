@@ -27,20 +27,22 @@ const ProductCard: FC<IProductCardProps> = props => {
       {!!features?.length && <CardIcons icons={features} />}
       {children}
       <div className="card-footer">
-        <Button
-          color={compared ? 'teal' : 'dark'}
-          fill="clear"
-          iconPosition="before"
-          label={
-            <>
-              <Icon icon={<Scale />} color={compared ? 'teal' : 'dark'} />
-              {compared ? 'Remove' : 'Compare'}
-            </>
-          }
-          onClick={onCompare}
-          size="xsmall"
-          withoutDefaultClass
-        />
+        {(onCompare || null) && (
+          <Button
+            color={compared ? 'teal' : 'dark'}
+            fill="clear"
+            iconPosition="before"
+            label={
+              <>
+                <Icon icon={<Scale />} color={compared ? 'teal' : 'dark'} />
+                {compared ? 'Remove' : 'Compare'}
+              </>
+            }
+            onClick={onCompare}
+            size="xsmall"
+            withoutDefaultClass
+          />
+        )}
         {
           // TODO: can be revert this commit when wishlist functionality will back
           /* <Button

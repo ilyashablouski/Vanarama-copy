@@ -1,21 +1,28 @@
 import dynamic from 'next/dynamic';
-import React, { useEffect, useState, useContext, useCallback } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import ComparatorTable from 'core/organisms/comparator-table';
 import Router from 'next/router';
+import ProductCard from 'core/molecules/cards/ProductCard/ProductCard';
 import { CompareContext, INIT_VEHICLE } from '../../utils/comparatorTool';
 import {
-  getVehiclesIds,
   getCriterials,
+  getVehiclesIds,
 } from '../../utils/comparatorTableHelpers';
-import { useVehicleData } from './gql';
+import { useVehicleData, useVehiclesTotalCount } from './gql';
 import { vehicleComparator } from '../../../generated/vehicleComparator';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
 import useLeaseType from '../../hooks/useLeaseType';
 
-import pickUpImage from '/public/Assets/images/comparator/modal/cap-44067-160978.png';
-import vanImage from '/public/Assets/images/comparator/modal/cap-51392-171678.png';
-import carImage from '/public/Assets/images/comparator/modal/cap-88928-161019.png';
+import pickUpImage from '../../../../public/Assets/images/comparator/modal/cap-44067-160978.png';
+import vanImage from '../../../../public/Assets/images/comparator/modal/cap-51392-171678.png';
+import carImage from '../../../../public/Assets/images/comparator/modal/cap-88928-161019.png';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -26,9 +33,45 @@ const Modal = dynamic(() => import('core/molecules/modal'), {
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Card = dynamic(() => import('core/molecules/cards/Card'), {
+const Icon = dynamic(() => import('core/atoms/icon'), {
+  ssr: false,
+});
+const Flame = dynamic(() => import('core/assets/icons/Flame'), {
+  ssr: false,
+});
+const ArrowForward = dynamic(
+  () => import('core/assets/icons/ArrowForwardSharp'),
+  {
+    ssr: false,
+  },
+);
+const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
+const Button = dynamic(() => import('core/atoms/button'), {
+  loading: () => <Skeleton count={1} />,
+});
+
+const createModalCards = (offersCount: number[]) => [
+  {
+    header: 'Vans',
+    imageSrc: vanImage,
+    redirect: '/van-leasing/search',
+    totalCount: offersCount[0],
+  },
+  {
+    header: 'Pickups',
+    imageSrc: pickUpImage,
+    redirect: 'van-leasing/search?bodyStyles=Pickup',
+    totalCount: offersCount[1],
+  },
+  {
+    header: 'Cars',
+    imageSrc: carImage,
+    redirect: '/car-leasing/search',
+    totalCount: offersCount[2],
+  },
+];
 
 const ComparatorContainer: React.FC = () => {
   const [vehicles, setVehicles] = useState<
@@ -37,6 +80,16 @@ const ComparatorContainer: React.FC = () => {
   const [isModalVisible, setModalVisibility] = useState(false);
   const { compareVehicles, compareChange } = useContext(CompareContext);
   const { cachedLeaseType } = useLeaseType(null);
+  const [getCarsOffers, carsOptions] = useVehiclesTotalCount(
+    VehicleTypeEnum.CAR,
+  );
+  const [getVansOffers, vansOptions] = useVehiclesTotalCount(
+    VehicleTypeEnum.LCV,
+  );
+  const [
+    getPickupsOffers,
+    pickupsOptions,
+  ] = useVehiclesTotalCount(VehicleTypeEnum.LCV, ['Pickup']);
 
   useEffect(() => {
     if (compareVehicles?.length) {
@@ -60,8 +113,19 @@ const ComparatorContainer: React.FC = () => {
       Router.back();
     } else {
       setModalVisibility(true);
+      getCarsOffers();
+      getVansOffers();
+      getPickupsOffers();
     }
   }, [compareVehicles]);
+
+  const vansTotalCount = vansOptions.data?.vehicleList.totalCount || 0;
+  const pickupsTotalCount = pickupsOptions.data?.vehicleList.totalCount || 0;
+  const carsTotalCount = carsOptions.data?.vehicleList.totalCount || 0;
+  const cards = useMemo(
+    () => createModalCards([vansTotalCount, pickupsTotalCount, carsTotalCount]),
+    [vansTotalCount, pickupsTotalCount, carsTotalCount],
+  );
 
   if (error) {
     return (
@@ -93,6 +157,9 @@ const ComparatorContainer: React.FC = () => {
     }
   };
 
+  const isLoadingOffers =
+    vansOptions.loading || pickupsOptions.loading || carsOptions.loading;
+
   return (
     <>
       <ComparatorTable
@@ -111,35 +178,55 @@ const ComparatorContainer: React.FC = () => {
         isNotEmptyPage={!!data}
       />
       {isModalVisible && (
-        <Modal
-          // className="-mt-000 callBack"
-          show
-          onRequestClose={() => setModalVisibility(false)}
-        >
+        <Modal show onRequestClose={() => setModalVisibility(false)}>
           <div className="-pt-000">
-            <div>
+            <div
+              className="-justify-content-row"
+              style={{
+                maxWidth: '300px',
+                textAlign: 'center',
+              }}
+            >
               <Heading tag="span" color="black">
                 Choose the type of vehicle are you looking for?
               </Heading>
             </div>
-            <Card inline imageSrc={vanImage}>
+            {isLoadingOffers ? (
+              <Loading size="large" />
+            ) : (
               <div>
-                <div>SOME</div>
-                <div>EMOS</div>
+                {cards.map(card => (
+                  <ProductCard
+                    inline
+                    className="-compact -mt-400"
+                    key={card.header}
+                    imageSrc={card.imageSrc}
+                    title={{
+                      title: '',
+                      link: (
+                        <Heading tag="span" size="large" className="-pb-100">
+                          {card.header}
+                        </Heading>
+                      ),
+                    }}
+                  >
+                    <div className="-mt-600 -justify-content-row">
+                      <Icon icon={<Flame />} color="orange" size="lead" />
+                      <Text size="regular" color="orange" className="-m-000">
+                        {`${card.totalCount} Hot Offers`}
+                      </Text>
+                      <Button
+                        round
+                        color="teal"
+                        size="xsmall"
+                        icon={<Icon icon={<ArrowForward />} color="white" />}
+                        onClick={() => Router.push(card.redirect)}
+                      />
+                    </div>
+                  </ProductCard>
+                ))}
               </div>
-            </Card>
-            <Card imageSrc={pickUpImage}>
-              <div>
-                <div>SOME</div>
-                <div>EMOS</div>
-              </div>
-            </Card>
-            <Card imageSrc={carImage}>
-              <div>
-                <div>SOME</div>
-                <div>EMOS</div>
-              </div>
-            </Card>
+            )}
           </div>
         </Modal>
       )}
