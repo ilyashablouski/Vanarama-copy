@@ -1,6 +1,5 @@
 const withPlugins = require('next-compose-plugins');
 const withImages = require('next-images');
-// const withOffline = require('next-offline');
 
 const withCustomBabelConfig = require('next-plugin-custom-babel-config');
 /**
@@ -26,7 +25,6 @@ module.exports = withPlugins(
       { babelConfigFile: path.resolve('./babel.config.js') },
     ],
     withImages,
-    // withOffline,
   ],
   config.next,
 );
