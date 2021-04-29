@@ -27,23 +27,6 @@ exports[`<ProductCard /> Product Card should render correctly 1`] = `
 >
   <div
     className="card-footer"
-  >
-    <Memo(ForwardRef(Button))
-      color="dark"
-      fill="clear"
-      iconPosition="before"
-      label={
-        <React.Fragment>
-          <Memo(Icon)
-            color="dark"
-            icon={<Memo />}
-          />
-          Compare
-        </React.Fragment>
-      }
-      size="xsmall"
-      withoutDefaultClass={true}
-    />
-  </div>
+  />
 </Memo()>
 `;
