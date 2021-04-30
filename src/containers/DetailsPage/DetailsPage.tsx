@@ -537,6 +537,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             onCompleted={values => onSubmitClick(values)}
             mileage={mileage}
             setMileage={setMileage}
+            pickups={pickups}
           />
         )}
         <LazyLoadComponent
@@ -594,6 +595,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           onCompleted={values => onSubmitClick(values)}
           mileage={mileage}
           setMileage={setMileage}
+          pickups={pickups}
         />
       )}
       {(!!productCard || !!capsId?.length) && (
