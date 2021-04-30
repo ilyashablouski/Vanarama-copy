@@ -18,9 +18,18 @@ const OrderSummary: React.FC<IProps> = ({
   colours,
   trims,
   trim,
+  pickups,
 }) => {
   const [orderSummaryList, setOrderSummaryList] = useState(
-    getOrderList({ quoteByCapId, stateVAT, maintenance, colours, trims, trim }),
+    getOrderList({
+      quoteByCapId,
+      stateVAT,
+      maintenance,
+      colours,
+      trims,
+      trim,
+      pickups,
+    }),
   );
 
   useEffect(() => {
@@ -32,9 +41,10 @@ const OrderSummary: React.FC<IProps> = ({
         colours,
         trims,
         trim,
+        pickups,
       }),
     );
-  }, [quoteByCapId, stateVAT, maintenance, trim, colours, trims]);
+  }, [quoteByCapId, stateVAT, maintenance, trim, colours, trims, pickups]);
 
   return (
     <div className="pdp--order-summary">
