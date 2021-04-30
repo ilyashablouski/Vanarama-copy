@@ -63,4 +63,5 @@ export interface IProps {
   screenY: number | null;
   trimList: (ITrimList | null)[] | null;
   colourList: (IColourList | null)[] | null;
+  pickups?: boolean;
 }
