@@ -4,13 +4,13 @@ import React from 'react';
 import { PARTNER } from 'gql/partner';
 import Hero, { HeroHeading } from '../../../components/Hero';
 import PartnershipLogo from '../../../components/PartnershipLogo';
-
 interface IProps {
   data: any;
 }
 
 const OvoHomePage: NextPage<IProps> = ({data}) => {
-  const {url, title} = data?.partner?.logo?.file
+  const {title} = data?.partner?.logo
+  const {url} = data?.partner?.logo?.file
   return (
     <>
       <Hero topHeader={<PartnershipLogo logo={url} imageAlt={title} />}>
