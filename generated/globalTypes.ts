@@ -299,6 +299,7 @@ export interface FilterListObject {
   fuelTypes?: string[] | null;
   initialPayment?: RateInputObject | null;
   initialPeriods?: number[] | null;
+  lqBodyStyles?: string[] | null;
   manufacturerName?: string | null;
   manufacturerSlug?: string | null;
   mileages?: number[] | null;

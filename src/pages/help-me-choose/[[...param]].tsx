@@ -234,6 +234,7 @@ const HelpMeChoose: NextPage = () => {
             setSteps={setSteps}
             getHelpMeChoose={getHelpMeChoose}
             setLoadingStatus={setLoadingStatus}
+            setPageOffset={setPageOffset}
           />
           {steps.financeTypes.active && (
             <HelpMeChooseAboutYou

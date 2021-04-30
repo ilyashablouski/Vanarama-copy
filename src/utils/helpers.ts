@@ -44,6 +44,7 @@ export interface IOrderList {
     | undefined;
   trims: (GetVehicleDetails_derivativeInfo_trims | null)[] | null | undefined;
   trim: number | null | undefined;
+  pickups?: boolean;
 }
 
 export const getOrderList = ({
@@ -53,6 +54,7 @@ export const getOrderList = ({
   colours,
   trims,
   trim,
+  pickups,
 }: IOrderList) => {
   const colourDescription = colours?.find(
     (item: GetVehicleDetails_derivativeInfo_colours | null) =>
@@ -63,7 +65,7 @@ export const getOrderList = ({
       item?.id === quoteByCapId?.trim || item?.id === `${trim}`,
   )?.optionDescription;
 
-  return [
+  const orderList = [
     {
       label: 'Processing Fee:',
       value:
@@ -143,6 +145,17 @@ export const getOrderList = ({
       isOrange: true,
     },
     {
+      label: 'Delivery:',
+      value: 'FREE',
+      id: 'delivery',
+      key: 'delivery',
+      dataTestId: 'delivery',
+      isOrange: true,
+    },
+  ];
+
+  if (!pickups) {
+    orderList.splice(orderList.length - 1, 0, {
       label:
         quoteByCapId?.vehicleType === VehicleTypeEnum.CAR
           ? 'Redundancy & Life Event Cover:'
@@ -152,16 +165,10 @@ export const getOrderList = ({
       key: 'lifeEventCover',
       dataTestId: 'lifeEventCover',
       isOrange: true,
-    },
-    {
-      label: 'Delivery:',
-      value: 'FREE',
-      id: 'delivery',
-      key: 'delivery',
-      dataTestId: 'delivery',
-      isOrange: true,
-    },
-  ];
+    });
+  }
+
+  return orderList;
 };
 
 export const isArraySame = (first: any[], second: any[]) =>
