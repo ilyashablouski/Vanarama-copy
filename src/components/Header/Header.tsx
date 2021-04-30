@@ -96,9 +96,10 @@ export const Header: FC<IHeaderProps> = memo(props => {
 
   useEffect(() => {
     if (!person) {
-      localForage.getItem('person').then(value => {
-        if ((value as GetPerson)?.getPerson)
-          setPerson((value as GetPerson)?.getPerson as Person);
+      localForage.getItem<GetPerson>('person').then(value => {
+        if (value) {
+          setPerson(value.getPerson);
+        }
       });
     }
     if (person) {
@@ -109,13 +110,17 @@ export const Header: FC<IHeaderProps> = memo(props => {
       });
     }
     if (!ordersLength) {
-      localForage.getItem('ordersLength').then(value => {
-        if (value) setOrdersLength(value as number);
+      localForage.getItem<number>('ordersLength').then(value => {
+        if (value) {
+          setOrdersLength(value);
+        }
       });
     }
     if (!quotesLength) {
-      localForage.getItem('quotesLength').then(value => {
-        if (value) setQuotesLength(value as number);
+      localForage.getItem<number>('quotesLength').then(value => {
+        if (value) {
+          setQuotesLength(value);
+        }
       });
     }
     setOpenMyAccount(false);
@@ -248,8 +253,8 @@ export const Header: FC<IHeaderProps> = memo(props => {
                       link={{ href: router.pathname, label: 'Log Out' }}
                       as={router.asPath}
                       onClick={async () => {
-                        await onLogOut();
                         setPerson(null);
+                        await onLogOut();
                       }}
                       replace
                     >
