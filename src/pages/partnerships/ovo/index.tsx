@@ -8,14 +8,16 @@ interface IProps {
   data: any;
 }
 
-const OvoHomePage: NextPage<IProps> = ({data}) => {
-  const {title} = data?.partner?.logo
-  const {url} = data?.partner?.logo?.file
+const OvoHomePage: NextPage<IProps> = ({ data }) => {
+  const { title } = data?.partner?.logo;
+  const { url } = data?.partner?.logo?.file;
+  const { colourPrimary } = data?.partner;
   return (
     <>
-      <Hero topHeader={<PartnershipLogo logo={url} imageAlt={title} />}>
-       
-      </Hero>
+      <Hero
+        topHeader={<PartnershipLogo logo={url} imageAlt={title} />}
+        customCTAColor={colourPrimary}
+      ></Hero>
     </>
   );
 };

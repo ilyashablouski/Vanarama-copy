@@ -17,6 +17,7 @@ export interface ISearchPodProps {
   vansCachedData: IFilterList;
   isHomePage?: boolean;
   headingText: string;
+  customCTAColor?: string;
 }
 
 export interface ITabsConfig {

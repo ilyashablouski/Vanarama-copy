@@ -10,6 +10,7 @@ export interface IHeroProps {
   searchPodVansData?: IFilterList;
   searchPodCarsData?: IFilterList;
   topHeader?: React.ReactNode;
+  customCTAColor?: string;
 }
 
 export interface IHeroTitleProps {

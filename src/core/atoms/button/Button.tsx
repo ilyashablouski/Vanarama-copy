@@ -18,10 +18,14 @@ const WrappedButton = React.forwardRef<HTMLButtonElement, IButtonProps>(
       round,
       size = 'regular',
       withoutDefaultClass,
+      customCTAColor,
       ...rest
     } = props;
 
     const renderIcon = () => <Icon icon={icon} color={iconColor} />;
+    const customStyles = {
+      backgroundColor: customCTAColor && customCTAColor
+    }
     return (
       // eslint-disable-next-line react/button-has-type
       <button
@@ -41,6 +45,7 @@ const WrappedButton = React.forwardRef<HTMLButtonElement, IButtonProps>(
         disabled={disabled}
         data-testid={dataTestId}
         ref={ref}
+        style={customStyles}
       >
         <div className="button--inner">
           {icon && iconPosition === 'before' && renderIcon()}

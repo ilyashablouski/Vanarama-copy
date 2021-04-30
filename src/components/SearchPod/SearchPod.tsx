@@ -1,3 +1,4 @@
+import cx from 'classnames';
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Select from 'core/atoms/select';
@@ -50,6 +51,7 @@ const SearchPod = ({
   vansCachedData,
   isHomePage,
   headingText,
+  customCTAColor,
 }: ISearchPodProps) => {
   return (
     <Card className="hero-card">
@@ -168,9 +170,10 @@ const SearchPod = ({
               </Form>
               <Button
                 size="large"
-                color="teal"
+                color={"teal"}
                 fill="solid"
-                className="-fullwidth"
+                className='-fullwidth'
+                customCTAColor={customCTAColor}
                 label={isHomePage ? tab.buttonText : 'Search Vehicles'}
                 dataTestId={`${tab.type}searchBtn`}
                 onClick={() => onSearch(tab.type)}

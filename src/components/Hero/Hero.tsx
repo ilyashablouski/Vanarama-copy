@@ -31,6 +31,7 @@ const WorkingHoursTable = dynamic(
 const Hero: React.FC<IHeroProps> = ({
   children,
   topHeader,
+  customCTAColor,
   withRequestCallbackForm,
   workingHoursCard,
   searchPodCarsData,
@@ -83,10 +84,13 @@ const Hero: React.FC<IHeroProps> = ({
       return <WorkingHoursTable {...workingHoursCard} />;
     }
 
+    console.log(customCTAColor)
+
     return (
       <SearchPodContainer
         searchPodCarsData={searchPodCarsData}
         searchPodVansData={searchPodVansData}
+        customCTAColor={customCTAColor}
       />
     );
   };
