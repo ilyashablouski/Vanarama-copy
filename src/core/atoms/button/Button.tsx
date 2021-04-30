@@ -24,8 +24,8 @@ const WrappedButton = React.forwardRef<HTMLButtonElement, IButtonProps>(
 
     const renderIcon = () => <Icon icon={icon} color={iconColor} />;
     const customStyles = {
-      backgroundColor: customCTAColor && customCTAColor
-    }
+      backgroundColor: customCTAColor && customCTAColor,
+    };
     return (
       // eslint-disable-next-line react/button-has-type
       <button

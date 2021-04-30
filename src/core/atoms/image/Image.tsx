@@ -21,7 +21,7 @@ const Image: FC<IImageProps> = props => {
     optimisedHost,
     optimisationOptions,
     loadImage,
-    dataTestId
+    dataTestId,
   } = props;
 
   const { src } = props;

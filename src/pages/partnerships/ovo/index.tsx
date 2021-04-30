@@ -2,8 +2,9 @@ import createApolloClient from 'apolloClient';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React from 'react';
 import { PARTNER } from 'gql/partner';
-import Hero, { HeroHeading } from '../../../components/Hero';
+import Hero from '../../../components/Hero';
 import PartnershipLogo from '../../../components/PartnershipLogo';
+
 interface IProps {
   data: any;
 }
@@ -17,7 +18,7 @@ const OvoHomePage: NextPage<IProps> = ({ data }) => {
       <Hero
         topHeader={<PartnershipLogo logo={url} imageAlt={title} />}
         customCTAColor={colourPrimary}
-      ></Hero>
+      />
     </>
   );
 };

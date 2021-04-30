@@ -1,7 +1,7 @@
-import { TColor } from 'types/color';
-import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard as WorkingHoursCard } from '../../../generated/GetInsuranceLandingPage';
-import { filterList as IFilterList } from '../../../generated/filterList';
 import React from 'react';
+import { TColor } from 'types/color';
+import { filterList as IFilterList } from '../../../generated/filterList';
+import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard as WorkingHoursCard } from '../../../generated/GetInsuranceLandingPage';
 
 export interface IHeroProps {
   flagText?: string;

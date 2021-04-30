@@ -84,7 +84,7 @@ const Hero: React.FC<IHeroProps> = ({
       return <WorkingHoursTable {...workingHoursCard} />;
     }
 
-    console.log(customCTAColor)
+    console.log(customCTAColor);
 
     return (
       <SearchPodContainer
