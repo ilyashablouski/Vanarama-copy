@@ -30,6 +30,7 @@ const WorkingHoursTable = dynamic(
 
 const Hero: React.FC<IHeroProps> = ({
   children,
+  topHeader,
   withRequestCallbackForm,
   workingHoursCard,
   searchPodCarsData,
@@ -92,6 +93,7 @@ const Hero: React.FC<IHeroProps> = ({
 
   return (
     <div className="row:bg-hero">
+      {topHeader && <div className="hero--top-header">{topHeader}</div>}
       <div className="row:hero">
         <div className="hero--left">{children}</div>
         <div className="hero--right" style={{ minHeight: '347px' }}>
