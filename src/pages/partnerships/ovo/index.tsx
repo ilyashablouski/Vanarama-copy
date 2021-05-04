@@ -2,11 +2,12 @@ import createApolloClient from 'apolloClient';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React from 'react';
 import { PARTNER } from 'gql/partner';
-import Hero, { HeroHeading } from '../../../components/Hero';
-import PartnershipLogo from '../../../components/PartnershipLogo';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
+import PageHeadingSection from 'components/PageHeadingSection';
+import PartnershipLogo from '../../../components/PartnershipLogo';
+import Hero, { HeroHeading } from '../../../components/Hero';
 
 interface IProps {
   data: any;
@@ -49,17 +50,22 @@ const OvoHomePage: NextPage<IProps> = ({ data }) => {
           }}
         />
         <div>
-      <Image
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        alt="Hero Image"
-        dataTestId="insurance_hero-image"
-        size="expand"
-        src={image.file.url}
-        plain
-        className="hero--image"
-      />
-    </div>
+          <Image
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            alt="Hero Image"
+            dataTestId="insurance_hero-image"
+            size="expand"
+            src={image.file.url}
+            plain
+            className="hero--image"
+          />
+        </div>
       </Hero>
+      <PageHeadingSection
+        titleTag="h4"
+        header="This is a header"
+        description="and this is a description"
+      />
     </>
   );
 };
