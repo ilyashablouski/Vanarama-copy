@@ -6,11 +6,11 @@ import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
 import PageHeadingSection from 'components/PageHeadingSection';
-import PartnershipLogo from '../../../components/PartnershipLogo';
-import Hero, { HeroHeading } from '../../../components/Hero';
 import { evOffersRequest, IEvOffersData } from 'utils/offers';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import useLeaseType from 'hooks/useLeaseType';
+import Hero, { HeroHeading } from '../../../components/Hero';
+import PartnershipLogo from '../../../components/PartnershipLogo';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 
 interface IProps extends IEvOffersData {
@@ -30,22 +30,11 @@ const OvoHomePage: NextPage<IProps> = ({
   const { title } = logo;
   const { url } = logo?.file;
 
-  console.log(productsEvCar)
-
   const Image = dynamic(() => import('core/atoms/image'), {
     loading: () => <Skeleton count={3} />,
   });
   const Text = dynamic(() => import('core/atoms/text'), {
     loading: () => <Skeleton count={1} />,
-  });
-  const Heading = dynamic(() => import('core/atoms/heading'), {
-    loading: () => <Skeleton count={1} />,
-  });
-  const Tile = dynamic(() => import('core/molecules/tile'), {
-    loading: () => <Skeleton count={3} />,
-  });
-  const League = dynamic(() => import('core/organisms/league'), {
-    loading: () => <Skeleton count={2} />,
   });
   const RouterLink = dynamic(() =>
     import('../../../components/RouterLink/RouterLink'),
@@ -72,12 +61,6 @@ const OvoHomePage: NextPage<IProps> = ({
 
   const [activeTab, setActiveTab] = useState(1);
   const { cachedLeaseType } = useLeaseType(null);
-
-  const optimisationOptions = {
-    height: 620,
-    width: 620,
-    quality: 59,
-  };
 
   const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
   const isPersonalCar = cachedLeaseType.car === 'Personal';
@@ -133,7 +116,6 @@ const OvoHomePage: NextPage<IProps> = ({
           <TabPanels>
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-
                 <LazyLoadComponent
                   visibleByDefault={
                     typeof window === 'undefined' ||
@@ -177,17 +159,21 @@ const OvoHomePage: NextPage<IProps> = ({
                     withoutDefaultClassName
                     dataTestId="view-all-vans"
                   >
-                    <div className="button--inner" style={{backgroundColor: colourPrimary, borderColor: colourPrimary}}>
+                    <div
+                      className="button--inner"
+                      style={{
+                        backgroundColor: colourPrimary,
+                        borderColor: colourPrimary,
+                      }}
+                    >
                       View More
                     </div>
                   </RouterLink>
                 </div>
-
               </div>
             </TabPanel>
             <TabPanel index={1}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-
                 <LazyLoadComponent
                   visibleByDefault={
                     typeof window === 'undefined' ||
@@ -235,17 +221,21 @@ const OvoHomePage: NextPage<IProps> = ({
                     withoutDefaultClassName
                     dataTestId="view-all-cars"
                   >
-                    <div className="button--inner" style={{backgroundColor: colourPrimary, borderColor: colourPrimary}}>
+                    <div
+                      className="button--inner"
+                      style={{
+                        backgroundColor: colourPrimary,
+                        borderColor: colourPrimary,
+                      }}
+                    >
                       View More
                     </div>
                   </RouterLink>
                 </div>
-
               </div>
             </TabPanel>
           </TabPanels>
         </Tabs>
-        
       </section>
     </>
   );
@@ -261,7 +251,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'ovo',
       },
     });
-    
+
     const {
       productsEvVan,
       productsEvCar,
@@ -269,7 +259,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       productsEvCarDerivatives,
       vehicleListUrlData,
     } = await evOffersRequest(client);
-    
+
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
