@@ -8,23 +8,22 @@ import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
+  searchParam: String;
 }
 
 export const EVHubPage: NextPage<IProps> = ({
   data,
   productsElectricOnlyVan,
   productsElectricOnlyVanDerivatives,
-  productsHybridOnlyVan,
-  productsHybridOnlyVanDerivatives,
   vehicleListUrlData,
+  searchParam,
 }) => (
   <EvLeaseExplainedContainer
     data={data}
     evProducts={productsElectricOnlyVan}
     evDerivatives={productsElectricOnlyVanDerivatives}
-    hevProducts={productsHybridOnlyVan}
-    hevDerivatives={productsHybridOnlyVanDerivatives}
     vehicleListUrlData={vehicleListUrlData}
+    searchParam={searchParam}
   />
 );
 
@@ -44,8 +43,6 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
     const {
       productsElectricOnlyVan,
       productsElectricOnlyVanDerivatives,
-      productsHybridOnlyVan,
-      productsHybridOnlyVanDerivatives,
       vehicleListUrlData,
     } = await evVanHubOffersRequest(client);
 
@@ -54,9 +51,8 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
         data,
         productsElectricOnlyVan,
         productsElectricOnlyVanDerivatives,
-        productsHybridOnlyVan,
-        productsHybridOnlyVanDerivatives,
         vehicleListUrlData,
+        searchParam: 'van-leasing',
       },
     };
   } catch (err) {

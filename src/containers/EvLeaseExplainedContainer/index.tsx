@@ -14,7 +14,6 @@ import {
 } from '../../../generated/GenericPageQuery';
 import { ProductCardData } from '../../../generated/ProductCardData';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
-// import { VehicleListUrl_vehicleList as IVehicleList } from '../../../generated/VehicleListUrl';
 import { HeroEv as Hero, HeroHeading } from '../../components/Hero';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import FeaturedSection from '../../components/FeaturedSection';
@@ -36,10 +35,11 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
-  evProducts: ProductCardData | undefined;
-  evDerivatives: GetDerivatives | undefined;
-  hevProducts: ProductCardData | undefined;
-  hevDerivatives: GetDerivatives | undefined;
+  evProducts?: ProductCardData | undefined;
+  evDerivatives?: GetDerivatives | undefined;
+  hevProducts?: ProductCardData | undefined;
+  hevDerivatives?: GetDerivatives | undefined;
+  searchParam: String;
 }
 
 export const EVLeaseExplainedContainer: FC<IProps> = ({
@@ -49,6 +49,7 @@ export const EVLeaseExplainedContainer: FC<IProps> = ({
   hevProducts,
   hevDerivatives,
   vehicleListUrlData,
+  searchParam,
 }) => {
   const { cachedLeaseType } = useLeaseType(null);
 
@@ -176,106 +177,108 @@ export const EVLeaseExplainedContainer: FC<IProps> = ({
           </div>
         </div>
       </section>
-
-      <section className="row:bg-lighter">
-        <div>
-          <Heading
-            tag="h2"
-            color="black"
-            size="large"
-            className="-a-center -mb-600"
-          >
-            Examples of popular BEV electric cars include:
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonalCar ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
-            data={{
-              derivatives: evDerivatives?.derivatives || null,
-              productCard: evProducts?.productCarousel?.slice(0, 6) || null,
-              vehicleList: vehicleListUrlData,
-            }}
-            countItems={evProducts?.productCarousel?.length || 6}
-            dataTestIdBtn="car-view-offer"
-          />
-
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{
-                color: 'teal',
-                solid: true,
-                size: 'regular',
-              }}
-              link={{
-                label: 'View Latest Electric Car Deals',
-                href: '/car-leasing/search',
-                query: {
-                  fuelTypes: ['Electric'],
-                },
-              }}
-              withoutDefaultClassName
-              dataTestId="view-all-cars"
+      {sections?.carousel?.[0] && (
+        <section className="row:bg-lighter">
+          <div>
+            <Heading
+              tag="h2"
+              color="black"
+              size="large"
+              className="-a-center -mb-600"
             >
-              <div className="button--inner">
-                View Latest Electric Car Deals
-              </div>
-            </RouterLink>
+              {sections?.carousel?.[0]?.title}
+            </Heading>
+
+            <ProductCarousel
+              leaseType={
+                isPersonalCar ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+              }
+              data={{
+                derivatives: evDerivatives?.derivatives || null,
+                productCard: evProducts?.productCarousel?.slice(0, 6) || null,
+                vehicleList: vehicleListUrlData,
+              }}
+              countItems={evProducts?.productCarousel?.length || 6}
+              dataTestIdBtn="car-view-offer"
+            />
+
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{
+                  color: 'teal',
+                  solid: true,
+                  size: 'regular',
+                }}
+                link={{
+                  label: 'View Latest Electric Car Deals',
+                  href: `/${searchParam}/search`,
+                  query: {
+                    fuelTypes: ['Electric'],
+                  },
+                }}
+                withoutDefaultClassName
+                dataTestId="view-all-cars"
+              >
+                <div className="button--inner">View All Offers</div>
+              </RouterLink>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
       <FeaturedSection featured={sections?.featured?.[1]} />
       <FeaturedSection featured={sections?.featured?.[2]} id="plug-in" />
-      <section className="row:bg-lighter">
-        <div>
-          <Heading
-            tag="h2"
-            color="black"
-            size="large"
-            className="-a-center -mb-600"
-          >
-            Examples of popular HEV models include:
-          </Heading>
-          <ProductCarousel
-            leaseType={
-              isPersonalCar ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
-            data={{
-              derivatives: hevDerivatives?.derivatives || null,
-              productCard: hevProducts?.productCarousel?.slice(0, 6) || null,
-              vehicleList: vehicleListUrlData,
-            }}
-            countItems={hevProducts?.productCarousel?.length || 6}
-            dataTestIdBtn="car-view-offer"
-          />
-
-          <div className="-justify-content-row -pt-500">
-            <RouterLink
-              className="button"
-              classNames={{
-                color: 'teal',
-                solid: true,
-                size: 'regular',
-              }}
-              link={{
-                label: 'View All Offers',
-                href: '/car-leasing/search',
-                query: {
-                  fuelTypes: [
-                    'Diesel/plugin Elec Hybrid',
-                    'Petrol/plugin Elec Hybrid',
-                  ],
-                },
-              }}
-              withoutDefaultClassName
-              dataTestId="view-all-cars"
+      {sections?.carousel?.[0] && (
+        <section className="row:bg-lighter">
+          <div>
+            <Heading
+              tag="h2"
+              color="black"
+              size="large"
+              className="-a-center -mb-600"
             >
-              <div className="button--inner">View All Offers</div>
-            </RouterLink>
+              {sections?.carousel?.[1]?.title}
+            </Heading>
+            <ProductCarousel
+              leaseType={
+                isPersonalCar ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+              }
+              data={{
+                derivatives: hevDerivatives?.derivatives || null,
+                productCard: hevProducts?.productCarousel?.slice(0, 6) || null,
+                vehicleList: vehicleListUrlData,
+              }}
+              countItems={hevProducts?.productCarousel?.length || 6}
+              dataTestIdBtn="car-view-offer"
+            />
+
+            <div className="-justify-content-row -pt-500">
+              <RouterLink
+                className="button"
+                classNames={{
+                  color: 'teal',
+                  solid: true,
+                  size: 'regular',
+                }}
+                link={{
+                  label: 'View All Offers',
+                  href: `/${searchParam}/search`,
+                  query: {
+                    fuelTypes: [
+                      'Diesel/plugin Elec Hybrid',
+                      'Petrol/plugin Elec Hybrid',
+                    ],
+                  },
+                }}
+                withoutDefaultClassName
+                dataTestId="view-all-cars"
+              >
+                <div className="button--inner">View All Offers</div>
+              </RouterLink>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
       <FeaturedSection featured={sections?.featured?.[3]} id="mild" />
       <FeaturedSection featured={sections?.featured?.[4]} id="how-it-works" />
       <section className="row:bg-default">
@@ -321,27 +324,31 @@ export const EVLeaseExplainedContainer: FC<IProps> = ({
         id="battery-lifespan"
       />
       <FeaturedSection featured={sections?.featured?.[10]} id="why-lease" />
-
-      <section className="row:bg-lighter">
-        <div>
-          <Heading color="black" size="large" className="-a-center -mb-400">
-            More Articles
-          </Heading>
-          {sections?.carousel?.[2]?.cards && (
-            <Carousel countItems={3} className="-mh-auto about-us">
-              {sections?.carousel?.[2]?.cards.map((card, idx) => (
-                <Card imageSrc={card?.image?.file?.url} key={card?.name || idx}>
-                  <div className="card-footer basic">
-                    <Heading tag="p" color="black" className="-mb-400">
-                      {card?.body}
-                    </Heading>
-                  </div>
-                </Card>
-              ))}
-            </Carousel>
-          )}
-        </div>
-      </section>
+      {sections?.carousel?.[2] && (
+        <section className="row:bg-lighter">
+          <div>
+            <Heading color="black" size="large" className="-a-center -mb-400">
+              More Articles
+            </Heading>
+            {sections?.carousel?.[2]?.cards && (
+              <Carousel countItems={3} className="-mh-auto about-us">
+                {sections?.carousel?.[2]?.cards.map((card, idx) => (
+                  <Card
+                    imageSrc={card?.image?.file?.url}
+                    key={card?.name || idx}
+                  >
+                    <div className="card-footer basic">
+                      <Heading tag="p" color="black" className="-mb-400">
+                        {card?.body}
+                      </Heading>
+                    </div>
+                  </Card>
+                ))}
+              </Carousel>
+            )}
+          </div>
+        </section>
+      )}
 
       {data?.genericPage.metaData && (
         <>

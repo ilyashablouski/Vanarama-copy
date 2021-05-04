@@ -248,16 +248,14 @@ export const evVanHubOffersRequest = async (
   ] = await Promise.all([
     getProductCardContent(client, VehicleTypeEnum.LCV, '', '', ['Electric']),
     getProductCardContent(client, VehicleTypeEnum.LCV, '', '', [
-      'DieselAndElectricHybrid',
       'PetrolAndPlugInElectricHybrid',
       'DieselAndPlugInElectricHybrid',
-      'Hybrid',
     ]),
   ]);
 
   const [
-    { data: productsElectricOnlyCarDerivatives },
-    { data: productsHybridOnlyCarDerivatives },
+    { data: productsElectricOnlyVanDerivatives },
+    { data: productsHybridOnlyVanDerivatives },
   ] = await Promise.all([
     getCarDerivatives(client, VehicleTypeEnum.CAR, productsElectricOnlyVanIds),
     getCarDerivatives(client, VehicleTypeEnum.CAR, productsHybridOnlyVanIds),
@@ -271,8 +269,8 @@ export const evVanHubOffersRequest = async (
   return {
     productsElectricOnlyVan,
     productsHybridOnlyVan,
-    productsElectricOnlyCarDerivatives,
-    productsHybridOnlyCarDerivatives,
+    productsElectricOnlyVanDerivatives,
+    productsHybridOnlyVanDerivatives,
     vehicleListUrlData,
   };
 };

@@ -8,6 +8,7 @@ import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
+  searchParam: String;
 }
 
 export const EVHubPage: NextPage<IProps> = ({
@@ -17,6 +18,7 @@ export const EVHubPage: NextPage<IProps> = ({
   productsHybridOnlyCar,
   productsHybridOnlyCarDerivatives,
   vehicleListUrlData,
+  searchParam,
 }) => (
   <EvLeaseExplainedContainer
     data={data}
@@ -25,6 +27,7 @@ export const EVHubPage: NextPage<IProps> = ({
     hevProducts={productsHybridOnlyCar}
     hevDerivatives={productsHybridOnlyCarDerivatives}
     vehicleListUrlData={vehicleListUrlData}
+    searchParam={searchParam}
   />
 );
 
@@ -57,6 +60,7 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
         productsHybridOnlyCar,
         productsHybridOnlyCarDerivatives,
         vehicleListUrlData,
+        searchParam: 'car-leasing',
       },
     };
   } catch (err) {
