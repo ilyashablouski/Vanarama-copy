@@ -1,4 +1,4 @@
-import React, { useState, CSSProperties } from 'react';
+import React, { useState, CSSProperties, useEffect } from 'react';
 import cx from 'classnames';
 import { ISlidingInputProps, ISlidingObject } from './interfaces';
 
@@ -7,10 +7,16 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
   steps,
   onChange,
   disabled,
+  disabledFirstStep,
+  disabledLastStep,
 }) => {
   const myRef = React.createRef<HTMLDivElement>();
   const [mouseDown, setMouseDown] = useState(false);
   const [mileageValue, setMileageValue] = useState(defaultValue);
+
+  useEffect(() => {
+    setMileageValue(defaultValue);
+  }, [defaultValue]);
 
   const valueChange = (pageX: number, click?: string) => {
     if (!disabled) {
@@ -19,8 +25,12 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
         ((coordinates?.right || 0) - (coordinates?.left || 0)) / steps.length;
 
       const value = Math.floor((pageX - (coordinates?.left || 0)) / width);
-
-      if (+value < steps.length && value >= 0) {
+      if (
+        (value === 0 && disabledFirstStep) ||
+        (value === steps.length - 1 && disabledLastStep)
+      ) {
+        setMileageValue(mileageValue);
+      } else if (+value < steps.length && value >= 0) {
         setMileageValue(+value + 1);
 
         if (click) {

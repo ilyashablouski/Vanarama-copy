@@ -152,6 +152,7 @@ describe('<CustomiseLease />', () => {
             technicalDescription: 'Minimum Kerbweight',
             technicalLongDescription: 'Minimum Kerbweight',
             value: '1515',
+            unit: 'kg',
           },
         ],
       },
@@ -289,6 +290,7 @@ describe('<CustomiseLease />', () => {
             technicalDescription: 'Minimum Kerbweight',
             technicalLongDescription: 'Minimum Kerbweight',
             value: '1515',
+            unit: 'kg',
           },
         ],
       },
@@ -445,6 +447,7 @@ describe('<CustomiseLease />', () => {
               technicalDescription: 'Minimum Kerbweight',
               technicalLongDescription: 'Minimum Kerbweight',
               value: '1515',
+              unit: 'kg',
             },
           ],
         }}

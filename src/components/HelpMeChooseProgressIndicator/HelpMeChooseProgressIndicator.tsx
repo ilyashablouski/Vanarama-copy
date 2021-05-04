@@ -23,6 +23,7 @@ interface IProps {
   setSteps: (step: IInitStep) => void;
   getHelpMeChoose: any;
   setLoadingStatus: Dispatch<SetStateAction<boolean>>;
+  setPageOffset: Dispatch<SetStateAction<number>>;
 }
 
 const ContextualProgressIndicator: React.FC<IProps> = ({
@@ -30,6 +31,7 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
   steps,
   getHelpMeChoose,
   setLoadingStatus,
+  setPageOffset,
 }) => {
   const router = useRouter();
   const isMobile = useMobileViewport();
@@ -139,6 +141,7 @@ const ContextualProgressIndicator: React.FC<IProps> = ({
               onClick={() => {
                 if (activeStep > el.step) {
                   setLoadingStatus(true);
+                  setPageOffset(0);
                   const searchParams = new URLSearchParams(
                     window.location.search,
                   );

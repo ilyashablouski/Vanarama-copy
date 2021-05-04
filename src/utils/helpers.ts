@@ -3,6 +3,7 @@ import {
   GetVehicleDetails_derivativeInfo_trims,
 } from '../../generated/GetVehicleDetails';
 import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
+import { VehicleTypeEnum } from '../../generated/globalTypes';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
@@ -43,6 +44,7 @@ export interface IOrderList {
     | undefined;
   trims: (GetVehicleDetails_derivativeInfo_trims | null)[] | null | undefined;
   trim: number | null | undefined;
+  pickups?: boolean;
 }
 
 export const getOrderList = ({
@@ -52,6 +54,7 @@ export const getOrderList = ({
   colours,
   trims,
   trim,
+  pickups,
 }: IOrderList) => {
   const colourDescription = colours?.find(
     (item: GetVehicleDetails_derivativeInfo_colours | null) =>
@@ -62,7 +65,7 @@ export const getOrderList = ({
       item?.id === quoteByCapId?.trim || item?.id === `${trim}`,
   )?.optionDescription;
 
-  return [
+  const orderList = [
     {
       label: 'Processing Fee:',
       value:
@@ -75,6 +78,7 @@ export const getOrderList = ({
           ? 'FREE'
           : `£${quoteByCapId?.processingFee}`,
       dataTestId: 'processingFee',
+      isOrange: true,
     },
     {
       label: 'Initial Payment:',
@@ -82,6 +86,7 @@ export const getOrderList = ({
       id: 'initialPayment',
       key: `${quoteByCapId?.leaseCost?.initialRental} ${stateVAT}`,
       dataTestId: 'initialPayment',
+      isOrange: false,
     },
     {
       label: 'Contract Length:',
@@ -89,6 +94,7 @@ export const getOrderList = ({
       id: 'contractLengthile',
       key: `${quoteByCapId?.term}`,
       dataTestId: 'contractLengthile',
+      isOrange: false,
     },
     {
       label: 'Annual Mileage:',
@@ -96,6 +102,7 @@ export const getOrderList = ({
       id: 'annualMileage',
       key: `${quoteByCapId?.mileage}`,
       dataTestId: 'annualMileage',
+      isOrange: false,
     },
     {
       label: 'Maintenance:',
@@ -103,6 +110,7 @@ export const getOrderList = ({
       id: 'maintenance',
       key: `${maintenance ? 'Yes' : 'No'}`,
       dataTestId: 'maintenance',
+      isOrange: false,
     },
     {
       label: 'Colour:',
@@ -110,6 +118,7 @@ export const getOrderList = ({
       id: 'colour',
       key: `${colourDescription || ''}`,
       dataTestId: 'colour',
+      isOrange: false,
     },
     {
       label: 'Trim / Interior:',
@@ -117,6 +126,7 @@ export const getOrderList = ({
       id: 'trim',
       key: `${trimDescription || '-'}`,
       dataTestId: 'trim',
+      isOrange: false,
     },
     {
       label: 'Stock:',
@@ -124,15 +134,41 @@ export const getOrderList = ({
       id: 'stock',
       key: `${quoteByCapId?.leadTime}`,
       dataTestId: 'stock',
+      isOrange: false,
     },
     {
-      label: 'Redundancy & Life Cover:',
-      value: 'Included',
-      id: 'redundancy',
-      key: 'redundancy',
-      dataTestId: 'redundancy',
+      label: 'Road Tax:',
+      value: 'INCLUDED',
+      id: 'roadTax',
+      key: 'roadTax',
+      dataTestId: 'roadTax',
+      isOrange: true,
+    },
+    {
+      label: 'Delivery:',
+      value: 'FREE',
+      id: 'delivery',
+      key: 'delivery',
+      dataTestId: 'delivery',
+      isOrange: true,
     },
   ];
+
+  if (!pickups) {
+    orderList.splice(orderList.length - 1, 0, {
+      label:
+        quoteByCapId?.vehicleType === VehicleTypeEnum.CAR
+          ? 'Redundancy & Life Event Cover:'
+          : 'Loss Of Earnings & Life Event Cover:',
+      value: 'FREE',
+      id: 'lifeEventCover',
+      key: 'lifeEventCover',
+      dataTestId: 'lifeEventCover',
+      isOrange: true,
+    });
+  }
+
+  return orderList;
 };
 
 export const isArraySame = (first: any[], second: any[]) =>

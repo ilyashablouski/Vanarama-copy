@@ -246,6 +246,10 @@
 
     .icon {
       margin-right: 0.5rem;
+
+      @include mobile {
+        margin-right: 0.3rem;
+      }
     }
   }
 }

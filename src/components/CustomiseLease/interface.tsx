@@ -42,6 +42,7 @@ export interface IProps {
   setTrim: Dispatch<SetStateAction<number | null>>;
   setMaintenance: Dispatch<SetStateAction<boolean | null>>;
   data: GetQuoteDetails;
+  capId?: number;
   leaseType: string;
   trim: number | null;
   colour: number | null;
@@ -62,4 +63,5 @@ export interface IProps {
   screenY: number | null;
   trimList: (ITrimList | null)[] | null;
   colourList: (IColourList | null)[] | null;
+  pickups?: boolean;
 }

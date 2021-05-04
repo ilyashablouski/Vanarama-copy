@@ -54,11 +54,13 @@ const VehicleTechDetails: React.FC<IVehicleTechDetailsProps> = props => {
   );
 
   const accordionItems = (items: any) => {
-    return items.map((item: any) => ({
-      id: item.categoryDescription,
-      title: item.categoryDescription,
-      children: <StructuredList list={item.items} />,
-    }));
+    return items.map((item: any) => {
+      return {
+        id: item.categoryDescription,
+        title: item.categoryDescription,
+        children: <StructuredList list={item.items} />,
+      };
+    });
   };
 
   return (
@@ -82,21 +84,21 @@ const VehicleTechDetails: React.FC<IVehicleTechDetailsProps> = props => {
               }
             />
           ) : (
-            <p>Error: No data</p>
+            <p>Sorry, no key information data availbale.</p>
           )}
         </TabPanel>
         <TabPanel index={2}>
           {standardEquipments?.length ? (
             <Accordion items={accordionItems(standardEquipments)} />
           ) : (
-            <p>Error: No data</p>
+            <p>Sorry, no standard equipment data available.</p>
           )}
         </TabPanel>
         <TabPanel index={3}>
           {technicals?.length ? (
             <Accordion items={accordionItems(technicals)} />
           ) : (
-            <p>Error: No data</p>
+            <p>Sorry, no data technical data available.</p>
           )}
         </TabPanel>
       </TabPanels>
