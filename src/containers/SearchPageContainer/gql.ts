@@ -246,6 +246,18 @@ export function useModelImages(capIds: (string | null)[], skip = false) {
   });
 }
 
+export function useLazyModelImages(
+  capIds: (string | null)[],
+  onCompleted: (data: ModelImages) => void,
+) {
+  return useLazyQuery<ModelImages, ModelImagesVariables>(GET_MODEL_IMAGES, {
+    variables: {
+      capIds,
+    },
+    onCompleted,
+  });
+}
+
 export const GET_BODY_STYLES = gql`
   query bodyStyleList(
     $vehicleTypes: VehicleTypeEnum
