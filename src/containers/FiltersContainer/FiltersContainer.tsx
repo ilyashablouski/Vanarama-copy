@@ -239,7 +239,7 @@ const FiltersContainer = ({
       const filter = getValueKey(formatedValue) as keyof IFiltersMapper;
       newSelectedFiltersState = {
         ...newSelectedFiltersState,
-        [filter]: newSelectedFiltersState[filter].filter(
+        [filter]: newSelectedFiltersState[filter]?.filter(
           selectedValue =>
             selectedValue
               .split(' ')
