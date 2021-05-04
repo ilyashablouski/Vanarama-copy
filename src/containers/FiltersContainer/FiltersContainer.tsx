@@ -144,7 +144,14 @@ const FiltersContainer = ({
     const arr = Object.entries(selectedFiltersState) || [];
     return (
       arr.find(filter =>
-        filter[1].some(filterValue => value === filterValue.toLowerCase()),
+        filter[1].some(
+          filterValue =>
+            value ===
+            filterValue
+              .split(' ')
+              .join('-')
+              .toLowerCase(),
+        ),
       )?.[0] || ''
     );
   };
@@ -233,7 +240,11 @@ const FiltersContainer = ({
       newSelectedFiltersState = {
         ...newSelectedFiltersState,
         [filter]: newSelectedFiltersState[filter].filter(
-          selectedValue => selectedValue.toLowerCase() !== formatedValue,
+          selectedValue =>
+            selectedValue
+              .split(' ')
+              .join('-')
+              .toLowerCase() !== formatedValue,
         ),
       };
     });
