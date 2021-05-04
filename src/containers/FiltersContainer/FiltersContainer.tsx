@@ -12,6 +12,7 @@ import {
 } from './interfaces';
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import Skeleton from '../../components/Skeleton';
+import { getValueKey } from './helpers';
 
 const SearchFilters = dynamic(() => import('core/organisms/search-filters'), {
   loading: () => <Skeleton count={1} />,
@@ -139,23 +140,6 @@ const FiltersContainer = ({
   const toggleHandler = (value: React.ChangeEvent<HTMLInputElement>) =>
     setType(value.target.checked);
 
-  /** get parent filter name after deleting a tag */
-  const getValueKey = (value: string) => {
-    const arr = Object.entries(selectedFiltersState) || [];
-    return (
-      arr.find(filter =>
-        filter[1].some(
-          filterValue =>
-            value ===
-            filterValue
-              .split(' ')
-              .join('-')
-              .toLowerCase(),
-        ),
-      )?.[0] || ''
-    );
-  };
-
   /** check budget rules for valid value */
   const isInvalidBudget = (value: string, type: string) => {
     return !(
@@ -236,7 +220,10 @@ const FiltersContainer = ({
         .split(' ')
         .join('-')
         .toLowerCase();
-      const filter = getValueKey(formatedValue) as keyof IFiltersMapper;
+      const filter = getValueKey(
+        formatedValue,
+        selectedFiltersState,
+      ) as keyof IFiltersMapper;
       newSelectedFiltersState = {
         ...newSelectedFiltersState,
         [filter]: newSelectedFiltersState[filter]?.filter(
@@ -258,7 +245,10 @@ const FiltersContainer = ({
    */
   const handleRemoveTag = (value: string) => {
     const formatedValue = value.replace('£', '').toLowerCase();
-    const filter = getValueKey(formatedValue) as keyof IFiltersMapper;
+    const filter = getValueKey(
+      formatedValue,
+      selectedFiltersState,
+    ) as keyof IFiltersMapper;
     const newSelectedFiltersState = {
       ...selectedFiltersState,
       [filter]: selectedFiltersState[filter].filter(
