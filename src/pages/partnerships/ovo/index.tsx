@@ -15,7 +15,7 @@ interface IProps {
 
 const OvoHomePage: NextPage<IProps> = ({ data }) => {
   const { colourPrimary, logo } = data?.partner;
-  const { flag, body, image } = data?.partner?.hero;
+  const { flag, body, image, titleTag } = data?.partner?.hero;
   const { title } = logo;
   const { url } = logo?.file;
 
@@ -62,10 +62,10 @@ const OvoHomePage: NextPage<IProps> = ({ data }) => {
         </div>
       </Hero>
       <PageHeadingSection
-        titleTag="h4"
-        header="This is a header"
-        description="and this is a description"
+        titleTag={titleTag}
+        header={flag}
       />
+      
     </>
   );
 };
