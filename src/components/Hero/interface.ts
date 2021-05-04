@@ -11,6 +11,7 @@ export interface IHeroProps {
   searchPodCarsData?: IFilterList;
   topHeader?: React.ReactNode;
   customCTAColor?: string;
+  hideBenefitsBar?: boolean;
 }
 
 export interface IHeroTitleProps {

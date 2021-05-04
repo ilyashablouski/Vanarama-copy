@@ -32,6 +32,7 @@ const Hero: React.FC<IHeroProps> = ({
   children,
   topHeader,
   customCTAColor,
+  hideBenefitsBar,
   withRequestCallbackForm,
   workingHoursCard,
   searchPodCarsData,
@@ -84,8 +85,6 @@ const Hero: React.FC<IHeroProps> = ({
       return <WorkingHoursTable {...workingHoursCard} />;
     }
 
-    console.log(customCTAColor);
-
     return (
       <SearchPodContainer
         searchPodCarsData={searchPodCarsData}
@@ -104,7 +103,7 @@ const Hero: React.FC<IHeroProps> = ({
           {/* NOTE: Some components using dynamic imports are causing issues affecting next sibling CSS classnames 
               from rendering as expected. This issue is happening when rehydrating on the client-side */}
           {renderHeroRight()}
-          <BenefitsBar countItems={4} />
+          {!hideBenefitsBar && <BenefitsBar countItems={4} />}
         </div>
         <div className="hero--decals">
           {/* <svg

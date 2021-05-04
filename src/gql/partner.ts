@@ -13,6 +13,15 @@ export const PARTNER = gql`
       }
       colourPrimary
       colourSecondary
+      hero {
+        flag
+        body
+        image {
+          file {
+            url
+          }
+        }
+      }
     }
   }
 `;
