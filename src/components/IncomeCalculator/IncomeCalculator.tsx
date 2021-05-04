@@ -61,7 +61,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
   );
 
   return (
-    <Form onSubmit={disposableIncomeError ? undefined : handleSubmit(onSubmit)}>
+    <Form onSubmit={handleSubmit(onSubmit)}>
       <Heading color="black" size="xlarge" dataTestId="expenses" tag="h1">
         Expenses
       </Heading>
