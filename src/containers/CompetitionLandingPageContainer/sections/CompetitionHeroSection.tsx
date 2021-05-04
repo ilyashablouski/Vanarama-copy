@@ -19,6 +19,7 @@ const Text = dynamic(() => import('core/atoms/text'), {
 
 const CompetitionHeroSection = ({
   title,
+  image,
   body,
   heroCard,
   heroLabel,
@@ -33,13 +34,7 @@ const CompetitionHeroSection = ({
           <Text {...props} tag="h3" size="large" color="white" />
         ),
         paragraph: props => (
-          <Text
-            {...props}
-            tag="p"
-            size="xsmall"
-            color="white"
-            className="hero--small-print"
-          />
+          <Text {...props} tag="h3" size="large" color="white" />
         ),
         link: props => {
           const { href, children } = props;
@@ -58,7 +53,7 @@ const CompetitionHeroSection = ({
         alt="Hero Image"
         dataTestId="insurance_hero-image"
         size="expand"
-        src={config.heroImage.src}
+        src={image?.file?.url || config.heroImage.src}
         plain
         className="hero--image"
       />
