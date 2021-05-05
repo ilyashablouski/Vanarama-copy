@@ -3,7 +3,7 @@ import CheckBox from 'core/atoms/checkbox/';
 import NumericInput from 'core/atoms/numeric-input';
 import Input from 'core/atoms/textinput/';
 import { gql } from '@apollo/client';
-import React from 'react';
+import React, { useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import validationSchema from './IncomeCalculator.validation';
@@ -52,6 +52,13 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
 
   const values = watch();
   const { disposableIncome, monthlyExpenses } = calculateIncome(values);
+  const disposableIncomeError = useMemo(
+    () =>
+      disposableIncome < 0
+        ? 'Based on your outgoings, it looks like you won’t be able to afford the monthly rentals on this lease.'
+        : '',
+    [disposableIncome],
+  );
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -281,6 +288,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
         controlId="netDisposableIncome"
         label="Net Disposable Income"
         className="olaf--expenses-input -calculated"
+        error={disposableIncomeError}
       >
         <Input
           id="netDisposableIncome"
@@ -316,7 +324,11 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
         <Button
           type="submit"
           label={formState.isSubmitting ? 'Saving...' : 'Continue'}
-          disabled={formState.isSubmitting}
+          disabled={
+            formState.isSubmitting ||
+            !formState.isValid ||
+            Boolean(disposableIncomeError)
+          }
           color="teal"
           icon={<ChevronForwardSharp />}
           iconColor="white"

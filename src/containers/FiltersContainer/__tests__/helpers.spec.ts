@@ -1,5 +1,15 @@
 import preloadAll from 'jest-next-dynamic';
-import { findPreselectFilterValue } from '../helpers';
+import { findPreselectFilterValue, getValueKey } from '../helpers';
+
+const selectedFiltersState = {
+  bodyStyles: [],
+  transmissions: [],
+  fuelTypes: [],
+  make: [],
+  model: [],
+  from: [],
+  to: [],
+};
 
 describe('<helpers />', () => {
   beforeEach(async () => {
@@ -10,5 +20,10 @@ describe('<helpers />', () => {
   });
   it('should work when data null', async () => {
     expect(findPreselectFilterValue('test', null)).toEqual('');
+  });
+  it('getValueKey should return correct filter name', async () => {
+    expect(
+      getValueKey('test', { ...selectedFiltersState, make: ['Test'] }),
+    ).toEqual('make');
   });
 });

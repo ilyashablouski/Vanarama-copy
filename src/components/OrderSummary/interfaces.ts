@@ -14,4 +14,5 @@ export interface IProps {
     | undefined;
   trims: (GetVehicleDetails_derivativeInfo_trims | null)[] | null | undefined;
   trim: number | null | undefined;
+  pickups?: boolean;
 }

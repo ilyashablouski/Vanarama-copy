@@ -99,7 +99,8 @@
   a {
     position: relative;
     margin-bottom: 0.6rem;
-    .icon {
+    > .icon, 
+    > svg  {
       position: absolute;
       right: 0;
       top: 50%;

@@ -14,16 +14,22 @@ import {
 } from '../../../generated/GenericPageQuery';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import CommonDescriptionContainer from '../SearchPageContainer/CommonDescriptionContainer';
+import { ModelImages_vehicleImages as IVehiclesImage } from '../../../generated/ModelImages';
+import { useLazyModelImages } from '../SearchPageContainer/gql';
 
 interface IProps {
   pageData?: GenericPageQuery;
   metaData: PageMetaData;
   preLoadTextSearchList: ITextSearchQuery;
+  vehiclesImage?: IVehiclesImage[];
+  responseCapIds?: string[];
 }
 const GlobalSearchPageContainer = ({
   preLoadTextSearchList,
   metaData,
   pageData,
+  vehiclesImage,
+  responseCapIds,
 }: IProps) => {
   const router = useRouter();
 
@@ -34,6 +40,12 @@ const GlobalSearchPageContainer = ({
     [],
   );
 
+  const [vehiclesPreview, setVehiclesPreview] = useState<IVehiclesImage[]>(
+    vehiclesImage || [],
+  );
+
+  const [capIds, setCapIds] = useState<string[]>(responseCapIds || []);
+
   const [totalResults] = useState(
     preLoadTextSearchList?.fullTextSearchVehicleList?.aggregation
       ?.totalVehicles || 0,
@@ -43,11 +55,22 @@ const GlobalSearchPageContainer = ({
     router.query.searchTerm as string,
     vehiclesList.length + 1,
     async vehicles => {
+      const receivedCapIds = vehicles.fullTextSearchVehicleList?.vehicles
+        ?.map(vehicle => vehicle.derivativeId)
+        .filter(value => value) as string[];
+      setCapIds(receivedCapIds || []);
       return setVehicleListCache(
         vehicles?.fullTextSearchVehicleList?.vehicles || [],
       );
     },
   );
+
+  const [getModelImages] = useLazyModelImages(capIds, async images => {
+    return setVehiclesPreview(prevState => [
+      ...((prevState || []) as IVehiclesImage[]),
+      ...((images?.vehicleImages || []) as IVehiclesImage[]),
+    ]);
+  });
 
   useEffect(() => {
     if (
@@ -58,6 +81,7 @@ const GlobalSearchPageContainer = ({
   }, [getVehiclesCache, preLoadTextSearchList]);
 
   const onLoadMore = () => {
+    getModelImages();
     setVehicleList(prevState => [...prevState, ...vehiclesListCache]);
     getVehiclesCache();
   };
@@ -75,6 +99,13 @@ const GlobalSearchPageContainer = ({
     vehiclesList.length,
   ]);
 
+  const getImgUrl = (capId: string): string => {
+    return (
+      vehiclesPreview?.find(x => x?.capId === parseInt(capId || '', 10))
+        ?.mainImageUrl || `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+    );
+  };
+
   return (
     <>
       <div className="row:title">
@@ -87,7 +118,10 @@ const GlobalSearchPageContainer = ({
             {vehiclesList?.map(vehicle => (
               <VehicleCard
                 key={vehicle?.derivativeId || `${vehicle?.capBodyStyle}` || ''}
-                data={productCardDataMapper(vehicle)}
+                data={{
+                  ...productCardDataMapper(vehicle),
+                  imageUrl: getImgUrl(vehicle.derivativeId || ''),
+                }}
                 derivativeId={vehicle?.derivativeId}
                 url={vehicle.legacyUrl || vehicle.lqUrl || ''}
                 title={{

@@ -149,6 +149,7 @@ const CustomiseLease = ({
   colourList,
   isInitPayModalShowing,
   setIsInitPayModalShowing,
+  pickups,
 }: IProps) => {
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
@@ -340,6 +341,7 @@ const CustomiseLease = ({
           colours={derivativeInfo?.colours}
           trims={derivativeInfo?.trims}
           trim={trim}
+          pickups={pickups}
         />
       </LazyLoadComponent>
       {!isMobile && (
