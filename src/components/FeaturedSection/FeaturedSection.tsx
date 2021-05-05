@@ -118,16 +118,18 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
               }}
             />
           </div>
-          <RouterLink
-            link={{
-              href: btnData?.href || '',
-              label: btnData?.label || '',
-            }}
-            className="button -teal -regular -solid -mt-500"
-            withoutDefaultClassName
-          >
-            <div className="button--inner">{btnData?.label}</div>
-          </RouterLink>
+          {btnData && (
+            <RouterLink
+              link={{
+                href: btnData?.href || '',
+                label: btnData?.label || '',
+              }}
+              className="button -teal -regular -solid -mt-500"
+              withoutDefaultClassName
+            >
+              <div className="button--inner">{btnData?.label}</div>
+            </RouterLink>
+          )}
         </div>
         {isReadMoreIncluded && (
           <Button
