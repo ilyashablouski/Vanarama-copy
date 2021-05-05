@@ -79,7 +79,7 @@ export const EVHubPage: NextPage<IProps> = ({
       {sections?.jumpMenu?.[0] && (
         <section className="row">
           <JumpMenu
-            title="Learn More About Electric Cars"
+            title={sections?.jumpMenu?.[0].title}
             links={sections?.jumpMenu?.[0]?.links}
           />
         </section>
