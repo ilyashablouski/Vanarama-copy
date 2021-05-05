@@ -7,6 +7,11 @@ export interface IProps {
 }
 
 export interface IAddressPerson {
-  label: string;
-  id: string;
+  label?: string;
+  id?: string;
+  addressLine1?: string;
+  addressLine2?: string;
+  townOrCity?: string;
+  country?: string;
+  postcode?: string;
 }

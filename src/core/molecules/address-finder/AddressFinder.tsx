@@ -1,14 +1,16 @@
 import cx from 'classnames';
-import React, { useReducer, useEffect } from 'react';
+import React, { useEffect, useReducer, useCallback } from 'react';
 import useDebounce from '../../../hooks/useDebounce';
 import useLoqate from '../../../hooks/useLoqate';
 import { ILoqateSuggestion } from '../../../hooks/useLoqate/interfaces';
 import AddressFinderInput from './components/AddressFinderInput';
+import ManualAddingButton from './components/ManualAddingButton';
+import ManualAddressForm from './components/ManualAddressForm';
 import AddressFinderIntermediate from './components/AddressFinderIntermediate';
 import AddressFinderResults from './components/AddressFinderResults';
 import AddressFinderSelected from './components/AddressFinderSelected';
 import { AddressFinderProvider } from './context';
-import { IAddressFinderProps } from './interfaces';
+import { IAddressFinderProps, IManualAddressFormValues } from './interfaces';
 import reducer from './reducer';
 import { suggestionToDisplay } from './utils';
 
@@ -17,6 +19,8 @@ export type AddressFinderComponent = React.FC<IAddressFinderProps> & {
   Intermediate: typeof AddressFinderIntermediate;
   Results: typeof AddressFinderResults;
   Selected: typeof AddressFinderSelected;
+  ManualAddingButton: typeof ManualAddingButton;
+  ManualAddressForm: typeof ManualAddressForm;
 };
 
 const AddressFinder: AddressFinderComponent = ({
@@ -27,10 +31,9 @@ const AddressFinder: AddressFinderComponent = ({
   onSuggestionChange,
   selected,
 }) => {
-  const [
-    { focused, intermediate, preventBlur, value, formFocus },
-    dispatch,
-  ] = useReducer(reducer, {
+  const [state, dispatch] = useReducer(reducer, {
+    skipLookUp: false,
+    showManualForm: false,
     formFocus: false,
     focused: false,
     preventBlur: false,
@@ -38,10 +41,14 @@ const AddressFinder: AddressFinderComponent = ({
   });
 
   // Debounce state changes to value so we don't execute lots of XHR requests
-  const searchTerm = useDebounce(value);
+  const searchTerm = useDebounce(state.value);
   const { data } = useLoqate(
-    { text: searchTerm || selected?.label || '', postcode: intermediate?.id },
+    {
+      text: searchTerm || selected?.label || '',
+      postcode: state.intermediate?.id,
+    },
     { apiKey, country: 'GB', limit: 50 },
+    state.skipLookUp,
   );
 
   function handleSuggestionSelect(loqateSuggestion: ILoqateSuggestion) {
@@ -60,7 +67,10 @@ const AddressFinder: AddressFinderComponent = ({
 
   useEffect(() => {
     if (!selected?.id && selected?.label && data.length) {
-      if ((data.length === 1 && data[0].type === 'Address') || intermediate) {
+      if (
+        (data.length === 1 && data[0].type === 'Address') ||
+        state.intermediate
+      ) {
         handleSuggestionSelect(data[0]);
       } else {
         // force user to input address in case
@@ -71,16 +81,27 @@ const AddressFinder: AddressFinderComponent = ({
     }
   }, [data, selected]);
 
+  const handleManualAdding = useCallback<
+    (values: IManualAddressFormValues) => void
+  >(values => {
+    onSuggestionChange(values);
+    dispatch({
+      type: 'SELECT_ADDRESS_MANUALLY',
+      manualAddress: values,
+    });
+  }, []);
+
   return (
     <div className={cx('address-finder', className)} data-testid={dataTestId}>
       <AddressFinderProvider
         value={{
           data,
-          value,
-          intermediate,
-          preventBlur,
-          formFocus,
-          inputFocused: focused,
+          value: state.value,
+          formFocus: state.formFocus,
+          preventBlur: state.preventBlur,
+          intermediate: state.intermediate,
+          showManualForm: state.showManualForm,
+          inputFocused: state.focused,
           selectedSuggestion: selected,
           onChange: e =>
             dispatch({ type: 'CHANGE_INPUT', value: e.target.value }),
@@ -89,7 +110,10 @@ const AddressFinder: AddressFinderComponent = ({
           setInputFocus: () => dispatch({ type: 'FOCUS_INPUT' }),
           onClearSuggestion: () => onSuggestionChange(),
           onClearIntermediate: () => dispatch({ type: 'CLEAR_INTERMEDIATE' }),
+          onManualAdding: () => dispatch({ type: 'ADD_MANUAL' }),
+          onBackToSearch: () => dispatch({ type: 'BACK_TO_SEARCH' }),
           onSuggestionSelected: handleSuggestionSelect,
+          onManualSubmit: handleManualAdding,
         }}
       >
         {children}
@@ -102,5 +126,7 @@ AddressFinder.Input = AddressFinderInput;
 AddressFinder.Intermediate = AddressFinderIntermediate;
 AddressFinder.Results = AddressFinderResults;
 AddressFinder.Selected = AddressFinderSelected;
+AddressFinder.ManualAddingButton = ManualAddingButton;
+AddressFinder.ManualAddressForm = ManualAddressForm;
 
 export default AddressFinder;

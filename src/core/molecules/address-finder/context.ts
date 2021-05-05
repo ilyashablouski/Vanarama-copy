@@ -1,21 +1,25 @@
 import { createContext, useContext } from 'react';
 import { ILoqateSuggestion } from '../../../hooks/useLoqate/interfaces';
-import { IAddressSuggestion } from './interfaces';
+import { IAddressSuggestion, IManualAddressFormValues } from './interfaces';
 
 export interface IAddressFinderContext {
   data: ILoqateSuggestion[];
   inputFocused: boolean;
   formFocus?: boolean;
+  preventBlur: boolean;
+  showManualForm: boolean;
   intermediate?: ILoqateSuggestion;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onSuggestionSelected: (suggestion: ILoqateSuggestion) => void;
+  selectedSuggestion?: IAddressSuggestion;
+  onManualSubmit: (values: IManualAddressFormValues) => void;
   onClearIntermediate: () => void;
   onClearSuggestion: () => void;
-  onSuggestionSelected: (suggestion: ILoqateSuggestion) => void;
-  preventBlur: boolean;
-  selectedSuggestion?: IAddressSuggestion;
   setInputBlur: () => void;
   setBlurForm?: () => void;
   setInputFocus: () => void;
+  onManualAdding: () => void;
+  onBackToSearch: () => void;
   value: string;
 }
 

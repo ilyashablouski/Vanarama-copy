@@ -16,9 +16,10 @@ const AddressFinderInput: React.FC<Omit<
     value,
     formFocus,
     setBlurForm,
+    showManualForm,
   } = useAddressFinderContext();
 
-  if (selectedSuggestion) {
+  if (selectedSuggestion || showManualForm) {
     return null;
   }
 
