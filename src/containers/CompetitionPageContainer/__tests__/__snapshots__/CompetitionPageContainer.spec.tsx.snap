@@ -12,21 +12,27 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
         <div
           class="hero--left"
         >
-          <h1
-            class="heading -white -xlarge"
+          <div
+            style="font-size: 24px; line-height: 1.75; opacity: 0.75; color: rgb(204, 204, 204);"
           >
-            Get Your Low Cost Vehicle Insurance Quote
-          </h1>
+            <span>
+              <span
+                class="react-loading-skeleton css-1vmnjpn-skeletonStyles-Skeleton"
+              >
+                ‌
+              </span>
+              <span
+                class="react-loading-skeleton css-1vmnjpn-skeletonStyles-Skeleton"
+              >
+                ‌
+              </span>
+            </span>
+          </div>
           <h3
             class="text -large -white"
           >
-            Plus receive £100 if you switch from your current Insurance provider to Vanarama Insurance*
+            Extra Protection Should The Worst happen
           </h3>
-          <p
-            class="text hero--small-print -xsmall -white"
-          >
-            *Only available to Vanarama leasing customers. Other terms and conditions apply.
-          </p>
           <div>
             <div
               class="image hero--image -expand -plain"
@@ -382,634 +388,201 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
       </div>
     </div>
     <div
+      class="row:title -mt-200"
+    >
+      <nav>
+        <ol
+          class="breadcrumb"
+        >
+          <li
+            class="breadcrumb-item -parent"
+          >
+            <a
+              class="breadcrumb-item--backlink link -teal -small"
+              data-testid="router-link"
+              href="/"
+            >
+              <i
+                class="icon -teal"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <polyline
+                    points="328 112 184 256 328 400"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+              Back to 
+              Home
+            </a>
+          </li>
+          <li
+            class="breadcrumb-item -parent"
+          >
+            <a
+              class="breadcrumb-item--backlink link -teal -small"
+              data-testid="link"
+              href="/van-insurance.html"
+            >
+              <i
+                class="icon -teal"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <polyline
+                    points="328 112 184 256 328 400"
+                    style="fill: none; stroke: var(--class-color); stroke-linecap: round; stroke-linejoin: round; stroke-width: 48;"
+                  />
+                </svg>
+              </i>
+              Back to 
+              Van Insurance
+            </a>
+          </li>
+          <li
+            class="breadcrumb-item -child"
+            style="display: none;"
+          >
+            <span
+              class="text breadcrumb-item--child -small -darker"
+            >
+              Multi-Year Van Insurance
+            </span>
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div
       class="row:lead-text"
     >
       <p
         class="heading -black -xlarge"
       >
-        Insurance Types
+        Guaranteed Asset Protection (GAP)
       </p>
-      <p
-        class="text -regular -darker"
-      >
-        <p>
-          We remove all the hassle and extra costs you'd usually expect when insuring your leased van or pickup truck. Compare insurance prices and purchase policies online, insure your tools, freeze your premium for up to 5 years... all in one place!
-        </p>
-      </p>
-    </div>
-    <div
-      class="row:bg-lighter"
-    >
-      <div
-        class="row:cards-3col"
-      >
-        <div
-          class="card"
-          data-testid="card"
-        >
-          <img
-            class="card-image"
-            data-testid="card-image"
-            loading="lazy"
-            sizes="(min-width:320px) 800px, 1200px"
-            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
-            srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 1200w"
-          />
-          <div
-            class="title -flex-h"
-          >
-            <a
-              class="heading link -black -lead"
-              data-testid="link"
-              href="https://beta.vanarama.com/van-insurance/multi-year-van-insurance.html"
-            >
-              Multi-Year Insurance
-            </a>
-            <button
-              class="button -teal -xsmall -solid -round"
-            >
-              <div
-                class="button--inner"
-              >
-                <i
-                  class="icon -regular md hydrated -white"
-                  name="arrow-forward-sharp"
-                >
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <polyline
-                      points="268 112 412 256 268 400"
-                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                    />
-                    <line
-                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                      x1="392"
-                      x2="100"
-                      y1="256"
-                      y2="256"
-                    />
-                  </svg>
-                </i>
-              </div>
-            </button>
-          </div>
-          <span
-            class="text -regular -dark"
-            data-testid="card-description"
-          >
-            Protect yourself against future insurance price increases
-          </span>
-        </div>
-        <div
-          class="card"
-          data-testid="card"
-        >
-          <img
-            class="card-image"
-            data-testid="card-image"
-            loading="lazy"
-            sizes="(min-width:320px) 800px, 1200px"
-            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
-            srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 1200w"
-          />
-          <div
-            class="title -flex-h"
-          >
-            <a
-              class="heading link -black -lead"
-              data-testid="link"
-              href="https://beta.vanarama.com/van-insurance/finance-gap-insurance.html"
-            >
-              Finance GAP Insurance
-            </a>
-            <button
-              class="button -teal -xsmall -solid -round"
-            >
-              <div
-                class="button--inner"
-              >
-                <i
-                  class="icon -regular md hydrated -white"
-                  name="arrow-forward-sharp"
-                >
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <polyline
-                      points="268 112 412 256 268 400"
-                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                    />
-                    <line
-                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                      x1="392"
-                      x2="100"
-                      y1="256"
-                      y2="256"
-                    />
-                  </svg>
-                </i>
-              </div>
-            </button>
-          </div>
-          <span
-            class="text -regular -dark"
-            data-testid="card-description"
-          >
-            Extra protection should the worst happen
-          </span>
-        </div>
-        <div
-          class="card"
-          data-testid="card"
-        >
-          <img
-            class="card-image"
-            data-testid="card-image"
-            loading="lazy"
-            sizes="(min-width:320px) 800px, 1200px"
-            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
-            srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 1200w"
-          />
-          <div
-            class="title -flex-h"
-          >
-            <a
-              class="heading link -black -lead"
-              data-testid="link"
-              href="https://beta.vanarama.com/van-insurance/tools-in-transit.html"
-            >
-              Tools in Transit Insurance
-            </a>
-            <button
-              class="button -teal -xsmall -solid -round"
-            >
-              <div
-                class="button--inner"
-              >
-                <i
-                  class="icon -regular md hydrated -white"
-                  name="arrow-forward-sharp"
-                >
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <polyline
-                      points="268 112 412 256 268 400"
-                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                    />
-                    <line
-                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                      x1="392"
-                      x2="100"
-                      y1="256"
-                      y2="256"
-                    />
-                  </svg>
-                </i>
-              </div>
-            </button>
-          </div>
-          <span
-            class="text -regular -dark"
-            data-testid="card-description"
-          >
-            Get up to £3k's worth of tools cover for only £75 per year
-          </span>
-        </div>
-        <div
-          class="card"
-          data-testid="card"
-        >
-          <img
-            class="card-image"
-            data-testid="card-image"
-            loading="lazy"
-            sizes="(min-width:320px) 800px, 1200px"
-            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
-            srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 1200w"
-          />
-          <div
-            class="title -flex-h"
-          >
-            <a
-              class="heading link -black -lead"
-              data-testid="link"
-              href="https://beta.vanarama.com/van-insurance/7-day-free-van-insurance.html"
-            >
-              7-day free Insurance
-            </a>
-            <button
-              class="button -teal -xsmall -solid -round"
-            >
-              <div
-                class="button--inner"
-              >
-                <i
-                  class="icon -regular md hydrated -white"
-                  name="arrow-forward-sharp"
-                >
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <polyline
-                      points="268 112 412 256 268 400"
-                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                    />
-                    <line
-                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                      x1="392"
-                      x2="100"
-                      y1="256"
-                      y2="256"
-                    />
-                  </svg>
-                </i>
-              </div>
-            </button>
-          </div>
-          <span
-            class="text -regular -dark"
-            data-testid="card-description"
-          >
-            If you're eligible for our FREE policy your vehicle will be covered for the first 7 days AFTER it's delivered.
-          </span>
-        </div>
-        <div
-          class="card"
-          data-testid="card"
-        >
-          <img
-            class="card-image"
-            data-testid="card-image"
-            loading="lazy"
-            sizes="(min-width:320px) 800px, 1200px"
-            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
-            srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 1200w"
-          />
-          <div
-            class="title -flex-h"
-          >
-            <a
-              class="heading link -black -lead"
-              data-testid="link"
-              href="https://beta.vanarama.com/van-insurance/short-term-insurance.html"
-            >
-              Short-Term Insurance
-            </a>
-            <button
-              class="button -teal -xsmall -solid -round"
-            >
-              <div
-                class="button--inner"
-              >
-                <i
-                  class="icon -regular md hydrated -white"
-                  name="arrow-forward-sharp"
-                >
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <polyline
-                      points="268 112 412 256 268 400"
-                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                    />
-                    <line
-                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                      x1="392"
-                      x2="100"
-                      y1="256"
-                      y2="256"
-                    />
-                  </svg>
-                </i>
-              </div>
-            </button>
-          </div>
-          <span
-            class="text -regular -dark"
-            data-testid="card-description"
-          >
-            Need to drive a vehicle that isn't yours, or insure a temporary driver on yours?
-          </span>
-        </div>
-        <div
-          class="card"
-          data-testid="card"
-        >
-          <img
-            class="card-image"
-            data-testid="card-image"
-            loading="lazy"
-            sizes="(min-width:320px) 800px, 1200px"
-            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
-            srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 1200w"
-          />
-          <div
-            class="title -flex-h"
-          >
-            <a
-              class="heading link -black -lead"
-              data-testid="link"
-              href="https://beta.vanarama.com/van-insurance/faq.html"
-            >
-              Our Customers Say
-            </a>
-            <button
-              class="button -teal -xsmall -solid -round"
-            >
-              <div
-                class="button--inner"
-              >
-                <i
-                  class="icon -regular md hydrated -white"
-                  name="arrow-forward-sharp"
-                >
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <polyline
-                      points="268 112 412 256 268 400"
-                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                    />
-                    <line
-                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                      x1="392"
-                      x2="100"
-                      y1="256"
-                      y2="256"
-                    />
-                  </svg>
-                </i>
-              </div>
-            </button>
-          </div>
-          <span
-            class="text -regular -dark"
-            data-testid="card-description"
-          >
-            We try to make everything about van insurance a little clearer, so we've put together the answers to the questions we get asked the most.
-          </span>
-        </div>
-      </div>
-    </div>
-    <div
-      class="row:featured-right"
-    >
       <div>
         <p
-          class="heading -black -large"
-        >
-          Save with Drive Tag
-        </p>
-        <p
           class="text -regular -darker"
         >
-          Nulla fugiat laborum elit laborum in irure cillum do laboris fugiat tempor elit consectetur id Lorem mollit duis culpa ea ipsum ipsum nulla magna mollit culpa est non Lorem eiusmod Lorem aute ex sunt laboris enim amet voluptate fugiat officia
+          Cover the difference between your insurance payment and the full value of your car.
         </p>
-        <p
-          class="text -regular -darker"
-        >
-          <a
-            class="link -teal"
-            data-testid="link"
-            href="https://www.vanarama.com/van-insurance.html"
-          >
-            Find Out More
-          </a>
-          
-
-          <a
-            class="link -teal"
-            data-testid="link"
-            href="https://www.vanarama.com/van-insurance.html"
-          >
-            Find Out More
-          </a>
-        </p>
-      </div>
-      <div
-        class="image -expand"
-      >
-        <img
-          alt="Tesla-Test-6"
-          class="image--native"
-          loading="eager"
-          sizes="(min-width:320px) 800px, 1200px"
-          src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/24o810jIcvjhhvKGcxbvDZ/498e6cacaafaaff2e71f9e97bd4a44f7/Tesla-Test-6.jpg"
-          srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/24o810jIcvjhhvKGcxbvDZ/498e6cacaafaaff2e71f9e97bd4a44f7/Tesla-Test-6.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/24o810jIcvjhhvKGcxbvDZ/498e6cacaafaaff2e71f9e97bd4a44f7/Tesla-Test-6.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/24o810jIcvjhhvKGcxbvDZ/498e6cacaafaaff2e71f9e97bd4a44f7/Tesla-Test-6.jpg 1200w"
-        />
       </div>
     </div>
-    <hr
-      class="-fullwidth"
-    />
+    <div
+      class="row:lead-text"
+    >
+      <h1
+        class="heading -black -large"
+      >
+        Finance Gap Explained
+      </h1>
+      <p>
+        Vehicle value depreciation could mean there is a risk you will owe more to the Finance Company than the Insurance Company pay-out if the vehicle is written off or stolen. Finance Gap Insurance allows you to insure against the difference (up to a maximum of £20,000) between your Insurance Company pay-out and the amount you owe to the Finance Company. Check out the video below for more information:
+      </p>
+      <p>
+        <span>
+          <a
+            class="embedly-card"
+            data-card-controls="0"
+            data-card-width="100%"
+            href="https://www.youtube.com/embed/P4IT21lvn4w"
+          />
+        </span>
+        Embedded content: https://www.youtube.com/embed/P4IT21lvn4w
+        <span />
+      </p>
+      <p>
+        Full terms and conditions can be found here.
+      </p>
+      <h2>
+        Eligible Vehicles
+      </h2>
+      <ul>
+        <li>
+          Vanarama leased vehicles only
+        </li>
+        <li>
+          Vehicles up to £125,000 Invoice price
+        </li>
+        <li>
+          Cars & Commercial vehicles up to 3.5cwt
+        </li>
+        <li>
+          Cover is valid for up to 5 years in line with the finance agreement
+        </li>
+        <li>
+          Applies to all finance agreements, including - Contract Hire and Lease
+        </li>
+        <li>
+          Applies to cars and commercial vehicles up to 6 years old
+        </li>
+      </ul>
+      <h2>
+        Major Exclusions
+      </h2>
+      <ul>
+        <li>
+          If the vehicle is written off whilst driving illegally or under the influence of drugs or alcohol
+        </li>
+        <li>
+          The vehicle is not covered by a Fully Comprehensive Road Risk Motor Policy
+        </li>
+        <li>
+          Use of vehicle for Hire or Reward
+        </li>
+        <li>
+          If the vehicle is unattended and the keys have NOT been removed, all doors locked and any immobilizer and/or alarm activated
+        </li>
+        <li>
+          If your vehicle has a Fridge Unit/Conversion & also if your vehicle has/will have a Motor Traders Insurance Policy
+        </li>
+        <li>
+          Once an order has been placed, a member of our dedicated GAP team will be in contact to discuss your options
+        </li>
+        <li>
+          The vehicle must be separately insured by a Fully Comprehensive Road Risk Motor Policy
+        </li>
+      </ul>
+      <p>
+        If you would like to know more, call our dedicated Finance Gap Insurance team now on 01442 835768.
+      </p>
+    </div>
     <div
       class="row:lead-text"
     >
       <p
-        class="heading -black -large"
+        class="heading -black -xlarge"
       >
-        Our Van Insurance Services
+        Get A Quote
       </p>
-      <h3
-        class="text -lead -darker"
-      >
-        What You Need To Know
-      </h3>
-      <p
-        class="text -regular -darker"
-      >
-        In incididunt reprehenderit nostrud occaecat ea qui Lorem deserunt commodo enim commodo quis commodo anim nostrud consectetur ex aliquip quis
-      </p>
-      <p
-        class="text -regular -darker"
-      >
-        <a
-          class="link -teal -lead"
-          data-testid="link"
-          href="https://beta.vanarama.com/van-insurance.html"
-        >
-          Read Our FAQs
-        </a>
-      </p>
-    </div>
-    <div
-      class="row:bg-lighter"
-    >
       <div
-        class="row:carousel"
+        class="button-group"
       >
-        <p
-          class="heading -black -large"
-        >
-          Insurance News
-        </p>
-        <div
-          class="carousel -col3"
+        <button
+          class="button -teal -regular -solid"
         >
           <div
-            class="slider"
-            style="box-sizing: border-box; display: block; height: inherit; position: relative; width: 100%;"
-            tabindex="0"
+            class="button--inner"
           >
-            <div
-              aria-atomic="true"
-              aria-live="polite"
-              style="position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden;"
-              tabindex="-1"
-            >
-              Slide 1 of 1
-            </div>
-            <div
-              class="slider-frame"
-              style="box-sizing: border-box; display: block; height: 100%; margin: 0px; overflow: hidden; padding: 0px; position: relative; transform: translate3d(0, 0, 0);"
-            >
-              <ul
-                class="slider-list"
-                style="box-sizing: border-box; cursor: pointer; display: block; height: 0px; margin: 0px -10px; padding: 0px; position: relative; transform: translate3d(0px, 0px, 0); width: auto; transition: 0s;"
-              >
-                <li
-                  class="slider-slide slide-visible slide-current"
-                  style="box-sizing: border-box; display: inline-block; height: auto; left: 0px; list-style-type: none; margin: auto 10px auto 10px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: -13.33333333333333px;"
-                  tabindex="-1"
-                >
-                  <div
-                    class="card"
-                    data-testid="card"
-                  >
-                    <img
-                      class="card-image"
-                      data-testid="card-image"
-                      loading="lazy"
-                      sizes="(min-width:320px) 800px, 1200px"
-                      src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/22ybEevo2hRu2pJImPp8tz/327aba1204a84c35b02490ca075c290c/insurance-on-leased-cars.jpg"
-                      srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/22ybEevo2hRu2pJImPp8tz/327aba1204a84c35b02490ca075c290c/insurance-on-leased-cars.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/22ybEevo2hRu2pJImPp8tz/327aba1204a84c35b02490ca075c290c/insurance-on-leased-cars.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/22ybEevo2hRu2pJImPp8tz/327aba1204a84c35b02490ca075c290c/insurance-on-leased-cars.jpg 1200w"
-                    />
-                    <div
-                      class="title"
-                    >
-                      <span
-                        class="heading -black -lead"
-                        data-testid="card-heading"
-                      >
-                        Do I Need Insurance For A Leased Car?
-                      </span>
-                    </div>
-                    <p>
-                      Find out what type of coverage you need for a new leased car.
-                    </p>
-                    <p>
-                      <a
-                        href="https://beta.vanarama.com/car-leasing-explained/do-i-need-insurance-for-leased-car.html"
-                      >
-                        Read More
-                      </a>
-                    </p>
-                    <span
-                      class="link -teal -regular"
-                      data-testid="withoutLink"
-                    />
-                  </div>
-                </li>
-              </ul>
-            </div>
-            <style
-              type="text/css"
-            >
-              .slider-slide &gt; img { width: 100%; display: block; }
-          .slider-slide &gt; img:focus { margin: auto; }
-            </style>
+            Get A Quote
           </div>
-          <nav
-            class="carousel--nav"
+        </button>
+        <button
+          class="button -teal -regular -outline"
+        >
+          <div
+            class="button--inner"
           >
-            <button
-              class="carousel--nav-arrow"
-              type="button"
-            >
-              <i
-                class="icon -darker -regular"
-              >
-                <svg
-                  height="1em"
-                  viewBox="0 0 512 512"
-                  width="1em"
-                >
-                  <polyline
-                    points="244 400 100 256 244 112"
-                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                  />
-                  <line
-                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                    x1="120"
-                    x2="412"
-                    y1="256"
-                    y2="256"
-                  />
-                </svg>
-              </i>
-            </button>
-            <div>
-              <button
-                class="carousel--nav-item -active"
-                type="button"
-              >
-                <i
-                  class="icon -regular"
-                >
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <path
-                      d="M256,464C141.31,464,48,370.69,48,256S141.31,48,256,48s208,93.31,208,208S370.69,464,256,464Z"
-                    />
-                  </svg>
-                </i>
-              </button>
-            </div>
-            <button
-              class="carousel--nav-arrow"
-              type="button"
-            >
-              <i
-                class="icon -darker -regular"
-              >
-                <svg
-                  height="1em"
-                  viewBox="0 0 512 512"
-                  width="1em"
-                >
-                  <polyline
-                    points="268 112 412 256 268 400"
-                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                  />
-                  <line
-                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                    x1="392"
-                    x2="100"
-                    y1="256"
-                    y2="256"
-                  />
-                </svg>
-              </i>
-            </button>
-          </nav>
-        </div>
+            Get In Touch
+          </div>
+        </button>
       </div>
     </div>
   </div>

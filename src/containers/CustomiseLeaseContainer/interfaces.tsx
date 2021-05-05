@@ -46,6 +46,7 @@ export interface IProps {
   colourData: IColourList[];
   mileage: number | null;
   setMileage: React.Dispatch<React.SetStateAction<number | null>>;
+  pickups?: boolean;
 }
 
 export interface IQuoteDataInputs {
