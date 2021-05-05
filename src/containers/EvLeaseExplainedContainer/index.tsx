@@ -309,8 +309,8 @@ export const EVLeaseExplainedContainer: FC<IProps> = ({
 
       <section className="row:bg-default">
         <ul className="four-stats">
-          {sections?.steps?.[0]?.steps?.map(step => (
-            <li>
+          {sections?.steps?.[0]?.steps?.map((step, idx) => (
+            <li key={step.title || idx}>
               <div className="heading -large -orange">{step.title}</div>
               <p className="heading -regular -darker">{step.body}</p>
             </li>
