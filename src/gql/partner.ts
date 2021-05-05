@@ -11,6 +11,8 @@ export const PARTNER = gql`
           url
         }
       }
+      fuelTypes
+      vehicleTypes
       colourPrimary
       colourSecondary
       hero {

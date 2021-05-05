@@ -25,7 +25,7 @@ const OvoHomePage: NextPage<IProps> = ({
   productsEvCarDerivatives,
   vehicleListUrlData,
 }) => {
-  const { colourPrimary, logo } = data?.partner;
+  const { colourPrimary, logo, fuelTypes, vehicleTypes } = data?.partner;
   const { flag, body, image, titleTag } = data?.partner?.hero;
   const { title } = logo;
   const { url } = logo?.file;
@@ -110,130 +110,73 @@ const OvoHomePage: NextPage<IProps> = ({
           align="center"
         >
           <TabList className="lead">
-            <Tab index={0}>Vans</Tab>
-            <Tab index={1}>Cars</Tab>
+            {vehicleTypes?.map((type: string, i: number) => (
+              <Tab key={type} index={i}>
+                {type}
+              </Tab>
+            ))}
           </TabList>
           <TabPanels>
-            <TabPanel index={0}>
-              <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent
-                  visibleByDefault={
-                    typeof window === 'undefined' ||
-                    navigator?.vendor === 'Apple Computer, Inc.'
-                  }
-                >
-                  <ProductCarousel
-                    leaseType={
-                      isPersonalLcv
-                        ? LeaseTypeEnum.PERSONAL
-                        : LeaseTypeEnum.BUSINESS
+            {vehicleTypes?.map((type: string, i: number) => (
+              <TabPanel index={i}>
+                <div style={{ maxWidth: 1216 }} className="-mh-auto">
+                  <LazyLoadComponent
+                    visibleByDefault={
+                      typeof window === 'undefined' ||
+                      navigator?.vendor === 'Apple Computer, Inc.'
                     }
-                    data={{
-                      derivatives:
-                        productsEvVanDerivatives?.derivatives || null,
-                      productCard:
-                        productsEvVan?.productCarousel?.slice(0, 6) || null,
-                      vehicleList: vehicleListUrlData,
-                    }}
-                    countItems={productsEvVan?.productCarousel?.length || 6}
-                    customCTABackground={colourPrimary}
-                    dataTestIdBtn="van-view-offer"
-                  />
-                </LazyLoadComponent>
-
-                <div className="-justify-content-row -pt-500">
-                  <RouterLink
-                    className="button"
-                    classNames={{
-                      color: 'teal',
-                      solid: true,
-                      size: 'regular',
-                    }}
-                    link={{
-                      label: 'View More',
-                      href: '/van-leasing/search',
-                      query: {
-                        fuelTypes: ['Electric', 'Petrol/plugin Elec Hybrid'],
-                      },
-                    }}
-                    withoutDefaultClassName
-                    dataTestId="view-all-vans"
                   >
-                    <div
-                      className="button--inner"
-                      style={{
-                        backgroundColor: colourPrimary,
-                        borderColor: colourPrimary,
+                    <ProductCarousel
+                      leaseType={
+                        isPersonalLcv
+                          ? LeaseTypeEnum.PERSONAL
+                          : LeaseTypeEnum.BUSINESS
+                      }
+                      data={{
+                        derivatives:
+                          productsEvVanDerivatives?.derivatives || null,
+                        productCard:
+                          productsEvVan?.productCarousel?.slice(0, 6) || null,
+                        vehicleList: vehicleListUrlData,
                       }}
-                    >
-                      View More
-                    </div>
-                  </RouterLink>
-                </div>
-              </div>
-            </TabPanel>
-            <TabPanel index={1}>
-              <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent
-                  visibleByDefault={
-                    typeof window === 'undefined' ||
-                    navigator?.vendor === 'Apple Computer, Inc.'
-                  }
-                >
-                  <ProductCarousel
-                    leaseType={
-                      isPersonalCar
-                        ? LeaseTypeEnum.PERSONAL
-                        : LeaseTypeEnum.BUSINESS
-                    }
-                    data={{
-                      derivatives:
-                        productsEvCarDerivatives?.derivatives || null,
-                      productCard:
-                        productsEvCar?.productCarousel?.slice(0, 6) || null,
-                      vehicleList: vehicleListUrlData,
-                    }}
-                    countItems={productsEvCar?.productCarousel?.length || 6}
-                    customCTABackground={colourPrimary}
-                    dataTestIdBtn="car-view-offer"
-                  />
-                </LazyLoadComponent>
+                      countItems={productsEvVan?.productCarousel?.length || 6}
+                      customCTABackground={colourPrimary}
+                      dataTestIdBtn="van-view-offer"
+                    />
+                  </LazyLoadComponent>
 
-                <div className="-justify-content-row -pt-500">
-                  <RouterLink
-                    className="button"
-                    classNames={{
-                      color: 'teal',
-                      solid: true,
-                      size: 'regular',
-                    }}
-                    link={{
-                      label: 'View More',
-                      href: '/car-leasing/search',
-                      query: {
-                        fuelTypes: [
-                          'Diesel/plugin Elec Hybrid',
-                          'Electric',
-                          'Petrol/plugin Elec Hybrid',
-                        ],
-                      },
-                    }}
-                    withoutDefaultClassName
-                    dataTestId="view-all-cars"
-                  >
-                    <div
-                      className="button--inner"
-                      style={{
-                        backgroundColor: colourPrimary,
-                        borderColor: colourPrimary,
+                  <div className="-justify-content-row -pt-500">
+                    <RouterLink
+                      className="button"
+                      classNames={{
+                        color: 'teal',
+                        solid: true,
+                        size: 'regular',
                       }}
+                      link={{
+                        label: 'View More',
+                        href: '/van-leasing/search',
+                        query: {
+                          fuelTypes: fuelTypes,
+                        },
+                      }}
+                      withoutDefaultClassName
+                      dataTestId="view-all-vans"
                     >
-                      View More
-                    </div>
-                  </RouterLink>
+                      <div
+                        className="button--inner"
+                        style={{
+                          backgroundColor: colourPrimary,
+                          borderColor: colourPrimary,
+                        }}
+                      >
+                        View More
+                      </div>
+                    </RouterLink>
+                  </div>
                 </div>
-              </div>
-            </TabPanel>
+              </TabPanel>
+            ))}
           </TabPanels>
         </Tabs>
       </section>
