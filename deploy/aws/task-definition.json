@@ -100,6 +100,10 @@
           "value": "%ENVIRONMENT%"
         },
         {
+          "name": "COMMIT_HASH",
+          "value": "%COMMIT_HASH%"
+        },
+        {
           "name": "IMG_OPTIMISATION_HOST",
           "value": "%IMG_OPTIMISATION_HOST%"
         },
