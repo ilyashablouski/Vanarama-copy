@@ -11,10 +11,14 @@ const IconListItem: React.FC<IIconListItemProps> = ({
   listIcon = <CheckmarkCircleSharp />,
   iconColor,
   dataTestId,
-  listStyle
+  listStyle,
 }) => {
   return (
-    <li className={className} data-testid={dataTestId} style={{listStyle: listStyle && listStyle}}>
+    <li
+      className={className}
+      data-testid={dataTestId}
+      style={{ listStyle: listStyle && listStyle }}
+    >
       <Icon icon={listIcon} color={iconColor} />
       {children}
     </li>

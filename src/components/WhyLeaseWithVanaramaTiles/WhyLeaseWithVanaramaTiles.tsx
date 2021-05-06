@@ -6,19 +6,23 @@ import getTitleTag from 'utils/getTitleTag';
 
 interface IWhyLeaseWithVanaramaTiles {
   title: string;
-  titleTag?: string
-  tiles : {
+  titleTag?: string;
+  tiles: {
     title: string;
     body: string;
     image: {
       file: {
         url: string;
-      }
-    }
-  }[]
+      };
+    };
+  }[];
 }
 
-const WhyLeaseWithVanaramaTiles = ({title, titleTag, tiles}: IWhyLeaseWithVanaramaTiles) => {
+const WhyLeaseWithVanaramaTiles = ({
+  title,
+  titleTag,
+  tiles,
+}: IWhyLeaseWithVanaramaTiles) => {
   const Heading = dynamic(() => import('core/atoms/heading'), {
     loading: () => <Skeleton count={1} />,
   });
@@ -36,11 +40,7 @@ const WhyLeaseWithVanaramaTiles = ({title, titleTag, tiles}: IWhyLeaseWithVanara
       <Heading
         size="large"
         color="black"
-        tag={
-          getTitleTag(
-            titleTag || 'p',
-          ) as keyof JSX.IntrinsicElements
-        }
+        tag={getTitleTag(titleTag || 'p') as keyof JSX.IntrinsicElements}
       >
         {title}
       </Heading>
