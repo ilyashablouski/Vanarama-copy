@@ -33,9 +33,14 @@ const IconListItem = dynamic(() =>
 interface IFeaturedEx {
   id?: string;
   featured: IFeatured | null | undefined;
+  btnData?: { label: string; href: string };
 }
 
-const FeaturedSection: FCWithFragments<IFeaturedEx> = ({ featured, id }) => {
+const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
+  featured,
+  id,
+  btnData,
+}) => {
   const {
     video,
     image,
@@ -113,6 +118,18 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({ featured, id }) => {
               }}
             />
           </div>
+          {btnData && (
+            <RouterLink
+              link={{
+                href: btnData?.href || '',
+                label: btnData?.label || '',
+              }}
+              className="button -teal -regular -solid -mt-500"
+              withoutDefaultClassName
+            >
+              <div className="button--inner">{btnData?.label}</div>
+            </RouterLink>
+          )}
         </div>
         {isReadMoreIncluded && (
           <Button
