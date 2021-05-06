@@ -95,4 +95,5 @@ $include-presentation-styles: false !default;
 // row is imported last (for overrides)
 @import '../templates/footer.scss';
 @import '../templates/ev-templates.scss';
+@import '../templates/error.scss';
 @import '../templates/row.scss';

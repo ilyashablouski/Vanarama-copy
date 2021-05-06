@@ -1,0 +1,12 @@
+.error {
+  height: 100vh;
+  margin-bottom: -$rem-600;
+  padding: $rem-700 $rem-400;
+  grid-column: full;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  background: url(/error-background.jpeg) no-repeat center center;
+  background-size: cover;
+}
