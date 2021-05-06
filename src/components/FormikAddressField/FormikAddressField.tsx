@@ -10,7 +10,12 @@ interface IProps {
   skipManualInput?: boolean;
 }
 
-const FormikAddressField: React.FC<IProps> = ({ name, label, hint, skipManualInput, }) => {
+const FormikAddressField: React.FC<IProps> = ({
+  name,
+  label,
+  hint,
+  skipManualInput,
+}) => {
   const [field, meta, helpers] = useField(name);
   const [isFocused, setIsFocused] = useState(false);
   const error = (meta.touched && !isFocused && meta.error) || undefined;
