@@ -1,11 +1,19 @@
 import { IManualAddressFormValues } from 'core/molecules/address-finder/interfaces';
 import { ILoqateSuggestion } from '../../../hooks/useLoqate/interfaces';
 import { suggestionToDisplay } from './utils';
-import { addressToDisplay } from '../../../utils/address';
 
 export enum InputTypeEnum {
   MANUAL = 'MANUAL',
   LOOKUP = 'LOOKUP',
+}
+
+export interface IAddressValue {
+  label?: string;
+  lineOne?: string;
+  lineTwo?: string;
+  city?: string;
+  country?: string;
+  postcode?: string;
 }
 
 interface IState {
@@ -13,22 +21,40 @@ interface IState {
   intermediate?: ILoqateSuggestion;
   preventBlur: boolean;
   formFocus: boolean;
-  value: string;
+  value: IAddressValue;
   showManualForm: boolean;
-  skipLookUp: boolean;
+  inputType: InputTypeEnum;
 }
+
+export const initValue: IAddressValue = {
+  label: '',
+};
+
+export const initialState = {
+  value: initValue,
+  focused: false,
+  formFocus: false,
+  preventBlur: false,
+  showManualForm: false,
+  inputType: InputTypeEnum.LOOKUP,
+};
 
 type TAction =
   | { type: 'SELECT_POSTCODE'; suggestion: ILoqateSuggestion }
   | { type: 'SELECT_ADDRESS'; suggestion: ILoqateSuggestion }
-  | { type: 'SELECT_ADDRESS_MANUALLY'; manualAddress: IManualAddressFormValues }
+  | {
+      type: 'SELECT_ADDRESS_MANUALLY';
+      manualAddress: IManualAddressFormValues & { label: string };
+    }
   | { type: 'CHANGE_INPUT'; value: string }
+  | { type: 'CLEAR_VALUE' }
   | { type: 'CLEAR_INTERMEDIATE' }
   | { type: 'FOCUS_INPUT' }
   | { type: 'FOCUS_FORM' }
   | { type: 'BLUR_FORM' }
   | { type: 'BLUR_INPUT' }
-  | { type: 'ADD_MANUAL' }
+  | { type: 'SHOW_MANUAL_ADDING_FORM' }
+  | { type: 'CLOSE_MANUAL_ADDING_FORM' }
   | { type: 'BACK_TO_SEARCH' };
 
 export default function reducer(state: IState, action: TAction): IState {
@@ -38,7 +64,9 @@ export default function reducer(state: IState, action: TAction): IState {
         ...state,
         intermediate: undefined,
         preventBlur: false,
-        value: suggestionToDisplay(action.suggestion),
+        value: {
+          label: suggestionToDisplay(action.suggestion),
+        },
       };
 
     case 'SELECT_ADDRESS_MANUALLY':
@@ -47,13 +75,7 @@ export default function reducer(state: IState, action: TAction): IState {
         intermediate: undefined,
         preventBlur: false,
         showManualForm: false,
-        skipLookUp: true,
-        value: addressToDisplay({
-          lineOne: action.manualAddress.addressLine1,
-          lineTwo: action.manualAddress.addressLine2 || '',
-          city: action.manualAddress.townOrCity,
-          postcode: action.manualAddress.postcode,
-        }),
+        value: action.manualAddress,
       };
 
     case 'SELECT_POSTCODE':
@@ -69,7 +91,10 @@ export default function reducer(state: IState, action: TAction): IState {
       return { ...state, focused: true };
 
     case 'CHANGE_INPUT':
-      return { ...state, value: action.value };
+      return { ...state, value: { label: action.value } };
+
+    case 'CLEAR_VALUE':
+      return { ...state, value: { label: '' } };
 
     case 'FOCUS_FORM':
       return { ...state, formFocus: true };
@@ -77,17 +102,29 @@ export default function reducer(state: IState, action: TAction): IState {
     case 'BLUR_FORM':
       return { ...state, formFocus: false };
 
-    case 'ADD_MANUAL':
-      return { ...state, showManualForm: true };
+    case 'SHOW_MANUAL_ADDING_FORM':
+      return {
+        ...state,
+        showManualForm: true,
+        inputType: InputTypeEnum.MANUAL,
+      };
+
+    case 'CLOSE_MANUAL_ADDING_FORM':
+      return {
+        ...state,
+        showManualForm: false,
+      };
 
     case 'BACK_TO_SEARCH':
       return {
         ...state,
-        value: '',
+        value: {
+          label: '',
+        },
         focused: false,
-        skipLookUp: false,
         showManualForm: false,
         intermediate: undefined,
+        inputType: InputTypeEnum.LOOKUP,
       };
 
     default:

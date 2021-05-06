@@ -3,9 +3,9 @@ import { IBaseProps } from '../../interfaces/base';
 export interface IAddressSuggestion {
   id?: string;
   label?: string;
-  addressLine1?: string;
-  addressLine2?: string;
-  townOrCity?: string;
+  lineOne?: string;
+  lineTwo?: string;
+  city?: string;
   country?: string;
   postcode?: string;
 }
@@ -26,9 +26,9 @@ export interface IAddressFinderProps extends IBaseProps {
 }
 
 export interface IManualAddressFormValues {
-  addressLine1: string;
-  addressLine2?: string;
-  townOrCity: string;
+  lineOne: string;
+  lineTwo?: string;
+  city: string;
   country?: string;
   postcode: string;
 }

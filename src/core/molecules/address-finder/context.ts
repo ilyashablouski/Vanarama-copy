@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react';
+import { IAddressValue } from 'core/molecules/address-finder/reducer';
 import { ILoqateSuggestion } from '../../../hooks/useLoqate/interfaces';
 import { IAddressSuggestion, IManualAddressFormValues } from './interfaces';
 
@@ -15,12 +16,13 @@ export interface IAddressFinderContext {
   onManualSubmit: (values: IManualAddressFormValues) => void;
   onClearIntermediate: () => void;
   onClearSuggestion: () => void;
+  onEditSuggestion: () => void;
   setInputBlur: () => void;
   setBlurForm?: () => void;
   setInputFocus: () => void;
   onManualAdding: () => void;
   onBackToSearch: () => void;
-  value: string;
+  value: IAddressValue;
 }
 
 const AddressFinderContext = createContext<IAddressFinderContext | null>(null);

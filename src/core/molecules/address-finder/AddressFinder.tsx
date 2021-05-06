@@ -11,17 +11,22 @@ import AddressFinderResults from './components/AddressFinderResults';
 import AddressFinderSelected from './components/AddressFinderSelected';
 import { AddressFinderProvider } from './context';
 import { IAddressFinderProps, IManualAddressFormValues } from './interfaces';
-import reducer from './reducer';
+import reducer, { initialState, InputTypeEnum } from './reducer';
 import { suggestionToDisplay } from './utils';
 
 export type AddressFinderComponent = React.FC<IAddressFinderProps> & {
   Input: typeof AddressFinderInput;
-  Intermediate: typeof AddressFinderIntermediate;
+  ManualAddingButton: typeof ManualAddingButton;
   Results: typeof AddressFinderResults;
   Selected: typeof AddressFinderSelected;
-  ManualAddingButton: typeof ManualAddingButton;
   ManualAddressForm: typeof ManualAddressForm;
+  Intermediate: typeof AddressFinderIntermediate;
 };
+
+const formatAddress = (values: any) =>
+  `${values?.lineOne}${(values?.lineTwo || '') && `, ${values?.lineTwo}`} - ${
+    values?.city
+  }, ${values?.postcode}`;
 
 const AddressFinder: AddressFinderComponent = ({
   apiKey,
@@ -31,24 +36,19 @@ const AddressFinder: AddressFinderComponent = ({
   onSuggestionChange,
   selected,
 }) => {
-  const [state, dispatch] = useReducer(reducer, {
-    skipLookUp: false,
-    showManualForm: false,
-    formFocus: false,
-    focused: false,
-    preventBlur: false,
-    value: selected?.label || '',
-  });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   // Debounce state changes to value so we don't execute lots of XHR requests
-  const searchTerm = useDebounce(state.value);
+  const text = useDebounce(state.value.label || '');
+  const query = {
+    text,
+    postcode: state.intermediate?.id,
+  };
+  const shouldSkipLookUp = state.inputType === InputTypeEnum.MANUAL;
   const { data } = useLoqate(
-    {
-      text: searchTerm || selected?.label || '',
-      postcode: state.intermediate?.id,
-    },
+    query,
     { apiKey, country: 'GB', limit: 50 },
-    state.skipLookUp,
+    shouldSkipLookUp,
   );
 
   function handleSuggestionSelect(loqateSuggestion: ILoqateSuggestion) {
@@ -84,12 +84,23 @@ const AddressFinder: AddressFinderComponent = ({
   const handleManualAdding = useCallback<
     (values: IManualAddressFormValues) => void
   >(values => {
-    onSuggestionChange(values);
+    const label = formatAddress(values);
     dispatch({
       type: 'SELECT_ADDRESS_MANUALLY',
-      manualAddress: values,
+      manualAddress: { ...values, label },
+    });
+    onSuggestionChange({
+      ...values,
+      label,
     });
   }, []);
+
+  const handleSuggestionChange = useCallback(() => {
+    if (state.inputType === InputTypeEnum.MANUAL) {
+      dispatch({ type: 'SHOW_MANUAL_ADDING_FORM' });
+    }
+    onSuggestionChange();
+  }, [state]);
 
   return (
     <div className={cx('address-finder', className)} data-testid={dataTestId}>
@@ -109,8 +120,9 @@ const AddressFinder: AddressFinderComponent = ({
           setBlurForm: () => dispatch({ type: 'BLUR_FORM' }),
           setInputFocus: () => dispatch({ type: 'FOCUS_INPUT' }),
           onClearSuggestion: () => onSuggestionChange(),
+          onEditSuggestion: () => handleSuggestionChange(),
           onClearIntermediate: () => dispatch({ type: 'CLEAR_INTERMEDIATE' }),
-          onManualAdding: () => dispatch({ type: 'ADD_MANUAL' }),
+          onManualAdding: () => dispatch({ type: 'SHOW_MANUAL_ADDING_FORM' }),
           onBackToSearch: () => dispatch({ type: 'BACK_TO_SEARCH' }),
           onSuggestionSelected: handleSuggestionSelect,
           onManualSubmit: handleManualAdding,

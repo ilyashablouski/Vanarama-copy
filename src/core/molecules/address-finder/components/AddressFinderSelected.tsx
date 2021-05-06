@@ -9,7 +9,8 @@ const AddressFinderSelected: React.FC<IBaseProps> = ({
   className,
   dataTestId,
 }) => {
-  const { onClearSuggestion, selectedSuggestion } = useAddressFinderContext();
+  const { onEditSuggestion, selectedSuggestion } = useAddressFinderContext();
+
   if (!selectedSuggestion) {
     return null;
   }
@@ -23,7 +24,7 @@ const AddressFinderSelected: React.FC<IBaseProps> = ({
         className="address-finder--input"
         color="teal"
         dataTestId={dataTestId}
-        onClick={onClearSuggestion}
+        onClick={onEditSuggestion}
       >
         Edit
       </Link>

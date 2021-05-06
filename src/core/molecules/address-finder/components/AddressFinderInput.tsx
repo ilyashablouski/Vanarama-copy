@@ -48,7 +48,7 @@ const AddressFinderInput: React.FC<Omit<
         props.onFocus?.(e);
         setInputFocus();
       }}
-      value={value}
+      value={value.label}
     />
   );
 });

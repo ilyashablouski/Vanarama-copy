@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useAddressFinderContext } from 'core/molecules/address-finder/context';
 
@@ -14,20 +14,21 @@ import {
 } from '../interfaces';
 import RouterLink from '../../../../components/RouterLink/RouterLink';
 
-const ManualAddressForm: React.FC<IManualAddressFormProps> = ({
-  defaultValues,
-}) => {
+const ManualAddressForm: React.FC<IManualAddressFormProps> = () => {
   const {
+    value,
     showManualForm,
     onManualSubmit,
     onBackToSearch,
   } = useAddressFinderContext();
-  const { formState, handleSubmit, errors, register } = useForm<
+  const { formState, handleSubmit, errors, register, reset } = useForm<
     IManualAddressFormValues
   >({
-    defaultValues,
+    defaultValues: value,
     mode: 'onBlur',
   });
+
+  useEffect(() => reset(value), [value]);
 
   if (!showManualForm) {
     return null;
@@ -36,40 +37,40 @@ const ManualAddressForm: React.FC<IManualAddressFormProps> = ({
   return (
     <>
       <Formgroup
-        controlId="addressLine1"
+        controlId="lineOne"
         label="Address Line 1"
-        error={errors.addressLine1?.message?.toString()}
+        error={errors.lineOne?.message?.toString()}
       >
         <TextInput
-          id="addressLine1"
-          name="addressLine1"
-          dataTestId="manual_address_form-address_line_1"
+          id="lineOne"
+          name="lineOne"
+          dataTestId="manual_address_form-line_one"
           ref={register({
             required: 'Please enter your Address Line 1',
           })}
         />
       </Formgroup>
       <Formgroup
-        controlId="addressLine2"
+        controlId="lineTwo"
         label="Address Line 2 (Optional)"
-        error={errors.addressLine2?.message?.toString()}
+        error={errors.lineTwo?.message?.toString()}
       >
         <TextInput
-          id="addressLine2"
-          name="addressLine2"
-          dataTestId="manual_address_form-address_line_2"
+          id="lineTwo"
+          name="lineTwo"
+          dataTestId="manual_address_form-line_two"
           ref={register}
         />
       </Formgroup>
       <Formgroup
-        controlId="townOrCity"
+        controlId="city"
         label="Town Or City"
-        error={errors.townOrCity?.message?.toString()}
+        error={errors.city?.message?.toString()}
       >
         <TextInput
-          id="townOrCity"
-          name="townOrCity"
-          dataTestId="manual_address_form-town_or_city"
+          id="city"
+          name="city"
+          dataTestId="manual_address_form-city"
           ref={register({
             required: 'Please enter your Town Or City',
           })}
