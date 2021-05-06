@@ -82,30 +82,32 @@ export function mapFuelSearchQueryToParam(fuelTypes: any) {
   const types = [
     {
       searchQuery: 'Electric',
-      param: 'Electric'
+      param: 'Electric',
     },
     {
       searchQuery: 'Petrol',
-      param: 'Petrol'
+      param: 'Petrol',
     },
     {
       searchQuery: 'Diesel',
-      param: 'Diesel'
+      param: 'Diesel',
     },
     {
       searchQuery: 'Diesel/plugin Elec Hybrid',
-      param: 'DieselAndPlugInElectricHybrid'
+      param: 'DieselAndPlugInElectricHybrid',
     },
     {
       searchQuery: 'Petrol/plugin Elec Hybrid',
-      param: 'PetrolAndPlugInElectricHybrid'
+      param: 'PetrolAndPlugInElectricHybrid',
     },
     {
       searchQuery: 'Hydrogen Fuel Cell',
-      param: 'Hybrid'
+      param: 'Hybrid',
     },
-  ]
-  return fuelTypes.map((t: any) => types.find((f: any) => f.searchQuery === t)?.param || null)
+  ];
+  return fuelTypes.map(
+    (t: any) => types.find((f: any) => f.searchQuery === t)?.param || null,
+  );
 }
 
 // using for get CMS slugs from url

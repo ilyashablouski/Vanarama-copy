@@ -235,17 +235,11 @@ export const evHubOffersRequest = async (
 
 export const partnerOffersRequest = async (
   client: ApolloClient<any>,
-  fuelTypes: any
+  fuelTypes: string[],
 ): Promise<any> => {
   const [
-    {
-      products: partnerProductsCar,
-      productsCapIds: productsCarIds,
-    },
-    {
-      products: partnerProductsVan,
-      productsCapIds: productsVanIds,
-    },
+    { products: partnerProductsCar, productsCapIds: productsCarIds },
+    { products: partnerProductsVan, productsCapIds: productsVanIds },
   ] = await Promise.all([
     getProductCardContent(client, VehicleTypeEnum.CAR, '', '', fuelTypes),
     getProductCardContent(client, VehicleTypeEnum.LCV, '', '', fuelTypes),
@@ -468,6 +462,14 @@ export interface IEvOffersData {
   productsEvCarDerivatives?: GetDerivatives;
   productsElectricOnlyCarDerivatives?: GetDerivatives;
   productsHybridOnlyCarDerivatives?: GetDerivatives;
+  vehicleListUrlData: IVehicleList;
+}
+
+export interface IPartnerOffersData {
+  partnerProductsCar?: ProductCardData;
+  partnerProductsVan?: ProductCardData;
+  partnerProductsCarDerivatives?: ProductCardData;
+  partnerProductsVanDerivatives?: ProductCardData;
   vehicleListUrlData: IVehicleList;
 }
 
