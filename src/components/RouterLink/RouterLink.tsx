@@ -42,7 +42,6 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     withoutLink,
     onMouseOver,
     onFocus,
-    customBackground,
   } = props;
   const router = useRouter();
   const linkClassName = cx(className, {

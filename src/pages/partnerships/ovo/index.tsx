@@ -40,9 +40,6 @@ const OvoHomePage: NextPage<IProps> = ({
   const Image = dynamic(() => import('core/atoms/image'), {
     loading: () => <Skeleton count={3} />,
   });
-  const Heading = dynamic(() => import('core/atoms/heading'), {
-    loading: () => <Skeleton count={1} />,
-  });
   const Text = dynamic(() => import('core/atoms/text'), {
     loading: () => <Skeleton count={1} />,
   });
