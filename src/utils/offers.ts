@@ -468,8 +468,8 @@ export interface IEvOffersData {
 export interface IPartnerOffersData {
   partnerProductsCar?: ProductCardData;
   partnerProductsVan?: ProductCardData;
-  partnerProductsCarDerivatives?: ProductCardData;
-  partnerProductsVanDerivatives?: ProductCardData;
+  partnerProductsCarDerivatives?: GetDerivatives;
+  partnerProductsVanDerivatives?: GetDerivatives;
   vehicleListUrlData: IVehicleList;
 }
 
