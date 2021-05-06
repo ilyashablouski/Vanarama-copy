@@ -78,6 +78,36 @@ export const fuelMapper = {
   electric: 'Electric',
 };
 
+export function mapFuelSearchQueryToParam(fuelTypes: any) {
+  const types = [
+    {
+      searchQuery: 'Electric',
+      param: 'Electric'
+    },
+    {
+      searchQuery: 'Petrol',
+      param: 'Petrol'
+    },
+    {
+      searchQuery: 'Diesel',
+      param: 'Diesel'
+    },
+    {
+      searchQuery: 'Diesel/plugin Elec Hybrid',
+      param: 'DieselAndPlugInElectricHybrid'
+    },
+    {
+      searchQuery: 'Petrol/plugin Elec Hybrid',
+      param: 'PetrolAndPlugInElectricHybrid'
+    },
+    {
+      searchQuery: 'Hydrogen Fuel Cell',
+      param: 'Hybrid'
+    },
+  ]
+  return fuelTypes.map((t: any) => types.find((f: any) => f.searchQuery === t)?.param || null)
+}
+
 // using for get CMS slugs from url
 export const bodyUrlsSlugMapper = {
   automatic: 'automatic-vans',

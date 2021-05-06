@@ -6,7 +6,11 @@ import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
 import PageHeadingSection from 'components/PageHeadingSection';
-import { evOffersRequest, IEvOffersData } from 'utils/offers';
+import {
+  evOffersRequest,
+  IEvOffersData,
+  partnerOffersRequest,
+} from 'utils/offers';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import useLeaseType from 'hooks/useLeaseType';
 import Hero, { HeroHeading } from '../../../components/Hero';
@@ -14,15 +18,18 @@ import PartnershipLogo from '../../../components/PartnershipLogo';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
 import Section from '../sections/FeatureSection';
+import { mapFuelSearchQueryToParam } from 'containers/SearchPageContainer/helpers';
 
 interface IProps extends IEvOffersData {
   data: any;
 }
 
-const OvoHomePage: NextPage<IProps> = ({
+const OvoHomePage: NextPage<any> = ({
   data,
-  productsEvVan,
-  productsEvVanDerivatives,
+  partnerProductsCar,
+  partnerProductsVan,
+  partnerProductsCarDerivatives,
+  partnerProductsVanDerivatives,
   vehicleListUrlData,
 }) => {
   const {
@@ -66,7 +73,7 @@ const OvoHomePage: NextPage<IProps> = ({
     },
   );
 
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(0);
   const { cachedLeaseType } = useLeaseType(null);
   const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
 
@@ -122,7 +129,10 @@ const OvoHomePage: NextPage<IProps> = ({
             ))}
           </TabList>
           <TabPanels>
-            {vehicleTypes?.map((type: string, i: number) => (
+            {vehicleTypes?.map((type: string, i: number) => {
+              const products = type === "Cars" ? partnerProductsCar : partnerProductsVan
+              const productDerivatives = type === "Cars" ? partnerProductsCarDerivatives : partnerProductsVanDerivatives
+              return (
               <TabPanel index={i}>
                 <div style={{ maxWidth: 1216 }} className="-mh-auto">
                   <LazyLoadComponent
@@ -139,12 +149,12 @@ const OvoHomePage: NextPage<IProps> = ({
                       }
                       data={{
                         derivatives:
-                          productsEvVanDerivatives?.derivatives || null,
+                          productDerivatives?.derivatives || null,
                         productCard:
-                          productsEvVan?.productCarousel?.slice(0, 6) || null,
+                          products.productCarousel?.slice(0, 6) || null,
                         vehicleList: vehicleListUrlData,
                       }}
-                      countItems={productsEvVan?.productCarousel?.length || 6}
+                      countItems={products.productCarousel?.length || 6}
                       customCTABackground={colourPrimary}
                       dataTestIdBtn="van-view-offer"
                     />
@@ -181,7 +191,7 @@ const OvoHomePage: NextPage<IProps> = ({
                   </div>
                 </div>
               </TabPanel>
-            ))}
+            )})}
           </TabPanels>
         </Tabs>
       </section>
@@ -205,22 +215,24 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       },
     });
 
+    const fuelTypes = mapFuelSearchQueryToParam(data.partner.fuelTypes)
+
     const {
-      productsEvVan,
-      productsEvCar,
-      productsEvVanDerivatives,
-      productsEvCarDerivatives,
+      partnerProductsCar,
+      partnerProductsVan,
+      partnerProductsCarDerivatives,
+      partnerProductsVanDerivatives,
       vehicleListUrlData,
-    } = await evOffersRequest(client);
+    } = await partnerOffersRequest(client, fuelTypes);
 
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data,
-        productsEvCar,
-        productsEvVan,
-        productsEvVanDerivatives,
-        productsEvCarDerivatives,
+        partnerProductsCar,
+        partnerProductsVan,
+        partnerProductsCarDerivatives,
+        partnerProductsVanDerivatives,
         vehicleListUrlData,
       },
     };

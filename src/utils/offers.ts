@@ -233,6 +233,46 @@ export const evHubOffersRequest = async (
   };
 };
 
+export const partnerOffersRequest = async (
+  client: ApolloClient<any>,
+  fuelTypes: any
+): Promise<any> => {
+  const [
+    {
+      products: partnerProductsCar,
+      productsCapIds: productsCarIds,
+    },
+    {
+      products: partnerProductsVan,
+      productsCapIds: productsVanIds,
+    },
+  ] = await Promise.all([
+    getProductCardContent(client, VehicleTypeEnum.CAR, '', '', fuelTypes),
+    getProductCardContent(client, VehicleTypeEnum.LCV, '', '', fuelTypes),
+  ]);
+
+  const [
+    { data: partnerProductsCarDerivatives },
+    { data: partnerProductsVanDerivatives },
+  ] = await Promise.all([
+    getCarDerivatives(client, VehicleTypeEnum.CAR, productsCarIds),
+    getCarDerivatives(client, VehicleTypeEnum.CAR, productsVanIds),
+  ]);
+
+  const vehicleListUrlData = await getVehicleListUrlQuery(client, [
+    ...productsCarIds,
+    ...productsVanIds,
+  ]);
+
+  return {
+    partnerProductsCar,
+    partnerProductsVan,
+    partnerProductsCarDerivatives,
+    partnerProductsVanDerivatives,
+    vehicleListUrlData,
+  };
+};
+
 export const specialOffersRequest = async (
   client: ApolloClient<any>,
 ): Promise<ISpecialOffersData> => {
