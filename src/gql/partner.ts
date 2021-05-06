@@ -28,6 +28,15 @@ export const PARTNER = gql`
       featured {
         ...GenericPageQueryFeatured
       }
+      tiles {
+        body
+        title
+        image {
+          file {
+            url
+          }
+        }
+      }
     }
   }
   ${FeaturedSection.fragments.featured}
