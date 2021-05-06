@@ -45,6 +45,9 @@ const Head: FC<IHeadProps> = props => {
 
   return (
     <NextHead>
+      {PRECONNECT.map(domain => {
+        return <link rel="dns-prefetch" href={domain} key={domain} />;
+      })}
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width" />
       <title>{title}</title>
@@ -59,9 +62,6 @@ const Head: FC<IHeadProps> = props => {
             crossOrigin="anonymous"
           />
         );
-      })}
-      {PRECONNECT.map(domain => {
-        return <link rel="dns-prefetch" href={domain} key={domain} />;
       })}
       <link rel="preload" href="/styles/deferred.css" as="style" />
       {/* Meta */}
