@@ -49,6 +49,9 @@ const ArticleHead: FC<IHeadProps> = props => {
   return (
     <>
       <NextHead>
+        {PRECONNECT.map(domain => {
+          return <link rel="dns-prefetch" href={domain} key={domain} />;
+        })}
         <title>{title}</title>
         {/* Preload and Preconnect */}
         {FONT_LIST.map((font: any) => {
@@ -62,9 +65,6 @@ const ArticleHead: FC<IHeadProps> = props => {
               crossOrigin="anonymous"
             />
           );
-        })}
-        {PRECONNECT.map(domain => {
-          return <link rel="dns-prefetch" href={domain} key={domain} />;
         })}
         {/* Meta */}
         {metaRobots && <meta name="robots" content={metaRobots} />}
