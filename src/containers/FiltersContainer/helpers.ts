@@ -171,3 +171,23 @@ export const filterOrderByNumMap: { [key: string]: number } = {
   transmissions: 6,
   fuelTypes: 7,
 };
+
+/** get parent filter name after deleting a tag */
+export const getValueKey = (
+  value: string,
+  selectedFiltersState: ISelectedFiltersState,
+) => {
+  const arr = Object.entries(selectedFiltersState) || [];
+  return (
+    arr.find(filter =>
+      filter[1].some(
+        filterValue =>
+          value ===
+          filterValue
+            .split(' ')
+            .join('-')
+            .toLowerCase(),
+      ),
+    )?.[0] || ''
+  );
+};

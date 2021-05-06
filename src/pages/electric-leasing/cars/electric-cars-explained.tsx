@@ -81,7 +81,10 @@ export const EVHubPage: NextPage<IProps> = ({
           />
         </div>
       </Hero>
-      <FeaturedSection featured={sections?.featured?.[0]} />
+      <FeaturedSection
+        featured={sections?.featured?.[0]}
+        btnData={{ href: '/car-leasing/electric', label: 'View Electric Cars' }}
+      />
 
       {sections?.jumpMenu?.[0] && (
         <section className="row">
