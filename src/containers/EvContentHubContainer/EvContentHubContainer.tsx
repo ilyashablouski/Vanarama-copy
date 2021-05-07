@@ -1,17 +1,16 @@
-import { FC } from 'react';
+import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
 // import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
-import ReactMarkdown from 'react-markdown/with-html';
 import Image from 'core/atoms/image';
 import Carousel from 'core/organisms/carousel';
+import LeadText from 'components/LeadText/LeadText';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { HeroEv as Hero, HeroHeading } from '../../components/Hero';
 import FeaturedSection from '../../components/FeaturedSection';
 import Head from '../../components/Head/Head';
 import JumpMenu from '../../components/JumpMenu/JumpMenu';
 import Skeleton from '../../components/Skeleton';
-import RouterLink from '../../components/RouterLink/RouterLink';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -82,30 +81,7 @@ export const EVContentHub: FC<IProps> = ({ data }) => {
               </section>
             )}
             {leadTextPos === idx && (
-              <section className="row:bg-default">
-                <hr className="-fullwidth" />
-                <h2
-                  className="heading -xlarge -orange -mv-500"
-                  style={{ transform: 'scale(0.9)' }}
-                >
-                  {sections?.leadText?.[leadTextIdx - 1]?.heading}
-                </h2>
-                <hr className="-fullwidth" />
-                <div className="markdown -m-zero-auto -mt-600">
-                  <ReactMarkdown
-                    allowDangerousHtml
-                    source={
-                      sections?.leadText?.[leadTextIdx - 1]?.description || ''
-                    }
-                    renderers={{
-                      link: props => {
-                        const { href, children } = props;
-                        return <RouterLink link={{ href, label: children }} />;
-                      },
-                    }}
-                  />
-                </div>
-              </section>
+              <LeadText leadText={sections?.leadText?.[leadTextIdx - 1]} />
             )}
             {stepsPos === idx && (
               <section className="row:bg-default">
