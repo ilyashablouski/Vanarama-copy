@@ -2,7 +2,7 @@
 
 exports[`Banner should correct render 1`] = `
 <div
-  className="pdp--banner"
+  className="banner"
 >
   <i
     className="icon -inherit md hydrated -large"
@@ -327,7 +327,7 @@ exports[`Banner should correct render 1`] = `
 
 exports[`Banner should correct render with text for vans 1`] = `
 <div
-  className="pdp--banner"
+  className="banner"
 >
   <i
     className="icon -inherit md hydrated -large"

@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import cx from 'classnames';
 import RouterLink from '../RouterLink/RouterLink';
 import Skeleton from '../Skeleton';
 
@@ -19,11 +20,12 @@ const Text = dynamic(() => import('core/atoms/text'), {
 
 interface IBanner {
   vans?: boolean;
+  className?: string;
 }
 
-const Banner: React.FC<IBanner> = ({ vans }) => {
+const Banner: React.FC<IBanner> = ({ vans, className }) => {
   return (
-    <div className="pdp--banner">
+    <div className={cx('banner', className)}>
       <Icon
         style={{ height: '90%' }}
         size="large"

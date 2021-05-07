@@ -43,6 +43,35 @@
   }
 }
 
+.banner {
+  background: $promo-gradient;
+  color: $white;
+  padding: $rem-400;
+  display: grid;
+  grid-template-columns: [icon] auto [text] 1fr;
+  grid-template-rows: [icon text] auto;
+  place-items: center start;
+  gap: 1rem;
+  border-radius: $border-radius-medium;
+
+  @include mobile {
+    place-items: start;
+
+    .heading {
+      text-align: left !important;
+      font-size: 1.25rem;
+    }
+  }
+
+  > .icon {
+    grid-area: icon;
+  }
+
+  > :not(.icon) {
+    grid-area: text;
+  }
+}
+
 .page\: {
   &default {
     overflow-x: hidden;
@@ -139,35 +168,6 @@
 
         & + * {
           margin-top: 0 !important;
-        }
-      }
-
-      &--banner {
-        background: $promo-gradient;
-        color: $white;
-        padding: $rem-400;
-        display: grid;
-        grid-template-columns: [icon] auto [text] 1fr;
-        grid-template-rows: [icon text] auto;
-        place-items: center start;
-        gap: 1rem;
-        border-radius: $border-radius-medium;
-
-        @include mobile {
-          place-items: start;
-
-          .heading {
-            text-align: left !important;
-            font-size: 1.25rem;
-          }
-        }
-
-        > .icon {
-          grid-area: icon;
-        }
-
-        > :not(.icon) {
-          grid-area: text;
         }
       }
 

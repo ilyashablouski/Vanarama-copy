@@ -154,6 +154,11 @@ export const EVHubPage: NextPage<IProps> = ({
       <LeadText leadText={sections?.leadText?.[1]} />
 
       <FeaturedSection featured={sections?.featured?.[12]} />
+      <FeaturedSection featured={sections?.featured?.[13]} />
+      <FeaturedSection featured={sections?.featured?.[14]} />
+      <FeaturedSection featured={sections?.featured?.[15]} />
+      <FeaturedSection featured={sections?.featured?.[16]} />
+      <FeaturedSection featured={sections?.featured?.[17]} />
 
       {sections?.carousel?.[1] && (
         <section className="row:bg-lighter">

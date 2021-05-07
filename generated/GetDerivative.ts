@@ -47,6 +47,7 @@ export interface GetDerivative_derivative_range {
 
 export interface GetDerivative_derivative {
   id: string;
+  vehicleType: VehicleTypeEnum;
   capCode: string;
   name: string;
   slug: string;
