@@ -35,9 +35,6 @@ export enum FunderCompanyTypeEnum {
   partnership = "partnership",
 }
 
-/**
- * Lease type
- */
 export enum LeaseTypeEnum {
   BUSINESS = "BUSINESS",
   PERSONAL = "PERSONAL",
@@ -103,9 +100,6 @@ export enum SortField {
   term = "term",
 }
 
-/**
- * Vehicle type enum
- */
 export enum VehicleTypeEnum {
   CAR = "CAR",
   LCV = "LCV",

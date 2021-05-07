@@ -21,12 +21,20 @@ import {
   GetDerivative_vehicleImages as VehicleImages,
 } from '../../../generated/GetDerivative';
 import useGetOrder from '../../hooks/useGetOrder';
-import { OrderInputObject } from '../../../generated/globalTypes';
+import {
+  OrderInputObject,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 import useGetOrderId from '../../hooks/useGetOrderId';
 import { useGetLeaseCompanyDataByOrderUuid } from '../../gql/creditApplication';
 import Head from '../../components/Head/Head';
+import Banner from '../../components/Banner/Banner';
 import Heading from '../../core/atoms/heading';
 import Text from '../../core/atoms/text';
+import Card from '../../core/molecules/cards/Card';
+import List from '../../core/atoms/list';
+import Icon from '../../core/atoms/icon';
+import Checkmark from '../../core/assets/icons/Checkmark';
 
 import { isSessionFinishedCache } from '../../cache';
 
@@ -39,6 +47,64 @@ interface IProps {
   >;
   children?: ReactNode;
 }
+
+const YOUR_NEEDS = [
+  {
+    label: "Details of the address you've listed at covering three years",
+    key: '0',
+  },
+  {
+    label:
+      "Details of the bank account that you'll use to pay the monthly payments",
+    key: '1',
+  },
+];
+
+const VANARAMA_ADVANTAGES = [
+  {
+    label: 'Free Loss Of Earnings & Live Event Cover*',
+    key: '0',
+  },
+  {
+    label: 'Free 30-Day Returns*',
+    key: '1',
+  },
+  {
+    label: 'Price Promise Guarantee*',
+    key: '2',
+  },
+  {
+    label: 'No Admin Fees',
+    key: '3',
+  },
+  {
+    label: 'Free, Safe & Contactless Delivery',
+    key: '4',
+  },
+  {
+    label: 'Rated Excellent On Trust Pilot',
+    key: '5',
+  },
+];
+
+const LEASING_ADVANTAGES = [
+  {
+    label: 'Brand New Vehicles',
+    key: '0',
+  },
+  {
+    label: ' Fixed Monthly',
+    key: '1',
+  },
+  {
+    label: 'Full Manufacturer Warranty',
+    key: '2',
+  },
+  {
+    label: 'No MOT Costs For 3 Years',
+    key: '3',
+  },
+];
 
 const OLAFLayout: React.FC<IProps> = ({
   children,
@@ -128,6 +194,12 @@ const OLAFLayout: React.FC<IProps> = ({
       )
       .then(() => isSessionFinishedCache(undefined));
 
+  const isCar = derivative?.vehicleType === VehicleTypeEnum.CAR;
+  const isVan =
+    derivative?.vehicleType === VehicleTypeEnum.LCV &&
+    !derivative?.name?.toLowerCase().includes('pick up');
+  const isBenefitsVisible = router.asPath.includes('about');
+
   return (
     <>
       <Head metaData={meta} />
@@ -181,7 +253,70 @@ const OLAFLayout: React.FC<IProps> = ({
                 ratingSize: 'lead',
               }}
             />
+            {isBenefitsVisible && (
+              <>
+                <Card className="-mt-400">
+                  <Heading size="lead" color="black">
+                    You Will Need:
+                  </Heading>
+                  <List>
+                    {YOUR_NEEDS.map(item => (
+                      <li className="-custom -row" key={item.key}>
+                        <Icon
+                          size="regular"
+                          color="teal"
+                          icon={<Checkmark />}
+                        />
+                        {item.label}
+                      </li>
+                    ))}
+                  </List>
+                </Card>
+                <div className="pdp">
+                  {(isCar || isVan) && (
+                    <Banner vans={isVan} className="-mt-500" />
+                  )}
+                </div>
+                <Card className="-mt-500">
+                  <Heading size="lead" color="black">
+                    Why Choose Vanarama?
+                  </Heading>
+                  <List>
+                    {VANARAMA_ADVANTAGES.map(item => (
+                      <li className="-custom -row" key={item.key}>
+                        <Icon
+                          size="regular"
+                          color="teal"
+                          icon={<Checkmark />}
+                        />
+                        {item.label}
+                      </li>
+                    ))}
+                  </List>
+                </Card>
+                <Card className="-mt-500">
+                  <Heading size="lead" color="black">
+                    Why Choose Leasing?
+                  </Heading>
+                  <List>
+                    {LEASING_ADVANTAGES.map(item => (
+                      <li className="-custom -row" key={item.key}>
+                        <Icon
+                          size="regular"
+                          color="teal"
+                          icon={<Checkmark />}
+                        />
+                        {item.label}
+                      </li>
+                    ))}
+                  </List>
+                </Card>
+              </>
+            )}
             <div className="text -small description-block">
+              {isBenefitsVisible && (
+                <span>* Subject to terms and conditions.</span>
+              )}
               <span>** Excess mileage charges apply.</span>
               <span>† After we’ve received your eSigned documents.</span>
             </div>
