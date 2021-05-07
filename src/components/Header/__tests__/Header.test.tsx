@@ -2,6 +2,7 @@ import renderer from 'react-test-renderer';
 import React from 'react';
 // @ts-ignore
 import preloadAll from 'jest-next-dynamic';
+import { MockedProvider } from '@apollo/client/testing';
 import {
   TOP_BAR_LINKS,
   PHONE_NUMBER_LINK,
@@ -11,12 +12,6 @@ import { Header } from '../Header';
 jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: '/',
-  }),
-}));
-
-jest.mock('@apollo/client', () => ({
-  useApolloClient: () => ({
-    client: () => undefined,
   }),
 }));
 
@@ -53,7 +48,13 @@ describe('<Header />', () => {
       getItem: jest.fn(() => null),
     }));
     const getComponent = () => {
-      return renderer.create(<Header {...mocks} />).toJSON();
+      return renderer
+        .create(
+          <MockedProvider>
+            <Header {...mocks} />
+          </MockedProvider>,
+        )
+        .toJSON();
     };
     const tree = getComponent();
     expect(tree).toMatchSnapshot();
@@ -74,7 +75,13 @@ describe('<Header />', () => {
     }));
 
     const getComponent = () => {
-      return renderer.create(<Header {...mocks} />).toJSON();
+      return renderer
+        .create(
+          <MockedProvider>
+            <Header {...mocks} />
+          </MockedProvider>,
+        )
+        .toJSON();
     };
     const tree = getComponent();
     expect(tree).toMatchSnapshot();
