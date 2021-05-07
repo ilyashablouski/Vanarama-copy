@@ -181,6 +181,9 @@ const AboutYouPage: NextPage = () => {
               color="teal"
               onClick={() => toggleLogInVisibility(!isLogInVisible)}
             />
+            <Text color="darker" size="lead" className="-mt-300" tag="p">
+              Or checkout as a guest
+            </Text>
           </div>
           {isLogInVisible && (
             <LoginFormContainer

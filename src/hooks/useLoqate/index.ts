@@ -20,8 +20,13 @@ async function fetchSuggestions(query: ILoqateQuery, config: ILoqateConfig) {
  * Makes a request to the Loqate Find API to find address suggestions for a given query
  * @param query The query to execute
  * @param config The configuration for the API
+ * @param skipLookUp Skip request
  */
-export default function useLoqate(query: ILoqateQuery, config: ILoqateConfig) {
+export default function useLoqate(
+  query: ILoqateQuery,
+  config: ILoqateConfig,
+  skipLookUp: boolean = false,
+) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string>();
   const [data, setData] = useState<ILoqateSuggestion[]>([]);
@@ -33,7 +38,7 @@ export default function useLoqate(query: ILoqateQuery, config: ILoqateConfig) {
     // Reset the error
     setError(undefined);
 
-    if (query.text && query.text.length > 3) {
+    if (query.text && query.text.length > 3 && !skipLookUp) {
       setLoading(true);
       fetchSuggestions(query, config)
         .then(suggestions => {

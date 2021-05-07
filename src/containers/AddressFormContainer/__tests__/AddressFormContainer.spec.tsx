@@ -142,18 +142,22 @@ describe('<AddressFormContainer />', () => {
               partyId: '911',
               addresses: [
                 {
+                  id: 'GB|1337',
+                  label: undefined,
                   serviceId: 'GB|1337',
                   propertyStatus: 'Rented',
                   startedOn: asDateString,
                 },
                 {
+                  id: 'GB|002',
+                  label: undefined,
                   serviceId: 'GB|002',
                   propertyStatus: 'Mortgage',
                   startedOn: '1990-1-01',
                 },
               ],
             },
-          } as MutationVariables,
+          },
         },
         result: () => {
           mutationCalled = true;
@@ -242,18 +246,22 @@ describe('<AddressFormContainer />', () => {
               partyId: '911',
               addresses: [
                 {
+                  id: 'GB|1337',
+                  label: undefined,
                   serviceId: 'GB|1337',
                   propertyStatus: 'Rented',
                   startedOn: asDateString,
                 },
                 {
+                  id: 'GB|002',
+                  label: undefined,
                   serviceId: 'GB|002',
                   propertyStatus: 'Mortgage',
                   startedOn: '1990-1-01',
                 },
               ],
             },
-          } as MutationVariables,
+          },
         },
         result: () => {
           mutationCalled = true;
