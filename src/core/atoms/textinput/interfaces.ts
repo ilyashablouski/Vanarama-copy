@@ -23,4 +23,8 @@ export interface ITextInputProps
    * Max input length
    */
   max?: number | string;
+  /**
+   * prevent default classes
+   */
+  isNative?: boolean;
 }

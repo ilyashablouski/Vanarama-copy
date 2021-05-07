@@ -65,6 +65,7 @@ export async function getServerSideProps(context: NextPageContext) {
       variables: {
         query: contextData.query.searchTerm as string,
         from: 0,
+        size: 12,
       },
     })
     .then(async resp => {
