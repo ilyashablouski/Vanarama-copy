@@ -43,13 +43,13 @@ const FormikAddressField: React.FC<IProps> = ({
         <AddressFinder.Selected />
         <AddressFinder.Intermediate />
       </Formgroup>
+      <AddressFinder.Results />
       {!skipManualInput && (
         <>
           <AddressFinder.ManualAddingButton />
           <AddressFinder.ManualAddressForm />
         </>
       )}
-      <AddressFinder.Results />
     </AddressFinder>
   );
 };
