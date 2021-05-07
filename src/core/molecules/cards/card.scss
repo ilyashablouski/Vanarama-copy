@@ -250,10 +250,10 @@ $small: 0.875rem;
     grid-area: -1 / content;
   }
 
-  // Tweaks -> pin last child to bottom (when image exists)
+/*   // Tweaks -> pin last child to bottom (when image exists)
   > .card-image ~ :last-child:not(.card-footer) {
     grid-area: -2 / content;
-  }
+  } */
 
   // Tweaks -> adjust button vertical alignment
   .price + .button {
