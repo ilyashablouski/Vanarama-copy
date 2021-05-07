@@ -65,7 +65,10 @@ export const BusinessAboutPage: NextPage = () => {
   );
 
   const handleRegistrationClick = () =>
-    router.push(`/account/login-register?redirect=${router?.asPath || '/'}`);
+    router.push(
+      `/account/login-register?redirect=${router?.asPath || '/'}`,
+      '/account/login-register',
+    );
 
   const handleCreateUpdateBusinessPersonCompletion = async (
     result: SubmitResult,
