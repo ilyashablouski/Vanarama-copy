@@ -46,7 +46,7 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({ featured, id }) => {
     defaultHeight,
     iconList,
     targetId,
-  } = featured as IFeatured;
+  } = (featured as IFeatured) || {};
   const isReadMoreIncluded = useMemo(() => layout?.includes('Read More'), [
     layout,
   ]);
@@ -79,13 +79,15 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({ featured, id }) => {
       )}
 
       <div className="-inset -middle -col-400">
-        <Heading
-          size="large"
-          color="black"
-          tag={getTitleTag(titleTag || 'p') as keyof JSX.IntrinsicElements}
-        >
-          {title}
-        </Heading>
+        {title && (
+          <Heading
+            size="large"
+            color="black"
+            tag={getTitleTag(titleTag || 'p') as keyof JSX.IntrinsicElements}
+          >
+            {title}
+          </Heading>
+        )}
         <div
           className={readmore ? '-truncate' : ''}
           style={{
@@ -113,6 +115,18 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({ featured, id }) => {
               }}
             />
           </div>
+          {featured?.link && (
+            <RouterLink
+              link={{
+                href: featured.link.url || '',
+                label: featured.link.text || '',
+              }}
+              className="button -teal -regular -solid -mt-500"
+              withoutDefaultClassName
+            >
+              <div className="button--inner">{featured.link.text}</div>
+            </RouterLink>
+          )}
         </div>
         {isReadMoreIncluded && (
           <Button

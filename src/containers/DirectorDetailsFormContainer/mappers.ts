@@ -16,6 +16,8 @@ export const mapFormValues = (
 ) => {
   const addresses = (director: DirectorFormValues) =>
     director.history.map(directorHistory => ({
+      ...(directorHistory.address || {}),
+      label: undefined,
       serviceId: directorHistory.address!.id,
       propertyStatus: directorHistory.status,
       startedOn: parseDate('01', directorHistory.month, directorHistory.year),

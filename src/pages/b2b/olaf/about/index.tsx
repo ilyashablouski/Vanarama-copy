@@ -65,7 +65,10 @@ export const BusinessAboutPage: NextPage = () => {
   );
 
   const handleRegistrationClick = () =>
-    router.push(`/account/login-register?redirect=${router?.asPath || '/'}`);
+    router.push(
+      `/account/login-register?redirect=${router?.asPath || '/'}`,
+      '/account/login-register',
+    );
 
   const handleCreateUpdateBusinessPersonCompletion = async (
     result: SubmitResult,
@@ -132,6 +135,9 @@ export const BusinessAboutPage: NextPage = () => {
               color="teal"
               onClick={() => toggleLogInVisibility(!isLogInVisible)}
             />
+            <Text color="darker" size="lead" className="-mt-300" tag="p">
+              Or checkout as a guest
+            </Text>
           </div>
           {isLogInVisible && (
             <LoginFormContainer

@@ -45,7 +45,7 @@ const LeasingArticleContainer: FC<IProps> = ({
           {title}
         </Heading>
       </div>
-      <div className="row:bg-black -compact">
+      <div className="row:bg-white -compact">
         <div className="row:featured-image">
           {image && (
             <Image

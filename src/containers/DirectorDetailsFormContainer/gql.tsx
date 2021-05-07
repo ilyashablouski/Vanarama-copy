@@ -132,7 +132,7 @@ export function useFunderDirectors(
           id,
         },
       },
-      skip: Boolean(!companiesHouseDirectors || !companyType || !id),
+      skip: [companiesHouseDirectors, companyType, id].some(item => !item),
     },
   );
 }
