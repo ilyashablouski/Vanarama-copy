@@ -1,6 +1,10 @@
+import preloadAll from 'jest-next-dynamic';
 import { onMadeLineBreaks } from '../helpers';
 
 describe('<helpers />', () => {
+  beforeEach(async () => {
+    await preloadAll();
+  });
   it('should work with value', async () => {
     expect(onMadeLineBreaks('Volkswagen Tiguan Allspace Leasing')).toEqual([
       'Volkswagen',
