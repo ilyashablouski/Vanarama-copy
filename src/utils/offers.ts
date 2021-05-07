@@ -189,7 +189,7 @@ export const evOffersRequest = async (
   };
 };
 
-export const evHubOffersRequest = async (
+export const evCarHubOffersRequest = async (
   client: ApolloClient<any>,
 ): Promise<IEvOffersData> => {
   const [
@@ -229,6 +229,48 @@ export const evHubOffersRequest = async (
     productsHybridOnlyCar,
     productsElectricOnlyCarDerivatives,
     productsHybridOnlyCarDerivatives,
+    vehicleListUrlData,
+  };
+};
+
+export const evVanHubOffersRequest = async (
+  client: ApolloClient<any>,
+): Promise<IEvOffersData> => {
+  const [
+    {
+      products: productsElectricOnlyVan,
+      productsCapIds: productsElectricOnlyVanIds,
+    },
+    {
+      products: productsHybridOnlyVan,
+      productsCapIds: productsHybridOnlyVanIds,
+    },
+  ] = await Promise.all([
+    getProductCardContent(client, VehicleTypeEnum.LCV, '', '', ['Electric']),
+    getProductCardContent(client, VehicleTypeEnum.LCV, '', '', [
+      'PetrolAndPlugInElectricHybrid',
+      'DieselAndPlugInElectricHybrid',
+    ]),
+  ]);
+
+  const [
+    { data: productsElectricOnlyVanDerivatives },
+    { data: productsHybridOnlyVanDerivatives },
+  ] = await Promise.all([
+    getCarDerivatives(client, VehicleTypeEnum.CAR, productsElectricOnlyVanIds),
+    getCarDerivatives(client, VehicleTypeEnum.CAR, productsHybridOnlyVanIds),
+  ]);
+
+  const vehicleListUrlData = await getVehicleListUrlQuery(client, [
+    ...productsElectricOnlyVanIds,
+    ...productsHybridOnlyVanIds,
+  ]);
+
+  return {
+    productsElectricOnlyVan,
+    productsHybridOnlyVan,
+    productsElectricOnlyVanDerivatives,
+    productsHybridOnlyVanDerivatives,
     vehicleListUrlData,
   };
 };
@@ -424,10 +466,13 @@ export interface IEvOffersData {
   productsElectricOnlyCar?: ProductCardData;
   productsElectricOnlyVan?: ProductCardData;
   productsHybridOnlyCar?: ProductCardData;
+  productsHybridOnlyVan?: ProductCardData;
   productsEvVanDerivatives?: GetDerivatives;
   productsEvCarDerivatives?: GetDerivatives;
   productsElectricOnlyCarDerivatives?: GetDerivatives;
   productsHybridOnlyCarDerivatives?: GetDerivatives;
+  productsElectricOnlyVanDerivatives?: GetDerivatives;
+  productsHybridOnlyVanDerivatives?: GetDerivatives;
   vehicleListUrlData: IVehicleList;
 }
 

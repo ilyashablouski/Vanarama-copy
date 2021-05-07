@@ -33,14 +33,9 @@ const IconListItem = dynamic(() =>
 interface IFeaturedEx {
   id?: string;
   featured: IFeatured | null | undefined;
-  btnData?: { label: string; href: string };
 }
 
-const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
-  featured,
-  id,
-  btnData,
-}) => {
+const FeaturedSection: FCWithFragments<IFeaturedEx> = ({ featured, id }) => {
   const {
     video,
     image,
@@ -51,7 +46,7 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
     defaultHeight,
     iconList,
     targetId,
-  } = featured as IFeatured;
+  } = (featured as IFeatured) || {};
   const isReadMoreIncluded = useMemo(() => layout?.includes('Read More'), [
     layout,
   ]);
@@ -84,13 +79,15 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
       )}
 
       <div className="-inset -middle -col-400">
-        <Heading
-          size="large"
-          color="black"
-          tag={getTitleTag(titleTag || 'p') as keyof JSX.IntrinsicElements}
-        >
-          {title}
-        </Heading>
+        {title && (
+          <Heading
+            size="large"
+            color="black"
+            tag={getTitleTag(titleTag || 'p') as keyof JSX.IntrinsicElements}
+          >
+            {title}
+          </Heading>
+        )}
         <div
           className={readmore ? '-truncate' : ''}
           style={{
@@ -118,16 +115,16 @@ const FeaturedSection: FCWithFragments<IFeaturedEx> = ({
               }}
             />
           </div>
-          {btnData && (
+          {featured?.link && (
             <RouterLink
               link={{
-                href: btnData?.href || '',
-                label: btnData?.label || '',
+                href: featured.link.url || '',
+                label: featured.link.text || '',
               }}
               className="button -teal -regular -solid -mt-500"
               withoutDefaultClassName
             >
-              <div className="button--inner">{btnData?.label}</div>
+              <div className="button--inner">{featured.link.text}</div>
             </RouterLink>
           )}
         </div>

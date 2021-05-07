@@ -9,6 +9,8 @@ export const formValuesToInput = (
 ): AddressHistoryInputObject => ({
   partyId,
   addresses: values.history.map(item => ({
+    ...(item.address || {}),
+    label: undefined,
     serviceId: item.address?.id,
     propertyStatus: item.status,
     startedOn: parseDate('01', item.month, item.year),
