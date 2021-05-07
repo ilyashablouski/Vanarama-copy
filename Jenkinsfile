@@ -273,6 +273,7 @@ pipeline {
             agent { node('master') }
             environment { //todo can the agent determine path.
                 PATH = "${env.PATH}:/usr/local/bin"
+                commitHash = "${env.GIT_COMMIT}"
             }
             when {
                 beforeAgent true
@@ -295,6 +296,7 @@ pipeline {
                     def dockerRepoName = app_environment["${getConfig()}"].dockerRepoName
                     def alternateDomain = app_environment["${getConfig()}"].alternateDomain
                     def imgOptimisationHost = app_environment["${getConfig()}"].imgOptimisationHost
+                    
                      
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: app_environment["${getConfig()}"].jenkinsCredentialsId, secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]) {
                       sshagent (credentials: ['git-ssh-credentials-readonly']) {
@@ -310,6 +312,7 @@ pipeline {
                             | sed -e "s;%ACCOUNT_NUMBER%;${accountId};g" \
                             | sed -e "s;%ALTERNATEDOMAIN%;${alternateDomain};g" \
                             | sed -e "s;%IMG_OPTIMISATION_HOST%;${imgOptimisationHost};g" \
+                            | sed -e "s;%COMMIT_HASH%;${commitHash};g" \
                             | tee ${taskDefFile}_final.json
                         aws ecs register-task-definition --execution-role-arn arn:aws:iam::${accountId}:role/Acorn-DevOps \
                             --family ${taskFamily} --cli-input-json file://${taskDefFile}_final.json --region ${ecrRegion}

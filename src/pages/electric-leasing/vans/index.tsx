@@ -6,26 +6,26 @@ import ReactMarkdown from 'react-markdown/with-html';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Media from 'core/atoms/media';
 import TrustPilot from 'core/molecules/trustpilot';
-import createApolloClient from '../../apolloClient';
-import FeaturedOnBanner from '../../components/FeaturedOnBanner';
-import NationalLeagueBanner from '../../components/NationalLeagueBanner';
-import Head from '../../components/Head/Head';
-import { HeroEv as Hero, HeroPrompt } from '../../components/Hero';
-import NewLeaseOfLifePriceHeader from '../../components/NewLeaseOfLifePriceHeader';
-import { features } from '../../components/ProductCarousel/helpers';
-import Skeleton from '../../components/Skeleton';
-import TileLink from '../../components/TileLink/TileLink';
-import { GENERIC_PAGE } from '../../gql/genericPage';
-import getTitleTag from '../../utils/getTitleTag';
-import { getFeaturedClassPartial } from '../../utils/layout';
-import { evOffersRequest, IEvOffersData } from '../../utils/offers';
-import { getFeaturedSectionsAsArray } from '../../utils/sections';
-import truncateString from '../../utils/truncateString';
-import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
+import createApolloClient from '../../../apolloClient';
+import FeaturedOnBanner from '../../../components/FeaturedOnBanner';
+import NationalLeagueBanner from '../../../components/NationalLeagueBanner';
+import Head from '../../../components/Head/Head';
+import { HeroEv as Hero, HeroPrompt } from '../../../components/Hero';
+import NewLeaseOfLifePriceHeader from '../../../components/NewLeaseOfLifePriceHeader';
+import { features } from '../../../components/ProductCarousel/helpers';
+import Skeleton from '../../../components/Skeleton';
+import TileLink from '../../../components/TileLink/TileLink';
+import { GENERIC_PAGE } from '../../../gql/genericPage';
+import getTitleTag from '../../../utils/getTitleTag';
+import { getFeaturedClassPartial } from '../../../utils/layout';
+import { evOffersRequest, IEvOffersData } from '../../../utils/offers';
+import { getFeaturedSectionsAsArray } from '../../../utils/sections';
+import truncateString from '../../../utils/truncateString';
+import { formatProductPageUrl, getLegacyUrl } from '../../../utils/url';
 import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
-} from '../../../generated/GenericPageQuery';
+} from '../../../../generated/GenericPageQuery';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -38,7 +38,7 @@ const ProductCard = dynamic(() =>
   import('core/molecules/cards/ProductCard/ProductCard'),
 );
 const RouterLink = dynamic(() =>
-  import('../../components/RouterLink/RouterLink'),
+  import('../../../components/RouterLink/RouterLink'),
 );
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,

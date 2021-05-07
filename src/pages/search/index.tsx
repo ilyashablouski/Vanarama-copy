@@ -12,16 +12,32 @@ import {
   fullTextSearchVehicleListVariables,
 } from '../../../generated/fullTextSearchVehicleList';
 import GlobalSearchPageContainer from '../../containers/GlobalSearchPageContainer';
+import { GET_MODEL_IMAGES } from '../../containers/SearchPageContainer/gql';
+import {
+  ModelImages,
+  ModelImagesVariables,
+  ModelImages_vehicleImages as IVehiclesImage,
+} from '../../../generated/ModelImages';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
   textSearchList?: fullTextSearchVehicleList;
+  vehiclesImage?: IVehiclesImage[];
+  responseCapIds?: string[];
 }
 
-const Page: NextPage<IProps> = ({ pageData, metaData, textSearchList }) => {
+const Page: NextPage<IProps> = ({
+  pageData,
+  metaData,
+  textSearchList,
+  vehiclesImage,
+  responseCapIds,
+}) => {
   return (
     <GlobalSearchPageContainer
+      vehiclesImage={vehiclesImage}
       metaData={metaData}
+      responseCapIds={responseCapIds}
       pageData={decodeData(pageData)}
       preLoadTextSearchList={decodeData(textSearchList)}
     />
@@ -41,6 +57,8 @@ export async function getServerSideProps(context: NextPageContext) {
     true,
     '',
   )) as ApolloQueryResult<GenericPageQuery>;
+  let responseCapIds;
+  let vehiclesImage;
   const textSearchList = await client
     .query<fullTextSearchVehicleList, fullTextSearchVehicleListVariables>({
       query: GET_TEXT_SEARCH_VEHICLES_DATA,
@@ -49,13 +67,30 @@ export async function getServerSideProps(context: NextPageContext) {
         from: 0,
       },
     })
-    .then(resp => resp.data);
+    .then(async resp => {
+      responseCapIds = resp.data?.fullTextSearchVehicleList?.vehicles?.map(
+        vehicle => vehicle.derivativeId,
+      );
+      if (responseCapIds?.length) {
+        vehiclesImage = await client
+          .query<ModelImages, ModelImagesVariables>({
+            query: GET_MODEL_IMAGES,
+            variables: {
+              capIds: responseCapIds,
+            },
+          })
+          .then(imagesResp => imagesResp.data?.vehicleImages);
+      }
+      return resp.data;
+    });
 
   return {
     props: {
       pageData: encodeData(data),
       metaData: data?.genericPage.metaData || null,
       textSearchList: encodeData(textSearchList) || null,
+      vehiclesImage: vehiclesImage || null,
+      responseCapIds: responseCapIds || null,
     },
   };
 }
