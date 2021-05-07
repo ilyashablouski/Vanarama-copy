@@ -30,6 +30,9 @@ const WorkingHoursTable = dynamic(
 
 const Hero: React.FC<IHeroProps> = ({
   children,
+  topHeader,
+  customCTAColor,
+  hideBenefitsBar,
   withRequestCallbackForm,
   workingHoursCard,
   searchPodCarsData,
@@ -86,19 +89,21 @@ const Hero: React.FC<IHeroProps> = ({
       <SearchPodContainer
         searchPodCarsData={searchPodCarsData}
         searchPodVansData={searchPodVansData}
+        customCTAColor={customCTAColor}
       />
     );
   };
 
   return (
     <div className="row:bg-hero">
+      {topHeader && <div className="hero--top-header">{topHeader}</div>}
       <div className="row:hero">
         <div className="hero--left">{children}</div>
         <div className="hero--right" style={{ minHeight: '347px' }}>
           {/* NOTE: Some components using dynamic imports are causing issues affecting next sibling CSS classnames 
               from rendering as expected. This issue is happening when rehydrating on the client-side */}
           {renderHeroRight()}
-          <BenefitsBar countItems={4} />
+          {!hideBenefitsBar && <BenefitsBar countItems={4} />}
         </div>
         <div className="hero--decals">
           {/* <svg

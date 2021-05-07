@@ -15,4 +15,5 @@ export interface IImageProps extends IBaseProps {
   width?: string;
   height?: string;
   loadImage?: boolean;
+  dataTestId?: string;
 }
