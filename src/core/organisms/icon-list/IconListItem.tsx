@@ -14,7 +14,7 @@ const IconListItem: React.FC<IIconListItemProps> = ({
   listStyle,
 }) => {
   const styles = {
-    listStyle: listStyle,
+    listStyle,
   };
   if (listStyle)
     return (
