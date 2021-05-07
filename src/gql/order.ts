@@ -74,6 +74,7 @@ export const GET_CAR_DERIVATIVE = gql`
     }
     derivative(id: $id, vehicleType: $vehicleType) {
       id
+      vehicleType
       capCode
       name
       slug

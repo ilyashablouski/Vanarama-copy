@@ -10,35 +10,8 @@ import {
 
 export const GET_SUGGESTIONS_DATA = gql`
   query suggestionList($query: String) {
-    suggestionList(
-      query: $query
-      sort: [
-        { field: offer_ranking, direction: ASC }
-        { field: rental, direction: ASC }
-      ]
-    ) {
-      vehicleSuggestions {
-        financeType
-        vehicleType
-        manufacturerName
-        modelName
-        rental
-        initialPayment
-        rangeName
-        transmission
-        fuelType
-        capBodyStyle
-        term
-        mileage
-        availability
-        derivativeId
-        derivativeName
-        availability
-        lqUrl
-        url
-        fullDescription
-        configId
-      }
+    suggestionList(query: $query, pagination: { size: 6, from: 0 }) {
+      suggestions
     }
   }
 `;
