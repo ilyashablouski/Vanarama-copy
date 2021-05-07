@@ -10,6 +10,8 @@ import GlobalSearchLeftSideContainer from './GlobalSearchLeftSideContainer';
 import GlobalSearchRightSideContainer from './GlobalSearchRightSideContainer';
 import useDebounce from '../../hooks/useDebounce';
 import { useGlobalSearch } from './gql';
+import { moreInfoConfig } from './config';
+import RouterLink from '../../components/RouterLink/RouterLink';
 
 const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
   ssr: false,
@@ -98,6 +100,17 @@ const GlobalSearchContainer = () => {
                 suggestions={isDesktop ? suggestions : suggestions.slice(0, 5)}
                 searchQuery={fieldValue}
               />
+              <div className="info">
+                <span className="heading -small -dark">More Information</span>
+
+                <ul>
+                  {moreInfoConfig.map(config => (
+                    <li key={config.label}>
+                      <RouterLink link={config.link}>{config.label}</RouterLink>
+                    </li>
+                  ))}
+                </ul>
+              </div>
             </div>
             {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
             <div
