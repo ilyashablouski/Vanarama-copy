@@ -18,16 +18,22 @@ export const mapAddresses = (values: SubmissionValues) =>
   values.tradingDifferent
     ? [
         {
+          ...(values.registeredAddress || {}),
+          label: undefined,
           serviceId: values.registeredAddress?.id,
           kind: 'registered',
         },
         {
+          ...(values.tradingAddress || {}),
+          label: undefined,
           serviceId: values.tradingAddress?.id,
           kind: 'trading',
         },
       ]
     : [
         {
+          ...(values.registeredAddress || {}),
+          label: undefined,
           serviceId: values.registeredAddress?.id,
           kind: 'registered',
         },

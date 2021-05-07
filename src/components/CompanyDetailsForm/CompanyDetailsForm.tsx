@@ -69,8 +69,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
       methods.setValue(
         'registeredAddress',
         {
-          id: company.registeredAddress?.id || '',
-          label: company.registeredAddress?.label || '',
+          ...company.registeredAddress,
         },
         true,
       );
