@@ -131,7 +131,10 @@ const authErrorLink = onError(({ graphQLErrors, forward, operation }) => {
 
     if (!isOlaf) {
       // redirect to login-register from private pages except olaf
-      Router.replace(`/account/login-register?redirect=${currentPath}`);
+      Router.replace(
+        `/account/login-register?redirect=${currentPath}`,
+        '/account/login-register',
+      );
     }
 
     isSessionFinishedCache(true);

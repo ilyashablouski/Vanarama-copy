@@ -130,6 +130,7 @@ const ThankYouPage: NextPage = () => {
               } else {
                 router.push(
                   '/account/login-register?redirect=/account/my-orders',
+                  '/account/login-register',
                 );
               }
             }}
