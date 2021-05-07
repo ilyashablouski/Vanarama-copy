@@ -7,9 +7,15 @@ interface IProps {
   name: string;
   label: string;
   hint?: string;
+  skipManualInput?: boolean;
 }
 
-const FormikAddressField: React.FC<IProps> = ({ name, label, hint }) => {
+const FormikAddressField: React.FC<IProps> = ({
+  name,
+  label,
+  hint,
+  skipManualInput,
+}) => {
   const [field, meta, helpers] = useField(name);
   const [isFocused, setIsFocused] = useState(false);
   const error = (meta.touched && !isFocused && meta.error) || undefined;
@@ -37,6 +43,12 @@ const FormikAddressField: React.FC<IProps> = ({ name, label, hint }) => {
         <AddressFinder.Selected />
         <AddressFinder.Intermediate />
       </Formgroup>
+      {!skipManualInput && (
+        <>
+          <AddressFinder.ManualAddingButton />
+          <AddressFinder.ManualAddressForm />
+        </>
+      )}
       <AddressFinder.Results />
     </AddressFinder>
   );
