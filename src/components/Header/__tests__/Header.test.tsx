@@ -14,6 +14,12 @@ jest.mock('next/router', () => ({
   }),
 }));
 
+jest.mock('@apollo/client', () => ({
+  useApolloClient: () => ({
+    client: () => undefined,
+  }),
+}));
+
 const mocks = {
   topBarLinks: TOP_BAR_LINKS,
   loginLink: {
