@@ -187,11 +187,6 @@ exports[`<PersonalInformation /> should render correctly 1`] = `
         data-testid="personalSubmit"
         disabled={false}
         onClick={[Function]}
-        style={
-          Object {
-            "backgroundColor": undefined,
-          }
-        }
         type="button"
       >
         <div

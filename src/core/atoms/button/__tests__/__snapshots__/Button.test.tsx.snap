@@ -3,11 +3,6 @@
 exports[`<Button /> renders correctly 1`] = `
 <button
   className="button -secondary -regular -solid"
-  style={
-    Object {
-      "backgroundColor": undefined,
-    }
-  }
 >
   <div
     className="button--inner"
@@ -19,11 +14,6 @@ exports[`<Button /> renders correctly with disabled 1`] = `
 <button
   className="button class -orange -small -solid -disabled -round"
   disabled={true}
-  style={
-    Object {
-      "backgroundColor": undefined,
-    }
-  }
   tabIndex={5}
   type="button"
   value="value"
@@ -39,11 +29,6 @@ exports[`<Button /> renders correctly with disabled 1`] = `
 exports[`<Button /> renders correctly with optional props 1`] = `
 <button
   className="button class -orange -small -solid -round"
-  style={
-    Object {
-      "backgroundColor": undefined,
-    }
-  }
   tabIndex={5}
   type="button"
   value="value"
@@ -59,11 +44,6 @@ exports[`<Button /> renders correctly with optional props 1`] = `
 exports[`<Button /> should render correctly with an icon before the label 1`] = `
 <button
   className="button class -orange -small -solid -round"
-  style={
-    Object {
-      "backgroundColor": undefined,
-    }
-  }
   tabIndex={5}
   type="button"
   value="value"

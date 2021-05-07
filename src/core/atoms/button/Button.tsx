@@ -23,7 +23,7 @@ const WrappedButton = React.forwardRef<HTMLButtonElement, IButtonProps>(
     } = props;
 
     const renderIcon = () => <Icon icon={icon} color={iconColor} />;
-    const customStyles = {
+    const customStyles = customCTAColor && {
       backgroundColor: customCTAColor && customCTAColor,
     };
     return (

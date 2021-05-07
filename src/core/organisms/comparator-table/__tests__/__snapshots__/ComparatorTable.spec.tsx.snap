@@ -631,11 +631,6 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                                   <button
                                     className="button -teal -regular -solid"
                                     onClick={[Function]}
-                                    style={
-                                      Object {
-                                        "backgroundColor": undefined,
-                                      }
-                                    }
                                   >
                                     <div
                                       className="button--inner"
@@ -1548,11 +1543,6 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
             <button
               className="button -teal -regular -solid"
               onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": undefined,
-                }
-              }
             >
               <div
                 className="button--inner"
@@ -1608,11 +1598,6 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
             <button
               className="button -teal -regular -solid"
               onClick={[Function]}
-              style={
-                Object {
-                  "backgroundColor": undefined,
-                }
-              }
             >
               <div
                 className="button--inner"
