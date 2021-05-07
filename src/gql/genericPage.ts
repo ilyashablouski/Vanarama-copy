@@ -295,6 +295,7 @@ export const GENERIC_PAGE = gql`
           links {
             label
             url
+            text
           }
         }
         leadText {
