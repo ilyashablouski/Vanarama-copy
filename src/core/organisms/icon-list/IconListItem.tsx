@@ -13,12 +13,18 @@ const IconListItem: React.FC<IIconListItemProps> = ({
   dataTestId,
   listStyle,
 }) => {
+  const styles = {
+    listStyle: listStyle,
+  };
+  if (listStyle)
+    return (
+      <li className={className} data-testid={dataTestId} style={styles}>
+        <Icon icon={listIcon} color={iconColor} />
+        {children}
+      </li>
+    );
   return (
-    <li
-      className={className}
-      data-testid={dataTestId}
-      style={{ listStyle: listStyle && listStyle }}
-    >
+    <li className={className} data-testid={dataTestId}>
       <Icon icon={listIcon} color={iconColor} />
       {children}
     </li>

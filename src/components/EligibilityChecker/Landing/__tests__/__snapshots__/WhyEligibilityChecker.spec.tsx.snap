@@ -18,13 +18,7 @@ exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
     <ul
       className="icon-list"
     >
-      <li
-        style={
-          Object {
-            "listStyle": undefined,
-          }
-        }
-      >
+      <li>
         <i
           className="icon -orange"
         >
