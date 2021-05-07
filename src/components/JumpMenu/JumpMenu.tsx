@@ -41,9 +41,9 @@ const JumpMenu: FC<IJumpMenu> = ({ links, title }) => {
             title: title || '',
             children: (
               <div className="-flex-column">
-                {links?.map(({ label, url }) => (
+                {links?.map(({ label, url, text }) => (
                   <Link href={url} color="teal" key={label}>
-                    {`${label} `} <ArrowForwardSharp />
+                    {`${label || text} `} <ArrowForwardSharp />
                   </Link>
                 ))}
               </div>
