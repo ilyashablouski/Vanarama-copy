@@ -5,6 +5,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Image from 'core/atoms/image';
 import Carousel from 'core/organisms/carousel';
+import LeadText from 'components/LeadText/LeadText';
 import useLeaseType from '../../hooks/useLeaseType';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { IEvOffersData } from '../../utils/offers';
@@ -280,28 +281,7 @@ export const EVLeaseExplainedContainer: FC<IProps> = ({
         </section>
       )}
       <FeaturedSection featured={sections?.featured?.[3]} />
-      <section className="row:bg-default">
-        <hr className="-fullwidth" />
-        <h2
-          className="heading -xlarge -orange -mv-500"
-          style={{ transform: 'scale(0.9)' }}
-        >
-          {sections?.leadText?.[0]?.heading}
-        </h2>
-        <hr className="-fullwidth" />
-        <div className="markdown -m-zero-auto -mt-600">
-          <ReactMarkdown
-            allowDangerousHtml
-            source={sections?.leadText?.[0]?.description || ''}
-            renderers={{
-              link: props => {
-                const { href, children } = props;
-                return <RouterLink link={{ href, label: children }} />;
-              },
-            }}
-          />
-        </div>
-      </section>
+      <LeadText leadText={sections?.leadText?.[0]} />
       <FeaturedSection featured={sections?.featured?.[4]} />
       <FeaturedSection featured={sections?.featured?.[5]} />
       <FeaturedSection featured={sections?.featured?.[6]} />
@@ -334,10 +314,19 @@ export const EVLeaseExplainedContainer: FC<IProps> = ({
                     imageSrc={card?.image?.file?.url}
                     key={card?.name || idx}
                   >
-                    <div className="card-footer basic">
+                    <div className="basic">
                       <Heading tag="p" color="black" className="-mb-400">
                         {card?.body}
                       </Heading>
+                      {card?.link && (
+                        <RouterLink
+                          className="-teal"
+                          link={{
+                            href: card?.link?.url || '',
+                            label: card?.link?.text || '',
+                          }}
+                        />
+                      )}
                     </div>
                   </Card>
                 ))}
