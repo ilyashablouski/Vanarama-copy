@@ -404,6 +404,11 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
           className="button -fullwidth -teal -large -solid"
           data-testid="VanssearchBtn"
           onClick={[Function]}
+          style={
+            Object {
+              "backgroundColor": undefined,
+            }
+          }
         >
           <div
             className="button--inner"
@@ -694,6 +699,11 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
           className="button -fullwidth -teal -large -solid"
           data-testid="CarssearchBtn"
           onClick={[Function]}
+          style={
+            Object {
+              "backgroundColor": undefined,
+            }
+          }
         >
           <div
             className="button--inner"

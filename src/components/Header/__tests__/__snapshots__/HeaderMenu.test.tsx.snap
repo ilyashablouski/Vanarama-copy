@@ -15,6 +15,11 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
         className="link -black -regular -clear"
         data-testid="menu-title"
         onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -88,6 +93,11 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -189,6 +199,11 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-b21cfa5d-e57f-4d7e-867f-4a1870cfb879"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -424,6 +439,11 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-43df3e0b-f248-457d-bf3c-ec1fe4def7e3"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -497,6 +517,11 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-44c0f32b-f034-4b84-ac49-0c2b76140c96"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -615,6 +640,11 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -692,6 +722,11 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-ea7b59db-5f3e-40a2-9fab-e0567515a88c"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -927,6 +962,11 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-5e0d3e95-5264-4f8f-bb95-c231794cc6b2"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -1045,6 +1085,11 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -1141,6 +1186,11 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-ffd8b86a-9234-4d40-bfa8-085ce9807133"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -1520,6 +1570,11 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-666d9983-41e9-45e4-9a5d-64d184526ff7"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -1782,6 +1837,11 @@ exports[`<HeaderMenu /> renders correctly 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -1915,6 +1975,11 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
         className="link -black -regular -clear"
         data-testid="menu-title"
         onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -1988,6 +2053,11 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -2089,6 +2159,11 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-b21cfa5d-e57f-4d7e-867f-4a1870cfb879"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -2324,6 +2399,11 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-43df3e0b-f248-457d-bf3c-ec1fe4def7e3"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -2397,6 +2477,11 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-44c0f32b-f034-4b84-ac49-0c2b76140c96"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -2515,6 +2600,11 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -2592,6 +2682,11 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-ea7b59db-5f3e-40a2-9fab-e0567515a88c"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -2827,6 +2922,11 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-5e0d3e95-5264-4f8f-bb95-c231794cc6b2"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -2945,6 +3045,11 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -3041,6 +3146,11 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-ffd8b86a-9234-4d40-bfa8-085ce9807133"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -3420,6 +3530,11 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-tertiary-666d9983-41e9-45e4-9a5d-64d184526ff7"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"
@@ -3682,6 +3797,11 @@ exports[`<HeaderMenu /> renders correctly with open 1`] = `
                 className="link -black -regular -clear"
                 data-testid="menu-title"
                 onClick={[Function]}
+                style={
+                  Object {
+                    "backgroundColor": undefined,
+                  }
+                }
               >
                 <div
                   className="button--inner"

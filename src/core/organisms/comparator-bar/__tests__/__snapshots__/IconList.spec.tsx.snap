@@ -213,6 +213,11 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
             className="button -teal -lead -solid"
             disabled={false}
             onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": undefined,
+              }
+            }
           >
             <div
               className="button--inner"

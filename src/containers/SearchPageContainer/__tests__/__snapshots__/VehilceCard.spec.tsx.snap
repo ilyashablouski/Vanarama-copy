@@ -173,6 +173,11 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
     <button
       className="-dark -xsmall -clear"
       onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
@@ -396,6 +401,11 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     <button
       className="-dark -xsmall -clear"
       onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
@@ -619,6 +629,11 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
     <button
       className="-dark -xsmall -clear"
       onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
+      }
     >
       <div
         className="button--inner"

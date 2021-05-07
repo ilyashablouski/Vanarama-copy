@@ -6,7 +6,13 @@ exports[`<IconList /> renders correctly with default <IconListItem /> child 1`] 
     className="icon-list"
   >
     <IconListItem>
-      <li>
+      <li
+        style={
+          Object {
+            "listStyle": undefined,
+          }
+        }
+      >
         <Icon
           icon={<Memo(CheckmarkCircleSharp) />}
         >
@@ -49,7 +55,13 @@ exports[`<IconList /> renders correctly with optional props 1`] = `
 
 exports[`<IconListItem /> renders correctly with children 1`] = `
 <IconListItem>
-  <li>
+  <li
+    style={
+      Object {
+        "listStyle": undefined,
+      }
+    }
+  >
     <Icon
       icon={<Memo(CheckmarkCircleSharp) />}
     >
@@ -84,6 +96,11 @@ exports[`<IconListItem /> renders correctly with optional props 1`] = `
 >
   <li
     data-testid="testID2"
+    style={
+      Object {
+        "listStyle": undefined,
+      }
+    }
   >
     <Icon
       color="orange"

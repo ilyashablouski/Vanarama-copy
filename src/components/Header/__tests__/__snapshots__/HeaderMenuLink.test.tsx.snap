@@ -35,6 +35,11 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             className="link -black -regular -clear"
             data-testid="menu-title"
             onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": undefined,
+              }
+            }
           >
             <div
               className="button--inner"
@@ -136,6 +141,11 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             className="link -black -regular -clear"
             data-testid="menu-tertiary-b21cfa5d-e57f-4d7e-867f-4a1870cfb879"
             onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": undefined,
+              }
+            }
           >
             <div
               className="button--inner"
@@ -371,6 +381,11 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             className="link -black -regular -clear"
             data-testid="menu-tertiary-43df3e0b-f248-457d-bf3c-ec1fe4def7e3"
             onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": undefined,
+              }
+            }
           >
             <div
               className="button--inner"
@@ -444,6 +459,11 @@ exports[`<HeaderMenuLink /> renders correctly 1`] = `
             className="link -black -regular -clear"
             data-testid="menu-tertiary-44c0f32b-f034-4b84-ac49-0c2b76140c96"
             onClick={[Function]}
+            style={
+              Object {
+                "backgroundColor": undefined,
+              }
+            }
           >
             <div
               className="button--inner"

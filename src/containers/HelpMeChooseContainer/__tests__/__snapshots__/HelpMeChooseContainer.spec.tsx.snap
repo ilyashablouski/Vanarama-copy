@@ -48,6 +48,11 @@ exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
     data-testid="submit"
     disabled={true}
     onClick={[MockFunction]}
+    style={
+      Object {
+        "backgroundColor": undefined,
+      }
+    }
     type="submit"
   >
     <div
@@ -129,6 +134,11 @@ exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
     data-testid="submit"
     disabled={false}
     onClick={[MockFunction]}
+    style={
+      Object {
+        "backgroundColor": undefined,
+      }
+    }
     type="submit"
   >
     <div

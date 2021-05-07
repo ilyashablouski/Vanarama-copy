@@ -95,6 +95,11 @@ exports[`<Header /> renders correctly 1`] = `
   >
     <button
       className="button header--responsive-icon -orange -regular -clear"
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
@@ -118,6 +123,11 @@ exports[`<Header /> renders correctly 1`] = `
     </button>
     <button
       className="button header--responsive-icon -orange -regular -clear"
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
@@ -286,6 +296,11 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
     >
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -304,6 +319,11 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
       </button>
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -356,6 +376,11 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
       </button>
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -408,6 +433,11 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
       </button>
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -460,6 +490,11 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
       </button>
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -515,6 +550,11 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
       />
       <button
         className="button -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -533,6 +573,11 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
   >
     <button
       className="button header--responsive-icon -orange -regular -clear"
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
@@ -556,6 +601,11 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
     </button>
     <button
       className="button header--responsive-icon -orange -regular -clear"
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
@@ -738,6 +788,11 @@ exports[`<Header /> renders correctly with message 1`] = `
     >
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -756,6 +811,11 @@ exports[`<Header /> renders correctly with message 1`] = `
       </button>
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -808,6 +868,11 @@ exports[`<Header /> renders correctly with message 1`] = `
       </button>
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -860,6 +925,11 @@ exports[`<Header /> renders correctly with message 1`] = `
       </button>
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -912,6 +982,11 @@ exports[`<Header /> renders correctly with message 1`] = `
       </button>
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -967,6 +1042,11 @@ exports[`<Header /> renders correctly with message 1`] = `
       />
       <button
         className="button -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -985,6 +1065,11 @@ exports[`<Header /> renders correctly with message 1`] = `
   >
     <button
       className="button header--responsive-icon -orange -regular -clear"
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
@@ -1008,6 +1093,11 @@ exports[`<Header /> renders correctly with message 1`] = `
     </button>
     <button
       className="button header--responsive-icon -orange -regular -clear"
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
@@ -1199,6 +1289,11 @@ exports[`<Header /> renders correctly with optional props 1`] = `
     >
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -1217,6 +1312,11 @@ exports[`<Header /> renders correctly with optional props 1`] = `
       </button>
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -1269,6 +1369,11 @@ exports[`<Header /> renders correctly with optional props 1`] = `
       </button>
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -1321,6 +1426,11 @@ exports[`<Header /> renders correctly with optional props 1`] = `
       </button>
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -1373,6 +1483,11 @@ exports[`<Header /> renders correctly with optional props 1`] = `
       </button>
       <button
         className="button -multiple -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -1428,6 +1543,11 @@ exports[`<Header /> renders correctly with optional props 1`] = `
       />
       <button
         className="button -inherit -regular -clear"
+        style={
+          Object {
+            "backgroundColor": undefined,
+          }
+        }
       >
         <div
           className="button--inner"
@@ -1446,6 +1566,11 @@ exports[`<Header /> renders correctly with optional props 1`] = `
   >
     <button
       className="button header--responsive-icon -orange -regular -clear"
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
+      }
     >
       <div
         className="button--inner"
@@ -1469,6 +1594,11 @@ exports[`<Header /> renders correctly with optional props 1`] = `
     </button>
     <button
       className="button header--responsive-icon -orange -regular -clear"
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
+      }
     >
       <div
         className="button--inner"

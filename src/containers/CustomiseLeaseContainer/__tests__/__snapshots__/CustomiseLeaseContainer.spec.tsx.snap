@@ -202,6 +202,11 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
       className="button -teal -lead -solid"
       data-testid="goldrush-form_submit"
       disabled={false}
+      style={
+        Object {
+          "backgroundColor": undefined,
+        }
+      }
       type="submit"
     >
       <div

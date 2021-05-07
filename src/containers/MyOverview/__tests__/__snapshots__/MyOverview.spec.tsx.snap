@@ -288,6 +288,11 @@ Array [
             <button
               className="button -teal -regular -solid"
               onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                }
+              }
             >
               <div
                 className="button--inner"
@@ -414,6 +419,11 @@ Array [
             <button
               className="button -teal -regular -solid"
               onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                }
+              }
             >
               <div
                 className="button--inner"
@@ -637,6 +647,11 @@ Array [
             <button
               className="button -teal -regular -solid"
               onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                }
+              }
             >
               <div
                 className="button--inner"
@@ -763,6 +778,11 @@ Array [
             <button
               className="button -teal -regular -solid"
               onClick={[Function]}
+              style={
+                Object {
+                  "backgroundColor": undefined,
+                }
+              }
             >
               <div
                 className="button--inner"
