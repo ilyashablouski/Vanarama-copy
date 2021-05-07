@@ -211,38 +211,39 @@ const ComparatorContainer: React.FC = () => {
               <div>
                 {cards.map(card => (
                   <ProductCard
-                    inline
-                    className="-compact -mt-400"
+                    className="-vehicle-type -mt-400"
                     key={card.header}
                     imageSrc={card.imageSrc}
-                    title={{
-                      title: '',
-                      link: (
-                        <Heading tag="span" size="large" className="-pb-100">
-                          {card.header}
-                        </Heading>
-                      ),
-                    }}
                   >
-                    <div className="-mt-600 -justify-content-row">
-                      <Icon icon={<Flame />} color="orange" size="lead" />
-                      <Text size="regular" color="orange" className="-m-000">
-                        {`${card.totalCount} Hot Offers`}
-                      </Text>
-                      <Button
-                        round
-                        color="teal"
-                        size="xsmall"
-                        label={
-                          <Icon
-                            icon={<ArrowForwardSharp />}
-                            className="-regular md hydrated -flex-h"
-                            name="arrow-forward-sharp"
-                            color="white"
-                          />
-                        }
-                        onClick={() => Router.push(card.redirect)}
-                      />
+                    <div className="copy">
+                      <Heading tag="span" size="large">
+                        {card.header}
+                      </Heading>
+                      <div className="-flex">
+                        <Icon
+                          icon={<Flame />}
+                          color="orange"
+                          size="lead"
+                          className="-flame"
+                        />
+                        <Text size="small" color="orange">
+                          {`${card.totalCount} Hot Offers`}
+                        </Text>
+                        <Button
+                          round
+                          color="teal"
+                          size="xsmall"
+                          label={
+                            <Icon
+                              icon={<ArrowForwardSharp />}
+                              className="-regular md hydrated -flex-h"
+                              name="arrow-forward-sharp"
+                              color="white"
+                            />
+                          }
+                          onClick={() => Router.push(card.redirect)}
+                        />
+                      </div>
                     </div>
                   </ProductCard>
                 ))}
