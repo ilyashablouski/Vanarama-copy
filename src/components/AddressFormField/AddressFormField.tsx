@@ -21,6 +21,7 @@ export default function AddressFormField({
   hint,
 }: IProps) {
   const { control, errors } = useFormContext();
+
   return (
     <Controller
       name={id}
@@ -42,6 +43,8 @@ export default function AddressFormField({
             <AddressFinder.Intermediate />
           </Formgroup>
           <AddressFinder.Results />
+          <AddressFinder.ManualAddingButton />
+          <AddressFinder.ManualAddressForm />
         </AddressFinder>
       }
       control={control}

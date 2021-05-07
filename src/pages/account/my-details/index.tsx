@@ -86,7 +86,10 @@ const MyDetailsPage: NextPage<IProps> = () => {
       // if value is null exception will be thrown
       // and user should be redirected to authentication
       .catch(() =>
-        router.replace(`/account/login-register?redirect=${router.pathname}`),
+        router.replace(
+          `/account/login-register?redirect=${router.pathname}`,
+          '/account/login-register',
+        ),
       );
   }, [person]);
 
