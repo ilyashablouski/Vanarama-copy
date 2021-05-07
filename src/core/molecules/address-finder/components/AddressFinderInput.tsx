@@ -16,9 +16,10 @@ const AddressFinderInput: React.FC<Omit<
     value,
     formFocus,
     setBlurForm,
+    showManualForm,
   } = useAddressFinderContext();
 
-  if (selectedSuggestion) {
+  if (selectedSuggestion || showManualForm) {
     return null;
   }
 
@@ -47,7 +48,7 @@ const AddressFinderInput: React.FC<Omit<
         props.onFocus?.(e);
         setInputFocus();
       }}
-      value={value}
+      value={value.label}
     />
   );
 });

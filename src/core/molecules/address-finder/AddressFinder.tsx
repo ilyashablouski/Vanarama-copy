@@ -1,23 +1,32 @@
 import cx from 'classnames';
-import React, { useReducer, useEffect } from 'react';
+import React, { useEffect, useReducer, useCallback } from 'react';
 import useDebounce from '../../../hooks/useDebounce';
 import useLoqate from '../../../hooks/useLoqate';
 import { ILoqateSuggestion } from '../../../hooks/useLoqate/interfaces';
 import AddressFinderInput from './components/AddressFinderInput';
+import ManualAddingButton from './components/ManualAddingButton';
+import ManualAddressForm from './components/ManualAddressForm';
 import AddressFinderIntermediate from './components/AddressFinderIntermediate';
 import AddressFinderResults from './components/AddressFinderResults';
 import AddressFinderSelected from './components/AddressFinderSelected';
 import { AddressFinderProvider } from './context';
-import { IAddressFinderProps } from './interfaces';
-import reducer from './reducer';
+import { IAddressFinderProps, IManualAddressFormValues } from './interfaces';
+import reducer, { initialState, InputTypeEnum } from './reducer';
 import { suggestionToDisplay } from './utils';
 
 export type AddressFinderComponent = React.FC<IAddressFinderProps> & {
   Input: typeof AddressFinderInput;
-  Intermediate: typeof AddressFinderIntermediate;
+  ManualAddingButton: typeof ManualAddingButton;
   Results: typeof AddressFinderResults;
   Selected: typeof AddressFinderSelected;
+  ManualAddressForm: typeof ManualAddressForm;
+  Intermediate: typeof AddressFinderIntermediate;
 };
+
+const formatAddress = (values: any) =>
+  `${values?.lineOne}${(values?.lineTwo || '') && `, ${values?.lineTwo}`} - ${
+    values?.city
+  }, ${values?.postcode}`;
 
 const AddressFinder: AddressFinderComponent = ({
   apiKey,
@@ -27,21 +36,19 @@ const AddressFinder: AddressFinderComponent = ({
   onSuggestionChange,
   selected,
 }) => {
-  const [
-    { focused, intermediate, preventBlur, value, formFocus },
-    dispatch,
-  ] = useReducer(reducer, {
-    formFocus: false,
-    focused: false,
-    preventBlur: false,
-    value: selected?.label || '',
-  });
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   // Debounce state changes to value so we don't execute lots of XHR requests
-  const searchTerm = useDebounce(value);
+  const text = useDebounce(state.value.label || '');
+  const query = {
+    text,
+    postcode: state.intermediate?.id,
+  };
+  const shouldSkipLookUp = state.inputType === InputTypeEnum.MANUAL;
   const { data } = useLoqate(
-    { text: searchTerm || selected?.label || '', postcode: intermediate?.id },
+    query,
     { apiKey, country: 'GB', limit: 50 },
+    shouldSkipLookUp,
   );
 
   function handleSuggestionSelect(loqateSuggestion: ILoqateSuggestion) {
@@ -60,7 +67,10 @@ const AddressFinder: AddressFinderComponent = ({
 
   useEffect(() => {
     if (!selected?.id && selected?.label && data.length) {
-      if ((data.length === 1 && data[0].type === 'Address') || intermediate) {
+      if (
+        (data.length === 1 && data[0].type === 'Address') ||
+        state.intermediate
+      ) {
         handleSuggestionSelect(data[0]);
       } else {
         // force user to input address in case
@@ -71,16 +81,38 @@ const AddressFinder: AddressFinderComponent = ({
     }
   }, [data, selected]);
 
+  const handleManualAdding = useCallback<
+    (values: IManualAddressFormValues) => void
+  >(values => {
+    const label = formatAddress(values);
+    dispatch({
+      type: 'SELECT_ADDRESS_MANUALLY',
+      manualAddress: { ...values, label },
+    });
+    onSuggestionChange({
+      ...values,
+      label,
+    });
+  }, []);
+
+  const handleSuggestionChange = useCallback(() => {
+    if (state.inputType === InputTypeEnum.MANUAL) {
+      dispatch({ type: 'SHOW_MANUAL_ADDING_FORM' });
+    }
+    onSuggestionChange();
+  }, [state]);
+
   return (
     <div className={cx('address-finder', className)} data-testid={dataTestId}>
       <AddressFinderProvider
         value={{
           data,
-          value,
-          intermediate,
-          preventBlur,
-          formFocus,
-          inputFocused: focused,
+          value: state.value,
+          formFocus: state.formFocus,
+          preventBlur: state.preventBlur,
+          intermediate: state.intermediate,
+          showManualForm: state.showManualForm,
+          inputFocused: state.focused,
           selectedSuggestion: selected,
           onChange: e =>
             dispatch({ type: 'CHANGE_INPUT', value: e.target.value }),
@@ -88,8 +120,12 @@ const AddressFinder: AddressFinderComponent = ({
           setBlurForm: () => dispatch({ type: 'BLUR_FORM' }),
           setInputFocus: () => dispatch({ type: 'FOCUS_INPUT' }),
           onClearSuggestion: () => onSuggestionChange(),
+          onEditSuggestion: () => handleSuggestionChange(),
           onClearIntermediate: () => dispatch({ type: 'CLEAR_INTERMEDIATE' }),
+          onManualAdding: () => dispatch({ type: 'SHOW_MANUAL_ADDING_FORM' }),
+          onBackToSearch: () => dispatch({ type: 'BACK_TO_SEARCH' }),
           onSuggestionSelected: handleSuggestionSelect,
+          onManualSubmit: handleManualAdding,
         }}
       >
         {children}
@@ -102,5 +138,7 @@ AddressFinder.Input = AddressFinderInput;
 AddressFinder.Intermediate = AddressFinderIntermediate;
 AddressFinder.Results = AddressFinderResults;
 AddressFinder.Selected = AddressFinderSelected;
+AddressFinder.ManualAddingButton = ManualAddingButton;
+AddressFinder.ManualAddressForm = ManualAddressForm;
 
 export default AddressFinder;

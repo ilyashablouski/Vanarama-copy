@@ -1,8 +1,13 @@
 import { IBaseProps } from '../../interfaces/base';
 
 export interface IAddressSuggestion {
-  id: string;
-  label: string;
+  id?: string;
+  label?: string;
+  lineOne?: string;
+  lineTwo?: string;
+  city?: string;
+  country?: string;
+  postcode?: string;
 }
 
 export interface IAddressFinderProps extends IBaseProps {
@@ -18,4 +23,16 @@ export interface IAddressFinderProps extends IBaseProps {
    * Sets the currently selected suggestion
    */
   selected?: IAddressSuggestion;
+}
+
+export interface IManualAddressFormValues {
+  lineOne: string;
+  lineTwo?: string;
+  city: string;
+  country?: string;
+  postcode: string;
+}
+
+export interface IManualAddressFormProps {
+  defaultValues?: IManualAddressFormValues;
 }
