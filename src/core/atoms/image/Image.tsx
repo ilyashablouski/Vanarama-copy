@@ -21,6 +21,7 @@ const Image: FC<IImageProps> = props => {
     optimisedHost,
     optimisationOptions,
     loadImage,
+    dataTestId,
   } = props;
 
   const { src } = props;
@@ -86,6 +87,7 @@ const Image: FC<IImageProps> = props => {
         className="image--native"
         src={srcDefault || src}
         onError={onError}
+        data-testid={dataTestId}
       />
     </div>
   );

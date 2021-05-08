@@ -24,6 +24,7 @@ interface IAppLinkProps extends IBaseProps {
   withoutLink?: boolean;
   onMouseOver?: React.MouseEventHandler<HTMLAnchorElement>;
   onFocus?: React.FocusEventHandler<HTMLAnchorElement>;
+  customBackground?: string;
 }
 
 const RouterLink: React.FC<IAppLinkProps> = props => {
