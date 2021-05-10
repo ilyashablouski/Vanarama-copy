@@ -20,7 +20,16 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
     creditApplicationByOrderUuid(orderUuid: $id) {
       addresses
       aboutDetails
-      bankAccounts
+      bankAccountsV2 {
+        uuid
+        accountName
+        accountNumber
+        bankName
+        joinedAt
+        joinedAtMonth
+        joinedAtYear
+        sortCode
+      }
       companyDetails
       vatDetails
       soleTraderDetails
@@ -110,7 +119,16 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
     createUpdateCreditApplication(input: $input) {
       addresses
       aboutDetails
-      bankAccounts
+      bankAccountsV2 {
+        uuid
+        accountName
+        accountNumber
+        bankName
+        joinedAt
+        joinedAtMonth
+        joinedAtYear
+        sortCode
+      }
       companyDetails
       vatDetails
       soleTraderDetails
