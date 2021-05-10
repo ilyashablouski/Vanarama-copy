@@ -7,7 +7,7 @@ import Media from 'core/atoms/media';
 import getTitleTag from 'utils/getTitleTag';
 import IconList, { IconListItem } from 'core/organisms/icon-list';
 
-const Section = ({ featured }: any) => {
+const PartnershipFeatureSection = ({ featured }: any) => {
   const Image = dynamic(() => import('core/atoms/image'), {
     loading: () => <Skeleton count={3} />,
   });
@@ -18,7 +18,7 @@ const Section = ({ featured }: any) => {
     loading: () => <Skeleton count={1} />,
   });
   const RouterLink = dynamic(() =>
-    import('../../../components/RouterLink/RouterLink'),
+    import('../../components/RouterLink/RouterLink'),
   );
   const { title, titleTag, body, image, video, iconList } = featured;
   return (
@@ -77,4 +77,4 @@ const Section = ({ featured }: any) => {
   );
 };
 
-export default Section;
+export default PartnershipFeatureSection;
