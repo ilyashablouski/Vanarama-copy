@@ -111,10 +111,6 @@ export const ContactUsPage: NextPage<IGenericPage> = ({ data, loading }) => {
               onClick={() => Router.push('/contact-us/locations')}
             />
           </div>
-          <hr className="-fullwidth" />
-          <Text tag="p" size="small" color="darker">
-            Lorem nostrud irure sit consectetur
-          </Text>
         </div>
         <Map
           apiKey="AIzaSyDwZ-btyncKZtsysSU-FnjRpydDBwAEwsM"
