@@ -49,15 +49,15 @@ export const mapBankAccountsForCreditApplication = (
 };
 
 export const mapDefaultValues = (data?: CreditApplication | null) => {
-  const account = data?.bankAccounts?.[0];
+  const account = data?.bankAccountsV2?.[0];
 
   return {
     uuid: account?.uuid,
-    bankName: account?.bank_name,
-    accountName: account?.account_name,
-    accountNumber: account?.account_number,
-    joinedAtMonth: account?.joined_at_month,
-    joinedAtYear: account?.joined_at_year,
-    sortCode: account?.sort_code?.match(/.{1,2}/g),
+    bankName: account?.bankName,
+    accountName: account?.accountName,
+    accountNumber: account?.accountNumber,
+    joinedAtMonth: account?.joinedAtMonth,
+    joinedAtYear: account?.joinedAtYear,
+    sortCode: account?.sortCode?.match(/.{1,2}/g),
   };
 };
