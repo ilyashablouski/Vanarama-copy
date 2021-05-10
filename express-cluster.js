@@ -15,7 +15,6 @@ const hpp = require('hpp');
 const compression = require('compression');
 const cluster = require('cluster');
 
-const setCommitHash = require('./src/utils/setCommitHash');
 const logo = require('./logo');
 const cache = require('./cache');
 const { version } = require('./package.json');
@@ -42,8 +41,6 @@ if (cluster.isMaster) {
     .then(async () => {
       // Create server.
       const server = express();
-
-      setCommitHash();
 
       return server;
     })
