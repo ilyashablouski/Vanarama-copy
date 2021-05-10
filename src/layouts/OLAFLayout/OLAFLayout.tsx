@@ -317,7 +317,10 @@ const OLAFLayout: React.FC<IProps> = ({
               {isBenefitsVisible && (
                 <span>* Subject to terms and conditions.</span>
               )}
-              <span>** Excess mileage charges apply.</span>
+              <span>
+                ** Charges will apply at the end of your lease if you exceed
+                your agreed mileage.
+              </span>
               <span>† After we’ve received your eSigned documents.</span>
             </div>
           </div>

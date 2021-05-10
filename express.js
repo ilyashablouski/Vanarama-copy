@@ -14,7 +14,6 @@ const prerender = require('prerender-node');
 const hpp = require('hpp');
 const compression = require('compression');
 
-const setCommitHash = require('./src/utils/setCommitHash');
 const logo = require('./logo');
 const cache = require('./cache');
 const { version } = require('./package.json');
@@ -32,8 +31,6 @@ app
   .then(async () => {
     // Create server.
     const server = express();
-
-    setCommitHash();
 
     return server;
   })
