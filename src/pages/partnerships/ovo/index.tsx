@@ -1,6 +1,6 @@
 import createApolloClient from 'apolloClient';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PARTNER } from 'gql/partner';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
@@ -72,6 +72,10 @@ const OvoHomePage: NextPage<IProps> = ({
   const [activeTab, setActiveTab] = useState(0);
   const { cachedLeaseType } = useLeaseType(null);
   const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
+
+  useEffect(() => {
+    window.sessionStorage.setItem('partnerships', 'ovo')
+  }, [])
 
   return (
     <>
