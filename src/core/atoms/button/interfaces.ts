@@ -15,4 +15,5 @@ export interface IButtonProps
   round?: boolean;
   size?: TSize;
   withoutDefaultClass?: boolean;
+  customCTAColor?: string;
 }

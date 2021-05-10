@@ -16,6 +16,7 @@ const TextInput: React.FC<ITextInputProps> = React.forwardRef<
     width,
     suffix,
     max,
+    isNative = true,
     ...rest
   } = props;
 
@@ -25,7 +26,8 @@ const TextInput: React.FC<ITextInputProps> = React.forwardRef<
       <input
         maxLength={max ? Number(max) : undefined}
         {...rest}
-        className={cx('textinput--native regular', className, {
+        className={cx(className, {
+          'textinput--native regular': isNative,
           '-calculated': calculated,
           '-prefix': prefix,
           '-suffix': suffix,

@@ -31,6 +31,7 @@ interface IProductCarouselProps {
   data: GetProductCard;
   dataTestIdBtn: string;
   productType?: string;
+  customCTABackground?: string;
 }
 
 const ProductCarousel: React.FC<IProductCarouselProps> = ({
@@ -39,6 +40,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   data,
   dataTestIdBtn,
   productType,
+  customCTABackground,
 }) => {
   // const { slidesToShow } = useSliderProperties();
 
@@ -152,7 +154,15 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                   className="button"
                   dataTestId={dataTestIdBtn}
                 >
-                  <div className="button--inner">View Offer</div>
+                  <div
+                    className="button--inner"
+                    style={{
+                      backgroundColor: customCTABackground,
+                      borderColor: customCTABackground,
+                    }}
+                  >
+                    View Offer
+                  </div>
                 </RouterLink>
               </div>
             </ProductCard>
