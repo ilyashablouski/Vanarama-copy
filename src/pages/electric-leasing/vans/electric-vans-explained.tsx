@@ -3,8 +3,8 @@ import dynamic from 'next/dynamic';
 // import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 import Image from 'core/atoms/image';
-import Carousel from 'core/organisms/carousel';
 import LeadText from 'components/LeadText/LeadText';
+import EvArticlesCarousel from '../../../containers/EvContentHubContainer/EvArticlesCarousel';
 import useLeaseType from '../../../hooks/useLeaseType';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 import { evVanHubOffersRequest, IEvOffersData } from '../../../utils/offers';
@@ -21,9 +21,6 @@ import RouterLink from '../../../components/RouterLink/RouterLink';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
-});
-const Card = dynamic(() => import('core/molecules/cards'), {
-  loading: () => <Skeleton count={5} />,
 });
 
 interface IProps extends IEvOffersData {
@@ -161,38 +158,7 @@ export const EVHubPage: NextPage<IProps> = ({
       <FeaturedSection featured={sections?.featured?.[17]} />
 
       {sections?.carousel?.[1] && (
-        <section className="row:bg-lighter">
-          <div>
-            <Heading color="black" size="large" className="-a-center -mb-400">
-              More Articles
-            </Heading>
-            {sections?.carousel?.[1]?.cards && (
-              <Carousel countItems={3} className="-mh-auto about-us">
-                {sections?.carousel?.[1]?.cards.map((card, idx) => (
-                  <Card
-                    imageSrc={card?.image?.file?.url}
-                    key={card?.name || idx}
-                  >
-                    <div className="basic">
-                      <Heading tag="p" color="black" className="-mb-400">
-                        {card?.body}
-                      </Heading>
-                      {card?.link && (
-                        <RouterLink
-                          className="-teal"
-                          link={{
-                            href: card?.link?.url || '',
-                            label: card?.link?.text || '',
-                          }}
-                        />
-                      )}
-                    </div>
-                  </Card>
-                ))}
-              </Carousel>
-            )}
-          </div>
-        </section>
+        <EvArticlesCarousel data={sections?.carousel?.[1]} />
       )}
 
       {data?.genericPage.metaData && (

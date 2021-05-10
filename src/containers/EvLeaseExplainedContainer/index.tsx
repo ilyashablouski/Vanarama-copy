@@ -1,10 +1,9 @@
 import dynamic from 'next/dynamic';
-import { FC } from 'react';
+import React, { FC } from 'react';
 // import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Image from 'core/atoms/image';
-import Carousel from 'core/organisms/carousel';
 import LeadText from 'components/LeadText/LeadText';
 import useLeaseType from '../../hooks/useLeaseType';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
@@ -17,6 +16,7 @@ import { ProductCardData } from '../../../generated/ProductCardData';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 import { HeroEv as Hero, HeroHeading } from '../../components/Hero';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
+import EvArticlesCarousel from '../EvContentHubContainer/EvArticlesCarousel';
 import FeaturedSection from '../../components/FeaturedSection';
 import JumpMenu from '../../components/JumpMenu/JumpMenu';
 import Head from '../../components/Head/Head';
@@ -302,38 +302,7 @@ export const EVLeaseExplainedContainer: FC<IProps> = ({
       <FeaturedSection featured={sections?.featured?.[10]} />
       <FeaturedSection featured={sections?.featured?.[11]} />
       {sections?.carousel?.[2] && (
-        <section className="row:bg-lighter">
-          <div>
-            <Heading color="black" size="large" className="-a-center -mb-400">
-              More Articles
-            </Heading>
-            {sections?.carousel?.[2]?.cards && (
-              <Carousel countItems={3} className="-mh-auto about-us">
-                {sections?.carousel?.[2]?.cards.map((card, idx) => (
-                  <Card
-                    imageSrc={card?.image?.file?.url}
-                    key={card?.name || idx}
-                  >
-                    <div className="basic">
-                      <Heading tag="p" color="black" className="-mb-400">
-                        {card?.body}
-                      </Heading>
-                      {card?.link && (
-                        <RouterLink
-                          className="-teal"
-                          link={{
-                            href: card?.link?.url || '',
-                            label: card?.link?.text || '',
-                          }}
-                        />
-                      )}
-                    </div>
-                  </Card>
-                ))}
-              </Carousel>
-            )}
-          </div>
-        </section>
+        <EvArticlesCarousel data={sections?.carousel?.[2]} />
       )}
 
       {data?.genericPage.metaData && (

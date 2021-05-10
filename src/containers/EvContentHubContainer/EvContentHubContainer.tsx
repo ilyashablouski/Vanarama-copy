@@ -1,23 +1,14 @@
 import React, { FC } from 'react';
-import dynamic from 'next/dynamic';
 // import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import SchemaJSON from 'core/atoms/schema-json';
 import Image from 'core/atoms/image';
-import Carousel from 'core/organisms/carousel';
 import LeadText from 'components/LeadText/LeadText';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { HeroEv as Hero, HeroHeading } from '../../components/Hero';
 import FeaturedSection from '../../components/FeaturedSection';
 import Head from '../../components/Head/Head';
 import JumpMenu from '../../components/JumpMenu/JumpMenu';
-import Skeleton from '../../components/Skeleton';
-
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Card = dynamic(() => import('core/molecules/cards'), {
-  loading: () => <Skeleton count={5} />,
-});
+import EvArticlesCarousel from './EvArticlesCarousel';
 
 interface IProps {
   data: GenericPageQuery;
@@ -100,26 +91,9 @@ export const EVContentHub: FC<IProps> = ({ data }) => {
         );
       })}
 
-      <section className="row:bg-lighter">
-        <div>
-          <Heading color="black" size="large" className="-a-center -mb-400">
-            More Articles
-          </Heading>
-          {sections?.carousel?.[0]?.cards && (
-            <Carousel countItems={3} className="-mh-auto about-us">
-              {sections?.carousel?.[0]?.cards.map((card, idx) => (
-                <Card imageSrc={card?.image?.file?.url} key={card?.name || idx}>
-                  <div className="card-footer basic">
-                    <Heading tag="p" color="black" className="-mb-400">
-                      {card?.body}
-                    </Heading>
-                  </div>
-                </Card>
-              ))}
-            </Carousel>
-          )}
-        </div>
-      </section>
+      {sections?.carousel?.[0] && (
+        <EvArticlesCarousel data={sections?.carousel?.[0]} />
+      )}
 
       {data?.genericPage.metaData && (
         <>
