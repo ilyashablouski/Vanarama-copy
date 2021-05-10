@@ -11,7 +11,7 @@ interface IEvCarouselProps {
   data: ICarousel | null | undefined;
 }
 
-const ProductCarousel: React.FC<IEvCarouselProps> = ({ data }) => {
+const EvCarousel: React.FC<IEvCarouselProps> = ({ data }) => {
   return (
     <section className="row:bg-lighter">
       <div>
@@ -45,4 +45,4 @@ const ProductCarousel: React.FC<IEvCarouselProps> = ({ data }) => {
   );
 };
 
-export default React.memo(ProductCarousel);
+export default React.memo(EvCarousel);
