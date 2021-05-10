@@ -189,7 +189,7 @@ const responseMock = {
   aboutDetails: {
     company_type: 'Limited',
   },
-  bankAccounts: [
+  bankAccountsV2: [
     {
       account_name: 'Eternal account',
       account_number: '67272820',

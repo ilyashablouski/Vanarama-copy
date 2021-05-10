@@ -73,8 +73,8 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
 
   const pluckBankAccountData = (res: any) => {
     return isSoleTrader
-      ? res.data?.createUpdateSoleTraderCompany?.bankAccounts
-      : res.data?.createUpdateLimitedCompany?.bankAccounts;
+      ? res.data?.createUpdateSoleTraderCompany?.bankAccountsV2
+      : res.data?.createUpdateLimitedCompany?.bankAccountsV2;
   };
 
   const handleSubmit = async (values: ICompanyBankDetails) => {
@@ -84,7 +84,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
       await createUpdateApplication({
         variables: {
           input: {
-            bankAccounts: mapBankAccountsForCreditApplication(
+            bankAccountsV2: mapBankAccountsForCreditApplication(
               values,
               pluckBankAccountData(res),
             ),

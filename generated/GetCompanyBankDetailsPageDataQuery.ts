@@ -14,7 +14,6 @@ export interface GetCompanyBankDetailsPageDataQuery_companyByUuid_bankAccounts {
   accountNumber: string | null;
   joinedAt: any | null;
   sortCode: string | null;
-  updatedAt: any | null;
 }
 
 export interface GetCompanyBankDetailsPageDataQuery_companyByUuid {

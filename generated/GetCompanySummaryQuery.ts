@@ -44,7 +44,6 @@ export interface GetCompanySummaryQuery_companyByUuid_bankAccounts {
   accountNumber: string | null;
   joinedAt: any | null;
   sortCode: string | null;
-  updatedAt: any | null;
 }
 
 export interface GetCompanySummaryQuery_companyByUuid_associates_roles {
