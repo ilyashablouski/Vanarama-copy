@@ -59,6 +59,7 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
                     <iframe
                       frameborder="0"
                       height="100%"
+                      scrolling="no"
                       src=""
                       title="media"
                       width="100%"
