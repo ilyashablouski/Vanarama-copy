@@ -8,4 +8,5 @@ export interface IIconListProps extends IBaseProps {
 export interface IIconListItemProps extends IBaseProps {
   iconColor?: TColor;
   listIcon?: React.ReactNode;
+  listStyle?: string;
 }

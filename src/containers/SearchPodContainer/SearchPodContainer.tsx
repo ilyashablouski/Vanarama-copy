@@ -25,6 +25,7 @@ import { filterTypeAndBudget_filterList as IFilterTypeAndBudget } from '../../..
 interface ISearchPodContainerProps {
   searchPodCarsData?: IFilterListData;
   searchPodVansData?: IFilterListData;
+  customCTAColor?: string;
 }
 
 enum Tabs {
@@ -38,6 +39,7 @@ const PICKUPS_TAB_HEADING = 'Search Pickup Leasing';
 const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   searchPodCarsData,
   searchPodVansData,
+  customCTAColor,
 }) => {
   const router = useRouter();
 
@@ -299,6 +301,8 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     if (index === 2) setHeadingText('Search Cars');
   };
 
+  console.log(customCTAColor);
+
   return (
     <SearchPod
       activeTab={activeIndex}
@@ -313,6 +317,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       vansCachedData={vansDataCache}
       isHomePage={config.length > 1}
       headingText={headingText}
+      customCTAColor={customCTAColor}
     />
   );
 };

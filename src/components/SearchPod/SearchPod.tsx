@@ -50,6 +50,7 @@ const SearchPod = ({
   vansCachedData,
   isHomePage,
   headingText,
+  customCTAColor,
 }: ISearchPodProps) => {
   return (
     <Card className="hero-card">
@@ -171,6 +172,7 @@ const SearchPod = ({
                 color="teal"
                 fill="solid"
                 className="-fullwidth"
+                customCTAColor={customCTAColor}
                 label={isHomePage ? tab.buttonText : 'Search Vehicles'}
                 dataTestId={`${tab.type}searchBtn`}
                 onClick={() => onSearch(tab.type)}
