@@ -24,6 +24,7 @@ interface IAppLinkProps extends IBaseProps {
   withoutLink?: boolean;
   onMouseOver?: React.MouseEventHandler<HTMLAnchorElement>;
   onFocus?: React.FocusEventHandler<HTMLAnchorElement>;
+  customBackground?: string;
 }
 
 const RouterLink: React.FC<IAppLinkProps> = props => {
@@ -100,11 +101,15 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
       ? `/${replaceSpaceInHref}`
       : replaceSpaceInHref;
 
+  // TODO: Refactor src/utils/url.ts and reuse it
+  const urlWithoutQueryString = href.split('?')[0];
+  const queryString = href.split('?')[1];
+
   return (
     <Link
       href={{
-        pathname: link.href ? href : router.asPath,
-        query: link.query || {},
+        pathname: link.href ? urlWithoutQueryString : router.asPath,
+        query: link.query || queryString || {},
       }}
       replace={replace}
       as={as}

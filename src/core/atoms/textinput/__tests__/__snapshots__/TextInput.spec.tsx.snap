@@ -21,7 +21,7 @@ exports[`<TextInput /> should render correctly with optional props 1`] = `
   }
 >
   <input
-    className="textinput--native regular custom-class-name -calculated -prefix"
+    className="custom-class-name textinput--native regular -calculated -prefix"
     data-testid="data-testid"
     id="input-id"
     name="input-name"

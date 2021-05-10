@@ -631,4 +631,68 @@ $small: 0.875rem;
       }
     }
   }
+  &.-vehicle-type {
+    grid: none;
+    gap: unset;
+    display: flex;
+    align-items: flex-end;
+    .copy {
+      width: 100%;
+      margin: 0;
+      padding: 22px 10px 12px 2px;
+      @include tablet-desktop {
+        padding: 26px 10px 12px 20px;
+      }    
+      .heading {
+        margin-bottom: 20px;
+      }
+      .-flex {
+        width: 100%;
+        align-items: center;
+        .-flame {
+          position: relative;
+          top: -2px;
+        }
+        .text {
+          font-weight: bold;
+          padding-right: 10px;
+          width: calc(100% - 46px);
+          white-space: nowrap;
+          overflow: hidden;
+        }
+
+      }
+    }
+    .card-image {
+      width: 120px;
+      height: calc(100% - 2px);
+      border-top-left-radius: 0.35rem;
+      border-bottom-left-radius: 0.35rem;
+      @include tablet-desktop {
+        width: 150px;
+      }
+    }
+    .button {
+      &.-round {
+        > div {
+          transform: scale(0.8);
+        }
+        &:after {
+          content: "";
+          display: block;
+          position: absolute;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          z-index: 1;
+        }
+      }
+    }
+    @include mobile {
+      &:not(:first-of-type){
+        margin-top: 0.5rem !important;
+      }
+    }
+  }
 }

@@ -72,4 +72,5 @@ export interface fullTextSearchVehicleList {
 export interface fullTextSearchVehicleListVariables {
   query?: string | null;
   from?: number | null;
+  size?: number | null;
 }
