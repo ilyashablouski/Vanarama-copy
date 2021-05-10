@@ -556,6 +556,11 @@
         > .heading.-regular {
           font-size: 1rem;
           margin-top: $rem-500;
+          .-info-modal {
+            cursor: pointer;
+            position: relative;
+            top: 2.5px;
+          }
         }
 
         .radio * {
