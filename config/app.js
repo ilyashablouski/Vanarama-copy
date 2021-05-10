@@ -28,6 +28,7 @@ module.exports = {
       REDIS_CACHE_HOST: process.env.REDIS_CACHE_HOST,
       REDIS_CACHE_PORT: process.env.REDIS_CACHE_PORT,
       REDIS_KEY_PREFIX: process.env.REDIS_KEY_PREFIX,
+      COMMIT_HASH: process.env.COMMIT_HASH,
     },
     devIndicators: {
       autoPrerender: false,
