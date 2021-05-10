@@ -13,8 +13,8 @@ import { mapFuelSearchQueryToParam } from 'containers/SearchPageContainer/helper
 import Hero, { HeroHeading } from '../../../components/Hero';
 import PartnershipLogo from '../../../components/PartnershipLogo';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
+import PartnershipFeatureSection from '../../../components/PartnershipsFeatureSection/FeatureSection';
 import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
-import Section from '../sections/FeatureSection';
 
 interface IProps extends IPartnerOffersData {
   data: any;
@@ -195,7 +195,7 @@ const OvoHomePage: NextPage<IProps> = ({
           </TabPanels>
         </Tabs>
       </section>
-      <Section featured={featured} />
+      <PartnershipFeatureSection featured={featured} />
       <WhyLeaseWithVanaramaTiles
         title="Why Lease With Vanarama"
         tiles={tiles}
