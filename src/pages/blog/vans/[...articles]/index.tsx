@@ -61,7 +61,7 @@ export async function getStaticPaths() {
 
     return {
       paths: getBlogPaths(data?.blogPosts),
-      fallback: false,
+      fallback: true,
     };
   } catch {
     return {
@@ -104,7 +104,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
-      fallback: true,
       props: {
         data,
         error: errors ? errors[0] : null,

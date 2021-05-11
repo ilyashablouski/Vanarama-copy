@@ -63,6 +63,7 @@ export async function getStaticPaths() {
           params: { pageNumber: '/' },
         },
       ],
+      fallback: true,
     };
   }
 }

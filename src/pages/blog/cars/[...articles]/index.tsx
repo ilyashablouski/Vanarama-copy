@@ -69,6 +69,7 @@ export async function getStaticPaths() {
           params: { articles: ['/'] },
         },
       ],
+      fallback: true,
     };
   }
 }
