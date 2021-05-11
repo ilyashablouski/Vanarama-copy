@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
@@ -46,6 +46,9 @@ const HeaderContainer: FC = () => {
   };
 
   const [logOut] = useMutation<LogOutUserMutation>(LOGOUT_USER_MUTATION);
+
+  const [partnership, setPartnership] = useState<string | null>(null);
+  const [partnershipLinks, setPartnershipLinks] = useState<any>([]);
 
   const offerLink =
     data?.primaryHeader?.links?.map(el => ({
@@ -172,6 +175,59 @@ const HeaderContainer: FC = () => {
     },
     [] as any[],
   );
+
+  // custom top links for partnerships - temp
+  const partnerLinks = [
+    {
+      name: 'ovo',
+      links: [
+        {
+          href: 'car-leasing/search',
+          id: 'car-leasing/search',
+          label: 'CARS',
+        },
+        {
+          href: 'van-leasing/search',
+          id: 'van-leasing/search',
+          label: 'VANS',
+        },
+      ],
+    },
+  ];
+
+  // check if user is on a partnership journey
+  useEffect(() => {
+    const partnerName = window.sessionStorage.getItem('partnerships');
+    const path = router.pathname;
+    if (partnerName) {
+      setPartnership(partnerName);
+      const links = partnerLinks.find(p => p.name === partnerName)?.links;
+      setPartnershipLinks(links);
+    } else if (path.includes('partnerships')) {
+      const partner = path.split('/').pop();
+      if (partner) {
+        setPartnership(partner);
+        window.sessionStorage.setItem('partnerships', partner);
+        const links = partnerLinks.find(p => p.name === partner)?.links;
+        setPartnershipLinks(links);
+      }
+    }
+  }, []);
+
+  if (partnership) {
+    return (
+      <Header
+        onLogOut={async () => {
+          await localForage.clear();
+          await client.resetStore();
+          await logOut().catch();
+        }}
+        loginLink={LOGIN_LINK}
+        phoneNumberLink={phoneNumberLink}
+        topBarLinks={[...partnershipLinks]}
+      />
+    );
+  }
 
   if (topLinks?.length) {
     return (
