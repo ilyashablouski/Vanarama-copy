@@ -60,7 +60,7 @@ export async function getStaticPaths() {
 
     return {
       paths: getBlogPaths(data?.blogPosts),
-      fallback: false,
+      fallback: true,
     };
   } catch {
     return {
