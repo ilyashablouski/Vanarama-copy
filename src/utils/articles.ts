@@ -23,7 +23,10 @@ export const getArticles = (
   if (isCurrentBlog) {
     const index = firstArticles?.indexOf(isCurrentBlog);
     firstArticles?.splice(index || 0, 1);
-    firstArticles = [...firstArticles, ...articlesSorted?.slice(3, 4)];
+    firstArticles = [
+      ...(firstArticles || []),
+      ...(articlesSorted?.slice(3, 4) || []),
+    ];
   }
   return firstArticles;
 };
