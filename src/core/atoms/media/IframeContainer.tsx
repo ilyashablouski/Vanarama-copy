@@ -56,6 +56,7 @@ const IframeContainer = ({
           height={height}
           src={src}
           title="media"
+          scrolling="no"
         />
       )}
     </div>

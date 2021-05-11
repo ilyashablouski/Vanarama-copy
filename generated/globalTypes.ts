@@ -90,6 +90,7 @@ export enum SortDirection {
  */
 export enum SortField {
   availability = "availability",
+  initialPayment = "initialPayment",
   initial_payment = "initial_payment",
   manufacturer = "manufacturer",
   mileage = "mileage",

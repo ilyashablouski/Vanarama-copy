@@ -168,11 +168,13 @@ const OLAFLayout: React.FC<IProps> = ({
   const meta = useMemo(() => {
     // make reverse for get last route for first
     const pathnameArray = router.pathname.split('/').reverse();
-    const [, title] = Object.entries(olafTitleMapper).find(([key]) =>
+    const titleKey = Object.keys(olafTitleMapper).find(key =>
       pathnameArray.includes(key),
     );
+    const title = titleKey ? olafTitleMapper[titleKey] : 'Vanarama';
+
     return {
-      title: title || 'Vanarama',
+      title,
       name: null,
       metaRobots: null,
       metaDescription: null,
@@ -317,7 +319,10 @@ const OLAFLayout: React.FC<IProps> = ({
               {isBenefitsVisible && (
                 <span>* Subject to terms and conditions.</span>
               )}
-              <span>** Excess mileage charges apply.</span>
+              <span>
+                ** Charges will apply at the end of your lease if you exceed
+                your agreed mileage.
+              </span>
               <span>† After we’ve received your eSigned documents.</span>
             </div>
           </div>

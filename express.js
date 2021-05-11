@@ -59,6 +59,7 @@ app
         env: process.env.ENV,
         nodeVersion: process.version,
         appVersion: version,
+        commitHash: process.env.COMMIT_HASH,
       });
     });
 

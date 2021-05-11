@@ -54,7 +54,7 @@ export async function getStaticPaths() {
     const paths = buildStaticPaths(data);
     return {
       paths,
-      fallback: false,
+      fallback: true,
     };
   } catch {
     return {
