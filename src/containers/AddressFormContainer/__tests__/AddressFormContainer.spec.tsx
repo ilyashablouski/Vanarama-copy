@@ -142,14 +142,16 @@ describe('<AddressFormContainer />', () => {
               partyId: '911',
               addresses: [
                 {
-                  id: 'GB|1337',
+                  uuid: 'GB|1337',
+                  id: undefined,
                   label: undefined,
                   serviceId: 'GB|1337',
                   propertyStatus: 'Rented',
                   startedOn: asDateString,
                 },
                 {
-                  id: 'GB|002',
+                  uuid: 'GB|002',
+                  id: undefined,
                   label: undefined,
                   serviceId: 'GB|002',
                   propertyStatus: 'Mortgage',
@@ -246,14 +248,16 @@ describe('<AddressFormContainer />', () => {
               partyId: '911',
               addresses: [
                 {
-                  id: 'GB|1337',
+                  uuid: 'GB|1337',
+                  id: undefined,
                   label: undefined,
                   serviceId: 'GB|1337',
                   propertyStatus: 'Rented',
                   startedOn: asDateString,
                 },
                 {
-                  id: 'GB|002',
+                  uuid: 'GB|002',
+                  id: undefined,
                   label: undefined,
                   serviceId: 'GB|002',
                   propertyStatus: 'Mortgage',
