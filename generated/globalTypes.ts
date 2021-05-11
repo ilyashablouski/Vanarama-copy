@@ -234,6 +234,7 @@ export interface CreditApplicationInputObject {
   employmentHistories?: any | null;
   financeType?: string | null;
   incomeAndExpenses?: any | null;
+  incomeAndExpensesV2?: IncomeAndExpenseV2InputObject | null;
   leadManagerProposalId?: string | null;
   orderUuid: string;
   partnersDetails?: any | null;
@@ -360,6 +361,30 @@ export interface IncomeAndExpenseInputObject {
   studentLoan?: number | null;
   suitabilityConsent?: boolean | null;
   utilities?: number | null;
+  withStudentLoan?: boolean | null;
+}
+
+/**
+ * Input object to create and add an Income And Expense
+ */
+export interface IncomeAndExpenseV2InputObject {
+  annualIncome?: number | null;
+  anticipateMonthlyIncomeChange?: boolean | null;
+  averageMonthlyIncome?: number | null;
+  carFinance?: number | null;
+  creditCardPayments?: number | null;
+  foodAndClothes?: number | null;
+  fuel?: number | null;
+  futureMonthlyIncome?: number | null;
+  householdIncome?: number | null;
+  insurance?: number | null;
+  mortgageOrRent?: number | null;
+  otherCredit?: number | null;
+  phoneAndInternet?: number | null;
+  studentLoan?: number | null;
+  suitabilityConsent?: boolean | null;
+  utilities?: number | null;
+  uuid?: string | null;
   withStudentLoan?: boolean | null;
 }
 
