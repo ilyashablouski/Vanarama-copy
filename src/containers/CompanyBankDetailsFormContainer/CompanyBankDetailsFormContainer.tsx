@@ -101,7 +101,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
   return (
     <CompanyBankDetails
       isEdited={isEdited}
-      account={account}
+      account={account as ICompanyBankDetails}
       onSubmit={handleSubmit}
     />
   );
