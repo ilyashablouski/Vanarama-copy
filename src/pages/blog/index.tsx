@@ -50,6 +50,7 @@ export async function getStaticProps(context: NextPageContext) {
 
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      fallback: true,
       props: {
         data,
         error: errors ? errors[0] : null,
