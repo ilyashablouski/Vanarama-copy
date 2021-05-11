@@ -74,9 +74,10 @@ const OvoHomePage: NextPage<IProps> = ({
   const { cachedLeaseType } = useLeaseType(null);
   const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
 
+  // set footer data in session storage
   useEffect(() => {
-    window?.sessionStorage.setItem('partnerFooter', JSON.stringify(footer))
-  }, [])
+    window?.sessionStorage.setItem('partnerFooter', JSON.stringify(footer));
+  }, []);
 
   return (
     <>
