@@ -191,11 +191,11 @@ const responseMock = {
   },
   bankAccountsV2: [
     {
-      account_name: 'Eternal account',
-      account_number: '67272820',
-      joined_at_month: '1',
-      joined_at_year: '2020',
-      sort_code: '019387',
+      accountName: 'Eternal account',
+      accountNumber: '67272820',
+      joinedAtMonth: '1',
+      joinedAtYear: '2020',
+      sortCode: '019387',
     },
   ],
   companyDetails: null,

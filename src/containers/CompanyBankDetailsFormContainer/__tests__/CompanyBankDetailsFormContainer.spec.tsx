@@ -96,7 +96,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
           data: {
             createUpdateLimitedCompany: {
               uuid: '7f5a4ed2-24a5-42ff-9acd-208db847d678',
-              bankAccounts: [
+              bankAccountsV2: [
                 {
                   uuid: '1ab66023-7566-42c1-8e6b-011ed4000ed0',
                   accountName: 'Test',
@@ -113,7 +113,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
         orderUuid: '00000000-24a5-42ff-9acd-00000000',
         status: 'status',
         addresses: [],
-        bankAccounts: [
+        bankAccountsV2: [
           {
             uuid: '1ab66023-7566-42c1-8e6b-011ed4000ed0',
             accountName: 'Test',

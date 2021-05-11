@@ -48,7 +48,9 @@ export const mapBankAccountsForCreditApplication = (
   return [formattedBankAccount];
 };
 
-export const mapDefaultValues = (data?: CreditApplication | null) => {
+export const mapDefaultValues = (
+  data?: CreditApplication | null,
+): ICompanyBankDetails => {
   const account = data?.bankAccountsV2?.[0];
 
   return {
