@@ -5,6 +5,7 @@ import localForage from 'localforage';
 import { ILink } from 'core/interfaces/link';
 import { useMediaQuery } from 'react-responsive';
 
+import { PartnershipsLinks } from 'components/Partnerships/Data/PartnishipLinks';
 import {
   PHONE_NUMBER_LINK,
   FLEET_PHONE_NUMBER_LINK,
@@ -35,6 +36,7 @@ const HeaderContainer: FC = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
   const phoneNumberLink =
     router.pathname === '/fleet' ? FLEET_PHONE_NUMBER_LINK : PHONE_NUMBER_LINK;
+  const partnerLinks = PartnershipsLinks;
 
   const LOGIN_LINK = {
     label: 'Login',
@@ -175,25 +177,6 @@ const HeaderContainer: FC = () => {
     },
     [] as any[],
   );
-
-  // custom top links for partnerships - temp
-  const partnerLinks = [
-    {
-      name: 'ovo',
-      links: [
-        {
-          href: 'car-leasing/search',
-          id: 'car-leasing/search',
-          label: 'CARS',
-        },
-        {
-          href: 'van-leasing/search',
-          id: 'van-leasing/search',
-          label: 'VANS',
-        },
-      ],
-    },
-  ];
 
   // check if user is on a partnership journey
   useEffect(() => {
