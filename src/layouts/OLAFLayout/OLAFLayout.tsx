@@ -174,7 +174,7 @@ const OLAFLayout: React.FC<IProps> = ({
     const title = titleKey ? olafTitleMapper[titleKey] : 'Vanarama';
 
     return {
-      title: title,
+      title,
       name: null,
       metaRobots: null,
       metaDescription: null,
