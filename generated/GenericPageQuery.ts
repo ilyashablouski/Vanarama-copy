@@ -718,6 +718,7 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_iconBullets {
 export interface GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links {
   label: string | null;
   url: string | null;
+  text: string | null;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_jumpMenu {
