@@ -60,7 +60,7 @@ export async function getStaticPaths() {
 
     return {
       paths: getBlogPaths(data?.blogPosts),
-      fallback: true,
+      fallback: false,
     };
   } catch {
     return {
@@ -69,6 +69,7 @@ export async function getStaticPaths() {
           params: { articles: ['/'] },
         },
       ],
+      fallback: true,
     };
   }
 }
