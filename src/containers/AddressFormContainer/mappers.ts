@@ -10,6 +10,8 @@ export const formValuesToInput = (
   partyId,
   addresses: values.history.map(item => ({
     ...(item.address || {}),
+    uuid: item.address?.id,
+    id: undefined,
     label: undefined,
     serviceId: item.address?.id,
     propertyStatus: item.status,
