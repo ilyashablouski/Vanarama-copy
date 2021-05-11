@@ -11,6 +11,8 @@
 
   @include mobile-tablet {
     padding-top: 0;
+    position: fixed;
+    top: 0;
   }
 
   &:after {
@@ -51,6 +53,7 @@
     grid-template-areas: '.      logo   account tel    navtoggle .     ' 'search search search  search search    search';
     place-items: center;
     gap: 0;
+    height: 46px;
   }
 
   @include desktop {
@@ -100,6 +103,9 @@
 .header-logo {
   width: 180px;
   color: #ec6409;
+  @media (max-width: 340px) {
+    width: 100%;
+  }
 }
 
 @include mobile-tablet {
@@ -289,6 +295,10 @@
     height: 36px;
     width: 46px;
     margin: auto;
+    svg {
+      position: relative;
+      top: 5px;
+    }
   }
 
   &:not(.-open) .icon:last-of-type {
@@ -301,6 +311,17 @@
 
   @include desktop {
     display: none;
+  }
+}
+
+.header-account--toggle {
+  .icon {
+    @include mobile-tablet {
+      svg {
+        position: relative;
+        top: 3px;
+      }
+    }
   }
 }
 
@@ -322,14 +343,14 @@
     z-index: 106;
     position: fixed;
     background: white;
-    height: calc(100vh - 45.5px);
+    height: calc(100vh - 39.5px);
     width: 100%;
     //top: 0;
     right: 0;
     opacity: 1;
     transition: transform 240ms cubic-bezier(0.08, 0.52, 0.52, 1),
     opacity 240ms cubic-bezier(0.08, 0.52, 0.52, 1);
-    top: 46.5px;
+    top: 39.5px;
 
     &:not(.-open) {
       transform: translateX(100%);
