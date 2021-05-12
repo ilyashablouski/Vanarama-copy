@@ -13,7 +13,7 @@ export const productCardDataMapper = (data: IVehiclesList): ICard => ({
   averageRating: data.financeProfiles?.[0].rate || null,
   isOnOffer: data.onOffer,
   offerPosition: data.offerRanking,
-  leadTime: AVAILABILITY_LABELS[data.availability || ''],
+  leadTime: AVAILABILITY_LABELS[data.availability ?? ''],
   imageUrl: '',
   keyInformation: null,
   businessRate: data.rental,
