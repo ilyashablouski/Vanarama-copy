@@ -9,6 +9,7 @@ interface IProps {
 }
 
 const FreeCarInsurance: NextPage<IProps> = ({data}) => {
+  console.log(data)
   return (
     <div>Hello World</div>
   );
@@ -23,6 +24,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'car-leasing/free-car-insurance',
+        sectionsAsArray: true
       },
     });
     if (errors) {
