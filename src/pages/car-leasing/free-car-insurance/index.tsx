@@ -2,16 +2,58 @@ import createApolloClient from 'apolloClient';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React from 'react';
 import { GENERIC_PAGE } from 'gql/genericPage';
+import Image from 'core/atoms/image';
+import FeaturedOnSection from '../../../components/FeaturedOnBanner';
+import { HeroEv as Hero, HeroPrompt } from '../../../components/Hero';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
+import FeaturedSection from 'components/FeaturedSection';
 
 interface IProps {
   data: GenericPageQuery;
 }
 
-const FreeCarInsurance: NextPage<IProps> = ({data}) => {
-  console.log(data)
+const FreeCarInsurance: NextPage<IProps> = ({ data }) => {
+  const optimisationOptions = {
+    height: 620,
+    width: 620,
+    quality: 59,
+  };
+
+  const sections = data?.genericPage.sections;
   return (
-    <div>Hello World</div>
+    <>
+      <Hero>
+        <div className="hero--left">
+          <div className="nlol" style={{ left: 'auto' }}>
+            <p>Find Your New Lease Of Life</p>
+            <h2>1 Year FREE Insurance</h2>
+            <p>On Every Car Hot Offer</p>
+          </div>
+          {sections?.hero?.heroLabel?.[0]?.visible && (
+            <HeroPrompt
+              label={sections?.hero?.heroLabel?.[0]?.link?.text || ''}
+              url={sections?.hero?.heroLabel?.[0]?.link?.url || ''}
+              text={sections?.hero?.heroLabel?.[0]?.text || ''}
+              btnVisible={sections?.hero?.heroLabel?.[0]?.link?.visible}
+            />
+          )}
+        </div>
+        <div className="hero--right">
+          <Image
+            loadImage
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            optimisationOptions={optimisationOptions}
+            className="hero--image"
+            plain
+            size="expand"
+            src={
+              sections?.hero?.image?.file?.url ||
+              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
+            }
+          />
+        </div>
+      </Hero>
+    </>
   );
 };
 
@@ -24,7 +66,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'car-leasing/free-car-insurance',
-        sectionsAsArray: true
+        sectionsAsArray: true,
       },
     });
     if (errors) {
