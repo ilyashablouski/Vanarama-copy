@@ -14,5 +14,4 @@ export interface CompanyBankDetailsAccount {
   accountNumber: string | null;
   joinedAt: any | null;
   sortCode: string | null;
-  updatedAt: any | null;
 }

@@ -8,7 +8,7 @@ export const formValuesToInputCreditApplication = (
     orderUuid: creditApp.orderUuid,
     status: creditApp.status,
     addresses: creditApp.addresses,
-    bankAccounts: creditApp.bankAccounts,
+    bankAccountsV2: creditApp.bankAccountsV2,
     employmentHistories: creditApp.employmentHistories,
     incomeAndExpenses: creditApp.incomeAndExpenses,
     leadManagerProposalId: creditApp.leadManagerProposalId,

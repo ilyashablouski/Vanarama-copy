@@ -16,7 +16,6 @@ export interface UpdateLimitedBankDetailsMutation_createUpdateLimitedCompany_ban
   accountNumber: string | null;
   joinedAt: any | null;
   sortCode: string | null;
-  updatedAt: any | null;
 }
 
 export interface UpdateLimitedBankDetailsMutation_createUpdateLimitedCompany {
