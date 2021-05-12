@@ -51,6 +51,7 @@ const HeaderContainer: FC = () => {
 
   const [partnership, setPartnership] = useState<string | null>(null);
   const [partnershipLinks, setPartnershipLinks] = useState<any>([]);
+  const [partnershipHomeLink, setPartnershipHomeLink] = useState<any>(null);
 
   const offerLink =
     data?.primaryHeader?.links?.map(el => ({
@@ -190,6 +191,7 @@ const HeaderContainer: FC = () => {
       const partner = path.split('/').pop();
       if (partner) {
         setPartnership(partner);
+        setPartnershipHomeLink(`/partnerships/${partner}`)
         window.sessionStorage.setItem('partnerships', partner);
         const links = partnerLinks.find(p => p.name === partner)?.links;
         setPartnershipLinks(links);
@@ -208,6 +210,7 @@ const HeaderContainer: FC = () => {
         loginLink={LOGIN_LINK}
         phoneNumberLink={phoneNumberLink}
         topBarLinks={[...partnershipLinks]}
+        customHomePath={partnershipHomeLink}
       />
     );
   }
