@@ -191,7 +191,7 @@ const HeaderContainer: FC = () => {
       const partner = path.split('/').pop();
       if (partner) {
         setPartnership(partner);
-        setPartnershipHomeLink(`/partnerships/${partner}`)
+        setPartnershipHomeLink(`/partnerships/${partner}`);
         window.sessionStorage.setItem('partnerships', partner);
         const links = partnerLinks.find(p => p.name === partner)?.links;
         setPartnershipLinks(links);
