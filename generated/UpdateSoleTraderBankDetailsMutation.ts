@@ -16,7 +16,6 @@ export interface UpdateSoleTraderBankDetailsMutation_createUpdateSoleTraderCompa
   accountNumber: string | null;
   joinedAt: any | null;
   sortCode: string | null;
-  updatedAt: any | null;
 }
 
 export interface UpdateSoleTraderBankDetailsMutation_createUpdateSoleTraderCompany {

@@ -207,7 +207,6 @@ CompanyBankDetails.fragments = {
       accountNumber
       joinedAt
       sortCode
-      updatedAt
     }
   `,
 };

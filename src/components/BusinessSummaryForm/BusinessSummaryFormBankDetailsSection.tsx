@@ -6,7 +6,7 @@ import { ICompanyBankDetails } from '../CompanyBankDetails/interfaces';
 import { fullMonthFormatDate } from '../../utils/dates';
 
 interface IProps {
-  account: ICompanyBankDetails;
+  account?: ICompanyBankDetails;
   onEdit: () => any;
 }
 
@@ -25,29 +25,32 @@ const SummaryFormBankDetailsSection: FCWithFragments<IProps> = ({
       list={[
         {
           label: 'Bank Name',
-          value: account.bankName || '',
+          value: account?.bankName ?? '',
           dataTestId: 'summary-bank-name',
         },
         {
           label: 'Account Name',
-          value: account.accountName || '',
+          value: account?.accountName ?? '',
           dataTestId: 'summary-account-name',
         },
         {
           label: 'Account Number',
-          value: account.accountNumber || '',
+          value: account?.accountNumber ?? '',
           dataTestId: 'summary-account-number',
         },
         {
           label: 'Sort Code',
-          value: (account.sortCode || [])
+          value: (account?.sortCode ?? [])
             .join('')
             .replace(/(\d{2})(\d{2})(\d{2})/, '$1-$2-$3'),
           dataTestId: 'summary-sort-code',
         },
         {
           label: 'Account Open Since',
-          value: formatTimeAtBank(account.joinedAtYear, account.joinedAtMonth),
+          value: formatTimeAtBank(
+            account?.joinedAtYear ?? '',
+            account?.joinedAtMonth ?? '',
+          ),
           dataTestId: 'summary-account-time',
         },
       ]}

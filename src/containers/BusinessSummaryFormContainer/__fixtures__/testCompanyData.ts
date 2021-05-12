@@ -26,7 +26,6 @@ export default (uuid: string, personUuid: string) =>
               accountNumber: '01234567',
               joinedAt: '2007-08-01',
               sortCode: '433335',
-              updatedAt: '2020-07-31T14:35:52.872+00:00',
             },
           ],
           associates: [
