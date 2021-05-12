@@ -71,6 +71,7 @@ const RENTAL_DATA = [
 ];
 
 export const AVAILABILITY_LABELS = {
+  '0': 'Factory Order',
   '7': '7-10 Day Delivery',
   '14': '10-14 Day Delivery',
   '21': '14-21 Day Delivery',
