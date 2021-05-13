@@ -7,29 +7,41 @@ import {
   fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles as IVehiclesList,
 } from '../../../generated/fullTextSearchVehicleList';
 import { productCardDataMapper } from './helpers';
-import { useTextSearchList } from '../GlobalSearchContainer/gql';
+import {
+  useGSCardsData,
+  useTextSearchList,
+} from '../GlobalSearchContainer/gql';
 import {
   GenericPageQuery,
   GenericPageQuery_genericPage_metaData as PageMetaData,
 } from '../../../generated/GenericPageQuery';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import CommonDescriptionContainer from '../SearchPageContainer/CommonDescriptionContainer';
-import { ModelImages_vehicleImages as IVehiclesImage } from '../../../generated/ModelImages';
-import { useLazyModelImages } from '../SearchPageContainer/gql';
+import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 interface IProps {
   pageData?: GenericPageQuery;
   metaData: PageMetaData;
   preLoadTextSearchList: ITextSearchQuery;
-  vehiclesImage?: IVehiclesImage[];
-  responseCapIds?: string[];
+  carsData?: ICardsData[];
+  vansData?: ICardsData[];
+  responseVansCapIds?: string[];
+  responseCarsCapIds?: string[];
 }
+interface IVehiclesCardsData<T> {
+  LCV: T;
+  CAR: T;
+}
+
 const GlobalSearchPageContainer = ({
   preLoadTextSearchList,
   metaData,
   pageData,
-  vehiclesImage,
-  responseCapIds,
+  carsData,
+  vansData,
+  responseVansCapIds,
+  responseCarsCapIds,
 }: IProps) => {
   const router = useRouter();
 
@@ -40,37 +52,83 @@ const GlobalSearchPageContainer = ({
     [],
   );
 
-  const [vehiclesPreview, setVehiclesPreview] = useState<IVehiclesImage[]>(
-    vehiclesImage || [],
+  const [lcvCardsData, setLcvCardsData] = useState<ICardsData[]>(
+    vansData || [],
+  );
+  const [carCardsData, setCarCardsData] = useState<ICardsData[]>(
+    carsData || [],
   );
 
-  const [capIds, setCapIds] = useState<string[]>(responseCapIds || []);
+  const vehiclesCardsData: IVehiclesCardsData<ICardsData[]> = {
+    LCV: lcvCardsData,
+    CAR: carCardsData,
+  };
+
+  const [capIds] = useState<IVehiclesCardsData<string[]>>({
+    LCV: responseVansCapIds || [],
+    CAR: responseCarsCapIds || [],
+  });
 
   const [totalResults] = useState(
     preLoadTextSearchList?.fullTextSearchVehicleList?.aggregation
       ?.totalVehicles || 0,
   );
 
+  const [getCarCardsData] = useGSCardsData(
+    capIds.CAR,
+    VehicleTypeEnum.CAR,
+    async data => {
+      setCarCardsData(prevState => [
+        ...prevState,
+        ...(data.productCard as ICardsData[]),
+      ]);
+    },
+  );
+
+  const [getLcvCardsData] = useGSCardsData(
+    capIds.LCV,
+    VehicleTypeEnum.LCV,
+    async data => {
+      setLcvCardsData(prevState => [
+        ...prevState,
+        ...(data.productCard as ICardsData[]),
+      ]);
+    },
+  );
+
   const [getVehiclesCache] = useTextSearchList(
     router.query.searchTerm as string,
     vehiclesList.length + 1,
     async vehicles => {
-      const receivedCapIds = vehicles.fullTextSearchVehicleList?.vehicles
-        ?.map(vehicle => vehicle.derivativeId)
+      const carsCapIds = vehicles?.fullTextSearchVehicleList?.vehicles
+        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.CAR)
+        .map(vehicle => vehicle.derivativeId)
         .filter(value => value) as string[];
-      setCapIds(receivedCapIds || []);
+      const vansCapIds = vehicles?.fullTextSearchVehicleList?.vehicles
+        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.LCV)
+        .map(vehicle => vehicle.derivativeId)
+        .filter(value => value) as string[];
+      if (carsCapIds[0]) {
+        getCarCardsData({
+          variables: {
+            capIds: carsCapIds,
+            vehicleType: VehicleTypeEnum.CAR,
+          },
+        });
+      }
+      if (vansCapIds[0]) {
+        getLcvCardsData({
+          variables: {
+            capIds: vansCapIds,
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        });
+      }
       return setVehicleListCache(
         vehicles?.fullTextSearchVehicleList?.vehicles || [],
       );
     },
   );
-
-  const [getModelImages] = useLazyModelImages(capIds, async images => {
-    return setVehiclesPreview(prevState => [
-      ...((prevState || []) as IVehiclesImage[]),
-      ...((images?.vehicleImages || []) as IVehiclesImage[]),
-    ]);
-  });
 
   useEffect(() => {
     if (
@@ -81,7 +139,6 @@ const GlobalSearchPageContainer = ({
   }, [getVehiclesCache, preLoadTextSearchList]);
 
   const onLoadMore = () => {
-    getModelImages();
     setVehicleList(prevState => [...prevState, ...vehiclesListCache]);
     getVehiclesCache();
   };
@@ -99,11 +156,8 @@ const GlobalSearchPageContainer = ({
     vehiclesList.length,
   ]);
 
-  const getImgUrl = (capId: string): string => {
-    return (
-      vehiclesPreview?.find(x => x?.capId === parseInt(capId || '', 10))
-        ?.mainImageUrl || `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-    );
+  const getProductCardData = (capId: string, vehicleType: VehicleTypeEnum) => {
+    return vehiclesCardsData?.[vehicleType].find(x => x?.capId === capId);
   };
 
   return (
@@ -117,10 +171,16 @@ const GlobalSearchPageContainer = ({
           <div className="row:cards-3col">
             {vehiclesList?.map(vehicle => (
               <VehicleCard
-                key={vehicle?.derivativeId || `${vehicle?.capBodyStyle}` || ''}
+                key={
+                  (vehicle?.derivativeId || `${vehicle?.capBodyStyle}`) +
+                    vehicle.vehicleType || ''
+                }
                 data={{
                   ...productCardDataMapper(vehicle),
-                  imageUrl: getImgUrl(vehicle.derivativeId || ''),
+                  ...getProductCardData(
+                    vehicle.derivativeId || '',
+                    vehicle.vehicleType || VehicleTypeEnum.LCV,
+                  ),
                 }}
                 derivativeId={vehicle?.derivativeId}
                 url={vehicle.legacyUrl || vehicle.lqUrl || ''}

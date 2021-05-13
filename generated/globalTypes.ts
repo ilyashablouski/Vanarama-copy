@@ -134,6 +134,25 @@ export interface AddressInputObject {
 }
 
 /**
+ * Input object to create and add an Address
+ */
+export interface AddressV2InputObject {
+  city: string;
+  country?: string | null;
+  county?: string | null;
+  endedOn?: any | null;
+  kind?: string | null;
+  lineOne: string;
+  lineThree?: string | null;
+  lineTwo?: string | null;
+  postcode: string;
+  propertyStatus?: string | null;
+  serviceId?: string | null;
+  startedOn?: any | null;
+  uuid?: string | null;
+}
+
+/**
  * Input object to create and add a Bank Account
  */
 export interface BankAccountInputObject {
@@ -226,6 +245,7 @@ export interface CompanyInputObject {
 export interface CreditApplicationInputObject {
   aboutDetails?: any | null;
   addresses?: any | null;
+  addressesV2?: AddressV2InputObject[] | null;
   bankAccounts?: any | null;
   bankAccountsV2?: BankAccountV2InputObject[] | null;
   companyDetails?: any | null;
@@ -603,6 +623,7 @@ export interface VehicleProductInputObject {
   maintenance?: boolean | null;
   maintenancePrice?: number | null;
   monthlyPayment?: number | null;
+  oneYearFreeInsurance?: boolean | null;
   partnerSlug?: PartnerSlugTypeEnum | null;
   term?: number | null;
   trim?: string | null;
