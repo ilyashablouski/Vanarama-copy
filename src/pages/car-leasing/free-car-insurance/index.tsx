@@ -4,6 +4,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React from 'react';
 import { GENERIC_PAGE } from 'gql/genericPage';
 import Image from 'core/atoms/image';
+import SchemaJSON from 'core/atoms/schema-json';
 import Accordion from 'core/molecules/accordion/Accordion';
 import useLeaseType from 'hooks/useLeaseType';
 import {
@@ -13,6 +14,7 @@ import {
 import ProductCarousel from 'components/ProductCarousel/ProductCarousel';
 import ArticleCarousel from '../../../components/ArticleCarousel';
 import FeaturedSection from '../../../components/FeaturedSection';
+import Head from '../../../components/Head/Head';
 import { HeroEv as Hero } from '../../../components/Hero';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import RouterLink from '../../../components/RouterLink/RouterLink';
@@ -59,7 +61,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
     },
   );
   const findOutMoreSections = sections?.carousel?.[1];
-  console.log(findOutMoreSections);
+
   return (
     <>
       <Hero>
@@ -146,6 +148,17 @@ const FreeCarInsurance: NextPage<IProps> = ({
         </div>
       )}
       {findOutMoreSections && <ArticleCarousel data={findOutMoreSections} />}
+      {data?.genericPage.metaData && (
+        <>
+          <Head
+            metaData={data?.genericPage.metaData}
+            featuredImage={data?.genericPage.featuredImage}
+          />
+          <SchemaJSON
+            json={JSON.stringify(data?.genericPage.metaData.schema)}
+          />
+        </>
+      )}
     </>
   );
 };
