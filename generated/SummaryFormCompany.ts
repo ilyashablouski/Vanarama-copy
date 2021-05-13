@@ -44,7 +44,6 @@ export interface SummaryFormCompany_bankAccounts {
   accountNumber: string | null;
   joinedAt: any | null;
   sortCode: string | null;
-  updatedAt: any | null;
 }
 
 export interface SummaryFormCompany_associates_roles {

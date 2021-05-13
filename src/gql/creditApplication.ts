@@ -20,7 +20,16 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
     creditApplicationByOrderUuid(orderUuid: $id) {
       addresses
       aboutDetails
-      bankAccounts
+      bankAccountsV2 {
+        uuid
+        accountName
+        accountNumber
+        bankName
+        joinedAt
+        joinedAtMonth
+        joinedAtYear
+        sortCode
+      }
       companyDetails
       vatDetails
       soleTraderDetails
@@ -110,7 +119,16 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
     createUpdateCreditApplication(input: $input) {
       addresses
       aboutDetails
-      bankAccounts
+      bankAccountsV2 {
+        uuid
+        accountName
+        accountNumber
+        bankName
+        joinedAt
+        joinedAtMonth
+        joinedAtYear
+        sortCode
+      }
       companyDetails
       vatDetails
       soleTraderDetails
@@ -171,13 +189,13 @@ const responseMock = {
   aboutDetails: {
     company_type: 'Limited',
   },
-  bankAccounts: [
+  bankAccountsV2: [
     {
-      account_name: 'Eternal account',
-      account_number: '67272820',
-      joined_at_month: '1',
-      joined_at_year: '2020',
-      sort_code: '019387',
+      accountName: 'Eternal account',
+      accountNumber: '67272820',
+      joinedAtMonth: '1',
+      joinedAtYear: '2020',
+      sortCode: '019387',
     },
   ],
   companyDetails: null,

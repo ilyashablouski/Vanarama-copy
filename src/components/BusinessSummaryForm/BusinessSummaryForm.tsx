@@ -46,7 +46,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
 
   const primaryBankAccount = useMemo(
     () =>
-      (creditApplication?.bankAccounts || []).length > 0
+      (creditApplication?.bankAccountsV2 || []).length > 0
         ? mapDefaultValues(creditApplication)
         : undefined,
     [creditApplication],

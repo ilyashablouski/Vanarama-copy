@@ -39,6 +39,7 @@ const PERSISTED_GRAPHQL_QUERIES_WITHOUT_CLOUDFLARE_CACHE = [
   'GetCompaniesByPersonUuid',
   'GetMyOrders',
   'GetOrderByUuid',
+  'MyAccount',
 ];
 
 const httpLink = new HttpLink({

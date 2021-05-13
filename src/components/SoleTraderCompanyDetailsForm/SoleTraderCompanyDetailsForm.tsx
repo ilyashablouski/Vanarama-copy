@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { useForm, FormContext } from 'react-hook-form';
 import Checkbox from 'core/atoms/checkbox';
@@ -19,6 +19,7 @@ import {
 } from './interfaces';
 import NatureTypeahead from '../CompanyDetailsForm/NatureTypehead';
 import Skeleton from '../Skeleton';
+import { calculateDisposableIncome } from './utils';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -64,13 +65,33 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
     defaultValues,
   });
   const { formState, errors, register, watch, reset } = methods;
-  const existingVehicle = watch('existingVehicle');
+  const existingVehicle: boolean = watch('existingVehicle');
   const tradingSinceYear = watch('tradingSinceYear');
   const tradingSinceMonth = watch('tradingSinceMonth');
+  const annualTurnover = watch('annualTurnover');
+  const annualCostOfSales = watch('annualCostOfSales');
+  const annualExpenses = watch('annualExpenses');
+  const monthlyAmountBeingReplaced = watch('monthlyAmountBeingReplaced');
 
   React.useEffect(() => {
     reset(defaultValues);
   }, [companyDetails, defaultValues, reset]);
+
+  const disposableIncome: number = calculateDisposableIncome({
+    annualTurnover,
+    existingVehicle,
+    annualCostOfSales,
+    annualExpenses,
+    monthlyAmountBeingReplaced,
+  });
+
+  const disposableIncomeError = useMemo(
+    () =>
+      disposableIncome < 0
+        ? 'Based on your outgoings, it looks like you won’t be able to afford the monthly rentals on this lease.'
+        : '',
+    [disposableIncome],
+  );
 
   return (
     <Form onSubmit={methods.handleSubmit(onSubmit)}>
@@ -196,46 +217,47 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
         Please ensure these figures are accurate, as the finance company may ask
         to see evidence of this in the form of company accounts or tax returns.
       </Heading>
-      <Formgroup
-        controlId="annualTurnover"
-        label="Annual Turnover"
-        error={errors.annualTurnover?.message?.toString()}
-      >
-        <TextInput
-          prefix="£"
-          id="annualTurnover"
-          name="annualTurnover"
-          dataTestId="sole-trader-company-details_annual-turnover"
-          ref={register(annualValidator('Please enter annual turnover '))}
-        />
+      <Formgroup error={disposableIncomeError}>
+        <Formgroup
+          controlId="annualTurnover"
+          label="Annual Turnover"
+          error={errors.annualTurnover?.message?.toString()}
+        >
+          <TextInput
+            prefix="£"
+            id="annualTurnover"
+            name="annualTurnover"
+            dataTestId="sole-trader-company-details_annual-turnover"
+            ref={register(annualValidator('Please enter annual turnover '))}
+          />
+        </Formgroup>
+        <Formgroup
+          controlId="annualCostOfSales"
+          label="Annual Cost of Sales"
+          error={errors.annualCostOfSales?.message?.toString()}
+        >
+          <TextInput
+            prefix="£"
+            id="annualCostOfSales"
+            name="annualCostOfSales"
+            dataTestId="sole-trader-company-details_annual-cost-of-sales"
+            ref={register(annualValidator('Please enter annual cost of sales'))}
+          />
+        </Formgroup>
+        <Formgroup
+          controlId="annualExpenses"
+          label="Annual Expenses"
+          error={errors.annualExpenses?.message?.toString()}
+        >
+          <TextInput
+            prefix="£"
+            id="annualExpenses"
+            name="annualExpenses"
+            dataTestId="sole-trader-company-details_annual-expenses"
+            ref={register(annualValidator('Please enter annual expenses'))}
+          />
+        </Formgroup>
       </Formgroup>
-      <Formgroup
-        controlId="annualCostOfSales"
-        label="Annual Cost of Sales"
-        error={errors.annualCostOfSales?.message?.toString()}
-      >
-        <TextInput
-          prefix="£"
-          id="annualCostOfSales"
-          name="annualCostOfSales"
-          dataTestId="sole-trader-company-details_annual-cost-of-sales"
-          ref={register(annualValidator('Please enter annual cost of sales'))}
-        />
-      </Formgroup>
-      <Formgroup
-        controlId="annualExpenses"
-        label="Annual Expenses"
-        error={errors.annualExpenses?.message?.toString()}
-      >
-        <TextInput
-          prefix="£"
-          id="annualExpenses"
-          name="annualExpenses"
-          dataTestId="sole-trader-company-details_annual-expenses"
-          ref={register(annualValidator('Please enter annual expenses'))}
-        />
-      </Formgroup>
-
       <Formgroup className="-mt-500">
         <Checkbox
           dataTestId="sole-trader-company-details_existing-vehicle"
@@ -246,6 +268,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
           defaultChecked={defaultValues?.monthlyAmountBeingReplaced !== ''}
         />
       </Formgroup>
+
       {existingVehicle && (
         <>
           <Formgroup
@@ -282,7 +305,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
         color="primary"
         className="-mb-500"
         dataTestId="sole-trader-company-details_continue"
-        disabled={formState.isSubmitting}
+        disabled={formState.isSubmitting || Boolean(disposableIncomeError)}
         icon={<ChevronForwardSharp />}
         iconColor="white"
         iconPosition="after"
