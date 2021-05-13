@@ -6,9 +6,7 @@ import { ILink } from 'core/interfaces/link';
 import { useMediaQuery } from 'react-responsive';
 
 import { PartnershipsLinks } from 'components/Partnerships/Data/PartnishipLinks';
-import {
-  setSessionStorage,
-} from 'utils/windowSessionStorage';
+import { setSessionStorage } from 'utils/windowSessionStorage';
 import {
   PHONE_NUMBER_LINK,
   FLEET_PHONE_NUMBER_LINK,
