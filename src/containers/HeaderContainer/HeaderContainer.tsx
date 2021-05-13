@@ -7,7 +7,6 @@ import { useMediaQuery } from 'react-responsive';
 
 import { PartnershipsLinks } from 'components/Partnerships/Data/PartnishipLinks';
 import {
-  getSessionStorage,
   setSessionStorage,
 } from 'utils/windowSessionStorage';
 import {
@@ -197,7 +196,6 @@ const HeaderContainer: FC = () => {
         setPartnership(partner);
         setPartnershipHomeLink(`/partnerships/${partner}`);
         setSessionStorage('partnerships', partner);
-        console.log(getSessionStorage('partnerships'));
         const links = partnerLinks.find(p => p.name === partner)?.links;
         setPartnershipLinks(links);
       }
