@@ -6,14 +6,17 @@ import { GENERIC_PAGE } from 'gql/genericPage';
 import Image from 'core/atoms/image';
 import Accordion from 'core/molecules/accordion/Accordion';
 import useLeaseType from 'hooks/useLeaseType';
+import {
+  IEvOffersData,
+  specialOffersRequest,
+} from 'utils/offers';
+import ProductCarousel from 'components/ProductCarousel/ProductCarousel';
 import ArticleCarousel from '../../../components/ArticleCarousel';
 import FeaturedSection from '../../../components/FeaturedSection';
 import { HeroEv as Hero } from '../../../components/Hero';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import Skeleton from '../../../components/Skeleton';
-import { evCarHubOffersRequest, IEvOffersData, specialOffersRequest } from 'utils/offers';
-import ProductCarousel from 'components/ProductCarousel/ProductCarousel';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 import { GetDerivatives } from '../../../../generated/GetDerivatives';
 import { ProductCardData } from '../../../../generated/ProductCardData';
@@ -25,11 +28,13 @@ interface IProps extends IEvOffersData {
   searchParam: String;
 }
 
-const FreeCarInsurance: NextPage<IProps> = ({ data,  
+const FreeCarInsurance: NextPage<IProps> = ({
+  data,
   productsCarDerivatives,
   productsCar,
   vehicleListUrlData,
-  searchParam, }) => {
+  searchParam,
+}) => {
   const Heading = dynamic(() => import('core/atoms/heading'), {
     loading: () => <Skeleton count={1} />,
   });
@@ -54,7 +59,7 @@ const FreeCarInsurance: NextPage<IProps> = ({ data,
     },
   );
   const findOutMoreSections = sections?.carousel?.[1];
-  console.log(findOutMoreSections)
+  console.log(findOutMoreSections);
   return (
     <>
       <Hero>
