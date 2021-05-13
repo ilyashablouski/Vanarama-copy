@@ -38,6 +38,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             <p>
               <a
                 class="link"
+                data-ict-discovery-number="01442838195"
+                data-ict-silent-replacements="true"
                 data-testid="link"
                 href="https://beta.vanarama.com/car-leasing-explained/what-is-car-leasing.html"
               >
@@ -47,6 +49,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           </div>
           <a
             class="button link -teal -regular -solid"
+            data-ict-discovery-number="01442838195"
+            data-ict-silent-replacements="true"
             data-testid="link"
             href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
           >
@@ -115,6 +119,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             >
               <a
                 class="heading -black -lead"
+                data-ict-discovery-number="01442838195"
+                data-ict-silent-replacements="true"
                 data-testid="link"
                 href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
               >
@@ -131,6 +137,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             </span>
             <a
               class="button -mt-400 link -teal -small -solid"
+              data-ict-discovery-number="01442838195"
+              data-ict-silent-replacements="true"
               data-testid="link"
               href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
             >
@@ -158,6 +166,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             >
               <a
                 class="heading -black -lead"
+                data-ict-discovery-number="01442838195"
+                data-ict-silent-replacements="true"
                 data-testid="link"
                 href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
               >
@@ -174,6 +184,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             </span>
             <a
               class="button -mt-400 link -teal -small -solid"
+              data-ict-discovery-number="01442838195"
+              data-ict-silent-replacements="true"
               data-testid="link"
               href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
             >

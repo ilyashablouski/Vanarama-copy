@@ -24,6 +24,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
          
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="/01442 838 195"
           onClick={[Function]}
@@ -100,6 +102,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
          
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="/enquiries@vanarama.co.uk"
           onClick={[Function]}
@@ -121,6 +125,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/van-leasing.html"
           onClick={[Function]}
@@ -131,6 +137,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/pickup-truck-leasing.html"
           onClick={[Function]}
@@ -141,6 +149,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/van-reviews.html"
           onClick={[Function]}
@@ -151,6 +161,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/latest-news/category/van-news.html"
           onClick={[Function]}
@@ -161,6 +173,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://www.vanarama.com/compare-vans.html"
           onClick={[Function]}
@@ -171,6 +185,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/van-leasing-explained.html"
           onClick={[Function]}
@@ -181,6 +197,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/van-leasing-questions.html"
           onClick={[Function]}
@@ -191,6 +209,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/advanced-breakdown-cover.html"
           onClick={[Function]}
@@ -201,6 +221,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/serviceplus.html"
           onClick={[Function]}
@@ -211,6 +233,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/van-insurance.html"
           onClick={[Function]}
@@ -221,6 +245,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/van-insurance/faq.html"
           onClick={[Function]}
@@ -242,6 +268,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/car-leasing.html"
           onClick={[Function]}
@@ -252,6 +280,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/car-leasing/blog/category/car-news.html"
           onClick={[Function]}
@@ -262,6 +292,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/car-leasing-explained.html"
           onClick={[Function]}
@@ -272,6 +304,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/redundancy-and-life-event-cover.html"
           onClick={[Function]}
@@ -282,6 +316,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/eligibility-checker.html"
           onClick={[Function]}
@@ -292,6 +328,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/car-leasing-explained/given-company-cash-allowance-vs-company-car.html"
           onClick={[Function]}
@@ -313,6 +351,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/about-us/price-protection-guarantee.html"
           onClick={[Function]}
@@ -323,6 +363,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/about-us/five-star-service.html"
           onClick={[Function]}
@@ -333,6 +375,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/about-us/customer-testimonials.html"
           onClick={[Function]}
@@ -343,6 +387,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/latest-news/the-sunday-times-100-best-small-companies-to-work-for.html"
           onClick={[Function]}
@@ -353,6 +399,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/careers.html"
           onClick={[Function]}
@@ -363,6 +411,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/locations.html"
           onClick={[Function]}
@@ -373,6 +423,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/community.html"
           onClick={[Function]}
@@ -383,6 +435,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/fca.html"
           onClick={[Function]}
@@ -393,6 +447,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/contact-us/complaints-procedure.html"
           onClick={[Function]}
@@ -403,6 +459,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/legal/privacy-policy.html"
           onClick={[Function]}
@@ -413,6 +471,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/legal/terms-and-conditions.html"
           onClick={[Function]}
@@ -423,6 +483,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/legal/modern-slavery-statement.html"
           onClick={[Function]}
@@ -433,6 +495,8 @@ exports[`<Footer /> renders correctly with body 1`] = `
       <li>
         <a
           className="link -white -small"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/sitemap.html"
           onClick={[Function]}

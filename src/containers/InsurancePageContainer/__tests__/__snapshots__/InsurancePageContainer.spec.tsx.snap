@@ -421,6 +421,8 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading link -black -lead"
+              data-ict-discovery-number="01442838195"
+              data-ict-silent-replacements="true"
               data-testid="link"
               href="https://beta.vanarama.com/van-insurance/multi-year-van-insurance.html"
             >
@@ -481,6 +483,8 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading link -black -lead"
+              data-ict-discovery-number="01442838195"
+              data-ict-silent-replacements="true"
               data-testid="link"
               href="https://beta.vanarama.com/van-insurance/finance-gap-insurance.html"
             >
@@ -541,6 +545,8 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading link -black -lead"
+              data-ict-discovery-number="01442838195"
+              data-ict-silent-replacements="true"
               data-testid="link"
               href="https://beta.vanarama.com/van-insurance/tools-in-transit.html"
             >
@@ -601,6 +607,8 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading link -black -lead"
+              data-ict-discovery-number="01442838195"
+              data-ict-silent-replacements="true"
               data-testid="link"
               href="https://beta.vanarama.com/van-insurance/7-day-free-van-insurance.html"
             >
@@ -661,6 +669,8 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading link -black -lead"
+              data-ict-discovery-number="01442838195"
+              data-ict-silent-replacements="true"
               data-testid="link"
               href="https://beta.vanarama.com/van-insurance/short-term-insurance.html"
             >
@@ -721,6 +731,8 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading link -black -lead"
+              data-ict-discovery-number="01442838195"
+              data-ict-silent-replacements="true"
               data-testid="link"
               href="https://beta.vanarama.com/van-insurance/faq.html"
             >
@@ -785,6 +797,8 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         >
           <a
             class="link -teal"
+            data-ict-discovery-number="01442838195"
+            data-ict-silent-replacements="true"
             data-testid="link"
             href="https://www.vanarama.com/van-insurance.html"
           >
@@ -794,6 +808,8 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
 
           <a
             class="link -teal"
+            data-ict-discovery-number="01442838195"
+            data-ict-silent-replacements="true"
             data-testid="link"
             href="https://www.vanarama.com/van-insurance.html"
           >
@@ -840,6 +856,8 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
       >
         <a
           class="link -teal -lead"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/van-insurance.html"
         >

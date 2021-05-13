@@ -64,6 +64,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             When the 
             <a
               class="link -teal"
+              data-ict-discovery-number="01442838195"
+              data-ict-silent-replacements="true"
               data-testid="link"
               href="https://beta.vanarama.com/car-leasing-explained/what-happens-at-end-of-car-lease.html"
             >
@@ -72,6 +74,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             , the car is returned to the finance company who will send out a driver to collect it. When the vehicle is returned, it will be inspected for damage & excess mileage. You will be charged for damage considered over & above the British Vehicle Rental & Leasing Association's (BVRLA) 
             <a
               class="link -teal"
+              data-ict-discovery-number="01442838195"
+              data-ict-silent-replacements="true"
               data-testid="link"
               href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
             >
@@ -85,6 +89,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             Don't worry about the end-of-contract damage charges – you've been driving the vehicle for up to 5 years, a bit of damage is to be expected, that's why it's called "Fair Wear & Tear". Take a look at our comprehensive 
             <a
               class="link -teal"
+              data-ict-discovery-number="01442838195"
+              data-ict-silent-replacements="true"
               data-testid="link"
               href="https://beta.vanarama.com/car-leasing-explained/lease-car-fair-wear-and-tear.html"
             >
@@ -111,7 +117,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         >
           Of course, feel free to pick up the phone to one of our Account Managers on tel: 
           <a
-            class="link -teal InfinityNumber clickable"
+            class="link -teal InfinityNumber call-us visible-xs"
             data-testid="router-link"
             href="/tel:01442838195"
           >

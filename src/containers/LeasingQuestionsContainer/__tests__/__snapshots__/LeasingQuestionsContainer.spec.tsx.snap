@@ -18,6 +18,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         We understand the importance of your new car decision and want to make sure the process is as simple and seamless as possible for you. You can find out how we do this by visiting our page about 
         <a
           class="link -teal"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://beta.vanarama.com/car-leasing-explained.html"
         >
@@ -43,6 +45,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         <li>
           <a
             class="link -teal"
+            data-ict-discovery-number="01442838195"
+            data-ict-silent-replacements="true"
             data-testid="link"
             href="https://beta.vanarama.com/car-business-contract-hire.html"
           >
@@ -52,6 +56,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         <li>
           <a
             class="link -teal"
+            data-ict-discovery-number="01442838195"
+            data-ict-silent-replacements="true"
             data-testid="link"
             href="https://beta.vanarama.com/car-personal-contract-hire.html"
           >
@@ -253,6 +259,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading -black -lead"
+              data-ict-discovery-number="01442838195"
+              data-ict-silent-replacements="true"
               data-testid="link"
               href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
             >
@@ -315,6 +323,8 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading -black -lead"
+              data-ict-discovery-number="01442838195"
+              data-ict-silent-replacements="true"
               data-testid="link"
               href="https://betavanarama.com/van-leasing-explained/how-does-van-leasing-work.html"
             >

@@ -28,6 +28,8 @@ exports[`<FooterColumn /> renders correctly with links 1`] = `
     <li>
       <a
         className="link -white -small"
+        data-ict-discovery-number="01442838195"
+        data-ict-silent-replacements="true"
         data-testid="link"
         href="https://vanarama.com/van-leasing.html"
         onClick={[Function]}
@@ -38,6 +40,8 @@ exports[`<FooterColumn /> renders correctly with links 1`] = `
     <li>
       <a
         className="link -white -small"
+        data-ict-discovery-number="01442838195"
+        data-ict-silent-replacements="true"
         data-testid="link"
         href="https://vanarama.com/pickup-truck-leasing.html"
         onClick={[Function]}
@@ -48,6 +52,8 @@ exports[`<FooterColumn /> renders correctly with links 1`] = `
     <li>
       <a
         className="link -white -small"
+        data-ict-discovery-number="01442838195"
+        data-ict-silent-replacements="true"
         data-testid="link"
         href="https://vanarama.com/van-reviews.html"
         onClick={[Function]}

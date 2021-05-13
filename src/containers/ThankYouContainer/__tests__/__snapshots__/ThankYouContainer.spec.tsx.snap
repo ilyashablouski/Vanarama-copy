@@ -68,6 +68,8 @@ exports[`<ThankYouContainer /> should match snapshot 1`] = `
             >
               <a
                 class="heading link -black -lead"
+                data-ict-discovery-number="01442838195"
+                data-ict-silent-replacements="true"
                 data-testid="link"
                 href="https://beta.vanarama.com/van-insurance/multi-year-van-insurance.html"
               >
@@ -132,6 +134,8 @@ exports[`<ThankYouContainer /> should match snapshot 1`] = `
             >
               <a
                 class="heading link -black -lead"
+                data-ict-discovery-number="01442838195"
+                data-ict-silent-replacements="true"
                 data-testid="link"
                 href="https://beta.vanarama.com/van-insurance/finance-gap-insurance.html"
               >
@@ -196,6 +200,8 @@ exports[`<ThankYouContainer /> should match snapshot 1`] = `
             >
               <a
                 class="heading link -black -lead"
+                data-ict-discovery-number="01442838195"
+                data-ict-silent-replacements="true"
                 data-testid="link"
                 href="https://beta.vanarama.com/van-insurance/tools-in-transit.html"
               >

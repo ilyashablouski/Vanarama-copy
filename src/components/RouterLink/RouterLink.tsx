@@ -53,7 +53,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     '-plain': classNames?.plain,
     '-solid': classNames?.solid,
     '-clear': classNames?.clear,
-    'InfinityNumber clickable': link.href?.includes('tel:'),
+    'InfinityNumber call-us visible-xs': link.href?.includes('tel:'),
   });
 
   if (withoutLink || link.href === '') {
@@ -86,6 +86,8 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         target={link.target}
         rel={setRel(link)}
         onClick={e => onClick && onClick(e)}
+        data-ict-discovery-number="01442838195"
+        data-ict-silent-replacements="true"
         data-testid={dataTestId ?? 'link'}
       >
         {children || link.label}

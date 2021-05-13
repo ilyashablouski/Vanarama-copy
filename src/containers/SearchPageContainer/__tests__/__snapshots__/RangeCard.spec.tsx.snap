@@ -20,6 +20,8 @@ exports[`<RangeCard /> should be render correctly 1`] = `
       >
         <a
           class="heading link -black -large"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="/bmw-car-leasing/2-series.html"
         >
@@ -61,6 +63,8 @@ exports[`<RangeCard /> should be render correctly 1`] = `
         </div>
         <a
           class="button -teal -regular -solid"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="/bmw-car-leasing/2-series.html"
         >
@@ -96,6 +100,8 @@ exports[`<RangeCard /> should be render correctly with all makes page 1`] = `
       >
         <a
           class="heading link -black -large"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="/bmw-car-leasing.html"
         >
@@ -137,6 +143,8 @@ exports[`<RangeCard /> should be render correctly with all makes page 1`] = `
         </div>
         <a
           class="button -teal -regular -solid"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="link"
           href="/bmw-car-leasing.html"
         >

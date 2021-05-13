@@ -60,6 +60,8 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
          
         <a
           className="link -teal -regular"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="terms_and_conditions"
           href="/legal/terms-and-conditions.html"
           onClick={[Function]}
@@ -117,6 +119,8 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
          
         <a
           className="link -teal -regular"
+          data-ict-discovery-number="01442838195"
+          data-ict-silent-replacements="true"
           data-testid="terms_and_conditions"
           href="/legal/terms-and-conditions.html"
           onClick={[Function]}

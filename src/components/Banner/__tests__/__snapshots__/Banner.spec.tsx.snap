@@ -313,6 +313,8 @@ exports[`Banner should correct render 1`] = `
     </span>
     <a
       className="link -white -small"
+      data-ict-discovery-number="01442838195"
+      data-ict-silent-replacements="true"
       data-testid="link"
       href="/redundancy-and-life-event-cover.html"
       onClick={[Function]}
@@ -638,6 +640,8 @@ exports[`Banner should correct render with text for vans 1`] = `
     </span>
     <a
       className="link -white -small"
+      data-ict-discovery-number="01442838195"
+      data-ict-silent-replacements="true"
       data-testid="link"
       href="/redundancy-and-life-event-cover.html"
       onClick={[Function]}
