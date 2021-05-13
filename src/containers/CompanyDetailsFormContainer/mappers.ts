@@ -20,12 +20,14 @@ export const mapAddresses = (values: SubmissionValues) =>
         {
           ...(values.registeredAddress || {}),
           label: undefined,
+          id: undefined,
           serviceId: values.registeredAddress?.id,
           kind: 'registered',
         },
         {
           ...(values.tradingAddress || {}),
           label: undefined,
+          id: undefined,
           serviceId: values.tradingAddress?.id,
           kind: 'trading',
         },
@@ -34,6 +36,7 @@ export const mapAddresses = (values: SubmissionValues) =>
         {
           ...(values.registeredAddress || {}),
           label: undefined,
+          id: undefined,
           serviceId: values.registeredAddress?.id,
           kind: 'registered',
         },
