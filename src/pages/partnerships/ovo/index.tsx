@@ -6,10 +6,11 @@ import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
 import PageHeadingSection from 'components/PageHeadingSection';
-import { IPartnerOffersData, partnerOffersRequest } from 'utils/offers';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import useLeaseType from 'hooks/useLeaseType';
 import { mapFuelSearchQueryToParam } from 'containers/SearchPageContainer/helpers';
+import { IPartnerOffersData, partnerOffersRequest } from 'utils/offers';
+import useLeaseType from 'hooks/useLeaseType';
+import { setObjectAsSessionStorage } from 'utils/windowSessionStorage';
 import Hero, { HeroHeading } from '../../../components/Hero';
 import PartnershipLogo from '../../../components/Partnerships/PartnershipLogo';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
@@ -76,7 +77,7 @@ const OvoHomePage: NextPage<IProps> = ({
 
   // set footer data in session storage
   useEffect(() => {
-    window?.sessionStorage.setItem('partnerFooter', JSON.stringify(footer));
+    setObjectAsSessionStorage('partnerFooter', footer);
   }, []);
 
   return (
