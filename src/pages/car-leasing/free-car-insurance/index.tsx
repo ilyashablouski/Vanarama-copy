@@ -61,7 +61,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
 
   return (
     <>
-      <Hero>
+      <Hero hideCurve>
         <div className="hero--left">
           <div className="nlol" style={{ left: 'auto' }}>
             <p>Find Your New Lease Of Life</p>
