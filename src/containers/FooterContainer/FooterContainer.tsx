@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { getObjectFromSessionStorage } from 'utils/windowSessionStorage';
 import Skeleton from '../../components/Skeleton';
 // eslint-disable-next-line import/no-unresolved
 const FOOTER_DATA = require('../../deps/data/footerData.json');
@@ -11,9 +12,9 @@ const Footer = dynamic(() => import('../../components/Footer'), {
 const FooterContainer = () => {
   const [footerData, setFooterData] = useState(FOOTER_DATA.primaryFooter);
   useEffect(() => {
-    const partnerFooterData = window.sessionStorage.getItem('partnerFooter');
+    const partnerFooterData = getObjectFromSessionStorage('partnerFooter');
     if (partnerFooterData) {
-      setFooterData(JSON.parse(partnerFooterData));
+      setFooterData(partnerFooterData);
     }
   }, []);
   return <Footer primaryFooter={footerData} />;

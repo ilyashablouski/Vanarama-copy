@@ -6,7 +6,7 @@ import { ILink } from 'core/interfaces/link';
 import { useMediaQuery } from 'react-responsive';
 
 import { PartnershipsLinks } from 'components/Partnerships/Data/PartnishipLinks';
-import { setSessionStorage } from 'utils/windowSessionStorage';
+import { getSessionStorage, setSessionStorage } from 'utils/windowSessionStorage';
 import {
   PHONE_NUMBER_LINK,
   FLEET_PHONE_NUMBER_LINK,
@@ -182,7 +182,7 @@ const HeaderContainer: FC = () => {
 
   // check if user is on a partnership journey
   useEffect(() => {
-    const partnerName = window.sessionStorage.getItem('partnerships');
+    const partnerName = getSessionStorage('partnerships');
     const path = router.pathname;
     if (partnerName) {
       setPartnership(partnerName);
