@@ -62,20 +62,42 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
     >
       <div className="media-gallery--x-scroll">
         <div className="media-gallery--x-track">
-          {images.map((image, index) => (
+          {images.map((value, index) => (
             <div
               key={uniqid()}
               className={cx('media-gallery--x-track-item', {
                 '-active': index === activeSlide,
               })}
             >
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                src={image}
-                size="expand"
-                plain
-                alt={imageAltText}
-              />
+              {Array.isArray(value) ? (
+                value.map((image, idx) => {
+                  return idx === 1 ? (
+                    <img
+                      loading="eager"
+                      sizes="(min-width:320px) 800px, 1200px"
+                      alt={imageAltText}
+                      className="gallery-free-insurance"
+                      src={image}
+                    />
+                  ) : (
+                    <Image
+                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                      src={image}
+                      size="expand"
+                      plain
+                      alt={imageAltText}
+                    />
+                  );
+                })
+              ) : (
+                <Image
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  src={value}
+                  size="expand"
+                  plain
+                  alt={imageAltText}
+                />
+              )}
             </div>
           ))}
         </div>
@@ -103,7 +125,7 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
       {images.length > 1 && (
         <div className="media-gallery--y-scroll" ref={scroll}>
           <div className="media-gallery--y-track" ref={yTrackRef}>
-            {images.map((image, index) => (
+            {images.map((value, index) => (
               <div
                 role="list"
                 key={uniqid()}
@@ -112,12 +134,21 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
                 })}
                 onClick={() => onChangeSlide(index)}
               >
-                <Image
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  src={image}
-                  size="xlarge"
-                  alt={imageAltText}
-                />
+                {Array.isArray(value) ? (
+                  <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    src={value[0]}
+                    size="xlarge"
+                    alt={imageAltText}
+                  />
+                ) : (
+                  <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    src={value}
+                    size="xlarge"
+                    alt={imageAltText}
+                  />
+                )}
               </div>
             ))}
           </div>
