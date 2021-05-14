@@ -3,7 +3,7 @@ import { IVimeoCustom } from '../../atoms/media/interface';
 import { ICardHeaderProps } from '../../molecules/cards/CardHeader';
 
 export interface IMediaGalleryProps extends IBaseProps {
-  images: string[];
+  images: Array<string | string[]>;
   presetSlide?: number;
   vimeoConfig?: IVimeoCustom;
   videoSrc?: string;
@@ -15,7 +15,7 @@ export interface IMediaGalleryProps extends IBaseProps {
 }
 
 export interface IImageCarouselProps extends IBaseProps {
-  images: string[];
+  images: Array<string | string[]>;
   activeSlide: number;
   changeSlideHandler: (index: number) => void;
   imageAltText?: string;
