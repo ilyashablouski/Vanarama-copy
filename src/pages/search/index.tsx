@@ -6,38 +6,48 @@ import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helper
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 
 import { decodeData, encodeData } from '../../utils/data';
-import { GET_TEXT_SEARCH_VEHICLES_DATA } from '../../containers/GlobalSearchContainer/gql';
+import {
+  GET_CARDS_DATA,
+  GET_TEXT_SEARCH_VEHICLES_DATA,
+} from '../../containers/GlobalSearchContainer/gql';
 import {
   fullTextSearchVehicleList,
   fullTextSearchVehicleListVariables,
 } from '../../../generated/fullTextSearchVehicleList';
 import GlobalSearchPageContainer from '../../containers/GlobalSearchPageContainer';
-import { GET_MODEL_IMAGES } from '../../containers/SearchPageContainer/gql';
+
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
-  ModelImages,
-  ModelImagesVariables,
-  ModelImages_vehicleImages as IVehiclesImage,
-} from '../../../generated/ModelImages';
+  GlobalSearchCardsData,
+  GlobalSearchCardsData_productCard as ICardsData,
+  GlobalSearchCardsDataVariables,
+} from '../../../generated/GlobalSearchCardsData';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
   textSearchList?: fullTextSearchVehicleList;
-  vehiclesImage?: IVehiclesImage[];
-  responseCapIds?: string[];
+  carsData?: ICardsData[];
+  vansData?: ICardsData[];
+  responseVansCapIds?: string[];
+  responseCarsCapIds?: string[];
 }
 
 const Page: NextPage<IProps> = ({
   pageData,
   metaData,
   textSearchList,
-  vehiclesImage,
-  responseCapIds,
+  carsData,
+  vansData,
+  responseVansCapIds,
+  responseCarsCapIds,
 }) => {
   return (
     <GlobalSearchPageContainer
-      vehiclesImage={vehiclesImage}
       metaData={metaData}
-      responseCapIds={responseCapIds}
+      carsData={carsData}
+      vansData={vansData}
+      responseVansCapIds={responseVansCapIds}
+      responseCarsCapIds={responseCarsCapIds}
       pageData={decodeData(pageData)}
       preLoadTextSearchList={decodeData(textSearchList)}
     />
@@ -57,8 +67,10 @@ export async function getServerSideProps(context: NextPageContext) {
     true,
     '',
   )) as ApolloQueryResult<GenericPageQuery>;
-  let responseCapIds;
-  let vehiclesImage;
+  let responseCarsCapIds;
+  let responseVansCapIds;
+  let carsData;
+  let vansData;
   const textSearchList = await client
     .query<fullTextSearchVehicleList, fullTextSearchVehicleListVariables>({
       query: GET_TEXT_SEARCH_VEHICLES_DATA,
@@ -69,18 +81,33 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     })
     .then(async resp => {
-      responseCapIds = resp.data?.fullTextSearchVehicleList?.vehicles?.map(
-        vehicle => vehicle.derivativeId,
-      );
-      if (responseCapIds?.length) {
-        vehiclesImage = await client
-          .query<ModelImages, ModelImagesVariables>({
-            query: GET_MODEL_IMAGES,
+      responseCarsCapIds = resp.data?.fullTextSearchVehicleList?.vehicles
+        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.CAR)
+        .map(vehicle => vehicle.derivativeId);
+      responseVansCapIds = resp.data?.fullTextSearchVehicleList?.vehicles
+        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.LCV)
+        .map(vehicle => vehicle.derivativeId);
+      if (responseCarsCapIds?.[0]) {
+        carsData = await client
+          .query<GlobalSearchCardsData, GlobalSearchCardsDataVariables>({
+            query: GET_CARDS_DATA,
             variables: {
-              capIds: responseCapIds,
+              capIds: responseCarsCapIds as string[],
+              vehicleType: VehicleTypeEnum.CAR,
             },
           })
-          .then(imagesResp => imagesResp.data?.vehicleImages);
+          .then(({ data: respData }) => respData?.productCard);
+      }
+      if (responseVansCapIds?.[0]) {
+        vansData = await client
+          .query<GlobalSearchCardsData, GlobalSearchCardsDataVariables>({
+            query: GET_CARDS_DATA,
+            variables: {
+              capIds: responseVansCapIds as string[],
+              vehicleType: VehicleTypeEnum.LCV,
+            },
+          })
+          .then(({ data: respData }) => respData?.productCard);
       }
       return resp.data;
     });
@@ -90,8 +117,10 @@ export async function getServerSideProps(context: NextPageContext) {
       pageData: encodeData(data),
       metaData: data?.genericPage.metaData || null,
       textSearchList: encodeData(textSearchList) || null,
-      vehiclesImage: vehiclesImage || null,
-      responseCapIds: responseCapIds || null,
+      carsData: carsData || null,
+      vansData: vansData || null,
+      responseVansCapIds: responseVansCapIds || null,
+      responseCarsCapIds: responseCarsCapIds || null,
     },
   };
 }
