@@ -7,10 +7,7 @@ import Image from 'core/atoms/image';
 import SchemaJSON from 'core/atoms/schema-json';
 import Accordion from 'core/molecules/accordion/Accordion';
 import useLeaseType from 'hooks/useLeaseType';
-import {
-  IEvOffersData,
-  specialOffersRequest,
-} from 'utils/offers';
+import { IEvOffersData, specialOffersRequest } from 'utils/offers';
 import ProductCarousel from 'components/ProductCarousel/ProductCarousel';
 import ArticleCarousel from '../../../components/ArticleCarousel';
 import FeaturedSection from '../../../components/FeaturedSection';
