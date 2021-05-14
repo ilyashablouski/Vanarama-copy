@@ -82,7 +82,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
   useEffect(() => {
     localForage
       .getItem<GetPerson>('person')
-      .then(value => setPerson(value.getPerson))
+      .then(value => setPerson(value?.getPerson ?? null))
       // if value is null exception will be thrown
       // and user should be redirected to authentication
       .catch(() =>
