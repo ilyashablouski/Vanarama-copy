@@ -11,5 +11,8 @@ export const setObjectAsSessionStorage = (key: string, value: any) => {
 };
 
 export const getObjectFromSessionStorage = (key: any) => {
-  return JSON.parse(window?.sessionStorage.getItem(key) || '');
+  if (window?.sessionStorage.getItem(key)) {
+    return JSON.parse(window?.sessionStorage.getItem(key) || '');
+  }
+  return null;
 };
