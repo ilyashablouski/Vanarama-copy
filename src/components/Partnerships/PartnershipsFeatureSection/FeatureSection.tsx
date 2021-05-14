@@ -17,9 +17,7 @@ const PartnershipFeatureSection = ({ featured }: any) => {
   const Text = dynamic(() => import('core/atoms/text'), {
     loading: () => <Skeleton count={1} />,
   });
-  const RouterLink = dynamic(() =>
-    import('../../components/RouterLink/RouterLink'),
-  );
+  const RouterLink = dynamic(() => import('../../RouterLink/RouterLink'));
   const { title, titleTag, body, image, video, iconList } = featured;
   return (
     <section className={`row:${getFeaturedClassPartial(featured)}`}>
