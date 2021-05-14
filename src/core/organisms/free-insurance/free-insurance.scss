@@ -1,0 +1,186 @@
+// PDP Free Insurance
+.-free-insurance {
+  padding-top: 0 !important;
+}
+.pdp-free-insurance-banner {
+  display: flex;
+  background: #ea6308;
+  width: calc( 100% + 32px);
+  height: 40px;
+  padding: 0 20px;
+  align-items: center;
+  color: white;
+  margin-left: -16px;
+  .icon {
+    height: 28px;
+  }
+  svg {
+    width: 24px;
+  }
+  span {
+    font-size: 14px;
+    font-weight: bold;
+    margin: 0 auto 0 12px;
+  }
+  a {
+    font-size: 12px;
+    text-decoration: underline;
+  }
+
+  // Desktop
+  @media (min-width:1216px) {
+    width: calc(100% + 101px);
+    margin-left: unset;
+    span {
+      font-size: 18px;
+    }
+    a {
+      font-size: 14px;
+    }
+  }
+}
+
+.gallery-free-insurance {
+  position: absolute;
+  width: 50%;
+  top: 14px;
+  left: 22px;
+
+  // Desktop
+  @media (min-width:1216px) {
+    width: 255px;
+  }
+}
+
+
+.two-col {
+  > * {
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: white;
+    border: 3px solid #ea6308;
+    border-radius: 0.375rem;
+    min-height: 187px;
+    .icon {
+      height: auto;
+    }
+    svg {
+      width: 62px;
+    }
+    .copy {
+      width: calc(100% - 86px);
+      height: 142px;
+      display: flex;
+      flex-direction: column;
+      margin-left: auto;
+      p, span {
+        color: black;
+      }
+      p {
+        font-size: 19px;
+        line-height: normal;
+        span {
+          font-weight: bold;
+        }
+      }
+      > span {
+        font-size: 15px;
+      }
+      a {
+        color: #007f83;
+        margin-top: auto;
+        text-decoration: underline;
+        font-size: 12px;
+      }
+      &.--xsmall {
+        p {
+          font-size: 14px;
+          font-weight: bold;
+        }
+        > span {
+          font-size: 12px;
+          margin-top: auto;
+        }
+        a {
+          margin-top: unset;
+        }
+      }
+    }
+  }
+
+  // Desktop
+  @media (min-width:1216px) {
+    display: flex;
+    justify-content: space-between;
+    > * {
+      width: calc(50% - 14px);
+      margin-bottom: 0;
+    }
+  }
+}
+
+.whats-included-insurance {
+  display: flex;
+  border-top: 1px solid #cdd6de;
+  padding: 15px 12px 2px;
+  margin: 0 -10px;
+  svg {
+    width: 39px;
+    height: 46px;
+  }
+  > div {
+    padding-left: 10px;
+    span {
+      &:last-of-type {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        color: black;
+        text-transform: uppercase;
+        margin-top: 2px;
+      }
+    }
+  }
+}
+.yellow-tag {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  background: #f7bb20;
+  border-top-right-radius: 100px;
+  border-bottom-right-radius: 100px;
+  margin-left: -16px;
+  max-width: 264px;
+  padding: 0 4px 0 30px;
+  span {
+    font-size: 14px;
+    font-weight: bold;
+    color: black;
+    margin-right: auto;
+  }
+  svg {
+    width: 32px;
+    border: 2px solid black;
+    border-radius: 100px;
+    height: 32px;
+    > g {
+      transform: scale(0.5) translate(16px, 14px);
+    }
+  }
+}
+.subject-to--- {
+  font-size: 12px;
+  font-weight: bold;
+  color: black;
+  padding-left: 10px;
+  margin-top: 6px;
+  span {
+    display: block;
+    sup {
+      font-size: 14px;
+      top: 0;
+    }
+  }
+}

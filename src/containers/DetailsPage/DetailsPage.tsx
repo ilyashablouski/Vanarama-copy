@@ -5,6 +5,7 @@ import localForage from 'localforage';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
 import Button from 'core/atoms/button';
+import ShieldFreeInsurance from 'core/assets/icons/ShieldFreeInsurance';
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
@@ -43,8 +44,10 @@ import {
 } from '../../../generated/GetTrimAndColor';
 import { GetProductCard } from '../../../generated/GetProductCard';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
+import FreeInsuranceCards from '../../components/FreeInsuranceCards/FreeInsuranceCards';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
+const Text = dynamic(() => import('core/atoms/text'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
 const Loading = dynamic(() => import('core/atoms/loading'));
 const Rating = dynamic(() => import('core/atoms/rating'), {
@@ -307,12 +310,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const rangeFAQs = data?.vehicleDetails
     ?.rangeFaqs as GetVehicleDetails_vehicleDetails_rangeFaqs[];
 
-  const vehicleImages =
-    (data?.vehicleImages?.length &&
-      ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
-        .imageUrls as string[])) ||
-    [];
-
   let video =
     (data?.vehicleImages?.length &&
       (data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0].videoUrl) ||
@@ -424,9 +421,57 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     return pdpContentHeight + customerAlsoViewHeight - window.innerHeight;
   };
 
+  const isSpecialOffer = useMemo(
+    () => data?.vehicleConfigurationByCapId?.onOffer,
+    [data],
+  );
+
+  const vehicleImages = useMemo(() => {
+    return isSpecialOffer
+      ? (() => {
+          const urls =
+            (data?.vehicleImages?.length &&
+              ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
+                .imageUrls as string[])) ||
+            [];
+          return urls[0]
+            ? [
+                [
+                  urls[0],
+                  `${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`,
+                ],
+                ...urls.slice(1),
+              ]
+            : urls;
+        })()
+      : (data?.vehicleImages?.length &&
+          ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
+            .imageUrls as string[])) ||
+          [];
+  }, [data?.vehicleImages, isSpecialOffer]);
+
   return (
     <>
-      <div className="pdp--content" ref={pdpContent}>
+      <div
+        className={cx('pdp--content', {
+          '-free-insurance': isSpecialOffer,
+        })}
+        ref={pdpContent}
+      >
+        {isSpecialOffer && (
+          <div className="pdp-free-insurance-banner">
+            <Icon icon={<ShieldFreeInsurance />} color="white" />
+            <Text tag="span" color="white">
+              1 Year&apos;s FREE Insurance
+            </Text>
+            <RouterLink
+              link={{
+                href: '/car-leasing/free-car-insurance',
+                label: 'Find Out More',
+              }}
+            />
+          </div>
+        )}
         {breadcrumbItems && (
           <div className="row:title">
             <Breadcrumb items={breadcrumbItems} />
@@ -485,6 +530,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             vehicleDetails={vehicleDetails}
             derivativeInfo={derivativeInfo}
           />
+          {isSpecialOffer && <FreeInsuranceCards />}
         </LazyLoadComponent>
         {isMobile && vehicleDetails?.brochureUrl && (
           <Button
