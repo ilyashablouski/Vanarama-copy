@@ -88,7 +88,16 @@ module.exports = {
 
         return rewriteList;
       }
-      return [];
+
+      // TODO: This is for debugging purposes only, remove once https://autorama.atlassian.net/browse/DIG-6070 is resolved
+      return [
+        {
+          source:
+            '/car-leasing/blog/which-music-genre-is-the-most-exhilarating-to-drive-to.html',
+          destination:
+            '/blog/cars/which-music-genre-is-the-most-exhilarating-to-drive-to',
+        },
+      ];
     },
 
     // Routes to export into static files.
