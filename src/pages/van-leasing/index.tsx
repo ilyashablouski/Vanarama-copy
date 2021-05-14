@@ -767,6 +767,7 @@ export const VansPage: NextPage<IProps> = ({
 
       <FeaturedOnSection />
 
+      {/* TODO: Wrapp lazy-load components in div on all pages and test it */}
       <section className="row:trustpilot">
         <TrustPilot />
       </section>
