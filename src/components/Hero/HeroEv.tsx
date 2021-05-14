@@ -4,7 +4,6 @@ import { IHeroProps } from './interface';
 
 const HeroEv: React.FC<IHeroProps> = ({ children, hideCurve }) => {
   return (
-    
     <div className="row:bg-hero">
       <div className="row:hero ev-hero">
         {children}
@@ -49,9 +48,7 @@ const HeroEv: React.FC<IHeroProps> = ({ children, hideCurve }) => {
           </div>
         )}
       </div>
-    <p>Small print goes here</p>
     </div>
-
   );
 };
 

@@ -78,6 +78,14 @@
     }
   }
 }
+.nlol-free-insurance {
+  p {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 3rem;
+  }
+}
 
 @media (min-width: 768px) and (max-width: 1215px) {
   .hero--left {
@@ -115,6 +123,11 @@
       & span {
         font-size: 4vw;
       }
+    }
+  }
+  .nlol-free-insurance {
+    h2 {
+      font-size: 3.5vw;
     }
   }
 }

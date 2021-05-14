@@ -34,6 +34,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
   vehicleListUrlData,
   searchParam,
 }) => {
+  console.log(data);
   const Heading = dynamic(() => import('core/atoms/heading'), {
     loading: () => <Skeleton count={1} />,
   });
@@ -63,7 +64,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
     <>
       <Hero hideCurve>
         <div className="hero--left">
-          <div className="nlol" style={{ left: 'auto' }}>
+          <div className="nlol nlol-free-insurance" style={{ left: 'auto' }}>
             <p>Find Your New Lease Of Life</p>
             <h2>1 Year FREE Insurance</h2>
             <p>On Every Car Hot Offer</p>
