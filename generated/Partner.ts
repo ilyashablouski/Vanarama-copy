@@ -111,6 +111,39 @@ export interface Partner_partner_tiles {
   image: Partner_partner_tiles_image | null;
 }
 
+export interface Partner_partner_footer_legalStatement {
+  body: string | null;
+  name: string | null;
+  title: string | null;
+}
+
+export interface Partner_partner_footer_linkGroups_linkGroups_links {
+  text: string | null;
+  url: string | null;
+}
+
+export interface Partner_partner_footer_linkGroups_linkGroups {
+  name: string | null;
+  links: (Partner_partner_footer_linkGroups_linkGroups_links | null)[] | null;
+}
+
+export interface Partner_partner_footer_linkGroups_links {
+  url: string | null;
+  text: string | null;
+}
+
+export interface Partner_partner_footer_linkGroups {
+  body: string | null;
+  linkGroups: (Partner_partner_footer_linkGroups_linkGroups | null)[] | null;
+  links: (Partner_partner_footer_linkGroups_links | null)[] | null;
+  name: string | null;
+}
+
+export interface Partner_partner_footer {
+  legalStatement: Partner_partner_footer_legalStatement | null;
+  linkGroups: (Partner_partner_footer_linkGroups | null)[] | null;
+}
+
 export interface Partner_partner {
   logo: Partner_partner_logo | null;
   fuelTypes: string[] | null;
@@ -120,6 +153,7 @@ export interface Partner_partner {
   hero: Partner_partner_hero | null;
   featured: Partner_partner_featured | null;
   tiles: Partner_partner_tiles[] | null;
+  footer: Partner_partner_footer | null;
 }
 
 export interface Partner {
