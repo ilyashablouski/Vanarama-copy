@@ -95,7 +95,10 @@ const HeaderContainer: FC = () => {
           label: linksGroup?.name || '',
           id: linksGroupUrl.label || '',
           promotionalImage: {
-            url: linksGroup?.promotionalImage?.legacyUrl || '',
+            url:
+              linksGroup?.promotionalImage?.legacyUrl ||
+              linksGroup?.promotionalImage?.url ||
+              '',
             image: {
               url: linksGroup?.promotionalImage?.image?.[0]?.file?.url || '',
               fileName:
