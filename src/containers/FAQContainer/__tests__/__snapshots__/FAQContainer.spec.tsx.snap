@@ -41,8 +41,6 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           >
             <a
               class="breadcrumb-item--backlink link -teal -small"
-              data-ict-discovery-number="01442838195"
-              data-ict-silent-replacements="true"
               data-testid="link"
               href="/van-insurance.html"
             >

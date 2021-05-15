@@ -43,8 +43,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         >
           <a
             class="heading link -black -lead"
-            data-ict-discovery-number="01442838195"
-            data-ict-silent-replacements="true"
             data-testid="link"
             href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-berlingo-review"
             rel="noopener noreferrer"
@@ -144,8 +142,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         </span>
         <a
           class="button -teal -small -clear"
-          data-ict-discovery-number="01442838195"
-          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-berlingo-review"
           rel="noopener noreferrer"
@@ -174,8 +170,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         >
           <a
             class="heading link -black -lead"
-            data-ict-discovery-number="01442838195"
-            data-ict-silent-replacements="true"
             data-testid="link"
             href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-dispatch-review"
             rel="noopener noreferrer"
@@ -275,8 +269,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         </span>
         <a
           class="button -teal -small -clear"
-          data-ict-discovery-number="01442838195"
-          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-dispatch-review"
           rel="noopener noreferrer"
@@ -305,8 +297,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         >
           <a
             class="heading link -black -lead"
-            data-ict-discovery-number="01442838195"
-            data-ict-silent-replacements="true"
             data-testid="link"
             href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-relay-review"
             rel="noopener noreferrer"
@@ -406,8 +396,6 @@ exports[`<VehicleReviewContainer /> should match snapshot 1`] = `
         </span>
         <a
           class="button -teal -small -clear"
-          data-ict-discovery-number="01442838195"
-          data-ict-silent-replacements="true"
           data-testid="link"
           href="https://next-storefront.grid.dev.autorama.co.uk/van-reviews/citroen-relay-review"
           rel="noopener noreferrer"

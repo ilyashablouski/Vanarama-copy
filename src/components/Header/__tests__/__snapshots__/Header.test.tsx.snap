@@ -96,8 +96,8 @@ exports[`<Header /> renders correctly 1`] = `
      
     <a
       className="header-tel link InfinityNumber call-us visible-xs"
-      data-ict-discovery-number="01442838195"
-      data-ict-silent-replacements="true"
+      data-ict-discovery-number="01442 838195"
+      data-ict-silent-replacements={true}
       data-testid="link"
       href="tel:01442838195"
       onClick={[Function]}
@@ -2246,8 +2246,8 @@ exports[`<Header /> renders correctly with login user 1`] = `
      
     <a
       className="header-tel link InfinityNumber call-us visible-xs"
-      data-ict-discovery-number="01442838195"
-      data-ict-silent-replacements="true"
+      data-ict-discovery-number="01442 838195"
+      data-ict-silent-replacements={true}
       data-testid="link"
       href="tel:01442838195"
       onClick={[Function]}

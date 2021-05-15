@@ -79,6 +79,12 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
       link.href = `/${link.href}`;
     }
 
+    const isTel = link.href.match(/^tel:/);
+    const telProps = {
+      'data-ict-discovery-number': link.label,
+      'data-ict-silent-replacements': true,
+    };
+
     return (
       <a
         href={link.href}
@@ -86,9 +92,8 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         target={link.target}
         rel={setRel(link)}
         onClick={e => onClick && onClick(e)}
-        data-ict-discovery-number="01442838195"
-        data-ict-silent-replacements="true"
         data-testid={dataTestId ?? 'link'}
+        {...(isTel && telProps)}
       >
         {children || link.label}
       </a>

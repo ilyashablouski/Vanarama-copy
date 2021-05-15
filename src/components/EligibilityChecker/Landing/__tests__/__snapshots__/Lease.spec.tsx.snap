@@ -20,8 +20,6 @@ exports[`<Lease /> renders correctly 1`] = `
     </p>
     <a
       className="button -teal -regular -solid"
-      data-ict-discovery-number="01442838195"
-      data-ict-silent-replacements="true"
       data-testid="eligibility-Checker-btn"
       href="/credit-checker.html"
       onClick={[Function]}

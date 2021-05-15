@@ -63,8 +63,6 @@ exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading -black -lead"
-              data-ict-discovery-number="01442838195"
-              data-ict-silent-replacements="true"
               data-testid="link"
               href="/van-leasing.html"
             >
@@ -125,8 +123,6 @@ exports[`<PageNotFoundContainer /> should match snapshot 1`] = `
           >
             <a
               class="heading -black -lead"
-              data-ict-discovery-number="01442838195"
-              data-ict-silent-replacements="true"
               data-testid="link"
               href="/van-leasing.html"
             >
