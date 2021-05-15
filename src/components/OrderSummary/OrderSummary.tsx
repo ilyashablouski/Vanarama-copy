@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import { getOrderList } from '../../utils/helpers';
 import { IProps } from './interfaces';
 import Skeleton from '../Skeleton';
+import FreeInsuranceLabel from '../FreeInsuranceLabel';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -19,6 +20,7 @@ const OrderSummary: React.FC<IProps> = ({
   trims,
   trim,
   pickups,
+  isShowFreeInsuranceMerch,
 }) => {
   const [orderSummaryList, setOrderSummaryList] = useState(
     getOrderList({
@@ -57,6 +59,16 @@ const OrderSummary: React.FC<IProps> = ({
         editable={false}
         list={orderSummaryList}
       />
+      {isShowFreeInsuranceMerch && (
+        <>
+          <FreeInsuranceLabel />
+          <div className="subject-to---">
+            <span>
+              <sup>*</sup>Subject to Eligibility
+            </span>
+          </div>
+        </>
+      )}
     </div>
   );
 };
