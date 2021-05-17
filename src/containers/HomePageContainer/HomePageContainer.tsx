@@ -225,7 +225,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           <TabPanels>
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+                <LazyLoadComponent
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
                   <ProductCarousel
                     leaseType={
                       isPersonalLcv
@@ -263,7 +265,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             </TabPanel>
             <TabPanel index={1}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+                <LazyLoadComponent
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
                   <ProductCarousel
                     leaseType={
                       isPersonalLcv
@@ -303,7 +307,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             </TabPanel>
             <TabPanel index={2}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+                <LazyLoadComponent
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
                   <ProductCarousel
                     leaseType={
                       isPersonalCar

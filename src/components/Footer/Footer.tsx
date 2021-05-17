@@ -17,7 +17,10 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
   const { linkGroups, legalStatement } = primaryFooter;
 
   return (
-    <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice} threshold={250}>
+    <LazyLoadComponent
+      visibleByDefault={isServerRenderOrAppleDevice}
+      threshold={250}
+    >
       <footer className="footer">
         {linkGroups?.map(linkGroup => (
           <FooterColumn key={linkGroup?.name || ''} linkGroup={linkGroup} />

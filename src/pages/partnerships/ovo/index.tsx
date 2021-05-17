@@ -157,7 +157,9 @@ const OvoHomePage: NextPage<IProps> = ({
               return (
                 <TabPanel index={i}>
                   <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                    <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+                    <LazyLoadComponent
+                      visibleByDefault={isServerRenderOrAppleDevice}
+                    >
                       <ProductCarousel
                         leaseType={
                           isPersonalLcv
