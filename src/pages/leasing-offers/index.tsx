@@ -187,7 +187,7 @@ export const OffersPage: NextPage<IProps> = ({
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
             >
-              Van Offers
+              Van Lease Hot Offers
             </span>
           </Heading>
           <LazyLoadComponent
@@ -213,12 +213,12 @@ export const OffersPage: NextPage<IProps> = ({
             className="button"
             classNames={{ color: 'teal', solid: true, size: 'regular' }}
             link={{
-              label: 'View All Van Offers',
+              label: 'View All Van Hot Offers',
               href: '/special-offers.html',
             }}
             withoutDefaultClassName
           >
-            <div className="button--inner">View All Van Offers</div>
+            <div className="button--inner">View All Van Hot Offers</div>
           </RouterLink>
         </div>
       </div>
@@ -233,7 +233,7 @@ export const OffersPage: NextPage<IProps> = ({
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
             >
-              Truck Offers
+              Truck Lease Hot Offers
             </span>
           </Heading>
           <LazyLoadComponent
@@ -259,12 +259,12 @@ export const OffersPage: NextPage<IProps> = ({
             className="button"
             classNames={{ color: 'teal', solid: true, size: 'regular' }}
             link={{
-              label: 'View All Truck Offers',
+              label: 'View All Truck Hot Offers',
               href: '/pickup-special-offers.html',
             }}
             withoutDefaultClassName
           >
-            <div className="button--inner">View All Truck Offers</div>
+            <div className="button--inner">View All Truck Hot Offers</div>
           </RouterLink>
         </div>
       </div>
@@ -279,7 +279,7 @@ export const OffersPage: NextPage<IProps> = ({
               style={{ textAlign: 'center', display: 'block' }}
               className="-mb-400"
             >
-              Car Offers
+              Car Lease Hot Offers
             </span>
           </Heading>
           <ProductCarousel
@@ -298,12 +298,12 @@ export const OffersPage: NextPage<IProps> = ({
             className="button"
             classNames={{ color: 'teal', solid: true, size: 'regular' }}
             link={{
-              label: 'View All Car Offers',
+              label: 'View All Van Car Offers',
               href: '/car-leasing-special-offers.html',
             }}
             withoutDefaultClassName
           >
-            <div className="button--inner">View All Car Offers</div>
+            <div className="button--inner">View All Van Car Offers</div>
           </RouterLink>
         </div>
       </div>
