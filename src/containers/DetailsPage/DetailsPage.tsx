@@ -241,10 +241,54 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   }, [price]);
   const vehicleDetails = data?.vehicleDetails;
 
-  const onSubmitClick = (values: OrderInputObject) => {
-    setOrderInputObject(values);
-    setIsModalVisible(true);
-  };
+  const breadcrumbItems = useMemo(() => {
+    return (
+      (genericPageHead?.genericPage.metaData?.breadcrumbs &&
+        genericPageHead.genericPage.metaData.breadcrumbs.map((el: any) => ({
+          link: { href: el.href || '', label: el.label },
+        }))) ??
+      getProductPageBreadCrumb(
+        data?.derivativeInfo,
+        genericPages,
+        genericPageHead?.genericPage.metaData.slug || '',
+        cars,
+      )
+    );
+  }, [cars, data, genericPageHead, genericPages]);
+
+  const isSpecialOffer = useMemo(
+    () => data?.vehicleConfigurationByCapId?.onOffer,
+    [data],
+  );
+
+  const isCar = useMemo(
+    () => quote?.quoteByCapId?.vehicleType === VehicleTypeEnum.CAR,
+    [],
+  );
+
+  const vehicleImages = useMemo(() => {
+    return isSpecialOffer && isCar
+      ? (() => {
+          const urls =
+            (data?.vehicleImages?.length &&
+              ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
+                .imageUrls as string[])) ||
+            [];
+          return urls[0]
+            ? [
+                [
+                  urls[0],
+                  `${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`,
+                ],
+                ...urls.slice(1),
+              ]
+            : urls;
+        })()
+      : (data?.vehicleImages?.length &&
+          ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
+            .imageUrls as string[])) ||
+          [];
+  }, [data?.vehicleImages, isCar, isSpecialOffer]);
 
   const onOrderStart = (withInsurance = false) => {
     const derivativeInfo = data?.derivativeInfo;
@@ -283,20 +327,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       });
   };
 
-  const breadcrumbItems = useMemo(() => {
-    return (
-      (genericPageHead?.genericPage.metaData?.breadcrumbs &&
-        genericPageHead.genericPage.metaData.breadcrumbs.map((el: any) => ({
-          link: { href: el.href || '', label: el.label },
-        }))) ??
-      getProductPageBreadCrumb(
-        data?.derivativeInfo,
-        genericPages,
-        genericPageHead?.genericPage.metaData.slug || '',
-        cars,
-      )
-    );
-  }, [cars, data, genericPageHead, genericPages]);
+  const onSubmitClick = (values: OrderInputObject) => {
+    setOrderInputObject(values);
+    if (isSpecialOffer && isCar) {
+      setIsModalVisible(true);
+      return;
+    }
+    onOrderStart();
+  };
 
   if (loading) {
     return (
@@ -436,44 +474,15 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     return pdpContentHeight + customerAlsoViewHeight - window.innerHeight;
   };
 
-  const isSpecialOffer = useMemo(
-    () => data?.vehicleConfigurationByCapId?.onOffer,
-    [data],
-  );
-
-  const vehicleImages = useMemo(() => {
-    return isSpecialOffer
-      ? (() => {
-          const urls =
-            (data?.vehicleImages?.length &&
-              ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
-                .imageUrls as string[])) ||
-            [];
-          return urls[0]
-            ? [
-                [
-                  urls[0],
-                  `${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`,
-                ],
-                ...urls.slice(1),
-              ]
-            : urls;
-        })()
-      : (data?.vehicleImages?.length &&
-          ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
-            .imageUrls as string[])) ||
-          [];
-  }, [data?.vehicleImages, isSpecialOffer]);
-
   return (
     <>
       <div
         className={cx('pdp--content', {
-          '-free-insurance': isSpecialOffer,
+          '-free-insurance': isSpecialOffer && isCar,
         })}
         ref={pdpContent}
       >
-        {isSpecialOffer && (
+        {isSpecialOffer && isCar && (
           <div className="pdp-free-insurance-banner -white">
             <ShieldFreeInsurance />
             <Text tag="span" color="white">
@@ -545,7 +554,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             vehicleDetails={vehicleDetails}
             derivativeInfo={derivativeInfo}
           />
-          {isSpecialOffer && <FreeInsuranceCards />}
+          {isSpecialOffer && isCar && <FreeInsuranceCards />}
         </LazyLoadComponent>
         {isMobile && vehicleDetails?.brochureUrl && (
           <Button
@@ -583,6 +592,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           <CustomiseLeaseContainer
             quote={quote}
             capId={capId}
+            isShowFreeInsuranceMerch={isCar && !!isSpecialOffer}
             onCompletedCallBack={onCompletedCallBack}
             vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
@@ -641,6 +651,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <CustomiseLeaseContainer
           quote={quote}
           capId={capId}
+          isShowFreeInsuranceMerch={isCar && !!isSpecialOffer}
           vehicleType={vehicleType}
           derivativeInfo={derivativeInfo}
           leaseAdjustParams={leaseAdjustParams}

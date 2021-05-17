@@ -49,6 +49,16 @@
   }
 }
 
+.card .gallery-free-insurance {
+  width: 60%;
+  top: 20px;
+  left: 0;
+  // Desktop
+  @media (min-width:1216px) {
+    width: 217px;
+  }
+}
+
 
 .two-col {
   > * {
@@ -129,7 +139,7 @@
   }
   > div {
     padding-left: 10px;
-    span {
+    > span {
       &:last-of-type {
         display: block;
         font-size: 14px;
