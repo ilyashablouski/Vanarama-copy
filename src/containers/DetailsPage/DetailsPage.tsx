@@ -44,7 +44,7 @@ import {
 } from '../../../generated/GetTrimAndColor';
 import { GetProductCard } from '../../../generated/GetProductCard';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
-import FreeInsuranceCards from '../../components/FreeInsuranceCards/FreeInsuranceCards';
+import { isNotWindow } from '../../utils/deviceType';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -65,6 +65,9 @@ const LeaseScanner = dynamic(() => import('core/organisms/lease-scanner'), {
 });
 const IndependentReview = dynamic(() =>
   import('../../components/IndependentReview/IndependentReview'),
+);
+const FreeInsuranceCards = dynamic(() =>
+  import('../../components/FreeInsuranceCards/FreeInsuranceCards'),
 );
 const WhyChooseLeasing = dynamic(
   () => import('../../components/WhyChooseLeasing/WhyChooseLeasing'),
@@ -544,12 +547,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           videoIframe
           imageAltText={metaTitle}
         />
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           <VehicleTechDetails
             vehicleDetails={vehicleDetails}
             derivativeInfo={derivativeInfo}
@@ -579,12 +577,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         )}
         {(vans || cars) && <Banner vans={vans} />}
         {(vans || pickups) && !!independentReview && (
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
-          >
+          <LazyLoadComponent visibleByDefault={isNotWindow}>
             <IndependentReview review={independentReview || ''} />
           </LazyLoadComponent>
         )}
@@ -611,22 +604,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             pickups={pickups}
           />
         )}
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           <WhyChooseLeasing warranty={warranty || ''} />
           <WhyChooseVanarama cars={cars} vans={vans} pickups={pickups} />
         </LazyLoadComponent>
         <div className="pdp--reviews">
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
-          >
+          <LazyLoadComponent visibleByDefault={isNotWindow}>
             <CustomerReviews
               reviews={reviews || []}
               title="Customer Reviews"
@@ -635,12 +618,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             />
           </LazyLoadComponent>
         </div>
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           <FrequentlyAskedQuestions
             rangeFAQ={rangeFAQs || []}
             rangeFAQTitle={pageTitle}
@@ -671,12 +649,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         />
       )}
       {(!!productCard || !!capsId?.length) && (
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           <CustomerAlsoViewedContainer
             initProductCard={productCard}
             capsId={capsId || []}
@@ -692,12 +665,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           })}
           ref={leaseScanner}
         >
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
-          >
+          <LazyLoadComponent visibleByDefault={isNotWindow}>
             <LeaseScanner
               classNameHeading="headingText"
               className="pdp-footer"
