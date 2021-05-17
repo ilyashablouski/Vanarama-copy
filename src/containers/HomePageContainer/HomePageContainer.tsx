@@ -266,29 +266,28 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             </TabPanel>
             <TabPanel index={1}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent
-                  visibleByDefault={
-                    typeof window === 'undefined' ||
-                    navigator?.vendor === 'Apple Computer, Inc.'
+                {/* <LazyLoadComponent */}
+                {/*  visibleByDefault={ */}
+                {/*    typeof window === 'undefined' || */}
+                {/*    navigator?.vendor === 'Apple Computer, Inc.' */}
+                {/*  } */}
+                {/* > */}
+                <ProductCarousel
+                  leaseType={
+                    isPersonalLcv
+                      ? LeaseTypeEnum.PERSONAL
+                      : LeaseTypeEnum.BUSINESS
                   }
-                >
-                  <ProductCarousel
-                    leaseType={
-                      isPersonalLcv
-                        ? LeaseTypeEnum.PERSONAL
-                        : LeaseTypeEnum.BUSINESS
-                    }
-                    productType="Pickup"
-                    data={{
-                      derivatives:
-                        productsPickupDerivatives?.derivatives || null,
-                      productCard: productsPickup?.productCarousel || null,
-                      vehicleList: vehicleListUrlData,
-                    }}
-                    countItems={productsPickup?.productCarousel?.length || 6}
-                    dataTestIdBtn="pickup-view-offer"
-                  />
-                </LazyLoadComponent>
+                  productType="Pickup"
+                  data={{
+                    derivatives: productsPickupDerivatives?.derivatives || null,
+                    productCard: productsPickup?.productCarousel || null,
+                    vehicleList: vehicleListUrlData,
+                  }}
+                  countItems={productsPickup?.productCarousel?.length || 6}
+                  dataTestIdBtn="pickup-view-offer"
+                />
+                {/* </LazyLoadComponent> */}
                 <div className="-justify-content-row -pt-500">
                   <RouterLink
                     className="button"
@@ -311,27 +310,27 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             </TabPanel>
             <TabPanel index={2}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent
-                  visibleByDefault={
-                    typeof window === 'undefined' ||
-                    navigator?.vendor === 'Apple Computer, Inc.'
+                {/* <LazyLoadComponent */}
+                {/*  visibleByDefault={ */}
+                {/*    typeof window === 'undefined' || */}
+                {/*    navigator?.vendor === 'Apple Computer, Inc.' */}
+                {/*  } */}
+                {/* > */}
+                <ProductCarousel
+                  leaseType={
+                    isPersonalCar
+                      ? LeaseTypeEnum.PERSONAL
+                      : LeaseTypeEnum.BUSINESS
                   }
-                >
-                  <ProductCarousel
-                    leaseType={
-                      isPersonalCar
-                        ? LeaseTypeEnum.PERSONAL
-                        : LeaseTypeEnum.BUSINESS
-                    }
-                    data={{
-                      derivatives: productsCarDerivatives?.derivatives || null,
-                      productCard: productsCar?.productCarousel || null,
-                      vehicleList: vehicleListUrlData,
-                    }}
-                    countItems={productsCar?.productCarousel?.length || 6}
-                    dataTestIdBtn="car-view-offer"
-                  />
-                </LazyLoadComponent>
+                  data={{
+                    derivatives: productsCarDerivatives?.derivatives || null,
+                    productCard: productsCar?.productCarousel || null,
+                    vehicleList: vehicleListUrlData,
+                  }}
+                  countItems={productsCar?.productCarousel?.length || 6}
+                  dataTestIdBtn="car-view-offer"
+                />
+                {/* </LazyLoadComponent> */}
 
                 <div className="-justify-content-row -pt-500">
                   <RouterLink
@@ -358,13 +357,13 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       </section>
 
       {data?.homePage && (
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
-          <section className="row:bg-lighter">
+        <section className="row:bg-lighter">
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             <div className="row:cards-3col">
               {(getSectionsData(
                 ['cards', 'cards'],
@@ -399,18 +398,18 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                 </RouterLink>
               ))}
             </div>
-          </section>
-        </LazyLoadComponent>
+          </LazyLoadComponent>
+        </section>
       )}
 
       {data?.homePage && (
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
-          <section className="row:featured-right">
+        <section className="row:featured-right">
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             <div className="-inset -middle -col-400">
               <Heading
                 size="large"
@@ -480,18 +479,18 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                 }
               />
             )}
-          </section>
-        </LazyLoadComponent>
+          </LazyLoadComponent>
+        </section>
       )}
 
       {data?.homePage && (
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
-          <section className="row:featured-left">
+        <section className="row:featured-left">
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             {data?.homePage?.sections?.featured2?.video ? (
               <Media
                 src={
@@ -551,18 +550,18 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                 />
               </div>
             </div>
-          </section>
-        </LazyLoadComponent>
+          </LazyLoadComponent>
+        </section>
       )}
 
       {data?.homePage && (
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
-          <section className="row:features-4col">
+        <section className="row:features-4col">
+          <LazyLoadComponent
+            visibleByDefault={
+              typeof window === 'undefined' ||
+              navigator?.vendor === 'Apple Computer, Inc.'
+            }
+          >
             <Heading
               size="large"
               color="black"
@@ -603,32 +602,32 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                 </Tile>
               </div>
             ))}
-          </section>
-        </LazyLoadComponent>
+          </LazyLoadComponent>
+        </section>
       )}
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:league">
+      <section className="row:league">
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
             link="/fan-hub.html"
           />
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:featured-logos">
+      <section className="row:featured-logos">
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
           </Heading>
@@ -681,8 +680,8 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
               />
             ))}
           </div>
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
       <section className="row:trustpilot">
         <TrustPilot />
