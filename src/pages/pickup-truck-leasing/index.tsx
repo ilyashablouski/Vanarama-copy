@@ -45,7 +45,7 @@ import {
   pickupsPageOffersRequest,
 } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
-import { isNotWindow } from '../../utils/deviceType';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -244,7 +244,7 @@ export const PickupsPage: NextPage<IProps> = ({
             return (
               <LazyLoadComponent
                 key={item?.capId || idx}
-                visibleByDefault={isNotWindow}
+                visibleByDefault={isServerRenderOrAppleDevice}
               >
                 <ProductCard
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -566,7 +566,7 @@ export const PickupsPage: NextPage<IProps> = ({
       <hr className="fullWidth" />
 
       <section className="row:features-4col">
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             size="large"
             color="black"
@@ -604,7 +604,7 @@ export const PickupsPage: NextPage<IProps> = ({
       </section>
 
       <section className="row:manufacturer-grid">
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             size="large"
             color="black"
@@ -633,7 +633,7 @@ export const PickupsPage: NextPage<IProps> = ({
       </section>
 
       <section className="row:league">
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
@@ -643,7 +643,7 @@ export const PickupsPage: NextPage<IProps> = ({
       </section>
 
       <section className="row:featured-logos">
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
           </Heading>

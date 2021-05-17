@@ -4,7 +4,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown';
 import { PrimaryFooter_primaryFooter as PrimaryFooter } from '../../../generated/PrimaryFooter';
 import RouterLink from '../RouterLink/RouterLink';
-import { isNotWindow } from '../../utils/deviceType';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Text = dynamic(() => import('core/atoms/text'));
 const FooterColumn = dynamic(() => import('./FooterColumn'));
@@ -17,7 +17,7 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
   const { linkGroups, legalStatement } = primaryFooter;
 
   return (
-    <LazyLoadComponent visibleByDefault={isNotWindow} threshold={250}>
+    <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice} threshold={250}>
       <footer className="footer">
         {linkGroups?.map(linkGroup => (
           <FooterColumn key={linkGroup?.name || ''} linkGroup={linkGroup} />

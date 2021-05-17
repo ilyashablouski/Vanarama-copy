@@ -16,7 +16,7 @@ import PartnershipLogo from '../../../components/Partnerships/PartnershipLogo';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 import PartnershipFeatureSection from '../../../components/Partnerships/PartnershipsFeatureSection/FeatureSection';
 import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
-import { isNotWindow } from '../../../utils/deviceType';
+import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 
 interface IProps extends IPartnerOffersData {
   data: any;
@@ -157,7 +157,7 @@ const OvoHomePage: NextPage<IProps> = ({
               return (
                 <TabPanel index={i}>
                   <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                    <LazyLoadComponent visibleByDefault={isNotWindow}>
+                    <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
                       <ProductCarousel
                         leaseType={
                           isPersonalLcv

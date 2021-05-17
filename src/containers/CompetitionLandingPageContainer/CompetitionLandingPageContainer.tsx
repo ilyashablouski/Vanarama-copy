@@ -4,7 +4,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 import { GetInsuranceLandingPage } from '../../../generated/GetInsuranceLandingPage';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
-import { isNotWindow } from '../../utils/deviceType';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const CompetitionHeroSection = dynamic(
   () => import('./sections/CompetitionHeroSection'),
@@ -60,7 +60,7 @@ const CompetitionLandingPageContainer = ({
         />
       )}
       {data?.insuranceLandingPage?.sections?.featured1 && (
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <MediaFeatureSection
             {...data?.insuranceLandingPage?.sections?.featured1}
             imageOnly
@@ -73,14 +73,14 @@ const CompetitionLandingPageContainer = ({
       )}
       <hr className="-fullwidth" />
       {data?.insuranceLandingPage?.sections?.featured2 && (
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <CompetitionFAQSection
             {...data?.insuranceLandingPage?.sections?.featured2}
           />
         </LazyLoadComponent>
       )}
       {data?.insuranceLandingPage?.sections?.carousel && (
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <CompetitionNewsSection
             {...data?.insuranceLandingPage?.sections?.carousel}
           />
