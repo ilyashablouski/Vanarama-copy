@@ -37,7 +37,7 @@ export interface IProps {
   setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
   setLeaseType: React.Dispatch<React.SetStateAction<string>>;
   setLeadTime: React.Dispatch<React.SetStateAction<string>>;
-  onCompleted: (values: OrderInputObject) => Promise<void>;
+  onCompleted: (values: OrderInputObject) => void;
   setLeaseScannerData?: React.Dispatch<
     React.SetStateAction<ILeaseScannerData | null>
   >;

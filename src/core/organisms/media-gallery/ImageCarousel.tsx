@@ -134,21 +134,12 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
                 })}
                 onClick={() => onChangeSlide(index)}
               >
-                {Array.isArray(value) ? (
-                  <Image
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    src={value[0]}
-                    size="xlarge"
-                    alt={imageAltText}
-                  />
-                ) : (
-                  <Image
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    src={value}
-                    size="xlarge"
-                    alt={imageAltText}
-                  />
-                )}
+                <Image
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  src={Array.isArray(value) ? value[0] : value}
+                  size="xlarge"
+                  alt={imageAltText}
+                />
               </div>
             ))}
           </div>
