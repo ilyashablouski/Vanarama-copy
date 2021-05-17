@@ -44,7 +44,7 @@ import {
 } from '../../../generated/GetTrimAndColor';
 import { GetProductCard } from '../../../generated/GetProductCard';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { isNotWindow } from '../../utils/deviceType';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -547,7 +547,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           videoIframe
           imageAltText={metaTitle}
         />
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           <VehicleTechDetails
             vehicleDetails={vehicleDetails}
             derivativeInfo={derivativeInfo}
@@ -577,7 +577,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         )}
         {(vans || cars) && <Banner vans={vans} />}
         {(vans || pickups) && !!independentReview && (
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+          <LazyLoadComponent visibleByDefault={isNotWindow}>
             <IndependentReview review={independentReview || ''} />
           </LazyLoadComponent>
         )}
@@ -604,12 +604,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             pickups={pickups}
           />
         )}
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           <WhyChooseLeasing warranty={warranty || ''} />
           <WhyChooseVanarama cars={cars} vans={vans} pickups={pickups} />
         </LazyLoadComponent>
         <div className="pdp--reviews">
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+          <LazyLoadComponent visibleByDefault={isNotWindow}>
             <CustomerReviews
               reviews={reviews || []}
               title="Customer Reviews"
@@ -618,7 +618,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             />
           </LazyLoadComponent>
         </div>
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           <FrequentlyAskedQuestions
             rangeFAQ={rangeFAQs || []}
             rangeFAQTitle={pageTitle}
@@ -649,7 +649,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         />
       )}
       {(!!productCard || !!capsId?.length) && (
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           <CustomerAlsoViewedContainer
             initProductCard={productCard}
             capsId={capsId || []}
@@ -665,7 +665,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           })}
           ref={leaseScanner}
         >
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+          <LazyLoadComponent visibleByDefault={isNotWindow}>
             <LeaseScanner
               classNameHeading="headingText"
               className="pdp-footer"

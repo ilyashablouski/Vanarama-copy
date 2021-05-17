@@ -4,7 +4,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
 import IframeContainer from './IframeContainer';
 import { IMediaProps } from './interface';
-import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
+import { isNotWindow } from '../../../utils/deviceType';
 
 const Media: React.FC<IMediaProps> = ({
   src,
@@ -51,7 +51,7 @@ const Media: React.FC<IMediaProps> = ({
       {noLazy ? (
         render()
       ) : (
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           {render()}
         </LazyLoadComponent>
       )}

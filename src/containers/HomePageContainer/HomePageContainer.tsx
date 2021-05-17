@@ -27,7 +27,7 @@ import Hero, {
 import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData } from '../../utils/offers';
 import FeaturedOnSection from '../../components/FeaturedOnBanner';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { isNotWindow } from '../../utils/deviceType';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -225,9 +225,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           <TabPanels>
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent
-                  visibleByDefault={isServerRenderOrAppleDevice}
-                >
+                <LazyLoadComponent visibleByDefault={isNotWindow}>
                   <ProductCarousel
                     leaseType={
                       isPersonalLcv
@@ -265,9 +263,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             </TabPanel>
             <TabPanel index={1}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent
-                  visibleByDefault={isServerRenderOrAppleDevice}
-                >
+                <LazyLoadComponent visibleByDefault={isNotWindow}>
                   <ProductCarousel
                     leaseType={
                       isPersonalLcv
@@ -307,9 +303,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             </TabPanel>
             <TabPanel index={2}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent
-                  visibleByDefault={isServerRenderOrAppleDevice}
-                >
+                <LazyLoadComponent visibleByDefault={isNotWindow}>
                   <ProductCarousel
                     leaseType={
                       isPersonalCar
@@ -352,7 +346,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
 
       {data?.homePage && (
         <section className="row:bg-lighter">
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+          <LazyLoadComponent visibleByDefault={isNotWindow}>
             <div className="row:cards-3col">
               {(getSectionsData(
                 ['cards', 'cards'],
@@ -393,7 +387,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
 
       {data?.homePage && (
         <section className="row:featured-right">
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+          <LazyLoadComponent visibleByDefault={isNotWindow}>
             <div className="-inset -middle -col-400">
               <Heading
                 size="large"
@@ -469,7 +463,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
 
       {data?.homePage && (
         <section className="row:featured-left">
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+          <LazyLoadComponent visibleByDefault={isNotWindow}>
             {data?.homePage?.sections?.featured2?.video ? (
               <Media
                 src={
@@ -535,7 +529,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
 
       {data?.homePage && (
         <section className="row:features-4col">
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+          <LazyLoadComponent visibleByDefault={isNotWindow}>
             <Heading
               size="large"
               color="black"
@@ -581,7 +575,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       )}
 
       <section className="row:league">
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"

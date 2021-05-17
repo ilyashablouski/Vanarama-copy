@@ -10,7 +10,7 @@ import {
 } from '../../../generated/GetAboutUsPageData';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { isNotWindow } from '../../utils/deviceType';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -177,7 +177,7 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, data }) => {
             }}
           />
         </article>
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           <div className="-pb-400">
             {sections?.carousel?.cards && (
               <Carousel countItems={1} className="-mh-auto about-us">

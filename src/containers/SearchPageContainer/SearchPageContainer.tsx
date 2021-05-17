@@ -70,7 +70,7 @@ import CommonDescriptionContainer from './CommonDescriptionContainer';
 import ReadMoreBlock from './ReadMoreBlock';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import { FilterFields } from '../FiltersContainer/config';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { isNotWindow } from '../../utils/deviceType';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -1022,7 +1022,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         <>
           {isRangePage ||
             (isDynamicFilterPage && (
-              <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+              <LazyLoadComponent visibleByDefault={isNotWindow}>
                 <div className={`row:text ${applyColumns}`}>
                   <ReactMarkdown
                     className="markdown"
@@ -1051,13 +1051,13 @@ const SearchPageContainer: React.FC<IProps> = ({
             ))}
 
           {!isDynamicFilterPage && tiles?.tiles?.length && (
-            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+            <LazyLoadComponent visibleByDefault={isNotWindow}>
               <TilesBlock tiles={tiles} />
             </LazyLoadComponent>
           )}
 
           {carousel?.cards?.length && (
-            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+            <LazyLoadComponent visibleByDefault={isNotWindow}>
               <div className="row:bg-lighter">
                 <div className="row:carousel">
                   <Heading size="large" color="black" tag="h3">
