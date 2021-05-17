@@ -5,6 +5,7 @@ import localForage from 'localforage';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
 import Button from 'core/atoms/button';
+import ShieldFreeInsurance from 'core/assets/icons/ShieldFreeInsurance';
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
@@ -43,8 +44,10 @@ import {
 } from '../../../generated/GetTrimAndColor';
 import { GetProductCard } from '../../../generated/GetProductCard';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
+import FreeInsuranceCards from '../../components/FreeInsuranceCards/FreeInsuranceCards';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
+const Text = dynamic(() => import('core/atoms/text'));
 const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
 const Loading = dynamic(() => import('core/atoms/loading'));
 const Rating = dynamic(() => import('core/atoms/rating'), {
@@ -99,6 +102,7 @@ const CustomiseLeaseContainer = dynamic(() =>
 const CustomerAlsoViewedContainer = dynamic(() =>
   import('../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer'),
 );
+const InsuranceModal = dynamic(() => import('./InsuranceModal'));
 
 interface IDetailsPageProps {
   capId: number;
@@ -142,6 +146,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     leaseTypeQuery ?? cachedLeaseType,
   );
   const [leadTime, setLeadTime] = useState<string>('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isAgreeInsuranceRules, setIsAgreeInsuranceRules] = useState(false);
+  const [orderInputObject, setOrderInputObject] = useState<OrderInputObject>();
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
     true,
@@ -234,9 +241,63 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   }, [price]);
   const vehicleDetails = data?.vehicleDetails;
 
-  const onSubmitClick = (values: OrderInputObject) => {
+  const breadcrumbItems = useMemo(() => {
+    return (
+      (genericPageHead?.genericPage.metaData?.breadcrumbs &&
+        genericPageHead.genericPage.metaData.breadcrumbs.map((el: any) => ({
+          link: { href: el.href || '', label: el.label },
+        }))) ??
+      getProductPageBreadCrumb(
+        data?.derivativeInfo,
+        genericPages,
+        genericPageHead?.genericPage.metaData.slug || '',
+        cars,
+      )
+    );
+  }, [cars, data, genericPageHead, genericPages]);
+
+  const isSpecialOffer = useMemo(
+    () => data?.vehicleConfigurationByCapId?.onOffer,
+    [data],
+  );
+
+  const isCar = useMemo(
+    () => quote?.quoteByCapId?.vehicleType === VehicleTypeEnum.CAR,
+    [],
+  );
+
+  const vehicleImages = useMemo(() => {
+    return isSpecialOffer && isCar
+      ? (() => {
+          const urls =
+            (data?.vehicleImages?.length &&
+              ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
+                .imageUrls as string[])) ||
+            [];
+          return urls[0]
+            ? [
+                [
+                  urls[0],
+                  `${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`,
+                ],
+                ...urls.slice(1),
+              ]
+            : urls;
+        })()
+      : (data?.vehicleImages?.length &&
+          ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
+            .imageUrls as string[])) ||
+          [];
+  }, [data?.vehicleImages, isCar, isSpecialOffer]);
+
+  const onOrderStart = (withInsurance = false) => {
     const derivativeInfo = data?.derivativeInfo;
     const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+    const values: OrderInputObject = {
+      ...orderInputObject,
+    } as OrderInputObject;
+    const vehicleProduct = values.lineItems?.[0].vehicleProduct;
+    if (vehicleProduct) vehicleProduct.oneYearFreeInsurance = withInsurance;
     pushAddToCartDataLayer({
       capId,
       derivativeInfo,
@@ -246,6 +307,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       price,
       category: getCategory({ cars, vans, pickups }),
     });
+    setIsModalVisible(false);
 
     return localForage
       .setItem('order', {
@@ -265,20 +327,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       });
   };
 
-  const breadcrumbItems = useMemo(() => {
-    return (
-      (genericPageHead?.genericPage.metaData?.breadcrumbs &&
-        genericPageHead.genericPage.metaData.breadcrumbs.map((el: any) => ({
-          link: { href: el.href || '', label: el.label },
-        }))) ??
-      getProductPageBreadCrumb(
-        data?.derivativeInfo,
-        genericPages,
-        genericPageHead?.genericPage.metaData.slug || '',
-        cars,
-      )
-    );
-  }, [cars, data, genericPageHead, genericPages]);
+  const onSubmitClick = (values: OrderInputObject) => {
+    setOrderInputObject(values);
+    if (isSpecialOffer && isCar) {
+      setIsModalVisible(true);
+      return;
+    }
+    onOrderStart();
+  };
 
   if (loading) {
     return (
@@ -306,12 +362,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   }));
   const rangeFAQs = data?.vehicleDetails
     ?.rangeFaqs as GetVehicleDetails_vehicleDetails_rangeFaqs[];
-
-  const vehicleImages =
-    (data?.vehicleImages?.length &&
-      ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
-        .imageUrls as string[])) ||
-    [];
 
   let video =
     (data?.vehicleImages?.length &&
@@ -426,7 +476,26 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   return (
     <>
-      <div className="pdp--content" ref={pdpContent}>
+      <div
+        className={cx('pdp--content', {
+          '-free-insurance': isSpecialOffer && isCar,
+        })}
+        ref={pdpContent}
+      >
+        {isSpecialOffer && isCar && (
+          <div className="pdp-free-insurance-banner -white">
+            <ShieldFreeInsurance />
+            <Text tag="span" color="white">
+              1 Year&apos;s FREE Insurance
+            </Text>
+            <RouterLink
+              link={{
+                href: '/car-leasing/free-car-insurance',
+                label: 'Find Out More',
+              }}
+            />
+          </div>
+        )}
         {breadcrumbItems && (
           <div className="row:title">
             <Breadcrumb items={breadcrumbItems} />
@@ -485,6 +554,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             vehicleDetails={vehicleDetails}
             derivativeInfo={derivativeInfo}
           />
+          {isSpecialOffer && isCar && <FreeInsuranceCards />}
         </LazyLoadComponent>
         {isMobile && vehicleDetails?.brochureUrl && (
           <Button
@@ -522,6 +592,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           <CustomiseLeaseContainer
             quote={quote}
             capId={capId}
+            isShowFreeInsuranceMerch={isCar && !!isSpecialOffer}
             onCompletedCallBack={onCompletedCallBack}
             vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
@@ -580,6 +651,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <CustomiseLeaseContainer
           quote={quote}
           capId={capId}
+          isShowFreeInsuranceMerch={isCar && !!isSpecialOffer}
           vehicleType={vehicleType}
           derivativeInfo={derivativeInfo}
           leaseAdjustParams={leaseAdjustParams}
@@ -666,6 +738,15 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             />
           </LazyLoadComponent>
         </div>
+      )}
+      {isModalVisible && (
+        <InsuranceModal
+          setIsModalVisible={setIsModalVisible}
+          isAgreeInsuranceRules={isAgreeInsuranceRules}
+          setIsAgreeInsuranceRules={setIsAgreeInsuranceRules}
+          onContinueWithInsurance={() => onOrderStart(true)}
+          onContinueWithoutInsurance={() => onOrderStart(false)}
+        />
       )}
       <Head
         metaData={metaData}

@@ -95,7 +95,9 @@ exports[`<Header /> renders correctly 1`] = `
     </a>
      
     <a
-      className="header-tel link InfinityNumber clickable"
+      className="header-tel link InfinityNumber call-us visible-xs"
+      data-ict-discovery-number="01442 838195"
+      data-ict-silent-replacements={true}
       data-testid="link"
       href="tel:01442838195"
       onClick={[Function]}
@@ -116,7 +118,9 @@ exports[`<Header /> renders correctly 1`] = `
         </svg>
       </i>
        
-      <span>
+      <span
+        className="infinityNumber Clickable"
+      >
         01442 838195
       </span>
        
@@ -2241,7 +2245,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
     </a>
      
     <a
-      className="header-tel link InfinityNumber clickable"
+      className="header-tel link InfinityNumber call-us visible-xs"
+      data-ict-discovery-number="01442 838195"
+      data-ict-silent-replacements={true}
       data-testid="link"
       href="tel:01442838195"
       onClick={[Function]}
@@ -2262,7 +2268,9 @@ exports[`<Header /> renders correctly with login user 1`] = `
         </svg>
       </i>
        
-      <span>
+      <span
+        className="infinityNumber Clickable"
+      >
         01442 838195
       </span>
        

@@ -9,6 +9,11 @@ import {
   fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles,
   fullTextSearchVehicleListVariables,
 } from '../../../generated/fullTextSearchVehicleList';
+import {
+  GlobalSearchCardsData,
+  GlobalSearchCardsDataVariables,
+} from '../../../generated/GlobalSearchCardsData';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 export const GET_SUGGESTIONS_DATA = gql`
   query suggestionList($query: String) {
@@ -76,6 +81,21 @@ export const GET_TEXT_SEARCH_VEHICLES_DATA = gql`
   }
 `;
 
+export const GET_CARDS_DATA = gql`
+  query GlobalSearchCardsData($capIds: [ID!]!, $vehicleType: VehicleTypeEnum) {
+    productCard(capIds: $capIds, vehicleType: $vehicleType) {
+      averageRating
+      capId
+      imageUrl
+      vehicleType
+      keyInformation {
+        name
+        value
+      }
+    }
+  }
+`;
+
 export function useSuggestionList(query: string) {
   return useLazyQuery<suggestionList, suggestionListVariables>(
     GET_SUGGESTIONS_DATA,
@@ -83,6 +103,24 @@ export function useSuggestionList(query: string) {
       variables: {
         query,
       },
+    },
+  );
+}
+
+export function useGSCardsData(
+  capIds: string[],
+  vehicleType: VehicleTypeEnum,
+  onCompleted?: (data: GlobalSearchCardsData) => void,
+) {
+  return useLazyQuery<GlobalSearchCardsData, GlobalSearchCardsDataVariables>(
+    GET_CARDS_DATA,
+    {
+      variables: {
+        capIds,
+        vehicleType,
+      },
+      onCompleted,
+      fetchPolicy: 'network-only',
     },
   );
 }

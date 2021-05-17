@@ -9,6 +9,17 @@ import { VehicleTypeEnum, CreditApplicationTypeEnum } from "./globalTypes";
 // GraphQL query operation: GetCreditApplicationByOrderUuid
 // ====================================================
 
+export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_bankAccountsV2 {
+  uuid: string | null;
+  accountName: string | null;
+  accountNumber: string | null;
+  bankName: string | null;
+  joinedAt: any | null;
+  joinedAtMonth: string | null;
+  joinedAtYear: string | null;
+  sortCode: string | null;
+}
+
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem_creditApplications {
   uuid: string;
 }
@@ -46,7 +57,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_li
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid {
   addresses: any | null;
   aboutDetails: any | null;
-  bankAccounts: any | null;
+  bankAccountsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_bankAccountsV2[] | null;
   companyDetails: any | null;
   vatDetails: any | null;
   soleTraderDetails: any | null;

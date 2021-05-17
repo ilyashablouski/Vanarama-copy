@@ -69,7 +69,10 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
   >(TESTIMONIALS_DATA, {
     variables: { size: 4, page },
     onCompleted: data => {
-      setTestimonialsData([...(testimonials || []), ...data.testimonials]);
+      setTestimonialsData([
+        ...(testimonials || []),
+        ...(data.testimonials || []),
+      ]);
       setPage(page + 1);
     },
   });

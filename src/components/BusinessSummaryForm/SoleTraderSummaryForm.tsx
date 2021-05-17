@@ -14,6 +14,7 @@ import SoleTraderDetailsForm from '../SoleTraderDetailsForm';
 import SoleTraderCompanyDetailsSummarySection from './SoleTraderCompanyDetailsSummarySection';
 import Skeleton from '../Skeleton';
 import RouterLink from '../RouterLink/RouterLink';
+import { ICompanyBankDetails } from '../CompanyBankDetails/interfaces';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -61,9 +62,9 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
   const router = useRouter();
   const [showModal, setShowModal] = useState(false);
 
-  const primaryBankAccount = useMemo(
+  const primaryBankAccount = useMemo<ICompanyBankDetails | undefined>(
     () =>
-      (creditApplication?.bankAccounts || []).length > 0
+      (creditApplication?.bankAccountsV2 || []).length > 0
         ? mapDefaultValues(creditApplication)
         : undefined,
     [creditApplication],

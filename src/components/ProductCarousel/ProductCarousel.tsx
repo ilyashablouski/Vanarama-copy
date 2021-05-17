@@ -4,7 +4,7 @@ import Carousel from 'core/organisms/carousel';
 import ProductCard from 'core/molecules/cards/ProductCard/ProductCard';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
-import { LeaseTypeEnum } from '../../../generated/globalTypes';
+import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import RouterLink from '../RouterLink/RouterLink';
 import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
 import {
@@ -129,6 +129,16 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 score: product.averageRating || 5,
               }}
             >
+              {product?.isOnOffer &&
+                product.vehicleType === VehicleTypeEnum.CAR && (
+                  <img
+                    loading="eager"
+                    sizes="(min-width:320px) 800px, 1200px"
+                    alt="Free insurance"
+                    className="gallery-free-insurance"
+                    src={`${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`}
+                  />
+                )}
               <div className="-flex-h">
                 <Price
                   price={

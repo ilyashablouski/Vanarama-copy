@@ -19,6 +19,7 @@ export const createOlafDetails = (
   offer: VehicleProductInputObject,
   derivative: Derivatives,
 ) => ({
+  isFreeInsurance: offer.oneYearFreeInsurance,
   price:
     offer.maintenance && offer.maintenancePrice && offer.monthlyPayment
       ? offer.monthlyPayment + offer.maintenancePrice
@@ -85,7 +86,7 @@ export const getFunderTerm = (
 export const OlafContext = createContext({ requiredMonths: DEFAULT_TERM });
 OlafContext.displayName = 'OlafContext';
 
-export const olafTitleMapper = {
+export const olafTitleMapper: { [index: string]: string } = {
   about: 'OLAF - About you | Vanarama',
   'company-details': 'OLAF - Company Details | Vanarama',
   'vat-details': 'OLAF - VAT Details | Vanarama',

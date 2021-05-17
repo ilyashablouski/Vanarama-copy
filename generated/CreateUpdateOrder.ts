@@ -20,6 +20,7 @@ export interface CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct {
   funderId: string | null;
   funderData: any | null;
   maintenancePrice: number | null;
+  oneYearFreeInsurance: boolean | null;
 }
 
 export interface CreateUpdateOrder_createUpdateOrder_lineItems {

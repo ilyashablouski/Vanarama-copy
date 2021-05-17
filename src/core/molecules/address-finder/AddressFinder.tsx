@@ -41,7 +41,8 @@ const AddressFinder: AddressFinderComponent = ({
   // Debounce state changes to value so we don't execute lots of XHR requests
   const text = useDebounce(state.value.label || '');
   const query = {
-    text,
+    text:
+      state.inputType === InputTypeEnum.LOOKUP ? selected?.label || text : text,
     postcode: state.intermediate?.id,
   };
   const shouldSkipLookUp = state.inputType === InputTypeEnum.MANUAL;

@@ -1,13 +1,11 @@
-import { SortCodeValue } from 'core/molecules/sortcode/interfaces';
-
 export interface ICompanyBankDetails {
-  uuid?: string;
-  bankName?: string;
-  accountName?: string;
-  accountNumber?: string;
-  sortCode?: SortCodeValue;
-  joinedAtMonth?: string;
-  joinedAtYear?: string;
+  uuid?: string | null;
+  bankName?: string | null;
+  accountName?: string | null;
+  accountNumber?: string | null;
+  joinedAtMonth?: string | null;
+  joinedAtYear?: string | null;
+  sortCode?: RegExpMatchArray | undefined | null;
 }
 
 export interface ICompanyBankDetailsProps {
