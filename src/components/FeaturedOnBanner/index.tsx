@@ -12,13 +12,13 @@ const Image = dynamic(() => import('core/atoms/image'), {
 });
 
 const FeaturedOnBanner = () => (
-  <LazyLoadComponent
-    visibleByDefault={
-      typeof window === 'undefined' ||
-      navigator?.vendor === 'Apple Computer, Inc.'
-    }
-  >
-    <section className="row:featured-logos">
+  <section className="row:featured-logos">
+    <LazyLoadComponent
+      visibleByDefault={
+        typeof window === 'undefined' ||
+        navigator?.vendor === 'Apple Computer, Inc.'
+      }
+    >
       <Heading tag="span" size="small" color="darker">
         AS FEATURED ON
       </Heading>
@@ -71,8 +71,8 @@ const FeaturedOnBanner = () => (
           />
         ))}
       </div>
-    </section>
-  </LazyLoadComponent>
+    </LazyLoadComponent>
+  </section>
 );
 
 export default FeaturedOnBanner;

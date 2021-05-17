@@ -26,6 +26,7 @@ import Hero, {
 } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData } from '../../utils/offers';
+import FeaturedOnSection from '../../components/FeaturedOnBanner';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -621,67 +622,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         </LazyLoadComponent>
       </section>
 
-      <section className="row:featured-logos">
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
-          <Heading tag="span" size="small" color="darker">
-            AS FEATURED ON
-          </Heading>
-          <div>
-            {[
-              {
-                label: 'bbc',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/bbc.png`,
-              },
-              {
-                label: 'btsport',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/btsport.png`,
-              },
-              {
-                label: 'dailymail',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymail.png`,
-              },
-              {
-                label: 'dailymirror',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/dailymirror.png`,
-              },
-              {
-                label: 'itv',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/itv.png`,
-              },
-              {
-                label: 'metro',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/metro.png`,
-              },
-              {
-                label: 'thesun',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thesun.png`,
-              },
-              {
-                label: 'sky',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/sky.png`,
-              },
-              {
-                label: 'thetelegraph',
-                href: `${process.env.HOST_DOMAIN}/Assets/images-optimised/home/featured/thetelegraph.png`,
-              },
-            ].map(({ href, label }) => (
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={label}
-                src={href}
-                alt={label}
-                size="expand"
-                plain
-              />
-            ))}
-          </div>
-        </LazyLoadComponent>
-      </section>
+      <FeaturedOnSection />
 
       <section className="row:trustpilot">
         <TrustPilot />
