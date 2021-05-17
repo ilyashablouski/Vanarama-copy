@@ -77,14 +77,14 @@ const ManualAddressForm: React.FC<IManualAddressFormProps> = () => {
         />
       </Formgroup>
       <Formgroup
-        controlId="country"
-        label="Country (Optional)"
-        error={errors.country?.message?.toString()}
+        controlId="county"
+        label="County (Optional)"
+        error={errors.county?.message?.toString()}
       >
         <TextInput
-          id="country"
-          name="country"
-          dataTestId="country"
+          id="county"
+          name="county"
+          dataTestId="county"
           ref={register}
         />
       </Formgroup>
