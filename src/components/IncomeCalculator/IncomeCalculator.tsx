@@ -3,7 +3,7 @@ import CheckBox from 'core/atoms/checkbox/';
 import NumericInput from 'core/atoms/numeric-input';
 import Input from 'core/atoms/textinput/';
 import { gql } from '@apollo/client';
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import validationSchema from './IncomeCalculator.validation';
@@ -42,9 +42,14 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
   expenditure,
   onSubmit,
 }) => {
-  const { handleSubmit, control, watch, errors, formState } = useForm<
-    IFormValues
-  >({
+  const {
+    handleSubmit,
+    control,
+    watch,
+    errors,
+    formState,
+    triggerValidation,
+  } = useForm<IFormValues>({
     mode: 'onBlur',
     validationSchema,
     defaultValues: responseToInitialFormValues(expenditure),
@@ -59,6 +64,10 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
         : '',
     [disposableIncome],
   );
+
+  useEffect(() => {
+    triggerValidation([]);
+  }, [values.suitabilityConsent]);
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
