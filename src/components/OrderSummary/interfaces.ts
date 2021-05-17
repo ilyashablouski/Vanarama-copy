@@ -15,4 +15,5 @@ export interface IProps {
   trims: (GetVehicleDetails_derivativeInfo_trims | null)[] | null | undefined;
   trim: number | null | undefined;
   pickups?: boolean;
+  isShowFreeInsuranceMerch?: boolean;
 }

@@ -37,6 +37,28 @@ export const PARTNER = gql`
           }
         }
       }
+      footer {
+        legalStatement {
+          body
+          name
+          title
+        }
+        linkGroups {
+          body
+          linkGroups {
+            name
+            links {
+              text
+              url
+            }
+          }
+          links {
+            url
+            text
+          }
+          name
+        }
+      }
     }
   }
   ${FeaturedSection.fragments.featured}
