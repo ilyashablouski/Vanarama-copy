@@ -48,7 +48,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
   const sections = data?.genericPage.sectionsAsArray;
   const featureSections = sections?.featured || [];
   const isPersonalCar = cachedLeaseType.car === 'Personal';
-  const accordionSections = sections?.questionSet?.[0]?.questionAnswers?.map(
+  const accordionSections: any = sections?.questionSet?.[0]?.questionAnswers?.map(
     (question, i) => {
       return {
         id: i,
