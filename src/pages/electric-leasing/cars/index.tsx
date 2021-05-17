@@ -26,6 +26,7 @@ import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
 } from '../../../../generated/GenericPageQuery';
+import { isNotWindow } from '../../../utils/deviceType';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -306,12 +307,7 @@ const ECarsPage: NextPage<IProps> = ({
 
   const WhyLeaseWithVanarama = () => (
     <section className="row:features-4col">
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
+      <LazyLoadComponent visibleByDefault={isNotWindow}>
         <Heading
           size="large"
           color="black"

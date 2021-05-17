@@ -5,6 +5,7 @@ import {
   InMemoryCache,
   HttpLink,
 } from '@apollo/client';
+
 import { RetryLink } from '@apollo/client/link/retry';
 
 import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
