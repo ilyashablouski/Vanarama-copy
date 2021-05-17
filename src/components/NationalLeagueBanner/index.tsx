@@ -4,20 +4,20 @@ import React from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 
 const NationalLeagueBanner = () => (
-  <LazyLoadComponent
-    visibleByDefault={
-      typeof window === 'undefined' ||
-      navigator?.vendor === 'Apple Computer, Inc.'
-    }
-  >
-    <section className="row:league">
+  <section className="row:league">
+    <LazyLoadComponent
+      visibleByDefault={
+        typeof window === 'undefined' ||
+        navigator?.vendor === 'Apple Computer, Inc.'
+      }
+    >
       <League
         clickReadMore={() => Router.push('/fan-hub.html')}
         altText="vanarama national league"
         link="/fan-hub.html"
       />
-    </section>
-  </LazyLoadComponent>
+    </LazyLoadComponent>
+  </section>
 );
 
 export default NationalLeagueBanner;

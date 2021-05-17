@@ -304,13 +304,13 @@ const EVansPage: NextPage<IProps> = ({
   );
 
   const WhyLeaseWithVanarama = () => (
-    <LazyLoadComponent
-      visibleByDefault={
-        typeof window === 'undefined' ||
-        navigator?.vendor === 'Apple Computer, Inc.'
-      }
-    >
-      <section className="row:features-4col">
+    <section className="row:features-4col">
+      <LazyLoadComponent
+        visibleByDefault={
+          typeof window === 'undefined' ||
+          navigator?.vendor === 'Apple Computer, Inc.'
+        }
+      >
         <Heading
           size="large"
           color="black"
@@ -342,8 +342,8 @@ const EVansPage: NextPage<IProps> = ({
             </Tile>
           </div>
         ))}
-      </section>
-    </LazyLoadComponent>
+      </LazyLoadComponent>
+    </section>
   );
 
   const TrustPilotBanner = () => (
