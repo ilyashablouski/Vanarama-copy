@@ -665,14 +665,13 @@ export const VansPage: NextPage<IProps> = ({
       </section>
 
       <hr className="fullWidth" />
-
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:features-4col">
+      <section className="row:features-4col">
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <Heading
             size="large"
             color="black"
@@ -713,16 +712,16 @@ export const VansPage: NextPage<IProps> = ({
               </Tile>
             </div>
           ))}
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:manufacturer-grid">
+      <section className="row:manufacturer-grid">
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <Heading
             size="large"
             color="black"
@@ -747,27 +746,26 @@ export const VansPage: NextPage<IProps> = ({
               </RouterLink>
             ))}
           </div>
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:league">
+      <section className="row:league">
+        <LazyLoadComponent
+          visibleByDefault={
+            typeof window === 'undefined' ||
+            navigator?.vendor === 'Apple Computer, Inc.'
+          }
+        >
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
             link="/fan-hub.html"
           />
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
       <FeaturedOnSection />
 
-      {/* TODO: Wrapp lazy-load components in div on all pages and test it */}
       <section className="row:trustpilot">
         <TrustPilot />
       </section>
