@@ -102,6 +102,7 @@ const CustomiseLeaseContainer = dynamic(() =>
 const CustomerAlsoViewedContainer = dynamic(() =>
   import('../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer'),
 );
+const InsuranceModal = dynamic(() => import('./InsuranceModal'));
 
 interface IDetailsPageProps {
   capId: number;
@@ -145,6 +146,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     leaseTypeQuery ?? cachedLeaseType,
   );
   const [leadTime, setLeadTime] = useState<string>('');
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isAgreeInsuranceRules, setIsAgreeInsuranceRules] = useState(false);
+  const [orderInputObject, setOrderInputObject] = useState<OrderInputObject>();
   const [isDisabled, setIsDisabled] = useState<boolean>(false);
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
     true,
@@ -238,8 +242,18 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const vehicleDetails = data?.vehicleDetails;
 
   const onSubmitClick = (values: OrderInputObject) => {
+    setOrderInputObject(values);
+    setIsModalVisible(true);
+  };
+
+  const onOrderStart = (withInsurance = false) => {
     const derivativeInfo = data?.derivativeInfo;
     const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
+    const values: OrderInputObject = {
+      ...orderInputObject,
+    } as OrderInputObject;
+    const vehicleProduct = values.lineItems?.[0].vehicleProduct;
+    if (vehicleProduct) vehicleProduct.oneYearFreeInsurance = withInsurance;
     pushAddToCartDataLayer({
       capId,
       derivativeInfo,
@@ -249,6 +263,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       price,
       category: getCategory({ cars, vans, pickups }),
     });
+    setIsModalVisible(false);
 
     return localForage
       .setItem('order', {
@@ -459,8 +474,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         ref={pdpContent}
       >
         {isSpecialOffer && (
-          <div className="pdp-free-insurance-banner">
-            <Icon icon={<ShieldFreeInsurance />} color="white" />
+          <div className="pdp-free-insurance-banner -white">
+            <ShieldFreeInsurance />
             <Text tag="span" color="white">
               1 Year&apos;s FREE Insurance
             </Text>
@@ -712,6 +727,15 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             />
           </LazyLoadComponent>
         </div>
+      )}
+      {isModalVisible && (
+        <InsuranceModal
+          setIsModalVisible={setIsModalVisible}
+          isAgreeInsuranceRules={isAgreeInsuranceRules}
+          setIsAgreeInsuranceRules={setIsAgreeInsuranceRules}
+          onContinueWithInsurance={() => onOrderStart(true)}
+          onContinueWithoutInsurance={() => onOrderStart(false)}
+        />
       )}
       <Head
         metaData={metaData}

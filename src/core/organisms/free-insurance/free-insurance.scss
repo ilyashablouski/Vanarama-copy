@@ -11,9 +11,6 @@
   align-items: center;
   color: white;
   margin-left: -16px;
-  .icon {
-    height: 28px;
-  }
   svg {
     width: 24px;
   }
@@ -183,4 +180,9 @@
       top: 0;
     }
   }
+}
+
+.insuranceConditions li{
+  margin-top: 0;
+  border-top:  none;
 }

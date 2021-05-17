@@ -4,8 +4,10 @@ import Text from '../../../atoms/text';
 import StructuredList from '../../../organisms/structured-list';
 import { ICardProps } from '../interfaces';
 import Card from '..';
+import FreeInsuranceLabel from '../../../../components/FreeInsuranceLabel';
 
 export interface IOlafDetails {
+  isFreeInsurance?: boolean | null;
   price: number;
   priceDescription: string;
   description: string;
@@ -118,6 +120,7 @@ const OlafCard: FC<IOlafCardProps> = props => {
         </Text>
       </div>
       <StructuredList dataTestId="order-details" list={data} />
+      {olafDetails.isFreeInsurance && <FreeInsuranceLabel />}
     </Card>
   );
 };
