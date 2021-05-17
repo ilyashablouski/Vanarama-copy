@@ -474,8 +474,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         ref={pdpContent}
       >
         {isSpecialOffer && (
-          <div className="pdp-free-insurance-banner">
-            <Icon icon={<ShieldFreeInsurance />} color="white" />
+          <div className="pdp-free-insurance-banner -white">
+            <ShieldFreeInsurance />
             <Text tag="span" color="white">
               1 Year&apos;s FREE Insurance
             </Text>
