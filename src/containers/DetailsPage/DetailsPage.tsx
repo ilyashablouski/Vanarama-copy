@@ -592,6 +592,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           <CustomiseLeaseContainer
             quote={quote}
             capId={capId}
+            isShowFreeInsuranceMerch={isCar && !!isSpecialOffer}
             onCompletedCallBack={onCompletedCallBack}
             vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
@@ -650,6 +651,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <CustomiseLeaseContainer
           quote={quote}
           capId={capId}
+          isShowFreeInsuranceMerch={isCar && !!isSpecialOffer}
           vehicleType={vehicleType}
           derivativeInfo={derivativeInfo}
           leaseAdjustParams={leaseAdjustParams}

@@ -139,7 +139,7 @@
   }
   > div {
     padding-left: 10px;
-    span {
+    > span {
       &:last-of-type {
         display: block;
         font-size: 14px;
