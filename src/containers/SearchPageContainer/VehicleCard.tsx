@@ -9,6 +9,7 @@ import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { features } from '../../components/ProductCarousel/helpers';
 import Skeleton from '../../components/Skeleton';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -113,6 +114,15 @@ const VehicleCard = React.memo(
           ),
         }}
       >
+        {data?.isOnOffer && data?.vehicleType === VehicleTypeEnum.CAR && (
+          <img
+            loading="eager"
+            sizes="(min-width:320px) 800px, 1200px"
+            alt="Free insurance"
+            className="gallery-free-insurance"
+            src={`${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`}
+          />
+        )}
         <div className="-flex-h">
           <Price
             price={isPersonalPrice ? data?.personalRate : data?.businessRate}
