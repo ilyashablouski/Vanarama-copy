@@ -29,7 +29,7 @@ export interface IManualAddressFormValues {
   lineOne: string;
   lineTwo?: string;
   city: string;
-  country?: string;
+  county?: string;
   postcode: string;
 }
 
