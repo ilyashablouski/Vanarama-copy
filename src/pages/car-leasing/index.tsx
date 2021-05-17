@@ -42,6 +42,7 @@ import {
 } from '../../../generated/filterList';
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
+import { isNotWindow } from '../../utils/deviceType';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -174,12 +175,7 @@ export const CarsPage: NextPage<IProps> = ({
       </section>
 
       <section className="row:eligibility-checker-cta">
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           <div>
             <Image
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -247,10 +243,7 @@ export const CarsPage: NextPage<IProps> = ({
             return (
               <LazyLoadComponent
                 key={item?.capId || idx}
-                visibleByDefault={
-                  typeof window === 'undefined' ||
-                  navigator?.vendor === 'Apple Computer, Inc.'
-                }
+                visibleByDefault={isNotWindow}
               >
                 <ProductCard
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -496,12 +489,7 @@ export const CarsPage: NextPage<IProps> = ({
       </section>
 
       <section className="row:features-4col">
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           <Heading
             size="large"
             color="black"
@@ -539,12 +527,7 @@ export const CarsPage: NextPage<IProps> = ({
       </section>
 
       <section className="row:league">
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
+        <LazyLoadComponent visibleByDefault={isNotWindow}>
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
