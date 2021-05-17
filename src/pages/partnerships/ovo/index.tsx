@@ -80,6 +80,23 @@ const OvoHomePage: NextPage<IProps> = ({
     setObjectAsSessionStorage('partnerFooter', footer);
   }, []);
 
+  const productCarouselProperties = [
+    {
+      type: 'Cars',
+      products: partnerProductsCar,
+      derivatives: partnerProductsCarDerivatives,
+      dataTestId: 'view-all-cars',
+      href: '/car-leasing/search',
+    },
+    {
+      type: 'Vans',
+      products: partnerProductsVan,
+      derivatives: partnerProductsVanDerivatives,
+      dataTestId: 'view-all-vans',
+      href: '/van-leasing/search',
+    },
+  ];
+
   return (
     <>
       <Hero
@@ -133,12 +150,9 @@ const OvoHomePage: NextPage<IProps> = ({
           </TabList>
           <TabPanels>
             {vehicleTypes?.map((type: string, i: number) => {
-              const products =
-                type === 'Cars' ? partnerProductsCar : partnerProductsVan;
-              const productDerivatives =
-                type === 'Cars'
-                  ? partnerProductsCarDerivatives
-                  : partnerProductsVanDerivatives;
+              const vehicleType = productCarouselProperties.find(
+                product => product.type === type,
+              );
               return (
                 <TabPanel index={i}>
                   <div style={{ maxWidth: 1216 }} className="-mh-auto">
@@ -155,12 +169,18 @@ const OvoHomePage: NextPage<IProps> = ({
                             : LeaseTypeEnum.BUSINESS
                         }
                         data={{
-                          derivatives: productDerivatives?.derivatives || null,
+                          derivatives:
+                            vehicleType?.derivatives?.derivatives || null,
                           productCard:
-                            products?.productCarousel?.slice(0, 6) || null,
+                            vehicleType?.products?.productCarousel?.slice(
+                              0,
+                              6,
+                            ) || null,
                           vehicleList: vehicleListUrlData,
                         }}
-                        countItems={products?.productCarousel?.length || 6}
+                        countItems={
+                          vehicleType?.products?.productCarousel?.length || 6
+                        }
                         customCTABackground={colourPrimary}
                         dataTestIdBtn="van-view-offer"
                       />
@@ -176,13 +196,13 @@ const OvoHomePage: NextPage<IProps> = ({
                         }}
                         link={{
                           label: 'View More',
-                          href: '/van-leasing/search',
+                          href: vehicleType?.href || '',
                           query: {
                             fuelTypes,
                           },
                         }}
                         withoutDefaultClassName
-                        dataTestId="view-all-vans"
+                        dataTestId={vehicleType?.dataTestId}
                       >
                         <div
                           className="button--inner"
