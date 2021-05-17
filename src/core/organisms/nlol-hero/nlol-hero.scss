@@ -78,6 +78,14 @@
     }
   }
 }
+.nlol-free-insurance {
+  p {
+    font-size: 2rem;
+  }
+  h2 {
+    font-size: 3rem;
+  }
+}
 
 @media (min-width: 768px) and (max-width: 1215px) {
   .hero--left {
@@ -117,6 +125,11 @@
       }
     }
   }
+  .nlol-free-insurance {
+    h2 {
+      font-size: 3.5vw;
+    }
+  }
 }
 
 .hero--top-header {
@@ -136,7 +149,6 @@
       margin-right: 12px;
     }
   }
-
 }
 
 @media (max-width: 767px) {
@@ -195,5 +207,15 @@
         font-size: 8.1vw;
       }
     }
+  }
+}
+
+.nlol-small-print {
+  color: $darker;
+  font-size: 0.6rem;
+  position: absolute;
+  bottom: 16px;
+  @media (max-width: 767px) {
+    position: initial;
   }
 }
