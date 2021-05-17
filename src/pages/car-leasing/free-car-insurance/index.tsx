@@ -58,7 +58,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
     },
   );
   const findOutMoreSections = sections?.carousel?.[1];
-
+  // The small print will eventually be pulled from the CMS
   return (
     <>
       <Hero
