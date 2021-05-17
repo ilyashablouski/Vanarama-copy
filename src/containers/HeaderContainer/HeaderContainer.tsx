@@ -1,10 +1,15 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import { ILink } from 'core/interfaces/link';
 import { useMediaQuery } from 'react-responsive';
 
+import { PartnershipsLinks } from 'components/Partnerships/Data/PartnishipLinks';
+import {
+  getSessionStorage,
+  setSessionStorage,
+} from 'utils/windowSessionStorage';
 import {
   PHONE_NUMBER_LINK,
   FLEET_PHONE_NUMBER_LINK,
@@ -35,6 +40,7 @@ const HeaderContainer: FC = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
   const phoneNumberLink =
     router.pathname === '/fleet' ? FLEET_PHONE_NUMBER_LINK : PHONE_NUMBER_LINK;
+  const partnerLinks = PartnershipsLinks;
 
   const LOGIN_LINK = {
     label: 'Login',
@@ -46,6 +52,10 @@ const HeaderContainer: FC = () => {
   };
 
   const [logOut] = useMutation<LogOutUserMutation>(LOGOUT_USER_MUTATION);
+
+  const [partnership, setPartnership] = useState<string | null>(null);
+  const [partnershipLinks, setPartnershipLinks] = useState<any>([]);
+  const [partnershipHomeLink, setPartnershipHomeLink] = useState<any>(null);
 
   const offerLink =
     data?.primaryHeader?.links?.map(el => ({
@@ -175,6 +185,42 @@ const HeaderContainer: FC = () => {
     },
     [] as any[],
   );
+
+  // check if user is on a partnership journey
+  useEffect(() => {
+    const partnerName = getSessionStorage('partnerships');
+    const path = router.pathname;
+    if (partnerName) {
+      setPartnership(partnerName);
+      const links = partnerLinks.find(p => p.name === partnerName)?.links;
+      setPartnershipLinks(links);
+    } else if (path.includes('partnerships')) {
+      const partner = path.split('/').pop();
+      if (partner) {
+        setPartnership(partner);
+        setPartnershipHomeLink(`/partnerships/${partner}`);
+        setSessionStorage('partnerships', partner);
+        const links = partnerLinks.find(p => p.name === partner)?.links;
+        setPartnershipLinks(links);
+      }
+    }
+  }, []);
+
+  if (partnership) {
+    return (
+      <Header
+        onLogOut={async () => {
+          await localForage.clear();
+          await client.resetStore();
+          await logOut().catch();
+        }}
+        loginLink={LOGIN_LINK}
+        phoneNumberLink={phoneNumberLink}
+        topBarLinks={[...partnershipLinks]}
+        customHomePath={partnershipHomeLink}
+      />
+    );
+  }
 
   if (topLinks?.length) {
     return (

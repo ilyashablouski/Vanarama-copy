@@ -74,6 +74,7 @@ export interface IHeaderProps extends IBaseProps {
   topBarLinks: IHeaderLink[];
   loginLink: ILinkProps;
   phoneNumberLink: ILinkProps;
+  customHomePath?: string;
   onLogOut: () => void;
 }
 
@@ -84,6 +85,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
     topBarLinks,
     loginLink,
     phoneNumberLink,
+    customHomePath,
     onLogOut,
   } = props;
   const [person, setPerson] = useState<Person | null>(null);
@@ -144,7 +146,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
       <div className="header-content">
         {' '}
         <RouterLink
-          link={{ href: '/', label: '' }}
+          link={{ href: customHomePath || '/', label: '' }}
           className="logo header-logo"
           classNames={{ color: 'orange', plain: true }}
         >

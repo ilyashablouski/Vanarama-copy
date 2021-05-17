@@ -1,19 +1,20 @@
 import createApolloClient from 'apolloClient';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { PARTNER } from 'gql/partner';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
 import PageHeadingSection from 'components/PageHeadingSection';
-import { IPartnerOffersData, partnerOffersRequest } from 'utils/offers';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import useLeaseType from 'hooks/useLeaseType';
 import { mapFuelSearchQueryToParam } from 'containers/SearchPageContainer/helpers';
+import { IPartnerOffersData, partnerOffersRequest } from 'utils/offers';
+import useLeaseType from 'hooks/useLeaseType';
+import { setObjectAsSessionStorage } from 'utils/windowSessionStorage';
 import Hero, { HeroHeading } from '../../../components/Hero';
-import PartnershipLogo from '../../../components/PartnershipLogo';
+import PartnershipLogo from '../../../components/Partnerships/PartnershipLogo';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
-import PartnershipFeatureSection from '../../../components/PartnershipsFeatureSection/FeatureSection';
+import PartnershipFeatureSection from '../../../components/Partnerships/PartnershipsFeatureSection/FeatureSection';
 import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
 
 interface IProps extends IPartnerOffersData {
@@ -35,6 +36,7 @@ const OvoHomePage: NextPage<IProps> = ({
     vehicleTypes,
     featured,
     tiles,
+    footer,
   } = data?.partner;
   const { flag, body, image, titleTag } = data?.partner?.hero;
   const { title } = logo;
@@ -72,6 +74,11 @@ const OvoHomePage: NextPage<IProps> = ({
   const [activeTab, setActiveTab] = useState(0);
   const { cachedLeaseType } = useLeaseType(null);
   const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
+
+  // set footer data in session storage
+  useEffect(() => {
+    setObjectAsSessionStorage('partnerFooter', footer);
+  }, []);
 
   return (
     <>
