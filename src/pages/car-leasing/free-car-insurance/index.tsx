@@ -88,7 +88,10 @@ const FreeCarInsurance: NextPage<IProps> = ({
         </div>
       </Hero>
       {featureSections.map(featured => (
-        <FeaturedSection featured={featured} key={featureSections.indexOf(featured)} />
+        <FeaturedSection
+          featured={featured}
+          key={featureSections.indexOf(featured)}
+        />
       ))}
       {sections?.carousel?.[0] && (
         <section className="row:bg-lighter">
