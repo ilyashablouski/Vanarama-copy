@@ -50,6 +50,10 @@ export const GET_ORDER_BY_UUID_DATA = gql`
           colour
           trim
           maintenance
+          freeInsurance {
+            optIn
+            eligible
+          }
         }
       }
     }
@@ -167,6 +171,10 @@ export const GET_OLAF_DATA = gql`
           trim
           maintenance
           vehicleType
+          freeInsurance {
+            optIn
+            eligible
+          }
         }
       }
     }
@@ -206,7 +214,10 @@ export const CREATE_UPDATE_ORDER_MUTATION = gql`
           funderId
           funderData
           maintenancePrice
-          oneYearFreeInsurance
+          freeInsurance {
+            optIn
+            eligible
+          }
         }
       }
     }

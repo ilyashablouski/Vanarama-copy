@@ -19,7 +19,7 @@ export const createOlafDetails = (
   offer: VehicleProductInputObject,
   derivative: Derivatives,
 ) => ({
-  isFreeInsurance: offer.oneYearFreeInsurance,
+  isFreeInsurance: offer.freeInsurance?.optIn || false,
   price:
     offer.maintenance && offer.maintenancePrice && offer.monthlyPayment
       ? offer.monthlyPayment + offer.maintenancePrice

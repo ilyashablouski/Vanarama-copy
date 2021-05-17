@@ -299,7 +299,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       ...orderInputObject,
     } as OrderInputObject;
     const vehicleProduct = values.lineItems?.[0].vehicleProduct;
-    if (vehicleProduct) vehicleProduct.oneYearFreeInsurance = withInsurance;
+    if (vehicleProduct)
+      vehicleProduct.freeInsurance = {
+        optIn: withInsurance,
+        eligible: isAgreeInsuranceRules,
+      };
     pushAddToCartDataLayer({
       capId,
       derivativeInfo,
