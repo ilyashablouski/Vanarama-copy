@@ -303,6 +303,16 @@ export const CarsPage: NextPage<IProps> = ({
                     score: item?.averageRating || 5,
                   }}
                 >
+                  {item?.isOnOffer &&
+                    item.vehicleType === VehicleTypeEnum.CAR && (
+                      <img
+                        loading="eager"
+                        sizes="(min-width:320px) 800px, 1200px"
+                        alt="Free insurance"
+                        className="gallery-free-insurance"
+                        src={`${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`}
+                      />
+                    )}
                   <div className="-flex-h">
                     <Price
                       price={
