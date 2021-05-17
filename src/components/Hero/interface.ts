@@ -13,6 +13,7 @@ export interface IHeroProps {
   customCTAColor?: string;
   hideBenefitsBar?: boolean;
   hideCurve?: boolean;
+  smallPrint?: string;
 }
 
 export interface IHeroTitleProps {

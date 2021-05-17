@@ -2,7 +2,7 @@ import React from 'react';
 
 import { IHeroProps } from './interface';
 
-const HeroEv: React.FC<IHeroProps> = ({ children, hideCurve }) => {
+const HeroEv: React.FC<IHeroProps> = ({ children, hideCurve, smallPrint }) => {
   return (
     <div className="row:bg-hero">
       <div className="row:hero ev-hero">
@@ -47,6 +47,7 @@ const HeroEv: React.FC<IHeroProps> = ({ children, hideCurve }) => {
             </svg>
           </div>
         )}
+        {smallPrint && <p className="nlol-small-print">{smallPrint}</p>}
       </div>
     </div>
   );

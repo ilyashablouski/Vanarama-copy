@@ -34,7 +34,6 @@ const FreeCarInsurance: NextPage<IProps> = ({
   vehicleListUrlData,
   searchParam,
 }) => {
-  console.log(data);
   const Heading = dynamic(() => import('core/atoms/heading'), {
     loading: () => <Skeleton count={1} />,
   });
@@ -62,7 +61,10 @@ const FreeCarInsurance: NextPage<IProps> = ({
 
   return (
     <>
-      <Hero hideCurve>
+      <Hero
+        hideCurve
+        smallPrint="*Based on UK annual average insurance cost. Offer available on Car Hot Offers only & subject to availability. Terms Apply."
+      >
         <div className="hero--left">
           <div className="nlol nlol-free-insurance" style={{ left: 'auto' }}>
             <p>Find Your New Lease Of Life</p>
