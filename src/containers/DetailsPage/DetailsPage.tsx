@@ -44,7 +44,6 @@ import {
 } from '../../../generated/GetTrimAndColor';
 import { GetProductCard } from '../../../generated/GetProductCard';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
-import FreeInsuranceCards from '../../components/FreeInsuranceCards/FreeInsuranceCards';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -65,6 +64,9 @@ const LeaseScanner = dynamic(() => import('core/organisms/lease-scanner'), {
 });
 const IndependentReview = dynamic(() =>
   import('../../components/IndependentReview/IndependentReview'),
+);
+const FreeInsuranceCards = dynamic(() =>
+  import('../../components/FreeInsuranceCards'),
 );
 const WhyChooseLeasing = dynamic(
   () => import('../../components/WhyChooseLeasing/WhyChooseLeasing'),
