@@ -5,7 +5,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 import { GetFleetLandingPage } from '../../../generated/GetFleetLandingPage';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
-import { isNotWindow } from '../../utils/deviceType';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const HeroSection = dynamic(() => import('./sections/HeroSection'), {
   loading: () => <Skeleton count={5} />,
@@ -47,28 +47,28 @@ const FleetLandingPage = ({ data }: IFleetLandingPage) => {
         <LeadTextSection {...data?.fleetLandingPage?.sections?.leadText} />
       )}
       {data?.fleetLandingPage?.sections?.featured1 && (
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <TestimonialSection
             {...data?.fleetLandingPage?.sections?.featured1}
           />
         </LazyLoadComponent>
       )}
       {data?.fleetLandingPage?.sections?.featured2 && (
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <MediaFeatureSection
             {...data?.fleetLandingPage?.sections?.featured2}
           />
         </LazyLoadComponent>
       )}
       {data?.fleetLandingPage?.sections?.featured3 && (
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <MediaFeatureSection
             {...data?.fleetLandingPage?.sections?.featured3}
           />
         </LazyLoadComponent>
       )}
       {data?.fleetLandingPage?.sections?.featured4 && (
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <MediaFeatureSection
             {...data?.fleetLandingPage?.sections?.featured4}
           />
@@ -76,7 +76,7 @@ const FleetLandingPage = ({ data }: IFleetLandingPage) => {
       )}
       <hr className="-fullwidth" />
       {data?.fleetLandingPage?.sections?.tiles && (
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <BenefitsSection {...data?.fleetLandingPage?.sections?.tiles} />
         </LazyLoadComponent>
       )}

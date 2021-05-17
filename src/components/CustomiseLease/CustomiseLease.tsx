@@ -17,7 +17,7 @@ import {
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
-import { isNotWindow } from '../../utils/deviceType';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const InformationCircle = dynamic(
   () => import('core/assets/icons/InformationCircle'),
@@ -347,7 +347,7 @@ const CustomiseLease = ({
           </div>
         </div>
       )}
-      <LazyLoadComponent visibleByDefault={isNotWindow}>
+      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
         <OrderSummary
           quoteByCapId={quoteByCapId}
           stateVAT={stateVAT}
@@ -366,7 +366,7 @@ const CustomiseLease = ({
           )}
           style={{ opacity: '1' }}
         >
-          <LazyLoadComponent visibleByDefault={isNotWindow}>
+          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <LeaseScanner
               classNameHeading="headingText"
               className="pdp-footer"

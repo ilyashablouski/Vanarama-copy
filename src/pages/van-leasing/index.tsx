@@ -45,7 +45,7 @@ import { CompareContext } from '../../utils/comparatorTool';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { IVansPageOffersData, vansPageOffersRequest } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
-import { isNotWindow } from '../../utils/deviceType';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
@@ -244,7 +244,7 @@ export const VansPage: NextPage<IProps> = ({
                   Small Vans
                 </span>
               </Heading>
-              <LazyLoadComponent visibleByDefault={isNotWindow}>
+              <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
                 <ProductCarousel
                   leaseType={
                     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
@@ -289,7 +289,7 @@ export const VansPage: NextPage<IProps> = ({
                   Medium Vans
                 </span>
               </Heading>
-              <LazyLoadComponent visibleByDefault={isNotWindow}>
+              <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
                 <ProductCarousel
                   leaseType={
                     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
@@ -334,7 +334,7 @@ export const VansPage: NextPage<IProps> = ({
                   Large Vans
                 </span>
               </Heading>
-              <LazyLoadComponent visibleByDefault={isNotWindow}>
+              <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
                 <ProductCarousel
                   leaseType={
                     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
@@ -394,7 +394,7 @@ export const VansPage: NextPage<IProps> = ({
               data?.hubVanPage.sections,
             )}
           </Text>
-          <LazyLoadComponent visibleByDefault={isNotWindow}>
+          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             {(getSectionsData(
               ['cards', 'cards'],
               data?.hubVanPage.sections,
@@ -437,7 +437,7 @@ export const VansPage: NextPage<IProps> = ({
       </div>
 
       <section className="row:steps-4col">
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             className="-a-center -mb-400"
             size="large"
@@ -642,7 +642,7 @@ export const VansPage: NextPage<IProps> = ({
 
       <hr className="fullWidth" />
       <section className="row:features-4col">
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             size="large"
             color="black"
@@ -687,7 +687,7 @@ export const VansPage: NextPage<IProps> = ({
       </section>
 
       <section className="row:manufacturer-grid">
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             size="large"
             color="black"
@@ -716,7 +716,7 @@ export const VansPage: NextPage<IProps> = ({
       </section>
 
       <section className="row:league">
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"

@@ -16,7 +16,7 @@ import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData, specialOffersRequest } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
-import { isNotWindow } from '../../utils/deviceType';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -196,7 +196,7 @@ export const OffersPage: NextPage<IProps> = ({
               Van Offers
             </span>
           </Heading>
-          <LazyLoadComponent visibleByDefault={isNotWindow}>
+          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <ProductCarousel
               leaseType={LeaseTypeEnum.BUSINESS}
               data={{
@@ -237,7 +237,7 @@ export const OffersPage: NextPage<IProps> = ({
               Truck Offers
             </span>
           </Heading>
-          <LazyLoadComponent visibleByDefault={isNotWindow}>
+          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <ProductCarousel
               leaseType={LeaseTypeEnum.BUSINESS}
               data={{

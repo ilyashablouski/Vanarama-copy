@@ -29,7 +29,7 @@ import getTitleTag from '../../utils/getTitleTag';
 import TileLink from '../../components/TileLink/TileLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
-import { isNotWindow } from '../../utils/deviceType';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -221,7 +221,9 @@ export const EVHubPage: NextPage<IProps> = ({
           <TabPanels>
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent visibleByDefault={isNotWindow}>
+                <LazyLoadComponent
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
                   <ProductCarousel
                     leaseType={
                       isPersonalLcv
@@ -266,7 +268,9 @@ export const EVHubPage: NextPage<IProps> = ({
             </TabPanel>
             <TabPanel index={1}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent visibleByDefault={isNotWindow}>
+                <LazyLoadComponent
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
                   <ProductCarousel
                     leaseType={
                       isPersonalCar
@@ -323,7 +327,7 @@ export const EVHubPage: NextPage<IProps> = ({
       <FeaturedSection {...sections?.featured3} />
 
       <section className="row:features-4col">
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             size="large"
             color="black"
@@ -359,7 +363,7 @@ export const EVHubPage: NextPage<IProps> = ({
       </section>
 
       <section className="row:league">
-        <LazyLoadComponent visibleByDefault={isNotWindow}>
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
