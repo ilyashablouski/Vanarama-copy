@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Choiceboxes from 'core/atoms/choiceboxes';
 import Select from 'core/atoms/select';
@@ -24,7 +24,16 @@ const InformationCircle = dynamic(
     ssr: false,
   },
 );
+const ShieldFreeInsurance = dynamic(
+  () => import('core/assets/icons/ShieldFreeInsurance'),
+  {
+    ssr: false,
+  },
+);
 const Button = dynamic(() => import('core/atoms/button/'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Badge = dynamic(() => import('core/atoms/badge'), {
   loading: () => <Skeleton count={1} />,
 });
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -150,6 +159,7 @@ const CustomiseLease = ({
   isInitPayModalShowing,
   setIsInitPayModalShowing,
   pickups,
+  isShowFreeInsuranceMerch,
 }: IProps) => {
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
@@ -327,6 +337,15 @@ const CustomiseLease = ({
           disabled={isDisabled}
         />
       </Formgroup>
+      {isShowFreeInsuranceMerch && (
+        <div className="whats-included-insurance">
+          <ShieldFreeInsurance />
+          <div>
+            <Badge label="Free" color="orange" size="small" />
+            <Text tag="span">1 Year&lsquo;s Free Car Insurance</Text>
+          </div>
+        </div>
+      )}
       <LazyLoadComponent
         visibleByDefault={
           typeof window === 'undefined' ||
@@ -341,6 +360,7 @@ const CustomiseLease = ({
           trims={derivativeInfo?.trims}
           trim={trim}
           pickups={pickups}
+          isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
         />
       </LazyLoadComponent>
       {!isMobile && (

@@ -85,6 +85,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   mileage,
   setMileage,
   pickups,
+  isShowFreeInsuranceMerch,
 }) => {
   const isInitialMount = useRef(true);
 
@@ -357,6 +358,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         onSubmit={values => onCompleted(values)}
         showCallBackForm={() => setShowCallBackForm(true)}
         pickups={pickups}
+        isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
       />
       <Modal
         className="-mt-000 callBack"

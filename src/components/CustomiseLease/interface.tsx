@@ -55,9 +55,10 @@ export interface IProps {
   isInitPayModalShowing: boolean;
   setIsInitPayModalShowing: Dispatch<SetStateAction<boolean>>;
   isDisabled: boolean;
+  isShowFreeInsuranceMerch?: boolean;
   setIsInitialLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
-  onSubmit: (values: OrderInputObject) => Promise<any>;
+  onSubmit: (values: OrderInputObject) => void;
   lineItem: LineItemInputObject;
   showCallBackForm: Dispatch<SetStateAction<boolean>>;
   screenY: number | null;

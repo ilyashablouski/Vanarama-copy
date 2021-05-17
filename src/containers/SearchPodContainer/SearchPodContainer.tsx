@@ -301,8 +301,6 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     if (index === 2) setHeadingText('Search Cars');
   };
 
-  console.log(customCTAColor);
-
   return (
     <SearchPod
       activeTab={activeIndex}
