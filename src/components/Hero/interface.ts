@@ -12,6 +12,8 @@ export interface IHeroProps {
   topHeader?: React.ReactNode;
   customCTAColor?: string;
   hideBenefitsBar?: boolean;
+  hideCurve?: boolean;
+  smallPrint?: string;
 }
 
 export interface IHeroTitleProps {

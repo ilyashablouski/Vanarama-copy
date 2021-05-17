@@ -21,7 +21,9 @@ const PhoneNumber: React.FC<IPhoneNumberProps> = ({
       >
         {' '}
         <Icon icon={<Call />} size="xsmall" />{' '}
-        <span>{phoneNumberLink.label}</span>{' '}
+        <span className="infinityNumber Clickable">
+          {phoneNumberLink.label}
+        </span>{' '}
       </RouterLink>
     );
   }

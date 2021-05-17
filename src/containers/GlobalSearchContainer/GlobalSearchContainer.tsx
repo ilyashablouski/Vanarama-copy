@@ -62,8 +62,10 @@ const GlobalSearchContainer = () => {
             onChange={e => {
               setFieldValue(e.target.value);
               if (e.target.value.length > 2) setSearchValue(e.target.value);
-              else if (e.target.value.length < 3 && isOpenResults)
+              else if (e.target.value.length < 3 && isOpenResults) {
+                setSearchValue('');
                 setIsOpenResults(false);
+              }
             }}
             onKeyPress={e =>
               e.key === 'Enter'
