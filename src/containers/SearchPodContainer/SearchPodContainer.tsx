@@ -26,6 +26,7 @@ interface ISearchPodContainerProps {
   searchPodCarsData?: IFilterListData;
   searchPodVansData?: IFilterListData;
   customCTAColor?: string;
+  activeSearchIndex?: number;
 }
 
 enum Tabs {
@@ -40,6 +41,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   searchPodCarsData,
   searchPodVansData,
   customCTAColor,
+  activeSearchIndex,
 }) => {
   const router = useRouter();
 
@@ -303,7 +305,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
 
   return (
     <SearchPod
-      activeTab={activeIndex}
+      activeTab={activeSearchIndex || activeIndex}
       onChangeTab={(index: number) => onChangeTab(index)}
       config={config}
       onSearch={onSearch}
