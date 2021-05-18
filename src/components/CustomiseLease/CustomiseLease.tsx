@@ -356,6 +356,7 @@ const CustomiseLease = ({
           trims={derivativeInfo?.trims}
           trim={trim}
           pickups={pickups}
+          isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
         />
       </LazyLoadComponent>
       {!isMobile && (
