@@ -5,7 +5,6 @@ import localForage from 'localforage';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
 import Button from 'core/atoms/button';
-import ShieldFreeInsurance from 'core/assets/icons/ShieldFreeInsurance';
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
@@ -62,6 +61,9 @@ const MediaGallery = dynamic(() => import('core/organisms/media-gallery'), {
 const LeaseScanner = dynamic(() => import('core/organisms/lease-scanner'), {
   loading: () => <Skeleton count={3} />,
 });
+const ShieldFreeInsurance = dynamic(() =>
+  import('core/assets/icons/ShieldFreeInsurance'),
+);
 const IndependentReview = dynamic(() =>
   import('../../components/IndependentReview/IndependentReview'),
 );
@@ -583,7 +585,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             }
           />
         )}
-        {(vans || cars) && <Banner vans={vans} />}
+        {(vans || (cars && !isSpecialOffer)) && <Banner vans={vans} />}
         {(vans || pickups) && !!independentReview && (
           <LazyLoadComponent
             visibleByDefault={

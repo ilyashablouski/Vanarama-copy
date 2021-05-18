@@ -9,7 +9,7 @@ const FreeInsuranceCards = () => {
         <ShieldFreeInsurance />
         <div className="copy">
           <p>
-            Leasing This Car Online & Get&nbsp;
+            Lease This Car Online & Get&nbsp;
             <span>1 Year&apos;s FREE Insurance</span>
           </p>
 
