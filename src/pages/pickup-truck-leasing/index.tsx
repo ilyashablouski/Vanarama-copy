@@ -45,6 +45,7 @@ import {
   pickupsPageOffersRequest,
 } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -243,17 +244,14 @@ export const PickupsPage: NextPage<IProps> = ({
             return (
               <LazyLoadComponent
                 key={item?.capId || idx}
-                visibleByDefault={
-                  typeof window === 'undefined' ||
-                  navigator?.vendor === 'Apple Computer, Inc.'
-                }
+                visibleByDefault={isServerRenderOrAppleDevice}
               >
                 <ProductCard
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   key={item?.capId || idx}
                   header={{
                     accentIcon: <Icon icon={<Flame />} color="white" />,
-                    accentText: 'Hot Offers',
+                    accentText: 'Hot Offer',
                     text: 'In Stock - 14-21 Days Delivery',
                   }}
                   features={features(
@@ -567,13 +565,8 @@ export const PickupsPage: NextPage<IProps> = ({
 
       <hr className="fullWidth" />
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:features-4col">
+      <section className="row:features-4col">
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             size="large"
             color="black"
@@ -607,16 +600,11 @@ export const PickupsPage: NextPage<IProps> = ({
               </div>
             ),
           )}
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:manufacturer-grid">
+      <section className="row:manufacturer-grid">
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             size="large"
             color="black"
@@ -641,31 +629,21 @@ export const PickupsPage: NextPage<IProps> = ({
               </RouterLink>
             ))}
           </div>
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:league">
+      <section className="row:league">
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
             link="/fan-hub.html"
           />
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:featured-logos">
+      <section className="row:featured-logos">
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading tag="span" size="small" color="darker">
             AS FEATURED ON
           </Heading>
@@ -718,8 +696,8 @@ export const PickupsPage: NextPage<IProps> = ({
               />
             ))}
           </div>
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
       <section className="row:trustpilot">
         <TrustPilot />

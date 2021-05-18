@@ -6,7 +6,7 @@ exports[`<ProductCard /> Product Card should render correctly 1`] = `
   features={Array []}
   header={
     Object {
-      "accentText": "Hot Offers",
+      "accentText": "Hot Offer",
       "text": "In Stock - 14-21 Days Delivery",
     }
   }

@@ -29,6 +29,7 @@ import getTitleTag from '../../utils/getTitleTag';
 import TileLink from '../../components/TileLink/TileLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -221,10 +222,7 @@ export const EVHubPage: NextPage<IProps> = ({
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <LazyLoadComponent
-                  visibleByDefault={
-                    typeof window === 'undefined' ||
-                    navigator?.vendor === 'Apple Computer, Inc.'
-                  }
+                  visibleByDefault={isServerRenderOrAppleDevice}
                 >
                   <ProductCarousel
                     leaseType={
@@ -271,10 +269,7 @@ export const EVHubPage: NextPage<IProps> = ({
             <TabPanel index={1}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <LazyLoadComponent
-                  visibleByDefault={
-                    typeof window === 'undefined' ||
-                    navigator?.vendor === 'Apple Computer, Inc.'
-                  }
+                  visibleByDefault={isServerRenderOrAppleDevice}
                 >
                   <ProductCarousel
                     leaseType={
@@ -331,13 +326,8 @@ export const EVHubPage: NextPage<IProps> = ({
       <FeaturedSection {...sections?.featured2} />
       <FeaturedSection {...sections?.featured3} />
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:features-4col">
+      <section className="row:features-4col">
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             size="large"
             color="black"
@@ -369,23 +359,18 @@ export const EVHubPage: NextPage<IProps> = ({
               </Tile>
             </div>
           ))}
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:league">
+      <section className="row:league">
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
             link="/fan-hub.html"
           />
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
       <FeaturedOnSection />
 
