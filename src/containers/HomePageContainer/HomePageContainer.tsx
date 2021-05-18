@@ -6,7 +6,6 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
 import TrustPilot from 'core/molecules/trustpilot';
-import { freeInsuranceSmallPrint } from 'pages/car-leasing/free-car-insurance';
 import Head from '../../components/Head/Head';
 import {
   HomePageData,
@@ -20,6 +19,7 @@ import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getSectionsData } from '../../utils/getSectionsData';
 import TileLink from '../../components/TileLink/TileLink';
+import { freeInsuranceSmallPrint } from '../../pages/car-leasing/free-car-insurance';
 import Hero, {
   // HeroHeading,
   // HeroTitle,
