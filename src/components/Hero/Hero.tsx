@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
+import Icon from 'core/atoms/icon';
 import * as toast from 'core/atoms/toast/Toast';
 import { IHeroProps } from './interface';
 import SearchPodContainer from '../../containers/SearchPodContainer';
@@ -15,6 +16,9 @@ import Skeleton from '../Skeleton';
 // import BenefitsSection from 'containers/FleetPageContainer/sections/BenefitsSection';
 import BenefitsBar from '../../core/organisms/benefits-bar/BenefitsBar';
 
+const ArrowForward = dynamic(() => import('core/assets/icons/ArrowForward'), {
+  ssr: false,
+});
 const RequestCallBackForm = dynamic(() => import('../RequestCallBackForm'), {
   loading: () => <Skeleton count={5} />,
 });
@@ -37,6 +41,8 @@ const Hero: React.FC<IHeroProps> = ({
   workingHoursCard,
   searchPodCarsData,
   searchPodVansData,
+  smallPrint,
+  customCTALink,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [createOpportunity, { loading }] = useOpportunityCreation(
@@ -178,6 +184,24 @@ const Hero: React.FC<IHeroProps> = ({
               transform="translate(0 -1.81)"
             />
           </svg>
+        </div>
+      </div>
+      <div className="nlol-small-print-cta">
+        <div className="nlol-small-print-section">
+          {smallPrint && <p>{smallPrint}</p>}
+        </div>
+        <div className="nlol-cta-section">
+          {customCTALink && (
+            <a href={customCTALink}>
+              Find out more{' '}
+              <Icon
+                icon={<ArrowForward />}
+                className="-regular md hydrated"
+                name="arrow-forward"
+                color="teal"
+              />
+            </a>
+          )}
         </div>
       </div>
     </div>

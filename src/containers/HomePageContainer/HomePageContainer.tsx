@@ -6,6 +6,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
 import TrustPilot from 'core/molecules/trustpilot';
+import { freeInsuranceSmallPrint } from 'pages/car-leasing/free-car-insurance';
 import Head from '../../components/Head/Head';
 import {
   HomePageData,
@@ -125,6 +126,8 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       <Hero
         searchPodVansData={searchPodVansData}
         searchPodCarsData={searchPodCarsData}
+        smallPrint={freeInsuranceSmallPrint}
+        customCTALink="/car-leasing/free-car-insurance"
       >
         {/* <div className="hero--title">
           <>
@@ -151,7 +154,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             />
           </>
         </div> */}
-        <div className="nlol">
+        <div className="nlol nlol-free-insurance">
           <p>Find Your New Lease Of Life</p>
           <h2>1 Year FREE Insurance</h2>
           <p>On Every Car Hot Offer</p>

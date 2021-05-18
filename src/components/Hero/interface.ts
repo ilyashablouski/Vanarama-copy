@@ -14,6 +14,7 @@ export interface IHeroProps {
   hideBenefitsBar?: boolean;
   hideCurve?: boolean;
   smallPrint?: string;
+  customCTALink?: string;
 }
 
 export interface IHeroTitleProps {

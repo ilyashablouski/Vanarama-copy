@@ -27,6 +27,9 @@ interface IProps extends IEvOffersData {
   searchParam: String;
 }
 
+export const freeInsuranceSmallPrint =
+  '*Based on UK annual average insurance cost. Offer available on Car Hot Offers only & subject to availability. Terms Apply.';
+
 const FreeCarInsurance: NextPage<IProps> = ({
   data,
   productsCarDerivatives,
@@ -61,10 +64,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
   // The small print will eventually be pulled from the CMS
   return (
     <>
-      <Hero
-        hideCurve
-        smallPrint="*Based on UK annual average insurance cost. Offer available on Car Hot Offers only & subject to availability. Terms Apply."
-      >
+      <Hero hideCurve smallPrint={freeInsuranceSmallPrint}>
         <div className="hero--left">
           <div className="nlol nlol-free-insurance" style={{ left: 'auto' }}>
             <p>Find Your New Lease Of Life</p>
