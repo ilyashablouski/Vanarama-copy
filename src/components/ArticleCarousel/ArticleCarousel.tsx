@@ -2,7 +2,7 @@ import React from 'react';
 import dynamic from 'next/dynamic';
 import Carousel from 'core/organisms/carousel';
 import Card from 'core/molecules/cards';
-import RouterLink from '../../components/RouterLink/RouterLink';
+import RouterLink from '../RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sectionsAsArray_carousel as ICarousel } from '../../../generated/GenericPageQuery';
 
 const Heading = dynamic(() => import('core/atoms/heading'));

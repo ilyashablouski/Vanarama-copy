@@ -1,10 +1,10 @@
 import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React from 'react';
-import { GENERIC_PAGE } from '../../../gql/genericPage';
 import Image from 'core/atoms/image';
 import SchemaJSON from 'core/atoms/schema-json';
 import Accordion from 'core/molecules/accordion/Accordion';
+import { GENERIC_PAGE } from '../../../gql/genericPage';
 import useLeaseType from '../../../hooks/useLeaseType';
 import { IEvOffersData, specialOffersRequest } from '../../../utils/offers';
 import createApolloClient from '../../../apolloClient';
