@@ -66,11 +66,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   useEffect(() => {
     async function pushAnalytics() {
+      await pushPageData({ pathname: router.pathname });
       await pushPageViewEvent(
         removeUrlQueryPart(router.asPath),
         document.title,
       );
-      await pushPageData({ pathname: router.pathname });
     }
     // condition using for prevent incorrect events order on PDP
     if (
