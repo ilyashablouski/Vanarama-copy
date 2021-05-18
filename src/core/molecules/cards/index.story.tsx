@@ -159,7 +159,7 @@ storiesOf(`${atomicDir(base)}|Card`, module)
           accentIcon: (
             <Icon icon={<Flame />} color="white" className="md hydrated" />
           ),
-          accentText: 'Hot Deal',
+          accentText: 'Hot Offers',
           text: 'In Stock - 14-21 Days Delivery',
         }}
         description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
@@ -210,7 +210,7 @@ storiesOf(`${atomicDir(base)}|Card`, module)
           accentIcon: (
             <Icon icon={<Flame />} color="white" className="md hydrated" />
           ),
-          accentText: 'Hot Deal',
+          accentText: 'Hot Offers',
           text: 'In Stock - 14-21 Days Delivery',
         }}
         description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
@@ -250,7 +250,7 @@ storiesOf(`${atomicDir(base)}|Card`, module)
           accentIcon: (
             <Icon icon={<Flame />} color="white" className="md hydrated" />
           ),
-          accentText: 'Hot Deal',
+          accentText: 'Hot Offers',
           text: 'In Stock - 14-21 Days Delivery',
         }}
         description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
@@ -295,7 +295,7 @@ storiesOf(`${atomicDir(base)}|Card`, module)
           accentIcon: (
             <Icon icon={<Flame />} color="white" className="md hydrated" />
           ),
-          accentText: 'Hot Deal',
+          accentText: 'Hot Offers',
           text: 'In Stock - 14-21 Days Delivery',
         }}
         description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
@@ -335,7 +335,7 @@ storiesOf(`${atomicDir(base)}|Card`, module)
           accentIcon: (
             <Icon icon={<Flame />} color="white" className="md hydrated" />
           ),
-          accentText: 'Hot Deal',
+          accentText: 'Hot Offers',
           text: 'In Stock - 14-21 Days Delivery',
         }}
         description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"

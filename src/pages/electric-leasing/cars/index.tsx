@@ -142,7 +142,7 @@ const ECarsPage: NextPage<IProps> = ({
                 key={item?.capId || idx}
                 header={{
                   accentIcon: <Icon icon={<Flame />} color="white" />,
-                  accentText: item?.isOnOffer ? 'Hot Deal' : '',
+                  accentText: item?.isOnOffer ? 'Hot Offers' : '',
                   text: item?.leadTime || '',
                 }}
                 features={features(
