@@ -25,6 +25,7 @@ import Hero, {
   HeroPrompt,
 } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
+import { freeInsuranceSmallPrint } from '../../pages/car-leasing/free-car-insurance';
 import { ISpecialOffersData } from '../../utils/offers';
 import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
@@ -104,7 +105,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
   searchPodCarsData,
   vehicleListUrlData,
 }) => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(2);
   const { cachedLeaseType } = useLeaseType(null);
 
   // if (loading) {
@@ -125,6 +126,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       <Hero
         searchPodVansData={searchPodVansData}
         searchPodCarsData={searchPodCarsData}
+        activeSearchIndex={2}
+        smallPrint={freeInsuranceSmallPrint}
+        customCTALink="/car-leasing/free-car-insurance"
       >
         {/* <div className="hero--title">
           <>
@@ -151,7 +155,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             />
           </>
         </div> */}
-        <div className="nlol">
+        <div className="nlol nlol-free-insurance">
           <p>Find Your New Lease Of Life</p>
           <h2>1 Year&apos;s FREE Insurance</h2>
           <p>On Every Car Hot Offer</p>

@@ -43,6 +43,7 @@ import {
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { freeInsuranceSmallPrint } from './free-car-insurance';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -110,7 +111,11 @@ export const CarsPage: NextPage<IProps> = ({
 
   return (
     <>
-      <Hero searchPodCarsData={searchPodCarsData}>
+      <Hero
+        searchPodCarsData={searchPodCarsData}
+        smallPrint={freeInsuranceSmallPrint}
+        customCTALink="/car-leasing/free-car-insurance"
+      >
         {/* <HeroHeading
           text={data?.hubCarPage.sections?.hero?.title || ''}
           titleTag={
@@ -122,7 +127,7 @@ export const CarsPage: NextPage<IProps> = ({
         <br />
         <HeroTitle text={data?.hubCarPage.sections?.hero?.body || ''} />
         <br /> */}
-        <div className="nlol">
+        <div className="nlol nlol-free-insurance">
           <p>Find Your New Lease Of Life</p>
           <h2>1 Year&apos;s FREE Insurance</h2>
           <p>On Every Car Hot Offer</p>
