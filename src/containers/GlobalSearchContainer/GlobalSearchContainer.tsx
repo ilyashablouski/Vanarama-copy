@@ -44,6 +44,16 @@ const GlobalSearchContainer = () => {
     }
   }, [searchValue]);
 
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setIsOpenResults(false);
+    };
+    router.events.on('beforeHistoryChange', handleRouteChange);
+    return () => {
+      router.events.off('beforeHistoryChange', handleRouteChange);
+    };
+  }, []);
+
   return isVisible ? (
     <>
       <div className={cx('header-search', isOpenResults ? '-active' : '')}>
