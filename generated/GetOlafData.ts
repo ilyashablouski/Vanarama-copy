@@ -14,6 +14,11 @@ export interface GetOlafData_orderByUuid_lineItems_creditApplications {
   uuid: string;
 }
 
+export interface GetOlafData_orderByUuid_lineItems_vehicleProduct_freeInsurance {
+  optIn: boolean | null;
+  eligible: boolean | null;
+}
+
 export interface GetOlafData_orderByUuid_lineItems_vehicleProduct {
   derivativeCapId: string;
   description: string | null;
@@ -32,6 +37,7 @@ export interface GetOlafData_orderByUuid_lineItems_vehicleProduct {
   trim: string | null;
   maintenance: boolean | null;
   vehicleType: VehicleTypeEnum;
+  freeInsurance: GetOlafData_orderByUuid_lineItems_vehicleProduct_freeInsurance | null;
 }
 
 export interface GetOlafData_orderByUuid_lineItems {

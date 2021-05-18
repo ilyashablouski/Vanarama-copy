@@ -9,6 +9,11 @@ import { OrderInputObject } from "./globalTypes";
 // GraphQL mutation operation: CreateUpdateOrder
 // ====================================================
 
+export interface CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct_freeInsurance {
+  optIn: boolean | null;
+  eligible: boolean | null;
+}
+
 export interface CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct {
   derivativeCapId: string;
   description: string | null;
@@ -20,7 +25,7 @@ export interface CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct {
   funderId: string | null;
   funderData: any | null;
   maintenancePrice: number | null;
-  oneYearFreeInsurance: boolean | null;
+  freeInsurance: CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct_freeInsurance | null;
 }
 
 export interface CreateUpdateOrder_createUpdateOrder_lineItems {
