@@ -1,5 +1,4 @@
 import dynamic from 'next/dynamic';
-import createApolloClient from 'apolloClient';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React from 'react';
 import { GENERIC_PAGE } from 'gql/genericPage';
@@ -8,10 +7,11 @@ import SchemaJSON from 'core/atoms/schema-json';
 import Accordion from 'core/molecules/accordion/Accordion';
 import useLeaseType from 'hooks/useLeaseType';
 import { IEvOffersData, specialOffersRequest } from 'utils/offers';
-import ProductCarousel from 'components/ProductCarousel/ProductCarousel';
+import createApolloClient from '../../../apolloClient';
 import ArticleCarousel from '../../../components/ArticleCarousel';
 import FeaturedSection from '../../../components/FeaturedSection';
 import Head from '../../../components/Head/Head';
+import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 import { HeroEv as Hero } from '../../../components/Hero';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import RouterLink from '../../../components/RouterLink/RouterLink';
