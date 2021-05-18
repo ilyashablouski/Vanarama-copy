@@ -25,7 +25,7 @@ const images = [
 
 const header = {
   accentIcon: <Icon icon={<Flame />} color="white" />,
-  accentText: 'Hot Offers',
+  accentText: 'Hot Offer',
   text: 'In Stock - 14-21 Days Delivery',
 };
 

@@ -1,7 +1,6 @@
 import { useState, useMemo } from 'react';
 import { gql } from '@apollo/client';
 import dynamic from 'next/dynamic';
-// import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';

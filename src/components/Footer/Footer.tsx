@@ -4,6 +4,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown';
 import { PrimaryFooter_primaryFooter as PrimaryFooter } from '../../../generated/PrimaryFooter';
 import RouterLink from '../RouterLink/RouterLink';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Text = dynamic(() => import('core/atoms/text'));
 const FooterColumn = dynamic(() => import('./FooterColumn'));
@@ -17,10 +18,7 @@ const Footer: FC<IFooter> = ({ primaryFooter }) => {
 
   return (
     <LazyLoadComponent
-      visibleByDefault={
-        typeof window === 'undefined' ||
-        navigator?.vendor === 'Apple Computer, Inc.'
-      }
+      visibleByDefault={isServerRenderOrAppleDevice}
       threshold={250}
     >
       <footer className="footer">
