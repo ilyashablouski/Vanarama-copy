@@ -13,7 +13,7 @@ storiesOf(`${atomicDir(base)}|MediaGallery`, module)
         <MediaGallery
           flag={{
             accentIcon: <Icon icon={<Flame />} color="white" />,
-            accentText: 'Hot Offers',
+            accentText: 'Hot Offer',
             text: 'dealText',
           }}
           images={[
@@ -36,7 +36,7 @@ storiesOf(`${atomicDir(base)}|MediaGallery`, module)
         <MediaGallery
           flag={{
             accentIcon: <Icon icon={<Flame />} color="white" />,
-            accentText: 'Hot Offers',
+            accentText: 'Hot Offer',
             text: 'dealText',
           }}
           images={[
@@ -57,7 +57,7 @@ storiesOf(`${atomicDir(base)}|MediaGallery`, module)
         <MediaGallery
           flag={{
             accentIcon: <Icon icon={<Flame />} color="white" />,
-            accentText: 'Hot Offers',
+            accentText: 'Hot Offer',
             text: 'dealText',
           }}
           images={[
