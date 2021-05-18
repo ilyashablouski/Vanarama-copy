@@ -70,6 +70,7 @@ import CommonDescriptionContainer from './CommonDescriptionContainer';
 import ReadMoreBlock from './ReadMoreBlock';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import { FilterFields } from '../FiltersContainer/config';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -1021,12 +1022,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         <>
           {isRangePage ||
             (isDynamicFilterPage && (
-              <LazyLoadComponent
-                visibleByDefault={
-                  typeof window === 'undefined' ||
-                  navigator?.vendor === 'Apple Computer, Inc.'
-                }
-              >
+              <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
                 <div className={`row:text ${applyColumns}`}>
                   <ReactMarkdown
                     className="markdown"
@@ -1055,23 +1051,13 @@ const SearchPageContainer: React.FC<IProps> = ({
             ))}
 
           {!isDynamicFilterPage && tiles?.tiles?.length && (
-            <LazyLoadComponent
-              visibleByDefault={
-                typeof window === 'undefined' ||
-                navigator?.vendor === 'Apple Computer, Inc.'
-              }
-            >
+            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
               <TilesBlock tiles={tiles} />
             </LazyLoadComponent>
           )}
 
           {carousel?.cards?.length && (
-            <LazyLoadComponent
-              visibleByDefault={
-                typeof window === 'undefined' ||
-                navigator?.vendor === 'Apple Computer, Inc.'
-              }
-            >
+            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
               <div className="row:bg-lighter">
                 <div className="row:carousel">
                   <Heading size="large" color="black" tag="h3">

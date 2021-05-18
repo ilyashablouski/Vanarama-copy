@@ -42,6 +42,7 @@ import {
 } from '../../../generated/filterList';
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -173,13 +174,8 @@ export const CarsPage: NextPage<IProps> = ({
         </Text>
       </section>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:eligibility-checker-cta">
+      <section className="row:eligibility-checker-cta">
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <div>
             <Image
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -227,8 +223,8 @@ export const CarsPage: NextPage<IProps> = ({
               <div className="button--inner">Help Me Choose</div>
             </RouterLink>
           </div>
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
@@ -247,10 +243,7 @@ export const CarsPage: NextPage<IProps> = ({
             return (
               <LazyLoadComponent
                 key={item?.capId || idx}
-                visibleByDefault={
-                  typeof window === 'undefined' ||
-                  navigator?.vendor === 'Apple Computer, Inc.'
-                }
+                visibleByDefault={isServerRenderOrAppleDevice}
               >
                 <ProductCard
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -495,13 +488,8 @@ export const CarsPage: NextPage<IProps> = ({
         </div>
       </section>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:features-4col">
+      <section className="row:features-4col">
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             size="large"
             color="black"
@@ -535,23 +523,18 @@ export const CarsPage: NextPage<IProps> = ({
               </div>
             ),
           )}
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:league">
+      <section className="row:league">
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
             link="/fan-hub.html"
           />
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
       <FeaturedOnSection />
 

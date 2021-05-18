@@ -15,3 +15,6 @@ export const getDeviceType = () => {
   }
   return DEVICE_TYPES.desktop;
 };
+
+export const isServerRenderOrAppleDevice =
+  typeof window === 'undefined' || navigator?.vendor === 'Apple Computer, Inc.';

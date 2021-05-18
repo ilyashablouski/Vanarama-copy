@@ -7,6 +7,7 @@ import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -111,12 +112,7 @@ const VehicleReviewContainer: FC<IProps> = ({
             </TabList>
           </Tabs>
 
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
-          >
+          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <div className="markdown -mt-500" key="markdown">
               <ReactMarkdown
                 allowDangerousHtml

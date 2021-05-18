@@ -26,6 +26,7 @@ import {
   GenericPageQuery,
   GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
 } from '../../../../generated/GenericPageQuery';
+import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -304,13 +305,8 @@ const EVansPage: NextPage<IProps> = ({
   );
 
   const WhyLeaseWithVanarama = () => (
-    <LazyLoadComponent
-      visibleByDefault={
-        typeof window === 'undefined' ||
-        navigator?.vendor === 'Apple Computer, Inc.'
-      }
-    >
-      <section className="row:features-4col">
+    <section className="row:features-4col">
+      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
         <Heading
           size="large"
           color="black"
@@ -342,8 +338,8 @@ const EVansPage: NextPage<IProps> = ({
             </Tile>
           </div>
         ))}
-      </section>
-    </LazyLoadComponent>
+      </LazyLoadComponent>
+    </section>
   );
 
   const TrustPilotBanner = () => (

@@ -9,6 +9,7 @@ import { useMediaQuery } from 'react-responsive';
 import RouterLink from '../RouterLink/RouterLink';
 import { IHeaderLink } from './Header';
 import { useHover } from '../../hooks/useHover';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const HeaderSecondaryMenu = dynamic(() => import('./HeaderSecondaryMenu'));
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -84,12 +85,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
         <span>{link.label}</span>
       </RouterLink>
       {!!link.children?.length && (
-        <LazyLoadComponent
-          visibleByDefault={
-            typeof window === 'undefined' ||
-            navigator?.vendor === 'Apple Computer, Inc.'
-          }
-        >
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <HeaderSecondaryMenu
             key={link.label}
             promotionalImage={link.promotionalImage}
