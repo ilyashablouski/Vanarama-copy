@@ -227,7 +227,7 @@ const ComparatorContainer: React.FC = () => {
                           className="-flame"
                         />
                         <Text size="small" color="orange">
-                          {`${card.totalCount} Hot Offers`}
+                          {`${card.totalCount} Hot Offer`}
                         </Text>
                         <Button
                           round

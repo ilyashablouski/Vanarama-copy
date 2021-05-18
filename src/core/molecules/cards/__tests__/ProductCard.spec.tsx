@@ -8,7 +8,7 @@ describe('<ProductCard />', () => {
     const wrapper = shallow(
       <ProductCard
         header={{
-          accentText: 'Hot Offers',
+          accentText: 'Hot Offer',
           text: 'In Stock - 14-21 Days Delivery',
         }}
         description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"

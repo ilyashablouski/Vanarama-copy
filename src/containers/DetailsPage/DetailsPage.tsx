@@ -542,7 +542,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
               ''
             ),
             accentText: data?.vehicleConfigurationByCapId?.onOffer
-              ? 'Hot Offers'
+              ? 'Hot Offer'
               : '',
             text: leadTime,
             incomplete: true,

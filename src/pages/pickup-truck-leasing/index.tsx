@@ -251,7 +251,7 @@ export const PickupsPage: NextPage<IProps> = ({
                   key={item?.capId || idx}
                   header={{
                     accentIcon: <Icon icon={<Flame />} color="white" />,
-                    accentText: 'Hot Offers',
+                    accentText: 'Hot Offer',
                     text: 'In Stock - 14-21 Days Delivery',
                   }}
                   features={features(

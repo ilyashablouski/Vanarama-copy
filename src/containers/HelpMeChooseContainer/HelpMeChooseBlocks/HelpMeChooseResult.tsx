@@ -295,7 +295,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                       ? {
                           text: AVAILABILITY_LABELS[el.availability],
                           accentIcon: <Icon icon={<Flame />} color="white" />,
-                          accentText: el.onOffer ? 'Hot Offers' : '',
+                          accentText: el.onOffer ? 'Hot Offer' : '',
                         }
                       : undefined
                   }
