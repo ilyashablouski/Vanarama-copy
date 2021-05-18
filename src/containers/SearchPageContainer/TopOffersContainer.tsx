@@ -243,7 +243,7 @@ const TopOffersContainer: React.FC<IProps> = ({
             })}
           >
             <Heading size="large" color="black" tag="h3">
-              Top Offers
+              Hot Offers
             </Heading>
             {vehiclesList.length === 3 ? (
               vehiclesList.map((vehicle: IVehicles) =>
