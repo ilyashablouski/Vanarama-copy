@@ -2,6 +2,7 @@ import createApolloClient from 'apolloClient';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React, { useEffect, useState } from 'react';
 import { PARTNER } from 'gql/partner';
+import Cookies from 'js-cookie';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
@@ -37,6 +38,9 @@ const OvoHomePage: NextPage<IProps> = ({
     featured,
     tiles,
     footer,
+    slug,
+    uuid,
+    customerSovereignty,
   } = data?.partner;
   const { flag, body, image, titleTag } = data?.partner?.hero;
   const { title } = logo;
@@ -75,8 +79,21 @@ const OvoHomePage: NextPage<IProps> = ({
   const { cachedLeaseType } = useLeaseType(null);
   const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
 
-  // set footer data in session storage
   useEffect(() => {
+    // check if partnership cookie has been set
+    if (!Cookies.get('activePartnership')) {
+      const partnershipData = {
+        slug,
+        color: colourPrimary,
+        uuid,
+        vehicleTypes,
+      };
+      const sovereignty = customerSovereignty || 7;
+      Cookies.set('activePartnership', partnershipData, {
+        expires: sovereignty,
+      });
+    }
+    // set footer data in session storage
     setObjectAsSessionStorage('partnerFooter', footer);
   }, []);
 
