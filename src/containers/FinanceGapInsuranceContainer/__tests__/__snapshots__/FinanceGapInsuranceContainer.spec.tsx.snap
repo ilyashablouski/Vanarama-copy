@@ -387,6 +387,16 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           </svg>
         </div>
       </div>
+      <div
+         class="nlol-small-print-cta"
+       >
+         <div
+           class="nlol-small-print-section"
+         />
+         <div
+           class="nlol-cta-section"
+         />
+       </div>
     </div>
     <div
       class="row:title -mt-200"
