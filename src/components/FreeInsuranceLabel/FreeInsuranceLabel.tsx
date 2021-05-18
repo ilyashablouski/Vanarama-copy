@@ -6,7 +6,7 @@ const Text = dynamic(() => import('core/atoms/text'));
 const FreeInsuranceLabel = () => {
   return (
     <div className="yellow-tag -black">
-      <Text tag="span">1 Year’s Free Car Insurance</Text>
+      <Text tag="span">1 Year’s FREE Car Insurance</Text>
       <CheckmarkSharpIcon />
     </div>
   );
