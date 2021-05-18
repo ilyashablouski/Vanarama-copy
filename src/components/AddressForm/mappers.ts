@@ -22,11 +22,12 @@ export const responseToInitialFormValues = (
           new Date(b.startedOn).getTime() - new Date(a.startedOn).getTime(),
       )
       .map(address => {
-        const movedIn = new Date(address.startedOn);
+        const movedIn = address.startedOn ? new Date(address.startedOn) : '';
+
         return {
           status: address.propertyStatus || '',
-          month: String(movedIn.getMonth() + 1),
-          year: String(movedIn.getFullYear()),
+          month: movedIn && String(movedIn.getMonth() + 1),
+          year: movedIn && String(movedIn.getFullYear()),
           address: address.serviceId
             ? {
                 id: address.serviceId,
