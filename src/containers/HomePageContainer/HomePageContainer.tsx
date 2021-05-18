@@ -19,13 +19,13 @@ import getTitleTag from '../../utils/getTitleTag';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getSectionsData } from '../../utils/getSectionsData';
 import TileLink from '../../components/TileLink/TileLink';
-import { freeInsuranceSmallPrint } from '../../pages/car-leasing/free-car-insurance';
 import Hero, {
   // HeroHeading,
   // HeroTitle,
   HeroPrompt,
 } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
+import { freeInsuranceSmallPrint } from '../../pages/car-leasing/free-car-insurance';
 import { ISpecialOffersData } from '../../utils/offers';
 import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
