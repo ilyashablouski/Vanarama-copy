@@ -141,7 +141,7 @@ const EVansPage: NextPage<IProps> = ({
                 key={item?.capId || idx}
                 header={{
                   accentIcon: <Icon icon={<Flame />} color="white" />,
-                  accentText: item?.isOnOffer ? 'Hot Offers' : '',
+                  accentText: item?.isOnOffer ? 'Hot Offer' : '',
                   text: item?.leadTime || '',
                 }}
                 features={features(
