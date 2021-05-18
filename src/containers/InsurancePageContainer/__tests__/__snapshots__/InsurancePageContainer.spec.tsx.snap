@@ -383,14 +383,14 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
       </div>
       <div
         class="nlol-small-print-cta"
-       >
+      >
         <div
           class="nlol-small-print-section"
         />
         <div
           class="nlol-cta-section"
         />
-       </div>
+      </div>
     </div>
     <div
       class="row:lead-text"
