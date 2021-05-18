@@ -54,6 +54,7 @@ describe('helpers', () => {
         transmission: derivative?.transmission.name,
         color: offer.colour,
         trim: offer.trim,
+        isFreeInsurance: null,
         description:
           '99 monthly payments (inc. VAT). Paid by direct debit. Initial Rental is taken around 10 days after delivery and each month on the same date thereafter for the length of the contract.',
         initialRentalDataTestId: 'about_intial-rental-testID',
@@ -94,6 +95,7 @@ describe('helpers', () => {
         annualMileageDataTestId: 'about_annual-mileage-testID',
         annualMileageBoosterDataTestId: 'about_annual-milage-booster-testID',
         damageCoverDataTestId: 'about_damage-cover-testID',
+        isFreeInsurance: null,
         maintenanceDataTestId: 'about_maintenance-testID',
         fuelDataTestId: 'about_fuel-testID',
         transmissionDataTestId: 'about_transmission-testID',

@@ -250,7 +250,7 @@ export const CarsPage: NextPage<IProps> = ({
                   key={item?.capId || idx}
                   header={{
                     accentIcon: <Icon icon={<Flame />} color="white" />,
-                    accentText: 'Hot Deal',
+                    accentText: 'Hot Offers',
                     text: 'In Stock - 14-21 Days Delivery',
                   }}
                   features={features(

@@ -73,7 +73,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                       ) : (
                         ''
                       ),
-                      accentText: product.isOnOffer ? 'Hot Deal' : '',
+                      accentText: product.isOnOffer ? 'Hot Offers' : '',
                     }
                   : undefined
               }

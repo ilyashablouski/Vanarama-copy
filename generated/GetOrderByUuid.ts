@@ -14,6 +14,11 @@ export interface GetOrderByUuid_orderByUuid_lineItems_creditApplications {
   uuid: string;
 }
 
+export interface GetOrderByUuid_orderByUuid_lineItems_vehicleProduct_freeInsurance {
+  optIn: boolean | null;
+  eligible: boolean | null;
+}
+
 export interface GetOrderByUuid_orderByUuid_lineItems_vehicleProduct {
   derivativeCapId: string;
   description: string | null;
@@ -29,6 +34,7 @@ export interface GetOrderByUuid_orderByUuid_lineItems_vehicleProduct {
   colour: string | null;
   trim: string | null;
   maintenance: boolean | null;
+  freeInsurance: GetOrderByUuid_orderByUuid_lineItems_vehicleProduct_freeInsurance | null;
 }
 
 export interface GetOrderByUuid_orderByUuid_lineItems {

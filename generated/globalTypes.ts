@@ -35,6 +35,9 @@ export enum FunderCompanyTypeEnum {
   partnership = "partnership",
 }
 
+/**
+ * Lease type
+ */
 export enum LeaseTypeEnum {
   BUSINESS = "BUSINESS",
   PERSONAL = "PERSONAL",
@@ -252,6 +255,7 @@ export interface CreditApplicationInputObject {
   creditApplicationType?: CreditApplicationTypeEnum | null;
   directorsDetails?: any | null;
   employmentHistories?: any | null;
+  employmentHistoriesV2?: EmploymentHistoryV2InputObject[] | null;
   financeType?: string | null;
   incomeAndExpenses?: any | null;
   incomeAndExpensesV2?: IncomeAndExpenseV2InputObject | null;
@@ -287,6 +291,28 @@ export interface EmploymentHistoryInputObject {
 /**
  * Input object to create and add an Employment History
  */
+export interface EmploymentHistoryV2InputObject {
+  companyAddressCity?: string | null;
+  companyAddressCountry?: string | null;
+  companyAddressLineOne?: string | null;
+  companyAddressLineThree?: string | null;
+  companyAddressLineTwo?: string | null;
+  companyAddressPostcode?: string | null;
+  companyAddressServiceId?: string | null;
+  companyName?: string | null;
+  contract?: string | null;
+  employedSinceDate?: any | null;
+  employedUntilDate?: any | null;
+  employmentStatus?: string | null;
+  grossAnnualIncome?: number | null;
+  jobTitle?: string | null;
+  uuid?: string | null;
+  workPhoneNumber?: string | null;
+}
+
+/**
+ * Input object to create and add an Employment History
+ */
 export interface EmploymentInputObject {
   companyAddressCity?: string | null;
   companyAddressCountry?: string | null;
@@ -311,16 +337,25 @@ export interface EmploymentInputObject {
 export interface FilterListObject {
   availability?: number | null;
   bodyStyles?: string[] | null;
+  co2?: number[] | null;
+  doors?: number[] | null;
+  enginePowerBhp?: number[] | null;
+  engineSizes?: number[] | null;
   financeTypes?: FinanceTypeEnum[] | null;
   fuelTypes?: string[] | null;
+  height?: number[] | null;
   initialPayment?: RateInputObject | null;
   initialPeriods?: number[] | null;
+  length?: number[] | null;
   lqBodyStyles?: string[] | null;
   manufacturerName?: string | null;
   manufacturerSlug?: string | null;
   mileages?: number[] | null;
   modelName?: string | null;
   modelSlug?: string | null;
+  mpgCombined?: number[] | null;
+  noOfGears?: number[] | null;
+  noOfSeats?: number[] | null;
   offerRanking?: number | null;
   onOffer?: boolean | null;
   rangeName?: string | null;
@@ -330,6 +365,14 @@ export interface FilterListObject {
   terms?: number[] | null;
   transmissions?: string[] | null;
   vehicleTypes?: VehicleTypeEnum[] | null;
+}
+
+/**
+ * Input object to create and add a FreeInsurance
+ */
+export interface FreeInsuranceInputObject {
+  eligible: boolean;
+  optIn: boolean;
 }
 
 /**
@@ -618,12 +661,12 @@ export interface VehicleProductInputObject {
   description?: string | null;
   finalPayment?: number | null;
   financeType?: string | null;
+  freeInsurance?: FreeInsuranceInputObject | null;
   funderId?: string | null;
   leadTime?: string | null;
   maintenance?: boolean | null;
   maintenancePrice?: number | null;
   monthlyPayment?: number | null;
-  oneYearFreeInsurance?: boolean | null;
   partnerSlug?: PartnerSlugTypeEnum | null;
   term?: number | null;
   trim?: string | null;

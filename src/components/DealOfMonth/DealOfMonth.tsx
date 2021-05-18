@@ -81,7 +81,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         header={{
           accentIcon: <Icon icon={<Flame />} color="white" />,
-          accentText: 'Hot Deal',
+          accentText: 'Hot Offers',
           text: flagText,
         }}
         imageSrc={imageSrc}
