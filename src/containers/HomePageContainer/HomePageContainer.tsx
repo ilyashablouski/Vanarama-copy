@@ -152,9 +152,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           </>
         </div> */}
         <div className="nlol">
-          <p>Find Your</p>
-          <h2>New Lease Of Life</h2>
-          <p>With Vanarama</p>
+          <p>Find Your New Lease Of Life</p>
+          <h2>1 Year FREE Insurance</h2>
+          <p>On Every Car Hot Offer</p>
         </div>
         <div>
           <Image
