@@ -15,6 +15,7 @@ export interface IHeroProps {
   hideCurve?: boolean;
   smallPrint?: string;
   customCTALink?: string;
+  activeSearchIndex?: number;
 }
 
 export interface IHeroTitleProps {

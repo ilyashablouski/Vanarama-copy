@@ -105,7 +105,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
   searchPodCarsData,
   vehicleListUrlData,
 }) => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(2);
   const { cachedLeaseType } = useLeaseType(null);
 
   // if (loading) {
@@ -126,6 +126,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       <Hero
         searchPodVansData={searchPodVansData}
         searchPodCarsData={searchPodCarsData}
+        activeSearchIndex={2}
         smallPrint={freeInsuranceSmallPrint}
         customCTALink="/car-leasing/free-car-insurance"
       >
