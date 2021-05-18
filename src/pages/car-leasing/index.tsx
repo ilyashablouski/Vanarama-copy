@@ -129,7 +129,7 @@ export const CarsPage: NextPage<IProps> = ({
         <br /> */}
         <div className="nlol nlol-free-insurance">
           <p>Find Your New Lease Of Life</p>
-          <h2>1 Year FREE Insurance</h2>
+          <h2>1 Year&apos;s FREE Insurance</h2>
           <p>On Every Car Hot Offer</p>
         </div>
         <div>
