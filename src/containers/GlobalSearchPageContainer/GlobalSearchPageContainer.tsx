@@ -29,7 +29,7 @@ interface IProps {
   responseVansCapIds?: string[];
   responseCarsCapIds?: string[];
 }
-interface IVehiclesCardsData<T> {
+export interface IGSVehiclesCardsData<T> {
   LCV: T;
   CAR: T;
 }
@@ -59,12 +59,12 @@ const GlobalSearchPageContainer = ({
     carsData || [],
   );
 
-  const vehiclesCardsData: IVehiclesCardsData<ICardsData[]> = {
+  const vehiclesCardsData: IGSVehiclesCardsData<ICardsData[]> = {
     LCV: lcvCardsData,
     CAR: carCardsData,
   };
 
-  const [capIds] = useState<IVehiclesCardsData<string[]>>({
+  const [capIds] = useState<IGSVehiclesCardsData<string[]>>({
     LCV: responseVansCapIds || [],
     CAR: responseCarsCapIds || [],
   });
