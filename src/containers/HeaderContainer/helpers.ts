@@ -1,5 +1,6 @@
 import { GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups } from '../../../generated/GetPrimaryHeaderData';
 
+// eslint-disable-next-line import/prefer-default-export
 export function getPromotionalImage(
   linksGroup: GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups | null,
 ) {
