@@ -162,7 +162,6 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         </div>
         <div>
           <Image
-            loadImage
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             optimisationOptions={optimisationOptions}
             className="hero--image"
