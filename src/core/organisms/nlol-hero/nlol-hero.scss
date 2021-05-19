@@ -4,6 +4,17 @@
   background: radial-gradient(#ffffff, transparent 50%);
   .hero--image {
     margin-top: 0 !important;
+    position: relative;
+    padding-top: 334/541 * 100%;
+
+    img {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      object-fit: cover;
+    }
   }
 }
 /* .hero--decals {
