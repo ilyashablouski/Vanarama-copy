@@ -22,6 +22,7 @@ import {
   GetPrimaryHeaderData as HeaderData,
   GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups as LinkGroups,
 } from '../../../generated/GetPrimaryHeaderData';
+import { getPromotionalImage } from './helpers';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -104,17 +105,7 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl.label || '',
-          promotionalImage: {
-            url:
-              linksGroup?.promotionalImage?.legacyUrl ||
-              linksGroup?.promotionalImage?.url ||
-              '',
-            image: {
-              url: linksGroup?.promotionalImage?.image?.[0]?.file?.url || '',
-              fileName:
-                linksGroup?.promotionalImage?.image?.[0]?.file?.fileName || '',
-            },
-          },
+          promotionalImage: getPromotionalImage(linksGroup),
           children: isTabletOrMobile
             ? [linksGroupUrl, ...childrenGroupLinks]
             : childrenGroupLinks,
@@ -147,14 +138,7 @@ const HeaderContainer: FC = () => {
               children: isTabletOrMobile
                 ? [linksGroupUrl, ...childrenLink]
                 : childrenLink,
-              promotionalImage: {
-                url: el?.promotionalImage?.legacyUrl || '',
-                image: {
-                  url: el?.promotionalImage?.image?.[0]?.file?.url || '',
-                  fileName:
-                    el?.promotionalImage?.image?.[0]?.file?.fileName || '',
-                },
-              },
+              promotionalImage: getPromotionalImage(el),
             };
           });
 
@@ -162,6 +146,7 @@ const HeaderContainer: FC = () => {
           href: '',
           label: linksGroup?.name || '',
           id: linksGroup.name || '',
+          promotionalImage: getPromotionalImage(linksGroup),
           children: transformGroupLink,
         };
       } else {
@@ -170,14 +155,7 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl?.id,
-          promotionalImage: {
-            url: linksGroup?.promotionalImage?.legacyUrl || '',
-            image: {
-              url: linksGroup?.promotionalImage?.image?.[0]?.file?.url || '',
-              fileName:
-                linksGroup?.promotionalImage?.image?.[0]?.file?.fileName || '',
-            },
-          },
+          promotionalImage: getPromotionalImage(linksGroup),
         };
       }
       link.push(headerTopLinks);
