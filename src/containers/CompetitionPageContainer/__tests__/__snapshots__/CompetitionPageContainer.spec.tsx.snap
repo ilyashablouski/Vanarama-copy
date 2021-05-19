@@ -17,12 +17,12 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
           >
             <span>
               <span
-                class="react-loading-skeleton css-1vmnjpn-skeletonStyles-Skeleton"
+                class="react-loading-skeleton css-1eg0sfo-skeletonStyles-Skeleton"
               >
                 ‌
               </span>
               <span
-                class="react-loading-skeleton css-1vmnjpn-skeletonStyles-Skeleton"
+                class="react-loading-skeleton css-1eg0sfo-skeletonStyles-Skeleton"
               >
                 ‌
               </span>
