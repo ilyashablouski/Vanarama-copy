@@ -99,7 +99,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   tabindex="-1"
                 >
                   <div
-                    class="card -v-height"
+                    class="card"
                     data-testid="card"
                   >
                     <img
