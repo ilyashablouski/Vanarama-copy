@@ -201,6 +201,11 @@
       }
     }
   }
+  .nlol-free-insurance {
+    h2 {
+      font-size: 1.5rem;
+    }
+  }
 }
 
 @media (max-width: 375px) {
@@ -228,5 +233,57 @@
   bottom: 16px;
   @media (max-width: 767px) {
     position: initial;
+  }
+}
+
+.nlol-small-print-cta {
+  display: flex;
+  width: 50%;
+  .nlol-small-print-section {
+    flex-basis: 60%;
+    p {
+      color: $darker;
+      font-size: 0.6rem;
+    }
+  }
+  .nlol-cta-section {
+    display: flex;
+    flex-basis: 40%;
+    justify-content: flex-end;
+    position: relative;
+    a {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: $teal;
+      margin-top: -5px;
+      i {
+        position: absolute;
+        top: -1px;
+        right: -25px;
+      }
+    }
+  }
+  @media (max-width: 767px) {
+    width: 100%;
+    flex-direction: column;
+    .nlol-small-print-section {
+      flex-basis: 100%;
+      margin-bottom: 16px;
+    }
+    .nlol-cta-section {
+      flex-basis: 100%;
+      justify-content: flex-end;
+      padding-right: 24px;
+      margin-bottom: 10px;
+      a {
+        font-size: 0.9rem;
+        position: relative;
+        i {
+          position: absolute;
+          top: 1px;
+          right: -25px;
+        }
+      }
+    }
   }
 }

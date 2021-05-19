@@ -29,6 +29,7 @@ export interface IHeaderSecondaryMenuProps extends IBaseProps {
   onClickTitle: () => void;
   isTabletOrMobile: boolean;
   isMenuOpen: boolean;
+  isSecondaryMenuOpen: boolean;
   promotionalImage?: IHeaderPromoImage;
 }
 
@@ -39,6 +40,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     title,
     onClickTitle,
     isTabletOrMobile,
+    isSecondaryMenuOpen,
     isMenuOpen,
     promotionalImage,
   } = props;
@@ -59,8 +61,17 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
   useEffect(() => {
     if (isTabletOrMobile) {
       setActiveTertiaryMenu(null);
+    } else {
+      setActiveTertiaryMenu(firstChildrenLinks?.id || '');
     }
-  }, [router, setActiveTertiaryMenu, isMenuOpen, isTabletOrMobile]);
+  }, [
+    router,
+    isMenuOpen,
+    isSecondaryMenuOpen,
+    isTabletOrMobile,
+    setActiveTertiaryMenu,
+    firstChildrenLinks?.id,
+  ]);
 
   const linkClassName = (classes: {
     title?: boolean;
