@@ -38,6 +38,7 @@
 }
 
 .gallery-free-insurance {
+  grid-area: unset !important;
   position: absolute;
   width: 50%;
   top: 14px;
@@ -52,7 +53,7 @@
 .card .gallery-free-insurance {
   width: 60%;
   top: 20px;
-  left: 0;
+  left: 14px;
   // Desktop
   @media (min-width:1216px) {
     width: 217px;
