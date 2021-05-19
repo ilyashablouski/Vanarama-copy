@@ -227,7 +227,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             <Tab index={2}>Cars</Tab>
           </TabList>
           <TabPanels>
-          <TabPanel index={2}>
+            <TabPanel index={2}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <LazyLoadComponent
                   visibleByDefault={isServerRenderOrAppleDevice}
