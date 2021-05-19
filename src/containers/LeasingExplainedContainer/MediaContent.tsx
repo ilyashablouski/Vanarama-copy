@@ -19,10 +19,16 @@ interface IProps {
 
 function FeaturedMedia({ featuredImageUrl, featuredVideoUrl }: IProps) {
   if (featuredVideoUrl) {
-    return <Media noLazy src={featuredVideoUrl} width="100%" height="360px" />;
+    return <Media noLazy src={featuredVideoUrl} width="100%" height="324px" />;
   }
   if (featuredImageUrl) {
-    return <Image src={featuredImageUrl} />;
+    return (
+      <Image
+        src={featuredImageUrl}
+        optimisationOptions={{ fit: 'cover', height: 450 }}
+        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+      />
+    );
   }
 
   return null;

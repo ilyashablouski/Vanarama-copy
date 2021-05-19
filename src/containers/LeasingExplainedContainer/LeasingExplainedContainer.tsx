@@ -52,9 +52,11 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
       <div className="row:bg-black">
         <div className="row:featured-right">
           <div>
-            <Heading tag="span" size="large" color="white">
-              {featured?.title || ''}
-            </Heading>
+            {featured?.title ? (
+              <Heading tag="span" size="large" color="white">
+                {featured.title}
+              </Heading>
+            ) : null}
             <div className="markdown -lighter">
               <ReactMarkdown
                 allowDangerousHtml
