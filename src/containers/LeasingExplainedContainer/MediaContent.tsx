@@ -18,11 +18,11 @@ interface IProps {
 }
 
 function FeaturedMedia({ featuredImageUrl, featuredVideoUrl }: IProps) {
-  if (featuredImageUrl) {
-    return <Image src={featuredImageUrl} width="100%" height="360px" />;
-  }
   if (featuredVideoUrl) {
     return <Media noLazy src={featuredVideoUrl} width="100%" height="360px" />;
+  }
+  if (featuredImageUrl) {
+    return <Image src={featuredImageUrl} />;
   }
 
   return null;
