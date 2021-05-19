@@ -83,6 +83,8 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
           </div>
           <Media
             noLazy
+            player
+            light={featured?.image?.file?.url || true}
             src={featured?.video || ''}
             width="100%"
             height="360px"
