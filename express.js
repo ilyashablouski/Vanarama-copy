@@ -28,7 +28,7 @@ const PORT = process.env.PORT || 3000;
 
 app
   .prepare()
-  .then(async () => {
+  .then(() => {
     // Create server.
     const server = express();
 
