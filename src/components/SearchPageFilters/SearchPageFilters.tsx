@@ -60,7 +60,6 @@ const SearchPageFilters = ({
   isTransmissionPage,
   isDynamicFilterPage,
   isPreloadList,
-  isPersonal,
   setSearchFilters,
   filtersData,
   setFiltersData,
@@ -328,7 +327,7 @@ const SearchPageFilters = ({
     )
       setInitialLoad(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selectedFilterTags, isInitialLoad, isPersonal]);
+  }, [selectedFilterTags, isInitialLoad]);
 
   /** return true if model exist in filters data */
   const isCurrentModelValid = (model: string) =>
