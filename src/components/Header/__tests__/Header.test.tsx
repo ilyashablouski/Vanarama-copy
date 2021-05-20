@@ -12,6 +12,9 @@ import { Header } from '../Header';
 jest.mock('next/router', () => ({
   useRouter: () => ({
     asPath: '/',
+    events: {
+      on: jest.fn(),
+    },
   }),
 }));
 

@@ -26,15 +26,15 @@ export const useHover = <T extends HTMLElement>(): [
   const callbackRef = useCallback<(node?: null | T) => void>(
     node => {
       if (ref.current) {
-        ref.current.removeEventListener('mouseover', handleMouseOver);
-        ref.current.removeEventListener('mouseout', handleMouseOut);
+        ref.current.removeEventListener('mouseenter', handleMouseOver);
+        ref.current.removeEventListener('mouseleave', handleMouseOut);
       }
 
       ref.current = node || undefined;
 
       if (ref.current) {
-        ref.current.addEventListener('mouseover', handleMouseOver);
-        ref.current.addEventListener('mouseout', handleMouseOut);
+        ref.current.addEventListener('mouseenter', handleMouseOver);
+        ref.current.addEventListener('mouseleave', handleMouseOut);
       }
     },
     [handleMouseOver, handleMouseOut],
