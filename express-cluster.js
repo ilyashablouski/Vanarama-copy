@@ -13,6 +13,7 @@ const next = require('next');
 const prerender = require('prerender-node');
 const hpp = require('hpp');
 const compression = require('compression');
+const basicAuth = require('express-basic-auth');
 const cluster = require('cluster');
 
 const logo = require('./logo');
@@ -74,43 +75,27 @@ if (cluster.isMaster) {
       });
 
       // Env route.
-      server.get('/env', (req, res) => {
-        const env = () => {
-          const statusCode = 200;
-          res.setHeader('Content-Type', 'application/json');
-          res.status(statusCode);
-          res.json(process.env);
-        };
+      function auth() {
+        return basicAuth({
+          users: { [process.env.APP_AUTH_USR]: process.env.APP_AUTH_PWD },
+          challenge: true,
+        });
+      }
+      function env(res) {
+        const statusCode = 200;
+        res.setHeader('Content-Type', 'application/json');
+        res.status(statusCode);
+        res.json(process.env);
+      }
 
-        // Protecting with authentication in prod.
-        if (['pre-prod', 'prod'].includes(process.env.ENV)) {
-          const reject = () => {
-            res.setHeader('www-authenticate', 'Basic');
-            res.sendStatus(401);
-          };
-
-          const { authorization } = req.headers;
-
-          if (!authorization) return reject();
-
-          const [username, password] = Buffer.from(
-            authorization.replace('Basic ', ''),
-            'base64',
-          )
-            .toString()
-            .split(':');
-
-          if (
-            !(
-              username === process.env.APP_AUTH_USR &&
-              password === process.env.APP_AUTH_PWD
-            )
-          )
-            return reject();
-        }
-
-        return env();
-      });
+      if (['dev', 'uat'].includes(process.env.ENV))
+        server.get('/env', (_req, res) => {
+          env(res);
+        });
+      else
+        server.get('/env', auth(), (_req, res) => {
+          env(res);
+        });
 
       // All routes.
       server.all('*', cors(), (req, res) => {
