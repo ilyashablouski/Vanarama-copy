@@ -83,16 +83,9 @@ export const BusinessAboutPage: NextPage = () => {
     const url =
       router.query.redirect === 'summary'
         ? `/b2b/olaf/${slug}summary/[companyUuid]`
-        : `/b2b/olaf/${slug}company-details/[personUuid]`;
+        : `/b2b/olaf/${slug}company-details`;
 
-    const personId = personUuid || result.businessPersonUuid || '';
-
-    router.push(
-      url,
-      url
-        .replace('[companyUuid]', companyUuid || '')
-        .replace('[personUuid]', personId),
-    );
+    router.push(url, url.replace('[companyUuid]', companyUuid || ''));
   };
 
   useEffect(() => {

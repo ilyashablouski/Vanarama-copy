@@ -12,11 +12,14 @@ import {
   SortField,
   SortDirection,
   MyOrdersTypeEnum,
-  LineItemInputObject,
-  OrderInputObject,
-  VehicleProductInputObject,
 } from '../../../generated/globalTypes';
-import { createOffersObject, sortOrders, sortOrderValues } from './helpers';
+import {
+  createOffersObject,
+  sortOrders,
+  sortOrderValues,
+  createOrderInputFromMyOrder,
+  findLastFinishedStepIndex,
+} from './helpers';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../generated/GetCompaniesByPersonUuid';
@@ -25,8 +28,6 @@ import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import {
   GetMyOrders,
   GetMyOrders_myOrders,
-  GetMyOrders_myOrders_lineItems as GetMyOrdersLineItem,
-  GetMyOrders_myOrders_lineItems_vehicleProduct as GetMyOrdersVehicleProduct,
 } from '../../../generated/GetMyOrders';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -34,6 +35,9 @@ import {
   GetPerson,
   GetPerson_getPerson as Person,
 } from '../../../generated/GetPerson';
+import useProgressHistory from '../../hooks/useProgressHistory';
+import { getUrlParam } from '../../utils/url';
+import { useGetPartyByUuidLazyQuery } from '../../components/SummaryForm/gql';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -61,55 +65,12 @@ interface IMyOverviewProps {
   quote: boolean;
 }
 
-const createVehicleProductInput = (
-  vehicleProduct: GetMyOrdersVehicleProduct | null,
-): VehicleProductInputObject => ({
-  annualMileage: vehicleProduct?.annualMileage,
-  colour: vehicleProduct?.colour,
-  depositMonths: vehicleProduct?.depositMonths,
-  depositPayment: vehicleProduct?.depositPayment,
-  derivativeCapId: vehicleProduct!.derivativeCapId,
-  description: vehicleProduct?.description,
-  finalPayment: vehicleProduct?.finalPayment,
-  financeType: vehicleProduct?.financeType,
-  funderId: vehicleProduct?.funderId,
-  leadTime: vehicleProduct?.leadTime,
-  maintenance: vehicleProduct?.maintenance,
-  maintenancePrice: vehicleProduct?.maintenancePrice,
-  monthlyPayment: vehicleProduct?.monthlyPayment,
-  term: vehicleProduct?.term,
-  trim: vehicleProduct?.trim,
-  vehicleType: vehicleProduct!.vehicleType,
-  vsku: vehicleProduct?.vsku,
-});
-
-const createLineItemsInputFromMyOrder = (
-  myOrdersLineItems: GetMyOrdersLineItem[],
-): LineItemInputObject[] =>
-  myOrdersLineItems.map(item => ({
-    leadManagerQuoteId: item.leadManagerQuoteId,
-    orderId: item.order?.uuid,
-    quantity: item.quantity,
-    vehicleProduct: createVehicleProductInput(item.vehicleProduct),
-  }));
-
-const createOrderInputFromMyOrder = (
-  myOrder: GetMyOrders_myOrders,
-): OrderInputObject => ({
-  leaseType: myOrder.leaseType,
-  lineItems: createLineItemsInputFromMyOrder(myOrder.lineItems),
-  partyUuid: myOrder.partyUuid,
-  personUuid: myOrder.personUuid,
-  referenceNumber: myOrder.referenceNumber,
-  salesChannel: myOrder.salesChannel,
-  uuid: myOrder.uuid,
-});
-
 const MyOverview: React.FC<IMyOverviewProps> = props => {
   const router = useRouter();
   const { quote } = props;
 
   const client = useApolloClient();
+  const { setCachedLastStep, cachedLastStep } = useProgressHistory();
   const [person, setPerson] = useState<Person | null>(null);
   const [activePage, setActivePage] = useState(1);
   const [activeTab, setActiveTab] = useState(0);
@@ -125,6 +86,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     type: SortField.availability,
     direction: SortDirection.ASC,
   });
+  const getPartyByUuid = useGetPartyByUuidLazyQuery();
 
   const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
 
@@ -296,14 +258,42 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     Promise.all([
       localForage.setItem('order', order),
       localForage.setItem('orderId', order.uuid),
+      localForage.setItem('personUuid', person?.uuid),
     ])
       .then(() => client.clearStore())
       .then(() =>
-        leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
-          ? '/olaf/about'
-          : '/b2b/olaf/about',
+        findLastFinishedStepIndex(
+          myOrder.lineItems?.[0].creditApplications?.[0],
+        ),
       )
-      .then(url => router.push(url));
+      .then(step => setCachedLastStep(step + 1))
+      .then(() => cachedLastStep)
+      .then(step => {
+        if (leaseType.toUpperCase() !== LeaseTypeEnum.PERSONAL) {
+          return getPartyByUuid({ uuid: person?.partyUuid || '' })
+            .then(query =>
+              query.data?.partyByUuid?.person?.companies?.find(
+                company => company?.partyUuid === myOrder.partyUuid,
+              ),
+            )
+            .then(company => company?.uuid)
+            .then(companyUuid => [step, companyUuid]);
+        }
+        return [step, undefined];
+      })
+      .catch(() => [1, undefined]) // not possible to find last finished step -> redirect ot step 1
+      .then(([step, companyUuid]) => {
+        const path =
+          leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
+            ? '/olaf/about'
+            : '/b2b/olaf/about';
+
+        // if step index is -1 -> all steps completed -> redirect ot summary
+        return step === -1
+          ? `${path}${getUrlParam({ redirect: 'summary', companyUuid })}`
+          : path;
+      })
+      .then(url => router.push(url, url));
   };
 
   const renderChoiceBtn = (index: number, text: string) => (

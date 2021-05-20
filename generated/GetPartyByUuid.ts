@@ -8,8 +8,9 @@
 // ====================================================
 
 export interface GetPartyByUuid_partyByUuid_person_companies {
-  uuid: string;
+  partyUuid: string;
   partyId: string;
+  uuid: string;
 }
 
 export interface GetPartyByUuid_partyByUuid_person {
@@ -21,6 +22,7 @@ export interface GetPartyByUuid_partyByUuid_person {
 }
 
 export interface GetPartyByUuid_partyByUuid_company {
+  uuid: string;
   partyId: string;
   legalName: string | null;
   companyType: string | null;
