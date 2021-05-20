@@ -11,13 +11,13 @@ export const query = gql`
  * pass in required orderID
  * @return {Object}  return lastStep setter fn and getter
  */
-export default function useProgressHistory(orderId: string) {
+export default function useProgressHistory() {
   const client = useApolloClient();
   return {
     setCachedLastStep(currentStep: number): void {
       client.writeQuery({
         query,
-        data: { __typename: 'LastStep', lastStep: { [orderId]: currentStep } },
+        data: { __typename: 'LastStep', lastStep: { value: currentStep } },
       });
     },
     get cachedLastStep() {
@@ -25,7 +25,7 @@ export default function useProgressHistory(orderId: string) {
         const res = client.readQuery({ query });
         // eslint-disable-next-line no-console
         console.log(res);
-        return res.lastStep[orderId] || res.lastStep[''];
+        return res.lastStep.value || 1;
       } catch {
         return 1;
       }

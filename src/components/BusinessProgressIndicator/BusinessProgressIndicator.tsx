@@ -32,8 +32,8 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
 }) => {
   const { pathname, query } = useRouter();
   const { companyUuid, redirect } = query as QueryParams;
+  const { setCachedLastStep, cachedLastStep } = useProgressHistory();
   const orderId = useGetOrderId();
-  const { setCachedLastStep, cachedLastStep } = useProgressHistory(orderId);
   const personUuid = useGetPersonUuid();
   const isMobile = useMobileViewport();
 

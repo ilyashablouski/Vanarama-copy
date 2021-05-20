@@ -11,7 +11,7 @@ import {
   SearchCompaniesQueryVariables,
 } from '../../../../../generated/SearchCompaniesQuery';
 import { SEARCH_COMPANIES } from '../../../../components/CompanyDetailsForm/useSearchCompanies';
-import { CompanyDetailsPage } from '../../../../pages/b2b/olaf/company-details/[personUuid]';
+import { CompanyDetailsPage } from '../../../../pages/b2b/olaf/company-details';
 import { SAVE_COMPANY_DETAILS } from '../../../../containers/CompanyDetailsFormContainer/CompanyDetailsFormContainer';
 import { makeGetCreditApplicationMock } from '../../../../gql/creditApplication';
 import { CREATE_UPDATE_ORDER_MUTATION } from '../../../../gql/order';
