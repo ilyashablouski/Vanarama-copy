@@ -2,24 +2,21 @@ import React, { FC, useEffect, useState } from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
-import { ILink } from 'core/interfaces/link';
 import { useMediaQuery } from 'react-responsive';
-
-import { PartnershipsLinks } from 'components/Partnerships/Data/PartnishipLinks';
-import { setSessionStorage } from 'utils/windowSessionStorage';
-import {
-  PHONE_NUMBER_LINK,
-  FLEET_PHONE_NUMBER_LINK,
-} from '../../models/enum/HeaderLinks';
-
+import Cookies from 'js-cookie';
+import { ILink } from 'core/interfaces/link';
 import Header from '../../components/Header';
-import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
 import { IHeaderLink } from '../../components/Header/Header';
+import { PartnershipsLinks } from '../../components/Partnerships/Data/PartnishipLinks';
 import {
   GetPrimaryHeaderData as HeaderData,
   GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups as LinkGroups,
 } from '../../../generated/GetPrimaryHeaderData';
-import Cookies from 'js-cookie';
+import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
+import {
+  PHONE_NUMBER_LINK,
+  FLEET_PHONE_NUMBER_LINK,
+} from '../../models/enum/HeaderLinks';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 

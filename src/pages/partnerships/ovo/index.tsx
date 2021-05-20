@@ -1,23 +1,26 @@
 import createApolloClient from 'apolloClient';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React, { useEffect, useState } from 'react';
-import { PARTNER } from 'gql/partner';
 import Cookies from 'js-cookie';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
-import PageHeadingSection from 'components/PageHeadingSection';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import { mapFuelSearchQueryToParam } from 'containers/SearchPageContainer/helpers';
-import { IPartnerOffersData, partnerOffersRequest } from 'utils/offers';
-import useLeaseType from 'hooks/useLeaseType';
-import { setObjectAsSessionStorage } from 'utils/windowSessionStorage';
+import PageHeadingSection from '../../../components/PageHeadingSection';
 import Hero, { HeroHeading } from '../../../components/Hero';
 import PartnershipLogo from '../../../components/Partnerships/PartnershipLogo';
-import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 import PartnershipFeatureSection from '../../../components/Partnerships/PartnershipsFeatureSection/FeatureSection';
 import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
+import { mapFuelSearchQueryToParam } from '../../../containers/SearchPageContainer/helpers';
+import { LeaseTypeEnum } from '../../../../generated/globalTypes';
+import { PARTNER } from '../../../gql/partner';
+import useLeaseType from '../../../hooks/useLeaseType';
 import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
+import {
+  IPartnerOffersData,
+  partnerOffersRequest,
+} from '../../../utils/offers';
+import { setLocalStorage } from '../../../utils/windowLocalStorage';
 
 interface IProps extends IPartnerOffersData {
   data: any;
@@ -94,8 +97,8 @@ const OvoHomePage: NextPage<IProps> = ({
         expires: sovereignty,
       });
     }
-    // set footer data in session storage
-    setObjectAsSessionStorage('partnerFooter', footer);
+    // set footer data in local storage
+    setLocalStorage('partnerFooter', JSON.stringify(footer));
   }, []);
 
   const productCarouselProperties = [
