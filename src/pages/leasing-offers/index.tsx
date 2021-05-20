@@ -207,12 +207,12 @@ export const OffersPage: NextPage<IProps> = ({
             className="button"
             classNames={{ color: 'teal', solid: true, size: 'regular' }}
             link={{
-              label: 'View All Van Car Offers',
+              label: 'View All Car Offers',
               href: '/car-leasing-special-offers.html',
             }}
             withoutDefaultClassName
           >
-            <div className="button--inner">View All Van Car Offers</div>
+            <div className="button--inner">View All Car Offers</div>
           </RouterLink>
         </div>
       </div>
