@@ -6,10 +6,7 @@ import { ILink } from 'core/interfaces/link';
 import { useMediaQuery } from 'react-responsive';
 
 import { PartnershipsLinks } from 'components/Partnerships/Data/PartnishipLinks';
-import {
-  getSessionStorage,
-  setSessionStorage,
-} from 'utils/windowSessionStorage';
+import { setSessionStorage } from 'utils/windowSessionStorage';
 import {
   PHONE_NUMBER_LINK,
   FLEET_PHONE_NUMBER_LINK,
@@ -22,6 +19,7 @@ import {
   GetPrimaryHeaderData as HeaderData,
   GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups as LinkGroups,
 } from '../../../generated/GetPrimaryHeaderData';
+import Cookies from 'js-cookie';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -188,10 +186,12 @@ const HeaderContainer: FC = () => {
 
   // check if user is on a partnership journey
   useEffect(() => {
-    const partnerName = getSessionStorage('partnerships');
+    const partnerDetails = Cookies.getJSON('activePartnership');
     const path = router.pathname;
-    if (partnerName) {
+    if (partnerDetails) {
+      const partnerName = partnerDetails.slug;
       setPartnership(partnerName);
+      setPartnershipHomeLink(`/partnerships/${partnerName}`);
       const links = partnerLinks.find(p => p.name === partnerName)?.links;
       setPartnershipLinks(links);
     } else if (path.includes('partnerships')) {
@@ -199,7 +199,6 @@ const HeaderContainer: FC = () => {
       if (partner) {
         setPartnership(partner);
         setPartnershipHomeLink(`/partnerships/${partner}`);
-        setSessionStorage('partnerships', partner);
         const links = partnerLinks.find(p => p.name === partner)?.links;
         setPartnershipLinks(links);
       }
