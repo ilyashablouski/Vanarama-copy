@@ -205,15 +205,18 @@ const HeaderContainer: FC = () => {
   }, []);
 
   useEffect(() => {
-    const partnerDetails = Cookies.getJSON('activePartnership');
-    const { telephone } = partnerDetails;
-    if (telephone) {
-      const data = {
-        href: `tel:${telephone}`,
-        label: telephone,
-        linkType: LinkTypes.external,
-      };
-      setPartnershipPhoneLink(data);
+    if (Cookies.get('activePartnership')) {
+      const partnerDetails = Cookies.getJSON('activePartnership');
+      const { telephone } = partnerDetails;
+      if (telephone) {
+        const hrefNumber = telephone.replace(/\s/g, '');
+        const data = {
+          href: `tel:${hrefNumber}`,
+          label: telephone,
+          linkType: LinkTypes.external,
+        };
+        setPartnershipPhoneLink(data);
+      }
     }
   }, [Cookies.get('activePartnership')]);
 
