@@ -6,7 +6,6 @@ import {
 
 export interface ISearchPageFiltersProps
   extends IFiltersContainerInjectedProps {
-  isPersonal: boolean;
   isCarSearch: boolean;
   onSearch: (filters: IFilters) => void;
   preSearchVehicleCount: number;
