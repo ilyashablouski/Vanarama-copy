@@ -90,7 +90,7 @@ export const mapAddress = (data: any) => ({
   lineThree: data?.line_three,
   lineTwo: data?.line_two,
   postcode: data?.postcode,
-  property_status: data?.property_status,
+  propertyStatus: data?.property_status,
   id: data?.service_id,
   startedOn: data?.started_on,
 });

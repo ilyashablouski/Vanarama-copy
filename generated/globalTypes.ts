@@ -266,6 +266,7 @@ export interface CreditApplicationInputObject {
   status?: string | null;
   submittedAt?: any | null;
   vatDetails?: any | null;
+  vatDetailsV2?: VatDetailV2InputObject | null;
 }
 
 /**
@@ -364,6 +365,7 @@ export interface FilterListObject {
   rental?: RateInputObject | null;
   terms?: number[] | null;
   transmissions?: string[] | null;
+  vehicleCategories?: string[] | null;
   vehicleTypes?: VehicleTypeEnum[] | null;
 }
 
@@ -647,6 +649,15 @@ export interface TelephoneNumberInputObject {
 export interface TurnoverPercentageOutsideUkInputObject {
   country: string;
   percentage: number;
+}
+
+/**
+ * Input object to create vat details
+ */
+export interface VatDetailV2InputObject {
+  outsideUk?: boolean | null;
+  vatNumber?: string | null;
+  vatRegistered?: boolean | null;
 }
 
 /**

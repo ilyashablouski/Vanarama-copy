@@ -37,6 +37,28 @@ export const GET_MY_ORDERS_DATA = gql`
         updatedAt
         uuid
         creditApplications {
+          creditApplicationType
+          aboutDetails
+          companyDetails
+          directorsDetails
+          partnersDetails
+          soleTraderDetails
+          vatDetails
+          # vatDetailsV2 {
+          #   uuid
+          # }
+          incomeAndExpensesV2 {
+            uuid
+          }
+          employmentHistoriesV2 {
+            uuid
+          }
+          bankAccountsV2 {
+            uuid
+          }
+          addressesV2 {
+            uuid
+          }
           status
           uuid
         }
