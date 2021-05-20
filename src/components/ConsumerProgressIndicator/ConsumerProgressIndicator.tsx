@@ -22,7 +22,7 @@ const ConsumerProgressIndicator: React.FC = () => {
   const { pathname, query } = useRouter();
   const { redirect, uuid } = query as QueryParams;
   const orderId = useGetOrderId();
-  const { setCachedLastStep, cachedLastStep } = useProgressHistory(orderId);
+  const { setCachedLastStep, cachedLastStep } = useProgressHistory();
   const isMobile = useMobileViewport();
 
   const latestStep = cachedLastStep;
