@@ -19,6 +19,7 @@ export const PARTNER = gql`
       vehicleTypes
       colourPrimary
       colourSecondary
+      telephone
       hero {
         flag
         body

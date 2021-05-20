@@ -17,6 +17,7 @@ import {
   PHONE_NUMBER_LINK,
   FLEET_PHONE_NUMBER_LINK,
 } from '../../models/enum/HeaderLinks';
+import LinkTypes from '../../models/enum/LinkTypes';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -51,6 +52,7 @@ const HeaderContainer: FC = () => {
   const [partnership, setPartnership] = useState<string | null>(null);
   const [partnershipLinks, setPartnershipLinks] = useState<any>([]);
   const [partnershipHomeLink, setPartnershipHomeLink] = useState<any>(null);
+  const [partnershipPhoneLink, setPartnershipPhoneLink] = useState<any>(null);
 
   const offerLink =
     data?.primaryHeader?.links?.map(el => ({
@@ -202,6 +204,19 @@ const HeaderContainer: FC = () => {
     }
   }, []);
 
+  useEffect(() => {
+    const partnerDetails = Cookies.getJSON('activePartnership');
+    const { telephone } = partnerDetails;
+    if (telephone) {
+      const data = {
+        href: `tel:${telephone}`,
+        label: telephone,
+        linkType: LinkTypes.external,
+      };
+      setPartnershipPhoneLink(data);
+    }
+  }, [Cookies.get('activePartnership')]);
+
   if (partnership) {
     return (
       <Header
@@ -211,7 +226,7 @@ const HeaderContainer: FC = () => {
           await logOut().catch();
         }}
         loginLink={LOGIN_LINK}
-        phoneNumberLink={phoneNumberLink}
+        phoneNumberLink={partnershipPhoneLink || phoneNumberLink}
         topBarLinks={[...partnershipLinks]}
         customHomePath={partnershipHomeLink}
       />

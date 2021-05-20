@@ -45,6 +45,7 @@ const OvoHomePage: NextPage<IProps> = ({
     slug,
     uuid,
     customerSovereignty,
+    telephone,
   } = data?.partner;
   const { flag, body, image, titleTag } = data?.partner?.hero;
   const { title } = logo;
@@ -91,6 +92,7 @@ const OvoHomePage: NextPage<IProps> = ({
         color: colourPrimary,
         uuid,
         vehicleTypes,
+        telephone,
       };
       const sovereignty = customerSovereignty || 7;
       Cookies.set('activePartnership', partnershipData, {
