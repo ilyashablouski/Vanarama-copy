@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react';
 import GlobalSearchCard from './GlobalSearchCard';
 import { fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles as ISuggestion } from '../../../generated/fullTextSearchVehicleList';
-import { useLazyModelImages } from '../SearchPageContainer/gql';
-import { ModelImages_vehicleImages as IVehiclesImage } from '../../../generated/ModelImages';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { IGSVehiclesCardsData } from '../GlobalSearchPageContainer/GlobalSearchPageContainer';
+import { useGSCardsData } from './gql';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 
 interface IProps {
   suggestions: ISuggestion[];
@@ -14,34 +16,63 @@ const GlobalSearchRightSideContainer = ({
   suggestions,
   searchQuery,
 }: IProps) => {
-  const [imagesUrl, setImagesUrl] = useState<IVehiclesImage[]>([]);
-  const [capIds, setCapIds] = useState<string[]>([]);
-  const [getModelImages] = useLazyModelImages(capIds, async images => {
-    return setImagesUrl(prevState => [
-      ...((prevState || []) as IVehiclesImage[]),
-      ...((images?.vehicleImages || []) as IVehiclesImage[]),
-    ]);
-  });
+  const [lcvCardsData, setLcvCardsData] = useState<ICardsData[]>([]);
+  const [carCardsData, setCarCardsData] = useState<ICardsData[]>([]);
+
+  const vehiclesCardsData: IGSVehiclesCardsData<ICardsData[]> = {
+    LCV: lcvCardsData,
+    CAR: carCardsData,
+  };
+
+  const [getCarCardsData] = useGSCardsData(
+    [''],
+    VehicleTypeEnum.CAR,
+    async data => {
+      setCarCardsData(data.productCard as ICardsData[]);
+    },
+  );
+
+  const [getLcvCardsData] = useGSCardsData(
+    [''],
+    VehicleTypeEnum.LCV,
+    async data => {
+      setLcvCardsData(data.productCard as ICardsData[]);
+    },
+  );
 
   useEffect(() => {
     if (suggestions.length) {
-      const responseCapIds = suggestions
-        ?.map(vehicle => vehicle.derivativeId)
-        .filter(vehicle => vehicle) as string[];
-      setCapIds(responseCapIds || []);
+      const carsCapIds = suggestions
+        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.CAR)
+        .map(vehicle => vehicle.derivativeId)
+        .filter(value => value) as string[];
+      const vansCapIds = suggestions
+        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.LCV)
+        .map(vehicle => vehicle.derivativeId)
+        .filter(value => value) as string[];
+      if (carsCapIds[0]) {
+        getCarCardsData({
+          variables: {
+            capIds: carsCapIds,
+            vehicleType: VehicleTypeEnum.CAR,
+          },
+        });
+      }
+      if (vansCapIds[0]) {
+        getLcvCardsData({
+          variables: {
+            capIds: vansCapIds,
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        });
+      }
     }
-  }, [suggestions]);
+  }, [getCarCardsData, getLcvCardsData, suggestions]);
 
-  useEffect(() => {
-    if (capIds.length) {
-      getModelImages();
-    }
-  }, [capIds, getModelImages]);
-
-  const getImgUrl = (capId: string): string => {
+  const getImgUrl = (capId: string, vehicleType: VehicleTypeEnum) => {
     return (
-      imagesUrl?.find(x => x?.capId === parseInt(capId || '', 10))
-        ?.mainImageUrl || `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+      vehiclesCardsData?.[vehicleType].find(x => x?.capId === capId)
+        ?.imageUrl || ''
     );
   };
 
@@ -54,7 +85,10 @@ const GlobalSearchRightSideContainer = ({
           return (
             <GlobalSearchCard
               data={data}
-              imgUrl={getImgUrl(data.derivativeId || '')}
+              imgUrl={getImgUrl(
+                data.derivativeId || '',
+                data.vehicleType || VehicleTypeEnum.LCV,
+              )}
               key={data?.derivativeId || `${data?.derivativeName}` || idx}
             />
           );
