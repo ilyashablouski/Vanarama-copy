@@ -16,6 +16,7 @@ import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
 import { ISpecialOffersData, specialOffersRequest } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -178,6 +179,45 @@ export const OffersPage: NextPage<IProps> = ({
       </div>
       <div
         className="row:bg-lighter"
+        id="car-offers"
+        ref={carRef as MutableRefObject<HTMLDivElement>}
+      >
+        <div>
+          <Heading size="large" color="black">
+            <span
+              style={{ textAlign: 'center', display: 'block' }}
+              className="-mb-400"
+            >
+              Car Lease Hot Offers
+            </span>
+          </Heading>
+          <ProductCarousel
+            leaseType={LeaseTypeEnum.PERSONAL}
+            data={{
+              derivatives: productsCarDerivatives?.derivatives || null,
+              productCard: productsCar?.productCarousel || null,
+              vehicleList: vehicleListUrlData,
+            }}
+            countItems={productsCar?.productCarousel?.length || 6}
+            dataTestIdBtn="car-view-offer"
+          />
+        </div>
+        <div className="-justify-content-row -pt-500">
+          <RouterLink
+            className="button"
+            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            link={{
+              label: 'View All Car Offers',
+              href: '/car-leasing-special-offers.html',
+            }}
+            withoutDefaultClassName
+          >
+            <div className="button--inner">View All Car Offers</div>
+          </RouterLink>
+        </div>
+      </div>
+      <div
+        className="row:bg-lighter"
         id="van-offers"
         ref={vanRef as MutableRefObject<HTMLDivElement>}
       >
@@ -190,12 +230,7 @@ export const OffersPage: NextPage<IProps> = ({
               Van Lease Hot Offers
             </span>
           </Heading>
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
-          >
+          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <ProductCarousel
               leaseType={LeaseTypeEnum.BUSINESS}
               data={{
@@ -236,12 +271,7 @@ export const OffersPage: NextPage<IProps> = ({
               Truck Lease Hot Offers
             </span>
           </Heading>
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
-          >
+          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <ProductCarousel
               leaseType={LeaseTypeEnum.BUSINESS}
               data={{
@@ -265,45 +295,6 @@ export const OffersPage: NextPage<IProps> = ({
             withoutDefaultClassName
           >
             <div className="button--inner">View All Truck Hot Offers</div>
-          </RouterLink>
-        </div>
-      </div>
-      <div
-        className="row:bg-lighter"
-        id="car-offers"
-        ref={carRef as MutableRefObject<HTMLDivElement>}
-      >
-        <div>
-          <Heading size="large" color="black">
-            <span
-              style={{ textAlign: 'center', display: 'block' }}
-              className="-mb-400"
-            >
-              Car Lease Hot Offers
-            </span>
-          </Heading>
-          <ProductCarousel
-            leaseType={LeaseTypeEnum.PERSONAL}
-            data={{
-              derivatives: productsCarDerivatives?.derivatives || null,
-              productCard: productsCar?.productCarousel || null,
-              vehicleList: vehicleListUrlData,
-            }}
-            countItems={productsCar?.productCarousel?.length || 6}
-            dataTestIdBtn="car-view-offer"
-          />
-        </div>
-        <div className="-justify-content-row -pt-500">
-          <RouterLink
-            className="button"
-            classNames={{ color: 'teal', solid: true, size: 'regular' }}
-            link={{
-              label: 'View All Van Car Offers',
-              href: '/car-leasing-special-offers.html',
-            }}
-            withoutDefaultClassName
-          >
-            <div className="button--inner">View All Van Car Offers</div>
           </RouterLink>
         </div>
       </div>

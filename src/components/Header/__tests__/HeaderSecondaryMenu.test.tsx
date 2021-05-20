@@ -12,6 +12,7 @@ const mocks = {
   onClickTitle: jest.fn(),
   isTabletOrMobile: false,
   isMenuOpen: false,
+  isSecondaryMenuOpen: false,
   promotionalImage: {
     url: '',
     image: {

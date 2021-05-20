@@ -17,7 +17,6 @@ const handleSubmitError = () =>
   );
 
 type QueryParams = OLAFQueryParams & {
-  personUuid: string;
   companyUuid: string;
 };
 

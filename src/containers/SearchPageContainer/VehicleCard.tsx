@@ -75,7 +75,7 @@ const VehicleCard = React.memo(
           accentIcon: data?.isOnOffer ? (
             <Icon icon={<Flame />} color="white" className="sm hydrated" />
           ) : null,
-          accentText: data?.isOnOffer ? 'Hot Offers' : '',
+          accentText: data?.isOnOffer ? 'Hot Offer' : '',
           text: data?.leadTime || '',
         }}
         onCompare={() => {

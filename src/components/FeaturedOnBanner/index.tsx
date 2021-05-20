@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import React from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Skeleton from '../Skeleton';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -12,13 +13,8 @@ const Image = dynamic(() => import('core/atoms/image'), {
 });
 
 const FeaturedOnBanner = () => (
-  <LazyLoadComponent
-    visibleByDefault={
-      typeof window === 'undefined' ||
-      navigator?.vendor === 'Apple Computer, Inc.'
-    }
-  >
-    <section className="row:featured-logos">
+  <section className="row:featured-logos">
+    <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
       <Heading tag="span" size="small" color="darker">
         AS FEATURED ON
       </Heading>
@@ -71,8 +67,8 @@ const FeaturedOnBanner = () => (
           />
         ))}
       </div>
-    </section>
-  </LazyLoadComponent>
+    </LazyLoadComponent>
+  </section>
 );
 
 export default FeaturedOnBanner;

@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Choiceboxes from 'core/atoms/choiceboxes';
 import Select from 'core/atoms/select';
@@ -17,6 +17,7 @@ import {
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const InformationCircle = dynamic(
   () => import('core/assets/icons/InformationCircle'),
@@ -346,12 +347,7 @@ const CustomiseLease = ({
           </div>
         </div>
       )}
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
+      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
         <OrderSummary
           quoteByCapId={quoteByCapId}
           stateVAT={stateVAT}
@@ -371,12 +367,7 @@ const CustomiseLease = ({
           )}
           style={{ opacity: '1' }}
         >
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
-          >
+          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <LeaseScanner
               classNameHeading="headingText"
               className="pdp-footer"

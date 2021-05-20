@@ -42,6 +42,8 @@ import {
 } from '../../../generated/filterList';
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { freeInsuranceSmallPrint } from './free-car-insurance';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -109,7 +111,11 @@ export const CarsPage: NextPage<IProps> = ({
 
   return (
     <>
-      <Hero searchPodCarsData={searchPodCarsData}>
+      <Hero
+        searchPodCarsData={searchPodCarsData}
+        smallPrint={freeInsuranceSmallPrint}
+        customCTALink="/car-leasing/free-car-insurance"
+      >
         {/* <HeroHeading
           text={data?.hubCarPage.sections?.hero?.title || ''}
           titleTag={
@@ -121,10 +127,10 @@ export const CarsPage: NextPage<IProps> = ({
         <br />
         <HeroTitle text={data?.hubCarPage.sections?.hero?.body || ''} />
         <br /> */}
-        <div className="nlol">
-          <p>Find Your</p>
-          <h2>New Lease Of Life</h2>
-          <p>With Vanarama</p>
+        <div className="nlol nlol-free-insurance">
+          <p>Find Your New Lease Of Life</p>
+          <h2>1 Year&apos;s FREE Insurance</h2>
+          <p>On Every Car Hot Offer</p>
         </div>
         <div>
           <Image
@@ -173,13 +179,8 @@ export const CarsPage: NextPage<IProps> = ({
         </Text>
       </section>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:eligibility-checker-cta">
+      <section className="row:eligibility-checker-cta">
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <div>
             <Image
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -227,8 +228,8 @@ export const CarsPage: NextPage<IProps> = ({
               <div className="button--inner">Help Me Choose</div>
             </RouterLink>
           </div>
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
       <div className="row:bg-lighter">
         <section className="row:cards-3col">
@@ -247,17 +248,14 @@ export const CarsPage: NextPage<IProps> = ({
             return (
               <LazyLoadComponent
                 key={item?.capId || idx}
-                visibleByDefault={
-                  typeof window === 'undefined' ||
-                  navigator?.vendor === 'Apple Computer, Inc.'
-                }
+                visibleByDefault={isServerRenderOrAppleDevice}
               >
                 <ProductCard
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                   key={item?.capId || idx}
                   header={{
                     accentIcon: <Icon icon={<Flame />} color="white" />,
-                    accentText: 'Hot Offers',
+                    accentText: 'Hot Offer',
                     text: 'In Stock - 14-21 Days Delivery',
                   }}
                   features={features(
@@ -495,13 +493,8 @@ export const CarsPage: NextPage<IProps> = ({
         </div>
       </section>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:features-4col">
+      <section className="row:features-4col">
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Heading
             size="large"
             color="black"
@@ -535,23 +528,18 @@ export const CarsPage: NextPage<IProps> = ({
               </div>
             ),
           )}
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
-      <LazyLoadComponent
-        visibleByDefault={
-          typeof window === 'undefined' ||
-          navigator?.vendor === 'Apple Computer, Inc.'
-        }
-      >
-        <section className="row:league">
+      <section className="row:league">
+        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <League
             clickReadMore={() => Router.push('/fan-hub.html')}
             altText="vanarama national league"
             link="/fan-hub.html"
           />
-        </section>
-      </LazyLoadComponent>
+        </LazyLoadComponent>
+      </section>
 
       <FeaturedOnSection />
 

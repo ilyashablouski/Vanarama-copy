@@ -13,7 +13,7 @@ describe('<MediaGallery />', () => {
       threeSixtyVideoSrc: 'test.com',
       flag: {
         accentIcon: <Icon icon={<Flame />} color="white" />,
-        accentText: 'Hot Offers',
+        accentText: 'Hot Offer',
         text: 'dealText',
       },
     };

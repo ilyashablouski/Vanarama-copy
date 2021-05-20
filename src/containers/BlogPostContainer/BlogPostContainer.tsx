@@ -10,6 +10,7 @@ import Head from '../../components/Head/Head';
 import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
 import { setSource } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -126,12 +127,7 @@ const BlogPostContainer: NextPage<IProps> = ({
           />
         </article>
         <div>
-          <LazyLoadComponent
-            visibleByDefault={
-              typeof window === 'undefined' ||
-              navigator?.vendor === 'Apple Computer, Inc.'
-            }
-          >
+          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             {articles && (
               <Heading tag="span" size="large" color="black">
                 Related Articles

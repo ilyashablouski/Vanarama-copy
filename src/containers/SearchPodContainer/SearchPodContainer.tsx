@@ -26,6 +26,7 @@ interface ISearchPodContainerProps {
   searchPodCarsData?: IFilterListData;
   searchPodVansData?: IFilterListData;
   customCTAColor?: string;
+  activeSearchIndex?: number;
 }
 
 enum Tabs {
@@ -40,10 +41,17 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   searchPodCarsData,
   searchPodVansData,
   customCTAColor,
+  activeSearchIndex,
 }) => {
   const router = useRouter();
 
   const initialHeadingText = useMemo(() => {
+    if (activeSearchIndex === 1) {
+      return VANS_TAB_HEADING;
+    }
+    if (activeSearchIndex === 2) {
+      return CARS_TAB_HEADING;
+    }
     if (router.pathname.indexOf('car') > -1) {
       return CARS_TAB_HEADING;
     }
@@ -67,7 +75,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   };
 
   const [activeIndex, setActiveIndex] = useState(
-    router.pathname.indexOf('car') > -1 ? 2 : 1,
+    activeSearchIndex || router.pathname.indexOf('car') > -1 ? 2 : 1,
   );
 
   const [vansDataCache] = useState(
