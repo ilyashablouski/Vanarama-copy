@@ -84,9 +84,9 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     const isTel = link.href.match(/^tel:/);
     const telProps = {
       'data-ict-discovery-number': link.label,
-      ...(withoutSilentReplacements
-        ? {}
-        : { 'data-ict-silent-replacements': true }),
+      'data-ict-silent-replacements': withoutSilentReplacements
+        ? undefined
+        : true,
     };
 
     return (
