@@ -24,7 +24,7 @@ const IframeContainer = ({
       .split('/')
       .slice(-1)[0]
       .split('?')[0];
-    return `https://img.youtube.com/vi/${id}/maxresdefault.jpg`;
+    return `https://img.youtube.com/vi_webp/${id}/sddefault.webp`;
   }, [src]);
 
   return (
