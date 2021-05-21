@@ -403,11 +403,13 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
-      props: {
-        data,
-        productsElectricOnlyCar,
-        vehicleListUrlData,
-      },
+      props: JSON.parse(
+        JSON.stringify({
+          data,
+          productsElectricOnlyCar,
+          vehicleListUrlData,
+        }),
+      ),
     };
   } catch (err) {
     throw new Error(err);
