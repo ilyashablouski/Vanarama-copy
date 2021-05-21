@@ -3,7 +3,6 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import React from 'react';
 import * as toast from 'core/atoms/toast/Toast';
-import { ApolloError } from '@apollo/client';
 import CompanyBankDetailsFormContainer from '../../../../containers/CompanyBankDetailsFormContainer/CompanyBankDetailsFormContainer';
 import { OLAFQueryParams } from '../../../../utils/url';
 import useSoleTraderJorney from '../../../../hooks/useSoleTraderJourney';
@@ -12,6 +11,12 @@ import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
 import useGetPersonUuid from '../../../../hooks/useGetPersonUuid';
+
+const handleSubmitError = () =>
+  toast.error(
+    'Oops, an unexpected error occurred',
+    'Your details could not be saved. Please try submitting the form again.',
+  );
 
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
@@ -22,23 +27,13 @@ const CompanyBankDetailsPage: NextPage = () => {
   const isSoleTraderJourney = useSoleTraderJorney();
   const orderId = useGetOrderId();
   const personUuid = useGetPersonUuid();
-  const { companyUuid } = router.query as QueryParams;
-
-  const handleSubmitError = (err: ApolloError) => {
-    // eslint-disable-next-line no-console
-    console.error(err);
-    toast.error(
-      'Oops, an unexpected error occurred',
-      'Your details could not be saved. Please try submitting the form again.',
-    );
-  };
+  const { companyUuid, redirect } = router.query as QueryParams;
 
   const handleSubmitCompletion = () => {
     const summaryUrl = !isSoleTraderJourney
       ? '/b2b/olaf/summary/[companyUuid]'
       : '/b2b/olaf/sole-trader/summary/[companyUuid]';
-    const url = summaryUrl;
-    router.push(url, url.replace('[companyUuid]', companyUuid));
+    router.push(summaryUrl, summaryUrl.replace('[companyUuid]', companyUuid));
   };
 
   return (
@@ -46,11 +41,11 @@ const CompanyBankDetailsPage: NextPage = () => {
       <CompanyBankDetailsFormContainer
         personUuid={personUuid}
         isSoleTrader={isSoleTraderJourney}
-        isEdited={router.query.redirect === 'summary'}
+        isEdited={!!redirect}
         companyUuid={companyUuid}
         orderUuid={orderId}
         onCompleted={handleSubmitCompletion}
-        onError={err => handleSubmitError(err)}
+        onError={handleSubmitError}
       />
     </OLAFLayout>
   );

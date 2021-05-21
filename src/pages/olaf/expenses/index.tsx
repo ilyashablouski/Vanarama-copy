@@ -17,7 +17,7 @@ type QueryParams = OLAFQueryParams & {
 
 const ExpensesPage: NextPage = () => {
   const router = useRouter();
-  const { uuid } = router.query as QueryParams;
+  const { uuid, redirect } = router.query as QueryParams;
   const orderId = useGetOrderId();
 
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
@@ -40,11 +40,7 @@ const ExpensesPage: NextPage = () => {
       },
     })
       .then(() => getUrlParam({ uuid: personUuid }))
-      .then(params =>
-        router.query.redirect === 'summary'
-          ? `/olaf/summary${params}`
-          : `/olaf/bank-details${params}`,
-      )
+      .then(params => redirect || `/olaf/bank-details${params}`)
       .then(url => router.push(url, url));
   };
 
