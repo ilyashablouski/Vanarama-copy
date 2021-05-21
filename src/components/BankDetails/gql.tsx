@@ -13,6 +13,7 @@ const BANK_ACCOUNT_VALIDATOR = gql`
   }
 `;
 
+// eslint-disable-next-line import/prefer-default-export
 export function useBankAccountValidator() {
   return useLazyQuery<Query, QueryVariables>(BANK_ACCOUNT_VALIDATOR);
 }
