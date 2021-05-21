@@ -13,6 +13,7 @@ import validationSchema from './BankDetails.validation';
 import { IBankDetails, IBankDetailsProps } from './interfaces';
 import { responseToInitialFormValues } from './mappers';
 import Skeleton from '../Skeleton';
+import BankAccountValidator from './BankAccountValidator';
 
 const ChevronForwardSharp = dynamic(
   () => import('core/assets/icons/ChevronForwardSharp'),
@@ -39,7 +40,7 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
   account,
   onSubmit,
 }) => {
-  const { handleSubmit, register, control, errors, formState } = useForm<
+  const { handleSubmit, register, control, errors, formState, watch } = useForm<
     IBankDetails
   >({
     mode: 'onBlur',
@@ -52,6 +53,9 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
   const sortCodeErrors = (
     ((errors?.sortCode as unknown) as (FieldError | undefined)[]) || []
   ).filter((_): _ is FieldError => Boolean(_));
+
+  const sortCode = watch('sortCode');
+  const accountNumber = watch('accountNumber');
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -108,6 +112,10 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
           onChange={([, parts]) => parts}
         />
       </FormGroup>
+      <BankAccountValidator
+        accountNumber={accountNumber ?? ''}
+        sortCode={sortCode?.join('') ?? ''}
+      />
       <FormGroup
         controlId="bankName"
         label="Bank Name"
