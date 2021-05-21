@@ -48,8 +48,8 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
 
   const queryParams = getUrlParam({
     companyUuid,
-    redirect: asPath,
     isSoleTraderJourney,
+    redirect: currentStep < cachedLastStep ? undefined : asPath,
   });
 
   // do not show redirect param in url
