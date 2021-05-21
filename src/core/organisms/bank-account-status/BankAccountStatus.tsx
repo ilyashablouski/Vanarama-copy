@@ -25,7 +25,7 @@ function BankAccountStatus({
       </div>
     );
   }
-  if (isValid === true) {
+  if (isValid) {
     return (
       <div className={resultClassName}>
         <Icon
