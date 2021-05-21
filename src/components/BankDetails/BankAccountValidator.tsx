@@ -13,8 +13,8 @@ interface IProps {
 }
 
 function BankAccountValidator({ sortCode, accountNumber }: IProps) {
-  const isSortCodeValid = sortCode?.length === 6;
-  const isAccountNumberValid = accountNumber?.length === 8;
+  const isSortCodeValid = sortCode.length === 6;
+  const isAccountNumberValid = accountNumber.length === 8;
 
   const [
     validateBankAccount,
