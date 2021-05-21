@@ -6,7 +6,7 @@ import {
 } from '../../../generated/suggestionList';
 import {
   fullTextSearchVehicleList,
-  fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles,
+  fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles as IFullTextSearchVehicles,
   fullTextSearchVehicleListVariables,
 } from '../../../generated/fullTextSearchVehicleList';
 import {
@@ -17,7 +17,7 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 export const GET_SUGGESTIONS_DATA = gql`
   query suggestionList($query: String) {
-    suggestionList(query: $query, pagination: { size: 6, from: 0 }) {
+    suggestionList(query: $query, pagination: { size: 5, from: 0 }) {
       suggestions
     }
   }
@@ -143,11 +143,17 @@ export function useTextSearchList(
   });
 }
 
+export interface IGlobalSearchData {
+  suggestsList: string[];
+  vehiclesList: IFullTextSearchVehicles[];
+}
+
 export function useGlobalSearch(query?: string) {
   const apolloClient = useApolloClient();
-  const [suggestions, setSuggestions] = useState<
-    fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles[]
-  >([]);
+  const [suggestions, setSuggestions] = useState<IGlobalSearchData>({
+    suggestsList: [],
+    vehiclesList: [],
+  });
   // This effect runs when the debounced search term changes and executes the search
   useEffect(() => {
     async function fetchData(value: string) {
@@ -162,15 +168,27 @@ export function useGlobalSearch(query?: string) {
           size: 6,
         },
       });
-      return data?.fullTextSearchVehicleList?.vehicles || [];
+      const { data: suggestsList } = await apolloClient.query<
+        suggestionList,
+        suggestionListVariables
+      >({
+        query: GET_SUGGESTIONS_DATA,
+        variables: {
+          query: value,
+        },
+      });
+      return {
+        suggestsList: suggestsList?.suggestionList?.suggestions || [],
+        vehiclesList: data?.fullTextSearchVehicleList?.vehicles || [],
+      };
     }
 
     if (query?.length) {
       fetchData(query)
         .then(setSuggestions)
-        .catch(() => setSuggestions([]));
+        .catch(() => setSuggestions({ suggestsList: [], vehiclesList: [] }));
     } else {
-      setSuggestions([]);
+      setSuggestions({ suggestsList: [], vehiclesList: [] });
     }
   }, [apolloClient, query]);
 
