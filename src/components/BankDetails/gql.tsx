@@ -5,7 +5,7 @@ import {
   BankAccountValidatorVariables as QueryVariables,
 } from '../../../generated/BankAccountValidator';
 
-export const BANK_ACCOUNT_VALIDATOR = gql`
+const BANK_ACCOUNT_VALIDATOR = gql`
   query BankAccountValidator($sortCode: String!, $accountNumber: String!) {
     bankAccountValidator(sortCode: $sortCode, accountNumber: $accountNumber) {
       valid
