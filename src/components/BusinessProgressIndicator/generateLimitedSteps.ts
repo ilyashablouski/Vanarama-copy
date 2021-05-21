@@ -6,7 +6,7 @@ export default function generateLimitedSteps() {
       step: 1,
     },
     {
-      href: '/b2b/olaf/company-details/[personUuid]',
+      href: '/b2b/olaf/company-details',
       label: 'Company Details',
       step: 2,
     },

@@ -250,10 +250,10 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   };
 
   const onClickOrderBtn = (
-    myOrder: GetMyOrders_myOrders,
-    leaseType: LeaseTypeEnum,
+    selectedOrder: GetMyOrders_myOrders,
+    customer: Person | null,
   ) => {
-    const order = createOrderInputFromMyOrder(myOrder);
+    const order = createOrderInputFromMyOrder(selectedOrder);
 
     Promise.all([
       localForage.setItem('order', order),
@@ -263,35 +263,37 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
       .then(() => client.clearStore())
       .then(() =>
         findLastFinishedStepIndex(
-          myOrder.lineItems?.[0].creditApplications?.[0],
+          selectedOrder.lineItems?.[0].creditApplications?.[0],
         ),
       )
-      .then(step => setCachedLastStep(step + 1))
-      .then(() => cachedLastStep)
       .then(step => {
-        if (leaseType.toUpperCase() !== LeaseTypeEnum.PERSONAL) {
-          return getPartyByUuid({ uuid: person?.partyUuid || '' })
+        setCachedLastStep(step + 1);
+
+        return step;
+      })
+      .then(step => {
+        if (order?.leaseType?.toUpperCase() === LeaseTypeEnum.BUSINESS) {
+          return getPartyByUuid({ uuid: customer?.partyUuid || '' })
             .then(query =>
               query.data?.partyByUuid?.person?.companies?.find(
-                company => company?.partyUuid === myOrder.partyUuid,
+                company => company.partyUuid === order.partyUuid,
               ),
             )
             .then(company => company?.uuid)
             .then(companyUuid => [step, companyUuid]);
         }
-        return [step, undefined];
+        return Promise.resolve([step, undefined]);
       })
       .catch(() => [1, undefined]) // not possible to find last finished step -> redirect ot step 1
       .then(([step, companyUuid]) => {
+        const redirect = step === -1 ? 'summary' : undefined;
         const path =
-          leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
+          order.leaseType?.toUpperCase() === LeaseTypeEnum.PERSONAL
             ? '/olaf/about'
             : '/b2b/olaf/about';
 
         // if step index is -1 -> all steps completed -> redirect ot summary
-        return step === -1
-          ? `${path}${getUrlParam({ redirect: 'summary', companyUuid })}`
-          : path;
+        return `${path}${getUrlParam({ redirect, companyUuid })}`;
       })
       .then(url => router.push(url, url));
   };
@@ -372,7 +374,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             <Button
               color="teal"
               label={quote ? 'Continue To Order' : 'View Order'}
-              onClick={() => onClickOrderBtn(order, order.leaseType)}
+              onClick={() => onClickOrderBtn(order, person)}
             />,
             quote,
           )}

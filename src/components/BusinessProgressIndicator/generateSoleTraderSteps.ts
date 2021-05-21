@@ -6,7 +6,7 @@ export default function generateSoleTraderSteps() {
       step: 1,
     },
     {
-      href: '/b2b/olaf/sole-trader/company-details/[personUuid]',
+      href: '/b2b/olaf/sole-trader/company-details',
       label: 'Company Details',
       step: 2,
     },

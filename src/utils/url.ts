@@ -8,7 +8,7 @@ import { getSectionsData } from './getSectionsData';
 import { GenericPageHeadQuery_genericPage_metaData as IMetadata } from '../../generated/GenericPageHeadQuery';
 import { genericPagesQuery_genericPages_items as GenericPages } from '../../generated/genericPagesQuery';
 
-type UrlParams = { [key: string]: string | boolean | undefined };
+type UrlParams = { [key: string]: string | boolean | number | undefined };
 
 export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   const url = Object.entries(urlParams).map(([key, value]) =>
