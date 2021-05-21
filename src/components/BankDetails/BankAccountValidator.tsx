@@ -22,11 +22,11 @@ function BankAccountValidator({ sortCode, accountNumber }: IProps) {
   ] = useBankAccountValidator();
 
   useEffect(() => {
-    if (!isAccountNumberValid || !isSortCodeValid) return;
-
-    validateBankAccount({
-      variables: { sortCode, accountNumber },
-    });
+    if (isAccountNumberValid && isSortCodeValid) {
+      validateBankAccount({
+        variables: { sortCode, accountNumber },
+      });
+    }
   }, [
     isSortCodeValid,
     isAccountNumberValid,
