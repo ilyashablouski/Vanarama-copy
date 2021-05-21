@@ -57,6 +57,7 @@ const FooterColumn: FC<IFooterColumn> = props => {
                         linkType: LinkTypes.external,
                       }}
                       classNames={{ color: 'white', size: 'small' }}
+                      withoutSilentReplacements
                     />
                   ) : (
                     <Text
