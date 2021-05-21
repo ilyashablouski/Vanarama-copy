@@ -53,7 +53,6 @@ const OvoHomePage: NextPage<IProps> = ({
   const { flag, body, image, titleTag } = data?.partner?.hero;
   const { title } = logo;
   const { url } = logo?.file;
-  console.log(JSON.stringify(footer));
 
   const Image = dynamic(() => import('core/atoms/image'), {
     loading: () => <Skeleton count={3} />,
