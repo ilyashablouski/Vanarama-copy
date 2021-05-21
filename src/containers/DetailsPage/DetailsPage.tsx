@@ -187,7 +187,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       capId,
       derivativeInfo,
       vehicleConfigurationByCapId,
-      price,
+      price: price || '0.00',
       category: getCategory({ cars, vans, pickups }),
       mileage,
     });
