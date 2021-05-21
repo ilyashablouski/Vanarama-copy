@@ -150,6 +150,7 @@ export type OLAFQueryParams = {
   orderId: string;
   personUuid: string;
   derivativeId: string;
+  redirect?: string;
 };
 
 /**

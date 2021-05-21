@@ -24,13 +24,11 @@ export const CompanyDetailsPage: NextPage = () => {
   const router = useRouter();
   const orderId = useGetOrderId();
   const personUuid = useGetPersonUuid();
-  const { companyUuid } = router.query as QueryParams;
+  const { companyUuid, redirect } = router.query as QueryParams;
+  const isEdited = !!router.query.redirect;
 
-  const isEdited = router.query.redirect === 'summary';
   const handleSubmitCompletion = (companyGuid: string) => {
-    const url = isEdited
-      ? '/b2b/olaf/summary/[companyUuid]'
-      : `/b2b/olaf/vat-details/[companyUuid]`;
+    const url = redirect || `/b2b/olaf/vat-details/[companyUuid]`;
     router.push(url, url.replace('[companyUuid]', companyGuid));
   };
 

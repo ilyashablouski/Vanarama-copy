@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import ProgressIndicator from 'core/molecules/progress-indicator';
 import Step from 'core/molecules/progress-indicator/Step';
 import StepLink from 'core/molecules/progress-indicator/StepLink';
@@ -10,6 +9,7 @@ import useProgressHistory from '../../hooks/useProgressHistory';
 import useGetOrderId from '../../hooks/useGetOrderId';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { scrollingSteps } from './helpers';
+import generateConsumerSteps from './generateConsumerSteps';
 
 type QueryParams = {
   redirect?: string;
@@ -18,31 +18,29 @@ type QueryParams = {
 };
 
 const ConsumerProgressIndicator: React.FC = () => {
-  // const [latestStep, setLatestStep] = useState(1);
-  const { pathname, query } = useRouter();
-  const { redirect, uuid } = query as QueryParams;
+  const { pathname, query, asPath } = useRouter();
+  const { uuid } = query as QueryParams;
   const orderId = useGetOrderId();
   const { setCachedLastStep, cachedLastStep } = useProgressHistory();
   const isMobile = useMobileViewport();
 
-  const latestStep = cachedLastStep;
-
   // Only regenerate the steps if the `orderId` changes
-  const steps = useMemo(() => generateSteps(), [orderId]);
+  const steps = useMemo(() => generateConsumerSteps(), [orderId]);
   // Work out the current step based on the URL
   const currentStep = steps.find(x => x.href === pathname)?.step || 1;
-  // If the querystring contains `redirect=summary` then the current step is being edited
-  const editingStep = redirect === 'summary' ? currentStep : 0;
-  // If the current step is being edited then mark the summary step as the active step
-  const activeStep = editingStep ? steps[steps.length - 1]?.step : latestStep;
 
-  const asHref = getUrlParam({
+  const queryParams = getUrlParam({
     uuid,
-    redirect: activeStep === 6 ? 'summary' : '',
+    redirect: asPath,
+  });
+
+  // do not show redirect param in url
+  const queryParamsMask = getUrlParam({
+    uuid,
   });
 
   useEffect(() => {
-    if (currentStep > latestStep) {
+    if (currentStep > cachedLastStep) {
       setCachedLastStep(currentStep);
     }
   }, [currentStep]);
@@ -54,17 +52,19 @@ const ConsumerProgressIndicator: React.FC = () => {
   }, [isMobile]);
 
   return (
-    <ProgressIndicator activeStep={activeStep || 0} id="progress-indicator">
+    <ProgressIndicator activeStep={cachedLastStep || 0} id="progress-indicator">
       {steps.map(({ href, label, step }) => {
-        const url = href + asHref;
+        const url = `${href}${queryParams}`;
+        const urlMask = `${href}${queryParamsMask}`;
+
         return (
           <Step
             key={href}
-            editing={editingStep === step}
             step={step}
             id={`step_${step}`}
+            editing={href === pathname && step <= cachedLastStep}
           >
-            <NextJsLink href={url} as={url} passHref>
+            <NextJsLink href={url} as={urlMask} passHref>
               <StepLink label={label} />
             </NextJsLink>
           </Step>
@@ -73,40 +73,5 @@ const ConsumerProgressIndicator: React.FC = () => {
     </ProgressIndicator>
   );
 };
-
-function generateSteps() {
-  return [
-    {
-      href: '/olaf/about',
-      label: 'About You',
-      step: 1,
-    },
-    {
-      href: '/olaf/address-history',
-      label: 'Address History',
-      step: 2,
-    },
-    {
-      href: '/olaf/employment-history',
-      label: 'Employment History',
-      step: 3,
-    },
-    {
-      href: '/olaf/expenses',
-      label: 'Expenses',
-      step: 4,
-    },
-    {
-      href: '/olaf/bank-details',
-      label: 'Bank Details',
-      step: 5,
-    },
-    {
-      href: '/olaf/summary',
-      label: 'Summary',
-      step: 6,
-    },
-  ];
-}
 
 export default ConsumerProgressIndicator;

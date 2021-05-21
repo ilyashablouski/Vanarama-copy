@@ -16,6 +16,9 @@ import {
   VehicleProductInputObject,
 } from '../../../generated/globalTypes';
 import { defaultFormatDate } from '../../utils/dates';
+import generateSoleTraderSteps from '../../components/BusinessProgressIndicator/generateSoleTraderSteps';
+import generateLimitedSteps from '../../components/BusinessProgressIndicator/generateLimitedSteps';
+import generateConsumerSteps from '../../components/ConsumerProgressIndicator/generateConsumerSteps';
 
 /**
  * @param id - string, order ID
@@ -133,45 +136,33 @@ export const createOrderInputFromMyOrder = (
 
 const isEmptyObject = (object: Object) => Object.values(object).length === 0;
 
-export const mapCreditApplicationToSteps = (
+export const mapCreditApplicationToProgressbarSteps = (
   creditApplication?: GetMyOrdersCreditApplication | null,
 ) => {
   switch (creditApplication?.creditApplicationType) {
     case CreditApplicationTypeEnum.B2B_LIMITED:
     case CreditApplicationTypeEnum.B2B_PARTNERSHIP:
     case CreditApplicationTypeEnum.B2B_REGISTERED_PARTNERSHIP:
-      return [
-        creditApplication?.aboutDetails,
-        creditApplication?.companyDetails,
-        creditApplication?.vatDetails,
-        creditApplication?.directorsDetails,
-        creditApplication?.bankAccountsV2,
-      ];
+      return generateLimitedSteps();
     case CreditApplicationTypeEnum.B2B_SOLE_TRADER:
-      return [
-        creditApplication?.aboutDetails,
-        creditApplication?.companyDetails,
-        creditApplication?.vatDetails,
-        creditApplication?.soleTraderDetails,
-        creditApplication?.bankAccountsV2,
-      ];
+      return generateSoleTraderSteps();
     case CreditApplicationTypeEnum.B2C_PERSONAL:
-      return [
-        creditApplication?.aboutDetails,
-        creditApplication?.addressesV2,
-        creditApplication?.employmentHistoriesV2,
-        creditApplication?.incomeAndExpensesV2,
-        creditApplication?.bankAccountsV2,
-      ];
+      return generateConsumerSteps();
     default:
       return [];
   }
 };
 
-export const findLastFinishedStepIndex = (
+export const findLastFinishedStep = (
   creditApplication?: GetMyOrdersCreditApplication | null,
 ) => {
-  const steps = mapCreditApplicationToSteps(creditApplication);
+  const tabBarSteps = mapCreditApplicationToProgressbarSteps(creditApplication);
+  const lastStep = tabBarSteps.find(step =>
+    isEmptyObject(
+      creditApplication?.[step.dataPath as keyof GetMyOrdersCreditApplication],
+    ),
+  );
 
-  return steps.findIndex(step => isEmptyObject(step));
+  // if is not possible to find empty step -> all steps finished -> go summary
+  return lastStep || tabBarSteps[tabBarSteps.length - 1];
 };

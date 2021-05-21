@@ -18,7 +18,7 @@ import {
   sortOrders,
   sortOrderValues,
   createOrderInputFromMyOrder,
-  findLastFinishedStepIndex,
+  findLastFinishedStep,
 } from './helpers';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
@@ -70,7 +70,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   const { quote } = props;
 
   const client = useApolloClient();
-  const { setCachedLastStep, cachedLastStep } = useProgressHistory();
+  const { setCachedLastStep } = useProgressHistory();
   const [person, setPerson] = useState<Person | null>(null);
   const [activePage, setActivePage] = useState(1);
   const [activeTab, setActiveTab] = useState(0);
@@ -253,7 +253,10 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     selectedOrder: GetMyOrders_myOrders,
     customer: Person | null,
   ) => {
+    const creditApplication =
+      selectedOrder.lineItems?.[0].creditApplications?.[0];
     const order = createOrderInputFromMyOrder(selectedOrder);
+    const lastFinishedStep = findLastFinishedStep(creditApplication);
 
     Promise.all([
       localForage.setItem('order', order),
@@ -261,17 +264,8 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
       localForage.setItem('personUuid', person?.uuid),
     ])
       .then(() => client.clearStore())
-      .then(() =>
-        findLastFinishedStepIndex(
-          selectedOrder.lineItems?.[0].creditApplications?.[0],
-        ),
-      )
-      .then(step => {
-        setCachedLastStep(step + 1);
-
-        return step;
-      })
-      .then(step => {
+      .then(() => setCachedLastStep(lastFinishedStep?.step || 1))
+      .then(() => {
         if (order?.leaseType?.toUpperCase() === LeaseTypeEnum.BUSINESS) {
           return getPartyByUuid({ uuid: customer?.partyUuid || '' })
             .then(query =>
@@ -279,21 +273,18 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
                 company => company.partyUuid === order.partyUuid,
               ),
             )
-            .then(company => company?.uuid)
-            .then(companyUuid => [step, companyUuid]);
+            .then(company => company?.uuid);
         }
-        return Promise.resolve([step, undefined]);
+        return undefined;
       })
-      .catch(() => [1, undefined]) // not possible to find last finished step -> redirect ot step 1
-      .then(([step, companyUuid]) => {
-        const redirect = step === -1 ? 'summary' : undefined;
+      .catch(() => undefined)
+      .then(companyUuid => {
         const path =
           order.leaseType?.toUpperCase() === LeaseTypeEnum.PERSONAL
             ? '/olaf/about'
             : '/b2b/olaf/about';
 
-        // if step index is -1 -> all steps completed -> redirect ot summary
-        return `${path}${getUrlParam({ redirect, companyUuid })}`;
+        return `${path}${getUrlParam({ companyUuid })}`;
       })
       .then(url => router.push(url, url));
   };
