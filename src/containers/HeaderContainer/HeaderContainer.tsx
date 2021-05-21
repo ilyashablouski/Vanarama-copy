@@ -17,7 +17,7 @@ import {
   PHONE_NUMBER_LINK,
   FLEET_PHONE_NUMBER_LINK,
 } from '../../models/enum/HeaderLinks';
-import LinkTypes from '../../models/enum/LinkTypes';
+import { LinkTypes } from '../../models/enum/LinkTypes';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -210,12 +210,12 @@ const HeaderContainer: FC = () => {
       const { telephone } = partnerDetails;
       if (telephone) {
         const hrefNumber = telephone.replace(/\s/g, '');
-        const data = {
+        const phoneData = {
           href: `tel:${hrefNumber}`,
           label: telephone,
           linkType: LinkTypes.external,
         };
-        setPartnershipPhoneLink(data);
+        setPartnershipPhoneLink(phoneData);
       }
     }
   }, [Cookies.get('activePartnership')]);
