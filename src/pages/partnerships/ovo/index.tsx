@@ -17,10 +17,13 @@ import { PARTNER } from '../../../gql/partner';
 import useLeaseType from '../../../hooks/useLeaseType';
 import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 import {
+  setPartnerFooter,
+  setPartnerProperties,
+} from '../../../utils/partnerProperties';
+import {
   IPartnerOffersData,
   partnerOffersRequest,
 } from '../../../utils/offers';
-import { setLocalStorage } from '../../../utils/windowLocalStorage';
 
 interface IProps extends IPartnerOffersData {
   data: any;
@@ -50,6 +53,7 @@ const OvoHomePage: NextPage<IProps> = ({
   const { flag, body, image, titleTag } = data?.partner?.hero;
   const { title } = logo;
   const { url } = logo?.file;
+  console.log(JSON.stringify(footer));
 
   const Image = dynamic(() => import('core/atoms/image'), {
     loading: () => <Skeleton count={3} />,
@@ -95,12 +99,9 @@ const OvoHomePage: NextPage<IProps> = ({
         telephone,
       };
       const sovereignty = customerSovereignty || 7;
-      Cookies.set('activePartnership', partnershipData, {
-        expires: sovereignty,
-      });
+      setPartnerProperties(partnershipData, sovereignty);
     }
-    // set footer data in local storage
-    setLocalStorage('partnerFooter', JSON.stringify(footer));
+    setPartnerFooter(footer);
   }, []);
 
   const productCarouselProperties = [

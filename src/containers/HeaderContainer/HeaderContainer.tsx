@@ -5,6 +5,7 @@ import localForage from 'localforage';
 import { useMediaQuery } from 'react-responsive';
 import Cookies from 'js-cookie';
 import { ILink } from 'core/interfaces/link';
+import getPartnerProperties from 'utils/partnerProperties';
 import Header from '../../components/Header';
 import { IHeaderLink } from '../../components/Header/Header';
 import { PartnershipsLinks } from '../../components/Partnerships/Data/PartnishipLinks';
@@ -185,7 +186,7 @@ const HeaderContainer: FC = () => {
 
   // check if user is on a partnership journey
   useEffect(() => {
-    const partnerDetails = Cookies.getJSON('activePartnership');
+    const partnerDetails = getPartnerProperties();
     const path = router.pathname;
     if (partnerDetails) {
       const partnerName = partnerDetails.slug;
@@ -206,7 +207,7 @@ const HeaderContainer: FC = () => {
 
   useEffect(() => {
     if (Cookies.get('activePartnership')) {
-      const partnerDetails = Cookies.getJSON('activePartnership');
+      const partnerDetails = getPartnerProperties();
       const { telephone } = partnerDetails;
       if (telephone) {
         const hrefNumber = telephone.replace(/\s/g, '');
