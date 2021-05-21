@@ -39,7 +39,7 @@ function BankAccountStatus({
       </div>
     );
   }
-  if (isValid === false) {
+  if (isValid !== undefined) {
     return (
       <div className={resultClassName}>
         <Text color="danger" size="lead">
