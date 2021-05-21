@@ -145,11 +145,15 @@ export interface Partner_partner_footer {
 }
 
 export interface Partner_partner {
+  customerSovereignty: number | null;
+  uuid: string | null;
+  slug: string | null;
   logo: Partner_partner_logo | null;
   fuelTypes: string[] | null;
   vehicleTypes: string[] | null;
   colourPrimary: string | null;
   colourSecondary: string | null;
+  telephone: string | null;
   hero: Partner_partner_hero | null;
   featured: Partner_partner_featured | null;
   tiles: Partner_partner_tiles[] | null;
