@@ -1182,6 +1182,14 @@
   ul {
     line-height: 20px;
     font-size: 16px;
+    li {
+      a {
+        word-wrap: break-word;
+        word-break: break-word;
+        white-space: normal;
+        display:block;
+      }
+    }
     a {
       font-weight: bold;
       span {

@@ -52,6 +52,9 @@
     margin: auto;
     height: 100%;
     overflow: hidden;
+    .image {
+      height: 100%;
+    }
   }
 
   &-player {
