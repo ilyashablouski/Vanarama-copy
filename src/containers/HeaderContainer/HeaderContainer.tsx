@@ -9,6 +9,7 @@ import getPartnerProperties from 'utils/partnerProperties';
 import Header from '../../components/Header';
 import { IHeaderLink } from '../../components/Header/Header';
 import { PartnershipsLinks } from '../../components/Partnerships/Data/PartnishipLinks';
+import { convertChildrenNavLink, getPromotionalImage } from './helpers';
 import {
   GetPrimaryHeaderData as HeaderData,
   GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups as LinkGroups,
@@ -83,16 +84,7 @@ const HeaderContainer: FC = () => {
             label: el.name || '',
             href: '',
             id: el?.name || '',
-            children: el.links?.map(
-              j =>
-                ({
-                  label: j?.text || '',
-                  href: j?.url || '',
-                  query: { isChangePage: 'true' },
-                  id: j?.url || '',
-                  as: j?.url,
-                } as ILink),
-            ),
+            children: el.links?.map(convertChildrenNavLink),
           }));
         const childrenGroupLinks = transformGroupLink?.length
           ? [specialOffersLinks, ...transformGroupLink, ...transformLinks]
@@ -102,17 +94,7 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl.label || '',
-          promotionalImage: {
-            url:
-              linksGroup?.promotionalImage?.legacyUrl ||
-              linksGroup?.promotionalImage?.url ||
-              '',
-            image: {
-              url: linksGroup?.promotionalImage?.image?.[0]?.file?.url || '',
-              fileName:
-                linksGroup?.promotionalImage?.image?.[0]?.file?.fileName || '',
-            },
-          },
+          promotionalImage: getPromotionalImage(linksGroup),
           children: isTabletOrMobile
             ? [linksGroupUrl, ...childrenGroupLinks]
             : childrenGroupLinks,
@@ -122,14 +104,7 @@ const HeaderContainer: FC = () => {
           linksGroup?.linkGroups &&
           (linksGroup?.linkGroups as LinkGroups[]).map(el => {
             const childrenLinkArray: ILink[] = el.links!.map(
-              j =>
-                ({
-                  label: j?.text || '',
-                  href: j?.url || '',
-                  query: { isChangePage: 'true' },
-                  id: j?.url || '',
-                  as: j?.url,
-                } as ILink),
+              convertChildrenNavLink,
             );
             const linksGroupUrl = childrenLinkArray.shift() as ILink;
             const specialOffersLinks = {
@@ -145,14 +120,7 @@ const HeaderContainer: FC = () => {
               children: isTabletOrMobile
                 ? [linksGroupUrl, ...childrenLink]
                 : childrenLink,
-              promotionalImage: {
-                url: el?.promotionalImage?.legacyUrl || '',
-                image: {
-                  url: el?.promotionalImage?.image?.[0]?.file?.url || '',
-                  fileName:
-                    el?.promotionalImage?.image?.[0]?.file?.fileName || '',
-                },
-              },
+              promotionalImage: getPromotionalImage(el),
             };
           });
 
@@ -160,6 +128,7 @@ const HeaderContainer: FC = () => {
           href: '',
           label: linksGroup?.name || '',
           id: linksGroup.name || '',
+          promotionalImage: getPromotionalImage(linksGroup),
           children: transformGroupLink,
         };
       } else {
@@ -168,14 +137,7 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl?.id,
-          promotionalImage: {
-            url: linksGroup?.promotionalImage?.legacyUrl || '',
-            image: {
-              url: linksGroup?.promotionalImage?.image?.[0]?.file?.url || '',
-              fileName:
-                linksGroup?.promotionalImage?.image?.[0]?.file?.fileName || '',
-            },
-          },
+          promotionalImage: getPromotionalImage(linksGroup),
         };
       }
       link.push(headerTopLinks);
