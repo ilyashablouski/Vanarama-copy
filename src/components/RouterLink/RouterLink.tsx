@@ -25,6 +25,7 @@ interface IAppLinkProps extends IBaseProps {
   onMouseOver?: React.MouseEventHandler<HTMLAnchorElement>;
   onFocus?: React.FocusEventHandler<HTMLAnchorElement>;
   customBackground?: string;
+  withoutSilentReplacements?: boolean;
 }
 
 const RouterLink: React.FC<IAppLinkProps> = props => {
@@ -42,6 +43,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     withoutLink,
     onMouseOver,
     onFocus,
+    withoutSilentReplacements,
   } = props;
   const router = useRouter();
   const linkClassName = cx(className, {
@@ -82,7 +84,9 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     const isTel = link.href.match(/^tel:/);
     const telProps = {
       'data-ict-discovery-number': link.label,
-      'data-ict-silent-replacements': true,
+      'data-ict-silent-replacements': withoutSilentReplacements
+        ? undefined
+        : true,
     };
 
     return (

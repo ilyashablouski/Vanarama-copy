@@ -14,7 +14,7 @@ import AboutFormContainer from '../../../containers/AboutFormContainer/AboutForm
 import LoginFormContainer from '../../../containers/LoginFormContainer/LoginFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
-import { getUrlParam } from '../../../utils/url';
+import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { GetPerson } from '../../../../generated/GetPerson';
 import { CreateUpdatePersonMutation_createUpdatePerson as IPerson } from '../../../../generated/CreateUpdatePersonMutation';
 import {
@@ -76,6 +76,7 @@ const AboutYouPage: NextPage = () => {
   const creditApplicationQuery = useGetCreditApplicationByOrderUuid(orderId);
   const creditApplication =
     creditApplicationQuery.data?.creditApplicationByOrderUuid;
+  const { redirect } = router.query as OLAFQueryParams;
   const isEdit =
     Object.values(creditApplication?.aboutDetails || {}).length > 0;
 
@@ -132,11 +133,7 @@ const AboutYouPage: NextPage = () => {
         }),
       )
       .then(() => getUrlParam({ uuid: createUpdatePerson.uuid }))
-      .then(params =>
-        router.query.redirect === 'summary'
-          ? `/olaf/summary${params}`
-          : `/olaf/address-history${params}`,
-      )
+      .then(params => redirect || `/olaf/address-history${params}`)
       .then(url => router.push(url, url));
   };
 

@@ -1,22 +1,29 @@
 import createApolloClient from 'apolloClient';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React, { useEffect, useState } from 'react';
-import { PARTNER } from 'gql/partner';
+import Cookies from 'js-cookie';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
-import PageHeadingSection from 'components/PageHeadingSection';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import { mapFuelSearchQueryToParam } from 'containers/SearchPageContainer/helpers';
-import { IPartnerOffersData, partnerOffersRequest } from 'utils/offers';
-import useLeaseType from 'hooks/useLeaseType';
-import { setObjectAsSessionStorage } from 'utils/windowSessionStorage';
+import PageHeadingSection from '../../../components/PageHeadingSection';
 import Hero, { HeroHeading } from '../../../components/Hero';
 import PartnershipLogo from '../../../components/Partnerships/PartnershipLogo';
-import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 import PartnershipFeatureSection from '../../../components/Partnerships/PartnershipsFeatureSection/FeatureSection';
 import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
+import { mapFuelSearchQueryToParam } from '../../../containers/SearchPageContainer/helpers';
+import { LeaseTypeEnum } from '../../../../generated/globalTypes';
+import { PARTNER } from '../../../gql/partner';
+import useLeaseType from '../../../hooks/useLeaseType';
 import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
+import {
+  setPartnerFooter,
+  setPartnerProperties,
+} from '../../../utils/partnerProperties';
+import {
+  IPartnerOffersData,
+  partnerOffersRequest,
+} from '../../../utils/offers';
 
 interface IProps extends IPartnerOffersData {
   data: any;
@@ -38,6 +45,10 @@ const OvoHomePage: NextPage<IProps> = ({
     featured,
     tiles,
     footer,
+    slug,
+    uuid,
+    customerSovereignty,
+    telephone,
   } = data?.partner;
   const { flag, body, image, titleTag } = data?.partner?.hero;
   const { title } = logo;
@@ -76,9 +87,20 @@ const OvoHomePage: NextPage<IProps> = ({
   const { cachedLeaseType } = useLeaseType(null);
   const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
 
-  // set footer data in session storage
   useEffect(() => {
-    setObjectAsSessionStorage('partnerFooter', footer);
+    // check if partnership cookie has been set
+    if (!Cookies.get('activePartnership')) {
+      const partnershipData = {
+        slug,
+        color: colourPrimary,
+        uuid,
+        vehicleTypes,
+        telephone,
+      };
+      const sovereignty = customerSovereignty || 7;
+      setPartnerProperties(partnershipData, sovereignty);
+    }
+    setPartnerFooter(footer);
   }, []);
 
   const productCarouselProperties = [
