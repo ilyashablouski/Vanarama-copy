@@ -1,6 +1,10 @@
-import { GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups } from '../../../generated/GetPrimaryHeaderData';
+import { ILink } from 'core/interfaces/link';
 
-// eslint-disable-next-line import/prefer-default-export
+import {
+  GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups,
+  GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_links,
+} from '../../../generated/GetPrimaryHeaderData';
+
 export function getPromotionalImage(
   linksGroup: GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups | null,
 ) {
@@ -14,4 +18,16 @@ export function getPromotionalImage(
       fileName: linksGroup?.promotionalImage?.image?.[0]?.file?.fileName || '',
     },
   };
+}
+
+export function convertChildrenNavLink(
+  link: GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_links | null,
+) {
+  return {
+    label: link?.text || '',
+    href: link?.url || '',
+    query: { isChangePage: 'true' },
+    id: link?.url || '',
+    as: link?.url,
+  } as ILink;
 }

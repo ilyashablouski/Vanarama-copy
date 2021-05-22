@@ -22,7 +22,7 @@ import {
   GetPrimaryHeaderData as HeaderData,
   GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups as LinkGroups,
 } from '../../../generated/GetPrimaryHeaderData';
-import { getPromotionalImage } from './helpers';
+import { convertChildrenNavLink, getPromotionalImage } from './helpers';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -86,16 +86,7 @@ const HeaderContainer: FC = () => {
             label: el.name || '',
             href: '',
             id: el?.name || '',
-            children: el.links?.map(
-              j =>
-                ({
-                  label: j?.text || '',
-                  href: j?.url || '',
-                  query: { isChangePage: 'true' },
-                  id: j?.url || '',
-                  as: j?.url,
-                } as ILink),
-            ),
+            children: el.links?.map(convertChildrenNavLink),
           }));
         const childrenGroupLinks = transformGroupLink?.length
           ? [specialOffersLinks, ...transformGroupLink, ...transformLinks]
@@ -115,14 +106,7 @@ const HeaderContainer: FC = () => {
           linksGroup?.linkGroups &&
           (linksGroup?.linkGroups as LinkGroups[]).map(el => {
             const childrenLinkArray: ILink[] = el.links!.map(
-              j =>
-                ({
-                  label: j?.text || '',
-                  href: j?.url || '',
-                  query: { isChangePage: 'true' },
-                  id: j?.url || '',
-                  as: j?.url,
-                } as ILink),
+              convertChildrenNavLink,
             );
             const linksGroupUrl = childrenLinkArray.shift() as ILink;
             const specialOffersLinks = {
