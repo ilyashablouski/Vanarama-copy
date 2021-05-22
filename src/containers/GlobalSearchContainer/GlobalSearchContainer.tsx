@@ -107,9 +107,15 @@ const GlobalSearchContainer = () => {
         {isOpenResults && (
           <>
             <div className="header-search-results-container">
-              <GlobalSearchLeftSideContainer />
+              <GlobalSearchLeftSideContainer
+                suggestions={suggestions.suggestsList}
+              />
               <GlobalSearchRightSideContainer
-                suggestions={isDesktop ? suggestions : suggestions.slice(0, 5)}
+                suggestions={
+                  isDesktop
+                    ? suggestions.vehiclesList
+                    : suggestions.vehiclesList.slice(0, 5)
+                }
                 searchQuery={fieldValue}
               />
               <div className="info">

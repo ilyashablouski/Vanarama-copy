@@ -3,6 +3,7 @@ import {
   GetPartyByUuid,
   GetPartyByUuidVariables,
 } from '../../../generated/GetPartyByUuid';
+import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 
 export const GET_CREDIT_APPLICATION_BY_ORDER_UUID = gql`
   query GetCreditApplicationByOrderUuidDataForCreditCheck($orderUuid: ID!) {
@@ -35,14 +36,16 @@ export const GET_PARTY_BY_UUID = gql`
         uuid
       }
       company {
+        uuid
         partyId
         legalName
         companyType
       }
       person {
         companies {
-          uuid
+          partyUuid
           partyId
+          uuid
         }
       }
     }
@@ -99,4 +102,10 @@ export function useGetPartyByUuidQuery(partyUuid: string) {
     fetchPolicy: 'no-cache',
     skip: !partyUuid,
   });
+}
+
+export function useGetPartyByUuidLazyQuery() {
+  return useImperativeQuery<GetPartyByUuid, GetPartyByUuidVariables>(
+    GET_PARTY_BY_UUID,
+  );
 }

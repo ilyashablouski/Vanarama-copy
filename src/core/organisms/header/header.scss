@@ -13,6 +13,7 @@
     padding-top: 0;
     position: fixed;
     top: 0;
+    border-bottom: 1px solid #ced6de;
   }
 
   &:after {
@@ -1140,6 +1141,20 @@
   right: 0;
   z-index: 101;
   min-height: 520px;
+  @include mobile-tablet {
+    overflow: auto;
+    height: 100vh;
+    &:after {
+      display: block;
+      content: "";
+      position: fixed;
+      height: 110px;
+      width: 100%;
+      background: white;
+      top: 0;
+      z-index: 1;
+    }
+  }
   @media (max-width: 1215px) {
     flex-direction: column;
   }
@@ -1167,6 +1182,14 @@
   ul {
     line-height: 20px;
     font-size: 16px;
+    li {
+      a {
+        word-wrap: break-word;
+        word-break: break-word;
+        white-space: normal;
+        display:block;
+      }
+    }
     a {
       font-weight: bold;
       span {

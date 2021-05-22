@@ -16,8 +16,6 @@ module.exports = api => {
     presets = ['next/babel', ...presets];
   }
 
-  api.cache.never();
-
   const plugins = [
     '@babel/plugin-transform-runtime',
     'transform-dynamic-import',

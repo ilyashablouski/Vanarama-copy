@@ -364,6 +364,7 @@ export interface FilterListObject {
   rental?: RateInputObject | null;
   terms?: number[] | null;
   transmissions?: string[] | null;
+  vehicleCategories?: string[] | null;
   vehicleTypes?: VehicleTypeEnum[] | null;
 }
 

@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { MyOrdersTypeEnum, LeaseTypeEnum, VehicleTypeEnum } from "./globalTypes";
+import { MyOrdersTypeEnum, LeaseTypeEnum, CreditApplicationTypeEnum, VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetMyOrders
@@ -13,7 +13,34 @@ export interface GetMyOrders_myOrders_lineItems_order {
   uuid: string;
 }
 
+export interface GetMyOrders_myOrders_lineItems_creditApplications_incomeAndExpensesV2 {
+  uuid: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_employmentHistoriesV2 {
+  uuid: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_bankAccountsV2 {
+  uuid: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_addressesV2 {
+  uuid: string | null;
+}
+
 export interface GetMyOrders_myOrders_lineItems_creditApplications {
+  creditApplicationType: CreditApplicationTypeEnum | null;
+  aboutDetails: any | null;
+  companyDetails: any | null;
+  directorsDetails: any | null;
+  partnersDetails: any | null;
+  soleTraderDetails: any | null;
+  vatDetails: any | null;
+  incomeAndExpensesV2: GetMyOrders_myOrders_lineItems_creditApplications_incomeAndExpensesV2 | null;
+  employmentHistoriesV2: GetMyOrders_myOrders_lineItems_creditApplications_employmentHistoriesV2[] | null;
+  bankAccountsV2: GetMyOrders_myOrders_lineItems_creditApplications_bankAccountsV2[] | null;
+  addressesV2: GetMyOrders_myOrders_lineItems_creditApplications_addressesV2[] | null;
   status: string;
   uuid: string;
 }
