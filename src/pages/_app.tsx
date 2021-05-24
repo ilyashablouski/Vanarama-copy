@@ -156,7 +156,13 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       <LazyLoadComponent>
         <ToastContainer />
       </LazyLoadComponent>
-      <Deferred />
+      {router.pathname !== '/' &&
+        !router.pathname.includes('[...details-page]') &&
+        !router.pathname.includes('/offers') &&
+        router.pathname !== '/car-leasing' &&
+        router.pathname !== '/van-leasing' &&
+        router.pathname !== '/pickup-truck-leasing' &&
+        router.pathname !== '/electric-leasing' && <Deferred />}
     </>
   );
 };
