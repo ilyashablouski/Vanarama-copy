@@ -5,6 +5,7 @@ import { AppProps } from 'next/app';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
+import { isFirefox } from 'react-device-detect';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { removeUrlQueryPart, SEARCH_PAGES } from '../utils/url';
 import { CompareContext } from '../utils/comparatorTool';
@@ -66,18 +67,19 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
 
   useEffect(() => {
     async function pushAnalytics() {
+      await pushPageData({ pathname: router.pathname });
       await pushPageViewEvent(
         removeUrlQueryPart(router.asPath),
         document.title,
       );
-      await pushPageData({ pathname: router.pathname });
     }
     // condition using for prevent incorrect events order on PDP
     if (
       router.pathname !== '/car-leasing/[...details-page]' &&
       router.pathname !== '/van-leasing/[...details-page]'
     )
-      pushAnalytics();
+      if (isFirefox) setTimeout(pushAnalytics, 2000);
+      else pushAnalytics();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
