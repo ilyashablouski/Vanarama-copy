@@ -10,6 +10,13 @@ import { OLAFQueryParams } from '../../../../../utils/url';
 import useGetOrderId from '../../../../../hooks/useGetOrderId';
 import useGetPersonUuid from '../../../../../hooks/useGetPersonUuid';
 
+const handleSubmitError = () =>
+  toast.error(
+    'Oops, an unexpected error occurred',
+    'Your details could not be saved. Please try submitting the form again.',
+    { dataTestId: 'company-details-error' },
+  );
+
 type QueryParams = OLAFQueryParams & {
   companyUuid: string;
 };
@@ -18,21 +25,11 @@ export const SoleTraderCompanyDetailsPage: NextPage = () => {
   const router = useRouter();
   const orderId = useGetOrderId();
   const personUuid = useGetPersonUuid();
-  const { companyUuid } = router.query as QueryParams;
-  const isEdited = router.query.redirect === 'summary';
-
-  const handleSubmitError = () =>
-    toast.error(
-      'Oops, an unexpected error occurred',
-      'Your details could not be saved. Please try submitting the form again.',
-      { dataTestId: 'company-details-error' },
-    );
+  const { companyUuid, redirect } = router.query as QueryParams;
+  const isEdited = !!redirect;
 
   const handleSubmitCompletion = (uuid: string) => {
-    const url =
-      router.query.redirect === 'summary'
-        ? `/b2b/olaf/sole-trader/summary/[companyUuid]`
-        : `/b2b/olaf/sole-trader/vat-details/[companyUuid]`;
+    const url = redirect || `/b2b/olaf/sole-trader/vat-details/[companyUuid]`;
     router.push(url, url.replace('[companyUuid]', uuid));
   };
 
