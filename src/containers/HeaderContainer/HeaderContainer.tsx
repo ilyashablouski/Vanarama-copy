@@ -101,7 +101,7 @@ const HeaderContainer: FC = () => {
         headerTopLinks = {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
-          id: linksGroupUrl.label || '',
+          id: linksGroupUrl.id || '',
           promotionalImage: {
             url:
               linksGroup?.promotionalImage?.legacyUrl ||
@@ -156,18 +156,21 @@ const HeaderContainer: FC = () => {
             };
           });
 
-        headerTopLinks = {
-          href: '',
-          label: linksGroup?.name || '',
-          id: linksGroup.name || '',
-          children: transformGroupLink,
-        };
-      } else {
-        const linksGroupUrl = transformLinks?.shift();
+        const linksGroupUrl = transformLinks?.shift() as ILink;
         headerTopLinks = {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
-          id: linksGroupUrl?.id,
+          id: linksGroupUrl?.id || '',
+          children: isTabletOrMobile
+            ? [linksGroupUrl, ...transformGroupLink]
+            : transformGroupLink,
+        };
+      } else {
+        const linksGroupUrl = transformLinks?.shift() as ILink;
+        headerTopLinks = {
+          href: linksGroupUrl?.href || '',
+          label: linksGroup?.name || '',
+          id: linksGroupUrl?.id || '',
           promotionalImage: {
             url: linksGroup?.promotionalImage?.legacyUrl || '',
             image: {
