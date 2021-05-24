@@ -34,9 +34,7 @@ function BankAccountStatus({
           className="checkmark"
         />
         <Text color="success" size="lead">
-          Bank details successfully verified with
-          <br />
-          {data.bankName}.
+          Bank details successfully verified with {data.bankName}.
         </Text>
       </div>
     );
