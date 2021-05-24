@@ -8,6 +8,7 @@ import {
 export const BANK_ACCOUNT_VALIDATOR = gql`
   query BankAccountValidator($sortCode: String!, $accountNumber: String!) {
     bankAccountValidator(sortCode: $sortCode, accountNumber: $accountNumber) {
+      bankName
       valid
     }
   }
