@@ -181,6 +181,7 @@ const CustomiseLease = ({
         window.sessionStorage?.[`leaseSettings-${capId}`],
       );
       if (leaseSettings && leaseSettings.capId === capId) {
+        setMaintenance(leaseSettings.maintenance);
         setDefaultMileage(leaseSettings.mileageValue);
         setMileage(leaseSettings.mileage);
         setTerm(leaseSettings.term);
@@ -225,6 +226,7 @@ const CustomiseLease = ({
     const leaseSettings = {
       capId,
       mileage,
+      maintenance,
       mileageValue,
       term: quoteByCapId?.term,
       upfront: quoteByCapId?.upfront,
@@ -328,6 +330,7 @@ const CustomiseLease = ({
           id="maintenanceCost"
           label="YES, I want peace of mind and to keep things hassle-free"
           onChange={() => setMaintenance(true)}
+          defaultChecked={!!maintenance}
           disabled={isDisabled}
         />
         <Radio
@@ -335,6 +338,7 @@ const CustomiseLease = ({
           id="leaseCost"
           label="NO, I want to worry about sorting the maintenance costs myself"
           onChange={() => setMaintenance(false)}
+          defaultChecked={maintenance === false}
           disabled={isDisabled}
         />
       </Formgroup>
