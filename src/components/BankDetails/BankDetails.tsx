@@ -13,7 +13,7 @@ import validationSchema from './BankDetails.validation';
 import { IBankDetails, IBankDetailsProps } from './interfaces';
 import { responseToInitialFormValues } from './mappers';
 import Skeleton from '../Skeleton';
-import BankAccountValidator from './BankAccountValidator';
+import BankAccountValidator from '../BankAccountValidator';
 
 const ChevronForwardSharp = dynamic(
   () => import('core/assets/icons/ChevronForwardSharp'),
