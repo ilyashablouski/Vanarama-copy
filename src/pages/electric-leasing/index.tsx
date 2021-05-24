@@ -415,16 +415,14 @@ export async function getStaticProps(context: GetStaticPropsContext) {
 
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
-      props: JSON.parse(
-        JSON.stringify({
-          data,
-          productsEvCar,
-          productsEvVan,
-          productsEvVanDerivatives,
-          productsEvCarDerivatives,
-          vehicleListUrlData,
-        }),
-      ),
+      props: {
+        data: data || null,
+        productsEvCar: productsEvCar || null,
+        productsEvVan: productsEvVan || null,
+        productsEvVanDerivatives: productsEvVanDerivatives || null,
+        productsEvCarDerivatives: productsEvCarDerivatives || null,
+        vehicleListUrlData: vehicleListUrlData || null,
+      },
     };
   } catch (err) {
     throw new Error(err);
