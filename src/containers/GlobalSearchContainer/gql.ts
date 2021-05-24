@@ -30,7 +30,7 @@ export const GET_TEXT_SEARCH_VEHICLES_DATA = gql`
     fullTextSearchVehicleList(
       query: $query
       sort: [
-        { field: offer_ranking, direction: ASC }
+        { field: offerRanking, direction: ASC }
         { field: rental, direction: ASC }
       ]
       pagination: { size: $size, from: $from }
