@@ -197,9 +197,8 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
           ))}
         </ul>
         {tertiaryLinks.map(tertiaryBlock => (
-          <>
+          <React.Fragment key={`menu-tertiary-${tertiaryBlock?.id}`}>
             <ul
-              key={`menu-tertiary-${tertiaryBlock?.id}`}
               className={cx('menu-tertiary', {
                 '-open': activeTertiaryMenu === tertiaryBlock.id,
               })}
@@ -269,7 +268,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                 </RouterLink>
               </div>
             )}
-          </>
+          </React.Fragment>
         ))}
 
         {promotionalImage?.url && (

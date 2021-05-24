@@ -93,7 +93,7 @@ const HeaderContainer: FC = () => {
         headerTopLinks = {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
-          id: linksGroupUrl.label || '',
+          id: linksGroupUrl.id || '',
           promotionalImage: getPromotionalImage(linksGroup),
           children: isTabletOrMobile
             ? [linksGroupUrl, ...childrenGroupLinks]
@@ -124,19 +124,22 @@ const HeaderContainer: FC = () => {
             };
           });
 
-        headerTopLinks = {
-          href: '',
-          label: linksGroup?.name || '',
-          id: linksGroup.name || '',
-          promotionalImage: getPromotionalImage(linksGroup),
-          children: transformGroupLink,
-        };
-      } else {
-        const linksGroupUrl = transformLinks?.shift();
+        const linksGroupUrl = transformLinks?.shift() as ILink;
         headerTopLinks = {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
-          id: linksGroupUrl?.id,
+          id: linksGroupUrl?.id || '',
+          promotionalImage: getPromotionalImage(linksGroup),
+          children: isTabletOrMobile
+            ? [linksGroupUrl, ...transformGroupLink]
+            : transformGroupLink,
+        };
+      } else {
+        const linksGroupUrl = transformLinks?.shift() as ILink;
+        headerTopLinks = {
+          href: linksGroupUrl?.href || '',
+          label: linksGroup?.name || '',
+          id: linksGroupUrl?.id || '',
           promotionalImage: getPromotionalImage(linksGroup),
         };
       }
