@@ -6,13 +6,19 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
+import NextHead from 'next/head';
+import decode from 'decode-html';
 import { decodeData, encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import css from '../../../public/styles/pages/car-leasing.css';
+
 import {
   HubCarPageData,
   HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
@@ -111,6 +117,10 @@ export const CarsPage: NextPage<IProps> = ({
 
   return (
     <>
+      <NextHead>
+        <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
+      </NextHead>
+
       <Hero
         searchPodCarsData={searchPodCarsData}
         smallPrint={freeInsuranceSmallPrint}

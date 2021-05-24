@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
+import NextHead from 'next/head';
 import localForage from 'localforage';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
 import Button from 'core/atoms/button';
+// @ts-ignore
+import decode from 'decode-html';
+// @ts-ignore
+// eslint-disable-next-line import/no-webpack-loader-syntax
+import css from '!!raw-loader!../../../public/styles/pages/pdp.css';
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
@@ -485,6 +491,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   return (
     <>
+      {/* include inline styles for pdp page */}
+      <NextHead>
+        <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
+      </NextHead>
+
       <div
         className={cx('pdp--content', {
           '-free-insurance': isSpecialOffer && isCar,
