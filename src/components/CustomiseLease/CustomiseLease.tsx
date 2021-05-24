@@ -330,7 +330,7 @@ const CustomiseLease = ({
           id="maintenanceCost"
           label="YES, I want peace of mind and to keep things hassle-free"
           onChange={() => setMaintenance(true)}
-          defaultChecked={maintenance === true}
+          defaultChecked={!!maintenance}
           disabled={isDisabled}
         />
         <Radio
