@@ -404,9 +404,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
-        productsElectricOnlyCar,
-        vehicleListUrlData,
+        data: data || null,
+        productsElectricOnlyCar: productsElectricOnlyCar || null,
+        vehicleListUrlData: vehicleListUrlData || null,
       },
     };
   } catch (err) {
