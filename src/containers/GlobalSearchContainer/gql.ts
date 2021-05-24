@@ -7,6 +7,7 @@ import {
 import {
   fullTextSearchVehicleList,
   fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles as IFullTextSearchVehicles,
+  fullTextSearchVehicleList_fullTextSearchVehicleList_aggregation as IFullTextSearchAggregation,
   fullTextSearchVehicleListVariables,
 } from '../../../generated/fullTextSearchVehicleList';
 import {
@@ -14,6 +15,7 @@ import {
   GlobalSearchCardsDataVariables,
 } from '../../../generated/GlobalSearchCardsData';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { Nullable } from '../../types/common';
 
 export const GET_SUGGESTIONS_DATA = gql`
   query suggestionList($query: String) {
@@ -28,7 +30,7 @@ export const GET_TEXT_SEARCH_VEHICLES_DATA = gql`
     fullTextSearchVehicleList(
       query: $query
       sort: [
-        { field: offer_ranking, direction: ASC }
+        { field: offerRanking, direction: ASC }
         { field: rental, direction: ASC }
       ]
       pagination: { size: $size, from: $from }
@@ -146,6 +148,7 @@ export function useTextSearchList(
 export interface IGlobalSearchData {
   suggestsList: string[];
   vehiclesList: IFullTextSearchVehicles[];
+  aggregation: Nullable<IFullTextSearchAggregation>;
 }
 
 export function useGlobalSearch(query?: string) {
@@ -153,6 +156,7 @@ export function useGlobalSearch(query?: string) {
   const [suggestions, setSuggestions] = useState<IGlobalSearchData>({
     suggestsList: [],
     vehiclesList: [],
+    aggregation: null,
   });
   // This effect runs when the debounced search term changes and executes the search
   useEffect(() => {
@@ -180,15 +184,22 @@ export function useGlobalSearch(query?: string) {
       return {
         suggestsList: suggestsList?.suggestionList?.suggestions || [],
         vehiclesList: data?.fullTextSearchVehicleList?.vehicles || [],
+        aggregation: data?.fullTextSearchVehicleList?.aggregation || null,
       };
     }
 
     if (query?.length) {
       fetchData(query)
         .then(setSuggestions)
-        .catch(() => setSuggestions({ suggestsList: [], vehiclesList: [] }));
+        .catch(() =>
+          setSuggestions({
+            suggestsList: [],
+            vehiclesList: [],
+            aggregation: null,
+          }),
+        );
     } else {
-      setSuggestions({ suggestsList: [], vehiclesList: [] });
+      setSuggestions({ suggestsList: [], vehiclesList: [], aggregation: null });
     }
   }, [apolloClient, query]);
 

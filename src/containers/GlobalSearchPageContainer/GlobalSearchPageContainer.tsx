@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from 'core/atoms/button/Button';
+import dynamic from 'next/dynamic';
 import VehicleCard from '../SearchPageContainer/VehicleCard';
 import {
   fullTextSearchVehicleList as ITextSearchQuery,
@@ -19,6 +20,11 @@ import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import CommonDescriptionContainer from '../SearchPageContainer/CommonDescriptionContainer';
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import Skeleton from '../../components/Skeleton';
+
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 interface IProps {
   pageData?: GenericPageQuery;
@@ -165,6 +171,12 @@ const GlobalSearchPageContainer = ({
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
         <CommonDescriptionContainer pageData={pageData} />
+        {totalResults === 0 && (
+          <Text tag="p" color="black" size="lead" className="heading">
+            0 results for your search “{router.query.searchTerm as string}”
+            Search again, try our vehicle categories.
+          </Text>
+        )}
       </div>
       <div className="row:bg-lighter -thin">
         <div className="row:results">
