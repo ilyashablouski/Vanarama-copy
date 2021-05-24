@@ -63,7 +63,17 @@ const Head: FC<IHeadProps> = props => {
           />
         );
       })}
-      <link rel="preload" href="/styles/deferred.css" as="style" />
+
+      {router.pathname !== '/' &&
+        !router.pathname.includes('[...details-page]') &&
+        !router.pathname.includes('/offers') &&
+        router.pathname !== '/car-leasing' &&
+        router.pathname !== '/van-leasing' &&
+        router.pathname !== '/pickup-truck-leasing' &&
+        router.pathname !== '/electric-leasing' && (
+          <link rel="preload" href="/styles/deferred.css" as="style" />
+        )}
+
       {/* Meta */}
       {metaRobots && <meta name="robots" content={metaRobots} />}
       {metaDescription && <meta name="description" content={metaDescription} />}
