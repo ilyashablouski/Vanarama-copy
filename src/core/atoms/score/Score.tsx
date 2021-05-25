@@ -31,7 +31,7 @@ const failScore = (textSize?: TSize) => (
     </Text>
     <Heading tag="span" color="black" size="regular">
       Call{` `}
-      <Link color="teal" href="01442838195">
+      <Link className="InfinityNumber" color="teal" href="01442838195">
         01442 838 195
       </Link>
     </Heading>
