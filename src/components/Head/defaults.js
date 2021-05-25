@@ -8,7 +8,7 @@ export const fb = {
   admins: 1153795855,
 };
 
-export const PAGE_PATHS = [
+export const PAGES_WITH_DEFERRED_STYLES = [
   '/',
   '/leasing-offers',
   '/car-leasing',

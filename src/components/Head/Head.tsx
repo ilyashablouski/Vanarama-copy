@@ -7,7 +7,7 @@ import {
   twitter,
   defaultImage,
   fb,
-  PAGE_PATHS,
+  PAGES_WITH_DEFERRED_STYLES,
 } from './defaults';
 import { FONT_LIST, FONT_PATH } from './fonts';
 import { Env } from '../../utils/env';
@@ -70,7 +70,7 @@ const Head: FC<IHeadProps> = props => {
         );
       })}
 
-      {!PAGE_PATHS.includes(router.pathname) && (
+      {!PAGES_WITH_DEFERRED_STYLES.includes(router.pathname) && (
         <link rel="preload" href="/styles/deferred.css" as="style" />
       )}
 
