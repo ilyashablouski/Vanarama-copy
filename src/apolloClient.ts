@@ -183,7 +183,8 @@ function apolloClientLink() {
     errorLink,
     authErrorLink,
     retryLink,
-    persistedQueryLink,
+    // TODO: Enable APQ when we can build NSF with APQ successfully
+    // persistedQueryLink,
     httpLink,
   ];
 
