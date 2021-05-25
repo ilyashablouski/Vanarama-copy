@@ -23,6 +23,14 @@ jest.mock('../../../containers/SearchPodContainer', () => () => {
 jest.mock('../../../containers/OrdersInformation/gql');
 jest.mock('../../../gql/vehicleList');
 
+jest.mock(
+  `!!raw-loader!../../../public/styles/pages/car-leasing.css`,
+  () => 'raw-page-data-css',
+  {
+    virtual: true,
+  },
+);
+
 jest.mock('next/router', () => ({
   push: jest.fn(),
   useRouter() {
