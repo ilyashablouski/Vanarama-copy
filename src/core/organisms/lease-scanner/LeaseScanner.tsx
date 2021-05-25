@@ -12,7 +12,7 @@ import Loading from '../../atoms/loading';
 import CheckmarkSharp from '../../assets/icons/CheckmarkSharp';
 import CheckmarkCircleOutline from '../../assets/icons/CheckmarkCircleOutline';
 import Clock from '../../assets/icons/Clock';
-import getPartnerProperties from 'utils/partnerProperties';
+import getPartnerProperties from '../../../utils/partnerProperties';
 
 const LeaseScanner: FC<ILeaseScannerProps> = props => {
   const {

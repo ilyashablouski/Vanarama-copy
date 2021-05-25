@@ -7,11 +7,7 @@ exports[`<Choiceboxes /> renders correctly 1`] = `
   <button
     className="choicebox -active"
     onClick={[Function]}
-    style={
-      Object {
-        "background": "initial",
-      }
-    }
+    style={Object {}}
     type="button"
   >
     Personal
@@ -19,11 +15,7 @@ exports[`<Choiceboxes /> renders correctly 1`] = `
   <button
     className="choicebox"
     onClick={[Function]}
-    style={
-      Object {
-        "background": "initial",
-      }
-    }
+    style={Object {}}
     type="button"
   >
     Business
@@ -38,11 +30,7 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
   <button
     className="choicebox -active"
     onClick={[Function]}
-    style={
-      Object {
-        "background": "initial",
-      }
-    }
+    style={Object {}}
     type="button"
   >
     13
@@ -50,11 +38,7 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
   <button
     className="choicebox"
     onClick={[Function]}
-    style={
-      Object {
-        "background": "initial",
-      }
-    }
+    style={Object {}}
     type="button"
   >
     23
@@ -62,11 +46,7 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
   <button
     className="choicebox"
     onClick={[Function]}
-    style={
-      Object {
-        "background": "initial",
-      }
-    }
+    style={Object {}}
     type="button"
   >
     43
@@ -74,11 +54,7 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
   <button
     className="choicebox"
     onClick={[Function]}
-    style={
-      Object {
-        "background": "initial",
-      }
-    }
+    style={Object {}}
     type="button"
   >
     45
@@ -86,11 +62,7 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
   <button
     className="choicebox"
     onClick={[Function]}
-    style={
-      Object {
-        "background": "initial",
-      }
-    }
+    style={Object {}}
     type="button"
   >
     25763
@@ -105,11 +77,7 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
   <button
     className="choicebox -active"
     onClick={[Function]}
-    style={
-      Object {
-        "background": "initial",
-      }
-    }
+    style={Object {}}
     type="button"
   >
     13
@@ -117,11 +85,7 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
   <button
     className="choicebox"
     onClick={[Function]}
-    style={
-      Object {
-        "background": "initial",
-      }
-    }
+    style={Object {}}
     type="button"
   >
     23
@@ -129,11 +93,7 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
   <button
     className="choicebox"
     onClick={[Function]}
-    style={
-      Object {
-        "background": "initial",
-      }
-    }
+    style={Object {}}
     type="button"
   >
     45
@@ -141,11 +101,7 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
   <button
     className="choicebox"
     onClick={[Function]}
-    style={
-      Object {
-        "background": "initial",
-      }
-    }
+    style={Object {}}
     type="button"
   >
     47
@@ -153,11 +109,7 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
   <button
     className="choicebox"
     onClick={[Function]}
-    style={
-      Object {
-        "background": "initial",
-      }
-    }
+    style={Object {}}
     type="button"
   >
     25763
