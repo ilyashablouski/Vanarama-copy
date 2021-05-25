@@ -72,7 +72,7 @@ export interface IHeaderLink extends ILinkProps {
 
 export interface IHeaderProps extends IBaseProps {
   topBarLinks: IHeaderLink[];
-  loginLink: ILinkProps;
+  loginLink: ILinkProps & { as?: string };
   phoneNumberLink: ILinkProps;
   customHomePath?: string;
   onLogOut: () => void;
@@ -274,7 +274,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
               className="header-account--toggle"
               fill="clear"
               label={
-                <RouterLink link={loginLink}>
+                <RouterLink link={loginLink} as={loginLink.as}>
                   {!isDesktop ? (
                     <Icon icon={<PersonCircleSharp />} size="xsmall" />
                   ) : (
