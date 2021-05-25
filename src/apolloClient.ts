@@ -8,7 +8,7 @@ import {
 
 import { RetryLink } from '@apollo/client/link/retry';
 
-import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
+// import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
 
 import Router from 'next/router';
 import { onError } from '@apollo/client/link/error';
@@ -21,27 +21,27 @@ import { isSessionFinishedCache } from './cache';
 
 const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 // A list of queries that we don't want to be cached in CloudFlare
-const PERSISTED_GRAPHQL_QUERIES_WITHOUT_CLOUDFLARE_CACHE = [
-  'GetLeaseCompanyData',
-  'GetCreditApplicationByOrderUuid',
-  'GetCompanyDirectorDetailsQuery',
-  'GetDirectorDetailsQuery',
-  'GetCompanySummaryQuery',
-  'GetAboutYouDataQuery',
-  'GetPartyByUuid',
-  'GetAboutYouPageQuery',
-  'GetPersonByUuid',
-  'GetPerson',
-  'GetAddressContainerDataQuery',
-  'GetEmploymentContainerDataQuery',
-  'GetExpensesPageDataQuery',
-  'GetBankDetailsPageDataQuery',
-  'GetPersonSummaryQuery',
-  'GetCompaniesByPersonUuid',
-  'GetMyOrders',
-  'GetOrderByUuid',
-  'MyAccount',
-];
+// const PERSISTED_GRAPHQL_QUERIES_WITHOUT_CLOUDFLARE_CACHE = [
+//   'GetLeaseCompanyData',
+//   'GetCreditApplicationByOrderUuid',
+//   'GetCompanyDirectorDetailsQuery',
+//   'GetDirectorDetailsQuery',
+//   'GetCompanySummaryQuery',
+//   'GetAboutYouDataQuery',
+//   'GetPartyByUuid',
+//   'GetAboutYouPageQuery',
+//   'GetPersonByUuid',
+//   'GetPerson',
+//   'GetAddressContainerDataQuery',
+//   'GetEmploymentContainerDataQuery',
+//   'GetExpensesPageDataQuery',
+//   'GetBankDetailsPageDataQuery',
+//   'GetPersonSummaryQuery',
+//   'GetCompaniesByPersonUuid',
+//   'GetMyOrders',
+//   'GetOrderByUuid',
+//   'MyAccount',
+// ];
 
 const httpLink = new HttpLink({
   uri: process.env.API_URL!,
