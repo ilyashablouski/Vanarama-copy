@@ -6,6 +6,7 @@ import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import NextHead from 'next/head';
 import { removeUrlQueryPart, SEARCH_PAGES } from '../utils/url';
 import { CompareContext } from '../utils/comparatorTool';
 import {
@@ -22,6 +23,7 @@ import { pushPageData, pushPageViewEvent } from '../utils/dataLayerHelpers';
 import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
+import { PAGE_PATHS } from '../components/Head/defaults';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -156,13 +158,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       <LazyLoadComponent>
         <ToastContainer />
       </LazyLoadComponent>
-      {router.pathname !== '/' &&
-        !router.pathname.includes('[...details-page]') &&
-        !router.pathname.includes('/offers') &&
-        router.pathname !== '/car-leasing' &&
-        router.pathname !== '/van-leasing' &&
-        router.pathname !== '/pickup-truck-leasing' &&
-        router.pathname !== '/electric-leasing' && <Deferred />}
+
+      {!PAGE_PATHS.includes(router.pathname) && <Deferred />}
     </>
   );
 };
