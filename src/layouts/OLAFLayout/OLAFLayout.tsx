@@ -263,7 +263,7 @@ const OLAFLayout: React.FC<IProps> = ({
                   </Heading>
                   <List>
                     {YOUR_NEEDS.map(item => (
-                      <li className="-custom -row" key={item.key}>
+                      <li className="-custom" key={item.key}>
                         <Icon
                           size="regular"
                           color="teal"
@@ -285,7 +285,7 @@ const OLAFLayout: React.FC<IProps> = ({
                   </Heading>
                   <List>
                     {VANARAMA_ADVANTAGES.map(item => (
-                      <li className="-custom -row" key={item.key}>
+                      <li className="-custom" key={item.key}>
                         <Icon
                           size="regular"
                           color="teal"
@@ -302,7 +302,7 @@ const OLAFLayout: React.FC<IProps> = ({
                   </Heading>
                   <List>
                     {LEASING_ADVANTAGES.map(item => (
-                      <li className="-custom -row" key={item.key}>
+                      <li className="-custom" key={item.key}>
                         <Icon
                           size="regular"
                           color="teal"

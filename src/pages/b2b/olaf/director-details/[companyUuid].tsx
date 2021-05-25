@@ -25,13 +25,10 @@ export const DirectorDetailsPage: NextPage = () => {
   const router = useRouter();
   const orderId = useGetOrderId();
   const personUuid = useGetPersonUuid();
-  const { companyUuid, directorUuid } = router.query as QueryParams;
+  const { companyUuid, directorUuid, redirect } = router.query as QueryParams;
 
   const handleSubmitCompletion = () => {
-    const url =
-      router.query.redirect === 'summary'
-        ? '/b2b/olaf/summary/[companyUuid]'
-        : `/b2b/olaf/company-bank-details/[companyUuid]`;
+    const url = redirect || `/b2b/olaf/company-bank-details/[companyUuid]`;
     router.push(url, url.replace('[companyUuid]', companyUuid));
   };
 

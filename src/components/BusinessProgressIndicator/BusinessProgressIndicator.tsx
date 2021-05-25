@@ -30,14 +30,12 @@ type QueryParams = {
 const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   isSoleTraderJourney,
 }) => {
-  const { pathname, query } = useRouter();
-  const { companyUuid, redirect } = query as QueryParams;
+  const { pathname, query, asPath } = useRouter();
+  const { companyUuid } = query as QueryParams;
+  const { setCachedLastStep, cachedLastStep } = useProgressHistory();
   const orderId = useGetOrderId();
-  const { setCachedLastStep, cachedLastStep } = useProgressHistory(orderId);
   const personUuid = useGetPersonUuid();
   const isMobile = useMobileViewport();
-
-  const latestStep = cachedLastStep;
 
   // Only regenerate the steps if the `orderId` changes
   const steps = useMemo(
@@ -47,19 +45,21 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   );
   // Work out the current step based on the URL
   const currentStep = steps.find(x => x.href === pathname)?.step || 1;
-  // If the querystring contains `redirect=summary` then the current step is being edited
-  const editingStep = redirect === 'summary' ? currentStep : 0;
-  // If the current step is being edited then mark the summary step as the active step
-  const activeStep = editingStep ? steps[steps.length - 1]?.step : latestStep;
 
-  const asHref = getUrlParam({
+  const queryParams = getUrlParam({
     companyUuid,
-    redirect: activeStep === 6 ? 'summary' : '',
+    isSoleTraderJourney,
+    redirect: currentStep < cachedLastStep ? undefined : asPath,
+  });
+
+  // do not show redirect param in url
+  const queryParamsMask = getUrlParam({
+    companyUuid,
     isSoleTraderJourney,
   });
 
   useEffect(() => {
-    if (currentStep > latestStep) {
+    if (currentStep > cachedLastStep) {
       setCachedLastStep(currentStep);
     }
   }, [currentStep]);
@@ -71,23 +71,21 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   }, [isMobile]);
 
   return (
-    <ProgressIndicator activeStep={activeStep || 0} id="progress-indicator">
+    <ProgressIndicator activeStep={cachedLastStep || 0} id="progress-indicator">
       {steps.map(({ href, label, step }) => {
-        const url = href + asHref;
+        const url = `${href}${queryParams}`;
+        const urlMask = `${href}${queryParamsMask}`
+          .replace('[companyUuid]', companyUuid)
+          .replace('[personUuid]', personUuid);
+
         return (
           <Step
             key={href}
-            editing={editingStep === step}
             step={step}
             id={`step_${step}`}
+            editing={href === pathname && step <= cachedLastStep}
           >
-            <NextJsLink
-              href={url}
-              as={url
-                .replace('[companyUuid]', companyUuid)
-                .replace('[personUuid]', personUuid)}
-              passHref
-            >
+            <NextJsLink href={url} as={urlMask} passHref>
               <StepLink label={label} />
             </NextJsLink>
           </Step>

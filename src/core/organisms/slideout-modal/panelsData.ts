@@ -1,6 +1,6 @@
 import { IPanelsData } from './interfaces';
 
-export default <IPanelsData>{
+export default {
   makeAndModel: {
     label: 'Make & Model',
     panelId: 'makeAndModel',
@@ -26,4 +26,4 @@ export default <IPanelsData>{
     panelId: 'fuelType',
     filterIds: ['fuelType'],
   },
-};
+} as IPanelsData;

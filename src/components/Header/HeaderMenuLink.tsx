@@ -46,7 +46,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
       '-span-half': classes.half,
     });
 
-  const isOpen =
+  const isSecondaryMenuOpen =
     !!link.children?.length &&
     ((!isTabletOrMobile && isHovered) || (isTabletOrMobile && isOpenMenu));
 
@@ -58,7 +58,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
     <li
       key={link.id}
       className={linkClassName({
-        open: isOpen,
+        open: isSecondaryMenuOpen,
         highlight: link.highlight,
       })}
       ref={(!!link.children?.length && hoverRef) || null}
@@ -84,19 +84,19 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
         )}
         <span>{link.label}</span>
       </RouterLink>
-      {!!link.children?.length && (
+      {link.children?.length ? (
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <HeaderSecondaryMenu
-            key={link.label}
+            isMenuOpen={isMenuOpen}
+            isSecondaryMenuOpen={isSecondaryMenuOpen}
+            onClickTitle={() => setIsOpenMenu(false)}
             promotionalImage={link.promotionalImage}
             links={link.children as IHeaderLink[]}
-            title={link.label}
-            onClickTitle={() => setIsOpenMenu(false)}
             isTabletOrMobile={isTabletOrMobile}
-            isMenuOpen={isMenuOpen}
+            title={link.label}
           />
         </LazyLoadComponent>
-      )}
+      ) : null}
     </li>
   );
 });

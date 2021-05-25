@@ -25,6 +25,7 @@ import Hero, {
   HeroPrompt,
 } from '../../components/Hero';
 import Skeleton from '../../components/Skeleton';
+import { freeInsuranceSmallPrint } from '../../pages/car-leasing/free-car-insurance';
 import { ISpecialOffersData } from '../../utils/offers';
 import FeaturedOnSection from '../../components/FeaturedOnBanner';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
@@ -104,7 +105,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
   searchPodCarsData,
   vehicleListUrlData,
 }) => {
-  const [activeTab, setActiveTab] = useState(0);
+  const [activeTab, setActiveTab] = useState(2);
   const { cachedLeaseType } = useLeaseType(null);
 
   // if (loading) {
@@ -125,6 +126,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
       <Hero
         searchPodVansData={searchPodVansData}
         searchPodCarsData={searchPodCarsData}
+        activeSearchIndex={2}
+        smallPrint={freeInsuranceSmallPrint}
+        customCTALink="/car-leasing/free-car-insurance"
       >
         {/* <div className="hero--title">
           <>
@@ -151,14 +155,13 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             />
           </>
         </div> */}
-        <div className="nlol">
-          <p>Find Your</p>
-          <h2>New Lease Of Life</h2>
-          <p>With Vanarama</p>
+        <div className="nlol nlol-free-insurance">
+          <p>Find Your New Lease Of Life</p>
+          <h2>1 Year&apos;s FREE Insurance</h2>
+          <p>On Every Car Hot Offer</p>
         </div>
         <div>
           <Image
-            loadImage
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             optimisationOptions={optimisationOptions}
             className="hero--image"
@@ -223,6 +226,47 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             <Tab index={2}>Cars</Tab>
           </TabList>
           <TabPanels>
+            <TabPanel index={2}>
+              <div style={{ maxWidth: 1216 }} className="-mh-auto">
+                <LazyLoadComponent
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
+                  <ProductCarousel
+                    leaseType={
+                      isPersonalCar
+                        ? LeaseTypeEnum.PERSONAL
+                        : LeaseTypeEnum.BUSINESS
+                    }
+                    data={{
+                      derivatives: productsCarDerivatives?.derivatives || null,
+                      productCard: productsCar?.productCarousel || null,
+                      vehicleList: vehicleListUrlData,
+                    }}
+                    countItems={productsCar?.productCarousel?.length || 6}
+                    dataTestIdBtn="car-view-offer"
+                  />
+                </LazyLoadComponent>
+
+                <div className="-justify-content-row -pt-500">
+                  <RouterLink
+                    className="button"
+                    classNames={{
+                      color: 'teal',
+                      solid: true,
+                      size: 'regular',
+                    }}
+                    link={{
+                      label: 'View All Car Offers',
+                      href: '/car-leasing-special-offers.html',
+                    }}
+                    withoutDefaultClassName
+                    dataTestId="view-all-cars"
+                  >
+                    <div className="button--inner">View All Car Offers</div>
+                  </RouterLink>
+                </div>
+              </div>
+            </TabPanel>
             <TabPanel index={0}>
               <div style={{ maxWidth: 1216 }} className="-mh-auto">
                 <LazyLoadComponent
@@ -301,47 +345,6 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                     dataTestId="view-all-pickups"
                   >
                     <div className="button--inner">View All Truck Offers</div>
-                  </RouterLink>
-                </div>
-              </div>
-            </TabPanel>
-            <TabPanel index={2}>
-              <div style={{ maxWidth: 1216 }} className="-mh-auto">
-                <LazyLoadComponent
-                  visibleByDefault={isServerRenderOrAppleDevice}
-                >
-                  <ProductCarousel
-                    leaseType={
-                      isPersonalCar
-                        ? LeaseTypeEnum.PERSONAL
-                        : LeaseTypeEnum.BUSINESS
-                    }
-                    data={{
-                      derivatives: productsCarDerivatives?.derivatives || null,
-                      productCard: productsCar?.productCarousel || null,
-                      vehicleList: vehicleListUrlData,
-                    }}
-                    countItems={productsCar?.productCarousel?.length || 6}
-                    dataTestIdBtn="car-view-offer"
-                  />
-                </LazyLoadComponent>
-
-                <div className="-justify-content-row -pt-500">
-                  <RouterLink
-                    className="button"
-                    classNames={{
-                      color: 'teal',
-                      solid: true,
-                      size: 'regular',
-                    }}
-                    link={{
-                      label: 'View All Car Offers',
-                      href: '/car-leasing-special-offers.html',
-                    }}
-                    withoutDefaultClassName
-                    dataTestId="view-all-cars"
-                  >
-                    <div className="button--inner">View All Car Offers</div>
                   </RouterLink>
                 </div>
               </div>

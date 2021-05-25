@@ -91,6 +91,7 @@ $include-presentation-styles: false !default;
 // @import '../organisms/comparator-table/comparator-table.scss';
 @import '../organisms/nlol-hero/nlol-hero.scss';
 @import '../organisms/competition/win-a-new-lease-of-life.scss';
+@import '../organisms/free-insurance/free-insurance.scss';
 
 // row is imported last (for overrides)
 @import '../templates/footer.scss';

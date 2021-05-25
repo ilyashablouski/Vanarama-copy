@@ -6,6 +6,9 @@ import FeaturedSection from '../components/FeaturedSection';
 export const PARTNER = gql`
   query Partner($slug: String!) {
     partner(slug: $slug) {
+      customerSovereignty
+      uuid
+      slug
       logo {
         title
         file {
@@ -16,6 +19,7 @@ export const PARTNER = gql`
       vehicleTypes
       colourPrimary
       colourSecondary
+      telephone
       hero {
         flag
         body

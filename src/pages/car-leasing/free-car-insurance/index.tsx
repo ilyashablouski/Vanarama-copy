@@ -1,17 +1,17 @@
 import dynamic from 'next/dynamic';
-import createApolloClient from 'apolloClient';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React from 'react';
-import { GENERIC_PAGE } from 'gql/genericPage';
 import Image from 'core/atoms/image';
 import SchemaJSON from 'core/atoms/schema-json';
 import Accordion from 'core/molecules/accordion/Accordion';
-import useLeaseType from 'hooks/useLeaseType';
-import { IEvOffersData, specialOffersRequest } from 'utils/offers';
-import ProductCarousel from 'components/ProductCarousel/ProductCarousel';
+import { GENERIC_PAGE } from '../../../gql/genericPage';
+import useLeaseType from '../../../hooks/useLeaseType';
+import { IEvOffersData, specialOffersRequest } from '../../../utils/offers';
+import createApolloClient from '../../../apolloClient';
 import ArticleCarousel from '../../../components/ArticleCarousel';
 import FeaturedSection from '../../../components/FeaturedSection';
 import Head from '../../../components/Head/Head';
+import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 import { HeroEv as Hero } from '../../../components/Hero';
 import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 import RouterLink from '../../../components/RouterLink/RouterLink';
@@ -26,6 +26,9 @@ interface IProps extends IEvOffersData {
   productsCarDerivatives?: GetDerivatives | undefined;
   searchParam: String;
 }
+
+export const freeInsuranceSmallPrint =
+  '*Based on UK annual average insurance cost. Offer available on Car Hot Offers only & subject to availability. Terms Apply.';
 
 const FreeCarInsurance: NextPage<IProps> = ({
   data,
@@ -61,10 +64,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
   // The small print will eventually be pulled from the CMS
   return (
     <>
-      <Hero
-        hideCurve
-        smallPrint="*Based on UK annual average insurance cost. Offer available on Car Hot Offers only & subject to availability. Terms Apply."
-      >
+      <Hero hideCurve smallPrint={freeInsuranceSmallPrint}>
         <div className="hero--left">
           <div className="nlol nlol-free-insurance" style={{ left: 'auto' }}>
             <p>Find Your New Lease Of Life</p>

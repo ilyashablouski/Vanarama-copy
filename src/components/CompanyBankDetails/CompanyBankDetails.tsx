@@ -12,6 +12,7 @@ import validationSchema from './CompanyBankDetails.validation';
 import { ICompanyBankDetailsProps, ICompanyBankDetails } from './interfaces';
 import { responseToInitialFormValues } from './mappers';
 import Skeleton from '../Skeleton';
+import BankAccountValidator from '../BankAccountValidator';
 
 const ChevronForwardSharp = dynamic(
   () => import('core/assets/icons/ChevronForwardSharp'),
@@ -41,7 +42,7 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
   onSubmit,
   isEdited,
 }) => {
-  const { handleSubmit, register, control, errors, formState } = useForm<
+  const { handleSubmit, register, control, errors, formState, watch } = useForm<
     ICompanyBankDetails
   >({
     mode: 'onBlur',
@@ -61,6 +62,9 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
     }
     return formState.isSubmitting ? 'Saving...' : 'Continue';
   }, [isEdited, formState.isSubmitting]);
+
+  const sortCode = watch('sortCode');
+  const accountNumber = watch('accountNumber');
 
   return (
     <Form onSubmit={handleSubmit(onSubmit)}>
@@ -136,6 +140,10 @@ const CompanyBankDetails: FCWithFragments<ICompanyBankDetailsProps> = ({
           onChange={([, parts]) => parts}
         />
       </FormGroup>
+      <BankAccountValidator
+        accountNumber={accountNumber ?? ''}
+        sortCode={sortCode?.join('') ?? ''}
+      />
       <FormGroup
         controlId="joinedAt"
         label="Account Open Since"

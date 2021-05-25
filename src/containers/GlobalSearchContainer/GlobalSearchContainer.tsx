@@ -44,6 +44,16 @@ const GlobalSearchContainer = () => {
     }
   }, [searchValue]);
 
+  useEffect(() => {
+    const handleRouteChange = () => {
+      setIsOpenResults(false);
+    };
+    router.events.on('beforeHistoryChange', handleRouteChange);
+    return () => {
+      router.events.off('beforeHistoryChange', handleRouteChange);
+    };
+  }, []);
+
   return isVisible ? (
     <>
       <div className={cx('header-search', isOpenResults ? '-active' : '')}>
@@ -97,10 +107,18 @@ const GlobalSearchContainer = () => {
         {isOpenResults && (
           <>
             <div className="header-search-results-container">
-              <GlobalSearchLeftSideContainer />
+              <GlobalSearchLeftSideContainer
+                suggestions={suggestions.suggestsList}
+                aggregation={suggestions.aggregation}
+              />
               <GlobalSearchRightSideContainer
-                suggestions={isDesktop ? suggestions : suggestions.slice(0, 5)}
+                suggestions={
+                  isDesktop
+                    ? suggestions.vehiclesList
+                    : suggestions.vehiclesList.slice(0, 5)
+                }
                 searchQuery={fieldValue}
+                aggregation={suggestions.aggregation}
               />
               <div className="info">
                 <span className="heading -small -dark">More Information</span>
