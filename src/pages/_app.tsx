@@ -18,7 +18,11 @@ import {
   changeCompares,
 } from '../utils/comparatorHelpers';
 import withApollo from '../hocs/withApollo';
-import { pushPageData, pushPageViewEvent } from '../utils/dataLayerHelpers';
+import {
+  checkForGtmDomEvent,
+  pushPageData,
+  pushPageViewEvent,
+} from '../utils/dataLayerHelpers';
 
 import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
@@ -78,8 +82,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     if (
       router.pathname !== '/car-leasing/[...details-page]' &&
       router.pathname !== '/van-leasing/[...details-page]'
-    )
-      pushAnalytics();
+    ) {
+      checkForGtmDomEvent(pushAnalytics);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
