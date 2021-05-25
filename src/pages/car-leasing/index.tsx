@@ -17,7 +17,7 @@ import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import css from '../../../public/styles/pages/car-leasing.css';
+import css from '!!raw-loader!../../../public/styles/pages/car-leasing.css';
 
 import {
   HubCarPageData,
