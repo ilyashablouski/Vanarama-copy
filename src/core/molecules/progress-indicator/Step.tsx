@@ -50,7 +50,7 @@ function getStatus(
   editing?: boolean,
 ): StepStatus {
   if (editing) {
-    return 'current';
+    return 'editing';
   }
 
   if (currentStep < activeStep) {
