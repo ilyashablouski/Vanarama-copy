@@ -23,9 +23,9 @@ const ErrorMessage: FC = () => (
     <Text tag="p" color="danger">
       We’re sorry, we can’t seem to find any information using the details
       you’ve provided. Please get in touch with Experian on 0344 481 0800 to
-      update your credit profile or you can call us on{` `}
+      update your credit profile or you can call us on
       <Link className="InfinityNumber" color="danger" href="01442838195">
-        01442 838 195{` `}
+        {` 01442 838 195 `}
       </Link>
       to find out more.
     </Text>
