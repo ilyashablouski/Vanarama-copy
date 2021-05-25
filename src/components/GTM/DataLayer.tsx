@@ -6,7 +6,7 @@ const DataLayer: FC = () => {
   (function(window, document, section) {
     window.dataLayer = window.dataLayer || [];
     
-    const pushEvent = window.dataLayer.push; 
+    const dataLayerPush = window.dataLayer.push; 
     
     window.hasGtmDomEvent = (dataLayer) => {
       return !!dataLayer.find(({event}) => event === 'gtm.dom');
@@ -14,7 +14,7 @@ const DataLayer: FC = () => {
     
     window.dataLayerCallback = null;
     window.dataLayer.push = function(...args) {
-      const result = pushEvent.apply(this, args);
+      const result = dataLayerPush.apply(this, args);
 
       if (window.hasGtmDomEvent(args)) {
         window.dataLayerCallback && window.dataLayerCallback();
