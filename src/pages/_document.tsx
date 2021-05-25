@@ -1,5 +1,8 @@
 import Document, { Html, Main, Head } from 'next/document';
 import dynamic from 'next/dynamic';
+
+import React from 'react';
+
 import { HeapScript } from '../components/HeapScript';
 import {
   Script as GTMScript,

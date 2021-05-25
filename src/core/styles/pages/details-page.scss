@@ -1,0 +1,17 @@
+// global variables (like color, spacing, border-radius etc)
+@import '../../variables';
+
+// utilities and global styles
+@import '../../util/mixins';
+
+// components (molecules)
+@import '../../molecules/accordion/accordion.scss';
+
+// components (organisms)
+@import '../../organisms/lease-scanner/lease-scanner';
+
+// components (atoms)
+@import '../../atoms/choiceboxes/choiceboxes.scss';
+@import '../../atoms/sliding-input/sliding-input';
+@import '../../atoms/toast/toast';
+@import '../../atoms/radio/radio.scss';
