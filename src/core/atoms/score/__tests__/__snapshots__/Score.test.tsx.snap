@@ -84,7 +84,7 @@ exports[`<Score /> renders correctly with a failure score 1`] = `
         Call
          
         <a
-          className="link -teal -regular -plain"
+          className="link InfinityNumber -teal -regular -plain"
           href="01442838195"
         >
           01442 838 195
@@ -179,7 +179,7 @@ exports[`<Score /> renders correctly with a negative score 1`] = `
         Call
          
         <a
-          className="link -teal -regular -plain"
+          className="link InfinityNumber -teal -regular -plain"
           href="01442838195"
         >
           01442 838 195
@@ -274,7 +274,7 @@ exports[`<Score /> renders correctly with a partial score 1`] = `
         Call
          
         <a
-          className="link -teal -regular -plain"
+          className="link InfinityNumber -teal -regular -plain"
           href="01442838195"
         >
           01442 838 195
@@ -452,7 +452,7 @@ exports[`<Score /> renders correctly with a score of zero 1`] = `
         Call
          
         <a
-          className="link -teal -regular -plain"
+          className="link InfinityNumber -teal -regular -plain"
           href="01442838195"
         >
           01442 838 195
