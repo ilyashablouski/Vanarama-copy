@@ -12,6 +12,7 @@ import {
   pushCallBackDataLayer,
   pushPageData,
   pushPageViewEvent,
+  pushCustomEvents,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
 import { toPriceFormat } from '../../utils/helpers';
@@ -219,9 +220,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       data?.vehicleConfigurationByCapId &&
       leaseScannerData?.quoteByCapId
     ) {
-      if (!window.dataLayer) return;
-      if (window.dataLayer.isDomReady()) pushAnalytics();
-      else window.dataLayer.callback = pushAnalytics;
+      pushCustomEvents(pushAnalytics);
       setFirstTimePushDataLayer(false);
     }
   }, [

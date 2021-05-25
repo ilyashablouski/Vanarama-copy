@@ -8,15 +8,15 @@ const DataLayer: FC = () => {
     
     const pushEvent = window.dataLayer.push;
     
-    function isDomReady() {
-      return !!this.find(({event}) => event === 'gtm.dom');
+    function hasGtmDomEvent(dataLayer) {
+      return !!dataLayer.find(({event}) => event === 'gtm.dom');
     }
     
-    window.dataLayer.isDomReady = isDomReady;
+    window.hasGtmDomEvent = hasGtmDomEvent;
     window.dataLayer.push = function(...args) {
       const result = pushEvent.apply(this, args);
 
-      if (isDomReady.call(args)) {
+      if (hasGtmDomEvent(args)) {
         this.callback && this.callback();
       }
 
