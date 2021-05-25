@@ -521,6 +521,10 @@ const SearchPageContainer: React.FC<IProps> = ({
     setLastCard('');
   }, [sortOrder]);
 
+  useFirstRenderEffect(() => {
+    onSearch();
+  }, [isPersonal]);
+
   useEffect(() => {
     if (isServer) setIsSpecialOffers(getValueFromStorage() ?? false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -901,7 +905,6 @@ const SearchPageContainer: React.FC<IProps> = ({
             renderFilters={innerProps => (
               <SearchPageFilters
                 onSearch={onSearch}
-                isPersonal={isPersonal}
                 isCarSearch={isCarSearch}
                 isMakePage={isMakePage}
                 isRangePage={isRangePage}

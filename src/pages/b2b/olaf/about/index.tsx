@@ -52,7 +52,7 @@ type QueryParams = OLAFQueryParams & {
 export const BusinessAboutPage: NextPage = () => {
   const router = useRouter();
   const orderId = useGetOrderId();
-  const { companyUuid } = router.query as QueryParams;
+  const { companyUuid, redirect } = router.query as QueryParams;
 
   const loginFormRef = useRef<HTMLDivElement>(null);
 
@@ -80,19 +80,9 @@ export const BusinessAboutPage: NextPage = () => {
       result.companyType === CompanyTypes.partnership
         ? ''
         : 'sole-trader/';
-    const url =
-      router.query.redirect === 'summary'
-        ? `/b2b/olaf/${slug}summary/[companyUuid]`
-        : `/b2b/olaf/${slug}company-details/[personUuid]`;
+    const url = redirect || `/b2b/olaf/${slug}company-details`;
 
-    const personId = personUuid || result.businessPersonUuid || '';
-
-    router.push(
-      url,
-      url
-        .replace('[companyUuid]', companyUuid || '')
-        .replace('[personUuid]', personId),
-    );
+    router.push(url, url.replace('[companyUuid]', companyUuid || ''));
   };
 
   useEffect(() => {

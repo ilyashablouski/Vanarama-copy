@@ -11,11 +11,10 @@ import Skeleton from '../../components/Skeleton';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { onMadeLineBreaks } from '../SearchPageContainer/helpers';
 
+import FeaturedMedia from './MediaContent';
+
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
-});
-const Media = dynamic(() => import('core/atoms/media'), {
-  loading: () => <Skeleton count={4} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -53,9 +52,11 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
       <div className="row:bg-black">
         <div className="row:featured-right">
           <div>
-            <Heading tag="span" size="large" color="white">
-              {featured?.title || ''}
-            </Heading>
+            {featured?.title ? (
+              <Heading tag="span" size="large" color="white">
+                {featured.title}
+              </Heading>
+            ) : null}
             <div className="markdown -lighter">
               <ReactMarkdown
                 allowDangerousHtml
@@ -81,11 +82,9 @@ const LeasingExplainedContainer: FC<IProps> = ({ title, sections }) => {
               </RouterLink>
             )}
           </div>
-          <Media
-            noLazy
-            src={featured?.video || ''}
-            width="100%"
-            height="360px"
+          <FeaturedMedia
+            featuredImageUrl={featured?.image?.file?.url}
+            featuredVideoUrl={featured?.video}
           />
         </div>
       </div>

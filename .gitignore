@@ -41,3 +41,7 @@ JenkinsfileOLD
 .vs/VSWorkspaceState.json
 .vs/slnx.sqlite
 .vs/next-storefront/v16/.suo
+
+# webstorm
+schema.graphql
+.graphqlconfig

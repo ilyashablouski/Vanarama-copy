@@ -6,7 +6,8 @@ import {
 } from '../../../generated/suggestionList';
 import {
   fullTextSearchVehicleList,
-  fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles,
+  fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles as IFullTextSearchVehicles,
+  fullTextSearchVehicleList_fullTextSearchVehicleList_aggregation as IFullTextSearchAggregation,
   fullTextSearchVehicleListVariables,
 } from '../../../generated/fullTextSearchVehicleList';
 import {
@@ -14,10 +15,11 @@ import {
   GlobalSearchCardsDataVariables,
 } from '../../../generated/GlobalSearchCardsData';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { Nullable } from '../../types/common';
 
 export const GET_SUGGESTIONS_DATA = gql`
   query suggestionList($query: String) {
-    suggestionList(query: $query, pagination: { size: 6, from: 0 }) {
+    suggestionList(query: $query, pagination: { size: 5, from: 0 }) {
       suggestions
     }
   }
@@ -28,7 +30,7 @@ export const GET_TEXT_SEARCH_VEHICLES_DATA = gql`
     fullTextSearchVehicleList(
       query: $query
       sort: [
-        { field: offer_ranking, direction: ASC }
+        { field: offerRanking, direction: ASC }
         { field: rental, direction: ASC }
       ]
       pagination: { size: $size, from: $from }
@@ -143,11 +145,19 @@ export function useTextSearchList(
   });
 }
 
+export interface IGlobalSearchData {
+  suggestsList: string[];
+  vehiclesList: IFullTextSearchVehicles[];
+  aggregation: Nullable<IFullTextSearchAggregation>;
+}
+
 export function useGlobalSearch(query?: string) {
   const apolloClient = useApolloClient();
-  const [suggestions, setSuggestions] = useState<
-    fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles[]
-  >([]);
+  const [suggestions, setSuggestions] = useState<IGlobalSearchData>({
+    suggestsList: [],
+    vehiclesList: [],
+    aggregation: null,
+  });
   // This effect runs when the debounced search term changes and executes the search
   useEffect(() => {
     async function fetchData(value: string) {
@@ -162,15 +172,34 @@ export function useGlobalSearch(query?: string) {
           size: 6,
         },
       });
-      return data?.fullTextSearchVehicleList?.vehicles || [];
+      const { data: suggestsList } = await apolloClient.query<
+        suggestionList,
+        suggestionListVariables
+      >({
+        query: GET_SUGGESTIONS_DATA,
+        variables: {
+          query: value,
+        },
+      });
+      return {
+        suggestsList: suggestsList?.suggestionList?.suggestions || [],
+        vehiclesList: data?.fullTextSearchVehicleList?.vehicles || [],
+        aggregation: data?.fullTextSearchVehicleList?.aggregation || null,
+      };
     }
 
     if (query?.length) {
       fetchData(query)
         .then(setSuggestions)
-        .catch(() => setSuggestions([]));
+        .catch(() =>
+          setSuggestions({
+            suggestsList: [],
+            vehiclesList: [],
+            aggregation: null,
+          }),
+        );
     } else {
-      setSuggestions([]);
+      setSuggestions({ suggestsList: [], vehiclesList: [], aggregation: null });
     }
   }, [apolloClient, query]);
 

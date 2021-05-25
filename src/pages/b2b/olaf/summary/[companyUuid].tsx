@@ -13,15 +13,15 @@ import { pushSummaryDataLayer } from '../../../../utils/dataLayerHelpers';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
 import { OrderInputObject } from '../../../../../generated/globalTypes';
 
-type QueryParams = {
-  companyUuid: string;
-};
-
 const handleSubmitError = () =>
   toast.error(
     'Oops, an unexpected error occurred',
     'Your details could not be saved. Please try submitting the form again.',
   );
+
+type QueryParams = {
+  companyUuid: string;
+};
 
 const BusinessSummaryPage: NextPage = () => {
   const router = useRouter();

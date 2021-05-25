@@ -29,6 +29,7 @@ export interface IHeaderSecondaryMenuProps extends IBaseProps {
   onClickTitle: () => void;
   isTabletOrMobile: boolean;
   isMenuOpen: boolean;
+  isSecondaryMenuOpen: boolean;
   promotionalImage?: IHeaderPromoImage;
 }
 
@@ -39,6 +40,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     title,
     onClickTitle,
     isTabletOrMobile,
+    isSecondaryMenuOpen,
     isMenuOpen,
     promotionalImage,
   } = props;
@@ -59,8 +61,17 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
   useEffect(() => {
     if (isTabletOrMobile) {
       setActiveTertiaryMenu(null);
+    } else {
+      setActiveTertiaryMenu(firstChildrenLinks?.id || '');
     }
-  }, [router, setActiveTertiaryMenu, isMenuOpen, isTabletOrMobile]);
+  }, [
+    router,
+    isMenuOpen,
+    isSecondaryMenuOpen,
+    isTabletOrMobile,
+    setActiveTertiaryMenu,
+    firstChildrenLinks?.id,
+  ]);
 
   const linkClassName = (classes: {
     title?: boolean;
@@ -186,9 +197,8 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
           ))}
         </ul>
         {tertiaryLinks.map(tertiaryBlock => (
-          <>
+          <React.Fragment key={`menu-tertiary-${tertiaryBlock?.id}`}>
             <ul
-              key={`menu-tertiary-${tertiaryBlock?.id}`}
               className={cx('menu-tertiary', {
                 '-open': activeTertiaryMenu === tertiaryBlock.id,
               })}
@@ -258,7 +268,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                 </RouterLink>
               </div>
             )}
-          </>
+          </React.Fragment>
         ))}
 
         {promotionalImage?.url && (

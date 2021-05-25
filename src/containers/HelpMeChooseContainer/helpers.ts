@@ -297,7 +297,7 @@ export const buildAnObjectFromAQuery = (
     },
     sort: [
       {
-        field: SortField.offer_ranking,
+        field: SortField.offerRanking,
         direction: SortDirection.ASC,
       },
       {

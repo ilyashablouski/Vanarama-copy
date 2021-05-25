@@ -2,26 +2,24 @@ import React, { FC, useEffect, useState } from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
-import { ILink } from 'core/interfaces/link';
 import { useMediaQuery } from 'react-responsive';
-
-import { PartnershipsLinks } from 'components/Partnerships/Data/PartnishipLinks';
-import {
-  getSessionStorage,
-  setSessionStorage,
-} from 'utils/windowSessionStorage';
-import {
-  PHONE_NUMBER_LINK,
-  FLEET_PHONE_NUMBER_LINK,
-} from '../../models/enum/HeaderLinks';
-
+import Cookies from 'js-cookie';
+import { ILink } from 'core/interfaces/link';
+import getPartnerProperties from 'utils/partnerProperties';
 import Header from '../../components/Header';
-import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
 import { IHeaderLink } from '../../components/Header/Header';
+import { PartnershipsLinks } from '../../components/Partnerships/Data/PartnishipLinks';
+import { convertChildrenNavLink, getPromotionalImage } from './helpers';
 import {
   GetPrimaryHeaderData as HeaderData,
   GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups as LinkGroups,
 } from '../../../generated/GetPrimaryHeaderData';
+import { LogOutUserMutation } from '../../../generated/LogOutUserMutation';
+import {
+  PHONE_NUMBER_LINK,
+  FLEET_PHONE_NUMBER_LINK,
+} from '../../models/enum/HeaderLinks';
+import { LinkTypes } from '../../models/enum/LinkTypes';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -56,6 +54,7 @@ const HeaderContainer: FC = () => {
   const [partnership, setPartnership] = useState<string | null>(null);
   const [partnershipLinks, setPartnershipLinks] = useState<any>([]);
   const [partnershipHomeLink, setPartnershipHomeLink] = useState<any>(null);
+  const [partnershipPhoneLink, setPartnershipPhoneLink] = useState<any>(null);
 
   const offerLink =
     data?.primaryHeader?.links?.map(el => ({
@@ -85,16 +84,7 @@ const HeaderContainer: FC = () => {
             label: el.name || '',
             href: '',
             id: el?.name || '',
-            children: el.links?.map(
-              j =>
-                ({
-                  label: j?.text || '',
-                  href: j?.url || '',
-                  query: { isChangePage: 'true' },
-                  id: j?.url || '',
-                  as: j?.url,
-                } as ILink),
-            ),
+            children: el.links?.map(convertChildrenNavLink),
           }));
         const childrenGroupLinks = transformGroupLink?.length
           ? [specialOffersLinks, ...transformGroupLink, ...transformLinks]
@@ -103,18 +93,8 @@ const HeaderContainer: FC = () => {
         headerTopLinks = {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
-          id: linksGroupUrl.label || '',
-          promotionalImage: {
-            url:
-              linksGroup?.promotionalImage?.legacyUrl ||
-              linksGroup?.promotionalImage?.url ||
-              '',
-            image: {
-              url: linksGroup?.promotionalImage?.image?.[0]?.file?.url || '',
-              fileName:
-                linksGroup?.promotionalImage?.image?.[0]?.file?.fileName || '',
-            },
-          },
+          id: linksGroupUrl.id || '',
+          promotionalImage: getPromotionalImage(linksGroup),
           children: isTabletOrMobile
             ? [linksGroupUrl, ...childrenGroupLinks]
             : childrenGroupLinks,
@@ -124,14 +104,7 @@ const HeaderContainer: FC = () => {
           linksGroup?.linkGroups &&
           (linksGroup?.linkGroups as LinkGroups[]).map(el => {
             const childrenLinkArray: ILink[] = el.links!.map(
-              j =>
-                ({
-                  label: j?.text || '',
-                  href: j?.url || '',
-                  query: { isChangePage: 'true' },
-                  id: j?.url || '',
-                  as: j?.url,
-                } as ILink),
+              convertChildrenNavLink,
             );
             const linksGroupUrl = childrenLinkArray.shift() as ILink;
             const specialOffersLinks = {
@@ -147,37 +120,27 @@ const HeaderContainer: FC = () => {
               children: isTabletOrMobile
                 ? [linksGroupUrl, ...childrenLink]
                 : childrenLink,
-              promotionalImage: {
-                url: el?.promotionalImage?.legacyUrl || '',
-                image: {
-                  url: el?.promotionalImage?.image?.[0]?.file?.url || '',
-                  fileName:
-                    el?.promotionalImage?.image?.[0]?.file?.fileName || '',
-                },
-              },
+              promotionalImage: getPromotionalImage(el),
             };
           });
 
-        headerTopLinks = {
-          href: '',
-          label: linksGroup?.name || '',
-          id: linksGroup.name || '',
-          children: transformGroupLink,
-        };
-      } else {
-        const linksGroupUrl = transformLinks?.shift();
+        const linksGroupUrl = transformLinks?.shift() as ILink;
         headerTopLinks = {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
-          id: linksGroupUrl?.id,
-          promotionalImage: {
-            url: linksGroup?.promotionalImage?.legacyUrl || '',
-            image: {
-              url: linksGroup?.promotionalImage?.image?.[0]?.file?.url || '',
-              fileName:
-                linksGroup?.promotionalImage?.image?.[0]?.file?.fileName || '',
-            },
-          },
+          id: linksGroupUrl?.id || '',
+          promotionalImage: getPromotionalImage(linksGroup),
+          children: isTabletOrMobile
+            ? [linksGroupUrl, ...transformGroupLink]
+            : transformGroupLink,
+        };
+      } else {
+        const linksGroupUrl = transformLinks?.shift() as ILink;
+        headerTopLinks = {
+          href: linksGroupUrl?.href || '',
+          label: linksGroup?.name || '',
+          id: linksGroupUrl?.id || '',
+          promotionalImage: getPromotionalImage(linksGroup),
         };
       }
       link.push(headerTopLinks);
@@ -188,10 +151,12 @@ const HeaderContainer: FC = () => {
 
   // check if user is on a partnership journey
   useEffect(() => {
-    const partnerName = getSessionStorage('partnerships');
+    const partnerDetails = getPartnerProperties();
     const path = router.pathname;
-    if (partnerName) {
+    if (partnerDetails) {
+      const partnerName = partnerDetails.slug;
       setPartnership(partnerName);
+      setPartnershipHomeLink(`/partnerships/${partnerName}`);
       const links = partnerLinks.find(p => p.name === partnerName)?.links;
       setPartnershipLinks(links);
     } else if (path.includes('partnerships')) {
@@ -199,12 +164,27 @@ const HeaderContainer: FC = () => {
       if (partner) {
         setPartnership(partner);
         setPartnershipHomeLink(`/partnerships/${partner}`);
-        setSessionStorage('partnerships', partner);
         const links = partnerLinks.find(p => p.name === partner)?.links;
         setPartnershipLinks(links);
       }
     }
   }, []);
+
+  useEffect(() => {
+    if (Cookies.get('activePartnership')) {
+      const partnerDetails = getPartnerProperties();
+      const { telephone } = partnerDetails;
+      if (telephone) {
+        const hrefNumber = telephone.replace(/\s/g, '');
+        const phoneData = {
+          href: `tel:${hrefNumber}`,
+          label: telephone,
+          linkType: LinkTypes.external,
+        };
+        setPartnershipPhoneLink(phoneData);
+      }
+    }
+  }, [Cookies.get('activePartnership')]);
 
   if (partnership) {
     return (
@@ -215,7 +195,7 @@ const HeaderContainer: FC = () => {
           await logOut().catch();
         }}
         loginLink={LOGIN_LINK}
-        phoneNumberLink={phoneNumberLink}
+        phoneNumberLink={partnershipPhoneLink || phoneNumberLink}
         topBarLinks={[...partnershipLinks]}
         customHomePath={partnershipHomeLink}
       />

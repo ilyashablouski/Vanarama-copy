@@ -12,11 +12,11 @@ const Error = () => {
         Oops, Something Went Wrong
       </Heading>
       <br />
-      <Text tag="p" size="regular" color="primary">
+      <Text tag="p" size="regular" color="primary" className="-mt-400">
         We’re having a few technical issues which we’re working on to resolve
         ASAP!
       </Text>
-      <Text tag="p" size="regular" color="primary">
+      <Text tag="p" size="regular" color="primary" className="-mb-400">
         Please try refreshing the page or try again later.
       </Text>
       <br />
