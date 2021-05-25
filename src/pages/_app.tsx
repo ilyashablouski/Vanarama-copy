@@ -76,9 +76,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     if (
       router.pathname !== '/car-leasing/[...details-page]' &&
       router.pathname !== '/van-leasing/[...details-page]'
-    )
+    ) {
+      if (!window.dataLayer) return;
       if (window.dataLayer.isDomReady()) pushAnalytics();
       else window.dataLayer.callback = pushAnalytics;
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
