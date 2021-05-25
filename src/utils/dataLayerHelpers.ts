@@ -200,8 +200,10 @@ export const pushDetail = (
 export const checkForGtmDomEvent = (callback: () => void) => {
   window.dataLayerCallback = callback;
 
-  if (!window.dataLayerHasGtmDomEvent) return;
-  if (window.dataLayerHasGtmDomEvent(window.dataLayer)) {
+  if (
+    window.dataLayerHasGtmDomEvent &&
+    window.dataLayerHasGtmDomEvent(window.dataLayer)
+  ) {
     callback();
   }
 };
