@@ -8,14 +8,14 @@ const DataLayer: FC = () => {
     
     const dataLayerPush = window.dataLayer.push; 
     
-    window.hasGtmDomEvent = (dataLayer) => {
+    window.dataLayerHasGtmDomEvent = (dataLayer) => {
       return !!dataLayer.find(({event}) => event === 'gtm.dom');
     }
     
     window.dataLayer.push = function(...args) {
       const result = dataLayerPush.apply(this, args);
 
-      if (window.hasGtmDomEvent(args)) {
+      if (window.dataLayerHasGtmDomEvent(args)) {
         window.dataLayerCallback && window.dataLayerCallback();
       }
 

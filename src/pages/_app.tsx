@@ -18,7 +18,7 @@ import {
 } from '../utils/comparatorHelpers';
 import withApollo from '../hocs/withApollo';
 import {
-  pushCustomEvents,
+  checkForGtmDomEvent,
   pushPageData,
   pushPageViewEvent,
 } from '../utils/dataLayerHelpers';
@@ -81,7 +81,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       router.pathname !== '/car-leasing/[...details-page]' &&
       router.pathname !== '/van-leasing/[...details-page]'
     ) {
-      pushCustomEvents(pushAnalytics);
+      checkForGtmDomEvent(pushAnalytics);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);

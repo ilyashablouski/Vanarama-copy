@@ -102,7 +102,7 @@ interface ICategory {
 
 declare global {
   interface Window {
-    hasGtmDomEvent: (dataLayer: object[]) => boolean;
+    dataLayerHasGtmDomEvent: (dataLayer: object[]) => boolean;
     dataLayerCallback: () => void;
     dataLayer: object[];
   }
@@ -197,11 +197,11 @@ export const pushDetail = (
 //   });
 // };
 
-export const pushCustomEvents = (callback: () => void) => {
+export const checkForGtmDomEvent = (callback: () => void) => {
   window.dataLayerCallback = callback;
 
-  if (!window.hasGtmDomEvent) return;
-  if (window.hasGtmDomEvent(window.dataLayer)) {
+  if (!window.dataLayerHasGtmDomEvent) return;
+  if (window.dataLayerHasGtmDomEvent(window.dataLayer)) {
     callback();
   }
 };
