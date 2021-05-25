@@ -31,20 +31,22 @@ import {
   GetVehicleDetails_vehicleConfigurationByCapId,
 } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
-import { replaceReview } from '../../components/CustomerReviews/helpers';
 import useLeaseType from '../../hooks/useLeaseType';
-import { getProductPageBreadCrumb, removeUrlQueryPart } from '../../utils/url';
-import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
-import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
 import { genericPagesQuery_genericPages_items as GenericPages } from '../../../generated/genericPagesQuery';
+import { replaceReview } from '../../components/CustomerReviews/helpers';
+import PartnershipLogo from '../../components/Partnerships/PartnershipLogo';
 import Skeleton from '../../components/Skeleton';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { getPartnerProperties } from '../../utils/partnerProperties';
+import { getProductPageBreadCrumb, removeUrlQueryPart } from '../../utils/url';
 import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
 } from '../../../generated/GetTrimAndColor';
 import { GetProductCard } from '../../../generated/GetProductCard';
+import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
+import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -163,10 +165,20 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [mileage, setMileage] = useState<number | null>(
     quote?.quoteByCapId?.mileage || null,
   );
+  const [partnershipLogo, setPartnershipLogo] = useState(null);
+  const [partnershipTitle, setPartnershipTitle] = useState(null);
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
   }, [leaseType, setCachedLeaseType]);
+
+  useEffect(() => {
+    const partnership = getPartnerProperties();
+    if (partnership) {
+      setPartnershipLogo(partnership.logo?.file?.url);
+      setPartnershipTitle(partnership.logo?.title);
+    }
+  }, []);
 
   const [
     leaseScannerData,
@@ -486,6 +498,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   return (
     <>
+      {partnershipLogo && (
+        <div className="partnership-top-header">
+          <PartnershipLogo
+            logo={partnershipLogo || ''}
+            imageAlt={partnershipTitle || ''}
+          />
+        </div>
+      )}
       <div
         className={cx('pdp--content', {
           '-free-insurance': isSpecialOffer && isCar,

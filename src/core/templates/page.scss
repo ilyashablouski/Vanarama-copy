@@ -702,3 +702,22 @@
     }
   }
 }
+
+.partnership-top-header {
+  width: 100%;
+  padding: 32px 0 32px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  .partnership-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    .partnership-logo--heading {
+      color: $black;
+      font-weight: 600;
+      font-size: 1.25rem;
+      margin-right: 12px;
+    }
+  }
+}
