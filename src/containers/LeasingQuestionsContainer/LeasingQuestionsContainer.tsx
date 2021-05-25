@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import SchemaJSON from 'core/atoms/schema-json';
 import {
-  GenericPageQuery_genericPage_sections_cards_cards as ICard,
   GenericPageQuery_genericPage_sections_carousel_cards as ICaruselCard,
   GenericPageQuery,
 } from '../../../generated/GenericPageQuery';
@@ -11,6 +10,7 @@ import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
+import SectionCards from '../../components/SectionCards';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -58,36 +58,6 @@ const renderCarouselCards = (cards: (ICaruselCard | null)[]) =>
           <div className="button--inner">{card.link?.text}</div>
         </RouterLink>
       </Card>
-    ) : null,
-  );
-
-const renderCards = (cards: (ICard | null)[] | undefined | null) =>
-  cards?.map(card =>
-    card?.title && card.name ? (
-      <Card
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        key={card.name || undefined}
-        imageSrc={card.image?.file?.url}
-        title={{
-          className: '-flex-h',
-          link: (
-            <RouterLink
-              withoutDefaultClassName
-              className="heading"
-              classNames={{ color: 'black', size: 'lead' }}
-              link={{
-                href: card.link?.legacyUrl || card.link?.url || '',
-                label: card.title || '',
-              }}
-            >
-              {card.title}
-            </RouterLink>
-          ),
-          title: '',
-          withBtn: true,
-        }}
-        description={card.body || ''}
-      />
     ) : null,
   );
 
@@ -142,7 +112,7 @@ const LeasingExplainedContainer: FC<IProps> = ({ data }) => {
           <Heading size="large" color="black">
             {cards?.name || ''}
           </Heading>
-          {renderCards(cards?.cards)}
+          {cards?.cards && <SectionCards cards={cards} />}
         </div>
       </div>
       {metaData && (
