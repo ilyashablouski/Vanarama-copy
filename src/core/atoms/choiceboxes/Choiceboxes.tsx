@@ -9,7 +9,7 @@ import cx from 'classnames';
 import { IChoiceboxesProps, IChoice } from './interfaces';
 import Icon from '../icon';
 import BodyStyleIconMap from '../../../utils/bodyStyleIconMap';
-import getPartnerProperties from '../../../utils/partnerProperties';
+import { getPartnerProperties } from '../../../utils/partnerProperties';
 
 const Choiceboxes = forwardRef(
   (

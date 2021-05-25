@@ -12,7 +12,7 @@ import Loading from '../../atoms/loading';
 import CheckmarkSharp from '../../assets/icons/CheckmarkSharp';
 import CheckmarkCircleOutline from '../../assets/icons/CheckmarkCircleOutline';
 import Clock from '../../assets/icons/Clock';
-import getPartnerProperties from '../../../utils/partnerProperties';
+import { getPartnerProperties } from '../../../utils/partnerProperties';
 
 const LeaseScanner: FC<ILeaseScannerProps> = props => {
   const {
@@ -128,9 +128,9 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
   }, [startLoading, isInitialLoading]);
 
   useEffect(() => {
-    const partner = getPartnerProperties()
-    if (partner?.color) setCustomCTA(partner.color)
-  }, [])
+    const partner = getPartnerProperties();
+    if (partner?.color) setCustomCTA(partner.color);
+  }, []);
 
   return (
     <>
@@ -163,7 +163,7 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
         </div>
         <div className="button-wrapper">
           <Button
-            customCTAColor={customCTA || "null"}
+            customCTAColor={customCTA || 'null'}
             className="-fullwidth"
             label="Order Now"
             color="teal"

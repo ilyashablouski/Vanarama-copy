@@ -37,7 +37,7 @@ import { replaceReview } from '../../components/CustomerReviews/helpers';
 import PartnershipLogo from '../../components/Partnerships/PartnershipLogo';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
-import getPartnerProperties from '../../utils/partnerProperties';
+import { getPartnerProperties } from '../../utils/partnerProperties';
 import { getProductPageBreadCrumb, removeUrlQueryPart } from '../../utils/url';
 import {
   GetTrimAndColor_colourList as IColourList,
