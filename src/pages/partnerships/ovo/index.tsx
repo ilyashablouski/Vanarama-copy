@@ -96,6 +96,7 @@ const OvoHomePage: NextPage<IProps> = ({
         uuid,
         vehicleTypes,
         telephone,
+        logo,
       };
       const sovereignty = customerSovereignty || 7;
       setPartnerProperties(partnershipData, sovereignty);

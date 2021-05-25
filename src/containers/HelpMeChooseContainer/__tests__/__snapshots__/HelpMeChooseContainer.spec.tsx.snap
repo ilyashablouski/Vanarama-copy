@@ -23,6 +23,11 @@ exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
       <button
         className="choicebox"
         onClick={[Function]}
+        style={
+          Object {
+            "background": "initial",
+          }
+        }
         type="button"
       >
         Diesel
@@ -30,6 +35,11 @@ exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
       <button
         className="choicebox"
         onClick={[Function]}
+        style={
+          Object {
+            "background": "initial",
+          }
+        }
         type="button"
       >
         Petrol
@@ -104,6 +114,11 @@ exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
       <button
         className="choicebox"
         onClick={[Function]}
+        style={
+          Object {
+            "background": "initial",
+          }
+        }
         type="button"
       >
         Diesel
@@ -111,6 +126,11 @@ exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
       <button
         className="choicebox -active"
         onClick={[Function]}
+        style={
+          Object {
+            "background": "initial",
+          }
+        }
         type="button"
       >
         Petrol
