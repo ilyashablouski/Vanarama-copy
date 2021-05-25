@@ -9,8 +9,8 @@ import CheckmarkCircleOutline from 'core/assets/icons/CheckmarkCircleSharp';
 import { IBankAccountStatusProps } from './interface';
 
 function BankAccountStatus({
+  data,
   isLoading,
-  isValid,
   className,
 }: IBankAccountStatusProps) {
   const resultClassName = cx('bank-account-status', className);
@@ -25,7 +25,7 @@ function BankAccountStatus({
       </div>
     );
   }
-  if (isValid) {
+  if (data?.valid) {
     return (
       <div className={resultClassName}>
         <Icon
@@ -34,12 +34,12 @@ function BankAccountStatus({
           className="checkmark"
         />
         <Text color="success" size="lead">
-          Bank details successfully verified with Barclays.
+          Bank details successfully verified with {data.bankName}.
         </Text>
       </div>
     );
   }
-  if (isValid !== undefined) {
+  if (data) {
     return (
       <div className={resultClassName}>
         <Text color="danger" size="lead">

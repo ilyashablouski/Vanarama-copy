@@ -16,15 +16,15 @@ $modal-padding: $rem-200;
   border-radius: $border-radius-small;
   padding: $modal-padding;
   z-index: 901;
-  
+
   @include distribute-children($modal-padding + 1rem);
   @include tablet-desktop { padding: $modal-padding + 1rem; }
-  
+
   > .text,
   > .heading {
     display: block;
   }
-  
+
   > .heading:first-child + .text {
     margin-top: $rem-300;
   }
@@ -36,7 +36,7 @@ $modal-padding: $rem-200;
   &-container-large {
     max-width: $vp-small;
   }
-  
+
   &-wrap {
     display: none;
     flex-direction: column;
@@ -52,29 +52,31 @@ $modal-padding: $rem-200;
     right: 0;
     left: 0;
     bottom: 0;
-    
+
     &:target,
     &.-open {
       display: flex;
+      padding-top: 3rem;
+      padding-bottom: 3rem;
     }
-    
+
     > :not(.modal) {
       margin-top: $modal-gap;
       margin-bottom: $modal-gap;
     }
-    
+
     > :first-child:not(.modal) {
       margin-top: 0;
       height: 2rem;
       z-index: 99999;
     }
-    
+
     > :last-child:not(.modal) {
       margin-bottom: 0;
     }
 
   }
-  
+
   &-close {
     position: absolute;
     top: $modal-gap;
@@ -84,7 +86,7 @@ $modal-padding: $rem-200;
 
     > *{
       color: $medium;
-      &:active, 
+      &:active,
       &:hover{
         color: $white;
 
@@ -116,7 +118,7 @@ $modal-padding: $rem-200;
 
   & .form-insurance {
     min-width: 27rem;
-    
+
     @media screen and (max-width: 586px) {
       min-width: 80vw;
     }

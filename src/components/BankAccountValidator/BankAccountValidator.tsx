@@ -41,7 +41,7 @@ function BankAccountValidator({ sortCode, accountNumber }: IProps) {
 
   return (
     <BankAccountStatus
-      isValid={data?.bankAccountValidator?.valid}
+      data={data?.bankAccountValidator}
       isLoading={loading}
       isError={!!error}
     />

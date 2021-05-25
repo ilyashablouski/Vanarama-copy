@@ -8,6 +8,7 @@
 // ====================================================
 
 export interface BankAccountValidator_bankAccountValidator {
+  bankName: string | null;
   valid: boolean;
 }
 
