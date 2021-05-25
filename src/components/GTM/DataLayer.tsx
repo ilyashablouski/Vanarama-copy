@@ -15,8 +15,8 @@ const DataLayer: FC = () => {
     window.dataLayer.push = function(...args) {
       const result = dataLayerPush.apply(this, args);
 
-      if (window.dataLayerHasGtmDomEvent(args)) {
-        window.dataLayerCallback && window.dataLayerCallback();
+      if (window.dataLayerHasGtmDomEvent(args) && window.dataLayerCallback) {
+        window.dataLayerCallback();
       }
 
       return result;
