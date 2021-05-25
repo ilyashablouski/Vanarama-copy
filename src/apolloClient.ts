@@ -52,29 +52,29 @@ const httpLink = new HttpLink({
   },
 });
 
-const persistedQueryLink = new ApolloLink((operation, forward) => {
-  return forward(operation);
-}).split(
-  () =>
-    [Env.DEV, Env.UAT, Env.PRE_PROD, Env.PROD].includes(process.env.ENV as Env),
-  new ApolloLink((operation, forward) => {
-    return forward(operation);
-  }).split(
-    operation =>
-      PERSISTED_GRAPHQL_QUERIES_WITHOUT_CLOUDFLARE_CACHE.includes(
-        operation.operationName,
-      ),
-    createPersistedQueryLink({
-      useGETForHashedQueries: false,
-    }) as any,
-    createPersistedQueryLink({
-      useGETForHashedQueries: true,
-    }) as any,
-  ),
-  new ApolloLink((operation, forward) => {
-    return forward(operation);
-  }),
-);
+// const persistedQueryLink = new ApolloLink((operation, forward) => {
+//   return forward(operation);
+// }).split(
+//   () =>
+//     [Env.DEV, Env.UAT, Env.PRE_PROD, Env.PROD].includes(process.env.ENV as Env),
+//   new ApolloLink((operation, forward) => {
+//     return forward(operation);
+//   }).split(
+//     operation =>
+//       PERSISTED_GRAPHQL_QUERIES_WITHOUT_CLOUDFLARE_CACHE.includes(
+//         operation.operationName,
+//       ),
+//     createPersistedQueryLink({
+//       useGETForHashedQueries: false,
+//     }) as any,
+//     createPersistedQueryLink({
+//       useGETForHashedQueries: true,
+//     }) as any,
+//   ),
+//   new ApolloLink((operation, forward) => {
+//     return forward(operation);
+//   }),
+// );
 
 const retryLink = new RetryLink({
   delay: {
