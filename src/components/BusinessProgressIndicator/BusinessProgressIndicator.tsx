@@ -49,7 +49,10 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
   const queryParams = getUrlParam({
     companyUuid,
     isSoleTraderJourney,
-    redirect: currentStep < cachedLastStep ? undefined : asPath,
+    redirect:
+      currentStep < cachedLastStep && !asPath.includes('?')
+        ? undefined
+        : asPath,
   });
 
   // do not show redirect param in url
@@ -84,7 +87,7 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
             step={step}
             id={`step_${step}`}
             hidden={step === cachedLastStep && href !== pathname}
-            editing={href === pathname && step <= cachedLastStep}
+            editing={href === pathname && step < cachedLastStep}
           >
             <NextJsLink href={url} as={urlMask} passHref>
               <StepLink label={label} />
