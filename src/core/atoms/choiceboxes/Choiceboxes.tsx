@@ -97,7 +97,7 @@ const Choiceboxes = forwardRef(
                     background: `${partnershipColor}`,
                     border: `${partnershipColor}`,
                   }
-                : { background: 'initial' }
+                : {}
             }
             disabled={disabled}
             key={choice.value}
