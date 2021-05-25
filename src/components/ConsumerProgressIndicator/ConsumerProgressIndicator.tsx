@@ -31,7 +31,10 @@ const ConsumerProgressIndicator: React.FC = () => {
 
   const queryParams = getUrlParam({
     uuid,
-    redirect: currentStep < cachedLastStep ? undefined : asPath,
+    redirect:
+      currentStep < cachedLastStep && !asPath.includes('?')
+        ? undefined
+        : asPath,
   });
 
   // do not show redirect param in url
@@ -63,7 +66,7 @@ const ConsumerProgressIndicator: React.FC = () => {
             step={step}
             id={`step_${step}`}
             hidden={step === cachedLastStep && href !== pathname}
-            editing={href === pathname && step <= cachedLastStep}
+            editing={href === pathname && step < cachedLastStep}
           >
             <NextJsLink href={url} as={urlMask} passHref>
               <StepLink label={label} />

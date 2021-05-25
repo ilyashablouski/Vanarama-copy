@@ -24,9 +24,39 @@ import {
   IPartnerOffersData,
   partnerOffersRequest,
 } from '../../../utils/offers';
+import { Partner, PartnerVariables } from '../../../../generated/Partner';
+
+const Image = dynamic(() => import('core/atoms/image'), {
+  loading: () => <Skeleton count={3} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
+  loading: () => <Skeleton count={1} />,
+});
+const RouterLink = dynamic(() =>
+  import('../../../components/RouterLink/RouterLink'),
+);
+const Tabs = dynamic(() => import('core/molecules/tabs'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Tab = dynamic(() => import('core/molecules/tabs/Tab'), {
+  loading: () => <Skeleton count={1} />,
+});
+const TabList = dynamic(() => import('core/molecules/tabs/TabList'));
+const TabPanel = dynamic(() => import('core/molecules/tabs/TabPanel'), {
+  loading: () => <Skeleton count={1} />,
+});
+const TabPanels = dynamic(() => import('core/molecules/tabs/TabPanels'), {
+  loading: () => <Skeleton count={3} />,
+});
+const ProductCarousel = dynamic(
+  () => import('../../../components/ProductCarousel/ProductCarousel'),
+  {
+    loading: () => <Skeleton count={4} />,
+  },
+);
 
 interface IProps extends IPartnerOffersData {
-  data: any;
+  data: Partner;
 }
 
 const OvoHomePage: NextPage<IProps> = ({
@@ -49,39 +79,11 @@ const OvoHomePage: NextPage<IProps> = ({
     uuid,
     customerSovereignty,
     telephone,
-  } = data?.partner;
-  const { flag, body, image, titleTag } = data?.partner?.hero;
-  const { title } = logo;
-  const { url } = logo?.file;
-
-  const Image = dynamic(() => import('core/atoms/image'), {
-    loading: () => <Skeleton count={3} />,
-  });
-  const Text = dynamic(() => import('core/atoms/text'), {
-    loading: () => <Skeleton count={1} />,
-  });
-  const RouterLink = dynamic(() =>
-    import('../../../components/RouterLink/RouterLink'),
-  );
-  const Tabs = dynamic(() => import('core/molecules/tabs'), {
-    loading: () => <Skeleton count={1} />,
-  });
-  const Tab = dynamic(() => import('core/molecules/tabs/Tab'), {
-    loading: () => <Skeleton count={1} />,
-  });
-  const TabList = dynamic(() => import('core/molecules/tabs/TabList'));
-  const TabPanel = dynamic(() => import('core/molecules/tabs/TabPanel'), {
-    loading: () => <Skeleton count={1} />,
-  });
-  const TabPanels = dynamic(() => import('core/molecules/tabs/TabPanels'), {
-    loading: () => <Skeleton count={3} />,
-  });
-  const ProductCarousel = dynamic(
-    () => import('../../../components/ProductCarousel/ProductCarousel'),
-    {
-      loading: () => <Skeleton count={4} />,
-    },
-  );
+  } = data?.partner || {};
+  const { flag, body, image } = data?.partner?.hero || {};
+  const { titleTag } = data?.partner?.featured || {};
+  const { title } = logo || {};
+  const { url } = logo?.file || {};
 
   const [activeTab, setActiveTab] = useState(0);
   const { cachedLeaseType } = useLeaseType(null);
@@ -124,8 +126,10 @@ const OvoHomePage: NextPage<IProps> = ({
   return (
     <>
       <Hero
-        topHeader={<PartnershipLogo logo={url} imageAlt={title} />}
-        customCTAColor={colourPrimary}
+        topHeader={
+          <PartnershipLogo logo={url || ''} imageAlt={title || undefined} />
+        }
+        customCTAColor={colourPrimary || ''}
         hideBenefitsBar
       >
         <HeroHeading text={flag || ''} />
@@ -150,13 +154,13 @@ const OvoHomePage: NextPage<IProps> = ({
             alt="Hero Image"
             dataTestId="insurance_hero-image"
             size="expand"
-            src={image.file.url}
+            src={image?.file?.url || ''}
             plain
             className="hero--image"
           />
         </div>
       </Hero>
-      <PageHeadingSection titleTag={titleTag} header={flag} />
+      <PageHeadingSection titleTag={titleTag || ''} header={flag || ''} />
 
       <section className="tabs-wrap row:tabbed">
         <Tabs
@@ -202,7 +206,7 @@ const OvoHomePage: NextPage<IProps> = ({
                         countItems={
                           vehicleType?.products?.productCarousel?.length || 6
                         }
-                        customCTABackground={colourPrimary}
+                        customCTABackground={colourPrimary || undefined}
                         dataTestIdBtn="van-view-offer"
                       />
                     </LazyLoadComponent>
@@ -228,8 +232,8 @@ const OvoHomePage: NextPage<IProps> = ({
                         <div
                           className="button--inner"
                           style={{
-                            backgroundColor: colourPrimary,
-                            borderColor: colourPrimary,
+                            backgroundColor: colourPrimary || undefined,
+                            borderColor: colourPrimary || undefined,
                           }}
                         >
                           View More
@@ -246,7 +250,7 @@ const OvoHomePage: NextPage<IProps> = ({
       <PartnershipFeatureSection featured={featured} />
       <WhyLeaseWithVanaramaTiles
         title="Why Lease With Vanarama"
-        tiles={tiles}
+        tiles={tiles || []}
       />
     </>
   );
@@ -256,14 +260,14 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
 
-    const { data } = await client.query({
+    const { data } = await client.query<Partner, PartnerVariables>({
       query: PARTNER,
       variables: {
         slug: 'ovo',
       },
     });
 
-    const fuelTypes = mapFuelSearchQueryToParam(data.partner.fuelTypes);
+    const fuelTypes = mapFuelSearchQueryToParam(data?.partner?.fuelTypes);
 
     const {
       partnerProductsCar,
@@ -276,12 +280,12 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
-        partnerProductsCar,
-        partnerProductsVan,
-        partnerProductsCarDerivatives,
-        partnerProductsVanDerivatives,
-        vehicleListUrlData,
+        data: data || null,
+        partnerProductsCar: partnerProductsCar || null,
+        partnerProductsVan: partnerProductsVan || null,
+        partnerProductsCarDerivatives: partnerProductsCarDerivatives || null,
+        partnerProductsVanDerivatives: partnerProductsVanDerivatives || null,
+        vehicleListUrlData: vehicleListUrlData || null,
       },
     };
   } catch (err) {

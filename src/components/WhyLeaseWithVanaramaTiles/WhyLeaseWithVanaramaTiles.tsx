@@ -3,19 +3,12 @@ import TileLink from 'components/TileLink/TileLink';
 import dynamic from 'next/dynamic';
 import React from 'react';
 import getTitleTag from 'utils/getTitleTag';
+import { Partner_partner_tiles as IPartnerTiles } from '../../../generated/Partner';
 
 interface IWhyLeaseWithVanaramaTiles {
   title: string;
   titleTag?: string;
-  tiles: {
-    title: string;
-    body: string;
-    image: {
-      file: {
-        url: string;
-      };
-    };
-  }[];
+  tiles: IPartnerTiles[];
 }
 
 const WhyLeaseWithVanaramaTiles = ({
