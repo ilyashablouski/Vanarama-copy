@@ -82,6 +82,16 @@
     font-weight: $font-weight-semibold;
   }
 
+  &-current--hidden .-icon {
+    background: $orange;
+    font-weight: $font-weight-regular;
+  }
+
+  &-current--hidden .-label {
+    color: $darker;
+    font-weight: $font-weight-regular;
+  }
+
   &-current .-label {
     color: $black;
     font-weight: $font-weight-semibold;

@@ -83,6 +83,7 @@ const BusinessProgressIndicator: React.FC<IBusinessProgressIndicatorProps> = ({
             key={href}
             step={step}
             id={`step_${step}`}
+            hidden={step === cachedLastStep && href !== pathname}
             editing={href === pathname && step <= cachedLastStep}
           >
             <NextJsLink href={url} as={urlMask} passHref>

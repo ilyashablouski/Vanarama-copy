@@ -12,6 +12,7 @@ interface IProps extends IBaseProps, HTMLAttributes<HTMLLIElement> {
    * A number representing the order of this step
    */
   step: number;
+  hidden?: boolean;
 }
 
 const Step: React.FC<IProps> = ({
@@ -20,16 +21,19 @@ const Step: React.FC<IProps> = ({
   dataTestId,
   editing,
   step,
+  hidden,
   ...rest
 }) => {
   const { activeStep } = useProgressContext();
   const status = getStatus(activeStep, step, editing);
+
   return (
     <li
       {...rest}
       className={cx('progress-step', className, {
         'progress-step-complete': status === 'complete',
-        'progress-step-current': status === 'current',
+        'progress-step-current': status === 'current' && !hidden,
+        'progress-step-current--hidden': status === 'current' && hidden,
         'progress-step-editing': status === 'editing',
         'progress-step-incomplete': status === 'incomplete',
       })}
@@ -46,7 +50,7 @@ function getStatus(
   editing?: boolean,
 ): StepStatus {
   if (editing) {
-    return 'editing';
+    return 'current';
   }
 
   if (currentStep < activeStep) {
