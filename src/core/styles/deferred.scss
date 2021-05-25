@@ -5,10 +5,10 @@ $include-presentation-styles: false !default;
 // utilities and global styles
 @import '../util/mixins.scss';
 //@import '../util/font-face.scss';
-@import '../util/global.scss';
+//@import '../util/global.scss';
 @import '../util/color.scss';
-@import '../util/size.scss';
-@import '../util/markdown.scss';
+//@import '../util/size.scss';
+//@import '../util/markdown.scss';
 
 // page templates
 @import '../templates/page-vars.scss';
