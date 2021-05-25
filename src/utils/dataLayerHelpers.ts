@@ -102,6 +102,8 @@ interface ICategory {
 
 declare global {
   interface Window {
+    dataLayerHasGtmDomEvent: (dataLayer: object[]) => boolean;
+    dataLayerCallback: () => void;
     dataLayer: object[];
   }
 }
@@ -194,6 +196,17 @@ export const pushDetail = (
 //     event: 'gtm.js',
 //   });
 // };
+
+export const checkForGtmDomEvent = (callback: () => void) => {
+  window.dataLayerCallback = callback;
+
+  if (
+    window.dataLayerHasGtmDomEvent &&
+    window.dataLayerHasGtmDomEvent(window.dataLayer)
+  ) {
+    callback();
+  }
+};
 
 export const pushPageData = async ({
   pathname,
