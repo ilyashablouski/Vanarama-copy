@@ -10,7 +10,7 @@ import Button from 'core/atoms/button';
 import decode from 'decode-html';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
-import css from '!!raw-loader!../../../public/styles/pages/pdp.css';
+import css from '!!raw-loader!../../../public/styles/pages/details-page.css';
 import {
   pushPDPDataLayer,
   pushAddToCartDataLayer,
@@ -491,7 +491,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   return (
     <>
-      {/* include inline styles for pdp page */}
       <NextHead>
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
