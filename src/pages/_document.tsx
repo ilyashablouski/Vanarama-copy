@@ -53,11 +53,11 @@ class MyDocument extends Document {
         </Head>
         <body>
           <Main />
+          <GTMDataLayerScript />
           <NextScript />
           {scriptEnvs.vwo.includes(env) && <VWOScript />}
           {scriptEnvs.gtm.includes(env) && (
             <>
-              <GTMDataLayerScript />
               <GTMScript />
               <GTMBody />
             </>

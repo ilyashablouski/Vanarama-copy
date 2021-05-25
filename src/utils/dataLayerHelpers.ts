@@ -102,7 +102,10 @@ interface ICategory {
 
 declare global {
   interface Window {
-    dataLayer: object[];
+    dataLayer: object[] & {
+      isDomReady: () => boolean;
+      callback?: () => void;
+    };
   }
 }
 

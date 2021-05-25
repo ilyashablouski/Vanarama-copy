@@ -219,7 +219,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       data?.vehicleConfigurationByCapId &&
       leaseScannerData?.quoteByCapId
     ) {
-      pushAnalytics();
+      if (window.dataLayer.isDomReady()) pushAnalytics();
+      else window.dataLayer.callback = pushAnalytics;
       setFirstTimePushDataLayer(false);
     }
   }, [
