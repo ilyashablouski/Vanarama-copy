@@ -198,13 +198,10 @@ export const pushDetail = (
 // };
 
 export const pushCustomEvents = (callback: () => void) => {
-  if (!window.dataLayer) {
-    return;
-  }
+  window.dataLayerCallback = callback;
 
-  if (!window.hasGtmDomEvent(window.dataLayer)) {
-    window.dataLayerCallback = callback;
-  } else {
+  if (!window.hasGtmDomEvent) return;
+  if (window.hasGtmDomEvent(window.dataLayer)) {
     callback();
   }
 };

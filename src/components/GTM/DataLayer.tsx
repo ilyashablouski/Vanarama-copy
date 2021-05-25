@@ -12,7 +12,6 @@ const DataLayer: FC = () => {
       return !!dataLayer.find(({event}) => event === 'gtm.dom');
     }
     
-    window.dataLayerCallback = null;
     window.dataLayer.push = function(...args) {
       const result = dataLayerPush.apply(this, args);
 
