@@ -42,7 +42,7 @@ describe('dataLayerHelpers', () => {
 
   describe('pushToDataLayer', () => {
     it('pushToDataLayer should push to window', () => {
-      window.dataLayer = [
+      (window.dataLayer as object[]) = [
         {
           bodyType: { name: 'Pick-Up' },
         },
