@@ -38,9 +38,7 @@ const SectionCards = ({ cards }: IProps) => (
           }}
           description={card.body || ''}
         />
-      ) : (
-        <></>
-      ),
+      ) : null,
     )}
   </>
 );

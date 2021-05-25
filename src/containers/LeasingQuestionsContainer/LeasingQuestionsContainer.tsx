@@ -112,7 +112,7 @@ const LeasingExplainedContainer: FC<IProps> = ({ data }) => {
           <Heading size="large" color="black">
             {cards?.name || ''}
           </Heading>
-          {cards?.cards && <SectionCards cards={cards} />}
+          {cards?.cards && <SectionCards cards={cards.cards} />}
         </div>
       </div>
       {metaData && (
