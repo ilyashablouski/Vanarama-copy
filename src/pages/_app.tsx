@@ -5,7 +5,6 @@ import { AppProps } from 'next/app';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
-import { isFirefox } from 'react-device-detect';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { removeUrlQueryPart, SEARCH_PAGES } from '../utils/url';
 import { CompareContext } from '../utils/comparatorTool';
@@ -78,8 +77,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       router.pathname !== '/car-leasing/[...details-page]' &&
       router.pathname !== '/van-leasing/[...details-page]'
     )
-      if (isFirefox) setTimeout(pushAnalytics, 2000);
-      else pushAnalytics();
+      pushAnalytics();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
 
