@@ -1,5 +1,7 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
+import { useRouter } from 'next/router';
+import React from 'react';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
@@ -11,6 +13,7 @@ import { IBlogPost } from '../../../../models/IBlogsProps';
 import { BlogPosts } from '../../../../../generated/BlogPosts';
 import { getBlogPaths } from '../../../../utils/pageSlugs';
 import { decodeData, encodeData } from '../../../../utils/data';
+import Skeleton from '../../../../components/Skeleton';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
@@ -18,7 +21,9 @@ const BlogPost: NextPage<IBlogPost> = ({
   blogPosts: encodedData,
   blogPostsError,
 }) => {
-  if (error || blogPostsError || !data) {
+  const { isFallback } = useRouter();
+
+  if (error || blogPostsError) {
     return <DefaultErrorPage statusCode={404} />;
   }
   // De-obfuscate data for user
@@ -37,14 +42,20 @@ const BlogPost: NextPage<IBlogPost> = ({
   }));
 
   return (
-    <BlogPostContainer
-      articles={articles}
-      body={body}
-      name={name}
-      image={image}
-      breadcrumbsItems={breadcrumbsItems}
-      metaData={metaData}
-    />
+    <>
+      {isFallback ? (
+        <Skeleton count={30} />
+      ) : (
+        <BlogPostContainer
+          articles={articles}
+          body={body}
+          name={name}
+          image={image}
+          breadcrumbsItems={breadcrumbsItems}
+          metaData={metaData}
+        />
+      )}
+    </>
   );
 };
 
@@ -108,7 +119,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
-        data,
+        data: data || { notFound: true },
         error: errors ? errors[0] : null,
         blogPosts: newBlogPostsData,
         blogPostsLoading,
@@ -121,6 +132,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       props: {
         error: true,
       },
+      notFound: true,
     };
   }
 }
