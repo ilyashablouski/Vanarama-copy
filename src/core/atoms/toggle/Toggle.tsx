@@ -51,10 +51,20 @@ const Toggle: React.FC<IToggleProps> = React.forwardRef<
         htmlFor={id}
       >
         <span className="toggle--switch">
-          <span className="toggle--off" style={customStyles}>
-            {onLabel}
-          </span>
-          <span className="toggle--on">{offLabel}</span>
+          {checked ? (
+            <span className="toggle--off" style={customStyles}>
+              {onLabel}
+            </span>
+          ) : (
+            <span className="toggle--off">{onLabel}</span>
+          )}
+          {!checked ? (
+            <span className="toggle--on" style={customStyles}>
+              {onLabel}
+            </span>
+          ) : (
+            <span className="toggle--on">{offLabel}</span>
+          )}
         </span>
       </label>
     </div>
