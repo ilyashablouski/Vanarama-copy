@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import { IChoice } from 'core/atoms/choiceboxes/interfaces';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { isArraySame } from '../../utils/helpers';
+import { getPartnerProperties } from '../../utils/partnerProperties';
 import {
   IChoiceBoxesData,
   IFilterContainerProps,
@@ -13,7 +14,6 @@ import {
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import Skeleton from '../../components/Skeleton';
 import { getValueKey } from './helpers';
-import getPartnerProperties from 'utils/partnerProperties';
 
 const SearchFilters = dynamic(() => import('core/organisms/search-filters'), {
   loading: () => <Skeleton count={1} />,
@@ -64,7 +64,7 @@ const FiltersContainer = ({
   );
   const isDesktop = useMediaQuery('(min-width: 1217px)');
   const [isOpenFilter, setFilterExpandStatus] = useState(false);
-  const [customCTAColor, setCustomCTAColor] = useState()
+  const [customCTAColor, setCustomCTAColor] = useState();
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
@@ -75,9 +75,9 @@ const FiltersContainer = ({
 
   useEffect(() => {
     if (getPartnerProperties()) {
-      setCustomCTAColor(getPartnerProperties()?.color)
+      setCustomCTAColor(getPartnerProperties()?.color);
     }
-  }, [])
+  }, []);
 
   const choiseBoxReference = {} as any;
 

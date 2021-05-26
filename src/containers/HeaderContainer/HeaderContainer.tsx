@@ -169,7 +169,7 @@ const HeaderContainer: FC = () => {
     }
   }, []);
 
-  useEffect(() => {    
+  useEffect(() => {
     setTimeout(() => {
       if (getPartnerProperties()) {
         const partnerDetails = getPartnerProperties();
@@ -186,7 +186,7 @@ const HeaderContainer: FC = () => {
           }
         }
       }
-    }, 500)
+    }, 500);
   }, []);
 
   if (partnership) {
