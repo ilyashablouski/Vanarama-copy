@@ -20,7 +20,12 @@ const Toggle: React.FC<IToggleProps> = React.forwardRef<
     onChange,
     onFocus,
     onLabel,
+    customCTAColor
   } = props;
+
+  const customStyles = {
+    background: customCTAColor,
+  }
 
   return (
     <div className={cx('toggle--wrapper', className)}>
@@ -45,7 +50,7 @@ const Toggle: React.FC<IToggleProps> = React.forwardRef<
         htmlFor={id}
       >
         <span className="toggle--switch">
-          <span className="toggle--off">{onLabel}</span>
+          <span className="toggle--off" style={customStyles}>{onLabel}</span>
           <span className="toggle--on">{offLabel}</span>
         </span>
       </label>
