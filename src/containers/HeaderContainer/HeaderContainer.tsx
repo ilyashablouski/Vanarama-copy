@@ -169,21 +169,25 @@ const HeaderContainer: FC = () => {
     }
   }, []);
 
-  useEffect(() => {
-    if (getPartnerProperties()) {
-      const partnerDetails = getPartnerProperties();
-      const { telephone } = partnerDetails;
-      if (telephone) {
-        const hrefNumber = telephone.replace(/\s/g, '');
-        const phoneData = {
-          href: `tel:${hrefNumber}`,
-          label: telephone,
-          linkType: LinkTypes.external,
-        };
-        setPartnershipPhoneLink(phoneData);
+  useEffect(() => {    
+    setTimeout(() => {
+      if (getPartnerProperties()) {
+        const partnerDetails = getPartnerProperties();
+        if (partnerDetails) {
+          const { telephone } = partnerDetails;
+          if (telephone) {
+            const hrefNumber = telephone.replace(/\s/g, '');
+            const phoneData = {
+              href: `tel:${hrefNumber}`,
+              label: telephone,
+              linkType: LinkTypes.external,
+            };
+            setPartnershipPhoneLink(phoneData);
+          }
+        }
       }
-    }
-  }, [getPartnerProperties()]);
+    }, 500)
+  }, []);
 
   if (partnership) {
     return (
