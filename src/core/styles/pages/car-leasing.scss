@@ -1,0 +1,8 @@
+// global variables (like color, spacing, border-radius etc)
+@import '../../variables';
+
+// utilities and global styles
+@import '../../util/mixins';
+
+// components (atoms)
+@import '../../atoms/choiceboxes/choiceboxes.scss';

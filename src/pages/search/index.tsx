@@ -64,8 +64,8 @@ export async function getServerSideProps(context: NextPageContext) {
   const { data } = (await ssrCMSQueryExecutor(
     client,
     contextData,
-    true,
-    '',
+    false,
+    'isGlobalSearch',
   )) as ApolloQueryResult<GenericPageQuery>;
   let responseCarsCapIds;
   let responseVansCapIds;

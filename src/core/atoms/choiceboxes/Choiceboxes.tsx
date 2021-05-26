@@ -9,6 +9,7 @@ import cx from 'classnames';
 import { IChoiceboxesProps, IChoice } from './interfaces';
 import Icon from '../icon';
 import BodyStyleIconMap from '../../../utils/bodyStyleIconMap';
+import { getPartnerProperties } from '../../../utils/partnerProperties';
 
 const Choiceboxes = forwardRef(
   (
@@ -30,6 +31,7 @@ const Choiceboxes = forwardRef(
   ) => {
     const [currentChoices, setCurrentChoices] = useState(choices);
     const [clearMultiSelectActive, setClearMultiSelectActive] = useState(false);
+    const [partnershipColor, setPartnerShipColor] = useState(null);
 
     const changeChoices = (index: number) => {
       const changedChoices = currentChoices.map(
@@ -62,6 +64,13 @@ const Choiceboxes = forwardRef(
       }
     }, [setIndex]);
 
+    useEffect(() => {
+      const partner = getPartnerProperties();
+      if (partner?.color) {
+        setPartnerShipColor(partner.color);
+      }
+    }, []);
+
     useImperativeHandle(ref, () => ({
       updateState() {
         setCurrentChoices(choices);
@@ -82,6 +91,14 @@ const Choiceboxes = forwardRef(
       <div className={cx('choiceboxes', className, `-${color}`)}>
         {currentChoices.map((choice: IChoice, index: number) => (
           <button
+            style={
+              choice.active && partnershipColor
+                ? {
+                    background: `${partnershipColor}`,
+                    border: `${partnershipColor}`,
+                  }
+                : {}
+            }
             disabled={disabled}
             key={choice.value}
             type="button"

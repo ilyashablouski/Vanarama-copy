@@ -6,6 +6,7 @@ import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import NextHead from 'next/head';
 import { removeUrlQueryPart, SEARCH_PAGES } from '../utils/url';
 import { CompareContext } from '../utils/comparatorTool';
 import {
@@ -26,6 +27,7 @@ import {
 import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
+import { PAGES_WITH_DEFERRED_STYLES } from '../components/Head/defaults';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -161,7 +163,8 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       <LazyLoadComponent>
         <ToastContainer />
       </LazyLoadComponent>
-      <Deferred />
+
+      {!PAGES_WITH_DEFERRED_STYLES.includes(router.pathname) && <Deferred />}
     </>
   );
 };

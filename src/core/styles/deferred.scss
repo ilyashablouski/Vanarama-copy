@@ -3,12 +3,12 @@ $include-presentation-styles: false !default;
 @import '../variables.scss';
 
 // utilities and global styles
+//@import '../util/font-face.scss';
 @import '../util/mixins.scss';
-@import '../util/font-face.scss';
-@import '../util/global.scss';
+//@import '../util/global.scss';
 @import '../util/color.scss';
-@import '../util/size.scss';
-@import '../util/markdown.scss';
+//@import '../util/size.scss';
+//@import '../util/markdown.scss';
 
 // page templates
 @import '../templates/page-vars.scss';
@@ -25,7 +25,7 @@ $include-presentation-styles: false !default;
 @import '../atoms/avatar/avatar.scss';
 @import '../atoms/loading/loading.scss';
 @import '../atoms/pagination/pagination.scss';
-@import '../atoms/link/link.scss';
+//@import '../atoms/link/link.scss';
 @import '../atoms/list/list.scss';
 @import '../atoms/media/media.scss';
 @import '../atoms/numeric-input/numeric-input.scss';
@@ -43,8 +43,8 @@ $include-presentation-styles: false !default;
 @import '../molecules/accordion/accordion.scss';
 // @import '../molecules/formgroup/formgroup.scss';
 @import '../molecules/ivan-cta/ivan-cta.scss';
-@import '../molecules/modal/modal.scss';
-@import '../molecules/trustpilot/trustpilot.scss';
+//@import '../molecules/modal/modal.scss';
+//@import '../molecules/trustpilot/trustpilot.scss';
 @import '../molecules/review/review.scss';
 @import '../molecules/notification/notification.scss';
 @import '../molecules/progress-indicator/progress-indicator.scss';
@@ -58,7 +58,7 @@ $include-presentation-styles: false !default;
 @import '../organisms/league/league.scss';
 @import '../organisms/slideout-modal/slideout-modal.scss';
 @import '../organisms/bank-account-status/bank-account-status.scss';
-@import '../organisms/lease-scanner/lease-scanner.scss';
+//@import '../organisms/lease-scanner/lease-scanner.scss';
 @import '../organisms/comparator-bar/comparator-bar.scss';
 @import '../organisms/comparator-table/comparator-table.scss';
 @import '../organisms/icon-list/icon-list.scss';

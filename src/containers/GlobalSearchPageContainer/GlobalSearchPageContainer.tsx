@@ -22,6 +22,8 @@ import { GlobalSearchCardsData_productCard as ICardsData } from '../../../genera
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
+import { getSectionsData } from '../../utils/getSectionsData';
+import SectionCards from '../../components/SectionCards';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -171,6 +173,12 @@ const GlobalSearchPageContainer = ({
     vehiclesList.length,
   ]);
 
+  const cards = useMemo(
+    () =>
+      getSectionsData(['sections', 'cards', 'cards'], pageData?.genericPage),
+    [pageData],
+  );
+
   const getProductCardData = (capId: string, vehicleType: VehicleTypeEnum) => {
     return vehiclesCardsData?.[vehicleType].find(x => x?.capId === capId);
   };
@@ -225,6 +233,13 @@ const GlobalSearchPageContainer = ({
             size="regular"
             dataTestId="LoadMore"
           />
+        </div>
+      )}
+      {totalResults === 0 && (
+        <div className="row:bg-lighter -col-300">
+          <div className="row:cards-3col">
+            {cards && <SectionCards cards={cards} />}
+          </div>
         </div>
       )}
     </>

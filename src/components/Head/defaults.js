@@ -7,3 +7,14 @@ export const fb = {
   appId: 243697725689492,
   admins: 1153795855,
 };
+
+export const PAGES_WITH_DEFERRED_STYLES = [
+  '/',
+  '/leasing-offers',
+  '/car-leasing',
+  '/van-leasing',
+  '/pickup-truck-leasing',
+  '/electric-leasing',
+  '/car-leasing/[...details-page]',
+  '/van-leasing/[...details-page]',
+];

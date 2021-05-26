@@ -2,7 +2,13 @@ import React, { FC } from 'react';
 import NextHead from 'next/head';
 import { useRouter } from 'next/router';
 import { IHeadProps } from './interface';
-import { defaultTitle, twitter, defaultImage, fb } from './defaults';
+import {
+  defaultTitle,
+  twitter,
+  defaultImage,
+  fb,
+  PAGES_WITH_DEFERRED_STYLES,
+} from './defaults';
 import { FONT_LIST, FONT_PATH } from './fonts';
 import { Env } from '../../utils/env';
 import { removeUrlQueryPart } from '../../utils/url';
@@ -63,7 +69,11 @@ const Head: FC<IHeadProps> = props => {
           />
         );
       })}
-      <link rel="preload" href="/styles/deferred.css" as="style" />
+
+      {!PAGES_WITH_DEFERRED_STYLES.includes(router.pathname) && (
+        <link rel="preload" href="/styles/deferred.css" as="style" />
+      )}
+
       {/* Meta */}
       {metaRobots && <meta name="robots" content={metaRobots} />}
       {metaDescription && <meta name="description" content={metaDescription} />}
