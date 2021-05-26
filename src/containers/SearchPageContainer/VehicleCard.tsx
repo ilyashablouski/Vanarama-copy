@@ -70,7 +70,7 @@ const VehicleCard = React.memo(
     const extraStyles = {
       background: customCTAColor,
       borderColor: customCTAColor,
-    }
+    };
 
     return (
       <Card
@@ -150,7 +150,9 @@ const VehicleCard = React.memo(
             className="button"
             dataTestId="view-offer"
           >
-            <div className="button--inner" style={extraStyles}>View Offer</div>
+            <div className="button--inner" style={extraStyles}>
+              View Offer
+            </div>
           </RouterLink>
         </div>
       </Card>
