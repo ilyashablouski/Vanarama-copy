@@ -41,6 +41,7 @@ interface IVehicleCardProps {
   isModelPage?: boolean;
   url: string;
   derivativeId?: string | null;
+  customCTAColor?: string;
 }
 
 const VehicleCard = React.memo(
@@ -53,6 +54,7 @@ const VehicleCard = React.memo(
     data,
     bodyStyle,
     isModelPage,
+    customCTAColor,
   }: IVehicleCardProps) => {
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
@@ -65,6 +67,10 @@ const VehicleCard = React.memo(
             `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
         }
       : {};
+    const extraStyles = {
+      background: customCTAColor,
+      borderColor: customCTAColor,
+    }
 
     return (
       <Card
@@ -144,7 +150,7 @@ const VehicleCard = React.memo(
             className="button"
             dataTestId="view-offer"
           >
-            <div className="button--inner">View Offer</div>
+            <div className="button--inner" style={extraStyles}>View Offer</div>
           </RouterLink>
         </div>
       </Card>

@@ -72,6 +72,8 @@ import { FilterFields } from '../FiltersContainer/config';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { getPartnerProperties } from '../../utils/partnerProperties';
+import { TColor } from '../../types/color';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -242,6 +244,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(true);
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
   const [pageOffset, setPageOffset] = useState(0);
+  const [customCTAColor, setCustomCTAColor] = useState();
+  const [customTextColor, setCustomTextColor] = useState<TColor>();
 
   useEffect(() => {
     window.scrollTo({
@@ -255,6 +259,16 @@ const SearchPageContainer: React.FC<IProps> = ({
     const type = isPersonal ? 'Personal' : 'Business';
     setCachedLeaseType(type);
   }, [isPersonal, setCachedLeaseType]);
+
+  useEffect(() => {
+    const partnerActive = getPartnerProperties();
+    if (partnerActive) {
+      setCustomCTAColor(getPartnerProperties().color);
+      if (partnerActive.slug === 'ovo') {
+        setCustomTextColor('white');
+      }
+    }
+  }, []);
 
   // when we change page with one dynamic route by Next router(like from car-leasing/coupe to car-leasing/saloon)
   // Next doesn't call a ssr requests, this workaround should call request for page data on client side
@@ -960,18 +974,20 @@ const SearchPageContainer: React.FC<IProps> = ({
               cardsData={cardsData}
               vehiclesList={vehiclesList}
               isModelPage={isModelPage}
+              customCTAColor={customCTAColor}
             />
           </div>
           {!(isMakePage || isAllMakesPage) ? (
             <div className="pagination">
               {totalCount > vehiclesList?.length && (
                 <Button
-                  color="teal"
+                  color={customTextColor || 'teal'}
                   fill="outline"
                   label="Load More"
                   onClick={onLoadMore}
                   size="regular"
                   dataTestId="LoadMore"
+                  customCTAColor={customCTAColor}
                 />
               )}
             </div>
