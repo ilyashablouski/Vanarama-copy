@@ -25,6 +25,7 @@ const Toggle: React.FC<IToggleProps> = React.forwardRef<
 
   const customStyles = {
     background: customCTAColor,
+    borderColor: customCTAColor,
   }
 
   return (

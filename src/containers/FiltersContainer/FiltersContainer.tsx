@@ -13,6 +13,7 @@ import {
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import Skeleton from '../../components/Skeleton';
 import { getValueKey } from './helpers';
+import getPartnerProperties from 'utils/partnerProperties';
 
 const SearchFilters = dynamic(() => import('core/organisms/search-filters'), {
   loading: () => <Skeleton count={1} />,
@@ -63,6 +64,7 @@ const FiltersContainer = ({
   );
   const isDesktop = useMediaQuery('(min-width: 1217px)');
   const [isOpenFilter, setFilterExpandStatus] = useState(false);
+  const [customCTAColor, setCustomCTAColor] = useState()
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
@@ -70,6 +72,12 @@ const FiltersContainer = ({
   const [selectedFilterTags, setSelectedFilterTags] = useState(
     [] as ISelectedWithOrder[],
   );
+
+  useEffect(() => {
+    if (getPartnerProperties()) {
+      setCustomCTAColor(getPartnerProperties()?.color)
+    }
+  }, [])
 
   const choiseBoxReference = {} as any;
 
@@ -314,6 +322,7 @@ const FiltersContainer = ({
         onChange={toggleHandler}
         checked={isPersonal}
         className="search-filters--toggle"
+        customCTAColor={customCTAColor}
       />
       {renderFilters({
         setSelectedFiltersState,
