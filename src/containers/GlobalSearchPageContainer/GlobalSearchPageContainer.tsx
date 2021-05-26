@@ -21,6 +21,7 @@ import CommonDescriptionContainer from '../SearchPageContainer/CommonDescription
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
+import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { getSectionsData } from '../../utils/getSectionsData';
 import SectionCards from '../../components/SectionCards';
 
@@ -145,6 +146,14 @@ const GlobalSearchPageContainer = ({
       getVehiclesCache();
     }
   }, [getVehiclesCache, preLoadTextSearchList]);
+
+  useFirstRenderEffect(() => {
+    if (preLoadTextSearchList.fullTextSearchVehicleList?.vehicles) {
+      setVehicleList(preLoadTextSearchList.fullTextSearchVehicleList?.vehicles);
+      setCarCardsData(carsData || []);
+      setLcvCardsData(vansData || []);
+    }
+  }, [preLoadTextSearchList]);
 
   const onLoadMore = () => {
     setVehicleList(prevState => [...prevState, ...vehiclesListCache]);
