@@ -30,12 +30,16 @@ const GlobalSearchContainer = () => {
   // TODO: it's feature flag, should be removed after release
   const isVisible = Cookies.get('DIG-5552') === '1';
   const onSubmit = (value: string) => {
-    router.push({
-      pathname: '/search',
-      query: {
-        searchTerm: value,
+    router.push(
+      {
+        pathname: '/search',
+        query: {
+          searchTerm: value,
+        },
       },
-    });
+      undefined,
+      { shallow: false },
+    );
   };
 
   useEffect(() => {

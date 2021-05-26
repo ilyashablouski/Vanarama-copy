@@ -253,6 +253,8 @@ export const ssrCMSQueryExecutor = async (
       );
     case 'isAllMakesPage':
       return onCallQuery(client, GET_ALL_MAKES_PAGE, '');
+    case 'isGlobalSearch':
+      return onCallQuery(client, GENERIC_PAGE, 'search');
     default:
       return onCallQuery(client, GENERIC_PAGE, `${searchType}/search`);
   }
