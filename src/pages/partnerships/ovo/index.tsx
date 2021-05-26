@@ -1,11 +1,11 @@
 import createApolloClient from 'apolloClient';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React, { useEffect, useState } from 'react';
-import Cookies from 'js-cookie';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import { setSessionStorage } from 'utils/windowSessionStorage';
 import PageHeadingSection from '../../../components/PageHeadingSection';
 import Hero, { HeroHeading } from '../../../components/Hero';
 import PartnershipLogo from '../../../components/Partnerships/PartnershipLogo';
@@ -17,6 +17,7 @@ import { PARTNER } from '../../../gql/partner';
 import useLeaseType from '../../../hooks/useLeaseType';
 import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 import {
+  getPartnerProperties,
   setPartnerFooter,
   setPartnerProperties,
 } from '../../../utils/partnerProperties';
@@ -91,7 +92,7 @@ const OvoHomePage: NextPage<IProps> = ({
 
   useEffect(() => {
     // check if partnership cookie has been set
-    if (!Cookies.get('activePartnership')) {
+    if (!getPartnerProperties()) {
       const partnershipData = {
         slug,
         color: colourPrimary,
@@ -103,6 +104,7 @@ const OvoHomePage: NextPage<IProps> = ({
       const sovereignty = customerSovereignty || 7;
       setPartnerProperties(partnershipData, sovereignty);
     }
+    setSessionStorage('partnershipSessionActive', 'true');
     setPartnerFooter(footer);
   }, []);
 

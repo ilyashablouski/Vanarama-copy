@@ -3,9 +3,8 @@ import { gql, useMutation, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import { useMediaQuery } from 'react-responsive';
-import Cookies from 'js-cookie';
 import { ILink } from 'core/interfaces/link';
-import getPartnerProperties from 'utils/partnerProperties';
+import { getPartnerProperties } from 'utils/partnerProperties';
 import Header from '../../components/Header';
 import { IHeaderLink } from '../../components/Header/Header';
 import { PartnershipsLinks } from '../../components/Partnerships/Data/PartnishipLinks';
@@ -171,7 +170,7 @@ const HeaderContainer: FC = () => {
   }, []);
 
   useEffect(() => {
-    if (Cookies.get('activePartnership')) {
+    if (getPartnerProperties()) {
       const partnerDetails = getPartnerProperties();
       const { telephone } = partnerDetails;
       if (telephone) {
@@ -184,7 +183,7 @@ const HeaderContainer: FC = () => {
         setPartnershipPhoneLink(phoneData);
       }
     }
-  }, [Cookies.get('activePartnership')]);
+  }, [getPartnerProperties()]);
 
   if (partnership) {
     return (
