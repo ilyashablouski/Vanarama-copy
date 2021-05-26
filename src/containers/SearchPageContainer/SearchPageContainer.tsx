@@ -68,8 +68,9 @@ import TilesBlock from './TilesBlock';
 import ResultsContainer from './ResultsContainer';
 import CommonDescriptionContainer from './CommonDescriptionContainer';
 import ReadMoreBlock from './ReadMoreBlock';
-import SearchPageFilters from '../../components/SearchPageFilters';
 import { FilterFields } from '../FiltersContainer/config';
+import SearchPageFilters from '../../components/SearchPageFilters';
+import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
@@ -790,6 +791,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Some props should be contain in one param for achieve more readable code
   return (
     <>
+      <PartnershipLogoHeader />
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
