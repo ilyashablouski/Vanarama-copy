@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { gql } from '@apollo/client';
-import { FieldArrayRenderProps, useFormikContext } from 'formik';
+import { FieldArrayRenderProps } from 'formik';
 import React from 'react';
 import { AddressFormFieldArrayDownData } from '../../../generated/AddressFormFieldArrayDownData';
 import useHistory from '../../hooks/useHistory';
@@ -25,6 +25,7 @@ interface IProps {
   dropDownData: AddressFormFieldArrayDownData;
   idPrefix?: string;
   requiredMonths?: number;
+  values: IAddressFormValues;
 }
 
 const AddressFormFieldArray: FCWithFragments<IProps> = ({
@@ -32,8 +33,8 @@ const AddressFormFieldArray: FCWithFragments<IProps> = ({
   dropDownData,
   idPrefix,
   requiredMonths = 36,
+  values,
 }) => {
-  const { values } = useFormikContext<IAddressFormValues>();
   const { remainingMonths } = useHistory(values.history, requiredMonths, {
     onAppend: () => {
       arrayHelpers.push(EMPTY_ADDRESS_ENTRY);

@@ -69,6 +69,7 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
               <AddressFormFieldArray
                 arrayHelpers={arrayHelpers}
                 dropDownData={dropDownData}
+                values={formikProps.values}
                 requiredMonths={context.requiredMonths}
               />
             )}
