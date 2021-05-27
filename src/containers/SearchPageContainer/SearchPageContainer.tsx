@@ -920,6 +920,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             tagArrayBuilderHelper={tagArrayBuilderHelper}
             preLoadFilters={preLoadFiltersData}
             initialState={initialFiltersState}
+            hideTags={partnershipActive}
             renderFilters={innerProps => (
               <SearchPageFilters
                 onSearch={onSearch}

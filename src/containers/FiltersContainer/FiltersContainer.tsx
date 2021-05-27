@@ -47,6 +47,7 @@ const FiltersContainer = ({
   tagArrayBuilderHelper,
   renderFilters,
   initialState,
+  hideTags,
 }: IFilterContainerProps) => {
   const [filtersData, setFiltersData] = useState(
     preLoadFilters || ({} as IFilterList),
@@ -339,11 +340,12 @@ const FiltersContainer = ({
         isInvalidBudget,
         selectedFilterTags,
       })}
+      {!hideTags &&
       <SearchFilterTags
         selectedFilters={selectedFilterTags}
         onClearAll={handleClearAll}
         onRemove={e => handleRemoveTag(e.currentTarget.id)}
-      />
+      />}
     </SearchFilters>
   );
 };
