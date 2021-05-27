@@ -34,7 +34,7 @@ const env: any = process?.env?.ENV || '';
 const scriptEnvs = {
   gtm: [Env.UAT, Env.PRE_PROD, Env.PROD],
 
-  blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD, Env.DEV],
+  blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD],
 
   vwo: [Env.UAT, Env.PRE_PROD, Env.PROD],
 
