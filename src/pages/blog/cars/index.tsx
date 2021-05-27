@@ -70,6 +70,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       props: {
         error: true,
       },
+      notFound: true,
     };
   }
 }
