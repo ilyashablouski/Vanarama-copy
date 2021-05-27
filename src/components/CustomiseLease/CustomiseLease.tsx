@@ -151,6 +151,7 @@ const CustomiseLease = ({
   isDisabled,
   setIsDisabled,
   setIsInitialLoading,
+  setInitialMountCount,
   lineItem,
   onSubmit,
   showCallBackForm,
@@ -181,6 +182,7 @@ const CustomiseLease = ({
         window.sessionStorage?.[`leaseSettings-${capId}`],
       );
       if (leaseSettings && leaseSettings.capId === capId) {
+        setInitialMountCount(2);
         setMaintenance(leaseSettings.maintenance);
         setDefaultMileage(leaseSettings.mileageValue);
         setMileage(leaseSettings.mileage);
@@ -218,6 +220,7 @@ const CustomiseLease = ({
     }
     if (!maintenance) setInitialPayment(initialRental);
   }, [quoteByCapId, maintenance]);
+
   const isMobile = useMobileViewport();
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 

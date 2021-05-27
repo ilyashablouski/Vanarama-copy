@@ -58,6 +58,7 @@ export interface IProps {
   isShowFreeInsuranceMerch?: boolean;
   setIsInitialLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setInitialMountCount: React.Dispatch<React.SetStateAction<number>>;
   onSubmit: (values: OrderInputObject) => void;
   lineItem: LineItemInputObject;
   showCallBackForm: Dispatch<SetStateAction<boolean>>;

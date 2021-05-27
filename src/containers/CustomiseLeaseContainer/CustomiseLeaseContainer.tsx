@@ -87,8 +87,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   pickups,
   isShowFreeInsuranceMerch,
 }) => {
-  const isInitialMount = useRef(true);
-
   const [quoteData, setQuoteData] = useState<
     GetQuoteDetails | null | undefined
   >(quote || null);
@@ -115,6 +113,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [isInitPayModalShowing, setIsInitPayModalShowing] = useState<boolean>(
     false,
   );
+  const [initialMountCount, setInitialMountCount] = useState(0);
   const [isInitialLoading, setIsInitialLoading] = useState<boolean>(false);
   const [showCallBackForm, setShowCallBackForm] = useState<boolean>(false);
   const [screenY, setScreenY] = useState<number | null>(null);
@@ -146,10 +145,18 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   );
 
   useEffect(() => {
+    let timerId: NodeJS.Timeout;
+
     if (isInitialLoading && isDisabled && !loading) {
-      setTimeout(() => setIsDisabled(false), 1000);
+      timerId = setTimeout(() => {
+        setIsDisabled(false);
+      }, 1000);
     }
-  });
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [loading, isInitialLoading, isDisabled, setIsDisabled]);
 
   useEffect(() => {
     setLeadTime(quoteData?.quoteByCapId?.leadTime || '');
@@ -172,29 +179,29 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const currentQuoteTrim = quoteData?.quoteByCapId?.trim;
   const currentQuoteColour = quoteData?.quoteByCapId?.colour;
 
-  useEffect(() => {
-    if (!isInitialMount.current) {
-      getQuoteData({
-        variables: {
-          capId: `${capId}`,
-          vehicleType,
-          mileage,
-          term,
-          upfront,
-          leaseType:
-            leaseType === 'Personal'
-              ? LeaseTypeEnum.PERSONAL
-              : LeaseTypeEnum.BUSINESS,
-          trim: trim ? +trim || null : parseQuoteParams(currentQuoteTrim),
-          colour: colour || parseQuoteParams(currentQuoteColour),
-        },
-      });
+  useFirstRenderEffect(() => {
+    getQuoteData({
+      variables: {
+        capId: `${capId}`,
+        vehicleType,
+        mileage,
+        term,
+        upfront,
+        leaseType:
+          leaseType === 'Personal'
+            ? LeaseTypeEnum.PERSONAL
+            : LeaseTypeEnum.BUSINESS,
+        trim: trim || parseQuoteParams(currentQuoteTrim),
+        colour: colour || parseQuoteParams(currentQuoteColour),
+      },
+    });
+
+    if (!initialMountCount) {
       setIsDisabled(true);
+    } else {
+      setInitialMountCount(initialMountCount - 1);
     }
-    isInitialMount.current = false;
   }, [
-    setIsDisabled,
-    isInitialMount,
     leaseType,
     upfront,
     mileage,
@@ -353,6 +360,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         isInitPayModalShowing={isInitPayModalShowing}
         setIsInitPayModalShowing={setIsInitPayModalShowing}
         setIsInitialLoading={setIsInitialLoading}
+        setInitialMountCount={setInitialMountCount}
         lineItem={lineItem()}
         screenY={screenY}
         onSubmit={values => onCompleted(values)}
