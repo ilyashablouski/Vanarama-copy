@@ -110,7 +110,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
           size="xlarge"
           price={price}
           priceDescription={
-            isPersonal ? 'Per Month Inc VAT' : 'Per Month Excluding VAT'
+            isPersonal ? 'Per Month Inc VAT' : 'Per Month Ex. VAT'
           }
         />
         <RouterLink
