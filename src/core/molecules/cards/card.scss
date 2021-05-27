@@ -138,6 +138,9 @@ $small: 0.875rem;
 
   // Predefined areas -> header
   &-header {
+    @include mobile {
+      font-size: 0.6rem;
+    }
     @include card-flag;
     overflow: hidden;
     white-space: nowrap;

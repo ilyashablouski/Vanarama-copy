@@ -7,6 +7,7 @@ import {
   GenericPageQuery_genericPage_sections_featured,
 } from '../../../generated/GenericPageQuery';
 import Skeleton from '../../components/Skeleton';
+import SectionCards from '../../components/SectionCards';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -15,9 +16,6 @@ const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
 const Image = dynamic(() => import('core/atoms/image'), {
-  loading: () => <Skeleton count={3} />,
-});
-const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={3} />,
 });
 const Breadcrumb = dynamic(
@@ -36,38 +34,6 @@ interface IProps {
   breadcrumbsItems?: any;
   featured?: GenericPageQuery_genericPage_sections_featured | null | undefined;
 }
-
-const renderCards = (
-  cards: (GenericPageQuery_genericPage_sections_cards_cards | null)[],
-) =>
-  cards?.map(card =>
-    card?.title && card.name ? (
-      <Card
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        key={card.name || undefined}
-        imageSrc={card.image?.file?.url}
-        title={{
-          className: '-flex-h',
-          link: (
-            <RouterLink
-              withoutDefaultClassName
-              className="heading"
-              classNames={{ color: 'black', size: 'lead' }}
-              link={{
-                href: card.link?.legacyUrl || card.link?.url || '',
-                label: card.title || '',
-              }}
-            >
-              {card.title}
-            </RouterLink>
-          ),
-          title: '',
-          withBtn: true,
-        }}
-        description={card.body || ''}
-      />
-    ) : null,
-  );
 
 const PageNotFoundContainer: NextPage<IProps> = ({
   name,
@@ -114,7 +80,9 @@ const PageNotFoundContainer: NextPage<IProps> = ({
         </div>
       </div>
       <div className="row:bg-lighter -col-300">
-        <div className="row:cards-3col">{cards && renderCards(cards)}</div>
+        <div className="row:cards-3col">
+          {cards && <SectionCards cards={cards} />}
+        </div>
       </div>
     </>
   );

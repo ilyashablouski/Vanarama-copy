@@ -5,9 +5,9 @@ $include-presentation-styles: false !default;
 @import '../variables.scss';
 
 // utilities and global styles
+@import '../util/font-face.scss';
 @import '../util/mixins.scss';
 @import '../util/reset.scss';
-@import '../util/font-face.scss';
 @import '../util/global.scss';
 @import '../util/color.scss';
 @import '../util/size.scss';
