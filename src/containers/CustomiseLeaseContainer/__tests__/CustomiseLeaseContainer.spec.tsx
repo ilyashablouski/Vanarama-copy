@@ -87,8 +87,8 @@ describe('<CustomiseLeaseContainer />', () => {
         vehicleType={VehicleTypeEnum.CAR}
         onCompletedCallBack={jest.fn()}
         setLeadTime={jest.fn()}
-        isDisabled={false}
-        setIsDisabled={jest.fn()}
+        isPlayingLeaseAnimation={false}
+        setIsPlayingLeaseAnimation={jest.fn()}
         leaseAdjustParams={{
           mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
           terms: [24, 36, 48, 60],
@@ -220,8 +220,8 @@ describe('<CustomiseLeaseContainer />', () => {
       trimData: [{ optionId: 104562, label: 'Leather - Cranberry red' }],
       vehicleType: VehicleTypeEnum.CAR,
       setLeadTime: jest.fn(),
-      isDisabled: false,
-      setIsDisabled: jest.fn(),
+      isPlayingLeaseAnimation: false,
+      setIsPlayingLeaseAnimation: jest.fn(),
       leaseAdjustParams: {
         mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
         terms: [24, 36, 48, 60],
@@ -308,8 +308,8 @@ describe('<CustomiseLeaseContainer />', () => {
       vehicleType: VehicleTypeEnum.CAR,
       colourData: [{ optionId: 13990, label: 'Solid - Polar white' }],
       trimData: [{ optionId: 104562, label: 'Leather - Cranberry red' }],
-      isDisabled: false,
-      setIsDisabled: jest.fn(),
+      isPlayingLeaseAnimation: false,
+      setIsPlayingLeaseAnimation: jest.fn(),
       onCompletedCallBack: jest.fn(),
       setLeadTime: jest.fn(),
       leaseAdjustParams: {
@@ -431,8 +431,8 @@ describe('<CustomiseLeaseContainer />', () => {
         onCompletedCallBack={jest.fn()}
         vehicleType={VehicleTypeEnum.CAR}
         setLeadTime={jest.fn()}
-        isDisabled={false}
-        setIsDisabled={jest.fn()}
+        isPlayingLeaseAnimation={false}
+        setIsPlayingLeaseAnimation={jest.fn()}
         leaseAdjustParams={{
           mileages: [6000, 8000, 10000, 12000, 15000, 20000, 25000, 30000],
           terms: [24, 36, 48, 60],
