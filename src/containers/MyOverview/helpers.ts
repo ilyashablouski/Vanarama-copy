@@ -134,7 +134,8 @@ export const createOrderInputFromMyOrder = (
   uuid: myOrder.uuid,
 });
 
-const isEmptyObject = (object: Object) => Object.values(object).length === 0;
+const isEmptyObject = (object?: Object | null) =>
+  Object.values(object || {}).length === 0;
 
 export const mapCreditApplicationToProgressbarSteps = (
   creditApplication?: GetMyOrdersCreditApplication | null,
