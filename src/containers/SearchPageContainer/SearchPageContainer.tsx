@@ -246,6 +246,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [pageOffset, setPageOffset] = useState(0);
   const [customCTAColor, setCustomCTAColor] = useState();
   const [customTextColor, setCustomTextColor] = useState<TColor>();
+  const [partnershipActive, setPartnershipActive] = useState<boolean>(false);
 
   useEffect(() => {
     window.scrollTo({
@@ -263,6 +264,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   useEffect(() => {
     const partnerActive = getPartnerProperties();
     if (partnerActive) {
+      setPartnershipActive(true);
       setCustomCTAColor(getPartnerProperties().color);
       if (partnerActive.slug === 'ovo') {
         setCustomTextColor('white');
@@ -807,7 +809,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     <>
       <PartnershipLogoHeader />
       <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
+        {!partnershipActive && <Breadcrumb items={breadcrumbsItems} />}
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
           {isDesktopOrTablet
             ? metaData?.name
