@@ -52,7 +52,6 @@ export const getBlogPosts = async (
         data: null,
         pageNumber: null,
       },
-      notFound: true,
     };
   }
 };
