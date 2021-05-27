@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'core/molecules/modal';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteDataLazyQuery } from './gql';
@@ -78,8 +78,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   onCompleted,
   onCompletedCallBack,
   setLeaseScannerData,
-  isDisabled,
-  setIsDisabled,
+  isPlayingLeaseAnimation,
+  setIsPlayingLeaseAnimation,
   trimData,
   colourData,
   mileage,
@@ -87,8 +87,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   pickups,
   isShowFreeInsuranceMerch,
 }) => {
-  const isInitialMount = useRef(true);
-
   const [quoteData, setQuoteData] = useState<
     GetQuoteDetails | null | undefined
   >(quote || null);
@@ -115,11 +113,15 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [isInitPayModalShowing, setIsInitPayModalShowing] = useState<boolean>(
     false,
   );
+  const [isRestoreLeaseSettings, setIsRestoreLeaseSettings] = useState(false);
   const [isInitialLoading, setIsInitialLoading] = useState<boolean>(false);
   const [showCallBackForm, setShowCallBackForm] = useState<boolean>(false);
   const [screenY, setScreenY] = useState<number | null>(null);
   const [getQuoteData, { loading }] = useQuoteDataLazyQuery(
-    updatedQuote => setQuoteData(updatedQuote),
+    updatedQuote => {
+      setIsRestoreLeaseSettings(false);
+      setQuoteData(updatedQuote);
+    },
     () =>
       setQuoteData(
         createEmptyQuoteData(
@@ -146,10 +148,23 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   );
 
   useEffect(() => {
-    if (isInitialLoading && isDisabled && !loading) {
-      setTimeout(() => setIsDisabled(false), 1000);
+    let timerId: NodeJS.Timeout;
+
+    if (isInitialLoading && isPlayingLeaseAnimation && !loading) {
+      timerId = setTimeout(() => {
+        setIsPlayingLeaseAnimation(false);
+      }, 1000);
     }
-  });
+
+    return () => {
+      clearTimeout(timerId);
+    };
+  }, [
+    isInitialLoading,
+    isPlayingLeaseAnimation,
+    setIsPlayingLeaseAnimation,
+    loading,
+  ]);
 
   useEffect(() => {
     setLeadTime(quoteData?.quoteByCapId?.leadTime || '');
@@ -172,29 +187,27 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const currentQuoteTrim = quoteData?.quoteByCapId?.trim;
   const currentQuoteColour = quoteData?.quoteByCapId?.colour;
 
-  useEffect(() => {
-    if (!isInitialMount.current) {
-      getQuoteData({
-        variables: {
-          capId: `${capId}`,
-          vehicleType,
-          mileage,
-          term,
-          upfront,
-          leaseType:
-            leaseType === 'Personal'
-              ? LeaseTypeEnum.PERSONAL
-              : LeaseTypeEnum.BUSINESS,
-          trim: trim ? +trim || null : parseQuoteParams(currentQuoteTrim),
-          colour: colour || parseQuoteParams(currentQuoteColour),
-        },
-      });
-      setIsDisabled(true);
+  useFirstRenderEffect(() => {
+    getQuoteData({
+      variables: {
+        capId: `${capId}`,
+        vehicleType,
+        mileage,
+        term,
+        upfront,
+        leaseType:
+          leaseType === 'Personal'
+            ? LeaseTypeEnum.PERSONAL
+            : LeaseTypeEnum.BUSINESS,
+        trim: trim || parseQuoteParams(currentQuoteTrim),
+        colour: colour || parseQuoteParams(currentQuoteColour),
+      },
+    });
+
+    if (!isRestoreLeaseSettings) {
+      setIsPlayingLeaseAnimation(true);
     }
-    isInitialMount.current = false;
   }, [
-    setIsDisabled,
-    isInitialMount,
     leaseType,
     upfront,
     mileage,
@@ -202,8 +215,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     term,
     trim,
     getQuoteData,
-    currentQuoteTrim,
-    currentQuoteColour,
     vehicleType,
     capId,
   ]);
@@ -247,7 +258,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       setLeaseScannerData({
         maintenance,
         quoteByCapId: quoteData?.quoteByCapId,
-        isDisabled,
+        isDisabled: isPlayingLeaseAnimation,
         stateVAT: leaseType === 'Personal' ? 'inc' : 'exc',
         endAnimation: () => {
           setIsInitialLoading(true);
@@ -264,7 +275,13 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quoteData, leaseType, getQuoteData, isDisabled, maintenance]);
+  }, [
+    quoteData,
+    leaseType,
+    getQuoteData,
+    isPlayingLeaseAnimation,
+    maintenance,
+  ]);
 
   if (!quoteData) {
     return (
@@ -343,8 +360,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         colour={colour}
         trimList={trimList}
         colourList={colourList}
-        isDisabled={isDisabled}
-        setIsDisabled={setIsDisabled}
+        isPlayingLeaseAnimation={isPlayingLeaseAnimation}
+        setIsPlayingLeaseAnimation={setIsPlayingLeaseAnimation}
         leaseAdjustParams={leaseAdjustParams}
         maintenance={maintenance}
         setMaintenance={setMaintenance}
@@ -353,6 +370,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         isInitPayModalShowing={isInitPayModalShowing}
         setIsInitPayModalShowing={setIsInitPayModalShowing}
         setIsInitialLoading={setIsInitialLoading}
+        setIsRestoreLeaseSettings={setIsRestoreLeaseSettings}
         lineItem={lineItem()}
         screenY={screenY}
         onSubmit={values => onCompleted(values)}

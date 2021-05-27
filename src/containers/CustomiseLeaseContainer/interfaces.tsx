@@ -32,10 +32,10 @@ export interface IProps {
   derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
   leaseAdjustParams: GetVehicleDetails_leaseAdjustParams | null | undefined;
   leaseType: string;
-  isDisabled: boolean;
+  isPlayingLeaseAnimation: boolean;
   isShowFreeInsuranceMerch?: boolean;
   onCompletedCallBack: () => void;
-  setIsDisabled: React.Dispatch<React.SetStateAction<boolean>>;
+  setIsPlayingLeaseAnimation: React.Dispatch<React.SetStateAction<boolean>>;
   setLeaseType: React.Dispatch<React.SetStateAction<string>>;
   setLeadTime: React.Dispatch<React.SetStateAction<string>>;
   onCompleted: (values: OrderInputObject) => void;
