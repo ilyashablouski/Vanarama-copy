@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import Modal from 'core/molecules/modal';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteDataLazyQuery } from './gql';
@@ -78,8 +78,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   onCompleted,
   onCompletedCallBack,
   setLeaseScannerData,
-  isDisabled,
-  setIsDisabled,
+  isPlayingLeaseAnimation,
+  setIsPlayingLeaseAnimation,
   trimData,
   colourData,
   mileage,
@@ -113,12 +113,15 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [isInitPayModalShowing, setIsInitPayModalShowing] = useState<boolean>(
     false,
   );
-  const [initialMountCount, setInitialMountCount] = useState(0);
+  const [isRestoreLeaseSettings, setIsRestoreLeaseSettings] = useState(false);
   const [isInitialLoading, setIsInitialLoading] = useState<boolean>(false);
   const [showCallBackForm, setShowCallBackForm] = useState<boolean>(false);
   const [screenY, setScreenY] = useState<number | null>(null);
   const [getQuoteData, { loading }] = useQuoteDataLazyQuery(
-    updatedQuote => setQuoteData(updatedQuote),
+    updatedQuote => {
+      setIsRestoreLeaseSettings(false);
+      setQuoteData(updatedQuote);
+    },
     () =>
       setQuoteData(
         createEmptyQuoteData(
@@ -147,16 +150,21 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   useEffect(() => {
     let timerId: NodeJS.Timeout;
 
-    if (isInitialLoading && isDisabled && !loading) {
+    if (isInitialLoading && isPlayingLeaseAnimation && !loading) {
       timerId = setTimeout(() => {
-        setIsDisabled(false);
+        setIsPlayingLeaseAnimation(false);
       }, 1000);
     }
 
     return () => {
       clearTimeout(timerId);
     };
-  }, [loading, isInitialLoading, isDisabled, setIsDisabled]);
+  }, [
+    isInitialLoading,
+    isPlayingLeaseAnimation,
+    setIsPlayingLeaseAnimation,
+    loading,
+  ]);
 
   useEffect(() => {
     setLeadTime(quoteData?.quoteByCapId?.leadTime || '');
@@ -196,10 +204,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       },
     });
 
-    if (!initialMountCount) {
-      setIsDisabled(true);
-    } else {
-      setInitialMountCount(initialMountCount - 1);
+    if (!isRestoreLeaseSettings) {
+      setIsPlayingLeaseAnimation(true);
     }
   }, [
     leaseType,
@@ -209,8 +215,6 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     term,
     trim,
     getQuoteData,
-    currentQuoteTrim,
-    currentQuoteColour,
     vehicleType,
     capId,
   ]);
@@ -254,7 +258,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       setLeaseScannerData({
         maintenance,
         quoteByCapId: quoteData?.quoteByCapId,
-        isDisabled,
+        isDisabled: isPlayingLeaseAnimation,
         stateVAT: leaseType === 'Personal' ? 'inc' : 'exc',
         endAnimation: () => {
           setIsInitialLoading(true);
@@ -271,7 +275,13 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [quoteData, leaseType, getQuoteData, isDisabled, maintenance]);
+  }, [
+    quoteData,
+    leaseType,
+    getQuoteData,
+    isPlayingLeaseAnimation,
+    maintenance,
+  ]);
 
   if (!quoteData) {
     return (
@@ -350,8 +360,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         colour={colour}
         trimList={trimList}
         colourList={colourList}
-        isDisabled={isDisabled}
-        setIsDisabled={setIsDisabled}
+        isPlayingLeaseAnimation={isPlayingLeaseAnimation}
+        setIsPlayingLeaseAnimation={setIsPlayingLeaseAnimation}
         leaseAdjustParams={leaseAdjustParams}
         maintenance={maintenance}
         setMaintenance={setMaintenance}
@@ -360,7 +370,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         isInitPayModalShowing={isInitPayModalShowing}
         setIsInitPayModalShowing={setIsInitPayModalShowing}
         setIsInitialLoading={setIsInitialLoading}
-        setInitialMountCount={setInitialMountCount}
+        setIsRestoreLeaseSettings={setIsRestoreLeaseSettings}
         lineItem={lineItem()}
         screenY={screenY}
         onSubmit={values => onCompleted(values)}

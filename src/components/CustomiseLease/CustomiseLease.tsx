@@ -148,10 +148,10 @@ const CustomiseLease = ({
   setIsModalShowing,
   trim,
   mileage,
-  isDisabled,
-  setIsDisabled,
+  isPlayingLeaseAnimation,
+  setIsPlayingLeaseAnimation,
   setIsInitialLoading,
-  setInitialMountCount,
+  setIsRestoreLeaseSettings,
   lineItem,
   onSubmit,
   showCallBackForm,
@@ -182,7 +182,7 @@ const CustomiseLease = ({
         window.sessionStorage?.[`leaseSettings-${capId}`],
       );
       if (leaseSettings && leaseSettings.capId === capId) {
-        setInitialMountCount(2);
+        setIsRestoreLeaseSettings(true);
         setMaintenance(leaseSettings.maintenance);
         setDefaultMileage(leaseSettings.mileageValue);
         setMileage(leaseSettings.mileage);
@@ -243,7 +243,9 @@ const CustomiseLease = ({
   };
 
   return (
-    <div className={cx('pdp--sidebar', isDisabled ? 'disabled' : '')}>
+    <div
+      className={cx('pdp--sidebar', isPlayingLeaseAnimation ? 'disabled' : '')}
+    >
       <Heading tag="h2" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
@@ -251,7 +253,7 @@ const CustomiseLease = ({
         leaseTypes,
         setLeaseType,
         'Is this for you, or for your business?',
-        isDisabled,
+        isPlayingLeaseAnimation,
       )}
       <Heading tag="span" size="regular" color="black">
         How many miles will you be driving a year?
@@ -262,7 +264,7 @@ const CustomiseLease = ({
       </Heading>
       <SlidingInput
         steps={mileages}
-        disabled={isDisabled}
+        disabled={isPlayingLeaseAnimation}
         defaultValue={defaultMileage}
         onChange={value => {
           setMileage(mileages[value - 1]);
@@ -272,7 +274,7 @@ const CustomiseLease = ({
         terms,
         value => setTerm(+(value || 0) || null),
         'How long do you want your vehicle for?',
-        isDisabled,
+        isPlayingLeaseAnimation,
         `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
           12} Years`,
         monthIndex,
@@ -281,7 +283,7 @@ const CustomiseLease = ({
         upfronts,
         value => setUpfront(+(value || 0) || null),
         'How much do you want to pay upfront?',
-        isDisabled,
+        isPlayingLeaseAnimation,
         `${quoteByCapId?.upfront} Months - £${toPriceFormat(
           initialPayment,
         )} ${stateVAT}. VAT`,
@@ -307,14 +309,14 @@ const CustomiseLease = ({
         setColour,
         colourList,
         'Select Paint Colour',
-        isDisabled,
+        isPlayingLeaseAnimation,
       )}
       {select(
         `${defaultTrim || quoteByCapId?.trim || trim}`,
         setTrim,
         trimList,
         'Select Interior',
-        isDisabled,
+        isPlayingLeaseAnimation,
       )}
       <Heading tag="span" size="regular" color="black">
         Add Maintenance:
@@ -334,7 +336,7 @@ const CustomiseLease = ({
           label="YES, I want peace of mind and to keep things hassle-free"
           onChange={() => setMaintenance(true)}
           defaultChecked={!!maintenance}
-          disabled={isDisabled}
+          disabled={isPlayingLeaseAnimation}
         />
         <Radio
           name="maintenance"
@@ -342,7 +344,7 @@ const CustomiseLease = ({
           label="NO, I want to worry about sorting the maintenance costs myself"
           onChange={() => setMaintenance(false)}
           defaultChecked={maintenance === false}
-          disabled={isDisabled}
+          disabled={isPlayingLeaseAnimation}
         />
       </Formgroup>
       {isShowFreeInsuranceMerch && (
@@ -404,10 +406,10 @@ const CustomiseLease = ({
               }}
               headingText={`PM ${stateVAT}. VAT`}
               leasingProviders={LEASING_PROVIDERS}
-              startLoading={isDisabled}
+              startLoading={isPlayingLeaseAnimation}
               endAnimation={() => {
                 setIsInitialLoading(true);
-                setIsDisabled(false);
+                setIsPlayingLeaseAnimation(false);
               }}
               requestCallBack={() => {
                 showCallBackForm(true);
