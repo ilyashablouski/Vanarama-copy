@@ -19,7 +19,7 @@ const env: any = process?.env?.ENV || '';
 const scriptEnvs = {
   // gtm: ['dev', 'uat', 'pre-prod', 'prod'],
 
-  blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD],
+  blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD, Env.DEV],
 
   vwo: [Env.UAT, Env.PRE_PROD, Env.PROD],
 };
@@ -51,6 +51,7 @@ const Head: FC<IHeadProps> = props => {
 
   return (
     <NextHead>
+      <link rel="preconnect" href="https://cdn.blueconic.com" />
       {PRECONNECT.map(domain => {
         return <link rel="dns-prefetch" href={domain} key={domain} />;
       })}

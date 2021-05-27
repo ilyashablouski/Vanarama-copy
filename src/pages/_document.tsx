@@ -34,7 +34,7 @@ const env: any = process?.env?.ENV || '';
 const scriptEnvs = {
   gtm: [Env.UAT, Env.PRE_PROD, Env.PROD],
 
-  blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD],
+  blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD, Env.DEV],
 
   vwo: [Env.UAT, Env.PRE_PROD, Env.PROD],
 
@@ -46,6 +46,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <link rel="preconnect" href="https://cdn.blueconic.com" />
           {scriptEnvs.blueconic.includes(env) && (
             <script async src="https://cdn.blueconic.net/vanarama.js" />
           )}
