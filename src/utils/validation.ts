@@ -49,7 +49,7 @@ export function isDateOfBirthValid<T extends WithDateOfBirthFields>({
   return yearsDifference < 18 ? 'Oops, you’re too young.' : null;
 }
 
-const POSTCODE_NORTHERN_IRELAND_REGEXP = /BT\d{1,2}\s?\d\w{2,}/i;
+const POSTCODE_NORTHERN_IRELAND_REGEXP = /BT\d{1,2}\s?\d[A-Z]{2}/i;
 export function checkForUnacceptableCountries(value: IAddressSuggestion) {
   return !POSTCODE_NORTHERN_IRELAND_REGEXP.test(value?.label ?? '');
 }
