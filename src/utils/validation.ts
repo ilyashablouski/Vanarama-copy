@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
-import { IAddressSuggestion } from 'core/molecules/address-finder/interfaces';
 import { diffInYear, historyToDateObject, validateDateString } from './dates';
+import { POSTCODE_NORTHERN_IRELAND_REGEXP } from './regex';
+import { Nullish } from '../types/common';
 
 export function checkFuture(this: Yup.TestContext) {
   const { month, year } = this.parent as any;
@@ -49,7 +50,12 @@ export function isDateOfBirthValid<T extends WithDateOfBirthFields>({
   return yearsDifference < 18 ? 'Oops, you’re too young.' : null;
 }
 
-const POSTCODE_NORTHERN_IRELAND_REGEXP = /BT\d{1,2}\s?\d[A-Z]{2}/i;
-export function checkForUnacceptableCountries(value: IAddressSuggestion) {
-  return !POSTCODE_NORTHERN_IRELAND_REGEXP.test(value?.label ?? '');
+export function checkForUnacceptableCountries(value: Nullish<string>) {
+  return POSTCODE_NORTHERN_IRELAND_REGEXP.test(value ?? '');
+}
+
+export function validateCompanyAddress(value: Nullish<string>) {
+  return checkForUnacceptableCountries(value)
+    ? 'We are not able to accept applications from Northern Ireland'
+    : undefined;
 }
