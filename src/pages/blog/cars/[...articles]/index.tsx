@@ -1,6 +1,5 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
-import { useRouter } from 'next/router';
 import React from 'react';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
@@ -13,7 +12,10 @@ import { IBlogPost } from '../../../../models/IBlogsProps';
 import { BlogPosts } from '../../../../../generated/BlogPosts';
 import { getBlogPaths } from '../../../../utils/pageSlugs';
 import { decodeData, encodeData } from '../../../../utils/data';
-import Skeleton from '../../../../components/Skeleton';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../../../utils/env';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
@@ -21,9 +23,7 @@ const BlogPost: NextPage<IBlogPost> = ({
   blogPosts: encodedData,
   blogPostsError,
 }) => {
-  const { isFallback } = useRouter();
-
-  if (error || blogPostsError) {
+  if (error || blogPostsError || !data) {
     return <DefaultErrorPage statusCode={404} />;
   }
   // De-obfuscate data for user
@@ -42,20 +42,14 @@ const BlogPost: NextPage<IBlogPost> = ({
   }));
 
   return (
-    <>
-      {isFallback ? (
-        <Skeleton count={30} />
-      ) : (
-        <BlogPostContainer
-          articles={articles}
-          body={body}
-          name={name}
-          image={image}
-          breadcrumbsItems={breadcrumbsItems}
-          metaData={metaData}
-        />
-      )}
-    </>
+    <BlogPostContainer
+      articles={articles}
+      body={body}
+      name={name}
+      image={image}
+      breadcrumbsItems={breadcrumbsItems}
+      metaData={metaData}
+    />
   );
 };
 
@@ -71,7 +65,7 @@ export async function getStaticPaths() {
 
     return {
       paths: getBlogPaths(data?.blogPosts),
-      fallback: true,
+      fallback: 'blocking',
     };
   } catch {
     return {
@@ -80,7 +74,7 @@ export async function getStaticPaths() {
           params: { articles: ['/'] },
         },
       ],
-      fallback: true,
+      fallback: 'blocking',
     };
   }
 }
@@ -117,9 +111,11 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const newBlogPostsData = encodeData(newBlogPosts);
 
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
-        data: data || { notFound: true },
+        data,
         error: errors ? errors[0] : null,
         blogPosts: newBlogPostsData,
         blogPostsLoading,
@@ -128,7 +124,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     };
   } catch {
     return {
-      revalidate: 1,
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
       props: {
         error: true,
       },
