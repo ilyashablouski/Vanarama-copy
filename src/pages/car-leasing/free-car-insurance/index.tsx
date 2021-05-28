@@ -119,7 +119,6 @@ const FreeCarInsurance: NextPage<IProps> = ({
             >
               {sections?.carousel?.[0]?.title}
             </Heading>
-            {!partnershipActive && (
               <ProductCarousel
                 leaseType={
                   isPersonalCar
@@ -135,7 +134,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
                 countItems={productsCar?.productCarousel?.length || 6}
                 dataTestIdBtn="car-view-offer"
               />
-            )}
+            )
 
             <div className="-justify-content-row -pt-500">
               <RouterLink
