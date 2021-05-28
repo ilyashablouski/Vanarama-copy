@@ -340,12 +340,13 @@ const FiltersContainer = ({
         isInvalidBudget,
         selectedFilterTags,
       })}
-      {!hideTags &&
-      <SearchFilterTags
-        selectedFilters={selectedFilterTags}
-        onClearAll={handleClearAll}
-        onRemove={e => handleRemoveTag(e.currentTarget.id)}
-      />}
+      {!hideTags && (
+        <SearchFilterTags
+          selectedFilters={selectedFilterTags}
+          onClearAll={handleClearAll}
+          onRemove={e => handleRemoveTag(e.currentTarget.id)}
+        />
+      )}
     </SearchFilters>
   );
 };
