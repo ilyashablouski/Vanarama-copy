@@ -134,6 +134,7 @@ const OvoHomePage: NextPage<IProps> = ({
         }
         customCTAColor={colourPrimary || ''}
         hideBenefitsBar
+        activeSearchIndex={2}
       >
         <HeroHeading text={flag || ''} />
         <ReactMarkdown
