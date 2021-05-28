@@ -119,23 +119,19 @@ const FreeCarInsurance: NextPage<IProps> = ({
             >
               {sections?.carousel?.[0]?.title}
             </Heading>
-              <ProductCarousel
-                leaseType={
-                  isPersonalCar
-                    ? LeaseTypeEnum.PERSONAL
-                    : LeaseTypeEnum.BUSINESS
-                }
-                data={{
-                  derivatives: productsCarDerivatives?.derivatives || null,
-                  productCard:
-                    productsCar?.productCarousel?.slice(0, 6) || null,
-                  vehicleList: vehicleListUrlData,
-                }}
-                countItems={productsCar?.productCarousel?.length || 6}
-                dataTestIdBtn="car-view-offer"
-              />
+            <ProductCarousel
+              leaseType={
+                isPersonalCar ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
+              }
+              data={{
+                derivatives: productsCarDerivatives?.derivatives || null,
+                productCard: productsCar?.productCarousel?.slice(0, 6) || null,
+                vehicleList: vehicleListUrlData,
+              }}
+              countItems={productsCar?.productCarousel?.length || 6}
+              dataTestIdBtn="car-view-offer"
+            />
             )
-
             <div className="-justify-content-row -pt-500">
               <RouterLink
                 className="button"
