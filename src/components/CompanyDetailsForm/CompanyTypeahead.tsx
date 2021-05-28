@@ -4,6 +4,7 @@ import React, { FormEvent, useEffect, useState } from 'react';
 import { SuggestionSelectedEventData } from 'react-autosuggest';
 import { useFormContext } from 'react-hook-form';
 import { SearchCompaniesQuery_searchCompanies_nodes as SearchResult } from '../../../generated/SearchCompaniesQuery';
+import { validateCompanyAddress } from '../../utils/validation';
 import useDebounce from '../../hooks/useDebounce';
 import { ICompanyDetailsFormValues } from './interfaces';
 import useSearchCompanies from './useSearchCompanies';
@@ -75,7 +76,7 @@ function useRegisterCompanySearchField() {
     const validate = (result?: SearchResult) =>
       result && result.companyStatus !== 'active'
         ? 'This company seems not to be trading actively. Please try a new search'
-        : undefined;
+        : validateCompanyAddress(result?.addressSnippet);
 
     register('companySearchResult', { validate });
   }, [register]);
