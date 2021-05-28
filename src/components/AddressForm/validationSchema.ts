@@ -4,6 +4,8 @@ import {
   checkFuture,
   checkForUnacceptableCountries,
 } from '../../utils/validation';
+import { Nullish } from '../../types/common';
+import { TAddressEntry } from './interfaces';
 
 export default Yup.object().shape({
   history: Yup.array().of(
@@ -13,7 +15,8 @@ export default Yup.object().shape({
         .test(
           'unacceptableCountries',
           'We are not able to accept applications from Northern Ireland',
-          checkForUnacceptableCountries,
+          (value: Nullish<TAddressEntry['address']>) =>
+            !checkForUnacceptableCountries(value?.label),
         ),
       status: Yup.string().required('Please select your property status'),
       month: Yup.string()

@@ -6,6 +6,7 @@ import TextInput from 'core/atoms/textinput';
 import Select from 'core/atoms/select';
 import AddressFormField from '../AddressFormField/AddressFormField';
 import { genMonths, genYears } from '../../utils/helpers';
+import { validateCompanyAddress } from '../../utils/validation';
 import {
   emailValidator,
   phoneNumberValidator,
@@ -125,6 +126,9 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
           label="Company Address"
           rules={{
             required: 'Please enter the registered business address',
+            validate: (
+              value: ISoleTraderCompanyDetailsFormValues['tradingAddress'],
+            ) => validateCompanyAddress(value?.label),
           }}
           hint="Enter Postcode Or Just Start Typing Address"
         />
