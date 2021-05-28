@@ -7,7 +7,7 @@ import {
   twitter,
   defaultImage,
   fb,
-  PAGES_WITH_DEFERRED_STYLES,
+  PAGES_WITHOUT_DEFERRED_STYLES,
 } from './defaults';
 import { FONT_LIST, FONT_PATH } from './fonts';
 import { Env } from '../../utils/env';
@@ -51,6 +51,7 @@ const Head: FC<IHeadProps> = props => {
 
   return (
     <NextHead>
+      <link rel="preconnect" href="https://cdn.blueconic.com" />
       {PRECONNECT.map(domain => {
         return <link rel="dns-prefetch" href={domain} key={domain} />;
       })}
@@ -70,7 +71,7 @@ const Head: FC<IHeadProps> = props => {
         );
       })}
 
-      {!PAGES_WITH_DEFERRED_STYLES.includes(router.pathname) && (
+      {!PAGES_WITHOUT_DEFERRED_STYLES.includes(router.pathname) && (
         <link rel="preload" href="/styles/deferred.css" as="style" />
       )}
 

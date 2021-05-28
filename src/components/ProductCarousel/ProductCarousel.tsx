@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import Carousel from 'core/organisms/carousel';
 import ProductCard from 'core/molecules/cards/ProductCard/ProductCard';
+import { useMediaQuery } from 'react-responsive';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -53,8 +54,23 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
     return vehicle ? vehicle.bodyStyle?.name : '';
   };
 
+  const isLargeScreen = useMediaQuery({ minWidth: 1216 });
+  const isMediumScreen = useMediaQuery({ minWidth: 568, maxWidth: 1215 });
+  const isSmallScreen = useMediaQuery({ maxWidth: 567 });
+
+  // handle change device orientation for recalculate carousel height
+  const carouselKey = useMemo(() => new Date().getTime(), [
+    isSmallScreen,
+    isMediumScreen,
+    isLargeScreen,
+  ]);
+
   return (
-    <Carousel className="-product -mh-auto" countItems={countItems || 6}>
+    <Carousel
+      className="-product -mh-auto"
+      countItems={countItems || 6}
+      key={carouselKey}
+    >
       {data.productCard?.map(
         (product, inx) =>
           product && (

@@ -156,9 +156,10 @@ describe('<CustomiseLease />', () => {
           },
         ],
       },
-      isDisabled: false,
+      isPlayingLeaseAnimation: false,
       setIsInitialLoading: jest.fn(),
-      setIsDisabled: jest.fn(),
+      setIsPlayingLeaseAnimation: jest.fn(),
+      setIsRestoreLeaseSettings: jest.fn(),
       onSubmit: jest.fn(),
       showCallBackForm: jest.fn(),
       lineItem: {} as any,
@@ -201,9 +202,10 @@ describe('<CustomiseLease />', () => {
       showCallBackForm: jest.fn(),
       isInitPayModalShowing: false,
       setIsInitPayModalShowing: jest.fn(),
-      isDisabled: false,
+      isPlayingLeaseAnimation: false,
       setIsInitialLoading: jest.fn(),
-      setIsDisabled: jest.fn(),
+      setIsPlayingLeaseAnimation: jest.fn(),
+      setIsRestoreLeaseSettings: jest.fn(),
       screenY: 0,
       data: {
         quoteByCapId: {
@@ -312,7 +314,7 @@ describe('<CustomiseLease />', () => {
       setIsModalShowing: jest.fn(),
       setLeadTime: jest.fn(),
       setIsInitialLoading: jest.fn(),
-      setIsDisabled: jest.fn(),
+      setIsPlayingLeaseAnimation: jest.fn(),
     };
   };
 
@@ -328,7 +330,7 @@ describe('<CustomiseLease />', () => {
         trim={112981}
         colour={13990}
         screenY={0}
-        isDisabled={false}
+        isPlayingLeaseAnimation={false}
         terms={[
           { label: '24', value: '24', active: false },
           { label: '36', value: '36', active: true },
@@ -456,6 +458,8 @@ describe('<CustomiseLease />', () => {
         lineItem={{} as any}
         isInitPayModalShowing={false}
         setIsInitPayModalShowing={jest.fn()}
+        setIsPlayingLeaseAnimation={jest.fn()}
+        setIsRestoreLeaseSettings={jest.fn()}
       />,
     );
 
