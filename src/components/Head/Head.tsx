@@ -51,6 +51,7 @@ const Head: FC<IHeadProps> = props => {
 
   return (
     <NextHead>
+      <link rel="preconnect" href="https://cdn.blueconic.com" />
       {PRECONNECT.map(domain => {
         return <link rel="dns-prefetch" href={domain} key={domain} />;
       })}
