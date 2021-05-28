@@ -103,8 +103,6 @@ $small: 0.875rem;
             width: 100%;
             max-width: inherit;
             position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
           }
           .title {
             grid-row: 6;
@@ -645,7 +643,7 @@ $small: 0.875rem;
       padding: 22px 10px 12px 2px;
       @include tablet-desktop {
         padding: 26px 10px 12px 20px;
-      }    
+      }
       .heading {
         margin-bottom: 20px;
       }

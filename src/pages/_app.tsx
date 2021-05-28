@@ -28,7 +28,7 @@ import {
 import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
-import { PAGES_WITH_DEFERRED_STYLES } from '../components/Head/defaults';
+import { PAGES_WITHOUT_DEFERRED_STYLES } from '../components/Head/defaults';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -175,7 +175,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         <ToastContainer />
       </LazyLoadComponent>
 
-      {!PAGES_WITH_DEFERRED_STYLES.includes(router.pathname) && <Deferred />}
+      {!PAGES_WITHOUT_DEFERRED_STYLES.includes(router.pathname) && <Deferred />}
     </>
   );
 };
