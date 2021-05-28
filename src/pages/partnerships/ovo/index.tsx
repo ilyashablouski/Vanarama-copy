@@ -100,6 +100,7 @@ const OvoHomePage: NextPage<IProps> = ({
         vehicleTypes,
         telephone,
         logo,
+        fuelTypes,
       };
       const sovereignty = customerSovereignty || 7;
       setPartnerProperties(partnershipData, sovereignty);
