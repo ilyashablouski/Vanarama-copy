@@ -11,7 +11,7 @@ export const PartnershipsLinks = [
       },
       {
         href:
-          'car-leasing/search?fuelTypes=Electric,Diesel/plugin+Elec+Hybrid,Petrol/plugin+Elec+Hybrid',
+          'van-leasing/search?fuelTypes=Electric,Diesel/plugin+Elec+Hybrid,Petrol/plugin+Elec+Hybrid',
         id: 'van-leasing/search',
         label: 'VANS',
       },
