@@ -32,6 +32,9 @@ export const PARTNER = gql`
       featured {
         ...GenericPageQueryFeatured
       }
+      featured1 {
+        ...GenericPageQueryFeatured
+      }
       tiles {
         body
         title

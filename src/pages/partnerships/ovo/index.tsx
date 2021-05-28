@@ -74,6 +74,7 @@ const OvoHomePage: NextPage<IProps> = ({
     fuelTypes,
     vehicleTypes,
     featured,
+    featured1,
     tiles,
     footer,
     slug,
@@ -252,6 +253,7 @@ const OvoHomePage: NextPage<IProps> = ({
         </Tabs>
       </section>
       <PartnershipFeatureSection featured={featured} />
+      <PartnershipFeatureSection featured={featured1} />
       <WhyLeaseWithVanaramaTiles
         title="Why Lease With Vanarama"
         tiles={tiles || []}

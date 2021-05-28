@@ -94,11 +94,9 @@ export enum SortDirection {
 export enum SortField {
   availability = "availability",
   initialPayment = "initialPayment",
-  initial_payment = "initial_payment",
   manufacturer = "manufacturer",
   mileage = "mileage",
   offerRanking = "offerRanking",
-  offer_ranking = "offer_ranking",
   rate = "rate",
   rental = "rental",
   term = "term",
@@ -243,15 +241,43 @@ export interface CompanyInputObject {
 }
 
 /**
+ * Input object to create companies
+ */
+export interface CompanyV2InputObject {
+  addresses?: AddressV2InputObject[] | null;
+  annualExpenses?: number | null;
+  annualSalesCost?: number | null;
+  annualTurnover?: number | null;
+  businessName: string;
+  businessRegistrationNumber?: string | null;
+  companySearchResult?: any | null;
+  companyType: string;
+  emailAddresses?: EmailAddressV2InputObject[] | null;
+  monthlyAmountBeingReplaced?: number | null;
+  natureOfBusiness?: string | null;
+  otherCountriesOfActivity?: string[] | null;
+  partyUuid?: string | null;
+  replaceExistingVehicleFinance?: boolean | null;
+  telephoneNumbers?: TelephoneNumberV2InputObject[] | null;
+  tradesOutsideUk?: boolean | null;
+  tradingSince?: any | null;
+  turnoverOutsideUk?: number | null;
+  uuid: string;
+  withTradingAddress?: boolean | null;
+}
+
+/**
  * Input object to create and add a Credit Application
  */
 export interface CreditApplicationInputObject {
   aboutDetails?: any | null;
+  aboutDetailsV2?: PersonV2InputObject | null;
   addresses?: any | null;
   addressesV2?: AddressV2InputObject[] | null;
   bankAccounts?: any | null;
   bankAccountsV2?: BankAccountV2InputObject[] | null;
   companyDetails?: any | null;
+  companyDetailsV2?: CompanyV2InputObject | null;
   creditApplicationType?: CreditApplicationTypeEnum | null;
   directorsDetails?: any | null;
   employmentHistories?: any | null;
@@ -266,6 +292,7 @@ export interface CreditApplicationInputObject {
   status?: string | null;
   submittedAt?: any | null;
   vatDetails?: any | null;
+  vatDetailsV2?: VatDetailV2InputObject | null;
 }
 
 /**
@@ -275,6 +302,16 @@ export interface EmailAddressInputObject {
   kind?: string | null;
   partyId?: string | null;
   primary?: boolean | null;
+  uuid?: string | null;
+  value: string;
+}
+
+/**
+ * Input object to create and add an Email Address
+ */
+export interface EmailAddressV2InputObject {
+  kind?: string | null;
+  primary: boolean;
   uuid?: string | null;
   value: string;
 }
@@ -563,6 +600,44 @@ export interface PersonInputObject {
 }
 
 /**
+ * Input object to create a Person
+ */
+export interface PersonV2InputObject {
+  about?: string | null;
+  b2c?: boolean | null;
+  cognitoSub?: string | null;
+  companyType?: string | null;
+  countryOfBirth?: string | null;
+  dateOfBirth?: any | null;
+  disabilityRegistered?: boolean | null;
+  emailAddresses?: EmailAddressV2InputObject[] | null;
+  emailConsent?: boolean | null;
+  firstName: string;
+  gender?: string | null;
+  isApplicant?: boolean | null;
+  isDirector?: boolean | null;
+  jobTitle?: string | null;
+  lastName: string;
+  leadManagerId?: string | null;
+  maritalStatus?: string | null;
+  middleName?: string | null;
+  nationality?: string | null;
+  noOfAdultsInHousehold?: string | null;
+  noOfDependants?: string | null;
+  partyUuid?: string | null;
+  pictureUrl?: string | null;
+  privacyPolicy?: boolean | null;
+  profilingConsent?: boolean | null;
+  smsConsent?: boolean | null;
+  telephoneNumbers?: TelephoneNumberV2InputObject[] | null;
+  termsAndConditions?: boolean | null;
+  title?: string | null;
+  tradingName?: string | null;
+  uuid: string;
+  vatRegistrationNumber?: string | null;
+}
+
+/**
  * Input object to make quick credit check
  */
 export interface QuickCreditCheckerInputObject {
@@ -643,11 +718,30 @@ export interface TelephoneNumberInputObject {
 }
 
 /**
+ * Input object to create and add a Telephone Number
+ */
+export interface TelephoneNumberV2InputObject {
+  kind?: string | null;
+  primary?: boolean | null;
+  uuid?: string | null;
+  value: string;
+}
+
+/**
  * Input object for turnover percentage outside UK
  */
 export interface TurnoverPercentageOutsideUkInputObject {
   country: string;
   percentage: number;
+}
+
+/**
+ * Input object to create vat details
+ */
+export interface VatDetailV2InputObject {
+  outsideUk?: boolean | null;
+  vatNumber?: string | null;
+  vatRegistered?: boolean | null;
 }
 
 /**

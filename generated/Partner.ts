@@ -97,6 +97,73 @@ export interface Partner_partner_featured {
   testimonials: (Partner_partner_featured_testimonials | null)[] | null;
 }
 
+export interface Partner_partner_featured1_iconList {
+  text: string | null;
+}
+
+export interface Partner_partner_featured1_link {
+  url: string | null;
+  text: string | null;
+  legacyUrl: string | null;
+}
+
+export interface Partner_partner_featured1_cards_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface Partner_partner_featured1_cards_image {
+  title: string | null;
+  description: string | null;
+  file: Partner_partner_featured1_cards_image_file | null;
+}
+
+export interface Partner_partner_featured1_cards_link {
+  text: string | null;
+  url: string | null;
+  legacyUrl: string | null;
+}
+
+export interface Partner_partner_featured1_cards {
+  name: string | null;
+  title: string | null;
+  image: Partner_partner_featured1_cards_image | null;
+  body: string | null;
+  link: Partner_partner_featured1_cards_link | null;
+}
+
+export interface Partner_partner_featured1_image_file {
+  url: string;
+  fileName: string;
+}
+
+export interface Partner_partner_featured1_image {
+  title: string | null;
+  description: string | null;
+  file: Partner_partner_featured1_image_file | null;
+}
+
+export interface Partner_partner_featured1_testimonials {
+  customerName: string | null;
+  summary: string | null;
+  rating: string | null;
+}
+
+export interface Partner_partner_featured1 {
+  layout: (string | null)[] | null;
+  body: string | null;
+  title: string | null;
+  titleTag: string | null;
+  video: string | null;
+  targetId: string | null;
+  defaultHeight: number | null;
+  iconList: (Partner_partner_featured1_iconList | null)[] | null;
+  link: Partner_partner_featured1_link | null;
+  cards: (Partner_partner_featured1_cards | null)[] | null;
+  image: Partner_partner_featured1_image | null;
+  testimonials: (Partner_partner_featured1_testimonials | null)[] | null;
+}
+
 export interface Partner_partner_tiles_image_file {
   url: string;
 }
@@ -156,6 +223,7 @@ export interface Partner_partner {
   telephone: string | null;
   hero: Partner_partner_hero | null;
   featured: Partner_partner_featured | null;
+  featured1: Partner_partner_featured1 | null;
   tiles: Partner_partner_tiles[] | null;
   footer: Partner_partner_footer | null;
 }
