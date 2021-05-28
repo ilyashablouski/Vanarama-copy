@@ -432,7 +432,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                   }}
                 />
               </div>
-              <IconList>
+              <IconList textColor="orange">
                 {(getSectionsData(
                   ['featured1', 'iconList'],
                   data?.homePage?.sections,
