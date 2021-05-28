@@ -4,10 +4,12 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import cx from 'classnames';
 import { IBaseProps } from 'core/interfaces/base';
+import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import RouterLink from '../RouterLink/RouterLink';
 import { IHeaderLink, IHeaderPromoImage } from './Header';
 import Skeleton from '../Skeleton';
 import Label from './Label';
+import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={4} />,
@@ -93,42 +95,89 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
       className="menu-secondary--wrapper-outer"
       data-testid="menu-secondary--wrapper-outer"
     >
-      <div className="menu-secondary--wrapper-inner">
-        <ul className="menu-secondary">
-          <li className={linkClassName({ title: true })}>
-            <Button
-              withoutDefaultClass
-              className="link"
-              onClick={el => {
-                el.preventDefault();
-                onClickTitle();
-              }}
-              dataTestId="menu-title"
-              color="black"
-              fill="clear"
-              label={title}
-            />
-          </li>
-          {links.map((link: IHeaderLink) => (
-            <li
-              key={`${link.label}_${title}`}
-              className={linkClassName({
-                open: !!link.children?.length && activeTertiaryMenu === link.id,
-                highlight: link.highlight,
-                withChildren: !!link.children?.length,
-              })}
-              data-testid={link.label}
-            >
-              {!link.href ? (
-                <>
-                  <button
-                    type="button"
-                    key={`${link.label}_${title}`}
-                    className={link.highlight ? 'link -white' : 'link -inherit'}
+      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <div className="menu-secondary--wrapper-inner">
+          <ul className="menu-secondary">
+            <li className={linkClassName({ title: true })}>
+              <Button
+                withoutDefaultClass
+                className="link"
+                onClick={el => {
+                  el.preventDefault();
+                  onClickTitle();
+                }}
+                dataTestId="menu-title"
+                color="black"
+                fill="clear"
+                label={title}
+              />
+            </li>
+            {links.map((link: IHeaderLink) => (
+              <li
+                key={`${link.label}_${title}`}
+                className={linkClassName({
+                  open:
+                    !!link.children?.length && activeTertiaryMenu === link.id,
+                  highlight: link.highlight,
+                  withChildren: !!link.children?.length,
+                })}
+                data-testid={link.label}
+              >
+                {!link.href ? (
+                  <>
+                    <button
+                      type="button"
+                      key={`${link.label}_${title}`}
+                      className={
+                        link.highlight ? 'link -white' : 'link -inherit'
+                      }
+                      onClick={
+                        isTabletOrMobile && link.children?.length
+                          ? () => {
+                              setActiveTertiaryMenu(link?.id || '');
+                            }
+                          : undefined
+                      }
+                      onMouseOver={
+                        !isTabletOrMobile && link.children?.length
+                          ? () => {
+                              setActiveTertiaryMenu(link?.id || '');
+                            }
+                          : undefined
+                      }
+                      onFocus={
+                        link.children?.length
+                          ? () => {
+                              setActiveTertiaryMenu(link?.id || '');
+                            }
+                          : undefined
+                      }
+                    >
+                      {link.highlight && (
+                        <Icon
+                          icon={<FlameSharp />}
+                          color="white"
+                          size="xsmall"
+                        />
+                      )}
+                      {link.label}
+
+                      {link.highlightLabel && (
+                        <Label text={link.highlightLabel} />
+                      )}
+                    </button>
+                  </>
+                ) : (
+                  <RouterLink
+                    link={link}
+                    classNames={{
+                      color: (!!link.highlight && 'white') || 'inherit',
+                    }}
                     onClick={
                       isTabletOrMobile && link.children?.length
-                        ? () => {
-                            setActiveTertiaryMenu(link?.id || '');
+                        ? el => {
+                            el.preventDefault();
+                            setActiveTertiaryMenu(link.id || null);
                           }
                         : undefined
                     }
@@ -150,142 +199,106 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                     {link.highlight && (
                       <Icon icon={<FlameSharp />} color="white" size="xsmall" />
                     )}
-                    {link.label}
-
+                    <span>{link.label}</span>
                     {link.highlightLabel && (
                       <Label text={link.highlightLabel} />
                     )}
-                  </button>
-                </>
-              ) : (
-                <RouterLink
-                  link={link}
-                  classNames={{
-                    color: (!!link.highlight && 'white') || 'inherit',
-                  }}
-                  onClick={
-                    isTabletOrMobile && link.children?.length
-                      ? el => {
-                          el.preventDefault();
-                          setActiveTertiaryMenu(link.id || null);
-                        }
-                      : undefined
-                  }
-                  onMouseOver={
-                    !isTabletOrMobile && link.children?.length
-                      ? () => {
-                          setActiveTertiaryMenu(link?.id || '');
-                        }
-                      : undefined
-                  }
-                  onFocus={
-                    link.children?.length
-                      ? () => {
-                          setActiveTertiaryMenu(link?.id || '');
-                        }
-                      : undefined
-                  }
-                >
-                  {link.highlight && (
-                    <Icon icon={<FlameSharp />} color="white" size="xsmall" />
-                  )}
-                  <span>{link.label}</span>
-                  {link.highlightLabel && <Label text={link.highlightLabel} />}
-                </RouterLink>
-              )}
-            </li>
-          ))}
-        </ul>
-        {tertiaryLinks.map(tertiaryBlock => (
-          <React.Fragment key={`menu-tertiary-${tertiaryBlock?.id}`}>
-            <ul
-              className={cx('menu-tertiary', {
-                '-open': activeTertiaryMenu === tertiaryBlock.id,
-              })}
-            >
-              <li className={linkClassName({ title: true })}>
-                <Button
-                  withoutDefaultClass
-                  className="link"
-                  onClick={el => {
-                    el.preventDefault();
-                    setActiveTertiaryMenu(null);
-                  }}
-                  dataTestId={`menu-tertiary-${tertiaryBlock.id}`}
-                  color="black"
-                  fill="clear"
-                  label={tertiaryBlock.label}
-                />
+                  </RouterLink>
+                )}
               </li>
-              {(tertiaryBlock.children as IHeaderLink[]).map(
-                (linkSecondary: IHeaderLink) => (
-                  <li
-                    key={linkSecondary.label}
-                    className={linkClassName({
-                      highlight: linkSecondary.highlight,
-                      half: tertiaryBlock?.children!.length > 4,
-                    })}
-                  >
-                    <RouterLink link={linkSecondary} as={linkSecondary.as}>
-                      {linkSecondary.highlight && (
-                        <Icon
-                          icon={<FlameSharp />}
-                          color="white"
-                          size="xsmall"
-                        />
-                      )}
-                      <span>{linkSecondary.label}</span>
-                    </RouterLink>
-                  </li>
-                ),
-              )}
-            </ul>
-            {tertiaryBlock.promotionalImage?.url && (
-              <div
-                className={cx('menu-featured', 'tertiary', {
-                  '-hide':
-                    activeTertiaryMenu !== tertiaryBlock.id &&
-                    activeTertiaryMenu !== '',
+            ))}
+          </ul>
+          {tertiaryLinks.map(tertiaryBlock => (
+            <React.Fragment key={`menu-tertiary-${tertiaryBlock?.id}`}>
+              <ul
+                className={cx('menu-tertiary', {
+                  '-open': activeTertiaryMenu === tertiaryBlock.id,
                 })}
               >
-                <RouterLink
-                  link={{
-                    href: tertiaryBlock.promotionalImage?.url,
-                    label: '',
-                  }}
-                >
-                  <Image
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    optimisationOptions={{
-                      quality: 40,
+                <li className={linkClassName({ title: true })}>
+                  <Button
+                    withoutDefaultClass
+                    className="link"
+                    onClick={el => {
+                      el.preventDefault();
+                      setActiveTertiaryMenu(null);
                     }}
-                    src={
-                      tertiaryBlock.promotionalImage?.image.url ||
-                      '/img-placeholder.png'
-                    }
-                    alt={tertiaryBlock.promotionalImage?.image.fileName}
+                    dataTestId={`menu-tertiary-${tertiaryBlock.id}`}
+                    color="black"
+                    fill="clear"
+                    label={tertiaryBlock.label}
                   />
-                </RouterLink>
-              </div>
-            )}
-          </React.Fragment>
-        ))}
+                </li>
+                {(tertiaryBlock.children as IHeaderLink[]).map(
+                  (linkSecondary: IHeaderLink) => (
+                    <li
+                      key={linkSecondary.label}
+                      className={linkClassName({
+                        highlight: linkSecondary.highlight,
+                        half: tertiaryBlock?.children!.length > 4,
+                      })}
+                    >
+                      <RouterLink link={linkSecondary} as={linkSecondary.as}>
+                        {linkSecondary.highlight && (
+                          <Icon
+                            icon={<FlameSharp />}
+                            color="white"
+                            size="xsmall"
+                          />
+                        )}
+                        <span>{linkSecondary.label}</span>
+                      </RouterLink>
+                    </li>
+                  ),
+                )}
+              </ul>
+              {tertiaryBlock.promotionalImage?.url && (
+                <div
+                  className={cx('menu-featured', 'tertiary', {
+                    '-hide':
+                      activeTertiaryMenu !== tertiaryBlock.id &&
+                      activeTertiaryMenu !== '',
+                  })}
+                >
+                  <RouterLink
+                    link={{
+                      href: tertiaryBlock.promotionalImage?.url,
+                      label: '',
+                    }}
+                  >
+                    <Image
+                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                      optimisationOptions={{
+                        quality: 40,
+                      }}
+                      src={
+                        tertiaryBlock.promotionalImage?.image.url ||
+                        '/img-placeholder.png'
+                      }
+                      alt={tertiaryBlock.promotionalImage?.image.fileName}
+                    />
+                  </RouterLink>
+                </div>
+              )}
+            </React.Fragment>
+          ))}
 
-        {promotionalImage?.url && (
-          <div className="menu-featured">
-            <RouterLink link={{ href: promotionalImage?.url, label: '' }}>
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                optimisationOptions={{
-                  quality: 40,
-                }}
-                src={promotionalImage?.image.url || '/img-placeholder.png'}
-                alt={promotionalImage?.image.fileName}
-              />
-            </RouterLink>
-          </div>
-        )}
-      </div>
+          {promotionalImage?.url && (
+            <div className="menu-featured">
+              <RouterLink link={{ href: promotionalImage?.url, label: '' }}>
+                <Image
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  optimisationOptions={{
+                    quality: 40,
+                  }}
+                  src={promotionalImage?.image.url || '/img-placeholder.png'}
+                  alt={promotionalImage?.image.fileName}
+                />
+              </RouterLink>
+            </div>
+          )}
+        </div>
+      </LazyLoadComponent>
     </div>
   );
 });
