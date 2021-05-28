@@ -404,7 +404,7 @@ export const pushAddToCartDataLayer = ({
 
   const maintenanceCost =
     leaseScannerData?.quoteByCapId?.maintenanceCost?.monthlyRental;
-  const lineItem = values?.lineItems[0];
+  const lineItem = values?.lineItems?.[0];
   const product = data.ecommerce.add.products[0];
   getProductData({
     capId,
