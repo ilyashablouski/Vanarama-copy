@@ -5,9 +5,9 @@ $include-presentation-styles: false !default;
 @import '../variables.scss';
 
 // utilities and global styles
+@import '../util/font-face.scss';
 @import '../util/mixins.scss';
 @import '../util/reset.scss';
-@import '../util/font-face.scss';
 @import '../util/global.scss';
 @import '../util/color.scss';
 @import '../util/size.scss';
@@ -60,7 +60,7 @@ $include-presentation-styles: false !default;
 @import '../molecules/address-finder/address-finder.scss';
 @import '../molecules/cards/card.scss';
 // @import '../molecules/ivan-cta/ivan-cta.scss';
- @import '../molecules/modal/modal.scss';
+@import '../molecules/modal/modal.scss';
 // @import '../molecules/notification/notification.scss';
 // @import '../molecules/progress-indicator/progress-indicator.scss';
 // @import '../molecules/sortcode/sortcode.scss';
@@ -92,6 +92,7 @@ $include-presentation-styles: false !default;
 @import '../organisms/nlol-hero/nlol-hero.scss';
 @import '../organisms/competition/win-a-new-lease-of-life.scss';
 @import '../organisms/free-insurance/free-insurance.scss';
+@import '../organisms/icon-list/icon-list.scss';
 
 // row is imported last (for overrides)
 @import '../templates/footer.scss';

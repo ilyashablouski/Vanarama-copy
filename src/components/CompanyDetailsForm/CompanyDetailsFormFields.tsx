@@ -8,6 +8,7 @@ import Select from 'core/atoms/select';
 import AddressFormField from '../AddressFormField/AddressFormField';
 import { ICompanyDetailsFormValues, InputMode } from './interfaces';
 import { genMonths, genYears } from '../../utils/helpers';
+import { validateCompanyAddress } from '../../utils/validation';
 import {
   COMPANY_REGISTRATION_NUMBER,
   WORLDWIDE_MOBILE_REGEX,
@@ -157,6 +158,8 @@ export default function CompanyDetailsFormFields({
         label="Registered Address"
         rules={{
           required: 'Please enter the registered business address',
+          validate: (value: ICompanyDetailsFormValues['tradingAddress']) =>
+            validateCompanyAddress(value.label),
         }}
         hint="Enter Postcode Or Just Start Typing Address"
       />
@@ -175,10 +178,9 @@ export default function CompanyDetailsFormFields({
           id="tradingAddress"
           label="Trading Address"
           rules={{
-            validate: value =>
-              tradingDifferent && !value
-                ? 'Please enter the trading address'
-                : undefined,
+            required: 'Please enter the trading address',
+            validate: (value: ICompanyDetailsFormValues['tradingAddress']) =>
+              validateCompanyAddress(value.label),
           }}
           hint="Enter Postcode Or Just Start Typing Address"
         />

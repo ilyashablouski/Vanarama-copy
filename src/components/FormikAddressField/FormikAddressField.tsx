@@ -23,11 +23,13 @@ const FormikAddressField: React.FC<IProps> = ({
 
   return (
     <AddressFinder
+      selected={field.value}
       apiKey={process.env.LOQATE_KEY!}
       onSuggestionChange={suggestion => {
+        helpers.setTouched(true);
         helpers.setValue(suggestion);
+        setIsFocused(!suggestion);
       }}
-      selected={field.value}
     >
       <Formgroup error={error} controlId={name} label={label} hint={hint}>
         <AddressFinder.Input
