@@ -174,7 +174,7 @@ const HeaderContainer: FC = () => {
       if (getPartnerProperties()) {
         const partnerDetails = getPartnerProperties();
         if (partnerDetails) {
-          const { telephone } = partnerDetails;
+          const telephone = partnerDetails.telephone;
           if (telephone) {
             const hrefNumber = telephone.replace(/\s/g, '');
             const phoneData = {
