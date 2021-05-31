@@ -1,4 +1,5 @@
 import { ApolloClient, DocumentNode, QueryLazyOptions } from '@apollo/client';
+import { ParsedUrlQuery } from 'querystring';
 import { removeUrlQueryPart } from '../../utils/url';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
@@ -12,6 +13,13 @@ import {
 } from '../../../generated/globalTypes';
 import { GET_ALL_MAKES_PAGE } from './gql';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
+import {
+  getObjectFromSessionStorage,
+  setObjectAsSessionStorage,
+} from '../../utils/windowSessionStorage';
+import { isArraySame } from '../../utils/helpers';
+
+export const RESULTS_PER_REQUEST = 12;
 
 interface ISSRRequest {
   req: { url: string };
@@ -320,3 +328,41 @@ export const sortObjectGenerator = (sortArray: SortObject[]) => {
   }
   return sortArray;
 };
+
+export const onSavePagePosition = (
+  offerPosition: number,
+  queries: ParsedUrlQuery,
+) => {
+  const storageObject = {
+    offerPosition,
+    queries,
+    scrollPosition: window.pageYOffset,
+  };
+  setObjectAsSessionStorage('searchPageScrollData', storageObject);
+};
+
+export const isPreviousPage = (currentRoute: ParsedUrlQuery) => {
+  const savedPageData = getObjectFromSessionStorage('searchPageScrollData');
+  const keys1 = Object.keys(currentRoute)?.sort();
+  const keys2 = Object.keys(savedPageData?.queries)?.sort();
+
+  if (keys1.length !== keys2.length) {
+    return false;
+  }
+  keys1.forEach(key => {
+    const val1 = currentRoute[key];
+    const val2 = savedPageData?.queries[key];
+    const areArrays = Array.isArray(val1) && Array.isArray(val2);
+    if (
+      (areArrays && !isArraySame(val1 as string[], val2 as string[])) ||
+      (!areArrays && val1 !== val2)
+    ) {
+      return false;
+    }
+  });
+
+  return true;
+};
+
+export const getNumberOfVehicles = (id: number) =>
+  Math.ceil(id / RESULTS_PER_REQUEST) * RESULTS_PER_REQUEST;

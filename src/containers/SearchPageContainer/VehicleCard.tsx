@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import dynamic from 'next/dynamic';
 import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
 // import truncateString from '../../utils/truncateString';
+import { router } from 'next/client';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { formatProductPageUrl } from '../../utils/url';
@@ -10,6 +11,7 @@ import { CompareContext } from '../../utils/comparatorTool';
 import { features } from '../../components/ProductCarousel/helpers';
 import Skeleton from '../../components/Skeleton';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { onSavePagePosition } from './helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -41,6 +43,7 @@ interface IVehicleCardProps {
   isModelPage?: boolean;
   url: string;
   derivativeId?: string | null;
+  idx?: number;
 }
 
 const VehicleCard = React.memo(
@@ -53,6 +56,7 @@ const VehicleCard = React.memo(
     data,
     bodyStyle,
     isModelPage,
+    idx,
   }: IVehicleCardProps) => {
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
@@ -138,6 +142,7 @@ const VehicleCard = React.memo(
               label: 'View Offer',
             }}
             onClick={() => {
+              if (idx) onSavePagePosition(idx, router.query);
               sessionStorage.setItem('capId', data.capId || '');
             }}
             classNames={{ color: 'teal', solid: true, size: 'regular' }}

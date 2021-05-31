@@ -34,7 +34,10 @@ import {
   dynamicQueryTypeCheck,
   fuelMapper,
   getCapsIds,
+  getNumberOfVehicles,
+  isPreviousPage,
   onMadeLineBreaks,
+  RESULTS_PER_REQUEST,
   sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from './helpers';
@@ -71,6 +74,7 @@ import ReadMoreBlock from './ReadMoreBlock';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import { FilterFields } from '../FiltersContainer/config';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { getObjectFromSessionStorage } from '../../utils/windowSessionStorage';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -351,13 +355,40 @@ const SearchPageContainer: React.FC<IProps> = ({
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
   );
   // using onCompleted callback for request card data after vehicle list was loaded
-  const [getVehicles, { data }] = useVehiclesList(
+  const [getVehicles, { data, fetchMore }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
     isMakePage || isDynamicFilterPage || isSpecialOfferPage
       ? true
       : isSpecialOffers || null,
     async vehicles => {
+      const savedPageData = getObjectFromSessionStorage('searchPageScrollData');
+      if (
+        savedPageData?.offerPosition >
+          (vehicles?.vehicleList?.edges?.length || 0) &&
+        fetchMore
+      ) {
+        const edges = vehicles?.vehicleList?.edges || [];
+        const lastCursor = edges[edges.length - 1]?.cursor;
+        await fetchMore({
+          variables: {
+            after: lastCursor,
+          },
+          updateQuery: (prev, { fetchMoreResult }) => {
+            if (!fetchMoreResult) return prev;
+            return {
+              vehicleList: {
+                pageInfo: fetchMoreResult.vehicleList.pageInfo,
+                totalCount: fetchMoreResult.vehicleList.totalCount,
+                edges: [
+                  ...(prev.vehicleList.edges || []),
+                  ...(fetchMoreResult?.vehicleList?.edges || []),
+                ],
+              },
+            };
+          },
+        });
+      }
       try {
         const responseCapIds = getCapsIds(vehicles.vehicleList?.edges || []);
         setCapsIds(responseCapIds);
@@ -376,7 +407,11 @@ const SearchPageContainer: React.FC<IProps> = ({
         return false;
       }
     },
-    12,
+    getObjectFromSessionStorage('searchPageScrollData')
+      ? getNumberOfVehicles(
+          getObjectFromSessionStorage('searchPageScrollData').offerPosition + 1,
+        )
+      : RESULTS_PER_REQUEST,
     undefined,
     isPickups || isModelPage || isBodyStylePage ? manualBodyStyle : [],
   );
@@ -532,7 +567,11 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   // using for scroll page to top only for page mount
   useEffect(() => {
-    if (window) {
+    if (isPreviousPage(router.query) && window) {
+      // const savedPageData = getObjectFromSessionStorage('searchPageScrollData');
+      // window.scrollTo(0, savedPageData.scrollPosition);
+      getVehicles();
+    } else if (window) {
       window.scrollTo(0, 0);
     }
     // can't add a window to deps, because it isn't exist in SSR
