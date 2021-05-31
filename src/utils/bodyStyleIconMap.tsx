@@ -1,3 +1,4 @@
+import React from 'react';
 import CityCar from '../core/assets/icons/custom/CityCar';
 import Convertible from '../core/assets/icons/custom/Convertible';
 import Coupe from '../core/assets/icons/custom/Coupe';
