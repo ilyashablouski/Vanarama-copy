@@ -5,4 +5,5 @@ export type TSize =
   | 'large'
   | 'xlarge'
   | 'expand'
-  | 'lead';
+  | 'lead'
+  | 'initial-size';

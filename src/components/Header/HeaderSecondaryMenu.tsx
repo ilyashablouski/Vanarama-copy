@@ -125,11 +125,17 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
               >
                 {!link.href ? (
                   <>
-                    <button
-                      type="button"
+                    <Button
                       key={`${link.label}_${title}`}
+                      withoutDefaultClass
                       className={
                         link.highlight ? 'link -white' : 'link -inherit'
+                      }
+                      color="black"
+                      fill="clear"
+                      size="initial-size"
+                      label={
+                        link.highlightLabel ? link.highlightLabel : link.label
                       }
                       onClick={
                         isTabletOrMobile && link.children?.length
@@ -160,12 +166,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
                           size="xsmall"
                         />
                       )}
-                      {link.label}
-
-                      {link.highlightLabel && (
-                        <Label text={link.highlightLabel} />
-                      )}
-                    </button>
+                    </Button>
                   </>
                 ) : (
                   <RouterLink
