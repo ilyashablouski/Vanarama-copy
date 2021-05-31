@@ -32,7 +32,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
               <img
                 class="image--native"
                 data-testid="fleet_hero-image"
-                loading="lazy"
+                loading="eager"
                 sizes="(min-width:320px) 800px, 1200px"
                 src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png"
                 srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=620,width=620,quality=59,sharpness=0,metadata=none/https://dev.vanarama-nonprod.com/Assets/images/insurance/home-hero/insurance-hero.png 1200w"
