@@ -11,7 +11,7 @@ module.exports = api => {
 
   // TODO: Remove this workaround once next/babel is fixed in Next: https://github.com/vercel/next.js/issues/24566
   const isNextBabelPresetAllowed =
-    !api.env('test') && !process.env.ENV === 'storybook';
+    !api.env('test') && process.env.ENV !== 'storybook';
 
   if (isNextBabelPresetAllowed) {
     presets = ['next/babel', ...presets];
