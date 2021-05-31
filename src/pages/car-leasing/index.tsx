@@ -144,7 +144,6 @@ export const CarsPage: NextPage<IProps> = ({
         </div>
         <div>
           <Image
-            loadImage
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             optimisationOptions={optimisationOptions}
             className="hero--image"
