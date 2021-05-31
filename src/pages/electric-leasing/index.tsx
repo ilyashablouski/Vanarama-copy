@@ -177,7 +177,6 @@ export const EVHubPage: NextPage<IProps> = ({
         </div>
         <div className="hero--right">
           <Image
-            loadImage
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             optimisationOptions={optimisationOptions}
             className="hero--image"
