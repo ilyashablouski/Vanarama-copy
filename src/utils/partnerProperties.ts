@@ -1,8 +1,9 @@
 import Cookies from 'js-cookie';
 import { setLocalStorage } from './windowLocalStorage';
+import { getSessionStorage } from './windowSessionStorage';
+import { mapFuelSearchQueryToParam } from '../containers/SearchPageContainer/helpers';
 import { Nullish } from '../types/common';
 import { Partner_partner_footer as IPartnerFooter } from '../../generated/Partner';
-import { getSessionStorage } from './windowSessionStorage';
 
 const PARTNER_COOKIE_NAME = 'activePartnership';
 
@@ -35,8 +36,21 @@ export function setPartnerProperties(
   }
 }
 
+export function setSessionFuelTypes(fuelTypes: string[]) {
+  Cookies.set('customSessionFuelTypes', mapFuelSearchQueryToParam(fuelTypes));
+}
+
 export function setPartnerFooter(data: Nullish<IPartnerFooter>) {
   if (data) setLocalStorage('partnerFooter', JSON.stringify(data));
+}
+
+export function clearInactiveSessionFuelTypes() {
+  if (
+    Cookies.get('customSessionFuelTypes') &&
+    !getSessionStorage('partnershipSessionActive')
+  ) {
+    Cookies.remove('customSessionFuelTypes');
+  }
 }
 
 export default getPartnerProperties;

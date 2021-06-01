@@ -1,6 +1,7 @@
 import createApolloClient from 'apolloClient';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React, { useEffect, useState } from 'react';
+import Cookies from 'js-cookie';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
@@ -20,6 +21,7 @@ import {
   getPartnerProperties,
   setPartnerFooter,
   setPartnerProperties,
+  setSessionFuelTypes,
 } from '../../../utils/partnerProperties';
 import {
   IPartnerOffersData,
@@ -108,6 +110,7 @@ const OvoHomePage: NextPage<IProps> = ({
     }
     setSessionStorage('partnershipSessionActive', 'true');
     setPartnerFooter(footer);
+    setSessionFuelTypes(fuelTypes || []);
   }, []);
 
   const productCarouselProperties = [

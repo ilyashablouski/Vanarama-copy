@@ -4,7 +4,10 @@ import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import { useMediaQuery } from 'react-responsive';
 import { ILink } from 'core/interfaces/link';
-import { getPartnerProperties } from 'utils/partnerProperties';
+import {
+  clearInactiveSessionFuelTypes,
+  getPartnerProperties,
+} from 'utils/partnerProperties';
 import Header from '../../components/Header';
 import { IHeaderLink } from '../../components/Header/Header';
 import { PartnershipsLinks } from '../../components/Partnerships/Data/PartnishipLinks';
@@ -167,6 +170,10 @@ const HeaderContainer: FC = () => {
         setPartnershipLinks(links);
       }
     }
+  }, []);
+
+  useEffect(() => {
+    clearInactiveSessionFuelTypes();
   }, []);
 
   useEffect(() => {

@@ -110,6 +110,28 @@ export function mapFuelSearchQueryToParam(fuelTypes: any) {
   );
 }
 
+export const getCookieFromHeaderString = (
+  cookie: string,
+  searchTerm: string,
+) => {
+  const cookies = decodeURIComponent(cookie);
+  const data = cookies
+    .split(';')
+    .find(c => c.includes(searchTerm))
+    ?.replace(`${searchTerm}=`, '');
+  return data;
+};
+
+export const getCustomFuelTypesFromCookies = (
+  cookie: string,
+  searchTerm: string,
+) => {
+  const fuelTypes = getCookieFromHeaderString(cookie, searchTerm);
+  if (!fuelTypes) return undefined;
+  const fuelTypesObject = JSON.parse(fuelTypes);
+  const array = Object.keys(fuelTypesObject).map(f => fuelTypesObject[f]);
+  return array;
+};
 // using for get CMS slugs from url
 export const bodyUrlsSlugMapper = {
   automatic: 'automatic-vans',
