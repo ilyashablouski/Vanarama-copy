@@ -6,3 +6,6 @@ export enum Env {
 }
 
 export default Env;
+
+export const DEFAULT_REVALIDATE_INTERVAL = 43200;
+export const DEFAULT_REVALIDATE_INTERVAL_ERROR = 60;

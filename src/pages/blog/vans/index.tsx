@@ -7,6 +7,10 @@ import { IBlogCategory } from '../../../models/IBlogsProps';
 import createApolloClient from '../../../apolloClient';
 import { BLOG_POSTS_PAGE } from '../../../gql/blogPosts';
 import { decodeData, encodeData } from '../../../utils/data';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../../utils/env';
 
 const CategoryPage: NextPage<IBlogCategory> = ({
   data: encodedData,
@@ -50,7 +54,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const data = encodeData(blogPosts);
 
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data,
         error: errors ? errors[0] : null,
@@ -58,7 +64,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     };
   } catch {
     return {
-      revalidate: 1,
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
       props: {
         error: true,
       },
