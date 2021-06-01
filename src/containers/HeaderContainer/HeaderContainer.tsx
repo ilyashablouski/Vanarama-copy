@@ -180,17 +180,14 @@ const HeaderContainer: FC = () => {
     setTimeout(() => {
       if (getPartnerProperties()) {
         const partnerDetails = getPartnerProperties();
-        if (partnerDetails) {
-          const telephone = partnerDetails.telephone;
-          if (telephone) {
-            const hrefNumber = telephone.replace(/\s/g, '');
-            const phoneData = {
-              href: `tel:${hrefNumber}`,
-              label: telephone,
-              linkType: LinkTypes.external,
-            };
-            setPartnershipPhoneLink(phoneData);
-          }
+        if (partnerDetails?.telephone) {
+          const hrefNumber = partnerDetails.telephone.replace(/\s/g, '');
+          const phoneData = {
+            href: `tel:${hrefNumber}`,
+            label: partnerDetails.telephone,
+            linkType: LinkTypes.external,
+          };
+          setPartnershipPhoneLink(phoneData);
         }
       }
     }, 500);

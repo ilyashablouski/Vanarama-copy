@@ -1,8 +1,8 @@
 import Cookies from 'js-cookie';
 import { setLocalStorage } from './windowLocalStorage';
 import { getSessionStorage } from './windowSessionStorage';
-import { mapFuelSearchQueryToParam } from '../containers/SearchPageContainer/helpers';
 import { Nullish } from '../types/common';
+import { mapFuelSearchQueryToParam } from '../containers/SearchPageContainer/helpers';
 import { Partner_partner_footer as IPartnerFooter } from '../../generated/Partner';
 
 const PARTNER_COOKIE_NAME = 'activePartnership';
