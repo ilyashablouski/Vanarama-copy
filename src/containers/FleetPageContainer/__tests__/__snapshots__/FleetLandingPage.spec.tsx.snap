@@ -15,19 +15,19 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
           <h1
             class="heading -white -xlarge"
           >
-            Flexible Fleet Management 
+            Flexible Fleet Management
           </h1>
           <p
             class="text -large -white"
           >
-            With 
+            With
             <strong>
               No Hidden Costs
             </strong>
           </p>
           <div>
             <div
-              class="image hero--image hero--image-fleet -expand -plain"
+              class="image hero--image -expand -plain"
             >
               <img
                 class="image--native"
@@ -207,7 +207,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                         <span
                           class="text -regular -darker"
                         >
-                          I agree to the 
+                          I agree to the
                           <a
                             class="link -teal"
                             href="/legal/terms-and-conditions.html"
@@ -236,7 +236,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                         <span
                           class="text -regular -darker"
                         >
-                          I have read and understood the 
+                          I have read and understood the
                           <a
                             class="link -teal"
                             href="/legal/privacy-policy.html"

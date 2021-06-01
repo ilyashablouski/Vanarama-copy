@@ -29,7 +29,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           </p>
           <div>
             <div
-              class="image hero--image hero--image-insurance -expand -plain"
+              class="image hero--image -expand -plain"
             >
               <img
                 alt="Hero Image"
@@ -800,7 +800,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
           >
             Find Out More
           </a>
-          
+
 
           <a
             class="link -teal"
