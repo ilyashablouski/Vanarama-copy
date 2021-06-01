@@ -197,7 +197,7 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
         sectionsAsArray: true,
       },
     });
-    
+
     const {
       productsCarDerivatives,
       productsCar,
