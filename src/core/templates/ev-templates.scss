@@ -13,6 +13,7 @@
     position: relative;
     background: black;
     margin: 1.5rem 0 0 !important;
+
     img {
       position: absolute;
       top: 50%;
@@ -33,6 +34,7 @@
   justify-content: space-between;
   flex-wrap: wrap;
   padding: 2rem 1.5rem 1rem;
+
   li {
     min-width: 185px;
     padding-bottom: 1rem;
@@ -51,6 +53,7 @@
   flex-direction: column;
   flex: 1;
   height: 100%;
+
   > * {
     &:not(.heading) {
       margin: 0 !important;
@@ -75,17 +78,20 @@
 .-flex-default {
   display: flex;
   justify-content: space-between;
+
   > div {
     img {
       width: 100%;
       height: auto;
     }
   }
+
   &.-two-items {
     > div {
       width: calc(50% - 1rem);
     }
   }
+
   &.-three-items {
     > div {
       width: calc(33.333% - 1rem);
@@ -96,16 +102,19 @@
 .-flex-column {
   display: flex;
   flex-direction: column;
+
   a {
     position: relative;
     margin-bottom: 0.6rem;
-    > .icon, 
-    > svg  {
+
+    > .icon,
+    > svg {
       position: absolute;
       right: 0;
       top: 50%;
       transform: translateY(-50%);
     }
+
     &:last-of-type {
       margin-bottom: 0;
     }
@@ -127,6 +136,7 @@
   flex-wrap: wrap;
   padding: 2rem 0;
   justify-items: center;
+
   .author-avatar {
     width: 108px;
     height: 108px;
@@ -134,14 +144,17 @@
     border-radius: 50%;
     margin-right: 1.75rem;
     background: #44576a;
+
     img {
       display: block;
       width: 100%;
     }
   }
+
   .author-details {
     margin: auto 0;
   }
+
   .text {
     margin-top: 0 !important;
   }
@@ -149,8 +162,10 @@
 
 .card {
   box-shadow: inset 0 -1px 0 -2px #ced6de, inset 0 0 0 1px #ced6de;
+
   .basic {
     padding: 1rem;
+
     .link {
       &:after {
         display: block;
@@ -162,13 +177,14 @@
         left: 0;
         z-index: 1;
       }
+
       &:hover {
         &:after {
           overflow: hidden;
           background: linear-gradient(
-            159deg,
-            rgba(255, 255, 255, 0.15) 0%,
-            transparent 50%
+                          159deg,
+                          rgba(255, 255, 255, 0.15) 0%,
+                          transparent 50%
           );
           border: 1px solid rgba(10, 13, 16, 0.2);
           border-radius: 0.4rem;
@@ -177,15 +193,44 @@
     }
   }
 }
+
 .row {
   // Hero
   &\:bg-hero {
     min-height: unset !important;
     padding-bottom: var(--page-gap, 1rem) !important;
   }
+
   &\:hero {
     background: radial-gradient(#fff, rgba(255, 255, 255, 0) 70%);
+
+    //fleet page
+    .hero--image.hero--image-fleet {
+      padding-top: 34.45%;
+    }
   }
+
+  //electric page
+  &\:hero.ev-hero {
+    .hero--right {
+      .hero--image {
+        position: relative;
+        padding-top: 64.47%;
+        max-width: none;
+
+        img {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
+
 
   // Row with 3 cards and new carousel card style
   &\:cards-3col,
@@ -200,6 +245,7 @@
           margin: 0;
           padding: 1.6rem 2rem;
           grid-area: content;
+
           a {
             width: 100%;
           }
@@ -213,6 +259,7 @@
     > div {
       max-width: 108ch;
       width: 100%;
+
       .text {
         max-width: unset;
       }
@@ -238,6 +285,7 @@
       .hero--left {
         grid-column: content / column 6;
       }
+
       .hero--right {
         grid-column: column 6 / content;
         text-align: left;
@@ -250,6 +298,7 @@
   .row {
     &\:full-w-hero {
       height: 450px;
+
       img {
         transform: translate(-50%, -50%) scale(0.75);
       }
@@ -292,19 +341,23 @@
 
   .-flex-default {
     flex-wrap: wrap;
+
     &.-two-items {
       > div {
         width: 100%;
+
         .-ph-600 {
           padding-right: 2rem !important;
           padding-left: 2rem !important;
         }
       }
     }
+
     &.-three-items {
       > div {
         width: 100%;
         margin-bottom: 1rem;
+
         &:last-of-type {
           margin-bottom: 0;
         }
@@ -317,10 +370,12 @@
     &\:hero {
       .hero--left {
         padding-bottom: 0;
+
         img {
           transform: none;
         }
       }
+
       .hero--right {
         .heading.-xlarge {
           margin-bottom: 1.5rem;
@@ -338,6 +393,7 @@
 
     &\:full-w-hero {
       height: 300px;
+
       img {
         transform: translate(-50%, -50%) scale(0.5);
       }
@@ -349,9 +405,11 @@
   .article-author {
     flex-direction: column;
     align-items: center;
+
     .author-avatar {
       margin-right: unset;
     }
+
     .author-details {
       text-align: center;
       padding-top: 0.5rem;
