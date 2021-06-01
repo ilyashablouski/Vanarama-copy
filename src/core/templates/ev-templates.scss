@@ -21,6 +21,27 @@
       transform: translate(-50%, -50%);
     }
   }
+
+  //blog hub page image
+  &\:featured-left {
+    .blog-top-image {
+      width: 100%;
+      .image{
+        position: relative;
+        padding-top: 68.05%;
+
+        img {
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
+          width: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+  }
 }
 
 .-m-zero-auto {
@@ -204,18 +225,18 @@
   &\:hero {
     background: radial-gradient(#fff, rgba(255, 255, 255, 0) 70%);
 
-    //fleet page
+    //fleet page image
     .hero--image.hero--image-fleet {
       padding-top: 34.45%;
     }
 
-    //insurance page
+    //insurance page image
     .hero--image.hero--image-insurance {
       padding-top: 44.87%;
     }
   }
 
-  //electric page
+  //electric page image
   &\:hero.ev-hero {
     .hero--right {
       .hero--image {
