@@ -22,7 +22,7 @@ import {
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { useTrimAndColour } from '../../gql/carpage';
 import Skeleton from '../../components/Skeleton';
-import getPartnerProperties from '../../utils/partnerProperties';
+import { getPartnerProperties } from '../../utils/partnerProperties';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
