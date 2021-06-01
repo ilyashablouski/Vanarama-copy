@@ -46,6 +46,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <link rel="preconnect" href="https://cdn.blueconic.com" />
           {scriptEnvs.blueconic.includes(env) && (
             <script async src="https://cdn.blueconic.net/vanarama.js" />
           )}

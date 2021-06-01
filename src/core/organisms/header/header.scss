@@ -54,7 +54,6 @@
     grid-template-areas: '.      logo   account tel    navtoggle .     ' 'search search search  search search    search';
     place-items: center;
     gap: 0;
-    height: 46px;
   }
 
   @include desktop {

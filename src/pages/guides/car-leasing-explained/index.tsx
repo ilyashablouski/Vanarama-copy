@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
+import DefaultErrorPage from 'next/error';
 import LeasingExplainedContainer from '../../../containers/LeasingExplainedContainer/LeasingExplainedContainer';
 import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
 import { getSectionsData } from '../../../utils/getSectionsData';
@@ -7,10 +8,18 @@ import createApolloClient from '../../../apolloClient';
 import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
 import Head from '../../../components/Head/Head';
 import { decodeData, encodeData } from '../../../utils/data';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../../utils/env';
 
-const FinanceInfo: NextPage<IGenericPage> = ({ data: encodedData }) => {
+const FinanceInfo: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
   // De-obfuscate data for user
   const data = decodeData(encodedData);
+
+  if (error || !data) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
 
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
@@ -52,17 +61,25 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: `guides/car-leasing-explained`,
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data: encodeData(data),
+        error: errors ? errors[0] : null,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch {
+    return {
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
+      props: {
+        error: true,
+      },
+    };
   }
 }
 
