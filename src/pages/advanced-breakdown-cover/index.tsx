@@ -1,9 +1,14 @@
 import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import DefaultErrorPage from 'next/error';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import createApolloClient from '../../apolloClient';
 import Skeleton from '../../components/Skeleton';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -12,7 +17,12 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 const AdvancedBreakdownCoverPage: NextPage<IGenericPage> = ({
   data,
   loading,
+  error,
 }) => {
+  if (error || !data) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
+
   if (loading) {
     return <Loading size="large" />;
   }
@@ -30,17 +40,25 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'advanced-breakdown-cover',
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data,
+        error: errors ? errors[0] : null,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch {
+    return {
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
+      props: {
+        error: true,
+      },
+    };
   }
 }
 

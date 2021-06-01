@@ -6,6 +6,10 @@ import {
 } from '../../generated/BlogPosts';
 import { encodeData } from './data';
 import { getSectionsData } from './getSectionsData';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from './env';
 
 export const ARTICLES_PER_PAGE = 9;
 
@@ -30,7 +34,9 @@ export const getBlogPosts = async (
     const data = encodeData(blogPosts);
 
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data,
         pageNumber:
@@ -39,7 +45,9 @@ export const getBlogPosts = async (
     };
   } catch (err) {
     return {
-      revalidate: 1,
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
       props: {
         data: null,
         pageNumber: null,

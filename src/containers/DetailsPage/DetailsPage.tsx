@@ -51,6 +51,7 @@ import { GetProductCard } from '../../../generated/GetProductCard';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
+import { pushAddToCartHeap } from '../../utils/heapHelpers';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
@@ -313,6 +314,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         optIn: withInsurance,
         eligible: isAgreeInsuranceRules,
       };
+    pushAddToCartHeap(vehicleProduct);
     pushAddToCartDataLayer({
       capId,
       derivativeInfo,

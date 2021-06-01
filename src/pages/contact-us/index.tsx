@@ -5,6 +5,7 @@ import Router from 'next/router';
 import Map from 'core/atoms/map';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
+import DefaultErrorPage from 'next/error';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   ContactUsPageData_contactUsLandingPage_sections_cards_cards as Cards,
@@ -16,6 +17,10 @@ import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import Head from '../../components/Head/Head';
 import createApolloClient from '../../apolloClient';
 import Skeleton from '../../components/Skeleton';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -45,8 +50,16 @@ const Breadcrumb = dynamic(
   },
 );
 
-export const ContactUsPage: NextPage<IGenericPage> = ({ data, loading }) => {
+export const ContactUsPage: NextPage<IGenericPage> = ({
+  data,
+  loading,
+  error,
+}) => {
   const [show, setShow] = useState(false);
+
+  if (error || !data) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
 
   if (loading) {
     return <Loading size="large" />;
@@ -253,17 +266,25 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'contact-us',
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data,
+        error: errors ? errors[0] : null,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch {
+    return {
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
+      props: {
+        error: true,
+      },
+    };
   }
 }
 

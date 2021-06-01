@@ -6,7 +6,8 @@ import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import NextHead from 'next/head';
+import Cookies from 'js-cookie';
+import { useMediaQuery } from 'react-responsive';
 import { removeUrlQueryPart, SEARCH_PAGES } from '../utils/url';
 import { CompareContext } from '../utils/comparatorTool';
 import {
@@ -119,9 +120,19 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     return 'page:default';
   };
 
+  // TODO: when global search feature will release move styles from main tag to css
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
+  const [isAddPadding, setIsAddPadding] = useState(false);
+  useEffect(() => {
+    setIsAddPadding(Cookies.get('DIG-5552') === '1' && isTabletOrMobile);
+  }, [isTabletOrMobile]);
+
   return (
     <>
-      <main className={cx(resolveMainClass())}>
+      <main
+        className={cx(resolveMainClass())}
+        style={isAddPadding ? { paddingTop: '104px' } : {}}
+      >
         <HeaderContainer />
         <CompareContext.Provider
           value={{
