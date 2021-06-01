@@ -2,14 +2,12 @@
 import React, { FC, memo, useState, useEffect } from 'react';
 import cx from 'classnames';
 import dynamic from 'next/dynamic';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { useRouter } from 'next/router';
 import { IBaseProps } from 'core/interfaces/base';
 import { useMediaQuery } from 'react-responsive';
 import RouterLink from '../RouterLink/RouterLink';
 import { IHeaderLink } from './Header';
 import { useHover } from '../../hooks/useHover';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const HeaderSecondaryMenu = dynamic(() => import('./HeaderSecondaryMenu'));
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -85,17 +83,15 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
         <span>{link.label}</span>
       </RouterLink>
       {link.children?.length ? (
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <HeaderSecondaryMenu
-            isMenuOpen={isMenuOpen}
-            isSecondaryMenuOpen={isSecondaryMenuOpen}
-            onClickTitle={() => setIsOpenMenu(false)}
-            promotionalImage={link.promotionalImage}
-            links={link.children as IHeaderLink[]}
-            isTabletOrMobile={isTabletOrMobile}
-            title={link.label}
-          />
-        </LazyLoadComponent>
+        <HeaderSecondaryMenu
+          isMenuOpen={isMenuOpen}
+          isSecondaryMenuOpen={isSecondaryMenuOpen}
+          onClickTitle={() => setIsOpenMenu(false)}
+          promotionalImage={link.promotionalImage}
+          links={link.children as IHeaderLink[]}
+          isTabletOrMobile={isTabletOrMobile}
+          title={link.label}
+        />
       ) : null}
     </li>
   );
