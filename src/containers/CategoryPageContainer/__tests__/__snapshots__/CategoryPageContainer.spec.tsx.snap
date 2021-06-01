@@ -16,7 +16,7 @@ exports[`<CategoryPageContainer /> should match snapshot 1`] = `
       class="row:featured-left"
     >
       <div
-        class="imgPlaceholderWrapper"
+        class="imgPlaceholderWrapper blog-top-image"
       >
         <div
           class="image -expand"

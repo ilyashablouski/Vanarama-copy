@@ -35,7 +35,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           </h3>
           <div>
             <div
-              class="image hero--image -expand -plain"
+              class="image hero--image hero--image-insurance -expand -plain"
             >
               <img
                 alt="Hero Image"
@@ -427,7 +427,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   />
                 </svg>
               </i>
-              Back to
+              Back to 
               Home
             </a>
           </li>
@@ -453,7 +453,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   />
                 </svg>
               </i>
-              Back to
+              Back to 
               Van Insurance
             </a>
           </li>
@@ -697,7 +697,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   <span
                     class="text -regular -darker"
                   >
-                    I agree to the
+                    I agree to the 
                     <a
                       class="link -teal"
                       href="/legal/terms-and-conditions.html"
@@ -726,7 +726,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   <span
                     class="text -regular -darker"
                   >
-                    I have read and understood the
+                    I have read and understood the 
                     <a
                       class="link -teal"
                       href="/legal/privacy-policy.html"
