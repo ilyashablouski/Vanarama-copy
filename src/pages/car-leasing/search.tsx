@@ -74,10 +74,7 @@ export async function getServerSideProps(context: NextPageContext) {
         variables: {
           vehicleTypes: [VehicleTypeEnum.CAR],
           leaseType: LeaseTypeEnum.PERSONAL,
-          fuelTypes: getCustomFuelTypesFromCookies(
-            cookieString,
-            'customSessionFuelTypes',
-          ),
+          fuelTypes: getCustomFuelTypesFromCookies(cookieString, 'customSessionFuelTypes'),
           onOffer: null,
           first: 12,
           sort: [
@@ -105,6 +102,7 @@ export async function getServerSideProps(context: NextPageContext) {
   }
   return {
     props: {
+      context: cookieString,
       pageData: encodeData(data),
       metaData: data?.genericPage.metaData || null,
       isServer: !!context.req,
