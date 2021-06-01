@@ -153,7 +153,7 @@ describe('<SummaryFormContainer />', () => {
 
     expect(
       screen.getByTestId('summary-employment[1].income'),
-    ).toHaveTextContent('£600,000.00');
+    ).toHaveTextContent('£600 000,00');
 
     expect(screen.getByTestId('summary-employment[1].since')).toHaveTextContent(
       '17/12/1950',
@@ -178,14 +178,14 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(
       screen.getByTestId('summary-average-monthly-income'),
-    ).toHaveTextContent('£25,000.00');
+    ).toHaveTextContent('£25 000,00');
 
     expect(screen.getByTestId('summary-total-expenses')).toHaveTextContent(
-      '£14,567.11',
+      '£14 567,11',
     );
 
     expect(screen.getByTestId('summary-net-disposable')).toHaveTextContent(
-      '£10,000.00',
+      '£10 000,00',
     );
   });
 
