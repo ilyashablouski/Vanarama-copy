@@ -26,22 +26,14 @@ interface ISSRRequest {
   query: { [x: string]: string | string[] };
 }
 
-export const buildRewriteRoute = (
-  {
-    transmissions,
-    bodyStyles,
-    rangeSlug: rangeName,
-    manufacturerSlug: make,
-    rate,
-    fuelTypes,
-  }: IFilters,
-  isMakeOrCarPage?: boolean,
-  isModelPage?: boolean,
-  isBodyStylePage?: boolean,
-  isTransmissionPage?: boolean,
-  isFuelPage?: boolean,
-  isBudgetPage?: boolean,
-) => {
+export const buildRewriteRoute = ({
+  transmissions,
+  bodyStyles,
+  rangeSlug: rangeName,
+  manufacturerSlug: make,
+  rate,
+  fuelTypes,
+}: IFilters) => {
   const queries = {} as any;
   Object.entries({
     transmissions,
@@ -51,22 +43,11 @@ export const buildRewriteRoute = (
     make,
   }).forEach(filter => {
     const [key, value] = filter;
-    if (
-      value?.length &&
-      // don't add queries in page where we have same data in route
-      !(isMakeOrCarPage && (key === 'make' || key === 'rangeName')) &&
-      !(isBodyStylePage && key === 'bodyStyles') &&
-      !(isFuelPage && key === 'fuelTypes') &&
-      !(isTransmissionPage && key === 'transmissions') &&
-      !(
-        isModelPage &&
-        (key === 'make' || key === 'rangeName' || key === 'bodyStyles')
-      )
-    ) {
+    if (value?.length) {
       queries[key] = value;
     }
   });
-  if ((rate?.max || Number.isInteger(rate?.min)) && !isBudgetPage) {
+  if (rate?.max || Number.isInteger(rate?.min)) {
     queries.pricePerMonth = getBudgetForQuery(
       `${rate.min || '0'}-${rate.max || ''}`,
     );
@@ -340,28 +321,30 @@ export const onSavePagePosition = (
   };
   setObjectAsSessionStorage('searchPageScrollData', storageObject);
 };
-
+/**
+ * checking that current search page was opened by back button click
+ * @param currentRoute
+ */
 export const isPreviousPage = (currentRoute: ParsedUrlQuery) => {
   const savedPageData = getObjectFromSessionStorage('searchPageScrollData');
-  const keys1 = Object.keys(currentRoute)?.sort();
-  const keys2 = Object.keys(savedPageData?.queries)?.sort();
+  if (savedPageData) {
+    const keys1 = Object.keys(currentRoute)?.sort();
+    const keys2 = Object.keys(savedPageData?.queries)?.sort();
 
-  if (keys1.length !== keys2.length) {
-    return false;
-  }
-  keys1.forEach(key => {
-    const val1 = currentRoute[key];
-    const val2 = savedPageData?.queries[key];
-    const areArrays = Array.isArray(val1) && Array.isArray(val2);
-    if (
-      (areArrays && !isArraySame(val1 as string[], val2 as string[])) ||
-      (!areArrays && val1 !== val2)
-    ) {
+    if (keys1.length !== keys2.length) {
       return false;
     }
-  });
-
-  return true;
+    return keys1.every(key => {
+      const val1 = currentRoute[key];
+      const val2 = savedPageData?.queries[key];
+      const areArrays = Array.isArray(val1) && Array.isArray(val2);
+      return !(
+        (areArrays && !isArraySame(val1 as string[], val2 as string[])) ||
+        (!areArrays && val1 !== val2)
+      );
+    });
+  }
+  return false;
 };
 
 export const getNumberOfVehicles = (id: number) =>

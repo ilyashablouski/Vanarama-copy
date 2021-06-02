@@ -6,6 +6,7 @@ import createApolloClient from '../../../../apolloClient';
 import { GET_SEARCH_POD_DATA } from '../../../../containers/SearchPodContainer/gql';
 import {
   getCapsIds,
+  RESULTS_PER_REQUEST,
   sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../../containers/SearchPageContainer/helpers';
@@ -151,7 +152,7 @@ export async function getServerSideProps(context: NextPageContext) {
             vehicleTypes: [VehicleTypeEnum.CAR],
             leaseType: LeaseTypeEnum.PERSONAL,
             onOffer: null,
-            first: 12,
+            first: RESULTS_PER_REQUEST,
             sort: defaultSort,
             manufacturerSlug: (context?.query
               ?.dynamicParam as string).toLowerCase(),

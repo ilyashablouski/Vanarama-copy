@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import dynamic from 'next/dynamic';
 import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
 // import truncateString from '../../utils/truncateString';
-import { router } from 'next/client';
+import { useRouter } from 'next/router';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { formatProductPageUrl } from '../../utils/url';
@@ -58,6 +58,7 @@ const VehicleCard = React.memo(
     isModelPage,
     idx,
   }: IVehicleCardProps) => {
+    const router = useRouter();
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
     const productPageUrl = formatProductPageUrl(url, derivativeId);
@@ -102,6 +103,7 @@ const VehicleCard = React.memo(
                 label: '',
               }}
               onClick={() => {
+                if (idx) onSavePagePosition(idx, router.query);
                 sessionStorage.setItem('capId', data.capId || '');
               }}
               className="heading"
