@@ -119,7 +119,7 @@ def createReleaseBranch(appEnvironment, sourceBranch) {
 
 def getDockerTagName() {
     if ( "${branchName}" =~ "hotfix/*" ) {
-        return "${branchName}".replace("hotfix/", "hotfix-H${env.CHANGE_ID}-")
+        return "${branchName}".replace("hotfix/", "hotfix-H${env.CHANGE_ID}-B${env.BUILD_NUMBER}-")
     } else {
         def cleanBranchName = "${branchName}".replace('/', '-')
         return "${cleanBranchName}"
