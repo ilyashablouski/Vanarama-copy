@@ -214,6 +214,7 @@ export const CREATE_UPDATE_ORDER_MUTATION = gql`
           funderId
           funderData
           maintenancePrice
+          partnershipId
           freeInsurance {
             optIn
             eligible
