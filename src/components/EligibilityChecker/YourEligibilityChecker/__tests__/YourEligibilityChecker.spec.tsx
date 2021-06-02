@@ -28,6 +28,7 @@ describe('<YourEligibilityChecker />', () => {
     fireEvent.input(screen.getByTestId('eligibilityCheckerFirstName'), {
       target: { value: 'W' },
     });
+
     fireEvent.click(screen.getByText('Check Your Eligibility'));
 
     await waitFor(() => {
@@ -43,6 +44,7 @@ describe('<YourEligibilityChecker />', () => {
     fireEvent.input(screen.getByLabelText('First Name'), {
       target: { value: 'ThisFirstNameIsOverFiftyCharactersLongggggggggggggg' },
     });
+
     fireEvent.click(screen.getByText('Check Your Eligibility'));
 
     await waitFor(() => {
@@ -58,6 +60,7 @@ describe('<YourEligibilityChecker />', () => {
     fireEvent.input(screen.getByTestId('eligibilityCheckerLastName'), {
       target: { value: 'W' },
     });
+
     fireEvent.click(screen.getByText('Check Your Eligibility'));
 
     await waitFor(() => {
@@ -73,6 +76,7 @@ describe('<YourEligibilityChecker />', () => {
     fireEvent.input(screen.getByTestId('eligibilityCheckerLastName'), {
       target: { value: 'ThisLastNameIsOverFiftyCharactersLonggggggggggggggg' },
     });
+
     fireEvent.click(screen.getByText('Check Your Eligibility'));
 
     await waitFor(() => {
@@ -88,6 +92,7 @@ describe('<YourEligibilityChecker />', () => {
     fireEvent.input(screen.getByTestId('eligibilityCheckerEmail'), {
       target: { value: 'invalid@' },
     });
+
     fireEvent.click(screen.getByText('Check Your Eligibility'));
 
     await waitFor(() => {
@@ -106,6 +111,7 @@ describe('<YourEligibilityChecker />', () => {
     fireEvent.input(screen.getByTestId('eligibilityCheckerSelectYOB'), {
       target: { value: thisYear },
     });
+
     fireEvent.click(screen.getByText('Check Your Eligibility'));
 
     await waitFor(() => {
@@ -113,8 +119,6 @@ describe('<YourEligibilityChecker />', () => {
     });
   });
 
-  // FIXME: This test was previously not execute due to the filename being incorrect.
-  // Upon correcting the filename, it fails so is being skipped for now.
   it.skip('should call submit with valid field inputs', async () => {
     fireEvent.input(screen.getByTestId('eligibilityCheckerFirstName'), {
       target: { value: 'John' },
@@ -134,6 +138,10 @@ describe('<YourEligibilityChecker />', () => {
     fireEvent.input(screen.getByTestId('eligibilityCheckerSelectYOB'), {
       target: { value: '2000' },
     });
+
+    fireEvent.click(screen.getByTestId('eligibilityTermsAndCons'));
+    fireEvent.click(screen.getByTestId('eligibilityPrivacyPolicy'));
+
     fireEvent.click(screen.getByText('Check Your Eligibility'));
 
     await waitFor(() => expect(submit).toHaveBeenCalledTimes(1));
