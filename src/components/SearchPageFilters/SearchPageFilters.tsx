@@ -33,6 +33,7 @@ import {
 import { dynamicQueryTypeCheck } from '../../containers/SearchPageContainer/helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { ISearchPageFiltersProps } from './interfaces';
+import { getSessionStorage } from 'utils/windowSessionStorage';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -440,7 +441,9 @@ const SearchPageFilters = ({
                         (isFuelPage &&
                           filter.accessor === FilterFields.fuelTypes) ||
                         (isTransmissionPage &&
-                          filter.accessor === FilterFields.transmissions)
+                          filter.accessor === FilterFields.transmissions) ||
+                        (getSessionStorage('partnershipSessionActive') &&
+                          filter.accessor === FilterFields.fuelTypes)
                       )
                     ) && (
                       <div className="dropdown--header">
