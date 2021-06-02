@@ -20,7 +20,7 @@ const Image: FC<IImageProps> = props => {
     inline,
     optimisedHost,
     optimisationOptions,
-    loadImage,
+    lazyLoad,
     dataTestId,
   } = props;
 
@@ -78,7 +78,7 @@ const Image: FC<IImageProps> = props => {
       })}
     >
       <img
-        loading={loadImage ? 'lazy' : 'eager'}
+        loading={lazyLoad ? 'lazy' : 'eager'}
         srcSet={srcset}
         sizes="(min-width:320px) 800px, 1200px"
         alt={alt}
