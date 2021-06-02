@@ -4,6 +4,7 @@ import { GET_VEHICLE_LIST } from '../../containers/SearchPageContainer/gql';
 import createApolloClient from '../../apolloClient';
 import {
   getCapsIds,
+  RESULTS_PER_REQUEST,
   ssrCMSQueryExecutor,
 } from '../../containers/SearchPageContainer/helpers';
 import SearchPageContainer from '../../containers/SearchPageContainer';
@@ -74,7 +75,7 @@ export async function getServerSideProps(context: NextPageContext) {
           vehicleTypes: [VehicleTypeEnum.LCV],
           leaseType: LeaseTypeEnum.BUSINESS,
           onOffer: true,
-          first: 12,
+          first: RESULTS_PER_REQUEST,
           sort: [
             { field: SortField.offerRanking, direction: SortDirection.ASC },
           ],

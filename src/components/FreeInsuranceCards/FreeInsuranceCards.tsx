@@ -27,7 +27,7 @@ const FreeInsuranceCards = () => {
         <LifeEventInsurance />
         <div className="copy --xsmall">
           <p>
-            This Vehicle Include Free Redundancy &amp; Life Event Cover For The
+            This Vehicle Includes Free Redundancy &amp; Life Event Cover For The
             Duration Of Your Lease
           </p>
           <span>

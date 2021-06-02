@@ -22,6 +22,7 @@ import {
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { useTrimAndColour } from '../../gql/carpage';
 import Skeleton from '../../components/Skeleton';
+import { getPartnerProperties } from '../../utils/partnerProperties';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -229,6 +230,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         item?.id === quoteData?.quoteByCapId?.trim || item?.id === `${trim}`,
     )?.optionDescription;
 
+    const partnerSlug = getPartnerProperties()?.slug;
+
     return {
       vehicleProduct: {
         vehicleType,
@@ -248,6 +251,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         maintenancePrice: maintenance
           ? quoteData?.quoteByCapId?.maintenanceCost?.monthlyRental
           : undefined,
+        partnerSlug,
       },
       quantity: 1,
     };

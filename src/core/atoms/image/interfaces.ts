@@ -14,6 +14,6 @@ export interface IImageProps extends IBaseProps {
   inline?: boolean;
   width?: string;
   height?: string;
-  loadImage?: boolean;
+  lazyLoad?: boolean;
   dataTestId?: string;
 }

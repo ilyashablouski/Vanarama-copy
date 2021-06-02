@@ -23,6 +23,7 @@ interface IProps {
   vehiclesList: any;
   isModelPage?: boolean;
   customCTAColor?: string;
+  idx?: number;
 }
 
 const ResultsContainer = memo((props: IProps) => {
@@ -81,7 +82,7 @@ const ResultsContainer = memo((props: IProps) => {
     </>
   ) : (
     !!cardsData.length &&
-      vehiclesList?.map((vehicle: IVehicles) => (
+      vehiclesList?.map((vehicle: IVehicles, idx: number) => (
         <VehicleCard
           bodyStyle={router.query?.bodyStyles === 'Pickup' ? 'Pickup' : null}
           key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
@@ -95,6 +96,7 @@ const ResultsContainer = memo((props: IProps) => {
           isPersonalPrice={isPersonal ?? false}
           isModelPage={isModelPage}
           customCTAColor={customCTAColor}
+          idx={idx}
         />
       ))
   );

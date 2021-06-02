@@ -27,7 +27,7 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
           </p>
           <div>
             <div
-              class="image hero--image -expand -plain"
+              class="image hero--image hero--image-fleet -expand -plain"
             >
               <img
                 class="image--native"

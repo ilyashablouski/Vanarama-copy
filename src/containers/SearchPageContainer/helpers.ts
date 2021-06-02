@@ -1,4 +1,5 @@
 import { ApolloClient, DocumentNode, QueryLazyOptions } from '@apollo/client';
+import { ParsedUrlQuery } from 'querystring';
 import { removeUrlQueryPart } from '../../utils/url';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import { getBudgetForQuery } from '../SearchPodContainer/helpers';
@@ -12,28 +13,27 @@ import {
 } from '../../../generated/globalTypes';
 import { GET_ALL_MAKES_PAGE } from './gql';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
+import {
+  getObjectFromSessionStorage,
+  setObjectAsSessionStorage,
+} from '../../utils/windowSessionStorage';
+import { isArraySame } from '../../utils/helpers';
+
+export const RESULTS_PER_REQUEST = 12;
 
 interface ISSRRequest {
   req: { url: string };
   query: { [x: string]: string | string[] };
 }
 
-export const buildRewriteRoute = (
-  {
-    transmissions,
-    bodyStyles,
-    rangeSlug: rangeName,
-    manufacturerSlug: make,
-    rate,
-    fuelTypes,
-  }: IFilters,
-  isMakeOrCarPage?: boolean,
-  isModelPage?: boolean,
-  isBodyStylePage?: boolean,
-  isTransmissionPage?: boolean,
-  isFuelPage?: boolean,
-  isBudgetPage?: boolean,
-) => {
+export const buildRewriteRoute = ({
+  transmissions,
+  bodyStyles,
+  rangeSlug: rangeName,
+  manufacturerSlug: make,
+  rate,
+  fuelTypes,
+}: IFilters) => {
   const queries = {} as any;
   Object.entries({
     transmissions,
@@ -43,22 +43,11 @@ export const buildRewriteRoute = (
     make,
   }).forEach(filter => {
     const [key, value] = filter;
-    if (
-      value?.length &&
-      // don't add queries in page where we have same data in route
-      !(isMakeOrCarPage && (key === 'make' || key === 'rangeName')) &&
-      !(isBodyStylePage && key === 'bodyStyles') &&
-      !(isFuelPage && key === 'fuelTypes') &&
-      !(isTransmissionPage && key === 'transmissions') &&
-      !(
-        isModelPage &&
-        (key === 'make' || key === 'rangeName' || key === 'bodyStyles')
-      )
-    ) {
+    if (value?.length) {
       queries[key] = value;
     }
   });
-  if ((rate?.max || Number.isInteger(rate?.min)) && !isBudgetPage) {
+  if (rate?.max || Number.isInteger(rate?.min)) {
     queries.pricePerMonth = getBudgetForQuery(
       `${rate.min || '0'}-${rate.max || ''}`,
     );
@@ -342,3 +331,43 @@ export const sortObjectGenerator = (sortArray: SortObject[]) => {
   }
   return sortArray;
 };
+
+export const onSavePagePosition = (
+  offerPosition: number,
+  queries: ParsedUrlQuery,
+) => {
+  const storageObject = {
+    offerPosition,
+    queries,
+    scrollPosition: window.pageYOffset,
+  };
+  setObjectAsSessionStorage('searchPageScrollData', storageObject);
+};
+/**
+ * checking that current search page was opened by back button click
+ * @param currentRoute
+ */
+export const isPreviousPage = (currentRoute: ParsedUrlQuery) => {
+  const savedPageData = getObjectFromSessionStorage('searchPageScrollData');
+  if (savedPageData) {
+    const keys1 = Object.keys(currentRoute)?.sort();
+    const keys2 = Object.keys(savedPageData?.queries)?.sort();
+
+    if (keys1.length !== keys2.length) {
+      return false;
+    }
+    return keys1.every(key => {
+      const val1 = currentRoute[key];
+      const val2 = savedPageData?.queries[key];
+      const areArrays = Array.isArray(val1) && Array.isArray(val2);
+      return !(
+        (areArrays && !isArraySame(val1 as string[], val2 as string[])) ||
+        (!areArrays && val1 !== val2)
+      );
+    });
+  }
+  return false;
+};
+
+export const getNumberOfVehicles = (id: number) =>
+  Math.ceil(id / RESULTS_PER_REQUEST) * RESULTS_PER_REQUEST;
