@@ -41,7 +41,7 @@ export default function AddressFormField({
             hint={hint}
           >
             <AddressFinder.Input id={id} dataTestId={dataTestId} />
-            <AddressFinder.Selected />
+            <AddressFinder.Selected dataTestId={dataTestId} />
             <AddressFinder.Intermediate />
           </FormGroup>
           <AddressFinder.Results />

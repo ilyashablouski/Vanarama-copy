@@ -55,12 +55,9 @@ describe('<EmploymentFormContainer />', () => {
 
   it.skip('should prefill data from the server', async () => {
     // ARRANGE
-    let mutationCalled = false;
     const personUuid = '1337';
     const onCompletedMock = jest.fn();
-    const mocks = withPrefilledEmployments(personUuid, () => {
-      mutationCalled = true;
-    });
+    const mocks = withPrefilledEmployments(personUuid);
 
     // ACT
     render(
@@ -73,7 +70,9 @@ describe('<EmploymentFormContainer />', () => {
     );
 
     // Wait for the initial query to resolve
-    await screen.findByTestId('employment-history-heading');
+    await waitFor(() => {
+      screen.getByTestId('employment-history-heading');
+    });
 
     // Assert form is pre-filled
     const status = screen.getByLabelText('Your Current Employment Status');
@@ -86,7 +85,7 @@ describe('<EmploymentFormContainer />', () => {
     expect(year).toHaveValue('2002');
 
     const jobTitle = screen.getByLabelText('Job Title');
-    expect(jobTitle).toHaveValue('Senior Developer');
+    expect(jobTitle).toHaveValue('Janitor');
 
     const companyName = screen.getByLabelText('Company Name');
     expect(companyName).toHaveValue('Google');
@@ -94,8 +93,8 @@ describe('<EmploymentFormContainer />', () => {
     const phoneNumber = screen.getByLabelText('Work Phone Number');
     expect(phoneNumber).toHaveValue('0777777777777');
 
-    const address = screen.getByLabelText('Company Address');
-    expect(address).toHaveValue(
+    const address = screen.getByTestId('history[0].address');
+    expect(address).toHaveTextContent(
       '1-13 St Giles High St,, West End, London, WC2H 8AG',
     );
 
@@ -105,7 +104,6 @@ describe('<EmploymentFormContainer />', () => {
     fireEvent.click(screen.getByText('Continue'));
 
     // Assert pre-filled data is saved again on clicking "Continue"
-    await waitFor(() => expect(mutationCalled).toBeTruthy());
-    expect(onCompletedMock).toHaveBeenCalledTimes(1);
+    await waitFor(() => expect(onCompletedMock).toHaveBeenCalledTimes(1));
   });
 });
