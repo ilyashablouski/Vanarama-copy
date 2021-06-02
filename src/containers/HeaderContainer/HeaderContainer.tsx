@@ -158,7 +158,7 @@ const HeaderContainer: FC = () => {
     if (partnerDetails) {
       const partnerName = partnerDetails.slug;
       setPartnership(partnerName);
-      setPartnershipHomeLink(`/partnerships/${partnerName}`);
+      setPartnershipHomeLink(`/partnerships/${partnerName.toLowerCase()}`);
       const links = partnerLinks.find(p => p.name === partnerName)?.links;
       setPartnershipLinks(links);
     } else if (path.includes('partnerships')) {
@@ -166,7 +166,7 @@ const HeaderContainer: FC = () => {
       if (partner) {
         setPartnership(partner);
         setPartnershipHomeLink(`/partnerships/${partner}`);
-        const links = partnerLinks.find(p => p.name === partner)?.links;
+        const links = partnerLinks.find(p => p.name === partner.toUpperCase())?.links;
         setPartnershipLinks(links);
       }
     }
@@ -203,7 +203,7 @@ const HeaderContainer: FC = () => {
         }}
         loginLink={LOGIN_LINK}
         phoneNumberLink={partnershipPhoneLink || phoneNumberLink}
-        topBarLinks={[...partnershipLinks]}
+        topBarLinks={partnershipLinks}
         customHomePath={partnershipHomeLink}
       />
     );
