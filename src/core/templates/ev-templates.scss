@@ -26,7 +26,8 @@
   &\:featured-left {
     .blog-top-image {
       width: 100%;
-      .image{
+
+      .image {
         position: relative;
         padding-top: 68.05%;
 
@@ -202,11 +203,7 @@
       &:hover {
         &:after {
           overflow: hidden;
-          background: linear-gradient(
-                          159deg,
-                          rgba(255, 255, 255, 0.15) 0%,
-                          transparent 50%
-          );
+          background: linear-gradient(159deg, rgba(255, 255, 255, 0.15) 0%, transparent 50%);
           border: 1px solid rgba(10, 13, 16, 0.2);
           border-radius: 0.4rem;
         }
