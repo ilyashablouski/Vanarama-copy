@@ -94,7 +94,7 @@ describe('<EmploymentFormContainer />', () => {
     const phoneNumber = screen.getByLabelText('Work Phone Number');
     expect(phoneNumber).toHaveValue('0777777777777');
 
-    const address = screen.getByLabelText('Company Postcode or Address');
+    const address = screen.getByLabelText('Company Address');
     expect(address).toHaveValue(
       '1-13 St Giles High St,, West End, London, WC2H 8AG',
     );

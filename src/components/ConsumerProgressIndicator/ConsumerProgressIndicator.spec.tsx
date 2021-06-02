@@ -87,11 +87,11 @@ describe('<ConsumerProgressIndicator />', () => {
     ).not.toBeInTheDocument();
   });
 
-  it.skip('should mark the current page', async () => {
+  it('should mark the current page', async () => {
     // ARRANGE
     // Mock that the user is on the bank details page
     (useRouter as jest.Mock).mockReturnValue({
-      pathname: '/olaf/bank-details/[orderId]',
+      pathname: '/olaf/about/[orderId]',
       query: {
         redirect: '',
         uuid: '602093f8-4d53-44aa-b54b-cfebfaef24d9',
@@ -110,7 +110,7 @@ describe('<ConsumerProgressIndicator />', () => {
     await waitFor(() => expect(screen.getByText('About You')).toBeVisible());
 
     expect(
-      screen.getByRole('link', { name: /Bank Details - current/ }),
+      screen.getByRole('link', { name: /About You - current/ }),
     ).toBeInTheDocument();
   });
 

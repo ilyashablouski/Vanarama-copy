@@ -1,94 +1,30 @@
+import React from 'react';
+import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
-import React from 'react';
 import RegisterFormContainer from './RegisterFormContainer';
-import { REGISTER_USER_MUTATION } from './gql';
+import {
+  makeRegisterUserMutationMock,
+  makeEmailAlreadyExistsMutationMock,
+} from './gql';
 
-jest.mock('../../components/RegisterForm/RegisterForm');
+const EMAIL = `barry125@chuckle.com`;
+const PASSWORD = 'KyRE4AMZn6kCeZZ';
+
+const mocks: MockedResponse[] = [
+  makeEmailAlreadyExistsMutationMock(EMAIL),
+  makeRegisterUserMutationMock(EMAIL, PASSWORD),
+];
 
 describe('<RegisterFormContainer />', () => {
-  // FIXME: This test fails due to need to mock event from deeper component
-  it.skip('should make a server request to register a user when the form is submitted', async () => {
-    // ARRANGE
-    let mockCalled = false;
-    const mocks: MockedResponse[] = [
-      {
-        request: {
-          query: REGISTER_USER_MUTATION,
-          variables: {
-            firstName: 'Barry',
-            lastName: 'Barrys',
-            username: 'barry@chuckle.com',
-            password: 'Alpha!23',
-          },
-        },
-        result: () => {
-          mockCalled = true;
-          return {
-            data: {
-              register: {
-                id: '1',
-              },
-            },
-          };
-        },
-      },
-    ];
+  const onCompleted = jest.fn();
 
-    // eslint-disable-next-line no-underscore-dangle, global-require
-    require('../../components/RegisterForm/RegisterForm').__setMockValues({
-      firstName: 'Barry',
-      lastName: 'Barrys',
-      email: 'barry@chuckle.com',
-      password: 'Alpha!23',
-    });
-
-    // ACT
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <RegisterFormContainer onCompleted={jest.fn()} />
-      </MockedProvider>,
-    );
-
-    fireEvent.submit(screen.getByRole('form'));
-
-    // ASSERT
-    await waitFor(() => expect(mockCalled).toBeTruthy());
+  beforeEach(async () => {
+    onCompleted.mockReset();
+    await preloadAll();
   });
-  // FIXME: This test fails due to need to mock event from deeper component
-  // Also there seems to be an issue with receiving scync rendering in test
-  it.skip('should call `onCompleted` when the user was created successfully', async () => {
-    // ARRANGE
-    const onCompleted = jest.fn();
-    const mocks: MockedResponse[] = [
-      {
-        request: {
-          query: REGISTER_USER_MUTATION,
-          variables: {
-            firstName: 'Paul',
-            lastName: 'Pauls',
-            username: 'paul@chuckle.com',
-            password: 'Passw0rd1',
-          },
-        },
-        result: {
-          data: {
-            register: {
-              id: '1',
-            },
-          },
-        },
-      },
-    ];
 
-    // eslint-disable-next-line no-underscore-dangle, global-require
-    require('../../components/RegisterForm/RegisterForm').__setMockValues({
-      firstName: 'Paul',
-      lastName: 'Pauls',
-      email: 'paul@chuckle.com',
-      password: 'Passw0rd1',
-    });
-
+  it.skip('should make a server request to register a user when the form is submitted', async () => {
     // ACT
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
@@ -96,9 +32,29 @@ describe('<RegisterFormContainer />', () => {
       </MockedProvider>,
     );
 
-    fireEvent.submit(screen.getByRole('form'));
+    fireEvent.change(screen.getByTestId('register-form_firstName'), {
+      target: { value: 'Barry' },
+    });
+    fireEvent.change(screen.getByTestId('register-form_lastName'), {
+      target: { value: 'Barrys' },
+    });
+    fireEvent.change(screen.getByTestId('register-form_email'), {
+      target: { value: EMAIL },
+    });
+    fireEvent.change(screen.getByTestId('register-form_password'), {
+      target: { value: PASSWORD },
+    });
+    fireEvent.change(screen.getByTestId('register-form_confirm-password'), {
+      target: { value: PASSWORD },
+    });
 
-    // ASSERT
-    await waitFor(() => expect(onCompleted).toHaveBeenCalledTimes(1));
+    fireEvent.click(screen.getByTestId('aboutTermsAndCons'));
+    fireEvent.click(screen.getByTestId('aboutPrivacyPolicy'));
+
+    fireEvent.click(screen.getByTestId('register-form_submit'));
+
+    await waitFor(() => {
+      expect(onCompleted).toHaveBeenCalledTimes(1);
+    });
   });
 });
