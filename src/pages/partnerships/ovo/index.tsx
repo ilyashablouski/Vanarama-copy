@@ -12,13 +12,10 @@ import PartnershipLogo from '../../../components/Partnerships/PartnershipLogo';
 import PartnershipFeatureSection from '../../../components/Partnerships/PartnershipsFeatureSection/FeatureSection';
 import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
 import { mapFuelSearchQueryToParam } from '../../../containers/SearchPageContainer/helpers';
-import {
-  LeaseTypeEnum,
-  PartnerSlugTypeEnum,
-} from '../../../../generated/globalTypes';
 import { PARTNER } from '../../../gql/partner';
 import useLeaseType from '../../../hooks/useLeaseType';
 import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
+import { decodeData, encodeData } from '../../../utils/data';
 import {
   getPartnerProperties,
   setPartnerFooter,
@@ -29,6 +26,16 @@ import {
   IPartnerOffersData,
   partnerOffersRequest,
 } from '../../../utils/offers';
+import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
+import {
+  filterList as IFilterList,
+  filterListVariables as IFilterListVariables,
+} from '../../../../generated/filterList';
+import {
+  LeaseTypeEnum,
+  PartnerSlugTypeEnum,
+  VehicleTypeEnum,
+} from '../../../../generated/globalTypes';
 import { Partner, PartnerVariables } from '../../../../generated/Partner';
 
 const Image = dynamic(() => import('core/atoms/image'), {
@@ -62,6 +69,8 @@ const ProductCarousel = dynamic(
 
 interface IProps extends IPartnerOffersData {
   data: Partner;
+  searchPodVansData?: IFilterList;
+  searchPodCarsData?: IFilterList;
 }
 
 const OvoHomePage: NextPage<IProps> = ({
@@ -71,6 +80,8 @@ const OvoHomePage: NextPage<IProps> = ({
   partnerProductsCarDerivatives,
   partnerProductsVanDerivatives,
   vehicleListUrlData,
+  searchPodVansData,
+  searchPodCarsData,
 }) => {
   const {
     colourPrimary,
@@ -138,6 +149,8 @@ const OvoHomePage: NextPage<IProps> = ({
           <PartnershipLogo logo={url || ''} imageAlt={title || undefined} />
         }
         customCTAColor={colourPrimary || ''}
+        searchPodVansData={decodeData(searchPodVansData)}
+        searchPodCarsData={decodeData(searchPodCarsData)}
         hideBenefitsBar
         activeSearchIndex={2}
       >
@@ -287,6 +300,26 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       vehicleListUrlData,
     } = await partnerOffersRequest(client, fuelTypes);
 
+    const [
+      { data: searchPodVansData },
+      { data: searchPodCarsData },
+    ] = await Promise.all([
+      client.query<IFilterList, IFilterListVariables>({
+        query: GET_SEARCH_POD_DATA,
+        variables: {
+          vehicleTypes: [VehicleTypeEnum.LCV],
+          fuelTypes,
+        },
+      }),
+      client.query<IFilterList, IFilterListVariables>({
+        query: GET_SEARCH_POD_DATA,
+        variables: {
+          vehicleTypes: [VehicleTypeEnum.CAR],
+          fuelTypes,
+        },
+      }),
+    ]);
+
     return {
       revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
@@ -296,6 +329,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         partnerProductsCarDerivatives: partnerProductsCarDerivatives || null,
         partnerProductsVanDerivatives: partnerProductsVanDerivatives || null,
         vehicleListUrlData: vehicleListUrlData || null,
+        searchPodVansData: encodeData(searchPodVansData),
+        searchPodCarsData: encodeData(searchPodCarsData),
       },
     };
   } catch (err) {
