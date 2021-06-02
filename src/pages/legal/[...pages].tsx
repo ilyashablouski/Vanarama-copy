@@ -1,5 +1,7 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
+import DefaultErrorPage from 'next/error';
+import React from 'react';
 import {
   ILegalPage,
   LEGAL_PAGE_QUERY,
@@ -15,8 +17,16 @@ import {
 import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
 
-const BlogPost: NextPage<ILegalPage> = ({ data }) => {
+const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
+  if (error || !data) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
+
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const body = getSectionsData(['body'], data?.genericPage);
   const sections = getSectionsData(['sections'], data?.genericPage);
@@ -64,7 +74,7 @@ export async function getStaticPaths() {
 
   return {
     paths: getPathsFromPageCollection(items, 'legal'),
-    fallback: false,
+    fallback: 'blocking',
   };
 }
 
@@ -79,17 +89,26 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: `legal/${paths?.join('/')}`,
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data,
+        error: errors ? errors[0] : null,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch {
+    return {
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
+      props: {
+        error: true,
+      },
+      notFound: true,
+    };
   }
 }
 

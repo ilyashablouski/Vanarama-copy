@@ -1,6 +1,9 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import dynamic from 'next/dynamic';
+import { ApolloError } from '@apollo/client';
+import DefaultErrorPage from 'next/error';
+import React from 'react';
 import Skeleton from '../../../../components/Skeleton';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import { GENERIC_PAGE_QUESTION } from '../../../../containers/VehicleReviewContainer/gql';
@@ -16,6 +19,10 @@ import { getSectionsData } from '../../../../utils/getSectionsData';
 import Head from '../../../../components/Head/Head';
 import { GENERIC_PAGE_QUESTION_HUB } from '../../../../containers/VehicleReviewCategoryContainer/gql';
 import { decodeData, encodeData } from '../../../../utils/data';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../../../utils/env';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -24,14 +31,23 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 interface IReviewPage {
   data: any;
   loading: boolean;
+  error: ApolloError | undefined;
 }
 
-const ReviewHub: NextPage<IReviewPage> = ({ data: encodedData, loading }) => {
+const ReviewHub: NextPage<IReviewPage> = ({
+  data: encodedData,
+  loading,
+  error,
+}) => {
   if (loading) {
     return <Loading size="large" />;
   }
 
   const data = decodeData(encodedData);
+
+  if (error || !data) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
 
   if (data?.reviewsPage) {
     const title = getSectionsData(['metaData', 'name'], data?.reviewsPage);
@@ -100,7 +116,7 @@ export async function getStaticPaths() {
 
   return {
     paths: getPathsFromPageCollection(pathCollection, 'reviews', ['/page/']),
-    fallback: false,
+    fallback: 'blocking',
   };
 }
 
@@ -116,17 +132,26 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: `reviews/vans/${hub?.join('/')}`,
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data: encodeData(data),
+        error: errors ? errors[0] : null,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch {
+    return {
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
+      props: {
+        error: true,
+      },
+      notFound: true,
+    };
   }
 }
 

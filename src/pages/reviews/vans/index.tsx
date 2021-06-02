@@ -1,11 +1,17 @@
 import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { ApolloError } from '@apollo/client';
+import DefaultErrorPage from 'next/error';
 import VehicleReviewCategoryContainer from '../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import createApolloClient from '../../../apolloClient';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import { GENERIC_PAGE_QUESTION_HUB } from '../../../containers/VehicleReviewCategoryContainer/gql';
 import Skeleton from '../../../components/Skeleton';
 import { decodeData, encodeData } from '../../../utils/data';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../../utils/env';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -14,13 +20,23 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 interface IReviewHub {
   data: any;
   loading: boolean;
+  error: ApolloError | undefined;
 }
 
-const ReviewHub: NextPage<IReviewHub> = ({ data: encodedData, loading }) => {
+const ReviewHub: NextPage<IReviewHub> = ({
+  data: encodedData,
+  loading,
+  error,
+}) => {
   if (loading) {
     return <Loading size="large" />;
   }
   const data = decodeData(encodedData);
+
+  if (error || !data) {
+    return <DefaultErrorPage statusCode={404} />;
+  }
+
   const metaData = getSectionsData(['metaData'], data.genericPage);
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
@@ -44,17 +60,25 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         slug: 'reviews/vans',
       },
     });
-    if (errors) {
-      throw new Error(errors[0].message);
-    }
+
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data: encodeData(data),
+        error: errors ? errors[0] : null,
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch {
+    return {
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
+      props: {
+        error: true,
+      },
+    };
   }
 }
 
