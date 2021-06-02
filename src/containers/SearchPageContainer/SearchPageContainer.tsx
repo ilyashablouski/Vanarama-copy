@@ -283,7 +283,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (partnerActive) {
       setPartnershipActive(true);
       setCustomCTAColor(getPartnerProperties().color);
-      if (partnerActive.slug === 'ovo') {
+      if (partnerActive.slug === 'OVO') {
         setCustomTextColor('white');
       }
     }
