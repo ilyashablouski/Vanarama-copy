@@ -32,6 +32,8 @@ export interface IColour {
 export interface IProps {
   terms: IChoice[];
   upfronts: IChoice[];
+  defaultUpfrontValue: number | null;
+  defaultTermValue: number | null;
   leaseTypes: IChoice[];
   mileages: number[];
   setLeaseType: Dispatch<SetStateAction<string>>;

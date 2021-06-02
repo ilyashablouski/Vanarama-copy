@@ -100,6 +100,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [term, setTerm] = useState<number | null>(
     quote?.quoteByCapId?.term || null,
   );
+
   const [trim, setTrim] = useState<number | null>(
     parseQuoteParams(quote?.quoteByCapId?.trim),
   );
@@ -312,6 +313,9 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     }),
   );
 
+  const defaultTermValue = quote?.quoteByCapId?.term ?? null;
+  const defaultUpfrontValue = quote?.quoteByCapId?.upfront ?? null;
+
   const leaseTypes = [
     { label: 'Personal', value: 'Personal', active: leaseType === 'Personal' },
     { label: 'Business', value: 'Business', active: leaseType === 'Business' },
@@ -347,6 +351,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
       <CustomiseLease
         terms={terms || [{ label: '', value: '', active: false }]}
         upfronts={upfronts || [{ label: '', value: '', active: false }]}
+        defaultTermValue={defaultTermValue}
+        defaultUpfrontValue={defaultUpfrontValue}
         leaseType={leaseType}
         leaseTypes={leaseTypes}
         mileages={leaseAdjustParams?.mileages || []}

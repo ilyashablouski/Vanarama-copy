@@ -65,7 +65,8 @@ const choices = (
   heading: string,
   isDisabled: boolean,
   currentValue?: string,
-  monthIndex?: any,
+  choiceIndex?: number,
+  setChoiceIndex?: Dispatch<SetStateAction<number>>,
   icon?: JSX.Element,
 ) => (
   <>
@@ -88,7 +89,8 @@ const choices = (
       onSubmit={value => {
         setChoice(value.label);
       }}
-      setIndex={monthIndex}
+      choiceIndex={choiceIndex}
+      setChoiceIndex={setChoiceIndex}
     />
   </>
 );
@@ -130,6 +132,8 @@ const select = (
 const CustomiseLease = ({
   terms,
   upfronts,
+  defaultTermValue,
+  defaultUpfrontValue,
   leaseTypes,
   mileages,
   setLeaseType,
@@ -242,6 +246,20 @@ const CustomiseLease = ({
     );
   };
 
+  const handleClickResetTermAndUpfront = () => {
+    setTerm(defaultTermValue);
+    setMonthIndex(
+      terms.findIndex(term => term.value === defaultTermValue?.toString()),
+    );
+
+    setUpfront(defaultUpfrontValue);
+    setUpfrontIndex(
+      upfronts.findIndex(
+        upfront => upfront.value === defaultUpfrontValue?.toString(),
+      ),
+    );
+  };
+
   return (
     <div
       className={cx('pdp--sidebar', isPlayingLeaseAnimation ? 'disabled' : '')}
@@ -278,6 +296,7 @@ const CustomiseLease = ({
         `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
           12} Years`,
         monthIndex,
+        setMonthIndex,
       )}
       {choices(
         upfronts,
@@ -288,6 +307,7 @@ const CustomiseLease = ({
           initialPayment,
         )} ${stateVAT}. VAT`,
         upfrontIndex,
+        setUpfrontIndex,
         <Icon
           icon={<InformationCircle />}
           color="teal"
@@ -347,6 +367,13 @@ const CustomiseLease = ({
           disabled={isPlayingLeaseAnimation}
         />
       </Formgroup>
+
+      <Button
+        className={cx('-reset', isPlayingLeaseAnimation ? 'disabled' : '')}
+        onClick={handleClickResetTermAndUpfront}
+        label="Reset Price"
+      />
+
       {isShowFreeInsuranceMerch && (
         <div className="whats-included-insurance">
           <ShieldFreeInsurance />

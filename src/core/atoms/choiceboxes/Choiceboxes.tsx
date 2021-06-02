@@ -25,7 +25,8 @@ const Choiceboxes = forwardRef(
       withIcons,
       currentValue,
       shouldSelectTheOnlyValue = false,
-      setIndex,
+      choiceIndex,
+      setChoiceIndex,
     }: IChoiceboxesProps,
     ref,
   ) => {
@@ -55,14 +56,17 @@ const Choiceboxes = forwardRef(
         },
       );
       index !== -1 && onSubmit(changedChoices[index]);
+      if (index !== -1 && setChoiceIndex) {
+        setChoiceIndex(index);
+      }
       setCurrentChoices(changedChoices);
     };
 
     useEffect(() => {
-      if (setIndex) {
-        changeChoices(setIndex);
+      if (choiceIndex) {
+        changeChoices(choiceIndex);
       }
-    }, [setIndex]);
+    }, [choiceIndex]);
 
     useEffect(() => {
       const partner = getPartnerProperties();
