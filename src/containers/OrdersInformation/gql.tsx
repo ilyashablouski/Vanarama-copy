@@ -81,6 +81,7 @@ export const GET_MY_ORDERS_DATA = gql`
           trim
           maintenance
           vehicleType
+          partnershipId
         }
       }
     }
