@@ -233,30 +233,7 @@ describe('<SummaryFormContainer />', () => {
   it.skip('should redirect to the thank you page when clicking "Continue"', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [
-      createBruceData(uuid),
-      makeGetCreditApplicationByOrderUuidMock(ORDER_ID),
-      makeGetPartyByUuidMock(ORDER_ID),
-      makeFullCreditCheckerMutationMock(uuid, {
-        partyId: '',
-        creditApplicationUuid: '',
-        orderUuid: ORDER_ID,
-        vehicleType: VehicleTypeEnum.CAR,
-        monthlyPayment: 0,
-        depositPayment: 0,
-      }),
-      makeFullCreditCheckerB2BMutationMock(uuid, {
-        partyId: '',
-        creditApplicationUuid: '',
-        orderUuid: ORDER_ID,
-        vehicleType: VehicleTypeEnum.CAR,
-        monthlyPayment: 0,
-        depositPayment: 0,
-      }),
-      makeUpdateCreditApplicationMock({
-        orderUuid: ORDER_ID,
-      }),
-    ];
+    const mocks = [createBruceData(uuid)];
 
     // ACT
     render(
@@ -278,13 +255,7 @@ describe('<SummaryFormContainer />', () => {
   it('should redirect to about page when clicking "Edit" on the "Your Details" section', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [
-      createBruceData(uuid),
-      makeGetPartyByUuidMock(ORDER_ID),
-      makeUpdateCreditApplicationMock({
-        orderUuid: ORDER_ID,
-      }),
-    ];
+    const mocks = [createBruceData(uuid)];
 
     // ACT
     render(
@@ -309,13 +280,7 @@ describe('<SummaryFormContainer />', () => {
   it('should redirect to employment history page when clicking "Edit" on the "Employment History" section', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [
-      createBruceData(uuid),
-      makeGetPartyByUuidMock(ORDER_ID),
-      makeUpdateCreditApplicationMock({
-        orderUuid: ORDER_ID,
-      }),
-    ];
+    const mocks = [createBruceData(uuid)];
 
     // ACT
     render(
@@ -340,13 +305,7 @@ describe('<SummaryFormContainer />', () => {
   it('should redirect to expenses page when clicking "Edit" on the "Monthly Income" section', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [
-      createBruceData(uuid),
-      makeGetPartyByUuidMock(ORDER_ID),
-      makeUpdateCreditApplicationMock({
-        orderUuid: ORDER_ID,
-      }),
-    ];
+    const mocks = [createBruceData(uuid)];
 
     // ACT
     render(
@@ -371,13 +330,7 @@ describe('<SummaryFormContainer />', () => {
   it('should redirect to bank details page when clicking "Edit" on the "Bank Details" section', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [
-      createBruceData(uuid),
-      makeGetPartyByUuidMock(ORDER_ID),
-      makeUpdateCreditApplicationMock({
-        orderUuid: ORDER_ID,
-      }),
-    ];
+    const mocks = [createBruceData(uuid)];
 
     // ACT
     render(

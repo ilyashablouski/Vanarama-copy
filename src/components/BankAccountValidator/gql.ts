@@ -30,8 +30,8 @@ export function makeBankAccountValidatorMock() {
     result: {
       data: {
         bankAccountValidator: {
-          bankName: 'bank-name',
-          valid: true,
+          bankName: null,
+          valid: false,
         },
       },
     },
