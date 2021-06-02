@@ -17,3 +17,23 @@ export const BANK_ACCOUNT_VALIDATOR = gql`
 export function useBankAccountValidator() {
   return useLazyQuery<Query, QueryVariables>(BANK_ACCOUNT_VALIDATOR);
 }
+
+export function makeBankAccountValidatorMock() {
+  return {
+    request: {
+      query: BANK_ACCOUNT_VALIDATOR,
+      variables: {
+        sortCode: '019387',
+        accountNumber: '67272820',
+      },
+    },
+    result: {
+      data: {
+        bankAccountValidator: {
+          bankName: 'bank-name',
+          valid: true,
+        },
+      },
+    },
+  };
+}

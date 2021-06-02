@@ -10,10 +10,12 @@ import {
   makeUpdateCreditApplicationMock,
   makeGetCreditApplicationMock,
 } from '../../../gql/creditApplication';
+import { makeBankAccountValidatorMock } from '../../../components/BankAccountValidator/gql';
 
 const companyUuid = '7f5a4ed2-24a5-42ff-9acd-208db847d678';
 const orderUuid = '00000000-24a5-42ff-9acd-00000000';
 
+const validateBankAccount = makeBankAccountValidatorMock();
 const getCreditApplication = makeGetCreditApplicationMock(orderUuid);
 
 describe('<CompanyBankDetailsFormContainer />', () => {
@@ -51,7 +53,10 @@ describe('<CompanyBankDetailsFormContainer />', () => {
   it.skip('should be render correctly', async () => {
     // ACT
     const getComponent = render(
-      <MockedProvider mocks={[getCreditApplication]} addTypename={false}>
+      <MockedProvider
+        mocks={[getCreditApplication, validateBankAccount]}
+        addTypename={false}
+      >
         <CompanyBankDetailsFormContainer
           orderUuid={orderUuid}
           companyUuid={companyUuid}
@@ -66,6 +71,7 @@ describe('<CompanyBankDetailsFormContainer />', () => {
     await waitFor(() => {
       expect(getCreditApplication.result).toHaveBeenCalled();
     });
+
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
   });
