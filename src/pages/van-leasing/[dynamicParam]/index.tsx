@@ -17,6 +17,7 @@ import {
   dynamicQueryTypeCheck,
   fuelMapper,
   getCapsIds,
+  RESULTS_PER_REQUEST,
   sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
@@ -209,7 +210,7 @@ export async function getServerSideProps(context: NextPageContext) {
             vehicleTypes: [VehicleTypeEnum.LCV],
             leaseType: LeaseTypeEnum.BUSINESS,
             onOffer: null,
-            first: 12,
+            first: RESULTS_PER_REQUEST,
             sort: defaultSort,
             ...filter,
           },
