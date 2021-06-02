@@ -166,7 +166,8 @@ const HeaderContainer: FC = () => {
       if (partner) {
         setPartnership(partner);
         setPartnershipHomeLink(`/partnerships/${partner}`);
-        const links = partnerLinks.find(p => p.name === partner.toUpperCase())?.links;
+        const links = partnerLinks.find(p => p.name === partner.toUpperCase())
+          ?.links;
         setPartnershipLinks(links);
       }
     }

@@ -23,7 +23,6 @@ interface IProps {
   vehiclesList: any;
   isModelPage?: boolean;
   customCTAColor?: string;
-  idx?: number;
 }
 
 const ResultsContainer = memo((props: IProps) => {
@@ -39,7 +38,7 @@ const ResultsContainer = memo((props: IProps) => {
     cardsData,
     vehiclesList,
     isModelPage,
-    customCTAColor,
+    customCTAColor
   } = props;
   const router = useRouter();
 

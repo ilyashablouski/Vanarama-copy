@@ -107,7 +107,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
           key={featureSections.indexOf(featured)}
         />
       ))}
-      {sections?.carousel?.[0] && (
+      {sections?.carousel?.[0] && !partnershipActive && (
         <section className="row:bg-lighter">
           <div>
             <Heading
