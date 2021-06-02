@@ -367,12 +367,14 @@ const CustomiseLease = ({
           disabled={isPlayingLeaseAnimation}
         />
       </Formgroup>
-
-      <Button
-        className={cx('-reset', isPlayingLeaseAnimation ? 'disabled' : '')}
-        onClick={handleClickResetTermAndUpfront}
-        label="Reset Price"
-      />
+      <div className="button-wrapper">
+        <Button
+          className={cx('-reset', isPlayingLeaseAnimation ? 'disabled' : '')}
+          fill="clear"
+          label="Reset Price"
+          onClick={handleClickResetTermAndUpfront}
+        />
+      </div>
 
       {isShowFreeInsuranceMerch && (
         <div className="whats-included-insurance">

@@ -87,7 +87,7 @@
       border-color: var(--class-color-shade);
       background: var(--class-color-shade);
     }
-    
+
     &:focus {
       box-shadow: $box-shadow-focus var(--class-color-focus);
     }
@@ -108,7 +108,7 @@
       border-color: var(--class-color-shade);
       color: var(--class-color-shade);
     }
-    
+
     &:focus {
       box-shadow: $box-shadow-focus var(--class-color-focus);
     }
@@ -133,7 +133,7 @@
     &:focus {
       color: var(--class-color-shade);
     }
-    
+
     &:focus {
       background: var(--class-color-focus);
     }
@@ -150,6 +150,14 @@
     justify-content: center;
     max-height: var(--class-sz);
     max-width: var(--class-sz);
+  }
+
+  &.-reset {
+
+  }
+
+  &.-reset.disabled {
+    pointer-events: none;
   }
 
   &[disabled],
