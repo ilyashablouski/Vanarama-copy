@@ -12,7 +12,10 @@ import PartnershipLogo from '../../../components/Partnerships/PartnershipLogo';
 import PartnershipFeatureSection from '../../../components/Partnerships/PartnershipsFeatureSection/FeatureSection';
 import WhyLeaseWithVanaramaTiles from '../../../components/WhyLeaseWithVanaramaTiles';
 import { mapFuelSearchQueryToParam } from '../../../containers/SearchPageContainer/helpers';
-import { LeaseTypeEnum, PartnerSlugTypeEnum } from '../../../../generated/globalTypes';
+import {
+  LeaseTypeEnum,
+  PartnerSlugTypeEnum,
+} from '../../../../generated/globalTypes';
 import { PARTNER } from '../../../gql/partner';
 import useLeaseType from '../../../hooks/useLeaseType';
 import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
@@ -75,7 +78,6 @@ const OvoHomePage: NextPage<IProps> = ({
     featured,
     tiles,
     footer,
-    slug,
     uuid,
     customerSovereignty,
     telephone,
