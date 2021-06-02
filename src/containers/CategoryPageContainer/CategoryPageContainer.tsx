@@ -256,7 +256,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       {featured && (
         <div className="row:featured-left">
           {/* using this class for prevent major layout shifts */}
-          <div className="imgPlaceholderWrapper">
+          <div className="imgPlaceholderWrapper blog-top-image">
             <Image
               width="100%"
               height="auto"
