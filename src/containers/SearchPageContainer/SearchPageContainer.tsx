@@ -444,7 +444,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           setHasNextPage(vehicles.vehicleList.pageInfo.hasNextPage || false);
         }
       } catch (e) {
-        (() => {})();
+        console.error('Error:', e);
       }
     },
     RESULTS_PER_REQUEST,
