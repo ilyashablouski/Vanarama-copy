@@ -611,11 +611,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     onSearch();
   }, [isPersonal]);
 
-  useEffect(() => {
-    if (isServer) setIsSpecialOffers(getValueFromStorage() ?? false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isServer]);
-
   // using for scroll page to top only for page mount
   useEffect(() => {
     if (window) {
