@@ -4,14 +4,6 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import SummaryFormContainer from '../SummaryFormContainer';
 import createBruceData from '../__fixtures__/bruceData';
-import {
-  makeGetPartyByUuidMock,
-  makeFullCreditCheckerMutationMock,
-  makeGetCreditApplicationByOrderUuidMock,
-} from '../../../components/SummaryForm/gql';
-import { makeFullCreditCheckerB2BMutationMock } from '../../BusinessSummaryFormContainer/gql';
-import { makeUpdateCreditApplicationMock } from '../../../gql/creditApplication';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({

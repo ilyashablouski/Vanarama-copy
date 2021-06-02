@@ -1,7 +1,7 @@
+import React from 'react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import preloadAll from 'jest-next-dynamic';
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 import {
   GetBankDetailsPageDataQuery,
   GetBankDetailsPageDataQueryVariables,
