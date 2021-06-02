@@ -75,6 +75,7 @@ export function makeRegisterUserMutationMock(email: string, password: string) {
         termsAndConditions: true,
         privacyPolicy: true,
         communicationsConsent: false,
+        redirectUrl: undefined,
       },
     },
     result: {

@@ -20,11 +20,10 @@ describe('<RegisterFormContainer />', () => {
   const onCompleted = jest.fn();
 
   beforeEach(async () => {
-    onCompleted.mockReset();
     await preloadAll();
   });
 
-  it.skip('should make a server request to register a user when the form is submitted', async () => {
+  it('should make a server request to register a user when the form is submitted', async () => {
     // ACT
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
@@ -41,10 +40,10 @@ describe('<RegisterFormContainer />', () => {
     fireEvent.change(screen.getByTestId('register-form_email'), {
       target: { value: EMAIL },
     });
-    fireEvent.change(screen.getByTestId('register-form_password'), {
+    fireEvent.input(screen.getByTestId('register-form_password'), {
       target: { value: PASSWORD },
     });
-    fireEvent.change(screen.getByTestId('register-form_confirm-password'), {
+    fireEvent.input(screen.getByTestId('register-form_confirm-password'), {
       target: { value: PASSWORD },
     });
 

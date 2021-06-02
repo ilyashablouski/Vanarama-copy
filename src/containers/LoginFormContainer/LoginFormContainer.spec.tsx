@@ -54,7 +54,6 @@ describe('<LoginFormContainer />', () => {
   const onCompleted = jest.fn();
 
   beforeEach(async () => {
-    onCompleted.mockReset();
     await preloadAll();
   });
 
@@ -69,7 +68,7 @@ describe('<LoginFormContainer />', () => {
     fireEvent.change(screen.getByTestId('login-form_email'), {
       target: { value: EMAIL },
     });
-    fireEvent.change(screen.getByTestId('login-form_password'), {
+    fireEvent.input(screen.getByTestId('login-form_password'), {
       target: { value: PASSWORD },
     });
 
