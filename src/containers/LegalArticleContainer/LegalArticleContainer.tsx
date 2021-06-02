@@ -52,7 +52,7 @@ const LegalArticleContainer: NextPage<IProps> = ({
         <div className="row:featured-image">
           {image && (
             <Image
-              loadImage
+              lazyLoad
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               className="-white"
               size="expand"
