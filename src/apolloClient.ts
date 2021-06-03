@@ -50,6 +50,7 @@ const httpLink = new HttpLink({
   headers: {
     'x-api-key': process.env.API_KEY!,
   },
+  useGETForQueries: false,
 });
 
 const persistedQueryLink = new ApolloLink((operation, forward) => {
