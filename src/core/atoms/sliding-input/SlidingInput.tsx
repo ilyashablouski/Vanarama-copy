@@ -4,7 +4,7 @@ import { ISlidingInputProps, ISlidingObject } from './interfaces';
 
 const SlidingInput: React.FC<ISlidingInputProps> = ({
   defaultValue = 1,
-  setDefaultMileage,
+  setDefaultMileageIndex,
   steps,
   onChange,
   disabled,
@@ -32,14 +32,14 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
       ) {
         setMileageValue(mileageValue);
 
-        if (setDefaultMileage) {
-          setDefaultMileage(mileageValue);
+        if (setDefaultMileageIndex) {
+          setDefaultMileageIndex(mileageValue);
         }
       } else if (+value < steps.length && value >= 0) {
         setMileageValue(+value + 1);
 
-        if (setDefaultMileage) {
-          setDefaultMileage(+value + 1);
+        if (setDefaultMileageIndex) {
+          setDefaultMileageIndex(+value + 1);
         }
 
         if (click) {

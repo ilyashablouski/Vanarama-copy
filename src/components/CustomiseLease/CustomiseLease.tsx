@@ -172,7 +172,7 @@ const CustomiseLease = ({
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
   );
-  const [defaultMileage, setDefaultMileage] = useState(
+  const [defaultMileageIndex, setDefaultMileageIndex] = useState(
     mileages.indexOf(mileage || 0) + 1,
   );
   const [monthIndex, setMonthIndex]: any = useState(null);
@@ -190,7 +190,7 @@ const CustomiseLease = ({
       if (leaseSettings && leaseSettings.capId === capId) {
         setIsRestoreLeaseSettings(true);
         setMaintenance(leaseSettings.maintenance);
-        setDefaultMileage(leaseSettings.mileageValue);
+        setDefaultMileageIndex(leaseSettings.mileageValue);
         setMileage(leaseSettings.mileage);
         setTerm(leaseSettings.term);
         setMonthIndex(
@@ -251,7 +251,7 @@ const CustomiseLease = ({
   const handleClickResetTermAndUpfront = () => {
     setMileage(defaultMileageValue);
 
-    setDefaultMileage(
+    setDefaultMileageIndex(
       mileages.findIndex(mileageValue => mileageValue === defaultMileageValue) +
         1,
     );
@@ -268,7 +268,7 @@ const CustomiseLease = ({
       ),
     );
   };
-  console.log(`Индекс с customise lease: ${defaultMileage}`);
+  console.log(`Индекс с customise lease: ${defaultMileageIndex}`);
 
   return (
     <div
@@ -293,8 +293,8 @@ const CustomiseLease = ({
       <SlidingInput
         steps={mileages}
         disabled={isPlayingLeaseAnimation}
-        defaultValue={defaultMileage}
-        setDefaultMileage={setDefaultMileage}
+        defaultValue={defaultMileageIndex}
+        setDefaultMileageIndex={setDefaultMileageIndex}
         onChange={value => {
           setMileage(mileages[value - 1]);
         }}
