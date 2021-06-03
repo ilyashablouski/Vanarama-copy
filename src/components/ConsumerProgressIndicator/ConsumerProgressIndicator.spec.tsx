@@ -34,7 +34,9 @@ describe('<ConsumerProgressIndicator />', () => {
       },
       result: {
         data: {
-          lastStep: { '9d9fd2e0-ecbb-41fb-aa04-1b2b87258467': 2 },
+          lastStep: {
+            value: 2,
+          },
         },
       },
     },
@@ -44,7 +46,7 @@ describe('<ConsumerProgressIndicator />', () => {
     // ARRANGE
     // Mock that the user is on the address history page
     (useRouter as jest.Mock).mockReturnValue({
-      pathname: '/olaf/address-history/[orderId]',
+      pathname: '/olaf/address-history',
       query: {
         redirect: '',
         uuid: '602093f8-4d53-44aa-b54b-cfebfaef24d9',
@@ -87,11 +89,11 @@ describe('<ConsumerProgressIndicator />', () => {
     ).not.toBeInTheDocument();
   });
 
-  it.skip('should mark the current page', async () => {
+  it('should mark the current page', async () => {
     // ARRANGE
     // Mock that the user is on the bank details page
     (useRouter as jest.Mock).mockReturnValue({
-      pathname: '/olaf/bank-details/[orderId]',
+      pathname: '/olaf/about',
       query: {
         redirect: '',
         uuid: '602093f8-4d53-44aa-b54b-cfebfaef24d9',
@@ -110,7 +112,7 @@ describe('<ConsumerProgressIndicator />', () => {
     await waitFor(() => expect(screen.getByText('About You')).toBeVisible());
 
     expect(
-      screen.getByRole('link', { name: /Bank Details - current/ }),
+      screen.getByRole('link', { name: /About You - current/ }),
     ).toBeInTheDocument();
   });
 
@@ -118,7 +120,7 @@ describe('<ConsumerProgressIndicator />', () => {
     // ARRANGE
     // Mock that the user is on the expenses page
     (useRouter as jest.Mock).mockReturnValue({
-      pathname: '/olaf/expenses/[orderId]',
+      pathname: '/olaf/expenses',
       query: {
         redirect: '',
         uuid: '602093f8-4d53-44aa-b54b-cfebfaef24d9',
@@ -162,7 +164,7 @@ describe('<ConsumerProgressIndicator />', () => {
     // ARRANGE
     // Mock that the user is on the expenses page
     (useRouter as jest.Mock).mockReturnValue({
-      pathname: '/olaf/expenses/[orderId]',
+      pathname: '/olaf/expenses',
       query: {
         redirect: '',
         uuid: '602093f8-4d53-44aa-b54b-cfebfaef24d9',

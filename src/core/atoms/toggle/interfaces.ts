@@ -52,4 +52,5 @@ export interface IToggleProps extends IBaseProps {
    * A ref to attach to the toggle
    */
   ref?: React.Ref<HTMLInputElement>;
+  customCTAColor?: string;
 }

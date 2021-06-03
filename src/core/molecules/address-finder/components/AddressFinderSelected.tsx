@@ -17,13 +17,17 @@ const AddressFinderSelected: React.FC<IBaseProps> = ({
 
   return (
     <div className={cx('formgroup--editable', className)}>
-      <Text className="address-finder--input" color="dark" size="regular">
+      <Text
+        className="address-finder--input"
+        color="dark"
+        size="regular"
+        dataTestId={dataTestId}
+      >
         {selectedSuggestion.label}
       </Text>
       <Link
         className="address-finder--input"
         color="teal"
-        dataTestId={dataTestId}
         onClick={onEditSuggestion}
       >
         Edit

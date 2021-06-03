@@ -51,7 +51,7 @@ export const EVHubPage: NextPage<IProps> = ({
       <Hero>
         <div className="hero--left">
           <Image
-            loadImage
+            lazyLoad
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             optimisationOptions={optimisationOptions}
             className="hero--image"

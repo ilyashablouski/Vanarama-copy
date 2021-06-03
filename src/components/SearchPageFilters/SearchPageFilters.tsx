@@ -3,6 +3,7 @@ import Select from 'core/atoms/select';
 import Choiceboxes from 'core/atoms/choiceboxes';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { getSessionStorage } from '../../utils/windowSessionStorage';
 import {
   budgets,
   FilterFields,
@@ -440,7 +441,9 @@ const SearchPageFilters = ({
                         (isFuelPage &&
                           filter.accessor === FilterFields.fuelTypes) ||
                         (isTransmissionPage &&
-                          filter.accessor === FilterFields.transmissions)
+                          filter.accessor === FilterFields.transmissions) ||
+                        (getSessionStorage('partnershipSessionActive') &&
+                          filter.accessor === FilterFields.fuelTypes)
                       )
                     ) && (
                       <div className="dropdown--header">

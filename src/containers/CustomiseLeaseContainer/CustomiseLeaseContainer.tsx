@@ -231,7 +231,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         item?.id === quoteData?.quoteByCapId?.trim || item?.id === `${trim}`,
     )?.optionDescription;
 
-    const partnershipId = getPartnerProperties()?.slug;
+    const partnerSlug = getPartnerProperties()?.slug;
 
     return {
       vehicleProduct: {
@@ -252,7 +252,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         maintenancePrice: maintenance
           ? quoteData?.quoteByCapId?.maintenanceCost?.monthlyRental
           : undefined,
-        partnershipId,
+        partnerSlug,
       },
       quantity: 1,
     };
