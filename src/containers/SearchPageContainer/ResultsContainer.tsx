@@ -38,7 +38,7 @@ const ResultsContainer = memo((props: IProps) => {
     cardsData,
     vehiclesList,
     isModelPage,
-    customCTAColor
+    customCTAColor,
   } = props;
   const router = useRouter();
 

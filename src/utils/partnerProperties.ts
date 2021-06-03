@@ -38,6 +38,9 @@ export function setPartnerProperties(
 export function setSessionFuelTypes(fuelTypes: string[]) {
   Cookies.set('customSessionFuelTypes', fuelTypes);
 }
+export function getSessionFuelTypes() {
+  Cookies.get('customSessionFuelTypes');
+}
 
 export function setPartnerFooter(data: Nullish<IPartnerFooter>) {
   if (data) setLocalStorage('partnerFooter', JSON.stringify(data));

@@ -3,6 +3,7 @@ import Select from 'core/atoms/select';
 import Choiceboxes from 'core/atoms/choiceboxes';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
+import { getSessionStorage } from 'utils/windowSessionStorage';
 import {
   budgets,
   FilterFields,
@@ -33,7 +34,6 @@ import {
 import { dynamicQueryTypeCheck } from '../../containers/SearchPageContainer/helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { ISearchPageFiltersProps } from './interfaces';
-import { getSessionStorage } from 'utils/windowSessionStorage';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
