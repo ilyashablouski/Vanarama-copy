@@ -99,10 +99,7 @@ export const withoutPrefilledEmployments = (
   return mocks;
 };
 
-export const withPrefilledEmployments = (
-  personUuid: string,
-  onMutationCalled: () => any,
-) => {
+export const withPrefilledEmployments = (personUuid: string) => {
   const mocks: MockedResponse[] = [
     {
       request: {
@@ -130,7 +127,7 @@ export const withPrefilledEmployments = (
                 employedSinceDate: '2002-01-01',
                 employmentStatus: 'Employed',
                 grossAnnualIncome: 200000,
-                jobTitle: 'Senior Developer',
+                jobTitle: 'Janitor',
                 workPhoneNumber: '0777777777777',
               },
               {
@@ -182,37 +179,34 @@ export const withPrefilledEmployments = (
                 employedSinceDate: '2002-01-01',
                 employmentStatus: 'Employed',
                 grossAnnualIncome: 200000,
-                jobTitle: 'Senior Developer',
+                jobTitle: 'Janitor',
                 workPhoneNumber: '0777777777777',
               },
             ],
           },
         } as SaveEmploymentHistoryMutationVariables,
       },
-      result: () => {
-        onMutationCalled();
-        return {
-          data: {
-            createUpdateEmploymentHistory: [
-              {
-                __typename: 'EmploymentHistoryType',
-                uuid: '4f3ff930-090f-400b-b7fa-f51d83e7eaa9',
-                companyAddressCity: 'London',
-                companyAddressLineOne: '1-13 St Giles High St,',
-                companyAddressLineTwo: 'West End',
-                companyAddressPostcode: 'WC2H 8AG',
-                companyAddressServiceId: 'GB|001',
-                companyName: 'Google',
-                contract: 'Full time',
-                employedSinceDate: '2002-01-01',
-                employmentStatus: 'Retired',
-                grossAnnualIncome: 200000,
-                jobTitle: 'Senior Developer',
-                workPhoneNumber: '0777777777777',
-              },
-            ],
-          } as SaveEmploymentHistoryMutation,
-        };
+      result: {
+        data: {
+          createUpdateEmploymentHistory: [
+            {
+              __typename: 'EmploymentHistoryType',
+              uuid: '4f3ff930-090f-400b-b7fa-f51d83e7eaa9',
+              companyAddressCity: 'London',
+              companyAddressLineOne: '1-13 St Giles High St,',
+              companyAddressLineTwo: 'West End',
+              companyAddressPostcode: 'WC2H 8AG',
+              companyAddressServiceId: 'GB|001',
+              companyName: 'Google',
+              contract: 'Full time',
+              employedSinceDate: '2002-01-01',
+              employmentStatus: 'Retired',
+              grossAnnualIncome: 200000,
+              jobTitle: 'Janitor',
+              workPhoneNumber: '0777777777777',
+            },
+          ],
+        } as SaveEmploymentHistoryMutation,
       },
     },
   ];

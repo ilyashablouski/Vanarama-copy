@@ -147,7 +147,7 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, data }) => {
         <div className="row:featured-image">
           {featuredImage?.file?.url && (
             <Image
-              loadImage
+              lazyLoad
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={featuredImage.file.url}
               alt="Featured image"

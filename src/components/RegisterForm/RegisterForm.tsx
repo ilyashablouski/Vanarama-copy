@@ -121,6 +121,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
           error={methods.errors.password?.message?.toString()}
         >
           <TextInput
+            autoComplete="new-password"
             id="register-form_password"
             dataTestId="register-form_password"
             name="password"
@@ -138,6 +139,7 @@ const RegisterForm: React.FC<IRegisterFormProps> = ({
           error={methods.errors.confirmPassword?.message?.toString()}
         >
           <TextInput
+            autoComplete="repeat-password"
             id="register-form_confirm-password"
             dataTestId="register-form_confirm-password"
             name="confirmPassword"

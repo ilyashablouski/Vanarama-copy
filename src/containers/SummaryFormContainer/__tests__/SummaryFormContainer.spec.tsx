@@ -237,7 +237,7 @@ describe('<SummaryFormContainer />', () => {
     // Wait for the data to load
     await screen.findByTestId('summary-heading');
 
-    fireEvent.click(screen.getByText(/Continue/));
+    fireEvent.click(screen.getByText(/Submit/));
 
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);

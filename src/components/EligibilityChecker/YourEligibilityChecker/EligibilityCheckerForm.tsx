@@ -1,15 +1,13 @@
 import dynamic from 'next/dynamic';
-import { Controller } from 'react-hook-form';
 import Select from 'core/atoms/select/';
 import TextInput from 'core/atoms/textinput/';
-import AddressFinder from 'core/molecules/address-finder';
-import { IAddressSuggestion } from 'core/molecules/address-finder/interfaces';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import CheckBox from 'core/atoms/checkbox';
 import { genMonths, genYears, genDays } from '../../../utils/helpers';
 import { IFormProps } from './interface';
 import useDateOfBirthValidation from './useDateOfBirthValidation';
 import Skeleton from '../../Skeleton';
+import AddressFormField from '../../AddressFormField/AddressFormField';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -36,12 +34,7 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
   triggerValidation,
   watch,
   formState,
-  control,
 }) => {
-  const [address, setAddress] = useState<IAddressSuggestion | undefined>(
-    undefined,
-  );
-
   const months = genMonths();
   const years = genYears(100);
 
@@ -75,29 +68,11 @@ const EligibilityCheckerForm: FC<IFormProps> = ({
           ref={register}
         />
       </FormGroup>
-      <Controller
-        name="addressFinder"
-        valueName="selected"
-        onChangeName="onSuggestionChange"
-        as={
-          <AddressFinder
-            apiKey={process.env.LOQATE_KEY!}
-            onSuggestionChange={value => setAddress(value)}
-            selected={address}
-          >
-            <FormGroup
-              label="Your Postcode or Address"
-              error={errors?.addressFinder?.message?.toString()}
-              className="address-finder"
-            >
-              <AddressFinder.Input id="addressFinder" />
-              <AddressFinder.Selected />
-              <AddressFinder.Intermediate />
-            </FormGroup>
-            <AddressFinder.Results />
-          </AddressFinder>
-        }
-        control={control}
+      <AddressFormField
+        skipManualInput
+        label="Your Postcode or Address"
+        dataTestId="eligibilityCheckerAddress"
+        id="addressFinder"
       />
       <FormGroup
         controlId="dayOfBirth"

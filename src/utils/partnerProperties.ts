@@ -1,5 +1,6 @@
 import Cookies from 'js-cookie';
 import { setLocalStorage } from './windowLocalStorage';
+import { getSessionStorage } from './windowSessionStorage';
 import { Nullish } from '../types/common';
 import { Partner_partner_footer as IPartnerFooter } from '../../generated/Partner';
 
@@ -14,7 +15,10 @@ export interface IPartnerData {
 }
 
 export function getPartnerProperties() {
-  if (Cookies.get(PARTNER_COOKIE_NAME)) {
+  if (
+    Cookies.get(PARTNER_COOKIE_NAME) &&
+    getSessionStorage('partnershipSessionActive')
+  ) {
     return Cookies.getJSON(PARTNER_COOKIE_NAME);
   }
   return undefined;
@@ -31,8 +35,24 @@ export function setPartnerProperties(
   }
 }
 
+export function setSessionFuelTypes(fuelTypes: string[]) {
+  Cookies.set('customSessionFuelTypes', fuelTypes);
+}
+export function getSessionFuelTypes() {
+  Cookies.get('customSessionFuelTypes');
+}
+
 export function setPartnerFooter(data: Nullish<IPartnerFooter>) {
   if (data) setLocalStorage('partnerFooter', JSON.stringify(data));
+}
+
+export function clearInactiveSessionFuelTypes() {
+  if (
+    Cookies.get('customSessionFuelTypes') &&
+    !getSessionStorage('partnershipSessionActive')
+  ) {
+    Cookies.remove('customSessionFuelTypes');
+  }
 }
 
 export default getPartnerProperties;

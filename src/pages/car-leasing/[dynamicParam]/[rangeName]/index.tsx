@@ -12,6 +12,7 @@ import { getGenericSearchPageSlug } from '../../../../gql/genericPage';
 import SearchPageContainer from '../../../../containers/SearchPageContainer';
 import {
   getCapsIds,
+  RESULTS_PER_REQUEST,
   sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../../containers/SearchPageContainer/helpers';
@@ -168,7 +169,7 @@ export async function getServerSideProps(context: NextPageContext) {
             vehicleTypes: [VehicleTypeEnum.CAR],
             leaseType: LeaseTypeEnum.PERSONAL,
             onOffer: null,
-            first: 12,
+            first: RESULTS_PER_REQUEST,
             sort: defaultSort,
             manufacturerSlug: makeName,
             rangeSlug: rangeName,
@@ -261,6 +262,7 @@ export async function getServerSideProps(context: NextPageContext) {
         })
         .then(resp => resp.data);
     }
+    context.query.make = makeName;
     return {
       props: {
         pageData: data,

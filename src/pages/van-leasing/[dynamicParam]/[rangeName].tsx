@@ -8,6 +8,7 @@ import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedCo
 import SearchPageContainer from '../../../containers/SearchPageContainer';
 import {
   getCapsIds,
+  RESULTS_PER_REQUEST,
   sortObjectGenerator,
   ssrCMSQueryExecutor,
 } from '../../../containers/SearchPageContainer/helpers';
@@ -144,7 +145,7 @@ export async function getServerSideProps(context: NextPageContext) {
             vehicleTypes: [VehicleTypeEnum.LCV],
             leaseType: LeaseTypeEnum.BUSINESS,
             onOffer: null,
-            first: 12,
+            first: RESULTS_PER_REQUEST,
             sort: defaultSort,
             manufacturerSlug: (context?.query
               ?.dynamicParam as string).toLowerCase(),
@@ -210,6 +211,7 @@ export async function getServerSideProps(context: NextPageContext) {
         })
         .then(resp => resp.data);
     }
+    context.query.make = (context?.query?.dynamicParam as string).toLowerCase();
     return {
       props: {
         pageData: data,

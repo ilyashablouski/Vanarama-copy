@@ -3,13 +3,14 @@ import dynamic from 'next/dynamic';
 import AddressFinder from 'core/molecules/address-finder';
 import { Controller, useFormContext, ValidationOptions } from 'react-hook-form';
 
-const Formgroup = dynamic(() => import('core/molecules/formgroup'));
+const FormGroup = dynamic(() => import('core/molecules/formgroup'));
 
 interface IProps {
   dataTestId: string;
   id: string;
   label: string;
   rules?: ValidationOptions;
+  skipManualInput?: boolean;
   hint?: string;
 }
 
@@ -18,6 +19,7 @@ export default function AddressFormField({
   id,
   label,
   rules,
+  skipManualInput,
   hint,
 }: IProps) {
   const { control, errors } = useFormContext();
@@ -32,19 +34,23 @@ export default function AddressFormField({
           apiKey={process.env.LOQATE_KEY!}
           onSuggestionChange={() => {}}
         >
-          <Formgroup
+          <FormGroup
             controlId={id}
             label={label}
             error={errors[id]?.message?.toString()}
             hint={hint}
           >
             <AddressFinder.Input id={id} dataTestId={dataTestId} />
-            <AddressFinder.Selected />
+            <AddressFinder.Selected dataTestId={dataTestId} />
             <AddressFinder.Intermediate />
-          </Formgroup>
+          </FormGroup>
           <AddressFinder.Results />
-          <AddressFinder.ManualAddingButton />
-          <AddressFinder.ManualAddressForm />
+          {!skipManualInput && (
+            <>
+              <AddressFinder.ManualAddingButton />
+              <AddressFinder.ManualAddressForm />
+            </>
+          )}
         </AddressFinder>
       }
       control={control}

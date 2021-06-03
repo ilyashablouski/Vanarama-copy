@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import { IChoice } from 'core/atoms/choiceboxes/interfaces';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import { isArraySame } from '../../utils/helpers';
+import { getPartnerProperties } from '../../utils/partnerProperties';
 import {
   IChoiceBoxesData,
   IFilterContainerProps,
@@ -46,6 +47,7 @@ const FiltersContainer = ({
   tagArrayBuilderHelper,
   renderFilters,
   initialState,
+  hideTags,
 }: IFilterContainerProps) => {
   const [filtersData, setFiltersData] = useState(
     preLoadFilters || ({} as IFilterList),
@@ -63,6 +65,7 @@ const FiltersContainer = ({
   );
   const isDesktop = useMediaQuery('(min-width: 1217px)');
   const [isOpenFilter, setFilterExpandStatus] = useState(false);
+  const [customCTAColor, setCustomCTAColor] = useState();
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState
@@ -70,6 +73,12 @@ const FiltersContainer = ({
   const [selectedFilterTags, setSelectedFilterTags] = useState(
     [] as ISelectedWithOrder[],
   );
+
+  useEffect(() => {
+    if (getPartnerProperties()) {
+      setCustomCTAColor(getPartnerProperties()?.color);
+    }
+  }, []);
 
   const choiseBoxReference = {} as any;
 
@@ -314,6 +323,7 @@ const FiltersContainer = ({
         onChange={toggleHandler}
         checked={isPersonal}
         className="search-filters--toggle"
+        customCTAColor={customCTAColor}
       />
       {renderFilters({
         setSelectedFiltersState,
@@ -330,11 +340,13 @@ const FiltersContainer = ({
         isInvalidBudget,
         selectedFilterTags,
       })}
-      <SearchFilterTags
-        selectedFilters={selectedFilterTags}
-        onClearAll={handleClearAll}
-        onRemove={e => handleRemoveTag(e.currentTarget.id)}
-      />
+      {!hideTags && (
+        <SearchFilterTags
+          selectedFilters={selectedFilterTags}
+          onClearAll={handleClearAll}
+          onRemove={e => handleRemoveTag(e.currentTarget.id)}
+        />
+      )}
     </SearchFilters>
   );
 };
