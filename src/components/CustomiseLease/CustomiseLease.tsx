@@ -268,7 +268,6 @@ const CustomiseLease = ({
       ),
     );
   };
-  console.log(`Индекс с customise lease: ${defaultMileageIndex}`);
 
   return (
     <div
