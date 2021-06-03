@@ -1,7 +1,7 @@
+import React from 'react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import preloadAll from 'jest-next-dynamic';
 import { render, screen } from '@testing-library/react';
-import React from 'react';
 import {
   GetBankDetailsPageDataQuery,
   GetBankDetailsPageDataQueryVariables,
@@ -13,8 +13,8 @@ describe('<BankDetailsFormContainer />', () => {
   beforeEach(async () => {
     await preloadAll();
   });
-  // TODO: Unskip and fix this test
-  it.skip('should prepopulate the form with existing data', async () => {
+
+  it('should prepopulate the form with existing data', async () => {
     // ARRANGE
     const personUuid = '1927e308-18f8-4d95-aef3-57cc46459930';
     const mocks: MockedResponse[] = [
@@ -30,6 +30,15 @@ describe('<BankDetailsFormContainer />', () => {
             personByUuid: {
               uuid: personUuid,
               partyId: '1',
+              emailAddresses: [
+                {
+                  uuid: '3ff771b5-1c5a-4039-acff-ccfee8ffdc9d',
+                  value: 'wikile8884@o3live.com',
+                  primary: true,
+                  kind: 'Home',
+                  partyId: '13670',
+                },
+              ],
               bankAccounts: [
                 {
                   __typename: 'BankAccountType',
