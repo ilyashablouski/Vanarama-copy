@@ -6,6 +6,7 @@ import Select from 'core/atoms/select';
 import SlidingInput from 'core/atoms/sliding-input';
 import Radio from 'core/atoms/radio';
 import cx from 'classnames';
+import Refresh from 'core/assets/icons/Refresh';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps, IChoice } from './interface';
@@ -65,7 +66,8 @@ const choices = (
   heading: string,
   isDisabled: boolean,
   currentValue?: string,
-  monthIndex?: any,
+  choiceIndex?: number,
+  setChoiceIndex?: Dispatch<SetStateAction<number>>,
   icon?: JSX.Element,
 ) => (
   <>
@@ -88,7 +90,8 @@ const choices = (
       onSubmit={value => {
         setChoice(value.label);
       }}
-      setIndex={monthIndex}
+      choiceIndex={choiceIndex}
+      setChoiceIndex={setChoiceIndex}
     />
   </>
 );
@@ -130,6 +133,8 @@ const select = (
 const CustomiseLease = ({
   terms,
   upfronts,
+  defaultTermValue,
+  defaultUpfrontValue,
   leaseTypes,
   mileages,
   setLeaseType,
@@ -242,6 +247,20 @@ const CustomiseLease = ({
     );
   };
 
+  const handleClickResetTermAndUpfront = () => {
+    setTerm(defaultTermValue);
+    setMonthIndex(
+      terms.findIndex(term => term.value === defaultTermValue?.toString()),
+    );
+
+    setUpfront(defaultUpfrontValue);
+    setUpfrontIndex(
+      upfronts.findIndex(
+        upfront => upfront.value === defaultUpfrontValue?.toString(),
+      ),
+    );
+  };
+
   return (
     <div
       className={cx('pdp--sidebar', isPlayingLeaseAnimation ? 'disabled' : '')}
@@ -278,6 +297,7 @@ const CustomiseLease = ({
         `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
           12} Years`,
         monthIndex,
+        setMonthIndex,
       )}
       {choices(
         upfronts,
@@ -288,6 +308,7 @@ const CustomiseLease = ({
           initialPayment,
         )} ${stateVAT}. VAT`,
         upfrontIndex,
+        setUpfrontIndex,
         <Icon
           icon={<InformationCircle />}
           color="teal"
@@ -347,6 +368,19 @@ const CustomiseLease = ({
           disabled={isPlayingLeaseAnimation}
         />
       </Formgroup>
+      <div className="button-wrapper">
+        <Button
+          className={cx('-reset', isPlayingLeaseAnimation ? 'disabled' : '')}
+          fill="clear"
+          color="teal"
+          icon={<Refresh />}
+          iconColor="teal"
+          iconPosition="before"
+          label="Reset Price"
+          onClick={handleClickResetTermAndUpfront}
+        />
+      </div>
+
       {isShowFreeInsuranceMerch && (
         <div className="whats-included-insurance">
           <ShieldFreeInsurance />

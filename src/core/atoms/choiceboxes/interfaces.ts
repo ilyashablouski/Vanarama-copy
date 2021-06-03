@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { IBaseProps } from '../../interfaces/base';
 import { TColor } from '../../../types/color';
 
@@ -18,5 +19,6 @@ export interface IChoiceboxesProps extends IBaseProps {
   withIcons?: boolean;
   currentValue?: string | string[];
   shouldSelectTheOnlyValue?: boolean;
-  setIndex?: number;
+  choiceIndex?: number;
+  setChoiceIndex?: Dispatch<SetStateAction<number>>;
 }
