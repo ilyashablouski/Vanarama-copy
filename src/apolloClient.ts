@@ -8,7 +8,7 @@ import {
 
 import { RetryLink } from '@apollo/client/link/retry';
 
-// import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
+import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
 
 import Router from 'next/router';
 import { onError } from '@apollo/client/link/error';
@@ -20,28 +20,28 @@ import { Env } from './utils/env';
 import { isSessionFinishedCache } from './cache';
 
 const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
-// A list of queries that we don't want to be cached in CloudFlare
-// const PERSISTED_GRAPHQL_QUERIES_WITHOUT_CLOUDFLARE_CACHE = [
-//   'GetLeaseCompanyData',
-//   'GetCreditApplicationByOrderUuid',
-//   'GetCompanyDirectorDetailsQuery',
-//   'GetDirectorDetailsQuery',
-//   'GetCompanySummaryQuery',
-//   'GetAboutYouDataQuery',
-//   'GetPartyByUuid',
-//   'GetAboutYouPageQuery',
-//   'GetPersonByUuid',
-//   'GetPerson',
-//   'GetAddressContainerDataQuery',
-//   'GetEmploymentContainerDataQuery',
-//   'GetExpensesPageDataQuery',
-//   'GetBankDetailsPageDataQuery',
-//   'GetPersonSummaryQuery',
-//   'GetCompaniesByPersonUuid',
-//   'GetMyOrders',
-//   'GetOrderByUuid',
-//   'MyAccount',
-// ];
+// A list of queries that we don't want to be cached for APQ
+const QUERIES_WITHOUT_CDN_CACHING = [
+  'GetLeaseCompanyData',
+  'GetCreditApplicationByOrderUuid',
+  'GetCompanyDirectorDetailsQuery',
+  'GetDirectorDetailsQuery',
+  'GetCompanySummaryQuery',
+  'GetAboutYouDataQuery',
+  'GetPartyByUuid',
+  'GetAboutYouPageQuery',
+  'GetPersonByUuid',
+  'GetPerson',
+  'GetAddressContainerDataQuery',
+  'GetEmploymentContainerDataQuery',
+  'GetExpensesPageDataQuery',
+  'GetBankDetailsPageDataQuery',
+  'GetPersonSummaryQuery',
+  'GetCompaniesByPersonUuid',
+  'GetMyOrders',
+  'GetOrderByUuid',
+  'MyAccount',
+];
 
 const httpLink = new HttpLink({
   uri: process.env.API_URL!,
@@ -52,29 +52,27 @@ const httpLink = new HttpLink({
   },
 });
 
-// const persistedQueryLink = new ApolloLink((operation, forward) => {
-//   return forward(operation);
-// }).split(
-//   () =>
-//     [Env.DEV, Env.UAT, Env.PRE_PROD, Env.PROD].includes(process.env.ENV as Env),
-//   new ApolloLink((operation, forward) => {
-//     return forward(operation);
-//   }).split(
-//     operation =>
-//       PERSISTED_GRAPHQL_QUERIES_WITHOUT_CLOUDFLARE_CACHE.includes(
-//         operation.operationName,
-//       ),
-//     createPersistedQueryLink({
-//       useGETForHashedQueries: false,
-//     }) as any,
-//     createPersistedQueryLink({
-//       useGETForHashedQueries: true,
-//     }) as any,
-//   ),
-//   new ApolloLink((operation, forward) => {
-//     return forward(operation);
-//   }),
-// );
+const persistedQueryLink = new ApolloLink((operation, forward) => {
+  return forward(operation);
+}).split(
+  () =>
+    [Env.DEV, Env.UAT, Env.PRE_PROD, Env.PROD].includes(process.env.ENV as Env),
+  new ApolloLink((operation, forward) => {
+    return forward(operation);
+  }).split(
+    operation => QUERIES_WITHOUT_CDN_CACHING.includes(operation.operationName),
+    // Assumes that CDN is configured not to cache POST queries
+    createPersistedQueryLink({
+      useGETForHashedQueries: false,
+    }) as any,
+    createPersistedQueryLink({
+      useGETForHashedQueries: true,
+    }) as any,
+  ),
+  new ApolloLink((operation, forward) => {
+    return forward(operation);
+  }),
+);
 
 const retryLink = new RetryLink({
   delay: {
@@ -183,8 +181,7 @@ function apolloClientLink() {
     errorLink,
     authErrorLink,
     retryLink,
-    // TODO: Enable APQ when we can build NSF with APQ successfully
-    // persistedQueryLink,
+    persistedQueryLink,
     httpLink,
   ];
 
