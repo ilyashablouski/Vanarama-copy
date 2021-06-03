@@ -280,6 +280,7 @@ export interface CreditApplicationInputObject {
   companyDetailsV2?: CompanyV2InputObject | null;
   creditApplicationType?: CreditApplicationTypeEnum | null;
   directorsDetails?: any | null;
+  directorsDetailsV2?: DirectorDetailV2InputObject | null;
   employmentHistories?: any | null;
   employmentHistoriesV2?: EmploymentHistoryV2InputObject[] | null;
   financeType?: string | null;
@@ -293,6 +294,14 @@ export interface CreditApplicationInputObject {
   submittedAt?: any | null;
   vatDetails?: any | null;
   vatDetailsV2?: VatDetailV2InputObject | null;
+}
+
+/**
+ * Input object to create/update directors details
+ */
+export interface DirectorDetailV2InputObject {
+  directors?: PersonV2InputObject[] | null;
+  totalPercentage?: number | null;
 }
 
 /**
@@ -603,8 +612,9 @@ export interface PersonInputObject {
  * Input object to create a Person
  */
 export interface PersonV2InputObject {
-  about?: string | null;
+  addresses?: AddressV2InputObject[] | null;
   b2c?: boolean | null;
+  businessShare?: number | null;
   cognitoSub?: string | null;
   companyType?: string | null;
   countryOfBirth?: string | null;
@@ -624,8 +634,9 @@ export interface PersonV2InputObject {
   nationality?: string | null;
   noOfAdultsInHousehold?: string | null;
   noOfDependants?: string | null;
+  originalFirstName?: string | null;
+  originalLastName?: string | null;
   partyUuid?: string | null;
-  pictureUrl?: string | null;
   privacyPolicy?: boolean | null;
   profilingConsent?: boolean | null;
   smsConsent?: boolean | null;
