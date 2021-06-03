@@ -21,6 +21,7 @@ import {
 } from '../../../generated/filterList';
 import SearchPod from '../../components/SearchPod';
 import { filterTypeAndBudget_filterList as IFilterTypeAndBudget } from '../../../generated/filterTypeAndBudget';
+import getPartnerProperties from 'utils/partnerProperties';
 
 interface ISearchPodContainerProps {
   searchPodCarsData?: IFilterListData;
@@ -296,6 +297,9 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       query.pricePerMonth = getBudgetForQuery(
         values[`budget${tabType}` as keyof typeof defaultValues],
       );
+    }
+    if (getPartnerProperties()?.fuelTypes) {
+      query.fuelTypes = getPartnerProperties().fuelTypes;
     }
     router.push({
       pathname: routerUrl,
