@@ -18,3 +18,20 @@ export function useLoginUserMutation(onCompleted?: (data: Mutation) => void) {
     onCompleted,
   });
 }
+
+export function makeLoginUserMutationMock(email: string, password: string) {
+  return {
+    request: {
+      query: LOGIN_USER_MUTATION,
+      variables: {
+        password,
+        username: email,
+      },
+    },
+    result: {
+      data: {
+        loginV2: 'some-fake-token',
+      },
+    },
+  };
+}

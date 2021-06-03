@@ -62,3 +62,48 @@ export function useRegistration(
     { onCompleted, onError },
   );
 }
+
+export function makeRegisterUserMutationMock(email: string, password: string) {
+  return {
+    request: {
+      query: REGISTER_USER_MUTATION,
+      variables: {
+        password,
+        username: email,
+        firstName: 'Barry',
+        lastName: 'Barrys',
+        termsAndConditions: true,
+        privacyPolicy: true,
+        communicationsConsent: false,
+        redirectUrl: undefined,
+      },
+    },
+    result: {
+      data: {
+        register: {
+          uuid: '1',
+        },
+      },
+    },
+  };
+}
+
+export function makeEmailAlreadyExistsMutationMock(email: string) {
+  return {
+    request: {
+      query: EMAIL_ALREADY_EXISTS,
+      variables: {
+        email,
+      },
+    },
+    result: {
+      data: {
+        emailAlreadyExists: {
+          isSuccessful: true,
+          isTemporary: false,
+          isExists: false,
+        },
+      },
+    },
+  };
+}

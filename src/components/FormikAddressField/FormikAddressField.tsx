@@ -42,7 +42,7 @@ const FormikAddressField: React.FC<IProps> = ({
           }}
           onFocus={() => setIsFocused(true)}
         />
-        <AddressFinder.Selected />
+        <AddressFinder.Selected dataTestId={name} />
         <AddressFinder.Intermediate />
       </Formgroup>
       <AddressFinder.Results />

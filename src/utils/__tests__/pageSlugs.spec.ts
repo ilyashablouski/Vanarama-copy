@@ -101,15 +101,9 @@ describe('pageSlugs', () => {
       ],
     },
   };
-  it.skip('getBlogPaths should filter slugs which includes .html', () => {
-    const actual = getBlogPaths(blogData?.blogPosts as IBlogPosts);
-
-    expect(actual).toEqual([
-      {
-        params: {
-          articles: ['half-season-ticket-and-shirt-winners'],
-        },
-      },
-    ]);
+  it('getBlogPaths should throw error for slugs with .html', () => {
+    expect(() =>
+      getBlogPaths(blogData?.blogPosts as IBlogPosts),
+    ).toThrowError();
   });
 });

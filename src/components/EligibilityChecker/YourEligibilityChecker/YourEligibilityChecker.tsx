@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { useForm } from 'react-hook-form';
+import { FormContext, useForm } from 'react-hook-form';
 import { gql } from '@apollo/client';
 import React, { useState } from 'react';
 import validationSchema from './YourEligibilityChecker.validation';
@@ -160,16 +160,18 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
         </Text>
       </div>
 
-      <EligibilityCheckerForm
-        submit={submit}
-        errors={methods.errors}
-        handleSubmit={methods.handleSubmit}
-        register={methods.register}
-        triggerValidation={methods.triggerValidation}
-        watch={methods.watch}
-        formState={methods.formState}
-        control={methods.control}
-      />
+      <FormContext {...methods}>
+        <EligibilityCheckerForm
+          submit={submit}
+          errors={methods.errors}
+          handleSubmit={methods.handleSubmit}
+          register={methods.register}
+          triggerValidation={methods.triggerValidation}
+          watch={methods.watch}
+          formState={methods.formState}
+          control={methods.control}
+        />
+      </FormContext>
 
       {isModalShowing && (
         <Modal

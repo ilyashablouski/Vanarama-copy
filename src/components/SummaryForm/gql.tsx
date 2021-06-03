@@ -4,6 +4,7 @@ import {
   GetPartyByUuidVariables,
 } from '../../../generated/GetPartyByUuid';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
+import { FullCreditCheckerInputObject } from '../../../generated/globalTypes';
 
 export const GET_CREDIT_APPLICATION_BY_ORDER_UUID = gql`
   query GetCreditApplicationByOrderUuidDataForCreditCheck($orderUuid: ID!) {
@@ -108,4 +109,63 @@ export function useGetPartyByUuidLazyQuery() {
   return useImperativeQuery<GetPartyByUuid, GetPartyByUuidVariables>(
     GET_PARTY_BY_UUID,
   );
+}
+
+export function makeGetCreditApplicationByOrderUuidMock(orderUuid: string) {
+  return {
+    request: {
+      query: GET_CREDIT_APPLICATION_BY_ORDER_UUID,
+      variables: {
+        orderUuid,
+      },
+    },
+    result: {
+      data: {
+        creditApplicationByOrderUuid: {
+          lineItem: {
+            order: {
+              partyUuid: orderUuid,
+            },
+          },
+        },
+      },
+    },
+  };
+}
+
+export function makeGetPartyByUuidMock(uuid: string) {
+  return {
+    request: {
+      query: GET_PARTY_BY_UUID,
+      variables: {
+        uuid,
+      },
+    },
+    result: {
+      data: {
+        partyByUuid: {
+          uuid,
+        },
+      },
+    },
+  };
+}
+
+export function makeFullCreditCheckerMutationMock(
+  uuid: string,
+  input: FullCreditCheckerInputObject,
+) {
+  return {
+    request: {
+      query: FULL_CREDIT_CHECKER_MUTATION,
+      variables: input,
+    },
+    result: {
+      data: {
+        personByUuid: {
+          uuid,
+        },
+      },
+    },
+  };
 }
