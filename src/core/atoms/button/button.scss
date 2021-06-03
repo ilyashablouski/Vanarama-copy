@@ -181,6 +181,21 @@
         }
       }
     }
+
+    &:focus, &:active {
+      border-color: transparent;
+      background: transparent;
+
+      .icon svg {
+        path {
+          stroke: var(--class-color-shade) !important;
+        }
+
+        polyline {
+          stroke: var(--class-color-shade) !important;
+        }
+      }
+    }
   }
 
   &.-reset.disabled {
