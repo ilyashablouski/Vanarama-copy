@@ -10,10 +10,9 @@
   // max-width: max-content;
   font-size: var(--class-fs);
   cursor: pointer;
-  transition:
-    background $duration-small $transition-soft,
-    border-color $duration-small $transition-soft,
-    color $duration-small $transition-soft;
+  transition: background $duration-small $transition-soft,
+  border-color $duration-small $transition-soft,
+  color $duration-small $transition-soft;
 
   &--inner {
     --ionicon-stroke-width: 64px;
@@ -153,7 +152,35 @@
   }
 
   &.-reset {
+    .icon {
+      display: inline-flex;
+      font-size: 1.4rem;
+      transform: rotate(45deg);
 
+      svg {
+        path {
+          stroke-width: 65px !important;
+          transition: stroke $duration-small $transition-soft,
+        }
+
+        polyline {
+          stroke-width: 45px !important;
+          transition: stroke $duration-small $transition-soft,
+        }
+      }
+    }
+
+    &:hover {
+      .icon svg {
+        path {
+          stroke: var(--class-color-tint) !important;
+        }
+
+        polyline {
+          stroke: var(--class-color-tint) !important;
+        }
+      }
+    }
   }
 
   &.-reset.disabled {

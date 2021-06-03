@@ -6,6 +6,18 @@ import Select from 'core/atoms/select';
 import SlidingInput from 'core/atoms/sliding-input';
 import Radio from 'core/atoms/radio';
 import cx from 'classnames';
+import StarHalfSharp from 'core/assets/icons/StarHalfSharp';
+import ArrowBackCircle from 'core/assets/icons/ArrowBackCircle';
+import ArrowForwardCircle from 'core/assets/icons/ArrowForwardCircle';
+import ArrowRedo from 'core/assets/icons/ArrowRedo';
+import ArrowRedoCircle from 'core/assets/icons/ArrowRedoCircle';
+import ArrowUndo from 'core/assets/icons/ArrowUndo';
+import ArrowUpCircle from 'core/assets/icons/ArrowUpCircle';
+import ArrowUpSharp from 'core/assets/icons/ArrowUpSharp';
+import ArrowUpCircleSharp from 'core/assets/icons/ArrowUpCircleSharp';
+import AtCircle from 'core/assets/icons/AtCircle';
+import Refresh from 'core/assets/icons/Refresh';
+import Reload from 'core/assets/icons/Reload';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps, IChoice } from './interface';
@@ -371,6 +383,10 @@ const CustomiseLease = ({
         <Button
           className={cx('-reset', isPlayingLeaseAnimation ? 'disabled' : '')}
           fill="clear"
+          color="teal"
+          icon={<Refresh />}
+          iconColor="teal"
+          iconPosition="before"
           label="Reset Price"
           onClick={handleClickResetTermAndUpfront}
         />
