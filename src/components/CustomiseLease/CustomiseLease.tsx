@@ -135,6 +135,7 @@ const CustomiseLease = ({
   upfronts,
   defaultTermValue,
   defaultUpfrontValue,
+  defaultMileageValue,
   leaseTypes,
   mileages,
   setLeaseType,
@@ -248,6 +249,13 @@ const CustomiseLease = ({
   };
 
   const handleClickResetTermAndUpfront = () => {
+    setMileage(defaultMileageValue);
+
+    setDefaultMileage(
+      mileages.findIndex(mileageValue => mileageValue === defaultMileageValue) +
+        1,
+    );
+
     setTerm(defaultTermValue);
     setMonthIndex(
       terms.findIndex(term => term.value === defaultTermValue?.toString()),
@@ -260,6 +268,7 @@ const CustomiseLease = ({
       ),
     );
   };
+  console.log(`Индекс с customise lease: ${defaultMileage}`);
 
   return (
     <div
@@ -285,6 +294,7 @@ const CustomiseLease = ({
         steps={mileages}
         disabled={isPlayingLeaseAnimation}
         defaultValue={defaultMileage}
+        setDefaultMileage={setDefaultMileage}
         onChange={value => {
           setMileage(mileages[value - 1]);
         }}
