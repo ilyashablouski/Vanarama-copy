@@ -20,7 +20,7 @@ import { Env } from './utils/env';
 import { isSessionFinishedCache } from './cache';
 
 const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
-// A list of queries that we don't want to be cached for APQ
+// A list of queries that we don't want to be cached in CDN
 const QUERIES_WITHOUT_CDN_CACHING = [
   'GetLeaseCompanyData',
   'GetCreditApplicationByOrderUuid',
