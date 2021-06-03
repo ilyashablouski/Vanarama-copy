@@ -4,11 +4,15 @@ import RangeCard from './RangeCard';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
-import { getLegacyUrl } from '../../utils/url';
 import VehicleCard from './VehicleCard';
 import { rangeList } from '../../../generated/rangeList';
 import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../generated/genericPagesQuery';
 import { manufacturerList } from '../../../generated/manufacturerList';
+
+const getUrlForVehicleCard = (vehicle: IVehicles) =>
+  vehicle.node?.manufacturerName === 'Abarth'
+    ? vehicle.node?.url
+    : vehicle.node?.legacyUrl || vehicle.node?.url; // return slug if legacy url is not exists
 
 interface IProps {
   isMakePage?: boolean;
@@ -85,7 +89,7 @@ const ResultsContainer = memo((props: IProps) => {
           key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
           data={getCardData(vehicle.node?.derivativeId || '') as IProductCard}
           derivativeId={vehicle.node?.derivativeId}
-          url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
+          url={getUrlForVehicleCard(vehicle) || ''}
           title={{
             title: `${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`,
             description: vehicle.node?.derivativeName || '',
