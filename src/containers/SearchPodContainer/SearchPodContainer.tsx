@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import getPartnerProperties from 'utils/partnerProperties';
 import {
   budget,
   carPageTabFields,
@@ -21,7 +22,6 @@ import {
 } from '../../../generated/filterList';
 import SearchPod from '../../components/SearchPod';
 import { filterTypeAndBudget_filterList as IFilterTypeAndBudget } from '../../../generated/filterTypeAndBudget';
-import getPartnerProperties from 'utils/partnerProperties';
 
 interface ISearchPodContainerProps {
   searchPodCarsData?: IFilterListData;
