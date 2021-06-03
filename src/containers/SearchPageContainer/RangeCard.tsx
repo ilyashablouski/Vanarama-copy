@@ -15,6 +15,29 @@ const Card = dynamic(() => import('core/molecules/cards/Card'), {
   loading: () => <Skeleton count={1} />,
 });
 
+const getMakeUrl = (
+  makesUrls: ILegacyUrls[],
+  searchType: string,
+  title: string,
+) =>
+  makesUrls?.find(
+    make => make.slug === `${searchType}/${formatToSlugFormat(title)}`,
+  );
+
+const getRangeUrl = (
+  rangesUrls: ILegacyUrls[],
+  searchType: string,
+  title: string,
+  dynamicParam: string,
+) =>
+  rangesUrls?.find(
+    range =>
+      range.slug ===
+      `${searchType}/${formatToSlugFormat(dynamicParam)}/${formatToSlugFormat(
+        title,
+      )}`,
+  );
+
 interface IVehicleCardProps {
   isPersonalPrice: boolean;
   title: string;
@@ -40,19 +63,21 @@ const RangeCard = memo(
     // TODO: Should be changed when query for get images will updated
     const { pathname, query } = useRouter();
     const searchType = pathname.slice(1).split('/')[0];
-    const getRangeUrl = () =>
-      rangesUrls?.find(
-        range =>
-          range.slug ===
-          `${searchType}/${formatToSlugFormat(
-            query.dynamicParam as string,
-          )}/${formatToSlugFormat(title)}`,
-      )?.legacyUrl || '';
-    const getMakeUrl = () =>
-      makesUrls?.find(
-        make => make.slug === `${searchType}/${formatToSlugFormat(title)}`,
-      )?.legacyUrl || '';
-    const href = isAllMakesCard ? getMakeUrl() : getRangeUrl();
+
+    const nextUrl = isAllMakesCard
+      ? getMakeUrl(makesUrls || [], searchType, title)
+      : getRangeUrl(
+          rangesUrls || [],
+          searchType,
+          title,
+          query.dynamicParam as string,
+        );
+
+    // test using of slug for routing, only for Abarth
+    const href = nextUrl?.slug?.includes('abarth')
+      ? nextUrl?.slug
+      : nextUrl?.legacyUrl || nextUrl?.slug;
+
     const { data: imagesData } = getRangeImages(
       id,
       vehicleType,
@@ -80,7 +105,7 @@ const RangeCard = memo(
           link: (
             <RouterLink
               link={{
-                href: formatUrl(href),
+                href: formatUrl(href || ''),
                 label: title || '',
               }}
               className="heading"
@@ -101,7 +126,7 @@ const RangeCard = memo(
           />
           <RouterLink
             link={{
-              href: formatUrl(href),
+              href: formatUrl(href || ''),
               label: 'View All' || '',
             }}
             className="button"
