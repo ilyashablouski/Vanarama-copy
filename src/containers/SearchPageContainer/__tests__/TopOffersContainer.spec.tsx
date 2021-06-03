@@ -235,10 +235,12 @@ jest.mock('next/router', () => ({
     query: { rangeName: '3 series', make: 'BMW' },
   }),
 }));
+
 describe('<TopOffersContainer />', () => {
   beforeEach(async () => {
     await preloadAll();
   });
+
   const resetMocks = () => {
     return {
       isPersonal: true,
@@ -264,6 +266,7 @@ describe('<TopOffersContainer />', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
+
   // TODO: should be investigate why Mock Provider can't resolve mocked queries
   it.skip('should be render correctly Top Offers for special offer Page', async () => {
     // ACT
@@ -274,8 +277,9 @@ describe('<TopOffersContainer />', () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByText('Top Offers')).toBeInTheDocument();
+      expect(screen.getByText(/Hot Offers/)).toBeInTheDocument();
     });
+
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
   });

@@ -108,7 +108,7 @@ describe('<EmploymentForm />', () => {
     const phone = screen.getByLabelText('Work Phone Number');
     fireEvent.change(phone, { target: { value: '01442838195' } });
 
-    const address = screen.getByLabelText('Company Postcode or Address');
+    const address = screen.getByLabelText('Company Address');
     fireEvent.change(address, {
       target: { value: 'Maylands Avenue, HP2 7DE' },
     });
@@ -188,7 +188,7 @@ describe('<EmploymentForm />', () => {
     const prevPhone = screen.getByLabelText('Work Phone Number');
     fireEvent.change(prevPhone, { target: { value: '01442838195' } });
 
-    const prevAddress = screen.getByLabelText('Company Postcode or Address');
+    const prevAddress = screen.getByLabelText('Company Address');
     fireEvent.change(prevAddress, {
       target: { value: 'Maylands Avenue, HP2 7DE' },
     });

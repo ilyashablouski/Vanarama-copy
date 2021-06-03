@@ -43,14 +43,13 @@ const HeroSection = ({ title, body, image, heroLabel }: IHeroData) => (
     <HeroTitle text={body || ''} />
     <div>
       <Image
-        loadImage
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         optimisationOptions={optimisationOptions}
         dataTestId="fleet_hero-image"
         size="expand"
         src={image?.file?.url || config.heroImage.src}
         plain
-        className="hero--image"
+        className="hero--image hero--image-fleet"
       />
     </div>
     {heroLabel?.[0]?.visible && (

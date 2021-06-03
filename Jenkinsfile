@@ -119,7 +119,7 @@ def createReleaseBranch(appEnvironment, sourceBranch) {
 
 def getDockerTagName() {
     if ( "${branchName}" =~ "hotfix/*" ) {
-        return "${branchName}".replace("hotfix/", "hotfix-H${env.CHANGE_ID}-")
+        return "${branchName}".replace("hotfix/", "hotfix-H${env.CHANGE_ID}-B${env.BUILD_NUMBER}-")
     } else {
         def cleanBranchName = "${branchName}".replace('/', '-')
         return "${cleanBranchName}"
@@ -497,6 +497,30 @@ pipeline {
                         def taskDefinition = getTaskDefinition(taskFamily, ecrRegion)
                         sh """
                             aws ecs update-service --cluster ${clusterName} --service ${serviceName} --task-definition ${taskDefinition} --region ${ecrRegion}
+                        
+                            runtime="30 minute"
+                            endtime=\$(date -ud "\$runtime" +%s)
+                            while [[ \$(date -u +%s) -le \$endtime ]]
+                            do
+                                sleep 1m
+                                aws ecs describe-services \
+                                    --cluster ${clusterName} \
+                                    --service ${serviceName} \
+                                    --region ${ecrRegion} > serviceInfo.json
+                                deploymentCount=\$(cat serviceInfo.json | jq '.services[0].deployments' | jq length)
+                                taskDefinitionDeployment=\$(cat serviceInfo.json | jq '.services[0].deployments[0].taskDefinition' | cut -d'"' -f2)
+                                taskDefinitionDeploymentId=\$(echo \${taskDefinitionDeployment} | awk '{split(\$0,a,":"); print a[length(a)]}')
+                                expectedTaskDefinitionId=${taskDefinition.split(':')[-1]}
+                                desiredCount=\$(cat serviceInfo.json | jq '.services[0].deployments[0].desiredCount')
+                                runningCount=\$(cat serviceInfo.json | jq '.services[0].deployments[0].runningCount')
+                                echo "taskDefinitionDeployment: \${taskDefinitionDeployment}, taskDefinitionDeploymentId: \${taskDefinitionDeploymentId}, expectedTaskDefinitionId: \${expectedTaskDefinitionId}, desiredCount: \${desiredCount}, runningCount: \${runningCount}"
+                                # check if new version running
+                                if [[ "\$deploymentCount" == "1" ]]; then
+                                    if [[ "\$taskDefinitionDeploymentId" == "\$expectedTaskDefinitionId" ]] && [[ "\$desiredCount" == "\$runningCount" ]]; then
+                                        break
+                                    fi
+                                fi
+                            done
                         """
                         }
                      }

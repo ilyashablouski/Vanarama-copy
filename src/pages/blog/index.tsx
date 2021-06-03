@@ -6,6 +6,10 @@ import withApollo from '../../hocs/withApollo';
 import CategoryPageContainer from '../../containers/CategoryPageContainer/CategoryPageContainer';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { decodeData, encodeData } from '../../utils/data';
+import {
+  DEFAULT_REVALIDATE_INTERVAL,
+  DEFAULT_REVALIDATE_INTERVAL_ERROR,
+} from '../../utils/env';
 
 const CategoryPage: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
   // De-obfuscate data for user
@@ -49,7 +53,9 @@ export async function getStaticProps(context: NextPageContext) {
     const data = encodeData(genericPage);
 
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data,
         error: errors ? errors[0] : null,
@@ -57,7 +63,9 @@ export async function getStaticProps(context: NextPageContext) {
     };
   } catch {
     return {
-      revalidate: 1,
+      revalidate:
+        Number(process.env.REVALIDATE_INTERVAL_ERROR) ||
+        Number(DEFAULT_REVALIDATE_INTERVAL_ERROR),
       props: {
         error: true,
       },

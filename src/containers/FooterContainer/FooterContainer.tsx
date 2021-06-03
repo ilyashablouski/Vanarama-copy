@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
-import Cookies from 'js-cookie';
 import Skeleton from '../../components/Skeleton';
+import { getPartnerProperties } from '../../utils/partnerProperties';
 import {
   getLocalStorage,
   removeLocalStorage,
@@ -16,7 +16,7 @@ const Footer = dynamic(() => import('../../components/Footer'), {
 const FooterContainer = () => {
   const [footerData, setFooterData] = useState(FOOTER_DATA.primaryFooter);
   useEffect(() => {
-    const activePartnership = Cookies.get('activePartnership');
+    const activePartnership = getPartnerProperties();
     const partnerFooterData = getLocalStorage('partnerFooter');
     if (activePartnership && partnerFooterData) {
       setFooterData(JSON.parse(partnerFooterData));

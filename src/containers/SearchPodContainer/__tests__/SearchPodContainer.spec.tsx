@@ -126,7 +126,7 @@ describe('<SearchPodContainer />', () => {
     jest.clearAllMocks();
   });
 
-  it.skip('should select make by model for vans', async () => {
+  it('should select make by model for vans', async () => {
     // ACT
     render(
       <MockedProvider mocks={mocks} addTypename={false}>
@@ -140,7 +140,7 @@ describe('<SearchPodContainer />', () => {
     // ASSERT
     fireEvent.click(screen.getByTestId('modelVans'));
     fireEvent.click(screen.getByText('Duster'));
-    expect(screen.getByText('Dacia')).toBeInTheDocument();
+    expect(screen.getAllByText('Dacia')[0]).toBeInTheDocument();
   });
 
   it.skip('should render search pod only for pickups', async () => {

@@ -54,7 +54,7 @@ export async function getStaticPaths() {
     const paths = buildStaticPaths(data);
     return {
       paths,
-      fallback: false,
+      fallback: 'blocking',
     };
   } catch {
     return {
@@ -63,7 +63,7 @@ export async function getStaticPaths() {
           params: { pageNumber: '/' },
         },
       ],
-      fallback: true,
+      fallback: 'blocking',
     };
   }
 }

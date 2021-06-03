@@ -43,14 +43,15 @@ export const EVHubPage: NextPage<IProps> = ({
     quality: 59,
   };
 
-  const isPersonalCar = cachedLeaseType.car === 'Personal';
+  const isPersonalCar = cachedLeaseType.lcv === 'Personal';
   const sections = data?.genericPage.sectionsAsArray;
+
   return (
     <>
       <Hero>
         <div className="hero--left">
           <Image
-            loadImage
+            lazyLoad
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             optimisationOptions={optimisationOptions}
             className="hero--image"

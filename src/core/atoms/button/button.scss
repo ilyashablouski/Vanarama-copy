@@ -10,10 +10,9 @@
   // max-width: max-content;
   font-size: var(--class-fs);
   cursor: pointer;
-  transition:
-    background $duration-small $transition-soft,
-    border-color $duration-small $transition-soft,
-    color $duration-small $transition-soft;
+  transition: background $duration-small $transition-soft,
+  border-color $duration-small $transition-soft,
+  color $duration-small $transition-soft;
 
   &--inner {
     --ionicon-stroke-width: 64px;
@@ -87,7 +86,7 @@
       border-color: var(--class-color-shade);
       background: var(--class-color-shade);
     }
-    
+
     &:focus {
       box-shadow: $box-shadow-focus var(--class-color-focus);
     }
@@ -108,7 +107,7 @@
       border-color: var(--class-color-shade);
       color: var(--class-color-shade);
     }
-    
+
     &:focus {
       box-shadow: $box-shadow-focus var(--class-color-focus);
     }
@@ -133,7 +132,7 @@
     &:focus {
       color: var(--class-color-shade);
     }
-    
+
     &:focus {
       background: var(--class-color-focus);
     }
@@ -150,6 +149,57 @@
     justify-content: center;
     max-height: var(--class-sz);
     max-width: var(--class-sz);
+  }
+
+  &.-reset {
+    .icon {
+      display: inline-flex;
+      font-size: 1.4rem;
+      transform: rotate(45deg);
+
+      svg {
+        path {
+          stroke-width: 65px !important;
+          transition: stroke $duration-small $transition-soft,
+        }
+
+        polyline {
+          stroke-width: 45px !important;
+          transition: stroke $duration-small $transition-soft,
+        }
+      }
+    }
+
+    &:hover {
+      .icon svg {
+        path {
+          stroke: var(--class-color-tint) !important;
+        }
+
+        polyline {
+          stroke: var(--class-color-tint) !important;
+        }
+      }
+    }
+
+    &:focus, &:active {
+      border-color: transparent;
+      background: transparent;
+
+      .icon svg {
+        path {
+          stroke: var(--class-color-shade) !important;
+        }
+
+        polyline {
+          stroke: var(--class-color-shade) !important;
+        }
+      }
+    }
+  }
+
+  &.-reset.disabled {
+    pointer-events: none;
   }
 
   &[disabled],

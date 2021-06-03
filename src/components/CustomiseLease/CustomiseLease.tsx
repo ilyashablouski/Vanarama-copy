@@ -6,6 +6,7 @@ import Select from 'core/atoms/select';
 import SlidingInput from 'core/atoms/sliding-input';
 import Radio from 'core/atoms/radio';
 import cx from 'classnames';
+import Refresh from 'core/assets/icons/Refresh';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps, IChoice } from './interface';
@@ -65,7 +66,8 @@ const choices = (
   heading: string,
   isDisabled: boolean,
   currentValue?: string,
-  monthIndex?: any,
+  choiceIndex?: number,
+  setChoiceIndex?: Dispatch<SetStateAction<number>>,
   icon?: JSX.Element,
 ) => (
   <>
@@ -88,7 +90,8 @@ const choices = (
       onSubmit={value => {
         setChoice(value.label);
       }}
-      setIndex={monthIndex}
+      choiceIndex={choiceIndex}
+      setChoiceIndex={setChoiceIndex}
     />
   </>
 );
@@ -130,6 +133,8 @@ const select = (
 const CustomiseLease = ({
   terms,
   upfronts,
+  defaultTermValue,
+  defaultUpfrontValue,
   leaseTypes,
   mileages,
   setLeaseType,
@@ -148,9 +153,10 @@ const CustomiseLease = ({
   setIsModalShowing,
   trim,
   mileage,
-  isDisabled,
-  setIsDisabled,
+  isPlayingLeaseAnimation,
+  setIsPlayingLeaseAnimation,
   setIsInitialLoading,
+  setIsRestoreLeaseSettings,
   lineItem,
   onSubmit,
   showCallBackForm,
@@ -181,6 +187,7 @@ const CustomiseLease = ({
         window.sessionStorage?.[`leaseSettings-${capId}`],
       );
       if (leaseSettings && leaseSettings.capId === capId) {
+        setIsRestoreLeaseSettings(true);
         setMaintenance(leaseSettings.maintenance);
         setDefaultMileage(leaseSettings.mileageValue);
         setMileage(leaseSettings.mileage);
@@ -218,6 +225,7 @@ const CustomiseLease = ({
     }
     if (!maintenance) setInitialPayment(initialRental);
   }, [quoteByCapId, maintenance]);
+
   const isMobile = useMobileViewport();
   const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
 
@@ -239,8 +247,24 @@ const CustomiseLease = ({
     );
   };
 
+  const handleClickResetTermAndUpfront = () => {
+    setTerm(defaultTermValue);
+    setMonthIndex(
+      terms.findIndex(term => term.value === defaultTermValue?.toString()),
+    );
+
+    setUpfront(defaultUpfrontValue);
+    setUpfrontIndex(
+      upfronts.findIndex(
+        upfront => upfront.value === defaultUpfrontValue?.toString(),
+      ),
+    );
+  };
+
   return (
-    <div className={cx('pdp--sidebar', isDisabled ? 'disabled' : '')}>
+    <div
+      className={cx('pdp--sidebar', isPlayingLeaseAnimation ? 'disabled' : '')}
+    >
       <Heading tag="h2" size="xlarge" color="black">
         Customise Your Lease
       </Heading>
@@ -248,7 +272,7 @@ const CustomiseLease = ({
         leaseTypes,
         setLeaseType,
         'Is this for you, or for your business?',
-        isDisabled,
+        isPlayingLeaseAnimation,
       )}
       <Heading tag="span" size="regular" color="black">
         How many miles will you be driving a year?
@@ -259,7 +283,7 @@ const CustomiseLease = ({
       </Heading>
       <SlidingInput
         steps={mileages}
-        disabled={isDisabled}
+        disabled={isPlayingLeaseAnimation}
         defaultValue={defaultMileage}
         onChange={value => {
           setMileage(mileages[value - 1]);
@@ -269,20 +293,22 @@ const CustomiseLease = ({
         terms,
         value => setTerm(+(value || 0) || null),
         'How long do you want your vehicle for?',
-        isDisabled,
+        isPlayingLeaseAnimation,
         `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
           12} Years`,
         monthIndex,
+        setMonthIndex,
       )}
       {choices(
         upfronts,
         value => setUpfront(+(value || 0) || null),
         'How much do you want to pay upfront?',
-        isDisabled,
+        isPlayingLeaseAnimation,
         `${quoteByCapId?.upfront} Months - £${toPriceFormat(
           initialPayment,
         )} ${stateVAT}. VAT`,
         upfrontIndex,
+        setUpfrontIndex,
         <Icon
           icon={<InformationCircle />}
           color="teal"
@@ -304,14 +330,14 @@ const CustomiseLease = ({
         setColour,
         colourList,
         'Select Paint Colour',
-        isDisabled,
+        isPlayingLeaseAnimation,
       )}
       {select(
         `${defaultTrim || quoteByCapId?.trim || trim}`,
         setTrim,
         trimList,
         'Select Interior',
-        isDisabled,
+        isPlayingLeaseAnimation,
       )}
       <Heading tag="span" size="regular" color="black">
         Add Maintenance:
@@ -331,7 +357,7 @@ const CustomiseLease = ({
           label="YES, I want peace of mind and to keep things hassle-free"
           onChange={() => setMaintenance(true)}
           defaultChecked={!!maintenance}
-          disabled={isDisabled}
+          disabled={isPlayingLeaseAnimation}
         />
         <Radio
           name="maintenance"
@@ -339,9 +365,22 @@ const CustomiseLease = ({
           label="NO, I want to worry about sorting the maintenance costs myself"
           onChange={() => setMaintenance(false)}
           defaultChecked={maintenance === false}
-          disabled={isDisabled}
+          disabled={isPlayingLeaseAnimation}
         />
       </Formgroup>
+      <div className="button-wrapper">
+        <Button
+          className={cx('-reset', isPlayingLeaseAnimation ? 'disabled' : '')}
+          fill="clear"
+          color="teal"
+          icon={<Refresh />}
+          iconColor="teal"
+          iconPosition="before"
+          label="Reset Price"
+          onClick={handleClickResetTermAndUpfront}
+        />
+      </div>
+
       {isShowFreeInsuranceMerch && (
         <div className="whats-included-insurance">
           <ShieldFreeInsurance />
@@ -401,10 +440,10 @@ const CustomiseLease = ({
               }}
               headingText={`PM ${stateVAT}. VAT`}
               leasingProviders={LEASING_PROVIDERS}
-              startLoading={isDisabled}
+              startLoading={isPlayingLeaseAnimation}
               endAnimation={() => {
                 setIsInitialLoading(true);
-                setIsDisabled(false);
+                setIsPlayingLeaseAnimation(false);
               }}
               requestCallBack={() => {
                 showCallBackForm(true);

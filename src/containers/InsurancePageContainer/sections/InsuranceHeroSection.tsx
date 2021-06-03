@@ -58,7 +58,7 @@ const InsuranceHeroSection = ({
         size="expand"
         src={image?.file?.url || config.heroImage.src}
         plain
-        className="hero--image"
+        className="hero--image hero--image-insurance"
       />
     </div>
     {heroLabel?.[0]?.visible && (

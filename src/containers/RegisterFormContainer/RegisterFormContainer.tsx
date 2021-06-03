@@ -14,7 +14,7 @@ const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
   return (
     <RegisterForm
       isSubmitting={loading}
-      onSubmit={async (values: IRegisterFormValues, event: any) => {
+      onSubmit={(values: IRegisterFormValues, event: any) =>
         register({
           variables: {
             firstName: values.firstName,
@@ -29,8 +29,8 @@ const RegisterFormContainer: React.FC<IRegisterFormContainerProps> = ({
         }).then(() => {
           event.target.reset(); // reset form after form submit
           window.scrollTo(0, 0);
-        });
-      }}
+        })
+      }
       onCheckEmailExists={async value => {
         const results = await emailAlreadyExists({
           variables: { email: value },

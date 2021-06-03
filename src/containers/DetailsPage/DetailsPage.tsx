@@ -40,10 +40,8 @@ import { useMobileViewport } from '../../hooks/useMediaQuery';
 import useLeaseType from '../../hooks/useLeaseType';
 import { genericPagesQuery_genericPages_items as GenericPages } from '../../../generated/genericPagesQuery';
 import { replaceReview } from '../../components/CustomerReviews/helpers';
-import PartnershipLogo from '../../components/Partnerships/PartnershipLogo';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
-import { getPartnerProperties } from '../../utils/partnerProperties';
 import { getProductPageBreadCrumb, removeUrlQueryPart } from '../../utils/url';
 import {
   GetTrimAndColor_colourList as IColourList,
@@ -53,6 +51,8 @@ import { GetProductCard } from '../../../generated/GetProductCard';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
+import { pushAddToCartHeap } from '../../utils/heapHelpers';
+import PartnershipLogoHeader from '../PartnershipLogoHeader';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -163,28 +163,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [isAgreeInsuranceRules, setIsAgreeInsuranceRules] = useState(false);
   const [orderInputObject, setOrderInputObject] = useState<OrderInputObject>();
-  const [isDisabled, setIsDisabled] = useState<boolean>(false);
-  const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState<boolean>(
-    true,
-  );
+  const [isPlayingLeaseAnimation, setIsPlayingLeaseAnimation] = useState(false);
+  const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState(true);
   const [screenY, setScreenY] = useState<number | null>(null);
   const [mileage, setMileage] = useState<number | null>(
     quote?.quoteByCapId?.mileage || null,
   );
-  const [partnershipLogo, setPartnershipLogo] = useState(null);
-  const [partnershipTitle, setPartnershipTitle] = useState(null);
 
   useEffect(() => {
     setCachedLeaseType(leaseType);
   }, [leaseType, setCachedLeaseType]);
-
-  useEffect(() => {
-    const partnership = getPartnerProperties();
-    if (partnership) {
-      setPartnershipLogo(partnership.logo?.file?.url);
-      setPartnershipTitle(partnership.logo?.title);
-    }
-  }, []);
 
   const [
     leaseScannerData,
@@ -326,6 +314,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         optIn: withInsurance,
         eligible: isAgreeInsuranceRules,
       };
+    pushAddToCartHeap(vehicleProduct);
     pushAddToCartDataLayer({
       capId,
       derivativeInfo,
@@ -507,14 +496,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       <NextHead>
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
-      {partnershipLogo && (
-        <div className="partnership-top-header">
-          <PartnershipLogo
-            logo={partnershipLogo || ''}
-            imageAlt={partnershipTitle || ''}
-          />
-        </div>
-      )}
+      <PartnershipLogoHeader />
       <div
         className={cx('pdp--content', {
           '-free-insurance': isSpecialOffer && isCar,
@@ -631,8 +613,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             trimData={trimList}
             colourData={colourList}
             setLeadTime={setLeadTime}
-            isDisabled={isDisabled}
-            setIsDisabled={setIsDisabled}
+            isPlayingLeaseAnimation={isPlayingLeaseAnimation}
+            setIsPlayingLeaseAnimation={setIsPlayingLeaseAnimation}
             setLeaseScannerData={setLeaseScannerData}
             onCompleted={values => onSubmitClick(values)}
             mileage={mileage}
@@ -674,8 +656,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           colourData={colourList}
           setLeaseType={setLeaseType}
           setLeadTime={setLeadTime}
-          isDisabled={isDisabled}
-          setIsDisabled={setIsDisabled}
+          isPlayingLeaseAnimation={isPlayingLeaseAnimation}
+          setIsPlayingLeaseAnimation={setIsPlayingLeaseAnimation}
           setLeaseScannerData={setLeaseScannerData}
           onCompletedCallBack={onCompletedCallBack}
           onCompleted={values => onSubmitClick(values)}
@@ -731,9 +713,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
               orderNowClick={onSubmitClickMobile}
               headingText={`PM ${leaseScannerData?.stateVAT}. VAT`}
               leasingProviders={LEASING_PROVIDERS}
-              startLoading={isDisabled}
+              startLoading={isPlayingLeaseAnimation}
               endAnimation={() => {
-                setIsDisabled(false);
+                setIsPlayingLeaseAnimation(false);
                 leaseScannerData?.endAnimation();
               }}
               requestCallBack={() => {

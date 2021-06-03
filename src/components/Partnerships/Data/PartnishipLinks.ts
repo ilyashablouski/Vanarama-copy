@@ -1,7 +1,7 @@
 // eslint-disable-next-line import/prefer-default-export
 export const PartnershipsLinks = [
   {
-    name: 'ovo',
+    name: 'OVO',
     links: [
       {
         href: 'car-leasing/search',

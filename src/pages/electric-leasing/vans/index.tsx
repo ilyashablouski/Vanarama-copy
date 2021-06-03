@@ -92,7 +92,7 @@ const EVansPage: NextPage<IProps> = ({
       </div>
       <div className="hero--right">
         <Image
-          loadImage
+          lazyLoad
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           optimisationOptions={optimisationOptions}
           className="hero--image"
