@@ -8,7 +8,7 @@ import {
   makeEmailAlreadyExistsMutationMock,
 } from './gql';
 
-const EMAIL = `barry125@chuckle.com`;
+const EMAIL = 'barry125@chuckle.com';
 const PASSWORD = 'KyRE4AMZn6kCeZZ';
 
 const mocks: MockedResponse[] = [
