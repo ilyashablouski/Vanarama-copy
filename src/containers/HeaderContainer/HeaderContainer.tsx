@@ -3,9 +3,11 @@ import { gql, useMutation, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
 import { useMediaQuery } from 'react-responsive';
-import Cookies from 'js-cookie';
 import { ILink } from 'core/interfaces/link';
-import getPartnerProperties from 'utils/partnerProperties';
+import {
+  clearInactiveSessionFuelTypes,
+  getPartnerProperties,
+} from 'utils/partnerProperties';
 import Header from '../../components/Header';
 import { IHeaderLink } from '../../components/Header/Header';
 import { PartnershipsLinks } from '../../components/Partnerships/Data/PartnishipLinks';
@@ -156,7 +158,7 @@ const HeaderContainer: FC = () => {
     if (partnerDetails) {
       const partnerName = partnerDetails.slug;
       setPartnership(partnerName);
-      setPartnershipHomeLink(`/partnerships/${partnerName}`);
+      setPartnershipHomeLink(`/partnerships/${partnerName.toLowerCase()}`);
       const links = partnerLinks.find(p => p.name === partnerName)?.links;
       setPartnershipLinks(links);
     } else if (path.includes('partnerships')) {
@@ -164,27 +166,33 @@ const HeaderContainer: FC = () => {
       if (partner) {
         setPartnership(partner);
         setPartnershipHomeLink(`/partnerships/${partner}`);
-        const links = partnerLinks.find(p => p.name === partner)?.links;
+        const links = partnerLinks.find(p => p.name === partner.toUpperCase())
+          ?.links;
         setPartnershipLinks(links);
       }
     }
   }, []);
 
   useEffect(() => {
-    if (Cookies.get('activePartnership')) {
-      const partnerDetails = getPartnerProperties();
-      const { telephone } = partnerDetails;
-      if (telephone) {
-        const hrefNumber = telephone.replace(/\s/g, '');
-        const phoneData = {
-          href: `tel:${hrefNumber}`,
-          label: telephone,
-          linkType: LinkTypes.external,
-        };
-        setPartnershipPhoneLink(phoneData);
+    clearInactiveSessionFuelTypes();
+  }, []);
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (getPartnerProperties()) {
+        const partnerDetails = getPartnerProperties();
+        if (partnerDetails?.telephone) {
+          const hrefNumber = partnerDetails.telephone.replace(/\s/g, '');
+          const phoneData = {
+            href: `tel:${hrefNumber}`,
+            label: partnerDetails.telephone,
+            linkType: LinkTypes.external,
+          };
+          setPartnershipPhoneLink(phoneData);
+        }
       }
-    }
-  }, [Cookies.get('activePartnership')]);
+    }, 500);
+  }, []);
 
   if (partnership) {
     return (
@@ -196,7 +204,7 @@ const HeaderContainer: FC = () => {
         }}
         loginLink={LOGIN_LINK}
         phoneNumberLink={partnershipPhoneLink || phoneNumberLink}
-        topBarLinks={[...partnershipLinks]}
+        topBarLinks={partnershipLinks}
         customHomePath={partnershipHomeLink}
       />
     );

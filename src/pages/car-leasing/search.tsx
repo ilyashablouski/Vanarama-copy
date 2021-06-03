@@ -6,6 +6,7 @@ import createApolloClient from '../../apolloClient';
 import SearchPageContainer from '../../containers/SearchPageContainer';
 import {
   getCapsIds,
+  getCustomFuelTypesFromCookies,
   RESULTS_PER_REQUEST,
   ssrCMSQueryExecutor,
 } from '../../containers/SearchPageContainer/helpers';
@@ -66,6 +67,7 @@ export async function getServerSideProps(context: NextPageContext) {
     true,
     '',
   )) as ApolloQueryResult<GenericPageQuery>;
+  const cookieString = context?.req?.headers?.cookie || '';
   if (!Object.keys(context.query).length) {
     vehiclesList = await client
       .query({
@@ -73,6 +75,10 @@ export async function getServerSideProps(context: NextPageContext) {
         variables: {
           vehicleTypes: [VehicleTypeEnum.CAR],
           leaseType: LeaseTypeEnum.PERSONAL,
+          fuelTypes: getCustomFuelTypesFromCookies(
+            cookieString,
+            'customSessionFuelTypes',
+          ),
           onOffer: null,
           first: RESULTS_PER_REQUEST,
           sort: [
@@ -100,6 +106,7 @@ export async function getServerSideProps(context: NextPageContext) {
   }
   return {
     props: {
+      context: cookieString,
       pageData: encodeData(data),
       metaData: data?.genericPage.metaData || null,
       isServer: !!context.req,

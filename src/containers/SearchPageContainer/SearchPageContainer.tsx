@@ -71,9 +71,12 @@ import TilesBlock from './TilesBlock';
 import ResultsContainer from './ResultsContainer';
 import CommonDescriptionContainer from './CommonDescriptionContainer';
 import ReadMoreBlock from './ReadMoreBlock';
-import SearchPageFilters from '../../components/SearchPageFilters';
 import { FilterFields } from '../FiltersContainer/config';
+import SearchPageFilters from '../../components/SearchPageFilters';
+import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { getPartnerProperties } from '../../utils/partnerProperties';
+import { TColor } from '../../types/color';
 import {
   getObjectFromSessionStorage,
   removeSessionStorageItem,
@@ -248,6 +251,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(true);
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
   const [pageOffset, setPageOffset] = useState(0);
+  const [customCTAColor, setCustomCTAColor] = useState();
+  const [customTextColor, setCustomTextColor] = useState<TColor>();
+  const [partnershipActive, setPartnershipActive] = useState<boolean>(false);
   const [prevPosition, setPrevPosition] = useState(0);
 
   useEffect(() => {
@@ -271,6 +277,17 @@ const SearchPageContainer: React.FC<IProps> = ({
     const type = isPersonal ? 'Personal' : 'Business';
     setCachedLeaseType(type);
   }, [isPersonal, setCachedLeaseType]);
+
+  useEffect(() => {
+    const partnerActive = getPartnerProperties();
+    if (partnerActive) {
+      setPartnershipActive(true);
+      setCustomCTAColor(getPartnerProperties().color);
+      if (partnerActive.slug === 'OVO') {
+        setCustomTextColor('white');
+      }
+    }
+  }, []);
 
   // when we change page with one dynamic route by Next router(like from car-leasing/coupe to car-leasing/saloon)
   // Next doesn't call a ssr requests, this workaround should call request for page data on client side
@@ -778,6 +795,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           sort: isSpecialOffersOrder
             ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
             : sortOrder,
+          fuelTypes: getPartnerProperties()?.fuelTypes,
         },
       });
     }
@@ -877,8 +895,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   // Some props should be contain in one param for achieve more readable code
   return (
     <>
+      <PartnershipLogoHeader />
       <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
+        {!partnershipActive && <Breadcrumb items={breadcrumbsItems} />}
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
           {isDesktopOrTablet
             ? metaData?.name
@@ -989,6 +1008,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             tagArrayBuilderHelper={tagArrayBuilderHelper}
             preLoadFilters={preLoadFiltersData}
             initialState={initialFiltersState}
+            hideTags={partnershipActive}
             renderFilters={innerProps => (
               <SearchPageFilters
                 onSearch={onSearch}
@@ -1045,18 +1065,20 @@ const SearchPageContainer: React.FC<IProps> = ({
               cardsData={cardsData}
               vehiclesList={vehiclesList}
               isModelPage={isModelPage}
+              customCTAColor={customCTAColor}
             />
           </div>
           {!(isMakePage || isAllMakesPage) ? (
             <div className="pagination">
               {totalCount > vehiclesList?.length && (
                 <Button
-                  color="teal"
+                  color={customTextColor || 'teal'}
                   fill="outline"
                   label="Load More"
                   onClick={onLoadMore}
                   size="regular"
                   dataTestId="LoadMore"
+                  customCTAColor={customCTAColor}
                 />
               )}
             </div>

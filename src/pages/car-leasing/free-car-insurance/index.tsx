@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Image from 'core/atoms/image';
 import SchemaJSON from 'core/atoms/schema-json';
 import Accordion from 'core/molecules/accordion/Accordion';
@@ -19,6 +19,7 @@ import Skeleton from '../../../components/Skeleton';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 import { GetDerivatives } from '../../../../generated/GetDerivatives';
 import { ProductCardData } from '../../../../generated/ProductCardData';
+import { getPartnerProperties } from '../../../utils/partnerProperties';
 
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
@@ -61,6 +62,20 @@ const FreeCarInsurance: NextPage<IProps> = ({
     },
   );
   const findOutMoreSections = sections?.carousel?.[1];
+
+  const [partnershipActive, setPartnershipActive] = useState(false);
+  const [findOutMoreQueries, setFindOutMoreQueries] = useState({});
+  useEffect(() => {
+    const partnership = getPartnerProperties();
+    if (partnership) {
+      setPartnershipActive(true);
+      if (partnership.fuelTypes) {
+        setFindOutMoreQueries({
+          fuelTypes: partnership.fuelTypes,
+        });
+      }
+    }
+  }, []);
   // The small print will eventually be pulled from the CMS
   return (
     <>
@@ -92,7 +107,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
           key={featureSections.indexOf(featured)}
         />
       ))}
-      {sections?.carousel?.[0] && (
+      {sections?.carousel?.[0] && !partnershipActive && (
         <section className="row:bg-lighter">
           <div>
             <Heading
@@ -103,7 +118,6 @@ const FreeCarInsurance: NextPage<IProps> = ({
             >
               {sections?.carousel?.[0]?.title}
             </Heading>
-
             <ProductCarousel
               leaseType={
                 isPersonalCar ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
@@ -116,7 +130,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
               countItems={productsCar?.productCarousel?.length || 6}
               dataTestIdBtn="car-view-offer"
             />
-
+            )
             <div className="-justify-content-row -pt-500">
               <RouterLink
                 className="button"
@@ -128,6 +142,7 @@ const FreeCarInsurance: NextPage<IProps> = ({
                 link={{
                   label: 'View Latest Car Offers',
                   href: `/${searchParam}/search`,
+                  query: findOutMoreQueries,
                 }}
                 withoutDefaultClassName
                 dataTestId="view-all-cars"
@@ -149,7 +164,9 @@ const FreeCarInsurance: NextPage<IProps> = ({
           />
         </div>
       )}
-      {findOutMoreSections && <ArticleCarousel data={findOutMoreSections} />}
+      {findOutMoreSections && !partnershipActive && (
+        <ArticleCarousel data={findOutMoreSections} />
+      )}
       {data?.genericPage.metaData && (
         <>
           <Head

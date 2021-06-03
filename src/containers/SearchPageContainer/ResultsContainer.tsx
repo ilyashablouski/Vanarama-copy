@@ -22,6 +22,7 @@ interface IProps {
   cardsData: (IProductCard | null)[];
   vehiclesList: any;
   isModelPage?: boolean;
+  customCTAColor?: string;
 }
 
 const ResultsContainer = memo((props: IProps) => {
@@ -37,6 +38,7 @@ const ResultsContainer = memo((props: IProps) => {
     cardsData,
     vehiclesList,
     isModelPage,
+    customCTAColor,
   } = props;
   const router = useRouter();
 
@@ -92,6 +94,7 @@ const ResultsContainer = memo((props: IProps) => {
           }}
           isPersonalPrice={isPersonal ?? false}
           isModelPage={isModelPage}
+          customCTAColor={customCTAColor}
           idx={idx}
         />
       ))

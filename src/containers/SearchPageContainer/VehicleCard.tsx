@@ -44,6 +44,7 @@ interface IVehicleCardProps {
   url: string;
   derivativeId?: string | null;
   idx?: number;
+  customCTAColor?: string;
 }
 
 const VehicleCard = React.memo(
@@ -56,6 +57,7 @@ const VehicleCard = React.memo(
     data,
     bodyStyle,
     isModelPage,
+    customCTAColor,
     idx,
   }: IVehicleCardProps) => {
     const router = useRouter();
@@ -70,6 +72,10 @@ const VehicleCard = React.memo(
             `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
         }
       : {};
+    const extraStyles = {
+      background: customCTAColor,
+      borderColor: customCTAColor,
+    };
 
     return (
       <Card
@@ -151,7 +157,9 @@ const VehicleCard = React.memo(
             className="button"
             dataTestId="view-offer"
           >
-            <div className="button--inner">View Offer</div>
+            <div className="button--inner" style={extraStyles}>
+              View Offer
+            </div>
           </RouterLink>
         </div>
       </Card>
