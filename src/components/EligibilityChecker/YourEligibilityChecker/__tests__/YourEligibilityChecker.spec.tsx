@@ -129,6 +129,9 @@ describe('<YourEligibilityChecker />', () => {
     fireEvent.input(screen.getByTestId('eligibilityCheckerEmail'), {
       target: { value: 'hello@email.com' },
     });
+    fireEvent.input(screen.getByTestId('eligibilityCheckerAddress'), {
+      target: { value: '1234' },
+    });
     fireEvent.input(screen.getByTestId('eligibilityCheckerSelectDOB'), {
       target: { value: '1' },
     });
