@@ -3,7 +3,7 @@ import Select from 'core/atoms/select';
 import Choiceboxes from 'core/atoms/choiceboxes';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import { getSessionStorage } from 'utils/windowSessionStorage';
+import { getSessionStorage } from '../../utils/windowSessionStorage';
 import {
   budgets,
   FilterFields,

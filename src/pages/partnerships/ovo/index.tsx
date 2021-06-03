@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import { setSessionStorage } from 'utils/windowSessionStorage';
+import { setSessionStorage } from '../../../utils/windowSessionStorage';
 import PageHeadingSection from '../../../components/PageHeadingSection';
 import Hero, { HeroHeading } from '../../../components/Hero';
 import PartnershipLogo from '../../../components/Partnerships/PartnershipLogo';
