@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Badge from '.';
 
-storiesOf(`${atomicDir(base)}|Badge`, module)
+storiesOf(`${atomicDir(base)}/Badge`, module)
   .add('Danger', () => <Badge color="danger" label="Badge" />)
 
   .add('Success', () => <Badge color="success" label="Badge" />)

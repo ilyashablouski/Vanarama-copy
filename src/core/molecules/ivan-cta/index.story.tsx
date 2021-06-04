@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import IvanCta from '.';
 
-storiesOf(`${atomicDir(base)}|IvanCta`, module)
+storiesOf(`${atomicDir(base)}/IvanCta`, module)
   .add('Default', () => (
     <IvanCta
       body="Our helpful chatbot iVan is available 24/7 to answer your van financing questions"

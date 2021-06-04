@@ -5,7 +5,7 @@ import Form from '.';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 import FormError from './FormError';
 
-storiesOf(`${atomicDir(base)}|Form`, module)
+storiesOf(`${atomicDir(base)}/Form`, module)
   .add('Default', () => (
     <Form dataTestId="default-example">
       <p>Form content</p>

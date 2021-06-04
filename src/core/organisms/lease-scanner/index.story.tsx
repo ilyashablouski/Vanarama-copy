@@ -20,7 +20,7 @@ const leasingProviders = [
   'BlackHorse',
 ];
 
-storiesOf(`${atomicDir(base)}|LeaseScanner`, module)
+storiesOf(`${atomicDir(base)}/LeaseScanner`, module)
   .addDecorator(withKnobs)
   .add('Default', () => (
     <div className="lease-scanner--sticky-wrap">

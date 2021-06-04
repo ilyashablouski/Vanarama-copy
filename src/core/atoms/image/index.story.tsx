@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Image from '.';
 
-storiesOf(`${atomicDir(base)}|Image`, module)
+storiesOf(`${atomicDir(base)}/Image`, module)
   .add('XLarge', () => (
     <Image
       src="https://source.unsplash.com/collection/2102317/1000x650?sig=403425"

@@ -7,7 +7,7 @@ import Text from '../../atoms/text';
 import Link from '../../atoms/link';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 
-storiesOf(`${atomicDir(base)}|Formgroup`, module)
+storiesOf(`${atomicDir(base)}/Formgroup`, module)
   .add('Default', () => (
     <Formgroup label="Formgroup">
       <TextInput />

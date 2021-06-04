@@ -5,7 +5,7 @@ import TextInput from '.';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 import Formgroup from '../../molecules/formgroup';
 
-storiesOf(`${atomicDir(base)}|TextInput`, module)
+storiesOf(`${atomicDir(base)}/TextInput`, module)
   .add('Default (uncontrolled)', () => <TextInput />)
   .add('Default (uncontrolled with default value)', () => (
     <TextInput defaultValue="Default" />
