@@ -3,10 +3,10 @@ import React from 'react';
 import Text from 'core/atoms/text';
 import Heading from 'core/atoms/heading';
 
+import WishlistCard from 'core/molecules/cards/WishlistCard/WishlistCard';
+
 import { IWishlistContainer } from './interface';
 import Breadcrumb from '../../components/Breadcrumb';
-
-import WishlistHotOffer from './WishlistHotOffer';
 
 function WishlistPageContainer({
   pageTitle,
@@ -35,9 +35,9 @@ function WishlistPageContainer({
           </div>
         </div>
         <div className="row:cards-3col">
-          <WishlistHotOffer label="Vans" />
-          <WishlistHotOffer label="Pickups" />
-          <WishlistHotOffer label=" Cars" />
+          <WishlistCard label="Vans" />
+          <WishlistCard label="Pickups" />
+          <WishlistCard label=" Cars" />
         </div>
       </section>
     </>
