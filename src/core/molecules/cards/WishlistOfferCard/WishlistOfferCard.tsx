@@ -19,34 +19,36 @@ export interface IProps {
 
 function WishlistOfferCard({ label, imageUrl, link }: IProps) {
   return (
-    <RouterLink className="card" link={link}>
-      <div className="wishlist-offer">
-        <Image src={imageUrl} size="initial-size" plain />
-        <div className="details">
-          <Heading size="large" color="black">
-            {label}
-          </Heading>
-          <div className="title -flex-h">
-            <HotOffer
-              className="-b"
-              iconSize="large"
-              textSize="regular"
-              color="orange"
-              count={9}
-            />
-            <Button
-              color="teal"
-              size="xsmall"
-              round
-              label={
-                <Icon
-                  icon={<ArrowForwardSharp />}
-                  className="-regular md hydrated"
-                  name="arrow-forward-sharp"
-                  color="white"
-                />
-              }
-            />
+    <RouterLink link={link}>
+      <div className="card">
+        <div className="wishlist-offer">
+          <Image src={imageUrl} size="initial-size" plain />
+          <div className="details">
+            <Heading size="large" color="black">
+              {label}
+            </Heading>
+            <div className="title -flex-h">
+              <HotOffer
+                className="-b"
+                iconSize="large"
+                textSize="regular"
+                color="orange"
+                count={9}
+              />
+              <Button
+                color="teal"
+                size="xsmall"
+                round
+                label={
+                  <Icon
+                    icon={<ArrowForwardSharp />}
+                    className="-regular md hydrated"
+                    name="arrow-forward-sharp"
+                    color="white"
+                  />
+                }
+              />
+            </div>
           </div>
         </div>
       </div>
