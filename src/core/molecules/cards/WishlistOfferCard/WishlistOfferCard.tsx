@@ -10,11 +10,11 @@ export interface IProps {
   label: string;
 }
 
-function WishlistCard({ label }: IProps) {
+function WishlistOfferCard({ label }: IProps) {
   return (
     <RouterLink className="card" link={{ href: '', label: '' }}>
       <div className="wishlist-offer">
-        <Image size="large" src="/wishlist-image.png" />
+        <Image size="initial-size" src="/" />
         <div className="details">
           <Heading size="large" color="black">
             {label}
@@ -32,4 +32,4 @@ function WishlistCard({ label }: IProps) {
   );
 }
 
-export default WishlistCard;
+export default WishlistOfferCard;

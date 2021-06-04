@@ -389,15 +389,19 @@ $small: 0.875rem;
     padding: 0 0.75rem;
 
     .image {
-      width: 50%;
+      width: 45%;
       margin-right: 0.75rem;
+
+      img {
+        width: 100%;
+      }
     }
 
     .details {
-      height: 100%;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
+      height: 100%;
     }
   }
 
