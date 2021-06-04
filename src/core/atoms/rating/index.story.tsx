@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Rating from '.';
 
-storiesOf(`${atomicDir(base)}|Rating`, module)
+storiesOf(`${atomicDir(base)}/Rating`, module)
   .add('Small', () => <Rating score={1} size="small" color="sky" />)
 
   .add('Regular', () => <Rating score={5} size="regular" />)

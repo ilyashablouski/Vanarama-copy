@@ -11,7 +11,7 @@ const EXAMPLE_COORDS: google.maps.LatLngLiteral = {
   lng: -3.08333,
 };
 
-storiesOf(`${atomicDir(base)}|Map`, module).add('Default', () => {
+storiesOf(`${atomicDir(base)}/Map`, module).add('Default', () => {
   const [show, setShow] = useState(false);
   return (
     <Map apiKey={API_KEY} center={EXAMPLE_COORDS} zoom={11}>

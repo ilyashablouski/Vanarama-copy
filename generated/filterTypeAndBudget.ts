@@ -44,4 +44,5 @@ export interface filterTypeAndBudgetVariables {
   manufacturerSlug?: string | null;
   rangeSlug?: string | null;
   bodyStyles?: string[] | null;
+  fuelTypes?: string[] | null;
 }

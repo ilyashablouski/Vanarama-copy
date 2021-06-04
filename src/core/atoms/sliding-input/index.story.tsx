@@ -28,25 +28,25 @@ const stepsObject = [
   },
 ];
 
-storiesOf(`${atomicDir(base)}|SlidingInput`, module).add('Default', () => (
+storiesOf(`${atomicDir(base)}/SlidingInput`, module).add('Default', () => (
   <div className="pdp--sidebar" style={{ maxWidth: 350 }}>
     <SlidingInput steps={steps} onChange={() => {}} />
   </div>
 ));
 
-storiesOf(`${atomicDir(base)}|SlidingInput`, module).add('7K', () => (
+storiesOf(`${atomicDir(base)}/SlidingInput`, module).add('7K', () => (
   <div className="pdp--sidebar" style={{ maxWidth: 350 }}>
     <SlidingInput steps={steps} defaultValue={2} onChange={() => {}} />
   </div>
 ));
 
-storiesOf(`${atomicDir(base)}|SlidingInput`, module).add('Disabled', () => (
+storiesOf(`${atomicDir(base)}/SlidingInput`, module).add('Disabled', () => (
   <div className="pdp--sidebar" style={{ maxWidth: 350 }}>
     <SlidingInput steps={steps} disabled defaultValue={2} onChange={() => {}} />
   </div>
 ));
 
-storiesOf(`${atomicDir(base)}|SlidingInput`, module).add('Steps Object', () => (
+storiesOf(`${atomicDir(base)}/SlidingInput`, module).add('Steps Object', () => (
   <div className="pdp--sidebar" style={{ maxWidth: 350 }}>
     <SlidingInput steps={stepsObject} defaultValue={2} onChange={() => {}} />
   </div>

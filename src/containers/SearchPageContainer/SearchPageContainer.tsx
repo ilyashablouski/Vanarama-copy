@@ -570,7 +570,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               ? (fuelMapper[
                   router.query.dynamicParam as keyof typeof fuelMapper
                 ] as string).split(',')
-              : filters.fuelTypes,
+              : filters.fuelTypes || getPartnerProperties()?.fuelTypes,
           },
         },
       });
@@ -987,7 +987,8 @@ const SearchPageContainer: React.FC<IProps> = ({
         !isRangePage &&
         !isModelPage &&
         !isDynamicFilterPage &&
-        !isAllMakesPage && (
+        !isAllMakesPage &&
+        !partnershipActive && (
           <div className="-mv-400 -stretch-left">
             <Checkbox
               id="specialOffer"

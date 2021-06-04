@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Tooltip from '.';
 
-storiesOf(`${atomicDir(base)}|Tooltip`, module)
+storiesOf(`${atomicDir(base)}/Tooltip`, module)
   .add('Top tooltips', () => (
     <div className="tooltip-preview">
       <Tooltip

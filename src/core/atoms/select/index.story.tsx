@@ -5,7 +5,7 @@ import Select from '.';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 import Formgroup from '../../molecules/formgroup';
 
-storiesOf(`${atomicDir(base)}|Select`, module)
+storiesOf(`${atomicDir(base)}/Select`, module)
   .add('Simple (uncontrolled)', () => (
     <Select>
       <option value="Detached">Detached</option>

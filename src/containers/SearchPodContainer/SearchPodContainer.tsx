@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useMemo, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
+import { getPartnerProperties } from '../../utils/partnerProperties';
 import {
   budget,
   carPageTabFields,
@@ -158,6 +159,8 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     activeIndex === 1 ? selectMakeVans : selectMakeCars,
     activeIndex === 1 ? selectModelVans : selectModelCars,
     activeIndex === 1 ? [selectTypeVans] : [selectTypeCars],
+    // add custom fuel types for partnership journeys
+    getPartnerProperties()?.fuelTypes,
   );
 
   // set actual models value for a specific manufacturer
@@ -296,6 +299,9 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       query.pricePerMonth = getBudgetForQuery(
         values[`budget${tabType}` as keyof typeof defaultValues],
       );
+    }
+    if (getPartnerProperties()?.fuelTypes) {
+      query.fuelTypes = getPartnerProperties().fuelTypes;
     }
     router.push({
       pathname: routerUrl,

@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Avatar from '.';
 
-storiesOf(`${atomicDir(base)}|Avatar`, module)
+storiesOf(`${atomicDir(base)}/Avatar`, module)
   .add('Small', () => (
     <Avatar src="https://www.thispersondoesnotexist.com/image" size="small" />
   ))

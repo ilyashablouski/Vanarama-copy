@@ -15,7 +15,7 @@ const results = [
   'Range Rover 4.0 labore assumenda delectus  ',
 ];
 
-storiesOf(`${atomicDir(base)}|Search`, module)
+storiesOf(`${atomicDir(base)}/Search`, module)
   .add('Default', () => (
     <Search placeholder={placeholder} onChange={action('onChnage')} />
   ))

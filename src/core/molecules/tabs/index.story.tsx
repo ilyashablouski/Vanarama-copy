@@ -12,7 +12,7 @@ import TabList from './TabList';
 import TabPanel from './TabPanel';
 import TabPanels from './TabPanels';
 
-storiesOf(`${atomicDir(base)}|Tabs`, module)
+storiesOf(`${atomicDir(base)}/Tabs`, module)
   .addDecorator(withKnobs)
   .add('Default', () => {
     const [activeIndex, setActiveIndex] = useState(1);

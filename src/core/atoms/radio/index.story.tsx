@@ -5,7 +5,7 @@ import Radio from '.';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 import Formgroup from '../../molecules/formgroup';
 
-storiesOf(`${atomicDir(base)}|Radio`, module)
+storiesOf(`${atomicDir(base)}/Radio`, module)
   .add('Default', () => (
     <Formgroup label="Default Radio Group">
       <Radio name="example" id="leasing" label="Leasing" />

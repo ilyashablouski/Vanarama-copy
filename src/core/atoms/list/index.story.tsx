@@ -5,7 +5,7 @@ import List from '.';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 import Text from '../text';
 
-storiesOf(`${atomicDir(base)}|List`, module).add('Default', () => (
+storiesOf(`${atomicDir(base)}/List`, module).add('Default', () => (
   <List>
     <li>
       <Text color="darker" tag="p">

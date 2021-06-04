@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Dropdown from '.';
 
-storiesOf(`${atomicDir(base)}|Dropdown`, module).add('Default', () => (
+storiesOf(`${atomicDir(base)}/Dropdown`, module).add('Default', () => (
   <Dropdown label="Dropdown">
     <h3>One</h3>
     <h3>Two</h3>

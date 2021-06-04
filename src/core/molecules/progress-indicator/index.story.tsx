@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 import Step from './Step';
 import StepLink from './StepLink';
 
-storiesOf(`${atomicDir(base)}|ProgressIndicator`, module)
+storiesOf(`${atomicDir(base)}/ProgressIndicator`, module)
   .add('Default', () => (
     <ProgressIndicator activeStep={1}>
       <Step step={1}>
