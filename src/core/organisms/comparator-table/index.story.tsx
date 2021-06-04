@@ -90,7 +90,7 @@ const criterias = [
   },
 ];
 
-storiesOf(`${atomicDir(base)}|ComparatorTable`, module).add('Default', () => (
+storiesOf(`${atomicDir(base)}/ComparatorTable`, module).add('Default', () => (
   <div className="page:default">
     <div className="row:comparator-tool">
       <ComparatorTable

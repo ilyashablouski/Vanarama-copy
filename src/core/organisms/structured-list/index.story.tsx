@@ -13,7 +13,7 @@ const priceList = [
   { name: 'contract', label: 'Contract Length', value: '60 months' },
 ];
 
-storiesOf(`${atomicDir(base)}|StructuredList`, module)
+storiesOf(`${atomicDir(base)}/StructuredList`, module)
   .add('Default', () => (
     <StructuredList
       editable={false}

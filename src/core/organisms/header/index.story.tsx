@@ -8,7 +8,7 @@ import Header from '.';
 
 import { topBarLinks, loginLink, message } from './__fixtures__';
 
-storiesOf(`${atomicDir(base)}|Header`, module)
+storiesOf(`${atomicDir(base)}/Header`, module)
   .add('Default', () => (
     <Header topBarLinks={topBarLinks} loginLink={loginLink} />
   ))

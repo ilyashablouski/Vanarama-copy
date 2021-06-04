@@ -56,7 +56,7 @@ const features = [
   },
 ];
 
-storiesOf(`${atomicDir(base)}|Carousel`, module)
+storiesOf(`${atomicDir(base)}/Carousel`, module)
   .add('V3 with ProductCard', () => {
     return (
       <Slider countItems={images.length}>

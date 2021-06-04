@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Heading from '.';
 
-storiesOf(`${atomicDir(base)}|Heading`, module)
+storiesOf(`${atomicDir(base)}/Heading`, module)
   .add('H1 Primary Small', () => (
     <Heading tag="h1" color="primary" size="small">
       Heading

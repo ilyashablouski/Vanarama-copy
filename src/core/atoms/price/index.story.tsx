@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Price from '.';
 
-storiesOf(`${atomicDir(base)}|Price`, module)
+storiesOf(`${atomicDir(base)}/Price`, module)
   .add('Full price', () => <Price price={195.5} />)
 
   .add('Just pounds', () => <Price price={195} hidePence />)

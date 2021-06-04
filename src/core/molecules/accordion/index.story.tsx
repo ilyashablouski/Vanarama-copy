@@ -26,6 +26,6 @@ const ITEMS: IAccordionItem[] = [
   },
 ];
 
-storiesOf(`${atomicDir(base)}|Accordion`, module).add('Accordion', () => (
+storiesOf(`${atomicDir(base)}/Accordion`, module).add('Accordion', () => (
   <Accordion items={ITEMS} />
 ));

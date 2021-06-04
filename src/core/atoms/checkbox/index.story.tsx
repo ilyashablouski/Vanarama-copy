@@ -5,7 +5,7 @@ import Checkbox from '.';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 import Formgroup from '../../molecules/formgroup';
 
-storiesOf(`${atomicDir(base)}|Checkbox`, module)
+storiesOf(`${atomicDir(base)}/Checkbox`, module)
   .add('Grouped', () => (
     <Formgroup label="Checkbox Group">
       <Checkbox id="leasing" label="Leasing" />

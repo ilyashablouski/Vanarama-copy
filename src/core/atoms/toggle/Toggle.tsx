@@ -60,7 +60,7 @@ const Toggle: React.FC<IToggleProps> = React.forwardRef<
           )}
           {!checked ? (
             <span className="toggle--on" style={customStyles}>
-              {onLabel}
+              {offLabel}
             </span>
           ) : (
             <span className="toggle--on">{offLabel}</span>

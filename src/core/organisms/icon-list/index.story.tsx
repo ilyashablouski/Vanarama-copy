@@ -14,7 +14,7 @@ const list: string[] = [
   "We won't use or share your data",
 ];
 
-storiesOf(`${atomicDir(base)}|IconList`, module)
+storiesOf(`${atomicDir(base)}/IconList`, module)
   .add('Default', () => (
     <IconList>
       {list?.map((text: string) => (

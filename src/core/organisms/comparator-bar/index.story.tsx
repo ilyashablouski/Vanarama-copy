@@ -25,7 +25,7 @@ const vehicles = [
   },
 ];
 
-storiesOf(`${atomicDir(base)}|ComparatorBar`, module).add('Default', () => (
+storiesOf(`${atomicDir(base)}/ComparatorBar`, module).add('Default', () => (
   <div className="page:default">
     <ComparatorBar
       deleteVehicle={() => {}}

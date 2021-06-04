@@ -33,7 +33,7 @@ const getSuggestions = (value: string) => {
   );
 };
 
-storiesOf(`${atomicDir(base)}|Typeahead`, module).add('Default', () => {
+storiesOf(`${atomicDir(base)}/Typeahead`, module).add('Default', () => {
   const [inputValue, setInputValue] = useState('');
   const [suggestions, setSugggestions] = useState<Language[]>([]);
 
