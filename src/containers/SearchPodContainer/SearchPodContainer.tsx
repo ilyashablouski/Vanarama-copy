@@ -198,8 +198,6 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     modelVans,
   ]);
 
-  console.log(modelCars);
-
   // refetch body types and budgets for selected vehicle
   useEffect(() => {
     // if make and bodystyles don't selected set initial values
@@ -276,8 +274,6 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       }
     }
   }, [actualVehicleData, activeIndex]);
-
-  console.log(actualVehicleData);
 
   // get options list
   const getOptions = (field: keyof typeof fieldsMapper) => fieldsMapper[field];
