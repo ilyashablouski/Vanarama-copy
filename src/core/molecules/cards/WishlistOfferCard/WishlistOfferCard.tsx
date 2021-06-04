@@ -1,31 +1,53 @@
 import React from 'react';
 
+import Icon from 'core/atoms/icon';
+import Button from 'core/atoms/button';
 import Heading from 'core/atoms/heading';
 import Image from 'core/atoms/image/Image';
 import HotOffer from 'core/atoms/hot-offer';
 
+import ArrowForwardSharp from 'core/assets/icons/ArrowForwardSharp';
+
+import { ILink } from 'core/interfaces/link';
 import RouterLink from 'components/RouterLink';
 
 export interface IProps {
   label: string;
+  imageUrl: string;
+  link: ILink;
 }
 
-function WishlistOfferCard({ label }: IProps) {
+function WishlistOfferCard({ label, imageUrl, link }: IProps) {
   return (
-    <RouterLink className="card" link={{ href: '', label: '' }}>
+    <RouterLink className="card" link={link}>
       <div className="wishlist-offer">
-        <Image size="initial-size" src="/" />
+        <Image src={imageUrl} size="initial-size" plain />
         <div className="details">
           <Heading size="large" color="black">
             {label}
           </Heading>
-          <HotOffer
-            className="-b"
-            iconSize="large"
-            textSize="regular"
-            color="orange"
-            count={9}
-          />
+          <div className="title -flex-h">
+            <HotOffer
+              className="-b"
+              iconSize="large"
+              textSize="regular"
+              color="orange"
+              count={9}
+            />
+            <Button
+              color="teal"
+              size="xsmall"
+              round
+              label={
+                <Icon
+                  icon={<ArrowForwardSharp />}
+                  className="-regular md hydrated"
+                  name="arrow-forward-sharp"
+                  color="white"
+                />
+              }
+            />
+          </div>
         </div>
       </div>
     </RouterLink>

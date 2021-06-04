@@ -401,6 +401,7 @@ $small: 0.875rem;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
+      flex: 1 1 auto;
       height: 100%;
     }
   }

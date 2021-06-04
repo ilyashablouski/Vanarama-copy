@@ -35,9 +35,30 @@ function WishlistPageContainer({
           </div>
         </div>
         <div className="row:cards-3col">
-          <WishlistOfferCard label="Vans" />
-          <WishlistOfferCard label="Pickups" />
-          <WishlistOfferCard label=" Cars" />
+          <WishlistOfferCard
+            label="Vans"
+            imageUrl="https://shorturl.at/juN89"
+            link={{
+              href: '/special-offers.html',
+              label: '',
+            }}
+          />
+          <WishlistOfferCard
+            label="Pickups"
+            imageUrl="https://shorturl.at/juN89"
+            link={{
+              href: '/pickup-special-offers.html',
+              label: '',
+            }}
+          />
+          <WishlistOfferCard
+            label="Cars"
+            imageUrl="https://shorturl.at/juN89"
+            link={{
+              href: '/car-leasing-special-offers.html',
+              label: '',
+            }}
+          />
         </div>
       </section>
     </>
