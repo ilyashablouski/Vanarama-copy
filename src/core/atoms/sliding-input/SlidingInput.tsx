@@ -4,6 +4,7 @@ import { ISlidingInputProps, ISlidingObject } from './interfaces';
 
 const SlidingInput: React.FC<ISlidingInputProps> = ({
   defaultValue = 1,
+  setDefaultMileageIndex,
   steps,
   onChange,
   disabled,
@@ -30,8 +31,16 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
         (value === steps.length - 1 && disabledLastStep)
       ) {
         setMileageValue(mileageValue);
+
+        if (setDefaultMileageIndex) {
+          setDefaultMileageIndex(mileageValue);
+        }
       } else if (+value < steps.length && value >= 0) {
         setMileageValue(+value + 1);
+
+        if (setDefaultMileageIndex) {
+          setDefaultMileageIndex(+value + 1);
+        }
 
         if (click) {
           onChange(+value + 1);
@@ -42,9 +51,6 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
 
   const mouseOut = () => {
     setMouseDown(false);
-    if (mileageValue !== defaultValue) {
-      onChange(mileageValue);
-    }
   };
 
   const labels = steps.map(
