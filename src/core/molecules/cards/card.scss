@@ -247,7 +247,7 @@ $small: 0.875rem;
   }
 
   // Tweaks -> pin last child to bottom (default)
-  > :last-child:not(:only-child):not(.card-footer):not(.card-image) {
+  > :last-child:not(.card-footer):not(.card-image) {
     grid-area: -1 / content;
   }
 
@@ -386,7 +386,6 @@ $small: 0.875rem;
   &--wishlist-offer {
     display: flex;
     align-items: center;
-    margin: 0.75rem;
 
     .image {
       width: 45%;

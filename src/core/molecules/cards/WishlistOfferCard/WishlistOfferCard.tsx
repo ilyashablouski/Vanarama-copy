@@ -24,7 +24,7 @@ function WishlistOfferCard({ label, imageUrl, link }: IProps) {
         <div className="wishlist-offer">
           <Image src={imageUrl} size="initial-size" plain />
           <div className="details">
-            <Heading size="large" color="black">
+            <Heading tag="span" size="large" color="black">
               {label}
             </Heading>
             <div className="title -flex-h">

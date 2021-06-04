@@ -5,8 +5,9 @@ import Heading from 'core/atoms/heading';
 
 import WishlistOfferCard from 'core/molecules/cards/WishlistOfferCard';
 
+import Breadcrumb from 'components/Breadcrumb';
 import { IWishlistContainer } from './interface';
-import Breadcrumb from '../../components/Breadcrumb';
+import WishlistRegistration from './WishlistRegistration';
 
 function WishlistPageContainer({
   pageTitle,
@@ -20,9 +21,10 @@ function WishlistPageContainer({
           {pageTitle}
         </Heading>
       </div>
-      <section className="row:bg-lighter -thin">
+      <section className="row:bg-lighter -thin -pv-500">
+        <WishlistRegistration className="-mb-500" />
         <div className="row:cards-1col">
-          <div className="card -place-center -h-300">
+          <div className="card -flex-h -h-300">
             <div className="row:lead-text -m-300">
               <Text className="-semi-b" size="lead" color="darker">
                 Your wishlist is empty right now.
@@ -40,7 +42,7 @@ function WishlistPageContainer({
             imageUrl="https://shorturl.at/juN89"
             link={{
               href: '/special-offers.html',
-              label: '',
+              label: 'Vans',
             }}
           />
           <WishlistOfferCard
@@ -48,7 +50,7 @@ function WishlistPageContainer({
             imageUrl="https://shorturl.at/juN89"
             link={{
               href: '/pickup-special-offers.html',
-              label: '',
+              label: 'Pickups',
             }}
           />
           <WishlistOfferCard
@@ -56,7 +58,7 @@ function WishlistPageContainer({
             imageUrl="https://shorturl.at/juN89"
             link={{
               href: '/car-leasing-special-offers.html',
-              label: '',
+              label: 'Cars',
             }}
           />
         </div>
