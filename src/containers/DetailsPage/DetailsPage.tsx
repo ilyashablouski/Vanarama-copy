@@ -302,11 +302,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           [];
   }, [data?.vehicleImages, isCar, isSpecialOffer]);
 
-  const onOrderStart = (withInsurance = false) => {
+  const onOrderStart = (
+    withInsurance = false,
+    orderObject = orderInputObject,
+  ) => {
     const derivativeInfo = data?.derivativeInfo;
     const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
     const values: OrderInputObject = {
-      ...orderInputObject,
+      ...orderObject,
     } as OrderInputObject;
     const vehicleProduct = values.lineItems?.[0].vehicleProduct;
     if (vehicleProduct)
@@ -350,7 +353,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       setIsModalVisible(true);
       return;
     }
-    onOrderStart();
+    onOrderStart(false, values);
   };
 
   if (loading) {
