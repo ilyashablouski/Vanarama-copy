@@ -5,7 +5,8 @@ import Heading from 'core/atoms/heading';
 
 import { IWishlistContainer } from './interface';
 import Breadcrumb from '../../components/Breadcrumb';
-import RouterLink from '../../components/RouterLink';
+
+import WishlistHotOffer from './WishlistHotOffer';
 
 function WishlistPageContainer({
   pageTitle,
@@ -34,33 +35,9 @@ function WishlistPageContainer({
           </div>
         </div>
         <div className="row:cards-3col">
-          <RouterLink className="card" link={{ href: '', label: '' }}>
-            <Heading size="large" color="black">
-              Vans
-            </Heading>
-            <Text size="regular" color="darker">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Doloribus nam nesciunt quidem rerum.
-            </Text>
-          </RouterLink>
-          <RouterLink className="card" link={{ href: '', label: '' }}>
-            <Heading size="large" color="black">
-              Pickups
-            </Heading>
-            <Text size="regular" color="darker">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Doloribus nam nesciunt quidem rerum.
-            </Text>
-          </RouterLink>
-          <RouterLink className="card" link={{ href: '', label: '' }}>
-            <Heading size="large" color="black">
-              Cars
-            </Heading>
-            <Text size="regular" color="darker">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit.
-              Doloribus nam nesciunt quidem rerum.
-            </Text>
-          </RouterLink>
+          <WishlistHotOffer label="Vans" />
+          <WishlistHotOffer label="Pickups" />
+          <WishlistHotOffer label=" Cars" />
         </div>
       </section>
     </>
