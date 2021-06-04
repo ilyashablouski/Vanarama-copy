@@ -159,6 +159,8 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     activeIndex === 1 ? selectMakeVans : selectMakeCars,
     activeIndex === 1 ? selectModelVans : selectModelCars,
     activeIndex === 1 ? [selectTypeVans] : [selectTypeCars],
+    // add custom fuel types for partnership journeys
+    getPartnerProperties()?.fuelTypes,
   );
 
   // set actual models value for a specific manufacturer
@@ -195,6 +197,8 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     vansDataCache,
     modelVans,
   ]);
+
+  console.log(modelCars);
 
   // refetch body types and budgets for selected vehicle
   useEffect(() => {
@@ -272,6 +276,8 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       }
     }
   }, [actualVehicleData, activeIndex]);
+
+  console.log(actualVehicleData);
 
   // get options list
   const getOptions = (field: keyof typeof fieldsMapper) => fieldsMapper[field];
