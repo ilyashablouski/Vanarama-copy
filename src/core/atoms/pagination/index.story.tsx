@@ -12,7 +12,7 @@ const selected = 8;
 const selectedtwo = 2;
 const pagesSecond = [5, 4, 3, 2, 1];
 
-storiesOf(`${atomicDir(base)}|Pagination`, module)
+storiesOf(`${atomicDir(base)}/Pagination`, module)
   .add('Default', () => (
     <Pagination
       pages={pages}

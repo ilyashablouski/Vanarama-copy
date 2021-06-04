@@ -30,6 +30,6 @@ const json = `
 }
 `;
 
-storiesOf(`${atomicDir(base)}|SchemaJSON`, module).add('Default', () => (
+storiesOf(`${atomicDir(base)}/SchemaJSON`, module).add('Default', () => (
   <SchemaJSON json={json} />
 ));

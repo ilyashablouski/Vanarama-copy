@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Toggle from '.';
 
-storiesOf(`${atomicDir(base)}|Toggle`, module)
+storiesOf(`${atomicDir(base)}/Toggle`, module)
   .add('Default', () => (
     <Toggle id="example" onLabel="Toggle On" offLabel="Toggle Off" />
   ))

@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Details from '.';
 
-storiesOf(`${atomicDir(base)}|Details`, module)
+storiesOf(`${atomicDir(base)}/Details`, module)
   .add('Open', () => (
     <Details summary="Details" open>
       <ul>

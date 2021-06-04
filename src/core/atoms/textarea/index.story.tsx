@@ -7,7 +7,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 import Textarea from '.';
 import Formgroup from '../../molecules/formgroup';
 
-storiesOf(`${atomicDir(base)}|Textarea`, module)
+storiesOf(`${atomicDir(base)}/Textarea`, module)
   .add('Default', () => <Textarea />)
   .add('Disabled', () => <Textarea disabled />)
   .add('Invalid', () => (

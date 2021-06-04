@@ -42,7 +42,7 @@ const initialState = {
   fuelType: [''],
 };
 
-storiesOf(`${atomicDir(base)}|SearchFilters`, module).add('Default', () =>
+storiesOf(`${atomicDir(base)}/SearchFilters`, module).add('Default', () =>
   React.createElement(() => {
     const [selectedFiltersState, setSelectedFiltersState] = useState<
       ISelectedFiltersState

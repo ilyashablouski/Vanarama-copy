@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Score from '.';
 
-storiesOf(`${atomicDir(base)}|Score`, module)
+storiesOf(`${atomicDir(base)}/Score`, module)
   .add('0', () => <Score score={0} />)
   .add('25', () => <Score score={25} />)
   .add('50', () => <Score score={50} />)
