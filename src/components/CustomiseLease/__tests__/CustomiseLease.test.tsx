@@ -53,6 +53,9 @@ describe('<CustomiseLease />', () => {
         { label: 'Personal', value: 'Personal', active: false },
         { label: 'Business', value: 'Business', active: true },
       ],
+      defaultTermValue: 48,
+      defaultUpfrontValue: 9,
+      defaultMileageValue: 8000,
       mileages: [6000, 8000, 10000],
       setLeaseType: jest.fn(),
       leaseType: LeaseTypeEnum.PERSONAL,
@@ -186,6 +189,9 @@ describe('<CustomiseLease />', () => {
         { label: 'Personal', value: 'Personal', active: false },
         { label: 'Business', value: 'Business', active: true },
       ],
+      defaultTermValue: 48,
+      defaultUpfrontValue: 9,
+      defaultMileageValue: 8000,
       isModalShowing: false,
       setIsModalShowing: jest.fn(),
       setMaintenance: jest.fn(),
@@ -345,6 +351,9 @@ describe('<CustomiseLease />', () => {
           { label: 'Personal', value: 'Personal', active: false },
           { label: 'Business', value: ' Business', active: true },
         ]}
+        defaultTermValue={48}
+        defaultUpfrontValue={9}
+        defaultMileageValue={8000}
         mileage={6000}
         mileages={[6000, 8000, 10000]}
         leaseType={LeaseTypeEnum.PERSONAL}
