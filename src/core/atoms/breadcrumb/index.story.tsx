@@ -14,6 +14,6 @@ const props = {
   ],
 };
 
-storiesOf(`${atomicDir(base)}|Breadcrumb`, module).add('Default', () => (
+storiesOf(`${atomicDir(base)}/Breadcrumb`, module).add('Default', () => (
   <Breadcrumb items={props.items} />
 ));

@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Media from './Media';
 
-storiesOf(`${atomicDir(base)}|Media`, module)
+storiesOf(`${atomicDir(base)}/Media`, module)
   .add('Vimeo | controls', () => (
     <Media
       src="https://ssl.caranddriving.com/cdwebsite/player.aspx?id=8221&cid=autorama&responsive=true"

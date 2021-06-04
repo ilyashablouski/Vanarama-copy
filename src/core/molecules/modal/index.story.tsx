@@ -6,7 +6,7 @@ import Modal from '.';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 import Button from '../../atoms/button';
 
-storiesOf(`${atomicDir(base)}|Modal`, module).add('Default', () => {
+storiesOf(`${atomicDir(base)}/Modal`, module).add('Default', () => {
   const [isShowing, setIsShowing] = React.useState(true);
   return (
     <div>

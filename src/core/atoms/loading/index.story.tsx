@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Loading from '.';
 
-storiesOf(`${atomicDir(base)}|Loading`, module)
+storiesOf(`${atomicDir(base)}/Loading`, module)
   .add('Default', () => <Loading />)
 
   .add('Large', () => <Loading size="large" />);

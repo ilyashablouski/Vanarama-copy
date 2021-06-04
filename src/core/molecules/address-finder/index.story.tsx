@@ -7,7 +7,7 @@ import Formgroup from '../formgroup';
 import AddressFinder from './AddressFinder';
 import { IAddressSuggestion } from './interfaces';
 
-const path = `${atomicDir(base)}|AddressFinder`;
+const path = `${atomicDir(base)}/AddressFinder`;
 const apiKey = 'CG96-BE17-EY43-CM69';
 
 storiesOf(path, module)

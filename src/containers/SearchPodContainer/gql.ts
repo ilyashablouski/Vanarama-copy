@@ -66,6 +66,7 @@ export const GET_TYPE_AND_BUDGET_DATA = gql`
     $manufacturerSlug: String
     $rangeSlug: String
     $bodyStyles: [String!]
+    $fuelTypes: [String!]
   ) {
     filterList(
       filter: {
@@ -73,6 +74,7 @@ export const GET_TYPE_AND_BUDGET_DATA = gql`
         manufacturerSlug: $manufacturerSlug
         rangeSlug: $rangeSlug
         bodyStyles: $bodyStyles
+        fuelTypes: $fuelTypes
       }
     ) {
       vehicleTypes
@@ -98,6 +100,7 @@ export function filterTypeAndBudget(
   manufacturerSlug?: string,
   rangeSlug?: string,
   bodyStyles?: string[],
+  fuelTypes?: string[],
   onCompleted?: (data: IFilterTypeAndBudget) => void,
 ) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
@@ -108,6 +111,7 @@ export function filterTypeAndBudget(
       manufacturerSlug: manufacturerSlug || undefined,
       rangeSlug: rangeSlug || undefined,
       bodyStyles: !bodyStyles || bodyStyles[0]?.trim() ? bodyStyles : undefined,
+      fuelTypes: fuelTypes || undefined,
     },
   });
 }

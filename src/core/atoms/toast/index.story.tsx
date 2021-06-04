@@ -17,7 +17,7 @@ const buttonContainerStyles = {
 const message =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
-storiesOf(`${atomicDir(base)}|Toast`, module)
+storiesOf(`${atomicDir(base)}/Toast`, module)
   .addDecorator(withKnobs)
   .add('Example', () => {
     const position = select<ToastPosition>(
