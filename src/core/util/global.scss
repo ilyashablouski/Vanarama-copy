@@ -443,6 +443,10 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
 // placement classes
 
 .-place-center {
+  place-items: center;
+}
+
+.-self-place-center {
   place-self: center;
 }
 
@@ -696,6 +700,9 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
 .-b {
   font-weight: 600 !important;
 }
+.-semi-b {
+  font-weight: 500 !important;
+}
 
 // simple italics class
 .-i {
@@ -790,6 +797,13 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
 // 100% height utility
 .full-height {
   height: 100%;
+}
+
+.-h-600 {
+  height: 600px;
+}
+.-h-300 {
+  height: 300px;
 }
 
 /// @deprecated
