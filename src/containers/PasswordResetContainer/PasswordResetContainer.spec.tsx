@@ -24,7 +24,7 @@ describe('<PasswordResetContainer />', () => {
         request: {
           query: RESET_PASSWORD_MUTATION,
           variables: {
-            uuid: 'barry@chuckle.com',
+            uuid: '69684fa9-35d6-4181-96ee-faf246d1e695',
             password: 'Alpha!23',
             verificationCode: '123123',
           },
