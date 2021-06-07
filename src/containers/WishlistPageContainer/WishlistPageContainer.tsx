@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Text from 'core/atoms/text';
 import Heading from 'core/atoms/heading';
@@ -13,6 +13,9 @@ function WishlistPageContainer({
   pageTitle,
   breadcrumbsList,
 }: IWishlistContainer) {
+  const [person, setPerson] = useState(null);
+  const [wishlistItems, setWishlistItems] = useState([]);
+
   return (
     <>
       <div className="row:title">
@@ -22,7 +25,9 @@ function WishlistPageContainer({
         </Heading>
       </div>
       <section className="row:bg-lighter -thin -pv-500">
-        <WishlistRegistration className="-mb-500" />
+        {wishlistItems.length && !person && (
+          <WishlistRegistration className="-mb-500" />
+        )}
         <div className="row:cards-1col">
           <div className="card -flex-h -h-300">
             <div className="row:lead-text -m-300">
