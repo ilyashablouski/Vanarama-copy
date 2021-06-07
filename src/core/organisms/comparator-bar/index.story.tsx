@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import base from 'paths.macro';
-import { vehicles } from 'core/organisms/comparator-bar/__tests__/IconList.spec';
+import { vehicles } from 'core/organisms/comparator-bar/__tests__/ComparatorBar.spec';
 import ComparatorBar from './ComparatorBar';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 
