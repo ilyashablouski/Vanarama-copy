@@ -79,11 +79,8 @@ function WishlistPageContainer({
     getVansOffers();
   }, [getCarsOffers, getPickupsOffers, getVansOffers]);
 
+  const [wishlistItems] = useState<ProductCardData | null>();
   const [isModalVisible, setModalVisibility] = useState(false);
-  // @ts-ignore
-  const [wishlistItems] = useState<ProductCardData | null>({
-    productCarousel: [123, 123, 123],
-  } as ProductCardData);
 
   return (
     <>
