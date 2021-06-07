@@ -13,8 +13,8 @@ function WishlistPageContainer({
   pageTitle,
   breadcrumbsList,
 }: IWishlistContainer) {
-  const [person, setPerson] = useState(null);
-  const [wishlistItems, setWishlistItems] = useState([]);
+  const [person] = useState(null);
+  const [wishlistItems] = useState([]);
 
   return (
     <>
