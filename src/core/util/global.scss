@@ -288,7 +288,7 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
 
 /// vertical flex utility class
 .-flex-v {
-  display: flex;
+  display: flex !important;
   flex-direction: column;
   justify-content: center;
   align-items: center;
@@ -443,6 +443,10 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
 // placement classes
 
 .-place-center {
+  place-items: center;
+}
+
+.-self-place-center {
   place-self: center;
 }
 
@@ -696,6 +700,9 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
 .-b {
   font-weight: 600 !important;
 }
+.-semi-b {
+  font-weight: 500 !important;
+}
 
 // simple italics class
 .-i {
@@ -787,9 +794,23 @@ $rem-list: 0rem, $rem-100, $rem-200, $rem-300, $rem-400, $rem-500, $rem-600,
   width: 100%;
 }
 
+.-w-200 {
+  width: 200px;
+  max-width: 100%;
+}
+
 // 100% height utility
 .full-height {
   height: 100%;
+}
+
+.-h-600 {
+  height: 600px;
+  max-height: 100%;
+}
+.-h-300 {
+  height: 300px;
+  max-height: 100%;
 }
 
 /// @deprecated
