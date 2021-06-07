@@ -11,7 +11,7 @@ import Breadcrumb from 'components/Breadcrumb';
 import { IWishlistContainer } from './interface';
 import WishlistRegistration from './WishlistRegistration';
 
-import { GetPerson } from '../../../generated/GetPerson';
+import usePerson from '../../hooks/usePerson';
 import { ProductCardData } from '../../../generated/ProductCardData';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
@@ -19,7 +19,8 @@ function WishlistPageContainer({
   pageTitle,
   breadcrumbsList,
 }: IWishlistContainer) {
-  const [person] = useState<GetPerson | null>(null);
+  const { personLoggedIn } = usePerson();
+
   const [wishlistItems] = useState<ProductCardData | null>(null);
 
   return (
@@ -33,7 +34,7 @@ function WishlistPageContainer({
       <div className="row:bg-lighter -thin -pv-500">
         {wishlistItems?.productCarousel?.length ? (
           <>
-            {!person && <WishlistRegistration className="-mb-500" />}
+            {!personLoggedIn && <WishlistRegistration className="-mb-500" />}
             <section className="row:cards-3col">
               {wishlistItems.productCarousel.map((item, index) => (
                 <LazyLoadComponent
