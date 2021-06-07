@@ -163,7 +163,9 @@ const SearchPageFilters = ({
   const [isPartnership, setIsPartnership] = useState(false);
 
   useEffect(() => {
-    if (getSessionStorage('partnershipSessionActive')) setIsPartnership(true);
+    if (getSessionStorage('partnershipSessionActive')) {
+      setIsPartnership(true);
+    }
   }, []);
 
   useEffect(() => {

@@ -545,10 +545,8 @@ const SearchPageContainer: React.FC<IProps> = ({
         ] as string).split(',');
       } else if (filters.fuelTypes.length > 0) {
         fuelTypes = filters.fuelTypes;
-      } else if (getPartnerProperties()?.fuelTypes) {
-        fuelTypes = getPartnerProperties()?.fuelTypes;
       } else {
-        fuelTypes = [];
+        fuelTypes = getPartnerProperties()?.fuelTypes;
       }
       getVehicles({
         variables: {

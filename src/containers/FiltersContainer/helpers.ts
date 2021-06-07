@@ -90,8 +90,8 @@ export const buildPreselectChoiseboxes = (
   }
   if (isPartnership && accessor === FilterFields.fuelTypes) {
     const partnershipFuelTypes = getPartnerProperties()?.fuelTypes;
-    const choices = choiceBoxesData.filter(f =>
-      partnershipFuelTypes.includes(f.label),
+    const choices = choiceBoxesData.filter(fuelType =>
+      partnershipFuelTypes.includes(fuelType.label),
     );
     return choices;
   }
