@@ -381,6 +381,30 @@ $small: 0.875rem;
     }
   }
 
+  // Widgets -> wishlist offer
+  .wishlist-offer,
+  &--wishlist-offer {
+    display: flex;
+    align-items: center;
+
+    .image {
+      width: 45%;
+      margin-right: 0.75rem;
+
+      img {
+        width: 100%;
+      }
+    }
+
+    .details {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      flex: 1 1 auto;
+      height: 100%;
+    }
+  }
+
   // Widgets -> features (specs)
   .features,
   &--features {
