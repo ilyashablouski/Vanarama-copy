@@ -2,8 +2,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 import preloadAll from 'jest-next-dynamic';
 import ComparatorContainer from '../ComparatorContainer';
-import { useVehicleData, useVehiclesTotalCount } from '../gql';
+import { useVehicleData } from '../gql';
 import cachedLeaseType from '../../../hooks/useLeaseType';
+import { useVehiclesTotalCount } from '../../../gql/vehiclesTotalCount';
 
 jest.mock('../gql');
 jest.mock('../../../hooks/useLeaseType');
