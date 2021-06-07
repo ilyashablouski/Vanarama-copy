@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'classnames';
 
 import Icon from 'core/atoms/icon';
 import Button from 'core/atoms/button';
@@ -15,10 +16,13 @@ function WishlistOfferCard({
   label,
   imageUrl,
   totalCount,
+  textSize,
+  iconSize,
+  className,
   onClick,
 }: IWishlistOffer) {
   return (
-    <ProductCard imageSrc={imageUrl} className="-vehicle-type">
+    <ProductCard className={cx('-vehicle-type', className)} imageSrc={imageUrl}>
       <div className="copy">
         <Heading tag="span" size="large" color="black">
           {label}
@@ -26,8 +30,8 @@ function WishlistOfferCard({
         <div className="title -flex">
           <HotOffer
             className="-b"
-            iconSize="large"
-            textSize="regular"
+            iconSize={iconSize}
+            textSize={textSize}
             totalCount={totalCount}
             color="orange"
           />

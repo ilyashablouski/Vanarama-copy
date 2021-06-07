@@ -3,6 +3,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
 
 import Text from 'core/atoms/text';
+import Modal from 'core/molecules/modal';
 import Heading from 'core/atoms/heading';
 
 import Breadcrumb from 'components/Breadcrumb';
@@ -67,7 +68,7 @@ function WishlistPageContainer({
   const vansTotalCount = vansOptions.data?.vehicleList.totalCount;
   const pickupsTotalCount = pickupsOptions.data?.vehicleList.totalCount;
   const carsTotalCount = carsOptions.data?.vehicleList.totalCount;
-  const cards = useMemo(
+  const cardList = useMemo(
     () => createOfferCards(vansTotalCount, pickupsTotalCount, carsTotalCount),
     [vansTotalCount, pickupsTotalCount, carsTotalCount],
   );
@@ -78,7 +79,11 @@ function WishlistPageContainer({
     getVansOffers();
   }, [getCarsOffers, getPickupsOffers, getVansOffers]);
 
-  const [wishlistItems] = useState<ProductCardData | null>(null);
+  const [isModalVisible, setModalVisibility] = useState(false);
+  // @ts-ignore
+  const [wishlistItems] = useState<ProductCardData | null>({
+    productCarousel: [123, 123, 123],
+  } as ProductCardData);
 
   return (
     <>
@@ -98,7 +103,9 @@ function WishlistPageContainer({
                   key={item?.capId || index}
                   visibleByDefault={isServerRenderOrAppleDevice}
                 >
-                  <WishlistProductPlaceholder onClick={() => {}} />
+                  <WishlistProductPlaceholder
+                    onClick={() => setModalVisibility(true)}
+                  />
                 </LazyLoadComponent>
               ))}
             </section>
@@ -119,19 +126,42 @@ function WishlistPageContainer({
               </div>
             </section>
             <section className="row:cards-3col">
-              {cards.map(card => (
+              {cardList.map(card => (
                 <WishlistOfferCard
                   key={card.header}
                   label={card.header}
                   imageUrl={card.imageSrc}
                   totalCount={card.totalCount}
                   onClick={() => Router.push(card.redirect)}
+                  textSize="regular"
+                  iconSize="large"
                 />
               ))}
             </section>
           </div>
         )}
       </div>
+      {isModalVisible && (
+        <Modal show onRequestClose={() => setModalVisibility(false)}>
+          <div className="-justify-content-row -w-300 -a-center">
+            <Heading tag="span" color="black">
+              Choose the type of vehicle are you looking for?
+            </Heading>
+          </div>
+          {cardList.map(card => (
+            <WishlistOfferCard
+              key={card.header}
+              className="-mt-400"
+              label={card.header}
+              imageUrl={card.imageSrc}
+              totalCount={card.totalCount}
+              onClick={() => Router.push(card.redirect)}
+              textSize="small"
+              iconSize="lead"
+            />
+          ))}
+        </Modal>
+      )}
     </>
   );
 }
