@@ -11,12 +11,12 @@ import { IPasswordResetContainerProps } from './interfaces';
 export const RESET_PASSWORD_MUTATION = gql`
   mutation ResetPasswordMutation(
     $verificationCode: String!
-    $username: String!
+    $uuid: ID!
     $password: String!
   ) {
-    passwordConfirm(
+    passwordConfirmV2(
       verificationCode: $verificationCode
-      username: $username
+      uuid: $uuid
       password: $password
     ) {
       isSuccessful
@@ -50,12 +50,12 @@ const PasswordResetContainer = ({
       username={username}
       code={code}
       oldPassword={oldPassword}
-      hasError={called && data?.passwordConfirm?.isSuccessful === false}
+      hasError={called && data?.passwordConfirmV2?.isSuccessful === false}
       onSubmit={async values => {
         await resetPassword({
           variables: {
             verificationCode: values.code,
-            username: values.username,
+            uuid: values.username,
             password: values.password,
           },
         });
