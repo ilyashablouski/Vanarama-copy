@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { IComparatorBar } from './interface';
@@ -8,6 +8,7 @@ import Button from '../../atoms/button';
 import {
   getCompares,
   IVehicle,
+  getVehiclesForComparator,
   IVehicleCarousel,
 } from '../../../utils/comparatorHelpers';
 import {
@@ -23,15 +24,19 @@ const ComporatorBar: React.FC<IComparatorBar> = ({
   dataTestId,
   deleteVehicle,
   compareVehicles,
-  vehicles,
+  vehicles: vehiclesState,
   setCompareVehicles,
 }) => {
   const router = useRouter();
   const arrayCards = Array(MAX_AMOUNT_VEHICLES).fill('');
   const [existComparator, setExistComparator] = useState(false);
 
+  const vehicles = useMemo(() => getVehiclesForComparator(vehiclesState), [
+    vehiclesState,
+  ]);
+
   const vehiclesAdded =
-    vehicles.length === 1
+    vehicles?.length === 1
       ? `1 Vehicle Added`
       : `${vehicles.length} Vehicles Added`;
 
