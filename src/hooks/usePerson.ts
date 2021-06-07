@@ -12,7 +12,9 @@ export default function usePerson() {
   const [personLoggedIn, setPersonLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
-    if (personUuid) return;
+    if (personUuid) {
+      return;
+    }
 
     Promise.all([
       localForage.getItem<GetPerson>('person'),
