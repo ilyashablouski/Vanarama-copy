@@ -405,6 +405,15 @@ $small: 0.875rem;
     }
   }
 
+  .wishlist-placeholder,
+  &--wishlist-placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: #CDD6DE;
+  }
+
   // Widgets -> features (specs)
   .features,
   &--features {
