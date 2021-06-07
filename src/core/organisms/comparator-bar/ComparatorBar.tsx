@@ -11,11 +11,7 @@ import {
   getVehiclesForComparator,
   IVehicleCarousel,
 } from '../../../utils/comparatorHelpers';
-import {
-  PAGES_WITH_COMPARATOR,
-  PAGES_WITHOUT_COMPARATOR,
-  WHOLE_PATHS_PAGES_WITH_COMPARATOR,
-} from '../../../utils/comparatorTool';
+import { PAGES_WITHOUT_COMPARATOR } from '../../../utils/comparatorTool';
 
 const MAX_AMOUNT_VEHICLES = 3;
 
@@ -51,18 +47,9 @@ const ComporatorBar: React.FC<IComparatorBar> = ({
       }
     };
     getVehicles();
-
-    if (
-      (PAGES_WITH_COMPARATOR.some(page => router.pathname.includes(page)) &&
-        !PAGES_WITHOUT_COMPARATOR.some(page =>
-          router.pathname.includes(page),
-        )) ||
-      WHOLE_PATHS_PAGES_WITH_COMPARATOR.some(page => router.pathname === page)
-    ) {
-      setExistComparator(true);
-    } else {
-      setExistComparator(false);
-    }
+    setExistComparator(
+      !PAGES_WITHOUT_COMPARATOR.some(page => router.pathname.includes(page)),
+    );
   }, [router.pathname]);
   return (vehicles?.length > 0 || router.pathname === '/comparator') &&
     existComparator ? (
