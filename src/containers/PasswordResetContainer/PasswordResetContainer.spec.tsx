@@ -43,7 +43,7 @@ describe('<PasswordResetContainer />', () => {
     // eslint-disable-next-line no-underscore-dangle, global-require
     require('../../components/ResetPasswordForm/ResetPasswordForm').__setMockValues(
       {
-        username: 'barry@chuckle.com',
+        username: '69684fa9-35d6-4181-96ee-faf246d1e695',
         password: 'Alpha!23',
         code: '123123',
         passwordConfirm: 'Alpha!23',
