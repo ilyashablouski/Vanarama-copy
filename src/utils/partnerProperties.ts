@@ -24,6 +24,13 @@ export function getPartnerProperties() {
   return undefined;
 }
 
+export function getPartnerSlug() {
+  if (Cookies.get(PARTNER_COOKIE_NAME)) {
+    return Cookies.getJSON(PARTNER_COOKIE_NAME).slug;
+  }
+  return undefined;
+}
+
 export function setPartnerProperties(
   data: IPartnerData | undefined,
   expires: number,

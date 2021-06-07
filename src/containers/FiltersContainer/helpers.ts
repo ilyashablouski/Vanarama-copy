@@ -10,6 +10,7 @@ import {
   budgetMapper,
   fuelMapper,
 } from '../SearchPageContainer/helpers';
+import { getPartnerProperties } from '../../utils/partnerProperties';
 
 /**
  * formating and check for including strings
@@ -50,6 +51,7 @@ export const buildPreselectChoiseboxes = (
     isBodyPage = false,
     isTransmissionPage = false,
     isFuelPage = false,
+    isPartnership = false,
   },
   accessor: string,
   selectedFiltersState: ISelectedFiltersState,
@@ -75,6 +77,7 @@ export const buildPreselectChoiseboxes = (
       value,
       active: true,
     }));
+
   // If only one choice, return as a single option array with active set to true
   if (choiceBoxesData.length === 1) {
     return [
@@ -84,6 +87,13 @@ export const buildPreselectChoiseboxes = (
         active: true,
       },
     ];
+  }
+  if (isPartnership && accessor === FilterFields.fuelTypes) {
+    const partnershipFuelTypes = getPartnerProperties()?.fuelTypes;
+    const choices = choiceBoxesData.filter(fuelType =>
+      partnershipFuelTypes.includes(fuelType.label),
+    );
+    return choices;
   }
   return null;
 };
