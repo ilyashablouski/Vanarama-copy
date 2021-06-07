@@ -6,6 +6,6 @@ export interface IHotOffersProps extends IBaseProps {
   iconSize?: TSize;
   textSize?: TSize;
   color?: TColor;
-  count?: number;
+  totalCount: number;
   children?: React.ReactNode;
 }

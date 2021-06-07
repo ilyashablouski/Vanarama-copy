@@ -4,6 +4,7 @@
 
   .icon {
     display: inline-flex;
+    flex-shrink: 0;
     margin-right: 2px;
 
     svg {

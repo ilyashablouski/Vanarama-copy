@@ -12,12 +12,12 @@ function HotOffer({
   iconSize,
   textSize,
   color,
-  count,
+  totalCount,
 }: IHotOffersProps) {
   return (
     <Text className={cx('hot-offer', className)} size={textSize} color={color}>
       <Icon icon={<Flame />} size={iconSize} color={color} />
-      {count} Hot Offer
+      {totalCount} Hot Offer
     </Text>
   );
 }

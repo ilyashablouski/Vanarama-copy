@@ -7,3 +7,14 @@ export interface IWishlistContainer extends IBaseProps {
 }
 
 export interface IWishlistRegistration extends IBaseProps {}
+
+export interface IWishlistProductPlaceholder extends IBaseProps {
+  onClick: () => void;
+}
+
+export interface IWishlistOffer extends IBaseProps {
+  totalCount: number;
+  label: string;
+  imageUrl: string;
+  onClick: () => void;
+}
