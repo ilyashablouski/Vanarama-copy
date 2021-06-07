@@ -449,9 +449,7 @@ const SearchPageFilters = ({
                         (isFuelPage &&
                           filter.accessor === FilterFields.fuelTypes) ||
                         (isTransmissionPage &&
-                          filter.accessor === FilterFields.transmissions) ||
-                        (getSessionStorage('partnershipSessionActive') &&
-                          filter.accessor === FilterFields.fuelTypes)
+                          filter.accessor === FilterFields.transmissions)
                       )
                     ) && (
                       <div className="dropdown--header">
