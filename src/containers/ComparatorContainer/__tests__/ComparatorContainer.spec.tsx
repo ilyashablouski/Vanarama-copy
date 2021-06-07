@@ -7,6 +7,7 @@ import cachedLeaseType from '../../../hooks/useLeaseType';
 import { useVehiclesTotalCount } from '../../../gql/vehiclesTotalCount';
 
 jest.mock('../gql');
+jest.mock('../../../gql/vehiclesTotalCount');
 jest.mock('../../../hooks/useLeaseType');
 
 describe('<ComparatorContainer />', () => {
