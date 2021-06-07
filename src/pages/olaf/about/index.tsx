@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { gql, useApolloClient } from '@apollo/client';
 import { NextPage } from 'next';
@@ -15,7 +15,6 @@ import LoginFormContainer from '../../../containers/LoginFormContainer/LoginForm
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
-import { GetPerson } from '../../../../generated/GetPerson';
 import { CreateUpdatePersonMutation_createUpdatePerson as IPerson } from '../../../../generated/CreateUpdatePersonMutation';
 import {
   useCreateUpdateCreditApplication,
@@ -32,6 +31,7 @@ import { GetDerivative_derivative as IDerivative } from '../../../../generated/G
 import Skeleton from '../../../components/Skeleton';
 import useGetOrder from '../../../hooks/useGetOrder';
 import useGetOrderId from '../../../hooks/useGetOrderId';
+import usePerson from '../../../hooks/usePerson';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -63,16 +63,21 @@ const AboutYouPage: NextPage = () => {
   const loginFormRef = useRef<HTMLDivElement>(null);
 
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
-  const [personUuid, setPersonUuid] = useState<string | undefined>();
-  const [personLoggedIn, setPersonLoggedIn] = useState<boolean>(false);
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
   const [derivativeData, setDerivativeData] = useState<IDerivative | null>(
     null,
   );
 
+  const {
+    personUuid,
+    setPersonUuid,
+    personLoggedIn,
+    setPersonLoggedIn,
+  } = usePerson();
+  const { refetch } = usePersonByUuidData(personUuid || '');
+
   const [updateOrderHandle] = useCreateUpdateOrder(() => {});
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-  const { refetch } = usePersonByUuidData(personUuid || '');
   const creditApplicationQuery = useGetCreditApplicationByOrderUuid(orderId);
   const creditApplication =
     creditApplicationQuery.data?.creditApplicationByOrderUuid;
@@ -142,21 +147,6 @@ const AboutYouPage: NextPage = () => {
       `/account/login-register?redirect=${router?.asPath || '/'}`,
       '/account/login-register',
     );
-
-  useEffect(() => {
-    Promise.all([
-      localForage.getItem<GetPerson>('person'),
-      localForage.getItem<string>('personUuid'),
-    ]).then(([person, savedPersonUuid]) => {
-      if (person?.getPerson && !personUuid) {
-        setPersonUuid(person?.getPerson?.uuid);
-        setPersonLoggedIn(true);
-      } else if (savedPersonUuid && !personUuid) {
-        setPersonUuid(savedPersonUuid);
-        setPersonLoggedIn(false);
-      }
-    });
-  }, [personUuid]);
 
   return (
     <OLAFLayout
