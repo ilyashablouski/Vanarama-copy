@@ -29,10 +29,6 @@ export default function usePerson() {
     });
   }, [personUuid]);
 
-  console.log('person', person);
-  console.log('personUuid', personUuid);
-  console.log('personLoggedIn', personLoggedIn);
-
   return {
     person,
     setPerson,
