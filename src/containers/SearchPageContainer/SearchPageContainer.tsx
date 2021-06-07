@@ -538,13 +538,18 @@ const SearchPageContainer: React.FC<IProps> = ({
       // set onOffer value to actual depend on page type
       if (isRangePage || isModelPage || isDynamicFilterPage) onOffer = null;
       else onOffer = isSpecialOfferPage ? true : isSpecialOffers || null;
-      const fuelTypes = isFuelPage
-        ? (fuelMapper[
-            router.query.dynamicParam as keyof typeof fuelMapper
-          ] as string).split(',')
-        : filters.fuelTypes.length > 0
-        ? filters.fuelTypes
-        : getPartnerProperties()?.fuelTypes;
+      let fuelTypes;
+      if (isFuelPage) {
+        fuelTypes = (fuelMapper[
+          router.query.dynamicParam as keyof typeof fuelMapper
+        ] as string).split(',');
+      } else if (filters.fuelTypes.length > 0) {
+        fuelTypes = filters.fuelTypes;
+      } else if (getPartnerProperties()?.fuelTypes) {
+        fuelTypes = getPartnerProperties()?.fuelTypes;
+      } else {
+        fuelTypes = [];
+      }
       getVehicles({
         variables: {
           vehicleTypes: isCarSearch

@@ -77,7 +77,7 @@ export const buildPreselectChoiseboxes = (
       value,
       active: true,
     }));
-  
+
   // If only one choice, return as a single option array with active set to true
   if (choiceBoxesData.length === 1) {
     return [
@@ -90,7 +90,9 @@ export const buildPreselectChoiseboxes = (
   }
   if (isPartnership && accessor === FilterFields.fuelTypes) {
     const partnershipFuelTypes = getPartnerProperties()?.fuelTypes;
-    const choices = choiceBoxesData.filter((f) => partnershipFuelTypes.includes(f.label))
+    const choices = choiceBoxesData.filter(f =>
+      partnershipFuelTypes.includes(f.label),
+    );
     return choices;
   }
   return null;
