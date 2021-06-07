@@ -160,6 +160,12 @@ const SearchPageFilters = ({
     });
   };
 
+  const [isPartnership, setIsPartnership] = useState(false);
+
+  useEffect(() => {
+    if (getSessionStorage('partnershipSessionActive')) setIsPartnership(true);
+  }, [])
+
   useEffect(() => {
     // if we have query parameters filters should be preselected
     const shouldPreselect =
@@ -480,7 +486,7 @@ const SearchPageFilters = ({
                           handleChecked?.(value, filter.accessor as any)
                         }
                         choices={
-                          isPickups || isModelPage || isDynamicFilterPage
+                          isPickups || isModelPage || isDynamicFilterPage || isPartnership
                             ? buildPreselectChoiseboxes(
                                 {
                                   isPickups,
@@ -488,6 +494,7 @@ const SearchPageFilters = ({
                                   isBodyPage,
                                   isTransmissionPage,
                                   isFuelPage,
+                                  isPartnership
                                 },
                                 filter.accessor,
                                 selectedFiltersState,
