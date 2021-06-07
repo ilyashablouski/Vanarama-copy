@@ -12,7 +12,6 @@ import { removeUrlQueryPart, SEARCH_PAGES } from '../utils/url';
 import { CompareContext } from '../utils/comparatorTool';
 import {
   deleteCompare,
-  getVehiclesForComparator,
   IVehicle,
   IVehicleCarousel,
   isCorrectCompareType,
@@ -151,7 +150,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
           compareVehicles={() => {
             Router.push('/comparator');
           }}
-          vehicles={getVehiclesForComparator(compareVehicles || null)}
+          vehicles={compareVehicles}
           setCompareVehicles={setCompareVehicles}
         />
 
