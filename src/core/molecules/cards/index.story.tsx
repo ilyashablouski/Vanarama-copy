@@ -51,7 +51,7 @@ const FEATURES = [
   },
 ];
 
-storiesOf(`${atomicDir(base)}|Card`, module)
+storiesOf(`${atomicDir(base)}/Card`, module)
   .add('Card only image', () => (
     <div className="row:cards-3col">
       <Card

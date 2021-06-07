@@ -138,7 +138,7 @@ export const getCompares = () => {
 };
 
 export const getVehiclesForComparator = (
-  vehicles: IVehicle[] | IVehicleCarousel[] | null,
+  vehicles: IVehicle[] | IVehicleCarousel[],
 ): ICompareVehicle[] => {
   if (!vehicles) {
     return [

@@ -6,7 +6,7 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 import SortCode from './SortCode';
 import { SortCodeValue } from './interfaces';
 
-storiesOf(`${atomicDir(base)}|Sortcode`, module)
+storiesOf(`${atomicDir(base)}/Sortcode`, module)
   .add('Default', () => {
     const [value, setValue] = useState<SortCodeValue>(['', '', '']);
     return (

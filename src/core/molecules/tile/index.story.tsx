@@ -31,7 +31,7 @@ const children = [
   </Text>,
 ];
 
-storiesOf(`${atomicDir(base)}|Tile`, module)
+storiesOf(`${atomicDir(base)}/Tile`, module)
   .add('Default', () => <Tile>{children}</Tile>)
 
   .add('Scrollable', () => <Tile scrollable>{children}</Tile>)

@@ -1,0 +1,15 @@
+.hot-offer {
+  display: inline-flex;
+  align-items: center;
+
+  .icon {
+    display: inline-flex;
+    flex-shrink: 0;
+    margin-right: 2px;
+
+    svg {
+      width: 100%;
+      height: 100%;
+    }
+  }
+}

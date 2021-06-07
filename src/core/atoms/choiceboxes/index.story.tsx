@@ -5,7 +5,7 @@ import Choiceboxes from '.';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 import Button from '../button';
 
-storiesOf(`${atomicDir(base)}|Choiceboxes`, module).add('Default', () => {
+storiesOf(`${atomicDir(base)}/Choiceboxes`, module).add('Default', () => {
   const choices = [
     { label: 'Personal', value: 'PHC', active: true },
     { label: 'Business', value: 'BHC', active: false },
@@ -13,7 +13,7 @@ storiesOf(`${atomicDir(base)}|Choiceboxes`, module).add('Default', () => {
   return <Choiceboxes choices={choices} onSubmit={() => {}} />;
 });
 
-storiesOf(`${atomicDir(base)}|Choiceboxes`, module).add('Numbers', () => {
+storiesOf(`${atomicDir(base)}/Choiceboxes`, module).add('Numbers', () => {
   const choices = [
     { label: '13', value: '13', active: true },
     { label: '23', value: '23', active: false },
@@ -26,7 +26,7 @@ storiesOf(`${atomicDir(base)}|Choiceboxes`, module).add('Numbers', () => {
   );
 });
 
-storiesOf(`${atomicDir(base)}|Choiceboxes`, module).add(
+storiesOf(`${atomicDir(base)}/Choiceboxes`, module).add(
   'Numbers disabled',
   () => {
     const choices = [
@@ -47,7 +47,7 @@ storiesOf(`${atomicDir(base)}|Choiceboxes`, module).add(
   },
 );
 
-storiesOf(`${atomicDir(base)}|Choiceboxes`, module).add('Multiselect', () => {
+storiesOf(`${atomicDir(base)}/Choiceboxes`, module).add('Multiselect', () => {
   const choices = [
     { label: '13', value: '13', active: true },
     { label: '23', value: '23', active: false },
@@ -65,7 +65,7 @@ storiesOf(`${atomicDir(base)}|Choiceboxes`, module).add('Multiselect', () => {
   );
 });
 
-storiesOf(`${atomicDir(base)}|Choiceboxes`, module).add(
+storiesOf(`${atomicDir(base)}/Choiceboxes`, module).add(
   'Multiselect with parent clear button',
   () => {
     const ref = useRef() as any;

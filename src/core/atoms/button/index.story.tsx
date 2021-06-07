@@ -9,7 +9,7 @@ const ButtonContainer: React.FC = ({ children }) => (
   <div style={{ display: 'grid', gap: '0.75rem' }}>{children}</div>
 );
 
-storiesOf(`${atomicDir(base)}|Button`, module)
+storiesOf(`${atomicDir(base)}/Button`, module)
   .add('Icon', () => (
     <ButtonContainer>
       <Button

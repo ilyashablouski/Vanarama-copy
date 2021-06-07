@@ -14,11 +14,12 @@ import {
   getCriterials,
   getVehiclesIds,
 } from '../../utils/comparatorTableHelpers';
-import { useVehicleData, useVehiclesTotalCount } from './gql';
+import { useVehicleData } from './gql';
 import { vehicleComparator } from '../../../generated/vehicleComparator';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
 import useLeaseType from '../../hooks/useLeaseType';
+import { useVehiclesTotalCount } from '../../gql/vehiclesTotalCount';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,

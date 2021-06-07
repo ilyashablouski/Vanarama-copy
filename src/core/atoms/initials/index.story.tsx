@@ -6,6 +6,6 @@ import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import Initials from '.';
 
-storiesOf(`${atomicDir(base)}|Initials`, module).add('default', () => (
+storiesOf(`${atomicDir(base)}/Initials`, module).add('default', () => (
   <Initials fullName="Gianluca Agnocchetti" />
 ));

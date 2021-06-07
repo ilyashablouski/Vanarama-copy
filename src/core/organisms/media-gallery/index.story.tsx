@@ -6,7 +6,7 @@ import MediaGallery from './MediaGallery';
 import Icon from '../../atoms/icon';
 import Flame from '../../assets/icons/Flame';
 
-storiesOf(`${atomicDir(base)}|MediaGallery`, module)
+storiesOf(`${atomicDir(base)}/MediaGallery`, module)
   .add('Default with tree tabs', () => (
     <div className="page:pdp">
       <div style={{ maxWidth: 700 }}>

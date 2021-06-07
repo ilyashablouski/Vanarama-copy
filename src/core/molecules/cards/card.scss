@@ -655,9 +655,9 @@ $small: 0.875rem;
           top: -2px;
         }
         .text {
+          flex: 1 1 auto;
           font-weight: bold;
           padding-right: 10px;
-          width: calc(100% - 46px);
           white-space: nowrap;
           overflow: hidden;
         }
@@ -669,6 +669,8 @@ $small: 0.875rem;
       height: calc(100% - 2px);
       border-top-left-radius: 0.35rem;
       border-bottom-left-radius: 0.35rem;
+      object-fit: contain;
+      background: transparent;
       @include tablet-desktop {
         width: 150px;
       }

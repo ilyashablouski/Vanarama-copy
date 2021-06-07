@@ -12,7 +12,7 @@ import HammerOutline from '../../assets/icons/HammerOutline';
 import SyncCircleOutline from '../../assets/icons/SyncCircleOutline';
 import ChevronUpCircle from '../../assets/icons/ChevronUpCircle';
 
-storiesOf(`${atomicDir(base)}|Icon`, module)
+storiesOf(`${atomicDir(base)}/Icon`, module)
   .add('Star', () => (
     <div>
       <Icon icon={<Star />} size="small" color="orange" />

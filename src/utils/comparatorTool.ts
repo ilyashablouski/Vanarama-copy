@@ -2,15 +2,6 @@ import React from 'react';
 import { vehicleComparator } from '../../generated/vehicleComparator';
 import { IVehicle, IVehicleCarousel } from './comparatorHelpers';
 
-export const PAGES_WITH_COMPARATOR = [
-  'eligibility-checker/results',
-  'hub/',
-  '/car-leasing',
-  '/van-leasing',
-  '/leasing-offers',
-  '/help-me-choose',
-];
-
 export const PAGES_WITHOUT_COMPARATOR = [
   '/van-leasing/[...details-page]',
   '/car-leasing/[...details-page]',
@@ -20,8 +11,6 @@ export const PAGES_WITHOUT_COMPARATOR = [
   '/car-leasing/finance-options',
   '/van-leasing-questions',
 ];
-
-export const WHOLE_PATHS_PAGES_WITH_COMPARATOR = ['/'];
 
 export const INIT_VEHICLE: vehicleComparator = {
   vehicleComparator: [
