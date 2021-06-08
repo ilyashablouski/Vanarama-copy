@@ -19,9 +19,9 @@ import { ProductCardData } from '../../../generated/ProductCardData';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { useVehiclesTotalCount } from '../../gql/vehiclesTotalCount';
 
-const VAN_SEARCH_URL = '/special-offers.html';
-const CAR_SEARCH_URL = '/car-leasing-special-offers.html';
-const PICKUP_SEARCH_URL = '/pickup-special-offers.html';
+const VAN_SEARCH_URL = '/van-leasing/search';
+const CAR_SEARCH_URL = '/car-leasing/search';
+const PICKUP_SEARCH_URL = '/van-leasing/search?bodyStyles=Pickup';
 
 const createOfferCards = (
   vansOffersCount: number = 0,
