@@ -443,7 +443,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             maintenancePrice: leaseScannerData?.maintenance
               ? leaseScannerData?.quoteByCapId?.maintenanceCost?.monthlyRental
               : undefined,
-            vehicleValue: vehicleValue,
+            vehicleValue,
           },
           quantity: 1,
         },
