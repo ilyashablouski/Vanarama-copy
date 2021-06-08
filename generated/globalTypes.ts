@@ -11,100 +11,100 @@
  * CreditApplication Type
  */
 export enum CreditApplicationTypeEnum {
-  B2B_LIMITED = "B2B_LIMITED",
-  B2B_PARTNERSHIP = "B2B_PARTNERSHIP",
-  B2B_REGISTERED_PARTNERSHIP = "B2B_REGISTERED_PARTNERSHIP",
-  B2B_SOLE_TRADER = "B2B_SOLE_TRADER",
-  B2C_PERSONAL = "B2C_PERSONAL",
+  B2B_LIMITED = 'B2B_LIMITED',
+  B2B_PARTNERSHIP = 'B2B_PARTNERSHIP',
+  B2B_REGISTERED_PARTNERSHIP = 'B2B_REGISTERED_PARTNERSHIP',
+  B2B_SOLE_TRADER = 'B2B_SOLE_TRADER',
+  B2C_PERSONAL = 'B2C_PERSONAL',
 }
 
 /**
  * Finance type enum
  */
 export enum FinanceTypeEnum {
-  BCH = "BCH",
-  FL = "FL",
-  PCH = "PCH",
+  BCH = 'BCH',
+  FL = 'FL',
+  PCH = 'PCH',
 }
 
 /**
  * Company types for funder
  */
 export enum FunderCompanyTypeEnum {
-  limited = "limited",
-  partnership = "partnership",
+  limited = 'limited',
+  partnership = 'partnership',
 }
 
 /**
  * Lease type
  */
 export enum LeaseTypeEnum {
-  BUSINESS = "BUSINESS",
-  PERSONAL = "PERSONAL",
+  BUSINESS = 'BUSINESS',
+  PERSONAL = 'PERSONAL',
 }
 
 /**
  * Filter orders/quotes by section
  */
 export enum MyOrdersTypeEnum {
-  ALL_ORDERS = "ALL_ORDERS",
-  ALL_QUOTES = "ALL_QUOTES",
-  COMPLETED_ORDERS = "COMPLETED_ORDERS",
-  IN_PROGRESS_ORDERS = "IN_PROGRESS_ORDERS",
+  ALL_ORDERS = 'ALL_ORDERS',
+  ALL_QUOTES = 'ALL_QUOTES',
+  COMPLETED_ORDERS = 'COMPLETED_ORDERS',
+  IN_PROGRESS_ORDERS = 'IN_PROGRESS_ORDERS',
 }
 
 /**
  * Opportunity subtype enum
  */
 export enum OpportunitySubtypeEnum {
-  GAPINSURANCE = "GAPINSURANCE",
-  MULTIYEAR = "MULTIYEAR",
-  SHORTTERM = "SHORTTERM",
-  TOOLSINTRANSIT = "TOOLSINTRANSIT",
+  GAPINSURANCE = 'GAPINSURANCE',
+  MULTIYEAR = 'MULTIYEAR',
+  SHORTTERM = 'SHORTTERM',
+  TOOLSINTRANSIT = 'TOOLSINTRANSIT',
 }
 
 /**
  * Opportunity type enum
  */
 export enum OpportunityTypeEnum {
-  CALLBACK = "CALLBACK",
-  FLEET = "FLEET",
-  INSURANCE = "INSURANCE",
-  QUOTE = "QUOTE",
+  CALLBACK = 'CALLBACK',
+  FLEET = 'FLEET',
+  INSURANCE = 'INSURANCE',
+  QUOTE = 'QUOTE',
 }
 
 /**
  * Partner slug type enum
  */
 export enum PartnerSlugTypeEnum {
-  OVO = "OVO",
+  OVO = 'OVO',
 }
 
 /**
  * Sort direction
  */
 export enum SortDirection {
-  ASC = "ASC",
-  DESC = "DESC",
+  ASC = 'ASC',
+  DESC = 'DESC',
 }
 
 /**
  * Sort field
  */
 export enum SortField {
-  availability = "availability",
-  initialPayment = "initialPayment",
-  manufacturer = "manufacturer",
-  mileage = "mileage",
-  offerRanking = "offerRanking",
-  rate = "rate",
-  rental = "rental",
-  term = "term",
+  availability = 'availability',
+  initialPayment = 'initialPayment',
+  manufacturer = 'manufacturer',
+  mileage = 'mileage',
+  offerRanking = 'offerRanking',
+  rate = 'rate',
+  rental = 'rental',
+  term = 'term',
 }
 
 export enum VehicleTypeEnum {
-  CAR = "CAR",
-  LCV = "LCV",
+  CAR = 'CAR',
+  LCV = 'LCV',
 }
 
 /**
@@ -778,6 +778,7 @@ export interface VehicleProductInputObject {
   trim?: string | null;
   vehicleType: VehicleTypeEnum;
   vsku?: string | null;
+  vehicleValue?: number | null;
 }
 
 export interface VehicleToCompare {
