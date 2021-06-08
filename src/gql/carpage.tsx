@@ -56,6 +56,7 @@ export const GET_CAR_DATA = gql`
         question
         answer
       }
+      vehicleValue
     }
     derivativeInfo(id: $capIdDetails, vehicleType: $vehicleType) {
       name

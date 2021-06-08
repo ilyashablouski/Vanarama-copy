@@ -185,6 +185,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   };
 
   const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
+  const vehicleValue = data?.vehicleDetails?.vehicleValue;
 
   const onPushPDPDataLayer = useCallback(async () => {
     const derivativeInfo = data?.derivativeInfo;
@@ -197,6 +198,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       price: price || '0.00',
       category: getCategory({ cars, vans, pickups }),
       mileage,
+      vehicleValue,
     });
   }, [capId, cars, data, price, pickups, vans, mileage]);
 
@@ -326,6 +328,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       vehicleConfigurationByCapId,
       price,
       category: getCategory({ cars, vans, pickups }),
+      vehicleValue,
     });
     setIsModalVisible(false);
 
@@ -440,6 +443,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             maintenancePrice: leaseScannerData?.maintenance
               ? leaseScannerData?.quoteByCapId?.maintenanceCost?.monthlyRental
               : undefined,
+            vehicleValue,
           },
           quantity: 1,
         },
@@ -485,6 +489,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       vehicleConfigurationByCapId: vehicleConfiguration,
       price,
       category: getCategory({ cars, vans, pickups }),
+      vehicleValue,
     });
   };
 
