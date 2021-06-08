@@ -91,9 +91,9 @@ function WishlistPageContainer({
         </Heading>
       </div>
       <div className="row:bg-lighter -thin -pv-500">
+        {!personLoggedIn && <WishlistRegistration className="-mb-500" />}
         {wishlistItems?.productCarousel?.length ? (
           <div className="wishlist">
-            {!personLoggedIn && <WishlistRegistration className="-mb-500" />}
             <section className="row:cards-3col">
               {wishlistItems.productCarousel.map((item, index) => (
                 <LazyLoadComponent
