@@ -284,6 +284,10 @@ $small: 0.875rem;
     overflow: visible;
   }
 
+  &.-without-box-shadow {
+    box-shadow: none;
+  }
+
   // Tweaks -> reduce excessive line-height
   > :not(.price) {
     line-height: calc(1em + 0.375rem);
