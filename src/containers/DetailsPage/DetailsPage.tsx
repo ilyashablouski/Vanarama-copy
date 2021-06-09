@@ -250,7 +250,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   ]);
 
   useFirstRenderEffect(() => {
-    if (price && !firstTimePushDataLayer) onPushPDPDataLayer();
+    if (price && !firstTimePushDataLayer) {
+      onPushPDPDataLayer();
+    }
     if (isMobile) {
       leaseScanner.current!.style.display = 'flex';
       setTimeout(() => {
@@ -319,11 +321,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       ...orderObject,
     } as OrderInputObject;
     const vehicleProduct = values.lineItems?.[0].vehicleProduct;
-    if (vehicleProduct)
+    if (vehicleProduct) {
       vehicleProduct.freeInsurance = {
         optIn: withInsurance,
         eligible: isAgreeInsuranceRules,
       };
+    }
     pushAddToCartHeap(vehicleProduct);
     pushAddToCartDataLayer({
       capId,
@@ -415,7 +418,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capModelDescription}`;
 
   // eslint-disable-next-line no-console
-  if (process.env.ENV !== 'prod') console.log('CAP Id:', capId);
+  if (process.env.ENV !== 'prod') {
+    console.log('CAP Id:', capId);
+  }
 
   const onSubmitClickMobile = () => {
     const colourDescription = derivativeInfo?.colours?.find(

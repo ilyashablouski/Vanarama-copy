@@ -30,18 +30,24 @@ const Search: FC<ISearchProps> = memo(props => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchValue(e.target.value);
-    if (onChange) onChange(e);
+    if (onChange) {
+      onChange(e);
+    }
   };
 
   const handleSelect = (result: string) => {
     setSearchValue(result.trim());
-    if (inputRef.current) inputRef.current.focus();
+    if (inputRef.current) {
+      inputRef.current.focus();
+    }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.keyCode === 13) {
       setSearchResults([]);
-      if (onSelect) onSelect(searchValue);
+      if (onSelect) {
+        onSelect(searchValue);
+      }
     }
   };
 

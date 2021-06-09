@@ -18,14 +18,20 @@ const FilterCheckboxes: FC<IFilterCheckboxes> = props => {
     const newSelectedFilters = { ...selectedFilters };
 
     // Create array if not exists.
-    if (!newSelectedFilters[name]) newSelectedFilters[name] = [];
+    if (!newSelectedFilters[name]) {
+      newSelectedFilters[name] = [];
+    }
 
     // Add.
-    if (checked) newSelectedFilters[name].push(value);
+    if (checked) {
+      newSelectedFilters[name].push(value);
+    }
     // Remove.
     else {
       const index = selectedFilters[name].indexOf(value);
-      if (index > -1) selectedFilters[name].splice(index, 1);
+      if (index > -1) {
+        selectedFilters[name].splice(index, 1);
+      }
     }
 
     // Remove duplicates.

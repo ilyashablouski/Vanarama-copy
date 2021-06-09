@@ -8,7 +8,9 @@ const req = require.context('./', false, /\.tsx$/);
 const stories = storiesOf(`${atomicDir(base)}/Icons`, module);
 
 req.keys().forEach(filename => {
-  if (filename === './index.story.tsx') return;
+  if (filename === './index.story.tsx') {
+    return;
+  }
   const name = filename.replace(/(\.\/|\.tsx)/g, '');
   const Svg = req(filename).default;
   stories.add(name, () => <Svg />);

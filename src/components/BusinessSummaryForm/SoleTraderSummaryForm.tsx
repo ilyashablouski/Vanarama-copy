@@ -77,7 +77,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
     additionalParameters?: { [key: string]: string },
   ) => () => {
     const params = getUrlParam({
-      redirect: 'summary',
+      redirect: router.asPath,
       ...additionalParameters,
     });
     const href = `${url}${params}`;
@@ -111,12 +111,9 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
           />
           <SoleTraderCompanyDetailsSummarySection
             company={company}
-            onEdit={handleEdit(
-              '/b2b/olaf/sole-trader/company-details/[personUuid]',
-              {
-                companyUuid: company.uuid,
-              },
-            )}
+            onEdit={handleEdit('/b2b/olaf/sole-trader/company-details', {
+              companyUuid: company.uuid,
+            })}
           />
           {company.isVatRegistered && (
             <BusinessSummaryFormVATDetailsSection

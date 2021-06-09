@@ -181,8 +181,9 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
         range.children.some(ranges => ranges.slug === selectModelVans),
       );
       setValue('makeVans', parent?.parent.slug as string);
-      if (!modelVans?.[0]?.label)
+      if (!modelVans?.[0]?.label) {
         setModelsVans(modelHandler(vansDataCache, parent?.parent.slug || ''));
+      }
     } else if (modelVansTemp && selectMakeVans && modelVans.length) {
       // return back a model value because auto change make call a rerender options list
       setValue('modelVans', modelVansTemp);
@@ -311,8 +312,12 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
 
   const onChangeTab = (index: number) => {
     setActiveIndex(index);
-    if (index === 1) setHeadingText(VANS_TAB_HEADING);
-    if (index === 2) setHeadingText('Search Cars');
+    if (index === 1) {
+      setHeadingText(VANS_TAB_HEADING);
+    }
+    if (index === 2) {
+      setHeadingText('Search Cars');
+    }
   };
 
   return (
