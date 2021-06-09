@@ -159,7 +159,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
   const primaryBankAccount = person.bankAccounts?.[0];
 
   const handleEdit = (url: string) => () => {
-    const params = getUrlParam({ uuid: person.uuid, redirect: 'summary' });
+    const params = getUrlParam({ uuid: person.uuid, redirect: router.asPath });
     const href = `${url}${params}`;
     router.push(href, href);
   };
