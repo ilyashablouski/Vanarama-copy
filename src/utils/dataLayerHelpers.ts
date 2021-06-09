@@ -47,6 +47,7 @@ interface IPDPData {
   product?: IProduct;
   category?: string;
   mileage?: number | null;
+  vehicleValue?: number | null;
 }
 
 interface ISummary {
@@ -86,6 +87,7 @@ interface IPageDataLayer {
   category?: string;
   brand?: string;
   vehicleModel?: string;
+  vehicleValue?: string;
 }
 
 interface IPageData {
@@ -157,6 +159,7 @@ export const productsMapper = (
     initialPayment:
       `${lineItem?.vehicleProduct?.depositPayment}` || 'undefined',
     addMaintenance: lineItem?.vehicleProduct?.maintenancePrice ? 'Yes' : 'No',
+    vehicleValue: `${lineItem?.vehicleProduct?.vehicleValue}` || 'undefined',
   };
 };
 
@@ -262,6 +265,7 @@ const getProductData = ({
   price,
   product,
   category,
+  vehicleValue,
 }: IPDPData) => {
   const variant = vehicleConfigurationByCapId?.capRangeDescription;
 
@@ -284,6 +288,7 @@ const getProductData = ({
     derivativeInfo?.bodyType?.name || 'undefined',
     product,
   );
+  pushDetail('retailPrice', vehicleValue, product);
 };
 
 const getProductDataForCheckout = ({
@@ -339,6 +344,7 @@ export const pushPDPDataLayer = ({
   price,
   category,
   mileage,
+  vehicleValue,
 }: IPDPData) => {
   if (!window.dataLayer) return;
 
@@ -366,6 +372,7 @@ export const pushPDPDataLayer = ({
     price,
     product,
     category,
+    vehicleValue,
   });
 
   pushDetail(
@@ -385,6 +392,7 @@ export const pushAddToCartDataLayer = ({
   vehicleConfigurationByCapId,
   price,
   category,
+  vehicleValue,
 }: IPDPData) => {
   const data = {
     event: 'addToCart',
@@ -438,6 +446,8 @@ export const pushAddToCartDataLayer = ({
     leaseScannerData?.maintenance ? maintenanceCost : null,
     product,
   );
+
+  pushDetail('retailPrice', vehicleValue, product);
 
   pushToDataLayer(data);
 };
@@ -544,6 +554,7 @@ export const pushCallBackDataLayer = ({
   vehicleConfigurationByCapId,
   price,
   category,
+  vehicleValue,
 }: IPDPData) => {
   if (!window.dataLayer) return;
 
@@ -571,6 +582,8 @@ export const pushCallBackDataLayer = ({
     vehicleConfigurationByCapId?.financeProfile?.mileage,
     data,
   );
+
+  pushDetail('vehicleValue', vehicleValue, data);
 
   pushToDataLayer(data);
 };
