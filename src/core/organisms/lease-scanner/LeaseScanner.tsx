@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef } from 'react';
+import React, { FC, useState, useEffect, useRef, useMemo } from 'react';
 import { ILeaseScannerProps } from './interfaces';
 import Icon from '../../atoms/icon';
 
@@ -16,7 +16,7 @@ import { getPartnerProperties } from '../../../utils/partnerProperties';
 
 const LeaseScanner: FC<ILeaseScannerProps> = props => {
   const {
-    price,
+    price: priceProps,
     headingText,
     withCheckBox = false,
     leasingProviders,
@@ -131,6 +131,10 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
     const partner = getPartnerProperties();
     if (partner?.color) setCustomCTA(partner.color);
   }, []);
+
+  // using for update price, only after animation finished
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const price = useMemo(() => priceProps, [isLoading]);
 
   return (
     <>
