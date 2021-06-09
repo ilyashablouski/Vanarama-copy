@@ -50,7 +50,9 @@ export function getSessionFuelTypes() {
 }
 
 export function setPartnerFooter(data: Nullish<IPartnerFooter>) {
-  if (data) setLocalStorage('partnerFooter', JSON.stringify(data));
+  if (data) {
+    setLocalStorage('partnerFooter', JSON.stringify(data));
+  }
 }
 
 export function clearInactiveSessionFuelTypes() {

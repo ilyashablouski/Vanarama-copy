@@ -116,7 +116,9 @@ export const getCustomFuelTypesFromCookies = (
   searchTerm: string,
 ) => {
   const fuelTypes = getCookieFromHeaderString(cookie, searchTerm);
-  if (!fuelTypes) return undefined;
+  if (!fuelTypes) {
+    return undefined;
+  }
   const fuelTypesObject = JSON.parse(fuelTypes);
   const array = Object.keys(fuelTypesObject).map(f => fuelTypesObject[f]);
   return array;

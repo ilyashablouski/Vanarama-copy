@@ -70,13 +70,15 @@ const GlobalSearchContainer = () => {
             value={fieldValue}
             placeholder="Search for vehicles or information..."
             onFocus={() => {
-              if (!isOpenResults && fieldValue.length > 2)
+              if (!isOpenResults && fieldValue.length > 2) {
                 setIsOpenResults(true);
+              }
             }}
             onChange={e => {
               setFieldValue(e.target.value);
-              if (e.target.value.length > 2) setSearchValue(e.target.value);
-              else if (e.target.value.length < 3 && isOpenResults) {
+              if (e.target.value.length > 2) {
+                setSearchValue(e.target.value);
+              } else if (e.target.value.length < 3 && isOpenResults) {
                 setSearchValue('');
                 setIsOpenResults(false);
               }
@@ -97,7 +99,9 @@ const GlobalSearchContainer = () => {
           {!(!isOpenResults && isDesktop) && (
             <Icon
               onClick={() => {
-                if (isOpenResults) setIsOpenResults(false);
+                if (isOpenResults) {
+                  setIsOpenResults(false);
+                }
               }}
               icon={<CloseSharp />}
               className={cx(
