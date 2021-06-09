@@ -53,6 +53,7 @@ import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { pushAddToCartHeap } from '../../utils/heapHelpers';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
+import { setSessionStorage } from 'utils/windowSessionStorage';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -186,6 +187,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
   const vehicleValue = data?.vehicleDetails?.vehicleValue;
+
+  useEffect(() => {
+    setSessionStorage('vehicleValue', vehicleValue);
+  }, []);
 
   const onPushPDPDataLayer = useCallback(async () => {
     const derivativeInfo = data?.derivativeInfo;
@@ -443,7 +448,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             maintenancePrice: leaseScannerData?.maintenance
               ? leaseScannerData?.quoteByCapId?.maintenanceCost?.monthlyRental
               : undefined,
-            vehicleValue,
           },
           quantity: 1,
         },
