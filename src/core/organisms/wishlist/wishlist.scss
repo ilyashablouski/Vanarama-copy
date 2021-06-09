@@ -1,4 +1,12 @@
 .wishlist {
+  .card.-vehicle-type {
+    .hot-offer {
+      @include mobile-tablet {
+        font-size: 14px;
+      }
+    }
+  }
+
   .card.-skeleton {
     grid-template-rows: 1fr;
 
