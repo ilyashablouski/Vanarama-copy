@@ -111,12 +111,9 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
           />
           <SoleTraderCompanyDetailsSummarySection
             company={company}
-            onEdit={handleEdit(
-              '/b2b/olaf/sole-trader/company-details/[personUuid]',
-              {
-                companyUuid: company.uuid,
-              },
-            )}
+            onEdit={handleEdit('/b2b/olaf/sole-trader/company-details', {
+              companyUuid: company.uuid,
+            })}
           />
           {company.isVatRegistered && (
             <BusinessSummaryFormVATDetailsSection
