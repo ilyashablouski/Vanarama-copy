@@ -185,7 +185,7 @@ $small: 0.875rem;
   // Predefined areas -> footer
   &-footer {
     display: grid;
-    grid-template-columns: repeat(1, 100%);
+    grid-template-columns: repeat(2, 50%);
     grid-template-rows: auto;
     grid-auto-flow: column;
     overflow: hidden;

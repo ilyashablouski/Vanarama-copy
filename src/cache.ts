@@ -1,5 +1,7 @@
 import { makeVar } from '@apollo/client';
 
-export const isSessionFinishedCache = makeVar(false);
+import { IWishlistTypes } from './models/IWishlistTypes';
+import { initialWishlistState } from './utils/wishlistHelpers';
 
-export default isSessionFinishedCache;
+export const isSessionFinishedCache = makeVar(false);
+export const wishlistVar = makeVar<IWishlistTypes>(initialWishlistState);
