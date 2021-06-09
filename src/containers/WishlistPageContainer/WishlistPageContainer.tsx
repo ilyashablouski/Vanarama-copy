@@ -166,7 +166,7 @@ function WishlistPageContainer({
         <Modal show onRequestClose={() => setModalVisibility(false)}>
           <div className="-justify-content-row -w-300 -a-center">
             <Heading tag="span" color="black">
-              Choose the type of vehicle are you looking for?
+              Choose your vehicle type
             </Heading>
           </div>
           {cardList.map(card => (

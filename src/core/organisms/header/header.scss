@@ -51,7 +51,7 @@
     grid-column: full;
     grid-template-rows: 1.25fr;
     grid-template-columns: 1rem minmax(0, 1fr) 40px 40px 40px 46px 0.5rem;
-    grid-template-areas:'. logo account tel wishlist navtoggle .'
+    grid-template-areas:'. logo account wishlist tel navtoggle .'
     'search search search search search search search';
     place-items: center;
     gap: 0;
@@ -110,8 +110,9 @@
 .header-account {
   grid-area: account;
 
-  &--toggle * {
-    padding-left: 0
+  &--toggle > * {
+    min-width: auto;
+    padding: 0;
   }
 }
 
@@ -233,7 +234,7 @@
   .header-tel .icon,
   .header-account--toggle .icon,
   .header-navtoggle .icon {
-    width: 30px;
+    width: 26px;
     height: 30px;
     margin: auto;
   }

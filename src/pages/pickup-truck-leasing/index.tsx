@@ -8,6 +8,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 import TrustPilot from 'core/molecules/trustpilot';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
+import { isWished } from '../../utils/wishlistHelpers';
 import { isCompared } from '../../utils/comparatorHelpers';
 import {
   HubPickupPageData,
@@ -29,6 +30,7 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
+import useWishlist from '../../hooks/useWishlist';
 import useLeaseType from '../../hooks/useLeaseType';
 import TileLink from '../../components/TileLink/TileLink';
 import { PickupsSearch } from '../../models/enum/SearchByManufacturer';
@@ -107,6 +109,7 @@ export const PickupsPage: NextPage<IProps> = ({
     [productsPickup],
   );
 
+  const { wishlistVehicles, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   const dealOfMonthUrl = useMemo(
@@ -203,31 +206,41 @@ export const PickupsPage: NextPage<IProps> = ({
       <hr className="-fullwidth" />
 
       <div className="row:featured-product">
-        <DealOfMonth
-          isPersonal={isPersonal}
-          imageSrc={
-            offer?.imageUrl ||
-            'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg'
-          }
-          keyInfo={offer?.keyInformation || []}
-          capId={offer?.capId || ''}
-          vehicle={`${offer?.manufacturerName} ${offer?.rangeName}`}
-          specification={offer?.derivativeName || ''}
-          price={offer?.businessRate || 0}
-          rating={offer?.averageRating || 3}
-          viewOfferClick={() => {
-            sessionStorage.setItem('capId', offer?.capId || '');
-          }}
-          link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
-          compared={isCompared(compareVehicles, offer)}
-          onCompare={() => {
-            compareChange(
-              offer
-                ? { ...offer, bodyStyle: 'Pickup', pageUrl: dealOfMonthUrl }
-                : null,
-            );
-          }}
-        />
+        {offer && (
+          <DealOfMonth
+            isPersonal={isPersonal}
+            imageSrc={
+              offer?.imageUrl ||
+              'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538983/cars/BMWX70419_4_bvxdvu.jpg'
+            }
+            keyInfo={offer?.keyInformation || []}
+            capId={offer?.capId || ''}
+            vehicle={`${offer?.manufacturerName} ${offer?.rangeName}`}
+            specification={offer?.derivativeName || ''}
+            price={offer?.businessRate || 0}
+            rating={offer?.averageRating || 3}
+            viewOfferClick={() => {
+              sessionStorage.setItem('capId', offer?.capId || '');
+            }}
+            link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
+            wished={isWished(wishlistVehicles, offer)}
+            compared={isCompared(compareVehicles, offer)}
+            onWishlist={() => {
+              wishlistChange({
+                ...offer,
+                bodyStyle: 'Pickup',
+                pageUrl: dealOfMonthUrl,
+              });
+            }}
+            onCompare={() => {
+              compareChange({
+                ...offer,
+                bodyStyle: 'Pickup',
+                pageUrl: dealOfMonthUrl,
+              });
+            }}
+          />
+        )}
       </div>
 
       <div className="row:bg-lighter">

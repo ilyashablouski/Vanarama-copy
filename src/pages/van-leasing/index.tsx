@@ -29,6 +29,7 @@ import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
+import useWishlist from '../../hooks/useWishlist';
 import useLeaseType from '../../hooks/useLeaseType';
 import { getSectionsData, getCardsName } from '../../utils/getSectionsData';
 import TileLink from '../../components/TileLink/TileLink';
@@ -42,6 +43,7 @@ import {
 } from '../../../generated/filterList';
 import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 import { CompareContext } from '../../utils/comparatorTool';
+import { isWished } from '../../utils/wishlistHelpers';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { IVansPageOffersData, vansPageOffersRequest } from '../../utils/offers';
 import { decodeData, encodeData } from '../../utils/data';
@@ -98,6 +100,7 @@ export const VansPage: NextPage<IProps> = ({
   offer,
 }) => {
   const { cachedLeaseType } = useLeaseType(false);
+  const { wishlistVehicles, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(encodeVehicleListUrlData);
@@ -216,17 +219,21 @@ export const VansPage: NextPage<IProps> = ({
               sessionStorage.setItem('capId', offer?.capId || '');
             }}
             link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
+            wished={isWished(wishlistVehicles, offer)}
             compared={isCompared(compareVehicles, offer)}
+            onWishlist={() => {
+              wishlistChange({
+                ...offer,
+                bodyStyle: offer.bodyStyle,
+                pageUrl: dealOfMonthUrl,
+              });
+            }}
             onCompare={() => {
-              compareChange(
-                offer
-                  ? {
-                      ...offer,
-                      bodyStyle: offer.bodyStyle,
-                      pageUrl: dealOfMonthUrl,
-                    }
-                  : null,
-              );
+              compareChange({
+                ...offer,
+                bodyStyle: offer.bodyStyle,
+                pageUrl: dealOfMonthUrl,
+              });
             }}
           />
         </div>
