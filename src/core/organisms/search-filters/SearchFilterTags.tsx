@@ -31,7 +31,9 @@ const SearchFilterTags: FC<ISearchFilterTagsProps> = ({
               id={selected.value}
               data-testid={dataTestId}
               onClick={e => {
-                if (onRemove) onRemove(e);
+                if (onRemove) {
+                  onRemove(e);
+                }
               }}
             />
           );
@@ -39,7 +41,9 @@ const SearchFilterTags: FC<ISearchFilterTagsProps> = ({
       {selectedFilters.length > 1 && (
         <Button
           onClick={() => {
-            if (onClearAll) onClearAll();
+            if (onClearAll) {
+              onClearAll();
+            }
           }}
           color="teal"
           size="xsmall"

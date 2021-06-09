@@ -81,7 +81,9 @@ export const isCorrectCompareType = (
   data?: IVehicle | IVehicleCarousel | null,
   compareVehicles?: IVehicle[] | IVehicleCarousel[] | null,
 ) => {
-  if (!data || !compareVehicles) return false;
+  if (!data || !compareVehicles) {
+    return false;
+  }
 
   if (
     compareVehicles.some(

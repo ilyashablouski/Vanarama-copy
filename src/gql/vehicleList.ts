@@ -62,7 +62,9 @@ export function useVehicleListUrlFetchMore(
           after: lastCursor,
         },
         updateQuery: (prev, { fetchMoreResult }) => {
-          if (!fetchMoreResult) return prev;
+          if (!fetchMoreResult) {
+            return prev;
+          }
           return {
             vehicleList: {
               pageInfo: fetchMoreResult.vehicleList.pageInfo,

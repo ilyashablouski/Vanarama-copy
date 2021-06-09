@@ -33,7 +33,9 @@ export default function useSortOrder(sortPresetValue?: SortObject[]) {
       },
     });
   };
-  if (sortPresetValue && client) onWriteQuery(sortPresetValue);
+  if (sortPresetValue && client) {
+    onWriteQuery(sortPresetValue);
+  }
   return {
     saveSortOrder(sort: SortObject[]): void {
       onWriteQuery(sort);

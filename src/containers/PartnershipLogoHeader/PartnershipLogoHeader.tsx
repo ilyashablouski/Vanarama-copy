@@ -14,7 +14,9 @@ const PartnershipLogoHeader = () => {
     }
   }, []);
 
-  if (!partnershipLogo) return null;
+  if (!partnershipLogo) {
+    return null;
+  }
   return (
     <div className="partnership-top-header">
       <PartnershipLogo

@@ -71,7 +71,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       const isSearchPage = !!SEARCH_PAGES.find(element =>
         url.includes(element),
       );
-      if (!isSearchPage) window.scrollTo(0, 0);
+      if (!isSearchPage) {
+        window.scrollTo(0, 0);
+      }
     });
   }, []);
 

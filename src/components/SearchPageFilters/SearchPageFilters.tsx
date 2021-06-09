@@ -134,7 +134,9 @@ const SearchPageFilters = ({
   );
   /** start new search */
   const onViewResults = (onlyFiltersUpdate = false) => {
-    if (!onlyFiltersUpdate) onSearch(filtersObject);
+    if (!onlyFiltersUpdate) {
+      onSearch(filtersObject);
+    }
     const filtersObjectForFilters = { ...filtersObject, rate: undefined };
     refetch({
       vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
@@ -303,12 +305,16 @@ const SearchPageFilters = ({
 
   useFirstRenderEffect(() => {
     // prevent request after automatically untick view offer checkbox
-    if (!forceFiltersPreset) onViewResults();
+    if (!forceFiltersPreset) {
+      onViewResults();
+    }
   }, [isSpecialOffers]);
 
   useEffect(() => {
     // don't call onSearch already after render
-    if (!isInitialLoad || router.query.isChangePage === 'true') onViewResults();
+    if (!isInitialLoad || router.query.isChangePage === 'true') {
+      onViewResults();
+    }
     // using for checking if user try to load page without additional params
     // numberOfParams - number of required params for page type
     const searchWithParams = (numberOfParams: number) =>
@@ -333,8 +339,9 @@ const SearchPageFilters = ({
             selectedFiltersState?.model[0] &&
             searchWithParams(2)))) ||
       (isModelPage && selectedFiltersState?.model[0] && searchWithParams(3))
-    )
+    ) {
       setInitialLoad(false);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedFilterTags, isInitialLoad]);
 
@@ -367,15 +374,20 @@ const SearchPageFilters = ({
         ),
       );
       // clear temp model value
-      if (tempModelName) setTempModelName('');
-    } else if (!filtersObject.manufacturerSlug && modelsData.length)
+      if (tempModelName) {
+        setTempModelName('');
+      }
+    } else if (!filtersObject.manufacturerSlug && modelsData.length) {
       setModelsData([]);
+    }
     // clear models data after remove make filter
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [filtersObject.manufacturerSlug, filtersData]);
 
   useEffect(() => {
-    if (forceFiltersPreset) onViewResults(true);
+    if (forceFiltersPreset) {
+      onViewResults(true);
+    }
   }, [forceFiltersPreset]);
 
   return (

@@ -323,7 +323,9 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch {
-    if (res) return notFoundPageHandler(res, client);
+    if (res) {
+      return notFoundPageHandler(res, client);
+    }
     return {
       props: {
         error: true,

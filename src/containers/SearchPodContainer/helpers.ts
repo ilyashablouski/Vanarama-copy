@@ -17,7 +17,9 @@ export const modelHandler = (
   if (make && data.groupedRangesWithSlug) {
     return data.groupedRangesWithSlug?.reduce(
       (acc: IFiltersChildren[], range) => {
-        if (range.parent.slug === make) acc.push(...range.children);
+        if (range.parent.slug === make) {
+          acc.push(...range.children);
+        }
         return acc;
       },
       [],
