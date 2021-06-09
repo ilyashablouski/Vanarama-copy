@@ -37,7 +37,7 @@ const GuidesCarsExplained: NextPage<IGenericPage> = ({
     data?.genericPage,
   );
   const breadcrumbsItems =
-    metaData?.breadcrumbs &&
+    Array.isArray(metaData?.breadcrumbs) &&
     metaData?.breadcrumbs.map((el: any) => ({
       link: { href: el.href || '', label: el.label },
     }));

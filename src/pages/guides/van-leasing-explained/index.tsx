@@ -27,7 +27,7 @@ const FinanceInfo: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
   const sections = getSectionsData(['sections'], data?.genericPage);
   const body = getSectionsData(['body'], data?.genericPage);
   const breadcrumbsItems =
-    metaData?.breadcrumbs &&
+    Array.isArray(metaData?.breadcrumbs) &&
     metaData?.breadcrumbs.map((el: any) => ({
       link: { href: el.href || '', label: el.label },
     }));
