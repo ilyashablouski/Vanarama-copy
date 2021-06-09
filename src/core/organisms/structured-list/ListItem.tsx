@@ -28,7 +28,9 @@ const ListItem: FC<IListItemProps> = props => {
     e: ChangeEvent<HTMLSelectElement | HTMLInputElement>,
   ) => {
     setInput(e.target.value);
-    if (onChange) onChange(e);
+    if (onChange) {
+      onChange(e);
+    }
   };
 
   const renderDefault = () => (

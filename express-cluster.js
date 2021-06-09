@@ -88,20 +88,22 @@ if (cluster.isMaster) {
         res.json(process.env);
       }
 
-      if (['dev', 'uat'].includes(process.env.ENV))
+      if (['dev', 'uat'].includes(process.env.ENV)) {
         server.get('/env', (_req, res) => {
           env(res);
         });
-      else
+      } else {
         server.get('/env', auth(), (_req, res) => {
           env(res);
         });
+      }
 
       // All routes.
       server.all('*', cors(), (req, res) => {
         // Disable indexing on non live domain.
-        if (!req.get('host').includes('vanarama.com'))
+        if (!req.get('host').includes('vanarama.com')) {
           res.setHeader('X-Robots-Tag', 'noindex');
+        }
 
         return handle(req, res);
       });
@@ -110,7 +112,9 @@ if (cluster.isMaster) {
     .then(server => {
       // Start server.
       server.listen(PORT, err => {
-        if (err) throw err;
+        if (err) {
+          throw err;
+        }
 
         if (dev) {
           console.log(logo);

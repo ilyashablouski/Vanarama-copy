@@ -54,10 +54,14 @@ export const EVContentHub: FC<IProps> = ({ data }) => {
         let stepsIdx = 0;
 
         const leadTextPos = sections?.leadText?.[leadTextIdx]?.position;
-        if (leadTextPos === idx) leadTextIdx += 1;
+        if (leadTextPos === idx) {
+          leadTextIdx += 1;
+        }
 
         const stepsPos = sections?.steps?.[stepsIdx]?.position;
-        if (stepsPos === idx) stepsIdx += 1;
+        if (stepsPos === idx) {
+          stepsIdx += 1;
+        }
 
         const jumpMenuPos = sections?.jumpMenu?.[0]?.position;
 

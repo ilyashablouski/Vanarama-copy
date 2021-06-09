@@ -80,7 +80,9 @@ export const getFunderTerm = (
       default:
         return DEFAULT_TERM;
     }
-  } else return DEFAULT_TERM;
+  } else {
+    return DEFAULT_TERM;
+  }
 };
 
 export const OlafContext = createContext({ requiredMonths: DEFAULT_TERM });

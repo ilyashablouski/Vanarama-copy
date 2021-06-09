@@ -80,8 +80,9 @@ export const onReplace = (
   Object.entries(queries).forEach(([key, value]) => {
     return queryString.set(key, value as string);
   });
-  if (Object.keys(queries).length)
+  if (Object.keys(queries).length) {
     pathname += `?${decodeURIComponent(queryString.toString())}`;
+  }
   // changing url dynamically
   router.push(
     {

@@ -124,12 +124,17 @@ const FiltersContainer = ({
     }));
 
   useEffect(() => {
-    if (filtersData?.bodyStyles) setChoiceBoxesData(buildChoiseBoxData());
+    if (filtersData?.bodyStyles) {
+      setChoiceBoxesData(buildChoiseBoxData());
+    }
   }, [filtersData, buildChoiseBoxData]);
 
   useEffect(() => {
-    if (!isDesktop) setFilterExpandStatus(false);
-    else setFilterExpandStatus(true);
+    if (!isDesktop) {
+      setFilterExpandStatus(false);
+    } else {
+      setFilterExpandStatus(true);
+    }
   }, [isDesktop]);
 
   // hack for subscribe multiselects changes and update Choiceboxes state
@@ -167,8 +172,9 @@ const FiltersContainer = ({
       .filter(({ order, value }) => value?.length > 0 && order !== undefined);
     // prevented useless updates
     // check for empty array used for prevent cases when initial render don't call a request
-    if (!isArraySame(selected, selectedFilterTags) || !selected.length)
+    if (!isArraySame(selected, selectedFilterTags) || !selected.length) {
       setSelectedFilterTags(selected);
+    }
     // can't to add selectedFilterTags to deps, because it have circular dependency with selectedFiltersState
     // TODO: try to resolve circular dependency
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -193,14 +199,17 @@ const FiltersContainer = ({
   /** handler for multiselect */
   const handleChecked = (value: IChoice, filterName: keyof IFiltersMapper) => {
     const newSelectedFilters = { ...selectedFiltersState };
-    if (!newSelectedFilters[filterName]) newSelectedFilters[filterName] = [];
+    if (!newSelectedFilters[filterName]) {
+      newSelectedFilters[filterName] = [];
+    }
 
     // Add.
-    if (value.active)
+    if (value.active) {
       newSelectedFilters[filterName] = [
         ...selectedFiltersState[filterName],
         value.label,
       ];
+    }
     // Remove.
     else {
       newSelectedFilters[filterName] = selectedFiltersState[filterName].filter(
@@ -303,7 +312,9 @@ const FiltersContainer = ({
 
   /** handle filter expand status */
   const handleFilterExpand = () => {
-    if (!isDesktop) setFilterExpandStatus(prevValue => !prevValue);
+    if (!isDesktop) {
+      setFilterExpandStatus(prevValue => !prevValue);
+    }
   };
   return (
     <SearchFilters isOpen={isOpenFilter}>

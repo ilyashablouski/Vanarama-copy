@@ -29,7 +29,9 @@ const ComparatorRow: React.FC<IComparatorRow> = ({
   };
 
   const getPrice = (number: number) => {
-    if (!priceValues) return 0;
+    if (!priceValues) {
+      return 0;
+    }
     const priceValue = priceValues[number] as IPrice;
     return priceValue.price;
   };

@@ -129,7 +129,9 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
 
   useEffect(() => {
     const partner = getPartnerProperties();
-    if (partner?.color) setCustomCTA(partner.color);
+    if (partner?.color) {
+      setCustomCTA(partner.color);
+    }
   }, []);
 
   // using for update price, only after animation finished
