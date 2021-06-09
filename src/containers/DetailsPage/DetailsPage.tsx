@@ -190,7 +190,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   useEffect(() => {
     setSessionStorage('vehicleValue', vehicleValue);
-  }, []);
+  }, [vehicleValue]);
 
   const onPushPDPDataLayer = useCallback(async () => {
     const derivativeInfo = data?.derivativeInfo;
