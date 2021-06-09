@@ -30,7 +30,7 @@
     "storybook": "cross-env ENV=storybook yarn start-storybook -p 9001 -c .storybook"
   },
   "dependencies": {
-    "@apollo/client": "3.1.0",
+    "@apollo/client": "3.2.0",
     "@apollo/react-ssr": "^4.0.0-beta.1",
     "@ramda/path": "^0.26.1",
     "@reach/auto-id": "^0.10.3",
