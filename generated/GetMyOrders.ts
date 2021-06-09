@@ -13,6 +13,61 @@ export interface GetMyOrders_myOrders_lineItems_order {
   uuid: string;
 }
 
+export interface GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2_addresses {
+  city: string;
+  country: string | null;
+  county: string | null;
+  endedOn: any | null;
+  kind: string | null;
+  lineOne: string;
+  lineThree: string | null;
+  lineTwo: string | null;
+  postcode: string;
+  propertyStatus: string | null;
+  serviceId: string | null;
+  startedOn: any | null;
+  uuid: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2_emailAddresses {
+  kind: string | null;
+  primary: boolean | null;
+  uuid: string | null;
+  value: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2_telephoneNumbers {
+  kind: string | null;
+  primary: boolean | null;
+  uuid: string | null;
+  value: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2 {
+  addresses: GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2_addresses[] | null;
+  annualExpenses: number | null;
+  annualSalesCost: number | null;
+  annualTurnover: number | null;
+  businessName: string | null;
+  businessRegistrationNumber: string | null;
+  companySearchResult: any | null;
+  companyType: string | null;
+  emailAddresses: GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2_emailAddresses[] | null;
+  monthlyAmountBeingReplaced: number | null;
+  natureOfBusiness: string | null;
+  otherCountriesOfActivity: string[] | null;
+  partyUuid: string | null;
+  replaceExistingVehicleFinance: boolean | null;
+  sicCode: string | null;
+  sicIndustry: string | null;
+  telephoneNumbers: GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2_telephoneNumbers[] | null;
+  tradesOutsideUk: boolean | null;
+  tradingSince: any | null;
+  turnoverOutsideUk: number | null;
+  uuid: string | null;
+  withTradingAddress: boolean | null;
+}
+
 export interface GetMyOrders_myOrders_lineItems_creditApplications_incomeAndExpensesV2 {
   uuid: string | null;
 }
@@ -32,7 +87,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_addressesV2 {
 export interface GetMyOrders_myOrders_lineItems_creditApplications {
   creditApplicationType: CreditApplicationTypeEnum | null;
   aboutDetails: any | null;
-  companyDetails: any | null;
+  companyDetailsV2: GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2 | null;
   directorsDetails: any | null;
   partnersDetails: any | null;
   soleTraderDetails: any | null;
