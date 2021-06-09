@@ -4,7 +4,7 @@ import RangeCard from './RangeCard';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 import { GetProductCard_productCard as IProductCard } from '../../../generated/GetProductCard';
-import VehicleCard from './VehicleCard';
+import VehicleCard from '../../components/VehicleCard';
 import { rangeList } from '../../../generated/rangeList';
 import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../generated/genericPagesQuery';
 import { manufacturerList } from '../../../generated/manufacturerList';

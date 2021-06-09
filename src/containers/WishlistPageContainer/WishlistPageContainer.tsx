@@ -18,8 +18,9 @@ import useWishlist from '../../hooks/useWishlist';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { useVehiclesTotalCount } from '../../gql/vehiclesTotalCount';
-import WishlistProductCard from './WishlistProductCard';
 import { getProductPlaceholderList } from './helpers';
+
+import WishlistProductCard from '../../components/VehicleCard';
 
 const VAN_SEARCH_URL = '/van-leasing/search';
 const CAR_SEARCH_URL = '/car-leasing/search';

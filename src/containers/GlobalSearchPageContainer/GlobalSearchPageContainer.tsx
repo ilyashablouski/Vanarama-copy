@@ -2,7 +2,6 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from 'core/atoms/button/Button';
 import dynamic from 'next/dynamic';
-import VehicleCard from '../SearchPageContainer/VehicleCard';
 import {
   fullTextSearchVehicleList as ITextSearchQuery,
   fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles as IVehiclesList,
@@ -24,6 +23,7 @@ import Skeleton from '../../components/Skeleton';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { getSectionsData } from '../../utils/getSectionsData';
 import SectionCards from '../../components/SectionCards';
+import VehicleCard from '../../components/VehicleCard';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,

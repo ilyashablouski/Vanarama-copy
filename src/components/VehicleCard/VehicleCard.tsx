@@ -4,12 +4,12 @@ import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
 // import truncateString from '../../utils/truncateString';
 import { useRouter } from 'next/router';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
-import RouterLink from '../../components/RouterLink/RouterLink';
+import RouterLink from '../RouterLink/RouterLink';
 import { formatProductPageUrl } from '../../utils/url';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
-import { features } from '../../components/ProductCarousel/helpers';
-import Skeleton from '../../components/Skeleton';
+import { features } from '../ProductCarousel/helpers';
+import Skeleton from '../Skeleton';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { onSavePagePosition } from './helpers';
 import useWishlist from '../../hooks/useWishlist';
@@ -29,12 +29,6 @@ const Card = dynamic(
 );
 const Icon = dynamic(() => import('core/atoms/icon'));
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
-
-export interface IProductPageUrl {
-  url: string;
-  href: string;
-  capId: string;
-}
 
 interface IVehicleCardProps {
   loadImage?: boolean;

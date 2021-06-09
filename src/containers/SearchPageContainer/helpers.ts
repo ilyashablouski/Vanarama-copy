@@ -13,10 +13,7 @@ import {
 } from '../../../generated/globalTypes';
 import { GET_ALL_MAKES_PAGE } from './gql';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
-import {
-  getObjectFromSessionStorage,
-  setObjectAsSessionStorage,
-} from '../../utils/windowSessionStorage';
+import { getObjectFromSessionStorage } from '../../utils/windowSessionStorage';
 import { isArraySame } from '../../utils/helpers';
 
 export const RESULTS_PER_REQUEST = 12;
@@ -330,18 +327,6 @@ export const sortObjectGenerator = (sortArray: SortObject[]) => {
     ];
   }
   return sortArray;
-};
-
-export const onSavePagePosition = (
-  offerPosition: number,
-  queries: ParsedUrlQuery,
-) => {
-  const storageObject = {
-    offerPosition,
-    queries,
-    scrollPosition: window.pageYOffset,
-  };
-  setObjectAsSessionStorage('searchPageScrollData', storageObject);
 };
 /**
  * checking that current search page was opened by back button click
