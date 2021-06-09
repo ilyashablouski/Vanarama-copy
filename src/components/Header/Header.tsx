@@ -25,6 +25,7 @@ import {
 import useMediaQuery from '../../hooks/useMediaQuery';
 import PhoneNumber from '../PhoneNumber/PhoneNumber';
 import GlobalSearchContainer from '../../containers/GlobalSearchContainer';
+import HeaderWishlistLink from './HeaderWishlistLink';
 
 const PersonCircleSharp = dynamic(
   () => import('core/assets/icons/PersonCircleSharp'),
@@ -155,6 +156,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
         </RouterLink>{' '}
         <GlobalSearchContainer />
         <PhoneNumber phoneNumberLink={phoneNumberLink} withIcon />{' '}
+        <HeaderWishlistLink />
         <div className="header-account">
           {' '}
           {person ? (

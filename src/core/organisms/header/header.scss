@@ -40,24 +40,25 @@
 .header-content {
   display: inherit;
   grid-column: content;
-  grid-template-columns: auto minmax(0, 1fr) repeat(2, auto);
+  grid-template-columns: auto minmax(0, 1fr) repeat(3, auto);
   grid-template-areas:
-    'logo search tel account'
-    'nav  nav    nav nav    ';
+    'logo search tel wishlist account'
+    'nav nav nav nav nav';
   place-items: center start;
   white-space: nowrap;
 
   @include mobile-tablet {
     grid-column: full;
     grid-template-rows: 1.25fr;
-    grid-template-columns: 1rem minmax(0, 1fr) 46px 46px 46px 0.5rem;
-    grid-template-areas: '.      logo   account tel    navtoggle .     ' 'search search search  search search    search';
+    grid-template-columns: 1rem minmax(0, 1fr) 40px 40px 40px 46px 0.5rem;
+    grid-template-areas:'. logo account tel wishlist navtoggle .'
+    'search search search search search search search';
     place-items: center;
     gap: 0;
   }
 
   @include desktop {
-    gap: 1ch 4rem;
+    gap: 1ch 2rem;
   }
 }
 
@@ -88,8 +89,30 @@
   grid-area: tel;
 }
 
+.header-wishlist {
+  position: relative;
+  grid-area: wishlist;
+
+  .badge {
+    position: absolute;
+    top: -3px;
+    right: -7px;
+    padding: 2px 5px 3px;
+    border-radius: 50%;
+    font-size: 12px;
+    line-height: 1;
+    text-align: center;
+    color: #ffffff;
+    background: #F26500;
+  }
+}
+
 .header-account {
   grid-area: account;
+
+  &--toggle * {
+    padding-left: 0
+  }
 }
 
 .header-navtoggle {
@@ -115,6 +138,7 @@
 }
 
 .header-tel,
+.header-wishlist,
 .header-account--toggle,
 .header-navtoggle {
   display: flex;
@@ -127,6 +151,7 @@
 }
 
 .header-tel .icon,
+.header-wishlist .icon,
 .header-account--toggle .icon,
 .header-navtoggle .icon {
   font-size: 1.6rem;
@@ -140,6 +165,21 @@
   }
 }
 
+.header-tel .icon,
+.header-wishlist .icon,
+.header-account--toggle .icon {
+  display: inline-flex;
+  height: 100%;
+
+  svg {
+    height: 100%;
+  }
+
+  @include desktop {
+    bottom: 0;
+  }
+}
+
 .header-tel .icon-call,
 .header-account--toggle .icon-call,
 .header-navtoggle .icon-call {
@@ -150,6 +190,10 @@
 .header-tel:hover .icon,
 .header-tel:focus,
 .header-tel:focus .icon,
+.header-wishlist:hover,
+.header-wishlist:hover .icon,
+.header-wishlist:focus,
+.header-wishlist:focus .icon,
 .header-account--toggle:hover,
 .header-account--toggle:hover .icon,
 .header-account--toggle:focus,
@@ -176,6 +220,7 @@
 
 @include mobile-tablet {
   .header-tel,
+  .header-wishlist,
   .header-account--toggle,
   .header-navtoggle {
     place-self: center;
@@ -188,9 +233,8 @@
   .header-tel .icon,
   .header-account--toggle .icon,
   .header-navtoggle .icon {
-    max-height: 46px;
+    width: 30px;
     height: 30px;
-    width: 46px;
     margin: auto;
   }
   .header-tel .icon-call,

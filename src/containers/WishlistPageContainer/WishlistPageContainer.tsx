@@ -14,10 +14,12 @@ import WishlistRegistration from './WishlistRegistration';
 import WishlistProductPlaceholder from './WishlistProductPlaceholder';
 
 import usePerson from '../../hooks/usePerson';
+import useWishlist from '../../hooks/useWishlist';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { ProductCardData } from '../../../generated/ProductCardData';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { useVehiclesTotalCount } from '../../gql/vehiclesTotalCount';
+import WishlistProductCard from './WishlistProductCard';
+import { getProductPlaceholderList } from './helpers';
 
 const VAN_SEARCH_URL = '/van-leasing/search';
 const CAR_SEARCH_URL = '/car-leasing/search';
@@ -53,6 +55,7 @@ function WishlistPageContainer({
   breadcrumbsList,
 }: IWishlistContainer) {
   const { personLoggedIn } = usePerson();
+  const { wishlistVehicles } = useWishlist();
 
   const [getCarsOffers, carsOptions] = useVehiclesTotalCount(
     VehicleTypeEnum.CAR,
@@ -79,8 +82,12 @@ function WishlistPageContainer({
     getVansOffers();
   }, [getCarsOffers, getPickupsOffers, getVansOffers]);
 
-  const [wishlistItems] = useState<ProductCardData | null>();
   const [isModalVisible, setModalVisibility] = useState(false);
+
+  const productPlaceholderList = useMemo(
+    () => getProductPlaceholderList(wishlistVehicles.length),
+    [wishlistVehicles.length],
+  );
 
   return (
     <>
@@ -92,12 +99,29 @@ function WishlistPageContainer({
       </div>
       <div className="row:bg-lighter -thin -pv-500">
         {!personLoggedIn && <WishlistRegistration className="-mb-500" />}
-        {wishlistItems?.productCarousel?.length ? (
+        {wishlistVehicles.length ? (
           <div className="wishlist">
             <section className="row:cards-3col">
-              {wishlistItems.productCarousel.map((item, index) => (
+              {wishlistVehicles.map((item, index) => (
                 <LazyLoadComponent
-                  key={item?.capId || index}
+                  key={item.capId || index}
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
+                  <WishlistProductCard
+                    data={item}
+                    isPersonalPrice={false}
+                    bodyStyle={item.bodyStyle}
+                    url={item.pageUrl?.url ?? ''}
+                    title={{
+                      title: `${item.manufacturerName} ${item.modelName}`,
+                      description: item.derivativeName ?? '',
+                    }}
+                  />
+                </LazyLoadComponent>
+              ))}
+              {productPlaceholderList.map((item, index) => (
+                <LazyLoadComponent
+                  key={item.capId || index}
                   visibleByDefault={isServerRenderOrAppleDevice}
                 >
                   <WishlistProductPlaceholder

@@ -12,6 +12,8 @@ import { features } from '../../components/ProductCarousel/helpers';
 import Skeleton from '../../components/Skeleton';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { onSavePagePosition } from './helpers';
+import useWishlist from '../../hooks/useWishlist';
+import { isWished } from '../../utils/wishlistHelpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -61,6 +63,8 @@ const VehicleCard = React.memo(
     idx,
   }: IVehicleCardProps) => {
     const router = useRouter();
+
+    const { wishlistVehicles, wishlistChange } = useWishlist();
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
     const productPageUrl = formatProductPageUrl(url, derivativeId);
@@ -97,7 +101,14 @@ const VehicleCard = React.memo(
           });
         }}
         compared={isCompared(compareVehicles, data)}
-        onWishlist={() => {}}
+        onWishlist={() =>
+          wishlistChange({
+            ...data,
+            bodyStyle,
+            pageUrl: productPageUrl,
+          })
+        }
+        wished={isWished(wishlistVehicles, data)}
         features={features(data?.keyInformation || [], data?.capId || '', Icon)}
         title={{
           title: '',
