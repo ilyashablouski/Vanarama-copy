@@ -5,11 +5,15 @@ import {
 } from '../../components/CompanyDetailsForm/interfaces';
 import { SaveCompanyDetailsMutation_createUpdateLimitedCompany as ICompany } from '../../../generated/SaveCompanyDetailsMutation';
 import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
+import {
+  GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as ICreditApplication,
+  GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_addresses,
+} from '../../../generated/GetCreditApplicationByOrderUuid';
+
+// ICreditApplication.addresses;
 
 const getAddress = (
-  addresess: {
-    [key: string]: any;
-  },
+  addresess: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_addresses[],
   kind: string,
 ) =>
   addresess?.find((address: { [key: string]: any }) => address.kind === kind);
@@ -95,37 +99,41 @@ export const mapAddress = (data: any) => ({
   startedOn: data?.started_on,
 });
 
-export const mapDefaultValues = (data: {
-  [key: string]: any;
-}): ICompanyDetailsFormValues => {
-  const tradingSince = data.trading_since
-    ? new Date(data?.trading_since)
+export const mapDefaultValues = (
+  data?: ICreditApplication['companyDetailsV2'],
+): ICompanyDetailsFormValues => {
+  const tradingSince = data?.tradingSince
+    ? new Date(data?.tradingSince)
     : undefined;
 
-  const registeredAddress = getAddress(data?.addresses, 'registered');
-  const tradingAddress = getAddress(data?.addresses, 'trading');
+  const registeredAddress = data?.addresses
+    ? getAddress(data?.addresses, 'registered')
+    : {};
+  const tradingAddress = data?.addresses
+    ? getAddress(data?.addresses, 'trading')
+    : {};
 
   return {
     uuid: data?.uuid,
-    companySearchResult: data?.company_search_result
+    companySearchResult: data?.companySearchResult
       ? {
-          addressSnippet: data?.company_search_result?.address_snippet,
-          companyNumber: data?.company_search_result?.company_number,
-          companyStatus: data?.company_search_result?.company_status,
-          dateOfCreation: data?.company_search_result?.date_of_creation,
-          title: data?.company_search_result?.title,
+          addressSnippet: data?.companySearchResult?.address_snippet,
+          companyNumber: data?.companySearchResult?.company_number,
+          companyStatus: data?.companySearchResult?.company_status,
+          dateOfCreation: data?.companySearchResult?.date_of_creation,
+          title: data?.companySearchResult?.title,
         }
       : undefined,
-    companyNumber: data?.business_registration_number,
-    companyName: data?.business_name,
+    companyNumber: data?.businessRegistrationNumber ?? '',
+    companyName: data?.businessName ?? '',
     tradingSinceMonth: (tradingSince?.getMonth() || '').toString(),
     tradingSinceYear: (tradingSince?.getFullYear() || '').toString(),
-    nature: data?.nature_of_business,
-    registeredAddress: registeredAddress && mapAddress(registeredAddress),
+    nature: data?.natureOfBusiness ?? '',
+    registeredAddress: mapAddress(registeredAddress),
     tradingDifferent: !!tradingAddress,
-    tradingAddress: tradingAddress && mapAddress(tradingAddress),
-    email: data?.email_addresses?.[0]?.value,
-    telephone: data?.telephone_numbers?.[0]?.value,
+    tradingAddress: mapAddress(tradingAddress),
+    email: data?.emailAddresses?.[0]?.value ?? '',
+    telephone: data?.telephoneNumbers?.[0]?.value ?? '',
   };
 };
 
