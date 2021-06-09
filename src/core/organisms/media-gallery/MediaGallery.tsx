@@ -28,7 +28,9 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
 
   useEffect(() => {
     const showVideoTab = window?.location?.hash === '#video';
-    if (showVideoTab) setActiveTab(2);
+    if (showVideoTab) {
+      setActiveTab(2);
+    }
   }, []);
 
   // if we have preset slide assign value for actual

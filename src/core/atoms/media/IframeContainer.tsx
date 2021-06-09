@@ -18,7 +18,9 @@ const IframeContainer = ({
 }: IIframeContainer) => {
   const [isThumbnail, setIsThumbnail] = useState(src.includes('youtube'));
   const onLoadPlayerHandler = () => {
-    if (isThumbnail) setIsThumbnail(false);
+    if (isThumbnail) {
+      setIsThumbnail(false);
+    }
   };
   const thumbSrc = useMemo(() => {
     const id = src

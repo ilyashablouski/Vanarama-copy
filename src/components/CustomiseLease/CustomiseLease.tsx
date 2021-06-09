@@ -224,9 +224,13 @@ const CustomiseLease = ({
     const initialRental = quoteByCapId?.leaseCost?.initialRental;
     if (upfront && maintenanceCost && maintenance) {
       const extraPayment = upfront * maintenanceCost;
-      if (initialRental) setInitialPayment(extraPayment + initialRental);
+      if (initialRental) {
+        setInitialPayment(extraPayment + initialRental);
+      }
     }
-    if (!maintenance) setInitialPayment(initialRental);
+    if (!maintenance) {
+      setInitialPayment(initialRental);
+    }
   }, [quoteByCapId, maintenance]);
 
   const isMobile = useMobileViewport();

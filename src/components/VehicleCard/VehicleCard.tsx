@@ -114,7 +114,9 @@ const VehicleCard = React.memo(
                 label: '',
               }}
               onClick={() => {
-                if (idx) onSavePagePosition(idx, router.query);
+                if (idx) {
+                  onSavePagePosition(idx, router.query);
+                }
                 sessionStorage.setItem('capId', data.capId || '');
               }}
               className="heading"
@@ -155,7 +157,9 @@ const VehicleCard = React.memo(
               label: 'View Offer',
             }}
             onClick={() => {
-              if (idx) onSavePagePosition(idx, router.query);
+              if (idx) {
+                onSavePagePosition(idx, router.query);
+              }
               sessionStorage.setItem('capId', data.capId || '');
             }}
             classNames={{ color: 'teal', solid: true, size: 'regular' }}

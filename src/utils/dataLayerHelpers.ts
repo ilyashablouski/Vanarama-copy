@@ -126,8 +126,12 @@ export const pushPageViewEvent = async (path: string, title = '') => {
 };
 
 export const getCategory = ({ cars, pickups }: ICategory): string => {
-  if (pickups) return 'Pickup';
-  if (cars) return 'Car';
+  if (pickups) {
+    return 'Pickup';
+  }
+  if (cars) {
+    return 'Car';
+  }
   return 'Van';
 };
 
@@ -182,7 +186,9 @@ export const pushDetail = (
   value: string | number | null | undefined,
   product?: IProduct,
 ) => {
-  if (value) Object.assign(product, { [field]: `${value}` });
+  if (value) {
+    Object.assign(product, { [field]: `${value}` });
+  }
 };
 
 // const setDataLayer = () => {
@@ -216,7 +222,9 @@ export const pushPageData = async ({
   pageType,
   siteSection,
 }: IPageData) => {
-  if (!window.dataLayer) return;
+  if (!window.dataLayer) {
+    return;
+  }
   // setDataLayer();
   const personData = (await localForage.getItem('person')) as GetPerson | null;
   const personUuid = (await localForage.getItem('personUuid')) as string | null;
@@ -231,7 +239,9 @@ export const pushPageData = async ({
     pathname === '/car-leasing/[dynamicParam]' ||
     pathname === '/van-leasing/[dynamicParam]'
   ) {
-    if (!pageType) return;
+    if (!pageType) {
+      return;
+    }
     data = {
       pageType,
       siteSection,
@@ -346,7 +356,9 @@ export const pushPDPDataLayer = ({
   mileage,
   vehicleValue,
 }: IPDPData) => {
-  if (!window.dataLayer) return;
+  if (!window.dataLayer) {
+    return;
+  }
 
   const data = {
     event: 'detailView',
@@ -556,7 +568,9 @@ export const pushCallBackDataLayer = ({
   category,
   vehicleValue,
 }: IPDPData) => {
-  if (!window.dataLayer) return;
+  if (!window.dataLayer) {
+    return;
+  }
 
   const data = {
     event: 'enquiry',

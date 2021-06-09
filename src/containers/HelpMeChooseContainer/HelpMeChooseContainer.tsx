@@ -49,11 +49,12 @@ const HelpMeChooseContainer: FC<IHelpMeChooseContainer> = ({
   const handleChecked = (checked: IChoice) => {
     let newSelectedData: string[] = [...(currentValue || '')];
     // Add.
-    if (checked.active)
+    if (checked.active) {
       newSelectedData = [
         ...((currentValue as string[]) || ''),
         checked.value as string,
       ];
+    }
     // Remove.
     else {
       newSelectedData = (currentValue as string[]).filter(

@@ -6,7 +6,9 @@ import RouterLink from '../RouterLink/RouterLink';
 import Skeleton from '../Skeleton';
 
 const HeroTitle: React.FC<IHeroTitleProps> = ({ text }) => {
-  if (!text) return <Skeleton count={2} />;
+  if (!text) {
+    return <Skeleton count={2} />;
+  }
 
   return (
     <Text tag="p" size="large" color="white">

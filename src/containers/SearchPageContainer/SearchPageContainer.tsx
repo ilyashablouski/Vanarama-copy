@@ -263,7 +263,9 @@ const SearchPageContainer: React.FC<IProps> = ({
         // @ts-ignore
         behavior: 'instant',
       });
-      if (prevPosition) setPrevPosition(0);
+      if (prevPosition) {
+        setPrevPosition(0);
+      }
     }
     if (pageOffset < document.body.clientHeight) {
       scrollTo();
@@ -316,7 +318,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           setPageData(data);
           setMetaData(data.genericPage.metaData);
           setLastCard('');
-          if (isMakePage || isDynamicFilterPage) setShouldUpdateTopOffers(true);
+          if (isMakePage || isDynamicFilterPage) {
+            setShouldUpdateTopOffers(true);
+          }
         }
       };
       fetchPageData();
@@ -328,7 +332,9 @@ const SearchPageContainer: React.FC<IProps> = ({
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     data => {
       setCardsData(data?.productCard || []);
-      if (prevPosition) setPageOffset(prevPosition);
+      if (prevPosition) {
+        setPageOffset(prevPosition);
+      }
     },
   );
   const [getProductCacheCardData] = useProductCardDataLazyQuery(
@@ -340,8 +346,12 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
 
   const manualBodyStyle = useMemo(() => {
-    if (isPickups) return ['Pickup'];
-    if (isModelPage) return [router.query?.bodyStyles as string];
+    if (isPickups) {
+      return ['Pickup'];
+    }
+    if (isModelPage) {
+      return [router.query?.bodyStyles as string];
+    }
     if (isBodyStylePage) {
       const bodyStyle = (router.query?.dynamicParam as string)
         .replace('-leasing', '')
@@ -412,7 +422,9 @@ const SearchPageContainer: React.FC<IProps> = ({
               ),
             },
             updateQuery: (prev, { fetchMoreResult }) => {
-              if (!fetchMoreResult) return prev;
+              if (!fetchMoreResult) {
+                return prev;
+              }
               vehicles = {
                 vehicleList: {
                   pageInfo: fetchMoreResult.vehicleList.pageInfo,
@@ -444,8 +456,9 @@ const SearchPageContainer: React.FC<IProps> = ({
         if (responseCapIds.length) {
           setVehicleList(vehicles.vehicleList?.edges || []);
           // use range length for manufacture page
-          if (!isMakePage && !isAllMakesPage)
+          if (!isMakePage && !isAllMakesPage) {
             setTotalCount(vehicles.vehicleList.totalCount);
+          }
           getProductCardData({
             variables: {
               capIds: responseCapIds,
@@ -536,8 +549,11 @@ const SearchPageContainer: React.FC<IProps> = ({
     } else {
       let onOffer;
       // set onOffer value to actual depend on page type
-      if (isRangePage || isModelPage || isDynamicFilterPage) onOffer = null;
-      else onOffer = isSpecialOfferPage ? true : isSpecialOffers || null;
+      if (isRangePage || isModelPage || isDynamicFilterPage) {
+        onOffer = null;
+      } else {
+        onOffer = isSpecialOfferPage ? true : isSpecialOffers || null;
+      }
       let fuelTypes;
       if (isFuelPage) {
         fuelTypes = (fuelMapper[
@@ -609,8 +625,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           queryString.set(key, value as string);
         }
       });
-      if (Object.keys(query).length)
+      if (Object.keys(query).length) {
         pathname += `?${decodeURIComponent(queryString.toString())}`;
+      }
       // changing url dynamically
       router.replace(
         {

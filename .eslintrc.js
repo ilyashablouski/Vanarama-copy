@@ -14,6 +14,7 @@ module.exports = {
   ignorePatterns: ['.eslintrc.js'],
   rules: {
     "@typescript-eslint/camelcase": 0,
+    'curly': [2, 'all'],
     'react/react-in-jsx-scope': 0,
     'react/prop-types': 0,
     'react/require-default-props': 0,
