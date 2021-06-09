@@ -39,7 +39,54 @@ export const GET_MY_ORDERS_DATA = gql`
         creditApplications {
           creditApplicationType
           aboutDetails
-          companyDetails
+          companyDetailsV2 {
+            addresses {
+              city
+              country
+              county
+              endedOn
+              kind
+              lineOne
+              lineThree
+              lineTwo
+              postcode
+              propertyStatus
+              serviceId
+              startedOn
+              uuid
+            }
+            annualExpenses
+            annualSalesCost
+            annualTurnover
+            businessName
+            businessRegistrationNumber
+            companySearchResult
+            companyType
+            emailAddresses {
+              kind
+              primary
+              uuid
+              value
+            }
+            monthlyAmountBeingReplaced
+            natureOfBusiness
+            otherCountriesOfActivity
+            partyUuid
+            replaceExistingVehicleFinance
+            sicCode
+            sicIndustry
+            telephoneNumbers {
+              kind
+              primary
+              uuid
+              value
+            }
+            tradesOutsideUk
+            tradingSince
+            turnoverOutsideUk
+            uuid
+            withTradingAddress
+          }
           directorsDetails
           partnersDetails
           soleTraderDetails

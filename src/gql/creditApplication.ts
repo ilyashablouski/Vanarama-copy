@@ -30,7 +30,54 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
         joinedAtYear
         sortCode
       }
-      companyDetails
+      companyDetailsV2 {
+        addresses {
+          city
+          country
+          county
+          endedOn
+          kind
+          lineOne
+          lineThree
+          lineTwo
+          postcode
+          propertyStatus
+          serviceId
+          startedOn
+          uuid
+        }
+        annualExpenses
+        annualSalesCost
+        annualTurnover
+        businessName
+        businessRegistrationNumber
+        companySearchResult
+        companyType
+        emailAddresses {
+          kind
+          primary
+          uuid
+          value
+        }
+        monthlyAmountBeingReplaced
+        natureOfBusiness
+        otherCountriesOfActivity
+        partyUuid
+        replaceExistingVehicleFinance
+        sicCode
+        sicIndustry
+        telephoneNumbers {
+          kind
+          primary
+          uuid
+          value
+        }
+        tradesOutsideUk
+        tradingSince
+        turnoverOutsideUk
+        uuid
+        withTradingAddress
+      }
       vatDetails
       soleTraderDetails
       directorsDetails
@@ -129,7 +176,54 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
         joinedAtYear
         sortCode
       }
-      companyDetails
+      companyDetailsV2 {
+        addresses {
+          city
+          country
+          county
+          endedOn
+          kind
+          lineOne
+          lineThree
+          lineTwo
+          postcode
+          propertyStatus
+          serviceId
+          startedOn
+          uuid
+        }
+        annualExpenses
+        annualSalesCost
+        annualTurnover
+        businessName
+        businessRegistrationNumber
+        companySearchResult
+        companyType
+        emailAddresses {
+          kind
+          primary
+          uuid
+          value
+        }
+        monthlyAmountBeingReplaced
+        natureOfBusiness
+        otherCountriesOfActivity
+        partyUuid
+        replaceExistingVehicleFinance
+        sicCode
+        sicIndustry
+        telephoneNumbers {
+          kind
+          primary
+          uuid
+          value
+        }
+        tradesOutsideUk
+        tradingSince
+        turnoverOutsideUk
+        uuid
+        withTradingAddress
+      }
       vatDetails
       soleTraderDetails
       directorsDetails
@@ -198,7 +292,7 @@ const responseMock = {
       sortCode: '019387',
     },
   ],
-  companyDetails: null,
+  companyDetailsV2: null,
   vatDetails: 'vatDetails',
   soleTraderDetails: 'soleTraderDetails',
   directorsDetails: 'directorsDetails',
