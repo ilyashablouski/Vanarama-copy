@@ -77,7 +77,7 @@ const SoleTraderSummaryForm: FCWithFragments<IProps> = ({
     additionalParameters?: { [key: string]: string },
   ) => () => {
     const params = getUrlParam({
-      redirect: 'summary',
+      redirect: router.asPath,
       ...additionalParameters,
     });
     const href = `${url}${params}`;
