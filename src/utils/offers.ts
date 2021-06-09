@@ -117,20 +117,24 @@ export function getCarDerivatives(
   vehicleType: VehicleTypeEnum,
   ids: string[],
 ) {
-  if (ids[0]) {
-    return client
-      .query<GetDerivatives, GetDerivativesVariables>({
-        query: GET_CAR_DERIVATIVES,
-        variables: {
-          vehicleType,
-          ids,
-        },
-      })
-      .then(resp => ({
-        data: resp.data,
-      }));
-  }
-  return { data: undefined };
+  return client
+    .query<GetDerivatives, GetDerivativesVariables>({
+      query: GET_CAR_DERIVATIVES,
+      variables: {
+        vehicleType,
+        ids,
+      },
+    })
+    .then(resp => ({
+      data: resp.data,
+    }))
+    .catch(err => {
+      // eslint-disable-next-line no-console
+      console.log('Error:', err);
+      return {
+        data: undefined,
+      };
+    });
 }
 
 export const evOffersRequest = async (
