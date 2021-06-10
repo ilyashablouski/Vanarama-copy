@@ -167,8 +167,12 @@ const FiltersContainer = ({
       .filter(({ order, value }) => value?.length > 0 && order !== undefined);
     // prevented useless updates
     // check for empty array used for prevent cases when initial render don't call a request
-    if (!isArraySame(selected, selectedFilterTags) || !selected.length)
+    const arrayIsEqaul =
+      JSON.stringify(selected.sort((a, b) => a.order - b.order)) ===
+      JSON.stringify(selectedFilterTags.sort((a, b) => a.order - b.order));
+    if (!arrayIsEqaul || !selected.length) {
       setSelectedFilterTags(selected);
+    }
     // can't to add selectedFilterTags to deps, because it have circular dependency with selectedFiltersState
     // TODO: try to resolve circular dependency
     // eslint-disable-next-line react-hooks/exhaustive-deps
