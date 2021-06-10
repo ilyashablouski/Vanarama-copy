@@ -253,6 +253,10 @@ export const PickupsPage: NextPage<IProps> = ({
               getLegacyUrl(vehicleListUrlData.edges, item?.capId),
               item?.capId,
             );
+            const extendedProductData = item
+              ? { ...item, bodyStyle: 'Pickup', pageUrl: productUrl }
+              : null;
+
             return (
               <LazyLoadComponent
                 key={item?.capId || idx}
@@ -275,15 +279,10 @@ export const PickupsPage: NextPage<IProps> = ({
                     item?.imageUrl ||
                     `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
                   }
-                  onCompare={() => {
-                    compareChange(
-                      item
-                        ? { ...item, bodyStyle: 'Pickup', pageUrl: productUrl }
-                        : null,
-                    );
-                  }}
+                  wished={isWished(wishlistVehicles, item)}
                   compared={isCompared(compareVehicles, item)}
-                  onWishlist={() => true}
+                  onCompare={() => compareChange(extendedProductData)}
+                  onWishlist={() => wishlistChange(extendedProductData)}
                   title={{
                     title: '',
                     link: (

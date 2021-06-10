@@ -3,6 +3,7 @@ import { useReactiveVar } from '@apollo/client';
 
 import { wishlistVar } from '../cache';
 import { IWishlistProductType } from '../models/IWishlistTypes';
+import { Nullish } from '../types/common';
 import {
   isWished,
   getLocalWishlistState,
@@ -40,7 +41,11 @@ export default function useWishlist() {
     });
   }
 
-  function wishlistChange(product: IWishlistProductType) {
+  function wishlistChange(product: Nullish<IWishlistProductType>) {
+    if (!product) {
+      return;
+    }
+
     const newState = isWished(wishlistVehicles, product)
       ? removeFromWishlist(product)
       : addToWishlist(product);
