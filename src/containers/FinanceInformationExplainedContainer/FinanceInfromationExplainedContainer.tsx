@@ -57,7 +57,7 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
   );
 
   const getQuestions = (type?: string) => {
-    if (!type)
+    if (!type) {
       return [
         {
           id: '',
@@ -65,6 +65,7 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
           children: <></>,
         },
       ];
+    }
     const sets = faqs?.questionSets?.find(
       questionSet => questionSet?.title === type,
     );

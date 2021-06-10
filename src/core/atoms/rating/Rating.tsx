@@ -38,7 +38,9 @@ const Rating: FC<IRatingProps> = memo(props => {
     onClick,
   } = props;
 
-  if (!max) return null;
+  if (!max) {
+    return null;
+  }
 
   let value = Number(score);
   let i;
@@ -67,7 +69,9 @@ const Rating: FC<IRatingProps> = memo(props => {
   }
 
   // Empty.
-  if (value && value > 0 && !Number.isInteger(value)) value += 1;
+  if (value && value > 0 && !Number.isInteger(value)) {
+    value += 1;
+  }
   for (i = 0; i < Math.ceil(max - value); i += 1) {
     const rate = items.length + 1;
     items.push(

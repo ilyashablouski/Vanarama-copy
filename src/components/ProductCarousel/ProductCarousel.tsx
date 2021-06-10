@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import Carousel from 'core/organisms/carousel';
 import ProductCard from 'core/molecules/cards/ProductCard/ProductCard';
 import { useMediaQuery } from 'react-responsive';
+import { isWished } from '../../utils/wishlistHelpers';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -15,6 +16,7 @@ import {
 import truncateString from '../../utils/truncateString';
 // import useSliderProperties from '../../hooks/useSliderProperties';
 import { features } from './helpers';
+import useWishlist from '../../hooks/useWishlist';
 
 // Dynamic component loading.
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -45,6 +47,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
 }) => {
   // const { slidesToShow } = useSliderProperties();
 
+  const { wishlistVehicles, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   const getBodyStyle = (product: GetProductCard_productCard | null) => {
@@ -114,7 +117,17 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
               }
               placeholderImage={`${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`}
-              onWishlist={() => true}
+              onWishlist={() =>
+                wishlistChange({
+                  pageUrl: formatProductPageUrl(
+                    getLegacyUrl(data?.vehicleList?.edges, product.capId),
+                    product.capId,
+                  ),
+                  bodyStyle: productType || getBodyStyle(product),
+                  ...product,
+                })
+              }
+              wished={isWished(wishlistVehicles, product)}
               title={{
                 title: '',
                 link: (

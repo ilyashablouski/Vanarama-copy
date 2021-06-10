@@ -111,7 +111,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         />
         <BusinessSummaryFormDetailsSection
           company={company}
-          onEdit={handleEdit('/b2b/olaf/company-details/[personUuid]', {
+          onEdit={handleEdit('/b2b/olaf/company-details', {
             companyUuid: company.uuid,
           })}
         />

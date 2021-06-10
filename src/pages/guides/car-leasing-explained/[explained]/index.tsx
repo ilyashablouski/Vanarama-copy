@@ -33,9 +33,11 @@ const FinanceInfo: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
     ['featuredImage', 'file', 'url'],
     data?.genericPage,
   );
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems =
+    Array.isArray(metaData?.breadcrumbs) &&
+    metaData?.breadcrumbs.map((el: any) => ({
+      link: { href: el.href || '', label: el.label },
+    }));
 
   return (
     <>
