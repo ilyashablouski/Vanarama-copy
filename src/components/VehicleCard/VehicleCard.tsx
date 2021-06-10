@@ -75,6 +75,12 @@ const VehicleCard = React.memo(
       borderColor: customCTAColor,
     };
 
+    const extendedProductData = {
+      ...data,
+      bodyStyle,
+      pageUrl: productPageUrl,
+    };
+
     return (
       <Card
         loadImage={loadImage}
@@ -87,22 +93,10 @@ const VehicleCard = React.memo(
           accentText: data?.isOnOffer ? 'Hot Offer' : '',
           text: data?.leadTime || '',
         }}
-        onCompare={() => {
-          compareChange({
-            ...data,
-            bodyStyle,
-            pageUrl: productPageUrl,
-          });
-        }}
-        compared={isCompared(compareVehicles, data)}
-        onWishlist={() =>
-          wishlistChange({
-            ...data,
-            bodyStyle,
-            pageUrl: productPageUrl,
-          })
-        }
         wished={isWished(wishlistVehicles, data)}
+        compared={isCompared(compareVehicles, data)}
+        onCompare={() => compareChange(extendedProductData)}
+        onWishlist={() => wishlistChange(extendedProductData)}
         features={features(data?.keyInformation || [], data?.capId || '', Icon)}
         title={{
           title: '',
