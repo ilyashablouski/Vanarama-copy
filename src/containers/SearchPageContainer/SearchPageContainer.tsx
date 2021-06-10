@@ -632,6 +632,8 @@ const SearchPageContainer: React.FC<IProps> = ({
     }
   }, []);
 
+
+
   useFirstRenderEffect(() => {
     onSearch();
     setLastCard('');
