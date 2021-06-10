@@ -28,7 +28,9 @@ import {
 import truncateString from '../../../utils/truncateString';
 import { useModelImages } from '../../SearchPageContainer/gql';
 import { CompareContext } from '../../../utils/comparatorTool';
+import { isWished } from '../../../utils/wishlistHelpers';
 import { isCompared } from '../../../utils/comparatorHelpers';
+import useWishlist from '../../../hooks/useWishlist';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import { HelpMeChoose_helpMeChoose_vehicles as Vehicles } from '../../../../generated/HelpMeChoose';
 
@@ -93,6 +95,7 @@ interface IHelpMeChooseResult extends HelpMeChooseStep {
 
 const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
   const router = useRouter();
+  const { wishlistVehicles, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
   const {
     setSteps,
@@ -287,52 +290,86 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
         </Heading>
         <div className="stepped-form--results">
           {!!resultsData?.length &&
-            resultsData?.slice().map((el: Vehicles, id: number) => (
-              <div key={`${el.derivativeId || 0 + id}`}>
-                <ProductCard
-                  header={
-                    el.onOffer && el.availability
-                      ? {
-                          text: AVAILABILITY_LABELS[el.availability],
-                          accentIcon: <Icon icon={<Flame />} color="white" />,
-                          accentText: el.onOffer ? 'Hot Offer' : '',
-                        }
-                      : undefined
-                  }
-                  className="-compact"
-                  inline
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  imageSrc={
-                    imageData?.vehicleImages?.find(
-                      x => x?.capId === parseInt(el.derivativeId || '', 10),
-                    )?.mainImageUrl ||
-                    `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                  }
-                  onCompare={() => {
-                    compareChange(
-                      formatForCompare(
-                        el,
-                        steps.financeTypes.value as any,
-                        imageData?.vehicleImages?.find(
-                          x => x?.capId === parseInt(el.derivativeId || '', 10),
-                        )?.mainImageUrl || '',
-                      ),
-                    );
-                  }}
-                  compared={isCompared(
-                    compareVehicles,
-                    formatForCompare(
-                      el,
-                      steps.financeTypes.value as any,
+            resultsData?.slice().map((el: Vehicles, id: number) => {
+              const formattedProductData = formatForCompare(
+                el,
+                steps.financeTypes.value as any,
+                imageData?.vehicleImages?.find(
+                  x => x?.capId === parseInt(el.derivativeId || '', 10),
+                )?.mainImageUrl || '',
+              );
+
+              return (
+                <div key={`${el.derivativeId || 0 + id}`}>
+                  <ProductCard
+                    header={
+                      el.onOffer && el.availability
+                        ? {
+                            text: AVAILABILITY_LABELS[el.availability],
+                            accentIcon: <Icon icon={<Flame />} color="white" />,
+                            accentText: el.onOffer ? 'Hot Offer' : '',
+                          }
+                        : undefined
+                    }
+                    className="-compact"
+                    inline
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    imageSrc={
                       imageData?.vehicleImages?.find(
                         x => x?.capId === parseInt(el.derivativeId || '', 10),
-                      )?.mainImageUrl || '',
-                    ),
-                  )}
-                  onWishlist={() => true}
-                  title={{
-                    title: '',
-                    link: (
+                      )?.mainImageUrl ||
+                      `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+                    }
+                    wished={isWished(wishlistVehicles, formattedProductData)}
+                    compared={isCompared(compareVehicles, formattedProductData)}
+                    onCompare={() => compareChange(formattedProductData)}
+                    onWishlist={() => wishlistChange(formattedProductData)}
+                    title={{
+                      title: '',
+                      link: (
+                        <RouterLink
+                          link={{
+                            href: el.lqUrl
+                              ? `${el.lqUrl}?leaseType=${
+                                  steps.financeTypes.value
+                                }&mileage=${steps.mileages.value[0] ||
+                                  el.mileage}&term=${steps.terms.value[0] ||
+                                  el.term}&upfront=${initialPeriods}`
+                              : el.url || '',
+                            label: '',
+                            query: {
+                              leaseType: steps.financeTypes.value,
+                              mileage: steps.mileages.value[0] || el.mileage,
+                              term: steps.terms.value[0] || el.term,
+                              upfront: initialPeriods,
+                            },
+                          }}
+                          className="heading"
+                          classNames={{ size: 'large', color: 'black' }}
+                        >
+                          <Heading tag="span" size="large" className="-pb-100">
+                            {truncateString(
+                              `${el.manufacturerName} ${el.modelName}`,
+                            )}
+                          </Heading>
+                          <Heading tag="span" size="small" color="dark">
+                            {el.derivativeName || ''}
+                          </Heading>
+                        </RouterLink>
+                      ),
+                    }}
+                  >
+                    <div className="-flex-h">
+                      <Price
+                        price={el.rental}
+                        size="large"
+                        separator="."
+                        priceDescription={`Per Month ${
+                          (steps.financeTypes.value[0] as any) === 'PCH'
+                            ? 'Inc.VAT'
+                            : 'Exc.VAT'
+                        }`}
+                      />
                       <RouterLink
                         link={{
                           href: el.lqUrl
@@ -342,7 +379,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                                 el.mileage}&term=${steps.terms.value[0] ||
                                 el.term}&upfront=${initialPeriods}`
                             : el.url || '',
-                          label: '',
+                          label: 'View Offer',
                           query: {
                             leaseType: steps.financeTypes.value,
                             mileage: steps.mileages.value[0] || el.mileage,
@@ -350,63 +387,21 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                             upfront: initialPeriods,
                           },
                         }}
-                        className="heading"
-                        classNames={{ size: 'large', color: 'black' }}
+                        classNames={{
+                          color: 'teal',
+                          solid: true,
+                          size: 'regular',
+                        }}
+                        className="button"
+                        dataTestId="view-offer"
                       >
-                        <Heading tag="span" size="large" className="-pb-100">
-                          {truncateString(
-                            `${el.manufacturerName} ${el.modelName}`,
-                          )}
-                        </Heading>
-                        <Heading tag="span" size="small" color="dark">
-                          {el.derivativeName || ''}
-                        </Heading>
+                        <div className="button--inner">View Offer</div>
                       </RouterLink>
-                    ),
-                  }}
-                >
-                  <div className="-flex-h">
-                    <Price
-                      price={el.rental}
-                      size="large"
-                      separator="."
-                      priceDescription={`Per Month ${
-                        (steps.financeTypes.value[0] as any) === 'PCH'
-                          ? 'Inc.VAT'
-                          : 'Exc.VAT'
-                      }`}
-                    />
-                    <RouterLink
-                      link={{
-                        href: el.lqUrl
-                          ? `${el.lqUrl}?leaseType=${
-                              steps.financeTypes.value
-                            }&mileage=${steps.mileages.value[0] ||
-                              el.mileage}&term=${steps.terms.value[0] ||
-                              el.term}&upfront=${initialPeriods}`
-                          : el.url || '',
-                        label: 'View Offer',
-                        query: {
-                          leaseType: steps.financeTypes.value,
-                          mileage: steps.mileages.value[0] || el.mileage,
-                          term: steps.terms.value[0] || el.term,
-                          upfront: initialPeriods,
-                        },
-                      }}
-                      classNames={{
-                        color: 'teal',
-                        solid: true,
-                        size: 'regular',
-                      }}
-                      className="button"
-                      dataTestId="view-offer"
-                    >
-                      <div className="button--inner">View Offer</div>
-                    </RouterLink>
-                  </div>
-                </ProductCard>
-              </div>
-            ))}
+                    </div>
+                  </ProductCard>
+                </div>
+              );
+            })}
         </div>
         <div className="button-group">
           {!!vehiclesResultNumber &&
