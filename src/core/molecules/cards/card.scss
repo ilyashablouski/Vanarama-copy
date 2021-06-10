@@ -644,6 +644,9 @@ $small: 0.875rem;
       @include tablet-desktop {
         padding: 26px 10px 12px 20px;
       }
+      @include tablet {
+        padding-left: 16px;
+      }
       .heading {
         margin-bottom: 20px;
       }

@@ -135,7 +135,7 @@ function WishlistPageContainer({
         ) : (
           <div className="wishlist">
             <section className="row:cards-1col">
-              <div className="card -flex-h -h-300">
+              <div className="card -message -flex-h">
                 <div className="row:lead-text -m-300">
                   <Text className="-semi-b" size="lead" color="darker">
                     Your wishlist is empty right now.
