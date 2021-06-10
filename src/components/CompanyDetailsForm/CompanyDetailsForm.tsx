@@ -59,7 +59,7 @@ const CompanyDetailsForm: React.FC<IProps> = ({
 
   useEffect(() => {
     // prefill form with data from credit application
-    if (company && !companySearchResult) {
+    if (company && companySearchResult) {
       methods.reset(company);
       setSelectedCompanyData(company?.companySearchResult);
       setHasConfirmedCompany(true);
