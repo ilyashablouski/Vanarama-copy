@@ -281,7 +281,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   useEffect(() => {
     const partnerActive = getPartnerProperties();
     if (partnerActive) {
-      onSearch();
       setPartnershipActive(true);
       setCustomCTAColor(getPartnerProperties().color);
       if (partnerActive.slug === 'OVO') {
@@ -625,6 +624,13 @@ const SearchPageContainer: React.FC<IProps> = ({
       setFiltersData(filters);
     }
   };
+
+  // if on partnership render new search results with custom variables
+  useEffect(() => {
+    if (getPartnerProperties()?.fuelTypes) {
+      onSearch();
+    }
+  }, [])
 
   useFirstRenderEffect(() => {
     onSearch();

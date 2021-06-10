@@ -2,7 +2,6 @@ import React, { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { IChoice } from 'core/atoms/choiceboxes/interfaces';
 import useMediaQuery from '../../hooks/useMediaQuery';
-import { isArraySame } from '../../utils/helpers';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import {
   IChoiceBoxesData,
