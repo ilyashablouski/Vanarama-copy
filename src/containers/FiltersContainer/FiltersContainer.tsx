@@ -13,6 +13,7 @@ import {
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import Skeleton from '../../components/Skeleton';
 import { getValueKey } from './helpers';
+import { arrayIsEqual } from '../../utils/helpers';
 
 const SearchFilters = dynamic(() => import('core/organisms/search-filters'), {
   loading: () => <Skeleton count={1} />,
@@ -166,10 +167,10 @@ const FiltersContainer = ({
       .filter(({ order, value }) => value?.length > 0 && order !== undefined);
     // prevented useless updates
     // check for empty array used for prevent cases when initial render don't call a request
-    const arrayIsEqaul =
-      JSON.stringify(selected.sort((a, b) => a.order - b.order)) ===
-      JSON.stringify(selectedFilterTags.sort((a, b) => a.order - b.order));
-    if (!arrayIsEqaul || !selected.length) {
+    if (
+      !arrayIsEqual(selected, selectedFilterTags, 'order') ||
+      !selected.length
+    ) {
       setSelectedFilterTags(selected);
     }
     // can't to add selectedFilterTags to deps, because it have circular dependency with selectedFiltersState
