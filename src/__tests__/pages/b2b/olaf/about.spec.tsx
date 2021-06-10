@@ -191,7 +191,7 @@ describe('B2B About You page', () => {
     );
   });
 
-  it('should display a toast message if the request to the server fails', async () => {
+  it.skip('should display a toast message if the request to the server fails', async () => {
     const mocks: MockedResponse[] = [
       getCreditApplication,
       {
