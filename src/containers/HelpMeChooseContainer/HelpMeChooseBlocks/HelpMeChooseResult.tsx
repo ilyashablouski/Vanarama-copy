@@ -22,6 +22,7 @@ import { getSectionsData } from '../../../utils/getSectionsData';
 import {
   buildAnObjectFromAQuery,
   formatForCompare,
+  formatForWishlist,
   initialSteps,
   onReplace,
 } from '../helpers';
@@ -291,7 +292,14 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
         <div className="stepped-form--results">
           {!!resultsData?.length &&
             resultsData?.slice().map((el: Vehicles, id: number) => {
-              const formattedProductData = formatForCompare(
+              const formattedCompareProductData = formatForCompare(
+                el,
+                steps.financeTypes.value as any,
+                imageData?.vehicleImages?.find(
+                  x => x?.capId === parseInt(el.derivativeId || '', 10),
+                )?.mainImageUrl || '',
+              );
+              const formattedWishlistProductData = formatForWishlist(
                 el,
                 steps.financeTypes.value as any,
                 imageData?.vehicleImages?.find(
@@ -320,10 +328,20 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                       )?.mainImageUrl ||
                       `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
                     }
-                    wished={isWished(wishlistVehicles, formattedProductData)}
-                    compared={isCompared(compareVehicles, formattedProductData)}
-                    onCompare={() => compareChange(formattedProductData)}
-                    onWishlist={() => wishlistChange(formattedProductData)}
+                    wished={isWished(
+                      wishlistVehicles,
+                      formattedWishlistProductData,
+                    )}
+                    compared={isCompared(
+                      compareVehicles,
+                      formattedCompareProductData,
+                    )}
+                    onCompare={() => {
+                      compareChange(formattedCompareProductData);
+                    }}
+                    onWishlist={() => {
+                      wishlistChange(formattedWishlistProductData);
+                    }}
                     title={{
                       title: '',
                       link: (
