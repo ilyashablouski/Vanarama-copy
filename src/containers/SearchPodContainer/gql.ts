@@ -47,7 +47,7 @@ export function useFilterList(
   onCompleted: (data: IFilterList) => void = data => data,
   filters = {},
   skip = false,
-  fuelTypes: string[],
+  fuelTypes?: string[],
 ) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
   return useQuery(GET_SEARCH_POD_DATA, {
