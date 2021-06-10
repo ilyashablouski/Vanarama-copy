@@ -1,4 +1,25 @@
 .wishlist {
+  .card.-message {
+    height: 19rem;
+
+    @include mobile {
+      height: 14rem;
+    }
+
+    .text,
+    .heading {
+      text-align: center;
+    }
+  }
+
+  .card.-vehicle-type {
+    .hot-offer {
+      @include mobile-tablet {
+        font-size: 14px;
+      }
+    }
+  }
+
   .card.-skeleton {
     grid-template-rows: 1fr;
 
