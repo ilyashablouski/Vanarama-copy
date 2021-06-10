@@ -630,7 +630,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (getPartnerProperties()?.fuelTypes) {
       onSearch();
     }
-  }, [])
+  }, []);
 
   useFirstRenderEffect(() => {
     onSearch();
