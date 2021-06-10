@@ -64,7 +64,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
       ?.lineItem?.vehicleProduct?.funderId;
   const companyTypeLabel =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
-      ?.aboutDetails?.company_type;
+      ?.aboutDetailsV2?.companyType;
   const companyType = useMemo(
     () =>
       companyTypeLabel === CompanyTypes.limited
