@@ -110,7 +110,7 @@ function WishlistPageContainer({
                 >
                   <WishlistProductCard
                     data={item}
-                    isPersonalPrice={false}
+                    isPersonalPrice
                     bodyStyle={item.bodyStyle}
                     url={item.pageUrl?.url ?? ''}
                     title={{
