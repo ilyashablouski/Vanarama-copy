@@ -290,6 +290,7 @@ export interface CreditApplicationInputObject {
   orderUuid: string;
   partnersDetails?: any | null;
   soleTraderDetails?: any | null;
+  soleTraderDetailsV2?: SoleTraderDetailV2InputObject | null;
   status?: string | null;
   submittedAt?: any | null;
   vatDetails?: any | null;
@@ -624,6 +625,7 @@ export interface PersonV2InputObject {
   emailConsent?: boolean | null;
   firstName: string;
   gender?: string | null;
+  incomeAndExpense?: IncomeAndExpenseV2InputObject | null;
   isApplicant?: boolean | null;
   isDirector?: boolean | null;
   jobTitle?: string | null;
@@ -634,6 +636,7 @@ export interface PersonV2InputObject {
   nationality?: string | null;
   noOfAdultsInHousehold?: string | null;
   noOfDependants?: string | null;
+  occupation?: string | null;
   originalFirstName?: string | null;
   originalLastName?: string | null;
   partyUuid?: string | null;
@@ -707,6 +710,14 @@ export interface SoleTraderCompanyInputObject {
   uuid?: string | null;
   vatNumber?: string | null;
   vehicleRegistrationNumber?: string | null;
+}
+
+/**
+ * Input object to create/update sole traders
+ */
+export interface SoleTraderDetailV2InputObject {
+  associate?: PersonV2InputObject | null;
+  uuid?: string | null;
 }
 
 /**

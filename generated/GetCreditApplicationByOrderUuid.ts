@@ -20,6 +20,61 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_ba
   sortCode: string | null;
 }
 
+export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_addresses {
+  city: string;
+  country: string | null;
+  county: string | null;
+  endedOn: any | null;
+  kind: string | null;
+  lineOne: string;
+  lineThree: string | null;
+  lineTwo: string | null;
+  postcode: string;
+  propertyStatus: string | null;
+  serviceId: string | null;
+  startedOn: any | null;
+  uuid: string | null;
+}
+
+export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_emailAddresses {
+  kind: string | null;
+  primary: boolean | null;
+  uuid: string | null;
+  value: string | null;
+}
+
+export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_telephoneNumbers {
+  kind: string | null;
+  primary: boolean | null;
+  uuid: string | null;
+  value: string | null;
+}
+
+export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2 {
+  addresses: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_addresses[] | null;
+  annualExpenses: number | null;
+  annualSalesCost: number | null;
+  annualTurnover: number | null;
+  businessName: string | null;
+  businessRegistrationNumber: string | null;
+  companySearchResult: any | null;
+  companyType: string | null;
+  emailAddresses: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_emailAddresses[] | null;
+  monthlyAmountBeingReplaced: number | null;
+  natureOfBusiness: string | null;
+  otherCountriesOfActivity: string[] | null;
+  partyUuid: string | null;
+  replaceExistingVehicleFinance: boolean | null;
+  sicCode: string | null;
+  sicIndustry: string | null;
+  telephoneNumbers: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_telephoneNumbers[] | null;
+  tradesOutsideUk: boolean | null;
+  tradingSince: any | null;
+  turnoverOutsideUk: number | null;
+  uuid: string | null;
+  withTradingAddress: boolean | null;
+}
+
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem_creditApplications {
   uuid: string;
 }
@@ -58,7 +113,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid {
   addresses: any | null;
   aboutDetails: any | null;
   bankAccountsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_bankAccountsV2[] | null;
-  companyDetails: any | null;
+  companyDetailsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2 | null;
   vatDetails: any | null;
   soleTraderDetails: any | null;
   directorsDetails: any | null;
