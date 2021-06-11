@@ -34,6 +34,7 @@ import {
 import { dynamicQueryTypeCheck } from '../../containers/SearchPageContainer/helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { ISearchPageFiltersProps } from './interfaces';
+import { getPartnerProperties } from '../../utils/partnerProperties';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -113,6 +114,16 @@ const SearchPageFilters = ({
     [selectedFiltersState],
   );
 
+  const [isPartnership, setIsPartnership] = useState(false);
+  const [filterFuelTypes, setFilterFuelTypes] = useState([]);
+
+  useEffect(() => {
+    if (getSessionStorage('partnershipSessionActive')) {
+      setIsPartnership(true);
+      setFilterFuelTypes(getPartnerProperties()?.fuelTypes || []);
+    }
+  }, []);
+
   const { refetch } = useFilterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isMakePage ||
@@ -131,6 +142,8 @@ const SearchPageFilters = ({
       return resp;
     },
     !!preLoadFilters,
+    undefined,
+    filterFuelTypes,
   );
   /** start new search */
   const onViewResults = (onlyFiltersUpdate = false) => {
@@ -161,14 +174,6 @@ const SearchPageFilters = ({
       }
     });
   };
-
-  const [isPartnership, setIsPartnership] = useState(false);
-
-  useEffect(() => {
-    if (getSessionStorage('partnershipSessionActive')) {
-      setIsPartnership(true);
-    }
-  }, []);
 
   useEffect(() => {
     // if we have query parameters filters should be preselected
