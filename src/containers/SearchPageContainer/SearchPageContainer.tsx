@@ -39,6 +39,7 @@ import {
   onMadeLineBreaks,
   RESULTS_PER_REQUEST,
   sortObjectGenerator,
+  sortValues,
   ssrCMSQueryExecutor,
 } from './helpers';
 import {
@@ -65,13 +66,13 @@ import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../ge
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
-import SortOrder from './SortOrder';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import TilesBlock from './TilesBlock';
 import ResultsContainer from './ResultsContainer';
 import CommonDescriptionContainer from './CommonDescriptionContainer';
 import ReadMoreBlock from './ReadMoreBlock';
 import { FilterFields } from '../FiltersContainer/config';
+import SortOrder from '../../components/SortOrder';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
@@ -1070,8 +1071,9 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Text>
           {!(isAllMakesPage || isMakePage) && (
             <SortOrder
-              isSpecialOffersOrder={isSpecialOffersOrder}
+              sortValues={sortValues}
               sortOrder={sortOrder[0]}
+              isSpecialOffersOrder={isSpecialOffersOrder}
               onChangeSortOrder={onChangeSortOrder}
             />
           )}
