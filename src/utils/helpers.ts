@@ -171,8 +171,16 @@ export const getOrderList = ({
   return orderList;
 };
 
-export const isArraySame = (first: any[], second: any[]) =>
-  first.length === second.length &&
-  first.sort().every((value, index) => {
-    return value === second.map(item => item.value).sort()[index];
-  });
+export const arrayIsEqual = (
+  first: any[],
+  second: any[],
+  sortByKey?: string,
+) => {
+  let firstArray = first.sort();
+  let secondArray = second.sort();
+  if (sortByKey) {
+    firstArray = first.sort((a, b) => a[sortByKey] - b[sortByKey]);
+    secondArray = second.sort((a, b) => a[sortByKey] - b[sortByKey]);
+  }
+  return JSON.stringify(firstArray) === JSON.stringify(secondArray);
+};

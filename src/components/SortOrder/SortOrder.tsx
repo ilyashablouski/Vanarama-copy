@@ -1,17 +1,20 @@
 import React from 'react';
+
 import Select from 'core/atoms/select';
-import { sortValues } from './helpers';
+
 import { SortObject } from '../../../generated/globalTypes';
 
 interface IProps {
-  isSpecialOffersOrder: boolean;
   sortOrder: SortObject;
+  sortValues: Array<{ text: string; value: string }>;
+  isSpecialOffersOrder: boolean;
   onChangeSortOrder: (value: string) => void;
 }
 
 const SortOrder = ({
-  isSpecialOffersOrder,
   sortOrder,
+  sortValues,
+  isSpecialOffersOrder,
   onChangeSortOrder,
 }: IProps) => {
   return (
