@@ -12,7 +12,7 @@ export const formValuesToInputCreditApplication = (
     employmentHistories: creditApp.employmentHistories,
     incomeAndExpenses: creditApp.incomeAndExpenses,
     leadManagerProposalId: creditApp.leadManagerProposalId,
-    aboutDetails: creditApp.aboutDetails,
+    aboutDetailsV2: creditApp.aboutDetailsV2,
     companyDetailsV2: creditApp.companyDetailsV2,
     vatDetails: creditApp.vatDetails,
     directorsDetails: creditApp.directorsDetails,
