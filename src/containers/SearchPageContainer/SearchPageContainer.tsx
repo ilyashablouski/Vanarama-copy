@@ -560,7 +560,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         fuelTypes = (fuelMapper[
           router.query.dynamicParam as keyof typeof fuelMapper
         ] as string).split(',');
-      } else if (filters.fuelTypes.length > 0) {
+      } else if (filters?.fuelTypes?.length > 0) {
         fuelTypes = filters.fuelTypes;
       } else {
         fuelTypes = getPartnerProperties()?.fuelTypes;
@@ -642,6 +642,13 @@ const SearchPageContainer: React.FC<IProps> = ({
       setFiltersData(filters);
     }
   };
+
+  // if on partnership render new search results with custom variables
+  useEffect(() => {
+    if (getPartnerProperties()?.fuelTypes) {
+      onSearch();
+    }
+  }, []);
 
   useFirstRenderEffect(() => {
     onSearch();
