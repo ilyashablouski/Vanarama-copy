@@ -103,10 +103,10 @@ function WishlistPageContainer({
           {pageTitle}
         </Heading>
       </div>
-      <div className="row:bg-lighter -thin -pv-500">
+      <div className="row:bg-lighter wishlist -thin -pv-500">
         {!personLoggedIn && <WishlistRegistration className="-mb-500" />}
         {sortedProductList.length ? (
-          <div className="row:results wishlist">
+          <div className="row:results">
             <Text color="darker" size="regular" tag="span">
               Showing {wishlistVehicles.length} Vehicles
             </Text>
@@ -117,7 +117,7 @@ function WishlistPageContainer({
               onChangeSortOrder={handleChangeSortOrder}
             />
             <section className="row:cards-3col">
-              {sortedProductList.slice(0, cardsPerPage).map((card, index) => {
+              {sortedProductList.map((card, index) => {
                 const cardUrl = card.pageUrl?.url ?? '';
                 const cardTitle = {
                   title: `${card.manufacturerName} ${card.modelName}`,
@@ -164,7 +164,7 @@ function WishlistPageContainer({
             )}
           </div>
         ) : (
-          <div className="row wishlist">
+          <div className="row">
             <WishlistEmptyMessage className="-mb-400" />
             <section className="row:cards-3col">
               {cardList.map(card => (
