@@ -118,7 +118,7 @@ function WishlistPageContainer({
               onChangeSortOrder={handleChangeSortOrder}
             />
             <section className="row:cards-3col">
-              {sortedProductList.map((card, index) => {
+              {sortedProductList.slice(0, cardsPerPage).map((card, index) => {
                 const cardUrl = card.pageUrl?.url ?? '';
                 const cardTitle = {
                   title: `${card.manufacturerName} ${card.modelName}`,
