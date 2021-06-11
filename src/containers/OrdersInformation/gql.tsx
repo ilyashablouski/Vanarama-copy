@@ -172,7 +172,117 @@ export const GET_MY_ORDERS_DATA = gql`
             uuid
             withTradingAddress
           }
-          directorsDetails
+          directorsDetailsV2 {
+            directors {
+              addresses {
+                city
+                country
+                county
+                endedOn
+                kind
+                lineOne
+                lineThree
+                lineTwo
+                postcode
+                propertyStatus
+                serviceId
+                startedOn
+                uuid
+              }
+              businessShare
+              cognitoSub
+              companyType
+              countryOfBirth
+              dateOfBirth
+              dayOfBirth
+              disabilityRegistered
+              email
+              emailAddresses {
+                kind
+                primary
+                uuid
+                value
+              }
+              emailConsent
+              firstName
+              gender
+              history {
+                address {
+                  city
+                  country
+                  county
+                  endedOn
+                  kind
+                  lineOne
+                  lineThree
+                  lineTwo
+                  postcode
+                  propertyStatus
+                  serviceId
+                  startedOn
+                  uuid
+                }
+                month
+                status
+                year
+              }
+              incomeAndExpense {
+                annualIncome
+                anticipateMonthlyIncomeChange
+                averageMonthlyIncome
+                carFinance
+                creditCardPayments
+                foodAndClothes
+                fuel
+                futureMonthlyIncome
+                householdIncome
+                insurance
+                mortgageOrRent
+                netDisposableIncome
+                otherCredit
+                phoneAndInternet
+                studentLoan
+                suitabilityConsent
+                totalMonthlyExpenses
+                utilities
+                uuid
+                withStudentLoan
+              }
+              isApplicant
+              isDirector
+              jobTitle
+              lastName
+              leadManagerId
+              maritalStatus
+              middleName
+              monthOfBirth
+              nationality
+              noOfAdultsInHousehold
+              noOfDependants
+              numberOfDependants
+              occupation
+              originalFirstName
+              originalLastName
+              partyUuid
+              privacyPolicy
+              profilingConsent
+              shareOfBusiness
+              smsConsent
+              telephoneNumbers {
+                kind
+                primary
+                uuid
+                value
+              }
+              termsAndConditions
+              title
+              tradingName
+              uuid
+              vatRegistrationNumber
+              yearOfBirth
+            }
+            totalPercentage
+          }
           partnersDetails
           soleTraderDetails
           vatDetails

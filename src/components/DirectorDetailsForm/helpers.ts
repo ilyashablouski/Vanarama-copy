@@ -17,12 +17,10 @@ export const initialEditedFormValues = (
   if (directors.length === 1) {
     return {
       directors,
-      totalPercentage: parseInt(directors[0].shareOfBusiness, 10),
+      totalPercentage: directors[0].shareOfBusiness,
     };
   }
-  const totalPercentage = sum(directors, director =>
-    parseInt(director.shareOfBusiness, 10),
-  );
+  const totalPercentage = sum(directors, director => director.shareOfBusiness);
 
   if (directorUuid) {
     const selected = directors.find(d => d.uuid === directorUuid);
@@ -211,7 +209,7 @@ export const parseOfficers = (
       originalLastName: lastName,
       gender: '',
       email: '',
-      shareOfBusiness: '',
+      shareOfBusiness: 0,
       nationality: '',
       dayOfBirth: '',
       monthOfBirth: '',

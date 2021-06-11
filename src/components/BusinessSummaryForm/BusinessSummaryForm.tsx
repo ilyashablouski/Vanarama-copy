@@ -73,7 +73,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
 
   const directors = useMemo(() => {
     const providedDirectorsData = (mapDirectorsDefaultValues(
-      creditApplication?.directorsDetails,
+      creditApplication?.directorsDetailsV2,
     ).directors || []) as DirectorDetails[];
 
     return providedDirectorsData
