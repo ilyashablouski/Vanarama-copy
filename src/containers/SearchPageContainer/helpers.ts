@@ -13,9 +13,7 @@ import {
 } from '../../../generated/globalTypes';
 import { GET_ALL_MAKES_PAGE } from './gql';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
-import {
-  getObjectFromSessionStorage,
-} from '../../utils/windowSessionStorage';
+import { getObjectFromSessionStorage } from '../../utils/windowSessionStorage';
 import { arrayIsEqual } from '../../utils/helpers';
 
 export const RESULTS_PER_REQUEST = 12;
