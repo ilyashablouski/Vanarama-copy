@@ -1,14 +1,14 @@
 import { useEffect } from 'react';
 import { useReactiveVar } from '@apollo/client';
 
-import { wishlistVar } from '../cache';
-import { IWishlistProductType } from '../models/IWishlistTypes';
-import { Nullish } from '../types/common';
 import {
   isWished,
+  IWishlistProduct,
   getLocalWishlistState,
   setLocalWishlistState,
 } from '../utils/wishlistHelpers';
+import { Nullish } from '../types/common';
+import { wishlistVar } from '../cache';
 
 export default function useWishlist() {
   const { wishlistVehicles } = useReactiveVar(wishlistVar);
@@ -27,13 +27,13 @@ export default function useWishlist() {
     }
   }, [wishlistVehicles.length]);
 
-  function addToWishlist(product: IWishlistProductType) {
+  function addToWishlist(product: IWishlistProduct) {
     return wishlistVar({
       wishlistVehicles: [product, ...wishlistVehicles],
     });
   }
 
-  function removeFromWishlist(product: IWishlistProductType) {
+  function removeFromWishlist(product: IWishlistProduct) {
     return wishlistVar({
       wishlistVehicles: wishlistVehicles.filter(
         item => item.capId !== product.capId,
@@ -41,7 +41,7 @@ export default function useWishlist() {
     });
   }
 
-  function wishlistChange(product: Nullish<IWishlistProductType>) {
+  function wishlistChange(product: Nullish<IWishlistProduct>) {
     if (!product) {
       return;
     }
