@@ -79,7 +79,7 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
 
   const company = useMemo(
     () =>
-      data?.creditApplicationByOrderUuid?.companyDetailsV2 !== null
+      !!companyDetailsRaw?.uuid
         ? mapDefaultValues(companyDetailsRaw)
         : undefined,
     [companyDetailsRaw],
