@@ -22,7 +22,7 @@ import {
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { useTrimAndColour } from '../../gql/carpage';
 import Skeleton from '../../components/Skeleton';
-import { getPartnerProperties } from '../../utils/partnerProperties';
+import { getPartnerSlug } from '../../utils/partnerProperties';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -231,7 +231,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         item?.id === quoteData?.quoteByCapId?.trim || item?.id === `${trim}`,
     )?.optionDescription;
 
-    const partnerSlug = getPartnerProperties()?.slug;
+    const partnerSlug = getPartnerSlug();
 
     return {
       vehicleProduct: {
@@ -315,7 +315,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
 
   const defaultTermValue = quote?.quoteByCapId?.term ?? null;
   const defaultUpfrontValue = quote?.quoteByCapId?.upfront ?? null;
-  const defaultMileageValue = quote?.quoteByCapId?.mileage ?? 1;
+  const defaultMileageValue = quote?.quoteByCapId?.mileage ?? null;
 
   const leaseTypes = [
     { label: 'Personal', value: 'Personal', active: leaseType === 'Personal' },

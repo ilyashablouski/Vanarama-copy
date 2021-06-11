@@ -78,20 +78,22 @@ app
       res.json(process.env);
     }
 
-    if (['dev', 'uat'].includes(process.env.ENV))
+    if (['dev', 'uat'].includes(process.env.ENV)) {
       server.get('/env', (_req, res) => {
         env(res);
       });
-    else
+    } else {
       server.get('/env', auth(), (_req, res) => {
         env(res);
       });
+    }
 
     // All routes.
     server.all('*', cors(), (req, res) => {
       // Disable indexing on live domain.
-      if (!req.get('host').includes('vanarama.com'))
+      if (!req.get('host').includes('vanarama.com')) {
         res.setHeader('X-Robots-Tag', 'noindex');
+      }
 
       return handle(req, res);
     });
@@ -100,7 +102,9 @@ app
   .then(server => {
     // Start server.
     server.listen(PORT, err => {
-      if (err) throw err;
+      if (err) {
+        throw err;
+      }
       console.log(logo);
       console.log(`Ready on http://localhost:${PORT}`.cyan);
       console.log(`Mode: ${process.env.NODE_ENV.toUpperCase()}`.grey);

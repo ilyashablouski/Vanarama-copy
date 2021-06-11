@@ -185,7 +185,7 @@ $small: 0.875rem;
   // Predefined areas -> footer
   &-footer {
     display: grid;
-    grid-template-columns: repeat(1, 100%);
+    grid-template-columns: repeat(2, 50%);
     grid-template-rows: auto;
     grid-auto-flow: column;
     overflow: hidden;
@@ -644,6 +644,9 @@ $small: 0.875rem;
       @include tablet-desktop {
         padding: 26px 10px 12px 20px;
       }
+      @include tablet {
+        padding-left: 16px;
+      }
       .heading {
         margin-bottom: 20px;
       }
@@ -655,9 +658,9 @@ $small: 0.875rem;
           top: -2px;
         }
         .text {
+          flex: 1 1 auto;
           font-weight: bold;
           padding-right: 10px;
-          width: calc(100% - 46px);
           white-space: nowrap;
           overflow: hidden;
         }
@@ -669,6 +672,8 @@ $small: 0.875rem;
       height: calc(100% - 2px);
       border-top-left-radius: 0.35rem;
       border-bottom-left-radius: 0.35rem;
+      object-fit: contain;
+      background: transparent;
       @include tablet-desktop {
         width: 150px;
       }

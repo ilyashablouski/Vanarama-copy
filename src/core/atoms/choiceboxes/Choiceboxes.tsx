@@ -63,7 +63,7 @@ const Choiceboxes = forwardRef(
     };
 
     useEffect(() => {
-      if (choiceIndex) {
+      if (choiceIndex || choiceIndex === 0) {
         changeChoices(choiceIndex);
       }
     }, [choiceIndex]);

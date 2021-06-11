@@ -72,14 +72,19 @@ const Pagination: FC<IPaginationProps> = props => {
   const pagesItem = genPages();
 
   const previousPagePath = useMemo(() => {
-    if (selected === 1) return path;
-    if (selected === 2 && pathForFirstPage)
+    if (selected === 1) {
+      return path;
+    }
+    if (selected === 2 && pathForFirstPage) {
       return `${pathForFirstPage}${pathWithHtml ? '.html' : ''}`;
+    }
     return genPath(selected - 1);
   }, [selected, genPath, path, pathForFirstPage, pathWithHtml]);
 
   const nextPagePath = useMemo(() => {
-    if (selected === pages[pages.length - 1]) return path;
+    if (selected === pages[pages.length - 1]) {
+      return path;
+    }
     return genPath(selected + 1);
   }, [selected, genPath, pages, path]);
 

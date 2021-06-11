@@ -61,6 +61,7 @@ export interface GetVehicleDetails_vehicleDetails {
   relatedVehicles: (GetVehicleDetails_vehicleDetails_relatedVehicles | null)[] | null;
   customerReviews: (GetVehicleDetails_vehicleDetails_customerReviews | null)[] | null;
   rangeFaqs: (GetVehicleDetails_vehicleDetails_rangeFaqs | null)[] | null;
+  vehicleValue: number | null;
 }
 
 export interface GetVehicleDetails_derivativeInfo_manufacturer {

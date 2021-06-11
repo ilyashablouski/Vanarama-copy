@@ -8,11 +8,14 @@ import cx from 'classnames';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Cookies from 'js-cookie';
 import { useMediaQuery } from 'react-responsive';
-import { removeUrlQueryPart, SEARCH_PAGES } from '../utils/url';
+import {
+  PAGES_WITHOUT_LEASE_RESET,
+  removeUrlQueryPart,
+  SEARCH_PAGES,
+} from '../utils/url';
 import { CompareContext } from '../utils/comparatorTool';
 import {
   deleteCompare,
-  getVehiclesForComparator,
   IVehicle,
   IVehicleCarousel,
   isCorrectCompareType,
@@ -29,6 +32,7 @@ import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
 import { PAGES_WITHOUT_DEFERRED_STYLES } from '../components/Head/defaults';
+import { removeSessionStorageItem } from '../utils/windowSessionStorage';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -67,7 +71,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
       const isSearchPage = !!SEARCH_PAGES.find(element =>
         url.includes(element),
       );
-      if (!isSearchPage) window.scrollTo(0, 0);
+      if (!isSearchPage) {
+        window.scrollTo(0, 0);
+      }
     });
   }, []);
 
@@ -79,12 +85,23 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         document.title,
       );
     }
+    const shouldRemoveLeasingData = !PAGES_WITHOUT_LEASE_RESET.find(element =>
+      router.pathname.includes(element),
+    );
     // condition using for prevent incorrect events order on PDP
     if (
       router.pathname !== '/car-leasing/[...details-page]' &&
       router.pathname !== '/van-leasing/[...details-page]'
     ) {
       checkForGtmDomEvent(pushAnalytics);
+    }
+    // condition using for removing saved lease scanner data after user has left of PDP flow
+    if (shouldRemoveLeasingData && window) {
+      Object.keys(window.sessionStorage).forEach(element => {
+        if (element.includes('leaseSettings')) {
+          removeSessionStorageItem(element);
+        }
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
@@ -151,7 +168,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
           compareVehicles={() => {
             Router.push('/comparator');
           }}
-          vehicles={getVehiclesForComparator(compareVehicles || null)}
+          vehicles={compareVehicles}
           setCompareVehicles={setCompareVehicles}
         />
 

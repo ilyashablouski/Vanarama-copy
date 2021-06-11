@@ -13,11 +13,15 @@ const PanelMainMenu: FC<IPanelMainMenu> = props => {
   const { searchFilters, selectedFilters } = props;
 
   const setSelected = (key: string) => {
-    if (!selectedFilters?.[key]) return null;
+    if (!selectedFilters?.[key]) {
+      return null;
+    }
 
     const selected = searchFilters[key]
       .map(filter => {
-        if (selectedFilters[key].includes(filter.value)) return filter.label;
+        if (selectedFilters[key].includes(filter.value)) {
+          return filter.label;
+        }
         return null;
       })
       .filter(el => el != null);

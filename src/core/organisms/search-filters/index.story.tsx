@@ -78,14 +78,20 @@ storiesOf(`${atomicDir(base)}/SearchFilters`, module).add('Default', () =>
       const { value, checked } = e.target;
       const newSelectedFilters = { ...selectedFiltersState };
 
-      if (!newSelectedFilters[name]) newSelectedFilters[name] = [];
+      if (!newSelectedFilters[name]) {
+        newSelectedFilters[name] = [];
+      }
 
       // Add.
-      if (checked) newSelectedFilters[name].push(value);
+      if (checked) {
+        newSelectedFilters[name].push(value);
+      }
       // Remove.
       else {
         const index = newSelectedFilters[name].indexOf(value);
-        if (index > -1) newSelectedFilters[name].splice(index, 1);
+        if (index > -1) {
+          newSelectedFilters[name].splice(index, 1);
+        }
       }
 
       // Remove duplicates.
@@ -100,7 +106,9 @@ storiesOf(`${atomicDir(base)}/SearchFilters`, module).add('Default', () =>
     };
 
     const handleFilterExpand = () => {
-      if (isMobile || isTablet) setFilterExpandStatus(prevValue => !prevValue);
+      if (isMobile || isTablet) {
+        setFilterExpandStatus(prevValue => !prevValue);
+      }
     };
 
     return (

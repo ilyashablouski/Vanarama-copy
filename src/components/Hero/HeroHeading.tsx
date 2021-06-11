@@ -9,7 +9,9 @@ const HeroHeading: React.FC<IHeroHeadingProps> = ({
   titleTag,
   color = 'white',
 }) => {
-  if (!text) return <Skeleton count={2} />;
+  if (!text) {
+    return <Skeleton count={2} />;
+  }
 
   return (
     <Heading

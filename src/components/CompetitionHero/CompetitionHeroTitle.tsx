@@ -8,7 +8,9 @@ import Skeleton from '../Skeleton';
 const CompetitionHeroTitle: React.FC<ICompetitionHeroTitleProps> = ({
   text,
 }) => {
-  if (!text) return <Skeleton count={2} />;
+  if (!text) {
+    return <Skeleton count={2} />;
+  }
 
   return (
     <Text tag="p" size="large" color="white">

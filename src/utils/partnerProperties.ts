@@ -24,6 +24,13 @@ export function getPartnerProperties() {
   return undefined;
 }
 
+export function getPartnerSlug() {
+  if (Cookies.get(PARTNER_COOKIE_NAME)) {
+    return Cookies.getJSON(PARTNER_COOKIE_NAME).slug;
+  }
+  return undefined;
+}
+
 export function setPartnerProperties(
   data: IPartnerData | undefined,
   expires: number,
@@ -43,7 +50,9 @@ export function getSessionFuelTypes() {
 }
 
 export function setPartnerFooter(data: Nullish<IPartnerFooter>) {
-  if (data) setLocalStorage('partnerFooter', JSON.stringify(data));
+  if (data) {
+    setLocalStorage('partnerFooter', JSON.stringify(data));
+  }
 }
 
 export function clearInactiveSessionFuelTypes() {

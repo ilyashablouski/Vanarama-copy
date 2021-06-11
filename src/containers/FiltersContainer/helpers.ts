@@ -10,6 +10,7 @@ import {
   budgetMapper,
   fuelMapper,
 } from '../SearchPageContainer/helpers';
+import { getPartnerProperties } from '../../utils/partnerProperties';
 
 /**
  * formating and check for including strings
@@ -26,7 +27,9 @@ export const findPreselectFilterValue = (
   value: string,
   data: (string | IFiltersChildren)[] | null | undefined,
 ): string => {
-  if (!data?.length) return '';
+  if (!data?.length) {
+    return '';
+  }
   // sorting using for prevent cases with incorrect select
   if (data?.length && typeof data[0] !== 'string') {
     const slugsArray = data
@@ -50,6 +53,7 @@ export const buildPreselectChoiseboxes = (
     isBodyPage = false,
     isTransmissionPage = false,
     isFuelPage = false,
+    isPartnership = false,
   },
   accessor: string,
   selectedFiltersState: ISelectedFiltersState,
@@ -58,7 +62,7 @@ export const buildPreselectChoiseboxes = (
   if (
     (isPickups || isModelPage || isBodyPage) &&
     accessor === FilterFields.bodyStyles
-  )
+  ) {
     return [
       {
         label: `${isPickups ? 'Pickup' : selectedFiltersState.bodyStyles[0]}`,
@@ -66,15 +70,18 @@ export const buildPreselectChoiseboxes = (
         active: true,
       },
     ];
+  }
   if (
     (isFuelPage && accessor === FilterFields.fuelTypes) ||
     (isTransmissionPage && accessor === FilterFields.transmissions)
-  )
+  ) {
     return selectedFiltersState[accessor].map(value => ({
       label: value,
       value,
       active: true,
     }));
+  }
+
   // If only one choice, return as a single option array with active set to true
   if (choiceBoxesData.length === 1) {
     return [
@@ -84,6 +91,13 @@ export const buildPreselectChoiseboxes = (
         active: true,
       },
     ];
+  }
+  if (isPartnership && accessor === FilterFields.fuelTypes) {
+    const partnershipFuelTypes = getPartnerProperties()?.fuelTypes;
+    const choices = choiceBoxesData.filter(fuelType =>
+      partnershipFuelTypes.includes(fuelType.label),
+    );
+    return choices;
   }
   return null;
 };

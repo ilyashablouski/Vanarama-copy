@@ -13,13 +13,18 @@ declare global {
 export function pushAddToCartHeap(
   vehicleProduct: Nullish<VehicleProductInputObject>,
 ) {
-  if (vehicleProduct)
-    window.heap?.track('addToCart', {
-      maintenance: vehicleProduct.maintenance ?? false,
-      mileage: vehicleProduct.annualMileage,
-      upfront: vehicleProduct.depositMonths,
-      colour: vehicleProduct.colour,
-      trim: vehicleProduct.trim,
-      term: vehicleProduct.term,
-    });
+  if (vehicleProduct) {
+    try {
+      window.heap?.track('addToCart', {
+        maintenance: vehicleProduct.maintenance ?? false,
+        mileage: vehicleProduct.annualMileage,
+        upfront: vehicleProduct.depositMonths,
+        colour: vehicleProduct.colour,
+        trim: vehicleProduct.trim,
+        term: vehicleProduct.term,
+      });
+    } catch (e) {
+      console.error('err', e);
+    }
+  }
 }
