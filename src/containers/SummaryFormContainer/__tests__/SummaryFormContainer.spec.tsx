@@ -264,8 +264,8 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/about?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
-      '/olaf/about?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/about?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764',
+      '/olaf/about?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764',
     );
   });
 
@@ -289,8 +289,8 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/employment-history?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
-      '/olaf/employment-history?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/employment-history?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764',
+      '/olaf/employment-history?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764',
     );
   });
 
@@ -314,8 +314,8 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/expenses?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
-      '/olaf/expenses?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/expenses?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764',
+      '/olaf/expenses?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764',
     );
   });
 
@@ -339,8 +339,8 @@ describe('<SummaryFormContainer />', () => {
     // ASSERT
     expect(mockPush).toHaveBeenCalledTimes(1);
     expect(mockPush).toHaveBeenCalledWith(
-      '/olaf/bank-details?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
-      '/olaf/bank-details?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764&redirect=summary',
+      '/olaf/bank-details?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764',
+      '/olaf/bank-details?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764',
     );
   });
 });

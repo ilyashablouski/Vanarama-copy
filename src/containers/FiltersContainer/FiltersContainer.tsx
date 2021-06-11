@@ -124,12 +124,17 @@ const FiltersContainer = ({
     }));
 
   useEffect(() => {
-    if (filtersData?.bodyStyles) setChoiceBoxesData(buildChoiseBoxData());
+    if (filtersData?.bodyStyles) {
+      setChoiceBoxesData(buildChoiseBoxData());
+    }
   }, [filtersData, buildChoiseBoxData]);
 
   useEffect(() => {
-    if (!isDesktop) setFilterExpandStatus(false);
-    else setFilterExpandStatus(true);
+    if (!isDesktop) {
+      setFilterExpandStatus(false);
+    } else {
+      setFilterExpandStatus(true);
+    }
   }, [isDesktop]);
 
   // hack for subscribe multiselects changes and update Choiceboxes state
@@ -197,14 +202,17 @@ const FiltersContainer = ({
   /** handler for multiselect */
   const handleChecked = (value: IChoice, filterName: keyof IFiltersMapper) => {
     const newSelectedFilters = { ...selectedFiltersState };
-    if (!newSelectedFilters[filterName]) newSelectedFilters[filterName] = [];
+    if (!newSelectedFilters[filterName]) {
+      newSelectedFilters[filterName] = [];
+    }
 
     // Add.
-    if (value.active)
+    if (value.active) {
       newSelectedFilters[filterName] = [
         ...selectedFiltersState[filterName],
         value.label,
       ];
+    }
     // Remove.
     else {
       newSelectedFilters[filterName] = selectedFiltersState[filterName].filter(
@@ -307,7 +315,9 @@ const FiltersContainer = ({
 
   /** handle filter expand status */
   const handleFilterExpand = () => {
-    if (!isDesktop) setFilterExpandStatus(prevValue => !prevValue);
+    if (!isDesktop) {
+      setFilterExpandStatus(prevValue => !prevValue);
+    }
   };
   return (
     <SearchFilters isOpen={isOpenFilter}>

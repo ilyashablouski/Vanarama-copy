@@ -38,8 +38,140 @@ export const GET_MY_ORDERS_DATA = gql`
         uuid
         creditApplications {
           creditApplicationType
-          aboutDetails
-          companyDetails
+          aboutDetailsV2 {
+            addresses {
+              city
+              country
+              county
+              endedOn
+              kind
+              lineOne
+              lineThree
+              lineTwo
+              postcode
+              propertyStatus
+              serviceId
+              startedOn
+              uuid
+            }
+            businessShare
+            cognitoSub
+            companyType
+            countryOfBirth
+            dateOfBirth
+            dayOfBirth
+            disabilityRegistered
+            email
+            emailAddresses {
+              kind
+              primary
+              uuid
+              value
+            }
+            emailConsent
+            firstName
+            gender
+            history {
+              address {
+                city
+                country
+                county
+                endedOn
+                kind
+                lineOne
+                lineThree
+                lineTwo
+                postcode
+                propertyStatus
+                serviceId
+                startedOn
+                uuid
+              }
+              month
+              status
+              year
+            }
+            isApplicant
+            isDirector
+            jobTitle
+            lastName
+            leadManagerId
+            maritalStatus
+            middleName
+            monthOfBirth
+            nationality
+            noOfAdultsInHousehold
+            noOfDependants
+            numberOfDependants
+            occupation
+            originalFirstName
+            originalLastName
+            partyUuid
+            privacyPolicy
+            profilingConsent
+            shareOfBusiness
+            smsConsent
+            telephoneNumbers {
+              kind
+              primary
+              uuid
+              value
+            }
+            termsAndConditions
+            title
+            tradingName
+            uuid
+            vatRegistrationNumber
+            yearOfBirth
+          }
+          companyDetailsV2 {
+            addresses {
+              city
+              country
+              county
+              endedOn
+              kind
+              lineOne
+              lineThree
+              lineTwo
+              postcode
+              propertyStatus
+              serviceId
+              startedOn
+              uuid
+            }
+            annualExpenses
+            annualSalesCost
+            annualTurnover
+            businessName
+            businessRegistrationNumber
+            companySearchResult
+            companyType
+            emailAddresses {
+              kind
+              primary
+              uuid
+              value
+            }
+            monthlyAmountBeingReplaced
+            natureOfBusiness
+            otherCountriesOfActivity
+            partyUuid
+            replaceExistingVehicleFinance
+            sicCode
+            sicIndustry
+            telephoneNumbers {
+              kind
+              primary
+              uuid
+              value
+            }
+            tradesOutsideUk
+            tradingSince
+            turnoverOutsideUk
+            uuid
+            withTradingAddress
+          }
           directorsDetails
           partnersDetails
           soleTraderDetails

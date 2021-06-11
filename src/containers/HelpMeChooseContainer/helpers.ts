@@ -80,8 +80,9 @@ export const onReplace = (
   Object.entries(queries).forEach(([key, value]) => {
     return queryString.set(key, value as string);
   });
-  if (Object.keys(queries).length)
+  if (Object.keys(queries).length) {
     pathname += `?${decodeURIComponent(queryString.toString())}`;
+  }
   // changing url dynamically
   router.push(
     {
@@ -321,10 +322,10 @@ export const formatForCompare = (
   if (!node) {
     return null;
   }
+
   return {
     pageUrl: formatProductPageUrl(
-      // el.legacyUrl || el.url || '',
-      '',
+      node.lqUrl || node.url || '',
       node?.derivativeId,
     ),
     bodyStyle: node?.capBodyStyle,
@@ -339,6 +340,47 @@ export const formatForCompare = (
     leadTime: null,
     imageUrl: mainImageUrl || null,
     keyInformation: null,
+    businessRate: financeTypes[0] === 'BCH' ? node!.rental || null : null,
+    personalRate: financeTypes[0] === 'PCH' ? node!.rental || null : null,
+    vehicleType: VehicleTypeEnum.CAR,
+  };
+};
+
+export const formatForWishlist = (
+  node: Vehicles | null,
+  financeTypes: string,
+  mainImageUrl: string,
+): IVehicleCarousel | null => {
+  if (!node) {
+    return null;
+  }
+
+  return {
+    pageUrl: formatProductPageUrl(
+      node.lqUrl || node.url || '',
+      node?.derivativeId,
+    ),
+    bodyStyle: node?.capBodyStyle,
+    capId: node?.derivativeId || '',
+    manufacturerName: node?.manufacturerName || '',
+    rangeName: node?.rangeName || '',
+    modelName: node?.modelName || '',
+    derivativeName: node?.derivativeName || '',
+    averageRating: null,
+    isOnOffer: node.onOffer,
+    offerPosition: null,
+    leadTime: null,
+    imageUrl: mainImageUrl || null,
+    keyInformation: [
+      {
+        name: 'Transmission',
+        value: node.transmission,
+      },
+      {
+        name: 'Fuel Type',
+        value: node.fuelType,
+      },
+    ],
     businessRate: financeTypes[0] === 'BCH' ? node!.rental || null : null,
     personalRate: financeTypes[0] === 'PCH' ? node!.rental || null : null,
     vehicleType: VehicleTypeEnum.CAR,

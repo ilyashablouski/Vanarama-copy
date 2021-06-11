@@ -23,7 +23,7 @@ import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/b
 import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from './helpers';
 import { getLegacyUrl } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
-import VehicleCard from './VehicleCard';
+import VehicleCard from '../../components/VehicleCard';
 import ModelCard from './ModelCard';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {

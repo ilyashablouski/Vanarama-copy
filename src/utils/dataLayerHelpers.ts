@@ -20,6 +20,7 @@ import { GetPerson } from '../../generated/GetPerson';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
 import { PAGES } from './pageTypes';
 import { getDeviceType } from './deviceType';
+import { getSessionStorage } from './windowSessionStorage';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -47,6 +48,7 @@ interface IPDPData {
   product?: IProduct;
   category?: string;
   mileage?: number | null;
+  vehicleValue?: number | null;
 }
 
 interface ISummary {
@@ -86,6 +88,7 @@ interface IPageDataLayer {
   category?: string;
   brand?: string;
   vehicleModel?: string;
+  vehicleValue?: string;
 }
 
 interface IPageData {
@@ -124,8 +127,12 @@ export const pushPageViewEvent = async (path: string, title = '') => {
 };
 
 export const getCategory = ({ cars, pickups }: ICategory): string => {
-  if (pickups) return 'Pickup';
-  if (cars) return 'Car';
+  if (pickups) {
+    return 'Pickup';
+  }
+  if (cars) {
+    return 'Car';
+  }
   return 'Van';
 };
 
@@ -179,7 +186,9 @@ export const pushDetail = (
   value: string | number | null | undefined,
   product?: IProduct,
 ) => {
-  if (value) Object.assign(product, { [field]: `${value}` });
+  if (value) {
+    Object.assign(product, { [field]: `${value}` });
+  }
 };
 
 // const setDataLayer = () => {
@@ -213,7 +222,9 @@ export const pushPageData = async ({
   pageType,
   siteSection,
 }: IPageData) => {
-  if (!window.dataLayer) return;
+  if (!window.dataLayer) {
+    return;
+  }
   // setDataLayer();
   const personData = (await localForage.getItem('person')) as GetPerson | null;
   const personUuid = (await localForage.getItem('personUuid')) as string | null;
@@ -228,7 +239,9 @@ export const pushPageData = async ({
     pathname === '/car-leasing/[dynamicParam]' ||
     pathname === '/van-leasing/[dynamicParam]'
   ) {
-    if (!pageType) return;
+    if (!pageType) {
+      return;
+    }
     data = {
       pageType,
       siteSection,
@@ -262,6 +275,7 @@ const getProductData = ({
   price,
   product,
   category,
+  vehicleValue,
 }: IPDPData) => {
   const variant = vehicleConfigurationByCapId?.capRangeDescription;
 
@@ -284,6 +298,7 @@ const getProductData = ({
     derivativeInfo?.bodyType?.name || 'undefined',
     product,
   );
+  pushDetail('retailPrice', vehicleValue, product);
 };
 
 const getProductDataForCheckout = ({
@@ -339,8 +354,11 @@ export const pushPDPDataLayer = ({
   price,
   category,
   mileage,
+  vehicleValue,
 }: IPDPData) => {
-  if (!window.dataLayer) return;
+  if (!window.dataLayer) {
+    return;
+  }
 
   const data = {
     event: 'detailView',
@@ -366,6 +384,7 @@ export const pushPDPDataLayer = ({
     price,
     product,
     category,
+    vehicleValue,
   });
 
   pushDetail(
@@ -385,6 +404,7 @@ export const pushAddToCartDataLayer = ({
   vehicleConfigurationByCapId,
   price,
   category,
+  vehicleValue,
 }: IPDPData) => {
   const data = {
     event: 'addToCart',
@@ -439,6 +459,8 @@ export const pushAddToCartDataLayer = ({
     product,
   );
 
+  pushDetail('retailPrice', vehicleValue, product);
+
   pushToDataLayer(data);
 };
 
@@ -468,6 +490,8 @@ export const pushAboutYouDataLayer = (
   };
 
   const product = data.ecommerce.checkout.products[0];
+  const vehicleValue = getSessionStorage('vehicleValue');
+  pushDetail('retailPrice', vehicleValue, product);
   getProductDataForCheckout({
     product,
     detailsData,
@@ -510,6 +534,8 @@ export const pushSummaryDataLayer = ({
   };
 
   const product = data.ecommerce.purchase.products[0];
+  const vehicleValue = getSessionStorage('vehicleValue');
+  pushDetail('retailPrice', vehicleValue, product);
   getProductDataForCheckout({
     product,
     detailsData,
@@ -544,8 +570,11 @@ export const pushCallBackDataLayer = ({
   vehicleConfigurationByCapId,
   price,
   category,
+  vehicleValue,
 }: IPDPData) => {
-  if (!window.dataLayer) return;
+  if (!window.dataLayer) {
+    return;
+  }
 
   const data = {
     event: 'enquiry',
@@ -571,6 +600,8 @@ export const pushCallBackDataLayer = ({
     vehicleConfigurationByCapId?.financeProfile?.mileage,
     data,
   );
+
+  pushDetail('retailPrice', vehicleValue, data);
 
   pushToDataLayer(data);
 };

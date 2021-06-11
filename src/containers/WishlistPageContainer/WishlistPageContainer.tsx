@@ -14,14 +14,17 @@ import WishlistRegistration from './WishlistRegistration';
 import WishlistProductPlaceholder from './WishlistProductPlaceholder';
 
 import usePerson from '../../hooks/usePerson';
+import useWishlist from '../../hooks/useWishlist';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { ProductCardData } from '../../../generated/ProductCardData';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { useVehiclesTotalCount } from '../../gql/vehiclesTotalCount';
+import { getProductPlaceholderList } from './helpers';
 
-const VAN_SEARCH_URL = '/special-offers.html';
-const CAR_SEARCH_URL = '/car-leasing-special-offers.html';
-const PICKUP_SEARCH_URL = '/pickup-special-offers.html';
+import WishlistProductCard from '../../components/VehicleCard';
+
+const VAN_SEARCH_URL = '/van-leasing/search';
+const CAR_SEARCH_URL = '/car-leasing/search';
+const PICKUP_SEARCH_URL = '/van-leasing/search?bodyStyles=Pickup';
 
 const createOfferCards = (
   vansOffersCount: number = 0,
@@ -53,6 +56,7 @@ function WishlistPageContainer({
   breadcrumbsList,
 }: IWishlistContainer) {
   const { personLoggedIn } = usePerson();
+  const { wishlistVehicles } = useWishlist();
 
   const [getCarsOffers, carsOptions] = useVehiclesTotalCount(
     VehicleTypeEnum.CAR,
@@ -79,8 +83,12 @@ function WishlistPageContainer({
     getVansOffers();
   }, [getCarsOffers, getPickupsOffers, getVansOffers]);
 
-  const [wishlistItems] = useState<ProductCardData | null>();
   const [isModalVisible, setModalVisibility] = useState(false);
+
+  const productPlaceholderList = useMemo(
+    () => getProductPlaceholderList(wishlistVehicles.length),
+    [wishlistVehicles.length],
+  );
 
   return (
     <>
@@ -91,13 +99,30 @@ function WishlistPageContainer({
         </Heading>
       </div>
       <div className="row:bg-lighter -thin -pv-500">
-        {wishlistItems?.productCarousel?.length ? (
+        {!personLoggedIn && <WishlistRegistration className="-mb-500" />}
+        {wishlistVehicles.length ? (
           <div className="wishlist">
-            {!personLoggedIn && <WishlistRegistration className="-mb-500" />}
             <section className="row:cards-3col">
-              {wishlistItems.productCarousel.map((item, index) => (
+              {wishlistVehicles.map((item, index) => (
                 <LazyLoadComponent
-                  key={item?.capId || index}
+                  key={item.capId || index}
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
+                  <WishlistProductCard
+                    data={item}
+                    isPersonalPrice
+                    bodyStyle={item.bodyStyle}
+                    url={item.pageUrl?.url ?? ''}
+                    title={{
+                      title: `${item.manufacturerName} ${item.modelName}`,
+                      description: item.derivativeName ?? '',
+                    }}
+                  />
+                </LazyLoadComponent>
+              ))}
+              {productPlaceholderList.map((item, index) => (
+                <LazyLoadComponent
+                  key={item.capId || index}
                   visibleByDefault={isServerRenderOrAppleDevice}
                 >
                   <WishlistProductPlaceholder
@@ -110,7 +135,7 @@ function WishlistPageContainer({
         ) : (
           <div className="wishlist">
             <section className="row:cards-1col">
-              <div className="card -flex-h -h-300">
+              <div className="card -message -flex-h">
                 <div className="row:lead-text -m-300">
                   <Text className="-semi-b" size="lead" color="darker">
                     Your wishlist is empty right now.
@@ -142,7 +167,7 @@ function WishlistPageContainer({
         <Modal show onRequestClose={() => setModalVisibility(false)}>
           <div className="-justify-content-row -w-300 -a-center">
             <Heading tag="span" color="black">
-              Choose the type of vehicle are you looking for?
+              Choose your vehicle type
             </Heading>
           </div>
           {cardList.map(card => (

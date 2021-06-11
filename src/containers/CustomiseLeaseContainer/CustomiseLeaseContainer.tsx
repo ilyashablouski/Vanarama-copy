@@ -315,7 +315,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
 
   const defaultTermValue = quote?.quoteByCapId?.term ?? null;
   const defaultUpfrontValue = quote?.quoteByCapId?.upfront ?? null;
-  const defaultMileageValue = quote?.quoteByCapId?.mileage ?? 1;
+  const defaultMileageValue = quote?.quoteByCapId?.mileage ?? null;
 
   const leaseTypes = [
     { label: 'Personal', value: 'Personal', active: leaseType === 'Personal' },

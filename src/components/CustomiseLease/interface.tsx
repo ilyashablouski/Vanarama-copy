@@ -34,7 +34,7 @@ export interface IProps {
   upfronts: IChoice[];
   defaultUpfrontValue: number | null;
   defaultTermValue: number | null;
-  defaultMileageValue: number;
+  defaultMileageValue: number | null;
   leaseTypes: IChoice[];
   mileages: number[];
   setLeaseType: Dispatch<SetStateAction<string>>;

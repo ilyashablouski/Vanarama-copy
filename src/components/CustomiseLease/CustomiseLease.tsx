@@ -69,32 +69,34 @@ const choices = (
   choiceIndex?: number,
   setChoiceIndex?: Dispatch<SetStateAction<number>>,
   icon?: JSX.Element,
-) => (
-  <>
-    <Heading tag="span" size="regular" color="black">
-      {heading}
-      {icon}
-      {currentValue && (
-        <>
-          <br />
-          <Text color="orange" className="-b">
-            {currentValue}
-          </Text>
-        </>
-      )}
-    </Heading>
-    <Choiceboxes
-      disabled={isDisabled}
-      className={`-cols-${choicesValues?.length}`}
-      choices={choicesValues}
-      onSubmit={value => {
-        setChoice(value.label);
-      }}
-      choiceIndex={choiceIndex}
-      setChoiceIndex={setChoiceIndex}
-    />
-  </>
-);
+) => {
+  return (
+    <>
+      <Heading tag="span" size="regular" color="black">
+        {heading}
+        {icon}
+        {currentValue && (
+          <>
+            <br />
+            <Text color="orange" className="-b">
+              {currentValue}
+            </Text>
+          </>
+        )}
+      </Heading>
+      <Choiceboxes
+        disabled={isDisabled}
+        className={`-cols-${choicesValues?.length}`}
+        choices={choicesValues}
+        onSubmit={value => {
+          setChoice(value.label);
+        }}
+        choiceIndex={choiceIndex}
+        setChoiceIndex={setChoiceIndex}
+      />
+    </>
+  );
+};
 
 const select = (
   defaultValue: string,
@@ -222,9 +224,13 @@ const CustomiseLease = ({
     const initialRental = quoteByCapId?.leaseCost?.initialRental;
     if (upfront && maintenanceCost && maintenance) {
       const extraPayment = upfront * maintenanceCost;
-      if (initialRental) setInitialPayment(extraPayment + initialRental);
+      if (initialRental) {
+        setInitialPayment(extraPayment + initialRental);
+      }
     }
-    if (!maintenance) setInitialPayment(initialRental);
+    if (!maintenance) {
+      setInitialPayment(initialRental);
+    }
   }, [quoteByCapId, maintenance]);
 
   const isMobile = useMobileViewport();

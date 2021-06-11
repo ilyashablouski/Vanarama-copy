@@ -19,7 +19,92 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
   query GetCreditApplicationByOrderUuid($id: ID!) {
     creditApplicationByOrderUuid(orderUuid: $id) {
       addresses
-      aboutDetails
+      aboutDetailsV2 {
+        addresses {
+          city
+          country
+          county
+          endedOn
+          kind
+          lineOne
+          lineThree
+          lineTwo
+          postcode
+          propertyStatus
+          serviceId
+          startedOn
+          uuid
+        }
+        businessShare
+        cognitoSub
+        companyType
+        countryOfBirth
+        dateOfBirth
+        dayOfBirth
+        disabilityRegistered
+        email
+        emailAddresses {
+          kind
+          primary
+          uuid
+          value
+        }
+        emailConsent
+        firstName
+        gender
+        history {
+          address {
+            city
+            country
+            county
+            endedOn
+            kind
+            lineOne
+            lineThree
+            lineTwo
+            postcode
+            propertyStatus
+            serviceId
+            startedOn
+            uuid
+          }
+          month
+          status
+          year
+        }
+        isApplicant
+        isDirector
+        jobTitle
+        lastName
+        leadManagerId
+        maritalStatus
+        middleName
+        monthOfBirth
+        nationality
+        noOfAdultsInHousehold
+        noOfDependants
+        numberOfDependants
+        occupation
+        originalFirstName
+        originalLastName
+        partyUuid
+        privacyPolicy
+        profilingConsent
+        shareOfBusiness
+        smsConsent
+        telephoneNumbers {
+          kind
+          primary
+          uuid
+          value
+        }
+        termsAndConditions
+        title
+        tradingName
+        uuid
+        vatRegistrationNumber
+        yearOfBirth
+      }
       bankAccountsV2 {
         uuid
         accountName
@@ -30,7 +115,54 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
         joinedAtYear
         sortCode
       }
-      companyDetails
+      companyDetailsV2 {
+        addresses {
+          city
+          country
+          county
+          endedOn
+          kind
+          lineOne
+          lineThree
+          lineTwo
+          postcode
+          propertyStatus
+          serviceId
+          startedOn
+          uuid
+        }
+        annualExpenses
+        annualSalesCost
+        annualTurnover
+        businessName
+        businessRegistrationNumber
+        companySearchResult
+        companyType
+        emailAddresses {
+          kind
+          primary
+          uuid
+          value
+        }
+        monthlyAmountBeingReplaced
+        natureOfBusiness
+        otherCountriesOfActivity
+        partyUuid
+        replaceExistingVehicleFinance
+        sicCode
+        sicIndustry
+        telephoneNumbers {
+          kind
+          primary
+          uuid
+          value
+        }
+        tradesOutsideUk
+        tradingSince
+        turnoverOutsideUk
+        uuid
+        withTradingAddress
+      }
       vatDetails
       soleTraderDetails
       directorsDetails
@@ -76,7 +208,92 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
 export const GET_LEASE_COMPANY_BY_ORDER_UUID_DATA = gql`
   query GetLeaseCompanyData($id: ID!) {
     creditApplicationByOrderUuid(orderUuid: $id) {
-      aboutDetails
+      aboutDetailsV2 {
+        addresses {
+          city
+          country
+          county
+          endedOn
+          kind
+          lineOne
+          lineThree
+          lineTwo
+          postcode
+          propertyStatus
+          serviceId
+          startedOn
+          uuid
+        }
+        businessShare
+        cognitoSub
+        companyType
+        countryOfBirth
+        dateOfBirth
+        dayOfBirth
+        disabilityRegistered
+        email
+        emailAddresses {
+          kind
+          primary
+          uuid
+          value
+        }
+        emailConsent
+        firstName
+        gender
+        history {
+          address {
+            city
+            country
+            county
+            endedOn
+            kind
+            lineOne
+            lineThree
+            lineTwo
+            postcode
+            propertyStatus
+            serviceId
+            startedOn
+            uuid
+          }
+          month
+          status
+          year
+        }
+        isApplicant
+        isDirector
+        jobTitle
+        lastName
+        leadManagerId
+        maritalStatus
+        middleName
+        monthOfBirth
+        nationality
+        noOfAdultsInHousehold
+        noOfDependants
+        numberOfDependants
+        occupation
+        originalFirstName
+        originalLastName
+        partyUuid
+        privacyPolicy
+        profilingConsent
+        shareOfBusiness
+        smsConsent
+        telephoneNumbers {
+          kind
+          primary
+          uuid
+          value
+        }
+        termsAndConditions
+        title
+        tradingName
+        uuid
+        vatRegistrationNumber
+        yearOfBirth
+      }
       lineItem {
         vehicleProduct {
           funderId
@@ -118,7 +335,92 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
   ) {
     createUpdateCreditApplication(input: $input) {
       addresses
-      aboutDetails
+      aboutDetailsV2 {
+        addresses {
+          city
+          country
+          county
+          endedOn
+          kind
+          lineOne
+          lineThree
+          lineTwo
+          postcode
+          propertyStatus
+          serviceId
+          startedOn
+          uuid
+        }
+        businessShare
+        cognitoSub
+        companyType
+        countryOfBirth
+        dateOfBirth
+        dayOfBirth
+        disabilityRegistered
+        email
+        emailAddresses {
+          kind
+          primary
+          uuid
+          value
+        }
+        emailConsent
+        firstName
+        gender
+        history {
+          address {
+            city
+            country
+            county
+            endedOn
+            kind
+            lineOne
+            lineThree
+            lineTwo
+            postcode
+            propertyStatus
+            serviceId
+            startedOn
+            uuid
+          }
+          month
+          status
+          year
+        }
+        isApplicant
+        isDirector
+        jobTitle
+        lastName
+        leadManagerId
+        maritalStatus
+        middleName
+        monthOfBirth
+        nationality
+        noOfAdultsInHousehold
+        noOfDependants
+        numberOfDependants
+        occupation
+        originalFirstName
+        originalLastName
+        partyUuid
+        privacyPolicy
+        profilingConsent
+        shareOfBusiness
+        smsConsent
+        telephoneNumbers {
+          kind
+          primary
+          uuid
+          value
+        }
+        termsAndConditions
+        title
+        tradingName
+        uuid
+        vatRegistrationNumber
+        yearOfBirth
+      }
       bankAccountsV2 {
         uuid
         accountName
@@ -129,7 +431,54 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
         joinedAtYear
         sortCode
       }
-      companyDetails
+      companyDetailsV2 {
+        addresses {
+          city
+          country
+          county
+          endedOn
+          kind
+          lineOne
+          lineThree
+          lineTwo
+          postcode
+          propertyStatus
+          serviceId
+          startedOn
+          uuid
+        }
+        annualExpenses
+        annualSalesCost
+        annualTurnover
+        businessName
+        businessRegistrationNumber
+        companySearchResult
+        companyType
+        emailAddresses {
+          kind
+          primary
+          uuid
+          value
+        }
+        monthlyAmountBeingReplaced
+        natureOfBusiness
+        otherCountriesOfActivity
+        partyUuid
+        replaceExistingVehicleFinance
+        sicCode
+        sicIndustry
+        telephoneNumbers {
+          kind
+          primary
+          uuid
+          value
+        }
+        tradesOutsideUk
+        tradingSince
+        turnoverOutsideUk
+        uuid
+        withTradingAddress
+      }
       vatDetails
       soleTraderDetails
       directorsDetails
@@ -186,8 +535,8 @@ export function useCreateUpdateCreditApplication(
 
 const responseMock = {
   addresses: [],
-  aboutDetails: {
-    company_type: 'Limited',
+  aboutDetailsV2: {
+    companyType: 'Limited',
   },
   bankAccountsV2: [
     {
@@ -198,7 +547,7 @@ const responseMock = {
       sortCode: '019387',
     },
   ],
-  companyDetails: null,
+  companyDetailsV2: null,
   vatDetails: 'vatDetails',
   soleTraderDetails: 'soleTraderDetails',
   directorsDetails: 'directorsDetails',
