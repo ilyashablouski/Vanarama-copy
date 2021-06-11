@@ -3,19 +3,19 @@ import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as ICredit
 import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
 
 export const responseToInitialFormValues = (
-  data: ICreditApplication['aboutDetails'],
+  data?: ICreditApplication['aboutDetailsV2'],
 ): IBusinessAboutFormValues => {
   return {
-    companyType: data?.company_type,
-    consent: data?.consent,
-    email: data?.email_addresses?.[0].value,
-    firstName: data?.first_name,
-    lastName: data?.last_name,
-    marketing: data?.marketing,
-    mobile: data?.telephone_numbers?.[0].value,
-    termsAndConditions: data?.terms_and_conditions,
-    title: data?.title,
-    privacyPolicy: data?.privacy_policy,
+    companyType: data?.companyType ?? '',
+    consent: data?.emailConsent ?? false,
+    email: data?.emailAddresses?.[0].value ?? '',
+    firstName: data?.firstName ?? '',
+    lastName: data?.lastName ?? '',
+    marketing: data?.smsConsent ?? false,
+    mobile: data?.telephoneNumbers?.[0].value ?? '',
+    termsAndConditions: data?.termsAndConditions ?? false,
+    title: data?.title ?? '',
+    privacyPolicy: data?.privacyPolicy ?? false,
   };
 };
 

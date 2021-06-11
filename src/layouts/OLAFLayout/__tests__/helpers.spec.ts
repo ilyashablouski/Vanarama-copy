@@ -11,8 +11,8 @@ jest.mock('@apollo/client', () => ({
   useApolloClient: () => ({
     readQuery: () => ({
       creditApplicationByOrderUuid: {
-        aboutDetails: {
-          company_type: 'Limited',
+        aboutDetailsV2: {
+          companyType: 'Limited',
         },
       },
     }),
@@ -110,8 +110,8 @@ describe('helpers', () => {
     const b2bValue = 60;
     const data = {
       creditApplicationByOrderUuid: {
-        aboutDetails: {
-          company_type: CompanyTypes.limited,
+        aboutDetailsV2: {
+          companyType: CompanyTypes.limited,
         },
         lineItem: {
           vehicleProduct: {

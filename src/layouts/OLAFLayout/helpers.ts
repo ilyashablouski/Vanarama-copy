@@ -66,11 +66,11 @@ export const getFunderTerm = (
   if (data?.creditApplicationByOrderUuid?.lineItem) {
     const vehicleProduct =
       data?.creditApplicationByOrderUuid?.lineItem?.vehicleProduct;
-    const aboutDetails = data?.creditApplicationByOrderUuid?.aboutDetails;
+    const aboutDetails = data?.creditApplicationByOrderUuid?.aboutDetailsV2;
     if (order?.leaseType === LeaseTypeEnum.PERSONAL) {
       return vehicleProduct?.funderData?.b2c.address_history || DEFAULT_TERM;
     }
-    switch (aboutDetails?.company_type) {
+    switch (aboutDetails?.companyType) {
       case CompanyTypes.limited:
         return vehicleProduct?.funderData?.b2b.limited.address_history;
       case CompanyTypes.partnership:

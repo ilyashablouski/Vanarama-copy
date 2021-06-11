@@ -13,6 +13,103 @@ export interface GetMyOrders_myOrders_lineItems_order {
   uuid: string;
 }
 
+export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2_addresses {
+  city: string;
+  country: string | null;
+  county: string | null;
+  endedOn: any | null;
+  kind: string | null;
+  lineOne: string;
+  lineThree: string | null;
+  lineTwo: string | null;
+  postcode: string;
+  propertyStatus: string | null;
+  serviceId: string | null;
+  startedOn: any | null;
+  uuid: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2_emailAddresses {
+  kind: string | null;
+  primary: boolean | null;
+  uuid: string | null;
+  value: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2_history_address {
+  city: string;
+  country: string | null;
+  county: string | null;
+  endedOn: any | null;
+  kind: string | null;
+  lineOne: string;
+  lineThree: string | null;
+  lineTwo: string | null;
+  postcode: string;
+  propertyStatus: string | null;
+  serviceId: string | null;
+  startedOn: any | null;
+  uuid: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2_history {
+  address: GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2_history_address | null;
+  month: string | null;
+  status: string;
+  year: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2_telephoneNumbers {
+  kind: string | null;
+  primary: boolean | null;
+  uuid: string | null;
+  value: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2 {
+  addresses: GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2_addresses[] | null;
+  businessShare: number | null;
+  cognitoSub: string | null;
+  companyType: string | null;
+  countryOfBirth: string | null;
+  dateOfBirth: any | null;
+  dayOfBirth: string | null;
+  disabilityRegistered: boolean | null;
+  email: string | null;
+  emailAddresses: GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2_emailAddresses[] | null;
+  emailConsent: boolean | null;
+  firstName: string;
+  gender: string | null;
+  history: GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2_history[] | null;
+  isApplicant: boolean | null;
+  isDirector: boolean | null;
+  jobTitle: string | null;
+  lastName: string;
+  leadManagerId: string | null;
+  maritalStatus: string | null;
+  middleName: string | null;
+  monthOfBirth: string | null;
+  nationality: string | null;
+  noOfAdultsInHousehold: string | null;
+  noOfDependants: string | null;
+  numberOfDependants: string | null;
+  occupation: string | null;
+  originalFirstName: string | null;
+  originalLastName: string | null;
+  partyUuid: string | null;
+  privacyPolicy: boolean | null;
+  profilingConsent: boolean | null;
+  shareOfBusiness: number | null;
+  smsConsent: boolean | null;
+  telephoneNumbers: GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2_telephoneNumbers[] | null;
+  termsAndConditions: boolean | null;
+  title: string | null;
+  tradingName: string | null;
+  uuid: string | null;
+  vatRegistrationNumber: string | null;
+  yearOfBirth: string | null;
+}
+
 export interface GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2_addresses {
   city: string;
   country: string | null;
@@ -86,7 +183,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_addressesV2 {
 
 export interface GetMyOrders_myOrders_lineItems_creditApplications {
   creditApplicationType: CreditApplicationTypeEnum | null;
-  aboutDetails: any | null;
+  aboutDetailsV2: GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2 | null;
   companyDetailsV2: GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2 | null;
   directorsDetails: any | null;
   partnersDetails: any | null;
