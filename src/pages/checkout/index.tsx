@@ -5,6 +5,7 @@ import Card from 'core/molecules/cards';
 import Price from 'core/atoms/price';
 import Text from 'core/atoms/text';
 import Skeleton from '../../components/Skeleton';
+import AdditionalOption from '../../components/AdditionalOption';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -28,26 +29,19 @@ const CheckoutPage: NextPage = () => {
             <Heading size="large" color="black">
               Additional Options
             </Heading>
-            <Card withoutBoxShadow className="-mt-500">
-              <Heading color="black" size="regular">
-                Free Redundancy & Life Event Cover
-              </Heading>
-            </Card>
-            <Card withoutBoxShadow className="-mt-500">
-              <Heading color="black" size="regular">
-                1 Year&lsquo;s Free Insurance
-              </Heading>
-            </Card>
-            <Card withoutBoxShadow className="-mt-500">
-              <Heading color="black" size="regular">
-                Monthly Maintenance
-              </Heading>
-            </Card>
-            <Card withoutBoxShadow className="-mt-500">
-              <Heading color="black" size="regular">
-                Advanced Breakdown Cover
-              </Heading>
-            </Card>
+            <AdditionalOption
+              heading="Free Redundancy & Life Event Cover"
+              className="-mt-500"
+            />
+            <AdditionalOption
+              heading="1 Year&lsquo;s Free Insurance"
+              className="-mt-500"
+            />
+            <AdditionalOption
+              heading="Monthly Maintenance"
+              className="-mt-500"
+            />
+            <AdditionalOption heading="Advanced Breakdown Cover" />
           </div>
           <div style={{ width: '408px', marginLeft: '28px' }}>
             <Card withoutBoxShadow className="-mt-500">
