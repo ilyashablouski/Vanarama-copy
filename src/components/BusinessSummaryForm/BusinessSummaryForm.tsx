@@ -57,7 +57,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
   const handleEdit = useCallback(
     (url: string, additionalParameters?: { [key: string]: string }) => () => {
       const params = getUrlParam({
-        redirect: 'summary',
+        redirect: router.asPath,
         ...additionalParameters,
       });
       const href = `${url}${params}`;
@@ -111,7 +111,7 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
         />
         <BusinessSummaryFormDetailsSection
           company={company}
-          onEdit={handleEdit('/b2b/olaf/company-details/[personUuid]', {
+          onEdit={handleEdit('/b2b/olaf/company-details', {
             companyUuid: company.uuid,
           })}
         />

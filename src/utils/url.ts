@@ -170,6 +170,11 @@ export type MyDetailsQueryParams = {
 };
 
 export const SEARCH_PAGES = ['/car-leasing', '/van-leasing', '/special-offers'];
+export const PAGES_WITHOUT_LEASE_RESET = [
+  '/account',
+  '/[...details-page]',
+  '/olaf',
+];
 
 export const removeUrlQueryPart = (url: string) => url.split('?')[0];
 

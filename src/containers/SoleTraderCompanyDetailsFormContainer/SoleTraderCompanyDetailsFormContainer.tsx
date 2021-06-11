@@ -44,7 +44,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
   const [natureOfBusiness, setNatureOfBusiness] = useState<string[]>([]);
 
   const initialCompanyDetails =
-    data?.creditApplicationByOrderUuid?.companyDetails;
+    data?.creditApplicationByOrderUuid?.companyDetailsV2;
 
   React.useMemo(() => {
     if (initialCompanyDetails) {

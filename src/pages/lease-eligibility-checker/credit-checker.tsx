@@ -67,21 +67,23 @@ const CreditChecker: NextPage = () => {
       buttonLabel: 'Choose Your Vehicle',
     };
     // Poor.
-    if (score <= 50)
+    if (score <= 50) {
       text = {
         heading: 'Don’t worry!',
         body:
           'Your score doesn’t necessarily mean you won’t be accepted for credit to lease a vehicle. Get in touch and we’ll look into this for you and see what we can do.',
         buttonLabel: 'Get In Touch',
       };
+    }
     // Good.
-    if (score >= 90)
+    if (score >= 90) {
       text = {
         heading: 'Congratulations!',
         body:
           'This means you’re extremely likely to be accepted for credit to lease with us. So, what are you waiting for? Take a look at the latest deals on brand-new vehicles now.',
         buttonLabel: 'Choose Your Vehicle',
       };
+    }
 
     return text;
   };

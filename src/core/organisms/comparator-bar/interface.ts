@@ -7,7 +7,7 @@ import {
 export interface IComparatorBar extends IBaseProps {
   deleteVehicle: (vehicle: IVehicle) => void;
   compareVehicles: () => void;
-  vehicles: IVehicle[];
+  vehicles: IVehicleState[] | IVehicleCarousel[];
   setCompareVehicles: (vehicles: IVehicleState[] | IVehicleCarousel[]) => void;
 }
 

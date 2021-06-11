@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import NextHead from 'next/head';
 import localForage from 'localforage';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import { setSessionStorage } from 'utils/windowSessionStorage';
 import cx from 'classnames';
 import Button from 'core/atoms/button';
 // @ts-ignore
@@ -185,6 +186,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   };
 
   const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
+  const vehicleValue = data?.vehicleDetails?.vehicleValue;
+
+  useEffect(() => {
+    setSessionStorage('vehicleValue', vehicleValue);
+  }, [vehicleValue]);
 
   const onPushPDPDataLayer = useCallback(async () => {
     const derivativeInfo = data?.derivativeInfo;
@@ -197,6 +203,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       price: price || '0.00',
       category: getCategory({ cars, vans, pickups }),
       mileage,
+      vehicleValue,
     });
   }, [capId, cars, data, price, pickups, vans, mileage]);
 
@@ -243,7 +250,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   ]);
 
   useFirstRenderEffect(() => {
-    if (price && !firstTimePushDataLayer) onPushPDPDataLayer();
+    if (price && !firstTimePushDataLayer) {
+      onPushPDPDataLayer();
+    }
     if (isMobile) {
       leaseScanner.current!.style.display = 'flex';
       setTimeout(() => {
@@ -312,11 +321,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       ...orderObject,
     } as OrderInputObject;
     const vehicleProduct = values.lineItems?.[0].vehicleProduct;
-    if (vehicleProduct)
+    if (vehicleProduct) {
       vehicleProduct.freeInsurance = {
         optIn: withInsurance,
         eligible: isAgreeInsuranceRules,
       };
+    }
     pushAddToCartHeap(vehicleProduct);
     pushAddToCartDataLayer({
       capId,
@@ -326,6 +336,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       vehicleConfigurationByCapId,
       price,
       category: getCategory({ cars, vans, pickups }),
+      vehicleValue,
     });
     setIsModalVisible(false);
 
@@ -407,7 +418,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capModelDescription}`;
 
   // eslint-disable-next-line no-console
-  if (process.env.ENV !== 'prod') console.log('CAP Id:', capId);
+  if (process.env.ENV !== 'prod') {
+    console.log('CAP Id:', capId);
+  }
 
   const onSubmitClickMobile = () => {
     const colourDescription = derivativeInfo?.colours?.find(
@@ -485,6 +498,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       vehicleConfigurationByCapId: vehicleConfiguration,
       price,
       category: getCategory({ cars, vans, pickups }),
+      vehicleValue,
     });
   };
 

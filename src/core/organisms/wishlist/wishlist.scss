@@ -1,0 +1,41 @@
+.wishlist {
+  .card.-message {
+    height: 19rem;
+
+    @include mobile {
+      height: 14rem;
+    }
+
+    .text,
+    .heading {
+      text-align: center;
+    }
+  }
+
+  .card.-vehicle-type {
+    .hot-offer {
+      @include mobile-tablet {
+        font-size: 14px;
+      }
+    }
+  }
+
+  .card.-skeleton {
+    grid-template-rows: 1fr;
+
+    @include tablet {
+      &:nth-child(2) {
+        display: none;
+      }
+    }
+
+    .card-image {
+      min-height: 100%;
+      height: 35rem;
+
+      @include mobile {
+        height: 14rem;
+      }
+    }
+  }
+}

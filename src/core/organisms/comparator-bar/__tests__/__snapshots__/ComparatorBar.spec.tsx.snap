@@ -8,16 +8,48 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
   vehicles={
     Array [
       Object {
+        "averageRating": 4.6,
+        "bodyStyle": "Hatchback",
+        "businessRate": 132.95,
         "capId": "1234",
         "derivativeName": "1.0 ECOBOOST 125 ST-LINE NAV 5 DOORS",
+        "imageUrl": "https://images.autorama.co.uk/Photos/Cap/Vehicles/164069/cap-90660-164069.jpg",
+        "isOnOffer": true,
+        "keyInformation": Array [],
+        "leadTime": "14-21 Day Delivery",
         "manufacturerName": "Ford",
+        "modelName": "Corsa Hatchback",
+        "offerPosition": 2,
+        "pageUrl": Object {
+          "capId": "1234",
+          "href": "vauxhall-car-leasing/corsa/hatchback/1-2-turbo-sri-premium-5dr-164069.html",
+          "url": "vauxhall-car-leasing/corsa/hatchback/1-2-turbo-sri-premium-5dr-164069.html",
+        },
+        "personalRate": 159.95,
         "rangeName": "Focus",
+        "vehicleType": "CAR",
       },
       Object {
+        "averageRating": 4.6,
+        "bodyStyle": "Hatchback",
+        "businessRate": 132.95,
         "capId": "12345",
         "derivativeName": "2.5 ECOBOOST PHEV ST-LINE 5 DOORS CVT",
+        "imageUrl": "https://images.autorama.co.uk/Photos/Cap/Vehicles/164069/cap-90660-164069.jpg",
+        "isOnOffer": true,
+        "keyInformation": Array [],
+        "leadTime": "14-21 Day Delivery",
         "manufacturerName": "Ford",
+        "modelName": "Corsa Hatchback",
+        "offerPosition": 2,
+        "pageUrl": Object {
+          "capId": "12345",
+          "href": "vauxhall-car-leasing/corsa/hatchback/1-2-turbo-sri-premium-5dr-164069.html",
+          "url": "vauxhall-car-leasing/corsa/hatchback/1-2-turbo-sri-premium-5dr-164069.html",
+        },
+        "personalRate": 159.95,
         "rangeName": "Kuga",
+        "vehicleType": "CAR",
       },
     ]
   }

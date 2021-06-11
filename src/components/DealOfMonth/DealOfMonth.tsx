@@ -34,6 +34,9 @@ const Flame = dynamic(() => import('core/assets/icons/Flame'), {
 const CarSharp = dynamic(() => import('core/assets/icons/CarSharp'), {
   ssr: false,
 });
+const HeartSharp = dynamic(() => import('core/assets/icons/HeartSharp'), {
+  ssr: false,
+});
 const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
   {
@@ -42,7 +45,9 @@ const ArrowForwardSharp = dynamic(
 );
 
 interface IDealOfMonthProps {
+  wished: boolean | undefined;
   compared: boolean | undefined;
+  onWishlist: () => void;
   onCompare: () => void;
   vehicle: string;
   specification: string;
@@ -72,7 +77,9 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
   isPersonal,
   flagText = 'DEAL OF THE MONTH',
   link,
+  wished,
   compared,
+  onWishlist,
   onCompare,
 }) => (
   <>
@@ -144,6 +151,20 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
           }
           size="expand"
           onClick={onCompare}
+        />
+        <Button
+          color={wished ? 'teal' : 'dark'}
+          iconColor="dark"
+          fill="clear"
+          iconPosition="before"
+          label={
+            <>
+              <Icon icon={<HeartSharp />} color={wished ? 'teal' : 'dark'} />
+              {wished ? 'Remove' : 'Wishlist'}
+            </>
+          }
+          size="expand"
+          onClick={onWishlist}
         />
       </div>
     </div>
