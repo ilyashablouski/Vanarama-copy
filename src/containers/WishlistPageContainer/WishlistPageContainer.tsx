@@ -17,7 +17,10 @@ import useWishlist from '../../hooks/useWishlist';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { useVehiclesTotalCount } from '../../gql/vehiclesTotalCount';
-import { sortObjectGenerator } from '../SearchPageContainer/helpers';
+import {
+  RESULTS_PER_REQUEST,
+  sortObjectGenerator,
+} from '../SearchPageContainer/helpers';
 import {
   createOfferCards,
   getDefaultSortOrder,
@@ -36,8 +39,6 @@ const WishlistRegistration = dynamic(() => import('./WishlistRegistration'));
 const WishlistProductPlaceholder = dynamic(() =>
   import('./WishlistProductPlaceholder'),
 );
-
-const MAX_CARDS_PER_PAGE = 12;
 
 function WishlistPageContainer({
   pageTitle,
@@ -73,17 +74,17 @@ function WishlistPageContainer({
 
   const [isModalVisible, setModalVisibility] = useState(false);
   const [sortOrder, setSortOrder] = useState(getDefaultSortOrder());
-  const [cardsPerPage, setCardsPerPage] = useState(MAX_CARDS_PER_PAGE);
+  const [cardsPerPage, setCardsPerPage] = useState(RESULTS_PER_REQUEST);
 
   function handleChangeSortOrder(value: string) {
     const [type, direction] = value.split('_');
 
     setSortOrder(sortObjectGenerator(getNewSortOrder(type, direction)));
-    setCardsPerPage(MAX_CARDS_PER_PAGE);
+    setCardsPerPage(RESULTS_PER_REQUEST);
   }
 
   function handleClickLoadMore() {
-    setCardsPerPage(cardsPerPage + MAX_CARDS_PER_PAGE);
+    setCardsPerPage(cardsPerPage + RESULTS_PER_REQUEST);
   }
 
   const sortedProductList = useMemo(
