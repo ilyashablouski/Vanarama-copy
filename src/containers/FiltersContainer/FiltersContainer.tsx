@@ -266,6 +266,9 @@ const FiltersContainer = ({
    */
   const handleRemoveTag = (value: string) => {
     const formatedValue = value.replace('£', '').toLowerCase();
+
+    console.log(formatedValue);
+    console.log(selectedFiltersState);
     const filter = getValueKey(
       formatedValue,
       selectedFiltersState,
