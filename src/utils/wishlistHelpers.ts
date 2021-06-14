@@ -47,7 +47,7 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
       variables: {
         vehicleType,
         capIds: wishlistVehicles
-          .filter(card => card.vehicleType === vehicleType)
+          .filter(card => card.capId && card.vehicleType === vehicleType)
           .map(card => card.capId ?? ''),
       },
     });
