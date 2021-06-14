@@ -27,21 +27,6 @@ export interface GetPrimaryHeaderData_primaryHeader_linkGroups_promotionalImages
   image: (GetPrimaryHeaderData_primaryHeader_linkGroups_promotionalImages_image | null)[] | null;
 }
 
-export interface GetPrimaryHeaderData_primaryHeader_linkGroups_promotionalImage_image_file {
-  url: string;
-  fileName: string;
-}
-
-export interface GetPrimaryHeaderData_primaryHeader_linkGroups_promotionalImage_image {
-  file: GetPrimaryHeaderData_primaryHeader_linkGroups_promotionalImage_image_file | null;
-}
-
-export interface GetPrimaryHeaderData_primaryHeader_linkGroups_promotionalImage {
-  url: string | null;
-  legacyUrl: string | null;
-  image: (GetPrimaryHeaderData_primaryHeader_linkGroups_promotionalImage_image | null)[] | null;
-}
-
 export interface GetPrimaryHeaderData_primaryHeader_linkGroups_links {
   text: string | null;
   url: string | null;
@@ -79,7 +64,6 @@ export interface GetPrimaryHeaderData_primaryHeader_linkGroups {
   name: string | null;
   body: string | null;
   promotionalImages: (GetPrimaryHeaderData_primaryHeader_linkGroups_promotionalImages | null)[] | null;
-  promotionalImage: GetPrimaryHeaderData_primaryHeader_linkGroups_promotionalImage | null;
   links: (GetPrimaryHeaderData_primaryHeader_linkGroups_links | null)[] | null;
   linkGroups: (GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups | null)[] | null;
 }

@@ -27,16 +27,6 @@ const query = gql`
             }
           }
         }
-        promotionalImage {
-          url
-          legacyUrl
-          image {
-            file {
-              url
-              fileName
-            }
-          }
-        }
         links {
           text
           url

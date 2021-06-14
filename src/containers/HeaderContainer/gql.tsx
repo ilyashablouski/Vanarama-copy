@@ -12,16 +12,6 @@ export const GET_PRIMARY_HEADER_DATA = gql`
       linkGroups {
         name
         body
-        promotionalImage {
-          url
-          legacyUrl
-          image {
-            file {
-              url
-              fileName
-            }
-          }
-        }
         promotionalImages {
           url
           legacyUrl
