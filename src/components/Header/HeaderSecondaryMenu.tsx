@@ -32,8 +32,11 @@ export interface IHeaderSecondaryMenuProps extends IBaseProps {
   isTabletOrMobile: boolean;
   isMenuOpen: boolean;
   isSecondaryMenuOpen: boolean;
-  promotionalImage?: IHeaderPromoImage;
+  promotionalImages?: Array<IHeaderPromoImage>;
 }
+
+const MIN_PROMO_IMAGES_NUMBER = 1;
+const MAX_PROMO_IMAGES_NUMBER = 2;
 
 const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
   const router = useRouter();
@@ -44,7 +47,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     isTabletOrMobile,
     isSecondaryMenuOpen,
     isMenuOpen,
-    promotionalImage,
+    promotionalImages,
   } = props;
   const firstChildrenLinks: IHeaderLink | undefined = useMemo(
     () => links.find(el => !!el.children?.length && !el.promotionalImage?.url),
@@ -64,7 +67,13 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     if (isTabletOrMobile) {
       setActiveTertiaryMenu(null);
     } else {
-      setActiveTertiaryMenu(firstChildrenLinks?.id || '');
+      const promoImagesNumber = promotionalImages?.length ?? 0;
+
+      setActiveTertiaryMenu(
+        promoImagesNumber < MAX_PROMO_IMAGES_NUMBER
+          ? firstChildrenLinks?.id ?? ''
+          : null,
+      );
     }
   }, [
     router,
@@ -73,6 +82,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     isTabletOrMobile,
     setActiveTertiaryMenu,
     firstChildrenLinks?.id,
+    promotionalImages?.length,
   ]);
 
   const linkClassName = (classes: {
@@ -284,20 +294,22 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
             </React.Fragment>
           ))}
 
-          {promotionalImage?.url && (
-            <div className="menu-featured">
-              <RouterLink link={{ href: promotionalImage?.url, label: '' }}>
-                <Image
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  optimisationOptions={{
-                    quality: 40,
-                  }}
-                  src={promotionalImage?.image.url || '/img-placeholder.png'}
-                  alt={promotionalImage?.image.fileName}
-                />
-              </RouterLink>
-            </div>
-          )}
+          {promotionalImages
+            ?.slice(activeTertiaryMenu ? MIN_PROMO_IMAGES_NUMBER : 0)
+            .map(promotionalImage => (
+              <div className="menu-featured" key={promotionalImage.url}>
+                <RouterLink link={{ href: promotionalImage?.url, label: '' }}>
+                  <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    optimisationOptions={{
+                      quality: 40,
+                    }}
+                    src={promotionalImage?.image.url || '/img-placeholder.png'}
+                    alt={promotionalImage?.image.fileName}
+                  />
+                </RouterLink>
+              </div>
+            ))}
         </div>
       </LazyLoadComponent>
     </div>

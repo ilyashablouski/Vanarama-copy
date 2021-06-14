@@ -22,6 +22,16 @@ export const GET_PRIMARY_HEADER_DATA = gql`
             }
           }
         }
+        promotionalImages {
+          url
+          legacyUrl
+          image {
+            file {
+              url
+              fileName
+            }
+          }
+        }
         links {
           text
           url

@@ -17,6 +17,16 @@ const query = gql`
       linkGroups {
         name
         body
+        promotionalImages {
+          url
+          legacyUrl
+          image {
+            file {
+              url
+              fileName
+            }
+          }
+        }
         promotionalImage {
           url
           legacyUrl
