@@ -1,14 +1,32 @@
 import { NextPage } from 'next';
-import dynamic from 'next/dynamic';
 import React from 'react';
 import Card from 'core/molecules/cards';
 import Price from 'core/atoms/price';
 import Text from 'core/atoms/text';
-import Skeleton from '../../components/Skeleton';
+import Icon from 'core/atoms/icon';
+import Checkmark from 'core/assets/icons/Checkmark';
+import List from 'core/atoms/list';
+import Heading from 'core/atoms/heading';
+import Button from 'core/atoms/button/';
 
-const Heading = dynamic(() => import('core/atoms/heading'), {
-  loading: () => <Skeleton count={1} />,
-});
+const ADVANTAGES = [
+  {
+    label: 'Free Delivery',
+    key: '0',
+  },
+  {
+    label: 'Free Redundancy & Life Event Cover',
+    key: '1',
+  },
+  {
+    label: '1 Year&lsquo;s Free Insurance',
+    key: '2',
+  },
+  {
+    label: 'Advanced Breakdown Cover',
+    key: '3',
+  },
+];
 
 const CheckoutPage: NextPage = () => {
   return (
@@ -18,32 +36,45 @@ const CheckoutPage: NextPage = () => {
           Your Order
         </Heading>
         <div className="-flex">
-          <div className="full-width">
+          <div style={{ flexGrow: 1 }}>
             <Card withoutBoxShadow className="-mt-500">
               <Heading size="lead" color="black">
                 Mercedes-Benz A Class Hatchback
               </Heading>
-              <div>additional info</div>
+              <div className="-flex-row">
+                <div>IMAGE</div>
+                <div className="-ml-400">
+                  <List>
+                    <li className="-custom">
+                      <Heading className="-mv-500" tag="span">
+                        Initial Payment:
+                      </Heading>
+                      £1074.00 (Ex Vat)
+                      <Text></Text>
+                    </li>
+                  </List>
+                </div>
+              </div>
             </Card>
-            <Heading size="large" color="black">
+            <Heading size="large" color="black" className="-mv-500">
               Additional Options
             </Heading>
-            <Card withoutBoxShadow className="-mt-500">
+            <Card withoutBoxShadow className="-mb-400">
               <Heading color="black" size="regular">
                 Free Redundancy & Life Event Cover
               </Heading>
             </Card>
-            <Card withoutBoxShadow className="-mt-500">
+            <Card withoutBoxShadow className="-mb-400">
               <Heading color="black" size="regular">
                 1 Year&lsquo;s Free Insurance
               </Heading>
             </Card>
-            <Card withoutBoxShadow className="-mt-500">
+            <Card withoutBoxShadow className="-mb-400">
               <Heading color="black" size="regular">
                 Monthly Maintenance
               </Heading>
             </Card>
-            <Card withoutBoxShadow className="-mt-500">
+            <Card withoutBoxShadow className="-mb-400">
               <Heading color="black" size="regular">
                 Advanced Breakdown Cover
               </Heading>
@@ -57,19 +88,48 @@ const CheckoutPage: NextPage = () => {
               <Price
                 price={186.49}
                 size="xlarge"
+                className="-mb-200"
                 priceDescription="Per Month Inc. VAT"
               />
-              <Text color="black" tag="p">
-                You Will Need:
-              </Text>
-              <Text tag="p">
-                Details of the addresses you&lsquo;ve lived at for the past 3
-                years.
-              </Text>
-              <Text tag="p">
-                Details of the bank account that you&lsquo;ll use to pay monthly
-                payments.
-              </Text>
+              <List className="-mb-200">
+                {ADVANTAGES.map(item => (
+                  <Heading
+                    key={item.key}
+                    tag="li"
+                    size="lead"
+                    color="black"
+                    className="-custom"
+                  >
+                    <Icon size="lead" color="orange" icon={<Checkmark />} />
+                    {item.label}
+                  </Heading>
+                ))}
+              </List>
+              <Button
+                className="-mt-400"
+                color="teal"
+                dataTestId="about-you_continue-button"
+                // disabled={formState.isSubmitting}
+                fill="solid"
+                iconColor="white"
+                iconPosition="after"
+                label="Checkout"
+                size="large"
+                type="submit"
+              />
+              <div>
+                <Heading size="regular" color="black">
+                  You Will Need:
+                </Heading>
+                <Text tag="p" className="-mt-100">
+                  Details of the addresses you&lsquo;ve lived at for the past 3
+                  years.
+                </Text>
+                <Text tag="p">
+                  Details of the bank account that you&lsquo;ll use to pay
+                  monthly payments.
+                </Text>
+              </div>
             </Card>
           </div>
         </div>
@@ -77,30 +137,5 @@ const CheckoutPage: NextPage = () => {
     </div>
   );
 };
-
-// export async function getStaticProps(context: GetStaticPropsContext) {
-//   try {
-//     const client = createApolloClient({}, context as NextPageContext);
-//     const paths = context?.params?.pages as string[];
-//
-//     const { data, errors } = await client.query({
-//       query: GENERIC_PAGE,
-//       variables: {
-//         slug: `competitions/${paths?.join('/')}`,
-//       },
-//     });
-//     if (errors) {
-//       throw new Error(errors[0].message);
-//     }
-//     return {
-//       revalidate: Number(process.env.REVALIDATE_INTERVAL),
-//       props: {
-//         data,
-//       },
-//     };
-//   } catch (err) {
-//     throw new Error(err);
-//   }
-// }
 
 export default CheckoutPage;
