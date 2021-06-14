@@ -7,6 +7,7 @@ import Text from 'core/atoms/text';
 import Button from 'core/atoms/button';
 import Modal from 'core/molecules/modal';
 import Heading from 'core/atoms/heading';
+import Loading from 'core/atoms/loading';
 
 import Breadcrumb from 'components/Breadcrumb';
 
@@ -45,7 +46,7 @@ function WishlistPageContainer({
   breadcrumbsList,
 }: IWishlistContainer) {
   const { personLoggedIn } = usePerson();
-  const { wishlistVehicles } = useWishlist();
+  const { wishlistVehicles, wishlistInitialized } = useWishlist();
 
   const [getCarsOffers, carsOptions] = useVehiclesTotalCount(
     VehicleTypeEnum.CAR,
@@ -105,81 +106,91 @@ function WishlistPageContainer({
         </Heading>
       </div>
       <div className="row:bg-lighter wishlist -thin -pv-500">
-        {!personLoggedIn && <WishlistRegistration className="-mb-500" />}
-        {sortedProductList.length ? (
-          <div className="row:results">
-            <Text color="darker" size="regular" tag="span">
-              Showing {wishlistVehicles.length} Vehicles
-            </Text>
-            <SortOrder
-              sortOrder={sortOrder[0]}
-              sortValues={getSortValues()}
-              isSpecialOffersOrder={false}
-              onChangeSortOrder={handleChangeSortOrder}
-            />
-            <section className="row:cards-3col">
-              {sortedProductList.slice(0, cardsPerPage).map((card, index) => {
-                const cardUrl = card.pageUrl?.url ?? '';
-                const cardTitle = {
-                  title: `${card.manufacturerName} ${card.modelName}`,
-                  description: card.derivativeName ?? '',
-                };
-
-                return (
-                  <LazyLoadComponent
-                    key={card.capId || index}
-                    visibleByDefault={isServerRenderOrAppleDevice}
-                  >
-                    <WishlistProductCard
-                      data={card}
-                      isPersonalPrice
-                      bodyStyle={card.bodyStyle}
-                      title={cardTitle}
-                      url={cardUrl}
-                    />
-                  </LazyLoadComponent>
-                );
-              })}
-              {productPlaceholderList.map((placeholder, index) => (
-                <LazyLoadComponent
-                  key={placeholder.capId || index}
-                  visibleByDefault={isServerRenderOrAppleDevice}
-                >
-                  <WishlistProductPlaceholder
-                    onClick={() => setModalVisibility(true)}
-                  />
-                </LazyLoadComponent>
-              ))}
-            </section>
-            {sortedProductList.length > cardsPerPage && (
-              <div className="pagination">
-                <Button
-                  color="teal"
-                  size="regular"
-                  fill="outline"
-                  label="Load More"
-                  dataTestId="LoadMore"
-                  onClick={handleClickLoadMore}
+        {wishlistInitialized ? (
+          <>
+            {!personLoggedIn && <WishlistRegistration className="-mb-500" />}
+            {sortedProductList.length ? (
+              <div className="row:results">
+                <Text color="darker" size="regular" tag="span">
+                  Showing {wishlistVehicles.length} Vehicles
+                </Text>
+                <SortOrder
+                  sortOrder={sortOrder[0]}
+                  sortValues={getSortValues()}
+                  isSpecialOffersOrder={false}
+                  onChangeSortOrder={handleChangeSortOrder}
                 />
+                <section className="row:cards-3col">
+                  {sortedProductList
+                    .slice(0, cardsPerPage)
+                    .map((card, index) => {
+                      const cardUrl = card.pageUrl?.url ?? '';
+                      const cardTitle = {
+                        title: `${card.manufacturerName} ${card.modelName}`,
+                        description: card.derivativeName ?? '',
+                      };
+
+                      return (
+                        <LazyLoadComponent
+                          key={card.capId || index}
+                          visibleByDefault={isServerRenderOrAppleDevice}
+                        >
+                          <WishlistProductCard
+                            data={card}
+                            isPersonalPrice
+                            bodyStyle={card.bodyStyle}
+                            title={cardTitle}
+                            url={cardUrl}
+                          />
+                        </LazyLoadComponent>
+                      );
+                    })}
+                  {productPlaceholderList.map((placeholder, index) => (
+                    <LazyLoadComponent
+                      key={placeholder.capId || index}
+                      visibleByDefault={isServerRenderOrAppleDevice}
+                    >
+                      <WishlistProductPlaceholder
+                        onClick={() => setModalVisibility(true)}
+                      />
+                    </LazyLoadComponent>
+                  ))}
+                </section>
+                {sortedProductList.length > cardsPerPage && (
+                  <div className="pagination">
+                    <Button
+                      color="teal"
+                      size="regular"
+                      fill="outline"
+                      label="Load More"
+                      dataTestId="LoadMore"
+                      onClick={handleClickLoadMore}
+                    />
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="row">
+                <WishlistEmptyMessage className="-mb-400" />
+                <section className="row:cards-3col">
+                  {cardList.map(card => (
+                    <WishlistOfferCard
+                      key={card.header}
+                      label={card.header}
+                      imageUrl={card.imageSrc}
+                      totalCount={card.totalCount}
+                      onClick={() => Router.push(card.redirect)}
+                      textSize="regular"
+                      iconSize="large"
+                    />
+                  ))}
+                </section>
               </div>
             )}
-          </div>
+          </>
         ) : (
-          <div className="row">
-            <WishlistEmptyMessage className="-mb-400" />
-            <section className="row:cards-3col">
-              {cardList.map(card => (
-                <WishlistOfferCard
-                  key={card.header}
-                  label={card.header}
-                  imageUrl={card.imageSrc}
-                  totalCount={card.totalCount}
-                  onClick={() => Router.push(card.redirect)}
-                  textSize="regular"
-                  iconSize="large"
-                />
-              ))}
-            </section>
+          <div className="-flex-h -h-400">
+            <Loading size="large" />
           </div>
         )}
       </div>

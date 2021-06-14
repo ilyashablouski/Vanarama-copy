@@ -33,6 +33,8 @@ import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
 import { PAGES_WITHOUT_DEFERRED_STYLES } from '../components/Head/defaults';
 import { removeSessionStorageItem } from '../utils/windowSessionStorage';
+import { useApolloClient } from '@apollo/client';
+import { initializeWishlistState } from '../utils/wishlistHelpers';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -63,6 +65,12 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const [modalCompareTypeError, setModalCompareTypeError] = useState<
     boolean | undefined
   >(false);
+
+  const client = useApolloClient();
+
+  useEffect(() => {
+    initializeWishlistState(client);
+  }, [client]);
 
   useEffect(() => {
     // Anytime router.push is called, scroll to the top of the page.
