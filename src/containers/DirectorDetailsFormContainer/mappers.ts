@@ -38,7 +38,7 @@ export const mapFormValues = (
       uuid: director.uuid,
       firstName: director.firstName,
       lastName: director.lastName,
-      businessShare: director.shareOfBusiness,
+      businessShare: parseFloat(director.shareOfBusiness),
       addresses:
         addresses(director).length > 0 ? addresses(director) : undefined,
       gender: director.gender,
@@ -102,7 +102,7 @@ export const mapDirectorDetails = (
   originalLastName: data?.originalLastName ?? '',
   monthOfBirth: data?.monthOfBirth ?? '',
   numberOfDependants: data?.numberOfDependants ?? '',
-  shareOfBusiness: data?.shareOfBusiness ?? null,
+  shareOfBusiness: String(data?.shareOfBusiness ?? ''),
   nationality: data?.nationality ?? '',
   title: data?.title ?? '',
   yearOfBirth: data?.yearOfBirth ?? '',

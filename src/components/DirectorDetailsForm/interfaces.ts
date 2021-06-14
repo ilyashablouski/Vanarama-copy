@@ -3,7 +3,7 @@ import { CompanyAssociate_addresses as Address } from '../../../generated/Compan
 
 export type DirectorDetailsFormValues = {
   directors: DirectorFormValues[];
-  totalPercentage: number | null;
+  totalPercentage: number;
 };
 
 export type DirectorFormValues = {
@@ -14,7 +14,7 @@ export type DirectorFormValues = {
   lastName: string;
   originalLastName: string;
   gender: string;
-  shareOfBusiness: number | null;
+  shareOfBusiness: string;
   nationality: string;
   dayOfBirth: string;
   monthOfBirth: string;

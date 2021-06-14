@@ -17,12 +17,11 @@ export const initialEditedFormValues = (
   if (directors.length === 1) {
     return {
       directors,
-      totalPercentage: directors[0].shareOfBusiness,
+      totalPercentage: parseFloat(directors[0].shareOfBusiness),
     };
   }
-  const totalPercentage = sum(
-    directors,
-    director => director.shareOfBusiness ?? 0,
+  const totalPercentage = sum(directors, director =>
+    parseFloat(director.shareOfBusiness),
   );
 
   if (directorUuid) {
@@ -122,7 +121,7 @@ export const validationSchema = Yup.object().shape({
               'Oops, this email is too long. Please keep it to 254 characters',
             )
             .email('Oops, this email address is invalid'),
-          shareOfBusiness: Yup.number().required(
+          shareOfBusiness: Yup.string().required(
             'Please enter the share of business',
           ),
           nationality: Yup.string().required('Please select a nationality'),
@@ -212,7 +211,7 @@ export const parseOfficers = (
       originalLastName: lastName,
       gender: '',
       email: '',
-      shareOfBusiness: null,
+      shareOfBusiness: '',
       nationality: '',
       dayOfBirth: '',
       monthOfBirth: '',
