@@ -17,11 +17,11 @@ export const initialEditedFormValues = (
   if (directors.length === 1) {
     return {
       directors,
-      totalPercentage: parseInt(directors[0].shareOfBusiness, 10),
+      totalPercentage: parseFloat(directors[0].shareOfBusiness),
     };
   }
   const totalPercentage = sum(directors, director =>
-    parseInt(director.shareOfBusiness, 10),
+    parseFloat(director.shareOfBusiness),
   );
 
   if (directorUuid) {
