@@ -507,7 +507,6 @@ exports[`<HeaderSecondaryMenu /> renders correctly 1`] = `
         </a>
       </li>
     </ul>
-    
   </div>
 </div>
 `;
