@@ -3,13 +3,13 @@ import { ApolloClient } from '@apollo/client';
 
 import {
   GetProductCard,
-  GetProductCardVariables,
   GetProductCard_productCard,
+  GetProductCardVariables,
 } from '../../generated/GetProductCard';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { IWishlistProduct, IWishlistState } from '../types/wishlist';
 import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
-import { wishlistVar, initialWishlistState } from '../cache';
+import { initialWishlistState, wishlistVar } from '../cache';
 import { Nullish } from '../types/common';
 
 export const getLocalWishlistState = async () => {
@@ -35,6 +35,7 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
 
   if (!wishlistVehicles.length) {
     return wishlistVar({
+      wishlistNoLongerAvailable: false,
       wishlistInitialized: true,
       wishlistVehicles,
     });
@@ -74,12 +75,16 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
     ];
   }
 
+  const resultWishlistVehicles = wishlistVehicles.filter(card =>
+    resultProductCardList.some(product => product?.capId === card.capId),
+  );
+
   return setLocalWishlistState(
     wishlistVar({
       wishlistInitialized: true,
-      wishlistVehicles: wishlistVehicles.filter(card =>
-        resultProductCardList.some(product => product?.capId === card.capId),
-      ),
+      wishlistNoLongerAvailable:
+        resultWishlistVehicles.length !== wishlistVehicles.length,
+      wishlistVehicles: resultWishlistVehicles,
     }),
   );
 };

@@ -15,5 +15,6 @@ export interface IWishlistProduct extends ICard {
 
 export interface IWishlistState {
   wishlistVehicles: Array<IWishlistProduct>;
+  wishlistNoLongerAvailable: boolean;
   wishlistInitialized: boolean;
 }

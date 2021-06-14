@@ -6,18 +6,22 @@ import { Nullish } from '../types/common';
 import { wishlistVar } from '../cache';
 
 export default function useWishlist() {
-  const { wishlistInitialized, wishlistVehicles } = useReactiveVar(wishlistVar);
+  const {
+    wishlistVehicles,
+    wishlistInitialized,
+    wishlistNoLongerAvailable,
+  } = useReactiveVar(wishlistVar);
 
   function addToWishlist(product: IWishlistProduct) {
     return wishlistVar({
-      wishlistInitialized,
+      ...wishlistVar(),
       wishlistVehicles: [product, ...wishlistVehicles],
     });
   }
 
   function removeFromWishlist(product: IWishlistProduct) {
     return wishlistVar({
-      wishlistInitialized,
+      ...wishlistVar(),
       wishlistVehicles: wishlistVehicles.filter(
         item => item.capId !== product.capId,
       ),
@@ -36,5 +40,10 @@ export default function useWishlist() {
     setLocalWishlistState(newState);
   }
 
-  return { wishlistVehicles, wishlistChange, wishlistInitialized };
+  return {
+    wishlistVehicles,
+    wishlistChange,
+    wishlistNoLongerAvailable,
+    wishlistInitialized,
+  };
 }

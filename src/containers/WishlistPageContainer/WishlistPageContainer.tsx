@@ -22,6 +22,7 @@ import {
   RESULTS_PER_REQUEST,
   sortObjectGenerator,
 } from '../SearchPageContainer/helpers';
+import { wishlistVar } from '../../cache';
 import {
   createOfferCards,
   getDefaultSortOrder,
@@ -45,8 +46,21 @@ function WishlistPageContainer({
   pageTitle,
   breadcrumbsList,
 }: IWishlistContainer) {
+  const {
+    wishlistVehicles,
+    wishlistInitialized,
+    wishlistNoLongerAvailable,
+  } = useWishlist();
   const { personLoggedIn } = usePerson();
-  const { wishlistVehicles, wishlistInitialized } = useWishlist();
+
+  useEffect(() => {
+    return () => {
+      wishlistVar({
+        ...wishlistVar(),
+        wishlistNoLongerAvailable: false,
+      });
+    };
+  }, []);
 
   const [getCarsOffers, carsOptions] = useVehiclesTotalCount(
     VehicleTypeEnum.CAR,
@@ -120,6 +134,12 @@ function WishlistPageContainer({
                   isSpecialOffersOrder={false}
                   onChangeSortOrder={handleChangeSortOrder}
                 />
+                {wishlistNoLongerAvailable && (
+                  <Heading size="regular" color="black">
+                    One or more items from your wishlist have been removed as
+                    they are no longer available.
+                  </Heading>
+                )}
                 <section className="row:cards-3col">
                   {sortedProductList
                     .slice(0, cardsPerPage)
