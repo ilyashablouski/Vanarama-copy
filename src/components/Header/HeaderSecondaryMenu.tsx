@@ -63,12 +63,13 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     firstChildrenLinks?.id || '',
   );
 
+  const promoImagesNumber = promotionalImages?.length ?? 0;
+  const multiplePromoImages = promoImagesNumber > MIN_PROMO_IMAGES_NUMBER;
+
   useEffect(() => {
     if (isTabletOrMobile) {
       setActiveTertiaryMenu(null);
     } else {
-      const promoImagesNumber = promotionalImages?.length ?? 0;
-
       setActiveTertiaryMenu(
         promoImagesNumber < MAX_PROMO_IMAGES_NUMBER
           ? firstChildrenLinks?.id ?? ''
@@ -82,7 +83,7 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
     isTabletOrMobile,
     setActiveTertiaryMenu,
     firstChildrenLinks?.id,
-    promotionalImages?.length,
+    promoImagesNumber,
   ]);
 
   const linkClassName = (classes: {
@@ -295,7 +296,11 @@ const HeaderSecondaryMenu: FC<IHeaderSecondaryMenuProps> = memo(props => {
           ))}
 
           {promotionalImages
-            ?.slice(activeTertiaryMenu ? MIN_PROMO_IMAGES_NUMBER : 0)
+            ?.slice(
+              multiplePromoImages && activeTertiaryMenu
+                ? MIN_PROMO_IMAGES_NUMBER
+                : 0,
+            )
             .map(promotionalImage => (
               <div className="menu-featured" key={promotionalImage.url}>
                 <RouterLink link={{ href: promotionalImage?.url, label: '' }}>
