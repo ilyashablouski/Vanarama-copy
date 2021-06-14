@@ -165,6 +165,132 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_companyDetail
   withTradingAddress: boolean | null;
 }
 
+export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_addresses {
+  city: string;
+  country: string | null;
+  county: string | null;
+  endedOn: any | null;
+  kind: string | null;
+  lineOne: string;
+  lineThree: string | null;
+  lineTwo: string | null;
+  postcode: string;
+  propertyStatus: string | null;
+  serviceId: string | null;
+  startedOn: any | null;
+  uuid: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_emailAddresses {
+  kind: string | null;
+  primary: boolean | null;
+  uuid: string | null;
+  value: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_history_address {
+  city: string;
+  country: string | null;
+  county: string | null;
+  endedOn: any | null;
+  kind: string | null;
+  lineOne: string;
+  lineThree: string | null;
+  lineTwo: string | null;
+  postcode: string;
+  propertyStatus: string | null;
+  serviceId: string | null;
+  startedOn: any | null;
+  uuid: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_history {
+  address: GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_history_address | null;
+  month: string | null;
+  status: string;
+  year: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_incomeAndExpense {
+  annualIncome: number | null;
+  anticipateMonthlyIncomeChange: boolean | null;
+  averageMonthlyIncome: number | null;
+  carFinance: number | null;
+  creditCardPayments: number | null;
+  foodAndClothes: number | null;
+  fuel: number | null;
+  futureMonthlyIncome: number | null;
+  householdIncome: number | null;
+  insurance: number | null;
+  mortgageOrRent: number | null;
+  netDisposableIncome: number | null;
+  otherCredit: number | null;
+  phoneAndInternet: number | null;
+  studentLoan: number | null;
+  suitabilityConsent: boolean | null;
+  totalMonthlyExpenses: number | null;
+  utilities: number | null;
+  uuid: string | null;
+  withStudentLoan: boolean | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_telephoneNumbers {
+  kind: string | null;
+  primary: boolean | null;
+  uuid: string | null;
+  value: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors {
+  addresses: GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_addresses[] | null;
+  businessShare: number | null;
+  cognitoSub: string | null;
+  companyType: string | null;
+  countryOfBirth: string | null;
+  dateOfBirth: any | null;
+  dayOfBirth: string | null;
+  disabilityRegistered: boolean | null;
+  email: string | null;
+  emailAddresses: GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_emailAddresses[] | null;
+  emailConsent: boolean | null;
+  firstName: string;
+  gender: string | null;
+  history: GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_history[] | null;
+  incomeAndExpense: GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_incomeAndExpense | null;
+  isApplicant: boolean | null;
+  isDirector: boolean | null;
+  jobTitle: string | null;
+  lastName: string;
+  leadManagerId: string | null;
+  maritalStatus: string | null;
+  middleName: string | null;
+  monthOfBirth: string | null;
+  nationality: string | null;
+  noOfAdultsInHousehold: string | null;
+  noOfDependants: string | null;
+  numberOfDependants: string | null;
+  occupation: string | null;
+  originalFirstName: string | null;
+  originalLastName: string | null;
+  partyUuid: string | null;
+  privacyPolicy: boolean | null;
+  profilingConsent: boolean | null;
+  shareOfBusiness: number | null;
+  smsConsent: boolean | null;
+  telephoneNumbers: GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_telephoneNumbers[] | null;
+  termsAndConditions: boolean | null;
+  title: string | null;
+  tradingName: string | null;
+  uuid: string | null;
+  vatRegistrationNumber: string | null;
+  yearOfBirth: string | null;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2 {
+  directors: GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors[] | null;
+  totalPercentage: number | null;
+}
+
 export interface GetMyOrders_myOrders_lineItems_creditApplications_incomeAndExpensesV2 {
   uuid: string | null;
 }
@@ -185,7 +311,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications {
   creditApplicationType: CreditApplicationTypeEnum | null;
   aboutDetailsV2: GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2 | null;
   companyDetailsV2: GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2 | null;
-  directorsDetails: any | null;
+  directorsDetailsV2: GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2 | null;
   partnersDetails: any | null;
   soleTraderDetails: any | null;
   vatDetails: any | null;

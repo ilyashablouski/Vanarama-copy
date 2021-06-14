@@ -852,7 +852,7 @@ describe('B2B VAT Details page', () => {
             leadManagerProposalId: 'leadManagerProposalId',
             companyDetailsV2: null,
             vatDetails: { vatRegistered: false, outsideUK: false },
-            directorsDetails: 'directorsDetails',
+            directorsDetailsV2: null,
             soleTraderDetails: {},
           }),
         ]}

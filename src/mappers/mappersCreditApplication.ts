@@ -15,7 +15,7 @@ export const formValuesToInputCreditApplication = (
     aboutDetailsV2: creditApp.aboutDetailsV2,
     companyDetailsV2: creditApp.companyDetailsV2,
     vatDetails: creditApp.vatDetails,
-    directorsDetails: creditApp.directorsDetails,
+    directorsDetailsV2: creditApp.directorsDetailsV2,
     soleTraderDetails: creditApp.soleTraderDetails,
     creditApplicationType: creditApp.creditApplicationType,
   };
