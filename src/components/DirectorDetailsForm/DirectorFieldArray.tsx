@@ -84,7 +84,7 @@ const handleDirectorSelected = (
       firstName,
       lastName,
       gender: '',
-      shareOfBusiness: '',
+      shareOfBusiness: null,
       dayOfBirth: '',
       monthOfBirth: '',
       yearOfBirth: '',

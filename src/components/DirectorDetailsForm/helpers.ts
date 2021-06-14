@@ -20,7 +20,10 @@ export const initialEditedFormValues = (
       totalPercentage: directors[0].shareOfBusiness,
     };
   }
-  const totalPercentage = sum(directors, director => director.shareOfBusiness);
+  const totalPercentage = sum(
+    directors,
+    director => director.shareOfBusiness ?? 0,
+  );
 
   if (directorUuid) {
     const selected = directors.find(d => d.uuid === directorUuid);
@@ -119,7 +122,7 @@ export const validationSchema = Yup.object().shape({
               'Oops, this email is too long. Please keep it to 254 characters',
             )
             .email('Oops, this email address is invalid'),
-          shareOfBusiness: Yup.string().required(
+          shareOfBusiness: Yup.number().required(
             'Please enter the share of business',
           ),
           nationality: Yup.string().required('Please select a nationality'),
@@ -209,7 +212,7 @@ export const parseOfficers = (
       originalLastName: lastName,
       gender: '',
       email: '',
-      shareOfBusiness: 0,
+      shareOfBusiness: null,
       nationality: '',
       dayOfBirth: '',
       monthOfBirth: '',

@@ -105,7 +105,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     });
 
   const handleCreditApplicationUpdate = (
-    totalPercentage: number,
+    totalPercentage: number | null,
     directors?: DirectorFormValues[],
   ) =>
     createUpdateApplication({

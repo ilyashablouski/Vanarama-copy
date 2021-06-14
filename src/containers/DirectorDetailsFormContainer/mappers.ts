@@ -102,7 +102,7 @@ export const mapDirectorDetails = (
   originalLastName: data?.originalLastName ?? '',
   monthOfBirth: data?.monthOfBirth ?? '',
   numberOfDependants: data?.numberOfDependants ?? '',
-  shareOfBusiness: data?.shareOfBusiness ?? 0,
+  shareOfBusiness: data?.shareOfBusiness ?? null,
   nationality: data?.nationality ?? '',
   title: data?.title ?? '',
   yearOfBirth: data?.yearOfBirth ?? '',
