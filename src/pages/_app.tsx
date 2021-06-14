@@ -8,6 +8,7 @@ import cx from 'classnames';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Cookies from 'js-cookie';
 import { useMediaQuery } from 'react-responsive';
+import { useApolloClient } from '@apollo/client';
 import {
   PAGES_WITHOUT_LEASE_RESET,
   removeUrlQueryPart,
@@ -33,7 +34,6 @@ import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
 import { PAGES_WITHOUT_DEFERRED_STYLES } from '../components/Head/defaults';
 import { removeSessionStorageItem } from '../utils/windowSessionStorage';
-import { useApolloClient } from '@apollo/client';
 import { initializeWishlistState } from '../utils/wishlistHelpers';
 
 // Dynamic component loading.

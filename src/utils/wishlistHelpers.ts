@@ -1,38 +1,16 @@
 import localForage from 'localforage';
 import { ApolloClient } from '@apollo/client';
 
-import { wishlistVar } from 'cache';
-
 import {
   GetProductCard,
   GetProductCardVariables,
   GetProductCard_productCard,
-  GetProductCard_productCard as ICard,
 } from '../../generated/GetProductCard';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
+import { IWishlistProduct, IWishlistState } from '../types/wishlist';
 import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
+import { wishlistVar, initialWishlistState } from '../cache';
 import { Nullish } from '../types/common';
-
-export interface IProductPageUrl {
-  url: string;
-  href: string;
-  capId: string;
-}
-
-export interface IWishlistProduct extends ICard {
-  bodyStyle?: Nullish<string>;
-  pageUrl?: IProductPageUrl;
-}
-
-export interface IWishlistState {
-  wishlistVehicles: Array<IWishlistProduct>;
-  wishlistInitialized: boolean;
-}
-
-export const initialWishlistState = {
-  wishlistInitialized: false,
-  wishlistVehicles: [],
-};
 
 export const getLocalWishlistState = async () => {
   const localState = await localForage.getItem('wishlist');

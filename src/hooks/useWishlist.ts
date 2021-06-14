@@ -1,10 +1,7 @@
 import { useReactiveVar } from '@apollo/client';
 
-import {
-  isWished,
-  IWishlistProduct,
-  setLocalWishlistState,
-} from '../utils/wishlistHelpers';
+import { IWishlistProduct } from '../types/wishlist';
+import { isWished, setLocalWishlistState } from '../utils/wishlistHelpers';
 import { Nullish } from '../types/common';
 import { wishlistVar } from '../cache';
 
