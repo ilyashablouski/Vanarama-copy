@@ -1,40 +1,27 @@
-import { useEffect } from 'react';
 import { useReactiveVar } from '@apollo/client';
 
-import {
-  isWished,
-  IWishlistProduct,
-  getLocalWishlistState,
-  setLocalWishlistState,
-} from '../utils/wishlistHelpers';
+import { IWishlistProduct } from '../types/wishlist';
+import { isWished, setLocalWishlistState } from '../utils/wishlistHelpers';
 import { Nullish } from '../types/common';
 import { wishlistVar } from '../cache';
 
 export default function useWishlist() {
-  const { wishlistVehicles } = useReactiveVar(wishlistVar);
-
-  async function initWishlistState() {
-    const initialState = await getLocalWishlistState();
-
-    if (initialState.wishlistVehicles.length) {
-      wishlistVar(initialState);
-    }
-  }
-
-  useEffect(() => {
-    if (!wishlistVehicles.length) {
-      initWishlistState();
-    }
-  }, [wishlistVehicles.length]);
+  const {
+    wishlistVehicles,
+    wishlistInitialized,
+    wishlistNoLongerAvailable,
+  } = useReactiveVar(wishlistVar);
 
   function addToWishlist(product: IWishlistProduct) {
     return wishlistVar({
+      ...wishlistVar(),
       wishlistVehicles: [product, ...wishlistVehicles],
     });
   }
 
   function removeFromWishlist(product: IWishlistProduct) {
     return wishlistVar({
+      ...wishlistVar(),
       wishlistVehicles: wishlistVehicles.filter(
         item => item.capId !== product.capId,
       ),
@@ -53,5 +40,10 @@ export default function useWishlist() {
     setLocalWishlistState(newState);
   }
 
-  return { wishlistVehicles, wishlistChange };
+  return {
+    wishlistVehicles,
+    wishlistChange,
+    wishlistNoLongerAvailable,
+    wishlistInitialized,
+  };
 }
