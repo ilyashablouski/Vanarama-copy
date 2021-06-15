@@ -45,7 +45,7 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
   order,
   derivative,
   vehicleImages,
-                                                                       vehicleConfiguration
+  vehicleConfiguration,
 }) => {
   const router = useRouter();
   const methods = useForm<IAdditionalOptionsFormValues>({
