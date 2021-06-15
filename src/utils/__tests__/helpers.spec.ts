@@ -54,7 +54,7 @@ describe('toCurrencyDisplay', () => {
 
 describe('toPriceFormat', () => {
   it('toPriceFormat should return correct price', () => {
-    expect(toPriceFormat(123)).toBe('123.00');
+    expect(toPriceFormat(123)).toBe('123,00');
   });
   it('toPriceFormat should return correct price', () => {
     expect(toPriceFormat(0)).toBe('0.00');
