@@ -73,7 +73,7 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
                 value.map((image, idx) => {
                   return idx === 1 ? (
                     <img
-                      loading="eager"
+                      loading="lazy"
                       sizes="(min-width:320px) 800px, 1200px"
                       alt={imageAltText}
                       className="gallery-free-insurance"
@@ -82,6 +82,7 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
                   ) : (
                     <Image
                       optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                      lazyLoad
                       src={image}
                       size="expand"
                       plain
