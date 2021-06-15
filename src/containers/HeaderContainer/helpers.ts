@@ -1,27 +1,27 @@
 import { ILink } from 'core/interfaces/link';
 
 import {
-  GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups,
   GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_links,
+  GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_promotionalImage,
 } from '../../../generated/GetPrimaryHeaderData';
+import { Nullish } from '../../types/common';
 
-export function getPromotionalImage(
-  linksGroup: GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups | null,
+export function convertPromotionalImage(
+  promotionalImage: Nullish<
+    GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_promotionalImage
+  >,
 ) {
   return {
-    url:
-      linksGroup?.promotionalImage?.legacyUrl ||
-      linksGroup?.promotionalImage?.url ||
-      '',
+    url: promotionalImage?.legacyUrl || promotionalImage?.url || '',
     image: {
-      url: linksGroup?.promotionalImage?.image?.[0]?.file?.url || '',
-      fileName: linksGroup?.promotionalImage?.image?.[0]?.file?.fileName || '',
+      url: promotionalImage?.image?.[0]?.file?.url || '',
+      fileName: promotionalImage?.image?.[0]?.file?.fileName || '',
     },
   };
 }
 
 export function convertChildrenNavLink(
-  link: GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_links | null,
+  link: Nullish<GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups_links>,
 ) {
   return {
     label: link?.text || '',

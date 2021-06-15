@@ -8,6 +8,12 @@ import { parseDate } from '../../utils/dates';
 import { SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates as Associate } from '../../../generated/SaveDirectorDetailsMutation';
 import { AddressInputObject } from '../../../generated/globalTypes';
 import { FunderDirectors } from '../../../generated/FunderDirectors';
+import {
+  GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as ICreditApplication,
+  GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_directorsDetailsV2_directors as ICreditApplicationDirectors,
+  GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_directorsDetailsV2_directors_addresses as ICreditApplicationAdresses,
+} from '../../../generated/GetCreditApplicationByOrderUuid';
+import { CompanyAssociate_addresses } from '../../../generated/CompanyAssociate';
 
 export const mapFormValues = (
   values: DirectorDetailsFormValues,
@@ -32,7 +38,7 @@ export const mapFormValues = (
       uuid: director.uuid,
       firstName: director.firstName,
       lastName: director.lastName,
-      businessShare: parseInt(director.shareOfBusiness, 10),
+      businessShare: parseFloat(director.shareOfBusiness),
       addresses:
         addresses(director).length > 0 ? addresses(director) : undefined,
       gender: director.gender,
@@ -52,57 +58,65 @@ export const mapFormValues = (
   };
 };
 
-export const mapAddresses = (data?: any) =>
-  data?.map((item: any) => ({
-    city: item?.city,
-    country: item?.country,
-    county: item?.county,
-    kind: item?.kind,
-    lineOne: item?.line_one,
-    lineThree: item?.line_three,
-    lineTwo: item?.line_two,
-    postcode: item?.postcode,
-    serviceId: item?.service_id,
-    startedOn: item?.started_on,
-    status: item?.propertyStatus,
+export const mapHistoryAddresses = (
+  data?: ICreditApplicationAdresses | null,
+): IAddressSuggestion => {
+  return {
+    id: data?.uuid ?? '',
+    city: data?.city ?? '',
+    country: data?.country ?? '',
+    lineOne: data?.lineOne ?? '',
+    lineTwo: data?.lineTwo ?? '',
+    postcode: data?.postcode ?? '',
+  };
+};
+
+export const mapAddresses = (
+  data?: ICreditApplicationAdresses[] | null,
+): Array<CompanyAssociate_addresses> =>
+  (data ?? []).map(item => ({
+    city: item?.city ?? '',
+    lineOne: item?.lineOne ?? '',
+    lineTwo: item?.lineTwo ?? '',
+    postcode: item?.postcode ?? '',
+    propertyStatus: item?.propertyStatus ?? '',
+    serviceId: item?.serviceId ?? '',
+    startedOn: item?.startedOn ?? '',
   }));
 
-export const mapDirectorDetails = (data: any): DirectorDetails => ({
-  dayOfBirth: data?.day_of_birth,
-  gender: data?.gender,
-  email: data?.email,
-  history: data?.history?.map((item: any) => ({
-    month: item?.month,
+export const mapDirectorDetails = (
+  data: ICreditApplicationDirectors,
+): DirectorDetails => ({
+  dayOfBirth: data?.dayOfBirth ?? '',
+  gender: data?.gender ?? '',
+  email: data?.email ?? '',
+  history: (data?.history ?? [])?.map(item => ({
+    month: item?.month ?? '',
     status: item?.status,
-    year: item?.year,
-    address: item?.address
-      ? {
-          id: item?.address?.id,
-          label: item?.address?.label,
-        }
-      : undefined,
+    year: item?.year ?? '',
+    address: mapHistoryAddresses(item?.address),
   })),
-  firstName: data?.first_name,
-  originalFirstName: data?.original_first_name,
-  lastName: data?.last_name,
-  originalLastName: data?.original_last_name,
-  monthOfBirth: data?.month_of_birth,
-  numberOfDependants: data?.number_of_dependants,
-  shareOfBusiness: data?.share_of_business,
-  nationality: data?.nationality,
-  title: data?.title,
-  yearOfBirth: data?.year_of_birth,
-  uuid: data?.uuid,
+  firstName: data?.firstName,
+  originalFirstName: data?.originalFirstName ?? '',
+  lastName: data?.lastName,
+  originalLastName: data?.originalLastName ?? '',
+  monthOfBirth: data?.monthOfBirth ?? '',
+  numberOfDependants: data?.numberOfDependants ?? '',
+  shareOfBusiness: String(data?.shareOfBusiness ?? ''),
+  nationality: data?.nationality ?? '',
+  title: data?.title ?? '',
+  yearOfBirth: data?.yearOfBirth ?? '',
+  uuid: data?.uuid ?? '',
   addresses: mapAddresses(data?.addresses),
 });
 
 export const mapDirectorsDefaultValues = (
-  data: any,
+  data?: ICreditApplication['directorsDetailsV2'],
 ): DirectorDetailsFormValues => ({
-  directors: (data?.directors || []).map((item: any) => {
+  directors: (data?.directors || []).map(item => {
     return mapDirectorDetails(item);
   }),
-  totalPercentage: data?.total_percentage,
+  totalPercentage: data?.totalPercentage ?? 0,
 });
 
 export const combineUpdatedDirectors = (

@@ -19,7 +19,7 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
     setMileageValue(defaultValue);
   }, [defaultValue]);
 
-  const valueChange = (pageX: number, click?: string) => {
+  const valueChange = (pageX: number, isApplied?: boolean) => {
     if (!disabled) {
       const coordinates = myRef?.current?.getBoundingClientRect();
       const width =
@@ -42,7 +42,7 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
           setDefaultMileageIndex(+value + 1);
         }
 
-        if (click) {
+        if (isApplied) {
           onChange(+value + 1);
         }
       }
@@ -66,7 +66,7 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
       role="button"
       ref={myRef}
       onClick={elem => {
-        valueChange(elem.pageX, 'click');
+        valueChange(elem.pageX, true);
       }}
       onMouseMove={elem => {
         if (mouseDown) {
@@ -76,7 +76,8 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
       onTouchMove={elem => {
         valueChange(elem.changedTouches[0].pageX);
       }}
-      onTouchEnd={() => {
+      onTouchEnd={elem => {
+        valueChange(elem.changedTouches[0].pageX, true);
         mouseOut();
       }}
       onMouseLeave={mouseOut}

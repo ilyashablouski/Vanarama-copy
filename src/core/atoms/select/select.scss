@@ -66,6 +66,14 @@
     color: $dark;
     display: flex;
     align-items: center;
+
+    .icon {
+      display: inline-flex;
+
+      svg {
+        height: 100%;
+      }
+    }
   }
 
   &--dropdown-menu {

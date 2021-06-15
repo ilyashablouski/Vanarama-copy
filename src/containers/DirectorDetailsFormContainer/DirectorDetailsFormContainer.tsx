@@ -58,13 +58,13 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     companyOfficersQuery?.data?.companyOfficers?.nodes?.filter(isTruthy) || [];
   const directorsDetails =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
-      ?.directorsDetails;
+      ?.directorsDetailsV2;
   const funderId =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.lineItem?.vehicleProduct?.funderId;
   const companyTypeLabel =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
-      ?.aboutDetails?.company_type;
+      ?.aboutDetailsV2?.companyType;
   const companyType = useMemo(
     () =>
       companyTypeLabel === CompanyTypes.limited
@@ -105,7 +105,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     });
 
   const handleCreditApplicationUpdate = (
-    totalPercentage: number,
+    totalPercentage: number | null,
     directors?: DirectorFormValues[],
   ) =>
     createUpdateApplication({

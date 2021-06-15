@@ -20,6 +20,7 @@ import { GetPerson } from '../../generated/GetPerson';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
 import { PAGES } from './pageTypes';
 import { getDeviceType } from './deviceType';
+import { getSessionStorage } from './windowSessionStorage';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -163,7 +164,6 @@ export const productsMapper = (
     initialPayment:
       `${lineItem?.vehicleProduct?.depositPayment}` || 'undefined',
     addMaintenance: lineItem?.vehicleProduct?.maintenancePrice ? 'Yes' : 'No',
-    vehicleValue: `${lineItem?.vehicleProduct?.vehicleValue}` || 'undefined',
   };
 };
 
@@ -490,6 +490,8 @@ export const pushAboutYouDataLayer = (
   };
 
   const product = data.ecommerce.checkout.products[0];
+  const vehicleValue = getSessionStorage('vehicleValue');
+  pushDetail('retailPrice', vehicleValue, product);
   getProductDataForCheckout({
     product,
     detailsData,
@@ -532,6 +534,8 @@ export const pushSummaryDataLayer = ({
   };
 
   const product = data.ecommerce.purchase.products[0];
+  const vehicleValue = getSessionStorage('vehicleValue');
+  pushDetail('retailPrice', vehicleValue, product);
   getProductDataForCheckout({
     product,
     detailsData,
@@ -597,7 +601,7 @@ export const pushCallBackDataLayer = ({
     data,
   );
 
-  pushDetail('vehicleValue', vehicleValue, data);
+  pushDetail('retailPrice', vehicleValue, data);
 
   pushToDataLayer(data);
 };
