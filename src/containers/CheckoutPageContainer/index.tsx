@@ -20,7 +20,7 @@ import {
   CheckoutPageContainerProps,
   IAdditionalOptionsFormValues,
 } from './interfaces';
-import { LeaseTypeEnum,  } from '../../../generated/globalTypes';
+import { LeaseTypeEnum } from '../../../generated/globalTypes';
 
 const ADVANTAGES = [
   {
