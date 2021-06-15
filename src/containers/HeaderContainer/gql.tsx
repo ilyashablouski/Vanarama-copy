@@ -12,7 +12,7 @@ export const GET_PRIMARY_HEADER_DATA = gql`
       linkGroups {
         name
         body
-        promotionalImage {
+        promotionalImages {
           url
           legacyUrl
           image {

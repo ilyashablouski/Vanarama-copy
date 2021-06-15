@@ -165,7 +165,117 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
       }
       vatDetails
       soleTraderDetails
-      directorsDetails
+      directorsDetailsV2 {
+        directors {
+          addresses {
+            city
+            country
+            county
+            endedOn
+            kind
+            lineOne
+            lineThree
+            lineTwo
+            postcode
+            propertyStatus
+            serviceId
+            startedOn
+            uuid
+          }
+          businessShare
+          cognitoSub
+          companyType
+          countryOfBirth
+          dateOfBirth
+          dayOfBirth
+          disabilityRegistered
+          email
+          emailAddresses {
+            kind
+            primary
+            uuid
+            value
+          }
+          emailConsent
+          firstName
+          gender
+          history {
+            address {
+              city
+              country
+              county
+              endedOn
+              kind
+              lineOne
+              lineThree
+              lineTwo
+              postcode
+              propertyStatus
+              serviceId
+              startedOn
+              uuid
+            }
+            month
+            status
+            year
+          }
+          incomeAndExpense {
+            annualIncome
+            anticipateMonthlyIncomeChange
+            averageMonthlyIncome
+            carFinance
+            creditCardPayments
+            foodAndClothes
+            fuel
+            futureMonthlyIncome
+            householdIncome
+            insurance
+            mortgageOrRent
+            netDisposableIncome
+            otherCredit
+            phoneAndInternet
+            studentLoan
+            suitabilityConsent
+            totalMonthlyExpenses
+            utilities
+            uuid
+            withStudentLoan
+          }
+          isApplicant
+          isDirector
+          jobTitle
+          lastName
+          leadManagerId
+          maritalStatus
+          middleName
+          monthOfBirth
+          nationality
+          noOfAdultsInHousehold
+          noOfDependants
+          numberOfDependants
+          occupation
+          originalFirstName
+          originalLastName
+          partyUuid
+          privacyPolicy
+          profilingConsent
+          shareOfBusiness
+          smsConsent
+          telephoneNumbers {
+            kind
+            primary
+            uuid
+            value
+          }
+          termsAndConditions
+          title
+          tradingName
+          uuid
+          vatRegistrationNumber
+          yearOfBirth
+        }
+        totalPercentage
+      }
       employmentHistories
       incomeAndExpenses
       lineItem {
@@ -481,7 +591,117 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
       }
       vatDetails
       soleTraderDetails
-      directorsDetails
+      directorsDetailsV2 {
+        directors {
+          addresses {
+            city
+            country
+            county
+            endedOn
+            kind
+            lineOne
+            lineThree
+            lineTwo
+            postcode
+            propertyStatus
+            serviceId
+            startedOn
+            uuid
+          }
+          businessShare
+          cognitoSub
+          companyType
+          countryOfBirth
+          dateOfBirth
+          dayOfBirth
+          disabilityRegistered
+          email
+          emailAddresses {
+            kind
+            primary
+            uuid
+            value
+          }
+          emailConsent
+          firstName
+          gender
+          history {
+            address {
+              city
+              country
+              county
+              endedOn
+              kind
+              lineOne
+              lineThree
+              lineTwo
+              postcode
+              propertyStatus
+              serviceId
+              startedOn
+              uuid
+            }
+            month
+            status
+            year
+          }
+          incomeAndExpense {
+            annualIncome
+            anticipateMonthlyIncomeChange
+            averageMonthlyIncome
+            carFinance
+            creditCardPayments
+            foodAndClothes
+            fuel
+            futureMonthlyIncome
+            householdIncome
+            insurance
+            mortgageOrRent
+            netDisposableIncome
+            otherCredit
+            phoneAndInternet
+            studentLoan
+            suitabilityConsent
+            totalMonthlyExpenses
+            utilities
+            uuid
+            withStudentLoan
+          }
+          isApplicant
+          isDirector
+          jobTitle
+          lastName
+          leadManagerId
+          maritalStatus
+          middleName
+          monthOfBirth
+          nationality
+          noOfAdultsInHousehold
+          noOfDependants
+          numberOfDependants
+          occupation
+          originalFirstName
+          originalLastName
+          partyUuid
+          privacyPolicy
+          profilingConsent
+          shareOfBusiness
+          smsConsent
+          telephoneNumbers {
+            kind
+            primary
+            uuid
+            value
+          }
+          termsAndConditions
+          title
+          tradingName
+          uuid
+          vatRegistrationNumber
+          yearOfBirth
+        }
+        totalPercentage
+      }
       employmentHistories
       incomeAndExpenses
       lineItem {
@@ -550,7 +770,7 @@ const responseMock = {
   companyDetailsV2: null,
   vatDetails: 'vatDetails',
   soleTraderDetails: 'soleTraderDetails',
-  directorsDetails: 'directorsDetails',
+  directorsDetailsV2: null,
   employmentHistories: 'employmentHistories',
   incomeAndExpenses: 'incomeAndExpenses',
   lineItem: {

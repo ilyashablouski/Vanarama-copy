@@ -2,6 +2,7 @@ import React from 'react';
 import DefaultErrorPage from 'next/error';
 import { NextPageContext } from 'next';
 
+import Head from 'components/Head';
 import WishlistPageContainer from 'containers/WishlistPageContainer';
 
 import createApolloClient from '../../apolloClient';
@@ -27,10 +28,13 @@ function WishlistPage({ data: encodedData, error }: IGenericPage) {
   }));
 
   return (
-    <WishlistPageContainer
-      pageTitle={metaData.title}
-      breadcrumbsList={breadcrumbsList}
-    />
+    <>
+      <Head metaData={metaData} />
+      <WishlistPageContainer
+        pageTitle={metaData.title}
+        breadcrumbsList={breadcrumbsList}
+      />
+    </>
   );
 }
 

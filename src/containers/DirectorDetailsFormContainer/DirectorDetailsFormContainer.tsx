@@ -58,7 +58,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     companyOfficersQuery?.data?.companyOfficers?.nodes?.filter(isTruthy) || [];
   const directorsDetails =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
-      ?.directorsDetails;
+      ?.directorsDetailsV2;
   const funderId =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.lineItem?.vehicleProduct?.funderId;
@@ -105,7 +105,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     });
 
   const handleCreditApplicationUpdate = (
-    totalPercentage: number,
+    totalPercentage: number | null,
     directors?: DirectorFormValues[],
   ) =>
     createUpdateApplication({

@@ -3,7 +3,7 @@ import {
   SortObject,
   SortDirection,
 } from '../../../generated/globalTypes';
-import { IWishlistProduct } from '../../utils/wishlistHelpers';
+import { IWishlistProduct } from '../../types/wishlist';
 
 const VAN_SEARCH_URL = '/van-leasing/search';
 const CAR_SEARCH_URL = '/car-leasing/search';
