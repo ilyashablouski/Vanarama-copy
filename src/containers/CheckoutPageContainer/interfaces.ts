@@ -27,6 +27,7 @@ export interface IAdditionalOptionProps extends IBaseProps {
   promotionText: string;
   id: string;
   name: string;
+  value?: string;
   ref?: React.Ref<HTMLInputElement>;
 }
 
