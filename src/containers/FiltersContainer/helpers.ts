@@ -196,7 +196,7 @@ export const getValueKey = (
     arr.find(filter =>
       filter[1].some(
         filterValue =>
-          value ===
+          value.split(' ').join('-') ===
           filterValue
             .split(' ')
             .join('-')
