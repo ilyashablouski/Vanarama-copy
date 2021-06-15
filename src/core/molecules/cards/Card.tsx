@@ -25,7 +25,6 @@ const Card: FC<ICardProps> = memo(props => {
     placeholderImage,
     optimisedHost,
     optimisationOptions,
-    withoutBoxShadow
   } = props;
 
   const { imageSrc } = props;
@@ -76,7 +75,6 @@ const Card: FC<ICardProps> = memo(props => {
       className={cx('card', className, {
         '-inline': inline,
         '-overflow': overflow,
-        '-without-box-shadow': withoutBoxShadow,
       })}
       data-testid="card"
       style={style}

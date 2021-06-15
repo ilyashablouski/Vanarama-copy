@@ -15,10 +15,6 @@ export interface ICardProps extends IBaseProps {
    */
   overflow?: boolean;
   /**
-   * Add "-without-box-shadow" className
-   */
-  withoutBoxShadow?: boolean;
-  /**
    * Card header
    */
   header?: ICardHeaderProps;

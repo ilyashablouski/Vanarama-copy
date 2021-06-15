@@ -349,10 +349,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       .then(() => localForage.removeItem('personEmail'))
       .then(() => localForage.removeItem('personUuid'))
       .then(() => {
-        const url =
-          leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
-            ? '/olaf/about'
-            : '/b2b/olaf/about';
+        const url = '/checkout';
 
         router.push(url, url);
       });

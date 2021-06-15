@@ -132,6 +132,21 @@ export function useCarDerivativeData(
   );
 }
 
+export function useCarDerivativeQuery(
+  id?: string | null,
+  vehicleType?: VehicleTypeEnum,
+  skip?: boolean,
+) {
+  return useQuery<GetDerivative, GetDerivativeVariables>(GET_CAR_DERIVATIVE, {
+    variables: {
+      id: id || '',
+      capId: parseInt(id || '', 10),
+      vehicleType,
+    },
+    skip,
+  });
+}
+
 export const GET_OLAF_DATA = gql`
   query GetOlafData($uuid: ID!) {
     orderByUuid(uuid: $uuid) {
