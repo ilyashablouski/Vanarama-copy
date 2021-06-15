@@ -53,9 +53,7 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
   };
 
   const resultProductCardList = await Promise.all(
-    wishlistVehicles
-      .filter(card => card.capId)
-      .map(card => getVehicleDataPromise(card)),
+    wishlistVehicles.filter(card => card.capId).map(getVehicleDataPromise),
   );
 
   const resultWishlistVehicles = wishlistVehicles.filter(card =>
