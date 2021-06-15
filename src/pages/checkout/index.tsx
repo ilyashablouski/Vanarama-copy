@@ -26,6 +26,7 @@ const CheckoutPage: NextPage = () => {
       order={order}
       derivative={data?.derivative}
       vehicleImages={data?.vehicleImages}
+      vehicleConfiguration={data?.vehicleConfigurationByCapId}
     />
   );
 };

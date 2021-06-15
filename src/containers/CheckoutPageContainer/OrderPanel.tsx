@@ -38,7 +38,11 @@ const generateListItems = (
   },
 ];
 
-const OrderPanel: React.FC<OrderPanelProps> = ({ order, vehicleImage }) => {
+const OrderPanel: React.FC<OrderPanelProps> = ({
+  order,
+  vehicleImage,
+  vehicleConfiguration,
+}) => {
   const vehicleProduct = useMemo(() => order?.lineItems?.[0]?.vehicleProduct, [
     order,
   ]);
@@ -46,12 +50,13 @@ const OrderPanel: React.FC<OrderPanelProps> = ({ order, vehicleImage }) => {
     vehicleProduct,
   ]);
   const isPersonalPrice = order?.leaseType === LeaseTypeEnum.PERSONAL;
+  const pageTitle = `${vehicleConfiguration?.capManufacturerDescription} ${vehicleConfiguration?.capModelDescription}`;
 
   return (
     <div className="panel">
       <div className="-copy-60-percent">
         <Heading className="-checkout" size="large" color="black" tag="h2">
-          Mercedes-Benz A Class Hatchback
+          {pageTitle}
         </Heading>
         <div>
           <div className="cropped -aspect-4-3 -curved">

@@ -1,5 +1,6 @@
 import React, { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
+import { useRouter } from 'next/router';
 
 import decode from 'decode-html';
 import NextHead from 'next/head';
@@ -20,7 +21,6 @@ import {
   IAdditionalOptionsFormValues,
 } from './interfaces';
 import { LeaseTypeEnum,  } from '../../../generated/globalTypes';
-import {useRouter} from "next/router";
 
 const ADVANTAGES = [
   {
@@ -45,6 +45,7 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
   order,
   derivative,
   vehicleImages,
+                                                                       vehicleConfiguration
 }) => {
   const router = useRouter();
   const methods = useForm<IAdditionalOptionsFormValues>({
@@ -76,7 +77,11 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
           </Heading>
           <div className="side-bar-layout">
             <div>
-              <OrderPanel order={order} vehicleImage={vehicleImages?.[0]} />
+              <OrderPanel
+                order={order}
+                vehicleImage={vehicleImages?.[0]}
+                vehicleConfiguration={vehicleConfiguration}
+              />
               <Heading
                 className="-mb-500 -checkout"
                 size="large"

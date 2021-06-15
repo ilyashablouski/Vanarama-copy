@@ -75,6 +75,8 @@ export const GET_CAR_DERIVATIVE = gql`
   query GetDerivative($id: ID!, $capId: Int!, $vehicleType: VehicleTypeEnum) {
     vehicleConfigurationByCapId(capId: $capId, vehicleType: $vehicleType) {
       url
+      capManufacturerDescription
+      capModelDescription
     }
     derivative(id: $id, vehicleType: $vehicleType) {
       id
