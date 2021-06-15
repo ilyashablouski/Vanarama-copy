@@ -52,7 +52,7 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
     });
   };
 
-  const resultProductCardList = await Promise.allSettled(
+  const resultProductCardList = await Promise.all(
     wishlistVehicles
       .filter(card => card.capId)
       .map(card => getVehicleDataPromise(card)),
@@ -60,12 +60,8 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
 
   const resultWishlistVehicles = wishlistVehicles.filter(card =>
     resultProductCardList.some(product => {
-      if (product.status !== 'fulfilled') {
-        return false;
-      }
-
       const parsedCardId = parseInt(card.capId ?? '', 10);
-      const productConfig = product.value.data.vehicleConfigurationByCapId;
+      const productConfig = product.data.vehicleConfigurationByCapId;
 
       return (
         productConfig?.capDerivativeId === parsedCardId &&
