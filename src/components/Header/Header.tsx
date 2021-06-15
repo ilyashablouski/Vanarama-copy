@@ -69,6 +69,7 @@ export interface IHeaderLink extends ILinkProps {
   highlight?: boolean;
   highlightLabel?: string;
   promotionalImage?: IHeaderPromoImage;
+  promotionalImages?: Array<IHeaderPromoImage>;
 }
 
 export interface IHeaderProps extends IBaseProps {

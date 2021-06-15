@@ -1,62 +1,66 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import dynamic from 'next/dynamic';
 import Router from 'next/router';
 
 import Text from 'core/atoms/text';
+import Button from 'core/atoms/button';
 import Modal from 'core/molecules/modal';
 import Heading from 'core/atoms/heading';
+import Loading from 'core/atoms/loading';
 
 import Breadcrumb from 'components/Breadcrumb';
 
 import { IWishlistContainer } from './interface';
-import WishlistOfferCard from './WishlistOfferCard';
-import WishlistRegistration from './WishlistRegistration';
-import WishlistProductPlaceholder from './WishlistProductPlaceholder';
 
 import usePerson from '../../hooks/usePerson';
 import useWishlist from '../../hooks/useWishlist';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { useVehiclesTotalCount } from '../../gql/vehiclesTotalCount';
-import { getProductPlaceholderList } from './helpers';
+import {
+  RESULTS_PER_REQUEST,
+  sortObjectGenerator,
+} from '../SearchPageContainer/helpers';
+import { wishlistVar } from '../../cache';
+import {
+  createOfferCards,
+  getDefaultSortOrder,
+  getNewSortOrder,
+  getProductPlaceholderList,
+  getSortValues,
+  sortProductList,
+} from './helpers';
 
+import SortOrder from '../../components/SortOrder';
 import WishlistProductCard from '../../components/VehicleCard';
 
-const VAN_SEARCH_URL = '/van-leasing/search';
-const CAR_SEARCH_URL = '/car-leasing/search';
-const PICKUP_SEARCH_URL = '/van-leasing/search?bodyStyles=Pickup';
-
-const createOfferCards = (
-  vansOffersCount: number = 0,
-  pickupsOffersCount: number = 0,
-  carsOffersCount: number = 0,
-) => [
-  {
-    header: 'Vans',
-    imageSrc: `${process.env.HOST_DOMAIN}/Assets/images/comparator/modal/cap-51392-171678.png`,
-    redirect: VAN_SEARCH_URL,
-    totalCount: vansOffersCount,
-  },
-  {
-    header: 'Pickups',
-    imageSrc: `${process.env.HOST_DOMAIN}/Assets/images/comparator/modal/cap-44067-160978.png`,
-    redirect: PICKUP_SEARCH_URL,
-    totalCount: pickupsOffersCount,
-  },
-  {
-    header: 'Cars',
-    imageSrc: `${process.env.HOST_DOMAIN}/Assets/images/comparator/modal/cap-88928-161019.png`,
-    redirect: CAR_SEARCH_URL,
-    totalCount: carsOffersCount,
-  },
-];
+const WishlistOfferCard = dynamic(() => import('./WishlistOfferCard'));
+const WishlistEmptyMessage = dynamic(() => import('./WishlistEmptyMessage'));
+const WishlistRegistration = dynamic(() => import('./WishlistRegistration'));
+const WishlistProductPlaceholder = dynamic(() =>
+  import('./WishlistProductPlaceholder'),
+);
 
 function WishlistPageContainer({
   pageTitle,
   breadcrumbsList,
 }: IWishlistContainer) {
+  const {
+    wishlistVehicles,
+    wishlistInitialized,
+    wishlistNoLongerAvailable,
+  } = useWishlist();
   const { personLoggedIn } = usePerson();
-  const { wishlistVehicles } = useWishlist();
+
+  useEffect(() => {
+    return () => {
+      wishlistVar({
+        ...wishlistVar(),
+        wishlistNoLongerAvailable: false,
+      });
+    };
+  }, []);
 
   const [getCarsOffers, carsOptions] = useVehiclesTotalCount(
     VehicleTypeEnum.CAR,
@@ -84,7 +88,24 @@ function WishlistPageContainer({
   }, [getCarsOffers, getPickupsOffers, getVansOffers]);
 
   const [isModalVisible, setModalVisibility] = useState(false);
+  const [sortOrder, setSortOrder] = useState(getDefaultSortOrder());
+  const [cardsPerPage, setCardsPerPage] = useState(RESULTS_PER_REQUEST);
 
+  function handleChangeSortOrder(value: string) {
+    const [type, direction] = value.split('_');
+
+    setSortOrder(sortObjectGenerator(getNewSortOrder(type, direction)));
+    setCardsPerPage(RESULTS_PER_REQUEST);
+  }
+
+  function handleClickLoadMore() {
+    setCardsPerPage(cardsPerPage + RESULTS_PER_REQUEST);
+  }
+
+  const sortedProductList = useMemo(
+    () => sortProductList(wishlistVehicles, sortOrder[0]),
+    [sortOrder, wishlistVehicles],
+  );
   const productPlaceholderList = useMemo(
     () => getProductPlaceholderList(wishlistVehicles.length),
     [wishlistVehicles.length],
@@ -98,68 +119,98 @@ function WishlistPageContainer({
           {pageTitle}
         </Heading>
       </div>
-      <div className="row:bg-lighter -thin -pv-500">
-        {!personLoggedIn && <WishlistRegistration className="-mb-500" />}
-        {wishlistVehicles.length ? (
-          <div className="wishlist">
-            <section className="row:cards-3col">
-              {wishlistVehicles.map((item, index) => (
-                <LazyLoadComponent
-                  key={item.capId || index}
-                  visibleByDefault={isServerRenderOrAppleDevice}
-                >
-                  <WishlistProductCard
-                    data={item}
-                    isPersonalPrice
-                    bodyStyle={item.bodyStyle}
-                    url={item.pageUrl?.url ?? ''}
-                    title={{
-                      title: `${item.manufacturerName} ${item.modelName}`,
-                      description: item.derivativeName ?? '',
-                    }}
-                  />
-                </LazyLoadComponent>
-              ))}
-              {productPlaceholderList.map((item, index) => (
-                <LazyLoadComponent
-                  key={item.capId || index}
-                  visibleByDefault={isServerRenderOrAppleDevice}
-                >
-                  <WishlistProductPlaceholder
-                    onClick={() => setModalVisibility(true)}
-                  />
-                </LazyLoadComponent>
-              ))}
-            </section>
-          </div>
-        ) : (
-          <div className="wishlist">
-            <section className="row:cards-1col">
-              <div className="card -message -flex-h">
-                <div className="row:lead-text -m-300">
-                  <Text className="-semi-b" size="lead" color="darker">
-                    Your wishlist is empty right now.
-                  </Text>
-                  <Heading size="lead" color="darker">
-                    Want to add vehicles to your wishlist? View the latest hot
-                    offers below.
-                  </Heading>
-                </div>
-              </div>
-            </section>
-            <section className="row:cards-3col">
-              {cardList.map(card => (
-                <WishlistOfferCard
-                  key={card.header}
-                  label={card.header}
-                  imageUrl={card.imageSrc}
-                  totalCount={card.totalCount}
-                  onClick={() => Router.push(card.redirect)}
-                  textSize="regular"
-                  iconSize="large"
+      <div className="row:bg-lighter wishlist -thin -pv-500">
+        {wishlistInitialized ? (
+          <>
+            {!personLoggedIn && <WishlistRegistration className="-mb-500" />}
+            {sortedProductList.length ? (
+              <div className="row:results">
+                <Text color="darker" size="regular" tag="span">
+                  Showing {wishlistVehicles.length} Vehicles
+                </Text>
+                <SortOrder
+                  sortOrder={sortOrder[0]}
+                  sortValues={getSortValues()}
+                  isSpecialOffersOrder={false}
+                  onChangeSortOrder={handleChangeSortOrder}
                 />
-              ))}
-            </section>
+                {wishlistNoLongerAvailable && (
+                  <Heading size="regular" color="black">
+                    One or more items from your wishlist have been removed as
+                    they are no longer available.
+                  </Heading>
+                )}
+                <section className="row:cards-3col">
+                  {sortedProductList
+                    .slice(0, cardsPerPage)
+                    .map((card, index) => {
+                      const cardUrl = card.pageUrl?.url ?? '';
+                      const cardTitle = {
+                        title: `${card.manufacturerName} ${card.modelName}`,
+                        description: card.derivativeName ?? '',
+                      };
+
+                      return (
+                        <LazyLoadComponent
+                          key={card.capId || index}
+                          visibleByDefault={isServerRenderOrAppleDevice}
+                        >
+                          <WishlistProductCard
+                            data={card}
+                            isPersonalPrice
+                            bodyStyle={card.bodyStyle}
+                            title={cardTitle}
+                            url={cardUrl}
+                          />
+                        </LazyLoadComponent>
+                      );
+                    })}
+                  {productPlaceholderList.map((placeholder, index) => (
+                    <LazyLoadComponent
+                      key={placeholder.capId || index}
+                      visibleByDefault={isServerRenderOrAppleDevice}
+                    >
+                      <WishlistProductPlaceholder
+                        onClick={() => setModalVisibility(true)}
+                      />
+                    </LazyLoadComponent>
+                  ))}
+                </section>
+                {sortedProductList.length > cardsPerPage && (
+                  <div className="pagination">
+                    <Button
+                      color="teal"
+                      size="regular"
+                      fill="outline"
+                      label="Load More"
+                      dataTestId="LoadMore"
+                      onClick={handleClickLoadMore}
+                    />
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="row">
+                <WishlistEmptyMessage className="-mb-400" />
+                <section className="row:cards-3col">
+                  {cardList.map(card => (
+                    <WishlistOfferCard
+                      key={card.header}
+                      label={card.header}
+                      imageUrl={card.imageSrc}
+                      totalCount={card.totalCount}
+                      onClick={() => Router.push(card.redirect)}
+                      textSize="regular"
+                      iconSize="large"
+                    />
+                  ))}
+                </section>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="-flex-h -h-400">
+            <Loading size="large" />
           </div>
         )}
       </div>

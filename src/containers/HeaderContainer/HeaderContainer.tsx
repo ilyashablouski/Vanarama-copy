@@ -11,7 +11,7 @@ import {
 import Header from '../../components/Header';
 import { IHeaderLink } from '../../components/Header/Header';
 import { PartnershipsLinks } from '../../components/Partnerships/Data/PartnishipLinks';
-import { convertChildrenNavLink, getPromotionalImage } from './helpers';
+import { convertChildrenNavLink, convertPromotionalImage } from './helpers';
 import {
   GetPrimaryHeaderData as HeaderData,
   GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups as LinkGroups,
@@ -96,7 +96,9 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl.id || '',
-          promotionalImage: getPromotionalImage(linksGroup),
+          promotionalImages: linksGroup?.promotionalImages?.map(
+            convertPromotionalImage,
+          ),
           children: isTabletOrMobile
             ? [linksGroupUrl, ...childrenGroupLinks]
             : childrenGroupLinks,
@@ -119,10 +121,10 @@ const HeaderContainer: FC = () => {
               label: el.name || '',
               href: linksGroupUrl.href,
               id: el?.name || '',
+              promotionalImage: convertPromotionalImage(el.promotionalImage),
               children: isTabletOrMobile
                 ? [linksGroupUrl, ...childrenLink]
                 : childrenLink,
-              promotionalImage: getPromotionalImage(el),
             };
           });
 
@@ -131,7 +133,9 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl?.id || '',
-          promotionalImage: getPromotionalImage(linksGroup),
+          promotionalImages: linksGroup?.promotionalImages?.map(
+            convertPromotionalImage,
+          ),
           children: isTabletOrMobile
             ? [linksGroupUrl, ...transformGroupLink]
             : transformGroupLink,
@@ -142,7 +146,9 @@ const HeaderContainer: FC = () => {
           href: linksGroupUrl?.href || '',
           label: linksGroup?.name || '',
           id: linksGroupUrl?.id || '',
-          promotionalImage: getPromotionalImage(linksGroup),
+          promotionalImages: linksGroup?.promotionalImages?.map(
+            convertPromotionalImage,
+          ),
         };
       }
       link.push(headerTopLinks);

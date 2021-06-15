@@ -10,9 +10,8 @@ function WishlistRegistration({ className }: IWishlistRegistration) {
   return (
     <div className={cx('row', className)}>
       <Text className="-semi-b -mb-400" tag="p" size="lead" color="black">
-        Your wishlist will be saved for 30 days in this browser. To access it
-        from anywhere, create your account now. Please note, vehicles prices are
-        subject to change.
+        Your wishlist will be saved up to 30 days. To access it anytime, create
+        your account now. Please note, vehicle prices are subject to change.
       </Text>
       <RouterLink
         withoutDefaultClassName

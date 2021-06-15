@@ -17,7 +17,7 @@ function HotOffer({
   return (
     <Text className={cx('hot-offer', className)} size={textSize} color={color}>
       <Icon icon={<Flame />} size={iconSize} color={color} />
-      {totalCount} Hot Offer
+      {totalCount} Hot Offers
     </Text>
   );
 }

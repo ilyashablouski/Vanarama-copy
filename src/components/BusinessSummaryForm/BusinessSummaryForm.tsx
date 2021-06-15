@@ -73,12 +73,12 @@ const BusinessSummaryForm: FCWithFragments<IProps> = ({
 
   const directors = useMemo(() => {
     const providedDirectorsData = (mapDirectorsDefaultValues(
-      creditApplication?.directorsDetails,
+      creditApplication?.directorsDetailsV2,
     ).directors || []) as DirectorDetails[];
 
     return providedDirectorsData
       .slice()
-      .sort((a, b) => (+b.shareOfBusiness || 0) - (+a.shareOfBusiness || 0))
+      .sort((a, b) => (+b.shareOfBusiness ?? 0) - (+a.shareOfBusiness ?? 0))
       .map((d, i) => (
         <BusinessSummaryFormDirectorDetailsSection
           director={d}
