@@ -13,6 +13,7 @@ import decode from 'decode-html';
 import { decodeData, encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
+import { isWished } from '../../utils/wishlistHelpers';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 // @ts-ignore
@@ -36,6 +37,7 @@ import truncateString from '../../utils/truncateString';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { getLegacyUrl, formatProductPageUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
+import useWishlist from '../../hooks/useWishlist';
 import useLeaseType from '../../hooks/useLeaseType';
 import TileLink from '../../components/TileLink/TileLink';
 import { features } from '../../components/ProductCarousel/helpers';
@@ -98,6 +100,7 @@ export const CarsPage: NextPage<IProps> = ({
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
   const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
 
+  const { wishlistVehicles, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   useEffect(() => {
@@ -255,6 +258,10 @@ export const CarsPage: NextPage<IProps> = ({
               getLegacyUrl(vehicleListUrlData.edges, item?.capId),
               item?.capId,
             );
+            const extendedProductData = item
+              ? { ...item, pageUrl: productUrl }
+              : null;
+
             return (
               <LazyLoadComponent
                 key={item?.capId || idx}
@@ -277,13 +284,10 @@ export const CarsPage: NextPage<IProps> = ({
                     item?.imageUrl ||
                     `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
                   }
-                  onCompare={() =>
-                    compareChange(
-                      item ? { ...item, pageUrl: productUrl } : null,
-                    )
-                  }
+                  wished={isWished(wishlistVehicles, item)}
                   compared={isCompared(compareVehicles, item)}
-                  onWishlist={() => true}
+                  onCompare={() => compareChange(extendedProductData)}
+                  onWishlist={() => wishlistChange(extendedProductData)}
                   title={{
                     title: '',
                     link: (

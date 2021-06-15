@@ -82,8 +82,7 @@ const AboutYouPage: NextPage = () => {
   const creditApplication =
     creditApplicationQuery.data?.creditApplicationByOrderUuid;
   const { redirect } = router.query as OLAFQueryParams;
-  const isEdit =
-    Object.values(creditApplication?.aboutDetails || {}).length > 0;
+  const isEdit = creditApplication?.aboutDetailsV2 !== null;
 
   const clickOnComplete = async (createUpdatePerson: IPerson) => {
     savePersonUuid(createUpdatePerson);

@@ -4,13 +4,14 @@ import cx from 'classnames';
 import { ILoadingProps } from './interfaces';
 
 const Loading: FC<ILoadingProps> = memo(props => {
-  const { className, size = 'regular' } = props;
+  const { className, size = 'regular', dataTestId } = props;
 
   return (
     <div
       className={cx('loading', className, {
         [`-${size}`]: size,
       })}
+      data-testid={dataTestId}
     >
       <svg className="loading--svg" viewBox="-75 -75 150 150">
         <circle className="loading--stroke" cx="0" cy="0" r="37.5" />

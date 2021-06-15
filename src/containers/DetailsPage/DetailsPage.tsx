@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import NextHead from 'next/head';
 import localForage from 'localforage';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import { setSessionStorage } from 'utils/windowSessionStorage';
 import cx from 'classnames';
 import Button from 'core/atoms/button';
 // @ts-ignore
@@ -186,6 +187,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
   const vehicleValue = data?.vehicleDetails?.vehicleValue;
+
+  useEffect(() => {
+    setSessionStorage('vehicleValue', vehicleValue);
+  }, [vehicleValue]);
 
   const onPushPDPDataLayer = useCallback(async () => {
     const derivativeInfo = data?.derivativeInfo;
@@ -448,7 +453,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             maintenancePrice: leaseScannerData?.maintenance
               ? leaseScannerData?.quoteByCapId?.maintenanceCost?.monthlyRental
               : undefined,
-            vehicleValue,
           },
           quantity: 1,
         },

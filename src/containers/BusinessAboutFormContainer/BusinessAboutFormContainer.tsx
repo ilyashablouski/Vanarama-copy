@@ -77,14 +77,13 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 
   const creditApplication =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid;
-  const isEdit =
-    Object.values(creditApplication?.aboutDetails || {}).length > 0;
+  const isEdit = creditApplication?.aboutDetailsV2 !== null;
   const personByUuid = aboutYouData.data?.personByUuid;
 
   const person = useMemo(() => {
     // after the first filling (during the edit) data should be taken from CA
     if (isEdit) {
-      return responseToInitialFormValues(creditApplication?.aboutDetails);
+      return responseToInitialFormValues(creditApplication?.aboutDetailsV2);
     }
 
     // at the first filling there is not credit application data
@@ -112,8 +111,9 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
   };
 
   const email =
-    personByUuid?.emailAddresses[0] ||
-    creditApplication?.aboutDetails.email_addresses[0];
+    personByUuid?.emailAddresses?.[0] ||
+    creditApplication?.aboutDetailsV2?.emailAddresses?.[0] ||
+    null;
   const handleTemporaryRegistrationIfGuest = (
     username: string,
     firstName: string,
