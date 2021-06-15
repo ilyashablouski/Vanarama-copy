@@ -137,7 +137,6 @@ export function useCarDerivativeData(
 export function useCarDerivativeQuery(
   id?: string | null,
   vehicleType?: VehicleTypeEnum,
-  skip?: boolean,
 ) {
   return useQuery<GetDerivative, GetDerivativeVariables>(GET_CAR_DERIVATIVE, {
     variables: {
@@ -145,7 +144,7 @@ export function useCarDerivativeQuery(
       capId: parseInt(id || '', 10),
       vehicleType,
     },
-    skip,
+    skip: !id,
   });
 }
 

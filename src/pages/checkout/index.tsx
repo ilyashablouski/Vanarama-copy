@@ -11,10 +11,9 @@ const CheckoutPage: NextPage = () => {
   const order = useGetOrder();
   const vehicleProduct = order?.lineItems?.[0]?.vehicleProduct;
 
-  const { data, loading, error } = useCarDerivativeQuery(
+  const { data, loading } = useCarDerivativeQuery(
     vehicleProduct?.derivativeCapId,
     vehicleProduct?.vehicleType,
-    !order,
   );
 
   if (loading || !order) {
