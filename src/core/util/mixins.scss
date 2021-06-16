@@ -50,6 +50,13 @@
   margin-right: $value;
 }
 
+// only targets mobile devices <576px
+@mixin mobile576 {
+  @media (max-width: #{$vp-xs-small - 1px}) {
+    @content;
+  }
+}
+
 // only targets mobile devices
 @mixin mobile {
   @media (max-width: #{$vp-small - 1px}) {

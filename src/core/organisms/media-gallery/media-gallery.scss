@@ -68,12 +68,25 @@ $x_w: 100%;
     &-track {
       grid-auto-flow: column;
       grid-auto-columns: $x_w;
-      transform: translateX( calc(#{-$x_w} * var(--x, 1)) );
+      transform: translateX(calc(#{-$x_w} * var(--x, 1)));
 
       &-item {
         left: var(--divider, -1px);
-        &:after { border-left: var(--divider, 1px solid #{$white}); }
-        .image  { @include max-size($x_h, unset); }
+
+        &:after {
+          border-left: var(--divider, 1px solid #{$white});
+        }
+
+        .image {
+          @include max-size($x_h, unset);
+          height: 100%;
+
+          img {
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
 
         &.-active {
           // available if required
@@ -90,18 +103,26 @@ $x_w: 100%;
     &-track {
       grid-auto-flow: row;
       grid-auto-rows: #{$y_h};
-      transform: translateY( calc(#{-$y_h} * var(--y, 1)) );
+      transform: translateY(calc(#{-$y_h} * var(--y, 1)));
 
       &-item {
-        .image { @include max-size($y_h, $y_w); }
+        .image {
+          @include max-size($y_h, $y_w);
+        }
+
         cursor: pointer;
 
         &:not(.-active) {
           transition: filter 120ms ease;
           filter: invert(0.2) brightness(1.4);
 
-          &:hover { filter: invert(0) brightness(1); }
-          &:after { border-top: var(--divider, 1px solid #{$white}); }
+          &:hover {
+            filter: invert(0) brightness(1);
+          }
+
+          &:after {
+            border-top: var(--divider, 1px solid #{$white});
+          }
         }
 
         &.-active {
@@ -120,6 +141,7 @@ $x_w: 100%;
 
     &--x-scroll {
       max-height: #{50vmax * $ratio};
+      min-height: #{50vmax * $ratio};
     }
 
     &--y-scroll {
@@ -134,10 +156,30 @@ $x_w: 100%;
 
     &--x-scroll {
       max-height: #{100vmax * $ratio};
+      min-height: 42.5vmax;
     }
 
     &--y-scroll {
       display: none;
+    }
+  }
+
+  @include mobile576 {
+    position: relative;
+    padding-top: 80%;
+
+    &--x-scroll {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      width: 100%;
+      min-height: unset;
+    }
+
+    &--x-track-item .image {
+      max-height: none;
     }
   }
 }
@@ -218,5 +260,7 @@ $x_w: 100%;
     pointer-events: initial;
   }
 
-  @include mobile  { @include margin-inline(-$rem-400) }
+  @include mobile {
+    @include margin-inline(-$rem-400)
+  }
 }
