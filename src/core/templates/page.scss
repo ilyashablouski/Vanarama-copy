@@ -84,9 +84,11 @@
   &pdp {
     align-items: start;
     background: linear-gradient(to bottom, $white 0, $light 100vh);
+    --page-gap: calc(var(--layout-gap) * 1);
     @include mobile {
       background: $lighter;
       overflow: hidden;
+      --page-gap: calc(var(--layout-gap) * 2);
     }
 
     .tabs:not(.-alt) {
