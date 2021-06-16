@@ -48,7 +48,7 @@ const ProductCard: FC<IProductCardProps> = props => {
             withoutDefaultClass
           />
         )}
-        {onWishlist && isWishlistEnabled() && (
+        {onWishlist && isWishlistEnabled && (
           <Button
             color={wished ? 'teal' : 'dark'}
             fill="clear"

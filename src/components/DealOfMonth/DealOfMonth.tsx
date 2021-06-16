@@ -157,7 +157,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
             onClick={onCompare}
           />
         )}
-        {onWishlist && isWishlistEnabled() && (
+        {onWishlist && isWishlistEnabled && (
           <Button
             color={wished ? 'teal' : 'dark'}
             iconColor="dark"

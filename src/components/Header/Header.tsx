@@ -150,7 +150,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
     <header className={cx('header', className)} data-testid="header">
       <div
         className={cx('header-content', {
-          '-with-wishlist': didMount && isWishlistEnabled(),
+          '-with-wishlist': didMount && isWishlistEnabled,
         })}
       >
         <RouterLink
@@ -162,7 +162,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
         </RouterLink>{' '}
         <GlobalSearchContainer />
         <PhoneNumber phoneNumberLink={phoneNumberLink} withIcon />{' '}
-        {isWishlistEnabled() && <HeaderWishlistLink />}
+        {isWishlistEnabled && <HeaderWishlistLink />}
         <div className="header-account">
           {person ? (
             <>

@@ -29,9 +29,7 @@ export const isWished = (
   });
 };
 
-export const isWishlistEnabled = () => {
-  return Cookies.get('DIG-6436') === '1';
-};
+export const isWishlistEnabled = Cookies.get('DIG-6436') === '1';
 
 export const initializeWishlistState = async (client: ApolloClient<object>) => {
   const { wishlistVehicles } = await getLocalWishlistState();
