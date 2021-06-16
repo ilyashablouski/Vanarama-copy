@@ -18,10 +18,12 @@ import {
   addHeapUserIdentity,
   addHeapUserProperties,
 } from '../../utils/addHeapProperties';
+import { isWishlistEnabled } from '../../utils/wishlistHelpers';
 import {
   GetPerson_getPerson as Person,
   GetPerson,
 } from '../../../generated/GetPerson';
+import useMount from '../../hooks/useMount';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import PhoneNumber from '../PhoneNumber/PhoneNumber';
 import GlobalSearchContainer from '../../containers/GlobalSearchContainer';
@@ -98,6 +100,8 @@ export const Header: FC<IHeaderProps> = memo(props => {
 
   const isDesktop = useMediaQuery('(min-width: 1216px)');
 
+  const didMount = useMount();
+
   useEffect(() => {
     if (!person) {
       localForage.getItem<GetPerson>('person').then(value => {
@@ -144,25 +148,24 @@ export const Header: FC<IHeaderProps> = memo(props => {
 
   return (
     <header className={cx('header', className)} data-testid="header">
-      {' '}
-      <div className="header-content">
-        {' '}
+      <div
+        className={cx('header-content', {
+          '-with-wishlist': didMount && isWishlistEnabled(),
+        })}
+      >
         <RouterLink
           link={{ href: customHomePath || '/', label: '' }}
-          className="logo header-logo"
           classNames={{ color: 'orange', plain: true }}
+          className="logo header-logo"
         >
-          {' '}
-          <Logo asset="vanarama" />{' '}
+          <Logo asset="vanarama" />
         </RouterLink>{' '}
         <GlobalSearchContainer />
         <PhoneNumber phoneNumberLink={phoneNumberLink} withIcon />{' '}
-        <HeaderWishlistLink />
+        {isWishlistEnabled() && <HeaderWishlistLink />}
         <div className="header-account">
-          {' '}
           {person ? (
             <>
-              {' '}
               <Button
                 withoutDefaultClass
                 fill="clear"
@@ -170,32 +173,26 @@ export const Header: FC<IHeaderProps> = memo(props => {
                 className="header-account--toggle"
                 label={
                   <>
-                    {' '}
                     <Icon icon={<PersonCircleSharp />} size="xsmall" />{' '}
                     <span>My Account</span>{' '}
                   </>
                 }
-              />{' '}
+              />
               <div
                 className={cx('header-account--content', {
                   '-open': isMyAccountOpen,
                 })}
               >
-                {' '}
                 <div className="header-account--header">
-                  {' '}
                   <span>
-                    {' '}
                     Hi{' '}
                     {person?.firstName &&
                       person?.lastName &&
                       `, ${person?.firstName} ${person?.lastName}`}{' '}
-                  </span>{' '}
-                </div>{' '}
+                  </span>
+                </div>
                 <ul className="header-account--nav">
-                  {' '}
                   <li>
-                    {' '}
                     <RouterLink
                       className="header-account--link"
                       link={{
@@ -204,13 +201,11 @@ export const Header: FC<IHeaderProps> = memo(props => {
                       }}
                       as="/account/my-details"
                     >
-                      {' '}
-                      <Icon icon={<HomeOutline />} size="xsmall" />{' '}
-                      <span>Dashboard</span>{' '}
-                    </RouterLink>{' '}
-                  </li>{' '}
+                      <Icon icon={<HomeOutline />} size="xsmall" />
+                      <span>Dashboard</span>
+                    </RouterLink>
+                  </li>
                   <li>
-                    {' '}
                     <RouterLink
                       className="header-account--link"
                       link={{
@@ -225,13 +220,11 @@ export const Header: FC<IHeaderProps> = memo(props => {
                           : '/account/my-details'
                       }
                     >
-                      {' '}
                       <Icon icon={<ReceiptOutline />} size="xsmall" />{' '}
-                      <span>My Quotes</span>{' '}
-                    </RouterLink>{' '}
-                  </li>{' '}
+                      <span>My Quotes</span>
+                    </RouterLink>
+                  </li>
                   <li>
-                    {' '}
                     <RouterLink
                       className="header-account--link"
                       link={{
@@ -246,13 +239,11 @@ export const Header: FC<IHeaderProps> = memo(props => {
                           : '/account/my-details'
                       }
                     >
-                      {' '}
                       <Icon icon={<CarOutline />} size="xsmall" />{' '}
-                      <span>My Orders</span>{' '}
-                    </RouterLink>{' '}
-                  </li>{' '}
+                      <span>My Orders</span>
+                    </RouterLink>
+                  </li>
                   <li>
-                    {' '}
                     <RouterLink
                       className="header-account--link"
                       link={{ href: router.pathname, label: 'Log Out' }}
@@ -263,13 +254,12 @@ export const Header: FC<IHeaderProps> = memo(props => {
                       }}
                       replace
                     >
-                      {' '}
                       <Icon icon={<LogOutOutline />} size="xsmall" />{' '}
-                      <span>Log Out</span>{' '}
-                    </RouterLink>{' '}
-                  </li>{' '}
-                </ul>{' '}
-              </div>{' '}
+                      <span>Log Out</span>
+                    </RouterLink>
+                  </li>
+                </ul>
+              </div>
             </>
           ) : (
             <Button
@@ -286,8 +276,8 @@ export const Header: FC<IHeaderProps> = memo(props => {
                 </RouterLink>
               }
             />
-          )}{' '}
-        </div>{' '}
+          )}
+        </div>
         <HeaderMenu
           menuLinks={topBarLinks}
           open={isMenuOpen}
@@ -303,7 +293,6 @@ export const Header: FC<IHeaderProps> = memo(props => {
           withoutDefaultClass
           label={
             <>
-              {' '}
               <Icon icon={<Menu />} color="darker" />{' '}
               <Icon icon={<Close />} color="darker" />{' '}
             </>
@@ -311,8 +300,8 @@ export const Header: FC<IHeaderProps> = memo(props => {
           size="expand"
           color="inherit"
           fill="clear"
-        />{' '}
-      </div>{' '}
+        />
+      </div>
     </header>
   );
 });

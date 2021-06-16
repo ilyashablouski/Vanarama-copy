@@ -1,7 +1,10 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
+
 import RouterLink from '../RouterLink/RouterLink';
 import Skeleton from '../Skeleton';
 import { ProductCardData_productCarousel_keyInformation as IKeyInfo } from '../../../generated/ProductCardData';
+import { isWishlistEnabled } from '../../utils/wishlistHelpers';
 import { features } from '../ProductCarousel/helpers';
 
 const Card = dynamic(() => import('core/molecules/cards'), {
@@ -138,34 +141,38 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
         </RouterLink>
       </div>
       <div className="card-footer">
-        <Button
-          color={compared ? 'teal' : 'dark'}
-          iconColor="dark"
-          fill="clear"
-          iconPosition="before"
-          label={
-            <>
-              <Icon icon={<CarSharp />} color={compared ? 'teal' : 'dark'} />
-              {compared ? 'Remove' : 'Compare'}
-            </>
-          }
-          size="expand"
-          onClick={onCompare}
-        />
-        <Button
-          color={wished ? 'teal' : 'dark'}
-          iconColor="dark"
-          fill="clear"
-          iconPosition="before"
-          label={
-            <>
-              <Icon icon={<HeartSharp />} color={wished ? 'teal' : 'dark'} />
-              {wished ? 'Remove' : 'Wishlist'}
-            </>
-          }
-          size="expand"
-          onClick={onWishlist}
-        />
+        {onCompare && (
+          <Button
+            color={compared ? 'teal' : 'dark'}
+            iconColor="dark"
+            fill="clear"
+            iconPosition="before"
+            label={
+              <>
+                <Icon icon={<CarSharp />} color={compared ? 'teal' : 'dark'} />
+                {compared ? 'Remove' : 'Compare'}
+              </>
+            }
+            size="expand"
+            onClick={onCompare}
+          />
+        )}
+        {onWishlist && isWishlistEnabled() && (
+          <Button
+            color={wished ? 'teal' : 'dark'}
+            iconColor="dark"
+            fill="clear"
+            iconPosition="before"
+            label={
+              <>
+                <Icon icon={<HeartSharp />} color={wished ? 'teal' : 'dark'} />
+                {wished ? 'Remove' : 'Wishlist'}
+              </>
+            }
+            size="expand"
+            onClick={onWishlist}
+          />
+        )}
       </div>
     </div>
   </>
