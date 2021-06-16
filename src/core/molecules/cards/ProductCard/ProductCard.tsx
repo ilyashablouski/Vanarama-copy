@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+
 import { ICardProps } from '../interfaces';
 import Card from '..';
 import CardIcons, { TIcon } from '../CardIcons';
@@ -6,6 +7,8 @@ import Button from '../../../atoms/button';
 import Icon from '../../../atoms/icon';
 import Scale from '../../../assets/icons/Scale';
 import Heart from '../../../assets/icons/Heart';
+
+import { isWishlistEnabled } from '../../../../utils/wishlistHelpers';
 
 export interface IProductCardProps extends ICardProps {
   features?: TIcon[];
@@ -45,7 +48,7 @@ const ProductCard: FC<IProductCardProps> = props => {
             withoutDefaultClass
           />
         )}
-        {onWishlist && (
+        {onWishlist && isWishlistEnabled && (
           <Button
             color={wished ? 'teal' : 'dark'}
             fill="clear"
