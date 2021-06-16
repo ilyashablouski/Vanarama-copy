@@ -96,7 +96,7 @@ interface IHelpMeChooseResult extends HelpMeChooseStep {
 
 const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
   const router = useRouter();
-  const { wishlistVehicles, wishlistChange } = useWishlist();
+  const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
   const {
     setSteps,
@@ -329,7 +329,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                       `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
                     }
                     wished={isWished(
-                      wishlistVehicles,
+                      wishlistVehicleIds,
                       formattedWishlistProductData,
                     )}
                     compared={isCompared(

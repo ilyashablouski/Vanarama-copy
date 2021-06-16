@@ -6,77 +6,156 @@ import {
   GetVehiclePublishState,
   GetVehiclePublishStateVariables,
 } from '../../generated/GetVehiclePublishState';
-import { initialWishlistState, wishlistVar } from '../cache';
+import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { IWishlistProduct, IWishlistState } from '../types/wishlist';
 import { GET_VEHICLE_PUBLISH_STATE } from '../gql/vehiclePublishState';
+import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
 import { Nullish } from '../types/common';
+import { wishlistVar } from '../cache';
+import {
+  GetProductCard,
+  GetProductCardVariables,
+  GetProductCard_productCard,
+} from '../../generated/GetProductCard';
 
 export const getLocalWishlistState = async () => {
-  const localState = await localForage.getItem('wishlist');
-  return (localState ?? initialWishlistState) as IWishlistState;
+  const wishlistVehicleIds = await localForage.getItem('wishlistVehicleIds');
+  return (wishlistVehicleIds ?? []) as Array<string>;
 };
 
 export const setLocalWishlistState = async (state: IWishlistState) => {
-  await localForage.setItem('wishlist', state);
-};
-
-export const isWished = (
-  wishlistVehicles: Array<IWishlistProduct>,
-  product: Nullish<IWishlistProduct>,
-) => {
-  return wishlistVehicles.some(vehicle => {
-    return vehicle.capId === product?.capId;
-  });
+  await localForage.setItem('wishlistVehicleIds', state.wishlistVehicleIds);
 };
 
 export const isWishlistEnabled = Cookies.get('DIG-6436') === '1';
 
-export const initializeWishlistState = async (client: ApolloClient<object>) => {
-  const { wishlistVehicles } = await getLocalWishlistState();
+export const getVehicleConfigId = (product: Nullish<IWishlistProduct>) =>
+  `${product?.vehicleType}-${product?.capId}`;
 
-  if (!wishlistVehicles.length) {
+export const parseVehicleConfigId = (configId: string) => {
+  const [vehicleType, capId] = configId.split('-');
+
+  return { vehicleType, capId } as {
+    vehicleType: VehicleTypeEnum;
+    capId: string;
+  };
+};
+
+export const isWished = (
+  wishlistVehicleIds: Array<string>,
+  product: Nullish<GetProductCard_productCard>,
+) =>
+  wishlistVehicleIds.some(configId => {
+    return configId === getVehicleConfigId(product);
+  });
+
+export const initializeWishlistState = async (client: ApolloClient<object>) => {
+  const wishlistVehicleIds = await getLocalWishlistState();
+
+  if (!wishlistVehicleIds.length) {
     return wishlistVar({
+      ...wishlistVar(),
       wishlistNoLongerAvailable: false,
       wishlistInitialized: true,
-      wishlistVehicles,
     });
   }
 
-  const getVehicleDataPromise = (card: IWishlistProduct) => {
+  const getVehicleDataPromise = (configId: string) => {
+    const { capId, vehicleType } = parseVehicleConfigId(configId);
+
     return client.query<
       GetVehiclePublishState,
       GetVehiclePublishStateVariables
     >({
       query: GET_VEHICLE_PUBLISH_STATE,
       variables: {
-        capId: parseInt(card.capId ?? '', 10),
-        vehicleType: card.vehicleType,
+        capId: parseInt(capId, 10),
+        vehicleType,
       },
     });
   };
 
-  const resultProductCardList = await Promise.all(
-    wishlistVehicles.filter(card => card.capId).map(getVehicleDataPromise),
+  const productCardList = await Promise.all(
+    wishlistVehicleIds.map(getVehicleDataPromise),
   );
 
-  const resultWishlistVehicles = wishlistVehicles.filter(card =>
-    resultProductCardList.some(product => {
-      const parsedCardId = parseInt(card.capId ?? '', 10);
+  const resultWishlistVehicleIds = wishlistVehicleIds.filter(configId => {
+    const { capId } = parseVehicleConfigId(configId);
+
+    return productCardList.some(product => {
+      const parsedCardId = parseInt(capId ?? '', 10);
       const productConfig = product.data.vehicleConfigurationByCapId;
 
       return (
         productConfig?.capDerivativeId === parsedCardId &&
         productConfig?.published
       );
-    }),
-  );
+    });
+  });
 
   return setLocalWishlistState(
     wishlistVar({
-      wishlistInitialized: true,
+      ...wishlistVar(),
       wishlistNoLongerAvailable:
-        resultWishlistVehicles.length !== wishlistVehicles.length,
-      wishlistVehicles: resultWishlistVehicles,
+        resultWishlistVehicleIds.length !== wishlistVehicleIds.length,
+      wishlistVehicleIds: resultWishlistVehicleIds,
     }),
   );
+};
+
+export const getWishlistVehiclesData = async (
+  client: ApolloClient<object>,
+  wishlistVehicleIds: Array<string>,
+) => {
+  const getVehicleDataPromise = (requestVehicleType: VehicleTypeEnum) => {
+    return client.query<GetProductCard, GetProductCardVariables>({
+      query: GET_PRODUCT_CARDS_DATA,
+      variables: {
+        vehicleType: requestVehicleType,
+        capIds: wishlistVehicleIds
+          .filter(configId => {
+            const { vehicleType } = parseVehicleConfigId(configId);
+            return vehicleType === requestVehicleType;
+          })
+          .map(configId => {
+            return parseVehicleConfigId(configId).capId;
+          }),
+      },
+    });
+  };
+
+  const lcvPromise = getVehicleDataPromise(VehicleTypeEnum.LCV);
+  const carsPromise = getVehicleDataPromise(VehicleTypeEnum.CAR);
+  const response = await Promise.allSettled([carsPromise, lcvPromise]);
+
+  const wishlistVehicleMap: Record<string, IWishlistProduct> = {};
+  let productCardList: Array<Nullish<GetProductCard_productCard>> = [];
+
+  const carsResponse = response[0];
+  if (carsResponse.status === 'fulfilled') {
+    productCardList = [
+      ...productCardList,
+      ...carsResponse.value.data.productCard,
+    ];
+  }
+
+  const lcvResponse = response[1];
+  if (lcvResponse.status === 'fulfilled') {
+    productCardList = [
+      ...productCardList,
+      ...lcvResponse.value.data.productCard,
+    ];
+  }
+
+  productCardList.forEach(product => {
+    if (product) {
+      wishlistVehicleMap[getVehicleConfigId(product)] = product;
+    }
+  });
+
+  wishlistVar({
+    ...wishlistVar(),
+    wishlistInitialized: true,
+    wishlistVehicleMap,
+  });
 };

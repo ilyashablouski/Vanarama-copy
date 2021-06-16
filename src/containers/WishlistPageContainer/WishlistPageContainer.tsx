@@ -1,5 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import { useApolloClient } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import Router from 'next/router';
 
@@ -17,6 +18,7 @@ import usePerson from '../../hooks/usePerson';
 import useWishlist from '../../hooks/useWishlist';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { getWishlistVehiclesData } from '../../utils/wishlistHelpers';
 import { useVehiclesTotalCount } from '../../gql/vehiclesTotalCount';
 import {
   RESULTS_PER_REQUEST,
@@ -47,11 +49,19 @@ function WishlistPageContainer({
   breadcrumbsList,
 }: IWishlistContainer) {
   const {
-    wishlistVehicles,
+    wishlistVehicleMap,
+    wishlistVehicleIds,
     wishlistInitialized,
     wishlistNoLongerAvailable,
   } = useWishlist();
+  const client = useApolloClient();
   const { personLoggedIn } = usePerson();
+
+  useEffect(() => {
+    if (wishlistVehicleIds.length) {
+      getWishlistVehiclesData(client, wishlistVehicleIds);
+    }
+  }, [client, wishlistVehicleIds]);
 
   useEffect(() => {
     return () => {
@@ -103,12 +113,12 @@ function WishlistPageContainer({
   }
 
   const sortedProductList = useMemo(
-    () => sortProductList(wishlistVehicles, sortOrder[0]),
-    [sortOrder, wishlistVehicles],
+    () => sortProductList(wishlistVehicleIds, wishlistVehicleMap, sortOrder[0]),
+    [sortOrder, wishlistVehicleMap, wishlistVehicleIds],
   );
   const productPlaceholderList = useMemo(
-    () => getProductPlaceholderList(wishlistVehicles.length),
-    [wishlistVehicles.length],
+    () => getProductPlaceholderList(wishlistVehicleIds.length),
+    [wishlistVehicleIds.length],
   );
 
   return (
@@ -126,7 +136,7 @@ function WishlistPageContainer({
             {sortedProductList.length ? (
               <div className="row:results">
                 <Text color="darker" size="regular" tag="span">
-                  Showing {wishlistVehicles.length} Vehicles
+                  Showing {sortedProductList.length} Vehicles
                 </Text>
                 <SortOrder
                   sortOrder={sortOrder[0]}
@@ -143,7 +153,8 @@ function WishlistPageContainer({
                 <section className="row:cards-3col">
                   {sortedProductList
                     .slice(0, cardsPerPage)
-                    .map((card, index) => {
+                    .map((cardId, index) => {
+                      const card = wishlistVehicleMap[cardId];
                       const cardUrl = card.pageUrl?.url ?? '';
                       const cardTitle = {
                         title: `${card.manufacturerName} ${card.modelName}`,
