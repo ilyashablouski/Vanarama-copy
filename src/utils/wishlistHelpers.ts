@@ -1,15 +1,14 @@
+import Cookies from 'js-cookie';
 import localForage from 'localforage';
 import { ApolloClient } from '@apollo/client';
 
 import {
-  GetProductCard,
-  GetProductCard_productCard,
-  GetProductCardVariables,
-} from '../../generated/GetProductCard';
-import { VehicleTypeEnum } from '../../generated/globalTypes';
-import { IWishlistProduct, IWishlistState } from '../types/wishlist';
-import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
+  GetVehiclePublishState,
+  GetVehiclePublishStateVariables,
+} from '../../generated/GetVehiclePublishState';
 import { initialWishlistState, wishlistVar } from '../cache';
+import { IWishlistProduct, IWishlistState } from '../types/wishlist';
+import { GET_VEHICLE_PUBLISH_STATE } from '../gql/vehiclePublishState';
 import { Nullish } from '../types/common';
 
 export const getLocalWishlistState = async () => {
@@ -30,6 +29,8 @@ export const isWished = (
   });
 };
 
+export const isWishlistEnabled = Cookies.get('DIG-6436') === '1';
+
 export const initializeWishlistState = async (client: ApolloClient<object>) => {
   const { wishlistVehicles } = await getLocalWishlistState();
 
@@ -41,42 +42,33 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
     });
   }
 
-  const getVehicleDataPromise = (vehicleType: VehicleTypeEnum) => {
-    return client.query<GetProductCard, GetProductCardVariables>({
-      query: GET_PRODUCT_CARDS_DATA,
+  const getVehicleDataPromise = (card: IWishlistProduct) => {
+    return client.query<
+      GetVehiclePublishState,
+      GetVehiclePublishStateVariables
+    >({
+      query: GET_VEHICLE_PUBLISH_STATE,
       variables: {
-        vehicleType,
-        capIds: wishlistVehicles
-          .filter(card => card.capId && card.vehicleType === vehicleType)
-          .map(card => card.capId ?? ''),
+        capId: parseInt(card.capId ?? '', 10),
+        vehicleType: card.vehicleType,
       },
     });
   };
 
-  const lcvPromise = getVehicleDataPromise(VehicleTypeEnum.LCV);
-  const carsPromise = getVehicleDataPromise(VehicleTypeEnum.CAR);
-  const result = await Promise.allSettled([carsPromise, lcvPromise]);
-
-  let resultProductCardList: Array<Nullish<GetProductCard_productCard>> = [];
-
-  const carsResult = result[0];
-  if (carsResult.status === 'fulfilled') {
-    resultProductCardList = [
-      ...resultProductCardList,
-      ...carsResult.value.data.productCard,
-    ];
-  }
-
-  const lcvResult = result[1];
-  if (lcvResult.status === 'fulfilled') {
-    resultProductCardList = [
-      ...resultProductCardList,
-      ...lcvResult.value.data.productCard,
-    ];
-  }
+  const resultProductCardList = await Promise.all(
+    wishlistVehicles.filter(card => card.capId).map(getVehicleDataPromise),
+  );
 
   const resultWishlistVehicles = wishlistVehicles.filter(card =>
-    resultProductCardList.some(product => product?.capId === card.capId),
+    resultProductCardList.some(product => {
+      const parsedCardId = parseInt(card.capId ?? '', 10);
+      const productConfig = product.data.vehicleConfigurationByCapId;
+
+      return (
+        productConfig?.capDerivativeId === parsedCardId &&
+        productConfig?.published
+      );
+    }),
   );
 
   return setLocalWishlistState(
