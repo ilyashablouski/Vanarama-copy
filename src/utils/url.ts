@@ -72,7 +72,13 @@ export const generateUrlForBreadcrumb = (
   slugArray: string[],
 ) => {
   if (MAKES_WITH_SLUGS.includes(make)) {
-    return pageData?.slug || slugArray.join('/');
+    return (
+      pageData?.slug ||
+      slugArray
+        // workaround only for Abarth 595C Convertible
+        .map(slug => (slug === 'c-convertible' ? 'convertible' : slug))
+        .join('/')
+    );
   }
   return pageData?.legacyUrl;
 };
