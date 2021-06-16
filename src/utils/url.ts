@@ -6,9 +6,11 @@ import { VehicleListUrl_vehicleList_edges as VehicleEdge } from '../../generated
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { getSectionsData } from './getSectionsData';
 import { GenericPageHeadQuery_genericPage_metaData as IMetadata } from '../../generated/GenericPageHeadQuery';
-import { genericPagesQuery_genericPages_items as GenericPages } from '../../generated/genericPagesQuery';
+import { genericPagesQuery_genericPages_items as IGenericPages } from '../../generated/genericPagesQuery';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
+
+const MAKES_WITH_SLUGS = ['abarth'];
 
 export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   const url = Object.entries(urlParams).map(([key, value]) =>
@@ -64,9 +66,26 @@ export const getNewUrl = (
   return formatNewUrl(edge);
 };
 
+export const generateUrlForBreadcrumb = (
+  make: string,
+  pageData: IGenericPages | undefined,
+  slugArray: string[],
+) => {
+  if (MAKES_WITH_SLUGS.includes(make)) {
+    return (
+      pageData?.slug ||
+      slugArray
+        // workaround only for Abarth 595C Convertible
+        .map(slug => (slug === 'c-convertible' ? 'convertible' : slug))
+        .join('/')
+    );
+  }
+  return pageData?.legacyUrl;
+};
+
 export const getProductPageBreadCrumb = (
   data: any,
-  genericPagesData: GenericPages[] | null | undefined,
+  genericPagesData: IGenericPages[] | null | undefined,
   slug: string,
   cars: boolean | undefined,
 ) => {
@@ -90,17 +109,20 @@ export const getProductPageBreadCrumb = (
     const makeLink = {
       link: {
         label: manufacturer?.name,
-        href: manufacturerPage?.legacyUrl
-          ? `/${manufacturerPage?.legacyUrl}`
-          : `/${manufacturerSlug}-${leasing}.html`,
+        href: `/${generateUrlForBreadcrumb(manufacturerSlug, manufacturerPage, [
+          leasing,
+          manufacturerSlug,
+        ]) || `${manufacturerSlug}-${leasing}.html`}`,
       },
     };
     const rangeLink = {
       link: {
         label: range?.name,
-        href: rangePage?.legacyUrl
-          ? `/${rangePage?.legacyUrl}`
-          : `/${manufacturerSlug}-${leasing}/${rangeSlug}.html`,
+        href: `/${generateUrlForBreadcrumb(manufacturerSlug, rangePage, [
+          leasing,
+          manufacturerSlug,
+          rangeSlug,
+        ]) || `${manufacturerSlug}-${leasing}/${rangeSlug}.html`}`,
       },
     };
     const modelLink = {
@@ -108,9 +130,12 @@ export const getProductPageBreadCrumb = (
         label: bodyType
           .replace(/-/g, ' ')
           .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
-        href: modelPage?.legacyUrl
-          ? `/${modelPage?.legacyUrl}`
-          : `/${manufacturerSlug}-${leasing}/${rangeSlug}/${bodyType}.html`,
+        href: `/${generateUrlForBreadcrumb(manufacturerSlug, modelPage, [
+          leasing,
+          manufacturerSlug,
+          rangeSlug,
+          bodyType,
+        ]) || `${manufacturerSlug}-${leasing}/${rangeSlug}/${bodyType}.html`}`,
       },
     };
     const derivativeLink = {
