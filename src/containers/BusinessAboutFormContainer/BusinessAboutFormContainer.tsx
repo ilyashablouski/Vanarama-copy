@@ -77,7 +77,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 
   const creditApplication =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid;
-  const isEdit = creditApplication?.aboutDetailsV2 !== null;
+  const isEdit = !!creditApplication?.aboutDetailsV2;
   const personByUuid = aboutYouData.data?.personByUuid;
 
   const person = useMemo(() => {
