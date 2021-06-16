@@ -184,7 +184,7 @@ describe('B2B About You page', () => {
       { target: { checked: true } },
     );
 
-    fireEvent.click(screen.getByRole('button', { name: /Save & Return/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
 
     await waitFor(() =>
       expect(screen.queryByText('Saving...')).not.toBeInTheDocument(),
@@ -327,7 +327,7 @@ describe('B2B About You page', () => {
       { target: { checked: true } },
     );
 
-    fireEvent.click(screen.getByRole('button', { name: /Save & Return/i }));
+    fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
 
     await waitFor(() =>
       expect(screen.getByTestId('about-you-error')).toBeInTheDocument(),
