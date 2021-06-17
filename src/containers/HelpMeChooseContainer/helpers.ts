@@ -321,7 +321,7 @@ export const getMainImageUrl = (
   vehicleId: Nullish<string>,
 ) =>
   imageData?.vehicleImages?.find(
-    x => x?.capId === parseInt(vehicleId ?? '', 10),
+    vehicleImage => vehicleImage?.capId === parseInt(vehicleId ?? '', 10),
   )?.mainImageUrl ?? `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
 
 export const formatForCompare = (
