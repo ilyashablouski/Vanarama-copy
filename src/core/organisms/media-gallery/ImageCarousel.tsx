@@ -92,7 +92,7 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
               ) : (
                 <Image
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  lazyLoad
+                  lazyLoad={index !== 0}
                   src={value}
                   size="expand"
                   plain
