@@ -10,12 +10,14 @@ import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { IWishlistProduct, IWishlistState } from '../types/wishlist';
 import { GET_VEHICLE_PUBLISH_STATE } from '../gql/vehiclePublishState';
 import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
-import { Nullish } from '../types/common';
+import { formatProductPageUrl, getLegacyUrl } from './url';
+import { Nullable, Nullish } from '../types/common';
 import { wishlistVar } from '../cache';
 import {
   GetProductCard,
   GetProductCardVariables,
   GetProductCard_productCard,
+  GetProductCard_vehicleList_edges,
 } from '../../generated/GetProductCard';
 
 export const getLocalWishlistState = async () => {
@@ -128,11 +130,17 @@ export const getWishlistVehiclesData = async (
   const carsPromise = getVehicleDataPromise(VehicleTypeEnum.CAR);
   const response = await Promise.allSettled([carsPromise, lcvPromise]);
 
-  const wishlistVehicleMap: Record<string, IWishlistProduct> = {};
-  let productCardList: Array<Nullish<GetProductCard_productCard>> = [];
+  let productCardList: Array<Nullable<GetProductCard_productCard>> = [];
+  let productCardEdgeList: Array<Nullable<
+    GetProductCard_vehicleList_edges
+  >> = [];
 
   const carsResponse = response[0];
   if (carsResponse.status === 'fulfilled') {
+    productCardEdgeList = [
+      ...productCardEdgeList,
+      ...carsResponse.value.data.vehicleList.edges,
+    ];
     productCardList = [
       ...productCardList,
       ...carsResponse.value.data.productCard,
@@ -141,15 +149,32 @@ export const getWishlistVehiclesData = async (
 
   const lcvResponse = response[1];
   if (lcvResponse.status === 'fulfilled') {
+    productCardEdgeList = [
+      ...productCardEdgeList,
+      ...lcvResponse.value.data.vehicleList.edges,
+    ];
     productCardList = [
       ...productCardList,
       ...lcvResponse.value.data.productCard,
     ];
   }
 
-  productCardList.forEach(product => {
-    if (product) {
-      wishlistVehicleMap[getVehicleConfigId(product)] = product;
+  const wishlistVehicleMap: Record<string, IWishlistProduct> = {
+    ...wishlistVar().wishlistVehicleMap,
+  };
+
+  productCardList.forEach(productCard => {
+    if (productCard) {
+      const configId = getVehicleConfigId(productCard);
+      const pageUrl = formatProductPageUrl(
+        getLegacyUrl(productCardEdgeList, productCard.capId),
+        productCard.capId,
+      );
+
+      wishlistVehicleMap[configId] = {
+        ...productCard,
+        pageUrl,
+      };
     }
   });
 
