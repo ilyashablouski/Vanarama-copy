@@ -351,7 +351,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       .then(() => localForage.removeItem('personUuid'))
       .then(() => {
         let url =
-          leaseType?.toLowerCase() === LeaseTypeEnum.PERSONAL.toLowerCase()
+          leaseType?.toUpperCase() === LeaseTypeEnum.PERSONAL
             ? '/olaf/about'
             : '/b2b/olaf/about';
 
