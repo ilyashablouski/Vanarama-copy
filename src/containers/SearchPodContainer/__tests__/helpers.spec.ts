@@ -1,4 +1,4 @@
-import { modelHandler, getBudgetForQuery } from '../helpers';
+import { modelHandler, getBudgetForQuery, budgetBetween } from '../helpers';
 
 describe('<helpers />', () => {
   it('modelHandler should return empty array ', async () => {
@@ -63,5 +63,14 @@ describe('<helpers />', () => {
   });
   it('getBudgetForQuery should return valid value', async () => {
     expect(getBudgetForQuery('£150-£250')).toEqual('150|250');
+  });
+  it('budgetBetween should return correct array', () => {
+    expect(budgetBetween('£150-£250', 120)).toBe(false);
+  });
+  it('budgetBetween should return correct array', () => {
+    expect(budgetBetween('£150-£250', 200)).toBe(true);
+  });
+  it('budgetBetween should return correct array', () => {
+    expect(budgetBetween('£150-£250', 250)).toBe(true);
   });
 });

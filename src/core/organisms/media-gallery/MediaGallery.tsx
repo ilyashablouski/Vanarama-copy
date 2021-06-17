@@ -103,6 +103,9 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
           {threeSixtyVideoSrc && <Tab index={3}>360° View</Tab>}
         </TabList>
       </Tabs>
+      <span className="text -small -darker">
+        Photos are for illustration purposes only.
+      </span>
     </>
   );
 });
