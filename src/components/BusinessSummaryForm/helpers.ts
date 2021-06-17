@@ -1,4 +1,5 @@
 import { IList } from 'core/organisms/structured-list/interfaces';
+import { formatAddress } from 'core/molecules/address-finder/AddressFinder';
 import { TAddressEntry } from '../AddressForm/interfaces';
 import { addressToDisplay } from '../../utils/address';
 import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
@@ -13,7 +14,7 @@ export const formatPreviousDirectorAddresses = (
       ...acc,
       {
         label: 'Past Address',
-        value: address.address?.label || '',
+        value: address.address?.label || formatAddress(address?.address) || '',
         dataTestId: `summary-director-past-address[${testId || indx}]`,
       },
       {
