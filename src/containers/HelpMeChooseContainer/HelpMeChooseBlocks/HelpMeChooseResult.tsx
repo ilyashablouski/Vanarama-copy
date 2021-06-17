@@ -23,6 +23,7 @@ import {
   buildAnObjectFromAQuery,
   formatForCompare,
   formatForWishlist,
+  getMainImageUrl,
   initialSteps,
   onReplace,
 } from '../helpers';
@@ -292,10 +293,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
         <div className="stepped-form--results">
           {!!resultsData?.length &&
             resultsData?.slice().map((el: Vehicles, id: number) => {
-              const mainImageUrl =
-                imageData?.vehicleImages?.find(
-                  x => x?.capId === parseInt(el.derivativeId || '', 10),
-                )?.mainImageUrl || '';
+              const mainImageUrl = getMainImageUrl(imageData, el.derivativeId);
 
               const formattedCompareProductData = formatForCompare(
                 el,
@@ -323,12 +321,7 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                     className="-compact"
                     inline
                     optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    imageSrc={
-                      imageData?.vehicleImages?.find(
-                        x => x?.capId === parseInt(el.derivativeId || '', 10),
-                      )?.mainImageUrl ||
-                      `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                    }
+                    imageSrc={mainImageUrl}
                     wished={isWished(
                       wishlistVehicleIds,
                       formattedWishlistProductData,

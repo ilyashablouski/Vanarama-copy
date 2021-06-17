@@ -1,9 +1,22 @@
 import preloadAll from 'jest-next-dynamic';
-import { getBuckets, onReplace } from '../helpers';
+import { getBuckets, getMainImageUrl, onReplace } from '../helpers';
 
 describe('<helpers />', () => {
   beforeEach(async () => {
     await preloadAll();
+  });
+  describe('getMainImageUrl', () => {
+    it('should return main vehicle image url', async () => {
+      const imageData = {
+        vehicleImages: [
+          { capId: 111111, mainImageUrl: 'https://main-image.png' },
+        ],
+      };
+
+      expect(getMainImageUrl(imageData, '111111')).toEqual(
+        'https://main-image.png',
+      );
+    });
   });
   describe('getBuckets', () => {
     it('should return new array with all active = false', async () => {

@@ -10,6 +10,8 @@ import {
   HelpMeChoose_helpMeChoose_vehicles as Vehicles,
 } from '../../../generated/HelpMeChoose';
 import { IVehicleCarousel } from '../../utils/comparatorHelpers';
+import { ModelImages } from '../../../generated/ModelImages';
+import { Nullish } from '../../types/common';
 
 const MOR_MILES_VALUE = 30;
 
@@ -313,6 +315,14 @@ export const buildAnObjectFromAQuery = (
   };
   return variables;
 };
+
+export const getMainImageUrl = (
+  imageData: Nullish<ModelImages>,
+  vehicleId: Nullish<string>,
+) =>
+  imageData?.vehicleImages?.find(
+    x => x?.capId === parseInt(vehicleId ?? '', 10),
+  )?.mainImageUrl ?? `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
 
 export const formatForCompare = (
   node: Vehicles | null,
