@@ -83,20 +83,20 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
     });
   };
 
-  const productDetailList = await Promise.all(
+  const vehicleDetailList = await Promise.all(
     wishlistVehicleIds.map(getVehiclePublishStatePromise),
   );
 
   const resultWishlistVehicleIds = wishlistVehicleIds.filter(configId => {
     const { capId } = parseVehicleConfigId(configId);
 
-    return productDetailList.some(({ data }) => {
+    return vehicleDetailList.some(({ data }) => {
       const parsedCardId = parseInt(capId ?? '', 10);
-      const productConfig = data.vehicleConfigurationByCapId;
+      const vehicleConfig = data.vehicleConfigurationByCapId;
 
       return (
-        productConfig?.capDerivativeId === parsedCardId &&
-        productConfig?.published
+        vehicleConfig?.capDerivativeId === parsedCardId &&
+        vehicleConfig?.published
       );
     });
   });
@@ -135,27 +135,31 @@ export const getWishlistVehiclesData = async (
     });
   };
 
-  const responseList = await Promise.allSettled([
+  const vehicleDataList = await Promise.allSettled([
     getVehicleDataPromise(VehicleTypeEnum.LCV),
     getVehicleDataPromise(VehicleTypeEnum.CAR),
   ]);
 
-  responseList.forEach(response => {
-    if (response.status === 'fulfilled') {
-      const cardList = response.value.data.productCard;
-      const edgeList = response.value.data.vehicleList.edges;
+  /*
+   * collect received productCard data of wished vehicles
+   * in the wishlistVehicleMap by "configId" key
+   */
+  vehicleDataList.forEach(vehicleData => {
+    if (vehicleData.status === 'fulfilled') {
+      const productCardList = vehicleData.value.data.productCard;
+      const vehicleEdgeList = vehicleData.value.data.vehicleList.edges;
 
-      cardList?.forEach(productCard => {
+      productCardList?.forEach(productCard => {
         if (productCard) {
           const configId = getVehicleConfigId(productCard);
-          const pageUrl = formatProductPageUrl(
-            getLegacyUrl(edgeList, productCard.capId),
+          const productPageUrl = formatProductPageUrl(
+            getLegacyUrl(vehicleEdgeList, productCard.capId),
             productCard.capId,
           );
 
           wishlistVehicleMap[configId] = {
             ...productCard,
-            pageUrl,
+            pageUrl: productPageUrl,
           };
         }
       });
