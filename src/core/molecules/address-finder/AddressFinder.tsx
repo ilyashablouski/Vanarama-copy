@@ -23,7 +23,7 @@ export type AddressFinderComponent = React.FC<IAddressFinderProps> & {
   Intermediate: typeof AddressFinderIntermediate;
 };
 
-const formatAddress = (values: any) =>
+export const formatAddress = (values: any) =>
   `${values?.lineOne}${(values?.lineTwo || '') && `, ${values?.lineTwo}`} - ${
     values?.city
   }, ${values?.postcode}`;
