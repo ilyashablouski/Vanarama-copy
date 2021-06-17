@@ -40,6 +40,7 @@ const QUERIES_WITHOUT_CDN_CACHING = [
   'GetCompaniesByPersonUuid',
   'GetMyOrders',
   'GetOrderByUuid',
+  'GetQuoteDetails',
   'MyAccount',
 ];
 
