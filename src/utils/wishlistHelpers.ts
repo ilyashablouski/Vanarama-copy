@@ -62,7 +62,7 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
     });
   }
 
-  const getVehicleDataPromise = (configId: string) => {
+  const getVehiclePublishStatePromise = (configId: string) => {
     const { capId, vehicleType } = parseVehicleConfigId(configId);
 
     return client.query<
@@ -77,16 +77,16 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
     });
   };
 
-  const productCardList = await Promise.all(
-    wishlistVehicleIds.map(getVehicleDataPromise),
+  const productDetailList = await Promise.all(
+    wishlistVehicleIds.map(getVehiclePublishStatePromise),
   );
 
   const resultWishlistVehicleIds = wishlistVehicleIds.filter(configId => {
     const { capId } = parseVehicleConfigId(configId);
 
-    return productCardList.some(product => {
+    return productDetailList.some(({ data }) => {
       const parsedCardId = parseInt(capId ?? '', 10);
-      const productConfig = product.data.vehicleConfigurationByCapId;
+      const productConfig = data.vehicleConfigurationByCapId;
 
       return (
         productConfig?.capDerivativeId === parsedCardId &&
@@ -109,6 +109,10 @@ export const getWishlistVehiclesData = async (
   client: ApolloClient<object>,
   wishlistVehicleIds: Array<string>,
 ) => {
+  const wishlistVehicleMap: Record<string, IWishlistProduct> = {
+    ...wishlistVar().wishlistVehicleMap,
+  };
+
   const getVehicleDataPromise = (requestVehicleType: VehicleTypeEnum) => {
     return client.query<GetProductCard, GetProductCardVariables>({
       query: GET_PRODUCT_CARDS_DATA,
@@ -126,55 +130,30 @@ export const getWishlistVehiclesData = async (
     });
   };
 
-  const lcvPromise = getVehicleDataPromise(VehicleTypeEnum.LCV);
-  const carsPromise = getVehicleDataPromise(VehicleTypeEnum.CAR);
-  const response = await Promise.allSettled([carsPromise, lcvPromise]);
+  const responseList = await Promise.allSettled([
+    getVehicleDataPromise(VehicleTypeEnum.LCV),
+    getVehicleDataPromise(VehicleTypeEnum.CAR),
+  ]);
 
-  let productCardList: Array<Nullable<GetProductCard_productCard>> = [];
-  let productCardEdgeList: Array<Nullable<
-    GetProductCard_vehicleList_edges
-  >> = [];
+  responseList.forEach(response => {
+    if (response.status === 'fulfilled') {
+      const cardList = response.value.data.productCard;
+      const edgeList = response.value.data.vehicleList.edges;
 
-  const carsResponse = response[0];
-  if (carsResponse.status === 'fulfilled') {
-    productCardEdgeList = [
-      ...productCardEdgeList,
-      ...carsResponse.value.data.vehicleList.edges,
-    ];
-    productCardList = [
-      ...productCardList,
-      ...carsResponse.value.data.productCard,
-    ];
-  }
+      cardList?.forEach(productCard => {
+        if (productCard) {
+          const configId = getVehicleConfigId(productCard);
+          const pageUrl = formatProductPageUrl(
+            getLegacyUrl(edgeList, productCard.capId),
+            productCard.capId,
+          );
 
-  const lcvResponse = response[1];
-  if (lcvResponse.status === 'fulfilled') {
-    productCardEdgeList = [
-      ...productCardEdgeList,
-      ...lcvResponse.value.data.vehicleList.edges,
-    ];
-    productCardList = [
-      ...productCardList,
-      ...lcvResponse.value.data.productCard,
-    ];
-  }
-
-  const wishlistVehicleMap: Record<string, IWishlistProduct> = {
-    ...wishlistVar().wishlistVehicleMap,
-  };
-
-  productCardList.forEach(productCard => {
-    if (productCard) {
-      const configId = getVehicleConfigId(productCard);
-      const pageUrl = formatProductPageUrl(
-        getLegacyUrl(productCardEdgeList, productCard.capId),
-        productCard.capId,
-      );
-
-      wishlistVehicleMap[configId] = {
-        ...productCard,
-        pageUrl,
-      };
+          wishlistVehicleMap[configId] = {
+            ...productCard,
+            pageUrl,
+          };
+        }
+      });
     }
   });
 
