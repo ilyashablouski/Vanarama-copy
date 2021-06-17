@@ -6,7 +6,7 @@ describe('<helpers />', () => {
     await preloadAll();
   });
   describe('getMainImageUrl', () => {
-    it('should return main vehicle image url', async () => {
+    it('should return main vehicle image url', () => {
       const imageData = {
         vehicleImages: [
           { capId: 111111, mainImageUrl: 'https://main-image.png' },
