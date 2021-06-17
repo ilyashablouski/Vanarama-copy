@@ -10,15 +10,15 @@ import { CreditApplicationInputObject, VehicleTypeEnum, CreditApplicationTypeEnu
 // ====================================================
 
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication_aboutDetailsV2_addresses {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -33,15 +33,15 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_abo
 }
 
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication_aboutDetailsV2_history_address {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -118,15 +118,15 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_ban
 }
 
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication_companyDetailsV2_addresses {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -172,16 +172,28 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_com
   withTradingAddress: boolean | null;
 }
 
+export interface CreateUpdateCreditApplication_createUpdateCreditApplication_vatDetailsV2_markets {
+  country: string;
+  percentage: string;
+}
+
+export interface CreateUpdateCreditApplication_createUpdateCreditApplication_vatDetailsV2 {
+  markets: CreateUpdateCreditApplication_createUpdateCreditApplication_vatDetailsV2_markets[] | null;
+  outsideUk: boolean | null;
+  vatNumber: string | null;
+  vatRegistered: boolean | null;
+}
+
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication_directorsDetailsV2_directors_addresses {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -196,15 +208,15 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_dir
 }
 
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication_directorsDetailsV2_directors_history_address {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -337,7 +349,7 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication {
   aboutDetailsV2: CreateUpdateCreditApplication_createUpdateCreditApplication_aboutDetailsV2 | null;
   bankAccountsV2: CreateUpdateCreditApplication_createUpdateCreditApplication_bankAccountsV2[] | null;
   companyDetailsV2: CreateUpdateCreditApplication_createUpdateCreditApplication_companyDetailsV2 | null;
-  vatDetails: any | null;
+  vatDetailsV2: CreateUpdateCreditApplication_createUpdateCreditApplication_vatDetailsV2 | null;
   soleTraderDetails: any | null;
   directorsDetailsV2: CreateUpdateCreditApplication_createUpdateCreditApplication_directorsDetailsV2 | null;
   employmentHistories: any | null;

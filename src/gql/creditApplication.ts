@@ -163,7 +163,15 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
         uuid
         withTradingAddress
       }
-      vatDetails
+      vatDetailsV2 {
+        markets {
+          country
+          percentage
+        }
+        outsideUk
+        vatNumber
+        vatRegistered
+      }
       soleTraderDetails
       directorsDetailsV2 {
         directors {
@@ -589,7 +597,15 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
         uuid
         withTradingAddress
       }
-      vatDetails
+      vatDetailsV2 {
+        markets {
+          country
+          percentage
+        }
+        outsideUk
+        vatNumber
+        vatRegistered
+      }
       soleTraderDetails
       directorsDetailsV2 {
         directors {
@@ -768,7 +784,7 @@ const responseMock = {
     },
   ],
   companyDetailsV2: null,
-  vatDetails: 'vatDetails',
+  vatDetailsV2: 'vatDetails',
   soleTraderDetails: 'soleTraderDetails',
   directorsDetailsV2: null,
   employmentHistories: 'employmentHistories',
