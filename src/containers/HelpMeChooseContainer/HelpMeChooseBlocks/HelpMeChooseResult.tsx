@@ -292,19 +292,20 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
         <div className="stepped-form--results">
           {!!resultsData?.length &&
             resultsData?.slice().map((el: Vehicles, id: number) => {
+              const mainImageUrl =
+                imageData?.vehicleImages?.find(
+                  x => x?.capId === parseInt(el.derivativeId || '', 10),
+                )?.mainImageUrl || '';
+
               const formattedCompareProductData = formatForCompare(
                 el,
                 steps.financeTypes.value as any,
-                imageData?.vehicleImages?.find(
-                  x => x?.capId === parseInt(el.derivativeId || '', 10),
-                )?.mainImageUrl || '',
+                mainImageUrl,
               );
               const formattedWishlistProductData = formatForWishlist(
                 el,
                 steps.financeTypes.value as any,
-                imageData?.vehicleImages?.find(
-                  x => x?.capId === parseInt(el.derivativeId || '', 10),
-                )?.mainImageUrl || '',
+                mainImageUrl,
               );
 
               return (
