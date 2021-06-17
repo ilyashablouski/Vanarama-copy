@@ -18,13 +18,15 @@ import usePerson from '../../hooks/usePerson';
 import useWishlist from '../../hooks/useWishlist';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
-import { getWishlistVehiclesData } from '../../utils/wishlistHelpers';
+import {
+  getWishlistVehiclesData,
+  resetWishlistNoLongerAvailable,
+} from '../../utils/wishlistHelpers';
 import { useVehiclesTotalCount } from '../../gql/vehiclesTotalCount';
 import {
   RESULTS_PER_REQUEST,
   sortObjectGenerator,
 } from '../SearchPageContainer/helpers';
-import { wishlistVar } from '../../cache';
 import {
   createOfferCards,
   getDefaultSortOrder,
@@ -64,12 +66,7 @@ function WishlistPageContainer({
   }, [client, wishlistVehicleIds]);
 
   useEffect(() => {
-    return () => {
-      wishlistVar({
-        ...wishlistVar(),
-        wishlistNoLongerAvailable: false,
-      });
-    };
+    return resetWishlistNoLongerAvailable;
   }, []);
 
   const [getCarsOffers, carsOptions] = useVehiclesTotalCount(

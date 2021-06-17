@@ -50,6 +50,13 @@ export const isWished = (
     return configId === getVehicleConfigId(product);
   });
 
+export const resetWishlistNoLongerAvailable = () => {
+  wishlistVar({
+    ...wishlistVar(),
+    wishlistNoLongerAvailable: false,
+  });
+};
+
 export const initializeWishlistState = async (client: ApolloClient<object>) => {
   const wishlistVehicleIds = await getLocalWishlistState();
 
