@@ -11,13 +11,12 @@ import { IWishlistProduct, IWishlistState } from '../types/wishlist';
 import { GET_VEHICLE_PUBLISH_STATE } from '../gql/vehiclePublishState';
 import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
 import { formatProductPageUrl, getLegacyUrl } from './url';
-import { Nullable, Nullish } from '../types/common';
+import { Nullish } from '../types/common';
 import { wishlistVar } from '../cache';
 import {
   GetProductCard,
   GetProductCardVariables,
   GetProductCard_productCard,
-  GetProductCard_vehicleList_edges,
 } from '../../generated/GetProductCard';
 
 export const getLocalWishlistState = async () => {
