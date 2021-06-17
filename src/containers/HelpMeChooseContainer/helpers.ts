@@ -319,10 +319,17 @@ export const buildAnObjectFromAQuery = (
 export const getMainImageUrl = (
   imageData: Nullish<ModelImages>,
   vehicleId: Nullish<string>,
-) =>
-  imageData?.vehicleImages?.find(
-    vehicleImage => vehicleImage?.capId === parseInt(vehicleId ?? '', 10),
-  )?.mainImageUrl ?? `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`;
+) => {
+  const parsedVehicleId = parseInt(vehicleId ?? '', 10);
+  const mainVehicleImage = imageData?.vehicleImages?.find(
+    vehicleImage => vehicleImage?.capId === parsedVehicleId,
+  );
+
+  return (
+    mainVehicleImage?.mainImageUrl ??
+    `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+  );
+};
 
 export const formatForCompare = (
   node: Vehicles | null,
