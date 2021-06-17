@@ -3,7 +3,7 @@ export const addHeapUserIdentity = (userID: string) => {
     // @ts-ignore
     window.heap?.identify(userID);
   } catch (error) {
-    console.error(error);
+    console.error('Heap error', error);
   }
 };
 
@@ -12,6 +12,6 @@ export const addHeapUserProperties = (properties: {}) => {
     // @ts-ignore
     window.heap?.addUserProperties(properties);
   } catch (error) {
-    console.error(error);
+    console.error('Heap error', error);
   }
 };

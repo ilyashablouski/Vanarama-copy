@@ -40,25 +40,41 @@
 .header-content {
   display: inherit;
   grid-column: content;
-  grid-template-columns: auto minmax(0, 1fr) repeat(3, auto);
+  grid-template-columns: auto minmax(0, 1fr) repeat(2, auto);
   grid-template-areas:
-    'logo search tel wishlist account'
-    'nav nav nav nav nav';
+    'logo search tel account'
+    'nav nav nav nav';
   place-items: center start;
   white-space: nowrap;
 
   @include mobile-tablet {
     grid-column: full;
     grid-template-rows: 1.25fr;
-    grid-template-columns: 1rem minmax(0, 1fr) 40px 40px 40px 46px 0.5rem;
-    grid-template-areas:'. logo account wishlist tel navtoggle .'
-    'search search search search search search search';
+    grid-template-columns: 1rem minmax(0, 1fr) 40px 40px 46px 0.5rem;
+    grid-template-areas:'. logo account tel navtoggle .'
+    'search search search search search search';
     place-items: center;
     gap: 0;
   }
 
   @include desktop {
     gap: 1ch 2rem;
+  }
+
+  &.-with-wishlist {
+    grid-template-areas:
+      'logo search tel wishlist account'
+      'nav nav nav nav nav';
+
+    @include mobile-tablet {
+      grid-column: full;
+      grid-template-rows: 1.25fr;
+      grid-template-columns: 1rem minmax(0, 1fr) 40px 40px 40px 46px 0.5rem;
+      grid-template-areas:'. logo account wishlist tel navtoggle .'
+      'search search search search search search search';
+      place-items: center;
+      gap: 0;
+    }
   }
 }
 
