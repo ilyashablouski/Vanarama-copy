@@ -124,14 +124,13 @@ export const getWishlistVehiclesData = async (
       query: GET_PRODUCT_CARDS_DATA,
       variables: {
         vehicleType: requestVehicleType,
-        capIds: wishlistVehicleIds
-          .filter(configId => {
-            const { vehicleType } = parseVehicleConfigId(configId);
-            return vehicleType === requestVehicleType;
-          })
-          .map(configId => {
-            return parseVehicleConfigId(configId).capId;
-          }),
+        capIds: wishlistVehicleIds.reduce((capIds, configId) => {
+          const { capId, vehicleType } = parseVehicleConfigId(configId);
+          if (vehicleType === requestVehicleType) {
+            capIds.push(capId);
+          }
+          return capIds;
+        }, [] as Array<string>),
       },
     });
   };
