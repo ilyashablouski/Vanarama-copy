@@ -3,7 +3,6 @@ import dynamic from 'next/dynamic';
 
 import React from 'react';
 
-import { HeapScript } from '../components/HeapScript';
 import {
   Script as GTMScript,
   Body as GTMBody,
@@ -33,12 +32,8 @@ const env: any = process?.env?.ENV || '';
 // Script environments
 const scriptEnvs = {
   gtm: [Env.UAT, Env.PRE_PROD, Env.PROD],
-
   blueconic: [Env.UAT, Env.PRE_PROD, Env.PROD],
-
   vwo: [Env.UAT, Env.PRE_PROD, Env.PROD],
-
-  heap: [Env.DEV, Env.UAT, Env.PRE_PROD, Env.PROD],
 };
 
 class MyDocument extends Document {
@@ -69,9 +64,6 @@ class MyDocument extends Document {
               <GTMScript />
               <GTMBody />
             </>
-          )}
-          {scriptEnvs.heap.includes(env) && (
-            <HeapScript heapID={process.env.HEAP_ID} />
           )}
         </body>
       </Html>

@@ -23,8 +23,8 @@ export function pushAddToCartHeap(
         trim: vehicleProduct.trim,
         term: vehicleProduct.term,
       });
-    } catch (e) {
-      console.error('err', e);
+    } catch (error) {
+      console.error('Heap error', error);
     }
   }
 }
