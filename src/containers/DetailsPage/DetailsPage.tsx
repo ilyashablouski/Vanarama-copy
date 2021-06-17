@@ -6,6 +6,7 @@ import localForage from 'localforage';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { setSessionStorage } from 'utils/windowSessionStorage';
 import cx from 'classnames';
+import Cookies from 'js-cookie';
 import Button from 'core/atoms/button';
 // @ts-ignore
 import decode from 'decode-html';
@@ -349,12 +350,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       .then(() => localForage.removeItem('personEmail'))
       .then(() => localForage.removeItem('personUuid'))
       .then(() => {
-        const url =
-          leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL
+        let url =
+          leaseType === LeaseTypeEnum.PERSONAL
             ? '/olaf/about'
             : '/b2b/olaf/about';
 
-        router.push(url, url);
+        if (Cookies.get('DIG-6240') === '1') {
+          url = '/checkout';
+        }
+
+        return router.push(url, url);
       });
   };
 
