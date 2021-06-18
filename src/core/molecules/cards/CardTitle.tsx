@@ -59,7 +59,7 @@ const CardTitle: FC<ICardTitleProps> = memo(props => {
           {description}
         </Heading>
       )}
-      {score && <Rating size={ratingSize} score={score} />}
+      {typeof score === 'number' && <Rating size={ratingSize} score={score} />}
       {withBtn && (
         <Button
           color="teal"
