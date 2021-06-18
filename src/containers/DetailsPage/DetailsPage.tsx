@@ -387,7 +387,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const leaseAdjustParams = data?.leaseAdjustParams;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
   const independentReview = data?.vehicleDetails?.independentReview;
-  const warranty = data?.vehicleDetails?.warranty;
   const warrantyDetails = data?.vehicleDetails?.warrantyDetails;
   const capsId = data?.vehicleDetails?.relatedVehicles?.map(
     el => el?.capId || '',
@@ -645,7 +644,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         )}
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <WhyChooseLeasing warranty={warranty || ''} />
+          <WhyChooseLeasing warrantyDetails={warrantyDetails} />
           <WhyChooseVanarama cars={cars} vans={vans} pickups={pickups} />
         </LazyLoadComponent>
         <div className="pdp--reviews">

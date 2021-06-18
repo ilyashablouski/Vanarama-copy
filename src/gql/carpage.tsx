@@ -42,7 +42,10 @@ export const GET_CAR_DATA = gql`
         value
       }
       independentReview
-      warranty
+      warrantyDetails {
+        years
+        mileage
+      }
       relatedVehicles {
         capId
         displayOrder
