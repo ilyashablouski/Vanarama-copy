@@ -346,6 +346,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         ...values,
         rating: vehicleDetails?.averageRating || 0,
       })
+      .then(() => localForage.setItem('quote', leaseScannerData?.quoteByCapId))
       .then(() => localForage.removeItem('orderId'))
       .then(() => localForage.removeItem('personEmail'))
       .then(() => localForage.removeItem('personUuid'))
