@@ -351,7 +351,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       .then(() => localForage.removeItem('personUuid'))
       .then(() => {
         let url =
-          leaseType === LeaseTypeEnum.PERSONAL
+          leaseType?.toUpperCase() === LeaseTypeEnum.PERSONAL
             ? '/olaf/about'
             : '/b2b/olaf/about';
 
@@ -587,13 +587,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           videoIframe
           imageAltText={metaTitle}
         />
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <VehicleTechDetails
-            vehicleDetails={vehicleDetails}
-            derivativeInfo={derivativeInfo}
-          />
-          {isSpecialOffer && isCar && <FreeInsuranceCards />}
-        </LazyLoadComponent>
+        <VehicleTechDetails
+          vehicleDetails={vehicleDetails}
+          derivativeInfo={derivativeInfo}
+        />
+        {isSpecialOffer && isCar && <FreeInsuranceCards />}
         {isMobile && vehicleDetails?.brochureUrl && (
           <Button
             className="pdp--mobile-download"

@@ -127,7 +127,7 @@ def getDockerTagName() {
 }
 
 // Definition for Build Badge Status 
-def BuildBadge = addEmbeddableBadgeConfiguration(id: "BuildBadge", subject: "Build Status")
+def BuildBadge = addEmbeddableBadgeConfiguration(id: "BuildBadge", subject: "build")
 
 
 pipeline {

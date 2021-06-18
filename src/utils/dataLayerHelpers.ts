@@ -164,6 +164,8 @@ export const productsMapper = (
     initialPayment:
       `${lineItem?.vehicleProduct?.depositPayment}` || 'undefined',
     addMaintenance: lineItem?.vehicleProduct?.maintenancePrice ? 'Yes' : 'No',
+    fuelType: derivativeData?.fuelType?.name || 'undefined',
+    marketingCategory: derivativeData?.bodyStyle?.name || 'undefined',
   };
 };
 
@@ -299,6 +301,16 @@ const getProductData = ({
     product,
   );
   pushDetail('retailPrice', vehicleValue, product);
+  pushDetail(
+    'fuelType',
+    derivativeInfo?.fuelType?.name || 'undefined',
+    product,
+  );
+  pushDetail(
+    'marketingCategory',
+    derivativeInfo?.bodyStyle?.name || 'undefined',
+    product,
+  );
 };
 
 const getProductDataForCheckout = ({
@@ -343,6 +355,16 @@ const getProductDataForCheckout = ({
   pushDetail(
     'addMaintenance',
     lineItem?.vehicleProduct?.maintenancePrice,
+    product,
+  );
+  pushDetail(
+    'fuelType',
+    derivativeData?.fuelType?.name || 'undefined',
+    product,
+  );
+  pushDetail(
+    'marketingCategory',
+    derivativeData?.bodyStyle?.name || 'undefined',
     product,
   );
 };
