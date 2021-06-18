@@ -6,77 +6,169 @@ import {
   GetVehiclePublishState,
   GetVehiclePublishStateVariables,
 } from '../../generated/GetVehiclePublishState';
-import { initialWishlistState, wishlistVar } from '../cache';
+import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { IWishlistProduct, IWishlistState } from '../types/wishlist';
 import { GET_VEHICLE_PUBLISH_STATE } from '../gql/vehiclePublishState';
+import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
+import { formatProductPageUrl, getLegacyUrl } from './url';
 import { Nullish } from '../types/common';
+import { wishlistVar } from '../cache';
+import {
+  GetProductCard,
+  GetProductCardVariables,
+  GetProductCard_productCard,
+} from '../../generated/GetProductCard';
 
 export const getLocalWishlistState = async () => {
-  const localState = await localForage.getItem('wishlist');
-  return (localState ?? initialWishlistState) as IWishlistState;
+  const wishlistVehicleIds = await localForage.getItem('wishlistVehicleIds');
+  return (wishlistVehicleIds ?? []) as Array<string>;
 };
 
 export const setLocalWishlistState = async (state: IWishlistState) => {
-  await localForage.setItem('wishlist', state);
-};
-
-export const isWished = (
-  wishlistVehicles: Array<IWishlistProduct>,
-  product: Nullish<IWishlistProduct>,
-) => {
-  return wishlistVehicles.some(vehicle => {
-    return vehicle.capId === product?.capId;
-  });
+  await localForage.setItem('wishlistVehicleIds', state.wishlistVehicleIds);
 };
 
 export const isWishlistEnabled = Cookies.get('DIG-6436') === '1';
 
-export const initializeWishlistState = async (client: ApolloClient<object>) => {
-  const { wishlistVehicles } = await getLocalWishlistState();
+export const getVehicleConfigId = (product: Nullish<IWishlistProduct>) =>
+  `${product?.vehicleType}-${product?.capId}`;
 
-  if (!wishlistVehicles.length) {
+export const parseVehicleConfigId = (configId: string) => {
+  const [vehicleType, capId] = configId.split('-');
+
+  return { vehicleType, capId } as {
+    vehicleType: VehicleTypeEnum;
+    capId: string;
+  };
+};
+
+export const isWished = (
+  wishlistVehicleIds: Array<string>,
+  product: Nullish<GetProductCard_productCard>,
+) =>
+  wishlistVehicleIds.some(configId => {
+    return configId === getVehicleConfigId(product);
+  });
+
+export const resetWishlistNoLongerAvailable = () => {
+  wishlistVar({
+    ...wishlistVar(),
+    wishlistNoLongerAvailable: false,
+  });
+};
+
+export const initializeWishlistState = async (client: ApolloClient<object>) => {
+  const wishlistVehicleIds = await getLocalWishlistState();
+
+  if (!wishlistVehicleIds.length) {
     return wishlistVar({
+      ...wishlistVar(),
       wishlistNoLongerAvailable: false,
       wishlistInitialized: true,
-      wishlistVehicles,
     });
   }
 
-  const getVehicleDataPromise = (card: IWishlistProduct) => {
+  const getVehiclePublishStatePromise = (configId: string) => {
+    const { capId, vehicleType } = parseVehicleConfigId(configId);
+
     return client.query<
       GetVehiclePublishState,
       GetVehiclePublishStateVariables
     >({
       query: GET_VEHICLE_PUBLISH_STATE,
       variables: {
-        capId: parseInt(card.capId ?? '', 10),
-        vehicleType: card.vehicleType,
+        capId: parseInt(capId, 10),
+        vehicleType,
       },
     });
   };
 
-  const resultProductCardList = await Promise.all(
-    wishlistVehicles.filter(card => card.capId).map(getVehicleDataPromise),
+  const vehicleDetailList = await Promise.all(
+    wishlistVehicleIds.map(getVehiclePublishStatePromise),
   );
 
-  const resultWishlistVehicles = wishlistVehicles.filter(card =>
-    resultProductCardList.some(product => {
-      const parsedCardId = parseInt(card.capId ?? '', 10);
-      const productConfig = product.data.vehicleConfigurationByCapId;
+  const resultWishlistVehicleIds = wishlistVehicleIds.filter(configId => {
+    const { capId } = parseVehicleConfigId(configId);
+
+    return vehicleDetailList.some(({ data }) => {
+      const parsedCardId = parseInt(capId ?? '', 10);
+      const vehicleConfig = data.vehicleConfigurationByCapId;
 
       return (
-        productConfig?.capDerivativeId === parsedCardId &&
-        productConfig?.published
+        vehicleConfig?.capDerivativeId === parsedCardId &&
+        vehicleConfig?.published
       );
-    }),
-  );
+    });
+  });
 
   return setLocalWishlistState(
     wishlistVar({
-      wishlistInitialized: true,
+      ...wishlistVar(),
       wishlistNoLongerAvailable:
-        resultWishlistVehicles.length !== wishlistVehicles.length,
-      wishlistVehicles: resultWishlistVehicles,
+        resultWishlistVehicleIds.length !== wishlistVehicleIds.length,
+      wishlistVehicleIds: resultWishlistVehicleIds,
     }),
   );
+};
+
+export const getWishlistVehiclesData = async (
+  client: ApolloClient<object>,
+  wishlistVehicleIds: Array<string>,
+) => {
+  const wishlistVehicleMap: Record<string, IWishlistProduct> = {
+    ...wishlistVar().wishlistVehicleMap,
+  };
+
+  const getVehicleDataPromise = (requestVehicleType: VehicleTypeEnum) => {
+    return client.query<GetProductCard, GetProductCardVariables>({
+      query: GET_PRODUCT_CARDS_DATA,
+      variables: {
+        vehicleType: requestVehicleType,
+        capIds: wishlistVehicleIds.reduce((capIds, configId) => {
+          const { capId, vehicleType } = parseVehicleConfigId(configId);
+          if (vehicleType === requestVehicleType) {
+            capIds.push(capId);
+          }
+          return capIds;
+        }, [] as Array<string>),
+      },
+    });
+  };
+
+  const vehicleDataList = await Promise.allSettled([
+    getVehicleDataPromise(VehicleTypeEnum.LCV),
+    getVehicleDataPromise(VehicleTypeEnum.CAR),
+  ]);
+
+  /*
+   * collect received productCard data of wished vehicles
+   * in the wishlistVehicleMap by "configId" key
+   */
+  vehicleDataList.forEach(vehicleData => {
+    if (vehicleData.status === 'fulfilled') {
+      const productCardList = vehicleData.value.data.productCard;
+      const vehicleEdgeList = vehicleData.value.data.vehicleList.edges;
+
+      productCardList?.forEach(productCard => {
+        if (productCard) {
+          const configId = getVehicleConfigId(productCard);
+          const productPageUrl = formatProductPageUrl(
+            getLegacyUrl(vehicleEdgeList, productCard.capId),
+            productCard.capId,
+          );
+
+          wishlistVehicleMap[configId] = {
+            ...productCard,
+            pageUrl: productPageUrl,
+          };
+        }
+      });
+    }
+  });
+
+  wishlistVar({
+    ...wishlistVar(),
+    wishlistInitialized: true,
+    wishlistVehicleMap,
+  });
 };

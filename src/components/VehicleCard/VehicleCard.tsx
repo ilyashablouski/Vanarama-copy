@@ -58,7 +58,7 @@ const VehicleCard = React.memo(
   }: IVehicleCardProps) => {
     const router = useRouter();
 
-    const { wishlistVehicles, wishlistChange } = useWishlist();
+    const { wishlistVehicleIds, wishlistChange } = useWishlist();
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
     const productPageUrl = formatProductPageUrl(url, derivativeId);
@@ -93,7 +93,7 @@ const VehicleCard = React.memo(
           accentText: data?.isOnOffer ? 'Hot Offer' : '',
           text: data?.leadTime || '',
         }}
-        wished={isWished(wishlistVehicles, data)}
+        wished={isWished(wishlistVehicleIds, data)}
         compared={isCompared(compareVehicles, data)}
         onCompare={() => compareChange(extendedProductData)}
         onWishlist={() => wishlistChange(extendedProductData)}

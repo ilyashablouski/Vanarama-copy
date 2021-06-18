@@ -47,7 +47,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
 }) => {
   // const { slidesToShow } = useSliderProperties();
 
-  const { wishlistVehicles, wishlistChange } = useWishlist();
+  const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   const getBodyStyle = (product: GetProductCard_productCard | null) => {
@@ -127,7 +127,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                   ...product,
                 })
               }
-              wished={isWished(wishlistVehicles, product)}
+              wished={isWished(wishlistVehicleIds, product)}
               title={{
                 title: '',
                 link: (
