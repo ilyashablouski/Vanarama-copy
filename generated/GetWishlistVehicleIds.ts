@@ -4,16 +4,16 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: GetWishlistVehicles
+// GraphQL query operation: GetWishlistVehicleIds
 // ====================================================
 
-export interface GetWishlistVehicles {
+export interface GetWishlistVehicleIds {
   /**
    * Return all favourites by party uuid
    */
   favouritesByPartyUuid: string[] | null;
 }
 
-export interface GetWishlistVehiclesVariables {
+export interface GetWishlistVehicleIdsVariables {
   partyUuid: string;
 }

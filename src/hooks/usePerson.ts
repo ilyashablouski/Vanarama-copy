@@ -9,6 +9,7 @@ import {
 export default function usePerson() {
   const [person, setPerson] = useState<Person | null>(null);
   const [personUuid, setPersonUuid] = useState<string | undefined>();
+  const [partyUuid, setPartyUuid] = useState<string | undefined>();
   const [personLoggedIn, setPersonLoggedIn] = useState<boolean>(false);
 
   useEffect(() => {
@@ -22,7 +23,8 @@ export default function usePerson() {
     ]).then(([personData, savedPersonUuid]) => {
       if (personData?.getPerson) {
         setPerson(personData.getPerson);
-        setPersonUuid(personData.getPerson?.uuid);
+        setPersonUuid(personData.getPerson.uuid);
+        setPartyUuid(personData.getPerson.partyUuid);
         setPersonLoggedIn(true);
       } else if (savedPersonUuid) {
         setPersonUuid(savedPersonUuid);
@@ -38,5 +40,7 @@ export default function usePerson() {
     setPersonUuid,
     personLoggedIn,
     setPersonLoggedIn,
+    partyUuid,
+    setPartyUuid,
   };
 }

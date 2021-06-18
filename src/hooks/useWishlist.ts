@@ -8,6 +8,11 @@ import {
 import { IWishlistProduct } from '../types/wishlist';
 import { Nullish } from '../types/common';
 import { wishlistVar } from '../cache';
+import {
+  useAddVehicleToWishlist,
+  useRemoveVehicleFromWishlist,
+} from '../gql/wishlist';
+import usePerson from './usePerson';
 
 export default function useWishlist() {
   const {
@@ -16,9 +21,22 @@ export default function useWishlist() {
     wishlistInitialized,
     wishlistNoLongerAvailable,
   } = useReactiveVar(wishlistVar);
+  const { partyUuid } = usePerson();
+
+  const [addVehicleToWishlist] = useAddVehicleToWishlist();
+  const [removeVehicleFromWishlist] = useRemoveVehicleFromWishlist();
 
   function addToWishlist(product: IWishlistProduct) {
     const configId = getVehicleConfigId(product);
+
+    addVehicleToWishlist({
+      variables: {
+        vehicleConfigurationIds: [configId],
+        partyUuid: partyUuid ?? '',
+      },
+    }).catch(error => {
+      console.error(error);
+    });
 
     return wishlistVar({
       ...wishlistVar(),
@@ -35,6 +53,15 @@ export default function useWishlist() {
     const newVehicleMap = { ...wishlistVehicleMap };
 
     delete newVehicleMap[configId];
+
+    removeVehicleFromWishlist({
+      variables: {
+        vehicleConfigurationIds: [configId],
+        partyUuid: partyUuid ?? '',
+      },
+    }).catch(error => {
+      console.error(error);
+    });
 
     return wishlistVar({
       ...wishlistVar(),
