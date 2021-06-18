@@ -3,6 +3,11 @@ import localForage from 'localforage';
 import { ApolloClient } from '@apollo/client';
 
 import {
+  GetProductCard,
+  GetProductCardVariables,
+  GetProductCard_productCard,
+} from '../../generated/GetProductCard';
+import {
   GetVehiclePublishState,
   GetVehiclePublishStateVariables,
 } from '../../generated/GetVehiclePublishState';
@@ -11,13 +16,9 @@ import { IWishlistProduct, IWishlistState } from '../types/wishlist';
 import { GET_VEHICLE_PUBLISH_STATE } from '../gql/vehiclePublishState';
 import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
 import { formatProductPageUrl, getLegacyUrl } from './url';
+import { getVehicleConfigId, parseVehicleConfigId } from './helpers';
 import { Nullish } from '../types/common';
 import { wishlistVar } from '../cache';
-import {
-  GetProductCard,
-  GetProductCardVariables,
-  GetProductCard_productCard,
-} from '../../generated/GetProductCard';
 
 export const getLocalWishlistState = async () => {
   const wishlistVehicleIds = await localForage.getItem('wishlistVehicleIds');
@@ -29,18 +30,6 @@ export const setLocalWishlistState = async (state: IWishlistState) => {
 };
 
 export const isWishlistEnabled = Cookies.get('DIG-6436') === '1';
-
-export const getVehicleConfigId = (product: Nullish<IWishlistProduct>) =>
-  `${product?.vehicleType}-${product?.capId}`;
-
-export const parseVehicleConfigId = (configId: string) => {
-  const [vehicleType, capId] = configId.split('-');
-
-  return { vehicleType, capId } as {
-    vehicleType: VehicleTypeEnum;
-    capId: string;
-  };
-};
 
 export const isWished = (
   wishlistVehicleIds: Array<string>,
