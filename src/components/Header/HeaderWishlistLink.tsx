@@ -8,7 +8,7 @@ import useWishlist from '../../hooks/useWishlist';
 import RouterLink from '../RouterLink';
 
 function HeaderWishlistLink() {
-  const { wishlistVehicles } = useWishlist();
+  const { wishlistVehicleIds } = useWishlist();
 
   return (
     <RouterLink
@@ -16,8 +16,8 @@ function HeaderWishlistLink() {
       link={{ href: '/wishlist', label: '' }}
     >
       <Icon icon={<Heart />} size="large" />
-      {wishlistVehicles.length > 0 && (
-        <span className="badge">{wishlistVehicles.length}</span>
+      {wishlistVehicleIds.length > 0 && (
+        <span className="badge">{wishlistVehicleIds.length}</span>
       )}
     </RouterLink>
   );
