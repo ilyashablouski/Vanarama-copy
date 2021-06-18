@@ -784,7 +784,25 @@ const responseMock = {
     },
   ],
   companyDetailsV2: null,
-  vatDetailsV2: 'vatDetails',
+  vatDetailsV2: {
+    outsideUk: true,
+    vatNumber: '123456789',
+    vatRegistered: true,
+    markets: [
+      {
+        country: 'Bangladesh',
+        percentage: '11',
+      },
+      {
+        country: 'Barbados',
+        percentage: '22',
+      },
+      {
+        country: 'Argentina',
+        percentage: '33',
+      },
+    ],
+  },
   soleTraderDetails: 'soleTraderDetails',
   directorsDetailsV2: null,
   employmentHistories: 'employmentHistories',
