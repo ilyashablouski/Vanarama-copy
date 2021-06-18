@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic';
 import React from 'react';
 import { gql } from '@apollo/client';
+import { formatAddress } from 'core/molecules/address-finder/AddressFinder';
 import FCWithFragments from '../../utils/FCWithFragments';
 
 import { CompanyAssociate_addresses as Address } from '../../../generated/CompanyAssociate';
@@ -71,7 +72,10 @@ const BusinessSummaryFormDirectorDetailsSection: FCWithFragments<IBusinessSummar
     },
     {
       label: 'Current Address',
-      value: currentAddress?.address?.label || '',
+      value:
+        currentAddress?.address?.label ||
+        formatAddress(currentAddress?.address) ||
+        '',
       dataTestId: `summary-director[${orderBySharehold}]-curr-address`,
     },
     {

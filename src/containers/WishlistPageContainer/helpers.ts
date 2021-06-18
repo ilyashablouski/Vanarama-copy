@@ -65,13 +65,17 @@ export const getSortValues = () => [
 ];
 
 export const sortProductList = (
-  productList: Array<IWishlistProduct>,
+  productIds: Array<string>,
+  productMap: Record<string, IWishlistProduct>,
   sortOptions: SortObject,
 ) => {
   if (sortOptions.field === SortField.rate) {
-    return productList.sort((firstProduct, secondProduct) => {
-      const firstProductRate = firstProduct.personalRate ?? 0;
-      const secondProductRate = secondProduct.personalRate ?? 0;
+    return productIds.sort((firstProductId, secondProductId) => {
+      const firstProduct = productMap[firstProductId];
+      const secondProduct = productMap[secondProductId];
+
+      const firstProductRate = firstProduct?.personalRate ?? 0;
+      const secondProductRate = secondProduct?.personalRate ?? 0;
 
       return sortOptions.direction === SortDirection.DESC
         ? secondProductRate - firstProductRate
@@ -79,5 +83,5 @@ export const sortProductList = (
     });
   }
 
-  return productList;
+  return productIds;
 };

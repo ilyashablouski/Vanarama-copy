@@ -109,7 +109,7 @@ export const PickupsPage: NextPage<IProps> = ({
     [productsPickup],
   );
 
-  const { wishlistVehicles, wishlistChange } = useWishlist();
+  const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   const dealOfMonthUrl = useMemo(
@@ -223,7 +223,7 @@ export const PickupsPage: NextPage<IProps> = ({
               sessionStorage.setItem('capId', offer?.capId || '');
             }}
             link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
-            wished={isWished(wishlistVehicles, offer)}
+            wished={isWished(wishlistVehicleIds, offer)}
             compared={isCompared(compareVehicles, offer)}
             onWishlist={() => {
               wishlistChange({
@@ -279,7 +279,7 @@ export const PickupsPage: NextPage<IProps> = ({
                     item?.imageUrl ||
                     `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
                   }
-                  wished={isWished(wishlistVehicles, item)}
+                  wished={isWished(wishlistVehicleIds, item)}
                   compared={isCompared(compareVehicles, item)}
                   onCompare={() => compareChange(extendedProductData)}
                   onWishlist={() => wishlistChange(extendedProductData)}
