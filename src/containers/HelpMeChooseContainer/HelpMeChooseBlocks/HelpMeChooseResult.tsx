@@ -23,6 +23,7 @@ import {
   buildAnObjectFromAQuery,
   formatForCompare,
   formatForWishlist,
+  getMainImageUrl,
   initialSteps,
   onReplace,
 } from '../helpers';
@@ -96,7 +97,7 @@ interface IHelpMeChooseResult extends HelpMeChooseStep {
 
 const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
   const router = useRouter();
-  const { wishlistVehicles, wishlistChange } = useWishlist();
+  const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
   const {
     setSteps,
@@ -292,19 +293,17 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
         <div className="stepped-form--results">
           {!!resultsData?.length &&
             resultsData?.slice().map((el: Vehicles, id: number) => {
+              const mainImageUrl = getMainImageUrl(imageData, el.derivativeId);
+
               const formattedCompareProductData = formatForCompare(
                 el,
                 steps.financeTypes.value as any,
-                imageData?.vehicleImages?.find(
-                  x => x?.capId === parseInt(el.derivativeId || '', 10),
-                )?.mainImageUrl || '',
+                mainImageUrl,
               );
               const formattedWishlistProductData = formatForWishlist(
                 el,
                 steps.financeTypes.value as any,
-                imageData?.vehicleImages?.find(
-                  x => x?.capId === parseInt(el.derivativeId || '', 10),
-                )?.mainImageUrl || '',
+                mainImageUrl,
               );
 
               return (
@@ -322,14 +321,9 @@ const HelpMeChooseResult: FC<IHelpMeChooseResult> = props => {
                     className="-compact"
                     inline
                     optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    imageSrc={
-                      imageData?.vehicleImages?.find(
-                        x => x?.capId === parseInt(el.derivativeId || '', 10),
-                      )?.mainImageUrl ||
-                      `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                    }
+                    imageSrc={mainImageUrl}
                     wished={isWished(
-                      wishlistVehicles,
+                      wishlistVehicleIds,
                       formattedWishlistProductData,
                     )}
                     compared={isCompared(

@@ -100,7 +100,7 @@ export const VansPage: NextPage<IProps> = ({
   offer,
 }) => {
   const { cachedLeaseType } = useLeaseType(false);
-  const { wishlistVehicles, wishlistChange } = useWishlist();
+  const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(encodeVehicleListUrlData);
@@ -219,7 +219,7 @@ export const VansPage: NextPage<IProps> = ({
               sessionStorage.setItem('capId', offer?.capId || '');
             }}
             link={{ href: dealOfMonthHref, url: dealOfMonthUrl.url }}
-            wished={isWished(wishlistVehicles, offer)}
+            wished={isWished(wishlistVehicleIds, offer)}
             compared={isCompared(compareVehicles, offer)}
             onWishlist={() => {
               wishlistChange({
