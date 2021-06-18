@@ -70,7 +70,7 @@ export interface IProps {
   trimList: (ITrimList | null)[] | null;
   colourList: (IColourList | null)[] | null;
   pickups?: boolean;
-  warrantyDetails:
+  warrantyDetails?:
     | GetVehicleDetails_vehicleDetails_warrantyDetails
     | null
     | undefined;

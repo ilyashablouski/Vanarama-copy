@@ -22,7 +22,6 @@ const OrderSummary: React.FC<IProps> = ({
   pickups,
   isShowFreeInsuranceMerch,
   warrantyDetails,
-  setShowModal,
 }) => {
   const [orderSummaryList, setOrderSummaryList] = useState(
     getOrderList({
@@ -71,7 +70,6 @@ const OrderSummary: React.FC<IProps> = ({
         className="-compact"
         editable={false}
         list={orderSummaryList}
-        setShowModal={setShowModal}
       />
       {isShowFreeInsuranceMerch && (
         <>

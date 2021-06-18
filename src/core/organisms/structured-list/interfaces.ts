@@ -1,4 +1,4 @@
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
+import { ChangeEvent } from 'react';
 import { IBaseProps } from '../../interfaces/base';
 import { TSize } from '../../../types/size';
 import { TColor } from '../../../types/color';
@@ -16,7 +16,7 @@ export interface IList extends IBaseProps {
   label: string;
   value: string | string[];
   isOrange?: boolean;
-  isIcon?: boolean;
+  isTooltip?: boolean;
 }
 
 export interface IStructuredListProps extends IBaseProps {
@@ -37,7 +37,6 @@ export interface IStructuredListProps extends IBaseProps {
   priceDataTestId?: string;
   priceTagDataTestId?: string;
   headingDataTestId?: string;
-  setShowModal?: Dispatch<SetStateAction<boolean>>;
 }
 
 export interface IListItemProps extends IList {
@@ -45,5 +44,4 @@ export interface IListItemProps extends IList {
   dataTestId?: string;
   testId?: number;
   onChange?(e: ChangeEvent<HTMLSelectElement | HTMLInputElement>): void;
-  setShowModal?: Dispatch<SetStateAction<boolean>>;
 }

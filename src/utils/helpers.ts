@@ -149,7 +149,7 @@ export const getOrderList = ({
       key: `${warrantyDetails?.years} Years Manufactured Or ${warrantyDetails?.mileage} Milles`,
       dataTestId: 'warranty',
       isOrange: false,
-      isIcon: true,
+      isTooltip: true,
     },
     {
       label: 'Road Tax:',

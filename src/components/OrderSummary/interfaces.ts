@@ -1,4 +1,3 @@
-import { Dispatch, SetStateAction } from 'react';
 import { GetQuoteDetails_quoteByCapId } from '../../../generated/GetQuoteDetails';
 import {
   GetVehicleDetails_derivativeInfo_colours,
@@ -18,9 +17,8 @@ export interface IProps {
   trim: number | null | undefined;
   pickups?: boolean;
   isShowFreeInsuranceMerch?: boolean;
-  warrantyDetails:
+  warrantyDetails?:
     | GetVehicleDetails_vehicleDetails_warrantyDetails
     | null
     | undefined;
-  setShowModal?: Dispatch<SetStateAction<boolean>>;
 }
