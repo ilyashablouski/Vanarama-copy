@@ -587,13 +587,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           videoIframe
           imageAltText={metaTitle}
         />
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <VehicleTechDetails
-            vehicleDetails={vehicleDetails}
-            derivativeInfo={derivativeInfo}
-          />
-          {isSpecialOffer && isCar && <FreeInsuranceCards />}
-        </LazyLoadComponent>
+        <VehicleTechDetails
+          vehicleDetails={vehicleDetails}
+          derivativeInfo={derivativeInfo}
+        />
+        {isSpecialOffer && isCar && <FreeInsuranceCards />}
         {isMobile && vehicleDetails?.brochureUrl && (
           <Button
             className="pdp--mobile-download"
