@@ -26,25 +26,33 @@ const IconWrapper: FC<IIconWrapperProps> = memo(
   },
 );
 
+const MIN_SCORE = 0;
+const MAX_SCORE = 5;
+
 const Rating: FC<IRatingProps> = memo(props => {
   const {
     className,
     color = 'orange',
     size = 'regular',
     labelColor = 'dark',
-    max = 5,
     score = 4.5,
     noLabel = false,
     onClick,
   } = props;
 
-  if (!max) {
-    return null;
-  }
-
-  let value = Number(score);
   let i;
+  let value;
   const items = [];
+
+  if (score < MIN_SCORE) {
+    console.error(`The rating cannot be lower than ${MIN_SCORE}!`);
+    value = MIN_SCORE;
+  } else if (score > MAX_SCORE) {
+    console.error(`The rating cannot be higher than ${MAX_SCORE}!`);
+    value = MAX_SCORE;
+  } else {
+    value = score;
+  }
 
   // Full.
   if (value && value > 0) {
@@ -72,7 +80,7 @@ const Rating: FC<IRatingProps> = memo(props => {
   if (value && value > 0 && !Number.isInteger(value)) {
     value += 1;
   }
-  for (i = 0; i < Math.ceil(max - value); i += 1) {
+  for (i = 0; i < Math.ceil(MAX_SCORE - value); i += 1) {
     const rate = items.length + 1;
     items.push(
       <IconWrapper key={`empty${i}`} index={rate} onClick={onClick}>
