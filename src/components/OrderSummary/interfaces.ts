@@ -1,7 +1,9 @@
+import { Dispatch, SetStateAction } from 'react';
 import { GetQuoteDetails_quoteByCapId } from '../../../generated/GetQuoteDetails';
 import {
   GetVehicleDetails_derivativeInfo_colours,
   GetVehicleDetails_derivativeInfo_trims,
+  GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../../generated/GetVehicleDetails';
 
 export interface IProps {
@@ -16,4 +18,9 @@ export interface IProps {
   trim: number | null | undefined;
   pickups?: boolean;
   isShowFreeInsuranceMerch?: boolean;
+  warrantyDetails:
+    | GetVehicleDetails_vehicleDetails_warrantyDetails
+    | null
+    | undefined;
+  setShowModal?: Dispatch<SetStateAction<boolean>>;
 }

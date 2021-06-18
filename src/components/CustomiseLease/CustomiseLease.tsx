@@ -170,6 +170,7 @@ const CustomiseLease = ({
   setIsInitPayModalShowing,
   pickups,
   isShowFreeInsuranceMerch,
+  warrantyDetails,
 }: IProps) => {
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
@@ -182,6 +183,7 @@ const CustomiseLease = ({
   const [defaultColor, setDefaultColor]: any = useState(null);
   const [defaultTrim, setDefaultTrim]: any = useState(null);
   const quoteByCapId = data?.quoteByCapId;
+  const [showModal, setShowModal] = useState(false);
 
   useEffect(() => {
     // check for any previously set lease settings
@@ -415,6 +417,8 @@ const CustomiseLease = ({
           trim={trim}
           pickups={pickups}
           isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
+          warrantyDetails={warrantyDetails}
+          setShowModal={setShowModal}
         />
       </LazyLoadComponent>
       {!isMobile && (
@@ -491,6 +495,17 @@ const CustomiseLease = ({
           text="Your upfront payment is calculated based on your monthly payments. The more you pay upfront, the lower your monthly payments."
           show={isInitPayModalShowing}
           onRequestClose={() => setIsInitPayModalShowing(false)}
+        />
+      )}
+      {showModal && (
+        <Modal
+          className="-mt-000"
+          title="Warranty"
+          text="Whichever comes first - the warranty mileage or the warranty term."
+          show
+          onRequestClose={() => {
+            setShowModal(false);
+          }}
         />
       )}
     </div>

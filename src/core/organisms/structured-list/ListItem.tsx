@@ -1,6 +1,8 @@
 import React, { FC, ChangeEvent, useState } from 'react';
 import cx from 'classnames';
 
+import Icon from 'core/atoms/icon';
+import InformationCircle from 'core/assets/icons/InformationCircle';
 import Select from '../../atoms/select';
 import TextInput from '../../atoms/textinput';
 
@@ -20,6 +22,8 @@ const ListItem: FC<IListItemProps> = props => {
     onChange,
     dataTestId,
     isOrange,
+    isIcon,
+    setShowModal,
   } = props;
 
   const [input, setInput] = useState(value);
@@ -43,6 +47,15 @@ const ListItem: FC<IListItemProps> = props => {
               <br />
             </>
           ))}
+      {isIcon ? (
+        <Icon
+          title="Whichever comes first - the warranty mileage or the warranty term."
+          icon={<InformationCircle />}
+          color="teal"
+          className="md hydrated -ml-100 -info-modal"
+          onClick={() => setShowModal && setShowModal(true)}
+        />
+      ) : null}
     </div>
   );
 
