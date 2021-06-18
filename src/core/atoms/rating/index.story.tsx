@@ -13,20 +13,19 @@ storiesOf(`${atomicDir(base)}/Rating`, module)
 
   .add('Large', () => <Rating score={3.5} size="large" />)
 
-  .add('Xlarge', () => <Rating score={0} max={5} size="xlarge" color="teal" />)
+  .add('Xlarge', () => <Rating score={0} size="xlarge" color="teal" />)
 
   .add('Without Label', () => (
-    <Rating score={0} max={5} size="xlarge" color="teal" noLabel />
+    <Rating score={0} size="xlarge" color="teal" noLabel />
   ))
 
   .add('Label custom color', () => (
-    <Rating score={0} max={5} size="xlarge" color="teal" labelColor="danger" />
+    <Rating score={0} size="xlarge" color="teal" labelColor="danger" />
   ))
 
   .add('Clickable', () => (
     <Rating
       score={2}
-      max={5}
       size="xlarge"
       color="orange"
       onClick={value => console.log(`your mark: ${value}`)}
