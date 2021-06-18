@@ -44,7 +44,7 @@
 }
 
 .banner {
-  background: $promo-gradient;
+  background: $white;
   color: $white;
   padding: $rem-400;
   display: grid;
@@ -52,6 +52,7 @@
   grid-template-rows: [icon text] auto;
   place-items: center start;
   gap: 1rem;
+  border: 1px solid #ea6308;
   border-radius: $border-radius-medium;
 
   @include mobile {
@@ -64,11 +65,24 @@
   }
 
   > .icon {
+    display: flex;
     grid-area: icon;
+    width: 70px;
+    height: auto;
+    justify-content: center;
+    svg {
+      width: 50px;
+    }
   }
 
   > :not(.icon) {
     grid-area: text;
+  }
+
+  a {
+    color: #007f83;
+    text-decoration: underline;
+    font-size: 12px;
   }
 }
 
