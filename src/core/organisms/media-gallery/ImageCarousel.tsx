@@ -137,6 +137,7 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
               >
                 <Image
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  lazyLoad
                   src={Array.isArray(value) ? value[0] : value}
                   size="xlarge"
                   alt={imageAltText}
