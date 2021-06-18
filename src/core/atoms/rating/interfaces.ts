@@ -6,7 +6,6 @@ export interface IRatingProps extends IBaseProps {
   size?: TSize;
   color?: TColor;
   score: number;
-  max?: number;
   labelColor?: TColor;
   onClick?: (index: number) => void;
   noLabel?: boolean;
