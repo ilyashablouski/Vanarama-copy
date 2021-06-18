@@ -100,7 +100,7 @@ export const CarsPage: NextPage<IProps> = ({
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
   const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
 
-  const { wishlistVehicles, wishlistChange } = useWishlist();
+  const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   useEffect(() => {
@@ -284,7 +284,7 @@ export const CarsPage: NextPage<IProps> = ({
                     item?.imageUrl ||
                     `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
                   }
-                  wished={isWished(wishlistVehicles, item)}
+                  wished={isWished(wishlistVehicleIds, item)}
                   compared={isCompared(compareVehicles, item)}
                   onCompare={() => compareChange(extendedProductData)}
                   onWishlist={() => wishlistChange(extendedProductData)}

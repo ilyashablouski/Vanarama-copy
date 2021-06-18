@@ -14,7 +14,8 @@ export interface IWishlistProduct extends ICard {
 }
 
 export interface IWishlistState {
-  wishlistVehicles: Array<IWishlistProduct>;
+  wishlistVehicleIds: Array<string>;
+  wishlistVehicleMap: Record<string, IWishlistProduct>;
   wishlistNoLongerAvailable: boolean;
   wishlistInitialized: boolean;
 }
