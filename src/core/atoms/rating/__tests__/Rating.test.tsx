@@ -9,7 +9,6 @@ const optionalProps = {
   className: 'class',
   size: 'small' as const,
   color: 'orange' as const,
-  max: 6,
 };
 
 const mandatoryProps = {
@@ -30,11 +29,6 @@ describe('<Rating />', () => {
 
   it('renders without score', () => {
     const tree = getComponent({ ...optionalProps, score: 0 });
-    expect(tree).toMatchSnapshot();
-  });
-
-  it('should not render without max', () => {
-    const tree = getComponent({ ...optionalProps, max: 0 });
     expect(tree).toMatchSnapshot();
   });
 
