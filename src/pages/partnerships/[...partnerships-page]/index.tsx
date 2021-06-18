@@ -1,5 +1,5 @@
 import createApolloClient from 'apolloClient';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
@@ -37,6 +37,9 @@ import {
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
 import { Partner, PartnerVariables } from '../../../../generated/Partner';
+import { ApolloError } from '@apollo/client';
+import { notFoundPageHandler } from 'utils/url';
+import PageNotFoundContainer from 'containers/PageNotFoundContainer/PageNotFoundContainer';
 
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={3} />,
@@ -71,9 +74,11 @@ interface IProps extends IPartnerOffersData {
   data: Partner;
   searchPodVansData?: IFilterList;
   searchPodCarsData?: IFilterList;
+  notFoundPageData: any;
+  error: any;
 }
 
-const OvoHomePage: NextPage<IProps> = ({
+const PartnershipsHomePage: NextPage<IProps> = ({
   data,
   partnerProductsCar,
   partnerProductsVan,
@@ -82,6 +87,8 @@ const OvoHomePage: NextPage<IProps> = ({
   vehicleListUrlData,
   searchPodVansData,
   searchPodCarsData,
+  notFoundPageData,
+  error
 }) => {
   const {
     colourPrimary,
@@ -141,7 +148,15 @@ const OvoHomePage: NextPage<IProps> = ({
       href: '/van-leasing/search',
     },
   ];
-
+  if (notFoundPageData) {
+    return (
+      <PageNotFoundContainer
+        featured={notFoundPageData?.featured}
+        cards={notFoundPageData?.cards}
+        name={notFoundPageData?.name}
+      />
+    );
+  }
   return (
     <>
       <Hero
@@ -279,14 +294,14 @@ const OvoHomePage: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getServerSideProps(context: NextPageContext) {
+  const client = createApolloClient({}, context as NextPageContext);
+  const path = context.req?.url?.split('?')[0] || '';
   try {
-    const client = createApolloClient({}, context as NextPageContext);
-
     const { data } = await client.query<Partner, PartnerVariables>({
       query: PARTNER,
       variables: {
-        slug: 'ovo',
+        slug: path.split('/').pop() || '',
       },
     });
 
@@ -321,7 +336,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     ]);
 
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data: data || null,
         partnerProductsCar: partnerProductsCar || null,
@@ -333,9 +347,19 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         searchPodCarsData: encodeData(searchPodCarsData),
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    const apolloError = error as ApolloError;
+
+    if (context.res) {
+      return notFoundPageHandler(context.res, client);
+    }
+
+    return {
+      props: {
+        error: error.message,
+      },
+    };
   }
 }
 
-export default OvoHomePage;
+export default PartnershipsHomePage;
