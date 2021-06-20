@@ -157,6 +157,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
       />
     );
   }
+
   return (
     <>
       <Hero
@@ -348,8 +349,6 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     };
   } catch (error) {
-    const apolloError = error as ApolloError;
-
     if (context.res) {
       return notFoundPageHandler(context.res, client);
     }
