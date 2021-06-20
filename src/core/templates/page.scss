@@ -60,16 +60,23 @@
 
     .heading {
       text-align: left !important;
-      font-size: 1.25rem;
+      //font-size: 1.25rem;
+      font-size: var(--class-fs);
+    }
+
+    .text {
+      font-size: 0.875rem;
     }
   }
 
   > .icon {
+    margin-top: 10px;
     display: flex;
     grid-area: icon;
     width: 70px;
     height: auto;
     justify-content: center;
+    align-self: flex-start;
     svg {
       width: 50px;
     }
@@ -82,7 +89,8 @@
   a {
     color: #007f83;
     text-decoration: underline;
-    font-size: 12px;
+    font-size: 0.75rem;
+    word-break: break-word;
   }
 }
 

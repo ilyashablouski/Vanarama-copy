@@ -36,18 +36,12 @@ const Banner: React.FC<IBanner> = ({ vans, className }) => {
             <>
               <span>
                 This Vehicle Includes Free Loss Of Earnings & Life Event Cover
+                <br />
+                For the Duration Of Your Lease
               </span>
-              <br />
-              <span>For the Duration Of Your Lease</span>
             </>
           ) : (
-            <>
-              <span>
-                This Vehicle Includes Free Redundancy & Life Event Cover
-              </span>
-              <br />
-              <span>For the Duration Of Your Lease</span>
-            </>
+            'Free Redundancy & Life Event Cover'
           )}
         </Heading>
         <Text className="-pr-100" color="black" size="regular">
@@ -62,7 +56,7 @@ const Banner: React.FC<IBanner> = ({ vans, className }) => {
             color: 'teal',
           }}
         >
-          Find Out More
+          Find&nbsp;Out&nbsp;More
         </RouterLink>
       </div>
     </div>
