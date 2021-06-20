@@ -3,16 +3,22 @@ import dynamic from 'next/dynamic';
 import Icon from 'core/atoms/icon';
 import Skeleton from '../Skeleton';
 import IconMap from '../../utils/cardIconMap';
+import { GetVehicleDetails_vehicleDetails_warrantyDetails } from '../../../generated/GetVehicleDetails';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
 
 interface IWhyChooseLeasingProps {
-  warranty: string;
+  warrantyDetails:
+    | GetVehicleDetails_vehicleDetails_warrantyDetails
+    | null
+    | undefined;
 }
 
-const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({ warranty }) => {
+const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({
+  warrantyDetails,
+}) => {
   const renderGridItem = (title: string, icon: JSX.Element) => (
     <div className="pdp--feature-grid--item">
       {icon}
@@ -25,8 +31,8 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({ warranty }) => {
   );
 
   const warrantyRender = () => {
-    switch (warranty) {
-      case 'N/A':
+    switch (warrantyDetails?.years) {
+      case null:
         return renderGridItem(
           'Full Manufacturer Warranty',
           <Icon
@@ -36,15 +42,15 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({ warranty }) => {
             size="xlarge"
           />,
         );
-      case '2':
-      case '3':
-      case '4':
-      case '5':
+      case 2:
+      case 3:
+      case 4:
+      case 5:
         return renderGridItem(
-          `Full ${warranty} Year Warranty`,
+          `Full ${warrantyDetails?.years} Year Warranty`,
           <Icon
-            name={`WarrantyRosette${warranty}`}
-            icon={IconMap.get(`WarrantyRosette${warranty}`)}
+            name={`WarrantyRosette${warrantyDetails?.years}`}
+            icon={IconMap.get(`WarrantyRosette${warrantyDetails?.years}`)}
             color="orange"
             size="xlarge"
           />,
