@@ -14,7 +14,7 @@ describe('Get partnership links', () => {
       id: 'van-leasing/search',
       label: 'VANS',
     },
-  ]
+  ];
   it('renders successfully', () => {
     expect(actual).toEqual(expected);
   });

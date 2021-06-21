@@ -8,9 +8,9 @@ import {
   clearInactiveSessionFuelTypes,
   getPartnerProperties,
 } from 'utils/partnerProperties';
+import { getPartnershipLinks } from '../../components/Partnerships/helpers';
 import Header from '../../components/Header';
 import { IHeaderLink } from '../../components/Header/Header';
-import { PartnershipsLinks } from '../../components/Partnerships/Data/PartnishipLinks';
 import { convertChildrenNavLink, convertPromotionalImage } from './helpers';
 import {
   GetPrimaryHeaderData as HeaderData,
@@ -22,7 +22,6 @@ import {
   FLEET_PHONE_NUMBER_LINK,
 } from '../../models/enum/HeaderLinks';
 import { LinkTypes } from '../../models/enum/LinkTypes';
-import { getPartnershipLinks } from 'components/Partnerships/helpers';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -41,7 +40,6 @@ const HeaderContainer: FC = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
   const phoneNumberLink =
     router.pathname === '/fleet' ? FLEET_PHONE_NUMBER_LINK : PHONE_NUMBER_LINK;
-  const partnerLinks = PartnershipsLinks;
 
   const LOGIN_LINK = {
     label: 'Login',
@@ -166,7 +164,7 @@ const HeaderContainer: FC = () => {
       const partnerName = partnerDetails.slug;
       setPartnership(partnerName);
       setPartnershipHomeLink(`/partnerships/${partnerName.toLowerCase()}`);
-      const links = getPartnershipLinks(partnerDetails.vehicleTypes)
+      const links = getPartnershipLinks(partnerDetails.vehicleTypes);
       setPartnershipLinks(links);
     } else if (path.includes('partnerships')) {
       const partner = path.split('/').pop();
@@ -194,7 +192,7 @@ const HeaderContainer: FC = () => {
           };
           setPartnershipPhoneLink(phoneData);
         }
-        const links = getPartnershipLinks(partnerDetails.vehicleTypes)
+        const links = getPartnershipLinks(partnerDetails.vehicleTypes);
         setPartnershipLinks(links);
       }
     }, 500);

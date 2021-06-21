@@ -5,6 +5,8 @@ import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import { notFoundPageHandler } from 'utils/url';
+import PageNotFoundContainer from 'containers/PageNotFoundContainer/PageNotFoundContainer';
 import { setSessionStorage } from '../../../utils/windowSessionStorage';
 import PageHeadingSection from '../../../components/PageHeadingSection';
 import Hero, { HeroHeading } from '../../../components/Hero';
@@ -18,6 +20,7 @@ import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 import { decodeData, encodeData } from '../../../utils/data';
 import {
   getPartnerProperties,
+  removePartnerProperties,
   setPartnerFooter,
   setPartnerProperties,
   setSessionFuelTypes,
@@ -33,12 +36,9 @@ import {
 } from '../../../../generated/filterList';
 import {
   LeaseTypeEnum,
-  PartnerSlugTypeEnum,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
 import { Partner, PartnerVariables } from '../../../../generated/Partner';
-import { notFoundPageHandler } from 'utils/url';
-import PageNotFoundContainer from 'containers/PageNotFoundContainer/PageNotFoundContainer';
 
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={3} />,
@@ -87,7 +87,6 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   searchPodVansData,
   searchPodCarsData,
   notFoundPageData,
-  error
 }) => {
   const {
     colourPrimary,
@@ -101,6 +100,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
     uuid,
     customerSovereignty,
     telephone,
+    slug,
   } = data?.partner || {};
   const { flag, body, image } = data?.partner?.hero || {};
   const { titleTag } = data?.partner?.featured || {};
@@ -111,24 +111,36 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   const { cachedLeaseType } = useLeaseType(null);
   const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
 
+  const partnershipData = {
+    slug: slug?.toUpperCase(),
+    color: colourPrimary,
+    uuid,
+    vehicleTypes,
+    telephone,
+    logo,
+    fuelTypes,
+  };
+  const sovereignty = customerSovereignty || 7;
+
   useEffect(() => {
     // check if partnership cookie has been set
     if (!getPartnerProperties()) {
-      const partnershipData = {
-        slug: PartnerSlugTypeEnum.OVO,
-        color: colourPrimary,
-        uuid,
-        vehicleTypes,
-        telephone,
-        logo,
-        fuelTypes,
-      };
-      const sovereignty = customerSovereignty || 7;
       setPartnerProperties(partnershipData, sovereignty);
     }
     setSessionStorage('partnershipSessionActive', 'true');
     setPartnerFooter(footer);
     setSessionFuelTypes(fuelTypes || []);
+  }, []);
+
+  useEffect(() => {
+    if (getPartnerProperties()) {
+      const partnerDetails = getPartnerProperties();
+      const isRightPartnership = partnerDetails.slug === slug?.toUpperCase();
+      if (!isRightPartnership) {
+        removePartnerProperties();
+        setPartnerProperties(partnershipData, sovereignty);
+      }
+    }
   }, []);
 
   const productCarouselProperties = [

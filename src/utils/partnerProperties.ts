@@ -42,6 +42,10 @@ export function setPartnerProperties(
   }
 }
 
+export function removePartnerProperties() {
+  Cookies.remove(PARTNER_COOKIE_NAME);
+}
+
 export function setSessionFuelTypes(fuelTypes: string[]) {
   Cookies.set('customSessionFuelTypes', fuelTypes);
 }
