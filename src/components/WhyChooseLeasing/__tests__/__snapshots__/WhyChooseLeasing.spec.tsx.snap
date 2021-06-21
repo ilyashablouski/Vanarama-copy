@@ -166,7 +166,7 @@ exports[`<WhyChooseLeasing /> renders correctly with warranty 1`] = `
 </div>
 `;
 
-exports[`<WhyChooseLeasing /> renders correctly with warranty equal N/A 1`] = `
+exports[`<WhyChooseLeasing /> renders correctly with warranty equal null 1`] = `
 <div
   className="pdp--feature-grid -col2"
 >

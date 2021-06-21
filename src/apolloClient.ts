@@ -4,11 +4,12 @@ import {
   ApolloLink,
   InMemoryCache,
   HttpLink,
+  // operationName,
 } from '@apollo/client';
 
 import { RetryLink } from '@apollo/client/link/retry';
 
-import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
+// import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
 
 import Router from 'next/router';
 import { onError } from '@apollo/client/link/error';
@@ -21,28 +22,28 @@ import { isSessionFinishedCache } from './cache';
 
 const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 // A list of queries that we don't want to be cached in CDN
-const QUERIES_WITHOUT_CDN_CACHING = [
-  'GetLeaseCompanyData',
-  'GetCreditApplicationByOrderUuid',
-  'GetCompanyDirectorDetailsQuery',
-  'GetDirectorDetailsQuery',
-  'GetCompanySummaryQuery',
-  'GetAboutYouDataQuery',
-  'GetPartyByUuid',
-  'GetAboutYouPageQuery',
-  'GetPersonByUuid',
-  'GetPerson',
-  'GetAddressContainerDataQuery',
-  'GetEmploymentContainerDataQuery',
-  'GetExpensesPageDataQuery',
-  'GetBankDetailsPageDataQuery',
-  'GetPersonSummaryQuery',
-  'GetCompaniesByPersonUuid',
-  'GetMyOrders',
-  'GetOrderByUuid',
-  'GetQuoteDetails',
-  'MyAccount',
-];
+// const QUERIES_WITHOUT_CDN_CACHING = [
+//   'GetLeaseCompanyData',
+//   'GetCreditApplicationByOrderUuid',
+//   'GetCompanyDirectorDetailsQuery',
+//   'GetDirectorDetailsQuery',
+//   'GetCompanySummaryQuery',
+//   'GetAboutYouDataQuery',
+//   'GetPartyByUuid',
+//   'GetAboutYouPageQuery',
+//   'GetPersonByUuid',
+//   'GetPerson',
+//   'GetAddressContainerDataQuery',
+//   'GetEmploymentContainerDataQuery',
+//   'GetExpensesPageDataQuery',
+//   'GetBankDetailsPageDataQuery',
+//   'GetPersonSummaryQuery',
+//   'GetCompaniesByPersonUuid',
+//   'GetMyOrders',
+//   'GetOrderByUuid',
+//   'GetQuoteDetails',
+//   'MyAccount',
+// ];
 
 const httpLink = new HttpLink({
   uri: process.env.API_URL!,
@@ -54,27 +55,27 @@ const httpLink = new HttpLink({
   useGETForQueries: false,
 });
 
-const persistedQueryLink = new ApolloLink((operation, forward) => {
-  return forward(operation);
-}).split(
-  () =>
-    [Env.DEV, Env.UAT, Env.PRE_PROD, Env.PROD].includes(process.env.ENV as Env),
-  new ApolloLink((operation, forward) => {
-    return forward(operation);
-  }).split(
-    operation => QUERIES_WITHOUT_CDN_CACHING.includes(operation.operationName),
-    // Assumes that CDN is configured not to cache POST queries
-    createPersistedQueryLink({
-      useGETForHashedQueries: false,
-    }) as any,
-    createPersistedQueryLink({
-      useGETForHashedQueries: true,
-    }) as any,
-  ),
-  new ApolloLink((operation, forward) => {
-    return forward(operation);
-  }),
-);
+// const persistedQueryLink = new ApolloLink((operation, forward) => {
+//   return forward(operation);
+// }).split(
+//   () =>
+//     [Env.DEV, Env.UAT, Env.PRE_PROD, Env.PROD].includes(process.env.ENV as Env),
+//   new ApolloLink((operation, forward) => {
+//     return forward(operation);
+//   }).split(
+//     operation => QUERIES_WITHOUT_CDN_CACHING.includes(operation.operationName),
+//     // Assumes that CDN is configured not to cache POST queries
+//     createPersistedQueryLink({
+//       useGETForHashedQueries: false,
+//     }) as any,
+//     createPersistedQueryLink({
+//       useGETForHashedQueries: true,
+//     }) as any,
+//   ),
+//   new ApolloLink((operation, forward) => {
+//     return forward(operation);
+//   }),
+// );
 
 const retryLink = new RetryLink({
   delay: {
@@ -93,13 +94,22 @@ const logLink = new ApolloLink((operation, forward) => {
     const query = {
       name: operation.operationName,
       variables: operation.variables,
+      extensions: operation.extensions,
     };
 
     console.log('\n[GraphQL query]:');
     console.log(`${JSON.stringify(query, null, 4)}\n`);
   }
 
-  return forward(operation);
+  return forward(operation).map(result => {
+    if (result.data) {
+      console.log(
+        `\n[GraphQL response]: Received data for ${operation.operationName}`,
+      );
+    }
+
+    return result;
+  });
 });
 
 // eslint-disable-next-line consistent-return
@@ -148,13 +158,19 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
     const { query, ...operationWithoutQuery } = operation;
 
     if (graphQLErrors) {
+      const operationDetails = {
+        operationName: operation.operationName,
+        variables: operation.variables,
+        extensions: operation.extensions,
+      };
+
       graphQLErrors.forEach(graphQLError => {
         console.log(
           `\n[GraphQL][Error]:${JSON.stringify(graphQLError, null, 4)}\n`,
         );
         console.log(
-          `[GraphQL][Operation]:\n${JSON.stringify(
-            operationWithoutQuery,
+          `[GraphQL][Operation that caused error]:\n${JSON.stringify(
+            operationDetails,
             null,
             4,
           )}\n`,
@@ -183,7 +199,7 @@ function apolloClientLink() {
     errorLink,
     authErrorLink,
     retryLink,
-    persistedQueryLink,
+    // persistedQueryLink,
     httpLink,
   ];
 

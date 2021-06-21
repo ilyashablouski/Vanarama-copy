@@ -69,7 +69,7 @@ const OrderPanel: React.FC<OrderPanelProps> = ({
               <Text tag="span">Initial Payment:</Text>
               {`£${vehicleProduct?.depositPayment} ${
                 isPersonalPrice ? 'Inc' : 'Exc'
-              } Vat`}
+              } VAT`}
             </li>
             {listItems.map(item => (
               <li className="-custom -mb-000" key={item.label}>
