@@ -13,8 +13,10 @@ export interface IIncomeCalculatorFormValues {
   mortgageOrRent?: string;
   otherCredit?: string;
   phoneAndInternet?: string;
-  studentLoans?: string;
+  studentLoan?: string;
   utilities?: string;
+  totalMonthlyExpenses?: string;
+  netDisposableIncome?: string;
   suitabilityConsent?: boolean;
 }
 
