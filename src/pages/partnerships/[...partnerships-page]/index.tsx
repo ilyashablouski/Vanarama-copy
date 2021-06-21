@@ -37,7 +37,6 @@ import {
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
 import { Partner, PartnerVariables } from '../../../../generated/Partner';
-import { ApolloError } from '@apollo/client';
 import { notFoundPageHandler } from 'utils/url';
 import PageNotFoundContainer from 'containers/PageNotFoundContainer/PageNotFoundContainer';
 
