@@ -7,9 +7,12 @@ describe('<WhyChooseLeasing />', () => {
   beforeEach(async () => {
     await preloadAll();
   });
-  it('renders correctly with warranty equal N/A', () => {
+  it('renders correctly with warranty equal null', () => {
+    const warrantyDetails = { years: null, mileage: 5000 };
     const getComponent = () => {
-      return renderer.create(<WhyChooseLeasing warranty="N/A" />).toJSON();
+      return renderer
+        .create(<WhyChooseLeasing warrantyDetails={warrantyDetails} />)
+        .toJSON();
     };
 
     const tree = getComponent();
@@ -17,8 +20,11 @@ describe('<WhyChooseLeasing />', () => {
   });
 
   it('renders correctly with warranty', () => {
+    const warrantyDetails = { years: 5, mileage: 5000 };
     const getComponent = () => {
-      return renderer.create(<WhyChooseLeasing warranty="5" />).toJSON();
+      return renderer
+        .create(<WhyChooseLeasing warrantyDetails={warrantyDetails} />)
+        .toJSON();
     };
 
     const tree = getComponent();
