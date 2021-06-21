@@ -22,6 +22,7 @@ import {
   FLEET_PHONE_NUMBER_LINK,
 } from '../../models/enum/HeaderLinks';
 import { LinkTypes } from '../../models/enum/LinkTypes';
+import { getPartnershipLinks } from 'components/Partnerships/helpers';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -165,16 +166,13 @@ const HeaderContainer: FC = () => {
       const partnerName = partnerDetails.slug;
       setPartnership(partnerName);
       setPartnershipHomeLink(`/partnerships/${partnerName.toLowerCase()}`);
-      const links = partnerLinks.find(p => p.name === partnerName)?.links;
+      const links = getPartnershipLinks(partnerDetails.vehicleTypes)
       setPartnershipLinks(links);
     } else if (path.includes('partnerships')) {
       const partner = path.split('/').pop();
       if (partner) {
         setPartnership(partner);
         setPartnershipHomeLink(`/partnerships/${partner}`);
-        const links = partnerLinks.find(p => p.name === partner.toUpperCase())
-          ?.links;
-        setPartnershipLinks(links);
       }
     }
   }, []);
@@ -196,6 +194,8 @@ const HeaderContainer: FC = () => {
           };
           setPartnershipPhoneLink(phoneData);
         }
+        const links = getPartnershipLinks(partnerDetails.vehicleTypes)
+        setPartnershipLinks(links);
       }
     }, 500);
   }, []);
