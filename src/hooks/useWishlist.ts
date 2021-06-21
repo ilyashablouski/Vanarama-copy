@@ -18,7 +18,7 @@ export default function useWishlist() {
     wishlistInitialized,
     wishlistNoLongerAvailable,
   } = useReactiveVar(wishlistVar);
-  const { partyUuid } = usePerson();
+  const { personLoggedIn, partyUuid } = usePerson();
 
   const [addVehicleToWishlist] = useAddVehicleToWishlist();
   const [removeVehicleFromWishlist] = useRemoveVehicleFromWishlist();
@@ -26,14 +26,16 @@ export default function useWishlist() {
   function addToWishlist(product: IWishlistProduct) {
     const configId = getVehicleConfigId(product);
 
-    addVehicleToWishlist({
-      variables: {
-        vehicleConfigurationIds: [configId],
-        partyUuid: partyUuid ?? '',
-      },
-    }).catch(error => {
-      console.error(error);
-    });
+    if (partyUuid) {
+      addVehicleToWishlist({
+        variables: {
+          vehicleConfigurationIds: [configId],
+          partyUuid: partyUuid ?? '',
+        },
+      }).catch(error => {
+        console.error(error);
+      });
+    }
 
     return wishlistVar({
       ...wishlistVar(),
@@ -51,14 +53,16 @@ export default function useWishlist() {
 
     delete newVehicleMap[configId];
 
-    removeVehicleFromWishlist({
-      variables: {
-        vehicleConfigurationIds: [configId],
-        partyUuid: partyUuid ?? '',
-      },
-    }).catch(error => {
-      console.error(error);
-    });
+    if (partyUuid) {
+      removeVehicleFromWishlist({
+        variables: {
+          vehicleConfigurationIds: [configId],
+          partyUuid: partyUuid ?? '',
+        },
+      }).catch(error => {
+        console.error(error);
+      });
+    }
 
     return wishlistVar({
       ...wishlistVar(),
@@ -78,7 +82,9 @@ export default function useWishlist() {
       ? removeFromWishlist(product)
       : addToWishlist(product);
 
-    setLocalWishlistState(newState);
+    if (!personLoggedIn) {
+      setLocalWishlistState(newState);
+    }
   }
 
   return {
