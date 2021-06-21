@@ -16,7 +16,6 @@ export interface IList extends IBaseProps {
   label: string;
   value: string | string[];
   isOrange?: boolean;
-  isTooltip?: boolean;
 }
 
 export interface IStructuredListProps extends IBaseProps {

@@ -21,7 +21,6 @@ const ListItem: FC<IListItemProps> = props => {
     onChange,
     dataTestId,
     isOrange,
-    isTooltip,
   } = props;
 
   const [input, setInput] = useState(value);
@@ -45,12 +44,6 @@ const ListItem: FC<IListItemProps> = props => {
               <br />
             </>
           ))}
-      {isTooltip && (
-        <Tooltip
-          text="Hello. This is a pop-up which allows for of content."
-          position="center"
-        />
-      )}
     </div>
   );
 

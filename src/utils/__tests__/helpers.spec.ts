@@ -176,7 +176,6 @@ describe('getOrderList', () => {
       {
         dataTestId: 'warranty',
         id: 'warranty',
-        isTooltip: true,
         isOrange: false,
         key: '5 Years Manufactured Or 50000 Milles',
         label: 'Warranty:',
