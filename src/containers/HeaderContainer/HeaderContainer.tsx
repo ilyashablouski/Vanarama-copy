@@ -163,7 +163,7 @@ const HeaderContainer: FC = () => {
     if (partnerDetails) {
       const partnerName = partnerDetails.slug;
       setPartnership(partnerName);
-      setPartnershipHomeLink(`/partnerships/${partnerName.toLowerCase()}`);
+      setPartnershipHomeLink(`/partnerships/${partnerName?.toLowerCase()}`);
       const links = getPartnershipLinks(partnerDetails.vehicleTypes);
       setPartnershipLinks(links);
     } else if (path.includes('partnerships')) {
