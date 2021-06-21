@@ -1,7 +1,6 @@
 import React, { FC, ChangeEvent, useState } from 'react';
 import cx from 'classnames';
 
-import Tooltip from 'core/atoms/tooltip';
 import Select from '../../atoms/select';
 import TextInput from '../../atoms/textinput';
 
