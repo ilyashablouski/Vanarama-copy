@@ -11,8 +11,10 @@ import { VehicleTypeEnum } from "./globalTypes";
 
 export interface GetDerivative_vehicleConfigurationByCapId {
   url: string | null;
-  capManufacturerDescription: string;
+  onOffer: boolean | null;
   capModelDescription: string;
+  vehicleType: VehicleTypeEnum;
+  capManufacturerDescription: string;
 }
 
 export interface GetDerivative_derivative_bodyType {
