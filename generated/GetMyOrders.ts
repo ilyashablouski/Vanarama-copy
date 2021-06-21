@@ -14,15 +14,15 @@ export interface GetMyOrders_myOrders_lineItems_order {
 }
 
 export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2_addresses {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -37,15 +37,15 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV
 }
 
 export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2_history_address {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -111,15 +111,15 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV
 }
 
 export interface GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2_addresses {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -166,15 +166,15 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_companyDetail
 }
 
 export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_addresses {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -189,15 +189,15 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDeta
 }
 
 export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2_directors_history_address {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
