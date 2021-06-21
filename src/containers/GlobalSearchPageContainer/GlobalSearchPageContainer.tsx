@@ -2,6 +2,8 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import Button from 'core/atoms/button/Button';
 import dynamic from 'next/dynamic';
+import OptionsSharp from 'core/assets/icons/OptionsSharp';
+import SwapVerticalSharp from 'core/assets/icons/SwapVerticalSharp';
 import {
   fullTextSearchVehicleList as ITextSearchQuery,
   fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles as IVehiclesList,
@@ -24,6 +26,10 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { getSectionsData } from '../../utils/getSectionsData';
 import SectionCards from '../../components/SectionCards';
 import VehicleCard from '../../components/VehicleCard';
+import FiltersTags from './FiltersTags';
+import Drawer from './Drawer';
+import { ITabs } from './interfaces';
+import { pluralise } from '../../utils/dates';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -53,6 +59,9 @@ const GlobalSearchPageContainer = ({
   responseCarsCapIds,
 }: IProps) => {
   const router = useRouter();
+
+  const [isShowDrawer, setIsShowDrawer] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<ITabs>(ITabs.Filter);
 
   const [vehiclesList, setVehicleList] = useState<IVehiclesList[]>(
     preLoadTextSearchList.fullTextSearchVehicleList?.vehicles || [],
@@ -183,19 +192,59 @@ const GlobalSearchPageContainer = ({
     return vehiclesCardsData?.[vehicleType].find(x => x?.capId === capId);
   };
 
+  const tabsHandler = (tab: ITabs) => {
+    if (isShowDrawer) {
+      setIsShowDrawer(false);
+    } else {
+      setActiveTab(tab);
+      setIsShowDrawer(true);
+    }
+  };
+
   return (
     <>
       <div className="row:title">
         <Breadcrumb items={breadcrumbsItems} />
         <CommonDescriptionContainer pageData={pageData} />
-        {totalResults === 0 && (
+        {totalResults === 0 ? (
           <Text tag="p" color="black" size="lead" className="heading">
             0 results for your search “{router.query.searchTerm as string}”
             Search again, try our vehicle categories.
           </Text>
+        ) : (
+          <Text
+            tag="span"
+            color="dark"
+            size="large"
+            className="-mb-500 heading"
+          >
+            {totalResults}{' '}
+            {pluralise(totalResults, { one: 'result', many: 'results' })} for{' '}
+            {router.query.searchTerm as string}.
+          </Text>
         )}
       </div>
-      <div className="row:bg-lighter -thin">
+      <div className="srp-f-bar">
+        <button
+          type="button"
+          className="filters"
+          onClick={() => tabsHandler(ITabs.Filter)}
+        >
+          <OptionsSharp />
+          Filter
+        </button>
+
+        <button
+          className="sort -darker"
+          type="button"
+          onClick={() => tabsHandler(ITabs.Sort)}
+        >
+          <SwapVerticalSharp />
+          Sort
+        </button>
+      </div>
+      <div className="row:bg-light">
+        <FiltersTags tags={[]} />
         <div className="row:results">
           <div className="row:cards-3col">
             {vehiclesList?.map(vehicle => (
@@ -236,12 +285,17 @@ const GlobalSearchPageContainer = ({
         </div>
       )}
       {totalResults === 0 && (
-        <div className="row:bg-lighter -col-300">
+        <div className="row:bg-light -col-300">
           <div className="row:cards-3col">
             {cards && <SectionCards cards={cards} />}
           </div>
         </div>
       )}
+      <Drawer
+        isShowDrawer={isShowDrawer}
+        onCloseDrawer={() => setIsShowDrawer(false)}
+        isFiltersRender={activeTab === ITabs.Filter}
+      />
     </>
   );
 };

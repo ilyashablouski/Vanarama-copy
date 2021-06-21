@@ -50,7 +50,10 @@ export const historyToDateObject = <T extends THistoryEntry>(history: T) =>
 export const historyToDate = <T extends THistoryEntry>(history: T) =>
   historyToDateObject(history);
 
-const pluralise = (count: number, config: { one: string; many: string }) => {
+export const pluralise = (
+  count: number,
+  config: { one: string; many: string },
+) => {
   return count === 1 ? config.one : config.many;
 };
 
