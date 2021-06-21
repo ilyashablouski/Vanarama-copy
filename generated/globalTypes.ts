@@ -78,6 +78,7 @@ export enum OpportunityTypeEnum {
  */
 export enum PartnerSlugTypeEnum {
   OVO = 'OVO',
+  HERMES = 'HERMES'
 }
 
 /**
