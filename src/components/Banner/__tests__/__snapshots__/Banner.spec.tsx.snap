@@ -304,7 +304,11 @@ exports[`Banner should correct render 1`] = `
     <p
       className="heading -white -large"
     >
-      Free Redundancy & Life Event Cover
+      <span>
+        This Vehicle Includes Free Redundancy & Life Event Cover
+        <br />
+         For the Duration Of Your Lease
+      </span>
     </p>
     <span
       className="text -pr-100 -small -white"
