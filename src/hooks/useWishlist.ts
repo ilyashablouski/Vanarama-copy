@@ -6,8 +6,8 @@ import { isWished, setLocalWishlistState } from '../utils/wishlistHelpers';
 import { IWishlistProduct } from '../types/wishlist';
 import { Nullish } from '../types/common';
 import {
-  useAddVehicleToWishlist,
-  useRemoveVehicleFromWishlist,
+  useAddVehicleToWishlistQuery,
+  useRemoveVehicleFromWishlistQuery,
 } from '../gql/wishlist';
 import usePerson from './usePerson';
 
@@ -20,8 +20,8 @@ export default function useWishlist() {
   } = useReactiveVar(wishlistVar);
   const { personLoggedIn, partyUuid } = usePerson();
 
-  const [addVehicleToWishlist] = useAddVehicleToWishlist();
-  const [removeVehicleFromWishlist] = useRemoveVehicleFromWishlist();
+  const [addVehicleToWishlist] = useAddVehicleToWishlistQuery();
+  const [removeVehicleFromWishlist] = useRemoveVehicleFromWishlistQuery();
 
   function addToWishlist(product: IWishlistProduct) {
     const configId = getVehicleConfigId(product);

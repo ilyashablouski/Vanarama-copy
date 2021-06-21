@@ -49,7 +49,7 @@ const GET_WISHLIST_VEHICLE_IDS = gql`
   }
 `;
 
-export const getWishlistVehicleIds = async (
+export const getWishlistVehicleIdsPromise = async (
   client: ApolloClient<object>,
   partyUuid: string,
 ) =>
@@ -60,13 +60,13 @@ export const getWishlistVehicleIds = async (
     },
   });
 
-export function useAddVehicleToWishlist() {
+export function useAddVehicleToWishlistQuery() {
   return useMutation<AddVehicleToWishlist, AddVehicleToWishlistVariables>(
     ADD_VEHICLE_TO_WISHLIST,
   );
 }
 
-export function useRemoveVehicleFromWishlist() {
+export function useRemoveVehicleFromWishlistQuery() {
   return useMutation<
     RemoveVehicleFromWishlist,
     RemoveVehicleFromWishlistVariables
