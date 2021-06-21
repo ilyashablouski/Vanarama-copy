@@ -30,7 +30,7 @@ export default function useWishlist() {
       addVehicleToWishlist({
         variables: {
           vehicleConfigurationIds: [configId],
-          partyUuid: partyUuid ?? '',
+          partyUuid,
         },
       }).catch(error => {
         console.error(error);
@@ -57,7 +57,7 @@ export default function useWishlist() {
       removeVehicleFromWishlist({
         variables: {
           vehicleConfigurationIds: [configId],
-          partyUuid: partyUuid ?? '',
+          partyUuid,
         },
       }).catch(error => {
         console.error(error);
