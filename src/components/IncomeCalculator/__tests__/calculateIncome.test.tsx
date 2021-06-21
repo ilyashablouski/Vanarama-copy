@@ -12,7 +12,7 @@ describe('calculateIncome', () => {
       mortgageOrRent: '4500',
       otherCredit: '6200',
       phoneAndInternet: '120',
-      studentLoans: '320',
+      studentLoan: '320',
       utilities: '400',
     };
 
