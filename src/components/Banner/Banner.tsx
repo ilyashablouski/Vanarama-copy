@@ -33,13 +33,11 @@ const Banner: React.FC<IBanner> = ({ vans, className }) => {
       <div>
         <Heading color="black" size="regular">
           {vans ? (
-            <>
-              <span>
-                This Vehicle Includes Free Loss Of Earnings & Life Event Cover
-                <br />
-                For the Duration Of Your Lease
-              </span>
-            </>
+            <span>
+              This Vehicle Includes Free Loss Of Earnings & Life Event Cover
+              <br />
+              For the Duration Of Your Lease
+            </span>
           ) : (
             'Free Redundancy & Life Event Cover'
           )}
