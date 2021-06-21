@@ -34,7 +34,7 @@ const rules = [
     use: [MiniCssExtractPlugin.loader, 'css-loader'],
     include: [/node_modules/],
   },
-]
+];
 
 module.exports = async ({ config }) => {
   config.module.rules.push(...rules);
