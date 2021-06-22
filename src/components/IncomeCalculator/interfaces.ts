@@ -1,4 +1,5 @@
 import { IncomeCalculatorExpenditure } from '../../../generated/IncomeCalculatorExpenditure';
+import { IOrderStorageData } from '../../hooks/useGetOrder';
 
 export interface IIncomeCalculatorFormValues {
   averageMonthlyIncome?: string;
@@ -24,4 +25,5 @@ export interface IIncomeCalculatorProps {
   expenditure: IncomeCalculatorExpenditure | null;
   onSubmit: (values: IIncomeCalculatorFormValues) => Promise<any>;
   isSubmitting?: boolean;
+  order: IOrderStorageData;
 }
