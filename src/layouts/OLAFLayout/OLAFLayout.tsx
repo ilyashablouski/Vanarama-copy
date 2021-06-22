@@ -50,7 +50,7 @@ interface IProps {
 
 const YOUR_NEEDS = [
   {
-    label: "Details of the address you've listed at covering three years",
+    label: "Details of the address you've lived at covering three years",
     key: '0',
   },
   {
