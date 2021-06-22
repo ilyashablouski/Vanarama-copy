@@ -36,6 +36,7 @@ import {
 } from '../../../../generated/filterList';
 import {
   LeaseTypeEnum,
+  VehicleSearchTypeEnum,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
 import { Partner, PartnerVariables } from '../../../../generated/Partner';
@@ -146,7 +147,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
       // check if exclusive vehicle type
       const types = partnerDetails?.vehicleTypes;
       if (types?.length === 1) {
-        if (types[0] === 'Cars') {
+        if (types[0] === VehicleSearchTypeEnum.CARS) {
           setCarSearchOnly(true);
         } else {
           setVanSearchOnly(true);

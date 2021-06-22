@@ -114,6 +114,11 @@ export enum VehiclesTypeEnum {
   PICKUPS = 'PICKUPS',
 }
 
+export enum VehicleSearchTypeEnum {
+  CARS = 'Cars',
+  VANS = 'Vans',
+}
+
 /**
  * Input array of addresses create and add an Address
  */

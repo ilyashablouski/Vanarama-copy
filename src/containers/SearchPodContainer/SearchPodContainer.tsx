@@ -22,6 +22,7 @@ import {
 } from '../../../generated/filterList';
 import SearchPod from '../../components/SearchPod';
 import { filterTypeAndBudget_filterList as IFilterTypeAndBudget } from '../../../generated/filterTypeAndBudget';
+import { VehicleSearchTypeEnum } from '../../../generated/globalTypes';
 
 interface ISearchPodContainerProps {
   searchPodCarsData?: IFilterListData;
@@ -284,7 +285,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     if (vanSearchOnly) {
       setActiveIndex(1);
       setHeadingText(VANS_TAB_HEADING);
-      setConfig(config.filter(vehicles => vehicles.type !== 'Cars'));
+      setConfig(config.filter(vehicles => vehicles.type !== VehicleSearchTypeEnum.CARS));
     }
   }, [vanSearchOnly]);
 
@@ -292,7 +293,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     if (carSearchOnly) {
       setActiveIndex(2);
       setHeadingText(CARS_TAB_HEADING);
-      setConfig(config.filter(vehicles => vehicles.type !== 'Vans'));
+      setConfig(config.filter(vehicles => vehicles.type !== VehicleSearchTypeEnum.VANS));
     }
   }, [carSearchOnly]);
 
