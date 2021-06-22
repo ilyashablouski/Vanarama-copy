@@ -111,6 +111,9 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   const { cachedLeaseType } = useLeaseType(null);
   const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
 
+  const [vanSearchOnly, setVanSearchOnly] = useState(false);
+  const [carSearchOnly, setCarSearchOnly] = useState(false);
+
   const partnershipData = {
     slug: slug?.toUpperCase(),
     color: colourPrimary,
@@ -140,6 +143,15 @@ const PartnershipsHomePage: NextPage<IProps> = ({
         removePartnerProperties();
         setPartnerProperties(partnershipData, sovereignty);
       }
+      // check if exclusive vehicle type
+      const types = partnerDetails?.vehicleTypes;
+      if (types?.length === 1) {
+        if (types[0] === 'Cars') {
+          setCarSearchOnly(true);
+        } else {
+          setVanSearchOnly(true);
+        }
+      }
     }
   }, []);
 
@@ -155,7 +167,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
       type: 'Vans',
       products: partnerProductsVan,
       derivatives: partnerProductsVanDerivatives,
-      dataTestId: 'view-all-vans',
+      dataTestId: 'view-all-cars',
       href: '/van-leasing/search',
     },
   ];
@@ -180,6 +192,8 @@ const PartnershipsHomePage: NextPage<IProps> = ({
         searchPodCarsData={decodeData(searchPodCarsData)}
         hideBenefitsBar
         activeSearchIndex={2}
+        vanSearchOnly={vanSearchOnly}
+        carSearchOnly={carSearchOnly}
       >
         <HeroHeading text={flag || ''} />
         <ReactMarkdown

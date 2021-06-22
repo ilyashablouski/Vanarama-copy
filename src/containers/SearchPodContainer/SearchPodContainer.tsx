@@ -28,6 +28,8 @@ interface ISearchPodContainerProps {
   searchPodVansData?: IFilterListData;
   customCTAColor?: string;
   activeSearchIndex?: number;
+  vanSearchOnly?: boolean;
+  carSearchOnly?: boolean;
 }
 
 enum Tabs {
@@ -43,6 +45,8 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   searchPodVansData,
   customCTAColor,
   activeSearchIndex,
+  vanSearchOnly,
+  carSearchOnly,
 }) => {
   const router = useRouter();
 
@@ -89,7 +93,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   );
   const [carsData, setCarsData] = useState({} as IFilterTypeAndBudget);
 
-  const [config] = useState(setConfigInit());
+  const [config, setConfig] = useState(setConfigInit());
   const [headingText, setHeadingText] = useState(initialHeadingText);
   // set it to true if we need preselect some data
   const [isShouldPreselectTypes] = useState(
@@ -275,6 +279,22 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       }
     }
   }, [actualVehicleData, activeIndex]);
+
+  useEffect(() => {
+    if (vanSearchOnly) {
+      setActiveIndex(1);
+      setHeadingText(VANS_TAB_HEADING);
+      setConfig(config.filter(vehicles => vehicles.type !== 'Cars'));
+    }
+  }, [vanSearchOnly]);
+
+  useEffect(() => {
+    if (carSearchOnly) {
+      setActiveIndex(2);
+      setHeadingText(CARS_TAB_HEADING);
+      setConfig(config.filter(vehicles => vehicles.type !== 'Vans'));
+    }
+  }, [carSearchOnly]);
 
   // get options list
   const getOptions = (field: keyof typeof fieldsMapper) => fieldsMapper[field];

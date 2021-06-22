@@ -16,6 +16,8 @@ export interface IHeroProps {
   smallPrint?: string;
   customCTALink?: string;
   activeSearchIndex?: number;
+  vanSearchOnly?: boolean;
+  carSearchOnly?: boolean;
 }
 
 export interface IHeroTitleProps {
