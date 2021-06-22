@@ -21,6 +21,7 @@ const OrderSummary: React.FC<IProps> = ({
   trim,
   pickups,
   isShowFreeInsuranceMerch,
+  roadsideAssistance,
 }) => {
   const [orderSummaryList, setOrderSummaryList] = useState(
     getOrderList({
@@ -31,6 +32,7 @@ const OrderSummary: React.FC<IProps> = ({
       trims,
       trim,
       pickups,
+      roadsideAssistance,
     }),
   );
 
@@ -44,9 +46,19 @@ const OrderSummary: React.FC<IProps> = ({
         trims,
         trim,
         pickups,
+        roadsideAssistance,
       }),
     );
-  }, [quoteByCapId, stateVAT, maintenance, trim, colours, trims, pickups]);
+  }, [
+    quoteByCapId,
+    stateVAT,
+    maintenance,
+    trim,
+    colours,
+    trims,
+    pickups,
+    roadsideAssistance,
+  ]);
 
   return (
     <div className="pdp--order-summary">

@@ -1,6 +1,7 @@
 import {
   GetVehicleDetails_derivativeInfo_colours,
   GetVehicleDetails_derivativeInfo_trims,
+  GetVehicleDetails_vehicleDetails_roadsideAssistance,
 } from '../../generated/GetVehicleDetails';
 import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
@@ -45,6 +46,7 @@ export interface IOrderList {
   trims: (GetVehicleDetails_derivativeInfo_trims | null)[] | null | undefined;
   trim: number | null | undefined;
   pickups?: boolean;
+  roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
 }
 
 export const getOrderList = ({
@@ -55,6 +57,7 @@ export const getOrderList = ({
   trims,
   trim,
   pickups,
+  roadsideAssistance,
 }: IOrderList) => {
   const colourDescription = colours?.find(
     (item: GetVehicleDetails_derivativeInfo_colours | null) =>
@@ -150,6 +153,14 @@ export const getOrderList = ({
       id: 'delivery',
       key: 'delivery',
       dataTestId: 'delivery',
+      isOrange: true,
+    },
+    {
+      label: 'Roadside Assistance:',
+      value: `${roadsideAssistance?.years} YEAR INCLUDED`,
+      id: 'roadsideAssistance',
+      key: `${roadsideAssistance?.years}`,
+      dataTestId: 'roadsideAssistance',
       isOrange: true,
     },
   ];

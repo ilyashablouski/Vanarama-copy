@@ -103,6 +103,9 @@ describe('getOrderList', () => {
         trim: 112981,
         stateVAT: 'inc',
         maintenance: false,
+        roadsideAssistance: {
+          years: 3,
+        },
       }),
     ).toEqual([
       {
@@ -178,6 +181,14 @@ describe('getOrderList', () => {
         value: 'INCLUDED',
       },
       {
+        dataTestId: 'delivery',
+        id: 'delivery',
+        isOrange: true,
+        key: 'delivery',
+        label: 'Delivery:',
+        value: 'FREE',
+      },
+      {
         dataTestId: 'lifeEventCover',
         id: 'lifeEventCover',
         isOrange: true,
@@ -186,12 +197,12 @@ describe('getOrderList', () => {
         value: 'FREE',
       },
       {
-        dataTestId: 'delivery',
-        id: 'delivery',
+        dataTestId: 'roadsideAssistance',
+        id: 'roadsideAssistance',
         isOrange: true,
-        key: 'delivery',
-        label: 'Delivery:',
-        value: 'FREE',
+        key: '3',
+        label: 'Roadside Assistance:',
+        value: '3 YEAR INCLUDED',
       },
     ]);
   });
