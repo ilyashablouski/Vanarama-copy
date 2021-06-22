@@ -21,6 +21,7 @@ const OrderSummary: React.FC<IProps> = ({
   trim,
   pickups,
   isShowFreeInsuranceMerch,
+  roadsideAssistance,
   warrantyDetails,
 }) => {
   const [orderSummaryList, setOrderSummaryList] = useState(
@@ -32,6 +33,7 @@ const OrderSummary: React.FC<IProps> = ({
       trims,
       trim,
       pickups,
+      roadsideAssistance,
       warrantyDetails,
     }),
   );
@@ -46,6 +48,7 @@ const OrderSummary: React.FC<IProps> = ({
         trims,
         trim,
         pickups,
+        roadsideAssistance,
         warrantyDetails,
       }),
     );
@@ -57,6 +60,7 @@ const OrderSummary: React.FC<IProps> = ({
     colours,
     trims,
     pickups,
+    roadsideAssistance,
     warrantyDetails,
   ]);
 

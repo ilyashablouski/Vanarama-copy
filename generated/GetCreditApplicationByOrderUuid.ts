@@ -172,6 +172,18 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_co
   withTradingAddress: boolean | null;
 }
 
+export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_vatDetailsV2_markets {
+  country: string;
+  percentage: string;
+}
+
+export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_vatDetailsV2 {
+  markets: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_vatDetailsV2_markets[] | null;
+  outsideUk: boolean | null;
+  vatNumber: string | null;
+  vatRegistered: boolean | null;
+}
+
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_directorsDetailsV2_directors_addresses {
   city: string | null;
   country: string | null;
@@ -337,7 +349,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid {
   aboutDetailsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_aboutDetailsV2 | null;
   bankAccountsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_bankAccountsV2[] | null;
   companyDetailsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2 | null;
-  vatDetails: any | null;
+  vatDetailsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_vatDetailsV2 | null;
   soleTraderDetails: any | null;
   directorsDetailsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_directorsDetailsV2 | null;
   employmentHistories: any | null;
