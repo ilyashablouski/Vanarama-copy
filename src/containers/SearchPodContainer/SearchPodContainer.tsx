@@ -22,15 +22,17 @@ import {
 } from '../../../generated/filterList';
 import SearchPod from '../../components/SearchPod';
 import { filterTypeAndBudget_filterList as IFilterTypeAndBudget } from '../../../generated/filterTypeAndBudget';
-import { VehicleSearchTypeEnum } from '../../../generated/globalTypes';
+import {
+  VehicleSearchTypeEnum,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 
 interface ISearchPodContainerProps {
   searchPodCarsData?: IFilterListData;
   searchPodVansData?: IFilterListData;
   customCTAColor?: string;
   activeSearchIndex?: number;
-  vanSearchOnly?: boolean;
-  carSearchOnly?: boolean;
+  searchType?: VehicleTypeEnum;
 }
 
 enum Tabs {
@@ -46,8 +48,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   searchPodVansData,
   customCTAColor,
   activeSearchIndex,
-  vanSearchOnly,
-  carSearchOnly,
+  searchType,
 }) => {
   const router = useRouter();
 
@@ -281,21 +282,29 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     }
   }, [actualVehicleData, activeIndex]);
 
-  useEffect(() => {
-    if (vanSearchOnly) {
-      setActiveIndex(1);
-      setHeadingText(VANS_TAB_HEADING);
-      setConfig(config.filter(vehicles => vehicles.type !== VehicleSearchTypeEnum.CARS));
-    }
-  }, [vanSearchOnly]);
+  console.log(searchType);
 
   useEffect(() => {
-    if (carSearchOnly) {
-      setActiveIndex(2);
-      setHeadingText(CARS_TAB_HEADING);
-      setConfig(config.filter(vehicles => vehicles.type !== VehicleSearchTypeEnum.VANS));
+    if (searchType) {
+      if (searchType === VehicleTypeEnum.LCV) {
+        setActiveIndex(1);
+        setHeadingText(VANS_TAB_HEADING);
+        setConfig(
+          config.filter(
+            vehicles => vehicles.type !== VehicleSearchTypeEnum.CARS,
+          ),
+        );
+      } else {
+        setActiveIndex(2);
+        setHeadingText(CARS_TAB_HEADING);
+        setConfig(
+          config.filter(
+            vehicles => vehicles.type !== VehicleSearchTypeEnum.VANS,
+          ),
+        );
+      }
     }
-  }, [carSearchOnly]);
+  }, [searchType]);
 
   // get options list
   const getOptions = (field: keyof typeof fieldsMapper) => fieldsMapper[field];
@@ -304,8 +313,8 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   const onSearch = (tabType: string) => {
     const isCarTab = tabType === 'Cars';
     const values = getValues();
-    const searchType = isCarTab ? 'car-leasing' : 'van-leasing';
-    const routerUrl = `/${searchType}/search`;
+    const vehicleSearchType = isCarTab ? 'car-leasing' : 'van-leasing';
+    const routerUrl = `/${vehicleSearchType}/search`;
     const query = {} as any;
     // make
     if (values[`make${tabType}` as keyof typeof defaultValues].trim()) {

@@ -6,7 +6,7 @@ import { TSize } from '../../../types/size';
 export interface IButtonProps
   extends IBaseProps,
     ButtonHTMLAttributes<HTMLButtonElement> {
-  color?: TColor;
+  color?: TColor | string;
   fill?: 'solid' | 'outline' | 'clear';
   icon?: React.ReactNode;
   iconColor?: TColor;

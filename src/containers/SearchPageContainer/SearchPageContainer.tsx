@@ -75,6 +75,7 @@ import { FilterFields } from '../FiltersContainer/config';
 import SortOrder from '../../components/SortOrder';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
+import { globalColors } from '../../utils/colors';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import { TColor } from '../../types/color';
@@ -253,7 +254,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
   const [pageOffset, setPageOffset] = useState(0);
   const [customCTAColor, setCustomCTAColor] = useState();
-  const [customTextColor, setCustomTextColor] = useState<TColor>();
+  const [customTextColor, setCustomTextColor] = useState<TColor | string>();
   const [partnershipActive, setPartnershipActive] = useState<boolean>(false);
   const [prevPosition, setPrevPosition] = useState(0);
 
@@ -286,7 +287,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (partnerActive) {
       setPartnershipActive(true);
       setCustomCTAColor(getPartnerProperties().color);
-      setCustomTextColor('white');
+      setCustomTextColor(globalColors.white);
     }
   }, []);
 

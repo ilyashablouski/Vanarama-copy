@@ -112,8 +112,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   const { cachedLeaseType } = useLeaseType(null);
   const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
 
-  const [vanSearchOnly, setVanSearchOnly] = useState(false);
-  const [carSearchOnly, setCarSearchOnly] = useState(false);
+  const [searchType, setSearchType] = useState<VehicleTypeEnum | undefined>();
 
   const partnershipData = {
     slug: slug?.toUpperCase(),
@@ -148,9 +147,9 @@ const PartnershipsHomePage: NextPage<IProps> = ({
       const types = partnerDetails?.vehicleTypes;
       if (types?.length === 1) {
         if (types[0] === VehicleSearchTypeEnum.CARS) {
-          setCarSearchOnly(true);
+          setSearchType(VehicleTypeEnum.CAR);
         } else {
-          setVanSearchOnly(true);
+          setSearchType(VehicleTypeEnum.LCV);
         }
       }
     }
@@ -193,8 +192,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
         searchPodCarsData={decodeData(searchPodCarsData)}
         hideBenefitsBar
         activeSearchIndex={2}
-        vanSearchOnly={vanSearchOnly}
-        carSearchOnly={carSearchOnly}
+        searchType={searchType}
       >
         <HeroHeading text={flag || ''} />
         <ReactMarkdown
