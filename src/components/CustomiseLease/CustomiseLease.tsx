@@ -170,6 +170,8 @@ const CustomiseLease = ({
   setIsInitPayModalShowing,
   pickups,
   isShowFreeInsuranceMerch,
+  roadsideAssistance,
+  warrantyDetails,
 }: IProps) => {
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
@@ -415,6 +417,8 @@ const CustomiseLease = ({
           trim={trim}
           pickups={pickups}
           isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
+          roadsideAssistance={roadsideAssistance}
+          warrantyDetails={warrantyDetails}
         />
       </LazyLoadComponent>
       {!isMobile && (

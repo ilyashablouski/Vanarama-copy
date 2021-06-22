@@ -36,6 +36,11 @@ export interface GetVehicleDetails_vehicleDetails_keyInformation {
   value: string | null;
 }
 
+export interface GetVehicleDetails_vehicleDetails_warrantyDetails {
+  years: number | null;
+  mileage: number | null;
+}
+
 export interface GetVehicleDetails_vehicleDetails_relatedVehicles {
   capId: string | null;
   displayOrder: string | null;
@@ -52,16 +57,21 @@ export interface GetVehicleDetails_vehicleDetails_rangeFaqs {
   answer: string | null;
 }
 
+export interface GetVehicleDetails_vehicleDetails_roadsideAssistance {
+  years: number | null;
+}
+
 export interface GetVehicleDetails_vehicleDetails {
   averageRating: number | null;
   brochureUrl: string | null;
   keyInformation: (GetVehicleDetails_vehicleDetails_keyInformation | null)[] | null;
   independentReview: string | null;
-  warranty: string | null;
+  warrantyDetails: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
   relatedVehicles: (GetVehicleDetails_vehicleDetails_relatedVehicles | null)[] | null;
   customerReviews: (GetVehicleDetails_vehicleDetails_customerReviews | null)[] | null;
   rangeFaqs: (GetVehicleDetails_vehicleDetails_rangeFaqs | null)[] | null;
   vehicleValue: number | null;
+  roadsideAssistance: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
 }
 
 export interface GetVehicleDetails_derivativeInfo_manufacturer {

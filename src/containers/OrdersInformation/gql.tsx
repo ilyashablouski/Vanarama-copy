@@ -285,10 +285,16 @@ export const GET_MY_ORDERS_DATA = gql`
           }
           partnersDetails
           soleTraderDetails
-          vatDetails
-          # vatDetailsV2 {
-          #   uuid
-          # }
+          vatDetailsV2 {
+            markets {
+              country
+              percentage
+            }
+            outsideUk
+            vatNumber
+            vatRegistered
+          }
+
           incomeAndExpensesV2 {
             uuid
           }

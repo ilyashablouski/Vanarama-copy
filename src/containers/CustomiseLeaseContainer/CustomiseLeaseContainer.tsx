@@ -87,6 +87,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   setMileage,
   pickups,
   isShowFreeInsuranceMerch,
+  roadsideAssistance,
+  warrantyDetails,
 }) => {
   const [quoteData, setQuoteData] = useState<
     GetQuoteDetails | null | undefined
@@ -389,6 +391,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         showCallBackForm={() => setShowCallBackForm(true)}
         pickups={pickups}
         isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
+        roadsideAssistance={roadsideAssistance}
+        warrantyDetails={warrantyDetails}
       />
       <Modal
         className="-mt-000 callBack"

@@ -1,4 +1,5 @@
 import { IncomeCalculatorExpenditure } from '../../../generated/IncomeCalculatorExpenditure';
+import { IOrderStorageData } from '../../hooks/useGetOrder';
 
 export interface IIncomeCalculatorFormValues {
   averageMonthlyIncome?: string;
@@ -13,8 +14,10 @@ export interface IIncomeCalculatorFormValues {
   mortgageOrRent?: string;
   otherCredit?: string;
   phoneAndInternet?: string;
-  studentLoans?: string;
+  studentLoan?: string;
   utilities?: string;
+  totalMonthlyExpenses?: string;
+  netDisposableIncome?: string;
   suitabilityConsent?: boolean;
 }
 
@@ -22,4 +25,5 @@ export interface IIncomeCalculatorProps {
   expenditure: IncomeCalculatorExpenditure | null;
   onSubmit: (values: IIncomeCalculatorFormValues) => Promise<any>;
   isSubmitting?: boolean;
+  order: IOrderStorageData;
 }

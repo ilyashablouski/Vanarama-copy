@@ -103,6 +103,13 @@ describe('getOrderList', () => {
         trim: 112981,
         stateVAT: 'inc',
         maintenance: false,
+        roadsideAssistance: {
+          years: 3,
+        },
+        warrantyDetails: {
+          years: 5,
+          mileage: 50000,
+        },
       }),
     ).toEqual([
       {
@@ -170,12 +177,28 @@ describe('getOrderList', () => {
         value: '14-21 Day Delivery',
       },
       {
+        dataTestId: 'warranty',
+        id: 'warranty',
+        isOrange: false,
+        key: '5 Years Manufactured Or 50000 Milles',
+        label: 'Warranty:',
+        value: '5 Years Manufactured Or 50000 Milles',
+      },
+      {
         dataTestId: 'roadTax',
         id: 'roadTax',
         isOrange: true,
         key: 'roadTax',
         label: 'Road Tax:',
         value: 'INCLUDED',
+      },
+      {
+        dataTestId: 'delivery',
+        id: 'delivery',
+        isOrange: true,
+        key: 'delivery',
+        label: 'Delivery:',
+        value: 'FREE',
       },
       {
         dataTestId: 'lifeEventCover',
@@ -186,12 +209,12 @@ describe('getOrderList', () => {
         value: 'FREE',
       },
       {
-        dataTestId: 'delivery',
-        id: 'delivery',
+        dataTestId: 'roadsideAssistance',
+        id: 'roadsideAssistance',
         isOrange: true,
-        key: 'delivery',
-        label: 'Delivery:',
-        value: 'FREE',
+        key: '3',
+        label: 'Roadside Assistance:',
+        value: '3 YEAR INCLUDED',
       },
     ]);
   });
