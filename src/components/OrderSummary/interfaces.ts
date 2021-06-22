@@ -3,6 +3,7 @@ import {
   GetVehicleDetails_derivativeInfo_colours,
   GetVehicleDetails_derivativeInfo_trims,
   GetVehicleDetails_vehicleDetails_roadsideAssistance,
+  GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../../generated/GetVehicleDetails';
 
 export interface IProps {
@@ -18,4 +19,5 @@ export interface IProps {
   pickups?: boolean;
   isShowFreeInsuranceMerch?: boolean;
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
+  warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
 }

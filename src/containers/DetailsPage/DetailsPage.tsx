@@ -642,6 +642,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             setMileage={setMileage}
             pickups={pickups}
             roadsideAssistance={vehicleDetails?.roadsideAssistance}
+            warrantyDetails={warrantyDetails}
           />
         )}
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
@@ -687,6 +688,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           setMileage={setMileage}
           pickups={pickups}
           roadsideAssistance={vehicleDetails?.roadsideAssistance}
+          warrantyDetails={warrantyDetails}
         />
       )}
       {(!!productCard || !!capsId?.length) && (

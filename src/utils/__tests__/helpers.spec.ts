@@ -105,6 +105,9 @@ describe('getOrderList', () => {
         maintenance: false,
         roadsideAssistance: {
           years: 3,
+        warrantyDetails: {
+          years: 5,
+          mileage: 50000,
         },
       }),
     ).toEqual([
@@ -171,6 +174,14 @@ describe('getOrderList', () => {
         key: '14-21 Day Delivery',
         label: 'Stock:',
         value: '14-21 Day Delivery',
+      },
+      {
+        dataTestId: 'warranty',
+        id: 'warranty',
+        isOrange: false,
+        key: '5 Years Manufactured Or 50000 Milles',
+        label: 'Warranty:',
+        value: '5 Years Manufactured Or 50000 Milles',
       },
       {
         dataTestId: 'roadTax',
