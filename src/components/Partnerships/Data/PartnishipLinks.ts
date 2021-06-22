@@ -1,18 +1,20 @@
+import { VehiclesTypeEnum } from '../../../../generated/globalTypes';
+
 // eslint-disable-next-line import/prefer-default-export
 export const PartnershipsLinks = [
   {
     href: 'car-leasing/search',
     id: 'car-leasing/search',
-    label: 'CARS',
+    label: VehiclesTypeEnum.CARS,
   },
   {
     href: 'van-leasing/search',
     id: 'van-leasing/search',
-    label: 'VANS',
+    label: VehiclesTypeEnum.VANS,
   },
   {
     href: 'van-leasing/search?bodyStyles=Pickup',
     id: 'van-leasing/search?bodyStyles=Pickup',
-    label: 'PICKUPS',
+    label: VehiclesTypeEnum.PICKUPS,
   },
 ];

@@ -1,21 +1,22 @@
+import { VehiclesTypeEnum } from '../../../../generated/globalTypes';
 import { getPartnershipLinks } from '../helpers';
 
-describe('Get partnership links', () => {
+describe(getPartnershipLinks, () => {
   const vehicleTypes = ['Cars', 'Vans'];
   const actual = getPartnershipLinks(vehicleTypes);
   const expected = [
     {
       href: 'car-leasing/search',
       id: 'car-leasing/search',
-      label: 'CARS',
+      label: VehiclesTypeEnum.CARS,
     },
     {
       href: 'van-leasing/search',
       id: 'van-leasing/search',
-      label: 'VANS',
+      label: VehiclesTypeEnum.VANS,
     },
   ];
-  it('renders successfully', () => {
+  it('should return partnership links based on vehicleType array', () => {
     expect(actual).toEqual(expected);
   });
 });

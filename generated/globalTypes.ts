@@ -108,6 +108,12 @@ export enum VehicleTypeEnum {
   LCV = 'LCV',
 }
 
+export enum VehiclesTypeEnum {
+  CARS = 'CARS',
+  VANS = 'VANS',
+  PICKUPS = 'PICKUPS',
+}
+
 /**
  * Input array of addresses create and add an Address
  */
