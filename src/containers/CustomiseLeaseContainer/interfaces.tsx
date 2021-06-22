@@ -6,6 +6,7 @@ import {
 import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_leaseAdjustParams,
+  GetVehicleDetails_vehicleDetails_roadsideAssistance,
   GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../../generated/GetVehicleDetails';
 import {
@@ -49,6 +50,7 @@ export interface IProps {
   mileage: number | null;
   setMileage: React.Dispatch<React.SetStateAction<number | null>>;
   pickups?: boolean;
+  roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
   warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
 }
 

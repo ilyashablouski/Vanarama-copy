@@ -797,6 +797,7 @@ export interface VehicleProductInputObject {
   trim?: string | null;
   vehicleType: VehicleTypeEnum;
   vsku?: string | null;
+  vehicleValue?: number | null;
 }
 
 export interface VehicleToCompare {

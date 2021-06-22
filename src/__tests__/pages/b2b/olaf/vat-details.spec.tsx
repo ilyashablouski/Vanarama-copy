@@ -851,7 +851,7 @@ describe('B2B VAT Details page', () => {
             incomeAndExpenses: 'incomeAndExpenses',
             leadManagerProposalId: 'leadManagerProposalId',
             companyDetailsV2: null,
-            vatDetails: { vatRegistered: false, outsideUK: false },
+            vatDetailsV2: { vatRegistered: false, outsideUk: false },
             directorsDetailsV2: null,
             soleTraderDetails: {},
           }),

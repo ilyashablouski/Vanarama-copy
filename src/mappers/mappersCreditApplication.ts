@@ -14,7 +14,7 @@ export const formValuesToInputCreditApplication = (
     leadManagerProposalId: creditApp.leadManagerProposalId,
     aboutDetailsV2: creditApp.aboutDetailsV2,
     companyDetailsV2: creditApp.companyDetailsV2,
-    vatDetails: creditApp.vatDetails,
+    vatDetailsV2: creditApp.vatDetailsV2,
     directorsDetailsV2: creditApp.directorsDetailsV2,
     soleTraderDetails: creditApp.soleTraderDetails,
     creditApplicationType: creditApp.creditApplicationType,
