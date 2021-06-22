@@ -641,6 +641,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             mileage={mileage}
             setMileage={setMileage}
             pickups={pickups}
+            roadsideAssistance={vehicleDetails?.roadsideAssistance}
             warrantyDetails={warrantyDetails}
           />
         )}
@@ -686,6 +687,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           mileage={mileage}
           setMileage={setMileage}
           pickups={pickups}
+          roadsideAssistance={vehicleDetails?.roadsideAssistance}
           warrantyDetails={warrantyDetails}
         />
       )}

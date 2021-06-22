@@ -57,6 +57,10 @@ export interface GetVehicleDetails_vehicleDetails_rangeFaqs {
   answer: string | null;
 }
 
+export interface GetVehicleDetails_vehicleDetails_roadsideAssistance {
+  years: number | null;
+}
+
 export interface GetVehicleDetails_vehicleDetails {
   averageRating: number | null;
   brochureUrl: string | null;
@@ -67,6 +71,7 @@ export interface GetVehicleDetails_vehicleDetails {
   customerReviews: (GetVehicleDetails_vehicleDetails_customerReviews | null)[] | null;
   rangeFaqs: (GetVehicleDetails_vehicleDetails_rangeFaqs | null)[] | null;
   vehicleValue: number | null;
+  roadsideAssistance: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
 }
 
 export interface GetVehicleDetails_derivativeInfo_manufacturer {
