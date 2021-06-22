@@ -19,7 +19,7 @@ const AdditionalOptionsForm: React.FC<IAdditionalOptionsFormProps> = ({
   const maintenancePriceLabel = useMemo(
     () =>
       `£${quote?.maintenanceCost?.monthlyRental} ${
-        isPersonalPrice ? 'Inc' : 'Exc'
+        isPersonalPrice ? 'inc.' : 'exc.'
       } VAT`,
     [isPersonalPrice],
   );

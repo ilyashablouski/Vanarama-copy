@@ -15,30 +15,30 @@ const generateListItems = (
   vehicleProduct?: VehicleProductInputObject | null,
 ) => [
   {
-    label: 'Contract Type:',
+    label: 'Contract Type: ',
     description:
       quote?.leaseType === LeaseTypeEnum.PERSONAL
         ? 'Personal Contract'
         : 'Contract Hire',
   },
   {
-    label: 'Contract Length:',
+    label: 'Contract Length: ',
     description: `${quote?.term} Months`,
   },
   {
-    label: 'Annual Mileage:',
+    label: 'Annual Mileage: ',
     description: `${quote?.mileage} Miles`,
   },
   {
-    label: 'Colour:',
+    label: 'Colour: ',
     description: vehicleProduct?.colour || '-',
   },
   {
-    label: 'Trim / Interior:',
+    label: 'Trim / Interior: ',
     description: vehicleProduct?.trim || '-',
   },
   {
-    label: 'Stock:',
+    label: 'Stock: ',
     description: quote?.leadTime,
   },
 ];
@@ -71,11 +71,11 @@ const OrderPanel: React.FC<OrderPanelProps> = ({
           </div>
         </div>
         <div className="copy">
-          <List className="breakdown-list -m-000" style={{ gap: '6px' }}>
+          <List className="breakdown-list -m-000" style={{ gap: 0 }}>
             <li className="-custom -mb-000">
               <Text tag="span">Initial Payment:</Text>
               {`£${vehicleProduct?.depositPayment} ${
-                isPersonalPrice ? 'Inc' : 'Exc'
+                isPersonalPrice ? 'inc.' : 'exc.'
               } VAT`}
             </li>
             {listItems.map(item => (
@@ -85,7 +85,7 @@ const OrderPanel: React.FC<OrderPanelProps> = ({
               </li>
             ))}
           </List>
-          <Text className="breakdown-terms" tag="p">
+          <Text className="breakdown-terms" tag="p" color="black">
             * After We&lsquo;ve Received Your E-Signed Documents
           </Text>
         </div>

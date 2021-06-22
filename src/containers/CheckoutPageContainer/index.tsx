@@ -183,7 +183,7 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
                   size="xlarge"
                   className="-mb-400"
                   priceDescription={`Per Month ${
-                    isPersonalPrice ? 'Inc' : 'Exc'
+                    isPersonalPrice ? 'inc.' : 'exc.'
                   } VAT`}
                 />
                 <List className="ticked orange">
