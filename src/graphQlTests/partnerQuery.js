@@ -15,7 +15,7 @@ const query = gql`
 `;
 
 const variables = {
-  slug: 'ovo',
+  slug: 'hermes',
 };
 
 const requestHeaders = {
