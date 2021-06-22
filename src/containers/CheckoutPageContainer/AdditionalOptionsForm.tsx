@@ -25,7 +25,7 @@ const AdditionalOptionsForm: React.FC<IAdditionalOptionsFormProps> = ({
   );
 
   return (
-    <Form style={{ maxWidth: 'none' }}>
+    <Form style={{ maxWidth: 'none', gap: 0 }}>
       {isCar && (
         <Controller
           as={AdditionalOption}
