@@ -8,6 +8,7 @@ import {
 } from '../../../../generated/GetExpensesPageDataQuery';
 import ExpensesFormContainer from '../ExpensesFormContainer';
 import { GET_EXPENSES_PAGE_DATA } from '../gql';
+import { IOrderStorageData } from '../../../hooks/useGetOrder';
 
 describe('<ExpensesFormContainer />', () => {
   beforeEach(async () => {
@@ -54,10 +55,21 @@ describe('<ExpensesFormContainer />', () => {
       },
     ];
 
+    const mockOrder = {
+      lineItems: [
+        {
+          vehicleProduct: {
+            monthlyPayment: 200,
+          },
+        },
+      ],
+    } as IOrderStorageData;
+
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
         <ExpensesFormContainer
+          order={mockOrder}
           personUuid={personUuid}
           onCompleted={jest.fn()}
         />
