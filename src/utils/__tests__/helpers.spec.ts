@@ -4,6 +4,8 @@ import {
   toCurrencyDisplay,
   toPriceFormat,
   getOrderList,
+  getVehicleConfigId,
+  parseVehicleConfigId,
 } from '../helpers';
 
 describe('arrayIsEqual', () => {
@@ -217,5 +219,43 @@ describe('getOrderList', () => {
         value: '3 YEAR INCLUDED',
       },
     ]);
+  });
+});
+
+describe('getVehicleConfigId', () => {
+  const vehicleType = VehicleTypeEnum.CAR;
+  const capId = '12345';
+
+  it('getVehicleConfigId should return correct vehicle configId', () => {
+    expect(
+      getVehicleConfigId({
+        averageRating: 4.7,
+        businessRate: 183.88,
+        derivativeName: '1.0 TSI 110 Design 5dr',
+        imageUrl: 'image.jpg',
+        isOnOffer: true,
+        keyInformation: [],
+        leadTime: '14-21 Day Delivery',
+        manufacturerName: 'Volkswagen',
+        modelName: 'T-Roc Hatchback',
+        offerPosition: 1,
+        personalRate: 219.95,
+        rangeName: 'T-Roc',
+        vehicleType,
+        capId,
+      }),
+    ).toEqual(`${vehicleType}-${capId}`);
+  });
+});
+
+describe('parseVehicleConfigId', () => {
+  const vehicleType = VehicleTypeEnum.CAR;
+  const capId = '12345';
+
+  it('parseVehicleConfigId should return correct capId & vehicleType', () => {
+    expect(parseVehicleConfigId(`${vehicleType}-${capId}`)).toEqual({
+      vehicleType,
+      capId,
+    });
   });
 });
