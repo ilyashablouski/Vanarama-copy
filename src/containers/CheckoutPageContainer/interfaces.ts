@@ -10,6 +10,7 @@ import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 
 export interface IAdditionalOptionsFormValues {
   redundancy?: boolean;
+  lossOfEarnings?: boolean;
   freeInsurance?: boolean;
   monthlyMaintenance?: boolean;
   advancedBreakdownCover?: boolean;
