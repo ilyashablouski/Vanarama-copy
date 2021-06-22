@@ -14,7 +14,6 @@ const AdditionalOption: FC<IAdditionalOptionProps> = forwardRef<
     id,
     name,
     title,
-    checked,
     className,
     tooltipText,
     includedText,
@@ -23,7 +22,7 @@ const AdditionalOption: FC<IAdditionalOptionProps> = forwardRef<
   } = props;
 
   return (
-    <div className={cx('add-on', className, { '-added': checked })}>
+    <div className={cx('add-on', className, { '-added': props.checked })}>
       <Text tag="span">
         {title}
         <Tooltip text={tooltipText} color="orange" position="center" />
