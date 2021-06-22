@@ -34,8 +34,14 @@ import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
 import { PAGES_WITHOUT_DEFERRED_STYLES } from '../components/Head/defaults';
 import { removeSessionStorageItem } from '../utils/windowSessionStorage';
-import { initializeWishlistState } from '../utils/wishlistHelpers';
-import { initializePersonState } from '../utils/personHelpers';
+import {
+  resetWishlistState,
+  initializeWishlistState,
+} from '../utils/wishlistHelpers';
+import {
+  resetPersonState,
+  initializePersonState,
+} from '../utils/personHelpers';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -70,20 +76,20 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const client = useApolloClient();
 
   useEffect(() => {
-    let unsubscribeResetPerson: () => void;
-    let unsubscribeResetWishlist: () => void;
-
     const initializeGlobalVars = async () => {
-      unsubscribeResetPerson = await initializePersonState(client);
-      unsubscribeResetWishlist = await initializeWishlistState(client);
+      await initializePersonState();
+      await initializeWishlistState(client);
     };
 
     initializeGlobalVars();
 
-    return () => {
-      unsubscribeResetPerson();
-      unsubscribeResetWishlist();
-    };
+    /* Since reactive vars are not automatically reset
+     * when we are calling client.resetStore(), we need to do it manually.
+     * */
+    return client.onResetStore(async () => {
+      resetPersonState();
+      resetWishlistState();
+    });
   }, [client]);
 
   useEffect(() => {

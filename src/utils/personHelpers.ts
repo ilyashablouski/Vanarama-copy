@@ -1,5 +1,4 @@
 import localForage from 'localforage';
-import { ApolloClient } from '@apollo/client';
 
 import { GetPerson } from '../../generated/GetPerson';
 import { initialPersonState, personVar } from '../cache';
@@ -21,16 +20,15 @@ export const setPersonLoggedIn = (person: GetPerson) => {
   });
 };
 
-export const initializePersonState = async (client: ApolloClient<object>) => {
+export const initializePersonState = async () => {
   const [person] = await getLocalPersonState();
 
   if (person?.getPerson) {
     setPersonLoggedIn(person);
   }
-
-  return client.onResetStore(async () => {
-    personVar({
-      ...initialPersonState,
-    });
-  });
 };
+
+export const resetPersonState = () =>
+  personVar({
+    ...initialPersonState,
+  });
