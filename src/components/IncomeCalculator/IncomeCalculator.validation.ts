@@ -18,8 +18,35 @@ const ValidationSchema = yup.object().shape<IIncomeCalculatorFormValues>({
   carFinance: yup.string().required('Please enter your car finance'),
   foodAndClothes: yup.string().required('Please enter your food and clothes'),
   fuel: yup.string().required('Please enter your fuel'),
-  studentLoans: yup.string().required('Please enter your student loan'),
+  studentLoan: yup.string().required('Please enter your student loan'),
   otherCredit: yup.string().required('Please enter your other credit'),
+  netDisposableIncome: yup
+    .string()
+    .when(
+      [
+        'averageMonthlyIncome',
+        'mortgageOrRent',
+        'phoneAndInternet',
+        'creditCardPayments',
+        'utilities',
+        'insurance',
+        'carFinance',
+        'foodAndClothes',
+        'fuel',
+        'studentLoan',
+        'otherCredit',
+      ],
+      {
+        is: (...args) => args.every(Boolean),
+        then: yup
+          .string()
+          .test(
+            'netDisposableIncome',
+            'Based on your outgoings, it looks like you won’t be able to afford the monthly rentals on this lease.',
+            value => Number(value) > 0,
+          ),
+      },
+    ),
 });
 
 export default ValidationSchema;
