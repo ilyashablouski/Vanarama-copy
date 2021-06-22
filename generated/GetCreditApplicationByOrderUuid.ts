@@ -10,15 +10,15 @@ import { VehicleTypeEnum, CreditApplicationTypeEnum } from "./globalTypes";
 // ====================================================
 
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_aboutDetailsV2_addresses {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -33,15 +33,15 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_ab
 }
 
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_aboutDetailsV2_history_address {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -118,15 +118,15 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_ba
 }
 
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_addresses {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -173,15 +173,15 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_co
 }
 
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_directorsDetailsV2_directors_addresses {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -196,15 +196,15 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_di
 }
 
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_directorsDetailsV2_directors_history_address {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;

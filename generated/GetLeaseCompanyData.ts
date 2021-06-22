@@ -8,15 +8,15 @@
 // ====================================================
 
 export interface GetLeaseCompanyData_creditApplicationByOrderUuid_aboutDetailsV2_addresses {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;
@@ -31,15 +31,15 @@ export interface GetLeaseCompanyData_creditApplicationByOrderUuid_aboutDetailsV2
 }
 
 export interface GetLeaseCompanyData_creditApplicationByOrderUuid_aboutDetailsV2_history_address {
-  city: string;
+  city: string | null;
   country: string | null;
   county: string | null;
   endedOn: any | null;
   kind: string | null;
-  lineOne: string;
+  lineOne: string | null;
   lineThree: string | null;
   lineTwo: string | null;
-  postcode: string;
+  postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
   startedOn: any | null;

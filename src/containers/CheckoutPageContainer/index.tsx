@@ -21,48 +21,90 @@ import {
   IAdditionalOptionsFormValues,
 } from './interfaces';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
+import { sum } from '../../utils/array';
 
-const ADVANTAGES = [
+const createIncludedOptions = (values: IAdditionalOptionsFormValues) => [
   {
     label: 'Free Delivery',
+    isVisible: true,
     key: '0',
   },
   {
     label: 'Free Redundancy & Life Event Cover',
+    isVisible: values.redundancy,
     key: '1',
   },
   {
     label: "1 Year's Free Insurance",
+    isVisible: values.freeInsurance,
     key: '2',
   },
   {
     label: 'Advanced Breakdown Cover',
+    isVisible: values.advancedBreakdownCover,
     key: '3',
+  },
+  {
+    label: 'Monthly Maintenance',
+    isVisible: values.monthlyMaintenance,
+    key: '4',
+  },
+  {
+    label: 'Free Loss Of Earnings & Life Event Cover',
+    isVisible: values.lossOfEarnings,
+    key: '5',
   },
 ];
 
 const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
   order,
+  quote,
   derivative,
   vehicleImages,
   vehicleConfiguration,
 }) => {
   const router = useRouter();
   const methods = useForm<IAdditionalOptionsFormValues>({
-    // defaultValues,
+    defaultValues: {
+      redundancy: true,
+      lossOfEarnings: true,
+      freeInsurance:
+        order.lineItems?.[0].vehicleProduct?.freeInsurance?.optIn || false,
+      monthlyMaintenance: false,
+      advancedBreakdownCover: false,
+    },
     mode: 'onBlur',
   });
   const vehicleProduct = useMemo(() => order?.lineItems?.[0].vehicleProduct, [
     order,
   ]);
   const isPersonalPrice = useMemo(
-    () => order.leaseType === LeaseTypeEnum.PERSONAL,
+    () => order.leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL,
     [order],
+  );
+  const values = methods.watch();
+  const includedItems = useMemo(
+    () => createIncludedOptions(values).filter(item => item.isVisible),
+    [values],
+  );
+
+  const price = useMemo(
+    () =>
+      values.monthlyMaintenance
+        ? sum(
+            [
+              vehicleProduct?.monthlyPayment,
+              quote?.maintenanceCost?.monthlyRental,
+            ],
+            item => item || 0,
+          )
+        : vehicleProduct?.monthlyPayment,
+    [quote, values.monthlyMaintenance],
   );
 
   const onSubmit = useCallback(() => {
     const url = isPersonalPrice ? '/olaf/about' : '/b2b/olaf/about';
-    router.push(url, url);
+    return router.push(url, url).then(() => {});
   }, [isPersonalPrice]);
 
   return (
@@ -91,8 +133,10 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
                 Additional Options
               </Heading>
               <AdditionalOptionsForm
+                quote={quote}
                 methods={methods}
                 derivative={derivative}
+                vehicleConfiguration={vehicleConfiguration}
               />
             </div>
             <div className="adjacent-panels-checkout-total">
@@ -124,15 +168,15 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
                   Total Monthly Cost
                 </Heading>
                 <Price
-                  price={vehicleProduct?.monthlyPayment}
+                  price={price}
                   size="xlarge"
                   className="-mb-400"
                   priceDescription={`Per Month ${
                     isPersonalPrice ? 'Inc' : 'Exc'
-                  }. VAT`}
+                  } VAT`}
                 />
                 <List className="ticked orange">
-                  {ADVANTAGES.map(item => (
+                  {includedItems.map(item => (
                     <li className="-custom" key={item.key}>
                       {item.label}
                     </li>

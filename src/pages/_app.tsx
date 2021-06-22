@@ -142,6 +142,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     if (isTrailingSlug('testimonials')) {
       return 'page:testimonials';
     }
+    if (router.pathname.includes('/search')) {
+      return 'page:default srp';
+    }
     return 'page:default';
   };
 

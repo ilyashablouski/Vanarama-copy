@@ -10,6 +10,7 @@ import { GET_PERSON_INFORMATION } from '../address-history';
 import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
 import { CreateExpenseMutation_createUpdateIncomeAndExpense as IIncomeAndExpense } from '../../../../generated/CreateExpenseMutation';
 import useGetOrderId from '../../../hooks/useGetOrderId';
+import useGetOrder from '../../../hooks/useGetOrder';
 
 type QueryParams = OLAFQueryParams & {
   uuid: string;
@@ -19,6 +20,7 @@ const ExpensesPage: NextPage = () => {
   const router = useRouter();
   const { uuid, redirect } = router.query as QueryParams;
   const orderId = useGetOrderId();
+  const order = useGetOrder();
 
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
 
@@ -47,6 +49,7 @@ const ExpensesPage: NextPage = () => {
   return (
     <OLAFLayout>
       <ExpensesFormContainer
+        order={order}
         onCompleted={({ createUpdateIncomeAndExpense }) =>
           onCompleteClick(createUpdateIncomeAndExpense)
         }
