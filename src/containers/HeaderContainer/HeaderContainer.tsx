@@ -8,9 +8,9 @@ import {
   clearInactiveSessionFuelTypes,
   getPartnerProperties,
 } from 'utils/partnerProperties';
+import { getPartnershipLinks } from '../../components/Partnerships/helpers';
 import Header from '../../components/Header';
 import { IHeaderLink } from '../../components/Header/Header';
-import { PartnershipsLinks } from '../../components/Partnerships/Data/PartnishipLinks';
 import { convertChildrenNavLink, convertPromotionalImage } from './helpers';
 import {
   GetPrimaryHeaderData as HeaderData,
@@ -40,7 +40,6 @@ const HeaderContainer: FC = () => {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
   const phoneNumberLink =
     router.pathname === '/fleet' ? FLEET_PHONE_NUMBER_LINK : PHONE_NUMBER_LINK;
-  const partnerLinks = PartnershipsLinks;
 
   const LOGIN_LINK = {
     label: 'Login',
@@ -160,21 +159,18 @@ const HeaderContainer: FC = () => {
   // check if user is on a partnership journey
   useEffect(() => {
     const partnerDetails = getPartnerProperties();
-    const path = router.pathname;
+    const path = window?.location?.pathname;
+    const pathname = path.split('/').pop();
     if (partnerDetails) {
       const partnerName = partnerDetails.slug;
       setPartnership(partnerName);
-      setPartnershipHomeLink(`/partnerships/${partnerName.toLowerCase()}`);
-      const links = partnerLinks.find(p => p.name === partnerName)?.links;
+      setPartnershipHomeLink(`/partnerships/${pathname?.toLowerCase()}`);
+      const links = getPartnershipLinks(partnerDetails.vehicleTypes);
       setPartnershipLinks(links);
     } else if (path.includes('partnerships')) {
-      const partner = path.split('/').pop();
-      if (partner) {
-        setPartnership(partner);
-        setPartnershipHomeLink(`/partnerships/${partner}`);
-        const links = partnerLinks.find(p => p.name === partner.toUpperCase())
-          ?.links;
-        setPartnershipLinks(links);
+      if (pathname) {
+        setPartnership(pathname);
+        setPartnershipHomeLink(`/partnerships/${pathname?.toLowerCase()}`);
       }
     }
   }, []);
@@ -196,6 +192,8 @@ const HeaderContainer: FC = () => {
           };
           setPartnershipPhoneLink(phoneData);
         }
+        const links = getPartnershipLinks(partnerDetails.vehicleTypes);
+        setPartnershipLinks(links);
       }
     }, 500);
   }, []);

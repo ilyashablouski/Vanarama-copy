@@ -1,7 +1,7 @@
 import preloadAll from 'jest-next-dynamic';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import PartnershipLogo from './PartnershipLogo';
+import PartnershipLogo from '../PartnershipLogo/PartnershipLogo';
 
 describe('PartnershipLogo', () => {
   beforeEach(async () => {

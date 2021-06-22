@@ -2,6 +2,7 @@ import React from 'react';
 import { TColor } from 'types/color';
 import { filterList as IFilterList } from '../../../generated/filterList';
 import { GetInsuranceLandingPage_insuranceLandingPage_sections_hero_heroCard as WorkingHoursCard } from '../../../generated/GetInsuranceLandingPage';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 export interface IHeroProps {
   flagText?: string;
@@ -16,6 +17,7 @@ export interface IHeroProps {
   smallPrint?: string;
   customCTALink?: string;
   activeSearchIndex?: number;
+  searchType?: VehicleTypeEnum;
 }
 
 export interface IHeroTitleProps {

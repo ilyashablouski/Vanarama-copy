@@ -1,10 +1,12 @@
 import createApolloClient from 'apolloClient';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import React, { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from 'react-loading-skeleton';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import { notFoundPageHandler } from 'utils/url';
+import PageNotFoundContainer from 'containers/PageNotFoundContainer/PageNotFoundContainer';
 import { setSessionStorage } from '../../../utils/windowSessionStorage';
 import PageHeadingSection from '../../../components/PageHeadingSection';
 import Hero, { HeroHeading } from '../../../components/Hero';
@@ -18,6 +20,7 @@ import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
 import { decodeData, encodeData } from '../../../utils/data';
 import {
   getPartnerProperties,
+  removePartnerProperties,
   setPartnerFooter,
   setPartnerProperties,
   setSessionFuelTypes,
@@ -33,7 +36,7 @@ import {
 } from '../../../../generated/filterList';
 import {
   LeaseTypeEnum,
-  PartnerSlugTypeEnum,
+  VehicleSearchTypeEnum,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
 import { Partner, PartnerVariables } from '../../../../generated/Partner';
@@ -71,9 +74,11 @@ interface IProps extends IPartnerOffersData {
   data: Partner;
   searchPodVansData?: IFilterList;
   searchPodCarsData?: IFilterList;
+  notFoundPageData: any;
+  error: any;
 }
 
-const OvoHomePage: NextPage<IProps> = ({
+const PartnershipsHomePage: NextPage<IProps> = ({
   data,
   partnerProductsCar,
   partnerProductsVan,
@@ -82,6 +87,7 @@ const OvoHomePage: NextPage<IProps> = ({
   vehicleListUrlData,
   searchPodVansData,
   searchPodCarsData,
+  notFoundPageData,
 }) => {
   const {
     colourPrimary,
@@ -95,6 +101,7 @@ const OvoHomePage: NextPage<IProps> = ({
     uuid,
     customerSovereignty,
     telephone,
+    slug,
   } = data?.partner || {};
   const { flag, body, image } = data?.partner?.hero || {};
   const { titleTag } = data?.partner?.featured || {};
@@ -105,24 +112,47 @@ const OvoHomePage: NextPage<IProps> = ({
   const { cachedLeaseType } = useLeaseType(null);
   const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
 
+  const [searchType, setSearchType] = useState<VehicleTypeEnum | undefined>();
+
+  const partnershipData = {
+    slug: slug?.toUpperCase(),
+    color: colourPrimary,
+    uuid,
+    vehicleTypes,
+    telephone,
+    logo,
+    fuelTypes,
+  };
+  const sovereignty = customerSovereignty || 7;
+
   useEffect(() => {
     // check if partnership cookie has been set
     if (!getPartnerProperties()) {
-      const partnershipData = {
-        slug: PartnerSlugTypeEnum.OVO,
-        color: colourPrimary,
-        uuid,
-        vehicleTypes,
-        telephone,
-        logo,
-        fuelTypes,
-      };
-      const sovereignty = customerSovereignty || 7;
       setPartnerProperties(partnershipData, sovereignty);
     }
     setSessionStorage('partnershipSessionActive', 'true');
     setPartnerFooter(footer);
     setSessionFuelTypes(fuelTypes || []);
+  }, []);
+
+  useEffect(() => {
+    if (getPartnerProperties()) {
+      const partnerDetails = getPartnerProperties();
+      const isRightPartnership = partnerDetails.slug === slug?.toUpperCase();
+      if (!isRightPartnership) {
+        removePartnerProperties();
+        setPartnerProperties(partnershipData, sovereignty);
+      }
+      // check if exclusive vehicle type
+      const types = partnerDetails?.vehicleTypes;
+      if (types?.length === 1) {
+        if (types[0] === VehicleSearchTypeEnum.CARS) {
+          setSearchType(VehicleTypeEnum.CAR);
+        } else {
+          setSearchType(VehicleTypeEnum.LCV);
+        }
+      }
+    }
   }, []);
 
   const productCarouselProperties = [
@@ -137,10 +167,19 @@ const OvoHomePage: NextPage<IProps> = ({
       type: 'Vans',
       products: partnerProductsVan,
       derivatives: partnerProductsVanDerivatives,
-      dataTestId: 'view-all-vans',
+      dataTestId: 'view-all-cars',
       href: '/van-leasing/search',
     },
   ];
+  if (notFoundPageData) {
+    return (
+      <PageNotFoundContainer
+        featured={notFoundPageData?.featured}
+        cards={notFoundPageData?.cards}
+        name={notFoundPageData?.name}
+      />
+    );
+  }
 
   return (
     <>
@@ -153,6 +192,7 @@ const OvoHomePage: NextPage<IProps> = ({
         searchPodCarsData={decodeData(searchPodCarsData)}
         hideBenefitsBar
         activeSearchIndex={2}
+        searchType={searchType}
       >
         <HeroHeading text={flag || ''} />
         <ReactMarkdown
@@ -279,14 +319,14 @@ const OvoHomePage: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps(context: GetStaticPropsContext) {
+export async function getServerSideProps(context: NextPageContext) {
+  const client = createApolloClient({}, context as NextPageContext);
+  const path = context.req?.url?.split('?')[0] || '';
   try {
-    const client = createApolloClient({}, context as NextPageContext);
-
     const { data } = await client.query<Partner, PartnerVariables>({
       query: PARTNER,
       variables: {
-        slug: 'ovo',
+        slug: path.split('/').pop() || '',
       },
     });
 
@@ -321,7 +361,6 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     ]);
 
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data: data || null,
         partnerProductsCar: partnerProductsCar || null,
@@ -333,9 +372,17 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         searchPodCarsData: encodeData(searchPodCarsData),
       },
     };
-  } catch (err) {
-    throw new Error(err);
+  } catch (error) {
+    if (context.res) {
+      return notFoundPageHandler(context.res, client);
+    }
+
+    return {
+      props: {
+        error: error.message,
+      },
+    };
   }
 }
 
-export default OvoHomePage;
+export default PartnershipsHomePage;
