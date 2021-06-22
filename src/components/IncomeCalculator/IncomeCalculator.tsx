@@ -2,10 +2,10 @@ import dynamic from 'next/dynamic';
 import CheckBox from 'core/atoms/checkbox/';
 import NumericInput from 'core/atoms/numeric-input';
 import { gql } from '@apollo/client';
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
-import validationSchema from './IncomeCalculator.validation';
+import createValidationSchema from './IncomeCalculator.validation';
 import {
   IIncomeCalculatorFormValues as IFormValues,
   IIncomeCalculatorProps,
@@ -40,7 +40,15 @@ const FormGroup = dynamic(() => import('core/molecules/formgroup'), {
 const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
   expenditure,
   onSubmit,
+  order,
 }) => {
+  const validationSchema = useMemo(
+    () =>
+      createValidationSchema(
+        order.lineItems?.[0]?.vehicleProduct?.monthlyPayment || 0,
+      ),
+    [order],
+  );
   const {
     handleSubmit,
     control,

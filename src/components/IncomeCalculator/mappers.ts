@@ -8,7 +8,7 @@ export const responseToInitialFormValues = (
 ): IIncomeCalculatorFormValues => {
   const monthlyExpenses = calculateMonthlyExpenses(expenditure);
   const netDisposableIncome =
-    expenditure?.averageMonthlyIncome && 0 - monthlyExpenses;
+    expenditure?.averageMonthlyIncome || 0 - monthlyExpenses;
 
   return {
     averageMonthlyIncome: expenditure?.averageMonthlyIncome.toString() || '',
