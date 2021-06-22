@@ -49,10 +49,7 @@ export interface IProps {
   mileage: number | null;
   setMileage: React.Dispatch<React.SetStateAction<number | null>>;
   pickups?: boolean;
-  warrantyDetails?:
-    | GetVehicleDetails_vehicleDetails_warrantyDetails
-    | null
-    | undefined;
+  warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
 }
 
 export interface IQuoteDataInputs {

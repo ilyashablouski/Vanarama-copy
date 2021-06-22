@@ -17,8 +17,5 @@ export interface IProps {
   trim: number | null | undefined;
   pickups?: boolean;
   isShowFreeInsuranceMerch?: boolean;
-  warrantyDetails?:
-    | GetVehicleDetails_vehicleDetails_warrantyDetails
-    | null
-    | undefined;
+  warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
 }
