@@ -2,13 +2,9 @@ import Cookies from 'js-cookie';
 import localForage from 'localforage';
 import { ApolloClient } from '@apollo/client';
 
-import {
-  GetVehiclePublishState,
-  GetVehiclePublishStateVariables,
-} from '../../generated/GetVehiclePublishState';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { IWishlistProduct, IWishlistState } from '../types/wishlist';
-import { GET_VEHICLE_PUBLISH_STATE } from '../gql/vehiclePublishState';
+import { GET_VEHICLE_CONFIG_LIST } from '../gql/vehicleConfigList';
 import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
 import { formatProductPageUrl, getLegacyUrl } from './url';
 import { Nullish } from '../types/common';
@@ -18,6 +14,10 @@ import {
   GetProductCardVariables,
   GetProductCard_productCard,
 } from '../../generated/GetProductCard';
+import {
+  GetVehicleConfigList,
+  GetVehicleConfigListVariables,
+} from '../../generated/GetVehicleConfigList';
 
 export const getLocalWishlistState = async () => {
   const wishlistVehicleIds = await localForage.getItem('wishlistVehicleIds');
@@ -68,38 +68,23 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
     });
   }
 
-  const getVehiclePublishStatePromise = (configId: string) => {
-    const { capId, vehicleType } = parseVehicleConfigId(configId);
-
-    return client.query<
-      GetVehiclePublishState,
-      GetVehiclePublishStateVariables
-    >({
-      query: GET_VEHICLE_PUBLISH_STATE,
-      variables: {
-        capId: parseInt(capId, 10),
-        vehicleType,
-      },
-    });
-  };
-
-  const vehicleDetailList = await Promise.all(
-    wishlistVehicleIds.map(getVehiclePublishStatePromise),
-  );
-
-  const resultWishlistVehicleIds = wishlistVehicleIds.filter(configId => {
-    const { capId } = parseVehicleConfigId(configId);
-
-    return vehicleDetailList.some(({ data }) => {
-      const parsedCardId = parseInt(capId ?? '', 10);
-      const vehicleConfig = data.vehicleConfigurationByCapId;
-
-      return (
-        vehicleConfig?.capDerivativeId === parsedCardId &&
-        vehicleConfig?.published
-      );
-    });
+  const vehicleConfigList = await client.query<
+    GetVehicleConfigList,
+    GetVehicleConfigListVariables
+  >({
+    query: GET_VEHICLE_CONFIG_LIST,
+    variables: {
+      configIds: wishlistVehicleIds,
+    },
   });
+
+  const resultWishlistVehicleIds = wishlistVehicleIds.filter(configId =>
+    vehicleConfigList.data.vehicleConfigurationByConfigId?.some(
+      vehicleConfiguration =>
+        vehicleConfiguration.configId === configId &&
+        vehicleConfiguration.published,
+    ),
+  );
 
   return setLocalWishlistState(
     wishlistVar({
