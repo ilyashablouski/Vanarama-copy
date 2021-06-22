@@ -17,8 +17,8 @@ import { GET_VEHICLE_PUBLISH_STATE } from '../gql/vehiclePublishState';
 import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
 import { formatProductPageUrl, getLegacyUrl } from './url';
 import { getVehicleConfigId, parseVehicleConfigId } from './helpers';
+import { initialWishlistState, wishlistVar } from '../cache';
 import { Nullish } from '../types/common';
-import { wishlistVar } from '../cache';
 
 export const getLocalWishlistState = async () => {
   const wishlistVehicleIds = await localForage.getItem('wishlistVehicleIds');
@@ -49,55 +49,62 @@ export const resetWishlistNoLongerAvailable = () => {
 export const initializeWishlistState = async (client: ApolloClient<object>) => {
   const wishlistVehicleIds = await getLocalWishlistState();
 
-  if (!wishlistVehicleIds.length) {
-    return wishlistVar({
+  if (wishlistVehicleIds.length) {
+    const getVehiclePublishStatePromise = (configId: string) => {
+      const { capId, vehicleType } = parseVehicleConfigId(configId);
+
+      return client.query<
+        GetVehiclePublishState,
+        GetVehiclePublishStateVariables
+      >({
+        query: GET_VEHICLE_PUBLISH_STATE,
+        variables: {
+          capId: parseInt(capId, 10),
+          vehicleType,
+        },
+      });
+    };
+
+    const vehicleDetailList = await Promise.all(
+      wishlistVehicleIds.map(getVehiclePublishStatePromise),
+    );
+
+    const resultWishlistVehicleIds = wishlistVehicleIds.filter(configId => {
+      const { capId } = parseVehicleConfigId(configId);
+
+      return vehicleDetailList.some(({ data }) => {
+        const parsedCardId = parseInt(capId ?? '', 10);
+        const vehicleConfig = data.vehicleConfigurationByCapId;
+
+        return (
+          vehicleConfig?.capDerivativeId === parsedCardId &&
+          vehicleConfig?.published
+        );
+      });
+    });
+
+    setLocalWishlistState(
+      wishlistVar({
+        ...wishlistVar(),
+        wishlistNoLongerAvailable:
+          resultWishlistVehicleIds.length !== wishlistVehicleIds.length,
+        wishlistVehicleIds: resultWishlistVehicleIds,
+      }),
+    );
+  } else {
+    wishlistVar({
       ...wishlistVar(),
       wishlistNoLongerAvailable: false,
       wishlistInitialized: true,
     });
   }
 
-  const getVehiclePublishStatePromise = (configId: string) => {
-    const { capId, vehicleType } = parseVehicleConfigId(configId);
-
-    return client.query<
-      GetVehiclePublishState,
-      GetVehiclePublishStateVariables
-    >({
-      query: GET_VEHICLE_PUBLISH_STATE,
-      variables: {
-        capId: parseInt(capId, 10),
-        vehicleType,
-      },
-    });
-  };
-
-  const vehicleDetailList = await Promise.all(
-    wishlistVehicleIds.map(getVehiclePublishStatePromise),
-  );
-
-  const resultWishlistVehicleIds = wishlistVehicleIds.filter(configId => {
-    const { capId } = parseVehicleConfigId(configId);
-
-    return vehicleDetailList.some(({ data }) => {
-      const parsedCardId = parseInt(capId ?? '', 10);
-      const vehicleConfig = data.vehicleConfigurationByCapId;
-
-      return (
-        vehicleConfig?.capDerivativeId === parsedCardId &&
-        vehicleConfig?.published
-      );
+  return client.onResetStore(async () => {
+    wishlistVar({
+      ...initialWishlistState,
+      wishlistInitialized: true,
     });
   });
-
-  return setLocalWishlistState(
-    wishlistVar({
-      ...wishlistVar(),
-      wishlistNoLongerAvailable:
-        resultWishlistVehicleIds.length !== wishlistVehicleIds.length,
-      wishlistVehicleIds: resultWishlistVehicleIds,
-    }),
-  );
 };
 
 export const getWishlistVehiclesData = async (

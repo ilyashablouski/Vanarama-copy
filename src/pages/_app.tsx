@@ -35,6 +35,7 @@ import FooterContainer from '../containers/FooterContainer';
 import { PAGES_WITHOUT_DEFERRED_STYLES } from '../components/Head/defaults';
 import { removeSessionStorageItem } from '../utils/windowSessionStorage';
 import { initializeWishlistState } from '../utils/wishlistHelpers';
+import { initializePersonState } from '../utils/personHelpers';
 
 // Dynamic component loading.
 const ToastContainer = dynamic(
@@ -69,7 +70,20 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
   const client = useApolloClient();
 
   useEffect(() => {
-    initializeWishlistState(client);
+    let unsubscribeResetPerson: () => void;
+    let unsubscribeResetWishlist: () => void;
+
+    const initializeGlobalVars = async () => {
+      unsubscribeResetPerson = await initializePersonState(client);
+      unsubscribeResetWishlist = await initializeWishlistState(client);
+    };
+
+    initializeGlobalVars();
+
+    return () => {
+      unsubscribeResetPerson();
+      unsubscribeResetWishlist();
+    };
   }, [client]);
 
   useEffect(() => {

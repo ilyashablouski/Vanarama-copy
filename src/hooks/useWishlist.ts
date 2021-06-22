@@ -1,15 +1,14 @@
 import { useReactiveVar } from '@apollo/client';
 
-import { wishlistVar } from '../cache';
+import { personVar, wishlistVar } from '../cache';
 import { getVehicleConfigId } from '../utils/helpers';
 import { isWished, setLocalWishlistState } from '../utils/wishlistHelpers';
 import { IWishlistProduct } from '../types/wishlist';
 import { Nullish } from '../types/common';
 import {
-  useAddVehicleToWishlistQuery,
-  useRemoveVehicleFromWishlistQuery,
+  useAddVehicleToWishlistMutation,
+  useRemoveVehicleFromWishlistMutation,
 } from '../gql/wishlist';
-import usePerson from './usePerson';
 
 export default function useWishlist() {
   const {
@@ -18,22 +17,20 @@ export default function useWishlist() {
     wishlistInitialized,
     wishlistNoLongerAvailable,
   } = useReactiveVar(wishlistVar);
-  const { personLoggedIn, partyUuid } = usePerson();
 
-  const [addVehicleToWishlist] = useAddVehicleToWishlistQuery();
-  const [removeVehicleFromWishlist] = useRemoveVehicleFromWishlistQuery();
+  const [addVehicleToWishlist] = useAddVehicleToWishlistMutation();
+  const [removeVehicleFromWishlist] = useRemoveVehicleFromWishlistMutation();
 
   function addToWishlist(product: IWishlistProduct) {
     const configId = getVehicleConfigId(product);
 
-    if (partyUuid) {
+    const { person } = personVar();
+    if (person?.partyUuid) {
       addVehicleToWishlist({
         variables: {
           vehicleConfigurationIds: [configId],
-          partyUuid,
+          partyUuid: person.partyUuid,
         },
-      }).catch(error => {
-        console.error(error);
       });
     }
 
@@ -53,14 +50,13 @@ export default function useWishlist() {
 
     delete newVehicleMap[configId];
 
-    if (partyUuid) {
+    const { person } = personVar();
+    if (person?.partyUuid) {
       removeVehicleFromWishlist({
         variables: {
           vehicleConfigurationIds: [configId],
-          partyUuid,
+          partyUuid: person.partyUuid,
         },
-      }).catch(error => {
-        console.error(error);
       });
     }
 
@@ -82,9 +78,7 @@ export default function useWishlist() {
       ? removeFromWishlist(product)
       : addToWishlist(product);
 
-    if (!personLoggedIn) {
-      setLocalWishlistState(newState);
-    }
+    setLocalWishlistState(newState);
   }
 
   return {

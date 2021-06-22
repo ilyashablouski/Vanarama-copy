@@ -1,10 +1,7 @@
 import { useEffect, useState } from 'react';
-import localForage from 'localforage';
 
-import {
-  GetPerson,
-  GetPerson_getPerson as Person,
-} from '../../generated/GetPerson';
+import { GetPerson_getPerson as Person } from '../../generated/GetPerson';
+import { getLocalPersonState } from '../utils/personHelpers';
 
 export default function usePerson() {
   const [person, setPerson] = useState<Person | null>(null);
@@ -17,10 +14,7 @@ export default function usePerson() {
       return;
     }
 
-    Promise.all([
-      localForage.getItem<GetPerson>('person'),
-      localForage.getItem<string>('personUuid'),
-    ]).then(([personData, savedPersonUuid]) => {
+    getLocalPersonState().then(([personData, savedPersonUuid]) => {
       if (personData?.getPerson) {
         setPerson(personData.getPerson);
         setPersonUuid(personData.getPerson.uuid);

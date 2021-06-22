@@ -1,4 +1,4 @@
-import { gql, ApolloClient, useMutation } from '@apollo/client';
+import { gql, useMutation } from '@apollo/client';
 
 import {
   AddVehicleToWishlist,
@@ -8,12 +8,8 @@ import {
   RemoveVehicleFromWishlist,
   RemoveVehicleFromWishlistVariables,
 } from '../../generated/RemoveVehicleFromWishlist';
-import {
-  GetWishlistVehicleIds,
-  GetWishlistVehicleIdsVariables,
-} from '../../generated/GetWishlistVehicleIds';
 
-const ADD_VEHICLE_TO_WISHLIST = gql`
+export const ADD_VEHICLE_TO_WISHLIST = gql`
   mutation AddVehicleToWishlist(
     $partyUuid: ID!
     $vehicleConfigurationIds: [String!]!
@@ -29,7 +25,7 @@ const ADD_VEHICLE_TO_WISHLIST = gql`
   }
 `;
 
-const REMOVE_VEHICLE_FROM_WISHLIST = gql`
+export const REMOVE_VEHICLE_FROM_WISHLIST = gql`
   mutation RemoveVehicleFromWishlist(
     $partyUuid: ID!
     $vehicleConfigurationIds: [String!]!
@@ -43,32 +39,31 @@ const REMOVE_VEHICLE_FROM_WISHLIST = gql`
   }
 `;
 
-const GET_WISHLIST_VEHICLE_IDS = gql`
-  query GetWishlistVehicleIds($partyUuid: ID!) {
-    favouritesByPartyUuid(partyUuid: $partyUuid)
-  }
-`;
-
-export const getWishlistVehicleIdsPromise = async (
-  client: ApolloClient<object>,
-  partyUuid: string,
-) =>
-  client.query<GetWishlistVehicleIds, GetWishlistVehicleIdsVariables>({
-    query: GET_WISHLIST_VEHICLE_IDS,
-    variables: {
-      partyUuid,
-    },
-  });
-
-export function useAddVehicleToWishlistQuery() {
+export function useAddVehicleToWishlistMutation() {
   return useMutation<AddVehicleToWishlist, AddVehicleToWishlistVariables>(
     ADD_VEHICLE_TO_WISHLIST,
   );
 }
 
-export function useRemoveVehicleFromWishlistQuery() {
+export function useRemoveVehicleFromWishlistMutation() {
   return useMutation<
     RemoveVehicleFromWishlist,
     RemoveVehicleFromWishlistVariables
   >(REMOVE_VEHICLE_FROM_WISHLIST);
+}
+
+export function makeAddVehicleToWishlistMutationMock(
+  partyUuid = '',
+  vehicleConfigurationIds: Array<string> = [],
+) {
+  return {
+    request: {
+      query: ADD_VEHICLE_TO_WISHLIST,
+      variables: {
+        vehicleConfigurationIds,
+        partyUuid,
+      },
+    },
+    result: {},
+  };
 }

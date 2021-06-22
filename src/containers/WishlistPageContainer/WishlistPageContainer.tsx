@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import { useApolloClient } from '@apollo/client';
+import { useApolloClient, useReactiveVar } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import Router from 'next/router';
 
@@ -12,12 +12,11 @@ import Loading from 'core/atoms/loading';
 
 import Breadcrumb from 'components/Breadcrumb';
 
-import { IWishlistContainer } from './interface';
-
-import usePerson from '../../hooks/usePerson';
 import useWishlist from '../../hooks/useWishlist';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { IWishlistContainer } from './interface';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { personVar } from '../../cache';
 import {
   getWishlistVehiclesData,
   resetWishlistNoLongerAvailable,
@@ -57,7 +56,7 @@ function WishlistPageContainer({
     wishlistNoLongerAvailable,
   } = useWishlist();
   const client = useApolloClient();
-  const { personLoggedIn } = usePerson();
+  const { personLoggedIn } = useReactiveVar(personVar);
 
   useEffect(() => {
     if (wishlistVehicleIds.length) {
