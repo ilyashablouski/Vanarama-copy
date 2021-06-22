@@ -159,18 +159,18 @@ const HeaderContainer: FC = () => {
   // check if user is on a partnership journey
   useEffect(() => {
     const partnerDetails = getPartnerProperties();
-    const path = router.pathname;
+    const path = window?.location?.pathname;
+    const pathname = path.split('/').pop();
     if (partnerDetails) {
       const partnerName = partnerDetails.slug;
       setPartnership(partnerName);
-      setPartnershipHomeLink(`/partnerships/${partnerName?.toLowerCase()}`);
+      setPartnershipHomeLink(`/partnerships/${pathname?.toLowerCase()}`);
       const links = getPartnershipLinks(partnerDetails.vehicleTypes);
       setPartnershipLinks(links);
     } else if (path.includes('partnerships')) {
-      const partner = path.split('/').pop();
-      if (partner) {
-        setPartnership(partner);
-        setPartnershipHomeLink(`/partnerships/${partner}`);
+      if (pathname) {
+        setPartnership(pathname);
+        setPartnershipHomeLink(`/partnerships/${pathname?.toLowerCase()}`);
       }
     }
   }, []);
