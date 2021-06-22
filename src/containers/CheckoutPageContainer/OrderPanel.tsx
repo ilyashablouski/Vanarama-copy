@@ -73,7 +73,7 @@ const OrderPanel: React.FC<OrderPanelProps> = ({
         <div className="copy">
           <List className="breakdown-list -m-000" style={{ gap: 0 }}>
             <li className="-custom -mb-000">
-              <Text tag="span">Initial Payment:</Text>
+              <Text tag="span">Initial Payment: </Text>
               {`£${vehicleProduct?.depositPayment} ${
                 isPersonalPrice ? 'inc.' : 'exc.'
               } VAT`}
