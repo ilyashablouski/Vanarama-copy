@@ -60,6 +60,10 @@ export const GET_CAR_DATA = gql`
         answer
       }
       vehicleValue
+      warrantyDetails {
+        years
+        mileage
+      }
     }
     derivativeInfo(id: $capIdDetails, vehicleType: $vehicleType) {
       name
