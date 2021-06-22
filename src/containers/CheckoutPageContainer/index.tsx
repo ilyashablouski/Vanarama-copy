@@ -186,7 +186,7 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
                     isPersonalPrice ? 'inc.' : 'exc.'
                   } VAT`}
                 />
-                <List className="ticked orange">
+                <List className="ticked orange" style={{ gap: 0 }}>
                   {includedItems.map(item => (
                     <li className="-custom" key={item.key}>
                       {item.label}
