@@ -3,10 +3,13 @@ import cx from 'classnames';
 import RouterLink from '../RouterLink/RouterLink';
 import Skeleton from '../Skeleton';
 
-const Redundancy = dynamic(() => import('core/assets/icons/Redundancy'), {
-  loading: () => <Skeleton count={1} />,
-  ssr: false,
-});
+const LifeEventInsurance = dynamic(
+  () => import('core/assets/icons/LifeEventInsurance'),
+  {
+    loading: () => <Skeleton count={1} />,
+    ssr: false,
+  },
+);
 const Icon = dynamic(() => import('core/atoms/icon/'), {
   loading: () => <Skeleton count={1} />,
   ssr: false,
@@ -26,20 +29,24 @@ interface IBanner {
 const Banner: React.FC<IBanner> = ({ vans, className }) => {
   return (
     <div className={cx('banner', className)}>
-      <Icon
-        style={{ height: '90%' }}
-        size="large"
-        className="-inherit md hydrated"
-        icon={<Redundancy />}
-      />
+      <Icon className="-inherit md hydrated" icon={<LifeEventInsurance />} />
       <div>
-        <Heading color="white" size="large">
-          {vans
-            ? 'Free Loss Of Earnings & Life Event Cover'
-            : 'Free Redundancy & Life Event Cover'}
+        <Heading color="black" size="regular">
+          {vans ? (
+            <span>
+              This Vehicle Includes Free Loss Of Earnings & Life Event Cover
+              <br />
+              For the Duration Of Your Lease
+            </span>
+          ) : (
+            <span>
+              This Vehicle Includes Free Redundancy & Life Event Cover
+              <br /> For the Duration Of Your Lease
+            </span>
+          )}
         </Heading>
-        <Text className="-pr-100" color="white" size="small">
-          If the worst happens, return your vehicle, no charge.
+        <Text className="-pr-100" color="black" size="regular">
+          So you can return it anytime, no charge, should the worst happen.
         </Text>
         <RouterLink
           link={{
@@ -47,11 +54,10 @@ const Banner: React.FC<IBanner> = ({ vans, className }) => {
             label: '',
           }}
           classNames={{
-            color: 'white',
-            size: 'small',
+            color: 'teal',
           }}
         >
-          <b>Find Out More</b>
+          Find&nbsp;Out&nbsp;More
         </RouterLink>
       </div>
     </div>

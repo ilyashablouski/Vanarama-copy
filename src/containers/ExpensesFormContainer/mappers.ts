@@ -19,7 +19,7 @@ export const formValuesToInput = (
   carFinance: Number(values.carFinance),
   foodAndClothes: Number(values.foodAndClothes),
   fuel: Number(values.fuel),
-  studentLoan: Number(values.studentLoans),
+  studentLoan: Number(values.studentLoan),
   otherCredit: Number(values.otherCredit),
   suitabilityConsent: !!values.suitabilityConsent,
 });
