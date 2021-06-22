@@ -5,6 +5,9 @@ import { Nullish } from '../types/common';
 import { Partner_partner_footer as IPartnerFooter } from '../../generated/Partner';
 
 const PARTNER_COOKIE_NAME = 'activePartnership';
+const PARTNER_SESSION_ACTIVE = 'partnershipSessionActive';
+const CUSTOM_SESSION_FUEL_TYPES = 'customSessionFuelTypes';
+const PARTNER_FOOTER = 'partnerFooter';
 
 export interface IPartnerData {
   slug: Nullish<string>;
@@ -17,7 +20,7 @@ export interface IPartnerData {
 export function getPartnerProperties() {
   if (
     Cookies.get(PARTNER_COOKIE_NAME) &&
-    getSessionStorage('partnershipSessionActive')
+    getSessionStorage(PARTNER_SESSION_ACTIVE)
   ) {
     return Cookies.getJSON(PARTNER_COOKIE_NAME);
   }
@@ -36,31 +39,35 @@ export function setPartnerProperties(
   expires: number,
 ) {
   if (data) {
-    Cookies.set('activePartnership', data, {
+    Cookies.set(PARTNER_COOKIE_NAME, data, {
       expires,
     });
   }
 }
 
+export function removePartnerProperties() {
+  Cookies.remove(PARTNER_COOKIE_NAME);
+}
+
 export function setSessionFuelTypes(fuelTypes: string[]) {
-  Cookies.set('customSessionFuelTypes', fuelTypes);
+  Cookies.set(CUSTOM_SESSION_FUEL_TYPES, fuelTypes);
 }
 export function getSessionFuelTypes() {
-  Cookies.get('customSessionFuelTypes');
+  Cookies.get(CUSTOM_SESSION_FUEL_TYPES);
 }
 
 export function setPartnerFooter(data: Nullish<IPartnerFooter>) {
   if (data) {
-    setLocalStorage('partnerFooter', JSON.stringify(data));
+    setLocalStorage(PARTNER_FOOTER, JSON.stringify(data));
   }
 }
 
 export function clearInactiveSessionFuelTypes() {
   if (
-    Cookies.get('customSessionFuelTypes') &&
-    !getSessionStorage('partnershipSessionActive')
+    Cookies.get(CUSTOM_SESSION_FUEL_TYPES) &&
+    !getSessionStorage(PARTNER_SESSION_ACTIVE)
   ) {
-    Cookies.remove('customSessionFuelTypes');
+    Cookies.remove(CUSTOM_SESSION_FUEL_TYPES);
   }
 }
 
