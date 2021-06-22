@@ -105,6 +105,7 @@ describe('getOrderList', () => {
         maintenance: false,
         roadsideAssistance: {
           years: 3,
+        },
         warrantyDetails: {
           years: 5,
           mileage: 50000,
