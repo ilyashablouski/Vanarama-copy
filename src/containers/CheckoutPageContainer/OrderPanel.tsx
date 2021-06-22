@@ -71,15 +71,15 @@ const OrderPanel: React.FC<OrderPanelProps> = ({
           </div>
         </div>
         <div className="copy">
-          <List className="breakdown-list -m-000" style={{ gap: 0 }}>
-            <li className="-custom -mb-000">
+          <List className="breakdown-list" style={{ gap: 0 }}>
+            <li className="-custom">
               <Text tag="span">Initial Payment: </Text>
               {`£${vehicleProduct?.depositPayment} ${
                 isPersonalPrice ? 'inc.' : 'exc.'
               } VAT`}
             </li>
             {listItems.map(item => (
-              <li className="-custom -mb-000" key={item.label}>
+              <li className="-custom" key={item.label}>
                 <Text tag="span">{item.label}</Text>
                 {item.description}
               </li>
