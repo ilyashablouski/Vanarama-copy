@@ -1,7 +1,5 @@
 import React, { FC, memo, useState, useEffect } from 'react';
 import { IMediaGalleryProps } from './interfaces';
-import Icon from '../../atoms/icon';
-
 import Tabs from '../../molecules/tabs';
 import TabList from '../../molecules/tabs/TabList';
 import Tab from '../../molecules/tabs/Tab';
