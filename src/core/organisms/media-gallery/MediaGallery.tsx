@@ -52,7 +52,7 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
         </div>
         {flag.accentIcon && flag.accentText && (
           <div>
-            <Icon icon={flag.accentIcon} />
+            {flag.accentIcon}
             <span>{flag.accentText}</span>
           </div>
         )}
