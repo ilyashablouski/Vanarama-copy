@@ -44,6 +44,7 @@ const Hero: React.FC<IHeroProps> = ({
   smallPrint,
   customCTALink,
   activeSearchIndex,
+  searchType,
 }) => {
   const [showModal, setShowModal] = useState(false);
   const [createOpportunity, { loading }] = useOpportunityCreation(
@@ -98,6 +99,7 @@ const Hero: React.FC<IHeroProps> = ({
         searchPodVansData={searchPodVansData}
         customCTAColor={customCTAColor}
         activeSearchIndex={activeSearchIndex}
+        searchType={searchType}
       />
     );
   };
