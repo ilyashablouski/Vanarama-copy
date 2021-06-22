@@ -3,6 +3,7 @@ import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_leaseAdjustParams,
+  GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../../generated/GetVehicleDetails';
 import {
   OrderInputObject,
@@ -69,4 +70,5 @@ export interface IProps {
   trimList: (ITrimList | null)[] | null;
   colourList: (IColourList | null)[] | null;
   pickups?: boolean;
+  warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
 }
