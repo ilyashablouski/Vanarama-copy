@@ -4,20 +4,23 @@ import { FormContextValues } from 'react-hook-form';
 import { IOrderStorageData } from '../../hooks/useGetOrder';
 import {
   GetDerivative,
-  GetDerivative_vehicleConfigurationByCapId,
   GetDerivative_vehicleImages,
 } from '../../../generated/GetDerivative';
+import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 
 export interface IAdditionalOptionsFormValues {
   redundancy?: boolean;
-  insurance?: boolean;
+  lossOfEarnings?: boolean;
+  freeInsurance?: boolean;
   monthlyMaintenance?: boolean;
   advancedBreakdownCover?: boolean;
 }
 
 export interface IAdditionalOptionsFormProps {
-  methods: FormContextValues<IAdditionalOptionsFormValues>;
   derivative?: GetDerivative['derivative'];
+  quote?: GetQuoteDetails['quoteByCapId'];
+  methods: FormContextValues<IAdditionalOptionsFormValues>;
+  vehicleConfiguration?: GetDerivative['vehicleConfigurationByCapId'];
 }
 
 export interface IAdditionalOptionProps extends IBaseProps {
@@ -27,7 +30,7 @@ export interface IAdditionalOptionProps extends IBaseProps {
   promotionText: string;
   id: string;
   name: string;
-  value?: string;
+  checked?: boolean;
   ref?: React.Ref<HTMLInputElement>;
 }
 
@@ -36,10 +39,11 @@ export interface CheckoutPageContainerProps {
   derivative?: GetDerivative['derivative'];
   vehicleImages?: GetDerivative['vehicleImages'];
   vehicleConfiguration?: GetDerivative['vehicleConfigurationByCapId'];
+  quote: GetQuoteDetails['quoteByCapId'];
 }
 
 export interface OrderPanelProps {
   order: IOrderStorageData;
   vehicleImage?: GetDerivative_vehicleImages | null;
-  vehicleConfiguration?: GetDerivative_vehicleConfigurationByCapId | null;
+  vehicleConfiguration?: GetDerivative['vehicleConfigurationByCapId'];
 }

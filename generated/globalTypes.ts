@@ -762,6 +762,7 @@ export interface TurnoverPercentageOutsideUkInputObject {
  * Input object to create vat details
  */
 export interface VatDetailV2InputObject {
+  markets?: TurnoverPercentageOutsideUkInputObject[] | null;
   outsideUk?: boolean | null;
   vatNumber?: string | null;
   vatRegistered?: boolean | null;

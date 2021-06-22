@@ -346,6 +346,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         ...values,
         rating: vehicleDetails?.averageRating || 0,
       })
+      .then(() => localForage.setItem('quote', leaseScannerData?.quoteByCapId))
       .then(() => localForage.removeItem('orderId'))
       .then(() => localForage.removeItem('personEmail'))
       .then(() => localForage.removeItem('personUuid'))
@@ -387,7 +388,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const leaseAdjustParams = data?.leaseAdjustParams;
   const vehicleConfigurationByCapId = data?.vehicleConfigurationByCapId;
   const independentReview = data?.vehicleDetails?.independentReview;
-  const warranty = data?.vehicleDetails?.warranty;
+  const warrantyDetails = data?.vehicleDetails?.warrantyDetails;
   const capsId = data?.vehicleDetails?.relatedVehicles?.map(
     el => el?.capId || '',
   );
@@ -587,13 +588,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           videoIframe
           imageAltText={metaTitle}
         />
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <VehicleTechDetails
-            vehicleDetails={vehicleDetails}
-            derivativeInfo={derivativeInfo}
-          />
-          {isSpecialOffer && isCar && <FreeInsuranceCards />}
-        </LazyLoadComponent>
+        <VehicleTechDetails
+          vehicleDetails={vehicleDetails}
+          derivativeInfo={derivativeInfo}
+        />
+        {isSpecialOffer && isCar && <FreeInsuranceCards />}
         {isMobile && vehicleDetails?.brochureUrl && (
           <Button
             className="pdp--mobile-download"
@@ -645,7 +644,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           />
         )}
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-          <WhyChooseLeasing warranty={warranty || ''} />
+          <WhyChooseLeasing warrantyDetails={warrantyDetails} />
           <WhyChooseVanarama cars={cars} vans={vans} pickups={pickups} />
         </LazyLoadComponent>
         <div className="pdp--reviews">
