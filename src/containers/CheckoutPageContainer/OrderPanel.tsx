@@ -8,37 +8,43 @@ import {
   LeaseTypeEnum,
   VehicleProductInputObject,
 } from '../../../generated/globalTypes';
+import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 
 const generateListItems = (
+  quote: GetQuoteDetails['quoteByCapId'],
   vehicleProduct?: VehicleProductInputObject | null,
 ) => [
   {
     label: 'Contract Type:',
-    description: undefined,
+    description:
+      quote?.leaseType === LeaseTypeEnum.PERSONAL
+        ? 'Personal Contract'
+        : 'Contract Hire',
   },
   {
     label: 'Contract Length:',
-    description: `${vehicleProduct?.depositMonths} Months`,
+    description: `${quote?.term} Months`,
   },
   {
     label: 'Annual Mileage:',
-    description: vehicleProduct?.annualMileage ? 'Yes' : 'No',
+    description: `${quote?.mileage} Miles`,
   },
   {
     label: 'Colour:',
-    description: vehicleProduct?.colour,
+    description: vehicleProduct?.colour || '-',
   },
   {
     label: 'Trim / Interior:',
-    description: vehicleProduct?.trim,
+    description: vehicleProduct?.trim || '-',
   },
   {
     label: 'Stock:',
-    description: vehicleProduct?.leadTime,
+    description: quote?.leadTime,
   },
 ];
 
 const OrderPanel: React.FC<OrderPanelProps> = ({
+  quote,
   order,
   vehicleImage,
   vehicleConfiguration,
@@ -46,7 +52,8 @@ const OrderPanel: React.FC<OrderPanelProps> = ({
   const vehicleProduct = useMemo(() => order?.lineItems?.[0]?.vehicleProduct, [
     order,
   ]);
-  const listItems = useMemo(() => generateListItems(vehicleProduct), [
+  const listItems = useMemo(() => generateListItems(quote, vehicleProduct), [
+    quote,
     vehicleProduct,
   ]);
   const isPersonalPrice = order?.leaseType === LeaseTypeEnum.PERSONAL;

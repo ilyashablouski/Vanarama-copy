@@ -20,7 +20,7 @@ import {
   CheckoutPageContainerProps,
   IAdditionalOptionsFormValues,
 } from './interfaces';
-import { LeaseTypeEnum } from '../../../generated/globalTypes';
+import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import { sum } from '../../utils/array';
 
 const createIncludedOptions = (values: IAdditionalOptionsFormValues) => [
@@ -35,13 +35,13 @@ const createIncludedOptions = (values: IAdditionalOptionsFormValues) => [
     key: '1',
   },
   {
-    label: "1 Year's Free Insurance",
-    isVisible: values.freeInsurance,
+    label: 'Free Loss Of Earnings & Life Event Cover',
+    isVisible: values.lossOfEarnings,
     key: '2',
   },
   {
-    label: 'Advanced Breakdown Cover',
-    isVisible: values.advancedBreakdownCover,
+    label: "1 Year's Free Insurance",
+    isVisible: values.freeInsurance,
     key: '3',
   },
   {
@@ -50,8 +50,8 @@ const createIncludedOptions = (values: IAdditionalOptionsFormValues) => [
     key: '4',
   },
   {
-    label: 'Free Loss Of Earnings & Life Event Cover',
-    isVisible: values.lossOfEarnings,
+    label: 'Advanced Breakdown Cover',
+    isVisible: values.advancedBreakdownCover,
     key: '5',
   },
 ];
@@ -64,20 +64,32 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
   vehicleConfiguration,
 }) => {
   const router = useRouter();
+  const vehicleProduct = useMemo(() => order?.lineItems?.[0].vehicleProduct, [
+    order,
+  ]);
+  // enabled by default for cars only
+  const redundancy = useMemo(
+    () => vehicleProduct?.vehicleType === VehicleTypeEnum.CAR,
+    [vehicleProduct],
+  );
+  // enabled by default for vans only
+  const lossOfEarnings = useMemo(
+    () =>
+      vehicleProduct?.vehicleType === VehicleTypeEnum.LCV &&
+      !derivative?.bodyType?.name?.toLowerCase().includes('pick-up'),
+    [vehicleProduct, derivative],
+  );
   const methods = useForm<IAdditionalOptionsFormValues>({
     defaultValues: {
-      redundancy: true,
-      lossOfEarnings: true,
-      freeInsurance:
-        order.lineItems?.[0].vehicleProduct?.freeInsurance?.optIn || false,
-      monthlyMaintenance: false,
+      redundancy,
+      lossOfEarnings,
+      freeInsurance: vehicleProduct?.freeInsurance?.optIn || false,
+      monthlyMaintenance: vehicleProduct?.maintenance || false,
       advancedBreakdownCover: false,
     },
     mode: 'onBlur',
   });
-  const vehicleProduct = useMemo(() => order?.lineItems?.[0].vehicleProduct, [
-    order,
-  ]);
+
   const isPersonalPrice = useMemo(
     () => order.leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL,
     [order],
@@ -90,15 +102,13 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
 
   const price = useMemo(
     () =>
-      values.monthlyMaintenance
-        ? sum(
-            [
-              vehicleProduct?.monthlyPayment,
-              quote?.maintenanceCost?.monthlyRental,
-            ],
-            item => item || 0,
-          )
-        : vehicleProduct?.monthlyPayment,
+      sum(
+        [
+          vehicleProduct?.monthlyPayment,
+          values.monthlyMaintenance ? quote?.maintenanceCost?.monthlyRental : 0,
+        ],
+        item => item || 0,
+      ),
     [quote, values.monthlyMaintenance],
   );
 
@@ -121,6 +131,7 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
             <div>
               <OrderPanel
                 order={order}
+                quote={quote}
                 vehicleImage={vehicleImages?.[0]}
                 vehicleConfiguration={vehicleConfiguration}
               />
