@@ -90,6 +90,10 @@ export function mapFuelSearchQueryToParam(fuelTypes: any) {
       searchQuery: 'Hydrogen Fuel Cell',
       param: 'Hybrid',
     },
+    {
+      searchQuery: 'Petrol/electric Hybrid',
+      param: 'PetrolAndElectricHybrid',
+    },
   ];
   return fuelTypes.map(
     (t: any) => types.find((f: any) => f.searchQuery === t)?.param || null,
