@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import base from 'paths.macro';
-import { vehicles } from 'core/organisms/comparator-bar/__tests__/ComparatorBar.spec';
+import vehiclesMock from './__mocks__/ComparatorBar.mock';
 import ComparatorBar from './ComparatorBar';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 
@@ -10,7 +10,7 @@ storiesOf(`${atomicDir(base)}/ComparatorBar`, module).add('Default', () => (
     <ComparatorBar
       deleteVehicle={() => {}}
       compareVehicles={() => {}}
-      vehicles={vehicles}
+      vehicles={vehiclesMock}
       setCompareVehicles={() => {}}
     />
   </div>
