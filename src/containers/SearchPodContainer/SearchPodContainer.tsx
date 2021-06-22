@@ -282,8 +282,6 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     }
   }, [actualVehicleData, activeIndex]);
 
-  console.log(searchType);
-
   useEffect(() => {
     if (searchType) {
       if (searchType === VehicleTypeEnum.LCV) {
