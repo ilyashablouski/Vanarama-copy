@@ -1,6 +1,7 @@
 import {
   GetVehicleDetails_derivativeInfo_colours,
   GetVehicleDetails_derivativeInfo_trims,
+  GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../generated/GetVehicleDetails';
 import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
@@ -45,6 +46,10 @@ export interface IOrderList {
   trims: (GetVehicleDetails_derivativeInfo_trims | null)[] | null | undefined;
   trim: number | null | undefined;
   pickups?: boolean;
+  warrantyDetails?:
+    | GetVehicleDetails_vehicleDetails_warrantyDetails
+    | null
+    | undefined;
 }
 
 export const getOrderList = ({
@@ -55,6 +60,7 @@ export const getOrderList = ({
   trims,
   trim,
   pickups,
+  warrantyDetails,
 }: IOrderList) => {
   const colourDescription = colours?.find(
     (item: GetVehicleDetails_derivativeInfo_colours | null) =>
@@ -134,6 +140,14 @@ export const getOrderList = ({
       id: 'stock',
       key: `${quoteByCapId?.leadTime}`,
       dataTestId: 'stock',
+      isOrange: false,
+    },
+    {
+      label: 'Warranty:',
+      value: `${warrantyDetails?.years} Years Manufactured Or ${warrantyDetails?.mileage} Milles`,
+      id: 'warranty',
+      key: `${warrantyDetails?.years} Years Manufactured Or ${warrantyDetails?.mileage} Milles`,
+      dataTestId: 'warranty',
       isOrange: false,
     },
     {

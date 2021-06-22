@@ -54,8 +54,8 @@ const AdditionalOptionsForm: React.FC<IAdditionalOptionsFormProps> = ({
         <Controller
           as={AdditionalOption}
           control={methods.control}
-          id="redundancy"
-          name="redundancy"
+          id="lossOfEarnings"
+          name="lossOfEarnings"
           title="FREE Loss Of Earnings & Life Event Cover"
           includedText="Included FREE"
           promotionText="FREE With Every Lease"

@@ -6,6 +6,7 @@ import {
 import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_leaseAdjustParams,
+  GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../../generated/GetVehicleDetails';
 import {
   GetQuoteDetails_quoteByCapId,
@@ -48,6 +49,7 @@ export interface IProps {
   mileage: number | null;
   setMileage: React.Dispatch<React.SetStateAction<number | null>>;
   pickups?: boolean;
+  warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
 }
 
 export interface IQuoteDataInputs {

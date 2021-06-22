@@ -34,14 +34,15 @@ const rules = [
     use: [MiniCssExtractPlugin.loader, 'css-loader'],
     include: [/node_modules/],
   },
-]
+];
 
-module.exports = async ({ config, mode }) => {
+module.exports = async ({ config }) => {
   config.module.rules.push(...rules);
   config.resolve.extensions.push('.tsx', '.ts', '.js', 'scss', '.scss', '.css', 'css', '.png', 'png');
   config.resolve.alias = {
     'core': path.resolve(__dirname, '../src/core/')
   }
+  config.resolve.roots = [path.resolve(__dirname, '../public/')];
 
   return config;
 };

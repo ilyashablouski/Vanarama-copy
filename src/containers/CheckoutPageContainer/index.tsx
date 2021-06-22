@@ -49,6 +49,11 @@ const createIncludedOptions = (values: IAdditionalOptionsFormValues) => [
     isVisible: values.monthlyMaintenance,
     key: '4',
   },
+  {
+    label: 'Free Loss Of Earnings & Life Event Cover',
+    isVisible: values.lossOfEarnings,
+    key: '5',
+  },
 ];
 
 const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
@@ -61,7 +66,8 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
   const router = useRouter();
   const methods = useForm<IAdditionalOptionsFormValues>({
     defaultValues: {
-      redundancy: false,
+      redundancy: true,
+      lossOfEarnings: true,
       freeInsurance:
         order.lineItems?.[0].vehicleProduct?.freeInsurance?.optIn || false,
       monthlyMaintenance: false,

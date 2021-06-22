@@ -80,7 +80,14 @@ export const generateUrlForBreadcrumb = (
         .join('/')
     );
   }
-  return pageData?.legacyUrl;
+
+  if (pageData?.legacyUrl?.charAt(0) === '/') {
+    throw new Error(
+      `Legacy URL shouldn't start with "/", check that the "Legacy URL" field in Contentful CMS is correct.`,
+    );
+  } else {
+    return pageData?.legacyUrl;
+  }
 };
 
 export const getProductPageBreadCrumb = (
@@ -106,6 +113,7 @@ export const getProductPageBreadCrumb = (
     const modelPage = genericPagesData?.find(
       el => el?.slug?.split('/').length === 4,
     );
+
     const makeLink = {
       link: {
         label: manufacturer?.name,
