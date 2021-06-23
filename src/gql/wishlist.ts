@@ -9,6 +9,7 @@ import {
   RemoveVehicleFromWishlistVariables,
 } from '../../generated/RemoveVehicleFromWishlist';
 import { GetWishlistVehicleIds } from '../../generated/GetWishlistVehicleIds';
+import { Nullish } from '../types/common';
 
 export const ADD_VEHICLE_TO_WISHLIST = gql`
   mutation AddVehicleToWishlist(
@@ -47,8 +48,8 @@ export const GET_WISHLIST_VEHICLE_IDS = gql`
 `;
 
 export const getWishlistVehicleIdsFromQuery = (
-  query: ApolloQueryResult<GetWishlistVehicleIds>,
-) => query.data.favouritesByPartyUuid ?? [];
+  query: ApolloQueryResult<Nullish<GetWishlistVehicleIds>>,
+) => query.data?.favouritesByPartyUuid ?? [];
 
 export function useAddVehicleToWishlistMutation() {
   return useMutation<AddVehicleToWishlist, AddVehicleToWishlistVariables>(
@@ -61,20 +62,4 @@ export function useRemoveVehicleFromWishlistMutation() {
     RemoveVehicleFromWishlist,
     RemoveVehicleFromWishlistVariables
   >(REMOVE_VEHICLE_FROM_WISHLIST);
-}
-
-export function makeAddVehicleToWishlistMutationMock(
-  partyUuid = '',
-  vehicleConfigurationIds: Array<string> = [],
-) {
-  return {
-    request: {
-      query: ADD_VEHICLE_TO_WISHLIST,
-      variables: {
-        vehicleConfigurationIds,
-        partyUuid,
-      },
-    },
-    result: {},
-  };
 }

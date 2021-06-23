@@ -4,6 +4,7 @@ import {
   GetVehicleConfigList,
   GetVehicleConfigList_vehicleConfigurationByConfigId,
 } from '../../generated/GetVehicleConfigList';
+import { Nullish } from '../types/common';
 
 export const GET_VEHICLE_CONFIG_LIST = gql`
   query GetVehicleConfigList($configIds: [String!]!) {
@@ -15,8 +16,8 @@ export const GET_VEHICLE_CONFIG_LIST = gql`
 `;
 
 export const getVehicleConfigListFromQuery = (
-  query: ApolloQueryResult<GetVehicleConfigList>,
-) => query.data.vehicleConfigurationByConfigId ?? [];
+  query: ApolloQueryResult<Nullish<GetVehicleConfigList>>,
+) => query.data?.vehicleConfigurationByConfigId ?? [];
 
 export const getVehicleConfigIdsFromConfigList = (
   configList: GetVehicleConfigList_vehicleConfigurationByConfigId[],
