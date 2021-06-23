@@ -2,13 +2,6 @@ import Cookies from 'js-cookie';
 import localForage from 'localforage';
 import { ApolloClient } from '@apollo/client';
 
-import { VehicleTypeEnum } from '../../generated/globalTypes';
-import { IWishlistProduct, IWishlistState } from '../types/wishlist';
-import { GET_VEHICLE_CONFIG_LIST } from '../gql/vehicleConfigList';
-import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
-import { formatProductPageUrl, getLegacyUrl } from './url';
-import { Nullish } from '../types/common';
-import { wishlistVar } from '../cache';
 import {
   GetProductCard,
   GetProductCardVariables,
@@ -18,6 +11,14 @@ import {
   GetVehicleConfigList,
   GetVehicleConfigListVariables,
 } from '../../generated/GetVehicleConfigList';
+import { VehicleTypeEnum } from '../../generated/globalTypes';
+import { IWishlistProduct, IWishlistState } from '../types/wishlist';
+import { GET_VEHICLE_CONFIG_LIST } from '../gql/vehicleConfigList';
+import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
+import { formatProductPageUrl, getLegacyUrl } from './url';
+import { getVehicleConfigId, parseVehicleConfigId } from './helpers';
+import { initialWishlistState, wishlistVar } from '../cache';
+import { Nullish } from '../types/common';
 
 export const getLocalWishlistState = async () => {
   const wishlistVehicleIds = await localForage.getItem('wishlistVehicleIds');
@@ -29,18 +30,6 @@ export const setLocalWishlistState = async (state: IWishlistState) => {
 };
 
 export const isWishlistEnabled = Cookies.get('DIG-6436') === '1';
-
-export const getVehicleConfigId = (product: Nullish<IWishlistProduct>) =>
-  `${product?.vehicleType}-${product?.capId}`;
-
-export const parseVehicleConfigId = (configId: string) => {
-  const [vehicleType, capId] = configId.split('-');
-
-  return { vehicleType, capId } as {
-    vehicleType: VehicleTypeEnum;
-    capId: string;
-  };
-};
 
 export const isWished = (
   wishlistVehicleIds: Array<string>,
@@ -95,6 +84,12 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
     }),
   );
 };
+
+export const resetWishlistState = () =>
+  wishlistVar({
+    ...initialWishlistState,
+    wishlistInitialized: true,
+  });
 
 export const getWishlistVehiclesData = async (
   client: ApolloClient<object>,

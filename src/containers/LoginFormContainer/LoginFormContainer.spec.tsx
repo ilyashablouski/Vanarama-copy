@@ -5,6 +5,7 @@ import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import LoginFormContainer, { GET_PERSON_QUERY } from './LoginFormContainer';
 import { makeLoginUserMutationMock } from './gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
+import { makeAddVehicleToWishlistMutationMock } from '../../gql/wishlist';
 import { GET_MY_ORDERS_DATA } from '../OrdersInformation/gql';
 
 const EMAIL = 'barry@chuckle.com';
@@ -17,7 +18,13 @@ const mocks: MockedResponse[] = [
       query: GET_PERSON_QUERY,
       variables: {},
     },
-    result: {},
+    result: {
+      data: {
+        getPerson: {
+          partyUuid: '',
+        },
+      },
+    },
   },
   {
     request: {
@@ -48,6 +55,7 @@ const mocks: MockedResponse[] = [
     },
     result: {},
   },
+  makeAddVehicleToWishlistMutationMock(),
 ];
 
 describe('<LoginFormContainer />', () => {

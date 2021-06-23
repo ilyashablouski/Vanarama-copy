@@ -1,8 +1,13 @@
 import { makeVar } from '@apollo/client';
 
+import { IPersonState } from './types/person';
 import { IWishlistState } from './types/wishlist';
 
-const initialWishlistState = {
+export const initialPersonState: IPersonState = {
+  personLoggedIn: false,
+  person: null,
+};
+export const initialWishlistState: IWishlistState = {
   wishlistInitialized: false,
   wishlistNoLongerAvailable: false,
   wishlistVehicleIds: [],
@@ -10,4 +15,5 @@ const initialWishlistState = {
 };
 
 export const isSessionFinishedCache = makeVar(false);
-export const wishlistVar = makeVar<IWishlistState>(initialWishlistState);
+export const wishlistVar = makeVar(initialWishlistState);
+export const personVar = makeVar(initialPersonState);

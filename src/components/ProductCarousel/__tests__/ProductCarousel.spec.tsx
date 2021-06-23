@@ -1,11 +1,15 @@
 import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { render, screen } from '@testing-library/react';
-import ProductCarousel from '../ProductCarousel';
+import { ApolloProvider } from '@apollo/client';
+
 import {
   LeaseTypeEnum,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
+import createApolloClient from '../../../apolloClient';
+
+import ProductCarousel from '../ProductCarousel';
 
 jest.mock('next/router', () => ({
   push: jest.fn(),
@@ -13,6 +17,8 @@ jest.mock('next/router', () => ({
     asPath: '/',
   }),
 }));
+
+const client = createApolloClient({});
 
 const PRODUCT_CARDS = [
   {
@@ -85,16 +91,18 @@ describe('<ProductCarousel />', () => {
     await preloadAll();
     jest.clearAllMocks();
     render(
-      <ProductCarousel
-        leaseType={LeaseTypeEnum.PERSONAL}
-        data={{
-          derivatives: DERIVATIVES,
-          productCard: PRODUCT_CARDS,
-          vehicleList: VEHICLE_LIST,
-        }}
-        countItems={6}
-        dataTestIdBtn="van-view-offer"
-      />,
+      <ApolloProvider client={client}>
+        <ProductCarousel
+          leaseType={LeaseTypeEnum.PERSONAL}
+          data={{
+            derivatives: DERIVATIVES,
+            productCard: PRODUCT_CARDS,
+            vehicleList: VEHICLE_LIST,
+          }}
+          countItems={6}
+          dataTestIdBtn="van-view-offer"
+        />
+      </ApolloProvider>,
     );
   });
 

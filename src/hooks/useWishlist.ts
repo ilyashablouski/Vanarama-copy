@@ -1,13 +1,14 @@
 import { useReactiveVar } from '@apollo/client';
 
-import {
-  isWished,
-  getVehicleConfigId,
-  setLocalWishlistState,
-} from '../utils/wishlistHelpers';
+import { personVar, wishlistVar } from '../cache';
+import { getVehicleConfigId } from '../utils/helpers';
+import { isWished, setLocalWishlistState } from '../utils/wishlistHelpers';
 import { IWishlistProduct } from '../types/wishlist';
 import { Nullish } from '../types/common';
-import { wishlistVar } from '../cache';
+import {
+  useAddVehicleToWishlistMutation,
+  useRemoveVehicleFromWishlistMutation,
+} from '../gql/wishlist';
 
 export default function useWishlist() {
   const {
@@ -17,8 +18,21 @@ export default function useWishlist() {
     wishlistNoLongerAvailable,
   } = useReactiveVar(wishlistVar);
 
+  const [addVehicleToWishlist] = useAddVehicleToWishlistMutation();
+  const [removeVehicleFromWishlist] = useRemoveVehicleFromWishlistMutation();
+
   function addToWishlist(product: IWishlistProduct) {
     const configId = getVehicleConfigId(product);
+
+    const { person } = personVar();
+    if (person?.partyUuid) {
+      addVehicleToWishlist({
+        variables: {
+          vehicleConfigurationIds: [configId],
+          partyUuid: person.partyUuid,
+        },
+      });
+    }
 
     return wishlistVar({
       ...wishlistVar(),
@@ -35,6 +49,16 @@ export default function useWishlist() {
     const newVehicleMap = { ...wishlistVehicleMap };
 
     delete newVehicleMap[configId];
+
+    const { person } = personVar();
+    if (person?.partyUuid) {
+      removeVehicleFromWishlist({
+        variables: {
+          vehicleConfigurationIds: [configId],
+          partyUuid: person.partyUuid,
+        },
+      });
+    }
 
     return wishlistVar({
       ...wishlistVar(),
