@@ -44,6 +44,7 @@ export interface CheckoutPageContainerProps {
 
 export interface OrderPanelProps {
   order: IOrderStorageData;
+  quote: GetQuoteDetails['quoteByCapId'];
   vehicleImage?: GetDerivative_vehicleImages | null;
   vehicleConfiguration?: GetDerivative['vehicleConfigurationByCapId'];
 }
