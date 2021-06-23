@@ -291,6 +291,18 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDeta
   totalPercentage: number | null;
 }
 
+export interface GetMyOrders_myOrders_lineItems_creditApplications_vatDetailsV2_markets {
+  country: string;
+  percentage: string;
+}
+
+export interface GetMyOrders_myOrders_lineItems_creditApplications_vatDetailsV2 {
+  markets: GetMyOrders_myOrders_lineItems_creditApplications_vatDetailsV2_markets[] | null;
+  outsideUk: boolean | null;
+  vatNumber: string | null;
+  vatRegistered: boolean | null;
+}
+
 export interface GetMyOrders_myOrders_lineItems_creditApplications_incomeAndExpensesV2 {
   uuid: string | null;
 }
@@ -314,7 +326,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications {
   directorsDetailsV2: GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2 | null;
   partnersDetails: any | null;
   soleTraderDetails: any | null;
-  vatDetails: any | null;
+  vatDetailsV2: GetMyOrders_myOrders_lineItems_creditApplications_vatDetailsV2 | null;
   incomeAndExpensesV2: GetMyOrders_myOrders_lineItems_creditApplications_incomeAndExpensesV2 | null;
   employmentHistoriesV2: GetMyOrders_myOrders_lineItems_creditApplications_employmentHistoriesV2[] | null;
   bankAccountsV2: GetMyOrders_myOrders_lineItems_creditApplications_bankAccountsV2[] | null;

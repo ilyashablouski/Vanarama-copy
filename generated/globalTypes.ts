@@ -78,6 +78,7 @@ export enum OpportunityTypeEnum {
  */
 export enum PartnerSlugTypeEnum {
   OVO = 'OVO',
+  HERMES = 'HERMES'
 }
 
 /**
@@ -105,6 +106,17 @@ export enum SortField {
 export enum VehicleTypeEnum {
   CAR = 'CAR',
   LCV = 'LCV',
+}
+
+export enum VehiclesTypeEnum {
+  CARS = 'CARS',
+  VANS = 'VANS',
+  PICKUPS = 'PICKUPS',
+}
+
+export enum VehicleSearchTypeEnum {
+  CARS = 'Cars',
+  VANS = 'Vans',
 }
 
 /**
@@ -790,6 +802,7 @@ export interface VehicleProductInputObject {
   trim?: string | null;
   vehicleType: VehicleTypeEnum;
   vsku?: string | null;
+  vehicleValue?: number | null;
 }
 
 export interface VehicleToCompare {
