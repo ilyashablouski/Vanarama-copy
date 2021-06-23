@@ -107,24 +107,27 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
   );
 };
 
-export const resetWishlistNoLongerAvailable = () =>
+export const resetWishlistNoLongerAvailable = () => {
   wishlistVar({
     ...wishlistVar(),
     wishlistNoLongerAvailable: false,
   });
+};
 
-export const updateWishlistState = (wishlistVehicleIds: Array<string>) =>
+export const updateWishlistState = (wishlistVehicleIds: Array<string>) => {
   wishlistVar({
     ...wishlistVar(),
     wishlistInitialized: !wishlistVehicleIds.length,
     wishlistVehicleIds,
   });
+};
 
-export const resetWishlistState = () =>
+export const resetWishlistState = () => {
   wishlistVar({
     ...initialWishlistState,
     wishlistInitialized: true,
   });
+};
 
 export const getWishlistVehiclesData = async (
   client: ApolloClient<object>,
