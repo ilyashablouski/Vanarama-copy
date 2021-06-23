@@ -85,9 +85,9 @@ const OrderPanel: React.FC<OrderPanelProps> = ({
               </li>
             ))}
           </List>
-          <Text className="breakdown-terms" tag="p" color="black">
+          <p className="breakdown-terms">
             * After We&lsquo;ve Received Your E-Signed Documents
-          </Text>
+          </p>
         </div>
       </div>
     </div>
