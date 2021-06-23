@@ -39,6 +39,12 @@ export const REMOVE_VEHICLE_FROM_WISHLIST = gql`
   }
 `;
 
+export const GET_WISHLIST_VEHICLE_IDS = gql`
+  query GetWishlistVehicleIds($partyUuid: ID!) {
+    favouritesByPartyUuid(partyUuid: $partyUuid)
+  }
+`;
+
 export function useAddVehicleToWishlistMutation() {
   return useMutation<AddVehicleToWishlist, AddVehicleToWishlistVariables>(
     ADD_VEHICLE_TO_WISHLIST,
