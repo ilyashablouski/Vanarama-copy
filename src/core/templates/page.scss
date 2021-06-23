@@ -172,6 +172,7 @@
       &--flag {
         @include card-flag;
         z-index: 3;
+        min-height: 26px;
         border-top-left-radius: $border-radius-medium;
         border-top-right-radius: $border-radius-medium;
         overflow: hidden;
