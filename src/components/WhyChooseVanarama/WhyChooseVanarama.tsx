@@ -40,9 +40,8 @@ const ACCORDION_ITEMS = [
     children: (
       <>
         If you change your mind up to 30 days after your vehicle has been
-        delivered, you don’t have to worry! As long as haven&apos;t exceeded
-        your mileage by 50 miles, we’ll collect it from wherever you are, free
-        of charge.{' '}
+        delivered, you don’t have to worry! As long as haven&apos;t done more
+        than 50 miles, we’ll collect it from wherever you are, free of charge.{' '}
         <RouterLink
           dataTestId="terms_and_conditions"
           link={{
