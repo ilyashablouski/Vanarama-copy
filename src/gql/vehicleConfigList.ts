@@ -1,5 +1,9 @@
 import { ApolloQueryResult, gql } from '@apollo/client';
-import { GetVehicleConfigList } from '../../generated/GetVehicleConfigList';
+
+import {
+  GetVehicleConfigList,
+  GetVehicleConfigList_vehicleConfigurationByConfigId,
+} from '../../generated/GetVehicleConfigList';
 
 export const GET_VEHICLE_CONFIG_LIST = gql`
   query GetVehicleConfigList($configIds: [String!]!) {
@@ -13,3 +17,7 @@ export const GET_VEHICLE_CONFIG_LIST = gql`
 export const getVehicleConfigListFromQuery = (
   query: ApolloQueryResult<GetVehicleConfigList>,
 ) => query.data.vehicleConfigurationByConfigId ?? [];
+
+export const getVehicleConfigIdsFromConfigList = (
+  configList: GetVehicleConfigList_vehicleConfigurationByConfigId[],
+) => configList.map(config => config.configId);

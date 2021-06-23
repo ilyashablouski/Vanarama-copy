@@ -31,8 +31,10 @@ import { IWishlistProduct, IWishlistState } from '../types/wishlist';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { Nullish } from '../types/common';
 
-export const getLocalWishlistState = () =>
-  localForage.getItem<Array<string>>('wishlistVehicleIds');
+export const getLocalWishlistState = async () => {
+  const wishlistVehicleIds = await localForage.getItem('wishlistVehicleIds');
+  return (wishlistVehicleIds ?? []) as Array<string>;
+};
 
 export const setLocalWishlistState = (state: IWishlistState) =>
   localForage.setItem('wishlistVehicleIds', state.wishlistVehicleIds);
@@ -75,7 +77,7 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
     );
   }
 
-  if (!wishlistVehicleIds?.length) {
+  if (!wishlistVehicleIds.length) {
     return wishlistVar({
       ...wishlistVar(),
       wishlistNoLongerAvailable: false,
@@ -111,11 +113,22 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
   );
 };
 
+export const updateWishlistState = (wishlistVehicleIds: Array<string>) =>
+  setLocalWishlistState(
+    wishlistVar({
+      ...wishlistVar(),
+      wishlistInitialized: !wishlistVehicleIds.length,
+      wishlistVehicleIds,
+    }),
+  );
+
 export const resetWishlistState = () =>
-  wishlistVar({
-    ...initialWishlistState,
-    wishlistInitialized: true,
-  });
+  setLocalWishlistState(
+    wishlistVar({
+      ...initialWishlistState,
+      wishlistInitialized: true,
+    }),
+  );
 
 export const getWishlistVehiclesData = async (
   client: ApolloClient<object>,
