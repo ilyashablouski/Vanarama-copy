@@ -3,6 +3,7 @@ import cx from 'classnames';
 import Text from 'core/atoms/text';
 import Tooltip from 'core/atoms/tooltip';
 import ToggleSwitch from 'core/atoms/toggle/ToggleSwitch';
+import Icon from 'core/atoms/icon';
 
 import { IAdditionalOptionProps } from './interfaces';
 
@@ -18,6 +19,7 @@ const AdditionalOption: FC<IAdditionalOptionProps> = forwardRef<
     tooltipText,
     includedText,
     promotionText,
+    onTooltipClick,
     ...args
   } = props;
 
@@ -25,7 +27,10 @@ const AdditionalOption: FC<IAdditionalOptionProps> = forwardRef<
     <div className={cx('add-on', className, { '-added': props.checked })}>
       <Text tag="span">
         {title}
-        <Tooltip text={tooltipText} color="orange" position="center" />
+        <Icon
+          onClick={onTooltipClick}
+          icon={<Tooltip text={tooltipText} position="center" />}
+        />
         <Text tag="span" className="included">
           {includedText}
         </Text>
