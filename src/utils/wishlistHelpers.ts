@@ -49,12 +49,6 @@ export const isWished = (
     return configId === getVehicleConfigId(product);
   });
 
-export const resetWishlistNoLongerAvailable = () =>
-  wishlistVar({
-    ...wishlistVar(),
-    wishlistNoLongerAvailable: false,
-  });
-
 export const initializeWishlistState = async (client: ApolloClient<object>) => {
   const { person } = personVar();
   let wishlistVehicleIds: Array<string>;
@@ -113,22 +107,24 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
   );
 };
 
+export const resetWishlistNoLongerAvailable = () =>
+  wishlistVar({
+    ...wishlistVar(),
+    wishlistNoLongerAvailable: false,
+  });
+
 export const updateWishlistState = (wishlistVehicleIds: Array<string>) =>
-  setLocalWishlistState(
-    wishlistVar({
-      ...wishlistVar(),
-      wishlistInitialized: !wishlistVehicleIds.length,
-      wishlistVehicleIds,
-    }),
-  );
+  wishlistVar({
+    ...wishlistVar(),
+    wishlistInitialized: !wishlistVehicleIds.length,
+    wishlistVehicleIds,
+  });
 
 export const resetWishlistState = () =>
-  setLocalWishlistState(
-    wishlistVar({
-      ...initialWishlistState,
-      wishlistInitialized: true,
-    }),
-  );
+  wishlistVar({
+    ...initialWishlistState,
+    wishlistInitialized: true,
+  });
 
 export const getWishlistVehiclesData = async (
   client: ApolloClient<object>,
