@@ -113,7 +113,7 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
       <div
         className="accordion--content"
       >
-        If you change your mind up to 30 days after your vehicle has been delivered, you don’t have to worry! As long as haven't exceeded your mileage by 50 miles, we’ll collect it from wherever you are, free of charge.
+        If you change your mind up to 30 days after your vehicle has been delivered, you don’t have to worry! As long as haven't done more than 50 miles, we’ll collect it from wherever you are, free of charge.
          
         <a
           className="link -teal -regular"
