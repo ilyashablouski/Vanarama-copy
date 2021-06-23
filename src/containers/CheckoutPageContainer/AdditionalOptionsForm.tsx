@@ -19,13 +19,13 @@ const AdditionalOptionsForm: React.FC<IAdditionalOptionsFormProps> = ({
   const maintenancePriceLabel = useMemo(
     () =>
       `£${quote?.maintenanceCost?.monthlyRental} ${
-        isPersonalPrice ? 'Inc' : 'Exc'
+        isPersonalPrice ? 'inc.' : 'exc.'
       } VAT`,
     [isPersonalPrice],
   );
 
   return (
-    <Form style={{ maxWidth: 'none' }}>
+    <Form style={{ maxWidth: 'none', gap: 0 }}>
       {isCar && (
         <Controller
           as={AdditionalOption}
