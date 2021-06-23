@@ -4,8 +4,10 @@ import {
   GetVehicleDetails_vehicleDetails_roadsideAssistance,
   GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../generated/GetVehicleDetails';
+import { GetProductCard_productCard } from '../../generated/GetProductCard';
 import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
+import { Nullish } from '../types/common';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
@@ -208,4 +210,17 @@ export const arrayIsEqual = (
     secondArray = second.sort((a, b) => a[sortByKey] - b[sortByKey]);
   }
   return JSON.stringify(firstArray) === JSON.stringify(secondArray);
+};
+
+export const getVehicleConfigId = (
+  product: Nullish<GetProductCard_productCard>,
+) => `${product?.vehicleType}-${product?.capId}`;
+
+export const parseVehicleConfigId = (configId: string) => {
+  const [vehicleType, capId] = configId.split('-');
+
+  return { vehicleType, capId } as {
+    vehicleType: VehicleTypeEnum;
+    capId: string;
+  };
 };

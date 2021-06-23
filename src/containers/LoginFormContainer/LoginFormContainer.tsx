@@ -18,6 +18,13 @@ import {
   GetCompaniesByPersonUuidVariables,
 } from '../../../generated/GetCompaniesByPersonUuid';
 import { ILoginFormValues } from '../../components/LoginForm/interfaces';
+import {
+  setPersonLoggedIn,
+  setLocalPersonState,
+} from '../../utils/personHelpers';
+import { getLocalWishlistState } from '../../utils/wishlistHelpers';
+import { useAddVehicleToWishlistMutation } from '../../gql/wishlist';
+import { Nullish } from '../../types/common';
 
 export const filterExistingUuids = (personUuid: string | undefined = '') => (
   uuids: string[] | undefined = [],
@@ -44,8 +51,10 @@ export const saveOrders = ([ordersQuery, quotesQuery]: ApolloQueryResult<
     ),
   ]);
 
-export const savePerson = (getPersonQuery: ApolloQueryResult<GetPerson>) =>
-  localForage.setItem<GetPerson | undefined>('person', getPersonQuery.data);
+export const savePerson = (getPersonQuery: ApolloQueryResult<GetPerson>) => {
+  setPersonLoggedIn(getPersonQuery.data);
+  return setLocalPersonState(getPersonQuery.data);
+};
 
 export const GET_PERSON_QUERY = gql`
   query GetPerson {
@@ -67,6 +76,7 @@ const LoginFormContainer = ({
   onError,
 }: ILogInFormContainerProps) => {
   const [login, { loading, error }] = useLoginUserMutation();
+  const [addVehiclesToWishlist] = useAddVehicleToWishlistMutation();
   const getOrdersData = useImperativeQuery<GetMyOrders, GetMyOrdersVariables>(
     GET_MY_ORDERS_DATA,
   );
@@ -103,6 +113,16 @@ const LoginFormContainer = ({
       }),
     ]);
 
+  const saveWishlist = (partyUuid: Nullish<string>) => (
+    vehicleConfigurationIds: Array<string>,
+  ) =>
+    addVehiclesToWishlist({
+      variables: {
+        vehicleConfigurationIds,
+        partyUuid: partyUuid ?? '',
+      },
+    });
+
   const handleLoginComplete = useCallback(
     values =>
       requestLogin(values)
@@ -114,8 +134,14 @@ const LoginFormContainer = ({
             .then(filterExistingUuids(personQuery.data?.getPerson?.partyUuid))
             .then(requestOrders)
             .then(saveOrders)
-            .then(() => onCompleted?.(personQuery?.data?.getPerson)),
+            .then(() => personQuery),
         )
+        .then(personQuery =>
+          getLocalWishlistState()
+            .then(saveWishlist(personQuery.data.getPerson?.partyUuid))
+            .then(() => personQuery),
+        )
+        .then(personQuery => onCompleted?.(personQuery?.data?.getPerson))
         .then(() => {})
         .catch(onError),
     [],

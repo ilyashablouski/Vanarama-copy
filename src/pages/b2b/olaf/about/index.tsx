@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useRef } from 'react';
 import dynamic from 'next/dynamic';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
-import localForage from 'localforage';
 import * as toast from 'core/atoms/toast/Toast';
 import withApollo from '../../../../hocs/withApollo';
 import OLAFLayout from '../../../../layouts/OLAFLayout/OLAFLayout';
@@ -12,13 +11,13 @@ import LoginFormContainer from '../../../../containers/LoginFormContainer/LoginF
 import BusinessAboutFormContainer from '../../../../containers/BusinessAboutFormContainer';
 import { SubmitResult } from '../../../../containers/BusinessAboutFormContainer/interfaces';
 import { CompanyTypes } from '../../../../models/enum/CompanyTypes';
-import { GetPerson } from '../../../../../generated/GetPerson';
 import {
   pushAboutYouDataLayer,
   pushAuthorizationEventDataLayer,
 } from '../../../../utils/dataLayerHelpers';
 import { GetDerivative_derivative as IDerivative } from '../../../../../generated/GetDerivative';
 import { OrderInputObject } from '../../../../../generated/globalTypes';
+import usePerson from '../../../../hooks/usePerson';
 import useGetOrderId from '../../../../hooks/useGetOrderId';
 import Skeleton from '../../../../components/Skeleton';
 
@@ -56,9 +55,14 @@ export const BusinessAboutPage: NextPage = () => {
 
   const loginFormRef = useRef<HTMLDivElement>(null);
 
+  const {
+    personUuid,
+    setPersonUuid,
+    personLoggedIn,
+    setPersonLoggedIn,
+  } = usePerson();
+
   const [isLogInVisible, toggleLogInVisibility] = useState(false);
-  const [personUuid, setPersonUuid] = useState<string | undefined>();
-  const [personLoggedIn, setPersonLoggedIn] = useState<boolean>(false);
   const [detailsData, setDetailsData] = useState<OrderInputObject | null>(null);
   const [derivativeData, setDerivativeData] = useState<IDerivative | null>(
     null,
@@ -84,21 +88,6 @@ export const BusinessAboutPage: NextPage = () => {
 
     router.push(url, url.replace('[companyUuid]', companyUuid || ''));
   };
-
-  useEffect(() => {
-    Promise.all([
-      localForage.getItem<GetPerson>('person'),
-      localForage.getItem<string>('personUuid'),
-    ]).then(([person, savedPersonUuid]) => {
-      if (person?.getPerson && !personUuid) {
-        setPersonUuid(person.getPerson?.uuid);
-        setPersonLoggedIn(true);
-      } else if (savedPersonUuid && !personUuid) {
-        setPersonUuid(savedPersonUuid);
-        setPersonLoggedIn(false);
-      }
-    });
-  }, [personUuid]);
 
   return (
     <OLAFLayout
