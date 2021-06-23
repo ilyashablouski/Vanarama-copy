@@ -1,6 +1,6 @@
-import { gql } from '@apollo/client';
+import { ApolloQueryResult, gql } from '@apollo/client';
+import { GetVehicleConfigList } from '../../generated/GetVehicleConfigList';
 
-/* eslint-disable import/prefer-default-export */
 export const GET_VEHICLE_CONFIG_LIST = gql`
   query GetVehicleConfigList($configIds: [String!]!) {
     vehicleConfigurationByConfigId(configIds: $configIds) {
@@ -9,3 +9,7 @@ export const GET_VEHICLE_CONFIG_LIST = gql`
     }
   }
 `;
+
+export const getVehicleConfigListFromQuery = (
+  query: ApolloQueryResult<GetVehicleConfigList>,
+) => query.data.vehicleConfigurationByConfigId ?? [];

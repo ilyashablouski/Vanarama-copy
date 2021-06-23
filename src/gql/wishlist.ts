@@ -1,4 +1,4 @@
-import { gql, useMutation } from '@apollo/client';
+import { ApolloQueryResult, gql, useMutation } from '@apollo/client';
 
 import {
   AddVehicleToWishlist,
@@ -8,6 +8,7 @@ import {
   RemoveVehicleFromWishlist,
   RemoveVehicleFromWishlistVariables,
 } from '../../generated/RemoveVehicleFromWishlist';
+import { GetWishlistVehicleIds } from '../../generated/GetWishlistVehicleIds';
 
 export const ADD_VEHICLE_TO_WISHLIST = gql`
   mutation AddVehicleToWishlist(
@@ -44,6 +45,10 @@ export const GET_WISHLIST_VEHICLE_IDS = gql`
     favouritesByPartyUuid(partyUuid: $partyUuid)
   }
 `;
+
+export const getWishlistVehicleIdsFromQuery = (
+  query: ApolloQueryResult<GetWishlistVehicleIds>,
+) => query.data.favouritesByPartyUuid ?? [];
 
 export function useAddVehicleToWishlistMutation() {
   return useMutation<AddVehicleToWishlist, AddVehicleToWishlistVariables>(

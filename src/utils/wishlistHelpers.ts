@@ -1,6 +1,6 @@
 import Cookies from 'js-cookie';
 import localForage from 'localforage';
-import { ApolloClient, ApolloQueryResult } from '@apollo/client';
+import { ApolloClient } from '@apollo/client';
 
 import {
   GetProductCard,
@@ -15,8 +15,14 @@ import {
   GetWishlistVehicleIds,
   GetWishlistVehicleIdsVariables,
 } from '../../generated/GetWishlistVehicleIds';
-import { GET_WISHLIST_VEHICLE_IDS } from '../gql/wishlist';
-import { GET_VEHICLE_CONFIG_LIST } from '../gql/vehicleConfigList';
+import {
+  GET_WISHLIST_VEHICLE_IDS,
+  getWishlistVehicleIdsFromQuery,
+} from '../gql/wishlist';
+import {
+  GET_VEHICLE_CONFIG_LIST,
+  getVehicleConfigListFromQuery,
+} from '../gql/vehicleConfigList';
 import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
 import { formatProductPageUrl, getLegacyUrl } from './url';
 import { getVehicleConfigId, parseVehicleConfigId } from './helpers';
@@ -47,14 +53,6 @@ export const resetWishlistNoLongerAvailable = () =>
     wishlistNoLongerAvailable: false,
   });
 
-export const getWishlistVehiclesIdsFromQuery = (
-  query: ApolloQueryResult<GetWishlistVehicleIds>,
-) => query.data.favouritesByPartyUuid ?? [];
-
-export const getVehicleConfigListFromQuery = (
-  query: ApolloQueryResult<GetVehicleConfigList>,
-) => query.data.vehicleConfigurationByConfigId ?? [];
-
 export const initializeWishlistState = async (client: ApolloClient<object>) => {
   const { person } = personVar();
   let wishlistVehicleIds: Array<string>;
@@ -72,7 +70,7 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
       },
     });
 
-    wishlistVehicleIds = getWishlistVehiclesIdsFromQuery(
+    wishlistVehicleIds = getWishlistVehicleIdsFromQuery(
       savedWishlistVehicleIds,
     );
   }
