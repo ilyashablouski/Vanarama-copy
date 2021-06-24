@@ -111,7 +111,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
         error={errors.tradingName?.message?.toString()}
       >
         <TextInput
-          id="tradingName"
+          id="trading-name"
           name="tradingName"
           dataTestId="sole-trader-company-details_trading-name"
           ref={register(
