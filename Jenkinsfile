@@ -120,9 +120,12 @@ def createReleaseBranch(appEnvironment, sourceBranch) {
 def getDockerTagName() {
     if ( "${branchName}" =~ "hotfix/*" ) {
         return "${branchName}".replace("hotfix/", "hotfix-H${env.CHANGE_ID}-B${env.BUILD_NUMBER}-")
+    } else if ( "${branchName}" =~ "release/*" ) {
+        return "${branchName}".replace('/', '-')
     } else {
-        def cleanBranchName = "${branchName}".replace('/', '-')
-        return "${cleanBranchName}"
+        // for develop, create artifact following this format - develop-B<build-no>-<date>
+        def dateNow = new Date()
+        return "${branchName}-D${env.BUILD_NUMBER}-${dateNow.format('ddMMyyyy')}".replace('/', '-')
     }
 }
 
@@ -278,7 +281,7 @@ pipeline {
             when {
                 beforeAgent true
                 anyOf {
-                  branch 'develop'
+                  // branch 'develop'
                   branch 'release/*'
                 }
             }
@@ -341,7 +344,7 @@ pipeline {
             when {
                   beforeAgent true
                   anyOf {
-                    branch 'develop'
+                    // branch 'develop'
                     branch 'release/*'
                   }
               }
@@ -430,7 +433,7 @@ pipeline {
                   beforeAgent true
                   beforeInput true
                   anyOf {
-                    branch 'develop'
+                    // branch 'develop'
                     branch 'release/*'
                   }
                   expression { terraformHasChange == true }
