@@ -48,17 +48,15 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
 
   React.useMemo(() => {
     if (initialCompanyDetails) {
-      setMappedCompanyDetails(preloadedValuesToInput(initialCompanyDetails));
+      const preloadedFormValues = preloadedValuesToInput(initialCompanyDetails);
+      const initNatureOfBusiness = preloadedFormValues?.nature?.split(
+        NATURE_OF_BUSINESS_SEPARATOR,
+      );
+
+      setNatureOfBusiness(initNatureOfBusiness ?? []);
+      setMappedCompanyDetails(preloadedFormValues);
     }
   }, [initialCompanyDetails]);
-
-  useEffect(() => {
-    if (mappedCompanyDetails) {
-      setNatureOfBusiness(
-        mappedCompanyDetails?.nature?.split(NATURE_OF_BUSINESS_SEPARATOR) || [],
-      );
-    }
-  }, [mappedCompanyDetails]);
 
   const handleSoleTraderCompanyDetailsSave = (
     values: ISoleTraderCompanyDetailsFormValues,
