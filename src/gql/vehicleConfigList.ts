@@ -1,6 +1,11 @@
-import { gql } from '@apollo/client';
+import { ApolloQueryResult, gql } from '@apollo/client';
 
-/* eslint-disable import/prefer-default-export */
+import {
+  GetVehicleConfigList,
+  GetVehicleConfigList_vehicleConfigurationByConfigId,
+} from '../../generated/GetVehicleConfigList';
+import { Nullish } from '../types/common';
+
 export const GET_VEHICLE_CONFIG_LIST = gql`
   query GetVehicleConfigList($configIds: [String!]!) {
     vehicleConfigurationByConfigId(configIds: $configIds) {
@@ -9,3 +14,11 @@ export const GET_VEHICLE_CONFIG_LIST = gql`
     }
   }
 `;
+
+export const getVehicleConfigListFromQuery = (
+  query: ApolloQueryResult<Nullish<GetVehicleConfigList>>,
+) => query.data?.vehicleConfigurationByConfigId ?? [];
+
+export const getVehicleConfigIdsFromConfigList = (
+  configList: GetVehicleConfigList_vehicleConfigurationByConfigId[],
+) => configList.map(config => config.configId);

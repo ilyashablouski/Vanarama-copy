@@ -11,13 +11,24 @@ import {
   GetVehicleConfigList,
   GetVehicleConfigListVariables,
 } from '../../generated/GetVehicleConfigList';
-import { VehicleTypeEnum } from '../../generated/globalTypes';
-import { IWishlistProduct, IWishlistState } from '../types/wishlist';
-import { GET_VEHICLE_CONFIG_LIST } from '../gql/vehicleConfigList';
+import {
+  GetWishlistVehicleIds,
+  GetWishlistVehicleIdsVariables,
+} from '../../generated/GetWishlistVehicleIds';
+import {
+  GET_WISHLIST_VEHICLE_IDS,
+  getWishlistVehicleIdsFromQuery,
+} from '../gql/wishlist';
+import {
+  GET_VEHICLE_CONFIG_LIST,
+  getVehicleConfigListFromQuery,
+} from '../gql/vehicleConfigList';
 import { GET_PRODUCT_CARDS_DATA } from '../containers/CustomerAlsoViewedContainer/gql';
 import { formatProductPageUrl, getLegacyUrl } from './url';
 import { getVehicleConfigId, parseVehicleConfigId } from './helpers';
-import { initialWishlistState, wishlistVar } from '../cache';
+import { initialWishlistState, personVar, wishlistVar } from '../cache';
+import { IWishlistProduct, IWishlistState } from '../types/wishlist';
+import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { Nullish } from '../types/common';
 
 export const getLocalWishlistState = async () => {
@@ -25,9 +36,8 @@ export const getLocalWishlistState = async () => {
   return (wishlistVehicleIds ?? []) as Array<string>;
 };
 
-export const setLocalWishlistState = async (state: IWishlistState) => {
-  await localForage.setItem('wishlistVehicleIds', state.wishlistVehicleIds);
-};
+export const setLocalWishlistState = (state: IWishlistState) =>
+  localForage.setItem('wishlistVehicleIds', state.wishlistVehicleIds);
 
 export const isWishlistEnabled = Cookies.get('DIG-6436') === '1';
 
@@ -39,15 +49,27 @@ export const isWished = (
     return configId === getVehicleConfigId(product);
   });
 
-export const resetWishlistNoLongerAvailable = () => {
-  wishlistVar({
-    ...wishlistVar(),
-    wishlistNoLongerAvailable: false,
-  });
-};
-
 export const initializeWishlistState = async (client: ApolloClient<object>) => {
-  const wishlistVehicleIds = await getLocalWishlistState();
+  const { person } = personVar();
+  let wishlistVehicleIds: Array<string>;
+
+  if (!person?.partyUuid) {
+    wishlistVehicleIds = await getLocalWishlistState();
+  } else {
+    const savedWishlistVehicleIds = await client.query<
+      GetWishlistVehicleIds,
+      GetWishlistVehicleIdsVariables
+    >({
+      query: GET_WISHLIST_VEHICLE_IDS,
+      variables: {
+        partyUuid: person.partyUuid,
+      },
+    });
+
+    wishlistVehicleIds = getWishlistVehicleIdsFromQuery(
+      savedWishlistVehicleIds,
+    );
+  }
 
   if (!wishlistVehicleIds.length) {
     return wishlistVar({
@@ -68,7 +90,7 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
   });
 
   const resultWishlistVehicleIds = wishlistVehicleIds.filter(configId =>
-    vehicleConfigList.data.vehicleConfigurationByConfigId?.some(
+    getVehicleConfigListFromQuery(vehicleConfigList).some(
       vehicleConfiguration =>
         vehicleConfiguration.configId === configId &&
         vehicleConfiguration.published,
@@ -85,11 +107,27 @@ export const initializeWishlistState = async (client: ApolloClient<object>) => {
   );
 };
 
-export const resetWishlistState = () =>
+export const resetWishlistNoLongerAvailable = () => {
+  wishlistVar({
+    ...wishlistVar(),
+    wishlistNoLongerAvailable: false,
+  });
+};
+
+export const updateWishlistState = (wishlistVehicleIds: Array<string>) => {
+  wishlistVar({
+    ...wishlistVar(),
+    wishlistInitialized: !wishlistVehicleIds.length,
+    wishlistVehicleIds,
+  });
+};
+
+export const resetWishlistState = () => {
   wishlistVar({
     ...initialWishlistState,
     wishlistInitialized: true,
   });
+};
 
 export const getWishlistVehiclesData = async (
   client: ApolloClient<object>,
@@ -99,8 +137,8 @@ export const getWishlistVehiclesData = async (
     ...wishlistVar().wishlistVehicleMap,
   };
 
-  const getVehicleDataPromise = (requestVehicleType: VehicleTypeEnum) => {
-    return client.query<GetProductCard, GetProductCardVariables>({
+  const getVehicleDataPromise = (requestVehicleType: VehicleTypeEnum) =>
+    client.query<GetProductCard, GetProductCardVariables>({
       query: GET_PRODUCT_CARDS_DATA,
       variables: {
         vehicleType: requestVehicleType,
@@ -113,7 +151,6 @@ export const getWishlistVehiclesData = async (
         }, [] as Array<string>),
       },
     });
-  };
 
   const vehicleDataList = await Promise.allSettled([
     getVehicleDataPromise(VehicleTypeEnum.LCV),
