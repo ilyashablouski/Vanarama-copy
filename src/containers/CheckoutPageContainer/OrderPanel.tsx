@@ -18,7 +18,7 @@ const generateListItems = (
     label: 'Contract Type: ',
     description:
       quote?.leaseType === LeaseTypeEnum.PERSONAL
-        ? 'Personal Contract'
+        ? 'Personal Contract Hire'
         : 'Contract Hire',
   },
   {
