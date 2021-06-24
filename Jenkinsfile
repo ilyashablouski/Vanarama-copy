@@ -125,7 +125,7 @@ def getDockerTagName() {
     } else {
         // for develop, create artifact following this format - develop-B<build-no>-<date>
         def dateNow = new Date()
-        return "${branchName}-B${env.BUILD_NUMBER}-${dateNow.format('ddMMyyyy')}".replace('/', '-')
+        return "${branchName}-D${env.BUILD_NUMBER}-${dateNow.format('ddMMyyyy')}".replace('/', '-')
     }
 }
 
