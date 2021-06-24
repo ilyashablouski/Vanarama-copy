@@ -133,7 +133,7 @@
     "@types/yup": "^0.26.34",
     "@typescript-eslint/eslint-plugin": "^4.21.0",
     "@wojtekmaj/enzyme-adapter-react-17": "^0.6.0",
-    "apollo": "^2.32.1",
+    "apollo": "^2.33.4",
     "babel-jest": "^24.9.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-dynamic-import-node": "^2.3.3",
