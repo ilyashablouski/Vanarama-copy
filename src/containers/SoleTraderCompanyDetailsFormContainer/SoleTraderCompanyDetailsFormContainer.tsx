@@ -13,7 +13,7 @@ import { useCreateUpdateOrder } from '../../gql/order';
 import {
   mapCreateUpdteApplicationData,
   mapFormValues,
-  prelodedValuesToInput,
+  preloadedValuesToInput,
 } from './mappers';
 import { UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany as Company } from '../../../generated/UpdateSoleTraderCompanyMutation';
 import Skeleton from '../../components/Skeleton';
@@ -48,7 +48,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
 
   React.useMemo(() => {
     if (initialCompanyDetails) {
-      setMappedCompanyDetails(prelodedValuesToInput(initialCompanyDetails));
+      setMappedCompanyDetails(preloadedValuesToInput(initialCompanyDetails));
     }
   }, [initialCompanyDetails]);
 

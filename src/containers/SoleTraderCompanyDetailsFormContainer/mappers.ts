@@ -62,33 +62,33 @@ export const mapCreateUpdteApplicationData = (
   uuid: companyData?.uuid,
 });
 
-export const prelodedValuesToInput = (details: {
+export const preloadedValuesToInput = (details: {
   [key: string]: any;
 }): ISoleTraderCompanyDetailsFormValues => {
   const tradingAddress = details.addresses
     ? {
         tradingAddress: {
-          label: details.addresses[0].line_one,
-          id: details.addresses[0].service_id,
+          label: details.addresses[0].lineOne,
+          id: details.addresses[0].serviceId,
         },
       }
     : null;
 
   return {
-    tradingName: details.business_name,
+    tradingName: details.businessName,
     ...tradingAddress,
-    nature: details.nature_of_business,
-    tradingSinceYear: String(new Date(details.trading_since).getFullYear()),
-    tradingSinceMonth: String(new Date(details.trading_since).getMonth() + 1),
-    businessTelephoneNumber: details.telephone_numbers?.[0].value,
-    email: details.email_addresses?.[0].value,
-    annualTurnover: String(details.annual_turnover || ''),
-    annualCostOfSales: String(details.annual_sales_cost || ''),
-    annualExpenses: String(details.annual_expenses || ''),
-    vehicleRegistrationNumber: details.vehicle_registration_number,
+    nature: details.natureOfBusiness,
+    tradingSinceYear: String(new Date(details.tradingSince).getFullYear()),
+    tradingSinceMonth: String(new Date(details.tradingSince).getMonth() + 1),
+    businessTelephoneNumber: details.telephoneNumbers?.[0].value,
+    email: details.emailAddresses?.[0].value,
+    annualTurnover: String(details.annualTurnover || ''),
+    annualCostOfSales: String(details.annualSalesCost || ''),
+    annualExpenses: String(details.annualExpenses || ''),
+    vehicleRegistrationNumber: details.vehicleRegistrationNumber,
     existingFinanceReplacement: '',
     monthlyAmountBeingReplaced: String(
-      details.monthly_amount_being_replaced || '',
+      details.monthlyAmountBeingReplaced || '',
     ),
   };
 };

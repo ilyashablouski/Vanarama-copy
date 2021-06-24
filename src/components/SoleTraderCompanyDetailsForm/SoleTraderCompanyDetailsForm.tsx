@@ -106,12 +106,12 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
         Company Details
       </Heading>
       <Formgroup
-        controlId="tradingName"
         label="Trading Name"
+        controlId="tradingName"
         error={errors.tradingName?.message?.toString()}
       >
         <TextInput
-          id="trading-name"
+          id="tradingName"
           name="tradingName"
           dataTestId="sole-trader-company-details_trading-name"
           ref={register(
@@ -269,7 +269,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
           name="existingVehicle"
           label="Will this replace vehicle finance you have currently?"
           ref={register}
-          defaultChecked={defaultValues?.monthlyAmountBeingReplaced !== ''}
+          defaultChecked={defaultValues?.monthlyAmountBeingReplaced}
         />
       </Formgroup>
 
