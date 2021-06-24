@@ -9,6 +9,16 @@ import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GET_MY_ORDERS_DATA } from '../OrdersInformation/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import {
+  GET_VEHICLE_CONFIG_LIST,
+  getVehicleConfigListFromQuery,
+  getVehicleConfigIdsFromConfigList,
+} from '../../gql/vehicleConfigList';
+import {
+  GET_WISHLIST_VEHICLE_IDS,
+  getWishlistVehicleIdsFromQuery,
+  useAddVehicleToWishlistMutation,
+} from '../../gql/wishlist';
+import {
   GetMyOrders,
   GetMyOrdersVariables,
 } from '../../../generated/GetMyOrders';
@@ -17,13 +27,23 @@ import {
   GetCompaniesByPersonUuid,
   GetCompaniesByPersonUuidVariables,
 } from '../../../generated/GetCompaniesByPersonUuid';
+import {
+  GetWishlistVehicleIds,
+  GetWishlistVehicleIdsVariables,
+} from '../../../generated/GetWishlistVehicleIds';
+import {
+  GetVehicleConfigList,
+  GetVehicleConfigListVariables,
+} from '../../../generated/GetVehicleConfigList';
 import { ILoginFormValues } from '../../components/LoginForm/interfaces';
 import {
   setPersonLoggedIn,
   setLocalPersonState,
 } from '../../utils/personHelpers';
-import { getLocalWishlistState } from '../../utils/wishlistHelpers';
-import { useAddVehicleToWishlistMutation } from '../../gql/wishlist';
+import {
+  updateWishlistState,
+  getLocalWishlistState,
+} from '../../utils/wishlistHelpers';
 import { Nullish } from '../../types/common';
 
 export const filterExistingUuids = (personUuid: string | undefined = '') => (
@@ -85,6 +105,14 @@ const LoginFormContainer = ({
     GetCompaniesByPersonUuidVariables
   >(GET_COMPANIES_BY_PERSON_UUID);
   const getPerson = useImperativeQuery<GetPerson>(GET_PERSON_QUERY);
+  const getWishlistVehicleIds = useImperativeQuery<
+    GetWishlistVehicleIds,
+    GetWishlistVehicleIdsVariables
+  >(GET_WISHLIST_VEHICLE_IDS);
+  const getVehicleConfigList = useImperativeQuery<
+    GetVehicleConfigList,
+    GetVehicleConfigListVariables
+  >(GET_VEHICLE_CONFIG_LIST);
 
   const requestLogin = (values: ILoginFormValues) =>
     login({
@@ -123,6 +151,16 @@ const LoginFormContainer = ({
       },
     });
 
+  const requestWishlist = (partyUuid: Nullish<string>) =>
+    getWishlistVehicleIds({
+      partyUuid: partyUuid ?? '',
+    });
+
+  const requestVehicleConfigList = (configIds: string[]) =>
+    getVehicleConfigList({
+      configIds,
+    });
+
   const handleLoginComplete = useCallback(
     values =>
       requestLogin(values)
@@ -139,6 +177,15 @@ const LoginFormContainer = ({
         .then(personQuery =>
           getLocalWishlistState()
             .then(saveWishlist(personQuery.data.getPerson?.partyUuid))
+            .then(() => personQuery),
+        )
+        .then(personQuery =>
+          requestWishlist(personQuery.data.getPerson?.partyUuid)
+            .then(getWishlistVehicleIdsFromQuery)
+            .then(requestVehicleConfigList)
+            .then(getVehicleConfigListFromQuery)
+            .then(getVehicleConfigIdsFromConfigList)
+            .then(updateWishlistState)
             .then(() => personQuery),
         )
         .then(personQuery => onCompleted?.(personQuery?.data?.getPerson))
