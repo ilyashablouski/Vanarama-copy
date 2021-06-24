@@ -481,7 +481,7 @@ pipeline {
               when {
                   beforeAgent true
                   anyOf {
-                    branch 'develop'
+                    // branch 'develop'
                     branch 'release/*'
                   }
               }
