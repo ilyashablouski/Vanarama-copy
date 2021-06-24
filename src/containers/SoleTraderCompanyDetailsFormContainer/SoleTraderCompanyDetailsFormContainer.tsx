@@ -11,9 +11,9 @@ import {
 import { useUpdateSoleTraderCompanyMutation } from './gql';
 import { useCreateUpdateOrder } from '../../gql/order';
 import {
-  mapCreateUpdteApplicationData,
   mapFormValues,
   preloadedValuesToInput,
+  mapCreateUpdateApplicationData,
 } from './mappers';
 import { UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany as Company } from '../../../generated/UpdateSoleTraderCompanyMutation';
 import Skeleton from '../../components/Skeleton';
@@ -99,7 +99,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     createUpdateApplication({
       variables: {
         input: {
-          companyDetails: mapCreateUpdteApplicationData(values, companyData),
+          companyDetailsV2: mapCreateUpdateApplicationData(values, companyData),
           orderUuid: orderId,
         },
       },

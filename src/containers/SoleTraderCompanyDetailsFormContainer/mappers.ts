@@ -38,29 +38,38 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
   };
 };
 
-export const mapCreateUpdteApplicationData = (
+export const mapCreateUpdateApplicationData = (
   values: ISoleTraderCompanyDetailsFormValues,
   companyData?: Company | null,
-) => ({
-  ...mapFormValues(values),
-  companyNature: undefined,
-  tradingName: undefined,
-  businessName: values.tradingName,
-  natureOfBusiness: values.nature,
-  addresses: [
-    {
-      ...companyData?.addresses?.[0],
-    },
-  ],
-  emailAddress: undefined,
-  emailAddresses: [
-    {
-      value: values.email,
-      kind: 'Home',
-    },
-  ],
-  uuid: companyData?.uuid,
-});
+) => {
+  const tradingAddress = companyData?.addresses?.[0];
+  const resultAddress = {
+    ...tradingAddress,
+    __typename: undefined,
+    city: tradingAddress?.city ?? '',
+    postcode: tradingAddress?.postcode ?? '',
+    lineOne: tradingAddress?.lineOne ?? '',
+  };
+  const resultEmail = {
+    value: values.email,
+    primary: true,
+    kind: 'Home',
+  };
+
+  return {
+    ...mapFormValues(values),
+    uuid: companyData?.uuid ?? '',
+    tradingName: undefined,
+    businessName: values.tradingName,
+    companyNature: undefined,
+    natureOfBusiness: values.nature,
+    vehicleRegistrationNumber: undefined,
+    businessRegistrationNumber: values.vehicleRegistrationNumber,
+    addresses: [resultAddress],
+    emailAddress: undefined,
+    emailAddresses: [resultEmail],
+  };
+};
 
 export const preloadedValuesToInput = (details: {
   [key: string]: any;
@@ -85,8 +94,9 @@ export const preloadedValuesToInput = (details: {
     annualTurnover: String(details.annualTurnover || ''),
     annualCostOfSales: String(details.annualSalesCost || ''),
     annualExpenses: String(details.annualExpenses || ''),
-    vehicleRegistrationNumber: details.vehicleRegistrationNumber,
+    vehicleRegistrationNumber: details.businessRegistrationNumber,
     existingFinanceReplacement: '',
+    existingVehicle: details?.monthlyAmountBeingReplaced,
     monthlyAmountBeingReplaced: String(
       details.monthlyAmountBeingReplaced || '',
     ),
