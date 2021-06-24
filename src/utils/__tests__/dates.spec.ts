@@ -8,6 +8,15 @@ import {
   fullMonthFormatDate,
   defaultFormatDate,
   reverseDefaultFormatDate,
+  parseDate,
+  historyToDateObject,
+  THistoryEntry,
+  historyToDate,
+  getMonthName,
+  getMonday,
+  diffInMonth,
+  validateDateString,
+  diffInYear,
 } from '../dates';
 
 describe('Date utils', () => {
@@ -85,11 +94,127 @@ describe('Date utils', () => {
 
   describe('fullMonthFormatDate + reverseDefaultFormatDate + defaultFormatDate', () => {
     it('should format date', () => {
-      expect(fullMonthFormatDate(new Date('02-25-2012'))).toBe('February 2012');
-      expect(defaultFormatDate(new Date('1988-06-04'))).toBe('04.06.1988');
-      expect(reverseDefaultFormatDate(new Date('1988-06-04'))).toBe(
-        '1988-06-04',
-      );
+      expect(fullMonthFormatDate(new Date(2012, 1, 25))).toBe('February 2012');
+      expect(defaultFormatDate(new Date(1988, 5, 4))).toBe('04.06.1988');
+      expect(reverseDefaultFormatDate(new Date(1988, 5, 4))).toBe('1988-06-04');
+    });
+  });
+
+  describe('parseDate', () => {
+    it('should parese date', () => {
+      expect(parseDate('01', '02', '2021')).toBe('2021-02-01');
+    });
+  });
+
+  describe('historyToDateObject', () => {
+    it('should convert history object to date object', () => {
+      const history: THistoryEntry = {
+        year: '2021',
+        month: '3',
+      };
+      const date = historyToDateObject(history);
+
+      expect(date.getDate()).toBe(1);
+      expect(date.getMonth()).toBe(2);
+      expect(date.getFullYear()).toBe(2021);
+    });
+  });
+
+  describe('historyToDate', () => {
+    it('should convert history to date', () => {
+      const history: THistoryEntry = {
+        year: '2021',
+        month: '3',
+      };
+      const date = historyToDate(history);
+
+      expect(date.getDate()).toBe(1);
+      expect(date.getMonth()).toBe(2);
+      expect(date.getFullYear()).toBe(2021);
+    });
+  });
+
+  describe('getMonthName', () => {
+    it('should return correct month name', () => {
+      const expected = [
+        'January',
+        'February',
+        'March',
+        'April',
+        'May',
+        'June',
+        'July',
+        'August',
+        'September',
+        'October',
+        'November',
+        'December',
+      ];
+      const actual = [];
+      for (let i = 1; i <= 12; i += 1) {
+        actual.push(getMonthName(i));
+      }
+      expect(actual).toStrictEqual(expected);
+    });
+  });
+
+  describe('getMonday', () => {
+    it('should return monday in the same week with provided date', () => {
+      expect(getMonday(new Date(2021, 5, 22).getTime())).toStrictEqual(
+        new Date(2021, 5, 21),
+      ); // Tuesday to Monday
+      expect(getMonday(new Date(2021, 5, 27).getTime())).toStrictEqual(
+        new Date(2021, 5, 21),
+      ); // Sunday to Monday
+    });
+  });
+
+  describe('diffInMonth', () => {
+    it('should return difference between dates in month', () => {
+      expect(
+        diffInMonth(new Date(2021, 4, 1), new Date(2022, 6, 1)),
+      ).toStrictEqual(14);
+    });
+    it('should return 0', () => {
+      expect(
+        diffInMonth(new Date(2021, 4, 1), new Date(2021, 4, 5)),
+      ).toStrictEqual(0);
+      expect(
+        diffInMonth(new Date(2021, 4, 1), new Date(2018, 5, 5)),
+      ).toStrictEqual(0);
+    });
+  });
+
+  describe('validateDateString', () => {
+    it('should return true', () => {
+      expect(validateDateString('29', '2', '2020')).toStrictEqual(true);
+      expect(validateDateString('5', '6', '2021')).toStrictEqual(true);
+    });
+    it('should return false', () => {
+      expect(validateDateString('29', '2', '2021')).toStrictEqual(false);
+      expect(validateDateString('31', '2', '2021')).toStrictEqual(false);
+      expect(validateDateString('35', '7', '2021')).toStrictEqual(false);
+    });
+  });
+
+  describe('diffInYear', () => {
+    it('should return correct positive difference', () => {
+      jest.useFakeTimers('modern').setSystemTime(new Date(2025, 6, 1));
+
+      expect(diffInYear(2021, 8, 1)).toStrictEqual(3);
+      expect(diffInYear(2021, 7, 1)).toStrictEqual(4);
+      expect(diffInYear(2021, 6, 1)).toStrictEqual(4);
+
+      jest.useRealTimers();
+    });
+    it('should return correct negative difference', () => {
+      jest.useFakeTimers('modern').setSystemTime(new Date(2021, 6, 1));
+
+      expect(diffInYear(2025, 8, 1)).toStrictEqual(-5);
+      expect(diffInYear(2025, 7, 1)).toStrictEqual(-4);
+      expect(diffInYear(2025, 6, 1)).toStrictEqual(-4);
+
+      jest.useRealTimers();
     });
   });
 });

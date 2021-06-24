@@ -160,11 +160,11 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
                 >
                   You Will Need:
                 </Text>
-                <Text tag="p">
+                <Text className="-mb-400 -mt-000" tag="p">
                   Details of the addresses you&lsquo;ve lived at for the past 3
                   years.
                 </Text>
-                <Text tag="p">
+                <Text className="-m-000" tag="p">
                   Details of the bank account that you&lsquo;ll use to pay
                   monthly payments.
                 </Text>
