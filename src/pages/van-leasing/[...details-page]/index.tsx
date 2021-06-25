@@ -50,6 +50,7 @@ import {
   GetProductCardVariables,
 } from '../../../../generated/GetProductCard';
 import { decodeData, encodeData } from '../../../utils/data';
+import { getBreadcrumbSlugs } from '../../../utils/pageSlugs';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -302,10 +303,6 @@ export async function getServerSideProps(context: NextPageContext) {
           undefined,
       },
     });
-    const breadcrumbSlugsArray = data?.genericPage.metaData.slug?.split('/');
-    const breadcrumbSlugs = breadcrumbSlugsArray?.map((el, id) =>
-      breadcrumbSlugsArray.slice(0, id + 1).join('/'),
-    );
 
     const capsIds =
       getCarDataQuery.data?.vehicleDetails?.relatedVehicles?.map(
@@ -334,7 +331,7 @@ export async function getServerSideProps(context: NextPageContext) {
       .query({
         query: GET_LEGACY_URLS,
         variables: {
-          slugs: breadcrumbSlugs,
+          slugs: getBreadcrumbSlugs(data?.genericPage.metaData.slug),
         },
       })
       .then(resp => resp.data.genericPages.items);
