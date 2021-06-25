@@ -1,4 +1,4 @@
-import { getBlogPaths } from '../pageSlugs';
+import { getBlogPaths, getBreadcrumbSlugs } from '../pageSlugs';
 import { BlogPosts_blogPosts as IBlogPosts } from '../../../generated/BlogPosts';
 
 describe('pageSlugs', () => {
@@ -105,5 +105,11 @@ describe('pageSlugs', () => {
     expect(() =>
       getBlogPaths(blogData?.blogPosts as IBlogPosts),
     ).toThrowError();
+  });
+  it('getBreadcrumbSlugs should return correct result', () => {
+    const slug = 'page/slug/to/test';
+    const expected = ['page', 'page/slug', 'page/slug/to', 'page/slug/to/test'];
+
+    expect(getBreadcrumbSlugs(slug)).toStrictEqual(expected);
   });
 });
