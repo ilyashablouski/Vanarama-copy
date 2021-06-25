@@ -4,7 +4,6 @@ import dynamic from 'next/dynamic';
 import RouterLink from '../RouterLink/RouterLink';
 import Skeleton from '../Skeleton';
 import { ProductCardData_productCarousel_keyInformation as IKeyInfo } from '../../../generated/ProductCardData';
-import { isWishlistEnabled } from '../../utils/wishlistHelpers';
 import { features } from '../ProductCarousel/helpers';
 
 const Card = dynamic(() => import('core/molecules/cards'), {
@@ -157,7 +156,7 @@ const DealOfMonth: React.FC<IDealOfMonthProps> = ({
             onClick={onCompare}
           />
         )}
-        {onWishlist && isWishlistEnabled && (
+        {onWishlist && (
           <Button
             color={wished ? 'teal' : 'dark'}
             iconColor="dark"

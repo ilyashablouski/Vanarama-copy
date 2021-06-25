@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import CompanyDetailsForm from '../../components/SoleTraderCompanyDetailsForm';
 import { ISoleTraderCompanyDetailsFormValues } from '../../components/SoleTraderCompanyDetailsForm/interfaces';
 import { ISoleTraderCompanyDetailsFormContainerProps } from './interfaces';
@@ -11,9 +11,9 @@ import {
 import { useUpdateSoleTraderCompanyMutation } from './gql';
 import { useCreateUpdateOrder } from '../../gql/order';
 import {
-  mapCreateUpdteApplicationData,
   mapFormValues,
-  prelodedValuesToInput,
+  preloadedValuesToInput,
+  mapCreateUpdateApplicationData,
 } from './mappers';
 import { UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany as Company } from '../../../generated/UpdateSoleTraderCompanyMutation';
 import Skeleton from '../../components/Skeleton';
@@ -48,17 +48,15 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
 
   React.useMemo(() => {
     if (initialCompanyDetails) {
-      setMappedCompanyDetails(prelodedValuesToInput(initialCompanyDetails));
+      const preloadedFormValues = preloadedValuesToInput(initialCompanyDetails);
+      const initNatureOfBusiness = preloadedFormValues?.nature?.split(
+        NATURE_OF_BUSINESS_SEPARATOR,
+      );
+
+      setNatureOfBusiness(initNatureOfBusiness ?? []);
+      setMappedCompanyDetails(preloadedFormValues);
     }
   }, [initialCompanyDetails]);
-
-  useEffect(() => {
-    if (mappedCompanyDetails) {
-      setNatureOfBusiness(
-        mappedCompanyDetails?.nature?.split(NATURE_OF_BUSINESS_SEPARATOR) || [],
-      );
-    }
-  }, [mappedCompanyDetails]);
 
   const handleSoleTraderCompanyDetailsSave = (
     values: ISoleTraderCompanyDetailsFormValues,
@@ -99,7 +97,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     createUpdateApplication({
       variables: {
         input: {
-          companyDetails: mapCreateUpdteApplicationData(values, companyData),
+          companyDetailsV2: mapCreateUpdateApplicationData(values, companyData),
           orderUuid: orderId,
         },
       },
