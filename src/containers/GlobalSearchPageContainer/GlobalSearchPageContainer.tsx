@@ -28,8 +28,10 @@ import SectionCards from '../../components/SectionCards';
 import VehicleCard from '../../components/VehicleCard';
 import FiltersTags from './FiltersTags';
 import Drawer from './Drawer';
-import { ITabs } from './interfaces';
+import { IFiltersResponse, ISelectedTags, ITabs } from './interfaces';
 import { pluralise } from '../../utils/dates';
+import GlobalSearchPageFilters from '../../components/GlobalSearchPageFilters';
+import { productFilter_productFilter as IProductFilter } from '../../../generated/productFilter';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -37,6 +39,8 @@ const Text = dynamic(() => import('core/atoms/text'), {
 
 interface IProps {
   pageData?: GenericPageQuery;
+  filtersData?: IProductFilter;
+  initialFilters: any;
   metaData: PageMetaData;
   preLoadTextSearchList: ITextSearchQuery;
   carsData?: ICardsData[];
@@ -57,9 +61,12 @@ const GlobalSearchPageContainer = ({
   vansData,
   responseVansCapIds,
   responseCarsCapIds,
+  filtersData,
+  initialFilters,
 }: IProps) => {
   const router = useRouter();
-
+  const [activeFilters, setActiveFilters] = useState(initialFilters);
+  const [selectedTags, setSelectedTags] = useState<ISelectedTags[]>([]);
   const [isShowDrawer, setIsShowDrawer] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<ITabs>(ITabs.Filter);
 
@@ -201,6 +208,20 @@ const GlobalSearchPageContainer = ({
     }
   };
 
+  const onRemoveTag = (value: string, key: string) => {
+    setActiveFilters({
+      ...activeFilters,
+      [key]: activeFilters?.[key]?.filter(activeValue => activeValue !== value),
+    });
+  };
+
+  const onClearFilterBlock = (key: string) => {
+    setActiveFilters({
+      ...activeFilters,
+      [key]: [],
+    });
+  };
+
   return (
     <>
       <div className="row:title">
@@ -244,7 +265,11 @@ const GlobalSearchPageContainer = ({
         </button>
       </div>
       <div className="row:bg-light">
-        <FiltersTags tags={[]} />
+        <FiltersTags
+          tags={selectedTags}
+          removeFilterValue={onRemoveTag}
+          clearAllFilters={() => setActiveFilters({})}
+        />
         <div className="row:results">
           <div className="row:cards-3col">
             {vehiclesList?.map(vehicle => (
@@ -292,6 +317,16 @@ const GlobalSearchPageContainer = ({
         </div>
       )}
       <Drawer
+        renderContent={() => (
+          <GlobalSearchPageFilters
+            preloadFilters={filtersData}
+            activeFilters={activeFilters}
+            setActiveFilters={setActiveFilters}
+            setSelectedTags={setSelectedTags}
+            selectedTags={selectedTags}
+            clearFilterBlock={onClearFilterBlock}
+          />
+        )}
         isShowDrawer={isShowDrawer}
         onCloseDrawer={() => setIsShowDrawer(false)}
         isFiltersRender={activeTab === ITabs.Filter}

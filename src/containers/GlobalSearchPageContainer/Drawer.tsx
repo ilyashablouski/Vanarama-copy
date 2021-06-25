@@ -4,11 +4,17 @@ import Close from 'core/assets/icons/Close';
 import Icon from 'core/atoms/icon';
 
 interface IProps {
+  renderContent: any;
   isFiltersRender: boolean;
   onCloseDrawer: () => void;
   isShowDrawer: boolean;
 }
-const Drawer = ({ isFiltersRender, onCloseDrawer, isShowDrawer }: IProps) => {
+const Drawer = ({
+  isFiltersRender,
+  onCloseDrawer,
+  isShowDrawer,
+  renderContent,
+}: IProps) => {
   return (
     <div
       className={cx('srp-f-flyout', {
@@ -28,7 +34,9 @@ const Drawer = ({ isFiltersRender, onCloseDrawer, isShowDrawer }: IProps) => {
           filters: isFiltersRender,
           sort: !isFiltersRender,
         })}
-      />
+      >
+        {renderContent()}
+      </div>
     </div>
   );
 };

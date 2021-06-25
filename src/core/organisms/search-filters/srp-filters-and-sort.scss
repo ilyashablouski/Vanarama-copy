@@ -50,7 +50,7 @@
 }
 .filters-applied {
   color: white;
-  background: #187f85;    
+  background: #187f85;
   font-size: 12px;
   font-weight: bold;
   line-height: 15px;
@@ -134,6 +134,7 @@
     svg {
       margin-left: 4px;
       transform: scale(1.25);
+      fill: #197F85;
       polygon {
         fill: #197F85;
       }
@@ -211,11 +212,11 @@
       margin-top: 0;
       margin-bottom: 10px;
     }
-    > .drop-down, 
+    > .drop-down,
     > .drop-select,
     > .accordyon {
       margin-top: 24px;
-      + .drop-down, 
+      + .drop-down,
       + .drop-select {
         margin-top: 16px;
       }
@@ -240,7 +241,7 @@
           margin-top: 14px;
         }
       }
-      input[type=radio], 
+      input[type=radio],
       input[type=checkbox] {
         display: none;
         &:checked {
@@ -297,7 +298,7 @@
     }
   }
 
-  // Tablet & Desktop 
+  // Tablet & Desktop
   @media (min-width: 768px){
     .title {
       padding: 0 24px;
@@ -310,7 +311,7 @@
       padding: 8px 24px 24px;
     }
   }
-  
+
 }
 
 .srp-f-mask {
@@ -474,7 +475,7 @@ button {
 }
 
 
-.drop-down, 
+.drop-down,
 .drop-select {
   position: relative;
   height: 47px;
@@ -537,7 +538,7 @@ button {
         margin-top: 14px;
       }
     }
-    input[type=radio], 
+    input[type=radio],
     input[type=checkbox] {
       display: none;
       &:checked {
@@ -693,7 +694,7 @@ button {
       }
     }
   }
-  
+
 }
 
 .selected-status {
@@ -733,7 +734,7 @@ button {
 }
 
 
-// Accordion 
+// Accordion
 .accordyon {
   .trigger {
     display: flex;
@@ -770,9 +771,9 @@ button {
       background: white;
       transition: all 0.3s ease 0.3s;
       opacity: 0;
-      > .drop-down, 
+      > .drop-down,
       > .drop-select {
-        + .drop-down, 
+        + .drop-down,
         + .drop-select {
           margin-top: 16px;
         }
@@ -839,7 +840,7 @@ button {
       content: '';
       display: block;
       position: absolute;
-    }    
+    }
     &:before {
       width: 22px;
       height: 22px;
