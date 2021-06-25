@@ -1,7 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
+import * as localForage from 'localforage';
 
+import { useRouter } from 'next/router';
 import decode from 'decode-html';
 import NextHead from 'next/head';
 import Text from 'core/atoms/text';
@@ -13,15 +14,20 @@ import Price from 'core/atoms/price';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import css from '!!raw-loader!../../../public/styles/pages/checkout-page.css';
-
 import OrderPanel from './OrderPanel';
 import AdditionalOptionsForm from './AdditionalOptionsForm';
 import {
   CheckoutPageContainerProps,
   IAdditionalOptionsFormValues,
 } from './interfaces';
-import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  LeaseTypeEnum,
+  VehicleProductInputObject,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 import { sum } from '../../utils/array';
+import { IOrderStorageData } from '../../hooks/useGetOrder';
+import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 
 const createIncludedOptions = (values: IAdditionalOptionsFormValues) => [
   {
@@ -55,6 +61,23 @@ const createIncludedOptions = (values: IAdditionalOptionsFormValues) => [
     key: '5',
   },
 ];
+
+const createLineItem = (
+  values: IAdditionalOptionsFormValues,
+  quote: GetQuoteDetails['quoteByCapId'],
+  vehicleProduct?: VehicleProductInputObject | null,
+) =>
+  ({
+    ...vehicleProduct,
+    maintenance: values.monthlyMaintenance || false,
+    maintenancePrice: values.monthlyMaintenance
+      ? quote?.maintenanceCost?.monthlyRental
+      : null,
+    freeInsurance: {
+      optIn: values.freeInsurance || false,
+      eligible: vehicleProduct?.freeInsurance?.eligible || false,
+    },
+  } as VehicleProductInputObject);
 
 const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
   order,
@@ -113,8 +136,20 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
   );
 
   const onSubmit = useCallback(() => {
-    const url = isPersonalPrice ? '/olaf/about' : '/b2b/olaf/about';
-    return router.push(url, url).then(() => {});
+    const newOrder = {
+      ...order,
+      lineItems: [
+        {
+          vehicleProduct: createLineItem(values, quote, vehicleProduct),
+          ...(order.lineItems?.[0] || {}),
+        },
+      ],
+    };
+    localForage
+      .setItem<IOrderStorageData>('order', newOrder)
+      .then(() => (isPersonalPrice ? '/olaf/about' : '/b2b/olaf/about'))
+      .then(url => router.push(url, url))
+      .then(() => {});
   }, [isPersonalPrice]);
 
   return (
