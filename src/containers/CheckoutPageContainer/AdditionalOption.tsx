@@ -5,8 +5,8 @@ import Tooltip from 'core/atoms/tooltip';
 import ToggleSwitch from 'core/atoms/toggle/ToggleSwitch';
 import Icon from 'core/atoms/icon';
 
+import Link from 'core/atoms/link';
 import { IAdditionalOptionProps } from './interfaces';
-import Link from "core/atoms/link";
 
 const AdditionalOption: FC<IAdditionalOptionProps> = forwardRef<
   HTMLInputElement,
