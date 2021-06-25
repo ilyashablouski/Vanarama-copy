@@ -1,4 +1,3 @@
-import Cookies from 'js-cookie';
 import localForage from 'localforage';
 import { ApolloClient } from '@apollo/client';
 
@@ -38,8 +37,6 @@ export const getLocalWishlistState = async () => {
 
 export const setLocalWishlistState = (state: IWishlistState) =>
   localForage.setItem('wishlistVehicleIds', state.wishlistVehicleIds);
-
-export const isWishlistEnabled = Cookies.get('DIG-6436') === '1';
 
 export const isWished = (
   wishlistVehicleIds: Array<string>,
