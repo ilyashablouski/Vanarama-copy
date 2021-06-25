@@ -7,9 +7,11 @@ import ArrowForwardSharp from '../../assets/icons/ArrowForwardSharp';
 import Ellipse from '../../assets/icons/Ellipse';
 import Icon from '../../atoms/icon';
 import { ICarouselProps } from './interface';
+import SimplePlaceholder from '../../../components/Placeholder';
 
 const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
   const [index, setIndex] = useState(0);
+  const [isMountedCarousel, setIsMountedCarousel] = useState<boolean>(false);
   let carouselRef: any;
 
   const isMediumScreen = useMediaQuery({ minWidth: 768, maxWidth: 1215 });
@@ -21,6 +23,10 @@ const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
   } else if (isMediumScreen) {
     slidesToShow = 2;
   }
+
+  useEffect(() => {
+    setIsMountedCarousel(true);
+  }, []);
 
   //  Carousel card height fix
   //  useEffect has been used to apply a CSS class '-v-height' to each .card found within
@@ -38,22 +44,29 @@ const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
 
   return (
     <div className={cx('carousel', className)}>
-      <Carousel
-        slidesToShow={
-          countItems && countItems < slidesToShow ? countItems : slidesToShow
-        }
-        wrapAround
-        withoutControls
-        ref={(carousel: any) => {
-          carouselRef = carousel;
-        }}
-        slideIndex={index}
-        afterSlide={(slideIndex: number) => setIndex(slideIndex)}
-        cellSpacing={20}
-        initialSlideWidth={300}
-      >
-        {children}
-      </Carousel>
+      {isMountedCarousel ? (
+        <Carousel
+          slidesToShow={
+            countItems && countItems < slidesToShow ? countItems : slidesToShow
+          }
+          wrapAround
+          withoutControls
+          ref={(carousel: any) => {
+            carouselRef = carousel;
+          }}
+          slideIndex={index}
+          afterSlide={(slideIndex: number) => setIndex(slideIndex)}
+          cellSpacing={20}
+          initialSlideWidth={300}
+        >
+          {children}
+        </Carousel>
+      ) : (
+        <SimplePlaceholder
+          height={isSmallScreen || isMediumScreen ? '420px' : '426px'}
+        />
+      )}
+
       <nav className="carousel--nav">
         <button
           className="carousel--nav-arrow"
