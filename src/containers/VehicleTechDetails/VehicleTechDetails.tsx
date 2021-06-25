@@ -1,15 +1,12 @@
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { IKeyInformationItem } from './KeyInformation';
 import {
   GetVehicleDetails_vehicleDetails,
   GetVehicleDetails_derivativeInfo,
-  GetVehicleDetails_derivativeInfo_standardEquipments,
-  GetVehicleDetails_derivativeInfo_technicals,
+  GetVehicleDetails_standardEquipment,
 } from '../../../generated/GetVehicleDetails';
-import { getTechData } from './helpers';
+import { getStandardEquipmentData, getTechData } from './helpers';
 import Skeleton from '../../components/Skeleton';
 
 const KeyInformation = dynamic(() => import('./KeyInformation'), {
@@ -36,32 +33,34 @@ const TabPanels = dynamic(() => import('core/molecules/tabs/TabPanels'), {
 });
 
 interface IVehicleTechDetailsProps {
-  vehicleDetails: GetVehicleDetails_vehicleDetails | null | undefined;
-  derivativeInfo: GetVehicleDetails_derivativeInfo | null | undefined;
+  vehicleDetails?: GetVehicleDetails_vehicleDetails | null;
+  derivativeInfo?: GetVehicleDetails_derivativeInfo | null;
+  standardEquipment?: (GetVehicleDetails_standardEquipment | null)[] | null;
 }
 
+const accordionItems = (items: any, itemWrap: boolean) => {
+  return items.map((item: any) => {
+    return {
+      id: item.categoryDescription,
+      title: item.categoryDescription,
+      children: <StructuredList list={item.items} itemWrap={itemWrap} />,
+    };
+  });
+};
+
 const VehicleTechDetails: React.FC<IVehicleTechDetailsProps> = props => {
-  const { vehicleDetails, derivativeInfo } = props;
+  const { vehicleDetails, derivativeInfo, standardEquipment } = props;
   const [activeTab, setActiveTab] = useState(1);
 
-  const standardEquipments = getTechData(
-    (derivativeInfo?.standardEquipments as GetVehicleDetails_derivativeInfo_standardEquipments[]) ||
-      [],
+  const technicalsAccordionItems = useMemo(
+    () => accordionItems(getTechData(derivativeInfo?.technicals || []), false),
+    [derivativeInfo?.technicals],
   );
-  const technicals = getTechData(
-    (derivativeInfo?.technicals as GetVehicleDetails_derivativeInfo_technicals[]) ||
-      [],
+  const standardEquipmentAccordionItems = useMemo(
+    () =>
+      accordionItems(getStandardEquipmentData(standardEquipment || []), true),
+    [standardEquipment],
   );
-
-  const accordionItems = (items: any) => {
-    return items.map((item: any) => {
-      return {
-        id: item.categoryDescription,
-        title: item.categoryDescription,
-        children: <StructuredList list={item.items} />,
-      };
-    });
-  };
 
   return (
     <Tabs
@@ -88,15 +87,15 @@ const VehicleTechDetails: React.FC<IVehicleTechDetailsProps> = props => {
           )}
         </TabPanel>
         <TabPanel index={2}>
-          {standardEquipments?.length ? (
-            <Accordion items={accordionItems(standardEquipments)} />
+          {standardEquipmentAccordionItems?.length ? (
+            <Accordion items={standardEquipmentAccordionItems} />
           ) : (
             <p>Sorry, no standard equipment data available.</p>
           )}
         </TabPanel>
         <TabPanel index={3}>
-          {technicals?.length ? (
-            <Accordion items={accordionItems(technicals)} />
+          {technicalsAccordionItems?.length ? (
+            <Accordion items={technicalsAccordionItems} />
           ) : (
             <p>Sorry, no data technical data available.</p>
           )}

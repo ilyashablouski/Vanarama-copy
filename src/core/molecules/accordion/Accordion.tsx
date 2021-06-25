@@ -11,7 +11,7 @@ const Accordion: React.FC<IProps> = ({ items, className }) => {
   const renderAccordionItem = () => {
     return items?.map(item => <AccordionItem key={item.id} item={item} />);
   };
-
+  console.log({ items });
   return (
     <ul className={cx(className, 'accordion')}>
       {items && renderAccordionItem()}
