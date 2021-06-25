@@ -1,5 +1,6 @@
 import React, { useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
+import { IList } from 'core/organisms/structured-list/interfaces';
 import { IKeyInformationItem } from './KeyInformation';
 import {
   GetVehicleDetails_vehicleDetails,
@@ -38,7 +39,12 @@ interface IVehicleTechDetailsProps {
   standardEquipment?: (GetVehicleDetails_standardEquipment | null)[] | null;
 }
 
-const accordionItems = (items: any, itemWrap: boolean) => {
+interface IAccordionItem {
+  categoryDescription: string;
+  items: IList[];
+}
+
+const accordionItems = (items: IAccordionItem[], itemWrap: boolean) => {
   return items.map((item: any) => {
     return {
       id: item.categoryDescription,

@@ -81,13 +81,13 @@ export const getStandardEquipmentData = (
   equipmentGroup: (IStandardEquipment | null)[],
 ) =>
   equipmentGroup.map(group => {
-    const items = group?.standardEquipment?.map(item => ({
+    const items = (group?.standardEquipment || []).map(item => ({
       label: item?.name || '',
       value: '',
     }));
 
     return {
-      categoryDescription: group?.name,
+      categoryDescription: group?.name || '',
       items,
     };
   });
