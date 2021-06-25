@@ -72,3 +72,11 @@ export const getPathsFromPageCollection = (
     )
     .map(item => `/${item?.slug}`);
 };
+
+export const getBreadcrumbSlugs = (slug: string | null) => {
+  const breadcrumbSlugsArray = slug?.split('/');
+
+  return breadcrumbSlugsArray?.map((el, id) =>
+    breadcrumbSlugsArray.slice(0, id + 1).join('/'),
+  );
+};
