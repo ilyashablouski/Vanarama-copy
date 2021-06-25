@@ -276,7 +276,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <span
     className="heading -black -regular"
   >
-    Add Maintenance:
+    Add MonthlyMaintenance:
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -424,9 +424,9 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-4-Maintenance:"
+            data-testid="data_id-4-MonthlyMaintenance:"
           >
-            Maintenance:
+            MonthlyMaintenance:
           </div>
           <div
             className="structured-list-td"
@@ -936,7 +936,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <span
     className="heading -black -regular"
   >
-    Add Maintenance:
+    Add MonthlyMaintenance:
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -1084,9 +1084,9 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-4-Maintenance:"
+            data-testid="data_id-4-MonthlyMaintenance:"
           >
-            Maintenance:
+            MonthlyMaintenance:
           </div>
           <div
             className="structured-list-td"

@@ -1,4 +1,4 @@
-import { forwardRef, FC } from 'react';
+import React, { forwardRef, FC } from 'react';
 import cx from 'classnames';
 import Text from 'core/atoms/text';
 import Tooltip from 'core/atoms/tooltip';
@@ -6,6 +6,7 @@ import ToggleSwitch from 'core/atoms/toggle/ToggleSwitch';
 import Icon from 'core/atoms/icon';
 
 import { IAdditionalOptionProps } from './interfaces';
+import Link from "core/atoms/link";
 
 const AdditionalOption: FC<IAdditionalOptionProps> = forwardRef<
   HTMLInputElement,
@@ -27,10 +28,9 @@ const AdditionalOption: FC<IAdditionalOptionProps> = forwardRef<
     <div className={cx('add-on', className, { '-added': props.checked })}>
       <Text tag="span">
         {title}
-        <Icon
-          onClick={onTooltipClick}
-          icon={<Tooltip text={tooltipText} position="center" />}
-        />
+        <Link onClick={onTooltipClick}>
+          <Icon icon={<Tooltip text={tooltipText} position="center" />} />
+        </Link>
         <Text tag="span" className="included">
           {includedText}
         </Text>

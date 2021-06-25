@@ -3,12 +3,15 @@ import React, { useMemo, useState } from 'react';
 import { Controller } from 'react-hook-form';
 import Form from 'core/organisms/form';
 import Modal from 'core/molecules/modal';
-import Heading from 'core/atoms/heading';
-import Text from 'core/atoms/text';
 import AdditionalOption from './AdditionalOption';
 
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import { IAdditionalOptionsFormProps } from './interfaces';
+
+import Redundancy from './Modals/Redundancy';
+import FreeInsurance from './Modals/FreeInsurance';
+import LossOfEarnings from './Modals/LossOfEarnings';
+import MonthlyMaintenance from './Modals/MonthlyMaintenance';
 
 enum ModalTypeEnum {
   REDUNDANCY,
@@ -18,6 +21,22 @@ enum ModalTypeEnum {
   ADVANCED_BREAKDOWN_COVER,
   NONE,
 }
+
+const mapModalTypeToModalContent = (type: ModalTypeEnum) => {
+  switch (type) {
+    case ModalTypeEnum.REDUNDANCY:
+      return <Redundancy />;
+    case ModalTypeEnum.FREE_INSURANCE:
+      return <FreeInsurance />;
+    case ModalTypeEnum.LOSS_OF_EARNINGS:
+      return <LossOfEarnings />;
+    case ModalTypeEnum.MONTHLY_MAINTENANCE:
+      return <MonthlyMaintenance />;
+    case ModalTypeEnum.NONE:
+    default:
+      return null;
+  }
+};
 
 const AdditionalOptionsForm: React.FC<IAdditionalOptionsFormProps> = ({
   methods,
@@ -39,6 +58,14 @@ const AdditionalOptionsForm: React.FC<IAdditionalOptionsFormProps> = ({
         isPersonalPrice ? 'inc.' : 'exc.'
       } VAT`,
     [isPersonalPrice],
+  );
+
+  const activeModalContainerClassName = useMemo(
+    () =>
+      activeModalType === ModalTypeEnum.MONTHLY_MAINTENANCE
+        ? 'modal-container-large'
+        : 'modal-container-custom',
+    [activeModalType],
   );
 
   return (
@@ -92,7 +119,7 @@ const AdditionalOptionsForm: React.FC<IAdditionalOptionsFormProps> = ({
           control={methods.control}
           id="monthlyMaintenance"
           name="monthlyMaintenance"
-          title="Monthly Maintenance"
+          title="Monthly MonthlyMaintenance"
           includedText={`Included For ${maintenancePriceLabel} Per Month`}
           promotionText={`Only ${maintenancePriceLabel} Per Month`}
           tooltipText="Hello. This is a pop-up which allows for of content."
@@ -116,30 +143,11 @@ const AdditionalOptionsForm: React.FC<IAdditionalOptionsFormProps> = ({
         /> */}
       </Form>
       <Modal
+        containerClassName={activeModalContainerClassName}
         show={activeModalType !== ModalTypeEnum.NONE}
         onRequestClose={() => setActiveModalType(ModalTypeEnum.NONE)}
       >
-        <div>
-          <Heading
-            className="title -mt-400"
-            color="black"
-            size="large"
-            tag="span"
-          >
-            1 Year’s FREE Insurance When You Lease A Car Online*
-          </Heading>
-          <Text size="regular" color="darker" className="copy -mt-500">
-            At Vanarama we’re helping our customers find a New Lease Of Life and
-            now, when you lease a brand-new car, you’ll get 12 month’s FREE
-            insurance* cover worth £538 too! As an insurance broker, Vanarama
-            Insurance Services has designed a comprehensive policy specifically
-            for leasing and you’re covered free of charge for a whole year! The
-            cost of insurance can be one of the biggest outgoings and we wanted
-            to help with that. Our car insurance covers you and 1 named driver
-            against the cost of accidents and damage. The cover is comprehensive
-            and FREE for 12 months.
-          </Text>
-        </div>
+        {mapModalTypeToModalContent(activeModalType)}
       </Modal>
     </>
   );
