@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
+import { useMediaQuery } from 'react-responsive';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { ICategoryPage } from './interface';
@@ -36,109 +37,6 @@ const Breadcrumb = dynamic(
   },
 );
 
-const renderCarouselCards = (cards: any[] | undefined) =>
-  cards?.map((card, index) => {
-    const hrefLink = setSource(
-      card.legacyUrl ||
-        card.link?.legacyUrl ||
-        card.link?.url ||
-        card.link ||
-        '',
-    );
-    return (
-      card && (
-        <Card
-          style={{ minHeight: 420 }}
-          loadImage
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          key={`${card.title}_${index.toString()}_${card.excerpt}`}
-          className="card__article"
-          imageSrc={
-            card.featuredImage?.file?.url || card.image?.file?.url || ''
-          }
-          title={{
-            className: '-flex-h',
-            link: (
-              <RouterLink
-                withoutDefaultClassName
-                className="heading"
-                classNames={{ color: 'black', size: 'lead' }}
-                link={{
-                  href: hrefLink,
-                  label: card?.title || '',
-                }}
-              >
-                {card?.name}
-              </RouterLink>
-            ),
-            title: '',
-          }}
-        >
-          <ReactMarkdown
-            allowDangerousHtml
-            source={card.excerpt || ''}
-            renderers={{
-              link: props => {
-                const { href, children } = props;
-                return (
-                  <RouterLink
-                    link={{ href, label: children }}
-                    classNames={{ color: 'teal' }}
-                  />
-                );
-              },
-              heading: props => (
-                <Text {...props} size="lead" color="darker" tag="h3" />
-              ),
-              paragraph: props => <Text {...props} tag="p" color="darker" />,
-            }}
-          />
-          <RouterLink
-            classNames={{ color: 'teal', size: 'regular' }}
-            link={{
-              label: 'Read More',
-              href: hrefLink,
-            }}
-          />
-        </Card>
-      )
-    );
-  });
-
-const renderCards = (
-  cards: GenericPageQuery_genericPage_sections_tiles_tiles[] | null | undefined,
-) => {
-  return cards?.map((card, index) =>
-    card?.body ? (
-      <Card
-        loadImage
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        key={`${card.title}_${index.toString()}_${card.body}`}
-        imageSrc={card.image?.file?.url || ''}
-        title={{
-          className: '-flex-h',
-          link: (
-            <RouterLink
-              withoutDefaultClassName
-              className="heading"
-              classNames={{ color: 'black', size: 'lead' }}
-              link={{
-                href: setSource(card.link?.legacyUrl || card.link?.url || ''),
-                label: card?.title || '',
-              }}
-            >
-              {card?.title}
-            </RouterLink>
-          ),
-          title: card.title || '',
-          withBtn: true,
-        }}
-        description={card.body}
-      />
-    ) : null,
-  );
-};
-
 const CategoryPageContainer: React.FC<ICategoryPage> = ({
   metaData,
   featured,
@@ -149,6 +47,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   carousel,
   activePageRoute,
 }) => {
+  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
   const [activePage] = useState(activePageRoute || 1);
 
   const articlesSorted = articles
@@ -241,6 +140,113 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             }}
           />
         </Card>
+      ) : null,
+    );
+  };
+
+  const renderCarouselCards = (cards: any[] | undefined) =>
+    cards?.map((card, index) => {
+      const hrefLink = setSource(
+        card.legacyUrl ||
+          card.link?.legacyUrl ||
+          card.link?.url ||
+          card.link ||
+          '',
+      );
+      return (
+        card && (
+          <Card
+            style={{ minHeight: 420 }}
+            loadImage
+            eagerLoad={isSmallScreen && index === 0}
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            key={`${card.title}_${index.toString()}_${card.excerpt}`}
+            className="card__article"
+            imageSrc={
+              card.featuredImage?.file?.url || card.image?.file?.url || ''
+            }
+            title={{
+              className: '-flex-h',
+              link: (
+                <RouterLink
+                  withoutDefaultClassName
+                  className="heading"
+                  classNames={{ color: 'black', size: 'lead' }}
+                  link={{
+                    href: hrefLink,
+                    label: card?.title || '',
+                  }}
+                >
+                  {card?.name}
+                </RouterLink>
+              ),
+              title: '',
+            }}
+          >
+            <ReactMarkdown
+              allowDangerousHtml
+              source={card.excerpt || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return (
+                    <RouterLink
+                      link={{ href, label: children }}
+                      classNames={{ color: 'teal' }}
+                    />
+                  );
+                },
+                heading: props => (
+                  <Text {...props} size="lead" color="darker" tag="h3" />
+                ),
+                paragraph: props => <Text {...props} tag="p" color="darker" />,
+              }}
+            />
+            <RouterLink
+              classNames={{ color: 'teal', size: 'regular' }}
+              link={{
+                label: 'Read More',
+                href: hrefLink,
+              }}
+            />
+          </Card>
+        )
+      );
+    });
+
+  const renderCards = (
+    cards:
+      | GenericPageQuery_genericPage_sections_tiles_tiles[]
+      | null
+      | undefined,
+  ) => {
+    return cards?.map((card, index) =>
+      card?.body ? (
+        <Card
+          loadImage
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          key={`${card.title}_${index.toString()}_${card.body}`}
+          imageSrc={card.image?.file?.url || ''}
+          title={{
+            className: '-flex-h',
+            link: (
+              <RouterLink
+                withoutDefaultClassName
+                className="heading"
+                classNames={{ color: 'black', size: 'lead' }}
+                link={{
+                  href: setSource(card.link?.legacyUrl || card.link?.url || ''),
+                  label: card?.title || '',
+                }}
+              >
+                {card?.title}
+              </RouterLink>
+            ),
+            title: card.title || '',
+            withBtn: true,
+          }}
+          description={card.body}
+        />
       ) : null,
     );
   };
