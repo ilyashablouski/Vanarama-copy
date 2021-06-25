@@ -2,7 +2,6 @@
 
 import {
   GetVehicleDetails_derivativeInfo_technicals,
-  GetVehicleDetails_derivativeInfo_standardEquipments,
   GetVehicleDetails_standardEquipment as IStandardEquipment,
 } from '../../../generated/GetVehicleDetails';
 
@@ -35,15 +34,12 @@ const getValue = (value: string, unit: string) => {
 };
 
 export const getTechData = (
-  derivativeInfo: (
-    | GetVehicleDetails_derivativeInfo_technicals
-    | GetVehicleDetails_derivativeInfo_standardEquipments
-  )[],
+  derivativeInfo: (GetVehicleDetails_derivativeInfo_technicals | null)[],
 ): ITechDataItemGroup[] => {
   return derivativeInfo
     ?.reduce((arr, el) => {
       const index = arr.findIndex(
-        (item: any) => item.categoryDescription === el.categoryDescription,
+        (item: any) => item.categoryDescription === el?.categoryDescription,
       );
       const {
         id,
