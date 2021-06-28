@@ -28,6 +28,7 @@ const ManualAddressForm: React.FC<IManualAddressFormProps> = () => {
     mode: 'onBlur',
   });
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => reset(value), [value]);
 
   if (!showManualForm) {

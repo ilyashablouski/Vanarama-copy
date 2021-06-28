@@ -140,6 +140,7 @@ const ComparatorContainer: React.FC = () => {
       getVansOffers();
       getPickupsOffers();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [compareVehicles]);
 
   if (error) {

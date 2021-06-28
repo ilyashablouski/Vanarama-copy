@@ -90,7 +90,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
     if (!initialTestimonials && page === 1) {
       handleFetchMore();
     }
-  }, []);
+  });
 
   if (loading && page === 1) {
     return <Loading size="large" />;

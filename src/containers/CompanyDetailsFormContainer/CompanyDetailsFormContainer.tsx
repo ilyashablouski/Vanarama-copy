@@ -84,10 +84,8 @@ export const CompanyDetailsFormContainer: React.FC<ICompanyDetailsFormContainerP
 
   const aboutDetails = useMemo(
     () =>
-      data?.creditApplicationByOrderUuid?.aboutDetailsV2 !== null
-        ? responseToInitialFormValues(
-            data?.creditApplicationByOrderUuid?.aboutDetailsV2,
-          )
+      aboutDetailsRaw !== null
+        ? responseToInitialFormValues(aboutDetailsRaw)
         : undefined,
     [aboutDetailsRaw],
   );

@@ -133,7 +133,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
     setSessionStorage('partnershipSessionActive', 'true');
     setPartnerFooter(footer);
     setSessionFuelTypes(fuelTypes || []);
-  }, []);
+  });
 
   useEffect(() => {
     if (getPartnerProperties()) {
@@ -153,6 +153,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const productCarouselProperties = [

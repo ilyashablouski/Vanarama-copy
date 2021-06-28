@@ -50,7 +50,9 @@ const ComporatorBar: React.FC<IComparatorBar> = ({
     setExistComparator(
       !PAGES_WITHOUT_COMPARATOR.some(page => router.pathname.includes(page)),
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router.pathname]);
+
   return (vehicles?.length > 0 || router.pathname === '/comparator') &&
     existComparator ? (
     <div className={cx('comparator-bar', className)} data-testid={dataTestId}>

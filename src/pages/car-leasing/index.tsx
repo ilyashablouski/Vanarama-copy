@@ -121,6 +121,7 @@ export const CarsPage: NextPage<IProps> = ({
   return (
     <>
       <NextHead>
+        {/* eslint-disable-next-line react/no-danger */}
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
 

@@ -4,6 +4,7 @@ import React, {
   forwardRef,
   useImperativeHandle,
   useEffect,
+  useCallback,
 } from 'react';
 import cx from 'classnames';
 import { IChoiceboxesProps, IChoice } from './interfaces';
@@ -34,39 +35,42 @@ const Choiceboxes = forwardRef(
     const [clearMultiSelectActive, setClearMultiSelectActive] = useState(false);
     const [partnershipColor, setPartnerShipColor] = useState(null);
 
-    const changeChoices = (index: number) => {
-      const changedChoices = currentChoices.map(
-        (choice: IChoice, number: number) => {
-          if (multiSelect) {
-            if (index === -1) {
+    const changeChoices = useCallback(
+      (index: number) => {
+        const changedChoices = currentChoices.map(
+          (choice: IChoice, number: number) => {
+            if (multiSelect) {
+              if (index === -1) {
+                return {
+                  ...choice,
+                  active: false,
+                };
+              }
               return {
                 ...choice,
-                active: false,
+                active: number === index ? !choice.active : choice.active,
               };
             }
             return {
               ...choice,
-              active: number === index ? !choice.active : choice.active,
+              active: number === index,
             };
-          }
-          return {
-            ...choice,
-            active: number === index,
-          };
-        },
-      );
-      index !== -1 && onSubmit(changedChoices[index]);
-      if (index !== -1 && setChoiceIndex) {
-        setChoiceIndex(index);
-      }
-      setCurrentChoices(changedChoices);
-    };
+          },
+        );
+        index !== -1 && onSubmit(changedChoices[index]);
+        if (index !== -1 && setChoiceIndex) {
+          setChoiceIndex(index);
+        }
+        setCurrentChoices(changedChoices);
+      },
+      [currentChoices, multiSelect, onSubmit, setChoiceIndex],
+    );
 
     useEffect(() => {
       if (choiceIndex || choiceIndex === 0) {
         changeChoices(choiceIndex);
       }
-    }, [choiceIndex]);
+    }, [choiceIndex, changeChoices]);
 
     useEffect(() => {
       const partner = getPartnerProperties();
