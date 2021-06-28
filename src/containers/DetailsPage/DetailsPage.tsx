@@ -262,6 +262,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     }
   }, [price]);
   const vehicleDetails = data?.vehicleDetails;
+  const standardEquipment = data?.standardEquipment;
 
   const breadcrumbItems = useMemo(() => {
     return (
@@ -591,6 +592,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <VehicleTechDetails
           vehicleDetails={vehicleDetails}
           derivativeInfo={derivativeInfo}
+          standardEquipment={standardEquipment}
         />
         {isSpecialOffer && isCar && <FreeInsuranceCards />}
         {isMobile && vehicleDetails?.brochureUrl && (

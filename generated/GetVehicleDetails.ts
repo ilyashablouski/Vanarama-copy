@@ -31,6 +31,15 @@ export interface GetVehicleDetails_vehicleConfigurationByCapId {
   financeProfile: GetVehicleDetails_vehicleConfigurationByCapId_financeProfile | null;
 }
 
+export interface GetVehicleDetails_standardEquipment_standardEquipment {
+  name: string | null;
+}
+
+export interface GetVehicleDetails_standardEquipment {
+  name: string | null;
+  standardEquipment: (GetVehicleDetails_standardEquipment_standardEquipment | null)[] | null;
+}
+
 export interface GetVehicleDetails_vehicleDetails_keyInformation {
   name: string | null;
   value: string | null;
@@ -118,17 +127,6 @@ export interface GetVehicleDetails_derivativeInfo_technicals {
   unit: string | null;
 }
 
-export interface GetVehicleDetails_derivativeInfo_standardEquipments {
-  id: string;
-  derivativeId: string;
-  optionDescription: string;
-  optionLongDescription: string;
-  categoryDescription: string;
-  genericDescription: string | null;
-  effectiveFrom: any;
-  effectiveTo: any | null;
-}
-
 export interface GetVehicleDetails_derivativeInfo_colours {
   id: string;
   optionDescription: string;
@@ -149,7 +147,6 @@ export interface GetVehicleDetails_derivativeInfo {
   bodyType: GetVehicleDetails_derivativeInfo_bodyType;
   model: GetVehicleDetails_derivativeInfo_model;
   technicals: (GetVehicleDetails_derivativeInfo_technicals | null)[];
-  standardEquipments: (GetVehicleDetails_derivativeInfo_standardEquipments | null)[];
   colours: (GetVehicleDetails_derivativeInfo_colours | null)[] | null;
   trims: (GetVehicleDetails_derivativeInfo_trims | null)[] | null;
 }
@@ -180,6 +177,7 @@ export interface GetVehicleDetails {
    * Find vehicle configuration by cap id
    */
   vehicleConfigurationByCapId: GetVehicleDetails_vehicleConfigurationByCapId | null;
+  standardEquipment: (GetVehicleDetails_standardEquipment | null)[] | null;
   vehicleDetails: GetVehicleDetails_vehicleDetails | null;
   derivativeInfo: GetVehicleDetails_derivativeInfo | null;
   /**
