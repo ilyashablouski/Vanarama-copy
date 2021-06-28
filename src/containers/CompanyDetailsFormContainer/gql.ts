@@ -72,3 +72,56 @@ export function useSicCodes(searchTerm?: string) {
 
   return suggestions;
 }
+
+export function makeCompanyProfileMock(onComplete: () => void) {
+  return {
+    request: {
+      query: GET_COMPANY_PROFILE,
+      variables: {
+        companyNumber: '05137709',
+      },
+    },
+    result: () => {
+      onComplete();
+      return {
+        data: {
+          companyProfile: {
+            sicData: [
+              {
+                sicCode: '62020',
+                description: 'Information technology consultancy activities',
+              },
+            ],
+          },
+        },
+      };
+    },
+  };
+}
+
+export function makeSicCodesMock(onComplete: () => void) {
+  return {
+    request: {
+      query: GET_SIC_CODES,
+      variables: {
+        value: '62020',
+      },
+    },
+    result: () => {
+      onComplete();
+      return {
+        data: {
+          sicCodes: {
+            sicData: [
+              {
+                sicCode: '62020',
+                description: 'Information technology consultancy activities',
+              },
+              { sicCode: '121212', description: 'test test' },
+            ],
+          },
+        },
+      };
+    },
+  };
+}
