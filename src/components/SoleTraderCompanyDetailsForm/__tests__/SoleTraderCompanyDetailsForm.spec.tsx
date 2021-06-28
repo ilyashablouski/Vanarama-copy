@@ -1,42 +1,56 @@
 import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { MockedProvider } from '@apollo/client/testing';
 import SoleTraderCompanyDetailsForm from '../SoleTraderCompanyDetailsForm';
 import { ISoleTraderCompanyDetailsFormValues } from '../interfaces';
-import { GET_SIC_CODES } from '../../../containers/CompanyDetailsFormContainer/gql';
+import { makeSicCodesMock } from '../../../containers/CompanyDetailsFormContainer/gql';
+
+jest.mock('../../../hooks/useLoqate', () => () => ({
+  data: [
+    {
+      id: 'GB|RM|A|54725860',
+      description: 'Bournemouth, BH8 8ES',
+      text: 'B001, Purbeck House 5-7, Oxford Road',
+      type: 'Address',
+    },
+  ],
+}));
+
+let getSicCodesCalled = false;
+
+const sicDataMocks = [
+  makeSicCodesMock(() => {
+    getSicCodesCalled = true;
+  }),
+];
+
+function typeIntoAddressField(value: string) {
+  const input = screen.getByTestId(
+    'sole-trader-company-details_trading-address',
+  );
+  fireEvent.focus(input);
+  fireEvent.change(input, { target: { value } });
+}
+
+function typeIntoNatureField(value: string) {
+  const field = screen.getByTestId('company-details_nature');
+  fireEvent.focus(field);
+  fireEvent.change(field, { target: { value } });
+}
 
 describe('<SoleTraderCompanyDetailsForm />', () => {
   beforeEach(async () => {
     await preloadAll();
   });
+
   const onSubmitMock = jest.fn<void, [ISoleTraderCompanyDetailsFormValues]>();
   const handleNatureMock = jest.fn();
-
-  const sicData: MockedResponse[] = [
-    {
-      request: {
-        query: GET_SIC_CODES,
-      },
-      result: {
-        data: {
-          sicCodes: {
-            sicData: [
-              {
-                sicCode: '',
-                description: '',
-              },
-            ],
-          },
-        },
-      },
-    },
-  ];
 
   beforeEach(() => {
     onSubmitMock.mockReset();
     render(
-      <MockedProvider addTypename={false} mocks={sicData}>
+      <MockedProvider addTypename={false} mocks={sicDataMocks}>
         <SoleTraderCompanyDetailsForm
           natureOfBusiness={['orange man']}
           setNatureOfBusiness={handleNatureMock}
@@ -88,7 +102,7 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
     ).toBeVisible();
   });
 
-  it.skip('should correctly submit form', async () => {
+  it('should correctly submit form', async () => {
     fireEvent.click(
       screen.getByTestId('sole-trader-company-details_existing-vehicle'),
     );
@@ -99,24 +113,24 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
         target: { value: 'test trading name' },
       },
     );
+
+    typeIntoAddressField('GB|001');
+    fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
+
+    typeIntoNatureField('62020');
+    await waitFor(() => expect(getSicCodesCalled).toBeTruthy());
+    fireEvent.mouseDown(screen.getByText(/^62020/));
+
     fireEvent.change(
-      screen.getByTestId('sole-trader-company-details_trading-address'),
+      screen.getByTestId('company-details_trading-since-month'),
       {
-        target: {
-          value: '000',
-        },
+        target: { value: '1' },
       },
     );
-    fireEvent.input(screen.getByTestId('company-details_nature'), {
-      target: { value: 'test nature of business' },
-    });
-    fireEvent.input(screen.getByTestId('company-details_trading-since-month'), {
-      target: { value: new Date().getMonth() },
-    });
-    fireEvent.input(
+    fireEvent.change(
       screen.getByTestId('sole-trader-company-details_trading-since-year'),
       {
-        target: { value: new Date().getFullYear().toString() },
+        target: { value: '1990' },
       },
     );
     fireEvent.input(
@@ -124,7 +138,7 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
         'sole-trader-company-details_business-telephone-number',
       ),
       {
-        target: { value: '0123123123123' },
+        target: { value: '07777777777' },
       },
     );
     fireEvent.input(screen.getByTestId('sole-trader-company-details_email'), {
@@ -133,7 +147,7 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
     fireEvent.input(
       screen.getByTestId('sole-trader-company-details_annual-turnover'),
       {
-        target: { value: '123' },
+        target: { value: '12345' },
       },
     );
     fireEvent.input(
