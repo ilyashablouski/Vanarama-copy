@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
+import { PreviewNextPageContext } from 'types/common';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { IInsurancePage } from '../../../models/IInsuranceProps';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
@@ -38,7 +39,7 @@ const CompetitionPage: NextPage<IInsurancePage> = ({ data }) => {
   );
 };
 
-export async function getStaticPaths(context: NextPageContext) {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,

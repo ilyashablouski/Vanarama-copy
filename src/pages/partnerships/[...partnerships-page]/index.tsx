@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { notFoundPageHandler } from 'utils/url';
 import PageNotFoundContainer from 'containers/PageNotFoundContainer/PageNotFoundContainer';
+import { PreviewNextPageContext } from 'types/common';
 import { setSessionStorage } from '../../../utils/windowSessionStorage';
 import PageHeadingSection from '../../../components/PageHeadingSection';
 import Hero, { HeroHeading } from '../../../components/Hero';
@@ -319,7 +320,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context as NextPageContext);
   const path = context.req?.url?.split('?')[0] || '';
   try {

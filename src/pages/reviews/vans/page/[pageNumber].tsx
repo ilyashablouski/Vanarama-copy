@@ -2,6 +2,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
 import SchemaJSON from 'core/atoms/schema-json';
 import DefaultErrorPage from 'next/error';
+import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../../../../apolloClient';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import { GENERIC_PAGE_QUESTION_HUB } from '../../../../containers/VehicleReviewCategoryContainer/gql';
@@ -54,7 +55,7 @@ const ReviewHub: NextPage<IReviewHubPage> = ({
   );
 };
 
-export async function getStaticPaths(context: NextPageContext) {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
 
   const { data } = await client.query({

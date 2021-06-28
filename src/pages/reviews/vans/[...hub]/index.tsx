@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
 import DefaultErrorPage from 'next/error';
 import React from 'react';
+import { PreviewNextPageContext } from 'types/common';
 import Skeleton from '../../../../components/Skeleton';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import { GENERIC_PAGE_QUESTION } from '../../../../containers/VehicleReviewContainer/gql';
@@ -90,7 +91,7 @@ const ReviewHub: NextPage<IReviewPage> = ({
   );
 };
 
-export async function getStaticPaths(context: NextPageContext) {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,

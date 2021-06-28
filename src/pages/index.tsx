@@ -1,4 +1,5 @@
-import { NextPage, NextPageContext } from 'next';
+import { NextPage } from 'next';
+import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../apolloClient';
 import { HomePageData } from '../../generated/HomePageData';
 import { ALL_HOME_CONTENT } from '../gql/homepage';
@@ -41,7 +42,7 @@ export const HomePage: NextPage<IHomePageContainer> = ({
   />
 );
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context);
   const { data, loading } = await client.query<HomePageData>({
     query: ALL_HOME_CONTENT,

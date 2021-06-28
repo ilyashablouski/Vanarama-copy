@@ -1,4 +1,5 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { PreviewNextPageContext } from 'types/common';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import SimplePageContainer from '../../../containers/SimplePageContainer/SimplePageContainer';
 import createApolloClient from '../../../apolloClient';
@@ -19,7 +20,7 @@ const AboutUsPage: NextPage<IAboutUsPage> = ({ data }) => {
   return <SimplePageContainer data={data} loading={!data} />;
 };
 
-export async function getStaticPaths(context: NextPageContext) {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,

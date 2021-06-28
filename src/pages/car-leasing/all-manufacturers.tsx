@@ -1,5 +1,6 @@
-import { NextPage, NextPageContext } from 'next';
+import { NextPage } from 'next';
 import { ApolloQueryResult } from '@apollo/client';
+import { PreviewNextPageContext } from 'types/common';
 import {
   GET_MANUFACTURER_LIST,
   GET_LEGACY_URLS,
@@ -44,7 +45,7 @@ const Page: NextPage<IProps> = ({
     />
   );
 };
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context);
   let manufacturers;
   const contextData = {

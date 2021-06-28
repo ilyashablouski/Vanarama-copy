@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
+import { PreviewNextPageContext } from 'types/common';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
@@ -52,7 +53,7 @@ const BlogPost: NextPage<IBlogPost> = ({
   );
 };
 
-export async function getStaticPaths(context: NextPageContext) {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   try {
     const client = createApolloClient({});
     const { data } = await client.query<BlogPosts>({

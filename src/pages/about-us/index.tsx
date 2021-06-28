@@ -1,5 +1,6 @@
-import { NextPage, NextPageContext } from 'next';
+import { NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
+import { PreviewNextPageContext } from 'types/common';
 import { GET_ABOUT_US_PAGE_DATA } from '../../containers/AboutUsPageContainer/gql';
 import AboutUs, {
   IAboutPageProps,
@@ -43,7 +44,7 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
   );
 };
 
-export async function getStaticProps(context: NextPageContext) {
+export async function getStaticProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context);
   try {
     const { data: rawData, loading, errors } = await client.query({

@@ -1,8 +1,9 @@
-import { NextPage, NextPageContext } from 'next';
+import { NextPage } from 'next';
 import { ApolloError } from '@apollo/client';
 import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from 'core/atoms/schema-json';
+import { PreviewNextPageContext } from 'types/common';
 import { GET_CAR_DATA, GET_TRIM_AND_COLOR_DATA } from '../../../gql/carpage';
 import {
   FinanceTypeEnum,
@@ -199,7 +200,7 @@ const CarDetailsPage: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const path = context.req?.url?.split('?')[0] || '';
 
