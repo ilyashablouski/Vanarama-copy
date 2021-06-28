@@ -12,21 +12,19 @@ const PurePlaceholder: React.FC<IPurePlaceholder> = ({
   return (
     <div className="pure-placeholder">
       <div className="pure-placeholder__wrapper">
-        {Array.from({ length: numberOfPlaceholders }).map(
-          (placeholderItem, index) => {
-            return (
-              <div
-                // eslint-disable-next-line react/no-array-index-key
-                key={index}
-                className="pure-placeholder__item"
-                style={{
-                  width: '100%',
-                  height,
-                }}
-              />
-            );
-          },
-        )}
+        {Array.from({ length: numberOfPlaceholders }).map((_, index) => {
+          return (
+            <div
+              // eslint-disable-next-line react/no-array-index-key
+              key={index}
+              className="pure-placeholder__item"
+              style={{
+                width: '100%',
+                height,
+              }}
+            />
+          );
+        })}
       </div>
     </div>
   );
