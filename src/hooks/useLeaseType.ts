@@ -1,10 +1,16 @@
 import { useApolloClient, gql } from '@apollo/client';
+import { LeaseTypeEnum } from '../../generated/globalTypes';
 
 const query = gql`
   query LeaseTypeQuery {
     leaseTypes @client
   }
 `;
+
+interface ICachedLeaseType {
+  car: LeaseTypeEnum;
+  lcv: LeaseTypeEnum;
+}
 
 /** 
 * types not being used due to type related complexities/conflicts throughout all dependant components/pages.
@@ -26,31 +32,50 @@ type LeaseType = 'Personal' | 'Business';
  * null inorder to get both types as object, no set required
  * @return {Object}  return lease type setter fn and getter
  */
-export default function useLeaseType(isCars: boolean | undefined | null) {
+export default function useLeaseType<T>(isCars: T) {
   const client = useApolloClient();
-  const initleaseTypes = { car: 'Personal', lcv: 'Business' };
+  const initialLeaseTypes = {
+    car: LeaseTypeEnum.PERSONAL,
+    lcv: LeaseTypeEnum.BUSINESS,
+  };
+
+  type ICachedLeaseTypeResult = T extends null
+    ? ICachedLeaseType
+    : LeaseTypeEnum;
+
   return {
-    setCachedLeaseType(type: string): void {
+    setCachedLeaseType(type: LeaseTypeEnum): void {
       const leaseTypes = isCars
-        ? { ...initleaseTypes, car: type }
-        : { ...initleaseTypes, lcv: type };
+        ? { ...initialLeaseTypes, car: type }
+        : { ...initialLeaseTypes, lcv: type };
+
       client.writeQuery({
         query,
         data: { __typename: 'LeaseTypes', leaseTypes },
       });
     },
-    get cachedLeaseType() {
+    get cachedLeaseType(): ICachedLeaseTypeResult {
       try {
         const res = client.readQuery({ query });
         if (isCars === null) {
-          return { car: res.leaseTypes.car, lcv: res.leaseTypes.lcv };
+          return {
+            car: res.leaseTypes.car,
+            lcv: res.leaseTypes.lcv,
+          } as ICachedLeaseTypeResult;
         }
-        return isCars ? res.leaseTypes.car : res.leaseTypes.lcv;
+
+        const result = isCars ? initialLeaseTypes.car : initialLeaseTypes.lcv;
+        return result as ICachedLeaseTypeResult;
       } catch {
         if (isCars === null) {
-          return { car: initleaseTypes.car, lcv: initleaseTypes.lcv };
+          return {
+            car: initialLeaseTypes.car,
+            lcv: initialLeaseTypes.lcv,
+          } as ICachedLeaseTypeResult;
         }
-        return isCars ? initleaseTypes.car : initleaseTypes.lcv;
+
+        const result = isCars ? initialLeaseTypes.car : initialLeaseTypes.lcv;
+        return result as ICachedLeaseTypeResult;
       }
     },
   };

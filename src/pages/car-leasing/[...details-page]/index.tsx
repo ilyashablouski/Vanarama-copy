@@ -65,7 +65,7 @@ interface IProps {
   trim: ITrimList[];
   colour: IColourList[];
   productCard: GetProductCard | null;
-  leaseTypeQuery?: string | null;
+  leaseTypeQuery?: LeaseTypeEnum | null;
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -338,9 +338,8 @@ export async function getServerSideProps(context: NextPageContext) {
         genericPageHead: data,
         genericPages: genericPages || null,
         productCard: productCard || null,
-        leaseTypeQuery: context.query.leaseType
-          ? leaseType.charAt(0) + leaseType.slice(1).toLowerCase()
-          : null,
+        leaseTypeQuery:
+          context.query?.leaseType?.toString()?.toUpperCase() || null,
       },
     };
   } catch (error) {
