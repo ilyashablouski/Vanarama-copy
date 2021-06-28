@@ -95,7 +95,7 @@ describe('<EmploymentForm />', () => {
     });
   });
 
-  it.skip('should call `onSubmit` when entering valid information for a position that requires additional information', async () => {
+  it('should call `onSubmit` when entering valid information for a position that requires additional information', async () => {
     // ARRANGE
     const onSubmit = jest.fn();
 
@@ -125,10 +125,8 @@ describe('<EmploymentForm />', () => {
     const phone = screen.getByLabelText('Work Phone Number');
     fireEvent.change(phone, { target: { value: '01442838195' } });
 
-    const address = screen.getByLabelText('Company Address');
-    fireEvent.change(address, {
-      target: { value: 'Maylands Avenue, HP2 7DE' },
-    });
+    typeIntoAddressField('GB|001');
+    fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
     const income = screen.getByLabelText('Gross Annual Income');
     const incomeValue = '52000.00';
@@ -148,7 +146,9 @@ describe('<EmploymentForm />', () => {
       history: [
         {
           address: {
-            id: 'Maylands Avenue, HP2 7DE',
+            id: 'GB|RM|A|54725860',
+            label:
+              'B001, Purbeck House 5-7, Oxford Road - Bournemouth, BH8 8ES',
           },
           company: 'Autorama Ltd.',
           income: incomeValue,
