@@ -136,8 +136,8 @@ export const EVHubPage: NextPage<IProps> = ({
     quality: 59,
   };
 
-  const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
-  const isPersonalCar = cachedLeaseType.car === 'Personal';
+  const isPersonalLcv = cachedLeaseType.lcv === LeaseTypeEnum.PERSONAL;
+  const isPersonalCar = cachedLeaseType.car === LeaseTypeEnum.PERSONAL;
   const sections = data?.genericPage.sections;
 
   return (

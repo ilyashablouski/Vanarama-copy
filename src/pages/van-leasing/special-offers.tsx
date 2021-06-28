@@ -69,7 +69,7 @@ export const VanOffers: NextPage<IProps> = ({
   const data = decodeData(encodedData);
   const vehicleListUrlData = decodeData(encodeVehicleListUrlData);
 
-  const isPersonal = cachedLeaseType === 'Personal';
+  const isPersonal = cachedLeaseType === LeaseTypeEnum.PERSONAL;
   const metaDataName = getSectionsData(
     ['metaData', 'name'],
     data?.vanOffersPage,

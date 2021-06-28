@@ -12,26 +12,22 @@ import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   HubVanPageData,
-  HubVanPageData_hubVanPage_sections_tiles_tiles as TileData,
   HubVanPageData_hubVanPage_sections_cards_cards as CardData,
   HubVanPageData_hubVanPage_sections_steps_steps as StepData,
+  HubVanPageData_hubVanPage_sections_tiles_tiles as TileData,
 } from '../../../generated/HubVanPageData';
 import { ProductCardData_productCarousel as ProdCardData } from '../../../generated/ProductCardData';
 
 import { HUB_VAN_CONTENT } from '../../gql/hub/hubVanPage';
-import Hero, {
-  // HeroTitle,
-  // HeroHeading,
-  HeroPrompt,
-} from '../../components/Hero';
+import Hero, { HeroPrompt } from '../../components/Hero';
 import DealOfMonth from '../../components/DealOfMonth';
-import { VehicleTypeEnum, LeaseTypeEnum } from '../../../generated/globalTypes';
+import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import ProductCarousel from '../../components/ProductCarousel/ProductCarousel';
 import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useWishlist from '../../hooks/useWishlist';
 import useLeaseType from '../../hooks/useLeaseType';
-import { getSectionsData, getCardsName } from '../../utils/getSectionsData';
+import { getCardsName, getSectionsData } from '../../utils/getSectionsData';
 import TileLink from '../../components/TileLink/TileLink';
 import { VansSearch } from '../../models/enum/SearchByManufacturer';
 import Head from '../../components/Head/Head';
@@ -112,7 +108,7 @@ export const VansPage: NextPage<IProps> = ({
 
   const dealOfMonthHref = getNewUrl(vehicleListUrlData.edges, offer?.capId);
 
-  const isPersonal = cachedLeaseType === 'Personal';
+  const isPersonal = cachedLeaseType === LeaseTypeEnum.PERSONAL;
 
   const optimisationOptions = {
     height: 620,

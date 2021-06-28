@@ -23,20 +23,16 @@ import css from '!!raw-loader!../../../public/styles/pages/car-leasing.css';
 
 import {
   HubCarPageData,
-  HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
   HubCarPageData_hubCarPage_sections_steps_steps as StepData,
+  HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
 } from '../../../generated/HubCarPageData';
 import { HUB_CAR_CONTENT } from '../../gql/hub/hubCarPage';
 import createApolloClient from '../../apolloClient';
-import Hero, {
-  // HeroTitle,
-  // HeroHeading,
-  HeroPrompt,
-} from '../../components/Hero';
+import Hero, { HeroPrompt } from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import truncateString from '../../utils/truncateString';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { getLegacyUrl, formatProductPageUrl } from '../../utils/url';
+import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
+import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
 import getTitleTag from '../../utils/getTitleTag';
 import useWishlist from '../../hooks/useWishlist';
 import useLeaseType from '../../hooks/useLeaseType';
@@ -99,13 +95,17 @@ export const CarsPage: NextPage<IProps> = ({
   const vehicleListUrlData = decodeData(vehicleListUrlDataEncoded);
   // pass in true for car leaseType
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(true);
-  const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
+  const [isPersonal, setIsPersonal] = useState(
+    cachedLeaseType === LeaseTypeEnum.PERSONAL,
+  );
 
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
 
   useEffect(() => {
-    setCachedLeaseType(isPersonal ? 'Personal' : 'Business');
+    setCachedLeaseType(
+      isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    );
   }, [isPersonal, setCachedLeaseType]);
 
   const leaseTypes = [

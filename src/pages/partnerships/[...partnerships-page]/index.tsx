@@ -111,7 +111,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
 
   const [activeTab, setActiveTab] = useState(0);
   const { cachedLeaseType } = useLeaseType(null);
-  const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
+  const isPersonalLcv = cachedLeaseType.lcv === LeaseTypeEnum.PERSONAL;
 
   const [searchType, setSearchType] = useState<VehicleTypeEnum | undefined>();
 

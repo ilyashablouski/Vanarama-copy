@@ -38,7 +38,7 @@ export interface IProps {
   isShowFreeInsuranceMerch?: boolean;
   onCompletedCallBack: () => void;
   setIsPlayingLeaseAnimation: React.Dispatch<React.SetStateAction<boolean>>;
-  setLeaseType: React.Dispatch<React.SetStateAction<string>>;
+  setLeaseType: React.Dispatch<React.SetStateAction<LeaseTypeEnum>>;
   setLeadTime: React.Dispatch<React.SetStateAction<string>>;
   onCompleted: (values: OrderInputObject) => void;
   setLeaseScannerData?: React.Dispatch<

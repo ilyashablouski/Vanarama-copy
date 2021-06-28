@@ -12,21 +12,17 @@ import { isWished } from '../../utils/wishlistHelpers';
 import { isCompared } from '../../utils/comparatorHelpers';
 import {
   HubPickupPageData,
+  HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
   HubPickupPageData_hubPickupPage_sections_tiles1_tiles as AccessoryData,
   HubPickupPageData_hubPickupPage_sections_tiles2_tiles as TileData,
-  HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
 } from '../../../generated/HubPickupPageData';
 import { HUB_PICKUP_CONTENT } from '../../gql/hub/hubPickupPage';
 import createApolloClient from '../../apolloClient';
 import DealOfMonth from '../../components/DealOfMonth';
-import Hero, {
-  // HeroTitle,
-  // HeroHeading,
-  HeroPrompt,
-} from '../../components/Hero';
+import Hero, { HeroPrompt } from '../../components/Hero';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import truncateString from '../../utils/truncateString';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import { formatProductPageUrl, getLegacyUrl, getNewUrl } from '../../utils/url';
 import { CompareContext } from '../../utils/comparatorTool';
 import getTitleTag from '../../utils/getTitleTag';
@@ -126,7 +122,7 @@ export const PickupsPage: NextPage<IProps> = ({
     [vehicleListUrlData, offer],
   );
 
-  const isPersonal = cachedLeaseType === 'Personal';
+  const isPersonal = cachedLeaseType === LeaseTypeEnum.PERSONAL;
 
   const optimisationOptions = {
     height: 620,
