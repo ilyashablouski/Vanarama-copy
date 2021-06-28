@@ -2,7 +2,7 @@
 
 import {
   GetVehicleDetails_derivativeInfo_technicals,
-  GetVehicleDetails_derivativeInfo_standardEquipments,
+  GetVehicleDetails_standardEquipment as IStandardEquipment,
 } from '../../../generated/GetVehicleDetails';
 
 interface ITechDataItem {
@@ -34,15 +34,12 @@ const getValue = (value: string, unit: string) => {
 };
 
 export const getTechData = (
-  derivativeInfo: (
-    | GetVehicleDetails_derivativeInfo_technicals
-    | GetVehicleDetails_derivativeInfo_standardEquipments
-  )[],
+  derivativeInfo: (GetVehicleDetails_derivativeInfo_technicals | null)[],
 ): ITechDataItemGroup[] => {
   return derivativeInfo
     ?.reduce((arr, el) => {
       const index = arr.findIndex(
-        (item: any) => item.categoryDescription === el.categoryDescription,
+        (item: any) => item.categoryDescription === el?.categoryDescription,
       );
       const {
         id,
@@ -79,5 +76,20 @@ export const getTechData = (
     }, [] as ITechDataItemGroup[])
     ?.filter((el: ITechDataItemGroup) => el.items.length);
 };
+
+export const getStandardEquipmentData = (
+  equipmentGroup: (IStandardEquipment | null)[],
+) =>
+  equipmentGroup.map(group => {
+    const items = (group?.standardEquipment || []).map(item => ({
+      label: item?.name || '',
+      value: '',
+    }));
+
+    return {
+      categoryDescription: group?.name || '',
+      items,
+    };
+  });
 
 export default getTechData;

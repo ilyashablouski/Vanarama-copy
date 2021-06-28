@@ -20,6 +20,7 @@ const ListItem: FC<IListItemProps> = props => {
     onChange,
     dataTestId,
     isOrange,
+    wrap,
   } = props;
 
   const [input, setInput] = useState(value);
@@ -93,7 +94,9 @@ const ListItem: FC<IListItemProps> = props => {
   return (
     <div className={cx('structured-list-row', { orange: isOrange })}>
       <div
-        className="structured-list-td structured-list-content--nowrap"
+        className={cx('structured-list-td', {
+          'structured-list-content--nowrap': !wrap,
+        })}
         data-testid={`data_id-${testId}-${label}`}
       >
         {label}

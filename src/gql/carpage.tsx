@@ -34,6 +34,12 @@ export const GET_CAR_DATA = gql`
         upfront
       }
     }
+    standardEquipment(capId: $capIdDetails, vehicleType: $vehicleType) {
+      name
+      standardEquipment {
+        name
+      }
+    }
     vehicleDetails(capId: $capIdDetails, vehicleType: $vehicleType) {
       averageRating
       brochureUrl
@@ -105,16 +111,6 @@ export const GET_CAR_DATA = gql`
         effectiveTo
         value
         unit
-      }
-      standardEquipments {
-        id
-        derivativeId
-        optionDescription
-        optionLongDescription
-        categoryDescription
-        genericDescription
-        effectiveFrom
-        effectiveTo
       }
       colours {
         id
