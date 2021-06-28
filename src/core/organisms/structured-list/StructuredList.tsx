@@ -21,6 +21,7 @@ const StructuredList: FC<IStructuredListProps> = ({
   priceDataTestId,
   priceTagDataTestId,
   headingDataTestId,
+  itemWrap,
 }) => {
   const [editing, setEditing] = useState(false);
   return (
@@ -63,6 +64,7 @@ const StructuredList: FC<IStructuredListProps> = ({
       <div className="structured-list-tbody">
         {list.map((item, index: number) => (
           <ListItem
+            wrap={itemWrap}
             key={`${item.dataTestId}_${index.toString()}`}
             testId={index}
             onChange={onChange}

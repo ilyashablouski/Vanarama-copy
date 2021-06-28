@@ -97,6 +97,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
     createUpdateApplication({
       variables: {
         input: {
+          // @ts-ignore
           companyDetailsV2: mapCreateUpdateApplicationData(values, companyData),
           orderUuid: orderId,
         },
