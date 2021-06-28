@@ -213,15 +213,11 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
                 >
                   Total Monthly Cost
                 </Heading>
-                <Price
-                  price={price}
-                  size="xlarge"
-                  className="-mb-400"
-                  priceDescription={`Per Month ${
-                    isPersonalPrice ? 'inc.' : 'exc.'
-                  } VAT`}
-                />
-                <List className="ticked orange" style={{ gap: 0 }}>
+                <Price price={price} size="xlarge" className="-mb-100" />
+                <Text color="black" size="regular">
+                  {`Per Month ${isPersonalPrice ? 'inc.' : 'exc.'} VAT`}
+                </Text>
+                <List className="ticked orange -mt-400" style={{ gap: 0 }}>
                   {includedItems.map(item => (
                     <li className="-custom" key={item.key}>
                       {item.label}
