@@ -11,6 +11,18 @@ jest.mock('../../../hooks/useLoqate', () => () => ({
       text: 'B001, Purbeck House 5-7, Oxford Road',
       type: 'Address',
     },
+    {
+      id: 'GB|RM|A|54725861',
+      description: 'Bournemouth, BH8 8ES',
+      text: 'B002, Purbeck House 5-7, Oxford Road',
+      type: 'Address',
+    },
+    {
+      id: 'GB|RM|A|56391338',
+      description: 'Gosport, PO12 2FD',
+      text: 'B003, Domville House, Sir John Richardson Avenue',
+      type: 'Address',
+    },
   ],
 }));
 
@@ -98,7 +110,7 @@ describe('<AddressForm />', () => {
     );
 
     typeIntoAddressField('history[0].address', 'GB|001');
-    fireEvent.mouseDown(screen.getAllByText(/^B001, Purbeck House 5-7/)[0]);
+    fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
     fireEvent.change(screen.getByTestId('history[0].status'), {
       target: { value: 'Rented' },
@@ -112,8 +124,8 @@ describe('<AddressForm />', () => {
       target: { value: currentYear },
     });
 
-    typeIntoAddressField('history[1].address', 'GB|001');
-    fireEvent.mouseDown(screen.getAllByText(/^B001, Purbeck House 5-7/)[1]);
+    typeIntoAddressField('history[1].address', 'GB|002');
+    fireEvent.mouseDown(screen.getByText(/^B002, Purbeck House 5-7/));
 
     fireEvent.change(screen.getByTestId('history[1].status'), {
       target: { value: 'Mortgage' },
@@ -145,9 +157,9 @@ describe('<AddressForm />', () => {
         },
         {
           address: {
-            id: 'GB|RM|A|54725860',
+            id: 'GB|RM|A|54725861',
             label:
-              'B001, Purbeck House 5-7, Oxford Road - Bournemouth, BH8 8ES',
+              'B002, Purbeck House 5-7, Oxford Road - Bournemouth, BH8 8ES',
           },
           month: '4',
           status: 'Mortgage',
@@ -308,7 +320,7 @@ describe('<AddressForm />', () => {
 
     // Add a history for last year
     typeIntoAddressField('history[0].address', 'GB|001');
-    fireEvent.mouseDown(screen.getAllByText(/^B001, Purbeck House 5-7/)[0]);
+    fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
     fireEvent.change(screen.getByTestId('history[0].status'), {
       target: { value: 'Rented' },
@@ -323,8 +335,8 @@ describe('<AddressForm />', () => {
     });
 
     // Then add a history for this year
-    typeIntoAddressField('history[1].address', 'GB|001');
-    fireEvent.mouseDown(screen.getAllByText(/^B001, Purbeck House 5-7/)[1]);
+    typeIntoAddressField('history[1].address', 'GB|002');
+    fireEvent.mouseDown(screen.getByText(/^B002, Purbeck House 5-7/));
 
     fireEvent.change(screen.getByTestId('history[1].status'), {
       target: { value: 'Rented' },
@@ -339,8 +351,8 @@ describe('<AddressForm />', () => {
     });
 
     // Then add another to meet the 3 years requirement
-    typeIntoAddressField('history[2].address', 'GB|001');
-    fireEvent.mouseDown(screen.getAllByText(/^B001, Purbeck House 5-7/)[2]);
+    typeIntoAddressField('history[2].address', 'GB|003');
+    fireEvent.mouseDown(screen.getByText(/^B003, Domville House/));
 
     fireEvent.change(screen.getByTestId('history[2].status'), {
       target: { value: 'Living with parents' },
@@ -367,9 +379,9 @@ describe('<AddressForm />', () => {
       history: [
         {
           address: {
-            id: 'GB|RM|A|54725860',
+            id: 'GB|RM|A|54725861',
             label:
-              'B001, Purbeck House 5-7, Oxford Road - Bournemouth, BH8 8ES',
+              'B002, Purbeck House 5-7, Oxford Road - Bournemouth, BH8 8ES',
           },
           month: currentMonth,
           status: 'Rented',
@@ -387,9 +399,9 @@ describe('<AddressForm />', () => {
         },
         {
           address: {
-            id: 'GB|RM|A|54725860',
+            id: 'GB|RM|A|56391338',
             label:
-              'B001, Purbeck House 5-7, Oxford Road - Bournemouth, BH8 8ES',
+              'B003, Domville House, Sir John Richardson Avenue - Gosport, PO12 2FD',
           },
           month: '4',
           status: 'Living with parents',
