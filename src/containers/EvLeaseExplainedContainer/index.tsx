@@ -60,7 +60,7 @@ export const EVLeaseExplainedContainer: FC<IProps> = ({
     quality: 59,
   };
 
-  const isPersonalCar = cachedLeaseType.car === 'Personal';
+  const isPersonalCar = cachedLeaseType.car === LeaseTypeEnum.PERSONAL;
   const sections = data?.genericPage.sectionsAsArray;
 
   return (

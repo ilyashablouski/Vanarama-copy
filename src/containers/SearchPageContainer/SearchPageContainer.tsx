@@ -4,7 +4,7 @@
   We define type of this params before page rendering in root page container,
   this query param should be using only with page type context for prevent any issues with it
 */
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -20,14 +20,14 @@ import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
-import { useVehiclesList, getRangesList, useManufacturerList } from './gql';
+import { getRangesList, useManufacturerList, useVehiclesList } from './gql';
 import { vehicleList as IVehiclesData } from '../../../generated/vehicleList';
 import {
-  VehicleTypeEnum,
-  SortField,
   LeaseTypeEnum,
   SortDirection,
+  SortField,
   SortObject,
+  VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import {
   buildRewriteRoute,
@@ -43,8 +43,8 @@ import {
   ssrCMSQueryExecutor,
 } from './helpers';
 import {
-  GetProductCard_productCard as IProductCard,
   GetProductCard,
+  GetProductCard_productCard as IProductCard,
 } from '../../../generated/GetProductCard';
 import TopInfoBlock from './TopInfoBlock';
 import { manufacturerPage_manufacturerPage_sections as sections } from '../../../generated/manufacturerPage';
@@ -242,7 +242,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
 
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
-  const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
+  const [isPersonal, setIsPersonal] = useState(
+    cachedLeaseType === LeaseTypeEnum.PERSONAL,
+  );
   const [totalCount, setTotalCount] = useState(
     isMakePage
       ? preLoadRanges?.rangeList?.length || 0
@@ -278,8 +280,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   }, [pageOffset]);
 
   useEffect(() => {
-    const type = isPersonal ? 'Personal' : 'Business';
-    setCachedLeaseType(type);
+    setCachedLeaseType(
+      isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    );
   }, [isPersonal, setCachedLeaseType]);
 
   useEffect(() => {
