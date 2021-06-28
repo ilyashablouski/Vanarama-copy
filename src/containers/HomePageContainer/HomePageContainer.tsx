@@ -112,8 +112,8 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
   //   return <Loading size="large" />;
   // }
 
-  const isPersonalLcv = cachedLeaseType.lcv === 'Personal';
-  const isPersonalCar = cachedLeaseType.car === 'Personal';
+  const isPersonalLcv = cachedLeaseType.lcv === LeaseTypeEnum.PERSONAL;
+  const isPersonalCar = cachedLeaseType.car === LeaseTypeEnum.PERSONAL;
 
   return (
     <>
