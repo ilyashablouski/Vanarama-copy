@@ -5,6 +5,23 @@ import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDro
 import EmploymentForm from './EmploymentForm';
 import { GET_OCCUPATIONS } from './gql';
 
+jest.mock('../../hooks/useLoqate', () => () => ({
+  data: [
+    {
+      id: 'GB|RM|A|54725860',
+      description: 'Bournemouth, BH8 8ES',
+      text: 'B001, Purbeck House 5-7, Oxford Road',
+      type: 'Address',
+    },
+  ],
+}));
+
+function typeIntoAddressField(value: string) {
+  const input = screen.getByLabelText('Company Address');
+  fireEvent.focus(input);
+  fireEvent.change(input, { target: { value } });
+}
+
 const sicData: MockedResponse[] = [
   {
     request: {
@@ -146,7 +163,7 @@ describe('<EmploymentForm />', () => {
     });
   });
 
-  it.skip('should call `onSubmit` when entering multiple employment entries', async () => {
+  it('should call `onSubmit` when entering multiple employment entries', async () => {
     // ARRANGE
     const now = new Date();
     const currentYear = String(now.getFullYear());
@@ -188,10 +205,8 @@ describe('<EmploymentForm />', () => {
     const prevPhone = screen.getByLabelText('Work Phone Number');
     fireEvent.change(prevPhone, { target: { value: '01442838195' } });
 
-    const prevAddress = screen.getByLabelText('Company Address');
-    fireEvent.change(prevAddress, {
-      target: { value: 'Maylands Avenue, HP2 7DE' },
-    });
+    typeIntoAddressField('GB|001');
+    fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
     const prevIncome = screen.getByLabelText('Gross Annual Income');
     const incomeValue = '52000.00';
@@ -222,7 +237,9 @@ describe('<EmploymentForm />', () => {
         },
         {
           address: {
-            id: 'Maylands Avenue, HP2 7DE',
+            id: 'GB|RM|A|54725860',
+            label:
+              'B001, Purbeck House 5-7, Oxford Road - Bournemouth, BH8 8ES',
           },
           company: 'Autorama Ltd.',
           income: incomeValue,
