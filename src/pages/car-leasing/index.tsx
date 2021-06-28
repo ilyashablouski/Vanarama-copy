@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
@@ -574,12 +574,15 @@ export const CarsPage: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps() {
-  const client = createApolloClient({});
+export async function getServerSideProps(context: NextPageContext) {
+  const client = createApolloClient({}, context);
 
   try {
     const { data: hubCarPage } = await client.query<HubCarPageData>({
       query: HUB_CAR_CONTENT,
+      variables: {
+        isPreview: context?.preview || false,
+      },
     });
     const { data: searchPodCarsData } = await client.query<
       IFilterList,

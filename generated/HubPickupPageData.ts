@@ -303,3 +303,7 @@ export interface HubPickupPageData_hubPickupPage {
 export interface HubPickupPageData {
   hubPickupPage: HubPickupPageData_hubPickupPage;
 }
+
+export interface HubPickupPageDataVariables {
+  isPreview?: boolean | null;
+}

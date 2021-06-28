@@ -46,4 +46,5 @@ export interface GenericPageHeadQuery {
 
 export interface GenericPageHeadQueryVariables {
   slug: string;
+  isPreview?: boolean | null;
 }

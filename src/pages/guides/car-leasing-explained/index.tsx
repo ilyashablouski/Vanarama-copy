@@ -61,6 +61,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: `guides/car-leasing-explained`,
+        isPreview: context?.preview || false,
       },
     });
 

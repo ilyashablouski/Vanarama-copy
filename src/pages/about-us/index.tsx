@@ -48,6 +48,9 @@ export async function getStaticProps(context: NextPageContext) {
   try {
     const { data: rawData, loading, errors } = await client.query({
       query: GET_ABOUT_US_PAGE_DATA,
+      variables: {
+        isPreview: context?.preview || false,
+      },
     });
 
     if (errors) {

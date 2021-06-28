@@ -4,8 +4,8 @@ import { Partner, PartnerVariables } from '../../generated/Partner';
 import FeaturedSection from '../components/FeaturedSection';
 
 export const PARTNER = gql`
-  query Partner($slug: String!) {
-    partner(slug: $slug) {
+  query Partner($slug: String!, $isPreview: Boolean) {
+    partner(slug: $slug, isPreview: $isPreview) {
       customerSovereignty
       uuid
       slug

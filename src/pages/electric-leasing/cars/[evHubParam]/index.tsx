@@ -76,6 +76,7 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
       variables: {
         slug: path,
         sectionsAsArray: isContentHubPage,
+        isPreview: context?.preview || false,
       },
     });
 

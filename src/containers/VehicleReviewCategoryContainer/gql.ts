@@ -5,8 +5,8 @@ import {
 } from '../../../generated/ReviewsHubCategoryQuery';
 
 export const GENERIC_PAGE_QUESTION_HUB = gql`
-  query ReviewsHubCategoryQuery($slug: String!) {
-    genericPage(slug: $slug) {
+  query ReviewsHubCategoryQuery($slug: String!, $isPreview: Boolean) {
+    genericPage(slug: $slug, isPreview: $isPreview) {
       id
       intro
       body

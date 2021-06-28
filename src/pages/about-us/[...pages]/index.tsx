@@ -19,12 +19,13 @@ const AboutUsPage: NextPage<IAboutUsPage> = ({ data }) => {
   return <SimplePageContainer data={data} loading={!data} />;
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: NextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'About Us',
+      isPreview: context?.preview || false,
     },
   });
   const items = data?.pageCollection?.items;
@@ -45,6 +46,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: `about-us/${paths?.join('/')}`,
+        isPreview: context?.preview || false,
       },
     });
     if (errors) {

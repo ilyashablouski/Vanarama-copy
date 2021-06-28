@@ -2,8 +2,8 @@ import { gql } from '@apollo/client';
 import FeaturedSection from '../../components/FeaturedSection';
 
 const GET_INSURANCE_LANDING_PAGE = gql`
-  query GetInsuranceLandingPage {
-    insuranceLandingPage {
+  query GetInsuranceLandingPage($isPreview: Boolean) {
+    insuranceLandingPage(isPreview: $isPreview) {
       id
       body
       metaData {

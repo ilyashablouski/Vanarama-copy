@@ -52,13 +52,14 @@ const BlogPost: NextPage<IBlogPost> = ({
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: NextPageContext) {
   try {
     const client = createApolloClient({});
     const { data } = await client.query<BlogPosts>({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/community-news',
+        isPreview: context?.preview || false,
       },
     });
 
@@ -85,6 +86,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: BLOG_POST_PAGE,
       variables: {
         slug: `blog/community-news/${context?.params?.articles}`,
+        isPreview: context?.preview || false,
       },
     });
     const { data: blogPosts, errors: blogPostsError } = await client.query({

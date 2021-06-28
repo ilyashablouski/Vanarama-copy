@@ -270,6 +270,7 @@ export async function getServerSideProps(context: NextPageContext) {
       query: GENERIC_PAGE_HEAD,
       variables: {
         slug: path.split('?')[0].slice(1),
+        isPreview: context?.preview || false,
       },
     });
 

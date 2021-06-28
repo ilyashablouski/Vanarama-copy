@@ -169,3 +169,7 @@ export interface GetFleetLandingPage_fleetLandingPage {
 export interface GetFleetLandingPage {
   fleetLandingPage: GetFleetLandingPage_fleetLandingPage;
 }
+
+export interface GetFleetLandingPageVariables {
+  isPreview?: boolean | null;
+}

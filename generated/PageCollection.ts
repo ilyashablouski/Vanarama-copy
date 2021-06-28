@@ -27,4 +27,5 @@ export interface PageCollectionVariables {
   pageType: string;
   limit?: number | null;
   skip?: number | null;
+  isPreview?: boolean | null;
 }

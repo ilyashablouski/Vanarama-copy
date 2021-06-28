@@ -46,6 +46,7 @@ export async function getStaticProps(context: NextPageContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'blog',
+        isPreview: context?.preview || false,
       },
     });
 

@@ -65,12 +65,13 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: NextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Leasing Question',
+      isPreview: context?.preview || false,
     },
   });
   const items = data?.pageCollection?.items;
@@ -90,6 +91,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE_QUESTION,
       variables: {
         slug: `leasing-questions/${paths?.join('/')}`,
+        isPreview: context?.preview || false,
       },
     });
     if (errors) {

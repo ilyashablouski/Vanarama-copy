@@ -61,12 +61,13 @@ const FinanceInfo: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: NextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<GenericPageQuery>({
     query: GENERIC_PAGE,
     variables: {
       slug: 'guides/van-leasing-explained',
+      isPreview: context?.preview || false,
     },
   });
   return {
@@ -82,6 +83,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: `guides/van-leasing-explained/${context?.params?.explained}`,
+        isPreview: context?.preview || false,
       },
     });
     return {

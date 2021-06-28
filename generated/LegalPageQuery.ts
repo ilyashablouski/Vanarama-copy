@@ -68,4 +68,5 @@ export interface LegalPageQuery {
 
 export interface LegalPageQueryVariables {
   slug: string;
+  isPreview?: boolean | null;
 }

@@ -260,3 +260,7 @@ export interface HubCarPageData_hubCarPage {
 export interface HubCarPageData {
   hubCarPage: HubCarPageData_hubCarPage;
 }
+
+export interface HubCarPageDataVariables {
+  isPreview?: boolean | null;
+}

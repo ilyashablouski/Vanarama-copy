@@ -829,4 +829,5 @@ export interface GenericPageQuery {
 export interface GenericPageQueryVariables {
   slug: string;
   sectionsAsArray?: boolean | null;
+  isPreview?: boolean | null;
 }

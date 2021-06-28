@@ -54,13 +54,14 @@ const ReviewHub: NextPage<IReviewHubPage> = ({
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: NextPageContext) {
   const client = createApolloClient({});
 
   const { data } = await client.query({
     query: GENERIC_PAGE_QUESTION_HUB,
     variables: {
       slug: 'reviews/vans',
+      isPreview: context?.preview || false,
     },
   });
   const cards = getSectionsData(
@@ -87,6 +88,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE_QUESTION_HUB,
       variables: {
         slug: 'reviews/vans',
+        isPreview: context?.preview || false,
       },
     });
 

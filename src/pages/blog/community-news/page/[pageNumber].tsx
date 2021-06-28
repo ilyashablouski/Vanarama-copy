@@ -42,13 +42,14 @@ const CategoryPage: NextPage<IBlogCategory> = ({
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: NextPageContext) {
   try {
     const client = createApolloClient({});
     const { data } = await client.query({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/community-news',
+        isPreview: context?.preview || false,
       },
     });
     const paths = buildStaticPaths(data);

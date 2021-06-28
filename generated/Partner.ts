@@ -234,4 +234,5 @@ export interface Partner {
 
 export interface PartnerVariables {
   slug: string;
+  isPreview?: boolean | null;
 }

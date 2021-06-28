@@ -3,8 +3,8 @@ import FeaturedSection from '../../components/FeaturedSection';
 import TilesContainer from '../../containers/TilesContainer/TilesContainer';
 
 const HUB_PICKUP_CONTENT = gql`
-  query HubPickupPageData {
-    hubPickupPage {
+  query HubPickupPageData($isPreview: Boolean) {
+    hubPickupPage(isPreview: $isPreview) {
       id
       metaData {
         title

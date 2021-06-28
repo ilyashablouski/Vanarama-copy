@@ -58,6 +58,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE_QUESTION_HUB,
       variables: {
         slug: 'reviews/vans',
+        isPreview: context?.preview || false,
       },
     });
 

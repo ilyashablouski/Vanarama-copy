@@ -2,8 +2,8 @@ import { gql, useQuery } from '@apollo/client';
 import { BlogPosts, BlogPostsVariables } from '../../generated/BlogPosts';
 
 export const BLOG_POSTS_PAGE = gql`
-  query BlogPosts($slug: String!) {
-    blogPosts(slug: $slug) {
+  query BlogPosts($slug: String!, $isPreview: Boolean) {
+    blogPosts(slug: $slug, isPreview: $isPreview) {
       metaData {
         title
         name

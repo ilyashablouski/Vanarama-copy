@@ -25,6 +25,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'refer-a-friend',
+        isPreview: context?.preview || false,
       },
     });
     if (errors) {

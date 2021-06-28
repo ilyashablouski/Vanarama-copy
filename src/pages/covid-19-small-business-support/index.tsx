@@ -15,6 +15,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'covid-19-small-business-support',
+        isPreview: context?.preview || false,
       },
     });
     if (errors) {

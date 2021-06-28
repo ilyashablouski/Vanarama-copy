@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { GetStaticPropsContext, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
@@ -750,12 +750,15 @@ export const VansPage: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps(context: GetStaticPropsContext) {
   const client = createApolloClient({});
 
   try {
     const { data } = await client.query<HubVanPageData>({
       query: HUB_VAN_CONTENT,
+      variables: {
+        isPreview: context?.preview || false,
+      },
     });
     const { data: searchPodVansData } = await client.query<
       IFilterList,

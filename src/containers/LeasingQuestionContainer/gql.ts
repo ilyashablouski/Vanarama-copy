@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 export const GENERIC_PAGE_QUESTION = gql`
-  query GenericPageQuestionQuery($slug: String!) {
-    genericPage(slug: $slug) {
+  query GenericPageQuestionQuery($slug: String!, $isPreview: Boolean) {
+    genericPage(slug: $slug, isPreview: $isPreview) {
       id
       metaData {
         title

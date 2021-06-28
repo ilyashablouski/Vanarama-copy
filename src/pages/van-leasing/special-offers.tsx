@@ -464,6 +464,9 @@ export async function getServerSideProps(context: NextPageContext) {
   try {
     const { data: content } = await client.query<VanOffersPageData>({
       query: VAN_OFFERS_CONTENT,
+      variables: {
+        isPreview: context?.preview || false,
+      },
     });
     data = content;
   } catch (e) {

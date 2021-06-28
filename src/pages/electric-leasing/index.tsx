@@ -401,6 +401,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'electric-leasing',
+        isPreview: context?.preview || false,
       },
     });
 

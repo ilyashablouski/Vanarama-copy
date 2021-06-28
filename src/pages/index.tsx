@@ -45,6 +45,9 @@ export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({}, context);
   const { data, loading } = await client.query<HomePageData>({
     query: ALL_HOME_CONTENT,
+    variables: {
+      isPreview: context?.preview || false,
+    },
   });
   const {
     productsVanDerivatives,

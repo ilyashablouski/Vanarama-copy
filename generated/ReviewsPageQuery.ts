@@ -116,4 +116,5 @@ export interface ReviewsPageQuery {
 
 export interface ReviewsPageQueryVariables {
   slug: string;
+  isPreview?: boolean | null;
 }

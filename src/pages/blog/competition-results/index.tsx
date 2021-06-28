@@ -47,6 +47,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/competition-results',
+        isPreview: context?.preview || false,
       },
     });
 
