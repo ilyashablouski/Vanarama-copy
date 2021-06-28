@@ -7,7 +7,7 @@ import ArrowForwardSharp from '../../assets/icons/ArrowForwardSharp';
 import Ellipse from '../../assets/icons/Ellipse';
 import Icon from '../../atoms/icon';
 import { ICarouselProps } from './interface';
-import PurePlaceholder from '../../../components/PurePlaceholder';
+import TopArticlesPlaceholder from '../../../components/TopArticlesPlaceholder';
 
 const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
   const [index, setIndex] = useState(0);
@@ -62,10 +62,7 @@ const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
           {children}
         </Carousel>
       ) : (
-        <PurePlaceholder
-          numberOfPlaceholders={slidesToShow}
-          height={isSmallScreen || isMediumScreen ? '420px' : '426px'}
-        />
+        <TopArticlesPlaceholder numberOfPlaceholders={3} height="420px" />
       )}
 
       <nav className="carousel--nav">

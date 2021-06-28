@@ -758,8 +758,9 @@
   }
 }
 
-.pure-placeholder {
+.article-placeholder {
   width: 100%;
+
   &__wrapper {
     margin: 0px -10px;
     display: flex;
@@ -773,6 +774,18 @@
     height: 100%;
     position: relative;
     overflow: hidden;
+
+    &:not(:first-child) {
+      @include mobile() {
+        display: none;
+      }
+    }
+
+    &:last-child {
+      @media (min-width: #{$vp-small}) and (max-width: #{$vp-large - 1px}) {
+        display: none;
+      }
+    }
 
     &:before {
       content: '';
