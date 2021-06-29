@@ -24,6 +24,7 @@ export function pushAddToCartHeap(
         term: vehicleProduct.term,
       });
     } catch (error) {
+      // eslint-disable-next-line no-console
       console.error('Heap error', error);
     }
   }

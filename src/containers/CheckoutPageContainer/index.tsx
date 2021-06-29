@@ -132,7 +132,7 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
         ],
         item => item || 0,
       ),
-    [quote, values.monthlyMaintenance],
+    [quote, values.monthlyMaintenance, vehicleProduct?.monthlyPayment],
   );
 
   const onSubmit = useCallback(() => {
@@ -150,11 +150,13 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
       .then(() => (isPersonalPrice ? '/olaf/about' : '/b2b/olaf/about'))
       .then(url => router.push(url, url))
       .then(() => {});
-  }, [isPersonalPrice]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPersonalPrice, order, quote, vehicleProduct, values]);
 
   return (
     <>
       <NextHead>
+        {/* eslint-disable-next-line react/no-danger */}
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
       <div className="row:bg-lighter">

@@ -86,7 +86,7 @@ export const LoginRegisterPage: NextPage<IProps> = (props: IProps) => {
     pushAuthorizationEventDataLayer();
 
     return router.push(nextUrl);
-  }, []);
+  }, [redirect, router]);
 
   return (
     <>

@@ -23,6 +23,7 @@ const NewLeaseOfLifePriceHeader = ({
 }: INewLeaseOfLifePriceHeader) => {
   const heroBody = (
     <h2
+      // eslint-disable-next-line react/no-danger
       dangerouslySetInnerHTML={{
         __html: wrapSpanAroundString(body || ''),
       }}
