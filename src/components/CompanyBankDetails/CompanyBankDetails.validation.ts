@@ -1,7 +1,6 @@
 import * as yup from 'yup';
 import { ICompanyBankDetails } from './interfaces';
 import { diffInMonth } from '../../utils/dates';
-import { BANK_ACCOUNT_NAME_REGEX, BANK_NAME_REGEX } from '../../utils/regex';
 
 function isInPast({ joinedAtYear, joinedAtMonth }: ICompanyBankDetails) {
   if (!joinedAtYear || !joinedAtMonth) {
@@ -26,7 +25,10 @@ const ValidationSchema = yup.object().shape({
   bankName: yup
     .string()
     .required('Please enter bank name')
-    .matches(BANK_NAME_REGEX, 'Please use only letters, apostrophes and dashes')
+    .matches(
+      /^^[a-zA-Z'-\s]+$/,
+      'Please use only letters, apostrophes and dashes',
+    )
     .min(
       2,
       'Oops, this name’s too short. Please make it 2 characters or longer',
@@ -36,7 +38,7 @@ const ValidationSchema = yup.object().shape({
     .string()
     .required('Please enter bank account name')
     .matches(
-      BANK_ACCOUNT_NAME_REGEX,
+      /^^[a-zA-Z'-\s]+$/,
       'Please use only letters, apostrophes and dashes',
     )
     .min(
