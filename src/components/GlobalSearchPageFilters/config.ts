@@ -31,19 +31,21 @@ export const filtersConfig = [
     label: 'Budget',
     key: 'budget',
     renderValuesFunction: (value: string) => `£${value}`,
-    renderSelectedFunction: (values: string[]) => {
-      values.sort();
-      return `From £${values[0]}${values[1] ? ` to £${values[1]}` : ''}`;
+    renderSelectedFunction: (values: (string | null)[]) => {
+      const text = `${values[0] ? `From £${values[0]}` : ''}${
+        values[1] ? ` to £${values[1]}` : ''
+      }`.trim();
+      return text.charAt(0).toUpperCase() + text.slice(1);
     },
     innerSelects: [
       {
         title: 'Price From',
-        placeholder: 'Budget',
+        placeholder: 'Select From',
         key: 'from',
       },
       {
         title: 'Price To',
-        placeholder: 'Budget',
+        placeholder: 'Select To',
         key: 'to',
       },
     ],

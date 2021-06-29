@@ -8,6 +8,9 @@ import React, {
 import ChevronDown from 'core/assets/icons/ChevronDown';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
+import Toggle from 'core/atoms/toggle/Toggle';
+import ToggleSwitch from 'core/atoms/toggle/ToggleSwitch';
+import Flame from 'core/assets/icons/Flame';
 import { filtersConfig as config, IInnerSelect } from './config';
 import { budgets } from '../../containers/FiltersContainer/config';
 import {
@@ -24,6 +27,7 @@ import { productFilter_productFilter as IProductFilter } from '../../../generate
 import SelectedDropdown from './SelectedDropdown';
 import { getInnerConfigKeys } from './helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
+import FiltersTags from '../../containers/GlobalSearchPageContainer/FiltersTags';
 
 interface IProps {
   preloadFilters?: IProductFilter;
@@ -32,6 +36,7 @@ interface IProps {
   selectedTags: ISelectedTags[];
   setSelectedTags: Dispatch<SetStateAction<ISelectedTags[]>>;
   clearFilterBlock: (key: string) => void;
+  onRemoveTag: (value: string, key: string) => void;
 }
 
 const GlobalSearchPageFilters = ({
@@ -41,11 +46,14 @@ const GlobalSearchPageFilters = ({
   selectedTags,
   setSelectedTags,
   clearFilterBlock,
+  onRemoveTag,
 }: IProps) => {
   const { query } = useRouter();
   const [openedFilters, setOpenedFilters] = useState<string[]>([]);
   const [fromBudget] = useState(budgets.slice(0, budgets.length - 1));
   const [toBudget] = useState(budgets.slice(1));
+  const [isPersonal, setIsPersonal] = useState(false);
+  const [isSpecialOffer, setIsSpecialOffer] = useState(false);
   const [filtersData, setFiltersData] = useState(preloadFilters);
   const [getProductFilters] = useProductFilters(
     query?.searchTerm as string,
@@ -72,31 +80,47 @@ const GlobalSearchPageFilters = ({
     });
   }, [activeFilters]);
 
+  const changeBlockHeight = (parentNode: HTMLElement) => {
+    const parent = parentNode;
+    const optionsHeight = (parentNode?.querySelector('.options') as HTMLElement)
+      ?.offsetHeight;
+    const labelHeight = (parentNode?.querySelector('.label') as HTMLElement)
+      ?.offsetHeight;
+    parent.style.height = `${labelHeight + optionsHeight}px`;
+    setTimeout(() => {
+      parentNode.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+    }, 500);
+  };
+
   const onHandleFilterStatus = (
-    e: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    e: React.MouseEvent<HTMLElement, MouseEvent>,
     key: string,
   ) => {
-    const target = e.currentTarget;
-    if (!openedFilters.includes(key)) {
+    const { currentTarget, target } = e;
+    const isDropDownEvent =
+      currentTarget.className.includes('drop-down') ||
+      currentTarget.className.includes('drop-select');
+    const isLabelEvent = (target as HTMLElement).className === 'label';
+    if (isLabelEvent && !openedFilters.includes(key)) {
       setOpenedFilters([...openedFilters, key]);
-      const optionsHeight = (target?.querySelector('.options') as HTMLElement)
-        ?.offsetHeight;
-      const labelHeight = (target?.querySelector('.label') as HTMLElement)
-        ?.offsetHeight;
-      target.style.height = `${labelHeight + optionsHeight}px`;
-      setTimeout(() => {
-        target.scrollIntoView({
-          behavior: 'smooth',
-          block: 'center',
-        });
-      }, 500);
-    } else {
-      target.removeAttribute('style');
+      changeBlockHeight((target as HTMLElement).parentNode as HTMLElement);
+    } else if (isLabelEvent && openedFilters.includes(key)) {
+      ((target as HTMLElement).parentNode as HTMLElement).removeAttribute(
+        'style',
+      );
       setOpenedFilters(openedFilters.filter(value => value !== key));
+    } else if (isDropDownEvent && openedFilters.includes(key)) {
+      changeBlockHeight(currentTarget);
     }
   };
 
-  const onHandleMultiSelect = (e, filter: keyof IFiltersData) => {
+  const onHandleMultiSelect = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    filter: keyof IFiltersData,
+  ) => {
     if (e.target.checked) {
       setActiveFilters({
         ...activeFilters,
@@ -153,18 +177,53 @@ const GlobalSearchPageFilters = ({
     setActiveFilters(newFiltersObject);
   };
 
-  const getDropdownValues = (innerSelect: IInnerSelect[]): string[] => {
+  const getDropdownValues = (
+    innerSelect: IInnerSelect[],
+  ): (string | null)[] => {
     const keys = getInnerConfigKeys(innerSelect);
-    return keys
-      .reduce(
-        (acc, current) => [...acc, ...(activeFilters?.[current] || [])],
-        [] as (string | null)[],
-      )
-      .filter(value => value) as string[];
+    return keys.reduce(
+      (acc, current) => [...acc, ...(activeFilters?.[current] || [null])],
+      [] as (string | null)[],
+    );
+  };
+
+  const labelForSingleSelect = (key: keyof IFiltersData) => {
+    if ((activeFilters[key as keyof IFiltersData] as string[])?.[0]) {
+      return (activeFilters[key as keyof IFiltersData] as string[])?.[0];
+    }
+    if ((filtersMapper[key as keyof IFiltersData] as string[])?.length === 1) {
+      return (filtersMapper[key as keyof IFiltersData] as string[])?.[0];
+    }
+    return '';
   };
 
   return (
     <>
+      <FiltersTags
+        tags={selectedTags}
+        removeFilterValue={onRemoveTag}
+        clearAllFilters={() => setActiveFilters({})}
+      />
+      {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+      <label className="srp-f-hot-deals" htmlFor="srp-f-hot-deals-togl">
+        <ToggleSwitch
+          id="srp-f-hot-deals-togl"
+          dataTestId="srp-f-hot-deals-togl"
+          checked={isSpecialOffer}
+          onChange={() => setIsSpecialOffer(!isSpecialOffer)}
+        />
+        &nbsp;Show only&nbsp;
+        <Flame />
+        <span>Hot Deals</span>
+      </label>
+      <Toggle
+        offLabel="Business"
+        onLabel="Personal"
+        id="contractType"
+        checked={isPersonal}
+        onChange={() => setIsPersonal(!isPersonal)}
+        className="slide-togl"
+      />
       {config.map(
         ({
           label,
@@ -173,17 +232,32 @@ const GlobalSearchPageFilters = ({
           innerSelects,
           renderValuesFunction,
           renderSelectedFunction,
+          multiselect,
         }) =>
           type === 'drop-down' ? (
+            // eslint-disable-next-line
             <div
               className={cx('drop-down', {
                 open: openedFilters.includes(key),
+                'dynamic-label ': !multiselect,
               })}
               key={key}
               onClick={e => onHandleFilterStatus(e, key)}
             >
-              <span className="label">
-                <span>{label}</span>
+              {/* eslint-disable-next-line */}
+              <span
+                role="button"
+                className="label"
+                onClick={e => {
+                  e.stopPropagation();
+                  onHandleFilterStatus(e, key);
+                }}
+              >
+                <span>
+                  {multiselect
+                    ? label
+                    : labelForSingleSelect(key as keyof IFiltersData) || label}
+                </span>
                 <ChevronDown />
               </span>
               <div className="options">
@@ -202,14 +276,25 @@ const GlobalSearchPageFilters = ({
                         id={`${key}-${option}`}
                         type="checkbox"
                         name={key}
-                        onClick={event =>
+                        onChange={event =>
                           onHandleMultiSelect(event, key as keyof IFiltersData)
                         }
                         data-testid={`${key}-${option}`}
                         value={option}
-                        checked={activeFilters?.[
-                          key as keyof IFiltersData
-                        ]?.includes(option)}
+                        disabled={
+                          !multiselect &&
+                          (filtersMapper[key as keyof IFiltersData] as string[])
+                            .length === 1
+                        }
+                        checked={
+                          activeFilters?.[key as keyof IFiltersData]?.includes(
+                            option,
+                          ) ||
+                          (!multiselect &&
+                            (filtersMapper[
+                              key as keyof IFiltersData
+                            ] as string[]).length === 1)
+                        }
                       />
                       <label htmlFor={`${key}-${option}`}>{option}</label>
                     </Fragment>
@@ -218,6 +303,7 @@ const GlobalSearchPageFilters = ({
               </div>
             </div>
           ) : (
+            // eslint-disable-next-line
             <div
               className={cx('drop-select', {
                 open: openedFilters.includes(key),
@@ -225,7 +311,14 @@ const GlobalSearchPageFilters = ({
               key={key}
               onClick={e => onHandleFilterStatus(e, key)}
             >
-              <span className="label">
+              {/* eslint-disable-next-line */}
+              <span
+                className="label"
+                onClick={e => {
+                  e.stopPropagation();
+                  onHandleFilterStatus(e, key);
+                }}
+              >
                 <span>{label}</span>
                 <ChevronDown />
               </span>
@@ -247,7 +340,6 @@ const GlobalSearchPageFilters = ({
                           name={`${selectKey}`}
                           data-testid={`${selectKey}-form`}
                           onChange={onHandleNativeSelectChange}
-                          onClick={event => event.stopPropagation()}
                           disabled={isDisabledSelect(key, selectKey)}
                         >
                           <option

@@ -28,11 +28,8 @@ import {
   productFilterVariables as IProductFilterVariables,
 } from '../../../generated/productFilter';
 import { GET_FILTERS_DATA } from '../../containers/GlobalSearchPageContainer/gql';
-import {
-  buildInitialFilterState,
-  responseMapper,
-} from '../../containers/GlobalSearchPageContainer/helpers';
-import { IFiltersResponse } from '../../containers/GlobalSearchPageContainer/interfaces';
+import { buildInitialFilterState } from '../../containers/GlobalSearchPageContainer/helpers';
+import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -42,6 +39,7 @@ interface IProps extends ISearchPageProps {
   vansData?: ICardsData[];
   responseVansCapIds?: string[];
   responseCarsCapIds?: string[];
+  initialFilters: IFiltersData;
 }
 
 const Page: NextPage<IProps> = ({

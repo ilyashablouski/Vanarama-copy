@@ -2,18 +2,24 @@ import Text from 'core/atoms/text/Text';
 import cx from 'classnames';
 import Close from 'core/assets/icons/Close';
 import Icon from 'core/atoms/icon';
+import Button from 'core/atoms/button';
+import { pluralise } from '../../utils/dates';
 
 interface IProps {
   renderContent: any;
   isFiltersRender: boolean;
   onCloseDrawer: () => void;
+  onResetFilters: () => void;
   isShowDrawer: boolean;
+  totalResults: number;
 }
 const Drawer = ({
   isFiltersRender,
   onCloseDrawer,
+  onResetFilters,
   isShowDrawer,
   renderContent,
+  totalResults,
 }: IProps) => {
   return (
     <div
@@ -37,6 +43,21 @@ const Drawer = ({
       >
         {renderContent()}
       </div>
+      {isFiltersRender ? (
+        <div className="actions">
+          <Button label="Reset" fill="outline" onClick={onResetFilters} />
+          <Button
+            onClick={onCloseDrawer}
+            color="primary"
+            className="update-results"
+            label={`
+                View ${totalResults} ${pluralise(totalResults, {
+              one: 'Card',
+              many: 'Cards',
+            })}`}
+          />
+        </div>
+      ) : null}
     </div>
   );
 };

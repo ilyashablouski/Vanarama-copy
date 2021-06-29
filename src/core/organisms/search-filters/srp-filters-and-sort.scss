@@ -295,6 +295,9 @@
         background: #197F85;
         color: white;
       }
+      &.update-results .button--inner {
+        color: var(--class-color-contrast);
+      }
     }
   }
 
@@ -428,7 +431,7 @@ button {
     justify-content: center;
     align-items: center;
     height: 100%;
-    width: 50%;
+    width: 100%;
     position: relative;
     z-index: 1;
     background: transparent;
@@ -437,6 +440,13 @@ button {
     transition: color 0.3s ease;
     font-size: 14px;
     font-weight: 500;
+    .toggle--switch {
+      width: 100%;
+      display: flex;
+      & > span {
+        width: 50%;
+      }
+    }
   }
 
   // State animation
