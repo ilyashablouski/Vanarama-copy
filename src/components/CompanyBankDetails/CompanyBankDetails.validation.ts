@@ -43,7 +43,7 @@ const ValidationSchema = yup.object().shape({
       2,
       'Oops, this name’s too short. Please make it 2 characters or longer',
     )
-    .max(160, 'Oops, this name’s too long. Please keep it to 100 characters'),
+    .max(160, 'Oops, this name’s too long. Please keep it to 160 characters'),
   accountNumber: yup
     .string()
     .required('Please enter account number')
