@@ -19,6 +19,8 @@ import {
   makeSicCodesMock,
   makeCompanyProfileMock,
 } from '../../../../containers/CompanyDetailsFormContainer/gql';
+import { makeAddressResponseMock } from '../../../../hooks/useLoqate/utils';
+import useLoqate from '../../../../hooks/useLoqate';
 
 const MOCK_PERSON_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 const MOCK_ORDER_ID = '11111111-b980-46bd-8a8e-ed82705b3e01';
@@ -27,6 +29,8 @@ const MOCK_COMPANY_UUID = '11111111-2222-2222-2222-ed82705b3e01';
 let companyProfileCalled = false;
 let getSicCodesCalled = false;
 
+jest.mock('../../../../hooks/useLoqate');
+(useLoqate as jest.Mock).mockReturnValue(makeAddressResponseMock());
 jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -38,22 +42,6 @@ jest.mock('next/router', () => ({
       companyUuid: MOCK_COMPANY_UUID,
     },
   }),
-}));
-jest.mock('../../../../hooks/useLoqate', () => () => ({
-  data: [
-    {
-      id: 'GB|RM|A|54725860',
-      description: 'Bournemouth, BH8 8ES',
-      text: 'B001, Purbeck House 5-7, Oxford Road',
-      type: 'Address',
-    },
-    {
-      id: 'GB|RM|A|54725861',
-      description: 'Bournemouth, BH8 8ES',
-      text: 'B002, Purbeck House 5-7, Oxford Road',
-      type: 'Address',
-    },
-  ],
 }));
 
 const getCreditApplication = makeGetCreditApplicationMock(MOCK_ORDER_ID);

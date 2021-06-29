@@ -15,17 +15,11 @@ import {
   withSavedAddressesInWrongOrder,
 } from '../fixtures';
 import { GET_ADDRESS_CONTAINER_DATA, SAVE_ADDRESS_HISTORY } from '../gql';
+import { makeAddressResponseMock } from '../../../hooks/useLoqate/utils';
+import useLoqate from '../../../hooks/useLoqate';
 
-jest.mock('../../../hooks/useLoqate', () => () => ({
-  data: [
-    {
-      id: 'GB|RM|A|54725860',
-      description: 'Bournemouth, BH8 8ES',
-      text: 'B001, Purbeck House 5-7, Oxford Road',
-      type: 'Address',
-    },
-  ],
-}));
+jest.mock('../../../hooks/useLoqate');
+(useLoqate as jest.Mock).mockReturnValue(makeAddressResponseMock());
 
 function typeIntoAddressField(value: string) {
   const input = screen.getByTestId('history[0].address');

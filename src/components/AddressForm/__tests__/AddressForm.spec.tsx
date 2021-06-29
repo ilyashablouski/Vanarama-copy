@@ -1,30 +1,12 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import preloadAll from 'jest-next-dynamic';
 import { AddressFormDropDownData } from '../../../../generated/AddressFormDropDownData';
+import { makeAddressResponseMock } from '../../../hooks/useLoqate/utils';
+import useLoqate from '../../../hooks/useLoqate';
 import AddressForm from '../AddressForm';
 
-jest.mock('../../../hooks/useLoqate', () => () => ({
-  data: [
-    {
-      id: 'GB|RM|A|54725860',
-      description: 'Bournemouth, BH8 8ES',
-      text: 'B001, Purbeck House 5-7, Oxford Road',
-      type: 'Address',
-    },
-    {
-      id: 'GB|RM|A|54725861',
-      description: 'Bournemouth, BH8 8ES',
-      text: 'B002, Purbeck House 5-7, Oxford Road',
-      type: 'Address',
-    },
-    {
-      id: 'GB|RM|A|56391338',
-      description: 'Gosport, PO12 2FD',
-      text: 'B003, Domville House, Sir John Richardson Avenue',
-      type: 'Address',
-    },
-  ],
-}));
+jest.mock('../../../hooks/useLoqate');
+(useLoqate as jest.Mock).mockReturnValue(makeAddressResponseMock());
 
 function typeIntoAddressField(testId: string, value: string) {
   const input = screen.getByTestId(testId);

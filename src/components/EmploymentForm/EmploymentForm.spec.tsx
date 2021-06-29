@@ -2,19 +2,13 @@ import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
-import EmploymentForm from './EmploymentForm';
 import { GET_OCCUPATIONS } from './gql';
+import { makeAddressResponseMock } from '../../hooks/useLoqate/utils';
+import useLoqate from '../../hooks/useLoqate';
+import EmploymentForm from './EmploymentForm';
 
-jest.mock('../../hooks/useLoqate', () => () => ({
-  data: [
-    {
-      id: 'GB|RM|A|54725860',
-      description: 'Bournemouth, BH8 8ES',
-      text: 'B001, Purbeck House 5-7, Oxford Road',
-      type: 'Address',
-    },
-  ],
-}));
+jest.mock('../../hooks/useLoqate');
+(useLoqate as jest.Mock).mockReturnValue(makeAddressResponseMock());
 
 function typeIntoAddressField(value: string) {
   const input = screen.getByLabelText('Company Address');
