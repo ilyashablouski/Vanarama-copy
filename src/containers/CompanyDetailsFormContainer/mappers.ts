@@ -1,5 +1,5 @@
-import { parseDate } from '../../utils/dates';
 import { formatAddress } from 'core/molecules/address-finder/AddressFinder';
+import { parseDate } from '../../utils/dates';
 import {
   SubmissionValues,
   ICompanyDetailsFormValues,
