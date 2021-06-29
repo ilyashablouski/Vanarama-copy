@@ -17,4 +17,3 @@ export const NUMBERS_REGEX = /^[0-9]*$/;
 export const LETTERS_AND_NUMBERS_REGEX = /^[a-zA-Z0-9]*$/;
 
 export const POSTCODE_NORTHERN_IRELAND_REGEXP = /BT\d{1,2}\s?\d[A-Z]{2}/i;
-
