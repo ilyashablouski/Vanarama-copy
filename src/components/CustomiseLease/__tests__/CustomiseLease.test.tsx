@@ -133,18 +133,6 @@ describe('<CustomiseLease />', () => {
         },
         colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
         trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
-        standardEquipments: [
-          {
-            categoryDescription: 'Body Glass',
-            derivativeId: '84429',
-            effectiveFrom: '2018-06-01T00:00:00.000Z',
-            effectiveTo: null,
-            genericDescription: null,
-            id: '1475',
-            optionDescription: 'Green tinted glass',
-            optionLongDescription: 'Green tinted glass',
-          },
-        ],
         technicals: [
           {
             categoryDescription: 'Weight and Capacities',
@@ -276,18 +264,6 @@ describe('<CustomiseLease />', () => {
         },
         colours: [{ id: '13990', optionDescription: 'Solid - Polar white' }],
         trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
-        standardEquipments: [
-          {
-            categoryDescription: 'Body Glass',
-            derivativeId: '84429',
-            effectiveFrom: '2018-06-01T00:00:00.000Z',
-            effectiveTo: null,
-            genericDescription: null,
-            id: '1475',
-            optionDescription: 'Green tinted glass',
-            optionLongDescription: 'Green tinted glass',
-          },
-        ],
         technicals: [
           {
             categoryDescription: 'Weight and Capacities',
@@ -435,18 +411,6 @@ describe('<CustomiseLease />', () => {
           trims: [
             { id: '104562', optionDescription: 'Leather - Cranberry red' },
             { id: '104563', optionDescription: 'Leather - Cranberry black' },
-          ],
-          standardEquipments: [
-            {
-              categoryDescription: 'Body Glass',
-              derivativeId: '84429',
-              effectiveFrom: '2018-06-01T00:00:00.000Z',
-              effectiveTo: null,
-              genericDescription: null,
-              id: '1475',
-              optionDescription: 'Green tinted glass',
-              optionLongDescription: 'Green tinted glass',
-            },
           ],
           technicals: [
             {

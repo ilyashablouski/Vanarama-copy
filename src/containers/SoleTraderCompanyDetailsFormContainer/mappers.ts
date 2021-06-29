@@ -38,57 +38,67 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
   };
 };
 
-export const mapCreateUpdteApplicationData = (
+export const mapCreateUpdateApplicationData = (
   values: ISoleTraderCompanyDetailsFormValues,
   companyData?: Company | null,
-) => ({
-  ...mapFormValues(values),
-  companyNature: undefined,
-  tradingName: undefined,
-  businessName: values.tradingName,
-  natureOfBusiness: values.nature,
-  addresses: [
-    {
-      ...companyData?.addresses?.[0],
-    },
-  ],
-  emailAddress: undefined,
-  emailAddresses: [
-    {
-      value: values.email,
-      kind: 'Home',
-    },
-  ],
-  uuid: companyData?.uuid,
-});
+) => {
+  const tradingAddress = companyData?.addresses?.[0];
+  const resultAddress = {
+    ...tradingAddress,
+    __typename: undefined,
+    city: tradingAddress?.city ?? '',
+    postcode: tradingAddress?.postcode ?? '',
+    lineOne: tradingAddress?.lineOne ?? '',
+  };
+  const resultEmail = {
+    value: values.email,
+    primary: true,
+    kind: 'Home',
+  };
 
-export const prelodedValuesToInput = (details: {
+  return {
+    ...mapFormValues(values),
+    uuid: companyData?.uuid ?? '',
+    tradingName: undefined,
+    businessName: values.tradingName,
+    companyNature: undefined,
+    natureOfBusiness: values.nature,
+    vehicleRegistrationNumber: undefined,
+    businessRegistrationNumber: values.vehicleRegistrationNumber,
+    addresses: [resultAddress],
+    emailAddress: undefined,
+    emailAddresses: [resultEmail],
+  };
+};
+
+export const preloadedValuesToInput = (details: {
   [key: string]: any;
 }): ISoleTraderCompanyDetailsFormValues => {
   const tradingAddress = details.addresses
     ? {
         tradingAddress: {
-          label: details.addresses[0].line_one,
-          id: details.addresses[0].service_id,
+          label: details.addresses[0].lineOne,
+          id: details.addresses[0].serviceId,
         },
       }
     : null;
 
   return {
-    tradingName: details.business_name,
+    tradingName: details.businessName,
     ...tradingAddress,
-    nature: details.nature_of_business,
-    tradingSinceYear: String(new Date(details.trading_since).getFullYear()),
-    tradingSinceMonth: String(new Date(details.trading_since).getMonth() + 1),
-    businessTelephoneNumber: details.telephone_numbers?.[0].value,
-    email: details.email_addresses?.[0].value,
-    annualTurnover: String(details.annual_turnover || ''),
-    annualCostOfSales: String(details.annual_sales_cost || ''),
-    annualExpenses: String(details.annual_expenses || ''),
-    vehicleRegistrationNumber: details.vehicle_registration_number,
+    nature: details.natureOfBusiness,
+    tradingSinceYear: String(new Date(details.tradingSince).getFullYear()),
+    tradingSinceMonth: String(new Date(details.tradingSince).getMonth() + 1),
+    businessTelephoneNumber: details.telephoneNumbers?.[0].value,
+    email: details.emailAddresses?.[0].value,
+    annualTurnover: String(details.annualTurnover || ''),
+    annualCostOfSales: String(details.annualSalesCost || ''),
+    annualExpenses: String(details.annualExpenses || ''),
+    vehicleRegistrationNumber: details.businessRegistrationNumber,
     existingFinanceReplacement: '',
+    existingVehicle: details?.monthlyAmountBeingReplaced,
     monthlyAmountBeingReplaced: String(
-      details.monthly_amount_being_replaced || '',
+      details.monthlyAmountBeingReplaced || '',
     ),
   };
 };
