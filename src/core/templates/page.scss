@@ -618,6 +618,14 @@
         }
       }
     }
+
+    .caveat-text {
+      @include mobile() {
+        font-size: $font-size-200;
+        margin-top: $rem-200;
+        margin-bottom: -$rem-200;
+      }
+    }
   }
 
   &testimonials {
