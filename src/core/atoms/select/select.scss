@@ -12,6 +12,9 @@
 
   &--native {
     display: block;
+    width: 100%;
+    overflow: hidden !important;
+    text-overflow: ellipsis;
     transition: background $duration-small $transition-soft;
     border: 1px solid;
     border-color: $border-color;

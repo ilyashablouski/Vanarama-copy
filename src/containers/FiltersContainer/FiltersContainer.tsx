@@ -80,6 +80,7 @@ const FiltersContainer = ({
     }
   }, []);
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const choiseBoxReference = {} as any;
 
   /** create ref object for every multiselect dropdown. For call Choiseboxes component update method */

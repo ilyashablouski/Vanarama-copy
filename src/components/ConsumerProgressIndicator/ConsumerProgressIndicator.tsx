@@ -6,7 +6,6 @@ import { useRouter } from 'next/router';
 import React, { useEffect, useMemo } from 'react';
 import { getUrlParam } from '../../utils/url';
 import useProgressHistory from '../../hooks/useProgressHistory';
-import useGetOrderId from '../../hooks/useGetOrderId';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import { scrollingSteps } from './helpers';
 import generateConsumerSteps from './generateConsumerSteps';
@@ -20,12 +19,11 @@ type QueryParams = {
 const ConsumerProgressIndicator: React.FC = () => {
   const { pathname, query, asPath } = useRouter();
   const { uuid } = query as QueryParams;
-  const orderId = useGetOrderId();
   const { setCachedLastStep, cachedLastStep } = useProgressHistory();
   const isMobile = useMobileViewport();
 
   // Only regenerate the steps if the `orderId` changes
-  const steps = useMemo(() => generateConsumerSteps(), [orderId]);
+  const steps = useMemo(() => generateConsumerSteps(), []);
   // Work out the current step based on the URL
   const currentStep = steps.find(x => x.href === pathname)?.step || 1;
 
@@ -46,13 +44,14 @@ const ConsumerProgressIndicator: React.FC = () => {
     if (currentStep > cachedLastStep) {
       setCachedLastStep(currentStep);
     }
-  }, [currentStep]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentStep, cachedLastStep]);
 
   useEffect(() => {
     if (isMobile && !!document) {
       scrollingSteps(currentStep);
     }
-  }, [isMobile]);
+  }, [isMobile, currentStep]);
 
   return (
     <ProgressIndicator activeStep={cachedLastStep || 0} id="progress-indicator">

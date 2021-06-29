@@ -90,6 +90,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
         );
       }
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [person]);
 
   if (!person) {

@@ -206,6 +206,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       mileage,
       vehicleValue,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [capId, cars, data, price, pickups, vans, mileage]);
 
   useEffect(() => {
@@ -286,6 +287,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const isCar = useMemo(
     () => quote?.quoteByCapId?.vehicleType === VehicleTypeEnum.CAR,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
@@ -424,8 +426,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capModelDescription}`;
 
-  // eslint-disable-next-line no-console
   if (process.env.ENV !== 'prod') {
+    // eslint-disable-next-line no-console
     console.log('CAP Id:', capId);
   }
 
@@ -518,6 +520,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   return (
     <>
       <NextHead>
+        {/* eslint-disable-next-line react/no-danger */}
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
       <PartnershipLogoHeader />
