@@ -1,3 +1,4 @@
+import { formatAddress } from 'core/molecules/address-finder/AddressFinder';
 import { parseDate } from '../../utils/dates';
 import {
   SubmissionValues,
@@ -7,16 +8,11 @@ import { SaveCompanyDetailsMutation_createUpdateLimitedCompany as ICompany } fro
 import { IBusinessAboutFormValues } from '../../components/BusinessAboutForm/interfaces';
 import {
   GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as ICreditApplication,
-  GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_addresses,
+  GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_addresses as ICreditApplicationAddress,
 } from '../../../generated/GetCreditApplicationByOrderUuid';
 
-// ICreditApplication.addresses;
-
-const getAddress = (
-  addresess: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_addresses[],
-  kind: string,
-) =>
-  addresess?.find((address: { [key: string]: any }) => address.kind === kind);
+const getAddress = (addresses: ICreditApplicationAddress[], kind: string) =>
+  addresses?.find((address: { [key: string]: any }) => address.kind === kind);
 
 export const mapAddresses = (values: SubmissionValues) =>
   values.tradingDifferent
@@ -75,19 +71,19 @@ export const mapFormValues = (
   };
 };
 
-export const mapAddress = (data: any) => ({
+export const mapAddress = (data?: ICreditApplicationAddress | null) => ({
   city: data?.city,
   country: data?.country,
-  endedOn: data?.ended_on,
+  endedOn: data?.endedOn,
   kind: data?.kind,
-  label: data?.label,
-  lineOne: data?.line_one,
-  lineThree: data?.line_three,
-  lineTwo: data?.line_two,
+  label: formatAddress(data),
+  lineOne: data?.lineOne,
+  lineThree: data?.lineThree,
+  lineTwo: data?.lineTwo,
   postcode: data?.postcode,
-  propertyStatus: data?.property_status,
-  id: data?.service_id,
-  startedOn: data?.started_on,
+  propertyStatus: data?.propertyStatus,
+  id: data?.serviceId || '',
+  startedOn: data?.startedOn,
 });
 
 export const mapDefaultValues = (
@@ -99,10 +95,10 @@ export const mapDefaultValues = (
 
   const registeredAddress = data?.addresses
     ? getAddress(data?.addresses, 'registered')
-    : {};
+    : undefined;
   const tradingAddress = data?.addresses
     ? getAddress(data?.addresses, 'trading')
-    : {};
+    : undefined;
 
   return {
     uuid: data?.uuid,

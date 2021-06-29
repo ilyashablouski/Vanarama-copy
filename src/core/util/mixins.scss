@@ -50,6 +50,13 @@
   margin-right: $value;
 }
 
+// only targets mobile devices <=375px
+@mixin mobile375 {
+  @media (max-width: 375px) {
+    @content;
+  }
+}
+
 // only targets mobile devices <576px
 @mixin mobile576 {
   @media (max-width: #{$vp-xs-small - 1px}) {
