@@ -85,7 +85,8 @@ describe('B2B Company Details page', () => {
     companyProfileCalled = false;
     getSicCodesCalled = false;
   });
-  it.skip('should allow the user to search for and select a company', async () => {
+
+  it('should allow the user to search for and select a company', async () => {
     // ARRANGE
     const queryMock = jest.fn();
     const mutationMock = jest.fn();
@@ -121,39 +122,41 @@ describe('B2B Company Details page', () => {
           query: SAVE_COMPANY_DETAILS,
           variables: {
             input: {
-              person: { uuid: '' },
-              uuid: MOCK_COMPANY_UUID,
-              companyType: 'Limited',
-              legalName: 'AUTORAMA UK LTD',
-              companyNumber: '05137709',
-              tradingSince: '01-05-2004',
               addresses: [
                 {
                   kind: 'registered',
                   serviceId: 'GB|RM|A|54725860',
                 },
               ],
-              withTradingAddress: false,
               companyNature: 'Information technology consultancy activities',
+              companyNumber: '05137709',
+              companyType: 'Limited',
               emailAddress: {
                 kind: 'Home',
-                value: 'info@autorama.co.uk',
                 primary: true,
+                value: 'info@autorama.co.uk',
+              },
+              legalName: 'AUTORAMA UK LTD',
+              person: {
+                uuid: '',
               },
               telephoneNumbers: [
                 {
-                  value: '07777777777',
                   primary: true,
+                  value: '07777777777',
                 },
               ],
+              tradingSince: '2004-05-25',
+              uuid: MOCK_COMPANY_UUID,
+              withTradingAddress: false,
             },
           } as SaveCompanyDetailsMutationVariables,
         },
         result: mutationMock.mockImplementation(() => ({
           data: {
             createUpdateLimitedCompany: {
-              uuid: MOCK_PERSON_UUID,
-              partyUuid: 'partyUuid',
+              uuid: MOCK_COMPANY_UUID,
+              partyUuid: '',
               addresses: [
                 {
                   lineOne: 'B001',
@@ -201,6 +204,7 @@ describe('B2B Company Details page', () => {
     await waitFor(() => expect(getSicCodesCalled).toBeTruthy());
     fireEvent.mouseDown(screen.getByText(/^62020/));
 
+    fireEvent.click(screen.getByText('Edit'));
     typeIntoAddressField('company-details_registered-address', 'GB|001');
     fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
@@ -220,7 +224,7 @@ describe('B2B Company Details page', () => {
     await waitFor(() => expect(mutationMock).toHaveBeenCalledTimes(1));
   });
 
-  it.skip('should allow the user to enter their company details manually', async () => {
+  it('should allow the user to enter their company details manually', async () => {
     // ARRANGE
     const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
@@ -238,7 +242,7 @@ describe('B2B Company Details page', () => {
               companyType: 'Limited',
               legalName: 'AUTORAMA UK LTD',
               companyNumber: '05137709',
-              tradingSince: '01-05-2004',
+              tradingSince: '2004-5-01',
               addresses: [
                 {
                   kind: 'registered',
@@ -246,7 +250,7 @@ describe('B2B Company Details page', () => {
                 },
               ],
               withTradingAddress: false,
-              companyNature: 'Information technology consultancy activities',
+              companyNature: '',
               emailAddress: {
                 kind: 'Home',
                 value: 'info@autorama.co.uk',
@@ -264,8 +268,8 @@ describe('B2B Company Details page', () => {
         result: mutationMock.mockImplementation(() => ({
           data: {
             createUpdateLimitedCompany: {
-              uuid: MOCK_PERSON_UUID,
-              partyUuid: 'partyUuid',
+              uuid: MOCK_COMPANY_UUID,
+              partyUuid: '',
               addresses: [
                 {
                   lineOne: 'B001',
@@ -348,7 +352,7 @@ describe('B2B Company Details page', () => {
     await waitFor(() => expect(mutationMock).toHaveBeenCalledTimes(1));
   });
 
-  it.skip('should allow the user to select a trading address that is different from the registered address', async () => {
+  it('should allow the user to select a trading address that is different from the registered address', async () => {
     // ARRANGE
     const queryMock = jest.fn();
     const mutationMock = jest.fn();
@@ -389,7 +393,7 @@ describe('B2B Company Details page', () => {
               companyType: 'Limited',
               legalName: 'AUTORAMA UK LTD',
               companyNumber: '05137709',
-              tradingSince: '01-05-2004',
+              tradingSince: '2004-05-25',
               addresses: [
                 {
                   kind: 'registered',
@@ -420,7 +424,7 @@ describe('B2B Company Details page', () => {
           data: {
             createUpdateLimitedCompany: {
               uuid: MOCK_PERSON_UUID,
-              partyUuid: 'partyUuid',
+              partyUuid: '',
               addresses: [
                 {
                   lineOne: 'B002',
@@ -505,6 +509,7 @@ describe('B2B Company Details page', () => {
     await waitFor(() => expect(getSicCodesCalled).toBeTruthy());
     fireEvent.click(screen.getByText('62020'));
 
+    fireEvent.click(screen.getByText('Edit'));
     typeIntoAddressField('company-details_registered-address', 'GB|001');
     fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
