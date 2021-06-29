@@ -142,7 +142,6 @@ describe('<AboutFormContainer />', () => {
       '1',
     );
 
-    expect(screen.getByTestId(/aboutMarketingB2C/)).toBeChecked();
-    expect(screen.getByTestId(/aboutTermsAndCons/)).toBeChecked();
+    expect(screen.getByTestId(/aboutTermsAndConditionsB2C/)).toBeChecked();
   });
 });
