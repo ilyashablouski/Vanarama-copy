@@ -14,6 +14,7 @@ export interface ISoleTraderCompanyDetailsFormValues {
   existingFinanceReplacement: string;
   vehicleRegistrationNumber: string;
   monthlyAmountBeingReplaced: string;
+  existingVehicle: boolean;
 }
 
 export interface ISoleTraderCompanyDetailsFormProps {

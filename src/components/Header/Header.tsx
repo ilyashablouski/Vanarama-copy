@@ -18,12 +18,10 @@ import {
   addHeapUserIdentity,
   addHeapUserProperties,
 } from '../../utils/addHeapProperties';
-import { isWishlistEnabled } from '../../utils/wishlistHelpers';
 import {
   GetPerson_getPerson as Person,
   GetPerson,
 } from '../../../generated/GetPerson';
-import useMount from '../../hooks/useMount';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import PhoneNumber from '../PhoneNumber/PhoneNumber';
 import GlobalSearchContainer from '../../containers/GlobalSearchContainer';
@@ -100,8 +98,6 @@ export const Header: FC<IHeaderProps> = memo(props => {
 
   const isDesktop = useMediaQuery('(min-width: 1216px)');
 
-  const didMount = useMount();
-
   useEffect(() => {
     if (!person) {
       localForage.getItem<GetPerson>('person').then(value => {
@@ -148,11 +144,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
 
   return (
     <header className={cx('header', className)} data-testid="header">
-      <div
-        className={cx('header-content', {
-          '-with-wishlist': didMount && isWishlistEnabled,
-        })}
-      >
+      <div className="header-content -with-wishlist">
         <RouterLink
           link={{ href: customHomePath || '/', label: '' }}
           classNames={{ color: 'orange', plain: true }}
@@ -162,7 +154,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
         </RouterLink>{' '}
         <GlobalSearchContainer />
         <PhoneNumber phoneNumberLink={phoneNumberLink} withIcon />{' '}
-        {isWishlistEnabled && <HeaderWishlistLink />}
+        <HeaderWishlistLink />
         <div className="header-account">
           {person ? (
             <>

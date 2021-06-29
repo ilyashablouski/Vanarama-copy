@@ -19,6 +19,7 @@ export interface IList extends IBaseProps {
 }
 
 export interface IStructuredListProps extends IBaseProps {
+  itemWrap?: boolean;
   list: IList[];
   editable?: boolean;
   heading?: string;
@@ -39,6 +40,7 @@ export interface IStructuredListProps extends IBaseProps {
 }
 
 export interface IListItemProps extends IList {
+  wrap?: boolean;
   editing: boolean;
   dataTestId?: string;
   testId?: number;

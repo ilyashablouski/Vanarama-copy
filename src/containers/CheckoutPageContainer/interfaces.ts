@@ -32,6 +32,7 @@ export interface IAdditionalOptionProps extends IBaseProps {
   name: string;
   checked?: boolean;
   ref?: React.Ref<HTMLInputElement>;
+  onTooltipClick?: () => void;
 }
 
 export interface CheckoutPageContainerProps {
