@@ -294,16 +294,16 @@ const AboutForm: FCWithFragments<IProps> = ({
         error={errors?.termsAndCons?.message?.toString()}
       >
         <CheckBox
-          id="consent"
-          dataTestId="aboutConsent"
-          name="consent"
+          id="marketing"
+          dataTestId="aboutMarketingB2C"
+          name="marketing"
           label="I want to be kept updated about exclusive deals & offers."
           ref={register}
         />
         <CheckBox
-          id="termsAndCons"
-          dataTestId="aboutTermsAndCons"
-          name="termsAndCons"
+          id="termsAndConditions"
+          dataTestId="aboutTermsAndConditionsB2C"
+          name="termsAndConditions"
           label={[
             'I agree to the ',
             <a
