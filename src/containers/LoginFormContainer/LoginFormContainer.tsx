@@ -191,6 +191,7 @@ const LoginFormContainer = ({
         .then(personQuery => onCompleted?.(personQuery?.data?.getPerson))
         .then(() => {})
         .catch(onError),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 

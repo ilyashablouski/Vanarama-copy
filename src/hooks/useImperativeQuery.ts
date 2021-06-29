@@ -21,7 +21,7 @@ export function useImperativeQuery<
         variables,
         fetchPolicy,
       }),
-    [client, query],
+    [client, query, fetchPolicy],
   );
 }
 

@@ -340,6 +340,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     colourList?.length === 0 ||
     trimList?.length === 0
   ) {
+    // eslint-disable-next-line no-console
     console.error({
       colourList,
       trimList,

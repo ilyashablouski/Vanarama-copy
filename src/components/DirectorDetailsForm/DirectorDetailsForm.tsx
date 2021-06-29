@@ -1,6 +1,6 @@
 import dynamic from 'next/dynamic';
 import { Formik } from 'formik';
-import React, { useCallback } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import DirectorFieldArray from './DirectorFieldArray';
 import {
   initialFormValues,
@@ -60,8 +60,10 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
   officers,
   validationParams,
 }) => {
-  const directors =
-    combineDirectorsData(officers, defaultValues?.directors) || [];
+  const directors = useMemo(
+    () => combineDirectorsData(officers, defaultValues?.directors) || [],
+    [officers, defaultValues?.directors],
+  );
 
   const initialValues = isEdit
     ? initialEditedFormValues(directors, directorUuid)
@@ -89,7 +91,7 @@ const DirectorDetailsForm: React.FC<IDirectorDetailsFormProps> = ({
 
       return onSubmit(values);
     },
-    [onSubmit],
+    [onSubmit, isEdit, directors],
   );
 
   return (

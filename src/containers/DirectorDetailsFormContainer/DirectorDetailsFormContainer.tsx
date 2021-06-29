@@ -54,8 +54,12 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
     getDirectorDetailsQuery.data?.companyByUuid?.companyNumber;
   const companyOfficersQuery = useCompanyOfficers(companyNumber || '');
 
-  const officersNodes =
-    companyOfficersQuery?.data?.companyOfficers?.nodes?.filter(isTruthy) || [];
+  const officersNodes = useMemo(
+    () =>
+      companyOfficersQuery?.data?.companyOfficers?.nodes?.filter(isTruthy) ||
+      [],
+    [companyOfficersQuery?.data?.companyOfficers?.nodes],
+  );
   const directorsDetails =
     getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid
       ?.directorsDetailsV2;
@@ -80,13 +84,12 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
   );
 
   const isEdit = useMemo(() => (directorsDetails?.directors || []).length > 0, [
-    directorsDetails,
+    directorsDetails?.directors,
   ]);
 
   const funderDirectors = funderDirectorsQuery?.data?.funderDirectors;
-  const funderDirectorsId = funderDirectorsQuery?.data?.funderDirectors?.id;
   const validationParams = useMemo(() => mapValidationParams(funderDirectors), [
-    funderDirectorsId,
+    funderDirectors,
   ]);
 
   const defaultValues = useMemo(() => {
