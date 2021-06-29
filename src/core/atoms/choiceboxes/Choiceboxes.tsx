@@ -66,6 +66,7 @@ const Choiceboxes = forwardRef(
       if (choiceIndex || choiceIndex === 0) {
         changeChoices(choiceIndex);
       }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [choiceIndex]);
 
     useEffect(() => {

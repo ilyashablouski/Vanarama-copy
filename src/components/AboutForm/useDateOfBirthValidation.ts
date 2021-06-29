@@ -15,5 +15,6 @@ export default function useDateOfBirthValidation(
     if (day && mth && year) {
       triggerValidation(['dayOfBirth', 'yearOfBirth', 'monthOfBirth']);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [day, mth, year]);
 }

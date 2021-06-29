@@ -18,9 +18,7 @@ const vehicleConfigurationByCapId = require('./vehicleConfigurationByCapId');
 let delay = 1000;
 
 function runQuery(callBack) {
-  setTimeout(function() {
-    callBack();
-  }, delay);
+  setTimeout(() => callBack(), delay);
   delay += 1000;
 }
 

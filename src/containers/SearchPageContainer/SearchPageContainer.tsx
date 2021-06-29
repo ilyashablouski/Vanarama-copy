@@ -277,6 +277,7 @@ const SearchPageContainer: React.FC<IProps> = ({
       // render delay
       setTimeout(() => scrollTo(), 400);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageOffset]);
 
   useEffect(() => {
@@ -477,6 +478,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           setHasNextPage(vehicles.vehicleList.pageInfo.hasNextPage || false);
         }
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.error('Error:', e);
       }
     },
@@ -650,6 +652,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (getPartnerProperties()?.fuelTypes) {
       onSearch();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useFirstRenderEffect(() => {
@@ -832,6 +835,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         },
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     lastCard,
     getVehiclesCache,
