@@ -50,7 +50,7 @@ const AboutForm: FCWithFragments<IProps> = ({
       emailValidator
         ? createValidationSchema(emailValidator)
         : createValidationSchema(() => Promise.resolve(undefined)),
-    [emailValidator, defaultValues],
+    [emailValidator],
   );
   const months = genMonths();
   const years = genYears(100);

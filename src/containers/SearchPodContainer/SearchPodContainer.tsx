@@ -66,7 +66,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       return PICKUPS_TAB_HEADING;
     }
     return VANS_TAB_HEADING;
-  }, [router.pathname]);
+  }, [router.pathname, activeSearchIndex]);
 
   const setConfigInit = () => {
     if (router.pathname.indexOf('car') > -1) {
@@ -302,7 +302,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
         );
       }
     }
-  }, [searchType]);
+  }, [searchType, config]);
 
   // get options list
   const getOptions = (field: keyof typeof fieldsMapper) => fieldsMapper[field];
