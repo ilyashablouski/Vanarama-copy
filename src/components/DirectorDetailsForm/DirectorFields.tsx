@@ -107,7 +107,7 @@ const DirectorFields: FCWithFragments<Props> = ({
           generateFieldKey('monthOfBirth'),
           generateFieldKey('yearOfBirth'),
         ]}
-        className="-inline-preserved"
+        className="-inline-preserved -date-picker"
       />
       <FormikSelectField
         name={generateFieldKey('numberOfDependants')}

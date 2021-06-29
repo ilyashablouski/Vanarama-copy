@@ -4,8 +4,8 @@
   min-width: 0;
   max-width: 50ch;
   width: 100%;
-  grid-template-columns: minmax(0,1fr);
-  grid-template-rows: repeat(auto-fit, minmax(0,max-content));
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: repeat(auto-fit, minmax(0, max-content));
   grid-auto-flow: row;
 
   & > * {
@@ -27,9 +27,24 @@
 
   &.-full-width-fields {
     max-width: unset;
-    .formgroup, 
+
+    .formgroup,
     .formgroup--content {
       max-width: unset;
+    }
+  }
+
+  .formgroup.-date-picker .select{
+    select {
+      @include mobile375() {
+        padding-right: 1.7rem;
+      }
+    }
+
+    &:nth-child(2) {
+      @include mobile375() {
+        max-width: 102px;
+      }
     }
   }
 }
