@@ -15,6 +15,7 @@ export interface productFilter_productFilter {
   transmissions: (string | null)[] | null;
   fuelTypes: (string | null)[] | null;
   bodyStyles: (string | null)[] | null;
+  vehicleCategory: (string | null)[] | null;
 }
 
 export interface productFilter {
