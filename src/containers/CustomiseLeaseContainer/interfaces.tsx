@@ -6,6 +6,8 @@ import {
 import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_leaseAdjustParams,
+  GetVehicleDetails_vehicleDetails_roadsideAssistance,
+  GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../../generated/GetVehicleDetails';
 import {
   GetQuoteDetails_quoteByCapId,
@@ -36,7 +38,7 @@ export interface IProps {
   isShowFreeInsuranceMerch?: boolean;
   onCompletedCallBack: () => void;
   setIsPlayingLeaseAnimation: React.Dispatch<React.SetStateAction<boolean>>;
-  setLeaseType: React.Dispatch<React.SetStateAction<string>>;
+  setLeaseType: React.Dispatch<React.SetStateAction<LeaseTypeEnum>>;
   setLeadTime: React.Dispatch<React.SetStateAction<string>>;
   onCompleted: (values: OrderInputObject) => void;
   setLeaseScannerData?: React.Dispatch<
@@ -48,6 +50,8 @@ export interface IProps {
   mileage: number | null;
   setMileage: React.Dispatch<React.SetStateAction<number | null>>;
   pickups?: boolean;
+  roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
+  warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
 }
 
 export interface IQuoteDataInputs {

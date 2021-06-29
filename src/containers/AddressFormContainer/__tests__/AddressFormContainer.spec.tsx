@@ -16,6 +16,23 @@ import {
 } from '../fixtures';
 import { GET_ADDRESS_CONTAINER_DATA, SAVE_ADDRESS_HISTORY } from '../gql';
 
+jest.mock('../../../hooks/useLoqate', () => () => ({
+  data: [
+    {
+      id: 'GB|RM|A|54725860',
+      description: 'Bournemouth, BH8 8ES',
+      text: 'B001, Purbeck House 5-7, Oxford Road',
+      type: 'Address',
+    },
+  ],
+}));
+
+function typeIntoAddressField(value: string) {
+  const input = screen.getByTestId('history[0].address');
+  fireEvent.focus(input);
+  fireEvent.change(input, { target: { value } });
+}
+
 describe('<AddressFormContainer />', () => {
   beforeEach(async () => {
     await preloadAll();
@@ -42,12 +59,13 @@ describe('<AddressFormContainer />', () => {
           query: SAVE_ADDRESS_HISTORY,
           variables: {
             input: {
-              partyId: '911',
+              partyId: '13670',
               addresses: [
                 {
-                  serviceId: 'GB|001',
-                  propertyStatus: 'Mortgage',
-                  startedOn: '1990-01-01',
+                  serviceId: 'GB|RM|A|54725860',
+                  propertyStatus: 'Rented',
+                  startedOn: '1963-10-01',
+                  uuid: 'GB|RM|A|54725860',
                 },
               ],
             },
@@ -61,13 +79,13 @@ describe('<AddressFormContainer />', () => {
                 {
                   __typename: 'AddressType',
                   uuid: '24fee0a6-8953-11ea-bc55-0242ac130003',
-                  city: '',
-                  lineOne: '',
-                  serviceId: 'GB|001',
-                  lineTwo: null,
-                  postcode: '',
-                  propertyStatus: 'Mortgage',
-                  startedOn: '1990-01-01',
+                  serviceId: 'GB|RM|A|54725860',
+                  lineOne: 'B001',
+                  lineTwo: 'Purbeck House',
+                  postcode: 'BH8 8ES',
+                  city: 'Bournemouth',
+                  propertyStatus: 'Rented',
+                  startedOn: '1963-10-01',
                 },
               ],
             } as Mutation,
@@ -88,20 +106,19 @@ describe('<AddressFormContainer />', () => {
 
     await screen.findByTestId('address-history-heading');
 
-    fireEvent.change(screen.getByTestId('history[0].address'), {
-      target: { value: 'GB|001' },
-    });
+    typeIntoAddressField('GB|001');
+    fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
     fireEvent.change(screen.getByTestId('history[0].status'), {
-      target: { value: 'Mortgage' },
+      target: { value: 'Rented' },
     });
 
     fireEvent.change(screen.getByTestId('history[0].month'), {
-      target: { value: '1' },
+      target: { value: '10' },
     });
 
     fireEvent.change(screen.getByTestId('history[0].year'), {
-      target: { value: '1990' },
+      target: { value: '1963' },
     });
 
     fireEvent.click(screen.getByText('Continue'));

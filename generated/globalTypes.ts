@@ -77,7 +77,8 @@ export enum OpportunityTypeEnum {
  * Partner slug type enum
  */
 export enum PartnerSlugTypeEnum {
-  OVO = "OVO",
+  OVO = 'OVO',
+  HERMES = 'HERMES'
 }
 
 /**
@@ -105,6 +106,17 @@ export enum SortField {
 export enum VehicleTypeEnum {
   CAR = "CAR",
   LCV = "LCV",
+}
+
+export enum VehiclesTypeEnum {
+  CARS = 'CARS',
+  VANS = 'VANS',
+  PICKUPS = 'PICKUPS',
+}
+
+export enum VehicleSearchTypeEnum {
+  CARS = 'Cars',
+  VANS = 'Vans',
 }
 
 /**

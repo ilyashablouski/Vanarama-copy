@@ -80,17 +80,17 @@ const MyDetailsPage: NextPage<IProps> = () => {
   const [resetPassword, setResetPassword] = useState(false);
 
   useEffect(() => {
-    localForage
-      .getItem<GetPerson>('person')
-      .then(value => setPerson(value?.getPerson ?? null))
-      // if value is null exception will be thrown
-      // and user should be redirected to authentication
-      .catch(() =>
+    localForage.getItem<GetPerson>('person').then(value => {
+      if (value) {
+        setPerson(value.getPerson);
+      } else {
         router.replace(
           `/account/login-register?redirect=${router.pathname}`,
           '/account/login-register',
-        ),
-      );
+        );
+      }
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [person]);
 
   if (!person) {

@@ -62,7 +62,7 @@ const LeaseScanner = dynamic(() => import('core/organisms/lease-scanner'), {
 
 const choices = (
   choicesValues: IChoice[],
-  setChoice: Dispatch<SetStateAction<string>>,
+  setChoice: Dispatch<SetStateAction<LeaseTypeEnum>>,
   heading: string,
   isDisabled: boolean,
   currentValue?: string,
@@ -88,9 +88,9 @@ const choices = (
         disabled={isDisabled}
         className={`-cols-${choicesValues?.length}`}
         choices={choicesValues}
-        onSubmit={value => {
-          setChoice(value.label);
-        }}
+        onSubmit={value =>
+          setChoice(value?.value?.toUpperCase() as LeaseTypeEnum)
+        }
         choiceIndex={choiceIndex}
         setChoiceIndex={setChoiceIndex}
       />
@@ -170,6 +170,8 @@ const CustomiseLease = ({
   setIsInitPayModalShowing,
   pickups,
   isShowFreeInsuranceMerch,
+  roadsideAssistance,
+  warrantyDetails,
 }: IProps) => {
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
@@ -216,6 +218,7 @@ const CustomiseLease = ({
         }
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
@@ -415,6 +418,8 @@ const CustomiseLease = ({
           trim={trim}
           pickups={pickups}
           isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
+          roadsideAssistance={roadsideAssistance}
+          warrantyDetails={warrantyDetails}
         />
       </LazyLoadComponent>
       {!isMobile && (

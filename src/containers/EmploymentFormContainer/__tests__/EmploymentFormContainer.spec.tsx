@@ -53,7 +53,7 @@ describe('<EmploymentFormContainer />', () => {
     expect(onCompletedMock).toHaveBeenCalledTimes(1);
   });
 
-  it.skip('should prefill data from the server', async () => {
+  it('should prefill data from the server', async () => {
     // ARRANGE
     const personUuid = '1337';
     const onCompletedMock = jest.fn();
@@ -95,7 +95,7 @@ describe('<EmploymentFormContainer />', () => {
 
     const address = screen.getByTestId('history[0].address');
     expect(address).toHaveTextContent(
-      '1-13 St Giles High St,, West End, London, WC2H 8AG',
+      '1 St. Giles High Street, London, WC2H 8AG',
     );
 
     const income = screen.getByLabelText('Gross Annual Income');

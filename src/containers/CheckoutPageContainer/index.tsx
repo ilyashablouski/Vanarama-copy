@@ -1,7 +1,8 @@
 import React, { useCallback, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
-import { useRouter } from 'next/router';
+import * as localForage from 'localforage';
 
+import { useRouter } from 'next/router';
 import decode from 'decode-html';
 import NextHead from 'next/head';
 import Text from 'core/atoms/text';
@@ -13,15 +14,20 @@ import Price from 'core/atoms/price';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import css from '!!raw-loader!../../../public/styles/pages/checkout-page.css';
-
 import OrderPanel from './OrderPanel';
 import AdditionalOptionsForm from './AdditionalOptionsForm';
 import {
   CheckoutPageContainerProps,
   IAdditionalOptionsFormValues,
 } from './interfaces';
-import { LeaseTypeEnum } from '../../../generated/globalTypes';
+import {
+  LeaseTypeEnum,
+  VehicleProductInputObject,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 import { sum } from '../../utils/array';
+import { IOrderStorageData } from '../../hooks/useGetOrder';
+import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 
 const createIncludedOptions = (values: IAdditionalOptionsFormValues) => [
   {
@@ -35,13 +41,13 @@ const createIncludedOptions = (values: IAdditionalOptionsFormValues) => [
     key: '1',
   },
   {
-    label: "1 Year's Free Insurance",
-    isVisible: values.freeInsurance,
+    label: 'Free Loss Of Earnings & Life Event Cover',
+    isVisible: values.lossOfEarnings,
     key: '2',
   },
   {
-    label: 'Advanced Breakdown Cover',
-    isVisible: values.advancedBreakdownCover,
+    label: "1 Year's Free Insurance",
+    isVisible: values.freeInsurance,
     key: '3',
   },
   {
@@ -49,7 +55,29 @@ const createIncludedOptions = (values: IAdditionalOptionsFormValues) => [
     isVisible: values.monthlyMaintenance,
     key: '4',
   },
+  {
+    label: 'Advanced Breakdown Cover',
+    isVisible: values.advancedBreakdownCover,
+    key: '5',
+  },
 ];
+
+const createLineItem = (
+  values: IAdditionalOptionsFormValues,
+  quote: GetQuoteDetails['quoteByCapId'],
+  vehicleProduct?: VehicleProductInputObject | null,
+) =>
+  ({
+    ...vehicleProduct,
+    maintenance: values.monthlyMaintenance || false,
+    maintenancePrice: values.monthlyMaintenance
+      ? quote?.maintenanceCost?.monthlyRental
+      : null,
+    freeInsurance: {
+      optIn: values.freeInsurance || false,
+      eligible: vehicleProduct?.freeInsurance?.eligible || false,
+    },
+  } as VehicleProductInputObject);
 
 const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
   order,
@@ -59,19 +87,32 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
   vehicleConfiguration,
 }) => {
   const router = useRouter();
+  const vehicleProduct = useMemo(() => order?.lineItems?.[0].vehicleProduct, [
+    order,
+  ]);
+  // enabled by default for cars only
+  const redundancy = useMemo(
+    () => vehicleProduct?.vehicleType === VehicleTypeEnum.CAR,
+    [vehicleProduct],
+  );
+  // enabled by default for vans only
+  const lossOfEarnings = useMemo(
+    () =>
+      vehicleProduct?.vehicleType === VehicleTypeEnum.LCV &&
+      !derivative?.bodyType?.name?.toLowerCase().includes('pick-up'),
+    [vehicleProduct, derivative],
+  );
   const methods = useForm<IAdditionalOptionsFormValues>({
     defaultValues: {
-      redundancy: false,
-      freeInsurance:
-        order.lineItems?.[0].vehicleProduct?.freeInsurance?.optIn || false,
-      monthlyMaintenance: false,
+      redundancy,
+      lossOfEarnings,
+      freeInsurance: vehicleProduct?.freeInsurance?.optIn || false,
+      monthlyMaintenance: vehicleProduct?.maintenance || false,
       advancedBreakdownCover: false,
     },
     mode: 'onBlur',
   });
-  const vehicleProduct = useMemo(() => order?.lineItems?.[0].vehicleProduct, [
-    order,
-  ]);
+
   const isPersonalPrice = useMemo(
     () => order.leaseType.toUpperCase() === LeaseTypeEnum.PERSONAL,
     [order],
@@ -84,26 +125,38 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
 
   const price = useMemo(
     () =>
-      values.monthlyMaintenance
-        ? sum(
-            [
-              vehicleProduct?.monthlyPayment,
-              quote?.maintenanceCost?.monthlyRental,
-            ],
-            item => item || 0,
-          )
-        : vehicleProduct?.monthlyPayment,
-    [quote, values.monthlyMaintenance],
+      sum(
+        [
+          vehicleProduct?.monthlyPayment,
+          values.monthlyMaintenance ? quote?.maintenanceCost?.monthlyRental : 0,
+        ],
+        item => item || 0,
+      ),
+    [quote, values.monthlyMaintenance, vehicleProduct?.monthlyPayment],
   );
 
   const onSubmit = useCallback(() => {
-    const url = isPersonalPrice ? '/olaf/about' : '/b2b/olaf/about';
-    return router.push(url, url).then(() => {});
-  }, [isPersonalPrice]);
+    const newOrder = {
+      ...order,
+      lineItems: [
+        {
+          vehicleProduct: createLineItem(values, quote, vehicleProduct),
+          ...(order.lineItems?.[0] || {}),
+        },
+      ],
+    };
+    localForage
+      .setItem<IOrderStorageData>('order', newOrder)
+      .then(() => (isPersonalPrice ? '/olaf/about' : '/b2b/olaf/about'))
+      .then(url => router.push(url, url))
+      .then(() => {});
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isPersonalPrice, order, quote, vehicleProduct, values]);
 
   return (
     <>
       <NextHead>
+        {/* eslint-disable-next-line react/no-danger */}
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
       <div className="row:bg-lighter">
@@ -115,6 +168,7 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
             <div>
               <OrderPanel
                 order={order}
+                quote={quote}
                 vehicleImage={vehicleImages?.[0]}
                 vehicleConfiguration={vehicleConfiguration}
               />
@@ -143,11 +197,11 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
                 >
                   You Will Need:
                 </Text>
-                <Text tag="p">
+                <Text className="-mb-400 -mt-000" tag="p">
                   Details of the addresses you&lsquo;ve lived at for the past 3
                   years.
                 </Text>
-                <Text tag="p">
+                <Text className="-m-000" tag="p">
                   Details of the bank account that you&lsquo;ll use to pay
                   monthly payments.
                 </Text>
@@ -161,15 +215,11 @@ const CheckoutPageContainer: React.FC<CheckoutPageContainerProps> = ({
                 >
                   Total Monthly Cost
                 </Heading>
-                <Price
-                  price={price}
-                  size="xlarge"
-                  className="-mb-400"
-                  priceDescription={`Per Month ${
-                    isPersonalPrice ? 'Inc' : 'Exc'
-                  } VAT`}
-                />
-                <List className="ticked orange">
+                <Price price={price} size="xlarge" className="-mb-100" />
+                <Text color="black" size="regular">
+                  {`Per Month ${isPersonalPrice ? 'inc.' : 'exc.'} VAT`}
+                </Text>
+                <List className="ticked orange -mt-400" style={{ gap: 0 }}>
                   {includedItems.map(item => (
                     <li className="-custom" key={item.key}>
                       {item.label}

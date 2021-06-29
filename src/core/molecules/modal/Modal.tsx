@@ -64,7 +64,7 @@ const Modal: FC<IModalProps> = props => {
             {additionalText}
           </Text>
         )}
-        <div className="">{children}</div>
+        <div>{children}</div>
       </div>
     </div>
   );

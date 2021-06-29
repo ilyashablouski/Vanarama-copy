@@ -3,10 +3,13 @@ import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import {
   GetVehicleDetails_derivativeInfo,
   GetVehicleDetails_leaseAdjustParams,
+  GetVehicleDetails_vehicleDetails_roadsideAssistance,
+  GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../../generated/GetVehicleDetails';
 import {
   OrderInputObject,
   LineItemInputObject,
+  LeaseTypeEnum,
 } from '../../../generated/globalTypes';
 import {
   GetTrimAndColor_colourList as IColourList,
@@ -37,7 +40,7 @@ export interface IProps {
   defaultMileageValue: number | null;
   leaseTypes: IChoice[];
   mileages: number[];
-  setLeaseType: Dispatch<SetStateAction<string>>;
+  setLeaseType: Dispatch<SetStateAction<LeaseTypeEnum>>;
   setMileage: Dispatch<SetStateAction<number | null>>;
   setUpfront: Dispatch<SetStateAction<number | null>>;
   setColour: Dispatch<SetStateAction<number | null>>;
@@ -69,4 +72,6 @@ export interface IProps {
   trimList: (ITrimList | null)[] | null;
   colourList: (IColourList | null)[] | null;
   pickups?: boolean;
+  roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
+  warrantyDetails?: GetVehicleDetails_vehicleDetails_warrantyDetails | null;
 }

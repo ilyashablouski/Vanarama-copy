@@ -18,11 +18,12 @@ const IncomeCalculator = dynamic(
 const ExpensesFormContainer: React.FC<IProps> = ({
   personUuid,
   onCompleted,
+  order,
 }) => {
   const { loading, error, data } = useExpensesData(personUuid);
   const [expenses] = useUpdateExpenses(personUuid, onCompleted);
 
-  if (loading) {
+  if (loading || !order) {
     return <Loading size="large" />;
   }
 
@@ -37,6 +38,7 @@ const ExpensesFormContainer: React.FC<IProps> = ({
   const { incomeAndExpense, partyId } = data.personByUuid;
   return (
     <IncomeCalculator
+      order={order}
       expenditure={incomeAndExpense}
       onSubmit={values =>
         expenses({

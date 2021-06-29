@@ -3,9 +3,26 @@ import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import IncomeCalculator from '../IncomeCalculator';
 import { inputChange } from '../../../utils/testing';
+import { IOrderStorageData } from '../../../hooks/useGetOrder';
+
+const mockOrder = {
+  lineItems: [
+    {
+      vehicleProduct: {
+        monthlyPayment: 200,
+      },
+    },
+  ],
+} as IOrderStorageData;
 
 const renderComponent = () => {
-  render(<IncomeCalculator expenditure={null} onSubmit={jest.fn()} />);
+  render(
+    <IncomeCalculator
+      expenditure={null}
+      onSubmit={jest.fn()}
+      order={mockOrder}
+    />,
+  );
 };
 
 describe('<IncomeCalculator Calculations />', () => {

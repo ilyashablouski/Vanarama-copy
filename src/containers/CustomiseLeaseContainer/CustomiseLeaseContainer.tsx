@@ -1,12 +1,12 @@
 import dynamic from 'next/dynamic';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import Modal from 'core/molecules/modal';
 import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteDataLazyQuery } from './gql';
 import {
   LeaseTypeEnum,
-  VehicleTypeEnum,
   OpportunityTypeEnum,
+  VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import { IProps } from './interfaces';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
@@ -87,6 +87,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   setMileage,
   pickups,
   isShowFreeInsuranceMerch,
+  roadsideAssistance,
+  warrantyDetails,
 }) => {
   const [quoteData, setQuoteData] = useState<
     GetQuoteDetails | null | undefined
@@ -318,8 +320,16 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const defaultMileageValue = quote?.quoteByCapId?.mileage ?? null;
 
   const leaseTypes = [
-    { label: 'Personal', value: 'Personal', active: leaseType === 'Personal' },
-    { label: 'Business', value: 'Business', active: leaseType === 'Business' },
+    {
+      label: 'Personal',
+      value: LeaseTypeEnum.PERSONAL,
+      active: leaseType === LeaseTypeEnum.PERSONAL,
+    },
+    {
+      label: 'Business',
+      value: LeaseTypeEnum.BUSINESS,
+      active: leaseType === LeaseTypeEnum.BUSINESS,
+    },
   ];
 
   // - show POA form in case if during first render (SSR) monthlyRental is not returned
@@ -330,6 +340,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     colourList?.length === 0 ||
     trimList?.length === 0
   ) {
+    // eslint-disable-next-line no-console
     console.error({
       colourList,
       trimList,
@@ -389,6 +400,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         showCallBackForm={() => setShowCallBackForm(true)}
         pickups={pickups}
         isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
+        roadsideAssistance={roadsideAssistance}
+        warrantyDetails={warrantyDetails}
       />
       <Modal
         className="-mt-000 callBack"

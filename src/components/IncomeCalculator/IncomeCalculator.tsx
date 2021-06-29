@@ -1,12 +1,11 @@
 import dynamic from 'next/dynamic';
 import CheckBox from 'core/atoms/checkbox/';
 import NumericInput from 'core/atoms/numeric-input';
-import Input from 'core/atoms/textinput/';
 import { gql } from '@apollo/client';
 import React, { useEffect, useMemo } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
-import validationSchema from './IncomeCalculator.validation';
+import createValidationSchema from './IncomeCalculator.validation';
 import {
   IIncomeCalculatorFormValues as IFormValues,
   IIncomeCalculatorProps,
@@ -41,12 +40,21 @@ const FormGroup = dynamic(() => import('core/molecules/formgroup'), {
 const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
   expenditure,
   onSubmit,
+  order,
 }) => {
+  const validationSchema = useMemo(
+    () =>
+      createValidationSchema(
+        order.lineItems?.[0]?.vehicleProduct?.monthlyPayment || 0,
+      ),
+    [order],
+  );
   const {
     handleSubmit,
     control,
     watch,
     errors,
+    setValue,
     formState,
     triggerValidation,
   } = useForm<IFormValues>({
@@ -57,16 +65,16 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
 
   const values = watch();
   const { disposableIncome, monthlyExpenses } = calculateIncome(values);
-  const disposableIncomeError = useMemo(
-    () =>
-      disposableIncome < 0
-        ? 'Based on your outgoings, it looks like you won’t be able to afford the monthly rentals on this lease.'
-        : '',
-    [disposableIncome],
-  );
 
   useEffect(() => {
-    triggerValidation([]);
+    setValue('netDisposableIncome', disposableIncome?.toString());
+    setValue('totalMonthlyExpenses', monthlyExpenses?.toString());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [disposableIncome, monthlyExpenses]);
+
+  useEffect(() => {
+    triggerValidation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [values.suitabilityConsent]);
 
   return (
@@ -248,14 +256,14 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           />
         </FormGroup>
         <FormGroup
-          controlId="studentLoans"
+          controlId="studentLoan"
           label="Student Loan"
           className="olaf--expenses-input"
-          error={errors?.studentLoans?.message?.toString()}
+          error={errors?.studentLoan?.message?.toString()}
         >
           <Controller
-            id="studentLoans"
-            name="studentLoans"
+            id="studentLoan"
+            name="studentLoan"
             prefix="£"
             as={NumericInput}
             control={control}
@@ -280,15 +288,15 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
         controlId="totalMonthlyExpenses"
         label="Total Monthly Expenses"
         className="olaf--expenses-input -calculated"
+        error={errors?.totalMonthlyExpenses?.message?.toString()}
       >
-        <Input
+        <Controller
+          as={NumericInput}
+          control={control}
           id="totalMonthlyExpenses"
           name="totalMonthlyExpenses"
-          prefix="£"
           type="number"
-          value={String(monthlyExpenses)}
-          // Need as there is currently no `readOnly` prop
-          onChange={() => {}}
+          prefix="£"
           calculated
         />
       </FormGroup>
@@ -297,16 +305,15 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
         controlId="netDisposableIncome"
         label="Net Disposable Income"
         className="olaf--expenses-input -calculated"
-        error={disposableIncomeError}
+        error={errors?.netDisposableIncome?.message?.toString()}
       >
-        <Input
+        <Controller
+          as={NumericInput}
+          control={control}
           id="netDisposableIncome"
           name="netDisposableIncome"
-          prefix="£"
           type="number"
-          value={String(disposableIncome)}
-          // Need as there is currently no `readOnly` prop
-          onChange={() => {}}
+          prefix="£"
           calculated
         />
       </FormGroup>
@@ -333,11 +340,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
         <Button
           type="submit"
           label={formState.isSubmitting ? 'Saving...' : 'Continue'}
-          disabled={
-            formState.isSubmitting ||
-            !formState.isValid ||
-            Boolean(disposableIncomeError)
-          }
+          disabled={formState.isSubmitting}
           color="teal"
           icon={<ChevronForwardSharp />}
           iconColor="white"

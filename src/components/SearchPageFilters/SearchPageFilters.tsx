@@ -393,6 +393,7 @@ const SearchPageFilters = ({
     if (forceFiltersPreset) {
       onViewResults(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [forceFiltersPreset]);
 
   return (

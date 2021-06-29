@@ -50,7 +50,7 @@ interface IProps {
 
 const YOUR_NEEDS = [
   {
-    label: "Details of the address you've listed at covering three years",
+    label: "Details of the address you've lived at covering three years",
     key: '0',
   },
   {
@@ -159,6 +159,7 @@ const OLAFLayout: React.FC<IProps> = ({
     if (orderId) {
       getLeaseData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderId]);
 
   const term = useMemo(() => getFunderTerm(leaseData, order), [

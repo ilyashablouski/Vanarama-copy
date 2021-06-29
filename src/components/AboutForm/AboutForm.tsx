@@ -50,7 +50,7 @@ const AboutForm: FCWithFragments<IProps> = ({
       emailValidator
         ? createValidationSchema(emailValidator)
         : createValidationSchema(() => Promise.resolve(undefined)),
-    [emailValidator, defaultValues],
+    [emailValidator],
   );
   const months = genMonths();
   const years = genYears(100);
@@ -160,7 +160,7 @@ const AboutForm: FCWithFragments<IProps> = ({
       <FormGroup
         controlId="dayOfBirth"
         label="Date of Birth"
-        className="-inline-preserved"
+        className="-inline-preserved -date-picker"
         error={
           errors?.dayOfBirth?.message?.toString() ||
           errors?.monthOfBirth?.message?.toString() ||

@@ -94,7 +94,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
 
     // anonymous user that came first time to the about form
     return null;
-  }, [creditApplication, personByUuid]);
+  }, [creditApplication, personByUuid, isEdit]);
 
   const emailValidator = async (email: string) => {
     const result = await emailAlreadyExists({

@@ -4,7 +4,7 @@
   We define type of this params before page rendering in root page container,
   this query param should be using only with page type context for prevent any issues with it
 */
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -20,14 +20,14 @@ import useSortOrder from '../../hooks/useSortOrder';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { IFilters } from '../FiltersContainer/interfaces';
-import { useVehiclesList, getRangesList, useManufacturerList } from './gql';
+import { getRangesList, useManufacturerList, useVehiclesList } from './gql';
 import { vehicleList as IVehiclesData } from '../../../generated/vehicleList';
 import {
-  VehicleTypeEnum,
-  SortField,
   LeaseTypeEnum,
   SortDirection,
+  SortField,
   SortObject,
+  VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import {
   buildRewriteRoute,
@@ -43,8 +43,8 @@ import {
   ssrCMSQueryExecutor,
 } from './helpers';
 import {
-  GetProductCard_productCard as IProductCard,
   GetProductCard,
+  GetProductCard_productCard as IProductCard,
 } from '../../../generated/GetProductCard';
 import TopInfoBlock from './TopInfoBlock';
 import { manufacturerPage_manufacturerPage_sections as sections } from '../../../generated/manufacturerPage';
@@ -75,6 +75,7 @@ import { FilterFields } from '../FiltersContainer/config';
 import SortOrder from '../../components/SortOrder';
 import SearchPageFilters from '../../components/SearchPageFilters';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
+import { globalColors } from '../../utils/colors';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import { TColor } from '../../types/color';
@@ -241,7 +242,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
 
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
-  const [isPersonal, setIsPersonal] = useState(cachedLeaseType === 'Personal');
+  const [isPersonal, setIsPersonal] = useState(
+    cachedLeaseType === LeaseTypeEnum.PERSONAL,
+  );
   const [totalCount, setTotalCount] = useState(
     isMakePage
       ? preLoadRanges?.rangeList?.length || 0
@@ -253,7 +256,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
   const [pageOffset, setPageOffset] = useState(0);
   const [customCTAColor, setCustomCTAColor] = useState();
-  const [customTextColor, setCustomTextColor] = useState<TColor>();
+  const [customTextColor, setCustomTextColor] = useState<TColor | string>();
   const [partnershipActive, setPartnershipActive] = useState<boolean>(false);
   const [prevPosition, setPrevPosition] = useState(0);
 
@@ -274,11 +277,13 @@ const SearchPageContainer: React.FC<IProps> = ({
       // render delay
       setTimeout(() => scrollTo(), 400);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pageOffset]);
 
   useEffect(() => {
-    const type = isPersonal ? 'Personal' : 'Business';
-    setCachedLeaseType(type);
+    setCachedLeaseType(
+      isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
+    );
   }, [isPersonal, setCachedLeaseType]);
 
   useEffect(() => {
@@ -286,9 +291,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (partnerActive) {
       setPartnershipActive(true);
       setCustomCTAColor(getPartnerProperties().color);
-      if (partnerActive.slug === 'OVO') {
-        setCustomTextColor('white');
-      }
+      setCustomTextColor(globalColors.white);
     }
   }, []);
 
@@ -475,6 +478,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           setHasNextPage(vehicles.vehicleList.pageInfo.hasNextPage || false);
         }
       } catch (e) {
+        // eslint-disable-next-line no-console
         console.error('Error:', e);
       }
     },
@@ -648,6 +652,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (getPartnerProperties()?.fuelTypes) {
       onSearch();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useFirstRenderEffect(() => {
@@ -830,6 +835,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         },
       });
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     lastCard,
     getVehiclesCache,

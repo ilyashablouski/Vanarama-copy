@@ -9,6 +9,16 @@ import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GET_MY_ORDERS_DATA } from '../OrdersInformation/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import {
+  GET_VEHICLE_CONFIG_LIST,
+  getVehicleConfigListFromQuery,
+  getVehicleConfigIdsFromConfigList,
+} from '../../gql/vehicleConfigList';
+import {
+  GET_WISHLIST_VEHICLE_IDS,
+  getWishlistVehicleIdsFromQuery,
+  useAddVehicleToWishlistMutation,
+} from '../../gql/wishlist';
+import {
   GetMyOrders,
   GetMyOrdersVariables,
 } from '../../../generated/GetMyOrders';
@@ -17,7 +27,24 @@ import {
   GetCompaniesByPersonUuid,
   GetCompaniesByPersonUuidVariables,
 } from '../../../generated/GetCompaniesByPersonUuid';
+import {
+  GetWishlistVehicleIds,
+  GetWishlistVehicleIdsVariables,
+} from '../../../generated/GetWishlistVehicleIds';
+import {
+  GetVehicleConfigList,
+  GetVehicleConfigListVariables,
+} from '../../../generated/GetVehicleConfigList';
 import { ILoginFormValues } from '../../components/LoginForm/interfaces';
+import {
+  setPersonLoggedIn,
+  setLocalPersonState,
+} from '../../utils/personHelpers';
+import {
+  updateWishlistState,
+  getLocalWishlistState,
+} from '../../utils/wishlistHelpers';
+import { Nullish } from '../../types/common';
 
 export const filterExistingUuids = (personUuid: string | undefined = '') => (
   uuids: string[] | undefined = [],
@@ -44,8 +71,10 @@ export const saveOrders = ([ordersQuery, quotesQuery]: ApolloQueryResult<
     ),
   ]);
 
-export const savePerson = (getPersonQuery: ApolloQueryResult<GetPerson>) =>
-  localForage.setItem<GetPerson | undefined>('person', getPersonQuery.data);
+export const savePerson = (getPersonQuery: ApolloQueryResult<GetPerson>) => {
+  setPersonLoggedIn(getPersonQuery.data);
+  return setLocalPersonState(getPersonQuery.data);
+};
 
 export const GET_PERSON_QUERY = gql`
   query GetPerson {
@@ -67,6 +96,7 @@ const LoginFormContainer = ({
   onError,
 }: ILogInFormContainerProps) => {
   const [login, { loading, error }] = useLoginUserMutation();
+  const [addVehiclesToWishlist] = useAddVehicleToWishlistMutation();
   const getOrdersData = useImperativeQuery<GetMyOrders, GetMyOrdersVariables>(
     GET_MY_ORDERS_DATA,
   );
@@ -75,6 +105,14 @@ const LoginFormContainer = ({
     GetCompaniesByPersonUuidVariables
   >(GET_COMPANIES_BY_PERSON_UUID);
   const getPerson = useImperativeQuery<GetPerson>(GET_PERSON_QUERY);
+  const getWishlistVehicleIds = useImperativeQuery<
+    GetWishlistVehicleIds,
+    GetWishlistVehicleIdsVariables
+  >(GET_WISHLIST_VEHICLE_IDS);
+  const getVehicleConfigList = useImperativeQuery<
+    GetVehicleConfigList,
+    GetVehicleConfigListVariables
+  >(GET_VEHICLE_CONFIG_LIST);
 
   const requestLogin = (values: ILoginFormValues) =>
     login({
@@ -103,6 +141,26 @@ const LoginFormContainer = ({
       }),
     ]);
 
+  const saveWishlist = (partyUuid: Nullish<string>) => (
+    vehicleConfigurationIds: Array<string>,
+  ) =>
+    addVehiclesToWishlist({
+      variables: {
+        vehicleConfigurationIds,
+        partyUuid: partyUuid ?? '',
+      },
+    });
+
+  const requestWishlist = (partyUuid: Nullish<string>) =>
+    getWishlistVehicleIds({
+      partyUuid: partyUuid ?? '',
+    });
+
+  const requestVehicleConfigList = (configIds: string[]) =>
+    getVehicleConfigList({
+      configIds,
+    });
+
   const handleLoginComplete = useCallback(
     values =>
       requestLogin(values)
@@ -114,10 +172,26 @@ const LoginFormContainer = ({
             .then(filterExistingUuids(personQuery.data?.getPerson?.partyUuid))
             .then(requestOrders)
             .then(saveOrders)
-            .then(() => onCompleted?.(personQuery?.data?.getPerson)),
+            .then(() => personQuery),
         )
+        .then(personQuery =>
+          getLocalWishlistState()
+            .then(saveWishlist(personQuery.data.getPerson?.partyUuid))
+            .then(() => personQuery),
+        )
+        .then(personQuery =>
+          requestWishlist(personQuery.data.getPerson?.partyUuid)
+            .then(getWishlistVehicleIdsFromQuery)
+            .then(requestVehicleConfigList)
+            .then(getVehicleConfigListFromQuery)
+            .then(getVehicleConfigIdsFromConfigList)
+            .then(updateWishlistState)
+            .then(() => personQuery),
+        )
+        .then(personQuery => onCompleted?.(personQuery?.data?.getPerson))
         .then(() => {})
         .catch(onError),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 

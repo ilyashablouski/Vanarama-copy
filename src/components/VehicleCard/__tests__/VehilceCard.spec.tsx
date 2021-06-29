@@ -2,6 +2,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 // import { render, screen } from '@testing-library/react';
 import preloadAll from 'jest-next-dynamic';
+import { ApolloProvider } from '@apollo/client';
+
+import createApolloClient from '../../../apolloClient';
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 
 import VehicleCard from '../VehicleCard';
@@ -10,6 +13,7 @@ describe('<VehicleCard />', () => {
   beforeEach(async () => {
     await preloadAll();
   });
+  const client = createApolloClient({});
   const resetMocks = () => {
     return {
       url: '/car-leasing/vauxhall/crossland-x/bodystylename/slug',
@@ -64,7 +68,13 @@ describe('<VehicleCard />', () => {
   it('should be render correctly', async () => {
     // ACT
     const getComponent = () => {
-      return renderer.create(<VehicleCard {...mocks} />).toJSON();
+      return renderer
+        .create(
+          <ApolloProvider client={client}>
+            <VehicleCard {...mocks} />
+          </ApolloProvider>,
+        )
+        .toJSON();
     };
     // ASSERT
     const tree = getComponent();
@@ -73,7 +83,11 @@ describe('<VehicleCard />', () => {
   it('should be render bussiness price', async () => {
     const getComponent = () => {
       return renderer
-        .create(<VehicleCard {...mocks} isPersonalPrice={false} />)
+        .create(
+          <ApolloProvider client={client}>
+            <VehicleCard {...mocks} isPersonalPrice={false} />
+          </ApolloProvider>,
+        )
         .toJSON();
     };
     // ASSERT
@@ -89,7 +103,11 @@ describe('<VehicleCard />', () => {
   it('should have link in View Offer', async () => {
     const getComponent = () => {
       return renderer
-        .create(<VehicleCard {...mocks} isPersonalPrice={false} />)
+        .create(
+          <ApolloProvider client={client}>
+            <VehicleCard {...mocks} isPersonalPrice={false} />
+          </ApolloProvider>,
+        )
         .toJSON();
     };
     // ASSERT

@@ -15,11 +15,11 @@ export const mapFormValues = (values: VatDetailsFormValues, uuid: string) => ({
 });
 
 export const mapDefaultValues = (data?: CreditApplication | null) => ({
-  vatRegistered: data?.vatDetails?.vat_registered,
-  vatNumber: data?.vatDetails?.vat_number,
-  outsideUK: data?.vatDetails?.outside_uk,
-  markets: data?.vatDetails?.markets,
-  isValid: data?.vatDetails?.isValid,
+  vatRegistered: data?.vatDetailsV2?.vatRegistered ?? false,
+  vatNumber: data?.vatDetailsV2?.vatNumber ?? '',
+  outsideUK: data?.vatDetailsV2?.outsideUk ?? false,
+  markets: data?.vatDetailsV2?.markets ?? [],
+  isValid: true,
 });
 
 export default mapFormValues;

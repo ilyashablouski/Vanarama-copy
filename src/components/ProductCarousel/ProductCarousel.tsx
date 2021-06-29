@@ -62,6 +62,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   const isSmallScreen = useMediaQuery({ maxWidth: 567 });
 
   // handle change device orientation for recalculate carousel height
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const carouselKey = useMemo(() => new Date().getTime(), [
     isSmallScreen,
     isMediumScreen,

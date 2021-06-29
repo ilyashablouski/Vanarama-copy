@@ -16,8 +16,8 @@ import { SAVE_COMPANY_DETAILS } from '../../../../containers/CompanyDetailsFormC
 import { makeGetCreditApplicationMock } from '../../../../gql/creditApplication';
 import { CREATE_UPDATE_ORDER_MUTATION } from '../../../../gql/order';
 import {
-  GET_COMPANY_PROFILE,
-  GET_SIC_CODES,
+  makeSicCodesMock,
+  makeCompanyProfileMock,
 } from '../../../../containers/CompanyDetailsFormContainer/gql';
 
 const MOCK_PERSON_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
@@ -61,53 +61,12 @@ function typeIntoNatureField(value: string) {
 }
 
 const sicDataMocks = [
-  {
-    request: {
-      query: GET_COMPANY_PROFILE,
-      variables: {
-        companyNumber: '05137709',
-      },
-    },
-    result: () => {
-      companyProfileCalled = true;
-      return {
-        data: {
-          companyProfile: {
-            sicData: [
-              {
-                sicCode: '62020',
-                description: 'Information technology consultancy activities',
-              },
-            ],
-          },
-        },
-      };
-    },
-  },
-  {
-    request: {
-      query: GET_SIC_CODES,
-      variables: {
-        value: '62020',
-      },
-    },
-    result: () => {
-      getSicCodesCalled = true;
-      return {
-        data: {
-          sicCodes: {
-            sicData: [
-              {
-                sicCode: '62020',
-                description: 'Information technology consultancy activities',
-              },
-              { sicCode: '121212', description: 'test test' },
-            ],
-          },
-        },
-      };
-    },
-  },
+  makeCompanyProfileMock(() => {
+    companyProfileCalled = true;
+  }),
+  makeSicCodesMock(() => {
+    getSicCodesCalled = true;
+  }),
 ];
 
 describe('B2B Company Details page', () => {

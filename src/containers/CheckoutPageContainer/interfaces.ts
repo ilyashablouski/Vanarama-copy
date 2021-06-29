@@ -10,6 +10,7 @@ import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 
 export interface IAdditionalOptionsFormValues {
   redundancy?: boolean;
+  lossOfEarnings?: boolean;
   freeInsurance?: boolean;
   monthlyMaintenance?: boolean;
   advancedBreakdownCover?: boolean;
@@ -31,6 +32,7 @@ export interface IAdditionalOptionProps extends IBaseProps {
   name: string;
   checked?: boolean;
   ref?: React.Ref<HTMLInputElement>;
+  onTooltipClick?: () => void;
 }
 
 export interface CheckoutPageContainerProps {
@@ -43,6 +45,7 @@ export interface CheckoutPageContainerProps {
 
 export interface OrderPanelProps {
   order: IOrderStorageData;
+  quote: GetQuoteDetails['quoteByCapId'];
   vehicleImage?: GetDerivative_vehicleImages | null;
   vehicleConfiguration?: GetDerivative['vehicleConfigurationByCapId'];
 }

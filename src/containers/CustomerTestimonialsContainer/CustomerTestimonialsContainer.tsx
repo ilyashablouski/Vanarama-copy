@@ -90,6 +90,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
     if (!initialTestimonials && page === 1) {
       handleFetchMore();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   if (loading && page === 1) {

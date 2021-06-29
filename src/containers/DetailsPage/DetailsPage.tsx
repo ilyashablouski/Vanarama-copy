@@ -134,7 +134,7 @@ interface IDetailsPageProps {
   trimList: ITrimList[];
   colourList: IColourList[];
   productCard: GetProductCard | null;
-  leaseTypeQuery?: string | null;
+  leaseTypeQuery?: LeaseTypeEnum | null;
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -158,7 +158,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const leaseScanner = React.useRef<HTMLDivElement>(null);
   // pass cars prop(Boolean)
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(cars);
-  const [leaseType, setLeaseType] = useState<string>(
+  const [leaseType, setLeaseType] = useState<LeaseTypeEnum>(
     leaseTypeQuery ?? cachedLeaseType,
   );
   const [leadTime, setLeadTime] = useState<string>('');
@@ -206,6 +206,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       mileage,
       vehicleValue,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [capId, cars, data, price, pickups, vans, mileage]);
 
   useEffect(() => {
@@ -262,6 +263,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     }
   }, [price]);
   const vehicleDetails = data?.vehicleDetails;
+  const standardEquipment = data?.standardEquipment;
 
   const breadcrumbItems = useMemo(() => {
     return (
@@ -285,6 +287,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const isCar = useMemo(
     () => quote?.quoteByCapId?.vehicleType === VehicleTypeEnum.CAR,
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
@@ -423,8 +426,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const vehicleType = cars ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV;
   const pageTitle = `${vehicleConfigurationByCapId?.capManufacturerDescription} ${vehicleConfigurationByCapId?.capModelDescription}`;
 
-  // eslint-disable-next-line no-console
   if (process.env.ENV !== 'prod') {
+    // eslint-disable-next-line no-console
     console.log('CAP Id:', capId);
   }
 
@@ -517,6 +520,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   return (
     <>
       <NextHead>
+        {/* eslint-disable-next-line react/no-danger */}
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
       <PartnershipLogoHeader />
@@ -591,6 +595,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <VehicleTechDetails
           vehicleDetails={vehicleDetails}
           derivativeInfo={derivativeInfo}
+          standardEquipment={standardEquipment}
         />
         {isSpecialOffer && isCar && <FreeInsuranceCards />}
         {isMobile && vehicleDetails?.brochureUrl && (
@@ -641,6 +646,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             mileage={mileage}
             setMileage={setMileage}
             pickups={pickups}
+            roadsideAssistance={vehicleDetails?.roadsideAssistance}
+            warrantyDetails={warrantyDetails}
           />
         )}
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
@@ -685,6 +692,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           mileage={mileage}
           setMileage={setMileage}
           pickups={pickups}
+          roadsideAssistance={vehicleDetails?.roadsideAssistance}
+          warrantyDetails={warrantyDetails}
         />
       )}
       {(!!productCard || !!capsId?.length) && (

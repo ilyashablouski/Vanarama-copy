@@ -1,9 +1,13 @@
 import {
   GetVehicleDetails_derivativeInfo_colours,
   GetVehicleDetails_derivativeInfo_trims,
+  GetVehicleDetails_vehicleDetails_roadsideAssistance,
+  GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../generated/GetVehicleDetails';
+import { GetProductCard_productCard } from '../../generated/GetProductCard';
 import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
+import { Nullish } from '../types/common';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
@@ -45,6 +49,11 @@ export interface IOrderList {
   trims: (GetVehicleDetails_derivativeInfo_trims | null)[] | null | undefined;
   trim: number | null | undefined;
   pickups?: boolean;
+  roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
+  warrantyDetails?:
+    | GetVehicleDetails_vehicleDetails_warrantyDetails
+    | null
+    | undefined;
 }
 
 export const getOrderList = ({
@@ -55,6 +64,8 @@ export const getOrderList = ({
   trims,
   trim,
   pickups,
+  roadsideAssistance,
+  warrantyDetails,
 }: IOrderList) => {
   const colourDescription = colours?.find(
     (item: GetVehicleDetails_derivativeInfo_colours | null) =>
@@ -137,6 +148,14 @@ export const getOrderList = ({
       isOrange: false,
     },
     {
+      label: 'Warranty:',
+      value: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Milles`,
+      id: 'warranty',
+      key: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Milles`,
+      dataTestId: 'warranty',
+      isOrange: false,
+    },
+    {
       label: 'Road Tax:',
       value: 'INCLUDED',
       id: 'roadTax',
@@ -150,6 +169,14 @@ export const getOrderList = ({
       id: 'delivery',
       key: 'delivery',
       dataTestId: 'delivery',
+      isOrange: true,
+    },
+    {
+      label: 'Roadside Assistance:',
+      value: `${roadsideAssistance?.years} YEAR INCLUDED`,
+      id: 'roadsideAssistance',
+      key: `${roadsideAssistance?.years}`,
+      dataTestId: 'roadsideAssistance',
       isOrange: true,
     },
   ];
@@ -183,4 +210,17 @@ export const arrayIsEqual = (
     secondArray = second.sort((a, b) => a[sortByKey] - b[sortByKey]);
   }
   return JSON.stringify(firstArray) === JSON.stringify(secondArray);
+};
+
+export const getVehicleConfigId = (
+  product: Nullish<GetProductCard_productCard>,
+) => `${product?.vehicleType}-${product?.capId}`;
+
+export const parseVehicleConfigId = (configId: string) => {
+  const [vehicleType, capId] = configId.split('-');
+
+  return { vehicleType, capId } as {
+    vehicleType: VehicleTypeEnum;
+    capId: string;
+  };
 };

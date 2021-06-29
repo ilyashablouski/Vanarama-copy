@@ -4,6 +4,8 @@ import {
   toCurrencyDisplay,
   toPriceFormat,
   getOrderList,
+  getVehicleConfigId,
+  parseVehicleConfigId,
 } from '../helpers';
 
 describe('arrayIsEqual', () => {
@@ -103,6 +105,13 @@ describe('getOrderList', () => {
         trim: 112981,
         stateVAT: 'inc',
         maintenance: false,
+        roadsideAssistance: {
+          years: 3,
+        },
+        warrantyDetails: {
+          years: 5,
+          mileage: 50000,
+        },
       }),
     ).toEqual([
       {
@@ -170,12 +179,28 @@ describe('getOrderList', () => {
         value: '14-21 Day Delivery',
       },
       {
+        dataTestId: 'warranty',
+        id: 'warranty',
+        isOrange: false,
+        key: '5 Years Manufacturer Or 50000 Milles',
+        label: 'Warranty:',
+        value: '5 Years Manufacturer Or 50000 Milles',
+      },
+      {
         dataTestId: 'roadTax',
         id: 'roadTax',
         isOrange: true,
         key: 'roadTax',
         label: 'Road Tax:',
         value: 'INCLUDED',
+      },
+      {
+        dataTestId: 'delivery',
+        id: 'delivery',
+        isOrange: true,
+        key: 'delivery',
+        label: 'Delivery:',
+        value: 'FREE',
       },
       {
         dataTestId: 'lifeEventCover',
@@ -186,13 +211,51 @@ describe('getOrderList', () => {
         value: 'FREE',
       },
       {
-        dataTestId: 'delivery',
-        id: 'delivery',
+        dataTestId: 'roadsideAssistance',
+        id: 'roadsideAssistance',
         isOrange: true,
-        key: 'delivery',
-        label: 'Delivery:',
-        value: 'FREE',
+        key: '3',
+        label: 'Roadside Assistance:',
+        value: '3 YEAR INCLUDED',
       },
     ]);
+  });
+});
+
+describe('getVehicleConfigId', () => {
+  const vehicleType = VehicleTypeEnum.CAR;
+  const capId = '12345';
+
+  it('getVehicleConfigId should return correct vehicle configId', () => {
+    expect(
+      getVehicleConfigId({
+        averageRating: 4.7,
+        businessRate: 183.88,
+        derivativeName: '1.0 TSI 110 Design 5dr',
+        imageUrl: 'image.jpg',
+        isOnOffer: true,
+        keyInformation: [],
+        leadTime: '14-21 Day Delivery',
+        manufacturerName: 'Volkswagen',
+        modelName: 'T-Roc Hatchback',
+        offerPosition: 1,
+        personalRate: 219.95,
+        rangeName: 'T-Roc',
+        vehicleType,
+        capId,
+      }),
+    ).toEqual(`${vehicleType}-${capId}`);
+  });
+});
+
+describe('parseVehicleConfigId', () => {
+  const vehicleType = VehicleTypeEnum.CAR;
+  const capId = '12345';
+
+  it('parseVehicleConfigId should return correct capId & vehicleType', () => {
+    expect(parseVehicleConfigId(`${vehicleType}-${capId}`)).toEqual({
+      vehicleType,
+      capId,
+    });
   });
 });

@@ -6,6 +6,11 @@ import LoginFormContainer, { GET_PERSON_QUERY } from './LoginFormContainer';
 import { makeLoginUserMutationMock } from './gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import { GET_MY_ORDERS_DATA } from '../OrdersInformation/gql';
+import {
+  ADD_VEHICLE_TO_WISHLIST,
+  GET_WISHLIST_VEHICLE_IDS,
+} from '../../gql/wishlist';
+import { GET_VEHICLE_CONFIG_LIST } from '../../gql/vehicleConfigList';
 
 const EMAIL = 'barry@chuckle.com';
 const PASSWORD = 'Alpha!23';
@@ -17,7 +22,13 @@ const mocks: MockedResponse[] = [
       query: GET_PERSON_QUERY,
       variables: {},
     },
-    result: {},
+    result: {
+      data: {
+        getPerson: {
+          partyUuid: '',
+        },
+      },
+    },
   },
   {
     request: {
@@ -44,6 +55,34 @@ const mocks: MockedResponse[] = [
       variables: {
         partyUuid: [],
         filter: 'ALL_QUOTES',
+      },
+    },
+    result: {},
+  },
+  {
+    request: {
+      query: ADD_VEHICLE_TO_WISHLIST,
+      variables: {
+        vehicleConfigurationIds: [],
+        partyUuid: '',
+      },
+    },
+    result: {},
+  },
+  {
+    request: {
+      query: GET_WISHLIST_VEHICLE_IDS,
+      variables: {
+        partyUuid: '',
+      },
+    },
+    result: {},
+  },
+  {
+    request: {
+      query: GET_VEHICLE_CONFIG_LIST,
+      variables: {
+        configIds: [],
       },
     },
     result: {},

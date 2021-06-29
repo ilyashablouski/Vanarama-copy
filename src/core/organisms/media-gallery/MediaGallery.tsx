@@ -1,7 +1,5 @@
 import React, { FC, memo, useState, useEffect } from 'react';
 import { IMediaGalleryProps } from './interfaces';
-import Icon from '../../atoms/icon';
-
 import Tabs from '../../molecules/tabs';
 import TabList from '../../molecules/tabs/TabList';
 import Tab from '../../molecules/tabs/Tab';
@@ -54,7 +52,7 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
         </div>
         {flag.accentIcon && flag.accentText && (
           <div>
-            <Icon icon={flag.accentIcon} />
+            {flag.accentIcon}
             <span>{flag.accentText}</span>
           </div>
         )}
@@ -103,7 +101,7 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
           {threeSixtyVideoSrc && <Tab index={3}>360° View</Tab>}
         </TabList>
       </Tabs>
-      <span className="text -small -darker">
+      <span className="caveat-text text -small -darker">
         Photos are for illustration purposes only.
       </span>
     </>
