@@ -130,7 +130,6 @@ const FreeCarInsurance: NextPage<IProps> = ({
               countItems={productsCar?.productCarousel?.length || 6}
               dataTestIdBtn="car-view-offer"
             />
-            )
             <div className="-justify-content-row -pt-500">
               <RouterLink
                 className="button"
