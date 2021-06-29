@@ -133,7 +133,8 @@ const PartnershipsHomePage: NextPage<IProps> = ({
     setSessionStorage('partnershipSessionActive', 'true');
     setPartnerFooter(footer);
     setSessionFuelTypes(fuelTypes || []);
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (getPartnerProperties()) {

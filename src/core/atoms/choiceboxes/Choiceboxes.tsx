@@ -4,7 +4,6 @@ import React, {
   forwardRef,
   useImperativeHandle,
   useEffect,
-  useCallback,
 } from 'react';
 import cx from 'classnames';
 import { IChoiceboxesProps, IChoice } from './interfaces';
@@ -35,42 +34,40 @@ const Choiceboxes = forwardRef(
     const [clearMultiSelectActive, setClearMultiSelectActive] = useState(false);
     const [partnershipColor, setPartnerShipColor] = useState(null);
 
-    const changeChoices = useCallback(
-      (index: number) => {
-        const changedChoices = currentChoices.map(
-          (choice: IChoice, number: number) => {
-            if (multiSelect) {
-              if (index === -1) {
-                return {
-                  ...choice,
-                  active: false,
-                };
-              }
+    const changeChoices = (index: number) => {
+      const changedChoices = currentChoices.map(
+        (choice: IChoice, number: number) => {
+          if (multiSelect) {
+            if (index === -1) {
               return {
                 ...choice,
-                active: number === index ? !choice.active : choice.active,
+                active: false,
               };
             }
             return {
               ...choice,
-              active: number === index,
+              active: number === index ? !choice.active : choice.active,
             };
-          },
-        );
-        index !== -1 && onSubmit(changedChoices[index]);
-        if (index !== -1 && setChoiceIndex) {
-          setChoiceIndex(index);
-        }
-        setCurrentChoices(changedChoices);
-      },
-      [currentChoices, multiSelect, onSubmit, setChoiceIndex],
-    );
+          }
+          return {
+            ...choice,
+            active: number === index,
+          };
+        },
+      );
+      index !== -1 && onSubmit(changedChoices[index]);
+      if (index !== -1 && setChoiceIndex) {
+        setChoiceIndex(index);
+      }
+      setCurrentChoices(changedChoices);
+    };
 
     useEffect(() => {
       if (choiceIndex || choiceIndex === 0) {
         changeChoices(choiceIndex);
       }
-    }, [choiceIndex, changeChoices]);
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [choiceIndex]);
 
     useEffect(() => {
       const partner = getPartnerProperties();
