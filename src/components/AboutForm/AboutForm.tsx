@@ -160,7 +160,7 @@ const AboutForm: FCWithFragments<IProps> = ({
       <FormGroup
         controlId="dayOfBirth"
         label="Date of Birth"
-        className="-inline-preserved"
+        className="-inline-preserved -date-picker"
         error={
           errors?.dayOfBirth?.message?.toString() ||
           errors?.monthOfBirth?.message?.toString() ||
