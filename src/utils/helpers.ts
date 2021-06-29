@@ -198,18 +198,21 @@ export const getOrderList = ({
   return orderList;
 };
 
-export const arrayIsEqual = (
+export const arraysIsEqual = (
   first: any[],
   second: any[],
-  sortByKey?: string,
+  sortByKey?: string | null,
+  unsorted?: boolean,
 ) => {
-  let firstArray = first.sort();
-  let secondArray = second.sort();
-  if (sortByKey) {
-    firstArray = first.sort((a, b) => a[sortByKey] - b[sortByKey]);
-    secondArray = second.sort((a, b) => a[sortByKey] - b[sortByKey]);
+  if (unsorted) {
+    return JSON.stringify(first) === JSON.stringify(second);
   }
-  return JSON.stringify(firstArray) === JSON.stringify(secondArray);
+  if (sortByKey) {
+    const firstArray = first.sort((a, b) => a[sortByKey] - b[sortByKey]);
+    const secondArray = second.sort((a, b) => a[sortByKey] - b[sortByKey]);
+    return JSON.stringify(firstArray) === JSON.stringify(secondArray);
+  }
+  return JSON.stringify(first.sort()) === JSON.stringify(second.sort());
 };
 
 export const getVehicleConfigId = (

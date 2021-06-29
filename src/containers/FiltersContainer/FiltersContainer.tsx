@@ -13,7 +13,7 @@ import {
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import Skeleton from '../../components/Skeleton';
 import { getValueKey } from './helpers';
-import { arrayIsEqual } from '../../utils/helpers';
+import { arraysIsEqual } from '../../utils/helpers';
 
 const SearchFilters = dynamic(() => import('core/organisms/search-filters'), {
   loading: () => <Skeleton count={1} />,
@@ -174,7 +174,7 @@ const FiltersContainer = ({
     // prevented useless updates
     // check for empty array used for prevent cases when initial render don't call a request
     if (
-      !arrayIsEqual(selected, selectedFilterTags, 'order') ||
+      !arraysIsEqual(selected, selectedFilterTags, 'order') ||
       !selected.length
     ) {
       setSelectedFilterTags(selected);
