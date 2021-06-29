@@ -13,6 +13,7 @@ export const query = gql`
  */
 export default function useProgressHistory() {
   const client = useApolloClient();
+
   return {
     setCachedLastStep(currentStep: number): void {
       client.writeQuery({

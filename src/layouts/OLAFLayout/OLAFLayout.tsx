@@ -159,6 +159,7 @@ const OLAFLayout: React.FC<IProps> = ({
     if (orderId) {
       getLeaseData();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderId]);
 
   const term = useMemo(() => getFunderTerm(leaseData, order), [

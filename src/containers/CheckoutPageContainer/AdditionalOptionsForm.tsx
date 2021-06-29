@@ -51,13 +51,12 @@ const AdditionalOptionsForm: React.FC<IAdditionalOptionsFormProps> = ({
   const isVan =
     derivative?.vehicleType === VehicleTypeEnum.LCV &&
     !derivative?.bodyType?.name?.toLowerCase().includes('pick-up');
-  const isPersonalPrice = quote?.leaseType === LeaseTypeEnum.PERSONAL;
   const maintenancePriceLabel = useMemo(
     () =>
       `£${quote?.maintenanceCost?.monthlyRental} ${
-        isPersonalPrice ? 'inc.' : 'exc.'
+        quote?.leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'exc.'
       } VAT`,
-    [isPersonalPrice],
+    [quote?.maintenanceCost?.monthlyRental, quote?.leaseType],
   );
 
   const activeModalContainerClassName = useMemo(

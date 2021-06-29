@@ -80,6 +80,7 @@ const AddressFinder: AddressFinderComponent = ({
         onSuggestionChange();
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data, selected]);
 
   const handleManualAdding = useCallback<
@@ -94,6 +95,7 @@ const AddressFinder: AddressFinderComponent = ({
       ...values,
       label,
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const handleSuggestionChange = useCallback(() => {
@@ -101,6 +103,7 @@ const AddressFinder: AddressFinderComponent = ({
       dispatch({ type: 'SHOW_MANUAL_ADDING_FORM' });
     }
     onSuggestionChange();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state]);
 
   return (
