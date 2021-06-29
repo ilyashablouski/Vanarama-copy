@@ -301,9 +301,9 @@ const AboutForm: FCWithFragments<IProps> = ({
           ref={register}
         />
         <CheckBox
-          id="termsAndConditions"
+          id="termsAndCons"
           dataTestId="aboutTermsAndConditionsB2C"
-          name="termsAndConditions"
+          name="termsAndCons"
           label={[
             'I agree to the ',
             <a
