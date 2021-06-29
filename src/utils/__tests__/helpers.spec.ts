@@ -1,6 +1,6 @@
 import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
-  arraysIsEqual,
+  arraysAreEqual,
   toCurrencyDisplay,
   toPriceFormat,
   getOrderList,
@@ -8,7 +8,7 @@ import {
   parseVehicleConfigId,
 } from '../helpers';
 
-describe('arraysIsEqual', () => {
+describe('arraysAreEqual', () => {
   it('should order by sortByKey argument and compare 2 array of objects, to check they are equal', () => {
     const array1 = [
       {
@@ -30,8 +30,8 @@ describe('arraysIsEqual', () => {
         value: ['Electric'],
       },
     ];
-    const actual1 = arraysIsEqual(array1, array1, 'order');
-    const actual2 = arraysIsEqual(array1, array2, 'order');
+    const actual1 = arraysAreEqual(array1, array1, 'order');
+    const actual2 = arraysAreEqual(array1, array2, 'order');
 
     expect(actual1).toEqual(true);
     expect(actual2).toEqual(true);
@@ -40,8 +40,8 @@ describe('arraysIsEqual', () => {
   it('should sort and compare 2 string arrays to check they are equal', () => {
     const stringArray1 = ['hello', 'goodbye'];
     const stringArray2 = ['goodbye', 'hello'];
-    const actual1 = arraysIsEqual(stringArray1, stringArray1);
-    const actual2 = arraysIsEqual(stringArray1, stringArray2);
+    const actual1 = arraysAreEqual(stringArray1, stringArray1);
+    const actual2 = arraysAreEqual(stringArray1, stringArray2);
 
     expect(actual1).toEqual(true);
     expect(actual2).toEqual(true);
@@ -70,8 +70,8 @@ describe('arraysIsEqual', () => {
         value: ['Electric'],
       },
     ];
-    const actual1 = arraysIsEqual(stringArray1, stringArray2, null, true);
-    const actual2 = arraysIsEqual(array1, array2, null, true);
+    const actual1 = arraysAreEqual(stringArray1, stringArray2, null, true);
+    const actual2 = arraysAreEqual(array1, array2, null, true);
 
     expect(actual1).toEqual(false);
     expect(actual2).toEqual(false);

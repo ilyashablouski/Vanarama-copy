@@ -198,7 +198,7 @@ export const getOrderList = ({
   return orderList;
 };
 
-export const arraysIsEqual = (
+export const arraysAreEqual = (
   first: any[],
   second: any[],
   sortByKey?: string | null,
