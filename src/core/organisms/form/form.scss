@@ -43,7 +43,7 @@
 
     &:nth-child(2) {
       @include mobile375() {
-        max-width: 102px;
+        max-width: 90px;
       }
     }
   }
