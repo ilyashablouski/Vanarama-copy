@@ -139,7 +139,7 @@ describe('<RegisterForm />', () => {
     // ASSERT
     await waitFor(() =>
       expect(
-        screen.getByText('Please use only letters, apostrophes and dashes.'),
+        screen.getByText('Your Password does not meet the requirements'),
       ).toBeVisible(),
     );
 
