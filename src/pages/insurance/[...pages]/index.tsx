@@ -81,7 +81,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Insurance',
-      isPreview: context?.preview || false,
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   const items = data?.pageCollection?.items;
@@ -101,7 +101,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: `insurance/${paths?.join('/')}`,
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {

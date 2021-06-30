@@ -97,7 +97,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Van Reviews',
-      isPreview: context?.preview || false,
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   const items: any = data?.pageCollection?.items;
@@ -132,7 +132,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         hub.length === 1 ? GENERIC_PAGE_QUESTION_HUB : GENERIC_PAGE_QUESTION,
       variables: {
         slug: `reviews/vans/${hub?.join('/')}`,
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

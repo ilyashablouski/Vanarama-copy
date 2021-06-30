@@ -330,7 +330,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       query: PARTNER,
       variables: {
         slug: path.split('/').pop() || '',
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

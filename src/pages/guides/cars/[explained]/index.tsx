@@ -72,7 +72,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
     query: GENERIC_PAGE,
     variables: {
       slug: 'guides/cars',
-      isPreview: context?.preview || false,
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
 
@@ -89,7 +89,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: `guides/cars/${context?.params?.explained}`,
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

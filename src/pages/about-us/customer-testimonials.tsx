@@ -70,7 +70,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         query: GENERIC_PAGE_TESTIMONIALS,
         variables: {
           slug: 'about-us/customer-testimonials',
-          isPreview: context?.preview || false,
+          ...(context?.preview && { isPreview: context?.preview }),
         },
       }),
       client.query({

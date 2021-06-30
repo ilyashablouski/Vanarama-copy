@@ -47,7 +47,7 @@ export async function getStaticProps(context: PreviewNextPageContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'blog',
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

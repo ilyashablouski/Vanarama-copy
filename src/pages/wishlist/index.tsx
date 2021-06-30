@@ -45,7 +45,7 @@ export async function getStaticProps(context: PreviewNextPageContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'wishlist',
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

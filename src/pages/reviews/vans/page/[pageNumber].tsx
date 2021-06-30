@@ -62,7 +62,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
     query: GENERIC_PAGE_QUESTION_HUB,
     variables: {
       slug: 'reviews/vans',
-      isPreview: context?.preview || false,
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   const cards = getSectionsData(
@@ -89,7 +89,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE_QUESTION_HUB,
       variables: {
         slug: 'reviews/vans',
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

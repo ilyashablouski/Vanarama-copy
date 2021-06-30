@@ -79,7 +79,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       query: GET_LEGACY_URLS,
       variables: {
         slugs,
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     })
     .then(resp => resp.data.genericPages.items);

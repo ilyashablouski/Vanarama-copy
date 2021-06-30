@@ -47,7 +47,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/insurance',
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

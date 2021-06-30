@@ -47,7 +47,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/company-news',
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

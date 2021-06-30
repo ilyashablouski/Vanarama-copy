@@ -50,7 +50,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/vans',
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     const paths = buildStaticPaths(data);

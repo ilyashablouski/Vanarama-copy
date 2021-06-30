@@ -732,7 +732,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const { data } = await client.query<HubPickupPageData>({
       query: HUB_PICKUP_CONTENT,
       variables: {
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     const { data: searchPodVansData } = await client.query<

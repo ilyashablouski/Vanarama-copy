@@ -68,7 +68,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
     query: GENERIC_PAGE,
     variables: {
       slug: 'guides/van-leasing-explained',
-      isPreview: context?.preview || false,
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   return {
@@ -84,7 +84,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: `guides/van-leasing-explained/${context?.params?.explained}`,
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     return {

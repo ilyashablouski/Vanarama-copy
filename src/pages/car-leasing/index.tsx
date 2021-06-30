@@ -583,7 +583,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     const { data: hubCarPage } = await client.query<HubCarPageData>({
       query: HUB_CAR_CONTENT,
       variables: {
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     const { data: searchPodCarsData } = await client.query<

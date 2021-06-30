@@ -61,7 +61,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/insurance',
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 
@@ -88,14 +88,14 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: BLOG_POST_PAGE,
       variables: {
         slug: `blog/insurance/${context?.params?.articles}`,
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     const { data: blogPosts, errors: blogPostsError } = await client.query({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/insurance',
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     const newBlogPosts = {

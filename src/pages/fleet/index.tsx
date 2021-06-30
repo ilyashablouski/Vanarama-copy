@@ -21,7 +21,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const { data, errors } = await client.query({
       query: GET_FLEET_PAGE_CONTENT,
       variables: {
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {

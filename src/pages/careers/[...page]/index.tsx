@@ -29,7 +29,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Careers',
-      isPreview: context?.preview || false,
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   const items = data?.pageCollection?.items;
@@ -49,7 +49,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: `careers/${paths?.join('/')}`,
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

@@ -47,7 +47,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
   const { data, loading } = await client.query<HomePageData>({
     query: ALL_HOME_CONTENT,
     variables: {
-      isPreview: context?.preview || false,
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   const {

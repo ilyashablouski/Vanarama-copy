@@ -319,7 +319,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE_HEAD,
       variables: {
         slug: 'leasing-offers',
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     const {

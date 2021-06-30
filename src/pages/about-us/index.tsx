@@ -50,7 +50,7 @@ export async function getStaticProps(context: PreviewNextPageContext) {
     const { data: rawData, loading, errors } = await client.query({
       query: GET_ABOUT_US_PAGE_DATA,
       variables: {
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

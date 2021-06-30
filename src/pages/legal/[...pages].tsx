@@ -69,7 +69,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Legal',
-      isPreview: context?.preview || false,
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   const items = data?.pageCollection?.items;
@@ -89,7 +89,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: LEGAL_PAGE_QUERY,
       variables: {
         slug: `legal/${paths?.join('/')}`,
-        isPreview: context?.preview || false,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 
