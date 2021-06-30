@@ -1,7 +1,8 @@
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
-import { productCardDataMapper } from '../helpers';
+import { productCardDataMapper, buildFiltersRequestObject } from '../helpers';
+import { IFiltersData } from '../interfaces';
 
-describe('productCardDataMapper', () => {
+describe('helpers', () => {
   it('productCardDataMapper should return correct array', () => {
     expect(
       productCardDataMapper({
@@ -52,6 +53,23 @@ describe('productCardDataMapper', () => {
       personalRate: 164.88,
       rangeName: 'Focus',
       vehicleType: 'CAR',
+    });
+  });
+  it('buildFiltersRequestObject should return correct object', () => {
+    expect(
+      buildFiltersRequestObject({
+        from: ['150'],
+        to: ['300'],
+        make: ['bmw'],
+        range: ['3 series'],
+      } as IFiltersData),
+    ).toEqual({
+      budget: {
+        max: 300,
+        min: 150,
+      },
+      make: 'bmw',
+      range: '3 series',
     });
   });
 });

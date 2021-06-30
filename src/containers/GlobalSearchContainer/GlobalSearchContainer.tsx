@@ -46,7 +46,7 @@ const GlobalSearchContainer = () => {
     if (searchValue && !isOpenResults) {
       setIsOpenResults(true);
     }
-  }, [searchValue]);
+  }, [isOpenResults, searchValue]);
 
   useEffect(() => {
     const handleRouteChange = () => {
