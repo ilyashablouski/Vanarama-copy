@@ -5,8 +5,8 @@ import {
 } from '../../../generated/ReviewsPageQuery';
 
 export const GENERIC_PAGE_QUESTION = gql`
-  query ReviewsPageQuery($slug: String!) {
-    reviewsPage(slug: $slug) {
+  query ReviewsPageQuery($slug: String!, $isPreview: Boolean) {
+    reviewsPage(slug: $slug, isPreview: $isPreview) {
       metaData {
         title
         name

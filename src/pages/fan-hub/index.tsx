@@ -26,6 +26,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'fan-hub',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {

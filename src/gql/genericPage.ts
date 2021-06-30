@@ -27,8 +27,16 @@ export interface IGenericPage {
 }
 
 export const GENERIC_PAGE = gql`
-  query GenericPageQuery($slug: String!, $sectionsAsArray: Boolean) {
-    genericPage(slug: $slug, sectionsAsArray: $sectionsAsArray) {
+  query GenericPageQuery(
+    $slug: String!
+    $sectionsAsArray: Boolean
+    $isPreview: Boolean
+  ) {
+    genericPage(
+      slug: $slug
+      sectionsAsArray: $sectionsAsArray
+      isPreview: $isPreview
+    ) {
       id
       intro
       metaData {
@@ -348,8 +356,8 @@ export function useGenericPage(slug: string) {
 }
 
 export const GENERIC_PAGE_HEAD = gql`
-  query GenericPageHeadQuery($slug: String!) {
-    genericPage(slug: $slug) {
+  query GenericPageHeadQuery($slug: String!, $isPreview: Boolean) {
+    genericPage(slug: $slug, isPreview: $isPreview) {
       id
       intro
       metaData {

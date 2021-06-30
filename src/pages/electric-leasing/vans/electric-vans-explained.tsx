@@ -187,6 +187,7 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
       variables: {
         slug: path,
         sectionsAsArray: true,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

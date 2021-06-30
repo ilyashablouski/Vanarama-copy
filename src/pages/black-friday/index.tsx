@@ -25,6 +25,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'black-friday',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {

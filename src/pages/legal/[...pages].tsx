@@ -2,6 +2,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import DefaultErrorPage from 'next/error';
 import React from 'react';
+import { PreviewNextPageContext } from 'types/common';
 import {
   ILegalPage,
   LEGAL_PAGE_QUERY,
@@ -62,12 +63,13 @@ const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Legal',
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   const items = data?.pageCollection?.items;
@@ -87,6 +89,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: LEGAL_PAGE_QUERY,
       variables: {
         slug: `legal/${paths?.join('/')}`,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

@@ -82,3 +82,7 @@ export interface GetAboutUsPageData_aboutUsLandingPage {
 export interface GetAboutUsPageData {
   aboutUsLandingPage: GetAboutUsPageData_aboutUsLandingPage;
 }
+
+export interface GetAboutUsPageDataVariables {
+  isPreview?: boolean | null;
+}

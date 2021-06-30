@@ -1,8 +1,9 @@
-import { NextPage, NextPageContext } from 'next';
+import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
+import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../../apolloClient';
 import {
   VanOffersPageData,
@@ -458,12 +459,15 @@ export const VanOffers: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context);
   let data;
   try {
     const { data: content } = await client.query<VanOffersPageData>({
       query: VAN_OFFERS_CONTENT,
+      variables: {
+        ...(context?.preview && { isPreview: context?.preview }),
+      },
     });
     data = content;
   } catch (e) {

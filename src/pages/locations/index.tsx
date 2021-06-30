@@ -139,6 +139,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'locations',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {

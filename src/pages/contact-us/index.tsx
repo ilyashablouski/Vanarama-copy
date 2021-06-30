@@ -264,6 +264,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'contact-us',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

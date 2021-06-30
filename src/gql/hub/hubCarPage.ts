@@ -3,8 +3,8 @@ import FeaturedSection from '../../components/FeaturedSection';
 import TilesContainer from '../../containers/TilesContainer/TilesContainer';
 
 const HUB_CAR_CONTENT = gql`
-  query HubCarPageData {
-    hubCarPage {
+  query HubCarPageData($isPreview: Boolean) {
+    hubCarPage(isPreview: $isPreview) {
       id
       metaData {
         title

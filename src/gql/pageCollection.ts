@@ -6,8 +6,18 @@ import {
 } from '../../generated/PageCollection';
 
 export const PAGE_COLLECTION = gql`
-  query PageCollection($pageType: String!, $limit: Int, $skip: Int) {
-    pageCollection(pageType: $pageType, limit: $limit, skip: $skip) {
+  query PageCollection(
+    $pageType: String!
+    $limit: Int
+    $skip: Int
+    $isPreview: Boolean
+  ) {
+    pageCollection(
+      pageType: $pageType
+      limit: $limit
+      skip: $skip
+      isPreview: $isPreview
+    ) {
       total
       limit
       skip

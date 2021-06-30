@@ -38,6 +38,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'advanced-breakdown-cover',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

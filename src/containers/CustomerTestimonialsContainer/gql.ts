@@ -7,8 +7,8 @@ import TilesContainer from '../TilesContainer/TilesContainer';
 import FeaturedSection from '../../components/FeaturedSection';
 
 export const GENERIC_PAGE_TESTIMONIALS = gql`
-  query GenericPageTestimonialsQuery($slug: String!) {
-    genericPage(slug: $slug) {
+  query GenericPageTestimonialsQuery($slug: String!, $isPreview: Boolean) {
+    genericPage(slug: $slug, isPreview: $isPreview) {
       id
       intro
       body

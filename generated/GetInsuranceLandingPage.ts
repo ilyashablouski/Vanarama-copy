@@ -280,3 +280,7 @@ export interface GetInsuranceLandingPage_insuranceLandingPage {
 export interface GetInsuranceLandingPage {
   insuranceLandingPage: GetInsuranceLandingPage_insuranceLandingPage;
 }
+
+export interface GetInsuranceLandingPageVariables {
+  isPreview?: boolean | null;
+}

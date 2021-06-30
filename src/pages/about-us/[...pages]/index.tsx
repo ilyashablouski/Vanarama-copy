@@ -1,4 +1,5 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { PreviewNextPageContext } from 'types/common';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import SimplePageContainer from '../../../containers/SimplePageContainer/SimplePageContainer';
 import createApolloClient from '../../../apolloClient';
@@ -19,12 +20,13 @@ const AboutUsPage: NextPage<IAboutUsPage> = ({ data }) => {
   return <SimplePageContainer data={data} loading={!data} />;
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'About Us',
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   const items = data?.pageCollection?.items;
@@ -45,6 +47,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: `about-us/${paths?.join('/')}`,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {

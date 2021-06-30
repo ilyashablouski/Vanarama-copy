@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
+import { PreviewNextPageContext } from 'types/common';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { IInsurancePage } from '../../../models/IInsuranceProps';
 import { GENERIC_PAGE_QUESTION } from '../../../containers/LeasingQuestionContainer/gql';
@@ -65,12 +66,13 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Leasing Question',
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   const items = data?.pageCollection?.items;
@@ -90,6 +92,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE_QUESTION,
       variables: {
         slug: `leasing-questions/${paths?.join('/')}`,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {

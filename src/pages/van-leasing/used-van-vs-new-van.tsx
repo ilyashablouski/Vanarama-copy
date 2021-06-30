@@ -16,6 +16,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'van-leasing/used-van-vs-new-van',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {

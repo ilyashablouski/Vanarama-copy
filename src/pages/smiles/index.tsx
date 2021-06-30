@@ -30,6 +30,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'smiles',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {

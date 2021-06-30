@@ -1,8 +1,8 @@
 import { gql } from '@apollo/client';
 
 const GET_FLEET_PAGE_CONTENT = gql`
-  query GetFleetLandingPage {
-    fleetLandingPage {
+  query GetFleetLandingPage($isPreview: Boolean) {
+    fleetLandingPage(isPreview: $isPreview) {
       id
       metaData {
         title

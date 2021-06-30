@@ -3,6 +3,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
+import { PreviewNextPageContext } from 'types/common';
 import {
   handleNetworkError,
   DEFAULT_POSTCODE,
@@ -446,12 +447,13 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Location',
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   const items = data?.pageCollection?.items;
@@ -471,6 +473,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: `locations/${paths?.join('/')}`,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {

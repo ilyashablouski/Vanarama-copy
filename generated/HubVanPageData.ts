@@ -299,3 +299,7 @@ export interface HubVanPageData_hubVanPage {
 export interface HubVanPageData {
   hubVanPage: HubVanPageData_hubVanPage;
 }
+
+export interface HubVanPageDataVariables {
+  isPreview?: boolean | null;
+}

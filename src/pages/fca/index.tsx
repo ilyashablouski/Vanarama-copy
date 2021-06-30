@@ -15,6 +15,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'fca',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {

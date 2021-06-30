@@ -1,10 +1,10 @@
 import React from 'react';
 import DefaultErrorPage from 'next/error';
-import { NextPageContext } from 'next';
 
 import Head from 'components/Head';
 import WishlistPageContainer from 'containers/WishlistPageContainer';
 
+import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../../apolloClient';
 import { decodeData, encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -38,13 +38,14 @@ function WishlistPage({ data: encodedData, error }: IGenericPage) {
   );
 }
 
-export async function getStaticProps(context: NextPageContext) {
+export async function getStaticProps(context: PreviewNextPageContext) {
   try {
     const client = createApolloClient({}, context);
     const { data: genericPage, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
         slug: 'wishlist',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

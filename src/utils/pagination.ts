@@ -24,6 +24,7 @@ export const getBlogPosts = async (
       query,
       variables: {
         slug,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {

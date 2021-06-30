@@ -22,4 +22,5 @@ export interface genericPagesQuery {
 
 export interface genericPagesQueryVariables {
   slugs: string[];
+  isPreview?: boolean | null;
 }

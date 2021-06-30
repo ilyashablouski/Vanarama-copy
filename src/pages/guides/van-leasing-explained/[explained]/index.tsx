@@ -2,6 +2,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import DefaultErrorPage from 'next/error';
 import React from 'react';
+import { PreviewNextPageContext } from 'types/common';
 import LeasingArticleContainer from '../../../../containers/LeasingArticleContainer/LeasingArticleContainer';
 import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
@@ -61,12 +62,13 @@ const FinanceInfo: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<GenericPageQuery>({
     query: GENERIC_PAGE,
     variables: {
       slug: 'guides/van-leasing-explained',
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   return {
@@ -82,6 +84,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: `guides/van-leasing-explained/${context?.params?.explained}`,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     return {
