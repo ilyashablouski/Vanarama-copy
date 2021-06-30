@@ -1,5 +1,6 @@
-import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
+import { renderBudgetSelected, renderBudgetValue } from './helpers';
 
+// eslint-disable-next-line import/prefer-default-export
 export const filtersConfig = [
   {
     type: 'drop-down',
@@ -30,13 +31,8 @@ export const filtersConfig = [
     multiselect: false,
     label: 'Budget',
     key: 'budget',
-    renderValuesFunction: (value: string) => `£${value}`,
-    renderSelectedFunction: (values: (string | null)[]) => {
-      const text = `${values[0] ? `From £${values[0]}` : ''}${
-        values[1] ? ` to £${values[1]}` : ''
-      }`.trim();
-      return text.charAt(0).toUpperCase() + text.slice(1);
-    },
+    renderValuesFunction: value => renderBudgetValue(value),
+    renderSelectedFunction: values => renderBudgetSelected(values),
     innerSelects: [
       {
         title: 'Price From',
@@ -63,9 +59,3 @@ export const filtersConfig = [
     key: 'fuelTypes',
   },
 ];
-
-export interface IInnerSelect {
-  title: string;
-  placeholder: string;
-  key: keyof IFiltersData;
-}

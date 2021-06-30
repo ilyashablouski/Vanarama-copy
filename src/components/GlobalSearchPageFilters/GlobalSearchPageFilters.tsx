@@ -11,7 +11,8 @@ import { useRouter } from 'next/router';
 import Toggle from 'core/atoms/toggle/Toggle';
 import ToggleSwitch from 'core/atoms/toggle/ToggleSwitch';
 import Flame from 'core/assets/icons/Flame';
-import { filtersConfig as config, IInnerSelect } from './config';
+import { filtersConfig as config } from './config';
+import { IInnerSelect } from './interfaces';
 import { budgets } from '../../containers/FiltersContainer/config';
 import {
   IFiltersData,
