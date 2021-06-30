@@ -33,7 +33,7 @@ import FiltersTags from '../../containers/GlobalSearchPageContainer/FiltersTags'
 interface IProps {
   preloadFilters?: IProductFilter;
   activeFilters: IFiltersData;
-  setActiveFilters: (filter: any) => any;
+  setActiveFilters: (filter: IFiltersData) => void;
   selectedTags: ISelectedTags[];
   setSelectedTags: Dispatch<SetStateAction<ISelectedTags[]>>;
   clearFilterBlock: (key: string) => void;
@@ -203,7 +203,7 @@ const GlobalSearchPageFilters = ({
       <FiltersTags
         tags={selectedTags}
         removeFilterValue={onRemoveTag}
-        clearAllFilters={() => setActiveFilters({})}
+        clearAllFilters={() => setActiveFilters({} as IFiltersData)}
       />
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label className="srp-f-hot-deals" htmlFor="srp-f-hot-deals-togl">

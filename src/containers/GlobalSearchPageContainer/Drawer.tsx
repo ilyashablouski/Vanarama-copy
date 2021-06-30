@@ -4,9 +4,10 @@ import Close from 'core/assets/icons/Close';
 import Icon from 'core/atoms/icon';
 import Button from 'core/atoms/button';
 import { pluralise } from '../../utils/dates';
+import { Component } from '../../types/common';
 
 interface IProps {
-  renderContent: any;
+  renderContent: () => Component;
   isFiltersRender: boolean;
   onCloseDrawer: () => void;
   onResetFilters: () => void;
