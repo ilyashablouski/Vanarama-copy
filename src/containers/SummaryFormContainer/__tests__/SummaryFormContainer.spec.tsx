@@ -334,25 +334,27 @@ describe('<SummaryFormContainer />', () => {
   it.skip('should redirect to the thank you page when clicking "Continue"', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
+    const partyUuid = '13670';
     const mocks = [
       createBruceData(uuid),
       makeGetCreditApplicationByOrderUuidMock(ORDER_ID),
-      makeGetPartyByUuidMock(ORDER_ID),
+      makeGetPartyByUuidMock(ORDER_ID, uuid),
       makeFullCreditCheckerMutationMock(uuid, {
-        partyId: '',
-        creditApplicationUuid: '',
+        creditApplicationUuid: 'b3d4b0d2-cbb4-4c01-bbee-998f016f5092',
+        depositPayment: 3779.64,
+        monthlyPayment: 419.96,
         orderUuid: ORDER_ID,
+        partyId: partyUuid,
         vehicleType: VehicleTypeEnum.CAR,
-        monthlyPayment: 0,
-        depositPayment: 0,
       }),
       makeFullCreditCheckerB2BMutationMock(uuid, {
-        partyId: '',
-        creditApplicationUuid: '',
+        capId: '93297',
+        creditApplicationUuid: 'b3d4b0d2-cbb4-4c01-bbee-998f016f5092',
+        depositPayment: 3779.64,
+        monthlyPayment: 419.96,
         orderUuid: ORDER_ID,
+        partyId: partyUuid,
         vehicleType: VehicleTypeEnum.CAR,
-        monthlyPayment: 0,
-        depositPayment: 0,
       }),
       makeUpdateCreditApplicationMock({
         orderUuid: ORDER_ID,
