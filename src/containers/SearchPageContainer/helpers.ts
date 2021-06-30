@@ -14,7 +14,7 @@ import {
 import { GET_ALL_MAKES_PAGE } from './gql';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 import { getObjectFromSessionStorage } from '../../utils/windowSessionStorage';
-import { arrayIsEqual } from '../../utils/helpers';
+import { arraysAreEqual } from '../../utils/helpers';
 
 export const RESULTS_PER_REQUEST = 12;
 
@@ -352,7 +352,7 @@ export const isPreviousPage = (currentRoute: ParsedUrlQuery) => {
       const val2 = savedPageData?.queries[key];
       const areArrays = Array.isArray(val1) && Array.isArray(val2);
       return !(
-        (areArrays && !arrayIsEqual(val1 as string[], val2 as string[])) ||
+        (areArrays && !arraysAreEqual(val1 as string[], val2 as string[])) ||
         (!areArrays && val1 !== val2)
       );
     });
