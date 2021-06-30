@@ -1,12 +1,11 @@
-import React, { ReactChild, ReactPortal } from 'react';
+import React from 'react';
 import { IChoice } from 'core/atoms/choiceboxes/interfaces';
 import { RateInputObject } from '../../../generated/globalTypes';
 import {
   filterList_filterList as IFilterList,
   filterList_filterList_groupedRangesWithSlug_children as IFiltersChildren,
 } from '../../../generated/filterList';
-
-type Component = ReactChild | Array<Component> | ReactPortal;
+import { Component } from '../../types/common';
 
 export interface ISelectedFiltersState {
   [index: string]: string[];
