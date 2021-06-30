@@ -2,8 +2,19 @@ import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { EmploymentFormDropDownData } from '../../../generated/EmploymentFormDropDownData';
-import EmploymentForm from './EmploymentForm';
 import { GET_OCCUPATIONS } from './gql';
+import { makeAddressResponseMock } from '../../hooks/useLoqate/utils';
+import useLoqate from '../../hooks/useLoqate';
+import EmploymentForm from './EmploymentForm';
+
+jest.mock('../../hooks/useLoqate');
+(useLoqate as jest.Mock).mockReturnValue(makeAddressResponseMock());
+
+function typeIntoAddressField(value: string) {
+  const input = screen.getByLabelText('Company Address');
+  fireEvent.focus(input);
+  fireEvent.change(input, { target: { value } });
+}
 
 const sicData: MockedResponse[] = [
   {
@@ -78,7 +89,7 @@ describe('<EmploymentForm />', () => {
     });
   });
 
-  it.skip('should call `onSubmit` when entering valid information for a position that requires additional information', async () => {
+  it('should call `onSubmit` when entering valid information for a position that requires additional information', async () => {
     // ARRANGE
     const onSubmit = jest.fn();
 
@@ -108,10 +119,8 @@ describe('<EmploymentForm />', () => {
     const phone = screen.getByLabelText('Work Phone Number');
     fireEvent.change(phone, { target: { value: '01442838195' } });
 
-    const address = screen.getByLabelText('Company Address');
-    fireEvent.change(address, {
-      target: { value: 'Maylands Avenue, HP2 7DE' },
-    });
+    typeIntoAddressField('GB|001');
+    fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
     const income = screen.getByLabelText('Gross Annual Income');
     const incomeValue = '52000.00';
@@ -131,7 +140,9 @@ describe('<EmploymentForm />', () => {
       history: [
         {
           address: {
-            id: 'Maylands Avenue, HP2 7DE',
+            id: 'GB|RM|A|54725860',
+            label:
+              'B001, Purbeck House 5-7, Oxford Road - Bournemouth, BH8 8ES',
           },
           company: 'Autorama Ltd.',
           income: incomeValue,
@@ -146,7 +157,7 @@ describe('<EmploymentForm />', () => {
     });
   });
 
-  it.skip('should call `onSubmit` when entering multiple employment entries', async () => {
+  it('should call `onSubmit` when entering multiple employment entries', async () => {
     // ARRANGE
     const now = new Date();
     const currentYear = String(now.getFullYear());
@@ -188,10 +199,8 @@ describe('<EmploymentForm />', () => {
     const prevPhone = screen.getByLabelText('Work Phone Number');
     fireEvent.change(prevPhone, { target: { value: '01442838195' } });
 
-    const prevAddress = screen.getByLabelText('Company Address');
-    fireEvent.change(prevAddress, {
-      target: { value: 'Maylands Avenue, HP2 7DE' },
-    });
+    typeIntoAddressField('GB|001');
+    fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
     const prevIncome = screen.getByLabelText('Gross Annual Income');
     const incomeValue = '52000.00';
@@ -222,7 +231,9 @@ describe('<EmploymentForm />', () => {
         },
         {
           address: {
-            id: 'Maylands Avenue, HP2 7DE',
+            id: 'GB|RM|A|54725860',
+            label:
+              'B001, Purbeck House 5-7, Oxford Road - Bournemouth, BH8 8ES',
           },
           company: 'Autorama Ltd.',
           income: incomeValue,

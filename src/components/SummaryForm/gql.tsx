@@ -123,9 +123,19 @@ export function makeGetCreditApplicationByOrderUuidMock(orderUuid: string) {
       data: {
         creditApplicationByOrderUuid: {
           lineItem: {
-            order: {
-              partyUuid: orderUuid,
+            vehicleProduct: {
+              vehicleType: 'CAR',
+              depositPayment: 3779.64,
+              monthlyPayment: 419.96,
             },
+            order: {
+              partyUuid: '2f852fc1-2555-4688-b618-d17e32e32b6f',
+            },
+            creditApplications: [
+              {
+                uuid: 'b3d4b0d2-cbb4-4c01-bbee-998f016f5092',
+              },
+            ],
           },
         },
       },
@@ -133,18 +143,32 @@ export function makeGetCreditApplicationByOrderUuidMock(orderUuid: string) {
   };
 }
 
-export function makeGetPartyByUuidMock(uuid: string) {
+export function makeGetPartyByUuidMock(orderUuid: string, userUuid: string) {
   return {
     request: {
       query: GET_PARTY_BY_UUID,
       variables: {
-        uuid,
+        uuid: orderUuid,
       },
     },
     result: {
       data: {
         partyByUuid: {
-          uuid,
+          uuid: orderUuid,
+          person: {
+            firstName: 'Test',
+            lastName: 'Test',
+            partyId: '13670',
+            uuid: userUuid,
+            companies: [
+              {
+                uuid: '812a0557-cd1b-424d-846d-f5def73ec674',
+                partyUuid: '69f79466-f4ef-40b8-84da-af31b6e1c16c',
+                partyId: '18477',
+              },
+            ],
+          },
+          company: null,
         },
       },
     },
@@ -162,8 +186,22 @@ export function makeFullCreditCheckerMutationMock(
     },
     result: {
       data: {
-        personByUuid: {
-          uuid,
+        fullCreditChecker: {
+          creditCheck: {
+            uuid: '36f17fb0-b72d-430e-bd5f-ca2a9b38c239',
+            creditCheckType: 'B2C_FULL_CREDIT_CHECKER',
+            creditCheckLines: [],
+          },
+          party: {
+            uuid: '2f852fc1-2555-4688-b618-d17e32e32b6f',
+            person: {
+              uuid: '7c350898-0eb9-4d06-99c3-9e395396fca1',
+              partyId: '13670',
+              partyUuid: '2f852fc1-2555-4688-b618-d17e32e32b6f',
+              firstName: 'Test',
+              lastName: 'Test',
+            },
+          },
         },
       },
     },
