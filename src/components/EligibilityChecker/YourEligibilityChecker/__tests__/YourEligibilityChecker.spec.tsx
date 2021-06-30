@@ -1,7 +1,18 @@
 import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
+import { makeAddressResponseMock } from '../../../../hooks/useLoqate/utils';
+import useLoqate from '../../../../hooks/useLoqate';
 import YourEligibilityChecker from '..';
+
+jest.mock('../../../../hooks/useLoqate');
+(useLoqate as jest.Mock).mockReturnValue(makeAddressResponseMock());
+
+function typeIntoAddressField(value: string) {
+  const input = screen.getByTestId('eligibilityCheckerAddress');
+  fireEvent.focus(input);
+  fireEvent.change(input, { target: { value } });
+}
 
 describe('<YourEligibilityChecker />', () => {
   const submit = jest.fn();
@@ -119,7 +130,7 @@ describe('<YourEligibilityChecker />', () => {
     });
   });
 
-  it.skip('should call submit with valid field inputs', async () => {
+  it('should call submit with valid field inputs', async () => {
     fireEvent.input(screen.getByTestId('eligibilityCheckerFirstName'), {
       target: { value: 'John' },
     });
@@ -129,9 +140,10 @@ describe('<YourEligibilityChecker />', () => {
     fireEvent.input(screen.getByTestId('eligibilityCheckerEmail'), {
       target: { value: 'hello@email.com' },
     });
-    fireEvent.input(screen.getByTestId('eligibilityCheckerAddress'), {
-      target: { value: '1234' },
-    });
+
+    typeIntoAddressField('GB|001');
+    fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
+
     fireEvent.input(screen.getByTestId('eligibilityCheckerSelectDOB'), {
       target: { value: '1' },
     });

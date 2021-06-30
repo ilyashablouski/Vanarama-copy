@@ -19,6 +19,8 @@ import {
   makeSicCodesMock,
   makeCompanyProfileMock,
 } from '../../../../containers/CompanyDetailsFormContainer/gql';
+import { makeAddressResponseMock } from '../../../../hooks/useLoqate/utils';
+import useLoqate from '../../../../hooks/useLoqate';
 
 const MOCK_PERSON_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 const MOCK_ORDER_ID = '11111111-b980-46bd-8a8e-ed82705b3e01';
@@ -27,6 +29,8 @@ const MOCK_COMPANY_UUID = '11111111-2222-2222-2222-ed82705b3e01';
 let companyProfileCalled = false;
 let getSicCodesCalled = false;
 
+jest.mock('../../../../hooks/useLoqate');
+(useLoqate as jest.Mock).mockReturnValue(makeAddressResponseMock());
 jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -46,6 +50,12 @@ async function waitForLoadingFinish() {
   await waitFor(() =>
     expect(screen.getByTestId('company-details_heading')).toBeInTheDocument(),
   );
+}
+
+function typeIntoAddressField(testId: string, value: string) {
+  const input = screen.getByTestId(testId);
+  fireEvent.focus(input);
+  fireEvent.change(input, { target: { value } });
 }
 
 function typeIntoSearchField(value: string) {
@@ -75,7 +85,8 @@ describe('B2B Company Details page', () => {
     companyProfileCalled = false;
     getSicCodesCalled = false;
   });
-  it.skip('should allow the user to search for and select a company', async () => {
+
+  it('should allow the user to search for and select a company', async () => {
     // ARRANGE
     const queryMock = jest.fn();
     const mutationMock = jest.fn();
@@ -86,7 +97,7 @@ describe('B2B Company Details page', () => {
         request: {
           query: SEARCH_COMPANIES,
           variables: {
-            searchTerm: 'Autora',
+            searchTerm: '05137709',
           } as SearchCompaniesQueryVariables,
         },
         result: queryMock.mockImplementation(() => ({
@@ -94,18 +105,12 @@ describe('B2B Company Details page', () => {
             searchCompanies: {
               nodes: [
                 {
-                  addressSnippet: 'The Long Lodge 265-269 Kingston Road',
-                  companyNumber: '08491180',
-                  companyStatus: 'active',
-                  dateOfCreation: '2013-04-01',
-                  title: 'AUTORA LTD',
-                },
-                {
-                  addressSnippet: 'Vanarama, Maylands Avenue',
-                  companyNumber: '05137709',
-                  companyStatus: 'active',
-                  dateOfCreation: '2004-05-01',
                   title: 'AUTORAMA UK LTD',
+                  companyNumber: '05137709',
+                  addressSnippet:
+                    'Vanarama, Maylands Avenue, Hemel Hempstead, Hertfordshire, England, HP2 7DE',
+                  dateOfCreation: '2004-05-25',
+                  companyStatus: 'active',
                 },
               ],
             },
@@ -117,31 +122,57 @@ describe('B2B Company Details page', () => {
           query: SAVE_COMPANY_DETAILS,
           variables: {
             input: {
-              person: { uuid: '' },
-              uuid: MOCK_COMPANY_UUID,
-              companyType: 'Limited',
-              legalName: 'AUTORAMA UK LTD',
-              companyNumber: '05137709',
-              tradingSince: '01-05-2004',
               addresses: [
-                { serviceId: 'Vanarama, Maylands Avenue', kind: 'registered' },
+                {
+                  kind: 'registered',
+                  serviceId: 'GB|RM|A|54725860',
+                },
               ],
-              withTradingAddress: false,
               companyNature: 'Information technology consultancy activities',
+              companyNumber: '05137709',
+              companyType: 'Limited',
               emailAddress: {
                 kind: 'Home',
-                value: 'info@autorama.co.uk',
                 primary: true,
+                value: 'info@autorama.co.uk',
               },
-              telephoneNumbers: [{ value: '07777777777', primary: true }],
+              legalName: 'AUTORAMA UK LTD',
+              person: {
+                uuid: '',
+              },
+              telephoneNumbers: [
+                {
+                  primary: true,
+                  value: '07777777777',
+                },
+              ],
+              tradingSince: '2004-05-25',
+              uuid: MOCK_COMPANY_UUID,
+              withTradingAddress: false,
             },
           } as SaveCompanyDetailsMutationVariables,
         },
         result: mutationMock.mockImplementation(() => ({
           data: {
             createUpdateLimitedCompany: {
-              uuid: MOCK_PERSON_UUID,
-              partyUuid: 'partyUuid',
+              uuid: MOCK_COMPANY_UUID,
+              partyUuid: '',
+              addresses: [
+                {
+                  lineOne: 'B001',
+                  lineTwo: 'Purbeck House',
+                  lineThree: '5-7 Oxford Road',
+                  city: 'Bournemouth',
+                  county: null,
+                  postcode: 'BH8 8ES',
+                  country: 'GB',
+                  startedOn: null,
+                  endedOn: null,
+                  propertyStatus: null,
+                  serviceId: 'GB|RM|A|54725860',
+                  kind: 'registered',
+                },
+              ],
             },
           } as SaveCompanyDetailsMutation,
         })),
@@ -157,7 +188,7 @@ describe('B2B Company Details page', () => {
 
     await waitForLoadingFinish();
     // Type a search term and wait for the results to load
-    typeIntoSearchField('Autora');
+    typeIntoSearchField('05137709');
     await waitFor(() => expect(queryMock).toHaveBeenCalledTimes(1));
 
     // Click the Autorama UK result
@@ -168,9 +199,14 @@ describe('B2B Company Details page', () => {
 
     // Fill the rest of the form in
     await waitFor(() => expect(companyProfileCalled).toBeTruthy());
+
     typeIntoNatureField('62020');
     await waitFor(() => expect(getSicCodesCalled).toBeTruthy());
-    fireEvent.click(screen.getByText('62020'));
+    fireEvent.mouseDown(screen.getByText(/^62020/));
+
+    fireEvent.click(screen.getByText('Edit'));
+    typeIntoAddressField('company-details_registered-address', 'GB|001');
+    fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
     fireEvent.change(
       screen.getByRole('textbox', { name: /Business Telephone Number/i }),
@@ -181,10 +217,6 @@ describe('B2B Company Details page', () => {
       target: { value: 'info@autorama.co.uk' },
     });
 
-    fireEvent.change(screen.getByTestId('company-details_registered-address'), {
-      target: { value: 'Vanarama, Maylands Avenue' },
-    });
-
     // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
 
@@ -192,7 +224,7 @@ describe('B2B Company Details page', () => {
     await waitFor(() => expect(mutationMock).toHaveBeenCalledTimes(1));
   });
 
-  it.skip('should allow the user to enter their company details manually', async () => {
+  it('should allow the user to enter their company details manually', async () => {
     // ARRANGE
     const mutationMock = jest.fn();
     const mocks: MockedResponse[] = [
@@ -210,28 +242,50 @@ describe('B2B Company Details page', () => {
               companyType: 'Limited',
               legalName: 'AUTORAMA UK LTD',
               companyNumber: '05137709',
-              tradingSince: '01-05-2004',
+              tradingSince: '2004-5-01',
               addresses: [
                 {
-                  serviceId: 'Vanarama, Maylands Avenue',
                   kind: 'registered',
+                  serviceId: 'GB|RM|A|54725860',
                 },
               ],
               withTradingAddress: false,
-              companyNature: 'Information technology consultancy activities',
+              companyNature: '',
               emailAddress: {
                 kind: 'Home',
                 value: 'info@autorama.co.uk',
                 primary: true,
               },
-              telephoneNumbers: [{ value: '07777777777', primary: true }],
+              telephoneNumbers: [
+                {
+                  value: '07777777777',
+                  primary: true,
+                },
+              ],
             },
           } as SaveCompanyDetailsMutationVariables,
         },
         result: mutationMock.mockImplementation(() => ({
           data: {
             createUpdateLimitedCompany: {
-              uuid: MOCK_PERSON_UUID,
+              uuid: MOCK_COMPANY_UUID,
+              partyUuid: '',
+              addresses: [
+                {
+                  lineOne: 'B001',
+                  lineTwo: 'Purbeck House',
+                  lineThree: '5-7 Oxford Road',
+                  city: 'Bournemouth',
+                  county: null,
+                  postcode: 'BH8 8ES',
+                  country: 'GB',
+                  startedOn: null,
+                  endedOn: null,
+                  propertyStatus: null,
+                  serviceId: 'GB|RM|A|54725860',
+                  kind: 'registered',
+                },
+              ],
             },
           } as SaveCompanyDetailsMutation,
         })),
@@ -263,9 +317,12 @@ describe('B2B Company Details page', () => {
       { target: { value: '05137709' } },
     );
 
-    fireEvent.change(screen.getByRole('combobox', { name: /Trading Since/i }), {
-      target: { value: '5' },
-    });
+    fireEvent.change(
+      screen.getByTestId('company-details_trading-since-month'),
+      {
+        target: { value: '5' },
+      },
+    );
 
     fireEvent.change(screen.getByTestId('company-details_trading-since-year'), {
       target: { value: '2004' },
@@ -274,7 +331,10 @@ describe('B2B Company Details page', () => {
     // Fill the rest of the form in
     typeIntoNatureField('62020');
     await waitFor(() => expect(getSicCodesCalled).toBeTruthy());
-    fireEvent.click(screen.getByText('62020'));
+    fireEvent.mouseDown(screen.getByText(/^62020/));
+
+    typeIntoAddressField('company-details_registered-address', 'GB|001');
+    fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
     fireEvent.change(
       screen.getByRole('textbox', { name: /Business Telephone Number/i }),
@@ -285,10 +345,6 @@ describe('B2B Company Details page', () => {
       target: { value: 'info@autorama.co.uk' },
     });
 
-    fireEvent.change(screen.getByTestId('company-details_registered-address'), {
-      target: { value: 'Vanarama, Maylands Avenue' },
-    });
-
     // Submit the form
     fireEvent.click(screen.getByRole('button', { name: /Continue/i }));
 
@@ -296,7 +352,7 @@ describe('B2B Company Details page', () => {
     await waitFor(() => expect(mutationMock).toHaveBeenCalledTimes(1));
   });
 
-  it.skip('should allow the user to select a trading address that is different from the registered address', async () => {
+  it('should allow the user to select a trading address that is different from the registered address', async () => {
     // ARRANGE
     const queryMock = jest.fn();
     const mutationMock = jest.fn();
@@ -307,7 +363,7 @@ describe('B2B Company Details page', () => {
         request: {
           query: SEARCH_COMPANIES,
           variables: {
-            searchTerm: 'Autora',
+            searchTerm: '05137709',
           } as SearchCompaniesQueryVariables,
         },
         result: queryMock.mockImplementation(() => ({
@@ -315,18 +371,12 @@ describe('B2B Company Details page', () => {
             searchCompanies: {
               nodes: [
                 {
-                  addressSnippet: 'The Long Lodge 265-269 Kingston Road',
-                  companyNumber: '08491180',
-                  companyStatus: 'active',
-                  dateOfCreation: '2013-04-01',
-                  title: 'AUTORA LTD',
-                },
-                {
-                  addressSnippet: 'Vanarama, Maylands Avenue',
-                  companyNumber: '05137709',
-                  companyStatus: 'active',
-                  dateOfCreation: '2004-05-01',
                   title: 'AUTORAMA UK LTD',
+                  companyNumber: '05137709',
+                  addressSnippet:
+                    'Vanarama, Maylands Avenue, Hemel Hempstead, Hertfordshire, England, HP2 7DE',
+                  dateOfCreation: '2004-05-25',
+                  companyStatus: 'active',
                 },
               ],
             },
@@ -343,12 +393,15 @@ describe('B2B Company Details page', () => {
               companyType: 'Limited',
               legalName: 'AUTORAMA UK LTD',
               companyNumber: '05137709',
-              tradingSince: '01-05-2004',
+              tradingSince: '2004-05-25',
               addresses: [
-                { serviceId: 'Vanarama, Maylands Avenue', kind: 'registered' },
                 {
-                  serviceId: 'Vanarama Trading Address, PO BOX 999',
+                  kind: 'registered',
+                  serviceId: 'GB|RM|A|54725860',
+                },
+                {
                   kind: 'trading',
+                  serviceId: 'GB|RM|A|54725861',
                 },
               ],
               withTradingAddress: true,
@@ -358,7 +411,12 @@ describe('B2B Company Details page', () => {
                 value: 'info@autorama.co.uk',
                 primary: true,
               },
-              telephoneNumbers: [{ value: '07777777777', primary: true }],
+              telephoneNumbers: [
+                {
+                  value: '07777777777',
+                  primary: true,
+                },
+              ],
             },
           } as SaveCompanyDetailsMutationVariables,
         },
@@ -366,7 +424,37 @@ describe('B2B Company Details page', () => {
           data: {
             createUpdateLimitedCompany: {
               uuid: MOCK_PERSON_UUID,
-              partyUuid: 'partyUuid',
+              partyUuid: '',
+              addresses: [
+                {
+                  lineOne: 'B002',
+                  lineTwo: 'Purbeck House',
+                  lineThree: '5-7 Oxford Road',
+                  city: 'Bournemouth',
+                  county: null,
+                  postcode: 'BH8 8ES',
+                  country: 'GB',
+                  startedOn: null,
+                  endedOn: null,
+                  propertyStatus: null,
+                  serviceId: 'GB|RM|A|54725861',
+                  kind: 'trading',
+                },
+                {
+                  lineOne: 'B001',
+                  lineTwo: 'Purbeck House',
+                  lineThree: '5-7 Oxford Road',
+                  city: 'Bournemouth',
+                  county: null,
+                  postcode: 'BH8 8ES',
+                  country: 'GB',
+                  startedOn: null,
+                  endedOn: null,
+                  propertyStatus: null,
+                  serviceId: 'GB|RM|A|54725860',
+                  kind: 'registered',
+                },
+              ],
             },
           } as SaveCompanyDetailsMutation,
         })),
@@ -376,6 +464,7 @@ describe('B2B Company Details page', () => {
           query: CREATE_UPDATE_ORDER_MUTATION,
           variables: {
             input: {
+              uuid: MOCK_COMPANY_UUID,
               partyUuid: 'partyUuid',
               leaseType: 'BUSINESS',
               lineItems: [],
@@ -387,7 +476,7 @@ describe('B2B Company Details page', () => {
             createUpdateOrder: {
               uuid: 'uuid',
               createdAt: 'createdAt',
-              salesChannel: 'salesChannel',
+              salesChannel: '0',
               status: 'status',
             },
           },
@@ -404,7 +493,7 @@ describe('B2B Company Details page', () => {
 
     await waitForLoadingFinish();
     // Type a search term and wait for the results to load
-    typeIntoSearchField('Autora');
+    typeIntoSearchField('05137709');
     await waitFor(() => expect(queryMock).toHaveBeenCalledTimes(1));
 
     // Click the Autorama UK result
@@ -415,22 +504,14 @@ describe('B2B Company Details page', () => {
 
     // Fill the rest of the form in
     await waitFor(() => expect(companyProfileCalled).toBeTruthy());
+
     typeIntoNatureField('62020');
     await waitFor(() => expect(getSicCodesCalled).toBeTruthy());
     fireEvent.click(screen.getByText('62020'));
 
-    fireEvent.change(
-      screen.getByRole('textbox', { name: /Business Telephone Number/i }),
-      { target: { value: '07777777777' } },
-    );
-
-    fireEvent.change(screen.getByRole('textbox', { name: /Email Address/i }), {
-      target: { value: 'info@autorama.co.uk' },
-    });
-
-    fireEvent.change(screen.getByTestId('company-details_registered-address'), {
-      target: { value: 'Vanarama, Maylands Avenue' },
-    });
+    fireEvent.click(screen.getByText('Edit'));
+    typeIntoAddressField('company-details_registered-address', 'GB|001');
+    fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
     // Choose that the trading address is different
     fireEvent.click(
@@ -439,8 +520,16 @@ describe('B2B Company Details page', () => {
       }),
     );
 
-    fireEvent.change(screen.getByTestId('company-details_trading-address'), {
-      target: { value: 'Vanarama Trading Address, PO BOX 999' },
+    typeIntoAddressField('company-details_trading-address', 'GB|002');
+    fireEvent.mouseDown(screen.getByText(/^B002, Purbeck House 5-7/));
+
+    fireEvent.change(
+      screen.getByRole('textbox', { name: /Business Telephone Number/i }),
+      { target: { value: '07777777777' } },
+    );
+
+    fireEvent.change(screen.getByRole('textbox', { name: /Email Address/i }), {
+      target: { value: 'info@autorama.co.uk' },
     });
 
     // Submit the form

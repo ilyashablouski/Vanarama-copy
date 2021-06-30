@@ -33,7 +33,7 @@ describe('<CustomiseLease />', () => {
     })),
   });
 
-  xit('renders correctly', () => {
+  it('renders correctly', () => {
     const tree = getComponent({
       mileage: 6000,
       colour: 13990,
@@ -159,7 +159,7 @@ describe('<CustomiseLease />', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  xit('renders correctly', () => {
+  it('renders correctly', () => {
     const tree = getComponent({
       trim: 112981,
       colourList: [{ optionId: 13990, label: 'Solid - Polar white' }],
