@@ -22,18 +22,30 @@ import {
   GlobalSearchCardsData_productCard as ICardsData,
   GlobalSearchCardsDataVariables,
 } from '../../../generated/GlobalSearchCardsData';
+import {
+  productFilter as IProductFilterQuery,
+  productFilter_productFilter as IProductFilter,
+  productFilterVariables as IProductFilterVariables,
+} from '../../../generated/productFilter';
+import { GET_FILTERS_DATA } from '../../containers/GlobalSearchPageContainer/gql';
+import { buildInitialFilterState } from '../../containers/GlobalSearchPageContainer/helpers';
+import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
+  filtersData: IProductFilter;
   textSearchList?: fullTextSearchVehicleList;
   carsData?: ICardsData[];
   vansData?: ICardsData[];
   responseVansCapIds?: string[];
   responseCarsCapIds?: string[];
+  initialFilters: IFiltersData;
 }
 
 const Page: NextPage<IProps> = ({
   pageData,
+  filtersData,
+  initialFilters,
   metaData,
   textSearchList,
   carsData,
@@ -44,6 +56,8 @@ const Page: NextPage<IProps> = ({
   return (
     <GlobalSearchPageContainer
       metaData={metaData}
+      filtersData={filtersData}
+      initialFilters={initialFilters}
       carsData={carsData}
       vansData={vansData}
       responseVansCapIds={responseVansCapIds}
@@ -112,6 +126,17 @@ export async function getServerSideProps(context: NextPageContext) {
       return resp.data;
     });
 
+  const filtersData = await client
+    .query<IProductFilterQuery, IProductFilterVariables>({
+      query: GET_FILTERS_DATA,
+      variables: {
+        query: contextData.query.searchTerm as string,
+      },
+    })
+    .then(({ data: productFilterData }) => productFilterData.productFilter);
+
+  const initialFilters = buildInitialFilterState(context.query);
+
   return {
     props: {
       pageData: encodeData(data),
@@ -121,6 +146,8 @@ export async function getServerSideProps(context: NextPageContext) {
       vansData: vansData || null,
       responseVansCapIds: responseVansCapIds || null,
       responseCarsCapIds: responseCarsCapIds || null,
+      filtersData: filtersData || null,
+      initialFilters,
     },
   };
 }

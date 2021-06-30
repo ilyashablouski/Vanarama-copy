@@ -191,7 +191,7 @@ describe('B2B About You page', () => {
     );
   });
 
-  it.skip('should display a toast message if the request to the server fails', async () => {
+  it('should display a toast message if the request to the server fails', async () => {
     const mocks: MockedResponse[] = [
       getCreditApplication,
       {
@@ -275,7 +275,7 @@ describe('B2B About You page', () => {
       </MockedProvider>,
     );
 
-    await waitFor(() => screen.getByTestId('about-you_loading'));
+    screen.getByTestId('about-you_loading');
     await waitForElementToBeRemoved(() =>
       screen.getByTestId('about-you_loading'),
     );

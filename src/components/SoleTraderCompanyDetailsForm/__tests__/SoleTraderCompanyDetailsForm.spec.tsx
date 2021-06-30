@@ -5,17 +5,11 @@ import { MockedProvider } from '@apollo/client/testing';
 import SoleTraderCompanyDetailsForm from '../SoleTraderCompanyDetailsForm';
 import { ISoleTraderCompanyDetailsFormValues } from '../interfaces';
 import { makeSicCodesMock } from '../../../containers/CompanyDetailsFormContainer/gql';
+import { makeAddressResponseMock } from '../../../hooks/useLoqate/utils';
+import useLoqate from '../../../hooks/useLoqate';
 
-jest.mock('../../../hooks/useLoqate', () => () => ({
-  data: [
-    {
-      id: 'GB|RM|A|54725860',
-      description: 'Bournemouth, BH8 8ES',
-      text: 'B001, Purbeck House 5-7, Oxford Road',
-      type: 'Address',
-    },
-  ],
-}));
+jest.mock('../../../hooks/useLoqate');
+(useLoqate as jest.Mock).mockReturnValue(makeAddressResponseMock());
 
 let getSicCodesCalled = false;
 

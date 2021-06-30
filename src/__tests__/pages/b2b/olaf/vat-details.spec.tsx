@@ -23,8 +23,8 @@ const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 const MOCK_ORDER_UUID = '39c19729-1111-46bd-0000-ed82705b3e01';
 const MOCK_PERSON_UUID = '39c19729-1111-46bd-0000-0000705b0000';
 
-jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 const mockPush = jest.fn();
+jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 jest.mock('next/router', () => ({
   useRouter: () => ({
     push: mockPush,
@@ -812,6 +812,7 @@ describe('B2B VAT Details page', () => {
               query: UPDATE_LIMITED_VAT_DETAILS,
               variables: {
                 input: {
+                  person: { uuid: '' },
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
                   isVatRegistered: false,
@@ -824,7 +825,7 @@ describe('B2B VAT Details page', () => {
             result: mockMutation.mockImplementation(() => ({
               data: {
                 createUpdateLimitedCompany: {
-                  uuid: MOCK_COMPANY_UUID,
+                  uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
                   isVatRegistered: false,
                   tradesOutsideUk: true,
                   turnoverPercentageOutsideUk: null,
@@ -834,26 +835,11 @@ describe('B2B VAT Details page', () => {
             })),
           },
           makeUpdateCreditApplicationMock({
-            orderUuid: '39c19729-1111-46bd-0000-ed82705b3e01',
-            status: 'status',
-            addresses: [],
-            aboutDetailsV2: null,
-            bankAccounts: [
-              {
-                account_name: 'Eternal account',
-                account_number: '67272820',
-                joined_at_month: '1',
-                joined_at_year: '2020',
-                sort_code: '019387',
-              },
-            ],
-            employmentHistories: 'employmentHistories',
-            incomeAndExpenses: 'incomeAndExpenses',
-            leadManagerProposalId: 'leadManagerProposalId',
-            companyDetailsV2: null,
-            vatDetailsV2: { vatRegistered: false, outsideUk: false },
-            directorsDetailsV2: null,
-            soleTraderDetails: {},
+            orderUuid: '',
+            vatDetails: {
+              vatRegistered: false,
+              outsideUk: false,
+            },
           }),
         ]}
       >

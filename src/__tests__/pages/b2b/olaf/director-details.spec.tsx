@@ -22,12 +22,16 @@ import {
   SaveDirectorDetailsMutation,
 } from '../../../../../generated/SaveDirectorDetailsMutation';
 import { makeGetCreditApplicationMock } from '../../../../gql/creditApplication';
+import { makeAddressResponseMock } from '../../../../hooks/useLoqate/utils';
+import useLoqate from '../../../../hooks/useLoqate';
 
 const MOCK_COMPANY_UUID = '39c19729-b980-46bd-8a8e-ed82705b3e01';
 const MOCK_ORDER_UUID = '7a004b65-a409-4ffe-8a3d-23b9ae28d0dc';
 const MOCK_DIRECTOR_UUID = '93452168-bd59-4a70-bb8c-322354e1a7da';
 const MOCK_COMPANY_NUMBER = '000000000';
 
+jest.mock('../../../../hooks/useLoqate');
+(useLoqate as jest.Mock).mockReturnValue(makeAddressResponseMock());
 jest.mock('../../../../layouts/OLAFLayout/OLAFLayout');
 jest.mock('next/router', () => ({
   useRouter: () => ({
@@ -40,6 +44,12 @@ jest.mock('next/router', () => ({
     },
   }),
 }));
+
+function typeIntoAddressField(value: string) {
+  const input = screen.getByTestId('directors[0].history[0].address');
+  fireEvent.focus(input);
+  fireEvent.change(input, { target: { value } });
+}
 
 const updateCreditApplication = makeGetCreditApplicationMock(MOCK_ORDER_UUID);
 
@@ -732,9 +742,8 @@ describe('B2B Director Details page', () => {
       { target: { value: '30' } },
     );
 
-    fireEvent.change(screen.getByTestId('directors[0].history[0].address'), {
-      target: { value: 'GB|001' },
-    });
+    typeIntoAddressField('GB|001');
+    fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
     fireEvent.change(
       screen.getByRole('combobox', { name: /Your Property Status/i }),

@@ -8,6 +8,7 @@ import {
   VehicleTypeEnum,
   SortField,
   SortDirection,
+  LeaseTypeEnum,
 } from '../../../../generated/globalTypes';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
 
@@ -258,6 +259,80 @@ describe('<TopOffersContainer />', () => {
       manualBodyStyle: ['test'],
       shouldForceUpdate: false,
       setShouldForceUpdate: jest.fn(),
+      preLoadProductCardsData: {
+        productCard: [],
+        vehicleList: { edges: [] },
+        derivatives: [
+          {
+            id: '39359',
+            capCode: 'CIDI20242EVDTM2 4  L',
+            name: '1400 2.0 BlueHDi 120 Van Enterprise',
+            slug: '1400-20-bluehdi-120-van-enterprise',
+            manufacturer: {
+              name: 'Citroen',
+              slug: 'citroen',
+            },
+            model: {
+              name: 'Dispatch M',
+              slug: 'dispatch-m',
+            },
+            fuelType: {
+              name: 'Diesel',
+            },
+            transmission: {
+              name: 'Manual',
+            },
+            bodyStyle: null,
+            range: {
+              name: 'Dispatch',
+              slug: 'dispatch',
+            },
+          },
+        ],
+      },
+      preLoadVehiclesList: {
+        vehicleList: {
+          totalCount: 1,
+          pageInfo: {
+            startCursor: 'MQ',
+            endCursor: 'NA',
+            hasNextPage: false,
+            hasPreviousPage: false,
+          },
+          edges: [
+            {
+              cursor: 'MQ',
+              node: {
+                url:
+                  'van-leasing/citroen/berlingo/m-15-bluehdi-650kg-enterprise-75ps-2018',
+                legacyUrl: null,
+                vehicleType: VehicleTypeEnum.LCV,
+                offerRanking: 1,
+                onOffer: true,
+                derivativeId: '44514',
+                capCode: 'CIBE156E71VDTM2 4  L',
+                manufacturerName: 'Citroen',
+                modelName: 'Berlingo M',
+                derivativeName: '1.5 BlueHDi 650Kg Enterprise 75ps',
+                bodyStyle: 'Small Van',
+                transmission: 'Manual',
+                fuelType: 'Diesel',
+                financeProfiles: [
+                  {
+                    leaseType: LeaseTypeEnum.BUSINESS,
+                    rate: 133.97,
+                    term: 24,
+                    upfront: 12,
+                    upfrontPayment: 1607.64,
+                    mileage: 6000,
+                    maintained: false,
+                  },
+                ],
+              },
+            },
+          ],
+        },
+      },
     };
   };
 
@@ -267,8 +342,7 @@ describe('<TopOffersContainer />', () => {
     jest.clearAllMocks();
   });
 
-  // TODO: should be investigate why Mock Provider can't resolve mocked queries
-  it.skip('should be render correctly Top Offers for special offer Page', async () => {
+  it('should be render correctly Top Offers for special offer Page', async () => {
     // ACT
     const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>

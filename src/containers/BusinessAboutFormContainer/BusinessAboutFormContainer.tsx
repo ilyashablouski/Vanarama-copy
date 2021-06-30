@@ -206,7 +206,7 @@ export const BusinessAboutPageContainer: React.FC<IBusinessAboutFormContainerPro
     aboutPageDataQuery?.loading ||
     getCreditApplicationByOrderUuidQuery.loading
   ) {
-    return <Loading size="large" />;
+    return <Loading dataTestId="about-you_loading" size="large" />;
   }
 
   if (aboutPageDataQuery?.error || !aboutPageDataQuery?.data?.allDropDowns) {

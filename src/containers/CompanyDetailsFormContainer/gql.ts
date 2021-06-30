@@ -117,7 +117,10 @@ export function makeSicCodesMock(onComplete: () => void) {
                 sicCode: '62020',
                 description: 'Information technology consultancy activities',
               },
-              { sicCode: '121212', description: 'test test' },
+              {
+                sicCode: '121212',
+                description: 'test test',
+              },
             ],
           },
         },
