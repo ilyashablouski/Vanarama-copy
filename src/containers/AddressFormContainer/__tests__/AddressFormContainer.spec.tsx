@@ -3,10 +3,7 @@ import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { GetAddressContainerDataQueryVariables as QueryVariables } from '../../../../generated/GetAddressContainerDataQuery';
-import {
-  SaveAddressHistoryMutation as Mutation,
-  SaveAddressHistoryMutationVariables as MutationVariables,
-} from '../../../../generated/SaveAddressHistoryMutation';
+import { SaveAddressHistoryMutation as Mutation } from '../../../../generated/SaveAddressHistoryMutation';
 import { parseDate } from '../../../utils/dates';
 import AddressFormContainer from '../AddressFormContainer';
 import {
