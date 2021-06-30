@@ -247,7 +247,7 @@ describe('<AboutForm />', () => {
     fireEvent.input(screen.getByTestId('aboutAdultsInHouse'), {
       target: { value: '1' },
     });
-    fireEvent.input(screen.getByTestId('aboutTermsAndCons'), {
+    fireEvent.input(screen.getByTestId('aboutTermsAndConditionsB2C'), {
       target: { checked: true },
     });
     fireEvent.input(screen.getByTestId('aboutPrivacyPolicy'), {

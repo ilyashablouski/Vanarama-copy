@@ -223,7 +223,7 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         <Checkbox
           id="consent"
           name="consent"
-          dataTestId="about-you_consent"
+          dataTestId="aboutYouConsentB2B"
           ref={register({
             validate: value =>
               value ? undefined : 'You must be authorised to apply for credit',
@@ -233,14 +233,14 @@ const BusinessAboutForm: FCWithFragments<IProps> = ({
         <Checkbox
           id="marketing"
           name="marketing"
-          dataTestId="about-you_marketing"
+          dataTestId="aboutMarketingB2B"
           ref={register}
           label="I want to be kept updated about exclusive deals & offers."
         />
         <Checkbox
-          id="terms_and_conditions"
+          id="termsAndConditions"
           name="termsAndConditions"
-          dataTestId="about-you_terms-and-conditions"
+          dataTestId="aboutTermsAndConditionsB2B"
           ref={register({
             validate: value =>
               value ? undefined : 'The terms and conditions must be accepted',
