@@ -46,7 +46,8 @@ const GlobalSearchContainer = () => {
     if (searchValue && !isOpenResults) {
       setIsOpenResults(true);
     }
-  }, [isOpenResults, searchValue]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchValue]);
 
   useEffect(() => {
     const handleRouteChange = () => {
@@ -56,6 +57,7 @@ const GlobalSearchContainer = () => {
     return () => {
       router.events.off('beforeHistoryChange', handleRouteChange);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return isVisible ? (
