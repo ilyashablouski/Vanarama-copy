@@ -31,8 +31,9 @@ export const filtersConfig = [
     multiselect: false,
     label: 'Budget',
     key: 'budget',
-    renderValuesFunction: value => renderBudgetValue(value),
-    renderSelectedFunction: values => renderBudgetSelected(values),
+    renderValuesFunction: (value: string) => renderBudgetValue(value),
+    renderSelectedFunction: (values: (string | null)[]) =>
+      renderBudgetSelected(values),
     innerSelects: [
       {
         title: 'Price From',
