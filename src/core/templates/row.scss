@@ -505,6 +505,10 @@
         @include mobile {
           order: -1;
         }
+
+        &:not([class]) > * + * {
+          margin-top: var(--owl-gap, 1rem);
+        }
       }
 
       > .card-content {
