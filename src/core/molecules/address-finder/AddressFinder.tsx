@@ -66,6 +66,11 @@ const AddressFinder: AddressFinderComponent = ({
     }
   }
 
+  function handleManualAddingClick() {
+    dispatch({ type: 'CHANGE_INPUT', value: '' });
+    dispatch({ type: 'SHOW_MANUAL_ADDING_FORM' });
+  }
+
   useEffect(() => {
     if (!selected?.id && selected?.label && data.length) {
       if (
@@ -126,7 +131,7 @@ const AddressFinder: AddressFinderComponent = ({
           onClearSuggestion: () => onSuggestionChange(),
           onEditSuggestion: () => handleSuggestionChange(),
           onClearIntermediate: () => dispatch({ type: 'CLEAR_INTERMEDIATE' }),
-          onManualAdding: () => dispatch({ type: 'SHOW_MANUAL_ADDING_FORM' }),
+          onManualAdding: handleManualAddingClick,
           onBackToSearch: () => dispatch({ type: 'BACK_TO_SEARCH' }),
           onSuggestionSelected: handleSuggestionSelect,
           onManualSubmit: handleManualAdding,
