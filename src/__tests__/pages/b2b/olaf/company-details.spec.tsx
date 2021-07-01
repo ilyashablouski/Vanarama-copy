@@ -2,10 +2,7 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import {
-  SaveCompanyDetailsMutation,
-  SaveCompanyDetailsMutationVariables,
-} from '../../../../../generated/SaveCompanyDetailsMutation';
+import { SaveCompanyDetailsMutation } from '../../../../../generated/SaveCompanyDetailsMutation';
 import {
   SearchCompaniesQuery,
   SearchCompaniesQueryVariables,
