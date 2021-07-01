@@ -766,7 +766,7 @@
   }
 }
 
-.article-placeholder {
+.simple-placeholder {
   width: 100%;
 
   &__wrapper {
@@ -782,18 +782,6 @@
     height: 100%;
     position: relative;
     overflow: hidden;
-
-    &:not(:first-child) {
-      @include mobile() {
-        display: none;
-      }
-    }
-
-    &:last-child {
-      @media (min-width: #{$vp-small}) and (max-width: #{$vp-large - 1px}) {
-        display: none;
-      }
-    }
 
     &:before {
       content: '';
