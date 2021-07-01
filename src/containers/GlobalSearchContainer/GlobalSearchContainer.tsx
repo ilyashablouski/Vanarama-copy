@@ -119,7 +119,7 @@ const GlobalSearchContainer = () => {
             <div className="header-search-results-container">
               <GlobalSearchLeftSideContainer
                 suggestions={suggestions.suggestsList}
-                aggregation={suggestions.aggregation}
+                totalCount={suggestions.totalCount}
               />
               <GlobalSearchRightSideContainer
                 suggestions={
@@ -128,7 +128,7 @@ const GlobalSearchContainer = () => {
                     : suggestions.vehiclesList.slice(0, 5)
                 }
                 searchQuery={fieldValue}
-                aggregation={suggestions.aggregation}
+                totalCount={suggestions.totalCount}
               />
               <div className="info">
                 <span className="heading -small -dark">More Information</span>

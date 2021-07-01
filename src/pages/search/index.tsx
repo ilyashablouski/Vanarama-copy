@@ -12,7 +12,7 @@ import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { decodeData, encodeData } from '../../utils/data';
 import {
   GET_CARDS_DATA,
-  GET_TEXT_SEARCH_VEHICLES_DATA,
+  GET_PRODUCT_DERIVATIVES,
 } from '../../containers/GlobalSearchContainer/gql';
 import {
   fullTextSearchVehicleList,
@@ -113,7 +113,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let vansData;
   const textSearchList = await client
     .query<fullTextSearchVehicleList, fullTextSearchVehicleListVariables>({
-      query: GET_TEXT_SEARCH_VEHICLES_DATA,
+      query: GET_PRODUCT_DERIVATIVES,
       variables: {
         query: contextData.query.searchTerm as string,
         from: 0,

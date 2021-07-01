@@ -1,27 +1,23 @@
 import { useEffect, useState } from 'react';
 import GlobalSearchCard from './GlobalSearchCard';
-import {
-  fullTextSearchVehicleList_fullTextSearchVehicleList_aggregation as IFullTextSearchAggregation,
-  fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles as ISuggestion,
-} from '../../../generated/fullTextSearchVehicleList';
+import { productDerivatives_productDerivatives_derivatives as ISuggestion } from '../../../generated/productDerivatives';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { IGSVehiclesCardsData } from '../GlobalSearchPageContainer/GlobalSearchPageContainer';
 import { useGSCardsData } from './gql';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import DropdownNoResults from './DropdownNoResults';
-import { Nullable } from '../../types/common';
 
 interface IProps {
   suggestions: ISuggestion[];
   searchQuery: string;
-  aggregation: Nullable<IFullTextSearchAggregation>;
+  totalCount: number;
 }
 
 const GlobalSearchRightSideContainer = ({
   suggestions,
   searchQuery,
-  aggregation,
+  totalCount,
 }: IProps) => {
   const [lcvCardsData, setLcvCardsData] = useState<ICardsData[]>([]);
   const [carCardsData, setCarCardsData] = useState<ICardsData[]>([]);
@@ -50,12 +46,12 @@ const GlobalSearchRightSideContainer = ({
   useEffect(() => {
     if (suggestions.length) {
       const carsCapIds = suggestions
-        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.CAR)
-        .map(vehicle => vehicle.derivativeId)
+        ?.filter(vehicle => vehicle.vehicle_type === VehicleTypeEnum.CAR)
+        .map(vehicle => `${vehicle.derivative_id}`)
         .filter(value => value) as string[];
       const vansCapIds = suggestions
-        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.LCV)
-        .map(vehicle => vehicle.derivativeId)
+        ?.filter(vehicle => vehicle.vehicle_type === VehicleTypeEnum.LCV)
+        .map(vehicle => `${vehicle.derivative_id}`)
         .filter(value => value) as string[];
       if (carsCapIds[0]) {
         getCarCardsData({
@@ -85,7 +81,7 @@ const GlobalSearchRightSideContainer = ({
 
   return (
     <div className="header-search-results">
-      {aggregation?.totalVehicles === 0 ? (
+      {totalCount === 0 ? (
         <DropdownNoResults searchQuery={searchQuery} />
       ) : (
         <>
@@ -97,10 +93,15 @@ const GlobalSearchRightSideContainer = ({
                 <GlobalSearchCard
                   data={data}
                   imgUrl={getImgUrl(
-                    data.derivativeId || '',
-                    data.vehicleType || VehicleTypeEnum.LCV,
+                    `${data.derivative_id}`,
+                    (data.vehicle_type as VehicleTypeEnum) ??
+                      VehicleTypeEnum.LCV,
                   )}
-                  key={data?.derivativeId || `${data?.derivativeName}` || idx}
+                  key={
+                    `${data?.derivative_id}` ||
+                    `${data?.derivative_name}` ||
+                    idx
+                  }
                 />
               );
             })}
