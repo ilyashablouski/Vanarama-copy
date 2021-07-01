@@ -59,4 +59,10 @@ export const filtersConfig = [
     label: 'Fuel Type',
     key: 'fuelTypes',
   },
+  {
+    type: 'drop-down',
+    multiselect: true,
+    label: 'Transmission',
+    key: 'transmissions',
+  },
 ];
