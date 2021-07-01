@@ -271,7 +271,7 @@ pipeline {
                }
             }
         }
-          stage("9: Jira Feedback..."){
+          stage("5: Jira Feedback..."){
             agent { node('master') }
             environment { //todo can the agent determine path.
               PATH = "${env.PATH}:/usr/local/bin"
@@ -303,7 +303,7 @@ pipeline {
             }
           }
           
-        stage("10. Clear Coudflare Cache"){
+        stage("6. Clear Coudflare Cache"){
             agent { node('master') }
             environment { //todo can the agent determine path.
               PATH = "${env.PATH}:/usr/local/bin"
@@ -331,7 +331,7 @@ pipeline {
               }
             }
           }
-          stage("11. Cut a release?") {
+          stage("7. Cut a release?") {
             input {
                 message 'Cut a release?'
             }
