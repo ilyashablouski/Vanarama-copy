@@ -67,7 +67,7 @@ const AddressFinder: AddressFinderComponent = ({
   }
 
   useEffect(() => {
-    if (!selected?.id && selected?.label && data.length) {
+    if (!shouldSkipLookUp && !selected?.id && selected?.label && data.length) {
       if (
         (data.length === 1 && data[0].type === 'Address') ||
         state.intermediate
