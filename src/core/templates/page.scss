@@ -102,6 +102,23 @@
     @include mobile {
       --page-gap: calc(var(--layout-gap) * 2);
     }
+
+
+    .simple-placeholder {
+      &__item {
+        &:not(:first-child) {
+          @include mobile() {
+            display: none;
+          }
+        }
+
+        &:last-child {
+          @media (min-width: #{$vp-small}) and (max-width: #{$vp-large - 1px}) {
+            display: none;
+          }
+        }
+        }
+      }
   }
 
   &pdp {
