@@ -74,6 +74,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
       className="-product -mh-auto"
       countItems={countItems || 6}
       key={carouselKey}
+      placeholderHeight={isSmallScreen || isMediumScreen ? '567px' : '617px'}
     >
       {data.productCard?.map(
         (product, inx) =>
