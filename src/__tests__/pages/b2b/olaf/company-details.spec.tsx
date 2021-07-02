@@ -2,10 +2,7 @@ import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import React from 'react';
-import {
-  SaveCompanyDetailsMutation,
-  SaveCompanyDetailsMutationVariables,
-} from '../../../../../generated/SaveCompanyDetailsMutation';
+import { SaveCompanyDetailsMutation } from '../../../../../generated/SaveCompanyDetailsMutation';
 import {
   SearchCompaniesQuery,
   SearchCompaniesQueryVariables,
@@ -124,6 +121,8 @@ describe('B2B Company Details page', () => {
             input: {
               addresses: [
                 {
+                  id: undefined,
+                  label: undefined,
                   kind: 'registered',
                   serviceId: 'GB|RM|A|54725860',
                 },
@@ -150,7 +149,7 @@ describe('B2B Company Details page', () => {
               uuid: MOCK_COMPANY_UUID,
               withTradingAddress: false,
             },
-          } as SaveCompanyDetailsMutationVariables,
+          },
         },
         result: mutationMock.mockImplementation(() => ({
           data: {
@@ -245,6 +244,8 @@ describe('B2B Company Details page', () => {
               tradingSince: '2004-5-01',
               addresses: [
                 {
+                  id: undefined,
+                  label: undefined,
                   kind: 'registered',
                   serviceId: 'GB|RM|A|54725860',
                 },
@@ -263,7 +264,7 @@ describe('B2B Company Details page', () => {
                 },
               ],
             },
-          } as SaveCompanyDetailsMutationVariables,
+          },
         },
         result: mutationMock.mockImplementation(() => ({
           data: {
@@ -396,10 +397,14 @@ describe('B2B Company Details page', () => {
               tradingSince: '2004-05-25',
               addresses: [
                 {
+                  id: undefined,
+                  label: undefined,
                   kind: 'registered',
                   serviceId: 'GB|RM|A|54725860',
                 },
                 {
+                  id: undefined,
+                  label: undefined,
                   kind: 'trading',
                   serviceId: 'GB|RM|A|54725861',
                 },
@@ -418,7 +423,7 @@ describe('B2B Company Details page', () => {
                 },
               ],
             },
-          } as SaveCompanyDetailsMutationVariables,
+          },
         },
         result: mutationMock.mockImplementation(() => ({
           data: {
