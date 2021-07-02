@@ -37,7 +37,9 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
       <article
         class="markdown"
       >
-        <h4>
+        <h4
+          id="by-paul-kirby--vanarama-head-of-ev---lcv"
+        >
           <strong>
             By Paul Kirby, Vanarama Head Of EV & LCV
           </strong>
