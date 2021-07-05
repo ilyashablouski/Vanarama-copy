@@ -50,6 +50,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                     
                     <img
                       class="card-image"
+                      data-cfasync="false"
                       data-testid="card-image"
                       loading="lazy"
                       sizes="(min-width:320px) 800px, 1200px"

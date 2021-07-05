@@ -182,6 +182,7 @@ Array [
         >
           <img
             className="card-image"
+            data-cfasync="false"
             data-testid="card-image"
             loading="lazy"
             onError={[Function]}
@@ -308,6 +309,7 @@ Array [
         >
           <img
             className="card-image"
+            data-cfasync="false"
             data-testid="card-image"
             loading="lazy"
             onError={[Function]}
@@ -531,6 +533,7 @@ Array [
         >
           <img
             className="card-image"
+            data-cfasync="false"
             data-testid="card-image"
             loading="lazy"
             onError={[Function]}
@@ -657,6 +660,7 @@ Array [
         >
           <img
             className="card-image"
+            data-cfasync="false"
             data-testid="card-image"
             loading="lazy"
             onError={[Function]}
