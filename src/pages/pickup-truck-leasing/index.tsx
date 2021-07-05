@@ -751,7 +751,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     } = await pickupsPageOffersRequest(client);
 
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data: encodeData(data),
         searchPodVansData,
