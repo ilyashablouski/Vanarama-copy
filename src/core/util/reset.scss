@@ -20,6 +20,10 @@ textarea {
   }
 }
 
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
 /* Document
    ========================================================================== */
 

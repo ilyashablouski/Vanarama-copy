@@ -1,6 +1,10 @@
 import { NextPage, NextPageContext } from 'next';
-import { ApolloQueryResult } from '@apollo/client';
-import { ISearchPageProps } from '../../models/ISearchPageProps';
+import { ApolloError, ApolloQueryResult } from '@apollo/client';
+import { ServerResponse } from 'http';
+import {
+  INotFoundPageData,
+  ISearchPageProps,
+} from '../../models/ISearchPageProps';
 import createApolloClient from '../../apolloClient';
 import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
@@ -30,6 +34,8 @@ import {
 import { GET_FILTERS_DATA } from '../../containers/GlobalSearchPageContainer/gql';
 import { buildInitialFilterState } from '../../containers/GlobalSearchPageContainer/helpers';
 import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
+import { notFoundPageHandler } from '../../utils/url';
+import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNotFoundContainer';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -40,6 +46,8 @@ interface IProps extends ISearchPageProps {
   responseVansCapIds?: string[];
   responseCarsCapIds?: string[];
   initialFilters: IFiltersData;
+  error?: ApolloError;
+  notFoundPageData?: INotFoundPageData;
 }
 
 const Page: NextPage<IProps> = ({
@@ -52,7 +60,18 @@ const Page: NextPage<IProps> = ({
   vansData,
   responseVansCapIds,
   responseCarsCapIds,
+  error,
+  notFoundPageData,
 }) => {
+  if (error) {
+    return (
+      <PageNotFoundContainer
+        featured={notFoundPageData?.featured}
+        cards={notFoundPageData?.cards}
+        name={notFoundPageData?.name}
+      />
+    );
+  }
   return (
     <GlobalSearchPageContainer
       metaData={metaData}
@@ -69,6 +88,13 @@ const Page: NextPage<IProps> = ({
 };
 export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({}, context);
+  // TODO: Should be removed after GlobalSearch release
+  const isEnableGSFeature = context?.req?.headers?.cookie?.includes(
+    'DIG-5552=1',
+  );
+  if (!isEnableGSFeature) {
+    return notFoundPageHandler(context.res as ServerResponse, client);
+  }
   const contextData = {
     req: {
       url: context.req?.url || '',

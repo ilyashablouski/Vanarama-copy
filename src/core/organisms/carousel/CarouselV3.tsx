@@ -8,14 +8,15 @@ import Ellipse from '../../assets/icons/Ellipse';
 import Icon from '../../atoms/icon';
 import { ICarouselProps } from './interface';
 import TopArticlesPlaceholder from '../../../components/TopArticlesPlaceholder';
+import useMount from '../../../hooks/useMount';
 
 const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
   const [index, setIndex] = useState(0);
-  const [isMountedCarousel, setIsMountedCarousel] = useState<boolean>(false);
   let carouselRef: any;
 
   const isMediumScreen = useMediaQuery({ minWidth: 768, maxWidth: 1215 });
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
+  const isMountedCarousel = useMount();
 
   let slidesToShow = 3;
   if (isSmallScreen) {
@@ -24,23 +25,21 @@ const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
     slidesToShow = 2;
   }
 
-  useEffect(() => {
-    setIsMountedCarousel(true);
-  }, []);
-
   //  Carousel card height fix
   //  useEffect has been used to apply a CSS class '-v-height' to each .card found within
   //  the carousel component after a short delay. This is because we had to wait until
   //  the <Carousel> component had finshed applying all its inline CSS calculations.
 
   useEffect(() => {
-    setTimeout(() => {
-      const sliders = document.querySelectorAll('.carousel .card');
-      Array.from(Array(sliders.length)).forEach((el, id) => {
-        (sliders[id] as HTMLElement).className += ' -v-height';
-      });
-    }, 200);
-  }, []);
+    if (isMountedCarousel) {
+      setTimeout(() => {
+        const sliders = document.querySelectorAll('.carousel .card');
+        Array.from(Array(sliders.length)).forEach((el, id) => {
+          (sliders[id] as HTMLElement).className += ' -v-height';
+        });
+      }, 200);
+    }
+  }, [isMountedCarousel]);
 
   return (
     <div className={cx('carousel', className)}>

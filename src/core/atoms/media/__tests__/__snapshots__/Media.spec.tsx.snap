@@ -317,6 +317,7 @@ exports[`<Media /> renders youtube thumb correctly 1`] = `
             >
               <img
                 className="image--native"
+                data-cfasync="false"
                 loading="eager"
                 onError={[Function]}
                 sizes="(min-width:320px) 800px, 1200px"
