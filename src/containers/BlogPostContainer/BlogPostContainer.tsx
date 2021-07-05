@@ -1,5 +1,7 @@
+import React from 'react';
 import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
+import Link from 'core/atoms/link';
 import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
@@ -11,21 +13,23 @@ import { BlogPosts_blogPosts_articles } from '../../../generated/BlogPosts';
 import { setSource } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { IHeading, IImage, ILink, IParagraph } from './interface';
+import { flattenHeadingText } from './helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={4} />,
 });
-const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
+const Media = dynamic(() => import('core/atoms/media'), {
+  ssr: false,
 });
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={5} />,
-});
-const Media = dynamic(() => import('core/atoms/media'), {
-  ssr: false,
 });
 const Breadcrumb = dynamic(
   () => import('../../components/Breadcrumb/Breadcrumb'),
@@ -33,6 +37,61 @@ const Breadcrumb = dynamic(
     loading: () => <Skeleton count={1} />,
   },
 );
+
+export const renderHeading = (props: IHeading) => {
+  const children = React.Children.toArray(props.children);
+  const text = children.reduce(flattenHeadingText, '');
+  const slug = text.toLowerCase().replace(/\W/g, '-');
+
+  return React.createElement(
+    `h${props.level}`,
+    {
+      id: slug,
+    },
+    props.children,
+  );
+};
+
+export const renderLink = (props: ILink) => {
+  const { href, children } = props;
+
+  return /^#/.test(href) ? (
+    <Link href={href}>{children}</Link>
+  ) : (
+    <RouterLink
+      link={{ href, label: children }}
+      classNames={{ color: 'teal' }}
+    />
+  );
+};
+
+export const renderImage = (props: IImage) => (
+  <img
+    width="90%"
+    src={props.src}
+    alt={props.alt}
+    style={{
+      margin: '1rem auto',
+      display: 'block',
+    }}
+  />
+);
+
+export const renderParagraph = (props: IParagraph) => {
+  const { children } = props;
+  const isChangeToIframe = children.filter((el: any) =>
+    el.props.value?.match('<a'),
+  );
+
+  if (isChangeToIframe.length) {
+    const iframeSrc = isChangeToIframe[0].props.value
+      .split('href="')[1]
+      .split('"')[0];
+    return <Media src={iframeSrc || ''} height="350px" width="100%" />;
+  }
+
+  return <Text {...props} tag="p" color="darker" />;
+};
 
 interface IProps {
   body: string | null | undefined;
@@ -46,22 +105,6 @@ interface IProps {
   metaData?: GenericPageHeadQuery_genericPage_metaData | null | undefined;
   articles?: (BlogPosts_blogPosts_articles | null)[] | null | undefined;
 }
-
-interface IImage {
-  src: string;
-  alt: string;
-}
-
-const renderImage = ({ src, alt }: IImage) => {
-  return (
-    <img
-      alt={alt}
-      style={{ margin: '1rem auto', display: 'block' }}
-      width="90%"
-      src={src}
-    />
-  );
-};
 
 const BlogPostContainer: NextPage<IProps> = ({
   body,
@@ -98,31 +141,10 @@ const BlogPostContainer: NextPage<IProps> = ({
             allowDangerousHtml
             source={body || ''}
             renderers={{
-              link: props => {
-                const { href, children } = props;
-                return (
-                  <RouterLink
-                    link={{ href, label: children }}
-                    classNames={{ color: 'teal' }}
-                  />
-                );
-              },
-              paragraph: props => {
-                const { children } = props;
-                const isChangeToIframe = children.filter((el: any) =>
-                  el.props.value?.match('<a'),
-                );
-                if (isChangeToIframe.length) {
-                  const iframeSrc = isChangeToIframe[0].props.value
-                    .split('href="')[1]
-                    .split('"')[0];
-                  return (
-                    <Media src={iframeSrc || ''} height="350px" width="100%" />
-                  );
-                }
-                return <Text {...props} tag="p" color="darker" />;
-              },
-              image: props => renderImage(props),
+              link: renderLink,
+              heading: renderHeading,
+              paragraph: renderParagraph,
+              image: renderImage,
             }}
           />
         </article>
