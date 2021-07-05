@@ -7,10 +7,15 @@ import ArrowForwardSharp from '../../assets/icons/ArrowForwardSharp';
 import Ellipse from '../../assets/icons/Ellipse';
 import Icon from '../../atoms/icon';
 import { ICarouselProps } from './interface';
-import TopArticlesPlaceholder from '../../../components/TopArticlesPlaceholder';
+import SimplePlaceholder from '../../../components/SimplePlaceholder';
 import useMount from '../../../hooks/useMount';
 
-const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
+const Slider: FC<ICarouselProps> = ({
+  children,
+  className,
+  countItems,
+  placeholderHeight,
+}) => {
   const [index, setIndex] = useState(0);
   let carouselRef: any;
 
@@ -61,7 +66,10 @@ const Slider: FC<ICarouselProps> = ({ children, className, countItems }) => {
           {children}
         </Carousel>
       ) : (
-        <TopArticlesPlaceholder numberOfPlaceholders={3} height="420px" />
+        <SimplePlaceholder
+          numberOfPlaceholders={slidesToShow}
+          height={placeholderHeight}
+        />
       )}
 
       <nav className="carousel--nav">
