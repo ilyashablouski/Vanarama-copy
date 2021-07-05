@@ -42,8 +42,8 @@ const Error = () => {
 };
 
 export async function getServerSideProps(ctx: NextPageContext) {
-  console.log('Request: ', ctx.req);
-  console.log('Response: ', ctx.res);
-  console.log('Error: ', ctx.err);
+  console.log(`[NSF request]: ${JSON.stringify(ctx.req, null, 4)}\n`);
+  console.log(`[NSF response]: ${JSON.stringify(ctx.res, null, 4)}\n`);
+  console.log(`[NSF error]: ${ctx.err}\n`);
 }
 export default Error;
