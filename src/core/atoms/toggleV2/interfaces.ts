@@ -18,4 +18,8 @@ export interface IToggleV2Props extends IBaseProps {
    */
   rightValue?: string;
   getValue?: any;
+  /**
+   * Whether the toggle is checked - in controlled mode
+   */
+  checked?: boolean;
 }

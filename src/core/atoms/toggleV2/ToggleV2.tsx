@@ -5,7 +5,7 @@ import { IToggleV2Props } from './interfaces';
 const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
   HTMLInputElement,
   IToggleV2Props
->((props, ref) => {
+>(props => {
   const {
     className,
     leftValue,
@@ -13,6 +13,7 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
     leftLabel,
     rightLabel,
     getValue,
+    checked,
   } = props;
 
   const handleInputChange = (toggleValue: any) => {
@@ -25,7 +26,7 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
         type="radio"
         id="r1"
         name="t"
-        checked={true}
+        checked={checked}
         onChange={e => handleInputChange(e)}
       />
       <label htmlFor="r1">{leftLabel}</label>
@@ -34,6 +35,7 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
         type="radio"
         id="r2"
         name="t"
+        checked={!checked}
         onChange={e => handleInputChange(e)}
       />
       <label htmlFor="r2">{rightLabel}</label>
