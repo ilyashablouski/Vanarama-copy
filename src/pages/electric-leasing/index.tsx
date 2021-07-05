@@ -414,7 +414,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     } = await evOffersRequest(client);
 
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data: data || null,
         productsEvCar: productsEvCar || null,
