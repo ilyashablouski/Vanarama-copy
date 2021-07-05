@@ -1,4 +1,5 @@
 import dynamic from 'next/dynamic';
+import { NextPageContext } from 'next';
 
 import Heading from 'core/atoms/heading';
 
@@ -40,5 +41,9 @@ const Error = () => {
   );
 };
 
-// TODO: https://autorama.atlassian.net/browse/DIG-5611
+export async function getServerSideProps(ctx: NextPageContext) {
+  console.log('Request: ', ctx.req);
+  console.log('Response: ', ctx.res);
+  console.log('Error: ', ctx.err);
+}
 export default Error;
