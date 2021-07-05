@@ -167,6 +167,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                     alt="Free insurance"
                     className="gallery-free-insurance"
                     src={`${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`}
+                    data-cfasync="false"
                   />
                 )}
               <div className="-flex-h">
