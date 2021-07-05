@@ -7,6 +7,7 @@ exports[`<Card /> Article Card should render correctly 1`] = `
 >
   <img
     className="card-image"
+    data-cfasync="false"
     data-testid="card-image"
     loading="lazy"
     onError={[Function]}
@@ -49,6 +50,7 @@ exports[`<Card /> Featured Review Card should render correctly 1`] = `
 >
   <img
     className="card-image"
+    data-cfasync="false"
     data-testid="card-image"
     loading="lazy"
     onError={[Function]}
@@ -83,6 +85,7 @@ exports[`<Card /> should render correctly only image 1`] = `
 >
   <img
     className="card-image"
+    data-cfasync="false"
     data-testid="card-image"
     loading="lazy"
     onError={[Function]}
