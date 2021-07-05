@@ -4,8 +4,7 @@ exports[`<Carousel /> should render correctly with children 1`] = `
 <div
   className="carousel"
 >
-  <TopArticlesPlaceholder
-    height="420px"
+  <SimplePlaceholder
     numberOfPlaceholders={3}
   />
   <nav
@@ -86,8 +85,7 @@ exports[`<Carousel /> should render correctly with two children 1`] = `
 <div
   className="carousel"
 >
-  <TopArticlesPlaceholder
-    height="420px"
+  <SimplePlaceholder
     numberOfPlaceholders={3}
   />
   <nav
