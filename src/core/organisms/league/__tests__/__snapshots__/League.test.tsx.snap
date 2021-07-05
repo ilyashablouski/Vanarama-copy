@@ -8,6 +8,7 @@ Array [
     >
       <img
         className="image--native"
+        data-cfasync="false"
         loading="eager"
         onError={[Function]}
         sizes="(min-width:320px) 800px, 1200px"
@@ -40,6 +41,7 @@ Array [
     >
       <img
         className="image--native"
+        data-cfasync="false"
         loading="eager"
         onError={[Function]}
         sizes="(min-width:320px) 800px, 1200px"
@@ -60,6 +62,7 @@ Array [
       <img
         alt="image1"
         className="image--native"
+        data-cfasync="false"
         loading="eager"
         onError={[Function]}
         sizes="(min-width:320px) 800px, 1200px"
@@ -93,6 +96,7 @@ Array [
       <img
         alt="image1"
         className="image--native"
+        data-cfasync="false"
         loading="eager"
         onError={[Function]}
         sizes="(min-width:320px) 800px, 1200px"
