@@ -119,9 +119,9 @@ def createReleaseBranch(appEnvironment, sourceBranch) {
 
 def getDockerTagName() {
     if ( "${branchName}" =~ "hotfix/*" ) {
-        return "${branchName}_pre-prod".replace("hotfix/", "hotfix-H${env.CHANGE_ID}-B${env.BUILD_NUMBER}-")
+        return "${branchName}".replace("hotfix/", "hotfix-H${env.CHANGE_ID}-B${env.BUILD_NUMBER}-")
     } else if ( "${branchName}" =~ "release/*" ) {
-        return "${branchName}_uat".replace('/', '-')
+        return "${branchName}".replace('/', '-')
     } else {
         // for develop, create artifact following this format - develop-B<build-no>-<date>
         def dateNow = new Date()
