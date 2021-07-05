@@ -237,7 +237,7 @@ const CustomiseLease = ({
   }, [quoteByCapId, maintenance]);
 
   const isMobile = useMobileViewport();
-  const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
+  const stateVAT = leaseType === LeaseTypeEnum.PERSONAL ? 'inc' : 'exc';
 
   const setSessionValues = () => {
     const mileageValue = mileages.indexOf(mileage || 0) + 1;
