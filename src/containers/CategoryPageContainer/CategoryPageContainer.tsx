@@ -48,7 +48,6 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   activePageRoute,
 }) => {
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
-  const isMediumScreen = useMediaQuery({ minWidth: 768, maxWidth: 1215 });
   const [activePage] = useState(activePageRoute || 1);
 
   const articlesSorted = articles
@@ -308,9 +307,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             <Carousel
               className="-mh-auto"
               countItems={5}
-              placeholderHeight={
-                isSmallScreen || isMediumScreen ? '420px' : '428px'
-              }
+              placeholderHeight="420px"
             >
               {renderCarouselCards(data?.topArticles)}
             </Carousel>
