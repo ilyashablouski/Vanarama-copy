@@ -7,6 +7,12 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
   IToggleV2Props
 >(props => {
   const {
+    leftId,
+    leftName,
+    rightId,
+    rightName,
+    leftDataTestId,
+    rightDataTestId,
     className,
     leftValue,
     rightValue,
@@ -24,8 +30,9 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
       <input
         value={leftValue}
         type="radio"
-        id="r1"
-        name="t"
+        id={leftId}
+        data-testid={leftDataTestId}
+        name={leftName}
         checked={checked}
         onChange={e => handleInputChange(e)}
       />
@@ -33,8 +40,9 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
       <input
         value={rightValue}
         type="radio"
-        id="r2"
-        name="t"
+        id={rightId}
+        data-testid={rightDataTestId}
+        name={rightName}
         checked={!checked}
         onChange={e => handleInputChange(e)}
       />
