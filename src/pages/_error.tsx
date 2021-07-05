@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import dynamic from 'next/dynamic';
 import { NextPageContext } from 'next';
 
