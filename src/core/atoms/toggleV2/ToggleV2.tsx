@@ -22,7 +22,9 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
     checked,
   } = props;
 
-  const handleInputChange = (toggleValue: any) => {
+  const handleInputChange = (
+    toggleValue: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     getValue(toggleValue.target.value);
   };
   return (
