@@ -45,6 +45,7 @@ exports[`<WhyEligibilityChecker /> renders correctly 1`] = `
     <img
       alt="title"
       className="image--native"
+      data-cfasync="false"
       height="500"
       loading="eager"
       onError={[Function]}

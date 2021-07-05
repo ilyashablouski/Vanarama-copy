@@ -89,6 +89,7 @@ const Card: FC<ICardProps> = memo(props => {
           alt={alt}
           className="card-image"
           src={srcDefault || imageSrc || placeholderImage || undefined}
+          data-cfasync="false"
           data-testid="card-image"
           onError={onImageError}
         />
