@@ -34,6 +34,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
               <img
                 alt="Hero Image"
                 class="image--native"
+                data-cfasync="false"
                 data-testid="insurance_hero-image"
                 loading="eager"
                 sizes="(min-width:320px) 800px, 1200px"
@@ -420,6 +421,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
             loading="lazy"
             sizes="(min-width:320px) 800px, 1200px"
@@ -480,6 +482,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
             loading="lazy"
             sizes="(min-width:320px) 800px, 1200px"
@@ -540,6 +543,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
             loading="lazy"
             sizes="(min-width:320px) 800px, 1200px"
@@ -600,6 +604,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
             loading="lazy"
             sizes="(min-width:320px) 800px, 1200px"
@@ -660,6 +665,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
             loading="lazy"
             sizes="(min-width:320px) 800px, 1200px"
@@ -720,6 +726,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
             loading="lazy"
             sizes="(min-width:320px) 800px, 1200px"
@@ -817,6 +824,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         <img
           alt="Tesla-Test-6"
           class="image--native"
+          data-cfasync="false"
           loading="eager"
           sizes="(min-width:320px) 800px, 1200px"
           src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/24o810jIcvjhhvKGcxbvDZ/498e6cacaafaaff2e71f9e97bd4a44f7/Tesla-Test-6.jpg"
@@ -903,6 +911,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                   >
                     <img
                       class="card-image"
+                      data-cfasync="false"
                       data-testid="card-image"
                       loading="lazy"
                       sizes="(min-width:320px) 800px, 1200px"
