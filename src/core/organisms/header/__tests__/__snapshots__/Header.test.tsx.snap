@@ -635,6 +635,7 @@ exports[`<Header /> renders correctly with iVan CTA 1`] = `
         >
           <img
             className="image--native"
+            data-cfasync="false"
             loading="eager"
             onError={[Function]}
             sizes="(min-width:320px) 800px, 1200px"
@@ -1087,6 +1088,7 @@ exports[`<Header /> renders correctly with message 1`] = `
         >
           <img
             className="image--native"
+            data-cfasync="false"
             loading="eager"
             onError={[Function]}
             sizes="(min-width:320px) 800px, 1200px"

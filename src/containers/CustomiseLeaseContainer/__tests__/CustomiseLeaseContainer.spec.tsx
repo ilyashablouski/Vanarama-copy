@@ -5,7 +5,10 @@ import renderer from 'react-test-renderer';
 import CustomiseLeaseContainer from '../CustomiseLeaseContainer';
 import { useQuoteDataLazyQuery } from '../gql';
 import { IProps } from '../interfaces';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import {
+  VehicleTypeEnum,
+  LeaseTypeEnum,
+} from '../../../../generated/globalTypes';
 import { useOpportunityCreation } from '../../GoldrushFormContainer/gql';
 
 jest.mock('../gql');
@@ -139,7 +142,7 @@ describe('<CustomiseLeaseContainer />', () => {
             { id: '104562', optionDescription: 'Leather - Cranberry red' },
           ],
         }}
-        leaseType="Business"
+        leaseType={LeaseTypeEnum.BUSINESS}
         setLeaseType={jest.fn()}
         onCompleted={jest.fn()}
         mileage={6000}
@@ -258,7 +261,7 @@ describe('<CustomiseLeaseContainer />', () => {
         ],
         trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
       },
-      leaseType: 'Personal',
+      leaseType: LeaseTypeEnum.PERSONAL,
       setLeaseType: jest.fn(),
       onCompleted: jest.fn(),
       onCompletedCallBack: jest.fn(),
@@ -336,7 +339,7 @@ describe('<CustomiseLeaseContainer />', () => {
         ],
         trims: [{ id: '104562', optionDescription: 'Leather - Cranberry red' }],
       },
-      leaseType: 'Personal',
+      leaseType: LeaseTypeEnum.PERSONAL,
       setLeaseType: jest.fn(),
       onCompleted: jest.fn(),
       mileage: 6000,
@@ -447,7 +450,7 @@ describe('<CustomiseLeaseContainer />', () => {
             { id: '104562', optionDescription: 'Leather - Cranberry red' },
           ],
         }}
-        leaseType="Business"
+        leaseType={LeaseTypeEnum.BUSINESS}
         setLeaseType={jest.fn()}
         onCompleted={jest.fn()}
         mileage={6000}
