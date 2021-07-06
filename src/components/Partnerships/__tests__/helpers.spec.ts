@@ -1,4 +1,4 @@
-import { VehiclesTypeEnum } from '../../../../generated/globalTypes';
+import { VehiclesTypeEnum } from '../../../../entities/global';
 import { getPartnershipLinks } from '../helpers';
 
 describe(getPartnershipLinks, () => {
