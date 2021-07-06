@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef, useMemo } from 'react';
+import React, { FC, useState, useEffect, useRef } from 'react';
 import { ILeaseScannerProps } from './interfaces';
 import Icon from '../../atoms/icon';
 
