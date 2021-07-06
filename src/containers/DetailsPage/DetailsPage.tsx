@@ -34,8 +34,6 @@ import {
   GetVehicleDetails,
   GetVehicleDetails_vehicleDetails_rangeFaqs,
   GetVehicleDetails_vehicleImages,
-  GetVehicleDetails_derivativeInfo_colours,
-  GetVehicleDetails_derivativeInfo_trims,
   GetVehicleDetails_vehicleConfigurationByCapId,
 } from '../../../generated/GetVehicleDetails';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
@@ -432,14 +430,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   }
 
   const onSubmitClickMobile = () => {
-    const colourDescription = derivativeInfo?.colours?.find(
-      (item: GetVehicleDetails_derivativeInfo_colours | null) =>
-        item?.id === leaseScannerData?.quoteByCapId?.colour,
-    )?.optionDescription;
-    const trimDescription = derivativeInfo?.trims?.find(
-      (item: GetVehicleDetails_derivativeInfo_trims | null) =>
-        item?.id === leaseScannerData?.quoteByCapId?.trim,
-    )?.optionDescription;
+    const colourDescription = colourList?.find(
+      item =>
+        item?.optionId?.toString() === leaseScannerData?.quoteByCapId?.colour,
+    )?.label;
+    const trimDescription = trimList?.find(
+      item =>
+        item?.optionId?.toString() === leaseScannerData?.quoteByCapId?.trim,
+    )?.label;
     onSubmitClick({
       leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
       lineItems: [
