@@ -37,7 +37,7 @@ export const handleNetworkError = () =>
 
 const toThankYouPage = () => {
   const asPath = Router.asPath.match(/([\w-]+)(\.html)?$/i)?.[1];
-  Router.push(`${asPath}/thank-you`);
+  Router.push(`/van-insurance/${asPath}/thank-you`);
 };
 
 const FinanceGapInsurancePageContainer = ({
