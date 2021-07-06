@@ -171,14 +171,6 @@ export const getOrderList = ({
       dataTestId: 'delivery',
       isOrange: true,
     },
-    {
-      label: 'Roadside Assistance:',
-      value: `${roadsideAssistance?.years} YEAR INCLUDED`,
-      id: 'roadsideAssistance',
-      key: `${roadsideAssistance?.years}`,
-      dataTestId: 'roadsideAssistance',
-      isOrange: true,
-    },
   ];
 
   if (!pickups) {
@@ -191,6 +183,20 @@ export const getOrderList = ({
       id: 'lifeEventCover',
       key: 'lifeEventCover',
       dataTestId: 'lifeEventCover',
+      isOrange: true,
+    });
+  }
+
+  if (roadsideAssistance?.years) {
+    orderList.push({
+      label: 'Roadside Assistance:',
+      value:
+        roadsideAssistance?.years > 1
+          ? `${roadsideAssistance?.years} YEARS INCLUDED`
+          : `${roadsideAssistance?.years} YEAR INCLUDED`,
+      id: 'roadsideAssistance',
+      key: `${roadsideAssistance?.years}`,
+      dataTestId: 'roadsideAssistance',
       isOrange: true,
     });
   }
