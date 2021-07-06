@@ -575,23 +575,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-10-Delivery:"
-          >
-            Delivery:
-          </div>
-          <div
-            className="structured-list-td"
-            data-testid="delivery"
-          >
-            FREE
-          </div>
-        </div>
-        <div
-          className="structured-list-row orange"
-        >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-11-Redundancy & Life Event Cover:"
+            data-testid="data_id-10-Redundancy & Life Event Cover:"
           >
             Redundancy & Life Event Cover:
           </div>
@@ -607,15 +591,15 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-12-Roadside Assistance:"
+            data-testid="data_id-11-Delivery:"
           >
-            Roadside Assistance:
+            Delivery:
           </div>
           <div
             className="structured-list-td"
-            data-testid="roadsideAssistance"
+            data-testid="delivery"
           >
-            undefined YEAR INCLUDED
+            FREE
           </div>
         </div>
       </div>
@@ -1327,23 +1311,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-10-Delivery:"
-          >
-            Delivery:
-          </div>
-          <div
-            className="structured-list-td"
-            data-testid="delivery"
-          >
-            FREE
-          </div>
-        </div>
-        <div
-          className="structured-list-row orange"
-        >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-11-Redundancy & Life Event Cover:"
+            data-testid="data_id-10-Redundancy & Life Event Cover:"
           >
             Redundancy & Life Event Cover:
           </div>
@@ -1359,15 +1327,15 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-12-Roadside Assistance:"
+            data-testid="data_id-11-Delivery:"
           >
-            Roadside Assistance:
+            Delivery:
           </div>
           <div
             className="structured-list-td"
-            data-testid="roadsideAssistance"
+            data-testid="delivery"
           >
-            undefined YEAR INCLUDED
+            FREE
           </div>
         </div>
       </div>
