@@ -234,6 +234,7 @@ describe('formValuesToAssociate', async () => {
       ...responseValues,
       addresses: [
         {
+          ...responseValues.addresses[0],
           id: undefined,
           label: undefined,
           serviceId: undefined,
