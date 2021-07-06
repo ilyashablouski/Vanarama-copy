@@ -36,7 +36,12 @@ export const handleNetworkError = () =>
   );
 
 const toThankYouPage = () => {
-  Router.push(`multi-year-insurance/thank-you`);
+  /*
+   *  TODO: van-insurance/ should be replaced with insurance/
+   *   in the redirect url when we completely stop using van-insurance pages.
+   */
+  const asPath = Router.asPath.match(/([\w-]+)(\.html)?$/i)?.[1];
+  Router.push(`/van-insurance/${asPath}/thank-you`);
 };
 
 const FinanceGapInsurancePageContainer = ({
