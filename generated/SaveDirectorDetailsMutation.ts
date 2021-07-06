@@ -11,7 +11,7 @@ import { LimitedCompanyInputObject } from "./globalTypes";
 
 export interface SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates_addresses {
   city: string;
-  country: string;
+  country: string | null;
   county: string | null;
   kind: string | null;
   lineOne: string;
