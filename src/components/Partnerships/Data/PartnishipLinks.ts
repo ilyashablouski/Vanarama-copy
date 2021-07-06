@@ -1,4 +1,4 @@
-import { VehiclesTypeEnum } from '../../../../generated/globalTypes';
+import { VehiclesTypeEnum } from '../../../../entities/global';
 
 // eslint-disable-next-line import/prefer-default-export
 export const PartnershipsLinks = [
