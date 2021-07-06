@@ -2,6 +2,7 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { fireEvent, render, waitFor, screen } from '@testing-library/react';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { IManualAddressFormValues } from 'core/molecules/address-finder/interfaces';
 import SoleTraderDetailsForm from '../SoleTraderDetailsForm';
 import { ISoleTraderDetailsFormValues } from '../interfaces';
 import { GET_OCCUPATIONS } from '../../EmploymentForm/gql';
@@ -206,5 +207,45 @@ describe('formValuesToAssociate', async () => {
     expect(formValuesToAssociate(requestValues, personId)).toEqual(
       responseValues,
     );
+  });
+
+  it('formValuesToAssociate should return correct associate form values with manual address', () => {
+    expect(
+      formValuesToAssociate(
+        {
+          ...requestValues,
+          history: [
+            {
+              ...requestValues.history[0],
+              address: {
+                lineOne: 'test',
+                lineTwo: '',
+                city: 'test',
+                county: '',
+                postcode: 'test',
+                label: 'test - test, test',
+              } as IManualAddressFormValues,
+            },
+          ],
+        },
+        personId,
+      ),
+    ).toEqual({
+      ...responseValues,
+      addresses: [
+        {
+          id: undefined,
+          label: undefined,
+          serviceId: undefined,
+          lineOne: 'test',
+          lineTwo: '',
+          postcode: 'test',
+          city: 'test',
+          county: '',
+          propertyStatus: 'Rented',
+          startedOn: '1963-10-01',
+        },
+      ],
+    });
   });
 });
