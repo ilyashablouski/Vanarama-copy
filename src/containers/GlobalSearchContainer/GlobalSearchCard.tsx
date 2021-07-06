@@ -23,12 +23,12 @@ interface IProps {
 const GlobalSearchCard = ({ data, imgUrl }: IProps) => {
   return (
     <div className="card-mini">
-      {data.on_offer && <Icon icon={<Flame />} className="flame" />}
+      {data.onOffer && <Icon icon={<Flame />} className="flame" />}
       <img src={imgUrl} alt="img" />
       <div className="copy">
-        <div className="model">{`${data.manufacturer_name} ${data.model_name}`}</div>
+        <div className="model">{`${data.manufacturerName} ${data.modelName}`}</div>
 
-        <div className="variant">{data.derivative_name}</div>
+        <div className="variant">{data.derivativeName}</div>
         <div className="cost -flex-default">
           <Price price={data.rental} />
           &nbsp;

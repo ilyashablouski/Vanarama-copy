@@ -12,6 +12,7 @@ import useDebounce from '../../hooks/useDebounce';
 import { useGlobalSearch } from './gql';
 import { moreInfoConfig } from './config';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { productDerivatives_productDerivatives_derivatives as ISuggestions } from '../../../generated/productDerivatives';
 
 const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
   ssr: false,
@@ -124,8 +125,8 @@ const GlobalSearchContainer = () => {
               <GlobalSearchRightSideContainer
                 suggestions={
                   isDesktop
-                    ? suggestions.vehiclesList
-                    : suggestions.vehiclesList.slice(0, 5)
+                    ? (suggestions.vehiclesList as ISuggestions[])
+                    : (suggestions.vehiclesList as ISuggestions[]).slice(0, 5)
                 }
                 searchQuery={fieldValue}
                 totalCount={suggestions.totalCount}

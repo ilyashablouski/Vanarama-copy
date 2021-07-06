@@ -13,8 +13,10 @@ import {
   GlobalSearchCardsData,
   GlobalSearchCardsDataVariables,
 } from '../../../generated/GlobalSearchCardsData';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { Nullable } from '../../types/common';
+import {
+  ProductDerivativeFilter,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 
 export const GET_SUGGESTIONS_DATA = gql`
   query suggestionList($query: String) {
@@ -25,7 +27,12 @@ export const GET_SUGGESTIONS_DATA = gql`
 `;
 
 export const GET_PRODUCT_DERIVATIVES = gql`
-  query productDerivatives($query: String, $from: Int, $size: Int) {
+  query productDerivatives(
+    $query: String
+    $from: Int
+    $size: Int
+    $filters: ProductDerivativeFilter
+  ) {
     productDerivatives(
       query: $query
       sort: [
@@ -34,72 +41,72 @@ export const GET_PRODUCT_DERIVATIVES = gql`
       ]
       size: $size
       from: $from
+      filters: $filters
     ) {
       total
       derivatives {
         alloys
         availability
-        cap_body_style
-        cap_code
-        cap_id
-        config_id
-        derivative_id
-        derivative_name
+        capBodyStyle
+        capCode
+        capId
+        derivativeId
+        derivativeName
         doors
-        engine_power_bhp
-        engine_power_kw
-        engine_size
-        engine_torque
-        finance_type
-        fuel_type
-        full_description
-        full_price
+        enginePowerBhp
+        enginePowerKw
+        engineSize
+        engineTorque
+        financeType
+        fuelType
+        fullDescription
+        fullPrice
         funder
         height
-        in_stock
-        indexed_at
-        initial_payment
-        initial_payment_maintained
-        initial_period
-        insurance_group
-        introduced_at
-        inventory_count
+        inStock
+        indexedAt
+        initialPayment
+        initialPaymentMaintained
+        initialPeriod
+        insuranceGroup
+        introducedAt
+        inventoryCount
         length
-        load_length
-        load_width
-        lq_body_style
-        lq_funder_id
-        lq_funder_rate_id
-        lq_url
-        lq_vehicle_id
-        maintenance_price
-        manufacturer_id
-        manufacturer_name
+        loadLength
+        loadWidth
+        lqBodyStyle
+        lqFunderId
+        lqFunderRateId
+        lqUrl
+        lqVehicleId
+        maintenancePrice
+        manufacturerId
+        manufacturerName
         mileage
-        model_id
-        model_name
-        model_year
-        no_of_gears
-        no_of_seats
-        offer_ranking
-        on_offer
-        range_id
-        range_name
-        received_at
+        modelId
+        modelName
+        modelYear
+        noOfGears
+        noOfSeats
+        offerRanking
+        onOffer
+        rangeId
+        rangeName
+        receivedAt
         rental
-        rental_maintained
+        rentalMaintained
         sku
-        stock_batch_id
+        stockBatchId
         term
-        top_speed
-        total_lease_cost
-        total_lease_cost_maintained
-        towing_capacity
+        topSpeed
+        totalLeaseCost
+        totalLeaseCostMaintained
+        towingCapacity
         transmission
-        updated_at
+        updatedAt
         url
-        vehicle_category
-        vehicle_type
+        vehicleCategory
+        vehicleType
         weight
         wheelbase
         width
@@ -156,6 +163,7 @@ export function useTextSearchList(
   query: string,
   from: number,
   onCompleted?: (data: productDerivatives) => void,
+  filters?: ProductDerivativeFilter,
 ) {
   return useLazyQuery<productDerivatives, productDerivativesVariables>(
     GET_PRODUCT_DERIVATIVES,
@@ -164,6 +172,7 @@ export function useTextSearchList(
         query,
         from,
         size: 12,
+        filters,
       },
       onCompleted,
     },
@@ -172,7 +181,7 @@ export function useTextSearchList(
 
 export interface IGlobalSearchData {
   suggestsList: string[];
-  vehiclesList: Nullable<productDerivatives_productDerivatives_derivatives>[];
+  vehiclesList: productDerivatives_productDerivatives_derivatives[];
   totalCount: number;
 }
 
@@ -208,7 +217,10 @@ export function useGlobalSearch(query?: string) {
       });
       return {
         suggestsList: suggestsList?.suggestionList?.suggestions || [],
-        vehiclesList: data?.productDerivatives?.derivatives || [],
+        vehiclesList:
+          (data?.productDerivatives
+            ?.derivatives as productDerivatives_productDerivatives_derivatives[]) ||
+          [],
         totalCount: data?.productDerivatives?.total ?? 0,
       };
     }

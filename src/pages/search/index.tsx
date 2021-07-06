@@ -1,10 +1,7 @@
 import { NextPage, NextPageContext } from 'next';
-import { ApolloError, ApolloQueryResult } from '@apollo/client';
+import { ApolloQueryResult } from '@apollo/client';
 import { ServerResponse } from 'http';
-import {
-  INotFoundPageData,
-  ISearchPageProps,
-} from '../../models/ISearchPageProps';
+import { ISearchPageProps } from '../../models/ISearchPageProps';
 import createApolloClient from '../../apolloClient';
 import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
@@ -15,9 +12,9 @@ import {
   GET_PRODUCT_DERIVATIVES,
 } from '../../containers/GlobalSearchContainer/gql';
 import {
-  fullTextSearchVehicleList,
-  fullTextSearchVehicleListVariables,
-} from '../../../generated/fullTextSearchVehicleList';
+  productDerivatives as IProductDerivativesQuery,
+  productDerivativesVariables,
+} from '../../../generated/productDerivatives';
 import GlobalSearchPageContainer from '../../containers/GlobalSearchPageContainer';
 
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -40,14 +37,12 @@ import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNo
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
   filtersData: IProductFilter;
-  textSearchList?: fullTextSearchVehicleList;
+  productDerivatives?: IProductDerivativesQuery;
   carsData?: ICardsData[];
   vansData?: ICardsData[];
   responseVansCapIds?: string[];
   responseCarsCapIds?: string[];
   initialFilters: IFiltersData;
-  error?: ApolloError;
-  notFoundPageData?: INotFoundPageData;
 }
 
 const Page: NextPage<IProps> = ({
@@ -55,7 +50,7 @@ const Page: NextPage<IProps> = ({
   filtersData,
   initialFilters,
   metaData,
-  textSearchList,
+  productDerivatives,
   carsData,
   vansData,
   responseVansCapIds,
@@ -82,7 +77,7 @@ const Page: NextPage<IProps> = ({
       responseVansCapIds={responseVansCapIds}
       responseCarsCapIds={responseCarsCapIds}
       pageData={decodeData(pageData)}
-      preLoadTextSearchList={decodeData(textSearchList)}
+      preLoadProductDerivatives={decodeData(productDerivatives)}
     />
   );
 };
@@ -111,8 +106,8 @@ export async function getServerSideProps(context: NextPageContext) {
   let responseVansCapIds;
   let carsData;
   let vansData;
-  const textSearchList = await client
-    .query<fullTextSearchVehicleList, fullTextSearchVehicleListVariables>({
+  const productDerivatives = await client
+    .query<IProductDerivativesQuery, productDerivativesVariables>({
       query: GET_PRODUCT_DERIVATIVES,
       variables: {
         query: contextData.query.searchTerm as string,
@@ -121,12 +116,12 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     })
     .then(async resp => {
-      responseCarsCapIds = resp.data?.fullTextSearchVehicleList?.vehicles
-        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.CAR)
-        .map(vehicle => vehicle.derivativeId);
-      responseVansCapIds = resp.data?.fullTextSearchVehicleList?.vehicles
-        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.LCV)
-        .map(vehicle => vehicle.derivativeId);
+      responseCarsCapIds = resp.data?.productDerivatives?.derivatives
+        ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.CAR)
+        .map(vehicle => `${vehicle?.derivativeId}`);
+      responseVansCapIds = resp.data?.productDerivatives?.derivatives
+        ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.LCV)
+        .map(vehicle => `${vehicle?.derivativeId}`);
       if (responseCarsCapIds?.[0]) {
         carsData = await client
           .query<GlobalSearchCardsData, GlobalSearchCardsDataVariables>({
@@ -167,7 +162,7 @@ export async function getServerSideProps(context: NextPageContext) {
     props: {
       pageData: encodeData(data),
       metaData: data?.genericPage.metaData || null,
-      textSearchList: encodeData(textSearchList) || null,
+      productDerivatives: encodeData(productDerivatives) || null,
       carsData: carsData || null,
       vansData: vansData || null,
       responseVansCapIds: responseVansCapIds || null,

@@ -675,7 +675,7 @@ export interface ProductDerivativeFilter {
   bodyStyles?: (string | null)[] | null;
   transmissions?: (string | null)[] | null;
   fuelTypes?: (string | null)[] | null;
-  vehicleCategories?: (string | null)[] | null;
+  vehicleCategory?: (string | null)[] | null;
   financeTypes?: (string | null)[] | null;
   onOffer?: boolean | null;
   doors?: (number | null)[] | null;
@@ -829,7 +829,7 @@ export interface VehicleProductInputObject {
   maintenance?: boolean | null;
   maintenancePrice?: number | null;
   monthlyPayment?: number | null;
-  partnerSlug?: PartnerSlugTypeEnum | null;
+  partnerSlug?: string | null;
   term?: number | null;
   trim?: string | null;
   vehicleType: VehicleTypeEnum;

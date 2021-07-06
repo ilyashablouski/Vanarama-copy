@@ -46,12 +46,12 @@ const GlobalSearchRightSideContainer = ({
   useEffect(() => {
     if (suggestions.length) {
       const carsCapIds = suggestions
-        ?.filter(vehicle => vehicle.vehicle_type === VehicleTypeEnum.CAR)
-        .map(vehicle => `${vehicle.derivative_id}`)
+        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.CAR)
+        .map(vehicle => `${vehicle.derivativeId}`)
         .filter(value => value) as string[];
       const vansCapIds = suggestions
-        ?.filter(vehicle => vehicle.vehicle_type === VehicleTypeEnum.LCV)
-        .map(vehicle => `${vehicle.derivative_id}`)
+        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.LCV)
+        .map(vehicle => `${vehicle.derivativeId}`)
         .filter(value => value) as string[];
       if (carsCapIds[0]) {
         getCarCardsData({
@@ -93,14 +93,12 @@ const GlobalSearchRightSideContainer = ({
                 <GlobalSearchCard
                   data={data}
                   imgUrl={getImgUrl(
-                    `${data.derivative_id}`,
-                    (data.vehicle_type as VehicleTypeEnum) ??
+                    `${data.derivativeId}`,
+                    (data.vehicleType as VehicleTypeEnum) ??
                       VehicleTypeEnum.LCV,
                   )}
                   key={
-                    `${data?.derivative_id}` ||
-                    `${data?.derivative_name}` ||
-                    idx
+                    `${data?.derivativeId}` || `${data?.derivativeName}` || idx
                   }
                 />
               );
