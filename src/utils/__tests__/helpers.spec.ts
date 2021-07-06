@@ -225,14 +225,6 @@ describe('getOrderList', () => {
         value: 'INCLUDED',
       },
       {
-        dataTestId: 'delivery',
-        id: 'delivery',
-        isOrange: true,
-        key: 'delivery',
-        label: 'Delivery:',
-        value: 'FREE',
-      },
-      {
         dataTestId: 'lifeEventCover',
         id: 'lifeEventCover',
         isOrange: true,
@@ -241,12 +233,20 @@ describe('getOrderList', () => {
         value: 'FREE',
       },
       {
+        dataTestId: 'delivery',
+        id: 'delivery',
+        isOrange: true,
+        key: 'delivery',
+        label: 'Delivery:',
+        value: 'FREE',
+      },
+      {
         dataTestId: 'roadsideAssistance',
         id: 'roadsideAssistance',
         isOrange: true,
         key: '3',
         label: 'Roadside Assistance:',
-        value: '3 YEAR INCLUDED',
+        value: '3 YEARS INCLUDED',
       },
     ]);
   });
