@@ -1,26 +1,29 @@
 import { ParsedUrlQuery } from 'querystring';
-import { fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles as IVehiclesList } from '../../../generated/fullTextSearchVehicleList';
+import { productDerivatives_productDerivatives_derivatives as IVehiclesList } from '../../../generated/productDerivatives';
 import { AVAILABILITY_LABELS } from '../HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseResult';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import { IFiltersData, ISelectedTags } from './interfaces';
 import { filterOrderByNumMap } from '../FiltersContainer/helpers';
-import { ProductDerivativeFilter } from '../../../generated/globalTypes';
+import {
+  ProductDerivativeFilter,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 
-export const productCardDataMapper = (data: IVehiclesList): ICard => ({
-  vehicleType: data.vehicleType,
-  capId: data.capId,
-  manufacturerName: data.manufacturerName,
-  rangeName: data.rangeName,
-  modelName: data.modelName,
-  derivativeName: data.derivativeName,
-  averageRating: data.financeProfiles?.[0].rate || null,
-  isOnOffer: data.onOffer,
-  offerPosition: data.offerRanking,
-  leadTime: AVAILABILITY_LABELS[data.availability ?? ''],
+export const productCardDataMapper = (data: IVehiclesList | null): ICard => ({
+  vehicleType: data?.vehicleType as VehicleTypeEnum,
+  capId: data?.capId || null,
+  manufacturerName: data?.manufacturerName || null,
+  rangeName: data?.rangeName || null,
+  modelName: data?.modelName || null,
+  derivativeName: data?.derivativeName || null,
+  averageRating: data?.fullPrice || null,
+  isOnOffer: data?.onOffer || null,
+  offerPosition: data?.offerRanking || null,
+  leadTime: AVAILABILITY_LABELS[data?.availability ?? ''],
   imageUrl: '',
   keyInformation: null,
-  businessRate: data.rental,
-  personalRate: data.rental,
+  businessRate: data?.rental || null,
+  personalRate: data?.rental || null,
 });
 
 export const buildInitialFilterState = (data: ParsedUrlQuery) => {
@@ -50,9 +53,16 @@ export const buildSelectedTags = (data: IFiltersData): ISelectedTags[] =>
 export const buildFiltersRequestObject = (
   filters: IFiltersData,
 ): ProductDerivativeFilter => {
+  const pureObject = {} as IFiltersData;
   const { from, to, ...rest } = filters;
+  // removing empty arrays from filters
+  Object.entries(rest).forEach(([key, value]) => {
+    if (value?.[0]) {
+      pureObject[key as keyof IFiltersData] = value;
+    }
+  });
   return {
-    ...rest,
+    ...pureObject,
     budget:
       from?.[0] || to?.[0]
         ? {

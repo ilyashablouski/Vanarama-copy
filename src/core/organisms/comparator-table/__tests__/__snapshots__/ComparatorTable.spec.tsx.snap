@@ -364,6 +364,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                             >
                               <img
                                 className="card-image"
+                                data-cfasync="false"
                                 data-testid="card-image"
                                 loading="lazy"
                                 onError={[Function]}
@@ -495,6 +496,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                             >
                               <img
                                 className="card-image"
+                                data-cfasync="false"
                                 data-testid="card-image"
                                 loading="lazy"
                                 onError={[Function]}

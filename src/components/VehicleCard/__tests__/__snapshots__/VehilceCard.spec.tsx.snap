@@ -15,6 +15,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
   </div>
   <img
     className="card-image"
+    data-cfasync="false"
     data-testid="card-image"
     loading="lazy"
     onError={[Function]}
@@ -268,6 +269,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
   </div>
   <img
     className="card-image"
+    data-cfasync="false"
     data-testid="card-image"
     loading="lazy"
     onError={[Function]}
@@ -521,6 +523,7 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
   </div>
   <img
     className="card-image"
+    data-cfasync="false"
     data-testid="card-image"
     loading="lazy"
     onError={[Function]}

@@ -87,6 +87,7 @@ const Image: FC<IImageProps> = props => {
         className="image--native"
         src={srcDefault || src}
         onError={onError}
+        data-cfasync="false"
         data-testid={dataTestId}
       />
     </div>

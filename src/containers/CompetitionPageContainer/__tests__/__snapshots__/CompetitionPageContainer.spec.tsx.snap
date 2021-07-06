@@ -40,6 +40,7 @@ exports[`<CompetitionPageContainer /> should match snapshot 1`] = `
               <img
                 alt="Hero Image"
                 class="image--native"
+                data-cfasync="false"
                 data-testid="insurance_hero-image"
                 loading="eager"
                 sizes="(min-width:320px) 800px, 1200px"
