@@ -6,6 +6,7 @@ exports[`<Image /> renders correctly 1`] = `
 >
   <img
     className="image--native"
+    data-cfasync="false"
     loading="eager"
     onError={[Function]}
     sizes="(min-width:320px) 800px, 1200px"
@@ -20,6 +21,7 @@ exports[`<Image /> renders correctly with optional props 1`] = `
 >
   <img
     className="image--native"
+    data-cfasync="false"
     loading="eager"
     onError={[Function]}
     sizes="(min-width:320px) 800px, 1200px"

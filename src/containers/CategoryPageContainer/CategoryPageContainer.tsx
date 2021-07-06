@@ -304,7 +304,11 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             Top Articles
           </Heading>
           {data?.topArticles.length > 3 ? (
-            <Carousel className="-mh-auto" countItems={5}>
+            <Carousel
+              className="-mh-auto"
+              countItems={5}
+              placeholderHeight="420px"
+            >
               {renderCarouselCards(data?.topArticles)}
             </Carousel>
           ) : (

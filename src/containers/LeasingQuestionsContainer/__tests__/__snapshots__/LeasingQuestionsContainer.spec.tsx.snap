@@ -104,6 +104,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   >
                     <img
                       class="card-image"
+                      data-cfasync="false"
                       data-testid="card-image"
                       loading="lazy"
                       sizes="(min-width:320px) 800px, 1200px"
@@ -242,6 +243,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
             loading="lazy"
             sizes="(min-width:320px) 800px, 1200px"
@@ -304,6 +306,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
             loading="lazy"
             sizes="(min-width:320px) 800px, 1200px"

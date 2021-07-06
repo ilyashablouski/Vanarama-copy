@@ -199,10 +199,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         mileage,
         term,
         upfront,
-        leaseType:
-          leaseType === 'Personal'
-            ? LeaseTypeEnum.PERSONAL
-            : LeaseTypeEnum.BUSINESS,
+        leaseType,
         trim: trim || parseQuoteParams(currentQuoteTrim),
         colour: colour || parseQuoteParams(currentQuoteColour),
       },
@@ -266,7 +263,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         maintenance,
         quoteByCapId: quoteData?.quoteByCapId,
         isDisabled: isPlayingLeaseAnimation,
-        stateVAT: leaseType === 'Personal' ? 'inc' : 'exc',
+        stateVAT: leaseType === LeaseTypeEnum.PERSONAL ? 'inc' : 'exc',
         endAnimation: () => {
           setIsInitialLoading(true);
         },
