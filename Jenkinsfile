@@ -54,6 +54,28 @@ def app_environment = [
         terraformService: true,
         alternateDomain: 'uat.vanarama-nonprod.com',
         imgOptimisationHost: 'https://uat.vanarama-nonprod.com'
+    ],
+    "pre-prod": [
+        clusterName: 'grid-pre-prod',
+        logGroupName: "pre-prod/grid/apps",
+        taskFamily: "grid-pre-prod-${serviceName}",
+        app: "${serviceName}",
+        ssmParametersBase: "arn:aws:ssm:eu-west-2:148418686323:parameter/pre-prod/${stack}/${serviceName}",
+        env: 'pre-prod',
+        stack: 'grid',
+        slackChannelInfra: '#dev-infra-approvals',
+        slackChannelQA: '#qa-code-approvals',
+        jenkinsCredentialsId: 'aws-keys-terraform-grid-prod',
+        accountId: '148418686323',
+        awsMasterRole: 'arn:aws:iam::000379120260:role/AutoramaGridDelegate',
+        state_bucket: 'grid-terraform-state-2',
+        backendConfigDynamoDbTable: 'pre-prod-grid-terraform-state-lock',
+        jenkinsAgent: 'grid-pre-prod-jenkins-agent',
+        dockerRepoName: "126764662304.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
+        NODE_ENV: 'development',
+        terraformService: true,
+        alternateDomain: 'vanarama-prod.com',
+        imgOptimisationHost: 'https://vanarama-prod.com'
     ]
 ]
 
@@ -76,7 +98,9 @@ def getTaskDefinition(family, region) {
 }
 
 def getConfig() {
-    if ( "${branchName}".contains('release/') || "${branchName}".contains('hotfix/') ) {
+    if ( "${branchName}".contains('hotfix/') ) {
+        return 'pre-prod'
+    } else if ( "${branchName}".contains('release/') ) {
         return 'uat'
     } else {
         return 'dev'
@@ -119,9 +143,9 @@ def createReleaseBranch(appEnvironment, sourceBranch) {
 
 def getDockerTagName() {
     if ( "${branchName}" =~ "hotfix/*" ) {
-        return "${branchName}".replace("hotfix/", "hotfix-H${env.CHANGE_ID}-B${env.BUILD_NUMBER}-")
+        return "${branchName}_pre-prod".replace("hotfix/", "hotfix-H${env.CHANGE_ID}-B${env.BUILD_NUMBER}-")
     } else if ( "${branchName}" =~ "release/*" ) {
-        return "${branchName}".replace('/', '-')
+        return "${branchName}_uat".replace('/', '-')
     } else {
         // for develop, create artifact following this format - develop-B<build-no>-<date>
         def dateNow = new Date()
