@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { MyOrdersTypeEnum, LeaseTypeEnum, CreditApplicationTypeEnum, VehicleTypeEnum, PartnerSlugTypeEnum } from "./globalTypes";
+import { MyOrdersTypeEnum, LeaseTypeEnum, CreditApplicationTypeEnum, VehicleTypeEnum } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: GetMyOrders
@@ -354,7 +354,7 @@ export interface GetMyOrders_myOrders_lineItems_vehicleProduct {
   trim: string | null;
   maintenance: boolean | null;
   vehicleType: VehicleTypeEnum;
-  partnerSlug: PartnerSlugTypeEnum | null;
+  partnerSlug: string | null;
 }
 
 export interface GetMyOrders_myOrders_lineItems {

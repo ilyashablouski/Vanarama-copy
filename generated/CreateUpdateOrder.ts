@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { OrderInputObject, PartnerSlugTypeEnum } from "./globalTypes";
+import { OrderInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: CreateUpdateOrder
@@ -25,7 +25,7 @@ export interface CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct {
   funderId: string | null;
   funderData: any | null;
   maintenancePrice: number | null;
-  partnerSlug: PartnerSlugTypeEnum | null;
+  partnerSlug: string | null;
   freeInsurance: CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct_freeInsurance | null;
 }
 

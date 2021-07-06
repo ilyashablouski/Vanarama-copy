@@ -1,6 +1,7 @@
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import { productCardDataMapper, buildFiltersRequestObject } from '../helpers';
 import { IFiltersData } from '../interfaces';
+import { productDerivatives_productDerivatives_derivatives as IVehiclesList } from '../../../../generated/productDerivatives';
 
 describe('helpers', () => {
   it('productCardDataMapper should return correct array', () => {
@@ -12,23 +13,18 @@ describe('helpers', () => {
         rangeName: 'Focus',
         modelName: 'testModel',
         derivativeName: 'derivativeTest',
-        financeProfiles: null,
+        fullPrice: null,
         onOffer: true,
         offerRanking: 1,
         rental: 164.88,
         availability: 7,
-        availabilityMessage: null,
-        availabilitySort: null,
-        bodyStyle: null,
         capBodyStyle: null,
         capCode: null,
-        configId: null,
         derivativeId: null,
         financeType: null,
         fuelType: null,
         fullDescription: null,
         initialPayment: null,
-        legacyUrl: null,
         lqUrl: null,
         manufacturerId: null,
         mileage: null,
@@ -37,7 +33,7 @@ describe('helpers', () => {
         term: null,
         transmission: null,
         url: null,
-      }),
+      } as IVehiclesList),
     ).toEqual({
       averageRating: null,
       businessRate: 164.88,

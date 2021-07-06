@@ -16,7 +16,7 @@ export interface UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany_a
   city: string;
   county: string | null;
   postcode: string;
-  country: string;
+  country: string | null;
   startedOn: any | null;
   endedOn: any | null;
   propertyStatus: string | null;
