@@ -18,14 +18,14 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
     rightValue,
     leftLabel,
     rightLabel,
-    getValue,
+    onChange,
     checked,
   } = props;
 
   const handleInputChange = (
     toggleValue: React.ChangeEvent<HTMLInputElement>,
   ) => {
-    getValue(toggleValue.target.value);
+    onChange(toggleValue.target.value);
   };
   return (
     <div className={cx('slide-togl', className)}>
@@ -38,7 +38,7 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
         checked={checked}
         onChange={e => handleInputChange(e)}
       />
-      <label htmlFor="r1">{leftLabel}</label>
+      <label htmlFor={leftId}>{leftLabel}</label>
       <input
         value={rightValue}
         type="radio"
@@ -48,7 +48,7 @@ const ToggleV2: React.FC<IToggleV2Props> = React.forwardRef<
         checked={!checked}
         onChange={e => handleInputChange(e)}
       />
-      <label htmlFor="r2">{rightLabel}</label>
+      <label htmlFor={rightId}>{rightLabel}</label>
       <span className="state" />
     </div>
   );

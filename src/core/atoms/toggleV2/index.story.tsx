@@ -12,6 +12,6 @@ storiesOf(`${atomicDir(base)}/ToggleV2`, module).add('Default', () => (
     rightLabel="Business"
     leftId="r1"
     rightId="r2"
-    getValue={() => {}}
+    onChange={() => {}}
   />
 ));

@@ -34,7 +34,7 @@ export interface IToggleV2Props extends IBaseProps {
    * A value for the "right" state
    */
   rightValue?: string;
-  getValue: (text: string) => void;
+  onChange: (selectedValue: string) => void;
   /**
    * Whether the toggle is checked - in controlled mode
    */
