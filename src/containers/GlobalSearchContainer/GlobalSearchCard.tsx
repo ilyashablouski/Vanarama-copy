@@ -1,7 +1,7 @@
 import Price from 'core/atoms/price';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
-import { fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles as ISuggestion } from '../../../generated/fullTextSearchVehicleList';
+import { productDerivatives_productDerivatives_derivatives as ISuggestion } from '../../../generated/productDerivatives';
 import Skeleton from '../../components/Skeleton';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
