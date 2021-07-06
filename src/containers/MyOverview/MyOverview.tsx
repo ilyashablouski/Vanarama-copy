@@ -266,7 +266,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
       .then(() => client.clearStore())
       .then(() => setCachedLastStep(lastFinishedStep?.step || 1))
       .then(() => {
-        if (order?.leaseType?.toUpperCase() === LeaseTypeEnum.BUSINESS) {
+        if (order?.leaseType === LeaseTypeEnum.BUSINESS) {
           return getPartyByUuid({ uuid: customer?.partyUuid || '' })
             .then(query =>
               query.data?.partyByUuid?.person?.companies?.find(
@@ -280,7 +280,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
       .catch(() => undefined)
       .then(companyUuid => {
         const path =
-          order.leaseType?.toUpperCase() === LeaseTypeEnum.PERSONAL
+          order.leaseType === LeaseTypeEnum.PERSONAL
             ? '/olaf/about'
             : '/b2b/olaf/about';
 
