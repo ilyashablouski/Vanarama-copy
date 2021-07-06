@@ -1,6 +1,4 @@
-/* eslint-disable no-console */
 import dynamic from 'next/dynamic';
-import { NextPageContext } from 'next';
 
 import Heading from 'core/atoms/heading';
 
@@ -42,9 +40,5 @@ const Error = () => {
   );
 };
 
-export async function getServerSideProps(ctx: NextPageContext) {
-  console.log(`[NSF request]: ${JSON.stringify(ctx.req, null, 4)}\n`);
-  console.log(`[NSF response]: ${JSON.stringify(ctx.res, null, 4)}\n`);
-  console.log(`[NSF error]: ${ctx.err}\n`);
-}
+// TODO: https://autorama.atlassian.net/browse/DIG-5611
 export default Error;
