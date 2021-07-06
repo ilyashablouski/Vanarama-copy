@@ -87,7 +87,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
   const items = data?.pageCollection?.items;
 
   return {
-    paths: getPathsFromPageCollection(items, 'insurance'),
+    paths: getPathsFromPageCollection(items, 'van-insurance'),
     fallback: false,
   };
 }
@@ -100,7 +100,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
-        slug: `insurance/${paths?.join('/')}`,
+        slug: `van-insurance/${paths?.join('/')}`,
         ...(context?.preview && { isPreview: context?.preview }),
       },
     });
