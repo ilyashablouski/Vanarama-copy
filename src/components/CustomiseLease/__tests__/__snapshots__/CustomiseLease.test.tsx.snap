@@ -651,13 +651,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           <span
             className="price--pounds"
           >
-            605
-          </span>
-          <span
-            className="price--sub"
-          >
-            .
-            95
+            POA
           </span>
         </div>
         <div
