@@ -77,8 +77,6 @@ const TopOffersContainer: React.FC<IProps> = ({
 }: IProps) => {
   const router = useRouter();
 
-  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
-
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
   );
@@ -217,7 +215,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   const renderVehicleCard = (vehicle: IVehicles, index: number) => (
     <VehicleCard
       loadImage
-      eagerLoad={isSmallScreen && index === 0}
+      lazyLoad={index !== 0}
       derivativeId={vehicle.node?.derivativeId}
       url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
       key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
@@ -257,7 +255,7 @@ const TopOffersContainer: React.FC<IProps> = ({
               <Carousel
                 className="-mh-auto top-offers"
                 countItems={vehiclesList.length || 0}
-                placeholderHeight="576px"
+                initialSlideHeight={567}
               >
                 {vehiclesList.map((vehicle: IVehicles, index: number) =>
                   renderVehicleCard(vehicle, index),

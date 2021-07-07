@@ -158,7 +158,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           <Card
             style={{ minHeight: 420 }}
             loadImage
-            eagerLoad={isSmallScreen && index === 0}
+            lazyLoad={index !== 0}
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             key={`${card.title}_${index.toString()}_${card.excerpt}`}
             className="card__article"
@@ -307,7 +307,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             <Carousel
               className="-mh-auto"
               countItems={5}
-              placeholderHeight="420px"
+              initialSlideHeight={420}
             >
               {renderCarouselCards(data?.topArticles)}
             </Carousel>
