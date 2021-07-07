@@ -32,6 +32,7 @@ const Flame = dynamic(() => import('core/assets/icons/Flame'));
 
 interface IVehicleCardProps {
   loadImage?: boolean;
+  eagerLoad?: boolean;
   title: ICardTitleProps;
   isPersonalPrice: boolean;
   data: ICard;
@@ -46,6 +47,7 @@ interface IVehicleCardProps {
 const VehicleCard = React.memo(
   ({
     loadImage,
+    eagerLoad,
     url,
     derivativeId,
     title,
@@ -84,6 +86,7 @@ const VehicleCard = React.memo(
     return (
       <Card
         loadImage={loadImage}
+        eagerLoad={eagerLoad}
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         {...imageProps}
         header={{
