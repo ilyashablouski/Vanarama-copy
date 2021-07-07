@@ -28,6 +28,13 @@ $ yarn dev
 
 ## Production mode
 
+Choose branch and environment:
+
+- Switch to the latest `master` branch
+- Enable `Prod gateway` in `.env` file
+
+Run:
+
 ```sh
 $ yarn build
 
