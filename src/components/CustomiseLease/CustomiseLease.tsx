@@ -149,7 +149,6 @@ const CustomiseLease = ({
   setTrim,
   data,
   capId,
-  derivativeInfo,
   maintenance,
   setMaintenance,
   isModalShowing,
@@ -413,8 +412,8 @@ const CustomiseLease = ({
           quoteByCapId={quoteByCapId}
           stateVAT={stateVAT}
           maintenance={maintenance}
-          colours={derivativeInfo?.colours}
-          trims={derivativeInfo?.trims}
+          colours={colourList}
+          trims={trimList}
           trim={trim}
           pickups={pickups}
           isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
