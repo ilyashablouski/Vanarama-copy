@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
-import { useMediaQuery } from 'react-responsive';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { useVehiclesList } from './gql';
 import {

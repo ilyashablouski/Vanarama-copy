@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
-import { useMediaQuery } from 'react-responsive';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { ICategoryPage } from './interface';
@@ -47,7 +46,6 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   carousel,
   activePageRoute,
 }) => {
-  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
   const [activePage] = useState(activePageRoute || 1);
 
   const articlesSorted = articles
