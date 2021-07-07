@@ -270,6 +270,17 @@ const GlobalSearchPageContainer = ({
     [pageData],
   );
 
+  const totalFiltersCount = useMemo(
+    () =>
+      Object.values(activeFilters).reduce((acc, current) => {
+        if (current?.[0]) {
+          return acc + 1;
+        }
+        return acc;
+      }, 0),
+    [activeFilters],
+  );
+
   const getProductCardData = (capId: string, vehicleType: VehicleTypeEnum) => {
     return vehiclesCardsData?.[vehicleType].find(x => x?.capId === capId);
   };
@@ -330,6 +341,9 @@ const GlobalSearchPageContainer = ({
         >
           <OptionsSharp />
           Filter
+          {totalFiltersCount > 0 && (
+            <span className="filters-applied">{totalFiltersCount}</span>
+          )}
         </button>
 
         <button
