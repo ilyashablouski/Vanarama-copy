@@ -193,7 +193,7 @@ const HelpMeChoose: NextPage = () => {
   }, [getData]);
 
   useEffect(() => {
-    let animation: any;
+    let animation: NodeJS.Timeout;
     if (isLoading) {
       animation = setTimeout(() => {
         // endAnimation();

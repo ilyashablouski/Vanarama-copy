@@ -14,7 +14,7 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 });
 
 interface IIndependentReviewProps {
-  review: any;
+  review: string | Node;
 }
 
 const IndependentReview: React.FC<IIndependentReviewProps> = ({ review }) => {

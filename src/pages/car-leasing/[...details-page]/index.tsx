@@ -29,6 +29,7 @@ import {
 import {
   GetVehicleDetails,
   GetVehicleDetailsVariables,
+  GetVehicleDetails_derivativeInfo_technicals,
 } from '../../../../generated/GetVehicleDetails';
 import { INotFoundPageData } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
@@ -127,7 +128,8 @@ const CarDetailsPage: NextPage<IProps> = ({
 
   const getTechValue = (description: String) =>
     data?.derivativeInfo?.technicals?.find(
-      (obj: any) => obj?.technicalDescription === description,
+      (obj: GetVehicleDetails_derivativeInfo_technicals | null) =>
+        obj?.technicalDescription === description,
     )?.value || 'N/A';
 
   const pageTitle = `${data?.vehicleConfigurationByCapId?.capManufacturerDescription} ${data?.vehicleConfigurationByCapId?.capRangeDescription}`;

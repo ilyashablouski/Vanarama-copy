@@ -45,7 +45,7 @@ interface IAccordionItem {
 }
 
 const accordionItems = (items: IAccordionItem[], itemWrap: boolean) => {
-  return items.map((item: any) => {
+  return items.map((item: IAccordionItem) => {
     return {
       id: item.categoryDescription,
       title: item.categoryDescription,

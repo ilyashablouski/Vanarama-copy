@@ -141,7 +141,7 @@ const FiltersContainer = ({
   // hack for subscribe multiselects changes and update Choiceboxes state
   useEffect(() => {
     if (tempFilterName === 'all') {
-      Object.keys(choiseBoxReference).forEach((e: any) =>
+      Object.keys(choiseBoxReference).forEach((e: string) =>
         choiseBoxReference[e]?.current?.updateState(),
       );
       setTempFilterName('');
@@ -187,7 +187,7 @@ const FiltersContainer = ({
   // made force update for choiseboxes state
   useEffect(() => {
     if (shouldMakeChoiceboxesForceUpdate) {
-      Object.keys(choiseBoxReference).forEach((e: any) =>
+      Object.keys(choiseBoxReference).forEach((e: string) =>
         choiseBoxReference[e]?.current?.updateState(),
       );
       setShouldMakeChoiceboxesForceUpdate(false);

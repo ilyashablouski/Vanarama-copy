@@ -64,10 +64,10 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
 
   // useEffect for initial animation control
   useEffect(() => {
-    let competitorsCheckedTimer: any;
-    let initialSuccessFinishedTimer: any;
-    let slideDownAnimationTimer: any;
-    let closeLoadingWrapperTimer: any;
+    let competitorsCheckedTimer: NodeJS.Timeout;
+    let initialSuccessFinishedTimer: NodeJS.Timeout;
+    let slideDownAnimationTimer: NodeJS.Timeout;
+    let closeLoadingWrapperTimer: NodeJS.Timeout;
     if (currentLisingProvider === leasingProviders.length - 1) {
       // clear interval for changing providers, when we select the last one
       clearInterval(providersTimer.current);
@@ -111,7 +111,7 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
   }, []);
 
   useEffect(() => {
-    let startLoadingTimer: any;
+    let startLoadingTimer: NodeJS.Timeout;
     if (startLoading) {
       setAnimationClass('slideInUp');
       setLoadingStatus(true);
