@@ -7,8 +7,10 @@ export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
   return {
     addresses: [
       {
+        ...(values.tradingAddress ?? {}),
+        label: undefined,
+        id: undefined,
         serviceId: values.tradingAddress?.id,
-        lineOne: values.tradingAddress?.label,
         kind: 'Trading',
       },
     ],
