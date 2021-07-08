@@ -46,7 +46,7 @@ const CardIcons: React.FC<ICardIconsProps> = ({
           </Text>
         )}
         <Text size="xsmall" color="dark">
-          {item.label}
+          {item.name ? item.label : 'N/A'}
         </Text>
       </div>
     ))}
