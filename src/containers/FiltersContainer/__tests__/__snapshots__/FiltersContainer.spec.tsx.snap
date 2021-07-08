@@ -457,16 +457,16 @@ exports[`<FiltersContainer /> should render with data 1`] = `
               class="formgroup--content"
             >
               <div
-                class="choiceboxes -cols-1 -medium"
+                class="choice-boxes -cols-1 -medium"
               >
                 <button
-                  class="choicebox"
+                  class="choice-box"
                   type="button"
                 >
                   Dropside Tipper
                 </button>
                 <button
-                  class="choicebox"
+                  class="choice-box"
                   type="button"
                 >
                   Large Van
@@ -527,16 +527,16 @@ exports[`<FiltersContainer /> should render with data 1`] = `
               class="formgroup--content"
             >
               <div
-                class="choiceboxes -cols-1 -medium"
+                class="choice-boxes -cols-1 -medium"
               >
                 <button
-                  class="choicebox"
+                  class="choice-box"
                   type="button"
                 >
                   Automatic
                 </button>
                 <button
-                  class="choicebox"
+                  class="choice-box"
                   type="button"
                 >
                   Manual
@@ -597,16 +597,16 @@ exports[`<FiltersContainer /> should render with data 1`] = `
               class="formgroup--content"
             >
               <div
-                class="choiceboxes -cols-1 -medium"
+                class="choice-boxes -cols-1 -medium"
               >
                 <button
-                  class="choicebox"
+                  class="choice-box"
                   type="button"
                 >
                   diesel
                 </button>
                 <button
-                  class="choicebox"
+                  class="choice-box"
                   type="button"
                 >
                   iii
