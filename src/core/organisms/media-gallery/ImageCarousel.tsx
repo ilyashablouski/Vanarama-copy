@@ -78,6 +78,7 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
                       alt={imageAltText}
                       className="gallery-free-insurance"
                       src={image}
+                      data-cfasync="false"
                     />
                   ) : (
                     <Image

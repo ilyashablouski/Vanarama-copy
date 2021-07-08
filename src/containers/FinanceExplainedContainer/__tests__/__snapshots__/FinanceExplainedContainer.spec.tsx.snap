@@ -223,6 +223,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
           >
             <img
               class="image--native"
+              data-cfasync="false"
               loading="eager"
               sizes="(min-width:320px) 800px, 1200px"
               src="//images.ctfassets.net/3xid768u5joa/31iQbyGS1DYs7b9viQHtXh/86ae2d62793162409d230b2042d9e00a/header-ivan.svg"

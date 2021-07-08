@@ -211,9 +211,10 @@ const TopOffersContainer: React.FC<IProps> = ({
   const getCardData = (capId: string, dataForCards = cardsData) =>
     dataForCards?.filter(card => card?.capId === capId)[0];
 
-  const renderVehicleCard = (vehicle: IVehicles) => (
+  const renderVehicleCard = (vehicle: IVehicles, index: number) => (
     <VehicleCard
       loadImage
+      lazyLoad={index !== 0}
       derivativeId={vehicle.node?.derivativeId}
       url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
       key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
@@ -246,16 +247,17 @@ const TopOffersContainer: React.FC<IProps> = ({
               Hot Offers
             </Heading>
             {vehiclesList.length === 3 ? (
-              vehiclesList.map((vehicle: IVehicles) =>
-                renderVehicleCard(vehicle),
+              vehiclesList.map((vehicle: IVehicles, index: number) =>
+                renderVehicleCard(vehicle, index),
               )
             ) : (
               <Carousel
                 className="-mh-auto top-offers"
                 countItems={vehiclesList.length || 0}
+                initialSlideHeight={567}
               >
-                {vehiclesList.map((vehicle: IVehicles) =>
-                  renderVehicleCard(vehicle),
+                {vehiclesList.map((vehicle: IVehicles, index: number) =>
+                  renderVehicleCard(vehicle, index),
                 )}
               </Carousel>
             )}

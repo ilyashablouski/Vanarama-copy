@@ -26,6 +26,9 @@ export const formValuesToAssociate = (
     noOfAdultsInHousehold: values.adultsInHousehold,
     occupation: values.occupation,
     addresses: values.history.map(item => ({
+      ...(item.address ?? {}),
+      id: undefined,
+      label: undefined,
       serviceId: item.address?.id,
       propertyStatus: item.status,
       startedOn: parseDate('01', item.month, item.year),

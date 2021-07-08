@@ -4,10 +4,68 @@ exports[`<Carousel /> should render correctly with children 1`] = `
 <div
   className="carousel"
 >
-  <TopArticlesPlaceholder
-    height="420px"
-    numberOfPlaceholders={3}
-  />
+  <Carousel
+    afterSlide={[Function]}
+    autoGenerateStyleTag={true}
+    autoplay={false}
+    autoplayInterval={3000}
+    autoplayReverse={false}
+    beforeSlide={[Function]}
+    cellAlign="left"
+    cellSpacing={20}
+    defaultControlsConfig={Object {}}
+    disableAnimation={false}
+    disableEdgeSwiping={false}
+    dragging={true}
+    easing="easeCircleOut"
+    edgeEasing="easeElasticOut"
+    enableKeyboardControls={false}
+    frameOverflow="hidden"
+    framePadding="0px"
+    getControlsContainerStyles={[Function]}
+    height="inherit"
+    heightMode="max"
+    initialSlideWidth={320}
+    keyCodeConfig={Object {}}
+    onDragStart={[Function]}
+    onResize={[Function]}
+    pauseOnHover={true}
+    renderAnnounceSlideMessage={[Function]}
+    renderBottomCenterControls={[Function]}
+    renderCenterLeftControls={[Function]}
+    renderCenterRightControls={[Function]}
+    scrollMode="remainder"
+    slideIndex={0}
+    slideListMargin={10}
+    slideOffset={25}
+    slideWidth={1}
+    slidesToScroll={1}
+    slidesToShow={3}
+    speed={500}
+    style={Object {}}
+    swiping={true}
+    transitionMode="scroll"
+    vertical={false}
+    width="100%"
+    withoutControls={true}
+    wrapAround={true}
+  >
+    <div>
+      <p>
+        slide 1
+      </p>
+    </div>
+    <div>
+      <p>
+        slide 2
+      </p>
+    </div>
+    <div>
+      <p>
+        slide 3
+      </p>
+    </div>
+  </Carousel>
   <nav
     className="carousel--nav"
   >
@@ -86,10 +144,63 @@ exports[`<Carousel /> should render correctly with two children 1`] = `
 <div
   className="carousel"
 >
-  <TopArticlesPlaceholder
-    height="420px"
-    numberOfPlaceholders={3}
-  />
+  <Carousel
+    afterSlide={[Function]}
+    autoGenerateStyleTag={true}
+    autoplay={false}
+    autoplayInterval={3000}
+    autoplayReverse={false}
+    beforeSlide={[Function]}
+    cellAlign="left"
+    cellSpacing={20}
+    defaultControlsConfig={Object {}}
+    disableAnimation={false}
+    disableEdgeSwiping={false}
+    dragging={true}
+    easing="easeCircleOut"
+    edgeEasing="easeElasticOut"
+    enableKeyboardControls={false}
+    frameOverflow="hidden"
+    framePadding="0px"
+    getControlsContainerStyles={[Function]}
+    height="inherit"
+    heightMode="max"
+    initialSlideWidth={320}
+    keyCodeConfig={Object {}}
+    onDragStart={[Function]}
+    onResize={[Function]}
+    pauseOnHover={true}
+    renderAnnounceSlideMessage={[Function]}
+    renderBottomCenterControls={[Function]}
+    renderCenterLeftControls={[Function]}
+    renderCenterRightControls={[Function]}
+    scrollMode="remainder"
+    slideIndex={0}
+    slideListMargin={10}
+    slideOffset={25}
+    slideWidth={1}
+    slidesToScroll={1}
+    slidesToShow={2}
+    speed={500}
+    style={Object {}}
+    swiping={true}
+    transitionMode="scroll"
+    vertical={false}
+    width="100%"
+    withoutControls={true}
+    wrapAround={true}
+  >
+    <div>
+      <p>
+        slide 1
+      </p>
+    </div>
+    <div>
+      <p>
+        slide 2
+      </p>
+    </div>
+  </Carousel>
   <nav
     className="carousel--nav"
   >

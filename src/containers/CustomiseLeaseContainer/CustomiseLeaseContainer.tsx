@@ -35,7 +35,7 @@ const createEmptyQuoteData = (
   vehicleType: string | null,
   trim: number | null,
   colour: number | null,
-  leaseType: string | null,
+  leaseType: LeaseTypeEnum | null,
 ) => ({
   quoteByCapId: {
     term,
@@ -45,10 +45,7 @@ const createEmptyQuoteData = (
       vehicleType === 'CAR' ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     trim: trim?.toString() || null,
     colour: colour?.toString() || null,
-    leaseType:
-      leaseType === 'PERSONAL'
-        ? LeaseTypeEnum.PERSONAL
-        : LeaseTypeEnum.BUSINESS,
+    leaseType,
     funderId: null,
     leadTime: null,
     stock: null,

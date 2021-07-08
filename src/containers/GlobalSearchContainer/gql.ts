@@ -5,17 +5,18 @@ import {
   suggestionListVariables,
 } from '../../../generated/suggestionList';
 import {
-  fullTextSearchVehicleList,
-  fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles as IFullTextSearchVehicles,
-  fullTextSearchVehicleList_fullTextSearchVehicleList_aggregation as IFullTextSearchAggregation,
-  fullTextSearchVehicleListVariables,
-} from '../../../generated/fullTextSearchVehicleList';
+  productDerivatives,
+  productDerivativesVariables,
+  productDerivatives_productDerivatives_derivatives,
+} from '../../../generated/productDerivatives';
 import {
   GlobalSearchCardsData,
   GlobalSearchCardsDataVariables,
 } from '../../../generated/GlobalSearchCardsData';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { Nullable } from '../../types/common';
+import {
+  ProductDerivativeFilter,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 
 export const GET_SUGGESTIONS_DATA = gql`
   query suggestionList($query: String) {
@@ -25,59 +26,90 @@ export const GET_SUGGESTIONS_DATA = gql`
   }
 `;
 
-export const GET_TEXT_SEARCH_VEHICLES_DATA = gql`
-  query fullTextSearchVehicleList($query: String, $from: Int, $size: Int) {
-    fullTextSearchVehicleList(
+export const GET_PRODUCT_DERIVATIVES = gql`
+  query productDerivatives(
+    $query: String
+    $from: Int
+    $size: Int
+    $filters: ProductDerivativeFilter
+  ) {
+    productDerivatives(
       query: $query
       sort: [
         { field: offerRanking, direction: ASC }
         { field: rental, direction: ASC }
       ]
-      pagination: { size: $size, from: $from }
+      size: $size
+      from: $from
+      filters: $filters
     ) {
-      vehicles {
+      total
+      derivatives {
+        alloys
         availability
-        availabilityMessage
-        availabilitySort
-        bodyStyle
         capBodyStyle
         capCode
         capId
-        configId
         derivativeId
         derivativeName
-        financeProfiles {
-          leaseType
-          maintained
-          mileage
-          rate
-          term
-          upfront
-          upfrontPayment
-        }
+        doors
+        enginePowerBhp
+        enginePowerKw
+        engineSize
+        engineTorque
         financeType
         fuelType
         fullDescription
+        fullPrice
+        funder
+        height
+        inStock
+        indexedAt
         initialPayment
-        legacyUrl
+        initialPaymentMaintained
+        initialPeriod
+        insuranceGroup
+        introducedAt
+        inventoryCount
+        length
+        loadLength
+        loadWidth
+        lqBodyStyle
+        lqFunderId
+        lqFunderRateId
         lqUrl
+        lqVehicleId
+        maintenancePrice
         manufacturerId
         manufacturerName
         mileage
         modelId
         modelName
+        modelYear
+        noOfGears
+        noOfSeats
         offerRanking
         onOffer
         rangeId
         rangeName
+        receivedAt
         rental
+        rentalMaintained
+        sku
+        stockBatchId
         term
+        topSpeed
+        totalLeaseCost
+        totalLeaseCostMaintained
+        towingCapacity
         transmission
+        updatedAt
         url
+        vehicleCategory
         vehicleType
-      }
-      aggregation {
-        totalVehicles
+        weight
+        wheelbase
+        width
       }
     }
   }
@@ -130,25 +162,27 @@ export function useGSCardsData(
 export function useTextSearchList(
   query: string,
   from: number,
-  onCompleted?: (data: fullTextSearchVehicleList) => void,
+  onCompleted?: (data: productDerivatives) => void,
+  filters?: ProductDerivativeFilter,
 ) {
-  return useLazyQuery<
-    fullTextSearchVehicleList,
-    fullTextSearchVehicleListVariables
-  >(GET_TEXT_SEARCH_VEHICLES_DATA, {
-    variables: {
-      query,
-      from,
-      size: 12,
+  return useLazyQuery<productDerivatives, productDerivativesVariables>(
+    GET_PRODUCT_DERIVATIVES,
+    {
+      variables: {
+        query,
+        from,
+        size: 12,
+        filters,
+      },
+      onCompleted,
     },
-    onCompleted,
-  });
+  );
 }
 
 export interface IGlobalSearchData {
   suggestsList: string[];
-  vehiclesList: IFullTextSearchVehicles[];
-  aggregation: Nullable<IFullTextSearchAggregation>;
+  vehiclesList: productDerivatives_productDerivatives_derivatives[];
+  totalCount: number;
 }
 
 export function useGlobalSearch(query?: string) {
@@ -156,16 +190,16 @@ export function useGlobalSearch(query?: string) {
   const [suggestions, setSuggestions] = useState<IGlobalSearchData>({
     suggestsList: [],
     vehiclesList: [],
-    aggregation: null,
+    totalCount: 0,
   });
   // This effect runs when the debounced search term changes and executes the search
   useEffect(() => {
     async function fetchData(value: string) {
       const { data } = await apolloClient.query<
-        fullTextSearchVehicleList,
-        fullTextSearchVehicleListVariables
+        productDerivatives,
+        productDerivativesVariables
       >({
-        query: GET_TEXT_SEARCH_VEHICLES_DATA,
+        query: GET_PRODUCT_DERIVATIVES,
         variables: {
           query: value,
           from: 0,
@@ -183,8 +217,11 @@ export function useGlobalSearch(query?: string) {
       });
       return {
         suggestsList: suggestsList?.suggestionList?.suggestions || [],
-        vehiclesList: data?.fullTextSearchVehicleList?.vehicles || [],
-        aggregation: data?.fullTextSearchVehicleList?.aggregation || null,
+        vehiclesList:
+          (data?.productDerivatives
+            ?.derivatives as productDerivatives_productDerivatives_derivatives[]) ||
+          [],
+        totalCount: data?.productDerivatives?.total ?? 0,
       };
     }
 
@@ -195,11 +232,15 @@ export function useGlobalSearch(query?: string) {
           setSuggestions({
             suggestsList: [],
             vehiclesList: [],
-            aggregation: null,
+            totalCount: 0,
           }),
         );
     } else {
-      setSuggestions({ suggestsList: [], vehiclesList: [], aggregation: null });
+      setSuggestions({
+        suggestsList: [],
+        vehiclesList: [],
+        totalCount: 0,
+      });
     }
   }, [apolloClient, query]);
 

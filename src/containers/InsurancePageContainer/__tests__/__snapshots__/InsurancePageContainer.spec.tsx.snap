@@ -34,6 +34,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
               <img
                 alt="Hero Image"
                 class="image--native"
+                data-cfasync="false"
                 data-testid="insurance_hero-image"
                 loading="eager"
                 sizes="(min-width:320px) 800px, 1200px"
@@ -420,8 +421,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
-            loading="lazy"
+            loading="eager"
             sizes="(min-width:320px) 800px, 1200px"
             src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
             srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 1200w"
@@ -480,8 +482,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
-            loading="lazy"
+            loading="eager"
             sizes="(min-width:320px) 800px, 1200px"
             src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
             srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 1200w"
@@ -540,8 +543,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
-            loading="lazy"
+            loading="eager"
             sizes="(min-width:320px) 800px, 1200px"
             src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
             srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 1200w"
@@ -600,8 +604,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
-            loading="lazy"
+            loading="eager"
             sizes="(min-width:320px) 800px, 1200px"
             src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
             srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 1200w"
@@ -660,8 +665,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
-            loading="lazy"
+            loading="eager"
             sizes="(min-width:320px) 800px, 1200px"
             src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
             srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 1200w"
@@ -720,8 +726,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         >
           <img
             class="card-image"
+            data-cfasync="false"
             data-testid="card-image"
-            loading="lazy"
+            loading="eager"
             sizes="(min-width:320px) 800px, 1200px"
             src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg"
             srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/ufm5sstitBVeCwZ71417K/29d8383eb233ed514ea00ffc650879e3/placeholder.jpg 1200w"
@@ -817,6 +824,7 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
         <img
           alt="Tesla-Test-6"
           class="image--native"
+          data-cfasync="false"
           loading="eager"
           sizes="(min-width:320px) 800px, 1200px"
           src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/24o810jIcvjhhvKGcxbvDZ/498e6cacaafaaff2e71f9e97bd4a44f7/Tesla-Test-6.jpg"
@@ -903,8 +911,9 @@ exports[`<InsurancePageContainer /> should match snapshot 1`] = `
                   >
                     <img
                       class="card-image"
+                      data-cfasync="false"
                       data-testid="card-image"
-                      loading="lazy"
+                      loading="eager"
                       sizes="(min-width:320px) 800px, 1200px"
                       src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/22ybEevo2hRu2pJImPp8tz/327aba1204a84c35b02490ca075c290c/insurance-on-leased-cars.jpg"
                       srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/22ybEevo2hRu2pJImPp8tz/327aba1204a84c35b02490ca075c290c/insurance-on-leased-cars.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/22ybEevo2hRu2pJImPp8tz/327aba1204a84c35b02490ca075c290c/insurance-on-leased-cars.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/22ybEevo2hRu2pJImPp8tz/327aba1204a84c35b02490ca075c290c/insurance-on-leased-cars.jpg 1200w"
