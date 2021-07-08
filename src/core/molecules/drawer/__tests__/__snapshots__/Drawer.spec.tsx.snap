@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Drawer /> should render correctly 1`] = `
+<Fragment>
+  <div
+    className="srp-f-flyout open"
+  >
+    <Memo(Text)
+      className="title"
+      tag="div"
+    >
+      <span>
+        Test
+      </span>
+      <Icon
+        className="close-filter"
+        icon={<Memo />}
+        onClick={[MockFunction]}
+      />
+    </Memo(Text)>
+  </div>
+  <div
+    className="srp-f-mask updating open"
+    onClick={[MockFunction]}
+  />
+</Fragment>
+`;
