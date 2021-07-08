@@ -276,7 +276,7 @@ const GlobalSearchPageContainer = ({
     () =>
       Object.values(activeFilters).reduce((acc, current) => {
         if (current?.[0]) {
-          return acc + 1;
+          return acc + current.length;
         }
         return acc;
       }, 0),

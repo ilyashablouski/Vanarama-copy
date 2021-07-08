@@ -165,3 +165,68 @@ exports[`<CardIcons /> should render no more than 4 icons 1`] = `
   </div>
 </div>
 `;
+
+exports[`<CardIcons /> should render with N/A when name undefined 1`] = `
+<div
+  className="features some-custom-class"
+>
+  <div
+    key="Aircon_1"
+  >
+    <Icon
+      icon={<Memo />}
+    />
+    <Memo(Text)
+      color="darker"
+      size="xsmall"
+    >
+      Aircon
+    </Memo(Text)>
+    <Memo(Text)
+      color="dark"
+      size="xsmall"
+    >
+      Aircon
+    </Memo(Text)>
+  </div>
+  <div
+    key="Bluetooth_2"
+  >
+    <Icon
+      icon={<Memo />}
+    />
+    <Memo(Text)
+      color="dark"
+      size="xsmall"
+    >
+      N/A
+    </Memo(Text)>
+  </div>
+  <div
+    key="Navigation_3"
+  >
+    <Icon
+      icon={<Memo />}
+    />
+    <Memo(Text)
+      color="dark"
+      size="xsmall"
+    >
+      N/A
+    </Memo(Text)>
+  </div>
+  <div
+    key="Sensors_4"
+  >
+    <Icon
+      icon={<Memo />}
+    />
+    <Memo(Text)
+      color="dark"
+      size="xsmall"
+    >
+      N/A
+    </Memo(Text)>
+  </div>
+</div>
+`;
