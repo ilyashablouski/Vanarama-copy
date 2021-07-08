@@ -55,7 +55,7 @@ const Slider: FC<ICarouselProps> = ({
         slideIndex={index}
         afterSlide={(slideIndex: number) => setIndex(slideIndex)}
         cellSpacing={20}
-        initialSlideWidth={320}
+        initialSlideWidth={392}
         initialSlideHeight={initialSlideHeight}
       >
         {children}
