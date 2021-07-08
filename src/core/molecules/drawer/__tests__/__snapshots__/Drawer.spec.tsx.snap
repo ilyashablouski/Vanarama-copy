@@ -20,8 +20,11 @@ exports[`<Drawer /> should render correctly 1`] = `
     </Memo(Text)>
   </div>
   <div
-    className="srp-f-mask updating open"
+    className="srp-f-mask open"
     onClick={[MockFunction]}
-  />
+    role="presentation"
+  >
+    <Memo() />
+  </div>
 </Fragment>
 `;
