@@ -5,16 +5,13 @@ import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteDataLazyQuery } from './gql';
 import {
   LeaseTypeEnum,
+  LineItemInputObject,
   OpportunityTypeEnum,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import { IProps } from './interfaces';
 import { GetQuoteDetails } from '../../../generated/GetQuoteDetails';
 import GoldrushFormContainer from '../GoldrushFormContainer';
-import {
-  GetVehicleDetails_derivativeInfo_colours,
-  GetVehicleDetails_derivativeInfo_trims,
-} from '../../../generated/GetVehicleDetails';
 import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
@@ -38,7 +35,7 @@ const createEmptyQuoteData = (
   vehicleType: string | null,
   trim: number | null,
   colour: number | null,
-  leaseType: string | null,
+  leaseType: LeaseTypeEnum | null,
 ) => ({
   quoteByCapId: {
     term,
@@ -48,10 +45,7 @@ const createEmptyQuoteData = (
       vehicleType === 'CAR' ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     trim: trim?.toString() || null,
     colour: colour?.toString() || null,
-    leaseType:
-      leaseType === 'PERSONAL'
-        ? LeaseTypeEnum.PERSONAL
-        : LeaseTypeEnum.BUSINESS,
+    leaseType,
     funderId: null,
     leadTime: null,
     stock: null,
@@ -220,15 +214,15 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     capId,
   ]);
 
-  const lineItem = () => {
-    const colourDescription = derivativeInfo?.colours?.find(
-      (item: GetVehicleDetails_derivativeInfo_colours | null) =>
-        item?.id === quoteData?.quoteByCapId?.colour,
-    )?.optionDescription;
-    const trimDescription = derivativeInfo?.trims?.find(
-      (item: GetVehicleDetails_derivativeInfo_trims | null) =>
-        item?.id === quoteData?.quoteByCapId?.trim || item?.id === `${trim}`,
-    )?.optionDescription;
+  const lineItem = (): LineItemInputObject => {
+    const colourDescription = colourList?.find(
+      item => item?.optionId?.toString() === quoteData?.quoteByCapId?.colour,
+    )?.label;
+    const trimDescription = trimList?.find(
+      item =>
+        item?.optionId?.toString() === quoteData?.quoteByCapId?.trim ||
+        item?.optionId === trim,
+    )?.label;
 
     const partnerSlug = getPartnerSlug();
 

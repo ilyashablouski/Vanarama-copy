@@ -37,9 +37,9 @@ import {
 } from '../../../../generated/filterList';
 import {
   LeaseTypeEnum,
-  VehicleSearchTypeEnum,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
+import { VehicleSearchTypeEnum } from '../../../../entities/global';
 import { Partner, PartnerVariables } from '../../../../generated/Partner';
 
 const Image = dynamic(() => import('core/atoms/image'), {
