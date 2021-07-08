@@ -55,7 +55,7 @@ const Choiceboxes = forwardRef(
           };
         },
       );
-      index !== -1 && onSubmit?.(changedChoices[index]);
+      index !== -1 && onSubmit(changedChoices[index]);
       if (index !== -1 && setChoiceIndex) {
         setChoiceIndex(index);
       }
