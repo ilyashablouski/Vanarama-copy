@@ -2,9 +2,9 @@ import React from 'react';
 import renderer from 'react-test-renderer';
 
 import Choiceboxes from '../Choiceboxes';
-import { IChoiceboxesProps } from '../interfaces';
+import { IChoiceBoxesProps } from '../interfaces';
 
-function getComponent(props: IChoiceboxesProps) {
+function getComponent(props: IChoiceBoxesProps) {
   return renderer.create(<Choiceboxes {...props} />).toJSON();
 }
 
