@@ -71,7 +71,7 @@ export interface ICardProps extends IBaseProps {
 
   loadImage?: boolean;
 
-  eagerLoad?: boolean;
+  lazyLoad?: boolean;
 
   loadImageProps?: (options?: any) => void;
 }
