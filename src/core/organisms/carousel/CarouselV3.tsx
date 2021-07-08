@@ -7,21 +7,18 @@ import ArrowForwardSharp from '../../assets/icons/ArrowForwardSharp';
 import Ellipse from '../../assets/icons/Ellipse';
 import Icon from '../../atoms/icon';
 import { ICarouselProps } from './interface';
-import SimplePlaceholder from '../../../components/SimplePlaceholder';
-import useMount from '../../../hooks/useMount';
 
 const Slider: FC<ICarouselProps> = ({
   children,
   className,
   countItems,
-  placeholderHeight,
+  initialSlideHeight,
 }) => {
   const [index, setIndex] = useState(0);
   let carouselRef: any;
 
   const isMediumScreen = useMediaQuery({ minWidth: 768, maxWidth: 1215 });
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
-  const isMountedCarousel = useMount();
 
   let slidesToShow = 3;
   if (isSmallScreen) {
@@ -33,44 +30,36 @@ const Slider: FC<ICarouselProps> = ({
   //  Carousel card height fix
   //  useEffect has been used to apply a CSS class '-v-height' to each .card found within
   //  the carousel component after a short delay. This is because we had to wait until
-  //  the <Carousel> component had finshed applying all its inline CSS calculations.
+  //  the <Carousel> component had finished applying all its inline CSS calculations.
 
   useEffect(() => {
-    if (isMountedCarousel) {
-      setTimeout(() => {
-        const sliders = document.querySelectorAll('.carousel .card');
-        Array.from(Array(sliders.length)).forEach((el, id) => {
-          (sliders[id] as HTMLElement).className += ' -v-height';
-        });
-      }, 200);
-    }
-  }, [isMountedCarousel]);
+    setTimeout(() => {
+      const sliders = document.querySelectorAll('.carousel .card');
+      Array.from(Array(sliders.length)).forEach((el, id) => {
+        (sliders[id] as HTMLElement).className += ' -v-height';
+      });
+    }, 200);
+  }, []);
 
   return (
     <div className={cx('carousel', className)}>
-      {isMountedCarousel ? (
-        <Carousel
-          slidesToShow={
-            countItems && countItems < slidesToShow ? countItems : slidesToShow
-          }
-          wrapAround
-          withoutControls
-          ref={(carousel: any) => {
-            carouselRef = carousel;
-          }}
-          slideIndex={index}
-          afterSlide={(slideIndex: number) => setIndex(slideIndex)}
-          cellSpacing={20}
-          initialSlideWidth={300}
-        >
-          {children}
-        </Carousel>
-      ) : (
-        <SimplePlaceholder
-          numberOfPlaceholders={slidesToShow}
-          height={placeholderHeight}
-        />
-      )}
+      <Carousel
+        slidesToShow={
+          countItems && countItems < slidesToShow ? countItems : slidesToShow
+        }
+        wrapAround
+        withoutControls
+        ref={(carousel: any) => {
+          carouselRef = carousel;
+        }}
+        slideIndex={index}
+        afterSlide={(slideIndex: number) => setIndex(slideIndex)}
+        cellSpacing={20}
+        initialSlideWidth={320}
+        initialSlideHeight={initialSlideHeight}
+      >
+        {children}
+      </Carousel>
 
       <nav className="carousel--nav">
         <button
