@@ -1,15 +1,15 @@
-import { Children, ReactElement } from 'react';
+import { Children, isValidElement, ReactNode } from 'react';
 
 export interface IHeading {
   level: number;
-  children: Array<ReactElement>;
+  children: Array<ReactNode>;
 }
 
 export const flattenHeadingText = (
   resultText: string,
-  headingChild: any,
+  headingChild: ReactNode,
 ): string =>
-  typeof headingChild === 'string'
+  !isValidElement(headingChild)
     ? `${resultText}${headingChild}`
     : Children.toArray(headingChild.props.children).reduce(
         flattenHeadingText,
