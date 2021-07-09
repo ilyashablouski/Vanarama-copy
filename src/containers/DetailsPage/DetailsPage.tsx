@@ -448,6 +448,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             derivativeCapId: capId.toString(),
             colour: colourDescription,
             trim: trimDescription,
+            stockBatchId: leaseScannerData?.quoteByCapId?.stockBatchId,
             term: leaseScannerData?.quoteByCapId?.term || null,
             annualMileage: leaseScannerData?.quoteByCapId?.mileage,
             depositMonths: leaseScannerData?.quoteByCapId?.upfront || null,
