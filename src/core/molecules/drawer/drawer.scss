@@ -1,0 +1,75 @@
+.srp-f-mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 100;
+  display: none;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s ease;
+  background: transparent;
+  svg {
+    width: 90px;
+    transition: opacity 0.3s ease;
+    opacity: 0;
+  }
+  &.open {
+    display: flex;
+    background: rgba(103, 128, 152, 0.7);
+  }
+  &.updating {
+    svg {
+      opacity: 1;
+    }
+  }
+}
+
+.srp-f-flyout {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  //left: -448px;
+  left: 0;
+  z-index: 101;
+  max-width: 448px;
+  width: 100%;
+  background: white;
+  overflow-y: auto;
+  padding-top: 58px;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(-100px);
+  transition: all 0.32s cubic-bezier(0.645, 0.045, 0.355, 1);
+  &.open {
+    visibility: visible;
+    opacity: 1;
+    //transform: translateX(448px);
+    transform: translateX(0);
+    box-shadow: 5px 0px 8px -1px rgba(68, 87, 106, 0.10);
+  }
+  .title {
+    width: 100%;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 18px;
+    font-size: 27px;
+    font-weight: 500;
+    color: black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    svg {
+      width: 30px;
+      cursor: pointer;
+      margin-right: -8px;
+      path {
+        fill: #44576A;
+      }
+    }
+  }
+}
