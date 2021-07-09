@@ -3,6 +3,7 @@ import cx from 'classnames';
 import { ITextProps } from './interfaces';
 
 const Text: React.FC<ITextProps> = ({
+  id,
   className,
   color = 'darker',
   size = 'regular',
@@ -13,6 +14,7 @@ const Text: React.FC<ITextProps> = ({
   dataTestId,
 }) => (
   <Tag
+    id={id}
     className={cx('text', className, {
       [`-${size}`]: size,
       [`-${color}`]: color,
