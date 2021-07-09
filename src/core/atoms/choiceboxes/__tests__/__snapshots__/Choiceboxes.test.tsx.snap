@@ -2,10 +2,10 @@
 
 exports[`<Choiceboxes /> renders correctly 1`] = `
 <div
-  className="choiceboxes -teal"
+  className="choice-boxes -teal"
 >
   <button
-    className="choicebox -active"
+    className="choice-box -active"
     onClick={[Function]}
     style={Object {}}
     type="button"
@@ -13,7 +13,7 @@ exports[`<Choiceboxes /> renders correctly 1`] = `
     Personal
   </button>
   <button
-    className="choicebox"
+    className="choice-box"
     onClick={[Function]}
     style={Object {}}
     type="button"
@@ -25,10 +25,10 @@ exports[`<Choiceboxes /> renders correctly 1`] = `
 
 exports[`<Choiceboxes /> renders correctly 2`] = `
 <div
-  className="choiceboxes -teal"
+  className="choice-boxes -teal"
 >
   <button
-    className="choicebox -active"
+    className="choice-box -active"
     onClick={[Function]}
     style={Object {}}
     type="button"
@@ -36,7 +36,7 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
     13
   </button>
   <button
-    className="choicebox"
+    className="choice-box"
     onClick={[Function]}
     style={Object {}}
     type="button"
@@ -44,7 +44,7 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
     23
   </button>
   <button
-    className="choicebox"
+    className="choice-box"
     onClick={[Function]}
     style={Object {}}
     type="button"
@@ -52,7 +52,7 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
     43
   </button>
   <button
-    className="choicebox"
+    className="choice-box"
     onClick={[Function]}
     style={Object {}}
     type="button"
@@ -60,7 +60,7 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
     45
   </button>
   <button
-    className="choicebox"
+    className="choice-box"
     onClick={[Function]}
     style={Object {}}
     type="button"
@@ -72,10 +72,10 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
 
 exports[`<Choiceboxes /> renders correctly 3`] = `
 <div
-  className="choiceboxes -black"
+  className="choice-boxes -black"
 >
   <button
-    className="choicebox -active"
+    className="choice-box -active"
     onClick={[Function]}
     style={Object {}}
     type="button"
@@ -83,7 +83,7 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
     13
   </button>
   <button
-    className="choicebox"
+    className="choice-box"
     onClick={[Function]}
     style={Object {}}
     type="button"
@@ -91,7 +91,7 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
     23
   </button>
   <button
-    className="choicebox"
+    className="choice-box"
     onClick={[Function]}
     style={Object {}}
     type="button"
@@ -99,7 +99,7 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
     45
   </button>
   <button
-    className="choicebox"
+    className="choice-box"
     onClick={[Function]}
     style={Object {}}
     type="button"
@@ -107,7 +107,7 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
     47
   </button>
   <button
-    className="choicebox"
+    className="choice-box"
     onClick={[Function]}
     style={Object {}}
     type="button"
@@ -115,7 +115,7 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
     25763
   </button>
   <button
-    className="choicebox"
+    className="choice-box"
     onClick={[Function]}
     type="button"
   >
