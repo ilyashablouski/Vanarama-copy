@@ -126,7 +126,7 @@ const GlobalSearchPageFilters = ({
       setActiveFilters({
         ...activeFilters,
         [filter]: activeFilters?.[filter]
-          ? [...activeFilters?.[filter], e.target.value]
+          ? [activeFilters?.[filter], e.target.value]
           : [e.target.value],
       });
     } else {
