@@ -9,4 +9,5 @@ export interface ITextProps extends IBaseProps {
   htmlFor?: string;
   children?: React.ReactNode;
   invalid?: boolean;
+  id?: string;
 }
