@@ -74,7 +74,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
       className="-product -mh-auto"
       countItems={countItems || 6}
       key={carouselKey}
-      placeholderHeight="567px"
+      initialSlideHeight={567}
     >
       {data.productCard?.map(
         (product, inx) =>
@@ -83,7 +83,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
               // loadImage
               style={{ maxHeight: 600 }}
               alt={`${product?.manufacturerName} ${product?.modelName} ${product?.derivativeName}`}
-              eagerLoad={isSmallScreen && inx === 0}
+              lazyLoad={inx !== 0}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={`${product.capId}_${inx}` || ''}
               header={

@@ -35,6 +35,34 @@ describe('<CardIcons />', () => {
     expect(wrapper).toMatchSnapshot();
   });
 
+  it('should render with N/A when name undefined', () => {
+    // ARRANGE
+    const icons: TIcon[] = [
+      { icon: <SnowSharp />, label: 'Aircon', index: '1', name: 'Aircon' },
+      {
+        icon: <BluetoothSharp />,
+        label: 'Bluetooth',
+        index: '2',
+        name: '',
+      },
+      {
+        icon: <CompassSharp />,
+        label: 'Navigation',
+        index: '3',
+        name: '',
+      },
+      { icon: <WifiSharp />, label: 'Sensors', index: '4', name: '' },
+    ];
+
+    // ACT
+    const wrapper = shallow(
+      <CardIcons className="some-custom-class" icons={icons} />,
+    );
+
+    // ASSERT
+    expect(wrapper).toMatchSnapshot();
+  });
+
   it('should render no more than 4 icons', () => {
     // ARRANGE
     const icons: TIcon[] = [
