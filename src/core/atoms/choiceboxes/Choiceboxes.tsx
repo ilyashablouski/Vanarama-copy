@@ -6,7 +6,7 @@ import React, {
   useEffect,
 } from 'react';
 import cx from 'classnames';
-import { IChoiceboxesProps, IChoice } from './interfaces';
+import { IChoiceBoxesProps, IChoice } from './interfaces';
 import Icon from '../icon';
 import BodyStyleIconMap from '../../../utils/bodyStyleIconMap';
 import { getPartnerProperties } from '../../../utils/partnerProperties';
@@ -27,7 +27,7 @@ const Choiceboxes = forwardRef(
       shouldSelectTheOnlyValue = false,
       choiceIndex,
       setChoiceIndex,
-    }: IChoiceboxesProps,
+    }: IChoiceBoxesProps,
     ref,
   ) => {
     const [currentChoices, setCurrentChoices] = useState(choices);
@@ -93,7 +93,7 @@ const Choiceboxes = forwardRef(
     }, []);
 
     return (
-      <div className={cx('choiceboxes', className, `-${color}`)}>
+      <div className={cx('choice-boxes', className, `-${color}`)}>
         {currentChoices.map((choice: IChoice, index: number) => (
           <button
             style={
@@ -107,7 +107,7 @@ const Choiceboxes = forwardRef(
             disabled={disabled}
             key={choice.value}
             type="button"
-            className={cx('choicebox', choice.active ? '-active' : null)}
+            className={cx('choice-box', choice.active ? '-active' : null)}
             onClick={() => {
               changeChoices(index);
               clearMultiSelectActive && setClearMultiSelectActive(false);
@@ -128,7 +128,7 @@ const Choiceboxes = forwardRef(
           <button
             key={clearMultiSelectTitle}
             type="button"
-            className={cx('choicebox', { '-active': clearMultiSelectActive })}
+            className={cx('choice-box', { '-active': clearMultiSelectActive })}
             onClick={() => {
               setClearMultiSelectActive(!clearMultiSelectActive);
               changeChoices(-1);

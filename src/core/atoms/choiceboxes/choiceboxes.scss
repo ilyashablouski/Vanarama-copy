@@ -1,6 +1,5 @@
-.choiceboxes {
+.choice-boxes {
   display: grid;
-  min-width: 0;
   gap: 6px;
   width: 100%;
   min-width: 0;
@@ -11,9 +10,50 @@
       grid-template-columns: repeat($i, 1fr);
     }
   }
+
+  &.-v2 {
+    display: block;
+
+    .choice-input {
+      &:disabled + .choice-box {
+        background-color: #ced6de;
+        border: none;
+      }
+    }
+
+    .choice-box {
+      display: flex;
+      flex-direction: row;
+      justify-content: left;
+      align-items: center;
+      height: 45px;
+      padding: 12px;
+      border: 1px solid #d0d9e1;
+      border-radius: 5px;
+      font-size: $font-size-400;
+      font-weight: 400;
+      background: white;
+      transition: border 0.3s ease;
+      cursor: pointer;
+
+      ~ .choice-box {
+        margin-top: 14px;
+      }
+
+      span {
+        color: #44576A;
+      }
+
+      &.-active {
+        border: 1px solid #007F85;
+        font-weight: 500;
+        background: white;
+      }
+    }
+  }
 }
 
-.choicebox {
+.choice-box {
   display: flex;
   flex-direction: column;
   justify-content: center;
