@@ -37,6 +37,7 @@ export interface GetQuoteDetails_quoteByCapId {
   stock: string | null;
   vehicleType: VehicleTypeEnum | null;
   leaseType: LeaseTypeEnum | null;
+  stockBatchId: number | null;
   processingFee: number | null;
   nextBestPrice: GetQuoteDetails_quoteByCapId_nextBestPrice | null;
   leaseCost: GetQuoteDetails_quoteByCapId_leaseCost | null;
