@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/react';
 import base from 'paths.macro';
-import React, { useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import Choiceboxes from '.';
 import ChoiceBoxesV2 from './ChoiceboxesV2';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
@@ -92,17 +92,33 @@ storiesOf(`${atomicDir(base)}/Choiceboxes`, module).add(
   },
 );
 
-storiesOf(`${atomicDir(base)}/ChoiceboxesV2`, module).add(
-  'ChoiceboxesV2',
-  () => {
-    const values = ['12345', '67890'];
-    const selectedValue = ['67890'];
+storiesOf(`${atomicDir(base)}/ChoiceboxesV2`, module)
+  .add('Default', () => {
+    const initialValues = ['12345', '67890'];
+    const [selectedValues, setSelectedValues] = useState(['67890']);
+
     return (
       <ChoiceBoxesV2
-        values={values}
-        selectedValues={selectedValue}
-        onChange={() => {}}
+        values={initialValues}
+        selectedValues={selectedValues}
+        onChange={values => {
+          setSelectedValues(values);
+        }}
       />
     );
-  },
-);
+  })
+  .add('Multiselect', () => {
+    const initialValues = ['12345', '67890'];
+    const [selectedValues, setSelectedValues] = useState(['67890']);
+
+    return (
+      <ChoiceBoxesV2
+        multiSelect
+        values={initialValues}
+        selectedValues={selectedValues}
+        onChange={values => {
+          setSelectedValues(values);
+        }}
+      />
+    );
+  });
