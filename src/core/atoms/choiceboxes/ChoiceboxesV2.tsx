@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import cx from 'classnames';
 
 import { IChoiceBoxesV2Props } from './interfaces';
@@ -11,7 +11,10 @@ function ChoiceBoxesV2({
   multiSelect,
   onChange,
 }: IChoiceBoxesV2Props) {
-  const resultSelectedValues = selectedValues ?? [];
+  const type = multiSelect ? 'checkbox' : 'radio';
+  const resultSelectedValues = useMemo(() => selectedValues ?? [], [
+    selectedValues,
+  ]);
 
   function handleSelectChange(value: string, checked: boolean) {
     onChange(!checked ? [value] : []);
@@ -28,9 +31,8 @@ function ChoiceBoxesV2({
   }
 
   return (
-    <div className={cx('choice-boxes', className, `-${color}`)}>
+    <div className={cx('choice-boxes -v2', className, `-${color}`)}>
       {values.map(value => {
-        const type = multiSelect ? 'checkbox' : 'radio';
         const checked = resultSelectedValues.includes(value);
         const handleChange = multiSelect
           ? () => handleMultiselectChange(value, checked)
@@ -44,6 +46,7 @@ function ChoiceBoxesV2({
               type={type}
               value={value}
               name="choice-box"
+              className="choice-input"
               checked={checked}
               onChange={handleChange}
             />
