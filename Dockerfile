@@ -1,5 +1,6 @@
 FROM node:12.13.0
 
+ARG NPM_TOKEN
 ARG API_KEY
 ARG API_URL
 ARG LOQATE_KEY
@@ -21,6 +22,7 @@ WORKDIR /usr/src/app
 
 RUN npm install pm2 -g
 
+RUN npm config set '//registry.npmjs.org/:_authToken' "${NPM_TOKEN}"
 COPY yarn.lock .
 COPY package.json .
 RUN yarn install --force
@@ -30,7 +32,7 @@ COPY . .
 
 RUN npm rebuild node-sass
 
-RUN yarn build
+RUN yarn build && yarn --production
 
 EXPOSE 8080
 
