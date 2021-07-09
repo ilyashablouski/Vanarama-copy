@@ -36,6 +36,7 @@ export const GET_QUOTE_DATA = gql`
       stock
       vehicleType
       leaseType
+      stockBatchId
       processingFee
       nextBestPrice {
         maintained
