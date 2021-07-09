@@ -17,11 +17,11 @@ function ChoiceBoxesV2({
   ]);
 
   function handleSelectChange(value: string, checked: boolean) {
-    onChange(!checked ? [value] : []);
+    onChange(checked ? [value] : []);
   }
 
   function handleMultiselectChange(value: string, checked: boolean) {
-    const resultValues = !checked
+    const resultValues = checked
       ? [...resultSelectedValues, value]
       : resultSelectedValues.filter(selectedValue => {
           return selectedValue !== value;
@@ -30,13 +30,20 @@ function ChoiceBoxesV2({
     onChange(resultValues);
   }
 
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const { value, checked } = e.target;
+
+    if (multiSelect) {
+      handleMultiselectChange(value, checked);
+    } else {
+      handleSelectChange(value, checked);
+    }
+  }
+
   return (
     <div className={cx('choice-boxes -v2', className, `-${color}`)}>
       {values.map(value => {
         const checked = resultSelectedValues.includes(value);
-        const handleChange = multiSelect
-          ? () => handleMultiselectChange(value, checked)
-          : () => handleSelectChange(value, checked);
 
         return (
           <React.Fragment key={value}>

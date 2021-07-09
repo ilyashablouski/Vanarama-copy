@@ -2,6 +2,7 @@ import { storiesOf } from '@storybook/react';
 import base from 'paths.macro';
 import React, { useRef } from 'react';
 import Choiceboxes from '.';
+import ChoiceBoxesV2 from './ChoiceboxesV2';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 import Button from '../button';
 
@@ -87,6 +88,21 @@ storiesOf(`${atomicDir(base)}/Choiceboxes`, module).add(
           clearMultiSelectTitle="Clear"
         />
       </>
+    );
+  },
+);
+
+storiesOf(`${atomicDir(base)}/ChoiceboxesV2`, module).add(
+  'ChoiceboxesV2',
+  () => {
+    const values = ['12345', '67890'];
+    const selectedValue = ['67890'];
+    return (
+      <ChoiceBoxesV2
+        values={values}
+        selectedValues={selectedValue}
+        onChange={() => {}}
+      />
     );
   },
 );
