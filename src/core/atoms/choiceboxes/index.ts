@@ -1,3 +1,1 @@
-import Choiceboxes from './Choiceboxes';
-
-export default Choiceboxes;
+export { default } from './Choiceboxes';
