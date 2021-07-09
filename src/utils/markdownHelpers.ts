@@ -1,8 +1,8 @@
-import { Children } from 'react';
+import { Children, ReactElement } from 'react';
 
 export interface IHeading {
   level: number;
-  children: Array<any>;
+  children: Array<ReactElement>;
 }
 
 export const flattenHeadingText = (
