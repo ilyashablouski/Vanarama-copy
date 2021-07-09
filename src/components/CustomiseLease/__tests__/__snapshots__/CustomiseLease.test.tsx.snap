@@ -15,10 +15,10 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     Is this for you, or for your business?
   </span>
   <div
-    className="choiceboxes -cols-2 -teal"
+    className="choice-boxes -cols-2 -teal"
   >
     <button
-      className="choicebox"
+      className="choice-box"
       disabled={false}
       onClick={[Function]}
       style={Object {}}
@@ -27,7 +27,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       Personal
     </button>
     <button
-      className="choicebox -active"
+      className="choice-box -active"
       disabled={false}
       onClick={[Function]}
       style={Object {}}
@@ -102,10 +102,10 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </span>
   <div
-    className="choiceboxes -cols-2 -teal"
+    className="choice-boxes -cols-2 -teal"
   >
     <button
-      className="choicebox"
+      className="choice-box"
       disabled={false}
       onClick={[Function]}
       style={Object {}}
@@ -114,7 +114,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       24
     </button>
     <button
-      className="choicebox -active"
+      className="choice-box -active"
       disabled={false}
       onClick={[Function]}
       style={Object {}}
@@ -149,10 +149,10 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </span>
   <div
-    className="choiceboxes -cols-2 -teal"
+    className="choice-boxes -cols-2 -teal"
   >
     <button
-      className="choicebox"
+      className="choice-box"
       disabled={false}
       onClick={[Function]}
       style={Object {}}
@@ -161,7 +161,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       1
     </button>
     <button
-      className="choicebox -active"
+      className="choice-box -active"
       disabled={false}
       onClick={[Function]}
       style={Object {}}
@@ -745,10 +745,10 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     Is this for you, or for your business?
   </span>
   <div
-    className="choiceboxes -cols-2 -teal"
+    className="choice-boxes -cols-2 -teal"
   >
     <button
-      className="choicebox"
+      className="choice-box"
       disabled={false}
       onClick={[Function]}
       style={Object {}}
@@ -757,7 +757,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       Personal
     </button>
     <button
-      className="choicebox -active"
+      className="choice-box -active"
       disabled={false}
       onClick={[Function]}
       style={Object {}}
@@ -832,10 +832,10 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </span>
   <div
-    className="choiceboxes -cols-2 -teal"
+    className="choice-boxes -cols-2 -teal"
   >
     <button
-      className="choicebox"
+      className="choice-box"
       disabled={false}
       onClick={[Function]}
       style={Object {}}
@@ -844,7 +844,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       24
     </button>
     <button
-      className="choicebox -active"
+      className="choice-box -active"
       disabled={false}
       onClick={[Function]}
       style={Object {}}
@@ -879,10 +879,10 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </span>
   <div
-    className="choiceboxes -cols-2 -teal"
+    className="choice-boxes -cols-2 -teal"
   >
     <button
-      className="choicebox"
+      className="choice-box"
       disabled={false}
       onClick={[Function]}
       style={Object {}}
@@ -891,7 +891,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       1
     </button>
     <button
-      className="choicebox -active"
+      className="choice-box -active"
       disabled={false}
       onClick={[Function]}
       style={Object {}}
