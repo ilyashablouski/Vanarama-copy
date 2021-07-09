@@ -831,7 +831,10 @@ const SearchPageContainer: React.FC<IProps> = ({
           sort: isSpecialOffersOrder
             ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
             : sortOrder,
-          fuelTypes: getPartnerProperties()?.fuelTypes,
+          fuelTypes:
+            filtersData?.fuelTypes?.length > 0
+              ? filtersData?.fuelTypes
+              : getPartnerProperties()?.fuelTypes,
         },
       });
     }
