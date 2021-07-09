@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { IBaseProps } from '../../interfaces/base';
 import { TColor } from '../../../types/color';
+import { Nullish } from '../../../types/common';
 
 export interface IChoice {
   label: string;
@@ -8,10 +9,9 @@ export interface IChoice {
   value?: string;
 }
 
-export interface IChoiceboxesProps extends IBaseProps {
+export interface IChoiceBoxesProps extends IBaseProps {
   color?: TColor;
   choices: IChoice[];
-  onSubmit: (choice: IChoice) => void;
   multiSelect?: boolean;
   disabled?: boolean | undefined;
   clearMultiSelectTitle?: string;
@@ -21,4 +21,14 @@ export interface IChoiceboxesProps extends IBaseProps {
   shouldSelectTheOnlyValue?: boolean;
   choiceIndex?: number;
   setChoiceIndex?: Dispatch<SetStateAction<number>>;
+  onSubmit: (choice: IChoice) => void;
+}
+
+export interface IChoiceBoxesV2Props extends IBaseProps {
+  color?: TColor;
+  values: Array<string>;
+  selectedValues?: Nullish<Array<string>>;
+  multiSelect?: boolean;
+  disabled?: boolean;
+  onChange: (values: Array<string>) => void;
 }

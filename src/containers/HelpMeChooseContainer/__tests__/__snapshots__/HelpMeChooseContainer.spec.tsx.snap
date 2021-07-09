@@ -18,10 +18,10 @@ exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
     className="stepped-form--filter"
   >
     <div
-      className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -mb-400 -teal"
+      className="choice-boxes -cols-2 -teal stepped-form--choiceboxes -mb-400 -teal"
     >
       <button
-        className="choicebox"
+        className="choice-box"
         onClick={[Function]}
         style={Object {}}
         type="button"
@@ -29,7 +29,7 @@ exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
         Diesel
       </button>
       <button
-        className="choicebox"
+        className="choice-box"
         onClick={[Function]}
         style={Object {}}
         type="button"
@@ -37,7 +37,7 @@ exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
         Petrol
       </button>
       <button
-        className="choicebox"
+        className="choice-box"
         onClick={[Function]}
         type="button"
       >
@@ -101,10 +101,10 @@ exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
     className="stepped-form--filter"
   >
     <div
-      className="choiceboxes -cols-2 -teal stepped-form--choiceboxes -mb-400 -teal"
+      className="choice-boxes -cols-2 -teal stepped-form--choiceboxes -mb-400 -teal"
     >
       <button
-        className="choicebox"
+        className="choice-box"
         onClick={[Function]}
         style={Object {}}
         type="button"
@@ -112,7 +112,7 @@ exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
         Diesel
       </button>
       <button
-        className="choicebox -active"
+        className="choice-box -active"
         onClick={[Function]}
         style={Object {}}
         type="button"
@@ -120,7 +120,7 @@ exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
         Petrol
       </button>
       <button
-        className="choicebox"
+        className="choice-box"
         onClick={[Function]}
         type="button"
       >
