@@ -67,6 +67,7 @@ describe('<CustomiseLease />', () => {
       data: {
         quoteByCapId: {
           colour: '13990',
+          stockBatchId: null,
           leadTime: '14-21 Day Delivery',
           leaseType: LeaseTypeEnum.PERSONAL,
           maintenanceCost: {
@@ -204,6 +205,7 @@ describe('<CustomiseLease />', () => {
       data: {
         quoteByCapId: {
           colour: '13990',
+          stockBatchId: null,
           leadTime: '14-21 Day Delivery',
           leaseType: LeaseTypeEnum.BUSINESS,
           funderId: 3,
@@ -346,6 +348,7 @@ describe('<CustomiseLease />', () => {
         data={{
           quoteByCapId: {
             colour: '13990',
+            stockBatchId: null,
             leadTime: '14-21 Day Delivery',
             leaseType: LeaseTypeEnum.BUSINESS,
             funderId: 3,
