@@ -39,7 +39,10 @@ export const createOffersObject = (
   button?: JSX.Element,
   quote?: boolean,
 ) => ({
-  price: offer.monthlyPayment || 0,
+  price:
+    offer.maintenance && offer.maintenancePrice && offer.monthlyPayment
+      ? offer.monthlyPayment + offer.maintenancePrice
+      : offer.monthlyPayment || 0,
   priceDescription: `Per Month ${
     leaseType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
   }.VAT`,

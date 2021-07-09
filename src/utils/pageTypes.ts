@@ -26,6 +26,7 @@ export const PAGE_TYPES = {
   leaseProductPage: 'Lease Product Page',
   vehicleReview: 'Vehicle Review',
   nonBlogPage: 'Non-Blog',
+  wishlist: 'Wishlist',
 };
 
 export const SITE_SECTIONS = {
@@ -33,6 +34,8 @@ export const SITE_SECTIONS = {
   cars: 'Cars',
   vans: 'Vans',
   pickUps: 'Pick-Ups',
+  electric: 'Electric',
+  wishlist: 'Wishlist',
   ecommerce: 'Ecommerce',
   insurance: 'Insurance',
   fleet: 'Fleet',
@@ -250,6 +253,16 @@ export const PAGES = [
     pages: ['/pickup-truck-leasing'],
     pageType: PAGE_TYPES.PLP,
     siteSection: SITE_SECTIONS.pickUps,
+  },
+  {
+    pages: ['/electric-leasing'],
+    pageType: PAGE_TYPES.PLP,
+    siteSection: SITE_SECTIONS.electric,
+  },
+  {
+    pages: ['/wishlist'],
+    pageType: PAGE_TYPES.wishlist,
+    siteSection: SITE_SECTIONS.wishlist,
   },
   {
     pages: ['/'],

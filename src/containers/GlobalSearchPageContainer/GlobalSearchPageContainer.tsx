@@ -4,6 +4,7 @@ import Button from 'core/atoms/button/Button';
 import dynamic from 'next/dynamic';
 import OptionsSharp from 'core/assets/icons/OptionsSharp';
 import SwapVerticalSharp from 'core/assets/icons/SwapVerticalSharp';
+import cx from 'classnames';
 import {
   productDerivatives as ITextSearchQuery,
   productDerivatives_productDerivatives_derivatives as IVehiclesList,
@@ -27,12 +28,13 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import SectionCards from '../../components/SectionCards';
 import VehicleCard from '../../components/VehicleCard';
 import FiltersTags from './FiltersTags';
-import Drawer from './Drawer';
+import Drawer from '../../core/molecules/drawer/Drawer';
 import { IFiltersData, ISelectedTags, ITabs } from './interfaces';
 import { pluralise } from '../../utils/dates';
 import GlobalSearchPageFilters from '../../components/GlobalSearchPageFilters';
 import { productFilter_productFilter as IProductFilter } from '../../../generated/productFilter';
 import { RESULTS_PER_REQUEST } from '../SearchPageContainer/helpers';
+import DrawerActions from './DrawerActions';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -270,6 +272,17 @@ const GlobalSearchPageContainer = ({
     [pageData],
   );
 
+  const totalFiltersCount = useMemo(
+    () =>
+      Object.values(activeFilters).reduce((acc, current) => {
+        if (current?.[0]) {
+          return acc + current.length;
+        }
+        return acc;
+      }, 0),
+    [activeFilters],
+  );
+
   const getProductCardData = (capId: string, vehicleType: VehicleTypeEnum) => {
     return vehiclesCardsData?.[vehicleType].find(x => x?.capId === capId);
   };
@@ -330,6 +343,9 @@ const GlobalSearchPageContainer = ({
         >
           <OptionsSharp />
           Filter
+          {totalFiltersCount > 0 && (
+            <span className="filters-applied">{totalFiltersCount}</span>
+          )}
         </button>
 
         <button
@@ -395,22 +411,43 @@ const GlobalSearchPageContainer = ({
         </div>
       )}
       <Drawer
-        renderContent={() => (
-          <GlobalSearchPageFilters
-            onRemoveTag={onRemoveTag}
-            preloadFilters={filtersData}
-            activeFilters={activeFilters}
-            setActiveFilters={setActiveFilters}
-            setSelectedTags={setSelectedTags}
-            selectedTags={selectedTags}
-            clearFilterBlock={onClearFilterBlock}
-          />
-        )}
-        onResetFilters={() => setActiveFilters({} as IFiltersData)}
         isShowDrawer={isShowDrawer}
-        totalResults={totalResults}
+        isLoading={loading}
         onCloseDrawer={() => setIsShowDrawer(false)}
-        isFiltersRender={activeTab === ITabs.Filter}
+        title={activeTab === ITabs.Filter ? 'Filter' : 'Sort'}
+        renderContent={
+          <div
+            className={cx('content', {
+              filters: activeTab === ITabs.Filter,
+              sort: activeTab !== ITabs.Filter,
+            })}
+          >
+            {activeTab === ITabs.Filter ? (
+              <GlobalSearchPageFilters
+                onRemoveTag={onRemoveTag}
+                preloadFilters={filtersData}
+                activeFilters={activeFilters}
+                setActiveFilters={setActiveFilters}
+                setSelectedTags={setSelectedTags}
+                selectedTags={selectedTags}
+                clearFilterBlock={onClearFilterBlock}
+              />
+            ) : (
+              <></>
+            )}
+          </div>
+        }
+        renderActions={
+          activeTab === ITabs.Filter ? (
+            <DrawerActions
+              totalResults={totalResults}
+              onResetFilters={() => setActiveFilters({} as IFiltersData)}
+              onCloseDrawer={() => setIsShowDrawer(false)}
+            />
+          ) : (
+            <></>
+          )
+        }
       />
     </>
   );
