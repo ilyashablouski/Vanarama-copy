@@ -122,11 +122,12 @@ const GlobalSearchPageFilters = ({
     e: React.ChangeEvent<HTMLInputElement>,
     filter: keyof IFiltersData,
   ) => {
+    const spreadableFilter = activeFilters?.[filter] || [];
     if (e.target.checked) {
       setActiveFilters({
         ...activeFilters,
         [filter]: activeFilters?.[filter]
-          ? [activeFilters?.[filter], e.target.value]
+          ? [...spreadableFilter, e.target.value]
           : [e.target.value],
       });
     } else {
