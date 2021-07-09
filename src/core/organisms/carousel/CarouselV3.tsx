@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect } from 'react';
+import React, { FC, useState, useLayoutEffect } from 'react';
 import cx from 'classnames';
 import Carousel from 'nuka-carousel';
 import { useMediaQuery } from 'react-responsive';
@@ -28,11 +28,11 @@ const Slider: FC<ICarouselProps> = ({
   }
 
   //  Carousel card height fix
-  //  useEffect has been used to apply a CSS class '-v-height' to each .card found within
+  //  useLayoutEffect has been used to apply a CSS class '-v-height' to each .card found within
   //  the carousel component after a short delay. This is because we had to wait until
   //  the <Carousel> component had finished applying all its inline CSS calculations.
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     setTimeout(() => {
       const sliders = document.querySelectorAll('.carousel .card');
       Array.from(Array(sliders.length)).forEach((el, id) => {
@@ -55,7 +55,7 @@ const Slider: FC<ICarouselProps> = ({
         slideIndex={index}
         afterSlide={(slideIndex: number) => setIndex(slideIndex)}
         cellSpacing={20}
-        initialSlideWidth={320}
+        initialSlideWidth={392}
         initialSlideHeight={initialSlideHeight}
       >
         {children}
