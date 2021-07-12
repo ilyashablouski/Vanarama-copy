@@ -1,7 +1,7 @@
 import React, { useContext, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import Carousel from 'core/organisms/carousel';
-import ProductCard from 'core/molecules/cards/ProductCard/ProductCard';
+import ProductCard from 'core/molecules/cards/ProductCard';
 import { useMediaQuery } from 'react-responsive';
 import { isWished } from '../../utils/wishlistHelpers';
 import { isCompared } from '../../utils/comparatorHelpers';
@@ -74,6 +74,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
       className="-product -mh-auto"
       countItems={countItems || 6}
       key={carouselKey}
+      initialSlideHeight={567}
     >
       {data.productCard?.map(
         (product, inx) =>
@@ -82,6 +83,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
               // loadImage
               style={{ maxHeight: 600 }}
               alt={`${product?.manufacturerName} ${product?.modelName} ${product?.derivativeName}`}
+              lazyLoad={inx !== 0}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               key={`${product.capId}_${inx}` || ''}
               header={
@@ -167,6 +169,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                     alt="Free insurance"
                     className="gallery-free-insurance"
                     src={`${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`}
+                    data-cfasync="false"
                   />
                 )}
               <div className="-flex-h">

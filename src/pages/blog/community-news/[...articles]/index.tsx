@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
+import { PreviewNextPageContext } from 'types/common';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
@@ -52,13 +53,14 @@ const BlogPost: NextPage<IBlogPost> = ({
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   try {
     const client = createApolloClient({});
     const { data } = await client.query<BlogPosts>({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/community-news',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 
@@ -85,6 +87,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: BLOG_POST_PAGE,
       variables: {
         slug: `blog/community-news/${context?.params?.articles}`,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     const { data: blogPosts, errors: blogPostsError } = await client.query({
@@ -105,9 +108,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const newBlogPostsData = encodeData(newBlogPosts);
 
     return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL) ||
+          Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data,
         error: errors ? errors[0] : null,

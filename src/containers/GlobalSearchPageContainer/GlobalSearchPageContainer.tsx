@@ -4,11 +4,12 @@ import Button from 'core/atoms/button/Button';
 import dynamic from 'next/dynamic';
 import OptionsSharp from 'core/assets/icons/OptionsSharp';
 import SwapVerticalSharp from 'core/assets/icons/SwapVerticalSharp';
+import cx from 'classnames';
 import {
-  fullTextSearchVehicleList as ITextSearchQuery,
-  fullTextSearchVehicleList_fullTextSearchVehicleList_vehicles as IVehiclesList,
-} from '../../../generated/fullTextSearchVehicleList';
-import { productCardDataMapper } from './helpers';
+  productDerivatives as ITextSearchQuery,
+  productDerivatives_productDerivatives_derivatives as IVehiclesList,
+} from '../../../generated/productDerivatives';
+import { buildFiltersRequestObject, productCardDataMapper } from './helpers';
 import {
   useGSCardsData,
   useTextSearchList,
@@ -27,9 +28,13 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import SectionCards from '../../components/SectionCards';
 import VehicleCard from '../../components/VehicleCard';
 import FiltersTags from './FiltersTags';
-import Drawer from './Drawer';
-import { ITabs } from './interfaces';
+import Drawer from '../../core/molecules/drawer/Drawer';
+import { IFiltersData, ISelectedTags, ITabs } from './interfaces';
 import { pluralise } from '../../utils/dates';
+import GlobalSearchPageFilters from '../../components/GlobalSearchPageFilters';
+import { productFilter_productFilter as IProductFilter } from '../../../generated/productFilter';
+import { RESULTS_PER_REQUEST } from '../SearchPageContainer/helpers';
+import DrawerActions from './DrawerActions';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -37,8 +42,10 @@ const Text = dynamic(() => import('core/atoms/text'), {
 
 interface IProps {
   pageData?: GenericPageQuery;
+  filtersData?: IProductFilter;
+  initialFilters: IFiltersData;
   metaData: PageMetaData;
-  preLoadTextSearchList: ITextSearchQuery;
+  preLoadProductDerivatives: ITextSearchQuery;
   carsData?: ICardsData[];
   vansData?: ICardsData[];
   responseVansCapIds?: string[];
@@ -50,25 +57,30 @@ export interface IGSVehiclesCardsData<T> {
 }
 
 const GlobalSearchPageContainer = ({
-  preLoadTextSearchList,
+  preLoadProductDerivatives,
   metaData,
   pageData,
   carsData,
   vansData,
   responseVansCapIds,
   responseCarsCapIds,
+  filtersData,
+  initialFilters,
 }: IProps) => {
   const router = useRouter();
-
+  const [activeFilters, setActiveFilters] = useState<IFiltersData>(
+    initialFilters,
+  );
+  const [selectedTags, setSelectedTags] = useState<ISelectedTags[]>([]);
   const [isShowDrawer, setIsShowDrawer] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<ITabs>(ITabs.Filter);
 
-  const [vehiclesList, setVehicleList] = useState<IVehiclesList[]>(
-    preLoadTextSearchList.fullTextSearchVehicleList?.vehicles || [],
+  const [vehiclesList, setVehicleList] = useState<(IVehiclesList | null)[]>(
+    preLoadProductDerivatives.productDerivatives?.derivatives || [],
   );
-  const [vehiclesListCache, setVehicleListCache] = useState<IVehiclesList[]>(
-    [],
-  );
+  const [vehiclesListCache, setVehicleListCache] = useState<
+    (IVehiclesList | null)[]
+  >([]);
 
   const [lcvCardsData, setLcvCardsData] = useState<ICardsData[]>(
     vansData || [],
@@ -87,9 +99,8 @@ const GlobalSearchPageContainer = ({
     CAR: responseCarsCapIds || [],
   });
 
-  const [totalResults] = useState(
-    preLoadTextSearchList?.fullTextSearchVehicleList?.aggregation
-      ?.totalVehicles || 0,
+  const [totalResults, setTotalResults] = useState(
+    preLoadProductDerivatives?.productDerivatives?.total || 0,
   );
 
   const [getCarCardsData] = useGSCardsData(
@@ -114,18 +125,56 @@ const GlobalSearchPageContainer = ({
     },
   );
 
+  const productDerivativesCallback = (vehicles: ITextSearchQuery) => {
+    const carsCapIds = vehicles?.productDerivatives?.derivatives
+      ?.filter(
+        vehicle => (vehicle?.vehicleType as string) === VehicleTypeEnum.CAR,
+      )
+      .map(vehicle => `${vehicle?.derivativeId}`)
+      .filter(value => value) as string[];
+    const vansCapIds = vehicles?.productDerivatives?.derivatives
+      ?.filter(
+        vehicle => (vehicle?.vehicleType as string) === VehicleTypeEnum.LCV,
+      )
+      .map(vehicle => `${vehicle?.derivativeId}`)
+      .filter(value => value) as string[];
+    return [carsCapIds, vansCapIds];
+  };
+
+  const [getVehicles, { data: firstResultsData, loading }] = useTextSearchList(
+    router.query.searchTerm as string,
+    0,
+    async vehicles => {
+      setCarCardsData([]);
+      setLcvCardsData([]);
+      const [carsCapIds, vansCapIds] = productDerivativesCallback(vehicles);
+      if (carsCapIds[0]) {
+        getCarCardsData({
+          variables: {
+            capIds: carsCapIds,
+            vehicleType: VehicleTypeEnum.CAR,
+          },
+        });
+      }
+      if (vansCapIds[0]) {
+        getLcvCardsData({
+          variables: {
+            capIds: vansCapIds,
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        });
+      }
+      setTotalResults(vehicles.productDerivatives?.total || 0);
+      return setVehicleList(vehicles?.productDerivatives?.derivatives || []);
+    },
+    buildFiltersRequestObject(activeFilters),
+  );
+
   const [getVehiclesCache] = useTextSearchList(
     router.query.searchTerm as string,
     vehiclesList.length + 1,
     async vehicles => {
-      const carsCapIds = vehicles?.fullTextSearchVehicleList?.vehicles
-        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.CAR)
-        .map(vehicle => vehicle.derivativeId)
-        .filter(value => value) as string[];
-      const vansCapIds = vehicles?.fullTextSearchVehicleList?.vehicles
-        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.LCV)
-        .map(vehicle => vehicle.derivativeId)
-        .filter(value => value) as string[];
+      const [carsCapIds, vansCapIds] = productDerivativesCallback(vehicles);
       if (carsCapIds[0]) {
         getCarCardsData({
           variables: {
@@ -143,30 +192,65 @@ const GlobalSearchPageContainer = ({
         });
       }
       return setVehicleListCache(
-        vehicles?.fullTextSearchVehicleList?.vehicles || [],
+        vehicles?.productDerivatives?.derivatives || [],
       );
     },
   );
 
   useEffect(() => {
     if (
-      preLoadTextSearchList.fullTextSearchVehicleList?.vehicles?.length === 12
+      firstResultsData?.productDerivatives?.derivatives?.length ===
+        RESULTS_PER_REQUEST &&
+      !loading
     ) {
-      getVehiclesCache();
+      getVehiclesCache({
+        variables: {
+          query: router.query.searchTerm as string,
+          from: RESULTS_PER_REQUEST + 1,
+          filters: buildFiltersRequestObject(activeFilters),
+        },
+      });
     }
-  }, [getVehiclesCache, preLoadTextSearchList]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [firstResultsData, loading]);
+
+  useEffect(() => {
+    if (
+      preLoadProductDerivatives.productDerivatives?.derivatives?.length ===
+      RESULTS_PER_REQUEST
+    ) {
+      getVehiclesCache({
+        variables: {
+          query: router.query.searchTerm as string,
+          from: RESULTS_PER_REQUEST + 1,
+          filters: buildFiltersRequestObject(activeFilters),
+        },
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [getVehiclesCache, preLoadProductDerivatives]);
 
   useFirstRenderEffect(() => {
-    if (preLoadTextSearchList.fullTextSearchVehicleList?.vehicles) {
-      setVehicleList(preLoadTextSearchList.fullTextSearchVehicleList?.vehicles);
+    getVehicles();
+  }, [activeFilters]);
+
+  useFirstRenderEffect(() => {
+    if (preLoadProductDerivatives.productDerivatives?.derivatives) {
+      setVehicleList(preLoadProductDerivatives.productDerivatives?.derivatives);
       setCarCardsData(carsData || []);
       setLcvCardsData(vansData || []);
     }
-  }, [preLoadTextSearchList]);
+  }, [preLoadProductDerivatives]);
 
   const onLoadMore = () => {
     setVehicleList(prevState => [...prevState, ...vehiclesListCache]);
-    getVehiclesCache();
+    getVehiclesCache({
+      variables: {
+        filters: buildFiltersRequestObject(activeFilters),
+        query: router.query.searchTerm as string,
+        from: vehiclesList.length + 1,
+      },
+    });
   };
 
   const breadcrumbsItems = useMemo(
@@ -188,6 +272,17 @@ const GlobalSearchPageContainer = ({
     [pageData],
   );
 
+  const totalFiltersCount = useMemo(
+    () =>
+      Object.values(activeFilters).reduce((acc, current) => {
+        if (current?.[0]) {
+          return acc + current.length;
+        }
+        return acc;
+      }, 0),
+    [activeFilters],
+  );
+
   const getProductCardData = (capId: string, vehicleType: VehicleTypeEnum) => {
     return vehiclesCardsData?.[vehicleType].find(x => x?.capId === capId);
   };
@@ -199,6 +294,22 @@ const GlobalSearchPageContainer = ({
       setActiveTab(tab);
       setIsShowDrawer(true);
     }
+  };
+
+  const onRemoveTag = (value: string, key: string) => {
+    setActiveFilters({
+      ...activeFilters,
+      [key]: activeFilters?.[key as keyof IFiltersData]?.filter(
+        activeValue => activeValue !== value,
+      ),
+    });
+  };
+
+  const onClearFilterBlock = (key: string) => {
+    setActiveFilters({
+      ...activeFilters,
+      [key]: [],
+    });
   };
 
   return (
@@ -232,6 +343,9 @@ const GlobalSearchPageContainer = ({
         >
           <OptionsSharp />
           Filter
+          {totalFiltersCount > 0 && (
+            <span className="filters-applied">{totalFiltersCount}</span>
+          )}
         </button>
 
         <button
@@ -244,24 +358,29 @@ const GlobalSearchPageContainer = ({
         </button>
       </div>
       <div className="row:bg-light">
-        <FiltersTags tags={[]} />
+        <FiltersTags
+          tags={selectedTags}
+          removeFilterValue={onRemoveTag}
+          clearAllFilters={() => setActiveFilters({} as IFiltersData)}
+        />
         <div className="row:results">
           <div className="row:cards-3col">
             {vehiclesList?.map(vehicle => (
               <VehicleCard
                 key={
                   (vehicle?.derivativeId || `${vehicle?.capBodyStyle}`) +
-                    vehicle.vehicleType || ''
+                  (vehicle?.vehicleType || '')
                 }
                 data={{
                   ...productCardDataMapper(vehicle),
                   ...getProductCardData(
-                    vehicle.derivativeId || '',
-                    vehicle.vehicleType || VehicleTypeEnum.LCV,
+                    vehicle?.derivativeId?.toString() || '',
+                    (vehicle?.vehicleType as VehicleTypeEnum) ||
+                      VehicleTypeEnum.LCV,
                   ),
                 }}
-                derivativeId={vehicle?.derivativeId}
-                url={vehicle.legacyUrl || vehicle.lqUrl || ''}
+                derivativeId={vehicle?.derivativeId?.toString()}
+                url={vehicle?.lqUrl || vehicle?.url || ''}
                 title={{
                   title: `${vehicle?.manufacturerName} ${vehicle?.modelName}`,
                   description: vehicle?.derivativeName || '',
@@ -293,8 +412,42 @@ const GlobalSearchPageContainer = ({
       )}
       <Drawer
         isShowDrawer={isShowDrawer}
+        isLoading={loading}
         onCloseDrawer={() => setIsShowDrawer(false)}
-        isFiltersRender={activeTab === ITabs.Filter}
+        title={activeTab === ITabs.Filter ? 'Filter' : 'Sort'}
+        renderContent={
+          <div
+            className={cx('content', {
+              filters: activeTab === ITabs.Filter,
+              sort: activeTab !== ITabs.Filter,
+            })}
+          >
+            {activeTab === ITabs.Filter ? (
+              <GlobalSearchPageFilters
+                onRemoveTag={onRemoveTag}
+                preloadFilters={filtersData}
+                activeFilters={activeFilters}
+                setActiveFilters={setActiveFilters}
+                setSelectedTags={setSelectedTags}
+                selectedTags={selectedTags}
+                clearFilterBlock={onClearFilterBlock}
+              />
+            ) : (
+              <></>
+            )}
+          </div>
+        }
+        renderActions={
+          activeTab === ITabs.Filter ? (
+            <DrawerActions
+              totalResults={totalResults}
+              onResetFilters={() => setActiveFilters({} as IFiltersData)}
+              onCloseDrawer={() => setIsShowDrawer(false)}
+            />
+          ) : (
+            <></>
+          )
+        }
       />
     </>
   );

@@ -1,7 +1,7 @@
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { MutableRefObject, useRef } from 'react';
-import { NextPage } from 'next';
+import { GetStaticPropsContext, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import createApolloClient from '../../apolloClient';
 import {
@@ -308,7 +308,7 @@ export const OffersPage: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps(context: GetStaticPropsContext) {
   const client = createApolloClient({});
 
   try {
@@ -319,6 +319,7 @@ export async function getStaticProps() {
       query: GENERIC_PAGE_HEAD,
       variables: {
         slug: 'leasing-offers',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     const {
@@ -331,7 +332,9 @@ export async function getStaticProps() {
       vehicleListUrlData,
     } = await specialOffersRequest(client);
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL),
       props: {
         genericPageCMS: data,
         productsVanDerivatives: productsVanDerivatives || null,

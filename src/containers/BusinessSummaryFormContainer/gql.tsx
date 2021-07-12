@@ -67,8 +67,17 @@ export function makeFullCreditCheckerB2BMutationMock(
     },
     result: {
       data: {
-        personByUuid: {
-          uuid,
+        b2bFullCreditChecker: {
+          creditCheck: {
+            uuid: '4a597536-9577-48a0-b91c-8cfdebe24c25',
+            createdAt: '2021-06-30T09:30:58.952+00:00',
+            creditCheckType: 'B2B_LIMITED_FULL_CREDIT_CHECKER',
+            creditCheckLines: [],
+            party: {
+              uuid: '69f79466-f4ef-40b8-84da-af31b6e1c16c',
+              person: null,
+            },
+          },
         },
       },
     },

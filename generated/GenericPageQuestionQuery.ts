@@ -364,4 +364,5 @@ export interface GenericPageQuestionQuery {
 
 export interface GenericPageQuestionQueryVariables {
   slug: string;
+  isPreview?: boolean | null;
 }

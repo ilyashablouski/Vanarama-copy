@@ -20,12 +20,17 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const { data, errors } = await client.query({
       query: GET_FLEET_PAGE_CONTENT,
+      variables: {
+        ...(context?.preview && { isPreview: context?.preview }),
+      },
     });
     if (errors) {
       throw new Error(errors[0].message);
     }
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data,
       },

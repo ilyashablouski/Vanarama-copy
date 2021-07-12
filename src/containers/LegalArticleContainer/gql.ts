@@ -11,8 +11,8 @@ export interface ILegalPage {
 }
 
 export const LEGAL_PAGE_QUERY = gql`
-  query LegalPageQuery($slug: String!) {
-    genericPage(slug: $slug) {
+  query LegalPageQuery($slug: String!, $isPreview: Boolean) {
+    genericPage(slug: $slug, isPreview: $isPreview) {
       id
       intro
       body

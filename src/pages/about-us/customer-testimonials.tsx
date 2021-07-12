@@ -70,6 +70,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         query: GENERIC_PAGE_TESTIMONIALS,
         variables: {
           slug: 'about-us/customer-testimonials',
+          ...(context?.preview && { isPreview: context?.preview }),
         },
       }),
       client.query({
@@ -83,7 +84,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       throw new Error(error.message);
     }
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data: genericTestimonialsPageQuery.data,
         testimonialsData: testimonialsDataQuery.data,

@@ -9,6 +9,8 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
+import ArticleLink from '../../components/ArticleLink';
+import { convertHeadingToSlug } from '../../utils/markdownHelpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -65,17 +67,18 @@ const LeasingArticleContainer: FC<IProps> = ({
             renderers={{
               link: props => {
                 const { href, children } = props;
-                return (
-                  <RouterLink
-                    link={{ href, label: children }}
-                    classNames={{ color: 'teal' }}
-                  />
-                );
+                return <ArticleLink href={href}>{children}</ArticleLink>;
               },
-              heading: props => (
-                <Text {...props} size="lead" color="darker" tag="h3" />
-              ),
               paragraph: props => <Text {...props} tag="p" color="darker" />,
+              heading: props => (
+                <Text
+                  {...props}
+                  id={convertHeadingToSlug(props)}
+                  size="lead"
+                  color="darker"
+                  tag="h3"
+                />
+              ),
             }}
           />
         </article>

@@ -12,20 +12,22 @@ import {
 } from '../../../generated/GetCreditApplicationByOrderUuid';
 
 const getAddress = (addresses: ICreditApplicationAddress[], kind: string) =>
-  addresses?.find((address: { [key: string]: any }) => address.kind === kind);
+  addresses?.find(
+    (address: ICreditApplicationAddress) => address.kind === kind,
+  );
 
 export const mapAddresses = (values: SubmissionValues) =>
   values.tradingDifferent
     ? [
         {
-          ...(values.registeredAddress || {}),
+          ...(values.registeredAddress ?? {}),
           label: undefined,
           id: undefined,
           serviceId: values.registeredAddress?.id,
           kind: 'registered',
         },
         {
-          ...(values.tradingAddress || {}),
+          ...(values.tradingAddress ?? {}),
           label: undefined,
           id: undefined,
           serviceId: values.tradingAddress?.id,
@@ -34,7 +36,7 @@ export const mapAddresses = (values: SubmissionValues) =>
       ]
     : [
         {
-          ...(values.registeredAddress || {}),
+          ...(values.registeredAddress ?? {}),
           label: undefined,
           id: undefined,
           serviceId: values.registeredAddress?.id,

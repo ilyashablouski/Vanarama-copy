@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { GetStaticPropsContext, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
@@ -725,12 +725,15 @@ export const PickupsPage: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps(context: GetStaticPropsContext) {
   const client = createApolloClient({});
 
   try {
     const { data } = await client.query<HubPickupPageData>({
       query: HUB_PICKUP_CONTENT,
+      variables: {
+        ...(context?.preview && { isPreview: context?.preview }),
+      },
     });
     const { data: searchPodVansData } = await client.query<
       IFilterList,
@@ -748,7 +751,9 @@ export async function getStaticProps() {
     } = await pickupsPageOffersRequest(client);
 
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data: encodeData(data),
         searchPodVansData,

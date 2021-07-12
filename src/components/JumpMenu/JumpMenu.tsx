@@ -2,6 +2,7 @@ import { FC, useEffect, memo } from 'react';
 import dynamic from 'next/dynamic';
 import Accordion from 'core/molecules/accordion/Accordion';
 import Skeleton from '../Skeleton';
+import { GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links } from '../../../generated/GenericPageQuery';
 
 const ArrowForwardSharp = dynamic(
   () => import('core/assets/icons/ArrowForwardSharp'),
@@ -14,7 +15,7 @@ const Link = dynamic(() => import('core/atoms/link'), {
 });
 
 interface IJumpMenu {
-  links: any[] | null | undefined;
+  links: GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links[] | null;
   title: string | null | undefined;
 }
 
@@ -41,9 +42,13 @@ const JumpMenu: FC<IJumpMenu> = ({ links, title }) => {
             title: title || '',
             children: (
               <div className="-flex-column">
-                {links?.map(({ label, url, text }) => (
-                  <Link href={url} color="teal" key={label}>
-                    {`${label || text} `} <ArrowForwardSharp />
+                {links?.map(link => (
+                  <Link
+                    href={link?.url || ''}
+                    color="teal"
+                    key={link?.label || Math.random()}
+                  >
+                    {`${link?.label || link?.text} `} <ArrowForwardSharp />
                   </Link>
                 ))}
               </div>

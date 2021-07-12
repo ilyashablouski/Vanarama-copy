@@ -38,13 +38,15 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'careers',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 
     return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL) ||
+          Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data,
         error: errors ? errors[0] : null,

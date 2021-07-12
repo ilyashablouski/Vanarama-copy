@@ -7,6 +7,7 @@ import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { notFoundPageHandler } from 'utils/url';
 import PageNotFoundContainer from 'containers/PageNotFoundContainer/PageNotFoundContainer';
+import { PreviewNextPageContext } from 'types/common';
 import { setSessionStorage } from '../../../utils/windowSessionStorage';
 import PageHeadingSection from '../../../components/PageHeadingSection';
 import Hero, { HeroHeading } from '../../../components/Hero';
@@ -36,9 +37,9 @@ import {
 } from '../../../../generated/filterList';
 import {
   LeaseTypeEnum,
-  VehicleSearchTypeEnum,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
+import { VehicleSearchTypeEnum } from '../../../../entities/global';
 import { Partner, PartnerVariables } from '../../../../generated/Partner';
 
 const Image = dynamic(() => import('core/atoms/image'), {
@@ -311,8 +312,8 @@ const PartnershipsHomePage: NextPage<IProps> = ({
           </TabPanels>
         </Tabs>
       </section>
-      <PartnershipFeatureSection featured={featured} />
-      <PartnershipFeatureSection featured={featured1} />
+      {featured && <PartnershipFeatureSection featured={featured} />}
+      {featured1 && <PartnershipFeatureSection featured={featured1} />}
       <WhyLeaseWithVanaramaTiles
         title="Why Lease With Vanarama"
         tiles={tiles || []}
@@ -321,7 +322,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context as NextPageContext);
   const path = context.req?.url?.split('?')[0] || '';
   try {
@@ -329,6 +330,7 @@ export async function getServerSideProps(context: NextPageContext) {
       query: PARTNER,
       variables: {
         slug: path.split('/').pop() || '',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

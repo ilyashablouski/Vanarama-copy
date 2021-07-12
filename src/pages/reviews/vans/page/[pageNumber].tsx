@@ -2,6 +2,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { ApolloError } from '@apollo/client';
 import SchemaJSON from 'core/atoms/schema-json';
 import DefaultErrorPage from 'next/error';
+import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../../../../apolloClient';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import { GENERIC_PAGE_QUESTION_HUB } from '../../../../containers/VehicleReviewCategoryContainer/gql';
@@ -54,13 +55,14 @@ const ReviewHub: NextPage<IReviewHubPage> = ({
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
 
   const { data } = await client.query({
     query: GENERIC_PAGE_QUESTION_HUB,
     variables: {
       slug: 'reviews/vans',
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   const cards = getSectionsData(
@@ -87,13 +89,15 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE_QUESTION_HUB,
       variables: {
         slug: 'reviews/vans',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 
     return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL) ||
+          Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data: encodeData(data),
         error: errors ? errors[0] : null,

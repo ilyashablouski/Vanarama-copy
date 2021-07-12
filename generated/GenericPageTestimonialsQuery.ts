@@ -187,4 +187,5 @@ export interface GenericPageTestimonialsQuery {
 
 export interface GenericPageTestimonialsQueryVariables {
   slug: string;
+  isPreview?: boolean | null;
 }

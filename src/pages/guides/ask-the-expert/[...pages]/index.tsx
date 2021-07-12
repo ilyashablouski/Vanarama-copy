@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import React from 'react';
+import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../../../../apolloClient';
 import { PAGE_COLLECTION } from '../../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../../utils/pageSlugs';
@@ -14,12 +15,13 @@ const AskTheExpertPage: NextPage<IGenericPage> = ({ data }) => {
   return <SimplePageContainer data={data} />;
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Ask The Expert',
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   const items = data?.pageCollection?.items;
@@ -39,13 +41,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: `guides/ask-the-expert/${paths?.join('/')}`,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {
       throw new Error(errors[0].message);
     }
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data,
       },

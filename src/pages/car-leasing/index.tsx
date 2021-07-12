@@ -10,6 +10,7 @@ import { useContext, useEffect, useState } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
 import NextHead from 'next/head';
 import decode from 'decode-html';
+import { PreviewNextPageContext } from 'types/common';
 import { decodeData, encodeData } from '../../utils/data';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
@@ -575,12 +576,15 @@ export const CarsPage: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps() {
-  const client = createApolloClient({});
+export async function getServerSideProps(context: PreviewNextPageContext) {
+  const client = createApolloClient({}, context);
 
   try {
     const { data: hubCarPage } = await client.query<HubCarPageData>({
       query: HUB_CAR_CONTENT,
+      variables: {
+        ...(context?.preview && { isPreview: context?.preview }),
+      },
     });
     const { data: searchPodCarsData } = await client.query<
       IFilterList,

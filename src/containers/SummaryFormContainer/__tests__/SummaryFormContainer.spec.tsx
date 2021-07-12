@@ -4,6 +4,14 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import React from 'react';
 import SummaryFormContainer from '../SummaryFormContainer';
 import createBruceData from '../__fixtures__/bruceData';
+import {
+  makeFullCreditCheckerMutationMock,
+  makeGetCreditApplicationByOrderUuidMock,
+  makeGetPartyByUuidMock,
+} from '../../../components/SummaryForm/gql';
+import { VehicleTypeEnum } from '../../../../generated/globalTypes';
+import { makeFullCreditCheckerB2BMutationMock } from '../../BusinessSummaryFormContainer/gql';
+import { makeUpdateCreditApplicationMock } from '../../../gql/creditApplication';
 
 const mockPush = jest.fn();
 jest.mock('next/router', () => ({
@@ -21,6 +29,7 @@ describe('<SummaryFormContainer />', () => {
   beforeEach(async () => {
     await preloadAll();
   });
+
   it('should render company details correctly', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
@@ -222,28 +231,6 @@ describe('<SummaryFormContainer />', () => {
     );
   });
 
-  it.skip('should redirect to the thank you page when clicking "Continue"', async () => {
-    // ARRANGE
-    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
-    const mocks = [createBruceData(uuid)];
-
-    // ACT
-    render(
-      <MockedProvider addTypename={false} mocks={mocks}>
-        <SummaryFormContainer personUuid={uuid} orderId={ORDER_ID} />
-      </MockedProvider>,
-    );
-
-    // Wait for the data to load
-    await screen.findByTestId('summary-heading');
-
-    fireEvent.click(screen.getByText(/Submit/));
-
-    // ASSERT
-    expect(mockPush).toHaveBeenCalledTimes(1);
-    expect(mockPush).toHaveBeenCalledWith('/olaf/thank-you', '/olaf/thank-you');
-  });
-
   it('should redirect to about page when clicking "Edit" on the "Your Details" section', async () => {
     // ARRANGE
     const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
@@ -342,5 +329,52 @@ describe('<SummaryFormContainer />', () => {
       '/olaf/bank-details?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764',
       '/olaf/bank-details?uuid=fd2333b8-6da1-47d2-837d-bc69849e0764',
     );
+  });
+
+  it.skip('should redirect to the thank you page when clicking "Continue"', async () => {
+    // ARRANGE
+    const uuid = 'fd2333b8-6da1-47d2-837d-bc69849e0764';
+    const partyUuid = '13670';
+    const mocks = [
+      createBruceData(uuid),
+      makeGetCreditApplicationByOrderUuidMock(ORDER_ID),
+      makeGetPartyByUuidMock(ORDER_ID, uuid),
+      makeFullCreditCheckerMutationMock(uuid, {
+        creditApplicationUuid: 'b3d4b0d2-cbb4-4c01-bbee-998f016f5092',
+        depositPayment: 3779.64,
+        monthlyPayment: 419.96,
+        orderUuid: ORDER_ID,
+        partyId: partyUuid,
+        vehicleType: VehicleTypeEnum.CAR,
+      }),
+      makeFullCreditCheckerB2BMutationMock(uuid, {
+        capId: '93297',
+        creditApplicationUuid: 'b3d4b0d2-cbb4-4c01-bbee-998f016f5092',
+        depositPayment: 3779.64,
+        monthlyPayment: 419.96,
+        orderUuid: ORDER_ID,
+        partyId: partyUuid,
+        vehicleType: VehicleTypeEnum.CAR,
+      }),
+      makeUpdateCreditApplicationMock({
+        orderUuid: ORDER_ID,
+      }),
+    ];
+
+    // ACT
+    render(
+      <MockedProvider addTypename={false} mocks={mocks}>
+        <SummaryFormContainer personUuid={uuid} orderId={ORDER_ID} />
+      </MockedProvider>,
+    );
+
+    // Wait for the data to load
+    await screen.findByTestId('summary-heading');
+
+    fireEvent.click(screen.getByText(/Submit/));
+
+    // ASSERT
+    expect(mockPush).toHaveBeenCalledTimes(1);
+    expect(mockPush).toHaveBeenCalledWith('/olaf/thank-you', '/olaf/thank-you');
   });
 });

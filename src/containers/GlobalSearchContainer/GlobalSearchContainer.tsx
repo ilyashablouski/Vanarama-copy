@@ -12,6 +12,7 @@ import useDebounce from '../../hooks/useDebounce';
 import { useGlobalSearch } from './gql';
 import { moreInfoConfig } from './config';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { productDerivatives_productDerivatives_derivatives as ISuggestions } from '../../../generated/productDerivatives';
 
 const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
   ssr: false,
@@ -46,6 +47,7 @@ const GlobalSearchContainer = () => {
     if (searchValue && !isOpenResults) {
       setIsOpenResults(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchValue]);
 
   useEffect(() => {
@@ -56,6 +58,7 @@ const GlobalSearchContainer = () => {
     return () => {
       router.events.off('beforeHistoryChange', handleRouteChange);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return isVisible ? (
@@ -117,16 +120,16 @@ const GlobalSearchContainer = () => {
             <div className="header-search-results-container">
               <GlobalSearchLeftSideContainer
                 suggestions={suggestions.suggestsList}
-                aggregation={suggestions.aggregation}
+                totalCount={suggestions.totalCount}
               />
               <GlobalSearchRightSideContainer
                 suggestions={
                   isDesktop
-                    ? suggestions.vehiclesList
-                    : suggestions.vehiclesList.slice(0, 5)
+                    ? (suggestions.vehiclesList as ISuggestions[])
+                    : (suggestions.vehiclesList as ISuggestions[]).slice(0, 5)
                 }
                 searchQuery={fieldValue}
-                aggregation={suggestions.aggregation}
+                totalCount={suggestions.totalCount}
               />
               <div className="info">
                 <span className="heading -small -dark">More Information</span>

@@ -384,8 +384,8 @@ export function useAllMakePage(skip = false) {
 }
 
 export const GET_LEGACY_URLS = gql`
-  query genericPagesQuery($slugs: [String!]!) {
-    genericPages(slugs: $slugs) {
+  query genericPagesQuery($slugs: [String!]!, $isPreview: Boolean) {
+    genericPages(slugs: $slugs, isPreview: $isPreview) {
       items {
         slug
         legacyUrl

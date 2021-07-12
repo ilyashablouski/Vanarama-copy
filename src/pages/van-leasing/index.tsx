@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { GetStaticPropsContext, NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
@@ -746,12 +746,15 @@ export const VansPage: NextPage<IProps> = ({
   );
 };
 
-export async function getStaticProps() {
+export async function getStaticProps(context: GetStaticPropsContext) {
   const client = createApolloClient({});
 
   try {
     const { data } = await client.query<HubVanPageData>({
       query: HUB_VAN_CONTENT,
+      variables: {
+        ...(context?.preview && { isPreview: context?.preview }),
+      },
     });
     const { data: searchPodVansData } = await client.query<
       IFilterList,
@@ -797,7 +800,9 @@ export async function getStaticProps() {
       offers.find(card => card?.offerPosition === 1) || null;
 
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data: encodeData(data),
         searchPodVansData,

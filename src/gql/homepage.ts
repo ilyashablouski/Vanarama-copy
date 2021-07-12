@@ -3,8 +3,8 @@ import FeaturedSection from '../components/FeaturedSection';
 import TilesContainer from '../containers/TilesContainer/TilesContainer';
 
 const ALL_HOME_CONTENT = gql`
-  query HomePageData {
-    homePage {
+  query HomePageData($isPreview: Boolean) {
+    homePage(isPreview: $isPreview) {
       id
       featuredImage {
         file {

@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { ApolloError } from '@apollo/client';
 import DefaultErrorPage from 'next/error';
 import React from 'react';
+import { PreviewNextPageContext } from 'types/common';
 import Skeleton from '../../../../components/Skeleton';
 import VehicleReviewCategoryContainer from '../../../../containers/VehicleReviewCategoryContainer/VehicleReviewCategoryContainer';
 import { GENERIC_PAGE_QUESTION } from '../../../../containers/VehicleReviewContainer/gql';
@@ -13,6 +14,7 @@ import { getPathsFromPageCollection } from '../../../../utils/pageSlugs';
 import {
   PageCollection,
   PageCollectionVariables,
+  PageCollection_pageCollection_items,
 } from '../../../../../generated/PageCollection';
 import VehicleReviewContainer from '../../../../containers/VehicleReviewContainer/VehicleReviewContainer';
 import { getSectionsData } from '../../../../utils/getSectionsData';
@@ -90,15 +92,17 @@ const ReviewHub: NextPage<IReviewPage> = ({
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Van Reviews',
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
-  const items: any = data?.pageCollection?.items;
+  const items: (PageCollection_pageCollection_items | null)[] =
+    data?.pageCollection?.items || [];
 
   const { data: vehicleData } = await client.query<
     PageCollection,
@@ -109,7 +113,8 @@ export async function getStaticPaths() {
       pageType: 'Vehicle Review',
     },
   });
-  const itemsVehicle: any = vehicleData?.pageCollection?.items;
+  const itemsVehicle: (PageCollection_pageCollection_items | null)[] =
+    vehicleData?.pageCollection?.items || [];
   const pathCollection = [...items, ...itemsVehicle].filter(
     el => el?.slug !== 'reviews/vans',
   );
@@ -130,13 +135,15 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         hub.length === 1 ? GENERIC_PAGE_QUESTION_HUB : GENERIC_PAGE_QUESTION,
       variables: {
         slug: `reviews/vans/${hub?.join('/')}`,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 
     return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL) ||
+          Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data: encodeData(data),
         error: errors ? errors[0] : null,

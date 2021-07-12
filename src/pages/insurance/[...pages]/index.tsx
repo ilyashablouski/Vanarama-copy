@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
+import { PreviewNextPageContext } from 'types/common';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import ThankYouContainer from '../../../containers/ThankYouContainer/ThankYouContainer';
 import { IInsurancePage } from '../../../models/IInsuranceProps';
@@ -74,12 +75,13 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const { data } = await client.query<PageCollection, PageCollectionVariables>({
     query: PAGE_COLLECTION,
     variables: {
       pageType: 'Insurance',
+      ...(context?.preview && { isPreview: context?.preview }),
     },
   });
   const items = data?.pageCollection?.items;
@@ -99,13 +101,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: `insurance/${paths?.join('/')}`,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {
       throw new Error(errors[0].message);
     }
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data,
       },

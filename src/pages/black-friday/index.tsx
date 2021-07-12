@@ -25,13 +25,16 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       query: GENERIC_PAGE,
       variables: {
         slug: 'black-friday',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {
       throw new Error(errors[0].message);
     }
     return {
-      revalidate: Number(process.env.REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data,
       },

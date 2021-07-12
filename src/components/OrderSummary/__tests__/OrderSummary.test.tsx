@@ -18,6 +18,7 @@ describe('<CustomiseLease />', () => {
       <OrderSummary
         quoteByCapId={{
           colour: '13990',
+          stockBatchId: null,
           funderId: 3,
           leadTime: '14-21 Day Delivery',
           leaseType: LeaseTypeEnum.PERSONAL,
@@ -43,8 +44,8 @@ describe('<CustomiseLease />', () => {
           upfront: 1,
           vehicleType: VehicleTypeEnum.CAR,
         }}
-        colours={[{ id: '13990', optionDescription: 'Solid - Polar white' }]}
-        trims={[{ id: '104562', optionDescription: 'Leather - Cranberry red' }]}
+        colours={[{ optionId: 13990, label: 'Solid - Polar white' }]}
+        trims={[{ optionId: 104562, label: 'Leather - Cranberry red' }]}
         trim={112981}
         stateVAT="inc"
         maintenance={false}

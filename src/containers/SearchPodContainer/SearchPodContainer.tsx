@@ -22,10 +22,8 @@ import {
 } from '../../../generated/filterList';
 import SearchPod from '../../components/SearchPod';
 import { filterTypeAndBudget_filterList as IFilterTypeAndBudget } from '../../../generated/filterTypeAndBudget';
-import {
-  VehicleSearchTypeEnum,
-  VehicleTypeEnum,
-} from '../../../generated/globalTypes';
+import { VehicleSearchTypeEnum } from '../../../entities/global';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 interface ISearchPodContainerProps {
   searchPodCarsData?: IFilterListData;

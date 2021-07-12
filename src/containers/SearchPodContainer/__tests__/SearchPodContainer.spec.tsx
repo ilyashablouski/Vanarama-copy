@@ -143,30 +143,6 @@ describe('<SearchPodContainer />', () => {
     expect(screen.getAllByText('Dacia')[0]).toBeInTheDocument();
   });
 
-  it.skip('should render search pod only for pickups', async () => {
-    // ACT
-    const pushMock = jest.fn();
-    (useRouter as jest.Mock).mockReturnValue({
-      push: pushMock,
-      pathname: '/hub/pickups',
-      query: {
-        redirect: null,
-      },
-    });
-
-    render(
-      <MockedProvider mocks={mocks} addTypename={false}>
-        <SearchPodContainer
-          searchPodVansData={searchPodVansData}
-          searchPodCarsData={searchPodCarsData}
-        />
-      </MockedProvider>,
-    );
-
-    // ASSERT
-    expect(screen.getByText('Search Pickup Leasing')).toBeInTheDocument();
-  });
-
   it('should render search pod only for vans', async () => {
     // ACT
     const pushMock = jest.fn();

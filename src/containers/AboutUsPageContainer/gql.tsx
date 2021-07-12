@@ -2,8 +2,8 @@ import { gql, useQuery } from '@apollo/client';
 import { GetAboutUsPageData as Query } from '../../../generated/GetAboutUsPageData';
 
 export const GET_ABOUT_US_PAGE_DATA = gql`
-  query GetAboutUsPageData {
-    aboutUsLandingPage {
+  query GetAboutUsPageData($isPreview: Boolean) {
+    aboutUsLandingPage(isPreview: $isPreview) {
       id
       body
       metaData {

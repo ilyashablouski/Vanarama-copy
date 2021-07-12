@@ -15,7 +15,7 @@ const Card: FC<ICardProps> = memo(props => {
   const {
     className,
     alt,
-    eagerLoad,
+    lazyLoad,
     children,
     inline,
     overflow,
@@ -83,12 +83,13 @@ const Card: FC<ICardProps> = memo(props => {
       {header?.text && <CardHeader {...header} />}
       {imageSrc !== undefined && (
         <img
-          loading={eagerLoad ? 'eager' : 'lazy'}
+          loading={lazyLoad ? 'lazy' : 'eager'}
           srcSet={srcset}
           sizes="(min-width:320px) 800px, 1200px"
           alt={alt}
           className="card-image"
           src={srcDefault || imageSrc || placeholderImage || undefined}
+          data-cfasync="false"
           data-testid="card-image"
           onError={onImageError}
         />

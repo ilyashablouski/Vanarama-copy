@@ -33,7 +33,7 @@ describe('<CustomiseLease />', () => {
     })),
   });
 
-  xit('renders correctly', () => {
+  it('renders correctly', () => {
     const tree = getComponent({
       mileage: 6000,
       colour: 13990,
@@ -67,6 +67,7 @@ describe('<CustomiseLease />', () => {
       data: {
         quoteByCapId: {
           colour: '13990',
+          stockBatchId: null,
           leadTime: '14-21 Day Delivery',
           leaseType: LeaseTypeEnum.PERSONAL,
           maintenanceCost: {
@@ -159,7 +160,7 @@ describe('<CustomiseLease />', () => {
     expect(tree).toMatchSnapshot();
   });
 
-  xit('renders correctly', () => {
+  it('renders correctly', () => {
     const tree = getComponent({
       trim: 112981,
       colourList: [{ optionId: 13990, label: 'Solid - Polar white' }],
@@ -204,6 +205,7 @@ describe('<CustomiseLease />', () => {
       data: {
         quoteByCapId: {
           colour: '13990',
+          stockBatchId: null,
           leadTime: '14-21 Day Delivery',
           leaseType: LeaseTypeEnum.BUSINESS,
           funderId: 3,
@@ -346,6 +348,7 @@ describe('<CustomiseLease />', () => {
         data={{
           quoteByCapId: {
             colour: '13990',
+            stockBatchId: null,
             leadTime: '14-21 Day Delivery',
             leaseType: LeaseTypeEnum.BUSINESS,
             funderId: 3,

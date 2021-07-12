@@ -1,5 +1,6 @@
 import { NextPage, NextPageContext } from 'next';
 import { ApolloQueryResult } from '@apollo/client';
+import { ServerResponse } from 'http';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 import createApolloClient from '../../apolloClient';
 import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
@@ -8,12 +9,12 @@ import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { decodeData, encodeData } from '../../utils/data';
 import {
   GET_CARDS_DATA,
-  GET_TEXT_SEARCH_VEHICLES_DATA,
+  GET_PRODUCT_DERIVATIVES,
 } from '../../containers/GlobalSearchContainer/gql';
 import {
-  fullTextSearchVehicleList,
-  fullTextSearchVehicleListVariables,
-} from '../../../generated/fullTextSearchVehicleList';
+  productDerivatives as IProductDerivativesQuery,
+  productDerivativesVariables,
+} from '../../../generated/productDerivatives';
 import GlobalSearchPageContainer from '../../containers/GlobalSearchPageContainer';
 
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -22,39 +23,73 @@ import {
   GlobalSearchCardsData_productCard as ICardsData,
   GlobalSearchCardsDataVariables,
 } from '../../../generated/GlobalSearchCardsData';
+import {
+  productFilter as IProductFilterQuery,
+  productFilter_productFilter as IProductFilter,
+  productFilterVariables as IProductFilterVariables,
+} from '../../../generated/productFilter';
+import { GET_FILTERS_DATA } from '../../containers/GlobalSearchPageContainer/gql';
+import { buildInitialFilterState } from '../../containers/GlobalSearchPageContainer/helpers';
+import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
+import { notFoundPageHandler } from '../../utils/url';
+import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNotFoundContainer';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
-  textSearchList?: fullTextSearchVehicleList;
+  filtersData: IProductFilter;
+  productDerivatives?: IProductDerivativesQuery;
   carsData?: ICardsData[];
   vansData?: ICardsData[];
   responseVansCapIds?: string[];
   responseCarsCapIds?: string[];
+  initialFilters: IFiltersData;
 }
 
 const Page: NextPage<IProps> = ({
   pageData,
+  filtersData,
+  initialFilters,
   metaData,
-  textSearchList,
+  productDerivatives,
   carsData,
   vansData,
   responseVansCapIds,
   responseCarsCapIds,
+  error,
+  notFoundPageData,
 }) => {
+  if (error) {
+    return (
+      <PageNotFoundContainer
+        featured={notFoundPageData?.featured}
+        cards={notFoundPageData?.cards}
+        name={notFoundPageData?.name}
+      />
+    );
+  }
   return (
     <GlobalSearchPageContainer
       metaData={metaData}
+      filtersData={filtersData}
+      initialFilters={initialFilters}
       carsData={carsData}
       vansData={vansData}
       responseVansCapIds={responseVansCapIds}
       responseCarsCapIds={responseCarsCapIds}
       pageData={decodeData(pageData)}
-      preLoadTextSearchList={decodeData(textSearchList)}
+      preLoadProductDerivatives={decodeData(productDerivatives)}
     />
   );
 };
 export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({}, context);
+  // TODO: Should be removed after GlobalSearch release
+  const isEnableGSFeature = context?.req?.headers?.cookie?.includes(
+    'DIG-5552=1',
+  );
+  if (!isEnableGSFeature) {
+    return notFoundPageHandler(context.res as ServerResponse, client);
+  }
   const contextData = {
     req: {
       url: context.req?.url || '',
@@ -71,9 +106,9 @@ export async function getServerSideProps(context: NextPageContext) {
   let responseVansCapIds;
   let carsData;
   let vansData;
-  const textSearchList = await client
-    .query<fullTextSearchVehicleList, fullTextSearchVehicleListVariables>({
-      query: GET_TEXT_SEARCH_VEHICLES_DATA,
+  const productDerivatives = await client
+    .query<IProductDerivativesQuery, productDerivativesVariables>({
+      query: GET_PRODUCT_DERIVATIVES,
       variables: {
         query: contextData.query.searchTerm as string,
         from: 0,
@@ -81,12 +116,12 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     })
     .then(async resp => {
-      responseCarsCapIds = resp.data?.fullTextSearchVehicleList?.vehicles
-        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.CAR)
-        .map(vehicle => vehicle.derivativeId);
-      responseVansCapIds = resp.data?.fullTextSearchVehicleList?.vehicles
-        ?.filter(vehicle => vehicle.vehicleType === VehicleTypeEnum.LCV)
-        .map(vehicle => vehicle.derivativeId);
+      responseCarsCapIds = resp.data?.productDerivatives?.derivatives
+        ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.CAR)
+        .map(vehicle => `${vehicle?.derivativeId}`);
+      responseVansCapIds = resp.data?.productDerivatives?.derivatives
+        ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.LCV)
+        .map(vehicle => `${vehicle?.derivativeId}`);
       if (responseCarsCapIds?.[0]) {
         carsData = await client
           .query<GlobalSearchCardsData, GlobalSearchCardsDataVariables>({
@@ -112,15 +147,28 @@ export async function getServerSideProps(context: NextPageContext) {
       return resp.data;
     });
 
+  const filtersData = await client
+    .query<IProductFilterQuery, IProductFilterVariables>({
+      query: GET_FILTERS_DATA,
+      variables: {
+        query: contextData.query.searchTerm as string,
+      },
+    })
+    .then(({ data: productFilterData }) => productFilterData.productFilter);
+
+  const initialFilters = buildInitialFilterState(context.query);
+
   return {
     props: {
       pageData: encodeData(data),
       metaData: data?.genericPage.metaData || null,
-      textSearchList: encodeData(textSearchList) || null,
+      productDerivatives: encodeData(productDerivatives) || null,
       carsData: carsData || null,
       vansData: vansData || null,
       responseVansCapIds: responseVansCapIds || null,
       responseCarsCapIds: responseCarsCapIds || null,
+      filtersData: filtersData || null,
+      initialFilters,
     },
   };
 }

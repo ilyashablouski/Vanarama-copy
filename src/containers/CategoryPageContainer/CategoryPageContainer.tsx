@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
-import { useMediaQuery } from 'react-responsive';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { ICategoryPage } from './interface';
@@ -47,7 +46,6 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   carousel,
   activePageRoute,
 }) => {
-  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
   const [activePage] = useState(activePageRoute || 1);
 
   const articlesSorted = articles
@@ -158,7 +156,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
           <Card
             style={{ minHeight: 420 }}
             loadImage
-            eagerLoad={isSmallScreen && index === 0}
+            lazyLoad={index !== 0}
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             key={`${card.title}_${index.toString()}_${card.excerpt}`}
             className="card__article"
@@ -304,7 +302,11 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             Top Articles
           </Heading>
           {data?.topArticles.length > 3 ? (
-            <Carousel className="-mh-auto" countItems={5}>
+            <Carousel
+              className="-mh-auto"
+              countItems={5}
+              initialSlideHeight={420}
+            >
               {renderCarouselCards(data?.topArticles)}
             </Carousel>
           ) : (

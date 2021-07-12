@@ -13,7 +13,7 @@ import {
 import { filterList_filterList as IFilterList } from '../../../generated/filterList';
 import Skeleton from '../../components/Skeleton';
 import { getValueKey } from './helpers';
-import { arrayIsEqual } from '../../utils/helpers';
+import { arraysAreEqual } from '../../utils/helpers';
 
 const SearchFilters = dynamic(() => import('core/organisms/search-filters'), {
   loading: () => <Skeleton count={1} />,
@@ -141,7 +141,7 @@ const FiltersContainer = ({
   // hack for subscribe multiselects changes and update Choiceboxes state
   useEffect(() => {
     if (tempFilterName === 'all') {
-      Object.keys(choiseBoxReference).forEach((e: any) =>
+      Object.keys(choiseBoxReference).forEach((e: string) =>
         choiseBoxReference[e]?.current?.updateState(),
       );
       setTempFilterName('');
@@ -174,7 +174,7 @@ const FiltersContainer = ({
     // prevented useless updates
     // check for empty array used for prevent cases when initial render don't call a request
     if (
-      !arrayIsEqual(selected, selectedFilterTags, 'order') ||
+      !arraysAreEqual(selected, selectedFilterTags, 'order') ||
       !selected.length
     ) {
       setSelectedFilterTags(selected);
@@ -187,7 +187,7 @@ const FiltersContainer = ({
   // made force update for choiseboxes state
   useEffect(() => {
     if (shouldMakeChoiceboxesForceUpdate) {
-      Object.keys(choiseBoxReference).forEach((e: any) =>
+      Object.keys(choiseBoxReference).forEach((e: string) =>
         choiseBoxReference[e]?.current?.updateState(),
       );
       setShouldMakeChoiceboxesForceUpdate(false);

@@ -24,6 +24,7 @@ export const getBlogPosts = async (
       query,
       variables: {
         slug,
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     if (errors) {
@@ -34,9 +35,10 @@ export const getBlogPosts = async (
     const data = encodeData(blogPosts);
 
     return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL) ||
+          Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data,
         pageNumber:
@@ -56,7 +58,9 @@ export const getBlogPosts = async (
   }
 };
 
-export function sortingArticles(this: any[]) {
+export function sortingArticles(
+  this: (BlogPosts_blogPosts_articles | null)[] | null,
+) {
   return this?.reduce(
     (obj, el) => {
       if (el?.isFeatured) {

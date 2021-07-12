@@ -149,7 +149,6 @@ const CustomiseLease = ({
   setTrim,
   data,
   capId,
-  derivativeInfo,
   maintenance,
   setMaintenance,
   isModalShowing,
@@ -237,7 +236,7 @@ const CustomiseLease = ({
   }, [quoteByCapId, maintenance]);
 
   const isMobile = useMobileViewport();
-  const stateVAT = leaseType === 'Personal' ? 'inc' : 'exc';
+  const stateVAT = leaseType === LeaseTypeEnum.PERSONAL ? 'inc' : 'exc';
 
   const setSessionValues = () => {
     const mileageValue = mileages.indexOf(mileage || 0) + 1;
@@ -413,8 +412,8 @@ const CustomiseLease = ({
           quoteByCapId={quoteByCapId}
           stateVAT={stateVAT}
           maintenance={maintenance}
-          colours={derivativeInfo?.colours}
-          trims={derivativeInfo?.trims}
+          colours={colourList}
+          trims={trimList}
           trim={trim}
           pickups={pickups}
           isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}

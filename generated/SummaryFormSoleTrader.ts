@@ -12,7 +12,7 @@ export interface SummaryFormSoleTrader_addresses {
   kind: string | null;
   lineOne: string;
   lineTwo: string | null;
-  country: string;
+  country: string | null;
   city: string;
   postcode: string;
 }

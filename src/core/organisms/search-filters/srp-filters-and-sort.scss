@@ -50,7 +50,7 @@
 }
 .filters-applied {
   color: white;
-  background: #187f85;    
+  background: #187f85;
   font-size: 12px;
   font-weight: bold;
   line-height: 15px;
@@ -134,6 +134,7 @@
     svg {
       margin-left: 4px;
       transform: scale(1.25);
+      fill: #197F85;
       polygon {
         fill: #197F85;
       }
@@ -152,55 +153,10 @@
 // SRP Flyout
 
 .srp-f-flyout {
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  //left: -448px;
-  left: 0;
-  z-index: 101;
-  max-width: 448px;
-  width: 100%;
-  background: white;
-  overflow-y: auto;
-  padding-top: 58px;
-  visibility: hidden;
-  opacity: 0;
-  transform: translateX(-100px);
-  transition: all 0.32s cubic-bezier(0.645, 0.045, 0.355, 1);
   button {
     &:focus {
       box-shadow: 0 0 0 0.25rem rgba(25, 127, 133, 0.15);
       border-color: #197F85
-    }
-  }
-  &.open {
-    visibility: visible;
-    opacity: 1;
-    //transform: translateX(448px);
-    transform: translateX(0);
-    box-shadow: 5px 0px 8px -1px rgba(68, 87, 106, 0.10);
-  }
-  .title {
-    width: 100%;
-    height: 58px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 18px;
-    font-size: 27px;
-    font-weight: 500;
-    color: black;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 1;
-    svg {
-      width: 30px;
-      cursor: pointer;
-      margin-right: -8px;
-      path {
-        fill: #44576A;
-      }
     }
   }
   > .content {
@@ -211,11 +167,11 @@
       margin-top: 0;
       margin-bottom: 10px;
     }
-    > .drop-down, 
+    > .drop-down,
     > .drop-select,
     > .accordyon {
       margin-top: 24px;
-      + .drop-down, 
+      + .drop-down,
       + .drop-select {
         margin-top: 16px;
       }
@@ -240,7 +196,7 @@
           margin-top: 14px;
         }
       }
-      input[type=radio], 
+      input[type=radio],
       input[type=checkbox] {
         display: none;
         &:checked {
@@ -294,10 +250,13 @@
         background: #197F85;
         color: white;
       }
+      &.update-results .button--inner {
+        color: var(--class-color-contrast);
+      }
     }
   }
 
-  // Tablet & Desktop 
+  // Tablet & Desktop
   @media (min-width: 768px){
     .title {
       padding: 0 24px;
@@ -310,37 +269,8 @@
       padding: 8px 24px 24px;
     }
   }
-  
-}
 
-.srp-f-mask {
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 100;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  transition: background 0.3s ease;
-  background: transparent;
-  svg {
-    width: 90px;
-    transition: opacity 0.3s ease;
-    opacity: 0;
-  }
-  &.open {
-    display: flex;
-  }
-  &.updating {
-    background: rgba(103, 128, 152, 0.7);
-    svg {
-      opacity: 1;
-    }
-  }
 }
-
 
 .srp-f-hot-deals {
   display: flex;
@@ -427,7 +357,7 @@ button {
     justify-content: center;
     align-items: center;
     height: 100%;
-    width: 50%;
+    width: 100%;
     position: relative;
     z-index: 1;
     background: transparent;
@@ -436,6 +366,13 @@ button {
     transition: color 0.3s ease;
     font-size: 14px;
     font-weight: 500;
+    .toggle--switch {
+      width: 100%;
+      display: flex;
+      & > span {
+        width: 50%;
+      }
+    }
   }
 
   // State animation
@@ -474,7 +411,7 @@ button {
 }
 
 
-.drop-down, 
+.drop-down,
 .drop-select {
   position: relative;
   height: 47px;
@@ -537,7 +474,7 @@ button {
         margin-top: 14px;
       }
     }
-    input[type=radio], 
+    input[type=radio],
     input[type=checkbox] {
       display: none;
       &:checked {
@@ -546,6 +483,10 @@ button {
           border: 1px solid #007F85;
         }
       }
+    }
+    input[type=checkbox]:disabled + label {
+      background-color: #ced6de;
+      border: none;
     }
   }
   &.open {
@@ -693,7 +634,7 @@ button {
       }
     }
   }
-  
+
 }
 
 .selected-status {
@@ -733,7 +674,7 @@ button {
 }
 
 
-// Accordion 
+// Accordion
 .accordyon {
   .trigger {
     display: flex;
@@ -770,9 +711,9 @@ button {
       background: white;
       transition: all 0.3s ease 0.3s;
       opacity: 0;
-      > .drop-down, 
+      > .drop-down,
       > .drop-select {
-        + .drop-down, 
+        + .drop-down,
         + .drop-select {
           margin-top: 16px;
         }
@@ -839,7 +780,7 @@ button {
       content: '';
       display: block;
       position: absolute;
-    }    
+    }
     &:before {
       width: 22px;
       height: 22px;

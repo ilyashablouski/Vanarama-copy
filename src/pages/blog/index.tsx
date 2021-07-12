@@ -1,5 +1,6 @@
-import { NextPage, NextPageContext } from 'next';
+import { NextPage } from 'next';
 import DefaultErrorPage from 'next/error';
+import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../../apolloClient';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import withApollo from '../../hocs/withApollo';
@@ -39,13 +40,14 @@ const CategoryPage: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
   );
 };
 
-export async function getStaticProps(context: NextPageContext) {
+export async function getStaticProps(context: PreviewNextPageContext) {
   try {
     const client = createApolloClient({}, context);
     const { data: genericPage, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
         slug: 'blog',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 
@@ -53,9 +55,10 @@ export async function getStaticProps(context: NextPageContext) {
     const data = encodeData(genericPage);
 
     return {
-      revalidate:
-        Number(process.env.REVALIDATE_INTERVAL) ||
-        Number(DEFAULT_REVALIDATE_INTERVAL),
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL) ||
+          Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
         data,
         error: errors ? errors[0] : null,

@@ -83,4 +83,5 @@ export interface ReviewsHubCategoryQuery {
 
 export interface ReviewsHubCategoryQueryVariables {
   slug: string;
+  isPreview?: boolean | null;
 }

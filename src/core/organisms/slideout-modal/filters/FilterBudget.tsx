@@ -3,7 +3,7 @@ import React, { FC } from 'react';
 import Select from '../../../atoms/select';
 import Formgroup from '../../../molecules/formgroup';
 
-import { IFilterBudget } from '../interfaces';
+import { IFilterBudget, IRangeFilter } from '../interfaces';
 
 const FilterBudget: FC<IFilterBudget> = props => {
   const {
@@ -31,7 +31,7 @@ const FilterBudget: FC<IFilterBudget> = props => {
           onChange={e => onChange(0, e.target.value)}
           value={selectedFilters?.budget?.[0] || ''}
         >
-          {searchFilters.budget.map((range: any) => (
+          {searchFilters.budget.map((range: IRangeFilter) => (
             <option value={range.value}>{range.label}</option>
           ))}
         </Select>
@@ -42,7 +42,7 @@ const FilterBudget: FC<IFilterBudget> = props => {
           onChange={e => onChange(1, e.target.value)}
           value={selectedFilters?.budget?.[1] || ''}
         >
-          {searchFilters.budget.map((range: any) => (
+          {searchFilters.budget.map((range: IRangeFilter) => (
             <option value={range.value}>{range.label}</option>
           ))}
         </Select>

@@ -60,3 +60,7 @@ export interface VanOffersPageData_vanOffersPage {
 export interface VanOffersPageData {
   vanOffersPage: VanOffersPageData_vanOffersPage;
 }
+
+export interface VanOffersPageDataVariables {
+  isPreview?: boolean | null;
+}

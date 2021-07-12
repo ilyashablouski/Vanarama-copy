@@ -2,11 +2,12 @@ import React from 'react';
 import preloadAll from 'jest-next-dynamic';
 import { render, screen, waitFor } from '@testing-library/react';
 import { useRouter } from 'next/router';
-import { MockedProvider, MockedResponse } from '@apollo/client/testing';
+import { MockedProvider } from '@apollo/client/testing';
 import ConsumerProgressIndicator from './ConsumerProgressIndicator';
-import { query } from '../../hooks/useProgressHistory';
+import useProgressHistory from '../../hooks/useProgressHistory';
 
 jest.mock('next/router');
+jest.mock('../../hooks/useProgressHistory');
 
 describe('<ConsumerProgressIndicator />', () => {
   beforeEach(async () => {
@@ -27,22 +28,7 @@ describe('<ConsumerProgressIndicator />', () => {
     })),
   });
 
-  const mocks: MockedResponse[] = [
-    {
-      request: {
-        query,
-      },
-      result: {
-        data: {
-          lastStep: {
-            value: 2,
-          },
-        },
-      },
-    },
-  ];
-
-  it.skip('should show previous pages as completed', async () => {
+  it('should show previous pages as completed', async () => {
     // ARRANGE
     // Mock that the user is on the address history page
     (useRouter as jest.Mock).mockReturnValue({
@@ -53,10 +39,14 @@ describe('<ConsumerProgressIndicator />', () => {
         orderId: '9d9fd2e0-ecbb-41fb-aa04-1b2b87258467',
       },
     });
+    (useProgressHistory as jest.Mock).mockReturnValue({
+      setCachedLastStep: jest.fn(),
+      cachedLastStep: 2,
+    });
 
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider addTypename={false}>
         <ConsumerProgressIndicator />
       </MockedProvider>,
     );
@@ -100,10 +90,14 @@ describe('<ConsumerProgressIndicator />', () => {
         orderId: '9d9fd2e0-ecbb-41fb-aa04-1b2b87258467',
       },
     });
+    (useProgressHistory as jest.Mock).mockReturnValue({
+      setCachedLastStep: jest.fn(),
+      cachedLastStep: 1,
+    });
 
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider addTypename={false}>
         <ConsumerProgressIndicator />
       </MockedProvider>,
     );
@@ -116,7 +110,7 @@ describe('<ConsumerProgressIndicator />', () => {
     ).toBeInTheDocument();
   });
 
-  it.skip('should allow navigation to previous pages', async () => {
+  it('should allow navigation to previous pages', async () => {
     // ARRANGE
     // Mock that the user is on the expenses page
     (useRouter as jest.Mock).mockReturnValue({
@@ -127,10 +121,14 @@ describe('<ConsumerProgressIndicator />', () => {
         orderId: '9d9fd2e0-ecbb-41fb-aa04-1b2b87258467',
       },
     });
+    (useProgressHistory as jest.Mock).mockReturnValue({
+      setCachedLastStep: jest.fn(),
+      cachedLastStep: 4,
+    });
 
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider addTypename={false}>
         <ConsumerProgressIndicator />
       </MockedProvider>,
     );
@@ -142,21 +140,21 @@ describe('<ConsumerProgressIndicator />', () => {
       screen.getByRole('link', { name: /About You - complete/ }),
     ).toHaveAttribute(
       'href',
-      '/olaf/about/9d9fd2e0-ecbb-41fb-aa04-1b2b87258467?uuid=602093f8-4d53-44aa-b54b-cfebfaef24d9',
+      '/olaf/about?uuid=602093f8-4d53-44aa-b54b-cfebfaef24d9',
     );
 
     expect(
       screen.getByRole('link', { name: /Address History - complete/ }),
     ).toHaveAttribute(
       'href',
-      '/olaf/address-history/9d9fd2e0-ecbb-41fb-aa04-1b2b87258467?uuid=602093f8-4d53-44aa-b54b-cfebfaef24d9',
+      '/olaf/address-history?uuid=602093f8-4d53-44aa-b54b-cfebfaef24d9',
     );
 
     expect(
       screen.getByRole('link', { name: /Employment History - complete/ }),
     ).toHaveAttribute(
       'href',
-      '/olaf/employment-history/9d9fd2e0-ecbb-41fb-aa04-1b2b87258467?uuid=602093f8-4d53-44aa-b54b-cfebfaef24d9',
+      '/olaf/employment-history?uuid=602093f8-4d53-44aa-b54b-cfebfaef24d9',
     );
   });
 
@@ -171,10 +169,14 @@ describe('<ConsumerProgressIndicator />', () => {
         orderId: '9d9fd2e0-ecbb-41fb-aa04-1b2b87258467',
       },
     });
+    (useProgressHistory as jest.Mock).mockReturnValue({
+      setCachedLastStep: jest.fn(),
+      cachedLastStep: 4,
+    });
 
     // ACT
     render(
-      <MockedProvider addTypename={false} mocks={mocks}>
+      <MockedProvider addTypename={false}>
         <ConsumerProgressIndicator />
       </MockedProvider>,
     );

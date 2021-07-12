@@ -1,8 +1,9 @@
-import { NextPage, NextPageContext } from 'next';
+import { NextPage } from 'next';
 import { ApolloError } from '@apollo/client';
 import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from 'core/atoms/schema-json';
+import { PreviewNextPageContext } from 'types/common';
 import { INotFoundPageData } from '../../../models/ISearchPageProps';
 import { GET_CAR_DATA, GET_TRIM_AND_COLOR_DATA } from '../../../gql/carpage';
 import {
@@ -28,6 +29,7 @@ import {
 import {
   GetVehicleDetails,
   GetVehicleDetailsVariables,
+  GetVehicleDetails_derivativeInfo_technicals,
 } from '../../../../generated/GetVehicleDetails';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { toPriceFormat } from '../../../utils/helpers';
@@ -125,7 +127,8 @@ const VanDetailsPage: NextPage<IProps> = ({
 
   const getTechValue = (description: String) =>
     data?.derivativeInfo?.technicals?.find(
-      (obj: any) => obj?.technicalDescription === description,
+      (obj: GetVehicleDetails_derivativeInfo_technicals | null) =>
+        obj?.technicalDescription === description,
     )?.value || 'N/A';
 
   const pageTitle = `${data?.vehicleConfigurationByCapId?.capManufacturerDescription} ${data?.vehicleConfigurationByCapId?.capRangeDescription}`;
@@ -220,7 +223,7 @@ const VanDetailsPage: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({});
   const path = context.req?.url || '';
 
@@ -284,6 +287,7 @@ export async function getServerSideProps(context: NextPageContext) {
       query: GENERIC_PAGE_HEAD,
       variables: {
         slug: path.split('?')[0].slice(1),
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 

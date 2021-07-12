@@ -1,5 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
+import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../../../../apolloClient';
 import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import CategoryPageContainer from '../../../../containers/CategoryPageContainer/CategoryPageContainer';
@@ -42,13 +43,14 @@ const CategoryPage: NextPage<IBlogCategory> = ({
   );
 };
 
-export async function getStaticPaths() {
+export async function getStaticPaths(context: PreviewNextPageContext) {
   try {
     const client = createApolloClient({});
     const { data } = await client.query({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/competition-results',
+        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
     const paths = buildStaticPaths(data);

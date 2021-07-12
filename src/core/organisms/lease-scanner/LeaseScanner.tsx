@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef, useMemo } from 'react';
+import React, { FC, useState, useEffect, useRef } from 'react';
 import { ILeaseScannerProps } from './interfaces';
 import Icon from '../../atoms/icon';
 
@@ -40,6 +40,7 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
   const [animationClass, setAnimationClass] = useState('slideInUp');
   const [isInitialSuccess, setInitialSuccess] = useState(false);
   const [customCTA, setCustomCTA] = useState(null);
+  const [monthlyPrice, setMonthlyPrice] = useState<number | null>(null);
 
   const providersTimer = useRef(false) as any;
 
@@ -64,10 +65,10 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
 
   // useEffect for initial animation control
   useEffect(() => {
-    let competitorsCheckedTimer: any;
-    let initialSuccessFinishedTimer: any;
-    let slideDownAnimationTimer: any;
-    let closeLoadingWrapperTimer: any;
+    let competitorsCheckedTimer: NodeJS.Timeout;
+    let initialSuccessFinishedTimer: NodeJS.Timeout;
+    let slideDownAnimationTimer: NodeJS.Timeout;
+    let closeLoadingWrapperTimer: NodeJS.Timeout;
     if (currentLisingProvider === leasingProviders.length - 1) {
       // clear interval for changing providers, when we select the last one
       clearInterval(providersTimer.current);
@@ -111,7 +112,7 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
   }, []);
 
   useEffect(() => {
-    let startLoadingTimer: any;
+    let startLoadingTimer: NodeJS.Timeout;
     if (startLoading) {
       setAnimationClass('slideInUp');
       setLoadingStatus(true);
@@ -134,9 +135,11 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
     }
   }, []);
 
-  // using for update price, only after animation finished
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  const price = useMemo(() => priceProps, [isLoading]);
+  useEffect(() => {
+    if (!isLoading) {
+      setMonthlyPrice(priceProps);
+    }
+  }, [priceProps, isLoading]);
 
   return (
     <>
@@ -147,7 +150,7 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
       )}
       <div className="lease-scanner" style={positionStyle}>
         <div className="content-wrapper">
-          <Price price={price} size="xlarge" />
+          <Price price={monthlyPrice} size="xlarge" />
           {priceLabel && (
             <Heading
               className={`${classNameHeading} -pt-100`}

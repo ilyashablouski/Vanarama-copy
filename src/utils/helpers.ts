@@ -1,6 +1,4 @@
 import {
-  GetVehicleDetails_derivativeInfo_colours,
-  GetVehicleDetails_derivativeInfo_trims,
   GetVehicleDetails_vehicleDetails_roadsideAssistance,
   GetVehicleDetails_vehicleDetails_warrantyDetails,
 } from '../../generated/GetVehicleDetails';
@@ -8,6 +6,10 @@ import { GetProductCard_productCard } from '../../generated/GetProductCard';
 import { GetQuoteDetails_quoteByCapId } from '../../generated/GetQuoteDetails';
 import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { Nullish } from '../types/common';
+import {
+  GetTrimAndColor_colourList as IColourList,
+  GetTrimAndColor_trimList as ITrimList,
+} from '../../generated/GetTrimAndColor';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
@@ -42,11 +44,8 @@ export interface IOrderList {
   quoteByCapId: GetQuoteDetails_quoteByCapId | null | undefined;
   stateVAT: string;
   maintenance: boolean | null;
-  colours:
-    | (GetVehicleDetails_derivativeInfo_colours | null)[]
-    | null
-    | undefined;
-  trims: (GetVehicleDetails_derivativeInfo_trims | null)[] | null | undefined;
+  colours: (IColourList | null)[] | null;
+  trims: (ITrimList | null)[] | null;
   trim: number | null | undefined;
   pickups?: boolean;
   roadsideAssistance?: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
@@ -68,13 +67,13 @@ export const getOrderList = ({
   warrantyDetails,
 }: IOrderList) => {
   const colourDescription = colours?.find(
-    (item: GetVehicleDetails_derivativeInfo_colours | null) =>
-      item?.id === quoteByCapId?.colour,
-  )?.optionDescription;
+    item => item?.optionId?.toString() === quoteByCapId?.colour,
+  )?.label;
   const trimDescription = trims?.find(
-    (item: GetVehicleDetails_derivativeInfo_trims | null) =>
-      item?.id === quoteByCapId?.trim || item?.id === `${trim}`,
-  )?.optionDescription;
+    item =>
+      item?.optionId?.toString() === quoteByCapId?.trim ||
+      item?.optionId === trim,
+  )?.label;
 
   const orderList = [
     {
@@ -171,14 +170,6 @@ export const getOrderList = ({
       dataTestId: 'delivery',
       isOrange: true,
     },
-    {
-      label: 'Roadside Assistance:',
-      value: `${roadsideAssistance?.years} YEAR INCLUDED`,
-      id: 'roadsideAssistance',
-      key: `${roadsideAssistance?.years}`,
-      dataTestId: 'roadsideAssistance',
-      isOrange: true,
-    },
   ];
 
   if (!pickups) {
@@ -195,21 +186,38 @@ export const getOrderList = ({
     });
   }
 
+  if (roadsideAssistance?.years) {
+    orderList.push({
+      label: 'Roadside Assistance:',
+      value:
+        roadsideAssistance?.years > 1
+          ? `${roadsideAssistance?.years} YEARS INCLUDED`
+          : `${roadsideAssistance?.years} YEAR INCLUDED`,
+      id: 'roadsideAssistance',
+      key: `${roadsideAssistance?.years}`,
+      dataTestId: 'roadsideAssistance',
+      isOrange: true,
+    });
+  }
+
   return orderList;
 };
 
-export const arrayIsEqual = (
+export const arraysAreEqual = (
   first: any[],
   second: any[],
-  sortByKey?: string,
+  sortByKey?: string | null,
+  unsorted?: boolean,
 ) => {
-  let firstArray = first.sort();
-  let secondArray = second.sort();
-  if (sortByKey) {
-    firstArray = first.sort((a, b) => a[sortByKey] - b[sortByKey]);
-    secondArray = second.sort((a, b) => a[sortByKey] - b[sortByKey]);
+  if (unsorted) {
+    return JSON.stringify(first) === JSON.stringify(second);
   }
-  return JSON.stringify(firstArray) === JSON.stringify(secondArray);
+  if (sortByKey) {
+    const firstArray = first.sort((a, b) => a[sortByKey] - b[sortByKey]);
+    const secondArray = second.sort((a, b) => a[sortByKey] - b[sortByKey]);
+    return JSON.stringify(firstArray) === JSON.stringify(secondArray);
+  }
+  return JSON.stringify(first.sort()) === JSON.stringify(second.sort());
 };
 
 export const getVehicleConfigId = (

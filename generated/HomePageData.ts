@@ -287,3 +287,7 @@ export interface HomePageData_homePage {
 export interface HomePageData {
   homePage: HomePageData_homePage;
 }
+
+export interface HomePageDataVariables {
+  isPreview?: boolean | null;
+}

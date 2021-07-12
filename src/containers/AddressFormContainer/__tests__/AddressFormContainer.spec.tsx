@@ -3,10 +3,7 @@ import preloadAll from 'jest-next-dynamic';
 import { MockedProvider, MockedResponse } from '@apollo/client/testing';
 import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { GetAddressContainerDataQueryVariables as QueryVariables } from '../../../../generated/GetAddressContainerDataQuery';
-import {
-  SaveAddressHistoryMutation as Mutation,
-  SaveAddressHistoryMutationVariables as MutationVariables,
-} from '../../../../generated/SaveAddressHistoryMutation';
+import { SaveAddressHistoryMutation as Mutation } from '../../../../generated/SaveAddressHistoryMutation';
 import { parseDate } from '../../../utils/dates';
 import AddressFormContainer from '../AddressFormContainer';
 import {
@@ -15,17 +12,11 @@ import {
   withSavedAddressesInWrongOrder,
 } from '../fixtures';
 import { GET_ADDRESS_CONTAINER_DATA, SAVE_ADDRESS_HISTORY } from '../gql';
+import { makeAddressResponseMock } from '../../../hooks/useLoqate/utils';
+import useLoqate from '../../../hooks/useLoqate';
 
-jest.mock('../../../hooks/useLoqate', () => () => ({
-  data: [
-    {
-      id: 'GB|RM|A|54725860',
-      description: 'Bournemouth, BH8 8ES',
-      text: 'B001, Purbeck House 5-7, Oxford Road',
-      type: 'Address',
-    },
-  ],
-}));
+jest.mock('../../../hooks/useLoqate');
+(useLoqate as jest.Mock).mockReturnValue(makeAddressResponseMock());
 
 function typeIntoAddressField(value: string) {
   const input = screen.getByTestId('history[0].address');
@@ -37,7 +28,8 @@ describe('<AddressFormContainer />', () => {
   beforeEach(async () => {
     await preloadAll();
   });
-  it.skip('should post data to the server correctly', async () => {
+
+  it('should post data to the server correctly', async () => {
     // ARRANGE
     let mutationCalled = false;
     const personUuid = '1337';
@@ -59,17 +51,19 @@ describe('<AddressFormContainer />', () => {
           query: SAVE_ADDRESS_HISTORY,
           variables: {
             input: {
-              partyId: '13670',
+              partyId: '911',
               addresses: [
                 {
+                  id: undefined,
+                  label: undefined,
+                  uuid: 'GB|RM|A|54725860',
                   serviceId: 'GB|RM|A|54725860',
                   propertyStatus: 'Rented',
                   startedOn: '1963-10-01',
-                  uuid: 'GB|RM|A|54725860',
                 },
               ],
             },
-          } as MutationVariables,
+          },
         },
         result: () => {
           mutationCalled = true;
@@ -78,7 +72,7 @@ describe('<AddressFormContainer />', () => {
               createUpdateAddress: [
                 {
                   __typename: 'AddressType',
-                  uuid: '24fee0a6-8953-11ea-bc55-0242ac130003',
+                  uuid: '53efe8f0-8f4e-4b01-9bff-e047f4104ae5',
                   serviceId: 'GB|RM|A|54725860',
                   lineOne: 'B001',
                   lineTwo: 'Purbeck House',

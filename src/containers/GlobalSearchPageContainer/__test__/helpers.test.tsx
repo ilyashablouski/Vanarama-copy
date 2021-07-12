@@ -1,7 +1,9 @@
 import { VehicleTypeEnum } from '../../../../generated/globalTypes';
-import { productCardDataMapper } from '../helpers';
+import { productCardDataMapper, buildFiltersRequestObject } from '../helpers';
+import { IFiltersData } from '../interfaces';
+import { productDerivatives_productDerivatives_derivatives as IVehiclesList } from '../../../../generated/productDerivatives';
 
-describe('productCardDataMapper', () => {
+describe('helpers', () => {
   it('productCardDataMapper should return correct array', () => {
     expect(
       productCardDataMapper({
@@ -11,23 +13,18 @@ describe('productCardDataMapper', () => {
         rangeName: 'Focus',
         modelName: 'testModel',
         derivativeName: 'derivativeTest',
-        financeProfiles: null,
+        fullPrice: null,
         onOffer: true,
         offerRanking: 1,
         rental: 164.88,
         availability: 7,
-        availabilityMessage: null,
-        availabilitySort: null,
-        bodyStyle: null,
         capBodyStyle: null,
         capCode: null,
-        configId: null,
         derivativeId: null,
         financeType: null,
         fuelType: null,
         fullDescription: null,
         initialPayment: null,
-        legacyUrl: null,
         lqUrl: null,
         manufacturerId: null,
         mileage: null,
@@ -36,7 +33,7 @@ describe('productCardDataMapper', () => {
         term: null,
         transmission: null,
         url: null,
-      }),
+      } as IVehiclesList),
     ).toEqual({
       averageRating: null,
       businessRate: 164.88,
@@ -52,6 +49,23 @@ describe('productCardDataMapper', () => {
       personalRate: 164.88,
       rangeName: 'Focus',
       vehicleType: 'CAR',
+    });
+  });
+  it('buildFiltersRequestObject should return correct object', () => {
+    expect(
+      buildFiltersRequestObject({
+        from: ['150'],
+        to: ['300'],
+        make: ['bmw'],
+        range: ['3 series'],
+      } as IFiltersData),
+    ).toEqual({
+      budget: {
+        max: 300,
+        min: 150,
+      },
+      make: 'bmw',
+      range: '3 series',
     });
   });
 });
