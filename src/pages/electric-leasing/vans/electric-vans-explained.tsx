@@ -10,7 +10,10 @@ import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 import { evVanHubOffersRequest, IEvOffersData } from '../../../utils/offers';
 import createApolloClient from '../../../apolloClient';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
-import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery,
+  GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links,
+} from '../../../../generated/GenericPageQuery';
 import { HeroEv as Hero, HeroHeading } from '../../../components/Hero';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 import FeaturedSection from '../../../components/FeaturedSection';
@@ -78,7 +81,11 @@ export const EVHubPage: NextPage<IProps> = ({
         <section className="row">
           <JumpMenu
             title={sections?.jumpMenu?.[0].title}
-            links={sections?.jumpMenu?.[0]?.links}
+            links={
+              sections?.jumpMenu?.[0]?.links?.filter(
+                link => link !== null,
+              ) as GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links[]
+            }
           />
         </section>
       )}

@@ -18,6 +18,7 @@ describe('<CustomiseLease />', () => {
       <OrderSummary
         quoteByCapId={{
           colour: '13990',
+          stockBatchId: null,
           funderId: 3,
           leadTime: '14-21 Day Delivery',
           leaseType: LeaseTypeEnum.PERSONAL,

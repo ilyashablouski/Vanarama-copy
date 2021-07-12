@@ -9,6 +9,7 @@ exports[`<Text /> renders correctly 1`] = `
 exports[`<Text /> renders correctly with optional props 1`] = `
 <span
   className="text class -small -orange"
+  id="component"
 >
   Text text text text text text text text text text text
 </span>

@@ -10,6 +10,7 @@ import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { IEvOffersData } from '../../utils/offers';
 import {
   GenericPageQuery,
+  GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links,
   GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
 } from '../../../generated/GenericPageQuery';
 import { ProductCardData } from '../../../generated/ProductCardData';
@@ -94,7 +95,11 @@ export const EVLeaseExplainedContainer: FC<IProps> = ({
         <section className="row">
           <JumpMenu
             title={sections?.jumpMenu?.[0].title}
-            links={sections?.jumpMenu?.[0]?.links}
+            links={
+              sections?.jumpMenu?.[0]?.links?.filter(
+                link => link !== null,
+              ) as GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links[]
+            }
           />
         </section>
       )}

@@ -58,7 +58,9 @@ export const getBlogPosts = async (
   }
 };
 
-export function sortingArticles(this: any[]) {
+export function sortingArticles(
+  this: (BlogPosts_blogPosts_articles | null)[] | null,
+) {
   return this?.reduce(
     (obj, el) => {
       if (el?.isFeatured) {

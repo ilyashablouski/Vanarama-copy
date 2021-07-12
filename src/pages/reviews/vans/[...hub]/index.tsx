@@ -14,6 +14,7 @@ import { getPathsFromPageCollection } from '../../../../utils/pageSlugs';
 import {
   PageCollection,
   PageCollectionVariables,
+  PageCollection_pageCollection_items,
 } from '../../../../../generated/PageCollection';
 import VehicleReviewContainer from '../../../../containers/VehicleReviewContainer/VehicleReviewContainer';
 import { getSectionsData } from '../../../../utils/getSectionsData';
@@ -100,7 +101,8 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
       ...(context?.preview && { isPreview: context?.preview }),
     },
   });
-  const items: any = data?.pageCollection?.items;
+  const items: (PageCollection_pageCollection_items | null)[] =
+    data?.pageCollection?.items || [];
 
   const { data: vehicleData } = await client.query<
     PageCollection,
@@ -111,7 +113,8 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
       pageType: 'Vehicle Review',
     },
   });
-  const itemsVehicle: any = vehicleData?.pageCollection?.items;
+  const itemsVehicle: (PageCollection_pageCollection_items | null)[] =
+    vehicleData?.pageCollection?.items || [];
   const pathCollection = [...items, ...itemsVehicle].filter(
     el => el?.slug !== 'reviews/vans',
   );

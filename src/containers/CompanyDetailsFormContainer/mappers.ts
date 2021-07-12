@@ -12,7 +12,9 @@ import {
 } from '../../../generated/GetCreditApplicationByOrderUuid';
 
 const getAddress = (addresses: ICreditApplicationAddress[], kind: string) =>
-  addresses?.find((address: { [key: string]: any }) => address.kind === kind);
+  addresses?.find(
+    (address: ICreditApplicationAddress) => address.kind === kind,
+  );
 
 export const mapAddresses = (values: SubmissionValues) =>
   values.tradingDifferent

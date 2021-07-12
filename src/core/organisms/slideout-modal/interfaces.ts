@@ -39,6 +39,11 @@ interface ISelectedFilters {
   [key: string]: any | object;
 }
 
+export interface IRangeFilter {
+  value: string;
+  label: string;
+}
+
 export interface ISlideoutModalProps extends IBaseProps {
   isOpen?: boolean;
   openPanel?: string | null;
