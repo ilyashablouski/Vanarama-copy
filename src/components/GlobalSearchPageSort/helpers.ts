@@ -4,13 +4,6 @@ import {
   ProductDerivativeSortField,
 } from '../../../generated/globalTypes';
 
-export enum SortType {
-  'PRICE_ASC',
-  'PRICE_DESC',
-  'FASTEST_DELIVERY',
-  'SPECIAL_OFFER',
-}
-
 export const sortValues = [
   {
     text: 'Price Low To High',
