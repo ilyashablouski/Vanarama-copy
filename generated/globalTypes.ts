@@ -690,6 +690,11 @@ export interface ProductDerivativeFilter {
   lengths?: (number | null)[] | null;
 }
 
+export interface ProductDerivativeSort {
+  field?: ProductDerivativeSortField | null;
+  direction?: ProductDerivativeSortDirection | null;
+}
+
 /**
  * Input object to make quick credit check
  */
@@ -825,6 +830,7 @@ export interface VehicleProductInputObject {
   maintenancePrice?: number | null;
   monthlyPayment?: number | null;
   partnerSlug?: string | null;
+  stockBatchId?: number | null;
   term?: number | null;
   trim?: string | null;
   vehicleType: VehicleTypeEnum;

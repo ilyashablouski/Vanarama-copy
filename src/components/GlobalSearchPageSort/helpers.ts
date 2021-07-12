@@ -2,7 +2,6 @@ import { DEFAULT_SORT } from '../../containers/GlobalSearchPageContainer/helpers
 import {
   ProductDerivativeSortDirection,
   ProductDerivativeSortField,
-  SortDirection,
 } from '../../../generated/globalTypes';
 
 export enum SortType {
@@ -15,21 +14,21 @@ export enum SortType {
 export const sortValues = [
   {
     text: 'Price Low To High',
-    value: `${ProductDerivativeSortField.rental}_${SortDirection.ASC}`,
+    value: `${ProductDerivativeSortField.rental}_${ProductDerivativeSortDirection.ASC}`,
   },
   {
     text: 'Price High To Low',
-    value: `${ProductDerivativeSortField.rental}_${SortDirection.DESC}`,
+    value: `${ProductDerivativeSortField.rental}_${ProductDerivativeSortDirection.DESC}`,
   },
   {
     text: 'Fastest Delivery Time',
-    value: `${ProductDerivativeSortField.availability}_${SortDirection.ASC}`,
+    value: `${ProductDerivativeSortField.availability}_${ProductDerivativeSortDirection.ASC}`,
   },
 ];
 
 export const generateSortArray = (type: string) => {
   switch (type) {
-    case `${ProductDerivativeSortField.rental}_${SortDirection.ASC}`:
+    case `${ProductDerivativeSortField.rental}_${ProductDerivativeSortDirection.ASC}`:
       return [
         {
           field: ProductDerivativeSortField.rental,
@@ -40,7 +39,7 @@ export const generateSortArray = (type: string) => {
           direction: ProductDerivativeSortDirection.ASC,
         },
       ];
-    case `${ProductDerivativeSortField.rental}_${SortDirection.DESC}`:
+    case `${ProductDerivativeSortField.rental}_${ProductDerivativeSortDirection.DESC}`:
       return [
         {
           field: ProductDerivativeSortField.rental,
@@ -51,7 +50,7 @@ export const generateSortArray = (type: string) => {
           direction: ProductDerivativeSortDirection.ASC,
         },
       ];
-    case `${ProductDerivativeSortField.availability}_${SortDirection.ASC}`:
+    case `${ProductDerivativeSortField.availability}_${ProductDerivativeSortDirection.ASC}`:
       return [
         {
           field: ProductDerivativeSortField.availability,
