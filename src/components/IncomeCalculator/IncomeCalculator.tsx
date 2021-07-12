@@ -69,6 +69,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
   useEffect(() => {
     setValue('netDisposableIncome', disposableIncome?.toString());
     setValue('totalMonthlyExpenses', monthlyExpenses?.toString());
+    triggerValidation();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [disposableIncome, monthlyExpenses]);
 
