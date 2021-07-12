@@ -1,7 +1,7 @@
 import * as React from 'react';
 import dynamic from 'next/dynamic';
 import RouterLink from '../RouterLink/RouterLink';
-import { HomePageData_homePage_sections_tiles_tiles as TileData } from '../../../generated/HomePageData';
+import { HomePageData_homePage_sections_tiles_tiles_link } from '../../../generated/HomePageData';
 import Skeleton from '../Skeleton';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
@@ -9,7 +9,10 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 });
 
 interface ITileLinkProps {
-  tile: TileData;
+  tile: {
+    link?: HomePageData_homePage_sections_tiles_tiles_link | null;
+    title: string | null;
+  };
 }
 
 const TileLink: React.FC<ITileLinkProps> = props => {

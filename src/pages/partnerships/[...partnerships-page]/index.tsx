@@ -312,8 +312,8 @@ const PartnershipsHomePage: NextPage<IProps> = ({
           </TabPanels>
         </Tabs>
       </section>
-      <PartnershipFeatureSection featured={featured} />
-      <PartnershipFeatureSection featured={featured1} />
+      {featured && <PartnershipFeatureSection featured={featured} />}
+      {featured1 && <PartnershipFeatureSection featured={featured1} />}
       <WhyLeaseWithVanaramaTiles
         title="Why Lease With Vanarama"
         tiles={tiles || []}
