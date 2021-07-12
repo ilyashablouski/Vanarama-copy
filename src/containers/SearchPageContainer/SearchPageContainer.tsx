@@ -810,7 +810,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                     direction: SortDirection.ASC,
                   },
                 ]
-              : sortOrder,
+              : (sortOrder as SortObject[]),
           },
         });
         return;
@@ -830,7 +830,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           ...filtersData,
           sort: isSpecialOffersOrder
             ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
-            : sortOrder,
+            : (sortOrder as SortObject[]),
           fuelTypes: getPartnerProperties()?.fuelTypes,
         },
       });
@@ -1085,7 +1085,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           {!(isAllMakesPage || isMakePage) && (
             <SortOrder
               sortValues={sortValues}
-              sortOrder={sortOrder[0]}
+              sortOrder={(sortOrder as SortObject[])[0]}
               isSpecialOffersOrder={isSpecialOffersOrder}
               onChangeSortOrder={onChangeSortOrder}
             />
