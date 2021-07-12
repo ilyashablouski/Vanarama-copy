@@ -11,6 +11,7 @@ import {
   RateInputObject,
   SortDirection,
   SortField,
+  SortObject,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import {
@@ -132,7 +133,7 @@ export function useVehiclesList(
       fuelTypes,
       sort: onOffer
         ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
-        : savedSortOrder,
+        : (savedSortOrder as SortObject[]),
       first,
     },
     // TODO: investigate issue with duplicate requests on SearchPage

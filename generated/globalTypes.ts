@@ -73,6 +73,20 @@ export enum OpportunityTypeEnum {
   QUOTE = "QUOTE",
 }
 
+export enum ProductDerivativeSortDirection {
+  ASC = "ASC",
+  DESC = "DESC",
+}
+
+export enum ProductDerivativeSortField {
+  availability = "availability",
+  initialPayment = "initialPayment",
+  mileage = "mileage",
+  offerRanking = "offerRanking",
+  rental = "rental",
+  term = "term",
+}
+
 /**
  * Sort direction
  */
@@ -674,6 +688,11 @@ export interface ProductDerivativeFilter {
   enginePowerBhp?: MinMax | null;
   heights?: (number | null)[] | null;
   lengths?: (number | null)[] | null;
+}
+
+export interface ProductDerivativeSort {
+  field?: ProductDerivativeSortField | null;
+  direction?: ProductDerivativeSortDirection | null;
 }
 
 /**
