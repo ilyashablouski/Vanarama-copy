@@ -6,6 +6,8 @@ import { IFiltersData, ISelectedTags } from './interfaces';
 import { filterOrderByNumMap } from '../FiltersContainer/helpers';
 import {
   ProductDerivativeFilter,
+  ProductDerivativeSortDirection,
+  ProductDerivativeSortField,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 
@@ -74,3 +76,18 @@ export const buildFiltersRequestObject = (
     range: filters.range?.[0],
   };
 };
+
+export const DEFAULT_SORT = [
+  {
+    field: ProductDerivativeSortField.offerRanking,
+    direction: ProductDerivativeSortDirection.ASC,
+  },
+  {
+    field: ProductDerivativeSortField.availability,
+    direction: ProductDerivativeSortDirection.ASC,
+  },
+  {
+    field: ProductDerivativeSortField.rental,
+    direction: ProductDerivativeSortDirection.ASC,
+  },
+];
