@@ -85,26 +85,6 @@ function DropdownV2({
       </span>
       <div ref={optionsRef} className="options">
         {renderSummary?.(summaryRef)}
-        {/* summaryData && (
-          <div
-            className={cx('selection-summary', {
-              visible:
-                (multiselect || type === 'drop-select') &&
-                selectedItems.length > 0,
-            })}
-            ref={summaryRef}
-          >
-            <div className="overview">
-              {summaryData.label && <span>{summaryData.label}</span>}
-              {summaryData.description && (
-                <span>{summaryData.description}</span>
-              )}
-            </div>
-            <button type="button" onClick={handleSelectedCleaning}>
-              Clear
-            </button>
-          </div>
-        ) */}
         {children}
       </div>
     </div>
