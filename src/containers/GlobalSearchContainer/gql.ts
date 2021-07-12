@@ -15,8 +15,10 @@ import {
 } from '../../../generated/GlobalSearchCardsData';
 import {
   ProductDerivativeFilter,
+  ProductDerivativeSort,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
+import { DEFAULT_SORT } from '../GlobalSearchPageContainer/helpers';
 
 export const GET_SUGGESTIONS_DATA = gql`
   query suggestionList($query: String) {
@@ -32,16 +34,14 @@ export const GET_PRODUCT_DERIVATIVES = gql`
     $from: Int
     $size: Int
     $filters: ProductDerivativeFilter
+    $sort: [ProductDerivativeSort]
   ) {
     productDerivatives(
       query: $query
-      sort: [
-        { field: offerRanking, direction: ASC }
-        { field: rental, direction: ASC }
-      ]
       size: $size
       from: $from
       filters: $filters
+      sort: $sort
     ) {
       total
       derivatives {
@@ -164,6 +164,7 @@ export function useTextSearchList(
   from: number,
   onCompleted?: (data: productDerivatives) => void,
   filters?: ProductDerivativeFilter,
+  sort?: ProductDerivativeSort[],
 ) {
   return useLazyQuery<productDerivatives, productDerivativesVariables>(
     GET_PRODUCT_DERIVATIVES,
@@ -173,6 +174,7 @@ export function useTextSearchList(
         from,
         size: 12,
         filters,
+        sort: sort || DEFAULT_SORT,
       },
       onCompleted,
     },
@@ -204,6 +206,7 @@ export function useGlobalSearch(query?: string) {
           query: value,
           from: 0,
           size: 6,
+          sort: DEFAULT_SORT,
         },
       });
       const { data: suggestsList } = await apolloClient.query<

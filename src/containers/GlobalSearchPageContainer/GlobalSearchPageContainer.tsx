@@ -21,7 +21,10 @@ import {
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import CommonDescriptionContainer from '../SearchPageContainer/CommonDescriptionContainer';
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  ProductDerivativeSort,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -35,6 +38,12 @@ import GlobalSearchPageFilters from '../../components/GlobalSearchPageFilters';
 import { productFilter_productFilter as IProductFilter } from '../../../generated/productFilter';
 import { RESULTS_PER_REQUEST } from '../SearchPageContainer/helpers';
 import DrawerActions from './DrawerActions';
+import GlobalSearchPageSort from '../../components/GlobalSearchPageSort';
+import useSortOrder from '../../hooks/useSortOrder';
+import {
+  generateSortArray,
+  sortValues,
+} from '../../components/GlobalSearchPageSort/helpers';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -50,6 +59,7 @@ interface IProps {
   vansData?: ICardsData[];
   responseVansCapIds?: string[];
   responseCarsCapIds?: string[];
+  defaultSort?: ProductDerivativeSort[];
 }
 export interface IGSVehiclesCardsData<T> {
   LCV: T;
@@ -66,6 +76,7 @@ const GlobalSearchPageContainer = ({
   responseCarsCapIds,
   filtersData,
   initialFilters,
+  defaultSort,
 }: IProps) => {
   const router = useRouter();
   const [activeFilters, setActiveFilters] = useState<IFiltersData>(
@@ -103,6 +114,9 @@ const GlobalSearchPageContainer = ({
     preLoadProductDerivatives?.productDerivatives?.total || 0,
   );
 
+  const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
+  const [sortOrder, setSortOrder] = useState(savedSortOrder);
+
   const [getCarCardsData] = useGSCardsData(
     capIds.CAR,
     VehicleTypeEnum.CAR,
@@ -115,6 +129,29 @@ const GlobalSearchPageContainer = ({
   );
 
   const [getLcvCardsData] = useGSCardsData(
+    capIds.LCV,
+    VehicleTypeEnum.LCV,
+    async data => {
+      setLcvCardsData(prevState => [
+        ...prevState,
+        ...(data.productCard as ICardsData[]),
+      ]);
+    },
+  );
+
+  // using for prevent canceled request
+  const [getCarCardsDataCache] = useGSCardsData(
+    capIds.CAR,
+    VehicleTypeEnum.CAR,
+    async data => {
+      setCarCardsData(prevState => [
+        ...prevState,
+        ...(data.productCard as ICardsData[]),
+      ]);
+    },
+  );
+
+  const [getLcvCardsDataCache] = useGSCardsData(
     capIds.LCV,
     VehicleTypeEnum.LCV,
     async data => {
@@ -168,6 +205,7 @@ const GlobalSearchPageContainer = ({
       return setVehicleList(vehicles?.productDerivatives?.derivatives || []);
     },
     buildFiltersRequestObject(activeFilters),
+    sortOrder as ProductDerivativeSort[],
   );
 
   const [getVehiclesCache] = useTextSearchList(
@@ -176,7 +214,7 @@ const GlobalSearchPageContainer = ({
     async vehicles => {
       const [carsCapIds, vansCapIds] = productDerivativesCallback(vehicles);
       if (carsCapIds[0]) {
-        getCarCardsData({
+        getCarCardsDataCache({
           variables: {
             capIds: carsCapIds,
             vehicleType: VehicleTypeEnum.CAR,
@@ -184,7 +222,7 @@ const GlobalSearchPageContainer = ({
         });
       }
       if (vansCapIds[0]) {
-        getLcvCardsData({
+        getLcvCardsDataCache({
           variables: {
             capIds: vansCapIds,
             vehicleType: VehicleTypeEnum.LCV,
@@ -208,6 +246,7 @@ const GlobalSearchPageContainer = ({
           query: router.query.searchTerm as string,
           from: RESULTS_PER_REQUEST + 1,
           filters: buildFiltersRequestObject(activeFilters),
+          sort: sortOrder as ProductDerivativeSort[],
         },
       });
     }
@@ -224,6 +263,7 @@ const GlobalSearchPageContainer = ({
           query: router.query.searchTerm as string,
           from: RESULTS_PER_REQUEST + 1,
           filters: buildFiltersRequestObject(activeFilters),
+          sort: sortOrder as ProductDerivativeSort[],
         },
       });
     }
@@ -232,7 +272,7 @@ const GlobalSearchPageContainer = ({
 
   useFirstRenderEffect(() => {
     getVehicles();
-  }, [activeFilters]);
+  }, [activeFilters, sortOrder]);
 
   useFirstRenderEffect(() => {
     if (preLoadProductDerivatives.productDerivatives?.derivatives) {
@@ -249,6 +289,7 @@ const GlobalSearchPageContainer = ({
         filters: buildFiltersRequestObject(activeFilters),
         query: router.query.searchTerm as string,
         from: vehiclesList.length + 1,
+        sort: sortOrder as ProductDerivativeSort[],
       },
     });
   };
@@ -310,6 +351,12 @@ const GlobalSearchPageContainer = ({
       ...activeFilters,
       [key]: [],
     });
+  };
+
+  // handler for changing sort order
+  const onChangeSortOrder = (value: string) => {
+    setSortOrder(generateSortArray(value));
+    saveSortOrder(generateSortArray(value));
   };
 
   return (
@@ -433,7 +480,11 @@ const GlobalSearchPageContainer = ({
                 clearFilterBlock={onClearFilterBlock}
               />
             ) : (
-              <></>
+              <GlobalSearchPageSort
+                sortingValues={sortValues}
+                onSortChange={onChangeSortOrder}
+                selectedSort={(sortOrder as ProductDerivativeSort[])[0]}
+              />
             )}
           </div>
         }
