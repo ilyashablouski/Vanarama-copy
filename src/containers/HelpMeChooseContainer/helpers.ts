@@ -97,7 +97,7 @@ export const onReplace = (
 };
 
 export const buildAnObjectFromAQuery = (
-  query: any,
+  query: URLSearchParams,
   steps: IInitStep,
   editStep?: number,
   showResults?: {

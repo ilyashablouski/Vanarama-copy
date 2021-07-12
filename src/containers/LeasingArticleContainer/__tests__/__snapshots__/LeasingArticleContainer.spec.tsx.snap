@@ -58,6 +58,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         </p>
         <h3
           class="text -lead -darker"
+          id="available-new-car-finance-leasing-options"
         >
           Available New Car Finance Leasing Options
         </h3>

@@ -587,7 +587,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             : RESULTS_PER_REQUEST,
           sort: isSpecialOffersOrder
             ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
-            : sortOrder,
+            : (sortOrder as SortObject[]),
           ...{
             bodyStyles:
               isPickups || isModelPage || isBodyStylePage
@@ -810,7 +810,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                     direction: SortDirection.ASC,
                   },
                 ]
-              : sortOrder,
+              : (sortOrder as SortObject[]),
           },
         });
         return;
@@ -830,8 +830,11 @@ const SearchPageContainer: React.FC<IProps> = ({
           ...filtersData,
           sort: isSpecialOffersOrder
             ? [{ field: SortField.offerRanking, direction: SortDirection.ASC }]
-            : sortOrder,
-          fuelTypes: getPartnerProperties()?.fuelTypes,
+            : (sortOrder as SortObject[]),
+          fuelTypes:
+            filtersData?.fuelTypes?.length > 0
+              ? filtersData?.fuelTypes
+              : getPartnerProperties()?.fuelTypes,
         },
       });
     }
@@ -1043,6 +1046,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           <FiltersContainer
             isPersonal={isPersonal}
             setType={value => setIsPersonal(value)}
+            hideTags={partnershipActive}
             tagArrayBuilderHelper={tagArrayBuilderHelper}
             preLoadFilters={preLoadFiltersData}
             initialState={initialFiltersState}
@@ -1085,7 +1089,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           {!(isAllMakesPage || isMakePage) && (
             <SortOrder
               sortValues={sortValues}
-              sortOrder={sortOrder[0]}
+              sortOrder={(sortOrder as SortObject[])[0]}
               isSpecialOffersOrder={isSpecialOffersOrder}
               onChangeSortOrder={onChangeSortOrder}
             />

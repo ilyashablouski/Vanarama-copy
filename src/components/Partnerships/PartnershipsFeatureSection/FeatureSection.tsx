@@ -6,8 +6,16 @@ import { getFeaturedClassPartial } from 'utils/layout';
 import Media from 'core/atoms/media';
 import getTitleTag from 'utils/getTitleTag';
 import IconList, { IconListItem } from 'core/organisms/icon-list';
+import {
+  Partner_partner_featured,
+  Partner_partner_featured_iconList,
+} from '../../../../generated/Partner';
 
-const PartnershipFeatureSection = ({ featured }: any) => {
+const PartnershipFeatureSection = ({
+  featured,
+}: {
+  featured: Partner_partner_featured;
+}) => {
   const Image = dynamic(() => import('core/atoms/image'), {
     loading: () => <Skeleton count={3} />,
   });
@@ -19,6 +27,7 @@ const PartnershipFeatureSection = ({ featured }: any) => {
   });
   const RouterLink = dynamic(() => import('../../RouterLink/RouterLink'));
   const { title, titleTag, body, image, video, iconList } = featured;
+
   return (
     <section className={`row:${getFeaturedClassPartial(featured)}`}>
       {video ? (
@@ -58,15 +67,20 @@ const PartnershipFeatureSection = ({ featured }: any) => {
           />
           {iconList?.length && (
             <IconList>
-              {iconList.map((el: any, indx: number) => (
-                <IconListItem
-                  iconColor="orange"
-                  key={indx.toString()}
-                  listStyle="none"
-                >
-                  {el?.text}
-                </IconListItem>
-              ))}
+              {iconList.map(
+                (
+                  el: Partner_partner_featured_iconList | null,
+                  indx: number,
+                ) => (
+                  <IconListItem
+                    iconColor="orange"
+                    key={indx.toString()}
+                    listStyle="none"
+                  >
+                    {el?.text}
+                  </IconListItem>
+                ),
+              )}
             </IconList>
           )}
         </div>

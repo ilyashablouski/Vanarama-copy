@@ -3,7 +3,10 @@ import React, { FC } from 'react';
 import SchemaJSON from 'core/atoms/schema-json';
 import Image from 'core/atoms/image';
 import LeadText from 'components/LeadText/LeadText';
-import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery,
+  GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links,
+} from '../../../generated/GenericPageQuery';
 import { HeroEv as Hero, HeroHeading } from '../../components/Hero';
 import FeaturedSection from '../../components/FeaturedSection';
 import Head from '../../components/Head/Head';
@@ -71,7 +74,11 @@ export const EVContentHub: FC<IProps> = ({ data }) => {
               <section className="row">
                 <JumpMenu
                   title={sections?.jumpMenu?.[0]?.title}
-                  links={sections?.jumpMenu?.[0]?.links}
+                  links={
+                    sections?.jumpMenu?.[0]?.links?.filter(
+                      link => link !== null,
+                    ) as GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links[]
+                  }
                 />
               </section>
             )}

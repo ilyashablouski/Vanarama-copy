@@ -1,7 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { NextPage } from 'next';
-import Link from 'core/atoms/link';
 import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
@@ -14,7 +13,8 @@ import { setSource } from '../../utils/url';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { IHeading, IImage, ILink, IParagraph } from './interface';
-import { flattenHeadingText } from './helpers';
+import { convertHeadingToSlug } from '../../utils/markdownHelpers';
+import ArticleLink from '../../components/ArticleLink';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -38,32 +38,16 @@ const Breadcrumb = dynamic(
   },
 );
 
-export const renderHeading = (props: IHeading) => {
-  const children = React.Children.toArray(props.children);
-  const text = children.reduce(flattenHeadingText, '');
-  const slug = text.toLowerCase().replace(/\W/g, '-');
-
-  return React.createElement(
+export const renderHeading = (props: IHeading) =>
+  React.createElement(
     `h${props.level}`,
-    {
-      id: slug,
-    },
+    { id: convertHeadingToSlug(props) },
     props.children,
   );
-};
 
-export const renderLink = (props: ILink) => {
-  const { href, children } = props;
-
-  return /^#/.test(href) ? (
-    <Link href={href}>{children}</Link>
-  ) : (
-    <RouterLink
-      link={{ href, label: children }}
-      classNames={{ color: 'teal' }}
-    />
-  );
-};
+export const renderLink = (props: ILink) => (
+  <ArticleLink href={props.href}>{props.children}</ArticleLink>
+);
 
 export const renderImage = (props: IImage) => (
   <img

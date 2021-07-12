@@ -36,7 +36,7 @@ export const createOffersObject = (
   state: string,
   offer: VehicleProduct,
   derivative?: Derivatives,
-  button?: any,
+  button?: JSX.Element,
   quote?: boolean,
 ) => ({
   price:

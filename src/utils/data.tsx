@@ -30,11 +30,11 @@ export function decodeData(data: any) {
   return newData;
 }
 
-export function encodeString(text: any) {
+export function encodeString(text: string) {
   return Buffer.from(text).toString('base64');
 }
 
-export function decodeString(base64Text: any) {
+export function decodeString(base64Text: string) {
   return Buffer.from(base64Text, 'base64').toString('utf-8');
 }
 

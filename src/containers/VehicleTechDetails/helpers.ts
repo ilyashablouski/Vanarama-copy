@@ -39,7 +39,8 @@ export const getTechData = (
   return derivativeInfo
     ?.reduce((arr, el) => {
       const index = arr.findIndex(
-        (item: any) => item.categoryDescription === el?.categoryDescription,
+        (item: ITechDataItemGroup) =>
+          item.categoryDescription === el?.categoryDescription,
       );
       const {
         id,

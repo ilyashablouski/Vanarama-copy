@@ -27,9 +27,11 @@ const FilterMakeAndModel: FC<IFilterMakeAndModel> = props => {
           onChange={e => onChange('manufacturers', e.target.value)}
           value={selectedFilters?.manufacturers?.[0] || ''}
         >
-          {searchFilters.manufacturers.map((range: any) => (
-            <option value={range.value}>{range.label}</option>
-          ))}
+          {searchFilters.manufacturers.map(
+            (range: { value: string; label: string }) => (
+              <option value={range.value}>{range.label}</option>
+            ),
+          )}
         </Select>
       </Formgroup>
       <Formgroup label="Select Model">
@@ -38,9 +40,11 @@ const FilterMakeAndModel: FC<IFilterMakeAndModel> = props => {
           onChange={e => onChange('ranges', e.target.value)}
           value={selectedFilters?.ranges?.[0] || ''}
         >
-          {searchFilters.ranges.map((range: any) => (
-            <option value={range.value}>{range.label}</option>
-          ))}
+          {searchFilters.ranges.map(
+            (range: { value: string; label: string }) => (
+              <option value={range.value}>{range.label}</option>
+            ),
+          )}
         </Select>
       </Formgroup>
     </>
