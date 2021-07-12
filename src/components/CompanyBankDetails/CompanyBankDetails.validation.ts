@@ -37,7 +37,7 @@ const ValidationSchema = yup.object().shape({
     .required('Please enter bank account name')
     .matches(
       BANK_ACCOUNT_NAME_REGEX,
-      'Please use only letters, apostrophes and dashes',
+      "Oops, this name doesn't meet the requirements",
     )
     .min(
       2,
