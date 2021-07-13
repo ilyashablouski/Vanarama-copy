@@ -18,19 +18,19 @@ const PhotoPreview: FC<IPhotoPreview> = ({
   return (
     <>
       <Image src={imgSrc} />
-      <div className="choiceboxes -cols-2 -teal -pt-500">
+      <div className="choice-boxes -cols-2 -teal -pt-500">
         <Button
           onClick={onClickSave}
           label="Save"
           withoutDefaultClass
-          className="choicebox -active"
+          className="choice-box -active"
           size="small"
         />
         <Button
           onClick={onClickRetake}
           label="Retake"
           withoutDefaultClass
-          className="choicebox -active"
+          className="choice-box -active"
           size="small"
         />
       </div>

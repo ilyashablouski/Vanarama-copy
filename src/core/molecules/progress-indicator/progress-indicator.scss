@@ -140,6 +140,7 @@
 .progress-indicator {
   @media (max-width: $vp-small) {
     --step-size: 40px;
+    padding: 0.2rem;
     -webkit-mask-image: linear-gradient(
       to left,
       transparent 0%,
@@ -152,6 +153,6 @@
     margin-right: -$rem-400;
     max-width: calc(#{$vp-small} - #{$global-inset-at-small * 2});
     overflow-x: scroll;
-    padding: 0.2rem;
+    @include custom-scrollbar(3px, #BFBFBF);
   }
 }

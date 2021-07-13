@@ -63,6 +63,6 @@ $include-presentation-styles: false !default;
 @import '../organisms/media-gallery/media-gallery.scss';
 
 // row is imported last (for overrides)
-@import '../templates/row.scss';
+//@import '../templates/row.scss';
 @import '../util/youtube.scss';
 @import '../templates/error.scss';

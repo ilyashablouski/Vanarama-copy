@@ -291,7 +291,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
 
   const renderChoiceBtn = (index: number, text: string) => (
     <button
-      className={cx('choicebox', { '-active': activeTab === index })}
+      className={cx('choice-box', { '-active': activeTab === index })}
       onClick={() => onChangeTabs(index)}
       type="button"
       key={index}
@@ -421,7 +421,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
         <div className="row:bg-lighter -thin">
           <div className="row:results">
             {!quote && (
-              <div className="choiceboxes -cols-3 -teal">
+              <div className="choice-boxes -cols-3 -teal">
                 {renderChoiceBtn(0, 'All Orders')}
                 {hasCreditCompleteOrder() && renderChoiceBtn(1, 'Completed')}
                 {hasCreditIncompleteOrder() &&
