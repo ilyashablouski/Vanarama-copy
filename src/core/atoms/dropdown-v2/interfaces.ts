@@ -2,7 +2,7 @@ export interface IDropdownV2Props {
   type: 'drop-down' | 'drop-select';
   open: boolean;
   label: string;
-  children: React.ReactNode[];
+  children: React.ReactNode[] | React.ReactNode;
   onLabelClick: (event: React.MouseEvent<HTMLSpanElement>) => void;
   onContainerClick: (event: React.MouseEvent<HTMLDivElement>) => void;
   multiselect: boolean;
