@@ -160,6 +160,7 @@ $small: 0.875rem;
   // Predefined areas -> image
   &-image {
     height: $image-height;
+    min-height: $image-height;
     width: 100%;
     background: var(--class-color, #{$black});
     color: transparent;
