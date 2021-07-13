@@ -201,7 +201,7 @@ describe('B2B Company Details page', () => {
 
     typeIntoNatureField('62020');
     await waitFor(() => expect(getSicCodesCalled).toBeTruthy());
-    fireEvent.mouseDown(screen.getByText(/^62020/));
+    fireEvent.click(screen.getByText(/^62020/));
 
     fireEvent.click(screen.getByText('Edit'));
     typeIntoAddressField('company-details_registered-address', 'GB|001');
@@ -332,7 +332,7 @@ describe('B2B Company Details page', () => {
     // Fill the rest of the form in
     typeIntoNatureField('62020');
     await waitFor(() => expect(getSicCodesCalled).toBeTruthy());
-    fireEvent.mouseDown(screen.getByText(/^62020/));
+    fireEvent.click(screen.getByText(/^62020/));
 
     typeIntoAddressField('company-details_registered-address', 'GB|001');
     fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
