@@ -107,15 +107,19 @@ export const BusinessAboutPage: NextPage = () => {
         about you and your company.
       </Text>
       {!personLoggedIn && (
-        <div className="-mb-500" ref={loginFormRef}>
+        <div ref={loginFormRef}>
           <div className="-pt-300 -pb-300">
             <Button
               label="Login For A Speedy Checkout"
               color="teal"
               onClick={() => toggleLogInVisibility(!isLogInVisible)}
             />
-            <Text color="darker" size="lead" className="-mt-300" tag="p">
-              Or checkout as a guest
+            <Text
+              className="olaf-guest-text -label -mt-500"
+              tag="p"
+              size="regular"
+            >
+              Or continue as guest by filling out the form below
             </Text>
           </div>
           {isLogInVisible && (
