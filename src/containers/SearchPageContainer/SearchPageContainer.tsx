@@ -11,6 +11,9 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import Media from 'core/atoms/media';
+import Image from 'core/atoms/image';
+import Accordion from 'core/molecules/accordion/Accordion';
 import {
   filterOrderByNumMap,
   findPreselectFilterValue,
@@ -83,6 +86,10 @@ import {
   getObjectFromSessionStorage,
   removeSessionStorageItem,
 } from '../../utils/windowSessionStorage';
+import getTitleTag from '../../utils/getTitleTag';
+import { SubTitleAndParagraphs } from '../../components/SubTitleAndParagraphs/SubTitleAndParagraphs';
+import { ThreeColumnSection } from '../../components/ThreeColumnSection/ThreeColumnSection';
+import ReviewsTwoColumn from "../../components/ReviewsTwoColumn/ReviewsTwoColumn";
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -186,6 +193,80 @@ const SearchPageContainer: React.FC<IProps> = ({
 }: IProps) => {
   // assign here as when inline causing hook lint errors
   const applyColumns = !isEvPage ? '-columns' : '';
+
+  const isNewPage = false;
+
+  const listParagraph = [
+    {
+      title: 'Range Rover Evoque',
+      description:
+        'Unlike the first-generation Evoque, there’s no three-door or convertible model available, so the five-door SUV is your only option. However, there are two styles to choose from, within which are the trim levels listed below. As well as the standard car, you can pick an Evoque R-Dynamic, which has a sportier look, courtesy of different alloy wheel designs and a more aggressive-looking bodykit.',
+    },
+
+    {
+      title: 'Range Rover Evoque',
+      description:
+        'Unlike the first-generation Evoque, there’s no three-door or convertible model available, so the five-door SUV is your only option. However, there are two styles to choose from, within which are the trim levels listed below. As well as the standard car, you can pick an Evoque R-Dynamic, which has a sportier look, courtesy of different alloy wheel designs and a more aggressive-looking bodykit.',
+    },
+  ];
+
+  const listReviews = [
+    {
+      text: 'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
+      author: 'author',
+      score: 2,
+    },
+
+    {
+      text: 'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
+      author: 'author',
+      score: 4,
+    },
+
+    {
+      text: 'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
+      author: 'author',
+      score: 1,
+    },
+
+    {
+      text: 'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
+      author: 'author',
+      score: 4,
+    },
+  ];
+
+  const accordionData = [
+    {
+      id: 4,
+      title: 'No Admin Fees',
+      children:
+        "Unlike many of our competitors, we won’t charge you anything to arrange your lease. You simply pay your initial payment and monthly rentals and we'll cover the rest.",
+    },
+    {
+      id: 4,
+      title: 'No Admin Fees',
+      children:
+        "Unlike many of our competitors, we won’t charge you anything to arrange your lease. You simply pay your initial payment and monthly rentals and we'll cover the rest.",
+    },
+  ];
+
+  const columnThreeData = [
+    {
+      src: 'Range Rover Evoque',
+      title: "It's a stylish luxury SUV, but in compact form.",
+    },
+
+    {
+      src: 'Range Rover Evoque',
+      title: 'You can choose between petrol, diesel or plug-in hybrid power.',
+    },
+
+    {
+      src: 'Range Rover Evoque',
+      title: "It's a stylish luxury SUV, but in compact form.",
+    },
+  ];
 
   const client = useApolloClient();
   const router = useRouter();
@@ -933,20 +1014,24 @@ const SearchPageContainer: React.FC<IProps> = ({
   };
   // TODO: render must be refactored, some components should be moved to separate components
   // Some props should be contain in one param for achieve more readable code
+
   return (
     <>
       <PartnershipLogoHeader />
       <div className="row:title">
         {!partnershipActive && <Breadcrumb items={breadcrumbsItems} />}
-        <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
-          {isDesktopOrTablet
-            ? metaData?.name
-            : titleWithBreaks.map((line, idx) => (
-                <React.Fragment key={String(idx)}>
-                  {line} <br />
-                </React.Fragment>
-              ))}
-        </Heading>
+
+        {isNewPage ? null : (
+          <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
+            {isDesktopOrTablet
+              ? metaData?.name
+              : titleWithBreaks.map((line, idx) => (
+                  <React.Fragment key={String(idx)}>
+                    {line} <br />
+                  </React.Fragment>
+                ))}
+          </Heading>
+        )}
 
         <CommonDescriptionContainer pageData={pageData} />
       </div>
@@ -990,9 +1075,63 @@ const SearchPageContainer: React.FC<IProps> = ({
         </>
       )}
 
-      {!(isSpecialOfferPage && isCarSearch) && featured && (
-        <ReadMoreBlock featured={featured} />
-      )}
+      {isNewPage
+        ? null
+        : !(isSpecialOfferPage && isCarSearch) &&
+          featured && <ReadMoreBlock featured={featured} />}
+
+      {isNewPage ? (
+        <>
+          <section className="row:featured-left">
+            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+              <div>
+                <Heading
+                  size="large"
+                  color="black"
+                  tag={
+                    getTitleTag(
+                      getSectionsData(['featured2', 'titleTag'], {
+                        noData: 'noData',
+                      }) || 'p',
+                    ) as keyof JSX.IntrinsicElements
+                  }
+                >
+                  {getSectionsData(['featured2', 'title'], 'h2')}
+                </Heading>
+                <div className="markdown">
+                  <ReactMarkdown
+                    allowDangerousHtml
+                    source={
+                      getSectionsData(['featured2', 'body'], {
+                        noData: 'noData',
+                      }) || ''
+                    }
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return <RouterLink link={{ href, label: children }} />;
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                src={
+                  getSectionsData(
+                    ['featured2', 'image', 'file', 'url'],
+                    {
+                      noData: 'noData',
+                    },
+                  ) ||
+                  'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+                }
+              />
+            </LazyLoadComponent>
+          </section>
+        </>
+      ) : null}
 
       {isAllMakesPage && topInfoSection && (
         <TopInfoBlock topInfoSection={topInfoSection} />
@@ -1204,100 +1343,351 @@ const SearchPageContainer: React.FC<IProps> = ({
               </LazyLoadComponent>
             ))}
 
-          {!isDynamicFilterPage && tiles?.tiles?.length && (
-            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-              <TilesBlock tiles={tiles} />
-            </LazyLoadComponent>
-          )}
+          {isNewPage
+            ? null
+            : !isDynamicFilterPage &&
+              tiles?.tiles?.length && (
+                <LazyLoadComponent
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
+                  <TilesBlock tiles={tiles} />
+                </LazyLoadComponent>
+              )}
 
-          {carousel?.cards?.length && (
-            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-              <div className="row:bg-lighter">
-                <div className="row:carousel">
-                  <Heading size="large" color="black" tag="h3">
-                    {carousel.title}
-                  </Heading>
-                  <Carousel
-                    countItems={carousel?.cards?.length || 0}
-                    className="-col3"
+          {isNewPage ? (
+            <>
+              <div className="row:default">
+                <ThreeColumnSection
+                  data={columnThreeData}
+                  title="Top 3 Things"
+                />
+
+                <section className="row:featured-left">
+                  <LazyLoadComponent
+                    visibleByDefault={isServerRenderOrAppleDevice}
                   >
-                    {carousel?.cards.map(
-                      (card, indx) =>
-                        card && (
-                          <Card
-                            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                            key={`${card.name}_${indx.toString()}`}
-                            className="card__article"
-                            imageSrc={
-                              card?.image?.file?.url ||
-                              `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                            }
-                            title={{
-                              title:
-                                card.link?.legacyUrl || card.link?.url
-                                  ? ''
-                                  : card.title || '',
-                              link: (
-                                <RouterLink
-                                  link={{
-                                    href:
-                                      card.link?.legacyUrl ||
-                                      card.link?.url ||
-                                      '',
-                                    label: card.title || '',
-                                  }}
-                                  className="card--link"
-                                  classNames={{
-                                    color: 'black',
-                                    size: 'regular',
-                                  }}
-                                />
-                              ),
-                            }}
-                          >
-                            <ReactMarkdown
-                              className="markdown"
-                              allowDangerousHtml
-                              source={card.body || ''}
-                              renderers={{
-                                link: props => {
-                                  const { href, children } = props;
-                                  return (
-                                    <RouterLink
-                                      link={{ href, label: children }}
-                                      classNames={{ color: 'teal' }}
-                                    />
-                                  );
-                                },
-                                heading: props => (
-                                  <Text
-                                    {...props}
-                                    size="lead"
-                                    color="darker"
-                                    tag="h3"
-                                  />
-                                ),
-                                paragraph: props => (
-                                  <Text {...props} tag="p" color="darker" />
-                                ),
-                              }}
-                            />
-                            <RouterLink
-                              link={{
-                                href:
-                                  card.link?.legacyUrl || card.link?.url || '',
-                                label: card.link?.text || '',
-                              }}
-                              classNames={{ color: 'teal' }}
-                            />
-                          </Card>
-                        ),
-                    )}
-                  </Carousel>
+                    <Image
+                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                      src={
+                        getSectionsData(
+                          ['featured2', 'image', 'file', 'url'],
+                          {
+                            noData: 'noData',
+                          },
+                        ) ||
+                        'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+                      }
+                    />
+                    <div>
+                      <Heading
+                        size="large"
+                        color="black"
+                        tag={
+                          getTitleTag(
+                            getSectionsData(['featured2', 'titleTag'], 'h1') ||
+                              'p',
+                          ) as keyof JSX.IntrinsicElements
+                        }
+                      >
+                        {getSectionsData(['featured2', 'title'], 'h2')}
+                      </Heading>
+                      <div className="markdown">
+                        <ReactMarkdown
+                          allowDangerousHtml
+                          source={
+                            getSectionsData(['featured2', 'body'], '54') || ''
+                          }
+                          renderers={{
+                            link: props => {
+                              const { href, children } = props;
+                              return (
+                                <RouterLink link={{ href, label: children }} />
+                              );
+                            },
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </LazyLoadComponent>
+                </section>
+
+                <section className="row:featured-left">
+                  <LazyLoadComponent
+                    visibleByDefault={isServerRenderOrAppleDevice}
+                  >
+                    <div>
+                      <Heading
+                        size="large"
+                        color="black"
+                        tag={
+                          getTitleTag(
+                            getSectionsData(['featured2', 'titleTag'], 'h1') ||
+                              'p',
+                          ) as keyof JSX.IntrinsicElements
+                        }
+                      >
+                        {getSectionsData(['featured2', 'title'], 'h2')}
+                      </Heading>
+                      <div className="markdown">
+                        <ReactMarkdown
+                          allowDangerousHtml
+                          source={
+                            getSectionsData(['featured2', 'body'], '54') || ''
+                          }
+                          renderers={{
+                            link: props => {
+                              const { href, children } = props;
+                              return (
+                                <RouterLink link={{ href, label: children }} />
+                              );
+                            },
+                          }}
+                        />
+                      </div>
+                    </div>
+
+                    <Image
+                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                      src={
+                        getSectionsData(
+                          ['featured2', 'image', 'file', 'url'],
+                          {
+                            noData: 'noData',
+                          },
+                        ) ||
+                        'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+                      }
+                    />
+                  </LazyLoadComponent>
+                </section>
+
+                <section className="row:featured-left">
+                  <LazyLoadComponent
+                    visibleByDefault={isServerRenderOrAppleDevice}
+                  >
+                    <Image
+                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                      src={
+                        getSectionsData(
+                          ['featured2', 'image', 'file', 'url'],
+                          {
+                            noData: 'noData',
+                          },
+                        ) ||
+                        'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+                      }
+                    />
+
+                    <div>
+                      <Heading
+                        size="large"
+                        color="black"
+                        tag={
+                          getTitleTag(
+                            getSectionsData(['featured2', 'titleTag'], 'h1') ||
+                              'p',
+                          ) as keyof JSX.IntrinsicElements
+                        }
+                      >
+                        {getSectionsData(['featured2', 'title'], 'h2')}
+                      </Heading>
+                      <div className="markdown">
+                        <ReactMarkdown
+                          allowDangerousHtml
+                          source={
+                            getSectionsData(['featured2', 'body'], {
+                              noData: 'noData',
+                            }) || ''
+                          }
+                          renderers={{
+                            link: props => {
+                              const { href, children } = props;
+                              return (
+                                <RouterLink link={{ href, label: children }} />
+                              );
+                            },
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </LazyLoadComponent>
+                </section>
+              </div>
+
+              <div className="row:default">
+                <div className="tilebox">
+                  <Accordion items={accordionData} />
                 </div>
               </div>
-            </LazyLoadComponent>
-          )}
+
+              <SubTitleAndParagraphs
+                title="Models Available"
+                paragraps={listParagraph}
+              />
+
+              <section className="row:featured-left">
+                <LazyLoadComponent
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
+                  <div>
+                    <Heading
+                      size="large"
+                      color="black"
+                      tag={
+                        getTitleTag(
+                          getSectionsData(['featured2', 'titleTag'], 'h1') ||
+                            'p',
+                        ) as keyof JSX.IntrinsicElements
+                      }
+                    >
+                      {getSectionsData(['featured2', 'title'], 'h2')}
+                    </Heading>
+                    <div className="markdown">
+                      <ReactMarkdown
+                        allowDangerousHtml
+                        source={
+                          getSectionsData(['featured2', 'body'], '54') || ''
+                        }
+                        renderers={{
+                          link: props => {
+                            const { href, children } = props;
+                            return (
+                              <RouterLink link={{ href, label: children }} />
+                            );
+                          },
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    src={
+                      getSectionsData(
+                        ['featured2', 'image', 'file', 'url'],
+                        '54',
+                      ) ||
+                      'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
+                    }
+                  />
+                </LazyLoadComponent>
+              </section>
+
+              <div className="row:default">
+                <Media
+                  src={getSectionsData(['featured1', 'video'], '') || ''}
+                  width="100%"
+                  height="670px"
+                />
+              </div>
+
+              <ReviewsTwoColumn reviews={listReviews} />
+
+              <SubTitleAndParagraphs
+                title="Models Available"
+                paragraps={listParagraph}
+              />
+
+              <div className="row:default">
+                <div className="tilebox">
+                  <Accordion items={accordionData} />
+                </div>
+              </div>
+            </>
+          ) : null}
+
+          <>
+            {carousel?.cards?.length && (
+              <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+                <div className="row:bg-lighter">
+                  <div className="row:carousel">
+                    <Heading size="large" color="black" tag="h3">
+                      {carousel.title}
+                    </Heading>
+                    <Carousel
+                      countItems={carousel?.cards?.length || 0}
+                      className="-col3"
+                    >
+                      {carousel?.cards.map(
+                        (card, indx) =>
+                          card && (
+                            <Card
+                              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                              key={`${card.name}_${indx.toString()}`}
+                              className="card__article"
+                              imageSrc={
+                                card?.image?.file?.url ||
+                                `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+                              }
+                              title={{
+                                title:
+                                  card.link?.legacyUrl || card.link?.url
+                                    ? ''
+                                    : card.title || '',
+                                link: (
+                                  <RouterLink
+                                    link={{
+                                      href:
+                                        card.link?.legacyUrl ||
+                                        card.link?.url ||
+                                        '',
+                                      label: card.title || '',
+                                    }}
+                                    className="card--link"
+                                    classNames={{
+                                      color: 'black',
+                                      size: 'regular',
+                                    }}
+                                  />
+                                ),
+                              }}
+                            >
+                              <ReactMarkdown
+                                className="markdown"
+                                allowDangerousHtml
+                                source={card.body || ''}
+                                renderers={{
+                                  link: props => {
+                                    const { href, children } = props;
+                                    return (
+                                      <RouterLink
+                                        link={{ href, label: children }}
+                                        classNames={{ color: 'teal' }}
+                                      />
+                                    );
+                                  },
+                                  heading: props => (
+                                    <Text
+                                      {...props}
+                                      size="lead"
+                                      color="darker"
+                                      tag="h3"
+                                    />
+                                  ),
+                                  paragraph: props => (
+                                    <Text {...props} tag="p" color="darker" />
+                                  ),
+                                }}
+                              />
+                              <RouterLink
+                                link={{
+                                  href:
+                                    card.link?.legacyUrl ||
+                                    card.link?.url ||
+                                    '',
+                                  label: card.link?.text || '',
+                                }}
+                                classNames={{ color: 'teal' }}
+                              />
+                            </Card>
+                          ),
+                      )}
+                    </Carousel>
+                  </div>
+                </div>
+              </LazyLoadComponent>
+            )}
+          </>
         </>
       )}
 

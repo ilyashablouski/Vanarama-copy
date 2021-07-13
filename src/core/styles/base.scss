@@ -15,6 +15,7 @@ $include-presentation-styles: false !default;
 
 // page templates
 @import '../templates/page.scss';
+@import './pages/range-page-with-filters.scss';
 
 // components (atoms)
 // @import '../atoms/details/details.scss';

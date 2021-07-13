@@ -10,6 +10,7 @@ import { ICarouselProps } from './interface';
 
 const Slider: FC<ICarouselProps> = ({
   children,
+  countShow= 3,
   className,
   countItems,
   initialSlideHeight,
@@ -20,7 +21,7 @@ const Slider: FC<ICarouselProps> = ({
   const isMediumScreen = useMediaQuery({ minWidth: 768, maxWidth: 1215 });
   const isSmallScreen = useMediaQuery({ maxWidth: 767 });
 
-  let slidesToShow = 3;
+  let slidesToShow = countShow;
   if (isSmallScreen) {
     slidesToShow = 1;
   } else if (isMediumScreen) {
