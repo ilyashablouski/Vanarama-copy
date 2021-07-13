@@ -1,12 +1,19 @@
 import Cookies from 'js-cookie';
 
-const ID_COOKIE_NAME = 'ic';
+const IDENTITY_COOKIE_NAME = 'ic';
+const IDENTITY_LOCAL_COOKIE_NAME = 'ic_local';
 
 export function isUserAuthenticated() {
-  const idCookie = Cookies.get(ID_COOKIE_NAME);
+  const identityCookie = Cookies.get(IDENTITY_COOKIE_NAME);
+  const identityLocalCookie = Cookies.get(IDENTITY_LOCAL_COOKIE_NAME);
 
   // will be unavailable in case of expiration or absence
-  return idCookie !== undefined;
+  return [identityCookie, identityLocalCookie].some(cookie => cookie === '1');
+}
+
+export function removeAuthenticationCookies() {
+  Cookies.remove(IDENTITY_COOKIE_NAME);
+  Cookies.remove(IDENTITY_LOCAL_COOKIE_NAME);
 }
 
 export default isUserAuthenticated;

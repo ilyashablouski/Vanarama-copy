@@ -1,7 +1,7 @@
 import { isUserAuthenticated } from './authentication';
 
 const ID_COOKIE_NAME = 'ic';
-const ID_COOKIE_VALUE = 'TEST_COOKIE_VALUE';
+const ID_COOKIE_VALUE = '1';
 
 describe('WHEN ID cookie is empty', () => {
   it('should return false', () => {
