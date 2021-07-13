@@ -6,6 +6,6 @@ export interface IDropdownV2Props {
   onLabelClick: (event: React.MouseEvent<HTMLSpanElement>) => void;
   onContainerClick: (event: React.MouseEvent<HTMLDivElement>) => void;
   multiselect: boolean;
-  renderSummary?: (ref: any) => React.ReactNode;
+  renderSummary?: (ref: React.Ref<HTMLDivElement>) => React.ReactNode;
   selected: unknown[];
 }
