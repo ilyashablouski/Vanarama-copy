@@ -6,9 +6,9 @@ import React, {
   SetStateAction,
 } from 'react';
 import ChevronDown from 'core/assets/icons/ChevronDown';
-import cx from 'classnames';
 import { useRouter } from 'next/router';
 import ToggleSwitch from 'core/atoms/toggle/ToggleSwitch';
+import DropdownV2 from 'core/atoms/dropdown-v2';
 import Flame from 'core/assets/icons/Flame';
 import ToggleV2 from 'core/atoms/toggleV2';
 import { filtersConfig as config } from './config';
@@ -82,40 +82,16 @@ const GlobalSearchPageFilters = ({
     });
   }, [activeFilters]);
 
-  const changeBlockHeight = (parentNode: HTMLElement) => {
-    const parent = parentNode;
-    const optionsHeight = (parentNode?.querySelector('.options') as HTMLElement)
-      ?.offsetHeight;
-    const labelHeight = (parentNode?.querySelector('.label') as HTMLElement)
-      ?.offsetHeight;
-    parent.style.height = `${labelHeight + optionsHeight}px`;
-    setTimeout(() => {
-      parentNode.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }, 500);
-  };
-
   const onHandleFilterStatus = (
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     key: string,
   ) => {
-    const { currentTarget, target } = e;
-    const isDropDownEvent =
-      currentTarget.className.includes('drop-down') ||
-      currentTarget.className.includes('drop-select');
+    const { target } = e;
     const isLabelEvent = (target as HTMLElement).className === 'label';
     if (isLabelEvent && !openedFilters.includes(key)) {
       setOpenedFilters([...openedFilters, key]);
-      changeBlockHeight((target as HTMLElement).parentNode as HTMLElement);
     } else if (isLabelEvent && openedFilters.includes(key)) {
-      ((target as HTMLElement).parentNode as HTMLElement).removeAttribute(
-        'style',
-      );
       setOpenedFilters(openedFilters.filter(value => value !== key));
-    } else if (isDropDownEvent && openedFilters.includes(key)) {
-      changeBlockHeight(currentTarget);
     }
   };
 
@@ -241,33 +217,20 @@ const GlobalSearchPageFilters = ({
           multiselect,
         }) =>
           type === 'drop-down' ? (
-            // eslint-disable-next-line
-            <div
-              className={cx('drop-down', {
-                open: openedFilters.includes(key),
-                'dynamic-label ': !multiselect,
-              })}
-              key={key}
-              onClick={e => onHandleFilterStatus(e, key)}
-            >
-              {/* eslint-disable-next-line */}
-              <span
-                role="button"
-                className="label"
-                onClick={e => {
-                  e.stopPropagation();
-                  onHandleFilterStatus(e, key);
-                }}
-              >
-                <span>
-                  {multiselect
-                    ? label
-                    : labelForSingleSelect(key as keyof IFiltersData) || label}
-                </span>
-                <ChevronDown />
-              </span>
-              <div className="options">
+            <DropdownV2
+              onLabelClick={event => onHandleFilterStatus(event, key)}
+              onContainerClick={event => onHandleFilterStatus(event, key)}
+              label={
+                multiselect
+                  ? label
+                  : labelForSingleSelect(key as keyof IFiltersData) || label
+              }
+              multiselect={multiselect}
+              open={openedFilters.includes(key)}
+              type="drop-down"
+              renderSummary={ref => (
                 <SelectedBox
+                  ref={ref}
                   selected={
                     selectedTags.filter(
                       selectedBlocks => selectedBlocks.filterKey === key,
@@ -275,117 +238,117 @@ const GlobalSearchPageFilters = ({
                   }
                   onClearFilterBlock={() => clearFilterBlock(key)}
                 />
-                {(filtersMapper[key as keyof IFiltersData] as string[])?.map(
-                  option => (
-                    <Fragment key={option}>
-                      <input
-                        id={`${key}-${option}`}
-                        type="checkbox"
-                        name={key}
-                        onChange={event =>
-                          onHandleMultiSelect(event, key as keyof IFiltersData)
-                        }
-                        data-testid={`${key}-${option}`}
-                        value={option}
-                        disabled={
-                          !multiselect &&
-                          (filtersMapper[key as keyof IFiltersData] as string[])
-                            .length === 1
-                        }
-                        checked={
-                          activeFilters?.[key as keyof IFiltersData]?.includes(
-                            option,
-                          ) ||
-                          (!multiselect &&
-                            (filtersMapper[
-                              key as keyof IFiltersData
-                            ] as string[]).length === 1)
-                        }
-                      />
-                      <label htmlFor={`${key}-${option}`}>{option}</label>
-                    </Fragment>
-                  ),
-                )}
-              </div>
-            </div>
-          ) : (
-            // eslint-disable-next-line
-            <div
-              className={cx('drop-select', {
-                open: openedFilters.includes(key),
-              })}
-              key={key}
-              onClick={e => onHandleFilterStatus(e, key)}
+              )}
+              selected={
+                selectedTags.filter(
+                  selectedBlocks => selectedBlocks.filterKey === key,
+                )?.[0]?.tags || []
+              }
             >
-              {/* eslint-disable-next-line */}
-              <span
-                className="label"
-                onClick={e => {
-                  e.stopPropagation();
-                  onHandleFilterStatus(e, key);
-                }}
-              >
-                <span>{label}</span>
-                <ChevronDown />
-              </span>
-              <div className="options">
+              {(filtersMapper[key as keyof IFiltersData] as string[])?.map(
+                option => (
+                  <Fragment key={option}>
+                    <input
+                      id={`${key}-${option}`}
+                      type="checkbox"
+                      name={key}
+                      onChange={event =>
+                        onHandleMultiSelect(event, key as keyof IFiltersData)
+                      }
+                      data-testid={`${key}-${option}`}
+                      value={option}
+                      disabled={
+                        !multiselect &&
+                        (filtersMapper[key as keyof IFiltersData] as string[])
+                          .length === 1
+                      }
+                      checked={
+                        activeFilters?.[key as keyof IFiltersData]?.includes(
+                          option,
+                        ) ||
+                        (!multiselect &&
+                          (filtersMapper[key as keyof IFiltersData] as string[])
+                            .length === 1)
+                      }
+                    />
+                    <label htmlFor={`${key}-${option}`}>{option}</label>
+                  </Fragment>
+                ),
+              )}
+            </DropdownV2>
+          ) : (
+            <DropdownV2
+              type="drop-select"
+              label={label}
+              multiselect={multiselect}
+              open={openedFilters.includes(key)}
+              onContainerClick={event => onHandleFilterStatus(event, key)}
+              onLabelClick={event => onHandleFilterStatus(event, key)}
+              renderSummary={ref => (
                 <SelectedDropdown
+                  ref={ref}
                   selected={getDropdownValues(innerSelects as IInnerSelect[])}
                   onClear={() =>
                     onClearDropdown(innerSelects as IInnerSelect[])
                   }
                   renderFunction={renderSelectedFunction}
                 />
-                {(innerSelects as IInnerSelect[])?.map(
-                  ({ title, key: selectKey, placeholder }) => (
-                    <Fragment key={title}>
-                      <span className="option-title">{title}</span>
-                      <div className="faux-select">
-                        <ChevronDown />
-                        <select
-                          name={`${selectKey}`}
-                          data-testid={`${selectKey}-form`}
-                          onChange={onHandleNativeSelectChange}
-                          disabled={isDisabledSelect(key, selectKey)}
+              )}
+              selected={
+                selectedTags.filter(
+                  selectedBlocks => selectedBlocks.filterKey === key,
+                )?.[0]?.tags || []
+              }
+            >
+              {(innerSelects as IInnerSelect[])?.map(
+                ({ title, key: selectKey, placeholder }) => (
+                  <Fragment key={title}>
+                    <span className="option-title">{title}</span>
+                    <div className="faux-select">
+                      <ChevronDown />
+                      <select
+                        name={`${selectKey}`}
+                        data-testid={`${selectKey}-form`}
+                        onChange={onHandleNativeSelectChange}
+                        disabled={isDisabledSelect(key, selectKey)}
+                      >
+                        <option
+                          disabled
+                          value=""
+                          selected={
+                            !activeFilters?.[
+                              selectKey as keyof IFiltersData
+                            ]?.[0]
+                          }
                         >
+                          {placeholder}
+                        </option>
+                        {(filtersMapper?.[
+                          selectKey as keyof IFiltersData
+                        ] as string[])?.map(value => (
                           <option
-                            disabled
-                            value=""
-                            selected={
-                              !activeFilters?.[
-                                selectKey as keyof IFiltersData
-                              ]?.[0]
+                            key={value}
+                            disabled={
+                              key === 'budget'
+                                ? isInvalidBudget(value, selectKey)
+                                : false
                             }
+                            value={value}
+                            selected={activeFilters?.[
+                              selectKey as keyof IFiltersData
+                            ]?.includes(value)}
                           >
-                            {placeholder}
+                            {renderValuesFunction
+                              ? renderValuesFunction(value)
+                              : value}
                           </option>
-                          {(filtersMapper?.[
-                            selectKey as keyof IFiltersData
-                          ] as string[])?.map(value => (
-                            <option
-                              key={value}
-                              disabled={
-                                key === 'budget'
-                                  ? isInvalidBudget(value, selectKey)
-                                  : false
-                              }
-                              value={value}
-                              selected={activeFilters?.[
-                                selectKey as keyof IFiltersData
-                              ]?.includes(value)}
-                            >
-                              {renderValuesFunction
-                                ? renderValuesFunction(value)
-                                : value}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </Fragment>
-                  ),
-                )}
-              </div>
-            </div>
+                        ))}
+                      </select>
+                    </div>
+                  </Fragment>
+                ),
+              )}
+            </DropdownV2>
           ),
       )}
     </>
