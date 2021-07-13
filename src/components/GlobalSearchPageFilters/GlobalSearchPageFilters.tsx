@@ -40,6 +40,10 @@ interface IProps {
   setSelectedTags: Dispatch<SetStateAction<ISelectedTags[]>>;
   clearFilterBlock: (key: string) => void;
   onRemoveTag: (value: string, key: string) => void;
+  isPersonal: boolean;
+  setIsPersonal: (value: boolean) => void;
+  isSpecialOffer: boolean;
+  setIsSpecialOffer: (value: boolean) => void;
 }
 
 const GlobalSearchPageFilters = ({
@@ -50,13 +54,15 @@ const GlobalSearchPageFilters = ({
   setSelectedTags,
   clearFilterBlock,
   onRemoveTag,
+  isPersonal,
+  setIsPersonal,
+  isSpecialOffer,
+  setIsSpecialOffer,
 }: IProps) => {
   const { query } = useRouter();
   const [openedFilters, setOpenedFilters] = useState<string[]>([]);
   const [fromBudget] = useState(budgets.slice(0, budgets.length - 1));
   const [toBudget] = useState(budgets.slice(1));
-  const [isPersonal, setIsPersonal] = useState(true);
-  const [isSpecialOffer, setIsSpecialOffer] = useState(false);
   const [filtersData, setFiltersData] = useState(preloadFilters);
   const [getProductFilters] = useProductFilters(
     query?.searchTerm as string,
@@ -77,11 +83,11 @@ const GlobalSearchPageFilters = ({
   useFirstRenderEffect(() => {
     getProductFilters({
       variables: {
-        filters: buildFiltersRequestObject(activeFilters),
+        filters: buildFiltersRequestObject(activeFilters, isSpecialOffer),
         query: query.searchTerm as string,
       },
     });
-  }, [activeFilters]);
+  }, [activeFilters, isSpecialOffer]);
 
   const onHandleFilterStatus = (
     e: React.MouseEvent<HTMLElement, MouseEvent>,
@@ -182,7 +188,7 @@ const GlobalSearchPageFilters = ({
         />
         &nbsp;Show only&nbsp;
         <Flame />
-        <span>Hot Deals</span>
+        <span>Hot Offers</span>
       </label>
       <ToggleV2
         leftLabel="Personal"

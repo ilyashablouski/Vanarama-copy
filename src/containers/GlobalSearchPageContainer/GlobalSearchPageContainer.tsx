@@ -9,7 +9,11 @@ import {
   productDerivatives as ITextSearchQuery,
   productDerivatives_productDerivatives_derivatives as IVehiclesList,
 } from '../../../generated/productDerivatives';
-import { buildFiltersRequestObject, productCardDataMapper } from './helpers';
+import {
+  buildFiltersRequestObject,
+  DEFAULT_SORT,
+  productCardDataMapper,
+} from './helpers';
 import {
   useGSCardsData,
   useTextSearchList,
@@ -39,7 +43,6 @@ import { productFilter_productFilter as IProductFilter } from '../../../generate
 import { RESULTS_PER_REQUEST } from '../SearchPageContainer/helpers';
 import DrawerActions from './DrawerActions';
 import GlobalSearchPageSort from '../../components/GlobalSearchPageSort';
-import useSortOrder from '../../hooks/useSortOrder';
 import {
   generateSortArray,
   sortValues,
@@ -57,8 +60,6 @@ interface IProps {
   preLoadProductDerivatives: ITextSearchQuery;
   carsData?: ICardsData[];
   vansData?: ICardsData[];
-  responseVansCapIds?: string[];
-  responseCarsCapIds?: string[];
   defaultSort?: ProductDerivativeSort[];
 }
 export interface IGSVehiclesCardsData<T> {
@@ -72,8 +73,6 @@ const GlobalSearchPageContainer = ({
   pageData,
   carsData,
   vansData,
-  responseVansCapIds,
-  responseCarsCapIds,
   filtersData,
   initialFilters,
   defaultSort,
@@ -85,6 +84,8 @@ const GlobalSearchPageContainer = ({
   const [selectedTags, setSelectedTags] = useState<ISelectedTags[]>([]);
   const [isShowDrawer, setIsShowDrawer] = useState<boolean>(false);
   const [activeTab, setActiveTab] = useState<ITabs>(ITabs.Filter);
+  const [isPersonal, setIsPersonal] = useState(true);
+  const [isSpecialOffer, setIsSpecialOffer] = useState(false);
 
   const [vehiclesList, setVehicleList] = useState<(IVehiclesList | null)[]>(
     preLoadProductDerivatives.productDerivatives?.derivatives || [],
@@ -105,62 +106,40 @@ const GlobalSearchPageContainer = ({
     CAR: carCardsData,
   };
 
-  const [capIds] = useState<IGSVehiclesCardsData<string[]>>({
-    LCV: responseVansCapIds || [],
-    CAR: responseCarsCapIds || [],
-  });
-
   const [totalResults, setTotalResults] = useState(
     preLoadProductDerivatives?.productDerivatives?.total || 0,
   );
 
-  const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
-  const [sortOrder, setSortOrder] = useState(savedSortOrder);
+  const [sortOrder, setSortOrder] = useState(defaultSort);
 
-  const [getCarCardsData] = useGSCardsData(
-    capIds.CAR,
-    VehicleTypeEnum.CAR,
-    async data => {
-      setCarCardsData(prevState => [
-        ...prevState,
-        ...(data.productCard as ICardsData[]),
-      ]);
-    },
-  );
+  const [getCarCardsData] = useGSCardsData(async data => {
+    setCarCardsData(prevState => [
+      ...prevState,
+      ...(data.productCard as ICardsData[]),
+    ]);
+  });
 
-  const [getLcvCardsData] = useGSCardsData(
-    capIds.LCV,
-    VehicleTypeEnum.LCV,
-    async data => {
-      setLcvCardsData(prevState => [
-        ...prevState,
-        ...(data.productCard as ICardsData[]),
-      ]);
-    },
-  );
+  const [getLcvCardsData] = useGSCardsData(async data => {
+    setLcvCardsData(prevState => [
+      ...prevState,
+      ...(data.productCard as ICardsData[]),
+    ]);
+  });
 
   // using for prevent canceled request
-  const [getCarCardsDataCache] = useGSCardsData(
-    capIds.CAR,
-    VehicleTypeEnum.CAR,
-    async data => {
-      setCarCardsData(prevState => [
-        ...prevState,
-        ...(data.productCard as ICardsData[]),
-      ]);
-    },
-  );
+  const [getCarCardsDataCache] = useGSCardsData(async data => {
+    setCarCardsData(prevState => [
+      ...prevState,
+      ...(data.productCard as ICardsData[]),
+    ]);
+  });
 
-  const [getLcvCardsDataCache] = useGSCardsData(
-    capIds.LCV,
-    VehicleTypeEnum.LCV,
-    async data => {
-      setLcvCardsData(prevState => [
-        ...prevState,
-        ...(data.productCard as ICardsData[]),
-      ]);
-    },
-  );
+  const [getLcvCardsDataCache] = useGSCardsData(async data => {
+    setLcvCardsData(prevState => [
+      ...prevState,
+      ...(data.productCard as ICardsData[]),
+    ]);
+  });
 
   const productDerivativesCallback = (vehicles: ITextSearchQuery) => {
     const carsCapIds = vehicles?.productDerivatives?.derivatives
@@ -180,8 +159,11 @@ const GlobalSearchPageContainer = ({
 
   const [getVehicles, { data: firstResultsData, loading }] = useTextSearchList(
     router.query.searchTerm as string,
-    0,
     async vehicles => {
+      if (vehicles.productDerivatives?.total === 0 && isSpecialOffer) {
+        setIsSpecialOffer(false);
+        return getVehicles();
+      }
       setCarCardsData([]);
       setLcvCardsData([]);
       const [carsCapIds, vansCapIds] = productDerivativesCallback(vehicles);
@@ -204,13 +186,15 @@ const GlobalSearchPageContainer = ({
       setTotalResults(vehicles.productDerivatives?.total || 0);
       return setVehicleList(vehicles?.productDerivatives?.derivatives || []);
     },
+    0,
+    isPersonal,
+    isSpecialOffer,
     buildFiltersRequestObject(activeFilters),
     sortOrder as ProductDerivativeSort[],
   );
 
   const [getVehiclesCache] = useTextSearchList(
     router.query.searchTerm as string,
-    vehiclesList.length + 1,
     async vehicles => {
       const [carsCapIds, vansCapIds] = productDerivativesCallback(vehicles);
       if (carsCapIds[0]) {
@@ -245,7 +229,11 @@ const GlobalSearchPageContainer = ({
         variables: {
           query: router.query.searchTerm as string,
           from: RESULTS_PER_REQUEST + 1,
-          filters: buildFiltersRequestObject(activeFilters),
+          filters: buildFiltersRequestObject(
+            activeFilters,
+            isSpecialOffer,
+            isPersonal,
+          ),
           sort: sortOrder as ProductDerivativeSort[],
         },
       });
@@ -262,7 +250,11 @@ const GlobalSearchPageContainer = ({
         variables: {
           query: router.query.searchTerm as string,
           from: RESULTS_PER_REQUEST + 1,
-          filters: buildFiltersRequestObject(activeFilters),
+          filters: buildFiltersRequestObject(
+            activeFilters,
+            isSpecialOffer,
+            isPersonal,
+          ),
           sort: sortOrder as ProductDerivativeSort[],
         },
       });
@@ -272,7 +264,11 @@ const GlobalSearchPageContainer = ({
 
   useFirstRenderEffect(() => {
     getVehicles();
-  }, [activeFilters, sortOrder]);
+  }, [activeFilters, sortOrder, isPersonal]);
+
+  useFirstRenderEffect(() => {
+    setSortOrder(DEFAULT_SORT);
+  }, [isSpecialOffer]);
 
   useFirstRenderEffect(() => {
     if (preLoadProductDerivatives.productDerivatives?.derivatives) {
@@ -286,9 +282,14 @@ const GlobalSearchPageContainer = ({
     setVehicleList(prevState => [...prevState, ...vehiclesListCache]);
     getVehiclesCache({
       variables: {
-        filters: buildFiltersRequestObject(activeFilters),
+        filters: buildFiltersRequestObject(
+          activeFilters,
+          isSpecialOffer,
+          isPersonal,
+        ),
         query: router.query.searchTerm as string,
-        from: vehiclesList.length + 1,
+        // because state haven't updated yet
+        from: vehiclesList.length + RESULTS_PER_REQUEST + 1,
         sort: sortOrder as ProductDerivativeSort[],
       },
     });
@@ -356,7 +357,6 @@ const GlobalSearchPageContainer = ({
   // handler for changing sort order
   const onChangeSortOrder = (value: string) => {
     setSortOrder(generateSortArray(value));
-    saveSortOrder(generateSortArray(value));
   };
 
   return (
@@ -432,7 +432,7 @@ const GlobalSearchPageContainer = ({
                   title: `${vehicle?.manufacturerName} ${vehicle?.modelName}`,
                   description: vehicle?.derivativeName || '',
                 }}
-                isPersonalPrice
+                isPersonalPrice={isPersonal}
               />
             ))}
           </div>
@@ -478,6 +478,10 @@ const GlobalSearchPageContainer = ({
                 setSelectedTags={setSelectedTags}
                 selectedTags={selectedTags}
                 clearFilterBlock={onClearFilterBlock}
+                isPersonal={isPersonal}
+                setIsPersonal={setIsPersonal}
+                isSpecialOffer={isSpecialOffer}
+                setIsSpecialOffer={setIsSpecialOffer}
               />
             ) : (
               <GlobalSearchPageSort
