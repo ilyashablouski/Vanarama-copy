@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import React, { forwardRef, useMemo } from 'react';
 
 interface IProps {
   renderFunction?: (values: (string | null)[]) => string;
@@ -6,24 +6,31 @@ interface IProps {
   onClear: () => void;
 }
 
-const SelectedDropdown = ({ renderFunction, selected, onClear }: IProps) => {
-  const isNotEmpty = useMemo(() => !!selected.filter(value => value).length, [
-    selected,
-  ]);
-  return isNotEmpty ? (
-    <div className="selection-summary">
-      <div className="overview">
-        <span>
-          {renderFunction
-            ? renderFunction(selected)
-            : selected.filter(value => value).join(' ')}
-        </span>
+const SelectedDropdown = forwardRef<HTMLDivElement, IProps>(
+  ({ renderFunction, selected, onClear }, ref) => {
+    const visibleItems = useMemo(() => selected.filter(item => !!item), [
+      selected,
+    ]);
+
+    return (
+      <div
+        ref={ref}
+        className="selection-summary"
+        style={{ display: visibleItems.length > 0 ? 'flex' : 'none' }}
+      >
+        <div className="overview">
+          <span>
+            {renderFunction
+              ? renderFunction(selected)
+              : selected.filter(value => value).join(' ')}
+          </span>
+        </div>
+        <button type="button" onClick={onClear}>
+          Clear
+        </button>
       </div>
-      <button type="button" onClick={onClear}>
-        Clear
-      </button>
-    </div>
-  ) : null;
-};
+    );
+  },
+);
 
 export default SelectedDropdown;

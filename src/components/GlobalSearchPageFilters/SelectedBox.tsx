@@ -1,25 +1,36 @@
+import { forwardRef } from 'react';
+
 interface IProps {
   selected: string[];
   onClearFilterBlock: () => void;
 }
-const SelectedBox = ({ selected, onClearFilterBlock }: IProps) => {
-  return selected.length ? (
-    <div className="selection-summary">
-      <div className="overview">
-        <span>{selected.length} Selected</span>
-        <span>{selected.join(', ')}</span>
-      </div>
-      <button
-        type="button"
-        onClick={event => {
-          event.stopPropagation();
-          onClearFilterBlock();
+
+const SelectedBox = forwardRef<HTMLDivElement, IProps>(
+  ({ selected, onClearFilterBlock }, ref) => {
+    return (
+      <div
+        className="selection-summary"
+        ref={ref}
+        style={{
+          display: selected.length > 0 ? 'flex' : 'none',
         }}
       >
-        Clear
-      </button>
-    </div>
-  ) : null;
-};
+        <div className="overview">
+          <span>{selected.length} Selected</span>
+          <span>{selected.join(', ')}</span>
+        </div>
+        <button
+          type="button"
+          onClick={event => {
+            event.stopPropagation();
+            onClearFilterBlock();
+          }}
+        >
+          Clear
+        </button>
+      </div>
+    );
+  },
+);
 
 export default SelectedBox;
