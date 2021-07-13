@@ -7,10 +7,10 @@ import React, {
 } from 'react';
 import ChevronDown from 'core/assets/icons/ChevronDown';
 import { useRouter } from 'next/router';
-import Toggle from 'core/atoms/toggle/Toggle';
 import ToggleSwitch from 'core/atoms/toggle/ToggleSwitch';
 import DropdownV2 from 'core/atoms/dropdown-v2';
 import Flame from 'core/assets/icons/Flame';
+import ToggleV2 from 'core/atoms/toggleV2';
 import { filtersConfig as config } from './config';
 import { IInnerSelect } from './interfaces';
 import { budgets } from '../../containers/FiltersContainer/config';
@@ -29,6 +29,7 @@ import SelectedDropdown from './SelectedDropdown';
 import { getInnerConfigKeys } from './helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import FiltersTags from '../../containers/GlobalSearchPageContainer/FiltersTags';
+import { LeaseTypeEnum } from '../../../generated/globalTypes';
 
 interface IProps {
   preloadFilters?: IProductFilter;
@@ -193,13 +194,17 @@ const GlobalSearchPageFilters = ({
         <Flame />
         <span>Hot Deals</span>
       </label>
-      <Toggle
-        offLabel="Business"
-        onLabel="Personal"
-        id="contractType"
+      <ToggleV2
+        leftLabel="Personal"
         checked={isPersonal}
-        onChange={() => setIsPersonal(!isPersonal)}
-        className="slide-togl"
+        leftValue={LeaseTypeEnum.PERSONAL}
+        rightValue={LeaseTypeEnum.BUSINESS}
+        rightLabel="Business"
+        leftId="r1"
+        rightId="r2"
+        leftDataTestId="personal"
+        rightDataTestId="business"
+        onChange={value => setIsPersonal(value === LeaseTypeEnum.PERSONAL)}
       />
       {config.map(
         ({
