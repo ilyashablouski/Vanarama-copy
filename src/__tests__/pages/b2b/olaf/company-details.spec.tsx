@@ -251,7 +251,7 @@ describe('B2B Company Details page', () => {
                 },
               ],
               withTradingAddress: false,
-              companyNature: '',
+              companyNature: 'Information technology consultancy activities',
               emailAddress: {
                 kind: 'Home',
                 value: 'info@autorama.co.uk',
