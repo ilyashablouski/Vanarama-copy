@@ -11,6 +11,7 @@ import ToggleSwitch from 'core/atoms/toggle/ToggleSwitch';
 import DropdownV2 from 'core/atoms/dropdown-v2';
 import Flame from 'core/assets/icons/Flame';
 import ToggleV2 from 'core/atoms/toggleV2';
+import ChoiceBoxesV2 from 'core/atoms/choiceboxes/ChoiceboxesV2';
 import { filtersConfig as config } from './config';
 import { IInnerSelect } from './interfaces';
 import { budgets } from '../../containers/FiltersContainer/config';
@@ -96,24 +97,13 @@ const GlobalSearchPageFilters = ({
   };
 
   const onHandleMultiSelect = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    filter: keyof IFiltersData,
+    filterValues: string[],
+    filterName: keyof IFiltersData,
   ) => {
-    if (e.target.checked) {
-      setActiveFilters({
-        ...activeFilters,
-        [filter]: activeFilters?.[filter]
-          ? [...(activeFilters?.[filter] || []), e.target.value]
-          : [e.target.value],
-      });
-    } else {
-      setActiveFilters({
-        ...activeFilters,
-        [filter]: activeFilters?.[filter]?.filter(
-          value => value !== e.target.value,
-        ),
-      });
-    }
+    setActiveFilters({
+      ...activeFilters,
+      [filterName]: filterValues,
+    });
   };
 
   const onHandleNativeSelectChange = (
@@ -218,6 +208,7 @@ const GlobalSearchPageFilters = ({
         }) =>
           type === 'drop-down' ? (
             <DropdownV2
+              key={key}
               onLabelClick={event => onHandleFilterStatus(event, key)}
               onContainerClick={event => onHandleFilterStatus(event, key)}
               label={
@@ -245,40 +236,26 @@ const GlobalSearchPageFilters = ({
                 )?.[0]?.tags || []
               }
             >
-              {(filtersMapper[key as keyof IFiltersData] as string[])?.map(
-                option => (
-                  <Fragment key={option}>
-                    <input
-                      id={`${key}-${option}`}
-                      type="checkbox"
-                      name={key}
-                      onChange={event =>
-                        onHandleMultiSelect(event, key as keyof IFiltersData)
-                      }
-                      data-testid={`${key}-${option}`}
-                      value={option}
-                      disabled={
-                        !multiselect &&
-                        (filtersMapper[key as keyof IFiltersData] as string[])
-                          .length === 1
-                      }
-                      checked={
-                        activeFilters?.[key as keyof IFiltersData]?.includes(
-                          option,
-                        ) ||
-                        (!multiselect &&
-                          (filtersMapper[key as keyof IFiltersData] as string[])
-                            .length === 1)
-                      }
-                    />
-                    <label htmlFor={`${key}-${option}`}>{option}</label>
-                  </Fragment>
-                ),
-              )}
+              <ChoiceBoxesV2
+                multiSelect={multiselect}
+                values={filtersMapper[key as keyof IFiltersData] as string[]}
+                onChange={values =>
+                  onHandleMultiSelect(values, key as keyof IFiltersData)
+                }
+                selectedValues={
+                  activeFilters?.[key as keyof IFiltersData] as string[]
+                }
+                disabled={
+                  !multiselect &&
+                  (filtersMapper[key as keyof IFiltersData] as string[])
+                    .length === 1
+                }
+              />
             </DropdownV2>
           ) : (
             <DropdownV2
               type="drop-select"
+              key={key}
               label={label}
               multiselect={multiselect}
               open={openedFilters.includes(key)}
