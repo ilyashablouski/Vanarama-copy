@@ -18,7 +18,7 @@ export const productCardDataMapper = (data: IVehiclesList | null): ICard => ({
   rangeName: data?.rangeName || null,
   modelName: data?.modelName || null,
   derivativeName: data?.derivativeName || null,
-  averageRating: data?.fullPrice || null,
+  averageRating: null,
   isOnOffer: data?.onOffer || null,
   offerPosition: data?.offerRanking || null,
   leadTime: AVAILABILITY_LABELS[data?.availability ?? ''],
