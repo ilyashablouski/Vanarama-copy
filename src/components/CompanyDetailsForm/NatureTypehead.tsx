@@ -27,12 +27,16 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
     setValue('nature', fieldValue, true);
     register('nature', {
       validate: (val: string) => {
-        if (!!val && !suggestions.length && !isSelected) {
-          return "We can't find that - please give it another try";
-        }
-        if ((!!val && !!suggestions.length && !isSelected) || !fieldValue) {
+        if (
+          (!!val && !!suggestions.length && !isSelected) ||
+          (!val && !isSelected && (!!suggestions.length || !fieldValue))
+        ) {
           return 'Please search for your nature of business & select from the list';
         }
+        if (!suggestions.length && !isSelected && (!!val || !!fieldValue)) {
+          return "We can't find that - please give it another try";
+        }
+
         return undefined;
       },
     });
@@ -51,6 +55,7 @@ const NatureTypeahead: React.FC<IProps> = ({ setNatureValue, value }) => {
     // using for form validation
     setValue('nature', data.suggestionValue, true);
   }
+
   return (
     <>
       <Formgroup
