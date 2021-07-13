@@ -363,3 +363,18 @@
   grid-auto-flow: row;
   grid-template-rows: repeat(auto-fit, minmax(min-content, 1fr));
 }
+
+// custom scrollbar
+@mixin custom-scrollbar($height, $thumbBgColor, $trackBgColor: transparent) {
+  scrollbar-width: thin;
+  &::-webkit-scrollbar {
+    height: $height;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $trackBgColor;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: $thumbBgColor;
+  }
+}

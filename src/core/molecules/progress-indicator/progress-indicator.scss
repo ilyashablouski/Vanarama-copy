@@ -153,17 +153,6 @@
     margin-right: -$rem-400;
     max-width: calc(#{$vp-small} - #{$global-inset-at-small * 2});
     overflow-x: scroll;
-    scrollbar-width: thin;
-    &::-webkit-scrollbar {
-      height: 3px;
-    }
-
-    &::-webkit-scrollbar-track {
-      background-color: transparent;
-    }
-    &::-webkit-scrollbar-thumb {
-      background-color: #BFBFBF;
-    }
-
+    @include custom-scrollbar(3px, #BFBFBF);
   }
 }
