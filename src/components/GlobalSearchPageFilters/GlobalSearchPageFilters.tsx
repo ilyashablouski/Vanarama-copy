@@ -12,8 +12,7 @@ import DropdownV2 from 'core/atoms/dropdown-v2';
 import Flame from 'core/assets/icons/Flame';
 import ToggleV2 from 'core/atoms/toggleV2';
 import ChoiceBoxesV2 from 'core/atoms/choiceboxes/ChoiceboxesV2';
-import { filtersConfig as config } from './config';
-import { IInnerSelect } from './interfaces';
+import { IFiltersConfig, IInnerSelect } from './interfaces';
 import { budgets } from '../../containers/FiltersContainer/config';
 import {
   IFiltersData,
@@ -44,6 +43,7 @@ interface IProps {
   setIsPersonal: (value: boolean) => void;
   isSpecialOffer: boolean;
   setIsSpecialOffer: (value: boolean) => void;
+  config: IFiltersConfig[];
 }
 
 const GlobalSearchPageFilters = ({
@@ -58,6 +58,7 @@ const GlobalSearchPageFilters = ({
   setIsPersonal,
   isSpecialOffer,
   setIsSpecialOffer,
+  config,
 }: IProps) => {
   const { query } = useRouter();
   const [openedFilters, setOpenedFilters] = useState<string[]>([]);

@@ -21,7 +21,7 @@ const GlobalSearchLeftSideContainer = ({ suggestions, totalCount }: IProps) => {
       )}
       <ul>
         {suggestions.map((suggestion: string) => (
-          <li>
+          <li key={suggestion}>
             <RouterLink
               link={{
                 href: `/search?searchTerm=${suggestion}`,
