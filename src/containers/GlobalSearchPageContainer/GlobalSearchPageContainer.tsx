@@ -220,6 +220,11 @@ const GlobalSearchPageContainer = ({
     },
   );
 
+  // reset filters after update search term
+  useFirstRenderEffect(() => {
+    setActiveFilters(initialFilters);
+  }, [initialFilters]);
+
   useEffect(() => {
     if (
       firstResultsData?.productDerivatives?.derivatives?.length ===
