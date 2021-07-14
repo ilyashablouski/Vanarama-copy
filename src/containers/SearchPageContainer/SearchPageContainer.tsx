@@ -1361,12 +1361,11 @@ const SearchPageContainer: React.FC<IProps> = ({
                 </LazyLoadComponent>
               )}
 
-          {isNewPage && isRangePage ? (
+          {isNewPage ? (
             <>
               <div className="row:default">
                 <ThreeColumnSection
-                  data={pageData?.genericPage?.sectionsAsArray}
-                  title="Top 3 Things"
+                  data={pageData?.genericPage}
                 />
 
                 <section className="row:featured-left">
@@ -1496,7 +1495,6 @@ const SearchPageContainer: React.FC<IProps> = ({
                         [
                           'sectionsAsArray',
                           'featured',
-                          '3',
                           'image',
                           'file',
                           'url',
@@ -1512,14 +1510,14 @@ const SearchPageContainer: React.FC<IProps> = ({
                         tag={
                           getTitleTag(
                             getSectionsData(
-                              ['sectionsAsArray', 'featured', '3', 'titleTag'],
+                              ['sectionsAsArray', 'featured','titleTag'],
                               pageData?.genericPage,
                             ) || 'p',
                           ) as keyof JSX.IntrinsicElements
                         }
                       >
                         {getSectionsData(
-                          ['sectionsAsArray', 'featured', '3', 'title'],
+                          ['sectionsAsArray', 'featured', 'title'],
                           pageData?.genericPage,
                         )}
                       </Heading>
@@ -1527,7 +1525,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                         <ReactMarkdown
                           allowDangerousHtml
                           source={getSectionsData(
-                            ['sectionsAsArray', 'featured', '3', 'body'],
+                            ['sectionsAsArray', 'featured', 'body'],
                             pageData?.genericPage,
                           )}
                           renderers={{
