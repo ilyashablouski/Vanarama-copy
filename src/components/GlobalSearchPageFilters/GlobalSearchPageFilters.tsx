@@ -11,7 +11,7 @@ import ToggleSwitch from 'core/atoms/toggle/ToggleSwitch';
 import DropdownV2 from 'core/atoms/dropdown-v2';
 import Flame from 'core/assets/icons/Flame';
 import ToggleV2 from 'core/atoms/toggleV2';
-import ChoiceBoxesV2 from 'core/atoms/choiceboxes/ChoiceboxesV2';
+import ChoiceBoxesV2 from 'core/atoms/choiceboxes-v2/ChoiceboxesV2';
 import { IFiltersConfig, IInnerSelect } from './interfaces';
 import { budgets } from '../../containers/FiltersContainer/config';
 import {
