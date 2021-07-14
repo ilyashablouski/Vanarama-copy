@@ -31,11 +31,13 @@ export const GENERIC_PAGE = gql`
     $slug: String!
     $sectionsAsArray: Boolean
     $isPreview: Boolean
+    $pageType: String
   ) {
     genericPage(
       slug: $slug
       sectionsAsArray: $sectionsAsArray
       isPreview: $isPreview
+      pageType: $pageType
     ) {
       id
       intro

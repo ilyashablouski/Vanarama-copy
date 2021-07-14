@@ -89,7 +89,7 @@ import {
 import getTitleTag from '../../utils/getTitleTag';
 import { SubTitleAndParagraphs } from '../../components/SubTitleAndParagraphs/SubTitleAndParagraphs';
 import { ThreeColumnSection } from '../../components/ThreeColumnSection/ThreeColumnSection';
-import ReviewsTwoColumn from "../../components/ReviewsTwoColumn/ReviewsTwoColumn";
+import ReviewsTwoColumn from '../../components/ReviewsTwoColumn/ReviewsTwoColumn';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -194,7 +194,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // assign here as when inline causing hook lint errors
   const applyColumns = !isEvPage ? '-columns' : '';
 
-  const isNewPage = false;
+  const isNewPage = true;
 
   const listParagraph = [
     {
@@ -212,25 +212,29 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const listReviews = [
     {
-      text: 'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
+      text:
+        'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
       author: 'author',
       score: 2,
     },
 
     {
-      text: 'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
+      text:
+        'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
       author: 'author',
       score: 4,
     },
 
     {
-      text: 'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
+      text:
+        'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
       author: 'author',
       score: 1,
     },
 
     {
-      text: 'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
+      text:
+        'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
       author: 'author',
       score: 4,
     },
@@ -340,6 +344,11 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [customTextColor, setCustomTextColor] = useState<TColor | string>();
   const [partnershipActive, setPartnershipActive] = useState<boolean>(false);
   const [prevPosition, setPrevPosition] = useState(0);
+
+  console.log('Metadata');
+  console.log(metaData);
+  console.log('pageData');
+  console.log(pageData);
 
   useEffect(() => {
     function scrollTo() {
@@ -1075,12 +1084,12 @@ const SearchPageContainer: React.FC<IProps> = ({
         </>
       )}
 
-      {isNewPage
+      {isNewPage && isRangePage
         ? null
         : !(isSpecialOfferPage && isCarSearch) &&
           featured && <ReadMoreBlock featured={featured} />}
 
-      {isNewPage ? (
+      {isNewPage && isRangePage ? (
         <>
           <section className="row:featured-left">
             <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
@@ -1090,22 +1099,25 @@ const SearchPageContainer: React.FC<IProps> = ({
                   color="black"
                   tag={
                     getTitleTag(
-                      getSectionsData(['featured2', 'titleTag'], {
-                        noData: 'noData',
-                      }) || 'p',
+                      getSectionsData(
+                        ['sectionsAsArray', 'featured', '0', 'titleTag'],
+                        pageData?.genericPage,
+                      ) || 'p',
                     ) as keyof JSX.IntrinsicElements
                   }
                 >
-                  {getSectionsData(['featured2', 'title'], 'h2')}
+                  {getSectionsData(
+                    ['sectionsAsArray', 'featured', '0', 'title'],
+                    pageData?.genericPage,
+                  )}
                 </Heading>
                 <div className="markdown">
                   <ReactMarkdown
                     allowDangerousHtml
-                    source={
-                      getSectionsData(['featured2', 'body'], {
-                        noData: 'noData',
-                      }) || ''
-                    }
+                    source={getSectionsData(
+                      ['sectionsAsArray', 'featured', '0', 'body'],
+                      pageData?.genericPage,
+                    )}
                     renderers={{
                       link: props => {
                         const { href, children } = props;
@@ -1118,15 +1130,10 @@ const SearchPageContainer: React.FC<IProps> = ({
 
               <Image
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                src={
-                  getSectionsData(
-                    ['featured2', 'image', 'file', 'url'],
-                    {
-                      noData: 'noData',
-                    },
-                  ) ||
-                  'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-                }
+                src={getSectionsData(
+                  ['sectionsAsArray', 'featured', '0', 'image', 'file', 'url'],
+                  pageData?.genericPage,
+                )}
               />
             </LazyLoadComponent>
           </section>
@@ -1343,7 +1350,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               </LazyLoadComponent>
             ))}
 
-          {isNewPage
+          {isNewPage && isRangePage
             ? null
             : !isDynamicFilterPage &&
               tiles?.tiles?.length && (
@@ -1354,11 +1361,11 @@ const SearchPageContainer: React.FC<IProps> = ({
                 </LazyLoadComponent>
               )}
 
-          {isNewPage ? (
+          {isNewPage && isRangePage ? (
             <>
               <div className="row:default">
                 <ThreeColumnSection
-                  data={columnThreeData}
+                  data={pageData?.genericPage?.sectionsAsArray}
                   title="Top 3 Things"
                 />
 
@@ -1368,15 +1375,17 @@ const SearchPageContainer: React.FC<IProps> = ({
                   >
                     <Image
                       optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                      src={
-                        getSectionsData(
-                          ['featured2', 'image', 'file', 'url'],
-                          {
-                            noData: 'noData',
-                          },
-                        ) ||
-                        'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-                      }
+                      src={getSectionsData(
+                        [
+                          'sectionsAsArray',
+                          'featured',
+                          '1',
+                          'image',
+                          'file',
+                          'url',
+                        ],
+                        pageData?.genericPage,
+                      )}
                     />
                     <div>
                       <Heading
@@ -1384,19 +1393,25 @@ const SearchPageContainer: React.FC<IProps> = ({
                         color="black"
                         tag={
                           getTitleTag(
-                            getSectionsData(['featured2', 'titleTag'], 'h1') ||
-                              'p',
+                            getSectionsData(
+                              ['sectionsAsArray', 'featured', '1', 'titleTag'],
+                              pageData?.genericPage,
+                            ) || 'p',
                           ) as keyof JSX.IntrinsicElements
                         }
                       >
-                        {getSectionsData(['featured2', 'title'], 'h2')}
+                        {getSectionsData(
+                          ['sectionsAsArray', 'featured', '1', 'title'],
+                          pageData?.genericPage,
+                        )}
                       </Heading>
                       <div className="markdown">
                         <ReactMarkdown
                           allowDangerousHtml
-                          source={
-                            getSectionsData(['featured2', 'body'], '54') || ''
-                          }
+                          source={getSectionsData(
+                            ['sectionsAsArray', 'featured', '1', 'body'],
+                            pageData?.genericPage,
+                          )}
                           renderers={{
                             link: props => {
                               const { href, children } = props;
@@ -1421,18 +1436,26 @@ const SearchPageContainer: React.FC<IProps> = ({
                         color="black"
                         tag={
                           getTitleTag(
-                            getSectionsData(['featured2', 'titleTag'], 'h1') ||
-                              'p',
+                            getSectionsData(
+                              ['sectionsAsArray', 'featured', '2', 'titleTag'],
+                              pageData?.genericPage,
+                            ) || 'p',
                           ) as keyof JSX.IntrinsicElements
                         }
                       >
-                        {getSectionsData(['featured2', 'title'], 'h2')}
+                        {getSectionsData(
+                          ['sectionsAsArray', 'featured', '2', 'title'],
+                          pageData?.genericPage,
+                        )}
                       </Heading>
                       <div className="markdown">
                         <ReactMarkdown
                           allowDangerousHtml
                           source={
-                            getSectionsData(['featured2', 'body'], '54') || ''
+                            getSectionsData(
+                              ['sectionsAsArray', 'featured', '2', 'body'],
+                              pageData?.genericPage,
+                            ) || ''
                           }
                           renderers={{
                             link: props => {
@@ -1448,15 +1471,17 @@ const SearchPageContainer: React.FC<IProps> = ({
 
                     <Image
                       optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                      src={
-                        getSectionsData(
-                          ['featured2', 'image', 'file', 'url'],
-                          {
-                            noData: 'noData',
-                          },
-                        ) ||
-                        'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-                      }
+                      src={getSectionsData(
+                        [
+                          'sectionsAsArray',
+                          'featured',
+                          '2',
+                          'image',
+                          'file',
+                          'url',
+                        ],
+                        pageData?.genericPage,
+                      )}
                     />
                   </LazyLoadComponent>
                 </section>
@@ -1467,15 +1492,17 @@ const SearchPageContainer: React.FC<IProps> = ({
                   >
                     <Image
                       optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                      src={
-                        getSectionsData(
-                          ['featured2', 'image', 'file', 'url'],
-                          {
-                            noData: 'noData',
-                          },
-                        ) ||
-                        'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-                      }
+                      src={getSectionsData(
+                        [
+                          'sectionsAsArray',
+                          'featured',
+                          '3',
+                          'image',
+                          'file',
+                          'url',
+                        ],
+                        pageData?.genericPage,
+                      )}
                     />
 
                     <div>
@@ -1484,21 +1511,25 @@ const SearchPageContainer: React.FC<IProps> = ({
                         color="black"
                         tag={
                           getTitleTag(
-                            getSectionsData(['featured2', 'titleTag'], 'h1') ||
-                              'p',
+                            getSectionsData(
+                              ['sectionsAsArray', 'featured', '3', 'titleTag'],
+                              pageData?.genericPage,
+                            ) || 'p',
                           ) as keyof JSX.IntrinsicElements
                         }
                       >
-                        {getSectionsData(['featured2', 'title'], 'h2')}
+                        {getSectionsData(
+                          ['sectionsAsArray', 'featured', '3', 'title'],
+                          pageData?.genericPage,
+                        )}
                       </Heading>
                       <div className="markdown">
                         <ReactMarkdown
                           allowDangerousHtml
-                          source={
-                            getSectionsData(['featured2', 'body'], {
-                              noData: 'noData',
-                            }) || ''
-                          }
+                          source={getSectionsData(
+                            ['sectionsAsArray', 'featured', '3', 'body'],
+                            pageData?.genericPage,
+                          )}
                           renderers={{
                             link: props => {
                               const { href, children } = props;
@@ -1535,19 +1566,25 @@ const SearchPageContainer: React.FC<IProps> = ({
                       color="black"
                       tag={
                         getTitleTag(
-                          getSectionsData(['featured2', 'titleTag'], 'h1') ||
-                            'p',
+                          getSectionsData(
+                            ['sectionsAsArray', 'featured', '5', 'titleTag'],
+                            pageData?.genericPage,
+                          ) || 'p',
                         ) as keyof JSX.IntrinsicElements
                       }
                     >
-                      {getSectionsData(['featured2', 'title'], 'h2')}
+                      {getSectionsData(
+                        ['sectionsAsArray', 'featured', '5', 'title'],
+                        pageData?.genericPage,
+                      )}
                     </Heading>
                     <div className="markdown">
                       <ReactMarkdown
                         allowDangerousHtml
-                        source={
-                          getSectionsData(['featured2', 'body'], '54') || ''
-                        }
+                        source={getSectionsData(
+                          ['sectionsAsArray', 'featured', '5', 'body'],
+                          pageData?.genericPage,
+                        )}
                         renderers={{
                           link: props => {
                             const { href, children } = props;
@@ -1562,13 +1599,17 @@ const SearchPageContainer: React.FC<IProps> = ({
 
                   <Image
                     optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    src={
-                      getSectionsData(
-                        ['featured2', 'image', 'file', 'url'],
-                        '54',
-                      ) ||
-                      'https://source.unsplash.com/collection/2102317/1000x650?sig=40349'
-                    }
+                    src={getSectionsData(
+                      [
+                        'sectionsAsArray',
+                        'featured',
+                        '5',
+                        'image',
+                        'file',
+                        'url',
+                      ],
+                      pageData?.genericPage,
+                    )}
                   />
                 </LazyLoadComponent>
               </section>

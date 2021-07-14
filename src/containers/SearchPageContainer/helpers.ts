@@ -221,11 +221,14 @@ const onCallQuery = async (
   client: ApolloClient<any>,
   query: DocumentNode,
   slug: string,
+  pageType?: string,
 ) =>
   client.query({
     query,
     variables: {
       slug: slug || undefined,
+      pageType: pageType || undefined,
+      sectionsAsArray: true,
     },
   });
 
@@ -241,9 +244,16 @@ export const ssrCMSQueryExecutor = async (
   const { req, query } = context;
   const queryUrl = removeUrlQueryPart(req?.url || '');
   const slug = queryUrl.slice(1);
+  console.log(slug);
   switch (pageType) {
-    case 'isMakePage':
     case 'isRangePage':
+      return onCallQuery(
+        client,
+        GENERIC_PAGE,
+        'car-leasing/land-rover/range-rover-evoque/test',
+        'rangePage',
+      );
+    case 'isMakePage':
     case 'isModelPage':
     case 'isBudgetType':
       return onCallQuery(client, GENERIC_PAGE, prepareSlugPart(slug));
