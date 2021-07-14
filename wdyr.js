@@ -12,7 +12,9 @@ if (process.env.NODE_ENV === 'development') {
     const whyDidYouRender = require('@welldone-software/why-did-you-render');
 
     whyDidYouRender(React, {
+      // tracking is disabled by default
       trackAllPureComponents: false,
+      trackHooks: false,
     });
   }
 }
