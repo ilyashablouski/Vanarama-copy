@@ -28,19 +28,19 @@ const GlobalSearchRightSideContainer = ({
   };
 
   const [getCarCardsData] = useGSCardsData(
-    [''],
-    VehicleTypeEnum.CAR,
     async data => {
       setCarCardsData(data.productCard as ICardsData[]);
     },
+    [''],
+    VehicleTypeEnum.CAR,
   );
 
   const [getLcvCardsData] = useGSCardsData(
-    [''],
-    VehicleTypeEnum.LCV,
     async data => {
       setLcvCardsData(data.productCard as ICardsData[]);
     },
+    [''],
+    VehicleTypeEnum.LCV,
   );
 
   useEffect(() => {

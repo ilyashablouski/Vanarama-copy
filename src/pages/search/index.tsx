@@ -3,7 +3,10 @@ import { ApolloQueryResult } from '@apollo/client';
 import { ServerResponse } from 'http';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 import createApolloClient from '../../apolloClient';
-import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
+import {
+  RESULTS_PER_REQUEST,
+  ssrCMSQueryExecutor,
+} from '../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 
 import { decodeData, encodeData } from '../../utils/data';
@@ -18,6 +21,7 @@ import {
 import GlobalSearchPageContainer from '../../containers/GlobalSearchPageContainer';
 
 import {
+  FinanceTypeEnum,
   ProductDerivativeSort,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
@@ -60,8 +64,6 @@ const Page: NextPage<IProps> = ({
   productDerivatives,
   carsData,
   vansData,
-  responseVansCapIds,
-  responseCarsCapIds,
   error,
   notFoundPageData,
   defaultSort,
@@ -83,8 +85,6 @@ const Page: NextPage<IProps> = ({
       initialFilters={initialFilters}
       carsData={carsData}
       vansData={vansData}
-      responseVansCapIds={responseVansCapIds}
-      responseCarsCapIds={responseCarsCapIds}
       pageData={decodeData(pageData)}
       preLoadProductDerivatives={decodeData(productDerivatives)}
     />
@@ -122,8 +122,11 @@ export async function getServerSideProps(context: NextPageContext) {
       variables: {
         query: contextData.query.searchTerm as string,
         from: 0,
-        size: 12,
+        size: RESULTS_PER_REQUEST,
         sort: sortOrder,
+        filters: {
+          financeTypes: [FinanceTypeEnum.PCH],
+        },
       },
     })
     .then(async resp => {
