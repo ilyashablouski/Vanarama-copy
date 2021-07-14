@@ -10,7 +10,6 @@ function DropdownV2({
   open,
   children,
   onLabelClick,
-  onContainerClick,
   renderSummary,
   multiselect,
   selected,
@@ -65,7 +64,6 @@ function DropdownV2({
   return (
     <div
       role="button"
-      onClick={onContainerClick}
       ref={containerRef}
       className={cx({
         'drop-down': type === 'drop-down',
