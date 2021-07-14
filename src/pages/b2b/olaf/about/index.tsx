@@ -114,13 +114,6 @@ export const BusinessAboutPage: NextPage = () => {
               color="teal"
               onClick={() => toggleLogInVisibility(!isLogInVisible)}
             />
-            <Text
-              className="olaf-guest-text -label -mt-500"
-              tag="p"
-              size="regular"
-            >
-              Or continue as guest by filling out the form below
-            </Text>
           </div>
           {isLogInVisible && (
             <LoginFormContainer
@@ -133,6 +126,13 @@ export const BusinessAboutPage: NextPage = () => {
               onError={handleAccountFetchError}
             />
           )}
+          <Text
+            className="olaf-guest-text -label -mt-500"
+            tag="p"
+            size="regular"
+          >
+            Or continue as guest by filling out the form below:
+          </Text>
         </div>
       )}
       <BusinessAboutFormContainer

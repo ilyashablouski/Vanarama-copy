@@ -83,7 +83,7 @@ export const generateUrlForBreadcrumb = (
 
   if (pageData?.legacyUrl?.charAt(0) === '/') {
     throw new Error(
-      `Legacy URL shouldn't start with "/", check that the "Legacy URL" field in Contentful CMS is correct.`,
+      `Legacy URL shouldn't start with "/": ${pageData?.legacyUrl} - please check that the "Legacy URL" field in Contentful CMS is correct.`,
     );
   } else {
     return pageData?.legacyUrl;

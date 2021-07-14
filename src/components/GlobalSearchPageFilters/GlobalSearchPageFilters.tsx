@@ -12,8 +12,7 @@ import DropdownV2 from 'core/atoms/dropdown-v2';
 import Flame from 'core/assets/icons/Flame';
 import ToggleV2 from 'core/atoms/toggleV2';
 import ChoiceBoxesV2 from 'core/atoms/choiceboxes/ChoiceboxesV2';
-import { filtersConfig as config } from './config';
-import { IInnerSelect } from './interfaces';
+import { IFiltersConfig, IInnerSelect } from './interfaces';
 import { budgets } from '../../containers/FiltersContainer/config';
 import {
   IFiltersData,
@@ -44,6 +43,7 @@ interface IProps {
   setIsPersonal: (value: boolean) => void;
   isSpecialOffer: boolean;
   setIsSpecialOffer: (value: boolean) => void;
+  config: IFiltersConfig[];
 }
 
 const GlobalSearchPageFilters = ({
@@ -58,6 +58,7 @@ const GlobalSearchPageFilters = ({
   setIsPersonal,
   isSpecialOffer,
   setIsSpecialOffer,
+  config,
 }: IProps) => {
   const { query } = useRouter();
   const [openedFilters, setOpenedFilters] = useState<string[]>([]);
@@ -93,11 +94,9 @@ const GlobalSearchPageFilters = ({
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     key: string,
   ) => {
-    const { target } = e;
-    const isLabelEvent = (target as HTMLElement).className === 'label';
-    if (isLabelEvent && !openedFilters.includes(key)) {
+    if (!openedFilters.includes(key)) {
       setOpenedFilters([...openedFilters, key]);
-    } else if (isLabelEvent && openedFilters.includes(key)) {
+    } else {
       setOpenedFilters(openedFilters.filter(value => value !== key));
     }
   };
@@ -216,7 +215,6 @@ const GlobalSearchPageFilters = ({
             <DropdownV2
               key={key}
               onLabelClick={event => onHandleFilterStatus(event, key)}
-              onContainerClick={event => onHandleFilterStatus(event, key)}
               label={
                 multiselect
                   ? label
@@ -265,7 +263,6 @@ const GlobalSearchPageFilters = ({
               label={label}
               multiselect={multiselect}
               open={openedFilters.includes(key)}
-              onContainerClick={event => onHandleFilterStatus(event, key)}
               onLabelClick={event => onHandleFilterStatus(event, key)}
               renderSummary={ref => (
                 <SelectedDropdown
