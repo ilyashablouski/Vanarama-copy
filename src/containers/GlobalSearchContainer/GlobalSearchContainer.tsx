@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import Icon from 'core/atoms/icon';
 import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
-import Cookies from 'js-cookie';
 import TextInput from 'core/atoms/textinput/TextInput';
 import cx from 'classnames';
 import useMediaQuery from '../../hooks/useMediaQuery';
@@ -28,8 +27,6 @@ const GlobalSearchContainer = () => {
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearchTerm = useDebounce(searchValue, 400);
   const suggestions = useGlobalSearch(debouncedSearchTerm);
-  // TODO: it's feature flag, should be removed after release
-  const isVisible = Cookies.get('DIG-5552') === '1';
   const onSubmit = (value: string) => {
     router.push(
       {
@@ -61,101 +58,97 @@ const GlobalSearchContainer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return isVisible ? (
-    <>
-      <div className={cx('header-search', isOpenResults ? '-active' : '')}>
-        <div className="search-input-container">
-          <TextInput
-            className="header-search--input"
-            id="search"
-            isNative={false}
-            type="text"
-            value={fieldValue}
-            placeholder="Search for vehicles or information..."
-            onFocus={() => {
-              if (!isOpenResults && fieldValue.length > 2) {
-                setIsOpenResults(true);
-              }
-            }}
-            onChange={e => {
-              setFieldValue(e.target.value);
-              if (e.target.value.length > 2) {
-                setSearchValue(e.target.value);
-              } else if (e.target.value.length < 3 && isOpenResults) {
-                setSearchValue('');
+  return (
+    <div className={cx('header-search', isOpenResults ? '-active' : '')}>
+      <div className="search-input-container">
+        <TextInput
+          className="header-search--input"
+          id="search"
+          isNative={false}
+          type="text"
+          value={fieldValue}
+          placeholder="Search for vehicles or information..."
+          onFocus={() => {
+            if (!isOpenResults && fieldValue.length > 2) {
+              setIsOpenResults(true);
+            }
+          }}
+          onChange={e => {
+            setFieldValue(e.target.value);
+            if (e.target.value.length > 2) {
+              setSearchValue(e.target.value);
+            } else if (e.target.value.length < 3 && isOpenResults) {
+              setSearchValue('');
+              setIsOpenResults(false);
+            }
+          }}
+          onKeyPress={e =>
+            e.key === 'Enter'
+              ? onSubmit((e.target as HTMLTextAreaElement).value)
+              : null
+          }
+        />
+        {!isOpenResults && (
+          <Icon
+            icon={<SearchCircle />}
+            className="icon -lead -black md hydrated"
+            aria-label="search"
+          />
+        )}
+        {!(!isOpenResults && isDesktop) && (
+          <Icon
+            onClick={() => {
+              if (isOpenResults) {
                 setIsOpenResults(false);
               }
             }}
-            onKeyPress={e =>
-              e.key === 'Enter'
-                ? onSubmit((e.target as HTMLTextAreaElement).value)
-                : null
-            }
+            icon={<CloseSharp />}
+            className={cx(
+              'icon -lead -black md hydrated',
+              !isOpenResults ? '-is-hidden' : '',
+            )}
+            aria-label="search"
           />
-          {!isOpenResults && (
-            <Icon
-              icon={<SearchCircle />}
-              className="icon -lead -black md hydrated"
-              aria-label="search"
-            />
-          )}
-          {!(!isOpenResults && isDesktop) && (
-            <Icon
-              onClick={() => {
-                if (isOpenResults) {
-                  setIsOpenResults(false);
-                }
-              }}
-              icon={<CloseSharp />}
-              className={cx(
-                'icon -lead -black md hydrated',
-                !isOpenResults ? '-is-hidden' : '',
-              )}
-              aria-label="search"
-            />
-          )}
-        </div>
-        {isOpenResults && (
-          <>
-            <div className="header-search-results-container">
-              <GlobalSearchLeftSideContainer
-                suggestions={suggestions.suggestsList}
-                totalCount={suggestions.totalCount}
-              />
-              <GlobalSearchRightSideContainer
-                suggestions={
-                  isDesktop
-                    ? (suggestions.vehiclesList as ISuggestions[])
-                    : (suggestions.vehiclesList as ISuggestions[]).slice(0, 5)
-                }
-                searchQuery={fieldValue}
-                totalCount={suggestions.totalCount}
-              />
-              <div className="info">
-                <span className="heading -small -dark">More Information</span>
-
-                <ul>
-                  {moreInfoConfig.map(config => (
-                    <li key={config.label}>
-                      <RouterLink link={config.link}>{config.label}</RouterLink>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-            {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
-            <div
-              role="alertdialog"
-              className="search-modal-bg"
-              onClick={() => setIsOpenResults(false)}
-              onKeyDown={() => setIsOpenResults(false)}
-            />
-          </>
         )}
       </div>
-    </>
-  ) : (
-    <></>
+      {isOpenResults && (
+        <>
+          <div className="header-search-results-container">
+            <GlobalSearchLeftSideContainer
+              suggestions={suggestions.suggestsList}
+              totalCount={suggestions.totalCount}
+            />
+            <GlobalSearchRightSideContainer
+              suggestions={
+                isDesktop
+                  ? (suggestions.vehiclesList as ISuggestions[])
+                  : (suggestions.vehiclesList as ISuggestions[]).slice(0, 5)
+              }
+              searchQuery={fieldValue}
+              totalCount={suggestions.totalCount}
+            />
+            <div className="info">
+              <span className="heading -small -dark">More Information</span>
+
+              <ul>
+                {moreInfoConfig.map(config => (
+                  <li key={config.label}>
+                    <RouterLink link={config.link}>{config.label}</RouterLink>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          {/* eslint-disable-next-line jsx-a11y/no-noninteractive-element-interactions */}
+          <div
+            role="alertdialog"
+            className="search-modal-bg"
+            onClick={() => setIsOpenResults(false)}
+            onKeyDown={() => setIsOpenResults(false)}
+          />
+        </>
+      )}
+    </div>
   );
 };
 

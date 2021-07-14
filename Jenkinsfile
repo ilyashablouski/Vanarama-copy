@@ -3,7 +3,6 @@ ecrRegion = 'eu-west-2'
 stack = 'grid'
 taskDefFile = "deploy/aws/task-definition.json"
 branchName = "${env.BRANCH_NAME}"
-cloudflareZone = "b5c6ca8c47a2f751ca780000a91202bc"
 
 // Get souce branch name for PR based Jenkins build
 if (branchName =~ /PR-\d+/) {

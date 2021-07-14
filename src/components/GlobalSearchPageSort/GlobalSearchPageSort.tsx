@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import ChoiceBoxesV2 from 'core/atoms/choiceboxes/ChoiceboxesV2';
+import ChoiceBoxesV2 from 'core/atoms/choiceboxes-v2/ChoiceboxesV2';
 import { sortValues } from './helpers';
 import { ProductDerivativeSort } from '../../../generated/globalTypes';
 
