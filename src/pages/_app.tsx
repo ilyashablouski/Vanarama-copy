@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // import 'core/styles/base.scss';
-import '../../wdyr';
+import 'utils/wdyr';
 import dynamic from 'next/dynamic';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
