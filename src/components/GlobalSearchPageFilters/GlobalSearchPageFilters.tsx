@@ -93,11 +93,9 @@ const GlobalSearchPageFilters = ({
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     key: string,
   ) => {
-    const { target } = e;
-    const isLabelEvent = (target as HTMLElement).className === 'label';
-    if (isLabelEvent && !openedFilters.includes(key)) {
+    if (!openedFilters.includes(key)) {
       setOpenedFilters([...openedFilters, key]);
-    } else if (isLabelEvent && openedFilters.includes(key)) {
+    } else {
       setOpenedFilters(openedFilters.filter(value => value !== key));
     }
   };
@@ -216,7 +214,6 @@ const GlobalSearchPageFilters = ({
             <DropdownV2
               key={key}
               onLabelClick={event => onHandleFilterStatus(event, key)}
-              onContainerClick={event => onHandleFilterStatus(event, key)}
               label={
                 multiselect
                   ? label
@@ -265,7 +262,6 @@ const GlobalSearchPageFilters = ({
               label={label}
               multiselect={multiselect}
               open={openedFilters.includes(key)}
-              onContainerClick={event => onHandleFilterStatus(event, key)}
               onLabelClick={event => onHandleFilterStatus(event, key)}
               renderSummary={ref => (
                 <SelectedDropdown
