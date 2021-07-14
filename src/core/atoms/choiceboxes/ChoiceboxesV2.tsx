@@ -10,6 +10,7 @@ function ChoiceBoxesV2({
   selectedValues,
   multiSelect,
   onChange,
+  disabled,
 }: IChoiceBoxesV2Props) {
   const type = multiSelect ? 'checkbox' : 'radio';
   const resultSelectedValues = useMemo(() => selectedValues ?? [], [
@@ -56,6 +57,7 @@ function ChoiceBoxesV2({
               className="choice-input"
               checked={checked}
               onChange={handleChange}
+              disabled={disabled}
             />
             <label
               htmlFor={value}
