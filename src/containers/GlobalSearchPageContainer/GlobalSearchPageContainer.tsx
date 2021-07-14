@@ -47,6 +47,7 @@ import {
   generateSortArray,
   sortValues,
 } from '../../components/GlobalSearchPageSort/helpers';
+import { filtersConfig as config } from '../../components/GlobalSearchPageFilters/config';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -471,6 +472,7 @@ const GlobalSearchPageContainer = ({
           >
             {activeTab === ITabs.Filter ? (
               <GlobalSearchPageFilters
+                config={config}
                 onRemoveTag={onRemoveTag}
                 preloadFilters={filtersData}
                 activeFilters={activeFilters}

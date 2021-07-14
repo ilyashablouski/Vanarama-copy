@@ -5,10 +5,6 @@ export enum ITabs {
   Sort,
 }
 
-export interface IFiltersResponse {
-  [index: string]: string[] | null;
-}
-
 export interface ISelectedTags {
   filterKey: string;
   tags: string[];
