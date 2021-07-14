@@ -1,0 +1,49 @@
+.choice-boxes-v2 {
+  display: block;
+  width: 100%;
+  min-width: 0;
+
+  .choice-input {
+    &:disabled + .choice-box {
+      background-color: #ced6de;
+      border: none;
+    }
+  }
+
+  .choice-box {
+    display: flex;
+    flex-direction: row;
+    justify-content: left;
+    align-items: center;
+    height: 45px;
+    padding: 12px;
+    border: 1px solid #d0d9e1;
+    border-radius: 5px;
+    font-size: $font-size-400;
+    font-weight: 400;
+    background: white;
+    transition: border 0.3s ease;
+    cursor: pointer;
+
+    ~ .choice-box {
+      margin-top: 14px;
+    }
+
+    span {
+      color: #44576A;
+    }
+
+    &:hover,
+    &:focus {
+      border-color: #d0d9e1;
+      background: white;
+      box-shadow: none;
+    }
+
+    &.-active {
+      border-color: #007F85;
+      font-weight: 500;
+      background: white;
+    }
+  }
+}
