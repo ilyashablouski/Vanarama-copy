@@ -1,6 +1,6 @@
 module.exports = api => {
-  const isServer = api.caller(caller => caller?.isServer);
-  const isCallerDevelopment = api.caller(caller => caller?.isDev);
+  const isServer = api.caller(caller => (caller || {}).isServer);
+  const isCallerDevelopment = api.caller(caller => (caller || {}).isDev);
 
   let presets = [
     ['@babel/preset-typescript', { isTSX: true, allExtensions: true }],
