@@ -42,7 +42,7 @@ function ChoiceBoxesV2({
   }
 
   return (
-    <div className={cx('choice-boxes -v2', className, `-${color}`)}>
+    <div className={cx('choice-boxes-v2', className, `-${color}`)}>
       {values.map(value => {
         const checked = resultSelectedValues.includes(value);
 
