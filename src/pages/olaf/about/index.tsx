@@ -160,16 +160,13 @@ const AboutYouPage: NextPage = () => {
         about you. This will be used for your credit check.
       </Text>
       {!personLoggedIn && (
-        <div className="-mb-500" ref={loginFormRef}>
+        <div ref={loginFormRef}>
           <div className="-pt-300 -pb-300">
             <Button
               label="Login For A Speedy Checkout"
               color="teal"
               onClick={() => toggleLogInVisibility(!isLogInVisible)}
             />
-            <Text color="darker" size="lead" className="-mt-300" tag="p">
-              Or checkout as a guest
-            </Text>
           </div>
           {isLogInVisible && (
             <LoginFormContainer
@@ -182,6 +179,13 @@ const AboutYouPage: NextPage = () => {
               onError={handleAccountFetchError}
             />
           )}
+          <Text
+            className="olaf-guest-text -label -mt-500"
+            tag="p"
+            size="regular"
+          >
+            Or continue as guest by filling out the form below:
+          </Text>
         </div>
       )}
       <AboutFormContainer

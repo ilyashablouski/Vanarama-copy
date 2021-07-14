@@ -14,11 +14,13 @@ import {
   GlobalSearchCardsDataVariables,
 } from '../../../generated/GlobalSearchCardsData';
 import {
+  FinanceTypeEnum,
   ProductDerivativeFilter,
   ProductDerivativeSort,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import { DEFAULT_SORT } from '../GlobalSearchPageContainer/helpers';
+import { RESULTS_PER_REQUEST } from '../SearchPageContainer/helpers';
 
 export const GET_SUGGESTIONS_DATA = gql`
   query suggestionList($query: String) {
@@ -142,15 +144,15 @@ export function useSuggestionList(query: string) {
 }
 
 export function useGSCardsData(
-  capIds: string[],
-  vehicleType: VehicleTypeEnum,
   onCompleted?: (data: GlobalSearchCardsData) => void,
+  capIds?: string[],
+  vehicleType?: VehicleTypeEnum,
 ) {
   return useLazyQuery<GlobalSearchCardsData, GlobalSearchCardsDataVariables>(
     GET_CARDS_DATA,
     {
       variables: {
-        capIds,
+        capIds: capIds || [],
         vehicleType,
       },
       onCompleted,
@@ -161,8 +163,10 @@ export function useGSCardsData(
 
 export function useTextSearchList(
   query: string,
-  from: number,
-  onCompleted?: (data: productDerivatives) => void,
+  onCompleted: (data: productDerivatives) => void,
+  from?: number,
+  isPersonal?: boolean,
+  onOffer?: boolean,
   filters?: ProductDerivativeFilter,
   sort?: ProductDerivativeSort[],
 ) {
@@ -171,9 +175,15 @@ export function useTextSearchList(
     {
       variables: {
         query,
-        from,
-        size: 12,
-        filters,
+        from: from || 0,
+        size: RESULTS_PER_REQUEST,
+        filters: {
+          ...filters,
+          financeTypes: isPersonal
+            ? [FinanceTypeEnum.PCH]
+            : [FinanceTypeEnum.BCH],
+          onOffer: onOffer || null,
+        },
         sort: sort || DEFAULT_SORT,
       },
       onCompleted,
@@ -207,6 +217,9 @@ export function useGlobalSearch(query?: string) {
           from: 0,
           size: 6,
           sort: DEFAULT_SORT,
+          filters: {
+            financeTypes: [FinanceTypeEnum.PCH],
+          },
         },
       });
       const { data: suggestsList } = await apolloClient.query<

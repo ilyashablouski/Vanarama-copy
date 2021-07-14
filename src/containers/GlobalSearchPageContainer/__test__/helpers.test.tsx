@@ -66,6 +66,31 @@ describe('helpers', () => {
       },
       make: 'bmw',
       range: '3 series',
+      onOffer: null,
+      financeTypes: ['BCH'],
+    });
+  });
+  it('buildFiltersRequestObject should return correct object with financeType', () => {
+    expect(
+      buildFiltersRequestObject(
+        {
+          from: ['150'],
+          to: ['300'],
+          make: ['bmw'],
+          range: ['3 series'],
+        } as IFiltersData,
+        true,
+        true,
+      ),
+    ).toEqual({
+      budget: {
+        max: 300,
+        min: 150,
+      },
+      make: 'bmw',
+      range: '3 series',
+      onOffer: true,
+      financeTypes: ['PCH'],
     });
   });
 });
