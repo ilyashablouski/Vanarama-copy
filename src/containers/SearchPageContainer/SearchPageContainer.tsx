@@ -378,6 +378,24 @@ const SearchPageContainer: React.FC<IProps> = ({
     layout: ['Media Left', 'Read More'],
   };
 
+  let countListAccordion = 0;
+
+  const getDataAccordion = (treeGetData, pageData) => {
+
+   return getSectionsData(treeGetData,
+      pageData).map( (item) => {
+
+      countListAccordion = countListAccordion + 1;
+
+      return {
+        id: countListAccordion,
+        title: item.name,
+        children: item.entryBody
+      }
+    });
+  }
+
+
   useEffect(() => {
     function scrollTo() {
       window.scrollTo({
@@ -1520,7 +1538,8 @@ const SearchPageContainer: React.FC<IProps> = ({
 
               <div className="row:default">
                 <div className="tilebox">
-                  <Accordion items={accordionData} />
+                  <Accordion
+                    items={getDataAccordion(['sectionsAsArray', 'accordion', '0', 'accordionEntries'], pageData?.genericPage )} />
                 </div>
               </div>
 
@@ -1606,7 +1625,8 @@ const SearchPageContainer: React.FC<IProps> = ({
 
               <div className="row:default">
                 <div className="tilebox">
-                  <Accordion items={accordionData} />
+                  <Accordion
+                    items={getDataAccordion(['sectionsAsArray', 'accordion', '1', 'accordionEntries'], pageData?.genericPage )} />
                 </div>
               </div>
 
