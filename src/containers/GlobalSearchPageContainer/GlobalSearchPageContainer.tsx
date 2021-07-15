@@ -372,8 +372,8 @@ const GlobalSearchPageContainer = ({
         <CommonDescriptionContainer pageData={pageData} />
         {totalResults === 0 ? (
           <Text tag="p" color="black" size="lead" className="heading">
-            0 results for your search “{router.query.searchTerm as string}”
-            Search again, try our vehicle categories.
+            0 results for your search ‘{router.query.searchTerm as string}‘.
+            Please try another search
           </Text>
         ) : (
           <Text
