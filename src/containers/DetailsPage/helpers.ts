@@ -25,4 +25,7 @@ export const convertProductDetailsToWishlistProduct = (
     rangeName: data?.vehicleConfigurationByCapId?.capRangeDescription,
     offerPosition: data?.vehicleConfigurationByCapId?.offerRanking,
     isOnOffer: data?.vehicleConfigurationByCapId?.onOffer,
+    businessRate: null,
+    personalRate: null,
+    leadTime: null,
   } as IWishlistProduct);

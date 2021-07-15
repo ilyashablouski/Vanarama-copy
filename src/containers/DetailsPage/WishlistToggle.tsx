@@ -19,15 +19,15 @@ interface IProps {
 function WishlistToggle({ productDetails }: IProps) {
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
 
-  const wishlistProductData = useMemo(
+  const productData = useMemo(
     () => convertProductDetailsToWishlistProduct(productDetails),
     [productDetails],
   );
 
-  const wished = isWished(wishlistVehicleIds, wishlistProductData);
+  const wished = isWished(wishlistVehicleIds, productData);
 
   function handleClick() {
-    wishlistChange(wishlistProductData);
+    wishlistChange(productData);
   }
 
   return (
