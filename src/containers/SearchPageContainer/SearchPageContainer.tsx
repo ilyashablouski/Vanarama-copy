@@ -272,6 +272,16 @@ const SearchPageContainer: React.FC<IProps> = ({
     },
   ];
 
+  const readmoreBlock = {
+    __typename: "Featured",
+    body: "The Evoque’s interior has a minimalist look to it, with buttons and dials kept to a minimum in favour of" +
+      " touchscreens. Higher-spec models get 2 – 1 for satnav and entertainment, and another belowThe Evoque’s interior has a minimalist look to it, with buttons and dials kept to a minimum in favour of touchscreens. Higher-spec models get 2 – 1 for satnav and entertainment, and another below it for things like off-road settings and" +
+      " air conditioning. You’ll need to periodically wipe off accumulated fingerprints, and, and     body: \"The Evoque’s interior has a minimalist look to it, with buttons and dials kept to a minimum in favour of touchscreens. Higher-spec models get 2 – 1 for satnav and entertainment, and another belowThe Evoque’s interior has a minimalist look to it, with buttons and dials kept to a minimum in favour of touchscreens. Higher-spec models get 2 – 1 for satnav and entertainment," +
+      " and another below it for things like off-road settings and air conditioning. You’ll need to periodically wipe off accumulated fingerprints, and, and\",\n",
+    defaultHeight: 150,
+    layout: ["Full Width", "Read More"],
+  }
+
   const client = useApolloClient();
   const router = useRouter();
   const isDynamicFilterPage = useMemo(
@@ -1024,6 +1034,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // TODO: render must be refactored, some components should be moved to separate components
   // Some props should be contain in one param for achieve more readable code
 
+  console.log(featured)
   return (
     <>
       <PartnershipLogoHeader />
@@ -1510,34 +1521,20 @@ const SearchPageContainer: React.FC<IProps> = ({
                         tag={
                           getTitleTag(
                             getSectionsData(
-                              ['sectionsAsArray', 'featured','titleTag'],
+                              ['sectionsAsArray', 'featured', '3', 'titleTag'],
                               pageData?.genericPage,
                             ) || 'p',
                           ) as keyof JSX.IntrinsicElements
                         }
                       >
                         {getSectionsData(
-                          ['sectionsAsArray', 'featured', 'title'],
+                          ['sectionsAsArray', 'featured', '3', 'title'],
                           pageData?.genericPage,
                         )}
                       </Heading>
-                      <div className="markdown">
-                        <ReactMarkdown
-                          allowDangerousHtml
-                          source={getSectionsData(
-                            ['sectionsAsArray', 'featured', 'body'],
-                            pageData?.genericPage,
-                          )}
-                          renderers={{
-                            link: props => {
-                              const { href, children } = props;
-                              return (
-                                <RouterLink link={{ href, label: children }} />
-                              );
-                            },
-                          }}
-                        />
-                      </div>
+                      
+                      <ReadMoreBlock featured={readmoreBlock}/>
+
                     </div>
                   </LazyLoadComponent>
                 </section>
