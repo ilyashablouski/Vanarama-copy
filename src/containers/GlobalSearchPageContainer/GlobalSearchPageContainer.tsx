@@ -234,7 +234,7 @@ const GlobalSearchPageContainer = ({
       getVehiclesCache({
         variables: {
           query: router.query.searchTerm as string,
-          from: RESULTS_PER_REQUEST + 1,
+          from: RESULTS_PER_REQUEST,
           filters: buildFiltersRequestObject(
             activeFilters,
             isSpecialOffer,
@@ -255,7 +255,7 @@ const GlobalSearchPageContainer = ({
       getVehiclesCache({
         variables: {
           query: router.query.searchTerm as string,
-          from: RESULTS_PER_REQUEST + 1,
+          from: RESULTS_PER_REQUEST,
           filters: buildFiltersRequestObject(
             activeFilters,
             isSpecialOffer,
@@ -295,7 +295,7 @@ const GlobalSearchPageContainer = ({
         ),
         query: router.query.searchTerm as string,
         // because state haven't updated yet
-        from: vehiclesList.length + RESULTS_PER_REQUEST + 1,
+        from: vehiclesList.length + RESULTS_PER_REQUEST,
         sort: sortOrder as ProductDerivativeSort[],
       },
     });
@@ -372,8 +372,8 @@ const GlobalSearchPageContainer = ({
         <CommonDescriptionContainer pageData={pageData} />
         {totalResults === 0 ? (
           <Text tag="p" color="black" size="lead" className="heading">
-            0 results for your search “{router.query.searchTerm as string}”
-            Search again, try our vehicle categories.
+            0 results for your search ‘{router.query.searchTerm as string}‘.
+            Please try another search
           </Text>
         ) : (
           <Text
