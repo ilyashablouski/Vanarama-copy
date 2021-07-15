@@ -155,10 +155,11 @@
     align-items: center;
     justify-content: center;
     .partnership-logo--heading {
-      color: $black;
-      font-weight: 600;
-      font-size: 1.25rem;
       margin-right: 12px;
+      font-family: VA Heading, -apple-system, system-ui, sans-serif;
+      font-weight: normal;
+      font-size: 1.25rem;
+      color: $black;
     }
   }
 }
