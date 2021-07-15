@@ -381,18 +381,19 @@ const SearchPageContainer: React.FC<IProps> = ({
   let countListAccordion = 0;
 
   const getDataAccordion = (treeGetData, pageData) => {
+    if (isNewPage && isRangePage) {
+      return getSectionsData(treeGetData,
+        pageData).map( (item) => {
 
-   return getSectionsData(treeGetData,
-      pageData).map( (item) => {
+        countListAccordion = countListAccordion + 1;
 
-      countListAccordion = countListAccordion + 1;
-
-      return {
-        id: countListAccordion,
-        title: item.name,
-        children: item.entryBody
-      }
-    });
+        return {
+          id: countListAccordion,
+          title: item.name,
+          children: item.entryBody
+        }
+      });
+    }
   }
 
 
@@ -866,7 +867,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     [pageData],
   );
   const newCarousel: CarouselData = useMemo(
-    () => getSectionsData(['sections', 'carousel', '0'], pageData?.genericPage),
+    () => getSectionsData(['sectionsAsArray','carousel', '0' ], pageData?.genericPage),
     [pageData],
   );
   const tiles: Tiles = useMemo(
@@ -1411,7 +1412,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                 </LazyLoadComponent>
               )}
 
-          {isNewPage ? (
+          {isNewPage && isRangePage ? (
             <>
               <div className="row:default">
                 <ThreeColumnSection data={pageData?.genericPage} />
@@ -1543,10 +1544,56 @@ const SearchPageContainer: React.FC<IProps> = ({
                 </div>
               </div>
 
-              <SubTitleAndParagraphs
-                title="Models Available"
-                paragraps={listParagraph}
-              />
+              {/*<SubTitleAndParagraphs*/}
+              {/*  title="Models Available"*/}
+              {/*  paragraps={listParagraph}*/}
+              {/*/>*/}
+
+              <div className="row:default">
+                <Heading
+                  className="-a-center -mb-500"
+                  size="large"
+                  color="black"
+                  tag={
+                    getTitleTag(
+                      getSectionsData(
+                        ['sectionsAsArray', 'featured', '4', 'titleTag'],
+                        pageData?.genericPage,
+                      ) || 'p',
+                    ) as keyof JSX.IntrinsicElements
+                  }
+                >
+                  {getSectionsData(
+                    ['sectionsAsArray', 'featured', '4', 'title'],
+                    pageData?.genericPage,
+                  )}
+                </Heading>
+
+                <div className="markdown full-width">
+                  <ReactMarkdown
+                    allowDangerousHtml
+                    source={getSectionsData(
+                      ['sectionsAsArray', 'featured', '4', 'body'],
+                      pageData?.genericPage,
+                    )}
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return (
+                          <RouterLink link={{ href, label: children }} />
+                        );
+                      },
+                      heading: props => (
+                        <Text {...props}  className="large" color="darked" tag="h3" />
+                      ),
+
+                      paragraph: props => (
+                        <Text {...props} tag="span" className="-big" size="full-width" color="darked" />
+                      ),
+                    }}
+                  />
+                </div>
+              </div>
 
               <section className="row:featured-left">
                 <LazyLoadComponent
@@ -1618,10 +1665,32 @@ const SearchPageContainer: React.FC<IProps> = ({
 
               <ReviewsTwoColumn reviews={listReviews} />
 
-              <SubTitleAndParagraphs
-                title="Models Available"
-                paragraps={listParagraph}
-              />
+              <div className="row:default">
+                <div className="markdown full-width">
+                  <ReactMarkdown
+                    allowDangerousHtml
+                    source={getSectionsData(
+                      ['sectionsAsArray', 'featured', '7', 'body'],
+                      pageData?.genericPage,
+                    )}
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return (
+                          <RouterLink link={{ href, label: children }} />
+                        );
+                      },
+                      heading: props => (
+                        <Text {...props}  className="large" color="darked" tag="h3" />
+                      ),
+
+                      paragraph: props => (
+                        <Text {...props} tag="span" className="-big" size="full-width" color="darked" />
+                      ),
+                    }}
+                  />
+                </div>
+              </div>
 
               <div className="row:default">
                 <div className="tilebox">
