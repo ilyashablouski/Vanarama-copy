@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/prefer-default-export
-export const condtionItems = [
+export const conditionItems = [
   `You're between 25 & 75 years of age.`,
   `You've had a full UK or EU Driving Licence for at least 2 years.`,
   `You have a minimum of 3 years no claims discount bonus.`,

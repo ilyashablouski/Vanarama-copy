@@ -2,7 +2,7 @@ import { useMemo } from 'react';
 import Checkbox from 'core/atoms/checkbox';
 import Button from 'core/atoms/button';
 import dynamic from 'next/dynamic';
-import { condtionItems } from './config';
+import { conditionItems } from './config';
 import Skeleton from '../../components/Skeleton';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 
@@ -45,8 +45,8 @@ const InsuranceModal = ({
       title="To be eligible for Vanarama's free insurance, you must confirm the following:"
     >
       <IconList className="insuranceConditions">
-        {condtionItems.map((el, indx) => (
-          <IconListItem iconColor="orange" key={indx.toString()}>
+        {conditionItems.map((el, index) => (
+          <IconListItem iconColor="orange" key={index.toString()}>
             <Text tag="span" color="dark" size={textSize}>
               {el}
             </Text>
