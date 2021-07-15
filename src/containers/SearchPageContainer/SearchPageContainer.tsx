@@ -272,7 +272,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     },
   ];
 
-
   const client = useApolloClient();
   const router = useRouter();
   const isDynamicFilterPage = useMemo(
@@ -352,24 +351,23 @@ const SearchPageContainer: React.FC<IProps> = ({
   console.log(pageData);
 
   const readmoreBlock = {
-    __typename: "Featured",
-    body: getSectionsData(['sectionsAsArray', 'featured', '3', 'body'], pageData?.genericPage),
+    __typename: 'Featured',
+    body: getSectionsData(
+      ['sectionsAsArray', 'featured', '3', 'body'],
+      pageData?.genericPage,
+    ),
     image: {
       file: {
         url: getSectionsData(
-          [
-            'sectionsAsArray',
-            'featured',
-            '3',
-            'image',
-            'file',
-            'url',
-          ],
+          ['sectionsAsArray', 'featured', '3', 'image', 'file', 'url'],
           pageData?.genericPage,
-        )
-      }
+        ),
+      },
     },
-    title: getSectionsData(['sectionsAsArray', 'featured', '3', 'title'], pageData?.genericPage),
+    title: getSectionsData(
+      ['sectionsAsArray', 'featured', '3', 'title'],
+      pageData?.genericPage,
+    ),
     titleTag: getTitleTag(
       getSectionsData(
         ['sectionsAsArray', 'featured', '3', 'titleTag'],
@@ -377,8 +375,8 @@ const SearchPageContainer: React.FC<IProps> = ({
       ) || 'p',
     ) as keyof JSX.IntrinsicElements,
     defaultHeight: 150,
-    layout: ["Media Left", "Read More"],
-  }
+    layout: ['Media Left', 'Read More'],
+  };
 
   useEffect(() => {
     function scrollTo() {
@@ -849,6 +847,10 @@ const SearchPageContainer: React.FC<IProps> = ({
     () => getSectionsData(['sections', 'carousel'], pageData?.genericPage),
     [pageData],
   );
+  const newCarousel: CarouselData = useMemo(
+    () => getSectionsData(['sections', 'carousel', '0'], pageData?.genericPage),
+    [pageData],
+  );
   const tiles: Tiles = useMemo(
     () => getSectionsData(['sections', 'tiles'], pageData?.genericPage),
     [pageData],
@@ -1054,7 +1056,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   // TODO: render must be refactored, some components should be moved to separate components
   // Some props should be contain in one param for achieve more readable code
 
-  console.log(featured)
   return (
     <>
       <PartnershipLogoHeader />
@@ -1395,9 +1396,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           {isNewPage ? (
             <>
               <div className="row:default">
-                <ThreeColumnSection
-                  data={pageData?.genericPage}
-                />
+                <ThreeColumnSection data={pageData?.genericPage} />
 
                 <section className="row:featured-left">
                   <LazyLoadComponent
@@ -1516,7 +1515,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   </LazyLoadComponent>
                 </section>
 
-                <ReadMoreBlock featured={readmoreBlock}/>
+                <ReadMoreBlock featured={readmoreBlock} />
               </div>
 
               <div className="row:default">
@@ -1534,6 +1533,20 @@ const SearchPageContainer: React.FC<IProps> = ({
                 <LazyLoadComponent
                   visibleByDefault={isServerRenderOrAppleDevice}
                 >
+                  <Image
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    src={getSectionsData(
+                      [
+                        'sectionsAsArray',
+                        'featured',
+                        '5',
+                        'image',
+                        'file',
+                        'url',
+                      ],
+                      pageData?.genericPage,
+                    )}
+                  />
                   <div>
                     <Heading
                       size="large"
@@ -1570,27 +1583,15 @@ const SearchPageContainer: React.FC<IProps> = ({
                       />
                     </div>
                   </div>
-
-                  <Image
-                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                    src={getSectionsData(
-                      [
-                        'sectionsAsArray',
-                        'featured',
-                        '5',
-                        'image',
-                        'file',
-                        'url',
-                      ],
-                      pageData?.genericPage,
-                    )}
-                  />
                 </LazyLoadComponent>
               </section>
 
               <div className="row:default">
                 <Media
-                  src={getSectionsData(['featured1', 'video'], '') || ''}
+                  src={getSectionsData(
+                    ['sectionsAsArray', 'featured', '6', 'video'],
+                    pageData?.genericPage,
+                  )}
                   width="100%"
                   height="670px"
                 />
@@ -1608,6 +1609,101 @@ const SearchPageContainer: React.FC<IProps> = ({
                   <Accordion items={accordionData} />
                 </div>
               </div>
+
+              {newCarousel?.cards?.length && (
+                <LazyLoadComponent
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
+                  <div className="row:bg-lighter">
+                    <div className="row:carousel">
+                      <Heading size="large" color="black" tag="h3">
+                        {newCarousel.title}
+                      </Heading>
+                      <Carousel
+                        countItems={newCarousel?.cards?.length || 0}
+                        className="-col3"
+                      >
+                        {newCarousel?.cards.map(
+                          (card, indx) =>
+                            card && (
+                              <Card
+                                optimisedHost={
+                                  process.env.IMG_OPTIMISATION_HOST
+                                }
+                                key={`${card.name}_${indx.toString()}`}
+                                className="card__article"
+                                imageSrc={
+                                  card?.image?.file?.url ||
+                                  `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+                                }
+                                title={{
+                                  title:
+                                    card.link?.legacyUrl || card.link?.url
+                                      ? ''
+                                      : card.title || '',
+                                  link: (
+                                    <RouterLink
+                                      link={{
+                                        href:
+                                          card.link?.legacyUrl ||
+                                          card.link?.url ||
+                                          '',
+                                        label: card.title || '',
+                                      }}
+                                      className="card--link"
+                                      classNames={{
+                                        color: 'black',
+                                        size: 'regular',
+                                      }}
+                                    />
+                                  ),
+                                }}
+                              >
+                                <ReactMarkdown
+                                  className="markdown"
+                                  allowDangerousHtml
+                                  source={card.body || ''}
+                                  renderers={{
+                                    link: props => {
+                                      const { href, children } = props;
+                                      return (
+                                        <RouterLink
+                                          link={{ href, label: children }}
+                                          classNames={{ color: 'teal' }}
+                                        />
+                                      );
+                                    },
+                                    heading: props => (
+                                      <Text
+                                        {...props}
+                                        size="lead"
+                                        color="darker"
+                                        tag="h3"
+                                      />
+                                    ),
+                                    paragraph: props => (
+                                      <Text {...props} tag="p" color="darker" />
+                                    ),
+                                  }}
+                                />
+                                <RouterLink
+                                  link={{
+                                    href:
+                                      card.link?.legacyUrl ||
+                                      card.link?.url ||
+                                      '',
+                                    label: card.link?.text || '',
+                                  }}
+                                  classNames={{ color: 'teal' }}
+                                />
+                              </Card>
+                            ),
+                        )}
+                      </Carousel>
+                    </div>
+                  </div>
+                </LazyLoadComponent>
+              )}
             </>
           ) : null}
 

@@ -202,6 +202,16 @@ export const GENERIC_PAGE = gql`
         }
       }
       sectionsAsArray {
+        accordion {
+          name
+          title
+          accordionEntries {
+            name
+            category
+            entryTitle
+            entryBody
+          }
+        }
         carousel {
           title
           name
