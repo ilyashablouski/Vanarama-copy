@@ -272,15 +272,6 @@ const SearchPageContainer: React.FC<IProps> = ({
     },
   ];
 
-  const readmoreBlock = {
-    __typename: "Featured",
-    body: "The Evoque’s interior has a minimalist look to it, with buttons and dials kept to a minimum in favour of" +
-      " touchscreens. Higher-spec models get 2 – 1 for satnav and entertainment, and another belowThe Evoque’s interior has a minimalist look to it, with buttons and dials kept to a minimum in favour of touchscreens. Higher-spec models get 2 – 1 for satnav and entertainment, and another below it for things like off-road settings and" +
-      " air conditioning. You’ll need to periodically wipe off accumulated fingerprints, and, and     body: \"The Evoque’s interior has a minimalist look to it, with buttons and dials kept to a minimum in favour of touchscreens. Higher-spec models get 2 – 1 for satnav and entertainment, and another belowThe Evoque’s interior has a minimalist look to it, with buttons and dials kept to a minimum in favour of touchscreens. Higher-spec models get 2 – 1 for satnav and entertainment," +
-      " and another below it for things like off-road settings and air conditioning. You’ll need to periodically wipe off accumulated fingerprints, and, and\",\n",
-    defaultHeight: 150,
-    layout: ["Full Width", "Read More"],
-  }
 
   const client = useApolloClient();
   const router = useRouter();
@@ -359,6 +350,35 @@ const SearchPageContainer: React.FC<IProps> = ({
   console.log(metaData);
   console.log('pageData');
   console.log(pageData);
+
+  const readmoreBlock = {
+    __typename: "Featured",
+    body: getSectionsData(['sectionsAsArray', 'featured', '3', 'body'], pageData?.genericPage),
+    image: {
+      file: {
+        url: getSectionsData(
+          [
+            'sectionsAsArray',
+            'featured',
+            '3',
+            'image',
+            'file',
+            'url',
+          ],
+          pageData?.genericPage,
+        )
+      }
+    },
+    title: getSectionsData(['sectionsAsArray', 'featured', '3', 'title'], pageData?.genericPage),
+    titleTag: getTitleTag(
+      getSectionsData(
+        ['sectionsAsArray', 'featured', '3', 'titleTag'],
+        pageData?.genericPage,
+      ) || 'p',
+    ) as keyof JSX.IntrinsicElements,
+    defaultHeight: 150,
+    layout: ["Media Left", "Read More"],
+  }
 
   useEffect(() => {
     function scrollTo() {
@@ -1496,48 +1516,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   </LazyLoadComponent>
                 </section>
 
-                <section className="row:featured-left">
-                  <LazyLoadComponent
-                    visibleByDefault={isServerRenderOrAppleDevice}
-                  >
-                    <Image
-                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                      src={getSectionsData(
-                        [
-                          'sectionsAsArray',
-                          'featured',
-                          'image',
-                          'file',
-                          'url',
-                        ],
-                        pageData?.genericPage,
-                      )}
-                    />
-
-                    <div>
-                      <Heading
-                        size="large"
-                        color="black"
-                        tag={
-                          getTitleTag(
-                            getSectionsData(
-                              ['sectionsAsArray', 'featured', '3', 'titleTag'],
-                              pageData?.genericPage,
-                            ) || 'p',
-                          ) as keyof JSX.IntrinsicElements
-                        }
-                      >
-                        {getSectionsData(
-                          ['sectionsAsArray', 'featured', '3', 'title'],
-                          pageData?.genericPage,
-                        )}
-                      </Heading>
-                      
-                      <ReadMoreBlock featured={readmoreBlock}/>
-
-                    </div>
-                  </LazyLoadComponent>
-                </section>
+                <ReadMoreBlock featured={readmoreBlock}/>
               </div>
 
               <div className="row:default">
