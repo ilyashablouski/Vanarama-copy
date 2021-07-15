@@ -117,8 +117,8 @@
             display: none;
           }
         }
-        }
       }
+    }
   }
 
   &pdp {
@@ -420,6 +420,40 @@
         }
       }
 
+      &--wishlist {
+        display: flex;
+        justify-content: left;
+        align-items: center;
+        margin-top: 0 !important;
+
+        @include mobile {
+          justify-content: center;
+        }
+
+        > * {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          font-size: $font-size-400;
+          font-weight: $font-weight-medium;
+          line-height: $font-size-500;
+          color: var(--class-color, #{$darker});
+          transition: color 150ms $transition-soft;
+          cursor: pointer;
+
+          .button--inner {
+            padding: 0;
+          }
+
+          .icon {
+            position: relative;
+            bottom: 0.125em;
+            vertical-align: bottom;
+            font-size: 1.125rem;
+          }
+        }
+      }
+
       &--content {
         display: grid;
         min-width: 0;
@@ -451,12 +485,11 @@
           }
 
           @include desktop {
-            margin-top: $rem-500;
+            margin-top: $rem-400;
             margin-bottom: $rem-200;
           }
 
           @include mobile {
-            margin-top: 0;
             justify-content: center;
           }
         }

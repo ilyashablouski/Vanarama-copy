@@ -53,6 +53,7 @@ import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { pushAddToCartHeap } from '../../utils/heapHelpers';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
+import WishlistToggle from './WishlistToggle';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -552,6 +553,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <span className="text -lead -darker">
           {vehicleConfigurationByCapId?.capDerivativeDescription}
         </span>
+        <div className="pdp--wishlist">
+          <WishlistToggle productDetails={data} />
+        </div>
         <div className="pdp--content-details">
           <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
           <div>
