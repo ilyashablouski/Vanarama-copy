@@ -131,7 +131,7 @@ function WishlistPageContainer({
           {pageTitle}
         </Heading>
       </div>
-      <div className="row:bg-lighter wishlist -thin -pv-500">
+      <div className="wishlist row:bg-lighter -thin -pv-500">
         {wishlistInitialized ? (
           <>
             {sortedProductList.length ? (
@@ -210,9 +210,9 @@ function WishlistPageContainer({
                 </div>
               </>
             ) : (
-              <div className="row">
-                <WishlistEmptyMessage className="-mb-400" />
-                <section className="row:cards-3col">
+              <>
+                <WishlistEmptyMessage />
+                <section className="row:cards-3col -mt-400">
                   {cardList.map(card => (
                     <WishlistOfferCard
                       key={card.header}
@@ -225,7 +225,7 @@ function WishlistPageContainer({
                     />
                   ))}
                 </section>
-              </div>
+              </>
             )}
             {!personLoggedIn && (
               <WishlistRegistrationMessage className="-mt-500" />
