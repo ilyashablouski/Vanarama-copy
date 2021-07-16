@@ -128,7 +128,6 @@ function WishlistPageContainer({
       <div className="row:bg-lighter wishlist -thin -pv-500">
         {wishlistInitialized ? (
           <>
-            {!personLoggedIn && <WishlistRegistration className="-mb-500" />}
             {sortedProductList.length ? (
               <div className="row:results">
                 <Text color="darker" size="regular" tag="span">
@@ -214,6 +213,7 @@ function WishlistPageContainer({
                 </section>
               </div>
             )}
+            {!personLoggedIn && <WishlistRegistration className="-mt-500" />}
           </>
         ) : (
           <div className="-flex-h -h-400">
