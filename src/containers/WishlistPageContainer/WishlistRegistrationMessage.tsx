@@ -6,14 +6,14 @@ import Text from 'core/atoms/text';
 import RouterLink from 'components/RouterLink';
 import { IWishlistRegistration } from './interface';
 
-function WishlistRegistration({ className }: IWishlistRegistration) {
+function WishlistRegistrationMessage({ className }: IWishlistRegistration) {
   return (
     <div className={cx('row', className)}>
-      <Text className="-semi-b" tag="p" size="lead" color="black">
+      <Text className="-m" tag="p" size="lead" color="black">
         Log in to your account to access your saved vehicles from any device and
         if the price drops or delivery times change, we can let you know.
       </Text>
-      <Text className="-semi-b" tag="p" size="lead" color="black">
+      <Text className="-m" tag="p" size="lead" color="black">
         Don’t have an account? Register today.
       </Text>
       <RouterLink
@@ -31,4 +31,4 @@ function WishlistRegistration({ className }: IWishlistRegistration) {
   );
 }
 
-export default WishlistRegistration;
+export default WishlistRegistrationMessage;

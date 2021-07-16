@@ -40,7 +40,9 @@ import WishlistProductCard from '../../components/VehicleCard';
 
 const WishlistOfferCard = dynamic(() => import('./WishlistOfferCard'));
 const WishlistEmptyMessage = dynamic(() => import('./WishlistEmptyMessage'));
-const WishlistRegistration = dynamic(() => import('./WishlistRegistration'));
+const WishlistRegistrationMessage = dynamic(() =>
+  import('./WishlistRegistrationMessage'),
+);
 const WishlistProductPlaceholder = dynamic(() =>
   import('./WishlistProductPlaceholder'),
 );
@@ -108,6 +110,10 @@ function WishlistPageContainer({
     setCardsPerPage(cardsPerPage + RESULTS_PER_REQUEST);
   }
 
+  function toggleModalVisibility() {
+    setModalVisibility(!isModalVisible);
+  }
+
   const sortedProductList = useMemo(
     () => sortProductList(wishlistVehicleIds, wishlistVehicleMap, sortOrder[0]),
     [sortOrder, wishlistVehicleMap, wishlistVehicleIds],
@@ -131,10 +137,16 @@ function WishlistPageContainer({
             {sortedProductList.length ? (
               <>
                 <div className="row -mb-400">
-                  <Text className="-semi-b" tag="p" size="lead" color="black">
+                  <Text className="-m" tag="p" size="lead" color="black">
                     Great news - your wishlist is saved so come back to view it
                     anytime.
                   </Text>
+                  {wishlistNoLongerAvailable && (
+                    <Text className="-m" tag="p" size="small" color="orange">
+                      One or more items from your wishlist have been removed as
+                      they are no longer available.
+                    </Text>
+                  )}
                 </div>
                 <div className="row:results">
                   <Text color="darker" size="regular" tag="span">
@@ -146,12 +158,6 @@ function WishlistPageContainer({
                     isSpecialOffersOrder={false}
                     onChangeSortOrder={handleChangeSortOrder}
                   />
-                  {wishlistNoLongerAvailable && (
-                    <Heading size="regular" color="black">
-                      One or more items from your wishlist have been removed as
-                      they are no longer available.
-                    </Heading>
-                  )}
                   <section className="row:cards-3col">
                     {sortedProductList
                       .slice(0, cardsPerPage)
@@ -184,7 +190,7 @@ function WishlistPageContainer({
                         visibleByDefault={isServerRenderOrAppleDevice}
                       >
                         <WishlistProductPlaceholder
-                          onClick={() => setModalVisibility(true)}
+                          onClick={toggleModalVisibility}
                         />
                       </LazyLoadComponent>
                     ))}
@@ -221,7 +227,9 @@ function WishlistPageContainer({
                 </section>
               </div>
             )}
-            {!personLoggedIn && <WishlistRegistration className="-mt-500" />}
+            {!personLoggedIn && (
+              <WishlistRegistrationMessage className="-mt-500" />
+            )}
           </>
         ) : (
           <div className="-flex-h -h-400">
@@ -230,7 +238,7 @@ function WishlistPageContainer({
         )}
       </div>
       {isModalVisible && (
-        <Modal show onRequestClose={() => setModalVisibility(false)}>
+        <Modal show onRequestClose={toggleModalVisibility}>
           <div className="-justify-content-row -w-300 -a-center">
             <Heading tag="span" color="black">
               Choose your vehicle type
