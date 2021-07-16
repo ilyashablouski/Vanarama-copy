@@ -129,72 +129,80 @@ function WishlistPageContainer({
         {wishlistInitialized ? (
           <>
             {sortedProductList.length ? (
-              <div className="row:results">
-                <Text color="darker" size="regular" tag="span">
-                  Showing {sortedProductList.length} Vehicles
-                </Text>
-                <SortOrder
-                  sortOrder={sortOrder[0]}
-                  sortValues={getSortValues()}
-                  isSpecialOffersOrder={false}
-                  onChangeSortOrder={handleChangeSortOrder}
-                />
-                {wishlistNoLongerAvailable && (
-                  <Heading size="regular" color="black">
-                    One or more items from your wishlist have been removed as
-                    they are no longer available.
-                  </Heading>
-                )}
-                <section className="row:cards-3col">
-                  {sortedProductList
-                    .slice(0, cardsPerPage)
-                    .map((cardId, index) => {
-                      const card = wishlistVehicleMap[cardId];
-                      const cardUrl = card.pageUrl?.url ?? '';
-                      const cardTitle = {
-                        title: `${card.manufacturerName} ${card.modelName}`,
-                        description: card.derivativeName ?? '',
-                      };
+              <>
+                <div className="row -mb-400">
+                  <Text className="-semi-b" tag="p" size="lead" color="black">
+                    Great news - your wishlist is saved so come back to view it
+                    anytime.
+                  </Text>
+                </div>
+                <div className="row:results">
+                  <Text color="darker" size="regular" tag="span">
+                    Showing {sortedProductList.length} Vehicles
+                  </Text>
+                  <SortOrder
+                    sortOrder={sortOrder[0]}
+                    sortValues={getSortValues()}
+                    isSpecialOffersOrder={false}
+                    onChangeSortOrder={handleChangeSortOrder}
+                  />
+                  {wishlistNoLongerAvailable && (
+                    <Heading size="regular" color="black">
+                      One or more items from your wishlist have been removed as
+                      they are no longer available.
+                    </Heading>
+                  )}
+                  <section className="row:cards-3col">
+                    {sortedProductList
+                      .slice(0, cardsPerPage)
+                      .map((cardId, index) => {
+                        const card = wishlistVehicleMap[cardId];
+                        const cardUrl = card.pageUrl?.url ?? '';
+                        const cardTitle = {
+                          title: `${card.manufacturerName} ${card.modelName}`,
+                          description: card.derivativeName ?? '',
+                        };
 
-                      return (
-                        <LazyLoadComponent
-                          key={card.capId || index}
-                          visibleByDefault={isServerRenderOrAppleDevice}
-                        >
-                          <WishlistProductCard
-                            data={card}
-                            isPersonalPrice
-                            bodyStyle={card.bodyStyle}
-                            title={cardTitle}
-                            url={cardUrl}
-                          />
-                        </LazyLoadComponent>
-                      );
-                    })}
-                  {productPlaceholderList.map((placeholder, index) => (
-                    <LazyLoadComponent
-                      key={placeholder.capId || index}
-                      visibleByDefault={isServerRenderOrAppleDevice}
-                    >
-                      <WishlistProductPlaceholder
-                        onClick={() => setModalVisibility(true)}
+                        return (
+                          <LazyLoadComponent
+                            key={card.capId || index}
+                            visibleByDefault={isServerRenderOrAppleDevice}
+                          >
+                            <WishlistProductCard
+                              data={card}
+                              isPersonalPrice
+                              bodyStyle={card.bodyStyle}
+                              title={cardTitle}
+                              url={cardUrl}
+                            />
+                          </LazyLoadComponent>
+                        );
+                      })}
+                    {productPlaceholderList.map((placeholder, index) => (
+                      <LazyLoadComponent
+                        key={placeholder.capId || index}
+                        visibleByDefault={isServerRenderOrAppleDevice}
+                      >
+                        <WishlistProductPlaceholder
+                          onClick={() => setModalVisibility(true)}
+                        />
+                      </LazyLoadComponent>
+                    ))}
+                  </section>
+                  {sortedProductList.length > cardsPerPage && (
+                    <div className="pagination">
+                      <Button
+                        color="teal"
+                        size="regular"
+                        fill="outline"
+                        label="Load More"
+                        dataTestId="LoadMore"
+                        onClick={handleClickLoadMore}
                       />
-                    </LazyLoadComponent>
-                  ))}
-                </section>
-                {sortedProductList.length > cardsPerPage && (
-                  <div className="pagination">
-                    <Button
-                      color="teal"
-                      size="regular"
-                      fill="outline"
-                      label="Load More"
-                      dataTestId="LoadMore"
-                      onClick={handleClickLoadMore}
-                    />
-                  </div>
-                )}
-              </div>
+                    </div>
+                  )}
+                </div>
+              </>
             ) : (
               <div className="row">
                 <WishlistEmptyMessage className="-mb-400" />
