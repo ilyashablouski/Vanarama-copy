@@ -13,5 +13,6 @@ export interface IFiltersConfig {
   key: string;
   renderValuesFunction?: (value: string) => string;
   renderSelectedFunction?: (values: (string | null)[]) => string;
+  generalFilter: boolean;
   innerSelects?: IInnerSelect[];
 }

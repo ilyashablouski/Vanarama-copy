@@ -7,12 +7,14 @@ export const filtersConfig = [
     multiselect: false,
     label: 'Type of Vehicle',
     key: 'vehicleCategory',
+    generalFilter: true,
   },
   {
     type: 'drop-select',
     multiselect: false,
     label: 'Make & Model',
     key: 'makeModel',
+    generalFilter: true,
     innerSelects: [
       {
         title: 'Make',
@@ -34,6 +36,7 @@ export const filtersConfig = [
     renderValuesFunction: (value: string) => renderBudgetValue(value),
     renderSelectedFunction: (values: (string | null)[]) =>
       renderBudgetSelected(values),
+    generalFilter: true,
     innerSelects: [
       {
         title: 'Price From',
@@ -52,17 +55,20 @@ export const filtersConfig = [
     multiselect: true,
     label: 'Body Type',
     key: 'bodyStyles',
+    generalFilter: true,
   },
   {
     type: 'drop-down',
     multiselect: true,
     label: 'Fuel Type',
     key: 'fuelTypes',
+    generalFilter: true,
   },
   {
     type: 'drop-down',
     multiselect: true,
     label: 'Transmission',
     key: 'transmissions',
+    generalFilter: true,
   },
 ];
