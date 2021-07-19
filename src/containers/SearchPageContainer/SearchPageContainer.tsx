@@ -200,28 +200,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   // assign here as when inline causing hook lint errors
   const applyColumns = !isEvPage ? '-columns' : '';
 
-  const listReviews = [
-    {
-      summary:
-        'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
-      customerName: 'Dzho',
-      rating: 2,
-    },
-
-    {
-      summary:
-        'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
-      customerName: 'Kate',
-      rating: 3,
-    },
-    {
-      summary:
-        'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
-      customerName: 'Peter',
-      rating: 4,
-    },
-  ];
-
   const client = useApolloClient();
   const router = useRouter();
   const isNewPage = newRangeUrls.includes(router.asPath) ? true : false;
@@ -251,8 +229,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [shouldUpdateCache, setShouldUpdateCache] = useState(
     preLoadVehiclesList?.vehicleList?.pageInfo?.hasNextPage ?? true,
   );
-
-  console.log(pageData);
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
