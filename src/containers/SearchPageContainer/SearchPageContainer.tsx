@@ -298,40 +298,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [partnershipActive, setPartnershipActive] = useState<boolean>(false);
   const [prevPosition, setPrevPosition] = useState(0);
 
-  const readmoreBlock = {
-    __typename: 'Featured',
-    body: getSectionsData(
-      ['sectionsAsArray', 'featured', '3', 'body'],
-      pageData?.genericPage,
-    ),
-    image: {
-      file: {
-        url: getSectionsData(
-          ['sectionsAsArray', 'featured', '3', 'image', 'file', 'url'],
-          pageData?.genericPage,
-        ),
-      },
-    },
-    title: getSectionsData(
-      ['sectionsAsArray', 'featured', '3', 'title'],
-      pageData?.genericPage,
-    ),
-    titleTag: getTitleTag(
-      getSectionsData(
-        ['sectionsAsArray', 'featured', '3', 'titleTag'],
-        pageData?.genericPage,
-      ) || 'p',
-    ) as keyof JSX.IntrinsicElements,
-    defaultHeight: 150,
-    layout: ['Media Left', 'Read More'],
-    link: null,
-    video: null,
-    testimonials: null,
-    cards: null,
-    targetId: null,
-    iconList: null,
-  };
-
   let countListAccordion = 0;
 
   const getDataAccordion = (treeGetData: string[], pageData: any) => {
@@ -1489,7 +1455,64 @@ const SearchPageContainer: React.FC<IProps> = ({
                   </LazyLoadComponent>
                 </section>
 
-                <ReadMoreBlock featured={readmoreBlock} />
+                <section className="row:featured-left">
+                  <LazyLoadComponent
+                    visibleByDefault={isServerRenderOrAppleDevice}
+                  >
+                    <Image
+                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                      src={getSectionsData(
+                        [
+                          'sectionsAsArray',
+                          'featured',
+                          '3',
+                          'image',
+                          'file',
+                          'url',
+                        ],
+                        pageData?.genericPage,
+                      )}
+                    />
+                    <div>
+                      <Heading
+                        size="large"
+                        color="black"
+                        tag={
+                          getTitleTag(
+                            getSectionsData(
+                              ['sectionsAsArray', 'featured', '3', 'titleTag'],
+                              pageData?.genericPage,
+                            ) || 'p',
+                          ) as keyof JSX.IntrinsicElements
+                        }
+                      >
+                        {getSectionsData(
+                          ['sectionsAsArray', 'featured', '3', 'title'],
+                          pageData?.genericPage,
+                        )}
+                      </Heading>
+                      <div className="markdown">
+                        <ReactMarkdown
+                          allowDangerousHtml
+                          source={
+                            getSectionsData(
+                              ['sectionsAsArray', 'featured', '3', 'body'],
+                              pageData?.genericPage,
+                            ) || ''
+                          }
+                          renderers={{
+                            link: props => {
+                              const { href, children } = props;
+                              return (
+                                <RouterLink link={{ href, label: children }} />
+                              );
+                            },
+                          }}
+                        />
+                      </div>
+                    </div>
+                  </LazyLoadComponent>
+                </section>
               </div>
 
               <div className="row:default">
