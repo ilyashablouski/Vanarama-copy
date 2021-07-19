@@ -156,6 +156,15 @@ export const budgetMapper = {
   'deals-over-550': '550',
 };
 
+export const newRangeUrls = [
+  '/land-rover-car-leasing/range-rover-evoque.html',
+  '/mercedesbenz-car-leasing/a-class.html',
+  '/audi-car-leasing/a3.html',
+  '/volvo-car-leasing/xc40.html',
+  '/land-rover-car-leasing/range-rover-velar.html',
+  '/land-rover-car-leasing/discovery.html',
+];
+
 export const bodyUrls = [
   '4x4-suv',
   'convertible',
@@ -222,13 +231,14 @@ const onCallQuery = async (
   query: DocumentNode,
   slug: string,
   pageType?: string,
+  sectionsAsArray?: boolean,
 ) =>
   client.query({
     query,
     variables: {
       slug: slug || undefined,
       pageType: pageType || undefined,
-      sectionsAsArray: true,
+      sectionsAsArray: sectionsAsArray || false,
     },
   });
 
@@ -244,15 +254,16 @@ export const ssrCMSQueryExecutor = async (
   const { req, query } = context;
   const queryUrl = removeUrlQueryPart(req?.url || '');
   const slug = queryUrl.slice(1);
-  console.log(slug);
   switch (pageType) {
-    case 'isRangePage':
+    case 'isNewRangePage':
       return onCallQuery(
         client,
         GENERIC_PAGE,
         'car-leasing/land-rover/range-rover-evoque/test',
         'rangePage',
+        true,
       );
+    case 'isRangePage':
     case 'isMakePage':
     case 'isModelPage':
     case 'isBudgetType':

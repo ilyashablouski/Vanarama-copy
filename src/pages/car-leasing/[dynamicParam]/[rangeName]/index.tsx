@@ -15,6 +15,7 @@ import {
   RESULTS_PER_REQUEST,
   sortObjectGenerator,
   ssrCMSQueryExecutor,
+  newRangeUrls,
 } from '../../../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../../../generated/bodyStyleList';
@@ -148,7 +149,9 @@ export async function getServerSideProps(context: NextPageContext) {
       client,
       contextData,
       true,
-      'isRangePage',
+      newRangeUrls.includes(context.req?.url || '')
+        ? 'isNewRangePage'
+        : 'isRangePage',
     )) as ApolloQueryResult<GenericPageQuery>;
     defaultSort = sortObjectGenerator([
       {

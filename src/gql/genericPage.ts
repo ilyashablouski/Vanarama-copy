@@ -202,6 +202,16 @@ export const GENERIC_PAGE = gql`
         }
       }
       sectionsAsArray {
+        reviews {
+          rangeId
+          reviewsTitle
+          reviews {
+            reviewType
+            summary
+            rating
+            customerName
+          }
+        }
         accordion {
           name
           title

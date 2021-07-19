@@ -517,6 +517,19 @@ export interface GenericPageQuery_genericPage_sections {
   steps: GenericPageQuery_genericPage_sections_steps | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_reviews_reviews {
+  reviewType: string | null;
+  summary: string | null;
+  rating: string | null;
+  customerName: string | null;
+}
+
+export interface GenericPageQuery_genericPage_sectionsAsArray_reviews {
+  rangeId: string | null;
+  reviewsTitle: string | null;
+  reviews: (GenericPageQuery_genericPage_sectionsAsArray_reviews_reviews | null)[] | null;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_accordion_accordionEntries {
   name: string | null;
   category: string | null;
@@ -811,6 +824,7 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_questionSet {
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray {
+  reviews: (GenericPageQuery_genericPage_sectionsAsArray_reviews | null)[] | null;
   accordion: (GenericPageQuery_genericPage_sectionsAsArray_accordion | null)[] | null;
   carousel: (GenericPageQuery_genericPage_sectionsAsArray_carousel | null)[] | null;
   cards: (GenericPageQuery_genericPage_sectionsAsArray_cards | null)[] | null;

@@ -44,6 +44,7 @@ import {
   sortObjectGenerator,
   sortValues,
   ssrCMSQueryExecutor,
+  newRangeUrls,
 } from './helpers';
 import {
   GetProductCard,
@@ -199,8 +200,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   // assign here as when inline causing hook lint errors
   const applyColumns = !isEvPage ? '-columns' : '';
 
-  const isNewPage = true;
-
   const listReviews = [
     {
       text:
@@ -233,6 +232,7 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const client = useApolloClient();
   const router = useRouter();
+  const isNewPage = newRangeUrls.includes(router.asPath) ? true : false;
   const isDynamicFilterPage = useMemo(
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
