@@ -31,13 +31,24 @@ const ReviewsTwoColumn: React.FC<ReviewsTwoColumnProps> = ({
     return null;
   }
 
+  const newKeyReviews = (obj: any, newKeys: any) => {
+    const keyValues = Object.keys(obj).map(key => {
+      const newKey = newKeys[key] || key;
+      return { [newKey]: obj[key] };
+    });
+    return Object.assign({}, ...keyValues);
+  };
+
+  const newKeys = { summary: 'text', customerName: 'author', rating: 'score' };
+  const renamedObj = newKeyReviews({ ...reviews[0] }, newKeys);
+
   return (
     <>
       <div className="row:bg-light">
         {reviews.length === 1 ? (
           <ReviewCard
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            review={{ ...reviews[0] }}
+            review={renamedObj}
           />
         ) : (
           <Carousel

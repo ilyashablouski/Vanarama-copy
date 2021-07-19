@@ -324,6 +324,8 @@ const SearchPageContainer: React.FC<IProps> = ({
     ) as keyof JSX.IntrinsicElements,
     defaultHeight: 150,
     layout: ['Media Left', 'Read More'],
+    link: null,
+    video: null,
   };
 
   let countListAccordion = 0;
