@@ -326,6 +326,10 @@ const SearchPageContainer: React.FC<IProps> = ({
     layout: ['Media Left', 'Read More'],
     link: null,
     video: null,
+    testimonials: null,
+    cards: null,
+    targetId: null,
+    iconList: null,
   };
 
   let countListAccordion = 0;
