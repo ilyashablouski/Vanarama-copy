@@ -252,7 +252,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     preLoadVehiclesList?.vehicleList?.pageInfo?.hasNextPage ?? true,
   );
 
-  console.log(pageData)
+  console.log(pageData);
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
@@ -1622,7 +1622,14 @@ const SearchPageContainer: React.FC<IProps> = ({
                 />
               </div>
 
-              <ReviewsTwoColumn reviews={listReviews} />
+              <ReviewsTwoColumn
+                reviews={
+                  getSectionsData(
+                    ['sectionsAsArray', 'reviews', '0', 'reviews'],
+                    pageData?.genericPage,
+                  ) || listReviews
+                }
+              />
 
               <div className="row:default">
                 <div className="markdown full-width">
