@@ -1654,7 +1654,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                   getSectionsData(
                     ['sectionsAsArray', 'reviews', '0', 'reviews'],
                     pageData?.genericPage,
-                  ) || listReviews
+                  ) || []
                 }
               />
 
