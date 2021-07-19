@@ -202,31 +202,23 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const listReviews = [
     {
-      text:
+      summary:
         'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
-      author: 'author',
-      score: 2,
+      customerName: 'Dzho',
+      rating: 2,
     },
 
     {
-      text:
+      summary:
         'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
-      author: 'author',
-      score: 4,
+      customerName: 'Kate',
+      rating: 3,
     },
-
     {
-      text:
+      summary:
         'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
-      author: 'author',
-      score: 1,
-    },
-
-    {
-      text:
-        'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
-      author: 'author',
-      score: 4,
+      customerName: 'Peter',
+      rating: 4,
     },
   ];
 
@@ -259,6 +251,8 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [shouldUpdateCache, setShouldUpdateCache] = useState(
     preLoadVehiclesList?.vehicleList?.pageInfo?.hasNextPage ?? true,
   );
+
+  console.log(pageData)
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),

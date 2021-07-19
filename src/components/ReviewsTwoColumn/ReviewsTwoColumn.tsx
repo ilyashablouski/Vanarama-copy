@@ -13,9 +13,9 @@ const ReviewCard = dynamic(
 );
 
 interface IReviewCard {
-  text: string;
-  author: string;
-  score: number;
+  summary: string;
+  customerName: string;
+  rating: number;
 }
 
 interface ReviewsTwoColumnProps {
@@ -26,7 +26,6 @@ interface ReviewsTwoColumnProps {
 const ReviewsTwoColumn: React.FC<ReviewsTwoColumnProps> = ({
   reviews,
   sliderClassName,
-
 }) => {
   if (!reviews.length) {
     return null;
@@ -35,22 +34,30 @@ const ReviewsTwoColumn: React.FC<ReviewsTwoColumnProps> = ({
   return (
     <>
       <div className="row:bg-light">
-      {reviews.length === 1 ? (
-        <ReviewCard
-          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-          review={{ ...reviews[0] }}
-        />
-      ) : (
-        <Carousel countShow={2} className={sliderClassName} countItems={reviews.length}>
-          {reviews.slice(0, 6).map((reviewTile, index) => (
-            <ReviewCard
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={index.toString()}
-              review={{ ...reviewTile }}
-            />
-          ))}
-        </Carousel>
-      )}
+        {reviews.length === 1 ? (
+          <ReviewCard
+            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+            review={{ ...reviews[0] }}
+          />
+        ) : (
+          <Carousel
+            countShow={2}
+            className={sliderClassName}
+            countItems={reviews.length}
+          >
+            {reviews.slice(0, 6).map((reviewTile, index) => (
+              <ReviewCard
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                key={index.toString()}
+                review={{
+                  text: reviewTile.summary,
+                  author: reviewTile.customerName,
+                  score: reviewTile.rating,
+                }}
+              />
+            ))}
+          </Carousel>
+        )}
       </div>
     </>
   );
