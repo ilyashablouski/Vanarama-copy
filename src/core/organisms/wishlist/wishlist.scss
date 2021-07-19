@@ -13,6 +13,10 @@
   }
 
   .card.-vehicle-type {
+    &:not(:first-of-type) {
+      margin-top: 0 !important;
+    }
+
     .hot-offer {
       @include mobile-tablet {
         font-size: 14px;

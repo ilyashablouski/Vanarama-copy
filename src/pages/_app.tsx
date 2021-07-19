@@ -1,13 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 // import 'core/styles/base.scss';
+import 'utils/wdyr';
 import dynamic from 'next/dynamic';
 import { AppProps } from 'next/app';
 import Router from 'next/router';
 import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import Cookies from 'js-cookie';
-import { useMediaQuery } from 'react-responsive';
 import { useApolloClient } from '@apollo/client';
 import {
   PAGES_WITHOUT_LEASE_RESET,
@@ -168,19 +167,9 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     return 'page:default';
   };
 
-  // TODO: when global search feature will release move styles from main tag to css
-  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
-  const [isAddPadding, setIsAddPadding] = useState(false);
-  useEffect(() => {
-    setIsAddPadding(Cookies.get('DIG-5552') === '1' && isTabletOrMobile);
-  }, [isTabletOrMobile]);
-
   return (
     <>
-      <main
-        className={cx(resolveMainClass())}
-        style={isAddPadding ? { paddingTop: '104px' } : {}}
-      >
+      <main className={cx(resolveMainClass())}>
         <HeaderContainer />
         <CompareContext.Provider
           value={{

@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { ProductDerivativeFilter } from "./globalTypes";
+import { ProductDerivativeFilter, ProductDerivativeSort } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: productDerivatives
@@ -91,4 +91,5 @@ export interface productDerivativesVariables {
   from?: number | null;
   size?: number | null;
   filters?: ProductDerivativeFilter | null;
+  sort?: (ProductDerivativeSort | null)[] | null;
 }

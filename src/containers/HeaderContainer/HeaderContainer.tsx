@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { gql, useMutation, useApolloClient } from '@apollo/client';
 import { useRouter } from 'next/router';
 import localForage from 'localforage';
@@ -22,6 +22,7 @@ import {
   FLEET_PHONE_NUMBER_LINK,
 } from '../../models/enum/HeaderLinks';
 import { LinkTypes } from '../../models/enum/LinkTypes';
+import { removeAuthenticationCookies } from '../../utils/authentication';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -198,14 +199,17 @@ const HeaderContainer: FC = () => {
     }, 500);
   }, []);
 
+  const handleLogOut = useCallback(async () => {
+    removeAuthenticationCookies();
+    await localForage.clear();
+    await client.resetStore();
+    await logOut().catch(() => {});
+  }, [client, logOut]);
+
   if (partnership) {
     return (
       <Header
-        onLogOut={async () => {
-          await localForage.clear();
-          await client.resetStore();
-          await logOut().catch();
-        }}
+        onLogOut={handleLogOut}
         loginLink={LOGIN_LINK}
         phoneNumberLink={partnershipPhoneLink || phoneNumberLink}
         topBarLinks={partnershipLinks}
@@ -217,11 +221,7 @@ const HeaderContainer: FC = () => {
   if (topLinks?.length) {
     return (
       <Header
-        onLogOut={async () => {
-          await localForage.clear();
-          await client.resetStore();
-          await logOut().catch();
-        }}
+        onLogOut={handleLogOut}
         loginLink={LOGIN_LINK}
         phoneNumberLink={phoneNumberLink}
         topBarLinks={[...offerLink, ...topLinks]}

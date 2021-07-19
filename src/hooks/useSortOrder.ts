@@ -1,5 +1,6 @@
 import { useApolloClient, gql } from '@apollo/client';
 import {
+  ProductDerivativeSort,
   SortDirection,
   SortField,
   SortObject,
@@ -11,11 +12,14 @@ const query = gql`
   }
 `;
 
+// TODO: remove SortObject interface after implement of productDerivative query
 /**
  * --- useSortOrder hook ---
  * @return {Array} return sort order data array
  */
-export default function useSortOrder(sortPresetValue?: SortObject[]) {
+export default function useSortOrder(
+  sortPresetValue?: (SortObject | ProductDerivativeSort)[],
+) {
   const client = useApolloClient();
   const initState = [
     {
@@ -24,7 +28,7 @@ export default function useSortOrder(sortPresetValue?: SortObject[]) {
     },
     { field: SortField.rate, direction: SortDirection.ASC },
   ];
-  const onWriteQuery = (sort?: SortObject[]) => {
+  const onWriteQuery = (sort?: (SortObject | ProductDerivativeSort)[]) => {
     client.writeQuery({
       query,
       data: {
@@ -37,10 +41,10 @@ export default function useSortOrder(sortPresetValue?: SortObject[]) {
     onWriteQuery(sortPresetValue);
   }
   return {
-    saveSortOrder(sort: SortObject[]): void {
+    saveSortOrder(sort: (SortObject | ProductDerivativeSort)[]): void {
       onWriteQuery(sort);
     },
-    get savedSortOrder(): SortObject[] {
+    get savedSortOrder(): (SortObject | ProductDerivativeSort)[] {
       try {
         const res = client.readQuery({ query });
         return res.sortOrder;

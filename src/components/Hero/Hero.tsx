@@ -14,8 +14,11 @@ import {
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
 // import BenefitsSection from 'containers/FleetPageContainer/sections/BenefitsSection';
-import BenefitsBar from '../../core/organisms/benefits-bar/BenefitsBar';
 
+const BenefitsBar = dynamic(
+  () => import('../../core/organisms/benefits-bar/BenefitsBar'),
+  { loading: () => <Skeleton count={1} /> },
+);
 const ArrowForward = dynamic(() => import('core/assets/icons/ArrowForward'), {
   ssr: false,
 });

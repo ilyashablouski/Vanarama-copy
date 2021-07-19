@@ -113,7 +113,7 @@ describe('<SoleTraderCompanyDetailsForm />', () => {
 
     typeIntoNatureField('62020');
     await waitFor(() => expect(getSicCodesCalled).toBeTruthy());
-    fireEvent.mouseDown(screen.getByText(/^62020/));
+    fireEvent.click(screen.getByText(/^62020/));
 
     fireEvent.change(
       screen.getByTestId('company-details_trading-since-month'),

@@ -1,10 +1,17 @@
 module.exports = api => {
+  const isServer = api.caller(caller => (caller || {}).isServer);
+  const isCallerDevelopment = api.caller(caller => (caller || {}).isDev);
+
   let presets = [
     ['@babel/preset-typescript', { isTSX: true, allExtensions: true }],
     [
       '@babel/preset-react',
       {
         runtime: 'automatic',
+        importSource:
+          !isServer && isCallerDevelopment
+            ? '@welldone-software/why-did-you-render'
+            : 'react',
       },
     ],
   ];

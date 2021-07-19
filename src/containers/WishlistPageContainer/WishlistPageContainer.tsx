@@ -40,7 +40,9 @@ import WishlistProductCard from '../../components/VehicleCard';
 
 const WishlistOfferCard = dynamic(() => import('./WishlistOfferCard'));
 const WishlistEmptyMessage = dynamic(() => import('./WishlistEmptyMessage'));
-const WishlistRegistration = dynamic(() => import('./WishlistRegistration'));
+const WishlistRegistrationMessage = dynamic(() =>
+  import('./WishlistRegistrationMessage'),
+);
 const WishlistProductPlaceholder = dynamic(() =>
   import('./WishlistProductPlaceholder'),
 );
@@ -108,6 +110,10 @@ function WishlistPageContainer({
     setCardsPerPage(cardsPerPage + RESULTS_PER_REQUEST);
   }
 
+  function toggleModalVisibility() {
+    setModalVisibility(!isModalVisible);
+  }
+
   const sortedProductList = useMemo(
     () => sortProductList(wishlistVehicleIds, wishlistVehicleMap, sortOrder[0]),
     [sortOrder, wishlistVehicleMap, wishlistVehicleIds],
@@ -125,81 +131,88 @@ function WishlistPageContainer({
           {pageTitle}
         </Heading>
       </div>
-      <div className="row:bg-lighter wishlist -thin -pv-500">
+      <div className="wishlist row:bg-lighter -thin -pv-500">
         {wishlistInitialized ? (
           <>
-            {!personLoggedIn && <WishlistRegistration className="-mb-500" />}
             {sortedProductList.length ? (
-              <div className="row:results">
-                <Text color="darker" size="regular" tag="span">
-                  Showing {sortedProductList.length} Vehicles
-                </Text>
-                <SortOrder
-                  sortOrder={sortOrder[0]}
-                  sortValues={getSortValues()}
-                  isSpecialOffersOrder={false}
-                  onChangeSortOrder={handleChangeSortOrder}
-                />
-                {wishlistNoLongerAvailable && (
-                  <Heading size="regular" color="black">
-                    One or more items from your wishlist have been removed as
-                    they are no longer available.
-                  </Heading>
-                )}
-                <section className="row:cards-3col">
-                  {sortedProductList
-                    .slice(0, cardsPerPage)
-                    .map((cardId, index) => {
-                      const card = wishlistVehicleMap[cardId];
-                      const cardUrl = card.pageUrl?.url ?? '';
-                      const cardTitle = {
-                        title: `${card.manufacturerName} ${card.modelName}`,
-                        description: card.derivativeName ?? '',
-                      };
+              <>
+                <div className="row -mb-400">
+                  <Text className="-m" tag="p" size="lead" color="black">
+                    Great news - your wishlist is saved so come back to view it
+                    anytime.
+                  </Text>
+                  {wishlistNoLongerAvailable && (
+                    <Text className="-m" tag="p" size="small" color="orange">
+                      One or more items from your wishlist have been removed as
+                      they are no longer available.
+                    </Text>
+                  )}
+                </div>
+                <div className="row:results">
+                  <Text color="darker" size="regular" tag="span">
+                    Showing {sortedProductList.length} Vehicles
+                  </Text>
+                  <SortOrder
+                    sortOrder={sortOrder[0]}
+                    sortValues={getSortValues()}
+                    isSpecialOffersOrder={false}
+                    onChangeSortOrder={handleChangeSortOrder}
+                  />
+                  <section className="row:cards-3col">
+                    {sortedProductList
+                      .slice(0, cardsPerPage)
+                      .map((cardId, index) => {
+                        const card = wishlistVehicleMap[cardId];
+                        const cardUrl = card.pageUrl?.url ?? '';
+                        const cardTitle = {
+                          title: `${card.manufacturerName} ${card.modelName}`,
+                          description: card.derivativeName ?? '',
+                        };
 
-                      return (
-                        <LazyLoadComponent
-                          key={card.capId || index}
-                          visibleByDefault={isServerRenderOrAppleDevice}
-                        >
-                          <WishlistProductCard
-                            data={card}
-                            isPersonalPrice
-                            bodyStyle={card.bodyStyle}
-                            title={cardTitle}
-                            url={cardUrl}
-                          />
-                        </LazyLoadComponent>
-                      );
-                    })}
-                  {productPlaceholderList.map((placeholder, index) => (
-                    <LazyLoadComponent
-                      key={placeholder.capId || index}
-                      visibleByDefault={isServerRenderOrAppleDevice}
-                    >
-                      <WishlistProductPlaceholder
-                        onClick={() => setModalVisibility(true)}
+                        return (
+                          <LazyLoadComponent
+                            key={card.capId || index}
+                            visibleByDefault={isServerRenderOrAppleDevice}
+                          >
+                            <WishlistProductCard
+                              data={card}
+                              isPersonalPrice
+                              bodyStyle={card.bodyStyle}
+                              title={cardTitle}
+                              url={cardUrl}
+                            />
+                          </LazyLoadComponent>
+                        );
+                      })}
+                    {productPlaceholderList.map((placeholder, index) => (
+                      <LazyLoadComponent
+                        key={placeholder.capId || index}
+                        visibleByDefault={isServerRenderOrAppleDevice}
+                      >
+                        <WishlistProductPlaceholder
+                          onClick={toggleModalVisibility}
+                        />
+                      </LazyLoadComponent>
+                    ))}
+                  </section>
+                  {sortedProductList.length > cardsPerPage && (
+                    <div className="pagination">
+                      <Button
+                        color="teal"
+                        size="regular"
+                        fill="outline"
+                        label="Load More"
+                        dataTestId="LoadMore"
+                        onClick={handleClickLoadMore}
                       />
-                    </LazyLoadComponent>
-                  ))}
-                </section>
-                {sortedProductList.length > cardsPerPage && (
-                  <div className="pagination">
-                    <Button
-                      color="teal"
-                      size="regular"
-                      fill="outline"
-                      label="Load More"
-                      dataTestId="LoadMore"
-                      onClick={handleClickLoadMore}
-                    />
-                  </div>
-                )}
-              </div>
+                    </div>
+                  )}
+                </div>
+              </>
             ) : (
-              <div className="row">
-                <WishlistEmptyMessage className="-mb-400" />
-                <section className="row:cards-3col">
+              <>
+                <WishlistEmptyMessage />
+                <section className="row:cards-3col -mt-400">
                   {cardList.map(card => (
                     <WishlistOfferCard
                       key={card.header}
@@ -212,7 +225,10 @@ function WishlistPageContainer({
                     />
                   ))}
                 </section>
-              </div>
+              </>
+            )}
+            {!personLoggedIn && (
+              <WishlistRegistrationMessage className="-mt-500" />
             )}
           </>
         ) : (
@@ -222,7 +238,7 @@ function WishlistPageContainer({
         )}
       </div>
       {isModalVisible && (
-        <Modal show onRequestClose={() => setModalVisibility(false)}>
+        <Modal show onRequestClose={toggleModalVisibility}>
           <div className="-justify-content-row -w-300 -a-center">
             <Heading tag="span" color="black">
               Choose your vehicle type

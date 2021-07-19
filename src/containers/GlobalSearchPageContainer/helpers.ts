@@ -5,7 +5,10 @@ import { GetProductCard_productCard as ICard } from '../../../generated/GetProdu
 import { IFiltersData, ISelectedTags } from './interfaces';
 import { filterOrderByNumMap } from '../FiltersContainer/helpers';
 import {
+  FinanceTypeEnum,
   ProductDerivativeFilter,
+  ProductDerivativeSortDirection,
+  ProductDerivativeSortField,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 
@@ -16,7 +19,7 @@ export const productCardDataMapper = (data: IVehiclesList | null): ICard => ({
   rangeName: data?.rangeName || null,
   modelName: data?.modelName || null,
   derivativeName: data?.derivativeName || null,
-  averageRating: data?.fullPrice || null,
+  averageRating: null,
   isOnOffer: data?.onOffer || null,
   offerPosition: data?.offerRanking || null,
   leadTime: AVAILABILITY_LABELS[data?.availability ?? ''],
@@ -52,6 +55,8 @@ export const buildSelectedTags = (data: IFiltersData): ISelectedTags[] =>
 
 export const buildFiltersRequestObject = (
   filters: IFiltersData,
+  onOffer?: boolean,
+  isPersonal?: boolean,
 ): ProductDerivativeFilter => {
   const pureObject = {} as IFiltersData;
   const { from, to, ...rest } = filters;
@@ -72,5 +77,22 @@ export const buildFiltersRequestObject = (
         : undefined,
     make: filters.make?.[0],
     range: filters.range?.[0],
+    financeTypes: isPersonal ? [FinanceTypeEnum.PCH] : [FinanceTypeEnum.BCH],
+    onOffer: onOffer || null,
   };
 };
+
+export const DEFAULT_SORT = [
+  {
+    field: ProductDerivativeSortField.offerRanking,
+    direction: ProductDerivativeSortDirection.ASC,
+  },
+  {
+    field: ProductDerivativeSortField.availability,
+    direction: ProductDerivativeSortDirection.ASC,
+  },
+  {
+    field: ProductDerivativeSortField.rental,
+    direction: ProductDerivativeSortDirection.ASC,
+  },
+];
