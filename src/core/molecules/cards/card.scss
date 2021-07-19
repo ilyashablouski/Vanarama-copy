@@ -43,6 +43,31 @@ $small: 0.875rem;
     .lazyload-wrapper {
       grid-area: span 1 / 1 / span 1 / -1;
     }
+
+    &.-inline {
+      // Model version of inline card
+      &.-model {
+        gap: 0 1.125rem;
+
+        .-flex-h {
+          margin: 1.125rem 0;
+
+          .price {
+            &--label {
+              &:last-child {
+                font-size: .75rem;
+              }
+            }
+          }
+
+          .button {
+            &--inner {
+              padding: 0 18px;
+            }
+          }
+        }
+      }
+    }
   }
 
   // Core layout -> desktop
@@ -93,33 +118,45 @@ $small: 0.875rem;
         grid-area: 1 / 1 / -1 / content;
       }
 
-      // Model version of inline card, only for desktop
-      @include desktop {
-        &.-model {
-          grid-template-columns:
-            minmax(0, var(--img-w, 50%)) [content] minmax(0, 1fr)
-            0;
-          img {
-            width: 100%;
-            max-width: inherit;
-            position: absolute;
-          }
-          .title {
-            grid-row: 6;
-            margin-top: 1.2rem;
-          }
-          p {
-            grid-row: 7;
-          }
-          .-flex-h {
-            grid-row: 8;
-            padding-bottom: 1.25rem;
+      // Model version of inline card
+      &.-model {
+        gap: 0 1.375rem;
+        grid-template-columns:
+          minmax(0, var(--img-w, 50%)) [content] minmax(0, 1fr)
+          0;
+
+        img {
+          position: absolute;
+          width: 100%;
+          max-width: inherit;
+        }
+
+        .title {
+          margin-top: 1.5rem;
+        }
+
+        .-flex-h {
+          grid-row: 8;
+          flex-wrap: wrap;
+          margin: 1.375rem 0;
+
+          .price {
+            display: flex;
             flex-wrap: wrap;
-            margin-bottom: 0;
-            margin-top: 1rem;
-            .price {
-              min-width: 100%;
-              margin-bottom: 20px;
+            justify-content: flex-start;
+            min-width: 100%;
+            margin-bottom: 1.125rem;
+
+            &--label {
+              &:last-child {
+                width: 100%;
+              }
+            }
+          }
+
+          .button {
+            &--inner {
+              padding: 0 30px;
             }
           }
         }
@@ -546,6 +583,29 @@ $small: 0.875rem;
       ~ * {
         font-weight: 500;
         color: $black;
+      }
+    }
+  }
+
+  &.-inline.-model {
+    .-flex-h {
+      .price {
+        font-size: 1.75rem;
+        font-weight: 600;
+
+        &--label {
+          &:first-child {
+            margin-right: 4px;
+            font-size: .75rem;
+            font-weight: 700;
+          }
+
+          &:last-child {
+            line-height: 1;
+            font-weight: 500;
+            text-transform: uppercase;
+          }
+        }
       }
     }
   }
