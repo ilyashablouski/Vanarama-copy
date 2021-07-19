@@ -1897,21 +1897,24 @@ const SearchPageContainer: React.FC<IProps> = ({
         </>
       )}
 
-      <div className="row:text">
-        <Text color="darker" size="regular" tag="span">
-          Photos and videos are for illustration purposes only.{' '}
-          <RouterLink
-            link={{
-              href: '/legal/terms-and-conditions.html',
-              label: 'Terms and conditions apply',
-            }}
-            classNames={{ color: 'teal' }}
-          >
-            Terms and conditions apply
-          </RouterLink>
-          .
-        </Text>
-      </div>
+      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <div className="row:text">
+          <Text size="regular" color="dark">
+            Photos and videos are for illustration purposes only.{' '}
+            <RouterLink
+              link={{
+                href: '/legal/terms-and-conditions.html',
+                label: 'Terms and conditions apply',
+              }}
+              classNames={{ color: 'teal' }}
+            >
+              Terms and conditions apply
+            </RouterLink>
+            .
+          </Text>
+        </div>
+      </LazyLoadComponent>
+
       {metaData && (
         <>
           <Head metaData={metaData} featuredImage={null} />
