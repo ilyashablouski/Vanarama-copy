@@ -87,7 +87,6 @@ import {
   removeSessionStorageItem,
 } from '../../utils/windowSessionStorage';
 import getTitleTag from '../../utils/getTitleTag';
-import { SubTitleAndParagraphs } from '../../components/SubTitleAndParagraphs/SubTitleAndParagraphs';
 import { ThreeColumnSection } from '../../components/ThreeColumnSection/ThreeColumnSection';
 import ReviewsTwoColumn from '../../components/ReviewsTwoColumn/ReviewsTwoColumn';
 
@@ -158,6 +157,12 @@ interface IProps {
   defaultSort?: SortObject[];
 }
 
+interface ItemAccordion {
+  id: number;
+  title: string;
+  children: string;
+}
+
 const SearchPageContainer: React.FC<IProps> = ({
   isServer,
   isCarSearch = false,
@@ -196,20 +201,6 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const isNewPage = true;
 
-  const listParagraph = [
-    {
-      title: 'Range Rover Evoque',
-      description:
-        'Unlike the first-generation Evoque, there’s no three-door or convertible model available, so the five-door SUV is your only option. However, there are two styles to choose from, within which are the trim levels listed below. As well as the standard car, you can pick an Evoque R-Dynamic, which has a sportier look, courtesy of different alloy wheel designs and a more aggressive-looking bodykit.',
-    },
-
-    {
-      title: 'Range Rover Evoque',
-      description:
-        'Unlike the first-generation Evoque, there’s no three-door or convertible model available, so the five-door SUV is your only option. However, there are two styles to choose from, within which are the trim levels listed below. As well as the standard car, you can pick an Evoque R-Dynamic, which has a sportier look, courtesy of different alloy wheel designs and a more aggressive-looking bodykit.',
-    },
-  ];
-
   const listReviews = [
     {
       text:
@@ -237,38 +228,6 @@ const SearchPageContainer: React.FC<IProps> = ({
         'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
       author: 'author',
       score: 4,
-    },
-  ];
-
-  const accordionData = [
-    {
-      id: 4,
-      title: 'No Admin Fees',
-      children:
-        "Unlike many of our competitors, we won’t charge you anything to arrange your lease. You simply pay your initial payment and monthly rentals and we'll cover the rest.",
-    },
-    {
-      id: 4,
-      title: 'No Admin Fees',
-      children:
-        "Unlike many of our competitors, we won’t charge you anything to arrange your lease. You simply pay your initial payment and monthly rentals and we'll cover the rest.",
-    },
-  ];
-
-  const columnThreeData = [
-    {
-      src: 'Range Rover Evoque',
-      title: "It's a stylish luxury SUV, but in compact form.",
-    },
-
-    {
-      src: 'Range Rover Evoque',
-      title: 'You can choose between petrol, diesel or plug-in hybrid power.',
-    },
-
-    {
-      src: 'Range Rover Evoque',
-      title: "It's a stylish luxury SUV, but in compact form.",
     },
   ];
 
@@ -345,11 +304,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [partnershipActive, setPartnershipActive] = useState<boolean>(false);
   const [prevPosition, setPrevPosition] = useState(0);
 
-  console.log('Metadata');
-  console.log(metaData);
-  console.log('pageData');
-  console.log(pageData);
-
   const readmoreBlock = {
     __typename: 'Featured',
     body: getSectionsData(
@@ -380,22 +334,19 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   let countListAccordion = 0;
 
-  const getDataAccordion = (treeGetData, pageData) => {
+  const getDataAccordion = (treeGetData: string[], pageData: any) => {
     if (isNewPage && isRangePage) {
-      return getSectionsData(treeGetData,
-        pageData).map( (item) => {
-
-        countListAccordion = countListAccordion + 1;
+      return getSectionsData(treeGetData, pageData).map((item: any) => {
+        countListAccordion += 1;
 
         return {
           id: countListAccordion,
           title: item.name,
-          children: item.entryBody
-        }
+          children: item.entryBody,
+        } as ItemAccordion;
       });
     }
-  }
-
+  };
 
   useEffect(() => {
     function scrollTo() {
@@ -867,7 +818,11 @@ const SearchPageContainer: React.FC<IProps> = ({
     [pageData],
   );
   const newCarousel: CarouselData = useMemo(
-    () => getSectionsData(['sectionsAsArray','carousel', '0' ], pageData?.genericPage),
+    () =>
+      getSectionsData(
+        ['sectionsAsArray', 'carousel', '0'],
+        pageData?.genericPage,
+      ),
     [pageData],
   );
   const tiles: Tiles = useMemo(
@@ -1540,14 +1495,13 @@ const SearchPageContainer: React.FC<IProps> = ({
               <div className="row:default">
                 <div className="tilebox">
                   <Accordion
-                    items={getDataAccordion(['sectionsAsArray', 'accordion', '0', 'accordionEntries'], pageData?.genericPage )} />
+                    items={getDataAccordion(
+                      ['sectionsAsArray', 'accordion', '0', 'accordionEntries'],
+                      pageData?.genericPage,
+                    )}
+                  />
                 </div>
               </div>
-
-              {/*<SubTitleAndParagraphs*/}
-              {/*  title="Models Available"*/}
-              {/*  paragraps={listParagraph}*/}
-              {/*/>*/}
 
               <div className="row:default">
                 <Heading
@@ -1579,16 +1533,25 @@ const SearchPageContainer: React.FC<IProps> = ({
                     renderers={{
                       link: props => {
                         const { href, children } = props;
-                        return (
-                          <RouterLink link={{ href, label: children }} />
-                        );
+                        return <RouterLink link={{ href, label: children }} />;
                       },
                       heading: props => (
-                        <Text {...props}  className="large" color="darked" tag="h3" />
+                        <Text
+                          {...props}
+                          className="large"
+                          color="darked"
+                          tag="h3"
+                        />
                       ),
 
                       paragraph: props => (
-                        <Text {...props} tag="span" className="-big" size="full-width" color="darked" />
+                        <Text
+                          {...props}
+                          tag="span"
+                          className="-big"
+                          size="full-width"
+                          color="darked"
+                        />
                       ),
                     }}
                   />
@@ -1676,16 +1639,25 @@ const SearchPageContainer: React.FC<IProps> = ({
                     renderers={{
                       link: props => {
                         const { href, children } = props;
-                        return (
-                          <RouterLink link={{ href, label: children }} />
-                        );
+                        return <RouterLink link={{ href, label: children }} />;
                       },
                       heading: props => (
-                        <Text {...props}  className="large" color="darked" tag="h3" />
+                        <Text
+                          {...props}
+                          className="large"
+                          color="darked"
+                          tag="h3"
+                        />
                       ),
 
                       paragraph: props => (
-                        <Text {...props} tag="span" className="-big" size="full-width" color="darked" />
+                        <Text
+                          {...props}
+                          tag="span"
+                          className="-big"
+                          size="full-width"
+                          color="darked"
+                        />
                       ),
                     }}
                   />
@@ -1695,7 +1667,11 @@ const SearchPageContainer: React.FC<IProps> = ({
               <div className="row:default">
                 <div className="tilebox">
                   <Accordion
-                    items={getDataAccordion(['sectionsAsArray', 'accordion', '1', 'accordionEntries'], pageData?.genericPage )} />
+                    items={getDataAccordion(
+                      ['sectionsAsArray', 'accordion', '1', 'accordionEntries'],
+                      pageData?.genericPage,
+                    )}
+                  />
                 </div>
               </div>
 
