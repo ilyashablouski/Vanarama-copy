@@ -1,6 +1,8 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import Skeleton from '../Skeleton';
+import { newKeyReviews } from './helpers';
+import { ReviewsTwoColumnProps } from './interface';
 
 const Carousel = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={2} />,
@@ -12,17 +14,6 @@ const ReviewCard = dynamic(
   },
 );
 
-interface IReviewCard {
-  summary: string;
-  customerName: string;
-  rating: number;
-}
-
-interface ReviewsTwoColumnProps {
-  reviews: IReviewCard[];
-  sliderClassName?: string;
-}
-
 const ReviewsTwoColumn: React.FC<ReviewsTwoColumnProps> = ({
   reviews,
   sliderClassName,
@@ -30,14 +21,6 @@ const ReviewsTwoColumn: React.FC<ReviewsTwoColumnProps> = ({
   if (!reviews.length) {
     return null;
   }
-
-  const newKeyReviews = (obj: any, newKeys: any) => {
-    const keyValues = Object.keys(obj).map(key => {
-      const newKey = newKeys[key] || key;
-      return { [newKey]: obj[key] };
-    });
-    return Object.assign({}, ...keyValues);
-  };
 
   const newKeys = { summary: 'text', customerName: 'author', rating: 'score' };
   const renamedObj = newKeyReviews({ ...reviews[0] }, newKeys);
