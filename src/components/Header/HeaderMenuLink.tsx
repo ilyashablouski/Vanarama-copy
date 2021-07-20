@@ -27,7 +27,7 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
   const { link, isMenuOpen } = props;
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
 
-  const [hoverRef, isHovered] = useHover<HTMLLIElement>();
+  const [hoverRef, isHovered, resetHover] = useHover<HTMLLIElement>();
 
   const [isOpenMenu, setIsOpenMenu] = useState(false);
 
@@ -50,6 +50,10 @@ const HeaderMenuLink: FC<IHeaderMenuLinkProps> = memo(props => {
 
   useEffect(() => {
     setIsOpenMenu(false);
+    if (isHovered) {
+      resetHover();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [router, setIsOpenMenu, isMenuOpen]);
 
   return (
