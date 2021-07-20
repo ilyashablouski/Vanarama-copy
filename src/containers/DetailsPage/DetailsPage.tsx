@@ -53,6 +53,7 @@ import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { pushAddToCartHeap } from '../../utils/heapHelpers';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
+import WishlistToggle from './WishlistToggle';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -60,6 +61,7 @@ const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
 const Loading = dynamic(() => import('core/atoms/loading'));
 const Rating = dynamic(() => import('core/atoms/rating'), {
   loading: () => <Skeleton count={1} />,
+  ssr: false,
 });
 const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
@@ -553,23 +555,24 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           {vehicleConfigurationByCapId?.capDerivativeDescription}
         </span>
         <div className="pdp--content-details">
+          <div className="pdp--wishlist">
+            <WishlistToggle productDetails={data} />
+          </div>
           <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
-          <div>
-            <div className="pdp--brochure">
-              {vehicleDetails?.brochureUrl && (
-                <RouterLink
-                  link={{
-                    href: vehicleDetails?.brochureUrl,
-                    label: '',
-                    target: '_blank',
-                  }}
-                  classNames={{ color: 'teal', size: 'xsmall' }}
-                >
-                  {'Download Brochure '}
-                  <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
-                </RouterLink>
-              )}
-            </div>
+          <div className="pdp--brochure">
+            {vehicleDetails?.brochureUrl && (
+              <RouterLink
+                link={{
+                  href: vehicleDetails?.brochureUrl,
+                  label: '',
+                  target: '_blank',
+                }}
+                classNames={{ color: 'teal', size: 'xsmall' }}
+              >
+                {'Download Brochure '}
+                <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
+              </RouterLink>
+            )}
           </div>
         </div>
         <MediaGallery

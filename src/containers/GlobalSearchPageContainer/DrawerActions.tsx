@@ -21,8 +21,8 @@ const DrawerActions = ({
         className="update-results"
         label={`
                 View ${totalResults} ${pluralise(totalResults, {
-          one: 'Card',
-          many: 'Cards',
+          one: 'Result',
+          many: 'Results',
         })}`}
       />
     </div>

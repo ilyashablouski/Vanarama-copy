@@ -9,19 +9,19 @@ const Button = dynamic(() => import('core/atoms/button'), {
 
 const AccessCamera: FC<IAccessCamera> = ({ onClickYes, onClickNo }) => {
   return (
-    <div className="choiceboxes -cols-2 -teal">
+    <div className="choice-boxes -cols-2 -teal">
       <Button
         onClick={onClickYes}
         label="Yes"
         withoutDefaultClass
-        className="choicebox -active"
+        className="choice-box -active"
         size="small"
       />
       <Button
         onClick={onClickNo}
         label="No"
         withoutDefaultClass
-        className="choicebox -active"
+        className="choice-box -active"
         size="small"
       />
     </div>

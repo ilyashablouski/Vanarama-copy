@@ -26,6 +26,7 @@ import useMediaQuery from '../../hooks/useMediaQuery';
 import PhoneNumber from '../PhoneNumber/PhoneNumber';
 import GlobalSearchContainer from '../../containers/GlobalSearchContainer';
 import HeaderWishlistLink from './HeaderWishlistLink';
+import { isUserAuthenticated } from '../../utils/authentication';
 
 const PersonCircleSharp = dynamic(
   () => import('core/assets/icons/PersonCircleSharp'),
@@ -132,7 +133,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
 
   useEffect(() => {
     setOpenMenu(false);
-  }, [router]);
+  }, [router.asPath]);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -156,7 +157,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
         <PhoneNumber phoneNumberLink={phoneNumberLink} withIcon />{' '}
         <HeaderWishlistLink />
         <div className="header-account">
-          {person ? (
+          {isUserAuthenticated() ? (
             <>
               <Button
                 withoutDefaultClass

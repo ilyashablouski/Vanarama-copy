@@ -1,4 +1,5 @@
 import { IAddressSuggestion } from 'core/molecules/address-finder/interfaces';
+import { formatAddress } from 'core/molecules/address-finder/AddressFinder';
 import {
   DirectorDetailsFormValues,
   DirectorFormValues,
@@ -66,6 +67,7 @@ export const mapHistoryAddresses = (
     city: data?.city ?? '',
     country: data?.country ?? '',
     lineOne: data?.lineOne ?? '',
+    label: formatAddress(data),
     lineTwo: data?.lineTwo ?? '',
     postcode: data?.postcode ?? '',
   };

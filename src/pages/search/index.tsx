@@ -1,9 +1,11 @@
 import { NextPage, NextPageContext } from 'next';
 import { ApolloQueryResult } from '@apollo/client';
-import { ServerResponse } from 'http';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 import createApolloClient from '../../apolloClient';
-import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
+import {
+  RESULTS_PER_REQUEST,
+  ssrCMSQueryExecutor,
+} from '../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 
 import { decodeData, encodeData } from '../../utils/data';
@@ -17,7 +19,11 @@ import {
 } from '../../../generated/productDerivatives';
 import GlobalSearchPageContainer from '../../containers/GlobalSearchPageContainer';
 
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import {
+  FinanceTypeEnum,
+  ProductDerivativeSort,
+  VehicleTypeEnum,
+} from '../../../generated/globalTypes';
 import {
   GlobalSearchCardsData,
   GlobalSearchCardsData_productCard as ICardsData,
@@ -29,9 +35,11 @@ import {
   productFilterVariables as IProductFilterVariables,
 } from '../../../generated/productFilter';
 import { GET_FILTERS_DATA } from '../../containers/GlobalSearchPageContainer/gql';
-import { buildInitialFilterState } from '../../containers/GlobalSearchPageContainer/helpers';
+import {
+  buildInitialFilterState,
+  DEFAULT_SORT,
+} from '../../containers/GlobalSearchPageContainer/helpers';
 import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
-import { notFoundPageHandler } from '../../utils/url';
 import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNotFoundContainer';
 
 interface IProps extends ISearchPageProps {
@@ -43,6 +51,7 @@ interface IProps extends ISearchPageProps {
   responseVansCapIds?: string[];
   responseCarsCapIds?: string[];
   initialFilters: IFiltersData;
+  defaultSort: ProductDerivativeSort[];
 }
 
 const Page: NextPage<IProps> = ({
@@ -53,10 +62,9 @@ const Page: NextPage<IProps> = ({
   productDerivatives,
   carsData,
   vansData,
-  responseVansCapIds,
-  responseCarsCapIds,
   error,
   notFoundPageData,
+  defaultSort,
 }) => {
   if (error) {
     return (
@@ -70,12 +78,11 @@ const Page: NextPage<IProps> = ({
   return (
     <GlobalSearchPageContainer
       metaData={metaData}
+      defaultSort={defaultSort}
       filtersData={filtersData}
       initialFilters={initialFilters}
       carsData={carsData}
       vansData={vansData}
-      responseVansCapIds={responseVansCapIds}
-      responseCarsCapIds={responseCarsCapIds}
       pageData={decodeData(pageData)}
       preLoadProductDerivatives={decodeData(productDerivatives)}
     />
@@ -83,13 +90,6 @@ const Page: NextPage<IProps> = ({
 };
 export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({}, context);
-  // TODO: Should be removed after GlobalSearch release
-  const isEnableGSFeature = context?.req?.headers?.cookie?.includes(
-    'DIG-5552=1',
-  );
-  if (!isEnableGSFeature) {
-    return notFoundPageHandler(context.res as ServerResponse, client);
-  }
   const contextData = {
     req: {
       url: context.req?.url || '',
@@ -106,13 +106,18 @@ export async function getServerSideProps(context: NextPageContext) {
   let responseVansCapIds;
   let carsData;
   let vansData;
+  const sortOrder = DEFAULT_SORT;
   const productDerivatives = await client
     .query<IProductDerivativesQuery, productDerivativesVariables>({
       query: GET_PRODUCT_DERIVATIVES,
       variables: {
         query: contextData.query.searchTerm as string,
         from: 0,
-        size: 12,
+        size: RESULTS_PER_REQUEST,
+        sort: sortOrder,
+        filters: {
+          financeTypes: [FinanceTypeEnum.PCH],
+        },
       },
     })
     .then(async resp => {
@@ -168,6 +173,7 @@ export async function getServerSideProps(context: NextPageContext) {
       responseVansCapIds: responseVansCapIds || null,
       responseCarsCapIds: responseCarsCapIds || null,
       filtersData: filtersData || null,
+      defaultSort: sortOrder,
       initialFilters,
     },
   };

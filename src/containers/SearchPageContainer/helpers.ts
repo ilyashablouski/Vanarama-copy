@@ -303,7 +303,7 @@ export const ssrCMSQueryExecutor = async (
       return onCallQuery(
         client,
         GENERIC_PAGE,
-        'car-leasing/land-rover/range-rover-evoque/test',
+        prepareSlugPart(slug),
         'rangePage',
         true,
       );

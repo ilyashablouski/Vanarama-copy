@@ -6,13 +6,13 @@ import React, {
   SetStateAction,
 } from 'react';
 import ChevronDown from 'core/assets/icons/ChevronDown';
-import cx from 'classnames';
 import { useRouter } from 'next/router';
-import Toggle from 'core/atoms/toggle/Toggle';
 import ToggleSwitch from 'core/atoms/toggle/ToggleSwitch';
+import DropdownV2 from 'core/atoms/dropdown-v2';
 import Flame from 'core/assets/icons/Flame';
-import { filtersConfig as config } from './config';
-import { IInnerSelect } from './interfaces';
+import ToggleV2 from 'core/atoms/toggleV2';
+import ChoiceBoxesV2 from 'core/atoms/choiceboxes-v2/ChoiceboxesV2';
+import { IFiltersConfig, IInnerSelect } from './interfaces';
 import { budgets } from '../../containers/FiltersContainer/config';
 import {
   IFiltersData,
@@ -29,6 +29,7 @@ import SelectedDropdown from './SelectedDropdown';
 import { getInnerConfigKeys } from './helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import FiltersTags from '../../containers/GlobalSearchPageContainer/FiltersTags';
+import { LeaseTypeEnum } from '../../../generated/globalTypes';
 
 interface IProps {
   preloadFilters?: IProductFilter;
@@ -38,6 +39,11 @@ interface IProps {
   setSelectedTags: Dispatch<SetStateAction<ISelectedTags[]>>;
   clearFilterBlock: (key: string) => void;
   onRemoveTag: (value: string, key: string) => void;
+  isPersonal: boolean;
+  setIsPersonal: (value: boolean) => void;
+  isSpecialOffer: boolean;
+  setIsSpecialOffer: (value: boolean) => void;
+  config: IFiltersConfig[];
 }
 
 const GlobalSearchPageFilters = ({
@@ -48,13 +54,16 @@ const GlobalSearchPageFilters = ({
   setSelectedTags,
   clearFilterBlock,
   onRemoveTag,
+  isPersonal,
+  setIsPersonal,
+  isSpecialOffer,
+  setIsSpecialOffer,
+  config,
 }: IProps) => {
   const { query } = useRouter();
   const [openedFilters, setOpenedFilters] = useState<string[]>([]);
   const [fromBudget] = useState(budgets.slice(0, budgets.length - 1));
   const [toBudget] = useState(budgets.slice(1));
-  const [isPersonal, setIsPersonal] = useState(true);
-  const [isSpecialOffer, setIsSpecialOffer] = useState(false);
   const [filtersData, setFiltersData] = useState(preloadFilters);
   const [getProductFilters] = useProductFilters(
     query?.searchTerm as string,
@@ -75,68 +84,31 @@ const GlobalSearchPageFilters = ({
   useFirstRenderEffect(() => {
     getProductFilters({
       variables: {
-        filters: buildFiltersRequestObject(activeFilters),
+        filters: buildFiltersRequestObject(activeFilters, isSpecialOffer),
         query: query.searchTerm as string,
       },
     });
-  }, [activeFilters]);
-
-  const changeBlockHeight = (parentNode: HTMLElement) => {
-    const parent = parentNode;
-    const optionsHeight = (parentNode?.querySelector('.options') as HTMLElement)
-      ?.offsetHeight;
-    const labelHeight = (parentNode?.querySelector('.label') as HTMLElement)
-      ?.offsetHeight;
-    parent.style.height = `${labelHeight + optionsHeight}px`;
-    setTimeout(() => {
-      parentNode.scrollIntoView({
-        behavior: 'smooth',
-        block: 'center',
-      });
-    }, 500);
-  };
+  }, [activeFilters, isSpecialOffer]);
 
   const onHandleFilterStatus = (
     e: React.MouseEvent<HTMLElement, MouseEvent>,
     key: string,
   ) => {
-    const { currentTarget, target } = e;
-    const isDropDownEvent =
-      currentTarget.className.includes('drop-down') ||
-      currentTarget.className.includes('drop-select');
-    const isLabelEvent = (target as HTMLElement).className === 'label';
-    if (isLabelEvent && !openedFilters.includes(key)) {
+    if (!openedFilters.includes(key)) {
       setOpenedFilters([...openedFilters, key]);
-      changeBlockHeight((target as HTMLElement).parentNode as HTMLElement);
-    } else if (isLabelEvent && openedFilters.includes(key)) {
-      ((target as HTMLElement).parentNode as HTMLElement).removeAttribute(
-        'style',
-      );
+    } else {
       setOpenedFilters(openedFilters.filter(value => value !== key));
-    } else if (isDropDownEvent && openedFilters.includes(key)) {
-      changeBlockHeight(currentTarget);
     }
   };
 
   const onHandleMultiSelect = (
-    e: React.ChangeEvent<HTMLInputElement>,
-    filter: keyof IFiltersData,
+    filterValues: string[],
+    filterName: keyof IFiltersData,
   ) => {
-    if (e.target.checked) {
-      setActiveFilters({
-        ...activeFilters,
-        [filter]: activeFilters?.[filter]
-          ? [...(activeFilters?.[filter] || []), e.target.value]
-          : [e.target.value],
-      });
-    } else {
-      setActiveFilters({
-        ...activeFilters,
-        [filter]: activeFilters?.[filter]?.filter(
-          value => value !== e.target.value,
-        ),
-      });
-    }
+    setActiveFilters({
+      ...activeFilters,
+      [filterName]: filterValues,
+    });
   };
 
   const onHandleNativeSelectChange = (
@@ -215,15 +187,19 @@ const GlobalSearchPageFilters = ({
         />
         &nbsp;Show only&nbsp;
         <Flame />
-        <span>Hot Deals</span>
+        <span>Hot Offers</span>
       </label>
-      <Toggle
-        offLabel="Business"
-        onLabel="Personal"
-        id="contractType"
+      <ToggleV2
+        leftLabel="Personal"
         checked={isPersonal}
-        onChange={() => setIsPersonal(!isPersonal)}
-        className="slide-togl"
+        leftValue={LeaseTypeEnum.PERSONAL}
+        rightValue={LeaseTypeEnum.BUSINESS}
+        rightLabel="Business"
+        leftId="r1"
+        rightId="r2"
+        leftDataTestId="personal"
+        rightDataTestId="business"
+        onChange={value => setIsPersonal(value === LeaseTypeEnum.PERSONAL)}
       />
       {config.map(
         ({
@@ -236,33 +212,20 @@ const GlobalSearchPageFilters = ({
           multiselect,
         }) =>
           type === 'drop-down' ? (
-            // eslint-disable-next-line
-            <div
-              className={cx('drop-down', {
-                open: openedFilters.includes(key),
-                'dynamic-label ': !multiselect,
-              })}
+            <DropdownV2
               key={key}
-              onClick={e => onHandleFilterStatus(e, key)}
-            >
-              {/* eslint-disable-next-line */}
-              <span
-                role="button"
-                className="label"
-                onClick={e => {
-                  e.stopPropagation();
-                  onHandleFilterStatus(e, key);
-                }}
-              >
-                <span>
-                  {multiselect
-                    ? label
-                    : labelForSingleSelect(key as keyof IFiltersData) || label}
-                </span>
-                <ChevronDown />
-              </span>
-              <div className="options">
+              onLabelClick={event => onHandleFilterStatus(event, key)}
+              label={
+                multiselect
+                  ? label
+                  : labelForSingleSelect(key as keyof IFiltersData) || label
+              }
+              multiselect={multiselect}
+              open={openedFilters.includes(key)}
+              type="drop-down"
+              renderSummary={ref => (
                 <SelectedBox
+                  ref={ref}
                   selected={
                     selectedTags.filter(
                       selectedBlocks => selectedBlocks.filterKey === key,
@@ -270,117 +233,102 @@ const GlobalSearchPageFilters = ({
                   }
                   onClearFilterBlock={() => clearFilterBlock(key)}
                 />
-                {(filtersMapper[key as keyof IFiltersData] as string[])?.map(
-                  option => (
-                    <Fragment key={option}>
-                      <input
-                        id={`${key}-${option}`}
-                        type="checkbox"
-                        name={key}
-                        onChange={event =>
-                          onHandleMultiSelect(event, key as keyof IFiltersData)
-                        }
-                        data-testid={`${key}-${option}`}
-                        value={option}
-                        disabled={
-                          !multiselect &&
-                          (filtersMapper[key as keyof IFiltersData] as string[])
-                            .length === 1
-                        }
-                        checked={
-                          activeFilters?.[key as keyof IFiltersData]?.includes(
-                            option,
-                          ) ||
-                          (!multiselect &&
-                            (filtersMapper[
-                              key as keyof IFiltersData
-                            ] as string[]).length === 1)
-                        }
-                      />
-                      <label htmlFor={`${key}-${option}`}>{option}</label>
-                    </Fragment>
-                  ),
-                )}
-              </div>
-            </div>
-          ) : (
-            // eslint-disable-next-line
-            <div
-              className={cx('drop-select', {
-                open: openedFilters.includes(key),
-              })}
-              key={key}
-              onClick={e => onHandleFilterStatus(e, key)}
+              )}
+              selected={
+                selectedTags.filter(
+                  selectedBlocks => selectedBlocks.filterKey === key,
+                )?.[0]?.tags || []
+              }
             >
-              {/* eslint-disable-next-line */}
-              <span
-                className="label"
-                onClick={e => {
-                  e.stopPropagation();
-                  onHandleFilterStatus(e, key);
-                }}
-              >
-                <span>{label}</span>
-                <ChevronDown />
-              </span>
-              <div className="options">
+              <ChoiceBoxesV2
+                multiSelect={multiselect}
+                values={filtersMapper[key as keyof IFiltersData] as string[]}
+                onChange={values =>
+                  onHandleMultiSelect(values, key as keyof IFiltersData)
+                }
+                selectedValues={
+                  activeFilters?.[key as keyof IFiltersData] as string[]
+                }
+                disabled={
+                  !multiselect &&
+                  (filtersMapper[key as keyof IFiltersData] as string[])
+                    .length === 1
+                }
+              />
+            </DropdownV2>
+          ) : (
+            <DropdownV2
+              type="drop-select"
+              key={key}
+              label={label}
+              multiselect={multiselect}
+              open={openedFilters.includes(key)}
+              onLabelClick={event => onHandleFilterStatus(event, key)}
+              renderSummary={ref => (
                 <SelectedDropdown
+                  ref={ref}
                   selected={getDropdownValues(innerSelects as IInnerSelect[])}
                   onClear={() =>
                     onClearDropdown(innerSelects as IInnerSelect[])
                   }
                   renderFunction={renderSelectedFunction}
                 />
-                {(innerSelects as IInnerSelect[])?.map(
-                  ({ title, key: selectKey, placeholder }) => (
-                    <Fragment key={title}>
-                      <span className="option-title">{title}</span>
-                      <div className="faux-select">
-                        <ChevronDown />
-                        <select
-                          name={`${selectKey}`}
-                          data-testid={`${selectKey}-form`}
-                          onChange={onHandleNativeSelectChange}
-                          disabled={isDisabledSelect(key, selectKey)}
+              )}
+              selected={
+                selectedTags.filter(
+                  selectedBlocks => selectedBlocks.filterKey === key,
+                )?.[0]?.tags || []
+              }
+            >
+              {(innerSelects as IInnerSelect[])?.map(
+                ({ title, key: selectKey, placeholder }) => (
+                  <Fragment key={title}>
+                    <span className="option-title">{title}</span>
+                    <div className="faux-select">
+                      <ChevronDown />
+                      <select
+                        name={`${selectKey}`}
+                        data-testid={`${selectKey}-form`}
+                        onChange={onHandleNativeSelectChange}
+                        disabled={isDisabledSelect(key, selectKey)}
+                      >
+                        <option
+                          disabled
+                          value=""
+                          selected={
+                            !activeFilters?.[
+                              selectKey as keyof IFiltersData
+                            ]?.[0]
+                          }
                         >
+                          {placeholder}
+                        </option>
+                        {(filtersMapper?.[
+                          selectKey as keyof IFiltersData
+                        ] as string[])?.map(value => (
                           <option
-                            disabled
-                            value=""
-                            selected={
-                              !activeFilters?.[
-                                selectKey as keyof IFiltersData
-                              ]?.[0]
+                            key={value}
+                            disabled={
+                              key === 'budget'
+                                ? isInvalidBudget(value, selectKey)
+                                : false
                             }
+                            value={value}
+                            selected={activeFilters?.[
+                              selectKey as keyof IFiltersData
+                            ]?.includes(value)}
                           >
-                            {placeholder}
+                            {renderValuesFunction
+                              ? renderValuesFunction(value)
+                              : value}
                           </option>
-                          {(filtersMapper?.[
-                            selectKey as keyof IFiltersData
-                          ] as string[])?.map(value => (
-                            <option
-                              key={value}
-                              disabled={
-                                key === 'budget'
-                                  ? isInvalidBudget(value, selectKey)
-                                  : false
-                              }
-                              value={value}
-                              selected={activeFilters?.[
-                                selectKey as keyof IFiltersData
-                              ]?.includes(value)}
-                            >
-                              {renderValuesFunction
-                                ? renderValuesFunction(value)
-                                : value}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    </Fragment>
-                  ),
-                )}
-              </div>
-            </div>
+                        ))}
+                      </select>
+                    </div>
+                  </Fragment>
+                ),
+              )}
+            </DropdownV2>
           ),
       )}
     </>

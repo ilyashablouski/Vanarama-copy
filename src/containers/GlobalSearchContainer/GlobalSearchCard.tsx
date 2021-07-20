@@ -32,7 +32,7 @@ const GlobalSearchCard = ({ data, imgUrl }: IProps) => {
         <div className="cost -flex-default">
           <Price price={data.rental} />
           &nbsp;
-          <span className="vat"> EX VAT</span>
+          <span className="vat"> Inc. VAT</span>
         </div>
         <Button
           round

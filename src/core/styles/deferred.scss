@@ -19,6 +19,7 @@ $include-presentation-styles: false !default;
 @import '../atoms/badge/badge.scss';
 // @import '../atoms/checkbox/checkbox.scss';
 @import '../atoms/choiceboxes/choiceboxes.scss';
+@import '../atoms/choiceboxes-v2/choiceboxes-v2.scss';
 @import '../atoms/toast/toast.scss';
 @import '../atoms/tooltip/tooltip.scss';
 @import '../atoms/amazonbutton/amazonbutton.scss';
@@ -63,6 +64,6 @@ $include-presentation-styles: false !default;
 @import '../organisms/media-gallery/media-gallery.scss';
 
 // row is imported last (for overrides)
-@import '../templates/row.scss';
+//@import '../templates/row.scss';
 @import '../util/youtube.scss';
 @import '../templates/error.scss';

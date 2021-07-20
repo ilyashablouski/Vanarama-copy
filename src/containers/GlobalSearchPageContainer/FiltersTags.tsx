@@ -21,7 +21,9 @@ const FiltersTags = ({ tags, clearAllFilters, removeFilterValue }: IProps) => {
             key={`${filterTags.filterKey}-${tag}`}
             onClick={() => removeFilterValue(tag, filterTags.filterKey)}
           >
-            {tag}
+            {filterTags.filterKey === 'from' || filterTags.filterKey === 'to'
+              ? `£${tag}`
+              : tag}
             <Close />
           </button>
         )),

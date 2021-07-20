@@ -14,9 +14,13 @@ import {
   GlobalSearchCardsDataVariables,
 } from '../../../generated/GlobalSearchCardsData';
 import {
+  FinanceTypeEnum,
   ProductDerivativeFilter,
+  ProductDerivativeSort,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
+import { DEFAULT_SORT } from '../GlobalSearchPageContainer/helpers';
+import { RESULTS_PER_REQUEST } from '../SearchPageContainer/helpers';
 
 export const GET_SUGGESTIONS_DATA = gql`
   query suggestionList($query: String) {
@@ -32,16 +36,14 @@ export const GET_PRODUCT_DERIVATIVES = gql`
     $from: Int
     $size: Int
     $filters: ProductDerivativeFilter
+    $sort: [ProductDerivativeSort]
   ) {
     productDerivatives(
       query: $query
-      sort: [
-        { field: offerRanking, direction: ASC }
-        { field: rental, direction: ASC }
-      ]
       size: $size
       from: $from
       filters: $filters
+      sort: $sort
     ) {
       total
       derivatives {
@@ -142,15 +144,15 @@ export function useSuggestionList(query: string) {
 }
 
 export function useGSCardsData(
-  capIds: string[],
-  vehicleType: VehicleTypeEnum,
   onCompleted?: (data: GlobalSearchCardsData) => void,
+  capIds?: string[],
+  vehicleType?: VehicleTypeEnum,
 ) {
   return useLazyQuery<GlobalSearchCardsData, GlobalSearchCardsDataVariables>(
     GET_CARDS_DATA,
     {
       variables: {
-        capIds,
+        capIds: capIds || [],
         vehicleType,
       },
       onCompleted,
@@ -161,18 +163,28 @@ export function useGSCardsData(
 
 export function useTextSearchList(
   query: string,
-  from: number,
-  onCompleted?: (data: productDerivatives) => void,
+  onCompleted: (data: productDerivatives) => void,
+  from?: number,
+  isPersonal?: boolean,
+  onOffer?: boolean,
   filters?: ProductDerivativeFilter,
+  sort?: ProductDerivativeSort[],
 ) {
   return useLazyQuery<productDerivatives, productDerivativesVariables>(
     GET_PRODUCT_DERIVATIVES,
     {
       variables: {
         query,
-        from,
-        size: 12,
-        filters,
+        from: from || 0,
+        size: RESULTS_PER_REQUEST,
+        filters: {
+          ...filters,
+          financeTypes: isPersonal
+            ? [FinanceTypeEnum.PCH]
+            : [FinanceTypeEnum.BCH],
+          onOffer: onOffer || null,
+        },
+        sort: sort || DEFAULT_SORT,
       },
       onCompleted,
     },
@@ -204,6 +216,10 @@ export function useGlobalSearch(query?: string) {
           query: value,
           from: 0,
           size: 6,
+          sort: DEFAULT_SORT,
+          filters: {
+            financeTypes: [FinanceTypeEnum.PCH],
+          },
         },
       });
       const { data: suggestsList } = await apolloClient.query<
