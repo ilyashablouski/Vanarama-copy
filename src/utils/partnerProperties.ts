@@ -18,10 +18,8 @@ export interface IPartnerData {
 }
 
 export function isPartnerSessionActive() {
-  if (getSessionStorage(PARTNER_SESSION_ACTIVE)) {
-    return true;
-  }
-  return false;
+  const partnershipActive = getSessionStorage(PARTNER_SESSION_ACTIVE);
+  return !!partnershipActive;
 }
 
 export function getPartnerProperties() {

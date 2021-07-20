@@ -3,7 +3,8 @@ import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import SchemaJSON from 'core/atoms/schema-json';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import getPartnerProperties, {
+import {
+  getPartnerProperties,
   isPartnerSessionActive,
 } from '../../utils/partnerProperties';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
@@ -57,7 +58,9 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
     const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
       link: { href: el.href || '', label: el.label },
     }));
-    if (getPartnerProperties() && isPartnerSessionActive()) {
+    const partnerProperties = getPartnerProperties();
+    const partnershipSessionActive = isPartnerSessionActive();
+    if (partnerProperties && partnershipSessionActive) {
       breadcrumbsItems[0] = {
         link: {
           href: `/partnerships/${getPartnerProperties()?.slug?.toLowerCase()}`,
@@ -66,6 +69,7 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
       };
     }
     setBreadcrumbs(breadcrumbsItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

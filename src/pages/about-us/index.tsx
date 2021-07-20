@@ -33,7 +33,9 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
     const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
       link: { href: el.href || '', label: el.label },
     }));
-    if (getPartnerProperties() && isPartnerSessionActive()) {
+    const partnerProperties = getPartnerProperties();
+    const partnershipSessionActive = isPartnerSessionActive();
+    if (partnerProperties && partnershipSessionActive) {
       breadcrumbsItems[0] = {
         link: {
           href: `/partnerships/${getPartnerProperties()?.slug?.toLowerCase()}`,
@@ -42,6 +44,7 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
       };
     }
     setBreadcrumbs(breadcrumbsItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
