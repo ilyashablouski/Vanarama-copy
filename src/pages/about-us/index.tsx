@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import getPartnerProperties, {
   isPartnerSessionActive,
 } from 'utils/partnerProperties';
+import { IBreadcrumb } from 'types/breadcrumbs';
 import { GET_ABOUT_US_PAGE_DATA } from '../../containers/AboutUsPageContainer/gql';
 import AboutUs, {
   IAboutPageProps,
@@ -30,7 +31,7 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
 
   // Check if partnership session is active to set partnership as home page link
   useEffect(() => {
-    const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    const breadcrumbsItems = metaData?.breadcrumbs?.map((el: IBreadcrumb) => ({
       link: { href: el.href || '', label: el.label },
     }));
     const partnerProperties = getPartnerProperties();

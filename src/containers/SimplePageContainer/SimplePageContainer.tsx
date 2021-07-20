@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
+import { IBreadcrumb } from '../../types/breadcrumbs';
 import { getSectionsData } from '../../utils/getSectionsData';
 import {
   getPartnerProperties,
@@ -54,7 +55,7 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
 
   // Check if partnership session is active to set partnership as home page link
   useEffect(() => {
-    const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    const breadcrumbsItems = metaData?.breadcrumbs?.map((el: IBreadcrumb) => ({
       link: { href: el.href || '', label: el.label },
     }));
     const partnerProperties = getPartnerProperties();

@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import SchemaJSON from 'core/atoms/schema-json';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { IBreadcrumb } from '../../types/breadcrumbs';
 import {
   getPartnerProperties,
   isPartnerSessionActive,
@@ -55,7 +56,7 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
 
   // Check if partnership session is active to set partnership as home page link
   useEffect(() => {
-    const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+    const breadcrumbsItems = metaData?.breadcrumbs?.map((el: IBreadcrumb) => ({
       link: { href: el.href || '', label: el.label },
     }));
     const partnerProperties = getPartnerProperties();
