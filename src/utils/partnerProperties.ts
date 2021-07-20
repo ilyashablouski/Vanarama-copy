@@ -17,6 +17,12 @@ export interface IPartnerData {
   telephone: Nullish<string>;
 }
 
+export function isPartnerSessionActive() {
+  if (getSessionStorage(PARTNER_SESSION_ACTIVE)) {
+    return true;
+  } else return false;
+}
+
 export function getPartnerProperties() {
   if (
     Cookies.get(PARTNER_COOKIE_NAME) &&
