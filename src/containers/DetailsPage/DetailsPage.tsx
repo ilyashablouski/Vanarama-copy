@@ -558,7 +558,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           <div className="pdp--wishlist">
             <WishlistToggle productDetails={data} />
           </div>
-          <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
+          <a
+            className="pdp--rating"
+            href={reviews?.length ? '#reviews' : undefined}
+          >
+            <Rating size="regular" score={vehicleDetails?.averageRating ?? 0} />
+          </a>
           <div className="pdp--brochure">
             {vehicleDetails?.brochureUrl && (
               <RouterLink
@@ -599,7 +604,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           derivativeInfo={derivativeInfo}
           standardEquipment={standardEquipment}
         />
-        {isSpecialOffer && isCar && <FreeInsuranceCards />}
+        {isSpecialOffer && isCar && (
+          <LazyLoadComponent
+            visibleByDefault={isServerRenderOrAppleDevice}
+            placeholder={<span className="-d-block -h-300" />}
+          >
+            <FreeInsuranceCards />
+          </LazyLoadComponent>
+        )}
         {isMobile && vehicleDetails?.brochureUrl && (
           <Button
             className="pdp--mobile-download"
@@ -623,7 +635,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         )}
         {(vans || (cars && !isSpecialOffer)) && <Banner vans={vans} />}
         {(vans || pickups) && !!independentReview && (
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+          <LazyLoadComponent
+            visibleByDefault={isServerRenderOrAppleDevice}
+            placeholder={<span className="-d-block -h-400" />}
+          >
             <IndependentReview review={independentReview || ''} />
           </LazyLoadComponent>
         )}
@@ -652,21 +667,30 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             warrantyDetails={warrantyDetails}
           />
         )}
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <LazyLoadComponent
+          visibleByDefault={isServerRenderOrAppleDevice}
+          placeholder={<span className="-d-block -h-400" />}
+        >
           <WhyChooseLeasing warrantyDetails={warrantyDetails} />
           <WhyChooseVanarama cars={cars} vans={vans} pickups={pickups} />
         </LazyLoadComponent>
-        <div className="pdp--reviews">
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <section className="pdp--reviews" id="reviews">
+          <LazyLoadComponent
+            visibleByDefault={isServerRenderOrAppleDevice}
+            placeholder={<span className="-d-block -h-300" />}
+          >
             <CustomerReviews
-              reviews={reviews || []}
+              reviews={reviews ?? []}
               title="Customer Reviews"
               sliderClassName="customer-reviews"
               headingClassName="-mb-200"
             />
           </LazyLoadComponent>
-        </div>
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        </section>
+        <LazyLoadComponent
+          visibleByDefault={isServerRenderOrAppleDevice}
+          placeholder={<span className="-d-block -h-300" />}
+        >
           <FrequentlyAskedQuestions
             rangeFAQ={rangeFAQs || []}
             rangeFAQTitle={pageTitle}
@@ -699,7 +723,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         />
       )}
       {(!!productCard || !!capsId?.length) && (
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <LazyLoadComponent
+          visibleByDefault={isServerRenderOrAppleDevice}
+          placeholder={<span className="-d-block -h-600" />}
+        >
           <CustomerAlsoViewedContainer
             initProductCard={productCard}
             capsId={capsId || []}
@@ -715,46 +742,44 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           })}
           ref={leaseScanner}
         >
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-            <LeaseScanner
-              classNameHeading="headingText"
-              className="pdp-footer"
-              nextBestPrice={
-                leaseScannerData?.maintenance
-                  ? `£${toPriceFormat(
-                      leaseScannerData?.quoteByCapId?.nextBestPrice?.maintained,
-                    )} PM ${leaseScannerData?.stateVAT}. VAT`
-                  : `£${toPriceFormat(
-                      leaseScannerData?.quoteByCapId?.nextBestPrice
-                        ?.nonMaintained,
-                    )} PM ${leaseScannerData?.stateVAT}. VAT`
-              }
-              priceLabel={
-                leaseScannerData?.maintenance
-                  ? `+£${toPriceFormat(
-                      leaseScannerData?.quoteByCapId?.maintenanceCost
-                        ?.monthlyRental,
-                    )} Maintenance`
-                  : undefined
-              }
-              price={
-                +toPriceFormat(
-                  leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
-                )
-              }
-              orderNowClick={onSubmitClickMobile}
-              headingText={`PM ${leaseScannerData?.stateVAT}. VAT`}
-              leasingProviders={LEASING_PROVIDERS}
-              startLoading={isPlayingLeaseAnimation}
-              endAnimation={() => {
-                setIsPlayingLeaseAnimation(false);
-                leaseScannerData?.endAnimation();
-              }}
-              requestCallBack={() => {
-                leaseScannerData?.requestCallBack();
-              }}
-            />
-          </LazyLoadComponent>
+          <LeaseScanner
+            classNameHeading="headingText"
+            className="pdp-footer"
+            nextBestPrice={
+              leaseScannerData?.maintenance
+                ? `£${toPriceFormat(
+                    leaseScannerData?.quoteByCapId?.nextBestPrice?.maintained,
+                  )} PM ${leaseScannerData?.stateVAT}. VAT`
+                : `£${toPriceFormat(
+                    leaseScannerData?.quoteByCapId?.nextBestPrice
+                      ?.nonMaintained,
+                  )} PM ${leaseScannerData?.stateVAT}. VAT`
+            }
+            priceLabel={
+              leaseScannerData?.maintenance
+                ? `+£${toPriceFormat(
+                    leaseScannerData?.quoteByCapId?.maintenanceCost
+                      ?.monthlyRental,
+                  )} Maintenance`
+                : undefined
+            }
+            price={
+              +toPriceFormat(
+                leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+              )
+            }
+            orderNowClick={onSubmitClickMobile}
+            headingText={`PM ${leaseScannerData?.stateVAT}. VAT`}
+            leasingProviders={LEASING_PROVIDERS}
+            startLoading={isPlayingLeaseAnimation}
+            endAnimation={() => {
+              setIsPlayingLeaseAnimation(false);
+              leaseScannerData?.endAnimation();
+            }}
+            requestCallBack={() => {
+              leaseScannerData?.requestCallBack();
+            }}
+          />
         </div>
       )}
       {isModalVisible && (
