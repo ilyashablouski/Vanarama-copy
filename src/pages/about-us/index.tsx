@@ -10,6 +10,8 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
 import { encodeData, decodeData } from '../../utils/data';
+import { useEffect, useState } from 'react';
+import getPartnerProperties, { isPartnerSessionActive } from 'utils/partnerProperties';
 
 const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
   data: encodedData,
@@ -22,15 +24,29 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
     ['featuredImage'],
     data?.aboutUsLandingPage,
   );
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const [breadcrumbs, setBreadcrumbs] = useState([]);
+
+  // Check if partnership session is active to set partnership as home page link
+  useEffect(() => {
+    const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+      link: { href: el.href || '', label: el.label },
+    }));
+    if (getPartnerProperties() && isPartnerSessionActive()) {
+      breadcrumbsItems[0] = {
+        link: {
+          href: `/partnerships/${getPartnerProperties()?.slug?.toLowerCase()}`,
+          label: 'Home',
+        },
+      };
+    }
+    setBreadcrumbs(breadcrumbsItems);
+  }, []);
 
   return (
     <>
-      {breadcrumbsItems && (
+      {breadcrumbs && (
         <div className="row:title">
-          <Breadcrumb items={breadcrumbsItems} />
+          <Breadcrumb items={breadcrumbs} />
         </div>
       )}
       <AboutUs data={data} loading={loading} />

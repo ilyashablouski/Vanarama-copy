@@ -6,6 +6,10 @@ import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
+import { useEffect, useState } from 'react';
+import getPartnerProperties, {
+  isPartnerSessionActive,
+} from 'utils/partnerProperties';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -59,14 +63,28 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
     data?.genericPage,
   );
   const metaData = getSectionsData(['metaData'], data?.genericPage);
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const [breadcrumbs, setBreadcrumbs] = useState([]);
+
+  // Check if partnership session is active to set partnership as home page link
+  useEffect(() => {
+    const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
+      link: { href: el.href || '', label: el.label },
+    }));
+    if (getPartnerProperties() && isPartnerSessionActive()) {
+      breadcrumbsItems[0] = {
+        link: {
+          href: `/partnerships/${getPartnerProperties()?.slug?.toLowerCase()}`,
+          label: 'Home',
+        },
+      };
+    }
+    setBreadcrumbs(breadcrumbsItems);
+  }, []);
 
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
+        <Breadcrumb items={breadcrumbs} />
         <Heading tag="h1" size="xlarge" color="black">
           {metaDataName}
         </Heading>

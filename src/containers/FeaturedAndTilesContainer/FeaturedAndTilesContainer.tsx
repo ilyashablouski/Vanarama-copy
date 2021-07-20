@@ -9,7 +9,9 @@ import { FeaturedHtml } from './getFeaturedHtml';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
-import getPartnerProperties, { isPartnerSessionActive } from 'utils/partnerProperties';
+import getPartnerProperties, {
+  isPartnerSessionActive,
+} from 'utils/partnerProperties';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -48,23 +50,23 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
   );
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
-  const [breadcrumbs, setBreadcrumbs] = useState([])
+  const [breadcrumbs, setBreadcrumbs] = useState([]);
 
-  // Check if partnership session is active to set partnership as home page link  
+  // Check if partnership session is active to set partnership as home page link
   useEffect(() => {
     const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
       link: { href: el.href || '', label: el.label },
     }));
     if (getPartnerProperties() && isPartnerSessionActive()) {
       breadcrumbsItems[0] = {
-        link : {
+        link: {
           href: `/partnerships/${getPartnerProperties()?.slug?.toLowerCase()}`,
-          label: 'Home'
-        }
-      }
+          label: 'Home',
+        },
+      };
     }
-    setBreadcrumbs(breadcrumbsItems)
-  }, [])
+    setBreadcrumbs(breadcrumbsItems);
+  }, []);
 
   return (
     <>
