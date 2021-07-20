@@ -62,7 +62,7 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
     if (partnerProperties && partnershipSessionActive) {
       breadcrumbsItems[0] = {
         link: {
-          href: `/partnerships/${getPartnerProperties()?.slug?.toLowerCase()}`,
+          href: `/partnerships/${partnerProperties?.slug?.toLowerCase()}`,
           label: 'Home',
         },
       };

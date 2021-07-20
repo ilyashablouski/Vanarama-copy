@@ -63,7 +63,7 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
     if (partnerProperties && partnershipSessionActive) {
       breadcrumbsItems[0] = {
         link: {
-          href: `/partnerships/${getPartnerProperties()?.slug?.toLowerCase()}`,
+          href: `/partnerships/${partnerProperties?.slug?.toLowerCase()}`,
           label: 'Home',
         },
       };
