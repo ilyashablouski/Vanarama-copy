@@ -198,6 +198,11 @@ const SearchPageContainer: React.FC<IProps> = ({
   defaultSort,
 }: IProps) => {
   // assign here as when inline causing hook lint errors
+
+  const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
+  const [isPersonal, setIsPersonal] = useState(
+    cachedLeaseType === LeaseTypeEnum.PERSONAL,
+  );
   const applyColumns = !isEvPage ? '-columns' : '';
 
   const client = useApolloClient();
@@ -247,23 +252,20 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [cardsData, setCardsData] = useState(
     preLoadProductCardsData?.productCard || ([] as (IProductCard | null)[]),
   );
-
   const [lastCard, setLastCard] = useState(
     preLoadVehiclesList?.vehicleList.pageInfo.endCursor || '',
   );
+
   const [hasNextPage, setHasNextPage] = useState(
     preLoadVehiclesList?.vehicleList?.pageInfo.hasNextPage ?? true,
   );
 
-  const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
-  const [isPersonal, setIsPersonal] = useState(
-    cachedLeaseType === LeaseTypeEnum.PERSONAL,
-  );
   const [totalCount, setTotalCount] = useState(
-    isMakePage
+    isMakePage && true
       ? preLoadRanges?.rangeList?.length || 0
       : preLoadVehiclesList?.vehicleList?.totalCount || 0,
   );
+
   const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
   const [sortOrder, setSortOrder] = useState(savedSortOrder);
   const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(true);
