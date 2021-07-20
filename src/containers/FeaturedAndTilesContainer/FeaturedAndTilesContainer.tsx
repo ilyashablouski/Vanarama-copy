@@ -1,8 +1,13 @@
-import React, { FC } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import SchemaJSON from 'core/atoms/schema-json';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import { IBreadcrumb } from '../../types/breadcrumbs';
+import {
+  getPartnerProperties,
+  isPartnerSessionActive,
+} from '../../utils/partnerProperties';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import TilesContainer from '../TilesContainer/TilesContainer';
 import { FeaturedHtml } from './getFeaturedHtml';
@@ -47,14 +52,31 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
   );
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const [breadcrumbs, setBreadcrumbs] = useState([]);
+
+  // Check if partnership session is active to set partnership as home page link
+  useEffect(() => {
+    const breadcrumbsItems = metaData?.breadcrumbs?.map((el: IBreadcrumb) => ({
+      link: { href: el.href || '', label: el.label },
+    }));
+    const partnerProperties = getPartnerProperties();
+    const partnershipSessionActive = isPartnerSessionActive();
+    if (partnerProperties && partnershipSessionActive) {
+      breadcrumbsItems[0] = {
+        link: {
+          href: `/partnerships/${partnerProperties?.slug?.toLowerCase()}`,
+          label: 'Home',
+        },
+      };
+    }
+    setBreadcrumbs(breadcrumbsItems);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
+        <Breadcrumb items={breadcrumbs} />
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>
