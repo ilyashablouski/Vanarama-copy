@@ -46,7 +46,7 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
 
   return (
     <>
-      <nav className="pdp--flag">
+      <div className="pdp--flag">
         <div>
           <span>{flag.text}</span>
         </div>
@@ -56,7 +56,7 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
             <span>{flag.accentText}</span>
           </div>
         )}
-      </nav>
+      </div>
 
       <Tabs activeIndex={activeTab} onChange={index => onChangeTab(index)}>
         <TabPanels className="-pt-000">
