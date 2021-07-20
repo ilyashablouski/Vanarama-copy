@@ -10,7 +10,7 @@ import { ICarouselProps } from './interface';
 
 const Slider: FC<ICarouselProps> = ({
   children,
-  countShow= 3,
+  countShow = 3,
   className,
   countItems,
   initialSlideHeight,

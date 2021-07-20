@@ -88,7 +88,7 @@ import {
   removeSessionStorageItem,
 } from '../../utils/windowSessionStorage';
 import getTitleTag from '../../utils/getTitleTag';
-import { ThreeColumnSection } from '../../components/ThreeColumnSection/ThreeColumnSection';
+import ThreeColumnSection from '../../components/ThreeColumnSection/ThreeColumnSection';
 import ReviewsTwoColumn from '../../components/ReviewsTwoColumn/ReviewsTwoColumn';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
@@ -200,31 +200,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   // assign here as when inline causing hook lint errors
   const applyColumns = !isEvPage ? '-columns' : '';
 
-  const listReviews = [
-    {
-      summary:
-        'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
-      customerName: 'Dzho',
-      rating: 2,
-    },
-
-    {
-      summary:
-        'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
-      customerName: 'Kate',
-      rating: 3,
-    },
-    {
-      summary:
-        'Deserunt cillum aliquip culpa aliquip nostrud do tempor ad est velit magna minim labore culpa',
-      customerName: 'Peter',
-      rating: 4,
-    },
-  ];
-
   const client = useApolloClient();
   const router = useRouter();
-  const isNewPage = newRangeUrls.includes(router.asPath) ? true : false;
+  const isNewPage = !!newRangeUrls.includes(router.asPath);
   const isDynamicFilterPage = useMemo(
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
@@ -251,8 +229,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [shouldUpdateCache, setShouldUpdateCache] = useState(
     preLoadVehiclesList?.vehicleList?.pageInfo?.hasNextPage ?? true,
   );
-
-  console.log(pageData);
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
@@ -300,9 +276,10 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   let countListAccordion = 0;
 
-  const getDataAccordion = (treeGetData: string[], pageData: any) => {
+  const getDataAccordion = (treeGetData: string[], pageDatas: any) => {
+    let list;
     if (isNewPage && isRangePage) {
-      return getSectionsData(treeGetData, pageData).map((item: any) => {
+      list = getSectionsData(treeGetData, pageDatas).map((item: any) => {
         countListAccordion += 1;
 
         return {
@@ -312,6 +289,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         } as ItemAccordion;
       });
     }
+    return list;
   };
 
   useEffect(() => {
@@ -1336,7 +1314,16 @@ const SearchPageContainer: React.FC<IProps> = ({
           {isNewPage && isRangePage ? (
             <>
               <div className="row:default">
-                <ThreeColumnSection data={pageData?.genericPage} />
+                <ThreeColumnSection
+                  title={getSectionsData(
+                    ['sectionsAsArray', 'cards', '0', 'name'],
+                    pageData?.genericPage,
+                  )}
+                  cards={getSectionsData(
+                    ['sectionsAsArray', 'cards', '0', 'cards'],
+                    pageData?.genericPage,
+                  )}
+                />
 
                 <section className="row:featured-left">
                   <LazyLoadComponent

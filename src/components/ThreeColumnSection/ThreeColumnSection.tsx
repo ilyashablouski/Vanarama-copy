@@ -1,17 +1,19 @@
-import React, { FunctionComponent } from 'react';
+import React from 'react';
 import Image from 'core/atoms/image/Image';
 import { getSectionsData } from '../../utils/getSectionsData';
 
 type ThreeColumnSectionProps = {
-  data?: object;
+  cards: [];
+  title: string;
 };
 
-export const ThreeColumnSection: FunctionComponent<ThreeColumnSectionProps> = ({
-  data,
+const ThreeColumnSection: React.FC<ThreeColumnSectionProps> = ({
+  title,
+  cards,
 }) => {
-
-  const title = data.sectionsAsArray.cards[0].name;
-  const cards = data.sectionsAsArray.cards[0].cards;
+  if (!cards.length) {
+    return null;
+  }
 
   return (
     <>
@@ -19,16 +21,13 @@ export const ThreeColumnSection: FunctionComponent<ThreeColumnSectionProps> = ({
         <h3 className="heading -large -black -a-center -mb-500">{title}</h3>
 
         <div className="row:cards-3col -a-center -mb-500">
-          {cards?.map(item => {
+          {cards?.map((item: any) => {
             return (
               <>
                 <div>
                   <Image
                     src={
-                      getSectionsData(
-                        ['image', 'file', 'url'],
-                        item,
-                      ) ||
+                      getSectionsData(['image', 'file', 'url'], item) ||
                       'https://res.cloudinary.com/diun8mklf/image/upload/c_fill,g_center,h_425,q_auto:best,w_800/v1581538982/cars/AudiQ30718_4_k5ojqt.jpg'
                     }
                   />
@@ -42,3 +41,5 @@ export const ThreeColumnSection: FunctionComponent<ThreeColumnSectionProps> = ({
     </>
   );
 };
+
+export default ThreeColumnSection;
