@@ -222,6 +222,8 @@ const GlobalSearchPageContainer = ({
 
   // reset filters after update search term
   useFirstRenderEffect(() => {
+    // prevent case when filter tags array not update
+    setActiveTab(ITabs.Filter);
     setActiveFilters(initialFilters);
   }, [initialFilters]);
 
