@@ -3,15 +3,15 @@ import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import SchemaJSON from 'core/atoms/schema-json';
 import RouterLink from '../../components/RouterLink/RouterLink';
+import getPartnerProperties, {
+  isPartnerSessionActive,
+} from '../../utils/partnerProperties';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import TilesContainer from '../TilesContainer/TilesContainer';
 import { FeaturedHtml } from './getFeaturedHtml';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
-import getPartnerProperties, {
-  isPartnerSessionActive,
-} from 'utils/partnerProperties';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,

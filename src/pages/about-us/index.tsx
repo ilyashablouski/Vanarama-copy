@@ -1,6 +1,10 @@
 import { NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import { PreviewNextPageContext } from 'types/common';
+import { useEffect, useState } from 'react';
+import getPartnerProperties, {
+  isPartnerSessionActive,
+} from 'utils/partnerProperties';
 import { GET_ABOUT_US_PAGE_DATA } from '../../containers/AboutUsPageContainer/gql';
 import AboutUs, {
   IAboutPageProps,
@@ -10,8 +14,6 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
 import Head from '../../components/Head/Head';
 import { encodeData, decodeData } from '../../utils/data';
-import { useEffect, useState } from 'react';
-import getPartnerProperties, { isPartnerSessionActive } from 'utils/partnerProperties';
 
 const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
   data: encodedData,

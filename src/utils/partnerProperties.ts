@@ -20,7 +20,8 @@ export interface IPartnerData {
 export function isPartnerSessionActive() {
   if (getSessionStorage(PARTNER_SESSION_ACTIVE)) {
     return true;
-  } else return false;
+  }
+  return false;
 }
 
 export function getPartnerProperties() {

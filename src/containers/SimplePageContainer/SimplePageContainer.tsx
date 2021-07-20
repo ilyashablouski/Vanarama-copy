@@ -1,15 +1,15 @@
 import { ApolloError } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
+import { useEffect, useState } from 'react';
 import RouterLink from '../../components/RouterLink/RouterLink';
-import { GenericPageQuery } from '../../../generated/GenericPageQuery';
-import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
-import { useEffect, useState } from 'react';
+import { getSectionsData } from '../../utils/getSectionsData';
 import getPartnerProperties, {
   isPartnerSessionActive,
-} from 'utils/partnerProperties';
+} from '../../utils/partnerProperties';
+import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -47,22 +47,8 @@ interface ISimplePageContainer {
 
 const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
   const { data, loading, error } = prop;
-
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  if (error) {
-    return <ErrorMessage message={error.message} />;
-  }
-
-  const metaDataName = getSectionsData(['metaData', 'name'], data?.genericPage);
-  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
-  const featuredImageUrl = getSectionsData(
-    ['featuredImage', 'file', 'url'],
-    data?.genericPage,
-  );
   const metaData = getSectionsData(['metaData'], data?.genericPage);
+
   const [breadcrumbs, setBreadcrumbs] = useState([]);
 
   // Check if partnership session is active to set partnership as home page link
@@ -80,6 +66,21 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
     }
     setBreadcrumbs(breadcrumbsItems);
   }, []);
+
+  if (loading) {
+    return <Loading size="large" />;
+  }
+
+  if (error) {
+    return <ErrorMessage message={error.message} />;
+  }
+
+  const metaDataName = getSectionsData(['metaData', 'name'], data?.genericPage);
+  const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
+  const featuredImageUrl = getSectionsData(
+    ['featuredImage', 'file', 'url'],
+    data?.genericPage,
+  );
 
   return (
     <>
