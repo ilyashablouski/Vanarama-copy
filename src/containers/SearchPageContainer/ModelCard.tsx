@@ -85,9 +85,7 @@ const ModelCard = memo(
             priceLabel="from"
             size="large"
             separator="."
-            priceDescription={`Per Month ${
-              isPersonalPrice ? 'Inc' : 'Exc'
-            }.VAT`}
+            priceDescription={`PM ${isPersonalPrice ? 'Inc' : 'Exc'} VAT`}
           />
           <RouterLink
             link={{
