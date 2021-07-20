@@ -448,6 +448,10 @@
           align-items: center;
           margin-top: 0;
 
+          .pdp--rating {
+            display: inline-flex;
+          }
+
           .pdp--brochure {
             @include mobile {
               display: none;

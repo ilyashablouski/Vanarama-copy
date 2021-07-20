@@ -61,7 +61,7 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({
   };
 
   return (
-    <div className="pdp--feature-grid -col2">
+    <section className="pdp--feature-grid -col2">
       <Heading tag="h2" color="black" size="lead">
         Why Choose Leasing?
       </Heading>
@@ -93,7 +93,7 @@ const WhyChooseLeasing: React.FC<IWhyChooseLeasingProps> = ({
           size="xlarge"
         />,
       )}
-    </div>
+    </section>
   );
 };
 
