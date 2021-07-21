@@ -10,8 +10,9 @@ $include-presentation-styles: false !default;
 //@import '../util/size.scss';
 //@import '../util/markdown.scss';
 
-// page templates
+// page templatess
 @import '../templates/page-vars.scss';
+@import './pages/range-page-with-filters.scss';
 
 // components (atoms)
 @import '../atoms/dropdown/dropdown.scss';

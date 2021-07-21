@@ -16,7 +16,8 @@ import {
   RESULTS_PER_REQUEST,
   sortObjectGenerator,
   ssrCMSQueryExecutor,
-  newRangeSlugs,
+  NEW_RANGE_SLUGS,
+  trimSlug,
 } from '../../../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../../../generated/bodyStyleList';
@@ -147,7 +148,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
     const contextData = {
       req: {
         url: context.req?.url || '',
-        resolvedUrl: context.resolvedUrl?.substring(1) || '',
+        resolvedUrl: trimSlug(context.resolvedUrl || ''),
       },
       query: { ...context.query },
     };
@@ -155,7 +156,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
       client,
       contextData,
       true,
-      newRangeSlugs.includes(contextData.req?.resolvedUrl || '')
+      NEW_RANGE_SLUGS.includes(contextData.req?.resolvedUrl || '')
         ? 'isNewRangePage'
         : 'isRangePage',
     )) as ApolloQueryResult<GenericPageQuery>;

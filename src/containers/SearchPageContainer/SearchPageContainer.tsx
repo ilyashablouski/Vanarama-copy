@@ -42,7 +42,7 @@ import {
   sortObjectGenerator,
   sortValues,
   ssrCMSQueryExecutor,
-  newRangeSlugs,
+  NEW_RANGE_SLUGS,
 } from './helpers';
 import {
   GetProductCard,
@@ -201,7 +201,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const client = useApolloClient();
   const router = useRouter();
   const isNewPage =
-    newRangePageSlug && !!newRangeSlugs.includes(newRangePageSlug);
+    newRangePageSlug && !!NEW_RANGE_SLUGS.includes(newRangePageSlug);
   const isDynamicFilterPage = useMemo(
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
@@ -255,7 +255,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
 
   const [totalCount, setTotalCount] = useState(
-    isMakePage && true
+    isMakePage
       ? preLoadRanges?.rangeList?.length || 0
       : preLoadVehiclesList?.vehicleList?.totalCount || 0,
   );

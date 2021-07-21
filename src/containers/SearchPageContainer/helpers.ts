@@ -156,7 +156,7 @@ export const budgetMapper = {
   'deals-over-550': '550',
 };
 
-export const newRangeSlugs = [
+export const NEW_RANGE_SLUGS = [
   'car-leasing/land-rover/range-rover-evoque',
   'car-leasing/mercedes-benz/a-class',
   'car-leasing/audi/a3',
@@ -428,3 +428,6 @@ export const isPreviousPage = (currentRoute: ParsedUrlQuery) => {
 
 export const getNumberOfVehicles = (id: number) =>
   Math.ceil(id / RESULTS_PER_REQUEST) * RESULTS_PER_REQUEST;
+
+export const trimSlug = (slug: string) =>
+  slug.charAt(0) === '/' ? slug.substring(1) : slug;
