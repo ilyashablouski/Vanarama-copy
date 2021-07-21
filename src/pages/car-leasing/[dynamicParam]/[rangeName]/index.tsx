@@ -36,6 +36,7 @@ import { filterList_filterList as IFilterList } from '../../../../../generated/f
 import FeaturedAndTilesContainer from '../../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { PAGE_TYPES } from '../../../../utils/pageTypes';
 import { decodeData, encodeData } from '../../../../utils/data';
+import { SlugNextPageContext } from 'types/common';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -131,7 +132,7 @@ const Page: NextPage<IProps> = ({
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: SlugNextPageContext) {
   const client = createApolloClient({});
   const makeName = (context?.query?.dynamicParam as string).toLowerCase();
   const rangeName = (context?.query?.rangeName as string).toLowerCase();
