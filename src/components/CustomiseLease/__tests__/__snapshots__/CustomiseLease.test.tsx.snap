@@ -281,7 +281,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <span
     className="heading -black -regular"
   >
-    Add Maintenance:
+    Add Vanarama Service Plan (Our Maintenance Package):
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -698,9 +698,9 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
           >
             Call 01442 838 195
           </a>
-           
+
           |
-           
+
           <a
             className="link -primary -small -plain"
             onClick={[Function]}
@@ -995,7 +995,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <span
     className="heading -black -regular"
   >
-    Add Maintenance:
+    Add Vanarama Service Plan (Our Maintenance Package):
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -1418,9 +1418,9 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
           >
             Call 01442 838 195
           </a>
-           
+
           |
-           
+
           <a
             className="link -primary -small -plain"
             onClick={[Function]}
