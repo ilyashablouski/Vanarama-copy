@@ -66,6 +66,89 @@ const LeasingExplainedContainer: FC<IProps> = ({ data }) => {
   const body = getSectionsData(['body'], data?.genericPage);
   const title = getSectionsData(['metaData', 'name'], data?.genericPage);
   const carousel = getSectionsData(['sections', 'carousel'], data?.genericPage);
+
+  // const carousel = {
+  //   cards: [
+  //     {
+  //       body: 'Find out why leasing a van is an ideal option for Sole Traders.',
+  //       image: {
+  //         description: 'Can Sole Traders Lease a Van?',
+  //         file: {
+  //           url:
+  //             '//images.ctfassets.net/3xid768u5joa/1MKn8EL3noYIa3…452d6e92acb56f549806cf8/sole-trader-van-lease.jpg',
+  //           fileName: 'sole-trader-van-lease.jpg',
+  //         },
+  //         title: 'Sole Trader Van Lease',
+  //       },
+  //       link: {
+  //         legacyUrl: null,
+  //         text: 'Read More',
+  //         url: '/ask-the-expert/sole-trader-van-leasing.html',
+  //       },
+  //       name: 'Can Sole Traders Lease a Van?',
+  //       title: 'Can Sole Traders Lease a Van?',
+  //     },
+  //     {
+  //       body: 'Find out why leasing a van is an ideal option for Sole Traders.',
+  //       image: {
+  //         description: 'Can Sole Traders Lease a Van?',
+  //         file: {
+  //           url:
+  //             '//images.ctfassets.net/3xid768u5joa/1MKn8EL3noYIa3…452d6e92acb56f549806cf8/sole-trader-van-lease.jpg',
+  //           fileName: 'sole-trader-van-lease.jpg',
+  //         },
+  //         title: 'Sole Trader Van Lease',
+  //       },
+  //       link: {
+  //         legacyUrl: null,
+  //         text: 'Read More',
+  //         url: '/ask-the-expert/sole-trader-van-leasing.html',
+  //       },
+  //       name: 'Can Sole Traders Lease a Van?',
+  //       title: 'Can Sole Traders Lease a Van?',
+  //     },
+  //     {
+  //       body: 'Find out why leasing a van is an ideal option for Sole Traders.',
+  //       image: {
+  //         description: 'Can Sole Traders Lease a Van?',
+  //         file: {
+  //           url:
+  //             '//images.ctfassets.net/3xid768u5joa/1MKn8EL3noYIa3…452d6e92acb56f549806cf8/sole-trader-van-lease.jpg',
+  //           fileName: 'sole-trader-van-lease.jpg',
+  //         },
+  //         title: 'Sole Trader Van Lease',
+  //       },
+  //       link: {
+  //         legacyUrl: null,
+  //         text: 'Read More',
+  //         url: '/ask-the-expert/sole-trader-van-leasing.html',
+  //       },
+  //       name: 'Can Sole Traders Lease a Van?',
+  //       title: 'Can Sole Traders Lease a Van?',
+  //     },
+  //     {
+  //       body: 'Find out why leasing a van is an ideal option for Sole Traders.',
+  //       image: {
+  //         description: 'Can Sole Traders Lease a Van?',
+  //         file: {
+  //           url:
+  //             '//images.ctfassets.net/3xid768u5joa/1MKn8EL3noYIa3…452d6e92acb56f549806cf8/sole-trader-van-lease.jpg',
+  //           fileName: 'sole-trader-van-lease.jpg',
+  //         },
+  //         title: 'Sole Trader Van Lease',
+  //       },
+  //       link: {
+  //         legacyUrl: null,
+  //         text: 'Read More',
+  //         url: '/ask-the-expert/sole-trader-van-leasing.html',
+  //       },
+  //       name: 'Can Sole Traders Lease a Van?',
+  //       title: 'Can Sole Traders Lease a Van?',
+  //     },
+  //   ],
+  //   name: 'Most Popular Questions',
+  //   title: 'Most Popular Questions',
+  // };
   const cards = getSectionsData(['sections', 'cards'], data?.genericPage);
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
@@ -74,6 +157,8 @@ const LeasingExplainedContainer: FC<IProps> = ({ data }) => {
   }));
 
   const isLargeScreen = useMediaQuery({ minWidth: 1216 });
+  const isMediumScreen = useMediaQuery({ minWidth: 768, maxWidth: 1215 });
+  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
 
   return (
     <>
@@ -103,15 +188,33 @@ const LeasingExplainedContainer: FC<IProps> = ({ data }) => {
           <Heading size="large" color="black">
             {carousel?.title || ''}
           </Heading>
-          {isLargeScreen && carousel?.cards.length <= 3 ? (
-            <div className="row:cards-3col">
-              {renderCarouselCards(carousel?.cards)}
-            </div>
-          ) : (
+          {(!isLargeScreen && carousel?.cards.length >= 3 && (
             <Carousel className="-col3" countItems={3} initialSlideHeight={395}>
               {renderCarouselCards(carousel?.cards)}
             </Carousel>
-          )}
+          )) ||
+            (isLargeScreen && carousel?.cards.length > 3 && (
+              <Carousel
+                className="-col3"
+                countItems={3}
+                initialSlideHeight={395}
+              >
+                {renderCarouselCards(carousel?.cards)}
+              </Carousel>
+            )) ||
+            (isLargeScreen && carousel?.cards.length <= 3 && (
+              <div className="row:cards-3col">
+                {renderCarouselCards(carousel?.cards)}
+              </div>
+            )) ||
+            (isMediumScreen && carousel?.cards.length <= 2 && (
+              <div className="row:cards-2col">
+                {renderCarouselCards(carousel?.cards)}
+              </div>
+            )) ||
+            (isSmallScreen &&
+              carousel?.cards.length === 1 &&
+              renderCarouselCards(carousel?.cards))}
         </div>
       </div>
       <div className="row:bg-lighter">
