@@ -282,11 +282,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   let countListAccordion = 0;
 
   const getDataAccordion = (treeGetData: string[], pageDatas: any) => {
-    let list;
     if (isNewPage && isRangePage) {
-      list = getSectionsData(treeGetData, pageDatas).map((item: any) => {
+      return getSectionsData(treeGetData, pageDatas).map((item: any) => {
         countListAccordion += 1;
-
         return {
           id: countListAccordion,
           title: item.name,
@@ -294,7 +292,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         } as ItemAccordion;
       });
     }
-    return list;
+    return false;
   };
 
   useEffect(() => {
