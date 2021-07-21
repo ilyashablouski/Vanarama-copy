@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import SchemaJSON from 'core/atoms/schema-json';
+import { useMediaQuery } from 'react-responsive';
 import {
   GenericPageQuery_genericPage_sections_carousel_cards as ICaruselCard,
   GenericPageQuery,
@@ -72,6 +73,8 @@ const LeasingExplainedContainer: FC<IProps> = ({ data }) => {
     link: { href: el.href || '', label: el.label },
   }));
 
+  const isLargeScreen = useMediaQuery({ minWidth: 1216 });
+
   return (
     <>
       <div className="row:title">
@@ -100,8 +103,12 @@ const LeasingExplainedContainer: FC<IProps> = ({ data }) => {
           <Heading size="large" color="black">
             {carousel?.title || ''}
           </Heading>
-          {carousel?.cards && (
-            <Carousel className="-col3" countItems={3}>
+          {isLargeScreen && carousel?.cards.length <= 3 ? (
+            <div className="row:cards-3col">
+              {renderCarouselCards(carousel?.cards)}
+            </div>
+          ) : (
+            <Carousel className="-col3" countItems={3} initialSlideHeight={395}>
               {renderCarouselCards(carousel?.cards)}
             </Carousel>
           )}
