@@ -44,7 +44,7 @@ import {
   sortObjectGenerator,
   sortValues,
   ssrCMSQueryExecutor,
-  newRangeUrls,
+  newRangeSlugs,
 } from './helpers';
 import {
   GetProductCard,
@@ -156,6 +156,7 @@ interface IProps {
   preloadRange?: string;
   preloadMake?: string;
   defaultSort?: SortObject[];
+  newRangePageSlug?: string;
 }
 
 interface ItemAccordion {
@@ -196,6 +197,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadTopOffersList,
   preLoadTopOffersCardsData,
   defaultSort,
+  newRangePageSlug,
 }: IProps) => {
   // assign here as when inline causing hook lint errors
 
@@ -207,7 +209,8 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   const client = useApolloClient();
   const router = useRouter();
-  const isNewPage = !!newRangeUrls.includes(router.asPath);
+  const isNewPage =
+    newRangePageSlug && !!newRangeSlugs.includes(newRangePageSlug);
   const isDynamicFilterPage = useMemo(
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],

@@ -19,7 +19,7 @@ import { arraysAreEqual } from '../../utils/helpers';
 export const RESULTS_PER_REQUEST = 12;
 
 interface ISSRRequest {
-  req: { url: string };
+  req: { url: string; resolvedUrl?: string };
   query: { [x: string]: string | string[] };
 }
 
@@ -156,57 +156,57 @@ export const budgetMapper = {
   'deals-over-550': '550',
 };
 
-export const newRangeUrls = [
-  '/land-rover-car-leasing/range-rover-evoque.html',
-  '/mercedesbenz-car-leasing/a-class.html',
-  '/audi-car-leasing/a3.html',
-  '/volvo-car-leasing/xc40.html',
-  '/land-rover-car-leasing/range-rover-velar.html',
-  '/land-rover-car-leasing/discovery.html',
-  '/audi-car-leasing/q3.html',
-  '/audi-car-leasing/a1.html',
-  '/audi-car-leasing/q5.html',
-  '/volkswagen-car-leasing/tiguan.html',
-  '/mercedesbenz-car-leasing/glc-coupe.html',
-  '/mercedesbenz-car-leasing/glc.html',
-  '/land-rover-car-leasing/range-rover-sport.html',
-  '/bmw-car-leasing/x5.html',
-  '/ford-car-leasing/focus.html',
-  '/jaguar-car-leasing/ipace.html',
-  '/nissan-car-leasing/qashqai.html',
-  '/audi-car-leasing/a4.html',
-  '/nissan-car-leasing/leaf.html',
-  '/ford-car-leasing/fiesta.html',
-  '/bmw-car-leasing/1-series.html',
-  '/fiat-car-leasing/500.html',
-  '/bmw-car-leasing/x4.html',
-  '/audi-car-leasing/q7.html',
-  '/audi-car-leasing/a5.html',
-  '/renault-car-leasing/zoe.html',
-  '/kia-car-leasing/sportage.html',
-  '/bmw-car-leasing/3-series.html',
-  '/audi-car-leasing/etron.html',
-  '/mercedesbenz-car-leasing/e-class.html',
-  '/volvo-car-leasing/xc60.html',
-  '/tesla-car-leasing/model-3.html',
-  '/kia-car-leasing/niro.html',
-  '/jaguar-car-leasing/fpace.html',
-  '/mercedesbenz-car-leasing/gle.html',
-  '/porsche-car-leasing/macan.html',
-  '/bmw-car-leasing/x3.html',
-  '/bmw-car-leasing/2-series.html',
-  '/bmw-car-leasing/i3.html',
-  '/volkswagen-car-leasing/troc.html',
-  '/volkswagen-car-leasing/polo.html',
-  '/volvo-car-leasing/xc90.html',
-  '/audi-car-leasing/tt.html',
-  '/land-rover-car-leasing/defender.html',
-  '/porsche-car-leasing/taycan.html',
-  '/ford-car-leasing/kuga.html',
-  '/jaguar-car-leasing/epace.html',
-  '/skoda-car-leasing/kodiaq.html',
-  '/land-rover-car-leasing/range-rover.html',
-  '/audi-car-leasing/q2.html',
+export const newRangeSlugs = [
+  'car-leasing/land-rover/range-rover-evoque',
+  'car-leasing/mercedes-benz/a-class',
+  'car-leasing/audi/a3',
+  'car-leasing/volvo/xc40',
+  'car-leasing/land-rover/range-rover-velar',
+  'car-leasing/land-rover/discovery',
+  'car-leasing/audi/q3',
+  'car-leasing/audi/a1',
+  'car-leasing/audi/q5',
+  'car-leasing/volkswagen/tiguan',
+  'car-leasing/mercedes-benz/glc-coupe',
+  'car-leasing/mercedes-benz/glc',
+  'car-leasing/land-rover/range-rover-sport',
+  'car-leasing/bmw/x5',
+  'car-leasing/ford/focus',
+  'car-leasing/jaguar/i-pace',
+  'car-leasing/nissan/qashqai',
+  'car-leasing/audi/a4',
+  'car-leasing/nissan/leaf',
+  'car-leasing/ford/fiesta',
+  'car-leasing/bmw/1-series',
+  'car-leasing/fiat/500',
+  'car-leasing/bmw/x4',
+  'car-leasing/audi/q7',
+  'car-leasing/audi/a5',
+  'car-leasing/renault/zoe',
+  'car-leasing/kia/sportage',
+  'car-leasing/bmw/3-series',
+  'car-leasing/audi/e-tron',
+  'car-leasing/mercedes-benz/e-class',
+  'car-leasing/volvo/xc60',
+  'car-leasing/tesla/model-3',
+  'car-leasing/kia/niro',
+  'car-leasing/jaguar/f-pace',
+  'car-leasing/mercedes-benz/gle',
+  'car-leasing/porsche/macan',
+  'car-leasing/bmw/x3',
+  'car-leasing/bmw/2-series',
+  'car-leasing/bmw/i3',
+  'car-leasing/volkswagen/t-roc',
+  'car-leasing/volkswagen/polo',
+  'car-leasing/volvo/xc90',
+  'car-leasing/audi/tt',
+  'car-leasing/land-rover/defender',
+  'car-leasing/porsche/taycan',
+  'car-leasing/ford/kuga',
+  'car-leasing/jaguar/e-pace',
+  'car-leasing/skoda/kodiaq',
+  'car-leasing/land-rover/range-rover',
+  'car-leasing/audi/q2',
 ];
 
 export const bodyUrls = [
@@ -298,12 +298,13 @@ export const ssrCMSQueryExecutor = async (
   const { req, query } = context;
   const queryUrl = removeUrlQueryPart(req?.url || '');
   const slug = queryUrl.slice(1);
+  const newRangePagesSlug = context.req?.resolvedUrl || '';
   switch (pageType) {
     case 'isNewRangePage':
       return onCallQuery(
         client,
         GENERIC_PAGE,
-        prepareSlugPart(slug),
+        newRangePagesSlug,
         'rangePage',
         true,
       );

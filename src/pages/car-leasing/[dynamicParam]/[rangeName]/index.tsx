@@ -15,7 +15,7 @@ import {
   RESULTS_PER_REQUEST,
   sortObjectGenerator,
   ssrCMSQueryExecutor,
-  newRangeUrls,
+  newRangeSlugs,
 } from '../../../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../../../generated/bodyStyleList';
@@ -49,6 +49,7 @@ interface IProps extends ISearchPageProps {
   topOffersList?: vehicleList;
   topOffersCardsData?: GetProductCard;
   defaultSort?: SortObject[];
+  newRangePageSlug?: string;
 }
 
 const Page: NextPage<IProps> = ({
@@ -67,6 +68,7 @@ const Page: NextPage<IProps> = ({
   rangeParam,
   makeParam,
   defaultSort,
+  newRangePageSlug,
 }) => {
   const router = useRouter();
   // De-obfuscate data for user
@@ -124,6 +126,7 @@ const Page: NextPage<IProps> = ({
       preLoadTopOffersList={topOffersList}
       preLoadTopOffersCardsData={topOffersCardsData}
       defaultSort={defaultSort}
+      newRangePageSlug={newRangePageSlug}
     />
   );
 };
@@ -138,10 +141,12 @@ export async function getServerSideProps(context: NextPageContext) {
   let bodyStyleList;
   let topOffersCardsData;
   let defaultSort;
+
   try {
     const contextData = {
       req: {
         url: context.req?.url || '',
+        resolvedUrl: context.resolvedUrl?.substring(1) || '',
       },
       query: { ...context.query },
     };
@@ -149,7 +154,7 @@ export async function getServerSideProps(context: NextPageContext) {
       client,
       contextData,
       true,
-      newRangeUrls.includes(context.req?.url || '')
+      newRangeSlugs.includes(contextData.req?.resolvedUrl || '')
         ? 'isNewRangePage'
         : 'isRangePage',
     )) as ApolloQueryResult<GenericPageQuery>;
@@ -282,6 +287,7 @@ export async function getServerSideProps(context: NextPageContext) {
         makeParam: (context?.query?.dynamicParam as string).toLowerCase(),
         rangeParam: (context?.query?.rangeName as string).toLowerCase(),
         defaultSort: defaultSort || null,
+        newRangePageSlug: contextData.req?.resolvedUrl || '',
       },
     };
   } catch {
