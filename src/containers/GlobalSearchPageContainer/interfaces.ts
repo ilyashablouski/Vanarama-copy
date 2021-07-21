@@ -1,4 +1,14 @@
-import { productFilter_productFilter } from '../../../generated/productFilter';
+import {
+  productFilter_productFilter as IProductFilter,
+  productFilter_productFilter,
+} from '../../../generated/productFilter';
+import {
+  GenericPageQuery,
+  GenericPageQuery_genericPage_metaData as PageMetaData,
+} from '../../../generated/GenericPageQuery';
+import { productDerivatives as ITextSearchQuery } from '../../../generated/productDerivatives';
+import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
+import { ProductDerivativeSort } from '../../../generated/globalTypes';
 
 export enum ITabs {
   Filter,
@@ -14,4 +24,15 @@ export interface ISelectedTags {
 export interface IFiltersData extends productFilter_productFilter {
   from: string[];
   to: string[];
+}
+
+export interface IProps {
+  pageData?: GenericPageQuery;
+  filtersData?: IProductFilter;
+  initialFilters: IFiltersData;
+  metaData: PageMetaData;
+  preLoadProductDerivatives: ITextSearchQuery;
+  carsData?: ICardsData[];
+  vansData?: ICardsData[];
+  defaultSort?: ProductDerivativeSort[];
 }
