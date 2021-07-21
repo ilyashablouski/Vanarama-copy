@@ -1,7 +1,8 @@
-import { NextPage, NextPageContext } from 'next';
+import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
+import { SlugNextPageContext } from 'types/common';
 import createApolloClient from '../../../../apolloClient';
 import {
   GET_VEHICLE_LIST,
@@ -36,7 +37,6 @@ import { filterList_filterList as IFilterList } from '../../../../../generated/f
 import FeaturedAndTilesContainer from '../../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { PAGE_TYPES } from '../../../../utils/pageTypes';
 import { decodeData, encodeData } from '../../../../utils/data';
-import { SlugNextPageContext } from 'types/common';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
