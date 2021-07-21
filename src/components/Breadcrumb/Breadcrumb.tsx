@@ -80,11 +80,11 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
 
   return (
     <nav>
-      <ol className="breadcrumb">
+      <ul className="breadcrumb">
         {items.map((item, key) =>
           items.length === key + 1 ? renderChild(item) : renderParent(item),
         )}
-      </ol>
+      </ul>
     </nav>
   );
 });
