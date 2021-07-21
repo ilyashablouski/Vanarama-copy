@@ -357,7 +357,7 @@ const CustomiseLease = ({
         isPlayingLeaseAnimation,
       )}
       <Heading tag="span" size="regular" color="black">
-        Add Maintenance:
+        Add Vanarama Service Plan (Our Maintenance Package):
         <Text color="orange" className="-b -ml-100">
           {`£${toPriceFormat(
             quoteByCapId?.maintenanceCost?.monthlyRental,
