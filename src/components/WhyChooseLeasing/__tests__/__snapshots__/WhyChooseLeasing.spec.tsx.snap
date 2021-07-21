@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<WhyChooseLeasing /> renders correctly with warranty 1`] = `
-<div
+<section
   className="pdp--feature-grid -col2"
 >
   <h2
@@ -163,11 +163,11 @@ exports[`<WhyChooseLeasing /> renders correctly with warranty 1`] = `
       </div>
     </div>
   </div>
-</div>
+</section>
 `;
 
 exports[`<WhyChooseLeasing /> renders correctly with warranty equal null 1`] = `
-<div
+<section
   className="pdp--feature-grid -col2"
 >
   <h2
@@ -331,5 +331,5 @@ exports[`<WhyChooseLeasing /> renders correctly with warranty equal null 1`] = `
       </div>
     </div>
   </div>
-</div>
+</section>
 `;

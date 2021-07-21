@@ -407,7 +407,10 @@ const CustomiseLease = ({
           </div>
         </div>
       )}
-      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+      <LazyLoadComponent
+        visibleByDefault={isServerRenderOrAppleDevice}
+        placeholder={<span className="-d-block -h-900" />}
+      >
         <OrderSummary
           quoteByCapId={quoteByCapId}
           stateVAT={stateVAT}
@@ -429,46 +432,44 @@ const CustomiseLease = ({
           )}
           style={{ opacity: '1' }}
         >
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-            <LeaseScanner
-              classNameHeading="headingText"
-              className="pdp-footer"
-              nextBestPrice={
-                maintenance
-                  ? `£${toPriceFormat(
-                      quoteByCapId?.nextBestPrice?.maintained,
-                    )} PM ${stateVAT}. VAT`
-                  : `£${toPriceFormat(
-                      quoteByCapId?.nextBestPrice?.nonMaintained,
-                    )} PM ${stateVAT}. VAT`
-              }
-              priceLabel={
-                maintenance
-                  ? `+£${toPriceFormat(
-                      quoteByCapId?.maintenanceCost?.monthlyRental,
-                    )} Maintenance`
-                  : undefined
-              }
-              price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
-              orderNowClick={() => {
-                onSubmit({
-                  leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
-                  lineItems: [lineItem],
-                });
-                setSessionValues();
-              }}
-              headingText={`PM ${stateVAT}. VAT`}
-              leasingProviders={LEASING_PROVIDERS}
-              startLoading={isPlayingLeaseAnimation}
-              endAnimation={() => {
-                setIsInitialLoading(true);
-                setIsPlayingLeaseAnimation(false);
-              }}
-              requestCallBack={() => {
-                showCallBackForm(true);
-              }}
-            />
-          </LazyLoadComponent>
+          <LeaseScanner
+            classNameHeading="headingText"
+            className="pdp-footer"
+            nextBestPrice={
+              maintenance
+                ? `£${toPriceFormat(
+                    quoteByCapId?.nextBestPrice?.maintained,
+                  )} PM ${stateVAT}. VAT`
+                : `£${toPriceFormat(
+                    quoteByCapId?.nextBestPrice?.nonMaintained,
+                  )} PM ${stateVAT}. VAT`
+            }
+            priceLabel={
+              maintenance
+                ? `+£${toPriceFormat(
+                    quoteByCapId?.maintenanceCost?.monthlyRental,
+                  )} Maintenance`
+                : undefined
+            }
+            price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
+            orderNowClick={() => {
+              onSubmit({
+                leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
+                lineItems: [lineItem],
+              });
+              setSessionValues();
+            }}
+            headingText={`PM ${stateVAT}. VAT`}
+            leasingProviders={LEASING_PROVIDERS}
+            startLoading={isPlayingLeaseAnimation}
+            endAnimation={() => {
+              setIsInitialLoading(true);
+              setIsPlayingLeaseAnimation(false);
+            }}
+            requestCallBack={() => {
+              showCallBackForm(true);
+            }}
+          />
         </div>
       )}
       {isModalShowing && (
