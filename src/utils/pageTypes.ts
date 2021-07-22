@@ -111,7 +111,7 @@ export const PAGES = [
   },
   {
     pages: ['/olaf/thank-you'],
-    pageType: PAGE_TYPES.enquiryConfirmationPage,
+    pageType: PAGE_TYPES.orderConfirmationPage,
     siteSection: SITE_SECTIONS.ecommerce,
   },
   {
