@@ -1488,6 +1488,23 @@
         }
       }
 
+      &--previously-trading {
+        .formgroup {
+          &--legend .button {
+            vertical-align: baseline;
+          }
+
+          &--content .button {
+            padding: 0 30px;
+          }
+
+
+          input[type="radio"]:checked + .button {
+            @extend .button.-solid;
+          }
+        }
+      }
+
       &--summary {
         display: grid;
         width: 100%;

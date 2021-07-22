@@ -54,6 +54,13 @@ export const mapTelephoneNumbers = (values: SubmissionValues) => [
   { value: values.telephone, primary: true },
 ];
 
+export const mapPreviouslyTradingSoletrader = (
+  values: ICompanyDetailsFormValues,
+) =>
+  values.previouslyTradingSoletrader
+    ? values.previouslyTradingSoletrader === 'true'
+    : undefined;
+
 export const mapFormValues = (
   values: SubmissionValues,
   personUuid: string,
@@ -75,6 +82,7 @@ export const mapFormValues = (
       ? searchResult.dateOfCreation
       : parseDate('01', values.tradingSinceMonth, values.tradingSinceYear),
     addresses: mapAddresses(values),
+    previouslyTradingSoletrader: mapPreviouslyTradingSoletrader(values),
     withTradingAddress: values.tradingDifferent,
     companyNature: values.nature,
     emailAddress: mapEmailAddress(values),
@@ -124,6 +132,7 @@ export const mapDefaultValues = (
       : undefined,
     companyNumber: data?.businessRegistrationNumber ?? '',
     companyName: data?.businessName ?? '',
+    previouslyTradingSoletrader: `${data?.previouslyTradingSoletrader}`,
     tradingSinceMonth: (tradingSince?.getMonth() || '').toString(),
     tradingSinceYear: (tradingSince?.getFullYear() || '').toString(),
     nature: data?.natureOfBusiness ?? '',
@@ -168,6 +177,7 @@ export const mapCompanyDetailsToCreditApplication = (
       values?.companySearchResult?.dateOfCreation ??
       parseDate('01', values.tradingSinceMonth, values.tradingSinceYear),
     companyType: aboutDetails?.companyType || 'Limited',
+    previouslyTradingSoletrader: mapPreviouslyTradingSoletrader(values),
     telephoneNumbers: [{ value: values.telephone, kind: 'business' }],
     emailAddresses: [{ kind: 'Home', value: values.email, primary: true }],
   };

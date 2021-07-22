@@ -149,6 +149,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_co
 
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2 {
   addresses: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_addresses[] | null;
+  previouslyTradingSoletrader: boolean | null;
   annualExpenses: number | null;
   annualSalesCost: number | null;
   annualTurnover: number | null;
