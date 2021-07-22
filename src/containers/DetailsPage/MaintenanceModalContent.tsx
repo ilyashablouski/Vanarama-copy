@@ -2,7 +2,6 @@ import dynamic from 'next/dynamic';
 import Ellipse from 'core/assets/icons/Ellipse';
 import EllipseOutline from 'core/assets/icons/EllipseOutline';
 import Heading from 'core/atoms/heading';
-import React from 'react';
 import { includedItems, notIncludedItems } from './config';
 import Skeleton from '../../components/Skeleton';
 
@@ -14,6 +13,7 @@ const IconList = dynamic(() => import('core/organisms/icon-list'), {
 const IconListItem = dynamic(() =>
   import('core/organisms/icon-list').then(mod => mod.IconListItem),
 );
+
 const MaintenanceModalContent = () => {
   return (
     <>
