@@ -49,7 +49,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
   onCompleted,
 }) => {
   const [isGratitudeVisible, toggleGratitude] = useState(false);
-  const [createOppurtunity, { loading }] = useOpportunityCreation(
+  const [createOpportunity, { loading }] = useOpportunityCreation(
     () => toggleGratitude(true),
     error => {
       if (error?.networkError) {
@@ -66,7 +66,7 @@ const GoldrushFormContainer: React.FC<GoldrushFormContainerProps> = ({
       text="We’ll be in touch within 1-2 business hours"
       isPostcodeVisible={isPostcodeVisible}
       onSubmit={values => {
-        createOppurtunity({
+        createOpportunity({
           variables: {
             email: values.email,
             phoneNumber: values.phoneNumber,
