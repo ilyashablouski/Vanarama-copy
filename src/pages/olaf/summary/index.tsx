@@ -32,7 +32,7 @@ const SummaryPage: NextPage = () => {
     personUuid = data.uuid;
   }
 
-  const onComplete = (emailAddress: string | undefined) => {
+  const handleComplete = (emailAddress: string | undefined) => {
     router.push('/olaf/thank-you', '/olaf/thank-you').then(() =>
       setTimeout(() => {
         pushSummaryDataLayer({
@@ -51,7 +51,7 @@ const SummaryPage: NextPage = () => {
       setDerivativeData={setDerivativeData}
     >
       <SummaryFormContainer
-        onComplete={onComplete}
+        onComplete={handleComplete}
         personUuid={personUuid}
         orderId={orderId}
       />

@@ -54,7 +54,7 @@ const BusinessSummaryPage: NextPage = () => {
     >
       <BusinessSummaryFormContainer
         isSoleTrader={isSoleTrader}
-        onCompleted={handleComplete}
+        onComplete={handleComplete}
         onError={handleSubmitError}
         personUuid={personUuid}
         orderId={orderId}
