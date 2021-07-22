@@ -56,6 +56,27 @@ const SECTIONS = {
     description: null,
     cards: [
       {
+        title: 'Can Sole Traders Lease a Van?',
+        name: 'Can Sole Traders Lease a Van?',
+        image: {
+          title: 'Sole Trader Van Lease',
+          description: 'Can Sole Traders Lease a Van?',
+          file: {
+            url:
+              '//images.ctfassets.net/3xid768u5joa/1MKn8EL3noYIa3…452d6e92acb56f549806cf8/sole-trader-van-lease.jpg',
+            fileName: 'sole-trader-van-lease.jpg',
+            contentType: 'image/jpeg',
+          },
+        },
+        body: 'Find out why leasing a van is an ideal option for Sole Traders.',
+        titleTag: null,
+        link: {
+          text: 'Read More',
+          url:
+            'https://betavanarama.com/ask-the-expert/sole-trader-van-leasing.html',
+        },
+      },
+      {
         title: 'Company Cash Allowance Vs Company Car',
         name: 'Company Cash Allowance Vs Company Car',
         image: {
@@ -133,13 +154,13 @@ describe('<FinanceExplainedContainer />', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(`Do I Need Insurance For A Leased Car?`),
+        screen.getByText(`Company Cash Allowance Vs Company Car`),
       ).toBeInTheDocument();
     });
 
     await waitFor(() => {
       expect(
-        screen.getByText(`Company Cash Allowance Vs Company Car`),
+        screen.getByText('What Happens At The End Of A Car Lease?'),
       ).toBeInTheDocument();
     });
 
