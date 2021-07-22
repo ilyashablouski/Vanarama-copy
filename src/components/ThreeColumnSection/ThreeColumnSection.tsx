@@ -34,7 +34,6 @@ const ThreeColumnSection: React.FC<ThreeColumnSectionProps> = ({
             return (
               <>
                 <div>
-                  {console.log(item)}
                   <Image
                     src={
                       getSectionsData(['image', 'file', 'url'], item) ||
