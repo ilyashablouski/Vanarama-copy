@@ -71,7 +71,7 @@ module.exports = {
           headers: [
             {
               key: 'Cache-Control',
-              value: 'public, max-age=2592000',
+              value: 'no-cache, no-store, max-age=0, must-revalidate',
             },
           ],
         },
@@ -90,7 +90,7 @@ module.exports = {
           headers: [
             {
               key: 'Cache-Control',
-              value: 'private, no-cache, no-store, max-age=0, must-revalidate',
+              value: 'no-cache, no-store, max-age=0, must-revalidate',
             },
           ],
         },
