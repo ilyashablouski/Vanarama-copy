@@ -1,6 +1,7 @@
 import React from 'react';
 import Image from 'core/atoms/image/Image';
 import { getSectionsData } from '../../utils/getSectionsData';
+import { GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image } from '../../../generated/GenericPageQuery';
 
 type ThreeColumnSectionProps = {
   cards: CardItem[];
@@ -8,7 +9,7 @@ type ThreeColumnSectionProps = {
 };
 
 interface CardItem {
-  image: object;
+  image: GenericPageQuery_genericPage_sectionsAsArray_cards_cards_image;
   body: string;
 }
 
@@ -33,6 +34,7 @@ const ThreeColumnSection: React.FC<ThreeColumnSectionProps> = ({
             return (
               <>
                 <div>
+                  {console.log(item)}
                   <Image
                     src={
                       getSectionsData(['image', 'file', 'url'], item) ||
