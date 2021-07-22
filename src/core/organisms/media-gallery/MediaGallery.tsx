@@ -1,7 +1,6 @@
 import React, { FC, memo, useState, useEffect } from 'react';
 import cx from 'classnames';
 import { IMediaGalleryProps } from './interfaces';
-import { VehicleTypeEnum } from '../../../../generated/globalTypes';
 import Tabs from '../../molecules/tabs';
 import TabList from '../../molecules/tabs/TabList';
 import Tab from '../../molecules/tabs/Tab';
