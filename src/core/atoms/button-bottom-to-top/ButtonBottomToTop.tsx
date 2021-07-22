@@ -15,15 +15,15 @@ const ButtonBottomToTop = () => {
     }
   };
 
-  useEffect(() => {
-    window.addEventListener('scroll', buttonVisible);
-  });
-
   const scrollToTop = useCallback(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
+  }, []);
+
+  useEffect(() => {
+    window.addEventListener('scroll', buttonVisible);
   }, []);
 
   return (
