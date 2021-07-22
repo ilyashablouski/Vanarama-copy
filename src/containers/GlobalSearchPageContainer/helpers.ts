@@ -5,7 +5,7 @@ import { GetProductCard_productCard as ICard } from '../../../generated/GetProdu
 import { IFiltersData, ISelectedTags, IProps } from './interfaces';
 import { filterOrderByNumMap } from '../FiltersContainer/helpers';
 import {
-  FinanceTypeEnum,
+  FinanceType,
   ProductDerivativeFilter,
   ProductDerivativeSortDirection,
   ProductDerivativeSortField,
@@ -77,7 +77,7 @@ export const buildFiltersRequestObject = (
         : undefined,
     make: filters.make?.[0],
     range: filters.range?.[0],
-    financeTypes: isPersonal ? [FinanceTypeEnum.PCH] : [FinanceTypeEnum.BCH],
+    financeTypes: isPersonal ? [FinanceType.PCH] : [FinanceType.BCH],
     onOffer: onOffer || null,
   };
 };
