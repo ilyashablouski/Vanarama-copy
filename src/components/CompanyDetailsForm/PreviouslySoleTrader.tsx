@@ -1,18 +1,19 @@
 import React, { useState } from 'react';
-import { useFormContext } from 'react-hook-form';
+import { useFormContext, Controller } from 'react-hook-form';
 
 import Text from 'core/atoms/text';
 import Button from 'core/atoms/button';
 import Modal from 'core/molecules/modal';
-import Heading from 'core/atoms/heading';
 import Formgroup from 'core/molecules/formgroup';
 
 import { ICompanyDetailsFormValues } from './interfaces';
 
+const fieldName = 'previouslyTradingSoletrader';
+
 function PreviouslySoleTrader() {
   const [showModal, setShowModal] = useState(false);
 
-  const { register } = useFormContext<ICompanyDetailsFormValues>();
+  const { control, errors } = useFormContext<ICompanyDetailsFormValues>();
 
   function toggleModalVisibility() {
     setShowModal(!showModal);
@@ -21,7 +22,8 @@ function PreviouslySoleTrader() {
   return (
     <div className="olaf--previously-trading">
       <Formgroup
-        controlId="previouslyTradingSoletrader"
+        controlId={fieldName}
+        error={errors.previouslyTradingSoletrader?.message?.toString()}
         label={
           <>
             It seems you have been trading less than 3 years. Were you
@@ -35,36 +37,54 @@ function PreviouslySoleTrader() {
           </>
         }
       >
-        <div className="button-group">
-          <input
-            id="ptst-yes"
-            type="radio"
-            value="true"
-            name="previouslyTradingSoletrader"
-            ref={register}
-            hidden
-          />
-          <label className="button -primary -small -outline" htmlFor="ptst-yes">
-            <span className="button--inner">Yes</span>
-          </label>
-          <input
-            id="ptst-no"
-            type="radio"
-            value="false"
-            name="previouslyTradingSoletrader"
-            ref={register}
-            hidden
-          />
-          <label className="button -primary -small -outline" htmlFor="ptst-no">
-            <span className="button--inner">No</span>
-          </label>
-        </div>
+        <Controller
+          name={fieldName}
+          control={control}
+          rules={{
+            required: 'Please select "Yes" or "No"',
+          }}
+          as={({ name, value, onChange }) => (
+            <div className="button-group">
+              <input
+                id="ptst-yes"
+                type="radio"
+                name={name}
+                value="true"
+                checked={value === 'true'}
+                onChange={onChange}
+                hidden
+              />
+              <label
+                htmlFor="ptst-yes"
+                className="button -primary -small -outline"
+              >
+                <span className="button--inner">Yes</span>
+              </label>
+              <input
+                id="ptst-no"
+                type="radio"
+                name={name}
+                value="false"
+                checked={value === 'false'}
+                onChange={onChange}
+                hidden
+              />
+              <label
+                htmlFor="ptst-no"
+                className="button -primary -small -outline"
+              >
+                <span className="button--inner">No</span>
+              </label>
+            </div>
+          )}
+        />
       </Formgroup>
       {showModal && (
-        <Modal show onRequestClose={toggleModalVisibility}>
-          <Heading tag="span" color="darker" size="lead">
-            Why are we asking this?
-          </Heading>
+        <Modal
+          show
+          title="Why are we asking this?"
+          onRequestClose={toggleModalVisibility}
+        >
           <Text tag="p" color="darker" size="regular">
             It looks like the LTD company on the application has been trading
             less than 3 years. If you have been previously trading as a
