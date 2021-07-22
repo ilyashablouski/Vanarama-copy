@@ -297,7 +297,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
           .imageUrls as string[])) ||
       [],
-    [data?.vehicleImages, isCar, isSpecialOffer],
+    [data?.vehicleImages],
   );
 
   const onOrderStart = (
