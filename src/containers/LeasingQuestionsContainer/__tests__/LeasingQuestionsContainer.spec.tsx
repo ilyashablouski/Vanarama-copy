@@ -133,13 +133,13 @@ describe('<FinanceExplainedContainer />', () => {
 
     await waitFor(() => {
       expect(
-        screen.getByText(`Do I Need Insurance For A Leased Car?`),
+        screen.getByText(`Company Cash Allowance Vs Company Car`),
       ).toBeInTheDocument();
     });
 
     await waitFor(() => {
       expect(
-        screen.getByText(`Company Cash Allowance Vs Company Car`),
+        screen.getByText('What Happens At The End Of A Car Lease?'),
       ).toBeInTheDocument();
     });
 
