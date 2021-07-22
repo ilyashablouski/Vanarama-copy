@@ -1,5 +1,4 @@
 import React, { FC, memo, useState, useEffect } from 'react';
-import cx from 'classnames';
 import { IMediaGalleryProps } from './interfaces';
 import Tabs from '../../molecules/tabs';
 import TabList from '../../molecules/tabs/TabList';
@@ -8,8 +7,9 @@ import TabPanels from '../../molecules/tabs/TabPanels';
 
 import TabPanel from '../../molecules/tabs/TabPanel';
 import Media from '../../atoms/media';
-import Text from '../../atoms/text';
 import ImageCarousel from './ImageCarousel';
+import ElectricVehicleBanner from '../../../components/ElectricVehicleBanner';
+import FreeInsuranceBanner from '../../../components/FreeInsuranceBanner';
 
 const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
   const {
@@ -73,22 +73,8 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
               renderImageDecoration={(image, index) =>
                 index === 0 ? (
                   <div className="gallery-promotion-container">
-                    {showElectricBanner && (
-                      <div className={cx('promotion-item', '--secondary')}>
-                        <Text size="regular" color="white">
-                          Free Home Charger With Installation
-                        </Text>
-                        <Text color="white">{` Worth £900*`}</Text>
-                      </div>
-                    )}
-                    {showInsuranceBanner && (
-                      <div className={cx('promotion-item', '--primary')}>
-                        <Text size="regular" color="black" tag="span">
-                          1 Year’s FREE Insurance
-                        </Text>
-                        <Text color="black">{` Incl Courtesy Car`}</Text>
-                      </div>
-                    )}
+                    {showElectricBanner && <ElectricVehicleBanner />}
+                    {showInsuranceBanner && <FreeInsuranceBanner />}
                   </div>
                 ) : null
               }

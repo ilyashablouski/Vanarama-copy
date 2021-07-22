@@ -1,5 +1,4 @@
 import React, { useContext, useMemo } from 'react';
-import cx from 'classnames';
 import dynamic from 'next/dynamic';
 import Carousel from 'core/organisms/carousel';
 import ProductCard from 'core/molecules/cards/ProductCard';
@@ -19,6 +18,8 @@ import truncateString from '../../utils/truncateString';
 // import useSliderProperties from '../../hooks/useSliderProperties';
 import { features } from './helpers';
 import useWishlist from '../../hooks/useWishlist';
+import ElectricVehicleBanner from '../ElectricVehicleBanner';
+import FreeInsuranceBanner from '../FreeInsuranceBanner';
 
 // Dynamic component loading.
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -26,7 +27,6 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 });
 const Heading = dynamic(() => import('core/atoms/heading'));
 const Price = dynamic(() => import('core/atoms/price'));
-const Text = dynamic(() => import('core/atoms/text'));
 const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
@@ -176,22 +176,10 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
             >
               <div className="gallery-promotion-container">
                 {getVehicle(product, data.derivatives)?.fuelType?.name ===
-                  'Electric' && (
-                  <div className={cx('promotion-item', '--secondary')}>
-                    <Text size="regular" color="white">
-                      Free Home Charger With Installation
-                    </Text>
-                    <Text color="white">{` Worth £900*`}</Text>
-                  </div>
-                )}
+                  'Electric' && <ElectricVehicleBanner />}
                 {product?.isOnOffer &&
                   product.vehicleType === VehicleTypeEnum.CAR && (
-                    <div className={cx('promotion-item', '--primary')}>
-                      <Text size="regular" color="black" tag="span">
-                        1 Year’s FREE Insurance
-                      </Text>
-                      <Text color="black">{` Incl Courtesy Car`}</Text>
-                    </div>
+                    <FreeInsuranceBanner />
                   )}
               </div>
               <div className="-flex-h">

@@ -1,6 +1,5 @@
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
-import cx from 'classnames';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
@@ -50,6 +49,8 @@ import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { freeInsuranceSmallPrint } from './free-car-insurance';
 import { ProductCardData_productCarousel as IProduct } from '../../../generated/ProductCardData';
+import ElectricVehicleBanner from '../../components/ElectricVehicleBanner';
+import FreeInsuranceBanner from '../../components/FreeInsuranceBanner';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -323,21 +324,11 @@ export const CarsPage: NextPage<IProps> = ({
                 >
                   <div className="gallery-promotion-container">
                     {getFuelType(item) === 'Electric' && (
-                      <div className={cx('promotion-item', '--secondary')}>
-                        <Text size="regular" color="white">
-                          Free Home Charger With Installation
-                        </Text>
-                        <Text color="white">{` Worth £900*`}</Text>
-                      </div>
+                      <ElectricVehicleBanner />
                     )}
                     {item?.isOnOffer &&
                       item?.vehicleType === VehicleTypeEnum.CAR && (
-                        <div className={cx('promotion-item', '--primary')}>
-                          <Text size="regular" color="black" tag="span">
-                            1 Year’s FREE Insurance
-                          </Text>
-                          <Text color="black">{` Incl Courtesy Car`}</Text>
-                        </div>
+                        <FreeInsuranceBanner />
                       )}
                   </div>
                   <div className="-flex-h">
