@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Icon from 'core/atoms/icon';
 import ArrowForButtonButtomToTop from 'core/assets/icons/ArrowForButtonButtomToTop';
 
@@ -6,26 +6,25 @@ const ButtonBottomToTop = () => {
   const [visibleButton, setVisibleButton] = useState(false);
 
   const buttonVisible = () => {
-    const scrolled = document.documentElement.scrollTop;
+    const currentPosition = document.documentElement.scrollTop;
 
-    if (scrolled > 250) {
+    if (currentPosition > 250) {
       setVisibleButton(true);
-    } else if (scrolled <= 250) {
+    } else {
       setVisibleButton(false);
     }
   };
 
   useEffect(() => {
     window.addEventListener('scroll', buttonVisible);
-    return () => window.addEventListener('scroll', buttonVisible);
   });
 
-  const scrollToTop = () => {
+  const scrollToTop = useCallback(() => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-  };
+  }, []);
 
   return (
     <>
