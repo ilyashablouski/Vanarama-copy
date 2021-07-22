@@ -92,6 +92,67 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
             data-testid="card-image"
             loading="eager"
             sizes="(min-width:320px) 800px, 1200px"
+            src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/1MKn8EL3noYIa3…452d6e92acb56f549806cf8/sole-trader-van-lease.jpg"
+            srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/1MKn8EL3noYIa3…452d6e92acb56f549806cf8/sole-trader-van-lease.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/1MKn8EL3noYIa3…452d6e92acb56f549806cf8/sole-trader-van-lease.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/1MKn8EL3noYIa3…452d6e92acb56f549806cf8/sole-trader-van-lease.jpg 1200w"
+          />
+          <div
+            class="title -flex-h"
+          >
+            <a
+              class="heading -black -lead"
+              data-testid="link"
+              href="https://betavanarama.com/ask-the-expert/sole-trader-van-leasing.html"
+            >
+              Can Sole Traders Lease a Van?
+            </a>
+            <button
+              class="button -teal -xsmall -solid -round"
+            >
+              <div
+                class="button--inner"
+              >
+                <i
+                  class="icon -regular md hydrated -white"
+                  name="arrow-forward-sharp"
+                >
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                  >
+                    <polyline
+                      points="268 112 412 256 268 400"
+                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                    />
+                    <line
+                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                      x1="392"
+                      x2="100"
+                      y1="256"
+                      y2="256"
+                    />
+                  </svg>
+                </i>
+              </div>
+            </button>
+          </div>
+          <span
+            class="text -regular -dark"
+            data-testid="card-description"
+          >
+            Find out why leasing a van is an ideal option for Sole Traders.
+          </span>
+        </div>
+        <div
+          class="card"
+          data-testid="card"
+        >
+          <img
+            class="card-image"
+            data-cfasync="false"
+            data-testid="card-image"
+            loading="eager"
+            sizes="(min-width:320px) 800px, 1200px"
             src="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1920,width=1920,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/FRg0wIDLXZqVIB9ZoJEw7/e04f3cfdfb2ad9405be84ef106d83d26/company-cash-allowance-vs-company-car.jpg"
             srcset="https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=320,width=320,quality=60,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/FRg0wIDLXZqVIB9ZoJEw7/e04f3cfdfb2ad9405be84ef106d83d26/company-cash-allowance-vs-company-car.jpg 320w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=800,width=800,quality=70,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/FRg0wIDLXZqVIB9ZoJEw7/e04f3cfdfb2ad9405be84ef106d83d26/company-cash-allowance-vs-company-car.jpg 800w, https://dev.vanarama-nonprod.com/cdn-cgi/image/fit=scale-down,height=1200,width=1200,quality=75,sharpness=0,metadata=none/https://images.ctfassets.net/3xid768u5joa/FRg0wIDLXZqVIB9ZoJEw7/e04f3cfdfb2ad9405be84ef106d83d26/company-cash-allowance-vs-company-car.jpg 1200w"
           />
