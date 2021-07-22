@@ -11,6 +11,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import ButtonBottomToTop from 'core/components/ButtonBottomToTop/ButtonBottomToTop';
 import Image from 'core/atoms/image';
 import {
   filterOrderByNumMap,
@@ -1417,6 +1418,10 @@ const SearchPageContainer: React.FC<IProps> = ({
           <SchemaJSON json={JSON.stringify(metaData.schema)} />
         </>
       )}
+
+      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <ButtonBottomToTop />
+      </LazyLoadComponent>
     </>
   );
 };
