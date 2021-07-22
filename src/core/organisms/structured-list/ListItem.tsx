@@ -91,7 +91,7 @@ const ListItem: FC<IListItemProps> = props => {
     return renderDefault();
   };
 
-  return (
+  return value !== '-' || editing || textEdit ? (
     <div className={cx('structured-list-row', { orange: isOrange })}>
       <div
         className={cx('structured-list-td', {
@@ -103,7 +103,7 @@ const ListItem: FC<IListItemProps> = props => {
       </div>
       {renderItem()}
     </div>
-  );
+  ) : null;
 };
 
 export default ListItem;

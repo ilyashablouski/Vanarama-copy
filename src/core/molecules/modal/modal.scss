@@ -124,3 +124,11 @@ $modal-padding: $rem-200;
     }
   }
 }
+
+.icon-list.maintenanceConditions li{
+  margin-top: 0;
+  border-top:  none;
+  .icon {
+    font-size: 0.5rem;
+  }
+}

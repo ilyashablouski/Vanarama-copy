@@ -8,6 +8,7 @@ import { useState, useRef, useCallback } from 'react';
 export const useHover = <T extends HTMLElement>(): [
   (node?: T | null) => void,
   boolean,
+  () => void,
 ] => {
   const [value, setValue] = useState(false);
 
@@ -40,7 +41,9 @@ export const useHover = <T extends HTMLElement>(): [
     [handleMouseOver, handleMouseOut],
   );
 
-  return [callbackRef, value];
+  const resetHover = () => handleMouseOut();
+
+  return [callbackRef, value, resetHover];
 };
 
 export default useHover;

@@ -281,7 +281,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <span
     className="heading -black -regular"
   >
-    Add Maintenance:
+    Add Vanarama Service Plan (Our Maintenance Package):
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -504,22 +504,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
             data-testid="colour"
           >
             Solid - Polar white
-          </div>
-        </div>
-        <div
-          className="structured-list-row"
-        >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-6-Trim / Interior:"
-          >
-            Trim / Interior:
-          </div>
-          <div
-            className="structured-list-td"
-            data-testid="trim"
-          >
-            -
           </div>
         </div>
         <div
@@ -1011,7 +995,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <span
     className="heading -black -regular"
   >
-    Add Maintenance:
+    Add Vanarama Service Plan (Our Maintenance Package):
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -1234,22 +1218,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
             data-testid="colour"
           >
             Solid - Polar white
-          </div>
-        </div>
-        <div
-          className="structured-list-row"
-        >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-6-Trim / Interior:"
-          >
-            Trim / Interior:
-          </div>
-          <div
-            className="structured-list-td"
-            data-testid="trim"
-          >
-            -
           </div>
         </div>
         <div
