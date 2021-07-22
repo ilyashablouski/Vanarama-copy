@@ -19,6 +19,7 @@ import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import MaintenanceModalContent from '../../containers/DetailsPage/MaintenanceModalContent';
 
 const InformationCircle = dynamic(
   () => import('core/assets/icons/InformationCircle'),
@@ -357,7 +358,7 @@ const CustomiseLease = ({
         isPlayingLeaseAnimation,
       )}
       <Heading tag="span" size="regular" color="black">
-        Add Maintenance:
+        Add Vanarama Service Plan (Our Maintenance Package):
         <Text color="orange" className="-b -ml-100">
           {`£${toPriceFormat(
             quoteByCapId?.maintenanceCost?.monthlyRental,
@@ -475,12 +476,12 @@ const CustomiseLease = ({
       {isModalShowing && (
         <Modal
           className="-mt-000"
-          title="The Maintenance Package Covers:"
-          text="Servicing, MOTs, tyres, brakes, wipes and bulbs. All you need to worry about is insurance and fuel!"
+          containerClassName="modal-container-large"
+          title="The Vanarama Service Plan (Our Maintenance Package) Covers:"
           show={isModalShowing}
           onRequestClose={() => setIsModalShowing(false)}
-          additionalText="PS: Without this package you’ll have to deal with servicing and maintenance for your vehicle for the duration of your lease."
         >
+          <MaintenanceModalContent />
           <Button
             className="-mt-200"
             color="teal"

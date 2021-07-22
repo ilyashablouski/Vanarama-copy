@@ -13,9 +13,18 @@
     line-height: calc(1em + 0.25rem);
   }
 
+  &.-big {
+    font-size: $font-size-500;
+    line-height: calc(1em + 0.5rem);
+  }
+
   &.-regular,
   &.-lead {
     max-width: $measure;
+  }
+
+  &.-full-width {
+    max-width: 100%;
   }
 
   &.-spacer {
