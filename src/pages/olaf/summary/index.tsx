@@ -33,12 +33,16 @@ const SummaryPage: NextPage = () => {
   }
 
   const onComplete = (emailAddress: string | undefined) => {
-    pushSummaryDataLayer({
-      detailsData,
-      derivativeData,
-      orderId,
-      emailAddress,
-    });
+    router.push('/olaf/thank-you', '/olaf/thank-you').then(() =>
+      setTimeout(() => {
+        pushSummaryDataLayer({
+          detailsData,
+          derivativeData,
+          orderId,
+          emailAddress,
+        });
+      }, 200),
+    );
   };
 
   return (

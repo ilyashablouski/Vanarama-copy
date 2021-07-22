@@ -331,17 +331,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         eligible: isAgreeInsuranceRules,
       };
     }
-    pushAddToCartHeap(vehicleProduct);
-    pushAddToCartDataLayer({
-      capId,
-      derivativeInfo,
-      leaseScannerData,
-      values,
-      vehicleConfigurationByCapId,
-      price,
-      category: getCategory({ cars, vans, pickups }),
-      vehicleValue,
-    });
+
     setIsModalVisible(false);
 
     return localForage
@@ -363,7 +353,21 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           url = '/checkout';
         }
 
-        return router.push(url, url);
+        return router.push(url, url).then(() => {
+          setTimeout(() => {
+            pushAddToCartHeap(vehicleProduct);
+            pushAddToCartDataLayer({
+              capId,
+              derivativeInfo,
+              leaseScannerData,
+              values,
+              vehicleConfigurationByCapId,
+              price,
+              category: getCategory({ cars, vans, pickups }),
+              vehicleValue,
+            });
+          }, 200);
+        });
       });
   };
 
