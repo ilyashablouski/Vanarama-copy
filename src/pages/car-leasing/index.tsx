@@ -1,12 +1,13 @@
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
+import cx from 'classnames';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Router from 'next/router';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Media from 'core/atoms/media';
 import Image from 'core/atoms/image';
-import { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import TrustPilot from 'core/molecules/trustpilot';
 import NextHead from 'next/head';
 import decode from 'decode-html';
@@ -20,7 +21,6 @@ import { CompareContext } from '../../utils/comparatorTool';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import css from '!!raw-loader!../../../public/styles/pages/car-leasing.css';
-
 import {
   HubCarPageData,
   HubCarPageData_hubCarPage_sections_steps_steps as StepData,
@@ -49,6 +49,7 @@ import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { freeInsuranceSmallPrint } from './free-car-insurance';
+import { ProductCardData_productCarousel as IProduct } from '../../../generated/ProductCardData';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -78,6 +79,9 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
 const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
+
+const getFuelType = (product: IProduct | null) =>
+  product?.keyInformation?.find(item => item?.name === 'Fuel Type')?.value;
 
 interface IProps extends ICarsPageOffersData {
   data: HubCarPageData;
@@ -317,16 +321,25 @@ export const CarsPage: NextPage<IProps> = ({
                     score: item?.averageRating || 5,
                   }}
                 >
-                  {item?.isOnOffer &&
-                    item.vehicleType === VehicleTypeEnum.CAR && (
-                      <img
-                        loading="eager"
-                        sizes="(min-width:320px) 800px, 1200px"
-                        alt="Free insurance"
-                        className="gallery-free-insurance"
-                        src={`${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`}
-                      />
+                  <div className="gallery-promotion-container">
+                    {getFuelType(item) === 'Electric' && (
+                      <div className={cx('promotion-item', '--secondary')}>
+                        <Text size="regular" color="white">
+                          Free Home Charger With Installation
+                        </Text>
+                        <Text color="white">{` Worth £900*`}</Text>
+                      </div>
                     )}
+                    {item?.isOnOffer &&
+                      item?.vehicleType === VehicleTypeEnum.CAR && (
+                        <div className={cx('promotion-item', '--primary')}>
+                          <Text size="regular" color="black" tag="span">
+                            1 Year’s FREE Insurance
+                          </Text>
+                          <Text color="black">{` Incl Courtesy Car`}</Text>
+                        </div>
+                      )}
+                  </div>
                   <div className="-flex-h">
                     <Price
                       price={

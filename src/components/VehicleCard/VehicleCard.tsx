@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
 // import truncateString from '../../utils/truncateString';
 import { useRouter } from 'next/router';
+import cx from 'classnames';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../RouterLink/RouterLink';
 import { formatProductPageUrl } from '../../utils/url';
@@ -27,6 +28,7 @@ const Card = dynamic(
     loading: () => <Skeleton count={1} />,
   },
 );
+const Text = dynamic(() => import('core/atoms/text'));
 const Icon = dynamic(() => import('core/atoms/icon'));
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 
@@ -64,6 +66,10 @@ const VehicleCard = React.memo(
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
     const productPageUrl = formatProductPageUrl(url, derivativeId);
+    const fuelType = useMemo(
+      () => data?.keyInformation?.find(item => item?.name === 'Fuel Type'),
+      [data],
+    );
 
     const imageProps = !isModelPage
       ? {
@@ -130,16 +136,24 @@ const VehicleCard = React.memo(
           ),
         }}
       >
-        {data?.isOnOffer && data?.vehicleType === VehicleTypeEnum.CAR && (
-          <img
-            loading="eager"
-            sizes="(min-width:320px) 800px, 1200px"
-            alt="Free insurance"
-            className="gallery-free-insurance"
-            src={`${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`}
-            data-cfasync="false"
-          />
-        )}
+        <div className="gallery-promotion-container">
+          {fuelType?.value === 'Electric' && (
+            <div className={cx('promotion-item', '--secondary')}>
+              <Text size="regular" color="white">
+                Free Home Charger With Installation
+              </Text>
+              <Text color="white">{` Worth £900*`}</Text>
+            </div>
+          )}
+          {data?.isOnOffer && data?.vehicleType === VehicleTypeEnum.CAR && (
+            <div className={cx('promotion-item', '--primary')}>
+              <Text size="regular" color="black" tag="span">
+                1 Year’s FREE Insurance
+              </Text>
+              <Text color="black">{` Incl Courtesy Car`}</Text>
+            </div>
+          )}
+        </div>
         <div className="-flex-h">
           <Price
             price={isPersonalPrice ? data?.personalRate : data?.businessRate}
