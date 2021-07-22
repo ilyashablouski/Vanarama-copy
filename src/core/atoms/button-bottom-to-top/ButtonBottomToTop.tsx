@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Icon from 'core/atoms/icon';
-import ArrowForBtnButtomToTop from 'core/assets/icons/ArrowForBtnButtomToTop';
+import ArrowForButtonButtomToTop from 'core/assets/icons/ArrowForButtonButtomToTop';
 
 const ButtonBottomToTop = () => {
   const [visibleButton, setVisibleButton] = useState(false);
@@ -34,7 +34,7 @@ const ButtonBottomToTop = () => {
         onClick={scrollToTop}
         className={visibleButton ? 'active scroll-top' : 'scroll-top'}
       >
-        <Icon color="white" icon={<ArrowForBtnButtomToTop />} />
+        <Icon color="white" icon={<ArrowForButtonButtomToTop />} />
       </div>
     </>
   );

@@ -11,7 +11,7 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import ButtonBottomToTop from 'core/components/ButtonBottomToTop/ButtonBottomToTop';
+import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop';
 import Image from 'core/atoms/image';
 import {
   filterOrderByNumMap,
