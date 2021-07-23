@@ -10,7 +10,13 @@ import ChevronBackCircleSharp from '../../assets/icons/ChevronBackCircleSharp';
 import ChevronForwardCircleSharp from '../../assets/icons/ChevronForwardCircleSharp';
 
 const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
-  const { activeSlide, images, changeSlideHandler, imageAltText } = props;
+  const {
+    activeSlide,
+    images,
+    changeSlideHandler,
+    imageAltText,
+    renderImageDecoration,
+  } = props;
   const positionStyle = {
     '--x': activeSlide,
     '--y': 0,
@@ -69,37 +75,15 @@ const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
                 '-active': index === activeSlide,
               })}
             >
-              {Array.isArray(value) ? (
-                value.map((image, idx) => {
-                  return idx === 1 ? (
-                    <img
-                      loading="eager"
-                      sizes="(min-width:320px) 800px, 1200px"
-                      alt={imageAltText}
-                      className="gallery-free-insurance"
-                      src={image}
-                      data-cfasync="false"
-                    />
-                  ) : (
-                    <Image
-                      optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                      src={image}
-                      size="expand"
-                      plain
-                      alt={imageAltText}
-                    />
-                  );
-                })
-              ) : (
-                <Image
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  lazyLoad={index !== 0}
-                  src={value}
-                  size="expand"
-                  plain
-                  alt={imageAltText}
-                />
-              )}
+              {renderImageDecoration?.(value, index)}
+              <Image
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                lazyLoad={index !== 0}
+                src={value}
+                size="expand"
+                plain
+                alt={imageAltText}
+              />
             </div>
           ))}
         </div>

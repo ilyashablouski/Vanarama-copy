@@ -291,29 +291,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     [],
   );
 
-  const vehicleImages = useMemo(() => {
-    return isSpecialOffer && isCar
-      ? (() => {
-          const urls =
-            (data?.vehicleImages?.length &&
-              ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
-                .imageUrls as string[])) ||
-            [];
-          return urls[0]
-            ? [
-                [
-                  urls[0],
-                  `${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`,
-                ],
-                ...urls.slice(1),
-              ]
-            : urls;
-        })()
-      : (data?.vehicleImages?.length &&
-          ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
-            .imageUrls as string[])) ||
-          [];
-  }, [data?.vehicleImages, isCar, isSpecialOffer]);
+  const vehicleImages = useMemo(
+    () =>
+      (data?.vehicleImages?.length &&
+        ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
+          .imageUrls as string[])) ||
+      [],
+    [data?.vehicleImages],
+  );
 
   const onOrderStart = (
     withInsurance = false,
@@ -331,17 +316,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         eligible: isAgreeInsuranceRules,
       };
     }
-    pushAddToCartHeap(vehicleProduct);
-    pushAddToCartDataLayer({
-      capId,
-      derivativeInfo,
-      leaseScannerData,
-      values,
-      vehicleConfigurationByCapId,
-      price,
-      category: getCategory({ cars, vans, pickups }),
-      vehicleValue,
-    });
+
     setIsModalVisible(false);
 
     return localForage
@@ -363,7 +338,21 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           url = '/checkout';
         }
 
-        return router.push(url, url);
+        return router.push(url, url).then(() => {
+          setTimeout(() => {
+            pushAddToCartHeap(vehicleProduct);
+            pushAddToCartDataLayer({
+              capId,
+              derivativeInfo,
+              leaseScannerData,
+              values,
+              vehicleConfigurationByCapId,
+              price,
+              category: getCategory({ cars, vans, pickups }),
+              vehicleValue,
+            });
+          }, 200);
+        });
       });
   };
 
@@ -593,6 +582,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             text: leadTime,
             incomplete: true,
           }}
+          showInsuranceBanner={isSpecialOffer && isCar}
+          showElectricBanner={
+            data?.derivativeInfo?.fuelType?.name === 'Electric'
+          }
           images={vehicleImages}
           videoSrc={video && video}
           threeSixtyVideoSrc={threeSixtyVideo}
