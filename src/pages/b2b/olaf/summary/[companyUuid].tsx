@@ -35,13 +35,16 @@ const BusinessSummaryPage: NextPage = () => {
   );
 
   const handleComplete = (emailAddress: string | undefined) => {
-    pushSummaryDataLayer({
-      detailsData,
-      derivativeData,
-      orderId,
-      emailAddress,
-    });
-    router.push('/olaf/thank-you?isB2b=1', '/olaf/thank-you?isB2b=1');
+    router.push('/olaf/thank-you?isB2b=1', '/olaf/thank-you?isB2b=1').then(() =>
+      setTimeout(() => {
+        pushSummaryDataLayer({
+          detailsData,
+          derivativeData,
+          orderId,
+          emailAddress,
+        });
+      }, 200),
+    );
   };
 
   return (
@@ -51,7 +54,7 @@ const BusinessSummaryPage: NextPage = () => {
     >
       <BusinessSummaryFormContainer
         isSoleTrader={isSoleTrader}
-        onCompleted={handleComplete}
+        onComplete={handleComplete}
         onError={handleSubmitError}
         personUuid={personUuid}
         orderId={orderId}
