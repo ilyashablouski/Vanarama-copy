@@ -1,6 +1,10 @@
 import { ILink } from 'core/interfaces/link';
 import { NextRouter } from 'next/router';
 
+export interface IBreadcrumbProps {
+  items?: IBreadcrumbLink[] | null;
+}
+
 export interface IBreadcrumbLink {
   link: ILink;
   as?: string;

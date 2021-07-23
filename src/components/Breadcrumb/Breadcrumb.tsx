@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import dynamic from 'next/dynamic';
 import RouterLink from '../RouterLink/RouterLink';
-import { IBreadcrumbLink } from './helpers';
+import { IBreadcrumbLink, IBreadcrumbProps } from './helpers';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 import Skeleton from '../Skeleton';
@@ -24,13 +24,11 @@ const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
 
-interface IBreadcrumbProps {
-  items?: IBreadcrumbLink[] | null;
-}
-
 const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
   const isDesktopOrTablet = useMediaQuery('(min-width: 768px)');
   const { items } = props;
+
+  console.log(items);
 
   const renderParent = (item: IBreadcrumbLink) =>
     !isDesktopOrTablet ? (

@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Breadcrumb /> renders correctly 1`] = `null`;
+
+exports[`<Breadcrumb /> renders correctly with optional props 1`] = `
+<nav>
+  <ul
+    className="breadcrumb"
+  >
+    <li
+      className="breadcrumb-item -parent"
+    >
+      <a
+        className="breadcrumb-item--backlink link -teal -small"
+        data-menu={null}
+        data-testid="router-link"
+        href="/"
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseOver={[Function]}
+      >
+        <div
+          style={
+            Object {
+              "color": "#ccc",
+              "fontSize": "24px",
+              "lineHeight": 1.75,
+              "opacity": 0.75,
+            }
+          }
+        >
+          <span>
+            <span
+              className="react-loading-skeleton css-1vmnjpn-skeletonStyles-Skeleton"
+              style={Object {}}
+            >
+              ‌
+            </span>
+          </span>
+        </div>
+        Back to 
+        Page1
+      </a>
+    </li>
+    <li
+      className="breadcrumb-item -parent"
+    >
+      <a
+        className="breadcrumb-item--backlink link -teal -small"
+        data-menu={null}
+        data-testid="router-link"
+        href="/"
+        onClick={[Function]}
+        onFocus={[Function]}
+        onMouseEnter={[Function]}
+        onMouseOver={[Function]}
+      >
+        <div
+          style={
+            Object {
+              "color": "#ccc",
+              "fontSize": "24px",
+              "lineHeight": 1.75,
+              "opacity": 0.75,
+            }
+          }
+        >
+          <span>
+            <span
+              className="react-loading-skeleton css-1vmnjpn-skeletonStyles-Skeleton"
+              style={Object {}}
+            >
+              ‌
+            </span>
+          </span>
+        </div>
+        Back to 
+        Page2
+      </a>
+    </li>
+    <li
+      className="breadcrumb-item -child"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
+    >
+      <div
+        style={
+          Object {
+            "color": "#ccc",
+            "fontSize": "24px",
+            "lineHeight": 1.75,
+            "opacity": 0.75,
+          }
+        }
+      >
+        <span>
+          <span
+            className="react-loading-skeleton css-1vmnjpn-skeletonStyles-Skeleton"
+            style={Object {}}
+          >
+            ‌
+          </span>
+        </span>
+      </div>
+    </li>
+  </ul>
+</nav>
+`;
