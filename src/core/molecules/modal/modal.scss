@@ -127,7 +127,12 @@ $modal-padding: $rem-200;
 
 .icon-list.maintenanceConditions li{
   margin-top: 0;
+  padding-top: 0;
   border-top:  none;
+  .icon-list {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
   .icon {
     font-size: 0.5rem;
   }
