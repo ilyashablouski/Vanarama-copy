@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 
 import Text from 'core/atoms/text';
@@ -15,9 +15,9 @@ function PreviouslySoleTrader() {
 
   const { control, errors } = useFormContext<ICompanyDetailsFormValues>();
 
-  function toggleModalVisibility() {
+  const toggleModalVisibility = useCallback(() => {
     setShowModal(!showModal);
-  }
+  }, [showModal]);
 
   return (
     <div className="olaf--previously-trading">
