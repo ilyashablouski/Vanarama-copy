@@ -22,7 +22,9 @@ const ButtonBottomToTop = () => {
         setVisibleButton(false);
       }
     };
-    return window.addEventListener('scroll', buttonVisible);
+    window.addEventListener('scroll', buttonVisible);
+
+    return () => window.removeEventListener('scroll', buttonVisible);
   }, []);
 
   return (
