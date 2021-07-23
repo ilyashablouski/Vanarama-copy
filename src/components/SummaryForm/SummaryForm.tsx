@@ -86,9 +86,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
           submittedAt: new Date(),
         },
       },
-    })
-      .then(() => onComplete?.())
-      .then(() => router.push('/olaf/thank-you', '/olaf/thank-you'));
+    }).then(() => onComplete?.());
   };
 
   const [createCreditCheckMutation] = useMutation<
