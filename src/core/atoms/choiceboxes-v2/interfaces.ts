@@ -3,6 +3,8 @@ import { Nullish } from '../../../types/common';
 import { TColor } from '../../../types/color';
 
 export interface IChoiceBoxesV2Props extends IBaseProps {
+  boxClassName?: string;
+  labelClassName?: string;
   color?: TColor;
   values: Array<string>;
   selectedValues?: Nullish<Array<string>>;

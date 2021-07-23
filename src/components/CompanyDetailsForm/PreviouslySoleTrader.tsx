@@ -1,10 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import { useFormContext, Controller } from 'react-hook-form';
 
 import Text from 'core/atoms/text';
 import Button from 'core/atoms/button';
 import Modal from 'core/molecules/modal';
-import Formgroup from 'core/molecules/formgroup';
+import FormGroup from 'core/molecules/formgroup';
+import ChoiceBoxes from 'core/atoms/choiceboxes';
 
 import { ICompanyDetailsFormValues } from './interfaces';
 
@@ -22,9 +23,17 @@ function PreviouslySoleTrader() {
     setShowModal(!showModal);
   }, [showModal]);
 
+  const choices = useMemo(
+    () => [
+      { label: 'Yes', value: 'true', active: fieldValue === true },
+      { label: 'No', value: 'false', active: fieldValue === false },
+    ],
+    [fieldValue],
+  );
+
   return (
     <div className="olaf--previously-trading">
-      <Formgroup
+      <FormGroup
         controlId={fieldName}
         error={errors.previouslyTradingSoletrader?.message?.toString()}
         label={
@@ -43,51 +52,25 @@ function PreviouslySoleTrader() {
         <Controller
           name={fieldName}
           control={control}
-          onChange={([{ target }]) => {
-            return target.value === 'true';
-          }}
           rules={{
             validate: value =>
               typeof value !== 'boolean'
                 ? 'Please select "Yes" or "No"'
                 : undefined,
           }}
-          as={({ name, onChange }) => (
-            <div className="button-group">
-              <input
-                id="ptst-yes"
-                type="radio"
-                name={name}
-                value="true"
-                checked={fieldValue === true}
-                onChange={onChange}
-                hidden
-              />
-              <label
-                htmlFor="ptst-yes"
-                className="button -primary -small -outline"
-              >
-                <span className="button--inner">Yes</span>
-              </label>
-              <input
-                id="ptst-no"
-                type="radio"
-                name={name}
-                value="false"
-                checked={fieldValue === false}
-                onChange={onChange}
-                hidden
-              />
-              <label
-                htmlFor="ptst-no"
-                className="button -primary -small -outline"
-              >
-                <span className="button--inner">No</span>
-              </label>
-            </div>
+          as={({ onChange }) => (
+            <ChoiceBoxes
+              choices={choices}
+              className="button-group"
+              boxClassName="button -small -primary -outline"
+              labelClassName="button--inner"
+              onSubmit={choice => {
+                onChange(choice.value === 'true');
+              }}
+            />
           )}
         />
-      </Formgroup>
+      </FormGroup>
       {showModal && (
         <Modal
           show

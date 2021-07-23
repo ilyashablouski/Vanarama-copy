@@ -1494,13 +1494,14 @@
             vertical-align: baseline;
           }
 
-          &--content .button {
+          &--content .choice-box {
+            @extend .button.-outline;
             padding: 0 30px;
-          }
 
-
-          input[type="radio"]:checked + .button {
-            @extend .button.-solid;
+            &.-active,
+            &.-active:hover {
+              @extend .button.-solid;
+            }
           }
         }
       }
