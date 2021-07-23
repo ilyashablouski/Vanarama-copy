@@ -449,7 +449,7 @@ const CustomiseLease = ({
               maintenance
                 ? `+£${toPriceFormat(
                     quoteByCapId?.maintenanceCost?.monthlyRental,
-                  )} Maintenance`
+                  )} Vanarama Service Plan`
                 : undefined
             }
             price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}

@@ -38,10 +38,10 @@ const ListItem: FC<IListItemProps> = props => {
     <div className="structured-list-td" data-testid={dataTestId}>
       {typeof input === 'string'
         ? input
-        : input.map(item => (
+        : input.map((item, index) => (
             <>
               {item}
-              <br />
+              {input.length !== index + 1 && <br />}
             </>
           ))}
     </div>
