@@ -66,18 +66,18 @@ export default function CompanyDetailsFormFields({
   const tradingSinceYear = watch('tradingSinceYear');
 
   const isPreviouslySoleTrader = useMemo(() => {
-    let result = MIN_TRADING_YEARS;
-
     if (companySearchResult) {
       const date = new Date(companySearchResult.dateOfCreation);
-      result = diffInYear(date.getFullYear(), date.getMonth(), 1);
+      const tradingYears = diffInYear(date.getFullYear(), date.getMonth(), 1);
+      return tradingYears < MIN_TRADING_YEARS;
     }
 
     if (tradingSinceYear && tradingSinceMonth) {
-      result = diffInYear(+tradingSinceYear, +tradingSinceMonth, 1);
+      const tradingYears = diffInYear(+tradingSinceYear, +tradingSinceMonth, 1);
+      return tradingYears < MIN_TRADING_YEARS;
     }
 
-    return result < MIN_TRADING_YEARS;
+    return false;
   }, [companySearchResult, tradingSinceMonth, tradingSinceYear]);
 
   return (
