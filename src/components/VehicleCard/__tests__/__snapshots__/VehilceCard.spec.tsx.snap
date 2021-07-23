@@ -124,6 +124,9 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
     </div>
   </div>
   <div
+    className="gallery-promotion-container"
+  />
+  <div
     className="-flex-h"
   >
     <div
@@ -378,6 +381,9 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     </div>
   </div>
   <div
+    className="gallery-promotion-container"
+  />
+  <div
     className="-flex-h"
   >
     <div
@@ -631,6 +637,9 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
       </span>
     </div>
   </div>
+  <div
+    className="gallery-promotion-container"
+  />
   <div
     className="-flex-h"
   >
