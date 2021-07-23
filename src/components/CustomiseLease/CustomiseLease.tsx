@@ -10,7 +10,10 @@ import Refresh from 'core/assets/icons/Refresh';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps, IChoice } from './interface';
-import { isServicePlanShow, toPriceFormat } from '../../utils/helpers';
+import {
+  isServicePlanFeatureEnabled,
+  toPriceFormat,
+} from '../../utils/helpers';
 import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
@@ -359,7 +362,7 @@ const CustomiseLease = ({
       )}
       <Heading tag="span" size="regular" color="black">
         {`${
-          isServicePlanShow
+          isServicePlanFeatureEnabled
             ? 'Add Vanarama Service Plan (Our Maintenance Package):'
             : 'Add Maintenance:'
         }`}
@@ -454,7 +457,9 @@ const CustomiseLease = ({
                 ? `+£${toPriceFormat(
                     quoteByCapId?.maintenanceCost?.monthlyRental,
                   )}  ${
-                    isServicePlanShow ? 'Vanarama Service Plan' : 'Maintenance'
+                    isServicePlanFeatureEnabled
+                      ? 'Vanarama Service Plan'
+                      : 'Maintenance'
                   }`
                 : undefined
             }
@@ -480,7 +485,7 @@ const CustomiseLease = ({
         </div>
       )}
       {isModalShowing &&
-        (isServicePlanShow ? (
+        (isServicePlanFeatureEnabled ? (
           <Modal
             className="-mt-000"
             containerClassName="modal-container-large"

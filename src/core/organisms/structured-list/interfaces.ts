@@ -1,5 +1,5 @@
 import { ChangeEvent } from 'react';
-import { IBaseProps } from '../../interfaces/base';
+import { IBaseProps } from 'core/interfaces/base';
 import { TSize } from '../../../types/size';
 import { TColor } from '../../../types/color';
 
@@ -14,7 +14,7 @@ export interface IList extends IBaseProps {
   };
   name?: string;
   label: string;
-  value: string | string[];
+  value: string | (string | JSX.Element)[];
   isOrange?: boolean;
 }
 

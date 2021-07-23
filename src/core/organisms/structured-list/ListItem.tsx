@@ -50,7 +50,7 @@ const ListItem: FC<IListItemProps> = props => {
   const renderTextInput = () => (
     <TextInput
       dataTestId={dataTestId}
-      value={input}
+      value={input as string | string[]}
       name={name}
       placeholder={placeholder}
       onChange={handleChange}

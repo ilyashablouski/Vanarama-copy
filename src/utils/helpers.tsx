@@ -13,7 +13,7 @@ import {
 } from '../../generated/GetTrimAndColor';
 
 // TODO: should be removed after feature release
-export const isServicePlanShow = Cookies.get('DIG-6814') === '1';
+export const isServicePlanFeatureEnabled = Cookies.get('DIG-6814') === '1';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
@@ -97,7 +97,7 @@ export const getOrderList = ({
     {
       label: 'Initial Payment:',
       value:
-        maintenance && isServicePlanShow
+        maintenance && isServicePlanFeatureEnabled
           ? [
               `£${quoteByCapId?.leaseCost?.initialRental} (${stateVAT}. VAT)`,
               <div
@@ -132,7 +132,9 @@ export const getOrderList = ({
       isOrange: false,
     },
     {
-      label: `${isServicePlanShow ? 'Vanarama Service Plan:' : 'Maintenance:'}`,
+      label: `${
+        isServicePlanFeatureEnabled ? 'Vanarama Service Plan:' : 'Maintenance:'
+      }`,
       value: `${maintenance ? 'Yes' : 'No'}`,
       id: 'maintenance',
       key: `${maintenance ? 'Yes' : 'No'}`,
