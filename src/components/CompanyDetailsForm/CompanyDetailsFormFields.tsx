@@ -170,9 +170,9 @@ export default function CompanyDetailsFormFields({
         </>
       )}
       {isPreviouslySoleTrader && <PreviouslySoleTrader />}
-      {(isPreviouslySoleTrader && previouslyTradingSoleTrader) ||
-      (!isPreviouslySoleTrader && companySearchResult) ||
-      inputMode === 'manual' ? (
+      {!previouslyTradingSoleTrader &&
+      isPreviouslySoleTrader &&
+      companySearchResult ? null : (
         <>
           <NatureTypeahead
             value={natureOfBusinessValue}
@@ -280,7 +280,7 @@ export default function CompanyDetailsFormFields({
             type="submit"
           />
         </>
-      ) : null}
+      )}
     </>
   );
 }

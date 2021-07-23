@@ -132,7 +132,6 @@ export const mapDefaultValues = (
       : undefined,
     companyNumber: data?.businessRegistrationNumber ?? '',
     companyName: data?.businessName ?? '',
-    previouslyTradingSoletrader: `${data?.previouslyTradingSoletrader}`,
     tradingSinceMonth: (tradingSince?.getMonth() || '').toString(),
     tradingSinceYear: (tradingSince?.getFullYear() || '').toString(),
     nature: data?.natureOfBusiness ?? '',
@@ -141,6 +140,10 @@ export const mapDefaultValues = (
     tradingAddress: mapAddress(tradingAddress),
     email: data?.emailAddresses?.[0]?.value ?? '',
     telephone: data?.telephoneNumbers?.[0]?.value ?? '',
+    previouslyTradingSoletrader:
+      typeof data?.previouslyTradingSoletrader === 'boolean'
+        ? `${data?.previouslyTradingSoletrader}`
+        : undefined,
   };
 };
 
