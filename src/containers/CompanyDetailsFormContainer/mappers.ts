@@ -54,13 +54,6 @@ export const mapTelephoneNumbers = (values: SubmissionValues) => [
   { value: values.telephone, primary: true },
 ];
 
-export const mapPreviouslyTradingSoletrader = (
-  values: ICompanyDetailsFormValues,
-) =>
-  values.previouslyTradingSoletrader
-    ? values.previouslyTradingSoletrader === 'true'
-    : undefined;
-
 export const mapFormValues = (
   values: SubmissionValues,
   personUuid: string,
@@ -82,7 +75,7 @@ export const mapFormValues = (
       ? searchResult.dateOfCreation
       : parseDate('01', values.tradingSinceMonth, values.tradingSinceYear),
     addresses: mapAddresses(values),
-    previouslyTradingSoletrader: mapPreviouslyTradingSoletrader(values),
+    previouslyTradingSoletrader: values.previouslyTradingSoletrader,
     withTradingAddress: values.tradingDifferent,
     companyNature: values.nature,
     emailAddress: mapEmailAddress(values),
@@ -130,6 +123,7 @@ export const mapDefaultValues = (
           title: data?.companySearchResult?.title,
         }
       : undefined,
+    previouslyTradingSoletrader: data?.previouslyTradingSoletrader ?? undefined,
     companyNumber: data?.businessRegistrationNumber ?? '',
     companyName: data?.businessName ?? '',
     tradingSinceMonth: (tradingSince?.getMonth() || '').toString(),
@@ -140,10 +134,6 @@ export const mapDefaultValues = (
     tradingAddress: mapAddress(tradingAddress),
     email: data?.emailAddresses?.[0]?.value ?? '',
     telephone: data?.telephoneNumbers?.[0]?.value ?? '',
-    previouslyTradingSoletrader:
-      typeof data?.previouslyTradingSoletrader === 'boolean'
-        ? `${data?.previouslyTradingSoletrader}`
-        : undefined,
   };
 };
 
@@ -180,7 +170,7 @@ export const mapCompanyDetailsToCreditApplication = (
       values?.companySearchResult?.dateOfCreation ??
       parseDate('01', values.tradingSinceMonth, values.tradingSinceYear),
     companyType: aboutDetails?.companyType || 'Limited',
-    previouslyTradingSoletrader: mapPreviouslyTradingSoletrader(values),
+    previouslyTradingSoletrader: values.previouslyTradingSoletrader,
     telephoneNumbers: [{ value: values.telephone, kind: 'business' }],
     emailAddresses: [{ kind: 'Home', value: values.email, primary: true }],
   };

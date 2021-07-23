@@ -170,7 +170,7 @@ export default function CompanyDetailsFormFields({
         </>
       )}
       {isPreviouslySoleTrader && <PreviouslySoleTrader />}
-      {!previouslyTradingSoleTrader &&
+      {previouslyTradingSoleTrader === undefined &&
       isPreviouslySoleTrader &&
       companySearchResult ? null : (
         <>

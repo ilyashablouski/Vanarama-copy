@@ -13,8 +13,11 @@ const fieldName = 'previouslyTradingSoletrader';
 function PreviouslySoleTrader() {
   const [showModal, setShowModal] = useState(false);
 
-  const { control, errors } = useFormContext<ICompanyDetailsFormValues>();
+  const { control, errors, watch } = useFormContext<
+    ICompanyDetailsFormValues
+  >();
 
+  const fieldValue = watch(fieldName);
   const toggleModalVisibility = useCallback(() => {
     setShowModal(!showModal);
   }, [showModal]);
@@ -40,17 +43,23 @@ function PreviouslySoleTrader() {
         <Controller
           name={fieldName}
           control={control}
-          rules={{
-            required: 'Please select "Yes" or "No"',
+          onChange={([{ target }]) => {
+            return target.value === 'true';
           }}
-          as={({ name, value, onChange }) => (
+          rules={{
+            validate: value =>
+              typeof value !== 'boolean'
+                ? 'Please select "Yes" or "No"'
+                : undefined,
+          }}
+          as={({ name, onChange }) => (
             <div className="button-group">
               <input
                 id="ptst-yes"
                 type="radio"
                 name={name}
                 value="true"
-                checked={value === 'true'}
+                checked={fieldValue === true}
                 onChange={onChange}
                 hidden
               />
@@ -65,7 +74,7 @@ function PreviouslySoleTrader() {
                 type="radio"
                 name={name}
                 value="false"
-                checked={value === 'false'}
+                checked={fieldValue === false}
                 onChange={onChange}
                 hidden
               />
