@@ -37,29 +37,32 @@
   }
 }
 
-.gallery-free-insurance {
+.gallery-promotion-container {
   grid-area: unset !important;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
   position: absolute;
-  width: 50%;
+  top: 0;
+  right: 0;
+
+  .promotion-item {
+    border-radius: 0px 0px 0px 6px;
+    padding: 5px 14px 3px 9px;
+
+    &.--primary {
+      background-color: #F8BB20;
+    }
+
+    &.--secondary {
+      background-color: #47C0D8;
+    }
+  }
+}
+
+.card .gallery-promotion-container {
   top: 14px;
-  left: 22px;
-
-  // Desktop
-  @media (min-width:1216px) {
-    width: 255px;
-  }
 }
-
-.card .gallery-free-insurance {
-  width: 60%;
-  top: 20px;
-  left: 14px;
-  // Desktop
-  @media (min-width:1216px) {
-    width: 217px;
-  }
-}
-
 
 .two-col {
   > * {
