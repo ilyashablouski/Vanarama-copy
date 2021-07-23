@@ -41,7 +41,7 @@ const toThankYouPage = () => {
    *   in the redirect url when we completely stop using van-insurance pages.
    */
   const asPath = Router.asPath.match(/([\w-]+)(\.html)?$/i)?.[1];
-  Router.push(`/van-insurance/${asPath}/thank-you`);
+  return Router.push(`/van-insurance/${asPath}/thank-you`);
 };
 
 const FinanceGapInsurancePageContainer = ({
@@ -56,7 +56,7 @@ const FinanceGapInsurancePageContainer = ({
 
   const [showModal, setShowModal] = useState(false);
 
-  const [createOppurtunity, { loading }] = useOpportunityCreation(
+  const [createOpportunity, { loading }] = useOpportunityCreation(
     () => toThankYouPage(),
     error => {
       if (error?.networkError) {
@@ -102,8 +102,7 @@ const FinanceGapInsurancePageContainer = ({
           {...featured1}
           isSubmitting={loading}
           onSubmit={(values: IGoldrushFromValues) => {
-            pushInsuranceEventDataLayer(Router);
-            createOppurtunity({
+            createOpportunity({
               variables: {
                 email: values.email,
                 phoneNumber: values.phoneNumber,
@@ -115,7 +114,11 @@ const FinanceGapInsurancePageContainer = ({
                 communicationsConsent: Boolean(values.consent),
                 opportunitySubtype: getOpportunitySubtype(),
               },
-            });
+            }).then(() =>
+              setTimeout(() => {
+                pushInsuranceEventDataLayer(Router);
+              }, 200),
+            );
           }}
         />
       )}
@@ -136,8 +139,7 @@ const FinanceGapInsurancePageContainer = ({
             isTextInVisible
             noTermsAndConditions
             onSubmit={(values: IGoldrushFromValues) => {
-              pushInsuranceEventDataLayer(Router);
-              createOppurtunity({
+              createOpportunity({
                 variables: {
                   email: values.email,
                   phoneNumber: values.phoneNumber,
@@ -149,7 +151,11 @@ const FinanceGapInsurancePageContainer = ({
                   communicationsConsent: Boolean(values.consent),
                   opportunitySubtype: getOpportunitySubtype(),
                 },
-              });
+              }).then(() =>
+                setTimeout(() => {
+                  pushInsuranceEventDataLayer(Router);
+                }, 200),
+              );
             }}
           />
         </Modal>
