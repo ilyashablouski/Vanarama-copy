@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import {
   GetVehicleDetails_vehicleDetails_roadsideAssistance,
   GetVehicleDetails_vehicleDetails_warrantyDetails,
@@ -10,6 +11,9 @@ import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
 } from '../../generated/GetTrimAndColor';
+
+// TODO: should be removed after feature release
+export const isServicePlanShow = Cookies.get('DIG-6814') === '1';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
@@ -92,19 +96,20 @@ export const getOrderList = ({
     },
     {
       label: 'Initial Payment:',
-      value: maintenance
-        ? [
-            `£${quoteByCapId?.leaseCost?.initialRental} (${stateVAT}. VAT)`,
-            <div
-              className="structured-list-row orange"
-              style={{ borderBottom: 0 }}
-            >
-              <div className="structured-list-td">
-                {`+£${quoteByCapId?.maintenanceCost?.initialRental} Vanarama Service Plan Initial payment`}
-              </div>
-            </div>,
-          ]
-        : `£${quoteByCapId?.leaseCost?.initialRental} (${stateVAT}. VAT)`,
+      value:
+        maintenance && isServicePlanShow
+          ? [
+              `£${quoteByCapId?.leaseCost?.initialRental} (${stateVAT}. VAT)`,
+              <div
+                className="structured-list-row orange"
+                style={{ borderBottom: 0 }}
+              >
+                <div className="structured-list-td">
+                  {`+£${quoteByCapId?.maintenanceCost?.initialRental} Vanarama Service Plan Initial payment`}
+                </div>
+              </div>,
+            ]
+          : `£${quoteByCapId?.leaseCost?.initialRental} (${stateVAT}. VAT)`,
       id: 'initialPayment',
       key: `${quoteByCapId?.leaseCost?.initialRental} ${stateVAT}`,
       dataTestId: 'initialPayment',
@@ -127,7 +132,7 @@ export const getOrderList = ({
       isOrange: false,
     },
     {
-      label: 'Vanarama Service Plan:',
+      label: `${isServicePlanShow ? 'Vanarama Service Plan:' : 'Maintenance:'}`,
       value: `${maintenance ? 'Yes' : 'No'}`,
       id: 'maintenance',
       key: `${maintenance ? 'Yes' : 'No'}`,
