@@ -11,12 +11,15 @@ import RouterLink from '../RouterLink/RouterLink';
 import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
 import {
   GetProductCard,
+  GetProductCard_derivatives,
   GetProductCard_productCard,
 } from '../../../generated/GetProductCard';
 import truncateString from '../../utils/truncateString';
 // import useSliderProperties from '../../hooks/useSliderProperties';
 import { features } from './helpers';
 import useWishlist from '../../hooks/useWishlist';
+import ElectricVehicleBanner from '../ElectricVehicleBanner';
+import FreeInsuranceBanner from '../FreeInsuranceBanner';
 
 // Dynamic component loading.
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -27,6 +30,17 @@ const Price = dynamic(() => import('core/atoms/price'));
 const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
+
+const getVehicle = (
+  product: GetProductCard_productCard | null,
+  derivatives: GetProductCard_derivatives[] | null,
+) => derivatives?.find(derivative => derivative.id === product?.capId);
+
+const getBodyStyle = (
+  product: GetProductCard_productCard | null,
+  derivatives: GetProductCard_derivatives[] | null,
+  productType?: string,
+) => productType || getVehicle(product, derivatives)?.bodyStyle?.name || '';
 
 interface IProductCarouselProps {
   leaseType: string;
@@ -45,17 +59,8 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
   productType,
   customCTABackground,
 }) => {
-  // const { slidesToShow } = useSliderProperties();
-
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
-
-  const getBodyStyle = (product: GetProductCard_productCard | null) => {
-    const vehicle = data.derivatives?.find(
-      derivative => derivative.id === product?.capId,
-    );
-    return vehicle ? vehicle.bodyStyle?.name : '';
-  };
 
   const isLargeScreen = useMediaQuery({ minWidth: 1216 });
   const isMediumScreen = useMediaQuery({ minWidth: 568, maxWidth: 1215 });
@@ -110,7 +115,11 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                     getLegacyUrl(data?.vehicleList?.edges, product.capId),
                     product.capId,
                   ),
-                  bodyStyle: productType || getBodyStyle(product),
+                  bodyStyle: getBodyStyle(
+                    product,
+                    data.derivatives,
+                    productType,
+                  ),
                   ...product,
                 });
               }}
@@ -126,7 +135,11 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                     getLegacyUrl(data?.vehicleList?.edges, product.capId),
                     product.capId,
                   ),
-                  bodyStyle: productType || getBodyStyle(product),
+                  bodyStyle: getBodyStyle(
+                    product,
+                    data.derivatives,
+                    productType,
+                  ),
                   ...product,
                 })
               }
@@ -161,17 +174,14 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 score: product.averageRating || 5,
               }}
             >
-              {product?.isOnOffer &&
-                product.vehicleType === VehicleTypeEnum.CAR && (
-                  <img
-                    loading="eager"
-                    sizes="(min-width:320px) 800px, 1200px"
-                    alt="Free insurance"
-                    className="gallery-free-insurance"
-                    src={`${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`}
-                    data-cfasync="false"
-                  />
-                )}
+              <div className="gallery-promotion-container">
+                {getVehicle(product, data.derivatives)?.fuelType?.name ===
+                  'Electric' && <ElectricVehicleBanner />}
+                {product?.isOnOffer &&
+                  product.vehicleType === VehicleTypeEnum.CAR && (
+                    <FreeInsuranceBanner />
+                  )}
+              </div>
               <div className="-flex-h">
                 <Price
                   price={
