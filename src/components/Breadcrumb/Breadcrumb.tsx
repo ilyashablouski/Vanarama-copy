@@ -26,9 +26,7 @@ const Text = dynamic(() => import('core/atoms/text'), {
 
 const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
   const isDesktopOrTablet = useMediaQuery('(min-width: 768px)');
-  const { items } = props;
-
-  console.log(items);
+  const { items, dataTestId } = props;
 
   const renderParent = (item: IBreadcrumbLink) =>
     !isDesktopOrTablet ? (
@@ -77,7 +75,7 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
   }
 
   return (
-    <nav>
+    <nav data-testid={dataTestId ?? 'breadcrumbs'}>
       <ul className="breadcrumb">
         {items.map((item, key) =>
           items.length === key + 1 ? renderChild(item) : renderParent(item),

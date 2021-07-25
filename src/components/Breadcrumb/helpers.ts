@@ -1,7 +1,8 @@
 import { ILink } from 'core/interfaces/link';
 import { NextRouter } from 'next/router';
+import { IBaseProps } from 'core/interfaces/base';
 
-export interface IBreadcrumbProps {
+export interface IBreadcrumbProps extends IBaseProps {
   items?: IBreadcrumbLink[] | null;
 }
 

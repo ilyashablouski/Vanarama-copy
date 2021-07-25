@@ -10,15 +10,11 @@ Object.defineProperty(window, 'matchMedia', {
     matches: false,
     media: query,
     onchange: null,
-    addListener: jest.fn(), // deprecated
-    removeListener: jest.fn(), // deprecated
-    addEventListener: jest.fn(),
-    removeEventListener: jest.fn(),
-    dispatchEvent: jest.fn(),
   })),
 });
 
 const optionalProps = {
+  dataTestId: 'breadcrumbs',
   items: [
     { link: { href: '/', label: 'Page1' } },
     { link: { href: '/', label: 'Page2' } },
@@ -30,12 +26,7 @@ function getComponent(props?: IBreadcrumbProps) {
   return renderer.create(<Breadcrumb {...props} />).toJSON();
 }
 
-describe('<Breadcrumb />', () => {
-  it('renders correctly', () => {
-    const tree = getComponent();
-    expect(tree).toMatchSnapshot();
-  });
-
+describe('<Breadcrumbs />', () => {
   it('renders correctly with optional props', () => {
     const tree = getComponent(optionalProps);
     expect(tree).toMatchSnapshot();
