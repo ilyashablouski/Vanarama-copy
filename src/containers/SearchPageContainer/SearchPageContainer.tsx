@@ -13,7 +13,7 @@ import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop';
 import Image from 'core/atoms/image';
-import { isNewRangePagesFeatureEnabled } from 'utils/helpers';
+import { isNewRangePagesFeatureEnabled } from '../../utils/helpers';
 import {
   filterOrderByNumMap,
   findPreselectFilterValue,
