@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
 import { SlugNextPageContext } from 'types/common';
-import Cookies from 'js-cookie';
+import { isNewRangePagesFeatureEnabled } from 'utils/helpers';
 import createApolloClient from '../../../../apolloClient';
 import {
   GET_VEHICLE_LIST,
@@ -157,8 +157,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
       client,
       contextData,
       true,
-      // TODO: Cookies should be removed after feature release
-      Cookies.get('DIG-6496') === '1' &&
+      isNewRangePagesFeatureEnabled &&
         NEW_RANGE_SLUGS.includes(contextData.req?.resolvedUrl || '')
         ? 'isNewRangePage'
         : 'isRangePage',
