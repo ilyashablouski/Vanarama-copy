@@ -48,7 +48,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-  } 
+  }
 
 }
 
@@ -68,6 +68,7 @@
   transform: translateY(20px);
   opacity: 0;
   transition: all 0.3s ease;
+  z-index: 20;
   @media (min-width: 1216px) {
     right: 40px;
     bottom: 40px;
@@ -90,12 +91,12 @@
     &:last-of-type {
       margin-bottom: 20px;
     }
-  } 
+  }
   @media (min-width: 768px){
     > * {
       width: calc(50% - 8.5px);
       margin-bottom: 36px;
-      &:last-of-type, 
+      &:last-of-type,
       &:nth-last-child(2) {
         margin-bottom: 0;
       }
@@ -187,8 +188,8 @@
     }
   }
 
-  *, 
-  *:before, 
+  *,
+  *:before,
   *:after {
     line-height: unset;
   }
