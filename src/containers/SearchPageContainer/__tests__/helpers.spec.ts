@@ -1,5 +1,5 @@
 import preloadAll from 'jest-next-dynamic';
-import { onMadeLineBreaks } from '../helpers';
+import { onMadeLineBreaks, trimSlug } from '../helpers';
 
 describe('<helpers />', () => {
   beforeEach(async () => {
@@ -17,5 +17,18 @@ describe('<helpers />', () => {
       'Volkswagen Tiguan Allspace',
       'Leasing',
     ]);
+  });
+});
+
+describe('trimSlug', () => {
+  it('trimSlug should return trim slug', () => {
+    expect(trimSlug('/car-leasing/land-rover/range-rover-evoque')).toBe(
+      'car-leasing/land-rover/range-rover-evoque',
+    );
+  });
+  it('trimSlug should return same slug', () => {
+    expect(trimSlug('car-leasing/land-rover/range-rover-evoque')).toBe(
+      'car-leasing/land-rover/range-rover-evoque',
+    );
   });
 });

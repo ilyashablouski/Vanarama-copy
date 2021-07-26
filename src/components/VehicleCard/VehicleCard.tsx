@@ -1,7 +1,6 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
-// import truncateString from '../../utils/truncateString';
 import { useRouter } from 'next/router';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../RouterLink/RouterLink';
@@ -14,6 +13,8 @@ import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { onSavePagePosition } from './helpers';
 import useWishlist from '../../hooks/useWishlist';
 import { isWished } from '../../utils/wishlistHelpers';
+import ElectricVehicleBanner from '../ElectricVehicleBanner';
+import FreeInsuranceBanner from '../FreeInsuranceBanner';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -64,6 +65,10 @@ const VehicleCard = React.memo(
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
     const productPageUrl = formatProductPageUrl(url, derivativeId);
+    const fuelType = useMemo(
+      () => data?.keyInformation?.find(item => item?.name === 'Fuel Type'),
+      [data],
+    );
 
     const imageProps = !isModelPage
       ? {
@@ -130,16 +135,12 @@ const VehicleCard = React.memo(
           ),
         }}
       >
-        {data?.isOnOffer && data?.vehicleType === VehicleTypeEnum.CAR && (
-          <img
-            loading="eager"
-            sizes="(min-width:320px) 800px, 1200px"
-            alt="Free insurance"
-            className="gallery-free-insurance"
-            src={`${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`}
-            data-cfasync="false"
-          />
-        )}
+        <div className="gallery-promotion-container">
+          {fuelType?.value === 'Electric' && <ElectricVehicleBanner />}
+          {data?.isOnOffer && data?.vehicleType === VehicleTypeEnum.CAR && (
+            <FreeInsuranceBanner />
+          )}
+        </div>
         <div className="-flex-h">
           <Price
             price={isPersonalPrice ? data?.personalRate : data?.businessRate}

@@ -53,6 +53,7 @@ import { GenericPageHeadQuery } from '../../../generated/GenericPageHeadQuery';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { pushAddToCartHeap } from '../../utils/heapHelpers';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
+import WishlistToggle from './WishlistToggle';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -60,6 +61,7 @@ const DownloadSharp = dynamic(() => import('core/assets/icons/DownloadSharp'));
 const Loading = dynamic(() => import('core/atoms/loading'));
 const Rating = dynamic(() => import('core/atoms/rating'), {
   loading: () => <Skeleton count={1} />,
+  ssr: false,
 });
 const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
@@ -289,29 +291,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     [],
   );
 
-  const vehicleImages = useMemo(() => {
-    return isSpecialOffer && isCar
-      ? (() => {
-          const urls =
-            (data?.vehicleImages?.length &&
-              ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
-                .imageUrls as string[])) ||
-            [];
-          return urls[0]
-            ? [
-                [
-                  urls[0],
-                  `${process.env.HOST_DOMAIN}/Assets/images/insurance/1-Year-Free-Insurance.png`,
-                ],
-                ...urls.slice(1),
-              ]
-            : urls;
-        })()
-      : (data?.vehicleImages?.length &&
-          ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
-            .imageUrls as string[])) ||
-          [];
-  }, [data?.vehicleImages, isCar, isSpecialOffer]);
+  const vehicleImages = useMemo(
+    () =>
+      (data?.vehicleImages?.length &&
+        ((data?.vehicleImages as GetVehicleDetails_vehicleImages[])[0]
+          .imageUrls as string[])) ||
+      [],
+    [data?.vehicleImages],
+  );
 
   const onOrderStart = (
     withInsurance = false,
@@ -329,17 +316,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         eligible: isAgreeInsuranceRules,
       };
     }
-    pushAddToCartHeap(vehicleProduct);
-    pushAddToCartDataLayer({
-      capId,
-      derivativeInfo,
-      leaseScannerData,
-      values,
-      vehicleConfigurationByCapId,
-      price,
-      category: getCategory({ cars, vans, pickups }),
-      vehicleValue,
-    });
+
     setIsModalVisible(false);
 
     return localForage
@@ -361,7 +338,21 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           url = '/checkout';
         }
 
-        return router.push(url, url);
+        return router.push(url, url).then(() => {
+          setTimeout(() => {
+            pushAddToCartHeap(vehicleProduct);
+            pushAddToCartDataLayer({
+              capId,
+              derivativeInfo,
+              leaseScannerData,
+              values,
+              vehicleConfigurationByCapId,
+              price,
+              category: getCategory({ cars, vans, pickups }),
+              vehicleValue,
+            });
+          }, 200);
+        });
       });
   };
 
@@ -553,23 +544,29 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           {vehicleConfigurationByCapId?.capDerivativeDescription}
         </span>
         <div className="pdp--content-details">
-          <Rating size="regular" score={vehicleDetails?.averageRating || 0} />
-          <div>
-            <div className="pdp--brochure">
-              {vehicleDetails?.brochureUrl && (
-                <RouterLink
-                  link={{
-                    href: vehicleDetails?.brochureUrl,
-                    label: '',
-                    target: '_blank',
-                  }}
-                  classNames={{ color: 'teal', size: 'xsmall' }}
-                >
-                  {'Download Brochure '}
-                  <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
-                </RouterLink>
-              )}
-            </div>
+          <div className="pdp--wishlist">
+            <WishlistToggle productDetails={data} />
+          </div>
+          <a
+            className="pdp--rating"
+            href={reviews?.length ? '#reviews' : undefined}
+          >
+            <Rating size="regular" score={vehicleDetails?.averageRating ?? 0} />
+          </a>
+          <div className="pdp--brochure">
+            {vehicleDetails?.brochureUrl && (
+              <RouterLink
+                link={{
+                  href: vehicleDetails?.brochureUrl,
+                  label: '',
+                  target: '_blank',
+                }}
+                classNames={{ color: 'teal', size: 'xsmall' }}
+              >
+                {'Download Brochure '}
+                <Icon color="teal" size="xsmall" icon={<DownloadSharp />} />
+              </RouterLink>
+            )}
           </div>
         </div>
         <MediaGallery
@@ -585,6 +582,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             text: leadTime,
             incomplete: true,
           }}
+          showInsuranceBanner={isSpecialOffer && isCar}
+          showElectricBanner={
+            data?.derivativeInfo?.fuelType?.name === 'Electric'
+          }
           images={vehicleImages}
           videoSrc={video && video}
           threeSixtyVideoSrc={threeSixtyVideo}
@@ -596,7 +597,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           derivativeInfo={derivativeInfo}
           standardEquipment={standardEquipment}
         />
-        {isSpecialOffer && isCar && <FreeInsuranceCards />}
+        {isSpecialOffer && isCar && (
+          <LazyLoadComponent
+            visibleByDefault={isServerRenderOrAppleDevice}
+            placeholder={<span className="-d-block -h-300" />}
+          >
+            <FreeInsuranceCards />
+          </LazyLoadComponent>
+        )}
         {isMobile && vehicleDetails?.brochureUrl && (
           <Button
             className="pdp--mobile-download"
@@ -620,7 +628,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         )}
         {(vans || (cars && !isSpecialOffer)) && <Banner vans={vans} />}
         {(vans || pickups) && !!independentReview && (
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+          <LazyLoadComponent
+            visibleByDefault={isServerRenderOrAppleDevice}
+            placeholder={<span className="-d-block -h-400" />}
+          >
             <IndependentReview review={independentReview || ''} />
           </LazyLoadComponent>
         )}
@@ -649,21 +660,30 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             warrantyDetails={warrantyDetails}
           />
         )}
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <LazyLoadComponent
+          visibleByDefault={isServerRenderOrAppleDevice}
+          placeholder={<span className="-d-block -h-400" />}
+        >
           <WhyChooseLeasing warrantyDetails={warrantyDetails} />
           <WhyChooseVanarama cars={cars} vans={vans} pickups={pickups} />
         </LazyLoadComponent>
-        <div className="pdp--reviews">
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <section className="pdp--reviews" id="reviews">
+          <LazyLoadComponent
+            visibleByDefault={isServerRenderOrAppleDevice}
+            placeholder={<span className="-d-block -h-300" />}
+          >
             <CustomerReviews
-              reviews={reviews || []}
+              reviews={reviews ?? []}
               title="Customer Reviews"
               sliderClassName="customer-reviews"
               headingClassName="-mb-200"
             />
           </LazyLoadComponent>
-        </div>
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        </section>
+        <LazyLoadComponent
+          visibleByDefault={isServerRenderOrAppleDevice}
+          placeholder={<span className="-d-block -h-300" />}
+        >
           <FrequentlyAskedQuestions
             rangeFAQ={rangeFAQs || []}
             rangeFAQTitle={pageTitle}
@@ -696,7 +716,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         />
       )}
       {(!!productCard || !!capsId?.length) && (
-        <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <LazyLoadComponent
+          visibleByDefault={isServerRenderOrAppleDevice}
+          placeholder={<span className="-d-block -h-600" />}
+        >
           <CustomerAlsoViewedContainer
             initProductCard={productCard}
             capsId={capsId || []}
@@ -712,46 +735,44 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           })}
           ref={leaseScanner}
         >
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-            <LeaseScanner
-              classNameHeading="headingText"
-              className="pdp-footer"
-              nextBestPrice={
-                leaseScannerData?.maintenance
-                  ? `£${toPriceFormat(
-                      leaseScannerData?.quoteByCapId?.nextBestPrice?.maintained,
-                    )} PM ${leaseScannerData?.stateVAT}. VAT`
-                  : `£${toPriceFormat(
-                      leaseScannerData?.quoteByCapId?.nextBestPrice
-                        ?.nonMaintained,
-                    )} PM ${leaseScannerData?.stateVAT}. VAT`
-              }
-              priceLabel={
-                leaseScannerData?.maintenance
-                  ? `+£${toPriceFormat(
-                      leaseScannerData?.quoteByCapId?.maintenanceCost
-                        ?.monthlyRental,
-                    )} Maintenance`
-                  : undefined
-              }
-              price={
-                +toPriceFormat(
-                  leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
-                )
-              }
-              orderNowClick={onSubmitClickMobile}
-              headingText={`PM ${leaseScannerData?.stateVAT}. VAT`}
-              leasingProviders={LEASING_PROVIDERS}
-              startLoading={isPlayingLeaseAnimation}
-              endAnimation={() => {
-                setIsPlayingLeaseAnimation(false);
-                leaseScannerData?.endAnimation();
-              }}
-              requestCallBack={() => {
-                leaseScannerData?.requestCallBack();
-              }}
-            />
-          </LazyLoadComponent>
+          <LeaseScanner
+            classNameHeading="headingText"
+            className="pdp-footer"
+            nextBestPrice={
+              leaseScannerData?.maintenance
+                ? `£${toPriceFormat(
+                    leaseScannerData?.quoteByCapId?.nextBestPrice?.maintained,
+                  )} PM ${leaseScannerData?.stateVAT}. VAT`
+                : `£${toPriceFormat(
+                    leaseScannerData?.quoteByCapId?.nextBestPrice
+                      ?.nonMaintained,
+                  )} PM ${leaseScannerData?.stateVAT}. VAT`
+            }
+            priceLabel={
+              leaseScannerData?.maintenance
+                ? `+£${toPriceFormat(
+                    leaseScannerData?.quoteByCapId?.maintenanceCost
+                      ?.monthlyRental,
+                  )} Vanarama Service Plan`
+                : undefined
+            }
+            price={
+              +toPriceFormat(
+                leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental,
+              )
+            }
+            orderNowClick={onSubmitClickMobile}
+            headingText={`PM ${leaseScannerData?.stateVAT}. VAT`}
+            leasingProviders={LEASING_PROVIDERS}
+            startLoading={isPlayingLeaseAnimation}
+            endAnimation={() => {
+              setIsPlayingLeaseAnimation(false);
+              leaseScannerData?.endAnimation();
+            }}
+            requestCallBack={() => {
+              leaseScannerData?.requestCallBack();
+            }}
+          />
         </div>
       )}
       {isModalVisible && (

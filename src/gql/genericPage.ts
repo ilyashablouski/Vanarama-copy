@@ -31,11 +31,13 @@ export const GENERIC_PAGE = gql`
     $slug: String!
     $sectionsAsArray: Boolean
     $isPreview: Boolean
+    $pageType: String
   ) {
     genericPage(
       slug: $slug
       sectionsAsArray: $sectionsAsArray
       isPreview: $isPreview
+      pageType: $pageType
     ) {
       id
       intro
@@ -200,6 +202,26 @@ export const GENERIC_PAGE = gql`
         }
       }
       sectionsAsArray {
+        reviews {
+          rangeId
+          reviewsTitle
+          reviews {
+            reviewType
+            summary
+            rating
+            customerName
+          }
+        }
+        accordion {
+          name
+          title
+          accordionEntries {
+            name
+            category
+            entryTitle
+            entryBody
+          }
+        }
         carousel {
           title
           name

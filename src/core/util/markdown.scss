@@ -45,6 +45,10 @@
     }
   }
 
+  &.full-width {
+    max-width: 100%;
+  }
+
   p {
     font-size: $font-size-400;
     font-weight: 400;

@@ -19,7 +19,7 @@ import { arraysAreEqual } from '../../utils/helpers';
 export const RESULTS_PER_REQUEST = 12;
 
 interface ISSRRequest {
-  req: { url: string };
+  req: { url: string; resolvedUrl?: string };
   query: { [x: string]: string | string[] };
 }
 
@@ -156,6 +156,59 @@ export const budgetMapper = {
   'deals-over-550': '550',
 };
 
+export const NEW_RANGE_SLUGS = [
+  'car-leasing/land-rover/range-rover-evoque',
+  // 'car-leasing/mercedes-benz/a-class',
+  // 'car-leasing/audi/a3',
+  // 'car-leasing/volvo/xc40',
+  // 'car-leasing/land-rover/range-rover-velar',
+  // 'car-leasing/land-rover/discovery',
+  // 'car-leasing/audi/q3',
+  // 'car-leasing/audi/a1',
+  // 'car-leasing/audi/q5',
+  // 'car-leasing/volkswagen/tiguan',
+  // 'car-leasing/mercedes-benz/glc-coupe',
+  // 'car-leasing/mercedes-benz/glc',
+  // 'car-leasing/land-rover/range-rover-sport',
+  // 'car-leasing/bmw/x5',
+  // 'car-leasing/ford/focus',
+  // 'car-leasing/jaguar/i-pace',
+  // 'car-leasing/nissan/qashqai',
+  // 'car-leasing/audi/a4',
+  // 'car-leasing/nissan/leaf',
+  // 'car-leasing/ford/fiesta',
+  // 'car-leasing/bmw/1-series',
+  // 'car-leasing/fiat/500',
+  // 'car-leasing/bmw/x4',
+  // 'car-leasing/audi/q7',
+  // 'car-leasing/audi/a5',
+  // 'car-leasing/renault/zoe',
+  // 'car-leasing/kia/sportage',
+  // 'car-leasing/bmw/3-series',
+  // 'car-leasing/audi/e-tron',
+  // 'car-leasing/mercedes-benz/e-class',
+  // 'car-leasing/volvo/xc60',
+  // 'car-leasing/tesla/model-3',
+  // 'car-leasing/kia/niro',
+  // 'car-leasing/jaguar/f-pace',
+  // 'car-leasing/mercedes-benz/gle',
+  // 'car-leasing/porsche/macan',
+  // 'car-leasing/bmw/x3',
+  // 'car-leasing/bmw/2-series',
+  // 'car-leasing/bmw/i3',
+  // 'car-leasing/volkswagen/t-roc',
+  // 'car-leasing/volkswagen/polo',
+  // 'car-leasing/volvo/xc90',
+  // 'car-leasing/audi/tt',
+  // 'car-leasing/land-rover/defender',
+  // 'car-leasing/porsche/taycan',
+  // 'car-leasing/ford/kuga',
+  // 'car-leasing/jaguar/e-pace',
+  // 'car-leasing/skoda/kodiaq',
+  // 'car-leasing/land-rover/range-rover',
+  // 'car-leasing/audi/q2',
+];
+
 export const bodyUrls = [
   '4x4-suv',
   'convertible',
@@ -221,11 +274,15 @@ const onCallQuery = async (
   client: ApolloClient<any>,
   query: DocumentNode,
   slug: string,
+  pageType?: string,
+  sectionsAsArray?: boolean,
 ) =>
   client.query({
     query,
     variables: {
       slug: slug || undefined,
+      pageType: pageType || undefined,
+      sectionsAsArray: sectionsAsArray || false,
     },
   });
 
@@ -241,9 +298,18 @@ export const ssrCMSQueryExecutor = async (
   const { req, query } = context;
   const queryUrl = removeUrlQueryPart(req?.url || '');
   const slug = queryUrl.slice(1);
+  const newRangePagesSlug = context.req?.resolvedUrl || '';
   switch (pageType) {
-    case 'isMakePage':
+    case 'isNewRangePage':
+      return onCallQuery(
+        client,
+        GENERIC_PAGE,
+        newRangePagesSlug,
+        'rangePage',
+        true,
+      );
     case 'isRangePage':
+    case 'isMakePage':
     case 'isModelPage':
     case 'isBudgetType':
       return onCallQuery(client, GENERIC_PAGE, prepareSlugPart(slug));
@@ -362,3 +428,6 @@ export const isPreviousPage = (currentRoute: ParsedUrlQuery) => {
 
 export const getNumberOfVehicles = (id: number) =>
   Math.ceil(id / RESULTS_PER_REQUEST) * RESULTS_PER_REQUEST;
+
+export const trimSlug = (slug: string) =>
+  slug.charAt(0) === '/' ? slug.substring(1) : slug;

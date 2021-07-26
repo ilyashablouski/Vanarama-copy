@@ -82,11 +82,10 @@ const AboutYouPage: NextPage = () => {
   const creditApplication =
     creditApplicationQuery.data?.creditApplicationByOrderUuid;
   const { redirect } = router.query as OLAFQueryParams;
-  const isEdit = creditApplication?.aboutDetailsV2 !== null;
+  const isEdit = !!creditApplication?.aboutDetailsV2;
 
   const clickOnComplete = async (createUpdatePerson: IPerson) => {
     savePersonUuid(createUpdatePerson);
-    pushAboutYouDataLayer(detailsData, derivativeData);
     await refetch({
       uuid: createUpdatePerson.uuid,
     })
@@ -138,7 +137,12 @@ const AboutYouPage: NextPage = () => {
       )
       .then(() => getUrlParam({ uuid: createUpdatePerson.uuid }))
       .then(params => redirect || `/olaf/address-history${params}`)
-      .then(url => router.push(url, url));
+      .then(url => router.push(url, url))
+      .then(() =>
+        setTimeout(() => {
+          pushAboutYouDataLayer(detailsData, derivativeData);
+        }, 200),
+      );
   };
 
   const handleRegistrationClick = () =>
