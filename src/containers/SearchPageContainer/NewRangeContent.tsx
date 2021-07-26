@@ -346,6 +346,24 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
       />
 
       <div className="row:default">
+        <Heading
+          className="-mb-400"
+          size="large"
+          color="black"
+          tag={
+            getTitleTag(
+              getSectionsData(
+                ['sectionsAsArray', 'featured', '7', 'titleTag'],
+                pageData?.genericPage,
+              ) || 'p',
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
+          {getSectionsData(
+            ['sectionsAsArray', 'featured', '7', 'title'],
+            pageData?.genericPage,
+          )}
+        </Heading>
         <div className="markdown full-width">
           <ReactMarkdown
             allowDangerousHtml
