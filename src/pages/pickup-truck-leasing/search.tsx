@@ -30,7 +30,8 @@ const Page: NextPage<IProps> = ({
       };
       setPageMetaData(data);
     }
-  }, [partnerProperties, metaData]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <SearchPageContainer

@@ -180,7 +180,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
       products: partnerProductsPickup,
       derivatives: partnerProductsPickupDerivatives,
       dataTestId: 'view-all-pickups',
-      href: '/pickup-special-offers.html',
+      href: '/pickup-truck-leasing/search',
     },
   ];
   if (notFoundPageData) {
