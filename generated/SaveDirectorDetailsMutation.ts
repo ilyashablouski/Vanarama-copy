@@ -36,7 +36,7 @@ export interface SaveDirectorDetailsMutation_createUpdateCompanyDirector {
 
 export interface SaveDirectorDetailsMutation {
   /**
-   * Create or update company Director
+   * This mutation is deprecated, instead use CreateUpdateCompanyDirectorV2
    */
   createUpdateCompanyDirector: SaveDirectorDetailsMutation_createUpdateCompanyDirector | null;
 }

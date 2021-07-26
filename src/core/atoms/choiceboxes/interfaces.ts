@@ -9,6 +9,8 @@ export interface IChoice {
 }
 
 export interface IChoiceBoxesProps extends IBaseProps {
+  boxClassName?: string;
+  labelClassName?: string;
   color?: TColor;
   choices: IChoice[];
   multiSelect?: boolean;
