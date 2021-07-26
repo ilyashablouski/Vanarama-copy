@@ -6,8 +6,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
     <div
       class="row:title"
     >
-      <nav>
-        <ol
+      <nav
+        data-testid="breadcrumbs"
+      >
+        <ul
           class="breadcrumb"
         >
           <li
@@ -72,7 +74,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               FAQ
             </span>
           </li>
-        </ol>
+        </ul>
       </nav>
       <h1
         class="heading -black -xlarge"

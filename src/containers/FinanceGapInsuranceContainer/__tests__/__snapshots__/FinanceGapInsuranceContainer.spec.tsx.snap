@@ -402,8 +402,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
     <div
       class="row:title -mt-200"
     >
-      <nav>
-        <ol
+      <nav
+        data-testid="breadcrumbs"
+      >
+        <ul
           class="breadcrumb"
         >
           <li
@@ -468,7 +470,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
               Multi-Year Van Insurance
             </span>
           </li>
-        </ol>
+        </ul>
       </nav>
     </div>
     <div
