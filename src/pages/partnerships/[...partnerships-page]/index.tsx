@@ -83,8 +83,10 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   data,
   partnerProductsCar,
   partnerProductsVan,
+  partnerProductsPickup,
   partnerProductsCarDerivatives,
   partnerProductsVanDerivatives,
+  partnerProductsPickupDerivatives,
   vehicleListUrlData,
   searchPodVansData,
   searchPodCarsData,
@@ -125,6 +127,8 @@ const PartnershipsHomePage: NextPage<IProps> = ({
     fuelTypes,
   };
   const sovereignty = customerSovereignty || 7;
+
+  console.log(partnerProductsPickup)
 
   useEffect(() => {
     // check if partnership cookie has been set
@@ -170,8 +174,15 @@ const PartnershipsHomePage: NextPage<IProps> = ({
       type: 'Vans',
       products: partnerProductsVan,
       derivatives: partnerProductsVanDerivatives,
-      dataTestId: 'view-all-cars',
+      dataTestId: 'view-all-vans',
       href: '/van-leasing/search',
+    },
+    {
+      type: 'Pickups',
+      products: partnerProductsPickup,
+      derivatives: partnerProductsPickupDerivatives,
+      dataTestId: 'view-all-pickups',
+      href: '/pickup-special-offers.html',
     },
   ];
   if (notFoundPageData) {
@@ -339,7 +350,9 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     const {
       partnerProductsCar,
       partnerProductsVan,
+      partnerProductsPickup,
       partnerProductsCarDerivatives,
+      partnerProductsPickupDerivatives,
       partnerProductsVanDerivatives,
       vehicleListUrlData,
     } = await partnerOffersRequest(client, fuelTypes);
@@ -369,8 +382,10 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         data: data || null,
         partnerProductsCar: partnerProductsCar || null,
         partnerProductsVan: partnerProductsVan || null,
+        partnerProductsPickup: partnerProductsPickup || null,
         partnerProductsCarDerivatives: partnerProductsCarDerivatives || null,
         partnerProductsVanDerivatives: partnerProductsVanDerivatives || null,
+        partnerProductsPickupDerivatives: partnerProductsPickupDerivatives || null,
         vehicleListUrlData: vehicleListUrlData || null,
         searchPodVansData: encodeData(searchPodVansData),
         searchPodCarsData: encodeData(searchPodCarsData),
