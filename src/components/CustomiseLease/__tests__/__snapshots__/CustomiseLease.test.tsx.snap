@@ -511,22 +511,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-6-Trim / Interior:"
-          >
-            Trim / Interior:
-          </div>
-          <div
-            className="structured-list-td"
-            data-testid="trim"
-          >
-            -
-          </div>
-        </div>
-        <div
-          className="structured-list-row"
-        >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
             data-testid="data_id-7-Stock:"
           >
             Stock:
@@ -1234,22 +1218,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
             data-testid="colour"
           >
             Solid - Polar white
-          </div>
-        </div>
-        <div
-          className="structured-list-row"
-        >
-          <div
-            className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-6-Trim / Interior:"
-          >
-            Trim / Interior:
-          </div>
-          <div
-            className="structured-list-td"
-            data-testid="trim"
-          >
-            -
           </div>
         </div>
         <div

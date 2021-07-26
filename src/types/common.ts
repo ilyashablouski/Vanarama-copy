@@ -8,3 +8,7 @@ export type Component = ReactChild | Array<Component> | ReactPortal;
 export interface PreviewNextPageContext extends NextPageContext {
   preview?: boolean;
 }
+
+export interface SlugNextPageContext extends NextPageContext {
+  resolvedUrl?: string;
+}
