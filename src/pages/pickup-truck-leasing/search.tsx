@@ -6,6 +6,8 @@ import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helper
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 import { decodeData, encodeData } from '../../utils/data';
+import { useEffect, useState } from 'react';
+import getPartnerProperties from 'utils/partnerProperties';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -16,13 +18,25 @@ const Page: NextPage<IProps> = ({
   pageData: encodedData,
   metaData,
 }) => {
+  const [pageMetaData, setPageMetaData] = useState(metaData);
   const pageData = decodeData(encodedData);
+
+  useEffect(() => {
+    if (getPartnerProperties()) {
+      const data = {
+        ...metaData,
+        name: 'Search Pickups',
+      };
+      setPageMetaData(data);
+    }
+  }, []);
+
   return (
     <SearchPageContainer
       isServer={isServer}
       isPickups
       isSimpleSearchPage
-      metaData={metaData}
+      metaData={pageMetaData}
       pageData={pageData}
     />
   );
