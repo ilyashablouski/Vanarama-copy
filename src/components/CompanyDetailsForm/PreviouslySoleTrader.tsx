@@ -25,8 +25,8 @@ function PreviouslySoleTrader() {
 
   const choices = useMemo(
     () => [
-      { label: 'Yes', value: 'true', active: fieldValue === true },
-      { label: 'No', value: 'false', active: fieldValue === false },
+      { label: 'Yes', value: 'yes', active: fieldValue === true },
+      { label: 'No', value: 'no', active: fieldValue === false },
     ],
     [fieldValue],
   );
@@ -65,7 +65,7 @@ function PreviouslySoleTrader() {
               boxClassName="button -small -primary -outline"
               labelClassName="button--inner"
               onSubmit={choice => {
-                onChange(choice.value === 'true');
+                onChange(choice.value === 'yes');
               }}
             />
           )}
