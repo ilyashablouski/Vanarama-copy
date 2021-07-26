@@ -264,7 +264,7 @@ export const PickupsPage: NextPage<IProps> = ({
                   header={{
                     accentIcon: <Icon icon={<Flame />} color="white" />,
                     accentText: 'Hot Offer',
-                    text: 'In Stock - 14-21 Days Delivery',
+                    text: item?.leadTime || 'Factory Order',
                   }}
                   features={features(
                     item?.keyInformation || [],
