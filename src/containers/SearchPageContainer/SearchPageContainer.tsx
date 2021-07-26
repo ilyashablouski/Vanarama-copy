@@ -12,6 +12,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Image from 'core/atoms/image';
+import Cookies from 'js-cookie';
 import {
   filterOrderByNumMap,
   findPreselectFilterValue,
@@ -201,7 +202,10 @@ const SearchPageContainer: React.FC<IProps> = ({
   const client = useApolloClient();
   const router = useRouter();
   const isNewPage =
-    newRangePageSlug && !!NEW_RANGE_SLUGS.includes(newRangePageSlug);
+    // TODO: Cookies should be removed after feature release
+    Cookies.get('DIG-6496') === '1' &&
+    newRangePageSlug &&
+    !!NEW_RANGE_SLUGS.includes(newRangePageSlug);
   const isDynamicFilterPage = useMemo(
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
