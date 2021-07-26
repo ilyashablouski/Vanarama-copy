@@ -383,11 +383,11 @@ const SearchPageContainer: React.FC<IProps> = ({
     () => onMadeLineBreaks(metaData?.name || ''),
     [metaData],
   );
-  
+
   // listen for any updates to metaDataSSR
   useEffect(() => {
-    setMetaData(metaDataSSR)
-  }, [metaDataSSR])
+    setMetaData(metaDataSSR);
+  }, [metaDataSSR]);
 
   // Make list query for all makes page
   const [
@@ -936,7 +936,6 @@ const SearchPageContainer: React.FC<IProps> = ({
           value: v,
         }));
   };
-  console.log(metaData?.name)
   // TODO: render must be refactored, some components should be moved to separate components
   // Some props should be contain in one param for achieve more readable code
   return (

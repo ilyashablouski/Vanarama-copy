@@ -128,8 +128,6 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   };
   const sovereignty = customerSovereignty || 7;
 
-  console.log(partnerProductsPickup)
-
   useEffect(() => {
     // check if partnership cookie has been set
     if (!getPartnerProperties()) {
@@ -385,7 +383,8 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         partnerProductsPickup: partnerProductsPickup || null,
         partnerProductsCarDerivatives: partnerProductsCarDerivatives || null,
         partnerProductsVanDerivatives: partnerProductsVanDerivatives || null,
-        partnerProductsPickupDerivatives: partnerProductsPickupDerivatives || null,
+        partnerProductsPickupDerivatives:
+          partnerProductsPickupDerivatives || null,
         vehicleListUrlData: vehicleListUrlData || null,
         searchPodVansData: encodeData(searchPodVansData),
         searchPodCarsData: encodeData(searchPodCarsData),

@@ -1,13 +1,13 @@
 import { NextPage, NextPageContext } from 'next';
 import { ApolloQueryResult } from '@apollo/client';
+import { useEffect, useState } from 'react';
+import getPartnerProperties from 'utils/partnerProperties';
 import createApolloClient from '../../apolloClient';
 import SearchPageContainer from '../../containers/SearchPageContainer';
 import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
 import { decodeData, encodeData } from '../../utils/data';
-import { useEffect, useState } from 'react';
-import getPartnerProperties from 'utils/partnerProperties';
 
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
@@ -20,16 +20,17 @@ const Page: NextPage<IProps> = ({
 }) => {
   const [pageMetaData, setPageMetaData] = useState(metaData);
   const pageData = decodeData(encodedData);
+  const partnerProperties = getPartnerProperties();
 
   useEffect(() => {
-    if (getPartnerProperties()) {
+    if (partnerProperties) {
       const data = {
         ...metaData,
         name: 'Search Pickups',
       };
       setPageMetaData(data);
     }
-  }, []);
+  }, [partnerProperties, metaData]);
 
   return (
     <SearchPageContainer
