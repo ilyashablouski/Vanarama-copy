@@ -1,7 +1,7 @@
 import React, { FC, memo } from 'react';
 import dynamic from 'next/dynamic';
 import RouterLink from '../RouterLink/RouterLink';
-import { IBreadcrumbLink } from './helpers';
+import { IBreadcrumbLink, IBreadcrumbProps } from './helpers';
 import useMediaQuery from '../../hooks/useMediaQuery';
 
 import Skeleton from '../Skeleton';
@@ -24,20 +24,13 @@ const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
 
-interface IBreadcrumbProps {
-  items?: IBreadcrumbLink[] | null;
-}
-
 const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
   const isDesktopOrTablet = useMediaQuery('(min-width: 768px)');
-  const { items } = props;
+  const { items, dataTestId } = props;
 
   const renderParent = (item: IBreadcrumbLink) =>
     !isDesktopOrTablet ? (
-      <li
-        className="breadcrumb-item -parent"
-        key={`${item.link.label}-desktop`}
-      >
+      <li className="breadcrumb-item -parent" key={`${item.link.label}-mobile`}>
         <RouterLink
           classNames={{ color: 'teal', size: 'small' }}
           className="breadcrumb-item--backlink"
@@ -49,7 +42,10 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
         </RouterLink>
       </li>
     ) : (
-      <li className="breadcrumb-item -parent" key={`${item.link.label}-mobile`}>
+      <li
+        className="breadcrumb-item -parent"
+        key={`${item.link.label}-desktop`}
+      >
         <RouterLink
           classNames={{ color: 'teal', size: 'small' }}
           className="breadcrumb-item--parent"
@@ -79,12 +75,12 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
   }
 
   return (
-    <nav>
-      <ol className="breadcrumb">
+    <nav data-testid={dataTestId ?? 'breadcrumbs'}>
+      <ul className="breadcrumb">
         {items.map((item, key) =>
           items.length === key + 1 ? renderChild(item) : renderParent(item),
         )}
-      </ol>
+      </ul>
     </nav>
   );
 });

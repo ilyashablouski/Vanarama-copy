@@ -753,7 +753,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
                 ? `+£${toPriceFormat(
                     leaseScannerData?.quoteByCapId?.maintenanceCost
                       ?.monthlyRental,
-                  )} Maintenance`
+                  )} Vanarama Service Plan`
                 : undefined
             }
             price={
