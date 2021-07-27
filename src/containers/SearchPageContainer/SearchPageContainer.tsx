@@ -1419,7 +1419,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         </>
       )}
 
-      <ButtonBottomToTop />
+      {isNewPage && isRangePage ? <ButtonBottomToTop /> : null}
     </>
   );
 };
