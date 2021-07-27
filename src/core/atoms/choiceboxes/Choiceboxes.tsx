@@ -27,6 +27,8 @@ const Choiceboxes = forwardRef(
       shouldSelectTheOnlyValue = false,
       choiceIndex,
       setChoiceIndex,
+      boxClassName,
+      labelClassName,
     }: IChoiceBoxesProps,
     ref,
   ) => {
@@ -107,13 +109,19 @@ const Choiceboxes = forwardRef(
             disabled={disabled}
             key={choice.value}
             type="button"
-            className={cx('choice-box', choice.active ? '-active' : null)}
+            className={cx(
+              'choice-box',
+              boxClassName,
+              choice.active ? '-active' : null,
+            )}
             onClick={() => {
               changeChoices(index);
               clearMultiSelectActive && setClearMultiSelectActive(false);
             }}
           >
-            {choice.label}
+            <span className={cx('choice-label', labelClassName)}>
+              {choice.label}
+            </span>
             {withIcons && (
               <Icon
                 color="teal"

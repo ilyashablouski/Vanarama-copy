@@ -62,3 +62,8 @@ variable "log_metric_alarms" {
     }
   ]
 } 
+
+variable "alternateDomain" {
+  type = string
+  description = "Endpoint name to be checked"
+}

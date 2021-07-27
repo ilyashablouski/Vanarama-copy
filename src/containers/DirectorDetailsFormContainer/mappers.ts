@@ -6,7 +6,7 @@ import {
   DirectorDetails,
 } from '../../components/DirectorDetailsForm/interfaces';
 import { parseDate } from '../../utils/dates';
-import { SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates as Associate } from '../../../generated/SaveDirectorDetailsMutation';
+import { SaveDirectorDetailsMutation_createUpdateCompanyDirectorV2_associates as Associate } from '../../../generated/SaveDirectorDetailsMutation';
 import { AddressInputObject } from '../../../generated/globalTypes';
 import { FunderDirectors } from '../../../generated/FunderDirectors';
 import {

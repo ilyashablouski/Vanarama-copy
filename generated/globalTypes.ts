@@ -18,6 +18,12 @@ export enum CreditApplicationTypeEnum {
   B2C_PERSONAL = "B2C_PERSONAL",
 }
 
+export enum FinanceType {
+  BCH = "BCH",
+  FL = "FL",
+  PCH = "PCH",
+}
+
 /**
  * Finance type enum
  */
@@ -216,6 +222,20 @@ export interface CompanyAssociateInputObject {
 }
 
 /**
+ * Input object for company director
+ */
+export interface CompanyDirectorInputObject {
+  addresses?: AddressInputObject[] | null;
+  associates?: CompanyAssociateInputObject[] | null;
+  bankAccount?: BankAccountInputObject | null;
+  emailAddress?: EmailAddressInputObject | null;
+  person?: PersonInputObject | null;
+  telephoneNumbers?: TelephoneNumberInputObject[] | null;
+  turnoverPercentageOutsideUk?: TurnoverPercentageOutsideUkInputObject[] | null;
+  uuid?: string | null;
+}
+
+/**
  * Input object to create a Company
  */
 export interface CompanyInputObject {
@@ -248,6 +268,20 @@ export interface CompanyInputObject {
 }
 
 /**
+ * Input object for a sole trader
+ */
+export interface CompanySoleTraderInputObject {
+  addresses?: AddressInputObject[] | null;
+  associate?: CompanyAssociateInputObject | null;
+  bankAccount?: BankAccountInputObject | null;
+  emailAddress?: EmailAddressInputObject | null;
+  person?: PersonInputObject | null;
+  telephoneNumbers?: TelephoneNumberInputObject[] | null;
+  turnoverPercentageOutsideUk?: TurnoverPercentageOutsideUkInputObject[] | null;
+  uuid?: string | null;
+}
+
+/**
  * Input object to create companies
  */
 export interface CompanyV2InputObject {
@@ -261,9 +295,10 @@ export interface CompanyV2InputObject {
   companyType: string;
   emailAddresses?: EmailAddressV2InputObject[] | null;
   monthlyAmountBeingReplaced?: number | null;
-  natureOfBusiness?: string | null;
+  natureOfBusiness: string;
   otherCountriesOfActivity?: string[] | null;
   partyUuid?: string | null;
+  previouslyTradingSoletrader?: boolean | null;
   replaceExistingVehicleFinance?: boolean | null;
   telephoneNumbers?: TelephoneNumberV2InputObject[] | null;
   tradesOutsideUk?: boolean | null;
@@ -522,6 +557,7 @@ export interface LimitedCompanyInputObject {
   legalName?: string | null;
   otherCountriesOfActivity?: string[] | null;
   person?: PersonInputObject | null;
+  previouslyTradingSoletrader?: boolean | null;
   telephoneNumbers?: TelephoneNumberInputObject[] | null;
   tradesOutsideUk?: boolean | null;
   tradingName?: string | null;
@@ -671,7 +707,7 @@ export interface ProductDerivativeFilter {
   transmissions?: (string | null)[] | null;
   fuelTypes?: (string | null)[] | null;
   vehicleCategory?: (string | null)[] | null;
-  financeTypes?: (string | null)[] | null;
+  financeTypes?: (FinanceType | null)[] | null;
   onOffer?: boolean | null;
   doors?: (number | null)[] | null;
   noOfSeats?: MinMax | null;
