@@ -13,6 +13,7 @@ import { useGlobalSearch } from './gql';
 import { moreInfoConfig } from './config';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { productDerivatives_productDerivatives_derivatives as ISuggestions } from '../../../generated/productDerivatives';
+import { isGlobalSearchFeatureEnabled } from '../../utils/helpers';
 
 const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
   ssr: false,
@@ -28,8 +29,8 @@ const GlobalSearchContainer = () => {
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearchTerm = useDebounce(searchValue, 400);
   const suggestions = useGlobalSearch(debouncedSearchTerm);
-  // TODO: it's feature flag, should be removed after release
-  const isVisible = Cookies.get('DIG-5552') === '1';
+  // TODO: https://autorama.atlassian.net/browse/DIG-6855
+  const isVisible = isGlobalSearchFeatureEnabled();
   const onSubmit = (value: string) => {
     router.push(
       {
