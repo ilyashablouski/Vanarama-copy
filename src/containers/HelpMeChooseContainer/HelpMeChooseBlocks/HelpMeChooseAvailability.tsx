@@ -3,28 +3,16 @@ import { FC, useState } from 'react';
 import HelpMeChooseContainer from '../HelpMeChooseContainer';
 import { buildAnObjectFromAQuery, onReplace, RENTAL_VALUE } from '../helpers';
 import { HelpMeChooseStep } from './HelpMeChooseAboutYou';
-import { getSectionsData } from '../../../utils/getSectionsData';
 import { HELP_ME_CHOOSE } from '../../../gql/help-me-choose';
 import { useImperativeQuery } from '../../../hooks/useImperativeQuery';
 
 const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
-  const {
-    setSteps,
-    steps,
-    getHelpMeChoose,
-    helpMeChooseData,
-    setLoadingStatus,
-  } = props;
+  const { setSteps, steps, getHelpMeChoose, setLoadingStatus } = props;
   const router = useRouter();
   const [availabilityValue, setAvailabilityValue] = useState<string[]>(
     (steps.availability.value as string[]) || [''],
   );
   const getProducts = useImperativeQuery(HELP_ME_CHOOSE);
-
-  const availabilityData: [{ docCount: number; key: string }] = getSectionsData(
-    ['helpMeChoose', 'aggregation', 'availability'],
-    helpMeChooseData?.data,
-  );
 
   const availabilityTypes = [
     {
@@ -44,8 +32,8 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
     },
     {
       label: 'I Am Happy To Wait For The Right Vehicle',
-      value: '100',
-      active: availabilityValue.includes('100'),
+      value: '',
+      active: availabilityValue.includes(''),
     },
   ];
 
@@ -154,11 +142,7 @@ const HelpMeChooseAvailability: FC<HelpMeChooseStep> = props => {
   return (
     <HelpMeChooseContainer
       title="How quickly do you need the vehicle?"
-      choicesValues={availabilityTypes.filter(el =>
-        availabilityData.find(
-          x => parseInt(x.key, 10) <= parseInt(el.value, 10),
-        ),
-      )}
+      choicesValues={availabilityTypes}
       setChoice={setAvailabilityValue}
       onClickContinue={async () => {
         setLoadingStatus(true);
