@@ -43,8 +43,6 @@ const Page: NextPage<IProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  console.log(pageData);
-
   return (
     <SearchPageContainer
       isServer={isServer}
