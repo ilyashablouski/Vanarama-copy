@@ -40,7 +40,7 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
           variables: {
             input: formValuesToInput(partyId, values),
           },
-        }).catch(err => console.log({ values: JSON.stringify(formValuesToInput(partyId, values), undefined, 2) }))
+        })
       }
     />
   );
