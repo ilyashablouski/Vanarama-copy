@@ -51,8 +51,8 @@ export const GET_COMPANY_DIRECTOR_DETAILS = gql`
 `;
 
 export const SAVE_DIRECTOR_DETAILS = gql`
-  mutation SaveDirectorDetailsMutation($input: LimitedCompanyInputObject!) {
-    createUpdateCompanyDirector(input: $input) {
+  mutation SaveDirectorDetailsMutation($input: CompanyDirectorInputObject!) {
+    createUpdateCompanyDirectorV2(input: $input) {
       uuid
       associates {
         uuid
