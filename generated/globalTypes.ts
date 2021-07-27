@@ -18,6 +18,12 @@ export enum CreditApplicationTypeEnum {
   B2C_PERSONAL = "B2C_PERSONAL",
 }
 
+export enum FinanceType {
+  BCH = "BCH",
+  FL = "FL",
+  PCH = "PCH",
+}
+
 /**
  * Finance type enum
  */
@@ -261,9 +267,10 @@ export interface CompanyV2InputObject {
   companyType: string;
   emailAddresses?: EmailAddressV2InputObject[] | null;
   monthlyAmountBeingReplaced?: number | null;
-  natureOfBusiness?: string | null;
+  natureOfBusiness: string;
   otherCountriesOfActivity?: string[] | null;
   partyUuid?: string | null;
+  previouslyTradingSoletrader?: boolean | null;
   replaceExistingVehicleFinance?: boolean | null;
   telephoneNumbers?: TelephoneNumberV2InputObject[] | null;
   tradesOutsideUk?: boolean | null;
@@ -522,6 +529,7 @@ export interface LimitedCompanyInputObject {
   legalName?: string | null;
   otherCountriesOfActivity?: string[] | null;
   person?: PersonInputObject | null;
+  previouslyTradingSoletrader?: boolean | null;
   telephoneNumbers?: TelephoneNumberInputObject[] | null;
   tradesOutsideUk?: boolean | null;
   tradingName?: string | null;
@@ -671,13 +679,15 @@ export interface ProductDerivativeFilter {
   transmissions?: (string | null)[] | null;
   fuelTypes?: (string | null)[] | null;
   vehicleCategory?: (string | null)[] | null;
-  financeTypes?: (string | null)[] | null;
+  financeTypes?: (FinanceType | null)[] | null;
   onOffer?: boolean | null;
   doors?: (number | null)[] | null;
   noOfSeats?: MinMax | null;
   noOfGears?: (number | null)[] | null;
   engineSize?: MinMax | null;
+  engineSizeGroup?: string | null;
   mpg?: number | null;
+  mpgGroup?: string | null;
   terms?: (number | null)[] | null;
   mileages?: (number | null)[] | null;
   initialPeriods?: (number | null)[] | null;
@@ -685,6 +695,7 @@ export interface ProductDerivativeFilter {
   budget?: MinMax | null;
   initialPayment?: MinMax | null;
   co2?: number | null;
+  co2Group?: string | null;
   enginePowerBhp?: MinMax | null;
   heights?: (number | null)[] | null;
   lengths?: (number | null)[] | null;

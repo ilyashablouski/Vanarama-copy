@@ -1,4 +1,3 @@
-import { formatAddress } from 'core/molecules/address-finder/AddressFinder';
 import { parseDate } from '../../utils/dates';
 import {
   SubmissionValues,
@@ -10,8 +9,13 @@ import {
   GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as ICreditApplication,
   GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_addresses as ICreditApplicationAddress,
 } from '../../../generated/GetCreditApplicationByOrderUuid';
+import { addressToDisplay } from '../../utils/address';
+import { AddressFormAddresses } from '../../../generated/AddressFormAddresses';
 
-const getAddress = (addresses: ICreditApplicationAddress[], kind: string) =>
+export const getAddress = (
+  addresses: ICreditApplicationAddress[],
+  kind: string,
+) =>
   addresses?.find(
     (address: ICreditApplicationAddress) => address.kind === kind,
   );
@@ -82,18 +86,20 @@ export const mapFormValues = (
   };
 };
 
-export const mapAddress = (data?: ICreditApplicationAddress | null) => ({
-  city: data?.city,
-  country: data?.country,
+export const mapAddress = (
+  data?: ICreditApplicationAddress | AddressFormAddresses | null,
+) => ({
+  city: data?.city || undefined,
+  country: data?.country || undefined,
   endedOn: data?.endedOn,
   kind: data?.kind,
-  label: formatAddress(data),
-  lineOne: data?.lineOne,
-  lineThree: data?.lineThree,
-  lineTwo: data?.lineTwo,
-  postcode: data?.postcode,
+  label: data ? addressToDisplay(data) : '',
+  lineOne: data?.lineOne || undefined,
+  lineThree: data?.lineThree || undefined,
+  lineTwo: data?.lineTwo || undefined,
+  postcode: data?.postcode || undefined,
   propertyStatus: data?.propertyStatus,
-  id: data?.serviceId || '',
+  id: data?.serviceId || undefined,
   startedOn: data?.startedOn,
 });
 
@@ -105,10 +111,10 @@ export const mapDefaultValues = (
     : undefined;
 
   const registeredAddress = data?.addresses
-    ? getAddress(data?.addresses, 'registered')
+    ? mapAddress(getAddress(data?.addresses, 'registered'))
     : undefined;
   const tradingAddress = data?.addresses
-    ? getAddress(data?.addresses, 'trading')
+    ? mapAddress(getAddress(data?.addresses, 'trading'))
     : undefined;
 
   return {
@@ -127,9 +133,9 @@ export const mapDefaultValues = (
     tradingSinceMonth: (tradingSince?.getMonth() || '').toString(),
     tradingSinceYear: (tradingSince?.getFullYear() || '').toString(),
     nature: data?.natureOfBusiness ?? '',
-    registeredAddress: mapAddress(registeredAddress),
-    tradingDifferent: !!tradingAddress,
-    tradingAddress: mapAddress(tradingAddress),
+    registeredAddress: registeredAddress?.label ? registeredAddress : undefined,
+    tradingDifferent: !!tradingAddress?.label,
+    tradingAddress: tradingAddress?.label ? tradingAddress : undefined,
     email: data?.emailAddresses?.[0]?.value ?? '',
     telephone: data?.telephoneNumbers?.[0]?.value ?? '',
   };
