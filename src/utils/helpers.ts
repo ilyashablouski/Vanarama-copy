@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import {
   GetVehicleDetails_vehicleDetails_roadsideAssistance,
   GetVehicleDetails_vehicleDetails_warrantyDetails,
@@ -10,7 +11,6 @@ import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
 } from '../../generated/GetTrimAndColor';
-import Cookies from 'js-cookie';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
@@ -236,4 +236,4 @@ export const parseVehicleConfigId = (configId: string) => {
 
 export const isGlobalSearchFeatureEnabled = () => {
   return Cookies.get('DIG-5552') === '1';
-}
+};
