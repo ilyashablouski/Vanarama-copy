@@ -159,7 +159,7 @@ export const DirectorDetailsFormContainer: React.FC<IDirectorDetailsFormContaine
           .then(query =>
             combineUpdatedDirectors(
               values.directors,
-              query.data?.createUpdateCompanyDirector?.associates,
+              query.data?.createUpdateCompanyDirectorV2?.associates,
             ),
           )
           .then(combinedDirectors =>

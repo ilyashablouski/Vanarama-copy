@@ -204,6 +204,7 @@ export const parseOfficers = (
   return officers.map(officer => {
     const [lastName, firstName] = officer.name.split(', ');
     return {
+      uuid: '',
       title: '',
       firstName,
       originalFirstName: firstName,
