@@ -254,6 +254,20 @@ export interface CompanyInputObject {
 }
 
 /**
+ * Input object for a sole trader
+ */
+export interface CompanySoleTraderInputObject {
+  addresses?: AddressInputObject[] | null;
+  associate?: CompanyAssociateInputObject | null;
+  bankAccount?: BankAccountInputObject | null;
+  emailAddress?: EmailAddressInputObject | null;
+  person?: PersonInputObject | null;
+  telephoneNumbers?: TelephoneNumberInputObject[] | null;
+  turnoverPercentageOutsideUk?: TurnoverPercentageOutsideUkInputObject[] | null;
+  uuid?: string | null;
+}
+
+/**
  * Input object to create companies
  */
 export interface CompanyV2InputObject {
