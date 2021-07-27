@@ -65,7 +65,7 @@ export interface UpdateSoleTraderMutation_updateCompanySoleTrader {
 
 export interface UpdateSoleTraderMutation {
   /**
-   * Update company Sole Trader
+   * This mutation is deprecated, instead use UpdateCompanySoleTraderV2
    */
   updateCompanySoleTrader: UpdateSoleTraderMutation_updateCompanySoleTrader | null;
 }

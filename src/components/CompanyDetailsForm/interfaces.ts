@@ -7,6 +7,7 @@ export interface ICompanyDetailsFormValues {
   companyNumber: string;
   tradingSinceMonth: string;
   tradingSinceYear: string;
+  previouslyTradingSoletrader?: boolean;
   nature: string;
   registeredAddress: {
     id: string;

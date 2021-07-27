@@ -9,13 +9,15 @@ import AddressFormField from '../AddressFormField/AddressFormField';
 import { ICompanyDetailsFormValues, InputMode } from './interfaces';
 import { genMonths, genYears } from '../../utils/helpers';
 import { validateCompanyAddress } from '../../utils/validation';
+import { diffInYear } from '../../utils/dates';
 import {
   COMPANY_REGISTRATION_NUMBER,
   WORLDWIDE_MOBILE_REGEX,
   EMAIL_REGEX,
 } from '../../utils/regex';
-import NatureTypeahead from './NatureTypehead';
 import Skeleton from '../Skeleton';
+import NatureTypeahead from './NatureTypehead';
+import PreviouslySoleTrader from './PreviouslySoleTrader';
 
 const Button = dynamic(() => import('core/atoms/button/'), {
   loading: () => <Skeleton count={1} />,
@@ -38,6 +40,8 @@ interface IProps {
   setNatureValue: (values: string[]) => void;
 }
 
+const MIN_TRADING_YEARS = 3;
+
 export default function CompanyDetailsFormFields({
   inputMode,
   isEdited,
@@ -56,6 +60,25 @@ export default function CompanyDetailsFormFields({
   }, [isEdited, formState.isSubmitting]);
 
   const tradingDifferent = watch('tradingDifferent');
+  const companySearchResult = watch('companySearchResult');
+  const previouslyTradingSoleTrader = watch('previouslyTradingSoletrader');
+  const tradingSinceMonth = watch('tradingSinceMonth');
+  const tradingSinceYear = watch('tradingSinceYear');
+
+  const isPreviouslySoleTrader = useMemo(() => {
+    if (companySearchResult) {
+      const date = new Date(companySearchResult.dateOfCreation);
+      const tradingYears = diffInYear(date.getFullYear(), date.getMonth(), 1);
+      return tradingYears < MIN_TRADING_YEARS;
+    }
+
+    if (tradingSinceYear && tradingSinceMonth) {
+      const tradingYears = diffInYear(+tradingSinceYear, +tradingSinceMonth, 1);
+      return tradingYears < MIN_TRADING_YEARS;
+    }
+
+    return false;
+  }, [companySearchResult, tradingSinceMonth, tradingSinceYear]);
 
   return (
     <>
@@ -146,111 +169,118 @@ export default function CompanyDetailsFormFields({
           </Formgroup>
         </>
       )}
-      <NatureTypeahead
-        value={natureOfBusinessValue}
-        setNatureValue={setNatureValue}
-      />
-
-      <hr className="-mv-400" />
-      <AddressFormField
-        dataTestId="company-details_registered-address"
-        id="registeredAddress"
-        label="Registered Address"
-        rules={{
-          required: 'Please enter the registered business address',
-          validate: (value: ICompanyDetailsFormValues['tradingAddress']) =>
-            validateCompanyAddress(value.label),
-        }}
-        hint="Enter Postcode Or Just Start Typing Address"
-      />
-      <Formgroup>
-        <Checkbox
-          dataTestId="company-details_trading-address-different"
-          id="trading-different"
-          name="tradingDifferent"
-          label="Trading address is different to registered address"
-          ref={register}
-        />
-      </Formgroup>
-      {tradingDifferent && (
-        <AddressFormField
-          dataTestId="company-details_trading-address"
-          id="tradingAddress"
-          label="Trading Address"
-          rules={{
-            required: 'Please enter the trading address',
-            validate: (value: ICompanyDetailsFormValues['tradingAddress']) =>
-              validateCompanyAddress(value.label),
-          }}
-          hint="Enter Postcode Or Just Start Typing Address"
-        />
+      {isPreviouslySoleTrader && <PreviouslySoleTrader />}
+      {previouslyTradingSoleTrader === undefined &&
+      isPreviouslySoleTrader &&
+      companySearchResult ? null : (
+        <>
+          <NatureTypeahead
+            value={natureOfBusinessValue}
+            setNatureValue={setNatureValue}
+          />
+          <hr className="-mv-400" />
+          <AddressFormField
+            dataTestId="company-details_registered-address"
+            id="registeredAddress"
+            label="Registered Address"
+            rules={{
+              required: 'Please enter the registered business address',
+              validate: (value: ICompanyDetailsFormValues['tradingAddress']) =>
+                validateCompanyAddress(value.label),
+            }}
+            hint="Enter Postcode Or Just Start Typing Address"
+          />
+          <Formgroup>
+            <Checkbox
+              dataTestId="company-details_trading-address-different"
+              id="trading-different"
+              name="tradingDifferent"
+              label="Trading address is different to registered address"
+              ref={register}
+            />
+          </Formgroup>
+          {tradingDifferent && (
+            <AddressFormField
+              dataTestId="company-details_trading-address"
+              id="tradingAddress"
+              label="Trading Address"
+              rules={{
+                required: 'Please enter the trading address',
+                validate: (
+                  value: ICompanyDetailsFormValues['tradingAddress'],
+                ) => validateCompanyAddress(value.label),
+              }}
+              hint="Enter Postcode Or Just Start Typing Address"
+            />
+          )}
+          <hr className="-mv-400" />
+          <Formgroup
+            controlId="telephone"
+            label="Business Telephone Number"
+            error={errors.telephone?.message?.toString()}
+          >
+            <NumericInput
+              dataTestId="company-details_telephone"
+              id="telephone"
+              type="tel"
+              name="telephone"
+              ref={register({
+                required: 'Please enter the business telephone number',
+                minLength: {
+                  value: 11,
+                  message:
+                    'Oops, this telephone number is too short. Please enter 11 characters or more',
+                },
+                maxLength: {
+                  value: 16,
+                  message:
+                    'Oops, this telephone number is too long. Please enter 16 characters or less',
+                },
+                pattern: {
+                  value: WORLDWIDE_MOBILE_REGEX,
+                  message:
+                    'Please enter telephone number without spaces or hyphens',
+                },
+              })}
+            />
+          </Formgroup>
+          <Formgroup
+            controlId="email"
+            hint="Please provide a company email address"
+            label="Email Address"
+            error={errors.email?.message?.toString()}
+          >
+            <TextInput
+              dataTestId="company-details_email"
+              id="email"
+              name="email"
+              ref={register({
+                required: 'Please enter an email address',
+                pattern: {
+                  value: EMAIL_REGEX,
+                  message: 'Oops, this email address is invalid',
+                },
+                maxLength: {
+                  value: 254,
+                  message:
+                    'Oops, this email is too long. Please keep it to 254 characters',
+                },
+              })}
+            />
+          </Formgroup>
+          <Button
+            color="primary"
+            dataTestId="company-details_continue"
+            disabled={formState.isSubmitting}
+            icon={<ChevronForwardSharp />}
+            iconColor="white"
+            iconPosition="after"
+            label={selectLabel}
+            size="large"
+            type="submit"
+          />
+        </>
       )}
-      <hr className="-mv-400" />
-      <Formgroup
-        controlId="telephone"
-        label="Business Telephone Number"
-        error={errors.telephone?.message?.toString()}
-      >
-        <NumericInput
-          dataTestId="company-details_telephone"
-          id="telephone"
-          type="tel"
-          name="telephone"
-          ref={register({
-            required: 'Please enter the business telephone number',
-            minLength: {
-              value: 11,
-              message:
-                'Oops, this telephone number is too short. Please enter 11 characters or more',
-            },
-            maxLength: {
-              value: 16,
-              message:
-                'Oops, this telephone number is too long. Please enter 16 characters or less',
-            },
-            pattern: {
-              value: WORLDWIDE_MOBILE_REGEX,
-              message:
-                'Please enter telephone number without spaces or hyphens',
-            },
-          })}
-        />
-      </Formgroup>
-      <Formgroup
-        controlId="email"
-        hint="Please provide a company email address"
-        label="Email Address"
-        error={errors.email?.message?.toString()}
-      >
-        <TextInput
-          dataTestId="company-details_email"
-          id="email"
-          name="email"
-          ref={register({
-            required: 'Please enter an email address',
-            pattern: {
-              value: EMAIL_REGEX,
-              message: 'Oops, this email address is invalid',
-            },
-            maxLength: {
-              value: 254,
-              message:
-                'Oops, this email is too long. Please keep it to 254 characters',
-            },
-          })}
-        />
-      </Formgroup>
-      <Button
-        color="primary"
-        dataTestId="company-details_continue"
-        disabled={formState.isSubmitting}
-        icon={<ChevronForwardSharp />}
-        iconColor="white"
-        iconPosition="after"
-        label={selectLabel}
-        size="large"
-        type="submit"
-      />
     </>
   );
 }

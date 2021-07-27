@@ -463,13 +463,21 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                   class="choice-box"
                   type="button"
                 >
-                  Dropside Tipper
+                  <span
+                    class="choice-label"
+                  >
+                    Dropside Tipper
+                  </span>
                 </button>
                 <button
                   class="choice-box"
                   type="button"
                 >
-                  Large Van
+                  <span
+                    class="choice-label"
+                  >
+                    Large Van
+                  </span>
                 </button>
               </div>
             </div>
@@ -533,13 +541,21 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                   class="choice-box"
                   type="button"
                 >
-                  Automatic
+                  <span
+                    class="choice-label"
+                  >
+                    Automatic
+                  </span>
                 </button>
                 <button
                   class="choice-box"
                   type="button"
                 >
-                  Manual
+                  <span
+                    class="choice-label"
+                  >
+                    Manual
+                  </span>
                 </button>
               </div>
             </div>
@@ -603,13 +619,21 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                   class="choice-box"
                   type="button"
                 >
-                  diesel
+                  <span
+                    class="choice-label"
+                  >
+                    diesel
+                  </span>
                 </button>
                 <button
                   class="choice-box"
                   type="button"
                 >
-                  iii
+                  <span
+                    class="choice-label"
+                  >
+                    iii
+                  </span>
                 </button>
               </div>
             </div>
