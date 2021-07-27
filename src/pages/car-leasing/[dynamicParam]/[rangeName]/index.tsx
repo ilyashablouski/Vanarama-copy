@@ -3,6 +3,7 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
 import { SlugNextPageContext } from 'types/common';
+import { isNewRangePagesFeatureEnabled } from 'utils/helpers';
 import createApolloClient from '../../../../apolloClient';
 import {
   GET_VEHICLE_LIST,
@@ -156,7 +157,8 @@ export async function getServerSideProps(context: SlugNextPageContext) {
       client,
       contextData,
       true,
-      NEW_RANGE_SLUGS.includes(contextData.req?.resolvedUrl || '')
+      isNewRangePagesFeatureEnabled &&
+        NEW_RANGE_SLUGS.includes(contextData.req?.resolvedUrl || '')
         ? 'isNewRangePage'
         : 'isRangePage',
     )) as ApolloQueryResult<GenericPageQuery>;

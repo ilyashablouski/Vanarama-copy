@@ -7,7 +7,7 @@ export type DirectorDetailsFormValues = {
 };
 
 export type DirectorFormValues = {
-  uuid?: string;
+  uuid: string;
   title: string;
   firstName: string;
   originalFirstName: string;

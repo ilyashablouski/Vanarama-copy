@@ -14,7 +14,7 @@ import {
   GlobalSearchCardsDataVariables,
 } from '../../../generated/GlobalSearchCardsData';
 import {
-  FinanceTypeEnum,
+  FinanceType,
   ProductDerivativeFilter,
   ProductDerivativeSort,
   VehicleTypeEnum,
@@ -179,9 +179,7 @@ export function useTextSearchList(
         size: RESULTS_PER_REQUEST,
         filters: {
           ...filters,
-          financeTypes: isPersonal
-            ? [FinanceTypeEnum.PCH]
-            : [FinanceTypeEnum.BCH],
+          financeTypes: isPersonal ? [FinanceType.PCH] : [FinanceType.BCH],
           onOffer: onOffer || null,
         },
         sort: sort || DEFAULT_SORT,
@@ -218,7 +216,7 @@ export function useGlobalSearch(query?: string) {
           size: 6,
           sort: DEFAULT_SORT,
           filters: {
-            financeTypes: [FinanceTypeEnum.PCH],
+            financeTypes: [FinanceType.PCH],
           },
         },
       });

@@ -131,6 +131,7 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
           startedOn
           uuid
         }
+        previouslyTradingSoletrader
         annualExpenses
         annualSalesCost
         annualTurnover
@@ -565,6 +566,7 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
           startedOn
           uuid
         }
+        previouslyTradingSoletrader
         annualExpenses
         annualSalesCost
         annualTurnover

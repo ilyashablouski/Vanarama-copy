@@ -13,6 +13,7 @@ import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop';
 import Image from 'core/atoms/image';
+import { isNewRangePagesFeatureEnabled } from '../../utils/helpers';
 import {
   filterOrderByNumMap,
   findPreselectFilterValue,
@@ -202,7 +203,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   const client = useApolloClient();
   const router = useRouter();
   const isNewPage =
-    newRangePageSlug && !!NEW_RANGE_SLUGS.includes(newRangePageSlug);
+    isNewRangePagesFeatureEnabled &&
+    newRangePageSlug &&
+    !!NEW_RANGE_SLUGS.includes(newRangePageSlug);
   const isDynamicFilterPage = useMemo(
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
@@ -1058,6 +1061,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               </div>
 
               <Image
+                className="card-image"
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src={getSectionsData(
                   ['sectionsAsArray', 'featured', '0', 'image', 'file', 'url'],

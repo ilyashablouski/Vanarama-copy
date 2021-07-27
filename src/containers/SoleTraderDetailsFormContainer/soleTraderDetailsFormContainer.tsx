@@ -72,7 +72,7 @@ const SoleTraderDetailsFormContainer: React.FC<ISoleTraderDetailsFormContainerPr
             associate: {
               ...formValuesToAssociate(values, personUuid),
               addresses:
-                resp?.updateCompanySoleTrader?.associates?.[0].addresses,
+                resp?.updateCompanySoleTraderV2?.associates?.[0].addresses,
             },
           },
           orderUuid: orderId,
