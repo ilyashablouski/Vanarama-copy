@@ -2,8 +2,10 @@ import { NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import { PreviewNextPageContext } from 'types/common';
 import { useEffect, useState } from 'react';
-import { IBreadcrumbItems } from 'types/breadcrumbs';
-import { getBreadcrumbItems } from '../../utils/breadcrumbs';
+import getPartnerProperties, {
+  isPartnerSessionActive,
+} from 'utils/partnerProperties';
+import { IBreadcrumb } from 'types/breadcrumbs';
 import { GET_ABOUT_US_PAGE_DATA } from '../../containers/AboutUsPageContainer/gql';
 import AboutUs, {
   IAboutPageProps,
@@ -25,11 +27,23 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
     ['featuredImage'],
     data?.aboutUsLandingPage,
   );
-  const [breadcrumbs, setBreadcrumbs] = useState<IBreadcrumbItems[]>([]);
+  const [breadcrumbs, setBreadcrumbs] = useState([]);
 
   // Check if partnership session is active to set partnership as home page link
   useEffect(() => {
-    const breadcrumbsItems = getBreadcrumbItems(metaData?.breadcrumbs);
+    const breadcrumbsItems = metaData?.breadcrumbs?.map((el: IBreadcrumb) => ({
+      link: { href: el.href || '', label: el.label },
+    }));
+    const partnerProperties = getPartnerProperties();
+    const partnershipSessionActive = isPartnerSessionActive();
+    if (partnerProperties && partnershipSessionActive) {
+      breadcrumbsItems[0] = {
+        link: {
+          href: `/partnerships/${partnerProperties?.slug?.toLowerCase()}`,
+          label: 'Home',
+        },
+      };
+    }
     setBreadcrumbs(breadcrumbsItems);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
