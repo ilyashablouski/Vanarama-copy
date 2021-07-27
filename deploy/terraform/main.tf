@@ -114,3 +114,56 @@ module "aws_log_metric_alarms" {
 
   log_metric_alarms = "${var.log_metric_alarms}"
 }
+
+data "aws_ssm_parameter" "cloudwatch_alarm_sns_topic_arn" {
+  name = "/${var.env}/${var.stack}/core/cloudwatch-alarm-topic"
+}
+
+resource "aws_cloudwatch_metric_alarm" "canary_alarm" {
+
+  alarm_name          = "${var.env}_${var.app}_canary_alarm"
+  comparison_operator = "LessThanThreshold"
+  evaluation_periods  = "1"
+  threshold           = "99"
+  alarm_description   = "Alarm if ${var.env}_${var.app} is unreachable"
+  statistic           = "Average"
+  period              = "120"
+  metric_name         = "SuccessPercent"
+  actions_enabled     = "true"
+  alarm_actions       = [ "${data.aws_ssm_parameter.cloudwatch_alarm_sns_topic_arn.value}" ]
+  namespace           = "CloudWatchSynthetics"
+  dimensions = { 
+    CanaryName = "${var.env}_${var.app}" }
+}
+  
+resource "null_resource" "endpoint" {
+  provisioner "local-exec" {
+    command = "cat ../canary/nodejs/node_modules/pageLoadBlueprint.js | sed -e \"s;%alternateDomain%;${var.alternateDomain};g\" | tee ../canary/nodejs/node_modules/pageLoadBlueprint.js"
+  }
+}
+
+data "archive_file" "canary_script" {
+  type        = "zip"
+  source_dir  = "../canary/"
+  output_path = "canary.zip"
+  depends_on  = ["null_resource.endpoint"] 
+}
+  
+resource "aws_synthetics_canary" "canary" {
+  name                 = "${var.env}_${var.app}"
+  artifact_s3_location = "s3://${var.env}-${var.stack}-canaries/canaries/"
+  execution_role_arn   = "arn:aws:iam::${var.aws_account_id}:role/${var.env}_${var.stack}_canary_role"
+  handler              = "pageLoadBlueprint.handler"
+  zip_file             = "canary.zip"
+  runtime_version      = "syn-nodejs-puppeteer-3.1"
+  start_canary         = "true"
+  schedule {
+    expression = "rate(5 minutes)"
+  }
+  tags = { 
+      env   = "${var.env}"
+      stack = "${var.stack}"
+      app   = "${var.app}"
+      cereated-by = "terraform"
+      }
+}
