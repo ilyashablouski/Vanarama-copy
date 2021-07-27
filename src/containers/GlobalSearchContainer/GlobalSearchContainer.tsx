@@ -4,6 +4,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import TextInput from 'core/atoms/textinput/TextInput';
 import cx from 'classnames';
+import Cookies from 'js-cookie';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import GlobalSearchLeftSideContainer from './GlobalSearchLeftSideContainer';
 import GlobalSearchRightSideContainer from './GlobalSearchRightSideContainer';
@@ -27,6 +28,8 @@ const GlobalSearchContainer = () => {
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearchTerm = useDebounce(searchValue, 400);
   const suggestions = useGlobalSearch(debouncedSearchTerm);
+  // TODO: it's feature flag, should be removed after release
+  const isVisible = Cookies.get('DIG-5552') === '1';
   const onSubmit = (value: string) => {
     router.push(
       {
@@ -58,7 +61,7 @@ const GlobalSearchContainer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return (
+  return isVisible ? (
     <div className={cx('header-search', isOpenResults ? '-active' : '')}>
       <div className="search-input-container">
         <TextInput
@@ -149,6 +152,8 @@ const GlobalSearchContainer = () => {
         </>
       )}
     </div>
+  ) : (
+    <></>
   );
 };
 

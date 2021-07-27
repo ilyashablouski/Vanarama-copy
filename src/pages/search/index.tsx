@@ -97,8 +97,8 @@ const Page: NextPage<IProps> = ({
 };
 export async function getServerSideProps(context: NextPageContext) {
   const client = createApolloClient({}, context);
-   // TODO: Should be removed after GlobalSearch release
-   const isEnableGSFeature = context?.req?.headers?.cookie?.includes(
+  // TODO: Should be removed after GlobalSearch release
+  const isEnableGSFeature = context?.req?.headers?.cookie?.includes(
     'DIG-5552=1',
   );
   if (!isEnableGSFeature) {
