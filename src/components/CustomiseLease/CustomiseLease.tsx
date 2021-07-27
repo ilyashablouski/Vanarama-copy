@@ -10,7 +10,10 @@ import Refresh from 'core/assets/icons/Refresh';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps, IChoice } from './interface';
-import { toPriceFormat } from '../../utils/helpers';
+import {
+  isServicePlanFeatureEnabled,
+  toPriceFormat,
+} from '../../utils/helpers';
 import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
@@ -223,12 +226,11 @@ const CustomiseLease = ({
 
   useEffect(() => {
     const upfront = quoteByCapId?.upfront;
-    const maintenanceCost = quoteByCapId?.maintenanceCost?.monthlyRental;
+    const maintenanceCost = quoteByCapId?.maintenanceCost?.initialRental;
     const initialRental = quoteByCapId?.leaseCost?.initialRental;
     if (upfront && maintenanceCost && maintenance) {
-      const extraPayment = upfront * maintenanceCost;
       if (initialRental) {
-        setInitialPayment(extraPayment + initialRental);
+        setInitialPayment(maintenanceCost + initialRental);
       }
     }
     if (!maintenance) {
@@ -358,7 +360,11 @@ const CustomiseLease = ({
         isPlayingLeaseAnimation,
       )}
       <Heading tag="span" size="regular" color="black">
-        Add Vanarama Service Plan (Our Maintenance Package):
+        {`${
+          isServicePlanFeatureEnabled
+            ? 'Add Vanarama Service Plan (Our Maintenance Package):'
+            : 'Add Maintenance:'
+        }`}
         <Text color="orange" className="-b -ml-100">
           {`£${toPriceFormat(
             quoteByCapId?.maintenanceCost?.monthlyRental,
@@ -449,7 +455,11 @@ const CustomiseLease = ({
               maintenance
                 ? `+£${toPriceFormat(
                     quoteByCapId?.maintenanceCost?.monthlyRental,
-                  )} Maintenance`
+                  )}  ${
+                    isServicePlanFeatureEnabled
+                      ? 'Vanarama Service Plan'
+                      : 'Maintenance'
+                  }`
                 : undefined
             }
             price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
@@ -473,23 +483,40 @@ const CustomiseLease = ({
           />
         </div>
       )}
-      {isModalShowing && (
-        <Modal
-          className="-mt-000"
-          containerClassName="modal-container-large"
-          title="The Vanarama Service Plan (Our Maintenance Package) Covers:"
-          show={isModalShowing}
-          onRequestClose={() => setIsModalShowing(false)}
-        >
-          <MaintenanceModalContent />
-          <Button
-            className="-mt-200"
-            color="teal"
-            onClick={() => setIsModalShowing(false)}
-            label="Okay"
-          />
-        </Modal>
-      )}
+      {isModalShowing &&
+        (isServicePlanFeatureEnabled ? (
+          <Modal
+            className="-mt-000"
+            containerClassName="modal-container-large"
+            title="The Vanarama Service Plan (Our Maintenance Package) Covers:"
+            show={isModalShowing}
+            onRequestClose={() => setIsModalShowing(false)}
+          >
+            <MaintenanceModalContent />
+            <Button
+              className="-mt-200"
+              color="teal"
+              onClick={() => setIsModalShowing(false)}
+              label="Okay"
+            />
+          </Modal>
+        ) : (
+          <Modal
+            className="-mt-000"
+            title="The Maintenance Package Covers:"
+            text="Servicing, MOTs, tyres, brakes, wipes and bulbs. All you need to worry about is insurance and fuel!"
+            show={isModalShowing}
+            onRequestClose={() => setIsModalShowing(false)}
+            additionalText="PS: Without this package you’ll have to deal with servicing and maintenance for your vehicle for the duration of your lease."
+          >
+            <Button
+              className="-mt-200"
+              color="teal"
+              onClick={() => setIsModalShowing(false)}
+              label="Okay"
+            />
+          </Modal>
+        ))}
       {isInitPayModalShowing && (
         <Modal
           className="-mt-000"

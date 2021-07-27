@@ -47,7 +47,7 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
 
   return items ? (
     <nav data-testid={dataTestId}>
-      <ol className={cx('breadcrumb', className)}>
+      <ul className={cx('breadcrumb', className)}>
         {items.map((item, key) => {
           if (items.length === key + 1) {
             // Last element.
@@ -56,7 +56,7 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
           // All other elements.
           return renderParent(item, key);
         })}
-      </ol>
+      </ul>
     </nav>
   ) : null;
 });

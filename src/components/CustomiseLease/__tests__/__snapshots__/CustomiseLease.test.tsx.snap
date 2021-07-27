@@ -24,7 +24,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       style={Object {}}
       type="button"
     >
-      Personal
+      <span
+        className="choice-label"
+      >
+        Personal
+      </span>
     </button>
     <button
       className="choice-box -active"
@@ -33,7 +37,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       style={Object {}}
       type="button"
     >
-      Business
+      <span
+        className="choice-label"
+      >
+        Business
+      </span>
     </button>
   </div>
   <span
@@ -111,7 +119,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       style={Object {}}
       type="button"
     >
-      24
+      <span
+        className="choice-label"
+      >
+        24
+      </span>
     </button>
     <button
       className="choice-box -active"
@@ -120,7 +132,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       style={Object {}}
       type="button"
     >
-      36
+      <span
+        className="choice-label"
+      >
+        36
+      </span>
     </button>
   </div>
   <span
@@ -158,7 +174,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       style={Object {}}
       type="button"
     >
-      1
+      <span
+        className="choice-label"
+      >
+        1
+      </span>
     </button>
     <button
       className="choice-box -active"
@@ -167,7 +187,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       style={Object {}}
       type="button"
     >
-      3
+      <span
+        className="choice-label"
+      >
+        3
+      </span>
     </button>
   </div>
   <span
@@ -281,7 +305,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <span
     className="heading -black -regular"
   >
-    Add Vanarama Service Plan (Our Maintenance Package):
+    Add Maintenance:
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -738,7 +762,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       style={Object {}}
       type="button"
     >
-      Personal
+      <span
+        className="choice-label"
+      >
+        Personal
+      </span>
     </button>
     <button
       className="choice-box -active"
@@ -747,7 +775,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       style={Object {}}
       type="button"
     >
-      Business
+      <span
+        className="choice-label"
+      >
+        Business
+      </span>
     </button>
   </div>
   <span
@@ -825,7 +857,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       style={Object {}}
       type="button"
     >
-      24
+      <span
+        className="choice-label"
+      >
+        24
+      </span>
     </button>
     <button
       className="choice-box -active"
@@ -834,7 +870,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       style={Object {}}
       type="button"
     >
-      36
+      <span
+        className="choice-label"
+      >
+        36
+      </span>
     </button>
   </div>
   <span
@@ -872,7 +912,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       style={Object {}}
       type="button"
     >
-      1
+      <span
+        className="choice-label"
+      >
+        1
+      </span>
     </button>
     <button
       className="choice-box -active"
@@ -881,7 +925,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       style={Object {}}
       type="button"
     >
-      3
+      <span
+        className="choice-label"
+      >
+        3
+      </span>
     </button>
   </div>
   <span
@@ -995,7 +1043,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <span
     className="heading -black -regular"
   >
-    Add Vanarama Service Plan (Our Maintenance Package):
+    Add Maintenance:
     <span
       className="text -b -ml-100 -regular -orange"
     >
