@@ -684,7 +684,7 @@ describe('B2B Director Details page', () => {
         },
         result: mockMutation.mockImplementation(() => ({
           data: {
-            createUpdateCompanyDirector: {
+            createUpdateCompanyDirectorV2: {
               uuid: MOCK_COMPANY_UUID,
             },
           } as SaveDirectorDetailsMutation,

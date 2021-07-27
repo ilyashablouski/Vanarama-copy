@@ -226,12 +226,11 @@ const CustomiseLease = ({
 
   useEffect(() => {
     const upfront = quoteByCapId?.upfront;
-    const maintenanceCost = quoteByCapId?.maintenanceCost?.monthlyRental;
+    const maintenanceCost = quoteByCapId?.maintenanceCost?.initialRental;
     const initialRental = quoteByCapId?.leaseCost?.initialRental;
     if (upfront && maintenanceCost && maintenance) {
-      const extraPayment = upfront * maintenanceCost;
       if (initialRental) {
-        setInitialPayment(extraPayment + initialRental);
+        setInitialPayment(maintenanceCost + initialRental);
       }
     }
     if (!maintenance) {

@@ -222,6 +222,20 @@ export interface CompanyAssociateInputObject {
 }
 
 /**
+ * Input object for company director
+ */
+export interface CompanyDirectorInputObject {
+  addresses?: AddressInputObject[] | null;
+  associates?: CompanyAssociateInputObject[] | null;
+  bankAccount?: BankAccountInputObject | null;
+  emailAddress?: EmailAddressInputObject | null;
+  person?: PersonInputObject | null;
+  telephoneNumbers?: TelephoneNumberInputObject[] | null;
+  turnoverPercentageOutsideUk?: TurnoverPercentageOutsideUkInputObject[] | null;
+  uuid?: string | null;
+}
+
+/**
  * Input object to create a Company
  */
 export interface CompanyInputObject {

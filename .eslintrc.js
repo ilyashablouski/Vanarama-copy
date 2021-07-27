@@ -13,8 +13,8 @@ module.exports = {
   },
   ignorePatterns: ['.eslintrc.js'],
   rules: {
-    "@typescript-eslint/camelcase": 0,
-    'curly': [2, 'all'],
+    '@typescript-eslint/camelcase': 0,
+    curly: [2, 'all'],
     'react/react-in-jsx-scope': 0,
     'react/prop-types': 0,
     'react/require-default-props': 0,
@@ -29,6 +29,10 @@ module.exports = {
     'testing-library/prefer-wait-for': 'error',
     'testing-library/prefer-presence-queries': 'error',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      { required: { some: ['nesting', 'id'] } },
+    ],
   },
   overrides: [
     {
@@ -41,7 +45,7 @@ module.exports = {
         'jsx-a11y/click-events-have-key-events': 0,
         'jsx-a11y/interactive-supports-focus': 0,
         'jsx-a11y/label-has-associated-control': 0,
-        "@typescript-eslint/camelcase": 0,
+        '@typescript-eslint/camelcase': 0,
       },
     },
     {
@@ -50,7 +54,7 @@ module.exports = {
         'react/jsx-props-no-spreading': 0,
         'react/state-in-constructor': 0,
         'react/react-in-jsx-scope': 0,
-        "@typescript-eslint/camelcase": 0,
+        '@typescript-eslint/camelcase': 0,
       },
     },
   ],

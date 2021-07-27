@@ -79,6 +79,7 @@ export const mapFormValues = (
       ? searchResult.dateOfCreation
       : parseDate('01', values.tradingSinceMonth, values.tradingSinceYear),
     addresses: mapAddresses(values),
+    previouslyTradingSoletrader: values.previouslyTradingSoletrader,
     withTradingAddress: values.tradingDifferent,
     companyNature: values.nature,
     emailAddress: mapEmailAddress(values),
@@ -128,6 +129,7 @@ export const mapDefaultValues = (
           title: data?.companySearchResult?.title,
         }
       : undefined,
+    previouslyTradingSoletrader: data?.previouslyTradingSoletrader ?? undefined,
     companyNumber: data?.businessRegistrationNumber ?? '',
     companyName: data?.businessName ?? '',
     tradingSinceMonth: (tradingSince?.getMonth() || '').toString(),
@@ -174,6 +176,7 @@ export const mapCompanyDetailsToCreditApplication = (
       values?.companySearchResult?.dateOfCreation ??
       parseDate('01', values.tradingSinceMonth, values.tradingSinceYear),
     companyType: aboutDetails?.companyType || 'Limited',
+    previouslyTradingSoletrader: values.previouslyTradingSoletrader,
     telephoneNumbers: [{ value: values.telephone, kind: 'business' }],
     emailAddresses: [{ kind: 'Home', value: values.email, primary: true }],
   };

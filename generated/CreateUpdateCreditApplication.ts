@@ -149,6 +149,7 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_com
 
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication_companyDetailsV2 {
   addresses: CreateUpdateCreditApplication_createUpdateCreditApplication_companyDetailsV2_addresses[] | null;
+  previouslyTradingSoletrader: boolean | null;
   annualExpenses: number | null;
   annualSalesCost: number | null;
   annualTurnover: number | null;
