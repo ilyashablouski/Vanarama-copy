@@ -170,7 +170,9 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
       <div
         className="accordion--content"
       >
-        Unlike many of our competitors, we won’t charge you anything to arrange your lease. You simply pay your initial payment and monthly rentals and we'll cover the rest.
+        <p>
+          Unlike many of our competitors, we won’t charge you anything to arrange your lease. You simply pay your initial payment and monthly rentals and we'll cover the rest.
+        </p>
       </div>
     </li>
     <li
@@ -217,7 +219,9 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
       <div
         className="accordion--content"
       >
-        Delivering a 5-star service to you is at the heart of everything we do. That’s why we’re rated excellent on Trust Pilot for our customer service.
+        <p>
+          Delivering a 5-star service to you is at the heart of everything we do. That’s why we’re rated excellent on Trust Pilot for our customer service.
+        </p>
       </div>
     </li>
     <li
@@ -264,7 +268,9 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
       <div
         className="accordion--content"
       >
-        There's no need to worry about the hassle of collecting your vehicle. Once it's ready, we’ll get it delivered straight to your door, drama-free.
+        <p>
+          There's no need to worry about the hassle of collecting your vehicle. Once it's ready, we’ll get it delivered straight to your door, drama-free.
+        </p>
       </div>
     </li>
   </ul>
