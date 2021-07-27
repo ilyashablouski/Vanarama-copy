@@ -172,6 +172,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         <section className="row:featured-left">
           <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <Image
+              className="card-image"
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={getSectionsData(
                 ['sectionsAsArray', 'featured', '3', 'image', 'file', 'url'],
@@ -282,6 +283,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
       <section className="row:featured-left">
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Image
+            className="card-image"
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={getSectionsData(
               ['sectionsAsArray', 'featured', '5', 'image', 'file', 'url'],
