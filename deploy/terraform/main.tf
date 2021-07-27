@@ -156,7 +156,6 @@ resource "aws_synthetics_canary" "canary" {
   handler              = "pageLoadBlueprint.handler"
   zip_file             = "canary.zip"
   runtime_version      = "syn-nodejs-puppeteer-3.1"
-  start_canary         = "true"
   schedule {
     expression = "rate(5 minutes)"
   }
