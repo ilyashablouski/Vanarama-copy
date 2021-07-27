@@ -1061,6 +1061,7 @@ const SearchPageContainer: React.FC<IProps> = ({
               </div>
 
               <Image
+                className="card-image"
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 src={getSectionsData(
                   ['sectionsAsArray', 'featured', '0', 'image', 'file', 'url'],
