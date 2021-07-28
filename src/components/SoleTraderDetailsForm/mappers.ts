@@ -2,8 +2,8 @@ import { SoleTraderAssociate_associates as SoleTrader } from '../../../generated
 import { SoleTraderPerson as Person } from '../../../generated/SoleTraderPerson';
 import { CompanyAssociateInputObject } from '../../../generated/globalTypes';
 import { ISoleTraderDetailsFormValues } from './interfaces';
-import { addressToDisplay } from '../../utils/address';
 import { parseDate } from '../../utils/dates';
+import { mapAddress } from '../../containers/CompanyDetailsFormContainer/mappers';
 
 export const formValuesToAssociate = (
   values: ISoleTraderDetailsFormValues,
@@ -86,16 +86,13 @@ export const responseToInitialFormValues = (
       )
       .map(address => {
         const movedIn = new Date(address.startedOn);
+        const mappedAddress = mapAddress(address);
+
         return {
           status: address.propertyStatus || '',
           month: String(movedIn.getMonth() + 1),
           year: String(movedIn.getFullYear()),
-          address: address.serviceId
-            ? {
-                id: address.serviceId,
-                label: addressToDisplay(address),
-              }
-            : undefined,
+          address: mappedAddress?.label ? mappedAddress : undefined,
         };
       }),
   };

@@ -9,12 +9,12 @@ export interface ICompanyDetailsFormValues {
   tradingSinceYear: string;
   previouslyTradingSoletrader?: boolean;
   nature: string;
-  registeredAddress: {
-    id: string;
+  registeredAddress?: {
+    id?: string;
     label: string;
   };
-  tradingAddress: {
-    id: string;
+  tradingAddress?: {
+    id?: string;
     label: string;
   };
   tradingDifferent: boolean;
