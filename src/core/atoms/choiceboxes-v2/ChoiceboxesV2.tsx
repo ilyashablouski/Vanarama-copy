@@ -5,6 +5,8 @@ import { IChoiceBoxesV2Props } from './interfaces';
 
 function ChoiceBoxesV2({
   className,
+  boxClassName,
+  labelClassName,
   color = 'teal',
   values,
   selectedValues,
@@ -61,11 +63,13 @@ function ChoiceBoxesV2({
             />
             <label
               htmlFor={value}
-              className={cx('choice-box', {
+              className={cx('choice-box', boxClassName, {
                 '-active': checked,
               })}
             >
-              <span>{value}</span>
+              <span className={cx('choice-label', labelClassName)}>
+                {value}
+              </span>
             </label>
           </React.Fragment>
         );

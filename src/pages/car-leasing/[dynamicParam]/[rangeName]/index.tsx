@@ -1,7 +1,8 @@
-import { NextPage, NextPageContext } from 'next';
+import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
+import { SlugNextPageContext } from 'types/common';
 import createApolloClient from '../../../../apolloClient';
 import {
   GET_VEHICLE_LIST,
@@ -15,6 +16,8 @@ import {
   RESULTS_PER_REQUEST,
   sortObjectGenerator,
   ssrCMSQueryExecutor,
+  NEW_RANGE_SLUGS,
+  trimSlug,
 } from '../../../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../../../generated/bodyStyleList';
@@ -48,6 +51,7 @@ interface IProps extends ISearchPageProps {
   topOffersList?: vehicleList;
   topOffersCardsData?: GetProductCard;
   defaultSort?: SortObject[];
+  newRangePageSlug?: string;
 }
 
 const Page: NextPage<IProps> = ({
@@ -66,6 +70,7 @@ const Page: NextPage<IProps> = ({
   rangeParam,
   makeParam,
   defaultSort,
+  newRangePageSlug,
 }) => {
   const router = useRouter();
   // De-obfuscate data for user
@@ -123,11 +128,12 @@ const Page: NextPage<IProps> = ({
       preLoadTopOffersList={topOffersList}
       preLoadTopOffersCardsData={topOffersCardsData}
       defaultSort={defaultSort}
+      newRangePageSlug={newRangePageSlug}
     />
   );
 };
 
-export async function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: SlugNextPageContext) {
   const client = createApolloClient({});
   const makeName = (context?.query?.dynamicParam as string).toLowerCase();
   const rangeName = (context?.query?.rangeName as string).toLowerCase();
@@ -137,10 +143,12 @@ export async function getServerSideProps(context: NextPageContext) {
   let bodyStyleList;
   let topOffersCardsData;
   let defaultSort;
+
   try {
     const contextData = {
       req: {
         url: context.req?.url || '',
+        resolvedUrl: trimSlug(context.resolvedUrl || ''),
       },
       query: { ...context.query },
     };
@@ -148,7 +156,11 @@ export async function getServerSideProps(context: NextPageContext) {
       client,
       contextData,
       true,
-      'isRangePage',
+      // TODO: Cookie should be removed after feature release
+      context?.req?.headers?.cookie?.includes('DIG-6496=1') &&
+        NEW_RANGE_SLUGS.includes(contextData.req?.resolvedUrl || '')
+        ? 'isNewRangePage'
+        : 'isRangePage',
     )) as ApolloQueryResult<GenericPageQuery>;
     defaultSort = sortObjectGenerator([
       {
@@ -279,6 +291,7 @@ export async function getServerSideProps(context: NextPageContext) {
         makeParam: (context?.query?.dynamicParam as string).toLowerCase(),
         rangeParam: (context?.query?.rangeName as string).toLowerCase(),
         defaultSort: defaultSort || null,
+        newRangePageSlug: contextData.req?.resolvedUrl || '',
       },
     };
   } catch {

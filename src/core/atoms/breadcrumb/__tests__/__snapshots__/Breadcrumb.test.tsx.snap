@@ -2,7 +2,7 @@
 
 exports[`<Breadcrumb /> renders correctly 1`] = `
 <nav>
-  <ol
+  <ul
     className="breadcrumb"
   />
 </nav>
@@ -10,7 +10,7 @@ exports[`<Breadcrumb /> renders correctly 1`] = `
 
 exports[`<Breadcrumb /> renders correctly with optional props 1`] = `
 <nav>
-  <ol
+  <ul
     className="breadcrumb class"
   >
     <li
@@ -144,6 +144,6 @@ exports[`<Breadcrumb /> renders correctly with optional props 1`] = `
         Page3
       </span>
     </li>
-  </ol>
+  </ul>
 </nav>
 `;

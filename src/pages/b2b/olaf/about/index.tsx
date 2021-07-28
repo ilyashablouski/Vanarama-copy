@@ -77,8 +77,6 @@ export const BusinessAboutPage: NextPage = () => {
   const handleCreateUpdateBusinessPersonCompletion = async (
     result: SubmitResult,
   ) => {
-    pushAboutYouDataLayer(detailsData, derivativeData);
-
     const slug =
       result.companyType === CompanyTypes.limited ||
       result.companyType === CompanyTypes.partnership
@@ -86,7 +84,11 @@ export const BusinessAboutPage: NextPage = () => {
         : 'sole-trader/';
     const url = redirect || `/b2b/olaf/${slug}company-details`;
 
-    router.push(url, url.replace('[companyUuid]', companyUuid || ''));
+    router.push(url, url.replace('[companyUuid]', companyUuid || '')).then(() =>
+      setTimeout(() => {
+        pushAboutYouDataLayer(detailsData, derivativeData);
+      }, 200),
+    );
   };
 
   return (

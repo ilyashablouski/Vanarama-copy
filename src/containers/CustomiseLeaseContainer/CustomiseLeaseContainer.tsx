@@ -32,7 +32,7 @@ const createEmptyQuoteData = (
   term: number | null,
   mileage: number | null,
   upfront: number | null,
-  vehicleType: string | null,
+  vehicleType: VehicleTypeEnum | null,
   trim: number | null,
   colour: number | null,
   leaseType: LeaseTypeEnum | null,
@@ -41,8 +41,7 @@ const createEmptyQuoteData = (
     term,
     mileage,
     upfront,
-    vehicleType:
-      vehicleType === 'CAR' ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
+    vehicleType,
     trim: trim?.toString() || null,
     colour: colour?.toString() || null,
     leaseType,

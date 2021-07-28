@@ -40,7 +40,7 @@ interface IProps {
   companyUuid: string;
   orderId: string;
   isSoleTrader: boolean;
-  onCompleted?: (emailAddresses: string | undefined) => void;
+  onComplete?: (emailAddresses: string | undefined) => void;
   onError?: (error: ApolloError) => void;
 }
 
@@ -48,7 +48,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
   companyUuid,
   orderId,
   personUuid,
-  onCompleted,
+  onComplete,
   onError,
   isSoleTrader,
 }) => {
@@ -134,7 +134,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
             ),
           ),
       )
-      .then(() => onCompleted?.(personByUuid?.emailAddresses[0].value))
+      .then(() => onComplete?.(personByUuid?.emailAddresses[0].value))
       .catch(onError);
   };
 

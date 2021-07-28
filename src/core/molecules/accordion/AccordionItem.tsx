@@ -1,6 +1,8 @@
 import cx from 'classnames';
 import React, { useState } from 'react';
+import ReactMarkdown from 'react-markdown';
 import AccordionHeading from './AccordionHeading';
+import RouterLink from '../../../components/RouterLink';
 
 export interface IAccordionItem {
   id: number | string;
@@ -28,7 +30,27 @@ const AccordionItem: React.FC<IProps> = ({ item }) => {
       data-testid={setActive ? 'accordion-item--active' : 'accordion-item'}
     >
       <AccordionHeading title={item.title} onClick={() => toggleAccordion()} />
-      <div className="accordion--content">{item.children}</div>
+
+      <div className="accordion--content">
+        {typeof item.children === 'string' ? (
+          <ReactMarkdown
+            source={item.children as string}
+            renderers={{
+              link: props => {
+                const { href, children } = props;
+                return (
+                  <RouterLink
+                    link={{ href, label: children }}
+                    classNames={{ color: 'teal' }}
+                  />
+                );
+              },
+            }}
+          />
+        ) : (
+          item.children
+        )}
+      </div>
     </li>
   );
 };

@@ -3,13 +3,13 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { LimitedCompanyInputObject } from "./globalTypes";
+import { CompanyDirectorInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL mutation operation: SaveDirectorDetailsMutation
 // ====================================================
 
-export interface SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates_addresses {
+export interface SaveDirectorDetailsMutation_createUpdateCompanyDirectorV2_associates_addresses {
   city: string;
   country: string | null;
   county: string | null;
@@ -22,25 +22,25 @@ export interface SaveDirectorDetailsMutation_createUpdateCompanyDirector_associa
   startedOn: any | null;
 }
 
-export interface SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates {
+export interface SaveDirectorDetailsMutation_createUpdateCompanyDirectorV2_associates {
   uuid: string;
   lastName: string;
   firstName: string;
-  addresses: SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates_addresses[] | null;
+  addresses: SaveDirectorDetailsMutation_createUpdateCompanyDirectorV2_associates_addresses[] | null;
 }
 
-export interface SaveDirectorDetailsMutation_createUpdateCompanyDirector {
+export interface SaveDirectorDetailsMutation_createUpdateCompanyDirectorV2 {
   uuid: string;
-  associates: SaveDirectorDetailsMutation_createUpdateCompanyDirector_associates[] | null;
+  associates: SaveDirectorDetailsMutation_createUpdateCompanyDirectorV2_associates[] | null;
 }
 
 export interface SaveDirectorDetailsMutation {
   /**
-   * Create or update company Director
+   * This mutation is deprecated, instead use CreateUpdateCompanyDirectorV2
    */
-  createUpdateCompanyDirector: SaveDirectorDetailsMutation_createUpdateCompanyDirector | null;
+  createUpdateCompanyDirectorV2: SaveDirectorDetailsMutation_createUpdateCompanyDirectorV2 | null;
 }
 
 export interface SaveDirectorDetailsMutationVariables {
-  input: LimitedCompanyInputObject;
+  input: CompanyDirectorInputObject;
 }

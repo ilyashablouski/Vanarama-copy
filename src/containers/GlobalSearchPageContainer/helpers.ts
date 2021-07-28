@@ -2,10 +2,10 @@ import { ParsedUrlQuery } from 'querystring';
 import { productDerivatives_productDerivatives_derivatives as IVehiclesList } from '../../../generated/productDerivatives';
 import { AVAILABILITY_LABELS } from '../HelpMeChooseContainer/HelpMeChooseBlocks/HelpMeChooseResult';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
-import { IFiltersData, ISelectedTags } from './interfaces';
+import { IFiltersData, ISelectedTags, IProps } from './interfaces';
 import { filterOrderByNumMap } from '../FiltersContainer/helpers';
 import {
-  FinanceTypeEnum,
+  FinanceType,
   ProductDerivativeFilter,
   ProductDerivativeSortDirection,
   ProductDerivativeSortField,
@@ -77,7 +77,7 @@ export const buildFiltersRequestObject = (
         : undefined,
     make: filters.make?.[0],
     range: filters.range?.[0],
-    financeTypes: isPersonal ? [FinanceTypeEnum.PCH] : [FinanceTypeEnum.BCH],
+    financeTypes: isPersonal ? [FinanceType.PCH] : [FinanceType.BCH],
     onOffer: onOffer || null,
   };
 };
@@ -96,3 +96,21 @@ export const DEFAULT_SORT = [
     direction: ProductDerivativeSortDirection.ASC,
   },
 ];
+
+/**
+ * using for prevent page rerender when Compare Context Provider changed
+ * */
+export const isSimilarPage = (prevProps: IProps, nextProps: IProps) => {
+  const prevCapIds =
+    prevProps.preLoadProductDerivatives.productDerivatives?.derivatives?.map(
+      derivative => derivative?.capId,
+    ) || [];
+  const nextCapIds =
+    nextProps.preLoadProductDerivatives.productDerivatives?.derivatives?.map(
+      derivative => derivative?.capId,
+    ) || [];
+  return (
+    prevCapIds.length === nextCapIds.length &&
+    prevCapIds.every((value, index) => value === nextCapIds[index])
+  );
+};

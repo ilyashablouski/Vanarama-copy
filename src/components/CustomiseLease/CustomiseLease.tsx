@@ -10,7 +10,10 @@ import Refresh from 'core/assets/icons/Refresh';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps, IChoice } from './interface';
-import { toPriceFormat } from '../../utils/helpers';
+import {
+  isServicePlanFeatureEnabled,
+  toPriceFormat,
+} from '../../utils/helpers';
 import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
@@ -19,6 +22,7 @@ import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import MaintenanceModalContent from '../../containers/DetailsPage/MaintenanceModalContent';
 
 const InformationCircle = dynamic(
   () => import('core/assets/icons/InformationCircle'),
@@ -222,10 +226,14 @@ const CustomiseLease = ({
 
   useEffect(() => {
     const upfront = quoteByCapId?.upfront;
-    const maintenanceCost = quoteByCapId?.maintenanceCost?.monthlyRental;
+    const maintenanceCost = isServicePlanFeatureEnabled
+      ? quoteByCapId?.maintenanceCost?.initialRental
+      : quoteByCapId?.maintenanceCost?.monthlyRental;
     const initialRental = quoteByCapId?.leaseCost?.initialRental;
     if (upfront && maintenanceCost && maintenance) {
-      const extraPayment = upfront * maintenanceCost;
+      const extraPayment = isServicePlanFeatureEnabled
+        ? maintenanceCost
+        : upfront * maintenanceCost;
       if (initialRental) {
         setInitialPayment(extraPayment + initialRental);
       }
@@ -357,7 +365,11 @@ const CustomiseLease = ({
         isPlayingLeaseAnimation,
       )}
       <Heading tag="span" size="regular" color="black">
-        Add Maintenance:
+        {`${
+          isServicePlanFeatureEnabled
+            ? 'Add Vanarama Service Plan (Our Maintenance Package):'
+            : 'Add Maintenance:'
+        }`}
         <Text color="orange" className="-b -ml-100">
           {`£${toPriceFormat(
             quoteByCapId?.maintenanceCost?.monthlyRental,
@@ -407,7 +419,10 @@ const CustomiseLease = ({
           </div>
         </div>
       )}
-      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+      <LazyLoadComponent
+        visibleByDefault={isServerRenderOrAppleDevice}
+        placeholder={<span className="-d-block -h-900" />}
+      >
         <OrderSummary
           quoteByCapId={quoteByCapId}
           stateVAT={stateVAT}
@@ -429,65 +444,84 @@ const CustomiseLease = ({
           )}
           style={{ opacity: '1' }}
         >
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-            <LeaseScanner
-              classNameHeading="headingText"
-              className="pdp-footer"
-              nextBestPrice={
-                maintenance
-                  ? `£${toPriceFormat(
-                      quoteByCapId?.nextBestPrice?.maintained,
-                    )} PM ${stateVAT}. VAT`
-                  : `£${toPriceFormat(
-                      quoteByCapId?.nextBestPrice?.nonMaintained,
-                    )} PM ${stateVAT}. VAT`
-              }
-              priceLabel={
-                maintenance
-                  ? `+£${toPriceFormat(
-                      quoteByCapId?.maintenanceCost?.monthlyRental,
-                    )} Maintenance`
-                  : undefined
-              }
-              price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
-              orderNowClick={() => {
-                onSubmit({
-                  leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
-                  lineItems: [lineItem],
-                });
-                setSessionValues();
-              }}
-              headingText={`PM ${stateVAT}. VAT`}
-              leasingProviders={LEASING_PROVIDERS}
-              startLoading={isPlayingLeaseAnimation}
-              endAnimation={() => {
-                setIsInitialLoading(true);
-                setIsPlayingLeaseAnimation(false);
-              }}
-              requestCallBack={() => {
-                showCallBackForm(true);
-              }}
-            />
-          </LazyLoadComponent>
+          <LeaseScanner
+            classNameHeading="headingText"
+            className="pdp-footer"
+            nextBestPrice={
+              maintenance
+                ? `£${toPriceFormat(
+                    quoteByCapId?.nextBestPrice?.maintained,
+                  )} PM ${stateVAT}. VAT`
+                : `£${toPriceFormat(
+                    quoteByCapId?.nextBestPrice?.nonMaintained,
+                  )} PM ${stateVAT}. VAT`
+            }
+            priceLabel={
+              maintenance
+                ? `+£${toPriceFormat(
+                    quoteByCapId?.maintenanceCost?.monthlyRental,
+                  )}  ${
+                    isServicePlanFeatureEnabled
+                      ? 'Vanarama Service Plan'
+                      : 'Maintenance'
+                  }`
+                : undefined
+            }
+            price={+toPriceFormat(quoteByCapId?.leaseCost?.monthlyRental)}
+            orderNowClick={() => {
+              onSubmit({
+                leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
+                lineItems: [lineItem],
+              });
+              setSessionValues();
+            }}
+            headingText={`PM ${stateVAT}. VAT`}
+            leasingProviders={LEASING_PROVIDERS}
+            startLoading={isPlayingLeaseAnimation}
+            endAnimation={() => {
+              setIsInitialLoading(true);
+              setIsPlayingLeaseAnimation(false);
+            }}
+            requestCallBack={() => {
+              showCallBackForm(true);
+            }}
+          />
         </div>
       )}
-      {isModalShowing && (
-        <Modal
-          className="-mt-000"
-          title="The Maintenance Package Covers:"
-          text="Servicing, MOTs, tyres, brakes, wipes and bulbs. All you need to worry about is insurance and fuel!"
-          show={isModalShowing}
-          onRequestClose={() => setIsModalShowing(false)}
-          additionalText="PS: Without this package you’ll have to deal with servicing and maintenance for your vehicle for the duration of your lease."
-        >
-          <Button
-            className="-mt-200"
-            color="teal"
-            onClick={() => setIsModalShowing(false)}
-            label="Okay"
-          />
-        </Modal>
-      )}
+      {isModalShowing &&
+        (isServicePlanFeatureEnabled ? (
+          <Modal
+            className="-mt-000"
+            containerClassName="modal-container-large"
+            title="The Vanarama Service Plan (Our Maintenance Package) Covers:"
+            show={isModalShowing}
+            onRequestClose={() => setIsModalShowing(false)}
+          >
+            <MaintenanceModalContent />
+            <Button
+              className="-mt-200"
+              color="teal"
+              onClick={() => setIsModalShowing(false)}
+              label="Okay"
+            />
+          </Modal>
+        ) : (
+          <Modal
+            className="-mt-000"
+            title="The Maintenance Package Covers:"
+            text="Servicing, MOTs, tyres, brakes, wipes and bulbs. All you need to worry about is insurance and fuel!"
+            show={isModalShowing}
+            onRequestClose={() => setIsModalShowing(false)}
+            additionalText="PS: Without this package you’ll have to deal with servicing and maintenance for your vehicle for the duration of your lease."
+          >
+            <Button
+              className="-mt-200"
+              color="teal"
+              onClick={() => setIsModalShowing(false)}
+              label="Okay"
+            />
+          </Modal>
+        ))}
       {isInitPayModalShowing && (
         <Modal
           className="-mt-000"

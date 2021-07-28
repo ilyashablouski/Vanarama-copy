@@ -10,7 +10,11 @@ exports[`<Choiceboxes /> renders correctly 1`] = `
     style={Object {}}
     type="button"
   >
-    Personal
+    <span
+      className="choice-label"
+    >
+      Personal
+    </span>
   </button>
   <button
     className="choice-box"
@@ -18,7 +22,11 @@ exports[`<Choiceboxes /> renders correctly 1`] = `
     style={Object {}}
     type="button"
   >
-    Business
+    <span
+      className="choice-label"
+    >
+      Business
+    </span>
   </button>
 </div>
 `;
@@ -33,7 +41,11 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
     style={Object {}}
     type="button"
   >
-    13
+    <span
+      className="choice-label"
+    >
+      13
+    </span>
   </button>
   <button
     className="choice-box"
@@ -41,7 +53,11 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
     style={Object {}}
     type="button"
   >
-    23
+    <span
+      className="choice-label"
+    >
+      23
+    </span>
   </button>
   <button
     className="choice-box"
@@ -49,7 +65,11 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
     style={Object {}}
     type="button"
   >
-    43
+    <span
+      className="choice-label"
+    >
+      43
+    </span>
   </button>
   <button
     className="choice-box"
@@ -57,7 +77,11 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
     style={Object {}}
     type="button"
   >
-    45
+    <span
+      className="choice-label"
+    >
+      45
+    </span>
   </button>
   <button
     className="choice-box"
@@ -65,7 +89,11 @@ exports[`<Choiceboxes /> renders correctly 2`] = `
     style={Object {}}
     type="button"
   >
-    25763
+    <span
+      className="choice-label"
+    >
+      25763
+    </span>
   </button>
 </div>
 `;
@@ -80,7 +108,11 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
     style={Object {}}
     type="button"
   >
-    13
+    <span
+      className="choice-label"
+    >
+      13
+    </span>
   </button>
   <button
     className="choice-box"
@@ -88,7 +120,11 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
     style={Object {}}
     type="button"
   >
-    23
+    <span
+      className="choice-label"
+    >
+      23
+    </span>
   </button>
   <button
     className="choice-box"
@@ -96,7 +132,11 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
     style={Object {}}
     type="button"
   >
-    45
+    <span
+      className="choice-label"
+    >
+      45
+    </span>
   </button>
   <button
     className="choice-box"
@@ -104,7 +144,11 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
     style={Object {}}
     type="button"
   >
-    47
+    <span
+      className="choice-label"
+    >
+      47
+    </span>
   </button>
   <button
     className="choice-box"
@@ -112,7 +156,11 @@ exports[`<Choiceboxes /> renders correctly 3`] = `
     style={Object {}}
     type="button"
   >
-    25763
+    <span
+      className="choice-label"
+    >
+      25763
+    </span>
   </button>
   <button
     className="choice-box"

@@ -83,7 +83,8 @@ export const AVAILABILITY_LABELS = {
   '45': '6-8 Week Delivery',
   '80': '8-12 Week Delivery',
   '90': '12-16 Week Delivery',
-  '95': 'Over 16 Week Delivery',
+  '95': '16-20 Week Delivery',
+  '97': 'Over 20 Week Delivery',
   '100': 'Call For Availability',
 } as { [key: string]: string };
 

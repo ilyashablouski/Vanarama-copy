@@ -26,7 +26,11 @@ exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
         style={Object {}}
         type="button"
       >
-        Diesel
+        <span
+          className="choice-label"
+        >
+          Diesel
+        </span>
       </button>
       <button
         className="choice-box"
@@ -34,7 +38,11 @@ exports[`<HelpMeChooseContainer /> renders correctly 1`] = `
         style={Object {}}
         type="button"
       >
-        Petrol
+        <span
+          className="choice-label"
+        >
+          Petrol
+        </span>
       </button>
       <button
         className="choice-box"
@@ -109,7 +117,11 @@ exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
         style={Object {}}
         type="button"
       >
-        Diesel
+        <span
+          className="choice-label"
+        >
+          Diesel
+        </span>
       </button>
       <button
         className="choice-box -active"
@@ -117,7 +129,11 @@ exports[`<HelpMeChooseContainer /> renders correctly 2`] = `
         style={Object {}}
         type="button"
       >
-        Petrol
+        <span
+          className="choice-label"
+        >
+          Petrol
+        </span>
       </button>
       <button
         className="choice-box"

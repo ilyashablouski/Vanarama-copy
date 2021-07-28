@@ -24,7 +24,7 @@ import {
 import GlobalSearchPageContainer from '../../containers/GlobalSearchPageContainer';
 
 import {
-  FinanceTypeEnum,
+  FinanceType,
   ProductDerivativeSort,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
@@ -130,7 +130,7 @@ export async function getServerSideProps(context: NextPageContext) {
         size: RESULTS_PER_REQUEST,
         sort: sortOrder,
         filters: {
-          financeTypes: [FinanceTypeEnum.PCH],
+          financeTypes: [FinanceType.PCH],
         },
       },
     })

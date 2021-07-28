@@ -2,12 +2,12 @@ import React, { FC, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import SchemaJSON from 'core/atoms/schema-json';
+import RouterLink from '../../components/RouterLink/RouterLink';
 import { IBreadcrumb } from '../../types/breadcrumbs';
 import {
   getPartnerProperties,
   isPartnerSessionActive,
 } from '../../utils/partnerProperties';
-import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import TilesContainer from '../TilesContainer/TilesContainer';
 import { FeaturedHtml } from './getFeaturedHtml';
@@ -52,7 +52,6 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
   );
   const metaData = getSectionsData(['metaData'], data?.genericPage);
   const featuredImage = getSectionsData(['featuredImage'], data?.genericPage);
-
   const [breadcrumbs, setBreadcrumbs] = useState([]);
 
   // Check if partnership session is active to set partnership as home page link

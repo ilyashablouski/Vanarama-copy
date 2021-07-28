@@ -133,7 +133,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
 
   useEffect(() => {
     setOpenMenu(false);
-  }, [router]);
+  }, [router.asPath]);
 
   useEffect(() => {
     if (isMenuOpen) {

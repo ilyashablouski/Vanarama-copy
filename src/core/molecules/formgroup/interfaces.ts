@@ -21,7 +21,7 @@ export interface IFormgroupProps extends IBaseProps {
   /**
    * A label for the inputs
    */
-  label?: string;
+  label?: React.ReactNode;
   /**
    * Whether to display the children editable
    */

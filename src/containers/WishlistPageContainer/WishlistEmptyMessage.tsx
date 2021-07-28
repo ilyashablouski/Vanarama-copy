@@ -11,7 +11,7 @@ function WishlistEmptyMessage({ className }: IWishlistEmptyMessage) {
     <section className={cx('row:cards-1col', className)}>
       <div className="card -message -flex-h">
         <div className="row:lead-text -m-300">
-          <Text className="-semi-b" size="lead" color="darker">
+          <Text className="-m" size="lead" color="darker">
             Your wishlist is empty right now.
           </Text>
           <Heading size="lead" color="darker">

@@ -11,6 +11,9 @@ import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop';
+import Image from 'core/atoms/image';
+import { isNewRangePagesFeatureEnabled } from '../../utils/helpers';
 import {
   filterOrderByNumMap,
   findPreselectFilterValue,
@@ -41,6 +44,7 @@ import {
   sortObjectGenerator,
   sortValues,
   ssrCMSQueryExecutor,
+  NEW_RANGE_SLUGS,
 } from './helpers';
 import {
   GetProductCard,
@@ -83,6 +87,8 @@ import {
   getObjectFromSessionStorage,
   removeSessionStorageItem,
 } from '../../utils/windowSessionStorage';
+import getTitleTag from '../../utils/getTitleTag';
+import NewRangeContent from './NewRangeContent';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={2} />,
@@ -149,6 +155,7 @@ interface IProps {
   preloadRange?: string;
   preloadMake?: string;
   defaultSort?: SortObject[];
+  newRangePageSlug?: string;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -183,12 +190,22 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadTopOffersList,
   preLoadTopOffersCardsData,
   defaultSort,
+  newRangePageSlug,
 }: IProps) => {
   // assign here as when inline causing hook lint errors
+
+  const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
+  const [isPersonal, setIsPersonal] = useState(
+    cachedLeaseType === LeaseTypeEnum.PERSONAL,
+  );
   const applyColumns = !isEvPage ? '-columns' : '';
 
   const client = useApolloClient();
   const router = useRouter();
+  const isNewPage =
+    isNewRangePagesFeatureEnabled &&
+    newRangePageSlug &&
+    !!NEW_RANGE_SLUGS.includes(newRangePageSlug);
   const isDynamicFilterPage = useMemo(
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
@@ -233,23 +250,20 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [cardsData, setCardsData] = useState(
     preLoadProductCardsData?.productCard || ([] as (IProductCard | null)[]),
   );
-
   const [lastCard, setLastCard] = useState(
     preLoadVehiclesList?.vehicleList.pageInfo.endCursor || '',
   );
+
   const [hasNextPage, setHasNextPage] = useState(
     preLoadVehiclesList?.vehicleList?.pageInfo.hasNextPage ?? true,
   );
 
-  const { cachedLeaseType, setCachedLeaseType } = useLeaseType(isCarSearch);
-  const [isPersonal, setIsPersonal] = useState(
-    cachedLeaseType === LeaseTypeEnum.PERSONAL,
-  );
   const [totalCount, setTotalCount] = useState(
     isMakePage
       ? preLoadRanges?.rangeList?.length || 0
       : preLoadVehiclesList?.vehicleList?.totalCount || 0,
   );
+
   const { savedSortOrder, saveSortOrder } = useSortOrder(defaultSort);
   const [sortOrder, setSortOrder] = useState(savedSortOrder);
   const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(true);
@@ -735,6 +749,14 @@ const SearchPageContainer: React.FC<IProps> = ({
     () => getSectionsData(['sections', 'carousel'], pageData?.genericPage),
     [pageData],
   );
+  const newCarousel: CarouselData = useMemo(
+    () =>
+      getSectionsData(
+        ['sectionsAsArray', 'carousel', '0'],
+        pageData?.genericPage,
+      ),
+    [pageData],
+  );
   const tiles: Tiles = useMemo(
     () => getSectionsData(['sections', 'tiles'], pageData?.genericPage),
     [pageData],
@@ -939,20 +961,24 @@ const SearchPageContainer: React.FC<IProps> = ({
   };
   // TODO: render must be refactored, some components should be moved to separate components
   // Some props should be contain in one param for achieve more readable code
+
   return (
     <>
       <PartnershipLogoHeader />
       <div className="row:title">
         {!partnershipActive && <Breadcrumb items={breadcrumbsItems} />}
-        <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
-          {isDesktopOrTablet
-            ? metaData?.name
-            : titleWithBreaks.map((line, idx) => (
-                <React.Fragment key={String(idx)}>
-                  {line} <br />
-                </React.Fragment>
-              ))}
-        </Heading>
+
+        {isNewPage ? null : (
+          <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
+            {isDesktopOrTablet
+              ? metaData?.name
+              : titleWithBreaks.map((line, idx) => (
+                  <React.Fragment key={String(idx)}>
+                    {line} <br />
+                  </React.Fragment>
+                ))}
+          </Heading>
+        )}
 
         <CommonDescriptionContainer pageData={pageData} />
       </div>
@@ -996,9 +1022,62 @@ const SearchPageContainer: React.FC<IProps> = ({
         </>
       )}
 
-      {!(isSpecialOfferPage && isCarSearch) && featured && (
-        <ReadMoreBlock featured={featured} />
-      )}
+      {isNewPage && isRangePage
+        ? null
+        : !(isSpecialOfferPage && isCarSearch) &&
+          featured && <ReadMoreBlock featured={featured} />}
+
+      {isNewPage && isRangePage ? (
+        <>
+          <section className="row:featured-left">
+            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+              <div>
+                <Heading
+                  size="large"
+                  color="black"
+                  tag={
+                    getTitleTag(
+                      getSectionsData(
+                        ['sectionsAsArray', 'featured', '0', 'titleTag'],
+                        pageData?.genericPage,
+                      ) || 'p',
+                    ) as keyof JSX.IntrinsicElements
+                  }
+                >
+                  {getSectionsData(
+                    ['sectionsAsArray', 'featured', '0', 'title'],
+                    pageData?.genericPage,
+                  )}
+                </Heading>
+                <div className="markdown">
+                  <ReactMarkdown
+                    allowDangerousHtml
+                    source={getSectionsData(
+                      ['sectionsAsArray', 'featured', '0', 'body'],
+                      pageData?.genericPage,
+                    )}
+                    renderers={{
+                      link: props => {
+                        const { href, children } = props;
+                        return <RouterLink link={{ href, label: children }} />;
+                      },
+                    }}
+                  />
+                </div>
+              </div>
+
+              <Image
+                className="card-image"
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                src={getSectionsData(
+                  ['sectionsAsArray', 'featured', '0', 'image', 'file', 'url'],
+                  pageData?.genericPage,
+                )}
+              />
+            </LazyLoadComponent>
+          </section>
+        </>
+      ) : null}
 
       {isAllMakesPage && topInfoSection && (
         <TopInfoBlock topInfoSection={topInfoSection} />
@@ -1210,124 +1289,147 @@ const SearchPageContainer: React.FC<IProps> = ({
               </LazyLoadComponent>
             ))}
 
-          {!isDynamicFilterPage && tiles?.tiles?.length && (
-            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-              <TilesBlock tiles={tiles} />
-            </LazyLoadComponent>
-          )}
+          {isNewPage && isRangePage
+            ? null
+            : !isDynamicFilterPage &&
+              tiles?.tiles?.length && (
+                <LazyLoadComponent
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
+                  <TilesBlock tiles={tiles} />
+                </LazyLoadComponent>
+              )}
 
-          {carousel?.cards?.length && (
-            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-              <div className="row:bg-lighter">
-                <div className="row:carousel">
-                  <Heading size="large" color="black" tag="h3">
-                    {carousel.title}
-                  </Heading>
-                  <Carousel
-                    countItems={carousel?.cards?.length || 0}
-                    className="-col3"
-                  >
-                    {carousel?.cards.map(
-                      (card, indx) =>
-                        card && (
-                          <Card
-                            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                            key={`${card.name}_${indx.toString()}`}
-                            className="card__article"
-                            imageSrc={
-                              card?.image?.file?.url ||
-                              `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                            }
-                            title={{
-                              title:
-                                card.link?.legacyUrl || card.link?.url
-                                  ? ''
-                                  : card.title || '',
-                              link: (
-                                <RouterLink
-                                  link={{
-                                    href:
-                                      card.link?.legacyUrl ||
-                                      card.link?.url ||
-                                      '',
-                                    label: card.title || '',
-                                  }}
-                                  className="card--link"
-                                  classNames={{
-                                    color: 'black',
-                                    size: 'regular',
-                                  }}
-                                />
-                              ),
-                            }}
-                          >
-                            <ReactMarkdown
-                              className="markdown"
-                              allowDangerousHtml
-                              source={card.body || ''}
-                              renderers={{
-                                link: props => {
-                                  const { href, children } = props;
-                                  return (
-                                    <RouterLink
-                                      link={{ href, label: children }}
-                                      classNames={{ color: 'teal' }}
-                                    />
-                                  );
-                                },
-                                heading: props => (
-                                  <Text
-                                    {...props}
-                                    size="lead"
-                                    color="darker"
-                                    tag="h3"
+          {isNewPage && isRangePage ? (
+            <NewRangeContent
+              newCarousel={newCarousel}
+              isNewPage={isNewPage}
+              isRangePage={isRangePage}
+              pageData={pageData}
+            />
+          ) : null}
+
+          <>
+            {carousel?.cards?.length && (
+              <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+                <div className="row:bg-lighter">
+                  <div className="row:carousel">
+                    <Heading size="large" color="black" tag="h3">
+                      {carousel.title}
+                    </Heading>
+                    <Carousel
+                      countItems={carousel?.cards?.length || 0}
+                      className="-col3"
+                    >
+                      {carousel?.cards.map(
+                        (card, indx) =>
+                          card && (
+                            <Card
+                              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                              key={`${card.name}_${indx.toString()}`}
+                              className="card__article"
+                              imageSrc={
+                                card?.image?.file?.url ||
+                                `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+                              }
+                              title={{
+                                title:
+                                  card.link?.legacyUrl || card.link?.url
+                                    ? ''
+                                    : card.title || '',
+                                link: (
+                                  <RouterLink
+                                    link={{
+                                      href:
+                                        card.link?.legacyUrl ||
+                                        card.link?.url ||
+                                        '',
+                                      label: card.title || '',
+                                    }}
+                                    className="card--link"
+                                    classNames={{
+                                      color: 'black',
+                                      size: 'regular',
+                                    }}
                                   />
                                 ),
-                                paragraph: props => (
-                                  <Text {...props} tag="p" color="darker" />
-                                ),
                               }}
-                            />
-                            <RouterLink
-                              link={{
-                                href:
-                                  card.link?.legacyUrl || card.link?.url || '',
-                                label: card.link?.text || '',
-                              }}
-                              classNames={{ color: 'teal' }}
-                            />
-                          </Card>
-                        ),
-                    )}
-                  </Carousel>
+                            >
+                              <ReactMarkdown
+                                className="markdown"
+                                allowDangerousHtml
+                                source={card.body || ''}
+                                renderers={{
+                                  link: props => {
+                                    const { href, children } = props;
+                                    return (
+                                      <RouterLink
+                                        link={{ href, label: children }}
+                                        classNames={{ color: 'teal' }}
+                                      />
+                                    );
+                                  },
+                                  heading: props => (
+                                    <Text
+                                      {...props}
+                                      size="lead"
+                                      color="darker"
+                                      tag="h3"
+                                    />
+                                  ),
+                                  paragraph: props => (
+                                    <Text {...props} tag="p" color="darker" />
+                                  ),
+                                }}
+                              />
+                              <RouterLink
+                                link={{
+                                  href:
+                                    card.link?.legacyUrl ||
+                                    card.link?.url ||
+                                    '',
+                                  label: card.link?.text || '',
+                                }}
+                                classNames={{ color: 'teal' }}
+                              />
+                            </Card>
+                          ),
+                      )}
+                    </Carousel>
+                  </div>
                 </div>
-              </div>
-            </LazyLoadComponent>
-          )}
+              </LazyLoadComponent>
+            )}
+          </>
         </>
       )}
 
-      <div className="row:text">
-        <Text color="darker" size="regular" tag="span">
-          Photos and videos are for illustration purposes only.{' '}
-          <RouterLink
-            link={{
-              href: '/legal/terms-and-conditions.html',
-              label: 'Terms and conditions apply',
-            }}
-            classNames={{ color: 'teal' }}
-          >
-            Terms and conditions apply
-          </RouterLink>
-          .
-        </Text>
-      </div>
+      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <div className="row:text">
+          <Text size="regular" color="dark">
+            Photos and videos are for illustration purposes only.{' '}
+            <RouterLink
+              link={{
+                href: '/legal/terms-and-conditions.html',
+                label: 'Terms and conditions apply',
+              }}
+              classNames={{ color: 'teal' }}
+            >
+              Terms and conditions apply
+            </RouterLink>
+            .
+          </Text>
+        </div>
+      </LazyLoadComponent>
+
       {metaData && (
         <>
           <Head metaData={metaData} featuredImage={null} />
           <SchemaJSON json={JSON.stringify(metaData.schema)} />
         </>
       )}
+
+      {isNewPage && isRangePage ? <ButtonBottomToTop /> : null}
     </>
   );
 };
