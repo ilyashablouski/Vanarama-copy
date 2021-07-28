@@ -2,6 +2,8 @@ import { ISoleTraderCompanyDetailsFormValues } from '../../components/SoleTrader
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
 import { UpdateSoleTraderCompanyMutation_createUpdateSoleTraderCompany as Company } from '../../../generated/UpdateSoleTraderCompanyMutation';
 import { parseDate } from '../../utils/dates';
+import { getAddress, mapAddress } from '../CompanyDetailsFormContainer/mappers';
+import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as ICreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
 
 export const mapFormValues = (values: ISoleTraderCompanyDetailsFormValues) => {
   return {
@@ -73,34 +75,29 @@ export const mapCreateUpdateApplicationData = (
   };
 };
 
-export const preloadedValuesToInput = (details: {
-  [key: string]: any;
-}): ISoleTraderCompanyDetailsFormValues => {
-  const tradingAddress = details.addresses
-    ? {
-        tradingAddress: {
-          label: details.addresses[0].lineOne,
-          id: details.addresses[0].serviceId,
-        },
-      }
-    : null;
+export const preloadedValuesToInput = (
+  details?: ICreditApplication['companyDetailsV2'],
+): ISoleTraderCompanyDetailsFormValues => {
+  const tradingAddress = details?.addresses
+    ? mapAddress(getAddress(details?.addresses, 'Trading'))
+    : undefined;
 
   return {
-    tradingName: details.businessName,
-    ...tradingAddress,
-    nature: details.natureOfBusiness,
-    tradingSinceYear: String(new Date(details.tradingSince).getFullYear()),
-    tradingSinceMonth: String(new Date(details.tradingSince).getMonth() + 1),
-    businessTelephoneNumber: details.telephoneNumbers?.[0].value,
-    email: details.emailAddresses?.[0].value,
-    annualTurnover: String(details.annualTurnover || ''),
-    annualCostOfSales: String(details.annualSalesCost || ''),
-    annualExpenses: String(details.annualExpenses || ''),
-    vehicleRegistrationNumber: details.businessRegistrationNumber,
+    tradingName: details?.businessName || '',
+    tradingAddress: tradingAddress?.label ? tradingAddress : undefined,
+    nature: details?.natureOfBusiness || '',
+    tradingSinceYear: String(new Date(details?.tradingSince).getFullYear()),
+    tradingSinceMonth: String(new Date(details?.tradingSince).getMonth() + 1),
+    businessTelephoneNumber: details?.telephoneNumbers?.[0].value || '',
+    email: details?.emailAddresses?.[0].value || '',
+    annualTurnover: String(details?.annualTurnover || ''),
+    annualCostOfSales: String(details?.annualSalesCost || ''),
+    annualExpenses: String(details?.annualExpenses || ''),
+    vehicleRegistrationNumber: details?.businessRegistrationNumber || '',
     existingFinanceReplacement: '',
-    existingVehicle: details?.monthlyAmountBeingReplaced,
+    existingVehicle: !!details?.monthlyAmountBeingReplaced,
     monthlyAmountBeingReplaced: String(
-      details.monthlyAmountBeingReplaced || '',
+      details?.monthlyAmountBeingReplaced || '',
     ),
   };
 };

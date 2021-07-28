@@ -1,6 +1,6 @@
 import { AddressFormAddresses } from '../../../generated/AddressFormAddresses';
-import { addressToDisplay } from '../../utils/address';
 import { EMPTY_ADDRESS_ENTRY, IAddressFormValues } from './interfaces';
+import { mapAddress } from '../../containers/CompanyDetailsFormContainer/mappers';
 
 // eslint-disable-next-line import/prefer-default-export
 export const responseToInitialFormValues = (
@@ -23,17 +23,13 @@ export const responseToInitialFormValues = (
       )
       .map(address => {
         const movedIn = address.startedOn ? new Date(address.startedOn) : '';
+        const mappedAddress = mapAddress(address);
 
         return {
           status: address.propertyStatus || '',
           month: movedIn && String(movedIn.getMonth() + 1),
           year: movedIn && String(movedIn.getFullYear()),
-          address: address.serviceId
-            ? {
-                id: address.serviceId,
-                label: addressToDisplay(address),
-              }
-            : undefined,
+          address: mappedAddress?.label ? mappedAddress : undefined,
         };
       }),
   };

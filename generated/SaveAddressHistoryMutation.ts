@@ -15,7 +15,11 @@ export interface SaveAddressHistoryMutation_createUpdateAddress {
   serviceId: string | null;
   lineOne: string;
   lineTwo: string | null;
+  lineThree: string | null;
   postcode: string;
+  country: string | null;
+  kind: string | null;
+  endedOn: any | null;
   city: string;
   propertyStatus: string | null;
   startedOn: any | null;
