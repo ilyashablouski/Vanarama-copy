@@ -1,4 +1,7 @@
-import { IManualAddressFormValues } from 'core/molecules/address-finder/interfaces';
+import {
+  IAddressSuggestion,
+  IManualAddressFormValues,
+} from 'core/molecules/address-finder/interfaces';
 import { ILoqateSuggestion } from '../../../hooks/useLoqate/interfaces';
 import { suggestionToDisplay } from './utils';
 
@@ -26,18 +29,24 @@ interface IState {
   inputType: InputTypeEnum;
 }
 
-export const initValue: IAddressValue = {
-  label: '',
-};
-
-export const initialState = {
-  value: initValue,
+export const createInitState = (value?: IAddressSuggestion) => ({
+  value: {
+    label: value?.label || '',
+    lineOne: value?.lineOne,
+    lineTwo: value?.lineTwo,
+    city: value?.city,
+    country: value?.country,
+    postcode: value?.postcode,
+  },
   focused: false,
   formFocus: false,
   preventBlur: false,
   showManualForm: false,
-  inputType: InputTypeEnum.LOOKUP,
-};
+  inputType:
+    value && value.id !== undefined
+      ? InputTypeEnum.LOOKUP
+      : InputTypeEnum.MANUAL,
+});
 
 type TAction =
   | { type: 'SELECT_POSTCODE'; suggestion: ILoqateSuggestion }

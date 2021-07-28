@@ -713,7 +713,9 @@ export interface ProductDerivativeFilter {
   noOfSeats?: MinMax | null;
   noOfGears?: (number | null)[] | null;
   engineSize?: MinMax | null;
+  engineSizeGroup?: string | null;
   mpg?: number | null;
+  mpgGroup?: string | null;
   terms?: (number | null)[] | null;
   mileages?: (number | null)[] | null;
   initialPeriods?: (number | null)[] | null;
@@ -721,6 +723,7 @@ export interface ProductDerivativeFilter {
   budget?: MinMax | null;
   initialPayment?: MinMax | null;
   co2?: number | null;
+  co2Group?: string | null;
   enginePowerBhp?: MinMax | null;
   heights?: (number | null)[] | null;
   lengths?: (number | null)[] | null;

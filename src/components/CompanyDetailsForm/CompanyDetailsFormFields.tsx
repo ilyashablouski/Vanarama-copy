@@ -186,7 +186,7 @@ export default function CompanyDetailsFormFields({
             rules={{
               required: 'Please enter the registered business address',
               validate: (value: ICompanyDetailsFormValues['tradingAddress']) =>
-                validateCompanyAddress(value.label),
+                validateCompanyAddress(value?.label),
             }}
             hint="Enter Postcode Or Just Start Typing Address"
           />
@@ -208,7 +208,7 @@ export default function CompanyDetailsFormFields({
                 required: 'Please enter the trading address',
                 validate: (
                   value: ICompanyDetailsFormValues['tradingAddress'],
-                ) => validateCompanyAddress(value.label),
+                ) => validateCompanyAddress(value?.label),
               }}
               hint="Enter Postcode Or Just Start Typing Address"
             />
