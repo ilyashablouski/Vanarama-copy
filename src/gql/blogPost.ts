@@ -4,8 +4,8 @@ import TilesContainer from '../containers/TilesContainer/TilesContainer';
 import { BlogPost, BlogPostVariables } from '../../generated/BlogPost';
 
 export const BLOG_POST_PAGE = gql`
-  query BlogPost($slug: String!) {
-    blogPost(slug: $slug) {
+  query BlogPost($slug: String!, $isPreview: Boolean) {
+    blogPost(slug: $slug, isPreview: $isPreview) {
       metaData {
         title
         name
