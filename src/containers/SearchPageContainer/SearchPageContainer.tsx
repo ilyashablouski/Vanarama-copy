@@ -398,6 +398,12 @@ const SearchPageContainer: React.FC<IProps> = ({
     [metaData],
   );
 
+  // listen for any updates to metaDataSSR
+  useEffect(() => {
+    setMetaData(metaDataSSR);
+    setPageData(pageDataSSR);
+  }, [metaDataSSR, pageDataSSR]);
+
   // Make list query for all makes page
   const [
     getManufacturerList,

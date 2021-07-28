@@ -13,8 +13,8 @@ export const PartnershipsLinks = [
     label: VehiclesTypeEnum.VANS,
   },
   {
-    href: 'van-leasing/search?bodyStyles=Pickup',
-    id: 'van-leasing/search?bodyStyles=Pickup',
+    href: 'pickup-truck-leasing/search',
+    id: 'pickup-truck-leasing/search',
     label: VehiclesTypeEnum.PICKUPS,
   },
 ];
