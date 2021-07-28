@@ -149,7 +149,7 @@ data "archive_file" "canary_script" {
 }
   
 resource "aws_synthetics_canary" "canary" {
-  name                 = substr("${var.env}_${var.app}", 0, 21) 
+  name                 = substr("${var.env}_${var.app}", 0, 21)
   artifact_s3_location = "s3://${var.env}-${var.stack}-canaries/canaries/"
   execution_role_arn   = "arn:aws:iam::${var.aws_account_id}:role/${var.env}_${var.stack}_canary_role"
   handler              = "pageLoadBlueprint.handler"
