@@ -14,6 +14,7 @@ import Breadcrumb from 'components/Breadcrumb';
 
 import useWishlist from '../../hooks/useWishlist';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { IWishlistActions } from '../../types/wishlist';
 import { IWishlistContainer } from './interface';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { personVar } from '../../cache';
@@ -21,6 +22,7 @@ import {
   getWishlistVehiclesData,
   resetWishlistNoLongerAvailable,
 } from '../../utils/wishlistHelpers';
+import { pushWishlistActionEventDataLayer } from '../../utils/dataLayerHelpers';
 import { useVehiclesTotalCount } from '../../gql/vehiclesTotalCount';
 import {
   RESULTS_PER_REQUEST,
@@ -65,6 +67,15 @@ function WishlistPageContainer({
       getWishlistVehiclesData(client, wishlistVehicleIds);
     }
   }, [client, wishlistVehicleIds]);
+
+  useEffect(() => {
+    pushWishlistActionEventDataLayer(
+      IWishlistActions.VIEW,
+      wishlistVehicleIds.map(vehicleId => {
+        return wishlistVehicleMap[vehicleId];
+      }),
+    );
+  }, []);
 
   useEffect(() => {
     return resetWishlistNoLongerAvailable;
