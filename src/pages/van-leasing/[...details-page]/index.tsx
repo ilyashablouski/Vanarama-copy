@@ -53,6 +53,7 @@ import {
 } from '../../../../generated/GetProductCard';
 import { decodeData, encodeData } from '../../../utils/data';
 import { getBreadcrumbSlugs } from '../../../utils/pageSlugs';
+import { CurrencyCodeEnum } from '../../../../entities/global';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -149,7 +150,7 @@ const VanDetailsPage: NextPage<IProps> = ({
       lowPrice: toPriceFormat(quote?.quoteByCapId?.leaseCost?.monthlyRental),
       url: `https://www.vanarama.com/${data?.vehicleConfigurationByCapId
         ?.legacyUrl || data?.vehicleConfigurationByCapId?.url}`,
-      priceCurrency: 'GBP',
+      priceCurrency: CurrencyCodeEnum.GBP,
       seller,
     },
     image: (data?.vehicleImages && data?.vehicleImages[0]?.mainImageUrl) || '',

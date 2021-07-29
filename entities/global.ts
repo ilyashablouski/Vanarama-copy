@@ -8,3 +8,7 @@ export enum VehicleSearchTypeEnum {
   CARS = 'Cars',
   VANS = 'Vans',
 }
+
+export enum CurrencyCodeEnum {
+  GBP = 'GBP',
+}

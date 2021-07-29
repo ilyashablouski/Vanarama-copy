@@ -21,6 +21,7 @@ import { GetDerivative_derivative } from '../../generated/GetDerivative';
 import { PAGES } from './pageTypes';
 import { getDeviceType } from './deviceType';
 import { getSessionStorage } from './windowSessionStorage';
+import { CurrencyCodeEnum } from '../../entities/global';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -391,7 +392,7 @@ export const pushPDPDataLayer = ({
       'undefined',
     eventValue: `${price || 'undefined'}`,
     ecommerce: {
-      currencyCode: 'GBP',
+      currencyCode: CurrencyCodeEnum.GBP,
       detail: {
         products: [{}],
       },
@@ -437,7 +438,7 @@ export const pushAddToCartDataLayer = ({
       'undefined',
     eventValue: `${price || 'undefined'}`,
     ecommerce: {
-      currencyCode: 'GBP',
+      currencyCode: CurrencyCodeEnum.GBP,
       add: {
         products: [{}],
       },
@@ -501,7 +502,7 @@ export const pushAboutYouDataLayer = (
       'undefined',
     eventValue: `${price || 'undefined'}`,
     ecommerce: {
-      currencyCode: 'GBP',
+      currencyCode: CurrencyCodeEnum.GBP,
       checkout: {
         actionField: {
           step: '1',
@@ -544,7 +545,7 @@ export const pushSummaryDataLayer = ({
     eventLabel: orderId || 'undefined',
     eventValue: `${price || 'undefined'}`,
     ecommerce: {
-      currencyCode: 'GBP',
+      currencyCode: CurrencyCodeEnum.GBP,
       purchase: {
         actionField: {
           id: orderId,
