@@ -1425,7 +1425,9 @@ const SearchPageContainer: React.FC<IProps> = ({
         </>
       )}
 
-      <ButtonBottomToTop />
+      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+        <ButtonBottomToTop />
+      </LazyLoadComponent>
     </>
   );
 };
