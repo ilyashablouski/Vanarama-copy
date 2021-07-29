@@ -1295,12 +1295,14 @@ const SearchPageContainer: React.FC<IProps> = ({
               )}
 
           {isNewPage && isRangePage ? (
-            <NewRangeContent
-              newCarousel={newCarousel}
-              isNewPage={isNewPage}
-              isRangePage={isRangePage}
-              pageData={pageData}
-            />
+            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
+              <NewRangeContent
+                newCarousel={newCarousel}
+                isNewPage={isNewPage}
+                isRangePage={isRangePage}
+                pageData={pageData}
+              />
+            </LazyLoadComponent>
           ) : null}
 
           <>
