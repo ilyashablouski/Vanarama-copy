@@ -37,32 +37,61 @@
   }
 }
 
-.gallery-promotion-container {
+// TODO: UNCOMMENT DURING FEATURE FLAG DELETION
+//.gallery-promotion-container {
+//  grid-area: unset !important;
+//  display: flex;
+//  flex-direction: column;
+//  align-items: flex-end;
+//  position: absolute;
+//  top: 0;
+//  right: 0;
+//
+//  .promotion-item {
+//    border-radius: 0px 0px 0px 6px;
+//    padding: 5px 14px 3px 9px;
+//
+//    &.--primary {
+//      background-color: #F8BB20;
+//    }
+//
+//    &.--secondary {
+//      background-color: #47C0D8;
+//    }
+//  }
+//}
+//
+//.card .gallery-promotion-container {
+//  top: 14px;
+//}
+
+// TODO: REMOVE DURING FEATURE FLAG DELETION
+// from ->
+.gallery-free-insurance {
   grid-area: unset !important;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
   position: absolute;
-  top: 0;
-  right: 0;
+  width: 50%;
+  right: auto;
+  top: 14px;
+  left: 22px;
 
-  .promotion-item {
-    border-radius: 0px 0px 0px 6px;
-    padding: 5px 14px 3px 9px;
-
-    &.--primary {
-      background-color: #F8BB20;
-    }
-
-    &.--secondary {
-      background-color: #47C0D8;
-    }
+  // Desktop
+  @media (min-width:1216px) {
+    width: 255px;
   }
 }
 
-.card .gallery-promotion-container {
-  top: 14px;
+.card .gallery-free-insurance {
+  width: 60%;
+  right: auto;
+  top: 30px;
+  left: 14px;
+  // Desktop
+  @media (min-width:1216px) {
+    width: 217px;
+  }
 }
+// <- to
 
 .two-col {
   > * {

@@ -286,28 +286,35 @@ export const partnerOffersRequest = async (
   const [
     { products: partnerProductsCar, productsCapIds: productsCarIds },
     { products: partnerProductsVan, productsCapIds: productsVanIds },
+    { products: partnerProductsPickup, productsCapIds: productsPickupIds },
   ] = await Promise.all([
     getProductCardContent(client, VehicleTypeEnum.CAR, '', '', fuelTypes),
     getProductCardContent(client, VehicleTypeEnum.LCV, '', '', fuelTypes),
+    getProductCardContent(client, VehicleTypeEnum.LCV, 'Pickup'),
   ]);
 
   const [
     { data: partnerProductsCarDerivatives },
+    { data: partnerProductsPickupDerivatives },
     { data: partnerProductsVanDerivatives },
   ] = await Promise.all([
     getCarDerivatives(client, VehicleTypeEnum.CAR, productsCarIds),
+    getCarDerivatives(client, VehicleTypeEnum.LCV, productsPickupIds),
     getCarDerivatives(client, VehicleTypeEnum.CAR, productsVanIds),
   ]);
 
   const vehicleListUrlData = await getVehicleListUrlQuery(client, [
     ...productsCarIds,
+    ...productsPickupIds,
     ...productsVanIds,
   ]);
 
   return {
     partnerProductsCar,
     partnerProductsVan,
+    partnerProductsPickup,
     partnerProductsCarDerivatives,
+    partnerProductsPickupDerivatives,
     partnerProductsVanDerivatives,
     vehicleListUrlData,
   };
@@ -517,8 +524,10 @@ export interface IEvOffersData {
 export interface IPartnerOffersData {
   partnerProductsCar?: ProductCardData;
   partnerProductsVan?: ProductCardData;
+  partnerProductsPickup?: ProductCardData;
   partnerProductsCarDerivatives?: GetDerivatives;
   partnerProductsVanDerivatives?: GetDerivatives;
+  partnerProductsPickupDerivatives?: GetDerivatives;
   vehicleListUrlData: IVehicleList;
 }
 

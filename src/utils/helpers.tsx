@@ -252,3 +252,7 @@ export const parseVehicleConfigId = (configId: string) => {
     capId: string;
   };
 };
+
+export const isGlobalSearchFeatureEnabled = () => {
+  return Cookies.get('DIG-5552') === '1';
+};
