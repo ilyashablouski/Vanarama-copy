@@ -24,10 +24,16 @@ export function isPartnerSessionActive() {
 }
 
 export function getPartnerProperties() {
+  // Check to see if user registered on partnership journey
+  const partnershipRegistrationVerified =
+    !!Cookies.get(PARTNER_COOKIE_NAME) &&
+    router?.pathname === '/account/login-register' &&
+    router?.query?.status === 'success';
+
   if (
     Cookies.get(PARTNER_COOKIE_NAME) &&
     (getSessionStorage(PARTNER_SESSION_ACTIVE) ||
-      partnershipRegistrationVerified())
+      partnershipRegistrationVerified)
   ) {
     return Cookies.getJSON(PARTNER_COOKIE_NAME);
   }
@@ -76,15 +82,6 @@ export function clearInactiveSessionFuelTypes() {
   ) {
     Cookies.remove(CUSTOM_SESSION_FUEL_TYPES);
   }
-}
-
-// Check to see if user registered on partnership journey
-export function partnershipRegistrationVerified() {
-  return (
-    !!Cookies.get(PARTNER_COOKIE_NAME) &&
-    router?.pathname === '/account/login-register' &&
-    router?.query?.status === 'success'
-  );
 }
 
 export default getPartnerProperties;
