@@ -651,7 +651,7 @@ const mapWishlistProduct = (product: IWishlistProduct) => ({
     ?.value || undefined}`,
 });
 
-const getWishlistEventDataByAction = (action: IWishlistActions) => {
+const getWishlistEventDataByActionType = (action: IWishlistActions) => {
   switch (action) {
     case IWishlistActions.ADD:
       return {
@@ -681,7 +681,7 @@ export const pushWishlistActionEventDataLayer = (
   wishlistData: IWishlistProduct[] | IWishlistProduct,
 ) => {
   const data = {
-    ...getWishlistEventDataByAction(action),
+    ...getWishlistEventDataByActionType(action),
     eventCategory: 'Ecommerce',
     eventLabel: !Array.isArray(wishlistData)
       ? `${wishlistData.manufacturerName} ${wishlistData.modelName} ${wishlistData.derivativeName}`
