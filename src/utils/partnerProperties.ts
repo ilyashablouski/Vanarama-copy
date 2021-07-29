@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import router from 'next/router';
 import { setLocalStorage } from './windowLocalStorage';
 import { getSessionStorage } from './windowSessionStorage';
 import { Nullish } from '../types/common';
@@ -23,9 +24,16 @@ export function isPartnerSessionActive() {
 }
 
 export function getPartnerProperties() {
+  // Check to see if user registered on partnership journey
+  const partnershipRegistrationVerified =
+    !!Cookies.get(PARTNER_COOKIE_NAME) &&
+    router?.pathname === '/account/login-register' &&
+    router?.query?.status === 'success';
+
   if (
     Cookies.get(PARTNER_COOKIE_NAME) &&
-    getSessionStorage(PARTNER_SESSION_ACTIVE)
+    (getSessionStorage(PARTNER_SESSION_ACTIVE) ||
+      partnershipRegistrationVerified)
   ) {
     return Cookies.getJSON(PARTNER_COOKIE_NAME);
   }
