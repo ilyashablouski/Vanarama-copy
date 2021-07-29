@@ -641,12 +641,12 @@ export const pushAuthorizationEventDataLayer = (register?: boolean) => {
 };
 
 const mapWishlistProduct = (product: IWishlistProduct) => ({
-  price: `${product.personalRate ?? undefined}`,
-  category: `${product.vehicleType ?? undefined}`,
-  brand: `${product.manufacturerName ?? undefined}`,
-  variant: `${product.rangeName ?? undefined}`,
-  vehicleModel: `${product.modelName ?? undefined}`,
-  id: `${product.capId ?? undefined}`,
+  price: `${product.personalRate || undefined}`,
+  category: `${product.vehicleType || undefined}`,
+  brand: `${product.manufacturerName || undefined}`,
+  variant: `${product.rangeName || undefined}`,
+  vehicleModel: `${product.modelName || undefined}`,
+  id: `${product.capId || undefined}`,
 });
 
 export const pushWishlistActionEventDataLayer = (
