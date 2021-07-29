@@ -95,7 +95,9 @@ export const EVHubPage: NextPage<IProps> = ({
       <FeaturedSection featured={sections?.featured?.[3]} />
       <FeaturedSection featured={sections?.featured?.[4]} />
 
-      <LeadText leadText={sections?.leadText?.[0]} />
+      {sections?.leadText?.[0] && (
+        <LeadText leadText={sections?.leadText?.[0]} />
+      )}
 
       <FeaturedSection featured={sections?.featured?.[5]} />
 
@@ -156,7 +158,9 @@ export const EVHubPage: NextPage<IProps> = ({
       <FeaturedSection featured={sections?.featured?.[10]} />
       <FeaturedSection featured={sections?.featured?.[11]} />
 
-      <LeadText leadText={sections?.leadText?.[1]} />
+      {sections?.leadText?.[1] && (
+        <LeadText leadText={sections?.leadText?.[1]} />
+      )}
 
       <FeaturedSection featured={sections?.featured?.[12]} />
       <FeaturedSection featured={sections?.featured?.[13]} />
