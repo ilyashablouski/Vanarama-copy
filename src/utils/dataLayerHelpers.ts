@@ -18,6 +18,7 @@ import {
 } from '../../generated/globalTypes';
 import { GetPerson } from '../../generated/GetPerson';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
+import { IWishlistActions, IWishlistProduct } from '../types/wishlist';
 import { PAGES } from './pageTypes';
 import { getDeviceType } from './deviceType';
 import { getSessionStorage } from './windowSessionStorage';
@@ -635,6 +636,68 @@ export const pushAuthorizationEventDataLayer = (register?: boolean) => {
     eventCategory: 'Account',
     eventAction: register ? 'Register' : 'Login',
     eventLabel: register ? 'Account/Register' : 'Account/Login',
+  };
+
+  pushToDataLayer(data);
+};
+
+const mapWishlistProduct = (product: IWishlistProduct) => ({
+  id: `${product.capId || undefined}`,
+  price: `${product.personalRate || undefined}`,
+  category: `${product.vehicleType || undefined}`,
+  brand: `${product.manufacturerName || undefined}`,
+  variant: `${product.rangeName || undefined}`,
+  vehicleModel: `${product.modelName || undefined}`,
+  fuelType: `${product.keyInformation?.find(item => item?.name === 'Fuel Type')
+    ?.value || undefined}`,
+});
+
+const getWishlistEventDataByActionType = (action: IWishlistActions) => {
+  switch (action) {
+    case IWishlistActions.ADD:
+      return {
+        event: 'wishlistAdd',
+        eventAction: 'Add To Wishlist',
+      };
+    case IWishlistActions.REMOVE:
+      return {
+        event: 'wishlistOut',
+        eventAction: 'Remove From Wishlist',
+      };
+    case IWishlistActions.VIEW:
+      return {
+        event: 'wishlistView',
+        eventAction: 'Wishlist View',
+      };
+    default:
+      return {
+        event: 'undefined',
+        eventAction: 'undefined',
+      };
+  }
+};
+
+export const pushWishlistActionEventDataLayer = (
+  action: IWishlistActions,
+  wishlistData: IWishlistProduct[] | IWishlistProduct,
+) => {
+  const data = {
+    ...getWishlistEventDataByActionType(action),
+    eventCategory: 'Ecommerce',
+    eventLabel: !Array.isArray(wishlistData)
+      ? `${wishlistData.manufacturerName} ${wishlistData.modelName} ${wishlistData.derivativeName}`
+      : 'undefined',
+    eventValue: !Array.isArray(wishlistData)
+      ? `${wishlistData.personalRate}`
+      : 'undefined',
+    ecommerce: {
+      currencyCode: CurrencyCodeEnum.GBP,
+      detail: {
+        products: Array.isArray(wishlistData)
+          ? wishlistData.map(mapWishlistProduct)
+          : [mapWishlistProduct(wishlistData)],
+      },
+    },
   };
 
   pushToDataLayer(data);
