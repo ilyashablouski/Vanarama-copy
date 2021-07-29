@@ -10,10 +10,13 @@ const ElectricVehicleBanner = () => {
 
   return (
     <div className={cx('promotion-item', '--secondary')}>
-      <Text size="regular" color="white">
+      <Text size="regular" color="white" className="promotion-item-accent-text">
         Free Home Charger With Installation
       </Text>
-      <Text color="white">{` Worth £900*`}</Text>
+      <Text
+        color="white"
+        className="promotion-item-regular-text"
+      >{` Worth £900*`}</Text>
     </div>
   );
 };
