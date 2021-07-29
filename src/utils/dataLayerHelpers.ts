@@ -691,7 +691,7 @@ export const pushWishlistActionEventDataLayer = (
       ? `${wishlistData.personalRate}`
       : 'undefined',
     ecommerce: {
-      currencyCode: 'GBP',
+      currencyCode: CurrencyCodeEnum.GBP,
       detail: {
         products: Array.isArray(wishlistData)
           ? wishlistData.map(mapWishlistProduct)
