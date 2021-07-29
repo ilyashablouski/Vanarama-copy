@@ -15,7 +15,7 @@ export const sortValues = [
   },
   {
     text: 'Fastest Delivery Time',
-    value: `${ProductDerivativeSortField.availability}_${ProductDerivativeSortDirection.ASC}`,
+    value: `${ProductDerivativeSortField.availabilitySort}_${ProductDerivativeSortDirection.ASC}`,
   },
 ];
 
@@ -28,7 +28,7 @@ export const generateSortArray = (type: string) => {
           direction: ProductDerivativeSortDirection.ASC,
         },
         {
-          field: ProductDerivativeSortField.availability,
+          field: ProductDerivativeSortField.availabilitySort,
           direction: ProductDerivativeSortDirection.ASC,
         },
       ];
@@ -39,14 +39,14 @@ export const generateSortArray = (type: string) => {
           direction: ProductDerivativeSortDirection.DESC,
         },
         {
-          field: ProductDerivativeSortField.availability,
+          field: ProductDerivativeSortField.availabilitySort,
           direction: ProductDerivativeSortDirection.ASC,
         },
       ];
-    case `${ProductDerivativeSortField.availability}_${ProductDerivativeSortDirection.ASC}`:
+    case `${ProductDerivativeSortField.availabilitySort}_${ProductDerivativeSortDirection.ASC}`:
       return [
         {
-          field: ProductDerivativeSortField.availability,
+          field: ProductDerivativeSortField.availabilitySort,
           direction: ProductDerivativeSortDirection.ASC,
         },
         {
