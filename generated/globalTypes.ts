@@ -85,6 +85,7 @@ export enum ProductDerivativeSortDirection {
 }
 
 export enum ProductDerivativeSortField {
+  availability = "availability",
   availabilitySort = "availabilitySort",
   initialPayment = "initialPayment",
   mileage = "mileage",
