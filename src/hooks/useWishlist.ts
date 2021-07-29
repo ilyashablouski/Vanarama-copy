@@ -3,7 +3,8 @@ import { useReactiveVar } from '@apollo/client';
 import { personVar, wishlistVar } from '../cache';
 import { getVehicleConfigId } from '../utils/helpers';
 import { isWished, setLocalWishlistState } from '../utils/wishlistHelpers';
-import { IWishlistProduct } from '../types/wishlist';
+import { pushWishlistActionEventDataLayer } from '../utils/dataLayerHelpers';
+import { IWishlistActions, IWishlistProduct } from '../types/wishlist';
 import { Nullish } from '../types/common';
 import {
   useAddVehicleToWishlistMutation,
@@ -31,6 +32,8 @@ export default function useWishlist() {
           vehicleConfigurationIds: [configId],
           partyUuid: person.partyUuid,
         },
+      }).then(() => {
+        pushWishlistActionEventDataLayer(IWishlistActions.ADD, product);
       });
     }
 
@@ -57,6 +60,8 @@ export default function useWishlist() {
           vehicleConfigurationIds: [configId],
           partyUuid: person.partyUuid,
         },
+      }).then(() => {
+        pushWishlistActionEventDataLayer(IWishlistActions.REMOVE, product);
       });
     }
 

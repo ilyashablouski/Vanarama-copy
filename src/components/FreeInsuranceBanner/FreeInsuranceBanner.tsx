@@ -19,10 +19,18 @@ const FreeInsuranceBanner = () => {
 
   return (
     <div className={cx('promotion-item', '--primary')}>
-      <Text size="regular" color="black" tag="span">
+      <Text
+        size="regular"
+        color="black"
+        tag="span"
+        className="promotion-item-accent-text"
+      >
         1 Year’s FREE Insurance
       </Text>
-      <Text color="black">{` Incl Courtesy Car`}</Text>
+      <Text
+        color="black"
+        className="promotion-item-regular-text"
+      >{` Incl Courtesy Car`}</Text>
     </div>
   );
 };
