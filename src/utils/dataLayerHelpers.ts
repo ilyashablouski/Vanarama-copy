@@ -641,45 +641,48 @@ export const pushAuthorizationEventDataLayer = (register?: boolean) => {
 };
 
 const mapWishlistProduct = (product: IWishlistProduct) => ({
+  id: `${product.capId || undefined}`,
   price: `${product.personalRate || undefined}`,
   category: `${product.vehicleType || undefined}`,
   brand: `${product.manufacturerName || undefined}`,
   variant: `${product.rangeName || undefined}`,
   vehicleModel: `${product.modelName || undefined}`,
-  id: `${product.capId || undefined}`,
+  fuelType: `${product.keyInformation?.find(item => item?.name === 'Fuel Type')
+    ?.value || undefined}`,
 });
+
+const getWishlistEventDataByAction = (action: IWishlistActions) => {
+  switch (action) {
+    case IWishlistActions.ADD:
+      return {
+        event: 'wishlistAdd',
+        eventAction: 'Add To Wishlist',
+      };
+    case IWishlistActions.REMOVE:
+      return {
+        event: 'wishlistOut',
+        eventAction: 'Remove From Wishlist',
+      };
+    case IWishlistActions.VIEW:
+      return {
+        event: 'wishlistView',
+        eventAction: 'Wishlist View',
+      };
+    default:
+      return {
+        event: 'undefined',
+        eventAction: 'undefined',
+      };
+  }
+};
 
 export const pushWishlistActionEventDataLayer = (
   action: IWishlistActions,
   wishlistData: IWishlistProduct[] | IWishlistProduct,
 ) => {
-  let eventName;
-  let eventActionName;
-
-  switch (action) {
-    case IWishlistActions.ADD: {
-      eventName = 'wishlistAdd';
-      eventActionName = 'Add To Wishlist';
-      break;
-    }
-    case IWishlistActions.REMOVE: {
-      eventName = 'wishlistOut';
-      eventActionName = 'Remove From Wishlist';
-      break;
-    }
-    case IWishlistActions.VIEW: {
-      eventName = 'wishlistView';
-      eventActionName = 'Wishlist View';
-      break;
-    }
-    default:
-      return;
-  }
-
   const data = {
-    event: eventName,
+    ...getWishlistEventDataByAction(action),
     eventCategory: 'Ecommerce',
-    eventAction: eventActionName,
     eventLabel: !Array.isArray(wishlistData)
       ? `${wishlistData.manufacturerName} ${wishlistData.modelName} ${wishlistData.derivativeName}`
       : 'undefined',

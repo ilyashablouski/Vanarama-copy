@@ -72,9 +72,11 @@ function WishlistPageContainer({
     pushWishlistActionEventDataLayer(
       IWishlistActions.VIEW,
       wishlistVehicleIds.map(vehicleId => {
-        return wishlistVehicleMap[vehicleId];
+        const vehicleData = wishlistVehicleMap[vehicleId];
+        return vehicleData;
       }),
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
