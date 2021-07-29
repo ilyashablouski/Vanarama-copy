@@ -76,7 +76,6 @@ function WishlistPageContainer({
         return vehicleData;
       }),
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
