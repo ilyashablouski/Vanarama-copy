@@ -38,8 +38,6 @@ export const includedItems = [
       'Recovery (to make sure your vehicle gets home).',
     ],
   },
-  { value: 'Home-Start (for when your vehicle breaks down at home)' },
-  { value: 'Recovery (to make sure your vehicle gets home)' },
   {
     value:
       'Replacement vehicle for up to 7 days if your vehicle is off the road due to breakdown for more than 24 hours (1 business day).',
