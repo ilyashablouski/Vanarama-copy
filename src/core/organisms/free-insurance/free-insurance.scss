@@ -37,43 +37,53 @@
   }
 }
 
-// TODO: UNCOMMENT DURING FEATURE FLAG DELETION
-//.gallery-promotion-container {
-//  grid-area: unset !important;
-//  display: flex;
-//  flex-direction: column;
-//  align-items: flex-end;
-//  position: absolute;
-//  top: 0;
-//  right: 0;
-//
-//  .promotion-item {
-//    border-radius: 0px 0px 0px 6px;
-//    padding: 5px 14px 3px 9px;
-//
-//    &.--primary {
-//      background-color: #F8BB20;
-//    }
-//
-//    &.--secondary {
-//      background-color: #47C0D8;
-//    }
-//  }
-//}
-//
-//.card .gallery-promotion-container {
-//  top: 14px;
-//}
+.gallery-promotion-container {
+  grid-area: unset !important;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  right: 0;
+
+  .promotion-item {
+    border-radius: 0px 0px 0px 6px;
+    padding: 5px 14px 4px 9px;
+
+    &-accent-text {
+      line-height: 20px;
+      font-size: 14px;
+      font-family: VA Heading, -apple-system, system-ui, sans-serif, -system-emoji;
+    }
+
+    &-regular-text {
+      line-height: 20px;
+      font-size: 14px;
+      font-family: VA Heading, -apple-system, system-ui, sans-serif, -system-emoji;
+      font-weight: 300;
+    }
+
+    &.--primary {
+      background-color: #F8BB20;
+    }
+
+    &.--secondary {
+      background-color: #47C0D8;
+    }
+  }
+}
+
+.card .gallery-promotion-container {
+  top: 14px;
+}
 
 // TODO: REMOVE DURING FEATURE FLAG DELETION
 // from ->
 .gallery-free-insurance {
-  grid-area: unset !important;
-  position: absolute;
+  align-self: flex-start;
   width: 50%;
-  right: auto;
-  top: 14px;
-  left: 22px;
+  margin: 8px auto auto 12px;
 
   // Desktop
   @media (min-width:1216px) {
@@ -83,9 +93,7 @@
 
 .card .gallery-free-insurance {
   width: 60%;
-  right: auto;
-  top: 30px;
-  left: 14px;
+
   // Desktop
   @media (min-width:1216px) {
     width: 217px;
