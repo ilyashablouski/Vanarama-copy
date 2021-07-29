@@ -117,12 +117,6 @@ export const ContactUsPage: NextPage<IGenericPage> = ({
               color="teal"
               onClick={() => Router.push('')}
             />
-            <Button
-              label="Regional Offices"
-              fill="outline"
-              color="teal"
-              onClick={() => Router.push('/contact-us/locations')}
-            />
           </div>
         </div>
         <Map
