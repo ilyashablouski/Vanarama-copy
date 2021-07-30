@@ -14,7 +14,6 @@ import {
 
 // TODO: should be removed after feature release
 export const isServicePlanFeatureEnabled = Cookies.get('DIG-6814') === '1';
-export const isNewRangePagesFeatureEnabled = Cookies.get('DIG-6496') === '1';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 

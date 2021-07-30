@@ -13,7 +13,6 @@ import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop';
 import Image from 'core/atoms/image';
-import { isNewRangePagesFeatureEnabled } from '../../utils/helpers';
 import {
   filterOrderByNumMap,
   findPreselectFilterValue,
@@ -156,6 +155,7 @@ interface IProps {
   preloadMake?: string;
   defaultSort?: SortObject[];
   newRangePageSlug?: string;
+  isNewRangePage?: Boolean;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -191,6 +191,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadTopOffersCardsData,
   defaultSort,
   newRangePageSlug,
+  isNewRangePage,
 }: IProps) => {
   // assign here as when inline causing hook lint errors
 
@@ -203,7 +204,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const client = useApolloClient();
   const router = useRouter();
   const isNewPage =
-    isNewRangePagesFeatureEnabled &&
+    isNewRangePage &&
     newRangePageSlug &&
     !!NEW_RANGE_SLUGS.includes(newRangePageSlug);
   const isDynamicFilterPage = useMemo(
@@ -1301,14 +1302,12 @@ const SearchPageContainer: React.FC<IProps> = ({
               )}
 
           {isNewPage && isRangePage ? (
-            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-              <NewRangeContent
-                newCarousel={newCarousel}
-                isNewPage={isNewPage}
-                isRangePage={isRangePage}
-                pageData={pageData}
-              />
-            </LazyLoadComponent>
+            <NewRangeContent
+              newCarousel={newCarousel}
+              isNewPage={isNewPage}
+              isRangePage={isRangePage}
+              pageData={pageData}
+            />
           ) : null}
 
           <>
