@@ -15,34 +15,48 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     Is this for you, or for your business?
   </span>
   <div
-    className="choice-boxes -cols-2 -teal"
+    className="choice-boxes-v2 button-group -teal"
   >
-    <button
-      className="choice-box"
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="Personal"
+      name="choice-box"
+      onChange={[Function]}
+      type="radio"
+      value="Personal"
+    />
+    <label
+      className="choice-box button -primary"
+      htmlFor="Personal"
     >
       <span
-        className="choice-label"
+        className="choice-label button--inner"
       >
         Personal
       </span>
-    </button>
-    <button
-      className="choice-box -active"
+    </label>
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="Business"
+      name="choice-box"
+      onChange={[Function]}
+      type="radio"
+      value="Business"
+    />
+    <label
+      className="choice-box button -primary"
+      htmlFor="Business"
     >
       <span
-        className="choice-label"
+        className="choice-label button--inner"
       >
         Business
       </span>
-    </button>
+    </label>
   </div>
   <span
     className="heading -black -regular"
@@ -110,34 +124,48 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </span>
   <div
-    className="choice-boxes -cols-2 -teal"
+    className="choice-boxes-v2 button-group -teal"
   >
-    <button
-      className="choice-box"
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="24, 36"
+      name="choice-box"
+      onChange={[Function]}
+      type="radio"
+      value="24, 36"
+    />
+    <label
+      className="choice-box button -primary"
+      htmlFor="24, 36"
     >
       <span
-        className="choice-label"
+        className="choice-label button--inner"
       >
-        24
+        24, 36
       </span>
-    </button>
-    <button
-      className="choice-box -active"
+    </label>
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="77"
+      name="choice-box"
+      onChange={[Function]}
+      type="radio"
+      value="77"
+    />
+    <label
+      className="choice-box button -primary"
+      htmlFor="77"
     >
       <span
-        className="choice-label"
+        className="choice-label button--inner"
       >
-        36
+        77
       </span>
-    </button>
+    </label>
   </div>
   <span
     className="heading -black -regular"
@@ -165,34 +193,48 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </span>
   <div
-    className="choice-boxes -cols-2 -teal"
+    className="choice-boxes-v2 button-group -teal"
   >
-    <button
-      className="choice-box"
+    <input
+      checked={true}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="1"
+      name="choice-box"
+      onChange={[Function]}
+      type="radio"
+      value="1"
+    />
+    <label
+      className="choice-box button -primary -active"
+      htmlFor="1"
     >
       <span
-        className="choice-label"
+        className="choice-label button--inner"
       >
         1
       </span>
-    </button>
-    <button
-      className="choice-box -active"
+    </label>
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="3"
+      name="choice-box"
+      onChange={[Function]}
+      type="radio"
+      value="3"
+    />
+    <label
+      className="choice-box button -primary"
+      htmlFor="3"
     >
       <span
-        className="choice-label"
+        className="choice-label button--inner"
       >
         3
       </span>
-    </button>
+    </label>
   </div>
   <span
     className="heading -flex-h -black -regular"
@@ -328,7 +370,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         className="radio"
       >
         <input
-          className="radio--native"
+          className="radio--native visually-hidden"
           defaultChecked={false}
           disabled={false}
           id="maintenanceCost"
@@ -351,7 +393,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         className="radio"
       >
         <input
-          className="radio--native"
+          className="radio--native visually-hidden"
           defaultChecked={true}
           disabled={false}
           id="leaseCost"
@@ -753,34 +795,48 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     Is this for you, or for your business?
   </span>
   <div
-    className="choice-boxes -cols-2 -teal"
+    className="choice-boxes-v2 button-group -teal"
   >
-    <button
-      className="choice-box"
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="Personal"
+      name="choice-box"
+      onChange={[Function]}
+      type="radio"
+      value="Personal"
+    />
+    <label
+      className="choice-box button -primary"
+      htmlFor="Personal"
     >
       <span
-        className="choice-label"
+        className="choice-label button--inner"
       >
         Personal
       </span>
-    </button>
-    <button
-      className="choice-box -active"
+    </label>
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="Business"
+      name="choice-box"
+      onChange={[Function]}
+      type="radio"
+      value="Business"
+    />
+    <label
+      className="choice-box button -primary"
+      htmlFor="Business"
     >
       <span
-        className="choice-label"
+        className="choice-label button--inner"
       >
         Business
       </span>
-    </button>
+    </label>
   </div>
   <span
     className="heading -black -regular"
@@ -848,34 +904,48 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </span>
   <div
-    className="choice-boxes -cols-2 -teal"
+    className="choice-boxes-v2 button-group -teal"
   >
-    <button
-      className="choice-box"
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="24, 36"
+      name="choice-box"
+      onChange={[Function]}
+      type="radio"
+      value="24, 36"
+    />
+    <label
+      className="choice-box button -primary"
+      htmlFor="24, 36"
     >
       <span
-        className="choice-label"
+        className="choice-label button--inner"
       >
-        24
+        24, 36
       </span>
-    </button>
-    <button
-      className="choice-box -active"
+    </label>
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="77"
+      name="choice-box"
+      onChange={[Function]}
+      type="radio"
+      value="77"
+    />
+    <label
+      className="choice-box button -primary"
+      htmlFor="77"
     >
       <span
-        className="choice-label"
+        className="choice-label button--inner"
       >
-        36
+        77
       </span>
-    </button>
+    </label>
   </div>
   <span
     className="heading -black -regular"
@@ -903,34 +973,48 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </span>
   <div
-    className="choice-boxes -cols-2 -teal"
+    className="choice-boxes-v2 button-group -teal"
   >
-    <button
-      className="choice-box"
+    <input
+      checked={true}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="1"
+      name="choice-box"
+      onChange={[Function]}
+      type="radio"
+      value="1"
+    />
+    <label
+      className="choice-box button -primary -active"
+      htmlFor="1"
     >
       <span
-        className="choice-label"
+        className="choice-label button--inner"
       >
         1
       </span>
-    </button>
-    <button
-      className="choice-box -active"
+    </label>
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="3"
+      name="choice-box"
+      onChange={[Function]}
+      type="radio"
+      value="3"
+    />
+    <label
+      className="choice-box button -primary"
+      htmlFor="3"
     >
       <span
-        className="choice-label"
+        className="choice-label button--inner"
       >
         3
       </span>
-    </button>
+    </label>
   </div>
   <span
     className="heading -flex-h -black -regular"
@@ -1066,7 +1150,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         className="radio"
       >
         <input
-          className="radio--native"
+          className="radio--native visually-hidden"
           defaultChecked={false}
           disabled={false}
           id="maintenanceCost"
@@ -1089,7 +1173,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         className="radio"
       >
         <input
-          className="radio--native"
+          className="radio--native visually-hidden"
           defaultChecked={true}
           disabled={false}
           id="leaseCost"
