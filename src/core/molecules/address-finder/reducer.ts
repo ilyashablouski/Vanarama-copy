@@ -31,7 +31,7 @@ interface IState {
 
 export const createInitState = (value?: IAddressSuggestion) => ({
   value: {
-    label: value?.label || '',
+    label: value?.label ?? '',
     lineOne: value?.lineOne,
     lineTwo: value?.lineTwo,
     city: value?.city,
