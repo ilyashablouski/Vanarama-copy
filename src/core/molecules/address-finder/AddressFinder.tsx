@@ -49,7 +49,7 @@ const AddressFinder: AddressFinderComponent = ({
   const { data } = useLoqate(
     query,
     { apiKey, country: 'GB', limit: 50 },
-    shouldSkipLookUp,
+    false,
   );
 
   function handleSuggestionSelect(loqateSuggestion: ILoqateSuggestion) {
