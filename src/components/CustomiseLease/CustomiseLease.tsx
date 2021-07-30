@@ -1,15 +1,15 @@
 import dynamic from 'next/dynamic';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import Choiceboxes from 'core/atoms/choiceboxes';
 import Select from 'core/atoms/select';
+import ChoiceBoxesV2 from 'core/atoms/choiceboxes-v2';
 import SlidingInput from 'core/atoms/sliding-input';
 import Radio from 'core/atoms/radio';
 import cx from 'classnames';
 import Refresh from 'core/assets/icons/Refresh';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
-import { IProps, IChoice } from './interface';
+import { IProps } from './interface';
 import {
   isServicePlanFeatureEnabled,
   toPriceFormat,
@@ -65,42 +65,40 @@ const LeaseScanner = dynamic(() => import('core/organisms/lease-scanner'), {
 });
 
 const choices = (
-  choicesValues: IChoice[],
+  choicesValues: string[],
   setChoice: Dispatch<SetStateAction<LeaseTypeEnum>>,
   heading: string,
   isDisabled: boolean,
+  selectedValue?: string,
   currentValue?: string,
-  choiceIndex?: number,
-  setChoiceIndex?: Dispatch<SetStateAction<number>>,
   icon?: JSX.Element,
-) => {
-  return (
-    <>
-      <Heading tag="span" size="regular" color="black">
-        {heading}
-        {icon}
-        {currentValue && (
-          <>
-            <br />
-            <Text color="orange" className="-b">
-              {currentValue}
-            </Text>
-          </>
-        )}
-      </Heading>
-      <Choiceboxes
-        disabled={isDisabled}
-        className={`-cols-${choicesValues?.length}`}
-        choices={choicesValues}
-        onSubmit={value =>
-          setChoice(value?.value?.toUpperCase() as LeaseTypeEnum)
-        }
-        choiceIndex={choiceIndex}
-        setChoiceIndex={setChoiceIndex}
-      />
-    </>
-  );
-};
+) => (
+  <>
+    <Heading tag="span" size="regular" color="black">
+      {heading}
+      {icon}
+      {currentValue && (
+        <>
+          <br />
+          <Text color="orange" className="-b">
+            {currentValue}
+          </Text>
+        </>
+      )}
+    </Heading>
+    <ChoiceBoxesV2
+      disabled={isDisabled}
+      className="button-group"
+      boxClassName="button -primary"
+      labelClassName="button--inner"
+      values={choicesValues}
+      selectedValues={[selectedValue ?? choicesValues[0]]}
+      onChange={([newSelectedValue]: string[]) =>
+        setChoice(newSelectedValue.toUpperCase() as LeaseTypeEnum)
+      }
+    />
+  </>
+);
 
 const select = (
   defaultValue: string,
@@ -182,8 +180,6 @@ const CustomiseLease = ({
   const [defaultMileageIndex, setDefaultMileageIndex] = useState(
     mileages.indexOf(mileage || 0) + 1,
   );
-  const [monthIndex, setMonthIndex]: any = useState(null);
-  const [upfrontIndex, setUpfrontIndex]: any = useState(null);
   const [defaultColor, setDefaultColor]: any = useState(null);
   const [defaultTrim, setDefaultTrim]: any = useState(null);
   const quoteByCapId = data?.quoteByCapId;
@@ -200,17 +196,8 @@ const CustomiseLease = ({
         setDefaultMileageIndex(leaseSettings.mileageValue);
         setMileage(leaseSettings.mileage);
         setTerm(leaseSettings.term);
-        setMonthIndex(
-          terms.findIndex(
-            term => term.value === leaseSettings.term?.toString(),
-          ),
-        );
         setUpfront(leaseSettings.upfront);
-        setUpfrontIndex(
-          upfronts.findIndex(
-            upfront => upfront.value === leaseSettings.upfront?.toString(),
-          ),
-        );
+
         if (leaseSettings.colour) {
           setDefaultColor(leaseSettings.colour);
           setColour(+leaseSettings.colour);
@@ -266,22 +253,12 @@ const CustomiseLease = ({
 
   const handleClickResetTermAndUpfront = () => {
     setMileage(defaultMileageValue);
+    setUpfront(defaultUpfrontValue);
+    setTerm(defaultTermValue);
 
     setDefaultMileageIndex(
       mileages.findIndex(mileageValue => mileageValue === defaultMileageValue) +
         1,
-    );
-
-    setTerm(defaultTermValue);
-    setMonthIndex(
-      terms.findIndex(term => term.value === defaultTermValue?.toString()),
-    );
-
-    setUpfront(defaultUpfrontValue);
-    setUpfrontIndex(
-      upfronts.findIndex(
-        upfront => upfront.value === defaultUpfrontValue?.toString(),
-      ),
     );
   };
 
@@ -297,6 +274,7 @@ const CustomiseLease = ({
         setLeaseType,
         'Is this for you, or for your business?',
         isPlayingLeaseAnimation,
+        data.quoteByCapId?.leaseType?.toString(),
       )}
       <Heading tag="span" size="regular" color="black">
         How many miles will you be driving a year?
@@ -319,21 +297,19 @@ const CustomiseLease = ({
         value => setTerm(+(value || 0) || null),
         'How long do you want your vehicle for?',
         isPlayingLeaseAnimation,
+        data.quoteByCapId?.term?.toString(),
         `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
           12} Years`,
-        monthIndex,
-        setMonthIndex,
       )}
       {choices(
         upfronts,
         value => setUpfront(+(value || 0) || null),
         'How much do you want to pay upfront?',
         isPlayingLeaseAnimation,
+        data.quoteByCapId?.upfront?.toString(),
         `${quoteByCapId?.upfront} Months - £${toPriceFormat(
           initialPayment,
         )} ${stateVAT}. VAT`,
-        upfrontIndex,
-        setUpfrontIndex,
         <Icon
           icon={<InformationCircle />}
           color="teal"

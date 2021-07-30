@@ -51,12 +51,11 @@ function ChoiceBoxesV2({
         return (
           <React.Fragment key={value}>
             <input
-              hidden
               id={value}
               type={type}
               value={value}
               name="choice-box"
-              className="choice-input"
+              className="choice-input visually-hidden"
               checked={checked}
               onChange={handleChange}
               disabled={disabled}

@@ -646,6 +646,30 @@
           font-size: 0.925rem;
         }
 
+        .choice-boxes-v2 {
+          .choice-box {
+            flex: 1 1 1px;
+            justify-content: center;
+            margin-top: 3px;
+            padding: 0;
+            text-transform: lowercase;
+
+            &.-active,
+            &.-active:hover {
+              @extend .button.-solid;
+            }
+          }
+
+          .choice-label {
+            display: inline-block;
+            color: inherit;
+
+            &:first-letter {
+              text-transform: uppercase;
+            }
+          }
+        }
+
         &.-trucks {
           > div:first-of-type {
             display: grid;

@@ -293,36 +293,13 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     );
   }
 
-  const terms = leaseAdjustParams?.terms.map((currentTerm: number) => ({
-    label: `${currentTerm}`,
-    value: `${currentTerm}`,
-    active: quoteData?.quoteByCapId?.term === currentTerm,
-  }));
-
-  const upfronts = leaseAdjustParams?.upfronts.map(
-    (currentUpfront: number) => ({
-      label: `${currentUpfront}`,
-      value: `${currentUpfront}`,
-      active: quoteData?.quoteByCapId?.upfront === currentUpfront,
-    }),
-  );
+  const terms = leaseAdjustParams?.terms.map(String);
+  const upfronts = leaseAdjustParams?.upfronts.map(String);
+  const leaseTypes = [LeaseTypeEnum.PERSONAL, LeaseTypeEnum.BUSINESS];
 
   const defaultTermValue = quote?.quoteByCapId?.term ?? null;
   const defaultUpfrontValue = quote?.quoteByCapId?.upfront ?? null;
   const defaultMileageValue = quote?.quoteByCapId?.mileage ?? null;
-
-  const leaseTypes = [
-    {
-      label: 'Personal',
-      value: LeaseTypeEnum.PERSONAL,
-      active: leaseType === LeaseTypeEnum.PERSONAL,
-    },
-    {
-      label: 'Business',
-      value: LeaseTypeEnum.BUSINESS,
-      active: leaseType === LeaseTypeEnum.BUSINESS,
-    },
-  ];
 
   // - show POA form in case if during first render (SSR) monthlyRental is not returned
   // - show POA form in case if monthlyRental returned but colors or trim lists are empty
@@ -353,8 +330,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   return (
     <>
       <CustomiseLease
-        terms={terms || [{ label: '', value: '', active: false }]}
-        upfronts={upfronts || [{ label: '', value: '', active: false }]}
+        terms={terms || []}
+        upfronts={upfronts || []}
         defaultTermValue={defaultTermValue}
         defaultUpfrontValue={defaultUpfrontValue}
         defaultMileageValue={defaultMileageValue}
