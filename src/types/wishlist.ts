@@ -19,3 +19,9 @@ export interface IWishlistState {
   wishlistNoLongerAvailable: boolean;
   wishlistInitialized: boolean;
 }
+
+export enum IWishlistActions {
+  ADD = 'ADD',
+  REMOVE = 'REMOVE',
+  VIEW = 'VIEW',
+}
