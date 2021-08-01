@@ -25,7 +25,7 @@ export interface IEmploymentFormProps {
 }
 
 export const EMPTY_EMPLOYMENT_ENTRY: TEmploymentEntry = {
-  address: undefined,
+  address: { id: 'null' },
   company: '',
   contract: '',
   income: '',
