@@ -67,18 +67,18 @@ const choices = (
   heading: string,
   isDisabled: boolean,
   selectedValue?: string,
-  currentValue?: string,
+  displayedValue?: string,
   icon?: JSX.Element,
 ) => (
   <>
     <Heading tag="span" size="regular" color="black">
       {heading}
       {icon}
-      {currentValue && (
+      {displayedValue && (
         <>
           <br />
           <Text color="orange" className="-b">
-            {currentValue}
+            {displayedValue}
           </Text>
         </>
       )}
@@ -86,8 +86,7 @@ const choices = (
     <ChoiceBoxesV2
       disabled={isDisabled}
       className="button-group"
-      boxClassName="button -primary"
-      labelClassName="button--inner"
+      boxClassName="-solid"
       values={choicesValues}
       selectedValues={[selectedValue ?? choicesValues[0]]}
       onChange={([newSelectedValue]: string[]) =>
@@ -132,7 +131,9 @@ const select = (
 );
 
 const CustomiseLease = ({
+  term,
   terms,
+  upfront,
   upfronts,
   defaultTermValue,
   defaultUpfrontValue,
@@ -179,6 +180,7 @@ const CustomiseLease = ({
   );
   const [defaultColor, setDefaultColor]: any = useState(null);
   const [defaultTrim, setDefaultTrim]: any = useState(null);
+
   const quoteByCapId = data?.quoteByCapId;
 
   useEffect(() => {
@@ -209,10 +211,10 @@ const CustomiseLease = ({
   }, []);
 
   useEffect(() => {
-    const upfront = quoteByCapId?.upfront;
+    const upfrontValue = quoteByCapId?.upfront;
     const maintenanceCost = quoteByCapId?.maintenanceCost?.initialRental;
     const initialRental = quoteByCapId?.leaseCost?.initialRental;
-    if (upfront && maintenanceCost && maintenance && initialRental) {
+    if (upfrontValue && maintenanceCost && maintenance && initialRental) {
       setInitialPayment(maintenanceCost + initialRental);
     }
     if (!maintenance) {
@@ -264,13 +266,13 @@ const CustomiseLease = ({
         setLeaseType,
         'Is this for you, or for your business?',
         isPlayingLeaseAnimation,
-        data.quoteByCapId?.leaseType?.toString(),
+        leaseType,
       )}
       <Heading tag="span" size="regular" color="black">
         How many miles will you be driving a year?
         <br />
         <Text color="orange" className="-b">
-          {`${quoteByCapId?.mileage} Miles`}
+          {quoteByCapId?.mileage} Miles
         </Text>
       </Heading>
       <SlidingInput
@@ -287,7 +289,7 @@ const CustomiseLease = ({
         value => setTerm(+(value || 0) || null),
         'How long do you want your vehicle for?',
         isPlayingLeaseAnimation,
-        data.quoteByCapId?.term?.toString(),
+        term?.toString(),
         `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
           12} Years`,
       )}
@@ -296,7 +298,7 @@ const CustomiseLease = ({
         value => setUpfront(+(value || 0) || null),
         'How much do you want to pay upfront?',
         isPlayingLeaseAnimation,
-        data.quoteByCapId?.upfront?.toString(),
+        upfront?.toString(),
         `${quoteByCapId?.upfront} Months - £${toPriceFormat(
           initialPayment,
         )} ${stateVAT}. VAT`,

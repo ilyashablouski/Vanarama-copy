@@ -42,9 +42,8 @@ body {
     $button-group-gap: 3px;
     display: flex;
     align-items: center;
-    position: relative;
-    left: -$button-group-gap;
-    right: -$button-group-gap;
+    margin-left: -$button-group-gap;
+    margin-right: -$button-group-gap;
 
     > * {
       margin: $button-group-gap;

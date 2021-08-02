@@ -330,14 +330,16 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   return (
     <>
       <CustomiseLease
-        terms={terms || []}
-        upfronts={upfronts || []}
+        term={term}
+        terms={terms ?? []}
+        upfront={upfront}
+        upfronts={upfronts ?? []}
         defaultTermValue={defaultTermValue}
         defaultUpfrontValue={defaultUpfrontValue}
         defaultMileageValue={defaultMileageValue}
         leaseType={leaseType}
         leaseTypes={leaseTypes}
-        mileages={leaseAdjustParams?.mileages || []}
+        mileages={leaseAdjustParams?.mileages ?? []}
         setLeaseType={setLeaseType}
         setMileage={setMileage}
         setUpfront={setUpfront}

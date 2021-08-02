@@ -1,12 +1,12 @@
 .choice-boxes-v2 {
   display: block;
-  width: 100%;
   min-width: 0;
 
   .choice-input {
     &:disabled + .choice-box {
-      background-color: #ced6de;
       border: none;
+      background: #ced6de;
+      cursor: not-allowed;
     }
   }
 
@@ -44,6 +44,36 @@
       border-color: #007F85;
       font-weight: 500;
       background: white;
+    }
+
+    &.-solid {
+      transition: all 50ms ease;
+
+      &:hover,
+      &:focus {
+        border-color: $dark;
+        background: $lighter;
+        color: $black;
+      }
+
+      &:focus {
+        box-shadow: $box-shadow-focus var(--class-color-focus);
+      }
+
+      &.-active {
+        background: var(--class-color);
+        border-color: var(--class-color);
+        color: var(--class-color-contrast);
+
+        &:hover,
+        &:focus {
+          background: var(--class-color-tint);
+        }
+
+        &:focus {
+          box-shadow: $box-shadow-focus var(--class-color-focus);
+        }
+      }
     }
 
     @include mobile {
