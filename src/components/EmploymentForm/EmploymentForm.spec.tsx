@@ -75,7 +75,7 @@ describe('<EmploymentForm />', () => {
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [
         {
-          address: { id: 'null' },
+          address: undefined,
           company: '',
           contract: '',
           income: '',
@@ -219,7 +219,7 @@ describe('<EmploymentForm />', () => {
     expect(onSubmit.mock.calls[0][0]).toEqual({
       history: [
         {
-          address: { id: 'null' },
+          address: undefined,
           company: '',
           contract: '',
           income: '',
