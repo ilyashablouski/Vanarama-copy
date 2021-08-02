@@ -62,6 +62,7 @@ const LeaseScanner = dynamic(() => import('core/organisms/lease-scanner'), {
 });
 
 const choices = (
+  name: string,
   choicesValues: string[],
   setChoice: Dispatch<SetStateAction<LeaseTypeEnum>>,
   heading: string,
@@ -84,9 +85,9 @@ const choices = (
       )}
     </Heading>
     <ChoiceBoxesV2
+      name={name}
       disabled={isDisabled}
-      className="button-group"
-      boxClassName="-solid"
+      className="button-group -solid"
       values={choicesValues}
       selectedValues={[selectedValue ?? choicesValues[0]]}
       onChange={([newSelectedValue]: string[]) =>
@@ -262,6 +263,7 @@ const CustomiseLease = ({
         Customise Your Lease
       </Heading>
       {choices(
+        'leaseType',
         leaseTypes,
         setLeaseType,
         'Is this for you, or for your business?',
@@ -285,6 +287,7 @@ const CustomiseLease = ({
         }}
       />
       {choices(
+        'terms',
         terms,
         value => setTerm(+(value || 0) || null),
         'How long do you want your vehicle for?',
@@ -294,6 +297,7 @@ const CustomiseLease = ({
           12} Years`,
       )}
       {choices(
+        'upfront',
         upfronts,
         value => setUpfront(+(value || 0) || null),
         'How much do you want to pay upfront?',

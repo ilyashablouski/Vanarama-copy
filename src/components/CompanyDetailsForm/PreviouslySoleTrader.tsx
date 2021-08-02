@@ -62,7 +62,7 @@ function PreviouslySoleTrader() {
             <ChoiceBoxes
               choices={choices}
               className="button-group"
-              boxClassName="button -small -primary -outline"
+              boxClassName="button -small"
               labelClassName="button--inner"
               onSubmit={choice => {
                 onChange(choice.value === 'yes');

@@ -8,6 +8,7 @@ function ChoiceBoxesV2({
   boxClassName,
   labelClassName,
   color = 'teal',
+  name = 'choice-box',
   values,
   selectedValues,
   multiSelect,
@@ -53,8 +54,8 @@ function ChoiceBoxesV2({
             <input
               id={value}
               type={type}
+              name={name}
               value={value}
-              name="choice-box"
               className="choice-input visually-hidden"
               checked={checked}
               onChange={handleChange}
