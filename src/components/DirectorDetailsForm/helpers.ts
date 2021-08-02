@@ -5,6 +5,8 @@ import { sum } from '../../utils/array';
 import { dateOfBirthValidator, checkFuture } from '../../utils/validation';
 import { DirectorDetailsFormValues, DirectorFormValues } from './interfaces';
 import { IValidationParams } from '../../containers/DirectorDetailsFormContainer/interfaces';
+import { Nullish } from '../../types/common';
+import { TAddressEntry } from '../AddressForm/interfaces';
 
 export const TOO_LOW_ERROR_MESSAGE = 'TOO_LOW';
 export const TOO_HIGH_ERROR_MESSAGE = 'TOO_HIGH';
@@ -163,7 +165,14 @@ export const validationSchema = Yup.object().shape({
           ),
           history: Yup.array().of(
             Yup.object().shape({
-              address: Yup.object().required('Please enter your address'),
+              address: Yup.object()
+                .required('Please enter your address')
+                .test(
+                  'requiredAddress',
+                  'Please enter your address',
+                  (value: Nullish<TAddressEntry['address']>) =>
+                    value?.id !== 'null',
+                ),
               status: Yup.string().required(
                 'Please select your property status',
               ),
