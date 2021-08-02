@@ -182,7 +182,7 @@ describe('getOrderList', () => {
         id: 'maintenance',
         isOrange: false,
         key: 'No',
-        label: 'Maintenance:',
+        label: 'Vanarama Service Plan:',
         value: 'No',
       },
       {
