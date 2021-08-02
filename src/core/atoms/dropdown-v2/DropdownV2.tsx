@@ -19,47 +19,34 @@ function DropdownV2({
   const optionsRef = useRef<HTMLDivElement>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
 
+  const labelHeight = labelRef.current?.offsetHeight || 0;
+  const optionsHeight = optionsRef.current?.offsetHeight || 0;
+  const summaryHeight = summaryRef.current?.offsetHeight || 0;
+
   useEffect(() => {
-    const isRefsReady = [
-      containerRef.current,
-      labelRef.current,
-      optionsRef.current,
-      summaryRef.current,
-    ].every(item => !!item);
-
-    if (isRefsReady) {
-      const labelHeight = labelRef.current!.offsetHeight;
-      const optionsHeight = optionsRef.current!.offsetHeight;
-      const summaryHeight = summaryRef.current!.offsetHeight;
-
-      if (open) {
-        if (multiselect && selected.length > 0) {
-          containerRef.current!.style.height = `${optionsHeight +
-            summaryHeight}px`;
-        } else {
-          containerRef.current!.style.height = `${labelHeight +
-            optionsHeight}px`;
-        }
-
-        setTimeout(() => {
-          containerRef.current!.scrollIntoView({
-            behavior: 'smooth',
-            block: 'center',
-          });
-        }, 500);
-      } else {
-        containerRef.current!.removeAttribute('style');
-      }
+    if (open) {
+      containerRef.current!.style.height = `${labelHeight + optionsHeight}px`;
+      setTimeout(() => {
+        containerRef.current!.scrollIntoView({
+          behavior: 'smooth',
+          block: 'center',
+        });
+      }, 500);
+    } else {
+      containerRef.current!.removeAttribute('style');
     }
-  }, [
-    open,
-    selected,
-    multiselect,
-    containerRef,
-    labelRef,
-    optionsRef,
-    summaryRef,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [open]);
+
+  useEffect(() => {
+    const currentLabelHeight = selected.length > 0 ? 0 : labelHeight;
+    const currentOptionsHeight = open ? optionsHeight : 0;
+
+    containerRef.current!.style.height = `${currentLabelHeight +
+      currentOptionsHeight +
+      summaryHeight}px`;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selected.length, summaryHeight, optionsHeight, labelHeight]);
 
   return (
     <div
