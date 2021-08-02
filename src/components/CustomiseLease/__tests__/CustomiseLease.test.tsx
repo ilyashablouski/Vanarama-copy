@@ -41,7 +41,9 @@ describe('<CustomiseLease />', () => {
       screenY: 0,
       colourList: [{ optionId: 13990, label: 'Solid - Polar white' }],
       trimList: [{ optionId: 104562, label: 'Leather - Cranberry red' }],
+      term: 24,
       terms: ['24, 36', '77'],
+      upfront: 1,
       upfronts: ['1', '3'],
       leaseTypes: ['Personal', 'Business'],
       defaultTermValue: 48,
@@ -157,7 +159,9 @@ describe('<CustomiseLease />', () => {
       colourList: [{ optionId: 13990, label: 'Solid - Polar white' }],
       trimList: [{ optionId: 104562, label: 'Leather - Cranberry red' }],
       colour: 13990,
+      term: 24,
       terms: ['24, 36', '77'],
+      upfront: 1,
       upfronts: ['1', '3'],
       leaseTypes: ['Personal', 'Business'],
       defaultTermValue: 48,
@@ -297,7 +301,9 @@ describe('<CustomiseLease />', () => {
         colour={13990}
         screenY={0}
         isPlayingLeaseAnimation={false}
+        term={24}
         terms={['24, 36', '77']}
+        upfront={3}
         upfronts={['1', '3']}
         leaseTypes={['Personal', 'Business']}
         defaultTermValue={48}

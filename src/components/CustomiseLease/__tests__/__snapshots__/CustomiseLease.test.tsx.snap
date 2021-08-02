@@ -15,24 +15,24 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     Is this for you, or for your business?
   </span>
   <div
-    className="choice-boxes-v2 button-group -teal"
+    className="choice-boxes-v2 button-group -solid -teal"
   >
     <input
       checked={false}
       className="choice-input visually-hidden"
       disabled={false}
       id="Personal"
-      name="choice-box"
+      name="leaseType"
       onChange={[Function]}
       type="radio"
       value="Personal"
     />
     <label
-      className="choice-box button -primary"
+      className="choice-box"
       htmlFor="Personal"
     >
       <span
-        className="choice-label button--inner"
+        className="choice-label"
       >
         Personal
       </span>
@@ -42,17 +42,17 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       className="choice-input visually-hidden"
       disabled={false}
       id="Business"
-      name="choice-box"
+      name="leaseType"
       onChange={[Function]}
       type="radio"
       value="Business"
     />
     <label
-      className="choice-box button -primary"
+      className="choice-box"
       htmlFor="Business"
     >
       <span
-        className="choice-label button--inner"
+        className="choice-label"
       >
         Business
       </span>
@@ -66,7 +66,8 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     <span
       className="text -b -regular -orange"
     >
-      8000 Miles
+      8000
+       Miles
     </span>
   </span>
   <div
@@ -124,24 +125,24 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </span>
   <div
-    className="choice-boxes-v2 button-group -teal"
+    className="choice-boxes-v2 button-group -solid -teal"
   >
     <input
       checked={false}
       className="choice-input visually-hidden"
       disabled={false}
       id="24, 36"
-      name="choice-box"
+      name="terms"
       onChange={[Function]}
       type="radio"
       value="24, 36"
     />
     <label
-      className="choice-box button -primary"
+      className="choice-box"
       htmlFor="24, 36"
     >
       <span
-        className="choice-label button--inner"
+        className="choice-label"
       >
         24, 36
       </span>
@@ -151,17 +152,17 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       className="choice-input visually-hidden"
       disabled={false}
       id="77"
-      name="choice-box"
+      name="terms"
       onChange={[Function]}
       type="radio"
       value="77"
     />
     <label
-      className="choice-box button -primary"
+      className="choice-box"
       htmlFor="77"
     >
       <span
-        className="choice-label button--inner"
+        className="choice-label"
       >
         77
       </span>
@@ -193,24 +194,24 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </span>
   <div
-    className="choice-boxes-v2 button-group -teal"
+    className="choice-boxes-v2 button-group -solid -teal"
   >
     <input
       checked={true}
       className="choice-input visually-hidden"
       disabled={false}
       id="1"
-      name="choice-box"
+      name="upfront"
       onChange={[Function]}
       type="radio"
       value="1"
     />
     <label
-      className="choice-box button -primary -active"
+      className="choice-box -active"
       htmlFor="1"
     >
       <span
-        className="choice-label button--inner"
+        className="choice-label"
       >
         1
       </span>
@@ -220,17 +221,17 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       className="choice-input visually-hidden"
       disabled={false}
       id="3"
-      name="choice-box"
+      name="upfront"
       onChange={[Function]}
       type="radio"
       value="3"
     />
     <label
-      className="choice-box button -primary"
+      className="choice-box"
       htmlFor="3"
     >
       <span
-        className="choice-label button--inner"
+        className="choice-label"
       >
         3
       </span>
@@ -795,24 +796,24 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     Is this for you, or for your business?
   </span>
   <div
-    className="choice-boxes-v2 button-group -teal"
+    className="choice-boxes-v2 button-group -solid -teal"
   >
     <input
       checked={false}
       className="choice-input visually-hidden"
       disabled={false}
       id="Personal"
-      name="choice-box"
+      name="leaseType"
       onChange={[Function]}
       type="radio"
       value="Personal"
     />
     <label
-      className="choice-box button -primary"
+      className="choice-box"
       htmlFor="Personal"
     >
       <span
-        className="choice-label button--inner"
+        className="choice-label"
       >
         Personal
       </span>
@@ -822,17 +823,17 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       className="choice-input visually-hidden"
       disabled={false}
       id="Business"
-      name="choice-box"
+      name="leaseType"
       onChange={[Function]}
       type="radio"
       value="Business"
     />
     <label
-      className="choice-box button -primary"
+      className="choice-box"
       htmlFor="Business"
     >
       <span
-        className="choice-label button--inner"
+        className="choice-label"
       >
         Business
       </span>
@@ -846,7 +847,8 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <span
       className="text -b -regular -orange"
     >
-      8000 Miles
+      8000
+       Miles
     </span>
   </span>
   <div
@@ -904,24 +906,24 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </span>
   <div
-    className="choice-boxes-v2 button-group -teal"
+    className="choice-boxes-v2 button-group -solid -teal"
   >
     <input
       checked={false}
       className="choice-input visually-hidden"
       disabled={false}
       id="24, 36"
-      name="choice-box"
+      name="terms"
       onChange={[Function]}
       type="radio"
       value="24, 36"
     />
     <label
-      className="choice-box button -primary"
+      className="choice-box"
       htmlFor="24, 36"
     >
       <span
-        className="choice-label button--inner"
+        className="choice-label"
       >
         24, 36
       </span>
@@ -931,17 +933,17 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       className="choice-input visually-hidden"
       disabled={false}
       id="77"
-      name="choice-box"
+      name="terms"
       onChange={[Function]}
       type="radio"
       value="77"
     />
     <label
-      className="choice-box button -primary"
+      className="choice-box"
       htmlFor="77"
     >
       <span
-        className="choice-label button--inner"
+        className="choice-label"
       >
         77
       </span>
@@ -973,24 +975,24 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </span>
   <div
-    className="choice-boxes-v2 button-group -teal"
+    className="choice-boxes-v2 button-group -solid -teal"
   >
     <input
       checked={true}
       className="choice-input visually-hidden"
       disabled={false}
       id="1"
-      name="choice-box"
+      name="upfront"
       onChange={[Function]}
       type="radio"
       value="1"
     />
     <label
-      className="choice-box button -primary -active"
+      className="choice-box -active"
       htmlFor="1"
     >
       <span
-        className="choice-label button--inner"
+        className="choice-label"
       >
         1
       </span>
@@ -1000,17 +1002,17 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       className="choice-input visually-hidden"
       disabled={false}
       id="3"
-      name="choice-box"
+      name="upfront"
       onChange={[Function]}
       type="radio"
       value="3"
     />
     <label
-      className="choice-box button -primary"
+      className="choice-box"
       htmlFor="3"
     >
       <span
-        className="choice-label button--inner"
+        className="choice-label"
       >
         3
       </span>
