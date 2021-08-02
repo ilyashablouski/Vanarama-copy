@@ -51,17 +51,29 @@
     border-radius: 0px 0px 0px 6px;
     padding: 5px 14px 4px 9px;
 
+    @include mobile {
+      padding: 5px 10px 4px 9px;
+    }
+
     &-accent-text {
       line-height: 20px;
-      font-size: 14px;
+      font-size: 13px;
       font-family: VA Heading, -apple-system, system-ui, sans-serif, -system-emoji;
+
+      @include mobile {
+        font-size: 12px;
+      }
     }
 
     &-regular-text {
       line-height: 20px;
-      font-size: 14px;
+      font-size: 13px;
       font-family: VA Heading, -apple-system, system-ui, sans-serif, -system-emoji;
       font-weight: 300;
+
+      @include mobile {
+        font-size: 12px;
+      }
     }
 
     &.--primary {
