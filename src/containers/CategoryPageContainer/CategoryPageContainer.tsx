@@ -99,7 +99,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
                 className="heading"
                 classNames={{ color: 'black', size: 'lead' }}
                 link={{
-                  href: setSource(card.legacyUrl || ''),
+                  href: setSource((card.legacyUrl || card.slug) ?? ''),
                   label: card?.name || '',
                 }}
               >
@@ -134,7 +134,7 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             classNames={{ color: 'teal', size: 'regular' }}
             link={{
               label: 'Read More',
-              href: setSource(card.legacyUrl || ''),
+              href: setSource((card.legacyUrl || card.slug) ?? ''),
             }}
           />
         </Card>
@@ -145,10 +145,11 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   const renderCarouselCards = (cards: any[] | undefined) =>
     cards?.map((card, index) => {
       const hrefLink = setSource(
-        card.legacyUrl ||
+        (card.legacyUrl ||
           card.link?.legacyUrl ||
           card.link?.url ||
           card.link ||
+          card.slug) ??
           '',
       );
       return (
