@@ -123,7 +123,7 @@ describe('<EmploymentForm />', () => {
     fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
     const income = screen.getByLabelText('Gross Annual Income');
-    const incomeValue = '52000.00';
+    const incomeValue = '52000';
     fireEvent.change(income, { target: { value: incomeValue } });
 
     const month = screen.getByTestId('history[0].month');
@@ -203,7 +203,7 @@ describe('<EmploymentForm />', () => {
     fireEvent.mouseDown(screen.getByText(/^B001, Purbeck House 5-7/));
 
     const prevIncome = screen.getByLabelText('Gross Annual Income');
-    const incomeValue = '52000.00';
+    const incomeValue = '52000';
     fireEvent.change(prevIncome, { target: { value: incomeValue } });
 
     const prevMonth = screen.getByTestId('history[1].month');
