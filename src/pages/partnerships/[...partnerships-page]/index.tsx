@@ -142,7 +142,7 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   useEffect(() => {
     if (getPartnerProperties()) {
       const partnerDetails = getPartnerProperties();
-      const isRightPartnership = partnerDetails.slug === slug?.toUpperCase();
+      const isRightPartnership = partnerDetails?.slug === slug?.toUpperCase();
       if (!isRightPartnership) {
         removePartnerProperties();
         setPartnerProperties(partnershipData, sovereignty);
