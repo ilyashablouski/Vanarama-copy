@@ -15,6 +15,7 @@ import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
 } from '../../../generated/GetTrimAndColor';
+import { Nullable } from '../../types/common';
 
 export interface IChoice {
   label: string;
@@ -33,12 +34,14 @@ export interface IColour {
 }
 
 export interface IProps {
-  terms: IChoice[];
-  upfronts: IChoice[];
+  term: Nullable<number>;
+  terms: string[];
+  upfront: Nullable<number>;
+  upfronts: string[];
   defaultUpfrontValue: number | null;
   defaultTermValue: number | null;
   defaultMileageValue: number | null;
-  leaseTypes: IChoice[];
+  leaseTypes: string[];
   mileages: number[];
   setLeaseType: Dispatch<SetStateAction<LeaseTypeEnum>>;
   setMileage: Dispatch<SetStateAction<number | null>>;
