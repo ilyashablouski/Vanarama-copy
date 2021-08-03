@@ -3,10 +3,12 @@
   width: 100%;
   min-width: 0;
 
-  .choice-input {
-    &:disabled + .choice-box {
-      background-color: #ced6de;
-      border: none;
+  &:not(.-solid) {
+    .choice-input {
+      &:disabled + .choice-box {
+        background: #ced6de;
+        border: none;
+      }
     }
   }
 
@@ -15,35 +17,63 @@
     flex-direction: row;
     justify-content: left;
     align-items: center;
-    height: 45px;
+    min-height: 42px;
     padding: 12px;
     border: 1px solid #d0d9e1;
     border-radius: 5px;
     font-size: $font-size-400;
     font-weight: 400;
+    color: #44576A;
     background: white;
-    transition: border 0.3s ease;
+    transition: all .25s ease;
     cursor: pointer;
 
     ~ .choice-box {
       margin-top: 14px;
     }
 
-    span {
-      color: #44576A;
-    }
-
-    &:hover,
-    &:focus {
-      border-color: #d0d9e1;
-      background: white;
-      box-shadow: none;
-    }
-
     &.-active {
       border-color: #007F85;
       font-weight: 500;
       background: white;
+    }
+
+    @include mobile {
+      min-height: 34px;
+      font-size: $font-size-300;
+    }
+  }
+
+  &.-solid {
+    .choice-input:focus {
+      & + .choice-box,
+      & + .choice-box.-active {
+        box-shadow: $box-shadow-focus var(--class-color-focus);
+      }
+    }
+
+    .choice-box {
+      font-weight: 500;
+    }
+
+    .choice-box:hover,
+    .choice-input:focus + .choice-box {
+      border-color: $dark;
+      background: $lighter;
+      color: $black;
+    }
+
+    .choice-box.-active {
+      background: var(--class-color);
+      border-color: var(--class-color);
+      color: var(--class-color-contrast);
+    }
+
+    .choice-box.-active:hover,
+    .choice-input:focus + .choice-box.-active {
+      background: var(--class-color-tint);
+      border-color: var(--class-color);
+      color: var(--class-color-contrast);
     }
   }
 }
