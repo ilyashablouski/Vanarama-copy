@@ -146,7 +146,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
           className="checkbox -teal"
         >
           <input
-            className="checkbox--native"
+            className="checkbox--native visually-hidden"
             data-testid="aboutConsent"
             id="consent"
             name="consent"
@@ -167,7 +167,7 @@ exports[`<CustomiseLeaseContainer /> should show data correctly with data 1`] = 
           className="checkbox -teal"
         >
           <input
-            className="checkbox--native"
+            className="checkbox--native visually-hidden"
             data-testid="aboutTermsAndCons"
             id="termsAndCons"
             name="termsAndCons"

@@ -3,8 +3,10 @@ import PartnershipLogo from '../../components/Partnerships/PartnershipLogo';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 
 const PartnershipLogoHeader = () => {
-  const [partnershipLogo, setPartnershipLogo] = useState(null);
-  const [partnershipTitle, setPartnershipTitle] = useState(null);
+  const [partnershipLogo, setPartnershipLogo] = useState<string | undefined>();
+  const [partnershipTitle, setPartnershipTitle] = useState<
+    string | undefined
+  >();
 
   useEffect(() => {
     const partnership = getPartnerProperties();
