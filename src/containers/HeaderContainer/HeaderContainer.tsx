@@ -163,8 +163,8 @@ const HeaderContainer: FC = () => {
     const path = window?.location?.pathname;
     const pathname = path.split('/').pop();
     if (partnerDetails) {
-      const partnerName = partnerDetails.slug;
-      setPartnership(partnerName);
+      const partnerName = partnerDetails?.slug;
+      setPartnership(partnerName || null);
       setPartnershipHomeLink(`/partnerships/${partnerName?.toLowerCase()}`);
       const links = getPartnershipLinks(partnerDetails.vehicleTypes);
       setPartnershipLinks(links);
@@ -193,7 +193,7 @@ const HeaderContainer: FC = () => {
           };
           setPartnershipPhoneLink(phoneData);
         }
-        const links = getPartnershipLinks(partnerDetails.vehicleTypes);
+        const links = getPartnershipLinks(partnerDetails?.vehicleTypes);
         setPartnershipLinks(links);
       }
     }, 500);
