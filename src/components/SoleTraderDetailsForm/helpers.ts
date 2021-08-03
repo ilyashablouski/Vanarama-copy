@@ -1,6 +1,8 @@
 /* eslint-disable import/prefer-default-export */
 import * as Yup from 'yup';
 import { dateOfBirthValidator, checkFuture } from '../../utils/validation';
+import { Nullish } from '../../types/common';
+import { TAddressEntry } from '../AddressForm/interfaces';
 
 const nameType = Yup.string()
   .min(2, 'Oops, this name’s too short. Please make it 2 characters or more.')
@@ -53,7 +55,13 @@ export const validationSchema = Yup.object().shape(
     ),
     history: Yup.array().of(
       Yup.object().shape({
-        address: Yup.object().required('Please enter your address'),
+        address: Yup.object()
+          .required('Please enter your address')
+          .test(
+            'requiredAddress',
+            'Please enter your address',
+            (value: Nullish<TAddressEntry['address']>) => value?.id !== 'null',
+          ),
         status: Yup.string().required('Please select your property status'),
         month: Yup.string()
           .required('Please select a move in date')

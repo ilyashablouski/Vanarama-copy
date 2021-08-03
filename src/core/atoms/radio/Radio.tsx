@@ -27,7 +27,7 @@ const Radio: React.FC<IRadioProps> = React.forwardRef<
     <div className={cx('radio', className)}>
       <input
         checked={checked}
-        className="radio--native"
+        className="radio--native visually-hidden"
         data-testid={dataTestId}
         defaultChecked={defaultChecked}
         disabled={disabled}

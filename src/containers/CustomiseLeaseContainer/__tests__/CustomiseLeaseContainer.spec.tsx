@@ -154,7 +154,11 @@ describe('<CustomiseLeaseContainer />', () => {
 
     expect(screen.getByText('24 Months - 2 Years'));
 
-    fireEvent.click(screen.getByText('Business'));
+    fireEvent.click(
+      screen.getByRole('radio', {
+        name: /Business/i,
+      }),
+    );
 
     await waitFor(() => {
       expect(screen.getByText('12000 Miles'));

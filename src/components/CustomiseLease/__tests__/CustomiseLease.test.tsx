@@ -41,18 +41,11 @@ describe('<CustomiseLease />', () => {
       screenY: 0,
       colourList: [{ optionId: 13990, label: 'Solid - Polar white' }],
       trimList: [{ optionId: 104562, label: 'Leather - Cranberry red' }],
-      terms: [
-        { label: '24', value: '24', active: false },
-        { label: '36', value: '36', active: true },
-      ],
-      upfronts: [
-        { label: '1', value: '1', active: false },
-        { label: '3', value: '3', active: true },
-      ],
-      leaseTypes: [
-        { label: 'Personal', value: 'Personal', active: false },
-        { label: 'Business', value: 'Business', active: true },
-      ],
+      term: 24,
+      terms: ['24, 36', '77'],
+      upfront: 1,
+      upfronts: ['1', '3'],
+      leaseTypes: ['Personal', 'Business'],
       defaultTermValue: 48,
       defaultUpfrontValue: 9,
       defaultMileageValue: 8000,
@@ -166,18 +159,11 @@ describe('<CustomiseLease />', () => {
       colourList: [{ optionId: 13990, label: 'Solid - Polar white' }],
       trimList: [{ optionId: 104562, label: 'Leather - Cranberry red' }],
       colour: 13990,
-      terms: [
-        { label: '24', value: '24', active: false },
-        { label: '36', value: '36', active: true },
-      ],
-      upfronts: [
-        { label: '1', value: '1', active: false },
-        { label: '3', value: '3', active: true },
-      ],
-      leaseTypes: [
-        { label: 'Personal', value: 'Personal', active: false },
-        { label: 'Business', value: 'Business', active: true },
-      ],
+      term: 24,
+      terms: ['24, 36', '77'],
+      upfront: 1,
+      upfronts: ['1', '3'],
+      leaseTypes: ['Personal', 'Business'],
       defaultTermValue: 48,
       defaultUpfrontValue: 9,
       defaultMileageValue: 8000,
@@ -315,20 +301,11 @@ describe('<CustomiseLease />', () => {
         colour={13990}
         screenY={0}
         isPlayingLeaseAnimation={false}
-        terms={[
-          { label: '24', value: '24', active: false },
-          { label: '36', value: '36', active: true },
-          { label: '50', value: '50', active: false },
-          { label: '77', value: '77', active: false },
-        ]}
-        upfronts={[
-          { label: '1', value: '1', active: false },
-          { label: '3', value: '3', active: true },
-        ]}
-        leaseTypes={[
-          { label: 'Personal', value: 'Personal', active: false },
-          { label: 'Business', value: ' Business', active: true },
-        ]}
+        term={24}
+        terms={['24, 36', '77']}
+        upfront={3}
+        upfronts={['1', '3']}
+        leaseTypes={['Personal', 'Business']}
         defaultTermValue={48}
         defaultUpfrontValue={9}
         defaultMileageValue={8000}
@@ -371,7 +348,7 @@ describe('<CustomiseLease />', () => {
             stock: 'Brand New - ',
             term: 24,
             trim: '112981',
-            upfront: 1,
+            upfront: 3,
             vehicleType: VehicleTypeEnum.CAR,
           },
         }}
@@ -445,7 +422,11 @@ describe('<CustomiseLease />', () => {
     fireEvent.click(screen.getByText('1'));
     expect(mocks.setUpfront).toBeCalled();
 
-    fireEvent.click(screen.getByText('Personal'));
+    fireEvent.click(
+      screen.getByRole('radio', {
+        name: /Personal/i,
+      }),
+    );
     expect(mocks.setLeaseType).toBeCalled();
 
     fireEvent.change(screen.getByTestId('13990'));

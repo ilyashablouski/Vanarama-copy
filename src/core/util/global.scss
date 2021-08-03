@@ -42,9 +42,8 @@ body {
     $button-group-gap: 3px;
     display: flex;
     align-items: center;
-    position: relative;
-    left: -$button-group-gap;
-    right: -$button-group-gap;
+    margin-left: -$button-group-gap;
+    margin-right: -$button-group-gap;
 
     > * {
       margin: $button-group-gap;
@@ -67,6 +66,19 @@ main {
 .clearfix {
   clear: both;
   display: block;
+}
+
+.visually-hidden {
+  position: absolute;
+  visibility: visible;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  margin: -1px;
+  padding: 0;
+  width: 1px;
+  height: 1px;
+  border: 0;
+  white-space: nowrap;
 }
 
 // text selection highlight color

@@ -5,7 +5,7 @@ exports[`<Checkbox /> should render correctly in the default state 1`] = `
   className="checkbox -teal"
 >
   <input
-    className="checkbox--native"
+    className="checkbox--native visually-hidden"
     id="example"
     type="checkbox"
   />
@@ -28,7 +28,7 @@ exports[`<Checkbox /> should render correctly with optional props 1`] = `
   className="checkbox -teal custom-class-name -outline -invalid"
 >
   <input
-    className="checkbox--native"
+    className="checkbox--native visually-hidden"
     data-testid="data-testid"
     disabled={true}
     id="chechbox-id"
