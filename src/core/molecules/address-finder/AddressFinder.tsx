@@ -117,7 +117,7 @@ const AddressFinder: AddressFinderComponent = ({
           intermediate: state.intermediate,
           showManualForm: state.showManualForm,
           inputFocused: state.focused,
-          selectedSuggestion: selected?.id === 'null' ? undefined : selected,
+          selectedSuggestion: selected,
           onChange: e =>
             dispatch({ type: 'CHANGE_INPUT', value: e.target.value }),
           setInputBlur: () => dispatch({ type: 'BLUR_INPUT' }),
