@@ -270,7 +270,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(true);
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
   const [pageOffset, setPageOffset] = useState(0);
-  const [customCTAColor, setCustomCTAColor] = useState();
+  const [customCTAColor, setCustomCTAColor] = useState<string | undefined>(
+    undefined,
+  );
   const [customTextColor, setCustomTextColor] = useState<TColor | string>();
   const [partnershipActive, setPartnershipActive] = useState<boolean>(false);
   const [prevPosition, setPrevPosition] = useState(0);
@@ -305,7 +307,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     const partnerActive = getPartnerProperties();
     if (partnerActive) {
       setPartnershipActive(true);
-      setCustomCTAColor(getPartnerProperties().color);
+      setCustomCTAColor(partnerActive.color);
       setCustomTextColor(globalColors.white);
     }
   }, []);

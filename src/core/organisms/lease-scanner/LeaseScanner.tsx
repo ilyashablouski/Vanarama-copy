@@ -39,7 +39,7 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
   const [animationDuration, setAnimationDuration] = useState(0);
   const [animationClass, setAnimationClass] = useState('slideInUp');
   const [isInitialSuccess, setInitialSuccess] = useState(false);
-  const [customCTA, setCustomCTA] = useState(null);
+  const [customCTA, setCustomCTA] = useState<string | null>(null);
   const [monthlyPrice, setMonthlyPrice] = useState<number | null>(null);
 
   const providersTimer = useRef(false) as any;

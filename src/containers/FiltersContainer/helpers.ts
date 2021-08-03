@@ -95,7 +95,7 @@ export const buildPreselectChoiseboxes = (
   if (isPartnership && accessor === FilterFields.fuelTypes) {
     const partnershipFuelTypes = getPartnerProperties()?.fuelTypes;
     const choices = choiceBoxesData.filter(fuelType =>
-      partnershipFuelTypes.includes(fuelType.label),
+      partnershipFuelTypes?.includes(fuelType.label),
     );
     return choices;
   }
