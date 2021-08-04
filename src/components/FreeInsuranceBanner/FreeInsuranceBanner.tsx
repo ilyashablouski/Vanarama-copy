@@ -27,10 +27,6 @@ const FreeInsuranceBanner = () => {
       >
         1 Year’s FREE Insurance
       </Text>
-      <Text
-        color="black"
-        className="promotion-item-regular-text"
-      >{` Incl Courtesy Car`}</Text>
     </div>
   );
 };
