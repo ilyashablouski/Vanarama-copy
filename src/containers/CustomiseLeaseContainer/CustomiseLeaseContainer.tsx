@@ -5,7 +5,6 @@ import CustomiseLease from '../../components/CustomiseLease/CustomiseLease';
 import { useQuoteDataLazyQuery } from './gql';
 import {
   LeaseTypeEnum,
-  LineItemInputObject,
   OpportunityTypeEnum,
   VehicleTypeEnum,
 } from '../../../generated/globalTypes';
@@ -19,7 +18,7 @@ import {
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { useTrimAndColour } from '../../gql/carpage';
 import Skeleton from '../../components/Skeleton';
-import { getPartnerSlug } from '../../utils/partnerProperties';
+import getLineItem from '../../utils/getLineItem';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -214,43 +213,18 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
     capId,
   ]);
 
-  const lineItem = (): LineItemInputObject => {
-    const colourDescription = colourList?.find(
-      item => item?.optionId?.toString() === quoteData?.quoteByCapId?.colour,
-    )?.label;
-    const trimDescription = trimList?.find(
-      item =>
-        item?.optionId?.toString() === quoteData?.quoteByCapId?.trim ||
-        item?.optionId === trim,
-    )?.label;
-
-    const partnerSlug = getPartnerSlug();
-
-    return {
-      vehicleProduct: {
-        vehicleType,
-        derivativeCapId: capId.toString(),
-        colour: colourDescription,
-        trim: trimDescription,
-        stockBatchId: quoteData?.quoteByCapId?.stockBatchId,
-        leadTime: quoteData?.quoteByCapId?.leadTime,
-        term: quoteData?.quoteByCapId?.term || term || null,
-        funderId: quoteData?.quoteByCapId?.funderId?.toString() || null,
-        annualMileage: quoteData?.quoteByCapId?.mileage || mileage,
-        depositMonths: quoteData?.quoteByCapId?.upfront || upfront || null,
-        depositPayment:
-          quoteData?.quoteByCapId?.leaseCost?.initialRental || null,
-        monthlyPayment:
-          quoteData?.quoteByCapId?.leaseCost?.monthlyRental || null,
-        maintenance,
-        maintenancePrice: maintenance
-          ? quoteData?.quoteByCapId?.maintenanceCost?.monthlyRental
-          : undefined,
-        partnerSlug,
-      },
-      quantity: 1,
-    };
-  };
+  const lineItemData = getLineItem({
+    vehicleTypeValue: vehicleType,
+    maintenanceValue: maintenance,
+    mileageValue: mileage,
+    upfrontValue: upfront,
+    trimValue: trim,
+    termValue: term,
+    capId,
+    quoteData,
+    colourList,
+    trimList,
+  });
 
   useEffect(() => {
     if (setLeaseScannerData) {
@@ -268,7 +242,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         onSubmit: () => {
           onCompleted({
             leaseType: leaseType.toUpperCase() as LeaseTypeEnum,
-            lineItems: [lineItem()],
+            lineItems: [lineItemData],
           });
         },
       });
@@ -365,7 +339,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         setIsInitPayModalShowing={setIsInitPayModalShowing}
         setIsInitialLoading={setIsInitialLoading}
         setIsRestoreLeaseSettings={setIsRestoreLeaseSettings}
-        lineItem={lineItem()}
+        lineItem={lineItemData}
         screenY={screenY}
         onSubmit={values => onCompleted(values)}
         showCallBackForm={() => setShowCallBackForm(true)}
