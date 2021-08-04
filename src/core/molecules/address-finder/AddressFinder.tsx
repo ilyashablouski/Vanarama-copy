@@ -49,7 +49,7 @@ const AddressFinder: AddressFinderComponent = ({
   const { data } = useLoqate(
     query,
     { apiKey, country: 'GB', limit: 50 },
-    shouldSkipLookUp,
+    false,
   );
 
   function handleSuggestionSelect(loqateSuggestion: ILoqateSuggestion) {
@@ -117,7 +117,7 @@ const AddressFinder: AddressFinderComponent = ({
           intermediate: state.intermediate,
           showManualForm: state.showManualForm,
           inputFocused: state.focused,
-          selectedSuggestion: selected,
+          selectedSuggestion: selected?.id === 'null' ? undefined : selected,
           onChange: e =>
             dispatch({ type: 'CHANGE_INPUT', value: e.target.value }),
           setInputBlur: () => dispatch({ type: 'BLUR_INPUT' }),

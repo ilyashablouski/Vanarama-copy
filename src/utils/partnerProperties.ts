@@ -1,4 +1,5 @@
 import Cookies from 'js-cookie';
+import router from 'next/router';
 import { setLocalStorage } from './windowLocalStorage';
 import { getSessionStorage } from './windowSessionStorage';
 import { Nullish } from '../types/common';
@@ -17,22 +18,46 @@ export interface IPartnerData {
   telephone: Nullish<string>;
 }
 
+export interface IPartnerProperties {
+  slug: Nullish<string>;
+  color?: string;
+  uuid: Nullish<string>;
+  vehicleTypes: string[] | undefined;
+  telephone: Nullish<string>;
+  fuelTypes?: string[] | undefined;
+  logo: IPartnerPropertiesLogo | null;
+}
+export interface IPartnerPropertiesLogo {
+  title: string | undefined;
+  file: IPartnerPropertiesLogoFile | null;
+}
+export interface IPartnerPropertiesLogoFile {
+  url: string;
+}
+
 export function isPartnerSessionActive() {
   const partnershipActive = getSessionStorage(PARTNER_SESSION_ACTIVE);
   return !!partnershipActive;
 }
 
-export function getPartnerProperties() {
+export function getPartnerProperties(): IPartnerProperties | undefined {
+  // Check to see if user registered on partnership journey
+  const partnershipRegistrationVerified =
+    !!Cookies.get(PARTNER_COOKIE_NAME) &&
+    router?.pathname === '/account/login-register' &&
+    router?.query?.status === 'success';
+
   if (
     Cookies.get(PARTNER_COOKIE_NAME) &&
-    getSessionStorage(PARTNER_SESSION_ACTIVE)
+    (getSessionStorage(PARTNER_SESSION_ACTIVE) ||
+      partnershipRegistrationVerified)
   ) {
     return Cookies.getJSON(PARTNER_COOKIE_NAME);
   }
   return undefined;
 }
 
-export function getPartnerSlug() {
+export function getPartnerSlug(): Nullish<string> {
   if (Cookies.get(PARTNER_COOKIE_NAME)) {
     return Cookies.getJSON(PARTNER_COOKIE_NAME).slug;
   }

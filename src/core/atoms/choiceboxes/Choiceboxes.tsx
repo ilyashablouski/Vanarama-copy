@@ -34,7 +34,9 @@ const Choiceboxes = forwardRef(
   ) => {
     const [currentChoices, setCurrentChoices] = useState(choices);
     const [clearMultiSelectActive, setClearMultiSelectActive] = useState(false);
-    const [partnershipColor, setPartnerShipColor] = useState(null);
+    const [partnershipColor, setPartnerShipColor] = useState<
+      string | undefined
+    >(undefined);
 
     const changeChoices = (index: number) => {
       const changedChoices = currentChoices.map(

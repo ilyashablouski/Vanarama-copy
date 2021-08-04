@@ -13,7 +13,6 @@ import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop';
 import Image from 'core/atoms/image';
-import { isNewRangePagesFeatureEnabled } from '../../utils/helpers';
 import {
   filterOrderByNumMap,
   findPreselectFilterValue,
@@ -156,6 +155,7 @@ interface IProps {
   preloadMake?: string;
   defaultSort?: SortObject[];
   newRangePageSlug?: string;
+  isNewRangePage?: Boolean;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -191,6 +191,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadTopOffersCardsData,
   defaultSort,
   newRangePageSlug,
+  isNewRangePage,
 }: IProps) => {
   // assign here as when inline causing hook lint errors
 
@@ -203,7 +204,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const client = useApolloClient();
   const router = useRouter();
   const isNewPage =
-    isNewRangePagesFeatureEnabled &&
+    isNewRangePage &&
     newRangePageSlug &&
     !!NEW_RANGE_SLUGS.includes(newRangePageSlug);
   const isDynamicFilterPage = useMemo(
@@ -269,7 +270,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(true);
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
   const [pageOffset, setPageOffset] = useState(0);
-  const [customCTAColor, setCustomCTAColor] = useState();
+  const [customCTAColor, setCustomCTAColor] = useState<string | undefined>(
+    undefined,
+  );
   const [customTextColor, setCustomTextColor] = useState<TColor | string>();
   const [partnershipActive, setPartnershipActive] = useState<boolean>(false);
   const [prevPosition, setPrevPosition] = useState(0);
@@ -304,7 +307,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     const partnerActive = getPartnerProperties();
     if (partnerActive) {
       setPartnershipActive(true);
-      setCustomCTAColor(getPartnerProperties().color);
+      setCustomCTAColor(partnerActive.color);
       setCustomTextColor(globalColors.white);
     }
   }, []);
@@ -397,6 +400,12 @@ const SearchPageContainer: React.FC<IProps> = ({
     () => onMadeLineBreaks(metaData?.name || ''),
     [metaData],
   );
+
+  // listen for any updates to metaDataSSR
+  useEffect(() => {
+    setMetaData(metaDataSSR);
+    setPageData(pageDataSSR);
+  }, [metaDataSSR, pageDataSSR]);
 
   // Make list query for all makes page
   const [
@@ -1295,14 +1304,12 @@ const SearchPageContainer: React.FC<IProps> = ({
               )}
 
           {isNewPage && isRangePage ? (
-            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-              <NewRangeContent
-                newCarousel={newCarousel}
-                isNewPage={isNewPage}
-                isRangePage={isRangePage}
-                pageData={pageData}
-              />
-            </LazyLoadComponent>
+            <NewRangeContent
+              newCarousel={newCarousel}
+              isNewPage={isNewPage}
+              isRangePage={isRangePage}
+              pageData={pageData}
+            />
           ) : null}
 
           <>
@@ -1425,9 +1432,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         </>
       )}
 
-      <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-        <ButtonBottomToTop />
-      </LazyLoadComponent>
+      {isNewPage && isRangePage ? <ButtonBottomToTop /> : null}
     </>
   );
 };

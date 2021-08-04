@@ -12,10 +12,6 @@ import {
   GetTrimAndColor_trimList as ITrimList,
 } from '../../generated/GetTrimAndColor';
 
-// TODO: should be removed after feature release
-export const isServicePlanFeatureEnabled = Cookies.get('DIG-6814') === '1';
-export const isNewRangePagesFeatureEnabled = Cookies.get('DIG-6496') === '1';
-
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
 export const genMonths = () => [
@@ -97,20 +93,19 @@ export const getOrderList = ({
     },
     {
       label: 'Initial Payment:',
-      value:
-        maintenance && isServicePlanFeatureEnabled
-          ? [
-              `£${quoteByCapId?.leaseCost?.initialRental} (${stateVAT}. VAT)`,
-              <div
-                className="structured-list-row orange"
-                style={{ borderBottom: 0 }}
-              >
-                <div className="structured-list-td">
-                  {`+£${quoteByCapId?.maintenanceCost?.initialRental} Vanarama Service Plan Initial payment`}
-                </div>
-              </div>,
-            ]
-          : `£${quoteByCapId?.leaseCost?.initialRental} (${stateVAT}. VAT)`,
+      value: maintenance
+        ? [
+            `£${quoteByCapId?.leaseCost?.initialRental} (${stateVAT}. VAT)`,
+            <div
+              className="structured-list-row orange"
+              style={{ borderBottom: 0 }}
+            >
+              <div className="structured-list-td">
+                {`+£${quoteByCapId?.maintenanceCost?.initialRental} Vanarama Service Plan Initial payment`}
+              </div>
+            </div>,
+          ]
+        : `£${quoteByCapId?.leaseCost?.initialRental} (${stateVAT}. VAT)`,
       id: 'initialPayment',
       key: `${quoteByCapId?.leaseCost?.initialRental} ${stateVAT}`,
       dataTestId: 'initialPayment',
@@ -133,9 +128,7 @@ export const getOrderList = ({
       isOrange: false,
     },
     {
-      label: `${
-        isServicePlanFeatureEnabled ? 'Vanarama Service Plan:' : 'Maintenance:'
-      }`,
+      label: 'Vanarama Service Plan:',
       value: `${maintenance ? 'Yes' : 'No'}`,
       id: 'maintenance',
       key: `${maintenance ? 'Yes' : 'No'}`,
@@ -251,4 +244,8 @@ export const parseVehicleConfigId = (configId: string) => {
     vehicleType: VehicleTypeEnum;
     capId: string;
   };
+};
+
+export const isGlobalSearchFeatureEnabled = () => {
+  return Cookies.get('DIG-5552') === '1';
 };

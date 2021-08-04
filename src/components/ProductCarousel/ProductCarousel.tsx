@@ -20,6 +20,7 @@ import { features } from './helpers';
 import useWishlist from '../../hooks/useWishlist';
 import ElectricVehicleBanner from '../ElectricVehicleBanner';
 import FreeInsuranceBanner from '../FreeInsuranceBanner';
+import { FuelTypeEnum } from '../../../entities/global';
 
 // Dynamic component loading.
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -176,7 +177,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
             >
               <div className="gallery-promotion-container">
                 {getVehicle(product, data.derivatives)?.fuelType?.name ===
-                  'Electric' && <ElectricVehicleBanner />}
+                  FuelTypeEnum.ELECTRIC && <ElectricVehicleBanner />}
                 {product?.isOnOffer &&
                   product.vehicleType === VehicleTypeEnum.CAR && (
                     <FreeInsuranceBanner />

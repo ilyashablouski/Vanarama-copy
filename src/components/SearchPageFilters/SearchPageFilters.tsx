@@ -115,7 +115,9 @@ const SearchPageFilters = ({
   );
 
   const [isPartnership, setIsPartnership] = useState(false);
-  const [filterFuelTypes, setFilterFuelTypes] = useState([]);
+  const [filterFuelTypes, setFilterFuelTypes] = useState<string[] | undefined>(
+    [],
+  );
 
   useEffect(() => {
     if (getSessionStorage('partnershipSessionActive')) {

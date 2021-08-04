@@ -1,5 +1,7 @@
 import { NextPage, NextPageContext } from 'next';
 import { ApolloQueryResult } from '@apollo/client';
+import { useEffect, useState } from 'react';
+import getPartnerProperties from 'utils/partnerProperties';
 import createApolloClient from '../../apolloClient';
 import SearchPageContainer from '../../containers/SearchPageContainer';
 import { ssrCMSQueryExecutor } from '../../containers/SearchPageContainer/helpers';
@@ -16,13 +18,37 @@ const Page: NextPage<IProps> = ({
   pageData: encodedData,
   metaData,
 }) => {
-  const pageData = decodeData(encodedData);
+  const [pageMetaData, setPageMetaData] = useState(metaData);
+  const [pageData, setPageData] = useState(decodeData(encodedData));
+  const partnerProperties = getPartnerProperties();
+
+  // TODO - implement ticket to pull custom header and into from CMS - please see https://autorama.atlassian.net/browse/DIG-6845
+  useEffect(() => {
+    if (partnerProperties) {
+      const data = {
+        ...metaData,
+        name: 'Search Pickups',
+      };
+      const genericPageData = {
+        genericPage: {
+          ...pageData.genericPage,
+          intro:
+            'Save money on a brand new pickup by leasing from Vanarama today! View our unbeatable lease deals on pickups from all the top brands.',
+        },
+      };
+
+      setPageMetaData(data);
+      setPageData(genericPageData);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
     <SearchPageContainer
       isServer={isServer}
       isPickups
       isSimpleSearchPage
-      metaData={metaData}
+      metaData={pageMetaData}
       pageData={pageData}
     />
   );

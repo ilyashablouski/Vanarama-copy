@@ -26,7 +26,7 @@ import {
 } from '../../containers/GlobalSearchPageContainer/helpers';
 import { productFilter_productFilter as IProductFilter } from '../../../generated/productFilter';
 import SelectedDropdown from './SelectedDropdown';
-import { getInnerConfigKeys } from './helpers';
+import { getInnerConfigKeys, getSelectedValues } from './helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import FiltersTags from '../../containers/GlobalSearchPageContainer/FiltersTags';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
@@ -241,6 +241,7 @@ const GlobalSearchPageFilters = ({
               }
             >
               <ChoiceBoxesV2
+                key={key}
                 multiSelect={multiselect}
                 values={filtersMapper[key as keyof IFiltersData] as string[]}
                 onChange={values =>
@@ -275,9 +276,7 @@ const GlobalSearchPageFilters = ({
                 />
               )}
               selected={
-                selectedTags.filter(
-                  selectedBlocks => selectedBlocks.filterKey === key,
-                )?.[0]?.tags || []
+                getSelectedValues(innerSelects, activeFilters) as unknown[]
               }
             >
               {(innerSelects as IInnerSelect[])?.map(
