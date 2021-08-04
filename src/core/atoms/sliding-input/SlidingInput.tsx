@@ -1,4 +1,11 @@
-import React, { useState, CSSProperties, useEffect } from 'react';
+import React, {
+  useRef,
+  useState,
+  CSSProperties,
+  useEffect,
+  ChangeEvent,
+  useMemo,
+} from 'react';
 import cx from 'classnames';
 import { ISlidingInputProps, ISlidingObject } from './interfaces';
 
@@ -11,7 +18,9 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
   disabledFirstStep,
   disabledLastStep,
 }) => {
-  const myRef = React.createRef<HTMLDivElement>();
+  const myRef = useRef<HTMLLabelElement>(null);
+  const changeTimeoutRef = useRef<NodeJS.Timeout>();
+
   const [mouseDown, setMouseDown] = useState(false);
   const [mileageValue, setMileageValue] = useState(defaultValue);
 
@@ -19,7 +28,17 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
     setMileageValue(defaultValue);
   }, [defaultValue]);
 
-  const valueChange = (pageX: number, isApplied?: boolean) => {
+  function cleanupChangeTimeout() {
+    if (changeTimeoutRef.current) {
+      clearTimeout(changeTimeoutRef.current);
+    }
+  }
+
+  useEffect(() => {
+    return cleanupChangeTimeout;
+  }, []);
+
+  const handleValueChange = (pageX: number, isApplied?: boolean) => {
     if (!disabled) {
       const coordinates = myRef?.current?.getBoundingClientRect();
       const width =
@@ -49,45 +68,68 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
     }
   };
 
-  const mouseOut = () => {
+  const handleMouseIn = () => {
+    setMouseDown(true);
+  };
+  const handleMouseOut = () => {
     setMouseDown(false);
   };
 
-  const labels = steps.map(
-    step => (step as ISlidingObject).label ?? `${(step as number) / 1000}K`,
+  const handleRangeChange = (event: ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value, 10);
+
+    setMileageValue(value);
+    cleanupChangeTimeout();
+    changeTimeoutRef.current = setTimeout(() => {
+      onChange(value);
+    }, 1000);
+  };
+
+  const labels = useMemo(
+    () =>
+      steps.map(step => {
+        const value = (step as ISlidingObject).label ?? (step as number);
+        return `${parseInt(value, 10) / 1000}K`;
+      }),
+    [steps],
   );
 
   return (
-    <div
+    <label
+      ref={myRef}
       className={cx('sliding-input', disabled ? 'disabled' : '')}
       style={
         { '--value': mileageValue, '--length': steps.length } as CSSProperties
       }
-      role="button"
-      ref={myRef}
       onClick={elem => {
-        valueChange(elem.pageX, true);
+        handleValueChange(elem.pageX, true);
       }}
       onMouseMove={elem => {
         if (mouseDown) {
-          valueChange(elem.pageX);
+          handleValueChange(elem.pageX);
         }
       }}
       onTouchMove={elem => {
-        valueChange(elem.changedTouches[0].pageX);
+        handleValueChange(elem.changedTouches[0].pageX);
       }}
       onTouchEnd={elem => {
-        valueChange(elem.changedTouches[0].pageX, true);
-        mouseOut();
+        handleValueChange(elem.changedTouches[0].pageX, true);
+        handleMouseOut();
       }}
-      onMouseLeave={mouseOut}
-      onMouseDown={() => {
-        setMouseDown(true);
-      }}
-      onMouseUp={() => {
-        mouseOut();
-      }}
+      onMouseLeave={handleMouseOut}
+      onMouseUp={handleMouseOut}
+      onMouseDown={handleMouseIn}
     >
+      <input
+        min={1}
+        step={1}
+        type="range"
+        max={steps.length}
+        value={mileageValue}
+        className="sliding-input-control visually-hidden"
+        onChange={handleRangeChange}
+        disabled={disabled}
+      />
       <div className="sliding-input-fill">
         <div className="sliding-input-value" />
       </div>
@@ -97,7 +139,7 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
           {label}
         </div>
       ))}
-    </div>
+    </label>
   );
 };
 

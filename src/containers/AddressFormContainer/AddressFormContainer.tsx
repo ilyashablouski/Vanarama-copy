@@ -31,6 +31,7 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
   }
 
   const { addresses, partyId } = data.personByUuid;
+
   return (
     <AddressForm
       addresses={addresses || []}

@@ -79,6 +79,16 @@ export enum OpportunityTypeEnum {
   QUOTE = "QUOTE",
 }
 
+export enum PdpVehicleType {
+  Car = "Car",
+  ElectricCar = "ElectricCar",
+  ElectricHotOffersCars = "ElectricHotOffersCars",
+  ElectricVan = "ElectricVan",
+  HotOffersCars = "HotOffersCars",
+  Pickup = "Pickup",
+  Van = "Van",
+}
+
 export enum ProductDerivativeSortDirection {
   ASC = "ASC",
   DESC = "DESC",

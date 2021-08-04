@@ -114,10 +114,42 @@ module "aws_log_metric_alarms" {
 
   log_metric_alarms = "${var.log_metric_alarms}"
 }
+  
+resource "null_resource" "endpoint" {
+  provisioner "local-exec" {
+    command = "cat ../canary/nodejs/node_modules/pageLoadBlueprint.js | sed -e \"s;%alternateDomain%;${var.alternateDomain};g\" | tee ../canary/nodejs/node_modules/pageLoadBlueprint.js"
+  }
+}
+
+data "archive_file" "canary_script" {
+  type        = "zip"
+  source_dir  = "../canary/"
+  output_path = "canary.zip"
+  depends_on  = [null_resource.endpoint] 
+}
+
+resource "aws_synthetics_canary" "canary" {
+  name                 = "${var.app}"
+  artifact_s3_location = "s3://${var.env}-${var.stack}-canaries/canaries/"
+  execution_role_arn   = "arn:aws:iam::${var.aws_account_id}:role/${var.env}_${var.stack}_canary_role"
+  handler              = "pageLoadBlueprint.handler"
+  zip_file             = "canary.zip"
+  runtime_version      = "syn-nodejs-puppeteer-3.1"
+  depends_on  = [data.archive_file.canary_script]
+  schedule {
+    expression = "rate(5 minutes)"
+  }
+  tags = { 
+      env   = "${var.env}"
+      stack = "${var.stack}"
+      app   = "${var.app}"
+      created-by = "terraform"
+      }
+}
+
 data "aws_ssm_parameter" "cloudwatch_alarm_sns_topic_arn" {
   name = "/${var.env}/${var.stack}/core/cloudwatch-alarm-topic"
 }
-
 resource "aws_cloudwatch_metric_alarm" "canary_alarm" {
 
   alarm_name          = "${var.env}_${var.app}_canary_alarm"
@@ -131,38 +163,7 @@ resource "aws_cloudwatch_metric_alarm" "canary_alarm" {
   actions_enabled     = "true"
   alarm_actions       = [ "${data.aws_ssm_parameter.cloudwatch_alarm_sns_topic_arn.value}" ]
   namespace           = "CloudWatchSynthetics"
+  depends_on          = [aws_synthetics_canary.canary]
   dimensions = { 
-    CanaryName = "${var.env}_${var.app}" }
-}
-  
-resource "null_resource" "endpoint" {
-  provisioner "local-exec" {
-    command = "cat ../canary/nodejs/node_modules/pageLoadBlueprint.js | sed -e \"s;%alternateDomain%;${var.alternateDomain};g\" | tee ../canary/nodejs/node_modules/pageLoadBlueprint.js"
-  }
-}
-
-data "archive_file" "canary_script" {
-  type        = "zip"
-  source_dir  = "../canary/"
-  output_path = "canary.zip"
-  depends_on  = ["null_resource.endpoint"] 
-}
-  
-resource "aws_synthetics_canary" "canary" {
-  name                 = substr("${var.env}_${var.app}", 0, 21)
-  artifact_s3_location = "s3://${var.env}-${var.stack}-canaries/canaries/"
-  execution_role_arn   = "arn:aws:iam::${var.aws_account_id}:role/${var.env}_${var.stack}_canary_role"
-  handler              = "pageLoadBlueprint.handler"
-  zip_file             = "canary.zip"
-  runtime_version      = "syn-nodejs-puppeteer-3.1"
-  depends_on  = ["data.archive_file.canary_script"]
-  schedule {
-    expression = "rate(5 minutes)"
-  }
-  tags = { 
-      env   = "${var.env}"
-      stack = "${var.stack}"
-      app   = "${var.app}"
-      cereated-by = "terraform"
-      }
+    CanaryName = aws_synthetics_canary.canary.name }
 }

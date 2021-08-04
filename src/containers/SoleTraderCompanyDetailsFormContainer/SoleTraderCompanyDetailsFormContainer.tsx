@@ -1,7 +1,11 @@
 import dynamic from 'next/dynamic';
 import React, { useState } from 'react';
 import CompanyDetailsForm from '../../components/SoleTraderCompanyDetailsForm';
-import { ISoleTraderCompanyDetailsFormValues } from '../../components/SoleTraderCompanyDetailsForm/interfaces';
+import {
+  EMPTY_SOLE_TRADER_ADDRESS_ENTRY,
+  ISoleTraderCompanyAddressEntry,
+  ISoleTraderCompanyDetailsFormValues,
+} from '../../components/SoleTraderCompanyDetailsForm/interfaces';
 import { ISoleTraderCompanyDetailsFormContainerProps } from './interfaces';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import {
@@ -31,8 +35,9 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
   onError,
 }) => {
   const [mappedCompanyDetails, setMappedCompanyDetails] = React.useState<
-    ISoleTraderCompanyDetailsFormValues
-  >();
+    ISoleTraderCompanyDetailsFormValues | ISoleTraderCompanyAddressEntry
+  >(EMPTY_SOLE_TRADER_ADDRESS_ENTRY);
+
   const [updateSoleTraderCompanyDetails] = useUpdateSoleTraderCompanyMutation();
   const [createUpdateOrder] = useCreateUpdateOrder(() => {});
   const [createUpdateApplication] = useCreateUpdateCreditApplication(
