@@ -4,7 +4,11 @@ import React from 'react';
 import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from 'core/atoms/schema-json';
 import { PreviewNextPageContext } from 'types/common';
-import { GET_CAR_DATA, GET_TRIM_AND_COLOR_DATA } from '../../../gql/carpage';
+import {
+  GET_CAR_DATA,
+  GET_PDP_CONTENT,
+  GET_TRIM_AND_COLOR_DATA,
+} from '../../../gql/carpage';
 import {
   FinanceTypeEnum,
   LeaseTypeEnum,
@@ -54,6 +58,11 @@ import {
 } from '../../../../generated/GetProductCard';
 import { decodeData, encodeData } from '../../../utils/data';
 import { CurrencyCodeEnum } from '../../../../entities/global';
+import {
+  GetPdpContent as IGetPdpContentQuery,
+  GetPdpContentVariables as IGetPdpContentVariables,
+} from '../../../../generated/GetPdpContent';
+import { pdpCarType } from '../../../containers/DetailsPage/helpers';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -69,6 +78,7 @@ interface IProps {
   colour: IColourList[];
   productCard: GetProductCard | null;
   leaseTypeQuery?: LeaseTypeEnum | null;
+  pdpContent: IGetPdpContentQuery | null;
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -83,6 +93,7 @@ const CarDetailsPage: NextPage<IProps> = ({
   colour,
   productCard: encodedData,
   leaseTypeQuery,
+  pdpContent,
 }) => {
   if (notFoundPageData) {
     return (
@@ -187,6 +198,7 @@ const CarDetailsPage: NextPage<IProps> = ({
   return (
     <>
       <DetailsPage
+        pdpContent={pdpContent}
         cars
         quote={quote}
         capId={capId || 0}
@@ -278,6 +290,18 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       },
     });
 
+    const pageType = pdpCarType(getCarDataQuery.data);
+    const { data: pdpContent } = await client.query<
+      IGetPdpContentQuery,
+      IGetPdpContentVariables
+    >({
+      query: GET_PDP_CONTENT,
+      variables: {
+        vehicleType: pageType,
+        isPreview: context?.preview,
+      },
+    });
+
     const trimAndColorData = await client.query<
       GetTrimAndColor,
       GetTrimAndColorVariables
@@ -335,6 +359,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     return {
       props: {
         capId,
+        pdpContent: pdpContent || null,
         data: getCarDataQuery.data,
         quote: quoteDataQuery.data,
         query: context.query,
