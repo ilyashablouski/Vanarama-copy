@@ -25,7 +25,7 @@ const WhyChooseVanarama: React.FC<IWhyChooseVanaramaProps> = ({
   return (
     <div className="tile--accordion">
       <Heading tag="h2" color="black" size="lead" className="pdp-section-title">
-        {`${title}?`}
+        {title}
       </Heading>
       <Accordion items={accordionsData} />
     </div>
