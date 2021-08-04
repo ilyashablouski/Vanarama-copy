@@ -8,7 +8,6 @@ import { GetPdpContent_pdpContent_content_questionAnswers as IQuestionAnswers } 
 import RouterLink from '../../components/RouterLink';
 import { PdpVehicleType } from '../../../generated/globalTypes';
 
-// eslint-disable-next-line import/prefer-default-export
 export const convertProductDetailsToWishlistProduct = (
   data: Nullish<GetVehicleDetails>,
 ) =>
