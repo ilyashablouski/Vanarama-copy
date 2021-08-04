@@ -646,6 +646,26 @@
           font-size: 0.925rem;
         }
 
+        .choice-boxes-v2 {
+          width: auto;
+
+          .choice-box {
+            flex: 1 1 1px;
+            justify-content: center;
+            margin-top: 3px;
+            padding: 0;
+          }
+
+          .choice-label {
+            text-align: center;
+            text-transform: lowercase;
+
+            &:first-letter {
+              text-transform: uppercase;
+            }
+          }
+        }
+
         &.-trucks {
           > div:first-of-type {
             display: grid;

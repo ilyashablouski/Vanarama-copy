@@ -328,7 +328,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       );
     }
     if (getPartnerProperties()?.fuelTypes) {
-      query.fuelTypes = getPartnerProperties().fuelTypes;
+      query.fuelTypes = getPartnerProperties()?.fuelTypes;
     }
     router.push({
       pathname: routerUrl,

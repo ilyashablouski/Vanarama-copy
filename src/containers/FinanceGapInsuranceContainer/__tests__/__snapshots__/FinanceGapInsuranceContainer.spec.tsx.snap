@@ -686,7 +686,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                 class="checkbox -teal"
               >
                 <input
-                  class="checkbox--native"
+                  class="checkbox--native visually-hidden"
                   data-testid="aboutTermsAndCons"
                   id="termsAndCons"
                   name="termsAndCons"
@@ -715,7 +715,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                 class="checkbox -teal"
               >
                 <input
-                  class="checkbox--native"
+                  class="checkbox--native visually-hidden"
                   data-testid="aboutPrivacyPolicy"
                   id="privacyPolicy"
                   name="privacyPolicy"
@@ -744,7 +744,7 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                 class="checkbox -teal"
               >
                 <input
-                  class="checkbox--native"
+                  class="checkbox--native visually-hidden"
                   data-testid="aboutConsent"
                   id="consent"
                   name="consent"

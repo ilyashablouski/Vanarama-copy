@@ -69,15 +69,17 @@ function WishlistPageContainer({
   }, [client, wishlistVehicleIds]);
 
   useEffect(() => {
-    pushWishlistActionEventDataLayer(
-      IWishlistActions.VIEW,
-      wishlistVehicleIds.map(vehicleId => {
-        const vehicleData = wishlistVehicleMap[vehicleId];
-        return vehicleData;
-      }),
-    );
+    if (wishlistInitialized) {
+      pushWishlistActionEventDataLayer(
+        IWishlistActions.VIEW,
+        wishlistVehicleIds.map(vehicleId => {
+          const vehicleData = wishlistVehicleMap[vehicleId];
+          return vehicleData;
+        }),
+      );
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [wishlistInitialized]);
 
   useEffect(() => {
     return resetWishlistNoLongerAvailable;

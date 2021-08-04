@@ -18,12 +18,29 @@ export interface IPartnerData {
   telephone: Nullish<string>;
 }
 
+export interface IPartnerProperties {
+  slug: Nullish<string>;
+  color?: string;
+  uuid: Nullish<string>;
+  vehicleTypes: string[] | undefined;
+  telephone: Nullish<string>;
+  fuelTypes?: string[] | undefined;
+  logo: IPartnerPropertiesLogo | null;
+}
+export interface IPartnerPropertiesLogo {
+  title: string | undefined;
+  file: IPartnerPropertiesLogoFile | null;
+}
+export interface IPartnerPropertiesLogoFile {
+  url: string;
+}
+
 export function isPartnerSessionActive() {
   const partnershipActive = getSessionStorage(PARTNER_SESSION_ACTIVE);
   return !!partnershipActive;
 }
 
-export function getPartnerProperties() {
+export function getPartnerProperties(): IPartnerProperties | undefined {
   // Check to see if user registered on partnership journey
   const partnershipRegistrationVerified =
     !!Cookies.get(PARTNER_COOKIE_NAME) &&
@@ -40,7 +57,7 @@ export function getPartnerProperties() {
   return undefined;
 }
 
-export function getPartnerSlug() {
+export function getPartnerSlug(): Nullish<string> {
   if (Cookies.get(PARTNER_COOKIE_NAME)) {
     return Cookies.getJSON(PARTNER_COOKIE_NAME).slug;
   }

@@ -62,7 +62,12 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
     const accountUuid = await getBankUuid();
     const input = {
       variables: {
-        input: formValuesToInput(companyUuid, values, accountUuid, personUuid),
+        input: {
+          ...formValuesToInput(companyUuid, values, accountUuid, personUuid),
+          companyNature:
+            data?.creditApplicationByOrderUuid?.companyDetailsV2
+              ?.natureOfBusiness,
+        },
       },
     };
 

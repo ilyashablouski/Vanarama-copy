@@ -139,7 +139,7 @@ const BlogPostContainer: NextPage<IProps> = ({
               </Heading>
             )}
             {articles?.map((el, indx) => {
-              const hrefLink = setSource(el?.legacyUrl || '');
+              const hrefLink = setSource((el?.legacyUrl || el?.slug) ?? '');
               return (
                 <Card
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}

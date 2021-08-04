@@ -34,7 +34,7 @@ const Checkbox: React.FC<ICheckboxProps> = React.forwardRef<
     >
       <input
         checked={checked}
-        className="checkbox--native"
+        className="checkbox--native visually-hidden"
         data-testid={dataTestId}
         defaultChecked={defaultChecked}
         disabled={disabled}
