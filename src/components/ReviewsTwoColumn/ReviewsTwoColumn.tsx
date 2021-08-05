@@ -18,11 +18,11 @@ const ReviewsTwoColumn: React.FC<ReviewsTwoColumnProps> = ({
   reviews,
   sliderClassName,
 }) => {
-  if (!reviews.length) {
+  if (!reviews?.length) {
     return null;
   }
 
-  const newKeys = { summary: 'text', customerName: 'author', rating: 'score' };
+  const newKeys = { review: 'text', name: 'author', rating: 'score' };
   const renamedObj = newKeyReviews({ ...reviews[0] }, newKeys);
 
   return (
@@ -44,9 +44,9 @@ const ReviewsTwoColumn: React.FC<ReviewsTwoColumnProps> = ({
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 key={index.toString()}
                 review={{
-                  text: reviewTile.summary,
-                  author: reviewTile.customerName,
-                  score: reviewTile.rating,
+                  text: reviewTile?.review || '',
+                  author: reviewTile?.name || '',
+                  score: reviewTile?.rating || 0,
                 }}
               />
             ))}
