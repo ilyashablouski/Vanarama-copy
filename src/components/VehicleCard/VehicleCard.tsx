@@ -137,12 +137,12 @@ const VehicleCard = React.memo(
         }}
       >
         <div className="gallery-promotion-container">
-          {fuelType?.value === FuelTypeEnum.ELECTRIC && (
+          {fuelType?.value === FuelTypeEnum.ELECTRIC && !isModelPage && (
             <ElectricVehicleBanner />
           )}
-          {data?.isOnOffer && data?.vehicleType === VehicleTypeEnum.CAR && (
-            <FreeInsuranceBanner />
-          )}
+          {data?.isOnOffer &&
+            data?.vehicleType === VehicleTypeEnum.CAR &&
+            !isModelPage && <FreeInsuranceBanner />}
         </div>
         <div className="-flex-h">
           <Price

@@ -5,7 +5,11 @@ import { ParsedUrlQuery } from 'querystring';
 import SchemaJSON from 'core/atoms/schema-json';
 import { PreviewNextPageContext } from 'types/common';
 import { INotFoundPageData } from '../../../models/ISearchPageProps';
-import { GET_CAR_DATA, GET_TRIM_AND_COLOR_DATA } from '../../../gql/carpage';
+import {
+  GET_CAR_DATA,
+  GET_PDP_CONTENT,
+  GET_TRIM_AND_COLOR_DATA,
+} from '../../../gql/carpage';
 import {
   LeaseTypeEnum,
   VehicleTypeEnum,
@@ -54,6 +58,11 @@ import {
 import { decodeData, encodeData } from '../../../utils/data';
 import { getBreadcrumbSlugs } from '../../../utils/pageSlugs';
 import { CurrencyCodeEnum } from '../../../../entities/global';
+import { pdpVanType } from '../../../containers/DetailsPage/helpers';
+import {
+  GetPdpContent as IGetPdpContentQuery,
+  GetPdpContentVariables as IGetPdpContentVariables,
+} from '../../../../generated/GetPdpContent';
 
 interface IProps {
   query?: ParsedUrlQuery;
@@ -67,6 +76,7 @@ interface IProps {
   trim: ITrimList[];
   colour: IColourList[];
   productCard: GetProductCard | null;
+  pdpContent: IGetPdpContentQuery | null;
 }
 
 const VanDetailsPage: NextPage<IProps> = ({
@@ -80,6 +90,7 @@ const VanDetailsPage: NextPage<IProps> = ({
   trim,
   colour,
   productCard: encodedData,
+  pdpContent,
 }) => {
   const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
 
@@ -208,6 +219,7 @@ const VanDetailsPage: NextPage<IProps> = ({
   return (
     <>
       <DetailsPage
+        pdpContent={pdpContent}
         capId={capId || 0}
         vans={!isPickup}
         pickups={isPickup}
@@ -309,6 +321,18 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       },
     });
 
+    const pageType = pdpVanType(getCarDataQuery.data);
+    const { data: pdpContent } = await client.query<
+      IGetPdpContentQuery,
+      IGetPdpContentVariables
+    >({
+      query: GET_PDP_CONTENT,
+      variables: {
+        vehicleType: pageType,
+        isPreview: context?.preview,
+      },
+    });
+
     const capsIds =
       getCarDataQuery.data?.vehicleDetails?.relatedVehicles?.map(
         el => el?.capId || '',
@@ -345,6 +369,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       props: {
         capId,
         data: getCarDataQuery.data,
+        pdpContent: pdpContent || null,
         quote: quoteDataQuery.data,
         query: context.query,
         trim: trimAndColorData?.data?.trimList || null,

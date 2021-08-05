@@ -1,14 +1,19 @@
 import {
   LeaseTypeEnum,
+  PdpVehicleType,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
 import { GetVehicleDetails } from '../../../../generated/GetVehicleDetails';
-import { convertProductDetailsToWishlistProduct } from '../helpers';
+import {
+  convertProductDetailsToWishlistProduct,
+  pdpCarType,
+  pdpVanType,
+} from '../helpers';
 import { IWishlistProduct } from '../../../types/wishlist';
 
 const capId = '93456';
 
-const productDetails: GetVehicleDetails = {
+const productDetails = (): GetVehicleDetails => ({
   vehicleConfigurationByCapId: {
     uuid: 'd70a446b-ad14-41d5-8271-bfe4037b749f',
     capManufacturerDescription: 'Volkswagen',
@@ -138,7 +143,7 @@ const productDetails: GetVehicleDetails = {
       imageUrls: [],
     },
   ],
-};
+});
 
 const wishlistProduct: IWishlistProduct = {
   capId,
@@ -209,8 +214,31 @@ const wishlistProduct: IWishlistProduct = {
 
 describe('convertProductDetailsToWishlistProduct', () => {
   it('convertProductDetailsToWishlistProduct should return correct wishlist product', () => {
-    expect(convertProductDetailsToWishlistProduct(productDetails)).toEqual(
+    const details = productDetails();
+    expect(convertProductDetailsToWishlistProduct(details)).toEqual(
       wishlistProduct,
     );
+  });
+});
+
+describe('pdpVanType/pdpCarType', () => {
+  let details = productDetails();
+  beforeEach(() => {
+    details = productDetails();
+  });
+  it('should be return Hot Offers Car type', () => {
+    expect(pdpCarType(details)).toEqual(PdpVehicleType.HotOffersCars);
+  });
+  it('should be return Car type', () => {
+    details.vehicleConfigurationByCapId!.onOffer = false;
+    expect(pdpCarType(details)).toEqual(PdpVehicleType.Car);
+  });
+  it('should be return Electric Car type', () => {
+    details.derivativeInfo!.fuelType!.name = 'Electric';
+    details.vehicleConfigurationByCapId!.onOffer = false;
+    expect(pdpCarType(details)).toEqual(PdpVehicleType.ElectricCar);
+  });
+  it('should be return Pickup type', () => {
+    expect(pdpVanType(details)).toEqual(PdpVehicleType.Pickup);
   });
 });

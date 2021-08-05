@@ -21,6 +21,7 @@ def app_environment = [
         slackChannelInfra: '#dev-infra-approvals',
         slackChannelQA: '#qa-code-approvals',
         jenkinsCredentialsId: 'aws-keys-terraform-grid-dev',
+        ecrCredentialId: 'aws-keys-terraform-grid-dev',
         accountId: '000379120260',
         awsMasterRole: '', //empty while dev has master account credentials
         state_bucket: 'autorama-terraform-state',
@@ -43,6 +44,7 @@ def app_environment = [
         slackChannelInfra: '#dev-infra-approvals',
         slackChannelQA: '#qa-code-approvals',
         jenkinsCredentialsId: 'aws-keys-terraform-grid-test',
+        ecrCredentialId: 'aws-keys-terraform-grid-test',
         accountId: '126764662304',
         awsMasterRole: 'arn:aws:iam::126764662304:role/AutoramaGridDelegate',
         state_bucket: 'grid-terraform-state-1',
@@ -65,6 +67,7 @@ def app_environment = [
         slackChannelInfra: '#dev-infra-approvals',
         slackChannelQA: '#qa-code-approvals',
         jenkinsCredentialsId: 'aws-keys-terraform-grid-prod',
+        ecrCredentialId: 'aws-keys-terraform-grid-test',
         accountId: '148418686323',
         awsMasterRole: 'arn:aws:iam::000379120260:role/AutoramaGridDelegate',
         state_bucket: 'grid-terraform-state-2',
@@ -179,8 +182,8 @@ pipeline {
 
             steps {
               script {
-                def jenkinsCredentialsId = app_environment["${getConfig()}"].jenkinsCredentialsId
-                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "${jenkinsCredentialsId}" , secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
+                def ecrCredentialId = app_environment["${getConfig()}"].ecrCredentialId
+                withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', accessKeyVariable: 'AWS_ACCESS_KEY_ID', credentialsId: "${ecrCredentialId}" , secretKeyVariable: 'AWS_SECRET_ACCESS_KEY']]){
                     sh "aws ecr describe-repositories --repository-names ${serviceName} --region ${ecrRegion} || aws ecr create-repository --repository-name ${serviceName} --region ${ecrRegion}"
                 }
               }
@@ -269,7 +272,8 @@ pipeline {
 
               script {
                 def jenkinsCredentialsId = app_environment["${getConfig()}"].jenkinsCredentialsId
-                ecrLogin(jenkinsCredentialsId)
+                def ecrCredentialId = app_environment["${getConfig()}"].ecrCredentialId
+                ecrLogin(ecrCredentialId)
                 def dockerRepoName = app_environment["${getConfig()}"].dockerRepoName
                 def envs = app_environment["${getConfig()}"].env
                 def stack = app_environment["${getConfig()}"].stack

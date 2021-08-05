@@ -337,16 +337,21 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         </LazyLoadComponent>
       </section>
 
-      <div className="row:default">
-        <Media
-          src={getSectionsData(
-            ['sectionsAsArray', 'featured', '6', 'video'],
-            pageData?.genericPage,
-          )}
-          width="100%"
-          height="670px"
-        />
-      </div>
+      {getSectionsData(
+        ['sectionsAsArray', 'featured', '6', 'video'],
+        pageData?.genericPage,
+      ) && (
+        <div className="row:default">
+          <Media
+            src={getSectionsData(
+              ['sectionsAsArray', 'featured', '6', 'video'],
+              pageData?.genericPage,
+            )}
+            width="100%"
+            height="670px"
+          />
+        </div>
+      )}
 
       <ReviewsTwoColumn
         reviews={reviewsData?.rangeDetails?.customerReviews || []}

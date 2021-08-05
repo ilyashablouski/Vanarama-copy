@@ -140,7 +140,7 @@ exports[`<PersonalInformation /> should render correctly 1`] = `
             className="checkbox -teal"
           >
             <input
-              className="checkbox--native"
+              className="checkbox--native visually-hidden"
               data-testid="emailConsent"
               defaultChecked={false}
               disabled={true}

@@ -208,6 +208,11 @@ export const companyNameValidator = {
     value: true,
     message: 'Please enter your company name',
   },
+  maxLength: {
+    value: 160,
+    message:
+      'Oops, this company name is too long. Please enter 160 characters or less',
+  },
 };
 
 export const fleetSizeValidator = {
