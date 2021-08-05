@@ -27,22 +27,27 @@ interface IFooterColumn {
 
 const socialButton = [
   {
+    id: 'Facebook',
     link: '/',
     icon: <Facebook />,
   },
   {
+    id: 'Twitter',
     link: '/',
     icon: <Twitter />,
   },
   {
+    id: 'Instagram',
     link: '/',
     icon: <Instagram />,
   },
   {
+    id: 'Linkedin',
     link: '/',
     icon: <Linkedin />,
   },
   {
+    id: 'YouTube',
     link: '/',
     icon: <YouTube />,
   },
@@ -108,7 +113,10 @@ const FooterColumn: FC<IFooterColumn> = props => {
 
             <div className="footer--social-icons">
               {socialButton.map(item => (
-                <div className="button -white -small -outline -round">
+                <div
+                  key={item.id}
+                  className="button -white -small -outline -round"
+                >
                   <a
                     href={item.link}
                     target="_blank"
