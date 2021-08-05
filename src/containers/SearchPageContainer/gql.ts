@@ -19,6 +19,10 @@ import {
   RangesImagesVariables,
 } from '../../../generated/RangesImages';
 import {
+  rangeDetails,
+  rangeDetailsVariables,
+} from '../../../generated/rangeDetails';
+import {
   bodyStyleList,
   bodyStyleListVariables,
 } from '../../../generated/bodyStyleList';
@@ -394,3 +398,28 @@ export const GET_LEGACY_URLS = gql`
     }
   }
 `;
+
+export const GET_RANGE_REVIEWS = gql`
+  query rangeDetails($rangeId: ID!, $vehicleType: VehicleTypeEnum) {
+    rangeDetails(rangeId: $rangeId, vehicleType: $vehicleType) {
+      customerReviews {
+        rating
+        name
+        review
+      }
+    }
+  }
+`;
+
+export function getRangeReviews(
+  rangeId: string,
+  vehicleType?: VehicleTypeEnum,
+) {
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  return useQuery<rangeDetails, rangeDetailsVariables>(GET_RANGE_REVIEWS, {
+    variables: {
+      rangeId,
+      vehicleType,
+    },
+  });
+}

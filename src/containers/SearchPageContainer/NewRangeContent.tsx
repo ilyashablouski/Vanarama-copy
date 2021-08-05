@@ -18,6 +18,8 @@ import RouterLink from '../../components/RouterLink';
 import ReviewsTwoColumn from '../../components/ReviewsTwoColumn/ReviewsTwoColumn';
 import NewRangeCarousel from './NewRangeCarousel';
 import Skeleton from '../../components/Skeleton';
+import { getRangeReviews } from './gql';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -43,6 +45,14 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
   isRangePage,
 }) => {
   let countListAccordion = 0;
+
+  const { data: reviewsData } = getRangeReviews(
+    getSectionsData(
+      ['sectionsAsArray', 'reviews', '0', 'rangeId'],
+      pageData?.genericPage,
+    ),
+    VehicleTypeEnum.CAR,
+  );
 
   const getDataAccordion = (treeGetData: string[], pageDatas: any) => {
     if (isNewPage && isRangePage) {
@@ -339,12 +349,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
       </div>
 
       <ReviewsTwoColumn
-        reviews={
-          getSectionsData(
-            ['sectionsAsArray', 'reviews', '0', 'reviews'],
-            pageData?.genericPage,
-          ) || []
-        }
+        reviews={reviewsData?.rangeDetails?.customerReviews || []}
       />
 
       <div className="row:default">
