@@ -80,7 +80,7 @@ describe('<WhyChooseVanarama />', () => {
       return renderer
         .create(
           <WhyChooseVanarama
-            title="Why Choose Vanarama"
+            title="Why Choose Vanarama?"
             accordionsData={ACCORDION_ITEMS}
           />,
         )
