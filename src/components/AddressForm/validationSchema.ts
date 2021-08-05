@@ -13,11 +13,6 @@ export default Yup.object().shape({
       address: Yup.object()
         .required('Please enter your address')
         .test(
-          'requiredAddress',
-          'Please enter your address',
-          (value: Nullish<TAddressEntry['address']>) => value?.id !== 'null',
-        )
-        .test(
           'unacceptableCountries',
           'We are not able to accept applications from Northern Ireland',
           (value: Nullish<TAddressEntry['address']>) =>
