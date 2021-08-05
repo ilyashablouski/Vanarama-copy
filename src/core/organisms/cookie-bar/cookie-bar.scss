@@ -19,8 +19,9 @@
   }
 
   @include mobile {
-    left: 15px;
+    left: 50%;
     bottom: 15px;
+    transform: translateX(-50%);
     max-width: calc(100% - 30px);
     padding-top: 18px;
     padding-bottom: 14px;
@@ -35,18 +36,21 @@
   }
 
   &__text {
+    display: block;
+    margin-bottom: 12px;
     font-size: 15px !important;
+
+    .link {
+      white-space: nowrap;
+    }
   }
 
   &__actions {
-    margin-top: 12px;
+    margin: -5px -10px;
 
     .button {
       width: 94px;
-
-      &:not(:last-child) {
-        margin-right: 16px;
-      }
+      margin: 5px 10px;
     }
   }
 }
