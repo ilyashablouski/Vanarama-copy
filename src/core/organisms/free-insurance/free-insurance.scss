@@ -4,36 +4,21 @@
 }
 .pdp-free-insurance-banner {
   display: flex;
-  background: #ea6308;
-  width: calc( 100% + 32px);
-  height: 40px;
-  padding: 0 20px;
-  align-items: center;
-  color: white;
-  margin-left: -16px;
-  svg {
-    width: 24px;
-  }
-  span {
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0 auto 0 12px;
-  }
-  a {
-    font-size: 12px;
-    text-decoration: underline;
+  justify-content: space-between;
+  background: #F8BB20;
+  padding: 8px 20px 8px 13px;
+
+  &--text {
+    font-family: VA Heading, -apple-system, system-ui, sans-serif, -system-emoji;
+    line-height: 24px;
+    font-size: 17px;
   }
 
-  // Desktop
-  @media (min-width:1216px) {
-    width: calc(100% + 101px);
-    margin-left: unset;
-    span {
-      font-size: 18px;
-    }
-    a {
-      font-size: 14px;
-    }
+  &--link {
+    letter-spacing: 0px;
+    font-weight: 600;
+    line-height: 24px;
+    text-decoration: underline;
   }
 }
 
