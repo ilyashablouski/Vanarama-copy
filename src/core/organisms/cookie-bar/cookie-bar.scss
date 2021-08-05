@@ -1,0 +1,52 @@
+.cookie-bar {
+  position: fixed;
+  left: 30px;
+  bottom: 30px;
+  display: block !important;
+  width: 347px;
+  max-width: calc(100% - 60px);
+  padding: 22px 25px 16px;
+  border-radius: 6px;
+  text-align: center;
+  background: $white;
+  box-shadow: 0 0 15px #00000021;
+  transition: all .45s ease-out;
+  z-index: 999;
+
+  &.-hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  @include mobile {
+    left: 15px;
+    bottom: 15px;
+    max-width: calc(100% - 30px);
+    padding-top: 18px;
+    padding-bottom: 14px;
+  }
+
+  &__close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: inline-flex;
+    cursor: pointer;
+  }
+
+  &__text {
+    font-size: 15px !important;
+  }
+
+  &__actions {
+    margin-top: 12px;
+
+    .button {
+      width: 94px;
+
+      &:not(:last-child) {
+        margin-right: 16px;
+      }
+    }
+  }
+}

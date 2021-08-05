@@ -52,6 +52,7 @@ const ToastContainer = dynamic(
     ssr: false,
   },
 );
+const CookieBar = dynamic(() => import('core/organisms/cookie-bar'));
 const ComparatorBar = dynamic(() => import('core/organisms/comparator-bar'), {
   ssr: false,
 });
@@ -191,7 +192,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-
+        <CookieBar />
         <ComparatorBar
           deleteVehicle={async vehicle => {
             const vehicles = await deleteCompare(vehicle);
