@@ -128,7 +128,7 @@ const SoleTraderCompanyDetailsForm: React.FC<ISoleTraderCompanyDetailsFormProps>
             required: 'Please enter the registered business address',
             validate: (
               value: ISoleTraderCompanyDetailsFormValues['tradingAddress'],
-            ) => validateCompanyAddress(value?.id ? value?.id : value?.label),
+            ) => validateCompanyAddress(value?.label),
           }}
           hint="Enter Postcode Or Just Start Typing Address"
         />

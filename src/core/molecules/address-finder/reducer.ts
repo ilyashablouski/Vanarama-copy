@@ -43,7 +43,7 @@ export const createInitState = (value?: IAddressSuggestion) => ({
   preventBlur: false,
   showManualForm: false,
   inputType:
-    value && value.id !== undefined
+    (value && value.id !== undefined) || value === undefined
       ? InputTypeEnum.LOOKUP
       : InputTypeEnum.MANUAL,
 });
