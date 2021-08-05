@@ -7,12 +7,27 @@ import Button from 'core/atoms/button';
 import CloseSharp from '../../assets/icons/CloseSharp';
 import RouterLink from '../../../components/RouterLink';
 
-function CookieBar() {
+interface IProps {
+  onAccept: () => void;
+  onDecline: () => void;
+}
+
+function CookieBar({ onAccept, onDecline }: IProps) {
   const [isActive, setActive] = useState(true);
   const [isVisible, setVisible] = useState(false);
 
   function hideCookieBar() {
-    setVisible(!isVisible);
+    setVisible(false);
+  }
+
+  function handleAcceptClick() {
+    hideCookieBar();
+    onAccept();
+  }
+
+  function handleDeclineClick() {
+    hideCookieBar();
+    onDecline();
   }
 
   function handleTransitionEnd({
@@ -69,13 +84,13 @@ function CookieBar() {
           fill="solid"
           color="primary"
           label="Accept"
-          onClick={hideCookieBar}
+          onClick={handleAcceptClick}
         />
         <Button
           fill="outline"
           color="primary"
           label="Decline"
-          onClick={hideCookieBar}
+          onClick={handleDeclineClick}
         />
       </div>
     </div>

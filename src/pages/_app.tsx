@@ -192,7 +192,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-        <CookieBar />
+        <CookieBar onAccept={() => {}} onDecline={() => {}} />
         <ComparatorBar
           deleteVehicle={async vehicle => {
             const vehicles = await deleteCompare(vehicle);
