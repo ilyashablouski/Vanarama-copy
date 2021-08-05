@@ -23,11 +23,3 @@ export interface ISoleTraderCompanyDetailsFormProps {
   natureOfBusiness: string[];
   setNatureOfBusiness: (values: string[]) => void;
 }
-
-export interface ISoleTraderCompanyAddressEntry {
-  tradingAddress: IAddressSuggestion;
-}
-
-export const EMPTY_SOLE_TRADER_ADDRESS_ENTRY: ISoleTraderCompanyAddressEntry = {
-  tradingAddress: { id: 'null' },
-};
