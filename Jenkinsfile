@@ -9,6 +9,7 @@ if (branchName =~ /PR-\d+/) {
     branchName = "${env.CHANGE_BRANCH}"
 }
 
+
 def app_environment = [
     "dev": [
         clusterName: 'grid-dev',
