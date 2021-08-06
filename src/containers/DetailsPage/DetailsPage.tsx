@@ -664,6 +664,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             quote={quote}
             capId={capId}
             isShowFreeInsuranceMerch={isCar && !!isSpecialOffer}
+            isShowFreeHomeChargerMerch={
+              data?.derivativeInfo?.fuelType?.name === 'Electric'
+            }
             onCompletedCallBack={onCompletedCallBack}
             vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
@@ -722,6 +725,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           quote={quote}
           capId={capId}
           isShowFreeInsuranceMerch={isCar && !!isSpecialOffer}
+          isShowFreeHomeChargerMerch={
+            data?.derivativeInfo?.fuelType?.name === 'Electric'
+          }
           vehicleType={vehicleType}
           derivativeInfo={derivativeInfo}
           leaseAdjustParams={leaseAdjustParams}

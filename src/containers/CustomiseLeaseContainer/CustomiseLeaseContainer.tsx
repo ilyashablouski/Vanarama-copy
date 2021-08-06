@@ -80,6 +80,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   setMileage,
   pickups,
   isShowFreeInsuranceMerch,
+  isShowFreeHomeChargerMerch,
   roadsideAssistance,
   warrantyDetails,
 }) => {
@@ -345,6 +346,7 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
         showCallBackForm={() => setShowCallBackForm(true)}
         pickups={pickups}
         isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
+        isShowFreeHomeChargerMerch={isShowFreeHomeChargerMerch}
         roadsideAssistance={roadsideAssistance}
         warrantyDetails={warrantyDetails}
       />
