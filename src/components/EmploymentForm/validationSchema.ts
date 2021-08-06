@@ -1,8 +1,6 @@
 import * as Yup from 'yup';
 import { WORLDWIDE_MOBILE_REGEX } from '../../utils/regex';
 import { checkFuture } from '../../utils/validation';
-import { Nullish } from '../../types/common';
-import { TAddressEntry } from '../AddressForm/interfaces';
 
 const requiredWhenEmployed = (message: string) => (
   status: string,
@@ -10,14 +8,7 @@ const requiredWhenEmployed = (message: string) => (
 ) =>
   // TODO: Work out how to get these magic strings from the BE instead
   status === 'Employed' || status === 'Self employed'
-    ? schema
-        .nullable()
-        .required(message)
-        .test(
-          'requiredAddress',
-          'Please enter the company address',
-          (value: Nullish<TAddressEntry['address']>) => value?.id !== 'null',
-        )
+    ? schema.nullable().required(message)
     : schema.nullable();
 
 export default Yup.object().shape({

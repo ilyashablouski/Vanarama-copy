@@ -1,10 +1,6 @@
-export interface IReviewCard {
-  summary: string;
-  customerName: string;
-  rating: number;
-}
+import { rangeDetails_rangeDetails_customerReviews } from '../../../generated/rangeDetails';
 
 export interface ReviewsTwoColumnProps {
-  reviews: IReviewCard[];
+  reviews: (rangeDetails_rangeDetails_customerReviews | null)[] | null;
   sliderClassName?: string;
 }

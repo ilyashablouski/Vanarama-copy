@@ -20,7 +20,7 @@ export interface IAddressFormProps {
 }
 
 export const EMPTY_ADDRESS_ENTRY: TAddressEntry = {
-  address: { id: 'null' },
+  address: undefined,
   month: '',
   status: '',
   year: '',

@@ -55,9 +55,6 @@ export function checkForUnacceptableCountries(value: Nullish<string>) {
 }
 
 export function validateCompanyAddress(value: Nullish<string>) {
-  if (value === 'null') {
-    return 'Please enter the registered business address';
-  }
   return checkForUnacceptableCountries(value)
     ? 'We are not able to accept applications from Northern Ireland'
     : undefined;
