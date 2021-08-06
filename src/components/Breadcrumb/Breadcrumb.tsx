@@ -29,19 +29,7 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
   const { items, dataTestId } = props;
 
   const renderParent = (item: IBreadcrumbLink) =>
-    !isDesktopOrTablet ? (
-      <li className="breadcrumb-item -parent" key={`${item.link.label}-mobile`}>
-        <RouterLink
-          classNames={{ color: 'teal', size: 'small' }}
-          className="breadcrumb-item--backlink"
-          link={item.link}
-          as={item.as}
-        >
-          <Icon icon={<ChevronBack />} color="teal" />
-          Back to {decodeURIComponent(item.link.label)}
-        </RouterLink>
-      </li>
-    ) : (
+    isDesktopOrTablet ? (
       <li
         className="breadcrumb-item -parent"
         key={`${item.link.label}-desktop`}
@@ -55,6 +43,18 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
           {decodeURIComponent(item.link.label)}
         </RouterLink>
         <Icon icon={<ChevronForward />} size="xsmall" color="medium" />
+      </li>
+    ) : (
+      <li className="breadcrumb-item -parent" key={`${item.link.label}-mobile`}>
+        <RouterLink
+          classNames={{ color: 'teal', size: 'small' }}
+          className="breadcrumb-item--backlink"
+          link={item.link}
+          as={item.as}
+        >
+          <Icon icon={<ChevronBack />} color="teal" />
+          Back to {decodeURIComponent(item.link.label)}
+        </RouterLink>
       </li>
     );
 
