@@ -1,3 +1,17 @@
+@keyframes fadeIn {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
 .cookie-bar {
   position: fixed;
   left: 30px;
@@ -9,12 +23,11 @@
   text-align: center;
   background: $white;
   box-shadow: 0 0 15px #00000021;
-  transition: all .45s ease-out;
+  animation: fadeIn .45s ease-out 1.5s backwards;
   z-index: 999;
 
-  &.-hidden {
-    visibility: hidden;
-    opacity: 0;
+  &.-hide {
+    animation: fadeOut .45s ease-out forwards;
   }
 
   @include mobile {

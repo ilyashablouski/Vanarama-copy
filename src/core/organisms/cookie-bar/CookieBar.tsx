@@ -1,4 +1,4 @@
-import React, { TransitionEvent, useEffect, useState } from 'react';
+import React, { AnimationEvent, useState } from 'react';
 import cx from 'classnames';
 
 import Text from 'core/atoms/text';
@@ -14,7 +14,7 @@ interface IProps {
 
 function CookieBar({ onAccept, onDecline }: IProps) {
   const [isActive, setActive] = useState(true);
-  const [isVisible, setVisible] = useState(false);
+  const [isVisible, setVisible] = useState(true);
 
   function hideCookieBar() {
     setVisible(false);
@@ -33,28 +33,18 @@ function CookieBar({ onAccept, onDecline }: IProps) {
   function handleTransitionEnd({
     target,
     currentTarget,
-  }: TransitionEvent<HTMLDivElement>) {
+  }: AnimationEvent<HTMLDivElement>) {
     if (target === currentTarget && !isVisible) {
       setActive(false);
     }
   }
 
-  useEffect(() => {
-    const timerId = setTimeout(() => {
-      setVisible(true);
-    }, 1000);
-
-    return () => {
-      clearTimeout(timerId);
-    };
-  }, []);
-
   return isActive ? (
     <div
       role="dialog"
-      onTransitionEnd={handleTransitionEnd}
+      onAnimationEnd={handleTransitionEnd}
       className={cx('cookie-bar', {
-        '-hidden': !isVisible,
+        '-hide': !isVisible,
       })}
     >
       <button
