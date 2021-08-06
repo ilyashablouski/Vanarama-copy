@@ -14,11 +14,17 @@ const DrawerActions = ({
 }: IProps) => {
   return (
     <div className="actions">
-      <Button label="Reset" fill="outline" onClick={onResetFilters} />
+      <Button
+        label="Reset"
+        fill="outline"
+        onClick={onResetFilters}
+        size="initial-size"
+      />
       <Button
         onClick={onCloseDrawer}
         color="primary"
         className="update-results"
+        size="initial-size"
         label={`
                 View ${totalResults} ${pluralise(totalResults, {
           one: 'Result',

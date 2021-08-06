@@ -4,36 +4,21 @@
 }
 .pdp-free-insurance-banner {
   display: flex;
-  background: #ea6308;
-  width: calc( 100% + 32px);
-  height: 40px;
-  padding: 0 20px;
-  align-items: center;
-  color: white;
-  margin-left: -16px;
-  svg {
-    width: 24px;
-  }
-  span {
-    font-size: 14px;
-    font-weight: bold;
-    margin: 0 auto 0 12px;
-  }
-  a {
-    font-size: 12px;
-    text-decoration: underline;
+  justify-content: space-between;
+  background: #F8BB20;
+  padding: 8px 20px 8px 13px;
+
+  &--text {
+    font-family: VA Heading, -apple-system, system-ui, sans-serif, -system-emoji;
+    line-height: 24px;
+    font-size: 17px;
   }
 
-  // Desktop
-  @media (min-width:1216px) {
-    width: calc(100% + 101px);
-    margin-left: unset;
-    span {
-      font-size: 18px;
-    }
-    a {
-      font-size: 14px;
-    }
+  &--link {
+    letter-spacing: 0px;
+    font-weight: 600;
+    line-height: 24px;
+    text-decoration: underline;
   }
 }
 
@@ -43,12 +28,32 @@
   flex-direction: column;
   align-items: flex-end;
   position: absolute;
+  width: 100%;
   top: 0;
   right: 0;
 
   .promotion-item {
     border-radius: 0px 0px 0px 6px;
-    padding: 5px 14px 3px 9px;
+    padding: 5px 14px 4px 9px;
+    font-family: VA Heading, -apple-system, system-ui, sans-serif, -system-emoji;
+    letter-spacing: 0px;
+
+    @include mobile {
+      padding: 4px 14px 3px 9px;
+      font-size: 13px;
+      line-height: 19px;
+    }
+
+    &-regular-text {
+      line-height: 20px;
+      font-size: 13px;
+      font-weight: 300;
+    }
+
+    &-accent-text {
+      line-height: 20px;
+      font-size: 13px;
+    }
 
     &.--primary {
       background-color: #F8BB20;
@@ -74,6 +79,10 @@
     border: 3px solid #ea6308;
     border-radius: 0.375rem;
     min-height: 187px;
+    @include mobile375 {
+      padding: 10px;
+    }
+
     .icon {
       height: auto;
     }
@@ -90,7 +99,6 @@
         color: black;
       }
       p {
-        font-size: 19px;
         line-height: normal;
         span {
           font-weight: bold;

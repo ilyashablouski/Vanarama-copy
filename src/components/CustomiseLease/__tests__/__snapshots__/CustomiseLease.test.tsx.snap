@@ -15,34 +15,48 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     Is this for you, or for your business?
   </span>
   <div
-    className="choice-boxes -cols-2 -teal"
+    className="choice-boxes-v2 button-group -solid -teal"
   >
-    <button
-      className="choice-box"
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="Personal"
+      name="leaseType"
+      onChange={[Function]}
+      type="radio"
+      value="Personal"
+    />
+    <label
+      className="choice-box"
+      htmlFor="Personal"
     >
       <span
         className="choice-label"
       >
         Personal
       </span>
-    </button>
-    <button
-      className="choice-box -active"
+    </label>
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="Business"
+      name="leaseType"
+      onChange={[Function]}
+      type="radio"
+      value="Business"
+    />
+    <label
+      className="choice-box"
+      htmlFor="Business"
     >
       <span
         className="choice-label"
       >
         Business
       </span>
-    </button>
+    </label>
   </div>
   <span
     className="heading -black -regular"
@@ -52,10 +66,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     <span
       className="text -b -regular -orange"
     >
-      8000 Miles
+      8000
+       Miles
     </span>
   </span>
-  <div
+  <label
     className="sliding-input"
     onClick={[Function]}
     onMouseDown={[Function]}
@@ -64,7 +79,6 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     onMouseUp={[Function]}
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
-    role="button"
     style={
       Object {
         "--length": 3,
@@ -72,6 +86,16 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       }
     }
   >
+    <input
+      className="sliding-input-control visually-hidden"
+      disabled={false}
+      max={3}
+      min={1}
+      onChange={[Function]}
+      step={1}
+      type="range"
+      value={1}
+    />
     <div
       className="sliding-input-fill"
     >
@@ -97,7 +121,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     >
       10K
     </div>
-  </div>
+  </label>
   <span
     className="heading -black -regular"
   >
@@ -110,34 +134,48 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </span>
   <div
-    className="choice-boxes -cols-2 -teal"
+    className="choice-boxes-v2 button-group -solid -teal"
   >
-    <button
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
+      disabled={false}
+      id="24, 36"
+      name="terms"
+      onChange={[Function]}
+      type="radio"
+      value="24, 36"
+    />
+    <label
       className="choice-box"
-      disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      htmlFor="24, 36"
     >
       <span
         className="choice-label"
       >
-        24
+        24, 36
       </span>
-    </button>
-    <button
-      className="choice-box -active"
+    </label>
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="77"
+      name="terms"
+      onChange={[Function]}
+      type="radio"
+      value="77"
+    />
+    <label
+      className="choice-box"
+      htmlFor="77"
     >
       <span
         className="choice-label"
       >
-        36
+        77
       </span>
-    </button>
+    </label>
   </div>
   <span
     className="heading -black -regular"
@@ -165,34 +203,48 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </span>
   <div
-    className="choice-boxes -cols-2 -teal"
+    className="choice-boxes-v2 button-group -solid -teal"
   >
-    <button
-      className="choice-box"
+    <input
+      checked={true}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="1"
+      name="upfront"
+      onChange={[Function]}
+      type="radio"
+      value="1"
+    />
+    <label
+      className="choice-box -active"
+      htmlFor="1"
     >
       <span
         className="choice-label"
       >
         1
       </span>
-    </button>
-    <button
-      className="choice-box -active"
+    </label>
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="3"
+      name="upfront"
+      onChange={[Function]}
+      type="radio"
+      value="3"
+    />
+    <label
+      className="choice-box"
+      htmlFor="3"
     >
       <span
         className="choice-label"
       >
         3
       </span>
-    </button>
+    </label>
   </div>
   <span
     className="heading -flex-h -black -regular"
@@ -305,7 +357,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
   <span
     className="heading -black -regular"
   >
-    Add Maintenance:
+    Add Vanarama Service Plan (Our Maintenance Package):
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -328,7 +380,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         className="radio"
       >
         <input
-          className="radio--native"
+          className="radio--native visually-hidden"
           defaultChecked={false}
           disabled={false}
           id="maintenanceCost"
@@ -351,7 +403,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         className="radio"
       >
         <input
-          className="radio--native"
+          className="radio--native visually-hidden"
           defaultChecked={true}
           disabled={false}
           id="leaseCost"
@@ -503,9 +555,9 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-4-Maintenance:"
+            data-testid="data_id-4-Vanarama Service Plan:"
           >
-            Maintenance:
+            Vanarama Service Plan:
           </div>
           <div
             className="structured-list-td"
@@ -753,34 +805,48 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     Is this for you, or for your business?
   </span>
   <div
-    className="choice-boxes -cols-2 -teal"
+    className="choice-boxes-v2 button-group -solid -teal"
   >
-    <button
-      className="choice-box"
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="Personal"
+      name="leaseType"
+      onChange={[Function]}
+      type="radio"
+      value="Personal"
+    />
+    <label
+      className="choice-box"
+      htmlFor="Personal"
     >
       <span
         className="choice-label"
       >
         Personal
       </span>
-    </button>
-    <button
-      className="choice-box -active"
+    </label>
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="Business"
+      name="leaseType"
+      onChange={[Function]}
+      type="radio"
+      value="Business"
+    />
+    <label
+      className="choice-box"
+      htmlFor="Business"
     >
       <span
         className="choice-label"
       >
         Business
       </span>
-    </button>
+    </label>
   </div>
   <span
     className="heading -black -regular"
@@ -790,10 +856,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <span
       className="text -b -regular -orange"
     >
-      8000 Miles
+      8000
+       Miles
     </span>
   </span>
-  <div
+  <label
     className="sliding-input"
     onClick={[Function]}
     onMouseDown={[Function]}
@@ -802,7 +869,6 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     onMouseUp={[Function]}
     onTouchEnd={[Function]}
     onTouchMove={[Function]}
-    role="button"
     style={
       Object {
         "--length": 3,
@@ -810,6 +876,16 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       }
     }
   >
+    <input
+      className="sliding-input-control visually-hidden"
+      disabled={false}
+      max={3}
+      min={1}
+      onChange={[Function]}
+      step={1}
+      type="range"
+      value={1}
+    />
     <div
       className="sliding-input-fill"
     >
@@ -835,7 +911,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     >
       10K
     </div>
-  </div>
+  </label>
   <span
     className="heading -black -regular"
   >
@@ -848,34 +924,48 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </span>
   <div
-    className="choice-boxes -cols-2 -teal"
+    className="choice-boxes-v2 button-group -solid -teal"
   >
-    <button
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
+      disabled={false}
+      id="24, 36"
+      name="terms"
+      onChange={[Function]}
+      type="radio"
+      value="24, 36"
+    />
+    <label
       className="choice-box"
-      disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      htmlFor="24, 36"
     >
       <span
         className="choice-label"
       >
-        24
+        24, 36
       </span>
-    </button>
-    <button
-      className="choice-box -active"
+    </label>
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="77"
+      name="terms"
+      onChange={[Function]}
+      type="radio"
+      value="77"
+    />
+    <label
+      className="choice-box"
+      htmlFor="77"
     >
       <span
         className="choice-label"
       >
-        36
+        77
       </span>
-    </button>
+    </label>
   </div>
   <span
     className="heading -black -regular"
@@ -903,34 +993,48 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </span>
   <div
-    className="choice-boxes -cols-2 -teal"
+    className="choice-boxes-v2 button-group -solid -teal"
   >
-    <button
-      className="choice-box"
+    <input
+      checked={true}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="1"
+      name="upfront"
+      onChange={[Function]}
+      type="radio"
+      value="1"
+    />
+    <label
+      className="choice-box -active"
+      htmlFor="1"
     >
       <span
         className="choice-label"
       >
         1
       </span>
-    </button>
-    <button
-      className="choice-box -active"
+    </label>
+    <input
+      checked={false}
+      className="choice-input visually-hidden"
       disabled={false}
-      onClick={[Function]}
-      style={Object {}}
-      type="button"
+      id="3"
+      name="upfront"
+      onChange={[Function]}
+      type="radio"
+      value="3"
+    />
+    <label
+      className="choice-box"
+      htmlFor="3"
     >
       <span
         className="choice-label"
       >
         3
       </span>
-    </button>
+    </label>
   </div>
   <span
     className="heading -flex-h -black -regular"
@@ -1043,7 +1147,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
   <span
     className="heading -black -regular"
   >
-    Add Maintenance:
+    Add Vanarama Service Plan (Our Maintenance Package):
     <span
       className="text -b -ml-100 -regular -orange"
     >
@@ -1066,7 +1170,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         className="radio"
       >
         <input
-          className="radio--native"
+          className="radio--native visually-hidden"
           defaultChecked={false}
           disabled={false}
           id="maintenanceCost"
@@ -1089,7 +1193,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         className="radio"
       >
         <input
-          className="radio--native"
+          className="radio--native visually-hidden"
           defaultChecked={true}
           disabled={false}
           id="leaseCost"
@@ -1241,9 +1345,9 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
-            data-testid="data_id-4-Maintenance:"
+            data-testid="data_id-4-Vanarama Service Plan:"
           >
-            Maintenance:
+            Vanarama Service Plan:
           </div>
           <div
             className="structured-list-td"

@@ -254,4 +254,5 @@ export interface BlogPost {
 
 export interface BlogPostVariables {
   slug: string;
+  isPreview?: boolean | null;
 }

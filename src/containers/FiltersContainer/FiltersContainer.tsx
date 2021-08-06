@@ -65,7 +65,9 @@ const FiltersContainer = ({
   );
   const isDesktop = useMediaQuery('(min-width: 1217px)');
   const [isOpenFilter, setFilterExpandStatus] = useState(false);
-  const [customCTAColor, setCustomCTAColor] = useState();
+  const [customCTAColor, setCustomCTAColor] = useState<string | undefined>(
+    undefined,
+  );
 
   const [selectedFiltersState, setSelectedFiltersState] = useState<
     ISelectedFiltersState

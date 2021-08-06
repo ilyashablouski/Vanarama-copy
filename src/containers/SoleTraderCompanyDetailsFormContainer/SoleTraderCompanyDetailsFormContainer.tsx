@@ -33,6 +33,7 @@ const SoleTraderCompanyDetailsFormContainer: React.FC<ISoleTraderCompanyDetailsF
   const [mappedCompanyDetails, setMappedCompanyDetails] = React.useState<
     ISoleTraderCompanyDetailsFormValues
   >();
+
   const [updateSoleTraderCompanyDetails] = useUpdateSoleTraderCompanyMutation();
   const [createUpdateOrder] = useCreateUpdateOrder(() => {});
   const [createUpdateApplication] = useCreateUpdateCreditApplication(

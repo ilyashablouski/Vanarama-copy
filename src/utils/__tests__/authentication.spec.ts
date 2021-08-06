@@ -1,4 +1,4 @@
-import { isUserAuthenticated } from './authentication';
+import { isUserAuthenticated } from '../authentication';
 
 const ID_COOKIE_NAME = 'ic';
 const ID_COOKIE_VALUE = '1';

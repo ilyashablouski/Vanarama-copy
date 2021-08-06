@@ -9,6 +9,9 @@ import {
 } from '../../../generated/globalTypes';
 import { GetLeaseCompanyData as ILeaseData } from '../../../generated/GetLeaseCompanyData';
 
+export const formatPrice = (price?: number | null) =>
+  parseFloat((price || 0).toFixed(2));
+
 /**
  * @param leaseType - string, offer leaseType
  * @param offer - offer
@@ -22,8 +25,8 @@ export const createOlafDetails = (
   isFreeInsurance: offer.freeInsurance?.optIn || null,
   price:
     offer.maintenance && offer.maintenancePrice && offer.monthlyPayment
-      ? offer.monthlyPayment + offer.maintenancePrice
-      : offer.monthlyPayment || 0,
+      ? formatPrice(offer.monthlyPayment + offer.maintenancePrice)
+      : formatPrice(offer.monthlyPayment),
   priceDescription: `Per Month ${
     leaseType === LeaseTypeEnum.PERSONAL ? 'Inc' : 'Ex'
   }.VAT`,
@@ -31,8 +34,8 @@ export const createOlafDetails = (
   initailRental: offer.depositPayment
     ? `£${
         offer.maintenance && offer.maintenancePrice
-          ? offer.maintenancePrice + offer.depositPayment
-          : offer.depositPayment
+          ? formatPrice(offer.maintenancePrice + offer.depositPayment)
+          : formatPrice(offer.depositPayment)
       } (${leaseType === LeaseTypeEnum.PERSONAL ? 'inc.' : 'ex.'} VAT)`
     : '-',
   contractLength: offer.term ? `${offer.term} month` : '-',

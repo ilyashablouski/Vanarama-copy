@@ -79,6 +79,16 @@ export enum OpportunityTypeEnum {
   QUOTE = "QUOTE",
 }
 
+export enum PdpVehicleType {
+  Car = "Car",
+  ElectricCar = "ElectricCar",
+  ElectricHotOffersCars = "ElectricHotOffersCars",
+  ElectricVan = "ElectricVan",
+  HotOffersCars = "HotOffersCars",
+  Pickup = "Pickup",
+  Van = "Van",
+}
+
 export enum ProductDerivativeSortDirection {
   ASC = "ASC",
   DESC = "DESC",
@@ -86,6 +96,7 @@ export enum ProductDerivativeSortDirection {
 
 export enum ProductDerivativeSortField {
   availability = "availability",
+  availabilitySort = "availabilitySort",
   initialPayment = "initialPayment",
   mileage = "mileage",
   offerRanking = "offerRanking",
@@ -265,6 +276,20 @@ export interface CompanyInputObject {
   uuid?: string | null;
   vatNumber?: string | null;
   withTradingAddress?: boolean | null;
+}
+
+/**
+ * Input object for a sole trader
+ */
+export interface CompanySoleTraderInputObject {
+  addresses?: AddressInputObject[] | null;
+  associate?: CompanyAssociateInputObject | null;
+  bankAccount?: BankAccountInputObject | null;
+  emailAddress?: EmailAddressInputObject | null;
+  person?: PersonInputObject | null;
+  telephoneNumbers?: TelephoneNumberInputObject[] | null;
+  turnoverPercentageOutsideUk?: TurnoverPercentageOutsideUkInputObject[] | null;
+  uuid?: string | null;
 }
 
 /**
@@ -699,7 +724,9 @@ export interface ProductDerivativeFilter {
   noOfSeats?: MinMax | null;
   noOfGears?: (number | null)[] | null;
   engineSize?: MinMax | null;
+  engineSizeGroup?: string | null;
   mpg?: number | null;
+  mpgGroup?: string | null;
   terms?: (number | null)[] | null;
   mileages?: (number | null)[] | null;
   initialPeriods?: (number | null)[] | null;
@@ -707,6 +734,7 @@ export interface ProductDerivativeFilter {
   budget?: MinMax | null;
   initialPayment?: MinMax | null;
   co2?: number | null;
+  co2Group?: string | null;
   enginePowerBhp?: MinMax | null;
   heights?: (number | null)[] | null;
   lengths?: (number | null)[] | null;

@@ -18,6 +18,8 @@ import RouterLink from '../../components/RouterLink';
 import ReviewsTwoColumn from '../../components/ReviewsTwoColumn/ReviewsTwoColumn';
 import NewRangeCarousel from './NewRangeCarousel';
 import Skeleton from '../../components/Skeleton';
+import { getRangeReviews } from './gql';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -43,6 +45,14 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
   isRangePage,
 }) => {
   let countListAccordion = 0;
+
+  const { data: reviewsData } = getRangeReviews(
+    getSectionsData(
+      ['sectionsAsArray', 'reviews', '0', 'rangeId'],
+      pageData?.genericPage,
+    ),
+    VehicleTypeEnum.CAR,
+  );
 
   const getDataAccordion = (treeGetData: string[], pageDatas: any) => {
     if (isNewPage && isRangePage) {
@@ -75,6 +85,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         <section className="row:featured-left">
           <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <Image
+              className="card-image"
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={getSectionsData(
                 ['sectionsAsArray', 'featured', '1', 'image', 'file', 'url'],
@@ -158,6 +169,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
             </div>
 
             <Image
+              className="card-image"
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={getSectionsData(
                 ['sectionsAsArray', 'featured', '2', 'image', 'file', 'url'],
@@ -170,6 +182,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         <section className="row:featured-left">
           <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <Image
+              className="card-image"
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={getSectionsData(
                 ['sectionsAsArray', 'featured', '3', 'image', 'file', 'url'],
@@ -280,6 +293,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
       <section className="row:featured-left">
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Image
+            className="card-image"
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={getSectionsData(
               ['sectionsAsArray', 'featured', '5', 'image', 'file', 'url'],
@@ -323,27 +337,45 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         </LazyLoadComponent>
       </section>
 
-      <div className="row:default">
-        <Media
-          src={getSectionsData(
-            ['sectionsAsArray', 'featured', '6', 'video'],
-            pageData?.genericPage,
-          )}
-          width="100%"
-          height="670px"
-        />
-      </div>
+      {getSectionsData(
+        ['sectionsAsArray', 'featured', '6', 'video'],
+        pageData?.genericPage,
+      ) && (
+        <div className="row:default">
+          <Media
+            src={getSectionsData(
+              ['sectionsAsArray', 'featured', '6', 'video'],
+              pageData?.genericPage,
+            )}
+            width="100%"
+            height="670px"
+          />
+        </div>
+      )}
 
       <ReviewsTwoColumn
-        reviews={
-          getSectionsData(
-            ['sectionsAsArray', 'reviews', '0', 'reviews'],
-            pageData?.genericPage,
-          ) || []
-        }
+        reviews={reviewsData?.rangeDetails?.customerReviews || []}
       />
 
       <div className="row:default">
+        <Heading
+          className="-mb-400"
+          size="large"
+          color="black"
+          tag={
+            getTitleTag(
+              getSectionsData(
+                ['sectionsAsArray', 'featured', '7', 'titleTag'],
+                pageData?.genericPage,
+              ) || 'p',
+            ) as keyof JSX.IntrinsicElements
+          }
+        >
+          {getSectionsData(
+            ['sectionsAsArray', 'featured', '7', 'title'],
+            pageData?.genericPage,
+          )}
+        </Heading>
         <div className="markdown full-width">
           <ReactMarkdown
             allowDangerousHtml

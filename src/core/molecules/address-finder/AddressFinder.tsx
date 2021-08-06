@@ -11,7 +11,7 @@ import AddressFinderResults from './components/AddressFinderResults';
 import AddressFinderSelected from './components/AddressFinderSelected';
 import { AddressFinderProvider } from './context';
 import { IAddressFinderProps, IManualAddressFormValues } from './interfaces';
-import reducer, { initialState, InputTypeEnum } from './reducer';
+import reducer, { createInitState, InputTypeEnum } from './reducer';
 import { suggestionToDisplay } from './utils';
 
 export type AddressFinderComponent = React.FC<IAddressFinderProps> & {
@@ -36,7 +36,7 @@ const AddressFinder: AddressFinderComponent = ({
   onSuggestionChange,
   selected,
 }) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
+  const [state, dispatch] = useReducer(reducer, createInitState(selected));
 
   // Debounce state changes to value so we don't execute lots of XHR requests
   const text = useDebounce(state.value.label || '');
@@ -49,7 +49,7 @@ const AddressFinder: AddressFinderComponent = ({
   const { data } = useLoqate(
     query,
     { apiKey, country: 'GB', limit: 50 },
-    shouldSkipLookUp,
+    false,
   );
 
   function handleSuggestionSelect(loqateSuggestion: ILoqateSuggestion) {

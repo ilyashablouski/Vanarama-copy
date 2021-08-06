@@ -1,5 +1,4 @@
 import { IAddressSuggestion } from 'core/molecules/address-finder/interfaces';
-import { formatAddress } from 'core/molecules/address-finder/AddressFinder';
 import {
   DirectorDetailsFormValues,
   DirectorFormValues,
@@ -15,6 +14,7 @@ import {
   GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_directorsDetailsV2_directors_addresses as ICreditApplicationAdresses,
 } from '../../../generated/GetCreditApplicationByOrderUuid';
 import { CompanyAssociate_addresses } from '../../../generated/CompanyAssociate';
+import { addressToDisplay } from '../../utils/address';
 
 export const mapFormValues = (
   values: DirectorDetailsFormValues,
@@ -63,11 +63,11 @@ export const mapHistoryAddresses = (
   data?: ICreditApplicationAdresses | null,
 ): IAddressSuggestion => {
   return {
-    id: data?.uuid ?? '',
+    id: data?.serviceId || undefined,
     city: data?.city ?? '',
     country: data?.country ?? '',
     lineOne: data?.lineOne ?? '',
-    label: formatAddress(data),
+    label: data ? addressToDisplay(data) : '',
     lineTwo: data?.lineTwo ?? '',
     postcode: data?.postcode ?? '',
   };

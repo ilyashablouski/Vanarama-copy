@@ -54,6 +54,12 @@ import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { pushAddToCartHeap } from '../../utils/heapHelpers';
 import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import WishlistToggle from './WishlistToggle';
+import {
+  GetPdpContent as IGetPdpContentQuery,
+  GetPdpContent_pdpContent_banners,
+  GetPdpContent_pdpContent_content_questionAnswers,
+} from '../../../generated/GetPdpContent';
+import { buildAccordionItems } from './helpers';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -73,14 +79,8 @@ const MediaGallery = dynamic(() => import('core/organisms/media-gallery'), {
 const LeaseScanner = dynamic(() => import('core/organisms/lease-scanner'), {
   loading: () => <Skeleton count={3} />,
 });
-const ShieldFreeInsurance = dynamic(() =>
-  import('core/assets/icons/ShieldFreeInsurance'),
-);
 const IndependentReview = dynamic(() =>
   import('../../components/IndependentReview/IndependentReview'),
-);
-const FreeInsuranceCards = dynamic(() =>
-  import('../../components/FreeInsuranceCards/FreeInsuranceCards'),
 );
 const WhyChooseLeasing = dynamic(
   () => import('../../components/WhyChooseLeasing/WhyChooseLeasing'),
@@ -88,7 +88,7 @@ const WhyChooseLeasing = dynamic(
     loading: () => <Skeleton count={3} />,
   },
 );
-const Banner = dynamic(() => import('../../components/Banner/Banner'));
+const Banners = dynamic(() => import('./Banners'));
 const CustomerReviews = dynamic(() =>
   import('../../components/CustomerReviews/CustomerReviews'),
 );
@@ -120,6 +120,11 @@ const CustomerAlsoViewedContainer = dynamic(() =>
 );
 const InsuranceModal = dynamic(() => import('./InsuranceModal'));
 
+const INSURANCE_LINK = {
+  href: '/car-leasing/free-car-insurance',
+  label: 'Find Out More',
+};
+
 interface IDetailsPageProps {
   capId: number;
   cars?: boolean;
@@ -135,6 +140,7 @@ interface IDetailsPageProps {
   colourList: IColourList[];
   productCard: GetProductCard | null;
   leaseTypeQuery?: LeaseTypeEnum | null;
+  pdpContent: IGetPdpContentQuery | null;
 }
 
 const DetailsPage: React.FC<IDetailsPageProps> = ({
@@ -152,6 +158,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   colourList,
   productCard,
   leaseTypeQuery,
+  pdpContent: pdpContentData,
 }) => {
   const router = useRouter();
   const pdpContent = React.useRef<HTMLDivElement>(null);
@@ -172,6 +179,16 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     quote?.quoteByCapId?.mileage || null,
   );
 
+  const accordionQAData = useMemo(
+    () =>
+      buildAccordionItems(
+        (pdpContentData?.pdpContent?.content?.[0]
+          ?.questionAnswers as GetPdpContent_pdpContent_content_questionAnswers[]) ||
+          [],
+      ),
+    [pdpContentData],
+  );
+
   useEffect(() => {
     setCachedLeaseType(leaseType);
   }, [leaseType, setCachedLeaseType]);
@@ -187,7 +204,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   };
 
   const price = leaseScannerData?.quoteByCapId?.leaseCost?.monthlyRental;
-  const vehicleValue = data?.vehicleDetails?.vehicleValue;
+  const vehicleValue = useMemo(() => data?.vehicleDetails?.vehicleValue, [
+    data,
+  ]);
 
   useEffect(() => {
     setSessionStorage('vehicleValue', vehicleValue);
@@ -521,16 +540,18 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         ref={pdpContent}
       >
         {isSpecialOffer && isCar && (
-          <div className="pdp-free-insurance-banner -white">
-            <ShieldFreeInsurance />
-            <Text tag="span" color="white">
+          <div className="pdp-free-insurance-banner">
+            <Text
+              tag="span"
+              color="black"
+              className="pdp-free-insurance-banner--text"
+            >
               1 Year&apos;s FREE Insurance
             </Text>
             <RouterLink
-              link={{
-                href: '/car-leasing/free-car-insurance',
-                label: 'Find Out More',
-              }}
+              link={INSURANCE_LINK}
+              classNames={{ color: 'black', size: 'regular' }}
+              className="pdp-free-insurance-banner--link"
             />
           </div>
         )}
@@ -597,14 +618,18 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           derivativeInfo={derivativeInfo}
           standardEquipment={standardEquipment}
         />
-        {isSpecialOffer && isCar && (
-          <LazyLoadComponent
-            visibleByDefault={isServerRenderOrAppleDevice}
-            placeholder={<span className="-d-block -h-300" />}
-          >
-            <FreeInsuranceCards />
-          </LazyLoadComponent>
-        )}
+
+        <LazyLoadComponent
+          visibleByDefault={isServerRenderOrAppleDevice}
+          placeholder={<span className="-d-block -h-300" />}
+        >
+          <Banners
+            cards={
+              (pdpContentData?.pdpContent
+                ?.banners as GetPdpContent_pdpContent_banners[]) || []
+            }
+          />
+        </LazyLoadComponent>
         {isMobile && vehicleDetails?.brochureUrl && (
           <Button
             className="pdp--mobile-download"
@@ -626,7 +651,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             }
           />
         )}
-        {(vans || (cars && !isSpecialOffer)) && <Banner vans={vans} />}
         {(vans || pickups) && !!independentReview && (
           <LazyLoadComponent
             visibleByDefault={isServerRenderOrAppleDevice}
@@ -665,7 +689,10 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           placeholder={<span className="-d-block -h-400" />}
         >
           <WhyChooseLeasing warrantyDetails={warrantyDetails} />
-          <WhyChooseVanarama cars={cars} vans={vans} pickups={pickups} />
+          <WhyChooseVanarama
+            accordionsData={accordionQAData}
+            title={pdpContentData?.pdpContent?.content?.[0]?.title || ''}
+          />
         </LazyLoadComponent>
         <section className="pdp--reviews" id="reviews">
           <LazyLoadComponent

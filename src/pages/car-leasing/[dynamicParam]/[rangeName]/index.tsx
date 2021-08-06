@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { ApolloQueryResult } from '@apollo/client';
 import { SlugNextPageContext } from 'types/common';
-import { isNewRangePagesFeatureEnabled } from 'utils/helpers';
 import createApolloClient from '../../../../apolloClient';
 import {
   GET_VEHICLE_LIST,
@@ -53,6 +52,7 @@ interface IProps extends ISearchPageProps {
   topOffersCardsData?: GetProductCard;
   defaultSort?: SortObject[];
   newRangePageSlug?: string;
+  isNewRangePage?: Boolean;
 }
 
 const Page: NextPage<IProps> = ({
@@ -72,6 +72,7 @@ const Page: NextPage<IProps> = ({
   makeParam,
   defaultSort,
   newRangePageSlug,
+  isNewRangePage,
 }) => {
   const router = useRouter();
   // De-obfuscate data for user
@@ -130,6 +131,7 @@ const Page: NextPage<IProps> = ({
       preLoadTopOffersCardsData={topOffersCardsData}
       defaultSort={defaultSort}
       newRangePageSlug={newRangePageSlug}
+      isNewRangePage={isNewRangePage}
     />
   );
 };
@@ -153,11 +155,15 @@ export async function getServerSideProps(context: SlugNextPageContext) {
       },
       query: { ...context.query },
     };
+    // TODO: Cookie should be removed after feature release
+    const isNewRangePage = context?.req?.headers?.cookie?.includes(
+      'DIG-6496=1',
+    );
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
       contextData,
       true,
-      isNewRangePagesFeatureEnabled &&
+      isNewRangePage &&
         NEW_RANGE_SLUGS.includes(contextData.req?.resolvedUrl || '')
         ? 'isNewRangePage'
         : 'isRangePage',
@@ -292,6 +298,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
         rangeParam: (context?.query?.rangeName as string).toLowerCase(),
         defaultSort: defaultSort || null,
         newRangePageSlug: contextData.req?.resolvedUrl || '',
+        isNewRangePage,
       },
     };
   } catch {

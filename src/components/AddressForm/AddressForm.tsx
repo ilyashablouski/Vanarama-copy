@@ -39,6 +39,7 @@ const AddressForm: FCWithFragments<IAddressFormProps> = ({
   onSubmit,
 }) => {
   const context = useContext(OlafContext);
+
   return (
     <Formik<IFormValues>
       initialValues={responseToInitialFormValues(addresses)}
@@ -98,7 +99,11 @@ AddressForm.fragments = {
       serviceId
       lineOne
       lineTwo
+      lineThree
       postcode
+      country
+      kind
+      endedOn
       city
       propertyStatus
       startedOn

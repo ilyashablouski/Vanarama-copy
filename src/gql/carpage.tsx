@@ -196,3 +196,33 @@ export function useTrimAndColour(
     },
   );
 }
+
+export const GET_PDP_CONTENT = gql`
+  query GetPdpContent($vehicleType: PdpVehicleType!, $isPreview: Boolean) {
+    pdpContent(vehicleType: $vehicleType, isPreview: $isPreview) {
+      title
+      vehicleType
+      content {
+        title
+        questionAnswers {
+          question
+          answer
+        }
+      }
+      banners {
+        title
+        description
+        image {
+          title
+          file {
+            url
+          }
+        }
+        link {
+          text
+          url
+        }
+      }
+    }
+  }
+`;

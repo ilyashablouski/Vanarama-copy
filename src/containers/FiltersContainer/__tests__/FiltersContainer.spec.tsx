@@ -247,7 +247,7 @@ describe('<FiltersContainer />', () => {
     );
     await waitFor(() => {
       expect(screen.getByText('diesel')).toBeInTheDocument();
-      fireEvent.click(screen.getByText('Business'));
+      fireEvent.click(screen.getByText(/Business/i));
       expect(mocks.setType).toBeCalled();
     });
   });

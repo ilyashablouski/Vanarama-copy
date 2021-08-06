@@ -8,6 +8,8 @@ import React, { useEffect, useState } from 'react';
 import cx from 'classnames';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { useApolloClient } from '@apollo/client';
+import { useMediaQuery } from 'react-responsive';
+import { isGlobalSearchFeatureEnabled } from '../utils/helpers';
 import {
   PAGES_WITHOUT_LEASE_RESET,
   removeUrlQueryPart,
@@ -167,9 +169,19 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     return 'page:default';
   };
 
+  // TODO: when global search feature will release move styles from main tag to css
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 1215px)' });
+  const [isAddPadding, setIsAddPadding] = useState(false);
+  useEffect(() => {
+    setIsAddPadding(isGlobalSearchFeatureEnabled() && isTabletOrMobile);
+  }, [isTabletOrMobile]);
+
   return (
     <>
-      <main className={cx(resolveMainClass())}>
+      <main
+        className={cx(resolveMainClass())}
+        style={isAddPadding ? { paddingTop: '104px' } : {}}
+      >
         <HeaderContainer />
         <CompareContext.Provider
           value={{

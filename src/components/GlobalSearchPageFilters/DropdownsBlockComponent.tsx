@@ -9,6 +9,7 @@ import {
 } from '../../containers/GlobalSearchPageContainer/interfaces';
 import SelectedBox from './SelectedBox';
 import SelectedDropdown from './SelectedDropdown';
+import {getSelectedValues} from "./helpers";
 
 interface IProps {
   filterConfig: IFiltersConfig;
@@ -116,9 +117,7 @@ const DropdownsBlockComponent = ({
         />
       )}
       selected={
-        selectedTags.filter(
-          selectedBlocks => selectedBlocks.filterKey === key,
-        )?.[0]?.tags || []
+        getSelectedValues(innerSelects, activeFilters) as unknown[]
       }
     >
       {(innerSelects as IInnerSelect[])?.map(

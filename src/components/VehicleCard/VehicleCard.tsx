@@ -15,6 +15,7 @@ import useWishlist from '../../hooks/useWishlist';
 import { isWished } from '../../utils/wishlistHelpers';
 import ElectricVehicleBanner from '../ElectricVehicleBanner';
 import FreeInsuranceBanner from '../FreeInsuranceBanner';
+import { FuelTypeEnum } from '../../../entities/global';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -136,10 +137,12 @@ const VehicleCard = React.memo(
         }}
       >
         <div className="gallery-promotion-container">
-          {fuelType?.value === 'Electric' && <ElectricVehicleBanner />}
-          {data?.isOnOffer && data?.vehicleType === VehicleTypeEnum.CAR && (
-            <FreeInsuranceBanner />
+          {fuelType?.value === FuelTypeEnum.ELECTRIC && !isModelPage && (
+            <ElectricVehicleBanner />
           )}
+          {data?.isOnOffer &&
+            data?.vehicleType === VehicleTypeEnum.CAR &&
+            !isModelPage && <FreeInsuranceBanner />}
         </div>
         <div className="-flex-h">
           <Price

@@ -88,7 +88,7 @@ export const DEFAULT_SORT = [
     direction: ProductDerivativeSortDirection.ASC,
   },
   {
-    field: ProductDerivativeSortField.availability,
+    field: ProductDerivativeSortField.availabilitySort,
     direction: ProductDerivativeSortDirection.ASC,
   },
   {

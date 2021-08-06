@@ -27,6 +27,7 @@ export const PAGE_TYPES = {
   vehicleReview: 'Vehicle Review',
   nonBlogPage: 'Non-Blog',
   wishlist: 'Wishlist',
+  guides: 'Guides',
 };
 
 export const SITE_SECTIONS = {
@@ -186,7 +187,7 @@ export const PAGES = [
   },
   {
     pages: ['/van-leasing'],
-    pageType: PAGE_TYPES.PLP,
+    pageType: PAGE_TYPES.hubPage,
     siteSection: SITE_SECTIONS.vans,
   },
   {
@@ -211,7 +212,7 @@ export const PAGES = [
   },
   {
     pages: ['/insurance'],
-    pageType: PAGE_TYPES.insuranceTypePage,
+    pageType: PAGE_TYPES.hubPage,
     siteSection: SITE_SECTIONS.insurance,
   },
   {
@@ -251,12 +252,21 @@ export const PAGES = [
   },
   {
     pages: ['/pickup-truck-leasing'],
-    pageType: PAGE_TYPES.PLP,
+    pageType: PAGE_TYPES.hubPage,
     siteSection: SITE_SECTIONS.pickUps,
   },
   {
+    pages: [
+      '/electric-leasing/vans/electric-vans-explained',
+      '/electric-leasing/cars/electric-cars-explained',
+      '/electric-leasing/cars/[evHubParam]',
+    ],
+    pageType: PAGE_TYPES.guides,
+    siteSection: SITE_SECTIONS.electric,
+  },
+  {
     pages: ['/electric-leasing'],
-    pageType: PAGE_TYPES.PLP,
+    pageType: PAGE_TYPES.hubPage,
     siteSection: SITE_SECTIONS.electric,
   },
   {
