@@ -27,6 +27,10 @@ yarn-error.log*
 
 # env
 .env.secret
+.env.dev
+.env.uat
+.env.pre-prod
+.env.prod
 
 public/sitemap.xml
 
