@@ -1,13 +1,12 @@
 import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Button from 'core/atoms/button/Button';
-import Facebook from 'core/assets/icons/Facebook';
+import LogoFacebookV2 from 'core/assets/icons/LogoFacebookV2';
 import Icon from 'core/atoms/icon/Icon';
-import Twitter from 'core/assets/icons/Twitter';
-import Instagram from 'core/assets/icons/Instagram';
-import Linkedin from 'core/assets/icons/Linkedin';
-import YouTube from 'core/assets/icons/YouTube';
+import LogoTwitterV2 from 'core/assets/icons/LogoTwitterV2';
+import LogoInstagramV2 from 'core/assets/icons/LogoInstagramV2';
+import LogoLinkedinV2 from 'core/assets/icons/LogoLinkedinV2';
+import LogoYouTubeV2 from 'core/assets/icons/LogoYouTubeV2';
 import Logo from 'core/atoms/logo';
 import { PrimaryFooter_primaryFooter_linkGroups as LinkGroups } from '../../../generated/PrimaryFooter';
 import RouterLink from '../RouterLink/RouterLink';
@@ -25,31 +24,31 @@ interface IFooterColumn {
   linkGroup: LinkGroups | null;
 }
 
-const socialButton = [
+const socialButtons = [
   {
     id: 'Facebook',
-    link: '/',
-    icon: <Facebook />,
+    link: 'https://www.facebook.com/vanarama/',
+    icon: <LogoFacebookV2 />,
   },
   {
     id: 'Twitter',
-    link: '/',
-    icon: <Twitter />,
+    link: 'https://twitter.com/Vanarama',
+    icon: <LogoTwitterV2 />,
   },
   {
     id: 'Instagram',
-    link: '/',
-    icon: <Instagram />,
+    link: 'https://www.instagram.com/vanaramauk/',
+    icon: <LogoInstagramV2 />,
   },
   {
     id: 'Linkedin',
-    link: '/',
-    icon: <Linkedin />,
+    link: 'https://www.linkedin.com/company/vanarama',
+    icon: <LogoLinkedinV2 />,
   },
   {
     id: 'YouTube',
-    link: '/',
-    icon: <YouTube />,
+    link: 'https://www.youtube.com/user/vanaramauk',
+    icon: <LogoYouTubeV2 />,
   },
 ];
 
@@ -112,7 +111,7 @@ const FooterColumn: FC<IFooterColumn> = props => {
             </ul>
 
             <div className="footer--social-icons">
-              {socialButton.map(item => (
+              {socialButtons.map(item => (
                 <div
                   key={item.id}
                   className="button -white -small -outline -round"
@@ -130,10 +129,7 @@ const FooterColumn: FC<IFooterColumn> = props => {
                 </div>
               ))}
             </div>
-
-            <a href="/" target="_blank">
-              <Logo asset="bvrla" />
-            </a>
+            <Logo asset="bvrla" />
           </>
         )}
       </div>
