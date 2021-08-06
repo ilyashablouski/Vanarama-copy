@@ -30,10 +30,10 @@ const ThreeColumnSection: React.FC<ThreeColumnSectionProps> = ({
         <h3 className="heading -large -black -a-center -mb-500">{title}</h3>
 
         <div className="row:cards-3col -a-center -mb-500">
-          {cards?.map((item: CardItem) => {
+          {cards?.map((item: CardItem, idx: number) => {
             return (
               <>
-                <div>
+                <div key={idx.toString()}>
                   <Image
                     src={
                       getSectionsData(['image', 'file', 'url'], item) ||
