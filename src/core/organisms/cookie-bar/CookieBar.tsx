@@ -10,9 +10,10 @@ import RouterLink from '../../../components/RouterLink';
 interface IProps {
   onAccept: () => void;
   onDecline: () => void;
+  shouldRender: () => boolean;
 }
 
-function CookieBar({ onAccept, onDecline }: IProps) {
+function CookieBar({ onAccept, onDecline, shouldRender }: IProps) {
   const [isActive, setActive] = useState(true);
   const [isVisible, setVisible] = useState(true);
 
@@ -30,11 +31,18 @@ function CookieBar({ onAccept, onDecline }: IProps) {
     onDecline();
   }
 
-  function handleAnimationEnd({
-    target,
-    currentTarget,
+  function handleAnimationStart({
+    animationName,
   }: AnimationEvent<HTMLDivElement>) {
-    if (target === currentTarget && !isVisible) {
+    if (animationName === 'fadeIn' && !shouldRender()) {
+      setActive(false);
+    }
+  }
+
+  function handleAnimationEnd({
+    animationName,
+  }: AnimationEvent<HTMLDivElement>) {
+    if (animationName === 'fadeOut') {
       setActive(false);
     }
   }
@@ -42,6 +50,7 @@ function CookieBar({ onAccept, onDecline }: IProps) {
   return isActive ? (
     <div
       role="dialog"
+      onAnimationStart={handleAnimationStart}
       onAnimationEnd={handleAnimationEnd}
       className={cx('cookie-bar', {
         '-hide': !isVisible,

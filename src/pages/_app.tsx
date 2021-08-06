@@ -29,6 +29,11 @@ import {
   pushPageData,
   pushPageViewEvent,
 } from '../utils/dataLayerHelpers';
+import {
+  acceptCookieBlueConic,
+  declineCookieBlueConic,
+  shouldRenderCookieBar,
+} from '../utils/blueConicHelpers';
 
 import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
@@ -192,7 +197,11 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-        <CookieBar onAccept={() => {}} onDecline={() => {}} />
+        <CookieBar
+          onAccept={acceptCookieBlueConic}
+          onDecline={declineCookieBlueConic}
+          shouldRender={shouldRenderCookieBar}
+        />
         <ComparatorBar
           deleteVehicle={async vehicle => {
             const vehicles = await deleteCompare(vehicle);
