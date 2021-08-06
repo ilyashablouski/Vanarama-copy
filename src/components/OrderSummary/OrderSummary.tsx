@@ -4,6 +4,7 @@ import { getOrderList } from '../../utils/helpers';
 import { IProps } from './interfaces';
 import Skeleton from '../Skeleton';
 import FreeInsuranceLabel from '../FreeInsuranceLabel';
+import FreeHomeChargerLabel from '../FreeHomeChargerLabel';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -21,6 +22,7 @@ const OrderSummary: React.FC<IProps> = ({
   trim,
   pickups,
   isShowFreeInsuranceMerch,
+  isShowFreeHomeChargerMerch,
   roadsideAssistance,
   warrantyDetails,
 }) => {
@@ -75,9 +77,13 @@ const OrderSummary: React.FC<IProps> = ({
         editable={false}
         list={orderSummaryList}
       />
+      {!isShowFreeInsuranceMerch && isShowFreeHomeChargerMerch && (
+        <FreeHomeChargerLabel />
+      )}
       {isShowFreeInsuranceMerch && (
         <>
           <FreeInsuranceLabel />
+          {isShowFreeHomeChargerMerch && <FreeHomeChargerLabel />}
           <div className="subject-to---">
             <span>
               <sup>*</sup>Subject to Eligibility

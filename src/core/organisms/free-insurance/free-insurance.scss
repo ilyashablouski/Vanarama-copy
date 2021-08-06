@@ -163,6 +163,22 @@
     }
   }
 }
+
+.free-home-charger {
+  &--container {
+    margin-top: 12px;
+    display: flex;
+    padding: 4px 9px 4px 6px;
+    background: #47C0D8;
+    border-radius: 4px;
+  }
+
+  &--icon {
+    line-height: 17px;
+    margin-right: 5px;
+  }
+}
+
 .yellow-tag {
   display: flex;
   align-items: center;
