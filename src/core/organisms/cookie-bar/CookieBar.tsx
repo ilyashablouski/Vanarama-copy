@@ -30,7 +30,7 @@ function CookieBar({ onAccept, onDecline }: IProps) {
     onDecline();
   }
 
-  function handleTransitionEnd({
+  function handleAnimationEnd({
     target,
     currentTarget,
   }: AnimationEvent<HTMLDivElement>) {
@@ -42,7 +42,7 @@ function CookieBar({ onAccept, onDecline }: IProps) {
   return isActive ? (
     <div
       role="dialog"
-      onAnimationEnd={handleTransitionEnd}
+      onAnimationEnd={handleAnimationEnd}
       className={cx('cookie-bar', {
         '-hide': !isVisible,
       })}
