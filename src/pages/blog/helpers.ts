@@ -1,6 +1,6 @@
 import { getBlogBreadCrumbsFromSlug } from '../../utils/breadcrumbs';
 import { IBreadcrumb, IBreadcrumbLink } from '../../types/breadcrumbs';
-import { IMetaDataSection } from './interfaces';
+import { IMetaDataSection } from '../../types/common';
 
 function getBreadCrumbsItems(
   metaData: IMetaDataSection,
