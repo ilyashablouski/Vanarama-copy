@@ -46,8 +46,8 @@ const WhyEligibilityChecker: FC<IWhyEligibilityChecker> = ({
       </Text>
       {iconList?.length && (
         <IconList>
-          {iconList.map((el, indx) => (
-            <IconListItem iconColor="orange" key={indx.toString()}>
+          {iconList.map((el, index) => (
+            <IconListItem iconColor="orange" key={index.toString()}>
               {el?.text}
             </IconListItem>
           ))}

@@ -975,8 +975,8 @@ const SearchPageContainer: React.FC<IProps> = ({
           <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
             {isDesktopOrTablet
               ? metaData?.name
-              : titleWithBreaks.map((line, idx) => (
-                  <React.Fragment key={String(idx)}>
+              : titleWithBreaks.map((line, index) => (
+                  <React.Fragment key={String(index)}>
                     {line} <br />
                   </React.Fragment>
                 ))}
@@ -1325,11 +1325,11 @@ const SearchPageContainer: React.FC<IProps> = ({
                       className="-col3"
                     >
                       {carousel?.cards.map(
-                        (card, indx) =>
+                        (card, index) =>
                           card && (
                             <Card
                               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                              key={`${card.name}_${indx.toString()}`}
+                              key={`${card.name}_${index.toString()}`}
                               className="card__article"
                               imageSrc={
                                 card?.image?.file?.url ||

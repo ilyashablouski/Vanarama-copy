@@ -61,11 +61,11 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
       indexOfFirstOffer,
       indexOfLastOffer,
     );
-    return showCards?.map((reviewCard, idx) => (
+    return showCards?.map((reviewCard, index) => (
       <Card
         loadImage
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        key={idx.toString()}
+        key={index.toString()}
         title={{
           title: reviewCard.title || '',
           score: Number(reviewCard.reviewRating) || 0,

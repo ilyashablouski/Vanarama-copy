@@ -244,7 +244,7 @@ export const PickupsPage: NextPage<IProps> = ({
           <Heading size="large" color="black">
             Hot Deals - Fastest Delivery
           </Heading>
-          {productsPickup?.productCarousel?.map((item, idx) => {
+          {productsPickup?.productCarousel?.map((item, index) => {
             const productUrl = formatProductPageUrl(
               getLegacyUrl(vehicleListUrlData.edges, item?.capId),
               item?.capId,
@@ -255,12 +255,12 @@ export const PickupsPage: NextPage<IProps> = ({
 
             return (
               <LazyLoadComponent
-                key={item?.capId || idx}
+                key={item?.capId || index}
                 visibleByDefault={isServerRenderOrAppleDevice}
               >
                 <ProductCard
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  key={item?.capId || idx}
+                  key={item?.capId || index}
                   header={{
                     accentIcon: <Icon icon={<Flame />} color="white" />,
                     accentText: 'Hot Offer',
@@ -368,12 +368,12 @@ export const PickupsPage: NextPage<IProps> = ({
           {data?.hubPickupPage.sections?.steps?.heading}
         </Heading>
         {data?.hubPickupPage.sections?.steps?.steps?.map(
-          (step: StepData, idx: number) => (
+          (step: StepData, index: number) => (
             <Step
               className="-mh-auto"
-              key={step.title || idx}
+              key={step.title || index}
               heading={step.title || ''}
-              step={idx + 1}
+              step={index + 1}
               text={step.body || ''}
             />
           ),
@@ -515,8 +515,8 @@ export const PickupsPage: NextPage<IProps> = ({
           {data?.hubPickupPage.sections?.tiles1?.name}
         </Heading>
         {data?.hubPickupPage.sections?.tiles1?.tiles?.map(
-          (acc: AccessoryData, idx: number) => (
-            <div key={acc.title || idx}>
+          (acc: AccessoryData, index: number) => (
+            <div key={acc.title || index}>
               <Image
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 size="expand"
@@ -586,8 +586,8 @@ export const PickupsPage: NextPage<IProps> = ({
             {data && data?.hubPickupPage.sections?.tiles2?.tilesTitle}
           </Heading>
           {data?.hubPickupPage.sections?.tiles2?.tiles?.map(
-            (tile: TileData, idx: number) => (
-              <div key={tile.title || idx}>
+            (tile: TileData, index: number) => (
+              <div key={tile.title || index}>
                 <Tile className="-plain -button -align-center" plain>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Image
