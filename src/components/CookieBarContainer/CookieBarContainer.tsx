@@ -4,7 +4,7 @@ import {
   acceptCookieBlueConic,
   declineCookieBlueConic,
   shouldRenderCookieBar,
-} from 'utils/blueConicHelpers';
+} from '../../utils/blueConicHelpers';
 
 import CookieBar from 'core/organisms/cookie-bar';
 
