@@ -6,7 +6,11 @@ import CookieBar from '../CookieBar';
 describe('<CookieBar />', () => {
   it('should render correctly', () => {
     const wrapper = mount(
-      <CookieBar onAccept={jest.fn()} onDecline={jest.fn()} />,
+      <CookieBar
+        onAccept={jest.fn()}
+        onDecline={jest.fn()}
+        shouldRender={() => true}
+      />,
     );
     expect(wrapper).toMatchSnapshot();
   });
