@@ -354,8 +354,8 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
           >
             {data && tiles.tilesTitle}
           </Heading>
-          {tiles.tiles?.map((tile: any, idx: number) => (
-            <div key={tile.title || idx}>
+          {tiles.tiles?.map((tile: any, index: number) => (
+            <div key={tile.title || index}>
               <Tile className="-plain -button -align-center" plain>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <Image
