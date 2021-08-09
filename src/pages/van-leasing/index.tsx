@@ -400,10 +400,10 @@ export const VansPage: NextPage<IProps> = ({
             {(getSectionsData(
               ['cards', 'cards'],
               data?.hubVanPage.sections,
-            ) as CardData[])?.map((card: CardData, idx) => (
+            ) as CardData[])?.map((card: CardData, index) => (
               <Card
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={card.title || idx}
+                key={card.title || index}
                 title={{
                   title: '',
                   withBtn: true,
@@ -458,12 +458,12 @@ export const VansPage: NextPage<IProps> = ({
           {(getSectionsData(
             ['steps', 'steps'],
             data?.hubVanPage.sections,
-          ) as StepData[])?.map((step: StepData, idx) => (
+          ) as StepData[])?.map((step: StepData, index) => (
             <Step
               className="-mh-auto"
-              key={step.title || idx}
+              key={step.title || index}
               heading={step.title || ''}
-              step={idx + 1}
+              step={index + 1}
               text={step.body || ''}
             />
           ))}
@@ -665,8 +665,8 @@ export const VansPage: NextPage<IProps> = ({
           {(getSectionsData(
             ['tiles', 'tiles'],
             data?.hubVanPage.sections,
-          ) as TileData[])?.map((tile: TileData, idx) => (
-            <div key={tile.title || idx}>
+          ) as TileData[])?.map((tile: TileData, index) => (
+            <div key={tile.title || index}>
               <Tile className="-plain -button -align-center" plain>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <Image
