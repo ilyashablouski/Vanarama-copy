@@ -1,9 +1,12 @@
 import { getBlogBreadCrumbsFromSlug } from '../../utils/breadcrumbs';
-import { IBreadcrumb } from '../../types/breadcrumbs';
+import { IBreadcrumb, IBreadcrumbLink } from '../../types/breadcrumbs';
+import { IBreadCrumbsItems } from './interfaces';
 
-function getBreadCrumbsItems(metaData: any): IBreadcrumb[] {
+function getBreadCrumbsItems(
+  metaData: IBreadCrumbsItems,
+): IBreadcrumbLink[] | null {
   return metaData?.breadcrumbs
-    ? metaData?.breadcrumbs?.map((el: any) => ({
+    ? metaData?.breadcrumbs?.map((el: IBreadcrumb) => ({
         link: { href: el.href || '', label: el.label },
       }))
     : getBlogBreadCrumbsFromSlug(metaData.slug);
