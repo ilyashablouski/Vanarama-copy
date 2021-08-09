@@ -8,6 +8,7 @@ exports[`<CookieBar /> should render correctly 1`] = `
   <div
     className="cookie-bar"
     onAnimationEnd={[Function]}
+    onAnimationStart={[Function]}
     role="dialog"
   >
     <button
