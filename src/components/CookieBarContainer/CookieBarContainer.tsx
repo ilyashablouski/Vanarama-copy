@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 
+import CookieBar from 'core/organisms/cookie-bar';
+
 import {
   acceptCookieBlueConic,
   declineCookieBlueConic,
   shouldRenderCookieBar,
 } from '../../utils/blueConicHelpers';
-
-import CookieBar from 'core/organisms/cookie-bar';
 
 function CookieBarContainer() {
   const [shouldComponentRender, setShouldComponentRender] = useState(true);
