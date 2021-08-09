@@ -1,6 +1,6 @@
 import { IBreadcrumb } from '../../types/breadcrumbs';
 
-export interface IBreadCrumbsItems {
+export interface IMetaDataSection {
   breadcrumbs: IBreadcrumb[] | null;
   canonicalUrl: string | null;
   legacyUrl: string | null;
