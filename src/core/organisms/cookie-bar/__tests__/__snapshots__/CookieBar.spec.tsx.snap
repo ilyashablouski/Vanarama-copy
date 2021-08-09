@@ -3,8 +3,9 @@
 exports[`<CookieBar /> should render correctly 1`] = `
 <CookieBar
   onAccept={[MockFunction]}
+  onAfterHide={[MockFunction]}
+  onBeforeShow={[MockFunction]}
   onDecline={[MockFunction]}
-  shouldRender={[Function]}
 >
   <div
     className="cookie-bar"

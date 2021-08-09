@@ -29,15 +29,11 @@ import {
   pushPageData,
   pushPageViewEvent,
 } from '../utils/dataLayerHelpers';
-import {
-  acceptCookieBlueConic,
-  declineCookieBlueConic,
-  shouldRenderCookieBar,
-} from '../utils/blueConicHelpers';
 
 import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
+import CookieBarContainer from '../components/CookieBarContainer';
 import { PAGES_WITHOUT_DEFERRED_STYLES } from '../components/Head/defaults';
 import { removeSessionStorageItem } from '../utils/windowSessionStorage';
 import {
@@ -197,11 +193,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-        <CookieBar
-          onAccept={acceptCookieBlueConic}
-          onDecline={declineCookieBlueConic}
-          shouldRender={shouldRenderCookieBar}
-        />
+        <CookieBarContainer />
         <ComparatorBar
           deleteVehicle={async vehicle => {
             const vehicles = await deleteCompare(vehicle);

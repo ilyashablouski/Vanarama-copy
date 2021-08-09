@@ -9,7 +9,8 @@ describe('<CookieBar />', () => {
       <CookieBar
         onAccept={jest.fn()}
         onDecline={jest.fn()}
-        shouldRender={() => true}
+        onBeforeShow={jest.fn()}
+        onAfterHide={jest.fn()}
       />,
     );
     expect(wrapper).toMatchSnapshot();
