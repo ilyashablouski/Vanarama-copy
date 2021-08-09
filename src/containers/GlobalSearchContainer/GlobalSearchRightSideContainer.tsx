@@ -88,7 +88,7 @@ const GlobalSearchRightSideContainer = ({
           <span className="heading -small -dark">Vehicle Deals</span>
 
           <div className="card-two-columns -animate">
-            {suggestions.map((data, idx) => {
+            {suggestions.map((data, index) => {
               return (
                 <GlobalSearchCard
                   data={data}
@@ -98,7 +98,9 @@ const GlobalSearchRightSideContainer = ({
                       VehicleTypeEnum.LCV,
                   )}
                   key={
-                    `${data?.derivativeId}` || `${data?.derivativeName}` || idx
+                    `${data?.derivativeId}` ||
+                    `${data?.derivativeName}` ||
+                    index
                   }
                 />
               );

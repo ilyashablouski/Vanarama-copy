@@ -70,11 +70,11 @@ const PartnershipFeatureSection = ({
               {iconList.map(
                 (
                   el: Partner_partner_featured_iconList | null,
-                  indx: number,
+                  index: number,
                 ) => (
                   <IconListItem
                     iconColor="orange"
-                    key={indx.toString()}
+                    key={index.toString()}
                     listStyle="none"
                   >
                     {el?.text}

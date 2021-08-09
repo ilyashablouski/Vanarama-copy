@@ -20,8 +20,8 @@ const ArticleCarousel: React.FC<IEvCarouselProps> = ({ data }) => {
         </Heading>
         {data?.cards && (
           <Carousel countItems={3} className="-mh-auto about-us">
-            {data.cards.map((card, idx) => (
-              <Card imageSrc={card?.image?.file?.url} key={card?.name || idx}>
+            {data.cards.map((card, index) => (
+              <Card imageSrc={card?.image?.file?.url} key={card?.name || index}>
                 <div className="basic">
                   <Heading tag="p" color="black" className="-mb-400">
                     {card?.body}

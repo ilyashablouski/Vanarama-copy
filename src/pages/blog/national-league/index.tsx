@@ -11,6 +11,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
+import getBreadCrumbsItems from '../helpers';
 
 const CategoryPage: NextPage<IBlogCategory> = ({
   data: encodedData,
@@ -26,9 +27,7 @@ const CategoryPage: NextPage<IBlogCategory> = ({
   const articles = getSectionsData(['articles'], data?.blogPosts);
   const pageTitle = getSectionsData(['pageTitle'], data?.blogPosts);
   const metaData = getSectionsData(['metaData'], data?.blogPosts);
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
 
   return (
     <CategoryPageContainer

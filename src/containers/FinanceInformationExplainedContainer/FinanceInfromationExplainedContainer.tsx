@@ -239,9 +239,9 @@ const FinanceInformationExplainedContainer: FC<IProps> = ({
           <nav className="tabs -content-end -alt -lead -center">
             <div className="tabs__list-wrap">
               <div className="tabs__list" role="tablist">
-                {questionTypes?.map((type, idx) => (
+                {questionTypes?.map((type, index) => (
                   <button
-                    key={type || idx}
+                    key={type || index}
                     onClick={() => setQuestionType(type)}
                     type="button"
                     className={cx(

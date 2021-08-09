@@ -3,6 +3,7 @@ import {
   getPartnerProperties,
   isPartnerSessionActive,
 } from './partnerProperties';
+import { Nullish } from '../types/common';
 
 export function getBreadcrumbItems(breadcrumbs: IBreadcrumb[]) {
   const breadcrumbsItems = breadcrumbs?.map((el: IBreadcrumb) => ({
@@ -22,6 +23,52 @@ export function getBreadcrumbItems(breadcrumbs: IBreadcrumb[]) {
   return breadcrumbsItems;
 }
 
+export function getBlogBreadCrumbsFromSlug(slug: Nullish<string>) {
+  if (slug) {
+    const slugArray = slug.split('/');
+    const blogSlug = slugArray[0];
+    const blogCategorySlug = slugArray[1];
+    const blogPostSlug = slugArray[2];
+
+    const homePageLink = {
+      link: {
+        label: 'Home',
+        href: '/',
+      },
+    };
+
+    const blogLink = {
+      link: {
+        label: blogSlug,
+        href: `/${blogSlug}`,
+      },
+    };
+
+    const blogCategoryLink = {
+      link: {
+        label: blogCategorySlug
+          .replace(/-/g, ' ')
+          .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
+        href: `/${blogSlug}/${blogCategorySlug}`,
+      },
+    };
+
+    const blogPostLink = {
+      link: {
+        label: blogPostSlug
+          .replace(/-/g, ' ')
+          .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
+        href: `/${blogSlug}/${blogCategorySlug}/${blogPostSlug}`,
+      },
+    };
+
+    return [homePageLink, blogLink, blogCategoryLink, blogPostLink];
+  }
+
+  return null;
+}
+
 export default {
   getBreadcrumbItems,
+  getBlogBreadCrumbsFromSlug,
 };

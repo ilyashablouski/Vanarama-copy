@@ -83,15 +83,15 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
       initialSlideHeight={567}
     >
       {data.productCard?.map(
-        (product, inx) =>
+        (product, index) =>
           product && (
             <ProductCard
               // loadImage
               style={{ maxHeight: 600 }}
               alt={`${product?.manufacturerName} ${product?.modelName} ${product?.derivativeName}`}
-              lazyLoad={inx !== 0}
+              lazyLoad={index !== 0}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={`${product.capId}_${inx}` || ''}
+              key={`${product.capId}_${index}` || ''}
               header={
                 product.leadTime || product.isOnOffer
                   ? {
