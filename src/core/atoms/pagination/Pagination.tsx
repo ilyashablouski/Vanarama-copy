@@ -102,14 +102,14 @@ const Pagination: FC<IPaginationProps> = props => {
           <Icon icon={<ChevronBackSharp />} />
         </Link>
       )}
-      {pagesItem.map((page: any, inx: number) => {
+      {pagesItem.map((page: any, index: number) => {
         return page === '...' ? (
-          <div className="pagination--item --disabled" key={`${page + inx}`}>
+          <div className="pagination--item --disabled" key={`${page + index}`}>
             {page}
           </div>
         ) : (
           <Link
-            key={`${page + inx}`}
+            key={`${page + index}`}
             href={
               page === 1 && pathForFirstPage
                 ? `${pathForFirstPage}${pathWithHtml ? '.html' : ''}`

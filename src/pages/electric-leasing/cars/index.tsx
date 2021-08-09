@@ -122,7 +122,7 @@ const ECarsPage: NextPage<IProps> = ({
       <div className="row:cards-3col">
         {productsElectricOnlyCar?.productCarousel
           ?.slice(0, 6)
-          .map((item, idx) => {
+          .map((item, index) => {
             const productUrl = formatProductPageUrl(
               getLegacyUrl(vehicleListUrlData.edges, item?.capId),
               item?.capId,
@@ -130,7 +130,7 @@ const ECarsPage: NextPage<IProps> = ({
             return item ? (
               <VehicleCard
                 data={item}
-                key={item?.capId || idx}
+                key={item?.capId || index}
                 isPersonalPrice={false}
                 url={productUrl?.url}
                 title={{
@@ -249,8 +249,8 @@ const ECarsPage: NextPage<IProps> = ({
         >
           {sections?.tiles?.tilesTitle}
         </Heading>
-        {sections?.tiles?.tiles?.map((tile: TileData, idx) => (
-          <div key={tile.title || idx}>
+        {sections?.tiles?.tiles?.map((tile: TileData, index) => (
+          <div key={tile.title || index}>
             <Tile className="-plain -button -align-center" plain>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Image

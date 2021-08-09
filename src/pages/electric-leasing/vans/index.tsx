@@ -131,7 +131,7 @@ const EVansPage: NextPage<IProps> = ({
       <div className="row:cards-3col">
         {productsElectricOnlyVan?.productCarousel
           ?.slice(0, 6)
-          .map((item, idx) => {
+          .map((item, index) => {
             const productUrl = formatProductPageUrl(
               getLegacyUrl(vehicleListUrlData.edges, item?.capId),
               item?.capId,
@@ -139,7 +139,7 @@ const EVansPage: NextPage<IProps> = ({
             return (
               <ProductCard
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={item?.capId || idx}
+                key={item?.capId || index}
                 header={{
                   accentIcon: <Icon icon={<Flame />} color="white" />,
                   accentText: item?.isOnOffer ? 'Hot Offer' : '',
@@ -318,8 +318,8 @@ const EVansPage: NextPage<IProps> = ({
         >
           {sections?.tiles?.tilesTitle}
         </Heading>
-        {sections?.tiles?.tiles?.map((tile: TileData, idx) => (
-          <div key={tile.title || idx}>
+        {sections?.tiles?.tiles?.map((tile: TileData, index) => (
+          <div key={tile.title || index}>
             <Tile className="-plain -button -align-center" plain>
               <div style={{ display: 'flex', justifyContent: 'center' }}>
                 <Image

@@ -143,8 +143,8 @@ export const EVLeaseExplainedContainer: FC<IProps> = ({
             {sections?.tiles?.[0]?.tilesTitle}
           </Heading>
           <div className="-flex-default -two-items -mt-500">
-            {sections?.tiles?.[0]?.tiles?.map((tile: TileData, idx) => (
-              <div key={tile.title || idx}>
+            {sections?.tiles?.[0]?.tiles?.map((tile: TileData, index) => (
+              <div key={tile.title || index}>
                 <Heading
                   size="large"
                   color="black"
@@ -295,8 +295,8 @@ export const EVLeaseExplainedContainer: FC<IProps> = ({
 
       <section className="row:bg-default">
         <ul className="four-stats">
-          {sections?.steps?.[0]?.steps?.map((step, idx) => (
-            <li key={step.title || idx}>
+          {sections?.steps?.[0]?.steps?.map((step, index) => (
+            <li key={step.title || index}>
               <div className="heading -large -orange">{step.title}</div>
               <p className="heading -regular -darker">{step.body}</p>
             </li>

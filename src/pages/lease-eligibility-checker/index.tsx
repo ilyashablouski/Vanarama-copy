@@ -81,8 +81,8 @@ const EligibilityChecker: NextPage = () => {
   }
 
   const accordionItems = (questions: (QuestionAnswers | null)[]) => {
-    return questions.map((el, idx) => ({
-      id: idx,
+    return questions.map((el, index) => ({
+      id: index,
       title: el?.question || '',
       children: <>{el?.answer || ''}</>,
     }));
