@@ -33,10 +33,10 @@ const NewRangeCarousel: React.FC<NewRangeCarouselProps> = ({ newCarousel }) => {
             countItems={newCarousel?.cards?.length || 0}
             className="-col3"
           >
-            {newCarousel?.cards?.map((card, indx: number) => (
+            {newCarousel?.cards?.map((card, index: number) => (
               <Card
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={`${card?.name}_${indx.toString()}`}
+                key={`${card?.name}_${index.toString()}`}
                 className="card__article"
                 imageSrc={
                   card?.image?.file?.url ||

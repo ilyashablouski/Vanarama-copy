@@ -62,10 +62,10 @@ const ThankYouContainer: FC<IProps> = ({ sections }) => {
           <Heading size="large" color="black">
             {sections?.carousel?.title}
           </Heading>
-          {cards?.map((c: CardData, idx: number) => (
+          {cards?.map((c: CardData, index: number) => (
             <Card
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={c.title || idx}
+              key={c.title || index}
               title={{
                 title: '',
                 withBtn: true,

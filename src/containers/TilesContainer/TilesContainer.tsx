@@ -39,12 +39,12 @@ const TilesContainer: FCWithFragments<IProps> = ({ tiles, leasingOffers }) => {
         {tiles?.tiles?.length && (
           <div className="row:cards-2col" style={{ paddingTop: '10px' }}>
             {tiles?.tiles.map(
-              (el, idx) =>
+              (el, index) =>
                 (el.title || el.body) && (
                   <Card
                     optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                     inline
-                    key={el.title || idx}
+                    key={el.title || index}
                     imageSrc={el.image?.file?.url || ''}
                     title={{
                       title: el.title || '',

@@ -10,12 +10,12 @@ export const formatPreviousDirectorAddresses = (
   testId?: number,
 ) =>
   addresses?.slice(1).reduce<IList[]>(
-    (acc, address, indx) => [
+    (acc, address, index) => [
       ...acc,
       {
         label: 'Past Address',
         value: address.address?.label || formatAddress(address?.address) || '',
-        dataTestId: `summary-director-past-address[${testId || indx}]`,
+        dataTestId: `summary-director-past-address[${testId || index}]`,
       },
       {
         label: 'Date Moved In',
@@ -23,12 +23,12 @@ export const formatPreviousDirectorAddresses = (
           (address &&
             `${getMonthName(Number(address.month))} ${address.year}`) ||
           '',
-        dataTestId: `summary-director-past-moved-in[${testId || indx}]`,
+        dataTestId: `summary-director-past-moved-in[${testId || index}]`,
       },
       {
         label: 'Property Status',
         value: address?.status || '',
-        dataTestId: `summary-director-past-prop-status[${testId || indx}]`,
+        dataTestId: `summary-director-past-prop-status[${testId || index}]`,
       },
     ],
     [],
@@ -39,23 +39,23 @@ export const formatPreviousSoletrederAddresses = (
   testId?: number,
 ) =>
   addresses?.slice(1).reduce<IList[]>(
-    (acc, address, indx) => [
+    (acc, address, index) => [
       ...acc,
       {
         label: 'Past Address',
         value: (address && addressToDisplay(address)) || '',
-        dataTestId: `summary-director-past-address[${testId || indx}]`,
+        dataTestId: `summary-director-past-address[${testId || index}]`,
       },
       {
         label: 'Date Moved In',
         value:
           (address && fullMonthFormatDate(new Date(address.startedOn))) || '',
-        dataTestId: `summary-director-past-moved-in[${testId || indx}]`,
+        dataTestId: `summary-director-past-moved-in[${testId || index}]`,
       },
       {
         label: 'Property Status',
         value: address?.propertyStatus || '',
-        dataTestId: `summary-director-past-prop-status[${testId || indx}]`,
+        dataTestId: `summary-director-past-prop-status[${testId || index}]`,
       },
     ],
     [],

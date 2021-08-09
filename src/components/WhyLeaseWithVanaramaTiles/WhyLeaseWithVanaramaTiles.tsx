@@ -37,8 +37,8 @@ const WhyLeaseWithVanaramaTiles = ({
       >
         {title}
       </Heading>
-      {tiles?.map((tile: IPartnerTiles, idx) => (
-        <div key={tile.title || idx}>
+      {tiles?.map((tile: IPartnerTiles, index) => (
+        <div key={tile.title || index}>
           <Tile className="-plain -button -align-center" plain>
             <div style={{ display: 'flex', justifyContent: 'center' }}>
               <Image
