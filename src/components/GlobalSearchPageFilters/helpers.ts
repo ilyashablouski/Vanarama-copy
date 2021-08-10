@@ -1,3 +1,4 @@
+import Cookies from 'js-cookie';
 import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
 import { IInnerSelect } from './interfaces';
 
@@ -65,3 +66,5 @@ export const ENGINE_POWER_FILTERS_DEFAULT = [
 
 export const buildEnginePowerValues = (min: number, max: number) =>
   ENGINE_POWER_FILTERS_DEFAULT.filter(value => min <= value && value <= max);
+
+export const isAdvancedFiltersEnabled = Cookies.get('DIG-6365') === '1';
