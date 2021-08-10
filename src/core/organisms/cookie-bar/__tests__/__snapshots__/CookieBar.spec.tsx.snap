@@ -3,11 +3,14 @@
 exports[`<CookieBar /> should render correctly 1`] = `
 <CookieBar
   onAccept={[MockFunction]}
+  onAfterHide={[MockFunction]}
+  onBeforeShow={[MockFunction]}
   onDecline={[MockFunction]}
 >
   <div
     className="cookie-bar"
     onAnimationEnd={[Function]}
+    onAnimationStart={[Function]}
     role="dialog"
   >
     <button

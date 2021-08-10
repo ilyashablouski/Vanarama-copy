@@ -161,9 +161,9 @@ export const getOrderList = ({
     },
     {
       label: 'Warranty:',
-      value: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Milles`,
+      value: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Miles`,
       id: 'warranty',
-      key: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Milles`,
+      key: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Miles`,
       dataTestId: 'warranty',
       isOrange: false,
     },
