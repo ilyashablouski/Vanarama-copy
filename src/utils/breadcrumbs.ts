@@ -77,8 +77,3 @@ export const getBreadCrumbsItems = (
       }))
     : getBlogBreadCrumbsFromSlug(metaData.slug);
 };
-
-export default {
-  getPartnershipsBreadcrumbItems,
-  getBreadCrumbsItems,
-};
