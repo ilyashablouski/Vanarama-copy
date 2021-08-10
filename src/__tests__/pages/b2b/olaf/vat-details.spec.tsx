@@ -578,6 +578,7 @@ describe('B2B VAT Details page', () => {
                   person: {
                     uuid: '',
                   },
+                  companyNature: '',
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
                   isVatRegistered: false,
@@ -636,6 +637,7 @@ describe('B2B VAT Details page', () => {
                   person: {
                     uuid: '',
                   },
+                  companyNature: '',
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
                   isVatRegistered: true,
@@ -697,6 +699,7 @@ describe('B2B VAT Details page', () => {
                   person: {
                     uuid: '',
                   },
+                  companyNature: '',
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
                   isVatRegistered: false,
@@ -812,7 +815,10 @@ describe('B2B VAT Details page', () => {
               query: UPDATE_LIMITED_VAT_DETAILS,
               variables: {
                 input: {
-                  person: { uuid: '' },
+                  person: {
+                    uuid: '',
+                  },
+                  companyNature: '',
                   companyType: 'Limited',
                   uuid: '39c19729-b980-46bd-8a8e-ed82705b3e01',
                   isVatRegistered: false,
