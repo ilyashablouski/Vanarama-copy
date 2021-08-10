@@ -1,11 +1,11 @@
-import { IBreadcrumb } from 'types/breadcrumbs';
+import { IBreadcrumb, IBreadcrumbLink } from 'types/breadcrumbs';
 import {
   getPartnerProperties,
   isPartnerSessionActive,
 } from './partnerProperties';
-import { Nullish } from '../types/common';
+import { IMetaDataSection, Nullish } from '../types/common';
 
-export function getBreadcrumbItems(breadcrumbs: IBreadcrumb[]) {
+export function getPartnershipsBreadcrumbItems(breadcrumbs: IBreadcrumb[]) {
   const breadcrumbsItems = breadcrumbs?.map((el: IBreadcrumb) => ({
     link: { href: el.href || '', label: el.label },
   }));
@@ -68,7 +68,17 @@ export function getBlogBreadCrumbsFromSlug(slug: Nullish<string>) {
   return null;
 }
 
+export const getBreadCrumbsItems = (
+  metaData: IMetaDataSection,
+): IBreadcrumbLink[] | null => {
+  return metaData?.breadcrumbs
+    ? metaData?.breadcrumbs?.map((el: IBreadcrumb) => ({
+        link: { href: el.href || '', label: el.label },
+      }))
+    : getBlogBreadCrumbsFromSlug(metaData.slug);
+};
+
 export default {
-  getBreadcrumbItems,
-  getBlogBreadCrumbsFromSlug,
+  getPartnershipsBreadcrumbItems,
+  getBreadCrumbsItems,
 };

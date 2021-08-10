@@ -16,7 +16,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../../utils/env';
-import getBreadCrumbsItems from '../../helpers';
+import { getBreadCrumbsItems } from '../../../../utils/breadcrumbs';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
