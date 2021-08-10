@@ -14,6 +14,15 @@ export const GET_FILTERS_DATA = gql`
       fuelTypes
       bodyStyles
       vehicleCategory
+      doors
+      noOfSeats
+      engineSizeGroup
+      mpgGroup
+      co2Group
+      enginePowerBhp {
+        min
+        max
+      }
     }
   }
 `;
