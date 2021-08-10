@@ -36,6 +36,7 @@ export interface IProps {
   leaseType: LeaseTypeEnum;
   isPlayingLeaseAnimation: boolean;
   isShowFreeInsuranceMerch?: boolean;
+  isShowFreeHomeChargerMerch?: boolean;
   onCompletedCallBack: () => void;
   setIsPlayingLeaseAnimation: React.Dispatch<React.SetStateAction<boolean>>;
   setLeaseType: React.Dispatch<React.SetStateAction<LeaseTypeEnum>>;

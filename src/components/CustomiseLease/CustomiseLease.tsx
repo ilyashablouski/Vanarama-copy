@@ -170,6 +170,7 @@ const CustomiseLease = ({
   setIsInitPayModalShowing,
   pickups,
   isShowFreeInsuranceMerch,
+  isShowFreeHomeChargerMerch,
   roadsideAssistance,
   warrantyDetails,
 }: IProps) => {
@@ -400,6 +401,7 @@ const CustomiseLease = ({
           trim={trim}
           pickups={pickups}
           isShowFreeInsuranceMerch={isShowFreeInsuranceMerch}
+          isShowFreeHomeChargerMerch={isShowFreeHomeChargerMerch}
           roadsideAssistance={roadsideAssistance}
           warrantyDetails={warrantyDetails}
         />

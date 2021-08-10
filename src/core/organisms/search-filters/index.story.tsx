@@ -58,8 +58,8 @@ storiesOf(`${atomicDir(base)}/SearchFilters`, module).add('Default', () =>
         .flat()
         .filter(Boolean);
       setSelectedFilterTags(
-        [...new Set(selected)].map((item, idx) => ({
-          order: idx,
+        [...new Set(selected)].map((item, index) => ({
+          order: index,
           value: item,
         })),
       );

@@ -260,7 +260,7 @@ export const CarsPage: NextPage<IProps> = ({
               setIsPersonal(value.label === 'Personal');
             }}
           />
-          {productsCar?.productCarousel?.map((item, idx) => {
+          {productsCar?.productCarousel?.map((item, index) => {
             const productUrl = formatProductPageUrl(
               getLegacyUrl(vehicleListUrlData.edges, item?.capId),
               item?.capId,
@@ -271,12 +271,12 @@ export const CarsPage: NextPage<IProps> = ({
 
             return (
               <LazyLoadComponent
-                key={item?.capId || idx}
+                key={item?.capId || index}
                 visibleByDefault={isServerRenderOrAppleDevice}
               >
                 <ProductCard
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  key={item?.capId || idx}
+                  key={item?.capId || index}
                   header={{
                     accentIcon: <Icon icon={<Flame />} color="white" />,
                     accentText: 'Hot Offer',
@@ -384,15 +384,17 @@ export const CarsPage: NextPage<IProps> = ({
         <Heading className="-a-center -mb-400" size="large" color="black">
           {data?.hubCarPage.sections?.steps?.heading}
         </Heading>
-        {data?.hubCarPage.sections?.steps?.steps?.map((step: StepData, idx) => (
-          <Step
-            className="-mh-auto"
-            key={step.title || idx}
-            heading={step.title || ''}
-            step={idx + 1}
-            text={step.body || ''}
-          />
-        ))}
+        {data?.hubCarPage.sections?.steps?.steps?.map(
+          (step: StepData, index) => (
+            <Step
+              className="-mh-auto"
+              key={step.title || index}
+              heading={step.title || ''}
+              step={index + 1}
+              text={step.body || ''}
+            />
+          ),
+        )}
       </section>
 
       <section
@@ -527,8 +529,8 @@ export const CarsPage: NextPage<IProps> = ({
             {data && data?.hubCarPage.sections?.tiles?.tilesTitle}
           </Heading>
           {data?.hubCarPage.sections?.tiles?.tiles?.map(
-            (tile: TileData, idx) => (
-              <div key={tile.title || idx}>
+            (tile: TileData, index) => (
+              <div key={tile.title || index}>
                 <Tile className="-plain -button -align-center" plain>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Image

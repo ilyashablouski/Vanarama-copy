@@ -338,8 +338,8 @@ export const EVHubPage: NextPage<IProps> = ({
           >
             {sections?.tiles?.tilesTitle}
           </Heading>
-          {sections?.tiles?.tiles?.map((tile: TileData, idx) => (
-            <div key={tile.title || idx}>
+          {sections?.tiles?.tiles?.map((tile: TileData, index) => (
+            <div key={tile.title || index}>
               <Tile className="-plain -button -align-center" plain>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <Image

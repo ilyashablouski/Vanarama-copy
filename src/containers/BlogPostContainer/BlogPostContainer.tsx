@@ -138,12 +138,12 @@ const BlogPostContainer: NextPage<IProps> = ({
                 Related Articles
               </Heading>
             )}
-            {articles?.map((el, indx) => {
+            {articles?.map((el, index) => {
               const hrefLink = setSource((el?.legacyUrl || el?.slug) ?? '');
               return (
                 <Card
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  key={`${el?.name}_${indx.toString()}`}
+                  key={`${el?.name}_${index.toString()}`}
                   className="card__article"
                   imageSrc={el?.featuredImage?.file?.url || ''}
                   title={{

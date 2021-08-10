@@ -148,10 +148,10 @@ export const ContactUsPage: NextPage<IGenericPage> = ({
           {(getSectionsData(
             ['cards', 'cards'],
             data?.genericPage.sections,
-          ) as Cards[])?.map((c: Cards, idx) => (
+          ) as Cards[])?.map((c: Cards, index) => (
             <Card
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={c.title || idx}
+              key={c.title || index}
             >
               <Heading size="large" color="black">
                 {c.title}
@@ -211,11 +211,11 @@ export const ContactUsPage: NextPage<IGenericPage> = ({
         {(getSectionsData(
           ['featured2', 'cards'],
           data?.genericPage.sections,
-        ) as Cards2[])?.map((c: Cards2 | null, idx) => (
+        ) as Cards2[])?.map((c: Cards2 | null, index) => (
           <Card
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             inline
-            key={c?.title || idx}
+            key={c?.title || index}
           >
             <Image
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}

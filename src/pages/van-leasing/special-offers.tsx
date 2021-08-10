@@ -381,16 +381,16 @@ export const VanOffers: NextPage<IProps> = ({
           </Heading>
           <hr />
           {data?.vanOffersPage?.sections?.iconBullets?.iconBullets?.map(
-            (item: VanIconBullet, idx: number) => (
+            (item: VanIconBullet, index: number) => (
               <>
                 <Icon
-                  key={`${item?.text || idx}-icon`}
+                  key={`${item?.text || index}-icon`}
                   icon={<AddCircle />}
                   color="orange"
                   size="large"
                 />
                 <Text
-                  key={`${item?.text || idx}-text`}
+                  key={`${item?.text || index}-text`}
                   size="regular"
                   color="darker"
                 >
