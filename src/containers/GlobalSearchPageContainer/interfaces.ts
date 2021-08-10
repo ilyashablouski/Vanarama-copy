@@ -21,9 +21,12 @@ export interface ISelectedTags {
   order: number;
 }
 
-export interface IFiltersData extends productFilter_productFilter {
+export interface IFiltersData
+  extends Omit<productFilter_productFilter, 'enginePowerBhp'> {
   from: string[];
   to: string[];
+  toEnginePower: number[];
+  fromEnginePower: number[];
 }
 
 export interface IProps {
