@@ -15,10 +15,16 @@
   }
 
   &--link {
-    letter-spacing: 0px;
     font-weight: 600;
     line-height: 24px;
+    letter-spacing: 0;
     text-decoration: underline;
+  }
+
+  @media (max-width: 374px) {
+    &--text, &--link {
+      font-size: 14px;
+    }
   }
 }
 
