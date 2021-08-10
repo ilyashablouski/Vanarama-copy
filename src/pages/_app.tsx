@@ -193,7 +193,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-        <CookieBarContainer />
         <ComparatorBar
           deleteVehicle={async vehicle => {
             const vehicles = await deleteCompare(vehicle);
@@ -222,6 +221,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         )}
         <FooterContainer />
       </main>
+      <CookieBarContainer />
       <LazyLoadComponent>
         <ToastContainer />
       </LazyLoadComponent>
