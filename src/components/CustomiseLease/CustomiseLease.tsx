@@ -90,8 +90,8 @@ const choices = (
       className="button-group -solid"
       values={choicesValues}
       selectedValues={[selectedValue ?? choicesValues[0]]}
-      onChange={([newSelectedValue]: string[]) =>
-        setChoice(newSelectedValue.toUpperCase() as LeaseTypeEnum)
+      onChange={([newSelectedValue]) =>
+        setChoice((newSelectedValue as string).toUpperCase() as LeaseTypeEnum)
       }
     />
   </>

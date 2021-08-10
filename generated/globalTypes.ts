@@ -721,10 +721,10 @@ export interface ProductDerivativeFilter {
   financeTypes?: (FinanceType | null)[] | null;
   onOffer?: boolean | null;
   doors?: (number | null)[] | null;
-  noOfSeats?: MinMax | null;
+  noOfSeats?: (number | null)[] | null;
   noOfGears?: (number | null)[] | null;
   engineSize?: MinMax | null;
-  engineSizeGroup?: string | null;
+  engineSizeGroup?: (string | null)[] | null;
   mpg?: number | null;
   mpgGroup?: string | null;
   terms?: (number | null)[] | null;
@@ -736,6 +736,7 @@ export interface ProductDerivativeFilter {
   co2?: number | null;
   co2Group?: string | null;
   enginePowerBhp?: MinMax | null;
+  euroEmissions?: string | null;
   heights?: (number | null)[] | null;
   lengths?: (number | null)[] | null;
 }

@@ -344,9 +344,10 @@ const GlobalSearchPageContainer = memo(
     const onRemoveTag = (value: string, key: string) => {
       setActiveFilters({
         ...activeFilters,
-        [key]: activeFilters?.[key as keyof IFiltersData]?.filter(
-          activeValue => activeValue !== value,
-        ),
+        [key]: (activeFilters?.[key as keyof IFiltersData] as (
+          | string
+          | number
+        )[])?.filter(activeValue => activeValue !== value),
       });
     };
 

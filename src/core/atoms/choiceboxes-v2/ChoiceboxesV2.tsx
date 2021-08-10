@@ -20,11 +20,11 @@ function ChoiceBoxesV2({
     selectedValues,
   ]);
 
-  function handleSelectChange(value: string, checked: boolean) {
+  function handleSelectChange(value: string | number, checked: boolean) {
     onChange(checked ? [value] : []);
   }
 
-  function handleMultiselectChange(value: string, checked: boolean) {
+  function handleMultiselectChange(value: string | number, checked: boolean) {
     const resultValues = checked
       ? [...resultSelectedValues, value]
       : resultSelectedValues.filter(selectedValue => {
@@ -35,8 +35,9 @@ function ChoiceBoxesV2({
   }
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-    const { value, checked } = e.target;
-
+    const { value: inputValue, checked } = e.target;
+    const value =
+      typeof values?.[0] === 'number' ? parseInt(inputValue, 10) : inputValue;
     if (multiSelect) {
       handleMultiselectChange(value, checked);
     } else {
@@ -46,13 +47,13 @@ function ChoiceBoxesV2({
 
   return (
     <div className={cx('choice-boxes-v2', className, `-${color}`)}>
-      {values.map(value => {
+      {values?.map(value => {
         const checked = resultSelectedValues.includes(value);
 
         return (
           <React.Fragment key={value}>
             <input
-              id={value}
+              id={`${value}`}
               type={type}
               name={name}
               value={value}
@@ -62,7 +63,7 @@ function ChoiceBoxesV2({
               disabled={disabled}
             />
             <label
-              htmlFor={value}
+              htmlFor={`${value}`}
               className={cx('choice-box', boxClassName, {
                 '-active': checked,
               })}
