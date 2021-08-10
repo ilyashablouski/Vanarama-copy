@@ -12,7 +12,7 @@ import {
 import useGetSetBankUuid from '../../hooks/useGetSetBankUuid';
 import { IProps } from './interfaces';
 import {
-  formValuesToInput,
+  mapFormValues,
   mapDefaultValues,
   mapBankAccountsForCreditApplication,
 } from './mappers';
@@ -63,10 +63,10 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
     const input = {
       variables: {
         input: {
-          ...formValuesToInput(companyUuid, values, accountUuid, personUuid),
+          ...mapFormValues(companyUuid, values, accountUuid, personUuid),
           companyNature:
             data?.creditApplicationByOrderUuid?.companyDetailsV2
-              ?.natureOfBusiness,
+              ?.natureOfBusiness ?? '',
         },
       },
     };
