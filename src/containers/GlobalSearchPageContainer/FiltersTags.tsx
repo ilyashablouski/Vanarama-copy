@@ -1,6 +1,10 @@
 import Close from 'core/assets/icons/Close';
-import { useMemo } from 'react';
+import { useCallback, useMemo } from 'react';
 import { ISelectedTags } from './interfaces';
+import {
+  renderBudgetValue,
+  renderPowerEngineValue,
+} from '../../components/GlobalSearchPageFilters/helpers';
 
 interface IProps {
   tags: ISelectedTags[];
@@ -8,10 +12,21 @@ interface IProps {
   removeFilterValue: (value: string, key: string) => void;
 }
 const FiltersTags = ({ tags, clearAllFilters, removeFilterValue }: IProps) => {
+  const renderFunction = useCallback((value, key) => {
+    if (key === 'from' || key === 'to') {
+      return renderBudgetValue(value);
+    }
+    if (key === 'fromEnginePower' || key === 'toEnginePower') {
+      return renderPowerEngineValue(value);
+    }
+    return value;
+  }, []);
+
   const isShowClearAllBtn = useMemo(
     () => tags.map(filterTags => filterTags.tags).flat().length > 1,
     [tags],
   );
+
   return (
     <div className="srp-f-tags">
       {tags.map(filterTags =>
@@ -21,9 +36,7 @@ const FiltersTags = ({ tags, clearAllFilters, removeFilterValue }: IProps) => {
             key={`${filterTags.filterKey}-${tag}`}
             onClick={() => removeFilterValue(tag, filterTags.filterKey)}
           >
-            {filterTags.filterKey === 'from' || filterTags.filterKey === 'to'
-              ? `£${tag}`
-              : tag}
+            {renderFunction(tag, filterTags.filterKey)}
             <Close />
           </button>
         )),

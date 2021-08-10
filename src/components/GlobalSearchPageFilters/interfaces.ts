@@ -9,6 +9,7 @@ export interface IInnerSelect {
 export interface IFiltersConfig {
   type: string;
   multiselect: boolean;
+  selectedLabel?: boolean;
   label: string;
   key: string;
   renderValuesFunction?: (value: string) => string;

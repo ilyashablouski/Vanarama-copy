@@ -1,10 +1,16 @@
-import { renderBudgetSelected, renderBudgetValue } from './helpers';
+import {
+  renderBudgetSelected,
+  renderBudgetValue,
+  renderPowerEngineSelected,
+  renderPowerEngineValue,
+} from './helpers';
 
 // eslint-disable-next-line import/prefer-default-export
 export const filtersConfig = [
   {
     type: 'drop-down',
     multiselect: false,
+    selectedLabel: true,
     label: 'Type of Vehicle',
     key: 'vehicleCategory',
     generalFilter: true,
@@ -70,5 +76,62 @@ export const filtersConfig = [
     label: 'Transmission',
     key: 'transmissions',
     generalFilter: true,
+  },
+  {
+    type: 'drop-down',
+    multiselect: true,
+    label: 'No Of Doors',
+    key: 'doors',
+    generalFilter: false,
+  },
+  {
+    type: 'drop-down',
+    multiselect: true,
+    label: 'No Of Seats',
+    key: 'noOfSeats',
+    generalFilter: false,
+  },
+  {
+    type: 'drop-down',
+    multiselect: true,
+    label: 'Engine Size',
+    key: 'engineSizeGroup',
+    generalFilter: false,
+  },
+  {
+    type: 'drop-down',
+    multiselect: false,
+    label: 'Fuel Consumption',
+    key: 'mpgGroup',
+    generalFilter: false,
+  },
+  {
+    type: 'drop-down',
+    multiselect: false,
+    label: 'CO2 Emissions',
+    key: 'co2Group',
+    generalFilter: false,
+  },
+  {
+    type: 'drop-select',
+    multiselect: false,
+    label: 'Engine Power',
+    key: 'enginePower',
+    renderValuesFunction: (value: string) => renderPowerEngineValue(value),
+    renderSelectedFunction: (values: (string | null)[]) =>
+      renderPowerEngineSelected(values),
+    generalFilter: false,
+    innerSelects: [
+      {
+        title: 'Engine Power From',
+        placeholder: 'Select From',
+        key: 'fromEnginePower',
+      },
+      {
+        title: 'Engine Power To',
+        placeholder: 'Select To',
+        key: 'toEnginePower',
+      },
+    ],
   },
 ];

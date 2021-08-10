@@ -9,7 +9,7 @@ import {
 } from '../../containers/GlobalSearchPageContainer/interfaces';
 import SelectedBox from './SelectedBox';
 import SelectedDropdown from './SelectedDropdown';
-import {getSelectedValues} from "./helpers";
+import { getSelectedValues } from './helpers';
 
 interface IProps {
   filterConfig: IFiltersConfig;
@@ -23,7 +23,7 @@ interface IProps {
   clearFilterBlock: (key: string) => void;
   filtersMapper: IFiltersData;
   onHandleMultiSelect: (
-    filterValues: string[],
+    filterValues: (string | number)[],
     filterName: keyof IFiltersData,
   ) => void;
   activeFilters: IFiltersData;
@@ -31,7 +31,11 @@ interface IProps {
   onClearDropdown: (innerSelect: IInnerSelect[]) => void;
   onHandleNativeSelectChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
   isDisabledSelect: (key: string, selectKey: string) => boolean;
-  isInvalidBudget: (value: string, type: string) => boolean;
+  isInvalidRangeValue: (
+    value: string | number,
+    type: string,
+    filterKey: string,
+  ) => boolean;
 }
 
 const DropdownsBlockComponent = ({
@@ -43,6 +47,7 @@ const DropdownsBlockComponent = ({
     innerSelects,
     renderSelectedFunction,
     renderValuesFunction,
+    selectedLabel,
   },
   onHandleFilterStatus,
   labelForSingleSelect,
@@ -56,16 +61,16 @@ const DropdownsBlockComponent = ({
   onClearDropdown,
   onHandleNativeSelectChange,
   isDisabledSelect,
-  isInvalidBudget,
+  isInvalidRangeValue,
 }: IProps) => {
   return type === 'drop-down' ? (
     <DropdownV2
       key={key}
       onLabelClick={event => onHandleFilterStatus(event, key)}
       label={
-        multiselect
-          ? label
-          : labelForSingleSelect(key as keyof IFiltersData) || label
+        selectedLabel
+          ? labelForSingleSelect(key as keyof IFiltersData) || label
+          : label
       }
       multiselect={multiselect}
       open={openedFilters.includes(key)}
@@ -89,14 +94,15 @@ const DropdownsBlockComponent = ({
     >
       <ChoiceBoxesV2
         multiSelect={multiselect}
-        values={filtersMapper[key as keyof IFiltersData] as string[]}
+        values={filtersMapper[key as keyof IFiltersData] as (string | number)[]}
         onChange={values =>
           onHandleMultiSelect(values, key as keyof IFiltersData)
         }
-        selectedValues={activeFilters?.[key as keyof IFiltersData] as string[]}
+        selectedValues={
+          activeFilters?.[key as keyof IFiltersData] as (string | number)[]
+        }
         disabled={
-          !multiselect &&
-          (filtersMapper[key as keyof IFiltersData] as string[]).length === 1
+          !multiselect && filtersMapper[key as keyof IFiltersData]?.length === 1
         }
       />
     </DropdownV2>
@@ -116,9 +122,7 @@ const DropdownsBlockComponent = ({
           renderFunction={renderSelectedFunction}
         />
       )}
-      selected={
-        getSelectedValues(innerSelects, activeFilters) as unknown[]
-      }
+      selected={getSelectedValues(innerSelects, activeFilters) as unknown[]}
     >
       {(innerSelects as IInnerSelect[])?.map(
         ({ title, key: selectKey, placeholder }) => (
@@ -136,27 +140,32 @@ const DropdownsBlockComponent = ({
                   disabled
                   value=""
                   selected={
-                    !activeFilters?.[selectKey as keyof IFiltersData]?.[0]
+                    !(activeFilters?.[selectKey as keyof IFiltersData] as
+                      | string
+                      | number[])?.[0]
                   }
                 >
                   {placeholder}
                 </option>
-                {(filtersMapper?.[
-                  selectKey as keyof IFiltersData
-                ] as string[])?.map(value => (
+                {(filtersMapper?.[selectKey as keyof IFiltersData] as (
+                  | string
+                  | number
+                )[])?.map(value => (
                   <option
                     key={value}
                     disabled={
-                      key === 'budget'
-                        ? isInvalidBudget(value, selectKey)
+                      key === 'budget' || key === 'enginePower'
+                        ? isInvalidRangeValue(value, selectKey, key)
                         : false
                     }
                     value={value}
-                    selected={activeFilters?.[
+                    selected={(activeFilters?.[
                       selectKey as keyof IFiltersData
-                    ]?.includes(value)}
+                    ] as (string | number)[])?.includes(value)}
                   >
-                    {renderValuesFunction ? renderValuesFunction(value) : value}
+                    {renderValuesFunction
+                      ? renderValuesFunction(`${value}`)
+                      : value}
                   </option>
                 ))}
               </select>

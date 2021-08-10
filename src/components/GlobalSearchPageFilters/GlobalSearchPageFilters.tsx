@@ -10,6 +10,7 @@ import ToggleSwitch from 'core/atoms/toggle/ToggleSwitch';
 import Flame from 'core/assets/icons/Flame';
 import ToggleV2 from 'core/atoms/toggleV2';
 import cx from 'classnames';
+import ChevronDown from 'core/assets/icons/ChevronDown';
 import { IFiltersConfig, IInnerSelect } from './interfaces';
 import { budgets } from '../../containers/FiltersContainer/config';
 import {
@@ -22,7 +23,7 @@ import {
   buildSelectedTags,
 } from '../../containers/GlobalSearchPageContainer/helpers';
 import { productFilter_productFilter as IProductFilter } from '../../../generated/productFilter';
-import { getInnerConfigKeys } from './helpers';
+import { buildEnginePowerValues, getInnerConfigKeys } from './helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import FiltersTags from '../../containers/GlobalSearchPageContainer/FiltersTags';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
@@ -59,19 +60,47 @@ const GlobalSearchPageFilters = ({
 }: IProps) => {
   const { query } = useRouter();
   const [openedFilters, setOpenedFilters] = useState<string[]>([]);
-  const [isOpenAdvancedFilters, setIsOpenAdvancedFilters] = useState(true);
+  const [isOpenAdvancedFilters, setIsOpenAdvancedFilters] = useState(false);
   const [fromBudget] = useState(budgets.slice(0, budgets.length - 1));
   const [toBudget] = useState(budgets.slice(1));
+  const [fromEnginePower, setFromEnginePower] = useState(
+    buildEnginePowerValues(
+      preloadFilters?.enginePowerBhp?.min || 0,
+      preloadFilters?.enginePowerBhp?.max || 0,
+    ).slice(0, -1),
+  );
+  const [toEnginePower, setToEnginePower] = useState(
+    buildEnginePowerValues(
+      preloadFilters?.enginePowerBhp?.min || 0,
+      preloadFilters?.enginePowerBhp?.max || 0,
+    ).slice(1),
+  );
   const [filtersData, setFiltersData] = useState(preloadFilters);
   const [getProductFilters] = useProductFilters(
     query?.searchTerm as string,
-    async dataResult => setFiltersData(dataResult?.productFilter || undefined),
+    async dataResult => {
+      setFiltersData(dataResult?.productFilter || undefined);
+      setFromEnginePower(
+        buildEnginePowerValues(
+          dataResult?.productFilter?.enginePowerBhp?.min || 0,
+          dataResult?.productFilter?.enginePowerBhp?.max || 0,
+        ).slice(0, -1),
+      );
+      setToEnginePower(
+        buildEnginePowerValues(
+          dataResult?.productFilter?.enginePowerBhp?.min || 0,
+          dataResult?.productFilter?.enginePowerBhp?.max || 0,
+        ).slice(1),
+      );
+    },
   );
 
   const filtersMapper = {
     ...filtersData,
     from: fromBudget,
     to: toBudget,
+    fromEnginePower,
+    toEnginePower,
   } as IFiltersData;
 
   const advancedFiltersConfig = useMemo(
@@ -110,7 +139,7 @@ const GlobalSearchPageFilters = ({
   };
 
   const onHandleMultiSelect = (
-    filterValues: string[],
+    filterValues: (string | number)[],
     filterName: keyof IFiltersData,
   ) => {
     setActiveFilters({
@@ -122,7 +151,13 @@ const GlobalSearchPageFilters = ({
   const onHandleNativeSelectChange = (
     e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    const { value, name } = e.target;
+    const { value: inputValue, name } = e.target;
+    const value =
+      typeof (filtersMapper[name as keyof typeof filtersMapper] as
+        | string
+        | number[])?.[0] === 'number'
+        ? parseInt(inputValue, 10)
+        : inputValue;
     setActiveFilters({
       ...activeFilters,
       [name]: [value],
@@ -130,12 +165,25 @@ const GlobalSearchPageFilters = ({
   };
 
   /** check budget rules for valid value */
-  const isInvalidBudget = (value: string, type: string) => {
+  const isInvalidRangeValue = (
+    value: string | number,
+    type: string,
+    filterKey: string,
+  ) => {
+    const [from, to] =
+      filterKey === 'budget'
+        ? ['from', 'to']
+        : ['fromEnginePower', 'toEnginePower'];
+    const isFromType = type.includes('from');
+    const activeToValue = (activeFilters[to as keyof IFiltersData] as
+      | string
+      | number[])?.[0];
+    const activeFromValue = (activeFilters[from as keyof IFiltersData] as
+      | string
+      | number[])?.[0];
     return !(
-      (type === 'from' &&
-        (value < activeFilters.to?.[0] || !activeFilters.to?.[0])) ||
-      (type === 'to' &&
-        (value > activeFilters.from?.[0] || !activeFilters.from?.[0]))
+      (isFromType && (value < activeToValue || !activeToValue)) ||
+      (!isFromType && (value > activeFromValue || !activeFromValue))
     );
   };
 
@@ -163,8 +211,11 @@ const GlobalSearchPageFilters = ({
   ): (string | null)[] => {
     const keys = getInnerConfigKeys(innerSelect);
     return keys.reduce(
-      (acc, current) => [...acc, ...(activeFilters?.[current] || [null])],
-      [] as (string | null)[],
+      (acc, current) => [
+        ...acc,
+        ...((activeFilters?.[current] as string[]) || [null]),
+      ],
+      [] as string[],
     );
   };
 
@@ -211,13 +262,14 @@ const GlobalSearchPageFilters = ({
       />
       {generalFiltersConfig.map(filterConfig => (
         <DropdownsBlockComponent
+          key={filterConfig.key}
           filterConfig={filterConfig}
           activeFilters={activeFilters}
           clearFilterBlock={clearFilterBlock}
           filtersMapper={filtersMapper}
           getDropdownValues={getDropdownValues}
           isDisabledSelect={isDisabledSelect}
-          isInvalidBudget={isInvalidBudget}
+          isInvalidRangeValue={isInvalidRangeValue}
           labelForSingleSelect={labelForSingleSelect}
           onClearDropdown={onClearDropdown}
           onHandleFilterStatus={onHandleFilterStatus}
@@ -229,7 +281,16 @@ const GlobalSearchPageFilters = ({
       ))}
       {advancedFiltersConfig?.length > 0 && (
         <div className={cx('accordyon', { active: isOpenAdvancedFilters })}>
-          <div className="trigger" aria-expanded={isOpenAdvancedFilters}>
+          <div
+            tabIndex={-1}
+            role="button"
+            className="trigger"
+            aria-hidden="true"
+            aria-expanded={isOpenAdvancedFilters}
+            id="expand-filters"
+            onClick={() => setIsOpenAdvancedFilters(prevState => !prevState)}
+          >
+            <ChevronDown />
             <span>
               {`${isOpenAdvancedFilters ? 'Hide' : 'Show'}`} Advanced Filters
             </span>
@@ -238,13 +299,14 @@ const GlobalSearchPageFilters = ({
             <div className="inner">
               {advancedFiltersConfig.map(filterConfig => (
                 <DropdownsBlockComponent
+                  key={filterConfig.key}
                   filterConfig={filterConfig}
                   activeFilters={activeFilters}
                   clearFilterBlock={clearFilterBlock}
                   filtersMapper={filtersMapper}
                   getDropdownValues={getDropdownValues}
                   isDisabledSelect={isDisabledSelect}
-                  isInvalidBudget={isInvalidBudget}
+                  isInvalidRangeValue={isInvalidRangeValue}
                   labelForSingleSelect={labelForSingleSelect}
                   onClearDropdown={onClearDropdown}
                   onHandleFilterStatus={onHandleFilterStatus}

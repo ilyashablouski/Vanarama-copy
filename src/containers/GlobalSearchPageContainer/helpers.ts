@@ -33,7 +33,9 @@ export const buildInitialFilterState = (data: ParsedUrlQuery) => {
   const filters = {} as IFiltersData;
   Object.entries(data).forEach(([key, value]) => {
     if (key !== 'searchTerm') {
-      filters[key as keyof IFiltersData] = Array.isArray(value)
+      (filters[key as keyof IFiltersData] as string | string[]) = Array.isArray(
+        value,
+      )
         ? value
         : [value];
     }
@@ -59,7 +61,7 @@ export const buildFiltersRequestObject = (
   isPersonal?: boolean,
 ): ProductDerivativeFilter => {
   const pureObject = {} as IFiltersData;
-  const { from, to, ...rest } = filters;
+  const { from, to, fromEnginePower, toEnginePower, ...rest } = filters;
   // removing empty arrays from filters
   Object.entries(rest).forEach(([key, value]) => {
     if (value?.[0]) {
@@ -79,6 +81,15 @@ export const buildFiltersRequestObject = (
     range: filters.range?.[0],
     financeTypes: isPersonal ? [FinanceType.PCH] : [FinanceType.BCH],
     onOffer: onOffer || null,
+    mpgGroup: filters.mpgGroup?.[0],
+    co2Group: filters.co2Group?.[0],
+    enginePowerBhp:
+      filters.fromEnginePower?.[0] || filters.toEnginePower?.[0]
+        ? {
+            min: filters.fromEnginePower?.[0] || undefined,
+            max: filters.toEnginePower?.[0] || undefined,
+          }
+        : undefined,
   };
 };
 
