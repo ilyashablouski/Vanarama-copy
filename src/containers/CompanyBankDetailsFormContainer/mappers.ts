@@ -4,12 +4,12 @@ import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditA
 import { UpdateLimitedBankDetailsMutation_createUpdateLimitedCompany_bankAccounts as BankAccount } from '../../../generated/UpdateLimitedBankDetailsMutation';
 import { parseDate } from '../../utils/dates';
 
-export const formValuesToInput = (
+export const mapFormValues = (
   uuid: string,
   values: ICompanyBankDetails,
   accountUuid?: string,
   personUuid?: string,
-): LimitedCompanyInputObject => ({
+): Omit<LimitedCompanyInputObject, 'companyNature'> => ({
   uuid,
   person: {
     uuid: personUuid,
