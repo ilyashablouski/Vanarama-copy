@@ -559,7 +559,7 @@ export interface LimitedCompanyInputObject {
   addresses?: AddressInputObject[] | null;
   associates?: CompanyAssociateInputObject[] | null;
   bankAccount?: BankAccountInputObject | null;
-  companyNature: string;
+  companyNature?: string | null;
   companyNumber?: string | null;
   companyType?: string | null;
   emailAddress?: EmailAddressInputObject | null;
@@ -785,7 +785,7 @@ export interface SoleTraderCompanyInputObject {
   annualTurnover?: number | null;
   associate?: CompanyAssociateInputObject | null;
   bankAccount?: BankAccountInputObject | null;
-  companyNature: string;
+  companyNature?: string | null;
   companyNumber?: string | null;
   companyType?: string | null;
   emailAddress?: EmailAddressInputObject | null;
