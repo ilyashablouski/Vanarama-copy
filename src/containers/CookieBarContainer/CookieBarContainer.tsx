@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
-
-import CookieBar from 'core/organisms/cookie-bar';
+import dynamic from 'next/dynamic';
 
 import {
   acceptCookieBlueConic,
   declineCookieBlueConic,
   shouldRenderCookieBar,
 } from '../../utils/blueConicHelpers';
+
+const CookieBar = dynamic(() => import('core/organisms/cookie-bar'));
 
 function CookieBarContainer() {
   const [shouldComponentRender, setShouldComponentRender] = useState(true);

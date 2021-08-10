@@ -33,7 +33,7 @@ import {
 import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
-import CookieBarContainer from '../components/CookieBarContainer';
+import CookieBarContainer from '../containers/CookieBarContainer';
 import { PAGES_WITHOUT_DEFERRED_STYLES } from '../components/Head/defaults';
 import { removeSessionStorageItem } from '../utils/windowSessionStorage';
 import {
