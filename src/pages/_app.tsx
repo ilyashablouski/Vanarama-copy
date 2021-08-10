@@ -181,7 +181,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
     <>
       <main
         className={cx(resolveMainClass())}
-        style={isAddPadding ? { paddingTop: '104px' } : {}}
+        style={isAddPadding ? { paddingTop: '99px' } : {}}
       >
         <HeaderContainer />
         <CompareContext.Provider
