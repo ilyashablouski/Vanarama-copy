@@ -56,7 +56,7 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
           },
           companyNature:
             data?.creditApplicationByOrderUuid?.companyDetailsV2
-              ?.natureOfBusiness,
+              ?.natureOfBusiness ?? '',
           companyType: isSoleTrader
             ? CompanyTypes.soleTrader
             : CompanyTypes.limited,

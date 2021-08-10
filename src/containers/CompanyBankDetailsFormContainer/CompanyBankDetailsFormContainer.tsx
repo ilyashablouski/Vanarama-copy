@@ -66,7 +66,7 @@ const CompanyBankDetailsFormContainer: React.FC<IProps> = ({
           ...mapFormValues(companyUuid, values, accountUuid, personUuid),
           companyNature:
             data?.creditApplicationByOrderUuid?.companyDetailsV2
-              ?.natureOfBusiness,
+              ?.natureOfBusiness ?? '',
         },
       },
     };
