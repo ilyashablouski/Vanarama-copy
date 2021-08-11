@@ -48,9 +48,6 @@ import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { freeInsuranceSmallPrint } from './free-car-insurance';
-import { ProductCardData_productCarousel as IProduct } from '../../../generated/ProductCardData';
-import ElectricVehicleBanner from '../../components/ElectricVehicleBanner';
-import FreeInsuranceBanner from '../../components/FreeInsuranceBanner';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -81,8 +78,9 @@ const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
 
-const getFuelType = (product: IProduct | null) =>
-  product?.keyInformation?.find(item => item?.name === 'Fuel Type')?.value;
+// TODO: Should be uncommented in the future when we are going to use product card banners.
+// const getFuelType = (product: IProduct | null) =>
+//   product?.keyInformation?.find(item => item?.name === 'Fuel Type')?.value;
 
 interface IProps extends ICarsPageOffersData {
   data: HubCarPageData;
@@ -322,15 +320,16 @@ export const CarsPage: NextPage<IProps> = ({
                     score: item?.averageRating || 5,
                   }}
                 >
-                  <div className="gallery-promotion-container">
-                    {getFuelType(item) === 'Electric' && (
-                      <ElectricVehicleBanner />
-                    )}
-                    {item?.isOnOffer &&
-                      item?.vehicleType === VehicleTypeEnum.CAR && (
-                        <FreeInsuranceBanner />
-                      )}
-                  </div>
+                  {/* TODO: Should be uncommented in the future when we are going to use product card banners. */}
+                  {/* <div className="gallery-promotion-container"> */}
+                  {/*  {getFuelType(item) === 'Electric' && ( */}
+                  {/*    <ElectricVehicleBanner /> */}
+                  {/*  )} */}
+                  {/*  {item?.isOnOffer && */}
+                  {/*    item?.vehicleType === VehicleTypeEnum.CAR && ( */}
+                  {/*      <FreeInsuranceBanner /> */}
+                  {/*    )} */}
+                  {/* </div> */}
                   <div className="-flex-h">
                     <Price
                       price={

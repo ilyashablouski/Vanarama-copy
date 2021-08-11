@@ -6,7 +6,7 @@ import { useMediaQuery } from 'react-responsive';
 import { isWished } from '../../utils/wishlistHelpers';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
-import { LeaseTypeEnum, VehicleTypeEnum } from '../../../generated/globalTypes';
+import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import RouterLink from '../RouterLink/RouterLink';
 import { formatProductPageUrl, getLegacyUrl } from '../../utils/url';
 import {
@@ -18,9 +18,6 @@ import truncateString from '../../utils/truncateString';
 // import useSliderProperties from '../../hooks/useSliderProperties';
 import { features } from './helpers';
 import useWishlist from '../../hooks/useWishlist';
-import ElectricVehicleBanner from '../ElectricVehicleBanner';
-import FreeInsuranceBanner from '../FreeInsuranceBanner';
-import { FuelTypeEnum } from '../../../entities/global';
 
 // Dynamic component loading.
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -175,14 +172,15 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 score: product.averageRating || 5,
               }}
             >
-              <div className="gallery-promotion-container">
-                {getVehicle(product, data.derivatives)?.fuelType?.name ===
-                  FuelTypeEnum.ELECTRIC && <ElectricVehicleBanner />}
-                {product?.isOnOffer &&
-                  product.vehicleType === VehicleTypeEnum.CAR && (
-                    <FreeInsuranceBanner />
-                  )}
-              </div>
+              {/* TODO: Should be uncommented in the future when we are going to use product card banners. */}
+              {/* <div className="gallery-promotion-container"> */}
+              {/*  {getVehicle(product, data.derivatives)?.fuelType?.name === */}
+              {/*    FuelTypeEnum.ELECTRIC && <ElectricVehicleBanner />} */}
+              {/*  {product?.isOnOffer && */}
+              {/*    product.vehicleType === VehicleTypeEnum.CAR && ( */}
+              {/*      <FreeInsuranceBanner /> */}
+              {/*    )} */}
+              {/* </div> */}
               <div className="-flex-h">
                 <Price
                   price={
