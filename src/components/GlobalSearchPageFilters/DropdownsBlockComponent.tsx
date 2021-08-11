@@ -98,6 +98,7 @@ const DropdownsBlockComponent = ({
         onChange={values =>
           onHandleMultiSelect(values, key as keyof IFiltersData)
         }
+        idPrefix={key}
         selectedValues={
           activeFilters?.[key as keyof IFiltersData] as (string | number)[]
         }
