@@ -12,4 +12,5 @@ export interface IChoiceBoxesV2Props extends IBaseProps {
   multiSelect?: boolean;
   disabled?: boolean;
   onChange: (values: Array<string | number>) => void;
+  idPrefix?: string;
 }

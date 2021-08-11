@@ -14,6 +14,7 @@ function ChoiceBoxesV2({
   multiSelect,
   onChange,
   disabled,
+  idPrefix = '',
 }: IChoiceBoxesV2Props) {
   const type = multiSelect ? 'checkbox' : 'radio';
   const resultSelectedValues = useMemo(() => selectedValues ?? [], [
@@ -53,7 +54,7 @@ function ChoiceBoxesV2({
         return (
           <React.Fragment key={value}>
             <input
-              id={`${value}`}
+              id={`${idPrefix}${value}`}
               type={type}
               name={name}
               value={value}
@@ -63,7 +64,7 @@ function ChoiceBoxesV2({
               disabled={disabled}
             />
             <label
-              htmlFor={`${value}`}
+              htmlFor={`${idPrefix}${value}`}
               className={cx('choice-box', boxClassName, {
                 '-active': checked,
               })}
