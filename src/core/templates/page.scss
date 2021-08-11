@@ -429,15 +429,16 @@
         padding: 0;
         @include owl($rem-400);
         @include desktop {
-          @include padding-block($rem-500);
+          @include padding-block($rem-300);
         }
         @include tablet {
           grid-column: full / column 7;
           padding-left: $rem-400;
-          @include padding-block($rem-400);
+          margin-right: $rem-400;;
+          @include padding-block($rem-200);
         }
         @include mobile {
-          @include padding-block($rem-400);
+          @include padding-block($rem-200);
           grid-column: content;
         }
 
@@ -592,10 +593,13 @@
         position: relative;
         background: $white;
         @include owl($rem-400);
+        @include desktop {
+          grid-row: 2 / span 3;
+        }
         @include tablet {
+          grid-row: 1 / span 3;
           grid-column: column 7 / full;
           padding: $rem-400 $rem-400 0 $rem-400;
-          margin-left: $rem-400;
         }
         @include mobile {
           grid-column: content;
