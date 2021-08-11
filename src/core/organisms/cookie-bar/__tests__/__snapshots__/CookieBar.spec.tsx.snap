@@ -8,13 +8,13 @@ exports[`<CookieBar /> should render correctly 1`] = `
   onDecline={[MockFunction]}
 >
   <div
-    className="cookie-bar"
+    className="cookie-dialog"
     onAnimationEnd={[Function]}
     onAnimationStart={[Function]}
     role="dialog"
   >
     <button
-      className="cookie-bar__close"
+      className="cookie-dialog__close"
       onClick={[Function]}
       type="button"
     >
@@ -31,11 +31,11 @@ exports[`<CookieBar /> should render correctly 1`] = `
       </Memo()>
     </button>
     <Memo(Text)
-      className="cookie-bar__text"
+      className="cookie-dialog__text"
       size="small"
     >
       <span
-        className="text cookie-bar__text -small -darker"
+        className="text cookie-dialog__text -small -darker"
       >
         We use cookies to improve your experience. Find out more in our
          
@@ -79,7 +79,7 @@ exports[`<CookieBar /> should render correctly 1`] = `
       </span>
     </Memo(Text)>
     <div
-      className="cookie-bar__actions"
+      className="cookie-dialog__actions"
     >
       <ForwardRef(Button)
         color="primary"

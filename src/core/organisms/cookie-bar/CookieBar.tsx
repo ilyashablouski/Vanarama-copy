@@ -52,18 +52,18 @@ function CookieBar({ onAccept, onDecline, onBeforeShow, onAfterHide }: IProps) {
       role="dialog"
       onAnimationStart={handleAnimationStart}
       onAnimationEnd={handleAnimationEnd}
-      className={cx('cookie-bar', {
+      className={cx('cookie-dialog', {
         '-hide': !isVisible,
       })}
     >
       <button
         type="button"
-        className="cookie-bar__close"
+        className="cookie-dialog__close"
         onClick={hideCookieBar}
       >
         <CloseSharp />
       </button>
-      <Text className="cookie-bar__text" size="small">
+      <Text className="cookie-dialog__text" size="small">
         We use cookies to improve your experience. Find out more in our{' '}
         <RouterLink
           classNames={{
@@ -78,7 +78,7 @@ function CookieBar({ onAccept, onDecline, onBeforeShow, onAfterHide }: IProps) {
         </RouterLink>
         .
       </Text>
-      <div className="cookie-bar__actions">
+      <div className="cookie-dialog__actions">
         <Button
           fill="solid"
           color="primary"
