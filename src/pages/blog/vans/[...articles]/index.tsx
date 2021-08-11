@@ -1,6 +1,6 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
-import { Nullable, PreviewNextPageContext } from 'types/common';
+import { PreviewNextPageContext } from 'types/common';
 import SchemaJSON from 'core/atoms/schema-json';
 import React from 'react';
 import withApollo from '../../../../hocs/withApollo';
@@ -18,7 +18,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../../utils/env';
-import { getBreadCrumbsItems } from '../../../../utils/breadcrumbs';
+import {
+  convertSlugToBreadcrumbsSchema,
+  getBreadCrumbsItems,
+} from '../../../../utils/breadcrumbs';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
@@ -42,45 +45,7 @@ const BlogPost: NextPage<IBlogPost> = ({
   );
   const metaData = getSectionsData(['metaData'], data?.blogPost);
   const breadcrumbsItems = getBreadCrumbsItems(metaData);
-  // Todo: refactor POC breadcrumbs scheme
-  function convertSlugToBreadcrumbsScheme(slug: Nullable<string>) {
-    if (slug) {
-      const slugArray = ['home', ...slug.split('/')];
-
-      const getUrlFromSlug = (slugIndex: number, array: Array<string>) => {
-        if (slugIndex === 0) {
-          return 'https://www.vanarama.com';
-        }
-        if (slugIndex === array.length - 1) {
-          return '';
-        }
-        return `https://www.vanarama.com${`/${array
-          .slice(1, slugIndex + 1)
-          .join('/')}`}`;
-      };
-
-      const itemListArray = slugArray.map((slugItem, slugItemIndex, array) => ({
-        '@type': 'ListItem',
-        position: slugItemIndex + 1,
-        name: slugItem
-          .replace(/-/g, ' ')
-          .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
-        item: getUrlFromSlug(slugItemIndex, array),
-      }));
-
-      const schemeObject = {
-        '@context': 'https://schema.org/',
-        '@type': 'BreadcrumbList',
-        itemListElement: itemListArray,
-      };
-
-      return schemeObject;
-
-      console.log('schemeObject', schemeObject);
-    }
-    return null;
-  }
-  const breadcrumbsScheme = convertSlugToBreadcrumbsScheme(metaData.slug);
+  const breadcrumbsSchema = convertSlugToBreadcrumbsSchema(metaData.slug);
 
   return (
     <>
@@ -92,9 +57,7 @@ const BlogPost: NextPage<IBlogPost> = ({
         breadcrumbsItems={breadcrumbsItems}
         metaData={metaData}
       />
-      {metaData.schema ?? (
-        <SchemaJSON json={JSON.stringify(breadcrumbsScheme)} />
-      )}
+      {metaData.slug ?? <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />}
     </>
   );
 };
