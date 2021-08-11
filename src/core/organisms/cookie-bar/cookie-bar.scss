@@ -1,0 +1,74 @@
+@keyframes fadeIn {
+  0% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+@keyframes fadeOut {
+  100% {
+    visibility: hidden;
+    opacity: 0;
+  }
+}
+
+.cookie-dialog {
+  position: fixed;
+  left: 30px;
+  bottom: 30px;
+  width: 100%;
+  max-width: calc(100% - 60px);
+  padding: 21px 25px 25px;
+  border-radius: 6px;
+  text-align: center;
+  background: $white;
+  box-shadow: 0 0 15px #00000021;
+  animation: fadeIn .45s ease-out 1.5s backwards;
+  z-index: 999;
+
+  &.-hide {
+    animation: fadeOut .45s ease-out forwards;
+  }
+
+  @include mobile {
+    left: 50%;
+    bottom: 15px;
+    transform: translateX(-50%);
+    max-width: calc(100% - 30px);
+    padding: 18px 24px 14px;
+  }
+
+  &__close {
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    display: inline-flex;
+    cursor: pointer;
+  }
+
+  &__text {
+    display: block;
+    margin-bottom: 18px;
+    font-size: 20px !important;
+    font-weight: 500;
+
+    @include mobile {
+      margin-bottom: 12px;
+      font-size: 15px !important;
+    }
+
+    .link {
+      white-space: nowrap;
+      font-size: inherit;
+    }
+  }
+
+  &__actions {
+    margin: -5px -10px;
+
+    .button {
+      width: 94px;
+      margin: 5px 10px;
+    }
+  }
+}

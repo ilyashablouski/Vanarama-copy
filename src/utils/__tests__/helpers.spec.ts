@@ -213,9 +213,9 @@ describe('getOrderList', () => {
         dataTestId: 'warranty',
         id: 'warranty',
         isOrange: false,
-        key: '5 Years Manufacturer Or 50000 Milles',
+        key: '5 Years Manufacturer Or 50000 Miles',
         label: 'Warranty:',
-        value: '5 Years Manufacturer Or 50000 Milles',
+        value: '5 Years Manufacturer Or 50000 Miles',
       },
       {
         dataTestId: 'roadTax',

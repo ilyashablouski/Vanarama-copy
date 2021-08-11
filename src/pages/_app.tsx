@@ -33,6 +33,7 @@ import {
 import Skeleton from '../components/Skeleton';
 import HeaderContainer from '../containers/HeaderContainer';
 import FooterContainer from '../containers/FooterContainer';
+import CookieBarContainer from '../containers/CookieBarContainer';
 import { PAGES_WITHOUT_DEFERRED_STYLES } from '../components/Head/defaults';
 import { removeSessionStorageItem } from '../utils/windowSessionStorage';
 import {
@@ -52,6 +53,7 @@ const ToastContainer = dynamic(
     ssr: false,
   },
 );
+const CookieBar = dynamic(() => import('core/organisms/cookie-bar'));
 const ComparatorBar = dynamic(() => import('core/organisms/comparator-bar'), {
   ssr: false,
 });
@@ -191,7 +193,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         >
           <Component {...pageProps} />
         </CompareContext.Provider>
-
         <ComparatorBar
           deleteVehicle={async vehicle => {
             const vehicles = await deleteCompare(vehicle);
@@ -220,6 +221,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         )}
         <FooterContainer />
       </main>
+      <CookieBarContainer />
       <LazyLoadComponent>
         <ToastContainer />
       </LazyLoadComponent>

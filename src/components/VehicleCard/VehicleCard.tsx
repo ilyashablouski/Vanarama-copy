@@ -42,7 +42,7 @@ interface IVehicleCardProps {
   isModelPage?: boolean;
   url: string;
   derivativeId?: string | null;
-  idx?: number;
+  index?: number;
   customCTAColor?: string;
 }
 
@@ -58,7 +58,7 @@ const VehicleCard = React.memo(
     bodyStyle,
     isModelPage,
     customCTAColor,
-    idx,
+    index,
   }: IVehicleCardProps) => {
     const router = useRouter();
 
@@ -117,8 +117,8 @@ const VehicleCard = React.memo(
                 label: '',
               }}
               onClick={() => {
-                if (idx) {
-                  onSavePagePosition(idx, router.query);
+                if (index) {
+                  onSavePagePosition(index, router.query);
                 }
                 sessionStorage.setItem('capId', data.capId || '');
               }}
@@ -159,8 +159,8 @@ const VehicleCard = React.memo(
               label: 'View Offer',
             }}
             onClick={() => {
-              if (idx) {
-                onSavePagePosition(idx, router.query);
+              if (index) {
+                onSavePagePosition(index, router.query);
               }
               sessionStorage.setItem('capId', data.capId || '');
             }}

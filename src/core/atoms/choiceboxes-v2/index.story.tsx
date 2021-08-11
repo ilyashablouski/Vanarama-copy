@@ -14,7 +14,7 @@ storiesOf(`${atomicDir(base)}/ChoiceboxesV2`, module)
         values={initialValues}
         selectedValues={selectedValues}
         onChange={values => {
-          setSelectedValues(values);
+          setSelectedValues(values as typeof selectedValues);
         }}
       />
     );
@@ -29,7 +29,7 @@ storiesOf(`${atomicDir(base)}/ChoiceboxesV2`, module)
         values={initialValues}
         selectedValues={selectedValues}
         onChange={values => {
-          setSelectedValues(values);
+          setSelectedValues(values as typeof selectedValues);
         }}
       />
     );

@@ -93,10 +93,10 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
             >
               {cards?.name}
             </Heading>
-            {cards.map((el: Cards, indx: number) => (
+            {cards.map((el: Cards, index: number) => (
               <Card
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={`${el.name}_${indx.toString()}`}
+                key={`${el.name}_${index.toString()}`}
                 title={{
                   title: el.title || '',
                 }}

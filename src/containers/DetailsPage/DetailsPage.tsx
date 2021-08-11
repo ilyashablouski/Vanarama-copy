@@ -79,9 +79,6 @@ const MediaGallery = dynamic(() => import('core/organisms/media-gallery'), {
 const LeaseScanner = dynamic(() => import('core/organisms/lease-scanner'), {
   loading: () => <Skeleton count={3} />,
 });
-const ShieldFreeInsurance = dynamic(() =>
-  import('core/assets/icons/ShieldFreeInsurance'),
-);
 const IndependentReview = dynamic(() =>
   import('../../components/IndependentReview/IndependentReview'),
 );
@@ -122,6 +119,11 @@ const CustomerAlsoViewedContainer = dynamic(() =>
   import('../CustomerAlsoViewedContainer/CustomerAlsoViewedContainer'),
 );
 const InsuranceModal = dynamic(() => import('./InsuranceModal'));
+
+const INSURANCE_LINK = {
+  href: '/car-leasing/free-car-insurance',
+  label: 'Find Out More',
+};
 
 interface IDetailsPageProps {
   capId: number;
@@ -531,26 +533,23 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
       <PartnershipLogoHeader />
-      <div
-        className={cx('pdp--content', {
-          '-free-insurance': isSpecialOffer && isCar,
-        })}
-        ref={pdpContent}
-      >
-        {isSpecialOffer && isCar && (
-          <div className="pdp-free-insurance-banner -white">
-            <ShieldFreeInsurance />
-            <Text tag="span" color="white">
-              1 Year&apos;s FREE Insurance
-            </Text>
-            <RouterLink
-              link={{
-                href: '/car-leasing/free-car-insurance',
-                label: 'Find Out More',
-              }}
-            />
-          </div>
-        )}
+      {isSpecialOffer && isCar && (
+        <div className="pdp-free-insurance-banner">
+          <Text
+            tag="span"
+            color="black"
+            className="pdp-free-insurance-banner--text"
+          >
+            1 Year&apos;s FREE Insurance
+          </Text>
+          <RouterLink
+            link={INSURANCE_LINK}
+            classNames={{ color: 'black', size: 'regular' }}
+            className="pdp-free-insurance-banner--link"
+          />
+        </div>
+      )}
+      <div className="pdp--content" ref={pdpContent}>
         {breadcrumbItems && (
           <div className="row:title">
             <Breadcrumb items={breadcrumbItems} />
@@ -660,6 +659,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             quote={quote}
             capId={capId}
             isShowFreeInsuranceMerch={isCar && !!isSpecialOffer}
+            isShowFreeHomeChargerMerch={
+              data?.derivativeInfo?.fuelType?.name === 'Electric'
+            }
             onCompletedCallBack={onCompletedCallBack}
             vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
@@ -718,6 +720,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           quote={quote}
           capId={capId}
           isShowFreeInsuranceMerch={isCar && !!isSpecialOffer}
+          isShowFreeHomeChargerMerch={
+            data?.derivativeInfo?.fuelType?.name === 'Electric'
+          }
           vehicleType={vehicleType}
           derivativeInfo={derivativeInfo}
           leaseAdjustParams={leaseAdjustParams}

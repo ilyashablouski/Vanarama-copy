@@ -65,6 +65,7 @@ export interface IProps {
   setIsInitPayModalShowing: Dispatch<SetStateAction<boolean>>;
   isPlayingLeaseAnimation: boolean;
   isShowFreeInsuranceMerch?: boolean;
+  isShowFreeHomeChargerMerch?: boolean;
   setIsInitialLoading: React.Dispatch<React.SetStateAction<boolean>>;
   setIsPlayingLeaseAnimation: React.Dispatch<React.SetStateAction<boolean>>;
   setIsRestoreLeaseSettings: React.Dispatch<React.SetStateAction<boolean>>;

@@ -1,0 +1,121 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CookieBar /> should render correctly 1`] = `
+<CookieBar
+  onAccept={[MockFunction]}
+  onAfterHide={[MockFunction]}
+  onBeforeShow={[MockFunction]}
+  onDecline={[MockFunction]}
+>
+  <div
+    className="cookie-dialog"
+    onAnimationEnd={[Function]}
+    onAnimationStart={[Function]}
+    role="dialog"
+  >
+    <button
+      className="cookie-dialog__close"
+      onClick={[Function]}
+      type="button"
+    >
+      <Memo()>
+        <svg
+          height="1em"
+          viewBox="0 0 512 512"
+          width="1em"
+        >
+          <polygon
+            points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
+          />
+        </svg>
+      </Memo()>
+    </button>
+    <Memo(Text)
+      className="cookie-dialog__text"
+      size="small"
+    >
+      <span
+        className="text cookie-dialog__text -small -darker"
+      >
+        We use cookies to improve your experience. Find out more in our
+         
+        <RouterLink
+          classNames={
+            Object {
+              "color": "primary",
+            }
+          }
+          link={
+            Object {
+              "href": "/legal/privacy-policy",
+              "label": "cookie policy",
+            }
+          }
+        >
+          <Link
+            href={
+              Object {
+                "pathname": "/legal/privacy-policy",
+                "query": Object {},
+              }
+            }
+            shallow={false}
+          >
+            <a
+              className="link -primary"
+              data-menu={null}
+              data-testid="router-link"
+              href="/legal/privacy-policy"
+              onClick={[Function]}
+              onFocus={[Function]}
+              onMouseEnter={[Function]}
+              onMouseOver={[Function]}
+            >
+              cookie policy
+            </a>
+          </Link>
+        </RouterLink>
+        .
+      </span>
+    </Memo(Text)>
+    <div
+      className="cookie-dialog__actions"
+    >
+      <ForwardRef(Button)
+        color="primary"
+        fill="solid"
+        label="Accept"
+        onClick={[Function]}
+      >
+        <button
+          className="button -primary -regular -solid"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            Accept
+          </div>
+        </button>
+      </ForwardRef(Button)>
+      <ForwardRef(Button)
+        color="primary"
+        fill="outline"
+        label="Decline"
+        onClick={[Function]}
+      >
+        <button
+          className="button -primary -regular -outline"
+          onClick={[Function]}
+        >
+          <div
+            className="button--inner"
+          >
+            Decline
+          </div>
+        </button>
+      </ForwardRef(Button)>
+    </div>
+  </div>
+</CookieBar>
+`;

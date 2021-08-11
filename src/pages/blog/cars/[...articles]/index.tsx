@@ -17,6 +17,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../../utils/env';
+import getBreadCrumbsItems from '../../helpers';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
@@ -38,9 +39,7 @@ const BlogPost: NextPage<IBlogPost> = ({
     data?.blogPost,
   );
   const metaData = getSectionsData(['metaData'], data?.blogPost);
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
 
   return (
     <BlogPostContainer

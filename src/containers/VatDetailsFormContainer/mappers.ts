@@ -1,7 +1,11 @@
+import { LimitedCompanyInputObject } from '../../../generated/globalTypes';
 import { VatDetailsFormValues } from '../../components/VatDetailsForm/interfaces';
 import { GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid as CreditApplication } from '../../../generated/GetCreditApplicationByOrderUuid';
 
-export const mapFormValues = (values: VatDetailsFormValues, uuid: string) => ({
+export const mapFormValues = (
+  uuid: string,
+  values: VatDetailsFormValues,
+): Omit<LimitedCompanyInputObject, 'companyNature'> => ({
   uuid,
   isVatRegistered: values.vatRegistered,
   tradesOutsideUk: values.outsideUK,

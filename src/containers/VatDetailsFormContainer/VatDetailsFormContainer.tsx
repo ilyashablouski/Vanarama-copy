@@ -34,12 +34,8 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
     orderId,
     () => {},
   );
-  const getCreditApplicationByOrderUuidQuery = useGetCreditApplicationByOrderUuid(
-    orderId,
-  );
-  const defaultValues = mapDefaultValues(
-    getCreditApplicationByOrderUuidQuery.data?.creditApplicationByOrderUuid,
-  );
+  const { loading, error, data } = useGetCreditApplicationByOrderUuid(orderId);
+  const defaultValues = mapDefaultValues(data?.creditApplicationByOrderUuid);
 
   const handleCreditApplicationUpdate = (vatDetails: VatDetailsFormValues) =>
     createUpdateApplication({
@@ -59,13 +55,12 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
             uuid: personUuid,
           },
           companyNature:
-            getCreditApplicationByOrderUuidQuery?.data
-              ?.creditApplicationByOrderUuid?.companyDetailsV2
-              ?.natureOfBusiness,
+            data?.creditApplicationByOrderUuid?.companyDetailsV2
+              ?.natureOfBusiness ?? '',
           companyType: isSoleTrader
             ? CompanyTypes.soleTrader
             : CompanyTypes.limited,
-          ...mapFormValues(values, companyUuid),
+          ...mapFormValues(companyUuid, values),
         },
       },
     };
@@ -85,14 +80,12 @@ export const VatDetailsFormContainer: React.FC<IVatDetailsFormContainerProps> = 
     }
   };
 
-  if (getCreditApplicationByOrderUuidQuery.loading) {
+  if (loading) {
     return <Loading size="large" />;
   }
 
-  if (getCreditApplicationByOrderUuidQuery?.error) {
-    return (
-      <p>{`Could not load VAT details: ${getCreditApplicationByOrderUuidQuery?.error.message}`}</p>
-    );
+  if (error) {
+    return <p>{`Could not load VAT details: ${error.message}`}</p>;
   }
 
   return (
