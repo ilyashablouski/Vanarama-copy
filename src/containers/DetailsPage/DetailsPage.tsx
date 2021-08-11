@@ -533,28 +533,23 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
       <PartnershipLogoHeader />
-      <div
-        className={cx('pdp--content', {
-          '-free-insurance': isSpecialOffer && isCar,
-        })}
-        ref={pdpContent}
-      >
-        {isSpecialOffer && isCar && (
-          <div className="pdp-free-insurance-banner">
-            <Text
-              tag="span"
-              color="black"
-              className="pdp-free-insurance-banner--text"
-            >
-              1 Year&apos;s FREE Insurance
-            </Text>
-            <RouterLink
-              link={INSURANCE_LINK}
-              classNames={{ color: 'black', size: 'regular' }}
-              className="pdp-free-insurance-banner--link"
-            />
-          </div>
-        )}
+      {isSpecialOffer && isCar && (
+        <div className="pdp-free-insurance-banner">
+          <Text
+            tag="span"
+            color="black"
+            className="pdp-free-insurance-banner--text"
+          >
+            1 Year&apos;s FREE Insurance
+          </Text>
+          <RouterLink
+            link={INSURANCE_LINK}
+            classNames={{ color: 'black', size: 'regular' }}
+            className="pdp-free-insurance-banner--link"
+          />
+        </div>
+      )}
+      <div className="pdp--content" ref={pdpContent}>
         {breadcrumbItems && (
           <div className="row:title">
             <Breadcrumb items={breadcrumbItems} />
