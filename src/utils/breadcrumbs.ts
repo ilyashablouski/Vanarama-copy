@@ -1,4 +1,5 @@
 import { IBreadcrumb, IBreadcrumbLink } from 'types/breadcrumbs';
+import Cookies from 'js-cookie';
 import {
   getPartnerProperties,
   isPartnerSessionActive,
@@ -68,15 +69,24 @@ export function getBlogBreadCrumbsFromSlug(slug: Nullish<string>) {
   return null;
 }
 
-export const getBreadCrumbsItems = (
+export function getBreadCrumbsItems(
   metaData: IMetaDataSection,
-): IBreadcrumbLink[] | null => {
+): IBreadcrumbLink[] | null {
+  const isBreadcrumbsFromSlugEnabled = Cookies.get('DIG-6993') === '1';
+
+  if (isBreadcrumbsFromSlugEnabled) {
+    return metaData?.breadcrumbs
+      ? metaData?.breadcrumbs?.map((el: IBreadcrumb) => ({
+          link: { href: el.href || '', label: el.label },
+        }))
+      : getBlogBreadCrumbsFromSlug(metaData.slug);
+  }
   return metaData?.breadcrumbs
     ? metaData?.breadcrumbs?.map((el: IBreadcrumb) => ({
         link: { href: el.href || '', label: el.label },
       }))
-    : getBlogBreadCrumbsFromSlug(metaData.slug);
-};
+    : null;
+}
 
 export function convertSlugToBreadcrumbsSchema(
   slug: Nullable<string>,
