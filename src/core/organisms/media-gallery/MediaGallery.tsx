@@ -8,8 +8,6 @@ import TabPanels from '../../molecules/tabs/TabPanels';
 import TabPanel from '../../molecules/tabs/TabPanel';
 import Media from '../../atoms/media';
 import ImageCarousel from './ImageCarousel';
-import ElectricVehicleBanner from '../../../components/ElectricVehicleBanner';
-import FreeInsuranceBanner from '../../../components/FreeInsuranceBanner';
 
 const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
   const {
@@ -22,8 +20,6 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
     videoIframe,
     activeTabIndex,
     imageAltText,
-    showElectricBanner,
-    showInsuranceBanner,
   } = props;
   const [activeSlide, setActiveSlide] = useState(0);
   const [activeTab, setActiveTab] = useState(activeTabIndex || 1);
@@ -70,14 +66,6 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
               activeSlide={activeSlide}
               changeSlideHandler={setActiveSlide}
               imageAltText={imageAltText}
-              renderImageDecoration={(image, index) =>
-                index === 0 ? (
-                  <div className="gallery-promotion-container">
-                    {showElectricBanner && <ElectricVehicleBanner />}
-                    {showInsuranceBanner && <FreeInsuranceBanner />}
-                  </div>
-                ) : null
-              }
             />
           </TabPanel>
           {videoSrc && (
