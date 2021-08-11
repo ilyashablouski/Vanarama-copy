@@ -66,6 +66,15 @@ const MediaGallery: FC<IMediaGalleryProps> = memo(props => {
               activeSlide={activeSlide}
               changeSlideHandler={setActiveSlide}
               imageAltText={imageAltText}
+              // TODO: Should be uncommented in the future when we are going to use product card banners.
+              // renderImageDecoration={(image, index) =>
+              //   index === 0 ? (
+              //     <div className="gallery-promotion-container">
+              //       {showElectricBanner && <ElectricVehicleBanner />}
+              //       {showInsuranceBanner && <FreeInsuranceBanner />}
+              //     </div>
+              //   ) : null
+              // }
             />
           </TabPanel>
           {videoSrc && (
