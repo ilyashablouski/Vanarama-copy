@@ -8,6 +8,19 @@
   background: #F8BB20;
   padding: 8px 20px 8px 13px;
 
+  @include desktop {
+    grid-column: 2 / span 8;
+  }
+
+  @include mobile {
+    margin-left: -1rem;
+    margin-right: -1rem;
+  }
+
+  @include tablet {
+    grid-column: full / column 7;
+  }
+
   &--text {
     font-family: VA Heading, -apple-system, system-ui, sans-serif, -system-emoji;
     line-height: 24px;
@@ -186,31 +199,19 @@
 }
 
 .yellow-tag {
+  margin-top: 12px;
   display: flex;
-  align-items: center;
-  height: 40px;
-  background: #f7bb20;
-  border-top-right-radius: 100px;
-  border-bottom-right-radius: 100px;
-  margin-left: -16px;
-  max-width: 264px;
-  padding: 0 4px 0 30px;
-  span {
-    font-size: 14px;
-    font-weight: bold;
-    color: black;
-    margin-right: auto;
-  }
-  svg {
-    width: 32px;
-    border: 2px solid black;
-    border-radius: 100px;
-    height: 32px;
-    > g {
-      transform: scale(0.5) translate(16px, 14px);
-    }
+  padding: 4px 9px 4px 6px;
+  background: #F8BB20;
+  border-radius: 4px;
+  max-width: 160px;
+
+  &--icon {
+    line-height: 17px;
+    margin-right: 5px;
   }
 }
+
 .subject-to--- {
   font-size: 12px;
   font-weight: bold;
