@@ -3,7 +3,7 @@ import {
   getPartnerProperties,
   isPartnerSessionActive,
 } from './partnerProperties';
-import { IMetaDataSection, Nullish } from '../types/common';
+import { IMetaDataSection, Nullable, Nullish } from '../types/common';
 
 export function getPartnershipsBreadcrumbItems(breadcrumbs: IBreadcrumb[]) {
   const breadcrumbsItems = breadcrumbs?.map((el: IBreadcrumb) => ({
@@ -77,3 +77,42 @@ export const getBreadCrumbsItems = (
       }))
     : getBlogBreadCrumbsFromSlug(metaData.slug);
 };
+
+export function convertSlugToBreadcrumbsSchema(
+  slug: Nullable<string>,
+): Object | null {
+  if (slug) {
+    const slugArray = ['home', ...slug.split('/')];
+
+    const getUrlFromSlug = (
+      slugIndex: number,
+      arrayFromSlug: Array<string>,
+    ) => {
+      if (slugIndex === 0) {
+        return 'https://www.vanarama.com';
+      }
+      if (slugIndex === arrayFromSlug.length - 1) {
+        return '';
+      }
+      return `https://www.vanarama.com/${arrayFromSlug
+        .slice(1, slugIndex + 1)
+        .join('/')}`;
+    };
+
+    const itemListArray = slugArray.map((slugItem, slugItemIndex, array) => ({
+      '@type': 'ListItem',
+      position: slugItemIndex + 1,
+      name: slugItem
+        .replace(/-/g, ' ')
+        .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
+      item: getUrlFromSlug(slugItemIndex, array),
+    }));
+
+    return {
+      '@context': 'https://schema.org/',
+      '@type': 'BreadcrumbList',
+      itemListElement: itemListArray,
+    };
+  }
+  return null;
+}
