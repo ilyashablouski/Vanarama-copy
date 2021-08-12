@@ -607,6 +607,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
           imageAltText={metaTitle}
+          className="pdp--media-gallery"
         />
         <VehicleTechDetails
           vehicleDetails={vehicleDetails}

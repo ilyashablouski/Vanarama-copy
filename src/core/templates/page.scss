@@ -125,6 +125,7 @@
     align-items: start;
     background: linear-gradient(to bottom, $white 0, $light 100vh);
     --page-gap: calc(var(--layout-gap) * 1);
+
     @include mobile {
       background: $lighter;
       overflow: hidden;
@@ -136,8 +137,31 @@
 
       .tabs__list-wrap {
         border-radius: 0;
-        border-bottom: 1px solid darken($medium, 10%);
-        border-top: 1px solid darken($medium, 10%);
+        border: 1px solid darken($medium, 10%);
+
+        @include mobile {
+          border-right: 0;
+          border-left: 0;
+        }
+      }
+
+      .tabs__list {
+        font-size: $font-size-400;
+      }
+
+      [role='tab'] {
+        padding: $rem-400;
+        font-weight: $font-weight-semibold;
+        background: $white;
+
+        &.-active {
+          color: $orange;
+          box-shadow: 0 -3px 0 $orange inset;
+        }
+
+        @include mobile {
+          font-size: $font-size-400 !important;
+        }
       }
     }
 
@@ -203,15 +227,17 @@
         @include mobile {
           @include margin-inline(-$rem-400);
           width: 100vw;
-
-          + .tabs-wrap .media {
-            @include margin-inline(-$rem-400);
-            width: 100vw;
-          }
         }
 
         & + * {
           margin-top: 0 !important;
+        }
+      }
+
+      &--media-gallery {
+        @include mobile {
+          @include margin-inline(-$rem-400);
+          width: 100vw;
         }
       }
 
