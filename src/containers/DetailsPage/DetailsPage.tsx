@@ -73,7 +73,7 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
   ssr: false,
 });
-const MediaGallery = dynamic(() => import('core/organisms/media-gallery'), {
+const MediaGallery = dynamic(() => import('core/organisms/media-gallery-v2'), {
   loading: () => <Skeleton count={3} />,
 });
 const LeaseScanner = dynamic(() => import('core/organisms/lease-scanner'), {

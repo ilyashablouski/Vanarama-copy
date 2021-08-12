@@ -1,3 +1,1 @@
-import MediaGallery from './MediaGallery';
-
-export default MediaGallery;
+export { default } from './MediaGallery';
