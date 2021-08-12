@@ -42,7 +42,9 @@ const CategoryPage: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
         tiles={tiles}
         featuredImage={data?.genericPage.featuredImage}
       />
-      {metaData.slug ?? <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />}
+      {metaData.slug && !metaData.schema && (
+        <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />
+      )}
     </>
   );
 };
