@@ -15,15 +15,15 @@ export interface SlugNextPageContext extends NextPageContext {
 }
 
 export interface IMetaDataSection {
-  breadcrumbs: IBreadcrumb[] | null;
-  canonicalUrl: string | null;
-  legacyUrl: string | null;
-  metaDescription: string | null;
-  metaRobots: string | null;
-  name: string | null;
-  pageType: string | null;
+  breadcrumbs: Nullable<IBreadcrumb[]>;
+  canonicalUrl: Nullable<string>;
+  legacyUrl: Nullable<string>;
+  metaDescription: Nullable<string>;
+  metaRobots: Nullable<string>;
+  name: Nullable<string>;
+  pageType: Nullable<string>;
   publishedOn: string;
-  schema: JSON | null;
-  slug: string | null;
-  title: string | null;
+  schema: Nullable<JSON>;
+  slug: Nullable<string>;
+  title: Nullable<string>;
 }

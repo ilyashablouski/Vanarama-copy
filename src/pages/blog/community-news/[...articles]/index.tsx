@@ -1,6 +1,8 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
 import { PreviewNextPageContext } from 'types/common';
+import SchemaJSON from 'core/atoms/schema-json';
+import React from 'react';
 import withApollo from '../../../../hocs/withApollo';
 import { BLOG_POST_PAGE } from '../../../../gql/blogPost';
 import BlogPostContainer from '../../../../containers/BlogPostContainer/BlogPostContainer';
@@ -16,7 +18,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../../utils/env';
-import getBreadCrumbsItems from '../../helpers';
+import {
+  convertSlugToBreadcrumbsSchema,
+  getBreadCrumbsItems,
+} from '../../../../utils/breadcrumbs';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
@@ -39,16 +44,20 @@ const BlogPost: NextPage<IBlogPost> = ({
   );
   const metaData = getSectionsData(['metaData'], data?.blogPost);
   const breadcrumbsItems = getBreadCrumbsItems(metaData);
+  const breadcrumbsSchema = convertSlugToBreadcrumbsSchema(metaData.slug);
 
   return (
-    <BlogPostContainer
-      articles={articles}
-      body={body}
-      name={name}
-      image={image}
-      breadcrumbsItems={breadcrumbsItems}
-      metaData={metaData}
-    />
+    <>
+      <BlogPostContainer
+        articles={articles}
+        body={body}
+        name={name}
+        image={image}
+        breadcrumbsItems={breadcrumbsItems}
+        metaData={metaData}
+      />
+      {metaData.slug ?? <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />}
+    </>
   );
 };
 
