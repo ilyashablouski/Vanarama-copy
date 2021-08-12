@@ -56,7 +56,9 @@ const BlogPost: NextPage<IBlogPost> = ({
         breadcrumbsItems={breadcrumbsItems}
         metaData={metaData}
       />
-      {metaData.slug ?? <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />}
+      {metaData.slug && !metaData.schema && (
+        <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />
+      )}
     </>
   );
 };
