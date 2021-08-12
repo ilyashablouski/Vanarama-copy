@@ -46,7 +46,9 @@ const CategoryPage: NextPage<IBlogCategory> = ({
         pageTitle={pageTitle}
         activePageRoute={pageNumber || 1}
       />
-      {metaData.slug ?? <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />}
+      {metaData.slug && !metaData.schema && (
+        <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />
+      )}
     </>
   );
 };
