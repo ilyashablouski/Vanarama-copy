@@ -3,6 +3,7 @@ import {
   productCardDataMapper,
   buildFiltersRequestObject,
   isSimilarPage,
+  buildInitialFilterState,
 } from '../helpers';
 import { IFiltersData, IProps } from '../interfaces';
 import { productDerivatives_productDerivatives_derivatives as IVehiclesList } from '../../../../generated/productDerivatives';
@@ -288,6 +289,22 @@ describe('helpers', () => {
       range: '3 series',
       onOffer: true,
       financeTypes: ['PCH'],
+    });
+  });
+  it('buildInitialFilterState should return correct filter object', () => {
+    expect(
+      buildInitialFilterState({
+        searchTerm: 'ford',
+        bodyStyles: 'Hatchback',
+        budget: '150%7C550',
+        enginePowerBhp: '160%7C240',
+      }),
+    ).toEqual({
+      bodyStyles: ['Hatchback'],
+      from: ['150'],
+      to: ['550'],
+      fromEnginePower: [160],
+      toEnginePower: [240],
     });
   });
   it('isSimilarPage should return true', () => {
