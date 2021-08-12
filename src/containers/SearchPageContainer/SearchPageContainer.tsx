@@ -1036,6 +1036,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
               <div>
                 <Heading
+                  className="-mb-400"
                   size="large"
                   color="black"
                   tag={
@@ -1052,7 +1053,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                     pageData?.genericPage,
                   )}
                 </Heading>
-                <div className="markdown">
+                <div className="markdown full-width">
                   <ReactMarkdown
                     allowDangerousHtml
                     source={getSectionsData(
@@ -1064,6 +1065,24 @@ const SearchPageContainer: React.FC<IProps> = ({
                         const { href, children } = props;
                         return <RouterLink link={{ href, label: children }} />;
                       },
+                      heading: props => (
+                        <Text
+                          {...props}
+                          className="large"
+                          color="darked"
+                          tag="h3"
+                        />
+                      ),
+
+                      paragraph: props => (
+                        <Text
+                          {...props}
+                          tag="span"
+                          className="-big"
+                          size="full-width"
+                          color="darked"
+                        />
+                      ),
                     }}
                   />
                 </div>
