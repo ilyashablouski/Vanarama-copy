@@ -16,9 +16,9 @@
   position: fixed;
   left: 30px;
   bottom: 30px;
-  width: 347px;
+  width: 100%;
   max-width: calc(100% - 60px);
-  padding: 22px 25px 16px;
+  padding: 21px 25px 25px;
   border-radius: 6px;
   text-align: center;
   background: $white;
@@ -35,8 +35,7 @@
     bottom: 15px;
     transform: translateX(-50%);
     max-width: calc(100% - 30px);
-    padding-top: 18px;
-    padding-bottom: 14px;
+    padding: 18px 24px 14px;
   }
 
   &__close {
@@ -49,11 +48,18 @@
 
   &__text {
     display: block;
-    margin-bottom: 12px;
-    font-size: 15px !important;
+    margin-bottom: 18px;
+    font-size: 20px !important;
+    font-weight: 500;
+
+    @include mobile {
+      margin-bottom: 12px;
+      font-size: 15px !important;
+    }
 
     .link {
       white-space: nowrap;
+      font-size: inherit;
     }
   }
 

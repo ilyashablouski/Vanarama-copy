@@ -1,6 +1,8 @@
 import { NextPage } from 'next';
 import DefaultErrorPage from 'next/error';
 import { PreviewNextPageContext } from 'types/common';
+import SchemaJSON from 'core/atoms/schema-json';
+import React from 'react';
 import createApolloClient from '../../apolloClient';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import withApollo from '../../hocs/withApollo';
@@ -11,6 +13,7 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
+import { convertSlugToBreadcrumbsSchema } from '../../utils/breadcrumbs';
 
 const CategoryPage: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
   // De-obfuscate data for user
@@ -27,16 +30,22 @@ const CategoryPage: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
   const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
     link: { href: el.href || '', label: el.label },
   }));
+  const breadcrumbsSchema = convertSlugToBreadcrumbsSchema(metaData.slug);
 
   return (
-    <CategoryPageContainer
-      breadcrumbsItems={breadcrumbsItems}
-      featured={featured}
-      carousel={carousel}
-      metaData={metaData}
-      tiles={tiles}
-      featuredImage={data?.genericPage.featuredImage}
-    />
+    <>
+      <CategoryPageContainer
+        breadcrumbsItems={breadcrumbsItems}
+        featured={featured}
+        carousel={carousel}
+        metaData={metaData}
+        tiles={tiles}
+        featuredImage={data?.genericPage.featuredImage}
+      />
+      {metaData.slug && !metaData.schema && (
+        <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />
+      )}
+    </>
   );
 };
 
