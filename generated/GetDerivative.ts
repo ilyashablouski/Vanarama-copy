@@ -70,6 +70,20 @@ export interface GetDerivative_vehicleImages {
   mainImageUrl: string | null;
 }
 
+export interface GetDerivative_vehicleDetails_roadsideAssistance {
+  years: number | null;
+}
+
+export interface GetDerivative_vehicleDetails_warrantyDetails {
+  years: number | null;
+  mileage: number | null;
+}
+
+export interface GetDerivative_vehicleDetails {
+  roadsideAssistance: GetDerivative_vehicleDetails_roadsideAssistance | null;
+  warrantyDetails: GetDerivative_vehicleDetails_warrantyDetails | null;
+}
+
 export interface GetDerivative {
   /**
    * Find vehicle configuration by cap id
@@ -77,6 +91,7 @@ export interface GetDerivative {
   vehicleConfigurationByCapId: GetDerivative_vehicleConfigurationByCapId | null;
   derivative: GetDerivative_derivative | null;
   vehicleImages: (GetDerivative_vehicleImages | null)[] | null;
+  vehicleDetails: GetDerivative_vehicleDetails | null;
 }
 
 export interface GetDerivativeVariables {
