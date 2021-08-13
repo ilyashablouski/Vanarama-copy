@@ -255,6 +255,12 @@ const OLAFLayout: React.FC<IProps> = ({
                 size: 'large',
                 ratingSize: 'lead',
               }}
+              roadsideAssistance={
+                derivativeData?.data?.vehicleDetails?.roadsideAssistance
+              }
+              warrantyDetails={
+                derivativeData?.data?.vehicleDetails?.warrantyDetails
+              }
             />
             {isBenefitsVisible && (
               <>

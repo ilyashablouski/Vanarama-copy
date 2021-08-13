@@ -1,6 +1,7 @@
 import Cookies from 'js-cookie';
 import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
 import { IInnerSelect } from './interfaces';
+import { Nullish } from '../../types/common';
 
 export const getInnerConfigKeys = (innerSelects: IInnerSelect[]) =>
   innerSelects.map(select => select.key as keyof IFiltersData);
@@ -68,3 +69,32 @@ export const buildEnginePowerValues = (min: number, max: number) =>
   ENGINE_POWER_FILTERS_DEFAULT.filter(value => min <= value && value <= max);
 
 export const isAdvancedFiltersEnabled = Cookies.get('DIG-6365') === '1';
+
+export const generateRangeFilterType = (
+  from: Nullish<string | number>,
+  to: Nullish<string | number>,
+) => `${from || '0'}|${to || ''}`;
+
+export const generateQueryObject = (filtersData: IFiltersData) => {
+  const queries = {} as any;
+  const excludesKeys = ['from', 'to', 'toEnginePower', 'fromEnginePower'];
+  Object.entries(filtersData).forEach(filter => {
+    const [key, value] = filter;
+    if (!excludesKeys.includes(key) && value?.length) {
+      queries[key] = value;
+    }
+  });
+  if (filtersData?.to?.[0] || filtersData?.from?.[0]) {
+    queries.budget = generateRangeFilterType(
+      filtersData?.from?.[0],
+      filtersData?.to?.[0],
+    );
+  }
+  if (filtersData?.toEnginePower?.[0] || filtersData?.fromEnginePower?.[0]) {
+    queries.enginePowerBhp = generateRangeFilterType(
+      filtersData?.fromEnginePower?.[0],
+      filtersData?.toEnginePower?.[0],
+    );
+  }
+  return queries;
+};

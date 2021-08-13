@@ -94,6 +94,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
             />
             <div>
               <Heading
+                className="-mb-400"
                 size="large"
                 color="black"
                 tag={
@@ -110,7 +111,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
                   pageData?.genericPage,
                 )}
               </Heading>
-              <div className="markdown">
+              <div className="markdown full-width">
                 <ReactMarkdown
                   allowDangerousHtml
                   source={getSectionsData(
@@ -122,6 +123,24 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
                       const { href, children } = props;
                       return <RouterLink link={{ href, label: children }} />;
                     },
+                    heading: props => (
+                      <Text
+                        {...props}
+                        className="large"
+                        color="darked"
+                        tag="h3"
+                      />
+                    ),
+
+                    paragraph: props => (
+                      <Text
+                        {...props}
+                        tag="span"
+                        className="-big"
+                        size="full-width"
+                        color="darked"
+                      />
+                    ),
                   }}
                 />
               </div>
@@ -133,6 +152,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
           <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <div>
               <Heading
+                className="-mb-400"
                 size="large"
                 color="black"
                 tag={
@@ -149,20 +169,36 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
                   pageData?.genericPage,
                 )}
               </Heading>
-              <div className="markdown">
+              <div className="markdown full-width">
                 <ReactMarkdown
                   allowDangerousHtml
-                  source={
-                    getSectionsData(
-                      ['sectionsAsArray', 'featured', '2', 'body'],
-                      pageData?.genericPage,
-                    ) || ''
-                  }
+                  source={getSectionsData(
+                    ['sectionsAsArray', 'featured', '2', 'body'],
+                    pageData?.genericPage,
+                  )}
                   renderers={{
                     link: props => {
                       const { href, children } = props;
                       return <RouterLink link={{ href, label: children }} />;
                     },
+                    heading: props => (
+                      <Text
+                        {...props}
+                        className="large"
+                        color="darked"
+                        tag="h3"
+                      />
+                    ),
+
+                    paragraph: props => (
+                      <Text
+                        {...props}
+                        tag="span"
+                        className="-big"
+                        size="full-width"
+                        color="darked"
+                      />
+                    ),
                   }}
                 />
               </div>
@@ -191,6 +227,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
             />
             <div>
               <Heading
+                className="-mb-400"
                 size="large"
                 color="black"
                 tag={
@@ -207,20 +244,36 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
                   pageData?.genericPage,
                 )}
               </Heading>
-              <div className="markdown">
+              <div className="markdown full-width">
                 <ReactMarkdown
                   allowDangerousHtml
-                  source={
-                    getSectionsData(
-                      ['sectionsAsArray', 'featured', '3', 'body'],
-                      pageData?.genericPage,
-                    ) || ''
-                  }
+                  source={getSectionsData(
+                    ['sectionsAsArray', 'featured', '3', 'body'],
+                    pageData?.genericPage,
+                  )}
                   renderers={{
                     link: props => {
                       const { href, children } = props;
                       return <RouterLink link={{ href, label: children }} />;
                     },
+                    heading: props => (
+                      <Text
+                        {...props}
+                        className="large"
+                        color="darked"
+                        tag="h3"
+                      />
+                    ),
+
+                    paragraph: props => (
+                      <Text
+                        {...props}
+                        tag="span"
+                        className="-big"
+                        size="full-width"
+                        color="darked"
+                      />
+                    ),
                   }}
                 />
               </div>
@@ -302,6 +355,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
           />
           <div>
             <Heading
+              className="-mb-400"
               size="large"
               color="black"
               tag={
@@ -318,7 +372,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
                 pageData?.genericPage,
               )}
             </Heading>
-            <div className="markdown">
+            <div className="markdown full-width">
               <ReactMarkdown
                 allowDangerousHtml
                 source={getSectionsData(
@@ -330,6 +384,24 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
                     const { href, children } = props;
                     return <RouterLink link={{ href, label: children }} />;
                   },
+                  heading: props => (
+                    <Text
+                      {...props}
+                      className="large"
+                      color="darked"
+                      tag="h3"
+                    />
+                  ),
+
+                  paragraph: props => (
+                    <Text
+                      {...props}
+                      tag="span"
+                      className="-big"
+                      size="full-width"
+                      color="darked"
+                    />
+                  ),
                 }}
               />
             </div>
@@ -416,8 +488,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
           />
         </div>
       </div>
-
-      <NewRangeCarousel newCarousel={newCarousel} />
+      {newCarousel && <NewRangeCarousel newCarousel={newCarousel} />}
     </>
   );
 };

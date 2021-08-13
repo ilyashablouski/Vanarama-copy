@@ -1,4 +1,4 @@
-import React, { useContext, useMemo } from 'react';
+import React, { useContext } from 'react';
 import dynamic from 'next/dynamic';
 import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
 import { useRouter } from 'next/router';
@@ -9,13 +9,9 @@ import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { features } from '../ProductCarousel/helpers';
 import Skeleton from '../Skeleton';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { onSavePagePosition } from './helpers';
 import useWishlist from '../../hooks/useWishlist';
 import { isWished } from '../../utils/wishlistHelpers';
-import ElectricVehicleBanner from '../ElectricVehicleBanner';
-import FreeInsuranceBanner from '../FreeInsuranceBanner';
-import { FuelTypeEnum } from '../../../entities/global';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -66,10 +62,11 @@ const VehicleCard = React.memo(
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
     const productPageUrl = formatProductPageUrl(url, derivativeId);
-    const fuelType = useMemo(
-      () => data?.keyInformation?.find(item => item?.name === 'Fuel Type'),
-      [data],
-    );
+    // TODO: Should be uncommented in the future when we are going to use product card banners.
+    // const fuelType = useMemo(
+    //   () => data?.keyInformation?.find(item => item?.name === 'Fuel Type'),
+    //   [data],
+    // );
 
     const imageProps = !isModelPage
       ? {
@@ -136,14 +133,15 @@ const VehicleCard = React.memo(
           ),
         }}
       >
-        <div className="gallery-promotion-container">
-          {fuelType?.value === FuelTypeEnum.ELECTRIC && !isModelPage && (
-            <ElectricVehicleBanner />
-          )}
-          {data?.isOnOffer &&
-            data?.vehicleType === VehicleTypeEnum.CAR &&
-            !isModelPage && <FreeInsuranceBanner />}
-        </div>
+        {/* TODO: Should be uncommented in the future when we are going to use product card banners. */}
+        {/* <div className="gallery-promotion-container"> */}
+        {/*  {fuelType?.value === FuelTypeEnum.ELECTRIC && !isModelPage && ( */}
+        {/*    <ElectricVehicleBanner /> */}
+        {/*  )} */}
+        {/*  {data?.isOnOffer && */}
+        {/*    data?.vehicleType === VehicleTypeEnum.CAR && */}
+        {/*    !isModelPage && <FreeInsuranceBanner />} */}
+        {/* </div> */}
         <div className="-flex-h">
           <Price
             price={isPersonalPrice ? data?.personalRate : data?.businessRate}
