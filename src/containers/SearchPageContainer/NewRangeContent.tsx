@@ -488,8 +488,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
           />
         </div>
       </div>
-
-      <NewRangeCarousel newCarousel={newCarousel} />
+      {newCarousel && <NewRangeCarousel newCarousel={newCarousel} />}
     </>
   );
 };
