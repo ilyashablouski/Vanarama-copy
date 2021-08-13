@@ -1,4 +1,4 @@
-import React from 'react';
+import { ReactNode } from 'react';
 import { IBaseProps } from '../../interfaces/base';
 import { IVimeoCustom } from '../../atoms/media/interface';
 import { ICardHeaderProps } from '../../molecules/cards/CardHeader';
@@ -19,8 +19,6 @@ export interface IMediaGalleryProps extends IBaseProps {
 
 export interface IImageCarouselProps extends IBaseProps {
   images: Array<string>;
-  activeSlide: number;
-  changeSlideHandler: (index: number) => void;
   imageAltText?: string;
-  renderImageDecoration?: (value: string, index: number) => React.ReactNode;
+  renderImageDecoration?: (value: string, index: number) => ReactNode;
 }

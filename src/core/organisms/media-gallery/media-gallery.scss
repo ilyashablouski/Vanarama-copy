@@ -1,185 +1,107 @@
-/// @name config
-$ratio: (2 / 3);
-$visible-items: 4.5;
-
-/// @name y-axis
-$y_w: 125px;
-$y_h: $y_w * $ratio;
-
-/// @name x-axis
-$x_h: $y_h * $visible-items;
-$x_w: 100%;
-
 .media-gallery {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) $y_w;
+  &__content {
+    background: transparent;
+  }
 
-  &--x,
-  &--y {
-    &-scroll {
-      max-height: $x_h;
-    }
+  &__tabs {
+    margin-top: 5px;
 
-    &-track {
-      display: grid;
-      place-content: center start;
-
-      &-item {
-        position: relative;
-        overflow: hidden;
-        @include pseudo(after);
-      }
+    @include mobile {
+      margin-top: 0;
     }
   }
 
-  &--x {
-    &-scroll {
-      @include overflow(hidden, hidden);
+  .swiper-slide {
+    .image {
       position: relative;
-
-      &-nav {
-        position: absolute;
-        top: calc(50% - 2rem);
-        left: 0;
-        right: 0;
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-
-        .icon {
-          font-size: 4rem;
-          color: $orange;
-          background-image: radial-gradient(circle at center, $white 50%, transparent 50%);
-        }
-
-        > * {
-          cursor: pointer;
-          @include margin-inline(.25rem);
-          opacity: 0.6;
-
-          &:hover {
-            transition: opacity 120ms ease;
-            opacity: 1;
-          }
-        }
-      }
-    }
-
-    &-track {
-      grid-auto-flow: column;
-      grid-auto-columns: $x_w;
-      transform: translateX(calc(#{-$x_w} * var(--x, 1)));
-
-      &-item {
-        left: var(--divider, -1px);
-
-        &:after {
-          border-left: var(--divider, 1px solid #{$white});
-        }
-
-        .image {
-          @include max-size($x_h, unset);
-          height: 100%;
-
-          img {
-            height: 100%;
-            object-fit: cover;
-          }
-        }
-
-
-        &.-active {
-          // available if required
-        }
-      }
-    }
-  }
-
-  &--y {
-    &-scroll {
-      @include overflow(auto, hidden);
-    }
-
-    &-track {
-      grid-auto-flow: row;
-      grid-auto-rows: #{$y_h};
-      transform: translateY(calc(#{-$y_h} * var(--y, 1)));
-
-      &-item {
-        .image {
-          @include max-size($y_h, $y_w);
-        }
-
-        cursor: pointer;
-
-        &:not(.-active) {
-          transition: filter 120ms ease;
-          filter: invert(0.2) brightness(1.4);
-
-          &:hover {
-            filter: invert(0) brightness(1);
-          }
-
-          &:after {
-            border-top: var(--divider, 1px solid #{$white});
-          }
-        }
-
-        &.-active {
-          &:after {
-            box-shadow: inset 0 0 0 3px lighten($orange, 12%);
-            transition: box-shadow 120ms ease;
-          }
-        }
-      }
-    }
-  }
-
-  @include tablet {
-    display: block;
-    --divider: 0;
-
-    &--x-scroll {
-      max-height: #{50vmax * $ratio};
-      min-height: #{50vmax * $ratio};
-    }
-
-    &--y-scroll {
-      display: none;
-    }
-  }
-
-  @include mobile {
-    display: block;
-    --divider: 0;
-    @include margin-inline(-$rem-400);
-
-    &--x-scroll {
-      max-height: #{100vmax * $ratio};
-      min-height: 42.5vmax;
-    }
-
-    &--y-scroll {
-      display: none;
-    }
-  }
-
-  @include mobile576 {
-    position: relative;
-    padding-top: 80%;
-
-    &--x-scroll {
-      position: absolute;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
       width: 100%;
-      min-height: unset;
+
+      &:before {
+        content: '';
+        display: block;
+        width: 100%;
+      }
+
+      img {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
+
+  .swiper-container {
+    .swiper-slide {
+      display: flex;
+      width: 100%;
+
+      .image:before {
+        padding-top: 56.277%;
+      }
     }
 
-    &--x-track-item .image {
-      max-height: none;
+    .swiper-button-prev,
+    .swiper-button-next {
+      width: auto;
+      height: auto;
+
+      &:after {
+        font-size: 35px;
+        font-weight: bold;
+        color: #ffffff;
+        text-shadow: 0 0 7px rgba(0, 0, 0, .55);
+      }
+
+      @include mobile-tablet {
+        &:after {
+          font-size: 27px;
+        }
+      }
+    }
+
+    .swiper-button-prev {
+      left: 20px;
+
+      @include mobile-tablet {
+        left: 16px;
+      }
+    }
+
+    .swiper-button-next {
+      right: 20px;
+
+      @include mobile-tablet {
+        right: 16px;
+      }
+    }
+  }
+
+  .swiper-container-thumbs {
+    margin-top: 3px;
+
+    @include mobile-tablet {
+      display: none;
+    }
+
+    .swiper-slide {
+      display: flex;
+      width: 150px;
+      opacity: .5;
+
+      &:not(:last-child) {
+        margin-right: 3px;
+      }
+
+      .image:before {
+        padding-top: 54%;
+      }
+    }
+
+    .swiper-slide-thumb-active {
+      opacity: 1;
     }
   }
 }
