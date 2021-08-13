@@ -179,6 +179,7 @@ export const setFiltersAfterPageChange = (
 export const filterOrderByNumMap: { [key: string]: number } = {
   make: 1,
   model: 2,
+  range: 2,
   from: 3,
   to: 4,
   bodyStyles: 5,

@@ -3,7 +3,9 @@ import {
   renderBudgetSelected,
   renderPowerEngineSelected,
   renderPowerEngineValue,
+  generateQueryObject,
 } from '../helpers';
+import { IFiltersData } from '../../../containers/GlobalSearchPageContainer/interfaces';
 
 describe('helpers', () => {
   it('renderBudgetValue should return correct budget value', () => {
@@ -11,6 +13,24 @@ describe('helpers', () => {
   });
   it('renderPowerEngineValue should return correct power value', () => {
     expect(renderPowerEngineValue('300')).toEqual('300bhp');
+  });
+  it('renderPowerEngineValue should return correct power value', () => {
+    expect(renderPowerEngineValue('300')).toEqual('300bhp');
+  });
+  it('generateQueryObject should return correct query object', () => {
+    expect(
+      generateQueryObject({
+        bodyStyles: ['Hatchback'],
+        from: ['150'],
+        to: ['550'],
+        fromEnginePower: [160],
+        toEnginePower: [240],
+      } as IFiltersData),
+    ).toEqual({
+      bodyStyles: ['Hatchback'],
+      budget: '150|550',
+      enginePowerBhp: '160|240',
+    });
   });
   describe('renderBudgetSelected', () => {
     it('renderBudgetSelected should return correct selected string with only From value', () => {

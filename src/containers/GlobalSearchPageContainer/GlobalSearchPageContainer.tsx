@@ -44,6 +44,7 @@ import {
   sortValues,
 } from '../../components/GlobalSearchPageSort/helpers';
 import { filtersConfig as config } from '../../components/GlobalSearchPageFilters/config';
+import { generateQueryObject } from '../../components/GlobalSearchPageFilters/helpers';
 
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
@@ -260,8 +261,30 @@ const GlobalSearchPageContainer = memo(
       // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [getVehiclesCache, preLoadProductDerivatives]);
 
-    useFirstRenderEffect(() => {
+    const onSearch = () => {
       getVehicles();
+      const query = {
+        searchTerm: router.query.searchTerm,
+        ...generateQueryObject(activeFilters),
+      };
+      const queryString = new URLSearchParams();
+      Object.entries(query).forEach(filter => {
+        const [key, value] = filter as [string, string | string[]];
+        queryString.set(key, encodeURIComponent(value as string));
+      });
+      // changing url dynamically
+      router.replace(
+        {
+          pathname: router.route,
+          query,
+        },
+        `/search?${queryString.toString()}`,
+        { shallow: true },
+      );
+    };
+
+    useFirstRenderEffect(() => {
+      onSearch();
     }, [activeFilters, sortOrder, isPersonal]);
 
     useFirstRenderEffect(() => {

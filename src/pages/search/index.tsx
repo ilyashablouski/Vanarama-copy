@@ -40,6 +40,7 @@ import {
 } from '../../../generated/productFilter';
 import { GET_FILTERS_DATA } from '../../containers/GlobalSearchPageContainer/gql';
 import {
+  buildFiltersRequestObject,
   buildInitialFilterState,
   DEFAULT_SORT,
 } from '../../containers/GlobalSearchPageContainer/helpers';
@@ -120,6 +121,7 @@ export async function getServerSideProps(context: NextPageContext) {
   let responseVansCapIds;
   let carsData;
   let vansData;
+  const initialFilters = buildInitialFilterState(context.query);
   const sortOrder = DEFAULT_SORT;
   const productDerivatives = await client
     .query<IProductDerivativesQuery, productDerivativesVariables>({
@@ -130,6 +132,7 @@ export async function getServerSideProps(context: NextPageContext) {
         size: RESULTS_PER_REQUEST,
         sort: sortOrder,
         filters: {
+          ...buildFiltersRequestObject(initialFilters, false, true),
           financeTypes: [FinanceType.PCH],
         },
       },
@@ -171,11 +174,10 @@ export async function getServerSideProps(context: NextPageContext) {
       query: GET_FILTERS_DATA,
       variables: {
         query: contextData.query.searchTerm as string,
+        filters: buildFiltersRequestObject(initialFilters, false),
       },
     })
     .then(({ data: productFilterData }) => productFilterData.productFilter);
-
-  const initialFilters = buildInitialFilterState(context.query);
 
   return {
     props: {
