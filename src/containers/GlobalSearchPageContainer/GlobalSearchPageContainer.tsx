@@ -28,8 +28,6 @@ import {
 } from '../../../generated/globalTypes';
 import Skeleton from '../../components/Skeleton';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
-import { getSectionsData } from '../../utils/getSectionsData';
-import SectionCards from '../../components/SectionCards';
 import VehicleCard from '../../components/VehicleCard';
 import FiltersTags from './FiltersTags';
 import Drawer from '../../core/molecules/drawer/Drawer';
@@ -65,6 +63,7 @@ const GlobalSearchPageContainer = memo(
     filtersData,
     initialFilters,
     defaultSort,
+    isAllProductsRequest,
   }: IProps) => {
     const router = useRouter();
     const [activeFilters, setActiveFilters] = useState<IFiltersData>(
@@ -77,7 +76,7 @@ const GlobalSearchPageContainer = memo(
     const [isSpecialOffer, setIsSpecialOffer] = useState(false);
 
     const [vehiclesList, setVehicleList] = useState<(IVehiclesList | null)[]>(
-      preLoadProductDerivatives.productDerivatives?.derivatives || [],
+      preLoadProductDerivatives?.derivatives || [],
     );
     const [vehiclesListCache, setVehicleListCache] = useState<
       (IVehiclesList | null)[]
@@ -96,7 +95,7 @@ const GlobalSearchPageContainer = memo(
     };
 
     const [totalResults, setTotalResults] = useState(
-      preLoadProductDerivatives?.productDerivatives?.total || 0,
+      preLoadProductDerivatives?.total || 0,
     );
 
     const [sortOrder, setSortOrder] = useState(defaultSort);
@@ -150,7 +149,7 @@ const GlobalSearchPageContainer = memo(
       getVehicles,
       { data: firstResultsData, loading },
     ] = useTextSearchList(
-      router.query.searchTerm as string,
+      isAllProductsRequest ? undefined : (router.query.searchTerm as string),
       async vehicles => {
         if (vehicles.productDerivatives?.total === 0 && isSpecialOffer) {
           setIsSpecialOffer(false);
@@ -186,7 +185,7 @@ const GlobalSearchPageContainer = memo(
     );
 
     const [getVehiclesCache] = useTextSearchList(
-      router.query.searchTerm as string,
+      isAllProductsRequest ? undefined : (router.query.searchTerm as string),
       async vehicles => {
         const [carsCapIds, vansCapIds] = productDerivativesCallback(vehicles);
         if (carsCapIds[0]) {
@@ -226,7 +225,9 @@ const GlobalSearchPageContainer = memo(
       ) {
         getVehiclesCache({
           variables: {
-            query: router.query.searchTerm as string,
+            query: isAllProductsRequest
+              ? undefined
+              : (router.query.searchTerm as string),
             from: RESULTS_PER_REQUEST,
             filters: buildFiltersRequestObject(
               activeFilters,
@@ -242,12 +243,13 @@ const GlobalSearchPageContainer = memo(
 
     useEffect(() => {
       if (
-        preLoadProductDerivatives.productDerivatives?.derivatives?.length ===
-        RESULTS_PER_REQUEST
+        preLoadProductDerivatives?.derivatives?.length === RESULTS_PER_REQUEST
       ) {
         getVehiclesCache({
           variables: {
-            query: router.query.searchTerm as string,
+            query: isAllProductsRequest
+              ? undefined
+              : (router.query.searchTerm as string),
             from: RESULTS_PER_REQUEST,
             filters: buildFiltersRequestObject(
               activeFilters,
@@ -292,10 +294,8 @@ const GlobalSearchPageContainer = memo(
     }, [isSpecialOffer]);
 
     useFirstRenderEffect(() => {
-      if (preLoadProductDerivatives.productDerivatives?.derivatives) {
-        setVehicleList(
-          preLoadProductDerivatives.productDerivatives?.derivatives,
-        );
+      if (preLoadProductDerivatives?.derivatives) {
+        setVehicleList(preLoadProductDerivatives?.derivatives);
         setCarCardsData(carsData || []);
         setLcvCardsData(vansData || []);
       }
@@ -310,7 +310,9 @@ const GlobalSearchPageContainer = memo(
             isSpecialOffer,
             isPersonal,
           ),
-          query: router.query.searchTerm as string,
+          query: isAllProductsRequest
+            ? undefined
+            : (router.query.searchTerm as string),
           // because state haven't updated yet
           from: vehiclesList.length + RESULTS_PER_REQUEST,
           sort: sortOrder as ProductDerivativeSort[],
@@ -330,12 +332,6 @@ const GlobalSearchPageContainer = memo(
       totalResults,
       vehiclesList.length,
     ]);
-
-    const cards = useMemo(
-      () =>
-        getSectionsData(['sections', 'cards', 'cards'], pageData?.genericPage),
-      [pageData],
-    );
 
     const totalFiltersCount = useMemo(
       () =>
@@ -391,7 +387,7 @@ const GlobalSearchPageContainer = memo(
         <div className="row:title">
           <Breadcrumb items={breadcrumbsItems} />
           <CommonDescriptionContainer pageData={pageData} />
-          {totalResults === 0 ? (
+          {isAllProductsRequest ? (
             <Text tag="p" color="black" size="lead" className="heading">
               0 results for your search ‘{router.query.searchTerm as string}‘.
               Please try another search
@@ -477,13 +473,6 @@ const GlobalSearchPageContainer = memo(
             />
           </div>
         )}
-        {totalResults === 0 && (
-          <div className="row:bg-light -col-300">
-            <div className="row:cards-3col">
-              {cards && <SectionCards cards={cards} />}
-            </div>
-          </div>
-        )}
         <Drawer
           isShowDrawer={isShowDrawer}
           isLoading={loading}
@@ -499,6 +488,7 @@ const GlobalSearchPageContainer = memo(
               {activeTab === ITabs.Filter ? (
                 <GlobalSearchPageFilters
                   config={config}
+                  isAllProductsRequest={isAllProductsRequest}
                   onRemoveTag={onRemoveTag}
                   preloadFilters={filtersData}
                   activeFilters={activeFilters}
