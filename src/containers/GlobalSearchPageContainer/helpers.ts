@@ -142,11 +142,11 @@ export const DEFAULT_SORT = [
  * */
 export const isSimilarPage = (prevProps: IProps, nextProps: IProps) => {
   const prevCapIds =
-    prevProps.preLoadProductDerivatives.productDerivatives?.derivatives?.map(
+    prevProps.preLoadProductDerivatives?.derivatives?.map(
       derivative => derivative?.capId,
     ) || [];
   const nextCapIds =
-    nextProps.preLoadProductDerivatives.productDerivatives?.derivatives?.map(
+    nextProps.preLoadProductDerivatives?.derivatives?.map(
       derivative => derivative?.capId,
     ) || [];
   return (

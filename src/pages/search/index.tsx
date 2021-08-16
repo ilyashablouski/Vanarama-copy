@@ -19,6 +19,8 @@ import {
 } from '../../containers/GlobalSearchContainer/gql';
 import {
   productDerivatives as IProductDerivativesQuery,
+  productDerivatives_productDerivatives_derivatives as IDerivatives,
+  productDerivatives_productDerivatives as IProductDerivatives,
   productDerivativesVariables,
 } from '../../../generated/productDerivatives';
 import GlobalSearchPageContainer from '../../containers/GlobalSearchPageContainer';
@@ -51,7 +53,7 @@ import PageNotFoundContainer from '../../containers/PageNotFoundContainer/PageNo
 interface IProps extends ISearchPageProps {
   pageData: GenericPageQuery;
   filtersData: IProductFilter;
-  productDerivatives?: IProductDerivativesQuery;
+  productDerivatives?: IProductDerivatives;
   carsData?: ICardsData[];
   vansData?: ICardsData[];
   responseVansCapIds?: string[];
@@ -60,6 +62,7 @@ interface IProps extends ISearchPageProps {
   error?: ApolloError;
   notFoundPageData?: INotFoundPageData;
   defaultSort: ProductDerivativeSort[];
+  isAllProductsRequest: boolean;
 }
 
 const Page: NextPage<IProps> = ({
@@ -73,6 +76,7 @@ const Page: NextPage<IProps> = ({
   error,
   notFoundPageData,
   defaultSort,
+  isAllProductsRequest,
 }) => {
   if (error) {
     return (
@@ -91,6 +95,7 @@ const Page: NextPage<IProps> = ({
       initialFilters={initialFilters}
       carsData={carsData}
       vansData={vansData}
+      isAllProductsRequest={isAllProductsRequest}
       pageData={decodeData(pageData)}
       preLoadProductDerivatives={decodeData(productDerivatives)}
     />
@@ -121,8 +126,39 @@ export async function getServerSideProps(context: NextPageContext) {
   let responseVansCapIds;
   let carsData;
   let vansData;
+  let isAllProductsRequest = false;
   const initialFilters = buildInitialFilterState(context.query);
   const sortOrder = DEFAULT_SORT;
+  const responseHandler = async (derivatives: IDerivatives[]) => {
+    responseCarsCapIds = derivatives
+      ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.CAR)
+      .map(vehicle => `${vehicle?.derivativeId}`);
+    responseVansCapIds = derivatives
+      ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.LCV)
+      .map(vehicle => `${vehicle?.derivativeId}`);
+    if (responseCarsCapIds?.[0]) {
+      carsData = await client
+        .query<GlobalSearchCardsData, GlobalSearchCardsDataVariables>({
+          query: GET_CARDS_DATA,
+          variables: {
+            capIds: responseCarsCapIds as string[],
+            vehicleType: VehicleTypeEnum.CAR,
+          },
+        })
+        .then(({ data: respData }) => respData?.productCard);
+    }
+    if (responseVansCapIds?.[0]) {
+      vansData = await client
+        .query<GlobalSearchCardsData, GlobalSearchCardsDataVariables>({
+          query: GET_CARDS_DATA,
+          variables: {
+            capIds: responseVansCapIds as string[],
+            vehicleType: VehicleTypeEnum.LCV,
+          },
+        })
+        .then(({ data: respData }) => respData?.productCard);
+    }
+  };
   const productDerivatives = await client
     .query<IProductDerivativesQuery, productDerivativesVariables>({
       query: GET_PRODUCT_DERIVATIVES,
@@ -138,42 +174,42 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     })
     .then(async resp => {
-      responseCarsCapIds = resp.data?.productDerivatives?.derivatives
-        ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.CAR)
-        .map(vehicle => `${vehicle?.derivativeId}`);
-      responseVansCapIds = resp.data?.productDerivatives?.derivatives
-        ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.LCV)
-        .map(vehicle => `${vehicle?.derivativeId}`);
-      if (responseCarsCapIds?.[0]) {
-        carsData = await client
-          .query<GlobalSearchCardsData, GlobalSearchCardsDataVariables>({
-            query: GET_CARDS_DATA,
-            variables: {
-              capIds: responseCarsCapIds as string[],
-              vehicleType: VehicleTypeEnum.CAR,
-            },
-          })
-          .then(({ data: respData }) => respData?.productCard);
+      if (resp.data?.productDerivatives?.total! > 0) {
+        await responseHandler(
+          (resp.data?.productDerivatives?.derivatives as IDerivatives[]) || [],
+        );
+        return resp.data.productDerivatives;
       }
-      if (responseVansCapIds?.[0]) {
-        vansData = await client
-          .query<GlobalSearchCardsData, GlobalSearchCardsDataVariables>({
-            query: GET_CARDS_DATA,
-            variables: {
-              capIds: responseVansCapIds as string[],
-              vehicleType: VehicleTypeEnum.LCV,
+      return client
+        .query<IProductDerivativesQuery, productDerivativesVariables>({
+          query: GET_PRODUCT_DERIVATIVES,
+          variables: {
+            from: 0,
+            size: RESULTS_PER_REQUEST,
+            sort: sortOrder,
+            filters: {
+              ...buildFiltersRequestObject(initialFilters, false, true),
+              financeTypes: [FinanceType.PCH],
             },
-          })
-          .then(({ data: respData }) => respData?.productCard);
-      }
-      return resp.data;
+          },
+        })
+        .then(async allData => {
+          isAllProductsRequest = true;
+          await responseHandler(
+            (allData.data?.productDerivatives?.derivatives as IDerivatives[]) ||
+              [],
+          );
+          return allData.data.productDerivatives;
+        });
     });
 
   const filtersData = await client
     .query<IProductFilterQuery, IProductFilterVariables>({
       query: GET_FILTERS_DATA,
       variables: {
-        query: contextData.query.searchTerm as string,
+        query: isAllProductsRequest
+          ? undefined
+          : (contextData.query.searchTerm as string),
         filters: buildFiltersRequestObject(initialFilters, false),
       },
     })
@@ -190,6 +226,7 @@ export async function getServerSideProps(context: NextPageContext) {
       responseCarsCapIds: responseCarsCapIds || null,
       filtersData: filtersData || null,
       defaultSort: sortOrder,
+      isAllProductsRequest,
       initialFilters,
     },
   };
