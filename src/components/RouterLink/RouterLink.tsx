@@ -14,6 +14,7 @@ import setRel from '../../utils/setRel';
 
 interface IAppLinkProps extends IBaseProps {
   link: ILinkProps;
+  prefetch?: boolean;
   replace?: boolean;
   onClick?(e: React.MouseEvent): void;
   className?: string;
@@ -34,6 +35,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     className,
     children,
     replace,
+    prefetch,
     onClick,
     classNames,
     dataTestId,
@@ -122,6 +124,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         pathname: link.href ? urlWithoutQueryString : router.asPath,
         query: link.query || queryString || {},
       }}
+      prefetch={prefetch}
       replace={replace}
       as={as}
       shallow={!!as}
