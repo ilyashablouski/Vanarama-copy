@@ -4,9 +4,9 @@ import { NextPage } from 'next';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState } from 'react';
 import {
-  PasswordRequestMutation as Mutation,
-  PasswordRequestMutationVariables as MutationVariables,
-} from '../../../../generated/PasswordRequestMutation';
+  HelpMeLoginMutation,
+  HelpMeLoginMutationVariables,
+} from '../../../../generated/HelpMeLoginMutation';
 import RequestPasswordForm from '../../../components/RequestPasswordForm';
 import { IRequestPasswordFormValues } from '../../../components/RequestPasswordForm/interfaces';
 import { useEmailCheck } from '../../../containers/RegisterFormContainer/gql';
@@ -38,9 +38,9 @@ interface IProps {
   query: ParsedUrlQuery;
 }
 
-export const PASSWORD_REQUEST_MUTATION = gql`
-  mutation PasswordRequestMutation($username: String!) {
-    passwordReset(username: $username) {
+export const HELP_ME_LOGIN_MUTATION = gql`
+  mutation HelpMeLoginMutation($username: String!) {
+    helpMeLogin(username: $username) {
       isSuccessful
     }
   }
@@ -65,9 +65,9 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
   const [isEmailExist, setIsEmailExist] = useState(true);
 
   const [requestPassword, { loading }] = useMutation<
-    Mutation,
-    MutationVariables
-  >(PASSWORD_REQUEST_MUTATION, {
+    HelpMeLoginMutation,
+    HelpMeLoginMutationVariables
+  >(HELP_ME_LOGIN_MUTATION, {
     onCompleted: () => {
       setRequestStatus(true);
     },
@@ -106,11 +106,11 @@ export const PasswordRequestPage: NextPage<IProps> = () => {
           color="black"
           dataTestId="login-register-heading"
         >
-          Forgot Your Password?
+          Problems logging in?
         </Heading>
         <Text color="darker" size="lead">
-          Enter your email address below and we&apos;ll send you a password
-          reset link by email.
+          Enter your email address below and we&apos;ll send you an email with
+          the next steps
         </Text>
         {hasRequest && (
           <Message message="Please check your email">
