@@ -736,7 +736,7 @@ export interface ProductDerivativeFilter {
   co2?: number | null;
   co2Group?: string | null;
   enginePowerBhp?: MinMax | null;
-  euroEmissions?: string | null;
+  euroEmissions?: (string | null)[] | null;
   heights?: (number | null)[] | null;
   lengths?: (number | null)[] | null;
 }
