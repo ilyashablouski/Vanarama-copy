@@ -9,7 +9,7 @@ import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
 import createApolloClient from '../../../apolloClient';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
 import { getSectionsData } from '../../../utils/getSectionsData';
-import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
+import Breadcrumb from '../../../core/atoms/breadcrumb-v2';
 import {
   PageCollection,
   PageCollectionVariables,

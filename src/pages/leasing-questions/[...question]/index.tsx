@@ -19,12 +19,9 @@ const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
 const Head = dynamic(() => import('../../../components/Head/Head'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Breadcrumb = dynamic(() => import('../../../core/atoms/breadcrumb-v2'), {
+  loading: () => <Skeleton count={1} />,
+});
 const LeasingQuestionContainer = dynamic(
   () =>
     import(

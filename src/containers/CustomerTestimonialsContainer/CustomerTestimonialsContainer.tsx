@@ -34,12 +34,9 @@ const Button = dynamic(() => import('core/atoms/button'), {
 const Rating = dynamic(() => import('core/atoms/rating'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
+  loading: () => <Skeleton count={1} />,
+});
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
 });

@@ -43,12 +43,9 @@ const Button = dynamic(() => import('core/atoms/button'), {
 const CardTitle = dynamic(() => import('core/molecules/cards/CardTitle'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 export const ContactUsPage: NextPage<IGenericPage> = ({
   data,

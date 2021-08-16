@@ -40,12 +40,9 @@ const ReviewCard = dynamic(
     loading: () => <Skeleton count={3} />,
   },
 );
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 interface IProps {
   sections: Sections | null;

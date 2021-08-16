@@ -3,7 +3,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import LeasingArticleContainer from '../../../../containers/LeasingArticleContainer/LeasingArticleContainer';
 import ContentHubContainer from '../../../../containers/EvContentHubContainer';
-import Breadcrumb from '../../../../components/Breadcrumb/Breadcrumb';
+import Breadcrumb from '../../../../core/atoms/breadcrumb-v2';
 import createApolloClient from '../../../../apolloClient';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
