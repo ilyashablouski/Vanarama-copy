@@ -51,6 +51,7 @@ exports[`<CookieBar /> should render correctly 1`] = `
               "label": "cookie policy",
             }
           }
+          prefetch={false}
         >
           <Link
             href={
@@ -59,6 +60,7 @@ exports[`<CookieBar /> should render correctly 1`] = `
                 "query": Object {},
               }
             }
+            prefetch={false}
             shallow={false}
           >
             <a

@@ -52,7 +52,7 @@ const RequestPasswordForm = ({
       <Button
         dataTestId="password-request-form_submit"
         type="submit"
-        label={isSubmitting ? 'Loading...' : 'Reset Password'}
+        label={isSubmitting ? 'Loading...' : 'Submit'}
         disabled={isSubmitting}
         icon={<ArrowForwardSharp />}
         iconColor="white"
