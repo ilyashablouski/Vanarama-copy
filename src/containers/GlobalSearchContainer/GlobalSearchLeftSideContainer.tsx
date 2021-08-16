@@ -8,13 +8,12 @@ const Text = dynamic(() => import('core/atoms/text'), {
 
 interface IProps {
   suggestions: string[];
-  totalCount: number;
 }
-const GlobalSearchLeftSideContainer = ({ suggestions, totalCount }: IProps) => {
+const GlobalSearchLeftSideContainer = ({ suggestions }: IProps) => {
   return (
     <div>
       <span className="heading -small -dark">Suggestions</span>
-      {totalCount === 0 && (
+      {suggestions.length === 0 && (
         <Text className="-small -dark" tag="p">
           No suggestions
         </Text>
