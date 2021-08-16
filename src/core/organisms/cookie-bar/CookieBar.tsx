@@ -66,6 +66,7 @@ function CookieBar({ onAccept, onDecline, onBeforeShow, onAfterHide }: IProps) {
       <Text className="cookie-dialog__text" size="small">
         We use cookies to improve your experience. Find out more in our{' '}
         <RouterLink
+          prefetch={false}
           classNames={{
             color: 'primary',
           }}
