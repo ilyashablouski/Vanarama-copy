@@ -46,6 +46,7 @@ interface IProps {
   isSpecialOffer: boolean;
   setIsSpecialOffer: (value: boolean) => void;
   config: IFiltersConfig[];
+  isAllProductsRequest: boolean;
 }
 
 const GlobalSearchPageFilters = ({
@@ -61,6 +62,7 @@ const GlobalSearchPageFilters = ({
   isSpecialOffer,
   setIsSpecialOffer,
   config,
+  isAllProductsRequest,
 }: IProps) => {
   const { query } = useRouter();
   const [openedFilters, setOpenedFilters] = useState<string[]>([]);
@@ -81,7 +83,7 @@ const GlobalSearchPageFilters = ({
   );
   const [filtersData, setFiltersData] = useState(preloadFilters);
   const [getProductFilters] = useProductFilters(
-    query?.searchTerm as string,
+    isAllProductsRequest ? undefined : (query.searchTerm as string),
     async dataResult => {
       setFiltersData(dataResult?.productFilter || undefined);
       setFromEnginePower(
@@ -126,7 +128,7 @@ const GlobalSearchPageFilters = ({
     getProductFilters({
       variables: {
         filters: buildFiltersRequestObject(activeFilters, isSpecialOffer),
-        query: query.searchTerm as string,
+        query: isAllProductsRequest ? undefined : (query.searchTerm as string),
       },
     });
   }, [activeFilters, isSpecialOffer]);
