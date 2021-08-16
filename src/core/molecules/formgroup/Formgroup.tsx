@@ -1,8 +1,20 @@
 import React from 'react';
 import cx from 'classnames';
+import dynamic from 'next/dynamic';
 import { IFormgroupProps } from './interfaces';
 import Text from '../../atoms/text';
 import Link from '../../atoms/link';
+import Skeleton from '../../../components/Skeleton';
+
+const Icon = dynamic(() => import('core/atoms/icon'), {
+  loading: () => <Skeleton count={1} />,
+});
+const InformationCircle = dynamic(
+  () => import('core/assets/icons/InformationCircle'),
+  {
+    ssr: false,
+  },
+);
 
 const Formgroup: React.FC<IFormgroupProps> = ({
   children,
@@ -14,6 +26,7 @@ const Formgroup: React.FC<IFormgroupProps> = ({
   inline,
   label,
   editable,
+  onInfoIconClick,
 }) => (
   <div
     className={cx('formgroup', className, {
@@ -26,6 +39,16 @@ const Formgroup: React.FC<IFormgroupProps> = ({
       <label className="formgroup--legend" htmlFor={controlId}>
         {label}
       </label>
+    )}
+    {onInfoIconClick && (
+      <Icon
+        icon={<InformationCircle />}
+        color="teal"
+        className="md hydrated -ml-100 -info-modal"
+        onClick={() =>
+          onInfoIconClick && onInfoIconClick({ isOpen: true, controlId })
+        }
+      />
     )}
     {hint && (
       <div className="formgroup--hint">

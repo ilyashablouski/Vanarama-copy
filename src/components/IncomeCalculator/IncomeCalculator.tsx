@@ -2,13 +2,14 @@ import dynamic from 'next/dynamic';
 import CheckBox from 'core/atoms/checkbox/';
 import NumericInput from 'core/atoms/numeric-input';
 import { gql } from '@apollo/client';
-import React, { useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import FCWithFragments from '../../utils/FCWithFragments';
 import createValidationSchema from './IncomeCalculator.validation';
 import {
   IIncomeCalculatorFormValues as IFormValues,
   IIncomeCalculatorProps,
+  IInitPayModalShowingValues,
 } from './interfaces';
 import { responseToInitialFormValues } from './mappers';
 import { calculateIncome } from './utils';
@@ -34,6 +35,9 @@ const Form = dynamic(() => import('core/organisms/form'), {
   loading: () => <Skeleton count={1} />,
 });
 const FormGroup = dynamic(() => import('core/molecules/formgroup'), {
+  loading: () => <Skeleton count={1} />,
+});
+const Modal = dynamic(() => import('core/molecules/modal'), {
   loading: () => <Skeleton count={1} />,
 });
 
@@ -66,6 +70,30 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
   const values = watch();
   const { disposableIncome, monthlyExpenses } = calculateIncome(values);
 
+  const modalData = [
+    {
+      id: 'averageMonthlyIncome',
+      title: 'Average Monthly Income',
+      text: 'This is your gross income, before tax.',
+    },
+    {
+      id: 'monthlyHouseholdIncome',
+      title: 'Household Monthly Income',
+      text: 'This is the total household gross income, before tax.',
+    },
+  ];
+
+  const [isInitPayModalShowing, onInfoIconClick] = useState<
+    IInitPayModalShowingValues
+  >({
+    isOpen: false,
+    controlId: '',
+  });
+
+  const findByModalId = modalData.find(
+    item => item.id === isInitPayModalShowing.controlId,
+  );
+
   useEffect(() => {
     setValue('netDisposableIncome', disposableIncome?.toString());
     setValue('totalMonthlyExpenses', monthlyExpenses?.toString());
@@ -92,6 +120,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
         label="Average Monthly Income"
         error={errors?.averageMonthlyIncome?.message?.toString()}
         className="olaf--expenses-input"
+        onInfoIconClick={onInfoIconClick}
       >
         <Controller
           id="averageMonthlyIncome"
@@ -105,6 +134,7 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
         controlId="monthlyHouseholdIncome"
         label="Monthly Household Income"
         className="olaf--expenses-input"
+        onInfoIconClick={onInfoIconClick}
       >
         <Controller
           id="monthlyHouseholdIncome"
@@ -350,6 +380,17 @@ const IncomeCalculator: FCWithFragments<IIncomeCalculatorProps> = ({
           size="large"
         />
       </FormGroup>
+      {isInitPayModalShowing.isOpen && (
+        <Modal
+          className="-mt-000"
+          title={findByModalId?.title}
+          text={findByModalId?.text}
+          show={isInitPayModalShowing.isOpen}
+          onRequestClose={() =>
+            onInfoIconClick({ isOpen: false, controlId: '' })
+          }
+        />
+      )}
     </Form>
   );
 };
