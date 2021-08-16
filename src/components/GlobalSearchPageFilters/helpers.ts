@@ -66,7 +66,11 @@ export const ENGINE_POWER_FILTERS_DEFAULT = [
 ];
 
 export const buildEnginePowerValues = (min: number, max: number) =>
-  ENGINE_POWER_FILTERS_DEFAULT.filter(value => min <= value && value <= max);
+  ENGINE_POWER_FILTERS_DEFAULT.filter(
+    (value, index) =>
+      (min < value || min < ENGINE_POWER_FILTERS_DEFAULT[index + 1]) &&
+      (value < max || ENGINE_POWER_FILTERS_DEFAULT[index - 1] < max),
+  );
 
 export const isAdvancedFiltersEnabled = Cookies.get('DIG-6365') === '1';
 
