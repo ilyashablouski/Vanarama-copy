@@ -52,7 +52,6 @@ interface IProps extends ISearchPageProps {
   topOffersCardsData?: GetProductCard;
   defaultSort?: SortObject[];
   newRangePageSlug?: string;
-  isNewRangePage?: Boolean;
 }
 
 const Page: NextPage<IProps> = ({
@@ -72,7 +71,6 @@ const Page: NextPage<IProps> = ({
   makeParam,
   defaultSort,
   newRangePageSlug,
-  isNewRangePage,
 }) => {
   const router = useRouter();
   // De-obfuscate data for user
