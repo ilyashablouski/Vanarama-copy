@@ -153,7 +153,7 @@
         display: inline-flex;
         justify-content: center;
         align-items: center;
-        padding: $rem-400;
+        padding: $rem-300;
         font-weight: $font-weight-semibold;
         background: $white;
 
@@ -169,23 +169,33 @@
         .icon {
           display: inline-flex;
           height: auto;
-          margin-right: 10px;
+          margin-right: 0.7em;
           color: inherit;
+
+          &.video svg, &.picture svg {
+            width: $em-400;
+            height: $em-400;
+          }
+
+          &.rotate svg {
+            width: 2.5em;
+            height: 2.5em;
+          }
 
           @include mobile {
             &.video svg, &.picture svg {
-              max-width: 20px;
-              max-height: 20px;
+              width: 1.3em;
+              height: 1.3em;
             }
 
             &.rotate svg {
-              max-width: 32px;
-              max-height: 32px;
+              width: $em-500;
+              height: $em-500;
             }
           }
 
           @media (max-width: 374px) {
-            margin-right: 6px;
+            margin-right: $em-200;
           }
         }
       }

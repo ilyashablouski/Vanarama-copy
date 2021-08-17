@@ -1,6 +1,6 @@
 import { FC, memo } from 'react';
 
-const Svg: FC = memo(() => (
+const MediaPicture: FC = memo(() => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
     <defs>
       <clipPath id="clip-path">
@@ -17,7 +17,7 @@ const Svg: FC = memo(() => (
         id="Picture-2"
         data-name="Picture"
         transform="translate(646 802)"
-        clip-path="url(#clip-path)"
+        clipPath="url(#clip-path)"
       >
         <path
           id="Union_1"
@@ -29,4 +29,4 @@ const Svg: FC = memo(() => (
   </svg>
 ));
 
-export default Svg;
+export default MediaPicture;

@@ -1,6 +1,6 @@
 import { FC, memo } from 'react';
 
-const Svg: FC = memo(() => (
+const MediaVideo: FC = memo(() => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
     <g id="Video" transform="translate(-646 -802)">
       <path
@@ -12,4 +12,4 @@ const Svg: FC = memo(() => (
   </svg>
 ));
 
-export default Svg;
+export default MediaVideo;

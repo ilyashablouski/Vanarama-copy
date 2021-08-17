@@ -1,6 +1,6 @@
 import { FC, memo } from 'react';
 
-const Svg: FC = memo(() => (
+const MediaRotate: FC = memo(() => (
   <svg width="40" height="40" viewBox="0 0 40 40" fill="currentColor">
     <defs>
       <clipPath id="clip-path">
@@ -17,7 +17,7 @@ const Svg: FC = memo(() => (
         id="Rotate-2"
         data-name="Rotate"
         transform="translate(435 790)"
-        clip-path="url(#clip-path)"
+        clipPath="url(#clip-path)"
       >
         <path
           id="Path_14"
@@ -42,4 +42,4 @@ const Svg: FC = memo(() => (
   </svg>
 ));
 
-export default Svg;
+export default MediaRotate;
