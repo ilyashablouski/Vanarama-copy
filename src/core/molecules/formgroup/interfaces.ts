@@ -1,3 +1,4 @@
+import { IInitPayModalShowingValues } from 'components/IncomeCalculator/interfaces';
 import { IBaseProps } from '../../interfaces/base';
 
 export interface IFormgroupProps extends IBaseProps {
@@ -26,4 +27,7 @@ export interface IFormgroupProps extends IBaseProps {
    * Whether to display the children editable
    */
   editable?: string;
+  onInfoIconClick?: React.Dispatch<
+    React.SetStateAction<IInitPayModalShowingValues>
+  >;
 }

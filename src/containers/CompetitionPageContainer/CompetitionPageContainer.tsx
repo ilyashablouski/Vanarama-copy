@@ -6,12 +6,9 @@ import CompetitionTypeSection from './sections/CompetitionTypeSection';
 import CompetitionFormSection from './sections/CompetitionFormSection';
 import Skeleton from '../../components/Skeleton';
 
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 interface IProps {
   sections: Section | null | undefined;
