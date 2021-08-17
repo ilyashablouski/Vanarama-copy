@@ -29,12 +29,9 @@ const Pagination = dynamic(() => import('core/atoms/pagination'), {
 const Carousel = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={3} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 const CategoryPageContainer: React.FC<ICategoryPage> = ({
   metaData,

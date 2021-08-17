@@ -4,7 +4,7 @@ import Cookies from 'js-cookie';
 import localForage from 'localforage';
 import { sha256 } from 'js-sha256';
 import { NextRouter } from 'next/router';
-import { routerItems } from '../components/Breadcrumb/helpers';
+import { routerItems } from '../core/atoms/breadcrumb-v2/helpers';
 import { ILeaseScannerData } from '../containers/CustomiseLeaseContainer/interfaces';
 import {
   GetVehicleDetails_derivativeInfo,

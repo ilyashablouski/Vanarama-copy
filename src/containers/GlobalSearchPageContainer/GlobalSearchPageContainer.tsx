@@ -19,7 +19,7 @@ import {
   useGSCardsData,
   useTextSearchList,
 } from '../GlobalSearchContainer/gql';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Breadcrumb from '../../core/atoms/breadcrumb-v2';
 import CommonDescriptionContainer from '../SearchPageContainer/CommonDescriptionContainer';
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import {

@@ -31,12 +31,9 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Accordion = dynamic(() => import('core/molecules/accordion/Accordion'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
+  loading: () => <Skeleton count={1} />,
+});
 const Lease = dynamic(
   () => import('../../components/EligibilityChecker/Landing/Lease'),
   {
