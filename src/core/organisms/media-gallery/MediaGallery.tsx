@@ -1,12 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import cx from 'classnames';
 
+import Icon from 'core/atoms/icon';
 import Media from 'core/atoms/media';
 import Tabs from 'core/molecules/tabs';
 import Tab from 'core/molecules/tabs/Tab';
 import TabList from 'core/molecules/tabs/TabList';
 import TabPanel from 'core/molecules/tabs/TabPanel';
 import TabPanels from 'core/molecules/tabs/TabPanels';
+
+import MediaVideo from 'core/assets/icons/MediaVideo';
+import MediaRotate from 'core/assets/icons/MediaRotate';
+import MediaPicture from 'core/assets/icons/MediaPicture';
 
 import ImageCarousel from './ImageCarousel';
 
@@ -93,9 +98,22 @@ function MediaGallery({
             )}
           </TabPanels>
           <TabList className="media-gallery__tabs">
-            {threeSixtyVideoSrc && <Tab index={0}>360°</Tab>}
-            <Tab index={1}>Photos</Tab>
-            {videoSrc && <Tab index={2}>Videos</Tab>}
+            {threeSixtyVideoSrc && (
+              <Tab index={0}>
+                <Icon className="rotate" icon={<MediaRotate />} />
+                360°
+              </Tab>
+            )}
+            <Tab index={1}>
+              <Icon className="picture" icon={<MediaPicture />} />
+              Photos
+            </Tab>
+            {videoSrc && (
+              <Tab index={2}>
+                <Icon className="video" icon={<MediaVideo />} />
+                Video
+              </Tab>
+            )}
           </TabList>
         </Tabs>
       </div>
