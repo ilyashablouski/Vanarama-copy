@@ -24,7 +24,7 @@ import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
 import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../generated/GetCompaniesByPersonUuid';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Breadcrumb from '../../core/atoms/breadcrumb-v2';
 import {
   GetMyOrders,
   GetMyOrders_myOrders,

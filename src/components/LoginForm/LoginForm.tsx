@@ -84,7 +84,7 @@ const LoginForm: React.FC<ILoginFormProps> = ({
         href="/account/password-request"
         color="teal"
       >
-        Forgotten your Password?
+        Problems Logging In?
       </Link>
       {/* </NextLink> */}
       <Button

@@ -101,12 +101,9 @@ const FrequentlyAskedQuestions = dynamic(() =>
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
+  loading: () => <Skeleton count={1} />,
+});
 const Head = dynamic(() => import('../../components/Head/Head'));
 
 const VehicleTechDetails = dynamic(() =>

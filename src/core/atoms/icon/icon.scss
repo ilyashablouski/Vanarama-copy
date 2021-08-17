@@ -4,6 +4,11 @@
   vertical-align: baseline;
   height: 0.9em;
 
+  &.-info-modal {
+    cursor: pointer;
+    position: relative;
+    top: 2.5px;
+  }
   &.-xlarge,
   &.-large,
   &.-lead,

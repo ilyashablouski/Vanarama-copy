@@ -16,7 +16,7 @@ import {
   PageCollectionVariables,
 } from '../../../generated/PageCollection';
 import { getSectionsData } from '../../utils/getSectionsData';
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Breadcrumb from '../../core/atoms/breadcrumb-v2';
 import Head from '../../components/Head/Head';
 import {
   DEFAULT_REVALIDATE_INTERVAL,

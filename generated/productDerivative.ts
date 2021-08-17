@@ -4,10 +4,10 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL query operation: suggestionList
+// GraphQL fragment: productDerivative
 // ====================================================
 
-export interface suggestionList_suggestionListV2_derivatives {
+export interface productDerivative {
   alloys: boolean | null;
   availability: number | null;
   capBodyStyle: string | null;
@@ -73,17 +73,4 @@ export interface suggestionList_suggestionListV2_derivatives {
   weight: number | null;
   wheelbase: number | null;
   width: number | null;
-}
-
-export interface suggestionList_suggestionListV2 {
-  suggestions: (string | null)[] | null;
-  derivatives: (suggestionList_suggestionListV2_derivatives | null)[] | null;
-}
-
-export interface suggestionList {
-  suggestionListV2: suggestionList_suggestionListV2 | null;
-}
-
-export interface suggestionListVariables {
-  query?: string | null;
 }

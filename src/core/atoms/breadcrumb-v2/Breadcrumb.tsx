@@ -1,10 +1,10 @@
 import React, { FC, memo } from 'react';
 import dynamic from 'next/dynamic';
-import RouterLink from '../RouterLink/RouterLink';
+import RouterLink from '../../../components/RouterLink/RouterLink';
 import { IBreadcrumbLink, IBreadcrumbProps } from './helpers';
-import useMediaQuery from '../../hooks/useMediaQuery';
+import useMediaQuery from '../../../hooks/useMediaQuery';
 
-import Skeleton from '../Skeleton';
+import Skeleton from '../../../components/Skeleton';
 
 const ChevronBack = dynamic(() => import('core/assets/icons/ChevronBack'), {
   loading: () => <Skeleton count={1} />,
@@ -17,7 +17,7 @@ const ChevronForward = dynamic(
     ssr: false,
   },
 );
-const Icon = dynamic(() => import('core/atoms/icon/'), {
+const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {

@@ -31,12 +31,9 @@ const Media = dynamic(() => import('core/atoms/media'), {
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={5} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
+  loading: () => <Skeleton count={1} />,
+});
 
 export const renderHeading = (props: IHeading) =>
   React.createElement(

@@ -4,17 +4,17 @@
 // This file was automatically generated and should not be edited.
 
 // ====================================================
-// GraphQL mutation operation: PasswordRequestMutation
+// GraphQL mutation operation: HelpMeLoginMutation
 // ====================================================
 
-export interface PasswordRequestMutation_passwordReset {
+export interface HelpMeLoginMutation_helpMeLogin {
   isSuccessful: boolean | null;
 }
 
-export interface PasswordRequestMutation {
-  passwordReset: PasswordRequestMutation_passwordReset | null;
+export interface HelpMeLoginMutation {
+  helpMeLogin: HelpMeLoginMutation_helpMeLogin | null;
 }
 
-export interface PasswordRequestMutationVariables {
+export interface HelpMeLoginMutationVariables {
   username: string;
 }
