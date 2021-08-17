@@ -174,7 +174,7 @@
 
           &.video svg, &.picture svg {
             width: $em-400;
-            height: $em-400;
+            height: 2.5em;
           }
 
           &.rotate svg {
@@ -185,7 +185,7 @@
           @include mobile {
             &.video svg, &.picture svg {
               width: 1.3em;
-              height: 1.3em;
+              height: $em-500;
             }
 
             &.rotate svg {
