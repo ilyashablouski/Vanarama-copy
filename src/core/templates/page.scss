@@ -150,6 +150,9 @@
       }
 
       [role='tab'] {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
         padding: $rem-400;
         font-weight: $font-weight-semibold;
         background: $white;
@@ -161,6 +164,29 @@
 
         @include mobile {
           font-size: $font-size-400 !important;
+        }
+
+        .icon {
+          display: inline-flex;
+          height: auto;
+          margin-right: 10px;
+          color: inherit;
+
+          @include mobile {
+            &.video svg, &.picture svg {
+              max-width: 20px;
+              max-height: 20px;
+            }
+
+            &.rotate svg {
+              max-width: 32px;
+              max-height: 32px;
+            }
+          }
+
+          @media (max-width: 374px) {
+            margin-right: 6px;
+          }
         }
       }
     }
