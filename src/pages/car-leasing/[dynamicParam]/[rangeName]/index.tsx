@@ -131,7 +131,6 @@ const Page: NextPage<IProps> = ({
       preLoadTopOffersCardsData={topOffersCardsData}
       defaultSort={defaultSort}
       newRangePageSlug={newRangePageSlug}
-      isNewRangePage={isNewRangePage}
     />
   );
 };
@@ -155,16 +154,12 @@ export async function getServerSideProps(context: SlugNextPageContext) {
       },
       query: { ...context.query },
     };
-    // TODO: Cookie should be removed after feature release
-    const isNewRangePage = context?.req?.headers?.cookie?.includes(
-      'DIG-6496=1',
-    );
+
     const { data, errors } = (await ssrCMSQueryExecutor(
       client,
       contextData,
       true,
-      isNewRangePage &&
-        NEW_RANGE_SLUGS.includes(contextData.req?.resolvedUrl || '')
+      NEW_RANGE_SLUGS.includes(contextData.req?.resolvedUrl || '')
         ? 'isNewRangePage'
         : 'isRangePage',
     )) as ApolloQueryResult<GenericPageQuery>;
@@ -298,7 +293,6 @@ export async function getServerSideProps(context: SlugNextPageContext) {
         rangeParam: (context?.query?.rangeName as string).toLowerCase(),
         defaultSort: defaultSort || null,
         newRangePageSlug: contextData.req?.resolvedUrl || '',
-        isNewRangePage,
       },
     };
   } catch {
