@@ -150,7 +150,10 @@
       }
 
       [role='tab'] {
-        padding: $rem-400;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: $rem-300;
         font-weight: $font-weight-semibold;
         background: $white;
 
@@ -161,6 +164,39 @@
 
         @include mobile {
           font-size: $font-size-400 !important;
+        }
+
+        .icon {
+          display: inline-flex;
+          height: auto;
+          margin-right: 0.7em;
+          color: inherit;
+
+          &.video svg, &.picture svg {
+            width: $em-400;
+            height: 2.5em;
+          }
+
+          &.rotate svg {
+            width: 2.5em;
+            height: 2.5em;
+          }
+
+          @include mobile {
+            &.video svg, &.picture svg {
+              width: 1.3em;
+              height: $em-500;
+            }
+
+            &.rotate svg {
+              width: $em-500;
+              height: $em-500;
+            }
+          }
+
+          @media (max-width: 374px) {
+            margin-right: $em-200;
+          }
         }
       }
     }
