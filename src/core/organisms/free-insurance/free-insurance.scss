@@ -111,7 +111,7 @@
     }
     .copy {
       width: calc(100% - 86px);
-      height: 142px;
+      min-height: 142px;
       display: flex;
       flex-direction: column;
       margin-left: auto;
