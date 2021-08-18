@@ -194,3 +194,27 @@
     line-height: unset;
   }
 }
+
+[class*='row:']+[class*='row:'] + .page__range-page-featured-left {
+  margin-top: 6em;
+}
+
+[class*='row:']+[class*='row:'] + .page__range-page-description {
+  margin-top: 3em;
+  margin-bottom: 4em;
+
+  @media (max-width: 961px){
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+[class*='row:']+[class*='row:'] + .page__range-page-media-size {
+  margin-top: 7em;
+  margin-bottom: 5em;
+
+  @media (max-width: 961px){
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
