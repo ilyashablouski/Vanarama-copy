@@ -7,8 +7,8 @@ import { ProductDerivativeFilter } from '../../../generated/globalTypes';
 
 export const FILTERS_AGGREGATIONS = gql`
   fragment filtersAggregation on ProductFilterAggregations {
-    make
-    range
+    manufacturerName
+    rangeName
     transmissions
     fuelTypes
     bodyStyles
@@ -16,6 +16,10 @@ export const FILTERS_AGGREGATIONS = gql`
     doors
     noOfSeats
     engineSizeGroup
+    standardEuroEmissions
+    loadHeightGroup
+    loadLengthGroup
+    payloadGroup
     mpgGroup
     co2Group
     enginePowerBhp {

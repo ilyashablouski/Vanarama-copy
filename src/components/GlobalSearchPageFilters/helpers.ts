@@ -8,6 +8,10 @@ export const getInnerConfigKeys = (innerSelects: IInnerSelect[]) =>
 
 export const renderPowerEngineValue = (value: string) => `${value}bhp`;
 
+export const renderSeatsValue = (value: string) => `${value} Seats`;
+
+export const renderDoorsValue = (value: string) => `${value} Doors`;
+
 export const renderPowerEngineSelected = (values: (string | null)[]) => {
   const text = `${values[0] ? `From ${values[0]}bhp` : ''}${
     values[1] ? ` to ${values[1]}bhp` : ''
@@ -68,8 +72,8 @@ export const ENGINE_POWER_FILTERS_DEFAULT = [
 export const buildEnginePowerValues = (min: number, max: number) =>
   ENGINE_POWER_FILTERS_DEFAULT.filter(
     (value, index) =>
-      (min < value || min < ENGINE_POWER_FILTERS_DEFAULT[index + 1]) &&
-      (value < max || ENGINE_POWER_FILTERS_DEFAULT[index - 1] < max),
+      (min <= value || min < ENGINE_POWER_FILTERS_DEFAULT[index + 1]) &&
+      (value < max || ENGINE_POWER_FILTERS_DEFAULT[index - 1] <= max),
   );
 
 export const isAdvancedFiltersEnabled = Cookies.get('DIG-6365') === '1';

@@ -1,9 +1,11 @@
 import Close from 'core/assets/icons/Close';
 import { useCallback, useMemo } from 'react';
-import { ISelectedTags } from './interfaces';
+import { IFiltersData, ISelectedTags } from './interfaces';
 import {
   renderBudgetValue,
+  renderDoorsValue,
   renderPowerEngineValue,
+  renderSeatsValue,
 } from '../../components/GlobalSearchPageFilters/helpers';
 
 interface IProps {
@@ -12,15 +14,25 @@ interface IProps {
   removeFilterValue: (value: string, key: string) => void;
 }
 const FiltersTags = ({ tags, clearAllFilters, removeFilterValue }: IProps) => {
-  const renderFunction = useCallback((value, key) => {
-    if (key === 'from' || key === 'to') {
-      return renderBudgetValue(value);
-    }
-    if (key === 'fromEnginePower' || key === 'toEnginePower') {
-      return renderPowerEngineValue(value);
-    }
-    return value;
-  }, []);
+  const renderFunction = useCallback(
+    (value: string, key: keyof IFiltersData) => {
+      switch (key) {
+        case 'from':
+        case 'to':
+          return renderBudgetValue(value);
+        case 'fromEnginePower':
+        case 'toEnginePower':
+          return renderPowerEngineValue(value);
+        case 'noOfSeats':
+          return renderSeatsValue(value);
+        case 'doors':
+          return renderDoorsValue(value);
+        default:
+          return value;
+      }
+    },
+    [],
+  );
 
   const isShowClearAllBtn = useMemo(
     () => tags.map(filterTags => filterTags.tags).flat().length > 1,
