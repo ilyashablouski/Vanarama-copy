@@ -17,9 +17,11 @@ const FiltersTags = ({ tags, clearAllFilters, removeFilterValue }: IProps) => {
   const renderFunction = useCallback(
     (value: string, key: keyof IFiltersData) => {
       switch (key) {
-        case 'from' || 'to':
+        case 'from':
+        case 'to':
           return renderBudgetValue(value);
-        case 'fromEnginePower' || 'toEnginePower':
+        case 'fromEnginePower':
+        case 'toEnginePower':
           return renderPowerEngineValue(value);
         case 'noOfSeats':
           return renderSeatsValue(value);
