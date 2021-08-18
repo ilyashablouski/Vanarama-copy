@@ -14,7 +14,10 @@ import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { getSectionsData } from '../../utils/getSectionsData';
-import { GenericPageQuery_genericPage_sections_hero as Hero } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery_genericPage_sections_hero as Hero,
+  GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
+} from '../../../generated/GenericPageQuery';
 import {
   PageCollection,
   PageCollectionVariables,
@@ -351,7 +354,7 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
           >
             {data && tiles.tilesTitle}
           </Heading>
-          {tiles.tiles?.map((tile: any, index: number) => (
+          {tiles.tiles?.map((tile: TileData, index: number) => (
             <div key={tile.title || index}>
               <Tile className="-plain -button -align-center" plain>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
@@ -368,7 +371,10 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
                 </div>
                 {tile.link ? (
                   <RouterLink
-                    link={{ href: tile.link || '#', label: '' }}
+                    link={{
+                      href: tile.link.legacyUrl || tile.link.url || '#',
+                      label: '',
+                    }}
                     className="tile--link"
                   >
                     <Heading tag="span" size="regular" color="black">

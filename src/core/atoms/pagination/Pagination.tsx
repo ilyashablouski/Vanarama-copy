@@ -5,6 +5,7 @@ import Link from '../link';
 import ChevronBackSharp from '../../assets/icons/ChevronBackSharp';
 import ChevronForwardSharp from '../../assets/icons/ChevronForwardSharp';
 import Icon from '../icon';
+import { addEtc } from './helpers';
 
 const Pagination: FC<IPaginationProps> = props => {
   const {
@@ -18,21 +19,6 @@ const Pagination: FC<IPaginationProps> = props => {
     onClickBackArray,
     onClickNextArray,
   } = props;
-
-  const addEtc = (pagesArray: any[]) => {
-    if (pagesArray.length <= 1) {
-      return pagesArray;
-    }
-    const lastPage = pagesArray[pagesArray.length - 1];
-    const secondLast = pagesArray[pagesArray.length - 2];
-    if (pagesArray[0] + 1 !== pagesArray[1]) {
-      pagesArray.splice(1, 0, '...');
-    }
-    if (lastPage !== secondLast + 1) {
-      pagesArray.splice(pagesArray.length - 1, 0, '...');
-    }
-    return pagesArray;
-  };
 
   const genPages = () => {
     const totalPage = pages.length;
@@ -102,22 +88,22 @@ const Pagination: FC<IPaginationProps> = props => {
           <Icon icon={<ChevronBackSharp />} />
         </Link>
       )}
-      {pagesItem.map((page: any, index: number) => {
+      {pagesItem.map((page: string, index: number) => {
         return page === '...' ? (
           <div className="pagination--item --disabled" key={`${page + index}`}>
             {page}
           </div>
         ) : (
           <Link
-            key={`${page + index}`}
+            key={`${Number(page) + index}`}
             href={
-              page === 1 && pathForFirstPage
+              page === '1' && pathForFirstPage
                 ? `${pathForFirstPage}${pathWithHtml ? '.html' : ''}`
                 : `${path}/${page}${pathWithHtml ? '.html' : ''}`
             }
             onClick={onClick}
             className={cx('pagination--item', {
-              '-active': selected === page,
+              '-active': selected === Number(page),
             })}
           >
             {page}
