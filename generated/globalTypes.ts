@@ -711,9 +711,9 @@ export interface PersonV2InputObject {
 }
 
 export interface ProductDerivativeFilter {
-  make?: string | null;
-  range?: string | null;
-  model?: string | null;
+  manufacturerName?: string | null;
+  rangeName?: string | null;
+  modelName?: string | null;
   bodyStyles?: (string | null)[] | null;
   transmissions?: (string | null)[] | null;
   fuelTypes?: (string | null)[] | null;
@@ -736,9 +736,10 @@ export interface ProductDerivativeFilter {
   co2?: number | null;
   co2Group?: string | null;
   enginePowerBhp?: MinMax | null;
-  euroEmissions?: (string | null)[] | null;
-  heights?: (number | null)[] | null;
-  lengths?: (number | null)[] | null;
+  standardEuroEmissions?: (string | null)[] | null;
+  payloads?: (string | null)[] | null;
+  loadHeights?: (string | null)[] | null;
+  loadLengths?: (string | null)[] | null;
 }
 
 export interface ProductDerivativeSort {

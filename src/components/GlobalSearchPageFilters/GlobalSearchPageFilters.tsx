@@ -110,8 +110,21 @@ const GlobalSearchPageFilters = ({
   } as IFiltersData;
 
   const advancedFiltersConfig = useMemo(
-    () => config.filter(filterConfig => !filterConfig.generalFilter),
-    [config],
+    () =>
+      config.filter(
+        filterConfig =>
+          !filterConfig.generalFilter &&
+          // enable specific filters for some vehicles category
+          (!filterConfig.includedVehicleType ||
+            (filtersData?.vehicleCategory?.some(filterValue =>
+              filterConfig.includedVehicleType?.includes(filterValue || ''),
+            ) &&
+              (!activeFilters.vehicleCategory?.[0] ||
+                filterConfig.includedVehicleType?.includes(
+                  activeFilters.vehicleCategory?.[0],
+                )))),
+      ),
+    [activeFilters.vehicleCategory, config, filtersData?.vehicleCategory],
   );
 
   const generalFiltersConfig = useMemo(
@@ -194,8 +207,8 @@ const GlobalSearchPageFilters = ({
   };
 
   const isDisabledSelect = (key: string, selectKey: string) => {
-    if (selectKey === 'range') {
-      return !activeFilters.make?.[0];
+    if (selectKey === 'rangeName') {
+      return !activeFilters.manufacturerName?.[0];
     }
     return false;
   };

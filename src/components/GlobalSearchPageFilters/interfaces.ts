@@ -16,4 +16,5 @@ export interface IFiltersConfig {
   renderSelectedFunction?: (values: (string | null)[]) => string;
   generalFilter: boolean;
   innerSelects?: IInnerSelect[];
+  includedVehicleType?: string[];
 }
