@@ -20,7 +20,7 @@ describe('helpers', () => {
   it('renderDoorsValue should return correct doors value', () => {
     expect(renderDoorsValue('3')).toEqual('3 Doors');
   });
-  it('renderSeatsValue should return correct doors value', () => {
+  it('renderSeatsValue should return correct seats value', () => {
     expect(renderSeatsValue('3')).toEqual('3 Seats');
   });
   it('generateQueryObject should return correct query object', () => {
