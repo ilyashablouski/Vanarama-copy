@@ -4,6 +4,8 @@ import {
   renderPowerEngineSelected,
   renderPowerEngineValue,
   generateQueryObject,
+  renderDoorsValue,
+  renderSeatsValue,
   buildEnginePowerValues,
 } from '../helpers';
 import { IFiltersData } from '../../../containers/GlobalSearchPageContainer/interfaces';
@@ -14,6 +16,12 @@ describe('helpers', () => {
   });
   it('renderPowerEngineValue should return correct power value', () => {
     expect(renderPowerEngineValue('300')).toEqual('300bhp');
+  });
+  it('renderDoorsValue should return correct doors value', () => {
+    expect(renderDoorsValue('3')).toEqual('3 Doors');
+  });
+  it('renderSeatsValue should return correct seats value', () => {
+    expect(renderSeatsValue('3')).toEqual('3 Seats');
   });
   it('generateQueryObject should return correct query object', () => {
     expect(
