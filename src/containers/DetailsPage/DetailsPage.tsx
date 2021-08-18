@@ -10,6 +10,8 @@ import Cookies from 'js-cookie';
 import Button from 'core/atoms/button';
 // @ts-ignore
 import decode from 'decode-html';
+
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import css from '!!raw-loader!../../../public/styles/pages/details-page.css';
@@ -101,9 +103,6 @@ const FrequentlyAskedQuestions = dynamic(() =>
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );
-const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
-  loading: () => <Skeleton count={1} />,
-});
 const Head = dynamic(() => import('../../components/Head/Head'));
 
 const VehicleTechDetails = dynamic(() =>
