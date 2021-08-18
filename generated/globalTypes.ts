@@ -737,9 +737,9 @@ export interface ProductDerivativeFilter {
   co2Group?: string | null;
   enginePowerBhp?: MinMax | null;
   standardEuroEmissions?: (string | null)[] | null;
-  payloads?: (string | null)[] | null;
-  loadHeights?: (string | null)[] | null;
-  loadLengths?: (string | null)[] | null;
+  payloadGroup?: (string | null)[] | null;
+  loadHeightGroup?: (string | null)[] | null;
+  loadLengthGroup?: (string | null)[] | null;
 }
 
 export interface ProductDerivativeSort {

@@ -22,6 +22,10 @@ export interface filtersAggregation {
   doors: (number | null)[] | null;
   noOfSeats: (number | null)[] | null;
   engineSizeGroup: (string | null)[] | null;
+  standardEuroEmissions: (string | null)[] | null;
+  loadHeightGroup: (string | null)[] | null;
+  loadLengthGroup: (string | null)[] | null;
+  payloadGroup: (string | null)[] | null;
   mpgGroup: (string | null)[] | null;
   co2Group: (string | null)[] | null;
   enginePowerBhp: filtersAggregation_enginePowerBhp | null;
