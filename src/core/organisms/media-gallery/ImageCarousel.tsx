@@ -43,30 +43,33 @@ function ImageCarousel({
           </SwiperSlide>
         ))}
       </Swiper>
-      <Swiper
-        observer
-        centeredSlides
-        centeredSlidesBounds
-        slidesPerView="auto"
-        resistanceRatio={0.55}
-        onSwiper={setThumbsSlider}
-      >
-        {images.map(imageUrl => (
-          <SwiperSlide key={imageUrl} tag="li">
-            <Image
-              plain
-              src={imageUrl}
-              alt={imageAltText}
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              optimisationOptions={{
-                width: 150,
-                height: 80,
-                fit: 'cover',
-              }}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
+      {images.length > 1 && (
+        <Swiper
+          observer
+          centeredSlides
+          centeredSlidesBounds
+          slidesPerView="auto"
+          className="thumbnails"
+          resistanceRatio={0.55}
+          onSwiper={setThumbsSlider}
+        >
+          {images.map(imageUrl => (
+            <SwiperSlide key={imageUrl} tag="li">
+              <Image
+                plain
+                src={imageUrl}
+                alt={imageAltText}
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                optimisationOptions={{
+                  width: 150,
+                  height: 80,
+                  fit: 'cover',
+                }}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      )}
     </>
   );
 }
