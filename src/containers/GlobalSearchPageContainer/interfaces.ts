@@ -16,7 +16,7 @@ export enum ITabs {
 }
 
 export interface ISelectedTags {
-  filterKey: string;
+  filterKey: keyof IFiltersData;
   tags: string[];
   order: number;
 }
