@@ -155,7 +155,6 @@ interface IProps {
   preloadMake?: string;
   defaultSort?: SortObject[];
   newRangePageSlug?: string;
-  isNewRangePage?: Boolean;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -191,7 +190,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadTopOffersCardsData,
   defaultSort,
   newRangePageSlug,
-  isNewRangePage,
 }: IProps) => {
   // assign here as when inline causing hook lint errors
 
@@ -204,9 +202,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const client = useApolloClient();
   const router = useRouter();
   const isNewPage =
-    isNewRangePage &&
-    newRangePageSlug &&
-    !!NEW_RANGE_SLUGS.includes(newRangePageSlug);
+    newRangePageSlug && !!NEW_RANGE_SLUGS.includes(newRangePageSlug);
   const isDynamicFilterPage = useMemo(
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
