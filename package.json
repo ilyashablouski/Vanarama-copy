@@ -35,7 +35,6 @@
     "@ramda/path": "^0.26.1",
     "@reach/auto-id": "^0.10.3",
     "@react-google-maps/api": "^1.9.0",
-    "apollo-link-persisted-queries": "^0.2.2",
     "body-scroll-lock": "^3.1.5",
     "classnames": "^2.2.6",
     "colors": "^1.4.0",
