@@ -11,7 +11,7 @@ import { isCookieBarFeatureEnabled } from '../../utils/helpers';
 
 function CookieBarContainer() {
   const [shouldComponentRender, setShouldComponentRender] = useState(
-    !isCookieBarFeatureEnabled(),
+    isCookieBarFeatureEnabled(),
   );
 
   function handleBeforeComponentShow() {

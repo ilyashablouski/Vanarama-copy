@@ -213,7 +213,8 @@ export async function getServerSideProps(context: NextPageContext) {
         filters: buildFiltersRequestObject(initialFilters, false),
       },
     })
-    .then(({ data: productFilterData }) => productFilterData.productFilter);
+    .then(({ data: productFilterData }) => productFilterData.productFilter)
+    .catch(() => null);
 
   return {
     props: {
