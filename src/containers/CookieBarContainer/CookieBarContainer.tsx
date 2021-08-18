@@ -7,12 +7,9 @@ import {
   declineCookieBlueConic,
   shouldRenderCookieBar,
 } from '../../utils/blueConicHelpers';
-import { isCookieBarFeatureEnabled } from '../../utils/helpers';
 
 function CookieBarContainer() {
-  const [shouldComponentRender, setShouldComponentRender] = useState(
-    isCookieBarFeatureEnabled(),
-  );
+  const [shouldComponentRender, setShouldComponentRender] = useState(true);
 
   function handleBeforeComponentShow() {
     if (!shouldRenderCookieBar()) {
