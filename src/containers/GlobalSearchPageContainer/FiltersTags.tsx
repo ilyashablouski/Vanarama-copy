@@ -3,7 +3,9 @@ import { useCallback, useMemo } from 'react';
 import { IFiltersData, ISelectedTags } from './interfaces';
 import {
   renderBudgetValue,
+  renderDoorsValue,
   renderPowerEngineValue,
+  renderSeatsValue,
 } from '../../components/GlobalSearchPageFilters/helpers';
 
 interface IProps {
@@ -14,13 +16,20 @@ interface IProps {
 const FiltersTags = ({ tags, clearAllFilters, removeFilterValue }: IProps) => {
   const renderFunction = useCallback(
     (value: string, key: keyof IFiltersData) => {
-      if (key === 'from' || key === 'to') {
-        return renderBudgetValue(value);
+      switch (key) {
+        case 'from':
+        case 'to':
+          return renderBudgetValue(value);
+        case 'fromEnginePower':
+        case 'toEnginePower':
+          return renderPowerEngineValue(value);
+        case 'noOfSeats':
+          return renderSeatsValue(value);
+        case 'doors':
+          return renderDoorsValue(value);
+        default:
+          return value;
       }
-      if (key === 'fromEnginePower' || key === 'toEnginePower') {
-        return renderPowerEngineValue(value);
-      }
-      return value;
     },
     [],
   );
