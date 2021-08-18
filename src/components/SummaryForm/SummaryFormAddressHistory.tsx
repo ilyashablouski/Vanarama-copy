@@ -33,7 +33,8 @@ function reduceToItems(addresses: SummaryFormAddressHistoryAddress[]) {
   return [...addresses]
     .sort(
       (a, b) =>
-        new Date(b.startedOn).getTime() - new Date(a.startedOn).getTime(),
+        new Date(b.startedOn ?? '').getTime() -
+        new Date(a.startedOn ?? '').getTime(),
     )
     .reduce(
       (acc, address, index) => [

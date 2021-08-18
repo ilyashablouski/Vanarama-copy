@@ -28,7 +28,7 @@ export interface QuickCreditCheckerEligibility_person {
   uuid: string;
   firstName: string;
   lastName: string;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   emailAddresses: QuickCreditCheckerEligibility_person_emailAddresses[];
   addresses: QuickCreditCheckerEligibility_person_addresses[] | null;
   termsAndConditions: boolean | null;

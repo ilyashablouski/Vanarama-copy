@@ -19,6 +19,7 @@ import { defaultFormatDate } from '../../utils/dates';
 import generateSoleTraderSteps from '../../components/BusinessProgressIndicator/generateSoleTraderSteps';
 import generateLimitedSteps from '../../components/BusinessProgressIndicator/generateLimitedSteps';
 import generateConsumerSteps from '../../components/ConsumerProgressIndicator/generateConsumerSteps';
+import { Nullable } from '../../types/common';
 
 /**
  * @param id - string, order ID
@@ -31,7 +32,7 @@ import generateConsumerSteps from '../../components/ConsumerProgressIndicator/ge
  * @param quote - boolean, this order is quote
  */
 export const createOffersObject = (
-  createdAt: string,
+  createdAt: Nullable<string>,
   leaseType: string,
   state: string,
   offer: VehicleProduct,
@@ -58,7 +59,7 @@ export const createOffersObject = (
   color: offer.colour || '-',
   trim: offer.trim || '-',
   orderNumber: undefined,
-  orderDate: defaultFormatDate(new Date(createdAt)),
+  orderDate: defaultFormatDate(new Date(createdAt ?? '')),
   orderButton: state === 'draft' || quote || !state ? button : undefined,
 });
 

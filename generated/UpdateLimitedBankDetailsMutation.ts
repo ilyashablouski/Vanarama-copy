@@ -14,7 +14,7 @@ export interface UpdateLimitedBankDetailsMutation_createUpdateLimitedCompany_ban
   uuid: string;
   accountName: string | null;
   accountNumber: string | null;
-  joinedAt: any | null;
+  joinedAt: CustomDate | null;
   sortCode: string | null;
 }
 

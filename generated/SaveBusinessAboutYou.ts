@@ -10,21 +10,21 @@ import { PersonInputObject } from "./globalTypes";
 // ====================================================
 
 export interface SaveBusinessAboutYou_createUpdateBusinessPerson_emailAddresses {
-  createdAt: any | null;
+  createdAt: CustomDateTime | null;
   kind: string | null;
   partyId: string;
   primary: boolean;
-  updatedAt: any | null;
+  updatedAt: CustomDateTime | null;
   uuid: string;
   value: string;
 }
 
 export interface SaveBusinessAboutYou_createUpdateBusinessPerson_telephoneNumbers {
-  createdAt: any | null;
+  createdAt: CustomDateTime | null;
   kind: string | null;
   partyId: string;
   primary: boolean;
-  updatedAt: any | null;
+  updatedAt: CustomDateTime | null;
   uuid: string;
   value: string;
 }

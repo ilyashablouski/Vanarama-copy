@@ -17,7 +17,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV
   city: string | null;
   country: string | null;
   county: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   kind: string | null;
   lineOne: string | null;
   lineThree: string | null;
@@ -25,7 +25,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV
   postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   uuid: string | null;
 }
 
@@ -40,7 +40,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV
   city: string | null;
   country: string | null;
   county: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   kind: string | null;
   lineOne: string | null;
   lineThree: string | null;
@@ -48,7 +48,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV
   postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   uuid: string | null;
 }
 
@@ -72,7 +72,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV
   cognitoSub: string | null;
   companyType: string | null;
   countryOfBirth: string | null;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   dayOfBirth: string | null;
   disabilityRegistered: boolean | null;
   email: string | null;
@@ -114,7 +114,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_companyDetail
   city: string | null;
   country: string | null;
   county: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   kind: string | null;
   lineOne: string | null;
   lineThree: string | null;
@@ -122,7 +122,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_companyDetail
   postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   uuid: string | null;
 }
 
@@ -147,7 +147,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_companyDetail
   annualTurnover: number | null;
   businessName: string | null;
   businessRegistrationNumber: string | null;
-  companySearchResult: any | null;
+  companySearchResult: CustomJson | null;
   companyType: string | null;
   emailAddresses: GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2_emailAddresses[] | null;
   monthlyAmountBeingReplaced: number | null;
@@ -159,7 +159,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_companyDetail
   sicIndustry: string | null;
   telephoneNumbers: GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2_telephoneNumbers[] | null;
   tradesOutsideUk: boolean | null;
-  tradingSince: any | null;
+  tradingSince: CustomDate | null;
   turnoverOutsideUk: number | null;
   uuid: string | null;
   withTradingAddress: boolean | null;
@@ -169,7 +169,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDeta
   city: string | null;
   country: string | null;
   county: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   kind: string | null;
   lineOne: string | null;
   lineThree: string | null;
@@ -177,7 +177,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDeta
   postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   uuid: string | null;
 }
 
@@ -192,7 +192,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDeta
   city: string | null;
   country: string | null;
   county: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   kind: string | null;
   lineOne: string | null;
   lineThree: string | null;
@@ -200,7 +200,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDeta
   postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   uuid: string | null;
 }
 
@@ -247,7 +247,7 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications_directorsDeta
   cognitoSub: string | null;
   companyType: string | null;
   countryOfBirth: string | null;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   dayOfBirth: string | null;
   disabilityRegistered: boolean | null;
   email: string | null;
@@ -324,8 +324,8 @@ export interface GetMyOrders_myOrders_lineItems_creditApplications {
   aboutDetailsV2: GetMyOrders_myOrders_lineItems_creditApplications_aboutDetailsV2 | null;
   companyDetailsV2: GetMyOrders_myOrders_lineItems_creditApplications_companyDetailsV2 | null;
   directorsDetailsV2: GetMyOrders_myOrders_lineItems_creditApplications_directorsDetailsV2 | null;
-  partnersDetails: any | null;
-  soleTraderDetails: any | null;
+  partnersDetails: CustomJson | null;
+  soleTraderDetails: CustomJson | null;
   vatDetailsV2: GetMyOrders_myOrders_lineItems_creditApplications_vatDetailsV2 | null;
   incomeAndExpensesV2: GetMyOrders_myOrders_lineItems_creditApplications_incomeAndExpensesV2 | null;
   employmentHistoriesV2: GetMyOrders_myOrders_lineItems_creditApplications_employmentHistoriesV2[] | null;
@@ -349,7 +349,7 @@ export interface GetMyOrders_myOrders_lineItems_vehicleProduct {
   annualMileage: number | null;
   depositMonths: number | null;
   funderId: string | null;
-  funderData: any | null;
+  funderData: CustomJson | null;
   colour: string | null;
   trim: string | null;
   maintenance: boolean | null;
@@ -359,13 +359,13 @@ export interface GetMyOrders_myOrders_lineItems_vehicleProduct {
 
 export interface GetMyOrders_myOrders_lineItems {
   order: GetMyOrders_myOrders_lineItems_order | null;
-  createdAt: any | null;
+  createdAt: CustomDateTime | null;
   leadManagerQuoteId: string | null;
   productId: string;
   productType: string;
   quantity: number;
   status: string | null;
-  updatedAt: any | null;
+  updatedAt: CustomDateTime | null;
   uuid: string;
   creditApplications: GetMyOrders_myOrders_lineItems_creditApplications[] | null;
   vehicleProduct: GetMyOrders_myOrders_lineItems_vehicleProduct | null;
@@ -379,8 +379,8 @@ export interface GetMyOrders_myOrders {
   referenceNumber: string | null;
   salesChannel: string;
   status: string;
-  createdAt: any | null;
-  updatedAt: any | null;
+  createdAt: CustomDateTime | null;
+  updatedAt: CustomDateTime | null;
   lineItems: GetMyOrders_myOrders_lineItems[];
 }
 

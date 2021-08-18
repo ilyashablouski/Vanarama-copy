@@ -86,8 +86,12 @@ export const preloadedValuesToInput = (
     tradingName: details?.businessName || '',
     tradingAddress: tradingAddress?.label ? tradingAddress : undefined,
     nature: details?.natureOfBusiness || '',
-    tradingSinceYear: String(new Date(details?.tradingSince).getFullYear()),
-    tradingSinceMonth: String(new Date(details?.tradingSince).getMonth() + 1),
+    tradingSinceYear: String(
+      new Date(details?.tradingSince ?? '').getFullYear(),
+    ),
+    tradingSinceMonth: String(
+      new Date(details?.tradingSince ?? '').getMonth() + 1,
+    ),
     businessTelephoneNumber: details?.telephoneNumbers?.[0].value || '',
     email: details?.emailAddresses?.[0].value || '',
     annualTurnover: String(details?.annualTurnover || ''),

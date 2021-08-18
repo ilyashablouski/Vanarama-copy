@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface GenericPageBreadcrumbsQuery_genericPage_metaData {
-  breadcrumbs: any | null;
+  breadcrumbs: CustomJSON | null;
 }
 
 export interface GenericPageBreadcrumbsQuery_genericPage {

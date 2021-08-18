@@ -11,7 +11,7 @@ import { FunderInputObject } from "./globalTypes";
 
 export interface FunderDirectors_funderDirectors {
   id: string | null;
-  funderData: any | null;
+  funderData: CustomJson | null;
 }
 
 export interface FunderDirectors {

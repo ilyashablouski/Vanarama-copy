@@ -18,10 +18,9 @@ type QueryParams = OLAFQueryParams & {
 const mapBankAccountToCreditApplication = (
   createUpdateBankAccount: IBankAccount | null,
 ) => {
-  const [
-    joinedAtYear,
-    joinedAtMonth,
-  ] = createUpdateBankAccount?.joinedAt?.split('-');
+  const [joinedAtYear, joinedAtMonth] = (
+    createUpdateBankAccount?.joinedAt ?? '-'
+  ).split('-');
 
   return {
     ...(createUpdateBankAccount || {}),

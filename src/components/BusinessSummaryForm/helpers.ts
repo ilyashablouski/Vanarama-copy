@@ -49,7 +49,8 @@ export const formatPreviousSoletrederAddresses = (
       {
         label: 'Date Moved In',
         value:
-          (address && fullMonthFormatDate(new Date(address.startedOn))) || '',
+          (address && fullMonthFormatDate(new Date(address.startedOn ?? ''))) ||
+          '',
         dataTestId: `summary-director-past-moved-in[${testId || index}]`,
       },
       {
@@ -88,7 +89,8 @@ export const sortSoleTraderAddresses = (
     ?.slice()
     .sort(
       (a, b) =>
-        new Date(b.startedOn).getTime() - new Date(a.startedOn).getTime(),
+        new Date(b.startedOn ?? '').getTime() -
+        new Date(a.startedOn ?? '').getTime(),
     );
 
   const currentAddress = sorted?.[0] || null;

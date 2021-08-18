@@ -83,7 +83,7 @@ const SummaryForm: FCWithFragments<IProps> = ({
       variables: {
         input: {
           orderUuid: orderId,
-          submittedAt: new Date(),
+          submittedAt: new Date().toISOString(),
         },
       },
     }).then(() => onComplete?.());

@@ -36,7 +36,7 @@ export interface GetAboutYouDataQuery_personByUuid {
   lastName: string;
   emailAddresses: GetAboutYouDataQuery_personByUuid_emailAddresses[];
   telephoneNumbers: GetAboutYouDataQuery_personByUuid_telephoneNumbers[] | null;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   countryOfBirth: string | null;
   nationality: string | null;
   maritalStatus: string | null;

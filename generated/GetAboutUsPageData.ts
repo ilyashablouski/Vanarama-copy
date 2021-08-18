@@ -16,9 +16,9 @@ export interface GetAboutUsPageData_aboutUsLandingPage_metaData {
   pageType: string | null;
   canonicalUrl: string | null;
   slug: string | null;
-  schema: any | null;
-  publishedOn: any | null;
-  breadcrumbs: any | null;
+  schema: CustomJSON | null;
+  publishedOn: CustomDateTime | null;
+  breadcrumbs: CustomJSON | null;
 }
 
 export interface GetAboutUsPageData_aboutUsLandingPage_featuredImage_file {

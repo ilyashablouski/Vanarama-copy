@@ -48,8 +48,8 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   const articlesSorted = articles
     ? [...articles]?.sort(
         (firstArticle, secondArticle) =>
-          new Date(secondArticle?.metaData?.publishedOn).getTime() -
-          new Date(firstArticle?.metaData?.publishedOn).getTime(),
+          new Date(secondArticle?.metaData?.publishedOn ?? '').getTime() -
+          new Date(firstArticle?.metaData?.publishedOn ?? '').getTime(),
       )
     : [];
 
