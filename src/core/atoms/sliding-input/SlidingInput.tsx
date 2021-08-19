@@ -87,10 +87,9 @@ const SlidingInput: React.FC<ISlidingInputProps> = ({
 
   const labels = useMemo(
     () =>
-      steps.map(step => {
-        const value = (step as ISlidingObject).label ?? (step as number);
-        return `${parseInt(value, 10) / 1000}K`;
-      }),
+      steps.map(
+        step => (step as ISlidingObject).label ?? `${(step as number) / 1000}K`,
+      ),
     [steps],
   );
 
