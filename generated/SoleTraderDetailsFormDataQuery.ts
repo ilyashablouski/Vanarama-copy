@@ -74,7 +74,7 @@ export interface SoleTraderDetailsFormDataQuery_companyByUuid_associates_address
   postcode: string;
   city: string;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
 }
 
 export interface SoleTraderDetailsFormDataQuery_companyByUuid_associates_incomeAndExpense {
@@ -96,7 +96,7 @@ export interface SoleTraderDetailsFormDataQuery_companyByUuid_associates {
   lastName: string;
   gender: string | null;
   emailAddresses: SoleTraderDetailsFormDataQuery_companyByUuid_associates_emailAddresses[];
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   countryOfBirth: string | null;
   nationality: string | null;
   addresses: SoleTraderDetailsFormDataQuery_companyByUuid_associates_addresses[] | null;
@@ -128,7 +128,7 @@ export interface SoleTraderDetailsFormDataQuery_personByUuid_addresses {
   postcode: string;
   city: string;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
 }
 
 export interface SoleTraderDetailsFormDataQuery_personByUuid {
@@ -139,7 +139,7 @@ export interface SoleTraderDetailsFormDataQuery_personByUuid {
   lastName: string;
   gender: string | null;
   emailAddresses: SoleTraderDetailsFormDataQuery_personByUuid_emailAddresses[];
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   countryOfBirth: string | null;
   nationality: string | null;
   addresses: SoleTraderDetailsFormDataQuery_personByUuid_addresses[] | null;

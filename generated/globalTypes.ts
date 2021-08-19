@@ -146,7 +146,7 @@ export interface AddressInputObject {
   city?: string | null;
   country?: string | null;
   county?: string | null;
-  endedOn?: any | null;
+  endedOn?: CustomDate | null;
   kind?: string | null;
   lineOne?: string | null;
   lineThree?: string | null;
@@ -154,7 +154,7 @@ export interface AddressInputObject {
   postcode?: string | null;
   propertyStatus?: string | null;
   serviceId?: string | null;
-  startedOn?: any | null;
+  startedOn?: CustomDate | null;
   uuid?: string | null;
 }
 
@@ -165,7 +165,7 @@ export interface AddressV2InputObject {
   city: string;
   country?: string | null;
   county?: string | null;
-  endedOn?: any | null;
+  endedOn?: CustomDate | null;
   kind?: string | null;
   lineOne: string;
   lineThree?: string | null;
@@ -173,7 +173,7 @@ export interface AddressV2InputObject {
   postcode: string;
   propertyStatus?: string | null;
   serviceId?: string | null;
-  startedOn?: any | null;
+  startedOn?: CustomDate | null;
   uuid?: string | null;
 }
 
@@ -184,7 +184,7 @@ export interface BankAccountInputObject {
   accountName?: string | null;
   accountNumber?: string | null;
   bankName?: string | null;
-  joinedAt?: any | null;
+  joinedAt?: CustomDate | null;
   partyId?: string | null;
   sortCode?: string | null;
   uuid?: string | null;
@@ -197,7 +197,7 @@ export interface BankAccountV2InputObject {
   accountName?: string | null;
   accountNumber?: string | null;
   bankName?: string | null;
-  joinedAt?: any | null;
+  joinedAt?: CustomDate | null;
   joinedAtMonth?: string | null;
   joinedAtYear?: string | null;
   sortCode?: string | null;
@@ -211,7 +211,7 @@ export interface CompanyAssociateInputObject {
   addresses?: AddressInputObject[] | null;
   businessShare?: number | null;
   countryOfBirth?: string | null;
-  dateOfBirth?: any | null;
+  dateOfBirth?: CustomDate | null;
   emailAddress?: EmailAddressInputObject | null;
   emailConsent?: boolean | null;
   firstName: string;
@@ -258,7 +258,7 @@ export interface CompanyInputObject {
   companyNature?: string | null;
   companyNumber?: string | null;
   companyType?: string | null;
-  deletedAt?: any | null;
+  deletedAt?: CustomDate | null;
   emailAddresses?: EmailAddressInputObject[] | null;
   leadManagerId?: string | null;
   legalName?: string | null;
@@ -271,7 +271,7 @@ export interface CompanyInputObject {
   telephoneNumber?: TelephoneNumberInputObject | null;
   tradesOutsideUk?: boolean | null;
   tradingName?: string | null;
-  tradingSince?: any | null;
+  tradingSince?: CustomDate | null;
   turnoverOutsideUk?: number | null;
   uuid?: string | null;
   vatNumber?: string | null;
@@ -302,7 +302,7 @@ export interface CompanyV2InputObject {
   annualTurnover?: number | null;
   businessName: string;
   businessRegistrationNumber?: string | null;
-  companySearchResult?: any | null;
+  companySearchResult?: CustomJson | null;
   companyType: string;
   emailAddresses?: EmailAddressV2InputObject[] | null;
   monthlyAmountBeingReplaced?: number | null;
@@ -313,7 +313,7 @@ export interface CompanyV2InputObject {
   replaceExistingVehicleFinance?: boolean | null;
   telephoneNumbers?: TelephoneNumberV2InputObject[] | null;
   tradesOutsideUk?: boolean | null;
-  tradingSince?: any | null;
+  tradingSince?: CustomDate | null;
   turnoverOutsideUk?: number | null;
   uuid: string;
   withTradingAddress?: boolean | null;
@@ -323,30 +323,30 @@ export interface CompanyV2InputObject {
  * Input object to create and add a Credit Application
  */
 export interface CreditApplicationInputObject {
-  aboutDetails?: any | null;
+  aboutDetails?: CustomJson | null;
   aboutDetailsV2?: PersonV2InputObject | null;
-  addresses?: any | null;
+  addresses?: CustomJson | null;
   addressesV2?: AddressV2InputObject[] | null;
-  bankAccounts?: any | null;
+  bankAccounts?: CustomJson | null;
   bankAccountsV2?: BankAccountV2InputObject[] | null;
-  companyDetails?: any | null;
+  companyDetails?: CustomJson | null;
   companyDetailsV2?: CompanyV2InputObject | null;
   creditApplicationType?: CreditApplicationTypeEnum | null;
-  directorsDetails?: any | null;
+  directorsDetails?: CustomJson | null;
   directorsDetailsV2?: DirectorDetailV2InputObject | null;
-  employmentHistories?: any | null;
+  employmentHistories?: CustomJson | null;
   employmentHistoriesV2?: EmploymentHistoryV2InputObject[] | null;
   financeType?: string | null;
-  incomeAndExpenses?: any | null;
+  incomeAndExpenses?: CustomJson | null;
   incomeAndExpensesV2?: IncomeAndExpenseV2InputObject | null;
   leadManagerProposalId?: string | null;
   orderUuid: string;
-  partnersDetails?: any | null;
-  soleTraderDetails?: any | null;
+  partnersDetails?: CustomJson | null;
+  soleTraderDetails?: CustomJson | null;
   soleTraderDetailsV2?: SoleTraderDetailV2InputObject | null;
   status?: string | null;
-  submittedAt?: any | null;
-  vatDetails?: any | null;
+  submittedAt?: CustomDateTime | null;
+  vatDetails?: CustomJson | null;
   vatDetailsV2?: VatDetailV2InputObject | null;
 }
 
@@ -401,8 +401,8 @@ export interface EmploymentHistoryV2InputObject {
   companyAddressServiceId?: string | null;
   companyName?: string | null;
   contract?: string | null;
-  employedSinceDate?: any | null;
-  employedUntilDate?: any | null;
+  employedSinceDate?: CustomDate | null;
+  employedUntilDate?: CustomDate | null;
   employmentStatus?: string | null;
   grossAnnualIncome?: number | null;
   jobTitle?: string | null;
@@ -423,8 +423,8 @@ export interface EmploymentInputObject {
   companyAddressServiceId?: string | null;
   companyName?: string | null;
   contract?: string | null;
-  employedSinceDate?: any | null;
-  employedUntilDate?: any | null;
+  employedSinceDate?: CustomDate | null;
+  employedUntilDate?: CustomDate | null;
   employmentStatus?: string | null;
   grossAnnualIncome?: number | null;
   jobTitle?: string | null;
@@ -572,7 +572,7 @@ export interface LimitedCompanyInputObject {
   telephoneNumbers?: TelephoneNumberInputObject[] | null;
   tradesOutsideUk?: boolean | null;
   tradingName?: string | null;
-  tradingSince?: any | null;
+  tradingSince?: CustomDate | null;
   turnoverOutsideUk?: number | null;
   turnoverPercentageOutsideUk?: TurnoverPercentageOutsideUkInputObject[] | null;
   uuid?: string | null;
@@ -638,8 +638,8 @@ export interface PersonInputObject {
   cognitoSub?: string | null;
   company?: CompanyInputObject | null;
   countryOfBirth?: string | null;
-  dateOfBirth?: any | null;
-  deletedAt?: any | null;
+  dateOfBirth?: CustomDate | null;
+  deletedAt?: CustomDate | null;
   disabilityRegistered?: boolean | null;
   emailAddress?: EmailAddressInputObject | null;
   emailConsent?: boolean | null;
@@ -678,7 +678,7 @@ export interface PersonV2InputObject {
   cognitoSub?: string | null;
   companyType?: string | null;
   countryOfBirth?: string | null;
-  dateOfBirth?: any | null;
+  dateOfBirth?: CustomDate | null;
   disabilityRegistered?: boolean | null;
   emailAddresses?: EmailAddressV2InputObject[] | null;
   emailConsent?: boolean | null;
@@ -800,7 +800,7 @@ export interface SoleTraderCompanyInputObject {
   telephoneNumbers?: TelephoneNumberInputObject[] | null;
   tradesOutsideUk?: boolean | null;
   tradingName?: string | null;
-  tradingSince?: any | null;
+  tradingSince?: CustomDate | null;
   turnoverOutsideUk?: number | null;
   turnoverPercentageOutsideUk?: TurnoverPercentageOutsideUkInputObject[] | null;
   uuid?: string | null;

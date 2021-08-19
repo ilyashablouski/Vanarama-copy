@@ -42,7 +42,7 @@ export interface SummaryFormCompany_bankAccounts {
   uuid: string;
   accountName: string | null;
   accountNumber: string | null;
-  joinedAt: any | null;
+  joinedAt: CustomDate | null;
   sortCode: string | null;
 }
 
@@ -53,7 +53,7 @@ export interface SummaryFormCompany_associates_roles {
 export interface SummaryFormCompany_associates_addresses {
   serviceId: string | null;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   city: string;
   lineOne: string;
   lineTwo: string | null;
@@ -66,7 +66,7 @@ export interface SummaryFormCompany_associates {
   firstName: string;
   lastName: string;
   gender: string | null;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   noOfDependants: string | null;
   nationality: string | null;
   businessShare: number | null;
@@ -81,7 +81,7 @@ export interface SummaryFormCompany {
   companyNumber: string | null;
   companyNature: string | null;
   tradesOutsideUk: boolean | null;
-  tradingSince: any | null;
+  tradingSince: CustomDate | null;
   turnoverPercentageOutsideUk: SummaryFormCompany_turnoverPercentageOutsideUk[] | null;
   addresses: SummaryFormCompany_addresses[] | null;
   emailAddresses: SummaryFormCompany_emailAddresses[];

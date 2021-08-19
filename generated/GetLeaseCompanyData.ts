@@ -11,7 +11,7 @@ export interface GetLeaseCompanyData_creditApplicationByOrderUuid_aboutDetailsV2
   city: string | null;
   country: string | null;
   county: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   kind: string | null;
   lineOne: string | null;
   lineThree: string | null;
@@ -19,7 +19,7 @@ export interface GetLeaseCompanyData_creditApplicationByOrderUuid_aboutDetailsV2
   postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   uuid: string | null;
 }
 
@@ -34,7 +34,7 @@ export interface GetLeaseCompanyData_creditApplicationByOrderUuid_aboutDetailsV2
   city: string | null;
   country: string | null;
   county: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   kind: string | null;
   lineOne: string | null;
   lineThree: string | null;
@@ -42,7 +42,7 @@ export interface GetLeaseCompanyData_creditApplicationByOrderUuid_aboutDetailsV2
   postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   uuid: string | null;
 }
 
@@ -66,7 +66,7 @@ export interface GetLeaseCompanyData_creditApplicationByOrderUuid_aboutDetailsV2
   cognitoSub: string | null;
   companyType: string | null;
   countryOfBirth: string | null;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   dayOfBirth: string | null;
   disabilityRegistered: boolean | null;
   email: string | null;
@@ -106,7 +106,7 @@ export interface GetLeaseCompanyData_creditApplicationByOrderUuid_aboutDetailsV2
 
 export interface GetLeaseCompanyData_creditApplicationByOrderUuid_lineItem_vehicleProduct {
   funderId: string | null;
-  funderData: any | null;
+  funderData: CustomJson | null;
 }
 
 export interface GetLeaseCompanyData_creditApplicationByOrderUuid_lineItem {

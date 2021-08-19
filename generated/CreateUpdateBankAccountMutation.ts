@@ -15,7 +15,7 @@ export interface CreateUpdateBankAccountMutation_createUpdateBankAccount {
   accountName: string | null;
   accountNumber: string | null;
   bankName: string | null;
-  joinedAt: any | null;
+  joinedAt: CustomDate | null;
   sortCode: string | null;
 }
 

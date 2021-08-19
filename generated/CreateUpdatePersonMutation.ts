@@ -38,7 +38,7 @@ export interface CreateUpdatePersonMutation_createUpdatePerson {
   lastName: string;
   emailAddresses: CreateUpdatePersonMutation_createUpdatePerson_emailAddresses[];
   telephoneNumbers: CreateUpdatePersonMutation_createUpdatePerson_telephoneNumbers[] | null;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   countryOfBirth: string | null;
   nationality: string | null;
   maritalStatus: string | null;

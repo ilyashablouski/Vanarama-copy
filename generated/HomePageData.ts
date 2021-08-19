@@ -30,13 +30,13 @@ export interface HomePageData_homePage_metaData {
   name: string | null;
   metaRobots: string | null;
   metaDescription: string | null;
-  publishedOn: any | null;
+  publishedOn: CustomDateTime | null;
   legacyUrl: string | null;
   pageType: string | null;
   canonicalUrl: string | null;
   slug: string | null;
-  breadcrumbs: any | null;
-  schema: any | null;
+  breadcrumbs: CustomJSON | null;
+  schema: CustomJSON | null;
 }
 
 export interface HomePageData_homePage_sections_hero_image_file {

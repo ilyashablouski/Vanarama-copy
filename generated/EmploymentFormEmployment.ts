@@ -17,7 +17,7 @@ export interface EmploymentFormEmployment {
   companyAddressPostcode: string | null;
   companyName: string | null;
   contract: string | null;
-  employedSinceDate: any | null;
+  employedSinceDate: CustomDate | null;
   employmentStatus: string | null;
   grossAnnualIncome: number | null;
   jobTitle: string | null;

@@ -16,9 +16,9 @@ export interface BlogPosts_blogPosts_metaData {
   pageType: string | null;
   canonicalUrl: string | null;
   slug: string | null;
-  schema: any | null;
-  publishedOn: any | null;
-  breadcrumbs: any | null;
+  schema: CustomJSON | null;
+  publishedOn: CustomDateTime | null;
+  breadcrumbs: CustomJSON | null;
 }
 
 export interface BlogPosts_blogPosts_sections_leadText {
@@ -135,7 +135,7 @@ export interface BlogPosts_blogPosts_sections {
 }
 
 export interface BlogPosts_blogPosts_articles_metaData {
-  publishedOn: any | null;
+  publishedOn: CustomDateTime | null;
 }
 
 export interface BlogPosts_blogPosts_articles_featuredImage_file {

@@ -17,10 +17,10 @@ export interface GetAddressContainerDataQuery_personByUuid_addresses {
   postcode: string;
   country: string | null;
   kind: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   city: string;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
 }
 
 export interface GetAddressContainerDataQuery_personByUuid {
