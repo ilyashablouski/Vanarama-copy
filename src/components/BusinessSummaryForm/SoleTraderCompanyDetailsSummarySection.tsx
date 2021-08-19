@@ -58,7 +58,7 @@ const SoleTraderCompanyDetailsSummarySection: FCWithFragments<IProps> = ({
         },
         {
           label: 'Trading Since',
-          value: dateToFormat(company.tradingSince) || '',
+          value: dateToFormat(company.tradingSince ?? '') || '',
           dataTestId: 'summary-company-trading-since',
         },
         {

@@ -30,7 +30,7 @@ export interface B2bFullCreditChecker_b2bFullCreditChecker_creditCheck_party {
 
 export interface B2bFullCreditChecker_b2bFullCreditChecker_creditCheck {
   uuid: string;
-  createdAt: any | null;
+  createdAt: CustomDateTime | null;
   creditCheckType: string | null;
   creditCheckLines: B2bFullCreditChecker_b2bFullCreditChecker_creditCheck_creditCheckLines[] | null;
   party: B2bFullCreditChecker_b2bFullCreditChecker_creditCheck_party | null;

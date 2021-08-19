@@ -32,7 +32,7 @@ export interface GetOlafData_orderByUuid_lineItems_vehicleProduct {
   annualMileage: number | null;
   depositMonths: number | null;
   funderId: string | null;
-  funderData: any | null;
+  funderData: CustomJson | null;
   colour: string | null;
   trim: string | null;
   maintenance: boolean | null;
@@ -41,13 +41,13 @@ export interface GetOlafData_orderByUuid_lineItems_vehicleProduct {
 }
 
 export interface GetOlafData_orderByUuid_lineItems {
-  createdAt: any | null;
+  createdAt: CustomDateTime | null;
   leadManagerQuoteId: string | null;
   productId: string;
   productType: string;
   quantity: number;
   status: string | null;
-  updatedAt: any | null;
+  updatedAt: CustomDateTime | null;
   uuid: string;
   creditApplications: GetOlafData_orderByUuid_lineItems_creditApplications[] | null;
   vehicleProduct: GetOlafData_orderByUuid_lineItems_vehicleProduct | null;
@@ -57,8 +57,8 @@ export interface GetOlafData_orderByUuid {
   uuid: string;
   leaseType: LeaseTypeEnum;
   status: string;
-  createdAt: any | null;
-  updatedAt: any | null;
+  createdAt: CustomDateTime | null;
+  updatedAt: CustomDateTime | null;
   lineItems: GetOlafData_orderByUuid_lineItems[];
 }
 

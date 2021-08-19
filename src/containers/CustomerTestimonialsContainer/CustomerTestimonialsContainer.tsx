@@ -105,7 +105,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
         </Heading>
         <br />
         {testimonials?.map(item => (
-          <div className="review" key={item?.name + item?.date}>
+          <div className="review" key={item?.name + (item?.date ?? '')}>
             <Initials fullName={item?.name || ''} />
             <Heading size="regular" color="black">
               {item?.whyLease}

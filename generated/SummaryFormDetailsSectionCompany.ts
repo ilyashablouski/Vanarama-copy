@@ -44,7 +44,7 @@ export interface SummaryFormDetailsSectionCompany {
   companyNumber: string | null;
   companyNature: string | null;
   tradesOutsideUk: boolean | null;
-  tradingSince: any | null;
+  tradingSince: CustomDate | null;
   turnoverPercentageOutsideUk: SummaryFormDetailsSectionCompany_turnoverPercentageOutsideUk[] | null;
   addresses: SummaryFormDetailsSectionCompany_addresses[] | null;
   emailAddresses: SummaryFormDetailsSectionCompany_emailAddresses[];

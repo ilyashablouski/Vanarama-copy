@@ -52,7 +52,7 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
           },
           {
             label: 'Date Of Birth',
-            value: dateToFormat(soleTrader?.dateOfBirth) || '',
+            value: dateToFormat(soleTrader?.dateOfBirth ?? '') || '',
             dataTestId: 'summary-soleTrader-last-name',
           },
           {
@@ -97,7 +97,9 @@ const SoleTraderDetailsSummarySection: React.FC<IProps> = ({
             label: 'Date Moved In',
             value:
               (currentAddress &&
-                fullMonthFormatDate(new Date(currentAddress.startedOn))) ||
+                fullMonthFormatDate(
+                  new Date(currentAddress.startedOn ?? ''),
+                )) ||
               '',
             dataTestId: `summary-soleTrader-curr-moved-in`,
           },

@@ -8,5 +8,5 @@
 // ====================================================
 
 export interface LastStepQuery {
-  lastStep: any | null;
+  lastStep: CustomJSON | null;
 }

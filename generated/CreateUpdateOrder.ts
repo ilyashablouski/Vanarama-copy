@@ -23,7 +23,7 @@ export interface CreateUpdateOrder_createUpdateOrder_lineItems_vehicleProduct {
   monthlyPayment: number | null;
   depositMonths: number | null;
   funderId: string | null;
-  funderData: any | null;
+  funderData: CustomJson | null;
   stockBatchId: number | null;
   maintenancePrice: number | null;
   partnerSlug: string | null;
@@ -41,7 +41,7 @@ export interface CreateUpdateOrder_createUpdateOrder_lineItems {
 
 export interface CreateUpdateOrder_createUpdateOrder {
   uuid: string;
-  createdAt: any | null;
+  createdAt: CustomDateTime | null;
   salesChannel: string;
   status: string;
   lineItems: CreateUpdateOrder_createUpdateOrder_lineItems[];

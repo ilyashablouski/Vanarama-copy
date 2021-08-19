@@ -22,7 +22,7 @@ export interface IMetaDataSection {
   metaRobots: Nullable<string>;
   name: Nullable<string>;
   pageType: Nullable<string>;
-  publishedOn: string;
+  publishedOn: Nullable<string>;
   schema: Nullable<JSON>;
   slug: Nullable<string>;
   title: Nullable<string>;

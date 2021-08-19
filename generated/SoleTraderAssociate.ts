@@ -21,7 +21,7 @@ export interface SoleTraderAssociate_associates_addresses {
   postcode: string;
   city: string;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
 }
 
 export interface SoleTraderAssociate_associates_incomeAndExpense {
@@ -43,7 +43,7 @@ export interface SoleTraderAssociate_associates {
   lastName: string;
   gender: string | null;
   emailAddresses: SoleTraderAssociate_associates_emailAddresses[];
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   countryOfBirth: string | null;
   nationality: string | null;
   addresses: SoleTraderAssociate_associates_addresses[] | null;

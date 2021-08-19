@@ -121,8 +121,8 @@ export interface GetVehicleDetails_derivativeInfo_technicals {
   technicalDescription: string;
   technicalLongDescription: string;
   categoryDescription: string;
-  effectiveFrom: any;
-  effectiveTo: any | null;
+  effectiveFrom: CustomDateTime;
+  effectiveTo: CustomDateTime | null;
   value: string;
   unit: string | null;
 }

@@ -29,7 +29,7 @@ export interface SummaryFormPerson_addresses {
   city: string;
   postcode: string;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
 }
 
 export interface SummaryFormPerson_employmentHistories {
@@ -44,7 +44,7 @@ export interface SummaryFormPerson_employmentHistories {
   companyName: string | null;
   workPhoneNumber: string | null;
   grossAnnualIncome: number | null;
-  employedSinceDate: any | null;
+  employedSinceDate: CustomDate | null;
 }
 
 export interface SummaryFormPerson_incomeAndExpense {
@@ -62,7 +62,7 @@ export interface SummaryFormPerson_bankAccounts {
   accountName: string | null;
   sortCode: string | null;
   accountNumber: string | null;
-  joinedAt: any | null;
+  joinedAt: CustomDate | null;
 }
 
 export interface SummaryFormPerson {
@@ -73,7 +73,7 @@ export interface SummaryFormPerson {
   title: string | null;
   firstName: string;
   lastName: string;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   countryOfBirth: string | null;
   nationality: string | null;
   maritalStatus: string | null;

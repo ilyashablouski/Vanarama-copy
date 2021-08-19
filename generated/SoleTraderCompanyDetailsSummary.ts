@@ -38,7 +38,7 @@ export interface SoleTraderCompanyDetailsSummary {
   annualExpenses: number | null;
   vehicleRegistrationNumber: string | null;
   companyType: string | null;
-  tradingSince: any | null;
+  tradingSince: CustomDate | null;
   addresses: SoleTraderCompanyDetailsSummary_addresses[] | null;
   emailAddresses: SoleTraderCompanyDetailsSummary_emailAddresses[];
   telephoneNumbers: SoleTraderCompanyDetailsSummary_telephoneNumbers[] | null;

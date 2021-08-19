@@ -8,7 +8,7 @@
 // ====================================================
 
 export interface TestimonialsData_testimonials {
-  date: any;
+  date: CustomDateTime;
   name: string;
   whyLease: string | null;
   comments: string | null;
