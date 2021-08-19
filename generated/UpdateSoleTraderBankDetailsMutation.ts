@@ -14,7 +14,7 @@ export interface UpdateSoleTraderBankDetailsMutation_createUpdateSoleTraderCompa
   uuid: string;
   accountName: string | null;
   accountNumber: string | null;
-  joinedAt: any | null;
+  joinedAt: CustomDate | null;
   sortCode: string | null;
 }
 

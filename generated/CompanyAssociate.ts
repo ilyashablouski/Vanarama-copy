@@ -14,7 +14,7 @@ export interface CompanyAssociate_roles {
 export interface CompanyAssociate_addresses {
   serviceId: string | null;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   city: string;
   lineOne: string;
   lineTwo: string | null;
@@ -27,7 +27,7 @@ export interface CompanyAssociate {
   firstName: string;
   lastName: string;
   gender: string | null;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   noOfDependants: string | null;
   nationality: string | null;
   businessShare: number | null;

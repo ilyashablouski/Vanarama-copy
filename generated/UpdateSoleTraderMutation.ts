@@ -23,7 +23,7 @@ export interface UpdateSoleTraderMutation_updateCompanySoleTraderV2_associates_a
   postcode: string;
   city: string;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
 }
 
 export interface UpdateSoleTraderMutation_updateCompanySoleTraderV2_associates_incomeAndExpense {
@@ -45,7 +45,7 @@ export interface UpdateSoleTraderMutation_updateCompanySoleTraderV2_associates {
   lastName: string;
   gender: string | null;
   emailAddresses: UpdateSoleTraderMutation_updateCompanySoleTraderV2_associates_emailAddresses[];
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   countryOfBirth: string | null;
   nationality: string | null;
   addresses: UpdateSoleTraderMutation_updateCompanySoleTraderV2_associates_addresses[] | null;

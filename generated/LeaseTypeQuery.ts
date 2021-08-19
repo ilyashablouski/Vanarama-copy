@@ -8,5 +8,5 @@
 // ====================================================
 
 export interface LeaseTypeQuery {
-  leaseTypes: any | null;
+  leaseTypes: CustomJSON | null;
 }

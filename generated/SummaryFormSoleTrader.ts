@@ -46,7 +46,7 @@ export interface SummaryFormSoleTrader_associates_addresses {
   postcode: string;
   city: string;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
 }
 
 export interface SummaryFormSoleTrader_associates_incomeAndExpense {
@@ -68,7 +68,7 @@ export interface SummaryFormSoleTrader_associates {
   lastName: string;
   gender: string | null;
   emailAddresses: SummaryFormSoleTrader_associates_emailAddresses[];
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   countryOfBirth: string | null;
   nationality: string | null;
   addresses: SummaryFormSoleTrader_associates_addresses[] | null;
@@ -85,7 +85,7 @@ export interface SummaryFormSoleTrader_bankAccounts {
   uuid: string;
   accountName: string | null;
   accountNumber: string | null;
-  joinedAt: any | null;
+  joinedAt: CustomDate | null;
   sortCode: string | null;
 }
 
@@ -100,7 +100,7 @@ export interface SummaryFormSoleTrader {
   annualExpenses: number | null;
   vehicleRegistrationNumber: string | null;
   companyType: string | null;
-  tradingSince: any | null;
+  tradingSince: CustomDate | null;
   addresses: SummaryFormSoleTrader_addresses[] | null;
   emailAddresses: SummaryFormSoleTrader_emailAddresses[];
   telephoneNumbers: SummaryFormSoleTrader_telephoneNumbers[] | null;

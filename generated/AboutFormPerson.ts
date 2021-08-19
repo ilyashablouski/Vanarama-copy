@@ -36,7 +36,7 @@ export interface AboutFormPerson {
   lastName: string;
   emailAddresses: AboutFormPerson_emailAddresses[];
   telephoneNumbers: AboutFormPerson_telephoneNumbers[] | null;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   countryOfBirth: string | null;
   nationality: string | null;
   maritalStatus: string | null;

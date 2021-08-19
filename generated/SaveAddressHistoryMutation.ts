@@ -19,10 +19,10 @@ export interface SaveAddressHistoryMutation_createUpdateAddress {
   postcode: string;
   country: string | null;
   kind: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   city: string;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
 }
 
 export interface SaveAddressHistoryMutation {

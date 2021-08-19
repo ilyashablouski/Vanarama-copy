@@ -13,7 +13,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_ab
   city: string | null;
   country: string | null;
   county: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   kind: string | null;
   lineOne: string | null;
   lineThree: string | null;
@@ -21,7 +21,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_ab
   postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   uuid: string | null;
 }
 
@@ -36,7 +36,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_ab
   city: string | null;
   country: string | null;
   county: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   kind: string | null;
   lineOne: string | null;
   lineThree: string | null;
@@ -44,7 +44,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_ab
   postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   uuid: string | null;
 }
 
@@ -68,7 +68,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_ab
   cognitoSub: string | null;
   companyType: string | null;
   countryOfBirth: string | null;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   dayOfBirth: string | null;
   disabilityRegistered: boolean | null;
   email: string | null;
@@ -111,7 +111,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_ba
   accountName: string | null;
   accountNumber: string | null;
   bankName: string | null;
-  joinedAt: any | null;
+  joinedAt: CustomDate | null;
   joinedAtMonth: string | null;
   joinedAtYear: string | null;
   sortCode: string | null;
@@ -121,7 +121,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_co
   city: string | null;
   country: string | null;
   county: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   kind: string | null;
   lineOne: string | null;
   lineThree: string | null;
@@ -129,7 +129,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_co
   postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   uuid: string | null;
 }
 
@@ -155,7 +155,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_co
   annualTurnover: number | null;
   businessName: string | null;
   businessRegistrationNumber: string | null;
-  companySearchResult: any | null;
+  companySearchResult: CustomJson | null;
   companyType: string | null;
   emailAddresses: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_emailAddresses[] | null;
   monthlyAmountBeingReplaced: number | null;
@@ -167,7 +167,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_co
   sicIndustry: string | null;
   telephoneNumbers: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2_telephoneNumbers[] | null;
   tradesOutsideUk: boolean | null;
-  tradingSince: any | null;
+  tradingSince: CustomDate | null;
   turnoverOutsideUk: number | null;
   uuid: string | null;
   withTradingAddress: boolean | null;
@@ -189,7 +189,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_di
   city: string | null;
   country: string | null;
   county: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   kind: string | null;
   lineOne: string | null;
   lineThree: string | null;
@@ -197,7 +197,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_di
   postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   uuid: string | null;
 }
 
@@ -212,7 +212,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_di
   city: string | null;
   country: string | null;
   county: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   kind: string | null;
   lineOne: string | null;
   lineThree: string | null;
@@ -220,7 +220,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_di
   postcode: string | null;
   propertyStatus: string | null;
   serviceId: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   uuid: string | null;
 }
 
@@ -267,7 +267,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_di
   cognitoSub: string | null;
   companyType: string | null;
   countryOfBirth: string | null;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   dayOfBirth: string | null;
   disabilityRegistered: boolean | null;
   email: string | null;
@@ -329,7 +329,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_li
   monthlyPayment: number | null;
   depositMonths: number | null;
   funderId: string | null;
-  funderData: any | null;
+  funderData: CustomJson | null;
   depositPayment: number | null;
   vehicleType: VehicleTypeEnum;
 }
@@ -346,21 +346,21 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_li
 }
 
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid {
-  addresses: any | null;
+  addresses: CustomJson | null;
   aboutDetailsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_aboutDetailsV2 | null;
   bankAccountsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_bankAccountsV2[] | null;
   companyDetailsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2 | null;
   vatDetailsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_vatDetailsV2 | null;
-  soleTraderDetails: any | null;
+  soleTraderDetails: CustomJson | null;
   directorsDetailsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_directorsDetailsV2 | null;
-  employmentHistories: any | null;
-  incomeAndExpenses: any | null;
+  employmentHistories: CustomJson | null;
+  incomeAndExpenses: CustomJson | null;
   lineItem: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_lineItem | null;
   creditApplicationType: CreditApplicationTypeEnum | null;
   leadManagerProposalId: string | null;
-  createdAt: any | null;
+  createdAt: CustomDateTime | null;
   status: string;
-  updatedAt: any | null;
+  updatedAt: CustomDateTime | null;
   uuid: string;
 }
 

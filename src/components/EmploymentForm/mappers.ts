@@ -19,11 +19,11 @@ export const responseToInitialFormValues = (
     history: [...employments]
       .sort(
         (a, b) =>
-          new Date(b.employedSinceDate).getTime() -
-          new Date(a.employedSinceDate).getTime(),
+          new Date(b.employedSinceDate ?? '').getTime() -
+          new Date(a.employedSinceDate ?? '').getTime(),
       )
       .map(item => {
-        const started = new Date(item.employedSinceDate);
+        const started = new Date(item.employedSinceDate ?? '');
 
         return {
           company: item.companyName,

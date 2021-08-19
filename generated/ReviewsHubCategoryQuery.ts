@@ -24,13 +24,13 @@ export interface ReviewsHubCategoryQuery_genericPage_metaData {
   name: string | null;
   metaRobots: string | null;
   metaDescription: string | null;
-  publishedOn: any | null;
+  publishedOn: CustomDateTime | null;
   legacyUrl: string | null;
   pageType: string | null;
   canonicalUrl: string | null;
   slug: string | null;
-  schema: any | null;
-  breadcrumbs: any | null;
+  schema: CustomJSON | null;
+  breadcrumbs: CustomJSON | null;
 }
 
 export interface ReviewsHubCategoryQuery_genericPage_sections_cards_cards_link {

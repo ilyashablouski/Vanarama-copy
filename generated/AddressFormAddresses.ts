@@ -17,8 +17,8 @@ export interface AddressFormAddresses {
   postcode: string;
   country: string | null;
   kind: string | null;
-  endedOn: any | null;
+  endedOn: CustomDate | null;
   city: string;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
 }
