@@ -215,7 +215,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
           </LazyLoadComponent>
         </section>
 
-        <section className="row:featured-left">
+        <section className="row:featured-left page__range-page-featured-left">
           <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <Image
               className="card-image media"
@@ -343,7 +343,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         </div>
       </div>
 
-      <section className="row:featured-left">
+      <section className="row:featured-left page__range-page-description">
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Image
             className="card-image media"
@@ -429,7 +429,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         reviews={reviewsData?.rangeDetails?.customerReviews || []}
       />
 
-      <div className="row:default">
+      <div className="row:default page__range-page-description">
         <Heading
           className="-mb-400"
           size="large"
