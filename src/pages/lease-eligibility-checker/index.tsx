@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 import { getDataFromTree } from '@apollo/react-ssr';
 import SchemaJSON from 'core/atoms/schema-json';
 import TrustPilot from 'core/molecules/trustpilot';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import {
   EligibilityCheckerPageData,
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets_questionAnswers as QuestionAnswers,
@@ -31,9 +32,7 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Accordion = dynamic(() => import('core/molecules/accordion/Accordion'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
-  loading: () => <Skeleton count={1} />,
-});
+
 const Lease = dynamic(
   () => import('../../components/EligibilityChecker/Landing/Lease'),
   {

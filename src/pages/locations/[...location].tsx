@@ -4,6 +4,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
 import { PreviewNextPageContext } from 'types/common';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import {
   handleNetworkError,
   DEFAULT_POSTCODE,
@@ -59,9 +60,6 @@ const GoldrushForm = dynamic(
     loading: () => <Skeleton count={1} />,
   },
 );
-const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
-  loading: () => <Skeleton count={1} />,
-});
 
 export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
   const [showModal, setShowModal] = useState(false);

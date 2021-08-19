@@ -6,6 +6,7 @@ import Map from 'core/atoms/map';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import DefaultErrorPage from 'next/error';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   ContactUsPageData_contactUsLandingPage_sections_cards_cards as Cards,
@@ -41,9 +42,6 @@ const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
 const CardTitle = dynamic(() => import('core/molecules/cards/CardTitle'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
   loading: () => <Skeleton count={1} />,
 });
 
