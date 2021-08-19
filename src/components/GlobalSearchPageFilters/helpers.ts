@@ -8,6 +8,10 @@ export const getInnerConfigKeys = (innerSelects: IInnerSelect[]) =>
 
 export const renderPowerEngineValue = (value: string) => `${value}bhp`;
 
+export const renderSeatsValue = (value: string) => `${value} Seats`;
+
+export const renderDoorsValue = (value: string) => `${value} Doors`;
+
 export const renderPowerEngineSelected = (values: (string | null)[]) => {
   const text = `${values[0] ? `From ${values[0]}bhp` : ''}${
     values[1] ? ` to ${values[1]}bhp` : ''

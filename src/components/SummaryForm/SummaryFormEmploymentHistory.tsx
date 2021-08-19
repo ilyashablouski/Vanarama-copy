@@ -34,8 +34,8 @@ function reduceToItems(employments: SummaryFormEmploymentHistoryEmployment[]) {
   return [...employments]
     .sort(
       (a, b) =>
-        new Date(b.employedSinceDate).getTime() -
-        new Date(a.employedSinceDate).getTime(),
+        new Date(b.employedSinceDate ?? '').getTime() -
+        new Date(a.employedSinceDate ?? '').getTime(),
     )
     .reduce((acc, employment, index) => {
       const values: IList[] = [

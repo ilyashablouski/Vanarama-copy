@@ -29,7 +29,7 @@ export interface SummaryFormDetailsSectionPerson {
   title: string | null;
   firstName: string;
   lastName: string;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   countryOfBirth: string | null;
   nationality: string | null;
   maritalStatus: string | null;

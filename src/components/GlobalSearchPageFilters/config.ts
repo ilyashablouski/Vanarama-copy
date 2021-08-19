@@ -136,7 +136,7 @@ export const filtersConfig = [
   },
   {
     type: 'drop-down',
-    multiselect: false,
+    multiselect: true,
     label: 'Euro Emissions',
     key: 'standardEuroEmissions',
     generalFilter: false,
@@ -144,7 +144,7 @@ export const filtersConfig = [
   },
   {
     type: 'drop-down',
-    multiselect: false,
+    multiselect: true,
     label: 'Load height',
     key: 'loadHeightGroup',
     generalFilter: false,
@@ -152,7 +152,7 @@ export const filtersConfig = [
   },
   {
     type: 'drop-down',
-    multiselect: false,
+    multiselect: true,
     label: 'Load Length',
     key: 'loadLengthGroup',
     generalFilter: false,
@@ -160,7 +160,7 @@ export const filtersConfig = [
   },
   {
     type: 'drop-down',
-    multiselect: false,
+    multiselect: true,
     label: 'Payload',
     key: 'payloadGroup',
     generalFilter: false,

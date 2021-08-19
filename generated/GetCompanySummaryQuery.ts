@@ -42,7 +42,7 @@ export interface GetCompanySummaryQuery_companyByUuid_bankAccounts {
   uuid: string;
   accountName: string | null;
   accountNumber: string | null;
-  joinedAt: any | null;
+  joinedAt: CustomDate | null;
   sortCode: string | null;
 }
 
@@ -53,7 +53,7 @@ export interface GetCompanySummaryQuery_companyByUuid_associates_roles {
 export interface GetCompanySummaryQuery_companyByUuid_associates_addresses {
   serviceId: string | null;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
   city: string;
   lineOne: string;
   lineTwo: string | null;
@@ -85,7 +85,7 @@ export interface GetCompanySummaryQuery_companyByUuid_associates {
   firstName: string;
   lastName: string;
   gender: string | null;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   noOfDependants: string | null;
   nationality: string | null;
   businessShare: number | null;
@@ -107,7 +107,7 @@ export interface GetCompanySummaryQuery_companyByUuid {
   companyNumber: string | null;
   companyNature: string | null;
   tradesOutsideUk: boolean | null;
-  tradingSince: any | null;
+  tradingSince: CustomDate | null;
   turnoverPercentageOutsideUk: GetCompanySummaryQuery_companyByUuid_turnoverPercentageOutsideUk[] | null;
   addresses: GetCompanySummaryQuery_companyByUuid_addresses[] | null;
   emailAddresses: GetCompanySummaryQuery_companyByUuid_emailAddresses[];
@@ -154,7 +154,7 @@ export interface GetCompanySummaryQuery_personByUuid {
   lastName: string;
   emailAddresses: GetCompanySummaryQuery_personByUuid_emailAddresses[];
   telephoneNumbers: GetCompanySummaryQuery_personByUuid_telephoneNumbers[] | null;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   countryOfBirth: string | null;
   nationality: string | null;
   maritalStatus: string | null;

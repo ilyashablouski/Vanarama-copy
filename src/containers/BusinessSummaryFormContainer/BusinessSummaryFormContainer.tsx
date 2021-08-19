@@ -103,7 +103,7 @@ const BusinessSummaryFormContainer: React.FC<IProps> = ({
       variables: {
         input: {
           orderUuid: orderId,
-          submittedAt: new Date(),
+          submittedAt: new Date().toISOString(),
         },
       },
     });

@@ -15,5 +15,5 @@ export interface SummaryFormAddressHistoryAddress {
   city: string;
   postcode: string;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
 }

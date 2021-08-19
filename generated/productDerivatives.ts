@@ -29,12 +29,12 @@ export interface productDerivatives_productDerivatives_derivatives {
   funder: string | null;
   height: number | null;
   inStock: boolean | null;
-  indexedAt: any | null;
+  indexedAt: CustomDateTime | null;
   initialPayment: number | null;
   initialPaymentMaintained: number | null;
   initialPeriod: number | null;
   insuranceGroup: string | null;
-  introducedAt: any | null;
+  introducedAt: CustomDateTime | null;
   inventoryCount: number | null;
   length: number | null;
   loadLength: number | null;
@@ -57,7 +57,7 @@ export interface productDerivatives_productDerivatives_derivatives {
   onOffer: boolean | null;
   rangeId: number | null;
   rangeName: string | null;
-  receivedAt: any | null;
+  receivedAt: CustomDateTime | null;
   rental: number | null;
   rentalMaintained: number | null;
   sku: string | null;
@@ -68,7 +68,7 @@ export interface productDerivatives_productDerivatives_derivatives {
   totalLeaseCostMaintained: number | null;
   towingCapacity: number | null;
   transmission: string | null;
-  updatedAt: any | null;
+  updatedAt: CustomDateTime | null;
   url: string | null;
   vehicleCategory: string | null;
   vehicleType: string | null;

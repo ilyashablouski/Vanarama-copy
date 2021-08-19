@@ -21,7 +21,7 @@ export interface SoleTraderPerson_addresses {
   postcode: string;
   city: string;
   propertyStatus: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
 }
 
 export interface SoleTraderPerson {
@@ -32,7 +32,7 @@ export interface SoleTraderPerson {
   lastName: string;
   gender: string | null;
   emailAddresses: SoleTraderPerson_emailAddresses[];
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   countryOfBirth: string | null;
   nationality: string | null;
   addresses: SoleTraderPerson_addresses[] | null;
