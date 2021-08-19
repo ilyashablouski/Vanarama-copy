@@ -70,7 +70,7 @@ const RENTAL_DATA = [
   },
   {
     value: 0,
-    label: 'above £550',
+    label: '£550+',
   },
 ];
 
