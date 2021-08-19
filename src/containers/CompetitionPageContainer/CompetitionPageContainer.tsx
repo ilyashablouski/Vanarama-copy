@@ -1,14 +1,9 @@
-import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import CompetitionHeroSection from '../CompetitionLandingPageContainer/sections/CompetitionHeroSection';
 import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
 import CompetitionTypeSection from './sections/CompetitionTypeSection';
 import CompetitionFormSection from './sections/CompetitionFormSection';
-import Skeleton from '../../components/Skeleton';
-
-const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
-  loading: () => <Skeleton count={1} />,
-});
 
 interface IProps {
   sections: Section | null | undefined;

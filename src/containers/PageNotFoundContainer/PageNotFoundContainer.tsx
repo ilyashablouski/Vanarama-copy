@@ -1,6 +1,7 @@
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import {
   GenericPageQuery_genericPage_sections_cards_cards,
@@ -17,9 +18,6 @@ const Text = dynamic(() => import('core/atoms/text'), {
 });
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={3} />,
-});
-const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
-  loading: () => <Skeleton count={1} />,
 });
 
 interface IProps {
