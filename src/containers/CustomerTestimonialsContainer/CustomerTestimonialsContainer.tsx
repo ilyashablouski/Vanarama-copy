@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useLazyQuery } from '@apollo/client';
 import TrustPilot from 'core/molecules/trustpilot';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import {
   TestimonialsData,
   TestimonialsDataVariables,
@@ -32,9 +33,6 @@ const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
 const Rating = dynamic(() => import('core/atoms/rating'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
   loading: () => <Skeleton count={1} />,
 });
 const Tile = dynamic(() => import('core/molecules/tile'), {
