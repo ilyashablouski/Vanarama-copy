@@ -12,6 +12,7 @@ import Button from 'core/atoms/button';
 import decode from 'decode-html';
 
 import Breadcrumb from 'core/atoms/breadcrumb-v2';
+
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import css from '!!raw-loader!../../../public/styles/pages/details-page.css';
