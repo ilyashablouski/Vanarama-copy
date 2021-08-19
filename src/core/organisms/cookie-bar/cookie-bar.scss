@@ -23,7 +23,7 @@
   text-align: center;
   background: $white;
   box-shadow: 0 0 15px #00000021;
-  animation: fadeIn .45s ease-out 1.5s backwards;
+  animation: fadeIn 1.5s ease-out backwards;
   z-index: 999;
 
   &.-hide {
