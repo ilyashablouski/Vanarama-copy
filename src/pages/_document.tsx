@@ -45,18 +45,11 @@ class MyDocument extends Document {
           <link rel="preconnect" href="https://plugins.blueconic.net" />
           <link rel="preconnect" href="https://vanarama.blueconic.net/" />
           {scriptEnvs.blueconic.includes(env) && (
-            <>
-              <link
-                rel="preload"
-                href="https://cdn.blueconic.net/vanarama.js"
-                as="script"
-              />
-              <script
-                async
-                data-cfasync="false"
-                src="https://cdn.blueconic.net/vanarama.js"
-              />
-            </>
+            <script
+              async
+              data-cfasync="false"
+              src="https://cdn.blueconic.net/vanarama.js"
+            />
           )}
           {/* <RollbarScript /> */}
           {/* <link rel="preload" href="/styles/base.css" as="style" />
