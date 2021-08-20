@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useEffect, useState } from 'react';
 import localForage from 'localforage';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import withApollo from '../../../hocs/withApollo';
 import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
@@ -26,9 +27,6 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
 const Text = dynamic(() => import('core/atoms/text'), {
-  loading: () => <Skeleton count={1} />,
-});
-const Breadcrumb = dynamic(() => import('../../../core/atoms/breadcrumb-v2'), {
   loading: () => <Skeleton count={1} />,
 });
 
