@@ -261,6 +261,14 @@ $small: 0.875rem;
         bottom: 0.125em;
       }
     }
+
+    .button.-expand.-clear:focus:not(:hover){
+      background: transparent;
+    }
+
+    .button.-expand.-clear:hover{
+      background: #f3f5f7;
+    }
   }
 
   // Predefined areas -> content
