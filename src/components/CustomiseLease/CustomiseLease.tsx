@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Select from 'core/atoms/select';
+import CustomSelect from 'core/atoms/custom-select';
 import ChoiceBoxesV2 from 'core/atoms/choiceboxes-v2';
 import SlidingInput from 'core/atoms/sliding-input';
 import Radio from 'core/atoms/radio';
@@ -129,6 +130,32 @@ const select = (
       </option>
     ))}
   </Select>
+);
+
+const customSelect = (
+  defaultValue: string,
+  setChanges: Dispatch<SetStateAction<number | null>>,
+  items: (ITrimList | IColourList | null)[] | undefined | null,
+  placeholder: string,
+  isDisabled: boolean,
+) => (
+  <CustomSelect
+    key={
+      items?.some(item => `${item?.optionId}` === defaultValue)
+        ? defaultValue
+        : undefined
+    }
+    defaultValue={
+      items?.some(item => `${item?.optionId}` === defaultValue)
+        ? defaultValue
+        : ''
+    }
+    placeholder={placeholder}
+    onChange={option => {
+      setChanges(+option.currentTarget.getAttribute('data-id'));
+    }}
+    optionList={items}
+  />
 );
 
 const CustomiseLease = ({
