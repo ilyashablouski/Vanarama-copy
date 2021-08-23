@@ -23,7 +23,7 @@
   text-align: center;
   background: $white;
   box-shadow: 0 0 15px #00000021;
-  animation: fadeIn .45s ease-out 1.5s backwards;
+  animation: fadeIn .45s ease-out 1.45s backwards;
   z-index: 999;
 
   &.-hide {
@@ -47,14 +47,12 @@
   }
 
   &__text {
-    display: block;
-    margin-bottom: 18px;
+    display: inline-block;
     font-size: 20px !important;
     font-weight: 500;
 
     @include mobile {
-      margin-bottom: 12px;
-      font-size: 15px !important;
+      font-size: 14px !important;
     }
 
     .link {
@@ -64,11 +62,34 @@
   }
 
   &__actions {
-    margin: -5px -10px;
+    margin-top: 18px;
+
+    @include mobile {
+      margin-top: 12px;
+    }
 
     .button {
       width: 94px;
-      margin: 5px 10px;
+
+      &:not(:last-child) {
+        margin-right: 20px;
+      }
+
+      @include mobile {
+        font-size: $font-size-400;
+        --class-br: #{$border-radius-medium};
+
+        &:not(:last-child) {
+          margin-right: 10px;
+        }
+
+        &--inner {
+          min-width: $rem-500;
+          min-height: $rem-500;
+          padding: 0 $rem-200;
+          gap: $rem-200;
+        }
+      }
     }
   }
 }

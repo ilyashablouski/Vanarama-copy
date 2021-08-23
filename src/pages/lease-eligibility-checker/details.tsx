@@ -4,6 +4,7 @@ import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useRouter } from 'next/router';
 import SchemaJSON from 'core/atoms/schema-json';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import withApollo from '../../hocs/withApollo';
 import EligibilityCheckerContainer from '../../containers/EligibilityCheckerContainer/EligibilityCheckerContainer';
 import { useGenericPage } from '../../gql/genericPage';
@@ -14,9 +15,7 @@ import Skeleton from '../../components/Skeleton';
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
-  loading: () => <Skeleton count={1} />,
-});
+
 const ErrorMessage = dynamic(() => import('./error-message'), {
   loading: () => <Skeleton count={1} />,
 });

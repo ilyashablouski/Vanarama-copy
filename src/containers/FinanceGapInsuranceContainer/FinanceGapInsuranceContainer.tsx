@@ -2,6 +2,7 @@ import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import * as toast from 'core/atoms/toast/Toast';
 import Router from 'next/router';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
 import { IGoldrushFromValues } from '../../components/GoldrushForm/interfaces';
 import InsuranceHeroSection from '../InsurancePageContainer/sections/InsuranceHeroSection';
@@ -14,12 +15,8 @@ import {
   OpportunityTypeEnum,
 } from '../../../generated/globalTypes';
 import { pushInsuranceEventDataLayer } from '../../utils/dataLayerHelpers';
-import Skeleton from '../../components/Skeleton';
 
 const Modal = dynamic(() => import('core/molecules/modal'));
-const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
-  loading: () => <Skeleton count={1} />,
-});
 
 interface IProps {
   sections: Section | null | undefined;

@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import SchemaJSON from 'core/atoms/schema-json';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -12,10 +13,6 @@ import LeasingQuestionsCarousel from './LeasingQuestionsCarousel';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
-});
-
-const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
-  loading: () => <Skeleton count={3} />,
 });
 
 interface IProps {

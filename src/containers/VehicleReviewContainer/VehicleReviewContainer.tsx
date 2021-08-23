@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import getTitleTag from '../../utils/getTitleTag';
 import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
@@ -40,9 +41,6 @@ const ReviewCard = dynamic(
     loading: () => <Skeleton count={3} />,
   },
 );
-const Breadcrumb = dynamic(() => import('../../core/atoms/breadcrumb-v2'), {
-  loading: () => <Skeleton count={1} />,
-});
 
 interface IProps {
   sections: Sections | null;
