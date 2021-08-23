@@ -62,6 +62,7 @@
 
   &__group-label {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     margin-bottom: 10px;
     text-transform: uppercase;
