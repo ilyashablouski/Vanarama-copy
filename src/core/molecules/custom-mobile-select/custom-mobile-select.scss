@@ -1,0 +1,38 @@
+.custom-select-window {
+  background-color: rgba($darker, $opacity-500);
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 100%;
+  overflow: hidden;
+  z-index: 999;
+  margin-top: 0 !important;
+  .select-window {
+    width: 100%;
+    background-color: $white;
+    overflow: hidden;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    height: 50vh;
+    .list-header {
+      height: 56px;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: $font-size-500;
+      &_scrolling {
+        box-shadow: 0 5px 5px rgba(0, 0, 0, 0.2);
+      }
+    }
+    .options-list-wrapper {
+      overflow-y: auto;
+      overflow-x: hidden;
+      height: 100%;
+      padding: 0 16px;
+    }
+  }
+
+}
