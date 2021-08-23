@@ -1,5 +1,4 @@
 import React from 'react';
-import cs from 'classnames';
 
 import Icon from 'core/atoms/icon';
 import Text from 'core/atoms/text';
@@ -7,8 +6,7 @@ import Text from 'core/atoms/text';
 import Flame from 'core/assets/icons/Flame';
 
 import { IColor } from './interface';
-
-const baseClass = 'color-selection';
+import { baseClassName, getClassName } from './helpers';
 
 interface IProps {
   selectedColor: IColor;
@@ -24,13 +22,13 @@ function ColorSelection({
   onChange,
 }: IProps) {
   return (
-    <div className={baseClass}>
-      <div className={`${baseClass}__header`}>
-        <Text className={`${baseClass}__selected-color`} color="dark">
+    <div className={baseClassName}>
+      <div className={getClassName('header')}>
+        <Text className={getClassName('selected-color')} color="dark">
           <span>Colour:</span>
           {selectedColor.label}
         </Text>
-        <Text className={`${baseClass}__price`} color="orange">
+        <Text className={getClassName('price')} color="orange">
           {selectedColor.price ? (
             <>
               <Icon icon={<Flame />} size="regular" />
@@ -41,31 +39,30 @@ function ColorSelection({
           )}
         </Text>
       </div>
-      <div className={`${baseClass}__group`}>
-        <Text className={`${baseClass}__group-label`} size="small" color="dark">
+      <div className={getClassName('group')}>
+        <Text className={getClassName('group-label')} size="small" color="dark">
           <span className="hot-offer">
             <Icon icon={<Flame />} size="regular" />
             Hot Offer
           </span>
           Fast Delivery
         </Text>
-        <ul className={`${baseClass}__color-list`}>
+        <ul className={getClassName('color-list')}>
           {hotOfferColorList.map(color => (
-            <li className={`${baseClass}__color-item`} key={color.label}>
+            <li className={getClassName('color-item')} key={color.label}>
               <input
                 type="radio"
                 id={color.label}
                 name="hot-offers"
                 className="visually-hidden"
+                checked={selectedColor.label === color.label}
                 onChange={() => onChange(color)}
               />
               <label
                 htmlFor={color.label}
                 title={color.label}
                 style={{ backgroundColor: color.style }}
-                className={cs(`${baseClass}__color`, {
-                  '-selected': selectedColor.label === color.label,
-                })}
+                className={getClassName('color')}
               >
                 <Icon icon={<Flame />} />
               </label>
@@ -73,27 +70,26 @@ function ColorSelection({
           ))}
         </ul>
       </div>
-      <div className={`${baseClass}__group`}>
-        <Text className={`${baseClass}__group-label`} size="small" color="dark">
+      <div className={getClassName('group')}>
+        <Text className={getClassName('group-label')} size="small" color="dark">
           <span className="factory">Factory Order</span>Long Lead Time
         </Text>
-        <ul className={`${baseClass}__color-list`}>
+        <ul className={getClassName('color-list')}>
           {factoryColorList.map(color => (
-            <li className={`${baseClass}__color-item`} key={color.label}>
+            <li className={getClassName('color-item')} key={color.label}>
               <input
                 type="radio"
                 id={color.label}
                 name="factory"
                 className="visually-hidden"
+                checked={selectedColor.label === color.label}
                 onChange={() => onChange(color)}
               />
               <label
                 htmlFor={color.label}
                 title={color.label}
                 style={{ backgroundColor: color.style }}
-                className={cs(`${baseClass}__color`, {
-                  '-selected': selectedColor.label === color.label,
-                })}
+                className={getClassName('color')}
               />
             </li>
           ))}

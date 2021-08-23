@@ -118,7 +118,7 @@
     padding: 0 3px;
     border: 1px solid transparent;
     border-radius: 5px;
-    background: linear-gradient(-27deg, transparent 0%, rgba(244,244,244,0.3) 50%, transparent 50%);
+    background: linear-gradient(-27deg, transparent 0%, rgba(244, 244, 244, 0.3) 50%, transparent 50%);
     cursor: pointer;
 
     &[title*="White"] {
@@ -129,22 +129,22 @@
       }
     }
 
-    &.-selected {
-      &:after {
-        content: '';
-        position: absolute;
-        top: -4px;
-        left: -4px;
-        right: -4px;
-        bottom: -4px;
-        border: 2px solid $orange;
-        border-radius: inherit;
-      }
-    }
-
     .icon {
       display: inline-flex;
       fill: $white;
+    }
+  }
+
+  input[type='radio']:checked {
+    & + .color-selection__color:after {
+      content: '';
+      position: absolute;
+      top: -4px;
+      left: -4px;
+      right: -4px;
+      bottom: -4px;
+      border: 2px solid $orange;
+      border-radius: inherit;
     }
   }
 }

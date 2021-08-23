@@ -174,6 +174,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
           key="Hot White (K8J2)"
         >
           <input
+            checked={true}
             className="visually-hidden"
             id="Hot White (K8J2)"
             name="hot-offers"
@@ -181,7 +182,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             type="radio"
           />
           <label
-            className="color-selection__color -selected"
+            className="color-selection__color"
             htmlFor="Hot White (K8J2)"
             style={
               Object {
@@ -216,6 +217,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
           key="Hot Orange (K8J2)"
         >
           <input
+            checked={false}
             className="visually-hidden"
             id="Hot Orange (K8J2)"
             name="hot-offers"
@@ -258,6 +260,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
           key="Hot Yellow (K8J2)"
         >
           <input
+            checked={false}
             className="visually-hidden"
             id="Hot Yellow (K8J2)"
             name="hot-offers"
@@ -300,6 +303,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
           key="Hot Blue (K8J2)"
         >
           <input
+            checked={false}
             className="visually-hidden"
             id="Hot Blue (K8J2)"
             name="hot-offers"
@@ -342,6 +346,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
           key="Hot Gray (K8J2)"
         >
           <input
+            checked={false}
             className="visually-hidden"
             id="Hot Gray (K8J2)"
             name="hot-offers"
@@ -384,6 +389,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
           key="Hot Black (K8J2)"
         >
           <input
+            checked={false}
             className="visually-hidden"
             id="Hot Black (K8J2)"
             name="hot-offers"
@@ -450,6 +456,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
           key="Factory Gray (K8J2)"
         >
           <input
+            checked={false}
             className="visually-hidden"
             id="Factory Gray (K8J2)"
             name="factory"
@@ -472,6 +479,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
           key="Factory Red (K8J2)"
         >
           <input
+            checked={false}
             className="visually-hidden"
             id="Factory Red (K8J2)"
             name="factory"
@@ -494,6 +502,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
           key="Factory Orange (K8J2)"
         >
           <input
+            checked={false}
             className="visually-hidden"
             id="Factory Orange (K8J2)"
             name="factory"
@@ -516,6 +525,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
           key="Factory Green (K8J2)"
         >
           <input
+            checked={false}
             className="visually-hidden"
             id="Factory Green (K8J2)"
             name="factory"
@@ -538,6 +548,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
           key="Factory Blue (K8J2)"
         >
           <input
+            checked={false}
             className="visually-hidden"
             id="Factory Blue (K8J2)"
             name="factory"
@@ -560,6 +571,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
           key="Factory Black (K8J2)"
         >
           <input
+            checked={false}
             className="visually-hidden"
             id="Factory Black (K8J2)"
             name="factory"
