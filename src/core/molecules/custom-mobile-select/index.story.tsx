@@ -17,7 +17,7 @@ storiesOf(`${atomicDir(base)}/CustomSelectInput`, module).add('Default', () => {
         backgroundColor: '#f5f5f5',
       }}
     >
-      <div ref={ref} id="testModal" />
+      <div ref={ref} />
       <CustomSelectInput
         listRender={() => <></>}
         title="Select value:"
