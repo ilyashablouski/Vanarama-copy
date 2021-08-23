@@ -1,0 +1,584 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<ColorSelection /> should renders correctly 1`] = `
+<ColorSelection
+  factoryColorList={
+    Array [
+      Object {
+        "label": "Factory Gray (K8J2)",
+        "style": "hsl(209, 22%, 34%)",
+      },
+      Object {
+        "label": "Factory Red (K8J2)",
+        "style": "hsl(0, 66%, 45%)",
+      },
+      Object {
+        "label": "Factory Orange (K8J2)",
+        "style": "hsl(43, 94%, 55%)",
+      },
+      Object {
+        "label": "Factory Green (K8J2)",
+        "style": "hsl(99, 53%, 44%)",
+      },
+      Object {
+        "label": "Factory Blue (K8J2)",
+        "style": "hsl(209, 19%, 50%)",
+      },
+      Object {
+        "label": "Factory Black (K8J2)",
+        "style": "hsl(209, 22%, 5%)",
+      },
+    ]
+  }
+  hotOfferColorList={
+    Array [
+      Object {
+        "label": "Hot White (K8J2)",
+        "price": 1001,
+        "style": "hsl(209, 0%, 100%)",
+      },
+      Object {
+        "label": "Hot Orange (K8J2)",
+        "price": 1002,
+        "style": "hsl(24, 93%, 48%)",
+      },
+      Object {
+        "label": "Hot Yellow (K8J2)",
+        "price": 1003,
+        "style": "hsl(43, 94%, 55%)",
+      },
+      Object {
+        "label": "Hot Blue (K8J2)",
+        "price": 1004,
+        "style": "hsl(209, 19%, 50%)",
+      },
+      Object {
+        "label": "Hot Gray (K8J2)",
+        "price": 1005,
+        "style": "hsl(209, 22%, 34%)",
+      },
+      Object {
+        "label": "Hot Black (K8J2)",
+        "price": 1006,
+        "style": "hsl(209, 22%, 5%)",
+      },
+    ]
+  }
+  onChange={[Function]}
+  selectedColor={
+    Object {
+      "label": "Hot White (K8J2)",
+      "price": 1001,
+      "style": "hsl(209, 0%, 100%)",
+    }
+  }
+>
+  <div
+    className="color-selection"
+  >
+    <div
+      className="color-selection__header"
+    >
+      <Memo(Text)
+        className="color-selection__selected-color"
+        color="dark"
+      >
+        <span
+          className="text color-selection__selected-color -regular -dark"
+        >
+          <span>
+            Colour:
+          </span>
+          Hot White (K8J2)
+        </span>
+      </Memo(Text)>
+      <Memo(Text)
+        className="color-selection__price"
+        color="orange"
+      >
+        <span
+          className="text color-selection__price -regular -orange"
+        >
+          <Icon
+            icon={<Memo />}
+            size="regular"
+          >
+            <i
+              className="icon -regular"
+            >
+              <Memo()>
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <path
+                    d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                  />
+                </svg>
+              </Memo()>
+            </i>
+          </Icon>
+          <span>
+            £
+            1001
+             Per Months ext. VAT
+          </span>
+        </span>
+      </Memo(Text)>
+    </div>
+    <div
+      className="color-selection__group"
+    >
+      <Memo(Text)
+        className="color-selection__group-label"
+        color="dark"
+        size="small"
+      >
+        <span
+          className="text color-selection__group-label -small -dark"
+        >
+          <span
+            className="hot-offer"
+          >
+            <Icon
+              icon={<Memo />}
+              size="regular"
+            >
+              <i
+                className="icon -regular"
+              >
+                <Memo()>
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                  >
+                    <path
+                      d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                    />
+                  </svg>
+                </Memo()>
+              </i>
+            </Icon>
+            Hot Offer
+          </span>
+          Fast Delivery
+        </span>
+      </Memo(Text)>
+      <ul
+        className="color-selection__color-list"
+      >
+        <li
+          className="color-selection__color-item"
+          key="Hot White (K8J2)"
+        >
+          <input
+            className="visually-hidden"
+            id="Hot White (K8J2)"
+            name="hot-offers"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="color-selection__color -selected"
+            htmlFor="Hot White (K8J2)"
+            style={
+              Object {
+                "backgroundColor": "hsl(209, 0%, 100%)",
+              }
+            }
+            title="Hot White (K8J2)"
+          >
+            <Icon
+              icon={<Memo />}
+            >
+              <i
+                className="icon"
+              >
+                <Memo()>
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                  >
+                    <path
+                      d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                    />
+                  </svg>
+                </Memo()>
+              </i>
+            </Icon>
+          </label>
+        </li>
+        <li
+          className="color-selection__color-item"
+          key="Hot Orange (K8J2)"
+        >
+          <input
+            className="visually-hidden"
+            id="Hot Orange (K8J2)"
+            name="hot-offers"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="color-selection__color"
+            htmlFor="Hot Orange (K8J2)"
+            style={
+              Object {
+                "backgroundColor": "hsl(24, 93%, 48%)",
+              }
+            }
+            title="Hot Orange (K8J2)"
+          >
+            <Icon
+              icon={<Memo />}
+            >
+              <i
+                className="icon"
+              >
+                <Memo()>
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                  >
+                    <path
+                      d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                    />
+                  </svg>
+                </Memo()>
+              </i>
+            </Icon>
+          </label>
+        </li>
+        <li
+          className="color-selection__color-item"
+          key="Hot Yellow (K8J2)"
+        >
+          <input
+            className="visually-hidden"
+            id="Hot Yellow (K8J2)"
+            name="hot-offers"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="color-selection__color"
+            htmlFor="Hot Yellow (K8J2)"
+            style={
+              Object {
+                "backgroundColor": "hsl(43, 94%, 55%)",
+              }
+            }
+            title="Hot Yellow (K8J2)"
+          >
+            <Icon
+              icon={<Memo />}
+            >
+              <i
+                className="icon"
+              >
+                <Memo()>
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                  >
+                    <path
+                      d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                    />
+                  </svg>
+                </Memo()>
+              </i>
+            </Icon>
+          </label>
+        </li>
+        <li
+          className="color-selection__color-item"
+          key="Hot Blue (K8J2)"
+        >
+          <input
+            className="visually-hidden"
+            id="Hot Blue (K8J2)"
+            name="hot-offers"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="color-selection__color"
+            htmlFor="Hot Blue (K8J2)"
+            style={
+              Object {
+                "backgroundColor": "hsl(209, 19%, 50%)",
+              }
+            }
+            title="Hot Blue (K8J2)"
+          >
+            <Icon
+              icon={<Memo />}
+            >
+              <i
+                className="icon"
+              >
+                <Memo()>
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                  >
+                    <path
+                      d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                    />
+                  </svg>
+                </Memo()>
+              </i>
+            </Icon>
+          </label>
+        </li>
+        <li
+          className="color-selection__color-item"
+          key="Hot Gray (K8J2)"
+        >
+          <input
+            className="visually-hidden"
+            id="Hot Gray (K8J2)"
+            name="hot-offers"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="color-selection__color"
+            htmlFor="Hot Gray (K8J2)"
+            style={
+              Object {
+                "backgroundColor": "hsl(209, 22%, 34%)",
+              }
+            }
+            title="Hot Gray (K8J2)"
+          >
+            <Icon
+              icon={<Memo />}
+            >
+              <i
+                className="icon"
+              >
+                <Memo()>
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                  >
+                    <path
+                      d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                    />
+                  </svg>
+                </Memo()>
+              </i>
+            </Icon>
+          </label>
+        </li>
+        <li
+          className="color-selection__color-item"
+          key="Hot Black (K8J2)"
+        >
+          <input
+            className="visually-hidden"
+            id="Hot Black (K8J2)"
+            name="hot-offers"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="color-selection__color"
+            htmlFor="Hot Black (K8J2)"
+            style={
+              Object {
+                "backgroundColor": "hsl(209, 22%, 5%)",
+              }
+            }
+            title="Hot Black (K8J2)"
+          >
+            <Icon
+              icon={<Memo />}
+            >
+              <i
+                className="icon"
+              >
+                <Memo()>
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
+                  >
+                    <path
+                      d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                    />
+                  </svg>
+                </Memo()>
+              </i>
+            </Icon>
+          </label>
+        </li>
+      </ul>
+    </div>
+    <div
+      className="color-selection__group"
+    >
+      <Memo(Text)
+        className="color-selection__group-label"
+        color="dark"
+        size="small"
+      >
+        <span
+          className="text color-selection__group-label -small -dark"
+        >
+          <span
+            className="factory"
+          >
+            Factory Order
+          </span>
+          Long Lead Time
+        </span>
+      </Memo(Text)>
+      <ul
+        className="color-selection__color-list"
+      >
+        <li
+          className="color-selection__color-item"
+          key="Factory Gray (K8J2)"
+        >
+          <input
+            className="visually-hidden"
+            id="Factory Gray (K8J2)"
+            name="factory"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="color-selection__color"
+            htmlFor="Factory Gray (K8J2)"
+            style={
+              Object {
+                "backgroundColor": "hsl(209, 22%, 34%)",
+              }
+            }
+            title="Factory Gray (K8J2)"
+          />
+        </li>
+        <li
+          className="color-selection__color-item"
+          key="Factory Red (K8J2)"
+        >
+          <input
+            className="visually-hidden"
+            id="Factory Red (K8J2)"
+            name="factory"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="color-selection__color"
+            htmlFor="Factory Red (K8J2)"
+            style={
+              Object {
+                "backgroundColor": "hsl(0, 66%, 45%)",
+              }
+            }
+            title="Factory Red (K8J2)"
+          />
+        </li>
+        <li
+          className="color-selection__color-item"
+          key="Factory Orange (K8J2)"
+        >
+          <input
+            className="visually-hidden"
+            id="Factory Orange (K8J2)"
+            name="factory"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="color-selection__color"
+            htmlFor="Factory Orange (K8J2)"
+            style={
+              Object {
+                "backgroundColor": "hsl(43, 94%, 55%)",
+              }
+            }
+            title="Factory Orange (K8J2)"
+          />
+        </li>
+        <li
+          className="color-selection__color-item"
+          key="Factory Green (K8J2)"
+        >
+          <input
+            className="visually-hidden"
+            id="Factory Green (K8J2)"
+            name="factory"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="color-selection__color"
+            htmlFor="Factory Green (K8J2)"
+            style={
+              Object {
+                "backgroundColor": "hsl(99, 53%, 44%)",
+              }
+            }
+            title="Factory Green (K8J2)"
+          />
+        </li>
+        <li
+          className="color-selection__color-item"
+          key="Factory Blue (K8J2)"
+        >
+          <input
+            className="visually-hidden"
+            id="Factory Blue (K8J2)"
+            name="factory"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="color-selection__color"
+            htmlFor="Factory Blue (K8J2)"
+            style={
+              Object {
+                "backgroundColor": "hsl(209, 19%, 50%)",
+              }
+            }
+            title="Factory Blue (K8J2)"
+          />
+        </li>
+        <li
+          className="color-selection__color-item"
+          key="Factory Black (K8J2)"
+        >
+          <input
+            className="visually-hidden"
+            id="Factory Black (K8J2)"
+            name="factory"
+            onChange={[Function]}
+            type="radio"
+          />
+          <label
+            className="color-selection__color"
+            htmlFor="Factory Black (K8J2)"
+            style={
+              Object {
+                "backgroundColor": "hsl(209, 22%, 5%)",
+              }
+            }
+            title="Factory Black (K8J2)"
+          />
+        </li>
+      </ul>
+    </div>
+  </div>
+</ColorSelection>
+`;

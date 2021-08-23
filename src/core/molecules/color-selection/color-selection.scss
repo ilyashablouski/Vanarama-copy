@@ -1,0 +1,150 @@
+.color-selection {
+  padding: 10px 15px;
+  border: 1px solid $border-color;
+  background: $white;
+  overflow: hidden;
+
+  &__header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid $medium;
+  }
+
+  &__selected-color {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 0 !important;
+    font-weight: $font-weight-medium;
+
+    @include mobile375 {
+      flex-wrap: wrap;
+
+      span {
+        width: 100%;
+      }
+    }
+
+    span {
+      margin-right: 5px;
+      color: $darker;
+    }
+  }
+
+  &__price {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 0 !important;
+    font-weight: $font-weight-medium;
+
+    @include mobile375 {
+      width: 100%;
+    }
+
+    .icon {
+      display: inline-flex;
+      fill: $orange;
+    }
+  }
+
+  &__body {
+    margin-top: 14px;
+  }
+
+  &__group {
+    &:not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+
+  &__group-label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    font-weight: $font-weight-semibold;
+
+    span {
+      display: inline-flex;
+      align-items: center;
+      margin-right: 5px;
+
+      &.hot-offer {
+        color: $orange;
+      }
+
+      &.factory {
+        color: $darker;
+      }
+
+      .icon {
+        display: inline-flex;
+        fill: $orange;
+      }
+    }
+  }
+
+  &__color-list {
+    display: flex;
+    align-items: center;
+    padding: 3px 18px;
+    margin: -3px -18px;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__color-item {
+    flex-shrink: 0;
+
+    &:not(:last-child) {
+      margin-right: 14px;
+    }
+  }
+
+  &__color {
+    position: relative;
+    display: inline-flex;
+    justify-content: flex-end;
+    align-items: center;
+    width: 54px;
+    height: 28px;
+    padding: 0 3px;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    background: linear-gradient(-27deg, transparent 0%, rgba(244,244,244,0.3) 50%, transparent 50%);
+    cursor: pointer;
+
+    &[title*="White"] {
+      border-color: $border-color;
+
+      .icon {
+        fill: $orange;
+      }
+    }
+
+    &.-selected {
+      &:after {
+        content: '';
+        position: absolute;
+        top: -4px;
+        left: -4px;
+        right: -4px;
+        bottom: -4px;
+        border: 2px solid $orange;
+        border-radius: inherit;
+      }
+    }
+
+    .icon {
+      display: inline-flex;
+      fill: $white;
+    }
+  }
+}
