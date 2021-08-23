@@ -1,24 +1,27 @@
 import React, { useEffect, useState } from 'react';
+import Radio from "core/atoms/radio";
+import Formgroup from 'core/molecules/formgroup';
 
 interface CustomSelectInterface {
-  defaultValue: any;
-  placeholder: string;
-  optionList: any;
-  onChange: any;
+  defaultValue: string;
+  optionList: Item;
 }
 
-const CustomSelect: React.FC<CustomSelectInterface> = ({
+interface Item {
+  id: number;
+  name: string;
+}
+
+const CustomNewSelect: React.FC<CustomSelectInterface> = ({
   defaultValue,
-  placeholder,
   optionList,
-  onChange,
 }) => {
   const [showOptionList, setShowOptionList] = useState<boolean>(false);
 
   const [defaultText, setDefaultText] = useState<string>('');
 
   const handleListDisplay = () => {
-    setShowOptionList(value => !value);
+    setShowOptionList(true);
   };
 
   const handleClickOutside = (e: any) => {
@@ -32,15 +35,12 @@ const CustomSelect: React.FC<CustomSelectInterface> = ({
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
-    setDefaultText(
-      optionList.find(option => `${option.optionId}` === defaultValue).label,
-    );
+    setDefaultText(defaultValue);
     return document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleOptionClick = (event: any) => {
     setDefaultText(event.currentTarget.getAttribute('data-name'));
-    onChange(event);
     setShowOptionList(false);
   };
 
@@ -65,7 +65,16 @@ const CustomSelect: React.FC<CustomSelectInterface> = ({
                 key={option.optionId || 0}
                 onClick={handleOptionClick}
               >
-                {option.label}
+                <Formgroup>
+                  <Radio
+                    name="maintenance"
+                    id="maintenanceCost"
+                    label={option.name}
+                    onChange={() => console.log('')}
+                    defaultChecked={true}
+                    disabled={false}
+                  />
+                </Formgroup>
               </li>
             );
           })}
@@ -75,4 +84,4 @@ const CustomSelect: React.FC<CustomSelectInterface> = ({
   );
 };
 
-export default React.memo(CustomSelect);
+export default React.memo(CustomNewSelect);

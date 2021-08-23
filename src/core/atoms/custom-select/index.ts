@@ -1,3 +1,3 @@
-import CustomSelect from './CustomSelect';
+import CustomSelect from './CustomNewSelect';
 
 export default CustomSelect;

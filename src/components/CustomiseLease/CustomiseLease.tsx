@@ -8,6 +8,7 @@ import SlidingInput from 'core/atoms/sliding-input';
 import Radio from 'core/atoms/radio';
 import cx from 'classnames';
 import Refresh from 'core/assets/icons/Refresh';
+import CustomNewSelect from 'core/atoms/custom-select/CustomNewSelect';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps } from './interface';
@@ -283,6 +284,11 @@ const CustomiseLease = ({
     );
   };
 
+  const testdate = [
+    { id: 1, name: 'Test' },
+    { id: 2, name: 'Test1' },
+  ];
+
   return (
     <div
       className={cx('pdp--sidebar', isPlayingLeaseAnimation ? 'disabled' : '')}
@@ -349,6 +355,8 @@ const CustomiseLease = ({
           </Text>
         )}
       </Heading>
+
+      <CustomNewSelect defaultValue="Test" optionList={testdate} />
 
       {select(
         `${defaultColor || quoteByCapId?.colour}`,
