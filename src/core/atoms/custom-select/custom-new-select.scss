@@ -7,12 +7,32 @@
   display: flex;
   align-items: center;
   position: relative;
+  cursor: pointer;
+}
+
+.custom-select-container-border {
+  border-top: 1px solid #007F85;
+  border-right: 1px solid #007F85;
+  border-left: 1px solid #007F85;
+}
+
+.custom-select-container-disabled {
+  cursor: not-allowed;
+}
+
+.placeholder-top {
+  font-size: 13px;
+  color: lightgrey;
+}
+
+.custom-select-option {
+  margin: 10px;
 }
 
 .select-options {
-  width: 100%;
+  width: 100.5%;
   top: 45px;
-  left: 0;
+  left: -1px;
   position: absolute;
   background-color: #fff;
   z-index: 999;

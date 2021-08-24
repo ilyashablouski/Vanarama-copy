@@ -8,7 +8,6 @@ import SlidingInput from 'core/atoms/sliding-input';
 import Radio from 'core/atoms/radio';
 import cx from 'classnames';
 import Refresh from 'core/assets/icons/Refresh';
-import CustomNewSelect from 'core/atoms/custom-select/CustomNewSelect';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps } from './interface';
@@ -139,19 +138,18 @@ const customSelect = (
   items: (ITrimList | IColourList | null)[] | undefined | null,
   placeholder: string,
   isDisabled: boolean,
+  key: string,
 ) => (
   <CustomSelect
-    key={
-      items?.some(item => `${item?.optionId}` === defaultValue)
-        ? defaultValue
-        : undefined
-    }
+    radioName={key}
+    isDisabled={isDisabled}
     defaultValue={
       items?.some(item => `${item?.optionId}` === defaultValue)
         ? defaultValue
         : ''
     }
     placeholder={placeholder}
+    className="-fullwidth"
     onChange={option => {
       setChanges(+option.currentTarget.getAttribute('data-id'));
     }}
@@ -284,11 +282,6 @@ const CustomiseLease = ({
     );
   };
 
-  const testdate = [
-    { id: 1, name: 'Test' },
-    { id: 2, name: 'Test1' },
-  ];
-
   return (
     <div
       className={cx('pdp--sidebar', isPlayingLeaseAnimation ? 'disabled' : '')}
@@ -356,14 +349,13 @@ const CustomiseLease = ({
         )}
       </Heading>
 
-      <CustomNewSelect defaultValue="Test" optionList={testdate} />
-
-      {select(
+      {customSelect(
         `${defaultColor || quoteByCapId?.colour}`,
         setColour,
         colourList,
         'Select Paint Colour',
         isPlayingLeaseAnimation,
+        'keyForCustomSelect',
       )}
       {select(
         `${defaultTrim || quoteByCapId?.trim || trim}`,
