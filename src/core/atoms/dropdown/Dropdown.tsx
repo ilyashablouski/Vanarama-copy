@@ -14,11 +14,15 @@ const Dropdown = ({
 }: IDropdownProps) => {
   const [open, setOpen] = useState(defaultOpen);
   const toggle = () => setOpen(prev => !prev);
-  const dropdownRef = useRef(null) as any;
+  const dropdownRef = useRef<null | HTMLDivElement>(null);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (dropdownRef.current && !dropdownRef.current?.contains(event.target)) {
+      if (
+        dropdownRef.current &&
+        event.target instanceof Element &&
+        !dropdownRef.current.contains(event.target as Element)
+      ) {
         setOpen(false);
       }
     };
