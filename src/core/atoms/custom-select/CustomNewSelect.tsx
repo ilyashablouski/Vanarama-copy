@@ -95,31 +95,29 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
       {showOptionList && (
         <ul className="select-options">
           {!!optionList &&
-            optionList.map((option: SelectOptionList | null) => {
-              return (
-                <li
-                  data-name={option ? option.label : ''}
-                  data-id={option ? option.optionId || 0 : 0}
-                  key={option ? option.optionId || 0 : 0}
-                  onClick={handleOptionClick}
-                >
-                  <FormGroup>
-                    <Radio
-                      className="custom-select-option"
-                      name={`customSelect${radioName}`}
-                      id={`${option ? option.optionId || 0 : 0}`}
-                      label={option ? option.label || '' : ''}
-                      value={`${option ? option.optionId || 0 : 0}`}
-                      onChange={() => {}}
-                      checked={
-                        option ? defaultValue === `${option.optionId}` : false
-                      }
-                      disabled={isDisabled}
-                    />
-                  </FormGroup>
-                </li>
-              );
-            })}
+            optionList.map((option: SelectOptionList | null) => (
+              <li
+                data-name={option ? option.label : ''}
+                data-id={option?.optionId ?? 0}
+                key={option?.optionId ?? 0}
+                onClick={handleOptionClick}
+              >
+                <FormGroup>
+                  <Radio
+                    className="custom-select-option"
+                    name={`customSelect${radioName}`}
+                    id={`${option?.optionId ?? 0}`}
+                    label={option ? option.label || '' : ''}
+                    value={`${option?.optionId ?? 0}`}
+                    onChange={() => {}}
+                    checked={
+                      option ? defaultValue === `${option.optionId}` : false
+                    }
+                    disabled={isDisabled}
+                  />
+                </FormGroup>
+              </li>
+            ))}
         </ul>
       )}
       <span className="icon select--chevron">
