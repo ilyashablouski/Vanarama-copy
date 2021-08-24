@@ -29,7 +29,7 @@ storiesOf(`${atomicDir(base)}/CustomSelect`, module).add('Default', () => {
       placeholder={placeholder}
       className="-fullwidth"
       onChange={option => {
-        setChanges(+option.currentTarget.getAttribute('data-id'));
+        setChanges(+option.currentTarget.getAttribute('data-id')!);
       }}
       optionList={items}
     />

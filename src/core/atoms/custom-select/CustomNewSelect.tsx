@@ -4,17 +4,18 @@ import Radio from 'core/atoms/radio';
 import FormGroup from 'core/molecules/formgroup';
 import ChevronDown from 'core/assets/icons/ChevronDown';
 import Icon from 'core/atoms/icon';
-import {
-  GetTrimAndColor_colourList,
-  GetTrimAndColor_trimList,
-} from '../../../../generated/GetTrimAndColor';
+
+interface SelectOptionList{
+  optionId: number | null;
+  label: string | null
+}
 
 interface CustomSelectInterface {
   defaultValue: string;
   placeholder: string;
   isDisabled: boolean;
   optionList:
-    | (GetTrimAndColor_trimList | GetTrimAndColor_colourList | null)[]
+    | (SelectOptionList |  null)[]
     | null
     | undefined;
   radioName: string;
@@ -44,9 +45,11 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
       setShowOptionList(!showOptionList);
     }
   };
+  
+  const selectRef = useRef(null) as any;
 
   function handleClickOutside(event: MouseEvent) {
-    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+    if (selectRef.current && !selectRef.current.contains(event.target)) {
       setShowOptionList(false);
     }
   }
@@ -54,13 +57,12 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
     let selectedOption:
-      | GetTrimAndColor_trimList
-      | GetTrimAndColor_colourList
+      | SelectOptionList
       | null
       | undefined;
     if (optionList) {
       selectedOption = optionList.find(
-        (item: GetTrimAndColor_trimList | GetTrimAndColor_colourList | null) =>
+        (item: SelectOptionList | null) =>
           item ? `${item.optionId}` === defaultValue : false,
       );
     }
@@ -101,8 +103,7 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
             optionList.map(
               (
                 option:
-                  | GetTrimAndColor_trimList
-                  | GetTrimAndColor_colourList
+                  | SelectOptionList
                   | null,
               ) => {
                 return (
