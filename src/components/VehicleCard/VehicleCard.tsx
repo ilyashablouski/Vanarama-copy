@@ -1,7 +1,10 @@
-import React, { useContext } from 'react';
+import React, { useContext, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
 import { useRouter } from 'next/router';
+import CardLabel from 'core/molecules/cards/CardLabel';
+import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
+import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../RouterLink/RouterLink';
 import { formatProductPageUrl } from '../../utils/url';
@@ -12,6 +15,8 @@ import Skeleton from '../Skeleton';
 import { onSavePagePosition } from './helpers';
 import useWishlist from '../../hooks/useWishlist';
 import { isWished } from '../../utils/wishlistHelpers';
+import { FuelTypeEnum } from '../../../entities/global';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -62,11 +67,18 @@ const VehicleCard = React.memo(
     const { compareVehicles, compareChange } = useContext(CompareContext);
 
     const productPageUrl = formatProductPageUrl(url, derivativeId);
-    // TODO: Should be uncommented in the future when we are going to use product card banners.
-    // const fuelType = useMemo(
-    //   () => data?.keyInformation?.find(item => item?.name === 'Fuel Type'),
-    //   [data],
-    // );
+    const fuelType = useMemo(
+      () => data?.keyInformation?.find(item => item?.name === 'Fuel Type'),
+      [data],
+    );
+    const isElectricVehicle = useMemo(
+      () => fuelType?.value === FuelTypeEnum.ELECTRIC,
+      [fuelType?.value],
+    );
+    const isFreeInsuranceVehicle = useMemo(
+      () => data?.isOnOffer && data?.vehicleType === VehicleTypeEnum.CAR,
+      [data?.isOnOffer, data?.vehicleType],
+    );
 
     const imageProps = !isModelPage
       ? {
@@ -89,6 +101,7 @@ const VehicleCard = React.memo(
     return (
       <Card
         loadImage={loadImage}
+        className="product"
         lazyLoad={lazyLoad}
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         {...imageProps}
@@ -132,16 +145,25 @@ const VehicleCard = React.memo(
             </RouterLink>
           ),
         }}
+        extrasRender={
+          isElectricVehicle || isFreeInsuranceVehicle ? (
+            <>
+              {isElectricVehicle && (
+                <CardLabel
+                  text="Free Home charger"
+                  icon={<FreeHomeCharger />}
+                />
+              )}
+              {isFreeInsuranceVehicle && (
+                <CardLabel
+                  text="1yr Free Insurance"
+                  icon={<FreeInsuranceCardLabelIcon />}
+                />
+              )}
+            </>
+          ) : null
+        }
       >
-        {/* TODO: Should be uncommented in the future when we are going to use product card banners. */}
-        {/* <div className="gallery-promotion-container"> */}
-        {/*  {fuelType?.value === FuelTypeEnum.ELECTRIC && !isModelPage && ( */}
-        {/*    <ElectricVehicleBanner /> */}
-        {/*  )} */}
-        {/*  {data?.isOnOffer && */}
-        {/*    data?.vehicleType === VehicleTypeEnum.CAR && */}
-        {/*    !isModelPage && <FreeInsuranceBanner />} */}
-        {/* </div> */}
         <div className="-flex-h">
           <Price
             price={isPersonalPrice ? data?.personalRate : data?.businessRate}

@@ -26,6 +26,7 @@ const Card: FC<ICardProps> = memo(props => {
     placeholderImage,
     optimisedHost,
     optimisationOptions,
+    extrasRender,
   } = props;
 
   const { imageSrc } = props;
@@ -94,6 +95,7 @@ const Card: FC<ICardProps> = memo(props => {
           onError={onImageError}
         />
       )}
+      {extrasRender && <div className="extras">{extrasRender}</div>}
       {(title?.title || title?.link) && <CardTitle {...title} />}
       {description && (
         <Text color="dark" dataTestId="card-description">
