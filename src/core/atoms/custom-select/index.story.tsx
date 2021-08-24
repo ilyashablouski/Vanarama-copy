@@ -36,7 +36,7 @@ storiesOf(`${atomicDir(base)}/CustomSelect`, module).add('Default', () => {
   );
 
   const DEFAULT_COLOR = 1;
-  const [_, setColour] = useState<number | null>(DEFAULT_COLOR);
+  const [, setColour] = useState<number | null>(DEFAULT_COLOR);
 
   return (
     <div
