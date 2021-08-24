@@ -76,13 +76,18 @@ function ThankYouOrderContainer({ isB2b }: IThankYouOrderContainer) {
     return <p>Error: {error.message}</p>;
   }
 
-  if (!data || !data.creditApplicationByOrderUuid) {
+  if (!data) {
     return null;
   }
 
   return (
     <Form>
-      <Heading color="black" tag="h1" size="xlarge">
+      <Heading
+        color="black"
+        dataTestId="thank-you_heading"
+        size="xlarge"
+        tag="h1"
+      >
         Great News...
       </Heading>
       <Text color="black" size="large" className="-v-align-icon">
