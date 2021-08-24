@@ -163,7 +163,7 @@ export async function getServerSideProps(context: NextPageContext) {
     .query<IProductDerivativesQuery, productDerivativesVariables>({
       query: GET_PRODUCT_DERIVATIVES,
       variables: {
-        query: contextData.query.searchTerm as string,
+        query: decodeURIComponent(contextData.query.searchTerm as string),
         from: 0,
         size: RESULTS_PER_REQUEST,
         sort: sortOrder,
@@ -209,7 +209,7 @@ export async function getServerSideProps(context: NextPageContext) {
       variables: {
         query: isAllProductsRequest
           ? undefined
-          : (contextData.query.searchTerm as string),
+          : decodeURIComponent(contextData.query.searchTerm as string),
         filters: buildFiltersRequestObject(initialFilters, false),
       },
     })
