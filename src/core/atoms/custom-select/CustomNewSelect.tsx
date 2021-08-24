@@ -34,7 +34,7 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
   onChange,
   invalid,
 }) => {
-  const wrapperRef = useRef(null);
+  const wrapperRef = useRef(null) as any;
 
   const [showOptionList, setShowOptionList] = useState<boolean>(false);
 
@@ -46,10 +46,8 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
     }
   };
   
-  const selectRef = useRef(null) as any;
-
   function handleClickOutside(event: MouseEvent) {
-    if (selectRef.current && !selectRef.current.contains(event.target)) {
+    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
       setShowOptionList(false);
     }
   }
