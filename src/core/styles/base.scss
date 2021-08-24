@@ -58,6 +58,7 @@ $include-presentation-styles: false !default;
 // @import '../atoms/tooltip/tooltip.scss';
 @import '../atoms/hot-offer/hot-offer.scss';
 
+@import '../atoms/custom-select/custom-new-select.scss';
 // components (molecules)
 @import '../molecules/formgroup/formgroup.scss';
 // @import '../molecules/accordion/accordion.scss';
@@ -108,3 +109,4 @@ $include-presentation-styles: false !default;
 @import '../templates/footer.scss';
 @import '../templates/ev-templates.scss';
 @import '../templates/row.scss';
+
