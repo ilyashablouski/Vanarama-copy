@@ -145,6 +145,7 @@ export const bodyUrlsSlugMapper = {
   'refrigerated-van': 'refrigerated van',
   'small-van': 'small van',
   'specialist-van-leasing': 'crew',
+  crossover: 'crossover',
 };
 
 export const budgetMapper = {
@@ -228,6 +229,7 @@ export const bodyUrls = [
   'refrigerated-van',
   'small-van',
   'specialist-van',
+  'crossover',
 ];
 
 export function isTransmission(key: string) {
