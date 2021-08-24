@@ -11,7 +11,11 @@ import TrustPilot from 'core/molecules/trustpilot';
 import NextHead from 'next/head';
 import decode from 'decode-html';
 import { PreviewNextPageContext } from 'types/common';
+import CardLabel from 'core/molecules/cards/CardLabel';
+import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
+import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
 import { decodeData, encodeData } from '../../utils/data';
+import { ProductCardData_productCarousel as IProduct } from '../../../generated/ProductCardData';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { isWished } from '../../utils/wishlistHelpers';
@@ -48,6 +52,7 @@ import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { freeInsuranceSmallPrint } from './free-car-insurance';
+import { FuelTypeEnum } from '../../../entities/global';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -78,9 +83,8 @@ const Flame = dynamic(() => import('core/assets/icons/Flame'), {
   ssr: false,
 });
 
-// TODO: Should be uncommented in the future when we are going to use product card banners.
-// const getFuelType = (product: IProduct | null) =>
-//   product?.keyInformation?.find(item => item?.name === 'Fuel Type')?.value;
+const getFuelType = (product: IProduct | null) =>
+  product?.keyInformation?.find(item => item?.name === 'Fuel Type')?.value;
 
 interface IProps extends ICarsPageOffersData {
   data: HubCarPageData;
@@ -319,17 +323,28 @@ export const CarsPage: NextPage<IProps> = ({
                     ),
                     score: item?.averageRating || 5,
                   }}
+                  extrasRender={
+                    getFuelType(item) === FuelTypeEnum.ELECTRIC ||
+                    (item?.isOnOffer &&
+                      item?.vehicleType === VehicleTypeEnum.CAR) ? (
+                      <>
+                        {getFuelType(item) === FuelTypeEnum.ELECTRIC && (
+                          <CardLabel
+                            text="Free Home charger"
+                            icon={<FreeHomeCharger />}
+                          />
+                        )}
+                        {item?.isOnOffer &&
+                          item?.vehicleType === VehicleTypeEnum.CAR && (
+                            <CardLabel
+                              text="1yr Free Insurance"
+                              icon={<FreeInsuranceCardLabelIcon />}
+                            />
+                          )}
+                      </>
+                    ) : null
+                  }
                 >
-                  {/* TODO: Should be uncommented in the future when we are going to use product card banners. */}
-                  {/* <div className="gallery-promotion-container"> */}
-                  {/*  {getFuelType(item) === 'Electric' && ( */}
-                  {/*    <ElectricVehicleBanner /> */}
-                  {/*  )} */}
-                  {/*  {item?.isOnOffer && */}
-                  {/*    item?.vehicleType === VehicleTypeEnum.CAR && ( */}
-                  {/*      <FreeInsuranceBanner /> */}
-                  {/*    )} */}
-                  {/* </div> */}
                   <div className="-flex-h">
                     <Price
                       price={
