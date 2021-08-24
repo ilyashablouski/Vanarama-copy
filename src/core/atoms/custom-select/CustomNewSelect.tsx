@@ -97,7 +97,7 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
           {!!optionList &&
             optionList.map((option: SelectOptionList | null) => (
               <li
-                data-name={option ? option.label : ''}
+                data-name={option?.label ?? ''}
                 data-id={option?.optionId ?? 0}
                 key={option?.optionId ?? 0}
                 onClick={handleOptionClick}
@@ -107,7 +107,7 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
                     className="custom-select-option"
                     name={`customSelect${radioName}`}
                     id={`${option?.optionId ?? 0}`}
-                    label={option ? option.label || '' : ''}
+                    label={option?.label ?? ''}
                     value={`${option?.optionId ?? 0}`}
                     onChange={() => {}}
                     checked={

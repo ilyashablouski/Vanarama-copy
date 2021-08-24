@@ -13,7 +13,7 @@ storiesOf(`${atomicDir(base)}/CustomSelect`, module).add('Default', () => {
   const customSelect = (
     defaultValue: string,
     setChanges: Dispatch<SetStateAction<number | null>>,
-    items: (ITrimList | IColourList | null)[] | undefined | null,
+    items: (ITrimList | IColourList | null)[] | null,
     placeholder: string,
     isDisabled: boolean,
     key: string,
@@ -35,9 +35,8 @@ storiesOf(`${atomicDir(base)}/CustomSelect`, module).add('Default', () => {
     />
   );
 
-  const color = 1;
-  const [colour, setColour] = useState<number | null>(color);
-  console.log(colour);
+  const DEFAULT_COLOR = 1;
+  const [_, setColour] = useState<number | null>(DEFAULT_COLOR);
 
   return (
     <div
