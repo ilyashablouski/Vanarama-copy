@@ -418,7 +418,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                       type="button"
                     >
                       <svg
+                        aria-hidden="true"
                         class="paging-dot"
+                        focusable="false"
                         height="6"
                         width="6"
                       >
@@ -439,7 +441,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                       type="button"
                     >
                       <svg
+                        aria-hidden="true"
                         class="paging-dot"
+                        focusable="false"
                         height="6"
                         width="6"
                       >
@@ -460,7 +464,9 @@ exports[`<FleetLandingPage /> should match snapshot 1`] = `
                       type="button"
                     >
                       <svg
+                        aria-hidden="true"
                         class="paging-dot"
+                        focusable="false"
                         height="6"
                         width="6"
                       >

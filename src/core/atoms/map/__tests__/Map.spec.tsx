@@ -20,7 +20,7 @@ describe('<Map />', () => {
 
   it('should render the map component once the script has loaded', async () => {
     const { container } = render(<Map apiKey="MY_KEY" />);
-    await waitFor(() => screen.getByTestId('google-map'));
+    await waitFor(() => screen.findByTestId('google-map'));
     expect(container).toMatchInlineSnapshot(`
       <div>
         <div
