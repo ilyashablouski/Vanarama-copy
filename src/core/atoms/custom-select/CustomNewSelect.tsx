@@ -5,19 +5,16 @@ import FormGroup from 'core/molecules/formgroup';
 import ChevronDown from 'core/assets/icons/ChevronDown';
 import Icon from 'core/atoms/icon';
 
-interface SelectOptionList{
+interface SelectOptionList {
   optionId: number | null;
-  label: string | null
+  label: string | null;
 }
 
 interface CustomSelectInterface {
   defaultValue: string;
   placeholder: string;
   isDisabled: boolean;
-  optionList:
-    | (SelectOptionList |  null)[]
-    | null
-    | undefined;
+  optionList: (SelectOptionList | null)[] | null | undefined;
   radioName: string;
   className: string;
   invalid?: boolean;
@@ -34,7 +31,7 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
   onChange,
   invalid,
 }) => {
-  const wrapperRef = useRef(null) as any;
+  const wrapperRef = useRef<null | HTMLDivElement>(null);
 
   const [showOptionList, setShowOptionList] = useState<boolean>(false);
 
@@ -45,23 +42,23 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
       setShowOptionList(!showOptionList);
     }
   };
-  
+
   function handleClickOutside(event: MouseEvent) {
-    if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+    if (
+      wrapperRef.current &&
+      event.target instanceof Element &&
+      !wrapperRef.current.contains(event.target as Element)
+    ) {
       setShowOptionList(false);
     }
   }
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
-    let selectedOption:
-      | SelectOptionList
-      | null
-      | undefined;
+    let selectedOption: SelectOptionList | null | undefined;
     if (optionList) {
-      selectedOption = optionList.find(
-        (item: SelectOptionList | null) =>
-          item ? `${item.optionId}` === defaultValue : false,
+      selectedOption = optionList.find((item: SelectOptionList | null) =>
+        item ? `${item.optionId}` === defaultValue : false,
       );
     }
     setDefaultText(selectedOption ? `${selectedOption.label}` : placeholder);
@@ -98,37 +95,31 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
       {showOptionList && (
         <ul className="select-options">
           {!!optionList &&
-            optionList.map(
-              (
-                option:
-                  | SelectOptionList
-                  | null,
-              ) => {
-                return (
-                  <li
-                    data-name={option ? option.label : ''}
-                    data-id={option ? option.optionId || 0 : 0}
-                    key={option ? option.optionId || 0 : 0}
-                    onClick={handleOptionClick}
-                  >
-                    <FormGroup>
-                      <Radio
-                        className="custom-select-option"
-                        name={`customSelect${radioName}`}
-                        id={`${option ? option.optionId || 0 : 0}`}
-                        label={option ? option.label || '' : ''}
-                        value={`${option ? option.optionId || 0 : 0}`}
-                        onChange={() => {}}
-                        checked={
-                          option ? defaultValue === `${option.optionId}` : false
-                        }
-                        disabled={isDisabled}
-                      />
-                    </FormGroup>
-                  </li>
-                );
-              },
-            )}
+            optionList.map((option: SelectOptionList | null) => {
+              return (
+                <li
+                  data-name={option ? option.label : ''}
+                  data-id={option ? option.optionId || 0 : 0}
+                  key={option ? option.optionId || 0 : 0}
+                  onClick={handleOptionClick}
+                >
+                  <FormGroup>
+                    <Radio
+                      className="custom-select-option"
+                      name={`customSelect${radioName}`}
+                      id={`${option ? option.optionId || 0 : 0}`}
+                      label={option ? option.label || '' : ''}
+                      value={`${option ? option.optionId || 0 : 0}`}
+                      onChange={() => {}}
+                      checked={
+                        option ? defaultValue === `${option.optionId}` : false
+                      }
+                      disabled={isDisabled}
+                    />
+                  </FormGroup>
+                </li>
+              );
+            })}
         </ul>
       )}
       <span className="icon select--chevron">
