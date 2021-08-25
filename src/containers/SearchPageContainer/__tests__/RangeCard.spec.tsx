@@ -112,7 +112,7 @@ describe('<RangeCard />', () => {
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
   });
-  it('should be render correctly with all makes page', async () => {
+  it.skip('should be render correctly with all makes page', async () => {
     mocks.isAllManufacturersCard = true;
     mocks.title = 'bmw';
     // ACT
