@@ -148,6 +148,11 @@ def getDockerTagName() {
         return "${branchName}_pre-prod".replace("hotfix/", "hotfix-H${env.CHANGE_ID}-B${env.BUILD_NUMBER}-")
     } else if ( "${branchName}" =~ "release/*" ) {
         return "${branchName}_uat".replace('/', '-')
+    } else if ( "${branchName}" =~ "feature/*" ) {
+        pr = "${env.BRANCH_NAME}".replace("-", "")
+        tag = "${branchName}".replace('/', '-')
+        tag = tag.replaceFirst("feature-", "feature-${pr}-B${env.BUILD_NUMBER}-")
+        return tag
     } else {
         // for develop, create artifact following this format - develop-B<build-no>-<date>
         def dateNow = new Date()
@@ -264,6 +269,7 @@ pipeline {
                   branch 'master'
                   branch 'release/*'
                   changeRequest target: 'master'
+                  changeRequest target: 'develop'
                 }
             }
 
