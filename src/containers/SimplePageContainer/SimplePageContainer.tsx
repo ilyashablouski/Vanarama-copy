@@ -2,6 +2,7 @@ import { ApolloError } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import { useEffect, useState } from 'react';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -28,12 +29,6 @@ const Image = dynamic(() => import('core/atoms/image'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 const ErrorMessage = dynamic(
   () => import('../../components/ErrorMessage/ErrorMessage'),
   {

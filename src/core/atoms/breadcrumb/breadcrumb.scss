@@ -3,6 +3,7 @@
   grid-template-columns: repeat(6, max-content);
   place-items: center start;
   gap: 0.5ch;
+  height: 18px;
   text-transform: capitalize;
 
   @include mobile {
@@ -47,5 +48,11 @@
       vertical-align: baseline;
       opacity: 0.375;
     }
+  }
+
+  .icon {
+    display: inline-flex;
+    width: auto;
+    height: auto;
   }
 }

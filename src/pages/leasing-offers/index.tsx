@@ -3,6 +3,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { MutableRefObject, useRef } from 'react';
 import { GetStaticPropsContext, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import createApolloClient from '../../apolloClient';
 import {
   GenericPageHeadQuery,
@@ -40,12 +41,7 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
+
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
 );

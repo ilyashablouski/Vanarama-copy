@@ -22,11 +22,11 @@ interface IProps {
 const TilesBlock = ({ tiles }: IProps) => {
   return (
     <div className="row:features-4col">
-      {tiles?.tiles?.map((tile, indx) => (
+      {tiles?.tiles?.map((tile, index) => (
         <Tile
           plain
           className="-align-center -button"
-          key={`${tile.title}_${indx.toString()}`}
+          key={`${tile.title}_${index.toString()}`}
         >
           <span>
             <Image

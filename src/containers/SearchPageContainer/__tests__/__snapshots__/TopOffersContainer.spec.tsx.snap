@@ -44,7 +44,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                   tabindex="-1"
                 >
                   <div
-                    class="card"
+                    class="card product"
                     data-testid="card"
                   >
                     
@@ -77,9 +77,6 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                         </span>
                       </a>
                     </div>
-                    <div
-                      class="gallery-promotion-container"
-                    />
                     <div
                       class="-flex-h"
                     >

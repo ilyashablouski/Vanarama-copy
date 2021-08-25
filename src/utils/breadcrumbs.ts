@@ -1,10 +1,12 @@
-import { IBreadcrumb } from 'types/breadcrumbs';
+import { IBreadcrumb, IBreadcrumbLink } from 'types/breadcrumbs';
+import Cookies from 'js-cookie';
 import {
   getPartnerProperties,
   isPartnerSessionActive,
 } from './partnerProperties';
+import { IMetaDataSection, Nullable, Nullish } from '../types/common';
 
-export function getBreadcrumbItems(breadcrumbs: IBreadcrumb[]) {
+export function getPartnershipsBreadcrumbItems(breadcrumbs: IBreadcrumb[]) {
   const breadcrumbsItems = breadcrumbs?.map((el: IBreadcrumb) => ({
     link: { href: el.href || '', label: el.label },
   }));
@@ -22,6 +24,105 @@ export function getBreadcrumbItems(breadcrumbs: IBreadcrumb[]) {
   return breadcrumbsItems;
 }
 
-export default {
-  getBreadcrumbItems,
-};
+export function getBlogBreadCrumbsFromSlug(slug: Nullish<string>) {
+  if (slug) {
+    const slugArray = slug.split('/');
+    const blogSlug = slugArray[0];
+    const blogCategorySlug = slugArray[1];
+    const blogPostSlug = slugArray[2];
+
+    const homePageLink = {
+      link: {
+        label: 'Home',
+        href: '/',
+      },
+    };
+
+    const blogLink = {
+      link: {
+        label: blogSlug,
+        href: `/${blogSlug}`,
+      },
+    };
+
+    const blogCategoryLink = {
+      link: {
+        label: blogCategorySlug
+          .replace(/-/g, ' ')
+          .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
+        href: `/${blogSlug}/${blogCategorySlug}`,
+      },
+    };
+
+    const blogPostLink = {
+      link: {
+        label: blogPostSlug
+          .replace(/-/g, ' ')
+          .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
+        href: `/${blogSlug}/${blogCategorySlug}/${blogPostSlug}`,
+      },
+    };
+
+    return [homePageLink, blogLink, blogCategoryLink, blogPostLink];
+  }
+
+  return null;
+}
+
+export function getBreadCrumbsItems(
+  metaData: IMetaDataSection,
+): IBreadcrumbLink[] | null {
+  const isBreadcrumbsFromSlugEnabled = Cookies.get('DIG-6993') === '1';
+
+  if (isBreadcrumbsFromSlugEnabled) {
+    return metaData?.breadcrumbs
+      ? metaData?.breadcrumbs?.map((el: IBreadcrumb) => ({
+          link: { href: el.href || '', label: el.label },
+        }))
+      : getBlogBreadCrumbsFromSlug(metaData.slug);
+  }
+  return metaData?.breadcrumbs
+    ? metaData?.breadcrumbs?.map((el: IBreadcrumb) => ({
+        link: { href: el.href || '', label: el.label },
+      }))
+    : null;
+}
+
+export function convertSlugToBreadcrumbsSchema(
+  slug: Nullable<string>,
+): Object | null {
+  if (slug) {
+    const slugArray = ['home', ...slug.split('/')];
+
+    const getUrlFromSlug = (
+      slugIndex: number,
+      arrayFromSlug: Array<string>,
+    ) => {
+      if (slugIndex === 0) {
+        return 'https://www.vanarama.com';
+      }
+      if (slugIndex === arrayFromSlug.length - 1) {
+        return '';
+      }
+      return `https://www.vanarama.com/${arrayFromSlug
+        .slice(1, slugIndex + 1)
+        .join('/')}`;
+    };
+
+    const itemListArray = slugArray.map((slugItem, slugItemIndex, array) => ({
+      '@type': 'ListItem',
+      position: slugItemIndex + 1,
+      name: slugItem
+        .replace(/-/g, ' ')
+        .replace(/^(.)|\s+(.)/g, c => c.toUpperCase()),
+      item: getUrlFromSlug(slugItemIndex, array),
+    }));
+
+    return {
+      '@context': 'https://schema.org/',
+      '@type': 'BreadcrumbList',
+      itemListElement: itemListArray,
+    };
+  }
+  return null;
+}

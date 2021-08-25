@@ -1,6 +1,7 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { PreviewNextPageContext } from 'types/common';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { IInsurancePage } from '../../../models/IInsuranceProps';
 import { GENERIC_PAGE_QUESTION } from '../../../containers/LeasingQuestionContainer/gql';
@@ -19,12 +20,6 @@ const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
 const Head = dynamic(() => import('../../../components/Head/Head'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 const LeasingQuestionContainer = dynamic(
   () =>
     import(

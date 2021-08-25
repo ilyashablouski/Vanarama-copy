@@ -56,6 +56,13 @@ exports[`<OlafCard /> Olaf Card should render correctly 1`] = `
     list={
       Array [
         Object {
+          "dataTestId": "processingFee",
+          "isOrange": true,
+          "label": "Processing Fee",
+          "name": "processingFee",
+          "value": "FREE",
+        },
+        Object {
           "dataTestId": undefined,
           "label": "Initial Rental",
           "name": "rental",
@@ -102,6 +109,33 @@ exports[`<OlafCard /> Olaf Card should render correctly 1`] = `
           "label": "Trim",
           "name": "trim",
           "value": "Cloth - Black",
+        },
+        Object {
+          "dataTestId": "warranty",
+          "label": "Warranty",
+          "name": "warranty",
+          "value": "undefined Years Manufacturer Or undefined Miles",
+        },
+        Object {
+          "dataTestId": "roadTax",
+          "isOrange": true,
+          "label": "Road Tax",
+          "name": "roadTax",
+          "value": "INCLUDED",
+        },
+        Object {
+          "dataTestId": "delivery",
+          "isOrange": true,
+          "label": "Delivery",
+          "name": "delivery",
+          "value": "FREE",
+        },
+        Object {
+          "dataTestId": "roadsideAssistance",
+          "isOrange": true,
+          "label": "Roadside Assistance",
+          "name": "roadsideAssistance",
+          "value": "undefined YEAR INCLUDED",
         },
       ]
     }

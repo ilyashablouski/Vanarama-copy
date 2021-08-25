@@ -4,6 +4,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
 import { PreviewNextPageContext } from 'types/common';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import {
   handleNetworkError,
   DEFAULT_POSTCODE,
@@ -14,7 +15,10 @@ import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { getSectionsData } from '../../utils/getSectionsData';
-import { GenericPageQuery_genericPage_sections_hero as Hero } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery_genericPage_sections_hero as Hero,
+  GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
+} from '../../../generated/GenericPageQuery';
 import {
   PageCollection,
   PageCollectionVariables,
@@ -52,12 +56,6 @@ const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
 });
 const GoldrushForm = dynamic(
   () => import('../../components/GoldrushForm/GoldrushForm'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
   {
     loading: () => <Skeleton count={1} />,
   },
@@ -354,8 +352,8 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
           >
             {data && tiles.tilesTitle}
           </Heading>
-          {tiles.tiles?.map((tile: any, idx: number) => (
-            <div key={tile.title || idx}>
+          {tiles.tiles?.map((tile: TileData, index: number) => (
+            <div key={tile.title || index}>
               <Tile className="-plain -button -align-center" plain>
                 <div style={{ display: 'flex', justifyContent: 'center' }}>
                   <Image
@@ -371,7 +369,10 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
                 </div>
                 {tile.link ? (
                   <RouterLink
-                    link={{ href: tile.link || '#', label: '' }}
+                    link={{
+                      href: tile.link.legacyUrl || tile.link.url || '#',
+                      label: '',
+                    }}
                     className="tile--link"
                   >
                     <Heading tag="span" size="regular" color="black">

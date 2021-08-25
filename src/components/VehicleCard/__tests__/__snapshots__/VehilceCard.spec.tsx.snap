@@ -2,7 +2,7 @@
 
 exports[`<VehicleCard /> should be render bussiness price 1`] = `
 <div
-  className="card"
+  className="card product"
   data-testid="card"
 >
   <div
@@ -123,9 +123,6 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
       </span>
     </div>
   </div>
-  <div
-    className="gallery-promotion-container"
-  />
   <div
     className="-flex-h"
   >
@@ -259,7 +256,7 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
 
 exports[`<VehicleCard /> should be render correctly 1`] = `
 <div
-  className="card"
+  className="card product"
   data-testid="card"
 >
   <div
@@ -380,9 +377,6 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
       </span>
     </div>
   </div>
-  <div
-    className="gallery-promotion-container"
-  />
   <div
     className="-flex-h"
   >
@@ -516,7 +510,7 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
 
 exports[`<VehicleCard /> should have link in View Offer 1`] = `
 <div
-  className="card"
+  className="card product"
   data-testid="card"
 >
   <div
@@ -637,9 +631,6 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
       </span>
     </div>
   </div>
-  <div
-    className="gallery-promotion-container"
-  />
   <div
     className="-flex-h"
   >

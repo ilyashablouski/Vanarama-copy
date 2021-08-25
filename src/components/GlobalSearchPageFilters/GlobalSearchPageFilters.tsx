@@ -1,35 +1,37 @@
 import React, {
-  Fragment,
   useEffect,
   useState,
   Dispatch,
   SetStateAction,
+  useMemo,
 } from 'react';
-import ChevronDown from 'core/assets/icons/ChevronDown';
 import { useRouter } from 'next/router';
 import ToggleSwitch from 'core/atoms/toggle/ToggleSwitch';
-import DropdownV2 from 'core/atoms/dropdown-v2';
 import Flame from 'core/assets/icons/Flame';
 import ToggleV2 from 'core/atoms/toggleV2';
-import ChoiceBoxesV2 from 'core/atoms/choiceboxes-v2/ChoiceboxesV2';
+import cx from 'classnames';
+import ChevronDown from 'core/assets/icons/ChevronDown';
 import { IFiltersConfig, IInnerSelect } from './interfaces';
 import { budgets } from '../../containers/FiltersContainer/config';
 import {
   IFiltersData,
   ISelectedTags,
 } from '../../containers/GlobalSearchPageContainer/interfaces';
-import SelectedBox from './SelectedBox';
 import { useProductFilters } from '../../containers/GlobalSearchPageContainer/gql';
 import {
   buildFiltersRequestObject,
   buildSelectedTags,
 } from '../../containers/GlobalSearchPageContainer/helpers';
 import { productFilter_productFilter as IProductFilter } from '../../../generated/productFilter';
-import SelectedDropdown from './SelectedDropdown';
-import { getInnerConfigKeys, getSelectedValues } from './helpers';
+import {
+  buildEnginePowerValues,
+  getInnerConfigKeys,
+  isAdvancedFiltersEnabled,
+} from './helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import FiltersTags from '../../containers/GlobalSearchPageContainer/FiltersTags';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
+import DropdownsBlockComponent from './DropdownsBlockComponent';
 
 interface IProps {
   preloadFilters?: IProductFilter;
@@ -44,6 +46,7 @@ interface IProps {
   isSpecialOffer: boolean;
   setIsSpecialOffer: (value: boolean) => void;
   config: IFiltersConfig[];
+  isAllProductsRequest: boolean;
 }
 
 const GlobalSearchPageFilters = ({
@@ -59,22 +62,79 @@ const GlobalSearchPageFilters = ({
   isSpecialOffer,
   setIsSpecialOffer,
   config,
+  isAllProductsRequest,
 }: IProps) => {
   const { query } = useRouter();
+  const searchTerm = useMemo(
+    () => decodeURIComponent(query.searchTerm as string),
+    [query.searchTerm],
+  );
   const [openedFilters, setOpenedFilters] = useState<string[]>([]);
+  const [isOpenAdvancedFilters, setIsOpenAdvancedFilters] = useState(false);
   const [fromBudget] = useState(budgets.slice(0, budgets.length - 1));
   const [toBudget] = useState(budgets.slice(1));
+  const [fromEnginePower, setFromEnginePower] = useState(
+    buildEnginePowerValues(
+      preloadFilters?.enginePowerBhp?.min || 0,
+      preloadFilters?.enginePowerBhp?.max || 0,
+    ).slice(0, -1),
+  );
+  const [toEnginePower, setToEnginePower] = useState(
+    buildEnginePowerValues(
+      preloadFilters?.enginePowerBhp?.min || 0,
+      preloadFilters?.enginePowerBhp?.max || 0,
+    ).slice(1),
+  );
   const [filtersData, setFiltersData] = useState(preloadFilters);
   const [getProductFilters] = useProductFilters(
-    query?.searchTerm as string,
-    async dataResult => setFiltersData(dataResult?.productFilter || undefined),
+    isAllProductsRequest ? undefined : searchTerm,
+    async dataResult => {
+      setFiltersData(dataResult?.productFilter || undefined);
+      setFromEnginePower(
+        buildEnginePowerValues(
+          dataResult?.productFilter?.enginePowerBhp?.min || 0,
+          dataResult?.productFilter?.enginePowerBhp?.max || 0,
+        ).slice(0, -1),
+      );
+      setToEnginePower(
+        buildEnginePowerValues(
+          dataResult?.productFilter?.enginePowerBhp?.min || 0,
+          dataResult?.productFilter?.enginePowerBhp?.max || 0,
+        ).slice(1),
+      );
+    },
   );
 
   const filtersMapper = {
     ...filtersData,
     from: fromBudget,
     to: toBudget,
+    fromEnginePower,
+    toEnginePower,
   } as IFiltersData;
+
+  const advancedFiltersConfig = useMemo(
+    () =>
+      config.filter(
+        filterConfig =>
+          !filterConfig.generalFilter &&
+          // enable specific filters for some vehicles category
+          (!filterConfig.includedVehicleType ||
+            (filtersData?.vehicleCategory?.some(filterValue =>
+              filterConfig.includedVehicleType?.includes(filterValue || ''),
+            ) &&
+              (!activeFilters.vehicleCategory?.[0] ||
+                filterConfig.includedVehicleType?.includes(
+                  activeFilters.vehicleCategory?.[0],
+                )))),
+      ),
+    [activeFilters.vehicleCategory, config, filtersData?.vehicleCategory],
+  );
+
+  const generalFiltersConfig = useMemo(
+    () => config.filter(filterConfig => filterConfig.generalFilter),
+    [config],
+  );
 
   // create labels for selected filters
   useEffect(() => {
@@ -85,7 +145,7 @@ const GlobalSearchPageFilters = ({
     getProductFilters({
       variables: {
         filters: buildFiltersRequestObject(activeFilters, isSpecialOffer),
-        query: query.searchTerm as string,
+        query: isAllProductsRequest ? undefined : searchTerm,
       },
     });
   }, [activeFilters, isSpecialOffer]);
@@ -102,7 +162,7 @@ const GlobalSearchPageFilters = ({
   };
 
   const onHandleMultiSelect = (
-    filterValues: string[],
+    filterValues: (string | number)[],
     filterName: keyof IFiltersData,
   ) => {
     setActiveFilters({
@@ -114,7 +174,13 @@ const GlobalSearchPageFilters = ({
   const onHandleNativeSelectChange = (
     e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
-    const { value, name } = e.target;
+    const { value: inputValue, name } = e.target;
+    const value =
+      typeof (filtersMapper[name as keyof typeof filtersMapper] as
+        | string
+        | number[])?.[0] === 'number'
+        ? parseInt(inputValue, 10)
+        : inputValue;
     setActiveFilters({
       ...activeFilters,
       [name]: [value],
@@ -122,18 +188,31 @@ const GlobalSearchPageFilters = ({
   };
 
   /** check budget rules for valid value */
-  const isInvalidBudget = (value: string, type: string) => {
+  const isInvalidRangeValue = (
+    value: string | number,
+    type: string,
+    filterKey: string,
+  ) => {
+    const [from, to] =
+      filterKey === 'budget'
+        ? ['from', 'to']
+        : ['fromEnginePower', 'toEnginePower'];
+    const isFromType = type.includes('from');
+    const activeToValue = (activeFilters[to as keyof IFiltersData] as
+      | string
+      | number[])?.[0];
+    const activeFromValue = (activeFilters[from as keyof IFiltersData] as
+      | string
+      | number[])?.[0];
     return !(
-      (type === 'from' &&
-        (value < activeFilters.to?.[0] || !activeFilters.to?.[0])) ||
-      (type === 'to' &&
-        (value > activeFilters.from?.[0] || !activeFilters.from?.[0]))
+      (isFromType && (value < activeToValue || !activeToValue)) ||
+      (!isFromType && (value > activeFromValue || !activeFromValue))
     );
   };
 
   const isDisabledSelect = (key: string, selectKey: string) => {
-    if (selectKey === 'range') {
-      return !activeFilters.make?.[0];
+    if (selectKey === 'rangeName') {
+      return !activeFilters.manufacturerName?.[0];
     }
     return false;
   };
@@ -155,8 +234,11 @@ const GlobalSearchPageFilters = ({
   ): (string | null)[] => {
     const keys = getInnerConfigKeys(innerSelect);
     return keys.reduce(
-      (acc, current) => [...acc, ...(activeFilters?.[current] || [null])],
-      [] as (string | null)[],
+      (acc, current) => [
+        ...acc,
+        ...((activeFilters?.[current] as string[]) || [null]),
+      ],
+      [] as string[],
     );
   };
 
@@ -201,134 +283,65 @@ const GlobalSearchPageFilters = ({
         rightDataTestId="business"
         onChange={value => setIsPersonal(value === LeaseTypeEnum.PERSONAL)}
       />
-      {config.map(
-        ({
-          label,
-          key,
-          type,
-          innerSelects,
-          renderValuesFunction,
-          renderSelectedFunction,
-          multiselect,
-        }) =>
-          type === 'drop-down' ? (
-            <DropdownV2
-              key={key}
-              onLabelClick={event => onHandleFilterStatus(event, key)}
-              label={
-                multiselect
-                  ? label
-                  : labelForSingleSelect(key as keyof IFiltersData) || label
-              }
-              multiselect={multiselect}
-              open={openedFilters.includes(key)}
-              type="drop-down"
-              renderSummary={ref => (
-                <SelectedBox
-                  ref={ref}
-                  selected={
-                    selectedTags.filter(
-                      selectedBlocks => selectedBlocks.filterKey === key,
-                    )?.[0]?.tags || []
-                  }
-                  onClearFilterBlock={() => clearFilterBlock(key)}
+      {generalFiltersConfig.map(filterConfig => (
+        <DropdownsBlockComponent
+          key={filterConfig.key}
+          filterConfig={filterConfig}
+          activeFilters={activeFilters}
+          clearFilterBlock={clearFilterBlock}
+          filtersMapper={filtersMapper}
+          getDropdownValues={getDropdownValues}
+          isDisabledSelect={isDisabledSelect}
+          isInvalidRangeValue={isInvalidRangeValue}
+          labelForSingleSelect={labelForSingleSelect}
+          onClearDropdown={onClearDropdown}
+          onHandleFilterStatus={onHandleFilterStatus}
+          onHandleMultiSelect={onHandleMultiSelect}
+          onHandleNativeSelectChange={onHandleNativeSelectChange}
+          openedFilters={openedFilters}
+          selectedTags={selectedTags}
+        />
+      ))}
+      {isAdvancedFiltersEnabled && advancedFiltersConfig?.length > 0 && (
+        <div className={cx('accordyon', { active: isOpenAdvancedFilters })}>
+          <div
+            tabIndex={-1}
+            role="button"
+            className="trigger"
+            aria-hidden="true"
+            aria-expanded={isOpenAdvancedFilters}
+            id="expand-filters"
+            onClick={() => setIsOpenAdvancedFilters(prevState => !prevState)}
+          >
+            <ChevronDown />
+            <span>
+              {`${isOpenAdvancedFilters ? 'Hide' : 'Show'}`} Advanced Filters
+            </span>
+          </div>
+          <div className="content">
+            <div className="inner">
+              {advancedFiltersConfig.map(filterConfig => (
+                <DropdownsBlockComponent
+                  key={filterConfig.key}
+                  filterConfig={filterConfig}
+                  activeFilters={activeFilters}
+                  clearFilterBlock={clearFilterBlock}
+                  filtersMapper={filtersMapper}
+                  getDropdownValues={getDropdownValues}
+                  isDisabledSelect={isDisabledSelect}
+                  isInvalidRangeValue={isInvalidRangeValue}
+                  labelForSingleSelect={labelForSingleSelect}
+                  onClearDropdown={onClearDropdown}
+                  onHandleFilterStatus={onHandleFilterStatus}
+                  onHandleMultiSelect={onHandleMultiSelect}
+                  onHandleNativeSelectChange={onHandleNativeSelectChange}
+                  openedFilters={openedFilters}
+                  selectedTags={selectedTags}
                 />
-              )}
-              selected={
-                selectedTags.filter(
-                  selectedBlocks => selectedBlocks.filterKey === key,
-                )?.[0]?.tags || []
-              }
-            >
-              <ChoiceBoxesV2
-                key={key}
-                multiSelect={multiselect}
-                values={filtersMapper[key as keyof IFiltersData] as string[]}
-                onChange={values =>
-                  onHandleMultiSelect(values, key as keyof IFiltersData)
-                }
-                selectedValues={
-                  activeFilters?.[key as keyof IFiltersData] as string[]
-                }
-                disabled={
-                  !multiselect &&
-                  (filtersMapper[key as keyof IFiltersData] as string[])
-                    .length === 1
-                }
-              />
-            </DropdownV2>
-          ) : (
-            <DropdownV2
-              type="drop-select"
-              key={key}
-              label={label}
-              multiselect={multiselect}
-              open={openedFilters.includes(key)}
-              onLabelClick={event => onHandleFilterStatus(event, key)}
-              renderSummary={ref => (
-                <SelectedDropdown
-                  ref={ref}
-                  selected={getDropdownValues(innerSelects as IInnerSelect[])}
-                  onClear={() =>
-                    onClearDropdown(innerSelects as IInnerSelect[])
-                  }
-                  renderFunction={renderSelectedFunction}
-                />
-              )}
-              selected={
-                getSelectedValues(innerSelects, activeFilters) as unknown[]
-              }
-            >
-              {(innerSelects as IInnerSelect[])?.map(
-                ({ title, key: selectKey, placeholder }) => (
-                  <Fragment key={title}>
-                    <span className="option-title">{title}</span>
-                    <div className="faux-select">
-                      <ChevronDown />
-                      <select
-                        name={`${selectKey}`}
-                        data-testid={`${selectKey}-form`}
-                        onChange={onHandleNativeSelectChange}
-                        disabled={isDisabledSelect(key, selectKey)}
-                      >
-                        <option
-                          disabled
-                          value=""
-                          selected={
-                            !activeFilters?.[
-                              selectKey as keyof IFiltersData
-                            ]?.[0]
-                          }
-                        >
-                          {placeholder}
-                        </option>
-                        {(filtersMapper?.[
-                          selectKey as keyof IFiltersData
-                        ] as string[])?.map(value => (
-                          <option
-                            key={value}
-                            disabled={
-                              key === 'budget'
-                                ? isInvalidBudget(value, selectKey)
-                                : false
-                            }
-                            value={value}
-                            selected={activeFilters?.[
-                              selectKey as keyof IFiltersData
-                            ]?.includes(value)}
-                          >
-                            {renderValuesFunction
-                              ? renderValuesFunction(value)
-                              : value}
-                          </option>
-                        ))}
-                      </select>
-                    </div>
-                  </Fragment>
-                ),
-              )}
-            </DropdownV2>
-          ),
+              ))}
+            </div>
+          </div>
+        </div>
       )}
     </>
   );

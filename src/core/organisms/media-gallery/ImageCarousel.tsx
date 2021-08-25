@@ -1,139 +1,74 @@
-import React, { FC, memo } from 'react';
-import cx from 'classnames';
-import uniqid from 'uniqid';
+import React, { useState, memo } from 'react';
+import SwiperCore, { Navigation, Thumbs } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+
+import Image from 'core/atoms/image';
+
 import { IImageCarouselProps } from './interfaces';
-import Icon from '../../atoms/icon';
 
-import Image from '../../atoms/image';
+SwiperCore.use([Navigation, Thumbs]);
 
-import ChevronBackCircleSharp from '../../assets/icons/ChevronBackCircleSharp';
-import ChevronForwardCircleSharp from '../../assets/icons/ChevronForwardCircleSharp';
-
-const ImageCarousel: FC<IImageCarouselProps> = memo(props => {
-  const {
-    activeSlide,
-    images,
-    changeSlideHandler,
-    imageAltText,
-    renderImageDecoration,
-  } = props;
-  const positionStyle = {
-    '--x': activeSlide,
-    '--y': 0,
-  } as React.CSSProperties;
-  const yTrackRef = React.useRef<HTMLDivElement>(null);
-  const scroll = React.useRef<HTMLDivElement>(null);
-
-  const onChangeSlide = (index: number) => {
-    // do nothing if the active slide is selected
-    if (index === activeSlide) {
-      return;
-    }
-    // сheck for first/last element
-    const isExtreme = index === 0 || index === images.length - 1;
-    const {
-      height = 0,
-    } = yTrackRef?.current?.getBoundingClientRect() as DOMRect;
-    // scroll down
-    if (index > activeSlide) {
-      scroll.current?.scrollBy({
-        left: 0,
-        top: Math.ceil(isExtreme ? height : height / images.length),
-        behavior: 'smooth',
-      });
-      // scroll up
-    } else {
-      scroll.current?.scrollBy({
-        left: 0,
-        top: -Math.ceil(isExtreme ? height : height / images.length),
-        behavior: 'smooth',
-      });
-    }
-    // change active slide
-    changeSlideHandler(index);
-  };
-
-  const onPreviousSlide = () =>
-    onChangeSlide(activeSlide === 0 ? images.length - 1 : activeSlide - 1);
-
-  const onNextSlide = () =>
-    onChangeSlide(activeSlide === images.length - 1 ? 0 : activeSlide + 1);
+function ImageCarousel({
+  images,
+  imageAltText,
+  renderImageDecoration,
+}: IImageCarouselProps) {
+  const [thumbsSlider, setThumbsSlider] = useState<SwiperCore>();
 
   return (
-    <div
-      className={cx('media-gallery', {
-        '-d-block': images.length === 1,
-      })}
-      style={positionStyle}
-    >
-      <div className="media-gallery--x-scroll">
-        <div className="media-gallery--x-track">
-          {images.map((value, index) => (
-            <div
-              key={uniqid()}
-              className={cx('media-gallery--x-track-item', {
-                '-active': index === activeSlide,
-              })}
-            >
-              {renderImageDecoration?.(value, index)}
-              <Image
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                lazyLoad={index !== 0}
-                src={value}
-                size="expand"
-                plain
-                alt={imageAltText}
-              />
-            </div>
-          ))}
-        </div>
-        {images.length > 1 && (
-          <nav className="media-gallery--x-scroll-nav">
-            <button onClick={onPreviousSlide} type="button">
-              <Icon
-                icon={<ChevronBackCircleSharp />}
-                color="orange"
-                className="md hydrated"
-                size="lead"
-              />
-            </button>
-            <button onClick={onNextSlide} type="button">
-              <Icon
-                icon={<ChevronForwardCircleSharp />}
-                color="orange"
-                className="md hydrated"
-                size="lead"
-              />
-            </button>
-          </nav>
-        )}
-      </div>
+    <>
+      <Swiper
+        navigation
+        watchOverflow
+        loop={images.length > 1}
+        wrapperTag="ul"
+        thumbs={{
+          swiper: thumbsSlider,
+        }}
+      >
+        {images.map((imageUrl, index) => (
+          <SwiperSlide key={imageUrl} tag="li">
+            {renderImageDecoration?.(imageUrl, index)}
+            <Image
+              plain
+              src={imageUrl}
+              alt={imageAltText}
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              optimisationOptions={{
+                width: 709,
+                height: 399,
+                fit: 'cover',
+              }}
+            />
+          </SwiperSlide>
+        ))}
+      </Swiper>
       {images.length > 1 && (
-        <div className="media-gallery--y-scroll" ref={scroll}>
-          <div className="media-gallery--y-track" ref={yTrackRef}>
-            {images.map((value, index) => (
-              <div
-                role="list"
-                key={uniqid()}
-                className={cx('media-gallery--y-track-item', {
-                  '-active': index === activeSlide,
-                })}
-                onClick={() => onChangeSlide(index)}
-              >
-                <Image
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  lazyLoad
-                  src={Array.isArray(value) ? value[0] : value}
-                  size="xlarge"
-                  alt={imageAltText}
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        <Swiper
+          slidesPerView="auto"
+          className="thumbnails"
+          resistanceRatio={0.55}
+          onSwiper={setThumbsSlider}
+        >
+          {images.map(imageUrl => (
+            <SwiperSlide key={imageUrl} tag="li">
+              <Image
+                plain
+                src={imageUrl}
+                alt={imageAltText}
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                optimisationOptions={{
+                  width: 150,
+                  height: 80,
+                  fit: 'cover',
+                }}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       )}
-    </div>
+    </>
   );
-});
+}
 
-export default ImageCarousel;
+export default memo(ImageCarousel);

@@ -161,9 +161,9 @@ export const getOrderList = ({
     },
     {
       label: 'Warranty:',
-      value: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Milles`,
+      value: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Miles`,
       id: 'warranty',
-      key: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Milles`,
+      key: `${warrantyDetails?.years} Years Manufacturer Or ${warrantyDetails?.mileage} Miles`,
       dataTestId: 'warranty',
       isOrange: false,
     },
@@ -248,4 +248,8 @@ export const parseVehicleConfigId = (configId: string) => {
 
 export const isGlobalSearchFeatureEnabled = () => {
   return Cookies.get('DIG-5552') === '1';
+};
+
+export const isCookieBarFeatureEnabled = () => {
+  return Cookies.get('DIG-6994') === '1';
 };

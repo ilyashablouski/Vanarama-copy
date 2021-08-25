@@ -2,6 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import SchemaJSON from 'core/atoms/schema-json';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { IBreadcrumb } from '../../types/breadcrumbs';
 import {
@@ -21,12 +22,6 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 
 interface IProps {
   data: GenericPageQuery | undefined;

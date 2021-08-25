@@ -119,7 +119,6 @@ const GlobalSearchContainer = () => {
           <div className="header-search-results-container">
             <GlobalSearchLeftSideContainer
               suggestions={suggestions.suggestsList}
-              totalCount={suggestions.totalCount}
             />
             <GlobalSearchRightSideContainer
               suggestions={
@@ -128,7 +127,6 @@ const GlobalSearchContainer = () => {
                   : (suggestions.vehiclesList as ISuggestions[]).slice(0, 5)
               }
               searchQuery={fieldValue}
-              totalCount={suggestions.totalCount}
             />
             <div className="info">
               <span className="heading -small -dark">More Information</span>

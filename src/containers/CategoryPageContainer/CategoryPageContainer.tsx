@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { ICategoryPage } from './interface';
@@ -29,12 +30,6 @@ const Pagination = dynamic(() => import('core/atoms/pagination'), {
 const Carousel = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={3} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 
 const CategoryPageContainer: React.FC<ICategoryPage> = ({
   metaData,
@@ -51,8 +46,8 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
   const articlesSorted = articles
     ? [...articles]?.sort(
         (firstArticle, secondArticle) =>
-          new Date(secondArticle?.metaData?.publishedOn).getTime() -
-          new Date(firstArticle?.metaData?.publishedOn).getTime(),
+          new Date(secondArticle?.metaData?.publishedOn ?? '').getTime() -
+          new Date(firstArticle?.metaData?.publishedOn ?? '').getTime(),
       )
     : [];
 

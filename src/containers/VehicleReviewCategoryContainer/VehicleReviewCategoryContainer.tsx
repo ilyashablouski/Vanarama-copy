@@ -2,6 +2,7 @@ import React, { FC, useState } from 'react';
 import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import {
   ReviewsHubCategoryQuery,
   ReviewsHubCategoryQuery_genericPage_sections_cards_cards as Cards,
@@ -21,12 +22,6 @@ const Pagination = dynamic(() => import('core/atoms/pagination'), {
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
 
 interface IProps {
   data: ReviewsHubCategoryQuery | undefined;
@@ -61,11 +56,11 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
       indexOfFirstOffer,
       indexOfLastOffer,
     );
-    return showCards?.map((reviewCard, idx) => (
+    return showCards?.map((reviewCard, index) => (
       <Card
         loadImage
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        key={idx.toString()}
+        key={index.toString()}
         title={{
           title: reviewCard.title || '',
           score: Number(reviewCard.reviewRating) || 0,

@@ -2,6 +2,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import { GenericPageQuery_genericPage_sections_cards_cards as ICard } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import getTitleTag from '../../utils/getTitleTag';
@@ -27,12 +28,6 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 const CardTitle = dynamic(() => import('core/molecules/cards/CardTitle'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 
 export const LocationsPage: NextPage<IGenericPage> = ({
   data: encodedData,

@@ -24,6 +24,7 @@ describe('<MediaGallery />', () => {
   beforeEach(() => {
     mocks = resetMocks();
   });
+
   it('should be render', () => {
     const wrapper = shallow(<MediaGallery {...mocks} />);
     expect(wrapper.find('.pdp--flag').exists()).toBeTruthy();

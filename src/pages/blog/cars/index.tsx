@@ -1,5 +1,7 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
+import SchemaJSON from 'core/atoms/schema-json';
+import React from 'react';
 import createApolloClient from '../../../apolloClient';
 import { BLOG_POSTS_PAGE } from '../../../gql/blogPosts';
 import withApollo from '../../../hocs/withApollo';
@@ -11,6 +13,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
+import {
+  convertSlugToBreadcrumbsSchema,
+  getBreadCrumbsItems,
+} from '../../../utils/breadcrumbs';
 
 const CategoryPage: NextPage<IBlogCategory> = ({
   data: encodedData,
@@ -26,17 +32,21 @@ const CategoryPage: NextPage<IBlogCategory> = ({
   const articles = getSectionsData(['articles'], data?.blogPosts);
   const pageTitle = getSectionsData(['pageTitle'], data?.blogPosts);
   const metaData = getSectionsData(['metaData'], data?.blogPosts);
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
+  const breadcrumbsSchema = convertSlugToBreadcrumbsSchema(metaData.slug);
 
   return (
-    <CategoryPageContainer
-      breadcrumbsItems={breadcrumbsItems}
-      metaData={metaData}
-      articles={articles}
-      pageTitle={pageTitle}
-    />
+    <>
+      <CategoryPageContainer
+        breadcrumbsItems={breadcrumbsItems}
+        metaData={metaData}
+        articles={articles}
+        pageTitle={pageTitle}
+      />
+      {metaData.slug && !metaData.schema && (
+        <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />
+      )}
+    </>
   );
 };
 

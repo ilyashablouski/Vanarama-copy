@@ -2,6 +2,9 @@ import React, { useContext, useMemo } from 'react';
 import dynamic from 'next/dynamic';
 import { ICardTitleProps } from 'core/molecules/cards/CardTitle';
 import { useRouter } from 'next/router';
+import CardLabel from 'core/molecules/cards/CardLabel';
+import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
+import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
 import { GetProductCard_productCard as ICard } from '../../../generated/GetProductCard';
 import RouterLink from '../RouterLink/RouterLink';
 import { formatProductPageUrl } from '../../utils/url';
@@ -9,13 +12,11 @@ import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
 import { features } from '../ProductCarousel/helpers';
 import Skeleton from '../Skeleton';
-import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import { onSavePagePosition } from './helpers';
 import useWishlist from '../../hooks/useWishlist';
 import { isWished } from '../../utils/wishlistHelpers';
-import ElectricVehicleBanner from '../ElectricVehicleBanner';
-import FreeInsuranceBanner from '../FreeInsuranceBanner';
 import { FuelTypeEnum } from '../../../entities/global';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -42,7 +43,7 @@ interface IVehicleCardProps {
   isModelPage?: boolean;
   url: string;
   derivativeId?: string | null;
-  idx?: number;
+  index?: number;
   customCTAColor?: string;
 }
 
@@ -58,7 +59,7 @@ const VehicleCard = React.memo(
     bodyStyle,
     isModelPage,
     customCTAColor,
-    idx,
+    index,
   }: IVehicleCardProps) => {
     const router = useRouter();
 
@@ -69,6 +70,14 @@ const VehicleCard = React.memo(
     const fuelType = useMemo(
       () => data?.keyInformation?.find(item => item?.name === 'Fuel Type'),
       [data],
+    );
+    const isElectricVehicle = useMemo(
+      () => fuelType?.value === FuelTypeEnum.ELECTRIC,
+      [fuelType?.value],
+    );
+    const isFreeInsuranceVehicle = useMemo(
+      () => data?.isOnOffer && data?.vehicleType === VehicleTypeEnum.CAR,
+      [data?.isOnOffer, data?.vehicleType],
     );
 
     const imageProps = !isModelPage
@@ -92,6 +101,7 @@ const VehicleCard = React.memo(
     return (
       <Card
         loadImage={loadImage}
+        className="product"
         lazyLoad={lazyLoad}
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}
         {...imageProps}
@@ -117,8 +127,8 @@ const VehicleCard = React.memo(
                 label: '',
               }}
               onClick={() => {
-                if (idx) {
-                  onSavePagePosition(idx, router.query);
+                if (index) {
+                  onSavePagePosition(index, router.query);
                 }
                 sessionStorage.setItem('capId', data.capId || '');
               }}
@@ -135,15 +145,25 @@ const VehicleCard = React.memo(
             </RouterLink>
           ),
         }}
+        extrasRender={
+          isElectricVehicle || isFreeInsuranceVehicle ? (
+            <>
+              {isElectricVehicle && (
+                <CardLabel
+                  text="Free Home charger"
+                  icon={<FreeHomeCharger />}
+                />
+              )}
+              {isFreeInsuranceVehicle && (
+                <CardLabel
+                  text="1yr Free Insurance"
+                  icon={<FreeInsuranceCardLabelIcon />}
+                />
+              )}
+            </>
+          ) : null
+        }
       >
-        <div className="gallery-promotion-container">
-          {fuelType?.value === FuelTypeEnum.ELECTRIC && !isModelPage && (
-            <ElectricVehicleBanner />
-          )}
-          {data?.isOnOffer &&
-            data?.vehicleType === VehicleTypeEnum.CAR &&
-            !isModelPage && <FreeInsuranceBanner />}
-        </div>
         <div className="-flex-h">
           <Price
             price={isPersonalPrice ? data?.personalRate : data?.businessRate}
@@ -159,8 +179,8 @@ const VehicleCard = React.memo(
               label: 'View Offer',
             }}
             onClick={() => {
-              if (idx) {
-                onSavePagePosition(idx, router.query);
+              if (index) {
+                onSavePagePosition(index, router.query);
               }
               sessionStorage.setItem('capId', data.capId || '');
             }}

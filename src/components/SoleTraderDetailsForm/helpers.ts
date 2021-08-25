@@ -86,7 +86,10 @@ export const validationSchema = Yup.object().shape(
       is: true,
       then: Yup.number().required('Please enter your future monthly income'),
     }),
-    suitabilityConsent: Yup.boolean().required('You must accept to proceed'),
+    suitabilityConsent: Yup.boolean().oneOf(
+      [true],
+      'You must accept to proceed',
+    ),
   },
   [
     ['dayOfBirth', 'monthOfBirth'],

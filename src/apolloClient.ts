@@ -6,10 +6,9 @@ import {
   HttpLink,
   // operationName,
 } from '@apollo/client';
-
+// import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import { RetryLink } from '@apollo/client/link/retry';
-
-// import { createPersistedQueryLink } from 'apollo-link-persisted-queries';
+// import { sha256 } from 'crypto-hash';
 
 import Router from 'next/router';
 import { onError } from '@apollo/client/link/error';
@@ -67,9 +66,11 @@ const httpLink = new HttpLink({
 //     // Assumes that CDN is configured not to cache POST queries
 //     createPersistedQueryLink({
 //       useGETForHashedQueries: false,
+//       sha256,
 //     }) as any,
 //     createPersistedQueryLink({
 //       useGETForHashedQueries: true,
+//       sha256,
 //     }) as any,
 //   ),
 //   new ApolloLink((operation, forward) => {

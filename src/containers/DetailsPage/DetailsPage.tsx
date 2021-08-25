@@ -10,6 +10,9 @@ import Cookies from 'js-cookie';
 import Button from 'core/atoms/button';
 // @ts-ignore
 import decode from 'decode-html';
+
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
+
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
 import css from '!!raw-loader!../../../public/styles/pages/details-page.css';
@@ -100,12 +103,6 @@ const FrequentlyAskedQuestions = dynamic(() =>
 );
 const RouterLink = dynamic(() =>
   import('../../components/RouterLink/RouterLink'),
-);
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
 );
 const Head = dynamic(() => import('../../components/Head/Head'));
 
@@ -533,28 +530,23 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
       <PartnershipLogoHeader />
-      <div
-        className={cx('pdp--content', {
-          '-free-insurance': isSpecialOffer && isCar,
-        })}
-        ref={pdpContent}
-      >
-        {isSpecialOffer && isCar && (
-          <div className="pdp-free-insurance-banner">
-            <Text
-              tag="span"
-              color="black"
-              className="pdp-free-insurance-banner--text"
-            >
-              1 Year&apos;s FREE Insurance
-            </Text>
-            <RouterLink
-              link={INSURANCE_LINK}
-              classNames={{ color: 'black', size: 'regular' }}
-              className="pdp-free-insurance-banner--link"
-            />
-          </div>
-        )}
+      {isSpecialOffer && isCar && (
+        <div className="pdp-free-insurance-banner">
+          <Text
+            tag="span"
+            color="black"
+            className="pdp-free-insurance-banner--text"
+          >
+            1 Year&apos;s FREE Insurance
+          </Text>
+          <RouterLink
+            link={INSURANCE_LINK}
+            classNames={{ color: 'black', size: 'regular' }}
+            className="pdp-free-insurance-banner--link"
+          />
+        </div>
+      )}
+      <div className="pdp--content" ref={pdpContent}>
         {breadcrumbItems && (
           <div className="row:title">
             <Breadcrumb items={breadcrumbItems} />
@@ -612,6 +604,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
           imageAltText={metaTitle}
+          className="pdp--media-gallery"
         />
         <VehicleTechDetails
           vehicleDetails={vehicleDetails}

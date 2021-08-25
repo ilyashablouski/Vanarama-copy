@@ -6,9 +6,9 @@ import {
   GenericPageQuery,
   GenericPageQuery_genericPage_metaData as PageMetaData,
 } from '../../../generated/GenericPageQuery';
-import { productDerivatives as ITextSearchQuery } from '../../../generated/productDerivatives';
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import { ProductDerivativeSort } from '../../../generated/globalTypes';
+import { productDerivatives_productDerivatives as IProductDerivatives } from '../../../generated/productDerivatives';
 
 export enum ITabs {
   Filter,
@@ -16,14 +16,17 @@ export enum ITabs {
 }
 
 export interface ISelectedTags {
-  filterKey: string;
+  filterKey: keyof IFiltersData;
   tags: string[];
   order: number;
 }
 
-export interface IFiltersData extends productFilter_productFilter {
+export interface IFiltersData
+  extends Omit<productFilter_productFilter, 'enginePowerBhp'> {
   from: string[];
   to: string[];
+  toEnginePower: number[];
+  fromEnginePower: number[];
 }
 
 export interface IProps {
@@ -31,8 +34,9 @@ export interface IProps {
   filtersData?: IProductFilter;
   initialFilters: IFiltersData;
   metaData: PageMetaData;
-  preLoadProductDerivatives: ITextSearchQuery;
+  preLoadProductDerivatives: IProductDerivatives;
   carsData?: ICardsData[];
   vansData?: ICardsData[];
   defaultSort?: ProductDerivativeSort[];
+  isAllProductsRequest: boolean;
 }

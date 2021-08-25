@@ -3,6 +3,9 @@ import dynamic from 'next/dynamic';
 import Carousel from 'core/organisms/carousel';
 import ProductCard from 'core/molecules/cards/ProductCard';
 import { useMediaQuery } from 'react-responsive';
+import CardLabel from 'core/molecules/cards/CardLabel';
+import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
+import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
 import { isWished } from '../../utils/wishlistHelpers';
 import { isCompared } from '../../utils/comparatorHelpers';
 import { CompareContext } from '../../utils/comparatorTool';
@@ -18,8 +21,6 @@ import truncateString from '../../utils/truncateString';
 // import useSliderProperties from '../../hooks/useSliderProperties';
 import { features } from './helpers';
 import useWishlist from '../../hooks/useWishlist';
-import ElectricVehicleBanner from '../ElectricVehicleBanner';
-import FreeInsuranceBanner from '../FreeInsuranceBanner';
 import { FuelTypeEnum } from '../../../entities/global';
 
 // Dynamic component loading.
@@ -83,15 +84,15 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
       initialSlideHeight={567}
     >
       {data.productCard?.map(
-        (product, inx) =>
+        (product, index) =>
           product && (
             <ProductCard
               // loadImage
               style={{ maxHeight: 600 }}
               alt={`${product?.manufacturerName} ${product?.modelName} ${product?.derivativeName}`}
-              lazyLoad={inx !== 0}
+              lazyLoad={index !== 0}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={`${product.capId}_${inx}` || ''}
+              key={`${product.capId}_${index}` || ''}
               header={
                 product.leadTime || product.isOnOffer
                   ? {
@@ -174,15 +175,30 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                 ),
                 score: product.averageRating || 5,
               }}
+              extrasRender={
+                getVehicle(product, data.derivatives)?.fuelType?.name ===
+                  FuelTypeEnum.ELECTRIC ||
+                (product?.isOnOffer &&
+                  product.vehicleType === VehicleTypeEnum.CAR) ? (
+                  <>
+                    {getVehicle(product, data.derivatives)?.fuelType?.name ===
+                      FuelTypeEnum.ELECTRIC && (
+                      <CardLabel
+                        text="Free Home charger"
+                        icon={<FreeHomeCharger />}
+                      />
+                    )}
+                    {product?.isOnOffer &&
+                      product.vehicleType === VehicleTypeEnum.CAR && (
+                        <CardLabel
+                          text="1yr Free Insurance"
+                          icon={<FreeInsuranceCardLabelIcon />}
+                        />
+                      )}
+                  </>
+                ) : null
+              }
             >
-              <div className="gallery-promotion-container">
-                {getVehicle(product, data.derivatives)?.fuelType?.name ===
-                  FuelTypeEnum.ELECTRIC && <ElectricVehicleBanner />}
-                {product?.isOnOffer &&
-                  product.vehicleType === VehicleTypeEnum.CAR && (
-                    <FreeInsuranceBanner />
-                  )}
-              </div>
               <div className="-flex-h">
                 <Price
                   price={

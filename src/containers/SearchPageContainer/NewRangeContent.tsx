@@ -82,10 +82,10 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
           )}
         />
 
-        <section className="row:featured-left">
+        <section className="row:featured-left page__range-page-featured-left">
           <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <Image
-              className="card-image"
+              className="card-image media"
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={getSectionsData(
                 ['sectionsAsArray', 'featured', '1', 'image', 'file', 'url'],
@@ -94,6 +94,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
             />
             <div>
               <Heading
+                className="-mb-400"
                 size="large"
                 color="black"
                 tag={
@@ -110,7 +111,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
                   pageData?.genericPage,
                 )}
               </Heading>
-              <div className="markdown">
+              <div className="markdown full-width">
                 <ReactMarkdown
                   allowDangerousHtml
                   source={getSectionsData(
@@ -122,6 +123,24 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
                       const { href, children } = props;
                       return <RouterLink link={{ href, label: children }} />;
                     },
+                    heading: props => (
+                      <Text
+                        {...props}
+                        className="large"
+                        color="darked"
+                        tag="h3"
+                      />
+                    ),
+
+                    paragraph: props => (
+                      <Text
+                        {...props}
+                        tag="span"
+                        className="-big"
+                        size="full-width"
+                        color="darked"
+                      />
+                    ),
                   }}
                 />
               </div>
@@ -129,10 +148,11 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
           </LazyLoadComponent>
         </section>
 
-        <section className="row:featured-left">
+        <section className="row:featured-left page__range-page-featured-left">
           <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <div>
               <Heading
+                className="-mb-400"
                 size="large"
                 color="black"
                 tag={
@@ -149,27 +169,43 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
                   pageData?.genericPage,
                 )}
               </Heading>
-              <div className="markdown">
+              <div className="markdown full-width">
                 <ReactMarkdown
                   allowDangerousHtml
-                  source={
-                    getSectionsData(
-                      ['sectionsAsArray', 'featured', '2', 'body'],
-                      pageData?.genericPage,
-                    ) || ''
-                  }
+                  source={getSectionsData(
+                    ['sectionsAsArray', 'featured', '2', 'body'],
+                    pageData?.genericPage,
+                  )}
                   renderers={{
                     link: props => {
                       const { href, children } = props;
                       return <RouterLink link={{ href, label: children }} />;
                     },
+                    heading: props => (
+                      <Text
+                        {...props}
+                        className="large"
+                        color="darked"
+                        tag="h3"
+                      />
+                    ),
+
+                    paragraph: props => (
+                      <Text
+                        {...props}
+                        tag="span"
+                        className="-big"
+                        size="full-width"
+                        color="darked"
+                      />
+                    ),
                   }}
                 />
               </div>
             </div>
 
             <Image
-              className="card-image"
+              className="card-image media"
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={getSectionsData(
                 ['sectionsAsArray', 'featured', '2', 'image', 'file', 'url'],
@@ -179,10 +215,10 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
           </LazyLoadComponent>
         </section>
 
-        <section className="row:featured-left">
+        <section className="row:featured-left page__range-page-featured-left">
           <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
             <Image
-              className="card-image"
+              className="card-image media"
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={getSectionsData(
                 ['sectionsAsArray', 'featured', '3', 'image', 'file', 'url'],
@@ -191,6 +227,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
             />
             <div>
               <Heading
+                className="-mb-400"
                 size="large"
                 color="black"
                 tag={
@@ -207,20 +244,36 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
                   pageData?.genericPage,
                 )}
               </Heading>
-              <div className="markdown">
+              <div className="markdown full-width">
                 <ReactMarkdown
                   allowDangerousHtml
-                  source={
-                    getSectionsData(
-                      ['sectionsAsArray', 'featured', '3', 'body'],
-                      pageData?.genericPage,
-                    ) || ''
-                  }
+                  source={getSectionsData(
+                    ['sectionsAsArray', 'featured', '3', 'body'],
+                    pageData?.genericPage,
+                  )}
                   renderers={{
                     link: props => {
                       const { href, children } = props;
                       return <RouterLink link={{ href, label: children }} />;
                     },
+                    heading: props => (
+                      <Text
+                        {...props}
+                        className="large"
+                        color="darked"
+                        tag="h3"
+                      />
+                    ),
+
+                    paragraph: props => (
+                      <Text
+                        {...props}
+                        tag="span"
+                        className="-big"
+                        size="full-width"
+                        color="darked"
+                      />
+                    ),
                   }}
                 />
               </div>
@@ -240,7 +293,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         </div>
       </div>
 
-      <div className="row:default">
+      <div className="row:default page__range-page-description">
         <Heading
           className="-a-center -mb-500"
           size="large"
@@ -290,10 +343,10 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         </div>
       </div>
 
-      <section className="row:featured-left">
+      <section className="row:featured-left page__range-page-description">
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <Image
-            className="card-image"
+            className="card-image media"
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             src={getSectionsData(
               ['sectionsAsArray', 'featured', '5', 'image', 'file', 'url'],
@@ -302,6 +355,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
           />
           <div>
             <Heading
+              className="-mb-400"
               size="large"
               color="black"
               tag={
@@ -318,7 +372,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
                 pageData?.genericPage,
               )}
             </Heading>
-            <div className="markdown">
+            <div className="markdown full-width">
               <ReactMarkdown
                 allowDangerousHtml
                 source={getSectionsData(
@@ -330,6 +384,24 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
                     const { href, children } = props;
                     return <RouterLink link={{ href, label: children }} />;
                   },
+                  heading: props => (
+                    <Text
+                      {...props}
+                      className="large"
+                      color="darked"
+                      tag="h3"
+                    />
+                  ),
+
+                  paragraph: props => (
+                    <Text
+                      {...props}
+                      tag="span"
+                      className="-big"
+                      size="full-width"
+                      color="darked"
+                    />
+                  ),
                 }}
               />
             </div>
@@ -341,7 +413,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         ['sectionsAsArray', 'featured', '6', 'video'],
         pageData?.genericPage,
       ) && (
-        <div className="row:default">
+        <div className="row:default page__range-page-media-size">
           <Media
             src={getSectionsData(
               ['sectionsAsArray', 'featured', '6', 'video'],
@@ -357,7 +429,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
         reviews={reviewsData?.rangeDetails?.customerReviews || []}
       />
 
-      <div className="row:default">
+      <div className="row:default page__range-page-description">
         <Heading
           className="-mb-400"
           size="large"
@@ -416,8 +488,7 @@ const NewRangeContent: React.FC<NewRangeContentProps> = ({
           />
         </div>
       </div>
-
-      <NewRangeCarousel newCarousel={newCarousel} />
+      {newCarousel && <NewRangeCarousel newCarousel={newCarousel} />}
     </>
   );
 };

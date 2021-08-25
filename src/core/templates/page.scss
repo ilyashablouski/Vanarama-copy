@@ -125,6 +125,7 @@
     align-items: start;
     background: linear-gradient(to bottom, $white 0, $light 100vh);
     --page-gap: calc(var(--layout-gap) * 1);
+
     @include mobile {
       background: $lighter;
       overflow: hidden;
@@ -136,8 +137,67 @@
 
       .tabs__list-wrap {
         border-radius: 0;
-        border-bottom: 1px solid darken($medium, 10%);
-        border-top: 1px solid darken($medium, 10%);
+        border: 1px solid darken($medium, 10%);
+
+        @include mobile {
+          border-right: 0;
+          border-left: 0;
+        }
+      }
+
+      .tabs__list {
+        font-size: $font-size-400;
+      }
+
+      [role='tab'] {
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        padding: $rem-300;
+        font-weight: $font-weight-semibold;
+        background: $white;
+
+        &.-active {
+          color: $orange;
+          box-shadow: 0 -3px 0 $orange inset;
+        }
+
+        @include mobile {
+          font-size: $font-size-400 !important;
+        }
+
+        .icon {
+          display: inline-flex;
+          height: auto;
+          margin-right: 0.7em;
+          color: inherit;
+
+          &.video svg, &.picture svg {
+            width: $em-400;
+            height: 2.5em;
+          }
+
+          &.rotate svg {
+            width: 2.5em;
+            height: 2.5em;
+          }
+
+          @include mobile {
+            &.video svg, &.picture svg {
+              width: 1.3em;
+              height: $em-500;
+            }
+
+            &.rotate svg {
+              width: $em-500;
+              height: $em-500;
+            }
+          }
+
+          @media (max-width: 374px) {
+            margin-right: $em-200;
+          }
+        }
       }
     }
 
@@ -203,15 +263,17 @@
         @include mobile {
           @include margin-inline(-$rem-400);
           width: 100vw;
-
-          + .tabs-wrap .media {
-            @include margin-inline(-$rem-400);
-            width: 100vw;
-          }
         }
 
         & + * {
           margin-top: 0 !important;
+        }
+      }
+
+      &--media-gallery {
+        @include mobile {
+          @include margin-inline(-$rem-400);
+          width: 100vw;
         }
       }
 
@@ -429,15 +491,16 @@
         padding: 0;
         @include owl($rem-400);
         @include desktop {
-          @include padding-block($rem-500);
+          @include padding-block($rem-300);
         }
         @include tablet {
           grid-column: full / column 7;
           padding-left: $rem-400;
-          @include padding-block($rem-400);
+          margin-right: $rem-400;;
+          @include padding-block($rem-200);
         }
         @include mobile {
-          @include padding-block($rem-400);
+          @include padding-block($rem-200);
           grid-column: content;
         }
 
@@ -592,10 +655,13 @@
         position: relative;
         background: $white;
         @include owl($rem-400);
+        @include desktop {
+          grid-row: 2 / span 3;
+        }
         @include tablet {
+          grid-row: 1 / span 3;
           grid-column: column 7 / full;
           padding: $rem-400 $rem-400 0 $rem-400;
-          margin-left: $rem-400;
         }
         @include mobile {
           grid-column: content;

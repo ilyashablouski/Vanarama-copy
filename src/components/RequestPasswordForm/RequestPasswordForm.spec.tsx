@@ -15,7 +15,7 @@ describe('<RequestPasswordForm />', () => {
       target: { value: 'test@test.tt' },
     });
 
-    fireEvent.submit(screen.getByText('Reset Password'));
+    fireEvent.submit(screen.getByText('Submit'));
 
     // ASSERT
     await waitFor(() => expect(onSubmit).toHaveBeenCalledTimes(1));
@@ -28,7 +28,7 @@ describe('<RequestPasswordForm />', () => {
     // ACT
     render(<RequestPasswordForm onSubmit={onSubmit} />);
 
-    fireEvent.submit(screen.getByText('Reset Password'));
+    fireEvent.submit(screen.getByText('Submit'));
 
     // ASSERT
     await waitFor(() =>

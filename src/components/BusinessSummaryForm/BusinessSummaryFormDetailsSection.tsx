@@ -69,7 +69,7 @@ const SummaryFormDetailsSection: FCWithFragments<IProps> = ({
     },
     {
       label: 'Trading Since',
-      value: fullMonthFormatDate(new Date(company.tradingSince)) || '',
+      value: fullMonthFormatDate(new Date(company.tradingSince ?? '')) || '',
       dataTestId: 'summary-trading-since',
     },
     {

@@ -27,3 +27,8 @@ export interface IIncomeCalculatorProps {
   isSubmitting?: boolean;
   order: IOrderStorageData;
 }
+
+export interface IInitPayModalShowingValues {
+  isOpen?: boolean;
+  controlId?: string;
+}

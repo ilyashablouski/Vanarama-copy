@@ -5,7 +5,7 @@ import LeasingExplainedContainer from '../../../containers/LeasingExplainedConta
 import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import createApolloClient from '../../../apolloClient';
-import Breadcrumb from '../../../components/Breadcrumb/Breadcrumb';
+import Breadcrumb from '../../../core/atoms/breadcrumb-v2';
 import Head from '../../../components/Head/Head';
 import { decodeData, encodeData } from '../../../utils/data';
 import {

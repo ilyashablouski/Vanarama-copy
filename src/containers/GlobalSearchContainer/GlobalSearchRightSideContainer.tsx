@@ -11,13 +11,11 @@ import DropdownNoResults from './DropdownNoResults';
 interface IProps {
   suggestions: ISuggestion[];
   searchQuery: string;
-  totalCount: number;
 }
 
 const GlobalSearchRightSideContainer = ({
   suggestions,
   searchQuery,
-  totalCount,
 }: IProps) => {
   const [lcvCardsData, setLcvCardsData] = useState<ICardsData[]>([]);
   const [carCardsData, setCarCardsData] = useState<ICardsData[]>([]);
@@ -81,14 +79,14 @@ const GlobalSearchRightSideContainer = ({
 
   return (
     <div className="header-search-results">
-      {totalCount === 0 ? (
+      {suggestions.length === 0 ? (
         <DropdownNoResults searchQuery={searchQuery} />
       ) : (
         <>
           <span className="heading -small -dark">Vehicle Deals</span>
 
           <div className="card-two-columns -animate">
-            {suggestions.map((data, idx) => {
+            {suggestions.map((data, index) => {
               return (
                 <GlobalSearchCard
                   data={data}
@@ -98,7 +96,9 @@ const GlobalSearchRightSideContainer = ({
                       VehicleTypeEnum.LCV,
                   )}
                   key={
-                    `${data?.derivativeId}` || `${data?.derivativeName}` || idx
+                    `${data?.derivativeId}` ||
+                    `${data?.derivativeName}` ||
+                    index
                   }
                 />
               );

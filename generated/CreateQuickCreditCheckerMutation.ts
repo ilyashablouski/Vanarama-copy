@@ -30,7 +30,7 @@ export interface CreateQuickCreditCheckerMutation_quickCreditChecker_person {
   uuid: string;
   firstName: string;
   lastName: string;
-  dateOfBirth: any | null;
+  dateOfBirth: CustomDate | null;
   emailAddresses: CreateQuickCreditCheckerMutation_quickCreditChecker_person_emailAddresses[];
   addresses: CreateQuickCreditCheckerMutation_quickCreditChecker_person_addresses[] | null;
   termsAndConditions: boolean | null;

@@ -2,6 +2,7 @@ import React, { FC, useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useLazyQuery } from '@apollo/client';
 import TrustPilot from 'core/molecules/trustpilot';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import {
   TestimonialsData,
   TestimonialsDataVariables,
@@ -34,12 +35,6 @@ const Button = dynamic(() => import('core/atoms/button'), {
 const Rating = dynamic(() => import('core/atoms/rating'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 const Tile = dynamic(() => import('core/molecules/tile'), {
   loading: () => <Skeleton count={3} />,
 });
@@ -110,7 +105,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
         </Heading>
         <br />
         {testimonials?.map(item => (
-          <div className="review" key={item?.name + item?.date}>
+          <div className="review" key={item?.name + (item?.date ?? '')}>
             <Initials fullName={item?.name || ''} />
             <Heading size="regular" color="black">
               {item?.whyLease}

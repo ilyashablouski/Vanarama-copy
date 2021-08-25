@@ -436,8 +436,8 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
                 {(getSectionsData(
                   ['featured1', 'iconList'],
                   data?.homePage?.sections,
-                ) as IIconList[])?.map((icon: IIconList, idx) => (
-                  <IconListItem iconColor="orange" key={icon?.text || idx}>
+                ) as IIconList[])?.map((icon: IIconList, index) => (
+                  <IconListItem iconColor="orange" key={icon?.text || index}>
                     {icon?.text}
                   </IconListItem>
                 ))}
@@ -559,8 +559,8 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
             {(getSectionsData(
               ['tiles', 'tiles'],
               data?.homePage?.sections,
-            ) as TileData[])?.map((tile: TileData, idx) => (
-              <div key={tile.title || idx}>
+            ) as TileData[])?.map((tile: TileData, index) => (
+              <div key={tile.title || index}>
                 <Tile className="-plain -button -align-center" plain>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Image

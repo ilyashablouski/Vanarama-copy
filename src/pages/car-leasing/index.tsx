@@ -11,7 +11,11 @@ import TrustPilot from 'core/molecules/trustpilot';
 import NextHead from 'next/head';
 import decode from 'decode-html';
 import { PreviewNextPageContext } from 'types/common';
+import CardLabel from 'core/molecules/cards/CardLabel';
+import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
+import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
 import { decodeData, encodeData } from '../../utils/data';
+import { ProductCardData_productCarousel as IProduct } from '../../../generated/ProductCardData';
 import { getSectionsData } from '../../utils/getSectionsData';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { isWished } from '../../utils/wishlistHelpers';
@@ -48,9 +52,7 @@ import { GET_SEARCH_POD_DATA } from '../../containers/SearchPodContainer/gql';
 import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { freeInsuranceSmallPrint } from './free-car-insurance';
-import { ProductCardData_productCarousel as IProduct } from '../../../generated/ProductCardData';
-import ElectricVehicleBanner from '../../components/ElectricVehicleBanner';
-import FreeInsuranceBanner from '../../components/FreeInsuranceBanner';
+import { FuelTypeEnum } from '../../../entities/global';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -260,7 +262,7 @@ export const CarsPage: NextPage<IProps> = ({
               setIsPersonal(value.label === 'Personal');
             }}
           />
-          {productsCar?.productCarousel?.map((item, idx) => {
+          {productsCar?.productCarousel?.map((item, index) => {
             const productUrl = formatProductPageUrl(
               getLegacyUrl(vehicleListUrlData.edges, item?.capId),
               item?.capId,
@@ -271,12 +273,12 @@ export const CarsPage: NextPage<IProps> = ({
 
             return (
               <LazyLoadComponent
-                key={item?.capId || idx}
+                key={item?.capId || index}
                 visibleByDefault={isServerRenderOrAppleDevice}
               >
                 <ProductCard
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  key={item?.capId || idx}
+                  key={item?.capId || index}
                   header={{
                     accentIcon: <Icon icon={<Flame />} color="white" />,
                     accentText: 'Hot Offer',
@@ -321,16 +323,28 @@ export const CarsPage: NextPage<IProps> = ({
                     ),
                     score: item?.averageRating || 5,
                   }}
+                  extrasRender={
+                    getFuelType(item) === FuelTypeEnum.ELECTRIC ||
+                    (item?.isOnOffer &&
+                      item?.vehicleType === VehicleTypeEnum.CAR) ? (
+                      <>
+                        {getFuelType(item) === FuelTypeEnum.ELECTRIC && (
+                          <CardLabel
+                            text="Free Home charger"
+                            icon={<FreeHomeCharger />}
+                          />
+                        )}
+                        {item?.isOnOffer &&
+                          item?.vehicleType === VehicleTypeEnum.CAR && (
+                            <CardLabel
+                              text="1yr Free Insurance"
+                              icon={<FreeInsuranceCardLabelIcon />}
+                            />
+                          )}
+                      </>
+                    ) : null
+                  }
                 >
-                  <div className="gallery-promotion-container">
-                    {getFuelType(item) === 'Electric' && (
-                      <ElectricVehicleBanner />
-                    )}
-                    {item?.isOnOffer &&
-                      item?.vehicleType === VehicleTypeEnum.CAR && (
-                        <FreeInsuranceBanner />
-                      )}
-                  </div>
                   <div className="-flex-h">
                     <Price
                       price={
@@ -384,15 +398,17 @@ export const CarsPage: NextPage<IProps> = ({
         <Heading className="-a-center -mb-400" size="large" color="black">
           {data?.hubCarPage.sections?.steps?.heading}
         </Heading>
-        {data?.hubCarPage.sections?.steps?.steps?.map((step: StepData, idx) => (
-          <Step
-            className="-mh-auto"
-            key={step.title || idx}
-            heading={step.title || ''}
-            step={idx + 1}
-            text={step.body || ''}
-          />
-        ))}
+        {data?.hubCarPage.sections?.steps?.steps?.map(
+          (step: StepData, index) => (
+            <Step
+              className="-mh-auto"
+              key={step.title || index}
+              heading={step.title || ''}
+              step={index + 1}
+              text={step.body || ''}
+            />
+          ),
+        )}
       </section>
 
       <section
@@ -527,8 +543,8 @@ export const CarsPage: NextPage<IProps> = ({
             {data && data?.hubCarPage.sections?.tiles?.tilesTitle}
           </Heading>
           {data?.hubCarPage.sections?.tiles?.tiles?.map(
-            (tile: TileData, idx) => (
-              <div key={tile.title || idx}>
+            (tile: TileData, index) => (
+              <div key={tile.title || index}>
                 <Tile className="-plain -button -align-center" plain>
                   <div style={{ display: 'flex', justifyContent: 'center' }}>
                     <Image

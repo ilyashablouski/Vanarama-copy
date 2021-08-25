@@ -31,11 +31,42 @@ export const productCardDataMapper = (data: IVehiclesList | null): ICard => ({
 
 export const buildInitialFilterState = (data: ParsedUrlQuery) => {
   const filters = {} as IFiltersData;
+  // keys for filters which has range format type
+  const rangeFilterKeys = ['budget', 'enginePowerBhp'];
+  // keys for filters which has number format type
+  const numberFilterKeys = ['noOfSeats', 'doors'];
   Object.entries(data).forEach(([key, value]) => {
-    if (key !== 'searchTerm') {
-      filters[key as keyof IFiltersData] = Array.isArray(value)
+    if (key !== 'searchTerm' && !rangeFilterKeys.includes(key)) {
+      (filters[key as keyof IFiltersData] as (
+        | string
+        | number
+      )[]) = Array.isArray(value)
         ? value
-        : [value];
+        : decodeURIComponent(value)
+            .split(',')
+            .map(filterValue =>
+              numberFilterKeys.includes(key)
+                ? parseInt(filterValue, 10)
+                : filterValue,
+            );
+    }
+    if (key === 'budget') {
+      const [from, to] = decodeURIComponent(value as string).split('|');
+      if (from) {
+        filters.from = [from];
+      }
+      if (to) {
+        filters.to = [to];
+      }
+    }
+    if (key === 'enginePowerBhp') {
+      const [from, to] = decodeURIComponent(value as string).split('|');
+      if (from) {
+        filters.fromEnginePower = [parseInt(from, 10)];
+      }
+      if (to) {
+        filters.toEnginePower = [parseInt(to, 10)];
+      }
     }
   });
   return filters;
@@ -46,7 +77,7 @@ export const buildSelectedTags = (data: IFiltersData): ISelectedTags[] =>
     .map(([key, value]) => {
       // if we don't have filter priority set label on the end of list
       return {
-        filterKey: key,
+        filterKey: key as keyof IFiltersData,
         tags: value || [],
         order: filterOrderByNumMap[key] || 999999,
       };
@@ -59,7 +90,7 @@ export const buildFiltersRequestObject = (
   isPersonal?: boolean,
 ): ProductDerivativeFilter => {
   const pureObject = {} as IFiltersData;
-  const { from, to, ...rest } = filters;
+  const { from, to, fromEnginePower, toEnginePower, ...rest } = filters;
   // removing empty arrays from filters
   Object.entries(rest).forEach(([key, value]) => {
     if (value?.[0]) {
@@ -75,10 +106,19 @@ export const buildFiltersRequestObject = (
             max: to?.[0] === '550+' ? null : parseInt(to?.[0], 10),
           }
         : undefined,
-    make: filters.make?.[0],
-    range: filters.range?.[0],
+    manufacturerName: filters.manufacturerName?.[0],
+    rangeName: filters.rangeName?.[0],
     financeTypes: isPersonal ? [FinanceType.PCH] : [FinanceType.BCH],
     onOffer: onOffer || null,
+    mpgGroup: filters.mpgGroup?.[0],
+    co2Group: filters.co2Group?.[0],
+    enginePowerBhp:
+      filters.fromEnginePower?.[0] || filters.toEnginePower?.[0]
+        ? {
+            min: filters.fromEnginePower?.[0] || undefined,
+            max: filters.toEnginePower?.[0] || undefined,
+          }
+        : undefined,
   };
 };
 
@@ -102,11 +142,11 @@ export const DEFAULT_SORT = [
  * */
 export const isSimilarPage = (prevProps: IProps, nextProps: IProps) => {
   const prevCapIds =
-    prevProps.preLoadProductDerivatives.productDerivatives?.derivatives?.map(
+    prevProps.preLoadProductDerivatives?.derivatives?.map(
       derivative => derivative?.capId,
     ) || [];
   const nextCapIds =
-    nextProps.preLoadProductDerivatives.productDerivatives?.derivatives?.map(
+    nextProps.preLoadProductDerivatives?.derivatives?.map(
       derivative => derivative?.capId,
     ) || [];
   return (

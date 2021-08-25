@@ -1,6 +1,8 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import DefaultErrorPage from 'next/error';
 import { PreviewNextPageContext } from 'types/common';
+import SchemaJSON from 'core/atoms/schema-json';
+import React from 'react';
 import createApolloClient from '../../../../apolloClient';
 import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import CategoryPageContainer from '../../../../containers/CategoryPageContainer/CategoryPageContainer';
@@ -9,6 +11,10 @@ import { IBlogCategory } from '../../../../models/IBlogsProps';
 import { buildStaticPaths, getBlogPosts } from '../../../../utils/pagination';
 import { getMetadataForPagination } from '../../../../utils/url';
 import { decodeData } from '../../../../utils/data';
+import {
+  convertSlugToBreadcrumbsSchema,
+  getBreadCrumbsItems,
+} from '../../../../utils/breadcrumbs';
 
 const CategoryPage: NextPage<IBlogCategory> = ({
   data: encodedData,
@@ -28,18 +34,22 @@ const CategoryPage: NextPage<IBlogCategory> = ({
     getSectionsData(['metaData'], data?.blogPosts),
     pageNumber,
   );
-  const breadcrumbsItems = metaData?.breadcrumbs?.map((el: any) => ({
-    link: { href: el.href || '', label: el.label },
-  }));
+  const breadcrumbsItems = getBreadCrumbsItems(metaData);
+  const breadcrumbsSchema = convertSlugToBreadcrumbsSchema(metaData.slug);
 
   return (
-    <CategoryPageContainer
-      breadcrumbsItems={breadcrumbsItems}
-      metaData={metaData}
-      articles={articles}
-      pageTitle={pageTitle}
-      activePageRoute={pageNumber || 1}
-    />
+    <>
+      <CategoryPageContainer
+        breadcrumbsItems={breadcrumbsItems}
+        metaData={metaData}
+        articles={articles}
+        pageTitle={pageTitle}
+        activePageRoute={pageNumber || 1}
+      />
+      {metaData.slug && !metaData.schema && (
+        <SchemaJSON json={JSON.stringify(breadcrumbsSchema)} />
+      )}
+    </>
   );
 };
 

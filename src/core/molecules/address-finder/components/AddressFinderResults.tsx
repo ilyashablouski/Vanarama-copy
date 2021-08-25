@@ -27,9 +27,9 @@ const AddressFinderResults: React.FC<IBaseProps> = ({
       scrollable
     >
       <ul className="address-finder--dropdown--ul">
-        {data.map((item, idx) => (
+        {data.map((item, index) => (
           <li
-            key={`${item.id}_${idx.toString()}`}
+            key={`${item.id}_${index.toString()}`}
             onMouseDown={() => onSuggestionSelected(item)}
           >
             <b>{item.text}</b> - {item.description}

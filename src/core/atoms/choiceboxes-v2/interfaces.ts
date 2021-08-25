@@ -7,9 +7,10 @@ export interface IChoiceBoxesV2Props extends IBaseProps {
   labelClassName?: string;
   color?: TColor;
   name?: string;
-  values: Array<string>;
-  selectedValues?: Nullish<Array<string>>;
+  values: Array<string | number>;
+  selectedValues?: Nullish<Array<string | number>>;
   multiSelect?: boolean;
   disabled?: boolean;
-  onChange: (values: Array<string>) => void;
+  onChange: (values: Array<string | number>) => void;
+  idPrefix?: string;
 }

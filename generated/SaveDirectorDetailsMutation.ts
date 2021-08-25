@@ -19,7 +19,7 @@ export interface SaveDirectorDetailsMutation_createUpdateCompanyDirectorV2_assoc
   lineTwo: string | null;
   postcode: string;
   serviceId: string | null;
-  startedOn: any | null;
+  startedOn: CustomDate | null;
 }
 
 export interface SaveDirectorDetailsMutation_createUpdateCompanyDirectorV2_associates {

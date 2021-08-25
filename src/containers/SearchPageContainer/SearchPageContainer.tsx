@@ -68,7 +68,7 @@ import Head from '../../components/Head/Head';
 import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
-import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import Breadcrumb from '../../core/atoms/breadcrumb-v2';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import TilesBlock from './TilesBlock';
 import ResultsContainer from './ResultsContainer';
@@ -155,7 +155,6 @@ interface IProps {
   preloadMake?: string;
   defaultSort?: SortObject[];
   newRangePageSlug?: string;
-  isNewRangePage?: Boolean;
 }
 
 const SearchPageContainer: React.FC<IProps> = ({
@@ -191,7 +190,6 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadTopOffersCardsData,
   defaultSort,
   newRangePageSlug,
-  isNewRangePage,
 }: IProps) => {
   // assign here as when inline causing hook lint errors
 
@@ -204,9 +202,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const client = useApolloClient();
   const router = useRouter();
   const isNewPage =
-    isNewRangePage &&
-    newRangePageSlug &&
-    !!NEW_RANGE_SLUGS.includes(newRangePageSlug);
+    newRangePageSlug && !!NEW_RANGE_SLUGS.includes(newRangePageSlug);
   const isDynamicFilterPage = useMemo(
     () => isBodyStylePage || isFuelPage || isTransmissionPage || isBudgetPage,
     [isBodyStylePage, isFuelPage, isTransmissionPage, isBudgetPage],
@@ -975,8 +971,8 @@ const SearchPageContainer: React.FC<IProps> = ({
           <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
             {isDesktopOrTablet
               ? metaData?.name
-              : titleWithBreaks.map((line, idx) => (
-                  <React.Fragment key={String(idx)}>
+              : titleWithBreaks.map((line, index) => (
+                  <React.Fragment key={String(index)}>
                     {line} <br />
                   </React.Fragment>
                 ))}
@@ -1036,6 +1032,7 @@ const SearchPageContainer: React.FC<IProps> = ({
             <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
               <div>
                 <Heading
+                  className="-mb-400"
                   size="large"
                   color="black"
                   tag={
@@ -1052,7 +1049,7 @@ const SearchPageContainer: React.FC<IProps> = ({
                     pageData?.genericPage,
                   )}
                 </Heading>
-                <div className="markdown">
+                <div className="markdown full-width">
                   <ReactMarkdown
                     allowDangerousHtml
                     source={getSectionsData(
@@ -1064,6 +1061,24 @@ const SearchPageContainer: React.FC<IProps> = ({
                         const { href, children } = props;
                         return <RouterLink link={{ href, label: children }} />;
                       },
+                      heading: props => (
+                        <Text
+                          {...props}
+                          className="large"
+                          color="darked"
+                          tag="h3"
+                        />
+                      ),
+
+                      paragraph: props => (
+                        <Text
+                          {...props}
+                          tag="span"
+                          className="-big"
+                          size="full-width"
+                          color="darked"
+                        />
+                      ),
                     }}
                   />
                 </div>
@@ -1325,11 +1340,11 @@ const SearchPageContainer: React.FC<IProps> = ({
                       className="-col3"
                     >
                       {carousel?.cards.map(
-                        (card, indx) =>
+                        (card, index) =>
                           card && (
                             <Card
                               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                              key={`${card.name}_${indx.toString()}`}
+                              key={`${card.name}_${index.toString()}`}
                               className="card__article"
                               imageSrc={
                                 card?.image?.file?.url ||

@@ -58,11 +58,14 @@ $include-presentation-styles: false !default;
 // @import '../atoms/tooltip/tooltip.scss';
 @import '../atoms/hot-offer/hot-offer.scss';
 
+@import '../atoms/custom-select/custom-new-select.scss';
 // components (molecules)
 @import '../molecules/formgroup/formgroup.scss';
 // @import '../molecules/accordion/accordion.scss';
 @import '../molecules/address-finder/address-finder.scss';
 @import '../molecules/cards/card.scss';
+@import '../molecules/custom-mobile-select/custom-mobile-select.scss';
+@import '../molecules/color-selection/color-selection.scss';
 // @import '../molecules/ivan-cta/ivan-cta.scss';
 @import '../molecules/modal/modal.scss';
 // @import '../molecules/notification/notification.scss';
@@ -94,6 +97,7 @@ $include-presentation-styles: false !default;
 @import '../organisms/structured-list/structured-list.scss';
 // @import '../organisms/timeline/timeline.scss';
 @import '../organisms/wishlist/wishlist.scss';
+@import '../organisms/cookie-bar/cookie-bar.scss';
 @import '../organisms/comparator-bar/comparator-bar.scss';
 @import '../organisms/comparator-table/comparator-table.scss';
 @import '../organisms/nlol-hero/nlol-hero.scss';
@@ -105,3 +109,4 @@ $include-presentation-styles: false !default;
 @import '../templates/footer.scss';
 @import '../templates/ev-templates.scss';
 @import '../templates/row.scss';
+

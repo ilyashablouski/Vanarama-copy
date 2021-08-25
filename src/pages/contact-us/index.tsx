@@ -6,6 +6,7 @@ import Map from 'core/atoms/map';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import DefaultErrorPage from 'next/error';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   ContactUsPageData_contactUsLandingPage_sections_cards_cards as Cards,
@@ -43,12 +44,6 @@ const Button = dynamic(() => import('core/atoms/button'), {
 const CardTitle = dynamic(() => import('core/molecules/cards/CardTitle'), {
   loading: () => <Skeleton count={1} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 
 export const ContactUsPage: NextPage<IGenericPage> = ({
   data,
@@ -148,10 +143,10 @@ export const ContactUsPage: NextPage<IGenericPage> = ({
           {(getSectionsData(
             ['cards', 'cards'],
             data?.genericPage.sections,
-          ) as Cards[])?.map((c: Cards, idx) => (
+          ) as Cards[])?.map((c: Cards, index) => (
             <Card
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={c.title || idx}
+              key={c.title || index}
             >
               <Heading size="large" color="black">
                 {c.title}
@@ -211,11 +206,11 @@ export const ContactUsPage: NextPage<IGenericPage> = ({
         {(getSectionsData(
           ['featured2', 'cards'],
           data?.genericPage.sections,
-        ) as Cards2[])?.map((c: Cards2 | null, idx) => (
+        ) as Cards2[])?.map((c: Cards2 | null, index) => (
           <Card
             optimisedHost={process.env.IMG_OPTIMISATION_HOST}
             inline
-            key={c?.title || idx}
+            key={c?.title || index}
           >
             <Image
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}

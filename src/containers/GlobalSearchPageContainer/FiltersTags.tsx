@@ -1,6 +1,12 @@
 import Close from 'core/assets/icons/Close';
-import { useMemo } from 'react';
-import { ISelectedTags } from './interfaces';
+import { useCallback, useMemo } from 'react';
+import { IFiltersData, ISelectedTags } from './interfaces';
+import {
+  renderBudgetValue,
+  renderDoorsValue,
+  renderPowerEngineValue,
+  renderSeatsValue,
+} from '../../components/GlobalSearchPageFilters/helpers';
 
 interface IProps {
   tags: ISelectedTags[];
@@ -8,10 +14,31 @@ interface IProps {
   removeFilterValue: (value: string, key: string) => void;
 }
 const FiltersTags = ({ tags, clearAllFilters, removeFilterValue }: IProps) => {
+  const renderFunction = useCallback(
+    (value: string, key: keyof IFiltersData) => {
+      switch (key) {
+        case 'from':
+        case 'to':
+          return renderBudgetValue(value);
+        case 'fromEnginePower':
+        case 'toEnginePower':
+          return renderPowerEngineValue(value);
+        case 'noOfSeats':
+          return renderSeatsValue(value);
+        case 'doors':
+          return renderDoorsValue(value);
+        default:
+          return value;
+      }
+    },
+    [],
+  );
+
   const isShowClearAllBtn = useMemo(
     () => tags.map(filterTags => filterTags.tags).flat().length > 1,
     [tags],
   );
+
   return (
     <div className="srp-f-tags">
       {tags.map(filterTags =>
@@ -21,9 +48,7 @@ const FiltersTags = ({ tags, clearAllFilters, removeFilterValue }: IProps) => {
             key={`${filterTags.filterKey}-${tag}`}
             onClick={() => removeFilterValue(tag, filterTags.filterKey)}
           >
-            {filterTags.filterKey === 'from' || filterTags.filterKey === 'to'
-              ? `£${tag}`
-              : tag}
+            {renderFunction(tag, filterTags.filterKey)}
             <Close />
           </button>
         )),

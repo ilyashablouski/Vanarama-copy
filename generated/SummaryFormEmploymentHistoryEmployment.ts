@@ -19,5 +19,5 @@ export interface SummaryFormEmploymentHistoryEmployment {
   companyName: string | null;
   workPhoneNumber: string | null;
   grossAnnualIncome: number | null;
-  employedSinceDate: any | null;
+  employedSinceDate: CustomDate | null;
 }

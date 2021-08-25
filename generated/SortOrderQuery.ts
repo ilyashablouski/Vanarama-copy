@@ -8,5 +8,5 @@
 // ====================================================
 
 export interface SortOrderQuery {
-  sortOrder: any | null;
+  sortOrder: CustomJSON | null;
 }

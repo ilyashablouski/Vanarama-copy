@@ -10,7 +10,7 @@ import Modal from 'core/molecules/modal';
 import Heading from 'core/atoms/heading';
 import Loading from 'core/atoms/loading';
 
-import Breadcrumb from 'components/Breadcrumb';
+import Breadcrumb from '../../core/atoms/breadcrumb-v2';
 
 import useWishlist from '../../hooks/useWishlist';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';

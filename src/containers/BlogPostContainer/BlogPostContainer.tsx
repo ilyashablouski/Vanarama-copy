@@ -4,6 +4,7 @@ import { NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
+import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sections_cards_cards } from '../../../generated/GenericPageQuery';
 import { GenericPageHeadQuery_genericPage_metaData } from '../../../generated/GenericPageHeadQuery';
@@ -31,12 +32,6 @@ const Media = dynamic(() => import('core/atoms/media'), {
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={5} />,
 });
-const Breadcrumb = dynamic(
-  () => import('../../components/Breadcrumb/Breadcrumb'),
-  {
-    loading: () => <Skeleton count={1} />,
-  },
-);
 
 export const renderHeading = (props: IHeading) =>
   React.createElement(
@@ -138,12 +133,12 @@ const BlogPostContainer: NextPage<IProps> = ({
                 Related Articles
               </Heading>
             )}
-            {articles?.map((el, indx) => {
+            {articles?.map((el, index) => {
               const hrefLink = setSource((el?.legacyUrl || el?.slug) ?? '');
               return (
                 <Card
                   optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  key={`${el?.name}_${indx.toString()}`}
+                  key={`${el?.name}_${index.toString()}`}
                   className="card__article"
                   imageSrc={el?.featuredImage?.file?.url || ''}
                   title={{
@@ -180,7 +175,9 @@ const BlogPostContainer: NextPage<IProps> = ({
       {metaData && (
         <>
           <Head metaData={metaData} featuredImage={null} />
-          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+          {metaData.schema && (
+            <SchemaJSON json={JSON.stringify(metaData.schema)} />
+          )}
         </>
       )}
       <script async src="https://www.riddle.com/files/js/embed.js" />
