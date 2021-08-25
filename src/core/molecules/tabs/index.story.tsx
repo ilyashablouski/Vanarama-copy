@@ -1,49 +1,60 @@
-import { select, withKnobs } from '@storybook/addon-knobs';
-import { storiesOf } from '@storybook/react';
-import base from 'paths.macro';
 import React, { useState } from 'react';
+import base from 'paths.macro';
+import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import Tabs from '.';
-import { atomicDir } from '../../../helpers/atomicDirUtils';
+
 import { TSize } from '../../../types/size';
+import { Nullish } from '../../../types/common';
 import { TabAlignment, TabColorVariant } from './interfaces';
+import { atomicDir } from '../../../helpers/atomicDirUtils';
+
 import Tab from './Tab';
 import TabList from './TabList';
 import TabPanel from './TabPanel';
 import TabPanels from './TabPanels';
+import Tabs from '.';
 
-storiesOf(`${atomicDir(base)}/Tabs`, module)
-  .addDecorator(withKnobs)
-  .add('Default', () => {
+const params = {
+  args: {
+    align: 'start',
+    size: 'regular',
+    variant: 'normal',
+  },
+  argTypes: {
+    align: {
+      options: ['start', 'center', 'expand'],
+      control: { type: 'select' },
+    },
+    size: {
+      options: ['xsmall', 'small', 'regular', 'lead', 'large'],
+      control: { type: 'select' },
+    },
+    variant: {
+      options: ['alternative', 'normal'],
+      control: { type: 'select' },
+    },
+  },
+};
+
+interface ICustomArgs {
+  align?: TabAlignment;
+  variant?: TabColorVariant;
+  size?: TSize;
+}
+
+storiesOf(`${atomicDir(base)}/Tabs`, module).add(
+  'Default',
+  (args: Nullish<ICustomArgs>) => {
     const [activeIndex, setActiveIndex] = useState(1);
-    const align = select<TabAlignment>(
-      'Alignment',
-      ['start', 'center', 'expand'],
-      'start',
-    );
-
-    const size = select<TSize>(
-      'Size',
-      ['xsmall', 'small', 'regular', 'lead', 'large'],
-      'regular',
-    );
-
-    const variant = select<TabColorVariant>(
-      'Variant',
-      ['alternative', 'normal'],
-      'normal',
-    );
 
     return (
       <Tabs
+        {...args}
         activeIndex={activeIndex}
-        align={align}
         onChange={index => {
           action('onChange called')(index);
           setActiveIndex(index);
         }}
-        size={size}
-        variant={variant}
       >
         <TabList>
           <Tab index={1}>Tab one</Tab>
@@ -84,4 +95,6 @@ storiesOf(`${atomicDir(base)}/Tabs`, module)
         </TabPanels>
       </Tabs>
     );
-  });
+  },
+  params,
+);

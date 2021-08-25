@@ -19,7 +19,7 @@ storiesOf(`${atomicDir(base)}/CustomSelectInput`, module).add('Default', () => {
     >
       <div ref={ref} />
       <CustomSelectInput
-        listRender={() => <></>}
+        listRender={<></>}
         title="Select value:"
         label="Value"
         modalElement={ref.current}
