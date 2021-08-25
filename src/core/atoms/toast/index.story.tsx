@@ -1,11 +1,14 @@
-import { select, withKnobs } from '@storybook/addon-knobs';
-import { storiesOf } from '@storybook/react';
-import base from 'paths.macro';
 import React from 'react';
+import base from 'paths.macro';
+import { storiesOf } from '@storybook/react';
 import { ToastPosition } from 'react-toastify';
+
 import { atomicDir } from '../../../helpers/atomicDirUtils';
-import Button from '../button';
+import { Nullish } from '../../../types/common';
+
 import { error, info, success, ToastContainer, warning } from './Toast';
+
+import Button from '../button';
 
 const buttonContainerStyles = {
   display: 'grid',
@@ -17,12 +20,13 @@ const buttonContainerStyles = {
 const message =
   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.';
 
-storiesOf(`${atomicDir(base)}/Toast`, module)
-  .addDecorator(withKnobs)
-  .add('Example', () => {
-    const position = select<ToastPosition>(
-      'Position',
-      [
+const params = {
+  args: {
+    position: 'bottom-right',
+  },
+  argTypes: {
+    position: {
+      options: [
         'bottom-center',
         'bottom-left',
         'bottom-right',
@@ -30,38 +34,49 @@ storiesOf(`${atomicDir(base)}/Toast`, module)
         'top-left',
         'top-right',
       ],
-      'bottom-right',
-    );
+      control: {
+        type: 'select',
+      },
+    },
+  },
+};
 
-    return (
-      <>
-        <ToastContainer position={position} />
-        <div style={buttonContainerStyles}>
-          <Button
-            color="darker"
-            label="Show info toast"
-            onClick={() => info('Info Toast', message)}
-            size="small"
-          />
-          <Button
-            color="danger"
-            label="Show error toast"
-            onClick={() => error('Error Toast', message)}
-            size="small"
-          />
-          <Button
-            color="warning"
-            label="Show warning toast"
-            onClick={() => warning('Warning Toast', message)}
-            size="small"
-          />
-          <Button
-            color="success"
-            label="Show success toast"
-            onClick={() => success('Success Toast', message)}
-            size="small"
-          />
-        </div>
-      </>
-    );
-  });
+interface ICustomArgs {
+  position?: ToastPosition;
+}
+
+storiesOf(`${atomicDir(base)}/Toast`, module).add(
+  'Example',
+  (args: Nullish<ICustomArgs>) => (
+    <>
+      <ToastContainer position={args?.position} />
+      <div style={buttonContainerStyles}>
+        <Button
+          color="darker"
+          label="Show info toast"
+          onClick={() => info('Info Toast', message)}
+          size="small"
+        />
+        <Button
+          color="danger"
+          label="Show error toast"
+          onClick={() => error('Error Toast', message)}
+          size="small"
+        />
+        <Button
+          color="warning"
+          label="Show warning toast"
+          onClick={() => warning('Warning Toast', message)}
+          size="small"
+        />
+        <Button
+          color="success"
+          label="Show success toast"
+          onClick={() => success('Success Toast', message)}
+          size="small"
+        />
+      </div>
+    </>
+  ),
+  params,
+);
