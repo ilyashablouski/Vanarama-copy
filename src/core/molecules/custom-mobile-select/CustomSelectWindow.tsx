@@ -6,7 +6,7 @@ import cx from 'classnames';
 interface IProps {
   title: string;
   children?: ReactNode;
-  onClose: (e: MouseEvent<HTMLButtonElement>) => void;
+  onClose: (e: MouseEvent) => void;
 }
 
 const CustomSelectWindow = ({ title, onClose, children }: IProps) => {
@@ -21,8 +21,18 @@ const CustomSelectWindow = ({ title, onClose, children }: IProps) => {
     }
   };
 
+  const onOverlayClick = (e: MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      onClose(e);
+    }
+  };
+
   return (
-    <div className="custom-select-window">
+    <div
+      className="custom-select-window"
+      onClick={onOverlayClick}
+      role="dialog"
+    >
       <div className="select-window">
         <div
           className={cx('list-header', {
