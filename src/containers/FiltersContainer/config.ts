@@ -1,5 +1,5 @@
 export enum FilterFields {
-  make = 'make',
+  manufacturer = 'manufacturer',
   model = 'model',
   from = 'from',
   to = 'to',
@@ -14,7 +14,7 @@ export const filtersConfig = [
     accessor: '',
     contentType: 'dropdowns',
     dropdowns: [
-      { label: 'Make', accessor: FilterFields.make },
+      { label: 'Make', accessor: FilterFields.manufacturer },
       { label: 'Model', accessor: FilterFields.model },
     ],
   },

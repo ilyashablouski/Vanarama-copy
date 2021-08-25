@@ -1,7 +1,7 @@
 const VANS_TAB = {
   dropdowns: [
     { label: 'Select Type', accessor: 'typeVans' },
-    { label: 'Select Make', accessor: 'makeVans' },
+    { label: 'Select Make', accessor: 'manufacturerVans' },
     { label: 'Select Model', accessor: 'modelVans' },
     { label: 'Select Budget', accessor: 'budgetVans' },
   ],
@@ -13,7 +13,7 @@ const VANS_TAB = {
 
 const CARS_TAB = {
   dropdowns: [
-    { label: 'Select Make', accessor: 'makeCars' },
+    { label: 'Select Make', accessor: 'manufacturerCars' },
     { label: 'Select Model', accessor: 'modelCars' },
     { label: 'Select Type', accessor: 'typeCars' },
     { label: 'Select Budget', accessor: 'budgetCars' },

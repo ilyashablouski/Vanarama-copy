@@ -46,7 +46,7 @@ interface IProps extends ISearchPageProps {
   responseCapIds?: string[];
   filtersData?: IFilterList | undefined;
   bodyStyleList?: IModelsData[];
-  makeParam: string;
+  manufacturerParam: string;
   rangeParam?: string;
   topOffersList?: vehicleList;
   topOffersCardsData?: GetProductCard;
@@ -68,7 +68,7 @@ const Page: NextPage<IProps> = ({
   notFoundPageData,
   filtersData,
   rangeParam,
-  makeParam,
+  manufacturerParam,
   defaultSort,
   newRangePageSlug,
 }) => {
@@ -81,8 +81,11 @@ const Page: NextPage<IProps> = ({
   const topOffersCardsData = decodeData(topOffersCardsEncodedData);
 
   useEffect(() => {
-    if (!router.query.make) {
-      const query = { ...router.query, make: router.query.dynamicParam };
+    if (!router.query.manufacturer) {
+      const query = {
+        ...router.query,
+        manufacturer: router.query.dynamicParam,
+      };
       const { asPath, pathname } = router;
       router.replace(
         {
@@ -123,7 +126,7 @@ const Page: NextPage<IProps> = ({
       preLoadProductCardsData={productCardsData}
       preLoadResponseCapIds={responseCapIds}
       preLoadFiltersData={filtersData}
-      preloadMake={makeParam}
+      preloadManufacturer={manufacturerParam}
       preloadRange={rangeParam}
       preLoadTopOffersList={topOffersList}
       preLoadTopOffersCardsData={topOffersCardsData}
@@ -135,7 +138,8 @@ const Page: NextPage<IProps> = ({
 
 export async function getServerSideProps(context: SlugNextPageContext) {
   const client = createApolloClient({});
-  const makeName = (context?.query?.dynamicParam as string).toLowerCase();
+  const manufacturerName = (context?.query
+    ?.dynamicParam as string).toLowerCase();
   const rangeName = (context?.query?.rangeName as string).toLowerCase();
   let vehiclesList;
   let productCardsData;
@@ -182,7 +186,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
             onOffer: null,
             first: RESULTS_PER_REQUEST,
             sort: defaultSort,
-            manufacturerSlug: makeName,
+            manufacturerSlug: manufacturerName,
             rangeSlug: rangeName,
           },
         })
@@ -194,7 +198,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
           variables: {
             vehicleTypes: VehicleTypeEnum.CAR,
             leaseType: LeaseTypeEnum.PERSONAL,
-            manufacturerSlug: makeName,
+            manufacturerSlug: manufacturerName,
             rangeSlug: rangeName,
           },
         });
@@ -203,7 +207,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
           resp.data.bodyStyleList.map(async (listItem: IModelsData) => {
             const { data: slug } = await getGenericSearchPageSlug(
               formatUrl(
-                `car-leasing/${makeName}/${rangeName}/${listItem.bodyStyle}`,
+                `car-leasing/${manufacturerName}/${rangeName}/${listItem.bodyStyle}`,
               ),
             );
             return {
@@ -254,7 +258,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
           sort: [
             { field: SortField.offerRanking, direction: SortDirection.ASC },
           ],
-          manufacturerSlug: makeName,
+          manufacturerSlug: manufacturerName,
           rangeSlug: rangeName,
         },
       })
@@ -273,7 +277,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
         })
         .then(resp => resp.data);
     }
-    context.query.make = makeName;
+    context.query.manufacturer = manufacturerName;
     return {
       props: {
         pageData: data,
@@ -287,7 +291,8 @@ export async function getServerSideProps(context: SlugNextPageContext) {
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
         filtersData: filtersData?.filterList || null,
-        makeParam: (context?.query?.dynamicParam as string).toLowerCase(),
+        manufacturerParam: (context?.query
+          ?.dynamicParam as string).toLowerCase(),
         rangeParam: (context?.query?.rangeName as string).toLowerCase(),
         defaultSort: defaultSort || null,
         newRangePageSlug: contextData.req?.resolvedUrl || '',

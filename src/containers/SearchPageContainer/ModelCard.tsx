@@ -23,11 +23,11 @@ interface IModelCardProps {
   isPersonalPrice: boolean;
   data?: IExtModelData;
   range?: string;
-  make?: string;
+  manufacturer?: string;
 }
 
 const ModelCard = memo(
-  ({ isPersonalPrice, data, range, make }: IModelCardProps) => {
+  ({ isPersonalPrice, data, range, manufacturer }: IModelCardProps) => {
     const [legacySlug, setLegacySlug] = useState(data?.legacyUrl || '');
     const { query } = useRouter();
     const { data: imageData } = useModelImages(
@@ -38,7 +38,7 @@ const ModelCard = memo(
       imageSrc: imageData?.vehicleImages?.[0]?.mainImageUrl || '',
     };
 
-    const makeName = make || (query.dynamicParam as string);
+    const manufacturerName = manufacturer || (query.dynamicParam as string);
     const rangeName =
       range || (query.rangeName as string).split('+').join(' ') || '';
 
@@ -47,14 +47,14 @@ const ModelCard = memo(
       if (!legacySlug) {
         const initGetSlug = async () => {
           const newUrl = formatUrl(
-            `car-leasing/${makeName}/${rangeName}/${data?.bodyStyle}`,
+            `car-leasing/${manufacturerName}/${rangeName}/${data?.bodyStyle}`,
           );
           const { data: slug } = await getGenericSearchPageSlug(newUrl);
           setLegacySlug(slug?.genericPage.metaData.legacyUrl || newUrl);
         };
         initGetSlug();
       }
-    }, [data, legacySlug, makeName, rangeName]);
+    }, [data, legacySlug, manufacturerName, rangeName]);
 
     return (
       <Card
@@ -69,7 +69,7 @@ const ModelCard = memo(
               link={{
                 href: legacySlug,
                 label: `${capitalizeFirstLetter(
-                  makeName,
+                  manufacturerName,
                 )} ${capitalizeFirstLetter(rangeName)} ${data?.bodyStyle ||
                   ''}`,
               }}

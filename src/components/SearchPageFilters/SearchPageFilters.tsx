@@ -24,7 +24,7 @@ import Skeleton from '../Skeleton';
 import { useFilterList } from '../../containers/SearchPodContainer/gql';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
 import {
-  makeHandler,
+  manufacturerHandler,
   modelHandler,
 } from '../../containers/SearchPodContainer/helpers';
 import {
@@ -51,11 +51,11 @@ const SearchPageFilters = ({
   preSearchVehicleCount,
   isSpecialOffers,
   setIsSpecialOffers,
-  isMakePage,
+  isManufacturerPage,
   isPickups,
   isRangePage,
   isModelPage,
-  isAllMakesPage,
+  isAllManufacturersPage,
   isBodyPage,
   isBudgetPage,
   isFuelPage,
@@ -79,9 +79,9 @@ const SearchPageFilters = ({
 }: ISearchPageFiltersProps) => {
   const router = useRouter();
 
-  const [makeData, setMakeData] = useState<Array<IFiltersChildren>>(
-    makeHandler(preLoadFilters || ({} as IFilterList)),
-  );
+  const [manufacturerData, setManufacturerData] = useState<
+    Array<IFiltersChildren>
+  >(manufacturerHandler(preLoadFilters || ({} as IFilterList)));
   const [modelsData, setModelsData] = useState([] as IFiltersChildren[]);
   const [fromBudget] = useState(budgets.slice(0, budgets.length - 1));
   const [toBudget] = useState(budgets.slice(1));
@@ -99,7 +99,7 @@ const SearchPageFilters = ({
   }
 
   const filtersMapper: IFiltersMapper = {
-    make: makeData,
+    manufacturer: manufacturerData,
     model: modelsData,
     from: fromBudget,
     to: toBudget,
@@ -128,10 +128,10 @@ const SearchPageFilters = ({
 
   const { refetch } = useFilterList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
-    isMakePage ||
+    isManufacturerPage ||
       isRangePage ||
       isModelPage ||
-      isAllMakesPage ||
+      isAllManufacturersPage ||
       isDynamicFilterPage
       ? null
       : isSpecialOffers,
@@ -139,7 +139,9 @@ const SearchPageFilters = ({
       if (!Object.keys(allFiltersData).length) {
         setAllFiltersData(resp?.filterList || ({} as IFilterList));
         setFiltersData?.(resp?.filterList || ({} as IFilterList));
-        setMakeData(makeHandler(resp?.filterList || ({} as IFilterList)));
+        setManufacturerData(
+          manufacturerHandler(resp?.filterList || ({} as IFilterList)),
+        );
       }
       return resp;
     },
@@ -156,7 +158,10 @@ const SearchPageFilters = ({
     refetch({
       vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
       onOffer:
-        isMakePage || isRangePage || isAllMakesPage || isDynamicFilterPage
+        isManufacturerPage ||
+        isRangePage ||
+        isAllManufacturersPage ||
+        isDynamicFilterPage
           ? null
           : isSpecialOffers,
       ...filtersObjectForFilters,
@@ -165,7 +170,9 @@ const SearchPageFilters = ({
       if (resp.data?.filterList?.groupedRangesWithSlug?.length) {
         // using then because apollo return incorrect cache result https://github.com/apollographql/apollo-client/issues/3550
         setFiltersData?.(resp.data?.filterList || ({} as IFilterList));
-        setMakeData(makeHandler(resp.data?.filterList || ({} as IFilterList)));
+        setManufacturerData(
+          manufacturerHandler(resp.data?.filterList || ({} as IFilterList)),
+        );
         // set force update to true for rerender choiceboxes with new filter data
         setShouldMakeChoiceboxesForceUpdate?.(true);
         // when allFiltersData changing, preset filters from query will be called
@@ -220,7 +227,7 @@ const SearchPageFilters = ({
                 if (
                   isInclude(
                     element.parent?.slug || '',
-                    (router.query?.make ||
+                    (router.query?.manufacturer ||
                       router.query?.dynamicParam) as string,
                   )
                 ) {
@@ -264,9 +271,12 @@ const SearchPageFilters = ({
                     filtersMapper[key as keyof typeof filtersMapper],
                   ),
                 ].filter(el => !!el);
-            if (key === 'dynamicParam' && (isMakePage || isRangePage)) {
-              presetFilters.make = [
-                findPreselectFilterValue(values as string, filtersMapper.make),
+            if (key === 'dynamicParam' && (isManufacturerPage || isRangePage)) {
+              presetFilters.manufacturer = [
+                findPreselectFilterValue(
+                  values as string,
+                  filtersMapper.manufacturer,
+                ),
               ];
             }
             isValueLose = presetFilters[key][0] ? isValueLose : true;
@@ -332,7 +342,9 @@ const SearchPageFilters = ({
     if (
       (selectedFilterTags?.[0] && isInitialLoad) ||
       (isInitialLoad &&
-        ((isMakePage && selectedFiltersState?.make[0] && searchWithParams(1)) ||
+        ((isManufacturerPage &&
+          selectedFiltersState?.manufacturer[0] &&
+          searchWithParams(1)) ||
           (isBodyPage &&
             selectedFiltersState?.bodyStyles[0] &&
             searchWithParams(1)) ||
@@ -377,7 +389,7 @@ const SearchPageFilters = ({
       setModelsData(
         modelHandler(
           filtersData || ({} as IFilterList),
-          selectedFiltersState?.make[0] || '',
+          selectedFiltersState?.manufacturer[0] || '',
         ),
       );
       // clear temp model value
@@ -414,10 +426,12 @@ const SearchPageFilters = ({
                   <FormGroup label={dropdown.label} key={dropdown.label}>
                     <Select
                       disabled={
-                        (isMakePage &&
-                          dropdown.accessor === FilterFields.make) ||
-                        ((isRangePage || isModelPage || isAllMakesPage) &&
-                          (dropdown.accessor === FilterFields.make ||
+                        (isManufacturerPage &&
+                          dropdown.accessor === FilterFields.manufacturer) ||
+                        ((isRangePage ||
+                          isModelPage ||
+                          isAllManufacturersPage) &&
+                          (dropdown.accessor === FilterFields.manufacturer ||
                             dropdown.accessor === FilterFields.model)) ||
                         (isBudgetPage &&
                           (dropdown.accessor === FilterFields.from ||

@@ -233,7 +233,7 @@ const mocksResponse: MockedResponse[] = [
 
 jest.mock('next/router', () => ({
   useRouter: jest.fn().mockReturnValue({
-    query: { rangeName: '3 series', make: 'BMW' },
+    query: { rangeName: '3 series', manufacturer: 'BMW' },
   }),
 }));
 
@@ -246,7 +246,7 @@ describe('<TopOffersContainer />', () => {
     return {
       isPersonal: true,
       isCarSearch: true,
-      isMakePage: false,
+      isManufacturerPage: false,
       isSpecialOfferPage: true,
       isPickups: false,
       isRangePage: false,

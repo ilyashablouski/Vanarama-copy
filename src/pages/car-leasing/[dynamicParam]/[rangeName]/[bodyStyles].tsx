@@ -35,7 +35,7 @@ interface IProps extends ISearchPageProps {
   productCardsData?: GetProductCard;
   responseCapIds?: string[];
   filtersData?: IFilterList | undefined;
-  makeParam: string;
+  manufacturerParam: string;
   rangeParam?: string;
   defaultSort?: SortObject[];
 }
@@ -51,7 +51,7 @@ const Page: NextPage<IProps> = ({
   error,
   notFoundPageData,
   rangeParam,
-  makeParam,
+  manufacturerParam,
   defaultSort,
 }) => {
   const router = useRouter();
@@ -60,8 +60,11 @@ const Page: NextPage<IProps> = ({
   const productCardsData = decodeData(productEncodedData);
 
   useEffect(() => {
-    if (!router.query.make) {
-      const query = { ...router.query, make: router.query.dynamicParam };
+    if (!router.query.manufacturer) {
+      const query = {
+        ...router.query,
+        manufacturer: router.query.dynamicParam,
+      };
       const { asPath, pathname } = router;
       router.replace(
         {
@@ -97,7 +100,7 @@ const Page: NextPage<IProps> = ({
       preLoadVehiclesList={vehiclesList}
       preLoadProductCardsData={productCardsData}
       preLoadResponseCapIds={responseCapIds}
-      preloadMake={makeParam}
+      preloadManufacturer={manufacturerParam}
       preloadRange={rangeParam}
       defaultSort={defaultSort}
     />
@@ -181,7 +184,7 @@ export async function getServerSideProps(context: NextPageContext) {
         return false;
       }
     }
-    query.make = (query.dynamicParam as string).toLowerCase();
+    query.manufacturer = (query.dynamicParam as string).toLowerCase();
 
     // Obfuscate data from Googlebot
     const vehiclesListData = encodeData(vehiclesList);
@@ -197,7 +200,8 @@ export async function getServerSideProps(context: NextPageContext) {
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
         defaultSort: defaultSort || null,
-        makeParam: (context?.query?.dynamicParam as string).toLowerCase(),
+        manufacturerParam: (context?.query
+          ?.dynamicParam as string).toLowerCase(),
         rangeParam: (context?.query?.rangeName as string).toLowerCase(),
       },
     };

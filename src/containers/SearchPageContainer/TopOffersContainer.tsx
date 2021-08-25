@@ -36,7 +36,7 @@ const Carousel = dynamic(() => import('core/organisms/carousel'), {
 interface IProps {
   isPersonal: boolean;
   isCarSearch: boolean;
-  isMakePage: boolean;
+  isManufacturerPage: boolean;
   isBodyPage: boolean;
   isSpecialOfferPage: boolean;
   isPickups: boolean;
@@ -48,7 +48,7 @@ interface IProps {
   preLoadVehiclesList?: IVehiclesData;
   preLoadProductCardsData?: GetProductCard;
   preloadBodyStyleList?: IModelsData[];
-  preloadMake?: string;
+  preloadManufacturer?: string;
   preloadRange?: string;
   shouldForceUpdate: boolean;
   setShouldForceUpdate: (value: boolean) => void;
@@ -56,7 +56,7 @@ interface IProps {
 
 const TopOffersContainer: React.FC<IProps> = ({
   isCarSearch,
-  isMakePage,
+  isManufacturerPage,
   isBodyPage,
   isBudgetPage,
   isSpecialOfferPage,
@@ -69,7 +69,7 @@ const TopOffersContainer: React.FC<IProps> = ({
   preLoadVehiclesList,
   preLoadProductCardsData,
   preloadBodyStyleList,
-  preloadMake,
+  preloadManufacturer,
   preloadRange,
   shouldForceUpdate,
   setShouldForceUpdate,
@@ -132,14 +132,14 @@ const TopOffersContainer: React.FC<IProps> = ({
         return false;
       }
     },
-    isMakePage ? 6 : 9,
+    isManufacturerPage ? 6 : 9,
     undefined,
     isPickups ? ['Pickup'] : [],
   );
 
   // using for get vehicles for carousel when we switching between pages by header links
   useEffect(() => {
-    if ((isMakePage || isDynamicFilterPage) && shouldForceUpdate) {
+    if ((isManufacturerPage || isDynamicFilterPage) && shouldForceUpdate) {
       getVehicles({
         variables: {
           vehicleTypes: isCarSearch
@@ -170,7 +170,7 @@ const TopOffersContainer: React.FC<IProps> = ({
                   ) || undefined,
               }
             : undefined,
-          manufacturerSlug: isMakePage
+          manufacturerSlug: isManufacturerPage
             ? (router.query?.dynamicParam as string).toLowerCase()
             : undefined,
           bodyStyles: isBodyPage
@@ -188,7 +188,7 @@ const TopOffersContainer: React.FC<IProps> = ({
                 router.query.dynamicParam as keyof typeof fuelMapper
               ] as string).split(',')
             : undefined,
-          first: isMakePage ? 6 : 9,
+          first: isManufacturerPage ? 6 : 9,
         },
       });
       setShouldForceUpdate(false);
@@ -197,7 +197,7 @@ const TopOffersContainer: React.FC<IProps> = ({
     shouldForceUpdate,
     isFuelPage,
     isCarSearch,
-    isMakePage,
+    isManufacturerPage,
     isBodyPage,
     isTransmissionPage,
     isDynamicFilterPage,
@@ -231,7 +231,7 @@ const TopOffersContainer: React.FC<IProps> = ({
 
   return (
     <>
-      {((isMakePage && vehiclesList.length > 3 && !!carDer.length) ||
+      {((isManufacturerPage && vehiclesList.length > 3 && !!carDer.length) ||
         ((isSpecialOfferPage ||
           ((isRangePage || isDynamicFilterPage) && vehiclesList.length > 2)) &&
           !!vehiclesList.length &&
@@ -271,7 +271,7 @@ const TopOffersContainer: React.FC<IProps> = ({
               <ModelCard
                 data={bodyStyle}
                 key={`${bodyStyle.bodyStyle}_${bodyStyle.capId}`}
-                make={preloadMake}
+                manufacturer={preloadManufacturer}
                 range={preloadRange}
                 isPersonalPrice={isPersonal}
               />

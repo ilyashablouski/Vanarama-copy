@@ -12,7 +12,7 @@ import { filterTypeAndBudget } from './gql';
 import {
   budgetBetween,
   getBudgetForQuery,
-  makeHandler,
+  manufacturerHandler,
   modelHandler,
 } from './helpers';
 import {
@@ -110,11 +110,11 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     searchPodCarsData?.filterList?.bodyStyles || [],
   );
 
-  const [makeVans, setMakesVans] = useState(
-    makeHandler(searchPodVansData?.filterList || ({} as IFilterList)),
+  const [manufacturerVans, setManufacturerVans] = useState(
+    manufacturerHandler(searchPodVansData?.filterList || ({} as IFilterList)),
   );
-  const [makeCars, setMakeCars] = useState(
-    makeHandler(searchPodCarsData?.filterList || ({} as IFilterList)),
+  const [manufacturerCars, setManufacturerCars] = useState(
+    manufacturerHandler(searchPodCarsData?.filterList || ({} as IFilterList)),
   );
 
   const [modelVans, setModelsVans] = useState([{}] as IFiltersListOptions[]);
@@ -128,8 +128,8 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     budgetCars,
     typeVans,
     typeCars,
-    makeVans,
-    makeCars,
+    manufacturerVans,
+    manufacturerCars,
     modelVans,
     modelCars,
   };
@@ -140,8 +140,8 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       budgetCars: '',
       typeVans: isShouldPreselectTypes ? 'Pickup' : '',
       typeCars: '',
-      makeVans: '',
-      makeCars: '',
+      manufacturerVans: '',
+      manufacturerCars: '',
       modelVans: '',
       modelCars: '',
     }),
@@ -151,8 +151,8 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   const { register, getValues, watch, setValue } = useForm({
     defaultValues,
   });
-  const selectMakeCars = watch('makeCars');
-  const selectMakeVans = watch('makeVans');
+  const selectManufacturerCars = watch('manufacturerCars');
+  const selectManufacturerVans = watch('manufacturerVans');
   const selectModelVans = watch('modelVans');
   const selectModelCars = watch('modelCars');
   const selectTypeVans = watch('typeVans');
@@ -160,7 +160,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
 
   const [getVehicleData, { data: actualVehicleData }] = filterTypeAndBudget(
     [Tabs[activeIndex]],
-    activeIndex === 1 ? selectMakeVans : selectMakeCars,
+    activeIndex === 1 ? selectManufacturerVans : selectManufacturerCars,
     activeIndex === 1 ? selectModelVans : selectModelCars,
     activeIndex === 1 ? [selectTypeVans] : [selectTypeCars],
     // add custom fuel types for partnership journeys
@@ -171,31 +171,37 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   useEffect(() => {
     if (vansData.groupedRangesWithSlug || carsData.groupedRangesWithSlug) {
       if (activeIndex === 1) {
-        setModelsVans(modelHandler(vansData, selectMakeVans));
+        setModelsVans(modelHandler(vansData, selectManufacturerVans));
       } else {
-        setModelsCars(modelHandler(carsData, selectMakeCars));
+        setModelsCars(modelHandler(carsData, selectManufacturerCars));
       }
     }
-  }, [selectMakeVans, selectMakeCars, vansData, carsData, activeIndex]);
+  }, [
+    selectManufacturerVans,
+    selectManufacturerCars,
+    vansData,
+    carsData,
+    activeIndex,
+  ]);
 
   useEffect(() => {
-    if (!selectMakeVans && getValues('modelVans')) {
+    if (!selectManufacturerVans && getValues('modelVans')) {
       setModelsVansTemp(selectModelVans);
       const parent = vansDataCache.groupedRangesWithSlug?.find(range =>
         range.children.some(ranges => ranges.slug === selectModelVans),
       );
-      setValue('makeVans', parent?.parent.slug as string);
+      setValue('manufacturerVans', parent?.parent.slug as string);
       if (!modelVans?.[0]?.label) {
         setModelsVans(modelHandler(vansDataCache, parent?.parent.slug || ''));
       }
-    } else if (modelVansTemp && selectMakeVans && modelVans.length) {
+    } else if (modelVansTemp && selectManufacturerVans && modelVans.length) {
       // return back a model value because auto change make call a rerender options list
       setValue('modelVans', modelVansTemp);
       setModelsVansTemp('');
     }
   }, [
     selectModelVans,
-    selectMakeVans,
+    selectManufacturerVans,
     modelVansTemp,
     setValue,
     getValues,
@@ -206,10 +212,14 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   // refetch body types and budgets for selected vehicle
   useEffect(() => {
     // if make and bodystyles don't selected set initial values
-    if (activeIndex === 1 && !selectMakeVans && !selectTypeVans) {
+    if (activeIndex === 1 && !selectManufacturerVans && !selectTypeVans) {
       setTypesVans(vansDataCache.bodyStyles || []);
       setValue('modelVans', '');
-    } else if (activeIndex === 2 && !selectMakeCars && !selectTypeCars) {
+    } else if (
+      activeIndex === 2 &&
+      !selectManufacturerCars &&
+      !selectTypeCars
+    ) {
       setTypesVans(carsDataCache.bodyStyles || []);
       setValue('modelCars', '');
     }
@@ -218,9 +228,9 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
       getVehicleData();
     }
   }, [
-    selectMakeVans,
+    selectManufacturerVans,
     selectTypeVans,
-    selectMakeCars,
+    selectManufacturerCars,
     selectTypeCars,
     selectModelCars,
     modelVansTemp,
@@ -265,7 +275,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
             ? budget.slice(minBudgetIndex, maxBudgetIndex)
             : budget,
         );
-        setMakesVans(makeHandler(actualVehicleData?.filterList));
+        setManufacturerVans(manufacturerHandler(actualVehicleData?.filterList));
         setVansData(actualVehicleData?.filterList);
       } else {
         setTypesCars(actualVehicleData?.filterList.bodyStyles || []);
@@ -274,7 +284,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
             ? budget.slice(minBudgetIndex, maxBudgetIndex)
             : budget,
         );
-        setMakeCars(makeHandler(actualVehicleData?.filterList));
+        setManufacturerCars(manufacturerHandler(actualVehicleData?.filterList));
         setCarsData(actualVehicleData.filterList);
       }
     }
@@ -313,8 +323,9 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     const routerUrl = `/${vehicleSearchType}/search`;
     const query = {} as any;
     // make
-    if (values[`make${tabType}` as keyof typeof defaultValues].trim()) {
-      query.make = values[`make${tabType}` as keyof typeof defaultValues];
+    if (values[`manufacturer${tabType}` as keyof typeof defaultValues].trim()) {
+      query.manufacturer =
+        values[`manufacturer${tabType}` as keyof typeof defaultValues];
     }
     if (values[`model${tabType}` as keyof typeof defaultValues].trim()) {
       query.rangeName = values[`model${tabType}` as keyof typeof defaultValues];
@@ -349,13 +360,13 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
   return (
     <SearchPod
       activeTab={activeIndex}
-      onChangeTab={(index: number) => onChangeTab(index)}
+      onChangeTab={index => onChangeTab(index)}
       config={config}
       onSearch={onSearch}
       getOptions={field => getOptions(field)}
       registerDropdown={register}
-      hasCarMakeSelected={!!selectMakeCars}
-      hasVansMakeSelected={!!selectMakeVans}
+      hasCarManufacturerSelected={!!selectManufacturerCars}
+      hasVansManufacturerSelected={!!selectManufacturerVans}
       vansData={vansData}
       vansCachedData={vansDataCache}
       isHomePage={config.length > 1}

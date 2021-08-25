@@ -44,8 +44,8 @@ const SearchPod = ({
   onSearch,
   registerDropdown,
   getOptions,
-  hasCarMakeSelected,
-  hasVansMakeSelected,
+  hasCarManufacturerSelected,
+  hasVansManufacturerSelected,
   vansData,
   vansCachedData,
   isHomePage,
@@ -102,7 +102,7 @@ const SearchPod = ({
                         {!(
                           accessor.indexOf('model') > -1 &&
                           tab.type === 'Cars' &&
-                          !hasCarMakeSelected
+                          !hasCarManufacturerSelected
                         ) ? (
                           <option key="All" value=" ">
                             All{' '}
@@ -120,7 +120,7 @@ const SearchPod = ({
                       {!(
                         accessor.indexOf('model') > -1 &&
                         tab.type === 'Vans' &&
-                        !hasVansMakeSelected
+                        !hasVansManufacturerSelected
                       )
                         ? getOptions(accessor).map(option => {
                             // if option don't have label and slug structure
@@ -142,7 +142,7 @@ const SearchPod = ({
                             vansCachedData.groupedRangesWithSlug
                           )
                             ?.filter((range: IRangesSlug) =>
-                              getOptions('makeVans').some(
+                              getOptions('manufacturerVans').some(
                                 option =>
                                   range.parent.label ===
                                   (option as IOptionsDropdown).label,

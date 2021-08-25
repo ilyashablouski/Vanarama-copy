@@ -9,7 +9,7 @@ import { GENERIC_SEARCH_PAGE_SLUG } from '../../../gql/genericPage';
 jest.mock('next/router', () => ({
   useRouter: jest.fn().mockReturnValue({
     pathname: '/car-leasing/BMW',
-    query: { make: 'BMW', rangeName: '3 series', dynamicParam: 'BMW' },
+    query: { manufacturer: 'BMW', rangeName: '3 series', dynamicParam: 'BMW' },
     route: '/car-leasing/BMW',
   }),
 }));

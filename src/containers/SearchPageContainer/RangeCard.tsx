@@ -15,13 +15,14 @@ const Card = dynamic(() => import('core/molecules/cards/Card'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const getMakeUrl = (
-  makesUrls: ILegacyUrls[],
+const getManufacturerUrl = (
+  manufacturersUrls: ILegacyUrls[],
   searchType: string,
   title: string,
 ) =>
-  makesUrls?.find(
-    make => make.slug === `${searchType}/${formatToSlugFormat(title)}`,
+  manufacturersUrls?.find(
+    manufacturer =>
+      manufacturer.slug === `${searchType}/${formatToSlugFormat(title)}`,
   );
 
 const getRangeUrl = (
@@ -44,9 +45,9 @@ interface IVehicleCardProps {
   fromPrice?: number;
   id: string;
   vehicleType: VehicleTypeEnum;
-  isAllMakesCard?: boolean;
+  isAllManufacturersCard?: boolean;
   rangesUrls?: ILegacyUrls[];
-  makesUrls?: ILegacyUrls[];
+  manufacturersUrls?: ILegacyUrls[];
 }
 
 const RangeCard = memo(
@@ -56,16 +57,16 @@ const RangeCard = memo(
     vehicleType,
     title,
     fromPrice,
-    isAllMakesCard,
+    isAllManufacturersCard,
     rangesUrls,
-    makesUrls,
+    manufacturersUrls,
   }: IVehicleCardProps) => {
     // TODO: Should be changed when query for get images will updated
     const { pathname, query } = useRouter();
     const searchType = pathname.slice(1).split('/')[0];
 
-    const nextUrl = isAllMakesCard
-      ? getMakeUrl(makesUrls || [], searchType, title)
+    const nextUrl = isAllManufacturersCard
+      ? getManufacturerUrl(manufacturersUrls || [], searchType, title)
       : getRangeUrl(
           rangesUrls || [],
           searchType,
@@ -81,18 +82,20 @@ const RangeCard = memo(
     const { data: imagesData } = getRangeImages(
       id,
       vehicleType,
-      !id || isAllMakesCard,
+      !id || isAllManufacturersCard,
     );
-    const { data: imagesMakeData } = useModelImages(
+    const { data: imagesManufacturerData } = useModelImages(
       [id],
-      !id || !isAllMakesCard,
+      !id || !isAllManufacturersCard,
     );
-    const imageProps = (!isAllMakesCard ? imagesData : imagesMakeData)
-      ?.vehicleImages?.[0]
+    const imageProps = (!isAllManufacturersCard
+      ? imagesData
+      : imagesManufacturerData
+    )?.vehicleImages?.[0]
       ? {
           imageSrc:
-            (!isAllMakesCard ? imagesData : imagesMakeData)?.vehicleImages?.[0]
-              ?.mainImageUrl ||
+            (!isAllManufacturersCard ? imagesData : imagesManufacturerData)
+              ?.vehicleImages?.[0]?.mainImageUrl ||
             `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
         }
       : { imageSrc: `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg` };

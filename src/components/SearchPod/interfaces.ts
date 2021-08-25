@@ -11,8 +11,8 @@ export interface ISearchPodProps {
   getOptions: (accessor: any) => Array<string | IOptionsDropdown>;
   onSearch: (tabType: string) => void;
   registerDropdown: () => void;
-  hasCarMakeSelected: boolean;
-  hasVansMakeSelected: boolean;
+  hasCarManufacturerSelected: boolean;
+  hasVansManufacturerSelected: boolean;
   vansData?: IFilterTypeAndBudget;
   vansCachedData: IFilterList;
   isHomePage?: boolean;

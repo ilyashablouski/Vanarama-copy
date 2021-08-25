@@ -11,11 +11,11 @@ export interface ISearchPageFiltersProps
   preSearchVehicleCount: number;
   isSpecialOffers: boolean | null;
   setIsSpecialOffers: (value: boolean) => void;
-  isMakePage?: boolean;
+  isManufacturerPage?: boolean;
   isPickups?: boolean;
   isRangePage?: boolean;
   isModelPage?: boolean;
-  isAllMakesPage?: boolean;
+  isAllManufacturersPage?: boolean;
   isBodyPage?: boolean;
   isBudgetPage?: boolean;
   isFuelPage?: boolean;

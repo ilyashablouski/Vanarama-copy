@@ -67,11 +67,11 @@ export const getNewUrl = (
 };
 
 export const generateUrlForBreadcrumb = (
-  make: string,
+  manufacturer: string,
   pageData: IGenericPages | undefined,
   slugArray: string[],
 ) => {
-  if (MAKES_WITH_SLUGS.includes(make)) {
+  if (MAKES_WITH_SLUGS.includes(manufacturer)) {
     return (
       pageData?.slug ||
       slugArray
@@ -114,7 +114,7 @@ export const getProductPageBreadCrumb = (
       el => el?.slug?.split('/').length === 4,
     );
 
-    const makeLink = {
+    const manufacturerLink = {
       link: {
         label: manufacturer?.name,
         href: `/${generateUrlForBreadcrumb(manufacturerSlug, manufacturerPage, [
@@ -154,8 +154,8 @@ export const getProductPageBreadCrumb = (
     };
 
     return cars
-      ? [makeLink, rangeLink, modelLink, derivativeLink]
-      : [makeLink, rangeLink, derivativeLink];
+      ? [manufacturerLink, rangeLink, modelLink, derivativeLink]
+      : [manufacturerLink, rangeLink, derivativeLink];
   }
 
   return null;

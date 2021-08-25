@@ -75,7 +75,7 @@ export interface IChoiceBoxesData {
 }
 
 export interface IFiltersMapper {
-  make: IFiltersChildren[];
+  manufacturer: IFiltersChildren[];
   model: IFiltersChildren[];
   from: string[];
   to: string[];

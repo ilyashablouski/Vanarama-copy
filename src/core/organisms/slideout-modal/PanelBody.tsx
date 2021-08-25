@@ -1,6 +1,10 @@
 import React, { FC } from 'react';
 
-import { FilterMakeAndModel, FilterBudget, FilterCheckboxes } from './filters';
+import {
+  FilterManufacturerAndModel,
+  FilterBudget,
+  FilterCheckboxes,
+} from './filters';
 
 import { IPanelBody } from './interfaces';
 
@@ -15,8 +19,8 @@ const PanelBody: FC<IPanelBody> = props => {
   const filterSelect = () => {
     let FilterPanel;
     switch (panelId) {
-      case 'makeAndModel':
-        FilterPanel = FilterMakeAndModel;
+      case 'manufacturerAndModel':
+        FilterPanel = FilterManufacturerAndModel;
         break;
       case 'budget':
         FilterPanel = FilterBudget;
