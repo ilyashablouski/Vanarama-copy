@@ -8,6 +8,7 @@ import Skeleton from '../../components/Skeleton';
 
 import { useGetCreditApplicationByOrderUuid } from '../../gql/creditApplication';
 import { IThankYouOrderContainer } from './interface';
+import { getFunderName } from './helpers';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -64,9 +65,7 @@ function ThankYouOrderContainer({ isB2b }: IThankYouOrderContainer) {
   const { personLoggedIn } = usePerson();
   const { data, loading, error } = useGetCreditApplicationByOrderUuid(orderId);
 
-  const funderName =
-    data?.creditApplicationByOrderUuid?.lineItem?.vehicleProduct?.funderData
-      .funder_name;
+  const funderName = getFunderName(data)?.toUpperCase();
 
   if (loading) {
     return <Loading size="large" />;
