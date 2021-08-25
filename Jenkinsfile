@@ -152,8 +152,7 @@ def getDockerTagName() {
     } else if ( "${branchName}" =~ "feature/*" ) {
         pr = "${env.BRANCH_NAME}".replace("-", "")
         tag = "${branchName}".replace('/', '-')
-        tag = tag.replaceFirst("feature-", "feature-${pr}-B${env.BUILD_NUMBER}-")
-        return tag
+        return tag.replaceFirst("feature-", "feature-${pr}-B${env.BUILD_NUMBER}-")
     } else {
         // for develop, create artifact following this format - develop-B<build-no>-<date>
         def dateNow = new Date()
