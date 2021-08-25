@@ -45,9 +45,6 @@ function ImageCarousel({
       </Swiper>
       {images.length > 1 && (
         <Swiper
-          observer
-          centeredSlides
-          centeredSlidesBounds
           slidesPerView="auto"
           className="thumbnails"
           resistanceRatio={0.55}
