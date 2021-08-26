@@ -135,7 +135,7 @@ output "enable_canary" {
 resource "aws_synthetics_canary" "canary" {
   count = "${var.enable_canary}" == "false" ? 0 : 1
   
-  name                 = "${var.app}"
+  name                 = "${var.enable_canary}" == "false" ? "canary" : "${var.app}"
   artifact_s3_location = "s3://${var.env}-${var.stack}-canaries/canaries/"
   execution_role_arn   = "arn:aws:iam::${var.aws_account_id}:role/${var.env}_${var.stack}_canary_role"
   handler              = "pageLoadBlueprint.handler"
