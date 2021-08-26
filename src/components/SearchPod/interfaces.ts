@@ -30,4 +30,5 @@ export interface ITabsConfig {
 interface IDropdownFields {
   label: string;
   accessor: string;
+  placeholder: string;
 }

@@ -89,7 +89,7 @@ const SearchPod = ({
                 {headingText}
               </Heading>
               <Form>
-                {tab.dropdowns.map(({ accessor, label }) => (
+                {tab.dropdowns.map(({ accessor, label, placeholder }) => (
                   <Formgroup key={accessor}>
                     <Select
                       dataTestId={accessor}
@@ -106,11 +106,8 @@ const SearchPod = ({
                         ) ? (
                           <option key="All" value=" ">
                             All{' '}
-                            {accessor
-                              .replace(tab.type, '')
-                              .charAt(0)
-                              .toUpperCase() +
-                              accessor.replace(tab.type, '').slice(1)}
+                            {placeholder.charAt(0).toUpperCase() +
+                              placeholder.slice(1)}
                             s
                           </option>
                         ) : (

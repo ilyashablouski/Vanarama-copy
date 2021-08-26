@@ -1,9 +1,25 @@
 const VANS_TAB = {
   dropdowns: [
-    { label: 'Select Type', accessor: 'typeVans' },
-    { label: 'Select Make', accessor: 'manufacturerVans' },
-    { label: 'Select Model', accessor: 'modelVans' },
-    { label: 'Select Budget', accessor: 'budgetVans' },
+    {
+      label: 'Select Type',
+      accessor: 'typeVans',
+      placeholder: 'type',
+    },
+    {
+      label: 'Select Make',
+      accessor: 'manufacturerVans',
+      placeholder: 'make',
+    },
+    {
+      label: 'Select Model',
+      accessor: 'modelVans',
+      placeholder: 'model',
+    },
+    {
+      label: 'Select Budget',
+      accessor: 'budgetVans',
+      placeholder: 'budget',
+    },
   ],
   headingText: 'Search Vans',
   buttonText: 'Search Vans & Trucks',
@@ -13,10 +29,26 @@ const VANS_TAB = {
 
 const CARS_TAB = {
   dropdowns: [
-    { label: 'Select Make', accessor: 'manufacturerCars' },
-    { label: 'Select Model', accessor: 'modelCars' },
-    { label: 'Select Type', accessor: 'typeCars' },
-    { label: 'Select Budget', accessor: 'budgetCars' },
+    {
+      label: 'Select Make',
+      accessor: 'manufacturerCars',
+      placeholder: 'make',
+    },
+    {
+      label: 'Select Model',
+      accessor: 'modelCars',
+      placeholder: 'model',
+    },
+    {
+      label: 'Select Type',
+      accessor: 'typeCars',
+      placeholder: 'type',
+    },
+    {
+      label: 'Select Budget',
+      accessor: 'budgetCars',
+      placeholder: 'budget',
+    },
   ],
   headingText: 'Search Cars',
   buttonText: 'Search Cars',
