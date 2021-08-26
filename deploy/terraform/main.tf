@@ -168,5 +168,5 @@ resource "aws_cloudwatch_metric_alarm" "canary_alarm" {
   namespace           = "CloudWatchSynthetics"
   depends_on          = [aws_synthetics_canary.canary]
   dimensions = { 
-    CanaryName = aws_synthetics_canary.canary.name }
+    CanaryName = aws_synthetics_canary.canary[0].name }
 }
