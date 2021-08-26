@@ -43,7 +43,7 @@ class MyDocument extends Document {
         <Head>
           {/* TODO: remove comment code below if not need */}
           {/* <link rel="preconnect" href="https://cdn.blueconic.net" /> */}
-          {/* <link rel="preconnect" href="https://plugins.blueconic.net" /> */}
+          <link rel="preconnect" href="https://plugins.blueconic.net" />
           <link rel="preconnect" href="https://vanarama.blueconic.net/" />
           {scriptEnvs.blueconic.includes(env) && (
             <script
