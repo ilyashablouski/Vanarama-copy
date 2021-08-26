@@ -128,6 +128,10 @@ data "archive_file" "canary_script" {
   depends_on  = [null_resource.endpoint] 
 }
 
+output "enable_canary" {
+  value = "${var.enable_canary}"
+}
+  
 resource "aws_synthetics_canary" "canary" {
   count = "${var.enable_canary}" == "false" ? 0 : 1
   
