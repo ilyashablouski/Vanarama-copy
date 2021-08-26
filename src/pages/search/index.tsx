@@ -159,11 +159,12 @@ export async function getServerSideProps(context: NextPageContext) {
         .then(({ data: respData }) => respData?.productCard);
     }
   };
+  const searchTerm = decodeURIComponent(contextData.query.searchTerm as string);
   const productDerivatives = await client
     .query<IProductDerivativesQuery, productDerivativesVariables>({
       query: GET_PRODUCT_DERIVATIVES,
       variables: {
-        query: contextData.query.searchTerm as string,
+        query: searchTerm,
         from: 0,
         size: RESULTS_PER_REQUEST,
         sort: sortOrder,
@@ -207,9 +208,7 @@ export async function getServerSideProps(context: NextPageContext) {
     .query<IProductFilterQuery, IProductFilterVariables>({
       query: GET_FILTERS_DATA,
       variables: {
-        query: isAllProductsRequest
-          ? undefined
-          : (contextData.query.searchTerm as string),
+        query: isAllProductsRequest ? undefined : searchTerm,
         filters: buildFiltersRequestObject(initialFilters, false),
       },
     })

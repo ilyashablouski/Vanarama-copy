@@ -6,9 +6,9 @@ import {
   HttpLink,
   // operationName,
 } from '@apollo/client';
-import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
+// import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import { RetryLink } from '@apollo/client/link/retry';
-import { sha256 } from 'crypto-hash';
+// import { sha256 } from 'crypto-hash';
 
 import Router from 'next/router';
 import { onError } from '@apollo/client/link/error';
@@ -21,28 +21,28 @@ import { isSessionFinishedCache } from './cache';
 
 const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 // A list of queries that we don't want to be cached in CDN
-const QUERIES_WITHOUT_CDN_CACHING = [
-  'GetLeaseCompanyData',
-  'GetCreditApplicationByOrderUuid',
-  'GetCompanyDirectorDetailsQuery',
-  'GetDirectorDetailsQuery',
-  'GetCompanySummaryQuery',
-  'GetAboutYouDataQuery',
-  'GetPartyByUuid',
-  'GetAboutYouPageQuery',
-  'GetPersonByUuid',
-  'GetPerson',
-  'GetAddressContainerDataQuery',
-  'GetEmploymentContainerDataQuery',
-  'GetExpensesPageDataQuery',
-  'GetBankDetailsPageDataQuery',
-  'GetPersonSummaryQuery',
-  'GetCompaniesByPersonUuid',
-  'GetMyOrders',
-  'GetOrderByUuid',
-  'GetQuoteDetails',
-  'MyAccount',
-];
+// const QUERIES_WITHOUT_CDN_CACHING = [
+//   'GetLeaseCompanyData',
+//   'GetCreditApplicationByOrderUuid',
+//   'GetCompanyDirectorDetailsQuery',
+//   'GetDirectorDetailsQuery',
+//   'GetCompanySummaryQuery',
+//   'GetAboutYouDataQuery',
+//   'GetPartyByUuid',
+//   'GetAboutYouPageQuery',
+//   'GetPersonByUuid',
+//   'GetPerson',
+//   'GetAddressContainerDataQuery',
+//   'GetEmploymentContainerDataQuery',
+//   'GetExpensesPageDataQuery',
+//   'GetBankDetailsPageDataQuery',
+//   'GetPersonSummaryQuery',
+//   'GetCompaniesByPersonUuid',
+//   'GetMyOrders',
+//   'GetOrderByUuid',
+//   'GetQuoteDetails',
+//   'MyAccount',
+// ];
 
 const httpLink = new HttpLink({
   uri: process.env.API_URL!,
@@ -54,29 +54,29 @@ const httpLink = new HttpLink({
   useGETForQueries: false,
 });
 
-const persistedQueryLink = new ApolloLink((operation, forward) => {
-  return forward(operation);
-}).split(
-  () =>
-    [Env.DEV, Env.UAT, Env.PRE_PROD, Env.PROD].includes(process.env.ENV as Env),
-  new ApolloLink((operation, forward) => {
-    return forward(operation);
-  }).split(
-    operation => QUERIES_WITHOUT_CDN_CACHING.includes(operation.operationName),
-    // Assumes that CDN is configured not to cache POST queries
-    createPersistedQueryLink({
-      useGETForHashedQueries: false,
-      sha256,
-    }) as any,
-    createPersistedQueryLink({
-      useGETForHashedQueries: true,
-      sha256,
-    }) as any,
-  ),
-  new ApolloLink((operation, forward) => {
-    return forward(operation);
-  }),
-);
+// const persistedQueryLink = new ApolloLink((operation, forward) => {
+//   return forward(operation);
+// }).split(
+//   () =>
+//     [Env.DEV, Env.UAT, Env.PRE_PROD, Env.PROD].includes(process.env.ENV as Env),
+//   new ApolloLink((operation, forward) => {
+//     return forward(operation);
+//   }).split(
+//     operation => QUERIES_WITHOUT_CDN_CACHING.includes(operation.operationName),
+//     // Assumes that CDN is configured not to cache POST queries
+//     createPersistedQueryLink({
+//       useGETForHashedQueries: false,
+//       sha256,
+//     }) as any,
+//     createPersistedQueryLink({
+//       useGETForHashedQueries: true,
+//       sha256,
+//     }) as any,
+//   ),
+//   new ApolloLink((operation, forward) => {
+//     return forward(operation);
+//   }),
+// );
 
 const retryLink = new RetryLink({
   delay: {
@@ -194,13 +194,41 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
   }
 });
 
+const creditApplicationQueryValidationLink = new ApolloLink(
+  (operation, forward) => {
+    if (operation.operationName === 'GetCreditApplicationByOrderUuid') {
+      return forward(operation).map(query => {
+        if (
+          (query?.errors || []).length === 0 &&
+          !!query.data?.creditApplicationByOrderUuid?.submittedAt
+        ) {
+          const url = '/olaf/error';
+          Router.replace(url, url);
+
+          return {
+            ...query,
+            data: {
+              creditApplicationByOrderUuid: null,
+            },
+          };
+        }
+
+        return query;
+      });
+    }
+
+    return forward(operation);
+  },
+);
+
 function apolloClientLink() {
   const links = [
     logLink,
     errorLink,
     authErrorLink,
     retryLink,
-    persistedQueryLink,
+    // persistedQueryLink,
+    creditApplicationQueryValidationLink,
     httpLink,
   ];
 

@@ -175,7 +175,9 @@ const BlogPostContainer: NextPage<IProps> = ({
       {metaData && (
         <>
           <Head metaData={metaData} featuredImage={null} />
-          <SchemaJSON json={JSON.stringify(metaData.schema)} />
+          {metaData.schema && (
+            <SchemaJSON json={JSON.stringify(metaData.schema)} />
+          )}
         </>
       )}
       <script async src="https://www.riddle.com/files/js/embed.js" />

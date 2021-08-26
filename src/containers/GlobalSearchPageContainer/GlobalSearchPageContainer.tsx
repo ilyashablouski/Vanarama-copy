@@ -66,6 +66,10 @@ const GlobalSearchPageContainer = memo(
     isAllProductsRequest,
   }: IProps) => {
     const router = useRouter();
+    const searchTerm = useMemo(
+      () => decodeURIComponent(router?.query.searchTerm as string),
+      [router?.query.searchTerm],
+    );
     const [activeFilters, setActiveFilters] = useState<IFiltersData>(
       initialFilters,
     );
@@ -149,7 +153,7 @@ const GlobalSearchPageContainer = memo(
       getVehicles,
       { data: firstResultsData, loading },
     ] = useTextSearchList(
-      isAllProductsRequest ? undefined : (router.query.searchTerm as string),
+      isAllProductsRequest ? undefined : searchTerm,
       async vehicles => {
         if (vehicles.productDerivatives?.total === 0 && isSpecialOffer) {
           setIsSpecialOffer(false);
@@ -185,7 +189,7 @@ const GlobalSearchPageContainer = memo(
     );
 
     const [getVehiclesCache] = useTextSearchList(
-      isAllProductsRequest ? undefined : (router.query.searchTerm as string),
+      isAllProductsRequest ? undefined : searchTerm,
       async vehicles => {
         const [carsCapIds, vansCapIds] = productDerivativesCallback(vehicles);
         if (carsCapIds[0]) {
@@ -225,9 +229,7 @@ const GlobalSearchPageContainer = memo(
       ) {
         getVehiclesCache({
           variables: {
-            query: isAllProductsRequest
-              ? undefined
-              : (router.query.searchTerm as string),
+            query: isAllProductsRequest ? undefined : searchTerm,
             from: RESULTS_PER_REQUEST,
             filters: buildFiltersRequestObject(
               activeFilters,
@@ -247,9 +249,7 @@ const GlobalSearchPageContainer = memo(
       ) {
         getVehiclesCache({
           variables: {
-            query: isAllProductsRequest
-              ? undefined
-              : (router.query.searchTerm as string),
+            query: isAllProductsRequest ? undefined : searchTerm,
             from: RESULTS_PER_REQUEST,
             filters: buildFiltersRequestObject(
               activeFilters,
@@ -266,7 +266,7 @@ const GlobalSearchPageContainer = memo(
     const onSearch = () => {
       getVehicles();
       const query = {
-        searchTerm: router.query.searchTerm,
+        searchTerm,
         ...generateQueryObject(activeFilters),
       };
       const queryString = new URLSearchParams();
@@ -310,9 +310,7 @@ const GlobalSearchPageContainer = memo(
             isSpecialOffer,
             isPersonal,
           ),
-          query: isAllProductsRequest
-            ? undefined
-            : (router.query.searchTerm as string),
+          query: isAllProductsRequest ? undefined : searchTerm,
           // because state haven't updated yet
           from: vehiclesList.length + RESULTS_PER_REQUEST,
           sort: sortOrder as ProductDerivativeSort[],
@@ -389,8 +387,8 @@ const GlobalSearchPageContainer = memo(
           <CommonDescriptionContainer pageData={pageData} />
           {isAllProductsRequest ? (
             <Text tag="p" color="black" size="lead" className="heading">
-              0 results for your search ‘{router.query.searchTerm as string}‘.
-              Please try another search
+              0 results for your search ‘{searchTerm}‘. Please try another
+              search
             </Text>
           ) : (
             <Text
@@ -401,7 +399,7 @@ const GlobalSearchPageContainer = memo(
             >
               {totalResults}{' '}
               {pluralise(totalResults, { one: 'result', many: 'results' })} for{' '}
-              {router.query.searchTerm as string}.
+              {searchTerm}.
             </Text>
           )}
         </div>

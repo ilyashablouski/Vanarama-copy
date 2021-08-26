@@ -4,6 +4,7 @@ import { ICardHeaderProps } from './CardHeader';
 import { ICardTitleProps } from './CardTitle';
 
 import { ICloudflareOptimisation } from '../../../helpers/imageOptimiseUtils/interfaces';
+import { Component } from '../../../types/common';
 
 export interface ICardProps extends IBaseProps {
   /**
@@ -74,4 +75,6 @@ export interface ICardProps extends IBaseProps {
   lazyLoad?: boolean;
 
   loadImageProps?: (options?: any) => void;
+
+  extrasRender?: Component | null;
 }

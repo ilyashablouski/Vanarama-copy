@@ -429,11 +429,11 @@ describe('<CustomiseLease />', () => {
     );
     expect(mocks.setLeaseType).toBeCalled();
 
-    fireEvent.change(screen.getByTestId('13990'));
+    fireEvent.click(screen.getByTestId('colour-selector'));
     fireEvent.click(screen.getByText('Solid - Polar black'));
     expect(mocks.setColour).toBeCalled();
 
-    fireEvent.change(screen.getByTestId('112981'));
+    fireEvent.click(screen.getByTestId('trim-selector'));
     fireEvent.click(screen.getByText('Leather - Cranberry black'));
     expect(mocks.setTrim).toBeCalled();
 

@@ -65,6 +65,10 @@ const GlobalSearchPageFilters = ({
   isAllProductsRequest,
 }: IProps) => {
   const { query } = useRouter();
+  const searchTerm = useMemo(
+    () => decodeURIComponent(query.searchTerm as string),
+    [query.searchTerm],
+  );
   const [openedFilters, setOpenedFilters] = useState<string[]>([]);
   const [isOpenAdvancedFilters, setIsOpenAdvancedFilters] = useState(false);
   const [fromBudget] = useState(budgets.slice(0, budgets.length - 1));
@@ -83,7 +87,7 @@ const GlobalSearchPageFilters = ({
   );
   const [filtersData, setFiltersData] = useState(preloadFilters);
   const [getProductFilters] = useProductFilters(
-    isAllProductsRequest ? undefined : (query.searchTerm as string),
+    isAllProductsRequest ? undefined : searchTerm,
     async dataResult => {
       setFiltersData(dataResult?.productFilter || undefined);
       setFromEnginePower(
@@ -141,7 +145,7 @@ const GlobalSearchPageFilters = ({
     getProductFilters({
       variables: {
         filters: buildFiltersRequestObject(activeFilters, isSpecialOffer),
-        query: isAllProductsRequest ? undefined : (query.searchTerm as string),
+        query: isAllProductsRequest ? undefined : searchTerm,
       },
     });
   }, [activeFilters, isSpecialOffer]);
