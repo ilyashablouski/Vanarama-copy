@@ -15,6 +15,7 @@ function ChoiceBoxesV2({
   onChange,
   disabled,
   idPrefix = '',
+  renderValuesFunction,
 }: IChoiceBoxesV2Props) {
   const type = multiSelect ? 'checkbox' : 'radio';
   const resultSelectedValues = useMemo(() => selectedValues ?? [], [
@@ -70,7 +71,7 @@ function ChoiceBoxesV2({
               })}
             >
               <span className={cx('choice-label', labelClassName)}>
-                {value}
+                {renderValuesFunction ? renderValuesFunction(value) : value}
               </span>
             </label>
           </React.Fragment>
