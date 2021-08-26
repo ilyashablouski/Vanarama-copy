@@ -27,7 +27,8 @@ const scriptEnvs = {
 const PRECONNECT = [
   process?.env?.API_URL?.replace('/graphql/', ''),
   process.env.STATIC_DOMAIN,
-  scriptEnvs.blueconic.includes(env) ? 'https://cdn.blueconic.net' : '',
+  // TODO: remove comment code below if not need
+  // scriptEnvs.blueconic.includes(env) ? 'https://cdn.blueconic.net' : '',
   scriptEnvs.vwo.includes(env) ? 'https://dev.visualwebsiteoptimizer.com' : '',
   'https://widget.trustpilot.com',
 ].filter(value => value !== '');
