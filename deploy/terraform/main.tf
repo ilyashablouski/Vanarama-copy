@@ -133,9 +133,9 @@ output "enable_canary" {
 }
   
 resource "aws_synthetics_canary" "canary" {
-  count = "${var.enable_canary}" == "false" ? 0 : 1
+  count = "false" == "false" ? 0 : 1
   
-  name                 = "${var.enable_canary}" == "false" ? "canary" : "${var.app}"
+  name                 = "${var.app}"
   artifact_s3_location = "s3://${var.env}-${var.stack}-canaries/canaries/"
   execution_role_arn   = "arn:aws:iam::${var.aws_account_id}:role/${var.env}_${var.stack}_canary_role"
   handler              = "pageLoadBlueprint.handler"
@@ -157,7 +157,7 @@ data "aws_ssm_parameter" "cloudwatch_alarm_sns_topic_arn" {
   name = "/${var.env}/${var.stack}/core/cloudwatch-alarm-topic"
 }
 resource "aws_cloudwatch_metric_alarm" "canary_alarm" {
-  count = "${var.enable_canary}" == "false" ? 0 : 1
+  count = "false" == "false" ? 0 : 1
 
   alarm_name          = "${var.env}_${var.app}_canary_alarm"
   comparison_operator = "LessThanThreshold"
