@@ -3,10 +3,11 @@ import { forwardRef } from 'react';
 interface IProps {
   selected: string[];
   onClearFilterBlock: () => void;
+  renderFunction?: (values: string[]) => string[];
 }
 
 const SelectedBox = forwardRef<HTMLDivElement, IProps>(
-  ({ selected, onClearFilterBlock }, ref) => {
+  ({ selected, onClearFilterBlock, renderFunction }, ref) => {
     return (
       <div
         className="selection-summary"
@@ -17,7 +18,11 @@ const SelectedBox = forwardRef<HTMLDivElement, IProps>(
       >
         <div className="overview">
           <span>{selected.length} Selected</span>
-          <span>{selected.join(', ')}</span>
+          <span>
+            {renderFunction
+              ? renderFunction(selected).join(', ')
+              : selected.join(', ')}
+          </span>
         </div>
         <button
           type="button"

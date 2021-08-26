@@ -114,10 +114,11 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
           <div className="row:cards-3col -pt-300">{renderCards()}</div>
           <div className="row:pagination">
             <Pagination
-              path={`/${metaData?.legacyUrl?.replace('.html', '') || ''}/page`}
+              path={`/${metaData?.legacyUrl?.replace('.html', '') ||
+                metaData?.slug}/page`}
               pathForFirstPage={`/${metaData?.legacyUrl?.replace('.html', '') ||
-                ''}`}
-              pathWithHtml
+                metaData?.slug}`}
+              pathWithHtml={!!metaData?.legacyUrl}
               pages={pages}
               selected={activePage}
             />
