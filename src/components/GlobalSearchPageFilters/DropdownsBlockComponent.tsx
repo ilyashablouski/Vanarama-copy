@@ -84,6 +84,7 @@ const DropdownsBlockComponent = ({
             )?.[0]?.tags || []
           }
           onClearFilterBlock={() => clearFilterBlock(key)}
+          renderFunction={renderSelectedFunction as () => string[]}
         />
       )}
       selected={
@@ -95,6 +96,7 @@ const DropdownsBlockComponent = ({
       <ChoiceBoxesV2
         multiSelect={multiselect}
         values={filtersMapper[key as keyof IFiltersData] as (string | number)[]}
+        renderValuesFunction={renderValuesFunction}
         onChange={values =>
           onHandleMultiSelect(values, key as keyof IFiltersData)
         }
@@ -120,7 +122,7 @@ const DropdownsBlockComponent = ({
           ref={ref}
           selected={getDropdownValues(innerSelects as IInnerSelect[])}
           onClear={() => onClearDropdown(innerSelects as IInnerSelect[])}
-          renderFunction={renderSelectedFunction}
+          renderFunction={renderSelectedFunction as () => string}
         />
       )}
       selected={getSelectedValues(innerSelects, activeFilters) as unknown[]}

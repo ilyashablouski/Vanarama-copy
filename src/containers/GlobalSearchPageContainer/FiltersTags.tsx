@@ -2,6 +2,7 @@ import Close from 'core/assets/icons/Close';
 import { useCallback, useMemo } from 'react';
 import { IFiltersData, ISelectedTags } from './interfaces';
 import {
+  handleUnlistedValue,
   renderBudgetValue,
   renderDoorsValue,
   renderPowerEngineValue,
@@ -24,9 +25,9 @@ const FiltersTags = ({ tags, clearAllFilters, removeFilterValue }: IProps) => {
         case 'toEnginePower':
           return renderPowerEngineValue(value);
         case 'noOfSeats':
-          return renderSeatsValue(value);
+          return renderSeatsValue(handleUnlistedValue(value));
         case 'doors':
-          return renderDoorsValue(value);
+          return renderDoorsValue(handleUnlistedValue(value));
         default:
           return value;
       }
