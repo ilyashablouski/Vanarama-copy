@@ -233,7 +233,7 @@ const mocksResponse: MockedResponse[] = [
 
 jest.mock('next/router', () => ({
   useRouter: jest.fn().mockReturnValue({
-    query: { rangeName: '3 series', manufacturer: 'BMW' },
+    query: { rangeName: '3 series', make: 'BMW' },
   }),
 }));
 

@@ -44,6 +44,19 @@ const Dropdown = dynamic(() => import('core/atoms/dropdown'), {
 });
 const FormGroup = dynamic(() => import('core/molecules/formgroup'));
 
+interface IQueryKeyMapper {
+  [key: string]: string;
+}
+const queryKeyMapper: IQueryKeyMapper = {
+  make: 'manufacturer',
+  model: 'model',
+  from: 'from',
+  to: 'to',
+  bodyStyles: 'bodyStyles',
+  transmissions: 'transmissions',
+  fuelTypes: 'fuelTypes',
+};
+
 const SearchPageFilters = ({
   preLoadFilters,
   onSearch,
@@ -95,7 +108,7 @@ const SearchPageFilters = ({
   const [isInitialLoad, setInitialLoad] = useState(true);
 
   interface IFiltersMapper {
-    [index: string]: Array<string | IFiltersChildren> | null;
+    [key: string]: Array<string | IFiltersChildren> | null;
   }
 
   const filtersMapper: IFiltersMapper = {
@@ -217,8 +230,8 @@ const SearchPageFilters = ({
           router.query.dynamicParam as string,
         );
       } else {
-        routerQuery.forEach(entry => {
-          const [key, values] = entry;
+        routerQuery.forEach(([queryKey, queryValues]) => {
+          const [key, values] = [queryKeyMapper[queryKey], queryValues];
           if (key === 'rangeName') {
             const isExist = filtersData?.groupedRangesWithSlug?.some(
               element => {
@@ -227,7 +240,7 @@ const SearchPageFilters = ({
                 if (
                   isInclude(
                     element.parent?.slug || '',
-                    (router.query?.manufacturer ||
+                    (router.query?.make ||
                       router.query?.dynamicParam) as string,
                   )
                 ) {

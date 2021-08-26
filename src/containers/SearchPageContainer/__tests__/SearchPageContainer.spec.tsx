@@ -1114,7 +1114,7 @@ describe('<SearchPageContainer />', () => {
     (useRouter as jest.Mock).mockReturnValue({
       replace: replaceMock,
       push: jest.fn(),
-      query: { manufacturer: 'BMW' },
+      query: { make: 'BMW' },
       route: '/car-leasing/BMW',
     });
 
@@ -1157,7 +1157,7 @@ describe('<SearchPageContainer />', () => {
     (useRouter as jest.Mock).mockReturnValue({
       replace: replaceMock,
       push: jest.fn(),
-      query: { manufacturer: 'BMW' },
+      query: { make: 'BMW' },
       route: '/car-leasing/BMW',
     });
 
