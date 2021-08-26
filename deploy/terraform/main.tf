@@ -133,7 +133,7 @@ output "enable_canary" {
 }
   
 resource "aws_synthetics_canary" "canary" {
-  count = "false" == "false" ? 0 : 1
+  count = ${var.enable_canary} == false ? 0 : 1
   
   name                 = "${var.app}"
   artifact_s3_location = "s3://${var.env}-${var.stack}-canaries/canaries/"
@@ -157,7 +157,7 @@ data "aws_ssm_parameter" "cloudwatch_alarm_sns_topic_arn" {
   name = "/${var.env}/${var.stack}/core/cloudwatch-alarm-topic"
 }
 resource "aws_cloudwatch_metric_alarm" "canary_alarm" {
-  count = "false" == "false" ? 0 : 1
+  count = ${var.enable_canary} == false ? 0 : 1
 
   alarm_name          = "${var.env}_${var.app}_canary_alarm"
   comparison_operator = "LessThanThreshold"
