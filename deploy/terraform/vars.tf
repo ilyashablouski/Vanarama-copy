@@ -71,5 +71,5 @@ variable "alternateDomain" {
 variable "enable_canary" {
   type = bool
   default = true
-  desctiption = "Boolean for creating canary resources"
+  description = "Boolean for creating canary resources"
 }
