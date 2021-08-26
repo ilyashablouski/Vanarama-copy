@@ -81,10 +81,10 @@ const Page: NextPage<IProps> = ({
   const topOffersCardsData = decodeData(topOffersCardsEncodedData);
 
   useEffect(() => {
-    if (!router.query.manufacturer) {
+    if (!router.query.make) {
       const query = {
         ...router.query,
-        manufacturer: router.query.dynamicParam,
+        make: router.query.dynamicParam,
       };
       const { asPath, pathname } = router;
       router.replace(
@@ -277,7 +277,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
         })
         .then(resp => resp.data);
     }
-    context.query.manufacturer = manufacturerName;
+    context.query.make = manufacturerName;
     return {
       props: {
         pageData: data,

@@ -324,7 +324,7 @@ const SearchPodContainer: FC<ISearchPodContainerProps> = ({
     const query = {} as any;
     // make
     if (values[`manufacturer${tabType}` as keyof typeof defaultValues].trim()) {
-      query.manufacturer =
+      query.make =
         values[`manufacturer${tabType}` as keyof typeof defaultValues];
     }
     if (values[`model${tabType}` as keyof typeof defaultValues].trim()) {

@@ -27,7 +27,7 @@ export const buildRewriteRoute = ({
   transmissions,
   bodyStyles,
   rangeSlug: rangeName,
-  manufacturerSlug: manufacturer,
+  manufacturerSlug: make,
   rate,
   fuelTypes,
 }: IFilters) => {
@@ -37,7 +37,7 @@ export const buildRewriteRoute = ({
     bodyStyles,
     fuelTypes,
     rangeName,
-    manufacturer,
+    make,
   }).forEach(filter => {
     const [key, value] = filter;
     if (value?.length) {

@@ -60,10 +60,10 @@ const Page: NextPage<IProps> = ({
   const productCardsData = decodeData(productEncodedData);
 
   useEffect(() => {
-    if (!router.query.manufacturer) {
+    if (!router.query.make) {
       const query = {
         ...router.query,
-        manufacturer: router.query.dynamicParam,
+        make: router.query.dynamicParam,
       };
       const { asPath, pathname } = router;
       router.replace(
@@ -184,7 +184,7 @@ export async function getServerSideProps(context: NextPageContext) {
         return false;
       }
     }
-    query.manufacturer = (query.dynamicParam as string).toLowerCase();
+    query.make = (query.dynamicParam as string).toLowerCase();
 
     // Obfuscate data from Googlebot
     const vehiclesListData = encodeData(vehiclesList);

@@ -641,7 +641,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           // don't add queries in page where we have same data in route
           !(
             (isManufacturerPage || isRangePage) &&
-            (key === 'manufacturer' || key === 'rangeName')
+            (key === 'make' || key === 'rangeName')
           ) &&
           !(isBodyStylePage && key === 'bodyStyles') &&
           !(isFuelPage && key === 'fuelTypes') &&
@@ -649,9 +649,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           !(isBudgetPage && key === 'pricePerMonth') &&
           !(
             isModelPage &&
-            (key === 'manufacturer' ||
-              key === 'rangeName' ||
-              key === 'bodyStyles')
+            (key === 'make' || key === 'rangeName' || key === 'bodyStyles')
           )
         ) {
           queryString.set(key, value as string);

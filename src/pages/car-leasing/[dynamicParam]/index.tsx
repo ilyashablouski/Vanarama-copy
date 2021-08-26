@@ -229,14 +229,14 @@ export async function getServerSideProps(context: NextPageContext) {
       }
     }
   } else {
-    query.manufacturer = (query.dynamicParam as string).toLowerCase();
-    filter.manufacturerSlug = query.manufacturer;
+    query.make = (query.dynamicParam as string).toLowerCase();
+    filter.manufacturerSlug = query.make;
     ranges = await client
       .query({
         query: GET_RANGES,
         variables: {
           vehicleTypes: VehicleTypeEnum.CAR,
-          manufacturerSlug: query.manufacturer,
+          manufacturerSlug: query.make,
           leaseType: LeaseTypeEnum.PERSONAL,
         },
       })
@@ -244,7 +244,7 @@ export async function getServerSideProps(context: NextPageContext) {
     const slugs = ranges.rangeList.map(
       (range: IRange) =>
         `car-leasing/${formatToSlugFormat(
-          query.manufacturer as string,
+          query.make as string,
         )}/${formatToSlugFormat(range.rangeName || '')}`,
     );
     rangesUrls = await client
