@@ -194,6 +194,33 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
   }
 });
 
+const creditApplicationQueryValidationLink = new ApolloLink(
+  (operation, forward) => {
+    if (operation.operationName === 'GetCreditApplicationByOrderUuid') {
+      return forward(operation).map(query => {
+        if (
+          (query?.errors || []).length === 0 &&
+          !!query.data?.creditApplicationByOrderUuid?.submittedAt
+        ) {
+          const url = '/olaf/error';
+          Router.replace(url, url);
+
+          return {
+            ...query,
+            data: {
+              creditApplicationByOrderUuid: null,
+            },
+          };
+        }
+
+        return query;
+      });
+    }
+
+    return forward(operation);
+  },
+);
+
 function apolloClientLink() {
   const links = [
     logLink,
@@ -201,6 +228,7 @@ function apolloClientLink() {
     authErrorLink,
     retryLink,
     // persistedQueryLink,
+    creditApplicationQueryValidationLink,
     httpLink,
   ];
 

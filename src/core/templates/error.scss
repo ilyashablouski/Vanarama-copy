@@ -9,4 +9,8 @@
   text-align: center;
   background: url(/error-background.jpeg) no-repeat center center;
   background-size: cover;
+
+  &--description {
+    line-height: 50px;
+  }
 }
