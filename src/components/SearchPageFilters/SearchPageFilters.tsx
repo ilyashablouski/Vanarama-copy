@@ -438,7 +438,7 @@ const SearchPageFilters = ({
                             dropdown.accessor === FilterFields.to))
                       }
                       name={dropdown.accessor}
-                      placeholder={`Select ${dropdown.accessor}`}
+                      placeholder={`Select ${dropdown.placeholder}`}
                       onChange={handleSelect}
                       value={
                         selectedFiltersState?.[

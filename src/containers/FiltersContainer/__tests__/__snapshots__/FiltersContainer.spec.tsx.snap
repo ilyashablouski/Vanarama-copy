@@ -127,7 +127,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
                     disabled=""
                     value=""
                   >
-                    Select manufacturer
+                    Select make
                   </option>
                   <option
                     value="Citroën"
