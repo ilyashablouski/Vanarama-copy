@@ -39,6 +39,8 @@ const ThreeColumnSection: React.FC<ThreeColumnSectionProps> = ({
                       getSectionsData(['image', 'file', 'url'], item) ||
                       defaultImage
                     }
+                    width="100%"
+                    height="100%"
                   />
                   <p className="heading -lead -black -pv-300">{item.body}</p>
                 </div>

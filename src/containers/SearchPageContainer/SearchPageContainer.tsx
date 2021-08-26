@@ -1029,70 +1029,70 @@ const SearchPageContainer: React.FC<IProps> = ({
       {isNewPage && isRangePage ? (
         <>
           <section className="row:featured-left">
-            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-              <div>
-                <Heading
-                  className="-mb-400"
-                  size="large"
-                  color="black"
-                  tag={
-                    getTitleTag(
-                      getSectionsData(
-                        ['sectionsAsArray', 'featured', '0', 'titleTag'],
-                        pageData?.genericPage,
-                      ) || 'p',
-                    ) as keyof JSX.IntrinsicElements
-                  }
-                >
-                  {getSectionsData(
-                    ['sectionsAsArray', 'featured', '0', 'title'],
-                    pageData?.genericPage,
-                  )}
-                </Heading>
-                <div className="markdown full-width">
-                  <ReactMarkdown
-                    allowDangerousHtml
-                    source={getSectionsData(
-                      ['sectionsAsArray', 'featured', '0', 'body'],
+            <div>
+              <Heading
+                className="-mb-400"
+                size="large"
+                color="black"
+                tag={
+                  getTitleTag(
+                    getSectionsData(
+                      ['sectionsAsArray', 'featured', '0', 'titleTag'],
                       pageData?.genericPage,
-                    )}
-                    renderers={{
-                      link: props => {
-                        const { href, children } = props;
-                        return <RouterLink link={{ href, label: children }} />;
-                      },
-                      heading: props => (
-                        <Text
-                          {...props}
-                          className="large"
-                          color="darked"
-                          tag="h3"
-                        />
-                      ),
-
-                      paragraph: props => (
-                        <Text
-                          {...props}
-                          tag="span"
-                          className="-big"
-                          size="full-width"
-                          color="darked"
-                        />
-                      ),
-                    }}
-                  />
-                </div>
-              </div>
-
-              <Image
-                className="card-image"
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                src={getSectionsData(
-                  ['sectionsAsArray', 'featured', '0', 'image', 'file', 'url'],
+                    ) || 'p',
+                  ) as keyof JSX.IntrinsicElements
+                }
+              >
+                {getSectionsData(
+                  ['sectionsAsArray', 'featured', '0', 'title'],
                   pageData?.genericPage,
                 )}
-              />
-            </LazyLoadComponent>
+              </Heading>
+              <div className="markdown full-width">
+                <ReactMarkdown
+                  allowDangerousHtml
+                  source={getSectionsData(
+                    ['sectionsAsArray', 'featured', '0', 'body'],
+                    pageData?.genericPage,
+                  )}
+                  renderers={{
+                    link: props => {
+                      const { href, children } = props;
+                      return <RouterLink link={{ href, label: children }} />;
+                    },
+                    heading: props => (
+                      <Text
+                        {...props}
+                        className="large"
+                        color="darked"
+                        tag="h3"
+                      />
+                    ),
+
+                    paragraph: props => (
+                      <Text
+                        {...props}
+                        tag="span"
+                        className="-big"
+                        size="full-width"
+                        color="darked"
+                      />
+                    ),
+                  }}
+                />
+              </div>
+            </div>
+
+            <Image
+              className="card-image"
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={getSectionsData(
+                ['sectionsAsArray', 'featured', '0', 'image', 'file', 'url'],
+                pageData?.genericPage,
+              )}
+              width="100%"
+              height="100%"
+            />
           </section>
         </>
       ) : null}
