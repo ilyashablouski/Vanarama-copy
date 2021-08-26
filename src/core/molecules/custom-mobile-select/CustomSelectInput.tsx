@@ -9,7 +9,10 @@ interface IProps {
   label: string;
   title: string;
   modalElement: Element;
-  listRender: () => Component;
+  listRender: Component;
+  disabled?: boolean;
+  onCloseModal?: () => void;
+  dataTestId?: string;
 }
 
 const CustomSelectInput = ({
@@ -17,12 +20,17 @@ const CustomSelectInput = ({
   modalElement,
   title,
   listRender,
+  disabled,
+  onCloseModal,
+  dataTestId,
 }: IProps) => {
   const [isOpen, setIsOpen] = useState(false);
   return (
     <div className="select -fullwidth">
       <select
+        data-testId={dataTestId}
         className="select--native"
+        disabled={disabled}
         defaultValue={label}
         onMouseDown={e => e.preventDefault()}
         onClick={() => {
@@ -40,9 +48,10 @@ const CustomSelectInput = ({
               onClose={event => {
                 event.stopPropagation();
                 setIsOpen(false);
+                onCloseModal?.();
               }}
             >
-              {listRender()}
+              {listRender}
             </CustomSelectWindow>
           }
           modalElement={modalElement}
