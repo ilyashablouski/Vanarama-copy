@@ -33,8 +33,9 @@ import {
 } from '../../containers/FiltersContainer/interfaces';
 import { dynamicQueryTypeCheck } from '../../containers/SearchPageContainer/helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
-import { ISearchPageFiltersProps } from './interfaces';
 import { getPartnerProperties } from '../../utils/partnerProperties';
+import { ISearchPageFiltersProps } from './interfaces';
+import { mapQueryParameterKey } from './helpers';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -43,18 +44,6 @@ const Dropdown = dynamic(() => import('core/atoms/dropdown'), {
   loading: () => <Skeleton count={1} />,
 });
 const FormGroup = dynamic(() => import('core/molecules/formgroup'));
-
-interface IQueryKeyMapper {
-  [key: string]: string;
-}
-const queryKeyMapper: IQueryKeyMapper = {
-  make: 'manufacturer',
-  rangeName: 'rangeName',
-  pricePerMonth: 'pricePerMonth',
-  bodyStyles: 'bodyStyles',
-  transmissions: 'transmissions',
-  fuelTypes: 'fuelTypes',
-};
 
 const SearchPageFilters = ({
   preLoadFilters,
@@ -230,7 +219,8 @@ const SearchPageFilters = ({
         );
       } else {
         routerQuery.forEach(([queryKey, queryValues]) => {
-          const [key, values] = [queryKeyMapper[queryKey], queryValues];
+          const [key, values] = [mapQueryParameterKey(queryKey), queryValues];
+
           if (key === 'rangeName') {
             const isExist = filtersData?.groupedRangesWithSlug?.some(
               element => {
