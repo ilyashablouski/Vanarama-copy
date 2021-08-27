@@ -10,7 +10,7 @@ import { genericPagesQuery_genericPages_items as IGenericPages } from '../../gen
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
-const MAKES_WITH_SLUGS = ['abarth'];
+const MANUFACTURERS_WITH_SLUGS = ['abarth'];
 
 export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   const url = Object.entries(urlParams).map(([key, value]) =>
@@ -71,7 +71,7 @@ export const generateUrlForBreadcrumb = (
   pageData: IGenericPages | undefined,
   slugArray: string[],
 ) => {
-  if (MAKES_WITH_SLUGS.includes(manufacturer)) {
+  if (MANUFACTURERS_WITH_SLUGS.includes(manufacturer)) {
     return (
       pageData?.slug ||
       slugArray
