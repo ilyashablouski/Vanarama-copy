@@ -16,14 +16,14 @@ import {
   manufacturerListVariables,
 } from '../../../generated/manufacturerList';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
-import { genericPagesQuery_genericPages_items as IMakeUrl } from '../../../generated/genericPagesQuery';
+import { genericPagesQuery_genericPages_items as IManufacturerUrl } from '../../../generated/genericPagesQuery';
 import { formatToSlugFormat } from '../../utils/url';
 import { decodeData, encodeData } from '../../utils/data';
 
 interface IProps extends ISearchPageProps {
   topInfoSection?: sections | null;
   manufacturers: manufacturerList | null;
-  makesUrls: IMakeUrl[];
+  manufacturersUrls: IManufacturerUrl[];
 }
 
 const Page: NextPage<IProps> = ({
@@ -31,17 +31,17 @@ const Page: NextPage<IProps> = ({
   topInfoSection: topInfoSectionEncodedData,
   metaData,
   manufacturers,
-  makesUrls: encodedData,
+  manufacturersUrls: encodedData,
 }) => {
   return (
     <SearchPageContainer
       isServer={isServer}
       isCarSearch
-      isAllMakesPage
+      isAllManufacturersPage
       metaData={metaData}
       topInfoSection={decodeData(topInfoSectionEncodedData)}
       preLoadManufacturers={manufacturers}
-      makesUrls={decodeData(encodedData)}
+      manufacturersUrls={decodeData(encodedData)}
     />
   );
 };
@@ -58,7 +58,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     client,
     contextData,
     true,
-    'isAllMakesPage',
+    'isAllManufacturersPage',
   )) as ApolloQueryResult<any>;
   if (!Object.keys(context.query).length) {
     manufacturers = await client
@@ -71,10 +71,12 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       })
       .then(resp => resp.data);
   }
-  const slugs = manufacturers?.manufacturerList?.map(
-    make => `car-leasing/${formatToSlugFormat(make?.manufacturerName || '')}`,
-  );
-  const makesUrls = await client
+  const slugs = manufacturers?.manufacturerList?.map(manufacturer => {
+    return `car-leasing/${formatToSlugFormat(
+      manufacturer?.manufacturerName || '',
+    )}`;
+  });
+  const manufacturersUrls = await client
     .query({
       query: GET_LEGACY_URLS,
       variables: {
@@ -89,7 +91,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       metaData: data.manufacturerPage.metaData,
       isServer: !!context.req,
       manufacturers: manufacturers || null,
-      makesUrls: encodeData(makesUrls) || null,
+      manufacturersUrls: encodeData(manufacturersUrls) || null,
     },
   };
 }

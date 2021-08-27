@@ -112,7 +112,7 @@ export const filtersSearchMapper = (
         ? null
         : parseInt(selectedFiltersState.to[0], 10),
   },
-  manufacturerSlug: selectedFiltersState.make[0],
+  manufacturerSlug: selectedFiltersState.manufacturer[0],
   rangeSlug: selectedFiltersState.model[0],
   fuelTypes: selectedFiltersState.fuelTypes,
   bodyStyles: selectedFiltersState.bodyStyles,
@@ -122,9 +122,9 @@ export const filtersSearchMapper = (
 export const getLabelForSlug = (
   slug: string,
   filtersData: IFilterList,
-  isMakeValue = false,
+  isManufacturerValue = false,
 ) => {
-  if (isMakeValue) {
+  if (isManufacturerValue) {
     const label = filtersData.groupedRangesWithSlug?.find(
       ranges => ranges.parent.slug === slug,
     );
@@ -171,13 +171,13 @@ export const setFiltersAfterPageChange = (
       presetFilters.transmissions = [value.replace('-', ' ')];
       return presetFilters;
     default:
-      presetFilters.make = [value.toLowerCase()];
+      presetFilters.manufacturer = [value.toLowerCase()];
       return presetFilters;
   }
 };
 
 export const filterOrderByNumMap: { [key: string]: number } = {
-  make: 1,
+  manufacturer: 1,
   model: 2,
   range: 2,
   from: 3,

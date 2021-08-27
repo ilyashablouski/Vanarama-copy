@@ -20,7 +20,7 @@ export const filtersConfig = [
     type: 'drop-select',
     multiselect: false,
     label: 'Make & Model',
-    key: 'makeModel',
+    key: 'manufacturerModel',
     generalFilter: true,
     innerSelects: [
       {

@@ -1,5 +1,5 @@
-import FilterMakeAndModel from './FilterMakeAndModel';
+import FilterManufacturerAndModel from './FilterManufacturerAndModel';
 import FilterBudget from './FilterBudget';
 import FilterCheckboxes from './FilterCheckboxes';
 
-export { FilterMakeAndModel, FilterBudget, FilterCheckboxes };
+export { FilterManufacturerAndModel, FilterBudget, FilterCheckboxes };

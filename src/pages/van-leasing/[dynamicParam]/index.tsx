@@ -48,7 +48,7 @@ interface IPageType {
   isBodyStylePage: boolean;
   isFuelType: boolean;
   isTransmissionPage: boolean;
-  isMakePage: boolean;
+  isManufacturerPage: boolean;
   isBudgetType: boolean;
 }
 
@@ -96,8 +96,8 @@ const Page: NextPage<IProps> = ({
       router.query.dynamicParam as string,
     );
     pushPageData({
-      pageType: pageType?.current?.isMakePage
-        ? PAGE_TYPES.makePage
+      pageType: pageType?.current?.isManufacturerPage
+        ? PAGE_TYPES.manufacturerPage
         : PAGE_TYPES.vehicleTypePage,
       siteSection: SITE_SECTIONS.vans,
       pathname: router.pathname,
@@ -120,7 +120,9 @@ const Page: NextPage<IProps> = ({
     <SearchPageContainer
       isServer={isServer}
       isCarSearch={false}
-      isMakePage={pageType?.current?.isMakePage ?? ssrPageType?.isMakePage}
+      isManufacturerPage={
+        pageType?.current?.isManufacturerPage ?? ssrPageType?.isManufacturerPage
+      }
       isBodyStylePage={
         pageType?.current?.isBodyStylePage ?? ssrPageType?.isBodyStylePage
       }
@@ -277,7 +279,7 @@ export async function getServerSideProps(context: NextPageContext) {
         vehicleTypes: [VehicleTypeEnum.LCV],
         leaseType: LeaseTypeEnum.BUSINESS,
         onOffer: true,
-        first: pageType.isMakePage ? 6 : 9,
+        first: pageType.isManufacturerPage ? 6 : 9,
         sort: [{ field: SortField.offerRanking, direction: SortDirection.ASC }],
         ...filter,
       },

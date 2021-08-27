@@ -15,14 +15,14 @@ const getUrlForVehicleCard = (vehicle: IVehicles) =>
     : vehicle.node?.legacyUrl || vehicle.node?.url; // return slug if legacy url is not exists
 
 interface IProps {
-  isMakePage?: boolean;
-  isAllMakesPage?: boolean;
+  isManufacturerPage?: boolean;
+  isAllManufacturersPage?: boolean;
   ranges: rangeList;
   isPersonal?: boolean;
   rangesUrls?: ILegacyUrls[];
   isCarSearch?: boolean;
   manufacturers: manufacturerList;
-  makesUrls?: ILegacyUrls[];
+  manufacturersUrls?: ILegacyUrls[];
   cardsData: (IProductCard | null)[];
   vehiclesList: any;
   isModelPage?: boolean;
@@ -31,14 +31,14 @@ interface IProps {
 
 const ResultsContainer = memo((props: IProps) => {
   const {
-    isMakePage,
-    isAllMakesPage,
+    isManufacturerPage,
+    isAllManufacturersPage,
     ranges,
     isPersonal,
     rangesUrls,
     isCarSearch,
     manufacturers,
-    makesUrls,
+    manufacturersUrls,
     cardsData,
     vehiclesList,
     isModelPage,
@@ -49,9 +49,9 @@ const ResultsContainer = memo((props: IProps) => {
   const getCardData = (capId: string, dataForCards = cardsData) =>
     dataForCards?.filter(card => card?.capId === capId)[0];
 
-  return isMakePage || isAllMakesPage ? (
+  return isManufacturerPage || isAllManufacturersPage ? (
     <>
-      {isMakePage &&
+      {isManufacturerPage &&
         !!ranges?.rangeList?.length &&
         ranges?.rangeList?.map((range, index) => (
           <RangeCard
@@ -66,20 +66,20 @@ const ResultsContainer = memo((props: IProps) => {
             }
           />
         ))}
-      {isAllMakesPage &&
+      {isAllManufacturersPage &&
         !!manufacturers?.manufacturerList?.length &&
-        manufacturers?.manufacturerList?.map((makeData, index) => (
+        manufacturers?.manufacturerList?.map((manufacturerData, index) => (
           <RangeCard
-            title={makeData.manufacturerName || ''}
-            fromPrice={makeData.minPrice || undefined}
-            makesUrls={makesUrls}
-            key={makeData.manufacturerId || index}
+            title={manufacturerData.manufacturerName || ''}
+            fromPrice={manufacturerData.minPrice || undefined}
+            manufacturersUrls={manufacturersUrls}
+            key={manufacturerData.manufacturerId || index}
             isPersonalPrice={isPersonal ?? false}
-            id={makeData?.capId?.toString() || ''}
+            id={manufacturerData?.capId?.toString() || ''}
             vehicleType={
               isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV
             }
-            isAllMakesCard
+            isAllManufacturersCard
           />
         ))}
     </>

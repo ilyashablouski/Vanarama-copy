@@ -5,7 +5,7 @@ const selectedFiltersState = {
   bodyStyles: [],
   transmissions: [],
   fuelTypes: [],
-  make: [],
+  manufacturer: [],
   model: [],
   from: [],
   to: [],
@@ -23,7 +23,7 @@ describe('<helpers />', () => {
   });
   it('getValueKey should return correct filter name', async () => {
     expect(
-      getValueKey('test', { ...selectedFiltersState, make: ['Test'] }),
-    ).toEqual('make');
+      getValueKey('test', { ...selectedFiltersState, manufacturer: ['Test'] }),
+    ).toEqual('manufacturer');
   });
 });

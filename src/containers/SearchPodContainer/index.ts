@@ -1,3 +1,1 @@
-import SearchPodContainer from './SearchPodContainer';
-
-export default SearchPodContainer;
+export { default } from './SearchPodContainer';

@@ -29,14 +29,14 @@ describe('<RangeCard />', () => {
       vehicleType: VehicleTypeEnum.CAR,
       fromPrice: 191.91,
       isPersonalPrice: true,
-      isAllMakesCard: false,
+      isAllManufacturersCard: false,
       rangesUrls: [
         {
           slug: 'car-leasing/bmw/2-series',
           legacyUrl: '/bmw-car-leasing/2-series.html',
         },
       ],
-      makesUrls: [
+      manufacturersUrls: [
         {
           slug: 'car-leasing/bmw',
           legacyUrl: '/bmw-car-leasing.html',
@@ -116,13 +116,13 @@ describe('<RangeCard />', () => {
   });
 
   it('should be render correctly with all makes page', async () => {
-    mocks.isAllMakesCard = true;
+    mocks.isAllManufacturersCard = true;
     mocks.title = 'bmw';
 
     // ACT
     const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
-        <RangeCard {...mocks} isAllMakesCard />
+        <RangeCard {...mocks} isAllManufacturersCard />
       </MockedProvider>,
     );
 
