@@ -25,7 +25,3 @@ export interface ISearchPageFiltersProps
   isPreloadList: boolean;
   setSearchFilters: (filters: IFilters) => void;
 }
-
-export interface IQueryKeyMapper {
-  [key: string]: string;
-}

@@ -34,7 +34,7 @@ import {
 import { dynamicQueryTypeCheck } from '../../containers/SearchPageContainer/helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import { getPartnerProperties } from '../../utils/partnerProperties';
-import { IQueryKeyMapper, ISearchPageFiltersProps } from './interfaces';
+import { ISearchPageFiltersProps } from './interfaces';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -44,6 +44,9 @@ const Dropdown = dynamic(() => import('core/atoms/dropdown'), {
 });
 const FormGroup = dynamic(() => import('core/molecules/formgroup'));
 
+interface IQueryKeyMapper {
+  [key: string]: string;
+}
 const queryParameterKeyMapper: IQueryKeyMapper = {
   make: 'manufacturer',
 };
