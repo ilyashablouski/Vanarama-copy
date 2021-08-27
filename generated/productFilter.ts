@@ -16,6 +16,7 @@ export interface productFilter_productFilter_enginePowerBhp {
 
 export interface productFilter_productFilter {
   manufacturerName: (string | null)[] | null;
+  rangeName: (string | null)[] | null;
   transmissions: (string | null)[] | null;
   fuelTypes: (string | null)[] | null;
   bodyStyles: (string | null)[] | null;
