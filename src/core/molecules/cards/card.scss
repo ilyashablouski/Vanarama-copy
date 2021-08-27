@@ -829,7 +829,7 @@ $small: 0.875rem;
       top: -3px;
       margin-right: 3px;
     }
-    @media (max-width: 374px) {
+  @include mobile576() {
       width: 100%;
       + * {
         margin-top: 6px;
