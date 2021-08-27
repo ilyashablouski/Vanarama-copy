@@ -19,6 +19,7 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
   query GetCreditApplicationByOrderUuid($id: ID!) {
     creditApplicationByOrderUuid(orderUuid: $id) {
       addresses
+      submittedAt
       aboutDetailsV2 {
         addresses {
           city
@@ -454,6 +455,7 @@ export const CREATE_UPDATE_CREDIT_APPLICATION = gql`
   ) {
     createUpdateCreditApplication(input: $input) {
       addresses
+      submittedAt
       aboutDetailsV2 {
         addresses {
           city
@@ -773,6 +775,7 @@ export function useCreateUpdateCreditApplication(
 
 const responseMock = {
   addresses: [],
+  submittedAt: '01-01-2020',
   aboutDetailsV2: {
     addresses: null,
     businessShare: null,

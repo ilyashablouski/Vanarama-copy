@@ -347,6 +347,7 @@ export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_li
 
 export interface GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid {
   addresses: CustomJson | null;
+  submittedAt: CustomDateTime | null;
   aboutDetailsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_aboutDetailsV2 | null;
   bankAccountsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_bankAccountsV2[] | null;
   companyDetailsV2: GetCreditApplicationByOrderUuid_creditApplicationByOrderUuid_companyDetailsV2 | null;
