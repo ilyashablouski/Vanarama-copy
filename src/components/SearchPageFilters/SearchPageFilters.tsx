@@ -49,9 +49,8 @@ interface IQueryKeyMapper {
 }
 const queryKeyMapper: IQueryKeyMapper = {
   make: 'manufacturer',
-  model: 'model',
-  from: 'from',
-  to: 'to',
+  rangeName: 'rangeName',
+  pricePerMonth: 'pricePerMonth',
   bodyStyles: 'bodyStyles',
   transmissions: 'transmissions',
   fuelTypes: 'fuelTypes',
