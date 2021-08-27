@@ -148,7 +148,7 @@ $carousel-arrow-size: 1.5rem;
         min-height: 366px;
       }
     }
-  }  
+  }
 
   .card {
     .title {
@@ -170,7 +170,7 @@ $carousel-arrow-size: 1.5rem;
         &.card-footer {
           position: absolute;
           left: 0;
-          right: 0;          
+          right: 0;
         }
         &.-flex-h {
           bottom: 61px;
@@ -182,7 +182,7 @@ $carousel-arrow-size: 1.5rem;
     }
   }
 }
- 
+
 .-v-height {
   height: 100%;
 }
@@ -199,4 +199,75 @@ $carousel-arrow-size: 1.5rem;
       }
     }
   }
+}
+
+.swiper-container, .swiper-wrapper, .swiper-slide {
+  box-sizing: border-box;
+}
+
+.swiper-container {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .swiper-wrapper {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    transition-property: transform;
+    will-change: transform;
+  }
+
+  .swiper-slide {
+    display: flex;
+    flex-shrink: 0;
+    width: 100%;
+    height: auto;
+    &:last-child {
+      margin-right: 1px;
+    }
+
+    .image:before {
+      padding-top: 56.277%;
+    }
+  }
+
+  .swiper-button-prev,
+  .swiper-button-next {
+    width: auto;
+    height: auto;
+
+    &:after {
+      font-size: 35px;
+      font-weight: bold;
+      color: #ffffff;
+      text-shadow: 0 0 7px rgba(0, 0, 0, .55);
+    }
+
+    @include mobile-tablet {
+      &:after {
+        font-size: 27px;
+      }
+    }
+  }
+
+  .swiper-button-prev {
+    left: 20px;
+
+    @include mobile-tablet {
+      left: 16px;
+    }
+  }
+
+  .swiper-button-next {
+    right: 20px;
+
+    @include mobile-tablet {
+      right: 16px;
+    }
+  }
+}
+
+.card-wrapper {
+  display: flex;
+  width: 100%;
 }
