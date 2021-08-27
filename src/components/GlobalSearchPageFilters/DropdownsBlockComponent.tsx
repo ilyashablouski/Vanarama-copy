@@ -63,6 +63,13 @@ const DropdownsBlockComponent = ({
   isDisabledSelect,
   isInvalidRangeValue,
 }: IProps) => {
+  if (
+    !filtersMapper[key as keyof IFiltersData]?.length &&
+    type === 'drop-down'
+  ) {
+    return null;
+  }
+
   return type === 'drop-down' ? (
     <DropdownV2
       key={key}
