@@ -88,17 +88,13 @@ const RangeCard = memo(
       [id],
       !id || !isAllManufacturersCard,
     );
-    const imageProps = (!isAllManufacturersCard
-      ? imagesData
-      : imagesManufacturerData
-    )?.vehicleImages?.[0]
-      ? {
-          imageSrc:
-            (!isAllManufacturersCard ? imagesData : imagesManufacturerData)
-              ?.vehicleImages?.[0]?.mainImageUrl ||
-            `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
-        }
-      : { imageSrc: `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg` };
+
+    const imageProps = {
+      imageSrc:
+        (!isAllManufacturersCard ? imagesData : imagesManufacturerData)?.vehicleImages?.[0]
+          ?.mainImageUrl || `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
+    };
+
     return (
       <Card
         optimisedHost={process.env.IMG_OPTIMISATION_HOST}

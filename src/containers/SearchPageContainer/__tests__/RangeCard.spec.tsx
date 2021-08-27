@@ -46,7 +46,8 @@ describe('<RangeCard />', () => {
   };
 
   const mocks = resetMocks();
-  let imageRequest = false;
+  let rangeImagesRequest = false;
+  let modelImagesRequest = false;
 
   const mocksResponse: MockedResponse[] = [
     {
@@ -58,7 +59,7 @@ describe('<RangeCard />', () => {
         },
       },
       result: () => {
-        imageRequest = true;
+        rangeImagesRequest = true;
         return {
           data: {
             vehicleImages: [
@@ -79,7 +80,7 @@ describe('<RangeCard />', () => {
         },
       },
       result: () => {
-        imageRequest = true;
+        modelImagesRequest = true;
         return {
           data: {
             vehicleImages: [
@@ -107,14 +108,17 @@ describe('<RangeCard />', () => {
     );
 
     await waitFor(() => {
-      expect(imageRequest).toBeTruthy();
+      expect(rangeImagesRequest).toBeTruthy();
     });
+
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
   });
-  it.skip('should be render correctly with all makes page', async () => {
+
+  it('should be render correctly with all makes page', async () => {
     mocks.isAllManufacturersCard = true;
     mocks.title = 'bmw';
+
     // ACT
     const getComponent = render(
       <MockedProvider mocks={mocksResponse} addTypename={false}>
@@ -123,8 +127,9 @@ describe('<RangeCard />', () => {
     );
 
     await waitFor(() => {
-      expect(imageRequest).toBeTruthy();
+      expect(modelImagesRequest).toBeTruthy();
     });
+
     const tree = getComponent.baseElement;
     expect(tree).toMatchSnapshot();
   });
