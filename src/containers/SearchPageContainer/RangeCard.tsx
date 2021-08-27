@@ -91,8 +91,9 @@ const RangeCard = memo(
 
     const imageProps = {
       imageSrc:
-        (!isAllManufacturersCard ? imagesData : imagesManufacturerData)?.vehicleImages?.[0]
-          ?.mainImageUrl || `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
+        (!isAllManufacturersCard ? imagesData : imagesManufacturerData)
+          ?.vehicleImages?.[0]?.mainImageUrl ||
+        `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`,
     };
 
     return (
