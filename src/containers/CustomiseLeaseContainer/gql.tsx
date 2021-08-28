@@ -89,6 +89,7 @@ export function useQuoteDataLazyQuery(
     {
       onCompleted,
       onError,
+      fetchPolicy: 'network-only',
     },
   );
 }
