@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import { ParsedUrlQueryInput } from 'querystring';
 import ReactMarkdown from 'react-markdown';
 import dynamic from 'next/dynamic';
 
@@ -8,7 +9,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 import Accordion from 'core/molecules/accordion';
 import { IAccordionItem } from 'core/molecules/accordion/AccordionItem';
 
-import { Nullish } from '../../types/common';
+import { Nullable, Nullish } from '../../types/common';
 import { GENERIC_PAGE } from '../../gql/genericPage';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
@@ -82,7 +83,9 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
   const hotOfferDerivatives = productDerivatives?.derivatives ?? null;
 
   const [partnershipActive, setPartnershipActive] = useState(false);
-  const [findOutMoreQueries, setFindOutMoreQueries] = useState({});
+  const [findOutMoreQueries, setFindOutMoreQueries] = useState<
+    Nullable<ParsedUrlQueryInput>
+  >(null);
 
   useEffect(() => {
     const partnership = getPartnerProperties();
