@@ -18,7 +18,7 @@ const resetMocks = () => {
       bodyStyles: [],
       transmissions: [],
       fuelTypes: [],
-      make: [],
+      manufacturer: [],
       model: [],
       from: [],
       to: [],

@@ -1,4 +1,4 @@
-import React, { FC, useState, useLayoutEffect } from 'react';
+import React, { FC, useState } from 'react';
 import cx from 'classnames';
 import Carousel from 'nuka-carousel';
 import { useMediaQuery } from 'react-responsive';
@@ -7,6 +7,7 @@ import ArrowForwardSharp from '../../assets/icons/ArrowForwardSharp';
 import Ellipse from '../../assets/icons/Ellipse';
 import Icon from '../../atoms/icon';
 import { ICarouselProps } from './interface';
+import useBrowserLayoutEffect from '../../../hooks/useBrowserLayoutEffect';
 
 const Slider: FC<ICarouselProps> = ({
   children,
@@ -33,7 +34,7 @@ const Slider: FC<ICarouselProps> = ({
   //  the carousel component after a short delay. This is because we had to wait until
   //  the <Carousel> component had finished applying all its inline CSS calculations.
 
-  useLayoutEffect(() => {
+  useBrowserLayoutEffect(() => {
     setTimeout(() => {
       const sliders = document.querySelectorAll('.carousel .card');
       Array.from(Array(sliders.length)).forEach((el, id) => {

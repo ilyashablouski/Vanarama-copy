@@ -3,6 +3,8 @@ import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfa
 import { IInnerSelect } from './interfaces';
 import { Nullish } from '../../types/common';
 
+const UNLISTED_VALUE = 999999999;
+
 export const getInnerConfigKeys = (innerSelects: IInnerSelect[]) =>
   innerSelects.map(select => select.key as keyof IFiltersData);
 
@@ -11,6 +13,11 @@ export const renderPowerEngineValue = (value: string) => `${value}bhp`;
 export const renderSeatsValue = (value: string) => `${value} Seats`;
 
 export const renderDoorsValue = (value: string) => `${value} Doors`;
+
+export const handleUnlistedValue = (value: string | number) => {
+  const valueInt = typeof value === 'number' ? value : parseInt(value, 10);
+  return valueInt === UNLISTED_VALUE ? 'Unlisted' : `${value}`;
+};
 
 export const renderPowerEngineSelected = (values: (string | null)[]) => {
   const text = `${values[0] ? `From ${values[0]}bhp` : ''}${

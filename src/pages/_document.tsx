@@ -41,14 +41,15 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <link rel="preconnect" href="https://cdn.blueconic.net" />
+          {/* TODO: remove comment code below if not need */}
+          {/* <link rel="preconnect" href="https://cdn.blueconic.net" /> */}
           <link rel="preconnect" href="https://plugins.blueconic.net" />
           <link rel="preconnect" href="https://vanarama.blueconic.net/" />
           {scriptEnvs.blueconic.includes(env) && (
             <script
               async
               data-cfasync="false"
-              src="https://cdn.blueconic.net/vanarama.js"
+              src="https://g562.vanarama.com/script.js"
             />
           )}
           {/* <RollbarScript /> */}

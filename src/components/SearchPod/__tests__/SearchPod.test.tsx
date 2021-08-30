@@ -18,8 +18,8 @@ describe('<SearchPod />', () => {
       onSearch: jest.fn(),
       registerDropdown: jest.fn(),
       getOptions: () => ['test', 'test22'],
-      hasCarMakeSelected: false,
-      hasVansMakeSelected: false,
+      hasCarManufacturerSelected: false,
+      hasVansManufacturerSelected: false,
       vansCachedData: {
         vehicleTypes: ['LCV'],
         groupedRangesWithSlug: [

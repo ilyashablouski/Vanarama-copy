@@ -3,9 +3,9 @@ import React, { FC } from 'react';
 import Select from '../../../atoms/select';
 import Formgroup from '../../../molecules/formgroup';
 
-import { IFilterMakeAndModel } from '../interfaces';
+import { IFilterManufacturerAndModel } from '../interfaces';
 
-const FilterMakeAndModel: FC<IFilterMakeAndModel> = props => {
+const FilterManufacturerAndModel: FC<IFilterManufacturerAndModel> = props => {
   const {
     searchFilters,
     setSelectedFiltersState,
@@ -51,4 +51,4 @@ const FilterMakeAndModel: FC<IFilterMakeAndModel> = props => {
   );
 };
 
-export default React.memo(FilterMakeAndModel);
+export default React.memo(FilterManufacturerAndModel);

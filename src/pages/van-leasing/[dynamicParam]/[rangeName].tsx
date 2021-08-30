@@ -63,7 +63,10 @@ const Page: NextPage<IProps> = ({
 
   useEffect(() => {
     if (!router.query.make) {
-      const query = { ...router.query, make: router.query.dynamicParam };
+      const query = {
+        ...router.query,
+        make: router.query.dynamicParam,
+      };
       const { asPath, pathname } = router;
       router.replace(
         {

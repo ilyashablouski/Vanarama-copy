@@ -146,9 +146,9 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
               >
                 <select
                   className="select--native"
-                  data-testid="makeVans"
+                  data-testid="manufacturerVans"
                   defaultValue=""
-                  name="makeVans"
+                  name="manufacturerVans"
                 >
                   <option
                     disabled={true}
@@ -439,9 +439,9 @@ exports[`<SearchPodContainer /> renders correctly with data 1`] = `
               >
                 <select
                   className="select--native"
-                  data-testid="makeCars"
+                  data-testid="manufacturerCars"
                   defaultValue=""
-                  name="makeCars"
+                  name="manufacturerCars"
                 >
                   <option
                     disabled={true}

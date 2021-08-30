@@ -121,7 +121,7 @@ exports[`<FiltersContainer /> should render with data 1`] = `
               >
                 <select
                   class="select--native"
-                  name="make"
+                  name="manufacturer"
                 >
                   <option
                     disabled=""

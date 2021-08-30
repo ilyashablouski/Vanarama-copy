@@ -44,8 +44,8 @@ const SearchPod = ({
   onSearch,
   registerDropdown,
   getOptions,
-  hasCarMakeSelected,
-  hasVansMakeSelected,
+  hasCarManufacturerSelected,
+  hasVansManufacturerSelected,
   vansData,
   vansCachedData,
   isHomePage,
@@ -89,7 +89,7 @@ const SearchPod = ({
                 {headingText}
               </Heading>
               <Form>
-                {tab.dropdowns.map(({ accessor, label }) => (
+                {tab.dropdowns.map(({ accessor, label, placeholder }) => (
                   <Formgroup key={accessor}>
                     <Select
                       dataTestId={accessor}
@@ -102,15 +102,12 @@ const SearchPod = ({
                         {!(
                           accessor.indexOf('model') > -1 &&
                           tab.type === 'Cars' &&
-                          !hasCarMakeSelected
+                          !hasCarManufacturerSelected
                         ) ? (
                           <option key="All" value=" ">
                             All{' '}
-                            {accessor
-                              .replace(tab.type, '')
-                              .charAt(0)
-                              .toUpperCase() +
-                              accessor.replace(tab.type, '').slice(1)}
+                            {placeholder.charAt(0).toUpperCase() +
+                              placeholder.slice(1)}
                             s
                           </option>
                         ) : (
@@ -120,7 +117,7 @@ const SearchPod = ({
                       {!(
                         accessor.indexOf('model') > -1 &&
                         tab.type === 'Vans' &&
-                        !hasVansMakeSelected
+                        !hasVansManufacturerSelected
                       )
                         ? getOptions(accessor).map(option => {
                             // if option don't have label and slug structure
@@ -142,7 +139,7 @@ const SearchPod = ({
                             vansCachedData.groupedRangesWithSlug
                           )
                             ?.filter((range: IRangesSlug) =>
-                              getOptions('makeVans').some(
+                              getOptions('manufacturerVans').some(
                                 option =>
                                   range.parent.label ===
                                   (option as IOptionsDropdown).label,

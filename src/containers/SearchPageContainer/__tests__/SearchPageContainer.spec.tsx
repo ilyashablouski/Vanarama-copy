@@ -7,7 +7,7 @@ import {
   useVehiclesList,
   getRangesList,
   useManufacturerList,
-  GET_ALL_MAKES_PAGE,
+  GET_ALL_MANUFACTURERS_PAGE,
 } from '../gql';
 import { GET_SEARCH_POD_DATA } from '../../SearchPodContainer/gql';
 import { GET_PRODUCT_CARDS_DATA } from '../../CustomerAlsoViewedContainer/gql';
@@ -676,7 +676,7 @@ const mocksResponse: MockedResponse[] = [
   },
   {
     request: {
-      query: GET_ALL_MAKES_PAGE,
+      query: GET_ALL_MANUFACTURERS_PAGE,
       variables: {},
     },
     result: () => {
@@ -688,7 +688,7 @@ const mocksResponse: MockedResponse[] = [
   },
   {
     request: {
-      query: GET_ALL_MAKES_PAGE,
+      query: GET_ALL_MANUFACTURERS_PAGE,
       variables: {},
     },
     result: () => {
@@ -859,7 +859,7 @@ describe('<SearchPageContainer />', () => {
           metaData={metaData}
           isCarSearch
           isServer={false}
-          isAllMakesPage
+          isAllManufacturersPage
         />
       </MockedProvider>,
     );

@@ -353,12 +353,12 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             <div className="row:pagination">
               <Pagination
                 path={`/${metaData?.legacyUrl?.replace('.html', '') ||
-                  ''}/page`}
+                  metaData?.slug}/page`}
                 pathForFirstPage={`/${metaData?.legacyUrl?.replace(
                   '.html',
                   '',
-                ) || ''}`}
-                pathWithHtml
+                ) || metaData?.slug}`}
+                pathWithHtml={!!metaData?.legacyUrl}
                 pages={pages}
                 selected={activePage}
               />

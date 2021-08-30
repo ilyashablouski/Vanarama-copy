@@ -1,23 +1,23 @@
 import {
   filterList_filterList as IFilterList,
-  filterList_filterList_groupedRangesWithSlug_parent as IFiltersMake,
+  filterList_filterList_groupedRangesWithSlug_parent as IFiltersManufacturer,
   filterList_filterList_groupedRangesWithSlug_children as IFiltersChildren,
 } from '../../../generated/filterList';
 import { filterTypeAndBudget_filterList as IFilterTypeAndBudget } from '../../../generated/filterTypeAndBudget';
 
-export const makeHandler = (
+export const manufacturerHandler = (
   data: IFilterList | IFilterTypeAndBudget,
-): IFiltersMake[] =>
+): IFiltersManufacturer[] =>
   data.groupedRangesWithSlug?.map(range => range.parent) || [];
 
 export const modelHandler = (
   data: IFilterList | IFilterTypeAndBudget,
-  make: string,
+  manufacturer: string,
 ): IFiltersChildren[] => {
-  if (make && data.groupedRangesWithSlug) {
+  if (manufacturer && data.groupedRangesWithSlug) {
     return data.groupedRangesWithSlug?.reduce(
       (acc: IFiltersChildren[], range) => {
-        if (range.parent.slug === make) {
+        if (range.parent.slug === manufacturer) {
           acc.push(...range.children);
         }
         return acc;

@@ -347,6 +347,7 @@ export interface CreateUpdateCreditApplication_createUpdateCreditApplication_lin
 
 export interface CreateUpdateCreditApplication_createUpdateCreditApplication {
   addresses: CustomJson | null;
+  submittedAt: CustomDateTime | null;
   aboutDetailsV2: CreateUpdateCreditApplication_createUpdateCreditApplication_aboutDetailsV2 | null;
   bankAccountsV2: CreateUpdateCreditApplication_createUpdateCreditApplication_bankAccountsV2[] | null;
   companyDetailsV2: CreateUpdateCreditApplication_createUpdateCreditApplication_companyDetailsV2 | null;

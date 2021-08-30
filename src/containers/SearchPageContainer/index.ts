@@ -1,3 +1,1 @@
-import SearchPageContainer from './SearchPageContainer';
-
-export default SearchPageContainer;
+export { default } from './SearchPageContainer';
