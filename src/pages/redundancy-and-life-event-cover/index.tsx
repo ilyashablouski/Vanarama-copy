@@ -6,6 +6,7 @@ import dynamic from 'next/dynamic';
 import Image from 'core/atoms/image';
 import SchemaJSON from 'core/atoms/schema-json';
 import Accordion from 'core/molecules/accordion';
+import { IAccordionItem } from 'core/molecules/accordion/AccordionItem';
 
 import { Nullish } from '../../types/common';
 import { GENERIC_PAGE } from '../../gql/genericPage';
@@ -32,49 +33,63 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
 
+const DEFAULT_HERO_IMAGE_URL =
+  'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png';
+const DEFAULT_HOT_OFFERS_COUNT = 6;
+
+const optimisationOptions = {
+  height: 620,
+  width: 620,
+  quality: 59,
+};
+
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
-  productsCar?: Nullish<ProductCardData>;
-  productsCarDerivatives?: Nullish<GetDerivatives>;
+  productCard?: Nullish<ProductCardData>;
+  productDerivatives?: Nullish<GetDerivatives>;
   searchParam: string;
 }
 
 const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
   data,
-  productsCarDerivatives,
-  productsCar,
+  productDerivatives,
+  productCard,
   vehicleListUrlData,
   searchParam,
 }) => {
   const { cachedLeaseType } = useLeaseType(null);
 
-  const optimisationOptions = {
-    height: 620,
-    width: 620,
-    quality: 59,
-  };
-
   const sections = data?.genericPage.sectionsAsArray;
-  const featureSections = sections?.featured || [];
   const findOutMoreSections = sections?.carousel?.[1];
+  const featureSections = sections?.featured;
+
+  const heroImageUrl =
+    sections?.hero?.[0]?.image?.file?.url || DEFAULT_HERO_IMAGE_URL;
   const isPersonalCar = cachedLeaseType.car === LeaseTypeEnum.PERSONAL;
-  const accordionSections: any = sections?.questionSet?.[0]?.questionAnswers?.map(
-    (question, i) => {
-      return {
-        id: i,
-        title: question?.question,
-        children: question?.answer,
-      };
-    },
-  );
+  const leaseType = isPersonalCar
+    ? LeaseTypeEnum.PERSONAL
+    : LeaseTypeEnum.BUSINESS;
+
+  const accordionSections: IAccordionItem[] =
+    sections?.questionSet?.[0]?.questionAnswers?.map((question, index) => ({
+      id: index,
+      title: question?.question ?? '',
+      children: question?.answer,
+    })) ?? [];
+
+  const hotOfferProductCard =
+    productCard?.productCarousel?.slice(0, DEFAULT_HOT_OFFERS_COUNT) ?? null;
+  const hotOfferDerivatives = productDerivatives?.derivatives ?? null;
 
   const [partnershipActive, setPartnershipActive] = useState(false);
   const [findOutMoreQueries, setFindOutMoreQueries] = useState({});
 
   useEffect(() => {
     const partnership = getPartnerProperties();
+
     if (partnership) {
       setPartnershipActive(true);
+
       if (partnership.fuelTypes) {
         setFindOutMoreQueries({
           fuelTypes: partnership.fuelTypes,
@@ -112,18 +127,12 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
             className="hero--image"
             plain
             size="expand"
-            src={
-              sections?.hero?.[0]?.image?.file?.url ||
-              'https://ellisdonovan.s3.eu-west-2.amazonaws.com/benson-hero-images/connect.png'
-            }
+            src={heroImageUrl}
           />
         </div>
       </Hero>
-      {featureSections.map(featured => (
-        <FeaturedSection
-          featured={featured}
-          key={featureSections.indexOf(featured)}
-        />
+      {featureSections?.map(featured => (
+        <FeaturedSection featured={featured} key={featured?.title} />
       ))}
       {sections?.carousel?.[0] && !partnershipActive && (
         <section className="row:bg-lighter">
@@ -136,16 +145,14 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
             {sections?.carousel?.[0]?.title}
           </Heading>
           <ProductCarousel
-            leaseType={
-              isPersonalCar ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS
-            }
+            leaseType={leaseType}
+            countItems={hotOfferProductCard?.length}
+            dataTestIdBtn="car-view-offer"
             data={{
-              derivatives: productsCarDerivatives?.derivatives || null,
-              productCard: productsCar?.productCarousel?.slice(0, 6) || null,
+              derivatives: hotOfferDerivatives,
+              productCard: hotOfferProductCard,
               vehicleList: vehicleListUrlData,
             }}
-            countItems={productsCar?.productCarousel?.length || 6}
-            dataTestIdBtn="car-view-offer"
           />
           <div className="-justify-content-row -pt-500">
             <RouterLink
@@ -195,7 +202,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       variables: {
         slug: 'redundancy-and-life-event-cover',
         sectionsAsArray: true,
-        ...(context?.preview && { isPreview: context?.preview }),
+        ...(context?.preview && {
+          isPreview: context?.preview,
+        }),
       },
     });
 
@@ -211,8 +220,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         : Number(process.env.REVALIDATE_INTERVAL),
       props: {
         data,
-        productsCarDerivatives: productsCarDerivatives || null,
-        productsCar: productsCar || null,
+        productDerivatives: productsCarDerivatives || null,
+        productCard: productsCar || null,
         vehicleListUrlData,
         searchParam: 'car-leasing',
       },
