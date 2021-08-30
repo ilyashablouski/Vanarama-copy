@@ -21,6 +21,10 @@ import { GetDerivatives } from '../../../../generated/GetDerivatives';
 import { ProductCardData } from '../../../../generated/ProductCardData';
 import { getPartnerProperties } from '../../../utils/partnerProperties';
 
+const Heading = dynamic(() => import('core/atoms/heading'), {
+  loading: () => <Skeleton count={1} />,
+});
+
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
   productsCar?: ProductCardData | undefined;
@@ -38,9 +42,6 @@ const FreeCarInsurance: NextPage<IProps> = ({
   vehicleListUrlData,
   searchParam,
 }) => {
-  const Heading = dynamic(() => import('core/atoms/heading'), {
-    loading: () => <Skeleton count={1} />,
-  });
   const { cachedLeaseType } = useLeaseType(null);
 
   const optimisationOptions = {
