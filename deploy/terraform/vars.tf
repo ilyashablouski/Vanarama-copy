@@ -67,3 +67,9 @@ variable "alternateDomain" {
   type = string
   description = "Endpoint name to be checked"
 }
+
+variable "enable_canary" {
+  type = bool
+  default = true
+  description = "Boolean for creating canary resources"
+}
