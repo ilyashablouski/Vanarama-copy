@@ -11,7 +11,7 @@ export const responseToInitialFormValues = (
     expenditure?.averageMonthlyIncome || 0 - monthlyExpenses;
 
   return {
-    averageMonthlyIncome: expenditure?.averageMonthlyIncome.toString() || '0',
+    averageMonthlyIncome: expenditure?.averageMonthlyIncome.toString() || '',
     carFinance: expenditure?.carFinance?.toString() || '0',
     creditCardPayments: expenditure?.creditCardPayments?.toString() || '0',
     foodAndClothes: expenditure?.foodAndClothes?.toString() || '0',
