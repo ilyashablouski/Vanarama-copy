@@ -182,7 +182,7 @@ $carousel-arrow-size: 1.5rem;
     }
   }
 }
-
+//TODO: Delete if unneсessary styles
 .-v-height {
   height: 100%;
 }
@@ -201,12 +201,9 @@ $carousel-arrow-size: 1.5rem;
   }
 }
 
-.swiper-container, .swiper-wrapper, .swiper-slide {
-  box-sizing: border-box;
-}
-
 .swiper-container {
-  width: 100%;
+  padding-bottom: 1px;
+  width: calc(100% + 1px);
   height: 100%;
   overflow: hidden;
   .swiper-wrapper {
@@ -222,52 +219,33 @@ $carousel-arrow-size: 1.5rem;
     flex-shrink: 0;
     width: 100%;
     height: auto;
-    &:last-child {
-      margin-right: 1px;
-    }
-
-    .image:before {
-      padding-top: 56.277%;
-    }
-  }
-
-  .swiper-button-prev,
-  .swiper-button-next {
-    width: auto;
-    height: auto;
-
-    &:after {
-      font-size: 35px;
-      font-weight: bold;
-      color: #ffffff;
-      text-shadow: 0 0 7px rgba(0, 0, 0, .55);
-    }
-
-    @include mobile-tablet {
-      &:after {
-        font-size: 27px;
-      }
-    }
-  }
-
-  .swiper-button-prev {
-    left: 20px;
-
-    @include mobile-tablet {
-      left: 16px;
-    }
-  }
-
-  .swiper-button-next {
-    right: 20px;
-
-    @include mobile-tablet {
-      right: 16px;
-    }
   }
 }
 
-.card-wrapper {
+.swiper-pagination {
+  margin: 0;
   display: flex;
-  width: 100%;
+  @include mobile {
+    display: none;
+  }
+  .swiper-pagination-bullet {
+    position: relative;
+    margin-left: 1rem;
+    width: 15px;
+    height: 15px;
+    background: #ced6de;
+    border-radius: 100%;
+    cursor: pointer;
+    @include expand-tappable-area(30%);
+
+    &:hover, &:focus {
+      background: #b0bdc9;
+    }
+
+    &-active, &-active:hover, &-active:focus {
+      background: #ec6409;
+    }
+  }
 }
+
+
