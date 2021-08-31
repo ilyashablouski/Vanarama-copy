@@ -18,3 +18,10 @@ export const getDeviceType = () => {
 
 export const isServerRenderOrAppleDevice =
   typeof window === 'undefined' || navigator?.vendor === 'Apple Computer, Inc.';
+
+export const isChromeBrowser =
+  typeof window !== 'undefined' &&
+  navigator?.userAgent?.indexOf('Chrome') !== -1;
+
+export const isAndroid =
+  typeof window !== 'undefined' && /(android)/i.test(navigator.userAgent);
