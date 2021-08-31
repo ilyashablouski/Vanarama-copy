@@ -15,6 +15,7 @@ describe('<EmploymentFormContainer />', () => {
   it('should post data to the server correctly', async () => {
     // ARRANGE
     let mutationCalled = false;
+    const orderId = '1337';
     const personUuid = '1337';
     const onCompletedMock = jest.fn();
     const mocks: MockedResponse[] = withoutPrefilledEmployments(
@@ -28,6 +29,7 @@ describe('<EmploymentFormContainer />', () => {
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
         <EmploymentFormContainer
+          orderId={orderId}
           personUuid={personUuid}
           onCompleted={onCompletedMock}
         />
@@ -55,6 +57,7 @@ describe('<EmploymentFormContainer />', () => {
 
   it('should prefill data from the server', async () => {
     // ARRANGE
+    const orderId = '1337';
     const personUuid = '1337';
     const onCompletedMock = jest.fn();
     const mocks = withPrefilledEmployments(personUuid);
@@ -63,6 +66,7 @@ describe('<EmploymentFormContainer />', () => {
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
         <EmploymentFormContainer
+          orderId={orderId}
           personUuid={personUuid}
           onCompleted={onCompletedMock}
         />
