@@ -44,7 +44,13 @@ const Camera: FC<ICamera> = ({
         ref={webcamRef}
         screenshotFormat="image/jpeg"
         width="100%"
-        onUserMedia={handleOnUserMedia}
+        onUserMedia={() => {
+          // android doesn't show labels to media device until we give permission to use camera
+          if (isAndroid && isChromeBrowser && !devices[deviceIndex]?.label) {
+            navigator.mediaDevices.enumerateDevices().then(handleDevices);
+          }
+          handleOnUserMedia();
+        }}
         onUserMediaError={() => {
           if (deviceIndex < devices.length) {
             setDeviceIndex(prevState => prevState + 1);
