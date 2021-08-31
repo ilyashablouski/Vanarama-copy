@@ -1,3 +1,1 @@
-import ArticleCarousel from './ArticleCarousel';
-
-export default ArticleCarousel;
+export { default } from './ArticleCarousel';
