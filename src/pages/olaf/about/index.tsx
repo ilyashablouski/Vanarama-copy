@@ -16,10 +16,7 @@ import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { CreateUpdatePersonMutation_createUpdatePerson as IPerson } from '../../../../generated/CreateUpdatePersonMutation';
-import {
-  useCreateUpdateCreditApplication,
-  useGetCreditApplicationByOrderUuid,
-} from '../../../gql/creditApplication';
+import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
 import { usePersonByUuidData } from '../../../gql/person';
 import { useCreateUpdateOrder } from '../../../gql/order';
 import {
@@ -78,11 +75,7 @@ const AboutYouPage: NextPage = () => {
 
   const [updateOrderHandle] = useCreateUpdateOrder(() => {});
   const [createUpdateCA] = useCreateUpdateCreditApplication(orderId, () => {});
-  const creditApplicationQuery = useGetCreditApplicationByOrderUuid(orderId);
-  const creditApplication =
-    creditApplicationQuery.data?.creditApplicationByOrderUuid;
   const { redirect } = router.query as OLAFQueryParams;
-  const isEdit = !!creditApplication?.aboutDetailsV2;
 
   const clickOnComplete = async (createUpdatePerson: IPerson) => {
     savePersonUuid(createUpdatePerson);
@@ -193,7 +186,7 @@ const AboutYouPage: NextPage = () => {
         </div>
       )}
       <AboutFormContainer
-        isEdit={isEdit}
+        orderId={orderId}
         personLoggedIn={personLoggedIn}
         onCompleted={({ createUpdatePerson }) =>
           clickOnComplete(createUpdatePerson!)

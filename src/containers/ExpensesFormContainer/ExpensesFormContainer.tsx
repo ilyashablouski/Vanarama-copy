@@ -1,6 +1,7 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { useExpensesData, useUpdateExpenses } from './gql';
+import { useGetCreditApplicationByOrderUuid } from '../../gql/creditApplication';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 import Skeleton from '../../components/Skeleton';
@@ -16,6 +17,7 @@ const IncomeCalculator = dynamic(
 );
 
 const ExpensesFormContainer: React.FC<IProps> = ({
+  orderId,
   personUuid,
   onCompleted,
   order,
@@ -23,7 +25,11 @@ const ExpensesFormContainer: React.FC<IProps> = ({
   const { loading, error, data } = useExpensesData(personUuid);
   const [expenses] = useUpdateExpenses(personUuid, onCompleted);
 
-  if (loading || !order) {
+  const {
+    loading: creditApplicationLoading,
+  } = useGetCreditApplicationByOrderUuid(orderId);
+
+  if (loading || creditApplicationLoading || !order) {
     return <Loading size="large" />;
   }
 

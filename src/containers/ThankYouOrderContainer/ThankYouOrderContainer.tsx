@@ -1,14 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 
 import usePerson from '../../hooks/usePerson';
-import useGetOrderId from '../../hooks/useGetOrderId';
 import Skeleton from '../../components/Skeleton';
 
-import { useGetCreditApplicationByOrderUuid } from '../../gql/creditApplication';
+import { OlafContext } from '../../layouts/OLAFLayout/helpers';
 import { IThankYouOrderContainer } from './interface';
-import { getFunderName } from './helpers';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -60,22 +58,15 @@ const renderList = () => (
 
 function ThankYouOrderContainer({ isB2b }: IThankYouOrderContainer) {
   const router = useRouter();
-  const orderId = useGetOrderId();
 
   const { personLoggedIn } = usePerson();
-  const { data, loading, error } = useGetCreditApplicationByOrderUuid(orderId);
+  const { leaseDataLoading, funderName } = useContext(OlafContext);
 
-  const funderName = getFunderName(data)?.toUpperCase();
-
-  if (loading) {
+  if (leaseDataLoading) {
     return <Loading size="large" />;
   }
 
-  if (error) {
-    return <p>Error: {error.message}</p>;
-  }
-
-  if (!data) {
+  if (!funderName) {
     return null;
   }
 

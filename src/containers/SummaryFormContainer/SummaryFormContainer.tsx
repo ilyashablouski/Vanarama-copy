@@ -5,6 +5,7 @@ import {
   GetPersonSummaryQuery as Query,
   GetPersonSummaryQueryVariables as QueryVariables,
 } from '../../../generated/GetPersonSummaryQuery';
+import { useGetCreditApplicationByOrderUuid } from '../../gql/creditApplication';
 import SummaryForm from '../../components/SummaryForm/SummaryForm';
 import Skeleton from '../../components/Skeleton';
 
@@ -41,7 +42,11 @@ const SummaryFormContainer: React.FC<IProps> = ({
     },
   );
 
-  if (loading) {
+  const {
+    loading: creditApplicationLoading,
+  } = useGetCreditApplicationByOrderUuid(orderId);
+
+  if (loading || creditApplicationLoading) {
     return <Loading size="large" />;
   }
 

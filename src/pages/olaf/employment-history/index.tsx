@@ -48,10 +48,11 @@ const EmploymentHistoryPage: NextPage = () => {
   return (
     <OLAFLayout>
       <EmploymentFormContainer
+        orderId={orderId}
+        personUuid={personUuid}
         onCompleted={({ createUpdateEmploymentHistory }) =>
           onCompleteClick(createUpdateEmploymentHistory)
         }
-        personUuid={personUuid}
       />
     </OLAFLayout>
   );
