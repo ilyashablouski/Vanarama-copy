@@ -1,0 +1,144 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CarouselSwiper /> should render correctly with children 1`] = `
+<div
+  className="carousel"
+>
+  <Swiper
+    autoHeight={true}
+    loop={true}
+    navigation={
+      Object {
+        "nextEl": ".swiper-next",
+        "prevEl": ".swiper-prev",
+      }
+    }
+    pagination={
+      Object {
+        "clickable": true,
+        "el": ".swiper-pagination",
+        "type": "bullets",
+      }
+    }
+    slidesPerView={3}
+    spaceBetween={20}
+  >
+    <SwiperSlide>
+      <div>
+        <p>
+          slide 1
+        </p>
+      </div>
+    </SwiperSlide>
+    <SwiperSlide>
+      <div>
+        <p>
+          slide 2
+        </p>
+      </div>
+    </SwiperSlide>
+    <SwiperSlide>
+      <div>
+        <p>
+          slide 3
+        </p>
+      </div>
+    </SwiperSlide>
+  </Swiper>
+  <div
+    className="carousel--nav"
+  >
+    <button
+      className="carousel--nav-arrow swiper-prev"
+      type="button"
+    >
+      <Icon
+        color="darker"
+        icon={<Memo />}
+        size="regular"
+      />
+    </button>
+    <div
+      className="swiper-pagination"
+    />
+    <button
+      className="carousel--nav-arrow swiper-next"
+      type="button"
+    >
+      <Icon
+        color="darker"
+        icon={<Memo />}
+        size="regular"
+      />
+    </button>
+  </div>
+</div>
+`;
+
+exports[`<CarouselSwiper /> should render correctly with two children 1`] = `
+<div
+  className="carousel"
+>
+  <Swiper
+    autoHeight={true}
+    loop={true}
+    navigation={
+      Object {
+        "nextEl": ".swiper-next",
+        "prevEl": ".swiper-prev",
+      }
+    }
+    pagination={
+      Object {
+        "clickable": true,
+        "el": ".swiper-pagination",
+        "type": "bullets",
+      }
+    }
+    slidesPerView={2}
+    spaceBetween={20}
+  >
+    <SwiperSlide>
+      <div>
+        <p>
+          slide 1
+        </p>
+      </div>
+    </SwiperSlide>
+    <SwiperSlide>
+      <div>
+        <p>
+          slide 2
+        </p>
+      </div>
+    </SwiperSlide>
+  </Swiper>
+  <div
+    className="carousel--nav"
+  >
+    <button
+      className="carousel--nav-arrow swiper-prev"
+      type="button"
+    >
+      <Icon
+        color="darker"
+        icon={<Memo />}
+        size="regular"
+      />
+    </button>
+    <div
+      className="swiper-pagination"
+    />
+    <button
+      className="carousel--nav-arrow swiper-next"
+      type="button"
+    >
+      <Icon
+        color="darker"
+        icon={<Memo />}
+        size="regular"
+      />
+    </button>
+  </div>
+</div>
+`;
