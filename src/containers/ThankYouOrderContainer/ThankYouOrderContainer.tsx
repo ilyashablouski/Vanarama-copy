@@ -66,10 +66,6 @@ function ThankYouOrderContainer({ isB2b }: IThankYouOrderContainer) {
     return <Loading size="large" />;
   }
 
-  if (!funderName) {
-    return null;
-  }
-
   return (
     <Form>
       <Heading
