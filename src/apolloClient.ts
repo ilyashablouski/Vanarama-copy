@@ -197,11 +197,17 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
 
 const creditApplicationQueryValidationLink = new ApolloLink(
   (operation, forward) => {
-    if (operation.operationName === 'GetCreditApplicationByOrderUuid') {
+    if (operation.operationName === 'GetLeaseCompanyData') {
       return forward(operation).map(query => {
+        // skip possible redirect from server side
+        if (typeof window === 'undefined') {
+          return query;
+        }
+
         if (
           (query?.errors || []).length === 0 &&
-          !!query.data?.creditApplicationByOrderUuid?.submittedAt
+          !!query.data?.creditApplicationByOrderUuid?.submittedAt &&
+          !Router.router?.asPath?.includes('/thank-you')
         ) {
           const url = '/olaf/error';
           Router.replace(url, url);

@@ -6,10 +6,10 @@ import React from 'react';
 import AddressFormContainer from '../../../containers/AddressFormContainer/AddressFormContainer';
 import OLAFLayout from '../../../layouts/OLAFLayout/OLAFLayout';
 import withApollo from '../../../hocs/withApollo';
+import useGetOrderId from '../../../hooks/useGetOrderId';
 import { getUrlParam, OLAFQueryParams } from '../../../utils/url';
 import { SaveAddressHistoryMutation_createUpdateAddress as IAddress } from '../../../../generated/SaveAddressHistoryMutation';
 import { useCreateUpdateCreditApplication } from '../../../gql/creditApplication';
-import useGetOrderId from '../../../hooks/useGetOrderId';
 
 export const GET_PERSON_INFORMATION = gql`
   query GetOrderInformation {
@@ -51,10 +51,10 @@ const AddressHistoryPage: NextPage = () => {
   return (
     <OLAFLayout>
       <AddressFormContainer
+        personUuid={personUuid}
         onCompleted={({ createUpdateAddress }) =>
           onCompleteClick(createUpdateAddress)
         }
-        personUuid={personUuid}
       />
     </OLAFLayout>
   );
