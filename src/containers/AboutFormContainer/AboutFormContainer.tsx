@@ -9,6 +9,7 @@ import AboutForm from '../../components/AboutForm';
 import { IAboutFormValues } from '../../components/AboutForm/interface';
 import { useEmailCheck } from '../RegisterFormContainer/gql';
 import { useCreatePerson, useAboutYouData, useAboutPageDataQuery } from './gql';
+import { useGetCreditApplicationByOrderUuid } from '../../gql/creditApplication';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 import {
@@ -24,18 +25,22 @@ const Loading = dynamic(() => import('core/atoms/loading'), {
 });
 
 const AboutFormContainer: React.FC<IProps> = ({
+  orderId,
   onCompleted,
   personUuid,
   onLogInClick,
   onRegistrationClick,
   personLoggedIn,
-  isEdit,
 }) => {
   const aboutPageDataQuery = useAboutPageDataQuery();
   const [createPerson] = useCreatePerson(onCompleted);
   const aboutYouData = useAboutYouData(personUuid);
   const [emailAlreadyExists] = useEmailCheck();
   const [registerTemporary] = useRegistrationForTemporaryAccessMutation();
+
+  const creditApplicationQuery = useGetCreditApplicationByOrderUuid(orderId);
+  const isEdit = !!creditApplicationQuery.data?.creditApplicationByOrderUuid
+    ?.aboutDetailsV2;
 
   const emailValidator = async (email: string) => {
     if (!email) {
@@ -83,7 +88,7 @@ const AboutFormContainer: React.FC<IProps> = ({
       },
     });
 
-  if (aboutPageDataQuery.loading) {
+  if (aboutPageDataQuery.loading || creditApplicationQuery.loading) {
     return <Loading size="large" />;
   }
 

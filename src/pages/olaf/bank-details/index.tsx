@@ -62,10 +62,10 @@ const BankDetailsPage: NextPage = () => {
   return (
     <OLAFLayout>
       <BankDetailsFormContainer
+        personUuid={uuid}
         onCompleted={({ createUpdateBankAccount }) =>
           onCompleteClick(createUpdateBankAccount)
         }
-        personUuid={uuid}
       />
     </OLAFLayout>
   );

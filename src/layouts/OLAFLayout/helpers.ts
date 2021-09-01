@@ -1,5 +1,5 @@
 import { createContext } from 'react';
-import { DEFAULT_TERM } from '../../models/enum/OlafVariables';
+import { DEFAULT_FUNDER, DEFAULT_TERM } from '../../models/enum/OlafVariables';
 import { CompanyTypes } from '../../models/enum/CompanyTypes';
 import { GetDerivatives_derivatives as Derivatives } from '../../../generated/GetDerivatives';
 import {
@@ -8,6 +8,7 @@ import {
   VehicleProductInputObject,
 } from '../../../generated/globalTypes';
 import { GetLeaseCompanyData as ILeaseData } from '../../../generated/GetLeaseCompanyData';
+import { Nullable, Nullish } from '../../types/common';
 
 export const formatPrice = (price?: number | null) =>
   parseFloat((price || 0).toFixed(2));
@@ -63,8 +64,8 @@ export const createOlafDetails = (
 
 // get funder term for address/employement history
 export const getFunderTerm = (
-  data: ILeaseData | undefined | null,
-  order: OrderInputObject | null,
+  data: Nullish<ILeaseData>,
+  order: Nullable<OrderInputObject>,
 ) => {
   if (data?.creditApplicationByOrderUuid?.lineItem) {
     const vehicleProduct =
@@ -88,7 +89,15 @@ export const getFunderTerm = (
   }
 };
 
-export const OlafContext = createContext({ requiredMonths: DEFAULT_TERM });
+export const getFunderName = (data: Nullish<ILeaseData>) =>
+  data?.creditApplicationByOrderUuid?.lineItem?.vehicleProduct?.funderData
+    .funder_name;
+
+export const OlafContext = createContext({
+  requiredMonths: DEFAULT_TERM,
+  funderName: DEFAULT_FUNDER,
+  leaseDataLoading: false,
+});
 OlafContext.displayName = 'OlafContext';
 
 export const olafTitleMapper: { [index: string]: string } = {

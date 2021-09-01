@@ -18,6 +18,7 @@ const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
 }) => {
   const { loading, error, data } = useAddressData(personUuid);
   const [updateAddresses] = useUpdateAddresses(personUuid, onCompleted);
+
   if (loading) {
     return <Loading size="large" />;
   }

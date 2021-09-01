@@ -12,6 +12,7 @@ import { useCarDerivativeData } from '../../gql/order';
 import useSessionState from '../../gql/session';
 import {
   createOlafDetails,
+  getFunderName,
   getFunderTerm,
   OlafContext,
   olafTitleMapper,
@@ -114,10 +115,12 @@ const OLAFLayout: React.FC<IProps> = ({
   const router = useRouter();
   const order = useGetOrder();
   const orderId = useGetOrderId();
+
+  const [
+    getLeaseData,
+    { data: leaseData, loading: leaseDataLoading },
+  ] = useGetLeaseCompanyDataByOrderUuid(orderId);
   const { data: sessionState } = useSessionState();
-  const [getLeaseData, { data: leaseData }] = useGetLeaseCompanyDataByOrderUuid(
-    orderId,
-  );
 
   const [isModalVisible, setModalVisibility] = useState(false);
   const isMobile = useMobileViewport();
@@ -162,10 +165,12 @@ const OLAFLayout: React.FC<IProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [orderId]);
 
+  const funder = useMemo(() => getFunderName(leaseData), [leaseData]);
   const term = useMemo(() => getFunderTerm(leaseData, order), [
     leaseData,
     order,
   ]);
+
   const meta = useMemo(() => {
     // make reverse for get last route for first
     const pathnameArray = router.pathname.split('/').reverse();
@@ -219,7 +224,13 @@ const OLAFLayout: React.FC<IProps> = ({
         />
       )}
       <div className="row:olaf">
-        <OlafContext.Provider value={{ requiredMonths: term }}>
+        <OlafContext.Provider
+          value={{
+            funderName: funder,
+            requiredMonths: term,
+            leaseDataLoading,
+          }}
+        >
           {children}
         </OlafContext.Provider>
         {showAside && order && derivative && (
