@@ -51,7 +51,6 @@ const AddressHistoryPage: NextPage = () => {
   return (
     <OLAFLayout>
       <AddressFormContainer
-        orderId={orderId}
         personUuid={personUuid}
         onCompleted={({ createUpdateAddress }) =>
           onCompleteClick(createUpdateAddress)

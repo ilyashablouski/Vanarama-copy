@@ -50,7 +50,6 @@ const ExpensesPage: NextPage = () => {
     <OLAFLayout>
       <ExpensesFormContainer
         order={order}
-        orderId={orderId}
         personUuid={personUuid}
         onCompleted={({ createUpdateIncomeAndExpense }) =>
           onCompleteClick(createUpdateIncomeAndExpense)

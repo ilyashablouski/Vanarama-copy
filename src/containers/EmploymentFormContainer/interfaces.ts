@@ -3,5 +3,4 @@ import { SaveEmploymentHistoryMutation as Mutation } from '../../../generated/Sa
 export interface IEmploymentFormContainerProps {
   onCompleted: (data: Mutation) => void;
   personUuid: string;
-  orderId: string;
 }

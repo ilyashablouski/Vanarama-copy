@@ -196,7 +196,10 @@ const errorLink = onError(({ graphQLErrors, networkError, operation }) => {
 
 const creditApplicationQueryValidationLink = new ApolloLink(
   (operation, forward) => {
-    if (operation.operationName === 'GetCreditApplicationByOrderUuid') {
+    if (
+      operation.operationName === 'GetLeaseCompanyData' &&
+      !Router.asPath.includes('/olaf/thank-you')
+    ) {
       return forward(operation).map(query => {
         if (
           (query?.errors || []).length === 0 &&

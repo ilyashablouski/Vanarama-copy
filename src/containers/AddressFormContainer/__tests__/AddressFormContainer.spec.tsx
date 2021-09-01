@@ -32,7 +32,6 @@ describe('<AddressFormContainer />', () => {
   it('should post data to the server correctly', async () => {
     // ARRANGE
     let mutationCalled = false;
-    const orderId = '1337';
     const personUuid = '1337';
     const onCompletedMock = jest.fn();
     const mocks: MockedResponse[] = [
@@ -93,7 +92,6 @@ describe('<AddressFormContainer />', () => {
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
         <AddressFormContainer
-          orderId={orderId}
           personUuid={personUuid}
           onCompleted={onCompletedMock}
         />
@@ -127,7 +125,6 @@ describe('<AddressFormContainer />', () => {
   it('should prefill data from the server', async () => {
     // ARRANGE
     let mutationCalled = false;
-    const orderId = '1337';
     const personUuid = '1337';
 
     const now = new Date();
@@ -214,7 +211,6 @@ describe('<AddressFormContainer />', () => {
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
         <AddressFormContainer
-          orderId={orderId}
           personUuid={personUuid}
           onCompleted={onCompletedMock}
         />
@@ -236,7 +232,6 @@ describe('<AddressFormContainer />', () => {
   it('should not remove valid address entries when recieving data from the server in the wrong order', async () => {
     // ARRANGE
     let mutationCalled = false;
-    const orderId = '1337';
     const personUuid = '1337';
 
     const now = new Date();
@@ -330,7 +325,6 @@ describe('<AddressFormContainer />', () => {
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
         <AddressFormContainer
-          orderId={orderId}
           personUuid={personUuid}
           onCompleted={onCompletedMock}
         />

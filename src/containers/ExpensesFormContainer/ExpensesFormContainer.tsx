@@ -17,7 +17,6 @@ const IncomeCalculator = dynamic(
 );
 
 const ExpensesFormContainer: React.FC<IProps> = ({
-  orderId,
   personUuid,
   onCompleted,
   order,
@@ -25,11 +24,7 @@ const ExpensesFormContainer: React.FC<IProps> = ({
   const { loading, error, data } = useExpensesData(personUuid);
   const [expenses] = useUpdateExpenses(personUuid, onCompleted);
 
-  const {
-    loading: creditApplicationLoading,
-  } = useGetCreditApplicationByOrderUuid(orderId);
-
-  if (loading || creditApplicationLoading || !order) {
+  if (loading || !order) {
     return <Loading size="large" />;
   }
 

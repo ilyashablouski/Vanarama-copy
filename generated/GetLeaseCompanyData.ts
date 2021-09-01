@@ -114,6 +114,7 @@ export interface GetLeaseCompanyData_creditApplicationByOrderUuid_lineItem {
 }
 
 export interface GetLeaseCompanyData_creditApplicationByOrderUuid {
+  submittedAt: CustomDateTime | null;
   aboutDetailsV2: GetLeaseCompanyData_creditApplicationByOrderUuid_aboutDetailsV2 | null;
   lineItem: GetLeaseCompanyData_creditApplicationByOrderUuid_lineItem | null;
 }

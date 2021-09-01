@@ -1,7 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { useBankDetails, useUpdateBankDetails } from './gql';
-import { useGetCreditApplicationByOrderUuid } from '../../gql/creditApplication';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 import Skeleton from '../../components/Skeleton';
@@ -22,7 +21,6 @@ const deleteTypenameFromEmailAddress = (bankDetails: IBankDetails) =>
     : undefined;
 
 const BankDetailsFormContainer: React.FC<IProps> = ({
-  orderId,
   personUuid,
   onCompleted,
 }) => {
@@ -30,11 +28,7 @@ const BankDetailsFormContainer: React.FC<IProps> = ({
   const [createUpdatePerson] = useCreatePerson();
   const [updateBankDetails] = useUpdateBankDetails(personUuid, onCompleted);
 
-  const {
-    loading: creditApplicationLoading,
-  } = useGetCreditApplicationByOrderUuid(orderId);
-
-  if (loading || creditApplicationLoading) {
+  if (loading) {
     return <Loading size="large" />;
   }
 

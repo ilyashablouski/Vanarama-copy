@@ -1,7 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { useAddressData, useUpdateAddresses } from './gql';
-import { useGetCreditApplicationByOrderUuid } from '../../gql/creditApplication';
 import { IAddressFormContainerProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 import Skeleton from '../../components/Skeleton';
@@ -14,18 +13,13 @@ const AddressForm = dynamic(() =>
 );
 
 const AddressFormContainer: React.FC<IAddressFormContainerProps> = ({
-  orderId,
   personUuid,
   onCompleted,
 }) => {
   const { loading, error, data } = useAddressData(personUuid);
   const [updateAddresses] = useUpdateAddresses(personUuid, onCompleted);
 
-  const {
-    loading: creditApplicationLoading,
-  } = useGetCreditApplicationByOrderUuid(orderId);
-
-  if (loading || creditApplicationLoading) {
+  if (loading) {
     return <Loading size="large" />;
   }
 
