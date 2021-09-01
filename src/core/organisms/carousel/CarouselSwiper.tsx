@@ -7,34 +7,14 @@ import cx from 'classnames';
 import Icon from 'core/atoms/icon';
 import ArrowBackSharp from 'core/assets/icons/ArrowBackSharp';
 import ArrowForwardSharp from 'core/assets/icons/ArrowForwardSharp';
-import { useMediaQuery } from 'react-responsive';
 
 SwiperCore.use([Navigation, Pagination]);
 
-function CarouselSwiper({
-  countItems,
-  countShow = 3,
-  className,
-  children,
-}: ICarouselProps) {
-  const isMediumScreen = useMediaQuery({ minWidth: 768, maxWidth: 1215 });
-  const isSmallScreen = useMediaQuery({ maxWidth: 767 });
-
-  let slidesToShow = countShow;
-  if (isSmallScreen) {
-    slidesToShow = 1;
-  } else if (isMediumScreen) {
-    slidesToShow = 2;
-  }
-
+function CarouselSwiper({ countItems, className, children }: ICarouselProps) {
   return (
     <div className={cx('carousel', className)}>
       <Swiper
-        slidesPerView={
-          countItems && countItems < slidesToShow ? countItems : slidesToShow
-        }
-        spaceBetween={20}
-        autoHeight
+        slidesPerView="auto"
         loop={countItems > 1}
         navigation={{
           prevEl: `.swiper-prev`,
@@ -45,23 +25,23 @@ function CarouselSwiper({
           type: 'bullets',
           clickable: true,
         }}
-        preventClicks={false}
-        preventClicksPropagation={false}
+        preventClicks
+        preventClicksPropagation
       >
         {children}
+
+        <div className="carousel--nav">
+          <button className="carousel--nav-arrow swiper-prev" type="button">
+            <Icon icon={<ArrowBackSharp />} color="darker" size="regular" />
+          </button>
+
+          <div className="swiper-pagination" />
+
+          <button className="carousel--nav-arrow swiper-next" type="button">
+            <Icon icon={<ArrowForwardSharp />} color="darker" size="regular" />
+          </button>
+        </div>
       </Swiper>
-
-      <div className="carousel--nav">
-        <button className="carousel--nav-arrow swiper-prev" type="button">
-          <Icon icon={<ArrowBackSharp />} color="darker" size="regular" />
-        </button>
-
-        <div className="swiper-pagination" />
-
-        <button className="carousel--nav-arrow swiper-next" type="button">
-          <Icon icon={<ArrowForwardSharp />} color="darker" size="regular" />
-        </button>
-      </div>
     </div>
   );
 }
