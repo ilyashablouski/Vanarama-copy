@@ -11,4 +11,4 @@ export default function savePerson(rootValue: unknown, args: ISavePersonArgs) {
   }
 
   return null;
-};
+}
