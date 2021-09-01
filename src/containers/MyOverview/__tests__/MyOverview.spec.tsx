@@ -16,6 +16,7 @@ const mockPush = jest.fn();
 jest.mock('next/router', () => ({
   useRouter() {
     return {
+      asPath: '/my-overview',
       query: {
         partyByUuid: 'partyByUuid',
         push: mockPush,
