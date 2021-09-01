@@ -81,7 +81,7 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
     defaultValues,
   });
 
-  const webcamRef = React.createRef<any>();
+  const webcamRef = React.useRef<any>(null);
 
   const fetchData = () => {
     const url = `${process?.env?.MICROBLINK_URL}/recognize/execute`;
@@ -115,7 +115,7 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
   };
 
   const capture = React.useCallback(() => {
-    const imageSrc = webcamRef.current.getScreenshot();
+    const imageSrc = webcamRef.current?.getScreenshot?.();
     toggleCamera(false);
     setImgSrc(imageSrc);
 
@@ -130,7 +130,7 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
   }, [webcamRef]);
 
   const handleOnUserMedia = () => {
-    if (!webcamRef.current.stream) {
+    if (!webcamRef.current?.stream) {
       toggleNotificationCamera('Your camera is not enabled.');
     }
   };

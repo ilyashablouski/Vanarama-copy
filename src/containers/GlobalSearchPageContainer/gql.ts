@@ -52,6 +52,7 @@ export function useProductFilters(
         filters,
       },
       onCompleted,
+      fetchPolicy: 'network-only',
     },
   );
 }
