@@ -14,14 +14,15 @@ import SUV from '../core/assets/icons/custom/SUV';
 const BodyStyleIconMap = new Map();
 
 BodyStyleIconMap.set('Convertible', <Convertible />)
-  .set('4x4/SUV', <SUV />)
+  .set('4X4/SUV', <SUV />)
   .set('City-Car', <CityCar />)
   .set('Coupe', <Coupe />)
   .set('Estate', <Estate />)
   .set('Hatchback', <Hatchback />)
   .set('PeopleCarrier', <PeopleCarrier />)
+  .set('MPV/PeopleCarrier', <PeopleCarrier />)
   .set('Saloon', <Saloon />)
-  .set('Small', <Small />);
+  .set('SmallCar', <Small />);
 // .set('Pickups', <Pickups />)
 // .set('Vans', <Vans />)
 
