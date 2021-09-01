@@ -131,7 +131,7 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
 
   const handleOnUserMedia = () => {
     if (!webcamRef.current?.stream) {
-      toggleNotificationCamera('Your camera is not enabled.');
+      toggleNotificationCamera('Your camera is not enabled. Please');
     }
   };
 
@@ -214,9 +214,14 @@ const YourEligibilityChecker: FCWithFragments<IProps> = ({ submit }) => {
                         responseBlinkIdToInitialFormValues(drivingLicence),
                       );
                     } else {
-                      toggleNotificationCamera('Something went wrong.');
+                      toggleNotificationCamera(
+                        'Data not recognized, please try again or',
+                      );
                     }
-                  });
+                  })
+                  .catch(() =>
+                    toggleNotificationCamera('Something went wrong. Please'),
+                  );
               }}
               onClickRetake={() => {
                 setImgSrc(null);
