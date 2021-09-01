@@ -301,7 +301,7 @@ export function getCanonicalUrl(
 }
 
 export const getMetadataForPagination = (
-  metadata: Nullish<IMetadata>,
+  metadata: IMetadata,
   pageNumber = 1,
   currentUrl: string,
 ) => {
