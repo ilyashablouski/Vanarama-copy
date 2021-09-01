@@ -43,6 +43,7 @@ const Camera: FC<ICamera> = ({
         audio={false}
         ref={webcamRef}
         screenshotFormat="image/jpeg"
+        screenshotQuality={1}
         width="100%"
         onUserMedia={() => {
           // android doesn't show labels to media device until we give permission to use camera
