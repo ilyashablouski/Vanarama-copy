@@ -14,7 +14,7 @@ const NotificationCamera: FC<INotificationCamera> = ({
 }) => {
   return (
     <Text color="darker">
-      {text} Please
+      {text}
       <RouterLink
         classNames={{ color: 'teal' }}
         onClick={onCloseModal}
