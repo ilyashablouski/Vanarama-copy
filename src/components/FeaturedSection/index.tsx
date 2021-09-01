@@ -1,3 +1,1 @@
-import FeaturedSection from './FeaturedSection';
-
-export default FeaturedSection;
+export { default } from './FeaturedSection';

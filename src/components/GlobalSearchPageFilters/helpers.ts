@@ -3,7 +3,7 @@ import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfa
 import { IInnerSelect } from './interfaces';
 import { Nullish } from '../../types/common';
 
-const UNLISTED_VALUE = 999999999;
+export const UNLISTED_VALUE = 999999999;
 
 export const getInnerConfigKeys = (innerSelects: IInnerSelect[]) =>
   innerSelects.map(select => select.key as keyof IFiltersData);
