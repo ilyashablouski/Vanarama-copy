@@ -18,6 +18,7 @@ import localforage from 'localforage';
 import { Env } from './utils/env';
 
 import { isSessionFinishedCache } from './cache';
+import resolvers from './resolvers';
 
 const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 // A list of queries that we don't want to be cached in CDN
@@ -246,6 +247,7 @@ export default function createApolloClient(
     ssrMode: Boolean(ctx),
     link: apolloClientLink(),
     connectToDevTools: Boolean(process.env.ENABLE_DEV_TOOLS),
+    resolvers,
     cache: new InMemoryCache({
       typePolicies: {
         Query: {
