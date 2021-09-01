@@ -1,7 +1,6 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
 import { useExpensesData, useUpdateExpenses } from './gql';
-import { useGetCreditApplicationByOrderUuid } from '../../gql/creditApplication';
 import { IProps } from './interfaces';
 import { formValuesToInput } from './mappers';
 import Skeleton from '../../components/Skeleton';
