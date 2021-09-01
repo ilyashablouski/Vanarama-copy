@@ -6,6 +6,13 @@ export const DEVICE_TYPES = {
   tablet: 'Tablet',
 };
 
+export const isBrowser = () => {
+  return typeof window !== 'undefined';
+};
+export const isServer = () => {
+  return !isBrowser();
+};
+
 export const getDeviceType = () => {
   if (isTablet) {
     return DEVICE_TYPES.tablet;
@@ -17,11 +24,9 @@ export const getDeviceType = () => {
 };
 
 export const isServerRenderOrAppleDevice =
-  typeof window === 'undefined' || navigator?.vendor === 'Apple Computer, Inc.';
+  isServer() || navigator?.vendor === 'Apple Computer, Inc.';
 
 export const isChromeBrowser =
-  typeof window !== 'undefined' &&
-  navigator?.userAgent?.indexOf('Chrome') !== -1;
+  isBrowser() && navigator?.userAgent?.indexOf('Chrome') !== -1;
 
-export const isAndroid =
-  typeof window !== 'undefined' && /(android)/i.test(navigator.userAgent);
+export const isAndroid = isBrowser() && /(android)/i.test(navigator.userAgent);

@@ -11,7 +11,7 @@ import {
 } from './defaults';
 import { FONT_LIST, FONT_PATH } from './fonts';
 import { Env } from '../../utils/env';
-import { removeUrlQueryPart } from '../../utils/url';
+import { getCanonicalUrl } from '../../utils/url';
 
 const env: any = process?.env?.ENV || '';
 
@@ -98,9 +98,7 @@ const Head: FC<IHeadProps> = props => {
       <link rel="icon" type="image/png" href="/favicon.png" />
       <link
         rel="canonical"
-        href={removeUrlQueryPart(
-          canonicalUrl ?? legacyUrl ?? router.asPath ?? '',
-        )}
+        href={getCanonicalUrl(router.asPath, canonicalUrl)}
       />
     </NextHead>
   );

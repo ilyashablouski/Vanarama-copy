@@ -7,6 +7,8 @@ import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { getSectionsData } from './getSectionsData';
 import { GenericPageHeadQuery_genericPage_metaData as IMetadata } from '../../generated/GenericPageHeadQuery';
 import { genericPagesQuery_genericPages_items as IGenericPages } from '../../generated/genericPagesQuery';
+import { Nullish } from '../types/common';
+import { isBrowser } from './deviceType';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
@@ -245,23 +247,75 @@ export const notFoundPageHandler = async (
   };
 };
 
-export const getMetadataForPagination = (metadata: IMetadata, page = 1) => {
-  const canonicalUrl =
-    page > 1
-      ? `${metadata?.canonicalUrl?.slice(
-          0,
-          metadata?.canonicalUrl?.indexOf('.html'),
-        )}/page/${page}.html`
-      : metadata?.canonicalUrl;
-  return {
-    ...metadata,
-    canonicalUrl: canonicalUrl || metadata?.canonicalUrl,
-  };
-};
-
 export const formatToSlugFormat = (value: string) =>
   value
     .toLowerCase()
     .split(' ')
     .join('-')
     .replace('.', '-');
+
+export function trimEndSlash(url: string) {
+  return url.endsWith('/') ? url.slice(0, -1) : url;
+}
+
+export function getOrigin() {
+  return isBrowser()
+    ? window.location.origin
+    : trimEndSlash(process.env.HOST_DOMAIN ?? '');
+}
+
+/**
+ * Protocols: https://url.spec.whatwg.org/#url-miscellaneous
+ */
+export function isAbsoluteUrl(url: string) {
+  const PROTOCOL_LIST = ['ftp', 'file', 'http', 'https', 'ws', 'wss'];
+  return PROTOCOL_LIST.some(protocol => url.startsWith(`${protocol}:`));
+}
+
+export function getAbsoluteUrl(urlOrPath: string) {
+  if (isAbsoluteUrl(urlOrPath)) {
+    return urlOrPath;
+  }
+
+  return getOrigin() + urlOrPath;
+}
+
+export function parseUrl(absoluteUrl: string) {
+  try {
+    return new URL(absoluteUrl);
+  } catch (error) {
+    return null;
+  }
+}
+
+export function getCanonicalUrl(
+  currentUrl: string,
+  canonicalUrl?: Nullish<string>,
+) {
+  const absoluteUrl = getAbsoluteUrl(canonicalUrl ?? currentUrl);
+  const parsedAbsoluteUrl = parseUrl(absoluteUrl);
+
+  return parsedAbsoluteUrl
+    ? parsedAbsoluteUrl.origin + parsedAbsoluteUrl.pathname
+    : absoluteUrl;
+}
+
+export const getMetadataForPagination = (
+  metadata: IMetadata,
+  pageNumber = 1,
+  currentUrl: string,
+) => {
+  const originalCanonicalUrl = metadata.canonicalUrl;
+  const resultCanonicalUrl = originalCanonicalUrl ?? currentUrl;
+  const isLegacyCanonicalUrl = resultCanonicalUrl.includes('.html');
+
+  return {
+    ...metadata,
+    canonicalUrl:
+      pageNumber > 1 && originalCanonicalUrl
+        ? `${resultCanonicalUrl.replace('.html', '')}/page/${pageNumber}${
+            isLegacyCanonicalUrl ? '.html' : ''
+          }`
+        : resultCanonicalUrl,
+  };
+};

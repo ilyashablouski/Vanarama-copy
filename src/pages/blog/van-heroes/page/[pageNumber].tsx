@@ -3,6 +3,7 @@ import DefaultErrorPage from 'next/error';
 import { PreviewNextPageContext } from 'types/common';
 import SchemaJSON from 'core/atoms/schema-json';
 import React from 'react';
+import { useRouter } from 'next/router';
 import createApolloClient from '../../../../apolloClient';
 import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import CategoryPageContainer from '../../../../containers/CategoryPageContainer/CategoryPageContainer';
@@ -23,6 +24,7 @@ const CategoryPage: NextPage<IBlogCategory> = ({
 }) => {
   // De-obfuscate data for user
   const data = decodeData(encodedData);
+  const router = useRouter();
 
   if (error || !data) {
     return <DefaultErrorPage statusCode={404} />;
@@ -33,6 +35,7 @@ const CategoryPage: NextPage<IBlogCategory> = ({
   const metaData = getMetadataForPagination(
     getSectionsData(['metaData'], data?.blogPosts),
     pageNumber,
+    router.asPath,
   );
   const breadcrumbsItems = getBreadCrumbsItems(metaData);
   const breadcrumbsSchema = convertSlugToBreadcrumbsSchema(metaData.slug);
