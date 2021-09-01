@@ -301,21 +301,20 @@ export function getCanonicalUrl(
 }
 
 export const getMetadataForPagination = (
-  metadata: IMetadata,
+  metadata: Nullish<IMetadata>,
   pageNumber = 1,
   currentUrl: string,
 ) => {
-  const originalCanonicalUrl = metadata.canonicalUrl;
-  const resultCanonicalUrl = originalCanonicalUrl ?? currentUrl;
-  const isLegacyCanonicalUrl = resultCanonicalUrl.includes('.html');
+  const canonicalUrl = metadata?.canonicalUrl;
+  const isLegacyCanonicalUrl = canonicalUrl?.includes('.html');
 
   return {
     ...metadata,
     canonicalUrl:
-      pageNumber > 1 && originalCanonicalUrl
-        ? `${resultCanonicalUrl.replace('.html', '')}/page/${pageNumber}${
+      pageNumber > 1 && canonicalUrl
+        ? `${canonicalUrl.replace('.html', '')}/page/${pageNumber}${
             isLegacyCanonicalUrl ? '.html' : ''
           }`
-        : resultCanonicalUrl,
+        : canonicalUrl ?? currentUrl,
   };
 };
