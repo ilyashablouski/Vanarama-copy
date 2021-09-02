@@ -1,6 +1,6 @@
 .custom-select-window {
   background-color: rgba($darker, $opacity-500);
-  min-height: 100vh;
+  min-height: 100%;
   position: fixed;
   top: 0;
   right: 0;
@@ -15,7 +15,7 @@
     position: absolute;
     bottom: 0;
     right: 0;
-    height: 50%;
+    height: 50vh;
     .list-header {
       height: 56px;
       padding: 16px;
