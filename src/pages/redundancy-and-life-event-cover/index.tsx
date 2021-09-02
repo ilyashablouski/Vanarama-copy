@@ -61,7 +61,7 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
   const { cachedLeaseType } = useLeaseType(null);
 
   const sections = data?.genericPage.sectionsAsArray;
-  const questionSection = sections?.questionSet?.[0];
+  const questionsSection = sections?.questionSet?.[0];
   const findOutMoreSection = sections?.carousel?.[1];
   const featureSections = sections?.featured;
 
@@ -72,7 +72,7 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
     ? LeaseTypeEnum.PERSONAL
     : LeaseTypeEnum.BUSINESS;
 
-  const accordionSection: Nullish<IAccordionItem[]> = questionSection?.questionAnswers?.map(
+  const accordionSection: Nullish<IAccordionItem[]> = questionsSection?.questionAnswers?.map(
     (question, index) => ({
       id: index,
       title: question?.question ?? '',
