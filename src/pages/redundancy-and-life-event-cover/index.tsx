@@ -61,7 +61,8 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
   const { cachedLeaseType } = useLeaseType(null);
 
   const sections = data?.genericPage.sectionsAsArray;
-  const findOutMoreSections = sections?.carousel?.[1];
+  const questionSection = sections?.questionSet?.[0];
+  const findOutMoreSection = sections?.carousel?.[1];
   const featureSections = sections?.featured;
 
   const heroImageUrl =
@@ -71,12 +72,13 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
     ? LeaseTypeEnum.PERSONAL
     : LeaseTypeEnum.BUSINESS;
 
-  const accordionSections: IAccordionItem[] =
-    sections?.questionSet?.[0]?.questionAnswers?.map((question, index) => ({
+  const accordionSection: Nullish<IAccordionItem[]> = questionSection?.questionAnswers?.map(
+    (question, index) => ({
       id: index,
       title: question?.question ?? '',
       children: question?.answer,
-    })) ?? [];
+    }),
+  );
 
   const hotOfferProductCard =
     productCard?.productCarousel?.slice(0, DEFAULT_HOT_OFFERS_COUNT) ?? null;
@@ -178,19 +180,19 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
           </div>
         </section>
       )}
-      {accordionSections && (
+      {accordionSection && (
         <div
           className="row:bg-white -wide"
           style={{ display: 'flex', justifyContent: 'center' }}
         >
           <Accordion
             className="tilebox -align-center"
-            items={accordionSections}
+            items={accordionSection}
           />
         </div>
       )}
-      {findOutMoreSections && !partnershipActive && (
-        <ArticleCarousel data={findOutMoreSections} />
+      {findOutMoreSection && !partnershipActive && (
+        <ArticleCarousel data={findOutMoreSection} />
       )}
     </>
   );
