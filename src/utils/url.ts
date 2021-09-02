@@ -303,7 +303,6 @@ export function getCanonicalUrl(
 export const getMetadataForPagination = (
   metadata: IMetadata,
   pageNumber = 1,
-  currentUrl: string,
 ) => {
   const canonicalUrl = metadata?.canonicalUrl;
   const isLegacyCanonicalUrl = canonicalUrl?.includes('.html');
@@ -315,6 +314,6 @@ export const getMetadataForPagination = (
         ? `${canonicalUrl.replace('.html', '')}/page/${pageNumber}${
             isLegacyCanonicalUrl ? '.html' : ''
           }`
-        : canonicalUrl ?? currentUrl,
+        : null,
   };
 };
