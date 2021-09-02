@@ -346,10 +346,7 @@ describe('Url utils', () => {
 
       expect(
         getMetadataForPagination(metaDataWithCanonicalUrl, pageNumber),
-      ).toEqual({
-        canonicalUrl,
-        ...metaData,
-      });
+      ).toEqual(metaDataWithCanonicalUrl);
     });
   });
 });
