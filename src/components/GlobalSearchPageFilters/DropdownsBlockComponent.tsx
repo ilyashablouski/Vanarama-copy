@@ -9,7 +9,7 @@ import {
 } from '../../containers/GlobalSearchPageContainer/interfaces';
 import SelectedBox from './SelectedBox';
 import SelectedDropdown from './SelectedDropdown';
-import { getSelectedValues } from './helpers';
+import { getSelectedValues, UNLISTED_VALUE } from './helpers';
 
 interface IProps {
   filterConfig: IFiltersConfig;
@@ -64,7 +64,11 @@ const DropdownsBlockComponent = ({
   isInvalidRangeValue,
 }: IProps) => {
   if (
-    !filtersMapper[key as keyof IFiltersData]?.length &&
+    (!filtersMapper[key as keyof IFiltersData]?.length ||
+      (filtersMapper[key as keyof IFiltersData]?.length === 1 &&
+        (`${filtersMapper[key as keyof IFiltersData]?.[0]}`.toLowerCase() ===
+          'unlisted' ||
+          filtersMapper[key as keyof IFiltersData]?.[0] === UNLISTED_VALUE))) &&
     type === 'drop-down'
   ) {
     return null;
