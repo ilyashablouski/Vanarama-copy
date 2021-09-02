@@ -1,18 +1,18 @@
 import dynamic from 'next/dynamic';
-import { NextPage } from 'next';
-import { useQuery } from '@apollo/client';
-import { getDataFromTree } from '@apollo/react-ssr';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import TrustPilot from 'core/molecules/trustpilot';
 import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import createApolloClient from 'apolloClient';
 import {
-  EligibilityCheckerPageData,
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets_questionAnswers as QuestionAnswers,
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets as QuestionSets,
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_carousel as CarouselData,
 } from '../../../generated/EligibilityCheckerPageData';
-import withApollo from '../../hocs/withApollo';
-import { ELIGIBILITY_CHECKER_CONTENT } from '../../gql/eligibility-checker/eligibilityChecker';
+import {
+  ELIGIBILITY_CHECKER_CONTENT,
+  IEligbilityCheckerPage,
+} from '../../gql/eligibility-checker/eligibilityChecker';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -59,11 +59,11 @@ const CustomerReviews = dynamic(
   },
 );
 
-const EligibilityChecker: NextPage = () => {
-  const { data, loading, error } = useQuery<EligibilityCheckerPageData>(
-    ELIGIBILITY_CHECKER_CONTENT,
-  );
-
+const EligibilityChecker: NextPage<IEligbilityCheckerPage> = ({
+  data,
+  loading,
+  error,
+}) => {
   if (loading) {
     return <Loading size="large" />;
   }
@@ -193,4 +193,24 @@ const EligibilityChecker: NextPage = () => {
   );
 };
 
-export default withApollo(EligibilityChecker, { getDataFromTree });
+export async function getStaticProps(context: GetStaticPropsContext) {
+  try {
+    const client = createApolloClient({}, context as NextPageContext);
+    const { data, loading, errors } = await client.query({
+      query: ELIGIBILITY_CHECKER_CONTENT,
+    });
+    if (errors) {
+      throw new Error(errors[0].message);
+    }
+    return {
+      revalidate: context?.preview
+        ? 1
+        : Number(process.env.REVALIDATE_INTERVAL),
+      props: { data, loading },
+    };
+  } catch (err) {
+    throw new Error(err);
+  }
+}
+
+export default EligibilityChecker;
