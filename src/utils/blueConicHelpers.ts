@@ -22,6 +22,10 @@ const blueConicIds = [
   'personalised_content',
 ];
 
+function isBlueConicClientReady() {
+  return !!window.blueConicClient;
+}
+
 function getUserProfile() {
   return window.blueConicClient?.profile?.getProfile();
 }
@@ -41,6 +45,10 @@ export function declineCookieBlueConic() {
 }
 
 export function shouldRenderCookieBar() {
+  if (!isBlueConicClientReady()) {
+    return false;
+  }
+
   const profile = getUserProfile();
 
   return !(
