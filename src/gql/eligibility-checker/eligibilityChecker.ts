@@ -4,7 +4,6 @@ import FeaturedSection from '../../components/FeaturedSection';
 
 export interface IEligbilityCheckerPage {
   data?: EligibilityCheckerPageData | undefined;
-  loading?: boolean | undefined;
   error?: ApolloError;
 }
 

@@ -16,10 +16,9 @@ import {
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
+import Lease from '../../components/EligibilityChecker/Landing/Lease';
+import WhyEligibilityChecker from '../../components/EligibilityChecker/Landing/WhyEligibilityChecker';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
 const ErrorMessage = dynamic(
   () => import('../../components/ErrorMessage/ErrorMessage'),
   {
@@ -33,19 +32,6 @@ const Accordion = dynamic(() => import('core/molecules/accordion/Accordion'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const Lease = dynamic(
-  () => import('../../components/EligibilityChecker/Landing/Lease'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
-const WhyEligibilityChecker = dynamic(
-  () =>
-    import('../../components/EligibilityChecker/Landing/WhyEligibilityChecker'),
-  {
-    loading: () => <Skeleton count={3} />,
-  },
-);
 const CustomerThink = dynamic(
   () => import('../../components/EligibilityChecker/Landing/CustomerThing'),
   {
@@ -61,13 +47,8 @@ const CustomerReviews = dynamic(
 
 const EligibilityChecker: NextPage<IEligbilityCheckerPage> = ({
   data,
-  loading,
   error,
 }) => {
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
   if (error) {
     return <ErrorMessage message={error.message} />;
   }
@@ -196,7 +177,7 @@ const EligibilityChecker: NextPage<IEligbilityCheckerPage> = ({
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, loading, errors } = await client.query({
+    const { data, errors } = await client.query({
       query: ELIGIBILITY_CHECKER_CONTENT,
     });
     if (errors) {
@@ -206,7 +187,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       revalidate: context?.preview
         ? 1
         : Number(process.env.REVALIDATE_INTERVAL),
-      props: { data, loading },
+      props: { data },
     };
   } catch (err) {
     throw new Error(err);
