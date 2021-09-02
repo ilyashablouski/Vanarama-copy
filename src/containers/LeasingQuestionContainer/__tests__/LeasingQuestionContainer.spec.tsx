@@ -60,28 +60,34 @@ const SECTIONS = {
     description: null,
     cards: [
       {
-        titleTag: 'h3',
-        name: 'Question 1',
-        title: 'Is Road Tax Covered In The Lease?',
         body:
-          "It depends on which lease product you choose. If you choose a contract hire or contract purchase the road tax is included for the duration of the contract. Finance lease will include the first year's road tax, however, the finance company will then invoice you for the next year.",
+          'Our advertised prices will not include servicing and it is your responsibility to make sure that the' +
+          " vehicle is serviced in line with the vehicle's servicing schedule. However, we are able to offer you a optional package called Service Plus which covers all routine services, mechanical repairs, replacement tires, MOT if required, replacement brakes, wiper blades and bulbs (all subject to fair wear and tear). The additional cost of the Service Plus package depends on the annual mileage you select and how long you decide to lease the vehicle for.",
         image: null,
+        link: null,
+        name: 'Question 1',
+        title: 'Am I Responsible For The Servicing Of My Leased Van?',
+        titleTag: 'h3',
       },
       {
-        titleTag: 'h3',
-        name: 'Question 1',
-        title: 'Is Road Tax Covered In The Lease?2',
         body:
-          "It depends on which lease product you choose. If you choose a contract hire or contract purchase the road tax is included for the duration of the contract. Finance lease will include the first year's road tax, however, the finance company will then invoice you for the next year.",
+          'Our advertised prices will not include servicing and it is your responsibility to make sure that the' +
+          " vehicle is serviced in line with the vehicle's servicing schedule. However, we are able to offer you a optional package called Service Plus which covers all routine services, mechanical repairs, replacement tires, MOT if required, replacement brakes, wiper blades and bulbs (all subject to fair wear and tear). The additional cost of the Service Plus package depends on the annual mileage you select and how long you decide to lease the vehicle for.",
         image: null,
+        link: null,
+        name: 'Question 1',
+        title: 'Am I Responsible For The Servicing Of My Leased Van?',
+        titleTag: 'h3',
       },
       {
-        titleTag: 'h3',
-        name: 'Question 1',
-        title: 'Is Road Tax Covered In The Lease?3',
         body:
-          "It depends on which lease product you choose. If you choose a contract hire or contract purchase the road tax is included for the duration of the contract. Finance lease will include the first year's road tax, however, the finance company will then invoice you for the next year.",
+          'Our advertised prices will not include servicing and it is your responsibility to make sure that the' +
+          " vehicle is serviced in line with the vehicle's servicing schedule. However, we are able to offer you a optional package called Service Plus which covers all routine services, mechanical repairs, replacement tires, MOT if required, replacement brakes, wiper blades and bulbs (all subject to fair wear and tear). The additional cost of the Service Plus package depends on the annual mileage you select and how long you decide to lease the vehicle for.",
         image: null,
+        link: null,
+        name: 'Question 1',
+        title: 'Am I Responsible For The Servicing Of My Leased Van?',
+        titleTag: 'h3',
       },
     ],
   },
@@ -105,7 +111,9 @@ describe('<LeasingQuestionContainer />', () => {
     // ASSERT
     await waitFor(() => {
       expect(
-        screen.getByText(`Is Road Tax Covered In The Lease?`),
+        screen.getAllByText(
+          `Am I Responsible For The Servicing Of My Leased Van?`,
+        ),
       ).toBeInTheDocument();
     });
 

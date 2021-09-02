@@ -77,6 +77,8 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
     isLargeScreen,
   ]);
 
+  console.log('data.productCard', data.productCard);
+
   return (
     <CarouselSwiper
       className="-product -mh-auto"
