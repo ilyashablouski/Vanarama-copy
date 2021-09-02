@@ -337,7 +337,7 @@ describe('Url utils', () => {
       });
     });
 
-    it('getMetadataForPagination should return metadata without canonical url if page number < 2', () => {
+    it('getMetadataForPagination should return metadata with original canonical url if page number < 2', () => {
       const pageNumber = 1;
       const metaDataWithCanonicalUrl = {
         canonicalUrl,
@@ -347,7 +347,7 @@ describe('Url utils', () => {
       expect(
         getMetadataForPagination(metaDataWithCanonicalUrl, pageNumber),
       ).toEqual({
-        canonicalUrl: null,
+        canonicalUrl,
         ...metaData,
       });
     });
