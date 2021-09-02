@@ -317,7 +317,7 @@ describe('Url utils', () => {
       expect(
         getMetadataForPagination(metaDataWithCanonicalUrl, pageNumber),
       ).toEqual({
-        canonicalUrl: `${canonicalUrl}/page/2`,
+        canonicalUrl: `${canonicalUrl}/page/${pageNumber}`,
         ...metaData,
       });
     });
@@ -332,7 +332,7 @@ describe('Url utils', () => {
       expect(
         getMetadataForPagination(metaDataWithCanonicalUrl, pageNumber),
       ).toEqual({
-        canonicalUrl: `${canonicalUrl}/page/2.html`,
+        canonicalUrl: `${canonicalUrl}/page/${pageNumber}.html`,
         ...metaData,
       });
     });
