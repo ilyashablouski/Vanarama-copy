@@ -10,6 +10,8 @@ import {
   removeUrlQueryPart,
   getProductPageBreadCrumb,
   formatToSlugFormat,
+  getCanonicalUrl,
+  getMetadataForPagination,
 } from '../url';
 
 describe('Url utils', () => {
@@ -75,6 +77,7 @@ describe('Url utils', () => {
 
       expect(actual).toEqual('/van-leasing');
     });
+
     it('formatNewUrl should return car-leasing url', () => {
       const actual = formatNewUrl({
         node: { vehicleType: VehicleTypeEnum.CAR, url: '/url' },
@@ -82,6 +85,7 @@ describe('Url utils', () => {
 
       expect(actual).toEqual('/car-leasing/url');
     });
+
     it('getNewUrl and formatNewUrl should return van-leasing url', () => {
       const actualGetNewUrl = getNewUrl(
         [
@@ -112,6 +116,7 @@ describe('Url utils', () => {
 
       expect(actual).toEqual('bmw-van-leasing/2-series/coupe');
     });
+
     it('getVehicleConfigurationPath should return newPath', () => {
       const actual = getVehicleConfigurationPath(
         '/bmw-van-leasing/2-series/coupe/',
@@ -183,6 +188,7 @@ describe('Url utils', () => {
         },
       ]);
     });
+
     it('getProductPageBreadCrumb should return breadcrumb from slug', () => {
       const actual = getProductPageBreadCrumb(
         {
@@ -209,6 +215,7 @@ describe('Url utils', () => {
         },
       ]);
     });
+
     it('getProductPageBreadCrumb should return breadcrumb', () => {
       const actual = getProductPageBreadCrumb(
         {
@@ -257,10 +264,89 @@ describe('Url utils', () => {
       ]);
     });
   });
+
   describe('formatToSlugFormat', () => {
     it('formatToSlugFormat should return valid slug value', () => {
       const actual = formatToSlugFormat('test ID.3');
       expect(actual).toEqual('test-id-3');
+    });
+  });
+
+  describe('getCanonicalUrl', () => {
+    const origin = 'http://localhost';
+    const pagePath = '/test-page-path';
+
+    it('getCanonicalUrl should return correct canonical url', () => {
+      const canonicalUrl = `${origin}/test-canonical-path`;
+
+      expect(getCanonicalUrl(pagePath, canonicalUrl)).toEqual(canonicalUrl);
+    });
+
+    it('getCanonicalUrl should return correct canonical base on page path', () => {
+      const canonicalUrl = null;
+
+      expect(getCanonicalUrl(pagePath, canonicalUrl)).toEqual(
+        `${origin}${pagePath}`,
+      );
+    });
+  });
+
+  describe('getMetadataForPagination', () => {
+    const origin = 'http://localhost';
+    const canonicalUrl = `${origin}/test-canonical-path`;
+    const metaData = {
+      title: 'page title',
+      name: 'page name',
+      metaDescription: 'page description',
+      metaRobots: null,
+      legacyUrl: null,
+      pageType: null,
+      slug: null,
+      schema: null,
+      publishedOn: null,
+      breadcrumbs: null,
+    };
+
+    it('getMetadataForPagination should return metadata with correct canonical url', () => {
+      const pageNumber = 2;
+      const metaDataWithCanonicalUrl = {
+        canonicalUrl,
+        ...metaData,
+      };
+
+      expect(
+        getMetadataForPagination(metaDataWithCanonicalUrl, pageNumber),
+      ).toEqual({
+        canonicalUrl: `${canonicalUrl}/page/${pageNumber}`,
+        ...metaData,
+      });
+    });
+
+    it('getMetadataForPagination should return metadata with correct legacy canonical url', () => {
+      const pageNumber = 2;
+      const metaDataWithCanonicalUrl = {
+        canonicalUrl: `${canonicalUrl}.html`,
+        ...metaData,
+      };
+
+      expect(
+        getMetadataForPagination(metaDataWithCanonicalUrl, pageNumber),
+      ).toEqual({
+        canonicalUrl: `${canonicalUrl}/page/${pageNumber}.html`,
+        ...metaData,
+      });
+    });
+
+    it('getMetadataForPagination should return metadata with original canonical url if page number < 2', () => {
+      const pageNumber = 1;
+      const metaDataWithCanonicalUrl = {
+        canonicalUrl,
+        ...metaData,
+      };
+
+      expect(
+        getMetadataForPagination(metaDataWithCanonicalUrl, pageNumber),
+      ).toEqual(metaDataWithCanonicalUrl);
     });
   });
 });
