@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { ParsedUrlQueryInput } from 'querystring';
 import ReactMarkdown from 'react-markdown';
@@ -15,6 +15,7 @@ import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 import { ProductCardData } from '../../../generated/ProductCardData';
 import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import { GenericPageQuestionQuery_genericPage_sections_faqs_questionSets_questionAnswers as IQuestion } from '../../../generated/GenericPageQuestionQuery';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import { IEvOffersData, specialOffersRequest } from '../../utils/offers';
 
@@ -51,6 +52,15 @@ interface IProps extends IEvOffersData {
   searchParam: string;
 }
 
+const mapQuestionAnswersToAccordionItems = (
+  questionAnswers: Nullish<Nullable<IQuestion>[]>,
+): Nullish<IAccordionItem[]> =>
+  questionAnswers?.filter(Boolean).map((question, index) => ({
+    id: index,
+    title: question?.question ?? '',
+    children: question?.answer,
+  }));
+
 const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
   data,
   productDerivatives,
@@ -72,12 +82,9 @@ const RedundancyAndLifeEventCoverPage: NextPage<IProps> = ({
     ? LeaseTypeEnum.PERSONAL
     : LeaseTypeEnum.BUSINESS;
 
-  const accordionSection: Nullish<IAccordionItem[]> = questionsSection?.questionAnswers?.map(
-    (question, index) => ({
-      id: index,
-      title: question?.question ?? '',
-      children: question?.answer,
-    }),
+  const accordionSection = useMemo(
+    () => mapQuestionAnswersToAccordionItems(questionsSection?.questionAnswers),
+    [questionsSection?.questionAnswers],
   );
 
   const hotOfferProductCard =
