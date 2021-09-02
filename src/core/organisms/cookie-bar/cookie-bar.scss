@@ -23,7 +23,7 @@
   text-align: center;
   background: $white;
   box-shadow: 0 0 15px #00000021;
-  animation: fadeIn .45s ease-out 1.45s backwards;
+  animation: fadeIn .45s ease-out 2.45s backwards;
   z-index: 999;
 
   &.-hide {
@@ -47,11 +47,12 @@
   }
 
   &__text {
-    display: inline-block;
+    display: block;
     font-size: 20px !important;
     font-weight: 500;
 
     @include mobile {
+      display: inline-block;
       font-size: 14px !important;
     }
 
