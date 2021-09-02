@@ -262,7 +262,6 @@ const TopOffersContainer: React.FC<IProps> = ({
               <CarouselSwiper
                 className="-mh-auto top-offers"
                 countItems={vehiclesList.length || 0}
-                initialSlideHeight={567}
               >
                 {vehiclesList.map((vehicle: IVehicles, index: number) =>
                   renderVehicleCard(vehicle, index),
