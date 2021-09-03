@@ -65,7 +65,9 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
               <Heading
                 size="lead"
                 color="black"
-                tag={prepareTagName(card.titleTag) as any}
+                tag={
+                  prepareTagName(card.titleTag) as keyof JSX.IntrinsicElements
+                }
               >
                 <Icon icon={<TrophySharp />} color="black" size="regular" />
                 {` ${card.title}`}
@@ -88,7 +90,7 @@ const renderMeetCard = (card: ICard | undefined) =>
           <Heading
             size="lead"
             color="black"
-            tag={prepareTagName(card.titleTag)}
+            tag={prepareTagName(card.titleTag) as keyof JSX.IntrinsicElements}
           >
             {card.title}
           </Heading>
