@@ -5,7 +5,11 @@ import ModalV2 from '../ModalV2';
 describe('<Modal />', () => {
   it('should render not showing modal', () => {
     // ACT
-    render(<ModalV2 open={false} onClose={jest.fn()} />);
+    render(
+      <ModalV2 open={false} onClose={jest.fn()}>
+        children
+      </ModalV2>,
+    );
 
     // ASSERT
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
@@ -13,7 +17,11 @@ describe('<Modal />', () => {
 
   it('should render showing modal', () => {
     // ACT
-    render(<ModalV2 open onClose={jest.fn()} />);
+    render(
+      <ModalV2 open onClose={jest.fn()}>
+        children
+      </ModalV2>,
+    );
 
     // ASSERT
     expect(screen.getByRole('dialog')).toHaveAttribute(
@@ -25,7 +33,12 @@ describe('<Modal />', () => {
   it('should call onClose when clicking the close button', () => {
     // ACT
     const handleClose = jest.fn();
-    render(<ModalV2 open onClose={handleClose} />);
+    render(
+      <ModalV2 open onClose={handleClose}>
+        children
+      </ModalV2>,
+    );
+
     fireEvent.click(screen.getByTestId('close'));
 
     // ASSERT
@@ -35,7 +48,12 @@ describe('<Modal />', () => {
   it('should call onClose when user presses escape key', () => {
     // ACT
     const handleClose = jest.fn();
-    render(<ModalV2 open onClose={handleClose} />);
+    render(
+      <ModalV2 open onClose={handleClose}>
+        children
+      </ModalV2>,
+    );
+
     fireEvent.keyDown(document, { key: 'Escape' });
 
     // ASSERT
