@@ -355,12 +355,12 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
       // we get derivative data for this offers
       const isCar =
         order.lineItems[0].vehicleProduct?.vehicleType === VehicleTypeEnum.CAR;
-      const some = isCar ? dataCars : dataCarsLCV;
+      const query = isCar ? dataCars : dataCarsLCV;
 
-      const derivative = some?.derivatives?.find(
+      const derivative = query?.derivatives?.find(
         item => item.id === order.lineItems[0].vehicleProduct?.derivativeCapId,
       );
-      const imageSrc = some?.vehicleImages?.find(
+      const imageSrc = query?.vehicleImages?.find(
         item =>
           item?.capId?.toString() ===
           order.lineItems[0].vehicleProduct?.derivativeCapId,
