@@ -54,7 +54,9 @@ describe('<Modal />', () => {
       </ModalV2>,
     );
 
-    fireEvent.keyDown(document, { key: 'Escape' });
+    fireEvent.keyDown(document, {
+      key: 'Escape',
+    });
 
     // ASSERT
     expect(handleClose).toHaveBeenCalledTimes(1);
