@@ -183,6 +183,24 @@ $carousel-arrow-size: 1.5rem;
     }
   }
 
+  &.-single-product {
+    display: flex;
+    .card {
+      flex: 1 1 33.33%;
+      max-width: 33.33%;
+
+      @include tablet {
+        flex: 1 1 50%;
+        max-width: 50%;
+      }
+
+      @include mobile {
+        flex: 1 1 100%;
+        max-width: 100%;
+      }
+    }
+  }
+
   .swiper-container {
     margin: 0 -10px;
     padding-bottom: 1px;
