@@ -12,6 +12,7 @@ import {
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import getTitleTag from '../../utils/getTitleTag';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -47,11 +48,6 @@ export interface IAboutPageProps {
   children?: ReactNode;
 }
 
-const prepareTagName = (possibleTag: string | null) =>
-  possibleTag && Heading.defaultProps?.tag?.indexOf(possibleTag) !== -1
-    ? possibleTag
-    : undefined;
-
 const renderCarouselCards = (cards: (ICard | null)[]) =>
   cards.map(card =>
     card?.title && card.body && card.name ? (
@@ -65,9 +61,7 @@ const renderCarouselCards = (cards: (ICard | null)[]) =>
               <Heading
                 size="lead"
                 color="black"
-                tag={
-                  prepareTagName(card.titleTag) as keyof JSX.IntrinsicElements
-                }
+                tag={getTitleTag(card.titleTag) as keyof JSX.IntrinsicElements}
               >
                 <Icon icon={<TrophySharp />} color="black" size="regular" />
                 {` ${card.title}`}
@@ -90,7 +84,7 @@ const renderMeetCard = (card: ICard | undefined) =>
           <Heading
             size="lead"
             color="black"
-            tag={prepareTagName(card.titleTag) as keyof JSX.IntrinsicElements}
+            tag={getTitleTag(card.titleTag) as keyof JSX.IntrinsicElements}
           >
             {card.title}
           </Heading>
