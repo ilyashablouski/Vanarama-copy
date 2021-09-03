@@ -150,13 +150,12 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       );
       return (
         card && (
-          <SwiperSlide>
+          <SwiperSlide key={index.toString()}>
             <Card
               style={{ minHeight: 420 }}
               loadImage
               lazyLoad={index !== 0}
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={`${card.title}_${index.toString()}_${card.excerpt}`}
               className="card__article"
               imageSrc={
                 card.featuredImage?.file?.url || card.image?.file?.url || ''

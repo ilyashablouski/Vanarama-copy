@@ -6,5 +6,5 @@ export interface IHeadingProps extends IBaseProps {
   size?: TSize;
   color?: TColor;
   href?: string;
-  tag?: keyof JSX.IntrinsicElements;
+  tag?: keyof JSX.IntrinsicElements | string;
 }

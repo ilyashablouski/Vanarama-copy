@@ -88,7 +88,7 @@ const renderMeetCard = (card: ICard | undefined) =>
           <Heading
             size="lead"
             color="black"
-            tag={prepareTagName(card.titleTag) as any}
+            tag={prepareTagName(card.titleTag)}
           >
             {card.title}
           </Heading>
