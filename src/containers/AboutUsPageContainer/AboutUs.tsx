@@ -2,7 +2,8 @@ import React, { ReactNode } from 'react';
 import ReactMarkdown from 'react-markdown';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import dynamic from 'next/dynamic';
-import Carousel from 'core/organisms/carousel';
+import CarouselSwiper from 'core/organisms/carousel';
+import { SwiperSlide } from 'swiper/react';
 import { ABOUT_US_MEET_SECTION_NAMES } from './config';
 import {
   GetAboutUsPageData_aboutUsLandingPage_sections_carousel_cards as ICard,
@@ -11,6 +12,7 @@ import {
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import getTitleTag from '../../utils/getTitleTag';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -46,33 +48,29 @@ export interface IAboutPageProps {
   children?: ReactNode;
 }
 
-const prepareTagName = (possibleTag: string | null) =>
-  possibleTag && Heading.defaultProps?.tag?.indexOf(possibleTag) !== -1
-    ? possibleTag
-    : undefined;
-
 const renderCarouselCards = (cards: (ICard | null)[]) =>
   cards.map(card =>
     card?.title && card.body && card.name ? (
-      <Card
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        style={{ maxHeight: 320 }}
-        key={card.name}
-        title={{
-          title: card.title,
-          link: (
-            <Heading
-              size="lead"
-              color="black"
-              tag={prepareTagName(card.titleTag) as any}
-            >
-              <Icon icon={<TrophySharp />} color="black" size="regular" />
-              {` ${card.title}`}
-            </Heading>
-          ),
-        }}
-        description={card.body}
-      />
+      <SwiperSlide key={card.name}>
+        <Card
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          style={{ maxHeight: 320 }}
+          title={{
+            title: card.title,
+            link: (
+              <Heading
+                size="lead"
+                color="black"
+                tag={getTitleTag(card.titleTag) as keyof JSX.IntrinsicElements}
+              >
+                <Icon icon={<TrophySharp />} color="black" size="regular" />
+                {` ${card.title}`}
+              </Heading>
+            ),
+          }}
+          description={card.body}
+        />
+      </SwiperSlide>
     ) : null,
   );
 
@@ -86,7 +84,7 @@ const renderMeetCard = (card: ICard | undefined) =>
           <Heading
             size="lead"
             color="black"
-            tag={prepareTagName(card.titleTag) as any}
+            tag={getTitleTag(card.titleTag) as keyof JSX.IntrinsicElements}
           >
             {card.title}
           </Heading>
@@ -179,9 +177,12 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, data }) => {
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
           <div className="-pb-400">
             {sections?.carousel?.cards && (
-              <Carousel countItems={1} className="-mh-auto about-us">
+              <CarouselSwiper
+                countItems={1}
+                className="carousel-one-column -mh-auto about-us"
+              >
                 {renderCarouselCards(sections?.carousel.cards)}
-              </Carousel>
+              </CarouselSwiper>
             )}
           </div>
         </LazyLoadComponent>

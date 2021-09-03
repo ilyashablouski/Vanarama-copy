@@ -1,7 +1,8 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
-import Carousel from 'core/organisms/carousel';
+import CarouselSwiper from 'core/organisms/carousel';
 import Card from 'core/molecules/cards';
+import { SwiperSlide } from 'swiper/react';
 import RouterLink from '../RouterLink/RouterLink';
 import { GenericPageQuery_genericPage_sectionsAsArray_carousel as ICarousel } from '../../../generated/GenericPageQuery';
 
@@ -19,26 +20,28 @@ const ArticleCarousel: React.FC<IEvCarouselProps> = ({ data }) => {
           More Articles
         </Heading>
         {data?.cards && (
-          <Carousel countItems={3} className="-mh-auto about-us">
+          <CarouselSwiper countItems={3} className="-mh-auto about-us">
             {data.cards.map((card, index) => (
-              <Card imageSrc={card?.image?.file?.url} key={card?.name || index}>
-                <div className="basic">
-                  <Heading tag="p" color="black" className="-mb-400">
-                    {card?.body}
-                  </Heading>
-                  {card?.link && (
-                    <RouterLink
-                      className="-teal"
-                      link={{
-                        href: card?.link?.url || '',
-                        label: card?.link?.text || '',
-                      }}
-                    />
-                  )}
-                </div>
-              </Card>
+              <SwiperSlide key={card?.name || index}>
+                <Card imageSrc={card?.image?.file?.url}>
+                  <div className="basic">
+                    <Heading tag="p" color="black" className="-mb-400">
+                      {card?.body}
+                    </Heading>
+                    {card?.link && (
+                      <RouterLink
+                        className="-teal"
+                        link={{
+                          href: card?.link?.url || '',
+                          label: card?.link?.text || '',
+                        }}
+                      />
+                    )}
+                  </div>
+                </Card>
+              </SwiperSlide>
             ))}
-          </Carousel>
+          </CarouselSwiper>
         )}
       </div>
     </section>
