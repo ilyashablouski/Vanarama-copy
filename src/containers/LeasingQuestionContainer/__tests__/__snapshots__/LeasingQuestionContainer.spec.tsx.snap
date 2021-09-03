@@ -27,266 +27,397 @@ exports[`<LeasingQuestionContainer /> should match snapshot 1`] = `
           class="carousel -col3"
         >
           <div
-            class="slider"
-            style="box-sizing: border-box; display: block; height: inherit; position: relative; width: 100%;"
-            tabindex="0"
+            class="swiper-container swiper-container-initialized swiper-container-horizontal"
           >
             <div
-              aria-atomic="true"
-              aria-live="polite"
-              style="position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden;"
-              tabindex="-1"
+              class="swiper-wrapper"
+              style="transition-duration: 0ms; transform: translate3d(NaNpx, 0px, 0px);"
             >
-              Slide 1 of 3
+              <div
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="0"
+              >
+                <div
+                  class="card"
+                  data-testid="card"
+                >
+                  <div
+                    class="title"
+                  >
+                    <span
+                      class="heading -black -lead"
+                      data-testid="card-heading"
+                    >
+                      Am I Responsible For The Servicing Of My Leased Van?
+                    </span>
+                  </div>
+                  <span
+                    class="text -regular -dark"
+                  >
+                    <span>
+                      Our advertised prices will not include servicing and it is your responsibility to make sure that the vehicle is serviced...
+                    </span>
+                  </span>
+                  <button
+                    class="button -teal -regular -clear"
+                  >
+                    <div
+                      class="button--inner"
+                    >
+                      Read More
+                    </div>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="1"
+              >
+                <div
+                  class="card"
+                  data-testid="card"
+                >
+                  <div
+                    class="title"
+                  >
+                    <span
+                      class="heading -black -lead"
+                      data-testid="card-heading"
+                    >
+                      I Have Damaged My Van, What Do I Need To Do Next?
+                    </span>
+                  </div>
+                  <span
+                    class="text -regular -dark"
+                  >
+                    <span>
+                      Depending on the amount of damage done to the vehicle, the best thing to do is speak with your insurance company directl...
+                    </span>
+                  </span>
+                  <button
+                    class="button -teal -regular -clear"
+                  >
+                    <div
+                      class="button--inner"
+                    >
+                      Read More
+                    </div>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="2"
+              >
+                <div
+                  class="card"
+                  data-testid="card"
+                >
+                  <div
+                    class="title"
+                  >
+                    <span
+                      class="heading -black -lead"
+                      data-testid="card-heading"
+                    >
+                      What Type Of Garage Should I Use For Servicing My Van?
+                    </span>
+                  </div>
+                  <span
+                    class="text -regular -dark"
+                  >
+                    <span>
+                      You can have your van serviced at any independent garage providing they are VAT registered, qualified to work on your ve...
+                    </span>
+                  </span>
+                  <button
+                    class="button -teal -regular -clear"
+                  >
+                    <div
+                      class="button--inner"
+                    >
+                      Read More
+                    </div>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="swiper-slide"
+                data-swiper-slide-index="0"
+              >
+                <div
+                  class="card"
+                  data-testid="card"
+                >
+                  <div
+                    class="title"
+                  >
+                    <span
+                      class="heading -black -lead"
+                      data-testid="card-heading"
+                    >
+                      Am I Responsible For The Servicing Of My Leased Van?
+                    </span>
+                  </div>
+                  <span
+                    class="text -regular -dark"
+                  >
+                    <span>
+                      Our advertised prices will not include servicing and it is your responsibility to make sure that the vehicle is serviced...
+                    </span>
+                  </span>
+                  <button
+                    class="button -teal -regular -clear"
+                  >
+                    <div
+                      class="button--inner"
+                    >
+                      Read More
+                    </div>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="swiper-slide"
+                data-swiper-slide-index="1"
+              >
+                <div
+                  class="card"
+                  data-testid="card"
+                >
+                  <div
+                    class="title"
+                  >
+                    <span
+                      class="heading -black -lead"
+                      data-testid="card-heading"
+                    >
+                      I Have Damaged My Van, What Do I Need To Do Next?
+                    </span>
+                  </div>
+                  <span
+                    class="text -regular -dark"
+                  >
+                    <span>
+                      Depending on the amount of damage done to the vehicle, the best thing to do is speak with your insurance company directl...
+                    </span>
+                  </span>
+                  <button
+                    class="button -teal -regular -clear"
+                  >
+                    <div
+                      class="button--inner"
+                    >
+                      Read More
+                    </div>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="swiper-slide"
+                data-swiper-slide-index="2"
+              >
+                <div
+                  class="card"
+                  data-testid="card"
+                >
+                  <div
+                    class="title"
+                  >
+                    <span
+                      class="heading -black -lead"
+                      data-testid="card-heading"
+                    >
+                      What Type Of Garage Should I Use For Servicing My Van?
+                    </span>
+                  </div>
+                  <span
+                    class="text -regular -dark"
+                  >
+                    <span>
+                      You can have your van serviced at any independent garage providing they are VAT registered, qualified to work on your ve...
+                    </span>
+                  </span>
+                  <button
+                    class="button -teal -regular -clear"
+                  >
+                    <div
+                      class="button--inner"
+                    >
+                      Read More
+                    </div>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="0"
+              >
+                <div
+                  class="card"
+                  data-testid="card"
+                >
+                  <div
+                    class="title"
+                  >
+                    <span
+                      class="heading -black -lead"
+                      data-testid="card-heading"
+                    >
+                      Am I Responsible For The Servicing Of My Leased Van?
+                    </span>
+                  </div>
+                  <span
+                    class="text -regular -dark"
+                  >
+                    <span>
+                      Our advertised prices will not include servicing and it is your responsibility to make sure that the vehicle is serviced...
+                    </span>
+                  </span>
+                  <button
+                    class="button -teal -regular -clear"
+                  >
+                    <div
+                      class="button--inner"
+                    >
+                      Read More
+                    </div>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="1"
+              >
+                <div
+                  class="card"
+                  data-testid="card"
+                >
+                  <div
+                    class="title"
+                  >
+                    <span
+                      class="heading -black -lead"
+                      data-testid="card-heading"
+                    >
+                      I Have Damaged My Van, What Do I Need To Do Next?
+                    </span>
+                  </div>
+                  <span
+                    class="text -regular -dark"
+                  >
+                    <span>
+                      Depending on the amount of damage done to the vehicle, the best thing to do is speak with your insurance company directl...
+                    </span>
+                  </span>
+                  <button
+                    class="button -teal -regular -clear"
+                  >
+                    <div
+                      class="button--inner"
+                    >
+                      Read More
+                    </div>
+                  </button>
+                </div>
+              </div>
+              <div
+                class="swiper-slide swiper-slide-duplicate"
+                data-swiper-slide-index="2"
+              >
+                <div
+                  class="card"
+                  data-testid="card"
+                >
+                  <div
+                    class="title"
+                  >
+                    <span
+                      class="heading -black -lead"
+                      data-testid="card-heading"
+                    >
+                      What Type Of Garage Should I Use For Servicing My Van?
+                    </span>
+                  </div>
+                  <span
+                    class="text -regular -dark"
+                  >
+                    <span>
+                      You can have your van serviced at any independent garage providing they are VAT registered, qualified to work on your ve...
+                    </span>
+                  </span>
+                  <button
+                    class="button -teal -regular -clear"
+                  >
+                    <div
+                      class="button--inner"
+                    >
+                      Read More
+                    </div>
+                  </button>
+                </div>
+              </div>
             </div>
             <div
-              class="slider-frame"
-              style="box-sizing: border-box; display: block; height: 100%; margin: 0px; overflow: hidden; padding: 0px; position: relative; transform: translate3d(0, 0, 0);"
+              class="carousel--nav"
             >
-              <ul
-                class="slider-list"
-                style="box-sizing: border-box; cursor: pointer; display: block; height: 0px; margin: 0px -10px; padding: 0px; position: relative; transform: translate3d(0px, 0px, 0); width: auto; transition: 0s;"
+              <button
+                class="carousel--nav-arrow swiper-prev"
+                type="button"
               >
-                <li
-                  class="slider-slide slide-visible slide-current"
-                  style="box-sizing: border-box; display: inline-block; height: auto; left: 0px; list-style-type: none; margin: auto 10px auto 10px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: -13.33333333333333px;"
-                  tabindex="-1"
+                <i
+                  class="icon -darker -regular"
                 >
-                  <div
-                    class="card"
-                    data-testid="card"
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
                   >
-                    <div
-                      class="title"
-                    >
-                      <span
-                        class="heading -black -lead"
-                        data-testid="card-heading"
-                      >
-                        Is Road Tax Covered In The Lease?
-                      </span>
-                    </div>
-                    <span
-                      class="text -regular -dark"
-                    >
-                      <span>
-                        It depends on which lease product you choose. If you choose a contract hire or contract purchase the road tax is include...
-                      </span>
-                    </span>
-                    <button
-                      class="button -teal -regular -clear"
-                    >
-                      <div
-                        class="button--inner"
-                      >
-                        Read More
-                      </div>
-                    </button>
-                  </div>
-                </li>
-                <li
-                  aria-hidden="true"
-                  class="slider-slide slide-visible"
-                  inert=""
-                  style="box-sizing: border-box; display: inline-block; height: auto; left: 6.66666666666667px; list-style-type: none; margin: auto 10px auto 10px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: -13.33333333333333px;"
+                    <polyline
+                      points="244 400 100 256 244 112"
+                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                    />
+                    <line
+                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                      x1="120"
+                      x2="412"
+                      y1="256"
+                      y2="256"
+                    />
+                  </svg>
+                </i>
+              </button>
+              <div
+                class="swiper-pagination swiper-pagination-clickable swiper-pagination-bullets"
+              />
+              <button
+                class="carousel--nav-arrow swiper-next"
+                type="button"
+              >
+                <i
+                  class="icon -darker -regular"
                 >
-                  <div
-                    class="card"
-                    data-testid="card"
+                  <svg
+                    height="1em"
+                    viewBox="0 0 512 512"
+                    width="1em"
                   >
-                    <div
-                      class="title"
-                    >
-                      <span
-                        class="heading -black -lead"
-                        data-testid="card-heading"
-                      >
-                        Is Road Tax Covered In The Lease?2
-                      </span>
-                    </div>
-                    <span
-                      class="text -regular -dark"
-                    >
-                      <span>
-                        It depends on which lease product you choose. If you choose a contract hire or contract purchase the road tax is include...
-                      </span>
-                    </span>
-                    <button
-                      class="button -teal -regular -clear"
-                      tabindex="-1"
-                    >
-                      <div
-                        class="button--inner"
-                      >
-                        Read More
-                      </div>
-                    </button>
-                  </div>
-                </li>
-                <li
-                  aria-hidden="true"
-                  class="slider-slide slide-visible"
-                  inert=""
-                  style="box-sizing: border-box; display: inline-block; height: auto; left: 13.33333333333334px; list-style-type: none; margin: auto 10px auto 10px; position: absolute; top: 0px; transform: scale(1); transition: transform .4s linear; vertical-align: top; width: -13.33333333333333px;"
-                >
-                  <div
-                    class="card"
-                    data-testid="card"
-                  >
-                    <div
-                      class="title"
-                    >
-                      <span
-                        class="heading -black -lead"
-                        data-testid="card-heading"
-                      >
-                        Is Road Tax Covered In The Lease?3
-                      </span>
-                    </div>
-                    <span
-                      class="text -regular -dark"
-                    >
-                      <span>
-                        It depends on which lease product you choose. If you choose a contract hire or contract purchase the road tax is include...
-                      </span>
-                    </span>
-                    <button
-                      class="button -teal -regular -clear"
-                      tabindex="-1"
-                    >
-                      <div
-                        class="button--inner"
-                      >
-                        Read More
-                      </div>
-                    </button>
-                  </div>
-                </li>
-              </ul>
+                    <polyline
+                      points="268 112 412 256 268 400"
+                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                    />
+                    <line
+                      style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
+                      x1="392"
+                      x2="100"
+                      y1="256"
+                      y2="256"
+                    />
+                  </svg>
+                </i>
+              </button>
             </div>
-            <style
-              type="text/css"
-            >
-              .slider-slide &gt; img { width: 100%; display: block; }
-          .slider-slide &gt; img:focus { margin: auto; }
-            </style>
           </div>
-          <nav
-            class="carousel--nav"
-          >
-            <button
-              class="carousel--nav-arrow"
-              type="button"
-            >
-              <i
-                class="icon -darker -regular"
-              >
-                <svg
-                  height="1em"
-                  viewBox="0 0 512 512"
-                  width="1em"
-                >
-                  <polyline
-                    points="244 400 100 256 244 112"
-                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                  />
-                  <line
-                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                    x1="120"
-                    x2="412"
-                    y1="256"
-                    y2="256"
-                  />
-                </svg>
-              </i>
-            </button>
-            <div>
-              <button
-                class="carousel--nav-item -active"
-                type="button"
-              >
-                <i
-                  class="icon -regular"
-                >
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <path
-                      d="M256,464C141.31,464,48,370.69,48,256S141.31,48,256,48s208,93.31,208,208S370.69,464,256,464Z"
-                    />
-                  </svg>
-                </i>
-              </button>
-            </div>
-            <div>
-              <button
-                class="carousel--nav-item"
-                type="button"
-              >
-                <i
-                  class="icon -regular"
-                >
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <path
-                      d="M256,464C141.31,464,48,370.69,48,256S141.31,48,256,48s208,93.31,208,208S370.69,464,256,464Z"
-                    />
-                  </svg>
-                </i>
-              </button>
-            </div>
-            <div>
-              <button
-                class="carousel--nav-item"
-                type="button"
-              >
-                <i
-                  class="icon -regular"
-                >
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <path
-                      d="M256,464C141.31,464,48,370.69,48,256S141.31,48,256,48s208,93.31,208,208S370.69,464,256,464Z"
-                    />
-                  </svg>
-                </i>
-              </button>
-            </div>
-            <button
-              class="carousel--nav-arrow"
-              type="button"
-            >
-              <i
-                class="icon -darker -regular"
-              >
-                <svg
-                  height="1em"
-                  viewBox="0 0 512 512"
-                  width="1em"
-                >
-                  <polyline
-                    points="268 112 412 256 268 400"
-                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                  />
-                  <line
-                    style="fill: none; stroke: var(--class-color); stroke-linecap: square; stroke-miterlimit: 10; stroke-width: 48;"
-                    x1="392"
-                    x2="100"
-                    y1="256"
-                    y2="256"
-                  />
-                </svg>
-              </i>
-            </button>
-          </nav>
         </div>
       </div>
     </div>

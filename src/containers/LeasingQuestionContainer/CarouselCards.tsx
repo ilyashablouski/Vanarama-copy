@@ -23,7 +23,7 @@ interface ICarouselCards {
 }
 
 const renderCarouselCards = (cards: (ICaruselCard | null)[]) =>
-  cards.map((card, index) => {
+  cards.map(card => {
     const [readMore, toggleRead] = useState(true);
     const clearHtml = DOMPurify.sanitize(card && card.body ? card.body : '');
     const cardText = {
@@ -33,7 +33,7 @@ const renderCarouselCards = (cards: (ICaruselCard | null)[]) =>
     };
 
     return card?.title && card.body && card.name ? (
-      <SwiperSlide key={index.toString()}>
+      <SwiperSlide key={card.name}>
         <Card
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
           title={{ title: card?.title }}
