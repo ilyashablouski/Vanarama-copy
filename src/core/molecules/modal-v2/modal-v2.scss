@@ -1,0 +1,54 @@
+$modal-gap: $rem-300;
+$modal-padding: $rem-200;
+
+.modal-v2 {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  min-height: 100vh;
+  padding: 3rem $modal-gap;
+  background-color: rgba($darker, $opacity-700);
+  backdrop-filter: blur(8px) contrast(0.9);
+  overflow-x: hidden;
+  overflow-y: scroll;
+  z-index: $z-index-modal;
+
+  &__close {
+    position: absolute;
+    top: $modal-gap;
+    right: $modal-gap;
+    margin-left: auto;
+    color: $medium !important;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      color: $white !important;
+
+      .icon > svg {
+        fill: $white;
+      }
+    }
+
+    :not(.icon) {
+      font-size: 1.125rem;
+      font-weight: 600;
+      letter-spacing: 0.01em;
+      line-height: 2rem;
+      text-transform: uppercase;
+    }
+
+    .icon {
+      height: 2rem;
+
+      > svg {
+        width: 2rem;
+        height: 2rem;
+        font-size: 2rem;
+        fill: $medium;
+      }
+    }
+  }
+}
