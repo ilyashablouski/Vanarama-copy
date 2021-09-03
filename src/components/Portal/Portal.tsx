@@ -11,6 +11,7 @@ interface IProps {
 function Portal({ disablePortal, children }: IProps) {
   const didMount = useMount();
 
+  // in case we need to render children on server side
   if (disablePortal) {
     return <>{children}</>;
   }
