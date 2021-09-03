@@ -98,6 +98,13 @@ Array [
         >
           All Orders
         </button>
+        <button
+          className="choice-box"
+          onClick={[Function]}
+          type="button"
+        >
+          Completed
+        </button>
       </div>
       <span
         className="text -regular -darker"
