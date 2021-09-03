@@ -11,7 +11,7 @@ interface IProps extends IBaseProps {
   open: boolean;
   disablePortal?: boolean;
   children: React.ReactNode;
-  onClose?: () => void;
+  onClose: () => void;
 }
 
 function ModalV2({
@@ -24,7 +24,7 @@ function ModalV2({
   useEffect(() => {
     function handleKeyDown(e: KeyboardEvent) {
       if (e.key === 'Escape' && open) {
-        onClose?.();
+        onClose();
       }
     }
 
