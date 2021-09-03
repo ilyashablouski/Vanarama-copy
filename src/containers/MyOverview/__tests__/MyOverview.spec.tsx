@@ -6,9 +6,11 @@ import {
   useMyOrdersData,
   useCarDerivativesData,
 } from '../../OrdersInformation/gql';
+import { useStoredPersonQuery } from '../../../gql/storedPerson';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
 
 jest.mock('../../OrdersInformation/gql');
+jest.mock('../../../gql/storedPerson');
 jest.mock('@apollo/client');
 jest.mock('../../../hooks/useImperativeQuery');
 
@@ -83,6 +85,28 @@ const mockOrdersValue = [
   },
 ];
 
+const mockPersonsValue = [
+  jest.fn(),
+  {
+    loading: false,
+    data: {
+      storedPerson: {
+        uuid: 'uuid',
+        firstName: 'firstName',
+        lastName: 'lastName',
+        partyUuid: 'partyUuid',
+        emailAddresses: [
+          {
+            value: 'value',
+            partyId: 'partyId',
+          },
+        ],
+      },
+    },
+    error: undefined,
+  },
+];
+
 const mockCarValue = [
   jest.fn(),
   {
@@ -127,7 +151,7 @@ describe('<MyOverview />', () => {
 
   it('renders quotes correctly with data', async () => {
     (useMyOrdersData as jest.Mock).mockReturnValue(mockOrdersValue);
-
+    (useStoredPersonQuery as jest.Mock).mockReturnValue(mockPersonsValue);
     (useCarDerivativesData as jest.Mock).mockReturnValue(mockCarValue);
 
     const getComponent = () => {
@@ -140,7 +164,7 @@ describe('<MyOverview />', () => {
 
   it('renders orders correctly with data', async () => {
     (useMyOrdersData as jest.Mock).mockReturnValue(mockOrdersValue);
-
+    (useStoredPersonQuery as jest.Mock).mockReturnValue(mockPersonsValue);
     (useCarDerivativesData as jest.Mock).mockReturnValue(mockCarValue);
 
     const getComponent = () => {
@@ -152,6 +176,7 @@ describe('<MyOverview />', () => {
   });
 
   it('renders correctly with error', async () => {
+    (useStoredPersonQuery as jest.Mock).mockReturnValue(mockPersonsValue);
     (useMyOrdersData as jest.Mock).mockReturnValue([
       jest.fn(),
       {
@@ -170,6 +195,7 @@ describe('<MyOverview />', () => {
   });
 
   it('renders correctly with loading', async () => {
+    (useStoredPersonQuery as jest.Mock).mockReturnValue(mockPersonsValue);
     (useMyOrdersData as jest.Mock).mockReturnValue([
       jest.fn(),
       {

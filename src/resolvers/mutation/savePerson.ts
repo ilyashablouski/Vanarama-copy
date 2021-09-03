@@ -7,7 +7,7 @@ interface ISavePersonArgs {
 
 export default function savePerson(rootValue: unknown, args: ISavePersonArgs) {
   if (typeof window !== 'undefined') {
-    return localforage.setItem<IPerson>('person', args.person);
+    return localforage.setItem<IPerson>('storedPerson', args.person);
   }
 
   return null;

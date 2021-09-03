@@ -8,6 +8,7 @@ import { MyOrdersTypeEnum } from '../../../generated/globalTypes';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GET_MY_ORDERS_DATA } from '../OrdersInformation/gql';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
+import { useSavePersonMutation } from '../../gql/storedPerson';
 import {
   GET_VEHICLE_CONFIG_LIST,
   getVehicleConfigListFromQuery,
@@ -71,7 +72,9 @@ export const saveOrders = ([ordersQuery, quotesQuery]: ApolloQueryResult<
     ),
   ]);
 
-export const savePerson = (getPersonQuery: ApolloQueryResult<GetPerson>) => {
+export const savePersonLocally = (
+  getPersonQuery: ApolloQueryResult<GetPerson>,
+) => {
   setPersonLoggedIn(getPersonQuery.data);
   return setLocalPersonState(getPersonQuery.data);
 };
@@ -97,6 +100,7 @@ const LoginFormContainer = ({
 }: ILogInFormContainerProps) => {
   const [login, { loading, error }] = useLoginUserMutation();
   const [addVehiclesToWishlist] = useAddVehicleToWishlistMutation();
+  const [savePerson] = useSavePersonMutation();
   const getOrdersData = useImperativeQuery<GetMyOrders, GetMyOrdersVariables>(
     GET_MY_ORDERS_DATA,
   );
@@ -166,7 +170,13 @@ const LoginFormContainer = ({
       requestLogin(values)
         .then(requestPerson)
         .then(personQuery =>
-          savePerson(personQuery)
+          savePerson({
+            variables: {
+              person: personQuery.data?.getPerson,
+            },
+          })
+            // TODO: remove next line after integration of new person state
+            .then(() => savePersonLocally(personQuery))
             .then(requestCompanies)
             .then(getPartyUuidsFromCompanies)
             .then(filterExistingUuids(personQuery.data?.getPerson?.partyUuid))
