@@ -5,11 +5,11 @@ import { GenericPageQuery_genericPage_sections_leadText as ILead } from '../../.
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink';
 
-interface ILeadEX {
+interface IProps {
   leadText: ILead | null | undefined;
 }
 
-const LeadTextComponent: FC<ILeadEX> = ({ leadText }) => (
+const LeadTextComponent: FC<IProps> = ({ leadText }) => (
   <section className="row:lead-text">
     <hr className="-fullwidth" />
     <Heading
