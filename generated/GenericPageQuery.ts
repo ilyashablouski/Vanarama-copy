@@ -33,11 +33,18 @@ export interface GenericPageQuery_genericPage_featuredImage {
   file: GenericPageQuery_genericPage_featuredImage_file | null;
 }
 
+export interface GenericPageQuery_genericPage_sections_leadText_link {
+  legacyUrl: string | null;
+  text: string | null;
+  url: string | null;
+}
+
 export interface GenericPageQuery_genericPage_sections_leadText {
   titleTag: string | null;
   heading: string | null;
   description: string | null;
   position: number | null;
+  link: GenericPageQuery_genericPage_sections_leadText_link | null;
 }
 
 export interface GenericPageQuery_genericPage_sections_iconBullets1_iconBullets {
@@ -753,11 +760,18 @@ export interface GenericPageQuery_genericPage_sectionsAsArray_jumpMenu {
   links: (GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links | null)[] | null;
 }
 
+export interface GenericPageQuery_genericPage_sectionsAsArray_leadText_link {
+  legacyUrl: string | null;
+  text: string | null;
+  url: string | null;
+}
+
 export interface GenericPageQuery_genericPage_sectionsAsArray_leadText {
   titleTag: string | null;
   heading: string | null;
   description: string | null;
   position: number | null;
+  link: GenericPageQuery_genericPage_sectionsAsArray_leadText_link | null;
 }
 
 export interface GenericPageQuery_genericPage_sectionsAsArray_rowText {

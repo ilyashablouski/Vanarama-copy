@@ -25,8 +25,7 @@ interface IProps {
 const LandingPageContainer = ({ data, title }: IProps) => {
   const sectionsAsArray = useMemo(() => {
     // @ts-ignore
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const { __typename, ...rest } = getSectionsData(
+    const { __typename: typeName, ...rest } = getSectionsData(
       ['sectionsAsArray'],
       data?.genericPage,
     ) as GenericPageQuery_genericPage_sectionsAsArray;

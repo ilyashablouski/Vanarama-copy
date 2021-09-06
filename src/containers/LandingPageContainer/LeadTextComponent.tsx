@@ -10,7 +10,7 @@ interface ILeadEX {
 }
 
 const LeadTextComponent: FC<ILeadEX> = ({ leadText }) => (
-  <section className="row:bg-default">
+  <section className="row:lead-text">
     <hr className="-fullwidth" />
     <Heading
       size="large"
@@ -36,7 +36,21 @@ const LeadTextComponent: FC<ILeadEX> = ({ leadText }) => (
         />
       </div>
     )}
-    <hr className="-fullwidth" />
+
+    <div className="-a-center">
+      {leadText?.link && (
+        <RouterLink
+          link={{
+            href: leadText.link.url || '',
+            label: leadText.link.text || '',
+          }}
+          className="button -teal -large -solid -mt-500"
+          withoutDefaultClassName
+        >
+          <div className="button--inner">{leadText.link.text}</div>
+        </RouterLink>
+      )}
+    </div>
   </section>
 );
 

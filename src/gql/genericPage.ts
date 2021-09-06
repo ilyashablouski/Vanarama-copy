@@ -69,6 +69,11 @@ export const GENERIC_PAGE = gql`
           heading
           description
           position
+          link {
+            legacyUrl
+            text
+            url
+          }
         }
         iconBullets1 {
           title
@@ -333,6 +338,11 @@ export const GENERIC_PAGE = gql`
           heading
           description
           position
+          link {
+            legacyUrl
+            text
+            url
+          }
         }
         rowText {
           position
