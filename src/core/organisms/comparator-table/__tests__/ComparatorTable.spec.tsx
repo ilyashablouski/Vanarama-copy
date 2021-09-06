@@ -1,5 +1,4 @@
 import React from 'react';
-import { mount } from 'enzyme';
 import { fireEvent, render, screen } from '@testing-library/react';
 
 import ComparatorTable from '../ComparatorTable';
@@ -85,7 +84,7 @@ const mockViewOffer = jest.fn();
 
 describe('<ComparatorTable />', () => {
   it('renders correctly with default <ComparatorTable />', () => {
-    const wrapper = mount(
+    const getComponent = render(
       <ComparatorTable
         addVehicle={mockAddVehicles}
         deleteVehicle={mockDeleteVehicle}
@@ -94,7 +93,8 @@ describe('<ComparatorTable />', () => {
         isNotEmptyPage
       />,
     );
-    expect(wrapper).toMatchSnapshot();
+    const tree = getComponent.baseElement;
+    expect(tree).toMatchSnapshot();
   });
 
   it('button add, delete, view vehicle correctly with default <ComparatorRow />', () => {
@@ -108,13 +108,13 @@ describe('<ComparatorTable />', () => {
       />,
     );
 
-    fireEvent.click(screen.getByText('Add Vehicle'));
+    fireEvent.click(screen.getAllByText('Add Vehicle')[0]);
     expect(mockAddVehicles).toHaveBeenCalledTimes(1);
 
     fireEvent.click(screen.getAllByText('View Offer')[0]);
     expect(mockViewOffer).toHaveBeenCalledTimes(1);
 
-    fireEvent.click(screen.getByTestId('del-compare-1'));
+    fireEvent.click(screen.getAllByTestId('del-compare-1')[0]);
     expect(mockDeleteVehicle).toHaveBeenCalledTimes(1);
   });
 });
