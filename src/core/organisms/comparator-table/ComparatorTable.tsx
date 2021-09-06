@@ -47,9 +47,8 @@ const ComporatorTable: React.FC<IComparatorTable> = ({
       <header className={cx('comparator-table--header', className)}>
         <CarouselSwiper countItems={3}>
           {columns.map((column, number) => (
-            <SwiperSlide>
+            <SwiperSlide key={number.toString()}>
               <ComparatorCard
-                key={`${(headingValues?.title || '') + number}`}
                 deleteVehicle={() => {
                   const headingValue = headingValues?.values[
                     number
