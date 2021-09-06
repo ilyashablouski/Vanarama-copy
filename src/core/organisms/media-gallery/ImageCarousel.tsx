@@ -16,7 +16,7 @@ function ImageCarousel({
   const [thumbsSlider, setThumbsSlider] = useState<SwiperCore>();
 
   return (
-    <>
+    <div className="image-carousel">
       <Swiper
         navigation
         watchOverflow
@@ -67,7 +67,7 @@ function ImageCarousel({
           ))}
         </Swiper>
       )}
-    </>
+    </div>
   );
 }
 
