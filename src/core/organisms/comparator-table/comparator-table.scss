@@ -21,14 +21,6 @@ $comparator-image-height: 14rem;
       margin-top: $rem-500;
     }
 
-    //.card-image {
-    //  height: $comparator-image-height;
-    //}
-
-    //.card {
-    //  min-height: 19rem;
-    //}
-
     @include mobile {
       top: 0;
       margin: 0 -$comparator-gap;
