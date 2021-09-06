@@ -8,6 +8,7 @@ import { setSessionStorage } from 'utils/windowSessionStorage';
 import cx from 'classnames';
 import Cookies from 'js-cookie';
 import Button from 'core/atoms/button';
+import MediaGallery from 'core/organisms/media-gallery';
 // @ts-ignore
 import decode from 'decode-html';
 
@@ -76,12 +77,16 @@ const Icon = dynamic(() => import('core/atoms/icon'), {
   loading: () => <Skeleton count={1} />,
   ssr: false,
 });
-const MediaGallery = dynamic(() => import('core/organisms/media-gallery'), {
-  loading: () => <Skeleton count={3} />,
-});
 const LeaseScanner = dynamic(() => import('core/organisms/lease-scanner'), {
   loading: () => <Skeleton count={3} />,
 });
+const FreeHomeCharger = dynamic(() =>
+  import('core/assets/icons/FreeHomeCharger'),
+);
+const CardLabel = dynamic(() => import('core/molecules/cards/CardLabel'));
+const FreeInsuranceCardLabelIcon = dynamic(() =>
+  import('core/assets/icons/FreeInsuranceCardLabelIcon'),
+);
 const IndependentReview = dynamic(() =>
   import('../../components/IndependentReview/IndependentReview'),
 );
@@ -307,6 +312,15 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     [],
   );
 
+  const isFreeInsurance = useMemo(() => isSpecialOffer && isCar, [
+    isCar,
+    isSpecialOffer,
+  ]);
+  const isElectric = useMemo(
+    () => data?.derivativeInfo?.fuelType?.name === 'Electric',
+    [data?.derivativeInfo?.fuelType?.name],
+  );
+
   const vehicleImages = useMemo(
     () =>
       (data?.vehicleImages?.length &&
@@ -374,7 +388,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
 
   const onSubmitClick = (values: OrderInputObject) => {
     setOrderInputObject(values);
-    if (isSpecialOffer && isCar) {
+    if (isFreeInsurance) {
       setIsModalVisible(true);
       return;
     }
@@ -530,7 +544,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
       <PartnershipLogoHeader />
-      {isSpecialOffer && isCar && (
+      {isFreeInsurance && (
         <div className="pdp-free-insurance-banner">
           <Text
             tag="span"
@@ -595,10 +609,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             text: leadTime,
             incomplete: true,
           }}
-          showInsuranceBanner={isSpecialOffer && isCar}
-          showElectricBanner={
-            data?.derivativeInfo?.fuelType?.name === 'Electric'
-          }
+          showInsuranceBanner={isFreeInsurance}
+          showElectricBanner={isElectric}
           images={vehicleImages}
           videoSrc={video && video}
           threeSixtyVideoSrc={threeSixtyVideo}
@@ -606,6 +618,39 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           imageAltText={metaTitle}
           className="pdp--media-gallery"
         />
+        {(isElectric || isFreeInsurance) && (
+          <div className="extras pdp">
+            {isElectric && (
+              <CardLabel
+                text={
+                  <div>
+                    Free Home charger*
+                    <span>Worth £900 + FREE installation.</span>
+                  </div>
+                }
+                icon={<FreeHomeCharger />}
+              />
+            )}
+            {isFreeInsurance && (
+              <CardLabel
+                text={
+                  <div>
+                    1yr Free Insurance*
+                    <span>Worth average £538.</span>
+                  </div>
+                }
+                icon={<FreeInsuranceCardLabelIcon />}
+              />
+            )}
+          </div>
+        )}
+        {(isElectric || isFreeInsurance) && (
+          <div className="subject-to--- no-p-bottom">
+          <span>
+            <sup>*</sup>Subject to Eligibility
+          </span>
+          </div>
+        )}
         <VehicleTechDetails
           vehicleDetails={vehicleDetails}
           derivativeInfo={derivativeInfo}
@@ -656,10 +701,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           <CustomiseLeaseContainer
             quote={quote}
             capId={capId}
-            isShowFreeInsuranceMerch={isCar && !!isSpecialOffer}
-            isShowFreeHomeChargerMerch={
-              data?.derivativeInfo?.fuelType?.name === 'Electric'
-            }
+            isShowFreeInsuranceMerch={isFreeInsurance!}
+            isShowFreeHomeChargerMerch={isElectric}
             onCompletedCallBack={onCompletedCallBack}
             vehicleType={vehicleType}
             derivativeInfo={derivativeInfo}
@@ -717,10 +760,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         <CustomiseLeaseContainer
           quote={quote}
           capId={capId}
-          isShowFreeInsuranceMerch={isCar && !!isSpecialOffer}
-          isShowFreeHomeChargerMerch={
-            data?.derivativeInfo?.fuelType?.name === 'Electric'
-          }
+          isShowFreeInsuranceMerch={isFreeInsurance!}
+          isShowFreeHomeChargerMerch={isElectric}
           vehicleType={vehicleType}
           derivativeInfo={derivativeInfo}
           leaseAdjustParams={leaseAdjustParams}
