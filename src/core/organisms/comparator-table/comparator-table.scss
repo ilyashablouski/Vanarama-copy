@@ -4,7 +4,7 @@ $comparator-gap: $comparator-spacing;
 $comparator-image-height: 14rem;
 
 .comparator-table {
-  grid-template-columns: minmax(0,1fr);
+  grid-template-columns: minmax(0, 1fr);
   grid-auto-flow: row;
   gap: 0;
 
@@ -21,13 +21,13 @@ $comparator-image-height: 14rem;
       margin-top: $rem-500;
     }
 
-    .card-image {
-      height: $comparator-image-height;
-    }
+    //.card-image {
+    //  height: $comparator-image-height;
+    //}
 
-    .card {
-      min-height: 19rem;
-    }
+    //.card {
+    //  min-height: 19rem;
+    //}
 
     @include mobile {
       top: 0;
@@ -45,14 +45,16 @@ $comparator-image-height: 14rem;
       }
 
       .card-image {
-        height: 11vh;
+        height: auto;
         border-radius: $border-radius-small;
       }
 
       .title {
         margin: .5rem 0 0 0 !important;
 
-        > * { font-size: 0.9rem; }
+        > * {
+          font-size: 0.9rem;
+        }
       }
     }
 
@@ -62,8 +64,13 @@ $comparator-image-height: 14rem;
       margin-bottom: 0.75rem;;
       text-overflow: ellipsis;
 
-      > .heading {padding-bottom: 0.2rem;}
-      > * { display: block; }
+      > .heading {
+        padding-bottom: 0.2rem;
+      }
+
+      > * {
+        display: block;
+      }
     }
   }
 
@@ -88,7 +95,9 @@ $comparator-image-height: 14rem;
     align-items: center;
     grid-column: 1/-1;
 
-    @include mobile { display: flex; }
+    @include mobile {
+      display: flex;
+    }
 
     &-item + &-item {
       margin-left: 1ch;
@@ -123,8 +132,13 @@ $comparator-image-height: 14rem;
       color: $darker;
       font-size: 1.5rem;
 
-      &:first-child { margin-right: auto; }
-      &:last-child  { margin-left: auto; }
+      &:first-child {
+        margin-right: auto;
+      }
+
+      &:last-child {
+        margin-left: auto;
+      }
 
       &:hover,
       &:focus {
@@ -134,7 +148,9 @@ $comparator-image-height: 14rem;
   }
 
   &--col {
-    @include tablet-desktop { padding: 0 0.75rem; }
+    @include tablet-desktop {
+      padding: 0 0.75rem;
+    }
   }
 
   &--row {
@@ -146,14 +162,18 @@ $comparator-image-height: 14rem;
       margin-bottom: $comparator-spacing;
       border-bottom: 1px solid $light;
 
-      @include mobile { border-color: $lighter; }
+      @include mobile {
+        border-color: $lighter;
+      }
     }
 
     &-title {
       font-size: 1.125rem !important;
       margin-bottom: $comparator-spacing;
 
-      @include tablet-desktop { padding: 0 0.75rem; }
+      @include tablet-desktop {
+        padding: 0 0.75rem;
+      }
     }
 
     > * {
@@ -162,7 +182,7 @@ $comparator-image-height: 14rem;
     }
 
     > :empty:before {
-      content:'—';
+      content: '—';
       color: $dark;
     }
 
@@ -184,6 +204,7 @@ $comparator-image-height: 14rem;
         &:nth-child(1) {
           padding-right: 1.5rem;
         }
+
         &:nth-child(2) {
           border-left: 1px solid $medium;
           padding-left: 1.5rem;
@@ -200,13 +221,48 @@ $comparator-image-height: 14rem;
 
   & .slider-frame,
   &--row {
-    @include desktop { grid-template-columns: repeat(3, minmax(0,1fr)); }
-    @include tablet  { grid-template-columns: repeat(3, minmax(0,1fr)); }
-    @include mobile  { grid-template-columns: repeat(2, minmax(0,1fr)); }
+    @include desktop {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @include tablet {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    @include mobile {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 
     @include mobile {
-      > .card:nth-of-type(1n+3) { display: none; }
-      > .comparator-table--col:nth-of-type(1n+3) { display: none; }
+      > .card:nth-of-type(1n+3) {
+        display: none;
+      }
+      > .comparator-table--col:nth-of-type(1n+3) {
+        display: none;
+      }
     }
+  }
+
+  .swiper-slide {
+    @include tablet {
+      flex: 1 0 33.33%;
+      max-width: 33.33%;
+    }
+
+    @include mobile {
+      flex: 1 0 50%;
+      max-width: 50%;
+    }
+  }
+
+  .carousel--nav {
+    @include tablet-desktop {
+      display: none;
+    }
+
+    justify-content: space-between;
+    padding: 0 10px;
+  }
+
+  .swiper-pagination {
+    display: flex;
   }
 }
