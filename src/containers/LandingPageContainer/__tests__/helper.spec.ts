@@ -63,6 +63,7 @@ const sectionsAsArray = {
       heading: 'Help Me Choose Tool',
       position: 1,
       titleTag: null,
+      link: null,
     },
     {
       __typename: 'LeadText',
@@ -70,6 +71,7 @@ const sectionsAsArray = {
       heading: 'Choose from our wide range of electric and hybrid options',
       position: 4,
       titleTag: 'h2',
+      link: null,
     },
   ],
   questionSet: null,
@@ -104,6 +106,7 @@ const expectedArray = [
     heading: 'Help Me Choose Tool',
     position: 1,
     titleTag: null,
+    link: null,
   },
   {
     __typename: 'JumpMenu',
@@ -143,6 +146,7 @@ const expectedArray = [
     heading: 'Choose from our wide range of electric and hybrid options',
     position: 4,
     titleTag: 'h2',
+    link: null,
   },
 ];
 
