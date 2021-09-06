@@ -4,9 +4,7 @@ import createApolloClient from '../../apolloClient';
 import LandingPageContainer from '../../containers/LandingPageContainer';
 
 const HowToChoosePage: NextPage<IGenericPage> = ({ data }) => (
-  <>
-    <LandingPageContainer data={data} title="How Can We Help You Choose?" />
-  </>
+  <LandingPageContainer data={data} title="How Can We Help You Choose?" />
 );
 
 export async function getStaticProps(context: GetStaticPropsContext) {
