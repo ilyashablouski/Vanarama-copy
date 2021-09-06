@@ -646,9 +646,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         )}
         {(isElectric || isFreeInsurance) && (
           <div className="subject-to--- no-p-bottom">
-          <span>
-            <sup>*</sup>Subject to Eligibility
-          </span>
+            <span>
+              <sup>*</sup>Subject to Eligibility
+            </span>
           </div>
         )}
         <VehicleTechDetails
