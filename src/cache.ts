@@ -16,4 +16,5 @@ export const initialWishlistState: IWishlistState = {
 
 export const isSessionFinishedCache = makeVar(false);
 export const wishlistVar = makeVar(initialWishlistState);
+// should be removed after migration to storedPerson query
 export const personVar = makeVar(initialPersonState);

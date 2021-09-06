@@ -1,3 +1,3 @@
-import Carousel from './CarouselV3';
+import CarouselSwiper from './CarouselSwiper';
 
-export default Carousel;
+export default CarouselSwiper;

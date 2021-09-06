@@ -1,10 +1,12 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import { SwiperSlide } from 'swiper/react';
+import cx from 'classnames';
 import Skeleton from '../Skeleton';
 import { newKeyReviews } from './helpers';
 import { ReviewsTwoColumnProps } from './interface';
 
-const Carousel = dynamic(() => import('core/organisms/carousel'), {
+const CarouselSwiper = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={2} />,
 });
 const ReviewCard = dynamic(
@@ -34,23 +36,23 @@ const ReviewsTwoColumn: React.FC<ReviewsTwoColumnProps> = ({
             review={renamedObj}
           />
         ) : (
-          <Carousel
-            countShow={2}
-            className={sliderClassName}
+          <CarouselSwiper
+            className={cx(sliderClassName, 'carousel-two-column')}
             countItems={reviews.length}
           >
             {reviews.slice(0, 6).map((reviewTile, index) => (
-              <ReviewCard
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                key={index.toString()}
-                review={{
-                  text: reviewTile?.review || '',
-                  author: reviewTile?.name || '',
-                  score: reviewTile?.rating || 0,
-                }}
-              />
+              <SwiperSlide key={index.toString()}>
+                <ReviewCard
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  review={{
+                    text: reviewTile?.review || '',
+                    author: reviewTile?.name || '',
+                    score: reviewTile?.rating || 0,
+                  }}
+                />
+              </SwiperSlide>
             ))}
-          </Carousel>
+          </CarouselSwiper>
         )}
       </div>
     </>

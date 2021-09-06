@@ -1,8 +1,9 @@
 import React from 'react';
 import dynamic from 'next/dynamic';
+import { SwiperSlide } from 'swiper/react';
 import Skeleton from '../Skeleton';
 
-const Carousel = dynamic(() => import('core/organisms/carousel'), {
+const CarouselSwiper = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={3} />,
 });
 const ReviewCard = dynamic(
@@ -49,15 +50,16 @@ const CustomerReviews: React.FC<ICustomerReviewsProps> = ({
           review={{ ...reviews[0] }}
         />
       ) : (
-        <Carousel className={sliderClassName} countItems={reviews.length}>
+        <CarouselSwiper className={sliderClassName} countItems={reviews.length}>
           {reviews.slice(0, 6).map((reviewTile, index) => (
-            <ReviewCard
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              key={index.toString()}
-              review={{ ...reviewTile }}
-            />
+            <SwiperSlide key={index.toString()}>
+              <ReviewCard
+                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                review={{ ...reviewTile }}
+              />
+            </SwiperSlide>
           ))}
-        </Carousel>
+        </CarouselSwiper>
       )}
     </>
   );

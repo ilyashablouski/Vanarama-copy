@@ -4,4 +4,9 @@ extend type Query {
   sortOrder: JSON
   lastStep: JSON
   isSessionFinished: Boolean
+  storedPerson: PersonType
+}
+
+extend type Mutation {
+  savePerson(person: PersonInputObject): PersonType
 }
