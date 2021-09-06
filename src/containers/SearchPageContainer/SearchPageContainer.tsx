@@ -13,6 +13,7 @@ import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop';
 import Image from 'core/atoms/image';
+import { SwiperSlide } from 'swiper/react';
 import {
   filterOrderByNumMap,
   findPreselectFilterValue,
@@ -101,9 +102,12 @@ const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
-const Carousel = dynamic(() => import('core/organisms/carousel'), {
-  loading: () => <Skeleton count={5} />,
-});
+const CarouselSwiper = dynamic(
+  () => import('core/organisms/carousel/CarouselSwiper'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={10} />,
 });
@@ -1088,16 +1092,13 @@ const SearchPageContainer: React.FC<IProps> = ({
                 />
               </div>
             </div>
-
             <Image
-              className="card-image"
+              className="card-image range__featured-image"
               optimisedHost={process.env.IMG_OPTIMISATION_HOST}
               src={getSectionsData(
                 ['sectionsAsArray', 'featured', '0', 'image', 'file', 'url'],
                 pageData?.genericPage,
               )}
-              width="100%"
-              height="100%"
             />
           </section>
         </>
@@ -1341,85 +1342,90 @@ const SearchPageContainer: React.FC<IProps> = ({
                     <Heading size="large" color="black" tag="h3">
                       {carousel.title}
                     </Heading>
-                    <Carousel
+                    <CarouselSwiper
                       countItems={carousel?.cards?.length || 0}
                       className="-col3"
                     >
                       {carousel?.cards.map(
                         (card, index) =>
                           card && (
-                            <Card
-                              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                            <SwiperSlide
                               key={`${card.name}_${index.toString()}`}
-                              className="card__article"
-                              imageSrc={
-                                card?.image?.file?.url ||
-                                `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                              }
-                              title={{
-                                title:
-                                  card.link?.legacyUrl || card.link?.url
-                                    ? ''
-                                    : card.title || '',
-                                link: (
-                                  <RouterLink
-                                    link={{
-                                      href:
-                                        card.link?.legacyUrl ||
-                                        card.link?.url ||
-                                        '',
-                                      label: card.title || '',
-                                    }}
-                                    className="card--link"
-                                    classNames={{
-                                      color: 'black',
-                                      size: 'regular',
-                                    }}
-                                  />
-                                ),
-                              }}
                             >
-                              <ReactMarkdown
-                                className="markdown"
-                                allowDangerousHtml
-                                source={card.body || ''}
-                                renderers={{
-                                  link: props => {
-                                    const { href, children } = props;
-                                    return (
-                                      <RouterLink
-                                        link={{ href, label: children }}
-                                        classNames={{ color: 'teal' }}
-                                      />
-                                    );
-                                  },
-                                  heading: props => (
-                                    <Text
-                                      {...props}
-                                      size="lead"
-                                      color="darker"
-                                      tag="h3"
+                              <Card
+                                optimisedHost={
+                                  process.env.IMG_OPTIMISATION_HOST
+                                }
+                                className="card__article"
+                                imageSrc={
+                                  card?.image?.file?.url ||
+                                  `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+                                }
+                                title={{
+                                  title:
+                                    card.link?.legacyUrl || card.link?.url
+                                      ? ''
+                                      : card.title || '',
+                                  link: (
+                                    <RouterLink
+                                      link={{
+                                        href:
+                                          card.link?.legacyUrl ||
+                                          card.link?.url ||
+                                          '',
+                                        label: card.title || '',
+                                      }}
+                                      className="card--link"
+                                      classNames={{
+                                        color: 'black',
+                                        size: 'regular',
+                                      }}
                                     />
                                   ),
-                                  paragraph: props => (
-                                    <Text {...props} tag="p" color="darker" />
-                                  ),
                                 }}
-                              />
-                              <RouterLink
-                                link={{
-                                  href:
-                                    card.link?.legacyUrl ||
-                                    card.link?.url ||
-                                    '',
-                                  label: card.link?.text || '',
-                                }}
-                                classNames={{ color: 'teal' }}
-                              />
-                            </Card>
+                              >
+                                <ReactMarkdown
+                                  className="markdown"
+                                  allowDangerousHtml
+                                  source={card.body || ''}
+                                  renderers={{
+                                    link: props => {
+                                      const { href, children } = props;
+                                      return (
+                                        <RouterLink
+                                          link={{ href, label: children }}
+                                          classNames={{ color: 'teal' }}
+                                        />
+                                      );
+                                    },
+                                    heading: props => (
+                                      <Text
+                                        {...props}
+                                        size="lead"
+                                        color="darker"
+                                        tag="h3"
+                                      />
+                                    ),
+                                    paragraph: props => (
+                                      <Text {...props} tag="p" color="darker" />
+                                    ),
+                                  }}
+                                />
+                                <RouterLink
+                                  link={{
+                                    href:
+                                      card.link?.legacyUrl ||
+                                      card.link?.url ||
+                                      '',
+                                    label: card.link?.text || '',
+                                  }}
+                                  classNames={{ color: 'teal' }}
+                                />
+                              </Card>
+                            </SwiperSlide>
                           ),
                       )}
-                    </Carousel>
+                    </CarouselSwiper>
                   </div>
                 </div>
               </LazyLoadComponent>

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
+import { SwiperSlide } from 'swiper/react';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
 import { useVehiclesList } from './gql';
 import {
@@ -29,9 +30,12 @@ import ModelCard from './ModelCard';
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
 });
-const Carousel = dynamic(() => import('core/organisms/carousel'), {
-  loading: () => <Skeleton count={5} />,
-});
+const CarouselSwiper = dynamic(
+  () => import('core/organisms/carousel/CarouselSwiper'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 
 interface IProps {
   isPersonal: boolean;
@@ -212,21 +216,25 @@ const TopOffersContainer: React.FC<IProps> = ({
     dataForCards?.filter(card => card?.capId === capId)[0];
 
   const renderVehicleCard = (vehicle: IVehicles, index: number) => (
-    <VehicleCard
-      loadImage
-      lazyLoad={index !== 0}
-      derivativeId={vehicle.node?.derivativeId}
-      url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
-      key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}
-      data={
-        getCardData(vehicle.node?.derivativeId || '', cardsData) as IProductCard
-      }
-      title={{
-        title: `${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`,
-        description: vehicle.node?.derivativeName || '',
-      }}
-      isPersonalPrice={isPersonal}
-    />
+    <SwiperSlide key={vehicle?.node?.derivativeId + vehicle?.cursor || ''}>
+      <VehicleCard
+        loadImage
+        lazyLoad={index !== 0}
+        derivativeId={vehicle.node?.derivativeId}
+        url={getLegacyUrl(vehiclesList, vehicle.node?.derivativeId)}
+        data={
+          getCardData(
+            vehicle.node?.derivativeId || '',
+            cardsData,
+          ) as IProductCard
+        }
+        title={{
+          title: `${vehicle.node?.manufacturerName} ${vehicle.node?.modelName}`,
+          description: vehicle.node?.derivativeName || '',
+        }}
+        isPersonalPrice={isPersonal}
+      />
+    </SwiperSlide>
   );
 
   return (
@@ -251,15 +259,14 @@ const TopOffersContainer: React.FC<IProps> = ({
                 renderVehicleCard(vehicle, index),
               )
             ) : (
-              <Carousel
+              <CarouselSwiper
                 className="-mh-auto top-offers"
                 countItems={vehiclesList.length || 0}
-                initialSlideHeight={567}
               >
                 {vehiclesList.map((vehicle: IVehicles, index: number) =>
                   renderVehicleCard(vehicle, index),
                 )}
-              </Carousel>
+              </CarouselSwiper>
             )}
           </div>
         </div>

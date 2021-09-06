@@ -328,6 +328,7 @@ export const GET_CREDIT_APPLICATION_BY_ORDER_UUID_DATA = gql`
 export const GET_LEASE_COMPANY_BY_ORDER_UUID_DATA = gql`
   query GetLeaseCompanyData($id: ID!) {
     creditApplicationByOrderUuid(orderUuid: $id) {
+      submittedAt
       aboutDetailsV2 {
         addresses {
           city

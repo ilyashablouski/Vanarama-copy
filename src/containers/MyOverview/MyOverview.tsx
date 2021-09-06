@@ -1,29 +1,37 @@
 import dynamic from 'next/dynamic';
-import { useApolloClient } from '@apollo/client';
-import React, { useState, CSSProperties, useEffect } from 'react';
+import { ApolloQueryResult, useApolloClient } from '@apollo/client';
+import React, { CSSProperties, useEffect, useMemo, useState } from 'react';
 import cx from 'classnames';
 import { useRouter } from 'next/router';
 import Select from 'core/atoms/select';
 import localForage from 'localforage';
 import { GET_CAR_DERIVATIVES, useMyOrdersData } from '../OrdersInformation/gql';
 import {
-  VehicleTypeEnum,
   LeaseTypeEnum,
-  SortField,
-  SortDirection,
   MyOrdersTypeEnum,
+  OrderInputObject,
+  SortDirection,
+  SortField,
+  VehicleTypeEnum,
 } from '../../../generated/globalTypes';
 import {
   createOffersObject,
-  sortOrders,
-  sortOrderValues,
   createOrderInputFromMyOrder,
   findLastFinishedStep,
+  sortOrders,
+  sortOrderValues,
 } from './helpers';
 import { useImperativeQuery } from '../../hooks/useImperativeQuery';
 import { GET_COMPANIES_BY_PERSON_UUID } from '../../gql/companies';
-import { GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid } from '../../../generated/GetCompaniesByPersonUuid';
-import { GetDerivatives } from '../../../generated/GetDerivatives';
+import {
+  GetCompaniesByPersonUuid,
+  GetCompaniesByPersonUuid_companiesByPersonUuid as CompaniesByPersonUuid,
+  GetCompaniesByPersonUuidVariables,
+} from '../../../generated/GetCompaniesByPersonUuid';
+import {
+  GetDerivatives,
+  GetDerivativesVariables,
+} from '../../../generated/GetDerivatives';
 import Breadcrumb from '../../core/atoms/breadcrumb-v2';
 import {
   GetMyOrders,
@@ -31,13 +39,13 @@ import {
 } from '../../../generated/GetMyOrders';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
-import {
-  GetPerson,
-  GetPerson_getPerson as Person,
-} from '../../../generated/GetPerson';
+import { GetPerson_getPerson as Person } from '../../../generated/GetPerson';
+
 import useProgressHistory from '../../hooks/useProgressHistory';
 import { getUrlParam } from '../../utils/url';
 import { useGetPartyByUuidLazyQuery } from '../../components/SummaryForm/gql';
+import { GetPartyByUuid } from '../../../generated/GetPartyByUuid';
+import { useStoredPersonQuery } from '../../gql/storedPerson';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -65,13 +73,120 @@ interface IMyOverviewProps {
   quote: boolean;
 }
 
+const createDefaultBreadcrumbs = (isQuote?: boolean) => [
+  { link: { label: 'Home', href: '/' } },
+  {
+    link: {
+      label: 'My Account',
+      href: '/account/my-details',
+    },
+    as: `/account/my-details`,
+  },
+  {
+    link: {
+      label: `My ${isQuote ? 'Quotes' : 'Orders'}`,
+      href: '/',
+    },
+  },
+];
+
+const getPartyUuidFromCompanies = (
+  result: ApolloQueryResult<GetCompaniesByPersonUuid>,
+) =>
+  result.data?.companiesByPersonUuid?.map(
+    (companies: CompaniesByPersonUuid) => companies.partyUuid,
+  ) || null;
+
+const getCapIdsFromMyOrders = (result?: GetMyOrders) => {
+  return (
+    result?.myOrders?.reduce(
+      (array, el) => {
+        const capId = el.lineItems[0].vehicleProduct?.derivativeCapId || '';
+
+        if (
+          capId !== array.carId[0] &&
+          el.lineItems[0].vehicleProduct?.vehicleType === VehicleTypeEnum.CAR
+        ) {
+          array.carId.unshift(capId);
+        }
+
+        if (
+          capId !== array.lcvId[0] &&
+          el.lineItems[0].vehicleProduct?.vehicleType === VehicleTypeEnum.LCV
+        ) {
+          array.lcvId.unshift(capId);
+        }
+        return array;
+      },
+      { lcvId: [] as string[], carId: [] as string[] },
+    ) || { carId: [], lcvId: [] }
+  );
+};
+
+const getStatusFromOrder = (order: GetMyOrders_myOrders) =>
+  order.status === 'credit' &&
+  order.lineItems[0].creditApplications?.length &&
+  order.lineItems[0].creditApplications[0].status;
+
+// check what we have 'credit' order and this order credit not in status 'draft'
+const hasCreditCompleteOrder = (data?: GetMyOrders) =>
+  !!data?.myOrders?.find(order => getStatusFromOrder(order) !== 'draft');
+
+// check what we have 'credit' order and this order credit in status 'draft'
+const hasCreditIncompleteOrder = (data?: GetMyOrders) =>
+  !!data?.myOrders?.find(order => getStatusFromOrder(order) === 'draft');
+
+// calculate how many pages we have for pagination
+const countPages = (data?: GetMyOrders) =>
+  Math.ceil((data?.myOrders?.length || 0) / 6);
+
+const createDefaultMetadata = (isQuote?: boolean) => ({
+  canonicalUrl: null,
+  legacyUrl: null,
+  metaDescription: null,
+  metaRobots: null,
+  name: null,
+  pageType: null,
+  publishedOn: null,
+  slug: null,
+  title: `My ${isQuote ? 'Quotes' : 'Orders'} | Vanarama`,
+  schema: null,
+  breadcrumbs: null,
+});
+
+const findCompanyByPartyUuid = (
+  query: ApolloQueryResult<GetPartyByUuid>,
+  partyUuid?: string | null,
+) =>
+  query.data?.partyByUuid?.person?.companies?.find(
+    company => company.partyUuid === partyUuid,
+  );
+
+const getOlafUrlFromOrder = (order: OrderInputObject) =>
+  order.leaseType === LeaseTypeEnum.PERSONAL
+    ? '/olaf/about'
+    : '/b2b/olaf/about';
+
+const mapTabIndexToOrderType = (value: React.SetStateAction<number>) => {
+  switch (value) {
+    case 1:
+      // when we click 'Complete' btn, change statuses for call useOrdersByPartyUuidData
+      return MyOrdersTypeEnum.COMPLETED_ORDERS;
+    case 2:
+      // when we click 'Incomplete' btn, change statuses for call useOrdersByPartyUuidData
+      return MyOrdersTypeEnum.IN_PROGRESS_ORDERS;
+    default:
+      // when we click 'All Orders' btn, change statuses for call useOrdersByPartyUuidData
+      return MyOrdersTypeEnum.ALL_ORDERS;
+  }
+};
+
 const MyOverview: React.FC<IMyOverviewProps> = props => {
   const router = useRouter();
   const { quote } = props;
 
   const client = useApolloClient();
   const { setCachedLastStep } = useProgressHistory();
-  const [person, setPerson] = useState<Person | null>(null);
   const [activePage, setActivePage] = useState(1);
   const [activeTab, setActiveTab] = useState(0);
   const [filter, changeFilter] = useState<MyOrdersTypeEnum>(
@@ -88,56 +203,31 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   });
   const getPartyByUuid = useGetPartyByUuidLazyQuery();
 
-  const getCompaniesData = useImperativeQuery(GET_COMPANIES_BY_PERSON_UUID);
+  const getCompaniesData = useImperativeQuery<
+    GetCompaniesByPersonUuid,
+    GetCompaniesByPersonUuidVariables
+  >(GET_COMPANIES_BY_PERSON_UUID);
 
-  useEffect(() => {
-    if (!person) {
-      localForage.getItem<GetPerson>('person').then(value => {
-        if (value) {
-          setPerson(value.getPerson);
-        }
-      });
-    }
-  }, [person]);
+  const storedPersonQuery = useStoredPersonQuery();
+  const person = storedPersonQuery.data?.storedPerson;
 
   useEffect(() => {
     if (person?.partyUuid && person?.uuid) {
       if (!breadcrumbPath.length) {
-        setBreadcrumbPath([
-          { link: { label: 'Home', href: '/' } },
-          {
-            link: {
-              label: 'My Account',
-              href: '/account/my-details',
-            },
-            as: `/account/my-details`,
-          },
-          {
-            link: {
-              label: `My ${quote ? 'Quotes' : 'Orders'}`,
-              href: '/',
-            },
-          },
-        ]);
+        setBreadcrumbPath(createDefaultBreadcrumbs(quote));
       }
+
       if (!partyUuidArray) {
         getCompaniesData({
           personUuid: person.uuid,
-        }).then(resp => {
-          const companiesPartyUuid: string[] = resp.data?.companiesByPersonUuid?.map(
-            (companies: CompaniesByPersonUuid) => companies.partyUuid,
-          );
-          setPartyUuidArray(companiesPartyUuid);
-        });
+        }).then(resp => setPartyUuidArray(getPartyUuidFromCompanies(resp)));
       }
     }
   }, [person, quote, getCompaniesData, partyUuidArray, breadcrumbPath]);
 
   // call query for get Orders
   const [getOrders, { data, loading }] = useMyOrdersData(
-    partyUuidArray
-      ? [person?.partyUuid || '', ...partyUuidArray]
-      : [person?.partyUuid || ''] || [''],
+    [person?.partyUuid || '', ...(partyUuidArray || [])],
     quote ? MyOrdersTypeEnum.ALL_QUOTES : filter,
   );
 
@@ -148,28 +238,13 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   }, [getOrders, person, data, partyUuidArray]);
 
   // collect car and lcv capId from orders
-  const capIdArrayData = data?.myOrders?.reduce(
-    (array, el) => {
-      const capId = el.lineItems[0].vehicleProduct?.derivativeCapId || '';
-      if (
-        capId !== array.carId[0] &&
-        el.lineItems[0].vehicleProduct?.vehicleType === VehicleTypeEnum.CAR
-      ) {
-        array.carId.unshift(capId);
-      }
-      if (
-        capId !== array.lcvId[0] &&
-        el.lineItems[0].vehicleProduct?.vehicleType === VehicleTypeEnum.LCV
-      ) {
-        array.lcvId.unshift(capId);
-      }
-      return array;
-    },
-    { lcvId: [] as string[], carId: [] as string[] },
-  ) || { carId: [], lcvId: [] };
+  const capIdArrayData = getCapIdsFromMyOrders(data);
 
   // call query for get DerivativesData
-  const getCarsDerivative = useImperativeQuery(GET_CAR_DERIVATIVES);
+  const getCarsDerivative = useImperativeQuery<
+    GetDerivatives,
+    GetDerivativesVariables
+  >(GET_CAR_DERIVATIVES);
 
   useEffect(() => {
     if (!!capIdArrayData.carId.length && dataCars === null) {
@@ -207,51 +282,23 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     });
   };
 
-  // check what we have 'credit' order and this order credit not in status 'draft'
-  const hasCreditCompleteOrder = () =>
-    !!(initData?.myOrders as any[])?.find(
-      el =>
-        el.status === 'credit' &&
-        el.lineItems[0].creditApplications?.length &&
-        el.lineItems[0].creditApplications[0].status !== 'draft',
-    );
-
-  // check what we have 'credit' order and this order credit in status 'draft'
-  const hasCreditIncompleteOrder = () =>
-    !!(initData?.myOrders as any[])?.find(
-      el =>
-        el.status === 'credit' &&
-        el.lineItems[0].creditApplications?.length &&
-        el.lineItems[0].creditApplications[0].status === 'draft',
-    );
-
-  // calculate how many pages we have for pagination
-  const countPages = () => Math.ceil((data?.myOrders?.length || 0) / 6);
-
   // create array with number of page for pagination
-  const pages = [...Array(countPages())].map((_el, i) => i + 1);
+  const pages = useMemo(
+    () =>
+      Array(countPages(initData))
+        .fill(0)
+        .map((_, i) => i + 1),
+    [initData],
+  );
 
   const onChangeTabs = (value: React.SetStateAction<number>) => {
     setActiveTab!(value);
-    switch (value) {
-      case 1:
-        // when we click 'Complete' btn, change statuses for call useOrdersByPartyUuidData
-        changeFilter(MyOrdersTypeEnum.COMPLETED_ORDERS);
-        break;
-      case 2:
-        // when we click 'Incomplete' btn, change statuses for call useOrdersByPartyUuidData
-        changeFilter(MyOrdersTypeEnum.IN_PROGRESS_ORDERS);
-        break;
-      default:
-        // when we click 'All Orders' btn, change statuses for call useOrdersByPartyUuidData
-        changeFilter(MyOrdersTypeEnum.ALL_ORDERS);
-        break;
-    }
+    changeFilter(mapTabIndexToOrderType(value));
   };
 
   const onClickOrderBtn = (
     selectedOrder: GetMyOrders_myOrders,
-    customer: Person | null,
+    customer?: Person | null,
   ) => {
     const creditApplication =
       selectedOrder.lineItems?.[0].creditApplications?.[0];
@@ -261,31 +308,22 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     Promise.all([
       localForage.setItem('order', order),
       localForage.setItem('orderId', order.uuid),
-      localForage.setItem('personUuid', person?.uuid),
+      localForage.setItem('personUuid', customer?.uuid),
     ])
       .then(() => client.clearStore())
       .then(() => setCachedLastStep(lastFinishedStep?.step || 1))
       .then(() => {
         if (order?.leaseType === LeaseTypeEnum.BUSINESS) {
           return getPartyByUuid({ uuid: customer?.partyUuid || '' })
-            .then(query =>
-              query.data?.partyByUuid?.person?.companies?.find(
-                company => company.partyUuid === order.partyUuid,
-              ),
-            )
+            .then(query => findCompanyByPartyUuid(query, order.partyUuid))
             .then(company => company?.uuid);
         }
         return undefined;
       })
       .catch(() => undefined)
-      .then(companyUuid => {
-        const path =
-          order.leaseType === LeaseTypeEnum.PERSONAL
-            ? '/olaf/about'
-            : '/b2b/olaf/about';
-
-        return `${path}${getUrlParam({ companyUuid })}`;
-      })
+      .then(companyUuid => getUrlParam({ companyUuid }))
+      .then(urlParams => [getOlafUrlFromOrder(order), urlParams])
+      .then(params => params.join(''))
       .then(url => router.push(url, url));
   };
 
@@ -305,45 +343,32 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     const indexOfFirstOffer = indexOfLastOffer - 6;
     // we get the right amount of orders for the current page, sorted by createdAt date from last
 
+    const orders = data?.myOrders
+      .slice()
+      .sort((a, b) => sortOrders(a, b, sortOrder.type));
     const sortedOffers =
-      sortOrder.direction === SortDirection.DESC
-        ? data?.myOrders
-            .slice()
-            .sort((a, b) => sortOrders(a, b, sortOrder.type))
-            .reverse()
-        : data?.myOrders
-            .slice()
-            .sort((a, b) => sortOrders(a, b, sortOrder.type));
+      sortOrder.direction === SortDirection.DESC ? orders?.reverse() : orders;
     const showOffers =
       sortedOffers?.slice(indexOfFirstOffer, indexOfLastOffer) || [];
+
     return showOffers.map((order: GetMyOrders_myOrders) => {
       // we get derivative data for this offers
-      const derivative =
-        dataCars?.derivatives?.find(
-          (der: { id: string }) =>
-            der.id === order.lineItems[0].vehicleProduct?.derivativeCapId,
-        ) ||
-        dataCarsLCV?.derivatives?.find(
-          (der: { id: string }) =>
-            der.id === order.lineItems[0].vehicleProduct?.derivativeCapId,
-        );
-      const imageSrc =
-        dataCars?.vehicleImages?.find(
-          el =>
-            el?.capId?.toString() ===
-            order.lineItems[0].vehicleProduct?.derivativeCapId,
-        ) ||
-        dataCarsLCV?.vehicleImages?.find(
-          el =>
-            el?.capId?.toString() ===
-            order.lineItems[0].vehicleProduct?.derivativeCapId,
-        );
+      const isCar =
+        order.lineItems[0].vehicleProduct?.vehicleType === VehicleTypeEnum.CAR;
+      const query = isCar ? dataCars : dataCarsLCV;
+
+      const derivative = query?.derivatives?.find(
+        item => item.id === order.lineItems[0].vehicleProduct?.derivativeCapId,
+      );
+      const imageSrc = query?.vehicleImages?.find(
+        item =>
+          item?.capId?.toString() ===
+          order.lineItems[0].vehicleProduct?.derivativeCapId,
+      );
+
       // we get offers credit state
-      const creditState =
-        (order.status === 'credit' &&
-          order.lineItems[0].creditApplications?.length &&
-          order.lineItems[0].creditApplications[0].status) ||
-        '';
+      const creditState = getStatusFromOrder(order) || '';
+
       return (
         <OrderCard
           optimisedHost={process.env.IMG_OPTIMISATION_HOST}
@@ -383,19 +408,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
     });
   };
 
-  const metaData = {
-    canonicalUrl: null,
-    legacyUrl: null,
-    metaDescription: null,
-    metaRobots: null,
-    name: null,
-    pageType: null,
-    publishedOn: null,
-    slug: null,
-    title: `My ${quote ? 'Quotes' : 'Orders'} | Vanarama`,
-    schema: null,
-    breadcrumbs: null,
-  };
+  const metaData = useMemo(() => createDefaultMetadata(quote), [quote]);
 
   return (
     <>
@@ -423,8 +436,9 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
             {!quote && (
               <div className="choice-boxes -cols-3 -teal">
                 {renderChoiceBtn(0, 'All Orders')}
-                {hasCreditCompleteOrder() && renderChoiceBtn(1, 'Completed')}
-                {hasCreditIncompleteOrder() &&
+                {hasCreditCompleteOrder(initData) &&
+                  renderChoiceBtn(1, 'Completed')}
+                {hasCreditIncompleteOrder(initData) &&
                   renderChoiceBtn(2, 'In Progress')}
               </div>
             )}

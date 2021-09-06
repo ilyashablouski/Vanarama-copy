@@ -1,13 +1,14 @@
 import { storiesOf } from '@storybook/react';
 import base from 'paths.macro';
 import React from 'react';
+import { SwiperSlide } from 'swiper/react';
 import BluetoothSharp from '../../assets/icons/BluetoothSharp';
 import CompassSharp from '../../assets/icons/CompassSharp';
 import Flame from '../../assets/icons/Flame';
 import SnowSharp from '../../assets/icons/SnowSharp';
 import WifiSharp from '../../assets/icons/WifiSharp';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
-import Slider from './CarouselV3';
+import CarouselSwiper from './CarouselSwiper';
 import Price from '../../atoms/price';
 import Button from '../../atoms/button';
 import Icon from '../../atoms/icon';
@@ -56,64 +57,66 @@ const features = [
   },
 ];
 
-storiesOf(`${atomicDir(base)}/Carousel`, module)
-  .add('V3 with ProductCard', () => {
+storiesOf(`${atomicDir(base)}/CarouselSwiper`, module)
+  .add('CarouselSwiper with ProductCard', () => {
     return (
-      <Slider countItems={images.length}>
+      <CarouselSwiper countItems={images.length}>
         {images.map(src => (
-          <ProductCard
-            key={src}
-            header={header}
-            description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
-            imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
-            features={features}
-            onCompare={noop}
-            onWishlist={noop}
-            title={{
-              title: '',
-              link: (
-                <a href="#" className="heading -large -black">
-                  Peugeot 208
-                </a>
-              ),
-              description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
-              score: 4.5,
-            }}
-          >
-            <div className="-flex-h">
-              <Price
-                price={233.95}
-                size="large"
-                separator="."
-                priceDescription="Per Month Exc.VAT"
-              />
-              <Button
-                color="teal"
-                fill="solid"
-                label="View Offer"
-                onClick={noop}
-                size="regular"
-              />
-            </div>
-          </ProductCard>
+          <SwiperSlide key={src}>
+            <ProductCard
+              header={header}
+              description="Minim consectetur adipisicing aute consequat velit exercitation enim deserunt occaecat sit ut incididunt dolor id"
+              imageSrc="https://source.unsplash.com/collection/2102317/1000x650?sig=403440"
+              features={features}
+              onCompare={noop}
+              onWishlist={noop}
+              title={{
+                title: '',
+                link: (
+                  <a href="#" className="heading -large -black">
+                    Peugeot 208
+                  </a>
+                ),
+                description: '1.0 IG-T 100 Tekna 5dr Xtronic [Leather]',
+                score: 4.5,
+              }}
+            >
+              <div className="-flex-h">
+                <Price
+                  price={233.95}
+                  size="large"
+                  separator="."
+                  priceDescription="Per Month Exc.VAT"
+                />
+                <Button
+                  color="teal"
+                  fill="solid"
+                  label="View Offer"
+                  onClick={noop}
+                  size="regular"
+                />
+              </div>
+            </ProductCard>
+          </SwiperSlide>
         ))}
-      </Slider>
+      </CarouselSwiper>
     );
   })
-  .add('V3 with ReviewCard', () => {
+  .add('CarouselSwiper with ReviewCard', () => {
     return (
-      <Slider countItems={2}>
+      <CarouselSwiper countItems={2}>
         {[1, 2].map(src => (
-          <ReviewCard
-            key={src}
-            review={{
-              text:
-                'Cillum sit et in nostrud occaecat est labore ea laborum voluptate magna eu aliquip mollit',
-              author: 'Review Card',
-              score: 4.5,
-            }}
-          />
+          <SwiperSlide key={src}>
+            <ReviewCard
+              review={{
+                text:
+                  'Cillum sit et in nostrud occaecat est labore ea laborum voluptate magna eu aliquip mollit',
+                author: 'Review Card',
+                score: 4.5,
+              }}
+            />
+          </SwiperSlide>
         ))}
-      </Slider>
+      </CarouselSwiper>
     );
   });

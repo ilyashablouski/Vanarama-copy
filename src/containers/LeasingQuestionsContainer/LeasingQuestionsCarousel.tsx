@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
 import { useMediaQuery } from 'react-responsive';
+import { SwiperSlide } from 'swiper/react';
 import {
   GenericPageQuery_genericPage_sections_carousel as GenericPageCarousel,
   GenericPageQuery_genericPage_sections_carousel_cards as ICaruselCard,
@@ -16,33 +17,34 @@ const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
 
-const Carousel = dynamic(() => import('core/organisms/carousel'), {
+const CarouselSwiper = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={1} />,
 });
 
 const renderCarouselCards = (cards: (ICaruselCard | null)[]) =>
   cards.map(card =>
     card?.title && card.body && card.name ? (
-      <Card
-        optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-        key={card.name}
-        title={{ title: card?.title }}
-        imageSrc={card.image?.file?.url}
-      >
-        <Text size="regular" color="dark">
-          {card.body || ''}
-        </Text>
-        <RouterLink
-          classNames={{ color: 'teal', solid: true, size: 'regular' }}
-          className="button"
-          link={{
-            href: card.link?.legacyUrl || card.link?.url || '',
-            label: card?.link?.text || '',
-          }}
+      <SwiperSlide key={card.name}>
+        <Card
+          optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+          title={{ title: card?.title }}
+          imageSrc={card.image?.file?.url}
         >
-          <div className="button--inner">{card.link?.text}</div>
-        </RouterLink>
-      </Card>
+          <Text size="regular" color="dark">
+            {card.body || ''}
+          </Text>
+          <RouterLink
+            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            className="button"
+            link={{
+              href: card.link?.legacyUrl || card.link?.url || '',
+              label: card?.link?.text || '',
+            }}
+          >
+            <div className="button--inner">{card.link?.text}</div>
+          </RouterLink>
+        </Card>
+      </SwiperSlide>
     ) : null,
   );
 
@@ -62,14 +64,14 @@ const LeasingQuestionsCarousel: FC<ICarousel> = ({ carousel }) => {
   return (
     <>
       {(!isLargeScreen && carousel?.cards.length >= 3 && (
-        <Carousel className="-col3" countItems={3} initialSlideHeight={395}>
+        <CarouselSwiper className="-col3" countItems={3}>
           {renderCarouselCards(carousel?.cards)}
-        </Carousel>
+        </CarouselSwiper>
       )) ||
         (isLargeScreen && carousel?.cards.length > 3 && (
-          <Carousel className="-col3" countItems={3} initialSlideHeight={395}>
+          <CarouselSwiper className="-col3" countItems={3}>
             {renderCarouselCards(carousel?.cards)}
-          </Carousel>
+          </CarouselSwiper>
         )) ||
         (isLargeScreen && carousel?.cards.length <= 3 && (
           <div className="row:cards-3col">

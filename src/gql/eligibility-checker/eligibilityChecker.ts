@@ -1,5 +1,11 @@
-import { gql } from '@apollo/client';
+import { ApolloError, gql } from '@apollo/client';
+import { EligibilityCheckerPageData } from '../../../generated/EligibilityCheckerPageData';
 import FeaturedSection from '../../components/FeaturedSection';
+
+export interface IEligbilityCheckerPage {
+  data?: EligibilityCheckerPageData | undefined;
+  error?: ApolloError;
+}
 
 // eslint-disable-next-line import/prefer-default-export
 export const ELIGIBILITY_CHECKER_CONTENT = gql`
