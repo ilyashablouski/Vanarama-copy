@@ -64,7 +64,6 @@
     "next-with-apollo": "5.2.1",
     "node-fetch": "^2.6.1",
     "node-sass": "^4.14.1",
-    "nuka-carousel": "^4.7.9",
     "paths.macro": "^3.0.1",
     "prerender-node": "^3.2.5",
     "qs": "^6.10.1",
