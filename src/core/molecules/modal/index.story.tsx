@@ -2,14 +2,23 @@ import React from 'react';
 import base from 'paths.macro';
 import { storiesOf } from '@storybook/react';
 
+import Button from 'core/atoms/button';
+
 import Modal from '.';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
-import Button from '../../atoms/button';
 
 storiesOf(`${atomicDir(base)}/Modal`, module).add('Default', () => {
   const [isShowing, setIsShowing] = React.useState(true);
+
   return (
-    <div>
+    <>
+      <Button
+        color="teal"
+        label="Open Modal"
+        onClick={() => {
+          setIsShowing(true);
+        }}
+      />
       <Modal
         title="The Maintenance Package Covers:"
         text="Servicing, MOTs, tyres, brakes, wipes and bulbs. All you need to worry about is insurance and fuel!"
@@ -25,6 +34,6 @@ storiesOf(`${atomicDir(base)}/Modal`, module).add('Default', () => {
           label="Okay"
         />
       </Modal>
-    </div>
+    </>
   );
 });

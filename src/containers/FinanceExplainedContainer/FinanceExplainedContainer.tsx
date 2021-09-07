@@ -2,6 +2,7 @@ import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
 import Router from 'next/router';
 import ReactMarkdown from 'react-markdown';
+import { SwiperSlide } from 'swiper/react';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
@@ -25,7 +26,7 @@ const Image = dynamic(() => import('core/atoms/image'), {
 const IvanCta = dynamic(() => import('core/molecules/ivan-cta'), {
   loading: () => <Skeleton count={1} />,
 });
-const Carousel = dynamic(() => import('core/organisms/carousel'), {
+const CarouselSwiper = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={1} />,
 });
 interface IProps {
@@ -166,49 +167,51 @@ const FinanceExplainedContainer: FC<IProps> = ({ data }) => {
       {carousel?.cards?.length && (
         <div className="row:bg-lighter ">
           <div className="row:carousel">
-            <Carousel countItems={carousel?.cards?.length || 0}>
-              {carousel?.cards.map(el => (
-                <Card
-                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                  imageSrc={el?.image?.file?.url || ''}
-                  title={{
-                    title: el?.title || '',
-                    withBtn: true,
-                    btnClick: () =>
-                      Router.push(el?.link?.legacyUrl || el?.link?.url || ''),
-                    link: (
-                      <RouterLink
-                        link={{
-                          href: el?.link?.legacyUrl || el?.link?.url || '',
-                          label: el?.link?.text || '',
+            <CarouselSwiper countItems={carousel?.cards?.length || 0}>
+              {carousel?.cards.map((el, index) => (
+                <SwiperSlide key={index.toString()}>
+                  <Card
+                    optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                    imageSrc={el?.image?.file?.url || ''}
+                    title={{
+                      title: el?.title || '',
+                      withBtn: true,
+                      btnClick: () =>
+                        Router.push(el?.link?.legacyUrl || el?.link?.url || ''),
+                      link: (
+                        <RouterLink
+                          link={{
+                            href: el?.link?.legacyUrl || el?.link?.url || '',
+                            label: el?.link?.text || '',
+                          }}
+                          className="heading"
+                          classNames={{ size: 'lead', color: 'black' }}
+                        />
+                      ),
+                    }}
+                  >
+                    <div>
+                      <ReactMarkdown
+                        className="markdown"
+                        source={el?.body || ''}
+                        allowDangerousHtml
+                        renderers={{
+                          link: props => {
+                            const { href, children } = props;
+                            return (
+                              <RouterLink
+                                classNames={{ color: 'teal' }}
+                                link={{ href, label: children }}
+                              />
+                            );
+                          },
                         }}
-                        className="heading"
-                        classNames={{ size: 'lead', color: 'black' }}
                       />
-                    ),
-                  }}
-                >
-                  <div>
-                    <ReactMarkdown
-                      className="markdown"
-                      source={el?.body || ''}
-                      allowDangerousHtml
-                      renderers={{
-                        link: props => {
-                          const { href, children } = props;
-                          return (
-                            <RouterLink
-                              classNames={{ color: 'teal' }}
-                              link={{ href, label: children }}
-                            />
-                          );
-                        },
-                      }}
-                    />
-                  </div>
-                </Card>
+                    </div>
+                  </Card>
+                </SwiperSlide>
               ))}
-            </Carousel>
+            </CarouselSwiper>
           </div>
         </div>
       )}

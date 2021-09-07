@@ -60,28 +60,34 @@ const SECTIONS = {
     description: null,
     cards: [
       {
-        titleTag: 'h3',
-        name: 'Question 1',
-        title: 'Is Road Tax Covered In The Lease?',
         body:
-          "It depends on which lease product you choose. If you choose a contract hire or contract purchase the road tax is included for the duration of the contract. Finance lease will include the first year's road tax, however, the finance company will then invoice you for the next year.",
+          'Our advertised prices will not include servicing and it is your responsibility to make sure that the' +
+          " vehicle is serviced in line with the vehicle's servicing schedule. However, we are able to offer you a optional package called Service Plus which covers all routine services, mechanical repairs, replacement tires, MOT if required, replacement brakes, wiper blades and bulbs (all subject to fair wear and tear). The additional cost of the Service Plus package depends on the annual mileage you select and how long you decide to lease the vehicle for.",
         image: null,
+        link: null,
+        name: 'Question 1',
+        title: 'Am I Responsible For The Servicing Of My Leased Van?',
+        titleTag: 'h3',
       },
       {
-        titleTag: 'h3',
-        name: 'Question 1',
-        title: 'Is Road Tax Covered In The Lease?2',
         body:
-          "It depends on which lease product you choose. If you choose a contract hire or contract purchase the road tax is included for the duration of the contract. Finance lease will include the first year's road tax, however, the finance company will then invoice you for the next year.",
+          'Depending on the amount of damage done to the vehicle, the best thing to do is speak with your' +
+          ' insurance company directly and arrange for the repair to be carried out by an approved body shop. If the damage is more of a scrape or scuff, then you could contact a mobile smart repairer who can come to you and repair the vehicle on-site or at your home address.',
         image: null,
+        link: null,
+        name: 'Question 2',
+        title: 'I Have Damaged My Van, What Do I Need To Do Next?',
+        titleTag: 'h3',
       },
       {
-        titleTag: 'h3',
-        name: 'Question 1',
-        title: 'Is Road Tax Covered In The Lease?3',
         body:
-          "It depends on which lease product you choose. If you choose a contract hire or contract purchase the road tax is included for the duration of the contract. Finance lease will include the first year's road tax, however, the finance company will then invoice you for the next year.",
+          'You can have your van serviced at any independent garage providing they are VAT registered, qualified' +
+          " to work on your vehicle & use genuine manufacturer parts for the service. Doing this will keep the vehicle's warranty valid until its standard expiry date.",
         image: null,
+        link: null,
+        name: 'Question 3',
+        title: 'What Type Of Garage Should I Use For Servicing My Van?',
+        titleTag: 'h3',
       },
     ],
   },
@@ -105,8 +111,10 @@ describe('<LeasingQuestionContainer />', () => {
     // ASSERT
     await waitFor(() => {
       expect(
-        screen.getByText(`Is Road Tax Covered In The Lease?`),
-      ).toBeInTheDocument();
+        screen.getAllByText(
+          `Am I Responsible For The Servicing Of My Leased Van?`,
+        ),
+      );
     });
 
     const tree = getComponent.baseElement;

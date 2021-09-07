@@ -3,6 +3,7 @@ import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
 import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import { SwiperSlide } from 'swiper/react';
 import getTitleTag from '../../utils/getTitleTag';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { ICategoryPage } from './interface';
@@ -27,7 +28,7 @@ const Card = dynamic(() => import('core/molecules/cards'), {
 const Pagination = dynamic(() => import('core/atoms/pagination'), {
   loading: () => <Skeleton count={1} />,
 });
-const Carousel = dynamic(() => import('core/organisms/carousel'), {
+const CarouselSwiper = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={3} />,
 });
 
@@ -149,61 +150,64 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
       );
       return (
         card && (
-          <Card
-            style={{ minHeight: 420 }}
-            loadImage
-            lazyLoad={index !== 0}
-            optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-            key={`${card.title}_${index.toString()}_${card.excerpt}`}
-            className="card__article"
-            imageSrc={
-              card.featuredImage?.file?.url || card.image?.file?.url || ''
-            }
-            title={{
-              className: '-flex-h',
-              link: (
-                <RouterLink
-                  withoutDefaultClassName
-                  className="heading"
-                  classNames={{ color: 'black', size: 'lead' }}
-                  link={{
-                    href: hrefLink,
-                    label: card?.title || '',
-                  }}
-                >
-                  {card?.name}
-                </RouterLink>
-              ),
-              title: '',
-            }}
-          >
-            <ReactMarkdown
-              allowDangerousHtml
-              source={card.excerpt || ''}
-              renderers={{
-                link: props => {
-                  const { href, children } = props;
-                  return (
-                    <RouterLink
-                      link={{ href, label: children }}
-                      classNames={{ color: 'teal' }}
-                    />
-                  );
-                },
-                heading: props => (
-                  <Text {...props} size="lead" color="darker" tag="h3" />
+          <SwiperSlide key={index.toString()}>
+            <Card
+              style={{ minHeight: 420 }}
+              loadImage
+              lazyLoad={index !== 0}
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              className="card__article"
+              imageSrc={
+                card.featuredImage?.file?.url || card.image?.file?.url || ''
+              }
+              title={{
+                className: '-flex-h',
+                link: (
+                  <RouterLink
+                    withoutDefaultClassName
+                    className="heading"
+                    classNames={{ color: 'black', size: 'lead' }}
+                    link={{
+                      href: hrefLink,
+                      label: card?.title || '',
+                    }}
+                  >
+                    {card?.name}
+                  </RouterLink>
                 ),
-                paragraph: props => <Text {...props} tag="p" color="darker" />,
+                title: '',
               }}
-            />
-            <RouterLink
-              classNames={{ color: 'teal', size: 'regular' }}
-              link={{
-                label: 'Read More',
-                href: hrefLink,
-              }}
-            />
-          </Card>
+            >
+              <ReactMarkdown
+                allowDangerousHtml
+                source={card.excerpt || ''}
+                renderers={{
+                  link: props => {
+                    const { href, children } = props;
+                    return (
+                      <RouterLink
+                        link={{ href, label: children }}
+                        classNames={{ color: 'teal' }}
+                      />
+                    );
+                  },
+                  heading: props => (
+                    <Text {...props} size="lead" color="darker" tag="h3" />
+                  ),
+                  paragraph: props => (
+                    <Text {...props} tag="p" color="darker" />
+                  ),
+                }}
+              />
+              <RouterLink
+                classNames={{ color: 'teal', size: 'regular' }}
+                link={{
+                  label: 'Read More',
+                  href: hrefLink,
+                }}
+              />
+            </Card>
+          </SwiperSlide>
         )
       );
     });
@@ -298,13 +302,9 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             Top Articles
           </Heading>
           {data?.topArticles.length > 3 ? (
-            <Carousel
-              className="-mh-auto"
-              countItems={5}
-              initialSlideHeight={420}
-            >
+            <CarouselSwiper className="-mh-auto" countItems={5}>
               {renderCarouselCards(data?.topArticles)}
-            </Carousel>
+            </CarouselSwiper>
           ) : (
             <div className="row:cards-3col">
               {renderCarouselCards(data?.topArticles)}
@@ -318,9 +318,9 @@ const CategoryPageContainer: React.FC<ICategoryPage> = ({
             {carousel.title}
           </Heading>
           {carousel.cards.length > 3 ? (
-            <Carousel className="-mh-auto" countItems={5}>
+            <CarouselSwiper className="-mh-auto" countItems={5}>
               {renderCarouselCards(carousel.cards)}
-            </Carousel>
+            </CarouselSwiper>
           ) : (
             <div className="row:cards-3col">
               {renderCarouselCards(carousel.cards)}
