@@ -836,4 +836,38 @@ $small: 0.875rem;
       }
     }
   }
+  &.pdp {
+    > * {
+      justify-content: left;
+      align-items: flex-start;
+      background: white;
+      padding: 8px 10px 12px;
+      height: auto;
+      font-size: 14px;
+      white-space: normal;
+      svg {
+        margin-right: 5px;
+        margin-top: 5px;
+      }
+      div {
+        color: black;
+        span {
+          display: block;
+          font-size: 13px;
+          text-transform: none;
+          font-weight: 500;
+          margin-top: -2px;
+          color: #678098;
+          line-height: 16px;
+        }
+      }
+    }
+  }
+  &.sticky-col {
+    @media (max-width: 767px) {
+      > * {
+        background: #fff;
+      }
+    }
+  }
 }
