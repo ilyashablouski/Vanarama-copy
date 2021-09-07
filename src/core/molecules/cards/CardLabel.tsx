@@ -2,7 +2,7 @@ import { FC, ReactNode } from 'react';
 import Icon from 'core/atoms/icon';
 
 interface IProps {
-  text: string;
+  text: string | ReactNode;
   icon: ReactNode;
 }
 
