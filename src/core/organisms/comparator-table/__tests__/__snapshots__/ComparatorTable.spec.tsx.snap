@@ -1512,22 +1512,26 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
             <div
               className="price -xlarge -black"
             >
-              <span
-                className="price--sub"
+              <div
+                className="price--inner"
               >
-                £
-              </span>
-              <span
-                className="price--pounds"
-              >
-                56
-              </span>
-              <span
-                className="price--sub"
-              >
-                .
-                73
-              </span>
+                <span
+                  className="price--sub"
+                >
+                  £
+                </span>
+                <span
+                  className="price--pounds"
+                >
+                  56
+                </span>
+                <span
+                  className="price--sub"
+                >
+                  .
+                  73
+                </span>
+              </div>
               <div
                 className="price--label"
               >
@@ -1567,22 +1571,26 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
             <div
               className="price -xlarge -black"
             >
-              <span
-                className="price--sub"
+              <div
+                className="price--inner"
               >
-                £
-              </span>
-              <span
-                className="price--pounds"
-              >
-                55
-              </span>
-              <span
-                className="price--sub"
-              >
-                .
-                44
-              </span>
+                <span
+                  className="price--sub"
+                >
+                  £
+                </span>
+                <span
+                  className="price--pounds"
+                >
+                  55
+                </span>
+                <span
+                  className="price--sub"
+                >
+                  .
+                  44
+                </span>
+              </div>
               <div
                 className="price--label"
               >

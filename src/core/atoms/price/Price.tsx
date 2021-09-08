@@ -26,23 +26,25 @@ const Price: FC<IPriceProps> = memo(props => {
       {price ? (
         <>
           {priceLabel && <div className="price--label">{priceLabel}</div>}
-          <span className="price--sub">£</span>
-          <span className="price--pounds">{getPounds(price)}</span>
-          {!hidePence && (
-            <span className="price--sub">
-              {separator}
-              {getPence(price)}
-            </span>
-          )}
+          <div className="price--inner">
+            <span className="price--sub">£</span>
+            <span className="price--pounds">{getPounds(price)}</span>
+            {!hidePence && (
+              <span className="price--sub">
+                {separator}
+                {getPence(price)}
+              </span>
+            )}
+          </div>
           {priceDescription && (
             <div className="price--label">{priceDescription}</div>
           )}
         </>
       ) : (
-        <>
+        <div className="price--inner">
           <span className="price--sub">£</span>
           <span className="price--pounds">POA</span>
-        </>
+        </div>
       )}
     </div>
   );

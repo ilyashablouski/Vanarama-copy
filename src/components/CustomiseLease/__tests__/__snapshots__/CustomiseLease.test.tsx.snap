@@ -673,16 +673,20 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="price -xlarge -black"
         >
-          <span
-            className="price--sub"
+          <div
+            className="price--inner"
           >
-            £
-          </span>
-          <span
-            className="price--pounds"
-          >
-            POA
-          </span>
+            <span
+              className="price--sub"
+            >
+              £
+            </span>
+            <span
+              className="price--pounds"
+            >
+              POA
+            </span>
+          </div>
         </div>
         <div
           className="heading headingText -pt-100 -darker -small"
@@ -1449,22 +1453,26 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="price -xlarge -black"
         >
-          <span
-            className="price--sub"
+          <div
+            className="price--inner"
           >
-            £
-          </span>
-          <span
-            className="price--pounds"
-          >
-            605
-          </span>
-          <span
-            className="price--sub"
-          >
-            .
-            95
-          </span>
+            <span
+              className="price--sub"
+            >
+              £
+            </span>
+            <span
+              className="price--pounds"
+            >
+              605
+            </span>
+            <span
+              className="price--sub"
+            >
+              .
+              95
+            </span>
+          </div>
         </div>
         <div
           className="heading headingText -pt-100 -darker -small"
