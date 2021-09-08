@@ -3,6 +3,7 @@ import base from 'paths.macro';
 import { storiesOf } from '@storybook/react';
 
 import Button from 'core/atoms/button';
+import FullScreenIcon from 'core/assets/icons/FullScreenIcon';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 
 import FullScreenImageCarousel from '.';
@@ -16,7 +17,8 @@ storiesOf(`${atomicDir(base)}/FullScreenImageCarousel`, module).add(
       <>
         <Button
           color="teal"
-          label="Open Modal"
+          icon={<FullScreenIcon />}
+          iconPosition="after"
           onClick={() => {
             setOpenModal(true);
           }}

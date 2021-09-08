@@ -1,17 +1,12 @@
 import React, { memo } from 'react';
 import SwiperCore, { EffectFade, Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-// import Icon from 'core/atoms/icon';
-// import ArrowBackSharp from 'core/assets/icons/ArrowBackSharp';
-// import ArrowForwardSharp from 'core/assets/icons/ArrowForwardSharp';
+
 import Image from 'core/atoms/image/Image';
 import { IFullScreenCarouselProps } from 'core/organisms/full-screen-carousel/interface';
 import ModalV2 from 'core/molecules/modal-v2';
 import Icon from 'core/atoms/icon';
-import ArrowBackSharp from 'core/assets/icons/ArrowBackSharp';
-import ArrowForwardSharp from 'core/assets/icons/ArrowForwardSharp';
-import ArrowBack from 'core/assets/icons/ArrowBack';
-import ArrowForward from 'core/assets/icons/ArrowForward';
+import ArrowForwardV2 from 'core/assets/icons/ArrowForwardV2';
 
 SwiperCore.use([Navigation, EffectFade]);
 
@@ -50,11 +45,11 @@ function FullScreenImageCarousel({
           ))}
 
           <button className="swiper-prev" type="button">
-            <Icon icon={<ArrowBackSharp />} color="darker" size="regular" />
+            <Icon icon={<ArrowForwardV2 />} color="darker" size="regular" />
           </button>
 
           <button className="swiper-next" type="button">
-            <Icon icon={<ArrowForwardSharp />} color="darker" size="regular" />
+            <Icon icon={<ArrowForwardV2 />} color="darker" size="regular" />
           </button>
         </Swiper>
       </div>

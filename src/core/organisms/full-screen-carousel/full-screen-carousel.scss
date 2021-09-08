@@ -1,9 +1,12 @@
 .full-screen-carousel {
+  position: relative;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 70vw;
   height: 100%;
+
   .swiper-container {
     width: 70vw;
     overflow: hidden;
@@ -24,4 +27,49 @@
     box-sizing: border-box;
   }
 
+  .swiper-prev svg {
+    transform: rotate(180deg);
+  }
+
+  button {
+    position: absolute;
+    top: 50%;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 60px;
+    background: rgba(78, 76, 78, .7);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background 0.2s ease;
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: inline-flex;
+      width: auto;
+      height: auto;
+      color: #ffffff;
+    }
+
+    &:hover {
+      background: rgba(78, 76, 78, 1);
+    }
+
+    &.swiper-prev svg{
+      left: 6px;
+    }
+
+    &.swiper-prev {
+      left: 0;
+      transform: translate(-95px, -50%);
+    }
+
+    &.swiper-next {
+      right: 0;
+      transform: translate(95px, -50%);
+    }
+  }
 }
