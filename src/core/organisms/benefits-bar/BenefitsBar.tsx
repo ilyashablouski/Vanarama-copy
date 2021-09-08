@@ -1,6 +1,9 @@
 import React, { FC } from 'react';
-import Carousel from 'nuka-carousel';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import SwiperCore, { Autoplay, Navigation } from 'swiper';
 import { ICarouselProps } from '../carousel/interface';
+
+SwiperCore.use([Navigation, Autoplay]);
 
 const Slider: FC<ICarouselProps> = () => {
   const items = [
@@ -21,40 +24,66 @@ const Slider: FC<ICarouselProps> = () => {
 
   return (
     <div className="hero-benefits-bar">
-      <Carousel
-        wrapAround
-        autoplay
-        pauseOnHover
-        initialSlideWidth={328}
-        initialSlideHeight={40}
-        autoplayInterval={4000}
-        renderCenterLeftControls={({ previousSlide }) => (
-          <button onClick={previousSlide} type="button">
-            <span>Previous</span>
+      <div className="slider">
+        <Swiper
+          centeredSlides
+          navigation={{
+            prevEl: `.swiper-prev`,
+            nextEl: `.swiper-next`,
+          }}
+          loop
+          autoplay={{
+            delay: 4000,
+            disableOnInteraction: false,
+          }}
+          preventClicks
+          preventClicksPropagation
+        >
+          {items.map(item => {
+            return (
+              <SwiperSlide key={item.title}>
+                <div className="text -small -black">
+                  <b>{item.title}</b>
+                </div>
+                <div className="text -small -darker">
+                  {item.rating && (
+                    <span className="b-bar-rating">{item.rating}</span>
+                  )}
+                  {item.subtitle}
+                </div>
+              </SwiperSlide>
+            );
+          })}
+
+          <button className="swiper-prev" type="button">
+            {/* <span>Previous</span> */}
           </button>
-        )}
-        renderCenterRightControls={({ nextSlide }) => (
-          <button onClick={nextSlide} type="button">
-            <span>Next</span>
+
+          <button className="swiper-next" type="button">
+            {/* <span>Next</span> */}
           </button>
-        )}
-      >
-        {items.map(item => {
-          return (
-            <div key={item.title}>
-              <div className="text -small -black">
-                <b>{item.title}</b>
-              </div>
-              <div className="text -small -darker">
-                {item.rating && (
-                  <span className="b-bar-rating">{item.rating}</span>
-                )}
-                {item.subtitle}
-              </div>
-            </div>
-          );
-        })}
-      </Carousel>
+        </Swiper>
+      </div>
+
+      {/* <Carousel */}
+      {/*  wrapAround */}
+      {/*  autoplay */}
+      {/*  pauseOnHover */}
+      {/*  initialSlideWidth={328} */}
+      {/*  initialSlideHeight={40} */}
+      {/*  autoplayInterval={4000} */}
+      {/*  renderCenterLeftControls={({ previousSlide }) => ( */}
+      {/*    <button onClick={previousSlide} type="button"> */}
+      {/*      <span>Previous</span> */}
+      {/*    </button> */}
+      {/*  )} */}
+      {/*  renderCenterRightControls={({ nextSlide }) => ( */}
+      {/*    <button onClick={nextSlide} type="button"> */}
+      {/*      <span>Next</span> */}
+      {/*    </button> */}
+      {/*  )} */}
+      {/* > */}
+      {/* </Carousel> */}
     </div>
   );
 };

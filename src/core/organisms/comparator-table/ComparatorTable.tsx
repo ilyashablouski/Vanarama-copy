@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import cx from 'classnames';
+import CarouselSwiper from 'core/organisms/carousel/CarouselSwiper';
+import { SwiperSlide } from 'swiper/react';
 import {
   IComparatorTable,
   IHeading,
   ICriterias,
   IVehicleDetails,
 } from './interface';
-import Carousel from './ComparatorCarousel';
+
 import ComparatorCard from './ComparatorCard';
 import ComparatorRow from './ComparatorRow';
 
@@ -42,20 +44,25 @@ const ComporatorTable: React.FC<IComparatorTable> = ({
 
   return (
     <div className={cx('comparator-table', className)} data-testid={dataTestId}>
-      <Carousel countItems={3} index={index} setIndex={setIndex}>
-        {columns.map((column, number) => (
-          <ComparatorCard
-            key={`${(headingValues?.title || '') + number}`}
-            deleteVehicle={() => {
-              const headingValue = headingValues?.values[number] as IHeading;
-              deleteVehicle(headingValue.capId);
-            }}
-            addVehicle={() => addVehicle()}
-            headingValue={headingValues?.values[number] as IHeading}
-            number={number + 1}
-          />
-        ))}
-      </Carousel>
+      <header className={cx('comparator-table--header', className)}>
+        <CarouselSwiper countItems={3}>
+          {columns.map((column, number) => (
+            <SwiperSlide key={number.toString()}>
+              <ComparatorCard
+                deleteVehicle={() => {
+                  const headingValue = headingValues?.values[
+                    number
+                  ] as IHeading;
+                  deleteVehicle(headingValue.capId);
+                }}
+                addVehicle={() => addVehicle()}
+                headingValue={headingValues?.values[number] as IHeading}
+                number={number + 1}
+              />
+            </SwiperSlide>
+          ))}
+        </CarouselSwiper>
+      </header>
       {criterias.map(
         (criteria, number) =>
           criteria.title !== 'Heading' &&

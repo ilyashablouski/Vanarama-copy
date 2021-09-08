@@ -89,7 +89,6 @@ $include-presentation-styles: false !default;
 // @import '../organisms/icon-list/icon-list.scss';
 // @import '../organisms/league/league.scss';
 // @import '../organisms/lease-scanner/lease-scanner.scss';
-@import '../organisms/media-gallery/media-gallery.scss';
 @import '../organisms/search-filters/search-filters.scss';
 @import '../organisms/search-filters/srp-filters-and-sort.scss';
 // @import '../organisms/slideout-modal/slideout-modal.scss';
@@ -105,6 +104,8 @@ $include-presentation-styles: false !default;
 @import '../organisms/competition/win-a-new-lease-of-life.scss';
 @import '../organisms/free-insurance/free-insurance.scss';
 @import '../organisms/icon-list/icon-list.scss';
+//TODO:Delete when fix storybook styles import path
+@import '../organisms/full-screen-carousel/full-screen-carousel.scss';
 
 // row is imported last (for overrides)
 @import '../templates/footer.scss';
