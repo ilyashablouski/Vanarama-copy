@@ -3,7 +3,7 @@
 // @generated
 // This file was automatically generated and should not be edited.
 
-import { VehicleTypeEnum } from "./globalTypes";
+import { VehicleTypeEnum, RateInputObject } from "./globalTypes";
 
 // ====================================================
 // GraphQL query operation: filterList
@@ -47,4 +47,5 @@ export interface filterListVariables {
   bodyStyles?: string[] | null;
   transmissions?: string[] | null;
   fuelTypes?: string[] | null;
+  rate?: RateInputObject | null;
 }
