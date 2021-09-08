@@ -4,16 +4,20 @@ exports[`<Price /> renders correctly 1`] = `
 <div
   className="price -regular -black"
 >
-  <span
-    className="price--sub"
+  <div
+    className="price--inner"
   >
-    £
-  </span>
-  <span
-    className="price--pounds"
-  >
-    POA
-  </span>
+    <span
+      className="price--sub"
+    >
+      £
+    </span>
+    <span
+      className="price--pounds"
+    >
+      POA
+    </span>
+  </div>
 </div>
 `;
 
@@ -21,21 +25,25 @@ exports[`<Price /> renders correctly with optional props 1`] = `
 <div
   className="price class -small -orange"
 >
-  <span
-    className="price--sub"
+  <div
+    className="price--inner"
   >
-    £
-  </span>
-  <span
-    className="price--pounds"
-  >
-    250
-  </span>
-  <span
-    className="price--sub"
-  >
-    .
-    95
-  </span>
+    <span
+      className="price--sub"
+    >
+      £
+    </span>
+    <span
+      className="price--pounds"
+    >
+      250
+    </span>
+    <span
+      className="price--sub"
+    >
+      .
+      95
+    </span>
+  </div>
 </div>
 `;
