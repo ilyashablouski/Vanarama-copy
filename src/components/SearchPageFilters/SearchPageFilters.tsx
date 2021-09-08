@@ -152,8 +152,8 @@ const SearchPageFilters = ({
       }
       return resp;
     },
-    !!preLoadFilters,
     undefined,
+    !!preLoadFilters,
     filterFuelTypes,
   );
   /** start new search */
@@ -161,7 +161,6 @@ const SearchPageFilters = ({
     if (!onlyFiltersUpdate) {
       onSearch(filtersObject);
     }
-    const filtersObjectForFilters = { ...filtersObject, rate: undefined };
     refetch({
       vehicleTypes: isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
       onOffer:
@@ -171,7 +170,7 @@ const SearchPageFilters = ({
         isDynamicFilterPage
           ? null
           : isSpecialOffers,
-      ...filtersObjectForFilters,
+      ...filtersObject,
     }).then(resp => {
       // if groupedRanges is empty -> search params is incorrect
       if (resp.data?.filterList?.groupedRangesWithSlug?.length) {
