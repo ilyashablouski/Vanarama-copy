@@ -274,20 +274,11 @@ describe('Url utils', () => {
 
   describe('getCanonicalUrl', () => {
     const origin = 'http://localhost';
-    const pagePath = '/test-page-path';
 
     it('getCanonicalUrl should return correct canonical url', () => {
       const canonicalUrl = `${origin}/test-canonical-path`;
 
-      expect(getCanonicalUrl(pagePath, canonicalUrl)).toEqual(canonicalUrl);
-    });
-
-    it('getCanonicalUrl should return correct canonical base on page path', () => {
-      const canonicalUrl = null;
-
-      expect(getCanonicalUrl(pagePath, canonicalUrl)).toEqual(
-        `${origin}${pagePath}`,
-      );
+      expect(getCanonicalUrl(canonicalUrl)).toEqual(canonicalUrl);
     });
   });
 

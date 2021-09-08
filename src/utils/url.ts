@@ -288,16 +288,8 @@ export function parseUrl(absoluteUrl: string) {
   }
 }
 
-export function getCanonicalUrl(
-  currentUrl: string,
-  canonicalUrl?: Nullish<string>,
-) {
-  const absoluteUrl = getAbsoluteUrl(canonicalUrl ?? currentUrl);
-  const parsedAbsoluteUrl = parseUrl(absoluteUrl);
-
-  return parsedAbsoluteUrl
-    ? parsedAbsoluteUrl.origin + parsedAbsoluteUrl.pathname
-    : absoluteUrl;
+export function getCanonicalUrl(canonicalUrl?: Nullish<string>) {
+  return canonicalUrl ?? '';
 }
 
 export const getMetadataForPagination = (

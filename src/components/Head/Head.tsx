@@ -96,10 +96,7 @@ const Head: FC<IHeadProps> = props => {
       <meta name="twitter:site" content={twitter} />
       {/* Icon, Canonical */}
       <link rel="icon" type="image/png" href="/favicon.png" />
-      <link
-        rel="canonical"
-        href={getCanonicalUrl(router.asPath, canonicalUrl)}
-      />
+      <link rel="canonical" href={getCanonicalUrl(canonicalUrl)} />
     </NextHead>
   );
 };
