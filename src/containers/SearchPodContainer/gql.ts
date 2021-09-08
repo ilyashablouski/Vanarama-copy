@@ -11,6 +11,7 @@ export const GET_SEARCH_POD_DATA = gql`
     $bodyStyles: [String!]
     $transmissions: [String!]
     $fuelTypes: [String!]
+    $rate: RateInputObject
   ) {
     filterList(
       filter: {
@@ -21,6 +22,7 @@ export const GET_SEARCH_POD_DATA = gql`
         bodyStyles: $bodyStyles
         transmissions: $transmissions
         fuelTypes: $fuelTypes
+        rate: $rate
       }
     ) {
       vehicleTypes
