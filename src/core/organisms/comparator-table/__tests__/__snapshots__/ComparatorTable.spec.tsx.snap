@@ -832,51 +832,30 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
           <div
             class="price -xlarge -black"
           >
-            <span
-              class="price--sub"
+            <div
+              class="price--inner"
             >
-              £
-            </span>
-            <span
-              class="price--pounds"
-            >
-              56
-            </span>
-            <span
-              class="price--sub"
-            >
-              .
-              73
-            </span>
+              <span
+                class="price--sub"
+              >
+                £
+              </span>
+              <span
+                class="price--pounds"
+              >
+                56
+              </span>
+              <span
+                class="price--sub"
+              >
+                .
+                73
+              </span>
+            </div>
             <div
               class="price--label"
             >
               Per Month ex. VAT
-              <div
-                className="price--inner"
-              >
-                <span
-                  className="price--sub"
-                >
-                  £
-                </span>
-                <span
-                  className="price--pounds"
-                >
-                  56
-                </span>
-                <span
-                  className="price--sub"
-                >
-                  .
-                  73
-                </span>
-              </div>
-              <div
-                className="price--label"
-              >
-                Per Month ex. VAT
-              </div>
             </div>
           </div>
           <button
@@ -895,51 +874,30 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
           <div
             class="price -xlarge -black"
           >
-            <span
-              class="price--sub"
+            <div
+              class="price--inner"
             >
-              £
-            </span>
-            <span
-              class="price--pounds"
-            >
-              55
-            </span>
-            <span
-              class="price--sub"
-            >
-              .
-              44
-            </span>
+              <span
+                class="price--sub"
+              >
+                £
+              </span>
+              <span
+                class="price--pounds"
+              >
+                55
+              </span>
+              <span
+                class="price--sub"
+              >
+                .
+                44
+              </span>
+            </div>
             <div
               class="price--label"
             >
               Per Month ex. VAT
-              <div
-                className="price--inner"
-              >
-                <span
-                  className="price--sub"
-                >
-                  £
-                </span>
-                <span
-                  className="price--pounds"
-                >
-                  55
-                </span>
-                <span
-                  className="price--sub"
-                >
-                  .
-                  44
-                </span>
-              </div>
-              <div
-                className="price--label"
-              >
-                Per Month ex. VAT
-              </div>
             </div>
           </div>
           <button
