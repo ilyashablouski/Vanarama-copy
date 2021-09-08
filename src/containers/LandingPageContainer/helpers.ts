@@ -46,10 +46,10 @@ export const buildRenderArray = (
     .flat()
     .filter(value => value).length;
   const featuredBlockValues = [...sectionsArray.featured!];
-  const renderArray: RenderElement[] = new Array(blocksLength).fill(undefined);
 
-  for (let i = 0; i < blocksLength; i += 1) {
+  return new Array(blocksLength).fill(undefined).map((elem, index) => {
     let iterations = 0;
+    let foundElement;
     // Try to find element for current position
     Object.entries(sectionsArray).some(([key, elements]) => {
       iterations += 1;
@@ -57,23 +57,23 @@ export const buildRenderArray = (
         return false;
       }
       const elementOnPosition = elements?.find(
-        (element: any) => element?.position === i,
+        (element: any) => element?.position === index,
       ) as BlocksType;
       if (elementOnPosition) {
-        renderArray.splice(i, 1, {
+        foundElement = {
           blockName: key as keyof GenericPageQuery_genericPage_sectionsAsArray,
           ...elementOnPosition,
-        });
+        };
       }
       return !!elementOnPosition;
     });
     // If we could not find element for the current position -> put next available featured element to renderArray
-    if (iterations === Object.keys(sectionsArray).length && !renderArray[i]) {
-      renderArray.splice(i, 1, {
+    if (iterations === Object.keys(sectionsArray).length && !foundElement) {
+      foundElement = {
         blockName: 'featured',
         ...featuredBlockValues?.splice(0, 1)[0]!,
-      });
+      };
     }
-  }
-  return renderArray;
+    return foundElement;
+  }) as RenderElement[];
 };
