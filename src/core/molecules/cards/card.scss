@@ -141,15 +141,12 @@ $small: 0.875rem;
           margin: 1.375rem 0;
 
           .price {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
             min-width: 100%;
             margin-bottom: 1.125rem;
 
             &--label {
-              &:last-child {
-                width: 100%;
+              &:first-child {
+                flex: 0 0 auto;
               }
             }
           }

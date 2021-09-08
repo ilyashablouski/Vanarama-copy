@@ -38,22 +38,26 @@ exports[`<RangeCard /> should be render correctly 1`] = `
           >
             from
           </div>
-          <span
-            class="price--sub"
+          <div
+            class="price--inner"
           >
-            £
-          </span>
-          <span
-            class="price--pounds"
-          >
-            191
-          </span>
-          <span
-            class="price--sub"
-          >
-            .
-            91
-          </span>
+            <span
+              class="price--sub"
+            >
+              £
+            </span>
+            <span
+              class="price--pounds"
+            >
+              191
+            </span>
+            <span
+              class="price--sub"
+            >
+              .
+              91
+            </span>
+          </div>
           <div
             class="price--label"
           >
@@ -115,22 +119,26 @@ exports[`<RangeCard /> should be render correctly with all makes page 1`] = `
           >
             from
           </div>
-          <span
-            class="price--sub"
+          <div
+            class="price--inner"
           >
-            £
-          </span>
-          <span
-            class="price--pounds"
-          >
-            191
-          </span>
-          <span
-            class="price--sub"
-          >
-            .
-            91
-          </span>
+            <span
+              class="price--sub"
+            >
+              £
+            </span>
+            <span
+              class="price--pounds"
+            >
+              191
+            </span>
+            <span
+              class="price--sub"
+            >
+              .
+              91
+            </span>
+          </div>
           <div
             class="price--label"
           >

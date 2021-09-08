@@ -67,16 +67,20 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
                     <div
                       class="price -large -black"
                     >
-                      <span
-                        class="price--sub"
+                      <div
+                        class="price--inner"
                       >
-                        £
-                      </span>
-                      <span
-                        class="price--pounds"
-                      >
-                        POA
-                      </span>
+                        <span
+                          class="price--sub"
+                        >
+                          £
+                        </span>
+                        <span
+                          class="price--pounds"
+                        >
+                          POA
+                        </span>
+                      </div>
                     </div>
                     <a
                       class="button link -teal -regular -solid"
