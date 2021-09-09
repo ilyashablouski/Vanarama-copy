@@ -26,6 +26,8 @@ export interface IPartnerProperties {
   telephone: Nullish<string>;
   fuelTypes?: string[] | undefined;
   logo: IPartnerPropertiesLogo | null;
+  searchPageDescription: string;
+  searchPageTitle: string;
 }
 export interface IPartnerPropertiesLogo {
   title: string | undefined;
