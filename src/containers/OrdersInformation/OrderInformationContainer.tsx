@@ -80,7 +80,7 @@ const OrderInformationContainer: React.FC<IProps> = ({ person }) => {
             title: 'My Orders',
           }}
         >
-          {ordersLength ? (
+          {typeof ordersLength === 'number' ? (
             <Text
               tag="span"
               size="regular"
