@@ -889,6 +889,10 @@
   justify-content: center;
   align-items: center;
 
+  @include desktop {
+    grid-column: 2 / span 8;
+  }
+
   .partnership-logo {
     display: flex;
     align-items: center;
