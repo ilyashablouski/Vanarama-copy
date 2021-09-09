@@ -141,15 +141,12 @@ $small: 0.875rem;
           margin: 1.375rem 0;
 
           .price {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: flex-start;
             min-width: 100%;
             margin-bottom: 1.125rem;
 
             &--label {
-              &:last-child {
-                width: 100%;
+              &:first-child {
+                flex: 0 0 auto;
               }
             }
           }
@@ -833,6 +830,40 @@ $small: 0.875rem;
       width: 100%;
       + * {
         margin-top: 6px;
+      }
+    }
+  }
+  &.pdp {
+    > * {
+      justify-content: left;
+      align-items: flex-start;
+      background: white;
+      padding: 8px 10px 12px;
+      height: auto;
+      font-size: 14px;
+      white-space: normal;
+      svg {
+        margin-right: 5px;
+        margin-top: 5px;
+      }
+      div {
+        color: black;
+        span {
+          display: block;
+          font-size: 13px;
+          text-transform: none;
+          font-weight: 500;
+          margin-top: -2px;
+          color: #678098;
+          line-height: 16px;
+        }
+      }
+    }
+  }
+  &.sticky-col {
+    @media (max-width: 767px) {
+      > * {
+        background: #fff;
       }
     }
   }

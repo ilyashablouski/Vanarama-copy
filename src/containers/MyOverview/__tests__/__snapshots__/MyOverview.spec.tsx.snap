@@ -271,22 +271,26 @@ Array [
             <div
               className="price -large -black"
             >
-              <span
-                className="price--sub"
+              <div
+                className="price--inner"
               >
-                £
-              </span>
-              <span
-                className="price--pounds"
-              >
-                100
-              </span>
-              <span
-                className="price--sub"
-              >
-                .
-                00
-              </span>
+                <span
+                  className="price--sub"
+                >
+                  £
+                </span>
+                <span
+                  className="price--pounds"
+                >
+                  100
+                </span>
+                <span
+                  className="price--sub"
+                >
+                  .
+                  00
+                </span>
+              </div>
               <div
                 className="price--label"
               >
@@ -398,22 +402,26 @@ Array [
             <div
               className="price -large -black"
             >
-              <span
-                className="price--sub"
+              <div
+                className="price--inner"
               >
-                £
-              </span>
-              <span
-                className="price--pounds"
-              >
-                100
-              </span>
-              <span
-                className="price--sub"
-              >
-                .
-                00
-              </span>
+                <span
+                  className="price--sub"
+                >
+                  £
+                </span>
+                <span
+                  className="price--pounds"
+                >
+                  100
+                </span>
+                <span
+                  className="price--sub"
+                >
+                  .
+                  00
+                </span>
+              </div>
               <div
                 className="price--label"
               >
@@ -622,22 +630,26 @@ Array [
             <div
               className="price -large -black"
             >
-              <span
-                className="price--sub"
+              <div
+                className="price--inner"
               >
-                £
-              </span>
-              <span
-                className="price--pounds"
-              >
-                100
-              </span>
-              <span
-                className="price--sub"
-              >
-                .
-                00
-              </span>
+                <span
+                  className="price--sub"
+                >
+                  £
+                </span>
+                <span
+                  className="price--pounds"
+                >
+                  100
+                </span>
+                <span
+                  className="price--sub"
+                >
+                  .
+                  00
+                </span>
+              </div>
               <div
                 className="price--label"
               >
@@ -749,22 +761,26 @@ Array [
             <div
               className="price -large -black"
             >
-              <span
-                className="price--sub"
+              <div
+                className="price--inner"
               >
-                £
-              </span>
-              <span
-                className="price--pounds"
-              >
-                100
-              </span>
-              <span
-                className="price--sub"
-              >
-                .
-                00
-              </span>
+                <span
+                  className="price--sub"
+                >
+                  £
+                </span>
+                <span
+                  className="price--pounds"
+                >
+                  100
+                </span>
+                <span
+                  className="price--sub"
+                >
+                  .
+                  00
+                </span>
+              </div>
               <div
                 className="price--label"
               >

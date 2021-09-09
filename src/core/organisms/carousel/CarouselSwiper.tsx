@@ -25,8 +25,7 @@ function CarouselSwiper({ countItems, className, children }: ICarouselProps) {
           type: 'bullets',
           clickable: true,
         }}
-        preventClicks
-        preventClicksPropagation
+        noSwipingSelector="input, select, option, textarea, button, video, label"
       >
         {children}
 

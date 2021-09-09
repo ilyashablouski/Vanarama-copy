@@ -131,6 +131,11 @@ $carousel-arrow-size: 1.5rem;
     li {
       min-height: 15rem;
     }
+
+    .carousel--nav {
+      position: relative;
+      z-index: 1;
+    }
   }
 
   &.about-us {

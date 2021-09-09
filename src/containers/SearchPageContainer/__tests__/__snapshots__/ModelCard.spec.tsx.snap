@@ -38,22 +38,26 @@ exports[`<ModelCard /> should be render correctly 1`] = `
           >
             from
           </div>
-          <span
-            class="price--sub"
+          <div
+            class="price--inner"
           >
-            £
-          </span>
-          <span
-            class="price--pounds"
-          >
-            120
-          </span>
-          <span
-            class="price--sub"
-          >
-            .
-            00
-          </span>
+            <span
+              class="price--sub"
+            >
+              £
+            </span>
+            <span
+              class="price--pounds"
+            >
+              120
+            </span>
+            <span
+              class="price--sub"
+            >
+              .
+              00
+            </span>
+          </div>
           <div
             class="price--label"
           >
