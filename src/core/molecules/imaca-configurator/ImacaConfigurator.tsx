@@ -14,6 +14,7 @@ function ImacaConfigurator({
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // imaca-configurator is a client-side only library, so we need to include it this way
     // eslint-disable-next-line global-require
     require('../../../../lib/imaca-configurator');
 
@@ -37,15 +38,13 @@ function ImacaConfigurator({
   useEffect(() => {
     const configViewer = window.configurationRenderers[id];
 
-    if (!configViewer) {
-      return;
+    if (configViewer && assets) {
+      configViewer.setConfigAttribute('rims', assets.rimsUrl);
+      configViewer.setConfigAttribute('tyres', assets.tyresUrl);
+      configViewer.setConfigAttribute('car', assets.vehicleUrl);
+      configViewer.setConfigAttribute('color', assets.colors[0]?.hex);
+      configViewer.prewarmCache();
     }
-
-    configViewer.setConfigAttribute('rims', assets.rimsUrl);
-    configViewer.setConfigAttribute('tyres', assets.tyresUrl);
-    configViewer.setConfigAttribute('car', assets.vehicleUrl);
-    configViewer.setConfigAttribute('color', assets.colors[0]?.hex);
-    configViewer.prewarmCache();
   }, [assets, id]);
 
   return (

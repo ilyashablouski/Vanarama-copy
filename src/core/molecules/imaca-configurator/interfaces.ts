@@ -10,7 +10,7 @@ export interface IImacaConfigurator {
   height: number;
   onClick?: () => void;
   onMouseDown?: () => void;
-  assets: {
+  assets?: {
     colors: IColor[];
     vehicleUrl: string;
     rimsUrl: string;
