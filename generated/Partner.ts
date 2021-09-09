@@ -221,6 +221,8 @@ export interface Partner_partner {
   colourPrimary: string | null;
   colourSecondary: string | null;
   telephone: string | null;
+  searchPageTitle: string;
+  searchPageDescription: string;
   hero: Partner_partner_hero | null;
   featured: Partner_partner_featured | null;
   featured1: Partner_partner_featured1 | null;

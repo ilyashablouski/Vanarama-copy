@@ -20,6 +20,8 @@ export const PARTNER = gql`
       colourPrimary
       colourSecondary
       telephone
+      searchPageTitle
+      searchPageDescription
       hero {
         flag
         body
