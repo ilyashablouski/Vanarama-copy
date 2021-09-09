@@ -33,7 +33,7 @@ storiesOf(`${atomicDir(base)}/FullScreenImageCarousel`, module).add(
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            background: 'rgba(255, 255, 255, 0.5)',
+            background: 'rgba(255, 255, 255, 0.8)',
             backdropFilter: 'blur(2px)',
             width: '45px',
             height: '45px',
