@@ -135,7 +135,6 @@ const PartnershipsHomePage: NextPage<IProps> = ({
   useEffect(() => {
     // check if partnership cookie has been set
     if (!getPartnerProperties()) {
-      console.log('partners', partnershipData);
       setPartnerProperties(partnershipData, sovereignty);
     }
     setSessionStorage('partnershipSessionActive', 'true');
@@ -347,8 +346,6 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         ...(context?.preview && { isPreview: context?.preview }),
       },
     });
-
-    console.log('tetst', data.partner);
 
     const fuelTypes = mapFuelSearchQueryToParam(data?.partner?.fuelTypes);
 
