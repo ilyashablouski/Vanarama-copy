@@ -19,7 +19,7 @@ function DropdownV2({
   const optionsRef = useRef<HTMLDivElement>(null);
   const summaryRef = useRef<HTMLDivElement>(null);
 
-  const labelHeight = labelRef.current?.offsetHeight || 0;
+  const labelHeight = labelRef.current?.offsetHeight || 45;
   const optionsHeight = optionsRef.current?.offsetHeight || 0;
   const summaryHeight = summaryRef.current?.offsetHeight || 0;
 

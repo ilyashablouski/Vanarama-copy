@@ -4,8 +4,8 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import { MockedResponse, MockedProvider } from '@apollo/client/testing';
 import ThankYouPage from '../../../pages/olaf/thank-you';
 
-jest.mock('../../../layouts/OLAFLayout/OLAFLayout');
 const mockPush = jest.fn();
+jest.mock('../../../layouts/OLAFLayout/OLAFLayout');
 jest.mock('next/router', () => ({
   useRouter() {
     return {
@@ -20,6 +20,7 @@ describe('<ThankYouPage />', () => {
   beforeEach(async () => {
     await preloadAll();
   });
+
   it('should redirect to the home page when clicking the "View order" button', async () => {
     // ARRANGE
     const mocks: MockedResponse[] = [];

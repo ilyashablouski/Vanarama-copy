@@ -67,7 +67,7 @@ interface IFilter {
   setSelectedFiltersState(e: ISelectedFilters): void;
 }
 
-export interface IFilterMakeAndModel extends IFilter {}
+export interface IFilterManufacturerAndModel extends IFilter {}
 export interface IFilterBudget extends IFilter {}
 export interface IFilterCheckboxes extends IFilter {
   name: string;

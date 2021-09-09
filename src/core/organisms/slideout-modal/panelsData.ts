@@ -1,9 +1,9 @@
 import { IPanelsData } from './interfaces';
 
 export default {
-  makeAndModel: {
+  manufacturerAndModel: {
     label: 'Make & Model',
-    panelId: 'makeAndModel',
+    panelId: 'manufacturerAndModel',
     filterIds: ['manufacturers', 'ranges'],
   },
   budget: {

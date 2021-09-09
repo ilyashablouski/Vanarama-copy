@@ -129,22 +129,26 @@ exports[`<VehicleCard /> should be render bussiness price 1`] = `
     <div
       className="price -large -black"
     >
-      <span
-        className="price--sub"
+      <div
+        className="price--inner"
       >
-        £
-      </span>
-      <span
-        className="price--pounds"
-      >
-        138
-      </span>
-      <span
-        className="price--sub"
-      >
-        .
-        91
-      </span>
+        <span
+          className="price--sub"
+        >
+          £
+        </span>
+        <span
+          className="price--pounds"
+        >
+          138
+        </span>
+        <span
+          className="price--sub"
+        >
+          .
+          91
+        </span>
+      </div>
       <div
         className="price--label"
       >
@@ -383,22 +387,26 @@ exports[`<VehicleCard /> should be render correctly 1`] = `
     <div
       className="price -large -black"
     >
-      <span
-        className="price--sub"
+      <div
+        className="price--inner"
       >
-        £
-      </span>
-      <span
-        className="price--pounds"
-      >
-        189
-      </span>
-      <span
-        className="price--sub"
-      >
-        .
-        97
-      </span>
+        <span
+          className="price--sub"
+        >
+          £
+        </span>
+        <span
+          className="price--pounds"
+        >
+          189
+        </span>
+        <span
+          className="price--sub"
+        >
+          .
+          97
+        </span>
+      </div>
       <div
         className="price--label"
       >
@@ -637,22 +645,26 @@ exports[`<VehicleCard /> should have link in View Offer 1`] = `
     <div
       className="price -large -black"
     >
-      <span
-        className="price--sub"
+      <div
+        className="price--inner"
       >
-        £
-      </span>
-      <span
-        className="price--pounds"
-      >
-        138
-      </span>
-      <span
-        className="price--sub"
-      >
-        .
-        91
-      </span>
+        <span
+          className="price--sub"
+        >
+          £
+        </span>
+        <span
+          className="price--pounds"
+        >
+          138
+        </span>
+        <span
+          className="price--sub"
+        >
+          .
+          91
+        </span>
+      </div>
       <div
         className="price--label"
       >

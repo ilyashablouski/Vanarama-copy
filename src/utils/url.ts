@@ -7,10 +7,12 @@ import { VehicleTypeEnum } from '../../generated/globalTypes';
 import { getSectionsData } from './getSectionsData';
 import { GenericPageHeadQuery_genericPage_metaData as IMetadata } from '../../generated/GenericPageHeadQuery';
 import { genericPagesQuery_genericPages_items as IGenericPages } from '../../generated/genericPagesQuery';
+import { Nullish } from '../types/common';
+import { isBrowser } from './deviceType';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
-const MAKES_WITH_SLUGS = ['abarth'];
+const MANUFACTURERS_WITH_SLUGS = ['abarth'];
 
 export const getUrlParam = (urlParams: UrlParams, notReplace?: boolean) => {
   const url = Object.entries(urlParams).map(([key, value]) =>
@@ -67,11 +69,11 @@ export const getNewUrl = (
 };
 
 export const generateUrlForBreadcrumb = (
-  make: string,
+  manufacturer: string,
   pageData: IGenericPages | undefined,
   slugArray: string[],
 ) => {
-  if (MAKES_WITH_SLUGS.includes(make)) {
+  if (MANUFACTURERS_WITH_SLUGS.includes(manufacturer)) {
     return (
       pageData?.slug ||
       slugArray
@@ -114,7 +116,7 @@ export const getProductPageBreadCrumb = (
       el => el?.slug?.split('/').length === 4,
     );
 
-    const makeLink = {
+    const manufacturerLink = {
       link: {
         label: manufacturer?.name,
         href: `/${generateUrlForBreadcrumb(manufacturerSlug, manufacturerPage, [
@@ -154,8 +156,8 @@ export const getProductPageBreadCrumb = (
     };
 
     return cars
-      ? [makeLink, rangeLink, modelLink, derivativeLink]
-      : [makeLink, rangeLink, derivativeLink];
+      ? [manufacturerLink, rangeLink, modelLink, derivativeLink]
+      : [manufacturerLink, rangeLink, derivativeLink];
   }
 
   return null;
@@ -245,23 +247,65 @@ export const notFoundPageHandler = async (
   };
 };
 
-export const getMetadataForPagination = (metadata: IMetadata, page = 1) => {
-  const canonicalUrl =
-    page > 1
-      ? `${metadata?.canonicalUrl?.slice(
-          0,
-          metadata?.canonicalUrl?.indexOf('.html'),
-        )}/page/${page}.html`
-      : metadata?.canonicalUrl;
-  return {
-    ...metadata,
-    canonicalUrl: canonicalUrl || metadata?.canonicalUrl,
-  };
-};
-
 export const formatToSlugFormat = (value: string) =>
   value
     .toLowerCase()
     .split(' ')
     .join('-')
     .replace('.', '-');
+
+export function trimEndSlash(url: string) {
+  return url.endsWith('/') ? url.slice(0, -1) : url;
+}
+
+export function getOrigin() {
+  return isBrowser()
+    ? window.location.origin
+    : trimEndSlash(process.env.HOST_DOMAIN ?? '');
+}
+
+/**
+ * Protocols: https://url.spec.whatwg.org/#url-miscellaneous
+ */
+export function isAbsoluteUrl(url: string) {
+  const PROTOCOL_LIST = ['ftp', 'file', 'http', 'https', 'ws', 'wss'];
+  return PROTOCOL_LIST.some(protocol => url.startsWith(`${protocol}:`));
+}
+
+export function getAbsoluteUrl(urlOrPath: string) {
+  if (isAbsoluteUrl(urlOrPath)) {
+    return urlOrPath;
+  }
+
+  return getOrigin() + urlOrPath;
+}
+
+export function parseUrl(absoluteUrl: string) {
+  try {
+    return new URL(absoluteUrl);
+  } catch (error) {
+    return null;
+  }
+}
+
+export function getCanonicalUrl(canonicalUrl?: Nullish<string>) {
+  return canonicalUrl ?? '';
+}
+
+export const getMetadataForPagination = (
+  metadata: IMetadata,
+  pageNumber = 1,
+): IMetadata => {
+  const canonicalUrl = metadata?.canonicalUrl;
+  const isLegacyCanonicalUrl = canonicalUrl?.includes('.html');
+
+  return {
+    ...metadata,
+    canonicalUrl:
+      pageNumber > 1 && canonicalUrl
+        ? `${canonicalUrl.replace('.html', '')}/page/${pageNumber}${
+            isLegacyCanonicalUrl ? '.html' : ''
+          }`
+        : canonicalUrl,
+  };
+};

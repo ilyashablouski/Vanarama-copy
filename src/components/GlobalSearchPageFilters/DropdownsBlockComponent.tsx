@@ -9,7 +9,7 @@ import {
 } from '../../containers/GlobalSearchPageContainer/interfaces';
 import SelectedBox from './SelectedBox';
 import SelectedDropdown from './SelectedDropdown';
-import { getSelectedValues } from './helpers';
+import { getSelectedValues, UNLISTED_VALUE } from './helpers';
 
 interface IProps {
   filterConfig: IFiltersConfig;
@@ -63,6 +63,17 @@ const DropdownsBlockComponent = ({
   isDisabledSelect,
   isInvalidRangeValue,
 }: IProps) => {
+  if (
+    (!filtersMapper[key as keyof IFiltersData]?.length ||
+      (filtersMapper[key as keyof IFiltersData]?.length === 1 &&
+        (`${filtersMapper[key as keyof IFiltersData]?.[0]}`.toLowerCase() ===
+          'unlisted' ||
+          filtersMapper[key as keyof IFiltersData]?.[0] === UNLISTED_VALUE))) &&
+    type === 'drop-down'
+  ) {
+    return null;
+  }
+
   return type === 'drop-down' ? (
     <DropdownV2
       key={key}
@@ -84,6 +95,7 @@ const DropdownsBlockComponent = ({
             )?.[0]?.tags || []
           }
           onClearFilterBlock={() => clearFilterBlock(key)}
+          renderFunction={renderSelectedFunction as () => string[]}
         />
       )}
       selected={
@@ -95,6 +107,7 @@ const DropdownsBlockComponent = ({
       <ChoiceBoxesV2
         multiSelect={multiselect}
         values={filtersMapper[key as keyof IFiltersData] as (string | number)[]}
+        renderValuesFunction={renderValuesFunction}
         onChange={values =>
           onHandleMultiSelect(values, key as keyof IFiltersData)
         }
@@ -120,7 +133,7 @@ const DropdownsBlockComponent = ({
           ref={ref}
           selected={getDropdownValues(innerSelects as IInnerSelect[])}
           onClear={() => onClearDropdown(innerSelects as IInnerSelect[])}
-          renderFunction={renderSelectedFunction}
+          renderFunction={renderSelectedFunction as () => string}
         />
       )}
       selected={getSelectedValues(innerSelects, activeFilters) as unknown[]}

@@ -11,7 +11,7 @@ import {
 } from './defaults';
 import { FONT_LIST, FONT_PATH } from './fonts';
 import { Env } from '../../utils/env';
-import { removeUrlQueryPart } from '../../utils/url';
+import { getCanonicalUrl } from '../../utils/url';
 
 const env: any = process?.env?.ENV || '';
 
@@ -27,7 +27,8 @@ const scriptEnvs = {
 const PRECONNECT = [
   process?.env?.API_URL?.replace('/graphql/', ''),
   process.env.STATIC_DOMAIN,
-  scriptEnvs.blueconic.includes(env) ? 'https://cdn.blueconic.net' : '',
+  // TODO: remove comment code below if not need
+  // scriptEnvs.blueconic.includes(env) ? 'https://cdn.blueconic.net' : '',
   scriptEnvs.vwo.includes(env) ? 'https://dev.visualwebsiteoptimizer.com' : '',
   'https://widget.trustpilot.com',
 ].filter(value => value !== '');
@@ -95,12 +96,7 @@ const Head: FC<IHeadProps> = props => {
       <meta name="twitter:site" content={twitter} />
       {/* Icon, Canonical */}
       <link rel="icon" type="image/png" href="/favicon.png" />
-      <link
-        rel="canonical"
-        href={removeUrlQueryPart(
-          canonicalUrl ?? legacyUrl ?? router.asPath ?? '',
-        )}
-      />
+      <link rel="canonical" href={getCanonicalUrl(canonicalUrl)} />
     </NextHead>
   );
 };

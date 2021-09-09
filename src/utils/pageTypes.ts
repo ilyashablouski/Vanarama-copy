@@ -3,7 +3,7 @@ export const PAGE_TYPES = {
   homepage: 'Homepage',
   hubPage: 'Hub Page',
   offersPage: 'Offers Page',
-  makePage: 'Make Page',
+  manufacturerPage: 'Make Page',
   rangePage: 'Range Page',
   modelPage: 'Model Page',
   vehicleTypePage: 'Vehicle Type Page',
@@ -147,7 +147,7 @@ export const PAGES = [
   },
   {
     pages: ['/car-leasing/[dynamicParam]'],
-    pageType: PAGE_TYPES.makePage,
+    pageType: PAGE_TYPES.manufacturerPage,
     siteSection: SITE_SECTIONS.cars,
   },
   {
@@ -177,7 +177,7 @@ export const PAGES = [
   },
   {
     pages: ['/van-leasing/[dynamicParam]'],
-    pageType: PAGE_TYPES.makePage,
+    pageType: PAGE_TYPES.manufacturerPage,
     siteSection: SITE_SECTIONS.vans,
   },
   {

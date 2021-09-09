@@ -355,7 +355,7 @@ export function useManufacturerList(
   );
 }
 
-export const GET_ALL_MAKES_PAGE = gql`
+export const GET_ALL_MANUFACTURERS_PAGE = gql`
   query manufacturerPage {
     manufacturerPage(slug: "car-leasing/all-manufacturers") {
       metaData {
@@ -381,9 +381,9 @@ export const GET_ALL_MAKES_PAGE = gql`
   ${FeaturedSection.fragments.featured}
 `;
 
-export function useAllMakePage(skip = false) {
+export function useAllManufacturerPage(skip = false) {
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  return useQuery<manufacturerPage>(GET_ALL_MAKES_PAGE, {
+  return useQuery<manufacturerPage>(GET_ALL_MANUFACTURERS_PAGE, {
     skip,
   });
 }

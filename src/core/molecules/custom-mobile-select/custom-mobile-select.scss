@@ -1,6 +1,6 @@
 .custom-select-window {
   background-color: rgba($darker, $opacity-500);
-  min-height: 100vh;
+  min-height: 100%;
   position: fixed;
   top: 0;
   right: 0;
@@ -20,6 +20,10 @@
       height: 56px;
       padding: 16px;
       display: flex;
+      z-index: 1;
+      width: 100%;
+      background-color: inherit;
+      position: fixed;
       justify-content: space-between;
       align-items: center;
       font-size: $font-size-500;
@@ -31,7 +35,15 @@
       overflow-y: auto;
       overflow-x: hidden;
       height: 100%;
-      padding: 0 16px;
+      padding: 56px 16px 0;
+      position: relative;
+      bottom: 0;
+      & > * {
+        padding: 5px 0;
+      }
+      & > *:first-child {
+        padding-top: 0;
+      }
     }
   }
 

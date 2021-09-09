@@ -1,22 +1,22 @@
 .price {
-  display: grid;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
   align-self: baseline;
-  grid-auto-flow: column;
-  grid-template-columns: repeat(auto-fit, minmax(0, max-content));
-  grid-template-rows:
-    [before] minmax(0, min-content)
-    [price] minmax(0, min-content)
-    [after] minmax(0, min-content);
-
+  width: 100%;
+  min-width: 1%;
+  max-width: max-content;
   color: var(--class-color);
   font-size: var(--class-fs);
   font-weight: 700;
   letter-spacing: $letter-spacing-narrow;
   white-space: nowrap;
-  place-items: baseline start;
-  max-width: max-content;
-  width: 100%;
-  min-width: 1%;
+
+  &--inner {
+    display: flex;
+    align-items: baseline;
+    max-width: 100%;
+  }
 
   &--pounds,
   &--sub,
@@ -32,19 +32,22 @@
     letter-spacing: inherit;
     text-transform: uppercase;
     font-weight: inherit;
-    grid-row: price;
   }
 
   &--sub {
-    position: unset;
+    font-size: 0.8em;
+  }
+
+  &--pounds {
+    min-width: 1px;
   }
 
   &--label {
+    flex: 1 1 100%;
     font-weight: 400;
     font-size: 0.875rem;
     letter-spacing: 0.015em;
     color: $darker;
-    grid-column: 1 / -1;
 
     > * {
       display: block;
@@ -56,19 +59,17 @@
     }
 
     &:first-child {
-      grid-row: before;
-      font-weight: 600;
-      font-size: 0.75rem;
-      color: $black;
-      text-transform: uppercase;
       margin-bottom: 0.25em;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: $black;
     }
 
     &:last-child {
-      grid-row: after;
+      margin-top: 0.25em;
       letter-spacing: 0;
       color: $dark;
-      margin-top: 0.25em;
     }
   }
 }

@@ -246,7 +246,7 @@ describe('<TopOffersContainer />', () => {
     return {
       isPersonal: true,
       isCarSearch: true,
-      isMakePage: false,
+      isManufacturerPage: false,
       isSpecialOfferPage: true,
       isPickups: false,
       isRangePage: false,

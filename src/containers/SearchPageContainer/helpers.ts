@@ -11,7 +11,7 @@ import {
   SortField,
   SortObject,
 } from '../../../generated/globalTypes';
-import { GET_ALL_MAKES_PAGE } from './gql';
+import { GET_ALL_MANUFACTURERS_PAGE } from './gql';
 import { vehicleList_vehicleList_edges as IVehicles } from '../../../generated/vehicleList';
 import { getObjectFromSessionStorage } from '../../utils/windowSessionStorage';
 import { arraysAreEqual } from '../../utils/helpers';
@@ -311,7 +311,7 @@ export const ssrCMSQueryExecutor = async (
         true,
       );
     case 'isRangePage':
-    case 'isMakePage':
+    case 'isManufacturerPage':
     case 'isModelPage':
     case 'isBudgetType':
       return onCallQuery(client, GENERIC_PAGE, prepareSlugPart(slug));
@@ -333,8 +333,8 @@ export const ssrCMSQueryExecutor = async (
           isCarSearch ? 'car-leasing' : 'pickup-truck-leasing'
         }/special-offers`,
       );
-    case 'isAllMakesPage':
-      return onCallQuery(client, GET_ALL_MAKES_PAGE, '');
+    case 'isAllManufacturersPage':
+      return onCallQuery(client, GET_ALL_MANUFACTURERS_PAGE, '');
     case 'isGlobalSearch':
       return onCallQuery(client, GENERIC_PAGE, 'search');
     default:
@@ -364,7 +364,7 @@ export const dynamicQueryTypeCheck = (value: string) => {
     isFuelType,
     isBudgetType,
     isTransmissionPage,
-    isMakePage: !(
+    isManufacturerPage: !(
       isBodyStylePage ||
       isFuelType ||
       isBudgetType ||

@@ -1,4 +1,5 @@
 import {
+  handleUnlistedValue,
   renderBudgetSelected,
   renderBudgetValue,
   renderPowerEngineSelected,
@@ -19,7 +20,7 @@ export const filtersConfig = [
     type: 'drop-select',
     multiselect: false,
     label: 'Make & Model',
-    key: 'makeModel',
+    key: 'manufacturerModel',
     generalFilter: true,
     innerSelects: [
       {
@@ -39,9 +40,10 @@ export const filtersConfig = [
     multiselect: false,
     label: 'Budget',
     key: 'budget',
-    renderValuesFunction: (value: string) => renderBudgetValue(value),
-    renderSelectedFunction: (values: (string | null)[]) =>
-      renderBudgetSelected(values),
+    renderValuesFunction: (value: string | number) =>
+      renderBudgetValue(value as string),
+    renderSelectedFunction: (values: (string | number)[]) =>
+      renderBudgetSelected(values as string[]),
     generalFilter: true,
     innerSelects: [
       {
@@ -83,6 +85,10 @@ export const filtersConfig = [
     label: 'No Of Doors',
     key: 'doors',
     generalFilter: false,
+    renderValuesFunction: (value: string | number) =>
+      handleUnlistedValue(value),
+    renderSelectedFunction: (values: (string | number)[]) =>
+      values.map(value => handleUnlistedValue(value)),
   },
   {
     type: 'drop-down',
@@ -90,6 +96,10 @@ export const filtersConfig = [
     label: 'No Of Seats',
     key: 'noOfSeats',
     generalFilter: false,
+    renderValuesFunction: (value: string | number) =>
+      handleUnlistedValue(value),
+    renderSelectedFunction: (values: (string | number)[]) =>
+      values.map(value => handleUnlistedValue(value)),
   },
   {
     type: 'drop-down',
@@ -117,9 +127,10 @@ export const filtersConfig = [
     multiselect: false,
     label: 'Engine Power',
     key: 'enginePower',
-    renderValuesFunction: (value: string) => renderPowerEngineValue(value),
-    renderSelectedFunction: (values: (string | null)[]) =>
-      renderPowerEngineSelected(values),
+    renderValuesFunction: (value: string | number) =>
+      renderPowerEngineValue(value as string),
+    renderSelectedFunction: (values: (string | number)[]) =>
+      renderPowerEngineSelected(values as string[]),
     generalFilter: false,
     innerSelects: [
       {

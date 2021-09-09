@@ -15,6 +15,7 @@ describe('<AboutFormContainer />', () => {
   });
   it('should prepopulate the form with existing data', async () => {
     // ARRANGE
+    const orderId = '1927e308-18f8-4d95-aef3-57cc46459930';
     const personUuid = '1927e308-18f8-4d95-aef3-57cc46459930';
     const mocks: MockedResponse[] = [
       {
@@ -115,7 +116,11 @@ describe('<AboutFormContainer />', () => {
     // ACT
     render(
       <MockedProvider addTypename={false} mocks={mocks}>
-        <AboutFormContainer personUuid={personUuid} onCompleted={jest.fn()} />
+        <AboutFormContainer
+          orderId={orderId}
+          personUuid={personUuid}
+          onCompleted={jest.fn()}
+        />
       </MockedProvider>,
     );
 

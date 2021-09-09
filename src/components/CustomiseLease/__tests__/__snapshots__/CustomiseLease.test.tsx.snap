@@ -257,27 +257,20 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </span>
   <div
-    className="select -fullwidth"
+    className="custom-select-container -fullwidth"
+    data-testid="colour-selector"
+    onClick={[Function]}
   >
-    <select
-      className="select--native"
-      data-testid="13990"
-      defaultValue="13990"
-      disabled={false}
-      onChange={[Function]}
+    <div
+      className="selected-text"
     >
-      <option
-        disabled={true}
-        value=""
+      <div
+        className="placeholder-top"
       >
-        Select Paint Colour
-      </option>
-      <option
-        value="13990"
-      >
-        Solid - Polar white
-      </option>
-    </select>
+        Select Paint Colour:
+      </div>
+      
+    </div>
     <span
       className="icon select--chevron"
     >
@@ -306,27 +299,20 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     </span>
   </div>
   <div
-    className="select -fullwidth"
+    className="custom-select-container -fullwidth"
+    data-testid="trim-selector"
+    onClick={[Function]}
   >
-    <select
-      className="select--native"
-      data-testid="112981"
-      disabled={false}
-      onChange={[Function]}
-      value=""
+    <div
+      className="selected-text"
     >
-      <option
-        disabled={true}
-        value=""
+      <div
+        className="placeholder-top"
       >
-        Select Interior
-      </option>
-      <option
-        value="104562"
-      >
-        Leather - Cranberry red
-      </option>
-    </select>
+        Select Interior:
+      </div>
+      
+    </div>
     <span
       className="icon select--chevron"
     >
@@ -468,7 +454,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
             />
           </svg>
         </i>
-        Reset Price
+        Reset best price
       </div>
     </button>
   </div>
@@ -687,16 +673,20 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
         <div
           className="price -xlarge -black"
         >
-          <span
-            className="price--sub"
+          <div
+            className="price--inner"
           >
-            £
-          </span>
-          <span
-            className="price--pounds"
-          >
-            POA
-          </span>
+            <span
+              className="price--sub"
+            >
+              £
+            </span>
+            <span
+              className="price--pounds"
+            >
+              POA
+            </span>
+          </div>
         </div>
         <div
           className="heading headingText -pt-100 -darker -small"
@@ -1047,27 +1037,20 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </span>
   <div
-    className="select -fullwidth"
+    className="custom-select-container -fullwidth"
+    data-testid="colour-selector"
+    onClick={[Function]}
   >
-    <select
-      className="select--native"
-      data-testid="13990"
-      defaultValue="13990"
-      disabled={false}
-      onChange={[Function]}
+    <div
+      className="selected-text"
     >
-      <option
-        disabled={true}
-        value=""
+      <div
+        className="placeholder-top"
       >
-        Select Paint Colour
-      </option>
-      <option
-        value="13990"
-      >
-        Solid - Polar white
-      </option>
-    </select>
+        Select Paint Colour:
+      </div>
+      Solid - Polar white
+    </div>
     <span
       className="icon select--chevron"
     >
@@ -1096,27 +1079,20 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     </span>
   </div>
   <div
-    className="select -fullwidth"
+    className="custom-select-container -fullwidth"
+    data-testid="trim-selector"
+    onClick={[Function]}
   >
-    <select
-      className="select--native"
-      data-testid="112981"
-      disabled={false}
-      onChange={[Function]}
-      value=""
+    <div
+      className="selected-text"
     >
-      <option
-        disabled={true}
-        value=""
+      <div
+        className="placeholder-top"
       >
-        Select Interior
-      </option>
-      <option
-        value="104562"
-      >
-        Leather - Cranberry red
-      </option>
-    </select>
+        Select Interior:
+      </div>
+      Select Interior:
+    </div>
     <span
       className="icon select--chevron"
     >
@@ -1258,7 +1234,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
             />
           </svg>
         </i>
-        Reset Price
+        Reset best price
       </div>
     </button>
   </div>
@@ -1477,22 +1453,26 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
         <div
           className="price -xlarge -black"
         >
-          <span
-            className="price--sub"
+          <div
+            className="price--inner"
           >
-            £
-          </span>
-          <span
-            className="price--pounds"
-          >
-            605
-          </span>
-          <span
-            className="price--sub"
-          >
-            .
-            95
-          </span>
+            <span
+              className="price--sub"
+            >
+              £
+            </span>
+            <span
+              className="price--pounds"
+            >
+              605
+            </span>
+            <span
+              className="price--sub"
+            >
+              .
+              95
+            </span>
+          </div>
         </div>
         <div
           className="heading headingText -pt-100 -darker -small"

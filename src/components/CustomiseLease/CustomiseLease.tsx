@@ -1,7 +1,12 @@
 import dynamic from 'next/dynamic';
-import React, { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
-import Select from 'core/atoms/select';
 import ChoiceBoxesV2 from 'core/atoms/choiceboxes-v2';
 import SlidingInput from 'core/atoms/sliding-input';
 import Radio from 'core/atoms/radio';
@@ -11,15 +16,12 @@ import { useMobileViewport } from '../../hooks/useMediaQuery';
 import OrderSummary from '../OrderSummary/OrderSummary';
 import { IProps } from './interface';
 import { toPriceFormat } from '../../utils/helpers';
-import {
-  GetTrimAndColor_colourList as IColourList,
-  GetTrimAndColor_trimList as ITrimList,
-} from '../../../generated/GetTrimAndColor';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import MaintenanceModalContent from '../../containers/DetailsPage/MaintenanceModalContent';
+import CustomLeaseSelect from './CustomLeaseSelect';
 
 const InformationCircle = dynamic(
   () => import('core/assets/icons/InformationCircle'),
@@ -97,40 +99,6 @@ const choices = (
   </>
 );
 
-const select = (
-  defaultValue: string,
-  setChanges: Dispatch<SetStateAction<number | null>>,
-  items: (ITrimList | IColourList | null)[] | undefined | null,
-  placeholder: string,
-  isDisabled: boolean,
-) => (
-  <Select
-    disabled={isDisabled}
-    dataTestId={defaultValue}
-    key={
-      items?.some(item => `${item?.optionId}` === defaultValue)
-        ? defaultValue
-        : undefined
-    }
-    defaultValue={
-      items?.some(item => `${item?.optionId}` === defaultValue)
-        ? defaultValue
-        : undefined
-    }
-    placeholder={placeholder}
-    className="-fullwidth"
-    onChange={option => {
-      setChanges(+option.currentTarget.value);
-    }}
-  >
-    {items?.map(item => (
-      <option key={item?.optionId || 0} value={`${item?.optionId || 0}`}>
-        {item?.label}
-      </option>
-    ))}
-  </Select>
-);
-
 const CustomiseLease = ({
   term,
   terms,
@@ -174,6 +142,7 @@ const CustomiseLease = ({
   roadsideAssistance,
   warrantyDetails,
 }: IProps) => {
+  const sideBarRef = useRef<HTMLDivElement | null>(null);
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
   );
@@ -259,6 +228,7 @@ const CustomiseLease = ({
   return (
     <div
       className={cx('pdp--sidebar', isPlayingLeaseAnimation ? 'disabled' : '')}
+      ref={sideBarRef}
     >
       <Heading tag="h2" size="xlarge" color="black">
         Customise Your Lease
@@ -322,21 +292,26 @@ const CustomiseLease = ({
           </Text>
         )}
       </Heading>
+      <CustomLeaseSelect
+        defaultValue={`${defaultColor || quoteByCapId?.colour}`}
+        setChanges={setColour}
+        items={colourList}
+        dataTestId="colour-selector"
+        placeholder="Select Paint Colour:"
+        isDisabled={isPlayingLeaseAnimation}
+        modalElement={sideBarRef.current as HTMLDivElement}
+      />
 
-      {select(
-        `${defaultColor || quoteByCapId?.colour}`,
-        setColour,
-        colourList,
-        'Select Paint Colour',
-        isPlayingLeaseAnimation,
-      )}
-      {select(
-        `${defaultTrim || quoteByCapId?.trim || trim}`,
-        setTrim,
-        trimList,
-        'Select Interior',
-        isPlayingLeaseAnimation,
-      )}
+      <CustomLeaseSelect
+        defaultValue={`${defaultTrim || quoteByCapId?.trim || trim}`}
+        setChanges={setTrim}
+        items={trimList}
+        dataTestId="trim-selector"
+        placeholder="Select Interior:"
+        isDisabled={isPlayingLeaseAnimation}
+        modalElement={sideBarRef.current as HTMLDivElement}
+      />
+
       <Heading tag="span" size="regular" color="black">
         Add Vanarama Service Plan (Our Maintenance Package):
         <Text color="orange" className="-b -ml-100">
@@ -374,7 +349,7 @@ const CustomiseLease = ({
           icon={<Refresh />}
           iconColor="teal"
           iconPosition="before"
-          label="Reset Price"
+          label="Reset best price"
           onClick={handleClickResetTermAndUpfront}
         />
       </div>

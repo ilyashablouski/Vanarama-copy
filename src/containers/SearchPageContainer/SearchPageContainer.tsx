@@ -13,6 +13,7 @@ import { ApolloQueryResult, useApolloClient } from '@apollo/client';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop';
 import Image from 'core/atoms/image';
+import { SwiperSlide } from 'swiper/react';
 import {
   filterOrderByNumMap,
   findPreselectFilterValue,
@@ -101,9 +102,12 @@ const Checkbox = dynamic(() => import('core/atoms/checkbox'), {
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
 });
-const Carousel = dynamic(() => import('core/organisms/carousel'), {
-  loading: () => <Skeleton count={5} />,
-});
+const CarouselSwiper = dynamic(
+  () => import('core/organisms/carousel/CarouselSwiper'),
+  {
+    loading: () => <Skeleton count={5} />,
+  },
+);
 const Card = dynamic(() => import('core/molecules/cards'), {
   loading: () => <Skeleton count={10} />,
 });
@@ -116,7 +120,7 @@ const initialFiltersState = {
   bodyStyles: [],
   transmissions: [],
   fuelTypes: [],
-  make: [],
+  manufacturer: [],
   model: [],
   from: [],
   to: [],
@@ -125,13 +129,13 @@ const initialFiltersState = {
 interface IProps {
   isServer: boolean;
   isCarSearch?: boolean;
-  isMakePage?: boolean;
+  isManufacturerPage?: boolean;
   isSimpleSearchPage?: boolean;
   isSpecialOfferPage?: boolean;
   isPickups?: boolean;
   isRangePage?: boolean;
   isModelPage?: boolean;
-  isAllMakesPage?: boolean;
+  isAllManufacturersPage?: boolean;
   isBodyStylePage?: boolean;
   isTransmissionPage?: boolean;
   isFuelPage?: boolean;
@@ -148,11 +152,11 @@ interface IProps {
   preLoadTopOffersCardsData?: GetProductCard;
   preLoadRanges?: rangeList;
   rangesUrls?: ILegacyUrls[];
-  makesUrls?: ILegacyUrls[];
+  manufacturersUrls?: ILegacyUrls[];
   preLoadManufacturers?: manufacturerList | null;
   preloadBodyStyleList?: IModelsData[];
   preloadRange?: string;
-  preloadMake?: string;
+  preloadManufacturer?: string;
   defaultSort?: SortObject[];
   newRangePageSlug?: string;
 }
@@ -161,12 +165,12 @@ const SearchPageContainer: React.FC<IProps> = ({
   isServer,
   isCarSearch = false,
   isSimpleSearchPage,
-  isMakePage,
+  isManufacturerPage,
   isSpecialOfferPage,
   isPickups,
   isRangePage,
   isModelPage,
-  isAllMakesPage,
+  isAllManufacturersPage,
   isBodyStylePage,
   isTransmissionPage,
   isFuelPage,
@@ -182,9 +186,9 @@ const SearchPageContainer: React.FC<IProps> = ({
   preLoadResponseCapIds,
   preLoadRanges,
   rangesUrls,
-  makesUrls,
+  manufacturersUrls,
   preLoadManufacturers,
-  preloadMake,
+  preloadManufacturer,
   preloadRange,
   preLoadTopOffersList,
   preLoadTopOffersCardsData,
@@ -256,7 +260,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   );
 
   const [totalCount, setTotalCount] = useState(
-    isMakePage
+    isManufacturerPage
       ? preLoadRanges?.rangeList?.length || 0
       : preLoadVehiclesList?.vehicleList?.totalCount || 0,
   );
@@ -335,14 +339,14 @@ const SearchPageContainer: React.FC<IProps> = ({
           setPageData(data);
           setMetaData(data.genericPage.metaData);
           setLastCard('');
-          if (isMakePage || isDynamicFilterPage) {
+          if (isManufacturerPage || isDynamicFilterPage) {
             setShouldUpdateTopOffers(true);
           }
         }
       };
       fetchPageData();
     }
-  }, [router, router.query, client, isMakePage, isDynamicFilterPage]);
+  }, [router, router.query, client, isManufacturerPage, isDynamicFilterPage]);
 
   const [getProductCardData, { loading }] = useProductCardDataLazyQuery(
     capIds,
@@ -412,7 +416,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
   );
 
-  // Ranges list query for make page
+  // Ranges list query for manufacturer page
   const [getRanges, { data: rangesData }] = getRangesList(
     isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
     router.query?.dynamicParam as string,
@@ -422,7 +426,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [getVehicles, { data, fetchMore, called }] = useVehiclesList(
     isCarSearch ? [VehicleTypeEnum.CAR] : [VehicleTypeEnum.LCV],
     isPersonal ? LeaseTypeEnum.PERSONAL : LeaseTypeEnum.BUSINESS,
-    isMakePage || isDynamicFilterPage || isSpecialOfferPage
+    isManufacturerPage || isDynamicFilterPage || isSpecialOfferPage
       ? true
       : isSpecialOffers || null,
     async vehiclesData => {
@@ -479,7 +483,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         if (responseCapIds.length) {
           setVehicleList(vehicles.vehicleList?.edges || []);
           // use range length for manufacture page
-          if (!isMakePage && !isAllMakesPage) {
+          if (!isManufacturerPage && !isAllManufacturersPage) {
             setTotalCount(vehicles.vehicleList.totalCount);
           }
           getProductCardData({
@@ -514,7 +518,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     if (
       !queryLength &&
       getValueFromStorage() &&
-      !isAllMakesPage &&
+      !isAllManufacturersPage &&
       !isSpecialOfferPage &&
       !isDynamicFilterPage &&
       !isRangePage &&
@@ -526,7 +530,13 @@ const SearchPageContainer: React.FC<IProps> = ({
     // disabled lint because we can't add router to deps
     // it's change every url replace
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getVehicles, isCarSearch, isMakePage, getRanges, isSpecialOfferPage]);
+  }, [
+    getVehicles,
+    isCarSearch,
+    isManufacturerPage,
+    getRanges,
+    isSpecialOfferPage,
+  ]);
 
   // prevent case when we navigate use back/forward button and useCallback return empty result list
   useEffect(() => {
@@ -544,7 +554,7 @@ const SearchPageContainer: React.FC<IProps> = ({
   // new search with new filters
   const onSearch = (filtersObject?: IFilters) => {
     const filters = filtersObject || filtersData;
-    if (isMakePage) {
+    if (isManufacturerPage) {
       const filtersForRanges = { ...filters, manufacturerSlug: undefined };
       getRanges({
         variables: {
@@ -557,7 +567,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         },
       });
       // call only manufacturer list query call after select new filter
-    } else if (isAllMakesPage) {
+    } else if (isAllManufacturersPage) {
       getManufacturerList({
         variables: {
           vehicleType: isCarSearch ? VehicleTypeEnum.CAR : VehicleTypeEnum.LCV,
@@ -634,7 +644,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           value?.length &&
           // don't add queries in page where we have same data in route
           !(
-            (isMakePage || isRangePage) &&
+            (isManufacturerPage || isRangePage) &&
             (key === 'make' || key === 'rangeName')
           ) &&
           !(isBodyStylePage && key === 'bodyStyles') &&
@@ -705,16 +715,16 @@ const SearchPageContainer: React.FC<IProps> = ({
 
   // initial set makes
   useEffect(() => {
-    if (manufacturers?.manufacturerList && isAllMakesPage) {
+    if (manufacturers?.manufacturerList && isAllManufacturersPage) {
       setTotalCount(manufacturers?.manufacturerList.length);
     }
-  }, [manufacturers, setTotalCount, isAllMakesPage]);
+  }, [manufacturers, setTotalCount, isAllManufacturersPage]);
 
   useEffect(() => {
-    if (manufatcurersData?.manufacturerList && isAllMakesPage) {
+    if (manufatcurersData?.manufacturerList && isAllManufacturersPage) {
       setManufacturers(manufatcurersData);
     }
-  }, [manufatcurersData, setManufacturers, isAllMakesPage]);
+  }, [manufatcurersData, setManufacturers, isAllManufacturersPage]);
 
   // handler for changing sort dropdown
   const onChangeSortOrder = (value: string) => {
@@ -803,7 +813,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     // don't make a request for cache in manufacture page
     if (
       lastCard &&
-      !isMakePage &&
+      !isManufacturerPage &&
       hasNextPage &&
       shouldUpdateCache &&
       ((isRangePage && filtersData.rangeSlug) ||
@@ -871,7 +881,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     getVehiclesCache,
     isCarSearch,
     isSpecialOffers,
-    isMakePage,
+    isManufacturerPage,
     shouldUpdateCache,
     hasNextPage,
     filtersData,
@@ -929,8 +939,8 @@ const SearchPageContainer: React.FC<IProps> = ({
       };
     }
     const value =
-      ((isMakePage || isRangePage || isModelPage) &&
-        entry[0] === FilterFields.make) ||
+      ((isManufacturerPage || isRangePage || isModelPage) &&
+        entry[0] === FilterFields.manufacturer) ||
       ((isRangePage || isModelPage) && entry[0] === FilterFields.model) ||
       (isFuelPage && entry[0] === FilterFields.fuelTypes) ||
       (isTransmissionPage && entry[0] === FilterFields.transmissions) ||
@@ -943,13 +953,13 @@ const SearchPageContainer: React.FC<IProps> = ({
       ? {
           order: filterOrderByNumMap[entry[0]],
           value:
-            (entry[0] === FilterFields.make ||
+            (entry[0] === FilterFields.manufacturer ||
               entry[0] === FilterFields.model) &&
             value.length
               ? getLabelForSlug(
                   entry[1][0],
                   filtersContainerData,
-                  entry[0] === FilterFields.make,
+                  entry[0] === FilterFields.manufacturer,
                 )
               : value,
         }
@@ -1029,78 +1039,75 @@ const SearchPageContainer: React.FC<IProps> = ({
       {isNewPage && isRangePage ? (
         <>
           <section className="row:featured-left">
-            <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-              <div>
-                <Heading
-                  className="-mb-400"
-                  size="large"
-                  color="black"
-                  tag={
-                    getTitleTag(
-                      getSectionsData(
-                        ['sectionsAsArray', 'featured', '0', 'titleTag'],
-                        pageData?.genericPage,
-                      ) || 'p',
-                    ) as keyof JSX.IntrinsicElements
-                  }
-                >
-                  {getSectionsData(
-                    ['sectionsAsArray', 'featured', '0', 'title'],
-                    pageData?.genericPage,
-                  )}
-                </Heading>
-                <div className="markdown full-width">
-                  <ReactMarkdown
-                    allowDangerousHtml
-                    source={getSectionsData(
-                      ['sectionsAsArray', 'featured', '0', 'body'],
+            <div>
+              <Heading
+                className="-mb-400"
+                size="large"
+                color="black"
+                tag={
+                  getTitleTag(
+                    getSectionsData(
+                      ['sectionsAsArray', 'featured', '0', 'titleTag'],
                       pageData?.genericPage,
-                    )}
-                    renderers={{
-                      link: props => {
-                        const { href, children } = props;
-                        return <RouterLink link={{ href, label: children }} />;
-                      },
-                      heading: props => (
-                        <Text
-                          {...props}
-                          className="large"
-                          color="darked"
-                          tag="h3"
-                        />
-                      ),
-
-                      paragraph: props => (
-                        <Text
-                          {...props}
-                          tag="span"
-                          className="-big"
-                          size="full-width"
-                          color="darked"
-                        />
-                      ),
-                    }}
-                  />
-                </div>
-              </div>
-
-              <Image
-                className="card-image"
-                optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-                src={getSectionsData(
-                  ['sectionsAsArray', 'featured', '0', 'image', 'file', 'url'],
+                    ) || 'p',
+                  ) as keyof JSX.IntrinsicElements
+                }
+              >
+                {getSectionsData(
+                  ['sectionsAsArray', 'featured', '0', 'title'],
                   pageData?.genericPage,
                 )}
-              />
-            </LazyLoadComponent>
+              </Heading>
+              <div className="markdown full-width">
+                <ReactMarkdown
+                  allowDangerousHtml
+                  source={getSectionsData(
+                    ['sectionsAsArray', 'featured', '0', 'body'],
+                    pageData?.genericPage,
+                  )}
+                  renderers={{
+                    link: props => {
+                      const { href, children } = props;
+                      return <RouterLink link={{ href, label: children }} />;
+                    },
+                    heading: props => (
+                      <Text
+                        {...props}
+                        className="large"
+                        color="darked"
+                        tag="h3"
+                      />
+                    ),
+
+                    paragraph: props => (
+                      <Text
+                        {...props}
+                        tag="span"
+                        className="-big"
+                        size="full-width"
+                        color="darked"
+                      />
+                    ),
+                  }}
+                />
+              </div>
+            </div>
+            <Image
+              className="card-image range__featured-image"
+              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+              src={getSectionsData(
+                ['sectionsAsArray', 'featured', '0', 'image', 'file', 'url'],
+                pageData?.genericPage,
+              )}
+            />
           </section>
         </>
       ) : null}
 
-      {isAllMakesPage && topInfoSection && (
+      {isAllManufacturersPage && topInfoSection && (
         <TopInfoBlock topInfoSection={topInfoSection} />
       )}
-      {(isMakePage ||
+      {(isManufacturerPage ||
         isSpecialOfferPage ||
         isRangePage ||
         isDynamicFilterPage) && (
@@ -1108,7 +1115,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           isCarSearch={isCarSearch}
           shouldForceUpdate={shouldUpdateTopOffers}
           setShouldForceUpdate={setShouldUpdateTopOffers}
-          isMakePage={isMakePage || false}
+          isManufacturerPage={isManufacturerPage || false}
           isBodyPage={isBodyStylePage || false}
           isBudgetPage={isBudgetPage || false}
           isTransmissionPage={isTransmissionPage || false}
@@ -1121,16 +1128,16 @@ const SearchPageContainer: React.FC<IProps> = ({
           preLoadVehiclesList={preLoadTopOffersList}
           preloadBodyStyleList={preloadBodyStyleList}
           preLoadProductCardsData={preLoadTopOffersCardsData}
-          preloadMake={preloadMake}
+          preloadManufacturer={preloadManufacturer}
           preloadRange={preloadRange}
         />
       )}
-      {!isMakePage &&
+      {!isManufacturerPage &&
         !isSpecialOfferPage &&
         !isRangePage &&
         !isModelPage &&
         !isDynamicFilterPage &&
-        !isAllMakesPage &&
+        !isAllManufacturersPage &&
         !partnershipActive && (
           <div className="-mv-400 -stretch-left">
             <Checkbox
@@ -1157,12 +1164,12 @@ const SearchPageContainer: React.FC<IProps> = ({
               <SearchPageFilters
                 onSearch={onSearch}
                 isCarSearch={isCarSearch}
-                isMakePage={isMakePage}
+                isManufacturerPage={isManufacturerPage}
                 isRangePage={isRangePage}
                 isPickups={isPickups}
                 preSearchVehicleCount={totalCount}
                 isModelPage={isModelPage}
-                isAllMakesPage={isAllMakesPage}
+                isAllManufacturersPage={isAllManufacturersPage}
                 isBodyPage={isBodyStylePage}
                 isBudgetPage={isBudgetPage}
                 isDynamicFilterPage={isDynamicFilterPage}
@@ -1189,7 +1196,7 @@ const SearchPageContainer: React.FC<IProps> = ({
           <Text color="darker" size="regular" tag="span">
             {`Showing ${totalCount} Results`}
           </Text>
-          {!(isAllMakesPage || isMakePage) && (
+          {!(isAllManufacturersPage || isManufacturerPage) && (
             <SortOrder
               sortValues={sortValues}
               sortOrder={(sortOrder as SortObject[])[0]}
@@ -1199,21 +1206,21 @@ const SearchPageContainer: React.FC<IProps> = ({
           )}
           <div className="row:cards-3col">
             <ResultsContainer
-              isMakePage={isMakePage}
-              isAllMakesPage={isAllMakesPage}
+              isManufacturerPage={isManufacturerPage}
+              isAllManufacturersPage={isAllManufacturersPage}
               ranges={ranges}
               isPersonal={isPersonal}
               rangesUrls={rangesUrls}
               isCarSearch={isCarSearch}
               manufacturers={manufacturers}
-              makesUrls={makesUrls}
+              manufacturersUrls={manufacturersUrls}
               cardsData={cardsData}
               vehiclesList={vehiclesList}
               isModelPage={isModelPage}
               customCTAColor={customCTAColor}
             />
           </div>
-          {!(isMakePage || isAllMakesPage) ? (
+          {!(isManufacturerPage || isAllManufacturersPage) ? (
             <div className="pagination">
               {totalCount > vehiclesList?.length && (
                 <Button
@@ -1335,85 +1342,90 @@ const SearchPageContainer: React.FC<IProps> = ({
                     <Heading size="large" color="black" tag="h3">
                       {carousel.title}
                     </Heading>
-                    <Carousel
+                    <CarouselSwiper
                       countItems={carousel?.cards?.length || 0}
                       className="-col3"
                     >
                       {carousel?.cards.map(
                         (card, index) =>
                           card && (
-                            <Card
-                              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                            <SwiperSlide
                               key={`${card.name}_${index.toString()}`}
-                              className="card__article"
-                              imageSrc={
-                                card?.image?.file?.url ||
-                                `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
-                              }
-                              title={{
-                                title:
-                                  card.link?.legacyUrl || card.link?.url
-                                    ? ''
-                                    : card.title || '',
-                                link: (
-                                  <RouterLink
-                                    link={{
-                                      href:
-                                        card.link?.legacyUrl ||
-                                        card.link?.url ||
-                                        '',
-                                      label: card.title || '',
-                                    }}
-                                    className="card--link"
-                                    classNames={{
-                                      color: 'black',
-                                      size: 'regular',
-                                    }}
-                                  />
-                                ),
-                              }}
                             >
-                              <ReactMarkdown
-                                className="markdown"
-                                allowDangerousHtml
-                                source={card.body || ''}
-                                renderers={{
-                                  link: props => {
-                                    const { href, children } = props;
-                                    return (
-                                      <RouterLink
-                                        link={{ href, label: children }}
-                                        classNames={{ color: 'teal' }}
-                                      />
-                                    );
-                                  },
-                                  heading: props => (
-                                    <Text
-                                      {...props}
-                                      size="lead"
-                                      color="darker"
-                                      tag="h3"
+                              <Card
+                                optimisedHost={
+                                  process.env.IMG_OPTIMISATION_HOST
+                                }
+                                className="card__article"
+                                imageSrc={
+                                  card?.image?.file?.url ||
+                                  `${process.env.HOST_DOMAIN}/vehiclePlaceholder.jpg`
+                                }
+                                title={{
+                                  title:
+                                    card.link?.legacyUrl || card.link?.url
+                                      ? ''
+                                      : card.title || '',
+                                  link: (
+                                    <RouterLink
+                                      link={{
+                                        href:
+                                          card.link?.legacyUrl ||
+                                          card.link?.url ||
+                                          '',
+                                        label: card.title || '',
+                                      }}
+                                      className="card--link"
+                                      classNames={{
+                                        color: 'black',
+                                        size: 'regular',
+                                      }}
                                     />
                                   ),
-                                  paragraph: props => (
-                                    <Text {...props} tag="p" color="darker" />
-                                  ),
                                 }}
-                              />
-                              <RouterLink
-                                link={{
-                                  href:
-                                    card.link?.legacyUrl ||
-                                    card.link?.url ||
-                                    '',
-                                  label: card.link?.text || '',
-                                }}
-                                classNames={{ color: 'teal' }}
-                              />
-                            </Card>
+                              >
+                                <ReactMarkdown
+                                  className="markdown"
+                                  allowDangerousHtml
+                                  source={card.body || ''}
+                                  renderers={{
+                                    link: props => {
+                                      const { href, children } = props;
+                                      return (
+                                        <RouterLink
+                                          link={{ href, label: children }}
+                                          classNames={{ color: 'teal' }}
+                                        />
+                                      );
+                                    },
+                                    heading: props => (
+                                      <Text
+                                        {...props}
+                                        size="lead"
+                                        color="darker"
+                                        tag="h3"
+                                      />
+                                    ),
+                                    paragraph: props => (
+                                      <Text {...props} tag="p" color="darker" />
+                                    ),
+                                  }}
+                                />
+                                <RouterLink
+                                  link={{
+                                    href:
+                                      card.link?.legacyUrl ||
+                                      card.link?.url ||
+                                      '',
+                                    label: card.link?.text || '',
+                                  }}
+                                  classNames={{ color: 'teal' }}
+                                />
+                              </Card>
+                            </SwiperSlide>
                           ),
                       )}
-                    </Carousel>
+                    </CarouselSwiper>
                   </div>
                 </div>
               </LazyLoadComponent>
