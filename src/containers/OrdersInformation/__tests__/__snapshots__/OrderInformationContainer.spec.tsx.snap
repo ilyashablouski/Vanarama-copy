@@ -21,11 +21,21 @@ exports[`<OrderInformationContainer /> renders correctly without data 1`] = `
           My Orders
         </span>
       </div>
-      <span
-        className="text -regular -dark"
+      <div
+        className="loading row-loader -regular"
       >
-        You have (0) orders.
-      </span>
+        <svg
+          className="loading--svg"
+          viewBox="-75 -75 150 150"
+        >
+          <circle
+            className="loading--stroke"
+            cx="0"
+            cy="0"
+            r="37.5"
+          />
+        </svg>
+      </div>
       <a
         className="link -teal"
         data-menu={null}
