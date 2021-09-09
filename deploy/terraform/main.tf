@@ -46,25 +46,6 @@ module "alb_target" {
   route53_zone_ids = [data.terraform_remote_state.grid.outputs.route53_internal_zone_id, data.terraform_remote_state.grid.outputs.route53_zone_id]
 }
 
-module "ecs_service" {
-  source = "git@github.com:Autorama/autorama-infra-modules.git//ecs_service-v2"
-
-  _count = var.include_ecs_service ? 1 : 0
-
-  env   = "${var.env}"
-  stack = "${var.stack}"
-  app   = "${var.app}"
-
-  cluster_arn          = "${data.terraform_remote_state.grid.outputs.cluster_arn}"
-  ecs_service_role_arn = "${data.terraform_remote_state.grid.outputs.ecs_service_role_arn}"
-  ecs_target_group_arn = "${module.alb_target.target_group_arn}"
-
-  task_definition      = "${var.task_definition}"
-
-  container_port  = "8080"
-  container_name  = "${var.app}"
-}
-
 resource "random_id" "secret_key_base" {
   byte_length = 16
 }
