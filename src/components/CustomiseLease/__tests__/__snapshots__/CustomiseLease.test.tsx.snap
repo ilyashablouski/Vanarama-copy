@@ -454,7 +454,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
             />
           </svg>
         </i>
-        Reset Price
+        Reset best price
       </div>
     </button>
   </div>
@@ -1234,7 +1234,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
             />
           </svg>
         </i>
-        Reset Price
+        Reset best price
       </div>
     </button>
   </div>
