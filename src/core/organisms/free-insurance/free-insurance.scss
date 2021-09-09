@@ -8,17 +8,9 @@
   background: #F8BB20;
   padding: 8px 20px 8px 13px;
 
-  @include desktop {
-    grid-column: 2 / span 8;
-  }
-
   @include mobile {
     margin-left: -1rem;
     margin-right: -1rem;
-  }
-
-  @include tablet {
-    grid-column: full / column 7;
   }
 
   &--text {
