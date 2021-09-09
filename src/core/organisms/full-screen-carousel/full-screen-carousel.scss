@@ -39,6 +39,7 @@
     width: 60px;
     height: 60px;
     background: rgba(78, 76, 78, .7);
+    backdrop-filter: blur(2px);
     border-radius: 50%;
     cursor: pointer;
     transition: background 0.2s ease;

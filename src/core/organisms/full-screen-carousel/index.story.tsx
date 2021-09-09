@@ -19,7 +19,9 @@ storiesOf(`${atomicDir(base)}/FullScreenImageCarousel`, module).add(
           alignItems: 'center',
           width: '200px',
           height: '200px',
-          background: 'lightgray',
+          background:
+            'url(https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg)',
+          backgroundPosition: 'center',
         }}
       >
         <button
@@ -31,7 +33,8 @@ storiesOf(`${atomicDir(base)}/FullScreenImageCarousel`, module).add(
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            background: 'rgba(255, 255, 255, .8)',
+            background: 'rgba(255, 255, 255, 0.5)',
+            backdropFilter: 'blur(2px)',
             width: '45px',
             height: '45px',
             borderRadius: '50%',
