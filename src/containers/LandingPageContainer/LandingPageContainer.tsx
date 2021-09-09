@@ -2,6 +2,7 @@ import React, { Fragment, useMemo } from 'react';
 import Heading from 'core/atoms/heading';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop';
 import { buildRenderArray } from './helpers';
 import {
   GenericPageQuery,
@@ -93,6 +94,7 @@ const LandingPageContainer = ({ data, title }: IProps) => {
           <SchemaJSON json={JSON.stringify(metaData.schema)} />
         </>
       )}
+      <ButtonBottomToTop />
     </>
   );
 };
