@@ -349,7 +349,7 @@ const CustomiseLease = ({
           icon={<Refresh />}
           iconColor="teal"
           iconPosition="before"
-          label="Reset best price"
+          label="Reset Best Price"
           onClick={handleClickResetTermAndUpfront}
         />
       </div>

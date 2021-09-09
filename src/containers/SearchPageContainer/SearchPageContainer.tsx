@@ -270,11 +270,17 @@ const SearchPageContainer: React.FC<IProps> = ({
   const [isSpecialOffersOrder, setIsSpecialOffersOrder] = useState(true);
   const [filtersData, setFiltersData] = useState<IFilters>({} as IFilters);
   const [pageOffset, setPageOffset] = useState(0);
+
   const [customCTAColor, setCustomCTAColor] = useState<string | undefined>(
     undefined,
   );
   const [customTextColor, setCustomTextColor] = useState<TColor | string>();
   const [partnershipActive, setPartnershipActive] = useState<boolean>(false);
+  const [pageTitle, setTitle] = useState<string>(metaData?.name || '');
+  const [partnershipDescription, setPartnershipDescription] = useState<string>(
+    '',
+  );
+
   const [prevPosition, setPrevPosition] = useState(0);
 
   useEffect(() => {
@@ -309,6 +315,8 @@ const SearchPageContainer: React.FC<IProps> = ({
       setPartnershipActive(true);
       setCustomCTAColor(partnerActive.color);
       setCustomTextColor(globalColors.white);
+      setPartnershipDescription(partnerActive.searchPageDescription);
+      setTitle(partnerActive.searchPageTitle);
     }
   }, []);
 
@@ -396,10 +404,9 @@ const SearchPageContainer: React.FC<IProps> = ({
     preLoadFiltersData,
   ]);
 
-  const titleWithBreaks = useMemo(
-    () => onMadeLineBreaks(metaData?.name || ''),
-    [metaData],
-  );
+  const titleWithBreaks = useMemo(() => onMadeLineBreaks(pageTitle), [
+    pageTitle,
+  ]);
 
   // listen for any updates to metaDataSSR
   useEffect(() => {
@@ -980,7 +987,7 @@ const SearchPageContainer: React.FC<IProps> = ({
         {isNewPage ? null : (
           <Heading tag="h1" size="xlarge" color="black" className="-mb-300">
             {isDesktopOrTablet
-              ? metaData?.name
+              ? pageTitle
               : titleWithBreaks.map((line, index) => (
                   <React.Fragment key={String(index)}>
                     {line} <br />
@@ -989,7 +996,10 @@ const SearchPageContainer: React.FC<IProps> = ({
           </Heading>
         )}
 
-        <CommonDescriptionContainer pageData={pageData} />
+        <CommonDescriptionContainer
+          pageData={pageData}
+          customDescription={partnershipDescription}
+        />
       </div>
 
       {pageData && (
