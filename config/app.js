@@ -105,6 +105,10 @@ module.exports = {
           source: '/hmc',
           destination: 'https://msf-hmc.vercel.app/hmc',
         },
+        {
+          source: '/hmc/:path*',
+          destination: `https://msf-hmc.vercel.app/hmc/:path*`,
+        },
       ];
 
       if (yn(process.env.LOCAL)) {
