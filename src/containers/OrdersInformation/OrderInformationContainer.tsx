@@ -21,6 +21,9 @@ import {
   saveOrders,
 } from '../LoginFormContainer/LoginFormContainer';
 
+const Loading = dynamic(() => import('core/atoms/loading'), {
+  loading: () => <Skeleton count={1} />,
+});
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
@@ -77,11 +80,15 @@ const OrderInformationContainer: React.FC<IProps> = ({ person }) => {
             title: 'My Orders',
           }}
         >
-          <Text
-            tag="span"
-            size="regular"
-            color="dark"
-          >{`You have (${ordersLength ?? 0}) orders.`}</Text>
+          {typeof ordersLength === 'number' ? (
+            <Text
+              tag="span"
+              size="regular"
+              color="dark"
+            >{`You have (${ordersLength ?? 0}) orders.`}</Text>
+          ) : (
+            <Loading className="row-loader" />
+          )}
           <RouterLink
             classNames={{
               color: 'teal',
