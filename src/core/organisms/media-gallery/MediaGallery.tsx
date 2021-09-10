@@ -112,9 +112,13 @@ function MediaGallery({
           </TabList>
         </Tabs>
       </div>
-      <span className="caveat-text text -small -darker">
-        Photos are for illustration purposes only.
-      </span>
+
+      {activeTab === 0 && (
+        <span className="caveat-text text -small -darker">
+          The trim & wheels are for illustration purposes only. For exact trim
+          see full spec below.
+        </span>
+      )}
     </>
   );
 }
