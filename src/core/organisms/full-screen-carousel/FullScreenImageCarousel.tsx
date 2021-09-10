@@ -6,7 +6,8 @@ import Image from 'core/atoms/image/Image';
 import { IFullScreenCarouselProps } from 'core/organisms/full-screen-carousel/interface';
 import ModalV2 from 'core/molecules/modal-v2';
 import Icon from 'core/atoms/icon';
-import ArrowForwardV2 from 'core/assets/icons/ArrowForwardV2';
+import ChevronBackOutline from 'core/assets/icons/ChevronBackOutline';
+import ChevronForwardOutline from 'core/assets/icons/ChevronForwardOutline';
 
 SwiperCore.use([Navigation, EffectFade]);
 
@@ -17,7 +18,7 @@ function FullScreenImageCarousel({
   setOpenModal,
 }: IFullScreenCarouselProps) {
   return (
-    <ModalV2 open={isOpenModal} onClose={setOpenModal}>
+    <ModalV2 open={isOpenModal} onClose={setOpenModal} color="secondary">
       <div className="full-screen-carousel">
         <Swiper
           centeredSlides
@@ -45,11 +46,11 @@ function FullScreenImageCarousel({
           ))}
 
           <button className="swiper-prev" type="button">
-            <Icon icon={<ArrowForwardV2 />} color="darker" size="regular" />
+            <Icon icon={<ChevronBackOutline />} size="large" />
           </button>
 
           <button className="swiper-next" type="button">
-            <Icon icon={<ArrowForwardV2 />} color="darker" size="regular" />
+            <Icon icon={<ChevronForwardOutline />} size="large" />
           </button>
         </Swiper>
       </div>

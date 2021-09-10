@@ -26,6 +26,7 @@ storiesOf(`${atomicDir(base)}/ModalV2`, module).add('Default', () => {
         onClose={() => {
           setOpen(false);
         }}
+        color="secondary"
       >
         <div
           style={{

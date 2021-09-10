@@ -6,8 +6,11 @@ import CloseSharp from 'core/assets/icons/CloseSharp';
 import { IBaseProps } from 'core/interfaces/base';
 
 import Portal from '../../../components/Portal/Portal';
+import { TColor } from '../../../types/color';
 
 interface IProps extends IBaseProps {
+  color?: TColor;
+  withCloseLabel?: boolean;
   open: boolean;
   disablePortal?: boolean;
   children: React.ReactNode;
@@ -16,6 +19,8 @@ interface IProps extends IBaseProps {
 
 function ModalV2({
   className,
+  color = 'primary',
+  withCloseLabel,
   open,
   disablePortal,
   children,
@@ -36,7 +41,7 @@ function ModalV2({
     <Portal disablePortal={disablePortal}>
       <div
         role="dialog"
-        className={cx('modal-v2', className, {
+        className={cx('modal-v2', className, `-${color}`, {
           '-open': open,
         })}
       >
@@ -46,7 +51,7 @@ function ModalV2({
             icon={<CloseSharp />}
             aria-label="close"
             iconPosition="after"
-            label="Close"
+            label={withCloseLabel && 'Close'}
             fill="clear"
             dataTestId="close"
             color="inherit"

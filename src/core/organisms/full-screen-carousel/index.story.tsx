@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import base from 'paths.macro';
 import { storiesOf } from '@storybook/react';
-
-import Button from 'core/atoms/button';
 import FullScreenIcon from 'core/assets/icons/FullScreenIcon';
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 
@@ -14,15 +12,38 @@ storiesOf(`${atomicDir(base)}/FullScreenImageCarousel`, module).add(
     const [isOpenModal, setOpenModal] = useState(true);
 
     return (
-      <>
-        <Button
-          color="teal"
-          icon={<FullScreenIcon />}
-          iconPosition="after"
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          width: '200px',
+          height: '200px',
+          background:
+            'url(https://res.cloudinary.com/diun8mklf/image/upload/v1581538983/cars/PeugeotRifter0718_7_lqteyc.jpg)',
+          backgroundPosition: 'center',
+        }}
+      >
+        <button
+          type="button"
           onClick={() => {
             setOpenModal(true);
           }}
-        />
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            background: 'rgba(255, 255, 255, 0.8)',
+            backdropFilter: 'blur(2px)',
+            width: '45px',
+            height: '45px',
+            borderRadius: '50%',
+            fontSize: '20px',
+            cursor: 'pointer',
+          }}
+        >
+          <FullScreenIcon />
+        </button>
 
         <div
           style={{
@@ -45,7 +66,7 @@ storiesOf(`${atomicDir(base)}/FullScreenImageCarousel`, module).add(
             setOpenModal={() => setOpenModal(false)}
           />
         </div>
-      </>
+      </div>
     );
   },
 );
