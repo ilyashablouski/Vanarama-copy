@@ -18,7 +18,7 @@ function FullScreenImageCarousel({
   setOpenModal,
 }: IFullScreenCarouselProps) {
   return (
-    <ModalV2 open={isOpenModal} onClose={setOpenModal}>
+    <ModalV2 open={isOpenModal} onClose={setOpenModal} color="secondary">
       <div className="full-screen-carousel">
         <Swiper
           centeredSlides

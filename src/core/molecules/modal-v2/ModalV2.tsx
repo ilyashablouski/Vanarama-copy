@@ -19,7 +19,7 @@ interface IProps extends IBaseProps {
 
 function ModalV2({
   className,
-  color = 'secondary',
+  color = 'primary',
   withCloseLabel,
   open,
   disablePortal,
