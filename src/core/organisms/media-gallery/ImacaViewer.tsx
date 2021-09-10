@@ -5,7 +5,7 @@ import ModalV2 from 'core/molecules/modal-v2';
 import ImacaConfigurator from 'core/molecules/imaca-configurator';
 
 import MoveCarIcon from 'core/assets/icons/MoveCar';
-import FullScreenIcon from 'core/assets/icons/FullScreen';
+import FullScreenIcon from 'core/assets/icons/FullScreenIcon';
 import ColorWheelIcon from 'core/assets/icons/ColorWheel';
 
 function ImacaViewer() {
