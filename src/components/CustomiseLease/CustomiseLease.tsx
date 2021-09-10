@@ -22,7 +22,7 @@ import Skeleton from '../Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import MaintenanceModalContent from '../../containers/DetailsPage/MaintenanceModalContent';
 import CustomLeaseSelect from './CustomLeaseSelect';
-import getPartnerProperties from '../../../src/utils/partnerProperties';
+import getPartnerProperties from '../../utils/partnerProperties';
 
 const InformationCircle = dynamic(
   () => import('core/assets/icons/InformationCircle'),
