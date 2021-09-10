@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import React, { FC, memo } from 'react';
 
 const MediaRotate: FC = memo(() => (
   <svg width="40" height="40" viewBox="0 0 40 40" fill="currentColor">
