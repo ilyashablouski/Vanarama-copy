@@ -16,11 +16,15 @@ function ChoiceBoxesV2({
   disabled,
   idPrefix = '',
   renderValuesFunction,
+  customCTAColor,
 }: IChoiceBoxesV2Props) {
   const type = multiSelect ? 'checkbox' : 'radio';
   const resultSelectedValues = useMemo(() => selectedValues ?? [], [
     selectedValues,
   ]);
+  const customStyles = {
+    backgroundColor: customCTAColor,
+  };
 
   function handleSelectChange(value: string | number, checked: boolean) {
     onChange(checked ? [value] : []);
@@ -69,6 +73,7 @@ function ChoiceBoxesV2({
               className={cx('choice-box', boxClassName, {
                 '-active': checked,
               })}
+              style={customCTAColor && checked ? customStyles : undefined}
             >
               <span className={cx('choice-label', labelClassName)}>
                 {renderValuesFunction ? renderValuesFunction(value) : value}
