@@ -90,7 +90,7 @@ function ImacaViewer() {
         </div>
       </div>
       {isFullScreen && (
-        <ModalV2 open onClose={handleFullScreenClick}>
+        <ModalV2 open onClose={handleFullScreenClick} color="secondary">
           <div className="imaca-viewer--fullscreen">
             <ImacaConfigurator
               id="fs-viewer"
