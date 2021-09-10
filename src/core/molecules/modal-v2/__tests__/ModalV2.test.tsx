@@ -26,7 +26,7 @@ describe('<Modal />', () => {
     // ASSERT
     expect(screen.getByRole('dialog')).toHaveAttribute(
       'class',
-      'modal-v2 -secondary -open',
+      'modal-v2 -primary -open',
     );
   });
 
