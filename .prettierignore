@@ -1,6 +1,9 @@
 # dependencies
 /node_modules
 
+# libs
+/lib
+
 # testing
 /coverage
 
