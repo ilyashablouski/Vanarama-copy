@@ -10,6 +10,10 @@
       margin-top: 0;
     }
   }
+}
+
+.image-carousel {
+  position: relative;
 
   .swiper-slide {
     .image {
@@ -106,83 +110,126 @@
   }
 }
 
-.color-selector {
-  display: flex;
-  justify-content: flex-end;
-  align-items: center;
-  height: 2.5rem;
-  max-height: 2.5rem;
-  margin-top: -2.5rem;
-  background: $white;
-  width: max-content;
+.imaca-viewer {
   position: relative;
-  top: -1rem;
-  z-index: 97;
-  border-top-right-radius: $border-radius-medium;
-  border-bottom-right-radius: $border-radius-medium;
 
-  &:hover &--swatches {
-    position: static;
-    opacity: 1;
-    pointer-events: initial;
-  }
+  &__inner {
+    background: $white;
 
-  &:hover &--wheel {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  &:hover .icon {
-    position: absolute;
-    opacity: 0;
-    pointer-events: none;
-  }
-
-  > :not(.icon) {
-    left: 0;
-    transition: opacity 250ms cubic-bezier(0.17, 0.17, 0, 1);
-    margin-left: 1rem;
-  }
-
-  &--swatches {
-    position: absolute;
-    display: grid;
-    grid-auto-flow: column;
-    grid-auto-columns: 1.75rem;
-    gap: .25rem;
-    opacity: 0;
-    pointer-events: none;
-    padding-right: 1rem;
-
-    > * {
-      cursor: pointer;
-      height: 1.75rem;
-      width: 1.75rem;
-      border-radius: $border-radius-round;
-      background-color: var(--c);
-      transition: filter 150ms cubic-bezier(0.17, 0.17, 0, 1);
-      filter: brightness(1) saturate(1);
-
-      &:hover,
-      &:focus {
-        filter: contrast(0.375) saturate(1.375);
-      }
+    @include mobile {
+      position: relative;
     }
   }
 
-  &--wheel {
-    height: 1.75rem;
-    width: 1.75rem;
-    background: url('https://upload.wikimedia.org/wikipedia/commons/3/38/BYR_color_wheel.svg');
-    background-position: center;
-    background-size: 1.75rem 1.75rem;
-    filter: contrast(0.75) brightness(1.125) contrast(1.125) saturate(1.125);
-    opacity: 1;
-    pointer-events: initial;
+  &__hint {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    border-radius: 8px;
+    font-size: $font-size-400;
+    font-weight: $font-weight-medium;
+    color: $white;
+    background: rgba(0, 0, 0, .5);
+    pointer-events: none;
+
+    .icon {
+      margin-right: 10px;
+    }
   }
 
-  @include mobile {
-    @include margin-inline(-$rem-400)
+  &__controls {
+    position: absolute;
+    left: 20px;
+    right: 20px;
+    bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-left: 20px;
+    pointer-events: none;
+    z-index: 1;
+
+    @include tablet {
+      left: 15px;
+      right: 15px;
+      bottom: 15px;
+      padding-left: 15px;
+    }
+
+    @include mobile {
+      position: static;
+      margin-top: 0;
+      padding: 9px 15px;
+      border-top: 1px solid darken($medium, 10%);
+      background: $white;
+    }
   }
+
+  &__colours-toggle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: $font-size-400;
+    font-weight: $font-weight-black;
+    color: $darker;
+    pointer-events: auto;
+    cursor: pointer;
+
+    .icon {
+      margin-right: 10px;
+    }
+  }
+
+  &__fullscreen-toggle {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: $white;
+    pointer-events: auto;
+    cursor: pointer;
+
+    .icon {
+      --class-fs: #{$font-size-500};
+    }
+
+    @include mobile {
+      width: 38px;
+      height: 38px;
+    }
+  }
+
+  &__icon {
+    display: inline-flex;
+    height: auto;
+  }
+
+  &--fullscreen {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100%;
+
+    @include desktop {
+      padding: 0 3rem;
+    }
+
+    .imaca-viewer {
+      &__viewer {
+        width: 1366px;
+        background: $white;
+      }
+    }
+  }
+}
+
+.imaca-viewer-placeholder {
+  padding-bottom: 56.25%;
+  background: $white;
 }

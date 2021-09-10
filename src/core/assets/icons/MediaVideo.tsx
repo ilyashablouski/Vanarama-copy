@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import React, { FC, memo } from 'react';
 
 const MediaVideo: FC = memo(() => (
   <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
