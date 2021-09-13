@@ -162,7 +162,7 @@ const HeaderContainer: FC = () => {
     const partnerDetails = getPartnerProperties();
     const path = window?.location?.pathname;
     const pathname = path.split('/').pop();
-    if (partnerDetails) {
+    if (partnerDetails && pathname) {
       const partnerName = partnerDetails?.slug;
       setPartnership(partnerName || null);
       setPartnershipHomeLink(`/partnerships/${partnerName?.toLowerCase()}`);
