@@ -14,4 +14,5 @@ export interface IChoiceBoxesV2Props extends IBaseProps {
   onChange: (values: Array<string | number>) => void;
   idPrefix?: string;
   renderValuesFunction?: (value: string | number) => string;
+  customCTAColor?: string;
 }
