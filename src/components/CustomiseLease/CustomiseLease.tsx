@@ -22,6 +22,7 @@ import Skeleton from '../Skeleton';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import MaintenanceModalContent from '../../containers/DetailsPage/MaintenanceModalContent';
 import CustomLeaseSelect from './CustomLeaseSelect';
+import { getPartnerProperties } from '../../utils/partnerProperties';
 
 const InformationCircle = dynamic(
   () => import('core/assets/icons/InformationCircle'),
@@ -70,6 +71,7 @@ const choices = (
   heading: string,
   isDisabled: boolean,
   selectedValue?: string,
+  customCTA?: string,
   displayedValue?: string,
   icon?: JSX.Element,
 ) => (
@@ -95,6 +97,7 @@ const choices = (
       onChange={([newSelectedValue]) =>
         setChoice((newSelectedValue as string).toUpperCase() as LeaseTypeEnum)
       }
+      customCTAColor={customCTA}
     />
   </>
 );
@@ -151,6 +154,7 @@ const CustomiseLease = ({
   );
   const [defaultColor, setDefaultColor]: any = useState(null);
   const [defaultTrim, setDefaultTrim]: any = useState(null);
+  const [customCTA, setCustomCTA] = useState<string | null>(null);
 
   const quoteByCapId = data?.quoteByCapId;
 
@@ -192,6 +196,13 @@ const CustomiseLease = ({
       setInitialPayment(initialRental);
     }
   }, [quoteByCapId, maintenance]);
+
+  useEffect(() => {
+    const partner = getPartnerProperties();
+    if (partner?.color) {
+      setCustomCTA(partner.color);
+    }
+  }, []);
 
   const isMobile = useMobileViewport();
   const stateVAT = leaseType === LeaseTypeEnum.PERSONAL ? 'inc' : 'exc';
@@ -240,6 +251,7 @@ const CustomiseLease = ({
         'Is this for you, or for your business?',
         isPlayingLeaseAnimation,
         leaseType,
+        customCTA || 'null',
       )}
       <Heading tag="span" size="regular" color="black">
         How many miles will you be driving a year?
@@ -264,6 +276,7 @@ const CustomiseLease = ({
         'How long do you want your vehicle for?',
         isPlayingLeaseAnimation,
         term?.toString(),
+        customCTA || 'null',
         `${quoteByCapId?.term} Months - ${(quoteByCapId?.term as number) /
           12} Years`,
       )}
@@ -274,6 +287,7 @@ const CustomiseLease = ({
         'How much do you want to pay upfront?',
         isPlayingLeaseAnimation,
         upfront?.toString(),
+        customCTA || 'null',
         `${quoteByCapId?.upfront} Months - £${toPriceFormat(
           initialPayment,
         )} ${stateVAT}. VAT`,
