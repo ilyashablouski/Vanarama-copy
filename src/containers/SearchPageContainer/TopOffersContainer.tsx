@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
-import cx from 'classnames';
 import { useRouter } from 'next/router';
 import { SwiperSlide } from 'swiper/react';
 import { useProductCardDataLazyQuery } from '../CustomerAlsoViewedContainer/gql';
@@ -23,6 +22,7 @@ import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
 import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from './helpers';
 import { getLegacyUrl } from '../../utils/url';
+import useMediaQuery from '../../hooks/useMediaQuery';
 import Skeleton from '../../components/Skeleton';
 import VehicleCard from '../../components/VehicleCard';
 import ModelCard from './ModelCard';
@@ -58,6 +58,8 @@ interface IProps {
   setShouldForceUpdate: (value: boolean) => void;
 }
 
+const SLIDES_PER_VIEW = 3;
+
 const TopOffersContainer: React.FC<IProps> = ({
   isCarSearch,
   isManufacturerPage,
@@ -79,6 +81,8 @@ const TopOffersContainer: React.FC<IProps> = ({
   setShouldForceUpdate,
 }: IProps) => {
   const router = useRouter();
+
+  const isDesktopLayout = useMediaQuery('(min-width: 1216px)');
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),
@@ -237,6 +241,10 @@ const TopOffersContainer: React.FC<IProps> = ({
     </SwiperSlide>
   );
 
+  const sliderDisableNavigation =
+    vehiclesList.length <= SLIDES_PER_VIEW && isDesktopLayout;
+  const sliderLoop = vehiclesList.length > SLIDES_PER_VIEW;
+
   return (
     <>
       {((isManufacturerPage && vehiclesList.length > 3 && !!carDer.length) ||
@@ -245,29 +253,21 @@ const TopOffersContainer: React.FC<IProps> = ({
           !!vehiclesList.length &&
           !!carDer.length)) && (
         <div className="row:bg-lighter">
-          <div
-            className={cx({
-              'row:carousel': vehiclesList.length > 3,
-              'row:cards-3col': vehiclesList.length === 3,
-            })}
-          >
+          <div className="row:carousel">
             <Heading size="large" color="black" tag="h3">
               Hot Offers
             </Heading>
-            {vehiclesList.length === 3 ? (
-              vehiclesList.map((vehicle: IVehicles, index: number) =>
+            <CarouselSwiper
+              watchOverflow
+              loop={sliderLoop}
+              countItems={vehiclesList.length}
+              disableNavigation={sliderDisableNavigation}
+              className="-mh-auto top-offers"
+            >
+              {vehiclesList.map((vehicle: IVehicles, index: number) =>
                 renderVehicleCard(vehicle, index),
-              )
-            ) : (
-              <CarouselSwiper
-                className="-mh-auto top-offers"
-                countItems={vehiclesList.length || 0}
-              >
-                {vehiclesList.map((vehicle: IVehicles, index: number) =>
-                  renderVehicleCard(vehicle, index),
-                )}
-              </CarouselSwiper>
-            )}
+              )}
+            </CarouselSwiper>
           </div>
         </div>
       )}

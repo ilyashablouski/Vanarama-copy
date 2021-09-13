@@ -75,6 +75,10 @@ $carousel-arrow-size: 1.5rem;
     align-items: center;
     margin-top: $carousel-gap;
 
+    &.-disabled {
+      display: none;
+    }
+
     > * + * {
       margin-left: 1rem;
     }
@@ -221,13 +225,14 @@ $carousel-arrow-size: 1.5rem;
   }
 
   .swiper-slide {
-    padding: 0 10px;
+    padding: 0 9px;
     display: flex;
     flex: 1 0 33.33%;
     max-width: 33.33%;
     width: 100%;
     height: auto;
     box-sizing: border-box;
+
     @include tablet {
       flex: 1 0 50%;
       max-width: 50%;
@@ -241,6 +246,7 @@ $carousel-arrow-size: 1.5rem;
   .swiper-pagination {
     margin: 0;
     display: flex;
+
     @include mobile {
       display: none;
     }

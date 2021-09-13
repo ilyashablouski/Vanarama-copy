@@ -10,12 +10,20 @@ import ArrowForwardSharp from 'core/assets/icons/ArrowForwardSharp';
 
 SwiperCore.use([Navigation, Pagination]);
 
-function CarouselSwiper({ countItems, className, children }: ICarouselProps) {
+function CarouselSwiper({
+  loop,
+  countItems,
+  watchOverflow,
+  disableNavigation,
+  className,
+  children,
+}: ICarouselProps) {
   return (
     <div className={cx('carousel', className)}>
       <Swiper
         slidesPerView="auto"
-        loop={countItems > 1}
+        loop={loop ?? countItems > 1}
+        watchOverflow={watchOverflow}
         navigation={{
           prevEl: `.swiper-prev`,
           nextEl: `.swiper-next`,
@@ -28,8 +36,11 @@ function CarouselSwiper({ countItems, className, children }: ICarouselProps) {
         noSwipingSelector="input, select, option, textarea, button, video, label"
       >
         {children}
-
-        <div className="carousel--nav">
+        <div
+          className={cx('carousel--nav', {
+            '-disabled': disableNavigation,
+          })}
+        >
           <button className="carousel--nav-arrow swiper-prev" type="button">
             <Icon icon={<ArrowBackSharp />} color="darker" size="regular" />
           </button>
