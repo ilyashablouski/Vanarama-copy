@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useMemo, useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import base from 'paths.macro';
 import { storiesOf } from '@storybook/react';
 import {
