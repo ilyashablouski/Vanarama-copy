@@ -241,9 +241,9 @@ const TopOffersContainer: React.FC<IProps> = ({
     </SwiperSlide>
   );
 
-  const sliderDisableNavigation =
+  const carouselDisableNavigation =
     vehiclesList.length <= SLIDES_PER_VIEW && isDesktopLayout;
-  const sliderLoop = vehiclesList.length > SLIDES_PER_VIEW;
+  const carouselLoop = vehiclesList.length > SLIDES_PER_VIEW;
 
   return (
     <>
@@ -259,9 +259,9 @@ const TopOffersContainer: React.FC<IProps> = ({
             </Heading>
             <CarouselSwiper
               watchOverflow
-              loop={sliderLoop}
+              loop={carouselLoop}
               countItems={vehiclesList.length}
-              disableNavigation={sliderDisableNavigation}
+              disableNavigation={carouselDisableNavigation}
               className="-mh-auto top-offers"
             >
               {vehiclesList.map((vehicle: IVehicles, index: number) =>
