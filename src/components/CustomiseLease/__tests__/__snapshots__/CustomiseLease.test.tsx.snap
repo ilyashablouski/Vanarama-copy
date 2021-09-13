@@ -218,6 +218,11 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     <label
       className="choice-box -active"
       htmlFor="1"
+      style={
+        Object {
+          "backgroundColor": "null",
+        }
+      }
     >
       <span
         className="choice-label"
@@ -998,6 +1003,11 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     <label
       className="choice-box -active"
       htmlFor="1"
+      style={
+        Object {
+          "backgroundColor": "null",
+        }
+      }
     >
       <span
         className="choice-label"
