@@ -550,23 +550,25 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
         {/* eslint-disable-next-line react/no-danger */}
         <style dangerouslySetInnerHTML={{ __html: decode(css) }} />
       </NextHead>
-      <PartnershipLogoHeader />
-      {isFreeInsurance && (
-        <div className="pdp-free-insurance-banner">
-          <Text
-            tag="span"
-            color="black"
-            className="pdp-free-insurance-banner--text"
-          >
-            1 Year&apos;s FREE Insurance
-          </Text>
-          <RouterLink
-            link={INSURANCE_LINK}
-            classNames={{ color: 'black', size: 'regular' }}
-            className="pdp-free-insurance-banner--link"
-          />
-        </div>
-      )}
+      <div className="pdp--promo">
+        <PartnershipLogoHeader />
+        {isFreeInsurance && (
+          <div className="pdp-free-insurance-banner">
+            <Text
+              tag="span"
+              color="black"
+              className="pdp-free-insurance-banner--text"
+            >
+              1 Year&apos;s FREE Insurance
+            </Text>
+            <RouterLink
+              link={INSURANCE_LINK}
+              classNames={{ color: 'black', size: 'regular' }}
+              className="pdp-free-insurance-banner--link"
+            />
+          </div>
+        )}
+      </div>
       <div className="pdp--content" ref={pdpContent}>
         {breadcrumbItems && (
           <div className="row:title">
