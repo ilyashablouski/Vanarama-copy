@@ -77,6 +77,8 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   trimData,
   colourData,
   mileage,
+  colour,
+  setColour,
   setMileage,
   pickups,
   isShowFreeInsuranceMerch,
@@ -90,22 +92,20 @@ const CustomiseLeaseContainer: React.FC<IProps> = ({
   const [upfront, setUpfront] = useState<number | null>(
     quote?.quoteByCapId?.upfront || null,
   );
-  const [colour, setColour] = useState<number | null>(
-    parseQuoteParams(quote?.quoteByCapId?.colour),
-  );
   const [term, setTerm] = useState<number | null>(
     quote?.quoteByCapId?.term || null,
   );
-
   const [trim, setTrim] = useState<number | null>(
     parseQuoteParams(quote?.quoteByCapId?.trim),
   );
+
   const [trimList, setTrimList] = useState<(ITrimList | null)[] | null>(
     trimData,
   );
   const [colourList, setColourList] = useState<(IColourList | null)[] | null>(
     colourData,
   );
+
   const [maintenance, setMaintenance] = useState<boolean | null>(null);
   const [isModalShowing, setIsModalShowing] = useState<boolean>(false);
   const [isInitPayModalShowing, setIsInitPayModalShowing] = useState<boolean>(

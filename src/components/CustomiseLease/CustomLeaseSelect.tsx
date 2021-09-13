@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import CustomSelectInput from 'core/molecules/custom-mobile-select/CustomSelectInput';
 import Radio from 'core/atoms/radio';
 import CustomSelect from 'core/atoms/custom-select';
@@ -6,12 +6,13 @@ import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
 } from '../../../generated/GetTrimAndColor';
+import { Nullish } from '../../types/common';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 
 interface IProps {
   defaultValue: string;
   setChanges: Dispatch<SetStateAction<number | null>>;
-  items: (ITrimList | IColourList | null)[] | undefined | null;
+  items: Nullish<(ITrimList | IColourList | null)[]>;
   placeholder: string;
   isDisabled: boolean;
   modalElement: HTMLDivElement;
@@ -30,18 +31,29 @@ const CustomLeaseSelect = ({
   const [tempValue, setTempValue] = useState<string>(defaultValue);
   const isDesktop = !useMobileViewport();
 
+  const label = useMemo(
+    () =>
+      items?.find(item => `${item?.optionId}` === defaultValue)?.label ??
+      placeholder,
+    [items, defaultValue, placeholder],
+  );
+  const selectedValue = useMemo(
+    () =>
+      items?.find(item => `${item?.optionId}` === defaultValue)
+        ? defaultValue
+        : '',
+    [items, defaultValue],
+  );
+
   return (
     <>
       {isDesktop ? (
         <CustomSelect
+          label={label}
           dataTestId={dataTestId}
           radioName={placeholder}
           isDisabled={isDisabled}
-          defaultValue={
-            items?.some(item => `${item?.optionId}` === defaultValue)
-              ? defaultValue
-              : ''
-          }
+          selectedValue={selectedValue}
           placeholder={placeholder}
           className="-fullwidth"
           onChange={option => {
@@ -52,10 +64,7 @@ const CustomLeaseSelect = ({
       ) : (
         <CustomSelectInput
           dataTestId={dataTestId}
-          label={
-            items?.find(item => `${item?.optionId}` === defaultValue)?.label ||
-            ''
-          }
+          label={label}
           title={placeholder}
           disabled={isDisabled}
           modalElement={modalElement}

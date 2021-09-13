@@ -1,4 +1,4 @@
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { Dispatch, SetStateAction, useMemo, useState } from 'react';
 import base from 'paths.macro';
 import { storiesOf } from '@storybook/react';
 import {
@@ -21,7 +21,11 @@ storiesOf(`${atomicDir(base)}/CustomSelect`, module).add('Default', () => {
     <CustomSelect
       radioName={key}
       isDisabled={isDisabled}
-      defaultValue={
+      label={
+        items?.find(item => `${item?.optionId}` === defaultValue)?.label ??
+        placeholder
+      }
+      selectedValue={
         items?.some(item => `${item?.optionId}` === defaultValue)
           ? defaultValue
           : ''

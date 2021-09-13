@@ -123,6 +123,7 @@ const CustomiseLease = ({
   isModalShowing,
   setIsModalShowing,
   trim,
+  colour,
   mileage,
   isPlayingLeaseAnimation,
   setIsPlayingLeaseAnimation,
@@ -149,8 +150,6 @@ const CustomiseLease = ({
   const [defaultMileageIndex, setDefaultMileageIndex] = useState(
     mileages.indexOf(mileage || 0) + 1,
   );
-  const [defaultColor, setDefaultColor]: any = useState(null);
-  const [defaultTrim, setDefaultTrim]: any = useState(null);
 
   const quoteByCapId = data?.quoteByCapId;
 
@@ -163,17 +162,15 @@ const CustomiseLease = ({
       if (leaseSettings && leaseSettings.capId === capId) {
         setIsRestoreLeaseSettings(true);
         setMaintenance(leaseSettings.maintenance);
-        setDefaultMileageIndex(leaseSettings.mileageValue);
-        setMileage(leaseSettings.mileage);
         setTerm(leaseSettings.term);
         setUpfront(leaseSettings.upfront);
+        setDefaultMileageIndex(leaseSettings.mileageValue);
+        setMileage(leaseSettings.mileage);
 
         if (leaseSettings.colour) {
-          setDefaultColor(leaseSettings.colour);
           setColour(+leaseSettings.colour);
         }
         if (leaseSettings.trim) {
-          setDefaultTrim(leaseSettings.trim);
           setTrim(+leaseSettings.trim);
         }
       }
@@ -293,7 +290,7 @@ const CustomiseLease = ({
         )}
       </Heading>
       <CustomLeaseSelect
-        defaultValue={`${defaultColor || quoteByCapId?.colour}`}
+        defaultValue={`${colour}`}
         setChanges={setColour}
         items={colourList}
         dataTestId="colour-selector"
@@ -303,7 +300,7 @@ const CustomiseLease = ({
       />
 
       <CustomLeaseSelect
-        defaultValue={`${defaultTrim || quoteByCapId?.trim || trim}`}
+        defaultValue={`${trim}`}
         setChanges={setTrim}
         items={trimList}
         dataTestId="trim-selector"

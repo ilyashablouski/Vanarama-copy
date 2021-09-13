@@ -64,6 +64,7 @@ import {
   GetPdpContent_pdpContent_content_questionAnswers,
 } from '../../../generated/GetPdpContent';
 import { buildAccordionItems } from './helpers';
+import { Nullable } from '../../types/common';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
 const Text = dynamic(() => import('core/atoms/text'));
@@ -145,6 +146,9 @@ interface IDetailsPageProps {
   pdpContent: IGetPdpContentQuery | null;
 }
 
+const parseQuoteParams = (param?: string | null) =>
+  parseInt(param || '', 10) || null;
+
 const DetailsPage: React.FC<IDetailsPageProps> = ({
   capId,
   cars,
@@ -176,9 +180,13 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [orderInputObject, setOrderInputObject] = useState<OrderInputObject>();
   const [isPlayingLeaseAnimation, setIsPlayingLeaseAnimation] = useState(false);
   const [firstTimePushDataLayer, setFirstTimePushDataLayer] = useState(true);
-  const [screenY, setScreenY] = useState<number | null>(null);
-  const [mileage, setMileage] = useState<number | null>(
+  const [screenY, setScreenY] = useState<Nullable<number>>(null);
+  const [mileage, setMileage] = useState<Nullable<number>>(
     quote?.quoteByCapId?.mileage || null,
+  );
+
+  const [colour, setColour] = useState<Nullable<number>>(
+    parseQuoteParams(quote?.quoteByCapId?.colour),
   );
 
   const accordionQAData = useMemo(
@@ -195,10 +203,9 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     setCachedLeaseType(leaseType);
   }, [leaseType, setCachedLeaseType]);
 
-  const [
-    leaseScannerData,
-    setLeaseScannerData,
-  ] = useState<null | ILeaseScannerData>(null);
+  const [leaseScannerData, setLeaseScannerData] = useState<
+    Nullable<ILeaseScannerData>
+  >(null);
   const isMobile = useMobileViewport();
 
   const scrollChange = () => {
@@ -617,6 +624,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           videoIframe
           imageAltText={metaTitle}
           className="pdp--media-gallery"
+          colour={colour}
+          setColour={setColour}
         />
         {(isElectric || isFreeInsurance) && (
           <div className="extras pdp">
@@ -718,6 +727,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             onCompleted={values => onSubmitClick(values)}
             mileage={mileage}
             setMileage={setMileage}
+            colour={colour}
+            setColour={setColour}
             pickups={pickups}
             roadsideAssistance={vehicleDetails?.roadsideAssistance}
             warrantyDetails={warrantyDetails}
@@ -777,6 +788,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           onCompleted={values => onSubmitClick(values)}
           mileage={mileage}
           setMileage={setMileage}
+          colour={colour}
+          setColour={setColour}
           pickups={pickups}
           roadsideAssistance={vehicleDetails?.roadsideAssistance}
           warrantyDetails={warrantyDetails}

@@ -17,6 +17,7 @@ import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
 } from '../../../generated/GetTrimAndColor';
+import { Nullable } from '../../types/common';
 
 export interface ILeaseScannerData {
   maintenance: boolean | null;
@@ -48,6 +49,8 @@ export interface IProps {
   quote?: GetQuoteDetails;
   trimData: ITrimList[];
   colourData: IColourList[];
+  colour: Nullable<number>;
+  setColour: React.Dispatch<React.SetStateAction<number | null>>;
   mileage: number | null;
   setMileage: React.Dispatch<React.SetStateAction<number | null>>;
   pickups?: boolean;

@@ -11,7 +11,8 @@ interface SelectOptionList {
 }
 
 interface CustomSelectInterface {
-  defaultValue: string;
+  label: string;
+  selectedValue: string;
   placeholder: string;
   isDisabled: boolean;
   optionList: (SelectOptionList | null)[] | null | undefined;
@@ -23,7 +24,8 @@ interface CustomSelectInterface {
 }
 
 const CustomNewSelect: React.FC<CustomSelectInterface> = ({
-  defaultValue,
+  label,
+  selectedValue,
   isDisabled,
   placeholder,
   optionList,
@@ -37,15 +39,13 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
 
   const [showOptionList, setShowOptionList] = useState<boolean>(false);
 
-  const [defaultText, setDefaultText] = useState<string>('');
-
   const handleListDisplay = () => {
     if (!isDisabled) {
       setShowOptionList(!showOptionList);
     }
   };
 
-  function handleClickOutside(event: MouseEvent) {
+  const handleClickOutside = (event: MouseEvent) => {
     if (
       wrapperRef.current &&
       event.target instanceof Element &&
@@ -53,23 +53,14 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
     ) {
       setShowOptionList(false);
     }
-  }
+  };
 
   useEffect(() => {
     document.addEventListener('mousedown', handleClickOutside);
-    let selectedOption: SelectOptionList | null | undefined;
-    if (optionList) {
-      selectedOption = optionList.find((item: SelectOptionList | null) =>
-        item ? `${item.optionId}` === defaultValue : false,
-      );
-    }
-    setDefaultText(selectedOption ? `${selectedOption.label}` : placeholder);
-
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
   const handleOptionClick = (event: React.MouseEvent<HTMLElement>) => {
-    setDefaultText(event.currentTarget.getAttribute('data-name') || '');
     onChange((event as unknown) as React.ChangeEvent<HTMLSelectElement>);
     setShowOptionList(false);
   };
@@ -92,7 +83,7 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
         {!showOptionList && (
           <div className="placeholder-top">{placeholder}</div>
         )}
-        {showOptionList ? placeholder : defaultText}
+        {showOptionList ? placeholder : label}
       </div>
 
       {showOptionList && (
@@ -114,7 +105,7 @@ const CustomNewSelect: React.FC<CustomSelectInterface> = ({
                     value={`${option?.optionId ?? 0}`}
                     onChange={() => {}}
                     checked={
-                      option ? defaultValue === `${option.optionId}` : false
+                      option ? selectedValue === `${option.optionId}` : false
                     }
                     disabled={isDisabled}
                   />
