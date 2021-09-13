@@ -712,7 +712,9 @@ export interface PersonV2InputObject {
 
 export interface ProductDerivativeFilter {
   manufacturerName?: string | null;
+  manufacturerNames?: (string | null)[] | null;
   rangeName?: string | null;
+  rangeNames?: (string | null)[] | null;
   modelName?: string | null;
   bodyStyles?: (string | null)[] | null;
   transmissions?: (string | null)[] | null;
@@ -725,7 +727,7 @@ export interface ProductDerivativeFilter {
   noOfGears?: (number | null)[] | null;
   engineSize?: MinMax | null;
   engineSizeGroup?: (string | null)[] | null;
-  mpg?: number | null;
+  mpgCombined?: number | null;
   mpgGroup?: string | null;
   terms?: (number | null)[] | null;
   mileages?: (number | null)[] | null;
