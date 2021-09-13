@@ -142,6 +142,7 @@ export const GET_CARDS_DATA = gql`
       imageUrl
       vehicleType
       personalRate
+      businessRate
       keyInformation {
         name
         value
@@ -300,10 +301,14 @@ export function useGlobalSearch(query?: string) {
                   (vehicleData.vehicleType as VehicleTypeEnum) ??
                     VehicleTypeEnum.CAR,
                 );
+                const price =
+                  vehicleData.vehicleType === VehicleTypeEnum.CAR
+                    ? vehicleCard?.personalRate
+                    : vehicleCard?.businessRate;
 
                 return {
                   ...vehicleData,
-                  rental: vehicleCard?.personalRate ?? null,
+                  rental: price ?? null,
                 };
               }),
             };

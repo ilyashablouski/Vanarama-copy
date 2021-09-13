@@ -20,6 +20,7 @@ export interface GlobalSearchCardsData_productCard {
   imageUrl: string | null;
   vehicleType: VehicleTypeEnum | null;
   personalRate: number | null;
+  businessRate: number | null;
   keyInformation: (GlobalSearchCardsData_productCard_keyInformation | null)[] | null;
 }
 
