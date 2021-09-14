@@ -5,7 +5,7 @@ import ModalV2 from 'core/molecules/modal-v2';
 import ImacaConfigurator from 'core/molecules/imaca-configurator';
 
 import MoveCarIcon from 'core/assets/icons/MoveCar';
-import FullScreenIcon from 'core/assets/icons/FullScreen';
+import FullScreenIcon from 'core/assets/icons/FullScreenIcon';
 import ColorWheelIcon from 'core/assets/icons/ColorWheel';
 
 function ImacaViewer() {
@@ -77,11 +77,11 @@ function ImacaViewer() {
           </button>
           <button
             type="button"
-            className="imaca-viewer__fullscreen-toggle"
+            className="fullscreen-toggle"
             onClick={handleFullScreenClick}
           >
             <Icon
-              className="imaca-viewer__icon"
+              className="fullscreen-toggle__icon"
               icon={<FullScreenIcon />}
               color="dark"
               size="lead"
@@ -90,7 +90,7 @@ function ImacaViewer() {
         </div>
       </div>
       {isFullScreen && (
-        <ModalV2 open onClose={handleFullScreenClick}>
+        <ModalV2 open onClose={handleFullScreenClick} color="secondary">
           <div className="imaca-viewer--fullscreen">
             <ImacaConfigurator
               id="fs-viewer"

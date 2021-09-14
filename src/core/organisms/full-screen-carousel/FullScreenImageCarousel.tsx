@@ -1,5 +1,5 @@
 import React, { memo } from 'react';
-import SwiperCore, { EffectFade, Navigation } from 'swiper';
+import SwiperCore, { Navigation } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import Image from 'core/atoms/image/Image';
@@ -9,10 +9,11 @@ import Icon from 'core/atoms/icon';
 import ChevronBackOutline from 'core/assets/icons/ChevronBackOutline';
 import ChevronForwardOutline from 'core/assets/icons/ChevronForwardOutline';
 
-SwiperCore.use([Navigation, EffectFade]);
+SwiperCore.use([Navigation]);
 
 function FullScreenImageCarousel({
   images,
+  activeSlideIndex = 0,
   imageAltText,
   isOpenModal,
   setOpenModal,
@@ -21,13 +22,14 @@ function FullScreenImageCarousel({
     <ModalV2 open={isOpenModal} onClose={setOpenModal} color="secondary">
       <div className="full-screen-carousel">
         <Swiper
-          centeredSlides
-          loop={images.length > 1}
+          slidesPerView={1}
           navigation={{
             prevEl: `.swiper-prev`,
             nextEl: `.swiper-next`,
           }}
-          effect="fade"
+          onSwiper={swiper => {
+            swiper.slideToLoop(activeSlideIndex - 1);
+          }}
         >
           {images.map(imageUrl => (
             <SwiperSlide key={imageUrl}>
@@ -44,15 +46,14 @@ function FullScreenImageCarousel({
               />
             </SwiperSlide>
           ))}
-
-          <button className="swiper-prev" type="button">
-            <Icon icon={<ChevronBackOutline />} size="large" />
-          </button>
-
-          <button className="swiper-next" type="button">
-            <Icon icon={<ChevronForwardOutline />} size="large" />
-          </button>
         </Swiper>
+        <button className="swiper-prev" type="button">
+          <Icon icon={<ChevronBackOutline />} size="large" />
+        </button>
+
+        <button className="swiper-next" type="button">
+          <Icon icon={<ChevronForwardOutline />} size="large" />
+        </button>
       </div>
     </ModalV2>
   );
