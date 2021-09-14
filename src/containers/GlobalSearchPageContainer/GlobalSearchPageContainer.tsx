@@ -18,6 +18,7 @@ import {
 import {
   useGSCardsData,
   useTextSearchList,
+  IGSVehiclesCardsData,
 } from '../GlobalSearchContainer/gql';
 import Breadcrumb from '../../core/atoms/breadcrumb-v2';
 import CommonDescriptionContainer from '../SearchPageContainer/CommonDescriptionContainer';
@@ -47,11 +48,6 @@ import { generateQueryObject } from '../../components/GlobalSearchPageFilters/he
 const Text = dynamic(() => import('core/atoms/text'), {
   loading: () => <Skeleton count={1} />,
 });
-
-export interface IGSVehiclesCardsData<T> {
-  LCV: T;
-  CAR: T;
-}
 
 const GlobalSearchPageContainer = memo(
   ({

@@ -19,6 +19,8 @@ export interface GlobalSearchCardsData_productCard {
   capId: string | null;
   imageUrl: string | null;
   vehicleType: VehicleTypeEnum | null;
+  personalRate: number | null;
+  businessRate: number | null;
   keyInformation: (GlobalSearchCardsData_productCard_keyInformation | null)[] | null;
 }
 
