@@ -133,13 +133,14 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
       extrasRender={
         getVehicle(product, data.derivatives)?.fuelType?.name ===
           FuelTypeEnum.ELECTRIC ||
-        (product?.isOnOffer && product.vehicleType === VehicleTypeEnum.CAR) ? (
+        (product?.freeInsurance &&
+          product.vehicleType === VehicleTypeEnum.CAR) ? (
           <>
             {getVehicle(product, data.derivatives)?.fuelType?.name ===
               FuelTypeEnum.ELECTRIC && (
               <CardLabel text="Free Home charger" icon={<FreeHomeCharger />} />
             )}
-            {product?.isOnOffer &&
+            {product?.freeInsurance &&
               product.vehicleType === VehicleTypeEnum.CAR && (
                 <CardLabel
                   text="1yr Free Insurance"

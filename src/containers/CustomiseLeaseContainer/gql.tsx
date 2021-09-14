@@ -52,6 +52,7 @@ export const GET_QUOTE_DATA = gql`
         initialRental
         excessMileage
       }
+      freeInsurance
     }
   }
 `;
