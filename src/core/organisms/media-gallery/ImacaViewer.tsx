@@ -72,11 +72,11 @@ function ImacaViewer({ colour, setColour }: IImacaViewer) {
           <div className="imaca-viewer__controls">
             <button
               type="button"
-              className="imaca-viewer__colours-toggle"
+              className="colours-toggle imaca-viewer__colours-toggle"
               onClick={handleColorsToggleClick}
             >
               <Icon
-                className="imaca-viewer__icon"
+                className="colours-toggle__icon"
                 icon={<ColorWheelIcon />}
                 color="dark"
                 size="lead"
@@ -85,11 +85,11 @@ function ImacaViewer({ colour, setColour }: IImacaViewer) {
             </button>
             <button
               type="button"
-              className="imaca-viewer__fullscreen-toggle"
+              className="fs-toggle imaca-viewer__fs-toggle"
               onClick={handleFullScreenClick}
             >
               <Icon
-                className="imaca-viewer__icon"
+                className="fs-toggle__icon"
                 icon={<FullScreenIcon />}
                 color="dark"
                 size="lead"
@@ -109,7 +109,7 @@ function ImacaViewer({ colour, setColour }: IImacaViewer) {
       </div>
       {isFullScreen && (
         <ModalV2 open onClose={handleFullScreenClick} color="secondary">
-          <div className="imaca-viewer--fullscreen">
+          <div className="imaca-viewer--fs">
             <ImacaConfigurator
               id="fs-viewer"
               className="imaca-viewer__configurator"

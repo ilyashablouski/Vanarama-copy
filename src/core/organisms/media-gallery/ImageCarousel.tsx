@@ -35,7 +35,9 @@ function ImageCarousel({
           thumbs={{
             swiper: thumbsSlider,
           }}
-          onSlideChange={swiper => setActiveSlideIndex(swiper.activeIndex)}
+          onSlideChange={swiper => {
+            setActiveSlideIndex(swiper.activeIndex);
+          }}
         >
           {images.map((imageUrl, index) => (
             <SwiperSlide key={imageUrl} tag="li">
@@ -53,20 +55,18 @@ function ImageCarousel({
               />
             </SwiperSlide>
           ))}
-          <div className="image-carousel__fullscreen">
-            <button
-              type="button"
-              className="fullscreen-toggle fullscreen-toggle--transparent"
-              onClick={handleFullScreenClick}
-            >
-              <Icon
-                className="fullscreen-toggle__icon"
-                icon={<FullScreenIcon />}
-                color="white"
-                size="lead"
-              />
-            </button>
-          </div>
+          <button
+            type="button"
+            className="fs-toggle -transparent image-carousel__fs-toggle"
+            onClick={handleFullScreenClick}
+          >
+            <Icon
+              className="fs-toggle__icon"
+              icon={<FullScreenIcon />}
+              color="white"
+              size="lead"
+            />
+          </button>
         </Swiper>
         {images.length > 1 && (
           <Swiper
