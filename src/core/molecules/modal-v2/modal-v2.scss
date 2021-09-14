@@ -9,8 +9,6 @@ $modal-padding: $rem-200;
   bottom: 0;
   min-height: 100vh;
   padding: 3rem $modal-gap;
-  background-color: rgba($darker, $opacity-700);
-  backdrop-filter: blur(8px) contrast(0.9);
   overflow-x: hidden;
   overflow-y: scroll;
   z-index: $z-index-modal;
@@ -50,5 +48,14 @@ $modal-padding: $rem-200;
         fill: $medium;
       }
     }
+  }
+
+  &.-primary {
+    background: rgba($darker, $opacity-700);
+    backdrop-filter: blur(8px) contrast(0.9);
+  }
+
+  &.-secondary {
+    background: rgba(43,42,43, $opacity-700);
   }
 }

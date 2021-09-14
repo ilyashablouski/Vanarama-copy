@@ -99,12 +99,23 @@ module.exports = {
 
     // Rewrites.
     async rewrites() {
-      if (yn(process.env.LOCAL)) {
-        const rewriteList = await fetchRewritesList();
+      let remoteRewriteList = [];
+      const localRewriteList = [
+        {
+          source: '/hmc',
+          destination: 'https://msf-hmc.vercel.app/hmc',
+        },
+        {
+          source: '/hmc/:path*',
+          destination: `https://msf-hmc.vercel.app/hmc/:path*`,
+        },
+      ];
 
-        return rewriteList;
+      if (yn(process.env.LOCAL)) {
+        remoteRewriteList = await fetchRewritesList();
       }
-      return [];
+
+      return localRewriteList.concat(remoteRewriteList);
     },
 
     // Routes to export into static files.

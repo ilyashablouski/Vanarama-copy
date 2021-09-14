@@ -5,6 +5,7 @@ import {
   suggestionListVariables,
 } from '../../../generated/suggestionList';
 import {
+  productDerivatives as IProductDerivativesQuery,
   productDerivatives,
   productDerivatives_productDerivatives_derivatives,
   productDerivativesVariables,
@@ -12,6 +13,7 @@ import {
 import {
   GlobalSearchCardsData,
   GlobalSearchCardsDataVariables,
+  GlobalSearchCardsData_productCard as ICardsData,
 } from '../../../generated/GlobalSearchCardsData';
 import {
   FinanceType,
@@ -21,6 +23,11 @@ import {
 } from '../../../generated/globalTypes';
 import { DEFAULT_SORT } from '../GlobalSearchPageContainer/helpers';
 import { RESULTS_PER_REQUEST } from '../SearchPageContainer/helpers';
+
+export interface IGSVehiclesCardsData<T> {
+  LCV: T;
+  CAR: T;
+}
 
 export const PRODUCT_DERIVATIVE = gql`
   fragment productDerivative on ProductDerivative {
@@ -93,13 +100,9 @@ export const PRODUCT_DERIVATIVE = gql`
 `;
 
 export const GET_SUGGESTIONS_DATA = gql`
-  ${PRODUCT_DERIVATIVE}
   query suggestionList($query: String) {
     suggestionListV2(query: $query, pagination: { size: 6 }) {
       suggestions
-      derivatives {
-        ...productDerivative
-      }
     }
   }
 `;
@@ -135,6 +138,8 @@ export const GET_CARDS_DATA = gql`
       capId
       imageUrl
       vehicleType
+      personalRate
+      businessRate
       keyInformation {
         name
         value
@@ -213,32 +218,110 @@ export function useGlobalSearch(query?: string) {
   });
   // This effect runs when the debounced search term changes and executes the search
   useEffect(() => {
-    async function fetchData(value: string) {
-      const { data: suggestsList } = await apolloClient.query<
-        suggestionList,
-        suggestionListVariables
-      >({
-        query: GET_SUGGESTIONS_DATA,
-        variables: {
-          query: value,
-        },
-      });
+    async function fetchSuggestionsData(value: string) {
+      const [suggestsList, vehiclesList] = await Promise.all([
+        apolloClient.query<suggestionList, suggestionListVariables>({
+          query: GET_SUGGESTIONS_DATA,
+          variables: {
+            query: value,
+          },
+        }),
+        apolloClient.query<
+          IProductDerivativesQuery,
+          productDerivativesVariables
+        >({
+          query: GET_PRODUCT_DERIVATIVES,
+          variables: {
+            query: value,
+            from: 0,
+            size: 6,
+            sort: DEFAULT_SORT,
+            filters: {
+              financeTypes: [FinanceType.PCH],
+            },
+          },
+        }),
+      ]);
       return {
         suggestsList:
-          (suggestsList?.suggestionListV2?.suggestions as string[])?.slice(
+          (suggestsList?.data.suggestionListV2?.suggestions as string[])?.slice(
             0,
             5,
           ) || [],
         vehiclesList:
-          (suggestsList?.suggestionListV2
+          (vehiclesList?.data.productDerivatives
             ?.derivatives as productDerivatives_productDerivatives_derivatives[]) ||
           [],
       };
     }
 
+    async function fetchProductCardsData(
+      capIds: string[],
+      vehicleType: VehicleTypeEnum,
+    ) {
+      const { data: productCardsData } = await apolloClient.query<
+        GlobalSearchCardsData,
+        GlobalSearchCardsDataVariables
+      >({
+        query: GET_CARDS_DATA,
+        variables: {
+          capIds,
+          vehicleType,
+        },
+      });
+      return productCardsData.productCard;
+    }
+
     if (query?.length) {
-      fetchData(query)
-        .then(setSuggestions)
+      fetchSuggestionsData(query)
+        .then(suggestionsData => {
+          const responseCarsCapIds = suggestionsData.vehiclesList
+            ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.CAR)
+            .map(vehicle => `${vehicle?.derivativeId}`);
+          const responseVansCapIds = suggestionsData.vehiclesList
+            ?.filter(vehicle => vehicle?.vehicleType === VehicleTypeEnum.LCV)
+            .map(vehicle => `${vehicle?.derivativeId}`);
+
+          Promise.all([
+            responseCarsCapIds.length
+              ? fetchProductCardsData(responseCarsCapIds, VehicleTypeEnum.CAR)
+              : undefined,
+            responseVansCapIds.length
+              ? fetchProductCardsData(responseVansCapIds, VehicleTypeEnum.LCV)
+              : undefined,
+          ]).then(([carsProductCards, vansProductCards]) => {
+            const vehiclesCardsData: IGSVehiclesCardsData<ICardsData[]> = {
+              LCV: (vansProductCards as ICardsData[]) ?? [],
+              CAR: (carsProductCards as ICardsData[]) ?? [],
+            };
+
+            const getProductCardData = (
+              capId: string,
+              vehicleType: VehicleTypeEnum,
+            ) => {
+              return vehiclesCardsData[vehicleType].find(
+                vehicle => vehicle?.capId === capId,
+              );
+            };
+
+            const resultSuggestions = {
+              ...suggestionsData,
+              vehiclesList: suggestionsData.vehiclesList.map(vehicleData => {
+                const vehicleCard = getProductCardData(
+                  `${vehicleData.capId}`,
+                  (vehicleData.vehicleType as VehicleTypeEnum) ??
+                    VehicleTypeEnum.CAR,
+                );
+                return {
+                  ...vehicleData,
+                  rental: vehicleCard?.personalRate ?? null,
+                };
+              }),
+            };
+
+            setSuggestions(resultSuggestions);
+          });
+        })
         .catch(() => {
           setSuggestions({
             suggestsList: [],

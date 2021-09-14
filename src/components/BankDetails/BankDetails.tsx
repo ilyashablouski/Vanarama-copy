@@ -179,18 +179,18 @@ const BankDetails: FCWithFragments<IBankDetailsProps> = ({
           color="darker"
           dataTestId="creditApplicationsContent"
         >
-          We have to tell you about how &quot;Your Information&quot; will be
-          used in connection with your application. &quot;Your Information&quot;
-          means the information you have given us, which we pass on to the
-          finance company, or which they receive from their own enquiries and
-          searches at the credit reference and fraud prevention agencies. This
-          applies to all applicants, including directors and partners if the
-          application is made by a limited company, partnership or an
-          incorporated association. The finance company check your details with
-          credit reference and fraud prevention agencies, and these agencies
-          will record the check. They will provide the agencies with your
-          current and previous names, address and dates of birth of all parties,
-          so if you are providing information about others, on a joint
+          It&apos;s important that you know how &quot;Your Information&quot;
+          will be used in connection with your application. &quot;Your
+          Information&quot; means the information you have given us, which we
+          pass on to the finance company or a funding partner, so they may
+          complete searches with the credit reference and fraud prevention
+          agencies. This applies to all applicants, including directors and
+          partners if the application is made by a limited company, partnership
+          or an incorporated association. The finance company check your details
+          with credit reference and fraud prevention agencies, and these
+          agencies will record the check. They will provide the agencies with
+          your current and previous names, address and dates of birth of all
+          parties, so if you are providing information about others, on a joint
           application, you must be sure that you have their agreement. The
           agencies will provide them with public information about you and any
           third party financially linked to you. Information such as county

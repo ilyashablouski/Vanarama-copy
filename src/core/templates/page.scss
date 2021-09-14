@@ -483,6 +483,16 @@
         }
       }
 
+      &--promo {
+        @include desktop {
+          grid-column: 2 / span 8;
+        }
+
+        @include tablet {
+          grid-column: full / column 7;
+        }
+      }
+
       &--content {
         display: grid;
         min-width: 0;
