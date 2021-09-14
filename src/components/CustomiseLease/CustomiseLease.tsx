@@ -23,6 +23,7 @@ import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import MaintenanceModalContent from '../../containers/DetailsPage/MaintenanceModalContent';
 import CustomLeaseSelect from './CustomLeaseSelect';
 import { getPartnerProperties } from '../../utils/partnerProperties';
+import { Nullable } from '../../types/common';
 
 const InformationCircle = dynamic(
   () => import('core/assets/icons/InformationCircle'),
@@ -146,13 +147,15 @@ const CustomiseLease = ({
   roadsideAssistance,
   warrantyDetails,
 }: IProps) => {
-  const sideBarRef = useRef<HTMLDivElement | null>(null);
+  const sideBarRef = useRef<HTMLDivElement>(null);
+
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
   );
   const [defaultMileageIndex, setDefaultMileageIndex] = useState(
     mileages.indexOf(mileage || 0) + 1,
   );
+  const [customCTA, setCustomCTA] = useState<Nullable<string>>(null);
 
   const quoteByCapId = data?.quoteByCapId;
 
