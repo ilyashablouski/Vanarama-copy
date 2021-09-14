@@ -22,7 +22,7 @@ import {
   GetPerson_getPerson as Person,
   GetPerson,
 } from '../../../generated/GetPerson';
-import useMediaQuery from '../../hooks/useMediaQuery';
+import { useDesktopViewport } from '../../hooks/useMediaQuery';
 import PhoneNumber from '../PhoneNumber/PhoneNumber';
 import GlobalSearchContainer from '../../containers/GlobalSearchContainer';
 import HeaderWishlistLink from './HeaderWishlistLink';
@@ -97,7 +97,7 @@ export const Header: FC<IHeaderProps> = memo(props => {
   const [isMenuOpen, setOpenMenu] = useState(false);
   const [isMyAccountOpen, setOpenMyAccount] = useState(false);
 
-  const isDesktop = useMediaQuery('(min-width: 1216px)');
+  const isDesktop = useDesktopViewport();
 
   useEffect(() => {
     if (!person) {

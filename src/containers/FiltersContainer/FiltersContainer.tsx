@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { IChoice } from 'core/atoms/choiceboxes/interfaces';
-import useMediaQuery from '../../hooks/useMediaQuery';
+import { useDesktopViewport } from '../../hooks/useMediaQuery';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import {
   IChoiceBoxesData,
@@ -63,7 +63,7 @@ const FiltersContainer = ({
   const [choiceBoxesData, setChoiceBoxesData] = useState(
     {} as IChoiceBoxesData,
   );
-  const isDesktop = useMediaQuery('(min-width: 1217px)');
+  const isDesktop = useDesktopViewport();
   const [isOpenFilter, setFilterExpandStatus] = useState(false);
   const [customCTAColor, setCustomCTAColor] = useState<string | undefined>(
     undefined,
