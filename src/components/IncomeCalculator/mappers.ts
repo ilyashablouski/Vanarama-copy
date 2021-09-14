@@ -16,7 +16,7 @@ export const responseToInitialFormValues = (
     creditCardPayments: expenditure?.creditCardPayments?.toString() || '',
     foodAndClothes: expenditure?.foodAndClothes?.toString() || '',
     fuel: expenditure?.fuel?.toString() || '',
-    futureMonthlyIncome: expenditure?.futureMonthlyIncome?.toString() || '0',
+    futureMonthlyIncome: expenditure?.futureMonthlyIncome?.toString() || '',
     insurance: expenditure?.insurance?.toString() || '',
     isFutureMonthlyIncome: Boolean(expenditure?.anticipateMonthlyIncomeChange),
     monthlyHouseholdIncome: expenditure?.householdIncome?.toString() || '',
