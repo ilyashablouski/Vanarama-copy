@@ -33,9 +33,8 @@ const CustomLeaseSelect = ({
 
   const label = useMemo(
     () =>
-      items?.find(item => `${item?.optionId}` === defaultValue)?.label ??
-      placeholder,
-    [items, defaultValue, placeholder],
+      items?.find(item => `${item?.optionId}` === defaultValue)?.label ?? '',
+    [items, defaultValue],
   );
   const selectedValue = useMemo(
     () =>

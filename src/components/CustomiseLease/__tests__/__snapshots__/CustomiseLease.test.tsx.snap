@@ -316,7 +316,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       >
         Select Interior:
       </div>
-      Select Interior:
+      
     </div>
     <span
       className="icon select--chevron"
@@ -1101,7 +1101,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       >
         Select Interior:
       </div>
-      Select Interior:
+      
     </div>
     <span
       className="icon select--chevron"
