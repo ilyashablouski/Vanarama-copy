@@ -5,6 +5,7 @@ import {
   suggestionListVariables,
 } from '../../../generated/suggestionList';
 import {
+  productDerivatives as IProductDerivativesQuery,
   productDerivatives,
   productDerivatives_productDerivatives_derivatives,
   productDerivativesVariables,
@@ -99,13 +100,9 @@ export const PRODUCT_DERIVATIVE = gql`
 `;
 
 export const GET_SUGGESTIONS_DATA = gql`
-  ${PRODUCT_DERIVATIVE}
   query suggestionList($query: String) {
     suggestionListV2(query: $query, pagination: { size: 6 }) {
       suggestions
-      derivatives {
-        ...productDerivative
-      }
     }
   }
 `;
@@ -222,23 +219,37 @@ export function useGlobalSearch(query?: string) {
   // This effect runs when the debounced search term changes and executes the search
   useEffect(() => {
     async function fetchSuggestionsData(value: string) {
-      const { data: suggestsList } = await apolloClient.query<
-        suggestionList,
-        suggestionListVariables
-      >({
-        query: GET_SUGGESTIONS_DATA,
-        variables: {
-          query: value,
-        },
-      });
+      const [suggestsList, vehiclesList] = await Promise.all([
+        apolloClient.query<suggestionList, suggestionListVariables>({
+          query: GET_SUGGESTIONS_DATA,
+          variables: {
+            query: value,
+          },
+        }),
+        apolloClient.query<
+          IProductDerivativesQuery,
+          productDerivativesVariables
+        >({
+          query: GET_PRODUCT_DERIVATIVES,
+          variables: {
+            query: value,
+            from: 0,
+            size: 6,
+            sort: DEFAULT_SORT,
+            filters: {
+              financeTypes: [FinanceType.PCH],
+            },
+          },
+        }),
+      ]);
       return {
         suggestsList:
-          (suggestsList?.suggestionListV2?.suggestions as string[])?.slice(
+          (suggestsList?.data.suggestionListV2?.suggestions as string[])?.slice(
             0,
             5,
           ) || [],
         vehiclesList:
-          (suggestsList?.suggestionListV2
+          (vehiclesList?.data.productDerivatives
             ?.derivatives as productDerivatives_productDerivatives_derivatives[]) ||
           [],
       };
@@ -301,14 +312,9 @@ export function useGlobalSearch(query?: string) {
                   (vehicleData.vehicleType as VehicleTypeEnum) ??
                     VehicleTypeEnum.CAR,
                 );
-                const price =
-                  vehicleData.vehicleType === VehicleTypeEnum.CAR
-                    ? vehicleCard?.personalRate
-                    : vehicleCard?.businessRate;
-
                 return {
                   ...vehicleData,
-                  rental: price ?? null,
+                  rental: vehicleCard?.personalRate ?? null,
                 };
               }),
             };
