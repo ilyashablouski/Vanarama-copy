@@ -5,9 +5,10 @@ import Button from 'core/atoms/button/Button';
 import CloseSharp from 'core/assets/icons/CloseSharp';
 import { IBaseProps } from 'core/interfaces/base';
 import Portal from '../../../components/Portal/Portal';
+import { TModalColor } from '../../../types/color';
 
 interface IProps extends IBaseProps {
-  color?: 'primary' | 'secondary';
+  color?: TModalColor;
   withCloseLabel?: boolean;
   open: boolean;
   disablePortal?: boolean;
