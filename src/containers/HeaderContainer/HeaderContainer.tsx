@@ -7,6 +7,7 @@ import { ILink } from 'core/interfaces/link';
 import {
   clearInactiveSessionFuelTypes,
   getPartnerProperties,
+  removePartnerProperties,
 } from 'utils/partnerProperties';
 import { getPartnershipLinks } from '../../components/Partnerships/helpers';
 import Header from '../../components/Header';
@@ -162,7 +163,9 @@ const HeaderContainer: FC = () => {
     const partnerDetails = getPartnerProperties();
     const path = window?.location?.pathname;
     const pathname = path.split('/').pop();
-    if (partnerDetails && pathname) {
+    if (!pathname) {
+      removePartnerProperties();
+    } else if (partnerDetails) {
       const partnerName = partnerDetails?.slug;
       setPartnership(partnerName || null);
       setPartnershipHomeLink(`/partnerships/${partnerName?.toLowerCase()}`);
