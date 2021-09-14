@@ -325,7 +325,7 @@ export const CarsPage: NextPage<IProps> = ({
                   }}
                   extrasRender={
                     getFuelType(item) === FuelTypeEnum.ELECTRIC ||
-                    (item?.isOnOffer &&
+                    (item?.freeInsurance &&
                       item?.vehicleType === VehicleTypeEnum.CAR) ? (
                       <>
                         {getFuelType(item) === FuelTypeEnum.ELECTRIC && (
@@ -334,7 +334,7 @@ export const CarsPage: NextPage<IProps> = ({
                             icon={<FreeHomeCharger />}
                           />
                         )}
-                        {item?.isOnOffer &&
+                        {item?.freeInsurance &&
                           item?.vehicleType === VehicleTypeEnum.CAR && (
                             <CardLabel
                               text="1yr Free Insurance"

@@ -236,6 +236,7 @@ describe('helpers', () => {
       businessRate: 164.88,
       capId: '231',
       derivativeName: 'derivativeTest',
+      freeInsurance: null,
       imageUrl: '',
       isOnOffer: true,
       keyInformation: null,

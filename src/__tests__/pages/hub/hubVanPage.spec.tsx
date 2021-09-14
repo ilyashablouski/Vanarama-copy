@@ -372,6 +372,7 @@ const offer = {
   businessRate: 219,
   personalRate: 278.98,
   offerPosition: null,
+  freeInsurance: true,
   keyInformation: [
     {
       name: 'Transmission',

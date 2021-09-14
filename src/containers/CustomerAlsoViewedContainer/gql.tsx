@@ -19,6 +19,7 @@ export const GET_PRODUCT_CARDS_DATA = gql`
       offerPosition
       leadTime
       imageUrl
+      freeInsurance
       keyInformation {
         name
         value

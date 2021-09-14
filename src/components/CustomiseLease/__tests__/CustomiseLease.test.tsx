@@ -84,6 +84,7 @@ describe('<CustomiseLease />', () => {
           funderId: 3,
           trim: '112981',
           upfront: 1,
+          freeInsurance: true,
           vehicleType: VehicleTypeEnum.CAR,
         },
       },
@@ -215,6 +216,7 @@ describe('<CustomiseLease />', () => {
           term: 24,
           trim: '112981',
           upfront: 1,
+          freeInsurance: true,
           vehicleType: VehicleTypeEnum.CAR,
         },
       },
@@ -349,6 +351,7 @@ describe('<CustomiseLease />', () => {
             term: 24,
             trim: '112981',
             upfront: 3,
+            freeInsurance: true,
             vehicleType: VehicleTypeEnum.CAR,
           },
         }}

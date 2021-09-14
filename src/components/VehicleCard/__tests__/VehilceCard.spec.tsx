@@ -45,6 +45,7 @@ describe('<VehicleCard />', () => {
         rangeName: 'Crossland X',
         modelName: 'Crossland X',
         vehicleType: VehicleTypeEnum.CAR,
+        freeInsurance: false,
       },
       dataDerivatives: [
         {

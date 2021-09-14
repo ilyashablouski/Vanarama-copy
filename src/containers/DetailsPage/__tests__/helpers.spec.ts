@@ -42,6 +42,7 @@ const productDetails = (): GetVehicleDetails => ({
     upfronts: [],
   },
   vehicleDetails: {
+    freeInsurance: true,
     averageRating: 4.7,
     brochureUrl:
       'http://images.autorama.co.uk/Uploads/Models/10387/trocbrochurepricelistp11d.pdf',
@@ -210,6 +211,7 @@ const wishlistProduct: IWishlistProduct = {
   rangeName: 'T-Roc',
   offerPosition: 1,
   isOnOffer: true,
+  freeInsurance: true,
 };
 
 describe('convertProductDetailsToWishlistProduct', () => {
