@@ -1,4 +1,4 @@
-import React, { useState, memo, useEffect } from 'react';
+import React, { useState, memo } from 'react';
 import SwiperCore, { Navigation, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
@@ -53,6 +53,20 @@ function ImageCarousel({
               />
             </SwiperSlide>
           ))}
+          <div className="media-gallery__fullscreen">
+            <button
+              type="button"
+              className="media-gallery__fullscreen-toggle --transparent"
+              onClick={handleFullScreenClick}
+            >
+              <Icon
+                className="media-gallery__icon"
+                icon={<FullScreenIcon />}
+                color="white"
+                size="lead"
+              />
+            </button>
+          </div>
         </Swiper>
         {images.length > 1 && (
           <Swiper
@@ -78,19 +92,6 @@ function ImageCarousel({
             ))}
           </Swiper>
         )}
-
-        <button
-          type="button"
-          className="imaca-viewer__fullscreen-toggle"
-          onClick={handleFullScreenClick}
-        >
-          <Icon
-            className="imaca-viewer__icon"
-            icon={<FullScreenIcon />}
-            color="dark"
-            size="lead"
-          />
-        </button>
       </div>
 
       {isFullScreen && (

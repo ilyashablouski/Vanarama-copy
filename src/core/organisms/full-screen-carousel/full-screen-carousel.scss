@@ -45,11 +45,12 @@
 
   .swiper-button-disabled {
     pointer-events: none;
-    opacity: 0.5;
+    opacity: 0.8;
   }
 
   button {
     position: absolute;
+    z-index: 1;
     top: 50%;
     justify-content: center;
     align-items: center;
@@ -93,7 +94,7 @@
       left: 0;
       transform: translate(-95px, -50%);
       @include mobile {
-        transform: translate(30px, -50%);
+        transform: translate(20px, -50%);
       }
     }
 
@@ -101,7 +102,7 @@
       right: 0;
       transform: translate(95px, -50%);
       @include mobile {
-        transform: translate(-30px, -50%);
+        transform: translate(-20px, -50%);
       }
     }
   }

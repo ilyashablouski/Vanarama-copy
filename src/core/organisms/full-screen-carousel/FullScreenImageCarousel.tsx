@@ -31,7 +31,7 @@ function FullScreenImageCarousel({
             nextEl: `.swiper-next`,
           }}
           onSwiper={swiper => {
-            swiper.slideToLoop(activeSlideIndex - 1, 300, false);
+            swiper.slideToLoop(activeSlideIndex - 1);
           }}
         >
           {images.map(imageUrl => (
