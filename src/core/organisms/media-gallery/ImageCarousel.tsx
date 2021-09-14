@@ -3,7 +3,9 @@ import SwiperCore, { Navigation, Thumbs } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 
 import Image from 'core/atoms/image';
-
+import Icon from 'core/atoms/icon';
+import FullScreenIcon from 'core/assets/icons/FullScreenIcon';
+import FullScreenImageCarousel from 'core/organisms/full-screen-carousel';
 import { IImageCarouselProps } from './interfaces';
 
 SwiperCore.use([Navigation, Thumbs]);
@@ -14,60 +16,94 @@ function ImageCarousel({
   renderImageDecoration,
 }: IImageCarouselProps) {
   const [thumbsSlider, setThumbsSlider] = useState<SwiperCore>();
+  const [isFullScreen, setFullScreen] = useState(false);
+
+  const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
+
+  function handleFullScreenClick() {
+    setFullScreen(!isFullScreen);
+  }
 
   return (
-    <div className="image-carousel">
-      <Swiper
-        navigation
-        watchOverflow
-        loop={images.length > 1}
-        wrapperTag="ul"
-        thumbs={{
-          swiper: thumbsSlider,
-        }}
-      >
-        {images.map((imageUrl, index) => (
-          <SwiperSlide key={imageUrl} tag="li">
-            {renderImageDecoration?.(imageUrl, index)}
-            <Image
-              plain
-              src={imageUrl}
-              alt={imageAltText}
-              optimisedHost={process.env.IMG_OPTIMISATION_HOST}
-              optimisationOptions={{
-                width: 709,
-                height: 399,
-                fit: 'cover',
-              }}
-            />
-          </SwiperSlide>
-        ))}
-      </Swiper>
-      {images.length > 1 && (
+    <>
+      <div className="image-carousel">
         <Swiper
-          slidesPerView="auto"
-          className="thumbnails"
-          resistanceRatio={0.55}
-          onSwiper={setThumbsSlider}
+          navigation
+          watchOverflow
+          loop={images.length > 1}
+          wrapperTag="ul"
+          thumbs={{
+            swiper: thumbsSlider,
+          }}
+          onSlideChange={swiper => setActiveSlideIndex(swiper.activeIndex)}
         >
-          {images.map(imageUrl => (
+          {images.map((imageUrl, index) => (
             <SwiperSlide key={imageUrl} tag="li">
+              {renderImageDecoration?.(imageUrl, index)}
               <Image
                 plain
                 src={imageUrl}
                 alt={imageAltText}
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 optimisationOptions={{
-                  width: 150,
-                  height: 80,
+                  width: 709,
+                  height: 399,
                   fit: 'cover',
                 }}
               />
             </SwiperSlide>
           ))}
+          <div className="image-carousel__fullscreen">
+            <button
+              type="button"
+              className="fullscreen-toggle fullscreen-toggle--transparent"
+              onClick={handleFullScreenClick}
+            >
+              <Icon
+                className="fullscreen-toggle__icon"
+                icon={<FullScreenIcon />}
+                color="white"
+                size="lead"
+              />
+            </button>
+          </div>
         </Swiper>
+        {images.length > 1 && (
+          <Swiper
+            slidesPerView="auto"
+            className="thumbnails"
+            resistanceRatio={0.55}
+            onSwiper={setThumbsSlider}
+          >
+            {images.map(imageUrl => (
+              <SwiperSlide key={imageUrl} tag="li">
+                <Image
+                  plain
+                  src={imageUrl}
+                  alt={imageAltText}
+                  optimisedHost={process.env.IMG_OPTIMISATION_HOST}
+                  optimisationOptions={{
+                    width: 150,
+                    height: 80,
+                    fit: 'cover',
+                  }}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        )}
+      </div>
+
+      {isFullScreen && (
+        <FullScreenImageCarousel
+          images={images}
+          activeSlideIndex={activeSlideIndex}
+          imageAltText={imageAltText}
+          isOpenModal={isFullScreen}
+          setOpenModal={() => setFullScreen(false)}
+        />
       )}
-    </div>
+    </>
   );
 }
 

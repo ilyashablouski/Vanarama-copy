@@ -209,13 +209,9 @@ $carousel-arrow-size: 1.5rem;
   .swiper-container {
     margin: 0 -10px;
     padding-bottom: 1px;
-    height: 100%;
-    overflow: hidden;
   }
 
   .swiper-wrapper {
-    display: flex;
-    width: 100%;
     transition-property: transform;
     will-change: transform;
   }
@@ -225,7 +221,6 @@ $carousel-arrow-size: 1.5rem;
     display: flex;
     flex: 1 0 33.33%;
     max-width: 33.33%;
-    width: 100%;
     height: auto;
     box-sizing: border-box;
     @include tablet {

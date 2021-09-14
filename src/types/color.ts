@@ -15,3 +15,5 @@ export type TColor =
   | 'white'
   | 'black'
   | 'inherit';
+
+export type TModalColor = 'primary' | 'secondary';
