@@ -6,6 +6,7 @@
   align-items: center;
   width: 70vw;
   height: 100%;
+
   @include mobile {
     margin: 0 -$modal-gap;
     width: 100vw;
@@ -13,29 +14,43 @@
 
   .swiper-container {
     width: 70vw;
-    overflow: hidden;
     @include mobile {
       width: 100vw;
     }
   }
 
   .swiper-wrapper {
-    display: flex;
-    width: 100%;
-    transition-property: transform;
-    will-change: transform;
+    padding-top: 56.25%;
+    transform: translate3d(0px, 0px, 0px) !important;
   }
 
   .swiper-slide {
-    display: flex;
-    flex: 1 1 100%;
-    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: -1;
     flex-shrink: 0;
     box-sizing: border-box;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.35s ease 0s;
+  }
+
+  .swiper-slide-active {
+    z-index: 1;
+    opacity: 1;
+    visibility: visible;
+    transition: all 0.4s ease 0s;
+  }
+
+  .swiper-button-disabled {
+    pointer-events: none;
+    opacity: 0.8;
   }
 
   button {
     position: absolute;
+    z-index: 1;
     top: 50%;
     justify-content: center;
     align-items: center;
@@ -79,7 +94,7 @@
       left: 0;
       transform: translate(-95px, -50%);
       @include mobile {
-        transform: translate(30px, -50%);
+        transform: translate(20px, -50%);
       }
     }
 
@@ -87,7 +102,7 @@
       right: 0;
       transform: translate(95px, -50%);
       @include mobile {
-        transform: translate(-30px, -50%);
+        transform: translate(-20px, -50%);
       }
     }
   }

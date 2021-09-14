@@ -6,7 +6,7 @@ import ColorSelection from 'core/molecules/color-selection';
 import ImacaConfigurator from 'core/molecules/imaca-configurator';
 
 import MoveCarIcon from 'core/assets/icons/MoveCar';
-import FullScreenIcon from 'core/assets/icons/FullScreen';
+import FullScreenIcon from 'core/assets/icons/FullScreenIcon';
 import ColorWheelIcon from 'core/assets/icons/ColorWheel';
 
 import {
@@ -108,7 +108,7 @@ function ImacaViewer({ colour, setColour }: IImacaViewer) {
         )}
       </div>
       {isFullScreen && (
-        <ModalV2 open onClose={handleFullScreenClick}>
+        <ModalV2 open onClose={handleFullScreenClick} color="secondary">
           <div className="imaca-viewer--fullscreen">
             <ImacaConfigurator
               id="fs-viewer"
