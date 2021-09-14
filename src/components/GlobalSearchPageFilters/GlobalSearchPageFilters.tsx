@@ -86,6 +86,7 @@ const GlobalSearchPageFilters = ({
     ).slice(1),
   );
   const [filtersData, setFiltersData] = useState(preloadFilters);
+  const [currentManufacturer, setCurrentManufacturer] = useState('');
   const [getProductFilters] = useProductFilters(
     isAllProductsRequest ? undefined : searchTerm,
     async dataResult => {
@@ -105,12 +106,19 @@ const GlobalSearchPageFilters = ({
     },
   );
 
+  const manufacturerRanges = useMemo(() => {
+    return filtersData?.rangeNames?.filter(
+      ({ manufacturer }) => manufacturer === currentManufacturer,
+    )[0]?.ranges;
+  }, [currentManufacturer, filtersData?.rangeNames]);
+
   const filtersMapper = {
     ...filtersData,
     from: fromBudget,
     to: toBudget,
     fromEnginePower,
     toEnginePower,
+    rangeName: manufacturerRanges,
   } as IFiltersData;
 
   const advancedFiltersConfig = useMemo(
@@ -171,6 +179,26 @@ const GlobalSearchPageFilters = ({
     });
   };
 
+  const onHandleNativeMultiSelect = (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
+    const { value: inputValue, name } = e.target;
+    let selectedValues = activeFilters[name as keyof typeof filtersMapper]
+      ? [...(activeFilters[name as keyof typeof filtersMapper] as string[])]
+      : [];
+    if (name === 'manufacturerNames') {
+      selectedValues = selectedValues.filter(
+        value => value !== currentManufacturer,
+      );
+      setCurrentManufacturer(inputValue);
+    }
+
+    setActiveFilters({
+      ...activeFilters,
+      [name]: [...selectedValues, inputValue],
+    });
+  };
+
   const onHandleNativeSelectChange = (
     e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
@@ -185,6 +213,12 @@ const GlobalSearchPageFilters = ({
       ...activeFilters,
       [name]: [value],
     });
+  };
+
+  const onClickAddMultipleSelect = (filterBlockName: string) => {
+    if (filterBlockName === 'manufacturerModel') {
+      setCurrentManufacturer('');
+    }
   };
 
   /** check budget rules for valid value */
@@ -212,7 +246,7 @@ const GlobalSearchPageFilters = ({
 
   const isDisabledSelect = (key: string, selectKey: string) => {
     if (selectKey === 'rangeName') {
-      return !activeFilters.manufacturerName?.[0];
+      return !currentManufacturer;
     }
     return false;
   };
@@ -298,6 +332,8 @@ const GlobalSearchPageFilters = ({
           onHandleFilterStatus={onHandleFilterStatus}
           onHandleMultiSelect={onHandleMultiSelect}
           onHandleNativeSelectChange={onHandleNativeSelectChange}
+          onHandleNativeMultiSelect={onHandleNativeMultiSelect}
+          onClickAddMultipleSelect={onClickAddMultipleSelect}
           openedFilters={openedFilters}
           selectedTags={selectedTags}
         />
@@ -335,6 +371,8 @@ const GlobalSearchPageFilters = ({
                   onHandleFilterStatus={onHandleFilterStatus}
                   onHandleMultiSelect={onHandleMultiSelect}
                   onHandleNativeSelectChange={onHandleNativeSelectChange}
+                  onHandleNativeMultiSelect={onHandleNativeMultiSelect}
+                  onClickAddMultipleSelect={onClickAddMultipleSelect}
                   openedFilters={openedFilters}
                   selectedTags={selectedTags}
                 />

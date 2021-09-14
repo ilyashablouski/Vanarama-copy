@@ -7,6 +7,11 @@
 // GraphQL fragment: filtersAggregation
 // ====================================================
 
+export interface filtersAggregation_rangeNames {
+  manufacturer: string | null;
+  ranges: (string | null)[] | null;
+}
+
 export interface filtersAggregation_enginePowerBhp {
   min: number | null;
   max: number | null;
@@ -14,6 +19,8 @@ export interface filtersAggregation_enginePowerBhp {
 
 export interface filtersAggregation {
   manufacturerName: (string | null)[] | null;
+  manufacturerNames: (string | null)[] | null;
+  rangeNames: (filtersAggregation_rangeNames | null)[] | null;
   rangeName: (string | null)[] | null;
   transmissions: (string | null)[] | null;
   fuelTypes: (string | null)[] | null;

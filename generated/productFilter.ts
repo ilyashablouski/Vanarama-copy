@@ -9,6 +9,11 @@ import { ProductDerivativeFilter } from "./globalTypes";
 // GraphQL query operation: productFilter
 // ====================================================
 
+export interface productFilter_productFilter_rangeNames {
+  manufacturer: string | null;
+  ranges: (string | null)[] | null;
+}
+
 export interface productFilter_productFilter_enginePowerBhp {
   min: number | null;
   max: number | null;
@@ -16,6 +21,8 @@ export interface productFilter_productFilter_enginePowerBhp {
 
 export interface productFilter_productFilter {
   manufacturerName: (string | null)[] | null;
+  manufacturerNames: (string | null)[] | null;
+  rangeNames: (productFilter_productFilter_rangeNames | null)[] | null;
   rangeName: (string | null)[] | null;
   transmissions: (string | null)[] | null;
   fuelTypes: (string | null)[] | null;

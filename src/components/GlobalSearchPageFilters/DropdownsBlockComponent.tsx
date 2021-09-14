@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useRef, useState } from 'react';
 import DropdownV2 from 'core/atoms/dropdown-v2';
 import ChoiceBoxesV2 from 'core/atoms/choiceboxes-v2';
 import ChevronDown from 'core/assets/icons/ChevronDown';
@@ -62,7 +62,19 @@ const DropdownsBlockComponent = ({
   onHandleNativeSelectChange,
   isDisabledSelect,
   isInvalidRangeValue,
+  onHandleNativeMultiSelect,
+  onClickAddMultipleSelect,
 }: IProps) => {
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const onNativeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    if (multiselect) {
+      onHandleNativeMultiSelect(e);
+      return;
+    }
+    onHandleNativeSelectChange(e);
+  };
+
   if (
     (!filtersMapper[key as keyof IFiltersData]?.length ||
       (filtersMapper[key as keyof IFiltersData]?.length === 1 &&
@@ -138,54 +150,78 @@ const DropdownsBlockComponent = ({
       )}
       selected={getSelectedValues(innerSelects, activeFilters) as unknown[]}
     >
-      {(innerSelects as IInnerSelect[])?.map(
-        ({ title, key: selectKey, placeholder }) => (
-          <Fragment key={title}>
-            <span className="option-title">{title}</span>
-            <div className="faux-select">
-              <ChevronDown />
-              <select
-                name={`${selectKey}`}
-                data-testid={`${selectKey}-form`}
-                onChange={onHandleNativeSelectChange}
-                disabled={isDisabledSelect(key, selectKey)}
-              >
-                <option
-                  disabled
-                  value=""
-                  selected={
-                    !(activeFilters?.[selectKey as keyof IFiltersData] as
-                      | string
-                      | number[])?.[0]
-                  }
+      <form ref={formRef}>
+        {(innerSelects as IInnerSelect[])?.map(
+          ({ title, key: selectKey, placeholder }) => (
+            <Fragment key={title}>
+              <span className="option-title">{title}</span>
+              <div className="faux-select">
+                <ChevronDown />
+                <select
+                  name={`${selectKey}`}
+                  data-testid={`${selectKey}-form`}
+                  onChange={onNativeChange}
+                  disabled={isDisabledSelect(key, selectKey)}
                 >
-                  {placeholder}
-                </option>
-                {(filtersMapper?.[selectKey as keyof IFiltersData] as (
-                  | string
-                  | number
-                )[])?.map(value => (
                   <option
-                    key={value}
-                    disabled={
-                      key === 'budget' || key === 'enginePower'
-                        ? isInvalidRangeValue(value, selectKey, key)
-                        : false
+                    disabled
+                    value=""
+                    selected={
+                      multiselect ||
+                      !(activeFilters?.[selectKey as keyof IFiltersData] as
+                        | string
+                        | number[])?.[0]
                     }
-                    value={value}
-                    selected={(activeFilters?.[
-                      selectKey as keyof IFiltersData
-                    ] as (string | number)[])?.includes(value)}
                   >
-                    {renderValuesFunction
-                      ? renderValuesFunction(`${value}`)
-                      : value}
+                    {placeholder}
                   </option>
-                ))}
-              </select>
-            </div>
-          </Fragment>
-        ),
+                  {(filtersMapper?.[selectKey as keyof IFiltersData] as (
+                    | string
+                    | number
+                  )[])?.map(value => (
+                    <option
+                      key={value}
+                      disabled={
+                        key === 'budget' || key === 'enginePower'
+                          ? isInvalidRangeValue(value, selectKey, key)
+                          : false
+                      }
+                      value={value}
+                      selected={
+                        multiselect
+                          ? false
+                          : (activeFilters?.[
+                              selectKey as keyof IFiltersData
+                            ] as (string | number)[])?.includes(value)
+                      }
+                    >
+                      {renderValuesFunction
+                        ? renderValuesFunction(`${value}`)
+                        : value}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </Fragment>
+          ),
+        )}
+      </form>
+      {multiselect && (
+        <button
+          type="button"
+          className="add-selection"
+          onClick={() => {
+            formRef.current.reset();
+            onClickAddMultipleSelect(key);
+          }}
+        >
+          <span>
+            <span>
+              <span className="tick teal" /> Added
+            </span>
+            <span>+ Add Make &amp; Model</span>
+          </span>
+        </button>
       )}
     </DropdownV2>
   );

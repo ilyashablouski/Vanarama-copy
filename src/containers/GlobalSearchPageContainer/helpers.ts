@@ -106,8 +106,10 @@ export const buildFiltersRequestObject = (
             max: to?.[0] === '550+' ? null : parseInt(to?.[0], 10),
           }
         : undefined,
-    manufacturerName: filters.manufacturerName?.[0],
-    rangeName: filters.rangeName?.[0],
+    manufacturerNames: filters.manufacturerNames,
+    rangeNames: filters.rangeName,
+    manufacturerName: undefined,
+    rangeName: undefined,
     financeTypes: isPersonal ? [FinanceType.PCH] : [FinanceType.BCH],
     onOffer: onOffer || null,
     mpgGroup: filters.mpgGroup?.[0],

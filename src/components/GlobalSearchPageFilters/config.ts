@@ -18,7 +18,7 @@ export const filtersConfig = [
   },
   {
     type: 'drop-select',
-    multiselect: false,
+    multiselect: true,
     label: 'Make & Model',
     key: 'manufacturerModel',
     generalFilter: true,
@@ -26,7 +26,7 @@ export const filtersConfig = [
       {
         title: 'Make',
         placeholder: 'Please select',
-        key: 'manufacturerName',
+        key: 'manufacturerNames',
       },
       {
         title: 'Model',
