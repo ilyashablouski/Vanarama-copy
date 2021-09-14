@@ -22,7 +22,7 @@ import { GetDerivatives_derivatives } from '../../../generated/GetDerivatives';
 import { bodyStyleList_bodyStyleList as IModelsData } from '../../../generated/bodyStyleList';
 import { bodyUrlsSlugMapper, budgetMapper, fuelMapper } from './helpers';
 import { getLegacyUrl } from '../../utils/url';
-import useMediaQuery from '../../hooks/useMediaQuery';
+import { useDesktopViewport } from '../../hooks/useMediaQuery';
 import Skeleton from '../../components/Skeleton';
 import VehicleCard from '../../components/VehicleCard';
 import ModelCard from './ModelCard';
@@ -82,7 +82,7 @@ const TopOffersContainer: React.FC<IProps> = ({
 }: IProps) => {
   const router = useRouter();
 
-  const isDesktopLayout = useMediaQuery('(min-width: 1216px)');
+  const isDesktopLayout = useDesktopViewport();
 
   const [vehiclesList, setVehicleList] = useState(
     preLoadVehiclesList?.vehicleList.edges || ([] as any),

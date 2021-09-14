@@ -4,7 +4,7 @@ import dynamic from 'next/dynamic';
 import { useRouter } from 'next/router';
 import TextInput from 'core/atoms/textinput/TextInput';
 import cx from 'classnames';
-import useMediaQuery from '../../hooks/useMediaQuery';
+import { useDesktopViewport } from '../../hooks/useMediaQuery';
 import GlobalSearchLeftSideContainer from './GlobalSearchLeftSideContainer';
 import GlobalSearchRightSideContainer from './GlobalSearchRightSideContainer';
 import useDebounce from '../../hooks/useDebounce';
@@ -21,7 +21,7 @@ const CloseSharp = dynamic(() => import('core/assets/icons/CloseSharp'), {
   ssr: false,
 });
 const GlobalSearchContainer = () => {
-  const isDesktop = useMediaQuery('(min-width: 1216px)');
+  const isDesktop = useDesktopViewport();
   const router = useRouter();
   const [isOpenResults, setIsOpenResults] = useState(false);
   const [fieldValue, setFieldValue] = useState('');
