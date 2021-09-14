@@ -35,6 +35,7 @@ exports[`<ComparatorBar /> renders correctly with default <ComparatorBar /> 1`] 
         "businessRate": 132.95,
         "capId": "12345",
         "derivativeName": "2.5 ECOBOOST PHEV ST-LINE 5 DOORS CVT",
+        "freeInsurance": true,
         "imageUrl": "https://images.autorama.co.uk/Photos/Cap/Vehicles/164069/cap-90660-164069.jpg",
         "isOnOffer": true,
         "keyInformation": Array [],

@@ -36,6 +36,7 @@ const vehiclesMock = [
     },
     bodyStyle: 'Hatchback',
     isOnOffer: true,
+    freeInsurance: true,
     capId: '12345',
     manufacturerName: 'Ford',
     derivativeName: '2.5 ECOBOOST PHEV ST-LINE 5 DOORS CVT',

@@ -37,6 +37,7 @@ const PRODUCT_CARDS = [
     offerPosition: null,
     keyInformation: null,
     vehicleType: VehicleTypeEnum.LCV,
+    freeInsurance: true,
   },
 ];
 
