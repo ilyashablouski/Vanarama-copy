@@ -53,14 +53,14 @@ function ImageCarousel({
               />
             </SwiperSlide>
           ))}
-          <div className="media-gallery__fullscreen">
+          <div className="image-carousel__fullscreen">
             <button
               type="button"
-              className="media-gallery__fullscreen-toggle --transparent"
+              className="fullscreen-toggle fullscreen-toggle--transparent"
               onClick={handleFullScreenClick}
             >
               <Icon
-                className="media-gallery__icon"
+                className="fullscreen-toggle__icon"
                 icon={<FullScreenIcon />}
                 color="white"
                 size="lead"

@@ -77,11 +77,11 @@ function ImacaViewer() {
           </button>
           <button
             type="button"
-            className="media-gallery__fullscreen-toggle"
+            className="fullscreen-toggle"
             onClick={handleFullScreenClick}
           >
             <Icon
-              className="media-gallery__icon"
+              className="fullscreen-toggle__icon"
               icon={<FullScreenIcon />}
               color="dark"
               size="lead"

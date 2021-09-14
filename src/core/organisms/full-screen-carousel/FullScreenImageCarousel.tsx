@@ -18,9 +18,6 @@ function FullScreenImageCarousel({
   isOpenModal,
   setOpenModal,
 }: IFullScreenCarouselProps) {
-  const NextElement = useRef<HTMLButtonElement>(null);
-  const PrevElement = useRef<HTMLButtonElement>(null);
-
   return (
     <ModalV2 open={isOpenModal} onClose={setOpenModal} color="secondary">
       <div className="full-screen-carousel">
@@ -50,11 +47,11 @@ function FullScreenImageCarousel({
             </SwiperSlide>
           ))}
         </Swiper>
-        <button className="swiper-prev" type="button" ref={PrevElement}>
+        <button className="swiper-prev" type="button">
           <Icon icon={<ChevronBackOutline />} size="large" />
         </button>
 
-        <button className="swiper-next" type="button" ref={NextElement}>
+        <button className="swiper-next" type="button">
           <Icon icon={<ChevronForwardOutline />} size="large" />
         </button>
       </div>
