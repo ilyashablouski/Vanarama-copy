@@ -42,6 +42,7 @@ export interface GetQuoteDetails_quoteByCapId {
   nextBestPrice: GetQuoteDetails_quoteByCapId_nextBestPrice | null;
   leaseCost: GetQuoteDetails_quoteByCapId_leaseCost | null;
   maintenanceCost: GetQuoteDetails_quoteByCapId_maintenanceCost | null;
+  freeInsurance: boolean | null;
 }
 
 export interface GetQuoteDetails {

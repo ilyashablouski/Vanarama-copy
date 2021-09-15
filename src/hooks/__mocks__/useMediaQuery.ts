@@ -5,3 +5,7 @@ export default function useMediaQuery() {
 export function useMobileViewport() {
   return false;
 }
+
+export function useDesktopViewport() {
+  return false;
+}

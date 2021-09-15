@@ -30,6 +30,7 @@ export const PRODUCT_CARD_CONTENT = gql`
       businessRate
       personalRate
       offerPosition
+      freeInsurance
       keyInformation {
         name
         value
