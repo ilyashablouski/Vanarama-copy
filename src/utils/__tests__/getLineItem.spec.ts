@@ -27,6 +27,7 @@ const params = {
       leaseType: LeaseTypeEnum.PERSONAL,
       stockBatchId: 3512,
       processingFee: 0,
+      freeInsurance: true,
       nextBestPrice: {
         maintained: 310.33,
         nonMaintained: 275.86,

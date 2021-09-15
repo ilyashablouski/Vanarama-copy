@@ -76,8 +76,8 @@ const VehicleCard = React.memo(
       [fuelType?.value],
     );
     const isFreeInsuranceVehicle = useMemo(
-      () => data?.isOnOffer && data?.vehicleType === VehicleTypeEnum.CAR,
-      [data?.isOnOffer, data?.vehicleType],
+      () => data?.freeInsurance && data?.vehicleType === VehicleTypeEnum.CAR,
+      [data?.freeInsurance, data?.vehicleType],
     );
 
     const imageProps = !isModelPage

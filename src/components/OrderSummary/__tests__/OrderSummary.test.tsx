@@ -42,6 +42,7 @@ describe('<CustomiseLease />', () => {
           term: 24,
           trim: '104562',
           upfront: 1,
+          freeInsurance: true,
           vehicleType: VehicleTypeEnum.CAR,
         }}
         colours={[{ optionId: 13990, label: 'Solid - Polar white' }]}

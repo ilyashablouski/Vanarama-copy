@@ -81,6 +81,7 @@ export interface GetVehicleDetails_vehicleDetails {
   rangeFaqs: (GetVehicleDetails_vehicleDetails_rangeFaqs | null)[] | null;
   vehicleValue: number | null;
   roadsideAssistance: GetVehicleDetails_vehicleDetails_roadsideAssistance | null;
+  freeInsurance: boolean | null;
 }
 
 export interface GetVehicleDetails_derivativeInfo_manufacturer {

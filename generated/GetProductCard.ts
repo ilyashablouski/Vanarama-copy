@@ -26,6 +26,7 @@ export interface GetProductCard_productCard {
   offerPosition: number | null;
   leadTime: string | null;
   imageUrl: string | null;
+  freeInsurance: boolean | null;
   keyInformation: (GetProductCard_productCard_keyInformation | null)[] | null;
   businessRate: number | null;
   personalRate: number | null;

@@ -47,6 +47,7 @@ const createEmptyQuoteData = (
     funderId: null,
     leadTime: null,
     stock: null,
+    freeInsurance: null,
     stockBatchId: null,
     processingFee: null,
     nextBestPrice: null,

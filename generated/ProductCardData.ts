@@ -27,6 +27,7 @@ export interface ProductCardData_productCarousel {
   businessRate: number | null;
   personalRate: number | null;
   offerPosition: number | null;
+  freeInsurance: boolean | null;
   keyInformation: (ProductCardData_productCarousel_keyInformation | null)[] | null;
   vehicleType: VehicleTypeEnum | null;
 }

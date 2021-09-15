@@ -73,6 +73,7 @@ export const GET_CAR_DATA = gql`
         years
         mileage
       }
+      freeInsurance
     }
     derivativeInfo(id: $capIdDetails, vehicleType: $vehicleType) {
       name
