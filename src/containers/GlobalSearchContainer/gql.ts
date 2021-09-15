@@ -135,6 +135,8 @@ export const GET_CARDS_DATA = gql`
   query GlobalSearchCardsData($capIds: [ID!]!, $vehicleType: VehicleTypeEnum) {
     productCard(capIds: $capIds, vehicleType: $vehicleType) {
       averageRating
+      isOnOffer
+      leadTime
       capId
       imageUrl
       vehicleType
@@ -315,6 +317,7 @@ export function useGlobalSearch(query?: string) {
                 return {
                   ...vehicleData,
                   rental: vehicleCard?.personalRate ?? null,
+                  onOffer: vehicleCard?.isOnOffer ?? false,
                 };
               }),
             };
