@@ -7,7 +7,7 @@ exports[`<TopOffersContainer /> should be render correctly Top Offers for specia
       class="row:bg-lighter"
     >
       <div
-        class=""
+        class="row:carousel"
       >
         <h3
           class="heading -black -large"

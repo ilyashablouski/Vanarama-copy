@@ -10,7 +10,7 @@ $modal-padding: $rem-200;
   min-height: 100vh;
   padding: 3rem $modal-gap;
   overflow-x: hidden;
-  overflow-y: scroll;
+  overflow-y: auto;
   z-index: $z-index-modal;
 
   &__close {

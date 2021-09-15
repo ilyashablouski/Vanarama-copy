@@ -357,6 +357,7 @@ export const formatForCompare = (
     leadTime: null,
     imageUrl: mainImageUrl || null,
     keyInformation: null,
+    freeInsurance: null,
     businessRate: financeTypes[0] === 'BCH' ? node!.rental || null : null,
     personalRate: financeTypes[0] === 'PCH' ? node!.rental || null : null,
     vehicleType: VehicleTypeEnum.CAR,
@@ -388,6 +389,7 @@ export const formatForWishlist = (
     offerPosition: null,
     leadTime: null,
     imageUrl: mainImageUrl || null,
+    freeInsurance: null,
     keyInformation: [
       {
         name: 'Transmission',

@@ -21,6 +21,7 @@ export const productCardDataMapper = (data: IVehiclesList | null): ICard => ({
   derivativeName: data?.derivativeName || null,
   averageRating: null,
   isOnOffer: data?.onOffer || null,
+  freeInsurance: null,
   offerPosition: data?.offerRanking || null,
   leadTime: AVAILABILITY_LABELS[data?.availability ?? ''],
   imageUrl: '',
