@@ -4,18 +4,17 @@ import base from 'paths.macro';
 
 import { atomicDir } from '../../../helpers/atomicDirUtils';
 
-import { IColor } from './interface';
 import { factoryColorList, hotOfferColorList } from './mocks';
 import ColorSelection from './ColorSelection';
 
 storiesOf(`${atomicDir(base)}/ColorSelection`, module).add('Default', () => {
-  const [selectedColor, setSelectedColor] = useState<IColor>(
-    hotOfferColorList[0],
+  const [selectedColor, setSelectedColor] = useState(
+    hotOfferColorList[0]?.capId,
   );
 
   return (
     <ColorSelection
-      selectedColor={selectedColor}
+      selectedColorId={selectedColor}
       hotOfferColorList={hotOfferColorList}
       factoryColorList={factoryColorList}
       onChange={setSelectedColor}

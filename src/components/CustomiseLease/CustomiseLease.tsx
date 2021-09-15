@@ -23,6 +23,7 @@ import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import MaintenanceModalContent from '../../containers/DetailsPage/MaintenanceModalContent';
 import CustomLeaseSelect from './CustomLeaseSelect';
 import { getPartnerProperties } from '../../utils/partnerProperties';
+import { Nullable } from '../../types/common';
 
 const InformationCircle = dynamic(
   () => import('core/assets/icons/InformationCircle'),
@@ -126,6 +127,7 @@ const CustomiseLease = ({
   isModalShowing,
   setIsModalShowing,
   trim,
+  colour,
   mileage,
   isPlayingLeaseAnimation,
   setIsPlayingLeaseAnimation,
@@ -145,16 +147,15 @@ const CustomiseLease = ({
   roadsideAssistance,
   warrantyDetails,
 }: IProps) => {
-  const sideBarRef = useRef<HTMLDivElement | null>(null);
+  const sideBarRef = useRef<HTMLDivElement>(null);
+
   const [initialPayment, setInitialPayment] = useState(
     data?.quoteByCapId?.leaseCost?.initialRental,
   );
   const [defaultMileageIndex, setDefaultMileageIndex] = useState(
     mileages.indexOf(mileage || 0) + 1,
   );
-  const [defaultColor, setDefaultColor]: any = useState(null);
-  const [defaultTrim, setDefaultTrim]: any = useState(null);
-  const [customCTA, setCustomCTA] = useState<string | null>(null);
+  const [customCTA, setCustomCTA] = useState<Nullable<string>>(null);
 
   const quoteByCapId = data?.quoteByCapId;
 
@@ -167,17 +168,15 @@ const CustomiseLease = ({
       if (leaseSettings && leaseSettings.capId === capId) {
         setIsRestoreLeaseSettings(true);
         setMaintenance(leaseSettings.maintenance);
-        setDefaultMileageIndex(leaseSettings.mileageValue);
-        setMileage(leaseSettings.mileage);
         setTerm(leaseSettings.term);
         setUpfront(leaseSettings.upfront);
+        setDefaultMileageIndex(leaseSettings.mileageValue);
+        setMileage(leaseSettings.mileage);
 
         if (leaseSettings.colour) {
-          setDefaultColor(leaseSettings.colour);
           setColour(+leaseSettings.colour);
         }
         if (leaseSettings.trim) {
-          setDefaultTrim(leaseSettings.trim);
           setTrim(+leaseSettings.trim);
         }
       }
@@ -307,7 +306,7 @@ const CustomiseLease = ({
         )}
       </Heading>
       <CustomLeaseSelect
-        defaultValue={`${defaultColor || quoteByCapId?.colour}`}
+        defaultValue={`${colour}`}
         setChanges={setColour}
         items={colourList}
         dataTestId="colour-selector"
@@ -317,7 +316,7 @@ const CustomiseLease = ({
       />
 
       <CustomLeaseSelect
-        defaultValue={`${defaultTrim || quoteByCapId?.trim || trim}`}
+        defaultValue={`${trim}`}
         setChanges={setTrim}
         items={trimList}
         dataTestId="trim-selector"
