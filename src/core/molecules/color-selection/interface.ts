@@ -1,5 +1,6 @@
 export interface IColor {
-  label: string;
-  style: string;
+  capId: number;
+  name: string;
+  hex: string;
   price?: number;
 }

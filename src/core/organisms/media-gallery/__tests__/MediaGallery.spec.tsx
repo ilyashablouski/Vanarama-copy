@@ -11,6 +11,8 @@ describe('<MediaGallery />', () => {
       images: ['test', 'test'],
       videoSrc: 'test.com',
       threeSixtyVideoSrc: 'test.com',
+      colour: 1234,
+      setColour: jest.fn(),
       flag: {
         accentIcon: <Icon icon={<Flame />} color="white" />,
         accentText: 'Hot Offer',

@@ -28,6 +28,8 @@ function MediaGallery({
   videoIframe,
   activeTabIndex,
   imageAltText,
+  colour,
+  setColour,
   className,
 }: IMediaGalleryProps) {
   const [activeTab, setActiveTab] = useState(activeTabIndex ?? 1);
@@ -62,7 +64,7 @@ function MediaGallery({
                 placeholder={<div className="imaca-viewer-placeholder" />}
                 visibleByDefault={isServerRenderOrAppleDevice}
               >
-                <ImacaViewer />
+                <ImacaViewer colour={colour} setColour={setColour} />
               </LazyLoadComponent>
             </TabPanel>
             <TabPanel index={1}>
