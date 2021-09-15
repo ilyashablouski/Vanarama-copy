@@ -81,12 +81,12 @@ const DropdownsBlockComponent = ({
     return () => clearTimeout(timeout);
   }, [isAdded]);
 
-  const onNativeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const onNativeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     if (multiselect) {
-      onHandleNativeMultiSelect(e);
+      onHandleNativeMultiSelect(event);
       return;
     }
-    onHandleNativeSelectChange(e);
+    onHandleNativeSelectChange(event);
   };
 
   if (
