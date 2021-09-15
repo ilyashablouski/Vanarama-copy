@@ -15,7 +15,7 @@
 .image-carousel {
   position: relative;
 
-  &__fullscreen {
+  &__fs-toggle {
     position: absolute;
     right: 5px;
     bottom: 0;
@@ -118,14 +118,13 @@
 }
 
 .imaca-viewer {
-  position: relative;
-
   &__inner {
-    background: $white;
+    position: relative;
+  }
 
-    @include mobile {
-      position: relative;
-    }
+  &__viewer {
+    position: relative;
+    background: $white;
   }
 
   &__hint {
@@ -177,21 +176,23 @@
   }
 
   &__colours-toggle {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    font-size: $font-size-400;
-    font-weight: $font-weight-black;
-    color: $darker;
     pointer-events: auto;
-    cursor: pointer;
-
-    .icon {
-      margin-right: 10px;
-    }
   }
 
-  &--fullscreen {
+  &__fs-toggle {
+    pointer-events: auto;
+  }
+
+  &__color-selection {
+    margin-top: 3px;
+
+    @include mobile {
+      margin-top: 0;
+      border-bottom: none;
+    }
+  }
+  
+  &--fs {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -202,7 +203,7 @@
     }
 
     .imaca-viewer {
-      &__viewer {
+      &__configurator {
         width: 1366px;
         background: $white;
       }
@@ -212,11 +213,30 @@
 
 
 .imaca-viewer-placeholder {
+  display: block;
+  width: 100%;
+  height: 0;
   padding-bottom: 56.25%;
   background: $white;
 }
 
-.fullscreen-toggle {
+.colours-toggle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $font-size-400;
+  font-weight: $font-weight-black;
+  color: $darker;
+  cursor: pointer;
+
+  &__icon {
+    display: inline-flex;
+    height: auto;
+    margin-right: 10px;
+  }
+}
+
+.fs-toggle {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -225,16 +245,12 @@
   border-radius: 50%;
   background: rgba($white, $opacity-500);
   backdrop-filter: blur(2px);
-  pointer-events: auto;
   cursor: pointer;
 
-  .icon {
-    --class-fs: #{$font-size-500};
-  }
-
-  &__icon {
-    display: inline-flex;
-    height: auto;
+  &.-transparent {
+    background: transparent;
+    filter: drop-shadow(0px 0px 2px rgba(0,0,0,.7));
+    backdrop-filter: none;
   }
 
   @include mobile {
@@ -242,10 +258,10 @@
     height: 38px;
   }
 
-  &--transparent {
-    background: transparent;
-    filter: drop-shadow(0px 0px 2px rgba(0,0,0,.7));
-    backdrop-filter: none;
+  &__icon {
+    --class-fs: #{$font-size-500};
+    display: inline-flex;
+    height: auto;
   }
 }
 

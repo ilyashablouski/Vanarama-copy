@@ -147,6 +147,8 @@ describe('<CustomiseLeaseContainer />', () => {
         onCompleted={jest.fn()}
         mileage={6000}
         setMileage={jest.fn()}
+        colour={1234}
+        setColour={jest.fn()}
       />,
     );
 
@@ -271,6 +273,8 @@ describe('<CustomiseLeaseContainer />', () => {
       onCompletedCallBack: jest.fn(),
       mileage: 6000,
       setMileage: jest.fn(),
+      colour: 1234,
+      setColour: jest.fn(),
     });
     expect(tree).toMatchSnapshot();
   });
@@ -348,6 +352,8 @@ describe('<CustomiseLeaseContainer />', () => {
       onCompleted: jest.fn(),
       mileage: 6000,
       setMileage: jest.fn(),
+      colour: 1234,
+      setColour: jest.fn(),
     });
     expect(tree).toMatchSnapshot();
   });
@@ -459,6 +465,8 @@ describe('<CustomiseLeaseContainer />', () => {
         onCompleted={jest.fn()}
         mileage={6000}
         setMileage={jest.fn()}
+        colour={1234}
+        setColour={jest.fn()}
       />,
     );
 

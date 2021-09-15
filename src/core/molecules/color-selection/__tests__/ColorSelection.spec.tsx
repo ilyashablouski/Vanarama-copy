@@ -8,7 +8,7 @@ describe('<ColorSelection />', () => {
   it('should renders correctly', () => {
     const tree = mount(
       <ColorSelection
-        selectedColor={hotOfferColorList[0]}
+        selectedColorId={97341}
         hotOfferColorList={hotOfferColorList}
         factoryColorList={factoryColorList}
         onChange={jest.fn}

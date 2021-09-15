@@ -1,35 +1,47 @@
-import React from 'react';
+import React, { useMemo } from 'react';
+import cx from 'classnames';
 
 import Icon from 'core/atoms/icon';
 import Text from 'core/atoms/text';
 
 import Flame from 'core/assets/icons/Flame';
+import { IBaseProps } from 'core/interfaces/base';
 
-import { IColor } from './interface';
+import { Nullable } from '../../../types/common';
 import { baseClassName, getClassName } from './helpers';
+import { IColor } from './interface';
 
-interface IProps {
-  selectedColor: IColor;
+interface IProps extends IBaseProps {
+  selectedColorId: Nullable<IColor['capId']>;
+  onChange: (colorId: IColor['capId']) => void;
   hotOfferColorList: IColor[];
   factoryColorList: IColor[];
-  onChange: (color: IColor) => void;
 }
 
 function ColorSelection({
-  selectedColor,
+  className,
+  selectedColorId,
   hotOfferColorList,
   factoryColorList,
   onChange,
 }: IProps) {
+  const selectedColor = useMemo(
+    () =>
+      ([...hotOfferColorList, ...factoryColorList] as IColor[]).find(
+        color => selectedColorId === color.capId,
+      ),
+    [factoryColorList, hotOfferColorList, selectedColorId],
+  );
+
   return (
-    <div className={baseClassName}>
+    <div className={cx(baseClassName, className)}>
       <div className={getClassName('header')}>
         <Text className={getClassName('selected-color')} color="dark">
           <span>Colour:</span>
-          {selectedColor.label}
+          {selectedColor?.name}
         </Text>
         <Text className={getClassName('price')} color="orange">
-          {selectedColor.price ? (
+          {selectedColor?.price ? (
             <>
               <Icon icon={<Flame />} size="regular" />
               <span>£{selectedColor.price} Per Months ext. VAT</span>
@@ -49,19 +61,19 @@ function ColorSelection({
         </Text>
         <ul className={getClassName('color-list')}>
           {hotOfferColorList.map(color => (
-            <li className={getClassName('color-item')} key={color.label}>
+            <li className={getClassName('color-item')} key={color.name}>
               <input
                 type="radio"
-                id={color.label}
+                id={color.name}
                 name="hot-offers"
                 className="visually-hidden"
-                checked={selectedColor.label === color.label}
-                onChange={() => onChange(color)}
+                checked={selectedColorId === color.capId}
+                onChange={() => onChange(color.capId)}
               />
               <label
-                htmlFor={color.label}
-                title={color.label}
-                style={{ backgroundColor: color.style }}
+                htmlFor={color.name}
+                title={color.name}
+                style={{ backgroundColor: color.hex }}
                 className={getClassName('color')}
               >
                 <Icon icon={<Flame />} />
@@ -76,19 +88,19 @@ function ColorSelection({
         </Text>
         <ul className={getClassName('color-list')}>
           {factoryColorList.map(color => (
-            <li className={getClassName('color-item')} key={color.label}>
+            <li className={getClassName('color-item')} key={color.name}>
               <input
                 type="radio"
-                id={color.label}
+                id={color.name}
                 name="factory"
                 className="visually-hidden"
-                checked={selectedColor.label === color.label}
-                onChange={() => onChange(color)}
+                checked={selectedColorId === color.capId}
+                onChange={() => onChange(color.capId)}
               />
               <label
-                htmlFor={color.label}
-                title={color.label}
-                style={{ backgroundColor: color.style }}
+                htmlFor={color.name}
+                title={color.name}
+                style={{ backgroundColor: color.hex }}
                 className={getClassName('color')}
               />
             </li>
