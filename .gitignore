@@ -8,6 +8,8 @@ dist
 /coverage
 /.coverage
 test-report.xml
+/cypress/screenshots
+/cypress/videos
 
 # production
 /build
