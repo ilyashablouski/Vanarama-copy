@@ -1,7 +1,8 @@
-import React, { Fragment, useRef, useState } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import DropdownV2 from 'core/atoms/dropdown-v2';
 import ChoiceBoxesV2 from 'core/atoms/choiceboxes-v2';
 import ChevronDown from 'core/assets/icons/ChevronDown';
+import cx from 'classnames';
 import { IFiltersConfig, IInnerSelect } from './interfaces';
 import {
   IFiltersData,
@@ -26,6 +27,8 @@ interface IProps {
     filterValues: (string | number)[],
     filterName: keyof IFiltersData,
   ) => void;
+  onHandleNativeMultiSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onClickAddMultipleSelect: (filterBlockName: string) => void;
   activeFilters: IFiltersData;
   getDropdownValues: (innerSelect: IInnerSelect[]) => (string | null)[];
   onClearDropdown: (innerSelect: IInnerSelect[]) => void;
@@ -48,6 +51,7 @@ const DropdownsBlockComponent = ({
     renderSelectedFunction,
     renderValuesFunction,
     selectedLabel,
+    addNewButtonLabel,
   },
   onHandleFilterStatus,
   labelForSingleSelect,
@@ -66,6 +70,16 @@ const DropdownsBlockComponent = ({
   onClickAddMultipleSelect,
 }: IProps) => {
   const formRef = useRef<HTMLFormElement>(null);
+
+  const [isAdded, setIsAdded] = useState(false);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if (isAdded) {
+      timeout = setTimeout(() => setIsAdded(false), 1000);
+    }
+    return () => clearTimeout(timeout);
+  }, [isAdded]);
 
   const onNativeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     if (multiselect) {
@@ -165,6 +179,9 @@ const DropdownsBlockComponent = ({
                 >
                   <option
                     disabled
+                    key={`placeholder-${
+                      filtersMapper?.[selectKey as keyof IFiltersData]?.[0]
+                    }`}
                     value=""
                     selected={
                       multiselect ||
@@ -209,9 +226,13 @@ const DropdownsBlockComponent = ({
       {multiselect && (
         <button
           type="button"
-          className="add-selection"
+          disabled={!getDropdownValues(innerSelects as IInnerSelect[])?.length}
+          className={cx('add-selection', {
+            added: isAdded,
+          })}
           onClick={() => {
-            formRef.current.reset();
+            setIsAdded(true);
+            formRef.current?.reset();
             onClickAddMultipleSelect(key);
           }}
         >
@@ -219,7 +240,7 @@ const DropdownsBlockComponent = ({
             <span>
               <span className="tick teal" /> Added
             </span>
-            <span>+ Add Make &amp; Model</span>
+            <span>{addNewButtonLabel}</span>
           </span>
         </button>
       )}

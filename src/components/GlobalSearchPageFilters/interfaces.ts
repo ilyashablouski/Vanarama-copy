@@ -9,6 +9,7 @@ export interface IInnerSelect {
 export interface IFiltersConfig {
   type: string;
   multiselect: boolean;
+  addNewButtonLabel?: string;
   selectedLabel?: boolean;
   label: string;
   key: string;

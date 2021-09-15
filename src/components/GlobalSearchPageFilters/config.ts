@@ -2,6 +2,7 @@ import {
   handleUnlistedValue,
   renderBudgetSelected,
   renderBudgetValue,
+  renderMakeAndModelSelected,
   renderPowerEngineSelected,
   renderPowerEngineValue,
 } from './helpers';
@@ -21,7 +22,10 @@ export const filtersConfig = [
     multiselect: true,
     label: 'Make & Model',
     key: 'manufacturerModel',
+    renderSelectedFunction: (values: (string | number)[]) =>
+      renderMakeAndModelSelected(values as string[]),
     generalFilter: true,
+    addNewButtonLabel: '+ Add Make & Model',
     innerSelects: [
       {
         title: 'Make',

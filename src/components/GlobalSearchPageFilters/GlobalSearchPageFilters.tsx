@@ -108,7 +108,7 @@ const GlobalSearchPageFilters = ({
 
   const manufacturerRanges = useMemo(() => {
     return filtersData?.rangeNames?.filter(
-      ({ manufacturer }) => manufacturer === currentManufacturer,
+      rangeName => rangeName?.manufacturer === currentManufacturer,
     )[0]?.ranges;
   }, [currentManufacturer, filtersData?.rangeNames]);
 
@@ -191,6 +191,15 @@ const GlobalSearchPageFilters = ({
         value => value !== currentManufacturer,
       );
       setCurrentManufacturer(inputValue);
+      setActiveFilters({
+        ...activeFilters,
+        manufacturerNames: [...selectedValues, inputValue],
+        rangeName:
+          selectedValues.length + 1 === activeFilters.rangeName?.length
+            ? activeFilters.rangeName.slice(0, -1)
+            : activeFilters.rangeName,
+      });
+      return;
     }
 
     setActiveFilters({
@@ -217,6 +226,18 @@ const GlobalSearchPageFilters = ({
 
   const onClickAddMultipleSelect = (filterBlockName: string) => {
     if (filterBlockName === 'manufacturerModel') {
+      if (
+        !activeFilters.rangeName ||
+        activeFilters.rangeName?.length !==
+          activeFilters.manufacturerNames?.length
+      ) {
+        setActiveFilters({
+          ...activeFilters,
+          rangeName: activeFilters.rangeName
+            ? [...activeFilters.rangeName, '']
+            : [''],
+        });
+      }
       setCurrentManufacturer('');
     }
   };
@@ -267,12 +288,13 @@ const GlobalSearchPageFilters = ({
     innerSelect: IInnerSelect[],
   ): (string | null)[] => {
     const keys = getInnerConfigKeys(innerSelect);
-    return keys.reduce(
-      (acc, current) => [
-        ...acc,
-        ...((activeFilters?.[current] as string[]) || [null]),
-      ],
-      [] as string[],
+    return (
+      (activeFilters[keys[0]]
+        ?.map((filterValue, index) => [
+          filterValue,
+          activeFilters[keys[1]]?.[index],
+        ])
+        .flat() as string[]) || []
     );
   };
 

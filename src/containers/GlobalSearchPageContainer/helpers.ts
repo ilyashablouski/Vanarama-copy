@@ -78,7 +78,7 @@ export const buildSelectedTags = (data: IFiltersData): ISelectedTags[] =>
       // if we don't have filter priority set label on the end of list
       return {
         filterKey: key as keyof IFiltersData,
-        tags: value || [],
+        tags: value?.filter((tag: string) => tag) || [],
         order: filterOrderByNumMap[key] || 999999,
       };
     })
@@ -107,7 +107,7 @@ export const buildFiltersRequestObject = (
           }
         : undefined,
     manufacturerNames: filters.manufacturerNames,
-    rangeNames: filters.rangeName,
+    rangeNames: filters.rangeName?.filter(value => value),
     manufacturerName: undefined,
     rangeName: undefined,
     financeTypes: isPersonal ? [FinanceType.PCH] : [FinanceType.BCH],
