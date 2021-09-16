@@ -39,6 +39,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
     onClick,
     classNames,
     dataTestId,
+    dataUiTestId,
     dataMenu,
     as,
     withoutDefaultClassName,
@@ -66,6 +67,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         className={linkClassName}
         onClick={e => onClick && onClick(e)}
         data-testid={dataTestId ?? 'withoutLink'}
+        data-uitestid={dataUiTestId}
       >
         {children || link.label}
       </span>
@@ -133,6 +135,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         className={linkClassName}
         onClick={e => onClick && onClick(e)}
         data-testid={dataTestId ?? 'router-link'}
+        data-uitestid={dataUiTestId}
         data-menu={dataMenu ?? null}
         onMouseOver={e => onMouseOver && onMouseOver(e)}
         onFocus={e => onFocus && onFocus(e)}

@@ -7,7 +7,11 @@ export interface IBaseProps {
    */
   className?: string;
   /**
-   * The attribute to add to the root node for automation testing
+   * The attribute to add to the root node for unit testing
    */
   dataTestId?: string;
+  /**
+   * The attribute to add to the root node for automation testing
+   */
+  dataUiTestId?: string;
 }

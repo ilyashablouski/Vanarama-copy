@@ -8,7 +8,7 @@ interface IProps extends IBaseProps {
   index: number;
 }
 
-const Tab: React.FC<IProps> = ({ children, className, dataTestId, index }) => {
+const Tab: React.FC<IProps> = ({ children, className, dataTestId, dataUiTestId, index }) => {
   const { activeIndex, baseId, onChange } = useTabsContext();
   const active = index === activeIndex;
   return (
@@ -18,6 +18,7 @@ const Tab: React.FC<IProps> = ({ children, className, dataTestId, index }) => {
       aria-selected={active}
       className={cx(className, { '-active': active })}
       data-testid={dataTestId}
+      data-uitestid={dataUiTestId}
       onClick={e => onChange(index, e)}
       role="tab"
       type="button"
