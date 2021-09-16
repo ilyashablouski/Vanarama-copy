@@ -82,6 +82,7 @@ export interface GetDerivative_vehicleDetails_warrantyDetails {
 export interface GetDerivative_vehicleDetails {
   roadsideAssistance: GetDerivative_vehicleDetails_roadsideAssistance | null;
   warrantyDetails: GetDerivative_vehicleDetails_warrantyDetails | null;
+  freeInsurance: boolean | null;
 }
 
 export interface GetDerivative {
