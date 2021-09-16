@@ -4,7 +4,7 @@ import {
 } from '../../../generated/GetProductCard';
 import { IBaseProps } from '../../core/interfaces/base';
 
-export interface IProductCarouselProps  extends IBaseProps {
+export interface IProductCarouselProps extends IBaseProps {
   leaseType: string;
   countItems?: number;
   data: GetProductCard;

@@ -222,7 +222,9 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         >
           <TabList className="lead">
             <Tab index={0}>Vans</Tab>
-            <Tab index={1} dataUiTestId="HomepagePickupsTab">Pickups</Tab>
+            <Tab index={1} dataUiTestId="HomepagePickupsTab">
+              Pickups
+            </Tab>
             <Tab index={2}>Cars</Tab>
           </TabList>
           <TabPanels>

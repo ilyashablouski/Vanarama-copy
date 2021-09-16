@@ -8,7 +8,13 @@ interface IProps extends IBaseProps {
   index: number;
 }
 
-const Tab: React.FC<IProps> = ({ children, className, dataTestId, dataUiTestId, index }) => {
+const Tab: React.FC<IProps> = ({
+  children,
+  className,
+  dataTestId,
+  dataUiTestId,
+  index,
+}) => {
   const { activeIndex, baseId, onChange } = useTabsContext();
   const active = index === activeIndex;
   return (
