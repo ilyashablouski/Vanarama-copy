@@ -37,7 +37,7 @@ class ConfigurationRenderer {
 interface Window {
   ResourceCache: typeof ResourceCache;
   ConfigurationRenderer: typeof ConfigurationRenderer;
-  configurationRenderers: {
+  configurationRenderers?: {
     [key: string]: ConfigurationRenderer;
   };
 }

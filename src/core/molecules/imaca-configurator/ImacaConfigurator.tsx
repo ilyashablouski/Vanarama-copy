@@ -36,12 +36,12 @@ function ImacaConfigurator({
     return () => {
       configViewer.stop();
       configViewer.wrapperElement.remove();
-      delete window.configurationRenderers[id];
+      delete window.configurationRenderers?.[id];
     };
   }, [height, width, id]);
 
   useEffect(() => {
-    const configViewer = window.configurationRenderers[id];
+    const configViewer = window.configurationRenderers?.[id];
 
     if (configViewer && assets) {
       configViewer.setConfigAttribute('rims', assets.rimsUrl);
@@ -52,7 +52,7 @@ function ImacaConfigurator({
   }, [assets, id]);
 
   useEffect(() => {
-    const configViewer = window.configurationRenderers[id];
+    const configViewer = window.configurationRenderers?.[id];
 
     if (configViewer && selectedColour) {
       configViewer.setConfigAttribute('color', selectedColour);
