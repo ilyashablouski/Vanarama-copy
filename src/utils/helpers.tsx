@@ -253,3 +253,7 @@ export const isGlobalSearchFeatureEnabled = () => {
 export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
 };
+
+export const isInchcapeFeatureEnabled = () => {
+  return Cookies.get('DIG-7317') === '1';
+};
