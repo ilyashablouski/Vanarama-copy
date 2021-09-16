@@ -11,6 +11,7 @@ describe('<MediaGallery />', () => {
       images: ['test', 'test'],
       videoSrc: 'test.com',
       threeSixtyVideoSrc: 'test.com',
+      imacaAssets: null,
       colour: 1234,
       setColour: jest.fn(),
       flag: {
