@@ -28,6 +28,7 @@ storiesOf(`${atomicDir(base)}/MediaGallery`, module)
           threeSixtyVideoSrc="https://player.vimeo.com/video/263419265"
           colour={1234}
           setColour={jest.fn()}
+          imacaAssets={null}
         />
       </div>
     </div>
@@ -51,6 +52,7 @@ storiesOf(`${atomicDir(base)}/MediaGallery`, module)
           ]}
           colour={1234}
           setColour={jest.fn()}
+          imacaAssets={null}
         />
       </div>
     </div>
@@ -75,6 +77,7 @@ storiesOf(`${atomicDir(base)}/MediaGallery`, module)
           videoSrc="https://player.vimeo.com/video/263419265"
           colour={1234}
           setColour={jest.fn()}
+          imacaAssets={null}
         />
       </div>
     </div>

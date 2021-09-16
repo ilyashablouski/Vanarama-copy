@@ -28,6 +28,7 @@ function MediaGallery({
   videoIframe,
   activeTabIndex,
   imageAltText,
+  imacaAssets,
   colour,
   setColour,
   className,
@@ -59,14 +60,20 @@ function MediaGallery({
       <div className={cx('media-gallery', className)}>
         <Tabs activeIndex={activeTab} size="large" onChange={handleChangeTab}>
           <TabPanels className="media-gallery__content">
-            <TabPanel index={0}>
-              <LazyLoadComponent
-                placeholder={<div className="imaca-viewer-placeholder" />}
-                visibleByDefault={isServerRenderOrAppleDevice}
-              >
-                <ImacaViewer colour={colour} setColour={setColour} />
-              </LazyLoadComponent>
-            </TabPanel>
+            {imacaAssets && (
+              <TabPanel index={0}>
+                <LazyLoadComponent
+                  placeholder={<div className="imaca-viewer-placeholder" />}
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
+                  <ImacaViewer
+                    colour={colour}
+                    setColour={setColour}
+                    assets={imacaAssets}
+                  />
+                </LazyLoadComponent>
+              </TabPanel>
+            )}
             <TabPanel index={1}>
               <ImageCarousel
                 images={images}
@@ -97,10 +104,12 @@ function MediaGallery({
             )}
           </TabPanels>
           <TabList className="media-gallery__tabs">
-            <Tab index={0}>
-              <Icon className="rotate" icon={<MediaRotate />} />
-              360°
-            </Tab>
+            {imacaAssets && (
+              <Tab index={0}>
+                <Icon className="rotate" icon={<MediaRotate />} />
+                360°
+              </Tab>
+            )}
             <Tab index={1}>
               <Icon className="picture" icon={<MediaPicture />} />
               Photos
