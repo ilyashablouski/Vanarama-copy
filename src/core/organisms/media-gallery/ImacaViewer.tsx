@@ -9,16 +9,25 @@ import MoveCarIcon from 'core/assets/icons/MoveCar';
 import FullScreenIcon from 'core/assets/icons/FullScreenIcon';
 import ColorWheelIcon from 'core/assets/icons/ColorWheel';
 
-import {
-  factoryColorList,
-  hotOfferColorList,
-} from 'core/molecules/color-selection/mocks';
 import { IImacaViewer } from './interfaces';
 
-function ImacaViewer({ colour, setColour }: IImacaViewer) {
+function ImacaViewer({ assets, colour, setColour }: IImacaViewer) {
   const [isFullScreen, setFullScreen] = useState(false);
   const [isHintVisible, setHintVisible] = useState(true);
   const [isColorSelectionOpen, setColorSelectionOpen] = useState(false);
+
+  const hotOffersColorList = useMemo(
+    () => assets.colours?.filter(item => item.onOffer),
+    [assets.colours],
+  );
+  const factoryColorList = useMemo(
+    () => assets.colours?.filter(item => !item.onOffer),
+    [assets.colours],
+  );
+  const selectedColor = useMemo(
+    () => assets.colours?.find(item => colour === item.capId),
+    [assets.colours, colour],
+  );
 
   function handleFullScreenClick() {
     setFullScreen(!isFullScreen);
@@ -34,16 +43,6 @@ function ImacaViewer({ colour, setColour }: IImacaViewer) {
     }
   }
 
-  const assets = useMemo(
-    () => ({
-      colors: [{ hex: '#ffffff' }],
-      vehicleUrl: '',
-      rimsUrl: '',
-      tyresUrl: '',
-    }),
-    [],
-  );
-
   return (
     <>
       <div className="imaca-viewer">
@@ -53,9 +52,10 @@ function ImacaViewer({ colour, setColour }: IImacaViewer) {
               id="viewer"
               className="imaca-viewer__configurator"
               onMouseDown={handleImageDrag}
+              selectedColour={selectedColor?.hex}
               assets={assets}
-              width={1024}
-              height={576}
+              width={1420}
+              height={798}
             />
             {isHintVisible && (
               <div className="imaca-viewer__hint">
@@ -97,15 +97,17 @@ function ImacaViewer({ colour, setColour }: IImacaViewer) {
             </button>
           </div>
         </div>
-        {isColorSelectionOpen && (
-          <ColorSelection
-            className="imaca-viewer__color-selection"
-            selectedColorId={colour}
-            hotOfferColorList={hotOfferColorList}
-            factoryColorList={factoryColorList}
-            onChange={colorId => setColour(colorId)}
-          />
-        )}
+        {assets.colours?.length
+          ? isColorSelectionOpen && (
+              <ColorSelection
+                className="imaca-viewer__color-selection"
+                selectedColor={selectedColor ?? assets.colours[0]}
+                hotOfferColorList={hotOffersColorList}
+                factoryColorList={factoryColorList}
+                onChange={color => setColour(color.capId)}
+              />
+            )
+          : null}
       </div>
       {isFullScreen && (
         <ModalV2 open onClose={handleFullScreenClick} color="secondary">
@@ -113,9 +115,11 @@ function ImacaViewer({ colour, setColour }: IImacaViewer) {
             <ImacaConfigurator
               id="fs-viewer"
               className="imaca-viewer__configurator"
+              onMouseDown={handleImageDrag}
+              selectedColour={selectedColor?.hex}
               assets={assets}
-              width={1366}
-              height={768}
+              width={1420}
+              height={798}
             />
           </div>
         </ModalV2>

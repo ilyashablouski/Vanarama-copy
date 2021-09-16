@@ -36,10 +36,11 @@ import {
 } from '../../../generated/globalTypes';
 import {
   GetVehicleDetails,
-  GetVehicleDetails_vehicleDetails_rangeFaqs,
   GetVehicleDetails_vehicleImages,
+  GetVehicleDetails_vehicleDetails_rangeFaqs,
   GetVehicleDetails_vehicleConfigurationByCapId,
 } from '../../../generated/GetVehicleDetails';
+import { GetImacaAssets_getImacaAssets as IImacaAssets } from '../../../generated/GetImacaAssets';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import useLeaseType from '../../hooks/useLeaseType';
 import { genericPagesQuery_genericPages_items as GenericPages } from '../../../generated/genericPagesQuery';
@@ -144,6 +145,7 @@ interface IDetailsPageProps {
   productCard: GetProductCard | null;
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
+  imacaAssets: IImacaAssets | null;
 }
 
 const parseQuoteParams = (param?: string | null) =>
@@ -165,6 +167,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   productCard,
   leaseTypeQuery,
   pdpContent: pdpContentData,
+  imacaAssets,
 }) => {
   const router = useRouter();
   const pdpContent = React.useRef<HTMLDivElement>(null);
@@ -618,10 +621,11 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             text: leadTime,
             incomplete: true,
           }}
+          imacaAssets={imacaAssets}
           showInsuranceBanner={isFreeInsurance}
           showElectricBanner={isElectric}
           images={vehicleImages}
-          videoSrc={video && video}
+          videoSrc={video}
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
           imageAltText={metaTitle}

@@ -13,7 +13,7 @@ class ConfigurationRenderer {
       syncToLocationHref?: string[];
     },
     initialConfiguration: {
-      color: string;
+      color?: string;
       tyres: string;
       rims: string;
       car: string;
