@@ -1,7 +1,7 @@
 serviceName = 'next-storefront'
+app = "${serviceName}"
 ecrRegion = 'eu-west-2'
 stack = 'grid'
-taskDefFile = "deploy/aws/task-definition.json"
 branchName = "${env.BRANCH_NAME}"
 
 // Get souce branch name for PR based Jenkins build
@@ -14,19 +14,12 @@ def app_environment = [
     "dev": [
         clusterName: 'grid-dev',
         logGroupName: "dev/grid/apps",
-        taskFamily: "grid-dev-${serviceName}",
-        app: "${serviceName}",
-        ssmParametersBase: "arn:aws:ssm:eu-west-2:000379120260:parameter/dev/${stack}/${serviceName}",
         env: 'dev',
-        stack: 'grid',
         slackChannelInfra: '#dev-infra-approvals',
         slackChannelQA: '#qa-code-approvals',
         jenkinsCredentialsId: 'aws-keys-terraform-grid-dev',
         ecrCredentialId: 'aws-keys-terraform-grid-dev',
         accountId: '000379120260',
-        awsMasterRole: '', //empty while dev has master account credentials
-        state_bucket: 'autorama-terraform-state',
-        backendConfigDynamoDbTable: 'autorama-terraform-state-lock',
         jenkinsAgent: 'grid-dev-jenkins-agent',
         dockerRepoName: "000379120260.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
         NODE_ENV: 'development',
@@ -37,19 +30,12 @@ def app_environment = [
     "uat": [
         clusterName: 'grid-uat',
         logGroupName: "uat/grid/apps",
-        taskFamily: "grid-uat-${serviceName}",
-        app: "${serviceName}",
-        ssmParametersBase: "arn:aws:ssm:eu-west-2:126764662304:parameter/uat/${stack}/${serviceName}",
         env: 'uat',
-        stack: 'grid',
         slackChannelInfra: '#dev-infra-approvals',
         slackChannelQA: '#qa-code-approvals',
         jenkinsCredentialsId: 'aws-keys-terraform-grid-test',
         ecrCredentialId: 'aws-keys-terraform-grid-test',
         accountId: '126764662304',
-        awsMasterRole: 'arn:aws:iam::126764662304:role/AutoramaGridDelegate',
-        state_bucket: 'grid-terraform-state-1',
-        backendConfigDynamoDbTable: 'uat-grid-terraform-state-lock',
         jenkinsAgent: 'grid-uat-jenkins-agent',
         dockerRepoName: "126764662304.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
         NODE_ENV: 'development',
@@ -60,19 +46,12 @@ def app_environment = [
     "pre-prod": [
         clusterName: 'grid-pre-prod',
         logGroupName: "pre-prod/grid/apps",
-        taskFamily: "grid-pre-prod-${serviceName}",
-        app: "${serviceName}",
-        ssmParametersBase: "arn:aws:ssm:eu-west-2:148418686323:parameter/pre-prod/${stack}/${serviceName}",
         env: 'pre-prod',
-        stack: 'grid',
         slackChannelInfra: '#dev-infra-approvals',
         slackChannelQA: '#qa-code-approvals',
         jenkinsCredentialsId: 'aws-keys-terraform-grid-prod',
         ecrCredentialId: 'aws-keys-terraform-grid-test',
         accountId: '148418686323',
-        awsMasterRole: 'arn:aws:iam::000379120260:role/AutoramaGridDelegate',
-        state_bucket: 'grid-terraform-state-2',
-        backendConfigDynamoDbTable: 'pre-prod-grid-terraform-state-lock',
         jenkinsAgent: 'grid-pre-prod-jenkins-agent',
         dockerRepoName: "126764662304.dkr.ecr.${ecrRegion}.amazonaws.com/${serviceName}",
         NODE_ENV: 'development',
@@ -93,13 +72,6 @@ def ecrLogin(String accountId) {
     }
 }
 
-def getTaskDefinition(family, region) {
-    return "${family}:" + sh(
-        returnStdout: true,
-        script: "aws ecs describe-task-definition --task-definition ${family} --region ${region} | egrep 'revision'  | tr ',' ' ' | awk '{print \$2}'"
-    ).trim()
-}
-
 def getConfig() {
     if ( "${branchName}".contains('hotfix/') ) {
         return 'pre-prod'
@@ -115,15 +87,14 @@ def createReleaseBranch(appEnvironment, sourceBranch) {
     cleanWs()
     
     def dateNow = new Date()
-    def appName = appEnvironment["${getConfig()}"].app
     def releaseBranchName = "release/R${env.BUILD_NUMBER}-${dateNow.format('ddMMyyyy')}"
 
     try {
-        git branch: "${sourceBranch}", credentialsId: 'TechAmigo-DevOps-New', url: "https://github.com/Autorama/${appName}.git"
+        git branch: "${sourceBranch}", credentialsId: 'TechAmigo-DevOps-New', url: "https://github.com/Autorama/${serviceName}.git"
 
         sh "git config user.email devops@techamigos.com"
         sh "git config user.name 'devops'"
-        sh "git remote set-url origin git@github.com:Autorama/${appName}.git"
+        sh "git remote set-url origin git@github.com:Autorama/${serviceName}.git"
 
         sh """
         git checkout -b ${releaseBranchName}
@@ -282,7 +253,6 @@ pipeline {
                 ecrLogin(ecrCredentialId)
                 def dockerRepoName = app_environment["${getConfig()}"].dockerRepoName
                 def envs = app_environment["${getConfig()}"].env
-                def stack = app_environment["${getConfig()}"].stack
                 def NODE_ENV = app_environment["${getConfig()}"].NODE_ENV
                 def alternateDomain = app_environment["${getConfig()}"].alternateDomain
                 def imgOptimisationHost = app_environment["${getConfig()}"].imgOptimisationHost

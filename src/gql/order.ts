@@ -125,6 +125,7 @@ export const GET_CAR_DERIVATIVE = gql`
         years
         mileage
       }
+      freeInsurance
     }
   }
 `;
