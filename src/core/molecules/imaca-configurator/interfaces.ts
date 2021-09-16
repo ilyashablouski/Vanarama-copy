@@ -10,4 +10,5 @@ export interface IImacaConfigurator {
   selectedColour: Nullish<string>;
   onClick?: () => void;
   onMouseDown?: () => void;
+  onTouchStart?: () => void;
 }
