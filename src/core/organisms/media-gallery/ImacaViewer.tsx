@@ -52,6 +52,7 @@ function ImacaViewer({ assets, colour, setColour }: IImacaViewer) {
               id="viewer"
               className="imaca-viewer__configurator"
               onMouseDown={handleImageDrag}
+              onTouchStart={handleImageDrag}
               selectedColour={selectedColor?.hex}
               assets={assets}
               width={1420}
@@ -118,6 +119,7 @@ function ImacaViewer({ assets, colour, setColour }: IImacaViewer) {
               id="fs-viewer"
               className="imaca-viewer__configurator"
               onMouseDown={handleImageDrag}
+              onTouchStart={handleImageDrag}
               selectedColour={selectedColor?.hex}
               assets={assets}
               width={1420}
