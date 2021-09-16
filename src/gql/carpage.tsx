@@ -198,6 +198,24 @@ export function useTrimAndColour(
   );
 }
 
+export const GET_IMACA_ASSETS = gql`
+  query GetImacaAssets($capId: Int!, $vehicleType: VehicleTypeEnum!) {
+    getImacaAssets(capId: $capId, vehicleType: $vehicleType) {
+      vehicleUrl
+      tyresUrl
+      rimsUrl
+      colours {
+        capId
+        hex
+        imacaName
+        lqName
+        onOffer
+        matchAccuracy
+      }
+    }
+  }
+`;
+
 export const GET_PDP_CONTENT = gql`
   query GetPdpContent($vehicleType: PdpVehicleType!, $isPreview: Boolean) {
     pdpContent(vehicleType: $vehicleType, isPreview: $isPreview) {

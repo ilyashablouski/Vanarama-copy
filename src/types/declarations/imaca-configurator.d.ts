@@ -13,7 +13,7 @@ class ConfigurationRenderer {
       syncToLocationHref?: string[];
     },
     initialConfiguration: {
-      color: string;
+      color?: string;
       tyres: string;
       rims: string;
       car: string;
@@ -37,7 +37,7 @@ class ConfigurationRenderer {
 interface Window {
   ResourceCache: typeof ResourceCache;
   ConfigurationRenderer: typeof ConfigurationRenderer;
-  configurationRenderers: {
+  configurationRenderers?: {
     [key: string]: ConfigurationRenderer;
   };
 }
