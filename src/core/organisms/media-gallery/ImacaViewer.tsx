@@ -70,19 +70,21 @@ function ImacaViewer({ assets, colour, setColour }: IImacaViewer) {
             )}
           </div>
           <div className="imaca-viewer__controls">
-            <button
-              type="button"
-              className="colours-toggle imaca-viewer__colours-toggle"
-              onClick={handleColorsToggleClick}
-            >
-              <Icon
-                className="colours-toggle__icon"
-                icon={<ColorWheelIcon />}
-                color="dark"
-                size="lead"
-              />
-              {isColorSelectionOpen ? 'Hide' : 'Select Colour'}
-            </button>
+            {assets.colours?.length ? (
+              <button
+                type="button"
+                className="colours-toggle imaca-viewer__colours-toggle"
+                onClick={handleColorsToggleClick}
+              >
+                <Icon
+                  className="colours-toggle__icon"
+                  icon={<ColorWheelIcon />}
+                  color="dark"
+                  size="lead"
+                />
+                {isColorSelectionOpen ? 'Hide' : 'Select Colour'}
+              </button>
+            ) : null}
             <button
               type="button"
               className="fs-toggle imaca-viewer__fs-toggle"
