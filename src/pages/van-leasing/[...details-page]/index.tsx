@@ -335,6 +335,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       GetImacaAssetsVariables
     >({
       query: GET_IMACA_ASSETS,
+      errorPolicy: 'all',
       variables: {
         vehicleType: VehicleTypeEnum.LCV,
         capId,
