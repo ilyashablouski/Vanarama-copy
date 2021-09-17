@@ -127,6 +127,15 @@
     background: $white;
   }
 
+  &__configurator {
+    overflow: hidden;
+
+    canvas {
+      image-rendering: high-quality;
+      transform: translateY(-5%) scale(1.25);
+    }
+  }
+
   &__hint {
     position: absolute;
     top: 50%;
@@ -214,6 +223,16 @@
         & > * {
           display: flex;
           justify-content: center;
+        }
+
+        canvas {
+          transform: translateY(-5%);
+        }
+
+        @include mobile {
+          canvas {
+            transform: translateY(-5%) scale(1.25);
+          }
         }
       }
     }
