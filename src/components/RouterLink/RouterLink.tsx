@@ -101,6 +101,7 @@ const RouterLink: React.FC<IAppLinkProps> = props => {
         rel={setRel(link)}
         onClick={e => onClick && onClick(e)}
         data-testid={dataTestId ?? 'link'}
+        data-uitestid={dataUiTestId}
         {...(isTel && telProps)}
       >
         {children || link.label}
