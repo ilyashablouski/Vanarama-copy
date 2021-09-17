@@ -165,7 +165,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Hot White (K8J2)"
             style={
               Object {
-                "backgroundColor": "hsl(209, 0%, 100%)",
+                "backgroundColor": "#hsl(209, 0%, 100%)",
               }
             }
             title="Hot White (K8J2)"
@@ -208,7 +208,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Hot Orange (K8J2)"
             style={
               Object {
-                "backgroundColor": "hsl(24, 93%, 48%)",
+                "backgroundColor": "#hsl(24, 93%, 48%)",
               }
             }
             title="Hot Orange (K8J2)"
@@ -251,7 +251,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Hot Yellow (K8J2)"
             style={
               Object {
-                "backgroundColor": "hsl(43, 94%, 55%)",
+                "backgroundColor": "#hsl(43, 94%, 55%)",
               }
             }
             title="Hot Yellow (K8J2)"
@@ -318,7 +318,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Factory Blue (K8J2)"
             style={
               Object {
-                "backgroundColor": "hsl(209, 19%, 50%)",
+                "backgroundColor": "#hsl(209, 19%, 50%)",
               }
             }
             title="Factory Blue (K8J2)"
@@ -341,7 +341,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Factory Gray (K8J2)"
             style={
               Object {
-                "backgroundColor": "hsl(209, 22%, 34%)",
+                "backgroundColor": "#hsl(209, 22%, 34%)",
               }
             }
             title="Factory Gray (K8J2)"
@@ -364,7 +364,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Factory Red (K8J2)"
             style={
               Object {
-                "backgroundColor": "hsl(0, 66%, 45%)",
+                "backgroundColor": "#hsl(0, 66%, 45%)",
               }
             }
             title="Factory Red (K8J2)"
@@ -387,7 +387,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Factory Green (K8J2)"
             style={
               Object {
-                "backgroundColor": "hsl(99, 53%, 44%)",
+                "backgroundColor": "#hsl(99, 53%, 44%)",
               }
             }
             title="Factory Green (K8J2)"
@@ -410,7 +410,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Factory Black (K8J2)"
             style={
               Object {
-                "backgroundColor": "hsl(209, 22%, 5%)",
+                "backgroundColor": "#hsl(209, 22%, 5%)",
               }
             }
             title="Factory Black (K8J2)"
