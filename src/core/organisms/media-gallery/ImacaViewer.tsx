@@ -52,10 +52,11 @@ function ImacaViewer({ assets, colour, setColour }: IImacaViewer) {
               id="viewer"
               className="imaca-viewer__configurator"
               onMouseDown={handleImageDrag}
+              onTouchStart={handleImageDrag}
               selectedColour={selectedColor?.hex}
               assets={assets}
               width={1420}
-              height={798}
+              height={800}
             />
             {isHintVisible && (
               <div className="imaca-viewer__hint">
@@ -118,10 +119,11 @@ function ImacaViewer({ assets, colour, setColour }: IImacaViewer) {
               id="fs-viewer"
               className="imaca-viewer__configurator"
               onMouseDown={handleImageDrag}
+              onTouchStart={handleImageDrag}
               selectedColour={selectedColor?.hex}
               assets={assets}
               width={1420}
-              height={798}
+              height={800}
             />
           </div>
         </ModalV2>

@@ -11,6 +11,7 @@ function ImacaConfigurator({
   assets,
   onClick,
   onMouseDown,
+  onTouchStart,
 }: IImacaConfigurator) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -22,11 +23,13 @@ function ImacaConfigurator({
     const resourceCache = new window.ResourceCache(64);
     const configViewer = new window.ConfigurationRenderer(
       containerRef.current,
-      { width, height, syncToLocationHref: [] },
+      { width, height, syncToLocationHref: ['angle'] },
       {
         rims: assets.rimsUrl ?? '',
         tyres: assets.tyresUrl ?? '',
         car: assets.vehicleUrl ?? '',
+        plateFilterQuality: 1,
+        angle: 50,
       },
       resourceCache,
     );
@@ -68,6 +71,7 @@ function ImacaConfigurator({
       ref={containerRef}
       onClick={onClick}
       onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
     />
   );
 }
