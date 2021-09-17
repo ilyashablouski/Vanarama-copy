@@ -27,14 +27,11 @@
       align-items: center;
       width: 25px;
       height: 100%;
-      cursor: pointer;
+      cursor: default;
 
       @include desktop {
         display: none;
       }
-      //&.-disabled {
-      //  display: none;
-      //}
 
       &:focus {
         background-color: rgba(103, 128, 152, 0.15);
