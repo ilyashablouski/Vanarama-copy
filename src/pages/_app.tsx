@@ -9,7 +9,6 @@ import cx from 'classnames';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { useApolloClient } from '@apollo/client';
 import { useMediaQuery } from 'react-responsive';
-import BenefitsBar from 'core/organisms/benefits-bar/BenefitsBar';
 import { isGlobalSearchFeatureEnabled } from '../utils/helpers';
 import {
   PAGES_WITHOUT_LEASE_RESET,
@@ -186,7 +185,6 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         style={isAddPadding ? { paddingTop: '104px' } : {}}
       >
         <HeaderContainer />
-        <BenefitsBar countItems={5} />
 
         <CompareContext.Provider
           value={{
