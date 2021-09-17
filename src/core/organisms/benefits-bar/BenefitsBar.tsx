@@ -5,6 +5,11 @@ import cx from 'classnames';
 import Icon from 'core/atoms/icon';
 import ChevronBack from 'core/assets/icons/ChevronBack';
 import ChevronForward from 'core/assets/icons/ChevronForward';
+import PriceLowest from 'core/assets/icons/PriceLowest';
+import ReturnCircle from 'core/assets/icons/ReturnCircle';
+import TrustPilot from 'core/assets/icons/TrustPilot';
+import BreakdownCar from 'core/assets/icons/BreakdownCar';
+import DeliveryCar from 'core/assets/icons/DeliveryCar';
 import { useDesktopViewport } from '../../../hooks/useMediaQuery';
 import { ICarouselProps } from '../carousel/interface';
 
@@ -16,23 +21,23 @@ const Slider: FC<ICarouselProps> = () => {
   const items = [
     {
       title: 'Lowest Price Guaranteed',
-      icon: '',
+      icon: <PriceLowest />,
     },
     {
       title: 'FREE 30-Day Returns',
-      icon: '',
+      icon: <ReturnCircle />,
     },
     {
       title: 'Rated Excellent',
-      icon: '',
+      icon: <TrustPilot />,
     },
     {
       title: 'Road Tax & Roadside Assistance Included',
-      icon: '',
+      icon: <BreakdownCar />,
     },
     {
       title: 'FREE & Fast Delivery',
-      icon: '',
+      icon: <DeliveryCar />,
     },
   ];
 
@@ -46,7 +51,7 @@ const Slider: FC<ICarouselProps> = () => {
             prevEl: `.swiper-prev`,
             nextEl: `.swiper-next`,
           }}
-          loop={!isDesktopLayout}
+          loop
           autoplay={{
             delay: 4000,
             disableOnInteraction: false,
@@ -70,30 +75,12 @@ const Slider: FC<ICarouselProps> = () => {
           })}
         </Swiper>
 
-        <button
-          className={cx('benefits-bar__nav swiper-prev', {
-            '-disabled': isDesktopLayout,
-          })}
-          type="button"
-        >
-          <Icon
-            icon={<ChevronBack />}
-            className="benefits-bar__icon"
-            size="large"
-          />
+        <button className="swiper-prev" type="button">
+          <Icon icon={<ChevronBack />} className="benefits-bar__icon" />
         </button>
 
-        <button
-          className={cx('benefits-bar__nav swiper-next', {
-            '-disabled': isDesktopLayout,
-          })}
-          type="button"
-        >
-          <Icon
-            icon={<ChevronForward />}
-            className="benefits-bar__icon"
-            size="large"
-          />
+        <button className="swiper-next" type="button">
+          <Icon icon={<ChevronForward />} className="benefits-bar__icon" />
         </button>
       </div>
     </div>

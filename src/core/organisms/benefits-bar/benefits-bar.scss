@@ -1,24 +1,40 @@
 .benefits-bar {
   grid-column: full;
-  display: flex;
+  display: block;
   align-items: center;
   background: #F26500;
-  padding: 0.75rem;
-  min-height: 56px;
+  padding: 0 0.75rem;
+  min-height: 41px;
+
+  @include desktop {
+    min-height: 56px;
+    display: flex;
+  }
 
   &__slider {
+    margin: 0 auto;
+    max-width: 1215.94px;
+    height: 100%;
     position: relative;
-    padding: 0 24px;
     flex-grow: 1;
 
     .swiper-prev,
     .swiper-next {
       position: absolute;
       bottom: 0;
-      width: 20px;
-      display: block;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      width: 25px;
       height: 100%;
       cursor: pointer;
+
+      @include desktop {
+        display: none;
+      }
+      //&.-disabled {
+      //  display: none;
+      //}
 
       &:focus {
         background-color: rgba(103, 128, 152, 0.15);
@@ -38,29 +54,53 @@
     }
 
     .swiper-container {
-      width: 100%;
+      width: calc(100% - 50px);
       height: 100%;
+
+      @include desktop {
+        width: 100%;
+      }
     }
 
     .swiper-wrapper {
       justify-content: space-between;
       align-items: center;
-      gap: 20px;
-      will-change: transform;
+
+      @include desktop {
+        gap: 20px;
+      }
     }
 
     .swiper-slide {
       box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex: 1 0 100%;
+      max-width: 100%;
+      cursor: pointer;
 
       @include desktop {
+        flex: 1 0 auto;
+        max-width: none;
         width: auto;
+        display: none;
+        &:nth-child(1) {
+          display: flex;
+        }
+        &:nth-child(2) {
+          display: flex;
+        }
+        &:nth-child(3) {
+          display: flex;
+        }
+        &:nth-child(4) {
+          display: flex;
+        }
+        &:nth-child(5) {
+          display: flex;
+        }
       }
-    }
-  }
-
-  &__nav {
-    &.-disabled {
-      display: none;
     }
   }
 
@@ -71,9 +111,10 @@
   }
 
   &__icon {
-    margin-right: 5px;
+    margin-right: 3px;
     display: inline-flex;
     height: auto;
+    font-size: 25px;
 
     svg {
       --class-color: white;
