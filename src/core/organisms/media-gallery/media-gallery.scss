@@ -132,7 +132,7 @@
 
     canvas {
       image-rendering: high-quality;
-      transform: translateY(-5%) scale(1.25);
+      transform: translateY(-8%) scale(1.25);
     }
   }
 
@@ -226,12 +226,12 @@
         }
 
         canvas {
-          transform: translateY(-5%);
+          transform: translateY(-6%);
         }
 
         @include mobile {
           canvas {
-            transform: translateY(-5%) scale(1.25);
+            transform: translateY(-8%) scale(1.25);
           }
         }
       }
