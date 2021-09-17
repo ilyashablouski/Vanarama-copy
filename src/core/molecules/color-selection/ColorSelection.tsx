@@ -70,7 +70,7 @@ function ColorSelection({
                 <label
                   title={color.lqName ?? ''}
                   htmlFor={color.lqName ?? ''}
-                  style={{ backgroundColor: color.hex ?? '' }}
+                  style={{ backgroundColor: `#${color.hex}` }}
                   className={getClassName('color')}
                 >
                   <Icon icon={<Flame />} />
@@ -103,7 +103,7 @@ function ColorSelection({
                 <label
                   title={color.lqName ?? ''}
                   htmlFor={color.lqName ?? ''}
-                  style={{ backgroundColor: color.hex ?? '' }}
+                  style={{ backgroundColor: `#${color.hex}` }}
                   className={getClassName('color')}
                 />
               </li>
