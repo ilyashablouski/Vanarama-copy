@@ -2,6 +2,7 @@ import Cookies from 'js-cookie';
 import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
 import { IInnerSelect } from './interfaces';
 import { Nullish } from '../../types/common';
+import { productFilter_productFilter as IProductFilter } from '../../../generated/productFilter';
 
 export const UNLISTED_VALUE = 999999999;
 
@@ -113,3 +114,27 @@ export const generateQueryObject = (filtersData: IFiltersData) => {
   }
   return queries;
 };
+
+const electricFilterValues = [
+  'Electric',
+  'Petrol/plugin Elec Hybrid',
+  'Diesel/plugin Elec Hybrid',
+  'Petrol/electric Hybrid',
+];
+
+export const onElectricRangeCondition = (activeFilters: IFiltersData) =>
+  !!activeFilters.fuelTypes?.some(
+    value => value && electricFilterValues.includes(value),
+  );
+
+const LCVTypes = ['Pickup', 'Van'];
+
+export const onLCVCondition = (
+  activeFilters: IFiltersData,
+  filtersData: IProductFilter,
+) =>
+  !!filtersData?.vehicleCategory?.some(filterValue =>
+    LCVTypes.includes(filterValue || ''),
+  ) &&
+  (!activeFilters.vehicleCategory?.[0] ||
+    LCVTypes.includes(activeFilters.vehicleCategory?.[0]));
