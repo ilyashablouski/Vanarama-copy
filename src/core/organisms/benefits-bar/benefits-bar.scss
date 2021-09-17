@@ -27,7 +27,7 @@
       align-items: center;
       width: 25px;
       height: 100%;
-      cursor: default;
+      cursor: pointer;
 
       @include desktop {
         display: none;
@@ -75,7 +75,7 @@
       align-items: center;
       flex: 1 0 100%;
       max-width: 100%;
-      cursor: pointer;
+      cursor: default;
 
       @include desktop {
         flex: 1 0 auto;
