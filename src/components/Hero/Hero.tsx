@@ -4,8 +4,6 @@ import Icon from 'core/atoms/icon';
 import * as toast from 'core/atoms/toast/Toast';
 import { IHeroProps } from './interface';
 import SearchPodContainer from '../../containers/SearchPodContainer';
-// import RequestCallBackForm from '../RequestCallBackForm';
-// import WorkingHoursTable from '../../containers/InsurancePageContainer/sections/WorkingHoursTable';
 import { useOpportunityCreation } from '../../containers/GoldrushFormContainer/gql';
 import {
   handleNetworkError,
@@ -13,12 +11,7 @@ import {
 } from '../../containers/GoldrushFormContainer/GoldrushFormContainer';
 import { OpportunityTypeEnum } from '../../../generated/globalTypes';
 import Skeleton from '../Skeleton';
-// import BenefitsSection from 'containers/FleetPageContainer/sections/BenefitsSection';
 
-const BenefitsBar = dynamic(
-  () => import('../../core/organisms/benefits-bar/BenefitsBar'),
-  { loading: () => <Skeleton count={1} /> },
-);
 const ArrowForward = dynamic(() => import('core/assets/icons/ArrowForward'), {
   ssr: false,
 });
@@ -39,7 +32,6 @@ const Hero: React.FC<IHeroProps> = ({
   children,
   topHeader,
   customCTAColor,
-  hideBenefitsBar,
   withRequestCallbackForm,
   workingHoursCard,
   searchPodCarsData,
@@ -113,10 +105,9 @@ const Hero: React.FC<IHeroProps> = ({
       <div className="row:hero">
         <div className="hero--left">{children}</div>
         <div className="hero--right" style={{ minHeight: '347px' }}>
-          {/* NOTE: Some components using dynamic imports are causing issues affecting next sibling CSS classnames 
+          {/* NOTE: Some components using dynamic imports are causing issues affecting next sibling CSS classnames
               from rendering as expected. This issue is happening when rehydrating on the client-side */}
           {renderHeroRight()}
-          {!hideBenefitsBar && <BenefitsBar countItems={4} />}
         </div>
         <div className="hero--decals">
           {/* <svg
