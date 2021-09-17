@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay, Navigation } from 'swiper';
-import cx from 'classnames';
 import Icon from 'core/atoms/icon';
 import ChevronBack from 'core/assets/icons/ChevronBack';
 import ChevronForward from 'core/assets/icons/ChevronForward';
@@ -10,14 +9,11 @@ import ReturnCircle from 'core/assets/icons/ReturnCircle';
 import TrustPilot from 'core/assets/icons/TrustPilot';
 import BreakdownCar from 'core/assets/icons/BreakdownCar';
 import DeliveryCar from 'core/assets/icons/DeliveryCar';
-import { useDesktopViewport } from '../../../hooks/useMediaQuery';
 import { ICarouselProps } from '../carousel/interface';
 
 SwiperCore.use([Navigation, Autoplay]);
 
 const Slider: FC<ICarouselProps> = () => {
-  const isDesktopLayout = useDesktopViewport();
-
   const items = [
     {
       title: 'Lowest Price Guaranteed',
