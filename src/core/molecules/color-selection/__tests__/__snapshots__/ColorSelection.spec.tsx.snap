@@ -6,7 +6,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
     Array [
       Object {
         "capId": 72751,
-        "hex": "hsl(209, 19%, 50%)",
+        "hex": "678098",
         "imacaName": "Factory Blue (K8J2)",
         "lqName": "Factory Blue (K8J2)",
         "matchAccuracy": 1,
@@ -14,7 +14,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
       },
       Object {
         "capId": 72500,
-        "hex": "hsl(209, 22%, 34%)",
+        "hex": "44576a",
         "imacaName": "Factory Gray (K8J2)",
         "lqName": "Factory Gray (K8J2)",
         "matchAccuracy": 1,
@@ -22,7 +22,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
       },
       Object {
         "capId": 72497,
-        "hex": "hsl(0, 66%, 45%)",
+        "hex": "be2727",
         "imacaName": "Factory Red (K8J2)",
         "lqName": "Factory Red (K8J2)",
         "matchAccuracy": 1,
@@ -30,7 +30,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
       },
       Object {
         "capId": 164510,
-        "hex": "hsl(99, 53%, 44%)",
+        "hex": "5eac35",
         "imacaName": "Factory Green (K8J2)",
         "lqName": "Factory Green (K8J2)",
         "matchAccuracy": 1,
@@ -38,7 +38,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
       },
       Object {
         "capId": 138304,
-        "hex": "hsl(209, 22%, 5%)",
+        "hex": "0a0d10",
         "imacaName": "Factory Black (K8J2)",
         "lqName": "Factory Black (K8J2)",
         "matchAccuracy": 1,
@@ -50,7 +50,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
     Array [
       Object {
         "capId": 97341,
-        "hex": "hsl(209, 0%, 100%)",
+        "hex": "ffffff",
         "imacaName": "Hot White (K8J2)",
         "lqName": "Hot White (K8J2)",
         "matchAccuracy": 1,
@@ -58,7 +58,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
       },
       Object {
         "capId": 151235,
-        "hex": "hsl(24, 93%, 48%)",
+        "hex": "ec6409",
         "imacaName": "Hot Orange (K8J2)",
         "lqName": "Hot Orange (K8J2)",
         "matchAccuracy": 1,
@@ -66,7 +66,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
       },
       Object {
         "capId": 122994,
-        "hex": "hsl(43, 94%, 55%)",
+        "hex": "f8bb20",
         "imacaName": "Hot Yellow (K8J2)",
         "lqName": "Hot Yellow (K8J2)",
         "matchAccuracy": 1,
@@ -78,7 +78,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
   selectedColor={
     Object {
       "capId": 97341,
-      "hex": "hsl(209, 0%, 100%)",
+      "hex": "ffffff",
       "imacaName": "Hot White (K8J2)",
       "lqName": "Hot White (K8J2)",
       "matchAccuracy": 1,
@@ -165,7 +165,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Hot White (K8J2)"
             style={
               Object {
-                "backgroundColor": "#hsl(209, 0%, 100%)",
+                "backgroundColor": "#ffffff",
               }
             }
             title="Hot White (K8J2)"
@@ -208,7 +208,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Hot Orange (K8J2)"
             style={
               Object {
-                "backgroundColor": "#hsl(24, 93%, 48%)",
+                "backgroundColor": "#ec6409",
               }
             }
             title="Hot Orange (K8J2)"
@@ -251,7 +251,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Hot Yellow (K8J2)"
             style={
               Object {
-                "backgroundColor": "#hsl(43, 94%, 55%)",
+                "backgroundColor": "#f8bb20",
               }
             }
             title="Hot Yellow (K8J2)"
@@ -318,7 +318,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Factory Blue (K8J2)"
             style={
               Object {
-                "backgroundColor": "#hsl(209, 19%, 50%)",
+                "backgroundColor": "#678098",
               }
             }
             title="Factory Blue (K8J2)"
@@ -341,7 +341,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Factory Gray (K8J2)"
             style={
               Object {
-                "backgroundColor": "#hsl(209, 22%, 34%)",
+                "backgroundColor": "#44576a",
               }
             }
             title="Factory Gray (K8J2)"
@@ -364,7 +364,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Factory Red (K8J2)"
             style={
               Object {
-                "backgroundColor": "#hsl(0, 66%, 45%)",
+                "backgroundColor": "#be2727",
               }
             }
             title="Factory Red (K8J2)"
@@ -387,7 +387,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Factory Green (K8J2)"
             style={
               Object {
-                "backgroundColor": "#hsl(99, 53%, 44%)",
+                "backgroundColor": "#5eac35",
               }
             }
             title="Factory Green (K8J2)"
@@ -410,7 +410,7 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
             htmlFor="Factory Black (K8J2)"
             style={
               Object {
-                "backgroundColor": "#hsl(209, 22%, 5%)",
+                "backgroundColor": "#0a0d10",
               }
             }
             title="Factory Black (K8J2)"
