@@ -9,6 +9,7 @@ import {
   GetDerivative_vehicleDetails_roadsideAssistance,
   GetDerivative_vehicleDetails_warrantyDetails,
 } from '../../../../../generated/GetDerivative';
+import { isInchcapeFeatureEnabled } from '../../../../utils/helpers';
 
 export interface IOlafDetails {
   isFreeInsurance?: boolean | null;
@@ -59,6 +60,7 @@ const OlafCard: FC<IOlafCardProps> = props => {
     warrantyDetails,
     freeInsurance,
   } = props;
+  const isInchcape = isInchcapeFeatureEnabled();
   const data = [
     {
       name: 'processingFee',
@@ -167,7 +169,9 @@ const OlafCard: FC<IOlafCardProps> = props => {
         </Text>
       </div>
       <StructuredList dataTestId="order-details" list={data} />
-      {freeInsurance && <FreeInsuranceLabel />}
+      {isInchcape
+        ? freeInsurance && <FreeInsuranceLabel />
+        : olafDetails.isFreeInsurance && <FreeInsuranceLabel />}
     </Card>
   );
 };
