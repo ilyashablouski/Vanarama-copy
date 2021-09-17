@@ -30,7 +30,7 @@ function ColorSelection({
       <div className={getClassName('header')}>
         <Text className={getClassName('selected-color')} color="dark">
           <span>Colour:</span>
-          {selectedColor?.imacaName}
+          {selectedColor?.lqName}
         </Text>
         {/* <Text className={getClassName('price')} color="orange"> */}
         {/*  {selectedColor?.price ? ( */}
@@ -58,19 +58,19 @@ function ColorSelection({
           </Text>
           <ul className={getClassName('color-list')}>
             {hotOfferColorList.map(color => (
-              <li className={getClassName('color-item')} key={color.imacaName}>
+              <li className={getClassName('color-item')} key={color.lqName}>
                 <input
                   type="radio"
                   name="hot-offers"
-                  id={color.imacaName ?? ''}
+                  id={color.lqName ?? ''}
                   className="visually-hidden"
                   checked={selectedColor?.capId === color.capId}
                   onChange={() => onChange(color)}
                 />
                 <label
-                  title={color.imacaName ?? ''}
-                  htmlFor={color.imacaName ?? ''}
-                  style={{ backgroundColor: color.hex ?? '' }}
+                  title={color.lqName ?? ''}
+                  htmlFor={color.lqName ?? ''}
+                  style={{ backgroundColor: `#${color.hex}` }}
                   className={getClassName('color')}
                 >
                   <Icon icon={<Flame />} />
@@ -91,19 +91,19 @@ function ColorSelection({
           </Text>
           <ul className={getClassName('color-list')}>
             {factoryColorList.map(color => (
-              <li className={getClassName('color-item')} key={color.imacaName}>
+              <li className={getClassName('color-item')} key={color.lqName}>
                 <input
                   type="radio"
                   name="factory"
-                  id={color.imacaName ?? ''}
+                  id={color.lqName ?? ''}
                   className="visually-hidden"
                   checked={selectedColor?.capId === color.capId}
                   onChange={() => onChange(color)}
                 />
                 <label
-                  title={color.imacaName ?? ''}
-                  htmlFor={color.imacaName ?? ''}
-                  style={{ backgroundColor: color.hex ?? '' }}
+                  title={color.lqName ?? ''}
+                  htmlFor={color.lqName ?? ''}
+                  style={{ backgroundColor: `#${color.hex}` }}
                   className={getClassName('color')}
                 />
               </li>

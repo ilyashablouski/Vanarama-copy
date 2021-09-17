@@ -13,6 +13,8 @@ class ConfigurationRenderer {
       syncToLocationHref?: string[];
     },
     initialConfiguration: {
+      angle?: number;
+      plateFilterQuality?: number;
       color?: string;
       tyres: string;
       rims: string;
