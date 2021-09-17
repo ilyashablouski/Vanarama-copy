@@ -1,8 +1,12 @@
-import Price from 'core/atoms/price';
 import Router from 'next/router';
 import dynamic from 'next/dynamic';
+import { useMemo } from 'react';
+import FreeInsuranceCardLabelIcon from 'core/assets/icons/FreeInsuranceCardLabelIcon';
+import FreeHomeCharger from 'core/assets/icons/FreeHomeCharger';
 import { productDerivatives_productDerivatives_derivatives as ISuggestion } from '../../../generated/productDerivatives';
 import Skeleton from '../../components/Skeleton';
+import { VehicleTypeEnum } from '../../../generated/globalTypes';
+import { FuelTypeEnum } from '../../../entities/global';
 
 const Icon = dynamic(() => import('core/atoms/icon'), {
   ssr: false,
@@ -21,18 +25,54 @@ interface IProps {
 }
 
 const GlobalSearchCard = ({ data, imgUrl }: IProps) => {
+  const isSpecialOffer = useMemo(() => data.onOffer, [data.onOffer]);
+  const isCar = useMemo(() => data.vehicleType === VehicleTypeEnum.CAR, [
+    data.vehicleType,
+  ]);
+  const isElectric = useMemo(() => data.fuelType === FuelTypeEnum.ELECTRIC, [
+    data.fuelType,
+  ]);
+  const pounds = useMemo(() => Math.trunc(data.rental as number), [
+    data.rental,
+  ]);
+  const pence = useMemo(
+    () => (data.rental as number).toFixed(2).split('.')[1],
+    [data.rental],
+  );
   return (
     <div className="card-mini">
-      {data.onOffer && <Icon icon={<Flame />} className="flame" />}
-      <img src={imgUrl} alt="img" />
+      {isSpecialOffer && (
+        <span className="hot-offer">
+          <Icon icon={<Flame />} className="flame" />
+          HOT OFFER
+        </span>
+      )}
+      <div className="img-crop">
+        <img src={imgUrl} alt="img" />
+      </div>
       <div className="copy">
+        {isElectric && (
+          <span className="extras-gs">
+            <FreeHomeCharger />
+            FREE HOME CHARGER
+          </span>
+        )}
+        {isSpecialOffer && !(!isCar || isElectric) && (
+          <>
+            <span className="extras-gs">
+              {' '}
+              <FreeInsuranceCardLabelIcon />
+              FREE INSURANCE
+            </span>
+          </>
+        )}
+
         <div className="model">{`${data.manufacturerName} ${data.modelName}`}</div>
 
         <div className="variant">{data.derivativeName}</div>
-        <div className="cost -flex-default">
-          <Price price={data.rental} />
-          &nbsp;
-          <span className="vat"> Inc. VAT</span>
+        <div className="cost">
+          £<span className="pounds">{pounds}</span>.{pence}
+          <span className="vat">Per Month Inc. VAT</span>
         </div>
         <Button
           round
