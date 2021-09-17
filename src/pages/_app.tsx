@@ -185,6 +185,7 @@ const MyApp: React.FC<AppProps> = ({ Component, pageProps, router }) => {
         style={isAddPadding ? { paddingTop: '104px' } : {}}
       >
         <HeaderContainer />
+
         <CompareContext.Provider
           value={{
             compareVehicles,

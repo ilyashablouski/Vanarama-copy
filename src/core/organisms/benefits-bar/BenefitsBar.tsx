@@ -1,6 +1,14 @@
 import React, { FC } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay, Navigation } from 'swiper';
+import Icon from 'core/atoms/icon';
+import ChevronBack from 'core/assets/icons/ChevronBack';
+import ChevronForward from 'core/assets/icons/ChevronForward';
+import PriceLowest from 'core/assets/icons/PriceLowest';
+import ReturnCircle from 'core/assets/icons/ReturnCircle';
+import TrustPilot from 'core/assets/icons/TrustPilot';
+import BreakdownCar from 'core/assets/icons/BreakdownCar';
+import DeliveryCar from 'core/assets/icons/DeliveryCar';
 import { ICarouselProps } from '../carousel/interface';
 
 SwiperCore.use([Navigation, Autoplay]);
@@ -9,24 +17,32 @@ const Slider: FC<ICarouselProps> = () => {
   const items = [
     {
       title: 'Lowest Price Guaranteed',
-      subtitle: "We'll beat any price or give you £100.",
+      icon: <PriceLowest />,
     },
     {
-      title: 'Our Customers Love Us',
-      subtitle: ' on Trustpilot.',
-      rating: '★★★★★',
+      title: 'FREE 30-Day Returns',
+      icon: <ReturnCircle />,
     },
     {
-      title: 'Over 100,000 Vehicles Leased',
-      subtitle: 'Van, pickup or car - lease yours today.',
+      title: 'Rated Excellent',
+      icon: <TrustPilot />,
+    },
+    {
+      title: 'Road Tax & Roadside Assistance Included',
+      icon: <BreakdownCar />,
+    },
+    {
+      title: 'FREE & Fast Delivery',
+      icon: <DeliveryCar />,
     },
   ];
 
   return (
-    <div className="hero-benefits-bar">
-      <div className="slider">
+    <div className="benefits-bar">
+      <div className="benefits-bar__slider">
         <Swiper
-          centeredSlides
+          slidesPerView="auto"
+          watchOverflow
           navigation={{
             prevEl: `.swiper-prev`,
             nextEl: `.swiper-next`,
@@ -42,48 +58,27 @@ const Slider: FC<ICarouselProps> = () => {
           {items.map(item => {
             return (
               <SwiperSlide key={item.title}>
-                <div className="text -small -black">
-                  <b>{item.title}</b>
-                </div>
-                <div className="text -small -darker">
-                  {item.rating && (
-                    <span className="b-bar-rating">{item.rating}</span>
-                  )}
-                  {item.subtitle}
+                <div className="text -small -white">
+                  <Icon
+                    icon={item.icon}
+                    className="benefits-bar__icon"
+                    size="lead"
+                  />
+                  <span>{item.title}</span>
                 </div>
               </SwiperSlide>
             );
           })}
-
-          <button className="swiper-prev" type="button">
-            {/* <span>Previous</span> */}
-          </button>
-
-          <button className="swiper-next" type="button">
-            {/* <span>Next</span> */}
-          </button>
         </Swiper>
-      </div>
 
-      {/* <Carousel */}
-      {/*  wrapAround */}
-      {/*  autoplay */}
-      {/*  pauseOnHover */}
-      {/*  initialSlideWidth={328} */}
-      {/*  initialSlideHeight={40} */}
-      {/*  autoplayInterval={4000} */}
-      {/*  renderCenterLeftControls={({ previousSlide }) => ( */}
-      {/*    <button onClick={previousSlide} type="button"> */}
-      {/*      <span>Previous</span> */}
-      {/*    </button> */}
-      {/*  )} */}
-      {/*  renderCenterRightControls={({ nextSlide }) => ( */}
-      {/*    <button onClick={nextSlide} type="button"> */}
-      {/*      <span>Next</span> */}
-      {/*    </button> */}
-      {/*  )} */}
-      {/* > */}
-      {/* </Carousel> */}
+        <button className="swiper-prev" type="button">
+          <Icon icon={<ChevronBack />} className="benefits-bar__icon" />
+        </button>
+
+        <button className="swiper-next" type="button">
+          <Icon icon={<ChevronForward />} className="benefits-bar__icon" />
+        </button>
+      </div>
     </div>
   );
 };
