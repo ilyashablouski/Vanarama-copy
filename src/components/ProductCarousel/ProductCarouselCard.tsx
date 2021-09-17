@@ -49,6 +49,7 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
     leaseType,
     data,
     dataTestIdBtn,
+    dataUiTestId,
     productType,
     customCTABackground,
   } = props;
@@ -200,6 +201,7 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
           classNames={{ color: 'teal', solid: true, size: 'regular' }}
           className="button"
           dataTestId={dataTestIdBtn}
+          dataUiTestId={dataUiTestId}
         >
           <div
             className="button--inner"
