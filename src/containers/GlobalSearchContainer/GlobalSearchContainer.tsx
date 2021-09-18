@@ -12,7 +12,6 @@ import { useGlobalSearch } from './gql';
 import { moreInfoConfig } from './config';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { productDerivatives_productDerivatives_derivatives as ISuggestions } from '../../../generated/productDerivatives';
-import { isGlobalSearchFeatureEnabled } from '../../utils/helpers';
 
 const SearchCircle = dynamic(() => import('core/assets/icons/SearchOutline'), {
   ssr: false,
@@ -28,8 +27,6 @@ const GlobalSearchContainer = () => {
   const [searchValue, setSearchValue] = useState('');
   const debouncedSearchTerm = useDebounce(searchValue, 400);
   const suggestions = useGlobalSearch(debouncedSearchTerm);
-  // TODO: https://autorama.atlassian.net/browse/DIG-6855
-  const isVisible = isGlobalSearchFeatureEnabled();
   const onSubmit = (value: string) => {
     router.push(
       {
@@ -61,7 +58,7 @@ const GlobalSearchContainer = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  return isVisible ? (
+  return (
     <div className={cx('header-search', isOpenResults ? '-active' : '')}>
       <div className="search-input-container">
         <TextInput
@@ -150,8 +147,6 @@ const GlobalSearchContainer = () => {
         </>
       )}
     </div>
-  ) : (
-    <></>
   );
 };
 
