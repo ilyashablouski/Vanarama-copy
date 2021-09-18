@@ -90,6 +90,80 @@ exports[`<Header /> renders correctly 1`] = `
       </span>
     </a>
      
+    <div
+      className="header-search"
+    >
+      <div
+        className="search-input-container"
+      >
+        <div
+          className="textinput regular header-search--input"
+        >
+          <input
+            className="header-search--input"
+            id="search"
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyPress={[Function]}
+            placeholder="Search for vehicles or information..."
+            type="text"
+            value=""
+          />
+        </div>
+        <i
+          aria-label="search"
+          className="icon icon -lead -black md hydrated"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <path
+              d="M221.09,64A157.09,157.09,0,1,0,378.18,221.09,157.1,157.1,0,0,0,221.09,64Z"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 32,
+                }
+              }
+            />
+            <line
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 32,
+                }
+              }
+              x1={338.29}
+              x2={448}
+              y1={338.29}
+              y2={448}
+            />
+          </svg>
+        </i>
+        <i
+          aria-label="search"
+          className="icon icon -lead -black md hydrated -is-hidden"
+          onClick={[Function]}
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <polygon
+              points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
+            />
+          </svg>
+        </i>
+      </div>
+    </div>
     <a
       className="header-tel link InfinityNumber call-us visible-xs"
       data-ict-discovery-number="01442 838195"
@@ -2978,6 +3052,80 @@ exports[`<Header /> renders correctly with login user 1`] = `
       </span>
     </a>
      
+    <div
+      className="header-search"
+    >
+      <div
+        className="search-input-container"
+      >
+        <div
+          className="textinput regular header-search--input"
+        >
+          <input
+            className="header-search--input"
+            id="search"
+            onChange={[Function]}
+            onFocus={[Function]}
+            onKeyPress={[Function]}
+            placeholder="Search for vehicles or information..."
+            type="text"
+            value=""
+          />
+        </div>
+        <i
+          aria-label="search"
+          className="icon icon -lead -black md hydrated"
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <path
+              d="M221.09,64A157.09,157.09,0,1,0,378.18,221.09,157.1,157.1,0,0,0,221.09,64Z"
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 32,
+                }
+              }
+            />
+            <line
+              style={
+                Object {
+                  "fill": "none",
+                  "stroke": "var(--class-color)",
+                  "strokeLinecap": "round",
+                  "strokeMiterlimit": 10,
+                  "strokeWidth": 32,
+                }
+              }
+              x1={338.29}
+              x2={448}
+              y1={338.29}
+              y2={448}
+            />
+          </svg>
+        </i>
+        <i
+          aria-label="search"
+          className="icon icon -lead -black md hydrated -is-hidden"
+          onClick={[Function]}
+        >
+          <svg
+            height="1em"
+            viewBox="0 0 512 512"
+            width="1em"
+          >
+            <polygon
+              points="400 145.49 366.51 112 256 222.51 145.49 112 112 145.49 222.51 256 112 366.51 145.49 400 256 289.49 366.51 400 400 366.51 289.49 256 400 145.49"
+            />
+          </svg>
+        </i>
+      </div>
+    </div>
     <a
       className="header-tel link InfinityNumber call-us visible-xs"
       data-ict-discovery-number="01442 838195"
