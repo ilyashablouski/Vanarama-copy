@@ -246,10 +246,6 @@ export const parseVehicleConfigId = (configId: string) => {
   };
 };
 
-export const isGlobalSearchFeatureEnabled = () => {
-  return Cookies.get('DIG-5552') === '1';
-};
-
 export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
 };

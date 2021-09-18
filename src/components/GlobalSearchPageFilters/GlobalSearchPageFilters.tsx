@@ -23,11 +23,7 @@ import {
   buildSelectedTags,
 } from '../../containers/GlobalSearchPageContainer/helpers';
 import { productFilter_productFilter as IProductFilter } from '../../../generated/productFilter';
-import {
-  buildEnginePowerValues,
-  getInnerConfigKeys,
-  isAdvancedFiltersEnabled,
-} from './helpers';
+import { buildEnginePowerValues, getInnerConfigKeys } from './helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import FiltersTags from '../../containers/GlobalSearchPageContainer/FiltersTags';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
@@ -302,7 +298,7 @@ const GlobalSearchPageFilters = ({
           selectedTags={selectedTags}
         />
       ))}
-      {isAdvancedFiltersEnabled && advancedFiltersConfig?.length > 0 && (
+      {advancedFiltersConfig?.length > 0 && (
         <div className={cx('accordyon', { active: isOpenAdvancedFilters })}>
           <div
             tabIndex={-1}
