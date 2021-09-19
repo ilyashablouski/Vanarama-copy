@@ -64,7 +64,7 @@ import {
   GetPdpContent_pdpContent_banners,
   GetPdpContent_pdpContent_content_questionAnswers,
 } from '../../../generated/GetPdpContent';
-import { buildAccordionItems } from './helpers';
+import { buildAccordionItems, removeImacaColoursDuplications } from './helpers';
 import { Nullable } from '../../types/common';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
@@ -295,6 +295,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   }, [price]);
   const vehicleDetails = data?.vehicleDetails;
   const standardEquipment = data?.standardEquipment;
+
+  const resultImacaAssets = useMemo(() => {
+    const imacaColourList = imacaAssets?.colours
+      ? removeImacaColoursDuplications(imacaAssets.colours)
+      : null;
+
+    return imacaAssets ? { ...imacaAssets, colours: imacaColourList } : null;
+  }, [imacaAssets]);
 
   const breadcrumbItems = useMemo(() => {
     return (
@@ -621,7 +629,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             text: leadTime,
             incomplete: true,
           }}
-          imacaAssets={imacaAssets}
+          imacaAssets={resultImacaAssets}
           showInsuranceBanner={isFreeInsurance}
           showElectricBanner={isElectric}
           images={vehicleImages}
