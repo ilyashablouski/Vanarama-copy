@@ -1,4 +1,5 @@
 import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
 import cx from 'classnames';
 
 import Icon from 'core/atoms/icon';
@@ -56,9 +57,17 @@ function ColorSelection({
             </span>
             Fast Delivery
           </Text>
-          <ul className={getClassName('color-list')}>
+          <Swiper
+            watchOverflow
+            slidesPerView="auto"
+            resistanceRatio={0.5}
+            className={getClassName('color-list')}
+          >
             {hotOfferColorList.map(color => (
-              <li className={getClassName('color-item')} key={color.lqName}>
+              <SwiperSlide
+                key={color.capId}
+                className={getClassName('color-item')}
+              >
                 <input
                   type="radio"
                   name="hot-offers"
@@ -75,9 +84,9 @@ function ColorSelection({
                 >
                   <Icon icon={<Flame />} />
                 </label>
-              </li>
+              </SwiperSlide>
             ))}
-          </ul>
+          </Swiper>
         </div>
       ) : null}
       {factoryColorList?.length ? (
@@ -89,9 +98,17 @@ function ColorSelection({
           >
             <span className="factory">Factory Order</span>Long Lead Time
           </Text>
-          <ul className={getClassName('color-list')}>
+          <Swiper
+            watchOverflow
+            slidesPerView="auto"
+            resistanceRatio={0.5}
+            className={getClassName('color-list')}
+          >
             {factoryColorList.map(color => (
-              <li className={getClassName('color-item')} key={color.lqName}>
+              <SwiperSlide
+                key={color.capId}
+                className={getClassName('color-item')}
+              >
                 <input
                   type="radio"
                   name="factory"
@@ -106,9 +123,9 @@ function ColorSelection({
                   style={{ backgroundColor: `#${color.hex}` }}
                   className={getClassName('color')}
                 />
-              </li>
+              </SwiperSlide>
             ))}
-          </ul>
+          </Swiper>
         </div>
       ) : null}
     </div>
