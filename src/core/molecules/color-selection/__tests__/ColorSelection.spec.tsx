@@ -1,12 +1,12 @@
 import React from 'react';
-import { mount } from 'enzyme';
+import { render } from '@testing-library/react';
 
 import { factoryColorList, hotOfferColorList } from '../mocks';
 import ColorSelection from '..';
 
 describe('<ColorSelection />', () => {
   it('should renders correctly', () => {
-    const tree = mount(
+    const tree = render(
       <ColorSelection
         selectedColor={hotOfferColorList[0]}
         hotOfferColorList={hotOfferColorList}
