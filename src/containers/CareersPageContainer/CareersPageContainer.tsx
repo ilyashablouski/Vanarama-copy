@@ -58,7 +58,7 @@ export const CareersPageContainer: FC<IProps> = ({ data }) => {
         }
 
         return (
-          <>
+          <React.Fragment key={section?.title}>
             {jumpMenuPos === idx && (
               <JumpMenu
                 title={sections?.jumpMenu?.[0]?.title}
@@ -88,7 +88,7 @@ export const CareersPageContainer: FC<IProps> = ({ data }) => {
               </section>
             )}
             <FeaturedSection featured={section} />
-          </>
+          </React.Fragment>
         );
       })}
 
