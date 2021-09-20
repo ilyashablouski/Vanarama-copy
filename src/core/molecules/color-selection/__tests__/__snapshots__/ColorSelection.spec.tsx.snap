@@ -1,182 +1,326 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<ColorSelection /> should renders correctly 1`] = `
-<ColorSelection
-  factoryColorList={
-    Array [
-      Object {
-        "capId": 72751,
-        "hex": "678098",
-        "imacaName": "Factory Blue (K8J2)",
-        "lqName": "Factory Blue (K8J2)",
-        "matchAccuracy": 1,
-        "onOffer": false,
-      },
-      Object {
-        "capId": 72500,
-        "hex": "44576a",
-        "imacaName": "Factory Gray (K8J2)",
-        "lqName": "Factory Gray (K8J2)",
-        "matchAccuracy": 1,
-        "onOffer": false,
-      },
-      Object {
-        "capId": 72497,
-        "hex": "be2727",
-        "imacaName": "Factory Red (K8J2)",
-        "lqName": "Factory Red (K8J2)",
-        "matchAccuracy": 1,
-        "onOffer": false,
-      },
-      Object {
-        "capId": 164510,
-        "hex": "5eac35",
-        "imacaName": "Factory Green (K8J2)",
-        "lqName": "Factory Green (K8J2)",
-        "matchAccuracy": 1,
-        "onOffer": false,
-      },
-      Object {
-        "capId": 138304,
-        "hex": "0a0d10",
-        "imacaName": "Factory Black (K8J2)",
-        "lqName": "Factory Black (K8J2)",
-        "matchAccuracy": 1,
-        "onOffer": false,
-      },
-    ]
-  }
-  hotOfferColorList={
-    Array [
-      Object {
-        "capId": 97341,
-        "hex": "ffffff",
-        "imacaName": "Hot White (K8J2)",
-        "lqName": "Hot White (K8J2)",
-        "matchAccuracy": 1,
-        "onOffer": true,
-      },
-      Object {
-        "capId": 151235,
-        "hex": "ec6409",
-        "imacaName": "Hot Orange (K8J2)",
-        "lqName": "Hot Orange (K8J2)",
-        "matchAccuracy": 1,
-        "onOffer": true,
-      },
-      Object {
-        "capId": 122994,
-        "hex": "f8bb20",
-        "imacaName": "Hot Yellow (K8J2)",
-        "lqName": "Hot Yellow (K8J2)",
-        "matchAccuracy": 1,
-        "onOffer": true,
-      },
-    ]
-  }
-  onChange={[Function]}
-  selectedColor={
-    Object {
-      "capId": 97341,
-      "hex": "ffffff",
-      "imacaName": "Hot White (K8J2)",
-      "lqName": "Hot White (K8J2)",
-      "matchAccuracy": 1,
-      "onOffer": true,
-    }
-  }
->
-  <div
-    className="color-selection"
-  >
+Object {
+  "asFragment": [Function],
+  "baseElement": <body>
+    <div>
+      <div
+        class="color-selection"
+      >
+        <div
+          class="color-selection__header"
+        >
+          <span
+            class="text color-selection__selected-color -regular -dark"
+          >
+            <span>
+              Colour:
+            </span>
+            Hot White (K8J2)
+          </span>
+        </div>
+        <div
+          class="color-selection__group"
+        >
+          <span
+            class="text color-selection__group-label -small -dark"
+          >
+            <span
+              class="hot-offer"
+            >
+              <i
+                class="icon -regular"
+              >
+                <svg
+                  height="1em"
+                  viewBox="0 0 512 512"
+                  width="1em"
+                >
+                  <path
+                    d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                  />
+                </svg>
+              </i>
+              Hot Offer
+            </span>
+            Fast Delivery
+          </span>
+          <div
+            class="swiper-container swiper-container-initialized swiper-container-horizontal color-selection__color-list"
+          >
+            <div
+              class="swiper-wrapper"
+              style="transition-duration: 0ms; transform: translate3d(NaNpx, 0px, 0px);"
+            >
+              <div
+                class="swiper-slide color-selection__color-item"
+              >
+                <input
+                  checked=""
+                  class="visually-hidden"
+                  id="Hot White (K8J2)"
+                  name="hot-offers"
+                  type="radio"
+                />
+                <label
+                  class="color-selection__color"
+                  for="Hot White (K8J2)"
+                  style="background-color: rgb(255, 255, 255);"
+                  title="Hot White (K8J2)"
+                >
+                  <i
+                    class="icon"
+                  >
+                    <svg
+                      height="1em"
+                      viewBox="0 0 512 512"
+                      width="1em"
+                    >
+                      <path
+                        d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                      />
+                    </svg>
+                  </i>
+                </label>
+              </div>
+              <div
+                class="swiper-slide color-selection__color-item"
+              >
+                <input
+                  class="visually-hidden"
+                  id="Hot Orange (K8J2)"
+                  name="hot-offers"
+                  type="radio"
+                />
+                <label
+                  class="color-selection__color"
+                  for="Hot Orange (K8J2)"
+                  style="background-color: rgb(236, 100, 9);"
+                  title="Hot Orange (K8J2)"
+                >
+                  <i
+                    class="icon"
+                  >
+                    <svg
+                      height="1em"
+                      viewBox="0 0 512 512"
+                      width="1em"
+                    >
+                      <path
+                        d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                      />
+                    </svg>
+                  </i>
+                </label>
+              </div>
+              <div
+                class="swiper-slide color-selection__color-item"
+              >
+                <input
+                  class="visually-hidden"
+                  id="Hot Yellow (K8J2)"
+                  name="hot-offers"
+                  type="radio"
+                />
+                <label
+                  class="color-selection__color"
+                  for="Hot Yellow (K8J2)"
+                  style="background-color: rgb(248, 187, 32);"
+                  title="Hot Yellow (K8J2)"
+                >
+                  <i
+                    class="icon"
+                  >
+                    <svg
+                      height="1em"
+                      viewBox="0 0 512 512"
+                      width="1em"
+                    >
+                      <path
+                        d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                      />
+                    </svg>
+                  </i>
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="color-selection__group"
+        >
+          <span
+            class="text color-selection__group-label -small -dark"
+          >
+            <span
+              class="factory"
+            >
+              Factory Order
+            </span>
+            Long Lead Time
+          </span>
+          <div
+            class="swiper-container swiper-container-initialized swiper-container-horizontal color-selection__color-list"
+          >
+            <div
+              class="swiper-wrapper"
+              style="transition-duration: 0ms; transform: translate3d(NaNpx, 0px, 0px);"
+            >
+              <div
+                class="swiper-slide color-selection__color-item"
+              >
+                <input
+                  class="visually-hidden"
+                  id="Factory Blue (K8J2)"
+                  name="factory"
+                  type="radio"
+                />
+                <label
+                  class="color-selection__color"
+                  for="Factory Blue (K8J2)"
+                  style="background-color: rgb(103, 128, 152);"
+                  title="Factory Blue (K8J2)"
+                />
+              </div>
+              <div
+                class="swiper-slide color-selection__color-item"
+              >
+                <input
+                  class="visually-hidden"
+                  id="Factory Gray (K8J2)"
+                  name="factory"
+                  type="radio"
+                />
+                <label
+                  class="color-selection__color"
+                  for="Factory Gray (K8J2)"
+                  style="background-color: rgb(68, 87, 106);"
+                  title="Factory Gray (K8J2)"
+                />
+              </div>
+              <div
+                class="swiper-slide color-selection__color-item"
+              >
+                <input
+                  class="visually-hidden"
+                  id="Factory Red (K8J2)"
+                  name="factory"
+                  type="radio"
+                />
+                <label
+                  class="color-selection__color"
+                  for="Factory Red (K8J2)"
+                  style="background-color: rgb(190, 39, 39);"
+                  title="Factory Red (K8J2)"
+                />
+              </div>
+              <div
+                class="swiper-slide color-selection__color-item"
+              >
+                <input
+                  class="visually-hidden"
+                  id="Factory Green (K8J2)"
+                  name="factory"
+                  type="radio"
+                />
+                <label
+                  class="color-selection__color"
+                  for="Factory Green (K8J2)"
+                  style="background-color: rgb(94, 172, 53);"
+                  title="Factory Green (K8J2)"
+                />
+              </div>
+              <div
+                class="swiper-slide color-selection__color-item"
+              >
+                <input
+                  class="visually-hidden"
+                  id="Factory Black (K8J2)"
+                  name="factory"
+                  type="radio"
+                />
+                <label
+                  class="color-selection__color"
+                  for="Factory Black (K8J2)"
+                  style="background-color: rgb(10, 13, 16);"
+                  title="Factory Black (K8J2)"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>,
+  "container": <div>
     <div
-      className="color-selection__header"
+      class="color-selection"
     >
-      <Memo(Text)
-        className="color-selection__selected-color"
-        color="dark"
+      <div
+        class="color-selection__header"
       >
         <span
-          className="text color-selection__selected-color -regular -dark"
+          class="text color-selection__selected-color -regular -dark"
         >
           <span>
             Colour:
           </span>
           Hot White (K8J2)
         </span>
-      </Memo(Text)>
-    </div>
-    <div
-      className="color-selection__group"
-    >
-      <Memo(Text)
-        className="color-selection__group-label"
-        color="dark"
-        size="small"
+      </div>
+      <div
+        class="color-selection__group"
       >
         <span
-          className="text color-selection__group-label -small -dark"
+          class="text color-selection__group-label -small -dark"
         >
           <span
-            className="hot-offer"
+            class="hot-offer"
           >
-            <Icon
-              icon={<Memo />}
-              size="regular"
+            <i
+              class="icon -regular"
             >
-              <i
-                className="icon -regular"
+              <svg
+                height="1em"
+                viewBox="0 0 512 512"
+                width="1em"
               >
-                <Memo()>
-                  <svg
-                    height="1em"
-                    viewBox="0 0 512 512"
-                    width="1em"
-                  >
-                    <path
-                      d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
-                    />
-                  </svg>
-                </Memo()>
-              </i>
-            </Icon>
+                <path
+                  d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
+                />
+              </svg>
+            </i>
             Hot Offer
           </span>
           Fast Delivery
         </span>
-      </Memo(Text)>
-      <ul
-        className="color-selection__color-list"
-      >
-        <li
-          className="color-selection__color-item"
-          key="Hot White (K8J2)"
+        <div
+          class="swiper-container swiper-container-initialized swiper-container-horizontal color-selection__color-list"
         >
-          <input
-            checked={true}
-            className="visually-hidden"
-            id="Hot White (K8J2)"
-            name="hot-offers"
-            onChange={[Function]}
-            type="radio"
-          />
-          <label
-            className="color-selection__color"
-            htmlFor="Hot White (K8J2)"
-            style={
-              Object {
-                "backgroundColor": "#ffffff",
-              }
-            }
-            title="Hot White (K8J2)"
+          <div
+            class="swiper-wrapper"
+            style="transition-duration: 0ms; transform: translate3d(NaNpx, 0px, 0px);"
           >
-            <Icon
-              icon={<Memo />}
+            <div
+              class="swiper-slide color-selection__color-item"
             >
-              <i
-                className="icon"
+              <input
+                checked=""
+                class="visually-hidden"
+                id="Hot White (K8J2)"
+                name="hot-offers"
+                type="radio"
+              />
+              <label
+                class="color-selection__color"
+                for="Hot White (K8J2)"
+                style="background-color: rgb(255, 255, 255);"
+                title="Hot White (K8J2)"
               >
-                <Memo()>
+                <i
+                  class="icon"
+                >
                   <svg
                     height="1em"
                     viewBox="0 0 512 512"
@@ -186,40 +330,27 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
                       d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
                     />
                   </svg>
-                </Memo()>
-              </i>
-            </Icon>
-          </label>
-        </li>
-        <li
-          className="color-selection__color-item"
-          key="Hot Orange (K8J2)"
-        >
-          <input
-            checked={false}
-            className="visually-hidden"
-            id="Hot Orange (K8J2)"
-            name="hot-offers"
-            onChange={[Function]}
-            type="radio"
-          />
-          <label
-            className="color-selection__color"
-            htmlFor="Hot Orange (K8J2)"
-            style={
-              Object {
-                "backgroundColor": "#ec6409",
-              }
-            }
-            title="Hot Orange (K8J2)"
-          >
-            <Icon
-              icon={<Memo />}
+                </i>
+              </label>
+            </div>
+            <div
+              class="swiper-slide color-selection__color-item"
             >
-              <i
-                className="icon"
+              <input
+                class="visually-hidden"
+                id="Hot Orange (K8J2)"
+                name="hot-offers"
+                type="radio"
+              />
+              <label
+                class="color-selection__color"
+                for="Hot Orange (K8J2)"
+                style="background-color: rgb(236, 100, 9);"
+                title="Hot Orange (K8J2)"
               >
-                <Memo()>
+                <i
+                  class="icon"
+                >
                   <svg
                     height="1em"
                     viewBox="0 0 512 512"
@@ -229,40 +360,27 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
                       d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
                     />
                   </svg>
-                </Memo()>
-              </i>
-            </Icon>
-          </label>
-        </li>
-        <li
-          className="color-selection__color-item"
-          key="Hot Yellow (K8J2)"
-        >
-          <input
-            checked={false}
-            className="visually-hidden"
-            id="Hot Yellow (K8J2)"
-            name="hot-offers"
-            onChange={[Function]}
-            type="radio"
-          />
-          <label
-            className="color-selection__color"
-            htmlFor="Hot Yellow (K8J2)"
-            style={
-              Object {
-                "backgroundColor": "#f8bb20",
-              }
-            }
-            title="Hot Yellow (K8J2)"
-          >
-            <Icon
-              icon={<Memo />}
+                </i>
+              </label>
+            </div>
+            <div
+              class="swiper-slide color-selection__color-item"
             >
-              <i
-                className="icon"
+              <input
+                class="visually-hidden"
+                id="Hot Yellow (K8J2)"
+                name="hot-offers"
+                type="radio"
+              />
+              <label
+                class="color-selection__color"
+                for="Hot Yellow (K8J2)"
+                style="background-color: rgb(248, 187, 32);"
+                title="Hot Yellow (K8J2)"
               >
-                <Memo()>
+                <i
+                  class="icon"
+                >
                   <svg
                     height="1em"
                     viewBox="0 0 512 512"
@@ -272,152 +390,167 @@ exports[`<ColorSelection /> should renders correctly 1`] = `
                       d="M394.23,197.56a300.43,300.43,0,0,0-53.37-90C301.2,61.65,249.05,32,208,32a16,16,0,0,0-15.48,20c13.87,53-14.88,97.07-45.31,143.72C122,234.36,96,274.27,96,320c0,88.22,71.78,160,160,160s160-71.78,160-160C416,276.7,408.68,235.51,394.23,197.56ZM288.33,418.69C278,429.69,265.05,432,256,432s-22-2.31-32.33-13.31S208,390.24,208,368c0-25.14,8.82-44.28,17.34-62.78,4.95-10.74,10-21.67,13-33.37a8,8,0,0,1,12.49-4.51A126.48,126.48,0,0,1,275,292c18.17,24,29,52.42,29,76C304,390.24,298.58,407.77,288.33,418.69Z"
                     />
                   </svg>
-                </Memo()>
-              </i>
-            </Icon>
-          </label>
-        </li>
-      </ul>
-    </div>
-    <div
-      className="color-selection__group"
-    >
-      <Memo(Text)
-        className="color-selection__group-label"
-        color="dark"
-        size="small"
+                </i>
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div
+        class="color-selection__group"
       >
         <span
-          className="text color-selection__group-label -small -dark"
+          class="text color-selection__group-label -small -dark"
         >
           <span
-            className="factory"
+            class="factory"
           >
             Factory Order
           </span>
           Long Lead Time
         </span>
-      </Memo(Text)>
-      <ul
-        className="color-selection__color-list"
-      >
-        <li
-          className="color-selection__color-item"
-          key="Factory Blue (K8J2)"
+        <div
+          class="swiper-container swiper-container-initialized swiper-container-horizontal color-selection__color-list"
         >
-          <input
-            checked={false}
-            className="visually-hidden"
-            id="Factory Blue (K8J2)"
-            name="factory"
-            onChange={[Function]}
-            type="radio"
-          />
-          <label
-            className="color-selection__color"
-            htmlFor="Factory Blue (K8J2)"
-            style={
-              Object {
-                "backgroundColor": "#678098",
-              }
-            }
-            title="Factory Blue (K8J2)"
-          />
-        </li>
-        <li
-          className="color-selection__color-item"
-          key="Factory Gray (K8J2)"
-        >
-          <input
-            checked={false}
-            className="visually-hidden"
-            id="Factory Gray (K8J2)"
-            name="factory"
-            onChange={[Function]}
-            type="radio"
-          />
-          <label
-            className="color-selection__color"
-            htmlFor="Factory Gray (K8J2)"
-            style={
-              Object {
-                "backgroundColor": "#44576a",
-              }
-            }
-            title="Factory Gray (K8J2)"
-          />
-        </li>
-        <li
-          className="color-selection__color-item"
-          key="Factory Red (K8J2)"
-        >
-          <input
-            checked={false}
-            className="visually-hidden"
-            id="Factory Red (K8J2)"
-            name="factory"
-            onChange={[Function]}
-            type="radio"
-          />
-          <label
-            className="color-selection__color"
-            htmlFor="Factory Red (K8J2)"
-            style={
-              Object {
-                "backgroundColor": "#be2727",
-              }
-            }
-            title="Factory Red (K8J2)"
-          />
-        </li>
-        <li
-          className="color-selection__color-item"
-          key="Factory Green (K8J2)"
-        >
-          <input
-            checked={false}
-            className="visually-hidden"
-            id="Factory Green (K8J2)"
-            name="factory"
-            onChange={[Function]}
-            type="radio"
-          />
-          <label
-            className="color-selection__color"
-            htmlFor="Factory Green (K8J2)"
-            style={
-              Object {
-                "backgroundColor": "#5eac35",
-              }
-            }
-            title="Factory Green (K8J2)"
-          />
-        </li>
-        <li
-          className="color-selection__color-item"
-          key="Factory Black (K8J2)"
-        >
-          <input
-            checked={false}
-            className="visually-hidden"
-            id="Factory Black (K8J2)"
-            name="factory"
-            onChange={[Function]}
-            type="radio"
-          />
-          <label
-            className="color-selection__color"
-            htmlFor="Factory Black (K8J2)"
-            style={
-              Object {
-                "backgroundColor": "#0a0d10",
-              }
-            }
-            title="Factory Black (K8J2)"
-          />
-        </li>
-      </ul>
+          <div
+            class="swiper-wrapper"
+            style="transition-duration: 0ms; transform: translate3d(NaNpx, 0px, 0px);"
+          >
+            <div
+              class="swiper-slide color-selection__color-item"
+            >
+              <input
+                class="visually-hidden"
+                id="Factory Blue (K8J2)"
+                name="factory"
+                type="radio"
+              />
+              <label
+                class="color-selection__color"
+                for="Factory Blue (K8J2)"
+                style="background-color: rgb(103, 128, 152);"
+                title="Factory Blue (K8J2)"
+              />
+            </div>
+            <div
+              class="swiper-slide color-selection__color-item"
+            >
+              <input
+                class="visually-hidden"
+                id="Factory Gray (K8J2)"
+                name="factory"
+                type="radio"
+              />
+              <label
+                class="color-selection__color"
+                for="Factory Gray (K8J2)"
+                style="background-color: rgb(68, 87, 106);"
+                title="Factory Gray (K8J2)"
+              />
+            </div>
+            <div
+              class="swiper-slide color-selection__color-item"
+            >
+              <input
+                class="visually-hidden"
+                id="Factory Red (K8J2)"
+                name="factory"
+                type="radio"
+              />
+              <label
+                class="color-selection__color"
+                for="Factory Red (K8J2)"
+                style="background-color: rgb(190, 39, 39);"
+                title="Factory Red (K8J2)"
+              />
+            </div>
+            <div
+              class="swiper-slide color-selection__color-item"
+            >
+              <input
+                class="visually-hidden"
+                id="Factory Green (K8J2)"
+                name="factory"
+                type="radio"
+              />
+              <label
+                class="color-selection__color"
+                for="Factory Green (K8J2)"
+                style="background-color: rgb(94, 172, 53);"
+                title="Factory Green (K8J2)"
+              />
+            </div>
+            <div
+              class="swiper-slide color-selection__color-item"
+            >
+              <input
+                class="visually-hidden"
+                id="Factory Black (K8J2)"
+                name="factory"
+                type="radio"
+              />
+              <label
+                class="color-selection__color"
+                for="Factory Black (K8J2)"
+                style="background-color: rgb(10, 13, 16);"
+                title="Factory Black (K8J2)"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</ColorSelection>
+  </div>,
+  "debug": [Function],
+  "findAllByAltText": [Function],
+  "findAllByDisplayValue": [Function],
+  "findAllByLabelText": [Function],
+  "findAllByPlaceholderText": [Function],
+  "findAllByRole": [Function],
+  "findAllByTestId": [Function],
+  "findAllByText": [Function],
+  "findAllByTitle": [Function],
+  "findByAltText": [Function],
+  "findByDisplayValue": [Function],
+  "findByLabelText": [Function],
+  "findByPlaceholderText": [Function],
+  "findByRole": [Function],
+  "findByTestId": [Function],
+  "findByText": [Function],
+  "findByTitle": [Function],
+  "getAllByAltText": [Function],
+  "getAllByDisplayValue": [Function],
+  "getAllByLabelText": [Function],
+  "getAllByPlaceholderText": [Function],
+  "getAllByRole": [Function],
+  "getAllByTestId": [Function],
+  "getAllByText": [Function],
+  "getAllByTitle": [Function],
+  "getByAltText": [Function],
+  "getByDisplayValue": [Function],
+  "getByLabelText": [Function],
+  "getByPlaceholderText": [Function],
+  "getByRole": [Function],
+  "getByTestId": [Function],
+  "getByText": [Function],
+  "getByTitle": [Function],
+  "queryAllByAltText": [Function],
+  "queryAllByDisplayValue": [Function],
+  "queryAllByLabelText": [Function],
+  "queryAllByPlaceholderText": [Function],
+  "queryAllByRole": [Function],
+  "queryAllByTestId": [Function],
+  "queryAllByText": [Function],
+  "queryAllByTitle": [Function],
+  "queryByAltText": [Function],
+  "queryByDisplayValue": [Function],
+  "queryByLabelText": [Function],
+  "queryByPlaceholderText": [Function],
+  "queryByRole": [Function],
+  "queryByTestId": [Function],
+  "queryByText": [Function],
+  "queryByTitle": [Function],
+  "rerender": [Function],
+  "unmount": [Function],
+}
 `;
