@@ -89,6 +89,7 @@ export const getOrderList = ({
           ? 'FREE'
           : `£${quoteByCapId?.processingFee}`,
       dataTestId: 'processingFee',
+      dataAbTestId: 'processing-fee-pdp',
       isOrange: true,
     },
     {
