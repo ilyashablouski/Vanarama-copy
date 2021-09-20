@@ -197,8 +197,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   }, [imacaAssets]);
 
   const [colour, setColour] = useState<Nullable<number>>(
-    resultImacaAssets?.colours?.[0]?.capId ??
-      parseQuoteParams(quote?.quoteByCapId?.colour),
+    parseQuoteParams(quote?.quoteByCapId?.colour),
   );
 
   const accordionQAData = useMemo(
