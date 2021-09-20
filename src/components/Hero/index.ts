@@ -2,8 +2,8 @@ import Hero from './Hero';
 import HeroTitle from './HeroTitle';
 import HeroHeading from './HeroHeading';
 import HeroPrompt from './HeroPrompt';
+import HeroBackground from './HeroBackground';
 import HeroEv from './HeroEv';
-import HeroBg from './HeroBg';
 
-export { HeroTitle, HeroHeading, HeroPrompt, HeroEv, HeroBg };
+export { HeroTitle, HeroHeading, HeroPrompt, HeroBackground, HeroEv };
 export default Hero;

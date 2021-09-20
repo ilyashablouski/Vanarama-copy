@@ -4,7 +4,7 @@ import cx from 'classnames';
 import HeroCurve from './HeroCurve';
 import { IHeroProps } from './interface';
 
-const HeroBg: React.FC<IHeroProps> = ({
+const HeroBackground: React.FC<IHeroProps> = ({
   backgroundUrl,
   children,
   hideCurve,
@@ -31,4 +31,4 @@ const HeroBg: React.FC<IHeroProps> = ({
   );
 };
 
-export default HeroBg;
+export default HeroBackground;

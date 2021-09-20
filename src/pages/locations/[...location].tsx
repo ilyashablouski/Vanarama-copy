@@ -30,7 +30,7 @@ import createApolloClient from '../../apolloClient';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
-import { HeroBg as Hero } from '../../components/Hero';
+import { HeroBackground as Hero } from '../../components/Hero';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,

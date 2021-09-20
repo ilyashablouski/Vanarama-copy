@@ -13,7 +13,7 @@ import Head from '../../components/Head/Head';
 import LeadText from '../../components/LeadText';
 import JumpMenu from '../../components/JumpMenu';
 import FeaturedSection from '../../components/FeaturedSection';
-import { HeroBg as Hero, HeroHeading } from '../../components/Hero';
+import { HeroBackground as Hero, HeroHeading } from '../../components/Hero';
 
 import CareersVacanciesCarousel from './CareersVacanciesCarousel';
 
