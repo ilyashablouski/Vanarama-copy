@@ -1,4 +1,4 @@
-import { gql, useQuery, useMutation } from '@apollo/client';
+import { gql, useQuery, useMutation, ApolloError } from '@apollo/client';
 import { GetStoredPerson } from '../../generated/GetStoredPerson';
 import { SavePerson, SavePersonVariables } from '../../generated/SavePerson';
 
@@ -32,8 +32,14 @@ export const SAVE_PERSON_MUTATION = gql`
   }
 `;
 
-export function useStoredPersonQuery() {
-  return useQuery<GetStoredPerson>(GET_STORED_PERSON_QUERY);
+export function useStoredPersonQuery(
+  onCompleted?: (data: GetStoredPerson) => void,
+  onError?: (error: ApolloError) => void,
+) {
+  return useQuery<GetStoredPerson>(GET_STORED_PERSON_QUERY, {
+    onCompleted,
+    onError,
+  });
 }
 
 export function useSavePersonMutation() {
