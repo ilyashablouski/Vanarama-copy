@@ -1,39 +1,26 @@
 .header {
+  position: relative;
+  margin-bottom: 56px;
   display: inherit;
   grid-template: inherit;
   grid-column: full;
   background-color: white;
   padding-top: 1ch;
-  position: relative;
   font-size: 1.125rem;
   color: #44576a;
   z-index: 99;
 
   @include mobile-tablet {
-    padding-top: 0;
-    position: fixed;
-    top: 0;
+    margin-bottom: 41px;
   }
-}
-
-.header-content {
-  position: relative;
-  display: inherit;
-  grid-column: content;
-  grid-template-columns: auto minmax(0, 1fr) repeat(2, auto);
-  grid-template-areas:
-    'logo search tel account'
-    'nav nav nav nav';
-  place-items: center start;
-  white-space: nowrap;
 
   &:after {
     display: block;
     content: '';
     position: absolute;
     z-index: 2;
-    right: -100vw;
-    left: -100vw;
+    right: 0;
+    left: 0;
     pointer-events: none;
     top: unset;
     bottom: -5px;
@@ -45,6 +32,23 @@
       content: unset;
     }
   }
+
+  @include mobile-tablet {
+    padding-top: 0;
+    position: fixed;
+    top: 0;
+  }
+}
+
+.header-content {
+  display: inherit;
+  grid-column: content;
+  grid-template-columns: auto minmax(0, 1fr) repeat(2, auto);
+  grid-template-areas:
+    'logo search tel account'
+    'nav nav nav nav';
+  place-items: center start;
+  white-space: nowrap;
 
   @include mobile-tablet {
     grid-column: full;
@@ -573,8 +577,8 @@
       [full-end];
     position: absolute;
     min-height: 100vh;
-    left: -100vw;
-    right: -100vw;
+    left: 0;
+    right: 0;
     background: rgba(10, 13, 16, 0.25);
     pointer-events: none;
     place-items: start stretch;
@@ -1549,7 +1553,7 @@
 @include desktop {
   .header-search-results-container {
     position: absolute;
-    top: 44px;
+    top: 55px;
     padding-top: 0;
     border-radius: 0.375rem;
     max-width: 1216px;
