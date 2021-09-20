@@ -2,23 +2,8 @@ import React, { FC, memo } from 'react';
 
 const MediaRotate: FC = memo(() => (
   <svg width="40" height="40" viewBox="0 0 40 40" fill="currentColor">
-    <defs>
-      <clipPath id="clip-path">
-        <rect
-          id="Rectangle_1007"
-          data-name="Rectangle 1007"
-          width="40"
-          height="40"
-        />
-      </clipPath>
-    </defs>
     <g id="Rotate" transform="translate(-435 -790)">
-      <g
-        id="Rotate-2"
-        data-name="Rotate"
-        transform="translate(435 790)"
-        clipPath="url(#clip-path)"
-      >
+      <g id="Rotate-2" data-name="Rotate" transform="translate(435 790)">
         <path
           id="Path_14"
           data-name="Path 14"
