@@ -271,6 +271,21 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         ? LeaseTypeEnum.BUSINESS
         : LeaseTypeEnum.PERSONAL;
 
+    const imacaAssets = await client.query<
+      GetImacaAssets,
+      GetImacaAssetsVariables
+    >({
+      query: GET_IMACA_ASSETS,
+      errorPolicy: 'all',
+      variables: {
+        vehicleType: VehicleTypeEnum.CAR,
+        capId,
+      },
+    });
+
+    const defaultVehicleColour =
+      imacaAssets.data.getImacaAssets?.colours?.[0]?.capId ?? null;
+
     const quoteDataQuery = await client.query<
       GetQuoteDetails,
       GetQuoteDetailsVariables
@@ -279,12 +294,12 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       variables: {
         capId: `${capId}`,
         vehicleType: VehicleTypeEnum.CAR,
+        colour: defaultVehicleColour,
+        trim: null,
         mileage,
         term,
         upfront,
         leaseType,
-        trim: null,
-        colour: null,
       },
     });
 
@@ -325,18 +340,6 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         colourId:
           parseInt(quoteDataQuery.data?.quoteByCapId?.colour || '0', 10) ||
           undefined,
-      },
-    });
-
-    const imacaAssets = await client.query<
-      GetImacaAssets,
-      GetImacaAssetsVariables
-    >({
-      query: GET_IMACA_ASSETS,
-      errorPolicy: 'all',
-      variables: {
-        vehicleType: VehicleTypeEnum.CAR,
-        capId,
       },
     });
 
