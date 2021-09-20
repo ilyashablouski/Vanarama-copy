@@ -27,7 +27,7 @@ import {
   checkForGtmDomEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
-import { toPriceFormat } from '../../utils/helpers';
+import { isInchcapeFeatureEnabled, toPriceFormat } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -188,8 +188,17 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     quote?.quoteByCapId?.mileage || null,
   );
 
+  const resultImacaAssets = useMemo(() => {
+    const imacaColourList = imacaAssets?.colours
+      ? removeImacaColoursDuplications(imacaAssets.colours)
+      : null;
+
+    return imacaAssets ? { ...imacaAssets, colours: imacaColourList } : null;
+  }, [imacaAssets]);
+
   const [colour, setColour] = useState<Nullable<number>>(
-    parseQuoteParams(quote?.quoteByCapId?.colour),
+    resultImacaAssets?.colours?.[0]?.capId ??
+      parseQuoteParams(quote?.quoteByCapId?.colour),
   );
 
   const accordionQAData = useMemo(
@@ -296,14 +305,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const vehicleDetails = data?.vehicleDetails;
   const standardEquipment = data?.standardEquipment;
 
-  const resultImacaAssets = useMemo(() => {
-    const imacaColourList = imacaAssets?.colours
-      ? removeImacaColoursDuplications(imacaAssets.colours)
-      : null;
-
-    return imacaAssets ? { ...imacaAssets, colours: imacaColourList } : null;
-  }, [imacaAssets]);
-
   const breadcrumbItems = useMemo(() => {
     return (
       (genericPageHead?.genericPage.metaData?.breadcrumbs &&
@@ -324,16 +325,32 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     [data],
   );
 
+  const isInsurance = useMemo(() => data?.vehicleDetails?.freeInsurance, [
+    data,
+  ]);
+
   const isCar = useMemo(
     () => quote?.quoteByCapId?.vehicleType === VehicleTypeEnum.CAR,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
-  const isFreeInsurance = useMemo(() => isSpecialOffer && isCar, [
+  const isDefaultFreeInsurance = useMemo(() => isSpecialOffer && isCar, [
     isCar,
     isSpecialOffer,
   ]);
+
+  const isInchcapeFreeInsurance = useMemo(() => isInsurance && isCar, [
+    isCar,
+    isInsurance,
+  ]);
+
+  const isInchcape = isInchcapeFeatureEnabled();
+
+  const isFreeInsurance = isInchcape
+    ? isInchcapeFreeInsurance
+    : isDefaultFreeInsurance;
+
   const isElectric = useMemo(
     () => data?.derivativeInfo?.fuelType?.name === 'Electric',
     [data?.derivativeInfo?.fuelType?.name],
