@@ -1,14 +1,20 @@
 import { FC } from 'react';
 import ReactMarkdown from 'react-markdown/with-html';
-import RouterLink from '../RouterLink/RouterLink';
-import { GenericPageQuery_genericPage_sections_leadText as ILead } from '../../../generated/GenericPageQuery';
+import cx from 'classnames';
 
-interface ILeadEX {
-  leadText: ILead | null | undefined;
+import { IBaseProps } from 'core/interfaces/base';
+
+import { GenericPageQuery_genericPage_sections_leadText as ILead } from '../../../generated/GenericPageQuery';
+import { Nullish } from '../../types/common';
+
+import RouterLink from '../RouterLink';
+
+interface ILeadEX extends IBaseProps {
+  leadText: Nullish<ILead>;
 }
 
-const LeadText: FC<ILeadEX> = ({ leadText }) => (
-  <section className="row:bg-default">
+const LeadText: FC<ILeadEX> = ({ className, leadText }) => (
+  <section className={cx('row:bg-default', className)}>
     <hr className="-fullwidth" />
     <h2
       className="heading -xlarge -orange -mv-500"

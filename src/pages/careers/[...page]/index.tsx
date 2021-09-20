@@ -16,11 +16,12 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../../utils/env';
 
-const CareerPage: NextPage<IGenericPage> = ({ data, loading, error }) => {
+const CareerPage: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data) {
     return <DefaultErrorPage statusCode={404} />;
   }
-  return <SimplePageContainer data={data} loading={!!loading} />;
+
+  return <SimplePageContainer data={data} />;
 };
 
 export async function getStaticPaths(context: PreviewNextPageContext) {
