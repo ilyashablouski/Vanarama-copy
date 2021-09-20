@@ -7,6 +7,7 @@ import {
   GenericPageQuery_genericPage_sectionsAsArray_carousel as ICarouselData,
   GenericPageQuery_genericPage_sectionsAsArray_carousel_cards as ICard,
 } from '../../../generated/GenericPageQuery';
+import { Nullable } from '../../types/common';
 
 import Skeleton from '../../components/Skeleton';
 import RouterLink from '../../components/RouterLink';
@@ -21,7 +22,7 @@ const CarouselSwiper = dynamic(() => import('core/organisms/carousel'), {
   loading: () => <Skeleton count={3} />,
 });
 
-const renderCarouselCards = (cards: (ICard | null)[]) =>
+const renderCarouselCards = (cards: Nullable<ICard>[]) =>
   cards.map(card =>
     card?.title && card.body && card.name ? (
       <SwiperSlide key={card.name}>

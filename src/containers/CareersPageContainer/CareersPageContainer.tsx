@@ -5,9 +5,11 @@ import SchemaJSON from 'core/atoms/schema-json';
 
 import {
   GenericPageQuery,
-  GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links,
+  GenericPageQuery_genericPage_sectionsAsArray as ISection,
+  GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links as ILink,
 } from '../../../generated/GenericPageQuery';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
+import { Nullable } from '../../types/common';
 
 import Head from '../../components/Head/Head';
 import LeadText from '../../components/LeadText';
@@ -20,6 +22,46 @@ import CareersVacanciesCarousel from './CareersVacanciesCarousel';
 interface IProps {
   data: GenericPageQuery;
 }
+
+const renderSections = (sections: Nullable<ISection>) =>
+  sections?.featured?.map((section, index) => {
+    const resultIndex = index + 1;
+
+    const stepsPos = sections?.steps?.[0]?.position;
+    const jumpMenuPos = sections?.jumpMenu?.[0]?.position;
+    const leadTextPos = sections?.leadText?.[0]?.position;
+
+    return (
+      <React.Fragment key={section?.title}>
+        {jumpMenuPos === resultIndex && (
+          <JumpMenu
+            title={sections?.jumpMenu?.[0]?.title}
+            links={
+              sections?.jumpMenu?.[0]?.links?.filter(
+                link => link !== null,
+              ) as ILink[]
+            }
+          />
+        )}
+        {leadTextPos === resultIndex && (
+          <LeadText className="-a-center" leadText={sections?.leadText?.[0]} />
+        )}
+        {stepsPos === resultIndex && (
+          <section className="row:bg-default">
+            <ul className="four-stats">
+              {sections?.steps?.[0]?.steps?.map(step => (
+                <li>
+                  <div className="heading -large -orange">{step.title}</div>
+                  <p className="heading -regular -darker">{step.body}</p>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
+        <FeaturedSection featured={section} />
+      </React.Fragment>
+    );
+  });
 
 export const CareersPageContainer: FC<IProps> = ({ data }) => {
   const sections = data?.genericPage.sectionsAsArray;
@@ -40,57 +82,7 @@ export const CareersPageContainer: FC<IProps> = ({ data }) => {
         </Hero>
       )}
 
-      {sections?.featured?.map((section, index) => {
-        const idx = index + 1;
-        let leadTextIdx = 0;
-        let stepsIdx = 0;
-
-        const jumpMenuPos = sections?.jumpMenu?.[0]?.position;
-
-        const leadTextPos = sections?.leadText?.[leadTextIdx]?.position;
-        if (leadTextPos === idx) {
-          leadTextIdx += 1;
-        }
-
-        const stepsPos = sections?.steps?.[stepsIdx]?.position;
-        if (stepsPos === idx) {
-          stepsIdx += 1;
-        }
-
-        return (
-          <React.Fragment key={section?.title}>
-            {jumpMenuPos === idx && (
-              <JumpMenu
-                title={sections?.jumpMenu?.[0]?.title}
-                links={
-                  sections?.jumpMenu?.[0]?.links?.filter(
-                    link => link !== null,
-                  ) as GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links[]
-                }
-              />
-            )}
-            {leadTextPos === idx && (
-              <LeadText
-                className="-a-center"
-                leadText={sections?.leadText?.[leadTextIdx - 1]}
-              />
-            )}
-            {stepsPos === idx && (
-              <section className="row:bg-default">
-                <ul className="four-stats">
-                  {sections?.steps?.[stepsIdx - 1]?.steps?.map(step => (
-                    <li>
-                      <div className="heading -large -orange">{step.title}</div>
-                      <p className="heading -regular -darker">{step.body}</p>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-            <FeaturedSection featured={section} />
-          </React.Fragment>
-        );
-      })}
+      {renderSections(sections)}
 
       {vacanciesCarousel && (
         <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
