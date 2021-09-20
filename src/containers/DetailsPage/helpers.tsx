@@ -17,9 +17,9 @@ export const removeImacaColoursDuplications = (
 ) => {
   const capIds = colourList.map(colour => colour.capId);
 
-  return colourList.filter((colour, index) => {
-    return !capIds.includes(colour.capId, index + 1);
-  });
+  return colourList.filter(
+    (colour, index) => !capIds.includes(colour.capId, index + 1),
+  );
 };
 
 export const convertProductDetailsToWishlistProduct = (
