@@ -147,7 +147,8 @@ describe('getOrderList', () => {
       }),
     ).toEqual([
       {
-        dataAbTestId: 'processing-fee-pdp',
+        dataAbTestId: 'processing-fee',
+        dataAbTestIdPage: 'product-page',
         dataTestId: 'processingFee',
         id: 'processingFee',
         isOrange: true,

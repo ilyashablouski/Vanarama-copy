@@ -21,7 +21,7 @@ const ListItem: FC<IListItemProps> = props => {
     dataTestId,
     isOrange,
     wrap,
-    dataAbTestId,
+    dataAbtestId,
   } = props;
 
   const [input, setInput] = useState(value);
@@ -95,7 +95,7 @@ const ListItem: FC<IListItemProps> = props => {
   return value !== '-' || editing || textEdit ? (
     <div
       className={cx('structured-list-row', { orange: isOrange })}
-      data-abtestid={dataAbTestId}
+      data-abtestid={dataAbtestId}
     >
       <div
         className={cx('structured-list-td', {

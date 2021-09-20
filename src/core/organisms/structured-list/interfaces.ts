@@ -17,6 +17,7 @@ export interface IList extends IBaseProps {
   value: string | (string | JSX.Element)[];
   isOrange?: boolean;
   dataAbTestId?: string;
+  dataAbTestIdPage?: string;
 }
 
 export interface IStructuredListProps extends IBaseProps {
@@ -46,4 +47,5 @@ export interface IListItemProps extends IList {
   dataTestId?: string;
   testId?: number;
   onChange?(e: ChangeEvent<HTMLSelectElement | HTMLInputElement>): void;
+  dataAbtestId?: string;
 }

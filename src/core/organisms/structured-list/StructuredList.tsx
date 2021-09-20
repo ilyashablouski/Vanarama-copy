@@ -70,6 +70,11 @@ const StructuredList: FC<IStructuredListProps> = ({
             onChange={onChange}
             editing={editing}
             dataTestId={item.dataTestId}
+            dataAbtestId={
+              item.dataAbTestId && item.dataAbTestIdPage
+                ? `${item.dataAbTestIdPage}_structured-list_${item.dataAbTestId}`
+                : undefined
+            }
             {...item}
           />
         ))}
