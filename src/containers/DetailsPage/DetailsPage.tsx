@@ -27,7 +27,7 @@ import {
   checkForGtmDomEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
-import { toPriceFormat } from '../../utils/helpers';
+import { isInchcapeFeatureEnabled, toPriceFormat } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -64,7 +64,7 @@ import {
   GetPdpContent_pdpContent_banners,
   GetPdpContent_pdpContent_content_questionAnswers,
 } from '../../../generated/GetPdpContent';
-import { buildAccordionItems } from './helpers';
+import { buildAccordionItems, removeImacaColoursDuplications } from './helpers';
 import { Nullable } from '../../types/common';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
@@ -187,6 +187,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [mileage, setMileage] = useState<Nullable<number>>(
     quote?.quoteByCapId?.mileage || null,
   );
+
+  const resultImacaAssets = useMemo(() => {
+    const imacaColourList = imacaAssets?.colours
+      ? removeImacaColoursDuplications(imacaAssets.colours)
+      : null;
+
+    return imacaAssets ? { ...imacaAssets, colours: imacaColourList } : null;
+  }, [imacaAssets]);
 
   const [colour, setColour] = useState<Nullable<number>>(
     parseQuoteParams(quote?.quoteByCapId?.colour),
@@ -316,16 +324,32 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     [data],
   );
 
+  const isInsurance = useMemo(() => data?.vehicleDetails?.freeInsurance, [
+    data,
+  ]);
+
   const isCar = useMemo(
     () => quote?.quoteByCapId?.vehicleType === VehicleTypeEnum.CAR,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
-  const isFreeInsurance = useMemo(() => isSpecialOffer && isCar, [
+  const isDefaultFreeInsurance = useMemo(() => isSpecialOffer && isCar, [
     isCar,
     isSpecialOffer,
   ]);
+
+  const isInchcapeFreeInsurance = useMemo(() => isInsurance && isCar, [
+    isCar,
+    isInsurance,
+  ]);
+
+  const isInchcape = isInchcapeFeatureEnabled();
+
+  const isFreeInsurance = isInchcape
+    ? isInchcapeFreeInsurance
+    : isDefaultFreeInsurance;
+
   const isElectric = useMemo(
     () => data?.derivativeInfo?.fuelType?.name === 'Electric',
     [data?.derivativeInfo?.fuelType?.name],
@@ -621,7 +645,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             text: leadTime,
             incomplete: true,
           }}
-          imacaAssets={imacaAssets}
+          imacaAssets={resultImacaAssets}
           showInsuranceBanner={isFreeInsurance}
           showElectricBanner={isElectric}
           images={vehicleImages}

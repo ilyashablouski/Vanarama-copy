@@ -285,6 +285,21 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       getCarDataQuery.data?.vehicleConfigurationByCapId?.financeProfile
         ?.upfront;
 
+    const imacaAssets = await client.query<
+      GetImacaAssets,
+      GetImacaAssetsVariables
+    >({
+      query: GET_IMACA_ASSETS,
+      errorPolicy: 'all',
+      variables: {
+        vehicleType: VehicleTypeEnum.LCV,
+        capId,
+      },
+    });
+
+    const defaultVehicleColour =
+      imacaAssets.data.getImacaAssets?.colours?.[0]?.capId ?? null;
+
     const quoteDataQuery = await client.query<
       GetQuoteDetails,
       GetQuoteDetailsVariables
@@ -293,12 +308,12 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       variables: {
         capId: `${capId}`,
         vehicleType: VehicleTypeEnum.LCV,
+        leaseType: LeaseTypeEnum.BUSINESS,
+        colour: defaultVehicleColour,
+        trim: null,
         mileage,
         term,
         upfront,
-        leaseType: LeaseTypeEnum.BUSINESS,
-        trim: null,
-        colour: null,
       },
     });
 
@@ -327,18 +342,6 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         colourId:
           parseInt(quoteDataQuery.data?.quoteByCapId?.colour || '0', 10) ||
           undefined,
-      },
-    });
-
-    const imacaAssets = await client.query<
-      GetImacaAssets,
-      GetImacaAssetsVariables
-    >({
-      query: GET_IMACA_ASSETS,
-      errorPolicy: 'all',
-      variables: {
-        vehicleType: VehicleTypeEnum.LCV,
-        capId,
       },
     });
 

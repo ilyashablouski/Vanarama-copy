@@ -93,16 +93,10 @@
     align-items: center;
     padding: 3px 18px;
     margin: -3px -18px;
-    overflow-x: auto;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
   }
 
   &__color-item {
-    flex-shrink: 0;
+    width: auto;
 
     &:not(:last-child) {
       margin-right: 14px;

@@ -1,33 +1,22 @@
-import dynamic from 'next/dynamic';
-import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+import React from 'react';
 import DefaultErrorPage from 'next/error';
-import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
-import createApolloClient from '../../apolloClient';
-import FeaturedAndTilesContainer from '../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
-import Skeleton from '../../components/Skeleton';
+import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
+
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
+import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
+import createApolloClient from '../../apolloClient';
 
-const Loading = dynamic(() => import('core/atoms/loading'), {
-  loading: () => <Skeleton count={1} />,
-});
+import CareersPageContainer from '../../containers/CareersPageContainer';
 
-const CareersLandingPage: NextPage<IGenericPage> = ({
-  data,
-  loading,
-  error,
-}) => {
+const CareersLandingPage: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data) {
     return <DefaultErrorPage statusCode={404} />;
   }
 
-  if (loading) {
-    return <Loading size="large" />;
-  }
-
-  return <FeaturedAndTilesContainer data={data} />;
+  return <CareersPageContainer data={data} />;
 };
 
 export async function getStaticProps(context: GetStaticPropsContext) {
@@ -37,7 +26,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const { data, errors } = await client.query({
       query: GENERIC_PAGE,
       variables: {
-        slug: 'careers',
+        slug: 'careers-at-vanarama',
+        sectionsAsArray: true,
         ...(context?.preview && { isPreview: context?.preview }),
       },
     });
