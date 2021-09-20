@@ -59,12 +59,14 @@ function ColorSelection({
           </Text>
           <Swiper
             watchOverflow
+            wrapperTag="ul"
             slidesPerView="auto"
             resistanceRatio={0.5}
             className={getClassName('color-list')}
           >
             {hotOfferColorList.map(color => (
               <SwiperSlide
+                tag="li"
                 key={color.capId}
                 className={getClassName('color-item')}
               >
@@ -100,12 +102,14 @@ function ColorSelection({
           </Text>
           <Swiper
             watchOverflow
+            wrapperTag="ul"
             slidesPerView="auto"
             resistanceRatio={0.5}
             className={getClassName('color-list')}
           >
             {factoryColorList.map(color => (
               <SwiperSlide
+                tag="li"
                 key={color.capId}
                 className={getClassName('color-item')}
               >
