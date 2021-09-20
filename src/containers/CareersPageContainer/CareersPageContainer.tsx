@@ -5,7 +5,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 
 import {
   GenericPageQuery,
-  GenericPageQuery_genericPage_sectionsAsArray as ISection,
+  GenericPageQuery_genericPage_sectionsAsArray as ISections,
   GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links as ILink,
 } from '../../../generated/GenericPageQuery';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
@@ -23,7 +23,7 @@ interface IProps {
   data: GenericPageQuery;
 }
 
-const renderSections = (sections: Nullable<ISection>) =>
+const renderSections = (sections: Nullable<ISections>) =>
   sections?.featured?.map((section, index) => {
     const resultIndex = index + 1;
 
