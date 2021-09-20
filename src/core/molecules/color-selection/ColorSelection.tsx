@@ -96,7 +96,7 @@ function ColorSelection({
             size="small"
             color="dark"
           >
-            <span className="factory">Factory Order</span>Long Lead Time
+            <span className="factory">Factory Order</span>
           </Text>
           <Swiper
             watchOverflow
