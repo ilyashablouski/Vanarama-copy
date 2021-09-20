@@ -188,8 +188,17 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     quote?.quoteByCapId?.mileage || null,
   );
 
+  const resultImacaAssets = useMemo(() => {
+    const imacaColourList = imacaAssets?.colours
+      ? removeImacaColoursDuplications(imacaAssets.colours)
+      : null;
+
+    return imacaAssets ? { ...imacaAssets, colours: imacaColourList } : null;
+  }, [imacaAssets]);
+
   const [colour, setColour] = useState<Nullable<number>>(
-    parseQuoteParams(quote?.quoteByCapId?.colour),
+    resultImacaAssets?.colours?.[0]?.capId ??
+      parseQuoteParams(quote?.quoteByCapId?.colour),
   );
 
   const accordionQAData = useMemo(
@@ -295,14 +304,6 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   }, [price]);
   const vehicleDetails = data?.vehicleDetails;
   const standardEquipment = data?.standardEquipment;
-
-  const resultImacaAssets = useMemo(() => {
-    const imacaColourList = imacaAssets?.colours
-      ? removeImacaColoursDuplications(imacaAssets.colours)
-      : null;
-
-    return imacaAssets ? { ...imacaAssets, colours: imacaColourList } : null;
-  }, [imacaAssets]);
 
   const breadcrumbItems = useMemo(() => {
     return (
