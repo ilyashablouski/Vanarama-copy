@@ -158,7 +158,6 @@ Object {
             >
               Factory Order
             </span>
-            Long Lead Time
           </span>
           <div
             class="swiper-container swiper-container-initialized swiper-container-horizontal color-selection__color-list"
@@ -407,7 +406,6 @@ Object {
           >
             Factory Order
           </span>
-          Long Lead Time
         </span>
         <div
           class="swiper-container swiper-container-initialized swiper-container-horizontal color-selection__color-list"
