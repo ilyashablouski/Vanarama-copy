@@ -27,7 +27,7 @@ import {
   checkForGtmDomEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
-import { toPriceFormat } from '../../utils/helpers';
+import { isInchcapeFeatureEnabled, toPriceFormat } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -324,16 +324,32 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     [data],
   );
 
+  const isInsurance = useMemo(() => data?.vehicleDetails?.freeInsurance, [
+    data,
+  ]);
+
   const isCar = useMemo(
     () => quote?.quoteByCapId?.vehicleType === VehicleTypeEnum.CAR,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
-  const isFreeInsurance = useMemo(() => isSpecialOffer && isCar, [
+  const isDefaultFreeInsurance = useMemo(() => isSpecialOffer && isCar, [
     isCar,
     isSpecialOffer,
   ]);
+
+  const isInchcapeFreeInsurance = useMemo(() => isInsurance && isCar, [
+    isCar,
+    isInsurance,
+  ]);
+
+  const isInchcape = isInchcapeFeatureEnabled();
+
+  const isFreeInsurance = isInchcape
+    ? isInchcapeFreeInsurance
+    : isDefaultFreeInsurance;
+
   const isElectric = useMemo(
     () => data?.derivativeInfo?.fuelType?.name === 'Electric',
     [data?.derivativeInfo?.fuelType?.name],
