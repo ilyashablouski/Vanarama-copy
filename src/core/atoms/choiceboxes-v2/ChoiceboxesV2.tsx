@@ -2,6 +2,7 @@ import React, { useMemo } from 'react';
 import cx from 'classnames';
 
 import { IChoiceBoxesV2Props } from './interfaces';
+import { toDataAbTestIdFormat } from '../../../utils/helpers';
 
 function ChoiceBoxesV2({
   className,
@@ -26,6 +27,7 @@ function ChoiceBoxesV2({
   const customStyles = {
     backgroundColor: customCTAColor,
   };
+  const dataAbTestValues = ['PERSONAL', 'BUSINESS'];
 
   function handleSelectChange(value: string | number, checked: boolean) {
     onChange(checked ? [value] : []);
@@ -75,9 +77,11 @@ function ChoiceBoxesV2({
                 '-active': checked,
               })}
               style={customCTAColor && checked ? customStyles : undefined}
-              data-abtestid={`${dataAbTestId}_${value
-                .toString()
-                .toLowerCase()}`}
+              data-abtestid={
+                dataAbTestId && dataAbTestValues.includes(value.toString())
+                  ? toDataAbTestIdFormat(dataAbTestId, value)
+                  : console.log(value)
+              }
             >
               <span className={cx('choice-label', labelClassName)}>
                 {renderValuesFunction ? renderValuesFunction(value) : value}

@@ -128,6 +128,7 @@ exports[`<WhyChooseVanarama /> renders correctly 1`] = `
     </li>
     <li
       className="accordion-item"
+      data-abtestid="product-page_accordion_no-admin-fees"
       data-testid="accordion-item"
     >
       <button
