@@ -125,6 +125,11 @@ function MediaGallery({
           </TabList>
         </Tabs>
       </div>
+      {!imacaAssets && (
+        <span className="caveat-text text -small -darker">
+          Photos are for illustration purposes only.
+        </span>
+      )}
     </>
   );
 }
