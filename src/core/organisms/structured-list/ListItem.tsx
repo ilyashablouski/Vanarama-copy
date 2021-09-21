@@ -21,6 +21,7 @@ const ListItem: FC<IListItemProps> = props => {
     dataTestId,
     isOrange,
     wrap,
+    dataAbTestId,
   } = props;
 
   const [input, setInput] = useState(value);
@@ -92,7 +93,10 @@ const ListItem: FC<IListItemProps> = props => {
   };
 
   return value !== '-' || editing || textEdit ? (
-    <div className={cx('structured-list-row', { orange: isOrange })}>
+    <div
+      className={cx('structured-list-row', { orange: isOrange })}
+      data-abtestid={dataAbTestId}
+    >
       <div
         className={cx('structured-list-td', {
           'structured-list-content--nowrap': !wrap,

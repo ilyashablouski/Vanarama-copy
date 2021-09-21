@@ -69,7 +69,7 @@ function ImacaViewer({ assets, colour, setColour }: IImacaViewer) {
                 selectedColour={selectedColor?.hex}
                 assets={assets}
                 width={1420}
-                height={800}
+                height={798}
               />
               {isHintVisible && (
                 <div className="imaca-viewer__hint">
@@ -144,7 +144,7 @@ function ImacaViewer({ assets, colour, setColour }: IImacaViewer) {
               selectedColour={selectedColor?.hex}
               assets={assets}
               width={1420}
-              height={800}
+              height={798}
             />
             <Disclaimer />
           </div>
