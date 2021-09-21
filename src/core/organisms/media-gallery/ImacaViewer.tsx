@@ -16,7 +16,7 @@ import { IImacaViewer } from './interfaces';
 
 const Disclaimer = () => (
   <Text tag="p" size="xsmall" color="dark" className="imaca-viewer__disclaimer">
-    The trim & wheels are for illustration purposes only. For exact trim see
+    The trim &amp; wheels are for illustration purposes only. For exact trim see
     full spec below.
   </Text>
 );
