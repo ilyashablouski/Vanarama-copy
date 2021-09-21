@@ -15,4 +15,5 @@ export interface IChoiceBoxesV2Props extends IBaseProps {
   idPrefix?: string;
   renderValuesFunction?: (value: string | number) => string;
   customCTAColor?: string;
+  dataAbTestId?: string;
 }
