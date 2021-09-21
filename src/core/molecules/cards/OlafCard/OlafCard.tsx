@@ -67,6 +67,7 @@ const OlafCard: FC<IOlafCardProps> = props => {
       label: 'Processing Fee',
       value: 'FREE',
       dataTestId: 'processingFee',
+      dataAbTestId: 'online-application-form_structured-list_processing-fee',
       isOrange: true,
     },
     {
