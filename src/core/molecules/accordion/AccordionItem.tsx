@@ -1,6 +1,7 @@
 import cx from 'classnames';
 import React, { useState } from 'react';
 import ReactMarkdown from 'react-markdown';
+import { toDataAbTestIdFormat } from '../../../utils/helpers';
 import AccordionHeading from './AccordionHeading';
 import RouterLink from '../../../components/RouterLink';
 
@@ -12,9 +13,10 @@ export interface IAccordionItem {
 
 interface IProps {
   item: IAccordionItem;
+  dataAbTestId?: string;
 }
 
-const AccordionItem: React.FC<IProps> = ({ item }) => {
+const AccordionItem: React.FC<IProps> = ({ item, dataAbTestId }) => {
   const [setActive, setActiveState] = useState(false);
 
   const toggleAccordion = () => {
@@ -28,6 +30,11 @@ const AccordionItem: React.FC<IProps> = ({ item }) => {
         'accordion-item--active': setActive,
       })}
       data-testid={setActive ? 'accordion-item--active' : 'accordion-item'}
+      data-abtestid={
+        item.title === 'No Admin Fees' && dataAbTestId
+          ? toDataAbTestIdFormat(dataAbTestId, item.title)
+          : undefined
+      }
     >
       <AccordionHeading title={item.title} onClick={() => toggleAccordion()} />
 
