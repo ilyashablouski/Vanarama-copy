@@ -1,14 +1,13 @@
 import React, { FC, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Tabs from 'core/molecules/tabs';
 import getTitleTag from '../../utils/getTitleTag';
 import mapToReviewCard from './helpers';
 import { ReviewsPageQuery_reviewsPage_sections as Sections } from '../../../generated/ReviewsPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Skeleton from '../../components/Skeleton';
-import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 
 const Button = dynamic(() => import('core/atoms/button'), {
   loading: () => <Skeleton count={1} />,
@@ -18,9 +17,6 @@ const Heading = dynamic(() => import('core/atoms/heading'), {
 });
 const Image = dynamic(() => import('core/atoms/image'), {
   loading: () => <Skeleton count={4} />,
-});
-const Tabs = dynamic(() => import('core/molecules/tabs'), {
-  loading: () => <Skeleton count={1} />,
 });
 const Tab = dynamic(() => import('core/molecules/tabs/Tab'), {
   loading: () => <Skeleton count={1} />,
@@ -97,6 +93,7 @@ const VehicleReviewContainer: FC<IProps> = ({
                     controls
                     width="100%"
                     height="100%"
+                    noLazy
                   />
                 </div>
               </TabPanel>
@@ -107,32 +104,30 @@ const VehicleReviewContainer: FC<IProps> = ({
             </TabList>
           </Tabs>
 
-          <LazyLoadComponent visibleByDefault={isServerRenderOrAppleDevice}>
-            <div className="markdown -mt-500" key="markdown">
-              <ReactMarkdown
-                allowDangerousHtml
-                source={body || ''}
-                renderers={{
-                  link: props => {
-                    const { href, children } = props;
-                    return <RouterLink link={{ href, label: children }} />;
-                  },
-                }}
-              />
-            </div>
-            <div className="button-group">
-              <RouterLink
-                classNames={{ color: 'teal', size: 'regular' }}
-                className="button"
-                link={{
-                  href: sections?.link?.legacyUrl || sections?.link?.url || '',
-                  label: sections?.link?.text || '',
-                }}
-              >
-                <div className="button--inner">{sections?.link?.text}</div>
-              </RouterLink>
-            </div>
-          </LazyLoadComponent>
+          <div className="markdown -mt-500" key="markdown">
+            <ReactMarkdown
+              allowDangerousHtml
+              source={body || ''}
+              renderers={{
+                link: props => {
+                  const { href, children } = props;
+                  return <RouterLink link={{ href, label: children }} />;
+                },
+              }}
+            />
+          </div>
+          <div className="button-group">
+            <RouterLink
+              classNames={{ color: 'teal', size: 'regular' }}
+              className="button"
+              link={{
+                href: sections?.link?.legacyUrl || sections?.link?.url || '',
+                label: sections?.link?.text || '',
+              }}
+            >
+              <div className="button--inner">{sections?.link?.text}</div>
+            </RouterLink>
+          </div>
         </article>
         <div>
           <Heading tag="h2" color="black" size="lead">
