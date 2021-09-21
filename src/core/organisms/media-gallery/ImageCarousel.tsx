@@ -33,8 +33,6 @@ function ImageCarousel({
             nextEl: '.swiper-button-next',
             prevEl: '.swiper-button-prev',
           }}
-          uniqueNavElements
-          allowSlidePrev
           watchOverflow
           wrapperTag="ul"
           thumbs={{
