@@ -115,6 +115,10 @@
       opacity: 1;
     }
   }
+
+  .swiper-button-disabled {
+    display: none;
+  }
 }
 
 .imaca-viewer {
@@ -202,7 +206,7 @@
       border-bottom: none;
     }
   }
-  
+
   &--fs {
     display: flex;
     justify-content: center;
