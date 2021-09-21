@@ -88,7 +88,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
     return <Loading size="large" />;
   }
 
-  if (error || !person) {
+  if (error) {
     return (
       <Text tag="p" color="danger" size="lead">
         Sorry, an unexpected error occurred. Please try again!
