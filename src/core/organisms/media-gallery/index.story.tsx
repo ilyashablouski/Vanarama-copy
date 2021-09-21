@@ -29,6 +29,7 @@ storiesOf(`${atomicDir(base)}/MediaGallery`, module)
           colour={1234}
           setColour={jest.fn()}
           imacaAssets={null}
+          isCar={false}
         />
       </div>
     </div>
@@ -53,6 +54,7 @@ storiesOf(`${atomicDir(base)}/MediaGallery`, module)
           colour={1234}
           setColour={jest.fn()}
           imacaAssets={null}
+          isCar={false}
         />
       </div>
     </div>
@@ -78,6 +80,7 @@ storiesOf(`${atomicDir(base)}/MediaGallery`, module)
           colour={1234}
           setColour={jest.fn()}
           imacaAssets={null}
+          isCar={false}
         />
       </div>
     </div>

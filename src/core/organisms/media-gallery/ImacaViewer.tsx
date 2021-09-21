@@ -1,4 +1,5 @@
 import React, { useMemo, useState } from 'react';
+import cx from 'classnames';
 
 import Icon from 'core/atoms/icon';
 import Text from 'core/atoms/text';
@@ -21,7 +22,12 @@ const Disclaimer = () => (
   </Text>
 );
 
-function ImacaViewer({ assets, colour, setColour }: IImacaViewer) {
+function ImacaViewer({
+  assets,
+  colour,
+  setColour,
+  upscaleCanvas,
+}: IImacaViewer) {
   const [isFullScreen, setFullScreen] = useState(false);
   const [isHintVisible, setHintVisible] = useState(true);
   const [isColorSelectionOpen, setColorSelectionOpen] = useState(false);
@@ -63,13 +69,15 @@ function ImacaViewer({ assets, colour, setColour }: IImacaViewer) {
             <div className="imaca-viewer__viewer">
               <ImacaConfigurator
                 id="viewer"
-                className="imaca-viewer__configurator"
+                width={1420}
+                height={798}
+                assets={assets}
                 onMouseDown={handleImageDrag}
                 onTouchStart={handleImageDrag}
                 selectedColour={selectedColor?.hex}
-                assets={assets}
-                width={1420}
-                height={798}
+                className={cx('imaca-viewer__configurator', {
+                  '-upscale': upscaleCanvas,
+                })}
               />
               {isHintVisible && (
                 <div className="imaca-viewer__hint">
@@ -138,13 +146,15 @@ function ImacaViewer({ assets, colour, setColour }: IImacaViewer) {
           <div className="imaca-viewer__container">
             <ImacaConfigurator
               id="fs-viewer"
-              className="imaca-viewer__configurator"
+              width={1420}
+              height={798}
+              assets={assets}
               onMouseDown={handleImageDrag}
               onTouchStart={handleImageDrag}
               selectedColour={selectedColor?.hex}
-              assets={assets}
-              width={1420}
-              height={798}
+              className={cx('imaca-viewer__configurator', {
+                '-upscale': upscaleCanvas,
+              })}
             />
             <Disclaimer />
           </div>

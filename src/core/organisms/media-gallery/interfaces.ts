@@ -20,16 +20,18 @@ export interface IMediaGalleryProps extends IBaseProps {
   colour: Nullable<number>;
   setColour: React.Dispatch<React.SetStateAction<number | null>>;
   imacaAssets: Nullable<IImacaAssets>;
-}
-
-export interface IImageCarouselProps extends IBaseProps {
-  images: Array<string>;
-  imageAltText?: string;
-  renderImageDecoration?: (value: string, index: number) => ReactNode;
+  isCar: boolean;
 }
 
 export interface IImacaViewer extends IBaseProps {
   assets: IImacaAssets;
   colour: Nullable<number>;
   setColour: React.Dispatch<React.SetStateAction<number | null>>;
+  upscaleCanvas: boolean;
+}
+
+export interface IImageCarouselProps extends IBaseProps {
+  images: Array<string>;
+  imageAltText?: string;
+  renderImageDecoration?: (value: string, index: number) => ReactNode;
 }
