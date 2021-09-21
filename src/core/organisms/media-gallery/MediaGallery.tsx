@@ -21,6 +21,7 @@ import ImacaViewer from './ImacaViewer';
 import ImageCarousel from './ImageCarousel';
 
 function MediaGallery({
+  isCar,
   images,
   vimeoConfig = {},
   videoSrc,
@@ -70,6 +71,7 @@ function MediaGallery({
                     colour={colour}
                     setColour={setColour}
                     assets={imacaAssets}
+                    upscaleCanvas={isCar}
                   />
                 </LazyLoadComponent>
               </TabPanel>

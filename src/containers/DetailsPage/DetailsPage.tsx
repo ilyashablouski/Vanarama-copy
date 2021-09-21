@@ -645,6 +645,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             text: leadTime,
             incomplete: true,
           }}
+          isCar={!!cars}
           imacaAssets={resultImacaAssets}
           showInsuranceBanner={isFreeInsurance}
           showElectricBanner={isElectric}

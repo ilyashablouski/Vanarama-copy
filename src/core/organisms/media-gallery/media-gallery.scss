@@ -133,9 +133,11 @@
   &__configurator {
     overflow: hidden;
 
-    canvas {
-      image-rendering: high-quality;
-      transform: translateY(-8%) scale(1.25);
+    &.-upscale {
+      canvas {
+        image-rendering: high-quality;
+        transform: translateY(-8%) scale(1.25);
+      }
     }
   }
 
@@ -225,7 +227,7 @@
       font-size: $font-size-200;
     }
   }
-  
+
   &--fs {
     display: flex;
     justify-content: center;
@@ -265,13 +267,11 @@
           justify-content: center;
         }
 
-        canvas {
-          transform: translateY(-6%);
-        }
-
-        @include mobile {
-          canvas {
-            transform: translateY(-8%) scale(1.25);
+        &.-upscale {
+          @include mobile {
+            canvas {
+              transform: translateY(-8%) scale(1.25);
+            }
           }
         }
       }
