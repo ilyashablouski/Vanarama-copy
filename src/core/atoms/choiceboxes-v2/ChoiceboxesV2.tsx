@@ -80,7 +80,7 @@ function ChoiceBoxesV2({
               data-abtestid={
                 dataAbTestId && dataAbTestValues.includes(value.toString())
                   ? toDataAbTestIdFormat(dataAbTestId, value)
-                  : console.log(value)
+                  : undefined
               }
             >
               <span className={cx('choice-label', labelClassName)}>
