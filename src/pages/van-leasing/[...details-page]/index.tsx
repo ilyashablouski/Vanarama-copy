@@ -61,6 +61,7 @@ import {
   GetProductCard,
   GetProductCardVariables,
 } from '../../../../generated/GetProductCard';
+import { redirect } from '../../../utils/redirect';
 import { decodeData, encodeData } from '../../../utils/data';
 import { getBreadcrumbSlugs } from '../../../utils/pageSlugs';
 import { CurrencyCodeEnum } from '../../../../entities/global';
@@ -327,6 +328,16 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         ...(context?.preview && { isPreview: context?.preview }),
       },
     });
+
+    const { redirectTo, redirectStatusCode } = data.genericPage;
+
+    if (redirectTo && redirectStatusCode) {
+      return redirect({
+        statusCode: redirectStatusCode,
+        location: redirectTo,
+        res: context.res,
+      });
+    }
 
     const trimAndColorData = await client.query<
       GetTrimAndColor,

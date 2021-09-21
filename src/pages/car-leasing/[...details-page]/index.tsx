@@ -62,6 +62,7 @@ import {
   GetProductCard,
   GetProductCardVariables,
 } from '../../../../generated/GetProductCard';
+import { redirect } from '../../../utils/redirect';
 import { decodeData, encodeData } from '../../../utils/data';
 import { CurrencyCodeEnum } from '../../../../entities/global';
 import {
@@ -313,6 +314,16 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         ...(context?.preview && { isPreview: context?.preview }),
       },
     });
+
+    const { redirectTo, redirectStatusCode } = data.genericPage;
+
+    if (redirectTo && redirectStatusCode) {
+      return redirect({
+        statusCode: redirectStatusCode,
+        location: redirectTo,
+        res: context.res,
+      });
+    }
 
     const pageType = pdpCarType(getCarDataQuery.data);
     const { data: pdpContent } = await client.query<
