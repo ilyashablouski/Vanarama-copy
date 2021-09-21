@@ -115,6 +115,10 @@
       opacity: 1;
     }
   }
+
+  .swiper-button-disabled {
+    display: none;
+  }
 }
 
 .imaca-viewer {
