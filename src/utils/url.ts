@@ -310,6 +310,6 @@ export const getMetadataForPagination = (
   };
 };
 
-export function isResSent(res: ServerResponse): boolean {
+export function isResponseSent(res: ServerResponse): boolean {
   return res.finished || res.headersSent;
 }
