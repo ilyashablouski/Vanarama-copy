@@ -1,12 +1,12 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext } from 'react';
 import { useRouter } from 'next/router';
 import dynamic from 'next/dynamic';
 
-import usePerson from '../../hooks/usePerson';
 import Skeleton from '../../components/Skeleton';
 
 import { OlafContext } from '../../layouts/OLAFLayout/helpers';
 import { IThankYouOrderContainer } from './interface';
+import { isUserAuthenticated } from '../../utils/authentication';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -56,11 +56,25 @@ const renderList = () => (
   </List>
 );
 
+const MY_ORDERS_LINK = {
+  url: '/account/my-orders',
+  mask: '/account/my-orders',
+};
+const AUTH_LINK = {
+  url: '/account/login-register?redirect=/account/my-orders',
+  mask: '/account/login-register',
+};
+
 function ThankYouOrderContainer({ isB2b }: IThankYouOrderContainer) {
   const router = useRouter();
 
-  const { personLoggedIn } = usePerson();
   const { leaseDataLoading, funderName } = useContext(OlafContext);
+
+  const handleViewOrderClick = useCallback(() => {
+    const link = isUserAuthenticated() ? MY_ORDERS_LINK : AUTH_LINK;
+
+    return router.push(link.url, link.mask);
+  }, [router]);
 
   if (leaseDataLoading) {
     return <Loading size="large" />;
@@ -121,16 +135,7 @@ function ThankYouOrderContainer({ isB2b }: IThankYouOrderContainer) {
         type="button"
         color="teal"
         label="View order"
-        onClick={() => {
-          if (personLoggedIn) {
-            router.push(`/account/my-orders`);
-          } else {
-            router.push(
-              '/account/login-register?redirect=/account/my-orders',
-              '/account/login-register',
-            );
-          }
-        }}
+        onClick={handleViewOrderClick}
       />
     </Form>
   );
