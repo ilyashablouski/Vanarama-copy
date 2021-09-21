@@ -1,8 +1,4 @@
 .benefits-bar {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -56px;
   grid-column: full;
   display: block;
   align-items: center;
@@ -11,7 +7,7 @@
   min-height: 41px;
 
   @include desktop {
-    height: 56px;
+    min-height: 56px;
     display: flex;
   }
 
