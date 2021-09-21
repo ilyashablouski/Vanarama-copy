@@ -230,6 +230,27 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
   const path = context.req?.url?.split('?')[0] || '';
 
   try {
+    const { data } = await client.query<
+      GenericPageHeadQuery,
+      GenericPageHeadQueryVariables
+    >({
+      query: GENERIC_PAGE_HEAD,
+      variables: {
+        slug: path.split('?')[0].slice(1),
+        ...(context?.preview && { isPreview: context?.preview }),
+      },
+    });
+
+    const { redirectTo, redirectStatusCode } = data.genericPage;
+
+    if (redirectTo && redirectStatusCode) {
+      return redirect({
+        statusCode: redirectStatusCode,
+        location: redirectTo,
+        res: context.res,
+      });
+    }
+
     const vehicleConfigurationByUrlQuery = await client.query<
       VehicleConfigurationByUrl,
       VehicleConfigurationByUrlVariables
@@ -303,27 +324,6 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         leaseType,
       },
     });
-
-    const { data } = await client.query<
-      GenericPageHeadQuery,
-      GenericPageHeadQueryVariables
-    >({
-      query: GENERIC_PAGE_HEAD,
-      variables: {
-        slug: path.split('?')[0].slice(1),
-        ...(context?.preview && { isPreview: context?.preview }),
-      },
-    });
-
-    const { redirectTo, redirectStatusCode } = data.genericPage;
-
-    if (redirectTo && redirectStatusCode) {
-      return redirect({
-        statusCode: redirectStatusCode,
-        location: redirectTo,
-        res: context.res,
-      });
-    }
 
     const pageType = pdpCarType(getCarDataQuery.data);
     const { data: pdpContent } = await client.query<
