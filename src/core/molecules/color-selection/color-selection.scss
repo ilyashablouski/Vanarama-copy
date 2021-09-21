@@ -116,7 +116,7 @@
     background: linear-gradient(-27deg, transparent 0%, rgba(244, 244, 244, 0.3) 50%, transparent 50%);
     cursor: pointer;
 
-    &[title*="White"] {
+    &[title*="White"], &[title*="Snow"] {
       border-color: $border-color;
 
       .icon {

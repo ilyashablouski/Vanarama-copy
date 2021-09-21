@@ -17,6 +17,7 @@ function ChoiceBoxesV2({
   idPrefix = '',
   renderValuesFunction,
   customCTAColor,
+  dataAbTestId,
 }: IChoiceBoxesV2Props) {
   const type = multiSelect ? 'checkbox' : 'radio';
   const resultSelectedValues = useMemo(() => selectedValues ?? [], [
@@ -74,6 +75,9 @@ function ChoiceBoxesV2({
                 '-active': checked,
               })}
               style={customCTAColor && checked ? customStyles : undefined}
+              data-abtestid={`${dataAbTestId}_${value
+                .toString()
+                .toLowerCase()}`}
             >
               <span className={cx('choice-label', labelClassName)}>
                 {renderValuesFunction ? renderValuesFunction(value) : value}

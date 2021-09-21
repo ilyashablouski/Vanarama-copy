@@ -29,6 +29,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     />
     <label
       className="choice-box"
+      data-abtestid="product-page_choice-box-v2_personal"
       htmlFor="Personal"
     >
       <span
@@ -49,6 +50,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     />
     <label
       className="choice-box"
+      data-abtestid="product-page_choice-box-v2_business"
       htmlFor="Business"
     >
       <span
@@ -148,6 +150,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     />
     <label
       className="choice-box"
+      data-abtestid="product-page_choice-box-v2_24, 36"
       htmlFor="24, 36"
     >
       <span
@@ -168,6 +171,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     />
     <label
       className="choice-box"
+      data-abtestid="product-page_choice-box-v2_77"
       htmlFor="77"
     >
       <span
@@ -217,6 +221,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     />
     <label
       className="choice-box -active"
+      data-abtestid="product-page_choice-box-v2_1"
       htmlFor="1"
       style={
         Object {
@@ -242,6 +247,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
     />
     <label
       className="choice-box"
+      data-abtestid="product-page_choice-box-v2_3"
       htmlFor="3"
     >
       <span
@@ -479,6 +485,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       >
         <div
           className="structured-list-row orange"
+          data-abtestid="product-page_structured-list_processing-fee"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -814,6 +821,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     />
     <label
       className="choice-box"
+      data-abtestid="product-page_choice-box-v2_personal"
       htmlFor="Personal"
     >
       <span
@@ -834,6 +842,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     />
     <label
       className="choice-box"
+      data-abtestid="product-page_choice-box-v2_business"
       htmlFor="Business"
     >
       <span
@@ -933,6 +942,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     />
     <label
       className="choice-box"
+      data-abtestid="product-page_choice-box-v2_24, 36"
       htmlFor="24, 36"
     >
       <span
@@ -953,6 +963,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     />
     <label
       className="choice-box"
+      data-abtestid="product-page_choice-box-v2_77"
       htmlFor="77"
     >
       <span
@@ -1002,6 +1013,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     />
     <label
       className="choice-box -active"
+      data-abtestid="product-page_choice-box-v2_1"
       htmlFor="1"
       style={
         Object {
@@ -1027,6 +1039,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
     />
     <label
       className="choice-box"
+      data-abtestid="product-page_choice-box-v2_3"
       htmlFor="3"
     >
       <span
@@ -1264,6 +1277,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       >
         <div
           className="structured-list-row orange"
+          data-abtestid="product-page_structured-list_processing-fee"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
