@@ -3,7 +3,7 @@ import { GetPerson_getPerson as Person } from '../../../generated/GetPerson';
 
 export interface IProps {
   onCompleted?: (data: Mutation) => void;
-  person: Person;
+  person?: Person | null;
 }
 
 export interface IAddressPerson {

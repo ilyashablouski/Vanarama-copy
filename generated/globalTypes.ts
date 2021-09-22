@@ -612,6 +612,7 @@ export interface MyAccountInputObject {
  * Input object to create an order
  */
 export interface OrderInputObject {
+  additionalData?: CustomJson | null;
   leaseType: LeaseTypeEnum;
   lineItems: LineItemInputObject[];
   partyUuid?: string | null;
@@ -727,6 +728,7 @@ export interface ProductDerivativeFilter {
   noOfGears?: (number | null)[] | null;
   engineSize?: MinMax | null;
   engineSizeGroup?: (string | null)[] | null;
+  electricRangeGroup?: (string | null)[] | null;
   mpgCombined?: number | null;
   mpgGroup?: string | null;
   terms?: (number | null)[] | null;

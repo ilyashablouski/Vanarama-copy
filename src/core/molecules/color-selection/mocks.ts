@@ -1,59 +1,71 @@
+import { GetImacaAssets_getImacaAssets_colours as IColour } from '../../../../generated/GetImacaAssets';
+
 export const hotOfferColorList = [
   {
-    label: 'Hot White (K8J2)',
-    style: 'hsl(209, 0%, 100%)',
-    price: 1001,
+    capId: 97341,
+    imacaName: 'Hot White (K8J2)',
+    lqName: 'Hot White (K8J2)',
+    hex: 'ffffff',
+    matchAccuracy: 1,
+    onOffer: true,
   },
   {
-    label: 'Hot Orange (K8J2)',
-    style: 'hsl(24, 93%, 48%)',
-    price: 1002,
+    capId: 151235,
+    imacaName: 'Hot Orange (K8J2)',
+    lqName: 'Hot Orange (K8J2)',
+    hex: 'ec6409',
+    matchAccuracy: 1,
+    onOffer: true,
   },
   {
-    label: 'Hot Yellow (K8J2)',
-    style: 'hsl(43, 94%, 55%)',
-    price: 1003,
+    capId: 122994,
+    imacaName: 'Hot Yellow (K8J2)',
+    lqName: 'Hot Yellow (K8J2)',
+    hex: 'f8bb20',
+    matchAccuracy: 1,
+    onOffer: true,
   },
-  {
-    label: 'Hot Blue (K8J2)',
-    style: 'hsl(209, 19%, 50%)',
-    price: 1004,
-  },
-  {
-    label: 'Hot Gray (K8J2)',
-    style: 'hsl(209, 22%, 34%)',
-    price: 1005,
-  },
-  {
-    label: 'Hot Black (K8J2)',
-    style: 'hsl(209, 22%, 5%)',
-    price: 1006,
-  },
-];
+] as IColour[];
 
 export const factoryColorList = [
   {
-    label: 'Factory Gray (K8J2)',
-    style: 'hsl(209, 22%, 34%)',
+    capId: 72751,
+    imacaName: 'Factory Blue (K8J2)',
+    lqName: 'Factory Blue (K8J2)',
+    hex: '678098',
+    matchAccuracy: 1,
+    onOffer: false,
   },
   {
-    label: 'Factory Red (K8J2)',
-    style: 'hsl(0, 66%, 45%)',
+    capId: 72500,
+    imacaName: 'Factory Gray (K8J2)',
+    lqName: 'Factory Gray (K8J2)',
+    hex: '44576a',
+    matchAccuracy: 1,
+    onOffer: false,
   },
   {
-    label: 'Factory Orange (K8J2)',
-    style: 'hsl(43, 94%, 55%)',
+    capId: 72497,
+    imacaName: 'Factory Red (K8J2)',
+    lqName: 'Factory Red (K8J2)',
+    hex: 'be2727',
+    matchAccuracy: 1,
+    onOffer: false,
   },
   {
-    label: 'Factory Green (K8J2)',
-    style: 'hsl(99, 53%, 44%)',
+    capId: 164510,
+    imacaName: 'Factory Green (K8J2)',
+    lqName: 'Factory Green (K8J2)',
+    hex: '5eac35',
+    matchAccuracy: 1,
+    onOffer: false,
   },
   {
-    label: 'Factory Blue (K8J2)',
-    style: 'hsl(209, 19%, 50%)',
+    capId: 138304,
+    imacaName: 'Factory Black (K8J2)',
+    lqName: 'Factory Black (K8J2)',
+    hex: '0a0d10',
+    matchAccuracy: 1,
+    onOffer: false,
   },
-  {
-    label: 'Factory Black (K8J2)',
-    style: 'hsl(209, 22%, 5%)',
-  },
-];
+] as IColour[];

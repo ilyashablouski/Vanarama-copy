@@ -274,7 +274,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       >
         Select Paint Colour:
       </div>
-      
+      Solid - Polar white
     </div>
     <span
       className="icon select--chevron"
@@ -479,6 +479,7 @@ exports[`<CustomiseLease /> renders correctly 1`] = `
       >
         <div
           className="structured-list-row orange"
+          data-abtestid="product-page_structured-list_processing-fee"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"
@@ -1101,7 +1102,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       >
         Select Interior:
       </div>
-      Select Interior:
+      
     </div>
     <span
       className="icon select--chevron"
@@ -1264,6 +1265,7 @@ exports[`<CustomiseLease /> renders correctly 2`] = `
       >
         <div
           className="structured-list-row orange"
+          data-abtestid="product-page_structured-list_processing-fee"
         >
           <div
             className="structured-list-td structured-list-content--nowrap"

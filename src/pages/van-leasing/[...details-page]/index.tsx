@@ -7,6 +7,7 @@ import { PreviewNextPageContext } from 'types/common';
 import { INotFoundPageData } from '../../../models/ISearchPageProps';
 import {
   GET_CAR_DATA,
+  GET_IMACA_ASSETS,
   GET_PDP_CONTENT,
   GET_TRIM_AND_COLOR_DATA,
 } from '../../../gql/carpage';
@@ -50,6 +51,11 @@ import {
   GetTrimAndColor_trimList as ITrimList,
   GetTrimAndColorVariables,
 } from '../../../../generated/GetTrimAndColor';
+import {
+  GetImacaAssets,
+  GetImacaAssetsVariables,
+  GetImacaAssets_getImacaAssets as IImacaAssets,
+} from '../../../../generated/GetImacaAssets';
 import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
 import {
   GetProductCard,
@@ -77,6 +83,7 @@ interface IProps {
   colour: IColourList[];
   productCard: GetProductCard | null;
   pdpContent: IGetPdpContentQuery | null;
+  imacaAssets: IImacaAssets | null;
 }
 
 const VanDetailsPage: NextPage<IProps> = ({
@@ -91,6 +98,7 @@ const VanDetailsPage: NextPage<IProps> = ({
   colour,
   productCard: encodedData,
   pdpContent,
+  imacaAssets,
 }) => {
   const isPickup = !data?.derivativeInfo?.bodyType?.slug?.match('van');
 
@@ -226,6 +234,7 @@ const VanDetailsPage: NextPage<IProps> = ({
         data={data}
         trimList={trim}
         colourList={colour}
+        imacaAssets={imacaAssets}
         quote={quote}
         genericPageHead={genericPageHead}
         genericPages={genericPages}
@@ -276,6 +285,21 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       getCarDataQuery.data?.vehicleConfigurationByCapId?.financeProfile
         ?.upfront;
 
+    const imacaAssets = await client.query<
+      GetImacaAssets,
+      GetImacaAssetsVariables
+    >({
+      query: GET_IMACA_ASSETS,
+      errorPolicy: 'all',
+      variables: {
+        vehicleType: VehicleTypeEnum.LCV,
+        capId,
+      },
+    });
+
+    const defaultVehicleColour =
+      imacaAssets.data.getImacaAssets?.colours?.[0]?.capId ?? null;
+
     const quoteDataQuery = await client.query<
       GetQuoteDetails,
       GetQuoteDetailsVariables
@@ -284,12 +308,12 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       variables: {
         capId: `${capId}`,
         vehicleType: VehicleTypeEnum.LCV,
+        leaseType: LeaseTypeEnum.BUSINESS,
+        colour: defaultVehicleColour,
+        trim: null,
         mileage,
         term,
         upfront,
-        leaseType: LeaseTypeEnum.BUSINESS,
-        trim: null,
-        colour: null,
       },
     });
 
@@ -374,6 +398,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         query: context.query,
         trim: trimAndColorData?.data?.trimList || null,
         colour: trimAndColorData?.data?.colourList || null,
+        imacaAssets: imacaAssets.data.getImacaAssets || null,
         genericPageHead: data,
         genericPages: genericPages || null,
         productCard: productCard || null,

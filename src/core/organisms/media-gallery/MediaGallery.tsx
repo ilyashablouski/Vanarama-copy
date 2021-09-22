@@ -21,6 +21,7 @@ import ImacaViewer from './ImacaViewer';
 import ImageCarousel from './ImageCarousel';
 
 function MediaGallery({
+  isCar,
   images,
   vimeoConfig = {},
   videoSrc,
@@ -28,6 +29,9 @@ function MediaGallery({
   videoIframe,
   activeTabIndex,
   imageAltText,
+  imacaAssets,
+  colour,
+  setColour,
   className,
 }: IMediaGalleryProps) {
   const [activeTab, setActiveTab] = useState(activeTabIndex ?? 1);
@@ -57,14 +61,21 @@ function MediaGallery({
       <div className={cx('media-gallery', className)}>
         <Tabs activeIndex={activeTab} size="large" onChange={handleChangeTab}>
           <TabPanels className="media-gallery__content">
-            <TabPanel index={0}>
-              <LazyLoadComponent
-                placeholder={<div className="imaca-viewer-placeholder" />}
-                visibleByDefault={isServerRenderOrAppleDevice}
-              >
-                <ImacaViewer />
-              </LazyLoadComponent>
-            </TabPanel>
+            {imacaAssets && (
+              <TabPanel index={0}>
+                <LazyLoadComponent
+                  placeholder={<div className="imaca-viewer-placeholder" />}
+                  visibleByDefault={isServerRenderOrAppleDevice}
+                >
+                  <ImacaViewer
+                    colour={colour}
+                    setColour={setColour}
+                    assets={imacaAssets}
+                    upscaleCanvas={isCar}
+                  />
+                </LazyLoadComponent>
+              </TabPanel>
+            )}
             <TabPanel index={1}>
               <ImageCarousel
                 images={images}
@@ -95,10 +106,12 @@ function MediaGallery({
             )}
           </TabPanels>
           <TabList className="media-gallery__tabs">
-            <Tab index={0}>
-              <Icon className="rotate" icon={<MediaRotate />} />
-              360°
-            </Tab>
+            {imacaAssets && (
+              <Tab index={0}>
+                <Icon className="rotate" icon={<MediaRotate />} />
+                360°
+              </Tab>
+            )}
             <Tab index={1}>
               <Icon className="picture" icon={<MediaPicture />} />
               Photos
@@ -112,11 +125,9 @@ function MediaGallery({
           </TabList>
         </Tabs>
       </div>
-
-      {activeTab === 0 && (
+      {!imacaAssets && (
         <span className="caveat-text text -small -darker">
-          The trim & wheels are for illustration purposes only. For exact trim
-          see full spec below.
+          Photos are for illustration purposes only.
         </span>
       )}
     </>

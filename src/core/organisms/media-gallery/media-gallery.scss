@@ -15,7 +15,7 @@
 .image-carousel {
   position: relative;
 
-  &__fullscreen {
+  &__fs-toggle {
     position: absolute;
     right: 5px;
     bottom: 0;
@@ -115,16 +115,33 @@
       opacity: 1;
     }
   }
+
+  .swiper-button-disabled {
+    display: none;
+  }
 }
 
 .imaca-viewer {
-  position: relative;
+  &__container {
+    background: $white;
+  }
 
   &__inner {
-    background: $white;
+    position: relative;
+  }
 
-    @include mobile {
-      position: relative;
+  &__viewer {
+    position: relative;
+  }
+
+  &__configurator {
+    overflow: hidden;
+
+    &.-upscale {
+      canvas {
+        image-rendering: high-quality;
+        transform: translateY(-8%) scale(1.25);
+      }
     }
   }
 
@@ -146,13 +163,17 @@
     .icon {
       margin-right: 10px;
     }
+
+    @include mobile {
+      font-size: $font-size-300;
+    }
   }
 
   &__controls {
     position: absolute;
     left: 20px;
     right: 20px;
-    bottom: 20px;
+    bottom: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -163,7 +184,6 @@
     @include tablet {
       left: 15px;
       right: 15px;
-      bottom: 15px;
       padding-left: 15px;
     }
 
@@ -177,34 +197,98 @@
   }
 
   &__colours-toggle {
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    font-size: $font-size-400;
-    font-weight: $font-weight-black;
-    color: $darker;
+    margin-right: auto;
     pointer-events: auto;
-    cursor: pointer;
+  }
 
-    .icon {
-      margin-right: 10px;
+  &__fs-toggle {
+    margin-left: auto;
+    pointer-events: auto;
+  }
+
+  &__color-selection {
+    margin-top: 3px;
+
+    @include mobile {
+      margin-top: 0;
+      border-bottom: none;
     }
   }
 
-  &--fullscreen {
+  &__disclaimer {
+    width: 100%;
+    padding: 0 10px 14px;
+    text-align: center;
+    user-select: none;
+
+    @include tablet {
+      padding-bottom: 10px;
+      font-size: 0.625rem;
+    }
+
+    @include mobile {
+      padding: 0 16px 14px;
+      font-size: $font-size-200;
+    }
+  }
+
+  &--fs {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100%;
+    height: 100%;
 
     @include desktop {
-      padding: 0 3rem;
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+
+    @include tablet {
+      @media (max-height: 576px) {
+        padding: 0 4.7rem;
+      }
+    }
+
+    @include mobile {
+      @media (max-height: 414px) {
+        padding: 0 4.7rem;
+      }
     }
 
     .imaca-viewer {
-      &__viewer {
-        width: 1366px;
-        background: $white;
+      &__container {
+        display: flex;
+        flex-direction: column;
+        width: 1420px;
+        max-height: 100%;
+      }
+
+      &__configurator {
+        display: flex;
+
+        & > * {
+          display: flex;
+          justify-content: center;
+        }
+
+        &.-upscale {
+          canvas {
+            transform: translateY(-6%);
+          }
+
+          @include mobile {
+            canvas {
+              transform: translateY(-8%) scale(1.25);
+            }
+          }
+        }
+      }
+
+      &__disclaimer {
+        @include tablet {
+          padding-bottom: 14px;
+          font-size: $font-size-300;
+        }
       }
     }
   }
@@ -212,11 +296,30 @@
 
 
 .imaca-viewer-placeholder {
+  display: block;
+  width: 100%;
+  height: 0;
   padding-bottom: 56.25%;
   background: $white;
 }
 
-.fullscreen-toggle {
+.colours-toggle {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: $font-size-400;
+  font-weight: $font-weight-black;
+  color: $darker;
+  cursor: pointer;
+
+  &__icon {
+    display: inline-flex;
+    height: auto;
+    margin-right: 10px;
+  }
+}
+
+.fs-toggle {
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -225,16 +328,12 @@
   border-radius: 50%;
   background: rgba($white, $opacity-500);
   backdrop-filter: blur(2px);
-  pointer-events: auto;
   cursor: pointer;
 
-  .icon {
-    --class-fs: #{$font-size-500};
-  }
-
-  &__icon {
-    display: inline-flex;
-    height: auto;
+  &.-transparent {
+    background: transparent;
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, .7));
+    backdrop-filter: none;
   }
 
   @include mobile {
@@ -242,10 +341,10 @@
     height: 38px;
   }
 
-  &--transparent {
-    background: transparent;
-    filter: drop-shadow(0px 0px 2px rgba(0,0,0,.7));
-    backdrop-filter: none;
+  &__icon {
+    --class-fs: #{$font-size-500};
+    display: inline-flex;
+    height: auto;
   }
 }
 

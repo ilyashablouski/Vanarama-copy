@@ -41,6 +41,15 @@ export const toCurrencyDisplay = (value: number) => {
 export const toPriceFormat = (price: number | undefined | null): string =>
   (price || 0).toFixed(2);
 
+export const toDataAbTestIdFormat = (
+  prefix: string,
+  value: string | number,
+): string =>
+  `${prefix}_${value
+    .toString()
+    .toLowerCase()
+    .replace(/ /g, '-')}`;
+
 export interface IOrderList {
   quoteByCapId: GetQuoteDetails_quoteByCapId | null | undefined;
   stateVAT: string;
@@ -89,6 +98,7 @@ export const getOrderList = ({
           ? 'FREE'
           : `£${quoteByCapId?.processingFee}`,
       dataTestId: 'processingFee',
+      dataAbTestId: 'product-page_structured-list_processing-fee',
       isOrange: true,
     },
     {
@@ -246,10 +256,10 @@ export const parseVehicleConfigId = (configId: string) => {
   };
 };
 
-export const isGlobalSearchFeatureEnabled = () => {
-  return Cookies.get('DIG-5552') === '1';
-};
-
 export const isCookieBarFeatureEnabled = () => {
   return Cookies.get('DIG-6994') === '1';
+};
+
+export const isInchcapeFeatureEnabled = () => {
+  return Cookies.get('DIG-7317') === '1';
 };

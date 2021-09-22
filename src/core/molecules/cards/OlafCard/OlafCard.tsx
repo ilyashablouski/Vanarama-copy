@@ -9,6 +9,7 @@ import {
   GetDerivative_vehicleDetails_roadsideAssistance,
   GetDerivative_vehicleDetails_warrantyDetails,
 } from '../../../../../generated/GetDerivative';
+import { isInchcapeFeatureEnabled } from '../../../../utils/helpers';
 
 export interface IOlafDetails {
   isFreeInsurance?: boolean | null;
@@ -40,6 +41,7 @@ export interface IOlafCardProps extends ICardProps {
   olafDetails: IOlafDetails;
   roadsideAssistance?: GetDerivative_vehicleDetails_roadsideAssistance | null;
   warrantyDetails?: GetDerivative_vehicleDetails_warrantyDetails | null;
+  freeInsurance?: boolean | null;
 }
 
 const OlafCard: FC<IOlafCardProps> = props => {
@@ -56,13 +58,16 @@ const OlafCard: FC<IOlafCardProps> = props => {
     descriptionDataTestId,
     roadsideAssistance,
     warrantyDetails,
+    freeInsurance,
   } = props;
+  const isInchcape = isInchcapeFeatureEnabled();
   const data = [
     {
       name: 'processingFee',
       label: 'Processing Fee',
       value: 'FREE',
       dataTestId: 'processingFee',
+      dataAbTestId: 'online-application-form_structured-list_processing-fee',
       isOrange: true,
     },
     {
@@ -165,7 +170,9 @@ const OlafCard: FC<IOlafCardProps> = props => {
         </Text>
       </div>
       <StructuredList dataTestId="order-details" list={data} />
-      {olafDetails.isFreeInsurance && <FreeInsuranceLabel />}
+      {isInchcape
+        ? freeInsurance && <FreeInsuranceLabel />
+        : olafDetails.isFreeInsurance && <FreeInsuranceLabel />}
     </Card>
   );
 };

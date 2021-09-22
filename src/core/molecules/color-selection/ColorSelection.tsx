@@ -1,100 +1,137 @@
 import React from 'react';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import cx from 'classnames';
 
 import Icon from 'core/atoms/icon';
 import Text from 'core/atoms/text';
 
 import Flame from 'core/assets/icons/Flame';
+import { IBaseProps } from 'core/interfaces/base';
 
-import { IColor } from './interface';
+import { Nullish } from '../../../types/common';
+import { GetImacaAssets_getImacaAssets_colours as IColour } from '../../../../generated/GetImacaAssets';
 import { baseClassName, getClassName } from './helpers';
 
-interface IProps {
-  selectedColor: IColor;
-  hotOfferColorList: IColor[];
-  factoryColorList: IColor[];
-  onChange: (color: IColor) => void;
+interface IProps extends IBaseProps {
+  selectedColor: Nullish<IColour>;
+  onChange: (color: IColour) => void;
+  hotOfferColorList: Nullish<IColour[]>;
+  factoryColorList: Nullish<IColour[]>;
 }
 
 function ColorSelection({
+  className,
   selectedColor,
   hotOfferColorList,
   factoryColorList,
   onChange,
 }: IProps) {
   return (
-    <div className={baseClassName}>
+    <div className={cx(baseClassName, className)}>
       <div className={getClassName('header')}>
         <Text className={getClassName('selected-color')} color="dark">
           <span>Colour:</span>
-          {selectedColor.label}
+          {selectedColor?.lqName}
         </Text>
-        <Text className={getClassName('price')} color="orange">
-          {selectedColor.price ? (
-            <>
+        {/* <Text className={getClassName('price')} color="orange"> */}
+        {/*  {selectedColor?.price ? ( */}
+        {/*    <> */}
+        {/*      <Icon icon={<Flame />} size="regular" /> */}
+        {/*      <span>£{selectedColor.price} Per Months ext. VAT</span> */}
+        {/*    </> */}
+        {/*  ) : ( */}
+        {/*    'Included' */}
+        {/*  )} */}
+        {/* </Text> */}
+      </div>
+      {hotOfferColorList?.length ? (
+        <div className={getClassName('group')}>
+          <Text
+            className={getClassName('group-label')}
+            size="small"
+            color="dark"
+          >
+            <span className="hot-offer">
               <Icon icon={<Flame />} size="regular" />
-              <span>£{selectedColor.price} Per Months ext. VAT</span>
-            </>
-          ) : (
-            'Included'
-          )}
-        </Text>
-      </div>
-      <div className={getClassName('group')}>
-        <Text className={getClassName('group-label')} size="small" color="dark">
-          <span className="hot-offer">
-            <Icon icon={<Flame />} size="regular" />
-            Hot Offer
-          </span>
-          Fast Delivery
-        </Text>
-        <ul className={getClassName('color-list')}>
-          {hotOfferColorList.map(color => (
-            <li className={getClassName('color-item')} key={color.label}>
-              <input
-                type="radio"
-                id={color.label}
-                name="hot-offers"
-                className="visually-hidden"
-                checked={selectedColor.label === color.label}
-                onChange={() => onChange(color)}
-              />
-              <label
-                htmlFor={color.label}
-                title={color.label}
-                style={{ backgroundColor: color.style }}
-                className={getClassName('color')}
+              Hot Offer
+            </span>
+            Fast Delivery
+          </Text>
+          <Swiper
+            watchOverflow
+            wrapperTag="ul"
+            slidesPerView="auto"
+            resistanceRatio={0.5}
+            className={getClassName('color-list')}
+          >
+            {hotOfferColorList.map(color => (
+              <SwiperSlide
+                tag="li"
+                key={color.capId}
+                className={getClassName('color-item')}
               >
-                <Icon icon={<Flame />} />
-              </label>
-            </li>
-          ))}
-        </ul>
-      </div>
-      <div className={getClassName('group')}>
-        <Text className={getClassName('group-label')} size="small" color="dark">
-          <span className="factory">Factory Order</span>Long Lead Time
-        </Text>
-        <ul className={getClassName('color-list')}>
-          {factoryColorList.map(color => (
-            <li className={getClassName('color-item')} key={color.label}>
-              <input
-                type="radio"
-                id={color.label}
-                name="factory"
-                className="visually-hidden"
-                checked={selectedColor.label === color.label}
-                onChange={() => onChange(color)}
-              />
-              <label
-                htmlFor={color.label}
-                title={color.label}
-                style={{ backgroundColor: color.style }}
-                className={getClassName('color')}
-              />
-            </li>
-          ))}
-        </ul>
-      </div>
+                <input
+                  type="radio"
+                  name="hot-offers"
+                  id={color.lqName ?? ''}
+                  className="visually-hidden"
+                  checked={selectedColor?.capId === color.capId}
+                  onChange={() => onChange(color)}
+                />
+                <label
+                  title={color.lqName ?? ''}
+                  htmlFor={color.lqName ?? ''}
+                  style={{ backgroundColor: `#${color.hex}` }}
+                  className={getClassName('color')}
+                >
+                  <Icon icon={<Flame />} />
+                </label>
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      ) : null}
+      {factoryColorList?.length ? (
+        <div className={getClassName('group')}>
+          <Text
+            className={getClassName('group-label')}
+            size="small"
+            color="dark"
+          >
+            <span className="factory">Factory Order</span>
+          </Text>
+          <Swiper
+            watchOverflow
+            wrapperTag="ul"
+            slidesPerView="auto"
+            resistanceRatio={0.5}
+            className={getClassName('color-list')}
+          >
+            {factoryColorList.map(color => (
+              <SwiperSlide
+                tag="li"
+                key={color.capId}
+                className={getClassName('color-item')}
+              >
+                <input
+                  type="radio"
+                  name="factory"
+                  id={color.lqName ?? ''}
+                  className="visually-hidden"
+                  checked={selectedColor?.capId === color.capId}
+                  onChange={() => onChange(color)}
+                />
+                <label
+                  title={color.lqName ?? ''}
+                  htmlFor={color.lqName ?? ''}
+                  style={{ backgroundColor: `#${color.hex}` }}
+                  className={getClassName('color')}
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      ) : null}
     </div>
   );
 }

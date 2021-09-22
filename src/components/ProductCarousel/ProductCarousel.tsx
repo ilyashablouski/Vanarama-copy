@@ -28,6 +28,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
                   leaseType={leaseType}
                   data={data}
                   dataTestIdBtn={dataTestIdBtn}
+                  dataUiTestId={`ui-view-car-offers_${index}`}
                   productType={productType}
                   customCTABackground={customCTABackground}
                 />
@@ -49,6 +50,7 @@ const ProductCarousel: React.FC<IProductCarouselProps> = ({
               leaseType={leaseType}
               data={data}
               dataTestIdBtn={dataTestIdBtn}
+              dataUiTestId={`ui-view-car-offers_${index}`}
               productType={productType}
               customCTABackground={customCTABackground}
             />

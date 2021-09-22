@@ -16,6 +16,7 @@ export interface IList extends IBaseProps {
   label: string;
   value: string | (string | JSX.Element)[];
   isOrange?: boolean;
+  dataAbTestId?: string;
 }
 
 export interface IStructuredListProps extends IBaseProps {

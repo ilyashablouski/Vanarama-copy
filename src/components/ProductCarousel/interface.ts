@@ -2,8 +2,9 @@ import {
   GetProductCard,
   GetProductCard_productCard,
 } from '../../../generated/GetProductCard';
+import { IBaseProps } from '../../core/interfaces/base';
 
-export interface IProductCarouselProps {
+export interface IProductCarouselProps extends IBaseProps {
   leaseType: string;
   countItems?: number;
   data: GetProductCard;

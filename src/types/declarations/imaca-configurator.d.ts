@@ -13,7 +13,9 @@ class ConfigurationRenderer {
       syncToLocationHref?: string[];
     },
     initialConfiguration: {
-      color: string;
+      angle?: number;
+      plateFilterQuality?: number;
+      color?: string;
       tyres: string;
       rims: string;
       car: string;
@@ -37,7 +39,7 @@ class ConfigurationRenderer {
 interface Window {
   ResourceCache: typeof ResourceCache;
   ConfigurationRenderer: typeof ConfigurationRenderer;
-  configurationRenderers: {
+  configurationRenderers?: {
     [key: string]: ConfigurationRenderer;
   };
 }

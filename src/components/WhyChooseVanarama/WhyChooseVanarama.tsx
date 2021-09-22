@@ -27,7 +27,7 @@ const WhyChooseVanarama: React.FC<IWhyChooseVanaramaProps> = ({
       <Heading tag="h2" color="black" size="lead" className="pdp-section-title">
         {title}
       </Heading>
-      <Accordion items={accordionsData} />
+      <Accordion items={accordionsData} dataAbTestId="product-page_accordion" />
     </div>
   );
 };

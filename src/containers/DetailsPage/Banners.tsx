@@ -22,10 +22,14 @@ interface IProps {
 }
 
 const Banners = ({ cards }: IProps) => {
-  return cards.length && cards.length > 1 ? (
+  if (cards.length === 0) {
+    return null;
+  }
+
+  return cards.length > 1 ? (
     <div className="two-col">
       {cards.map(card => (
-        <div className="option-icon-left -white">
+        <div key={card.title} className="option-icon-left -white">
           <Image src={card?.image?.file?.url || ''} plain />
           <div className="copy">
             <Text tag="p">
