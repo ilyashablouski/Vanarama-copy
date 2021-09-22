@@ -86,10 +86,12 @@ $small: 0.875rem;
       > .card-header {
         grid-area: span 1 / 1 / span 1 / -1;
       }
+
       > .card-footer {
         grid-area: span 1 / 1 / span 1 / -1;
         place-self: end stretch;
       }
+
       > .card-image,
       .lazyload-wrapper {
         grid-area: span 1 / 1 / span 1 / -1;
@@ -108,10 +110,12 @@ $small: 0.875rem;
           grid-area: 2 / 1 / -1 / content;
         }
       }
+
       > .card-footer {
         grid-area: -2 / content / -2 / -2;
         place-self: end stretch;
       }
+
       > .card-image {
         height: $image-width;
         max-width: $image-width;
@@ -180,6 +184,7 @@ $small: 0.875rem;
     max-height: $header-height;
     background-color: $darker;
     align-items: stretch;
+
     &.rounded {
       border-radius: $border-radius-small;
     }
@@ -259,7 +264,7 @@ $small: 0.875rem;
       }
     }
 
-    .button.-expand.-clear:focus:not(:hover){
+    .button.-expand.-clear:focus:not(:hover) {
       background: transparent;
     }
 
@@ -269,7 +274,7 @@ $small: 0.875rem;
       }
     }
 
-    @media (pointer: coarse){
+    @media (pointer: coarse) {
       .button.-expand.-clear {
         background: transparent;
       }
@@ -284,14 +289,17 @@ $small: 0.875rem;
     &:first-child {
       margin-top: $card-padding;
     }
+
     &:last-child {
       margin-bottom: $card-padding;
     }
+
     &:only-child {
       grid-row: 1/-1;
       grid-column: 1/-1;
     }
   }
+
   > #{$content} + *,
   > * + #{$content} {
     margin-top: $card-gap-block;
@@ -302,10 +310,10 @@ $small: 0.875rem;
     grid-area: -1 / content;
   }
 
-/*   // Tweaks -> pin last child to bottom (when image exists)
-  > .card-image ~ :last-child:not(.card-footer) {
-    grid-area: -2 / content;
-  } */
+  /*   // Tweaks -> pin last child to bottom (when image exists)
+    > .card-image ~ :last-child:not(.card-footer) {
+      grid-area: -2 / content;
+    } */
 
   // Tweaks -> adjust button vertical alignment
   .price + .button {
@@ -376,6 +384,7 @@ $small: 0.875rem;
       margin-top: calc(((1em + 0.5rem) * -0.5) + 1ex);
       width: 0;
     }
+
     > a[href]:first-of-type {
       white-space: normal;
       word-break: break-word;
@@ -400,6 +409,7 @@ $small: 0.875rem;
         opacity: 1;
       }
     }
+
     .button {
       &.-round {
         .icon {
@@ -419,12 +429,14 @@ $small: 0.875rem;
         object-fit: contain;
       }
     }
+
     .card-image ~ :last-child:not(.card-footer) {
       grid-area: 2 / content;
       @include mobile-tablet {
         grid-area: inherit;
       }
     }
+
     .title {
       span:nth-child(2) {
         text-transform: none;
@@ -490,13 +502,12 @@ $small: 0.875rem;
   .review-author,
   &--review-author {
     background: linear-gradient(
-      to right,
-      $orange 0%,
-      hsl(27.06, 82.58%, 50.9%) 64.7%,
-      $orange 100%
+                    to right,
+                    $orange 0%,
+                    hsl(27.06, 82.58%, 50.9%) 64.7%,
+                    $orange 100%
     );
-    padding: 1ch calc(#{$card-padding} + 0.5rem) 1ch
-      calc(#{$card-padding} + 0.5rem);
+    padding: 1ch calc(#{$card-padding} + 0.5rem) 1ch calc(#{$card-padding} + 0.5rem);
     margin-left: -0.5rem;
     max-width: max-content;
     grid-column: 1 / -1 !important;
@@ -510,9 +521,9 @@ $small: 0.875rem;
       display: block;
       position: absolute;
       background: linear-gradient(
-        to top,
-        darken($orange, $shade) 0.5rem,
-        $orange 0.5rem
+                      to top,
+                      darken($orange, $shade) 0.5rem,
+                      $orange 0.5rem
       );
       clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 0.5rem));
       height: calc(100% + 0.5rem);
@@ -630,6 +641,7 @@ $small: 0.875rem;
       border-top-left-radius: 0.35rem;
       mix-blend-mode: unset;
       position: relative;
+
       > div {
         &:only-child {
           text-align: center;
@@ -637,16 +649,19 @@ $small: 0.875rem;
           justify-content: center;
         }
       }
+
       .icon {
         font-size: 1.25rem;
         margin-right: 0.4ch;
         top: auto;
+
         svg {
           position: relative;
           top: -3px;
         }
       }
     }
+
     .card-image {
       margin: 1px 0 0 1px;
       mix-blend-mode: unset;
@@ -668,6 +683,7 @@ $small: 0.875rem;
       .card-image {
         border-top-left-radius: 0.35rem;
         border-top-right-radius: 0.35rem;
+
         + .card-image {
           border-radius: unset;
           margin-top: 0;
@@ -680,16 +696,20 @@ $small: 0.875rem;
       .card-header {
         width: 200px;
         grid-area: 1 / 1 / -1 / content;
+
         > div {
           padding: 3px 10px;
+
           span {
             display: none;
           }
+
           &:only-child {
             span {
               display: inline-block;
             }
           }
+
           &:not(:only-child) {
             &:last-of-type {
               padding: 3px 3px 3px 0;
@@ -706,11 +726,13 @@ $small: 0.875rem;
       }
     }
   }
+
   &.-vehicle-type {
     grid: none;
     gap: unset;
     display: flex;
     align-items: flex-end;
+
     .copy {
       width: 100%;
       margin: 0;
@@ -721,16 +743,20 @@ $small: 0.875rem;
       @include tablet {
         padding-left: 16px;
       }
+
       .heading {
         margin-bottom: 20px;
       }
+
       .-flex {
         width: 100%;
         align-items: center;
+
         .-flame {
           position: relative;
           top: -2px;
         }
+
         .text {
           flex: 1 1 auto;
           font-weight: bold;
@@ -741,6 +767,7 @@ $small: 0.875rem;
 
       }
     }
+
     .card-image {
       width: 120px;
       height: calc(100% - 2px);
@@ -752,11 +779,13 @@ $small: 0.875rem;
         width: 150px;
       }
     }
+
     .button {
       &.-round {
         > div {
           transform: scale(0.8);
         }
+
         &:after {
           content: "";
           display: block;
@@ -769,23 +798,28 @@ $small: 0.875rem;
         }
       }
     }
+
     @include mobile {
-      &:not(:first-of-type){
+      &:not(:first-of-type) {
         margin-top: 0.5rem !important;
       }
     }
   }
+
   &.product {
     display: block !important;
+
     .extras,
     .title,
     .-flex-h {
       margin-left: 16px;
       margin-right: 16px;
     }
+
     .title {
       margin-bottom: 265px;
     }
+
     .features,
     .-flex-h,
     .card-footer {
@@ -793,14 +827,26 @@ $small: 0.875rem;
       left: 0;
       right: 0;
     }
+
     .features {
       bottom: 122px;
     }
+
     .-flex-h {
       bottom: 59px;
     }
+
     .card-footer {
       bottom: 0;
+    }
+  }
+
+  &--order {
+    .card-image {
+      @include desktop {
+        height: auto !important;
+        max-width: none !important;
+      }
     }
   }
 }
@@ -809,6 +855,7 @@ $small: 0.875rem;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+
   > * {
     display: flex;
     align-items: center;
@@ -821,18 +868,21 @@ $small: 0.875rem;
     font-size: 12px;
     font-weight: 600;
     text-transform: uppercase;
+
     svg {
       position: relative;
       top: -3px;
       margin-right: 3px;
     }
-  @include mobile576() {
+
+    @include mobile576() {
       width: 100%;
       + * {
         margin-top: 6px;
       }
     }
   }
+
   &.pdp {
     > * {
       justify-content: left;
@@ -842,12 +892,15 @@ $small: 0.875rem;
       height: auto;
       font-size: 14px;
       white-space: normal;
+
       svg {
         margin-right: 5px;
         margin-top: 5px;
       }
+
       div {
         color: black;
+
         span {
           display: block;
           font-size: 13px;
@@ -860,6 +913,7 @@ $small: 0.875rem;
       }
     }
   }
+
   &.sticky-col {
     @media (max-width: 767px) {
       > * {

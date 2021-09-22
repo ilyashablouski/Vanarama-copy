@@ -2,6 +2,7 @@
 
 exports[`<OrderCard /> should render correctly 1`] = `
 <Memo()
+  className="card--order"
   orderDetails={
     Object {
       "annualMileage": "6000 miles",
