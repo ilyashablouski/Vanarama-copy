@@ -392,6 +392,8 @@ export const GENERIC_PAGE_HEAD = gql`
     genericPage(slug: $slug, isPreview: $isPreview) {
       id
       intro
+      redirectTo
+      redirectStatusCode
       metaData {
         title
         name

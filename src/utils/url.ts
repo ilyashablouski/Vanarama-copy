@@ -68,6 +68,8 @@ export const getNewUrl = (
   return formatNewUrl(edge);
 };
 
+export const removeUrlQueryPart = (url: string) => url.split('?')[0];
+
 export const generateUrlForBreadcrumb = (
   manufacturer: string,
   pageData: IGenericPages | undefined,
@@ -165,7 +167,7 @@ export const getProductPageBreadCrumb = (
 
 export const getVehicleConfigurationPath = (path: string) => {
   // used regexp to save functionality for local builds
-  return path.split('?')[0].replace(/^(\/)/, match => match.slice(1));
+  return removeUrlQueryPart(path).replace(/^(\/)/, match => match.slice(1));
 };
 
 export type ProductPageUrlData = {
@@ -210,8 +212,6 @@ export const PAGES_WITHOUT_LEASE_RESET = [
   '/[...details-page]',
   '/olaf',
 ];
-
-export const removeUrlQueryPart = (url: string) => url.split('?')[0];
 
 /**
  * make request for 404 page data on server side

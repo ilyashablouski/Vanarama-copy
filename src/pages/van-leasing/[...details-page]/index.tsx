@@ -250,6 +250,28 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
   const path = context.req?.url || '';
 
   try {
+    const { data } = await client.query<
+      GenericPageHeadQuery,
+      GenericPageHeadQueryVariables
+    >({
+      query: GENERIC_PAGE_HEAD,
+      variables: {
+        slug: getVehicleConfigurationPath(path),
+        isPreview: !!context?.preview,
+      },
+    });
+
+    const { redirectTo, redirectStatusCode } = data.genericPage;
+
+    if (redirectTo && redirectStatusCode) {
+      return {
+        redirect: {
+          destination: redirectTo,
+          statusCode: redirectStatusCode,
+        },
+      };
+    }
+
     const vehicleConfigurationByUrlQuery = await client.query<
       VehicleConfigurationByUrl,
       VehicleConfigurationByUrlVariables
@@ -314,17 +336,6 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         mileage,
         term,
         upfront,
-      },
-    });
-
-    const { data } = await client.query<
-      GenericPageHeadQuery,
-      GenericPageHeadQueryVariables
-    >({
-      query: GENERIC_PAGE_HEAD,
-      variables: {
-        slug: path.split('?')[0].slice(1),
-        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 
