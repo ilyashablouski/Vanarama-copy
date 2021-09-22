@@ -404,8 +404,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         genericPageHead: data,
         genericPages: genericPages || null,
         productCard: productCard || null,
-        leaseTypeQuery:
-          context.query?.leaseType?.toString()?.toUpperCase() || null,
+        leaseTypeQuery: leaseType,
       },
     };
   } catch (error) {
