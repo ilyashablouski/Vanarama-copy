@@ -61,7 +61,6 @@ import {
   GetProductCard,
   GetProductCardVariables,
 } from '../../../../generated/GetProductCard';
-import { redirect } from '../../../utils/redirect';
 import { decodeData, encodeData } from '../../../utils/data';
 import { getBreadcrumbSlugs } from '../../../utils/pageSlugs';
 import { CurrencyCodeEnum } from '../../../../entities/global';
@@ -265,11 +264,12 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     const { redirectTo, redirectStatusCode } = data.genericPage;
 
     if (redirectTo && redirectStatusCode) {
-      return redirect({
-        statusCode: redirectStatusCode,
-        location: redirectTo,
-        res: context.res,
-      });
+      return {
+        redirect: {
+          destination: redirectTo,
+          statusCode: redirectStatusCode,
+        },
+      };
     }
 
     const vehicleConfigurationByUrlQuery = await client.query<

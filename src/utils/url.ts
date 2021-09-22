@@ -309,7 +309,3 @@ export const getMetadataForPagination = (
         : canonicalUrl,
   };
 };
-
-export function isResponseSent(res: ServerResponse): boolean {
-  return res.finished || res.headersSent;
-}
