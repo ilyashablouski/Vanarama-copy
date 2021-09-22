@@ -40,6 +40,7 @@ function ImageCarousel({
           }}
           onSlideChange={swiper => {
             setActiveSlideIndex(swiper.activeIndex);
+            thumbsSlider?.update();
           }}
         >
           <div
@@ -85,6 +86,8 @@ function ImageCarousel({
             className="thumbnails"
             resistanceRatio={0.55}
             onSwiper={setThumbsSlider}
+            centeredSlides
+            centeredSlidesBounds
           >
             {images.map(imageUrl => (
               <SwiperSlide key={imageUrl} tag="li">
