@@ -8,6 +8,7 @@ import FullScreenIcon from 'core/assets/icons/FullScreenIcon';
 import FullScreenImageCarousel from 'core/organisms/full-screen-carousel';
 import cx from 'classnames';
 import { IImageCarouselProps } from './interfaces';
+import { useDesktopViewport } from '../../../hooks/useMediaQuery';
 
 SwiperCore.use([Navigation, Thumbs]);
 
@@ -20,6 +21,8 @@ function ImageCarousel({
   const [isFullScreen, setFullScreen] = useState(false);
 
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
+
+  const isDesktop = useDesktopViewport();
 
   function handleFullScreenClick() {
     setFullScreen(!isFullScreen);
@@ -84,10 +87,11 @@ function ImageCarousel({
           <Swiper
             slidesPerView="auto"
             className="thumbnails"
+            initialSlide={activeSlideIndex}
             resistanceRatio={0.55}
             onSwiper={setThumbsSlider}
-            centeredSlides
-            centeredSlidesBounds
+            centeredSlides={isDesktop}
+            centeredSlidesBounds={isDesktop}
           >
             {images.map(imageUrl => (
               <SwiperSlide key={imageUrl} tag="li">
