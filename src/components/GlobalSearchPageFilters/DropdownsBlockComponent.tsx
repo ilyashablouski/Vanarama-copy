@@ -89,6 +89,11 @@ const DropdownsBlockComponent = ({
     onHandleNativeSelectChange(event);
   };
 
+  const onClearBlock = () => {
+    onClickAddMultipleSelect(key);
+    formRef.current?.reset();
+  };
+
   if (
     (!filtersMapper[key as keyof IFiltersData]?.length ||
       (filtersMapper[key as keyof IFiltersData]?.length === 1 &&
@@ -158,7 +163,10 @@ const DropdownsBlockComponent = ({
         <SelectedDropdown
           ref={ref}
           selected={getDropdownValues(innerSelects as IInnerSelect[])}
-          onClear={() => onClearDropdown(innerSelects as IInnerSelect[])}
+          onClear={() => {
+            onClearBlock();
+            onClearDropdown(innerSelects as IInnerSelect[]);
+          }}
           renderFunction={renderSelectedFunction as () => string}
         />
       )}
@@ -232,8 +240,7 @@ const DropdownsBlockComponent = ({
           })}
           onClick={() => {
             setIsAdded(true);
-            formRef.current?.reset();
-            onClickAddMultipleSelect(key);
+            onClearBlock();
           }}
         >
           <span>
