@@ -138,8 +138,8 @@ hr {
   background: linear-gradient(
     to top,
     $border-color,
-    $border-color 0.5px,
-    transparent 0.5px,
+    $border-color 1px,
+    transparent 1px,
     transparent
   );
   border: 0;
