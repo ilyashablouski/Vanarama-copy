@@ -21,6 +21,7 @@ exports[`<CarouselSwiper /> should render correctly with children 1`] = `
       }
     }
     slidesPerView="auto"
+    touchEventsTarget="wrapper"
   >
     <SwiperSlide>
       <div>
@@ -95,6 +96,7 @@ exports[`<CarouselSwiper /> should render correctly with two children 1`] = `
       }
     }
     slidesPerView="auto"
+    touchEventsTarget="wrapper"
   >
     <SwiperSlide>
       <div>
