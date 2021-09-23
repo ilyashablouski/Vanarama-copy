@@ -99,6 +99,7 @@ const choices = (
         setChoice((newSelectedValue as string).toUpperCase() as LeaseTypeEnum)
       }
       customCTAColor={customCTA}
+      dataAbTestId="product-page_choice-box-v2"
     />
   </>
 );

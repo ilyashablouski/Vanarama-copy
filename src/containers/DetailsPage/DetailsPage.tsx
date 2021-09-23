@@ -27,7 +27,7 @@ import {
   checkForGtmDomEvent,
 } from '../../utils/dataLayerHelpers';
 import { ILeaseScannerData } from '../CustomiseLeaseContainer/interfaces';
-import { toPriceFormat } from '../../utils/helpers';
+import { isInchcapeFeatureEnabled, toPriceFormat } from '../../utils/helpers';
 import { LEASING_PROVIDERS } from '../../utils/leaseScannerHelper';
 import {
   VehicleTypeEnum,
@@ -36,10 +36,11 @@ import {
 } from '../../../generated/globalTypes';
 import {
   GetVehicleDetails,
-  GetVehicleDetails_vehicleDetails_rangeFaqs,
   GetVehicleDetails_vehicleImages,
+  GetVehicleDetails_vehicleDetails_rangeFaqs,
   GetVehicleDetails_vehicleConfigurationByCapId,
 } from '../../../generated/GetVehicleDetails';
+import { GetImacaAssets_getImacaAssets as IImacaAssets } from '../../../generated/GetImacaAssets';
 import { useMobileViewport } from '../../hooks/useMediaQuery';
 import useLeaseType from '../../hooks/useLeaseType';
 import { genericPagesQuery_genericPages_items as GenericPages } from '../../../generated/genericPagesQuery';
@@ -63,7 +64,7 @@ import {
   GetPdpContent_pdpContent_banners,
   GetPdpContent_pdpContent_content_questionAnswers,
 } from '../../../generated/GetPdpContent';
-import { buildAccordionItems } from './helpers';
+import { buildAccordionItems, removeImacaColoursDuplications } from './helpers';
 import { Nullable } from '../../types/common';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
@@ -144,6 +145,7 @@ interface IDetailsPageProps {
   productCard: GetProductCard | null;
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
+  imacaAssets: IImacaAssets | null;
 }
 
 const parseQuoteParams = (param?: string | null) =>
@@ -165,6 +167,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   productCard,
   leaseTypeQuery,
   pdpContent: pdpContentData,
+  imacaAssets,
 }) => {
   const router = useRouter();
   const pdpContent = React.useRef<HTMLDivElement>(null);
@@ -184,6 +187,14 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   const [mileage, setMileage] = useState<Nullable<number>>(
     quote?.quoteByCapId?.mileage || null,
   );
+
+  const resultImacaAssets = useMemo(() => {
+    const imacaColourList = imacaAssets?.colours
+      ? removeImacaColoursDuplications(imacaAssets.colours)
+      : null;
+
+    return imacaAssets ? { ...imacaAssets, colours: imacaColourList } : null;
+  }, [imacaAssets]);
 
   const [colour, setColour] = useState<Nullable<number>>(
     parseQuoteParams(quote?.quoteByCapId?.colour),
@@ -313,16 +324,32 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
     [data],
   );
 
+  const isInsurance = useMemo(() => data?.vehicleDetails?.freeInsurance, [
+    data,
+  ]);
+
   const isCar = useMemo(
     () => quote?.quoteByCapId?.vehicleType === VehicleTypeEnum.CAR,
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
 
-  const isFreeInsurance = useMemo(() => isSpecialOffer && isCar, [
+  const isDefaultFreeInsurance = useMemo(() => isSpecialOffer && isCar, [
     isCar,
     isSpecialOffer,
   ]);
+
+  const isInchcapeFreeInsurance = useMemo(() => isInsurance && isCar, [
+    isCar,
+    isInsurance,
+  ]);
+
+  const isInchcape = isInchcapeFeatureEnabled();
+
+  const isFreeInsurance = isInchcape
+    ? isInchcapeFreeInsurance
+    : isDefaultFreeInsurance;
+
   const isElectric = useMemo(
     () => data?.derivativeInfo?.fuelType?.name === 'Electric',
     [data?.derivativeInfo?.fuelType?.name],
@@ -618,10 +645,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
             text: leadTime,
             incomplete: true,
           }}
+          isCar={isCar}
+          imacaAssets={resultImacaAssets}
           showInsuranceBanner={isFreeInsurance}
           showElectricBanner={isElectric}
           images={vehicleImages}
-          videoSrc={video && video}
+          videoSrc={video}
           threeSixtyVideoSrc={threeSixtyVideo}
           videoIframe
           imageAltText={metaTitle}

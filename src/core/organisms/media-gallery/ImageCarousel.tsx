@@ -6,7 +6,9 @@ import Image from 'core/atoms/image';
 import Icon from 'core/atoms/icon';
 import FullScreenIcon from 'core/assets/icons/FullScreenIcon';
 import FullScreenImageCarousel from 'core/organisms/full-screen-carousel';
+import cx from 'classnames';
 import { IImageCarouselProps } from './interfaces';
+import { useDesktopViewport } from '../../../hooks/useMediaQuery';
 
 SwiperCore.use([Navigation, Thumbs]);
 
@@ -20,6 +22,8 @@ function ImageCarousel({
 
   const [activeSlideIndex, setActiveSlideIndex] = useState<number>(0);
 
+  const isDesktop = useDesktopViewport();
+
   function handleFullScreenClick() {
     setFullScreen(!isFullScreen);
   }
@@ -28,23 +32,34 @@ function ImageCarousel({
     <>
       <div className="image-carousel">
         <Swiper
-          navigation
+          navigation={{
+            nextEl: '.swiper-button-next',
+            prevEl: '.swiper-button-prev',
+          }}
           watchOverflow
-          loop={images.length > 1}
           wrapperTag="ul"
           thumbs={{
             swiper: thumbsSlider,
           }}
           onSlideChange={swiper => {
             setActiveSlideIndex(swiper.activeIndex);
+            thumbsSlider?.update();
           }}
         >
+          <div
+            className={cx(
+              'swiper-button-prev',
+              activeSlideIndex === 0 ? 'swiper-button-disabled' : '',
+            )}
+          />
+          <div className="swiper-button-next" />
           {images.map((imageUrl, index) => (
             <SwiperSlide key={imageUrl} tag="li">
               {renderImageDecoration?.(imageUrl, index)}
               <Image
                 plain
                 src={imageUrl}
+                lazyLoad={index !== 0}
                 alt={imageAltText}
                 optimisedHost={process.env.IMG_OPTIMISATION_HOST}
                 optimisationOptions={{
@@ -72,8 +87,11 @@ function ImageCarousel({
           <Swiper
             slidesPerView="auto"
             className="thumbnails"
+            initialSlide={activeSlideIndex}
             resistanceRatio={0.55}
             onSwiper={setThumbsSlider}
+            centeredSlides={isDesktop}
+            centeredSlidesBounds={isDesktop}
           >
             {images.map(imageUrl => (
               <SwiperSlide key={imageUrl} tag="li">

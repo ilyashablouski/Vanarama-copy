@@ -6,6 +6,7 @@ import SchemaJSON from 'core/atoms/schema-json';
 import { PreviewNextPageContext } from 'types/common';
 import {
   GET_CAR_DATA,
+  GET_IMACA_ASSETS,
   GET_PDP_CONTENT,
   GET_TRIM_AND_COLOR_DATA,
 } from '../../../gql/carpage';
@@ -51,6 +52,11 @@ import {
   GetTrimAndColor_trimList as ITrimList,
   GetTrimAndColorVariables,
 } from '../../../../generated/GetTrimAndColor';
+import {
+  GetImacaAssets,
+  GetImacaAssetsVariables,
+  GetImacaAssets_getImacaAssets as IImacaAssets,
+} from '../../../../generated/GetImacaAssets';
 import { GET_PRODUCT_CARDS_DATA } from '../../../containers/CustomerAlsoViewedContainer/gql';
 import {
   GetProductCard,
@@ -79,6 +85,7 @@ interface IProps {
   productCard: GetProductCard | null;
   leaseTypeQuery?: LeaseTypeEnum | null;
   pdpContent: IGetPdpContentQuery | null;
+  imacaAssets: IImacaAssets | null;
 }
 
 const CarDetailsPage: NextPage<IProps> = ({
@@ -94,6 +101,7 @@ const CarDetailsPage: NextPage<IProps> = ({
   productCard: encodedData,
   leaseTypeQuery,
   pdpContent,
+  imacaAssets,
 }) => {
   if (notFoundPageData) {
     return (
@@ -205,6 +213,7 @@ const CarDetailsPage: NextPage<IProps> = ({
         data={data}
         trimList={trim}
         colourList={colour}
+        imacaAssets={imacaAssets}
         genericPageHead={genericPageHead}
         genericPages={genericPages}
         productCard={productCard}
@@ -220,6 +229,28 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
   const path = context.req?.url?.split('?')[0] || '';
 
   try {
+    const { data } = await client.query<
+      GenericPageHeadQuery,
+      GenericPageHeadQueryVariables
+    >({
+      query: GENERIC_PAGE_HEAD,
+      variables: {
+        slug: getVehicleConfigurationPath(path),
+        isPreview: !!context?.preview,
+      },
+    });
+
+    const { redirectTo, redirectStatusCode } = data.genericPage;
+
+    if (redirectTo && redirectStatusCode) {
+      return {
+        redirect: {
+          destination: redirectTo,
+          statusCode: redirectStatusCode,
+        },
+      };
+    }
+
     const vehicleConfigurationByUrlQuery = await client.query<
       VehicleConfigurationByUrl,
       VehicleConfigurationByUrlVariables
@@ -262,6 +293,21 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         ? LeaseTypeEnum.BUSINESS
         : LeaseTypeEnum.PERSONAL;
 
+    const imacaAssets = await client.query<
+      GetImacaAssets,
+      GetImacaAssetsVariables
+    >({
+      query: GET_IMACA_ASSETS,
+      errorPolicy: 'all',
+      variables: {
+        vehicleType: VehicleTypeEnum.CAR,
+        capId,
+      },
+    });
+
+    const defaultVehicleColour =
+      imacaAssets.data.getImacaAssets?.colours?.[0]?.capId ?? null;
+
     const quoteDataQuery = await client.query<
       GetQuoteDetails,
       GetQuoteDetailsVariables
@@ -270,23 +316,12 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       variables: {
         capId: `${capId}`,
         vehicleType: VehicleTypeEnum.CAR,
+        colour: defaultVehicleColour,
+        trim: null,
         mileage,
         term,
         upfront,
         leaseType,
-        trim: null,
-        colour: null,
-      },
-    });
-
-    const { data } = await client.query<
-      GenericPageHeadQuery,
-      GenericPageHeadQueryVariables
-    >({
-      query: GENERIC_PAGE_HEAD,
-      variables: {
-        slug: path.split('?')[0].slice(1),
-        ...(context?.preview && { isPreview: context?.preview }),
       },
     });
 
@@ -365,11 +400,11 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
         query: context.query,
         trim: trimAndColorData?.data?.trimList || null,
         colour: trimAndColorData?.data?.colourList || null,
+        imacaAssets: imacaAssets.data.getImacaAssets || null,
         genericPageHead: data,
         genericPages: genericPages || null,
         productCard: productCard || null,
-        leaseTypeQuery:
-          context.query?.leaseType?.toString()?.toUpperCase() || null,
+        leaseTypeQuery: leaseType,
       },
     };
   } catch (error) {

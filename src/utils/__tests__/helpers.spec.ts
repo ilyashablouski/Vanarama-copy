@@ -6,6 +6,7 @@ import {
   getOrderList,
   getVehicleConfigId,
   parseVehicleConfigId,
+  toDataAbTestIdFormat,
 } from '../helpers';
 
 describe('arraysAreEqual', () => {
@@ -99,6 +100,19 @@ describe('toPriceFormat', () => {
   });
 });
 
+describe('toDataAbTestIdFormat', () => {
+  it('toDataAbTestIdFormat should return correct string', () => {
+    expect(
+      toDataAbTestIdFormat('product-page_accordion', 'No Admin Fees'),
+    ).toBe('product-page_accordion_no-admin-fees');
+  });
+  it('toDataAbTestIdFormat should return correct string', () => {
+    expect(toDataAbTestIdFormat('product-page_choice-box-v2', 'PERSONAL')).toBe(
+      'product-page_choice-box-v2_personal',
+    );
+  });
+});
+
 describe('getOrderList', () => {
   it('getOrderList should return correct array', () => {
     expect(
@@ -147,6 +161,7 @@ describe('getOrderList', () => {
       }),
     ).toEqual([
       {
+        dataAbTestId: 'product-page_structured-list_processing-fee',
         dataTestId: 'processingFee',
         id: 'processingFee',
         isOrange: true,

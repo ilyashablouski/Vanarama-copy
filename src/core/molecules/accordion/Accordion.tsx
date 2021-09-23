@@ -5,11 +5,14 @@ import AccordionItem, { IAccordionItem } from './AccordionItem';
 
 interface IProps extends IBaseProps {
   items: IAccordionItem[] | null;
+  dataAbTestId?: string;
 }
 
-const Accordion: React.FC<IProps> = ({ items, className }) => {
+const Accordion: React.FC<IProps> = ({ items, className, dataAbTestId }) => {
   const renderAccordionItem = () => {
-    return items?.map(item => <AccordionItem key={item.id} item={item} />);
+    return items?.map(item => (
+      <AccordionItem key={item.id} item={item} dataAbTestId={dataAbTestId} />
+    ));
   };
 
   return (

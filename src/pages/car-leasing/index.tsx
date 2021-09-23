@@ -53,6 +53,7 @@ import { carsPageOffersRequest, ICarsPageOffersData } from '../../utils/offers';
 import { isServerRenderOrAppleDevice } from '../../utils/deviceType';
 import { freeInsuranceSmallPrint } from './free-car-insurance';
 import { FuelTypeEnum } from '../../../entities/global';
+import { isInchcapeFeatureEnabled } from '../../utils/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -97,6 +98,7 @@ export const CarsPage: NextPage<IProps> = ({
   productsCar,
   vehicleListUrlData: vehicleListUrlDataEncoded,
 }) => {
+  const isInchcape = isInchcapeFeatureEnabled();
   const data: HubCarPageData = decodeData(encodedData);
   const searchPodCarsData = decodeData(searchPodCarsDataEncoded);
   const vehicleListUrlData = decodeData(vehicleListUrlDataEncoded);
@@ -152,7 +154,7 @@ export const CarsPage: NextPage<IProps> = ({
         <div className="nlol nlol-free-insurance">
           <p>Find Your New Lease Of Life</p>
           <h2>1 Year&apos;s FREE Insurance</h2>
-          <p>On Every Car Hot Offer</p>
+          <p>On Car Hot Offers</p>
         </div>
         <div>
           <Image
@@ -324,9 +326,31 @@ export const CarsPage: NextPage<IProps> = ({
                     score: item?.averageRating || 5,
                   }}
                   extrasRender={
-                    getFuelType(item) === FuelTypeEnum.ELECTRIC ||
-                    (item?.freeInsurance &&
-                      item?.vehicleType === VehicleTypeEnum.CAR) ? (
+                    // this will be removed along with feature flag
+                    // eslint-disable-next-line no-nested-ternary
+                    isInchcape ? (
+                      getFuelType(item) === FuelTypeEnum.ELECTRIC ||
+                      (item?.freeInsurance &&
+                        item?.vehicleType === VehicleTypeEnum.CAR) ? (
+                        <>
+                          {getFuelType(item) === FuelTypeEnum.ELECTRIC && (
+                            <CardLabel
+                              text="Free Home charger"
+                              icon={<FreeHomeCharger />}
+                            />
+                          )}
+                          {item?.freeInsurance &&
+                            item?.vehicleType === VehicleTypeEnum.CAR && (
+                              <CardLabel
+                                text="1yr Free Insurance"
+                                icon={<FreeInsuranceCardLabelIcon />}
+                              />
+                            )}
+                        </>
+                      ) : null
+                    ) : getFuelType(item) === FuelTypeEnum.ELECTRIC ||
+                      (item?.isOnOffer &&
+                        item?.vehicleType === VehicleTypeEnum.CAR) ? (
                       <>
                         {getFuelType(item) === FuelTypeEnum.ELECTRIC && (
                           <CardLabel
@@ -334,7 +358,7 @@ export const CarsPage: NextPage<IProps> = ({
                             icon={<FreeHomeCharger />}
                           />
                         )}
-                        {item?.freeInsurance &&
+                        {item?.isOnOffer &&
                           item?.vehicleType === VehicleTypeEnum.CAR && (
                             <CardLabel
                               text="1yr Free Insurance"

@@ -7,9 +7,11 @@ function ImacaConfigurator({
   className,
   width,
   height,
+  selectedColour,
   assets,
   onClick,
   onMouseDown,
+  onTouchStart,
 }: IImacaConfigurator) {
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -21,8 +23,14 @@ function ImacaConfigurator({
     const resourceCache = new window.ResourceCache(64);
     const configViewer = new window.ConfigurationRenderer(
       containerRef.current,
-      { width, height, syncToLocationHref: [] },
-      null,
+      { width, height, syncToLocationHref: ['angle'] },
+      {
+        rims: assets.rimsUrl ?? '',
+        tyres: assets.tyresUrl ?? '',
+        car: assets.vehicleUrl ?? '',
+        plateFilterQuality: 1,
+        angle: 50,
+      },
       resourceCache,
     );
 
@@ -31,21 +39,29 @@ function ImacaConfigurator({
     return () => {
       configViewer.stop();
       configViewer.wrapperElement.remove();
-      delete window.configurationRenderers[id];
+      delete window.configurationRenderers?.[id];
     };
   }, [height, width, id]);
 
   useEffect(() => {
-    const configViewer = window.configurationRenderers[id];
+    const configViewer = window.configurationRenderers?.[id];
 
     if (configViewer && assets) {
       configViewer.setConfigAttribute('rims', assets.rimsUrl);
       configViewer.setConfigAttribute('tyres', assets.tyresUrl);
       configViewer.setConfigAttribute('car', assets.vehicleUrl);
-      configViewer.setConfigAttribute('color', assets.colors[0]?.hex);
       configViewer.prewarmCache();
     }
   }, [assets, id]);
+
+  useEffect(() => {
+    const configViewer = window.configurationRenderers?.[id];
+
+    if (configViewer && selectedColour) {
+      configViewer.setConfigAttribute('color', selectedColour);
+      configViewer.prewarmCache();
+    }
+  }, [selectedColour, id]);
 
   return (
     <div
@@ -55,6 +71,7 @@ function ImacaConfigurator({
       ref={containerRef}
       onClick={onClick}
       onMouseDown={onMouseDown}
+      onTouchStart={onTouchStart}
     />
   );
 }

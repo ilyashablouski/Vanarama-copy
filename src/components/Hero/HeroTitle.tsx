@@ -1,17 +1,18 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import Text from 'core/atoms/text';
-import { IHeroTitleProps } from './interface';
-import RouterLink from '../RouterLink/RouterLink';
-import Skeleton from '../Skeleton';
 
-const HeroTitle: React.FC<IHeroTitleProps> = ({ text }) => {
+import Text from 'core/atoms/text';
+import Skeleton from '../Skeleton';
+import RouterLink from '../RouterLink';
+import { IHeroTitleProps } from './interface';
+
+const HeroTitle: React.FC<IHeroTitleProps> = ({ className, text }) => {
   if (!text) {
     return <Skeleton count={2} />;
   }
 
   return (
-    <Text tag="p" size="large" color="white">
+    <Text className={className} tag="p" size="large" color="white">
       <ReactMarkdown
         allowDangerousHtml
         source={text}

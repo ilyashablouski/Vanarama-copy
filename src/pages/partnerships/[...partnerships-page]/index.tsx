@@ -206,7 +206,6 @@ const PartnershipsHomePage: NextPage<IProps> = ({
         customCTAColor={colourPrimary || ''}
         searchPodVansData={decodeData(searchPodVansData)}
         searchPodCarsData={decodeData(searchPodCarsData)}
-        hideBenefitsBar
         activeSearchIndex={2}
         searchType={searchType}
       >

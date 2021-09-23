@@ -70,7 +70,7 @@ const OrderCard: FC<IOrderDetailsProps> = props => {
   };
 
   return (
-    <Card {...props}>
+    <Card {...props} className="card--order">
       <div className="spec-list">
         {renderList()}
         <hr />

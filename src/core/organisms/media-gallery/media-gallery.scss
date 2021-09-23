@@ -115,16 +115,34 @@
       opacity: 1;
     }
   }
+
+  .swiper-button-disabled {
+    display: none;
+  }
 }
 
 .imaca-viewer {
+  &__container {
+    background: $white;
+  }
+
   &__inner {
     position: relative;
   }
 
   &__viewer {
     position: relative;
-    background: $white;
+  }
+
+  &__configurator {
+    overflow: hidden;
+
+    &.-upscale {
+      canvas {
+        image-rendering: high-quality;
+        transform: translateY(-8%) scale(1.25);
+      }
+    }
   }
 
   &__hint {
@@ -145,13 +163,17 @@
     .icon {
       margin-right: 10px;
     }
+
+    @include mobile {
+      font-size: $font-size-300;
+    }
   }
 
   &__controls {
     position: absolute;
     left: 20px;
     right: 20px;
-    bottom: 20px;
+    bottom: 0;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -162,7 +184,6 @@
     @include tablet {
       left: 15px;
       right: 15px;
-      bottom: 15px;
       padding-left: 15px;
     }
 
@@ -176,10 +197,12 @@
   }
 
   &__colours-toggle {
+    margin-right: auto;
     pointer-events: auto;
   }
 
   &__fs-toggle {
+    margin-left: auto;
     pointer-events: auto;
   }
 
@@ -191,21 +214,81 @@
       border-bottom: none;
     }
   }
-  
+
+  &__disclaimer {
+    width: 100%;
+    padding: 0 10px 14px;
+    text-align: center;
+    user-select: none;
+
+    @include tablet {
+      padding-bottom: 10px;
+      font-size: 0.625rem;
+    }
+
+    @include mobile {
+      padding: 0 16px 14px;
+      font-size: $font-size-200;
+    }
+  }
+
   &--fs {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 100%;
+    height: 100%;
 
     @include desktop {
-      padding: 0 3rem;
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+
+    @include tablet {
+      @media (max-height: 576px) {
+        padding: 0 4.7rem;
+      }
+    }
+
+    @include mobile {
+      @media (max-height: 414px) {
+        padding: 0 4.7rem;
+      }
     }
 
     .imaca-viewer {
+      &__container {
+        display: flex;
+        flex-direction: column;
+        width: 1420px;
+        max-height: 100%;
+      }
+
       &__configurator {
-        width: 1366px;
-        background: $white;
+        display: flex;
+
+        & > * {
+          display: flex;
+          justify-content: center;
+        }
+
+        &.-upscale {
+          canvas {
+            transform: translateY(-6%);
+          }
+
+          @include mobile {
+            canvas {
+              transform: translateY(-8%) scale(1.25);
+            }
+          }
+        }
+      }
+
+      &__disclaimer {
+        @include tablet {
+          padding-bottom: 14px;
+          font-size: $font-size-300;
+        }
       }
     }
   }
@@ -249,7 +332,7 @@
 
   &.-transparent {
     background: transparent;
-    filter: drop-shadow(0px 0px 2px rgba(0,0,0,.7));
+    filter: drop-shadow(0px 0px 2px rgba(0, 0, 0, .7));
     backdrop-filter: none;
   }
 

@@ -1,4 +1,6 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import Button from 'core/atoms/button';
+import { useRouter } from 'next/router';
 import GlobalSearchCard from './GlobalSearchCard';
 import { productDerivatives_productDerivatives_derivatives as ISuggestion } from '../../../generated/productDerivatives';
 import RouterLink from '../../components/RouterLink/RouterLink';
@@ -16,6 +18,8 @@ const GlobalSearchRightSideContainer = ({
   suggestions,
   searchQuery,
 }: IProps) => {
+  const router = useRouter();
+
   const [lcvCardsData, setLcvCardsData] = useState<ICardsData[]>([]);
   const [carCardsData, setCarCardsData] = useState<ICardsData[]>([]);
 
@@ -115,6 +119,16 @@ const GlobalSearchRightSideContainer = ({
           >
             View All
           </RouterLink>
+          <div className="hmc-promo">
+            <p>Not Sure Which Car Is Best For You?</p>
+            <Button
+              color="teal"
+              fill="solid"
+              size="regular"
+              label="Help Me Choose"
+              onClick={() => router.push('/help-me-choose')}
+            />
+          </div>
         </>
       )}
     </div>

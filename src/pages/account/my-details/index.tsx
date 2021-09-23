@@ -3,8 +3,7 @@ import * as toast from 'core/atoms/toast/Toast';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
-import React, { useEffect, useState } from 'react';
-import localForage from 'localforage';
+import React, { useState, useMemo } from 'react';
 import Breadcrumb from 'core/atoms/breadcrumb-v2';
 import withApollo from '../../../hocs/withApollo';
 import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
@@ -12,10 +11,7 @@ import PersonalInformationFormContainer from '../../../containers/PersonalInform
 import OrderInformationContainer from '../../../containers/OrdersInformation/OrderInformationContainer';
 import Head from '../../../components/Head/Head';
 import Skeleton from '../../../components/Skeleton';
-import {
-  GetPerson,
-  GetPerson_getPerson as Person,
-} from '../../../../generated/GetPerson';
+import { useStoredPersonQuery } from '../../../gql/storedPerson';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -71,25 +67,33 @@ const metaData = {
 
 const MyDetailsPage: NextPage<IProps> = () => {
   const router = useRouter();
-  const [person, setPerson] = useState<Person | null>(null);
+  const redirectToRegistration = () =>
+    router.replace(
+      `/account/login-register?redirect=${router.pathname}`,
+      '/account/login-register',
+    );
   const [resetPassword, setResetPassword] = useState(false);
-
-  useEffect(() => {
-    localForage.getItem<GetPerson>('person').then(value => {
-      if (value) {
-        setPerson(value.getPerson);
-      } else {
-        router.replace(
-          `/account/login-register?redirect=${router.pathname}`,
-          '/account/login-register',
-        );
+  const { data, loading, error } = useStoredPersonQuery(
+    result => {
+      if (!result?.storedPerson) {
+        redirectToRegistration();
       }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+    },
+    () => redirectToRegistration(),
+  );
 
-  if (!person) {
+  const person = useMemo(() => data?.storedPerson || null, [data]);
+
+  if (loading) {
     return <Loading size="large" />;
+  }
+
+  if (error) {
+    return (
+      <Text tag="p" color="danger" size="lead">
+        Sorry, an unexpected error occurred. Please try again!
+      </Text>
+    );
   }
 
   return (
