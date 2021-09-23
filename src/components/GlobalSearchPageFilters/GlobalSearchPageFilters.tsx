@@ -113,18 +113,14 @@ const GlobalSearchPageFilters = ({
     () =>
       config.filter(
         filterConfig =>
-          !filterConfig.generalFilter &&
-          // enable specific filters for some vehicles category
-          (!filterConfig.includedVehicleType ||
-            (filtersData?.vehicleCategory?.some(filterValue =>
-              filterConfig.includedVehicleType?.includes(filterValue || ''),
-            ) &&
-              (!activeFilters.vehicleCategory?.[0] ||
-                filterConfig.includedVehicleType?.includes(
-                  activeFilters.vehicleCategory?.[0],
-                )))),
+          (!filterConfig.generalFilter &&
+            filterConfig.isShouldRender?.(
+              activeFilters,
+              filtersData as IProductFilter,
+            )) ??
+          true,
       ),
-    [activeFilters.vehicleCategory, config, filtersData?.vehicleCategory],
+    [activeFilters, config, filtersData],
   );
 
   const generalFiltersConfig = useMemo(
