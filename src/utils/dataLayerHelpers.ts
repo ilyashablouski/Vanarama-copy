@@ -230,12 +230,14 @@ export const pushPageData = async ({
     return;
   }
   // setDataLayer();
-  const personData = (await localForage.getItem('person')) as GetPerson | null;
-  const personUuid = (await localForage.getItem('personUuid')) as string | null;
+  const [personData, personUuid] = await Promise.all([
+    localForage.getItem<GetPerson | null>('person'),
+    localForage.getItem<string | null>('personUuid'),
+  ]);
   const person = personData?.getPerson;
   const personEmail =
     (person?.emailAddresses && person?.emailAddresses[0]?.value) ||
-    ((await localForage.getItem('personEmail')) as string | null);
+    (await localForage.getItem<string | null>('personEmail'));
 
   let data = {};
 
