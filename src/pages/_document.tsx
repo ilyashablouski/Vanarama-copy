@@ -69,6 +69,7 @@ class MyDocument extends Document {
               <GTMBody />
             </>
           )}
+          <script async data-cfasync="false" src="/scripts/global.js" />
         </body>
       </Html>
     );
