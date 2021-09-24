@@ -1,9 +1,6 @@
 // Search Results Page Filters & Sort
 
 .srp {
-  @media (max-width: 1215px) {
-    padding-top: 105px;
-  }
   .row {
     &\:bg-light {
       padding-top: 64px;
@@ -22,7 +19,7 @@
   margin-bottom: -20px;
   &:after {
     display: block;
-    content: "";
+    content: '';
     position: absolute;
     top: 0;
     left: 50%;
@@ -37,15 +34,14 @@
     width: 50%;
     height: 40px;
     font-size: 17px;
-    color: #44576A;
+    color: #44576a;
     cursor: pointer;
     svg {
       margin-right: 5px;
       path {
-        fill: #44576A
+        fill: #44576a;
       }
     }
-
   }
 }
 .filters-applied {
@@ -59,13 +55,12 @@
   margin-left: 6px;
 
   // Desktop
-  @media (min-width: 1216px){
+  @media (min-width: 1216px) {
     font-size: 14px;
     line-height: 20px;
     padding: 0 5px;
     border-radius: 3px;
   }
-
 }
 
 .sort-icon {
@@ -83,21 +78,21 @@
     &:before,
     &:after {
       display: block;
-      content: "";
+      content: '';
       position: absolute;
     }
     &:before {
       height: 11px;
       width: 1px;
-      background: #44576A;
+      background: #44576a;
       top: 0;
       left: 3px;
     }
     &:after {
       width: 5px;
       height: 5px;
-      border-top: 1px solid #44576A;
-      border-left: 1px solid #44576A;
+      border-top: 1px solid #44576a;
+      border-left: 1px solid #44576a;
       top: 0;
       left: 1px;
       transform: rotate(45deg);
@@ -128,15 +123,15 @@
     margin-bottom: 12px;
     font-size: 14px;
     font-weight: 500;
-    color: #197F85;
+    color: #197f85;
     cursor: pointer;
     transition: all 0.3s ease;
     svg {
       margin-left: 4px;
       transform: scale(1.25);
-      fill: #197F85;
+      fill: #197f85;
       polygon {
-        fill: #197F85;
+        fill: #197f85;
       }
     }
     &.clear-all {
@@ -145,7 +140,7 @@
     }
     &:focus {
       box-shadow: 0 0 0 0.25rem rgba(25, 127, 133, 0.15);
-      border-color: #197F85
+      border-color: #197f85;
     }
   }
 }
@@ -156,7 +151,7 @@
   button {
     &:focus {
       box-shadow: 0 0 0 0.25rem rgba(25, 127, 133, 0.15);
-      border-color: #197F85
+      border-color: #197f85;
     }
   }
   > .content {
@@ -202,10 +197,10 @@
     position: relative;
     &:after {
       display: block;
-      content: "";
+      content: '';
       width: 100%;
       height: 20px;
-      background: linear-gradient(rgba(255, 255, 255, 0.001) , #fff);
+      background: linear-gradient(rgba(255, 255, 255, 0.001), #fff);
       position: absolute;
       top: -20px;
       left: 0;
@@ -216,12 +211,12 @@
       height: 40px;
       font-size: 16px;
       font-weight: bold;
-      color: #197F85;
-      border: 1px solid #197F85;
+      color: #197f85;
+      border: 1px solid #197f85;
       border-radius: 5px;
       cursor: pointer;
       &.solid {
-        background: #197F85;
+        background: #197f85;
         color: white;
       }
       &.update-results .button--inner {
@@ -231,7 +226,7 @@
   }
 
   // Tablet & Desktop
-  @media (min-width: 768px){
+  @media (min-width: 768px) {
     .title {
       padding: 0 24px;
     }
@@ -243,7 +238,6 @@
       padding: 8px 24px 24px;
     }
   }
-
 }
 
 .srp-f-hot-deals {
@@ -259,7 +253,7 @@
     margin-left: -3px;
     > span {
       background: #e7ebee;
-      overflow:hidden;
+      overflow: hidden;
       &:after {
         box-shadow: 0 3px 5px rgba(0, 0, 0, 0.14);
       }
@@ -281,7 +275,6 @@
     color: #ed640d;
   }
 }
-
 
 // Global button with loading status
 button {
@@ -314,14 +307,13 @@ button {
   }
 }
 
-
 .slide-togl {
   position: relative;
   height: 34px;
   border-radius: 3px;
   border: 1px solid #d0d9e1;
   display: flex;
-  input[type=radio] {
+  input[type='radio'] {
     opacity: 0;
     width: 0;
     height: 0;
@@ -381,9 +373,7 @@ button {
       border-bottom-right-radius: 3px;
     }
   }
-
 }
-
 
 // Accordion
 .accordyon {
@@ -397,12 +387,12 @@ button {
     background: white;
     > span {
       font-size: 15px;
-      color: #197F85;
+      color: #197f85;
       font-weight: 500;
     }
     > svg {
       width: 22px;
-      stroke: #197F85;
+      stroke: #197f85;
       margin-left: 0;
       margin-right: 6px;
       transition: all 0.2s ease;
@@ -436,7 +426,6 @@ button {
         }
       }
     }
-
   }
   &.active {
     .trigger {
@@ -458,7 +447,7 @@ button {
   align-items: center;
   height: 27px;
   padding-bottom: 1px;
-  input[type=checkbox] {
+  input[type='checkbox'] {
     width: 1px;
     height: 1px;
     opacity: 0;
@@ -466,15 +455,15 @@ button {
       + label {
         &:before {
           box-shadow: 0 0 0 0.25rem rgba(25, 127, 133, 0.15);
-          border-color: #197F85;
+          border-color: #197f85;
         }
       }
     }
     &:checked {
       + label {
         &:before {
-          background: #197F85;
-          border-color: #197F85;
+          background: #197f85;
+          border-color: #197f85;
         }
       }
     }
@@ -483,7 +472,7 @@ button {
     display: block;
     width: 100%;
     font-size: 16px;
-    color: #44576A;
+    color: #44576a;
     padding-left: 35px;
     position: relative;
     cursor: pointer;
