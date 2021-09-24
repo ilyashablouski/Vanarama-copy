@@ -18,9 +18,9 @@ const NextScript = dynamic(() =>
 );
 
 // @ts-ignore
-// const RollbarScript = dynamic(() =>
-//   import('../components/Rollbar').then(mod => mod.Script),
-// );
+const RollbarScript = dynamic(() =>
+  import('../components/Rollbar').then(mod => mod.Script),
+);
 
 // @ts-ignore
 // const SpeedCurveScript = dynamic(() =>
@@ -52,7 +52,7 @@ class MyDocument extends Document {
               src="https://g562.vanarama.com/script.js"
             />
           )}
-          {/* <RollbarScript /> */}
+          <RollbarScript />
           {/* <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" /> */}
           <Inline />
