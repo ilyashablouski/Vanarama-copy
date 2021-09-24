@@ -93,21 +93,19 @@ function ImacaViewer({
             </div>
             {isMobileLayout && <Disclaimer />}
             <div className="imaca-viewer__controls">
-              {assets.colours?.length ? (
-                <button
-                  type="button"
-                  className="colours-toggle imaca-viewer__colours-toggle"
-                  onClick={handleColorsToggleClick}
-                >
-                  <Icon
-                    className="colours-toggle__icon"
-                    icon={<ColorWheelIcon />}
-                    color="dark"
-                    size="lead"
-                  />
-                  {isColorSelectionOpen ? 'Hide' : 'Select Colour'}
-                </button>
-              ) : null}
+              <button
+                type="button"
+                className="colours-toggle imaca-viewer__colours-toggle"
+                onClick={handleColorsToggleClick}
+              >
+                <Icon
+                  className="colours-toggle__icon"
+                  icon={<ColorWheelIcon />}
+                  color="dark"
+                  size="lead"
+                />
+                {isColorSelectionOpen ? 'Hide' : 'Select Colour'}
+              </button>
               <button
                 type="button"
                 className="fs-toggle imaca-viewer__fs-toggle"
@@ -124,17 +122,15 @@ function ImacaViewer({
           </div>
           {!isMobileLayout && <Disclaimer />}
         </div>
-        {assets.colours?.length
-          ? isColorSelectionOpen && (
-              <ColorSelection
-                className="imaca-viewer__color-selection"
-                selectedColor={selectedColor ?? assets.colours[0]}
-                hotOfferColorList={hotOffersColorList}
-                factoryColorList={factoryColorList}
-                onChange={color => setColour(color.capId)}
-              />
-            )
-          : null}
+        {isColorSelectionOpen && (
+          <ColorSelection
+            className="imaca-viewer__color-selection"
+            selectedColor={selectedColor ?? assets.colours?.[0]}
+            hotOfferColorList={hotOffersColorList}
+            factoryColorList={factoryColorList}
+            onChange={color => setColour(color.capId)}
+          />
+        )}
       </div>
       {isFullScreen && (
         <ModalV2
