@@ -28,6 +28,7 @@ const RollbarScript = dynamic(() =>
 // );
 
 const env: any = process?.env?.ENV || '';
+const isLocalEnv = process?.env?.LOCAL || '';
 
 // Script environments
 const scriptEnvs = {
@@ -52,7 +53,7 @@ class MyDocument extends Document {
               src="https://g562.vanarama.com/script.js"
             />
           )}
-          <RollbarScript />
+          {!isLocalEnv && <RollbarScript />}
           {/* <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" /> */}
           <Inline />
