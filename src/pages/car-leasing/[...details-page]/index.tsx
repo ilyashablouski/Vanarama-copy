@@ -305,9 +305,6 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       },
     });
 
-    const defaultVehicleColour =
-      imacaAssets.data.getImacaAssets?.colours?.[0]?.capId ?? null;
-
     const quoteDataQuery = await client.query<
       GetQuoteDetails,
       GetQuoteDetailsVariables
@@ -316,7 +313,8 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       variables: {
         capId: `${capId}`,
         vehicleType: VehicleTypeEnum.CAR,
-        colour: defaultVehicleColour,
+        // we have to use null for colour and trim to get the cheapest price
+        colour: null,
         trim: null,
         mileage,
         term,
