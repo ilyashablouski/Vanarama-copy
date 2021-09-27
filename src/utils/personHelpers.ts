@@ -9,7 +9,7 @@ const client = createApolloClient({});
 
 export const getLocalPersonState = () =>
   Promise.all([
-    getStoredPerson(client).then(operation => operation.data?.storedPerson),
+    getStoredPerson(client),
     localForage.getItem<string>('personUuid'),
   ]);
 

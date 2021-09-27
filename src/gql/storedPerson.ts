@@ -54,19 +54,25 @@ export function useSavePersonMutation() {
 }
 
 export function getStoredPerson(client: ApolloClient<NormalizedCacheObject>) {
-  return client.query<GetStoredPerson>({
-    query: GET_STORED_PERSON_QUERY,
-  });
+  return client
+    .query<GetStoredPerson>({
+      query: GET_STORED_PERSON_QUERY,
+    })
+    .then(operation => operation.data?.storedPerson)
+    .catch(() => null);
 }
 
 export function setStoredPerson(
   client: ApolloClient<NormalizedCacheObject>,
   person: SavePersonVariables['person'],
 ) {
-  return client.mutate<SavePerson, SavePersonVariables>({
-    mutation: SAVE_PERSON_MUTATION,
-    variables: {
-      person,
-    },
-  });
+  return client
+    .mutate<SavePerson, SavePersonVariables>({
+      mutation: SAVE_PERSON_MUTATION,
+      variables: {
+        person,
+      },
+    })
+    .then(operation => operation.data?.savePerson)
+    .catch(() => null);
 }

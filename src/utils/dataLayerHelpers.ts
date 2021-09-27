@@ -234,7 +234,7 @@ export const pushPageData = async ({
   }
   // setDataLayer();
   const [person, personUuid] = await Promise.all([
-    getStoredPerson(client).then(operation => operation.data?.storedPerson),
+    getStoredPerson(client),
     localForage.getItem<string | null>('personUuid'),
   ]);
   const personEmail =

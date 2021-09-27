@@ -128,9 +128,9 @@ const LoginFormContainer = ({
 
   const requestPerson = () => getPerson({});
 
-  const requestCompanies = (data?: GetPerson) =>
+  const requestCompanies = (person?: GetPerson['getPerson']) =>
     getCompaniesData({
-      personUuid: data?.getPerson?.uuid || '',
+      personUuid: person?.uuid || '',
     });
 
   const requestOrders = (partyUuid: string[]) =>
