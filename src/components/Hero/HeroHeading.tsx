@@ -1,4 +1,5 @@
 import React from 'react';
+
 import Heading from 'core/atoms/heading';
 import getTitleTag from '../../utils/getTitleTag';
 import { IHeroHeadingProps } from './interface';
@@ -8,6 +9,7 @@ const HeroHeading: React.FC<IHeroHeadingProps> = ({
   text,
   titleTag,
   color = 'white',
+  className,
 }) => {
   if (!text) {
     return <Skeleton count={2} />;
@@ -15,6 +17,7 @@ const HeroHeading: React.FC<IHeroHeadingProps> = ({
 
   return (
     <Heading
+      className={className}
       size="xlarge"
       color={color}
       tag={getTitleTag(titleTag || 'h1') as keyof JSX.IntrinsicElements}

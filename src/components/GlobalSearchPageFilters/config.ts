@@ -1,10 +1,14 @@
 import {
   handleUnlistedValue,
+  onElectricRangeCondition,
+  onLCVCondition,
   renderBudgetSelected,
   renderBudgetValue,
   renderPowerEngineSelected,
   renderPowerEngineValue,
 } from './helpers';
+import { productFilter_productFilter as IProductFilter } from '../../../generated/productFilter';
+import { IFiltersData } from '../../containers/GlobalSearchPageContainer/interfaces';
 
 // eslint-disable-next-line import/prefer-default-export
 export const filtersConfig = [
@@ -148,10 +152,22 @@ export const filtersConfig = [
   {
     type: 'drop-down',
     multiselect: true,
+    label: 'Electric Range',
+    key: 'electricRangeGroup',
+    generalFilter: false,
+    isShouldRender: (activeFilters: IFiltersData) =>
+      onElectricRangeCondition(activeFilters),
+  },
+  {
+    type: 'drop-down',
+    multiselect: true,
     label: 'Euro Emissions',
     key: 'standardEuroEmissions',
     generalFilter: false,
-    includedVehicleType: ['Pickup', 'Van'],
+    isShouldRender: (
+      activeFilters: IFiltersData,
+      filtersData: IProductFilter,
+    ) => onLCVCondition(activeFilters, filtersData),
   },
   {
     type: 'drop-down',
@@ -159,7 +175,10 @@ export const filtersConfig = [
     label: 'Load height',
     key: 'loadHeightGroup',
     generalFilter: false,
-    includedVehicleType: ['Pickup', 'Van'],
+    isShouldRender: (
+      activeFilters: IFiltersData,
+      filtersData: IProductFilter,
+    ) => onLCVCondition(activeFilters, filtersData),
   },
   {
     type: 'drop-down',
@@ -167,7 +186,10 @@ export const filtersConfig = [
     label: 'Load Length',
     key: 'loadLengthGroup',
     generalFilter: false,
-    includedVehicleType: ['Pickup', 'Van'],
+    isShouldRender: (
+      activeFilters: IFiltersData,
+      filtersData: IProductFilter,
+    ) => onLCVCondition(activeFilters, filtersData),
   },
   {
     type: 'drop-down',
@@ -175,6 +197,9 @@ export const filtersConfig = [
     label: 'Payload',
     key: 'payloadGroup',
     generalFilter: false,
-    includedVehicleType: ['Pickup', 'Van'],
+    isShouldRender: (
+      activeFilters: IFiltersData,
+      filtersData: IProductFilter,
+    ) => onLCVCondition(activeFilters, filtersData),
   },
 ];

@@ -23,11 +23,7 @@ import {
   buildSelectedTags,
 } from '../../containers/GlobalSearchPageContainer/helpers';
 import { productFilter_productFilter as IProductFilter } from '../../../generated/productFilter';
-import {
-  buildEnginePowerValues,
-  getInnerConfigKeys,
-  isAdvancedFiltersEnabled,
-} from './helpers';
+import { buildEnginePowerValues, getInnerConfigKeys } from './helpers';
 import useFirstRenderEffect from '../../hooks/useFirstRenderEffect';
 import FiltersTags from '../../containers/GlobalSearchPageContainer/FiltersTags';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
@@ -117,18 +113,14 @@ const GlobalSearchPageFilters = ({
     () =>
       config.filter(
         filterConfig =>
-          !filterConfig.generalFilter &&
-          // enable specific filters for some vehicles category
-          (!filterConfig.includedVehicleType ||
-            (filtersData?.vehicleCategory?.some(filterValue =>
-              filterConfig.includedVehicleType?.includes(filterValue || ''),
-            ) &&
-              (!activeFilters.vehicleCategory?.[0] ||
-                filterConfig.includedVehicleType?.includes(
-                  activeFilters.vehicleCategory?.[0],
-                )))),
+          (!filterConfig.generalFilter &&
+            filterConfig.isShouldRender?.(
+              activeFilters,
+              filtersData as IProductFilter,
+            )) ??
+          true,
       ),
-    [activeFilters.vehicleCategory, config, filtersData?.vehicleCategory],
+    [activeFilters, config, filtersData],
   );
 
   const generalFiltersConfig = useMemo(
@@ -302,7 +294,7 @@ const GlobalSearchPageFilters = ({
           selectedTags={selectedTags}
         />
       ))}
-      {isAdvancedFiltersEnabled && advancedFiltersConfig?.length > 0 && (
+      {advancedFiltersConfig?.length > 0 && (
         <div className={cx('accordyon', { active: isOpenAdvancedFilters })}>
           <div
             tabIndex={-1}

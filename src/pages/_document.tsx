@@ -18,9 +18,9 @@ const NextScript = dynamic(() =>
 );
 
 // @ts-ignore
-// const RollbarScript = dynamic(() =>
-//   import('../components/Rollbar').then(mod => mod.Script),
-// );
+const RollbarScript = dynamic(() =>
+  import('../components/Rollbar').then(mod => mod.Script),
+);
 
 // @ts-ignore
 // const SpeedCurveScript = dynamic(() =>
@@ -28,6 +28,7 @@ const NextScript = dynamic(() =>
 // );
 
 const env: any = process?.env?.ENV || '';
+const isLocalEnv = process?.env?.LOCAL || '';
 
 // Script environments
 const scriptEnvs = {
@@ -52,7 +53,7 @@ class MyDocument extends Document {
               src="https://g562.vanarama.com/script.js"
             />
           )}
-          {/* <RollbarScript /> */}
+          {!isLocalEnv && <RollbarScript />}
           {/* <link rel="preload" href="/styles/base.css" as="style" />
           <link rel="stylesheet" href="/styles/base.css" /> */}
           <Inline />
@@ -68,6 +69,7 @@ class MyDocument extends Document {
               <GTMBody />
             </>
           )}
+          <script async data-cfasync="false" src="/scripts/global.js" />
         </body>
       </Html>
     );

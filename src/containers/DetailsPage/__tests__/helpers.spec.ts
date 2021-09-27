@@ -1,3 +1,4 @@
+import { hotOfferColorList } from 'core/molecules/color-selection/mocks';
 import {
   LeaseTypeEnum,
   PdpVehicleType,
@@ -8,6 +9,7 @@ import {
   convertProductDetailsToWishlistProduct,
   pdpCarType,
   pdpVanType,
+  removeImacaColoursDuplications,
 } from '../helpers';
 import { IWishlistProduct } from '../../../types/wishlist';
 
@@ -242,5 +244,15 @@ describe('pdpVanType/pdpCarType', () => {
   });
   it('should be return Pickup type', () => {
     expect(pdpVanType(details)).toEqual(PdpVehicleType.Pickup);
+  });
+});
+
+describe('removeImacaColoursDuplications', () => {
+  const imacaColourList = [...hotOfferColorList, ...hotOfferColorList];
+
+  it('should remove duplicate Imaca colors', () => {
+    expect(removeImacaColoursDuplications(imacaColourList)).toEqual(
+      hotOfferColorList,
+    );
   });
 });

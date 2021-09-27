@@ -1,48 +1,71 @@
+import { GetImacaAssets_getImacaAssets_colours as IColour } from '../../../../generated/GetImacaAssets';
+
 export const hotOfferColorList = [
   {
     capId: 97341,
-    name: 'Hot White (K8J2)',
-    hex: 'hsl(209, 0%, 100%)',
-    price: 1001,
+    imacaName: 'Hot White (K8J2)',
+    lqName: 'Hot White (K8J2)',
+    hex: 'ffffff',
+    matchAccuracy: 1,
+    onOffer: true,
   },
   {
     capId: 151235,
-    name: 'Hot Orange (K8J2)',
-    hex: 'hsl(24, 93%, 48%)',
-    price: 1002,
+    imacaName: 'Hot Orange (K8J2)',
+    lqName: 'Hot Orange (K8J2)',
+    hex: 'ec6409',
+    matchAccuracy: 1,
+    onOffer: true,
   },
   {
     capId: 122994,
-    name: 'Hot Yellow (K8J2)',
-    hex: 'hsl(43, 94%, 55%)',
-    price: 1003,
+    imacaName: 'Hot Yellow (K8J2)',
+    lqName: 'Hot Yellow (K8J2)',
+    hex: 'f8bb20',
+    matchAccuracy: 1,
+    onOffer: true,
   },
-];
+] as IColour[];
 
 export const factoryColorList = [
   {
     capId: 72751,
-    name: 'Factory Blue (K8J2)',
-    hex: 'hsl(209, 19%, 50%)',
+    imacaName: 'Factory Blue (K8J2)',
+    lqName: 'Factory Blue (K8J2)',
+    hex: '678098',
+    matchAccuracy: 1,
+    onOffer: false,
   },
   {
     capId: 72500,
-    name: 'Factory Gray (K8J2)',
-    hex: 'hsl(209, 22%, 34%)',
+    imacaName: 'Factory Gray (K8J2)',
+    lqName: 'Factory Gray (K8J2)',
+    hex: '44576a',
+    matchAccuracy: 1,
+    onOffer: false,
   },
   {
     capId: 72497,
-    name: 'Factory Red (K8J2)',
-    hex: 'hsl(0, 66%, 45%)',
+    imacaName: 'Factory Red (K8J2)',
+    lqName: 'Factory Red (K8J2)',
+    hex: 'be2727',
+    matchAccuracy: 1,
+    onOffer: false,
   },
   {
     capId: 164510,
-    name: 'Factory Green (K8J2)',
-    hex: 'hsl(99, 53%, 44%)',
+    imacaName: 'Factory Green (K8J2)',
+    lqName: 'Factory Green (K8J2)',
+    hex: '5eac35',
+    matchAccuracy: 1,
+    onOffer: false,
   },
   {
     capId: 138304,
-    name: 'Factory Black (K8J2)',
-    hex: 'hsl(209, 22%, 5%)',
+    imacaName: 'Factory Black (K8J2)',
+    lqName: 'Factory Black (K8J2)',
+    hex: '0a0d10',
+    matchAccuracy: 1,
+    onOffer: false,
   },
-];
+] as IColour[];

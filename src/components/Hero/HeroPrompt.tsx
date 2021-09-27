@@ -1,13 +1,8 @@
 import React from 'react';
-import Heading from 'core/atoms/heading';
-import RouterLink from '../RouterLink/RouterLink';
 
-interface IHeroPromptProps {
-  text: string;
-  label: string;
-  url: string;
-  btnVisible?: boolean | null;
-}
+import Heading from 'core/atoms/heading';
+import RouterLink from '../RouterLink';
+import { IHeroPromptProps } from './interface';
 
 const HeroPrompt: React.FC<IHeroPromptProps> = ({
   text,

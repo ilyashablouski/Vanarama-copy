@@ -6,8 +6,8 @@ import Image from 'core/atoms/image/Image';
 import { IFullScreenCarouselProps } from 'core/organisms/full-screen-carousel/interface';
 import ModalV2 from 'core/molecules/modal-v2';
 import Icon from 'core/atoms/icon';
-import ChevronBackOutline from 'core/assets/icons/ChevronBackOutline';
-import ChevronForwardOutline from 'core/assets/icons/ChevronForwardOutline';
+import ChevronBack from 'core/assets/icons/ChevronBack';
+import ChevronForward from 'core/assets/icons/ChevronForward';
 
 SwiperCore.use([Navigation]);
 
@@ -28,7 +28,7 @@ function FullScreenImageCarousel({
             nextEl: `.swiper-next`,
           }}
           onSwiper={swiper => {
-            swiper.slideToLoop(activeSlideIndex - 1);
+            swiper.slideToLoop(activeSlideIndex || 0);
           }}
         >
           {images.map(imageUrl => (
@@ -48,11 +48,11 @@ function FullScreenImageCarousel({
           ))}
         </Swiper>
         <button className="swiper-prev" type="button">
-          <Icon icon={<ChevronBackOutline />} size="large" />
+          <Icon icon={<ChevronBack />} size="large" />
         </button>
 
         <button className="swiper-next" type="button">
-          <Icon icon={<ChevronForwardOutline />} size="large" />
+          <Icon icon={<ChevronForward />} size="large" />
         </button>
       </div>
     </ModalV2>

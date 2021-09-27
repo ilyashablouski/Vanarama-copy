@@ -9,10 +9,12 @@ import {
   getPartnerProperties,
   removePartnerProperties,
 } from 'utils/partnerProperties';
+import Cookies from 'js-cookie';
 import { getPartnershipLinks } from '../../components/Partnerships/helpers';
 import Header from '../../components/Header';
 import { IHeaderLink } from '../../components/Header/Header';
 import { convertChildrenNavLink, convertPromotionalImage } from './helpers';
+import { useStoredPersonQuery } from '../../gql/storedPerson';
 import {
   GetPrimaryHeaderData as HeaderData,
   GetPrimaryHeaderData_primaryHeader_linkGroups_linkGroups as LinkGroups,
@@ -24,6 +26,10 @@ import {
 } from '../../models/enum/HeaderLinks';
 import { LinkTypes } from '../../models/enum/LinkTypes';
 import { removeAuthenticationCookies } from '../../utils/authentication';
+import {
+  addHeapUserIdentity,
+  addHeapUserProperties,
+} from '../../utils/addHeapProperties';
 // eslint-disable-next-line import/no-unresolved
 const HEADER_DATA = require('../../deps/data/menuData.json');
 
@@ -53,11 +59,24 @@ const HeaderContainer: FC = () => {
   };
 
   const [logOut] = useMutation<LogOutUserMutation>(LOGOUT_USER_MUTATION);
+  const { data: storedPersonData } = useStoredPersonQuery(operationResult => {
+    if (operationResult?.storedPerson) {
+      addHeapUserIdentity(
+        operationResult?.storedPerson?.emailAddresses[0].value,
+      );
+      addHeapUserProperties({
+        uuid: operationResult?.storedPerson?.uuid,
+        bcuid: Cookies.get('BCSessionID') || 'undefined',
+      });
+    }
+  });
 
   const [partnership, setPartnership] = useState<string | null>(null);
   const [partnershipLinks, setPartnershipLinks] = useState<any>([]);
   const [partnershipHomeLink, setPartnershipHomeLink] = useState<any>(null);
   const [partnershipPhoneLink, setPartnershipPhoneLink] = useState<any>(null);
+  const [ordersLength, setOrdersLength] = useState<number | null>(null);
+  const [quotesLength, setQuotesLength] = useState<number | null>(null);
 
   const offerLink =
     data?.primaryHeader?.links?.map(el => ({
@@ -158,6 +177,23 @@ const HeaderContainer: FC = () => {
     [] as any[],
   );
 
+  useEffect(() => {
+    if (!ordersLength) {
+      localForage.getItem<number>('ordersLength').then(value => {
+        if (value) {
+          setOrdersLength(value);
+        }
+      });
+    }
+    if (!quotesLength) {
+      localForage.getItem<number>('quotesLength').then(value => {
+        if (value) {
+          setQuotesLength(value);
+        }
+      });
+    }
+  }, [ordersLength, quotesLength]);
+
   // check if user is on a partnership journey
   useEffect(() => {
     const partnerDetails = getPartnerProperties();
@@ -212,6 +248,9 @@ const HeaderContainer: FC = () => {
   if (partnership) {
     return (
       <Header
+        ordersLength={ordersLength}
+        quotesLength={quotesLength}
+        person={storedPersonData?.storedPerson}
         onLogOut={handleLogOut}
         loginLink={LOGIN_LINK}
         phoneNumberLink={partnershipPhoneLink || phoneNumberLink}
@@ -224,6 +263,9 @@ const HeaderContainer: FC = () => {
   if (topLinks?.length) {
     return (
       <Header
+        ordersLength={ordersLength}
+        quotesLength={quotesLength}
+        person={storedPersonData?.storedPerson}
         onLogOut={handleLogOut}
         loginLink={LOGIN_LINK}
         phoneNumberLink={phoneNumberLink}
@@ -231,6 +273,7 @@ const HeaderContainer: FC = () => {
       />
     );
   }
+
   return <></>;
 };
 

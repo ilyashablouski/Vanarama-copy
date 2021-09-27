@@ -1,12 +1,26 @@
 import React from 'react';
 import ReactMarkdown from 'react-markdown';
-import { Nullish } from '../../types/common';
-import { IWishlistProduct } from '../../types/wishlist';
-import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
-import { formatProductPageUrl } from '../../utils/url';
-import { GetPdpContent_pdpContent_content_questionAnswers as IQuestionAnswers } from '../../../generated/GetPdpContent';
-import RouterLink from '../../components/RouterLink';
+
 import { PdpVehicleType } from '../../../generated/globalTypes';
+import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
+import { GetImacaAssets_getImacaAssets_colours as IImacaColour } from '../../../generated/GetImacaAssets';
+import { GetPdpContent_pdpContent_content_questionAnswers as IQuestionAnswers } from '../../../generated/GetPdpContent';
+import { IWishlistProduct } from '../../types/wishlist';
+import { Nullish } from '../../types/common';
+
+import { formatProductPageUrl } from '../../utils/url';
+
+import RouterLink from '../../components/RouterLink';
+
+export const removeImacaColoursDuplications = (
+  colourList: Array<IImacaColour>,
+) => {
+  const capIds = colourList.map(colour => colour.capId);
+
+  return colourList.filter(
+    (colour, index) => !capIds.includes(colour.capId, index + 1),
+  );
+};
 
 export const convertProductDetailsToWishlistProduct = (
   data: Nullish<GetVehicleDetails>,

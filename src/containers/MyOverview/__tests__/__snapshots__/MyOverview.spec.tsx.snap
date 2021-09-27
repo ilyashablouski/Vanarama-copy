@@ -179,7 +179,7 @@ Array [
         className="row:cards-1col"
       >
         <div
-          className="card -inline"
+          className="card card--order -inline"
           data-testid="card"
           style={
             Object {
@@ -310,7 +310,7 @@ Array [
           </div>
         </div>
         <div
-          className="card -inline"
+          className="card card--order -inline"
           data-testid="card"
           style={
             Object {
@@ -538,7 +538,7 @@ Array [
         className="row:cards-1col"
       >
         <div
-          className="card -inline"
+          className="card card--order -inline"
           data-testid="card"
           style={
             Object {
@@ -669,7 +669,7 @@ Array [
           </div>
         </div>
         <div
-          className="card -inline"
+          className="card card--order -inline"
           data-testid="card"
           style={
             Object {

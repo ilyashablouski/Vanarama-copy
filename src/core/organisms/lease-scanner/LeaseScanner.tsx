@@ -1,4 +1,4 @@
-import React, { FC, useState, useEffect, useRef } from 'react';
+import React, { FC, useState, useEffect, useRef, useMemo } from 'react';
 import { ILeaseScannerProps } from './interfaces';
 import Icon from '../../atoms/icon';
 
@@ -47,6 +47,14 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
   // calculate animation duration it shoulde be (5-8 sec)
   const getAnimationDuration = () =>
     parseFloat((Math.random() * (8000 - 5000) + 5000).toFixed(2));
+
+  const bestPriceText = useMemo(
+    () =>
+      nextBestPrice?.includes('£0.00')
+        ? 'This is the best price'
+        : `Next Best Price ${nextBestPrice}`,
+    [nextBestPrice],
+  );
 
   useEffect(() => {
     if (isLoading && currentLisingProvider === 0) {
@@ -145,7 +153,7 @@ const LeaseScanner: FC<ILeaseScannerProps> = props => {
     <>
       {!isInitialLoading && nextBestPrice && !isLoading && (
         <div className="card-header lease-card-header">
-          <Text size="small">Next Best Price {nextBestPrice}</Text>
+          <Text size="small">{bestPriceText}</Text>
         </div>
       )}
       <div className="lease-scanner" style={positionStyle}>

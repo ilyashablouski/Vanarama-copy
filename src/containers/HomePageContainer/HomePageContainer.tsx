@@ -158,7 +158,7 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
         <div className="nlol nlol-free-insurance">
           <p>Find Your New Lease Of Life</p>
           <h2>1 Year&apos;s FREE Insurance</h2>
-          <p>On Every Car Hot Offer</p>
+          <p>On Car Hot Offers</p>
         </div>
         <div>
           <Image
@@ -221,9 +221,15 @@ export const HomePageContainer: React.FC<IHomePageContainer> = ({
           align="center"
         >
           <TabList className="lead">
-            <Tab index={0}>Vans</Tab>
-            <Tab index={1}>Pickups</Tab>
-            <Tab index={2}>Cars</Tab>
+            <Tab index={0} dataUiTestId="HomepageVansTab">
+              Vans
+            </Tab>
+            <Tab index={1} dataUiTestId="HomepagePickupsTab">
+              Pickups
+            </Tab>
+            <Tab index={2} dataUiTestId="HomepageCarsTab">
+              Cars
+            </Tab>
           </TabList>
           <TabPanels>
             <TabPanel index={2}>
