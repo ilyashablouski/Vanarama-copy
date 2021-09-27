@@ -1,4 +1,5 @@
 import { NextRouter } from 'next/router';
+import { ParsedUrlQuery } from 'querystring';
 import { formatProductPageUrl } from '../../utils/url';
 import {
   SortDirection,
@@ -12,7 +13,6 @@ import {
 import { IVehicleCarousel } from '../../utils/comparatorHelpers';
 import { ModelImages } from '../../../generated/ModelImages';
 import { Nullish } from '../../types/common';
-import { ParsedUrlQuery } from 'querystring';
 
 const MOR_MILES_VALUE = 30;
 
