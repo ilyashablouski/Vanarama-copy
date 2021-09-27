@@ -15,6 +15,18 @@ import { Nullish } from '../../types/common';
 
 const MOR_MILES_VALUE = 30;
 
+const HELP_ME_CHOSE_QUERY_PARAMS = [
+  'financeTypes',
+  'bodyStyles',
+  'fuelTypes',
+  'transmissions',
+  'terms',
+  'mileages',
+  'availability',
+  'rental',
+  'initialPeriods',
+];
+
 const getBucketLabel = (type: string, label: string) => {
   switch (type) {
     case 'terms':
@@ -56,6 +68,12 @@ export const onReplace = (
   let pathname = pathName || router.route.replace('[[...param]]', '');
   const queryString = new URLSearchParams();
   const queries = {} as any;
+  const currentQueries = router.query;
+  Object.entries(currentQueries).forEach(([key, value]) => {
+    if (!HELP_ME_CHOSE_QUERY_PARAMS.includes(key)) {
+      queries[key] = value;
+    }
+  });
   if (isEdit) {
     queries.isEdit = isEdit;
   }
