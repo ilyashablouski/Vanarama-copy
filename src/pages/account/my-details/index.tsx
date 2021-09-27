@@ -88,6 +88,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
     return <Loading size="large" />;
   }
 
+  // condition was changed to fix DIG-7370
   if (error) {
     return (
       <Text tag="p" color="danger" size="lead">
