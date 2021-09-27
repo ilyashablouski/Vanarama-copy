@@ -75,7 +75,7 @@ export const saveOrders = ([ordersQuery, quotesQuery]: ApolloQueryResult<
 export const savePersonLocally = (
   getPersonQuery: ApolloQueryResult<GetPerson>,
 ) => {
-  setPersonLoggedIn(getPersonQuery.data);
+  setPersonLoggedIn(getPersonQuery.data?.getPerson);
   return setLocalPersonState(getPersonQuery.data);
 };
 

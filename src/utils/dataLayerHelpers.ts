@@ -16,13 +16,14 @@ import {
   OrderInputObject,
   VehicleTypeEnum,
 } from '../../generated/globalTypes';
-import { GetPerson } from '../../generated/GetPerson';
 import { GetDerivative_derivative } from '../../generated/GetDerivative';
 import { IWishlistActions, IWishlistProduct } from '../types/wishlist';
 import { PAGES } from './pageTypes';
 import { getDeviceType } from './deviceType';
 import { getSessionStorage } from './windowSessionStorage';
 import { CurrencyCodeEnum } from '../../entities/global';
+import createApolloClient from '../apolloClient';
+import { getStoredPerson } from '../gql/storedPerson';
 
 interface ICheckoutData {
   price: string | number | null | undefined;
@@ -117,6 +118,8 @@ const PRICE_TYPE = {
   excVAT: 'Excluding VAT',
   incVAT: 'Including VAT',
 };
+
+const client = createApolloClient({});
 
 export const pushPageViewEvent = async (path: string, title = '') => {
   window.dataLayer?.push({
@@ -230,11 +233,10 @@ export const pushPageData = async ({
     return;
   }
   // setDataLayer();
-  const [personData, personUuid] = await Promise.all([
-    localForage.getItem<GetPerson | null>('person'),
+  const [person, personUuid] = await Promise.all([
+    getStoredPerson(client).then(operation => operation.data?.storedPerson),
     localForage.getItem<string | null>('personUuid'),
   ]);
-  const person = personData?.getPerson;
   const personEmail =
     (person?.emailAddresses && person?.emailAddresses[0]?.value) ||
     (await localForage.getItem<string | null>('personEmail'));
