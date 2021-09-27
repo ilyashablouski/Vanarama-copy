@@ -12,6 +12,7 @@ import {
 import { IVehicleCarousel } from '../../utils/comparatorHelpers';
 import { ModelImages } from '../../../generated/ModelImages';
 import { Nullish } from '../../types/common';
+import { ParsedUrlQuery } from 'querystring';
 
 const MOR_MILES_VALUE = 30;
 
@@ -67,7 +68,7 @@ export const onReplace = (
 ) => {
   let pathname = pathName || router.route.replace('[[...param]]', '');
   const queryString = new URLSearchParams();
-  const queries = {} as any;
+  const queries = {} as ParsedUrlQuery;
   const currentQueries = router.query;
   Object.entries(currentQueries).forEach(([key, value]) => {
     if (!HELP_ME_CHOSE_QUERY_PARAMS.includes(key)) {
