@@ -9,6 +9,7 @@ import {
   buildEnginePowerValues,
   onElectricRangeCondition,
   onLCVCondition,
+  renderMakeAndModelSelected,
 } from '../helpers';
 import { IFiltersData } from '../../../containers/GlobalSearchPageContainer/interfaces';
 import { productFilter_productFilter as IProductFilter } from '../../../../generated/productFilter';
@@ -25,6 +26,11 @@ describe('helpers', () => {
   });
   it('renderSeatsValue should return correct seats value', () => {
     expect(renderSeatsValue('3')).toEqual('3 Seats');
+  });
+  it('renderMakeAndModelSelected should return correct seats value', () => {
+    expect(
+      renderMakeAndModelSelected(['BMW', '3 Series', 'Audi', '', 'Ford']),
+    ).toEqual('BMW 3 Series, Audi, Ford,');
   });
   it('generateQueryObject should return correct query object', () => {
     expect(

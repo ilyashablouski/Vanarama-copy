@@ -1,7 +1,8 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect, useRef, useState } from 'react';
 import DropdownV2 from 'core/atoms/dropdown-v2';
 import ChoiceBoxesV2 from 'core/atoms/choiceboxes-v2';
 import ChevronDown from 'core/assets/icons/ChevronDown';
+import cx from 'classnames';
 import { IFiltersConfig, IInnerSelect } from './interfaces';
 import {
   IFiltersData,
@@ -26,6 +27,8 @@ interface IProps {
     filterValues: (string | number)[],
     filterName: keyof IFiltersData,
   ) => void;
+  onHandleNativeMultiSelect: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  onClickAddMultipleSelect: (filterBlockName: string) => void;
   activeFilters: IFiltersData;
   getDropdownValues: (innerSelect: IInnerSelect[]) => (string | null)[];
   onClearDropdown: (innerSelect: IInnerSelect[]) => void;
@@ -48,6 +51,7 @@ const DropdownsBlockComponent = ({
     renderSelectedFunction,
     renderValuesFunction,
     selectedLabel,
+    addNewButtonLabel,
   },
   onHandleFilterStatus,
   labelForSingleSelect,
@@ -62,7 +66,34 @@ const DropdownsBlockComponent = ({
   onHandleNativeSelectChange,
   isDisabledSelect,
   isInvalidRangeValue,
+  onHandleNativeMultiSelect,
+  onClickAddMultipleSelect,
 }: IProps) => {
+  const formRef = useRef<HTMLFormElement>(null);
+
+  const [isAdded, setIsAdded] = useState(false);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    if (isAdded) {
+      timeout = setTimeout(() => setIsAdded(false), 1000);
+    }
+    return () => clearTimeout(timeout);
+  }, [isAdded]);
+
+  const onNativeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    if (multiselect) {
+      onHandleNativeMultiSelect(event);
+      return;
+    }
+    onHandleNativeSelectChange(event);
+  };
+
+  const onClearBlock = () => {
+    onClickAddMultipleSelect(key);
+    formRef.current?.reset();
+  };
+
   if (
     (!filtersMapper[key as keyof IFiltersData]?.length ||
       (filtersMapper[key as keyof IFiltersData]?.length === 1 &&
@@ -132,60 +163,93 @@ const DropdownsBlockComponent = ({
         <SelectedDropdown
           ref={ref}
           selected={getDropdownValues(innerSelects as IInnerSelect[])}
-          onClear={() => onClearDropdown(innerSelects as IInnerSelect[])}
+          onClear={() => {
+            onClearBlock();
+            onClearDropdown(innerSelects as IInnerSelect[]);
+          }}
           renderFunction={renderSelectedFunction as () => string}
         />
       )}
       selected={getSelectedValues(innerSelects, activeFilters) as unknown[]}
     >
-      {(innerSelects as IInnerSelect[])?.map(
-        ({ title, key: selectKey, placeholder }) => (
-          <Fragment key={title}>
-            <span className="option-title">{title}</span>
-            <div className="faux-select">
-              <ChevronDown />
-              <select
-                name={`${selectKey}`}
-                data-testid={`${selectKey}-form`}
-                onChange={onHandleNativeSelectChange}
-                disabled={isDisabledSelect(key, selectKey)}
-              >
-                <option
-                  disabled
-                  value=""
-                  selected={
-                    !(activeFilters?.[selectKey as keyof IFiltersData] as
-                      | string
-                      | number[])?.[0]
-                  }
+      <form ref={formRef}>
+        {(innerSelects as IInnerSelect[])?.map(
+          ({ title, key: selectKey, placeholder }) => (
+            <Fragment key={title}>
+              <span className="option-title">{title}</span>
+              <div className="faux-select">
+                <ChevronDown />
+                <select
+                  name={`${selectKey}`}
+                  data-testid={`${selectKey}-form`}
+                  onChange={onNativeChange}
+                  disabled={isDisabledSelect(key, selectKey)}
                 >
-                  {placeholder}
-                </option>
-                {(filtersMapper?.[selectKey as keyof IFiltersData] as (
-                  | string
-                  | number
-                )[])?.map(value => (
                   <option
-                    key={value}
-                    disabled={
-                      key === 'budget' || key === 'enginePower'
-                        ? isInvalidRangeValue(value, selectKey, key)
-                        : false
+                    disabled
+                    key={`placeholder-${
+                      filtersMapper?.[selectKey as keyof IFiltersData]?.[0]
+                    }`}
+                    value=""
+                    selected={
+                      multiselect ||
+                      !(activeFilters?.[selectKey as keyof IFiltersData] as
+                        | string
+                        | number[])?.[0]
                     }
-                    value={value}
-                    selected={(activeFilters?.[
-                      selectKey as keyof IFiltersData
-                    ] as (string | number)[])?.includes(value)}
                   >
-                    {renderValuesFunction
-                      ? renderValuesFunction(`${value}`)
-                      : value}
+                    {placeholder}
                   </option>
-                ))}
-              </select>
-            </div>
-          </Fragment>
-        ),
+                  {(filtersMapper?.[selectKey as keyof IFiltersData] as (
+                    | string
+                    | number
+                  )[])?.map(value => (
+                    <option
+                      key={value}
+                      disabled={
+                        key === 'budget' || key === 'enginePower'
+                          ? isInvalidRangeValue(value, selectKey, key)
+                          : false
+                      }
+                      value={value}
+                      selected={
+                        multiselect
+                          ? false
+                          : (activeFilters?.[
+                              selectKey as keyof IFiltersData
+                            ] as (string | number)[])?.includes(value)
+                      }
+                    >
+                      {renderValuesFunction
+                        ? renderValuesFunction(`${value}`)
+                        : value}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </Fragment>
+          ),
+        )}
+      </form>
+      {multiselect && (
+        <button
+          type="button"
+          disabled={!getDropdownValues(innerSelects as IInnerSelect[])?.length}
+          className={cx('add-selection', {
+            added: isAdded,
+          })}
+          onClick={() => {
+            setIsAdded(true);
+            onClearBlock();
+          }}
+        >
+          <span>
+            <span>
+              <span className="tick teal" /> Added
+            </span>
+            <span>{addNewButtonLabel}</span>
+          </span>
+        </button>
       )}
     </DropdownV2>
   );
