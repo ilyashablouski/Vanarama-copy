@@ -34,6 +34,7 @@ function CarouselSwiper({
           clickable: true,
         }}
         noSwipingSelector="input, select, option, textarea, button, video, label"
+        touchEventsTarget="wrapper"
       >
         {children}
         <div

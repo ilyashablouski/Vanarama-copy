@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import cx from 'classnames';
 
@@ -35,6 +35,9 @@ function MediaGallery({
   className,
 }: IMediaGalleryProps) {
   const [activeTab, setActiveTab] = useState(activeTabIndex ?? 1);
+  const shouldRenderImaca = useMemo(() => !!imacaAssets?.colours?.length, [
+    imacaAssets,
+  ]);
 
   useEffect(() => {
     const showVideoTab = window?.location?.hash === '#video';
@@ -61,7 +64,7 @@ function MediaGallery({
       <div className={cx('media-gallery', className)}>
         <Tabs activeIndex={activeTab} size="large" onChange={handleChangeTab}>
           <TabPanels className="media-gallery__content">
-            {imacaAssets && (
+            {shouldRenderImaca && (
               <TabPanel index={0}>
                 <LazyLoadComponent
                   placeholder={<div className="imaca-viewer-placeholder" />}
@@ -70,7 +73,7 @@ function MediaGallery({
                   <ImacaViewer
                     colour={colour}
                     setColour={setColour}
-                    assets={imacaAssets}
+                    assets={imacaAssets!}
                     upscaleCanvas={isCar}
                   />
                 </LazyLoadComponent>
@@ -106,7 +109,7 @@ function MediaGallery({
             )}
           </TabPanels>
           <TabList className="media-gallery__tabs">
-            {imacaAssets && (
+            {shouldRenderImaca && (
               <Tab index={0}>
                 <Icon className="rotate" icon={<MediaRotate />} />
                 360°
@@ -125,7 +128,7 @@ function MediaGallery({
           </TabList>
         </Tabs>
       </div>
-      {!imacaAssets && (
+      {!shouldRenderImaca && (
         <span className="caveat-text text -small -darker">
           Photos are for illustration purposes only.
         </span>

@@ -31,6 +31,7 @@ export interface productFilter_productFilter {
   doors: (number | null)[] | null;
   noOfSeats: (number | null)[] | null;
   engineSizeGroup: (string | null)[] | null;
+  electricRangeGroup: (string | null)[] | null;
   standardEuroEmissions: (string | null)[] | null;
   loadHeightGroup: (string | null)[] | null;
   loadLengthGroup: (string | null)[] | null;

@@ -21,6 +21,7 @@ export const FILTERS_AGGREGATIONS = gql`
     doors
     noOfSeats
     engineSizeGroup
+    electricRangeGroup
     standardEuroEmissions
     loadHeightGroup
     loadLengthGroup

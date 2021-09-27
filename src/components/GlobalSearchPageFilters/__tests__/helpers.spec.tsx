@@ -7,9 +7,12 @@ import {
   renderDoorsValue,
   renderSeatsValue,
   buildEnginePowerValues,
+  onElectricRangeCondition,
+  onLCVCondition,
   renderMakeAndModelSelected,
 } from '../helpers';
 import { IFiltersData } from '../../../containers/GlobalSearchPageContainer/interfaces';
+import { productFilter_productFilter as IProductFilter } from '../../../../generated/productFilter';
 
 describe('helpers', () => {
   it('renderBudgetValue should return correct budget value', () => {
@@ -71,6 +74,56 @@ describe('helpers', () => {
       expect(renderPowerEngineSelected(['150', '300'])).toEqual(
         'From 150bhp to 300bhp',
       );
+    });
+  });
+  describe('onElectricRangeCondition', () => {
+    it('condition should return true', () => {
+      expect(
+        onElectricRangeCondition({ fuelTypes: ['Electric'] } as IFiltersData),
+      ).toEqual(true);
+    });
+    it('condition should return false', () => {
+      expect(
+        onElectricRangeCondition({
+          transmissions: ['automatic'],
+        } as IFiltersData),
+      ).toEqual(false);
+    });
+  });
+  describe('onLCVCondition', () => {
+    it('condition should return true when only one correct available but not selected', () => {
+      expect(
+        onLCVCondition(
+          { fuelTypes: ['Electric'] } as IFiltersData,
+          { vehicleCategory: ['Pickup'] } as IProductFilter,
+        ),
+      ).toEqual(true);
+    });
+    it('condition should return true when Van type selected', () => {
+      expect(
+        onLCVCondition(
+          { vehicleCategory: ['Van'] } as IFiltersData,
+          { vehicleCategory: ['Car', 'Van'] } as IProductFilter,
+        ),
+      ).toEqual(true);
+    });
+    it('condition should return false when Car type selected', () => {
+      expect(
+        onLCVCondition(
+          { vehicleCategory: ['Car'] } as IFiltersData,
+          { vehicleCategory: ['Car', 'Van'] } as IProductFilter,
+        ),
+      ).toEqual(false);
+    });
+    it('condition should return false', () => {
+      expect(
+        onLCVCondition(
+          {
+            transmissions: ['automatic'],
+          } as IFiltersData,
+          { vehicleCategory: ['Car'] } as IProductFilter,
+        ),
+      ).toEqual(false);
     });
   });
 });
