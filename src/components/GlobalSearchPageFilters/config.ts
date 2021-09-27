@@ -159,7 +159,7 @@ export const filtersConfig = [
     label: 'Electric Range',
     key: 'electricRangeGroup',
     generalFilter: false,
-    isShouldRender: (activeFilters: IFiltersData) =>
+    shouldRender: (activeFilters: IFiltersData) =>
       onElectricRangeCondition(activeFilters),
   },
   {
@@ -168,10 +168,8 @@ export const filtersConfig = [
     label: 'Euro Emissions',
     key: 'standardEuroEmissions',
     generalFilter: false,
-    isShouldRender: (
-      activeFilters: IFiltersData,
-      filtersData: IProductFilter,
-    ) => onLCVCondition(activeFilters, filtersData),
+    shouldRender: (activeFilters: IFiltersData, filtersData: IProductFilter) =>
+      onLCVCondition(activeFilters, filtersData),
   },
   {
     type: 'drop-down',
@@ -179,10 +177,8 @@ export const filtersConfig = [
     label: 'Load height',
     key: 'loadHeightGroup',
     generalFilter: false,
-    isShouldRender: (
-      activeFilters: IFiltersData,
-      filtersData: IProductFilter,
-    ) => onLCVCondition(activeFilters, filtersData),
+    shouldRender: (activeFilters: IFiltersData, filtersData: IProductFilter) =>
+      onLCVCondition(activeFilters, filtersData),
   },
   {
     type: 'drop-down',
@@ -190,10 +186,8 @@ export const filtersConfig = [
     label: 'Load Length',
     key: 'loadLengthGroup',
     generalFilter: false,
-    isShouldRender: (
-      activeFilters: IFiltersData,
-      filtersData: IProductFilter,
-    ) => onLCVCondition(activeFilters, filtersData),
+    shouldRender: (activeFilters: IFiltersData, filtersData: IProductFilter) =>
+      onLCVCondition(activeFilters, filtersData),
   },
   {
     type: 'drop-down',
@@ -201,9 +195,7 @@ export const filtersConfig = [
     label: 'Payload',
     key: 'payloadGroup',
     generalFilter: false,
-    isShouldRender: (
-      activeFilters: IFiltersData,
-      filtersData: IProductFilter,
-    ) => onLCVCondition(activeFilters, filtersData),
+    shouldRender: (activeFilters: IFiltersData, filtersData: IProductFilter) =>
+      onLCVCondition(activeFilters, filtersData),
   },
 ];

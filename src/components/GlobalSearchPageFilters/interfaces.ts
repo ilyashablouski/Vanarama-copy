@@ -12,6 +12,7 @@ export interface IFiltersConfig {
   type: string;
   /** possibility to choose one more values* */
   multiselect: boolean;
+  /** text for add new button* */
   addNewButtonLabel?: string;
   /** filter dropdown placeholder should have selected value text* */
   selectedLabel?: boolean;
@@ -28,7 +29,7 @@ export interface IFiltersConfig {
   /** additional filters on dropdown */
   innerSelects?: IInnerSelect[];
   /** additional condition for render* */
-  isShouldRender?: (
+  shouldRender?: (
     activeFilters: IFiltersData,
     filtersData: IProductFilter,
   ) => boolean;

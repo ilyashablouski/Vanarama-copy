@@ -122,7 +122,7 @@ const GlobalSearchPageFilters = ({
       config.filter(
         filterConfig =>
           (!filterConfig.generalFilter &&
-            filterConfig.isShouldRender?.(
+            filterConfig.shouldRender?.(
               activeFilters,
               filtersData as IProductFilter,
             )) ??
