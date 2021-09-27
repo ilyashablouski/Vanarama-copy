@@ -4,6 +4,7 @@ import {
   onLCVCondition,
   renderBudgetSelected,
   renderBudgetValue,
+  renderMakeAndModelSelected,
   renderPowerEngineSelected,
   renderPowerEngineValue,
 } from './helpers';
@@ -22,15 +23,18 @@ export const filtersConfig = [
   },
   {
     type: 'drop-select',
-    multiselect: false,
+    multiselect: true,
     label: 'Make & Model',
     key: 'manufacturerModel',
+    renderSelectedFunction: (values: (string | number)[]) =>
+      renderMakeAndModelSelected(values as string[]),
     generalFilter: true,
+    addNewButtonLabel: '+ Add Make & Model',
     innerSelects: [
       {
         title: 'Make',
         placeholder: 'Please select',
-        key: 'manufacturerName',
+        key: 'manufacturerNames',
       },
       {
         title: 'Model',
@@ -155,7 +159,7 @@ export const filtersConfig = [
     label: 'Electric Range',
     key: 'electricRangeGroup',
     generalFilter: false,
-    isShouldRender: (activeFilters: IFiltersData) =>
+    shouldRender: (activeFilters: IFiltersData) =>
       onElectricRangeCondition(activeFilters),
   },
   {
@@ -164,10 +168,8 @@ export const filtersConfig = [
     label: 'Euro Emissions',
     key: 'standardEuroEmissions',
     generalFilter: false,
-    isShouldRender: (
-      activeFilters: IFiltersData,
-      filtersData: IProductFilter,
-    ) => onLCVCondition(activeFilters, filtersData),
+    shouldRender: (activeFilters: IFiltersData, filtersData: IProductFilter) =>
+      onLCVCondition(activeFilters, filtersData),
   },
   {
     type: 'drop-down',
@@ -175,10 +177,8 @@ export const filtersConfig = [
     label: 'Load height',
     key: 'loadHeightGroup',
     generalFilter: false,
-    isShouldRender: (
-      activeFilters: IFiltersData,
-      filtersData: IProductFilter,
-    ) => onLCVCondition(activeFilters, filtersData),
+    shouldRender: (activeFilters: IFiltersData, filtersData: IProductFilter) =>
+      onLCVCondition(activeFilters, filtersData),
   },
   {
     type: 'drop-down',
@@ -186,10 +186,8 @@ export const filtersConfig = [
     label: 'Load Length',
     key: 'loadLengthGroup',
     generalFilter: false,
-    isShouldRender: (
-      activeFilters: IFiltersData,
-      filtersData: IProductFilter,
-    ) => onLCVCondition(activeFilters, filtersData),
+    shouldRender: (activeFilters: IFiltersData, filtersData: IProductFilter) =>
+      onLCVCondition(activeFilters, filtersData),
   },
   {
     type: 'drop-down',
@@ -197,9 +195,7 @@ export const filtersConfig = [
     label: 'Payload',
     key: 'payloadGroup',
     generalFilter: false,
-    isShouldRender: (
-      activeFilters: IFiltersData,
-      filtersData: IProductFilter,
-    ) => onLCVCondition(activeFilters, filtersData),
+    shouldRender: (activeFilters: IFiltersData, filtersData: IProductFilter) =>
+      onLCVCondition(activeFilters, filtersData),
   },
 ];

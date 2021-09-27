@@ -178,8 +178,10 @@ export const setFiltersAfterPageChange = (
 
 export const filterOrderByNumMap: { [key: string]: number } = {
   manufacturer: 1,
+  manufacturerNames: 1,
   model: 2,
   range: 2,
+  rangeName: 2,
   from: 3,
   to: 4,
   bodyStyles: 5,

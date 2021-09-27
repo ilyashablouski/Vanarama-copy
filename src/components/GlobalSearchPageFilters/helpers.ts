@@ -35,6 +35,17 @@ export const renderBudgetSelected = (values: (string | null)[]) => {
   return text.charAt(0).toUpperCase() + text.slice(1);
 };
 
+export const renderMakeAndModelSelected = (values: (string | null)[]) =>
+  values
+    .reduce(
+      (acc, current, index, arr) =>
+        index % 2 === 1
+          ? acc
+          : [...acc, `${`${current} ${arr[index + 1] || ''}`.trim()},`],
+      [] as string[],
+    )
+    .join(' ');
+
 export const getSelectedValues = (
   innerSelects?: IInnerSelect[],
   activeFilters?: IFiltersData,
