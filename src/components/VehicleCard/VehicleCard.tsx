@@ -17,7 +17,6 @@ import useWishlist from '../../hooks/useWishlist';
 import { isWished } from '../../utils/wishlistHelpers';
 import { FuelTypeEnum } from '../../../entities/global';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
-import { isInchcapeFeatureEnabled } from '../../utils/helpers';
 
 const Heading = dynamic(() => import('core/atoms/heading'), {
   loading: () => <Skeleton count={1} />,
@@ -66,7 +65,6 @@ const VehicleCard = React.memo(
 
     const { wishlistVehicleIds, wishlistChange } = useWishlist();
     const { compareVehicles, compareChange } = useContext(CompareContext);
-    const isInchcape = isInchcapeFeatureEnabled();
 
     const productPageUrl = formatProductPageUrl(url, derivativeId);
     const fuelType = useMemo(
@@ -76,10 +74,6 @@ const VehicleCard = React.memo(
     const isElectricVehicle = useMemo(
       () => fuelType?.value === FuelTypeEnum.ELECTRIC,
       [fuelType?.value],
-    );
-    const isFreeInsurance = useMemo(
-      () => data?.isOnOffer && data?.vehicleType === VehicleTypeEnum.CAR,
-      [data?.isOnOffer, data?.vehicleType],
     );
     const isFreeInsuranceVehicle = useMemo(
       () => data?.freeInsurance && data?.vehicleType === VehicleTypeEnum.CAR,
@@ -152,26 +146,7 @@ const VehicleCard = React.memo(
           ),
         }}
         extrasRender={
-          // this will be removed along with feature flag
-          // eslint-disable-next-line no-nested-ternary
-          isInchcape ? (
-            isElectricVehicle || isFreeInsuranceVehicle ? (
-              <>
-                {isElectricVehicle && (
-                  <CardLabel
-                    text="Free Home charger"
-                    icon={<FreeHomeCharger />}
-                  />
-                )}
-                {isFreeInsuranceVehicle && (
-                  <CardLabel
-                    text="1yr Free Insurance"
-                    icon={<FreeInsuranceCardLabelIcon />}
-                  />
-                )}
-              </>
-            ) : null
-          ) : isElectricVehicle || isFreeInsurance ? (
+          isElectricVehicle || isFreeInsuranceVehicle ? (
             <>
               {isElectricVehicle && (
                 <CardLabel
@@ -179,7 +154,7 @@ const VehicleCard = React.memo(
                   icon={<FreeHomeCharger />}
                 />
               )}
-              {isFreeInsurance && (
+              {isFreeInsuranceVehicle && (
                 <CardLabel
                   text="1yr Free Insurance"
                   icon={<FreeInsuranceCardLabelIcon />}
