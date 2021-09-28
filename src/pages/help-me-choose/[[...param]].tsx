@@ -179,7 +179,8 @@ const HelpMeChoose: NextPage = () => {
   }, [getHelpMeChoose]);
 
   useEffect(() => {
-    if (window?.location.search.length) {
+    const searchParams = new URLSearchParams(window?.location.search);
+    if (searchParams.has('financeTypes')) {
       getData();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
