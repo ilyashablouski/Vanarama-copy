@@ -19,6 +19,7 @@ import { Env } from './utils/env';
 
 import { isSessionFinishedCache } from './cache';
 import resolvers from './resolvers';
+import { getLocalStorage } from './utils/windowLocalStorage';
 
 const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 // A list of queries that we don't want to be cached in CDN
@@ -228,6 +229,19 @@ const creditApplicationQueryValidationLink = new ApolloLink(
   },
 );
 
+const iProAdditionalDataQueryLink = new ApolloLink((operation, forward) => {
+  if (operation.operationName === 'CreateUpdateOrder') {
+    const iProData = getLocalStorage('additionalData');
+
+    if (iProData) {
+      // eslint-disable-next-line no-param-reassign
+      operation.variables.input.additionalData = iProData;
+    }
+  }
+
+  return forward(operation);
+});
+
 function apolloClientLink() {
   const links = [
     logLink,
@@ -236,6 +250,7 @@ function apolloClientLink() {
     retryLink,
     // persistedQueryLink,
     creditApplicationQueryValidationLink,
+    iProAdditionalDataQueryLink,
     httpLink,
   ];
 
