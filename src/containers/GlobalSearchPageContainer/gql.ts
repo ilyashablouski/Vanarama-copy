@@ -8,6 +8,11 @@ import { ProductDerivativeFilter } from '../../../generated/globalTypes';
 export const FILTERS_AGGREGATIONS = gql`
   fragment filtersAggregation on ProductFilterAggregations {
     manufacturerName
+    manufacturerNames
+    rangeNames {
+      manufacturer
+      ranges
+    }
     rangeName
     transmissions
     fuelTypes

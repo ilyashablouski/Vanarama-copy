@@ -254,7 +254,7 @@ describe('helpers', () => {
       buildFiltersRequestObject({
         from: ['150'],
         to: ['300'],
-        manufacturerName: ['bmw'],
+        manufacturerNames: ['bmw'],
         rangeName: ['3 series'],
       } as IFiltersData),
     ).toEqual({
@@ -262,8 +262,8 @@ describe('helpers', () => {
         max: 300,
         min: 150,
       },
-      manufacturerName: 'bmw',
-      rangeName: '3 series',
+      manufacturerNames: ['bmw'],
+      rangeNames: ['3 series'],
       onOffer: null,
       financeTypes: ['BCH'],
     });
@@ -274,7 +274,7 @@ describe('helpers', () => {
         {
           from: ['150'],
           to: ['300'],
-          manufacturerName: ['bmw'],
+          manufacturerNames: ['bmw'],
           rangeName: ['3 series'],
         } as IFiltersData,
         true,
@@ -285,8 +285,8 @@ describe('helpers', () => {
         max: 300,
         min: 150,
       },
-      manufacturerName: 'bmw',
-      rangeName: '3 series',
+      manufacturerNames: ['bmw'],
+      rangeNames: ['3 series'],
       onOffer: true,
       financeTypes: ['PCH'],
     });

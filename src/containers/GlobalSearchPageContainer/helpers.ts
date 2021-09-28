@@ -79,7 +79,7 @@ export const buildSelectedTags = (data: IFiltersData): ISelectedTags[] =>
       // if we don't have filter priority set label on the end of list
       return {
         filterKey: key as keyof IFiltersData,
-        tags: value || [],
+        tags: value?.filter((tag: string) => tag) || [],
         order: filterOrderByNumMap[key] || 999999,
       };
     })
@@ -107,8 +107,14 @@ export const buildFiltersRequestObject = (
             max: to?.[0] === '550+' ? null : parseInt(to?.[0], 10),
           }
         : undefined,
-    manufacturerName: filters.manufacturerName?.[0],
-    rangeName: filters.rangeName?.[0],
+    manufacturerNames: filters.manufacturerNames?.[0]
+      ? filters.manufacturerNames
+      : undefined,
+    rangeNames: filters.rangeName?.filter(value => value)?.[0]
+      ? filters.rangeName?.filter(value => value)
+      : undefined,
+    manufacturerName: undefined,
+    rangeName: undefined,
     financeTypes: isPersonal ? [FinanceType.PCH] : [FinanceType.BCH],
     onOffer: onOffer || null,
     mpgGroup: filters.mpgGroup?.[0],

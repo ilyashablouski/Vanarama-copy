@@ -355,6 +355,39 @@ const GlobalSearchPageContainer = memo(
     };
 
     const onRemoveTag = (value: string, key: string) => {
+      if (key === 'manufacturerNames') {
+        const indexOfManufacturer = activeFilters.manufacturerNames?.findIndex(
+          filterValue => value === (filterValue as string),
+        );
+        // remove range and make values
+        setActiveFilters({
+          ...activeFilters,
+          manufacturerNames: activeFilters.manufacturerNames?.filter(
+            activeValue => activeValue !== value,
+          ) as string[],
+          rangeName: activeFilters.rangeName?.[0]
+            ? (activeFilters?.rangeName?.filter(
+                (activeValue, index) => index !== indexOfManufacturer,
+              ) as string[])
+            : [],
+        });
+        return;
+      }
+      if (key === 'rangeName') {
+        const indexOfManufacturer = activeFilters.rangeName?.findIndex(
+          filterValue => value === (filterValue as string),
+        );
+        // if we remove range tag, we will replace it to empty string for prevent incorrect summary rendering
+        setActiveFilters({
+          ...activeFilters,
+          rangeName: activeFilters.rangeName?.[0]
+            ? (activeFilters?.rangeName?.map((activeValue, index) =>
+                index === indexOfManufacturer ? '' : activeValue,
+              ) as string[])
+            : [],
+        });
+        return;
+      }
       setActiveFilters({
         ...activeFilters,
         [key]: (activeFilters?.[key as keyof IFiltersData] as (

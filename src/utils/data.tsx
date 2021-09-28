@@ -5,7 +5,8 @@ const KEYS_TO_ENCODE = ['schema'];
 const VALUES_TO_ENCODE = ['legacyUrl', 'slug', 'url'] as any;
 
 export function encodeData(data: any) {
-  const newData = clonedeep(data);
+  // using for remove all references
+  const newData = JSON.parse(JSON.stringify(data));
 
   modifyObjectStringValues({
     object: newData,
