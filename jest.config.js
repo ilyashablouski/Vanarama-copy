@@ -1,4 +1,5 @@
 module.exports = {
+  testPathIgnorePatterns: ['./cypress/'],
   coveragePathIgnorePatterns: ['/node_modules/', 'enzyme.js'],
   transformIgnorePatterns: ['node_modules/(?!(@vanarama)/)'],
   snapshotSerializers: ['enzyme-to-json/serializer'],
