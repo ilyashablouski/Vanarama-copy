@@ -2,6 +2,9 @@ import React, { useEffect, useRef } from 'react';
 
 import { IImacaConfigurator } from './interfaces';
 
+// colour should be specified as HEX code without # symbol
+const DEFAULT_COLOUR = '000000';
+
 function ImacaConfigurator({
   id,
   className,
@@ -28,6 +31,7 @@ function ImacaConfigurator({
         rims: assets.rimsUrl ?? '',
         tyres: assets.tyresUrl ?? '',
         car: assets.vehicleUrl ?? '',
+        color: selectedColour ?? DEFAULT_COLOUR,
         plateFilterQuality: 1,
         angle: 50,
       },
