@@ -7,6 +7,7 @@ import { getSectionsData } from '../../../utils/getSectionsData';
 import createApolloClient from '../../../apolloClient';
 import Breadcrumb from '../../../core/atoms/breadcrumb-v2';
 import Head from '../../../components/Head/Head';
+import { decodeData, encodeData } from '../../../utils/data';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
@@ -18,7 +19,7 @@ import {
 
 const GuidesCars: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
   // De-obfuscate data for user
-  const data = encodedData;
+  const data = decodeData(encodedData);
 
   if (error || !data) {
     return <DefaultErrorPage statusCode={404} />;
@@ -76,7 +77,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
         : Number(process.env.REVALIDATE_INTERVAL) ||
           Number(DEFAULT_REVALIDATE_INTERVAL),
       props: {
-        data: data || null,
+        data: encodeData(data),
         error: errors ? errors[0] : null,
       },
     };
