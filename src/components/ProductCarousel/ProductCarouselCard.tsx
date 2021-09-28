@@ -19,7 +19,6 @@ import {
 import useWishlist from '../../hooks/useWishlist';
 import { CompareContext } from '../../utils/comparatorTool';
 import { IProductCarouselCard } from './interface';
-import { isInchcapeFeatureEnabled } from '../../utils/helpers';
 
 // Dynamic component loading.
 const Icon = dynamic(() => import('core/atoms/icon'), {
@@ -56,8 +55,6 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
 
   const { wishlistVehicleIds, wishlistChange } = useWishlist();
   const { compareVehicles, compareChange } = useContext(CompareContext);
-
-  const isInchcape = isInchcapeFeatureEnabled();
 
   return (
     <ProductCard
@@ -135,40 +132,16 @@ const ProductCarouselCard: FC<IProductCarouselCard> = props => {
         score: product.averageRating || 5,
       }}
       extrasRender={
-        // this will be removed along with feature flag
-        // eslint-disable-next-line no-nested-ternary
-        isInchcape ? (
-          getVehicle(product, data.derivatives)?.fuelType?.name ===
-            FuelTypeEnum.ELECTRIC ||
-          (product?.freeInsurance &&
-            product.vehicleType === VehicleTypeEnum.CAR) ? (
-            <>
-              {getVehicle(product, data.derivatives)?.fuelType?.name ===
-                FuelTypeEnum.ELECTRIC && (
-                <CardLabel
-                  text="Free Home charger"
-                  icon={<FreeHomeCharger />}
-                />
-              )}
-              {product?.freeInsurance &&
-                product.vehicleType === VehicleTypeEnum.CAR && (
-                  <CardLabel
-                    text="1yr Free Insurance"
-                    icon={<FreeInsuranceCardLabelIcon />}
-                  />
-                )}
-            </>
-          ) : null
-        ) : getVehicle(product, data.derivatives)?.fuelType?.name ===
-            FuelTypeEnum.ELECTRIC ||
-          (product?.isOnOffer &&
-            product.vehicleType === VehicleTypeEnum.CAR) ? (
+        getVehicle(product, data.derivatives)?.fuelType?.name ===
+          FuelTypeEnum.ELECTRIC ||
+        (product?.freeInsurance &&
+          product.vehicleType === VehicleTypeEnum.CAR) ? (
           <>
             {getVehicle(product, data.derivatives)?.fuelType?.name ===
               FuelTypeEnum.ELECTRIC && (
               <CardLabel text="Free Home charger" icon={<FreeHomeCharger />} />
             )}
-            {product?.isOnOffer &&
+            {product?.freeInsurance &&
               product.vehicleType === VehicleTypeEnum.CAR && (
                 <CardLabel
                   text="1yr Free Insurance"

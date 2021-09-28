@@ -125,7 +125,7 @@ function ImacaViewer({
         {isColorSelectionOpen && (
           <ColorSelection
             className="imaca-viewer__color-selection"
-            selectedColor={selectedColor ?? assets.colours?.[0]}
+            selectedColor={selectedColor}
             hotOfferColorList={hotOffersColorList}
             factoryColorList={factoryColorList}
             onChange={color => setColour(color.capId)}
