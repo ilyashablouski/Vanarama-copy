@@ -28,7 +28,7 @@ const RollbarScript = dynamic(() =>
 // );
 
 const env: any = process?.env?.ENV || '';
-const isLocalEnv = process?.env?.LOCAL || '';
+const isLocalEnv = process?.env?.LOCAL === 'true';
 
 // Script environments
 const scriptEnvs = {
