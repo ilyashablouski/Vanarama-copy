@@ -31,7 +31,7 @@ function ColorSelection({
       <div className={getClassName('header')}>
         <Text className={getClassName('selected-color')} color="dark">
           <span>Colour:</span>
-          {selectedColor?.lqName}
+          {selectedColor?.lqName ?? 'Not Selected'}
         </Text>
         {/* <Text className={getClassName('price')} color="orange"> */}
         {/*  {selectedColor?.price ? ( */}
