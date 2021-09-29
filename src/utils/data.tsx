@@ -6,7 +6,7 @@ const VALUES_TO_ENCODE = ['legacyUrl', 'slug', 'url'] as any;
 
 export function encodeData(data: any) {
   if (!data) {
-    return null;
+    return undefined;
   }
 
   // using for remove all references
