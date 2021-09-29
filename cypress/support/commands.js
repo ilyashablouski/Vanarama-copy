@@ -9,6 +9,13 @@
 // ***********************************************
 //
 //
+// -- Press button --
+// Cypress.Commands.add('onPressBtn', (selector, label) => {
+//   cy.get(`${selector}`)
+//     .contains(label)
+//     .click();
+// });
+
 // -- This is a parent command --
 // Cypress.Commands.add('login', (email, password) => { ... })
 //
