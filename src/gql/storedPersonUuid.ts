@@ -1,6 +1,9 @@
 import { gql, useQuery, useMutation, ApolloError } from '@apollo/client';
 import { GetStoredPersonUuid } from '../../generated/GetStoredPersonUuid';
-import { SavePersonUuid, SavePersonUuidVariables } from '../../generated/SavePersonUuid';
+import {
+  SavePersonUuid,
+  SavePersonUuidVariables,
+} from '../../generated/SavePersonUuid';
 
 export const GET_STORED_PERSON_UUID_QUERY = gql`
   query GetStoredPersonUuid {
@@ -28,8 +31,11 @@ export function useSavePersonUuidMutation(
   onCompleted?: (data: SavePersonUuid) => void,
   onError?: (error: ApolloError) => void,
 ) {
-  return useMutation<SavePersonUuid, SavePersonUuidVariables>(SAVE_PERSON_UUID_MUTATION, {
-    onCompleted,
-    onError
-  });
+  return useMutation<SavePersonUuid, SavePersonUuidVariables>(
+    SAVE_PERSON_UUID_MUTATION,
+    {
+      onCompleted,
+      onError,
+    },
+  );
 }
