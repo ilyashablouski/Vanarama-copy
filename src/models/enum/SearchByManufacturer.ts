@@ -1,17 +1,32 @@
 export const PickupsSearch = [
-  { label: 'Ford', href: '/ford-van-leasing/ranger.html' },
-  { label: 'Nissan', href: '/nissan-van-leasing/navara.html' },
-  { label: 'Mitsubishi', href: '/mitsubishi-van-leasing/l200.html' },
+  {
+    label: 'Ford',
+    href: '/ford-van-leasing/ranger.html',
+  },
+  {
+    label: 'Nissan',
+    href: '/nissan-van-leasing/navara.html',
+  },
+  /* {
+    label: 'Mitsubishi',
+    href: '/mitsubishi-van-leasing/l200.html',
+  },
   {
     label: 'Volkswagen',
     href: '/volkswagen-van-leasing/amarok.html',
-  },
-  { label: 'Toyota', href: '/toyota-van-leasing/hilux.html' },
+  }, */
   {
+    label: 'Toyota',
+    href: '/toyota-van-leasing/hilux.html',
+  },
+  /* {
     label: 'Mercedes-Benz',
     href: '/mercedes-benz-van-leasing/x-class.html',
+  }, */
+  {
+    label: 'Isuzu',
+    href: '/isuzu-van-leasing.html',
   },
-  { label: 'Isuzu', href: '/isuzu-van-leasing.html' },
 ];
 
 export const VansSearch = [
