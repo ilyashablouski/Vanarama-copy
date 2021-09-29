@@ -229,13 +229,13 @@ const creditApplicationQueryValidationLink = new ApolloLink(
   },
 );
 
-const iProAdditionalDataQueryLink = new ApolloLink((operation, forward) => {
+const additionalDataQueryLink = new ApolloLink((operation, forward) => {
   if (operation.operationName === 'CreateUpdateOrder') {
-    const iProData = getLocalStorage('additionalData');
+    const additionalData = getLocalStorage('additionalData');
 
-    if (iProData) {
+    if (additionalData) {
       // eslint-disable-next-line no-param-reassign
-      operation.variables.input.additionalData = iProData;
+      operation.variables.input.additionalData = additionalData;
     }
   }
 
@@ -250,7 +250,7 @@ function apolloClientLink() {
     retryLink,
     // persistedQueryLink,
     creditApplicationQueryValidationLink,
-    iProAdditionalDataQueryLink,
+    additionalDataQueryLink,
     httpLink,
   ];
 
