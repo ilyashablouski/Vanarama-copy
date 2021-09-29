@@ -6,8 +6,9 @@ module.exports = {
     'prettier/react',
     'prettier/@typescript-eslint',
     'plugin:testing-library/react',
+    'plugin:cypress/recommended',
   ],
-  plugins: ['react-hooks'],
+  plugins: ['react-hooks', 'cypress'],
   parserOptions: {
     project: './tsconfig.json',
   },
