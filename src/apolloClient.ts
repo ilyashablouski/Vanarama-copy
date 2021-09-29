@@ -4,7 +4,6 @@ import {
   ApolloLink,
   InMemoryCache,
   HttpLink,
-  // operationName,
 } from '@apollo/client';
 // import { createPersistedQueryLink } from '@apollo/client/link/persisted-queries';
 import { RetryLink } from '@apollo/client/link/retry';
@@ -229,14 +228,27 @@ const creditApplicationQueryValidationLink = new ApolloLink(
   },
 );
 
-const additionalDataQueryLink = new ApolloLink((operation, forward) => {
-  if (operation.operationName === 'CreateUpdateOrder') {
+const attachedAdditionalDataLink = new ApolloLink((operation, forward) => {
+  const getAdditionalDataVariable = () => {
     const additionalData = getLocalStorage('additionalData');
+    return additionalData ? { additionalData } : {};
+  };
 
-    if (additionalData) {
-      // eslint-disable-next-line no-param-reassign
-      operation.variables.input.additionalData = additionalData;
-    }
+  if (operation.operationName === 'CreateUpdateOrder') {
+    const modifiedOperation = {
+      ...operation,
+      variables: {
+        ...operation.variables,
+        input: {
+          ...(operation.variables?.input || {}),
+          ...getAdditionalDataVariable(),
+        },
+      },
+      setContext: operation.setContext,
+      getContext: operation.getContext,
+    };
+
+    return forward(modifiedOperation);
   }
 
   return forward(operation);
@@ -250,7 +262,7 @@ function apolloClientLink() {
     retryLink,
     // persistedQueryLink,
     creditApplicationQueryValidationLink,
-    additionalDataQueryLink,
+    attachedAdditionalDataLink,
     httpLink,
   ];
 
