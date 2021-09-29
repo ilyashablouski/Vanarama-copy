@@ -5,6 +5,10 @@ const KEYS_TO_ENCODE = ['schema'];
 const VALUES_TO_ENCODE = ['legacyUrl', 'slug', 'url'] as any;
 
 export function encodeData(data: any) {
+  if (!data) {
+    return null;
+  }
+
   // using for remove all references
   const newData = JSON.parse(JSON.stringify(data));
 

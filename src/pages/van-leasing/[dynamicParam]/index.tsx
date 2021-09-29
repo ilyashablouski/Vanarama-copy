@@ -321,14 +321,10 @@ export async function getServerSideProps(context: NextPageContext) {
         metaData: data?.genericPage.metaData || null,
         filtersData: filtersData?.filterList,
         responseCapIds: responseCapIds || null,
-        vehiclesList: vehiclesList ? encodeData(vehiclesList) : null,
-        productCardsData: productCardsData
-          ? encodeData(productCardsData)
-          : null,
-        topOffersList: topOffersList ? encodeData(topOffersList) : null,
-        topOffersCardsData: topOffersCardsData
-          ? encodeData(topOffersCardsData)
-          : null,
+        vehiclesList: encodeData(vehiclesList) || null,
+        productCardsData: encodeData(productCardsData) || null,
+        topOffersList: encodeData(topOffersList) || null,
+        topOffersCardsData: encodeData(topOffersCardsData) || null,
         ranges: ranges || null,
         defaultSort: defaultSort || null,
         rangesUrls: rangesUrls || null,
