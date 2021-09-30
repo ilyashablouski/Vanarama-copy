@@ -14,11 +14,11 @@ import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
 import localforage from 'localforage';
+import { getAdditionalDataVariable } from 'utils/helpers';
 import { Env } from './utils/env';
 
 import { isSessionFinishedCache } from './cache';
 import resolvers from './resolvers';
-import { getLocalStorage } from './utils/windowLocalStorage';
 
 const AUTHORIZATION_ERROR_CODE = 'UNAUTHORISED';
 // A list of queries that we don't want to be cached in CDN
@@ -229,11 +229,6 @@ const creditApplicationQueryValidationLink = new ApolloLink(
 );
 
 const attachedAdditionalDataLink = new ApolloLink((operation, forward) => {
-  const getAdditionalDataVariable = () => {
-    const additionalData = getLocalStorage('additionalData');
-    return additionalData ? { additionalData } : {};
-  };
-
   if (operation.operationName === 'CreateUpdateOrder') {
     const modifiedOperation = {
       ...operation,
