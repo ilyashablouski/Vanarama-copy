@@ -197,12 +197,14 @@ const AboutUs: React.FC<IAboutPageProps> = ({ loading, data }) => {
         </Heading>
         <RouterLink
           link={{
-            href: sections?.rowText?.link?.url || '',
-            label: sections?.rowText?.link?.text || '',
+            href: sections?.rowText?.rowTextLink?.url || '',
+            label: sections?.rowText?.rowTextLink?.text || '',
           }}
-          classNames={{ color: 'teal' }}
+          classNames={{
+            color: 'teal',
+          }}
         >
-          {sections?.rowText?.link?.text}{' '}
+          {sections?.rowText?.rowTextLink?.text}{' '}
           <Icon
             icon={<ArrowForwardSharp />}
             className="md hydrated"

@@ -37,6 +37,11 @@ const SECTIONS = {
     __typename: 'RowText',
     heading: 'Get Your Free Quote',
     titleTag: 'h2',
+    rowTextLink: {
+      __typename: 'Link',
+      text: 'Get Quote',
+      url: '/van-leasing/citroen/berlingo',
+    },
     link: {
       __typename: 'Link',
       text: 'Get Quote',
