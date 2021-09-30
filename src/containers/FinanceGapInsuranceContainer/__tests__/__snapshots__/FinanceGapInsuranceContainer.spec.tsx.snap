@@ -214,9 +214,10 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
         >
           <li
             class="breadcrumb-item -parent"
+            style="display: none;"
           >
             <a
-              class="breadcrumb-item--backlink link -teal -small"
+              class="breadcrumb-item--parent link -teal -small"
               data-testid="router-link"
               href="/"
             >
@@ -234,15 +235,15 @@ exports[`<FinanceExplainedContainer /> should match snapshot 1`] = `
                   />
                 </svg>
               </i>
-              Back to 
               Home
             </a>
           </li>
           <li
             class="breadcrumb-item -parent"
+            style="display: grid;"
           >
             <a
-              class="breadcrumb-item--backlink link -teal -small"
+              class="breadcrumb-item--parent link -teal -small"
               data-testid="link"
               href="/van-insurance.html"
             >
