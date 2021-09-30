@@ -30,10 +30,7 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
 
   const renderParent = (item: IBreadcrumbLink) =>
     isDesktopOrTablet ? (
-      <li
-        className="breadcrumb-item -parent"
-        key={`${item.link.label}-desktop`}
-      >
+      <li className="breadcrumb-item -parent" key={`${item.link.label}`}>
         <RouterLink
           classNames={{ color: 'teal', size: 'small' }}
           className="breadcrumb-item--parent"
@@ -45,15 +42,23 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
         <Icon icon={<ChevronForward />} size="xsmall" color="medium" />
       </li>
     ) : (
-      <li className="breadcrumb-item -parent" key={`${item.link.label}-mobile`}>
+      <li
+        className="breadcrumb-item -parent"
+        key={`${item.link.label}`}
+        style={{
+          display:
+            items && items.indexOf(item) === items.length - 2 ? 'grid' : 'none',
+        }}
+      >
         <RouterLink
           classNames={{ color: 'teal', size: 'small' }}
-          className="breadcrumb-item--backlink"
+          className="breadcrumb-item--parent"
           link={item.link}
           as={item.as}
         >
           <Icon icon={<ChevronBack />} color="teal" />
-          Back to {item.link.label}
+          {items && items.indexOf(item) === items.length - 2 && 'Back to '}
+          {item.link.label}
         </RouterLink>
       </li>
     );
