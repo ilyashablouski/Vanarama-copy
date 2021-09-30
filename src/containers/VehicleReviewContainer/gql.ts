@@ -40,6 +40,11 @@ export const GENERIC_PAGE_QUESTION = gql`
         rowText {
           heading
           titleTag
+          rowTextLink {
+            text
+            url
+            legacyUrl
+          }
           link {
             text
             url
