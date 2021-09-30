@@ -11,6 +11,7 @@ import {
   GetTrimAndColor_colourList as IColourList,
   GetTrimAndColor_trimList as ITrimList,
 } from '../../generated/GetTrimAndColor';
+import { getLocalStorage } from './windowLocalStorage';
 
 export const genDays = () => [...Array(31)].map((_, i) => i + 1);
 
@@ -49,6 +50,11 @@ export const toDataAbTestIdFormat = (
     .toString()
     .toLowerCase()
     .replace(/ /g, '-')}`;
+
+export const getAdditionalDataVariable = () => {
+  const additionalData = getLocalStorage('additionalData');
+  return additionalData ? { additionalData } : {};
+};
 
 export interface IOrderList {
   quoteByCapId: GetQuoteDetails_quoteByCapId | null | undefined;
