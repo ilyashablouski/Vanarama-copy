@@ -246,6 +246,20 @@ const attachedAdditionalDataLink = new ApolloLink((operation, forward) => {
     return forward(modifiedOperation);
   }
 
+  if (operation.operationName === 'CreateOpportunity') {
+    const modifiedOperation = {
+      ...operation,
+      variables: {
+        ...operation.variables,
+        ...getAdditionalDataVariable(),
+      },
+      setContext: operation.setContext,
+      getContext: operation.getContext,
+    };
+
+    return forward(modifiedOperation);
+  }
+
   return forward(operation);
 });
 
