@@ -6,6 +6,7 @@ import {
 
 export const CREATE_OPPORTUNITY_MUTATION = gql`
   mutation CreateOpportunity(
+    $additionalData: Json
     $capId: Int
     $email: String!
     $fullName: String!
@@ -22,6 +23,7 @@ export const CREATE_OPPORTUNITY_MUTATION = gql`
   ) {
     createOpportunity(
       input: {
+        additionalData: $additionalData
         capId: $capId
         email: $email
         fullName: $fullName
