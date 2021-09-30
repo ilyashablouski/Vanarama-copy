@@ -1,20 +1,23 @@
 import React, { useState } from 'react';
-import cx from 'classnames';
-import CarouselSwiper from 'core/organisms/carousel/CarouselSwiper';
+import SwiperClass from 'swiper/types/swiper-class';
 import { SwiperSlide } from 'swiper/react';
+import cx from 'classnames';
+
+import CarouselSwiper from 'core/organisms/carousel/CarouselSwiper';
+import { useMobileViewport } from '../../../hooks/useMediaQuery';
+
 import {
   IComparatorTable,
   IHeading,
   ICriterias,
   IVehicleDetails,
 } from './interface';
-
 import ComparatorCard from './ComparatorCard';
 import ComparatorRow from './ComparatorRow';
 
 const MAX_AMOUNT_VEHICLES = 3;
 
-const ComporatorTable: React.FC<IComparatorTable> = ({
+const ComparatorTable: React.FC<IComparatorTable> = ({
   className,
   dataTestId,
   deleteVehicle,
@@ -25,6 +28,8 @@ const ComporatorTable: React.FC<IComparatorTable> = ({
 }) => {
   const [index, setIndex] = useState(0);
   const columns = Array(MAX_AMOUNT_VEHICLES).fill('');
+
+  const isMobileLayout = useMobileViewport();
 
   const vehiclesDetailsValues = criterias.reduce(
     (details, criteria: ICriterias) => {
@@ -42,10 +47,19 @@ const ComporatorTable: React.FC<IComparatorTable> = ({
 
   const { headingValues, priceValues } = vehiclesDetailsValues;
 
+  function handleSlideChange(swiper: SwiperClass) {
+    setIndex(swiper.realIndex);
+  }
+
   return (
     <div className={cx('comparator-table', className)} data-testid={dataTestId}>
       <header className={cx('comparator-table--header', className)}>
-        <CarouselSwiper countItems={3}>
+        <CarouselSwiper
+          watchOverflow
+          loop={isMobileLayout}
+          countItems={3}
+          onSlideChange={handleSlideChange}
+        >
           {columns.map((column, number) => (
             <SwiperSlide key={number.toString()}>
               <ComparatorCard
@@ -89,4 +103,4 @@ const ComporatorTable: React.FC<IComparatorTable> = ({
   );
 };
 
-export default ComporatorTable;
+export default ComparatorTable;
