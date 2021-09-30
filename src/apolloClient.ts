@@ -14,7 +14,7 @@ import { onError } from '@apollo/client/link/error';
 import fetch from 'isomorphic-unfetch';
 import { NextPageContext } from 'next';
 import localforage from 'localforage';
-import { getAdditionalDataVariable } from 'utils/helpers';
+import { getAdditionalDataVariable } from './utils/helpers';
 import { Env } from './utils/env';
 
 import { isSessionFinishedCache } from './cache';
