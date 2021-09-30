@@ -175,17 +175,23 @@ const VehicleReviewContainer: FC<IProps> = ({
             {sections?.rowText?.heading}
           </Heading>
           <RouterLink
-            classNames={{ color: 'teal', solid: true, size: 'regular' }}
+            classNames={{
+              color: 'teal',
+              solid: true,
+              size: 'regular',
+            }}
             className="button -fullwidth"
             link={{
               href:
-                sections?.rowText?.link?.legacyUrl ||
-                sections?.rowText?.link?.url ||
+                sections?.rowText?.rowTextLink?.legacyUrl ||
+                sections?.rowText?.rowTextLink?.url ||
                 '',
-              label: sections?.rowText?.link?.text || '',
+              label: sections?.rowText?.rowTextLink?.text || '',
             }}
           >
-            <div className="button--inner">{sections?.rowText?.link?.text}</div>
+            <div className="button--inner">
+              {sections?.rowText?.rowTextLink?.text}
+            </div>
           </RouterLink>
         </div>
       </div>

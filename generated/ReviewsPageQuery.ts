@@ -39,6 +39,12 @@ export interface ReviewsPageQuery_reviewsPage_sections_link {
   legacyUrl: string | null;
 }
 
+export interface ReviewsPageQuery_reviewsPage_sections_rowText_rowTextLink {
+  text: string | null;
+  url: string | null;
+  legacyUrl: string | null;
+}
+
 export interface ReviewsPageQuery_reviewsPage_sections_rowText_link {
   text: string | null;
   url: string | null;
@@ -48,6 +54,7 @@ export interface ReviewsPageQuery_reviewsPage_sections_rowText_link {
 export interface ReviewsPageQuery_reviewsPage_sections_rowText {
   heading: string | null;
   titleTag: string | null;
+  rowTextLink: ReviewsPageQuery_reviewsPage_sections_rowText_rowTextLink | null;
   link: ReviewsPageQuery_reviewsPage_sections_rowText_link | null;
 }
 
