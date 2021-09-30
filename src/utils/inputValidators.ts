@@ -208,6 +208,10 @@ export const companyNameValidator = {
     value: true,
     message: 'Please enter your company name',
   },
+  minLength: {
+    value: 2,
+    message: 'Oops, this name’s too short. Please make it 2 characters or more',
+  },
   maxLength: {
     value: 160,
     message:
