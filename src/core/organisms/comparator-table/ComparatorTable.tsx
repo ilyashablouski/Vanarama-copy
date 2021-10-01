@@ -4,7 +4,6 @@ import { SwiperSlide } from 'swiper/react';
 import cx from 'classnames';
 
 import CarouselSwiper from 'core/organisms/carousel/CarouselSwiper';
-import { useMobileViewport } from '../../../hooks/useMediaQuery';
 
 import {
   IComparatorTable,
@@ -28,8 +27,6 @@ const ComparatorTable: React.FC<IComparatorTable> = ({
 }) => {
   const [index, setIndex] = useState(0);
   const columns = Array(MAX_AMOUNT_VEHICLES).fill('');
-
-  const isMobileLayout = useMobileViewport();
 
   const vehiclesDetailsValues = criterias.reduce(
     (details, criteria: ICriterias) => {
@@ -56,8 +53,8 @@ const ComparatorTable: React.FC<IComparatorTable> = ({
       <header className={cx('comparator-table--header', className)}>
         <CarouselSwiper
           watchOverflow
-          loop={isMobileLayout}
           countItems={3}
+          className="comparator-table--slider"
           onSlideChange={handleSlideChange}
         >
           {columns.map((column, number) => (
