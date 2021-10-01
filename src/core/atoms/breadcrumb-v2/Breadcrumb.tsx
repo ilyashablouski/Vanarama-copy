@@ -28,8 +28,11 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
   const isDesktopOrTablet = useMediaQuery('(min-width: 768px)');
   const { items, dataTestId } = props;
 
-  const renderParent = (item: IBreadcrumbLink) =>
-    isDesktopOrTablet ? (
+  const renderParent = (item: IBreadcrumbLink) => {
+    const isBackLinkBreadcrumb =
+      items && items.indexOf(item) === items.length - 2;
+
+    return isDesktopOrTablet ? (
       <li className="breadcrumb-item -parent" key={`${item.link.label}`}>
         <RouterLink
           classNames={{ color: 'teal', size: 'small' }}
@@ -46,8 +49,7 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
         className="breadcrumb-item -parent"
         key={`${item.link.label}`}
         style={{
-          display:
-            items && items.indexOf(item) === items.length - 2 ? 'grid' : 'none',
+          display: isBackLinkBreadcrumb ? 'grid' : 'none',
         }}
       >
         <RouterLink
@@ -57,11 +59,12 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
           as={item.as}
         >
           <Icon icon={<ChevronBack />} color="teal" />
-          {items && items.indexOf(item) === items.length - 2 && 'Back to '}
+          {isBackLinkBreadcrumb && 'Back to '}
           {item.link.label}
         </RouterLink>
       </li>
     );
+  };
 
   const renderChild = (item: IBreadcrumbLink) => (
     <li
