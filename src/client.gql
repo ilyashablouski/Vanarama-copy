@@ -5,8 +5,10 @@ extend type Query {
   lastStep: JSON
   isSessionFinished: Boolean
   storedPerson: PersonType
+  storedPersonUuid: ID
 }
 
 extend type Mutation {
   savePerson(person: PersonInputObject): PersonType
+  savePersonUuid(uuid: ID): ID
 }
