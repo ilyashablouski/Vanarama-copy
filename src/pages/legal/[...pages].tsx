@@ -16,7 +16,7 @@ import {
   PageCollectionVariables,
 } from '../../../generated/PageCollection';
 import { getSectionsData } from '../../utils/getSectionsData';
-import Breadcrumb from '../../core/atoms/breadcrumb-v2';
+import Breadcrumbs from '../../core/atoms/breadcrumbs-v2';
 import Head from '../../components/Head/Head';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
@@ -44,7 +44,7 @@ const BlogPost: NextPage<ILegalPage> = ({ data, error }) => {
     <>
       {breadcrumbsItems && (
         <div className="row:title">
-          <Breadcrumb items={breadcrumbsItems} />
+          <Breadcrumbs items={breadcrumbsItems} />
         </div>
       )}
       <LegalArticleContainer

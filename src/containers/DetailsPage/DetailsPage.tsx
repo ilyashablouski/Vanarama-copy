@@ -12,7 +12,7 @@ import MediaGallery from 'core/organisms/media-gallery';
 // @ts-ignore
 import decode from 'decode-html';
 
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 
 // @ts-ignore
 // eslint-disable-next-line import/no-webpack-loader-syntax
@@ -583,7 +583,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       <div className="pdp--content" ref={pdpContent}>
         {breadcrumbItems && (
           <div className="row:title">
-            <Breadcrumb items={breadcrumbItems} />
+            <Breadcrumbs items={breadcrumbItems} />
           </div>
         )}
         <h1 className="heading -pt-100 -black -xlarge">{pageTitle}</h1>

@@ -45,6 +45,7 @@ function ImacaConfigurator({
       configViewer.wrapperElement.remove();
       delete window.configurationRenderers?.[id];
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [height, width, id]);
 
   useEffect(() => {

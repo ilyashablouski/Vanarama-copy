@@ -2,7 +2,7 @@ import React, { FC, useState, useEffect } from 'react';
 import dynamic from 'next/dynamic';
 import { useLazyQuery } from '@apollo/client';
 import TrustPilot from 'core/molecules/trustpilot';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import {
   TestimonialsData,
   TestimonialsDataVariables,
@@ -99,7 +99,7 @@ const CustomerTestimonialsContainer: FC<IProps> = ({
   return (
     <>
       <div className="testimonials--content">
-        <Breadcrumb items={breadcrumbsItems} />
+        <Breadcrumbs items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

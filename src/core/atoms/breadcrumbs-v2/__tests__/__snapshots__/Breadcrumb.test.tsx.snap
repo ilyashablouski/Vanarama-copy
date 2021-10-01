@@ -9,9 +9,14 @@ exports[`<Breadcrumbs /> renders correctly with optional props 1`] = `
   >
     <li
       className="breadcrumb-item -parent"
+      style={
+        Object {
+          "display": "none",
+        }
+      }
     >
       <a
-        className="breadcrumb-item--backlink link -teal -small"
+        className="breadcrumb-item--parent link -teal -small"
         data-menu={null}
         data-testid="router-link"
         href="/"
@@ -39,15 +44,19 @@ exports[`<Breadcrumbs /> renders correctly with optional props 1`] = `
             </span>
           </span>
         </div>
-        Back to 
         Page1
       </a>
     </li>
     <li
       className="breadcrumb-item -parent"
+      style={
+        Object {
+          "display": "grid",
+        }
+      }
     >
       <a
-        className="breadcrumb-item--backlink link -teal -small"
+        className="breadcrumb-item--parent link -teal -small"
         data-menu={null}
         data-testid="router-link"
         href="/"

@@ -29,15 +29,6 @@
       }
     }
 
-    &--backlink.link {
-      display: none;
-    }
-
-    &.-parent:nth-last-child(2) > .breadcrumb-item--backlink.link {
-      display: inline;
-      width: 100%;
-    }
-
     &--arrow {
       font-size: 0.9em;
       vertical-align: baseline;
