@@ -83,6 +83,14 @@ $comparator-image-height: 14rem;
     }
   }
 
+  &--slider {
+    .swiper-slide:nth-child(n+4) {
+      @include tablet-desktop {
+        display: none;
+      }
+    }
+  }
+
   &--nav {
     display: none;
     justify-content: center;

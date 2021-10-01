@@ -10,7 +10,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
         class="comparator-table--header"
       >
         <div
-          class="carousel"
+          class="carousel comparator-table--slider"
         >
           <div
             class="swiper-container swiper-container-initialized swiper-container-horizontal"
@@ -20,7 +20,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
               style="transition-duration: 0ms; transform: translate3d(NaNpx, 0px, 0px);"
             >
               <div
-                class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active"
+                class="swiper-slide swiper-slide-duplicate"
                 data-swiper-slide-index="0"
               >
                 <div
@@ -354,7 +354,7 @@ exports[`<ComparatorTable /> renders correctly with default <ComparatorTable /> 
                 </div>
               </div>
               <div
-                class="swiper-slide swiper-slide-duplicate swiper-slide-duplicate-active"
+                class="swiper-slide swiper-slide-duplicate"
                 data-swiper-slide-index="0"
               >
                 <div
