@@ -27,7 +27,6 @@ function BreadcrumbsItem({ isLastItem, isMobileBackLink, itemData }: IProps) {
     return (
       <li
         className="breadcrumb-item -child"
-        key={itemData.link.label}
         style={{ display: isDesktopOrTablet ? 'grid' : 'none' }}
       >
         <Text size="small" color="darker" className="breadcrumb-item--child">
@@ -38,7 +37,7 @@ function BreadcrumbsItem({ isLastItem, isMobileBackLink, itemData }: IProps) {
   }
 
   return isDesktopOrTablet ? (
-    <li className="breadcrumb-item -parent" key={`${itemData.link.label}`}>
+    <li className="breadcrumb-item -parent">
       <RouterLink
         classNames={{ color: 'teal', size: 'small' }}
         className="breadcrumb-item--parent"
@@ -52,7 +51,6 @@ function BreadcrumbsItem({ isLastItem, isMobileBackLink, itemData }: IProps) {
   ) : (
     <li
       className="breadcrumb-item -parent"
-      key={`${itemData.link.label}`}
       style={{
         display: isMobileBackLink ? 'grid' : 'none',
       }}
