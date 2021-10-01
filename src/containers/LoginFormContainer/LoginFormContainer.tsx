@@ -75,7 +75,7 @@ export const saveOrders = ([ordersQuery, quotesQuery]: ApolloQueryResult<
 export const savePersonLocally = (
   getPersonQuery: ApolloQueryResult<GetPerson>,
 ) => {
-  setPersonLoggedIn(getPersonQuery.data);
+  setPersonLoggedIn(getPersonQuery.data?.getPerson);
   return setLocalPersonState(getPersonQuery.data);
 };
 
@@ -128,9 +128,9 @@ const LoginFormContainer = ({
 
   const requestPerson = () => getPerson({});
 
-  const requestCompanies = (data?: GetPerson) =>
+  const requestCompanies = (person?: GetPerson['getPerson']) =>
     getCompaniesData({
-      personUuid: data?.getPerson?.uuid || '',
+      personUuid: person?.uuid || '',
     });
 
   const requestOrders = (partyUuid: string[]) =>

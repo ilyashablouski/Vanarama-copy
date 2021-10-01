@@ -1,4 +1,11 @@
-import { gql, useQuery, useMutation, ApolloError } from '@apollo/client';
+import {
+  gql,
+  useQuery,
+  useMutation,
+  ApolloError,
+  ApolloClient,
+  NormalizedCacheObject,
+} from '@apollo/client';
 import { GetStoredPerson } from '../../generated/GetStoredPerson';
 import { SavePerson, SavePersonVariables } from '../../generated/SavePerson';
 
@@ -44,4 +51,28 @@ export function useStoredPersonQuery(
 
 export function useSavePersonMutation() {
   return useMutation<SavePerson, SavePersonVariables>(SAVE_PERSON_MUTATION);
+}
+
+export function getStoredPerson(client: ApolloClient<NormalizedCacheObject>) {
+  return client
+    .query<GetStoredPerson>({
+      query: GET_STORED_PERSON_QUERY,
+    })
+    .then(operation => operation.data?.storedPerson)
+    .catch(() => null);
+}
+
+export function setStoredPerson(
+  client: ApolloClient<NormalizedCacheObject>,
+  person: SavePersonVariables['person'],
+) {
+  return client
+    .mutate<SavePerson, SavePersonVariables>({
+      mutation: SAVE_PERSON_MUTATION,
+      variables: {
+        person,
+      },
+    })
+    .then(operation => operation.data?.savePerson)
+    .catch(() => null);
 }
