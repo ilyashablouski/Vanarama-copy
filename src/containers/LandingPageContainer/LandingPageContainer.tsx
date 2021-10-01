@@ -1,7 +1,7 @@
 import React, { Fragment, useMemo } from 'react';
 import Heading from 'core/atoms/heading';
 import SchemaJSON from 'core/atoms/schema-json';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import ButtonBottomToTop from 'core/atoms/button-bottom-to-top/ButtonBottomToTop';
 import { buildRenderArray } from './helpers';
 import {
@@ -53,7 +53,7 @@ const LandingPageContainer = ({ data, title }: IProps) => {
       <div className="row:title">
         {breadcrumbsItems && (
           <div className="row:title">
-            <Breadcrumb items={breadcrumbsItems} />
+            <Breadcrumbs items={breadcrumbsItems} />
           </div>
         )}
         <Heading tag="h1" size="xlarge" color="black" className="-mb-300">

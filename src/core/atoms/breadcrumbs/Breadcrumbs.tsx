@@ -11,7 +11,7 @@ import ChevronForward from '../../assets/icons/ChevronForward';
 import { IBreadcrumbProps } from './interfaces';
 import { ILink } from '../../interfaces/link';
 
-const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
+const Breadcrumbs: FC<IBreadcrumbProps> = memo(props => {
   const { className, items = [], dataTestId } = props;
 
   const renderParent = (item: ILink, key: number) => (
@@ -61,6 +61,6 @@ const Breadcrumb: FC<IBreadcrumbProps> = memo(props => {
   ) : null;
 });
 
-Breadcrumb.displayName = 'Breadcrumb';
+Breadcrumbs.displayName = 'Breadcrumb';
 
-export default Breadcrumb;
+export default Breadcrumbs;

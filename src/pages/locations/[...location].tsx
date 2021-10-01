@@ -4,7 +4,7 @@ import { useState } from 'react';
 import dynamic from 'next/dynamic';
 import * as toast from 'core/atoms/toast/Toast';
 import { PreviewNextPageContext } from 'types/common';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import LogoMarkIcon from 'core/assets/icons/custom/LogoMark';
 import {
   handleNetworkError,
@@ -185,7 +185,7 @@ export const LocationsPage: NextPage<IGenericPage> = ({ data }) => {
       )}
       {breadcrumbsItems && (
         <div className="row:title -mt-200">
-          <Breadcrumb items={breadcrumbsItems} />
+          <Breadcrumbs items={breadcrumbsItems} />
         </div>
       )}
       {leadText && (

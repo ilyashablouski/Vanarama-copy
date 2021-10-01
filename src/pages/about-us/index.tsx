@@ -12,7 +12,7 @@ import AboutUs, {
 } from '../../containers/AboutUsPageContainer/AboutUs';
 import createApolloClient from '../../apolloClient';
 import { getSectionsData } from '../../utils/getSectionsData';
-import Breadcrumb from '../../core/atoms/breadcrumb-v2';
+import Breadcrumbs from '../../core/atoms/breadcrumbs-v2';
 import Head from '../../components/Head/Head';
 import { encodeData, decodeData } from '../../utils/data';
 
@@ -52,7 +52,7 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
     <>
       {breadcrumbs && (
         <div className="row:title">
-          <Breadcrumb items={breadcrumbs} />
+          <Breadcrumbs items={breadcrumbs} />
         </div>
       )}
       <AboutUs data={data} loading={loading} />

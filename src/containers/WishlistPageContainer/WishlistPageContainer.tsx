@@ -10,7 +10,7 @@ import Modal from 'core/molecules/modal';
 import Heading from 'core/atoms/heading';
 import Loading from 'core/atoms/loading';
 
-import Breadcrumb from '../../core/atoms/breadcrumb-v2';
+import Breadcrumbs from '../../core/atoms/breadcrumbs-v2';
 
 import useWishlist from '../../hooks/useWishlist';
 import { VehicleTypeEnum } from '../../../generated/globalTypes';
@@ -141,7 +141,7 @@ function WishlistPageContainer({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbsList} />
+        <Breadcrumbs items={breadcrumbsList} />
         <Heading tag="h1" size="xlarge" color="black">
           {pageTitle}
         </Heading>

@@ -2,7 +2,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { GenericPageQuery_genericPage_sections_cards_cards as ICard } from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import getTitleTag from '../../utils/getTitleTag';
@@ -53,7 +53,7 @@ export const LocationsPage: NextPage<IGenericPage> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
+        <Breadcrumbs items={breadcrumbsItems} />
         <Heading size="xlarge" color="black" tag="h1">
           {metaDataName}
         </Heading>

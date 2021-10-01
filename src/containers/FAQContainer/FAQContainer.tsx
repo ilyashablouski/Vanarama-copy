@@ -1,7 +1,7 @@
 import React, { FC } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import {
   GenericPageQuery_genericPage_sections as Section,
   GenericPageQuery_genericPage_sections_faqs_questionSets,
@@ -92,7 +92,7 @@ const FAQContainer: FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        {breadcrumbsItems && <Breadcrumb items={breadcrumbsItems} />}
+        {breadcrumbsItems && <Breadcrumbs items={breadcrumbsItems} />}
         <Heading size="xlarge" color="black" tag="h1">
           {title || ''}
         </Heading>

@@ -2,7 +2,7 @@ import React, { FC, useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import SchemaJSON from 'core/atoms/schema-json';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import { IBreadcrumb } from '../../types/breadcrumbs';
 import {
@@ -71,7 +71,7 @@ const FeaturedAndTilesContainer: FC<IProps> = ({ data, leasingOffers }) => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs} />
         <Heading size="xlarge" color="black" tag="h1">
           {title}
         </Heading>

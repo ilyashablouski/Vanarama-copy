@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import TrustPilot from 'core/molecules/trustpilot';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import createApolloClient from 'apolloClient';
 import {
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets_questionAnswers as QuestionAnswers,
@@ -113,7 +113,7 @@ const EligibilityChecker: NextPage<IEligbilityCheckerPage> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
+        <Breadcrumbs items={breadcrumbsItems} />
         <Heading size="xlarge" color="black" tag="h1">
           {metaDataName}
         </Heading>

@@ -2,7 +2,7 @@ import { ApolloError } from '@apollo/client';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
 import { useEffect, useState } from 'react';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
@@ -85,7 +85,7 @@ const SimplePageContainer: React.FC<ISimplePageContainer> = prop => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbs} />
+        <Breadcrumbs items={breadcrumbs} />
         <Heading tag="h1" size="xlarge" color="black">
           {metaDataName}
         </Heading>

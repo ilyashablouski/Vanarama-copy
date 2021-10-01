@@ -20,7 +20,7 @@ import {
   useTextSearchList,
   IGSVehiclesCardsData,
 } from '../GlobalSearchContainer/gql';
-import Breadcrumb from '../../core/atoms/breadcrumb-v2';
+import Breadcrumbs from '../../core/atoms/breadcrumbs-v2';
 import CommonDescriptionContainer from '../SearchPageContainer/CommonDescriptionContainer';
 import { GlobalSearchCardsData_productCard as ICardsData } from '../../../generated/GlobalSearchCardsData';
 import {
@@ -412,7 +412,7 @@ const GlobalSearchPageContainer = memo(
     return (
       <>
         <div className="row:title">
-          <Breadcrumb items={breadcrumbsItems} />
+          <Breadcrumbs items={breadcrumbsItems} />
           <CommonDescriptionContainer pageData={pageData} />
           {isAllProductsRequest ? (
             <Text tag="p" color="black" size="lead" className="heading">
