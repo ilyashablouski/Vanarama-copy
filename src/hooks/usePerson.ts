@@ -14,9 +14,9 @@ export default function usePerson() {
     }
 
     getLocalPersonState().then(([personData, savedPersonUuid]) => {
-      if (personData?.getPerson) {
-        setPerson(personData.getPerson);
-        setPersonUuid(personData.getPerson.uuid);
+      if (personData) {
+        setPerson(personData);
+        setPersonUuid(personData?.uuid);
         setPersonLoggedIn(true);
       } else if (savedPersonUuid) {
         setPersonUuid(savedPersonUuid);
