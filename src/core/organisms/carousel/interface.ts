@@ -1,3 +1,4 @@
+import SwiperClass from 'swiper/types/swiper-class';
 import { IBaseProps } from '../../interfaces/base';
 
 export interface ICarouselProps extends IBaseProps {
@@ -6,4 +7,5 @@ export interface ICarouselProps extends IBaseProps {
   loop?: boolean;
   disableNavigation?: boolean;
   children?: React.ReactNode;
+  onSlideChange?: (swiper: SwiperClass) => void;
 }
