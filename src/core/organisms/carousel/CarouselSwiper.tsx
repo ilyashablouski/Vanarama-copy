@@ -17,6 +17,7 @@ function CarouselSwiper({
   disableNavigation,
   className,
   children,
+  onSlideChange,
 }: ICarouselProps) {
   return (
     <div className={cx('carousel', className)}>
@@ -35,6 +36,7 @@ function CarouselSwiper({
         }}
         noSwipingSelector="input, select, option, textarea, button, video, label"
         touchEventsTarget="wrapper"
+        onSlideChange={onSlideChange}
       >
         {children}
         <div
