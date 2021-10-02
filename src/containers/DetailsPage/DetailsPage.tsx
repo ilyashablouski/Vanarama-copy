@@ -61,7 +61,7 @@ import PartnershipLogoHeader from '../PartnershipLogoHeader';
 import WishlistToggle from './WishlistToggle';
 import {
   GetPdpContent as IGetPdpContentQuery,
-  GetPdpContent_pdpContent_banners,
+  GetPdpContent_pdpContent_banners as IPdpBanner,
   GetPdpContent_pdpContent_content_questionAnswers,
 } from '../../../generated/GetPdpContent';
 import { buildAccordionItems, removeImacaColoursDuplications } from './helpers';
@@ -170,8 +170,8 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   imacaAssets,
 }) => {
   const router = useRouter();
-  const pdpContent = React.useRef<HTMLDivElement>(null);
-  const leaseScanner = React.useRef<HTMLDivElement>(null);
+  const pdpContentRef = React.useRef<HTMLDivElement>(null);
+  const leaseScannerRef = React.useRef<HTMLDivElement>(null);
   // pass cars prop(Boolean)
   const { cachedLeaseType, setCachedLeaseType } = useLeaseType(cars);
   const [leaseType, setLeaseType] = useState<LeaseTypeEnum>(
@@ -249,13 +249,19 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   }, [capId, cars, data, price, pickups, vans, mileage]);
 
   useEffect(() => {
+    let timerId: NodeJS.Timeout;
+
     if (isMobile) {
       window.addEventListener('scroll', scrollChange);
-      leaseScanner.current?.classList.remove('-fixed');
-      setTimeout(() => {
-        leaseScanner.current?.classList.add('-fixed');
+      leaseScannerRef.current?.classList.remove('-fixed');
+      timerId = setTimeout(() => {
+        leaseScannerRef.current?.classList.add('-fixed');
       }, 1000);
     }
+
+    return () => {
+      clearTimeout(timerId);
+    };
   }, [isMobile]);
 
   useEffect(() => {
@@ -291,16 +297,23 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   ]);
 
   useFirstRenderEffect(() => {
+    let timerId: NodeJS.Timeout;
+
     if (price && !firstTimePushDataLayer) {
       onPushPDPDataLayer();
     }
     if (isMobile) {
-      leaseScanner.current!.style.display = 'flex';
-      setTimeout(() => {
-        leaseScanner.current!.style.removeProperty('display');
+      leaseScannerRef.current!.style.display = 'flex';
+      timerId = setTimeout(() => {
+        leaseScannerRef.current!.style.removeProperty('display');
       }, 1000);
     }
+
+    return () => {
+      clearTimeout(timerId);
+    };
   }, [price]);
+
   const vehicleDetails = data?.vehicleDetails;
   const standardEquipment = data?.standardEquipment;
 
@@ -347,6 +360,12 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
       [],
     [data?.vehicleImages],
   );
+
+  const bannerList = useMemo(() => {
+    const banners = pdpContentData?.pdpContent?.banners;
+    return !isFreeInsurance ? banners?.slice(1) : banners;
+  }, [isFreeInsurance, pdpContentData?.pdpContent?.banners]);
+  const shouldBannersRender = bannerList?.length;
 
   const onOrderStart = (
     withInsurance = false,
@@ -550,7 +569,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   };
 
   const calcScrollHeight = () => {
-    const pdpContentHeight = pdpContent.current!.scrollHeight;
+    const pdpContentHeight = pdpContentRef.current!.scrollHeight;
     const customerAlsoViewHeight = !!productCard || !!capsId?.length ? 700 : 0;
     return pdpContentHeight + customerAlsoViewHeight - window.innerHeight;
   };
@@ -580,7 +599,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           </div>
         )}
       </div>
-      <div className="pdp--content" ref={pdpContent}>
+      <div className="pdp--content" ref={pdpContentRef}>
         {breadcrumbItems && (
           <div className="row:title">
             <Breadcrumbs items={breadcrumbItems} />
@@ -681,17 +700,15 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           standardEquipment={standardEquipment}
         />
 
-        <LazyLoadComponent
-          visibleByDefault={isServerRenderOrAppleDevice}
-          placeholder={<span className="-d-block -h-300" />}
-        >
-          <Banners
-            cards={
-              (pdpContentData?.pdpContent
-                ?.banners as GetPdpContent_pdpContent_banners[]) || []
-            }
-          />
-        </LazyLoadComponent>
+        {shouldBannersRender && (
+          <LazyLoadComponent
+            visibleByDefault={isServerRenderOrAppleDevice}
+            placeholder={<span className="-d-block -h-300" />}
+          >
+            <Banners cards={bannerList as IPdpBanner[]} />
+          </LazyLoadComponent>
+        )}
+
         {isMobile && vehicleDetails?.brochureUrl && (
           <Button
             className="pdp--mobile-download"
@@ -828,7 +845,7 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
           className={cx('lease-scanner--sticky-wrap', {
             '-fixed': (screenY || 0) < calcScrollHeight(),
           })}
-          ref={leaseScanner}
+          ref={leaseScannerRef}
         >
           <LeaseScanner
             classNameHeading="headingText"
