@@ -46,6 +46,7 @@ import {
 import { GET_LEGACY_URLS } from '../../../containers/SearchPageContainer/gql';
 import {
   genericPagesQuery,
+  genericPagesQueryVariables,
   genericPagesQuery_genericPages_items as GenericPages,
 } from '../../../../generated/genericPagesQuery';
 import {
@@ -393,7 +394,7 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     }
 
     const genericPages = await client
-      .query<genericPagesQuery>({
+      .query<genericPagesQuery, genericPagesQueryVariables>({
         query: GET_LEGACY_URLS,
         variables: {
           slugs: getBreadcrumbSlugs(data?.genericPage.metaData.slug),

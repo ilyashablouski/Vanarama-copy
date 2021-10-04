@@ -16,7 +16,11 @@ import {
   manufacturerListVariables,
 } from '../../../generated/manufacturerList';
 import { ISearchPageProps } from '../../models/ISearchPageProps';
-import { genericPagesQuery_genericPages_items as IManufacturerUrl } from '../../../generated/genericPagesQuery';
+import {
+  genericPagesQuery,
+  genericPagesQueryVariables,
+  genericPagesQuery_genericPages_items as IManufacturerUrl,
+} from '../../../generated/genericPagesQuery';
 import { formatToSlugFormat } from '../../utils/url';
 import { decodeData, encodeData } from '../../utils/data';
 
@@ -76,15 +80,17 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
       manufacturer?.manufacturerName || '',
     )}`;
   });
-  const manufacturersUrls = await client
-    .query({
-      query: GET_LEGACY_URLS,
-      variables: {
-        slugs,
-        ...(context?.preview && { isPreview: context?.preview }),
-      },
-    })
-    .then(resp => resp.data.genericPages.items);
+  const manufacturersUrls =
+    slugs &&
+    (await client
+      .query<genericPagesQuery, genericPagesQueryVariables>({
+        query: GET_LEGACY_URLS,
+        variables: {
+          slugs,
+          ...(context?.preview && { isPreview: context?.preview }),
+        },
+      })
+      .then(resp => resp?.data?.genericPages?.items));
   return {
     props: {
       topInfoSection: encodeData(data.manufacturerPage.sections),

@@ -15,7 +15,10 @@ import {
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import Head from '../../../components/Head/Head';
-import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../../generated/GenericPageQuery';
 
 const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
@@ -98,7 +101,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.pages as string[];
 
-    const { data, errors } = await client.query<GenericPageQuery>({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: `insurance/${paths?.join('/')}`,

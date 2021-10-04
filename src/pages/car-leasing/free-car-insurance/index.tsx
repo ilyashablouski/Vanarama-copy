@@ -13,7 +13,10 @@ import FeaturedSection from '../../../components/FeaturedSection';
 import Head from '../../../components/Head/Head';
 import ProductCarousel from '../../../components/ProductCarousel/ProductCarousel';
 import { HeroEv as Hero } from '../../../components/Hero';
-import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../../generated/GenericPageQuery';
 import RouterLink from '../../../components/RouterLink/RouterLink';
 import Skeleton from '../../../components/Skeleton';
 import { LeaseTypeEnum } from '../../../../generated/globalTypes';
@@ -189,7 +192,10 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const path = `car-leasing/free-car-insurance`;
 
-    const { data } = await client.query<GenericPageQuery>({
+    const { data } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: path,

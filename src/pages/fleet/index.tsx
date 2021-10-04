@@ -4,7 +4,10 @@ import { ApolloError } from '@apollo/client';
 import FleetLandingPage from '../../containers/FleetPageContainer';
 import createApolloClient from '../../apolloClient';
 import GET_FLEET_PAGE_CONTENT from '../../containers/FleetPageContainer/gql';
-import { GetFleetLandingPage } from '../../../generated/GetFleetLandingPage';
+import {
+  GetFleetLandingPage,
+  GetFleetLandingPageVariables,
+} from '../../../generated/GetFleetLandingPage';
 
 interface IFleetPage {
   data: GetFleetLandingPage | undefined;
@@ -18,7 +21,10 @@ const FleetPage: NextPage<IFleetPage> = ({ data }) => {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query<GetFleetLandingPage>({
+    const { data, errors } = await client.query<
+      GetFleetLandingPage,
+      GetFleetLandingPageVariables
+    >({
       query: GET_FLEET_PAGE_CONTENT,
       variables: {
         ...(context?.preview && { isPreview: context?.preview }),

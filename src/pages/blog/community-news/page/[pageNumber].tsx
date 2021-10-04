@@ -15,7 +15,10 @@ import {
   convertSlugToBreadcrumbsSchema,
   getBreadCrumbsItems,
 } from '../../../../utils/breadcrumbs';
-import { BlogPosts } from '../../../../../generated/BlogPosts';
+import {
+  BlogPosts,
+  BlogPostsVariables,
+} from '../../../../../generated/BlogPosts';
 
 const CategoryPage: NextPage<IBlogCategory> = ({
   data: encodedData,
@@ -57,7 +60,7 @@ const CategoryPage: NextPage<IBlogCategory> = ({
 export async function getStaticPaths(context: PreviewNextPageContext) {
   try {
     const client = createApolloClient({});
-    const { data } = await client.query<BlogPosts>({
+    const { data } = await client.query<BlogPosts, BlogPostsVariables>({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/community-news',

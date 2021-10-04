@@ -8,7 +8,10 @@ import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import Skeleton from '../../components/Skeleton';
-import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../generated/GenericPageQuery';
 
 const PageNotFoundContainer = dynamic(
   () => import('../../containers/PageNotFoundContainer/PageNotFoundContainer'),
@@ -53,7 +56,10 @@ const PageNotFound: NextPage<IGenericPage> = ({ data }) => {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, loading, errors } = await client.query<GenericPageQuery>({
+    const { data, loading, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: '404',

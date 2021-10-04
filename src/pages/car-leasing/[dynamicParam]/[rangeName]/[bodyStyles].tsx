@@ -21,10 +21,17 @@ import {
   SortObject,
   VehicleTypeEnum,
 } from '../../../../../generated/globalTypes';
-import { vehicleList } from '../../../../../generated/vehicleList';
-import { GetProductCard } from '../../../../../generated/GetProductCard';
+import {
+  vehicleList,
+  vehicleListVariables,
+} from '../../../../../generated/vehicleList';
+import {
+  GetProductCard,
+  GetProductCardVariables,
+} from '../../../../../generated/GetProductCard';
 import {
   filterList,
+  filterListVariables,
   filterList_filterList as IFilterList,
 } from '../../../../../generated/filterList';
 import { notFoundPageHandler } from '../../../../utils/url';
@@ -130,7 +137,10 @@ export async function getServerSideProps(context: NextPageContext) {
       true,
       'isModelPage',
     )) as ApolloQueryResult<GenericPageQuery>;
-    const { data: filtersData } = await client.query<filterList>({
+    const { data: filtersData } = await client.query<
+      filterList,
+      filterListVariables
+    >({
       query: GET_SEARCH_POD_DATA,
       variables: {
         onOffer: null,
@@ -152,7 +162,7 @@ export async function getServerSideProps(context: NextPageContext) {
     ]);
     if (Object.keys(context.query).length === 3) {
       vehiclesList = await client
-        .query({
+        .query<vehicleList, vehicleListVariables>({
           query: GET_VEHICLE_LIST,
           variables: {
             vehicleTypes: [VehicleTypeEnum.CAR],
@@ -174,7 +184,7 @@ export async function getServerSideProps(context: NextPageContext) {
         responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
         if (responseCapIds.length) {
           productCardsData = await client
-            .query({
+            .query<GetProductCard, GetProductCardVariables>({
               query: GET_PRODUCT_CARDS_DATA,
               variables: {
                 capIds: responseCapIds,

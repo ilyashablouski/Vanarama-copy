@@ -12,7 +12,10 @@ import { getArticles } from '../../../../utils/articles';
 import { IBlogPost } from '../../../../models/IBlogsProps';
 import createApolloClient from '../../../../apolloClient';
 import { getBlogPaths } from '../../../../utils/pageSlugs';
-import { BlogPosts } from '../../../../../generated/BlogPosts';
+import {
+  BlogPosts,
+  BlogPostsVariables,
+} from '../../../../../generated/BlogPosts';
 import { decodeData, encodeData } from '../../../../utils/data';
 import {
   DEFAULT_REVALIDATE_INTERVAL,
@@ -22,7 +25,10 @@ import {
   convertSlugToBreadcrumbsSchema,
   getBreadCrumbsItems,
 } from '../../../../utils/breadcrumbs';
-import { BlogPost as BlogPostData } from '../../../../../generated/BlogPost';
+import {
+  BlogPost as BlogPostData,
+  BlogPostVariables,
+} from '../../../../../generated/BlogPost';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
@@ -68,7 +74,7 @@ const BlogPost: NextPage<IBlogPost> = ({
 export async function getStaticPaths(context: PreviewNextPageContext) {
   try {
     const client = createApolloClient({});
-    const { data } = await client.query<BlogPosts>({
+    const { data } = await client.query<BlogPosts, BlogPostsVariables>({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/national-league',
@@ -95,7 +101,10 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query<BlogPostData>({
+    const { data, errors } = await client.query<
+      BlogPostData,
+      BlogPostVariables
+    >({
       query: BLOG_POST_PAGE,
       variables: {
         slug: `blog/national-league/${context?.params?.articles}`,
@@ -103,7 +112,8 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       },
     });
     const { data: blogPosts, errors: blogPostsError } = await client.query<
-      BlogPosts
+      BlogPosts,
+      BlogPostsVariables
     >({
       query: BLOG_POSTS_PAGE,
       variables: {

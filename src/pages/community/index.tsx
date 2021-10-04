@@ -5,7 +5,10 @@ import BlogPostContainer from '../../containers/BlogPostContainer/BlogPostContai
 import { getSectionsData } from '../../utils/getSectionsData';
 import createApolloClient from '../../apolloClient';
 import Skeleton from '../../components/Skeleton';
-import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../generated/GenericPageQuery';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -46,7 +49,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
 
-    const { data, errors } = await client.query<GenericPageQuery>({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'community',

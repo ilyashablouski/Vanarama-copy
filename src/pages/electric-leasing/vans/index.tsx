@@ -24,6 +24,7 @@ import truncateString from '../../../utils/truncateString';
 import { formatProductPageUrl, getLegacyUrl } from '../../../utils/url';
 import {
   GenericPageQuery,
+  GenericPageQueryVariables,
   GenericPageQuery_genericPage_sections_tiles_tiles as TileData,
 } from '../../../../generated/GenericPageQuery';
 import { isServerRenderOrAppleDevice } from '../../../utils/deviceType';
@@ -386,7 +387,10 @@ const EVansPage: NextPage<IProps> = ({
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query<GenericPageQuery>({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'electric-leasing/vans',

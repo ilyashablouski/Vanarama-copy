@@ -46,6 +46,7 @@ import {
 } from '../../../../generated/GetProductCard';
 import {
   rangeList,
+  rangeListVariables,
   rangeList_rangeList as IRange,
 } from '../../../../generated/rangeList';
 import { formatToSlugFormat, notFoundPageHandler } from '../../../utils/url';
@@ -253,7 +254,7 @@ export async function getServerSideProps(context: NextPageContext) {
     query.make = (query.dynamicParam as string).toLowerCase();
     filter.manufacturerSlug = query.make;
     ranges = await client
-      .query({
+      .query<rangeList, rangeListVariables>({
         query: GET_RANGES,
         variables: {
           vehicleTypes: VehicleTypeEnum.LCV,
@@ -262,20 +263,24 @@ export async function getServerSideProps(context: NextPageContext) {
         },
       })
       .then(resp => resp.data);
-    const slugs = ranges.rangeList.map(
-      (range: IRange) =>
-        `van-leasing/${formatToSlugFormat(
-          query.make as string,
-        )}/${formatToSlugFormat(range.rangeName || '')}`,
-    );
-    rangesUrls = await client
-      .query<genericPagesQuery, genericPagesQueryVariables>({
-        query: GET_LEGACY_URLS,
-        variables: {
-          slugs,
-        },
-      })
-      .then(resp => resp?.data?.genericPages?.items);
+    const slugs =
+      ranges.rangeList &&
+      ranges.rangeList.map(
+        (range: IRange) =>
+          `van-leasing/${formatToSlugFormat(
+            query.make as string,
+          )}/${formatToSlugFormat(range.rangeName || '')}`,
+      );
+    rangesUrls =
+      slugs &&
+      (await client
+        .query<genericPagesQuery, genericPagesQueryVariables>({
+          query: GET_LEGACY_URLS,
+          variables: {
+            slugs,
+          },
+        })
+        .then(resp => resp?.data?.genericPages?.items));
   }
   const { data: filtersData } = await client.query<
     filterList,

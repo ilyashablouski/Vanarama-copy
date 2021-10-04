@@ -12,6 +12,7 @@ import createApolloClient from '../../../apolloClient';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import {
   GenericPageQuery,
+  GenericPageQueryVariables,
   GenericPageQuery_genericPage_sectionsAsArray_jumpMenu_links,
 } from '../../../../generated/GenericPageQuery';
 import { HeroEv as Hero, HeroHeading } from '../../../components/Hero';
@@ -193,7 +194,10 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const path = `electric-leasing/vans/electric-vans-explained`;
 
-    const { data } = await client.query<GenericPageQuery>({
+    const { data } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: path,

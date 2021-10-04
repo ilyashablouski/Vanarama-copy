@@ -4,7 +4,10 @@ import { evCarHubOffersRequest, IEvOffersData } from '../../../utils/offers';
 import createApolloClient from '../../../apolloClient';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import EvLeaseExplainedContainer from '../../../containers/EvLeaseExplainedContainer';
-import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../../generated/GenericPageQuery';
 
 interface IProps extends IEvOffersData {
   data: GenericPageQuery;
@@ -36,7 +39,10 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const path = `electric-leasing/cars/electric-cars-explained`;
 
-    const { data } = await client.query<GenericPageQuery>({
+    const { data } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: path,
