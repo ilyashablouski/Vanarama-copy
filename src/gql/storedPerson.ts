@@ -46,6 +46,8 @@ export function useStoredPersonQuery(
   return useQuery<GetStoredPerson>(GET_STORED_PERSON_QUERY, {
     onCompleted,
     onError,
+    ssr: false,
+    fetchPolicy: 'no-cache',
   });
 }
 
