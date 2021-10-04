@@ -4,9 +4,12 @@ import ReactMarkdown from 'react-markdown';
 import { PdpVehicleType } from '../../../generated/globalTypes';
 import { GetVehicleDetails } from '../../../generated/GetVehicleDetails';
 import { GetImacaAssets_getImacaAssets_colours as IImacaColour } from '../../../generated/GetImacaAssets';
-import { GetPdpContent_pdpContent_content_questionAnswers as IQuestionAnswers } from '../../../generated/GetPdpContent';
+import {
+  GetPdpContent_pdpContent_banners as IPdpBanner,
+  GetPdpContent_pdpContent_content_questionAnswers as IQuestionAnswers,
+} from '../../../generated/GetPdpContent';
 import { IWishlistProduct } from '../../types/wishlist';
-import { Nullish } from '../../types/common';
+import { Nullable, Nullish } from '../../types/common';
 
 import { formatProductPageUrl } from '../../utils/url';
 
@@ -21,6 +24,15 @@ export const removeImacaColoursDuplications = (
     (colour, index) => !capIds.includes(colour.capId, index + 1),
   );
 };
+
+export const filterBannersByTitle = (
+  bannerList: Nullable<IPdpBanner>[],
+  title: string,
+) =>
+  bannerList.filter(banner => {
+    const bannerTitle = banner?.title?.toLowerCase();
+    return !bannerTitle?.includes(title);
+  });
 
 export const convertProductDetailsToWishlistProduct = (
   data: Nullish<GetVehicleDetails>,
