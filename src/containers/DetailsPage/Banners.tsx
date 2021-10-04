@@ -22,10 +22,6 @@ interface IProps {
 }
 
 const Banners = ({ cards }: IProps) => {
-  if (cards.length === 0) {
-    return null;
-  }
-
   return cards.length > 1 ? (
     <div className="two-col">
       {cards.map(card => (
