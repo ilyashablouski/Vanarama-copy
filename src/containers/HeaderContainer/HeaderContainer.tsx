@@ -59,17 +59,23 @@ const HeaderContainer: FC = () => {
   };
 
   const [logOut] = useMutation<LogOutUserMutation>(LOGOUT_USER_MUTATION);
-  const { data: storedPersonData } = useStoredPersonQuery(operationResult => {
-    if (operationResult?.storedPerson) {
-      addHeapUserIdentity(
-        operationResult?.storedPerson?.emailAddresses[0].value,
-      );
-      addHeapUserProperties({
-        uuid: operationResult?.storedPerson?.uuid,
-        bcuid: Cookies.get('BCSessionID') || 'undefined',
-      });
-    }
-  });
+  const { data: storedPersonData, refetch } = useStoredPersonQuery(
+    operationResult => {
+      if (operationResult?.storedPerson) {
+        addHeapUserIdentity(
+          operationResult?.storedPerson?.emailAddresses[0].value,
+        );
+        addHeapUserProperties({
+          uuid: operationResult?.storedPerson?.uuid,
+          bcuid: Cookies.get('BCSessionID') || 'undefined',
+        });
+      }
+    },
+  );
+
+  useEffect(() => {
+    refetch();
+  }, [router.asPath]);
 
   const [partnership, setPartnership] = useState<string | null>(null);
   const [partnershipLinks, setPartnershipLinks] = useState<any>([]);
