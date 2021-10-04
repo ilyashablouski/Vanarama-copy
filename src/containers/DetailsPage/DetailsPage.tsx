@@ -64,7 +64,11 @@ import {
   GetPdpContent_pdpContent_banners as IPdpBanner,
   GetPdpContent_pdpContent_content_questionAnswers,
 } from '../../../generated/GetPdpContent';
-import { buildAccordionItems, removeImacaColoursDuplications } from './helpers';
+import {
+  buildAccordionItems,
+  filterBannersByTitle,
+  removeImacaColoursDuplications,
+} from './helpers';
 import { Nullable } from '../../types/common';
 
 const Flame = dynamic(() => import('core/assets/icons/Flame'));
@@ -362,10 +366,13 @@ const DetailsPage: React.FC<IDetailsPageProps> = ({
   );
 
   const bannerList = useMemo(() => {
-    const banners = pdpContentData?.pdpContent?.banners;
-    return !isFreeInsurance ? banners?.slice(1) : banners;
+    const banners = pdpContentData?.pdpContent?.banners ?? [];
+
+    return !isFreeInsurance
+      ? filterBannersByTitle(banners, 'free insurance')
+      : banners;
   }, [isFreeInsurance, pdpContentData?.pdpContent?.banners]);
-  const shouldBannersRender = bannerList?.length;
+  const shouldBannersRender = !!bannerList.length;
 
   const onOrderStart = (
     withInsurance = false,
