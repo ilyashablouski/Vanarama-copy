@@ -23,7 +23,10 @@ import {
 } from '../../../../../generated/globalTypes';
 import { vehicleList } from '../../../../../generated/vehicleList';
 import { GetProductCard } from '../../../../../generated/GetProductCard';
-import { filterList_filterList as IFilterList } from '../../../../../generated/filterList';
+import {
+  filterList,
+  filterList_filterList as IFilterList,
+} from '../../../../../generated/filterList';
 import { notFoundPageHandler } from '../../../../utils/url';
 import { ISearchPageProps } from '../../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../../containers/PageNotFoundContainer/PageNotFoundContainer';
@@ -127,7 +130,7 @@ export async function getServerSideProps(context: NextPageContext) {
       true,
       'isModelPage',
     )) as ApolloQueryResult<GenericPageQuery>;
-    const { data: filtersData } = await client.query({
+    const { data: filtersData } = await client.query<filterList>({
       query: GET_SEARCH_POD_DATA,
       variables: {
         onOffer: null,

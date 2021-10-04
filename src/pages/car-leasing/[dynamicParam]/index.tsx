@@ -35,13 +35,19 @@ import {
   SortObject,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
-import { filterList_filterList as IFilterList } from '../../../../generated/filterList';
+import {
+  filterList,
+  filterList_filterList as IFilterList,
+} from '../../../../generated/filterList';
 import { vehicleList } from '../../../../generated/vehicleList';
 import { GetProductCard } from '../../../../generated/GetProductCard';
 import { formatToSlugFormat, notFoundPageHandler } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
-import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../../generated/genericPagesQuery';
+import {
+  genericPagesQuery,
+  genericPagesQuery_genericPages_items as IRangeUrls,
+} from '../../../../generated/genericPagesQuery';
 import FeaturedAndTilesContainer from '../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { decodeData, encodeData } from '../../../utils/data';
 
@@ -248,15 +254,15 @@ export async function getServerSideProps(context: NextPageContext) {
         )}/${formatToSlugFormat(range.rangeName || '')}`,
     );
     rangesUrls = await client
-      .query({
+      .query<genericPagesQuery>({
         query: GET_LEGACY_URLS,
         variables: {
           slugs,
         },
       })
-      .then(resp => resp.data.genericPages.items);
+      .then(resp => resp?.data?.genericPages?.items);
   }
-  const { data: filtersData } = await client.query({
+  const { data: filtersData } = await client.query<filterList>({
     query: GET_SEARCH_POD_DATA,
     variables: {
       onOffer: null,

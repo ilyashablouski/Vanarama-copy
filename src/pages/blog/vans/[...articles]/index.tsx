@@ -22,6 +22,7 @@ import {
   convertSlugToBreadcrumbsSchema,
   getBreadCrumbsItems,
 } from '../../../../utils/breadcrumbs';
+import { BlogPost as BlogPostData } from '../../../../../generated/BlogPost';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
@@ -94,7 +95,7 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<BlogPostData>({
       query: BLOG_POST_PAGE,
       variables: {
         slug: `blog/vans/${context?.params?.articles}`,
@@ -102,7 +103,9 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       },
     });
 
-    const { data: blogPosts, errors: blogPostsError } = await client.query({
+    const { data: blogPosts, errors: blogPostsError } = await client.query<
+      BlogPosts
+    >({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/vans',

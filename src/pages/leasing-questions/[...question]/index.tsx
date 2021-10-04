@@ -13,6 +13,10 @@ import {
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import Skeleton from '../../../components/Skeleton';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../../generated/GenericPageQuery';
 
 const SchemaJSON = dynamic(() => import('core/atoms/schema-json'), {
   loading: () => <Skeleton count={1} />,
@@ -83,7 +87,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.question as string[];
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE_QUESTION,
       variables: {
         slug: `leasing-questions/${paths?.join('/')}`,

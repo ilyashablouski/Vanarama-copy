@@ -10,6 +10,7 @@ import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import createApolloClient from '../../apolloClient';
 
 import CareersPageContainer from '../../containers/CareersPageContainer';
+import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 
 const CareersLandingPage: NextPage<IGenericPage> = ({ data, error }) => {
   if (error || !data) {
@@ -23,7 +24,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<GenericPageQuery>({
       query: GENERIC_PAGE,
       variables: {
         slug: 'careers-at-vanarama',

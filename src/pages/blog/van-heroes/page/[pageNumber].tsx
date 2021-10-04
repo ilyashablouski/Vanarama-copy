@@ -15,6 +15,7 @@ import {
   convertSlugToBreadcrumbsSchema,
   getBreadCrumbsItems,
 } from '../../../../utils/breadcrumbs';
+import { BlogPosts } from '../../../../../generated/BlogPosts';
 
 const CategoryPage: NextPage<IBlogCategory> = ({
   data: encodedData,
@@ -56,7 +57,7 @@ const CategoryPage: NextPage<IBlogCategory> = ({
 export async function getStaticPaths(context: PreviewNextPageContext) {
   try {
     const client = createApolloClient({});
-    const { data } = await client.query({
+    const { data } = await client.query<BlogPosts>({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/van-heroes',

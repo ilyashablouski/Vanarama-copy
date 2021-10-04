@@ -386,7 +386,7 @@ const EVansPage: NextPage<IProps> = ({
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<GenericPageQuery>({
       query: GENERIC_PAGE,
       variables: {
         slug: 'electric-leasing/vans',

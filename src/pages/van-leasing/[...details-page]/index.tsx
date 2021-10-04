@@ -44,7 +44,10 @@ import {
   GenericPageHeadQueryVariables,
 } from '../../../../generated/GenericPageHeadQuery';
 import { GET_LEGACY_URLS } from '../../../containers/SearchPageContainer/gql';
-import { genericPagesQuery_genericPages_items as GenericPages } from '../../../../generated/genericPagesQuery';
+import {
+  genericPagesQuery,
+  genericPagesQuery_genericPages_items as GenericPages,
+} from '../../../../generated/genericPagesQuery';
 import {
   GetTrimAndColor,
   GetTrimAndColor_colourList as IColourList,
@@ -390,13 +393,13 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
     }
 
     const genericPages = await client
-      .query({
+      .query<genericPagesQuery>({
         query: GET_LEGACY_URLS,
         variables: {
           slugs: getBreadcrumbSlugs(data?.genericPage.metaData.slug),
         },
       })
-      .then(resp => resp.data.genericPages.items);
+      .then(resp => resp?.data?.genericPages?.items);
 
     return {
       props: {

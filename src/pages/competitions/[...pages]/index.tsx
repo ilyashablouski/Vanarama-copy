@@ -13,6 +13,7 @@ import {
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
 import { getSectionsData } from '../../../utils/getSectionsData';
 import Head from '../../../components/Head/Head';
+import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
 
 const CompetitionPage: NextPage<IInsurancePage> = ({ data }) => {
   const metaData = getSectionsData(['metaData'], data?.genericPage);
@@ -61,7 +62,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.pages as string[];
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<GenericPageQuery>({
       query: GENERIC_PAGE,
       variables: {
         slug: `competitions/${paths?.join('/')}`,

@@ -10,6 +10,7 @@ import {
   PageCollectionVariables,
 } from '../../../../../generated/PageCollection';
 import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
+import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
 
 const AskTheExpertPage: NextPage<IGenericPage> = ({ data }) => {
   return <SimplePageContainer data={data} />;
@@ -37,7 +38,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.pages as string[];
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<GenericPageQuery>({
       query: GENERIC_PAGE,
       variables: {
         slug: `guides/ask-the-expert/${paths?.join('/')}`,

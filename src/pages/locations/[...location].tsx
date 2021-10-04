@@ -17,6 +17,8 @@ import getTitleTag from '../../utils/getTitleTag';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import { getSectionsData } from '../../utils/getSectionsData';
 import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
   GenericPageQuery_genericPage_sections_hero as IHero,
   GenericPageQuery_genericPage_sections_tiles_tiles as ITileData,
 } from '../../../generated/GenericPageQuery';
@@ -392,7 +394,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.location as string[];
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: `locations/${paths?.join('/')}`,

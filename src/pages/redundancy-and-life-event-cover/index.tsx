@@ -14,7 +14,10 @@ import { GENERIC_PAGE } from '../../gql/genericPage';
 import { LeaseTypeEnum } from '../../../generated/globalTypes';
 import { GetDerivatives } from '../../../generated/GetDerivatives';
 import { ProductCardData } from '../../../generated/ProductCardData';
-import { GenericPageQuery } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../generated/GenericPageQuery';
 import { GenericPageQuestionQuery_genericPage_sections_faqs_questionSets_questionAnswers as IQuestion } from '../../../generated/GenericPageQuestionQuery';
 import { getPartnerProperties } from '../../utils/partnerProperties';
 import { IEvOffersData, specialOffersRequest } from '../../utils/offers';
@@ -209,7 +212,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
 
-    const { data } = await client.query({
+    const { data } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'redundancy-and-life-event-cover',

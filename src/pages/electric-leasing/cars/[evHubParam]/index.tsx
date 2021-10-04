@@ -71,7 +71,7 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
       'your-guide-to-ev-range',
     ].includes(param);
 
-    const { data } = await client.query({
+    const { data } = await client.query<GenericPageQuery>({
       query: GENERIC_PAGE,
       variables: {
         slug: path,

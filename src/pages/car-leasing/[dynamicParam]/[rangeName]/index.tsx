@@ -20,7 +20,10 @@ import {
   trimSlug,
 } from '../../../../containers/SearchPageContainer/helpers';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
-import { bodyStyleList_bodyStyleList as IModelsData } from '../../../../../generated/bodyStyleList';
+import {
+  bodyStyleList as bodyStyleListData,
+  bodyStyleList_bodyStyleList as IModelsData,
+} from '../../../../../generated/bodyStyleList';
 import {
   LeaseTypeEnum,
   SortDirection,
@@ -34,7 +37,10 @@ import { formatUrl, notFoundPageHandler } from '../../../../utils/url';
 import { ISearchPageProps } from '../../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { GET_SEARCH_POD_DATA } from '../../../../containers/SearchPodContainer/gql';
-import { filterList_filterList as IFilterList } from '../../../../../generated/filterList';
+import {
+  filterList,
+  filterList_filterList as IFilterList,
+} from '../../../../../generated/filterList';
 import FeaturedAndTilesContainer from '../../../../containers/FeaturedAndTilesContainer/FeaturedAndTilesContainer';
 import { PAGE_TYPES } from '../../../../utils/pageTypes';
 import { decodeData, encodeData } from '../../../../utils/data';
@@ -178,7 +184,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
     // should contain only 2 routs params(make, range)
     if (Object.keys(context.query).length === 2) {
       vehiclesList = await client
-        .query({
+        .query<vehicleList>({
           query: GET_VEHICLE_LIST,
           variables: {
             vehicleTypes: [VehicleTypeEnum.CAR],
@@ -193,7 +199,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
         .then(resp => resp.data);
 
       try {
-        const resp = await client.query({
+        const resp = await client.query<bodyStyleListData>({
           query: GET_BODY_STYLES,
           variables: {
             vehicleTypes: VehicleTypeEnum.CAR,
@@ -203,19 +209,21 @@ export async function getServerSideProps(context: SlugNextPageContext) {
           },
         });
         // assign re mapped list
-        bodyStyleList = await Promise.all(
-          resp.data.bodyStyleList.map(async (listItem: IModelsData) => {
-            const { data: slug } = await getGenericSearchPageSlug(
-              formatUrl(
-                `car-leasing/${manufacturerName}/${rangeName}/${listItem.bodyStyle}`,
-              ),
-            );
-            return {
-              ...listItem,
-              legacyUrl: slug?.genericPage.metaData.legacyUrl,
-            };
-          }),
-        );
+        if (resp.data.bodyStyleList) {
+          bodyStyleList = await Promise.all(
+            resp.data.bodyStyleList.map(async (listItem: IModelsData) => {
+              const { data: slug } = await getGenericSearchPageSlug(
+                formatUrl(
+                  `car-leasing/${manufacturerName}/${rangeName}/${listItem.bodyStyle}`,
+                ),
+              );
+              return {
+                ...listItem,
+                legacyUrl: slug?.genericPage.metaData.legacyUrl,
+              };
+            }),
+          );
+        }
       } catch (err) {
         bodyStyleList = null;
       }
@@ -224,7 +232,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
         responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
         if (responseCapIds.length) {
           productCardsData = await client
-            .query({
+            .query<GetProductCard>({
               query: GET_PRODUCT_CARDS_DATA,
               variables: {
                 capIds: responseCapIds,
@@ -237,7 +245,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
         return false;
       }
     }
-    const { data: filtersData } = await client.query({
+    const { data: filtersData } = await client.query<filterList>({
       query: GET_SEARCH_POD_DATA,
       variables: {
         onOffer: null,
@@ -248,7 +256,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
       },
     });
     const topOffersList = await client
-      .query({
+      .query<vehicleList>({
         query: GET_VEHICLE_LIST,
         variables: {
           vehicleTypes: [VehicleTypeEnum.CAR],
@@ -268,7 +276,7 @@ export async function getServerSideProps(context: SlugNextPageContext) {
     );
     if (topOffersListCapIds.length) {
       topOffersCardsData = await client
-        .query({
+        .query<GetProductCard>({
           query: GET_PRODUCT_CARDS_DATA,
           variables: {
             capIds: topOffersListCapIds,

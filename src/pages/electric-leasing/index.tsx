@@ -397,7 +397,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     // const paths = context?.params?.pages as string[];
 
-    const { data } = await client.query({
+    const { data } = await client.query<GenericPageQuery>({
       query: GENERIC_PAGE,
       variables: {
         slug: 'electric-leasing',

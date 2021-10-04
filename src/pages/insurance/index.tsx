@@ -16,7 +16,7 @@ const InsurancePage: NextPage<IInsurancePage> = ({ data: encodedData }) => {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<GetInsuranceLandingPage>({
       query: GET_INSURANCE_LANDING_PAGE,
       variables: {
         ...(context?.preview && { isPreview: context?.preview }),

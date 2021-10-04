@@ -18,7 +18,7 @@ const FleetPage: NextPage<IFleetPage> = ({ data }) => {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<GetFleetLandingPage>({
       query: GET_FLEET_PAGE_CONTENT,
       variables: {
         ...(context?.preview && { isPreview: context?.preview }),

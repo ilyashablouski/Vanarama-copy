@@ -16,6 +16,10 @@ import {
 } from '../../../../generated/PageCollection';
 import Head from '../../../components/Head/Head';
 import { decodeData, encodeData } from '../../../utils/data';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../../generated/GenericPageQuery';
 
 const EligibilityChecker: NextPage<IGenericPage> = ({ data: encodedData }) => {
   // De-obfuscate data for user
@@ -121,7 +125,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.pages as string[];
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: `lease-finance/${paths?.join('/')}`,

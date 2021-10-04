@@ -2,6 +2,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import createApolloClient from '../../apolloClient';
 import LandingPageContainer from '../../containers/LandingPageContainer';
+import { GenericPageQuery } from '../../../generated/GenericPageQuery';
 
 const HowToChoosePage: NextPage<IGenericPage> = ({ data }) => (
   <LandingPageContainer data={data} title="How Can We Help You Choose?" />
@@ -11,7 +12,7 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<GenericPageQuery>({
       query: GENERIC_PAGE,
       variables: {
         slug: 'car-leasing/how-to-choose-a-car',
