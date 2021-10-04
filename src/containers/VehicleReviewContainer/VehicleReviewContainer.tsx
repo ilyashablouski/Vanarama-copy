@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import Tabs from 'core/molecules/tabs';
 import getTitleTag from '../../utils/getTitleTag';
 import mapToReviewCard from './helpers';
@@ -62,7 +62,7 @@ const VehicleReviewContainer: FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
+        <Breadcrumbs items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

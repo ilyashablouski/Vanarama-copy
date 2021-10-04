@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import {
   GenericPageQuery_genericPage_sections_cards_cards,
@@ -39,7 +39,7 @@ const PageNotFoundContainer: NextPage<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
+        <Breadcrumbs items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black">
           {name || ''}
         </Heading>

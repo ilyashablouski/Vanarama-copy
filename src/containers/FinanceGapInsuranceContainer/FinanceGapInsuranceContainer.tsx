@@ -2,7 +2,7 @@ import dynamic from 'next/dynamic';
 import { useState } from 'react';
 import * as toast from 'core/atoms/toast/Toast';
 import Router from 'next/router';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import GoldrushForm from '../../components/GoldrushForm/GoldrushForm';
 import { IGoldrushFromValues } from '../../components/GoldrushForm/interfaces';
 import InsuranceHeroSection from '../InsurancePageContainer/sections/InsuranceHeroSection';
@@ -87,7 +87,7 @@ const FinanceGapInsurancePageContainer = ({
       {hero && <InsuranceHeroSection {...hero} />}
       {breadcrumbsItems && (
         <div className="row:title -mt-200">
-          <Breadcrumb items={breadcrumbsItems} />
+          <Breadcrumbs items={breadcrumbsItems} />
         </div>
       )}
       {leadText && <InsuranceTypeSection {...leadText} />}

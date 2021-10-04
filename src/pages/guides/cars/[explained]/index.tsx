@@ -9,7 +9,7 @@ import { getSectionsData } from '../../../../utils/getSectionsData';
 import createApolloClient from '../../../../apolloClient';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
 import { getLeasingPaths } from '../../../../utils/pageSlugs';
-import Breadcrumb from '../../../../core/atoms/breadcrumb-v2';
+import Breadcrumbs from '../../../../core/atoms/breadcrumbs-v2';
 import Head from '../../../../components/Head/Head';
 import { decodeData, encodeData } from '../../../../utils/data';
 import {
@@ -47,7 +47,7 @@ const GuidesCarsExplained: NextPage<IGenericPage> = ({
     <>
       {breadcrumbsItems && (
         <div className="row:title">
-          <Breadcrumb items={breadcrumbsItems} />
+          <Breadcrumbs items={breadcrumbsItems} />
         </div>
       )}
       <LeasingArticleContainer

@@ -1,5 +1,5 @@
 import { IBaseProps } from 'core/interfaces/base';
-import { IBreadcrumbLink } from '../../core/atoms/breadcrumb-v2/helpers';
+import { IBreadcrumbLink } from '../../core/atoms/breadcrumbs-v2/helpers';
 
 import { TSize } from '../../types/size';
 

@@ -3,7 +3,7 @@ import { LazyLoadComponent } from 'react-lazy-load-image-component';
 import { MutableRefObject, useRef } from 'react';
 import { GetStaticPropsContext, NextPage } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import createApolloClient from '../../apolloClient';
 import {
   GenericPageHeadQuery,
@@ -85,7 +85,7 @@ export const OffersPage: NextPage<IProps> = ({
     <>
       {breadcrumbsItems && (
         <div className="row:title">
-          <Breadcrumb items={breadcrumbsItems} />
+          <Breadcrumbs items={breadcrumbsItems} />
         </div>
       )}
       <div className="row:plain-hero">

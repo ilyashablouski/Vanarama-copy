@@ -6,7 +6,7 @@ import Map from 'core/atoms/map';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import DefaultErrorPage from 'next/error';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   ContactUsPageData_contactUsLandingPage_sections_cards_cards as Cards,
@@ -70,7 +70,7 @@ export const ContactUsPage: NextPage<IGenericPage> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
+        <Breadcrumbs items={breadcrumbsItems} />
         <Heading size="xlarge" color="black" tag="h1">
           {metaData?.name}
         </Heading>

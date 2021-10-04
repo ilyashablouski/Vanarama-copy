@@ -2,7 +2,7 @@ import React, { FC, useState } from 'react';
 import dynamic from 'next/dynamic';
 import SchemaJSON from 'core/atoms/schema-json';
 import ReactMarkdown from 'react-markdown';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import {
   ReviewsHubCategoryQuery,
   ReviewsHubCategoryQuery_genericPage_sections_cards_cards as Cards,
@@ -96,7 +96,7 @@ const VehicleReviewCategoryContainer: FC<IProps> = ({
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
+        <Breadcrumbs items={breadcrumbsItems} />
         <Heading tag="h1" size="xlarge" color="black">
           {title}
         </Heading>

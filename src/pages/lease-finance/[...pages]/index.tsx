@@ -9,7 +9,7 @@ import { GENERIC_PAGE, IGenericPage } from '../../../gql/genericPage';
 import createApolloClient from '../../../apolloClient';
 import BlogPostContainer from '../../../containers/BlogPostContainer/BlogPostContainer';
 import { getSectionsData } from '../../../utils/getSectionsData';
-import Breadcrumb from '../../../core/atoms/breadcrumb-v2';
+import Breadcrumbs from '../../../core/atoms/breadcrumbs-v2';
 import {
   PageCollection,
   PageCollectionVariables,
@@ -56,7 +56,7 @@ const EligibilityChecker: NextPage<IGenericPage> = ({ data: encodedData }) => {
       <>
         {breadcrumbsItems && (
           <div className="row:title">
-            <Breadcrumb items={breadcrumbsItems} />
+            <Breadcrumbs items={breadcrumbsItems} />
           </div>
         )}
         <FinanceInformationExplainedContainer
@@ -78,7 +78,7 @@ const EligibilityChecker: NextPage<IGenericPage> = ({ data: encodedData }) => {
       <>
         {breadcrumbsItems && (
           <div className="row:title">
-            <Breadcrumb items={breadcrumbsItems} />
+            <Breadcrumbs items={breadcrumbsItems} />
           </div>
         )}
         <FinanceExplainedContainer data={data} />

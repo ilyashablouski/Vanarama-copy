@@ -69,7 +69,7 @@ import Head from '../../components/Head/Head';
 import { genericPagesQuery_genericPages_items as ILegacyUrls } from '../../../generated/genericPagesQuery';
 import Skeleton from '../../components/Skeleton';
 import TopOffersContainer from './TopOffersContainer'; // Note: Dynamic import this, will break search filter bar.
-import Breadcrumb from '../../core/atoms/breadcrumb-v2';
+import Breadcrumbs from '../../core/atoms/breadcrumbs-v2';
 import useMediaQuery from '../../hooks/useMediaQuery';
 import TilesBlock from './TilesBlock';
 import ResultsContainer from './ResultsContainer';
@@ -982,7 +982,7 @@ const SearchPageContainer: React.FC<IProps> = ({
     <>
       <PartnershipLogoHeader />
       <div className="row:title">
-        {!partnershipActive && <Breadcrumb items={breadcrumbsItems} />}
+        {!partnershipActive && <Breadcrumbs items={breadcrumbsItems} />}
 
         {isNewPage ? null : (
           <Heading tag="h1" size="xlarge" color="black" className="-mb-300">

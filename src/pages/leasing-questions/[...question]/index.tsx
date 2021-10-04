@@ -1,7 +1,7 @@
 import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import dynamic from 'next/dynamic';
 import { PreviewNextPageContext } from 'types/common';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { IInsurancePage } from '../../../models/IInsuranceProps';
 import { GENERIC_PAGE_QUESTION } from '../../../containers/LeasingQuestionContainer/gql';
@@ -47,7 +47,7 @@ const MultiYearInsurancePage: NextPage<IInsurancePage> = ({ data }) => {
     <>
       {breadcrumbsItems && (
         <div className="row:title">
-          <Breadcrumb items={breadcrumbsItems} />
+          <Breadcrumbs items={breadcrumbsItems} />
         </div>
       )}
       <LeasingQuestionContainer

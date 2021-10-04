@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import { getDataFromTree } from '@apollo/react-ssr';
 import { useRouter } from 'next/router';
 import SchemaJSON from 'core/atoms/schema-json';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import withApollo from '../../hocs/withApollo';
 import EligibilityCheckerContainer from '../../containers/EligibilityCheckerContainer/EligibilityCheckerContainer';
 import { useGenericPage } from '../../gql/genericPage';
@@ -37,7 +37,7 @@ const EligibilityCheckerDetails: NextPage = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbsItems} />
+        <Breadcrumbs items={breadcrumbsItems} />
         <Heading
           color="black"
           size="xlarge"

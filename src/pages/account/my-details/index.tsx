@@ -4,7 +4,7 @@ import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import React, { useState, useMemo } from 'react';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import withApollo from '../../../hocs/withApollo';
 import PasswordChangeContainer from '../../../containers/PasswordChangeContainer';
 import PersonalInformationFormContainer from '../../../containers/PersonalInformationContainer/PersonalInformation';
@@ -100,7 +100,7 @@ const MyDetailsPage: NextPage<IProps> = () => {
   return (
     <>
       <div className="row:title">
-        <Breadcrumb items={breadcrumbItems} />
+        <Breadcrumbs items={breadcrumbItems} />
         <Heading
           tag="h1"
           size="xlarge"

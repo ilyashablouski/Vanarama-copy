@@ -32,7 +32,7 @@ import {
   GetDerivatives,
   GetDerivativesVariables,
 } from '../../../generated/GetDerivatives';
-import Breadcrumb from '../../core/atoms/breadcrumb-v2';
+import Breadcrumbs from '../../core/atoms/breadcrumbs-v2';
 import {
   GetMyOrders,
   GetMyOrders_myOrders,
@@ -413,7 +413,7 @@ const MyOverview: React.FC<IMyOverviewProps> = props => {
   return (
     <>
       <div className="row:title">
-        {!!breadcrumbPath.length && <Breadcrumb items={breadcrumbPath} />}
+        {!!breadcrumbPath.length && <Breadcrumbs items={breadcrumbPath} />}
         <Heading
           tag="h1"
           size="xlarge"

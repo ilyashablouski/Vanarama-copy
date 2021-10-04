@@ -1,5 +1,5 @@
 import * as toast from 'core/atoms/toast/Toast';
-import Breadcrumb from 'core/atoms/breadcrumb-v2';
+import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
 import CompetitionHeroSection from '../CompetitionLandingPageContainer/sections/CompetitionHeroSection';
 import { GenericPageQuery_genericPage_sections as Section } from '../../../generated/GenericPageQuery';
 import CompetitionTypeSection from './sections/CompetitionTypeSection';
@@ -32,7 +32,7 @@ const CompetitionPageContainer = ({ sections, breadcrumbsData }: IProps) => {
       {hero && <CompetitionHeroSection {...hero} />}
       {breadcrumbsItems && (
         <div className="row:title -mt-200">
-          <Breadcrumb items={breadcrumbsItems} />
+          <Breadcrumbs items={breadcrumbsItems} />
         </div>
       )}
       {leadText && <CompetitionTypeSection {...leadText} />}

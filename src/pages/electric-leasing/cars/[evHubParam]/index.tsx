@@ -3,7 +3,7 @@ import { GetStaticPropsContext, NextPage, NextPageContext } from 'next';
 import SchemaJSON from 'core/atoms/schema-json';
 import LeasingArticleContainer from '../../../../containers/LeasingArticleContainer/LeasingArticleContainer';
 import ContentHubContainer from '../../../../containers/EvContentHubContainer';
-import Breadcrumb from '../../../../core/atoms/breadcrumb-v2';
+import Breadcrumbs from '../../../../core/atoms/breadcrumbs-v2';
 import createApolloClient from '../../../../apolloClient';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
@@ -40,7 +40,7 @@ export const EVHubPage: NextPage<IProps> = ({
     <>
       {breadcrumbsItems && (
         <div className="row:title">
-          <Breadcrumb items={breadcrumbsItems} />
+          <Breadcrumbs items={breadcrumbsItems} />
         </div>
       )}
       <LeasingArticleContainer

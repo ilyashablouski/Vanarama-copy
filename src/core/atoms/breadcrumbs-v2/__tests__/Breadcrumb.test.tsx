@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Breadcrumb from '../Breadcrumb';
+import Breadcrumbs from '../Breadcrumbs';
 import { IBreadcrumbProps } from '../helpers';
 
 Object.defineProperty(window, 'matchMedia', {
@@ -23,7 +23,7 @@ const optionalProps = {
 };
 
 function getComponent(props?: IBreadcrumbProps) {
-  return renderer.create(<Breadcrumb {...props} />).toJSON();
+  return renderer.create(<Breadcrumbs {...props} />).toJSON();
 }
 
 describe('<Breadcrumbs />', () => {
