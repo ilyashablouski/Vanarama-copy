@@ -4,16 +4,50 @@ import {
   PdpVehicleType,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
+import { GetPdpContent_pdpContent_banners as IPdpBanner } from '../../../../generated/GetPdpContent';
 import { GetVehicleDetails } from '../../../../generated/GetVehicleDetails';
+import { IWishlistProduct } from '../../../types/wishlist';
 import {
   convertProductDetailsToWishlistProduct,
+  filterBannersByTitle,
   pdpCarType,
   pdpVanType,
   removeImacaColoursDuplications,
 } from '../helpers';
-import { IWishlistProduct } from '../../../types/wishlist';
 
 const capId = '93456';
+
+const banners = (): IPdpBanner[] => [
+  {
+    description: 'Worth Avg £538',
+    image: {
+      file: {
+        url: '/shield.png',
+      },
+      title: 'shield',
+    },
+    link: {
+      text: 'Find Out More',
+      url: 'https://www.vanarama.com/car-leasing/free-car-insurance',
+    },
+    title: "Special Offer: Lease This Car Online & Get 1 Year's FREE Insurance",
+  },
+  {
+    description:
+      'When you lease this car online, if the worst happens, you can return it anytime.',
+    image: {
+      file: {
+        url: '/hand_and_heart.png',
+      },
+      title: 'hand and heart',
+    },
+    link: {
+      text: 'Find Out More',
+      url: 'https://www.vanarama.com/redundancy-and-life-event-cover.html',
+    },
+    title: 'Special Offer: Free Redundancy & Life Event Cover',
+  },
+];
 
 const productDetails = (): GetVehicleDetails => ({
   vehicleConfigurationByCapId: {
@@ -253,6 +287,16 @@ describe('removeImacaColoursDuplications', () => {
   it('should remove duplicate Imaca colors', () => {
     expect(removeImacaColoursDuplications(imacaColourList)).toEqual(
       hotOfferColorList,
+    );
+  });
+});
+
+describe('filterBannersByTitle', () => {
+  const bannerList = banners();
+
+  it('should remove banners with specified title', () => {
+    expect(filterBannersByTitle(bannerList, 'free insurance')).toEqual(
+      bannerList.slice(1),
     );
   });
 });
