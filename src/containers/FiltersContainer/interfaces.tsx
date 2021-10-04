@@ -51,7 +51,6 @@ export interface IFilterContainerProps {
   ) => ISelectedWithOrder | ISelectedWithOrder[];
   renderFilters: FiltersRenderCallback;
   initialState: ISelectedFiltersState;
-  hideTags?: boolean;
 }
 
 export interface IFilters {
