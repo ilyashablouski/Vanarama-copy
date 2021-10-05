@@ -8,6 +8,7 @@ import {
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets_questionAnswers as QuestionAnswers,
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_faqs_questionSets as QuestionSets,
   EligibilityCheckerPageData_eligibilityCheckerLandingPage_sections_carousel as CarouselData,
+  EligibilityCheckerPageData,
 } from '../../../generated/EligibilityCheckerPageData';
 import {
   ELIGIBILITY_CHECKER_CONTENT,
@@ -177,7 +178,7 @@ const EligibilityChecker: NextPage<IEligbilityCheckerPage> = ({
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<EligibilityCheckerPageData>({
       query: ELIGIBILITY_CHECKER_CONTENT,
     });
     if (errors) {

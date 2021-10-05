@@ -12,6 +12,7 @@ import { isWished } from '../../utils/wishlistHelpers';
 import { isCompared } from '../../utils/comparatorHelpers';
 import {
   HubPickupPageData,
+  HubPickupPageDataVariables,
   HubPickupPageData_hubPickupPage_sections_steps_steps as StepData,
   HubPickupPageData_hubPickupPage_sections_tiles1_tiles as AccessoryData,
   HubPickupPageData_hubPickupPage_sections_tiles2_tiles as TileData,
@@ -729,7 +730,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const client = createApolloClient({});
 
   try {
-    const { data } = await client.query<HubPickupPageData>({
+    const { data } = await client.query<
+      HubPickupPageData,
+      HubPickupPageDataVariables
+    >({
       query: HUB_PICKUP_CONTENT,
       variables: {
         ...(context?.preview && { isPreview: context?.preview }),

@@ -3,6 +3,10 @@ import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import SimplePageContainer from '../../containers/SimplePageContainer/SimplePageContainer';
 import createApolloClient from '../../apolloClient';
 import { decodeData, encodeData } from '../../utils/data';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../generated/GenericPageQuery';
 
 const SitemapPage: NextPage<IGenericPage> = ({
   data: encodedData,
@@ -13,7 +17,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'sitemap',

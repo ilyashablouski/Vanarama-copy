@@ -6,7 +6,10 @@ import ContentHubContainer from '../../../../containers/EvContentHubContainer';
 import Breadcrumbs from '../../../../core/atoms/breadcrumbs-v2';
 import createApolloClient from '../../../../apolloClient';
 import { getSectionsData } from '../../../../utils/getSectionsData';
-import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../../../generated/GenericPageQuery';
 import { GENERIC_PAGE } from '../../../../gql/genericPage';
 import Head from '../../../../components/Head/Head';
 import { decodeData, encodeData } from '../../../../utils/data';
@@ -71,7 +74,10 @@ export async function getServerSideProps(context: GetStaticPropsContext) {
       'your-guide-to-ev-range',
     ].includes(param);
 
-    const { data } = await client.query({
+    const { data } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: path,

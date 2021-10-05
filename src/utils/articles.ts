@@ -4,7 +4,7 @@ import { NextRouter } from 'next/router';
 import { BlogPosts_blogPosts_articles } from '../../generated/BlogPosts';
 
 export const getArticles = (
-  articles: (BlogPosts_blogPosts_articles | null)[] | null | undefined,
+  articles: (BlogPosts_blogPosts_articles | null)[] | null,
   path: string,
 ) => {
   const articlesSorted = articles
@@ -28,7 +28,7 @@ export const getArticles = (
       ...(articlesSorted?.slice(3, 4) || []),
     ];
   }
-  return firstArticles;
+  return firstArticles as (BlogPosts_blogPosts_articles | null)[] | null;
 };
 
 export const getBody = (body: string) => {

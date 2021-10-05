@@ -15,6 +15,10 @@ import { getSectionsData } from '../../utils/getSectionsData';
 import Breadcrumbs from '../../core/atoms/breadcrumbs-v2';
 import Head from '../../components/Head/Head';
 import { encodeData, decodeData } from '../../utils/data';
+import {
+  GetAboutUsPageData,
+  GetAboutUsPageDataVariables,
+} from '../../../generated/GetAboutUsPageData';
 
 const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
   data: encodedData,
@@ -69,7 +73,10 @@ const AboutUsLandingPage: NextPage<IAboutPageProps> = ({
 export async function getStaticProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context);
   try {
-    const { data: rawData, loading, errors } = await client.query({
+    const { data: rawData, loading, errors } = await client.query<
+      GetAboutUsPageData,
+      GetAboutUsPageDataVariables
+    >({
       query: GET_ABOUT_US_PAGE_DATA,
       variables: {
         ...(context?.preview && { isPreview: context?.preview }),

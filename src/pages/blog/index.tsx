@@ -14,6 +14,10 @@ import {
   DEFAULT_REVALIDATE_INTERVAL_ERROR,
 } from '../../utils/env';
 import { convertSlugToBreadcrumbsSchema } from '../../utils/breadcrumbs';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../generated/GenericPageQuery';
 
 const CategoryPage: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
   // De-obfuscate data for user
@@ -52,7 +56,10 @@ const CategoryPage: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
 export async function getStaticProps(context: PreviewNextPageContext) {
   try {
     const client = createApolloClient({}, context);
-    const { data: genericPage, errors } = await client.query({
+    const { data: genericPage, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'blog',
