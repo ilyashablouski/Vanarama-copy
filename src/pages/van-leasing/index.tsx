@@ -12,6 +12,7 @@ import createApolloClient from '../../apolloClient';
 import { getFeaturedClassPartial } from '../../utils/layout';
 import {
   HubVanPageData,
+  HubVanPageDataVariables,
   HubVanPageData_hubVanPage_sections_cards_cards as CardData,
   HubVanPageData_hubVanPage_sections_steps_steps as StepData,
   HubVanPageData_hubVanPage_sections_tiles_tiles as TileData,
@@ -750,7 +751,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   const client = createApolloClient({});
 
   try {
-    const { data } = await client.query<HubVanPageData>({
+    const { data } = await client.query<
+      HubVanPageData,
+      HubVanPageDataVariables
+    >({
       query: HUB_VAN_CONTENT,
       variables: {
         ...(context?.preview && { isPreview: context?.preview }),

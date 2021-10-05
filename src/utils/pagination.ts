@@ -2,6 +2,7 @@ import { ApolloClient, DocumentNode } from '@apollo/client';
 import { GetStaticPropsContext } from 'next';
 import {
   BlogPosts,
+  BlogPostsVariables,
   BlogPosts_blogPosts_articles,
 } from '../../generated/BlogPosts';
 import { encodeData } from './data';
@@ -20,7 +21,10 @@ export const getBlogPosts = async (
   context: GetStaticPropsContext,
 ) => {
   try {
-    const { data: blogPosts, errors } = await client.query({
+    const { data: blogPosts, errors } = await client.query<
+      BlogPosts,
+      BlogPostsVariables
+    >({
       query,
       variables: {
         slug,

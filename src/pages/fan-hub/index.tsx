@@ -3,6 +3,10 @@ import dynamic from 'next/dynamic';
 import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import Skeleton from '../../components/Skeleton';
 import createApolloClient from '../../apolloClient';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../generated/GenericPageQuery';
 
 const FeaturedAndTilesContainer = dynamic(
   () =>
@@ -22,7 +26,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'fan-hub',

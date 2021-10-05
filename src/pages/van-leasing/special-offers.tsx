@@ -7,6 +7,7 @@ import { PreviewNextPageContext } from 'types/common';
 import createApolloClient from '../../apolloClient';
 import {
   VanOffersPageData,
+  VanOffersPageDataVariables,
   VanOffersPageData_vanOffersPage_sections_iconBullets_iconBullets as VanIconBullet,
 } from '../../../generated/VanOffersPageData';
 import { VAN_OFFERS_CONTENT } from '../../gql/special-offers/van-offers';
@@ -463,7 +464,10 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context);
   let data;
   try {
-    const { data: content } = await client.query<VanOffersPageData>({
+    const { data: content } = await client.query<
+      VanOffersPageData,
+      VanOffersPageDataVariables
+    >({
       query: VAN_OFFERS_CONTENT,
       variables: {
         ...(context?.preview && { isPreview: context?.preview }),

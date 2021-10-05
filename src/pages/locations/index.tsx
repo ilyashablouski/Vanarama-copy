@@ -3,7 +3,11 @@ import dynamic from 'next/dynamic';
 import ReactMarkdown from 'react-markdown/with-html';
 import SchemaJSON from 'core/atoms/schema-json';
 import Breadcrumbs from 'core/atoms/breadcrumbs-v2';
-import { GenericPageQuery_genericPage_sections_cards_cards as ICard } from '../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+  GenericPageQuery_genericPage_sections_cards_cards as ICard,
+} from '../../../generated/GenericPageQuery';
 import RouterLink from '../../components/RouterLink/RouterLink';
 import getTitleTag from '../../utils/getTitleTag';
 import { getSectionsData } from '../../utils/getSectionsData';
@@ -130,7 +134,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'locations',

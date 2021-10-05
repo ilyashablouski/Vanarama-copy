@@ -4,6 +4,10 @@ import { GENERIC_PAGE, IGenericPage } from '../../gql/genericPage';
 import createApolloClient from '../../apolloClient';
 import Skeleton from '../../components/Skeleton';
 import { decodeData, encodeData } from '../../utils/data';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../generated/GenericPageQuery';
 
 const LeasingQuestionsContainer = dynamic(
   () =>
@@ -29,7 +33,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: 'leasing-questions',

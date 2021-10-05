@@ -11,7 +11,10 @@ import { BLOG_POSTS_PAGE } from '../../../../gql/blogPosts';
 import { getArticles } from '../../../../utils/articles';
 import { IBlogPost } from '../../../../models/IBlogsProps';
 import createApolloClient from '../../../../apolloClient';
-import { BlogPosts } from '../../../../../generated/BlogPosts';
+import {
+  BlogPosts,
+  BlogPostsVariables,
+} from '../../../../../generated/BlogPosts';
 import { getBlogPaths } from '../../../../utils/pageSlugs';
 import { decodeData, encodeData } from '../../../../utils/data';
 import {
@@ -22,6 +25,10 @@ import {
   convertSlugToBreadcrumbsSchema,
   getBreadCrumbsItems,
 } from '../../../../utils/breadcrumbs';
+import {
+  BlogPost as BlogPostData,
+  BlogPostVariables,
+} from '../../../../../generated/BlogPost';
 
 const BlogPost: NextPage<IBlogPost> = ({
   data,
@@ -67,7 +74,7 @@ const BlogPost: NextPage<IBlogPost> = ({
 export async function getStaticPaths(context: PreviewNextPageContext) {
   try {
     const client = createApolloClient({});
-    const { data } = await client.query<BlogPosts>({
+    const { data } = await client.query<BlogPosts, BlogPostsVariables>({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/company-news',
@@ -94,14 +101,20 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      BlogPostData,
+      BlogPostVariables
+    >({
       query: BLOG_POST_PAGE,
       variables: {
         slug: `blog/company-news/${context?.params?.articles}`,
         ...(context?.preview && { isPreview: context?.preview }),
       },
     });
-    const { data: blogPosts, errors: blogPostsError } = await client.query({
+    const { data: blogPosts, errors: blogPostsError } = await client.query<
+      BlogPosts,
+      BlogPostsVariables
+    >({
       query: BLOG_POSTS_PAGE,
       variables: {
         slug: 'blog/company-news',

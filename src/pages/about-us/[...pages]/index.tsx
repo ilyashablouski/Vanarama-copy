@@ -3,7 +3,10 @@ import { PreviewNextPageContext } from 'types/common';
 import { GENERIC_PAGE } from '../../../gql/genericPage';
 import SimplePageContainer from '../../../containers/SimplePageContainer/SimplePageContainer';
 import createApolloClient from '../../../apolloClient';
-import { GenericPageQuery } from '../../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../../generated/GenericPageQuery';
 import { PAGE_COLLECTION } from '../../../gql/pageCollection';
 import { getPathsFromPageCollection } from '../../../utils/pageSlugs';
 import {
@@ -43,7 +46,10 @@ export async function getStaticProps(context: GetStaticPropsContext) {
     const client = createApolloClient({}, context as NextPageContext);
     const paths = context?.params?.pages as string[];
 
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: `about-us/${paths?.join('/')}`,

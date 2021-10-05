@@ -31,17 +31,32 @@ import {
   SortObject,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
-import { filterList_filterList as IFilterList } from '../../../../generated/filterList';
-import { vehicleList } from '../../../../generated/vehicleList';
-import { GetProductCard } from '../../../../generated/GetProductCard';
+import {
+  filterList,
+  filterListVariables,
+  filterList_filterList as IFilterList,
+} from '../../../../generated/filterList';
+import {
+  vehicleList,
+  vehicleListVariables,
+} from '../../../../generated/vehicleList';
+import {
+  GetProductCard,
+  GetProductCardVariables,
+} from '../../../../generated/GetProductCard';
 import {
   rangeList,
+  rangeListVariables,
   rangeList_rangeList as IRange,
 } from '../../../../generated/rangeList';
 import { formatToSlugFormat, notFoundPageHandler } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
-import { genericPagesQuery_genericPages_items as IRangeUrls } from '../../../../generated/genericPagesQuery';
+import {
+  genericPagesQuery,
+  genericPagesQueryVariables,
+  genericPagesQuery_genericPages_items as IRangeUrls,
+} from '../../../../generated/genericPagesQuery';
 import { decodeData, encodeData } from '../../../utils/data';
 
 interface IPageType {
@@ -206,7 +221,7 @@ export async function getServerSideProps(context: NextPageContext) {
     ]);
     if (Object.keys(context.query).length === 2) {
       vehiclesList = await client
-        .query({
+        .query<vehicleList, vehicleListVariables>({
           query: GET_VEHICLE_LIST,
           variables: {
             vehicleTypes: [VehicleTypeEnum.LCV],
@@ -222,7 +237,7 @@ export async function getServerSideProps(context: NextPageContext) {
         responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
         if (responseCapIds.length) {
           productCardsData = await client
-            .query({
+            .query<GetProductCard, GetProductCardVariables>({
               query: GET_PRODUCT_CARDS_DATA,
               variables: {
                 capIds: responseCapIds,
@@ -239,7 +254,7 @@ export async function getServerSideProps(context: NextPageContext) {
     query.make = (query.dynamicParam as string).toLowerCase();
     filter.manufacturerSlug = query.make;
     ranges = await client
-      .query({
+      .query<rangeList, rangeListVariables>({
         query: GET_RANGES,
         variables: {
           vehicleTypes: VehicleTypeEnum.LCV,
@@ -248,22 +263,29 @@ export async function getServerSideProps(context: NextPageContext) {
         },
       })
       .then(resp => resp.data);
-    const slugs = ranges.rangeList.map(
-      (range: IRange) =>
-        `van-leasing/${formatToSlugFormat(
-          query.make as string,
-        )}/${formatToSlugFormat(range.rangeName || '')}`,
-    );
-    rangesUrls = await client
-      .query({
-        query: GET_LEGACY_URLS,
-        variables: {
-          slugs,
-        },
-      })
-      .then(resp => resp.data.genericPages.items);
+    const slugs =
+      ranges.rangeList &&
+      ranges.rangeList.map(
+        (range: IRange) =>
+          `van-leasing/${formatToSlugFormat(
+            query.make as string,
+          )}/${formatToSlugFormat(range.rangeName || '')}`,
+      );
+    rangesUrls =
+      slugs &&
+      (await client
+        .query<genericPagesQuery, genericPagesQueryVariables>({
+          query: GET_LEGACY_URLS,
+          variables: {
+            slugs,
+          },
+        })
+        .then(resp => resp?.data?.genericPages?.items));
   }
-  const { data: filtersData } = await client.query({
+  const { data: filtersData } = await client.query<
+    filterList,
+    filterListVariables
+  >({
     query: GET_SEARCH_POD_DATA,
     variables: {
       onOffer: null,
@@ -273,7 +295,7 @@ export async function getServerSideProps(context: NextPageContext) {
   });
   const [type] = Object.entries(pageType).find(([, value]) => value) || '';
   const topOffersList = await client
-    .query({
+    .query<vehicleList, vehicleListVariables>({
       query: GET_VEHICLE_LIST,
       variables: {
         vehicleTypes: [VehicleTypeEnum.LCV],
@@ -290,7 +312,7 @@ export async function getServerSideProps(context: NextPageContext) {
   );
   if (topOffersListCapIds.length) {
     topOffersCardsData = await client
-      .query({
+      .query<GetProductCard, GetProductCardVariables>({
         query: GET_PRODUCT_CARDS_DATA,
         variables: {
           capIds: topOffersListCapIds,
