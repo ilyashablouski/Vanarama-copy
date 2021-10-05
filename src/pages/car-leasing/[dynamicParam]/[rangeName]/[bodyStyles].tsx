@@ -198,18 +198,16 @@ export async function getServerSideProps(context: NextPageContext) {
       }
     }
     query.make = (query.dynamicParam as string).toLowerCase();
-
-    // Obfuscate data from Googlebot
-    const vehiclesListData = encodeData(vehiclesList);
-    const productCards = encodeData(productCardsData);
     return {
       props: {
         pageData: data,
         metaData: data?.genericPage.metaData || null,
         isServer: !!context.req,
         filtersData: filtersData?.filterList || null,
-        vehiclesList: vehiclesListData || null,
-        productCardsData: productCards || null,
+        vehiclesList: vehiclesList ? encodeData(vehiclesList) : null,
+        productCardsData: productCardsData
+          ? encodeData(productCardsData)
+          : null,
         responseCapIds: responseCapIds || null,
         error: errors ? errors[0] : null,
         defaultSort: defaultSort || null,
