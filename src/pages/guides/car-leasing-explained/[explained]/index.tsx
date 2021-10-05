@@ -7,7 +7,10 @@ import LeasingArticleContainer from '../../../../containers/LeasingArticleContai
 import { GENERIC_PAGE, IGenericPage } from '../../../../gql/genericPage';
 import { getSectionsData } from '../../../../utils/getSectionsData';
 import createApolloClient from '../../../../apolloClient';
-import { GenericPageQuery } from '../../../../../generated/GenericPageQuery';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../../../../generated/GenericPageQuery';
 import { getLeasingPaths } from '../../../../utils/pageSlugs';
 import Breadcrumbs from '../../../../core/atoms/breadcrumbs-v2';
 import Head from '../../../../components/Head/Head';
@@ -65,7 +68,10 @@ const FinanceInfo: NextPage<IGenericPage> = ({ data: encodedData, error }) => {
 
 export async function getStaticPaths(context: PreviewNextPageContext) {
   const client = createApolloClient({});
-  const { data } = await client.query<GenericPageQuery>({
+  const { data } = await client.query<
+    GenericPageQuery,
+    GenericPageQueryVariables
+  >({
     query: GENERIC_PAGE,
     variables: {
       slug: 'guides/car-leasing-explained',
@@ -82,7 +88,10 @@ export async function getStaticPaths(context: PreviewNextPageContext) {
 export async function getStaticProps(context: GetStaticPropsContext) {
   try {
     const client = createApolloClient({}, context as NextPageContext);
-    const { data, errors } = await client.query({
+    const { data, errors } = await client.query<
+      GenericPageQuery,
+      GenericPageQueryVariables
+    >({
       query: GENERIC_PAGE,
       variables: {
         slug: `guides/car-leasing-explained/${context?.params?.explained}`,

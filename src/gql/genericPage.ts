@@ -476,7 +476,7 @@ export function useGenericSearchPageSlug(slug: string) {
 
 export function getGenericSearchPageSlug(newUrl: string) {
   const client = createApolloClient({});
-  return client.query<SearchPageSlug>({
+  return client.query<SearchPageSlug, SearchPageSlugVariables>({
     query: GENERIC_SEARCH_PAGE_SLUG,
     variables: {
       slug: newUrl,

@@ -20,13 +20,23 @@ import {
   SortObject,
   VehicleTypeEnum,
 } from '../../../../generated/globalTypes';
-import { GetProductCard } from '../../../../generated/GetProductCard';
-import { vehicleList } from '../../../../generated/vehicleList';
+import {
+  GetProductCard,
+  GetProductCardVariables,
+} from '../../../../generated/GetProductCard';
+import {
+  vehicleList,
+  vehicleListVariables,
+} from '../../../../generated/vehicleList';
 import { notFoundPageHandler } from '../../../utils/url';
 import { ISearchPageProps } from '../../../models/ISearchPageProps';
 import PageNotFoundContainer from '../../../containers/PageNotFoundContainer/PageNotFoundContainer';
 import { GET_SEARCH_POD_DATA } from '../../../containers/SearchPodContainer/gql';
-import { filterList_filterList as IFilterList } from '../../../../generated/filterList';
+import {
+  filterList,
+  filterListVariables,
+  filterList_filterList as IFilterList,
+} from '../../../../generated/filterList';
 import { decodeData, encodeData } from '../../../utils/data';
 
 interface IProps extends ISearchPageProps {
@@ -142,7 +152,7 @@ export async function getServerSideProps(context: NextPageContext) {
     // should contain only 2 routs params(make, range)
     if (Object.keys(context.query).length === 2) {
       vehiclesList = await client
-        .query({
+        .query<vehicleList, vehicleListVariables>({
           query: GET_VEHICLE_LIST,
           variables: {
             vehicleTypes: [VehicleTypeEnum.LCV],
@@ -160,7 +170,7 @@ export async function getServerSideProps(context: NextPageContext) {
         responseCapIds = getCapsIds(vehiclesList.vehicleList?.edges || []);
         if (responseCapIds.length) {
           productCardsData = await client
-            .query({
+            .query<GetProductCard, GetProductCardVariables>({
               query: GET_PRODUCT_CARDS_DATA,
               variables: {
                 capIds: responseCapIds,
@@ -173,7 +183,10 @@ export async function getServerSideProps(context: NextPageContext) {
         return false;
       }
     }
-    const { data: filtersData } = await client.query({
+    const { data: filtersData } = await client.query<
+      filterList,
+      filterListVariables
+    >({
       query: GET_SEARCH_POD_DATA,
       variables: {
         onOffer: null,
@@ -184,7 +197,7 @@ export async function getServerSideProps(context: NextPageContext) {
       },
     });
     const topOffersList = await client
-      .query({
+      .query<vehicleList, vehicleListVariables>({
         query: GET_VEHICLE_LIST,
         variables: {
           vehicleTypes: [VehicleTypeEnum.LCV],
@@ -205,7 +218,7 @@ export async function getServerSideProps(context: NextPageContext) {
     );
     if (topOffersListCapIds.length) {
       topOffersCardsData = await client
-        .query({
+        .query<GetProductCard, GetProductCardVariables>({
           query: GET_PRODUCT_CARDS_DATA,
           variables: {
             capIds: topOffersListCapIds,

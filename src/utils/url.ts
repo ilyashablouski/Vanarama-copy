@@ -9,6 +9,10 @@ import { GenericPageHeadQuery_genericPage_metaData as IMetadata } from '../../ge
 import { genericPagesQuery_genericPages_items as IGenericPages } from '../../generated/genericPagesQuery';
 import { Nullish } from '../types/common';
 import { isBrowser } from './deviceType';
+import {
+  GenericPageQuery,
+  GenericPageQueryVariables,
+} from '../../generated/GenericPageQuery';
 
 type UrlParams = { [key: string]: string | boolean | number | undefined };
 
@@ -223,7 +227,10 @@ export const notFoundPageHandler = async (
   client: ApolloClient<any>,
 ) => {
   res.statusCode = 404;
-  const { data } = await client.query({
+  const { data } = await client.query<
+    GenericPageQuery,
+    GenericPageQueryVariables
+  >({
     query: GENERIC_PAGE,
     variables: {
       slug: '404',

@@ -26,6 +26,7 @@ import { CompareContext } from '../../utils/comparatorTool';
 import css from '!!raw-loader!../../../public/styles/pages/car-leasing.css';
 import {
   HubCarPageData,
+  HubCarPageDataVariables,
   HubCarPageData_hubCarPage_sections_steps_steps as StepData,
   HubCarPageData_hubCarPage_sections_tiles_tiles as TileData,
 } from '../../../generated/HubCarPageData';
@@ -600,7 +601,10 @@ export async function getServerSideProps(context: PreviewNextPageContext) {
   const client = createApolloClient({}, context);
 
   try {
-    const { data: hubCarPage } = await client.query<HubCarPageData>({
+    const { data: hubCarPage } = await client.query<
+      HubCarPageData,
+      HubCarPageDataVariables
+    >({
       query: HUB_CAR_CONTENT,
       variables: {
         ...(context?.preview && { isPreview: context?.preview }),

@@ -6,10 +6,16 @@ import CustomerTestimonialsContainer from '../../containers/CustomerTestimonials
 import { getSectionsData } from '../../utils/getSectionsData';
 import Head from '../../components/Head/Head';
 import createApolloClient from '../../apolloClient';
-import { GenericPageTestimonialsQuery } from '../../../generated/GenericPageTestimonialsQuery';
+import {
+  GenericPageTestimonialsQuery,
+  GenericPageTestimonialsQueryVariables,
+} from '../../../generated/GenericPageTestimonialsQuery';
 import Skeleton from '../../components/Skeleton';
 import { TESTIMONIALS_DATA } from '../../gql/testimonials';
-import { TestimonialsData } from '../../../generated/TestimonialsData';
+import {
+  TestimonialsData,
+  TestimonialsDataVariables,
+} from '../../../generated/TestimonialsData';
 
 const Loading = dynamic(() => import('core/atoms/loading'), {
   loading: () => <Skeleton count={1} />,
@@ -66,14 +72,17 @@ export async function getStaticProps(context: GetStaticPropsContext) {
       genericTestimonialsPageQuery,
       testimonialsDataQuery,
     ] = await Promise.all([
-      client.query({
+      client.query<
+        GenericPageTestimonialsQuery,
+        GenericPageTestimonialsQueryVariables
+      >({
         query: GENERIC_PAGE_TESTIMONIALS,
         variables: {
           slug: 'about-us/customer-testimonials',
           ...(context?.preview && { isPreview: context?.preview }),
         },
       }),
-      client.query({
+      client.query<TestimonialsData, TestimonialsDataVariables>({
         query: TESTIMONIALS_DATA,
         variables: { size: 4, page: 1 },
       }),
