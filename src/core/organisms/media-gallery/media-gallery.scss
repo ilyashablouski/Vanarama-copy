@@ -217,18 +217,19 @@
 
   &__disclaimer {
     width: 100%;
+    max-width: none !important;
     padding: 0 10px 14px;
     text-align: center;
     user-select: none;
 
     @include tablet {
       padding-bottom: 10px;
-      font-size: 0.625rem;
+      font-size: $font-size-200;
     }
 
     @include mobile {
       padding: 0 16px 14px;
-      font-size: $font-size-200;
+      font-size: $font-size-300;
     }
   }
 
